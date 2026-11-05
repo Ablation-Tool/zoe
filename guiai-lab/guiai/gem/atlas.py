@@ -22,6 +22,7 @@ ATLAS_MODULES = {
     "onset": "Onset forecast laboratory",
     "horizon": "Multi-horizon accessible volume",
     "research": "Research evidence pack",
+    "dorothy": "Dorothy · CCFv3 3D brain atlas",
 }
 
 DEFAULT_SOURCE = [[101, 114], [285, 159]]
@@ -417,4 +418,7 @@ def default_document(module, research_root=None):
         from .research import ResearchPack, research_scene
         pack = ResearchPack.load(research_root) if research_root else ResearchPack()
         return research_scene(pack)
+    if module == "dorothy":
+        from .dorothy import default_dorothy_document
+        return default_dorothy_document()
     raise ValueError(f"unknown atlas module: {module}")

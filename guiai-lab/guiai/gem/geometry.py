@@ -65,7 +65,7 @@ class Bounds:
 def object_bounds(item):
     if item["type"] == "rectangle":
         return Bounds(*item["bounds"])
-    if item["type"] in {"polygon", "polyline", "line"}:
+    if item["type"] in {"polygon", "polyline", "line", "mesh"}:
         xs = [point[0] for point in item["points"]]
         ys = [point[1] for point in item["points"]]
         return Bounds(min(xs), min(ys), max(xs), max(ys))

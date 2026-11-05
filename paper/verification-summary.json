@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "purpose": "PoC verification summary for Zoe and companion packages",
-  "zoe_native": {"tests": 18, "passed": 18, "skipped": 0, "result": "passed under native X11"},
-  "zoe_headless": {"tests": 18, "passed": 14, "native_only_skipped": 4, "result": "14 passed; 4 native-only tests skipped"},
+  "zoe_native": {"tests": 25, "passed": 25, "skipped": 0, "result": "passed under native X11"},
+  "zoe_headless": {"tests": 25, "passed": 21, "native_only_skipped": 4, "result": "21 passed; 4 native-only tests skipped"},
   "brain_gem_headless": {"tests": 16, "passed": 13, "native_only_skipped": 3, "result": "13 passed; 3 native-only tests skipped"},
   "broader_gem_native": {"tests": 20, "passed": 20, "skipped": 0, "result": "passed under native X11"},
   "research_conformance": {"checks": 17, "passed": 17, "result": "passed"},

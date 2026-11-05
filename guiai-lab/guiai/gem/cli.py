@@ -58,7 +58,7 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    module_choices = ("brain", "field", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research")
+    module_choices = ("brain", "field", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy")
     atlas = commands.add_parser("atlas", help="open the native geometry atlas or export one module")
     atlas.add_argument("--module", choices=module_choices, default="procrustes")
     atlas.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")
@@ -73,6 +73,18 @@ def _parser():
     qualia = commands.add_parser("qualia", help="run the Accessible Q-Volume toy demonstration and save JSON evidence")
     qualia.add_argument("--tau", action="append", type=float, help="additional q-arrow threshold; repeat to override the default 0.20 and 0.30")
     qualia.add_argument("--output", required=True, help="new JSON evidence path")
+    dorothy = commands.add_parser("dorothy", help="Dorothy: render Allen CCFv3 structure meshes, or fetch the vendored atlas data")
+    dorothy.add_argument("--fetch", action="store_true", help="download and hash the structure graph and PLY meshes into the local cache")
+    dorothy.add_argument("--data-root", help="atlas cache directory; default: DOROTHY_CCF_ROOT or ~/.cache/dorothy/ccf_2017")
+    dorothy.add_argument("--structures", help="comma-separated CCF structure IDs; default: the vendored 12-region set")
+    dorothy.add_argument("--yaw", type=float, default=215.0, help="orbit yaw in degrees")
+    dorothy.add_argument("--pitch", type=float, default=-18.0, help="orbit pitch in degrees")
+    dorothy.add_argument("--distance", type=float, help="camera distance in CCF units; default: fit the visible structures")
+    dorothy.add_argument("--fov", type=float, default=35.0, help="vertical field of view in degrees")
+    dorothy.add_argument("--shade-levels", type=int, default=16, help="flat-shading quantization per structure, 2-64")
+    dorothy.add_argument("--output", help="export .svg, .png, or .gem instead of opening the native atlas")
+    dorothy.add_argument("--format", choices=("svg", "png", "gem"), help="default: infer from output suffix")
+    dorothy.add_argument("--width", type=int, default=1600, help="SVG/PNG width in pixels")
     notebook = commands.add_parser("notebook", help="verify, save, or render a Zoe Bayesian field notebook")
     notebook.add_argument("input", nargs="?", help="saved notebook JSON; omit to use the worked GEM example")
     notebook.add_argument("--output", required=True, help="new .json, .svg, .png, or .gem output path")
@@ -158,6 +170,42 @@ def main(argv=None):
                 else:
                     raise ValueError("notebook output format must be json, svg, png, or gem")
             print(json.dumps({"instrument": "Zoe Bayesian field notebook", "events": len(notebook.events), "questions": len(notebook.questions), "claims": len(notebook.claims), "measurements": len(notebook.measurements), "output": str(output), "bytes": output.stat().st_size}, ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
+        if arguments.command == "dorothy":
+            from . import dorothy_data
+            from .dorothy import dorothy_scene
+            if arguments.data_root:
+                os.environ["DOROTHY_CCF_ROOT"] = str(arguments.data_root)
+            if arguments.fetch:
+                ids = dorothy_data.parse_structure_ids(arguments.structures) if arguments.structures else dorothy_data.DEFAULT_STRUCTURE_IDS
+                manifest = dorothy_data.fetch(arguments.data_root, ids)
+                print(json.dumps({
+                    "atlas": manifest["atlas"],
+                    "citation": manifest["citation"],
+                    "root": str(dorothy_data.default_root()),
+                    "structures": [{"id": record["id"], "acronym": record["acronym"], "bytes": record["bytes"], "sha256": record["sha256"]} for record in manifest["structures"]],
+                }, ensure_ascii=False, indent=2, sort_keys=True))
+                return 0
+            records = dorothy_data.load_structures(arguments.data_root, arguments.structures)
+            if not arguments.output:
+                from .atlas_view import launch_atlas
+                launch_atlas("dorothy")
+                return 0
+            scene, report = dorothy_scene(
+                records, yaw=arguments.yaw, pitch=arguments.pitch, distance=arguments.distance,
+                fov=arguments.fov, shade_levels=arguments.shade_levels,
+            )
+            output = Path(arguments.output)
+            kind = arguments.format or output.suffix.lower().lstrip(".")
+            if kind == "svg":
+                write_svg(scene, output, arguments.width)
+            elif kind == "png":
+                write_png(scene, output, arguments.width)
+            elif kind == "gem":
+                write_metafile(scene, output)
+            else:
+                raise ValueError("Dorothy output format must be svg, png, or gem")
+            print(json.dumps({"module": "dorothy", "output": str(output), "bytes": output.stat().st_size, "measurement": report}, ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         if arguments.command in {"atlas", "master", "brain", "zoe"}:
             research_root = getattr(arguments, "research_root", None) or os.environ.get("MASTER_GEM_RESEARCH_ROOT")

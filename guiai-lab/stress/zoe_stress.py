@@ -363,5 +363,189 @@ class ZoeNativeCase(unittest.TestCase):
                 app.quit()
 
 
+from guiai.gem.model import Scene
+from guiai.gem.dorothy import default_dorothy_document, dorothy_scene
+from guiai.gem.dorothy_data import default_root, load_structures
+from guiai.gem.render import draw_cairo, scene_to_svg
+from guiai.gem.spatial3d import Camera, _clip_near, parse_ply
+from guiai.gem.vdi import opcode_inventory, scene_from_metafile, scene_to_metafile
+
+CUBE_VERTICES = [
+    (0, 0, 0), (1, 0, 0), (1, 1, 0), (0, 1, 0),
+    (0, 0, 1), (1, 0, 1), (1, 1, 1), (0, 1, 1),
+]
+CUBE_QUADS = [(0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4), (2, 3, 7, 6), (0, 3, 7, 4), (1, 2, 6, 5)]
+
+
+def _cube_ply(format_name):
+    header = (
+        f"ply\nformat {format_name} 1.0\n"
+        "element vertex 8\nproperty float x\nproperty float y\nproperty float z\n"
+        "element face 6\nproperty list uchar int vertex_indices\nend_header\n"
+    ).encode("ascii")
+    if format_name == "ascii":
+        body = "\n".join([" ".join(f"{float(axis):g}" for axis in vertex) for vertex in CUBE_VERTICES])
+        faces = "\n".join("4 " + " ".join(str(index) for index in quad) for quad in CUBE_QUADS)
+        return header + f"{body}\n{faces}\n".encode("ascii")
+    import struct
+    body = b"".join(struct.pack("<3f", *map(float, vertex)) for vertex in CUBE_VERTICES)
+    body += b"".join(struct.pack("<B4i", 4, *quad) for quad in CUBE_QUADS)
+    return header + body
+
+
+class ZoeDorothyCase(unittest.TestCase):
+    def test_ply_ascii_binary_and_quad_triangulation(self):
+        ascii_mesh = parse_ply(_cube_ply("ascii"))
+        binary_mesh = parse_ply(_cube_ply("binary_little_endian"))
+        self.assertEqual(len(ascii_mesh.vertices), 8)
+        self.assertEqual(len(ascii_mesh.faces), 12)
+        self.assertEqual(ascii_mesh.faces, binary_mesh.faces)
+        self.assertEqual(ascii_mesh.vertices, binary_mesh.vertices)
+        with self.assertRaises(ValueError):
+            parse_ply(_cube_ply("binary_little_endian")[:-9])
+        with self.assertRaises(ValueError):
+            parse_ply(b"not a ply file")
+
+    def test_camera_projection_and_near_clipping(self):
+        camera = Camera.fit(CUBE_VERTICES)
+        self.assertGreater(camera.distance, 0)
+        mesh = parse_ply(_cube_ply("ascii"))
+        from guiai.gem.spatial3d import render_triangles
+        rendered = render_triangles([(1, mesh, "#ff0000")], camera, 200, 200)
+        self.assertEqual(rendered["total"], 12)
+        self.assertEqual(len(rendered["points"]), 36)
+        for x, y in rendered["points"]:
+            self.assertTrue(0 <= x <= 200 and 0 <= y <= 200)
+        clipped = _clip_near([(0, 0, 0.5), (1, 0, 1.5), (0, 1, 1.5)], 1.0)
+        self.assertEqual(len(clipped), 4)
+        self.assertEqual(sum(point[2] == 1.0 for point in clipped), 2)
+        with self.assertRaises(ValueError):
+            Camera((0, 0, 0), 1.0, pitch=90.0)
+
+    def test_mesh_scene_validation_and_verification(self):
+        document = {
+            "schema_version": 1, "id": "mesh-test",
+            "canvas": {"width": 100, "height": 100},
+            "objects": [{
+                "id": "m", "type": "mesh", "fill": "none", "stroke": "none", "width": 0,
+                "points": [[0, 0], [10, 0], [0, 10], [20, 20], [30, 20], [20, 30]],
+                "fills": ["#ff0000", "#00ff00"],
+            }],
+            "constraints": [{"type": "inside_canvas", "object": "*"}],
+        }
+        scene = Scene.from_dict(document)
+        self.assertTrue(verify(scene).passed)
+        document["objects"][0]["fills"] = ["#ff0000"]
+        with self.assertRaises(ValueError):
+            Scene.from_dict(document)
+        document["objects"][0]["fills"] = ["#ff0000", "#00ff00"]
+        document["objects"][0]["points"] = document["objects"][0]["points"][:-1]
+        with self.assertRaises(ValueError):
+            Scene.from_dict(document)
+
+    def test_svg_cairo_and_vdi_preserve_painter_order(self):
+        scene = Scene.from_dict({
+            "schema_version": 1, "id": "painter-test",
+            "canvas": {"width": 100, "height": 100},
+            "objects": [{
+                "id": "m", "type": "mesh", "fill": "none", "stroke": "none", "width": 0,
+                "points": [[0, 0], [10, 0], [0, 10], [20, 20], [30, 20], [20, 30], [40, 40], [50, 40], [40, 50]],
+                "fills": ["#ff0000", "#00ff00", "#ff0000"],
+            }],
+            "constraints": [],
+        })
+        svg = scene_to_svg(scene)
+        self.assertLess(svg.index("#ff0000"), svg.index("#00ff00"))
+        self.assertEqual(svg.count("<path"), 3)
+
+        import types
+        import sys
+        recorder = type("Recorder", (), {})()
+        recorder.fills = []
+        recorder.rgb = None
+        for name in ("save", "restore", "translate", "scale", "paint", "set_line_join", "move_to", "line_to", "close_path", "new_path"):
+            setattr(recorder, name, lambda *args: None)
+        recorder.set_source_rgb = lambda *rgb: setattr(recorder, "rgb", rgb)
+        recorder.fill = lambda: recorder.fills.append(recorder.rgb)
+        original = sys.modules.get("cairo")
+        sys.modules["cairo"] = types.SimpleNamespace(LineJoin=types.SimpleNamespace(ROUND=0))
+        try:
+            draw_cairo(recorder, scene, 100, 100)
+        finally:
+            if original is None:
+                del sys.modules["cairo"]
+            else:
+                sys.modules["cairo"] = original
+        self.assertEqual(recorder.fills, [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 0.0, 0.0)])
+
+        data = scene_to_metafile(scene)
+        inventory = opcode_inventory(data)
+        self.assertEqual(inventory["v_fillarea"], 3)
+        self.assertGreaterEqual(inventory["vs_color"], 2)
+        replayed = scene_from_metafile(data)
+        mesh = replayed.object("m")
+        self.assertEqual(mesh["fills"], ["#ff0000", "#00ff00", "#ff0000"])
+        self.assertEqual(len(mesh["points"]), 9)
+
+    def test_vendored_manifest_hash_verification(self):
+        import hashlib
+        data = _cube_ply("binary_little_endian")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "meshes").mkdir()
+            (root / "meshes" / "1.ply").write_bytes(data)
+            manifest = {
+                "schema_version": 1,
+                "structures": [{
+                    "id": 1, "name": "Cube", "acronym": "C", "color": "#ff0000",
+                    "mesh": "meshes/1.ply", "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data),
+                }],
+            }
+            (root / "manifest.json").write_text(json.dumps(manifest))
+            records = load_structures(root)
+            self.assertEqual(records[0]["data"], data)
+            scene, report = dorothy_scene(records)
+            self.assertEqual(report["triangles"], 12)
+            self.assertEqual(scene.digest(), dorothy_scene(records)[0].digest())
+            (root / "meshes" / "1.ply").write_bytes(data[:20] + bytes([data[20] ^ 0xFF]) + data[21:])
+            with self.assertRaises(ValueError):
+                load_structures(root)
+
+    @unittest.skipUnless((default_root() / "manifest.json").is_file(), "vendored CCF data is not fetched")
+    def test_bookmark_determinism_and_vdi_evidence(self):
+        first_scene, first_report = default_dorothy_document()
+        second_scene, second_report = default_dorothy_document()
+        self.assertEqual(first_scene.digest(), second_scene.digest())
+        self.assertEqual(scene_to_svg(first_scene), scene_to_svg(second_scene))
+        self.assertEqual(len(first_report["structures"]), 12)
+        self.assertEqual(sum(record["triangles"] for record in first_report["structures"]), first_report["triangles"])
+        self.assertEqual(first_report["scene_sha256"], second_report["scene_sha256"])
+        self.assertTrue(verify(first_scene).passed)
+        inventory = opcode_inventory(scene_to_metafile(first_scene))
+        self.assertEqual(inventory["v_fillarea"], first_report["triangles"])
+
+    @unittest.skipUnless((default_root() / "manifest.json").is_file(), "vendored CCF data is not fetched")
+    def test_thalamus_hypothalamus_vdi_roundtrip_and_cli(self):
+        records = load_structures(ids="549,1097")
+        scene, report = dorothy_scene(records)
+        replayed = scene_from_metafile(scene_to_metafile(scene))
+        mesh = replayed.object("ccf-mesh")
+        original = scene.object("ccf-mesh")
+        self.assertEqual(mesh["fills"], original["fills"])
+        expected = [[float(int(round(x))), float(int(round(y)))] for x, y in original["points"]]
+        self.assertEqual(mesh["points"], expected)
+        swatch = replayed.object("swatch-549")
+        self.assertEqual(swatch["fill"], "#ff7080")
+        with tempfile.TemporaryDirectory() as directory:
+            svg = Path(directory) / "pair.svg"
+            gem = Path(directory) / "pair.gem"
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(gem_main(["dorothy", "--structures", "549,1097", "--output", str(svg)]), 0)
+                self.assertEqual(gem_main(["dorothy", "--structures", "549,1097", "--output", str(gem)]), 0)
+                self.assertEqual(gem_main(["zoe", "--module", "dorothy", "--output", str(Path(directory) / "atlas.svg")]), 0)
+            self.assertTrue(svg.is_file() and gem.is_file())
+            self.assertIn("Thalamus", svg.read_text())
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

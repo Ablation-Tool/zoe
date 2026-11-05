@@ -15,7 +15,7 @@ COLOR_INDEX = {
 INDEX_COLOR = {value: key for key, value in COLOR_INDEX.items()}
 OPCODE_NAMES = {
     5: "escape", 6: "v_pline", 8: "v_gtext", 9: "v_fillarea",
-    11: "gdp", 12: "vst_height", 17: "vsl_color", 22: "vst_color",
+    11: "gdp", 12: "vst_height", 13: "vs_color", 17: "vsl_color", 22: "vst_color",
     23: "vsf_interior", 25: "vsf_color",
 }
 
@@ -25,14 +25,6 @@ def _word(value):
     if not -32768 <= rounded <= 32767:
         raise ValueError(f"VDI word outside signed 16-bit range: {rounded}")
     return rounded
-
-
-def _color_index(value):
-    if value == "none":
-        return COLOR_INDEX["white"]
-    if value in COLOR_INDEX:
-        return COLOR_INDEX[value]
-    return COLOR_INDEX["black"]
 
 
 def _record(command, subcommand=0, points=(), values=()):
@@ -53,29 +45,46 @@ def _object_record(item, part="shape"):
     return _record(5, 99, values=[META_OBJECT, *payload])
 
 
-def _fill_records(item):
-    color = _color_index(item["fill"])
-    return [
-        _record(25, values=[color]),
+def _palette_index(value, palette, records):
+    if value in COLOR_INDEX:
+        return COLOR_INDEX[value]
+    if value in palette["custom"]:
+        return palette["custom"][value]
+    if not value.startswith("#") or len(value) != 7:
+        return COLOR_INDEX["black"]
+    index = palette["next"]
+    if index > 255:
+        raise ValueError("scene exceeds the 256-entry VDI palette")
+    palette["next"] += 1
+    palette["custom"][value] = index
+    channels = [int(value[offset:offset + 2], 16) for offset in (1, 3, 5)]
+    records.append(_record(13, values=[index, *[round(channel * 1000 / 255) for channel in channels]]))
+    return index
+
+
+def _fill_records(item, palette, records):
+    index = _palette_index(item["fill"], palette, records) if item["fill"] != "none" else COLOR_INDEX["white"]
+    records.extend([
+        _record(25, values=[index]),
         _record(23, values=[0 if item["fill"] == "none" else 1]),
-    ]
+    ])
 
 
-def _line_records(item):
-    return [_record(17, values=[_color_index(item["stroke"])])]
+def _line_records(item, palette, records):
+    records.append(_record(17, values=[_palette_index(item["stroke"], palette, records) if item["stroke"] != "none" else COLOR_INDEX["white"]]))
 
 
-def _text_records(item, size=None):
+def _text_records(item, palette, records, size=None):
     height = item.get("size", 240) if size is None else size
-    return [
+    records.extend([
         _record(12, points=[(0, height)]),
-        _record(22, values=[_color_index(item["stroke"])]),
-    ]
+        _record(22, values=[_palette_index(item["stroke"], palette, records)]),
+    ])
 
 
-def _label_records(item):
+def _label_records(item, palette, records):
     if not item.get("label") or item["type"] != "rectangle":
-        return []
+        return
     left, top, right, bottom = item["bounds"]
     size = min(240, (bottom - top) / 3)
     label = item["label"].replace("\n", " · ")
@@ -83,11 +92,18 @@ def _label_records(item):
     y = (top + bottom) / 2 + size * 0.35
     metadata = dict(item)
     metadata["type"] = "text"
-    return [
-        _object_record(metadata, "label"),
-        *_text_records(item, size),
-        _record(8, points=[(x, y)], values=[*label.encode("cp437", "replace"), 0]),
-    ]
+    records.append(_object_record(metadata, "label"))
+    _text_records(item, palette, records, size)
+    records.append(_record(8, points=[(x, y)], values=[*label.encode("cp437", "replace"), 0]))
+
+
+def _mesh_records(item, palette, records):
+    records.append(_record(23, values=[1]))
+    points, fills = item["points"], item["fills"]
+    for triangle, fill in enumerate(fills):
+        records.append(_record(25, values=[_palette_index(fill, palette, records)]))
+        corners = points[3 * triangle:3 * triangle + 3]
+        records.append(_record(9, points=[*corners, corners[0]]))
 
 
 def scene_to_metafile(scene):
@@ -110,10 +126,14 @@ def scene_to_metafile(scene):
         0, *([0] * 9),
     ]
     records = []
+    palette = {"custom": {}, "next": 16}
     for item in objects:
         records.append(_object_record(item))
-        records.extend(_fill_records(item))
-        records.extend(_line_records(item))
+        if item["type"] == "mesh":
+            _mesh_records(item, palette, records)
+            continue
+        _fill_records(item, palette, records)
+        _line_records(item, palette, records)
         if item["type"] == "rectangle":
             points = [item["bounds"][:2], item["bounds"][2:]]
             records.append(_record(11, 1 if item["fill"] != "none" else 8, points=points))
@@ -128,10 +148,10 @@ def scene_to_metafile(scene):
         elif item["type"] == "ellipse":
             records.append(_record(11, 5, points=[item["center"], item["radii"]]))
         elif item["type"] == "text":
-            records.extend(_text_records(item))
+            _text_records(item, palette, records)
             text = item["text"].encode("cp437", "replace") + b"\0"
             records.append(_record(8, points=[item["position"]], values=text))
-        records.extend(_label_records(item))
+        _label_records(item, palette, records)
     return struct.pack("<24h", *header_values) + b"".join(records) + struct.pack("<h", -1)
 
 
@@ -224,6 +244,7 @@ def scene_from_metafile(data, constraints=()):
     objects = {}
     metadata = None
     line_color = fill_color = text_color = "black"
+    custom_colors = {}
     interior = 0
     for record in parsed["records"]:
         command = record["command"]
@@ -235,17 +256,25 @@ def scene_from_metafile(data, constraints=()):
             if candidate is not None:
                 metadata = candidate
             continue
+        if command == 13:
+            index, red, green, blue = record["values"][:4]
+            channels = [min(255, max(0, round(value * 255 / 1000))) for value in (red, green, blue)]
+            custom_colors[index] = "#" + "".join(f"{channel:02x}" for channel in channels)
+            continue
         if command == 17:
-            line_color = INDEX_COLOR.get(record["values"][0], "black")
+            index = record["values"][0]
+            line_color = custom_colors.get(index, INDEX_COLOR.get(index, "black"))
             continue
         if command == 25:
-            fill_color = INDEX_COLOR.get(record["values"][0], "black")
+            index = record["values"][0]
+            fill_color = custom_colors.get(index, INDEX_COLOR.get(index, "black"))
             continue
         if command == 23:
             interior = record["values"][0]
             continue
         if command == 22:
-            text_color = INDEX_COLOR.get(record["values"][0], "black")
+            index = record["values"][0]
+            text_color = custom_colors.get(index, INDEX_COLOR.get(index, "black"))
             continue
         if command == 8 and metadata and metadata.get("part") == "label":
             parent = objects.get(metadata["id"])
@@ -256,6 +285,17 @@ def scene_from_metafile(data, constraints=()):
         object_type = metadata.get("type") if metadata else None
         points = _points(record)
         values = record["values"]
+        if command == 9 and metadata and metadata.get("type") == "mesh":
+            mesh = objects.get(object_id)
+            if mesh is None:
+                mesh = {
+                    "id": object_id, "type": "mesh", "points": [], "fills": [],
+                    "fill": "none", "stroke": "none", "width": metadata.get("width", 0),
+                }
+                objects[object_id] = mesh
+            mesh["points"].extend(points[:3])
+            mesh["fills"].append(fill_color)
+            continue
         current = None
         if command == 11 and subcommand in {1, 8} and len(points) == 2:
             bounds = [*points[0], *points[1]]

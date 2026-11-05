@@ -39,6 +39,7 @@ From Zoe's perspective, GEM is the connective tissue between imagination and ver
 | Cerotto forensic core | Agent/audit event ingestion, raw-disk and EWF collection, controlled carving, versioned SQLite cases, manifests, hash verification, bounded analysis and reports, guarded evidence actions, vault monitoring and release workflows, and its existing Ablation + GEM bridge. These capabilities belong to Cerotto, not to Zoe's BRAIN kernel. |
 | Cerotto GUI and guard | Read-only case inspection, defense-event timelines, accessible-volume charts, native guard/verify/report controls, optional user-selected agent terminal, and forecast-bound structured broker execution. |
 | Export and evidence | Spatial IR, SVG, PNG, real little-endian GEM VDI, source and VDI checks, replay, source hashes, independent condition keys, and evidence-export state. |
+| Dorothy 3D atlas | Vendored Allen CCFv3 (2017) structure meshes with SHA-256 manifests, a deterministic software 3D kernel (orbit camera, near-plane clipping, two-sided flat shading, painter's algorithm), Spatial IR mesh scenes, and SVG/PNG/GEM VDI export with VDI palette programming and replay. Atlas geometry only; no registration or connectivity claim. |
 | Compatibility and packaging | `gem zoe`, `gem master`, `gem brain`, `gem atlas`, standalone `gem-helen`, wheel/source distributions, and the packaged 12 KB HELEN artifact. |
 
 Cerotto-specific bridge execution has not been separately revalidated as part of Zoe. Cerotto remains a separate native C11 forensic engine with its own case store, guard, vault, agent permissions, and verification suite.
@@ -71,6 +72,16 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe --module horizon --output horizon.g
 PYTHONPATH=guiai-lab python -m guiai.gem notebook --output zoe-field.json
 PYTHONPATH=guiai-lab python -m guiai.gem notebook zoe-field.json --output zoe-field.svg
 ```
+
+**Dorothy** (`gem dorothy`) renders Allen Mouse CCFv3 (2017) structure meshes as a native GEM scene. Fetch the vendored data once, then export deterministically (identical scene state produces identical SVG and VDI bytes):
+
+```bash
+PYTHONPATH=guiai-lab python -m guiai.gem dorothy --fetch
+PYTHONPATH=guiai-lab python -m guiai.gem dorothy --output dorothy.svg
+PYTHONPATH=guiai-lab python -m guiai.gem dorothy --structures 549,1097 --yaw 140 --output pair.gem
+```
+
+Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](https://doi.org/10.1016/j.cell.2020.04.007)), stored in `~/.cache/dorothy/ccf_2017` (override with `DOROTHY_CCF_ROOT` or `--data-root`) and SHA-256-verified on every load. The default view is the 12-region whole-brain parcellation from the [Allen 3D viewer](https://connectivity.brain-map.org/3d-viewer?v=1&types=PLY&PLY=803%2C698%2C315%2C512%2C1097%2C313%2C549%2C703%2C771%2C354%2C477%2C1089). Interactive orbit controls are not yet implemented; the native module shows the default camera.
 
 The standalone `gem-helen` launcher remains available for lightweight creative use. Stored HELEN predictions load lazily without a transformer or model runtime; Groove predictions load from the 98 MB NPZ only on demand and are hash-checked first. Nightingale evidence is aggregate-only. Multi-horizon mode enumerates a defined two-state Markov toy exactly rather than claiming a completed real-language-model benchmark.
 
@@ -132,7 +143,10 @@ guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
-guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem notebook
+guiai/gem/dorothy.py       Dorothy CCFv3 mesh scene, legend, and evidence report
+guiai/gem/dorothy_data.py  Allen data fetch and SHA-256 manifest verification
+guiai/gem/spatial3d.py     PLY loader, orbit camera, deterministic painter renderer
+guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook
 guiai/gem/data/            Packaged HELEN prediction artifact
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 ```

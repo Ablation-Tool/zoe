@@ -11,9 +11,10 @@ from pathlib import Path
 
 MAX_OBJECTS = 4096
 MAX_POINTS = 16384
+MAX_MESH_POINTS = 1_500_000
 MAX_CONSTRAINTS = 4096
-MAX_JSON_BYTES = 8 * 1024 * 1024
-OBJECT_TYPES = {"rectangle", "polygon", "polyline", "line", "ellipse", "text"}
+MAX_JSON_BYTES = 64 * 1024 * 1024
+OBJECT_TYPES = {"rectangle", "polygon", "polyline", "line", "ellipse", "text", "mesh"}
 CONSTRAINT_TYPES = {
     "contains", "touches", "symmetric", "aligned", "inside_canvas",
     "nonoverlap", "connected",
@@ -26,7 +27,7 @@ TOP_FIELDS = {"schema_version", "id", "title", "prompt", "canvas", "objects", "c
 OBJECT_FIELDS = {
     "id", "type", "role", "label", "fill", "stroke", "width", "bounds", "points",
     "center", "radii", "position", "text", "size", "event_id", "status", "selected",
-    "from", "to",
+    "from", "to", "fills",
 }
 CONSTRAINT_FIELDS = {
     "type", "a", "b", "outer", "inner", "object", "objects", "axis", "value",
@@ -125,6 +126,15 @@ def _validate_object(document, index):
         result["points"] = [_point(point, f"{object_type}.points") for point in points]
         if object_type == "line" and len(points) != 2:
             raise ValueError("line requires exactly two points")
+    elif object_type == "mesh":
+        points = _sequence(result.get("points"), "mesh.points")
+        if len(points) < 3 or len(points) % 3:
+            raise ValueError("mesh requires a multiple of three points")
+        result["points"] = [_point(point, "mesh.points") for point in points]
+        fills = _sequence(result.get("fills"), "mesh.fills")
+        if len(fills) != len(points) // 3:
+            raise ValueError("mesh.fills must contain one color per triangle")
+        result["fills"] = [_color(value, "mesh.fills") for value in fills]
     elif object_type == "ellipse":
         result["center"] = _point(result.get("center"), "ellipse.center")
         radii = _sequence(result.get("radii"), "ellipse.radii", 2)
@@ -216,8 +226,10 @@ class Scene:
         identifiers = [item["id"] for item in validated_objects]
         if len(set(identifiers)) != len(identifiers):
             raise ValueError("object IDs must be unique")
-        if sum(len(item.get("points", [])) for item in validated_objects) > MAX_POINTS:
+        if sum(len(item.get("points", [])) for item in validated_objects if item["type"] != "mesh") > MAX_POINTS:
             raise ValueError("scene contains too many points")
+        if sum(len(item.get("points", [])) for item in validated_objects if item["type"] == "mesh") > MAX_MESH_POINTS:
+            raise ValueError("scene contains too many mesh points")
         constraints = _sequence(document.get("constraints", []), "constraints")
         if len(constraints) > MAX_CONSTRAINTS:
             raise ValueError("scene contains too many constraints")

@@ -78,6 +78,21 @@ def scene_to_svg(scene, width=1200):
                 "points": " ".join(f"{x:g},{y:g}" for x, y in item["points"]),
                 "stroke-linejoin": "round", **paint,
             })
+        elif item["type"] == "mesh":
+            points, fills = item["points"], item["fills"]
+            index = 0
+            while index < len(fills):
+                end = index + 1
+                while end < len(fills) and fills[end] == fills[index]:
+                    end += 1
+                chunks = []
+                for triangle in range(index, end):
+                    corners = points[3 * triangle:3 * triangle + 3]
+                    chunks.append("M" + "L".join(f"{x:g},{y:g}" for x, y in corners) + "Z")
+                ElementTree.SubElement(group, "path", {
+                    "d": "".join(chunks), "fill": color(fills[index]), "stroke": "none",
+                })
+                index = end
         elif item["type"] == "ellipse":
             ElementTree.SubElement(group, "ellipse", {
                 "cx": str(item["center"][0]), "cy": str(item["center"][1]),
@@ -129,6 +144,24 @@ def draw_cairo(context, scene, width, height, highlight_ids=()):
                 context.line_to(*point)
             if item["type"] == "polygon":
                 context.close_path()
+        elif item["type"] == "mesh":
+            points, fills = item["points"], item["fills"]
+            index = 0
+            while index < len(fills):
+                end = index + 1
+                while end < len(fills) and fills[end] == fills[index]:
+                    end += 1
+                rgb = color(fills[index]).lstrip("#")
+                context.set_source_rgb(*(int(rgb[offset:offset + 2], 16) / 255 for offset in (0, 2, 4)))
+                for triangle in range(index, end):
+                    corners = points[3 * triangle:3 * triangle + 3]
+                    context.move_to(*corners[0])
+                    context.line_to(*corners[1])
+                    context.line_to(*corners[2])
+                    context.close_path()
+                context.fill()
+                index = end
+            continue
         elif item["type"] == "ellipse":
             context.save()
             context.translate(*item["center"])
