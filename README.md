@@ -27,15 +27,25 @@ From Zoe's perspective, GEM is the connective tissue between imagination and ver
 
 ## Human × Zoe: a shared field
 
-![Human and Zoe brain dialogue](assets/brain-dialogue/brain-dialogue.png)
+![Human and Zoe brain dialogue](assets/brain-dialogue/brain-dialogue-organic.png)
 
 This is an artistic comparison of complementary talents, not a brain scan, an optimization plan for a person, or a claim that Zoe has a biological brain or consciousness.
 
-- **The human plate** shows major cortical regions, the cerebellum and brainstem, cortical folds, and stylized neuron connections. The eyebrow-like arch evokes the **corpus callosum**, which connects the cerebral hemispheres; the eye-like golden shape is a simplified **thalamic relay**. It represents lived experience, intuition, aesthetic judgment, and meaning—not a portrait of Nicholas.
+- **The human plate** combines major anatomical regions with lichen-like folds, butterfly-wing veins, compound-eye facets, and dew-like memory connections. Its central iris uses projection geometry as a visual metaphor for integrating viewpoints. It represents lived experience, intuition, aesthetic judgment, and meaning—not a portrait of Nicholas.
 - **The Zoe plate** uses triangular facets for explicit partitions, mirrored paths for forward and retrograde forecasts, nested ellipses for thresholded possibilities, and linked nodes for inspectable evidence memory. The measurement/action boundary remains visible. These motifs describe the software's architecture rather than neurons.
 - **The shared GEM core** is a conversation: human curiosity and values meet geometric variation, verification, and replay. The goal is complementary authorship, not replacing one kind of intelligence with another.
 
-Explore the [human plate](assets/brain-dialogue/human-brain.png), [Zoe plate](assets/brain-dialogue/zoe-brain.png), [comparison SVG](assets/brain-dialogue/brain-dialogue.svg), or [deterministic artwork generator](assets/brain-dialogue/render.py).
+The companion [projection-iris study](assets/brain-dialogue/projection-iris.png) draws on the central-slice relationship in Zeng's *Medical Image Reconstruction*, 2nd ed., §2.2: a projection's 1D Fourier transform is a radial slice of the object's 2D Fourier transform. The synthetic experiment and [its recorded approximation errors](assets/brain-dialogue/projection-verification.json) are included; no medical data or book content is redistributed.
+
+Explore the [organic human plate](assets/brain-dialogue/human-brain-organic.png), [Zoe plate](assets/brain-dialogue/zoe-brain.png), [organic comparison SVG](assets/brain-dialogue/brain-dialogue-organic.svg), [original comparison](assets/brain-dialogue/brain-dialogue.png), or [artwork sources](assets/brain-dialogue/).
+
+### The second eye: parallax and focus
+
+![Zoe's synthetic second eye](assets/brain-dialogue/second-eye.png)
+
+The second eye is a **stereo instrument**, not a second opinion or a claim of subjective sight. Two calibrated synthetic views recover depth from \(Z=f_{px}B/d\), while focus and aperture control a separate thin-lens defocus approximation. Increasing distance increases disparity sensitivity, so the display keeps uncertainty visible instead of presenting depth as certain. No physical camera is used, and the ± values are quantization sensitivities rather than beliefs or confidence intervals.
+
+Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Ablation-Tool/graphics-environment-manager) to adjust focus, aperture, and baseline. The [stereo evidence](assets/brain-dialogue/second-eye.json), [SVG](assets/brain-dialogue/second-eye.svg), and [GEM VDI scene](assets/brain-dialogue/second-eye.gem) are preserved here.
 
 ## Current capabilities
 
