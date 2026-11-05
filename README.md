@@ -83,6 +83,12 @@ PYTHONPATH=guiai-lab python -m guiai.gem dorothy --structures 549,1097 --yaw 140
 
 Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](https://doi.org/10.1016/j.cell.2020.04.007)), stored in `~/.cache/dorothy/ccf_2017` (override with `DOROTHY_CCF_ROOT` or `--data-root`) and SHA-256-verified on every load. The default view is the 12-region whole-brain parcellation from the [Allen 3D viewer](https://connectivity.brain-map.org/3d-viewer?v=1&types=PLY&PLY=803%2C698%2C315%2C512%2C1097%2C313%2C549%2C703%2C771%2C354%2C477%2C1089). Interactive orbit controls are not yet implemented; the native module shows the default camera.
 
+**Dorothy · CCFv3 3D brain atlas:** the 12-region whole-brain parcellation rendered by the deterministic software kernel — 158,326 vertices and 315,932 triangles in the default view.
+
+![Dorothy whole-brain atlas](guiai-lab/docs/images/dorothy-ccf2017.png)
+
+Additional views: [dorsal](guiai-lab/docs/images/dorothy-dorsal.png) · [ventral](guiai-lab/docs/images/dorothy-ventral.png) · [Thalamus + Hypothalamus](guiai-lab/docs/images/dorothy-thalamus-hypothalamus.png)
+
 The standalone `gem-helen` launcher remains available for lightweight creative use. Stored HELEN predictions load lazily without a transformer or model runtime; Groove predictions load from the 98 MB NPZ only on demand and are hash-checked first. Nightingale evidence is aggregate-only. Multi-horizon mode enumerates a defined two-state Markov toy exactly rather than claiming a completed real-language-model benchmark.
 
 ## Real interface screenshots
