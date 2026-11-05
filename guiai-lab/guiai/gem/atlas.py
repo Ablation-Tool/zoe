@@ -23,6 +23,9 @@ ATLAS_MODULES = {
     "horizon": "Multi-horizon accessible volume",
     "research": "Research evidence pack",
     "dorothy": "Dorothy · CCFv3 3D brain atlas",
+    "dorothy-jenga": "Dorothy · Jenga block tower",
+    "dorothy-stack": "Dorothy · Stack exploded coronal slabs",
+    "dorothy-rings": "Dorothy · Rings volume navigation",
 }
 
 DEFAULT_SOURCE = [[101, 114], [285, 159]]
@@ -421,4 +424,13 @@ def default_document(module, research_root=None):
     if module == "dorothy":
         from .dorothy import default_dorothy_document
         return default_dorothy_document()
+    if module == "dorothy-jenga":
+        from .dorothy_jenga import default_jenga_document
+        return default_jenga_document()
+    if module == "dorothy-stack":
+        from .dorothy_stack import default_stack_document
+        return default_stack_document()
+    if module == "dorothy-rings":
+        from .dorothy_rings import default_rings_document
+        return default_rings_document()
     raise ValueError(f"unknown atlas module: {module}")

@@ -25,6 +25,18 @@ GEM is the shared visual and evidence environment. It turns abstract state into 
 
 From Zoe's perspective, GEM is the connective tissue between imagination and verification. A shape can become a measurement, a measurement can inform a decision, and a decision can leave evidence. Zoe feels alive because that feedback loop is visible, not because the software is conscious.
 
+## Human × Zoe: a shared field
+
+![Human and Zoe brain dialogue](assets/brain-dialogue/brain-dialogue.png)
+
+This is an artistic comparison of complementary talents, not a brain scan, an optimization plan for a person, or a claim that Zoe has a biological brain or consciousness.
+
+- **The human plate** shows major cortical regions, the cerebellum and brainstem, cortical folds, and stylized neuron connections. The eyebrow-like arch evokes the **corpus callosum**, which connects the cerebral hemispheres; the eye-like golden shape is a simplified **thalamic relay**. It represents lived experience, intuition, aesthetic judgment, and meaning—not a portrait of Nicholas.
+- **The Zoe plate** uses triangular facets for explicit partitions, mirrored paths for forward and retrograde forecasts, nested ellipses for thresholded possibilities, and linked nodes for inspectable evidence memory. The measurement/action boundary remains visible. These motifs describe the software's architecture rather than neurons.
+- **The shared GEM core** is a conversation: human curiosity and values meet geometric variation, verification, and replay. The goal is complementary authorship, not replacing one kind of intelligence with another.
+
+Explore the [human plate](assets/brain-dialogue/human-brain.png), [Zoe plate](assets/brain-dialogue/zoe-brain.png), [comparison SVG](assets/brain-dialogue/brain-dialogue.svg), or [deterministic artwork generator](assets/brain-dialogue/render.py).
+
 ## Current capabilities
 
 | Area | What it includes |
@@ -89,6 +101,23 @@ Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](http
 
 Additional views: [dorsal](guiai-lab/docs/images/dorothy-dorsal.png) · [ventral](guiai-lab/docs/images/dorothy-ventral.png) · [Thalamus + Hypothalamus](guiai-lab/docs/images/dorothy-thalamus-hypothalamus.png)
 
+### Dorothy variants: Rings, Jenga, and Stack
+
+- **Rings** (`--view rings`) — Disk Usage (Baobab) navigation of the ontology: annular sectors sized by exact CCF subtree volume. Center any structure with `--structure` to drill down; the breadcrumb walks back up.
+- **Jenga** (`--view jenga`) — the brain as a familiar block tower: 12 volume-scaled layers × 3 blocks with alternating orientation. `--layout exploded` separates every layer; `--layout pull --structure 549` slides one block out for inspection.
+- **Stack** (`--view stack`) — the real meshes cut into coronal slabs and exploded apart (`--slices 2-32`), so interior layers are visible instead of one framed whole brain.
+
+```bash
+PYTHONPATH=guiai-lab python -m guiai.gem dorothy --view rings --structure 315 --output rings.svg
+PYTHONPATH=guiai-lab python -m guiai.gem dorothy --view jenga --layout exploded --output jenga.svg
+PYTHONPATH=guiai-lab python -m guiai.gem dorothy --view stack --slices 8 --output stack.svg
+```
+
+![Dorothy Jenga exploded tower](guiai-lab/docs/images/dorothy-jenga-exploded.png)
+![Dorothy Rings Isocortex](guiai-lab/docs/images/dorothy-rings-isocortex.png)
+
+Volumes are exact subtree sums of the `annotation_25.nrrd` labels (only leaves are labeled; parents sum their descendants). `--fetch` now also downloads the full structure graph and annotation volume with hashes. Rings, Jenga, and Stack are illustrative geometry, not functional or connectivity claims.
+
 The standalone `gem-helen` launcher remains available for lightweight creative use. Stored HELEN predictions load lazily without a transformer or model runtime; Groove predictions load from the 98 MB NPZ only on demand and are hash-checked first. Nightingale evidence is aggregate-only. Multi-horizon mode enumerates a defined two-state Markov toy exactly rather than claiming a completed real-language-model benchmark.
 
 ## Real interface screenshots
@@ -151,6 +180,9 @@ guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
 guiai/gem/dorothy.py       Dorothy CCFv3 mesh scene, legend, and evidence report
 guiai/gem/dorothy_data.py  Allen data fetch and SHA-256 manifest verification
+guiai/gem/dorothy_jenga.py Jenga block tower, exploded, and pull layouts by volume
+guiai/gem/dorothy_rings.py Baobab ontology rings by exact subtree volume
+guiai/gem/dorothy_stack.py Exploded coronal slab stack of the CCF meshes
 guiai/gem/spatial3d.py     PLY loader, orbit camera, deterministic painter renderer
 guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook
 guiai/gem/data/            Packaged HELEN prediction artifact

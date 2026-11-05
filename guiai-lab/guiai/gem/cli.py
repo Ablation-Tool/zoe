@@ -58,7 +58,7 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    module_choices = ("brain", "field", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy")
+    module_choices = ("brain", "field", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
     atlas = commands.add_parser("atlas", help="open the native geometry atlas or export one module")
     atlas.add_argument("--module", choices=module_choices, default="procrustes")
     atlas.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")
@@ -77,14 +77,19 @@ def _parser():
     dorothy.add_argument("--fetch", action="store_true", help="download and hash the structure graph and PLY meshes into the local cache")
     dorothy.add_argument("--data-root", help="atlas cache directory; default: DOROTHY_CCF_ROOT or ~/.cache/dorothy/ccf_2017")
     dorothy.add_argument("--structures", help="comma-separated CCF structure IDs; default: the vendored 12-region set")
-    dorothy.add_argument("--yaw", type=float, default=215.0, help="orbit yaw in degrees")
-    dorothy.add_argument("--pitch", type=float, default=-18.0, help="orbit pitch in degrees")
+    dorothy.add_argument("--yaw", type=float, default=None, help="orbit yaw in degrees; default: per-view")
+    dorothy.add_argument("--pitch", type=float, default=None, help="orbit pitch in degrees; default: per-view")
     dorothy.add_argument("--distance", type=float, help="camera distance in CCF units; default: fit the visible structures")
     dorothy.add_argument("--fov", type=float, default=35.0, help="vertical field of view in degrees")
     dorothy.add_argument("--shade-levels", type=int, default=16, help="flat-shading quantization per structure, 2-64")
     dorothy.add_argument("--output", help="export .svg, .png, or .gem instead of opening the native atlas")
     dorothy.add_argument("--format", choices=("svg", "png", "gem"), help="default: infer from output suffix")
     dorothy.add_argument("--width", type=int, default=1600, help="SVG/PNG width in pixels")
+    dorothy.add_argument("--view", choices=("brain", "jenga", "stack", "rings"), default="brain", help="visualization variant")
+    dorothy.add_argument("--layout", choices=("tower", "exploded", "pull"), default="tower", help="Jenga layout")
+    dorothy.add_argument("--structure", type=int, help="structure ID: Jenga pull block or Rings center")
+    dorothy.add_argument("--slices", type=int, default=8, help="Stack slab count, 2-32")
+    dorothy.add_argument("--depth", type=int, default=3, help="Rings descendant depth, 1-5")
     notebook = commands.add_parser("notebook", help="verify, save, or render a Zoe Bayesian field notebook")
     notebook.add_argument("input", nargs="?", help="saved notebook JSON; omit to use the worked GEM example")
     notebook.add_argument("--output", required=True, help="new .json, .svg, .png, or .gem output path")
@@ -186,15 +191,34 @@ def main(argv=None):
                     "structures": [{"id": record["id"], "acronym": record["acronym"], "bytes": record["bytes"], "sha256": record["sha256"]} for record in manifest["structures"]],
                 }, ensure_ascii=False, indent=2, sort_keys=True))
                 return 0
-            records = dorothy_data.load_structures(arguments.data_root, arguments.structures)
             if not arguments.output:
                 from .atlas_view import launch_atlas
-                launch_atlas("dorothy")
+                launch_atlas("dorothy" if arguments.view == "brain" else f"dorothy-{arguments.view}")
                 return 0
-            scene, report = dorothy_scene(
-                records, yaw=arguments.yaw, pitch=arguments.pitch, distance=arguments.distance,
-                fov=arguments.fov, shade_levels=arguments.shade_levels,
-            )
+            if arguments.view == "jenga":
+                from .dorothy_jenga import default_jenga_document
+                scene, report = default_jenga_document(
+                    arguments.data_root, layout=arguments.layout, selected=arguments.structure,
+                    yaw=arguments.yaw, pitch=arguments.pitch, fov=arguments.fov,
+                )
+            elif arguments.view == "stack":
+                from .dorothy_stack import default_stack_document
+                scene, report = default_stack_document(
+                    arguments.data_root, slices=arguments.slices,
+                    yaw=arguments.yaw, pitch=arguments.pitch, fov=arguments.fov,
+                )
+            elif arguments.view == "rings":
+                from .dorothy_rings import default_rings_document
+                scene, report = default_rings_document(
+                    arguments.data_root, center=arguments.structure or 997, max_depth=arguments.depth,
+                )
+            else:
+                records = dorothy_data.load_structures(arguments.data_root, arguments.structures)
+                scene, report = dorothy_scene(
+                    records, yaw=215.0 if arguments.yaw is None else arguments.yaw,
+                    pitch=-18.0 if arguments.pitch is None else arguments.pitch,
+                    distance=arguments.distance, fov=arguments.fov, shade_levels=arguments.shade_levels,
+                )
             output = Path(arguments.output)
             kind = arguments.format or output.suffix.lower().lstrip(".")
             if kind == "svg":

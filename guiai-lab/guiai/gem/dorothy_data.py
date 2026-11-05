@@ -111,6 +111,8 @@ def fetch(root=None, ids=DEFAULT_STRUCTURE_IDS):
         "structures": structures,
     }
     _write_atomic(root / "manifest.json", (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8"))
+    fetch_graph(root)
+    fetch_volumes(root)
     return manifest
 
 
@@ -143,3 +145,130 @@ def load_structures(root=None, ids=None):
         record["data"] = data
         result.append(record)
     return result
+
+
+FULL_GRAPH_URL = (
+    f"{API_ROOT}?criteria=model::Structure,rma::criteria,[graph_id$eq1],"
+    "rma::options[num_rows$eq2000]"
+)
+VOLUME_URL = f"{DOWNLOAD_ROOT}/annotation_25.nrrd"
+VOXEL_UM3 = 25 ** 3
+MAX_VOLUME_BYTES = 64 * 1024 * 1024
+
+
+def fetch_graph(root=None):
+    root = Path(root) if root else default_root()
+    graph = json.loads(_download(FULL_GRAPH_URL, MAX_GRAPH_BYTES).decode("utf-8"))
+    if not graph.get("success"):
+        raise ValueError("Allen RMA full structure graph query failed")
+    structures = []
+    for record in graph["msg"]:
+        color = record.get("color_hex_triplet") or "808080"
+        structures.append({
+            "id": record["id"],
+            "name": record["name"],
+            "acronym": record["acronym"],
+            "color": f"#{color.lower()}",
+            "parent_structure_id": record.get("parent_structure_id"),
+            "graph_order": record.get("graph_order", 0),
+        })
+    structures.sort(key=lambda record: (record["graph_order"], record["id"]))
+    document = {"schema_version": 1, "source": FULL_GRAPH_URL, "structures": structures}
+    _write_atomic(root / "graph.json", (json.dumps(document, indent=1, sort_keys=True) + "\n").encode("utf-8"))
+    return document
+
+
+def parse_nrrd_counts(data):
+    if not data.startswith(b"NRRD"):
+        raise ValueError("not a NRRD file")
+    header_end = data.find(b"\n\n")
+    if header_end < 0:
+        raise ValueError("NRRD header is unterminated")
+    fields = {}
+    sizes = None
+    for line in data[:header_end].decode("ascii", "replace").split("\n")[1:]:
+        if line.startswith("#") or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        fields[key.strip()] = value.strip()
+        if key.strip() == "sizes":
+            sizes = [int(word) for word in value.split()]
+    if fields.get("type") != "unsigned int" or fields.get("encoding") != "gzip" or fields.get("endian") != "little":
+        raise ValueError("expected a little-endian gzip NRRD of unsigned int labels")
+    if not sizes or len(sizes) != 3:
+        raise ValueError("NRRD annotation must be a three-dimensional label volume")
+    import gzip
+    from array import array
+    from collections import Counter
+    voxels = array("I")
+    voxels.frombytes(gzip.decompress(data[header_end + 2:]))
+    expected = sizes[0] * sizes[1] * sizes[2]
+    if len(voxels) != expected:
+        raise ValueError("NRRD voxel count does not match the header sizes")
+    try:
+        import numpy
+        unique, counts = numpy.unique(numpy.frombuffer(voxels.tobytes(), dtype="<u4"), return_counts=True)
+        return {int(identifier): int(count) for identifier, count in zip(unique, counts)}
+    except ImportError:
+        return dict(Counter(voxels))
+
+
+def fetch_volumes(root=None):
+    root = Path(root) if root else default_root()
+    path = root / "annotation_25.nrrd"
+    data = path.read_bytes() if path.is_file() else _download(VOLUME_URL, MAX_VOLUME_BYTES)
+    counts = parse_nrrd_counts(data)
+    document = {
+        "schema_version": 1,
+        "source": VOLUME_URL,
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "voxel_um3": VOXEL_UM3,
+        "counts": {str(identifier): count for identifier, count in sorted(counts.items())},
+    }
+    _write_atomic(root / "volumes.json", (json.dumps(document, indent=1, sort_keys=True) + "\n").encode("utf-8"))
+    if not path.is_file():
+        _write_atomic(path, data)
+    return document
+
+
+def load_graph(root=None):
+    root = Path(root) if root else default_root()
+    path = root / "graph.json"
+    if not path.is_file():
+        raise ValueError(f"no structure graph at {root}; run `gem dorothy --fetch` first")
+    document = json.loads(path.read_text(encoding="utf-8"))
+    if document.get("schema_version") != 1:
+        raise ValueError("unsupported structure graph schema")
+    return document["structures"]
+
+
+def load_volumes(root=None):
+    root = Path(root) if root else default_root()
+    path = root / "volumes.json"
+    if not path.is_file():
+        raise ValueError(f"no annotation volumes at {root}; run `gem dorothy --fetch` first")
+    document = json.loads(path.read_text(encoding="utf-8"))
+    if document.get("schema_version") != 1:
+        raise ValueError("unsupported volume schema")
+    return {int(identifier): count for identifier, count in document["counts"].items()}
+
+
+def subtree_volumes(graph, counts):
+    """Annotation labels are leaves; parent volume is the subtree sum."""
+    children = {}
+    for record in graph:
+        children.setdefault(record["parent_structure_id"], []).append(record["id"])
+    volumes = {}
+
+    def visit(identifier):
+        if identifier in volumes:
+            return volumes[identifier]
+        total = counts.get(identifier, 0)
+        for child in children.get(identifier, []):
+            total += visit(child)
+        volumes[identifier] = total
+        return total
+
+    for record in graph:
+        visit(record["id"])
+    return volumes

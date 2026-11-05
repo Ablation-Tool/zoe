@@ -365,7 +365,11 @@ class ZoeNativeCase(unittest.TestCase):
 
 from guiai.gem.model import Scene
 from guiai.gem.dorothy import default_dorothy_document, dorothy_scene
-from guiai.gem.dorothy_data import default_root, load_structures
+from guiai.gem.dorothy_data import default_root, load_structures, parse_nrrd_counts, subtree_volumes
+from guiai.gem.dorothy_jenga import BLOCK_HEIGHT, default_jenga_document, jenga_blocks, jenga_scene
+from guiai.gem.dorothy_rings import build_tree, ring_sectors, rings_scene
+from guiai.gem.dorothy_stack import default_stack_document, stack_meshes
+from guiai.gem.spatial3d import Mesh
 from guiai.gem.render import draw_cairo, scene_to_svg
 from guiai.gem.spatial3d import Camera, _clip_near, parse_ply
 from guiai.gem.vdi import opcode_inventory, scene_from_metafile, scene_to_metafile
@@ -545,6 +549,110 @@ class ZoeDorothyCase(unittest.TestCase):
                 self.assertEqual(gem_main(["zoe", "--module", "dorothy", "--output", str(Path(directory) / "atlas.svg")]), 0)
             self.assertTrue(svg.is_file() and gem.is_file())
             self.assertIn("Thalamus", svg.read_text())
+
+
+class ZoeDorothyViewsCase(unittest.TestCase):
+    def _graph(self):
+        return [
+            {"id": 1, "name": "Root", "acronym": "R", "color": "#808080", "parent_structure_id": None},
+            {"id": 2, "name": "Alpha", "acronym": "A", "color": "#ff0000", "parent_structure_id": 1},
+            {"id": 3, "name": "Beta", "acronym": "B", "color": "#00ff00", "parent_structure_id": 1},
+            {"id": 4, "name": "Gamma", "acronym": "G", "color": "#0000ff", "parent_structure_id": 3},
+        ]
+
+    def test_subtree_volumes_sum_leaves(self):
+        volumes = subtree_volumes(self._graph(), {2: 10, 3: 5, 4: 2})
+        self.assertEqual(volumes, {1: 17, 2: 10, 3: 7, 4: 2})
+
+    def test_parse_nrrd_counts_synthetic_volume(self):
+        import gzip
+        import struct
+        header = (
+            "NRRD0004\ntype: unsigned int\ndimension: 3\nsizes: 2 2 2\n"
+            "endian: little\nencoding: gzip\n\n"
+        ).encode("ascii")
+        labels = [0, 1, 1, 2, 2, 2, 0, 2]
+        data = header + gzip.compress(struct.pack("<8I", *labels))
+        self.assertEqual(parse_nrrd_counts(data), {0: 2, 1: 2, 2: 4})
+        with self.assertRaises(ValueError):
+            parse_nrrd_counts(b"not nrrd")
+
+    def test_rings_angles_follow_volume(self):
+        by_id, children = build_tree(self._graph())
+        volumes = subtree_volumes(self._graph(), {2: 10, 3: 5, 4: 2})
+        sectors, omitted, thickness = ring_sectors(by_id, children, volumes, 1, max_depth=2)
+        self.assertEqual(omitted, 0)
+        first = {sector["id"]: sector for sector in sectors if sector["depth"] == 1}
+        self.assertAlmostEqual(first[2]["angle"], TAU_FOR_TEST * 10 / 17)
+        self.assertAlmostEqual(first[3]["angle"], TAU_FOR_TEST * 7 / 17)
+        self.assertAlmostEqual(first[2]["angle"] + first[3]["angle"], TAU_FOR_TEST)
+        gamma = next(sector for sector in sectors if sector["id"] == 4)
+        self.assertAlmostEqual(gamma["angle"], first[3]["angle"] * 2 / 7)
+        scene, report = rings_scene(self._graph(), volumes, center=1, max_depth=2)
+        self.assertEqual(report["subtree_mm3"], round(17 * 25 ** 3 / 1e9, 6))
+        self.assertEqual(scene.digest(), rings_scene(self._graph(), volumes, center=1, max_depth=2)[0].digest())
+        self.assertTrue(verify(scene).passed)
+
+    def _structures(self):
+        return [
+            {"id": 2, "acronym": "A", "name": "Alpha", "color": "#ff0000"},
+            {"id": 3, "acronym": "B", "name": "Beta", "color": "#00ff00"},
+            {"id": 4, "acronym": "G", "name": "Gamma", "color": "#0000ff"},
+        ]
+
+    def test_jenga_layouts_and_pull(self):
+        volumes = {2: 10, 3: 30, 4: 20}
+        items, layers, selected = jenga_blocks(self._structures(), volumes, layout="tower")
+        self.assertEqual(len(items), 9)
+        self.assertEqual([layer["record"]["id"] for layer in layers], [3, 4, 2])
+        self.assertAlmostEqual(layers[0]["scale"], 1.0)
+        self.assertAlmostEqual(layers[1]["scale"], (20 / 30) ** (1 / 3))
+        for lower, upper in zip(layers, layers[1:]):
+            top_of_lower = lower["y"] - BLOCK_HEIGHT * lower["scale"] / 2
+            bottom_of_upper = upper["y"] + BLOCK_HEIGHT * upper["scale"] / 2
+            self.assertGreaterEqual(top_of_lower - bottom_of_upper, 0)
+        tower_span = max(vertex[1] for _id, mesh, _c in items for vertex in mesh.vertices) - min(vertex[1] for _id, mesh, _c in items for vertex in mesh.vertices)
+        exploded, _, _ = jenga_blocks(self._structures(), volumes, layout="exploded")
+        exploded_span = max(vertex[1] for _id, mesh, _c in exploded for vertex in mesh.vertices) - min(vertex[1] for _id, mesh, _c in exploded for vertex in mesh.vertices)
+        self.assertGreater(exploded_span, tower_span)
+        pulled, layers, selected = jenga_blocks(self._structures(), volumes, layout="pull", selected=4)
+        self.assertEqual(selected, 4)
+        gamma = next(layer for layer in layers if layer["record"]["id"] == 4)
+        self.assertEqual(sum(block["pulled"] for block in gamma["blocks"]), 1)
+        scene, report = jenga_scene(self._structures(), volumes, layout="pull", selected=4)
+        self.assertEqual(report["triangles"], 108)
+        self.assertEqual(scene.digest(), jenga_scene(self._structures(), volumes, layout="pull", selected=4)[0].digest())
+        self.assertTrue(verify(scene).passed)
+
+    def test_stack_slab_assignment_and_determinism(self):
+        cube = parse_ply(_cube_ply("ascii"))
+        shifted = Mesh([(x + 100, y, z) for x, y, z in cube.vertices], list(cube.faces))
+        exploded, slabs, axis, gap = stack_meshes([(1, cube, "#ff0000"), (2, shifted, "#00ff00")], slices=2)
+        self.assertEqual(axis, 0)
+        self.assertEqual(sum(slab["triangles"] for slab in slabs), 24)
+        self.assertEqual(slabs[1]["triangles"], 12)
+        self.assertGreater(gap, 0)
+        again, _, _, _ = stack_meshes([(1, cube, "#ff0000"), (2, shifted, "#00ff00")], slices=2)
+        self.assertEqual([mesh.vertices for _id, mesh, _c in exploded], [mesh.vertices for _id, mesh, _c in again])
+
+    @unittest.skipUnless((default_root() / "volumes.json").is_file(), "vendored CCF data is not fetched")
+    def test_view_cli_and_document_determinism(self):
+        first, _ = default_jenga_document()
+        second, _ = default_jenga_document()
+        self.assertEqual(first.digest(), second.digest())
+        stack_first, _ = default_stack_document(slices=4)
+        stack_second, _ = default_stack_document(slices=4)
+        self.assertEqual(stack_first.digest(), stack_second.digest())
+        with tempfile.TemporaryDirectory() as directory:
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(gem_main(["dorothy", "--view", "jenga", "--layout", "pull", "--structure", "549", "--output", str(Path(directory) / "pull.svg")]), 0)
+                self.assertEqual(gem_main(["dorothy", "--view", "rings", "--structure", "315", "--output", str(Path(directory) / "rings.svg")]), 0)
+                self.assertEqual(gem_main(["dorothy", "--view", "stack", "--slices", "6", "--output", str(Path(directory) / "stack.svg")]), 0)
+                self.assertEqual(gem_main(["zoe", "--module", "dorothy-jenga", "--output", str(Path(directory) / "jenga.svg")]), 0)
+            self.assertIn("Isocortex", (Path(directory) / "rings.svg").read_text())
+
+
+TAU_FOR_TEST = 2 * 3.141592653589793
 
 
 if __name__ == "__main__":
