@@ -20,3 +20,15 @@ Zoe is a separate modern project, not the original 1985 desktop or a claim of au
 The ten source repositories retain their original copyright, licenses, and notices. Their upstream identities and source revisions are recorded in `components.lock.json`. Kevlar's MIT license and the other component licenses remain with their respective source trees. No component is presented as evidence of another component's correctness, security, or authorization.
 
 The original accessible-volume equation is credited to **Nicholas Michael Kloster alone, March 6, 2026**. Later Zoe and Accessible Q-Volume developments are identified separately.
+
+## Original creative modules and reference boundaries
+
+**Zoe Artline** is an original implementation informed by the interaction goals in five user-supplied Artline 2.0 manuals. Artline was published by Digital Research and later Computer Associates. Those organizations and the original developers are not affiliated with Zoe. No proprietary program code, fonts, clip art, manual pages, advertisements, or cover artwork are copied into this repository, and no legacy Artline-file compatibility is claimed.
+
+**Zoe Pentomino** uses the long-established twelve free pentomino shapes and an original timed, replayable implementation. It does not copy Tetris code or assets. Alexey Pajitnov's use of pentomino inspiration is a historical distinction, not an affiliation. Draughts/checkers is a separate game.
+
+**Zoe Practice Navigator** uses new vector artwork and synthetic examples. Historical pilot guides, navigation plotters, pen tablets, product names, covers, and logos remain the property of their respective authors and manufacturers; those references are not redistributed or presented as endorsements. The guide is not certified flight-training or navigation material.
+
+The user-supplied March 2026 **Hourglass Defense** proposal and defense PDFs carry **ExileKingdom** and **Claude + Nick = Nuclide / Nuclide** attributions respectively. They inspired only a labeled normalized-weight toy. Zoe does not implement or validate their proposed transformer defense, positional authority mechanism, A(S) metric, or security claims. The supplied hourglass icon is not redistributed; the guide's hourglass is new geometry.
+
+The supplied **Voice and Video Communication Over Packet Networks, Chapter 2** Markdown informed general layer and timing concepts. Its prose and figures are not copied. Zoe's arrival-spacing example is synthetic and is not an RTP jitter implementation, a synchronized-clock measurement, or a live network observation.

@@ -13,6 +13,9 @@ ATLAS_MODULES = {
     "brain": "Zoe · BRAIN orchestration",
     "field": "Zoe · Bayesian field notebook",
     "cognitive": "Z.O.E. · Cognitive Field / GSP",
+    "artline": "Zoe Artline · vector workbench",
+    "pentomino": "Zoe Pentomino · timed spatial practice",
+    "pilot": "Zoe Practice Navigator · original visual guide",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -401,6 +404,17 @@ def default_document(module, research_root=None):
     if module == "cognitive":
         from .cognitive import CognitiveField, cognitive_scene
         return cognitive_scene(CognitiveField.demo())
+    if module == "artline":
+        from .artline import demo_document
+        document = demo_document()
+        return document.scene(), {"elements": len(document.elements), "layers": len(document.layers), "legacy_compatibility": False}
+    if module == "pentomino":
+        from .pentomino import PentominoGame
+        game = PentominoGame(seed="zoe-time-study", clock=lambda: 0)
+        return game.scene(), {"mode": game.mode, "status": game.status, "intelligence_measured": False, "optimal_time_claimed": False}
+    if module == "pilot":
+        from .pilot import guide_page
+        return guide_page("cover")
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":
