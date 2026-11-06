@@ -9,6 +9,7 @@ from .qualia import qualia_scene
 from .volume import measure_probabilities
 
 ATLAS_MODULES = {
+    "unified": "ZOE · allgems",
     "brain": "Zoe · BRAIN orchestration",
     "field": "Zoe · Bayesian field notebook",
     "cognitive": "Z.O.E. · Cognitive Field / GSP",
@@ -386,6 +387,9 @@ def onset_scene(experiment, tau=.05, temperature=1.0):
 
 
 def default_document(module, research_root=None):
+    if module == "unified":
+        from .unified import unified_scene
+        return unified_scene()
     if module == "brain":
         from .brain import BrainKernel, brain_scene
         kernel = BrainKernel()

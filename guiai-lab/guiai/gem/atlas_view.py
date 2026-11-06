@@ -193,6 +193,8 @@ class AtlasWindow(Gtk.Window):
         self.field = FieldNotebook()
         from .cognitive import CognitiveField
         self.cognitive = CognitiveField()
+        from .unified import ComponentRegistry
+        self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
         self.volume_bridge = VolumeBridge(minimum=1, maximum=4)
         self.volume_current = VOLUME_PRESETS["baseline"]
@@ -295,7 +297,25 @@ class AtlasWindow(Gtk.Window):
         self.updating = True
         self.clear_controls()
         self.add_text(ATLAS_MODULES[self.module])
-        if self.module == "brain":
+        if self.module == "unified":
+            from .unified import COMPONENTS
+            self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
+            for component in COMPONENTS:
+                if component.identifier in {"zoe", "cerotto"}:
+                    continue
+                if component.inspect_only:
+                    self.add_action(f"Inspect {component.title}", self.make_unified_inspect(component.identifier))
+                else:
+                    self.add_action(f"Launch {component.title}", self.make_unified_launch(component.identifier))
+                self.add_action(f"Link {component.title} source context", self.make_unified_source_record(component.identifier))
+                self.add_text(f"{component.summary}. Source: {component.checkout}.")
+            self.add_entry("cerotto_case", "Cerotto case ID", os.environ.get("CEROTTO_CASE", "incident-7"))
+            self.add_entry("cerotto_conversation", "Cerotto conversation ID", os.environ.get("CEROTTO_CONVERSATION", "conv-7"))
+            self.add_action("Choose Cerotto case DB and launch", self.choose_cerotto)
+            self.add_action("Export unified component manifest", self.save_unified_manifest)
+            self.add_action("Save unified knowledge graph", self.save_unified_knowledge)
+            self.add_text("The hub launches nothing automatically. Link buttons record source context, not runtime proof or evidence transfer. Cerotto requires a user-selected case. Component processes retain their dependencies, evidence models, and authorization rules.")
+        elif self.module == "brain":
             self.add_combo("condition", "HELEN held-out condition", (("forward", "Forward"), ("retrograde", "Retrograde")), "forward")
             self.add_spin("index", "Held-out onset index", 0, 1919, 1, 0)
             self.add_scale("tau", "Probability threshold τ", 0, .5, .001, .05)
@@ -448,7 +468,10 @@ class AtlasWindow(Gtk.Window):
         return self.controls[key].get_active_id()
 
     def refresh(self):
-        if self.module == "brain":
+        if self.module == "unified":
+            from .unified import unified_scene
+            self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
+        elif self.module == "brain":
             self.scene, self.report = brain_scene(self.brain)
         elif self.module == "field":
             self.scene, self.report = field_scene(self.field)
@@ -640,6 +663,93 @@ class AtlasWindow(Gtk.Window):
         finally:
             dialog.destroy()
 
+    def open_cognitive(self, *_args):
+        self.module_selector.set_active_id("cognitive")
+
+    def make_unified_launch(self, identifier):
+        return lambda *_args: self.launch_unified(identifier)
+
+    def make_unified_inspect(self, identifier):
+        return lambda *_args: self.show_unified(identifier)
+
+    def make_unified_source_record(self, identifier):
+        return lambda *_args: self.record_unified_source(identifier)
+
+    def show_unified(self, identifier):
+        component = self.unified_registry.component(identifier)
+        source = self.unified_registry.source(identifier)
+        self.report = {"summary": f"{component.title}: {component.summary}\nSource: {source['path']} · {source['mode']}\nContent inspection only; no process launched."}
+        self.update_summary()
+
+    def launch_unified(self, identifier, arguments=None):
+        try:
+            process = self.unified_registry.launch(identifier, arguments, detach=True)
+            title = self.unified_registry.component(identifier).title
+            self.report = {"summary": f"Started {title} as PID {process.pid}. Process creation does not verify readiness or authorize evidence actions."}
+            self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.field_error("Component launch failed", error)
+
+    def record_unified_source(self, identifier):
+        try:
+            observation = self.unified_registry.record_source(identifier)
+            if identifier != "zoe":
+                self.unified_registry.knowledge.connect(
+                    observation["id"], "zoe",
+                    "Shared source and trust context; no evidence or permission transfer.",
+                )
+            self.refresh()
+        except ValueError as error:
+            self.field_error("Record source context failed", error)
+
+    def choose_cerotto(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Choose a Cerotto case database", transient_for=self, action=Gtk.FileChooserAction.OPEN)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Launch", Gtk.ResponseType.OK)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                case = self.controls["cerotto_case"].get_text().strip()
+                conversation = self.controls["cerotto_conversation"].get_text().strip()
+                if not case or not conversation:
+                    raise ValueError("Cerotto case and conversation IDs are required")
+                self.launch_unified("cerotto", [
+                    "--db", dialog.get_filename(), "--case", case, "--conversation", conversation,
+                ])
+        except (OSError, RuntimeError, ValueError) as error:
+            self.field_error("Cerotto case selection failed", error)
+        finally:
+            dialog.destroy()
+
+    def save_unified_manifest(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Export unified component manifest", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Export", Gtk.ResponseType.OK)
+        dialog.set_current_name("gem-components.json")
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                output = self.unified_registry.write_manifest(dialog.get_filename())
+                self.report = {"summary": f"Saved unified component manifest to {output}"}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.field_error("Manifest export failed", error)
+        finally:
+            dialog.destroy()
+
+    def save_unified_knowledge(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Save unified knowledge graph", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Save", Gtk.ResponseType.OK)
+        dialog.set_current_name("gem-knowledge.json")
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                output = self.unified_registry.knowledge.save(dialog.get_filename())
+                self.report = {"summary": f"Saved {len(self.unified_registry.knowledge.events)} knowledge events to {output}"}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.field_error("Knowledge export failed", error)
+        finally:
+            dialog.destroy()
+
     def run_cognitive_operation(self, operation, *args):
         try:
             operation(*args)
@@ -820,7 +930,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
@@ -850,6 +960,11 @@ class AtlasWindow(Gtk.Window):
         if self.module == "cognitive":
             from .cognitive import export_cognitive
             path, self.report = export_cognitive(self.cognitive, path)
+            self.update_summary()
+            return path
+        if self.module == "unified" and path.suffix.lower() == ".json":
+            self.unified_registry.knowledge.save(path)
+            self.report["summary"] = f"Saved {len(self.unified_registry.knowledge.events)} unified knowledge events to {path}"
             self.update_summary()
             return path
         suffix = path.suffix.lower()
