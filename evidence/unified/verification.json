@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "identity": "ZOE is allgems",
+  "repository": "https://github.com/Ablation-Tool/zoe",
+  "baseline_revision": "a658fbb30227d5916f2cb472ba4757057543e409",
+  "component_results": {
+    "ablation_core": {
+      "command": "PYTHONPATH=. python -m pytest -q tests",
+      "working_directory": "components/ablation",
+      "passed": 2803,
+      "skipped": 93,
+      "subtests_passed": 49
+    },
+    "ablation_lab": {
+      "core_stress_passed": 69,
+      "gtk_passed": 36,
+      "real_desktop_input_passed": 1,
+      "native_tk_passed": 30,
+      "gem_stress_passed": 35,
+      "tab_churn_iterations": 40,
+      "all_tab_children_reaped": true
+    },
+    "canonical_gem": {
+      "integration_passed": 65,
+      "tool_discovery_core_passed": 30,
+      "tool_discovery_native_passed": 30,
+      "workbench_operations_verified": 17
+    },
+    "cerotto": {
+      "normal_passed": 65,
+      "sanitizer_passed": 65,
+      "ewf_tools_optional_skip_per_run": 1
+    },
+    "kevlar": {
+      "passed": 149
+    },
+    "brain": {
+      "passed": 16,
+      "native_workflows_verified": true
+    },
+    "research": {
+      "comparison_cases_verified": 16,
+      "biobert_cases_verified": 120,
+      "canonical_operations_verified": 17
+    },
+    "pdf_signature_toolkit": {
+      "synthetic_seal_verify_passed": true,
+      "no_overwrite_passed": true,
+      "production_identity_used": false
+    },
+    "chalkboard": {
+      "template_and_prompt_paths_verified": true,
+      "content_only": true
+    }
+  },
+  "zoe_regressions": {
+    "existing_passed": 31,
+    "cognitive_gem_unified_passed": 36,
+    "optional_skips": 2,
+    "core_stress_passed": 29,
+    "native_stress_passed": 21
+  },
+  "unified_results": {
+    "headless_passed": 8,
+    "native_passed": 8,
+    "real_component_commands": true,
+    "source_observations": 11,
+    "declared_links": 10,
+    "chain_events": 21,
+    "installed_graph_reload_passed": true,
+    "vdi_verification": "vdi-verification.json"
+  },
+  "package": {
+    "sdist": "guiai_lab-0.1.0.tar.gz",
+    "wheel": "guiai_lab-0.1.0-py3-none-any.whl",
+    "build_passed": true,
+    "installed_wheel_native_hub_passed": true,
+    "native_screenshot": "../../guiai-lab/docs/images/gem-unified-native.png"
+  },
+  "local_integration_corrections": [
+    "BRAIN atlas views use the existing sibling _callbacks helper.",
+    "Ablation Lab reuses themed pixbufs and avoids redundant image replacement.",
+    "Ablation Lab restores compact preferences synchronously.",
+    "Ablation Lab shutdown fallback reaps exited children even without a VTE exit callback."
+  ],
+  "known_unrelated_race": {
+    "test": "test_timeout_kills_the_entire_process_group",
+    "observed_once": true,
+    "cause": "The /proc process-stat file disappeared between the test's existence check and read.",
+    "source_or_assertion_changed": false,
+    "unchanged_rerun_passed": 35
+  },
+  "scope": {
+    "source_registration_is_runtime_verification": false,
+    "every_optional_backend_model_or_driver_verified": false,
+    "external_vdi_consumer_verified": false,
+    "production_signing_or_security_boundary_verified": false,
+    "vdi_contract": "Object IDs, object count, and constraint outcomes are preserved by the actual exported VDI file; an identical Scene digest is not required."
+  }
+}

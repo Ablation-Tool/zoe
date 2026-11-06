@@ -58,7 +58,7 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    module_choices = ("brain", "field", "cognitive", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
+    module_choices = ("unified", "brain", "field", "cognitive", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
     atlas = commands.add_parser("atlas", help="open the native geometry atlas or export one module")
     atlas.add_argument("--module", choices=module_choices, default="procrustes")
     atlas.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")

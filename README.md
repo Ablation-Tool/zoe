@@ -1,23 +1,93 @@
-# Zoe
+<img src="assets/branding/zoe-eye.png" width="560" alt="ZOE allgems orbital eye emblem">
 
-**Zoe is a GEM and native graphical user interface for creative geometry, forecast inspection, and evidence-driven research.** It unifies GEM HELEN, Ablation's GEM, Cerotto's GEM, and BRAIN GEM without collapsing their security or evidence boundaries.
+# ZOE · allgems
 
-Zoe combines:
+**ZOE is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The ten organization repositories are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
 
-- **GEM HELEN:** lightweight creative geometry and stored categorical predictions.
-- **Ablation's GEM:** native GTK, Spatial IR, VDI replay, Lab integration, and evidence exports.
-- **Cerotto's GEM:** forensic cases, guarded actions, vault timelines, accessible-volume charts, and the existing Ablation + GEM bridge.
-- **BRAIN GEM:** deterministic observation, evaluation, Bayesian field memory, and recommended next steps.
+**ZOE is the GEM, but the GEM is not ZOE. ZOE is allgems.**
 
-## Papers and proof of concept
+Built using GEM. ZOE honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
+
+**Knowledge Engineering** joins the components through one replayable knowledge graph:
+
+- **Trust Context:** source repository, revision, evidence scope, and authorization boundary.
+- **Stability Context:** component-specific processes, version locks, replayable memory, and separately tested behavior. This is not an uptime guarantee.
+
+![ZOE allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
+
+## One checkout. Ten repositories.
+
+| Component | Source | Role |
+|:---|:---|:---|
+| Zoe native shell | `guiai-lab/` | Cognitive Field, Bayesian memory, geometry, and native unified hub |
+| Ablation core engine | `components/ablation/ablation/` | Complete AIARE framework, analyzers, parsers, modules, and core CLI |
+| Ablation GEM Lab | `components/ablation/gem-lab/` | Default native investigation GUI and Lab evidence protocol |
+| Canonical GEM | `components/graphics-environment-manager/` | Native workbench, mirrored brain, Spatial IR, and VDI |
+| GEM HELEN | `components/gem-helen/` | Optimized geometry, rhythm, and forecast laboratory |
+| BRAIN GEM | `components/brain-gem/` | Standalone Bayesian field notebook and chambered memory |
+| Cerotto GEM | `components/cerotto/` | Native C forensic engine, guarded cases, timelines, and vault evidence |
+| Research GEM | `components/next-token-predictability/` | Accessible-volume research, evidence packs, and mirrored workbench |
+| Kevlar | `components/kevlar/` | MCP proxy firewall, policy enforcement, content disarm, and audit evidence |
+| PDF Signature Toolkit | `components/pdf-signature-toolkit/` | Source-integrity records and detached PDF signatures |
+| Chalkboard | `components/Chalkboard/` | Reusable ideas, templates, and prompts; a content library, not a GUI |
+
+The source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Each component retains its original license and notices. Ablation's complete repository, including its core engine, tests, documentation, and assets, is included.
+
+## Launch the unified hub
+
+```bash
+python -m pip install ./guiai-lab
+zoe
+```
+
+`zoe` opens the native orbital hub. It starts no other engine automatically. Use explicit commands to inspect or launch a component:
+
+```bash
+zoe list
+zoe launch ablation -- --help
+zoe launch gem-lab
+zoe launch gem
+zoe launch helen
+zoe launch brain
+zoe launch research
+zoe launch kevlar -- --help
+zoe launch pdf -- --help
+zoe show chalkboard
+```
+
+The native hub also opens with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module unified`. The default Ablation Lab command uses `--no-agent`; no agent, MCP server, model download, or remote analysis is started by the hub.
+
+Cerotto requires a user-selected case and conversation:
+
+```bash
+zoe launch cerotto -- \
+  --db case.db --case incident-7 --conversation conv-7
+```
+
+The native **Choose Cerotto case DB and launch** control collects the same information. Cerotto's case model remains read-only unless its own guarded commands are explicitly authorized.
+
+## One replayable knowledge graph
+
+`zoe list` reports source presence, not runtime verification. **Link source context** in the hub records a source observation and declared link. It does not infer runtime behavior, transfer evidence, or transfer permission. The graph stores repository, revision, scope, process, and replay context in a SHA-256 event chain.
+
+```bash
+zoe manifest --output gem-components.json
+zoe knowledge --output gem-knowledge.json
+```
+
+Both formats refuse to overwrite existing files. The component manifest records launch and source information. The knowledge document contains the event chain and can be verified on reload. Hash chaining supplies tamper evidence, not authentication.
+
+`ZOE_ROOT` can point to this checkout when the CLI is installed elsewhere. `ZOE_PYTHON` selects the interpreter. `ZOE_PYTHON_DEPENDENCIES` accepts an `os.pathsep`-separated list of existing dependency directories; component Python paths remain ahead of them and the host's unrelated `PYTHONPATH` is not inherited.
+
+See the [unified architecture, source provenance, and verification guide](guiai-lab/docs/UNIFIED.md).
+
+## Zoe subsystem: papers and proof of concept
 
 - **[Zoe: A Native GEM for Living Geometry and Inspectable Futures](paper/zoe.pdf):** the complete proof of concept, research history, equations, GEM versions, verification matrix, limitations, and reproducible evidence attachments.
 - **[Zoe for Everyone](paper/zoe-for-everyone.pdf):** a relaxed guide to the creative tools, experiments, results, and potential future applications, without hiding the limitations.
 - **[LaTeX sources and demo memory](paper/)** are included for review and rebuilding.
 
 Both papers credit **Nicholas Michael Kloster** as the sole creator of the original accessible-volume equation, **March 6, 2026**, and **Nicholas Michael Kloster and Zoe (AI assistant)** for the architecture, implementation, verification, visuals, and writing.
-
-Companion repositories: [accessible-volume research](https://github.com/Ablation-Tool/next-token-predictability), [standalone BRAIN GEM](https://github.com/Ablation-Tool/brain-gem), [Cerotto](https://github.com/Ablation-Tool/cerotto), and [PALA](https://github.com/Ablation-Tool/PALA-rust).
 
 ## What GEM means here
 
@@ -208,6 +278,10 @@ guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
+guiai/gem/unified.py       Component registry, isolated launch environments, and ZOE hub scene
+guiai/gem/knowledge.py     Replayable source observations and declared trust/stability links
+guiai/gem/unified_cli.py   `zoe` inspection, launch, manifest, and knowledge commands
+components/               Complete tracked source trees for the nine upstream repositories
 guiai/gem/dorothy.py       Dorothy CCFv3 mesh scene, legend, and evidence report
 guiai/gem/dorothy_data.py  Allen data fetch and SHA-256 manifest verification
 guiai/gem/dorothy_jenga.py Jenga block tower, exploded, and pull layouts by volume
