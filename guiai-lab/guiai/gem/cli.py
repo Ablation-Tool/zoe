@@ -58,7 +58,7 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    module_choices = ("brain", "field", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
+    module_choices = ("brain", "field", "cognitive", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
     atlas = commands.add_parser("atlas", help="open the native geometry atlas or export one module")
     atlas.add_argument("--module", choices=module_choices, default="procrustes")
     atlas.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")
@@ -95,6 +95,11 @@ def _parser():
     notebook.add_argument("--output", required=True, help="new .json, .svg, .png, or .gem output path")
     notebook.add_argument("--format", choices=("json", "svg", "png", "gem"), help="default: infer from output suffix")
     notebook.add_argument("--width", type=int, default=1200, help="SVG/PNG width in pixels")
+    cognitive = commands.add_parser("cognitive", help="save, verify, or render Zoe's bounded Cognitive Field")
+    cognitive.add_argument("input", nargs="?", help="saved Cognitive Field JSON; omit to use the worked example")
+    cognitive.add_argument("--output", required=True, help="new .json, .svg, .png, or .gem output path")
+    cognitive.add_argument("--format", choices=("json", "svg", "png", "gem"), help="default: infer from output suffix")
+    cognitive.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels")
     return parser
 
 
@@ -156,6 +161,12 @@ def main(argv=None):
                 json.dump(report, handle, ensure_ascii=False, allow_nan=False, indent=2, sort_keys=True)
                 handle.write("\n")
             print(json.dumps({"instrument": report["instrument"], "output": str(output), "bytes": output.stat().st_size, "deltas": deltas, "ei_bits": toy["arrows"][0]["ei_bits"], "checks": report["checks"]}, ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
+        if arguments.command == "cognitive":
+            from .cognitive import CognitiveField, export_cognitive
+            field = CognitiveField.load(arguments.input) if arguments.input else CognitiveField.demo()
+            output, report = export_cognitive(field, arguments.output, arguments.format, arguments.width)
+            print(json.dumps({"instrument": "Zoe Cognitive Field", "events": len(field.events), "active": len(field.working), "evicted": len(field.evicted), "declarative": len(field.declarative), "review_required": len(field.performance), "executed": False, "output": str(output), "bytes": output.stat().st_size, "verified": "verification" in report}, ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         if arguments.command == "notebook":
             from .field import FieldNotebook, field_scene

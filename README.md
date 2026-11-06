@@ -55,6 +55,7 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 | Geometry | Procrustes similarity/rigid/affine alignment, draggable landmarks, ellipse families, parabolic envelopes, circles/arcs/sectors, modular clocks, and conditional graph invariants. |
 | Forecasts | Strict `p > τ` accessible volume, complements, momentum, target bands, temperature transforms, top-1 correctness, negative log probability, entropy, maximum probability, log-loss, and calibration evidence. |
 | Bayesian field notebook | Questions, competing binary claims, priors, posteriors, falsifiers, likelihood-ratio and log-odds updates, belief diffs, evidence families, dependence acknowledgment, deterministic and stochastic chambers, next-test priorities, review-required decisions, and append-only hash-chained memory. |
+| Cognitive Field | Sourced sensory encoding, bounded FIFO working memory, explicit declarative storage and revision-checked retrieval, tag-based procedural matching, review-required performance proposals, event-linked replay, and no-overwrite JSON/SVG/PNG/GEM VDI exports. |
 | HELEN observations | Lazy stored forward and retrograde distributions with 1,920 held-out cases per condition, selectable by index or sequence, without a transformer or model runtime. |
 | Multi-horizon | Exact continuation probabilities, volume, and complement for a defined two-state Markov toy with horizons 1–6. This is not a completed real-language-model benchmark. |
 | Research evidence | Hash-checked Groove reports and on-demand individual NPZ predictions; aggregate-only Nightingale metrics; 17 conformance checks; rejected HOP and deterministic baselines. |
@@ -65,6 +66,16 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 | Compatibility and packaging | `gem zoe`, `gem master`, `gem brain`, `gem atlas`, standalone `gem-helen`, wheel/source distributions, and the packaged 12 KB HELEN artifact. |
 
 Cerotto-specific bridge execution has not been separately revalidated as part of Zoe. Cerotto remains a separate native C11 forensic engine with its own case store, guard, vault, agent permissions, and verification suite.
+
+## Cognitive Field: memory you can inspect
+
+![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
+
+The **Cognitive Field / General Symbol Processor (GSP)** is a working memory instrument, not just a diagram. GSP operates on explicit text, tags, IDs, revisions, and rule descriptions; it is not the historical General Problem Solver or a claim of general intelligence. It encodes sourced information into bounded working memory, makes declarative storage and revision-checked retrieval explicit, matches procedural descriptions against active tags, and turns successful matches into review-required proposals. Evictions, mismatches, negative matches, and forecasts remain in the same hash-chained event memory. No rule executes code, no measurement automatically changes belief, and no proposal authorizes action.
+
+Open it with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module cognitive`, or export the worked example with `PYTHONPATH=guiai-lab python -m guiai.gem cognitive --output cognitive-field.png`. JSON input reloads a saved field; JSON, SVG, PNG, and GEM VDI exports never overwrite an existing file. See the [Cognitive Field guide](guiai-lab/docs/COGNITIVE.md), [native screenshot](guiai-lab/docs/images/zoe-cognitive-native.png), and [worked event memory](evidence/cognitive-field/worked-example.json).
+
+This original software architecture is not ACT-R, a trained neural network, or a consciousness model. The clock is an event ordinal, not physical time. Its accessible-volume measurement credits **Nicholas Michael Kloster, March 6, 2026**, as the sole creator of that original equation.
 
 ## Zoe is Quale. Zoe is Red.
 
@@ -184,6 +195,7 @@ Zoe's "living" tagline is a creative metaphor, not a claim of consciousness or s
 ```text
 guiai/gem/brain.py         Observation state, recommendations, exact continuations
 guiai/gem/field.py         Bayesian memory, chamber registry, equations, notebook scene
+guiai/gem/cognitive.py     Bounded memory operations, Cognitive Field scene, safe exports
 guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
@@ -194,14 +206,19 @@ guiai/gem/dorothy_jenga.py Jenga block tower, exploded, and pull layouts by volu
 guiai/gem/dorothy_rings.py Baobab ontology rings by exact subtree volume
 guiai/gem/dorothy_stack.py Exploded coronal slab stack of the CCF meshes
 guiai/gem/spatial3d.py     PLY loader, orbit camera, deterministic painter renderer
-guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook
+guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook / gem cognitive
 guiai/gem/data/            Packaged HELEN prediction artifact
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
+stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests
 ```
 
 ## Verification
 
 ```bash
+PYTHONPATH=guiai-lab /usr/bin/python3 -m unittest stress.cognitive_stress -v
+PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
+  /usr/bin/python3 -m unittest stress.cognitive_stress -v
+
 PYTHONPATH=guiai-lab:/home/cowboy/security-tools/lib/python3.14/site-packages \
   python guiai-lab/stress/zoe_stress.py
 

@@ -191,6 +191,8 @@ class AtlasWindow(Gtk.Window):
         self.target = deepcopy(DEFAULT_TARGET)
         self.brain = BrainKernel()
         self.field = FieldNotebook()
+        from .cognitive import CognitiveField
+        self.cognitive = CognitiveField()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
         self.volume_bridge = VolumeBridge(minimum=1, maximum=4)
         self.volume_current = VOLUME_PRESETS["baseline"]
@@ -332,6 +334,40 @@ class AtlasWindow(Gtk.Window):
             self.add_action("Save unified memory JSON", self.save_field)
             self.add_action("Replace memory from JSON", self.load_field)
             self.add_text(f"Unified memory: {len(self.field.events)} events. BRAIN observations are preserved automatically. Chamber measurements never update beliefs automatically.")
+        elif self.module == "cognitive":
+            self.add_action("Load worked Cognitive Field", self.load_cognitive_demo)
+            self.add_spin("capacity", "Capacity for a new empty field", 1, 16, 1, self.cognitive.working_capacity)
+            self.add_action("Start empty with this capacity", self.new_cognitive)
+            self.add_entry("sensory_text", "Information to encode", "Observe the explicit memory boundary.")
+            self.add_entry("sensory_source", "Observation source", "native Cognitive Field")
+            self.add_entry("sensory_tags", "Tags (comma-separated)", "information, review")
+            self.add_action("Encode into working memory", self.encode_cognitive)
+            if self.cognitive.working:
+                choices = tuple((item["id"], f"{item['id']} · {item['text'][:52]}") for item in self.cognitive.working)
+                self.add_combo("active_representation", "Active representation", choices, choices[0][0])
+                self.add_action("Store active representation", self.store_cognitive)
+            if self.cognitive.declarative:
+                choices = tuple((item["id"], f"{item['id']} revision {item['revision']} · {item['text'][:40]}") for item in self.cognitive.declarative)
+                self.add_combo("declarative_record", "Declarative record", choices, choices[0][0])
+                self.add_spin("expected_revision", "Expected revision", 0, 1000000, 1, 1)
+                self.add_action("Retrieve with provenance check", self.retrieve_cognitive)
+            self.add_entry("rule_name", "New procedural rule", "Inspect explicit memory")
+            self.add_entry("rule_tags", "Required tags", "information, review")
+            self.add_entry("rule_description", "Performance description (not code)", "Review this matched memory operation; do not execute it.")
+            self.add_action("Register procedural description", self.add_cognitive_rule)
+            self.add_action("Match rules against active tags", self.match_cognitive)
+            if self.cognitive.matches:
+                choices = tuple((item["id"], f"{item['id']} · {item['status']} · {', '.join(item['matched_rule_ids']) or 'none'}") for item in self.cognitive.matches)
+                self.add_combo("procedural_match", "Procedural match", choices, choices[-1][0])
+                self.add_entry("performance_rationale", "Review rationale", "Review this proposal; no execution requested.")
+                self.add_action("Prepare performance for review", self.propose_cognitive)
+            self.add_scale("tau", "Baseline probability threshold τ", 0, .5, .001, .05)
+            self.add_spin("seed", "Stochastic chamber seed", 0, 999999, 1, 7)
+            self.add_action("Measure baseline breadth", self.measure_cognitive)
+            self.add_action("Sample baseline with seed", self.sample_cognitive)
+            self.add_action("Save Cognitive Field JSON", self.save_cognitive)
+            self.add_action("Load Cognitive Field JSON", self.load_cognitive)
+            self.add_text(f"{len(self.cognitive.working)}/{self.cognitive.working_capacity} active · {len(self.cognitive.evicted)} evicted · {len(self.cognitive.events)} events. Storage and retrieval are explicit. Matching cannot execute code. Every performance proposal requires review.")
         elif self.module == "qualia":
             self.add_combo("qualia_lens", "Field-guide lens", tuple((lens, lens.title()) for lens in LENSES), "overview")
             self.add_text("A conceptual guide to Balduzzi & Tononi's 2009 IIT geometry. The silent-AND number is one un-normalized whole-versus-product comparison, not a general Φ calculator.")
@@ -416,6 +452,9 @@ class AtlasWindow(Gtk.Window):
             self.scene, self.report = brain_scene(self.brain)
         elif self.module == "field":
             self.scene, self.report = field_scene(self.field)
+        elif self.module == "cognitive":
+            from .cognitive import cognitive_scene
+            self.scene, self.report = cognitive_scene(self.cognitive)
         elif self.module == "qualia":
             self.scene, self.report = qualia_scene(self.choice("qualia_lens"))
         elif self.module == "procrustes":
@@ -601,6 +640,87 @@ class AtlasWindow(Gtk.Window):
         finally:
             dialog.destroy()
 
+    def run_cognitive_operation(self, operation, *args):
+        try:
+            operation(*args)
+            self.build_controls()
+        except ValueError as error:
+            self.field_error("Cognitive Field operation failed", error)
+
+    def load_cognitive_demo(self, *_args):
+        from .cognitive import CognitiveField
+        self.cognitive = CognitiveField.demo()
+        self.build_controls()
+
+    def new_cognitive(self, *_args):
+        from .cognitive import CognitiveField
+        self.cognitive = CognitiveField(working_capacity=self.integer("capacity"))
+        self.build_controls()
+
+    def encode_cognitive(self, *_args):
+        self.run_cognitive_operation(
+            self.cognitive.encode, self.controls["sensory_text"].get_text(),
+            self.controls["sensory_source"].get_text(), self.controls["sensory_tags"].get_text(),
+        )
+
+    def store_cognitive(self, *_args):
+        self.run_cognitive_operation(self.cognitive.store_active, self.choice("active_representation"))
+
+    def retrieve_cognitive(self, *_args):
+        self.run_cognitive_operation(
+            self.cognitive.retrieve, self.choice("declarative_record"), self.integer("expected_revision"),
+        )
+
+    def add_cognitive_rule(self, *_args):
+        self.run_cognitive_operation(
+            self.cognitive.add_rule, self.controls["rule_name"].get_text(),
+            self.controls["rule_tags"].get_text(), self.controls["rule_description"].get_text(),
+        )
+
+    def match_cognitive(self, *_args):
+        self.run_cognitive_operation(self.cognitive.match_rules)
+
+    def propose_cognitive(self, *_args):
+        self.run_cognitive_operation(
+            self.cognitive.propose_performance, self.choice("procedural_match"),
+            self.controls["performance_rationale"].get_text(),
+        )
+
+    def measure_cognitive(self, *_args):
+        self.run_cognitive_operation(self.cognitive.measure, [.70, .20, .08, .02], self.value("tau"))
+
+    def sample_cognitive(self, *_args):
+        self.run_cognitive_operation(self.cognitive.measure, [.70, .20, .08, .02], self.value("tau"), self.integer("seed"))
+
+    def save_cognitive(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Save Cognitive Field memory", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Save", Gtk.ResponseType.OK)
+        dialog.set_current_name("zoe-cognitive-field.json")
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                self.export_current(dialog.get_filename())
+                self.report = {"summary": f"Saved {len(self.cognitive.events)} Cognitive Field events; existing files are never overwritten."}
+                self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.field_error("Save Cognitive Field failed", error)
+        finally:
+            dialog.destroy()
+
+    def load_cognitive(self, *_args):
+        from .cognitive import CognitiveField
+        dialog = Gtk.FileChooserDialog(title="Load Cognitive Field memory", transient_for=self, action=Gtk.FileChooserAction.OPEN)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Load", Gtk.ResponseType.OK)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                self.cognitive = CognitiveField.load(dialog.get_filename())
+                self.build_controls()
+        except (OSError, ValueError, json.JSONDecodeError) as error:
+            self.field_error("Load Cognitive Field failed", error)
+        finally:
+            dialog.destroy()
+
     def record_brain_field(self):
         if self.brain.current is not None:
             self.field.record_brain_observation(self.brain.current)
@@ -700,7 +820,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "research", "qualia"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
@@ -727,6 +847,11 @@ class AtlasWindow(Gtk.Window):
         if self.scene is None:
             self.refresh()
         path = Path(path)
+        if self.module == "cognitive":
+            from .cognitive import export_cognitive
+            path, self.report = export_cognitive(self.cognitive, path)
+            self.update_summary()
+            return path
         suffix = path.suffix.lower()
         if suffix == ".svg":
             write_svg(self.scene, path)
@@ -750,11 +875,15 @@ class AtlasWindow(Gtk.Window):
         )
         dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
         dialog.add_button("Export", Gtk.ResponseType.OK)
-        dialog.set_do_overwrite_confirmation(True)
+        dialog.set_do_overwrite_confirmation(self.module != "cognitive")
         dialog.set_current_name(f"atlas-{self.module}.{suffix}")
         try:
             if dialog.run() == Gtk.ResponseType.OK:
                 self.export_current(dialog.get_filename())
+        except (OSError, RuntimeError, ValueError) as error:
+            if self.module != "cognitive":
+                raise
+            self.field_error("Cognitive Field export failed", error)
         finally:
             dialog.destroy()
 

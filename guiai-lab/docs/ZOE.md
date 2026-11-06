@@ -22,6 +22,10 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe
 
 ![Zoe Bayesian field notebook](images/zoe-field-notebook.png)
 
+- **Cognitive Field:** encode sourced observations into bounded FIFO working memory, explicitly store active representations, retrieve them with provenance and revision checks, match declared procedural tags, and prepare review-required performance proposals. No rule is executable code and no measurement updates a posterior automatically. Open **Zoe · Cognitive Field** in the native module selector or run `PYTHONPATH=guiai-lab python -m guiai.gem cognitive --output cognitive-field.png`. See the [instrument guide](COGNITIVE.md).
+
+![Zoe Cognitive Field](images/zoe-cognitive-field.png)
+
 <details>
 <summary>Five Zoe mechanisms in pictures</summary>
 
@@ -96,6 +100,7 @@ Normal BRAIN use does not import a transformer, tokenizer, model runtime, scikit
 - Field-notebook posteriors are conditional on user-supplied priors and likelihoods; they are not objective truth scores. Dependent evidence requires an explicit acknowledgment and adjusted likelihoods.
 - Chamber measurements and sampled outcomes never update claims automatically. Quarantined chambers remain inspectable but cannot run.
 - The notebook hash chain provides tamper evidence, not authentication. Large probability vectors are represented by hashes rather than embedded in memory.
+- The Cognitive Field is a bounded software memory instrument, not ACT-R or a consciousness model. Storage, retrieval, matching, and review-required performance are explicit operations; no rule or measurement authorizes execution. Its JSON and visual exports never overwrite existing files.
 - Zoe's name and "living" tagline are creative metaphors, not claims of sentience. The Qualia guide's references to life, consciousness, and redness are artistic or philosophical context, not measurements of Zoe.
 - The Qualia module computes the documented COPY, silent-AND, and Accessible Q-Volume toy comparisons. The complete continuous filtration has an exact reconstruction identity; finite sweeps remain approximate. It does not search minimum partitions, calculate general Φ or γ, infer causal repertoires from forecasts, map a brain, or update notebook beliefs.
 
@@ -104,14 +109,16 @@ Normal BRAIN use does not import a transformer, tokenizer, model runtime, scikit
 ```text
 guiai/gem/brain.py         Observation state, recommendations, exact continuations
 guiai/gem/field.py         Bayesian memory, chamber registry, equations, notebook scene
+guiai/gem/cognitive.py     Bounded memory operations, Cognitive Field scene, safe exports
 guiai/gem/qualia.py        Five-lens IIT guide, causal threshold filtrations, and two-way toy
 guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
-guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem notebook
+guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem notebook / gem cognitive
 guiai/gem/data/            Packaged HELEN prediction artifact
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
+stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests
 ```
 
 ## Verification

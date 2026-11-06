@@ -11,6 +11,7 @@ from .volume import measure_probabilities
 ATLAS_MODULES = {
     "brain": "Zoe · BRAIN orchestration",
     "field": "Zoe · Bayesian field notebook",
+    "cognitive": "Z.O.E. · Cognitive Field / GSP",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -393,6 +394,9 @@ def default_document(module, research_root=None):
     if module == "field":
         from .field import FieldNotebook, field_scene
         return field_scene(FieldNotebook.demo())
+    if module == "cognitive":
+        from .cognitive import CognitiveField, cognitive_scene
+        return cognitive_scene(CognitiveField.demo())
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":
