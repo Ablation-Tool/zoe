@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39713159-01",
+  "source_document_id": "pmid-39713159",
+  "split": "development",
+  "context_sha256": "ef80e7082e684563c87ccf937313dcd3f0be2501c5fd050b08d5651258fa3c55",
+  "target": "disease",
+  "target_position": 40,
+  "target_token_id": 3653,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999998,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    3,
+    3,
+    2,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 1.3110195019237607,
+  "maximum_probability": 0.7288951363870644,
+  "top_10_probability_mass": 0.9965922184702927,
+  "target_probability": 0.14176871463941967,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 8936,
+      "token": "disorder",
+      "probability": 0.7288951363870644
+    },
+    {
+      "token_id": 3653,
+      "token": "disease",
+      "probability": 0.14176871463941967
+    },
+    {
+      "token_id": 9318,
+      "token": "syndrome",
+      "probability": 0.09539347033203288
+    },
+    {
+      "token_id": 3879,
+      "token": "condition",
+      "probability": 0.01910605997573368
+    },
+    {
+      "token_id": 19019,
+      "token": "disturbance",
+      "probability": 0.003817791515998437
+    },
+    {
+      "token_id": 11759,
+      "token": "disorders",
+      "probability": 0.0037330139957849795
+    },
+    {
+      "token_id": 8131,
+      "token": "diseases",
+      "probability": 0.00125949520900003
+    },
+    {
+      "token_id": 2463,
+      "token": "problem",
+      "probability": 0.0010983249750201106
+    },
+    {
+      "token_id": 6946,
+      "token": "illness",
+      "probability": 0.0008581363990317177
+    },
+    {
+      "token_id": 1352,
+      "token": "state",
+      "probability": 0.0006620750412067981
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "dea89e5dfe9a1e37065f72b8f04693bf40d9d4bbd86fad291796a0c57a1410b4",
+  "input_ids_sha256": "d3be94bc61d62adda540bdfdaf7520e7cd621724d600273c752aa1764cd3d4a6",
+  "original_input_ids_sha256": "d74382a3030e739912f458028e9e8f2ccccc659b16eea07a5d8c2eecb93a4767"
+}

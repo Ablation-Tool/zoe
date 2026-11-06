@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-38803272-03",
+  "source_document_id": "pmid-38803272",
+  "split": "test",
+  "context_sha256": "0f33f786b2c78ba1d5b3aca400d4ad00d410938bd7b98093be06ffc40a3ee90d",
+  "target": "acid",
+  "target_position": 190,
+  "target_token_id": 5190,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999998,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.024123220661215996,
+  "maximum_probability": 0.9978437958946967,
+  "top_10_probability_mass": 0.9999147821069276,
+  "target_probability": 0.9978437958946967,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 5190,
+      "token": "acid",
+      "probability": 0.9978437958946967
+    },
+    {
+      "token_id": 13087,
+      "token": "acids",
+      "probability": 0.0019844803821209614
+    },
+    {
+      "token_id": 6020,
+      "token": "terminal",
+      "probability": 1.7909726521805814e-05
+    },
+    {
+      "token_id": 14441,
+      "token": "tract",
+      "probability": 1.3383111572874294e-05
+    },
+    {
+      "token_id": 23767,
+      "token": "##tide",
+      "probability": 1.3011511168360477e-05
+    },
+    {
+      "token_id": 4954,
+      "token": "sequence",
+      "probability": 1.126783990927942e-05
+    },
+    {
+      "token_id": 4592,
+      "token": "protein",
+      "probability": 8.813874666062951e-06
+    },
+    {
+      "token_id": 5777,
+      "token": "domain",
+      "probability": 8.585407068278999e-06
+    },
+    {
+      "token_id": 9488,
+      "token": "repeat",
+      "probability": 7.193956129840562e-06
+    },
+    {
+      "token_id": 24456,
+      "token": "residue",
+      "probability": 6.3404030734132275e-06
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "c864dc648f58cbead1a9b5e3c3cac25626c930c656877c535826f9f688830cb8",
+  "input_ids_sha256": "327a9a1b1fbf8b7c26b77ce04e86b958e34a4f660ac07f9631b449b378b0efb3",
+  "original_input_ids_sha256": "831deb351ecd9bf9bdc0d54942fe2c0744795fe741278428930689ec13fa1c9a"
+}

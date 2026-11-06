@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39194690-01",
+  "source_document_id": "pmid-39194690",
+  "split": "development",
+  "context_sha256": "d7d0b66a75b8d37a1a4585dbf0da0f231bbc04f7eaed57c1df3167b6e0e6f9bd",
+  "target": "cells",
+  "target_position": 42,
+  "target_token_id": 3652,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0000000000000004,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.36311711373733413,
+  "maximum_probability": 0.962137634260388,
+  "top_10_probability_mass": 0.9947089988574511,
+  "target_probability": 0.962137634260388,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 3652,
+      "token": "cells",
+      "probability": 0.962137634260388
+    },
+    {
+      "token_id": 1449,
+      "token": "system",
+      "probability": 0.011806154628915478
+    },
+    {
+      "token_id": 2765,
+      "token": "cell",
+      "probability": 0.009731549946204251
+    },
+    {
+      "token_id": 16575,
+      "token": "complexes",
+      "probability": 0.006015800623047153
+    },
+    {
+      "token_id": 10936,
+      "token": "membrane",
+      "probability": 0.0013590348970684205
+    },
+    {
+      "token_id": 4413,
+      "token": "structures",
+      "probability": 0.0009411273117407872
+    },
+    {
+      "token_id": 2344,
+      "token": "systems",
+      "probability": 0.0008667574370220995
+    },
+    {
+      "token_id": 14749,
+      "token": "tissues",
+      "probability": 0.0008033078139337989
+    },
+    {
+      "token_id": 8798,
+      "token": "layers",
+      "probability": 0.0005255836199529682
+    },
+    {
+      "token_id": 5011,
+      "token": "islands",
+      "probability": 0.000522048319178372
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "01a4d814237b66ad3d1c42f35a9f1b5b40b4ba4f6b5d5d7c9f57fb92658a357d",
+  "input_ids_sha256": "34149662431f7dd433e89255038c9582a59cb83f0da911be8a84540ec356e4db",
+  "original_input_ids_sha256": "b2e5a60756ec97c6952dec552081e85a142cad6f31c596aecfefed09daa3f407"
+}

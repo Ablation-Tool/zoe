@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-38323478-03",
+  "source_document_id": "pmid-38323478",
+  "split": "development",
+  "context_sha256": "29e7e0b3ebb218f94465b9441ecdf038fa43a94def89bbb25587162505952fe3",
+  "target": "cells",
+  "target_position": 166,
+  "target_token_id": 3652,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    4,
+    2,
+    2,
+    2,
+    1,
+    1
+  ],
+  "entropy_bits": 2.0656200748011804,
+  "maximum_probability": 0.6664518814576285,
+  "top_10_probability_mass": 0.9401053205048565,
+  "target_probability": 0.6664518814576285,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 3652,
+      "token": "cells",
+      "probability": 0.6664518814576285
+    },
+    {
+      "token_id": 25693,
+      "token": "yeast",
+      "probability": 0.17924996704712245
+    },
+    {
+      "token_id": 10322,
+      "token": "mouse",
+      "probability": 0.023347175496465655
+    },
+    {
+      "token_id": 20479,
+      "token": "sperm",
+      "probability": 0.020168871707169016
+    },
+    {
+      "token_id": 2765,
+      "token": "cell",
+      "probability": 0.014676189257860317
+    },
+    {
+      "token_id": 10548,
+      "token": "bacteria",
+      "probability": 0.009975473674389444
+    },
+    {
+      "token_id": 16993,
+      "token": "neurons",
+      "probability": 0.007777802606579203
+    },
+    {
+      "token_id": 1769,
+      "token": "human",
+      "probability": 0.007573634107348535
+    },
+    {
+      "token_id": 9323,
+      "token": "chicken",
+      "probability": 0.005872090933534927
+    },
+    {
+      "token_id": 14105,
+      "token": "mice",
+      "probability": 0.00501223421675841
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "6862961710a90c60bb78ac9f08b6d35a2a3fdfb39726973f117276996abd2e40",
+  "input_ids_sha256": "640d7befe66767106d002f289f4467b2b72b9fab4a1ec1d7e7f5dff63a49b63b",
+  "original_input_ids_sha256": "ed2f932b8aa37cb06384a5bad82d5f9a00d4975e3bac81253ebc39c249a29d32"
+}

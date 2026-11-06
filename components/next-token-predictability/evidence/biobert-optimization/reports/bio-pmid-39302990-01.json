@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39302990-01",
+  "source_document_id": "pmid-39302990",
+  "split": "validation",
+  "context_sha256": "19abd8c1198ac1e3f1f661a0b01929ce3c039ae13d405f0e251a15d7bbecf4fd",
+  "target": "four",
+  "target_position": 34,
+  "target_token_id": 1300,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    4,
+    4,
+    3,
+    3,
+    1,
+    0
+  ],
+  "entropy_bits": 2.300686776773118,
+  "maximum_probability": 0.4935380559184268,
+  "top_10_probability_mass": 0.9659637802409659,
+  "target_probability": 0.2090026728284553,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 1103,
+      "token": "the",
+      "probability": 0.4935380559184268
+    },
+    {
+      "token_id": 1300,
+      "token": "four",
+      "probability": 0.2090026728284553
+    },
+    {
+      "token_id": 1421,
+      "token": "five",
+      "probability": 0.16376671190883735
+    },
+    {
+      "token_id": 1565,
+      "token": "six",
+      "probability": 0.05480132962654647
+    },
+    {
+      "token_id": 1199,
+      "token": "some",
+      "probability": 0.010876880597032517
+    },
+    {
+      "token_id": 125,
+      "token": "4",
+      "probability": 0.009865137547375755
+    },
+    {
+      "token_id": 1978,
+      "token": "seven",
+      "probability": 0.008771557691894822
+    },
+    {
+      "token_id": 1472,
+      "token": "different",
+      "probability": 0.006174063543556497
+    },
+    {
+      "token_id": 2700,
+      "token": "selected",
+      "probability": 0.004680314806301375
+    },
+    {
+      "token_id": 126,
+      "token": "5",
+      "probability": 0.004487055772538892
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "97dbccf7db0b282b216668545088c613308c40093227a0836bcc52c5dd0ec57f",
+  "input_ids_sha256": "57a5dc6b6ae9e767aa9e1c192b7122aba38abc9afafa3e9ebad2734338ea02ff",
+  "original_input_ids_sha256": "bb14f37ea41e72ed3abc35a3fe779d8dac8435422d17d6a1bfa7fa1658936faf"
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39728965-03",
+  "source_document_id": "pmid-39728965",
+  "split": "development",
+  "context_sha256": "9c37a43e91a239add09efd8135f62e91d65259eccdd7c35061e848884362f551",
+  "target": "proliferation",
+  "target_position": 132,
+  "target_token_id": 23766,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    10,
+    5,
+    2,
+    1,
+    0,
+    0
+  ],
+  "entropy_bits": 5.170231698758536,
+  "maximum_probability": 0.20525738385727918,
+  "top_10_probability_mass": 0.6899835403983876,
+  "target_probability": 0.040696133382818,
+  "target_rank": 6,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 16700,
+      "token": "developmental",
+      "probability": 0.20525738385727918
+    },
+    {
+      "token_id": 5947,
+      "token": "swimming",
+      "probability": 0.13695196541265114
+    },
+    {
+      "token_id": 1718,
+      "token": "development",
+      "probability": 0.08406772310444043
+    },
+    {
+      "token_id": 10348,
+      "token": "migration",
+      "probability": 0.06763185497254219
+    },
+    {
+      "token_id": 17505,
+      "token": "reproductive",
+      "probability": 0.0609574042343246
+    },
+    {
+      "token_id": 23766,
+      "token": "proliferation",
+      "probability": 0.040696133382818
+    },
+    {
+      "token_id": 10377,
+      "token": "laying",
+      "probability": 0.027010733583120172
+    },
+    {
+      "token_id": 3213,
+      "token": "growth",
+      "probability": 0.024597211929475817
+    },
+    {
+      "token_id": 16982,
+      "token": "mating",
+      "probability": 0.02245913404696946
+    },
+    {
+      "token_id": 3433,
+      "token": "settlement",
+      "probability": 0.02035399587476666
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "ce7f53eada7699ec229be00b2a426ac0e8b16051dcc1ae0810596fe60007d6af",
+  "input_ids_sha256": "a4bb714b3c62c5825bb23cf8f659ff2e4606126ffe932e9a1fe27e00c4a909b5",
+  "original_input_ids_sha256": "8549f4b2b5a3b20147b9c9128a9e2cb58234a162eba6d66a55b64f3a4ab2b915"
+}

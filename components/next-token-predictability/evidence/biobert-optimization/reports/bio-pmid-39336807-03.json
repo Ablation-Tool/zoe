@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39336807-03",
+  "source_document_id": "pmid-39336807",
+  "split": "development",
+  "context_sha256": "b97280112d93f47fd40a753c034e094ac0d1780e75ff3dbab742ef87db4ea1be",
+  "target": "definite",
+  "target_position": 179,
+  "target_token_id": 16428,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    6,
+    3,
+    1,
+    1,
+    1,
+    0
+  ],
+  "entropy_bits": 4.83456513504864,
+  "maximum_probability": 0.3964368226506024,
+  "top_10_probability_mass": 0.6653689400922379,
+  "target_probability": 4.925463525028835e-05,
+  "target_rank": 406,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 3209,
+      "token": "potential",
+      "probability": 0.3964368226506024
+    },
+    {
+      "token_id": 2732,
+      "token": "legal",
+      "probability": 0.06163204153419794
+    },
+    {
+      "token_id": 15380,
+      "token": "ethical",
+      "probability": 0.059635869958837344
+    },
+    {
+      "token_id": 2418,
+      "token": "significant",
+      "probability": 0.038283645491188525
+    },
+    {
+      "token_id": 1934,
+      "token": "social",
+      "probability": 0.02246931485763711
+    },
+    {
+      "token_id": 2332,
+      "token": "health",
+      "probability": 0.021673147428566568
+    },
+    {
+      "token_id": 27266,
+      "token": "societal",
+      "probability": 0.01896287936137415
+    },
+    {
+      "token_id": 2330,
+      "token": "clear",
+      "probability": 0.01744817767425265
+    },
+    {
+      "token_id": 2567,
+      "token": "numerous",
+      "probability": 0.014476902063224717
+    },
+    {
+      "token_id": 17575,
+      "token": "inherent",
+      "probability": 0.014350139072356537
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "634ff5a6ddf6c3dafe31355bc794d38956b436fbdd13e4fb244f7402dd38f353",
+  "input_ids_sha256": "9b3ae590fcedeac8712c4939d825e3dbdbecfca9f04346196613424e78752d0a",
+  "original_input_ids_sha256": "320616059a45faeba2d5fa85a2ab75959a743dfdf33f6ffa1963b77e352e6b89"
+}
