@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39194690-04",
+  "source_document_id": "pmid-39194690",
+  "split": "development",
+  "context_sha256": "d7d0b66a75b8d37a1a4585dbf0da0f231bbc04f7eaed57c1df3167b6e0e6f9bd",
+  "target": "progression",
+  "target_position": 240,
+  "target_token_id": 16147,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    4,
+    2,
+    2,
+    2,
+    1,
+    1
+  ],
+  "entropy_bits": 2.282066098015053,
+  "maximum_probability": 0.5193648795535442,
+  "top_10_probability_mass": 0.949615937142273,
+  "target_probability": 0.29726223581242417,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 1718,
+      "token": "development",
+      "probability": 0.5193648795535442
+    },
+    {
+      "token_id": 16147,
+      "token": "progression",
+      "probability": 0.29726223581242417
+    },
+    {
+      "token_id": 15299,
+      "token": "occurrence",
+      "probability": 0.04841038224154553
+    },
+    {
+      "token_id": 12645,
+      "token": "diagnosis",
+      "probability": 0.025660172758720283
+    },
+    {
+      "token_id": 3187,
+      "token": "risk",
+      "probability": 0.018906393451830063
+    },
+    {
+      "token_id": 1965,
+      "token": "process",
+      "probability": 0.012524734889770888
+    },
+    {
+      "token_id": 20997,
+      "token": "severity",
+      "probability": 0.010348315482337484
+    },
+    {
+      "token_id": 15415,
+      "token": "onset",
+      "probability": 0.006702805629990005
+    },
+    {
+      "token_id": 2016,
+      "token": "stage",
+      "probability": 0.005577665473112819
+    },
+    {
+      "token_id": 3855,
+      "token": "formation",
+      "probability": 0.004858351848997632
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "cb58ccc4800da293efc0d3a32ca5c5fb0793c7f3508ce255f3d05509dbe1fa36",
+  "input_ids_sha256": "c2a6013b5a71a614362f18b5a23e77590c736a77739b0535ce1691643549fd78",
+  "original_input_ids_sha256": "b2e5a60756ec97c6952dec552081e85a142cad6f31c596aecfefed09daa3f407"
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-38803272-02",
+  "source_document_id": "pmid-38803272",
+  "split": "test",
+  "context_sha256": "0f33f786b2c78ba1d5b3aca400d4ad00d410938bd7b98093be06ffc40a3ee90d",
+  "target": "issue",
+  "target_position": 115,
+  "target_token_id": 2486,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999997,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    5,
+    5,
+    2,
+    2,
+    1,
+    0
+  ],
+  "entropy_bits": 3.5075819069310525,
+  "maximum_probability": 0.38100259554898874,
+  "top_10_probability_mass": 0.8750033439709479,
+  "target_probability": 0.23995617341731673,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 4506,
+      "token": "challenge",
+      "probability": 0.38100259554898874
+    },
+    {
+      "token_id": 2486,
+      "token": "issue",
+      "probability": 0.23995617341731673
+    },
+    {
+      "token_id": 1444,
+      "token": "need",
+      "probability": 0.06529801890865701
+    },
+    {
+      "token_id": 2463,
+      "token": "problem",
+      "probability": 0.06147398888882472
+    },
+    {
+      "token_id": 7275,
+      "token": "gap",
+      "probability": 0.06032005477554318
+    },
+    {
+      "token_id": 26802,
+      "token": "limitation",
+      "probability": 0.01877697595936453
+    },
+    {
+      "token_id": 12133,
+      "token": "complexity",
+      "probability": 0.018374677474941318
+    },
+    {
+      "token_id": 7262,
+      "token": "difficulty",
+      "probability": 0.011521542907366275
+    },
+    {
+      "token_id": 2820,
+      "token": "situation",
+      "probability": 0.010005441948648223
+    },
+    {
+      "token_id": 20382,
+      "token": "obstacle",
+      "probability": 0.008273874141297176
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "e6e9f187137453a66efe5e95f49c7dce841005e20ab9afc6d24004b5672b2343",
+  "input_ids_sha256": "f682e1a69c9c8f35087909b539aabb2b391b8b5b8abfef435c6f286862242b72",
+  "original_input_ids_sha256": "831deb351ecd9bf9bdc0d54942fe2c0744795fe741278428930689ec13fa1c9a"
+}

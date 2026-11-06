@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39659589-01",
+  "source_document_id": "pmid-39659589",
+  "split": "development",
+  "context_sha256": "712c9737c47212f76952f1d8f41eec06c3158a70bd44b621a45e62a9dee047bb",
+  "target": "systems",
+  "target_position": 39,
+  "target_token_id": 2344,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0000000000000002,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    6,
+    3,
+    2,
+    2,
+    1,
+    0
+  ],
+  "entropy_bits": 3.1172307711042038,
+  "maximum_probability": 0.48190509285037214,
+  "top_10_probability_mass": 0.8720225291613564,
+  "target_probability": 0.07161855158214361,
+  "target_rank": 3,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 3652,
+      "token": "cells",
+      "probability": 0.48190509285037214
+    },
+    {
+      "token_id": 12023,
+      "token": "organisms",
+      "probability": 0.169260615064697
+    },
+    {
+      "token_id": 2344,
+      "token": "systems",
+      "probability": 0.07161855158214361
+    },
+    {
+      "token_id": 7865,
+      "token": "proteins",
+      "probability": 0.03708773928380217
+    },
+    {
+      "token_id": 1195,
+      "token": "we",
+      "probability": 0.029051676551332138
+    },
+    {
+      "token_id": 10799,
+      "token": "molecules",
+      "probability": 0.020471933119740143
+    },
+    {
+      "token_id": 14749,
+      "token": "tissues",
+      "probability": 0.0193363173081958
+    },
+    {
+      "token_id": 2833,
+      "token": "individuals",
+      "probability": 0.015651173853794036
+    },
+    {
+      "token_id": 5174,
+      "token": "subjects",
+      "probability": 0.01446321298654589
+    },
+    {
+      "token_id": 8131,
+      "token": "diseases",
+      "probability": 0.013176216560733535
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "5270bd74419c7cb8633943349d28c5a58a2ed0507828b87a7a9afe86790d9a61",
+  "input_ids_sha256": "9b5792970f20c50698b218a24172dae31ead2b2620c63c9a6161548c19569279",
+  "original_input_ids_sha256": "f8b343e6f0580b661db390a17a55ee9e816b9879c3c95580bce258c366034612"
+}
