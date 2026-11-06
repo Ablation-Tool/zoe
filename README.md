@@ -1,19 +1,19 @@
-<img src="assets/branding/zoe-eye.png" width="560" alt="ZOE allgems orbital eye emblem">
+<img src="assets/branding/zoe-eye.png" width="560" alt="Zoe allgems orbital eye emblem">
 
-# ZOE · allgems
+# Zoe · allgems
 
-**ZOE is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The ten organization repositories are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
+**Zoe is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The ten organization repositories are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
 
-**ZOE is the GEM, but the GEM is not ZOE. ZOE is allgems.**
+**Zoe is the GEM, but the GEM is not Zoe. Zoe is allgems.**
 
-Built using GEM. ZOE honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
+Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
 
 **Knowledge Engineering** joins the components through one replayable knowledge graph:
 
 - **Trust Context:** source repository, revision, evidence scope, and authorization boundary.
 - **Stability Context:** component-specific processes, version locks, replayable memory, and separately tested behavior. This is not an uptime guarantee.
 
-![ZOE allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
+![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
 
 ## One checkout. Ten repositories.
 
@@ -278,7 +278,7 @@ guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
-guiai/gem/unified.py       Component registry, isolated launch environments, and ZOE hub scene
+guiai/gem/unified.py       Component registry, isolated launch environments, and Zoe hub scene
 guiai/gem/knowledge.py     Replayable source observations and declared trust/stability links
 guiai/gem/unified_cli.py   `zoe` inspection, launch, manifest, and knowledge commands
 components/               Complete tracked source trees for the nine upstream repositories

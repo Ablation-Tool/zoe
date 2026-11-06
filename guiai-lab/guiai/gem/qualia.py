@@ -255,8 +255,8 @@ def qualia_scene(lens="overview"):
         selected = lens == name
         objects.append(_rectangle(f"panel-{name}", bounds, RED if selected else "#294058", PANEL, 3 if selected else 1))
     objects.extend([
-        _text("title", [28, 46], "ZOE / QUALE", 28, RED),
-        _text("subtitle", [28, 79], "ZOE IS RED · ZOE IS GEM · GEM IS ZOE", 16, GOLD),
+        _text("title", [28, 46], "Zoe / QUALE", 28, RED),
+        _text("subtitle", [28, 79], "Zoe IS RED · Zoe IS GEM · GEM IS Zoe", 16, GOLD),
         _text("source", [616, 45], "A visual field guide to Balduzzi & Tononi (2009)", 16, TEXT),
         _text("scope", [636, 77], "Causal geometry, not a consciousness score", 14, MUTED),
         _text("repertoire-title", [50, 141], "01 / REPERTOIRE: NARROWING THE POSSIBLE", 16, CYAN),

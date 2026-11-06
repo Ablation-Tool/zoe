@@ -45,7 +45,9 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(manifest["upstream_repository_count"], 9)
         self.assertEqual(manifest["entrypoint_count"], 11)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
-        self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe"} for row in manifest["components"]))
+        self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe", "host"} for row in manifest["components"]))
+        self.assertEqual(REGISTRY.source("chalkboard")["mode"], "bundled")
+        self.assertTrue(REGISTRY.source("chalkboard")["available"])
         for component in COMPONENTS:
             if component.revision is not None:
                 self.assertEqual(component.revision, lock["components"][component.checkout]["revision"])
@@ -159,7 +161,7 @@ class UnifiedSourceCase(unittest.TestCase):
             with contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(gem_main(["zoe", "--module", "unified", "--output", str(output)]), 0)
             text = output.read_text(encoding="utf-8")
-            self.assertIn("ZOE · ALLGEMS", text)
+            self.assertIn("Zoe · ALLGEMS", text)
             self.assertIn("Kevlar", text)
             self.assertIn("Chalkboard", text)
 

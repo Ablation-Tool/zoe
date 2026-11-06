@@ -265,12 +265,12 @@
   ],
   "entrypoint_count": 11,
   "execution": "explicit component launch only; no process is started by inspecting this manifest",
-  "identity": "ZOE is allgems",
+  "identity": "Zoe is allgems",
   "knowledge_engineering": {
     "stability_context": "component-specific processes, version locks, replayable memory, and separately tested behavior; not an uptime guarantee",
     "trust_context": "source, repository, revision, evidence scope, and authorization boundary"
   },
-  "product": "ZOE allgems knowledge-engineering distribution",
+  "product": "Zoe allgems knowledge-engineering distribution",
   "repository_count": 10,
   "root": "/home/cowboy/_projects/GEM",
   "schema_version": 1,

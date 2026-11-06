@@ -46,7 +46,7 @@ def build():
     parts.extend([
         '<circle cx="600" cy="382" r="48" fill="#0a1627" stroke="#67e8f9" stroke-width="2"/>',
         '<text x="600" y="397" fill="#d8f8ff" font-family="Lato, sans-serif" font-size="42" text-anchor="middle">Z</text>',
-        '<text x="600" y="752" fill="#b7cce3" font-family="Lato, sans-serif" font-size="11" letter-spacing="3" text-anchor="middle">ZOE · ALLGEMS</text>',
+        '<text x="600" y="752" fill="#b7cce3" font-family="Lato, sans-serif" font-size="11" letter-spacing="3" text-anchor="middle">Zoe · ALLGEMS</text>',
     ])
     return "".join(parts)
 
@@ -55,8 +55,8 @@ def render():
     svg_path = ROOT / "zoe-eye.svg"
     png_path = ROOT / "zoe-eye.png"
     if svg_path.exists() or png_path.exists():
-        raise FileExistsError("ZOE emblem exports will not overwrite existing files")
-    svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="ZOE allgems orbital eye emblem"><title>ZOE allgems orbital eye emblem</title>{build()}</svg>\n'
+        raise FileExistsError("Zoe emblem exports will not overwrite existing files")
+    svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="Zoe allgems orbital eye emblem"><title>Zoe allgems orbital eye emblem</title>{build()}</svg>\n'
     with svg_path.open("x", encoding="utf-8") as stream:
         stream.write(svg)
     converter = shutil.which("rsvg-convert")

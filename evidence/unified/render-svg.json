@@ -268,7 +268,7 @@
     "entrypoint_count": 11,
     "executed": false,
     "execution": "explicit component launch only; no process is started by inspecting this manifest",
-    "identity": "ZOE is allgems",
+    "identity": "Zoe is allgems",
     "knowledge": {
       "executed": false,
       "link_count": 10,
@@ -1211,7 +1211,7 @@
       },
       "schema_version": 1
     },
-    "product": "ZOE allgems knowledge-engineering distribution",
+    "product": "Zoe allgems knowledge-engineering distribution",
     "recommended_module": "unified",
     "repository_count": 10,
     "root": "/home/cowboy/_projects/GEM",

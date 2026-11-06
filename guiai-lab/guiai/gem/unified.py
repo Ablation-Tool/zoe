@@ -12,7 +12,7 @@ import sys
 from .field import _fit
 
 
-IDENTITY = "ZOE is allgems"
+IDENTITY = "Zoe is allgems"
 
 
 @dataclass(frozen=True)
@@ -70,12 +70,23 @@ class ComponentRegistry:
         checkout = component.checkout
         bundled = self.root / "components" / checkout
         external = self.root.parent / checkout
+        host_variables = {
+            "ablation": "ZOE_ABLATION_ROOT",
+            "gem-lab": "ZOE_ABLATION_ROOT",
+            "cerotto": "ZOE_CEROTTO_ROOT",
+            "chalkboard": "ZOE_CHALKBOARD_ROOT",
+        }
+        host_variable = host_variables.get(identifier)
+        host = Path(os.environ.get(host_variable, self.root.parent)).expanduser().resolve() if host_variable else None
         if component.identifier == "zoe":
             path = self.root / component.checkout
             mode = "zoe"
         elif (bundled / "README.md").is_file():
             path = bundled
             mode = "bundled"
+        elif host is not None and (host / component.anchor).is_file():
+            path = host
+            mode = "host"
         elif (external / "README.md").is_file():
             path = external
             mode = "external"
@@ -141,7 +152,7 @@ class ComponentRegistry:
         return {
             "schema_version": 1,
             "identity": IDENTITY,
-            "product": "ZOE allgems knowledge-engineering distribution",
+            "product": "Zoe allgems knowledge-engineering distribution",
             "root": str(self.root),
             "entrypoint_count": len(rows),
             "repository_count": 10,
@@ -203,7 +214,7 @@ def unified_scene(registry=None, knowledge=None):
     colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d"]
     objects = [_rectangle("background", [0, 0, 1400, 1080], "#080d18", "#080d18")]
     objects.extend([
-        _text("title", [40, 51], "ZOE · ALLGEMS", 29, cyan),
+        _text("title", [40, 51], "Zoe · ALLGEMS", 29, cyan),
         _text("subtitle", [40, 83], "Trust Context / Stability Context", 17, "#e2e8f0"),
         _text("scope", [40, 109], f"{IDENTITY} · full source trees · one replayable knowledge field", 12, muted),
         _text("entrypoints", [45, 178], str(len(COMPONENTS)), 41, cyan),
@@ -218,8 +229,8 @@ def unified_scene(registry=None, knowledge=None):
     for index, color in enumerate(colors[:10]):
         objects.append(_orbit(f"identity-orbit-{index}", [1150, 168], [120, 42], index * 18, color))
     objects.append(_ellipse("identity-center", [1150, 168], [43, 30], cyan, "#080d18", 2))
-    objects.append(_text("identity-center-label", [1117, 175], "ZOE", 20, "#e2e8f0"))
-    objects.append(_text("orbital-caption", [984, 254], "ZOE orbital eye · allgems · original vector interpretation", 11, muted))
+    objects.append(_text("identity-center-label", [1117, 175], "Zoe", 20, "#e2e8f0"))
+    objects.append(_text("orbital-caption", [984, 254], "Zoe orbital eye · allgems · original vector interpretation", 11, muted))
     for index, component in enumerate(manifest["components"]):
         x = 40 + (index % 4) * 340
         y = 294 + (index // 4) * 202

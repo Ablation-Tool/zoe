@@ -669,7 +669,7 @@ def field_scene(notebook):
     state = notebook.state()
     objects = [
         {"id": "background", "type": "rectangle", "bounds": [0, 0, 1200, 760], "stroke": "#070b14", "fill": "#070b14", "width": 1},
-        _text("title", [32, 40], "ZOE · BAYESIAN FIELD NOTEBOOK", 24, "#67e8f9"),
+        _text("title", [32, 40], "Zoe · BAYESIAN FIELD NOTEBOOK", 24, "#67e8f9"),
         _text("subtitle", [32, 68], "questions / claims / evidence / unified memory / next useful test", 13, "#9fb1c8"),
     ]
     question = state["questions"][-1] if state["questions"] else None

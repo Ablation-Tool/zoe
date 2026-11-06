@@ -1,6 +1,8 @@
-# ZOE · allgems: unified architecture and verification
+# Zoe · allgems: unified architecture and verification
 
-ZOE is a single source repository containing the ten public Ablation-Tool organization repositories, including Zoe. The original repositories remain independent upstream projects. This repository does not require submodules or a runtime download to inspect their source.
+Zoe is a single source repository containing the ten public Ablation-Tool organization repositories, including Zoe. The original repositories remain independent upstream projects. This repository does not require submodules or a runtime download to inspect their source.
+
+Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_CEROTTO_ROOT`, or `ZOE_CHALKBOARD_ROOT`. Bundled sources take precedence. Host sources are used only when their component anchors exist. Chalkboard remains a content library, not a GUI process.
 
 ## Source and provenance
 
@@ -43,7 +45,7 @@ python -m pip install ./guiai-lab
 zoe
 ```
 
-The native selector is **ZOE · allgems**. It supports:
+The native selector is **Zoe · allgems**. It supports:
 
 - Opening Zoe's Cognitive Field.
 - Launching the Ablation core CLI, native Ablation Lab, canonical GEM, HELEN, BRAIN, Cerotto, research workbench, Kevlar, and PDF verification.
@@ -97,10 +99,10 @@ Measured results for this integration:
 - Cerotto: **65 normal and 65 sanitizer tests passed**. Kevlar: **149 tests passed**. BRAIN: **16 tests passed**, including native workflows.
 - Research: **16 comparison cases** and **120 BioBERT cases verified**. PDF seal/verify and no-overwrite checks used a synthetic source record. Chalkboard template and prompt paths were checked.
 - Unified integration: **8 headless and 8 native tests passed**, including real component commands, source graph replay, native controls, and VDI checks.
-- Zoe regressions: **31 existing tests**, **36 cognitive/GEM/unified tests with two optional skips**, **29 core-stress tests**, and **21 native-stress tests passed**.
+- Zoe regressions: **31 existing tests with four optional skips**, **28 cognitive/GEM native regressions**, and **8 headless plus 8 native unified tests passed**.
 - Package: both wheel and source distribution built; the wheel installed into the isolated test runtime. The installed `zoe` entrypoint opened the native hub used for the screenshot below. The exported graph reloaded with 11 observations, 10 links, and 21 events. The actual VDI file passed `verify_vdi` in `vdi-verification.json`.
 
-Local integration corrections are limited to the unified hub and two component compatibility fixes. BRAIN uses the existing sibling `_callbacks` helper correctly. Ablation Lab reuses each button's themed pixbuf, updates its image only when that pixbuf changes, restores compact preferences synchronously, and lets the shutdown fallback reap an exited child even when the VTE callback has not run. No original test assertion was weakened.
+Product-facing text uses `Zoe` without changing lowercase commands, imports, or environment identifiers. Embedded host components resolve through their documented root overrides, including `ZOE_CHALKBOARD_ROOT`. BRAIN uses the existing sibling `_callbacks` helper correctly. Ablation Lab reuses each button's themed pixbuf, updates its image only when that pixbuf changes, restores compact preferences synchronously, and lets the shutdown fallback reap an exited child even when the VTE callback has not run. No original test assertion was weakened.
 
 `evidence/unified/verification.json` records these results and their scopes. `components.json` and `source-graph.json` contain the final source identity. `render-*.json`, `vdi-verification.json`, and `chalkboard.json` preserve the corresponding real exports in that directory. One unrelated process-stat race appeared once in `test_timeout_kills_the_entire_process_group`: `/proc/<pid>` disappeared between the test's existence check and read. The unchanged suite passed on rerun; its assertion was not modified.
 
@@ -119,7 +121,7 @@ Do not bulk-update all components without reviewing their changes. Update `compo
 
 ## Emblem and symbol references
 
-`assets/branding/zoe-eye.png` is the primary ZOE emblem, generated from the user-supplied eye/orbital reference by `assets/branding/render_eye.py`. The earlier `orbital-emblem.png` remains the source of the orbital motif. The G, E, and M symbol-grid references are preserved under `assets/branding/references/` with their source filenames in `assets/branding/PROVENANCE.md`. Historical recognition for Gary Kildall and the original Digital Research contributors is recorded in `NOTICE`.
+`assets/branding/zoe-eye.png` is the primary Zoe emblem, generated from the user-supplied eye/orbital reference by `assets/branding/render_eye.py`. The earlier `orbital-emblem.png` remains the source of the orbital motif. The G, E, and M symbol-grid references are preserved under `assets/branding/references/` with their source filenames in `assets/branding/PROVENANCE.md`. Historical recognition for Gary Kildall and the original Digital Research contributors is recorded in `NOTICE`.
 
 ![Native unified hub](images/gem-unified-native.png)
 
