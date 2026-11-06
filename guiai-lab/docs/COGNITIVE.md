@@ -74,4 +74,6 @@ The suite covers capacity and eviction, provenance, revision mismatches, negativ
 
 ## Scope
 
-This is an original software architecture inspired by the supplied memory-flow composition. It is **not ACT-R**, a trained neural network, a model of consciousness, or an autonomous agent. No CNN or regression forest is trained here. Anatomical artwork elsewhere in Zoe is illustrative or atlas-derived; this module uses no medical data. Accessible volume measures forecast breadth, not correctness. Human review remains the action boundary.
+This is an original software architecture inspired by the supplied memory-flow composition. It is **not ACT-R or Spaun**, a trained neural network, a model of consciousness, or an autonomous agent. No CNN or regression forest is trained here. Anatomical artwork elsewhere in Zoe is illustrative or atlas-derived; this module uses no medical data. Accessible volume measures forecast breadth, not correctness. Human review remains the action boundary.
+
+The [anatomical dialogue](images/zoe-cognitive-anatomy.png) pairs Zoe's existing organic brain artwork with the GSP memory pipeline. Inspired by the supplied [Cognitive architecture reference](https://en.wikiquote.org/wiki/Cognitive_architecture), it distinguishes sensory encoding, explicit transforms, decoding, and review. It does not map these operations to cortical regions or implement reward estimation, action selection, or motor output. The anatomical panel is illustrative; it is not a medical image or a model of Zoe's software.
