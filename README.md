@@ -137,6 +137,40 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 
 Cerotto-specific bridge execution has not been separately revalidated as part of Zoe. Cerotto remains a separate native C11 forensic engine with its own case store, guard, vault, agent permissions, and verification suite.
 
+## Create, play, and plot a course
+
+**Zoe Artline** is an original native vector workbench with quill and sketch paths, editable shapes and text, layers, groups, transformations, undo/redo, transactional merge, bounded JSON memory, and SVG/PNG/GEM VDI output. It draws inspiration from the supplied Artline manuals without copying proprietary code, fonts, clip art, or manual pages and without claiming legacy-format compatibility.
+
+```bash
+zoe artline
+zoe artline --empty
+zoe artline --output drawing.svg
+```
+
+![Zoe Artline vector workbench](guiai-lab/docs/images/zoe-artline-native.png)
+
+**Zoe Pentomino** turns the twelve five-square free pentominoes into a timed 6×10 spatial-practice laboratory. It includes seeded and masked bags, an orientation staging area, gravity, finite deadlines, full-row and hole measurements, verified replay, and a controlled comparison of 1, 5, 20, and 300-second budgets. Rows are counted rather than cleared. Results describe one strategy, not intelligence or a universal optimal deadline.
+
+```bash
+zoe pentomino
+zoe pentomino --masked
+zoe pentomino --compare --output pentomino-budgets.json
+```
+
+![Zoe Pentomino native timed practice](guiai-lab/docs/images/zoe-pentomino-native.png)
+
+**Zoe Practice Navigator** is an original five-page visual guide to time, space, packet layers, and the next attempt. It includes an editable instrument-inspired cover, a conserved-hourglass toy, synthetic network timing, and the Pentomino study. It is not certified flight material, a live network measurement, or a validated transformer defense.
+
+```bash
+zoe pilot
+zoe pilot --output zoe-practice-navigator.pdf
+zoe pilot --page hourglass --output hourglass.svg
+```
+
+![Zoe Practice Navigator cover](guiai-lab/docs/images/zoe-pilot-cover.png)
+
+Read the [Artline guide](guiai-lab/docs/ARTLINE.md), [Pentomino laboratory guide](guiai-lab/docs/PENTOMINO.md), [Practice Navigator guide](guiai-lab/docs/PILOT.md), and [complete five-page PDF](guiai-lab/docs/zoe-practice-navigator.pdf).
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)

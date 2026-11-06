@@ -58,7 +58,11 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    module_choices = ("unified", "brain", "field", "cognitive", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
+    for name, description in (("artline", "create, edit, or export an original Zoe vector drawing"), ("pentomino", "play, replay, or compare timed spatial challenges"), ("pilot", "open or export the original Zoe Practice Navigator guide")):
+        command = commands.add_parser(name, help=description)
+        command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
+
+    module_choices = ("unified", "brain", "field", "cognitive", "artline", "pentomino", "pilot", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
     atlas = commands.add_parser("atlas", help="open the native geometry atlas or export one module")
     atlas.add_argument("--module", choices=module_choices, default="procrustes")
     atlas.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")
@@ -108,8 +112,15 @@ def _print_report(report):
 
 
 def main(argv=None):
-    arguments = _parser().parse_args(argv)
+    raw_arguments = list(sys.argv[1:] if argv is None else argv)
+    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pilot"}:
+        from importlib import import_module
+        return import_module(f".{raw_arguments[0]}_view", __package__).main(raw_arguments[1:])
+    arguments = _parser().parse_args(raw_arguments)
     try:
+        if arguments.command in {"artline", "pentomino", "pilot"}:
+            from importlib import import_module
+            return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
         if arguments.command == "qualia":
             import math
             from .qualia import accessible_sweep, accessible_q_toy, q_arrow_annotation, reconstruct_filtration

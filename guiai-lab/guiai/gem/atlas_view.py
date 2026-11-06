@@ -187,6 +187,7 @@ class AtlasWindow(Gtk.Window):
         self.report = {}
         self.controls = {}
         self.updating = False
+        self.builtin_windows = {}
         self.source = deepcopy(DEFAULT_SOURCE)
         self.target = deepcopy(DEFAULT_TARGET)
         self.brain = BrainKernel()
@@ -297,7 +298,11 @@ class AtlasWindow(Gtk.Window):
         self.updating = True
         self.clear_controls()
         self.add_text(ATLAS_MODULES[self.module])
-        if self.module == "unified":
+        if self.module in {"artline", "pentomino", "pilot"}:
+            self.open_builtin(self.module)
+            self.add_action("Present the dedicated creative window", lambda *_args, identifier=self.module: self.open_builtin(identifier))
+            self.add_text("The dedicated editor remains interactive. This scene is a static Spatial IR preview and can be exported independently.")
+        elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
             for component in COMPONENTS:
@@ -454,6 +459,35 @@ class AtlasWindow(Gtk.Window):
         self.module = widget.get_active_id()
         self.build_controls()
 
+    def open_builtin(self, module):
+        if module in self.builtin_windows:
+            self.builtin_windows[module].present()
+            return self.builtin_windows[module]
+        if module == "artline":
+            from .artline import demo_document
+            from .artline_view import ArtlineWindow
+            window = ArtlineWindow(demo_document())
+        elif module == "pentomino":
+            from .pentomino_view import PentominoWindow
+            window = PentominoWindow()
+        elif module == "pilot":
+            from .artline_view import ArtlineWindow
+            from .pilot import cover_document
+            window = ArtlineWindow(cover_document())
+            window.set_title("Zoe Practice Navigator · editable original guide cover")
+        else:
+            raise ValueError(f"unknown built-in module: {module}")
+        self.builtin_windows[module] = window
+        window.connect("destroy", lambda *_args, identifier=module: self.builtin_windows.pop(identifier, None))
+        window.show_all()
+        return window
+
+    def destroy(self):
+        for window in list(self.builtin_windows.values()):
+            window.destroy()
+        self.builtin_windows.clear()
+        super().destroy()
+
     def on_control_changed(self, *_args):
         if not self.updating:
             self.refresh()
@@ -468,7 +502,10 @@ class AtlasWindow(Gtk.Window):
         return self.controls[key].get_active_id()
 
     def refresh(self):
-        if self.module == "unified":
+        if self.module in {"artline", "pentomino", "pilot"}:
+            from .atlas import default_document
+            self.scene, self.report = default_document(self.module)
+        elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
         elif self.module == "brain":
@@ -1022,6 +1059,15 @@ def show_atlas(module="procrustes", research_root=None):
 def launch_atlas(module="procrustes", research_root=None):
     if not os.environ.get("DISPLAY"):
         raise RuntimeError("the native geometry atlas requires a GTK display; use --output for headless export")
+    if module == "artline":
+        from .artline_view import launch_artline
+        return launch_artline()
+    if module == "pentomino":
+        from .pentomino_view import launch_pentomino
+        return launch_pentomino()
+    if module == "pilot":
+        from .pilot_view import launch_pilot
+        return launch_pilot()
     window = show_atlas(module, research_root=research_root)
     window.connect("destroy", Gtk.main_quit)
     Gtk.main()
