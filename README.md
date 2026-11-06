@@ -173,6 +173,20 @@ Read the [Artline guide](guiai-lab/docs/ARTLINE.md), [Pentomino laboratory guide
 
 **Every guide now has a visual PDF edition.** Browse the [visual collection index](guiai-lab/docs/VISUAL-GUIDES.md), open the [linked visual index PDF](guiai-lab/docs/zoe-visual-guides.pdf), or go directly to the [Artline](guiai-lab/docs/visual/zoe-artline-visual.pdf), [Pentomino](guiai-lab/docs/visual/zoe-pentomino-visual.pdf), [Cognitive Field](guiai-lab/docs/visual/zoe-cognitive-field-visual.pdf), [Qualia](guiai-lab/docs/visual/zoe-qualia-visual.pdf), [Geometry Atlas](guiai-lab/docs/visual/zoe-geometry-atlas-visual.pdf), [unified architecture](guiai-lab/docs/visual/zoe-unified-visual.pdf), and [Zoe](guiai-lab/docs/visual/zoe-living-geometry-visual.pdf) editions. The [Cognitive Field provenance appendix](guiai-lab/docs/visual/zoe-cognitive-provenance-visual.pdf) is included too.
 
+## Resilience and the project covenant
+
+The **Zoe Resilience Atlas** connects the 16 critical-infrastructure sectors with a synthetic waveform-signature laboratory. It illustrates continuity and dependency concepts from official CISA pages while preserving corroborated, ambiguous, and unmapped evidence states. It is not a live monitor, risk score, or controller for essential services.
+
+```bash
+zoe resilience
+zoe resilience --sector water --trace host40
+zoe resilience --output resilience.svg
+```
+
+![Zoe Resilience Atlas](guiai-lab/docs/images/zoe-resilience.png)
+
+The [Declaration of Creative and Epistemic Independence](DECLARATION.md) and [Zoe Constitution](CONSTITUTION.md) define the project's commitments to human agency, honesty, privacy, accessibility, provenance, reversibility, and explicit review. They are design covenants, not legal sovereignty or an authorization for autonomous action. Read the [Resilience guide](guiai-lab/docs/RESILIENCE.md) or its [visual edition](guiai-lab/docs/visual/zoe-resilience-visual.pdf), and see the visual [Constitution](guiai-lab/docs/visual/zoe-constitution-visual.pdf) and [Declaration](guiai-lab/docs/visual/zoe-declaration-visual.pdf).
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)

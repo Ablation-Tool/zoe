@@ -1,3 +1,5 @@
+include CONSTITUTION.md
+include DECLARATION.md
 include GEM.md
 include GEM-VISION.md
 include HARDENING.md

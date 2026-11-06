@@ -22,6 +22,9 @@ GUIDES = (
     ("GEOMETRY-ATLAS.md", "GEM Geometry Atlas", "zoe-geometry-atlas-visual.pdf", "images/geometry-atlas-procrustes.png"),
     ("UNIFIED.md", "Zoe allgems: unified architecture and verification", "zoe-unified-visual.pdf", "images/gem-unified.png"),
     ("ZOE.md", "Zoe: living geometry, inspectable futures", "zoe-living-geometry-visual.pdf", "images/zoe-brain.png"),
+    ("RESILIENCE.md", "Zoe Resilience Atlas", "zoe-resilience-visual.pdf", "images/zoe-resilience.png"),
+    ("../../CONSTITUTION.md", "Zoe Constitution", "zoe-constitution-visual.pdf", "images/gem-unified.png"),
+    ("../../DECLARATION.md", "Zoe Declaration of Creative and Epistemic Independence", "zoe-declaration-visual.pdf", "images/zoe-pilot-cover.png"),
     ("references/cognitive-field/PROVENANCE.md", "Cognitive Field visual provenance", "zoe-cognitive-provenance-visual.pdf", "images/zoe-cognitive-anatomy.png"),
 )
 INDEX_SOURCE = "VISUAL-GUIDES.md"
