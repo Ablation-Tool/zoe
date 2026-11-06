@@ -1,4 +1,4 @@
-# Zoe — living geometry, inspectable futures
+# Zoe
 
 **Zoe is a GEM and native graphical user interface for creative geometry, forecast inspection, and evidence-driven research.** It unifies GEM HELEN, Ablation's GEM, Cerotto's GEM, and BRAIN GEM without collapsing their security or evidence boundaries.
 
