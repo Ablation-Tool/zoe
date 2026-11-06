@@ -73,7 +73,15 @@ Cerotto-specific bridge execution has not been separately revalidated as part of
 
 The **Cognitive Field / General Symbol Processor (GSP)** is a working memory instrument, not just a diagram. GSP operates on explicit text, tags, IDs, revisions, and rule descriptions; it is not the historical General Problem Solver or a claim of general intelligence. It encodes sourced information into bounded working memory, makes declarative storage and revision-checked retrieval explicit, matches procedural descriptions against active tags, and turns successful matches into review-required proposals. Evictions, mismatches, negative matches, and forecasts remain in the same hash-chained event memory. No rule executes code, no measurement automatically changes belief, and no proposal authorizes action.
 
-Open it with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module cognitive`, or export the worked example with `PYTHONPATH=guiai-lab python -m guiai.gem cognitive --output cognitive-field.png`. JSON input reloads a saved field; JSON, SVG, PNG, and GEM VDI exports never overwrite an existing file. See the [Cognitive Field guide](guiai-lab/docs/COGNITIVE.md), [native screenshot](guiai-lab/docs/images/zoe-cognitive-native.png), [anatomical dialogue](guiai-lab/docs/images/zoe-cognitive-anatomy.png), and [worked event memory](evidence/cognitive-field/worked-example.json).
+Open it with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module cognitive`, or export the worked example with `PYTHONPATH=guiai-lab python -m guiai.gem cognitive --output cognitive-field.png`. JSON input reloads a saved field; JSON, SVG, PNG, and GEM VDI exports never overwrite an existing file. See the [Cognitive Field guide](guiai-lab/docs/COGNITIVE.md) and [worked event memory](evidence/cognitive-field/worked-example.json).
+
+### Native Cognitive Field
+
+![Zoe Cognitive Field running in the native GTK interface](guiai-lab/docs/images/zoe-cognitive-native.png)
+
+### Anatomical dialogue
+
+![Illustrative anatomy alongside Zoe's explicit symbolic memory architecture](guiai-lab/docs/images/zoe-cognitive-anatomy.png)
 
 This original software architecture is not ACT-R or Spaun, a trained neural network, or a consciousness model. The clock is an event ordinal, not physical time. Its accessible-volume measurement credits **Nicholas Michael Kloster, March 6, 2026**, as the sole creator of that original equation.
 
