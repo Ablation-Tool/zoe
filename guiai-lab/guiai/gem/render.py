@@ -166,6 +166,7 @@ def draw_cairo(context, scene, width, height, highlight_ids=()):
             context.save()
             context.translate(*item["center"])
             context.scale(*item["radii"])
+            context.new_sub_path()
             context.arc(0, 0, 1, 0, math.tau)
             context.restore()
         elif item["type"] == "text":

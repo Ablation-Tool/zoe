@@ -17,6 +17,7 @@ ATLAS_MODULES = {
     "pentomino": "Zoe Pentomino · timed spatial practice",
     "pilot": "Zoe Practice Navigator · original visual guide",
     "resilience": "Zoe Resilience Atlas · services and signal evidence",
+    "presence": "Zoe Presence · an explicit self-model, not sentience",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -419,6 +420,9 @@ def default_document(module, research_root=None):
     if module == "resilience":
         from .resilience import resilience_scene
         return resilience_scene()
+    if module == "presence":
+        from .presence import demo_presence, presence_scene
+        return presence_scene(demo_presence())
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":

@@ -177,7 +177,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -194,6 +194,8 @@ class AtlasWindow(Gtk.Window):
         self.field = FieldNotebook()
         from .cognitive import CognitiveField
         self.cognitive = CognitiveField()
+        from .presence import demo_presence
+        self.presence = presence if presence is not None else demo_presence()
         from .unified import ComponentRegistry
         self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
@@ -307,6 +309,15 @@ class AtlasWindow(Gtk.Window):
             self.add_combo("sector", "Infrastructure sector", tuple((identifier, sector["name"]) for identifier, sector in SECTORS.items()), "energy")
             self.add_combo("trace", "Synthetic evidence trace", tuple((identifier, identifier) for identifier in demo_traces()), "host80")
             self.add_text("Public sector concepts and a synthetic waveform-signature preview. No live monitoring, risk score, or automatic control.")
+        elif self.module == "presence":
+            from .resilience import SECTORS, demo_traces
+            self.add_combo("sector", "Attention sector", tuple((identifier, sector["name"]) for identifier, sector in SECTORS.items()), self.presence.attention["sector"])
+            self.add_combo("trace", "Evidence trace", tuple((identifier, identifier) for identifier in demo_traces()), self.presence.attention["trace"])
+            self.add_entry("presence_note", "Observation or correction note", "What remains unknown?")
+            self.add_action("Observe selected present frame", self.observe_presence)
+            self.add_action("Request metacognitive review", self.review_presence)
+            self.add_action("Correct self-model: preserve uncertainty", self.correct_presence)
+            self.add_text("A self-model is not a self. Expression glyphs are annotations, not emotions. No observation authorizes action.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -513,6 +524,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "resilience":
             from .resilience import resilience_scene
             self.scene, self.report = resilience_scene(self.choice("sector"), self.choice("trace"))
+        elif self.module == "presence":
+            from .presence import presence_scene
+            self.scene, self.report = presence_scene(self.presence)
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -889,6 +903,35 @@ class AtlasWindow(Gtk.Window):
         self.brain.volume_bridge.minimum = minimum
         self.brain.volume_bridge.maximum = maximum
 
+    def observe_presence(self, *_args):
+        try:
+            sector, trace = self.choice("sector"), self.choice("trace")
+            self.presence.focus(sector, trace, "explicit native selection")
+            note = self.controls["presence_note"].get_text().strip() or f"Selected {sector} and {trace}."
+            self.presence.observe(note, "explicit native observation")
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": str(error)}
+            self.update_summary()
+
+    def review_presence(self, *_args):
+        try:
+            note = self.controls["presence_note"].get_text().strip() or "Review the current self-model and its limitations"
+            self.presence.review(note)
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": str(error)}
+            self.update_summary()
+
+    def correct_presence(self, *_args):
+        try:
+            note = self.controls["presence_note"].get_text().strip() or "A self-model does not establish subjective experience."
+            self.presence.correct(note)
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": str(error)}
+            self.update_summary()
+
     def observe_brain(self, *_args, next_in_sequence=False):
         try:
             self.configure_brain_band()
@@ -975,7 +1018,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
