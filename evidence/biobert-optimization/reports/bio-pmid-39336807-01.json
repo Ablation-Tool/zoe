@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39336807-01",
+  "source_document_id": "pmid-39336807",
+  "split": "development",
+  "context_sha256": "b97280112d93f47fd40a753c034e094ac0d1780e75ff3dbab742ef87db4ea1be",
+  "target": "insights",
+  "target_position": 79,
+  "target_token_id": 24180,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    3,
+    2,
+    2,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 2.0183463197990297,
+  "maximum_probability": 0.7122134894187836,
+  "top_10_probability_mass": 0.9311994918776932,
+  "target_probability": 0.00018709537710179667,
+  "target_rank": 71,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 4893,
+      "token": "opinion",
+      "probability": 0.7122134894187836
+    },
+    {
+      "token_id": 11089,
+      "token": "opinions",
+      "probability": 0.13550974118738954
+    },
+    {
+      "token_id": 9068,
+      "token": "commentary",
+      "probability": 0.021361666707848417
+    },
+    {
+      "token_id": 10923,
+      "token": "consensus",
+      "probability": 0.016320321790059593
+    },
+    {
+      "token_id": 8724,
+      "token": "experts",
+      "probability": 0.009590434981647536
+    },
+    {
+      "token_id": 11717,
+      "token": "expertise",
+      "probability": 0.009334464087204545
+    },
+    {
+      "token_id": 11859,
+      "token": "recommendations",
+      "probability": 0.007989720148317793
+    },
+    {
+      "token_id": 9228,
+      "token": "judgment",
+      "probability": 0.007025906533216925
+    },
+    {
+      "token_id": 18261,
+      "token": "consultation",
+      "probability": 0.006265028192601511
+    },
+    {
+      "token_id": 5962,
+      "token": "panel",
+      "probability": 0.005588718830623773
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "fedae2ae25ccce5cdcfee2fd2c25d68c22445d43f2d9df78b92361955d5af0d2",
+  "input_ids_sha256": "eda25a0c29f12ea0d4e0c8666bbc7071b1dd10a38fdefbcd13f9738cfb2d8a5b",
+  "original_input_ids_sha256": "320616059a45faeba2d5fa85a2ab75959a743dfdf33f6ffa1963b77e352e6b89"
+}

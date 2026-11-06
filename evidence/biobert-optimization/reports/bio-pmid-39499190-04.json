@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39499190-04",
+  "source_document_id": "pmid-39499190",
+  "split": "development",
+  "context_sha256": "d40ecb2b1def7441cd02a54266161009b9204c5ba47a5c030c8eeacfeedb14c9",
+  "target": "genes",
+  "target_position": 264,
+  "target_token_id": 9077,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    9,
+    3,
+    2,
+    1,
+    0,
+    0
+  ],
+  "entropy_bits": 5.589561561198617,
+  "maximum_probability": 0.1945381229326307,
+  "top_10_probability_mass": 0.6017899498010022,
+  "target_probability": 0.1945381229326307,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 9077,
+      "token": "genes",
+      "probability": 0.1945381229326307
+    },
+    {
+      "token_id": 7865,
+      "token": "proteins",
+      "probability": 0.10078048907615411
+    },
+    {
+      "token_id": 2838,
+      "token": "expression",
+      "probability": 0.09219764035001916
+    },
+    {
+      "token_id": 18004,
+      "token": "markers",
+      "probability": 0.043503676050524145
+    },
+    {
+      "token_id": 3622,
+      "token": "analysis",
+      "probability": 0.04200242431509004
+    },
+    {
+      "token_id": 5644,
+      "token": "components",
+      "probability": 0.032825272209933386
+    },
+    {
+      "token_id": 3001,
+      "token": "levels",
+      "probability": 0.03027791847449179
+    },
+    {
+      "token_id": 21138,
+      "token": "profiles",
+      "probability": 0.023840957661260577
+    },
+    {
+      "token_id": 3246,
+      "token": "activity",
+      "probability": 0.02245932629774813
+    },
+    {
+      "token_id": 2527,
+      "token": "studies",
+      "probability": 0.019364122433150055
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "0017751113dd674cfa67b29068cdbdf7fa84a851e6bafd754c5cc37f766d2088",
+  "input_ids_sha256": "f9d8728fca07d0b04e469d84c6760bcf07bea04f9b43c23dd7be32867cc91dfc",
+  "original_input_ids_sha256": "1ecf8c567e6b576f082db812d2ad6181102c5625f85073c6dbf92ae677f94793"
+}

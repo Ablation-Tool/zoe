@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39768193-04",
+  "source_document_id": "pmid-39768193",
+  "split": "development",
+  "context_sha256": "44885935d5b7e2cbeb1417cb452780e9b913d9205395b88b9addf821be721b98",
+  "target": "thereby",
+  "target_position": 251,
+  "target_token_id": 8267,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    7,
+    5,
+    2,
+    2,
+    1,
+    0
+  ],
+  "entropy_bits": 2.9335953936305597,
+  "maximum_probability": 0.4164528062585497,
+  "top_10_probability_mass": 0.9464562365339539,
+  "target_probability": 0.05457371215396817,
+  "target_rank": 5,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 9046,
+      "token": "potentially",
+      "probability": 0.4164528062585497
+    },
+    {
+      "token_id": 3566,
+      "token": "possibly",
+      "probability": 0.18006397828268364
+    },
+    {
+      "token_id": 4444,
+      "token": "ultimately",
+      "probability": 0.09442702352365935
+    },
+    {
+      "token_id": 2456,
+      "token": "thus",
+      "probability": 0.0877387683712138
+    },
+    {
+      "token_id": 8267,
+      "token": "thereby",
+      "probability": 0.05457371215396817
+    },
+    {
+      "token_id": 2620,
+      "token": "likely",
+      "probability": 0.043506637405257335
+    },
+    {
+      "token_id": 2028,
+      "token": "eventually",
+      "probability": 0.03644543424815023
+    },
+    {
+      "token_id": 1930,
+      "token": "probably",
+      "probability": 0.014292450240129016
+    },
+    {
+      "token_id": 11280,
+      "token": "presumably",
+      "probability": 0.01201476144403217
+    },
+    {
+      "token_id": 14007,
+      "token": "consequently",
+      "probability": 0.006940664606310527
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "91cc409cb251c0ca5ca49b6196023cac6c10ecb548a166c40ca947187c026ceb",
+  "input_ids_sha256": "5e4cf8eb8b8e1eed40267650550cc8956b53855f7fafa6f55b1e15a29470b28f",
+  "original_input_ids_sha256": "64a8781f4edad8eb283a29d81dc5bb4c249945c3f392af71265ad85453d7abd0"
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39678806-01",
+  "source_document_id": "pmid-39678806",
+  "split": "validation",
+  "context_sha256": "2f9e6b6711a71da446107b8ff3ee8334eab5639911b34c7c7367a6f7c6882375",
+  "target": "result",
+  "target_position": 45,
+  "target_token_id": 1871,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.1726675732300212,
+  "maximum_probability": 0.9782515641884761,
+  "top_10_probability_mass": 0.999273013942598,
+  "target_probability": 0.9782515641884761,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 1871,
+      "token": "result",
+      "probability": 0.9782515641884761
+    },
+    {
+      "token_id": 9547,
+      "token": "consequence",
+      "probability": 0.01959426202840988
+    },
+    {
+      "token_id": 1272,
+      "token": "because",
+      "probability": 0.0003012623161796312
+    },
+    {
+      "token_id": 2686,
+      "token": "results",
+      "probability": 0.00027754855585115885
+    },
+    {
+      "token_id": 9386,
+      "token": "outcome",
+      "probability": 0.00022631173447225256
+    },
+    {
+      "token_id": 3142,
+      "token": "basis",
+      "probability": 0.00019565653893911263
+    },
+    {
+      "token_id": 9284,
+      "token": "reflection",
+      "probability": 0.00014800161092370055
+    },
+    {
+      "token_id": 3317,
+      "token": "product",
+      "probability": 0.00011883669897942116
+    },
+    {
+      "token_id": 2629,
+      "token": "effect",
+      "probability": 0.00010452703976712637
+    },
+    {
+      "token_id": 8421,
+      "token": "consequences",
+      "probability": 5.504323059959579e-05
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "cb6e94a90888b8aa8222aa72d0cd8cbd6f4310829575971cc9c6c7ef3022edf6",
+  "input_ids_sha256": "e174eee903522e1143d07b80d43cc8a814aa6d7bd74b2727f4b9d8ed2aaa162f",
+  "original_input_ids_sha256": "79be19e46078f87fdfa45bcd56e106a8a4cdf42ed7d1f7f33c80142e70482ac1"
+}

@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39791729-03",
+  "source_document_id": "pmid-39791729",
+  "split": "test",
+  "context_sha256": "9824cd19c066a3595725593d21a05449e874976475bc5e0e05ebcacd2cc4884d",
+  "target": "models",
+  "target_position": 158,
+  "target_token_id": 3584,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999998,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    5,
+    3,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 2.063572862953353,
+  "maximum_probability": 0.6814470417036924,
+  "top_10_probability_mass": 0.9545449906027326,
+  "target_probability": 0.09831097802623168,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 2527,
+      "token": "studies",
+      "probability": 0.6814470417036924
+    },
+    {
+      "token_id": 3584,
+      "token": "models",
+      "probability": 0.09831097802623168
+    },
+    {
+      "token_id": 9505,
+      "token": "findings",
+      "probability": 0.06345242862419437
+    },
+    {
+      "token_id": 2233,
+      "token": "data",
+      "probability": 0.025668168282795584
+    },
+    {
+      "token_id": 2686,
+      "token": "results",
+      "probability": 0.02337322838729228
+    },
+    {
+      "token_id": 11041,
+      "token": "investigations",
+      "probability": 0.018061052071888822
+    },
+    {
+      "token_id": 18460,
+      "token": "analyses",
+      "probability": 0.01709011119099202
+    },
+    {
+      "token_id": 8015,
+      "token": "approaches",
+      "probability": 0.010572923800852802
+    },
+    {
+      "token_id": 9959,
+      "token": "observations",
+      "probability": 0.008517129183375386
+    },
+    {
+      "token_id": 17707,
+      "token": "discoveries",
+      "probability": 0.008051929331417214
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "a322888406296122104e81aee540623a525f98d96378949f766d9a3a8d268fb2",
+  "input_ids_sha256": "f99aa0773170d37943f18f7fa039a24ce505b08883a4fa8ed40a9d8617379939",
+  "original_input_ids_sha256": "010edca02a1361170716cfa1574fb26c000f51163de2b46dd5af278ceecbf907"
+}

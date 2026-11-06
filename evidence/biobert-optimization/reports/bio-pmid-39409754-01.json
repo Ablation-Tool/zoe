@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39409754-01",
+  "source_document_id": "pmid-39409754",
+  "split": "development",
+  "context_sha256": "66e4cac6d455f2b6acdad14b62780dc67db70b859c692041e225d04630a81eb5",
+  "target": "inflammatory",
+  "target_position": 58,
+  "target_token_id": 22653,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.18956970544371765,
+  "maximum_probability": 0.9815520450673105,
+  "top_10_probability_mass": 0.9978409531632682,
+  "target_probability": 0.9815520450673105,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 22653,
+      "token": "inflammatory",
+      "probability": 0.9815520450673105
+    },
+    {
+      "token_id": 4182,
+      "token": "cancer",
+      "probability": 0.00620214708669243
+    },
+    {
+      "token_id": 24970,
+      "token": "inflammation",
+      "probability": 0.00559819493051562
+    },
+    {
+      "token_id": 14601,
+      "token": "tumor",
+      "probability": 0.002438943614104257
+    },
+    {
+      "token_id": 14195,
+      "token": "aging",
+      "probability": 0.0008669210831895882
+    },
+    {
+      "token_id": 6600,
+      "token": "stress",
+      "probability": 0.00033941639281211545
+    },
+    {
+      "token_id": 20342,
+      "token": "infectious",
+      "probability": 0.000236134439958169
+    },
+    {
+      "token_id": 27850,
+      "token": "mitochondrial",
+      "probability": 0.00022444989077569511
+    },
+    {
+      "token_id": 17972,
+      "token": "diabetes",
+      "probability": 0.000209800911355142
+    },
+    {
+      "token_id": 22256,
+      "token": "oxidation",
+      "probability": 0.00017289974655469798
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "97e7ed58c3a5bf641f60a852290de3eea2ac60d520eac6417406d710daff9b8b",
+  "input_ids_sha256": "0c5af3569e42ff89cafd9a97800fed7dddd13117dae342cfa890c869d13548fa",
+  "original_input_ids_sha256": "9cf0e44184b57a8c9ac7797f6f7323e187b884fa9d8cc2baaf1fc4d8b5881b95"
+}

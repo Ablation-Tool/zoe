@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39768223-02",
+  "source_document_id": "pmid-39768223",
+  "split": "validation",
+  "context_sha256": "8edf072f60810178c0a80bca917fbd5ad2bdaa02ad822dbddc51017066343f0c",
+  "target": "post",
+  "target_position": 185,
+  "target_token_id": 2112,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    5,
+    4,
+    4,
+    3,
+    1,
+    0
+  ],
+  "entropy_bits": 2.96187538114758,
+  "maximum_probability": 0.3072518258155048,
+  "top_10_probability_mass": 0.9346459857409346,
+  "target_probability": 0.11087384010194656,
+  "target_rank": 4,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 14601,
+      "token": "tumor",
+      "probability": 0.3072518258155048
+    },
+    {
+      "token_id": 1884,
+      "token": "co",
+      "probability": 0.2863194625106996
+    },
+    {
+      "token_id": 1231,
+      "token": "re",
+      "probability": 0.16024225140571846
+    },
+    {
+      "token_id": 2112,
+      "token": "post",
+      "probability": 0.11087384010194656
+    },
+    {
+      "token_id": 2191,
+      "token": "self",
+      "probability": 0.025538388689347637
+    },
+    {
+      "token_id": 3073,
+      "token": "pre",
+      "probability": 0.014265287903998652
+    },
+    {
+      "token_id": 26965,
+      "token": "transplant",
+      "probability": 0.009591794651331522
+    },
+    {
+      "token_id": 2765,
+      "token": "cell",
+      "probability": 0.008261014100306743
+    },
+    {
+      "token_id": 11650,
+      "token": "immune",
+      "probability": 0.006988108612231317
+    },
+    {
+      "token_id": 7918,
+      "token": "tissue",
+      "probability": 0.005314011949849257
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "01899a7a54247ca1cd455e81ce1dcd1b27ed20a040208ccd6ed43a956a6b1eec",
+  "input_ids_sha256": "c766640009536e685aafa16a0ceaedf0f2267e6e846cdfc3d09506535eb813cc",
+  "original_input_ids_sha256": "0e90bc48ea5453295d4c57ac9105668c2ff932feab4ceabcad14678d4850d64f"
+}
