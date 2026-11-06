@@ -28,6 +28,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Resilience Atlas sector and waveform evidence](images/zoe-resilience.png){width=72%}](visual/zoe-resilience-visual.pdf)
 
+**[Zoe Presence](visual/zoe-presence-visual.pdf)**
+
+[![Zoe Presence self-model](images/zoe-presence.png){width=72%}](visual/zoe-presence-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**

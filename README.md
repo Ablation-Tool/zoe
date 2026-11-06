@@ -187,6 +187,20 @@ zoe resilience --output resilience.svg
 
 The [Declaration of Creative and Epistemic Independence](DECLARATION.md) and [Zoe Constitution](CONSTITUTION.md) define the project's commitments to human agency, honesty, privacy, accessibility, provenance, reversibility, and explicit review. They are design covenants, not legal sovereignty or an authorization for autonomous action. Read the [Resilience guide](guiai-lab/docs/RESILIENCE.md) or its [visual edition](guiai-lab/docs/visual/zoe-resilience-visual.pdf), and see the visual [Constitution](guiai-lab/docs/visual/zoe-constitution-visual.pdf) and [Declaration](guiai-lab/docs/visual/zoe-declaration-visual.pdf).
 
+## Presence: a self-model, not a self
+
+**Zoe Presence** is a metacognitive instrument with explicit attention, sourced observations, event-ordinal time, known unknowns, user correction, and review-required decisions. Expression glyphs make the interface playful without claiming emotion or consciousness. A self-model is not a self.
+
+```bash
+zoe presence
+zoe presence --sector water --trace host40
+zoe presence --observe "A documented example is not live telemetry" --review
+```
+
+![Zoe Presence](guiai-lab/docs/images/zoe-presence.png)
+
+Read the [Presence guide](guiai-lab/docs/PRESENCE.md) or its [visual edition](guiai-lab/docs/visual/zoe-presence-visual.pdf).
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
