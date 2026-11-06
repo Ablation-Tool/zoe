@@ -20,7 +20,7 @@ A successful evidence node is `complete_scoped` only for the stated source/VDI/d
 
 ## Zoe and the native geometry atlas
 
-Open **Chart → GEM → Zoe / MASTER GEM**, or run `gem zoe`, to enter the unified workspace. `gem master` and `gem brain` are compatibility aliases. Zoe adds deterministic BRAIN observation and recommendations, lazy HELEN predictions, exact toy multi-horizon continuations, and hash-checked research evidence to the native atlas. See [Zoe](docs/ZOE.md) for launch, evidence scope, and verification.
+Open **Chart → GEM → Zoe / MASTER GEM**, or run `gem zoe`, to enter the unified workspace. `gem master` and `gem brain` are compatibility aliases. Zoe adds deterministic BRAIN observation and recommendations, lazy HELEN predictions, exact toy multi-horizon continuations, and hash-checked research evidence to the native atlas. See [Zoe](docs/Zoe.md) for launch, evidence scope, and verification.
 
 Run `gem atlas` to explore the native Procrustes, ellipse, parabola, circle, modular-clock, graph, accessible-volume, and onset-forecast modules directly. Procrustes landmarks support pointer dragging and keyboard movement; other modules expose their geometric parameters beside the Cairo view. **Export SVG**, **Export PNG**, and **Export GEM + VDI** all use the current Spatial IR scene.
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "identity": "ZOE is allgems",
+  "identity": "Zoe is allgems",
   "repository": "https://github.com/Ablation-Tool/zoe",
   "baseline_revision": "a658fbb30227d5916f2cb472ba4757057543e409",
   "component_results": {
@@ -55,10 +55,10 @@
   },
   "zoe_regressions": {
     "existing_passed": 31,
-    "cognitive_gem_unified_passed": 36,
-    "optional_skips": 2,
-    "core_stress_passed": 29,
-    "native_stress_passed": 21
+    "optional_skips": 4,
+    "cognitive_and_gem_native_passed": 28,
+    "unified_headless_passed": 8,
+    "unified_native_passed": 8
   },
   "unified_results": {
     "headless_passed": 8,
@@ -78,6 +78,8 @@
     "native_screenshot": "../../guiai-lab/docs/images/gem-unified-native.png"
   },
   "local_integration_corrections": [
+    "Product-facing text uses Zoe without changing lowercase command, import, or environment identifiers.",
+    "Embedded host components resolve through documented root overrides, including ZOE_CHALKBOARD_ROOT.",
     "BRAIN atlas views use the existing sibling _callbacks helper.",
     "Ablation Lab reuses themed pixbufs and avoids redundant image replacement.",
     "Ablation Lab restores compact preferences synchronously.",

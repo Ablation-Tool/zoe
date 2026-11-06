@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "identity": "ZOE is allgems",
+  "identity": "Zoe is allgems",
   "zoe_baseline": "f30c981",
   "knowledge_engineering": {
     "trust_context": "source, repository, revision, evidence scope, and authorization boundary",

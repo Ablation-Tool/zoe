@@ -9,7 +9,7 @@ from .qualia import qualia_scene
 from .volume import measure_probabilities
 
 ATLAS_MODULES = {
-    "unified": "ZOE · allgems",
+    "unified": "Zoe · allgems",
     "brain": "Zoe · BRAIN orchestration",
     "field": "Zoe · Bayesian field notebook",
     "cognitive": "Z.O.E. · Cognitive Field / GSP",

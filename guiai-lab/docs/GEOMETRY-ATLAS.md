@@ -22,7 +22,7 @@ gem atlas --module procrustes
 PYTHONPATH=guiai-lab python -m guiai.gem zoe
 ```
 
-See [Zoe — living geometry, inspectable futures](ZOE.md) for BRAIN observation, exact multi-horizon continuations, and research-pack ingestion. In GUIAI Lab, open **Chart → GEM → Zoe / MASTER GEM**. The native window is independent of the investigation scene; the existing Lab selection, evidence states, and session history remain unchanged.
+See [Zoe — living geometry, inspectable futures](Zoe.md) for BRAIN observation, exact multi-horizon continuations, and research-pack ingestion. In GUIAI Lab, open **Chart → GEM → Zoe / MASTER GEM**. The native window is independent of the investigation scene; the existing Lab selection, evidence states, and session history remain unchanged.
 
 Headless export does not require GTK:
 
