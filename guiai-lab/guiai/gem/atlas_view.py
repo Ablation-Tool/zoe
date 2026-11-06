@@ -318,6 +318,9 @@ class AtlasWindow(Gtk.Window):
             self.add_action("Request metacognitive review", self.review_presence)
             self.add_action("Correct self-model: preserve uncertainty", self.correct_presence)
             self.add_text("A self-model is not a self. Expression glyphs are annotations, not emotions. No observation authorizes action.")
+        elif self.module == "protocol":
+            self.add_spin("read_count", "SPECS read count", 0, 255, 1, 0x80)
+            self.add_text("Recovered frame formats and recorded AMAC replies. No hardware command is generated or sent.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -527,6 +530,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "presence":
             from .presence import presence_scene
             self.scene, self.report = presence_scene(self.presence)
+        elif self.module == "protocol":
+            from .protocol_lab import protocol_scene
+            self.scene, self.report = protocol_scene(self.integer("read_count"))
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -1018,7 +1024,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (

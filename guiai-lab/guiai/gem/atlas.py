@@ -18,6 +18,7 @@ ATLAS_MODULES = {
     "pilot": "Zoe Practice Navigator · original visual guide",
     "resilience": "Zoe Resilience Atlas · services and signal evidence",
     "presence": "Zoe Presence · an explicit self-model, not sentience",
+    "protocol": "Zoe Protocol Lab · SPECS and AMAC evidence",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -423,6 +424,9 @@ def default_document(module, research_root=None):
     if module == "presence":
         from .presence import demo_presence, presence_scene
         return presence_scene(demo_presence())
+    if module == "protocol":
+        from .protocol_lab import protocol_scene
+        return protocol_scene()
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":

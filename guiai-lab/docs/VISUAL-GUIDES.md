@@ -32,6 +32,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Zoe Presence self-model](images/zoe-presence.png){width=72%}](visual/zoe-presence-visual.pdf)
 
+**[Zoe Protocol Lab](visual/zoe-protocol-visual.pdf)**
+
+[![SPECS and AMAC protocol evidence](images/zoe-protocol.png){width=72%}](visual/zoe-protocol-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**

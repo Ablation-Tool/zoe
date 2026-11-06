@@ -201,6 +201,20 @@ zoe presence --observe "A documented example is not live telemetry" --review
 
 Read the [Presence guide](guiai-lab/docs/PRESENCE.md) or its [visual edition](guiai-lab/docs/visual/zoe-presence-visual.pdf).
 
+## Protocol Lab: inspect recovered formats
+
+**Zoe Protocol Lab** reuses the CERN protocol research as an interactive codec and visual guide. It validates SPECS checksums and ninth-bit markers, shows why 128 is not long while 129 is long, and decodes AMAC read/read-next replies with address and sequence wraparound. It does not execute hardware or claim new hardware validation.
+
+```bash
+zoe protocol
+zoe protocol --count 129
+zoe protocol --output protocol.svg
+```
+
+![Zoe Protocol Lab](guiai-lab/docs/images/zoe-protocol.png)
+
+Read the [Protocol Lab guide](guiai-lab/docs/PROTOCOL.md) or its [visual edition](guiai-lab/docs/visual/zoe-protocol-visual.pdf).
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)

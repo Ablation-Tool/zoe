@@ -55,7 +55,7 @@ The native selector is **Zoe · allgems**. It supports:
 
 The default native Ablation Lab command is `gem launch --no-agent`. Cerotto launches only after a case database, case ID, and conversation ID are supplied. No component starts merely because the hub or its scene was opened.
 
-The selector also opens built-in creative modules: **Zoe Artline**, **Zoe Pentomino**, **Zoe Practice Navigator**, **Zoe Resilience Atlas**, and **Zoe Presence**. These are part of the Zoe source tree, not additional upstream repositories or new component endpoints. They retain the ten-repository manifest and eleven existing source endpoints. Their editors, clocks, exports, and replay actions run only after explicit user interaction. The root [Declaration](../../DECLARATION.md) and [Constitution](../../CONSTITUTION.md) define the project's agency, honesty, privacy, accessibility, provenance, and review commitments.
+The selector also opens built-in creative modules: **Zoe Artline**, **Zoe Pentomino**, **Zoe Practice Navigator**, **Zoe Resilience Atlas**, **Zoe Presence**, and **Zoe Protocol Lab**. These are part of the Zoe source tree, not additional upstream repositories or new component endpoints. They retain the ten-repository manifest and eleven existing source endpoints. Their editors, clocks, exports, and replay actions run only after explicit user interaction. The root [Declaration](../../DECLARATION.md) and [Constitution](../../CONSTITUTION.md) define the project's agency, honesty, privacy, accessibility, provenance, and review commitments.
 
 Equivalent command examples:
 
