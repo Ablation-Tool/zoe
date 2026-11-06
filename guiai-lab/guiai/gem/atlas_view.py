@@ -302,6 +302,11 @@ class AtlasWindow(Gtk.Window):
             self.open_builtin(self.module)
             self.add_action("Present the dedicated creative window", lambda *_args, identifier=self.module: self.open_builtin(identifier))
             self.add_text("The dedicated editor remains interactive. This scene is a static Spatial IR preview and can be exported independently.")
+        elif self.module == "resilience":
+            from .resilience import SECTORS, demo_traces
+            self.add_combo("sector", "Infrastructure sector", tuple((identifier, sector["name"]) for identifier, sector in SECTORS.items()), "energy")
+            self.add_combo("trace", "Synthetic evidence trace", tuple((identifier, identifier) for identifier in demo_traces()), "host80")
+            self.add_text("Public sector concepts and a synthetic waveform-signature preview. No live monitoring, risk score, or automatic control.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -505,6 +510,9 @@ class AtlasWindow(Gtk.Window):
         if self.module in {"artline", "pentomino", "pilot"}:
             from .atlas import default_document
             self.scene, self.report = default_document(self.module)
+        elif self.module == "resilience":
+            from .resilience import resilience_scene
+            self.scene, self.report = resilience_scene(self.choice("sector"), self.choice("trace"))
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -974,6 +982,14 @@ class AtlasWindow(Gtk.Window):
                 f"h={self.report['horizon']} · τ={self.report['tau']:.3f} · "
                 f"A={self.report['accessible_volume']} · complement={self.report['complement_volume']} · "
                 f"universe={self.report['universe_size']} · exact toy Markov enumeration"
+            )
+        elif self.module == "resilience":
+            trace = self.report["trace"]
+            text = (
+                f"{self.report['sector_name']}\n"
+                f"Trace: {trace['storage_id']} · {trace['status']} · candidates={len(trace['candidates'])}\n"
+                f"Source: {self.report['source']}\n"
+                "No live monitoring · no risk score · no automatic action"
             )
         elif self.module == "volume":
             text = self.report["summary"]

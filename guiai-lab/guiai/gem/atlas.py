@@ -16,6 +16,7 @@ ATLAS_MODULES = {
     "artline": "Zoe Artline · vector workbench",
     "pentomino": "Zoe Pentomino · timed spatial practice",
     "pilot": "Zoe Practice Navigator · original visual guide",
+    "resilience": "Zoe Resilience Atlas · services and signal evidence",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -415,6 +416,9 @@ def default_document(module, research_root=None):
     if module == "pilot":
         from .pilot import guide_page
         return guide_page("cover")
+    if module == "resilience":
+        from .resilience import resilience_scene
+        return resilience_scene()
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":

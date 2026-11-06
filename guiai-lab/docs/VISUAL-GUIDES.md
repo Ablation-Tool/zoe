@@ -24,6 +24,16 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Unified knowledge-engineering hub](images/gem-unified.png){width=48%}](visual/zoe-unified-visual.pdf) [![Zoe BRAIN observation scene](images/zoe-brain.png){width=48%}](visual/zoe-living-geometry-visual.pdf)
 
+**[Zoe Resilience Atlas](visual/zoe-resilience-visual.pdf)**
+
+[![Resilience Atlas sector and waveform evidence](images/zoe-resilience.png){width=72%}](visual/zoe-resilience-visual.pdf)
+
+## Project covenant
+
+**[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**
+
+The covenant documents define human agency, honesty, privacy, provenance, reversibility, accessibility, and the measurement/evidence/action boundary. They are project design commitments, not legal sovereignty or an authorization for autonomous action.
+
 ## Provenance appendix
 
 **[Cognitive Field visual provenance](visual/zoe-cognitive-provenance-visual.pdf)**
