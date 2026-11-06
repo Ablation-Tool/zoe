@@ -1,0 +1,89 @@
+{
+  "documents": [
+    {
+      "bytes": 283618,
+      "output": "zoe-artline-visual.pdf",
+      "pages": 3,
+      "sha256": "f2b8268fbf4fdd426b16300b524613dc0586eb38641c8112b5323bfa20abd9aa",
+      "source": "ARTLINE.md",
+      "title": "Zoe Artline"
+    },
+    {
+      "bytes": 270074,
+      "output": "zoe-pentomino-visual.pdf",
+      "pages": 3,
+      "sha256": "b2a277c95ce98ad28bbcbeaefe7196767a355f2c0a07f9bc9fbfe1f920f22076",
+      "source": "PENTOMINO.md",
+      "title": "Zoe Pentomino"
+    },
+    {
+      "bytes": 382582,
+      "output": "zoe-pilot-visual.pdf",
+      "pages": 4,
+      "sha256": "0f2747fafe1f6b7d21a2754e63d9c90f69f5af2e053079940419722d6ec7eb56",
+      "source": "PILOT.md",
+      "title": "Zoe Practice Navigator"
+    },
+    {
+      "bytes": 324702,
+      "output": "zoe-cognitive-field-visual.pdf",
+      "pages": 4,
+      "sha256": "8a1923d8d3a34bf4adfa7f2d27a757a794f34c78e6dee73bd4b4959c5f4d4cd3",
+      "source": "COGNITIVE.md",
+      "title": "Zoe Cognitive Field"
+    },
+    {
+      "bytes": 477166,
+      "output": "zoe-qualia-visual.pdf",
+      "pages": 9,
+      "sha256": "e8201874690b687eed31b56404949c2df4b1be4dbb8d8900fca4e6a615cb4326",
+      "source": "QUALIA.md",
+      "title": "Zoe is Quale. Zoe is Red."
+    },
+    {
+      "bytes": 374933,
+      "output": "zoe-geometry-atlas-visual.pdf",
+      "pages": 5,
+      "sha256": "6c754da0f63ebcb522b75ba6efb9dfced357377c5c9821d15c44243960478107",
+      "source": "GEOMETRY-ATLAS.md",
+      "title": "GEM Geometry Atlas"
+    },
+    {
+      "bytes": 586615,
+      "output": "zoe-unified-visual.pdf",
+      "pages": 6,
+      "sha256": "13a90e7ef8e323182bb891b7ed34b49e6e74715e877fcdb75bb0d87a208ced94",
+      "source": "UNIFIED.md",
+      "title": "Zoe allgems: unified architecture and verification"
+    },
+    {
+      "bytes": 1512538,
+      "output": "zoe-living-geometry-visual.pdf",
+      "pages": 10,
+      "sha256": "558316fd78be68faa82c5d68a13feec548f32972e71aeb832671e8658449c060",
+      "source": "ZOE.md",
+      "title": "Zoe: living geometry, inspectable futures"
+    },
+    {
+      "bytes": 1838799,
+      "output": "zoe-cognitive-provenance-visual.pdf",
+      "pages": 5,
+      "sha256": "57a123cf36a30322c66deac670bb23eae73aac928601e42b9416045ee3c67d09",
+      "source": "references/cognitive-field/PROVENANCE.md",
+      "title": "Cognitive Field visual provenance"
+    },
+    {
+      "bytes": 1627794,
+      "output": "../zoe-visual-guides.pdf",
+      "pages": 3,
+      "sha256": "a91afbdffe8564c527d6ea8707fa94da0991734be303b6e6219853a077423480",
+      "source": "VISUAL-GUIDES.md",
+      "title": "Zoe Visual Guide Collection"
+    }
+  ],
+  "guide_count": 9,
+  "instrument": "Zoe visual guide collection",
+  "pdf_count": 10,
+  "renderer": "pandoc + pdfLaTeX + newunicodechar",
+  "schema_version": 1
+}

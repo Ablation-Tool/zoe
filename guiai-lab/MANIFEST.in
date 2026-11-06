@@ -6,7 +6,7 @@ include NOTICE
 recursive-include licenses *.txt
 recursive-include guiai/icons *.svg
 recursive-include guiai/gem/data *.json.gz
-recursive-include docs *.md *.png
+recursive-include docs *.md *.png *.tex *.pdf *.py *.json
 recursive-include metrix/templates *.html
 recursive-include metrix/gui *.html *.css *.js
 recursive-include stress *.py

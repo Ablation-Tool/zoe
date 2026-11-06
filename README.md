@@ -171,6 +171,8 @@ zoe pilot --page hourglass --output hourglass.svg
 
 Read the [Artline guide](guiai-lab/docs/ARTLINE.md), [Pentomino laboratory guide](guiai-lab/docs/PENTOMINO.md), [Practice Navigator guide](guiai-lab/docs/PILOT.md), and [complete five-page PDF](guiai-lab/docs/zoe-practice-navigator.pdf).
 
+**Every guide now has a visual PDF edition.** Browse the [visual collection index](guiai-lab/docs/VISUAL-GUIDES.md), open the [linked visual index PDF](guiai-lab/docs/zoe-visual-guides.pdf), or go directly to the [Artline](guiai-lab/docs/visual/zoe-artline-visual.pdf), [Pentomino](guiai-lab/docs/visual/zoe-pentomino-visual.pdf), [Cognitive Field](guiai-lab/docs/visual/zoe-cognitive-field-visual.pdf), [Qualia](guiai-lab/docs/visual/zoe-qualia-visual.pdf), [Geometry Atlas](guiai-lab/docs/visual/zoe-geometry-atlas-visual.pdf), [unified architecture](guiai-lab/docs/visual/zoe-unified-visual.pdf), and [Zoe](guiai-lab/docs/visual/zoe-living-geometry-visual.pdf) editions. The [Cognitive Field provenance appendix](guiai-lab/docs/visual/zoe-cognitive-provenance-visual.pdf) is included too.
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
