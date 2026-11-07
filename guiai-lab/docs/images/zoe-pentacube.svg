@@ -1,0 +1,1309 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Pentacube · pentomino regions and legal cube permutations">
+  <title>Zoe Pentacube · pentomino regions and legal cube permutations</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="42.0" y="49.0" font-family="sans-serif" font-size="31.0" fill="#67e8f9">Zoe Pentacube</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="44.0" y="78.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">Thirty pentomino home regions · 150 stickers · legal quarter turns</text>
+  </g>
+  <g data-object-id="face-label-U">
+    <title>face-label-U</title>
+    <text x="170.0" y="123.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">U · five pentominoes</text>
+  </g>
+  <g data-object-id="sticker-0">
+    <title>sticker-0</title>
+    <rect x="170.0" y="135.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-0">
+    <title>sticker-label-0</title>
+    <text x="175.0" y="149.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-1">
+    <title>sticker-1</title>
+    <rect x="192.0" y="135.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-1">
+    <title>sticker-label-1</title>
+    <text x="197.0" y="149.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-3">
+    <title>sticker-3</title>
+    <rect x="214.0" y="135.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-3">
+    <title>sticker-label-3</title>
+    <text x="219.0" y="149.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-96">
+    <title>sticker-96</title>
+    <rect x="236.0" y="135.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-96">
+    <title>sticker-label-96</title>
+    <text x="241.0" y="149.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-7">
+    <title>sticker-7</title>
+    <rect x="258.0" y="135.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-7">
+    <title>sticker-label-7</title>
+    <text x="263.0" y="149.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-10">
+    <title>sticker-10</title>
+    <rect x="170.0" y="157.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-10">
+    <title>sticker-label-10</title>
+    <text x="175.0" y="171.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-2">
+    <title>sticker-2</title>
+    <rect x="192.0" y="157.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-2">
+    <title>sticker-label-2</title>
+    <text x="197.0" y="171.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-5">
+    <title>sticker-5</title>
+    <rect x="214.0" y="157.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-5">
+    <title>sticker-label-5</title>
+    <text x="219.0" y="171.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-115">
+    <title>sticker-115</title>
+    <rect x="236.0" y="157.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-115">
+    <title>sticker-label-115</title>
+    <text x="241.0" y="171.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-8">
+    <title>sticker-8</title>
+    <rect x="258.0" y="157.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-8">
+    <title>sticker-label-8</title>
+    <text x="263.0" y="171.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-11">
+    <title>sticker-11</title>
+    <rect x="170.0" y="179.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-11">
+    <title>sticker-label-11</title>
+    <text x="175.0" y="193.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-15">
+    <title>sticker-15</title>
+    <rect x="192.0" y="179.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-15">
+    <title>sticker-label-15</title>
+    <text x="197.0" y="193.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-16">
+    <title>sticker-16</title>
+    <rect x="214.0" y="179.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-16">
+    <title>sticker-label-16</title>
+    <text x="219.0" y="193.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-123">
+    <title>sticker-123</title>
+    <rect x="236.0" y="179.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-123">
+    <title>sticker-label-123</title>
+    <text x="241.0" y="193.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-9">
+    <title>sticker-9</title>
+    <rect x="258.0" y="179.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-9">
+    <title>sticker-label-9</title>
+    <text x="263.0" y="193.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-35">
+    <title>sticker-35</title>
+    <rect x="170.0" y="201.0" width="20.0" height="20.0" fill="#fda4af" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-35">
+    <title>sticker-label-35</title>
+    <text x="175.0" y="215.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-44">
+    <title>sticker-44</title>
+    <rect x="192.0" y="201.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-44">
+    <title>sticker-label-44</title>
+    <text x="197.0" y="215.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-33">
+    <title>sticker-33</title>
+    <rect x="214.0" y="201.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-33">
+    <title>sticker-label-33</title>
+    <text x="219.0" y="215.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-103">
+    <title>sticker-103</title>
+    <rect x="236.0" y="201.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-103">
+    <title>sticker-label-103</title>
+    <text x="241.0" y="215.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-31">
+    <title>sticker-31</title>
+    <rect x="258.0" y="201.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-31">
+    <title>sticker-label-31</title>
+    <text x="263.0" y="215.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-20">
+    <title>sticker-20</title>
+    <rect x="170.0" y="223.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-20">
+    <title>sticker-label-20</title>
+    <text x="175.0" y="237.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-21">
+    <title>sticker-21</title>
+    <rect x="192.0" y="223.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-21">
+    <title>sticker-label-21</title>
+    <text x="197.0" y="237.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-22">
+    <title>sticker-22</title>
+    <rect x="214.0" y="223.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-22">
+    <title>sticker-label-22</title>
+    <text x="219.0" y="237.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-102">
+    <title>sticker-102</title>
+    <rect x="236.0" y="223.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-102">
+    <title>sticker-label-102</title>
+    <text x="241.0" y="237.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-24">
+    <title>sticker-24</title>
+    <rect x="258.0" y="223.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-24">
+    <title>sticker-label-24</title>
+    <text x="263.0" y="237.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="face-label-L">
+    <title>face-label-L</title>
+    <text x="40.0" y="263.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">L · five pentominoes</text>
+  </g>
+  <g data-object-id="sticker-25">
+    <title>sticker-25</title>
+    <rect x="40.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-25">
+    <title>sticker-label-25</title>
+    <text x="45.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-27">
+    <title>sticker-27</title>
+    <rect x="62.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-27">
+    <title>sticker-label-27</title>
+    <text x="67.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-29">
+    <title>sticker-29</title>
+    <rect x="84.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-29">
+    <title>sticker-label-29</title>
+    <text x="89.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-126">
+    <title>sticker-126</title>
+    <rect x="106.0" y="275.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-126">
+    <title>sticker-label-126</title>
+    <text x="111.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-34">
+    <title>sticker-34</title>
+    <rect x="128.0" y="275.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-34">
+    <title>sticker-label-34</title>
+    <text x="133.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-26">
+    <title>sticker-26</title>
+    <rect x="40.0" y="297.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-26">
+    <title>sticker-label-26</title>
+    <text x="45.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-28">
+    <title>sticker-28</title>
+    <rect x="62.0" y="297.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-28">
+    <title>sticker-label-28</title>
+    <text x="67.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-30">
+    <title>sticker-30</title>
+    <rect x="84.0" y="297.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-30">
+    <title>sticker-label-30</title>
+    <text x="89.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-146">
+    <title>sticker-146</title>
+    <rect x="106.0" y="297.0" width="20.0" height="20.0" fill="#86efac" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-146">
+    <title>sticker-label-146</title>
+    <text x="111.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-36">
+    <title>sticker-36</title>
+    <rect x="128.0" y="297.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-36">
+    <title>sticker-label-36</title>
+    <text x="133.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-45">
+    <title>sticker-45</title>
+    <rect x="40.0" y="319.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-45">
+    <title>sticker-label-45</title>
+    <text x="45.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-48">
+    <title>sticker-48</title>
+    <rect x="62.0" y="319.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-48">
+    <title>sticker-label-48</title>
+    <text x="67.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-41">
+    <title>sticker-41</title>
+    <rect x="84.0" y="319.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-41">
+    <title>sticker-label-41</title>
+    <text x="89.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-130">
+    <title>sticker-130</title>
+    <rect x="106.0" y="319.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-130">
+    <title>sticker-label-130</title>
+    <text x="111.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-37">
+    <title>sticker-37</title>
+    <rect x="128.0" y="319.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-37">
+    <title>sticker-label-37</title>
+    <text x="133.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-46">
+    <title>sticker-46</title>
+    <rect x="40.0" y="341.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-46">
+    <title>sticker-label-46</title>
+    <text x="45.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-40">
+    <title>sticker-40</title>
+    <rect x="62.0" y="341.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-40">
+    <title>sticker-label-40</title>
+    <text x="67.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-42">
+    <title>sticker-42</title>
+    <rect x="84.0" y="341.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-42">
+    <title>sticker-label-42</title>
+    <text x="89.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-133">
+    <title>sticker-133</title>
+    <rect x="106.0" y="341.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-133">
+    <title>sticker-label-133</title>
+    <text x="111.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-38">
+    <title>sticker-38</title>
+    <rect x="128.0" y="341.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-38">
+    <title>sticker-label-38</title>
+    <text x="133.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-122">
+    <title>sticker-122</title>
+    <rect x="40.0" y="363.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-122">
+    <title>sticker-label-122</title>
+    <text x="45.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-49">
+    <title>sticker-49</title>
+    <rect x="62.0" y="363.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-49">
+    <title>sticker-label-49</title>
+    <text x="67.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-43">
+    <title>sticker-43</title>
+    <rect x="84.0" y="363.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-43">
+    <title>sticker-label-43</title>
+    <text x="89.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-69">
+    <title>sticker-69</title>
+    <rect x="106.0" y="363.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-69">
+    <title>sticker-label-69</title>
+    <text x="111.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-74">
+    <title>sticker-74</title>
+    <rect x="128.0" y="363.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-74">
+    <title>sticker-label-74</title>
+    <text x="133.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="face-label-F">
+    <title>face-label-F</title>
+    <text x="170.0" y="263.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">F · five pentominoes</text>
+  </g>
+  <g data-object-id="sticker-50">
+    <title>sticker-50</title>
+    <rect x="170.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-50">
+    <title>sticker-label-50</title>
+    <text x="175.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-51">
+    <title>sticker-51</title>
+    <rect x="192.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-51">
+    <title>sticker-label-51</title>
+    <text x="197.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-53">
+    <title>sticker-53</title>
+    <rect x="214.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-53">
+    <title>sticker-label-53</title>
+    <text x="219.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-4">
+    <title>sticker-4</title>
+    <rect x="236.0" y="275.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-4">
+    <title>sticker-label-4</title>
+    <text x="241.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-64">
+    <title>sticker-64</title>
+    <rect x="258.0" y="275.0" width="20.0" height="20.0" fill="#fca5a5" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-64">
+    <title>sticker-label-64</title>
+    <text x="263.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Z</text>
+  </g>
+  <g data-object-id="sticker-55">
+    <title>sticker-55</title>
+    <rect x="170.0" y="297.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-55">
+    <title>sticker-label-55</title>
+    <text x="175.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-52">
+    <title>sticker-52</title>
+    <rect x="192.0" y="297.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-52">
+    <title>sticker-label-52</title>
+    <text x="197.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-54">
+    <title>sticker-54</title>
+    <rect x="214.0" y="297.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-54">
+    <title>sticker-label-54</title>
+    <text x="219.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-6">
+    <title>sticker-6</title>
+    <rect x="236.0" y="297.0" width="20.0" height="20.0" fill="#86efac" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-6">
+    <title>sticker-label-6</title>
+    <text x="241.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-71">
+    <title>sticker-71</title>
+    <rect x="258.0" y="297.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-71">
+    <title>sticker-label-71</title>
+    <text x="263.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-56">
+    <title>sticker-56</title>
+    <rect x="170.0" y="319.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-56">
+    <title>sticker-label-56</title>
+    <text x="175.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-65">
+    <title>sticker-65</title>
+    <rect x="192.0" y="319.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-65">
+    <title>sticker-label-65</title>
+    <text x="197.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-60">
+    <title>sticker-60</title>
+    <rect x="214.0" y="319.0" width="20.0" height="20.0" fill="#fca5a5" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-60">
+    <title>sticker-label-60</title>
+    <text x="219.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Z</text>
+  </g>
+  <g data-object-id="sticker-17">
+    <title>sticker-17</title>
+    <rect x="236.0" y="319.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-17">
+    <title>sticker-label-17</title>
+    <text x="241.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-72">
+    <title>sticker-72</title>
+    <rect x="258.0" y="319.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-72">
+    <title>sticker-label-72</title>
+    <text x="263.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-57">
+    <title>sticker-57</title>
+    <rect x="170.0" y="341.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-57">
+    <title>sticker-label-57</title>
+    <text x="175.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-66">
+    <title>sticker-66</title>
+    <rect x="192.0" y="341.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-66">
+    <title>sticker-label-66</title>
+    <text x="197.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-67">
+    <title>sticker-67</title>
+    <rect x="214.0" y="341.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-67">
+    <title>sticker-label-67</title>
+    <text x="219.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-32">
+    <title>sticker-32</title>
+    <rect x="236.0" y="341.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-32">
+    <title>sticker-label-32</title>
+    <text x="241.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-73">
+    <title>sticker-73</title>
+    <rect x="258.0" y="341.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-73">
+    <title>sticker-label-73</title>
+    <text x="263.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-95">
+    <title>sticker-95</title>
+    <rect x="170.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-95">
+    <title>sticker-label-95</title>
+    <text x="175.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-141">
+    <title>sticker-141</title>
+    <rect x="192.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-141">
+    <title>sticker-label-141</title>
+    <text x="197.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-142">
+    <title>sticker-142</title>
+    <rect x="214.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-142">
+    <title>sticker-label-142</title>
+    <text x="219.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-23">
+    <title>sticker-23</title>
+    <rect x="236.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-23">
+    <title>sticker-label-23</title>
+    <text x="241.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-58">
+    <title>sticker-58</title>
+    <rect x="258.0" y="363.0" width="20.0" height="20.0" fill="#fda4af" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-58">
+    <title>sticker-label-58</title>
+    <text x="263.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="face-label-R">
+    <title>face-label-R</title>
+    <text x="300.0" y="263.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">R · five pentominoes</text>
+  </g>
+  <g data-object-id="sticker-75">
+    <title>sticker-75</title>
+    <rect x="300.0" y="275.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-75">
+    <title>sticker-label-75</title>
+    <text x="305.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-12">
+    <title>sticker-12</title>
+    <rect x="322.0" y="275.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-12">
+    <title>sticker-label-12</title>
+    <text x="327.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-78">
+    <title>sticker-78</title>
+    <rect x="344.0" y="275.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-78">
+    <title>sticker-label-78</title>
+    <text x="349.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-79">
+    <title>sticker-79</title>
+    <rect x="366.0" y="275.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-79">
+    <title>sticker-label-79</title>
+    <text x="371.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-82">
+    <title>sticker-82</title>
+    <rect x="388.0" y="275.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-82">
+    <title>sticker-label-82</title>
+    <text x="393.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-85">
+    <title>sticker-85</title>
+    <rect x="300.0" y="297.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-85">
+    <title>sticker-label-85</title>
+    <text x="305.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-13">
+    <title>sticker-13</title>
+    <rect x="322.0" y="297.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-13">
+    <title>sticker-label-13</title>
+    <text x="327.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-80">
+    <title>sticker-80</title>
+    <rect x="344.0" y="297.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-80">
+    <title>sticker-label-80</title>
+    <text x="349.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-81">
+    <title>sticker-81</title>
+    <rect x="366.0" y="297.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-81">
+    <title>sticker-label-81</title>
+    <text x="371.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-83">
+    <title>sticker-83</title>
+    <rect x="388.0" y="297.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-83">
+    <title>sticker-label-83</title>
+    <text x="393.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-86">
+    <title>sticker-86</title>
+    <rect x="300.0" y="319.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-86">
+    <title>sticker-label-86</title>
+    <text x="305.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-14">
+    <title>sticker-14</title>
+    <rect x="322.0" y="319.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-14">
+    <title>sticker-label-14</title>
+    <text x="327.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-91">
+    <title>sticker-91</title>
+    <rect x="344.0" y="319.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-91">
+    <title>sticker-label-91</title>
+    <text x="349.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-92">
+    <title>sticker-92</title>
+    <rect x="366.0" y="319.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-92">
+    <title>sticker-label-92</title>
+    <text x="371.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-84">
+    <title>sticker-84</title>
+    <rect x="388.0" y="319.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-84">
+    <title>sticker-label-84</title>
+    <text x="393.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-87">
+    <title>sticker-87</title>
+    <rect x="300.0" y="341.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-87">
+    <title>sticker-label-87</title>
+    <text x="305.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-18">
+    <title>sticker-18</title>
+    <rect x="322.0" y="341.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-18">
+    <title>sticker-label-18</title>
+    <text x="327.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-89">
+    <title>sticker-89</title>
+    <rect x="344.0" y="341.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-89">
+    <title>sticker-label-89</title>
+    <text x="349.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-93">
+    <title>sticker-93</title>
+    <rect x="366.0" y="341.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-93">
+    <title>sticker-label-93</title>
+    <text x="371.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-94">
+    <title>sticker-94</title>
+    <rect x="388.0" y="341.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-94">
+    <title>sticker-label-94</title>
+    <text x="393.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-125">
+    <title>sticker-125</title>
+    <rect x="300.0" y="363.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-125">
+    <title>sticker-label-125</title>
+    <text x="305.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-19">
+    <title>sticker-19</title>
+    <rect x="322.0" y="363.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-19">
+    <title>sticker-label-19</title>
+    <text x="327.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-129">
+    <title>sticker-129</title>
+    <rect x="344.0" y="363.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-129">
+    <title>sticker-label-129</title>
+    <text x="349.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-128">
+    <title>sticker-128</title>
+    <rect x="366.0" y="363.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-128">
+    <title>sticker-label-128</title>
+    <text x="371.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-140">
+    <title>sticker-140</title>
+    <rect x="388.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-140">
+    <title>sticker-label-140</title>
+    <text x="393.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="face-label-B">
+    <title>face-label-B</title>
+    <text x="430.0" y="263.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">B · five pentominoes</text>
+  </g>
+  <g data-object-id="sticker-100">
+    <title>sticker-100</title>
+    <rect x="430.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-100">
+    <title>sticker-label-100</title>
+    <text x="435.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-137">
+    <title>sticker-137</title>
+    <rect x="452.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-137">
+    <title>sticker-label-137</title>
+    <text x="457.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-104">
+    <title>sticker-104</title>
+    <rect x="474.0" y="275.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-104">
+    <title>sticker-label-104</title>
+    <text x="479.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-106">
+    <title>sticker-106</title>
+    <rect x="496.0" y="275.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-106">
+    <title>sticker-label-106</title>
+    <text x="501.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-109">
+    <title>sticker-109</title>
+    <rect x="518.0" y="275.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-109">
+    <title>sticker-label-109</title>
+    <text x="523.0" y="289.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-101">
+    <title>sticker-101</title>
+    <rect x="430.0" y="297.0" width="20.0" height="20.0" fill="#fde68a" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-101">
+    <title>sticker-label-101</title>
+    <text x="435.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-136">
+    <title>sticker-136</title>
+    <rect x="452.0" y="297.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-136">
+    <title>sticker-label-136</title>
+    <text x="457.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-105">
+    <title>sticker-105</title>
+    <rect x="474.0" y="297.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-105">
+    <title>sticker-label-105</title>
+    <text x="479.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-107">
+    <title>sticker-107</title>
+    <rect x="496.0" y="297.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-107">
+    <title>sticker-label-107</title>
+    <text x="501.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-111">
+    <title>sticker-111</title>
+    <rect x="518.0" y="297.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-111">
+    <title>sticker-label-111</title>
+    <text x="523.0" y="311.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-120">
+    <title>sticker-120</title>
+    <rect x="430.0" y="319.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-120">
+    <title>sticker-label-120</title>
+    <text x="435.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-135">
+    <title>sticker-135</title>
+    <rect x="452.0" y="319.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-135">
+    <title>sticker-label-135</title>
+    <text x="457.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-116">
+    <title>sticker-116</title>
+    <rect x="474.0" y="319.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-116">
+    <title>sticker-label-116</title>
+    <text x="479.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-108">
+    <title>sticker-108</title>
+    <rect x="496.0" y="319.0" width="20.0" height="20.0" fill="#f0abfc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-108">
+    <title>sticker-label-108</title>
+    <text x="501.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">F</text>
+  </g>
+  <g data-object-id="sticker-112">
+    <title>sticker-112</title>
+    <rect x="518.0" y="319.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-112">
+    <title>sticker-label-112</title>
+    <text x="523.0" y="333.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-121">
+    <title>sticker-121</title>
+    <rect x="430.0" y="341.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-121">
+    <title>sticker-label-121</title>
+    <text x="435.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-77">
+    <title>sticker-77</title>
+    <rect x="452.0" y="341.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-77">
+    <title>sticker-label-77</title>
+    <text x="457.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-117">
+    <title>sticker-117</title>
+    <rect x="474.0" y="341.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-117">
+    <title>sticker-label-117</title>
+    <text x="479.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-119">
+    <title>sticker-119</title>
+    <rect x="496.0" y="341.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-119">
+    <title>sticker-label-119</title>
+    <text x="501.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-113">
+    <title>sticker-113</title>
+    <rect x="518.0" y="341.0" width="20.0" height="20.0" fill="#fda4af" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-113">
+    <title>sticker-label-113</title>
+    <text x="523.0" y="355.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-114">
+    <title>sticker-114</title>
+    <rect x="430.0" y="363.0" width="20.0" height="20.0" fill="#fda4af" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-114">
+    <title>sticker-label-114</title>
+    <text x="435.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-124">
+    <title>sticker-124</title>
+    <rect x="452.0" y="363.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-124">
+    <title>sticker-label-124</title>
+    <text x="457.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="sticker-97">
+    <title>sticker-97</title>
+    <rect x="474.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-97">
+    <title>sticker-label-97</title>
+    <text x="479.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-98">
+    <title>sticker-98</title>
+    <rect x="496.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-98">
+    <title>sticker-label-98</title>
+    <text x="501.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-99">
+    <title>sticker-99</title>
+    <rect x="518.0" y="363.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-99">
+    <title>sticker-label-99</title>
+    <text x="523.0" y="377.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="face-label-D">
+    <title>face-label-D</title>
+    <text x="170.0" y="403.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">D · five pentominoes</text>
+  </g>
+  <g data-object-id="sticker-134">
+    <title>sticker-134</title>
+    <rect x="170.0" y="415.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-134">
+    <title>sticker-label-134</title>
+    <text x="175.0" y="429.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-110">
+    <title>sticker-110</title>
+    <rect x="192.0" y="415.0" width="20.0" height="20.0" fill="#fda4af" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-110">
+    <title>sticker-label-110</title>
+    <text x="197.0" y="429.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-118">
+    <title>sticker-118</title>
+    <rect x="214.0" y="415.0" width="20.0" height="20.0" fill="#f9a8d4" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-118">
+    <title>sticker-label-118</title>
+    <text x="219.0" y="429.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">X</text>
+  </g>
+  <g data-object-id="sticker-61">
+    <title>sticker-61</title>
+    <rect x="236.0" y="415.0" width="20.0" height="20.0" fill="#fca5a5" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-61">
+    <title>sticker-label-61</title>
+    <text x="241.0" y="429.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Z</text>
+  </g>
+  <g data-object-id="sticker-39">
+    <title>sticker-39</title>
+    <rect x="258.0" y="415.0" width="20.0" height="20.0" fill="#fda4af" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-39">
+    <title>sticker-label-39</title>
+    <text x="263.0" y="429.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-132">
+    <title>sticker-132</title>
+    <rect x="170.0" y="437.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-132">
+    <title>sticker-label-132</title>
+    <text x="175.0" y="451.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-88">
+    <title>sticker-88</title>
+    <rect x="192.0" y="437.0" width="20.0" height="20.0" fill="#fdba74" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-88">
+    <title>sticker-label-88</title>
+    <text x="197.0" y="451.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-90">
+    <title>sticker-90</title>
+    <rect x="214.0" y="437.0" width="20.0" height="20.0" fill="#7dd3fc" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-90">
+    <title>sticker-label-90</title>
+    <text x="219.0" y="451.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">N</text>
+  </g>
+  <g data-object-id="sticker-62">
+    <title>sticker-62</title>
+    <rect x="236.0" y="437.0" width="20.0" height="20.0" fill="#fca5a5" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-62">
+    <title>sticker-label-62</title>
+    <text x="241.0" y="451.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Z</text>
+  </g>
+  <g data-object-id="sticker-76">
+    <title>sticker-76</title>
+    <rect x="258.0" y="437.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-76">
+    <title>sticker-label-76</title>
+    <text x="263.0" y="451.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-127">
+    <title>sticker-127</title>
+    <rect x="170.0" y="459.0" width="20.0" height="20.0" fill="#fdba74" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-127">
+    <title>sticker-label-127</title>
+    <text x="175.0" y="473.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">V</text>
+  </g>
+  <g data-object-id="sticker-147">
+    <title>sticker-147</title>
+    <rect x="192.0" y="459.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-147">
+    <title>sticker-label-147</title>
+    <text x="197.0" y="473.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-131">
+    <title>sticker-131</title>
+    <rect x="214.0" y="459.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-131">
+    <title>sticker-label-131</title>
+    <text x="219.0" y="473.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-63">
+    <title>sticker-63</title>
+    <rect x="236.0" y="459.0" width="20.0" height="20.0" fill="#fca5a5" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-63">
+    <title>sticker-label-63</title>
+    <text x="241.0" y="473.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Z</text>
+  </g>
+  <g data-object-id="sticker-68">
+    <title>sticker-68</title>
+    <rect x="258.0" y="459.0" width="20.0" height="20.0" fill="#c4b5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-68">
+    <title>sticker-label-68</title>
+    <text x="263.0" y="473.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">W</text>
+  </g>
+  <g data-object-id="sticker-145">
+    <title>sticker-145</title>
+    <rect x="170.0" y="481.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-145">
+    <title>sticker-label-145</title>
+    <text x="175.0" y="495.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-148">
+    <title>sticker-148</title>
+    <rect x="192.0" y="481.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-148">
+    <title>sticker-label-148</title>
+    <text x="197.0" y="495.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-149">
+    <title>sticker-149</title>
+    <rect x="214.0" y="481.0" width="20.0" height="20.0" fill="#86efac" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-149">
+    <title>sticker-label-149</title>
+    <text x="219.0" y="495.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">T</text>
+  </g>
+  <g data-object-id="sticker-70">
+    <title>sticker-70</title>
+    <rect x="236.0" y="481.0" width="20.0" height="20.0" fill="#a7f3d0" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-70">
+    <title>sticker-label-70</title>
+    <text x="241.0" y="495.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">Y</text>
+  </g>
+  <g data-object-id="sticker-59">
+    <title>sticker-59</title>
+    <rect x="258.0" y="481.0" width="20.0" height="20.0" fill="#fda4af" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-59">
+    <title>sticker-label-59</title>
+    <text x="263.0" y="495.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">L</text>
+  </g>
+  <g data-object-id="sticker-144">
+    <title>sticker-144</title>
+    <rect x="170.0" y="503.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-144">
+    <title>sticker-label-144</title>
+    <text x="175.0" y="517.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-139">
+    <title>sticker-139</title>
+    <rect x="192.0" y="503.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-139">
+    <title>sticker-label-139</title>
+    <text x="197.0" y="517.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-138">
+    <title>sticker-138</title>
+    <rect x="214.0" y="503.0" width="20.0" height="20.0" fill="#fde68a" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-138">
+    <title>sticker-label-138</title>
+    <text x="219.0" y="517.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">P</text>
+  </g>
+  <g data-object-id="sticker-143">
+    <title>sticker-143</title>
+    <rect x="236.0" y="503.0" width="20.0" height="20.0" fill="#67e8f9" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-143">
+    <title>sticker-label-143</title>
+    <text x="241.0" y="517.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">I</text>
+  </g>
+  <g data-object-id="sticker-47">
+    <title>sticker-47</title>
+    <rect x="258.0" y="503.0" width="20.0" height="20.0" fill="#93c5fd" stroke="#334155" stroke-width="1.0" />
+  </g>
+  <g data-object-id="sticker-label-47">
+    <title>sticker-label-47</title>
+    <text x="263.0" y="517.0" font-family="sans-serif" font-size="9.0" fill="#0f172a">U</text>
+  </g>
+  <g data-object-id="metrics-panel">
+    <title>metrics-panel</title>
+    <rect x="575.0" y="112.0" width="385.0" height="410.0" fill="#0f1929" stroke="#475569" stroke-width="1.0" />
+  </g>
+  <g data-object-id="metric-status">
+    <title>metric-status</title>
+    <text x="594.0" y="151.0" font-family="sans-serif" font-size="15.0" fill="#a7f3d0">IN PROGRESS</text>
+  </g>
+  <g data-object-id="metric-matches">
+    <title>metric-matches</title>
+    <text x="594.0" y="187.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">Home stickers       90 / 150</text>
+  </g>
+  <g data-object-id="metric-regions">
+    <title>metric-regions</title>
+    <text x="594.0" y="223.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">Recovered regions   4 / 30</text>
+  </g>
+  <g data-object-id="metric-displaced">
+    <title>metric-displaced</title>
+    <text x="594.0" y="259.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">Displaced stickers  60</text>
+  </g>
+  <g data-object-id="metric-bound">
+    <title>metric-bound</title>
+    <text x="594.0" y="295.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">Weak lower bound    2 turns</text>
+  </g>
+  <g data-object-id="metric-history">
+    <title>metric-history</title>
+    <text x="594.0" y="331.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">Player turns        2</text>
+  </g>
+  <g data-object-id="metric-scramble">
+    <title>metric-scramble</title>
+    <text x="594.0" y="367.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">Legal scramble      6 turns</text>
+  </g>
+  <g data-object-id="metric-seed">
+    <title>metric-seed</title>
+    <text x="594.0" y="403.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Seed  zoe-pentacube-guide</text>
+  </g>
+  <g data-object-id="metric-events">
+    <title>metric-events</title>
+    <text x="594.0" y="439.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Replay events       4</text>
+  </g>
+  <g data-object-id="hint">
+    <title>hint</title>
+    <text x="594.0" y="486.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">Hint: R2 · never automatic</text>
+  </g>
+  <g data-object-id="equation-cover">
+    <title>equation-cover</title>
+    <text x="44.0" y="579.0" font-family="sans-serif" font-size="13.0" fill="#c4b5fd">Exact cover: 6 faces x 25 cells = 30 pentominoes x 5 stickers = 150</text>
+  </g>
+  <g data-object-id="equation-turn">
+    <title>equation-turn</title>
+    <text x="44.0" y="609.0" font-family="sans-serif" font-size="13.0" fill="#c4b5fd">Layer turn: T(p,n) = (R p, R n) · T^4 = I · inverse = T^3</text>
+  </g>
+  <g data-object-id="equation-rho">
+    <title>equation-rho</title>
+    <text x="44.0" y="639.0" font-family="sans-serif" font-size="13.0" fill="#c4b5fd">rho = home stickers / 150 · kappa = recovered regions / 30</text>
+  </g>
+  <g data-object-id="equation-bound">
+    <title>equation-bound</title>
+    <text x="44.0" y="669.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">ceil(displaced / 44) is only a weak lower bound, not an optimal distance</text>
+  </g>
+  <g data-object-id="scope">
+    <title>scope</title>
+    <text x="44.0" y="704.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">Every scramble uses legal moves. Replay checks the complete event chain.</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="44.0" y="731.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">A puzzle result is not an intelligence score. No autonomous moves or hardware claims.</text>
+  </g>
+</svg>

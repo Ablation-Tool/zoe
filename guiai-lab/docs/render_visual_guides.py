@@ -16,6 +16,7 @@ STYLE = DOCS / "visual-style.tex"
 GUIDES = (
     ("ARTLINE.md", "Zoe Artline", "zoe-artline-visual.pdf", "images/zoe-artline-native.png"),
     ("PENTOMINO.md", "Zoe Pentomino", "zoe-pentomino-visual.pdf", "images/zoe-pentomino-native.png"),
+    ("PENTACUBE.md", "Zoe Pentacube", "zoe-pentacube-visual.pdf", "images/zoe-pentacube-native.png"),
     ("PILOT.md", "Zoe Practice Navigator", "zoe-pilot-visual.pdf", "images/zoe-pilot-cover.png"),
     ("COGNITIVE.md", "Zoe Cognitive Field", "zoe-cognitive-field-visual.pdf", "images/zoe-cognitive-field.png"),
     ("QUALIA.md", "Zoe is Quale. Zoe is Red.", "zoe-qualia-visual.pdf", "images/zoe-qualia.png"),

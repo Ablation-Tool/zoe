@@ -32,3 +32,8 @@ vidlib
 - vidlib was created by Nicholas Michael Kloster with Claude Code.
 - Zoe invokes the original executable without replacing, renaming, or claiming authorship of it. The original tool was not modified for this integration.
 - The Zoe adapter supplies separate normalized evidence reports, source verification, tests, and original visual scenes. Transcripts remain external and are not bundled.
+
+Zoe Pentacube and Zoetic Research
+- Zoe Pentacube is an original pentomino/cube-permutation implementation. ARTetris copyright 2017 Exyte, MIT licensed, informed only the engine/view boundary; no Swift code or assets are copied. It is not an official Rubik or Tetris product.
+- IBM PC Tetris, Atari source/object files, Digital Research/GSX source and manuals, and the 1937 Songs of the IBM songbook remain external and are not executed or bundled. Atari material is not presented as validated firmware.
+- Zoetic Research is user-created artwork supplied as Zoetic_Research_Logo.{png,svg}. It is an independent homage to Gary Kildall and Digital Research, not an official Digital Research mark. The two historical source logos remain external. Rhyme hints are original, not copied songbook lyrics.

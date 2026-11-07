@@ -15,6 +15,7 @@ ATLAS_MODULES = {
     "cognitive": "Z.O.E. · Cognitive Field / GSP",
     "artline": "Zoe Artline · vector workbench",
     "pentomino": "Zoe Pentomino · timed spatial practice",
+    "pentacube": "Zoe Pentacube · pentomino regions and legal cube permutations",
     "pilot": "Zoe Practice Navigator · original visual guide",
     "resilience": "Zoe Resilience Atlas · services and signal evidence",
     "presence": "Zoe Presence · an explicit self-model, not sentience",
@@ -420,6 +421,10 @@ def default_document(module, research_root=None):
         from .pentomino import PentominoGame
         game = PentominoGame(seed="zoe-time-study", clock=lambda: 0)
         return game.scene(), {"mode": game.mode, "status": game.status, "intelligence_measured": False, "optimal_time_claimed": False}
+    if module == "pentacube":
+        from .pentacube import PentacubeGame
+        game = PentacubeGame(seed="zoe-atlas-preview", scramble=6)
+        return game.scene(), {"measurements": game.measurements(), "intelligence_measured": False, "optimal_distance_claimed": False}
     if module == "pilot":
         from .pilot import guide_page
         return guide_page("cover")

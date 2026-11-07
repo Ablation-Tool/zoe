@@ -10,6 +10,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Zoe Artline vector study](images/zoe-artline.png){width=48%}](visual/zoe-artline-visual.pdf) [![Zoe Pentomino completed board](images/zoe-pentomino.png){width=48%}](visual/zoe-pentomino-visual.pdf)
 
+**[Zoe Pentacube](visual/zoe-pentacube-visual.pdf)**
+
+[![Pentomino regions and legal cube permutations](images/zoe-pentacube.png){width=72%}](visual/zoe-pentacube-visual.pdf)
+
 **[Zoe Practice Navigator](visual/zoe-pilot-visual.pdf) · [Cognitive Field](visual/zoe-cognitive-field-visual.pdf)**
 
 [![Practice Navigator cover](images/zoe-pilot-cover.png){width=48%}](visual/zoe-pilot-visual.pdf) [![Cognitive Field worked example](images/zoe-cognitive-field.png){width=48%}](visual/zoe-cognitive-field-visual.pdf)

@@ -8,6 +8,10 @@
 
 Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
 
+<img src="assets/branding/zoetic-research.png" width="560" alt="Zoetic Research co-brand">
+
+**Zoetic Research** is the user-created co-brand and visual homage to Kildall and Digital Research. Its independent lettering and circular/bowl mark are not an official Digital Research logo or a replacement for Zoe's orbital eye. See the [co-brand provenance](assets/branding/PROVENANCE.md).
+
 **Knowledge Engineering** joins the components through one replayable knowledge graph:
 
 - **Trust Context:** source repository, revision, evidence scope, and authorization boundary.
@@ -158,6 +162,19 @@ zoe pentomino --compare --output pentomino-budgets.json
 ```
 
 ![Zoe Pentomino native timed practice](guiai-lab/docs/images/zoe-pentomino-native.png)
+
+**Zoe Pentacube** turns thirty pentomino home regions into a legal 5×5 cube-permutation puzzle. Six exact-cover faces hold 150 stickers; outer and inner quarter turns provide 24 face/depth/direction moves with exact inverses. It includes deterministic scrambles, undo, reset, non-optimal hints, original rhyme hints, verified replay, and native SVG/PNG/GEM exports.
+
+```bash
+zoe pentacube
+zoe pentacube --seed my-challenge --scramble 12 --rhyme
+zoe pentacube --moves "F,R2',U" --output session.json
+zoe pentacube session.json --output verified.svg
+```
+
+The model tests every move for permutation validity and order four. Recovery metrics distinguish individual stickers from complete pentomino regions; the displayed lower bound is explicitly not an optimal distance. [ARTetris](https://github.com/exyte/ARTetris) informs the engine/view separation without copied Swift code. IBM PC Tetris, Atari source objects, Digital Research manuals, and GSX source remain external read-only evidence, not executed payloads or firmware claims. Read the [Pentacube guide](guiai-lab/docs/PENTACUBE.md) or its [visual edition](guiai-lab/docs/visual/zoe-pentacube-visual.pdf).
+
+![Zoe Pentacube](guiai-lab/docs/images/zoe-pentacube.png)
 
 **Zoe Practice Navigator** is an original five-page visual guide to time, space, packet layers, and the next attempt. It includes an editable instrument-inspired cover, a conserved-hourglass toy, synthetic network timing, and the Pentomino study. It is not certified flight material, a live network measurement, or a validated transformer defense.
 
@@ -478,6 +495,9 @@ guiai/gem/capsule.py       Ed25519 update capsules and explicit trust verificati
 guiai/gem/acceptance.py    Gated command plans, process groups, and evidence reports
 guiai/gem/cog.py           Bounded two-way token model and accessible-volume measurements
 guiai/gem/patchbay_view.py Patchbay native launcher and headless command surface
+guiai/gem/pentacube.py     Pentomino home tilings, legal cube permutations, and replay
+guiai/gem/pentacube_reference.py Read-only MZ/ZIP/PDF historical evidence reports
+guiai/gem/pentacube_view.py Pentacube native game, CLI, and historical reference commands
 guiai/gem/practice.py      Adaptive practice events, corrections, and hash-chained logs
 guiai/gem/leadership.py    Reference library, sourced snippets, and garden scenes
 guiai/gem/leadership_view.py Practice recording, correction, library, and scene commands
@@ -493,6 +513,7 @@ stress/video_stress.py     Original vidlib offline workflow, adapter, integrity,
 stress/maison_stress.py    Association, reference, CLI, and native studio tests
 stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
 stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
+stress/pentacube_stress.py Cube algebra, replay, historical evidence, CLI, and native tests
 stress/cog_stress.py       Cog model, integrity, CLI, and supplied-book tests
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests
