@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="zoe_background">#080D18</color>
+    <color name="zoe_panel">#101B2B</color>
+    <color name="zoe_cyan">#67E8F9</color>
+    <color name="zoe_text">#E2E8F0</color>
+</resources>

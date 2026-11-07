@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zoe</string>
+    <string name="vision_tab">Guided vision</string>
+    <string name="volume_tab">Accessible volume</string>
+    <string name="app_subtitle">Partner + Nicholas · research = fun = discovery</string>
+    <string name="accessibility_description">Zoe Screen Space performs screenshots and gestures only when you explicitly request them. It does not passively read screen content, monitor accessibility events, bypass lock screens, or execute background gestures.</string>
+</resources>

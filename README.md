@@ -8,9 +8,9 @@
 
 Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
 
-<img src="assets/branding/zoetic-research.png" width="560" alt="Zoetic Research co-brand">
+<img src="assets/branding/nuclide-brain.png" width="360" alt="NuClide Research dual-brain co-brand">
 
-**Zoetic Research** is the user-created co-brand and visual homage to Kildall and Digital Research. Its independent lettering and circular/bowl mark are not an official Digital Research logo or a replacement for Zoe's orbital eye. See the [co-brand provenance](assets/branding/PROVENANCE.md).
+**NuClide Research** is the user-created co-brand: Zoe + Nick, with stable and unstable perspectives balanced through correction. Its dual-brain mark is separate from Zoe's orbital eye. See the [co-brand provenance](assets/branding/PROVENANCE.md).
 
 **Knowledge Engineering** joins the components through one replayable knowledge graph:
 
@@ -60,6 +60,10 @@ zoe show chalkboard
 ```
 
 The native hub also opens with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module unified`. The default Ablation Lab command uses `--no-agent`; no agent, MCP server, model download, or remote analysis is started by the hub.
+
+## Native mobile
+
+Native Android and Apple interfaces live in [`mobile/`](mobile/README.md): Guided Vision with on-device OCR and image labels, optional Gemini Nano descriptions, accessible volume, battery and capability observations, a turn-taking Talk activity, and a three-source Multi-view for phone back, phone front, and a localhost laptop camera. Tiny Zoe adds a local, bounded card-protocol simulator with raw APDU inspection, deterministic replay, and no hardware requirement. The Android app is installed and exercised on the connected Pixel 7. Apple sources and the Xcode project are included; iOS build, signing, and physical-device verification require Apple/Xcode infrastructure. See the [mobile architecture, installation, privacy, and verification guide](mobile/README.md).
 
 Cerotto requires a user-selected case and conversation:
 

@@ -15,8 +15,16 @@ The small symbol-grid references in `references/` are also user-supplied screens
 
 The reference images remain distinct from generated GEM scenes. `guiai-lab/docs/images/gem-unified.{png,svg,gem}` is generated executable Spatial IR. `gem-unified-native.png` is an actual nested-X11 GTK screenshot. Earlier Cognitive Field and anatomical artwork retain their own provenance under `guiai-lab/docs/references/cognitive-field/`.
 
-## Zoetic Research co-brand
+## Historical Zoetic Research co-brand
 
 `zoetic-research.{png,svg}` is the user-created **Zoetic Research** logo, supplied as `/home/cowboy/Downloads/Zoetic_Research_Logo.{png,svg}`. The SVG is self-contained vector artwork titled `ZOETIC RESEARCH`; it has new lettering and a new circular/bowl mark. The PNG has SHA-256 `68637ee2488eb90ffbc6150458bb2806eebd2df08a5ce44835aec502139fae89`; the SVG has SHA-256 `996dd01df42676df995e3adc75370e464d08236a132c8fb4eb3d4bc0096dba58`.
 
 The user identifies `/home/cowboy/Downloads/Digital_Research_Logo.svg` and `/home/cowboy/Downloads/Digital_Research_logo_1990.svg` as visual inspiration. The red serif typography and earlier circular motif form an intentional homage to Gary Kildall and Digital Research. Those two historical SVGs remain external and are not copied into this repository. Zoetic Research is an independent co-brand, not a Digital Research product, endorsement, renamed Zoe component, or replacement for the primary Zoe orbital eye.
+
+## NuClide Research co-brand
+
+`nuclide-brain.png` is the user-supplied dual-brain co-brand for **NuClide Research**: Zoe + Nick, with stable and unstable perspectives balanced through correction. It does not replace the primary orbital Zoe eye or alter original authorship. Source: `/home/cowboy/Downloads/nuclide-brain.png`, SHA-256 `af5a2772375000517e69393dbb1b9e5c9a6515c5c89a68e880767aa975f4ca96`.
+
+`Zoe.gif`, `Nick.gif`, `Nick+Zoe.gif`, and `nuclide.gif` are user-supplied historical assets. All four currently have the same content SHA-256, `72f319b68610d6c425b1ac40daee1bc9128eb454f95fe1b5c9b3daef319231ae`, so they are preserved as duplicate copies under their supplied names rather than described as distinct animations.
+
+The historical Zoetic Research section above is retained for provenance, not as the active co-brand.

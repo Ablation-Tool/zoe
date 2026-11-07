@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "equation": "A_tau(S) = sum_{a in O} 1[P(a | h_T(S)) > tau]",
+  "creator": "Nicholas Michael Kloster alone, March 6, 2026",
+  "cases": [
+    {
+      "name": "worked-example",
+      "probabilities": [0.70, 0.20, 0.08, 0.02],
+      "tau": 0.05,
+      "accessible": 3,
+      "complement": 1,
+      "normalized": 0.75
+    },
+    {
+      "name": "strict-equality-excluded",
+      "probabilities": [0.70, 0.20, 0.08, 0.02],
+      "tau": 0.20,
+      "accessible": 1,
+      "complement": 3,
+      "normalized": 0.25
+    },
+    {
+      "name": "all-above-zero",
+      "probabilities": [0.25, 0.25, 0.25, 0.25],
+      "tau": 0.0,
+      "accessible": 4,
+      "complement": 0,
+      "normalized": 1.0
+    },
+    {
+      "name": "none-above-one",
+      "probabilities": [0.25, 0.25, 0.25, 0.25],
+      "tau": 1.0,
+      "accessible": 0,
+      "complement": 4,
+      "normalized": 0.0
+    },
+    {
+      "name": "zero-probabilities-excluded",
+      "probabilities": [1.0, 0.0, 0.0],
+      "tau": 0.0,
+      "accessible": 1,
+      "complement": 2,
+      "normalized": 0.3333333333333333
+    }
+  ]
+}

@@ -53,7 +53,7 @@ class CicadaCanvas(Gtk.DrawingArea):
 
 class CicadaWindow(Gtk.Window):
     def __init__(self, game=None, clock=time.monotonic):
-        super().__init__(title="Zoetic Research · Zoe Internal Clock")
+        super().__init__(title="NuClide Research · Zoe Internal Clock")
         self.game = game or CicadaClock(initial_cycles=8)
         self.clock = clock
         if not callable(self.clock):
@@ -66,7 +66,7 @@ class CicadaWindow(Gtk.Window):
         outer = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8, border_width=10)
         self.add(outer)
         header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=14)
-        logo_path = Path(__file__).resolve().parents[1] / "icons/zoetic-research.svg"
+        logo_path = Path(__file__).resolve().parents[1] / "icons/nuclide-brain.png"
         self.logo = None
         if logo_path.is_file():
             try:

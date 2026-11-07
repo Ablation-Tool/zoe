@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#F5F0EB">
+<link rel="manifest" href="manifest.json">
+<title>Unit Converter</title>
+<style>
+:root{color-scheme:light;--paper:#FAFAF8;--ink:#2C2C2C;--muted:#756E68;--line:#E0D8CF;--accent:#8B5E3C;--soft:#F5F0EB}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,a{font:inherit}button,select,input{width:100%;min-height:48px;padding:12px;border:1px solid var(--line);border-radius:9px;background:#FFF;color:var(--ink)}button,a.button{display:block;width:100%;margin:10px 0;padding:13px 16px;min-height:50px;background:var(--soft);color:var(--accent);font-weight:650;text-align:left;text-decoration:none;cursor:pointer}button:hover,button:focus,a.button:hover{outline:2px solid #6B5B8D;outline-offset:2px}.danger{color:#A33D32}.quiet{text-align:center;font-size:13px;color:var(--muted)}h1,h2,h3{line-height:1.25}h1{font-size:25px}h2{font-size:20px}h3{font-size:17px}.top{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--soft);border-bottom:1px solid var(--line)}.top strong{font-family:monospace;letter-spacing:1px}.top button{width:auto;margin:0;padding:8px 12px;min-height:40px}.wrap{max-width:560px;margin:auto;padding:18px 16px 60px}.card{padding:15px;margin:12px 0;border:1px solid var(--line);border-radius:12px;background:#FFF}.card h3{margin-top:0}.result{padding:20px;text-align:center;background:#F5F2EE;border-radius:10px}.result b{display:block;font:700 32px monospace}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row button,.row a.button{margin:4px 0}.note{color:var(--muted)}.hotline{border-color:#E2B7AF;background:#FDF0EE}.kids{border-color:#B8DDD3;background:#EDF7F4}.plan{border-color:#CDD5B8;background:#F3F5ED}.digital{border-color:#CFC8DF;background:#F2F0F7}.contact{border-color:#E0C9AB;background:#FBF5EE}.contact input,.contact textarea{margin-bottom:8px}.contact textarea{min-height:80px;resize:vertical}.small{font-size:14px}.hidden{display:none!important}label{display:block;margin:12px 0 5px;font-size:13px;color:var(--muted)}button.exit{width:auto;float:right}.section-note{font-size:14px;color:var(--muted)}button.text-link{border:0;background:transparent;text-decoration:underline;min-height:40px;padding:5px}.steps{padding-left:22px}.steps li{margin-bottom:10px}a.tel{font-weight:700}
+</style>
+</head>
+<body>
+<header class="top"><strong>UNIT CONVERTER</strong><button id="exit" class="hidden" aria-label="Exit help and return to converter">× EXIT</button></header>
+<main class="wrap">
+<section id="converter" aria-label="Unit converter">
+  <h1>Convert</h1>
+  <label for="category">Category</label><select id="category"><option>Length</option><option>Weight</option><option>Temperature</option><option>Volume</option></select>
+  <label for="value">Value</label><input id="value" inputmode="decimal" autocomplete="off" maxlength="12" placeholder="0">
+  <div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
+  <button id="swap" aria-label="Swap units">↕ Swap</button>
+  <div class="result" aria-live="polite"><span class="small">RESULT</span><b id="result">—</b><span id="resultUnit" class="small"></span></div>
+  <p class="quiet">quick conversions · no ads · no tracking</p>
+</section>
+<section id="help" class="hidden" hidden aria-label="Help and safety resources">
+  <h1>You are not alone.</h1><p>Pick what you need. Press Escape or tap EXIT anytime.</p>
+  <div class="card hotline"><h2>I need help right now</h2>
+    <a class="button tel" href="tel:18007997233">Call 1-800-799-7233<small><br>Free. 24 hours. You don't have to give your name.</small></a>
+    <a class="button" href="sms:88788?body=START">Text START to 88788<small><br>If you can't talk out loud.</small></a>
+    <a class="button" href="sms:741741?body=HOME">Text HOME to 741741<small><br>For any crisis. Any age.</small></a>
+    <a class="button danger" href="tel:911">Call 911<small><br>If you or your children are in immediate danger.</small></a>
+    <p>You can hang up anytime. They will not judge you.</p>
+  </div>
+  <div class="card kids"><h2>I'm a kid and I'm scared</h2>
+    <a class="button" href="tel:18004224453">Call 1-800-422-4453<small><br>A free phone line for kids. Grown-ups who want to help answer.</small></a>
+    <p><strong>You are not in trouble. This is not your fault.</strong></p>
+    <p>You can tell a teacher, school counselor, coach, or another grown-up you trust. If someone is hurting you now, go to a neighbor or call 911.</p>
+  </div>
+  <div class="card plan"><h2>I need to make a plan to leave</h2>
+    <ol class="steps"><li>Pick one person you trust. Tell them what is happening.</li><li>Choose a code word that means “call for help.”</li><li>If you can, put copies of ID, keys, and cash somewhere safe outside home.</li><li>Know the exits. Think about locks and windows.</li><li>You can leave with nothing. Shelters can help with children and pets too.</li></ol>
+    <a class="button" href="tel:18007997233">Call 1-800-799-7233<small><br>They will help you make a plan.</small></a>
+  </div>
+  <div class="card digital"><h2>I think my phone is being watched</h2>
+    <p>If you can, use a library computer, a friend's phone, or a phone at work. Use private browsing for safety information.</p>
+    <p>Look for apps you do not recognize. Turn off location sharing. Check bags and cars for unknown trackers. Change passwords only from a safe device.</p>
+    <a class="button" href="https://lawhelp.org">Read legal-help information from LawHelp<small><br>Open only if this is a safe time and device.</small></a>
+  </div>
+  <div class="card"><h2>More numbers to call or text</h2>
+    <a class="button" href="tel:18663319474">Love Is Respect: 1-866-331-9474<small><br>Ages 12–24. Text LOVEIS to 22522.</small></a>
+    <a class="button" href="tel:18006564673">Sexual Assault: 1-800-656-4673<small><br>24/7.</small></a>
+    <a class="button" href="tel:18558121001">Deaf/HoH: 1-855-812-1001<small><br>Video phone. Email hotline@thehotline.org.</small></a>
+    <a class="button danger" href="tel:911">Emergency: 911<small><br>If anyone is in immediate danger.</small></a>
+  </div>
+  <div class="card contact"><h2>My safe people</h2>
+    <p class="small">Save up to five numbers you cannot keep in your regular contacts. They stay in this app's local storage. Add a code word or distress message. Nothing is uploaded.</p>
+    <div id="contacts"></div><button id="addContact">+ Add a safe person</button>
+    <form id="contactForm" class="hidden"><h3>Safe person</h3>
+      <label for="contactName">Name</label><input id="contactName" maxlength="30" autocomplete="off">
+      <label for="contactPhone">Phone number</label><input id="contactPhone" maxlength="20" inputmode="tel" autocomplete="off">
+      <label for="contactMessage">Code word or distress message</label><textarea id="contactMessage" maxlength="100"></textarea>
+      <button type="submit">Save</button><button type="button" id="cancelContact">Cancel</button>
+    </form>
+  </div>
+  <p class="section-note">Before you close: clear this visit from browser history if someone checks your device, or use a private window next time. Your safe contacts stay only in this app's local storage.</p>
+</section>
+</main>
+<script>
+"use strict";
+const CATS={Length:{units:["Inches","Feet","Yards","Miles","Centimeters","Meters","Kilometers"],factors:{Inches:1,Feet:12,Yards:36,Miles:63360,Centimeters:.393701,Meters:39.3701,Kilometers:39370.1}},Weight:{units:["Ounces","Pounds","Grams","Kilograms"],factors:{Ounces:1,Pounds:16,Grams:.035274,Kilograms:35.274}},Temperature:{units:["Fahrenheit","Celsius"],factors:null},Volume:{units:["Cups","Pints","Quarts","Gallons","Liters"],factors:{Cups:1,Pints:2,Quarts:4,Gallons:16,Liters:4.22675}}};
+const $=id=>document.getElementById(id), value=$("value"), category=$("category"), from=$("from"), to=$("to"), result=$("result"), resultUnit=$("resultUnit"), contactsEl=$("contacts"), form=$("contactForm");
+let contacts=[],editing=-1;
+function isCode(v){return ["911","991","919","199","119","191","999","111"].includes(v.replace(/[^0-9]/g,""));}
+function fillUnits(){for(const [i,u] of CATS[category.value].units.entries()){from.add(new Option(u,u,i===0));to.add(new Option(u,u,i===1));}from.selectedIndex=0;to.selectedIndex=1;convert();}
+function convert(){if(isCode(value.value)){showHelp();return;}const n=parseFloat(value.value);if(!Number.isFinite(n)){result.textContent="—";resultUnit.textContent="";return;}let answer;if(category.value==="Temperature"){answer=from.value===to.value?n:from.value==="Fahrenheit"?(n-32)*5/9:n*9/5+32;}else{const f=CATS[category.value].factors;answer=n*f[from.value]/f[to.value];}result.textContent=Math.abs(answer)<1e-12?"0":answer.toFixed(2).replace(/\.?0+$/,"");resultUnit.textContent=to.value;}
+function showHelp(){$("converter").classList.add("hidden");$("help").classList.remove("hidden");$("help").hidden=false;$("exit").classList.remove("hidden");value.value="";renderContacts();}
+function exitHelp(){$("help").classList.add("hidden");$("help").hidden=true;$("converter").classList.remove("hidden");$("exit").classList.add("hidden");editing=-1;form.classList.add("hidden");value.value="";value.focus();}
+function loadContacts(){try{const data=JSON.parse(localStorage.getItem("uc_pref_v1")||"[]");contacts=Array.isArray(data)?data.slice(0,5):[];}catch(e){contacts=[];}}
+function saveContacts(){try{localStorage.setItem("uc_pref_v1",JSON.stringify(contacts));}catch(e){}}
+function text(tag,content,className){const el=document.createElement(tag);if(className)el.className=className;el.textContent=content;return el;}
+function renderContacts(){contactsEl.replaceChildren();contacts.forEach((c,i)=>{const card=document.createElement("div");card.className="card contact";card.append(text("strong",c.name||"No name"),text("p",c.phone),text("p",c.message?`Message: “${c.message}”`:""));if(c.message){const sms=document.createElement("a");sms.className="button";sms.href=`sms:${c.phone.replace(/[^0-9+]/g,"")}?body=${encodeURIComponent(c.message)}`;sms.textContent="Send text";card.append(sms);}const call=document.createElement("a");call.className="button";call.href=`tel:${c.phone.replace(/[^0-9+]/g,"")}`;call.textContent="Call";card.append(call);const edit=document.createElement("button");edit.textContent="Edit";edit.onclick=()=>startEdit(i);card.append(edit);const del=document.createElement("button");del.textContent="Delete";del.className="text-link danger";del.onclick=()=>{if(confirm("Delete this safe contact?")){contacts.splice(i,1);saveContacts();renderContacts();}};card.append(del);});}
+function startEdit(i){editing=i;const c=i<0?{name:"",phone:"",message:""}:contacts[i];$("contactName").value=c.name;$("contactPhone").value=c.phone;$("contactMessage").value=c.message;form.classList.remove("hidden");$("contactName").focus();}
+category.onchange=()=>{from.replaceChildren();to.replaceChildren();fillUnits();};value.oninput=convert;$("swap").onclick=()=>{const a=from.value;from.value=to.value;to.value=a;convert();};$("exit").onclick=exitHelp;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")exitHelp();});
+$("addContact").onclick=()=>startEdit(-1);$("cancelContact").onclick=()=>{editing=-1;form.classList.add("hidden");};
+form.onsubmit=e=>{e.preventDefault();const c={name:$("contactName").value.trim().slice(0,30),phone:$("contactPhone").value.replace(/[^0-9+\-() ]/g,"").trim().slice(0,20),message:$("contactMessage").value.trim().slice(0,100)};if(!c.name&&!c.phone)return;if(editing<0){if(contacts.length>=5)return;contacts.push(c);}else{contacts[editing]=c;}saveContacts();editing=-1;form.classList.add("hidden");renderContacts();};
+loadContacts();fillUnits();
+if("serviceWorker" in navigator && location.protocol!=="file:"){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+</script>
+</body>
+</html>
