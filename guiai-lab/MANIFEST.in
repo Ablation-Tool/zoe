@@ -8,7 +8,9 @@ include NOTICE
 recursive-include licenses *.txt
 recursive-include guiai/icons *.svg
 recursive-include guiai/gem/data *.json.gz
-recursive-include docs *.md *.png *.tex *.pdf *.py *.json
+recursive-include docs *.md *.png *.tex *.pdf *.py *.json *.vcd
+include docs/images/zoe-waveform.svg
+include docs/images/zoe-waveform.gem
 recursive-include metrix/templates *.html
 recursive-include metrix/gui *.html *.css *.js
 recursive-include stress *.py

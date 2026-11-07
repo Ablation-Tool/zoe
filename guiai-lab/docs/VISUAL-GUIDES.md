@@ -36,6 +36,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![SPECS and AMAC protocol evidence](images/zoe-protocol.png){width=72%}](visual/zoe-protocol-visual.pdf)
 
+**[Zoe Waveform Replay](visual/zoe-waveform-visual.pdf)**
+
+[![Bounded VCD and legacy waveform replay](images/zoe-waveform.png){width=72%}](visual/zoe-waveform-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**
