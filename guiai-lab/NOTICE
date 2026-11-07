@@ -27,3 +27,18 @@ Terminal palettes
 - The high-contrast palette is a GUIAI-specific arrangement. Color preferences are applied through VTE; no terminal emulator source files are copied.
 
 GUIAI does not use xdg-open for untrusted artifacts. Show in Files uses Nautilus with --select after an explicit user action.
+
+vidlib
+- vidlib was created by Nicholas Michael Kloster with Claude Code.
+- Zoe invokes the original executable without replacing, renaming, or claiming authorship of it. The original tool was not modified for this integration.
+- The Zoe adapter supplies separate normalized evidence reports, source verification, tests, and original visual scenes. Transcripts remain external and are not bundled.
+
+Zoe Pentacube and Zoetic Research
+- Zoe Pentacube is an original pentomino/cube-permutation implementation. ARTetris copyright 2017 Exyte, MIT licensed, informed only the engine/view boundary; no Swift code or assets are copied. It is not an official Rubik or Tetris product.
+- IBM PC Tetris, Atari source/object files, Digital Research/GSX source and manuals, and the 1937 Songs of the IBM songbook remain external and are not executed or bundled. Atari material is not presented as validated firmware.
+- Zoetic Research is user-created artwork supplied as Zoetic_Research_Logo.{png,svg}. It is an independent homage to Gary Kildall and Digital Research, not an official Digital Research mark. The two historical source logos remain external. Rhyme hints are original, not copied songbook lyrics.
+
+Zoe Internal Clock
+- The TIM3C 80/2 MHz pattern informs synthetic 25,000 ps software ticks, not measured CERN time.
+- Karban et al.'s host-season evidence, Yoshimura's hypothetical four-year gate, Sato et al.'s PDF-neuron study, and UConn emergence guidance remain distinct sources. No fitted biological or molecular model is claimed.
+- Soil and sunset cues are synthetic inputs. Act changes only local visual/replay events; no hardware, organism, or external clock is controlled. The cicada glyph and event model are original.

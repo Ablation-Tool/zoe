@@ -13,6 +13,7 @@ from guiai.gem.atlas import ATLAS_MODULES, default_document
 from guiai.gem.cern_corpus import load_corpus, scan_corpus, write_corpus
 from guiai.gem.cern_cli import main as cern_main
 from guiai.gem.cern_repair import RepairRecord, repair_report, repair_scene
+from guiai.gem.cern_wupper import LEGACY_BLOCK, repair_wupper_cli, repair_wupper_file
 from guiai.gem.cli import main as gem_main
 from guiai.gem.geometry import verify
 from guiai.gem.runner import verify_vdi
@@ -135,6 +136,22 @@ class CernCorpusCase(unittest.TestCase):
                 source="fixture", original_behavior="bad", desired_behavior="good",
                 evidence_level="none", repair_status="integrated", tests_total=0,
             ).validate()
+
+    def test_wupper_safe_yaml_repair_and_no_side_effect(self):
+        source = self.root / "cli.py"
+        source.write_text("def load_config(f):\n" + LEGACY_BLOCK, encoding="utf-8")
+        repaired = repair_wupper_cli("def load_config(f):\n" + LEGACY_BLOCK)
+        self.assertIn("yaml.safe_load", repaired)
+        self.assertNotIn("yaml.load", repaired)
+        output = self.root / "repaired.py"
+        report = repair_wupper_file(source, output)
+        self.assertEqual(report["tests_total"], 6)
+        self.assertEqual(report["tests_passed"], 6)
+        self.assertEqual(report["status"], "regression_verified")
+        self.assertFalse(report["original_artifacts_modified"])
+        self.assertEqual(output.read_text(encoding="utf-8"), repaired)
+        with self.assertRaises(FileExistsError):
+            repair_wupper_file(source, output)
 
     def test_atlas_and_existing_gem_entrypoints(self):
         self.assertIn("cern", ATLAS_MODULES)

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "instrument": "zoe-cern-console-integration",
+  "checkout": "/home/cowboy/_projects/zoe",
+  "handover_commit": "3ff9dda5",
+  "merged_zoe_revision": "ee589f78ca2eb39421ca69719b1a58e4d6ba8fd9",
+  "entrypoint_count": 12,
+  "repository_count": 10,
+  "knowledge_observations": 12,
+  "knowledge_links": 11,
+  "knowledge_events": 23,
+  "combined_regression": {
+    "passed": 198,
+    "skipped": 26,
+    "result": "OK"
+  },
+  "workbench_lifecycle_tests": {
+    "passed": 9,
+    "result": "OK"
+  },
+  "cern_corpus_tests": {
+    "passed": 6,
+    "result": "OK"
+  },
+  "real_unified_component_commands": {
+    "passed": 1,
+    "result": "OK"
+  },
+  "workbench_timeout_cleanup": {
+    "unhealthy_process_terminated": true,
+    "second_stop_is_noop": true
+  },
+  "installed_source_fallback": {
+    "checkout_anchor_preferred": true,
+    "installed_package_anchor_used_when_needed": true,
+    "installed_launch_verified": true
+  },
+  "installed_workflows": {
+    "manifest_verified": true,
+    "knowledge_verified": true,
+    "no_overwrite": true,
+    "console_attached": true,
+    "targets": ["helios", "atelier"]
+  },
+  "package": {
+    "wheel_and_source_archive_built": true,
+    "archive_contents_verified": true,
+    "installed_into": "/home/cowboy/_temp/gem-runtime.4JQNao"
+  },
+  "visual_guides": {
+    "guide_count": 23,
+    "pdf_count": 24,
+    "workbench_pages": 5,
+    "source_and_manifest_checks_passed": true
+  },
+  "forge": {
+    "reviews_passed": 21,
+    "high_or_critical_findings": 0,
+    "medium_review_only_findings": 1,
+    "medium_scope": "Legacy YAML loader text is repair input only; runtime validation uses yaml.safe_load and proves no side effect."
+  },
+  "console_health": {
+    "build_id": "ae473d187a56dba0",
+    "catalog_sha256": "a2326225d3b234421cabb1909ada4625cc2e787f769e53e4c544e70bbff4eb55",
+    "hardware_access": false,
+    "writes_to_cern": false,
+    "attached_user_server_stopped": false
+  },
+  "boundaries": {
+    "physical_hardware_contacted": false,
+    "privileges_elevated": false,
+    "desktop_events_emitted_during_verification": false,
+    "full_application_artline_compatibility_claimed": false,
+    "original_handover_manifest": "/tmp/zoe-workbench-handover.json",
+    "original_handover_manifest_overwritten": false
+  }
+}

@@ -7,9 +7,10 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest import mock
 
 from guiai.gem.unified import COMPONENTS, ComponentRegistry, unified_scene
-from guiai.gem.zoe_workbench import WorkbenchProcess, free_port
+from guiai.gem.zoe_workbench import REQUIRED_FILES, WorkbenchProcess, free_port
 
 
 class WorkbenchRegistrationCase(unittest.TestCase):
@@ -22,11 +23,11 @@ class WorkbenchRegistrationCase(unittest.TestCase):
         self.assertIn("guiai.gem.zoe_workbench_cli", command)
         self.assertIn("start", command)
         self.assertTrue(cwd.is_dir())
-        self.assertEqual(len(COMPONENTS), 9)
+        self.assertEqual(len(COMPONENTS), 12)
 
     def test_unified_layout_fits_the_new_component(self):
         scene, report = unified_scene()
-        self.assertEqual(report["entrypoint_count"], 9)
+        self.assertEqual(report["entrypoint_count"], 12)
         memory = next(item for item in scene.objects if item["id"] == "unified-memory")
         component = next(item for item in scene.objects if item["id"] == "component-cern-console")
         self.assertGreater(memory["bounds"][1], component["bounds"][3])
@@ -78,6 +79,28 @@ class WorkbenchBridgeCase(unittest.TestCase):
         self.assertIsNone(workbench.health_at(state["port"]))
         self.assertFalse(self.state.exists())
 
+    def test_unhealthy_start_timeout_stops_owned_process(self):
+        checkout = Path(self.temporary.name) / "checkout"
+        for relative in REQUIRED_FILES:
+            path = checkout / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("synthetic timeout fixture\n", encoding="utf-8")
+        (checkout / "run.py").write_text("import time\ntime.sleep(30)\n", encoding="utf-8")
+        workbench = WorkbenchProcess(checkout=checkout, state_file=self.state, preferred_port=free_port())
+        timer = [0.0]
+        def advancing_clock():
+            timer[0] += 0.2
+            return timer[0]
+        with mock.patch("guiai.gem.zoe_workbench.time.monotonic", side_effect=advancing_clock):
+            with self.assertRaises(TimeoutError):
+                workbench.start()
+        process = workbench.process
+        self.assertIsNotNone(process)
+        with self.assertRaises(ProcessLookupError):
+            os.kill(process.pid, 0)
+        self.assertIsNone(workbench._starting)
+        self.assertFalse(workbench.stop()["stopped"])
+
     def test_cli_start_health_and_stop(self):
         environment = os.environ.copy()
         environment["PYTHONPATH"] = str(Path(__file__).resolve().parents[1])
@@ -126,7 +149,10 @@ class WorkbenchBridgeCase(unittest.TestCase):
 
 
 class RecordingRegistry:
-    def launch(self, identifier, detach=True):
+    def component(self, identifier):
+        return type("Component", (), {"title": identifier})()
+
+    def launch(self, identifier, arguments=None, detach=True):
         return type("Process", (), {"pid": 4242})()
 
 
@@ -137,10 +163,12 @@ class NativeUnifiedCase(unittest.TestCase):
         window = AtlasWindow("unified")
         try:
             self.assertIsNotNone(window.scene)
-            self.assertEqual(window.report["entrypoint_count"], 9)
+            self.assertEqual(window.report["entrypoint_count"], 12)
             window.unified_registry = RecordingRegistry()
             window.make_unified_launch("cern-console")()
-            self.assertEqual(window.report["last_launch"]["component"], "cern-console")
+            self.assertIn("cern-console", window.summary.get_text())
+            self.assertIn("4242", window.summary.get_text())
+            self.assertIn("does not verify readiness", window.summary.get_text())
             window.open_cognitive()
             self.assertEqual(window.module, "cognitive")
             self.assertIsNotNone(window.scene)

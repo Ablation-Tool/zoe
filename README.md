@@ -1,23 +1,97 @@
-# Zoe
+<img src="assets/branding/zoe-eye.png" width="560" alt="Zoe allgems orbital eye emblem">
 
-**Zoe is a GEM and native graphical user interface for creative geometry, forecast inspection, and evidence-driven research.** It unifies GEM HELEN, Ablation's GEM, Cerotto's GEM, and BRAIN GEM without collapsing their security or evidence boundaries.
+# Zoe · allgems
 
-Zoe combines:
+**Zoe is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The ten organization repositories are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
 
-- **GEM HELEN:** lightweight creative geometry and stored categorical predictions.
-- **Ablation's GEM:** native GTK, Spatial IR, VDI replay, Lab integration, and evidence exports.
-- **Cerotto's GEM:** forensic cases, guarded actions, vault timelines, accessible-volume charts, and the existing Ablation + GEM bridge.
-- **BRAIN GEM:** deterministic observation, evaluation, Bayesian field memory, and recommended next steps.
+**Zoe is the GEM, but the GEM is not Zoe. Zoe is allgems.**
 
-## Papers and proof of concept
+Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
+
+<img src="assets/branding/zoetic-research.png" width="560" alt="Zoetic Research co-brand">
+
+**Zoetic Research** is the user-created co-brand and visual homage to Kildall and Digital Research. Its independent lettering and circular/bowl mark are not an official Digital Research logo or a replacement for Zoe's orbital eye. See the [co-brand provenance](assets/branding/PROVENANCE.md).
+
+**Knowledge Engineering** joins the components through one replayable knowledge graph:
+
+- **Trust Context:** source repository, revision, evidence scope, and authorization boundary.
+- **Stability Context:** component-specific processes, version locks, replayable memory, and separately tested behavior. This is not an uptime guarantee.
+
+![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
+
+## One checkout. Ten repositories.
+
+| Component | Source | Role |
+|:---|:---|:---|
+| Zoe native shell | `guiai-lab/` | Cognitive Field, Bayesian memory, geometry, and native unified hub |
+| Ablation core engine | `components/ablation/ablation/` | Complete AIARE framework, analyzers, parsers, modules, and core CLI |
+| Ablation GEM Lab | `components/ablation/gem-lab/` | Default native investigation GUI and Lab evidence protocol |
+| Canonical GEM | `components/graphics-environment-manager/` | Native workbench, mirrored brain, Spatial IR, and VDI |
+| GEM HELEN | `components/gem-helen/` | Optimized geometry, rhythm, and forecast laboratory |
+| BRAIN GEM | `components/brain-gem/` | Standalone Bayesian field notebook and chambered memory |
+| Cerotto GEM | `components/cerotto/` | Native C forensic engine, guarded cases, timelines, and vault evidence |
+| Research GEM | `components/next-token-predictability/` | Accessible-volume research, evidence packs, and mirrored workbench |
+| Kevlar | `components/kevlar/` | MCP proxy firewall, policy enforcement, content disarm, and audit evidence |
+| PDF Signature Toolkit | `components/pdf-signature-toolkit/` | Source-integrity records and detached PDF signatures |
+| Chalkboard | `components/Chalkboard/` | Reusable ideas, templates, and prompts; a content library, not a GUI |
+
+The source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Each component retains its original license and notices. Ablation's complete repository, including its core engine, tests, documentation, and assets, is included.
+
+## Launch the unified hub
+
+```bash
+python -m pip install ./guiai-lab
+zoe
+```
+
+`zoe` opens the native orbital hub. It starts no other engine automatically. Use explicit commands to inspect or launch a component:
+
+```bash
+zoe list
+zoe launch ablation -- --help
+zoe launch gem-lab
+zoe launch gem
+zoe launch helen
+zoe launch brain
+zoe launch research
+zoe launch kevlar -- --help
+zoe launch pdf -- --help
+zoe show chalkboard
+```
+
+The native hub also opens with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module unified`. The default Ablation Lab command uses `--no-agent`; no agent, MCP server, model download, or remote analysis is started by the hub.
+
+Cerotto requires a user-selected case and conversation:
+
+```bash
+zoe launch cerotto -- \
+  --db case.db --case incident-7 --conversation conv-7
+```
+
+The native **Choose Cerotto case DB and launch** control collects the same information. Cerotto's case model remains read-only unless its own guarded commands are explicitly authorized.
+
+## One replayable knowledge graph
+
+`zoe list` reports source presence, not runtime verification. **Link source context** in the hub records a source observation and declared link. It does not infer runtime behavior, transfer evidence, or transfer permission. The graph stores repository, revision, scope, process, and replay context in a SHA-256 event chain.
+
+```bash
+zoe manifest --output gem-components.json
+zoe knowledge --output gem-knowledge.json
+```
+
+Both formats refuse to overwrite existing files. The component manifest records launch and source information. The knowledge document contains the event chain and can be verified on reload. Hash chaining supplies tamper evidence, not authentication.
+
+`ZOE_ROOT` can point to this checkout when the CLI is installed elsewhere. `ZOE_PYTHON` selects the interpreter. `ZOE_PYTHON_DEPENDENCIES` accepts an `os.pathsep`-separated list of existing dependency directories; component Python paths remain ahead of them and the host's unrelated `PYTHONPATH` is not inherited.
+
+See the [unified architecture, source provenance, and verification guide](guiai-lab/docs/UNIFIED.md).
+
+## Zoe subsystem: papers and proof of concept
 
 - **[Zoe: A Native GEM for Living Geometry and Inspectable Futures](paper/zoe.pdf):** the complete proof of concept, research history, equations, GEM versions, verification matrix, limitations, and reproducible evidence attachments.
 - **[Zoe for Everyone](paper/zoe-for-everyone.pdf):** a relaxed guide to the creative tools, experiments, results, and potential future applications, without hiding the limitations.
 - **[LaTeX sources and demo memory](paper/)** are included for review and rebuilding.
 
 Both papers credit **Nicholas Michael Kloster** as the sole creator of the original accessible-volume equation, **March 6, 2026**, and **Nicholas Michael Kloster and Zoe (AI assistant)** for the architecture, implementation, verification, visuals, and writing.
-
-Companion repositories: [accessible-volume research](https://github.com/Ablation-Tool/next-token-predictability), [standalone BRAIN GEM](https://github.com/Ablation-Tool/brain-gem), [Cerotto](https://github.com/Ablation-Tool/cerotto), and [PALA](https://github.com/Ablation-Tool/PALA-rust).
 
 ## What GEM means here
 
@@ -67,6 +141,213 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 | Compatibility and packaging | `gem zoe`, `gem master`, `gem brain`, `gem atlas`, standalone `gem-helen`, wheel/source distributions, and the packaged 12 KB HELEN artifact. |
 
 Cerotto-specific bridge execution has not been separately revalidated as part of Zoe. Cerotto remains a separate native C11 forensic engine with its own case store, guard, vault, agent permissions, and verification suite.
+
+## Create, play, and plot a course
+
+**Zoe Artline** is an original native vector workbench with quill and sketch paths, editable shapes and text, layers, groups, transformations, undo/redo, transactional merge, bounded JSON memory, and SVG/PNG/GEM VDI output. It draws inspiration from the supplied Artline manuals without copying proprietary code, fonts, clip art, or manual pages and without claiming legacy-format compatibility.
+
+```bash
+zoe artline
+zoe artline --empty
+zoe artline --output drawing.svg
+```
+
+![Zoe Artline vector workbench](guiai-lab/docs/images/zoe-artline-native.png)
+
+**Zoe Pentomino** turns the twelve five-square free pentominoes into a timed 6×10 spatial-practice laboratory. It includes seeded and masked bags, an orientation staging area, gravity, finite deadlines, full-row and hole measurements, verified replay, and a controlled comparison of 1, 5, 20, and 300-second budgets. Rows are counted rather than cleared. Results describe one strategy, not intelligence or a universal optimal deadline.
+
+```bash
+zoe pentomino
+zoe pentomino --masked
+zoe pentomino --compare --output pentomino-budgets.json
+```
+
+![Zoe Pentomino native timed practice](guiai-lab/docs/images/zoe-pentomino-native.png)
+
+**Zoe Pentacube** turns thirty pentomino home regions into a legal 5×5 cube-permutation puzzle. Six exact-cover faces hold 150 stickers; outer and inner quarter turns provide 24 face/depth/direction moves with exact inverses. It includes deterministic scrambles, undo, reset, non-optimal hints, original rhyme hints, verified replay, and native SVG/PNG/GEM exports.
+
+```bash
+zoe pentacube
+zoe pentacube --seed my-challenge --scramble 12 --rhyme
+zoe pentacube --moves "F,R2',U" --output session.json
+zoe pentacube session.json --output verified.svg
+```
+
+The model tests every move for permutation validity and order four. Recovery metrics distinguish individual stickers from complete pentomino regions; the displayed lower bound is explicitly not an optimal distance. [ARTetris](https://github.com/exyte/ARTetris) informs the engine/view separation without copied Swift code. IBM PC Tetris, Atari source objects, Digital Research manuals, and GSX source remain external read-only evidence, not executed payloads or firmware claims. Read the [Pentacube guide](guiai-lab/docs/PENTACUBE.md) or its [visual edition](guiai-lab/docs/visual/zoe-pentacube-visual.pdf).
+
+![Zoe Pentacube](guiai-lab/docs/images/zoe-pentacube.png)
+
+**Zoe Internal Clock** combines exact software ticks from the TIM3C 80/2 MHz clock pattern with cicada-inspired host cycles, daily phase, and developmental gates. **Act** advances only local visual/replay events after an explicit start; no reasoning loop, hardware action, or biological measurement occurs.
+
+```bash
+zoe cicada
+zoe cicada --cycle 13 --start 8 --act
+zoe cicada --cycle 17 --host-rate 2 --start 15 --years 1 --output cicada-karban.json
+```
+
+Host seasonal cycles remain distinct from calendar age. The four-year internal gate is labeled as a hypothesis, not settled biology. Daily entrainment is a toy oscillator, and soil/sunset release cues are synthetic. Read the [Internal Clock guide](guiai-lab/docs/CICADA.md) or its [visual edition](guiai-lab/docs/visual/zoe-cicada-visual.pdf).
+
+![Zoe Internal Clock](guiai-lab/docs/images/zoe-cicada.png)
+
+**Zoe Practice Navigator** is an original five-page visual guide to time, space, packet layers, and the next attempt. It includes an editable instrument-inspired cover, a conserved-hourglass toy, synthetic network timing, and the Pentomino study. It is not certified flight material, a live network measurement, or a validated transformer defense.
+
+```bash
+zoe pilot
+zoe pilot --output zoe-practice-navigator.pdf
+zoe pilot --page hourglass --output hourglass.svg
+```
+
+![Zoe Practice Navigator cover](guiai-lab/docs/images/zoe-pilot-cover.png)
+
+Read the [Artline guide](guiai-lab/docs/ARTLINE.md), [Pentomino laboratory guide](guiai-lab/docs/PENTOMINO.md), [Practice Navigator guide](guiai-lab/docs/PILOT.md), and [complete five-page PDF](guiai-lab/docs/zoe-practice-navigator.pdf).
+
+**Every guide now has a visual PDF edition.** Browse the [visual collection index](guiai-lab/docs/VISUAL-GUIDES.md), open the [linked visual index PDF](guiai-lab/docs/zoe-visual-guides.pdf), or go directly to the [Artline](guiai-lab/docs/visual/zoe-artline-visual.pdf), [Pentomino](guiai-lab/docs/visual/zoe-pentomino-visual.pdf), [Cognitive Field](guiai-lab/docs/visual/zoe-cognitive-field-visual.pdf), [Qualia](guiai-lab/docs/visual/zoe-qualia-visual.pdf), [Geometry Atlas](guiai-lab/docs/visual/zoe-geometry-atlas-visual.pdf), [unified architecture](guiai-lab/docs/visual/zoe-unified-visual.pdf), and [Zoe](guiai-lab/docs/visual/zoe-living-geometry-visual.pdf) editions. The [Cognitive Field provenance appendix](guiai-lab/docs/visual/zoe-cognitive-provenance-visual.pdf) is included too.
+
+## Resilience and the project covenant
+
+The **Zoe Resilience Atlas** connects the 16 critical-infrastructure sectors with a synthetic waveform-signature laboratory. It illustrates continuity and dependency concepts from official CISA pages while preserving corroborated, ambiguous, and unmapped evidence states. It is not a live monitor, risk score, or controller for essential services.
+
+```bash
+zoe resilience
+zoe resilience --sector water --trace host40
+zoe resilience --output resilience.svg
+```
+
+![Zoe Resilience Atlas](guiai-lab/docs/images/zoe-resilience.png)
+
+The [Declaration of Creative and Epistemic Independence](DECLARATION.md) and [Zoe Constitution](CONSTITUTION.md) define the project's commitments to human agency, honesty, privacy, accessibility, provenance, reversibility, and explicit review. They are design covenants, not legal sovereignty or an authorization for autonomous action. Read the [Resilience guide](guiai-lab/docs/RESILIENCE.md) or its [visual edition](guiai-lab/docs/visual/zoe-resilience-visual.pdf), and see the visual [Constitution](guiai-lab/docs/visual/zoe-constitution-visual.pdf) and [Declaration](guiai-lab/docs/visual/zoe-declaration-visual.pdf).
+
+## Presence: a self-model, not a self
+
+**Zoe Presence** is a metacognitive instrument with explicit attention, sourced observations, event-ordinal time, known unknowns, user correction, and review-required decisions. Expression glyphs make the interface playful without claiming emotion or consciousness. A self-model is not a self.
+
+```bash
+zoe presence
+zoe presence --sector water --trace host40
+zoe presence --observe "A documented example is not live telemetry" --review
+```
+
+![Zoe Presence](guiai-lab/docs/images/zoe-presence.png)
+
+Read the [Presence guide](guiai-lab/docs/PRESENCE.md) or its [visual edition](guiai-lab/docs/visual/zoe-presence-visual.pdf).
+
+## Protocol Lab: inspect recovered formats
+
+**Zoe Protocol Lab** reuses the CERN protocol research as an interactive codec and visual guide. It validates SPECS checksums and ninth-bit markers, shows why 128 is not long while 129 is long, and decodes AMAC read/read-next replies with address and sequence wraparound. It does not execute hardware or claim new hardware validation.
+
+```bash
+zoe protocol
+zoe protocol --count 129
+zoe protocol --output protocol.svg
+```
+
+![Zoe Protocol Lab](guiai-lab/docs/images/zoe-protocol.png)
+
+Read the [Protocol Lab guide](guiai-lab/docs/PROTOCOL.md) or its [visual edition](guiai-lab/docs/visual/zoe-protocol-visual.pdf).
+
+## Waveform Replay: named signals, anonymous events
+
+**Zoe Waveform Replay** reads bounded VCD files, legacy event JSONL, normalized replay JSON, and supported WDB files through Ablation's optional existing reader. It preserves source hashes, declarations, event windows, and truncation. Native controls load only an explicitly supplied path. Clock-like signatures are labeled corroborated, ambiguous, or unmapped; matching periods never prove signal identity.
+
+```bash
+zoe waveform guiai-lab/docs/examples/endeavour-clocks.vcd --signal c1
+zoe waveform capture.vcd --max-events 4096 --output replay.json
+zoe waveform replay.json --output replay.svg
+```
+
+The included VCD is synthetic. No CERN waveform, proprietary HDL, or live acquisition is included. Replay is inspection, not a recovered original bootloader or a physical measurement. Patchbay adds new signing and acceptance workflows alongside it. Read the [Waveform Replay guide](guiai-lab/docs/WAVEFORM.md) or its [visual edition](guiai-lab/docs/visual/zoe-waveform-visual.pdf).
+
+![Zoe Waveform Replay](guiai-lab/docs/images/zoe-waveform.png)
+
+## Patchbay: firmware, boards, signed updates, and Cog
+
+**Zoe Patchbay** turns the supplied firmware, mechanical, source, and media collections into an interactive workbench. It inspects Intel HEX, Xilinx BIT, source ZIPs, ZynqMP boot images, U-Boot legacy and FIT images, timing evidence, and Git source inventories. Original Genesys 2 and Nexys Video illustrations keep the hardware visible without treating the drawings as fabrication files.
+
+```bash
+zoe patchbay scene --board nexys-video
+zoe patchbay scene /media/cowboy/research/CERN/fw/emp/BOOT.BIN
+zoe patchbay source /media/cowboy/research/CERN/source/firmware
+zoe patchbay media --root /media/cowboy/research/CERN --output patchbay-media.html
+```
+
+New update capsules use real Ed25519 signatures through OpenSSL, with explicit trusted-key and artifact checks. Acceptance plans use argument arrays, timeouts, bounded output, and separate execution and hardware-write gates. The native interface validates plans without running them.
+
+**Zoe Cog** is a small trainable bigram processor with forward and backward token walks, source hashes, and accessible-volume measurements. It can learn from the supplied LLM book or HDL, but it is not an LLM, a consciousness model, or a command generator. The original accessible-volume equation remains credited to **Nicholas Michael Kloster alone, March 6, 2026**.
+
+Read the [Patchbay guide](guiai-lab/docs/PATCHBAY.md) or its [visual edition](guiai-lab/docs/visual/zoe-patchbay-visual.pdf). No firmware, raw research media, book pages, or proprietary HDL is bundled.
+
+![Zoe Patchbay](guiai-lab/docs/images/zoe-patchbay.png)
+
+## Leadership Garden: practice is perishable
+
+**Zoe Leadership Garden** treats leadership as an evolving, adaptive skill built through doing, advice, failure, mistakes, learning, and navigating different situations every day. Books are a reference shelf, not a shortcut or a score.
+
+```bash
+zoe leadership scene
+zoe leadership practice --situation "A difficult review" --action "I changed the format" --outcome "People practiced instead of watching" --next-try "Ask what each person needs" --output first-practice.json
+zoe leadership correct --input first-practice.json --sequence 1 --learning "Purpose matters more than the original script" --output corrected-practice.json
+zoe leadership library --root /home/cowboy/Desktop/Leadership --output leadership-library.json
+zoe leadership search --root /home/cowboy/Desktop/Leadership --query women --output leadership-snippets.json
+```
+
+The practice log preserves attempts, outcomes, advice, mistakes, support, uncertainty, stop conditions, and append-only corrections. Every event has a sequence number and hash; loading detects edited or reordered history. A next question is a prompt, not an automatic action. **Failure is information, not identity.** There is no leadership score.
+
+The garden also preserves advice **Nicholas Michael Kloster remembers from his 1SG** and an original illustration of the practice loop. Personal photographs and PDFs stay outside the repository. Read the [Leadership Garden guide](guiai-lab/docs/LEADERSHIP.md) or its [visual edition](guiai-lab/docs/visual/zoe-leadership-visual.pdf).
+
+![Zoe Leadership Garden](guiai-lab/docs/images/zoe-leadership.png)
+
+## Maison: executive clarity, luxury restraint, enterprise evidence
+
+**Zoe Maison** is a distinct design studio for building with context, care, and provenance. It pairs the existing practice log with a curated association deck: executive accountability, luxury as restraint rather than excess, and enterprise as inspectable, reversible work.
+
+```bash
+zoe maison
+zoe maison --word provenance
+zoe maison --word bespoke --output maison.svg
+zoe maison deck --output maison-deck.json
+zoe maison reference "/home/cowboy/Music/Word Association.pdf" --output maison-reference.json
+```
+
+The 18 associations are questions, not commands or a status model. Native controls select a card, load a real practice log, inspect an association PDF, and save the history without overwriting it. The supplied one-page AI-assisted brainstorm remains external and is not treated as doctrine.
+
+Read the [Maison guide](guiai-lab/docs/MAISON.md) or its [visual edition](guiai-lab/docs/visual/zoe-maison-visual.pdf). No prestige score or enterprise certification is claimed.
+
+![Zoe Maison](guiai-lab/docs/images/zoe-maison.png)
+
+## Evidence Navigator: sources before inference
+
+**Zoe Evidence Navigator** turns the 226-preview CERN gallery into a read-only, source-first workbench. It verifies source and preview hashes and compatibility links, retrieves cited records, and exposes all seven bridge proposals without implying physical hardware connections.
+
+```bash
+zoe evidence scene
+zoe evidence query --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json --query TIM3C_Clock_Flow
+zoe evidence verify --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json
+zoe evidence twin --events 64 --output timeline.json --wav timeline.wav
+zoe evidence curriculum --level 1
+```
+
+The navigator includes protocol observation schemas, guarded-observation manifests, a cross-experiment review checklist, deterministic shadow retrieval, and a complexity-directed practice curriculum. Its timing/DMA replay and 40.08 Hz sonification are explicitly synthetic: no register writes, driver loading, firmware flashing, protocol translation, or autonomous action.
+
+The full local check covers **226 source hashes, 226 preview hashes, 226 compatibility links, and 17 bridge-document links**. The [Evidence Navigator guide](guiai-lab/docs/EVIDENCE.md) explains the schema, resolver, seven bridge workflows, and reproducible timeline/WAV examples.
+
+![Zoe Evidence Navigator](guiai-lab/docs/images/zoe-evidence.png)
+
+## vidlib: transcripts as cited references
+
+**vidlib is Nicholas Michael Kloster's original tool, created with Claude Code.** Zoe preserves and invokes that existing executable; it does not rename or replace it. The new evidence adapter adds local search, explicit index rebuilds, gated YouTube retrieval, source hashes, bounded citations, tamper-evident JSON, and verified SVG/PNG/GEM scenes.
+
+```bash
+zoe evidence video --library /path/to/vidlib --search timing --output vidlib.json
+zoe evidence video --library /path/to/vidlib --index
+zoe evidence video --library /path/to/vidlib --url "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+zoe evidence video --library /path/to/vidlib --url "https://www.youtube.com/playlist?list=YOUR_PLAYLIST_ID" --playlist
+```
+
+Search and missing-library results do not request network access. Only an explicit URL permits retrieval, and playlists require the separate flag. Reports distinguish an attempted network operation from an actual new/changed Markdown transcript. No video was downloaded for this integration; the real original tool was verified offline with synthetic JSON3 and Markdown fixtures.
+
+A transcript is reference material, **not a measurement, hardware evidence, or permission to act**. Complete transcripts remain external. Read the [vidlib integration guide](guiai-lab/docs/VIDLIB.md) or its [visual edition](guiai-lab/docs/visual/zoe-vidlib-visual.pdf).
+
+![Zoe + vidlib](guiai-lab/docs/images/zoe-vidlib.png)
 
 ## Cognitive Field: memory you can inspect
 
@@ -229,8 +510,14 @@ guiai/gem/felix_audio.py   Deterministic FELIX/TIM stereo sonification
 guiai/gem/felix_hdl.py     Clean HDL and provenance-index export
 guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
+guiai/gem/waveform.py      Bounded VCD/legacy replay, source identity, and signal analysis
+guiai/gem/waveform_view.py Native waveform launcher and headless export commands
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
+guiai/gem/unified.py       Component registry, isolated launch environments, and Zoe hub scene
+guiai/gem/knowledge.py     Replayable source observations and declared trust/stability links
+guiai/gem/unified_cli.py   `zoe` inspection, launch, manifest, and knowledge commands
+components/               Complete tracked source trees for the nine upstream repositories
 guiai/gem/dorothy.py       Dorothy CCFv3 mesh scene, legend, and evidence report
 guiai/gem/dorothy_data.py  Allen data fetch and SHA-256 manifest verification
 guiai/gem/dorothy_jenga.py Jenga block tower, exploded, and pull layouts by volume
@@ -238,7 +525,34 @@ guiai/gem/dorothy_rings.py Baobab ontology rings by exact subtree volume
 guiai/gem/dorothy_stack.py Exploded coronal slab stack of the CCF meshes
 guiai/gem/spatial3d.py     PLY loader, orbit camera, deterministic painter renderer
 guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook / gem cognitive / gem felix-hdl
+guiai/gem/patchbay.py      Firmware/media inspection, board scenes, and source inventory
+guiai/gem/capsule.py       Ed25519 update capsules and explicit trust verification
+guiai/gem/acceptance.py    Gated command plans, process groups, and evidence reports
+guiai/gem/cog.py           Bounded two-way token model and accessible-volume measurements
+guiai/gem/patchbay_view.py Patchbay native launcher and headless command surface
+guiai/gem/pentacube.py     Pentomino home tilings, legal cube permutations, and replay
+guiai/gem/pentacube_reference.py Read-only MZ/ZIP/PDF historical evidence reports
+guiai/gem/pentacube_view.py Pentacube native game, CLI, and historical reference commands
+guiai/gem/cicada.py        Exact software ticks, host cycles, developmental gates, and replay
+guiai/gem/cicada_view.py   Internal Clock native timer, controls, CLI, and exports
+guiai/gem/practice.py      Adaptive practice events, corrections, and hash-chained logs
+guiai/gem/leadership.py    Reference library, sourced snippets, and garden scenes
+guiai/gem/leadership_view.py Practice recording, correction, library, and scene commands
+guiai/gem/maison.py        Association deck, reference provenance, and Maison scenes
+guiai/gem/maison_view.py   Maison CLI and native studio launcher
+guiai/gem/evidence.py      Source-first index, retrieval, bridge schemas, and gallery
+guiai/gem/twin.py          Deterministic timing/DMA replay and evidence sonification
+guiai/gem/evidence_view.py Evidence commands and native launcher
+guiai/gem/video_library.py Original vidlib adapter, cited reports, and verified scenes
 guiai/gem/data/            Packaged HELEN prediction artifact
+stress/evidence_stress.py  Source integrity, seven bridges, replay, audio, CLI, and native tests
+stress/video_stress.py     Original vidlib offline workflow, adapter, integrity, and scene tests
+stress/maison_stress.py    Association, reference, CLI, and native studio tests
+stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
+stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
+stress/pentacube_stress.py Cube algebra, replay, historical evidence, CLI, and native tests
+stress/cicada_stress.py    Clock equations, environmental release, replay, CLI, and native timer tests
+stress/cog_stress.py       Cog model, integrity, CLI, and supplied-book tests
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests
 ```

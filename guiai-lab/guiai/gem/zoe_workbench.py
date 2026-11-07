@@ -48,6 +48,7 @@ class WorkbenchProcess:
         self.state_file = Path(state_file) if state_file else DEFAULT_STATE
         self.preferred_port = int(preferred_port)
         self.process = None
+        self._starting = None
         for relative in REQUIRED_FILES:
             if not (self.checkout / relative).is_file():
                 raise ValueError(f"CERN console checkout is missing {relative}: {self.checkout / relative}")
@@ -109,13 +110,16 @@ class WorkbenchProcess:
             "url": f"http://127.0.0.1:{port}/", "checkout": str(self.checkout),
             "log": str(log_path),
         }
+        self._starting = state
         deadline = time.monotonic() + 12
         while time.monotonic() < deadline:
             health = self.health_at(port)
             if health:
+                self._starting = None
                 write_json(self.state_file, {**state, "health": health, "readiness_verified": True})
                 return {**state, "health": health, "readiness_verified": True}
             if self.process.poll() is not None:
+                self._starting = None
                 details = log_path.read_text(errors="replace")[-4000:] if log_path.exists() else "no console log"
                 raise RuntimeError(f"CERN console exited with {self.process.returncode}: {details}")
             time.sleep(0.1)
@@ -123,7 +127,7 @@ class WorkbenchProcess:
         raise TimeoutError("CERN console did not become healthy within 12 seconds")
 
     def stop(self) -> dict:
-        state = self._owned_state()
+        state = self._owned_state() or self._starting
         if not state:
             return {"component": "cern-console", "stopped": False, "reason": "no Zoe-owned healthy process"}
         pid = state["pid"]
@@ -149,6 +153,7 @@ class WorkbenchProcess:
                         break
         except ProcessLookupError:
             pass
+        self._starting = None
         self.state_file.unlink(missing_ok=True)
         return {"component": "cern-console", "stopped": True, "pid": pid}
 

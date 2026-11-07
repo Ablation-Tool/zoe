@@ -9,12 +9,25 @@ from .qualia import qualia_scene
 from .volume import measure_probabilities
 
 ATLAS_MODULES = {
-    "unified": "Ablation = All = ZOE = ALL",
+    "unified": "Zoe · allgems",
     "felix": "Zoe × FELIX · living readout evidence",
     "cern": "Zoe × CERN · corpus Repair Atlas",
     "brain": "Zoe · BRAIN orchestration",
     "field": "Zoe · Bayesian field notebook",
     "cognitive": "Z.O.E. · Cognitive Field / GSP",
+    "artline": "Zoe Artline · vector workbench",
+    "pentomino": "Zoe Pentomino · timed spatial practice",
+    "pentacube": "Zoe Pentacube · pentomino regions and legal cube permutations",
+    "cicada": "Zoe Internal Clock · CERN ticks and cicada timing hypotheses",
+    "pilot": "Zoe Practice Navigator · original visual guide",
+    "resilience": "Zoe Resilience Atlas · services and signal evidence",
+    "presence": "Zoe Presence · an explicit self-model, not sentience",
+    "protocol": "Zoe Protocol Lab · SPECS and AMAC evidence",
+    "waveform": "Zoe Waveform Replay · bounded signal evidence",
+    "patchbay": "Zoe Patchbay · firmware, boards, and review loops",
+    "leadership": "Zoe Leadership Garden · practice, advice, failure, learning, adaptation",
+    "maison": "Zoe Maison · executive clarity, luxury restraint, enterprise evidence",
+    "evidence": "Zoe Evidence Navigator · source-first bridges and bounded replay",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -410,6 +423,50 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module == "cognitive":
         from .cognitive import CognitiveField, cognitive_scene
         return cognitive_scene(CognitiveField.demo())
+    if module == "artline":
+        from .artline import demo_document
+        document = demo_document()
+        return document.scene(), {"elements": len(document.elements), "layers": len(document.layers), "legacy_compatibility": False}
+    if module == "pentomino":
+        from .pentomino import PentominoGame
+        game = PentominoGame(seed="zoe-time-study", clock=lambda: 0)
+        return game.scene(), {"mode": game.mode, "status": game.status, "intelligence_measured": False, "optimal_time_claimed": False}
+    if module == "pentacube":
+        from .pentacube import PentacubeGame
+        game = PentacubeGame(seed="zoe-atlas-preview", scramble=6)
+        return game.scene(), {"measurements": game.measurements(), "intelligence_measured": False, "optimal_distance_claimed": False}
+    if module == "cicada":
+        from .cicada import CicadaClock
+        game = CicadaClock(cycle_years=13, initial_cycles=8)
+        game.step(5)
+        return game.scene(), {"measurements": game.measurements(), "biological_measurement": False, "external_actions_executed": False}
+    if module == "pilot":
+        from .pilot import guide_page
+        return guide_page("cover")
+    if module == "resilience":
+        from .resilience import resilience_scene
+        return resilience_scene()
+    if module == "presence":
+        from .presence import demo_presence, presence_scene
+        return presence_scene(demo_presence())
+    if module == "protocol":
+        from .protocol_lab import protocol_scene
+        return protocol_scene()
+    if module == "waveform":
+        from .waveform import demo_replay, waveform_scene
+        return waveform_scene(demo_replay())
+    if module == "patchbay":
+        from .patchbay import patchbay_scene
+        return patchbay_scene()
+    if module == "leadership":
+        from .leadership import leadership_scene
+        return leadership_scene()
+    if module == "maison":
+        from .maison import maison_scene
+        return maison_scene()
+    if module == "evidence":
+        from .evidence import navigator_scene
+        return navigator_scene()
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":

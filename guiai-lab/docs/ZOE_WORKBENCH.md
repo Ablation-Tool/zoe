@@ -17,9 +17,13 @@ zoe launch cern-console -- open atelier
 
 The checkout defaults to `/media/cowboy/research/GEM/cern-console`. Override it with `ZOE_CERN_CONSOLE` or the direct CLI's `--checkout` option.
 
+![HELIOS virtual collider laboratory](images/zoe-helios.png)
+
+![Atelier virtual input and drawing laboratory](images/zoe-atelier.png)
+
 ## Process boundary
 
-The bridge writes Zoe-owned process metadata to `guiai-lab/evidence/cern-console/runtime.json`. It stops only processes that it started and whose command still matches `run.py` in the expected checkout. It does not stop an attached user-owned server.
+The bridge writes Zoe-owned process metadata to `guiai-lab/evidence/cern-console/runtime.json`. It stops only processes that it started and whose command still matches `run.py` in the expected checkout. It does not stop an attached user-owned server. A startup that never becomes healthy is also stopped, even before readiness metadata exists; a second stop does not terminate an unrelated process. Installed packages resolve missing checkout anchors to the package containing `unified.py`, so `zoe launch cern-console` works from the wheel as well as the source tree.
 
 ```bash
 python3 -m guiai.gem.zoe_workbench_cli health

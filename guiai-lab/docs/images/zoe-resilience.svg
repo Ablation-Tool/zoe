@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1120" viewBox="0 0 1000 800" role="img" aria-label="Zoe Resilience Atlas · services and signal evidence">
+  <title>Zoe Resilience Atlas · services and signal evidence</title>
+  <rect x="0" y="0" width="1000.0" height="800.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="800.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="42.0" y="55.0" font-family="sans-serif" font-size="30.0" fill="#67e8f9">Zoe Resilience Atlas</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="44.0" y="84.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Essential services, evidence boundaries, and the space between signals</text>
+  </g>
+  <g data-object-id="sector-heading">
+    <title>sector-heading</title>
+    <text x="48.0" y="132.0" font-family="sans-serif" font-size="16.0" fill="#fde68a">16 critical infrastructure sectors</text>
+  </g>
+  <g data-object-id="waveform-heading">
+    <title>waveform-heading</title>
+    <text x="662.0" y="132.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">Waveform · synthetic preview</text>
+  </g>
+  <g data-object-id="dependency-communications">
+    <title>dependency-communications</title>
+    <polyline points="328,374 487.099,214.901" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="dependency-transportation">
+    <title>dependency-transportation</title>
+    <polyline points="328,374 168.901,214.901" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="dependency-water">
+    <title>dependency-water</title>
+    <polyline points="328,374 241.896,166.127" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="dependency-critical-manufacturing">
+    <title>dependency-critical-manufacturing</title>
+    <polyline points="328,374 535.873,287.896" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="sector-chemical">
+    <title>sector-chemical</title>
+    <ellipse cx="328.0" cy="149.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-chemical">
+    <title>label-chemical</title>
+    <text x="299.2" y="179.0" font-family="sans-serif" font-size="12.0" fill="#31445d">Chemical</text>
+  </g>
+  <g data-object-id="sector-commercial">
+    <title>sector-commercial</title>
+    <ellipse cx="414.1037722821452" cy="166.12710518496047" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-commercial">
+    <title>label-commercial</title>
+    <text x="378.1037722821452" y="196.12710518496047" font-family="sans-serif" font-size="12.0" fill="#31445d">Commercial</text>
+  </g>
+  <g data-object-id="sector-communications">
+    <title>sector-communications</title>
+    <ellipse cx="487.0990257669732" cy="214.90097423302683" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-communications">
+    <title>label-communications</title>
+    <text x="469.0990257669732" y="244.90097423302683" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Comms</text>
+  </g>
+  <g data-object-id="sector-critical-manufacturing">
+    <title>sector-critical-manufacturing</title>
+    <ellipse cx="535.8728948150396" cy="287.8962277178548" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-critical-manufacturing">
+    <title>label-critical-manufacturing</title>
+    <text x="496.27289481503954" y="317.8962277178548" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Manufacture</text>
+  </g>
+  <g data-object-id="sector-dams">
+    <title>sector-dams</title>
+    <ellipse cx="553.0" cy="374.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-dams">
+    <title>label-dams</title>
+    <text x="538.6" y="404.0" font-family="sans-serif" font-size="12.0" fill="#31445d">Dams</text>
+  </g>
+  <g data-object-id="sector-defense">
+    <title>sector-defense</title>
+    <ellipse cx="535.8728948150396" cy="460.1037722821452" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-defense">
+    <title>label-defense</title>
+    <text x="510.67289481503957" y="490.1037722821452" font-family="sans-serif" font-size="12.0" fill="#31445d">Defense</text>
+  </g>
+  <g data-object-id="sector-emergency">
+    <title>sector-emergency</title>
+    <ellipse cx="487.0990257669732" cy="533.0990257669732" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-emergency">
+    <title>label-emergency</title>
+    <text x="454.69902576697325" y="563.0990257669732" font-family="sans-serif" font-size="12.0" fill="#31445d">Emergency</text>
+  </g>
+  <g data-object-id="sector-energy">
+    <title>sector-energy</title>
+    <ellipse cx="414.1037722821452" cy="581.8728948150396" rx="13.0" ry="13.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-energy">
+    <title>label-energy</title>
+    <text x="392.5037722821452" y="611.8728948150396" font-family="sans-serif" font-size="12.0" fill="#f0abfc">Energy</text>
+  </g>
+  <g data-object-id="sector-financial">
+    <title>sector-financial</title>
+    <ellipse cx="328.0" cy="599.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-financial">
+    <title>label-financial</title>
+    <text x="302.8" y="629.0" font-family="sans-serif" font-size="12.0" fill="#31445d">Finance</text>
+  </g>
+  <g data-object-id="sector-food">
+    <title>sector-food</title>
+    <ellipse cx="241.8962277178548" cy="581.8728948150396" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-food">
+    <title>label-food</title>
+    <text x="227.4962277178548" y="611.8728948150396" font-family="sans-serif" font-size="12.0" fill="#31445d">Food</text>
+  </g>
+  <g data-object-id="sector-government">
+    <title>sector-government</title>
+    <ellipse cx="168.90097423302683" cy="533.0990257669732" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-government">
+    <title>label-government</title>
+    <text x="154.50097423302682" y="563.0990257669732" font-family="sans-serif" font-size="12.0" fill="#31445d">Govt</text>
+  </g>
+  <g data-object-id="sector-healthcare">
+    <title>sector-healthcare</title>
+    <ellipse cx="120.12710518496053" cy="460.1037722821453" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-healthcare">
+    <title>label-healthcare</title>
+    <text x="98.52710518496053" y="490.1037722821453" font-family="sans-serif" font-size="12.0" fill="#31445d">Health</text>
+  </g>
+  <g data-object-id="sector-information-technology">
+    <title>sector-information-technology</title>
+    <ellipse cx="103.0" cy="374.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-information-technology">
+    <title>label-information-technology</title>
+    <text x="95.8" y="404.0" font-family="sans-serif" font-size="12.0" fill="#31445d">IT</text>
+  </g>
+  <g data-object-id="sector-nuclear">
+    <title>sector-nuclear</title>
+    <ellipse cx="120.1271051849605" cy="287.89622771785474" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-nuclear">
+    <title>label-nuclear</title>
+    <text x="94.9271051849605" y="317.89622771785474" font-family="sans-serif" font-size="12.0" fill="#31445d">Nuclear</text>
+  </g>
+  <g data-object-id="sector-transportation">
+    <title>sector-transportation</title>
+    <ellipse cx="168.90097423302677" cy="214.90097423302683" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-transportation">
+    <title>label-transportation</title>
+    <text x="136.50097423302677" y="244.90097423302683" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Transport</text>
+  </g>
+  <g data-object-id="sector-water">
+    <title>sector-water</title>
+    <ellipse cx="241.89622771785469" cy="166.12710518496053" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="label-water">
+    <title>label-water</title>
+    <text x="223.89622771785469" y="196.12710518496053" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Water</text>
+  </g>
+  <g data-object-id="selected-center">
+    <title>selected-center</title>
+    <ellipse cx="328.0" cy="374.0" rx="66.0" ry="66.0" fill="#101b2b" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="selected-label">
+    <title>selected-label</title>
+    <text x="295.0" y="381.0" font-family="sans-serif" font-size="19.0" fill="#f0abfc">Energy</text>
+  </g>
+  <g data-object-id="dependency-label">
+    <title>dependency-label</title>
+    <text x="248.0" y="468.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">documented example links</text>
+  </g>
+  <g data-object-id="trace-label-host80">
+    <title>trace-label-host80</title>
+    <text x="664.0" y="182.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">host80 · corroborated</text>
+  </g>
+  <g data-object-id="trace-host80">
+    <title>trace-host80</title>
+    <polyline points="666,207 670.444,241 674.889,207 679.333,241 683.778,207 688.222,241 692.667,207 697.111,241 701.556,207 706,241 710.444,207 714.889,241 719.333,207 723.778,241 728.222,207 732.667,241 737.111,207 741.556,241 746,207 750.444,241 754.889,207 759.333,241 763.778,207 768.222,241 772.667,207 777.111,241 781.556,207 786,241 790.444,207 794.889,241 799.333,207 803.778,241 808.222,207 812.667,241 817.111,207 821.556,241 826,207 830.444,241 834.889,207 839.333,241 843.778,207 848.222,241 852.667,207 857.111,241 861.556,207 866,241 870.444,207 874.889,241 879.333,207 883.778,241 888.222,207 892.667,241 897.111,207 901.556,241 906,207 910.444,241 914.889,207 919.333,241 923.778,207 928.222,241 932.667,207 937.111,241 941.556,207 946,241" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="trace-base-host80">
+    <title>trace-base-host80</title>
+    <polyline points="666,242 946,242" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="trace-label-host40">
+    <title>trace-label-host40</title>
+    <text x="664.0" y="274.0" font-family="sans-serif" font-size="13.0" fill="#f0abfc">host40 · ambiguous</text>
+  </g>
+  <g data-object-id="trace-host40">
+    <title>trace-host40</title>
+    <polyline points="666,299 670.444,333 674.889,299 679.333,333 683.778,299 688.222,333 692.667,299 697.111,333 701.556,299 706,333 710.444,299 714.889,333 719.333,299 723.778,333 728.222,299 732.667,333 737.111,299 741.556,333 746,299 750.444,333 754.889,299 759.333,333 763.778,299 768.222,333 772.667,299 777.111,333 781.556,299 786,333 790.444,299 794.889,333 799.333,299 803.778,333 808.222,299 812.667,333 817.111,299 821.556,333 826,299 830.444,333 834.889,299 839.333,333 843.778,299 848.222,333 852.667,299 857.111,333 861.556,299 866,333 870.444,299 874.889,333 879.333,299 883.778,333 888.222,299 892.667,333 897.111,299 901.556,333 906,299 910.444,333 914.889,299 919.333,333 923.778,299 928.222,333 932.667,299 937.111,333 941.556,299 946,333" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="trace-base-host40">
+    <title>trace-base-host40</title>
+    <polyline points="666,334 946,334" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="trace-label-amac40">
+    <title>trace-label-amac40</title>
+    <text x="664.0" y="366.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">amac40 · ambiguous</text>
+  </g>
+  <g data-object-id="trace-amac40">
+    <title>trace-amac40</title>
+    <polyline points="666,391 670.444,425 674.889,391 679.333,425 683.778,391 688.222,425 692.667,391 697.111,425 701.556,391 706,425 710.444,391 714.889,425 719.333,391 723.778,425 728.222,391 732.667,425 737.111,391 741.556,425 746,391 750.444,425 754.889,391 759.333,425 763.778,391 768.222,425 772.667,391 777.111,425 781.556,391 786,425 790.444,391 794.889,425 799.333,391 803.778,425 808.222,391 812.667,425 817.111,391 821.556,425 826,391 830.444,425 834.889,391 839.333,425 843.778,391 848.222,425 852.667,391 857.111,425 861.556,391 866,425 870.444,391 874.889,425 879.333,391 883.778,425 888.222,391 892.667,425 897.111,391 901.556,425 906,391 910.444,425 914.889,391 919.333,425 923.778,391 928.222,425 932.667,391 937.111,425 941.556,391 946,425" stroke-linejoin="round" fill="none" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="trace-base-amac40">
+    <title>trace-base-amac40</title>
+    <polyline points="666,426 946,426" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="trace-label-unmapped">
+    <title>trace-label-unmapped</title>
+    <text x="664.0" y="458.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">unmapped · unmapped</text>
+  </g>
+  <g data-object-id="trace-unmapped">
+    <title>trace-unmapped</title>
+    <polyline points="666,517 670.444,517 674.889,517 679.333,517 683.778,517 688.222,483 692.667,483 697.111,483 701.556,483 706,483 710.444,517 714.889,517 719.333,517 723.778,517 728.222,517 732.667,483 737.111,483 741.556,483 746,483 750.444,483 754.889,517 759.333,517 763.778,517 768.222,517 772.667,517 777.111,483 781.556,483 786,483 790.444,483 794.889,483 799.333,517 803.778,517 808.222,517 812.667,517 817.111,517 821.556,483 826,483 830.444,483 834.889,483 839.333,483 843.778,517 848.222,517 852.667,517 857.111,517 861.556,517 866,483 870.444,483 874.889,483 879.333,483 883.778,483 888.222,517 892.667,517 897.111,517 901.556,517 906,517 910.444,483 914.889,483 919.333,483 923.778,483 928.222,483 932.667,517 937.111,517 941.556,517 946,517" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="trace-base-unmapped">
+    <title>trace-base-unmapped</title>
+    <polyline points="666,518 946,518" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="selected-trace">
+    <title>selected-trace</title>
+    <text x="662.0" y="568.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">Selected: 2 reviewed 40 MHz candidates</text>
+  </g>
+  <g data-object-id="selected-sector">
+    <title>selected-sector</title>
+    <text x="45.0" y="636.0" font-family="sans-serif" font-size="21.0" fill="#67e8f9">Energy</text>
+  </g>
+  <g data-object-id="dependency-summary">
+    <title>dependency-summary</title>
+    <text x="45.0" y="665.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Example dependencies: Comms, Transport, Water, Manufacture; not an exhaustive graph.</text>
+  </g>
+  <g data-object-id="sector-why-0">
+    <title>sector-why-0</title>
+    <text x="45.0" y="691.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Electricity, oil, and natural gas provide an enabling function for homes, industry, public</text>
+  </g>
+  <g data-object-id="sector-why-1">
+    <title>sector-why-1</title>
+    <text x="45.0" y="714.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">health, and every other infrastructure sector.</text>
+  </g>
+  <g data-object-id="source">
+    <title>source</title>
+    <text x="45.0" y="757.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Sources: CISA sector pages · CERN waveform-mapping methodology · no live monitoring</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="45.0" y="783.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">Measurement != evidence != belief update != action · no risk score or automatic control</text>
+  </g>
+</svg>

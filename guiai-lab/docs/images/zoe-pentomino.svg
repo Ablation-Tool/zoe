@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Pentomino · timed spatial practice">
+  <title>Zoe Pentomino · timed spatial practice</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-0">
+    <title>row-0</title>
+    <polyline points="72,100 396,100" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-1">
+    <title>row-1</title>
+    <polyline points="72,154 396,154" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-2">
+    <title>row-2</title>
+    <polyline points="72,208 396,208" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-3">
+    <title>row-3</title>
+    <polyline points="72,262 396,262" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-4">
+    <title>row-4</title>
+    <polyline points="72,316 396,316" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-5">
+    <title>row-5</title>
+    <polyline points="72,370 396,370" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-6">
+    <title>row-6</title>
+    <polyline points="72,424 396,424" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-7">
+    <title>row-7</title>
+    <polyline points="72,478 396,478" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-8">
+    <title>row-8</title>
+    <polyline points="72,532 396,532" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-9">
+    <title>row-9</title>
+    <polyline points="72,586 396,586" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="row-10">
+    <title>row-10</title>
+    <polyline points="72,640 396,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-0">
+    <title>column-0</title>
+    <polyline points="72,100 72,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-1">
+    <title>column-1</title>
+    <polyline points="126,100 126,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-2">
+    <title>column-2</title>
+    <polyline points="180,100 180,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-3">
+    <title>column-3</title>
+    <polyline points="234,100 234,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-4">
+    <title>column-4</title>
+    <polyline points="288,100 288,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-5">
+    <title>column-5</title>
+    <polyline points="342,100 342,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="column-6">
+    <title>column-6</title>
+    <polyline points="396,100 396,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="cell-0">
+    <title>cell-0</title>
+    <rect x="182.0" y="264.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-1">
+    <title>cell-1</title>
+    <rect x="236.0" y="210.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-2">
+    <title>cell-2</title>
+    <rect x="236.0" y="264.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-3">
+    <title>cell-3</title>
+    <rect x="236.0" y="318.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-4">
+    <title>cell-4</title>
+    <rect x="290.0" y="264.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-5">
+    <title>cell-5</title>
+    <rect x="74.0" y="102.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-6">
+    <title>cell-6</title>
+    <rect x="74.0" y="156.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-7">
+    <title>cell-7</title>
+    <rect x="74.0" y="210.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-8">
+    <title>cell-8</title>
+    <rect x="128.0" y="210.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-9">
+    <title>cell-9</title>
+    <rect x="182.0" y="210.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-10">
+    <title>cell-10</title>
+    <rect x="128.0" y="102.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-11">
+    <title>cell-11</title>
+    <rect x="128.0" y="156.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-12">
+    <title>cell-12</title>
+    <rect x="182.0" y="102.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-13">
+    <title>cell-13</title>
+    <rect x="182.0" y="156.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-14">
+    <title>cell-14</title>
+    <rect x="236.0" y="156.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-15">
+    <title>cell-15</title>
+    <rect x="344.0" y="156.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-16">
+    <title>cell-16</title>
+    <rect x="344.0" y="210.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-17">
+    <title>cell-17</title>
+    <rect x="344.0" y="264.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-18">
+    <title>cell-18</title>
+    <rect x="344.0" y="318.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-19">
+    <title>cell-19</title>
+    <rect x="344.0" y="372.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-20">
+    <title>cell-20</title>
+    <rect x="74.0" y="264.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-21">
+    <title>cell-21</title>
+    <rect x="74.0" y="318.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-22">
+    <title>cell-22</title>
+    <rect x="74.0" y="372.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-23">
+    <title>cell-23</title>
+    <rect x="74.0" y="426.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-24">
+    <title>cell-24</title>
+    <rect x="128.0" y="264.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-25">
+    <title>cell-25</title>
+    <rect x="236.0" y="372.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-26">
+    <title>cell-26</title>
+    <rect x="290.0" y="318.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-27">
+    <title>cell-27</title>
+    <rect x="290.0" y="372.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-28">
+    <title>cell-28</title>
+    <rect x="290.0" y="426.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-29">
+    <title>cell-29</title>
+    <rect x="344.0" y="426.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-30">
+    <title>cell-30</title>
+    <rect x="74.0" y="480.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-31">
+    <title>cell-31</title>
+    <rect x="74.0" y="534.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-32">
+    <title>cell-32</title>
+    <rect x="128.0" y="372.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-33">
+    <title>cell-33</title>
+    <rect x="128.0" y="426.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-34">
+    <title>cell-34</title>
+    <rect x="128.0" y="480.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-35">
+    <title>cell-35</title>
+    <rect x="128.0" y="318.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-36">
+    <title>cell-36</title>
+    <rect x="182.0" y="318.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-37">
+    <title>cell-37</title>
+    <rect x="182.0" y="372.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-38">
+    <title>cell-38</title>
+    <rect x="182.0" y="426.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-39">
+    <title>cell-39</title>
+    <rect x="236.0" y="426.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-40">
+    <title>cell-40</title>
+    <rect x="236.0" y="102.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-41">
+    <title>cell-41</title>
+    <rect x="290.0" y="102.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-42">
+    <title>cell-42</title>
+    <rect x="290.0" y="156.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-43">
+    <title>cell-43</title>
+    <rect x="290.0" y="210.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-44">
+    <title>cell-44</title>
+    <rect x="344.0" y="102.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-45">
+    <title>cell-45</title>
+    <rect x="74.0" y="588.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-46">
+    <title>cell-46</title>
+    <rect x="128.0" y="534.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-47">
+    <title>cell-47</title>
+    <rect x="128.0" y="588.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-48">
+    <title>cell-48</title>
+    <rect x="182.0" y="480.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-49">
+    <title>cell-49</title>
+    <rect x="182.0" y="534.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-50">
+    <title>cell-50</title>
+    <rect x="236.0" y="480.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-51">
+    <title>cell-51</title>
+    <rect x="236.0" y="534.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-52">
+    <title>cell-52</title>
+    <rect x="290.0" y="480.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-53">
+    <title>cell-53</title>
+    <rect x="344.0" y="480.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-54">
+    <title>cell-54</title>
+    <rect x="344.0" y="534.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-55">
+    <title>cell-55</title>
+    <rect x="182.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-56">
+    <title>cell-56</title>
+    <rect x="236.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-57">
+    <title>cell-57</title>
+    <rect x="290.0" y="534.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-58">
+    <title>cell-58</title>
+    <rect x="290.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cell-59">
+    <title>cell-59</title>
+    <rect x="344.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="62.0" y="48.0" font-family="sans-serif" font-size="32.0" fill="#67e8f9">Zoe Pentomino</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="64.0" y="77.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Twelve shapes · sixty cells · one finite field</text>
+  </g>
+  <g data-object-id="summary-0">
+    <title>summary-0</title>
+    <text x="470.0" y="145.0" font-family="sans-serif" font-size="17.0" fill="#d8e5f2">Budget  298.8 s remaining / 300 s</text>
+  </g>
+  <g data-object-id="summary-1">
+    <title>summary-1</title>
+    <text x="470.0" y="185.0" font-family="sans-serif" font-size="17.0" fill="#d8e5f2">Placed  12 / 12     Filled  60 / 60</text>
+  </g>
+  <g data-object-id="summary-2">
+    <title>summary-2</title>
+    <text x="470.0" y="225.0" font-family="sans-serif" font-size="17.0" fill="#d8e5f2">Full rows  10     Holes  0</text>
+  </g>
+  <g data-object-id="summary-3">
+    <title>summary-3</title>
+    <text x="470.0" y="265.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">Status  won</text>
+  </g>
+  <g data-object-id="summary-4">
+    <title>summary-4</title>
+    <text x="470.0" y="305.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Next  revealed at game end</text>
+  </g>
+  <g data-object-id="summary-5">
+    <title>summary-5</title>
+    <text x="470.0" y="345.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Rows counted, never cleared. Tile all 12 pieces.</text>
+  </g>
+  <g data-object-id="summary-6">
+    <title>summary-6</title>
+    <text x="470.0" y="385.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Practice only · no intelligence or optimum claim.</text>
+  </g>
+  <g data-object-id="piece-F">
+    <title>piece-F</title>
+    <text x="470.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#f0abfc">F  placed</text>
+  </g>
+  <g data-object-id="piece-I">
+    <title>piece-I</title>
+    <text x="587.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#67e8f9">I  placed</text>
+  </g>
+  <g data-object-id="piece-L">
+    <title>piece-L</title>
+    <text x="704.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#fda4af">L  placed</text>
+  </g>
+  <g data-object-id="piece-P">
+    <title>piece-P</title>
+    <text x="821.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#fde68a">P  placed</text>
+  </g>
+  <g data-object-id="piece-T">
+    <title>piece-T</title>
+    <text x="470.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#86efac">T  placed</text>
+  </g>
+  <g data-object-id="piece-U">
+    <title>piece-U</title>
+    <text x="587.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#93c5fd">U  placed</text>
+  </g>
+  <g data-object-id="piece-V">
+    <title>piece-V</title>
+    <text x="704.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#fdba74">V  placed</text>
+  </g>
+  <g data-object-id="piece-W">
+    <title>piece-W</title>
+    <text x="821.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#c4b5fd">W  placed</text>
+  </g>
+  <g data-object-id="piece-X">
+    <title>piece-X</title>
+    <text x="470.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#f9a8d4">X  placed</text>
+  </g>
+  <g data-object-id="piece-Y">
+    <title>piece-Y</title>
+    <text x="587.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#a7f3d0">Y  placed</text>
+  </g>
+  <g data-object-id="piece-Z">
+    <title>piece-Z</title>
+    <text x="704.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#fca5a5">Z  placed</text>
+  </g>
+  <g data-object-id="piece-N">
+    <title>piece-N</title>
+    <text x="821.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#7dd3fc">N  placed</text>
+  </g>
+  <g data-object-id="attempt">
+    <title>attempt</title>
+    <text x="64.0" y="699.0" font-family="sans-serif" font-size="14.0" fill="#f0abfc">Attempt value = immediate reward + information + future skill + enjoyment - expected failure cost</text>
+  </g>
+  <g data-object-id="lens">
+    <title>lens</title>
+    <text x="64.0" y="729.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">A decision lens, not a biological equation. Outcomes are evidence for the next attempt.</text>
+  </g>
+</svg>

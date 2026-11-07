@@ -5,6 +5,7 @@ import json
 import math
 import os
 from pathlib import Path
+import subprocess
 
 import gi
 gi.require_version("Gdk", "3.0")
@@ -177,7 +178,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, cern_root=None, felix_build=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None, leadership_log=None, leadership_library=None, maison_word="stewardship", maison_reference=None, evidence_index=None, bridge_id=1, timeline=None, cern_root=None, felix_build=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -187,6 +188,7 @@ class AtlasWindow(Gtk.Window):
         self.report = {}
         self.controls = {}
         self.updating = False
+        self.builtin_windows = {}
         self.source = deepcopy(DEFAULT_SOURCE)
         self.target = deepcopy(DEFAULT_TARGET)
         self.brain = BrainKernel()
@@ -200,6 +202,32 @@ class AtlasWindow(Gtk.Window):
         self.felix = None
         self.felix_timer = None
         self.connect("destroy", self.stop_felix_replay)
+        from .presence import demo_presence
+        self.presence = presence if presence is not None else demo_presence()
+        from .waveform import demo_replay
+        self.waveform_replay = waveform if waveform is not None else demo_replay()
+        from .patchbay import demo_artifact
+        self.patchbay_report = patchbay_report if patchbay_report is not None else demo_artifact()
+        from .cog import demo_cog
+        from .patchbay import demo_cog_report
+        self.cog = demo_cog()
+        self.cog_report = demo_cog_report()
+        self.cog_source = "memory://cog-demo"
+        self.cog_prompt = "inspect"
+        from .practice import demo_log
+        self.leadership_log = leadership_log if leadership_log is not None else demo_log()
+        self.leadership_library = leadership_library
+        self.leadership_log_path = ""
+        self.leadership_library_root = ""
+        self.maison_word = maison_word
+        self.maison_reference = maison_reference
+        self.maison_reference_path = ""
+        from .evidence import demo_index
+        self.evidence_index = evidence_index if evidence_index is not None else demo_index()
+        self.navigator_bridge_id = bridge_id
+        self.navigator_timeline = timeline
+        self.navigator_index_path = ""
+        self.navigator_query = ""
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
         self.volume_bridge = VolumeBridge(minimum=1, maximum=4)
         self.volume_current = VOLUME_PRESETS["baseline"]
@@ -310,18 +338,102 @@ class AtlasWindow(Gtk.Window):
         self.updating = True
         self.clear_controls()
         self.add_text(ATLAS_MODULES[self.module])
-        if self.module == "unified":
+        if self.module in {"artline", "pentomino", "pentacube", "cicada", "pilot"}:
+            self.open_builtin(self.module)
+            self.add_action("Present the dedicated creative window", lambda *_args, identifier=self.module: self.open_builtin(identifier))
+            self.add_text("The dedicated editor remains interactive. This scene is a static Spatial IR preview and can be exported independently.")
+        elif self.module == "resilience":
+            from .resilience import SECTORS, demo_traces
+            self.add_combo("sector", "Infrastructure sector", tuple((identifier, sector["name"]) for identifier, sector in SECTORS.items()), "energy")
+            self.add_combo("trace", "Synthetic evidence trace", tuple((identifier, identifier) for identifier in demo_traces()), "host80")
+            self.add_text("Public sector concepts and a synthetic waveform-signature preview. No live monitoring, risk score, or automatic control.")
+        elif self.module == "presence":
+            from .resilience import SECTORS, demo_traces
+            self.add_combo("sector", "Attention sector", tuple((identifier, sector["name"]) for identifier, sector in SECTORS.items()), self.presence.attention["sector"])
+            self.add_combo("trace", "Evidence trace", tuple((identifier, identifier) for identifier in demo_traces()), self.presence.attention["trace"])
+            self.add_entry("presence_note", "Observation or correction note", "What remains unknown?")
+            self.add_action("Observe selected present frame", self.observe_presence)
+            self.add_action("Request metacognitive review", self.review_presence)
+            self.add_action("Correct self-model: preserve uncertainty", self.correct_presence)
+            self.add_text("A self-model is not a self. Expression glyphs are annotations, not emotions. No observation authorizes action.")
+        elif self.module == "protocol":
+            self.add_spin("read_count", "SPECS read count", 0, 255, 1, 0x80)
+            self.add_text("Recovered frame formats and recorded AMAC replies. No hardware command is generated or sent.")
+        elif self.module == "waveform":
+            self.add_entry("waveform_path", "Replay path (.vcd / .jsonl / .wdb / .json)", self.waveform_replay.source["path"])
+            self.add_combo("waveform_signal", "Highlighted signal", tuple((signal["identifier"], signal["name"]) for signal in self.waveform_replay.signals), self.waveform_replay.signals[0]["identifier"])
+            self.add_action("Load waveform from explicit path", self.load_waveform)
+            self.add_text("Only the explicit Load action reads a file. Named VCD declarations are distinct from legacy storage IDs; no live acquisition or identity inference.")
+        elif self.module == "patchbay":
+            from .patchbay import BOARDS
+            self.add_combo("patchbay_board", "Board illustration", tuple((identifier, board["name"]) for identifier, board in BOARDS.items()), self.patchbay_report.get("board") or "genesys2")
+            self.add_entry("patchbay_artifact", "Firmware path (.hex / .bit / .zip / .bin / .ub / .json)", self.patchbay_report["path"])
+            self.add_action("Inspect firmware from explicit path", self.load_patchbay_artifact)
+            self.add_entry("patchbay_cog_path", "Cog training text / HTML / HDL", self.cog_source)
+            self.add_action("Train small Cog from explicit text", self.train_patchbay_cog)
+            self.add_entry("patchbay_prompt", "Two-way Cog prompt", self.cog_prompt)
+            self.add_action("Forecast forward and backward", self.walk_patchbay_cog)
+            self.add_entry("patchbay_plan", "Acceptance plan JSON (validation only)", "")
+            self.add_action("Validate plan without executing commands", self.validate_patchbay_plan)
+            self.add_text("Original board art, not a fabrication drawing. Cog is a small bigram model, not an LLM. No firmware is flashed and no acceptance command runs here.")
+        elif self.module == "leadership":
+            self.add_text("Practice is perishable. Record what actually happened; do not manufacture a leadership score.")
+            self.add_entry("leadership_situation", "Situation you actually faced")
+            self.add_entry("leadership_action", "What you actually did")
+            self.add_entry("leadership_outcome", "What happened, not what you hoped")
+            self.add_entry("leadership_next_try", "One small different next experiment")
+            self.add_entry("leadership_frame", "Situation labels (comma-separated)", "ordinary,practice")
+            self.add_entry("leadership_mistake", "What did not work? (optional)")
+            self.add_entry("leadership_advice", "Advice received or considered (optional)")
+            self.add_entry("leadership_learning", "Lesson or correction (optional)")
+            self.add_entry("leadership_support", "People and support they need (optional)")
+            self.add_entry("leadership_unknown", "What remains uncertain? (optional)")
+            self.add_entry("leadership_stop", "Stop condition (optional)")
+            self.add_action("Record actual practice · not a command", self.record_leadership_practice)
+            self.add_entry("leadership_log_path", "Practice log JSON to load", self.leadership_log_path)
+            self.add_action("Load practice log from explicit path", self.load_leadership_log)
+            self.add_action("Save practice log as new JSON", self.save_leadership_log)
+            self.add_entry("leadership_library_root", "Reference folder (books advise; practice teaches)", self.leadership_library_root)
+            self.add_action("Inspect reference library", self.inspect_leadership_library)
+            self.add_text("A failed attempt is information, not an identity. Corrections append new lessons; they never rewrite an earlier event or authorize a next action.")
+        elif self.module == "maison":
+            from .maison import ASSOCIATIONS
+            self.add_combo("maison_word", "Association for the work", tuple((word, word.title()) for word in ASSOCIATIONS), self.maison_word)
+            self.add_action("Present association card", self.present_maison)
+            self.add_entry("maison_log_path", "Practice log JSON to load", self.leadership_log_path)
+            self.add_action("Load practice log from explicit path", self.load_maison_log)
+            self.add_action("Save practice log as new JSON", self.save_leadership_log)
+            self.add_entry("maison_reference_path", "Association reference PDF", self.maison_reference_path)
+            self.add_action("Inspect association reference", self.inspect_maison_reference)
+            self.add_text("Executive accountability. Luxury restraint. Enterprise evidence. The deck supplies questions, not doctrine, prestige, or commands.")
+        elif self.module == "evidence":
+            from .evidence import BRIDGE_TITLES
+            self.add_combo("evidence_bridge", "Evidence bridge", tuple((str(identifier), title) for identifier, title in BRIDGE_TITLES.items()), str(self.navigator_bridge_id))
+            self.add_entry("evidence_query", "Deterministic source query", self.navigator_query)
+            self.add_action("Retrieve cited evidence", self.present_evidence)
+            self.add_entry("evidence_index_path", "Gallery index.json", self.navigator_index_path)
+            self.add_action("Load gallery index from explicit path", self.load_evidence_index)
+            self.add_action("Verify source, preview, and compatibility hashes", self.verify_evidence_index)
+            self.add_action("Run synthetic timing and DMA replay", self.replay_evidence_timeline)
+            self.add_action("Export evidence sonification as new WAV", self.export_evidence_wav)
+            self.add_text("Deterministic retrieval first. Replay and audio are synthetic, not live hardware behavior. No register writes, driver loading, firmware flashing, or autonomous action.")
+        elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
             for component in COMPONENTS:
                 if component.identifier in {"zoe", "cerotto"}:
                     continue
-                self.add_action(f"Launch {component.title}", self.make_unified_launch(component.identifier))
+                if component.inspect_only:
+                    self.add_action(f"Inspect {component.title}", self.make_unified_inspect(component.identifier))
+                else:
+                    self.add_action(f"Launch {component.title}", self.make_unified_launch(component.identifier))
+                self.add_action(f"Link {component.title} source context", self.make_unified_source_record(component.identifier))
                 self.add_text(f"{component.summary}. Source: {component.checkout}.")
             self.add_entry("cerotto_case", "Cerotto case ID", os.environ.get("CEROTTO_CASE", "incident-7"))
             self.add_entry("cerotto_conversation", "Cerotto conversation ID", os.environ.get("CEROTTO_CONVERSATION", "conv-7"))
             self.add_action("Choose Cerotto case DB and launch", self.choose_cerotto)
             self.add_action("Export unified component manifest", self.save_unified_manifest)
+            self.add_action("Save unified knowledge graph", self.save_unified_knowledge)
             self.add_text("The hub launches nothing automatically. Each button starts only its selected component. Cerotto requires a user-selected case. Component processes retain their own dependencies, evidence models, and authorization rules.")
         elif self.module == "felix":
             observer = self.ensure_felix()
@@ -336,6 +448,8 @@ class AtlasWindow(Gtk.Window):
             self.add_text("Observations replay local FELIX build artifacts and supporting CERN evidence. TIM and simulation HTML supply historical context and recoverable HDL. No hardware is contacted and no control action is executed.")
         elif self.module == "cern":
             self.add_text("The Repair Atlas reads generated corpus and FORGE evidence without scanning or executing code in the GUI. Use `gem cern scan` for an explicit full hash and `gem cern chart` for exports. Original artifacts are never patched in place.")
+            self.add_action("Save unified knowledge graph", self.save_unified_knowledge)
+            self.add_text("The hub launches nothing automatically. Link buttons record source context, not runtime proof or evidence transfer. Cerotto requires a user-selected case. Component processes retain their dependencies, evidence models, and authorization rules.")
         elif self.module == "brain":
             self.add_combo("condition", "HELEN held-out condition", (("forward", "Forward"), ("retrograde", "Retrograde")), "forward")
             self.add_spin("index", "Held-out onset index", 0, 1919, 1, 0)
@@ -513,6 +627,41 @@ class AtlasWindow(Gtk.Window):
         self.module = widget.get_active_id()
         self.build_controls()
 
+    def open_builtin(self, module):
+        if module in self.builtin_windows:
+            self.builtin_windows[module].present()
+            return self.builtin_windows[module]
+        if module == "artline":
+            from .artline import demo_document
+            from .artline_view import ArtlineWindow
+            window = ArtlineWindow(demo_document())
+        elif module == "pentomino":
+            from .pentomino_view import PentominoWindow
+            window = PentominoWindow()
+        elif module == "pentacube":
+            from .pentacube_view import PentacubeWindow
+            window = PentacubeWindow()
+        elif module == "cicada":
+            from .cicada_view import CicadaWindow
+            window = CicadaWindow()
+        elif module == "pilot":
+            from .artline_view import ArtlineWindow
+            from .pilot import cover_document
+            window = ArtlineWindow(cover_document())
+            window.set_title("Zoe Practice Navigator · editable original guide cover")
+        else:
+            raise ValueError(f"unknown built-in module: {module}")
+        self.builtin_windows[module] = window
+        window.connect("destroy", lambda *_args, identifier=module: self.builtin_windows.pop(identifier, None))
+        window.show_all()
+        return window
+
+    def destroy(self):
+        for window in list(self.builtin_windows.values()):
+            window.destroy()
+        self.builtin_windows.clear()
+        super().destroy()
+
     def on_control_changed(self, *_args):
         if not self.updating:
             self.refresh()
@@ -539,6 +688,36 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "cern":
             from .cern_repair import default_repair_document
             self.scene, self.report = default_repair_document(self.cern_root or None)
+        if self.module in {"artline", "pentomino", "pentacube", "cicada", "pilot"}:
+            from .atlas import default_document
+            self.scene, self.report = default_document(self.module)
+        elif self.module == "resilience":
+            from .resilience import resilience_scene
+            self.scene, self.report = resilience_scene(self.choice("sector"), self.choice("trace"))
+        elif self.module == "presence":
+            from .presence import presence_scene
+            self.scene, self.report = presence_scene(self.presence)
+        elif self.module == "protocol":
+            from .protocol_lab import protocol_scene
+            self.scene, self.report = protocol_scene(self.integer("read_count"))
+        elif self.module == "waveform":
+            from .waveform import waveform_scene
+            self.scene, self.report = waveform_scene(self.waveform_replay, self.choice("waveform_signal"))
+        elif self.module == "patchbay":
+            from .patchbay import patchbay_scene
+            self.scene, self.report = patchbay_scene(self.patchbay_report, self.choice("patchbay_board"), self.cog_report)
+        elif self.module == "leadership":
+            from .leadership import leadership_scene
+            self.scene, self.report = leadership_scene(self.leadership_log, self.leadership_library)
+        elif self.module == "maison":
+            from .maison import maison_scene
+            self.scene, self.report = maison_scene(self.leadership_log, self.maison_word, self.maison_reference)
+        elif self.module == "evidence":
+            from .evidence import navigator_scene
+            self.scene, self.report = navigator_scene(self.evidence_index, self.navigator_bridge_id, self.navigator_timeline, self.navigator_query)
+        elif self.module == "unified":
+            from .unified import unified_scene
+            self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
         elif self.module == "brain":
             self.scene, self.report = brain_scene(self.brain)
         elif self.module == "field":
@@ -731,6 +910,93 @@ class AtlasWindow(Gtk.Window):
         finally:
             dialog.destroy()
 
+    def open_cognitive(self, *_args):
+        self.module_selector.set_active_id("cognitive")
+
+    def make_unified_launch(self, identifier):
+        return lambda *_args: self.launch_unified(identifier)
+
+    def make_unified_inspect(self, identifier):
+        return lambda *_args: self.show_unified(identifier)
+
+    def make_unified_source_record(self, identifier):
+        return lambda *_args: self.record_unified_source(identifier)
+
+    def show_unified(self, identifier):
+        component = self.unified_registry.component(identifier)
+        source = self.unified_registry.source(identifier)
+        self.report = {"summary": f"{component.title}: {component.summary}\nSource: {source['path']} · {source['mode']}\nContent inspection only; no process launched."}
+        self.update_summary()
+
+    def launch_unified(self, identifier, arguments=None):
+        try:
+            process = self.unified_registry.launch(identifier, arguments, detach=True)
+            title = self.unified_registry.component(identifier).title
+            self.report = {"summary": f"Started {title} as PID {process.pid}. Process creation does not verify readiness or authorize evidence actions."}
+            self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.field_error("Component launch failed", error)
+
+    def record_unified_source(self, identifier):
+        try:
+            observation = self.unified_registry.record_source(identifier)
+            if identifier != "zoe":
+                self.unified_registry.knowledge.connect(
+                    observation["id"], "zoe",
+                    "Shared source and trust context; no evidence or permission transfer.",
+                )
+            self.refresh()
+        except ValueError as error:
+            self.field_error("Record source context failed", error)
+
+    def choose_cerotto(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Choose a Cerotto case database", transient_for=self, action=Gtk.FileChooserAction.OPEN)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Launch", Gtk.ResponseType.OK)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                case = self.controls["cerotto_case"].get_text().strip()
+                conversation = self.controls["cerotto_conversation"].get_text().strip()
+                if not case or not conversation:
+                    raise ValueError("Cerotto case and conversation IDs are required")
+                self.launch_unified("cerotto", [
+                    "--db", dialog.get_filename(), "--case", case, "--conversation", conversation,
+                ])
+        except (OSError, RuntimeError, ValueError) as error:
+            self.field_error("Cerotto case selection failed", error)
+        finally:
+            dialog.destroy()
+
+    def save_unified_manifest(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Export unified component manifest", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Export", Gtk.ResponseType.OK)
+        dialog.set_current_name("gem-components.json")
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                output = self.unified_registry.write_manifest(dialog.get_filename())
+                self.report = {"summary": f"Saved unified component manifest to {output}"}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.field_error("Manifest export failed", error)
+        finally:
+            dialog.destroy()
+
+    def save_unified_knowledge(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Save unified knowledge graph", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Save", Gtk.ResponseType.OK)
+        dialog.set_current_name("gem-knowledge.json")
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                output = self.unified_registry.knowledge.save(dialog.get_filename())
+                self.report = {"summary": f"Saved {len(self.unified_registry.knowledge.events)} knowledge events to {output}"}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.field_error("Knowledge export failed", error)
+        finally:
+            dialog.destroy()
+
     def run_cognitive_operation(self, operation, *args):
         try:
             operation(*args)
@@ -824,6 +1090,273 @@ class AtlasWindow(Gtk.Window):
         self.brain.maximum = maximum
         self.brain.volume_bridge.minimum = minimum
         self.brain.volume_bridge.maximum = maximum
+
+    def load_waveform(self, *_args):
+        from pathlib import Path
+        from .waveform import WaveformReplay
+        try:
+            path = self.controls["waveform_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("replay path must contain 1-4096 characters")
+            self.waveform_replay = WaveformReplay.load(Path(path), max_events=4096)
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Waveform load failed: {error}"}
+            self.update_summary()
+
+    def load_patchbay_artifact(self, *_args):
+        from .patchbay import inspect_artifact
+        try:
+            path = self.controls["patchbay_artifact"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("firmware path must contain 1-4096 characters")
+            report = inspect_artifact(path)
+            report["board"] = report.get("board") or self.choice("patchbay_board")
+            self.patchbay_report = report
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Firmware inspection failed: {error}"}
+            self.update_summary()
+
+    def make_patchbay_cog_report(self, model, prompt):
+        forward = model.walk(prompt, steps=4)
+        backward = model.walk(prompt, steps=4, reverse=True)
+        return {
+            "model_type": "bounded_interpolated_bigram",
+            "vocabulary_size": len(model.vocabulary),
+            "forward": forward,
+            "backward": backward,
+            "summary": f"Cog: {forward['text']}\nBackward: {backward['text']}\nToken forecasts are review-only; no command is generated.",
+        }
+
+    def train_patchbay_cog(self, *_args):
+        from .cog import Cog
+        try:
+            path = self.controls["patchbay_cog_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("Cog training path must contain 1-4096 characters")
+            model = Cog.from_paths([path])
+            prompt = self.controls["patchbay_prompt"].get_text()
+            report = self.make_patchbay_cog_report(model, prompt)
+            self.cog = model
+            self.cog_report = report
+            self.cog_source = path
+            self.cog_prompt = prompt
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Cog training failed: {error}"}
+            self.update_summary()
+
+    def walk_patchbay_cog(self, *_args):
+        try:
+            prompt = self.controls["patchbay_prompt"].get_text()
+            self.cog_report = self.make_patchbay_cog_report(self.cog, prompt)
+            self.cog_prompt = prompt
+            self.refresh()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Cog forecast failed: {error}"}
+            self.update_summary()
+
+    def validate_patchbay_plan(self, *_args):
+        from .acceptance import load_plan
+        try:
+            path = self.controls["patchbay_plan"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("acceptance plan path must contain 1-4096 characters")
+            plan = load_plan(path)
+            self.report = {"summary": f"Acceptance plan validated for {plan['target']} · {len(plan['steps'])} steps\nExecuted=False · hardware writes requested={plan['hardware_write_requested']}\nNo command was executed by the native validator."}
+            self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Acceptance plan validation failed: {error}"}
+            self.update_summary()
+
+    def record_leadership_practice(self, *_args):
+        try:
+            event = self.leadership_log.add_practice(
+                self.controls["leadership_situation"].get_text(),
+                self.controls["leadership_action"].get_text(),
+                self.controls["leadership_outcome"].get_text(),
+                self.controls["leadership_next_try"].get_text(),
+                frame=self.controls["leadership_frame"].get_text(),
+                mistake=self.controls["leadership_mistake"].get_text(),
+                advice=self.controls["leadership_advice"].get_text(),
+                learning=self.controls["leadership_learning"].get_text(),
+                support=self.controls["leadership_support"].get_text(),
+                unknown=self.controls["leadership_unknown"].get_text(),
+                stop_condition=self.controls["leadership_stop"].get_text(),
+            )
+            self.leadership_log_path = ""
+            self.build_controls()
+        except ValueError as error:
+            self.report = {"error": f"Practice was not recorded: {error}"}
+            self.update_summary()
+
+    def load_leadership_log(self, *_args):
+        from .practice import PracticeLog
+        try:
+            path = self.controls["leadership_log_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("practice log path must contain 1-4096 characters")
+            log = PracticeLog.load(path)
+            self.leadership_log = log
+            self.leadership_log_path = path
+            self.build_controls()
+        except (OSError, ValueError) as error:
+            self.report = {"error": f"Practice log load failed: {error}"}
+            self.update_summary()
+
+    def save_leadership_log(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Save practice log as new JSON", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Save", Gtk.ResponseType.OK)
+        dialog.set_current_name("leadership-practice.json")
+        dialog.set_do_overwrite_confirmation(False)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                output = self.leadership_log.save(dialog.get_filename())
+                self.leadership_log_path = str(output)
+                self.report = {"summary": f"Saved {len(self.leadership_log.events)} events to {output}\nThe log was not executed; the next experiment remains yours."}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.report = {"error": f"Practice log save failed: {error}"}
+            self.update_summary()
+        finally:
+            dialog.destroy()
+
+    def inspect_leadership_library(self, *_args):
+        from .leadership import inspect_library
+        try:
+            root = self.controls["leadership_library_root"].get_text().strip()
+            if not root or len(root) > 4096:
+                raise ValueError("reference folder path must contain 1-4096 characters")
+            library = inspect_library(root)
+            self.leadership_library = library
+            self.leadership_library_root = root
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as error:
+            self.report = {"error": f"Reference library inspection failed: {error}"}
+            self.update_summary()
+
+    def present_maison(self, *_args):
+        self.maison_word = self.choice("maison_word")
+        self.refresh()
+
+    def load_maison_log(self, *_args):
+        self.controls["leadership_log_path"] = self.controls["maison_log_path"]
+        self.load_leadership_log()
+
+    def inspect_maison_reference(self, *_args):
+        from .maison import inspect_reference
+        try:
+            path = self.controls["maison_reference_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("association reference path must contain 1-4096 characters")
+            reference = inspect_reference(path)
+            self.maison_reference = reference
+            self.maison_reference_path = path
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as error:
+            self.report = {"error": f"Association reference inspection failed: {error}"}
+            self.update_summary()
+
+    def present_evidence(self, *_args):
+        try:
+            self.navigator_bridge_id = int(self.choice("evidence_bridge"))
+            self.navigator_query = self.controls["evidence_query"].get_text()
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": f"Evidence retrieval failed: {error}"}
+            self.update_summary()
+
+    def load_evidence_index(self, *_args):
+        from .evidence import EvidenceIndex
+        try:
+            path = self.controls["evidence_index_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("gallery index path must contain 1-4096 characters")
+            index = EvidenceIndex.load(path)
+            self.evidence_index = index
+            self.navigator_timeline = None
+            self.navigator_index_path = path
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Gallery index load failed: {error}"}
+            self.update_summary()
+
+    def verify_evidence_index(self, *_args):
+        from .evidence import EvidenceIndex
+        try:
+            path = self.controls["evidence_index_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("gallery index path must contain 1-4096 characters")
+            index = EvidenceIndex.load(path, verify=True)
+            self.evidence_index = index
+            self.navigator_timeline = None
+            self.navigator_index_path = path
+            self.build_controls()
+            self.report = {"summary": f"{len(index.records)} source files, previews, and compatibility links verified.\nNo hardware action was executed."}
+            self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Evidence verification failed: {error}"}
+            self.update_summary()
+
+    def replay_evidence_timeline(self, *_args):
+        from .twin import timing_replay
+        try:
+            self.navigator_timeline = timing_replay(index=self.evidence_index)
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": f"Synthetic replay failed: {error}"}
+            self.update_summary()
+
+    def export_evidence_wav(self, *_args):
+        from .twin import export_wav, timing_replay
+        dialog = Gtk.FileChooserDialog(title="Export evidence sonification as new WAV", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Export", Gtk.ResponseType.OK)
+        dialog.set_current_name("evidence-sonification.wav")
+        dialog.set_do_overwrite_confirmation(False)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                timeline = self.navigator_timeline or timing_replay(index=self.evidence_index)
+                self.navigator_timeline = timeline
+                _, report = export_wav(timeline, dialog.get_filename())
+                self.report = {"summary": f"Saved deterministic evidence sonification to {report['path']}\nThis is not live detector sound or an alarm; no audio was played automatically."}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.report = {"error": f"Evidence sonification failed: {error}"}
+            self.update_summary()
+        finally:
+            dialog.destroy()
+
+    def observe_presence(self, *_args):
+        try:
+            sector, trace = self.choice("sector"), self.choice("trace")
+            self.presence.focus(sector, trace, "explicit native selection")
+            note = self.controls["presence_note"].get_text().strip() or f"Selected {sector} and {trace}."
+            self.presence.observe(note, "explicit native observation")
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": str(error)}
+            self.update_summary()
+
+    def review_presence(self, *_args):
+        try:
+            note = self.controls["presence_note"].get_text().strip() or "Review the current self-model and its limitations"
+            self.presence.review(note)
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": str(error)}
+            self.update_summary()
+
+    def correct_presence(self, *_args):
+        try:
+            note = self.controls["presence_note"].get_text().strip() or "A self-model does not establish subjective experience."
+            self.presence.correct(note)
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": str(error)}
+            self.update_summary()
 
     def observe_brain(self, *_args, next_in_sequence=False):
         try:
@@ -966,13 +1499,21 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"felix", "brain", "field", "cognitive", "research", "qualia"}:
+        elif self.module in {"felix", "cern", "brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
                 f"h={self.report['horizon']} · τ={self.report['tau']:.3f} · "
                 f"A={self.report['accessible_volume']} · complement={self.report['complement_volume']} · "
                 f"universe={self.report['universe_size']} · exact toy Markov enumeration"
+            )
+        elif self.module == "resilience":
+            trace = self.report["trace"]
+            text = (
+                f"{self.report['sector_name']}\n"
+                f"Trace: {trace['storage_id']} · {trace['status']} · candidates={len(trace['candidates'])}\n"
+                f"Source: {self.report['source']}\n"
+                "No live monitoring · no risk score · no automatic action"
             )
         elif self.module == "volume":
             text = self.report["summary"]
@@ -998,6 +1539,11 @@ class AtlasWindow(Gtk.Window):
             path, self.report = export_cognitive(self.cognitive, path)
             self.update_summary()
             return path
+        if self.module == "unified" and path.suffix.lower() == ".json":
+            self.unified_registry.knowledge.save(path)
+            self.report["summary"] = f"Saved {len(self.unified_registry.knowledge.events)} unified knowledge events to {path}"
+            self.update_summary()
+            return path
         suffix = path.suffix.lower()
         if suffix == ".svg":
             write_svg(self.scene, path)
@@ -1013,8 +1559,13 @@ class AtlasWindow(Gtk.Window):
             from .felix_audio import write_felix_sonification
             _, self.report = write_felix_sonification(self.ensure_felix(), path)
             self.update_summary()
+        elif suffix == ".json" and self.module in {"leadership", "maison"}:
+            self.leadership_log.save(path)
+        elif suffix == ".wav" and self.module == "evidence":
+            from .twin import export_wav, timing_replay
+            export_wav(self.navigator_timeline or timing_replay(index=self.evidence_index), path)
         else:
-            raise ValueError("atlas export must use .svg, .png, .gem, field .json, or FELIX .json/.wav")
+            raise ValueError("atlas export must use .svg, .png, .gem, field/practice/FELIX .json, or FELIX/evidence .wav")
         if self.module == "brain":
             self.brain.mark_exported()
             self.refresh()
@@ -1059,6 +1610,15 @@ def show_atlas(module="procrustes", research_root=None, cern_root=None, felix_bu
 def launch_atlas(module="procrustes", research_root=None, cern_root=None, felix_build=None):
     if not os.environ.get("DISPLAY"):
         raise RuntimeError("the native geometry atlas requires a GTK display; use --output for headless export")
+    if module == "artline":
+        from .artline_view import launch_artline
+        return launch_artline()
+    if module == "pentomino":
+        from .pentomino_view import launch_pentomino
+        return launch_pentomino()
+    if module == "pilot":
+        from .pilot_view import launch_pilot
+        return launch_pilot()
     window = show_atlas(module, research_root=research_root, cern_root=cern_root, felix_build=felix_build)
     window.connect("destroy", Gtk.main_quit)
     Gtk.main()

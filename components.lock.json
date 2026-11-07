@@ -1,7 +1,11 @@
 {
   "schema_version": 1,
-  "identity": "Ablation = All = ZOE = ALL",
+  "identity": "Zoe is allgems",
   "zoe_baseline": "f30c981",
+  "knowledge_engineering": {
+    "trust_context": "source, repository, revision, evidence scope, and authorization boundary",
+    "stability_context": "component-specific processes, version locks, replayable memory, and separately tested behavior"
+  },
   "components": {
     "ablation": {
       "path": "components/ablation",
@@ -33,7 +37,23 @@
       "path": "components/next-token-predictability",
       "repository": "https://github.com/Ablation-Tool/next-token-predictability",
       "revision": "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9"
+    },
+    "kevlar": {
+      "path": "components/kevlar",
+      "repository": "https://github.com/Ablation-Tool/kevlar",
+      "revision": "8ac3e0181e98572d6c41f964385393aa441a5f2a"
+    },
+    "pdf-signature-toolkit": {
+      "path": "components/pdf-signature-toolkit",
+      "repository": "https://github.com/Ablation-Tool/pdf-signature-toolkit",
+      "revision": "1198165962958c5132130f3854626ff39c333941"
+    },
+    "Chalkboard": {
+      "path": "components/Chalkboard",
+      "repository": "https://github.com/Ablation-Tool/Chalkboard",
+      "revision": "63646eb15737d822316073ba1f2114c608571c72",
+      "includes": "Reusable ideas, templates, and prompts; content library, not a GUI process"
     }
   },
-  "scope": "Full tracked source snapshots imported with git subtree --squash. Component processes and evidence boundaries remain distinct. PALA is a separate non-GEM recovery engine and is not represented as a GEM component."
+  "scope": "Complete tracked source snapshots of all ten organization repositories including Zoe, imported with git subtree --squash. Component processes, evidence, and authorization remain distinct."
 }
