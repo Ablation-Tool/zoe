@@ -1,3 +1,5 @@
+include CONSTITUTION.md
+include DECLARATION.md
 include GEM.md
 include GEM-VISION.md
 include HARDENING.md
@@ -6,7 +8,25 @@ include NOTICE
 recursive-include licenses *.txt
 recursive-include guiai/icons *.svg
 recursive-include guiai/gem/data *.json.gz
-recursive-include docs *.md *.png
+recursive-include docs *.md *.png *.tex *.pdf *.py *.json *.vcd
+include docs/images/zoe-waveform.svg
+include docs/images/zoe-waveform.gem
+include docs/images/zoe-patchbay.svg
+include docs/images/zoe-patchbay.gem
+include docs/images/zoe-leadership.svg
+include docs/images/zoe-leadership.gem
+include docs/images/zoe-maison.svg
+include docs/images/zoe-maison.gem
+include docs/images/zoe-evidence.svg
+include docs/images/zoe-evidence.gem
+include docs/images/zoe-vidlib.svg
+include docs/images/zoe-vidlib.gem
+include docs/images/zoe-pentacube.svg
+include docs/images/zoe-pentacube.gem
+include docs/images/zoetic-research.svg
+include docs/images/zoe-cicada.svg
+include docs/images/zoe-cicada.gem
+include docs/examples/evidence-sonification.wav
 recursive-include metrix/templates *.html
 recursive-include metrix/gui *.html *.css *.js
 recursive-include stress *.py

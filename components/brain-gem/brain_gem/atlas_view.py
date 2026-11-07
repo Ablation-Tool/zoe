@@ -12,7 +12,7 @@ gi.require_version("Gtk", "3.0")
 gi.require_foreign("cairo")
 from gi.repository import Gdk, Gtk, Pango
 
-from .._callbacks import weak_callback
+from ._callbacks import weak_callback
 from .atlas import (
     ATLAS_MODULES, DEFAULT_SOURCE, DEFAULT_TARGET,
     circle_scene, clock_scene, ellipses_scene, graph_scene,

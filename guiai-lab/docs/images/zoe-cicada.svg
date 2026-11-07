@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Internal Clock · CERN ticks and cicada timing hypotheses">
+  <title>Zoe Internal Clock · CERN ticks and cicada timing hypotheses</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="42.0" y="51.0" font-family="sans-serif" font-size="31.0" fill="#67e8f9">Zoe Internal Clock</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="44.0" y="80.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">CERN phase discipline · cicada timing hypotheses · explicit local action</text>
+  </g>
+  <g data-object-id="cern-reference">
+    <title>cern-reference</title>
+    <text x="45.0" y="111.0" font-family="sans-serif" font-size="12.0" fill="#e7d6ad">80 MHz / 2 = 40 MHz · 25,000 ps synthetic ticks · not measured time</text>
+  </g>
+  <g data-object-id="daily-ring">
+    <title>daily-ring</title>
+    <ellipse cx="230.0" cy="335.0" rx="112.0" ry="112.0" fill="#0f1929" stroke="#475569" stroke-width="2.0" />
+  </g>
+  <g data-object-id="daily-tick-0">
+    <title>daily-tick-0</title>
+    <polyline points="230,239 230,227" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-1">
+    <title>daily-tick-1</title>
+    <polyline points="254.847,242.271 257.952,230.68" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-2">
+    <title>daily-tick-2</title>
+    <polyline points="278,251.862 284,241.469" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-3">
+    <title>daily-tick-3</title>
+    <polyline points="297.882,267.118 306.368,258.632" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-4">
+    <title>daily-tick-4</title>
+    <polyline points="313.138,287 323.531,281" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-5">
+    <title>daily-tick-5</title>
+    <polyline points="322.729,310.153 334.32,307.048" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-6">
+    <title>daily-tick-6</title>
+    <polyline points="326,335 338,335" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-7">
+    <title>daily-tick-7</title>
+    <polyline points="322.729,359.847 334.32,362.952" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-8">
+    <title>daily-tick-8</title>
+    <polyline points="313.138,383 323.531,389" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-9">
+    <title>daily-tick-9</title>
+    <polyline points="297.882,402.882 306.368,411.368" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-10">
+    <title>daily-tick-10</title>
+    <polyline points="278,418.138 284,428.531" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-11">
+    <title>daily-tick-11</title>
+    <polyline points="254.847,427.729 257.952,439.32" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-12">
+    <title>daily-tick-12</title>
+    <polyline points="230,431 230,443" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-13">
+    <title>daily-tick-13</title>
+    <polyline points="205.153,427.729 202.048,439.32" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-14">
+    <title>daily-tick-14</title>
+    <polyline points="182,418.138 176,428.531" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-15">
+    <title>daily-tick-15</title>
+    <polyline points="162.118,402.882 153.632,411.368" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-16">
+    <title>daily-tick-16</title>
+    <polyline points="146.862,383 136.469,389" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-17">
+    <title>daily-tick-17</title>
+    <polyline points="137.271,359.847 125.68,362.952" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-18">
+    <title>daily-tick-18</title>
+    <polyline points="134,335 122,335" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-19">
+    <title>daily-tick-19</title>
+    <polyline points="137.271,310.153 125.68,307.048" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-20">
+    <title>daily-tick-20</title>
+    <polyline points="146.862,287 136.469,281" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-21">
+    <title>daily-tick-21</title>
+    <polyline points="162.118,267.118 153.632,258.632" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-22">
+    <title>daily-tick-22</title>
+    <polyline points="182,251.862 176,241.469" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-tick-23">
+    <title>daily-tick-23</title>
+    <polyline points="205.153,242.271 202.048,230.68" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-hand">
+    <title>daily-hand</title>
+    <polyline points="230,335 253.553,247.101" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="daily-pin">
+    <title>daily-pin</title>
+    <ellipse cx="230.0" cy="335.0" rx="6.0" ry="6.0" fill="#e7d6ad" stroke="#e7d6ad" stroke-width="1.0" />
+  </g>
+  <g data-object-id="daily-label">
+    <title>daily-label</title>
+    <text x="153.0" y="474.0" font-family="sans-serif" font-size="15.0" fill="#f0abfc">Daily phase 0.042</text>
+  </g>
+  <g data-object-id="cycle-label">
+    <title>cycle-label</title>
+    <text x="143.0" y="503.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">17-year developmental toy</text>
+  </g>
+  <g data-object-id="cicada-wing-left">
+    <title>cicada-wing-left</title>
+    <ellipse cx="433.0" cy="240.0" rx="46.0" ry="75.0" fill="#111d30" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cicada-wing-right">
+    <title>cicada-wing-right</title>
+    <ellipse cx="497.0" cy="240.0" rx="46.0" ry="75.0" fill="#111d30" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cicada-body">
+    <title>cicada-body</title>
+    <ellipse cx="465.0" cy="274.0" rx="24.0" ry="76.0" fill="#0f1929" stroke="#e7d6ad" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cicada-head">
+    <title>cicada-head</title>
+    <ellipse cx="465.0" cy="190.0" rx="22.0" ry="20.0" fill="#0f1929" stroke="#e7d6ad" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cicada-caption">
+    <title>cicada-caption</title>
+    <text x="400.0" y="383.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">Original glyph · not anatomy</text>
+  </g>
+  <g data-object-id="metrics-panel">
+    <title>metrics-panel</title>
+    <rect x="610.0" y="132.0" width="346.0" height="380.0" fill="#0f1929" stroke="#475569" stroke-width="1.0" />
+  </g>
+  <g data-object-id="metric-0">
+    <title>metric-0</title>
+    <text x="628.0" y="169.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Host cycles  17</text>
+  </g>
+  <g data-object-id="metric-1">
+    <title>metric-1</title>
+    <text x="628.0" y="206.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Calendar age 16</text>
+  </g>
+  <g data-object-id="metric-2">
+    <title>metric-2</title>
+    <text x="628.0" y="243.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Growth / CW  1.334 / 1.000</text>
+  </g>
+  <g data-object-id="metric-3">
+    <title>metric-3</title>
+    <text x="628.0" y="280.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Gate year    16 · open=True</text>
+  </g>
+  <g data-object-id="metric-4">
+    <title>metric-4</title>
+    <text x="628.0" y="317.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Emerge year  17 · done=True</text>
+  </g>
+  <g data-object-id="metric-5">
+    <title>metric-5</title>
+    <text x="628.0" y="354.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Soil         18.00 C · release=True</text>
+  </g>
+  <g data-object-id="metric-6">
+    <title>metric-6</title>
+    <text x="628.0" y="391.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">After sunset True</text>
+  </g>
+  <g data-object-id="metric-7">
+    <title>metric-7</title>
+    <text x="628.0" y="428.0" font-family="sans-serif" font-size="12.0" fill="#a7f3d0">Chorus       False</text>
+  </g>
+  <g data-object-id="metric-8">
+    <title>metric-8</title>
+    <text x="628.0" y="465.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Events       1 / 256</text>
+  </g>
+  <g data-object-id="last-actions">
+    <title>last-actions</title>
+    <text x="628.0" y="485.0" font-family="sans-serif" font-size="11.0" fill="#e7d6ad">Act: advance, gate-open, emerge</text>
+  </g>
+  <g data-object-id="gate-axis">
+    <title>gate-axis</title>
+    <polyline points="55,615 580,615" stroke-linejoin="round" fill="none" stroke="#475569" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gate-4">
+    <title>gate-4</title>
+    <polyline points="55,603 55,627" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gate-label-4">
+    <title>gate-label-4</title>
+    <text x="48.0" y="649.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">4</text>
+  </g>
+  <g data-object-id="gate-8">
+    <title>gate-8</title>
+    <polyline points="183,603 183,627" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gate-label-8">
+    <title>gate-label-8</title>
+    <text x="176.0" y="649.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">8</text>
+  </g>
+  <g data-object-id="gate-12">
+    <title>gate-12</title>
+    <polyline points="311,603 311,627" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gate-label-12">
+    <title>gate-label-12</title>
+    <text x="304.0" y="649.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">12</text>
+  </g>
+  <g data-object-id="gate-16">
+    <title>gate-16</title>
+    <polyline points="439,603 439,627" stroke-linejoin="round" fill="none" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gate-label-16">
+    <title>gate-label-16</title>
+    <text x="432.0" y="649.0" font-family="sans-serif" font-size="12.0" fill="#c4b5fd">16</text>
+  </g>
+  <g data-object-id="gate-20">
+    <title>gate-20</title>
+    <polyline points="567,603 567,627" stroke-linejoin="round" fill="none" stroke="#64748b" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gate-label-20">
+    <title>gate-label-20</title>
+    <text x="560.0" y="649.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">20</text>
+  </g>
+  <g data-object-id="current-cycle">
+    <title>current-cycle</title>
+    <polyline points="471,593 471,632" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="timeline-caption">
+    <title>timeline-caption</title>
+    <text x="55.0" y="674.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">Hypothetical four-year gates · host cycles, not wall-clock years</text>
+  </g>
+  <g data-object-id="phase-equation">
+    <title>phase-equation</title>
+    <text x="55.0" y="704.0" font-family="sans-serif" font-size="11.0" fill="#c4b5fd">phase += dt / daily_period + k sin(2pi(host - phase)) · growth = 0.01 exp(rate cycles)</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="55.0" y="731.0" font-family="sans-serif" font-size="11.0" fill="#fda4af">Model != insect != measured CERN time · local visual/replay events only · no external actuator</text>
+  </g>
+</svg>

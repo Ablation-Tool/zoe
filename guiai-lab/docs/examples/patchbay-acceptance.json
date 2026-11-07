@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "instrument": "zoe-patchbay-acceptance",
+  "target": "synthetic-target-no-hardware",
+  "firmware": "endeavour-clocks.vcd",
+  "steps": [
+    {
+      "name": "synthetic-command-check",
+      "argv": ["/usr/bin/python3", "-c", "print('explicit local test; no hardware')"],
+      "timeout_seconds": 5,
+      "expected_exit": 0,
+      "hardware_write": false,
+      "cwd": "."
+    }
+  ]
+}
