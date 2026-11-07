@@ -105,7 +105,7 @@ class PentacubeCanvas(Gtk.DrawingArea):
 
 class PentacubeWindow(Gtk.Window):
     def __init__(self, game=None, show_hint=False, rhyme=False):
-        super().__init__(title="Zoetic Research · Zoe Pentacube")
+        super().__init__(title="NuClide Research · Zoe Pentacube")
         self.game = game or PentacubeGame()
         self.hint_move = self.game.hint() if show_hint else None
         self.rhyme = rhyme
@@ -115,7 +115,7 @@ class PentacubeWindow(Gtk.Window):
         self.add(outer)
         header = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=14)
         self.logo = None
-        logo_path = Path(__file__).resolve().parents[1] / "icons/zoetic-research.svg"
+        logo_path = Path(__file__).resolve().parents[1] / "icons/nuclide-brain.png"
         if logo_path.is_file():
             try:
                 pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale(str(logo_path), 360, 125, True)

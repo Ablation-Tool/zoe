@@ -20,7 +20,7 @@ zoe = "guiai.gem.unified_cli:main"
 license-files = ["NOTICE", "licenses/*.txt"]
 
 [tool.setuptools.package-data]
-guiai = ["icons/*.svg", "gem/data/*.json.gz"]
+guiai = ["icons/*.svg", "icons/*.png", "gem/data/*.json.gz"]
 metrix = ["templates/*.html", "gui/*.html", "gui/*.css", "gui/*.js"]
 
 [tool.setuptools.packages.find]

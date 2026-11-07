@@ -4,9 +4,9 @@
 
 This is a new turn-based puzzle and inspection tool, not a Tetris clone, an official Rubik product, an optimal cube solver, or an intelligence test.
 
-![Zoetic Research co-brand](images/zoetic-research.png)
+![NuClide Research co-brand](images/nuclide-brain.png)
 
-The **Zoetic Research** co-brand is user-created artwork and an homage to Gary Kildall and Digital Research. It is independent from Digital Research and does not replace the Zoe orbital eye.
+The **NuClide Research** co-brand is user-created artwork and an homage to Gary Kildall and Digital Research. It is independent from Digital Research and does not replace the Zoe orbital eye.
 
 ## Why a 5×5 cube fits
 
@@ -174,7 +174,7 @@ The local and mirrored [GSX-80/86 source archive](https://ftpmirror.your.org/pub
 
 It contains 823 entries. The source was inspected, not copied or compiled. Digital Research manuals and source remain external.
 
-### Zoetic Research logo
+### NuClide Research logo
 
 The user-created `/home/cowboy/Downloads/Zoetic_Research_Logo.{png,svg}` is included with these identities:
 
