@@ -176,6 +176,18 @@ The model tests every move for permutation validity and order four. Recovery met
 
 ![Zoe Pentacube](guiai-lab/docs/images/zoe-pentacube.png)
 
+**Zoe Internal Clock** combines exact software ticks from the TIM3C 80/2 MHz clock pattern with cicada-inspired host cycles, daily phase, and developmental gates. **Act** advances only local visual/replay events after an explicit start; no reasoning loop, hardware action, or biological measurement occurs.
+
+```bash
+zoe cicada
+zoe cicada --cycle 13 --start 8 --act
+zoe cicada --cycle 17 --host-rate 2 --start 15 --years 1 --output cicada-karban.json
+```
+
+Host seasonal cycles remain distinct from calendar age. The four-year internal gate is labeled as a hypothesis, not settled biology. Daily entrainment is a toy oscillator, and soil/sunset release cues are synthetic. Read the [Internal Clock guide](guiai-lab/docs/CICADA.md) or its [visual edition](guiai-lab/docs/visual/zoe-cicada-visual.pdf).
+
+![Zoe Internal Clock](guiai-lab/docs/images/zoe-cicada.png)
+
 **Zoe Practice Navigator** is an original five-page visual guide to time, space, packet layers, and the next attempt. It includes an editable instrument-inspired cover, a conserved-hourglass toy, synthetic network timing, and the Pentomino study. It is not certified flight material, a live network measurement, or a validated transformer defense.
 
 ```bash
@@ -498,6 +510,8 @@ guiai/gem/patchbay_view.py Patchbay native launcher and headless command surface
 guiai/gem/pentacube.py     Pentomino home tilings, legal cube permutations, and replay
 guiai/gem/pentacube_reference.py Read-only MZ/ZIP/PDF historical evidence reports
 guiai/gem/pentacube_view.py Pentacube native game, CLI, and historical reference commands
+guiai/gem/cicada.py        Exact software ticks, host cycles, developmental gates, and replay
+guiai/gem/cicada_view.py   Internal Clock native timer, controls, CLI, and exports
 guiai/gem/practice.py      Adaptive practice events, corrections, and hash-chained logs
 guiai/gem/leadership.py    Reference library, sourced snippets, and garden scenes
 guiai/gem/leadership_view.py Practice recording, correction, library, and scene commands
@@ -514,6 +528,7 @@ stress/maison_stress.py    Association, reference, CLI, and native studio tests
 stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
 stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
 stress/pentacube_stress.py Cube algebra, replay, historical evidence, CLI, and native tests
+stress/cicada_stress.py    Clock equations, environmental release, replay, CLI, and native timer tests
 stress/cog_stress.py       Cog model, integrity, CLI, and supplied-book tests
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests

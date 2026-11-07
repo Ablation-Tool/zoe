@@ -325,7 +325,7 @@ class AtlasWindow(Gtk.Window):
         self.updating = True
         self.clear_controls()
         self.add_text(ATLAS_MODULES[self.module])
-        if self.module in {"artline", "pentomino", "pentacube", "pilot"}:
+        if self.module in {"artline", "pentomino", "pentacube", "cicada", "pilot"}:
             self.open_builtin(self.module)
             self.add_action("Present the dedicated creative window", lambda *_args, identifier=self.module: self.open_builtin(identifier))
             self.add_text("The dedicated editor remains interactive. This scene is a static Spatial IR preview and can be exported independently.")
@@ -575,6 +575,9 @@ class AtlasWindow(Gtk.Window):
         elif module == "pentacube":
             from .pentacube_view import PentacubeWindow
             window = PentacubeWindow()
+        elif module == "cicada":
+            from .cicada_view import CicadaWindow
+            window = CicadaWindow()
         elif module == "pilot":
             from .artline_view import ArtlineWindow
             from .pilot import cover_document
@@ -607,7 +610,7 @@ class AtlasWindow(Gtk.Window):
         return self.controls[key].get_active_id()
 
     def refresh(self):
-        if self.module in {"artline", "pentomino", "pentacube", "pilot"}:
+        if self.module in {"artline", "pentomino", "pentacube", "cicada", "pilot"}:
             from .atlas import default_document
             self.scene, self.report = default_document(self.module)
         elif self.module == "resilience":
