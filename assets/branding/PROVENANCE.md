@@ -14,3 +14,9 @@ The small symbol-grid references in `references/` are also user-supplied screens
 - `symbol-m.png`: `Screenshot From 2026-11-05 02-01-07.png`
 
 The reference images remain distinct from generated GEM scenes. `guiai-lab/docs/images/gem-unified.{png,svg,gem}` is generated executable Spatial IR. `gem-unified-native.png` is an actual nested-X11 GTK screenshot. Earlier Cognitive Field and anatomical artwork retain their own provenance under `guiai-lab/docs/references/cognitive-field/`.
+
+## Zoetic Research co-brand
+
+`zoetic-research.{png,svg}` is the user-created **Zoetic Research** logo, supplied as `/home/cowboy/Downloads/Zoetic_Research_Logo.{png,svg}`. The SVG is self-contained vector artwork titled `ZOETIC RESEARCH`; it has new lettering and a new circular/bowl mark. The PNG has SHA-256 `68637ee2488eb90ffbc6150458bb2806eebd2df08a5ce44835aec502139fae89`; the SVG has SHA-256 `996dd01df42676df995e3adc75370e464d08236a132c8fb4eb3d4bc0096dba58`.
+
+The user identifies `/home/cowboy/Downloads/Digital_Research_Logo.svg` and `/home/cowboy/Downloads/Digital_Research_logo_1990.svg` as visual inspiration. The red serif typography and earlier circular motif form an intentional homage to Gary Kildall and Digital Research. Those two historical SVGs remain external and are not copied into this repository. Zoetic Research is an independent co-brand, not a Digital Research product, endorsement, renamed Zoe component, or replacement for the primary Zoe orbital eye.
