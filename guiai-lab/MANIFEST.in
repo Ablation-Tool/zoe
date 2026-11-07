@@ -13,6 +13,8 @@ include docs/images/zoe-waveform.svg
 include docs/images/zoe-waveform.gem
 include docs/images/zoe-patchbay.svg
 include docs/images/zoe-patchbay.gem
+include docs/images/zoe-leadership.svg
+include docs/images/zoe-leadership.gem
 recursive-include metrix/templates *.html
 recursive-include metrix/gui *.html *.css *.js
 recursive-include stress *.py

@@ -21,6 +21,7 @@ ATLAS_MODULES = {
     "protocol": "Zoe Protocol Lab · SPECS and AMAC evidence",
     "waveform": "Zoe Waveform Replay · bounded signal evidence",
     "patchbay": "Zoe Patchbay · firmware, boards, and review loops",
+    "leadership": "Zoe Leadership Garden · practice, advice, failure, learning, adaptation",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -435,6 +436,9 @@ def default_document(module, research_root=None):
     if module == "patchbay":
         from .patchbay import patchbay_scene
         return patchbay_scene()
+    if module == "leadership":
+        from .leadership import leadership_scene
+        return leadership_scene()
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":

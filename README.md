@@ -248,6 +248,24 @@ Read the [Patchbay guide](guiai-lab/docs/PATCHBAY.md) or its [visual edition](gu
 
 ![Zoe Patchbay](guiai-lab/docs/images/zoe-patchbay.png)
 
+## Leadership Garden: practice is perishable
+
+**Zoe Leadership Garden** treats leadership as an evolving, adaptive skill built through doing, advice, failure, mistakes, learning, and navigating different situations every day. Books are a reference shelf, not a shortcut or a score.
+
+```bash
+zoe leadership scene
+zoe leadership practice --situation "A difficult review" --action "I changed the format" --outcome "People practiced instead of watching" --next-try "Ask what each person needs" --output first-practice.json
+zoe leadership correct --input first-practice.json --sequence 1 --learning "Purpose matters more than the original script" --output corrected-practice.json
+zoe leadership library --root /home/cowboy/Desktop/Leadership --output leadership-library.json
+zoe leadership search --root /home/cowboy/Desktop/Leadership --query women --output leadership-snippets.json
+```
+
+The practice log preserves attempts, outcomes, advice, mistakes, support, uncertainty, stop conditions, and append-only corrections. Every event has a sequence number and hash; loading detects edited or reordered history. A next question is a prompt, not an automatic action. **Failure is information, not identity.** There is no leadership score.
+
+The garden also preserves advice **Nicholas Michael Kloster remembers from his 1SG** and an original illustration of the practice loop. Personal photographs and PDFs stay outside the repository. Read the [Leadership Garden guide](guiai-lab/docs/LEADERSHIP.md) or its [visual edition](guiai-lab/docs/visual/zoe-leadership-visual.pdf).
+
+![Zoe Leadership Garden](guiai-lab/docs/images/zoe-leadership.png)
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
@@ -407,7 +425,11 @@ guiai/gem/capsule.py       Ed25519 update capsules and explicit trust verificati
 guiai/gem/acceptance.py    Gated command plans, process groups, and evidence reports
 guiai/gem/cog.py           Bounded two-way token model and accessible-volume measurements
 guiai/gem/patchbay_view.py Patchbay native launcher and headless command surface
+guiai/gem/practice.py      Adaptive practice events, corrections, and hash-chained logs
+guiai/gem/leadership.py    Reference library, sourced snippets, and garden scenes
+guiai/gem/leadership_view.py Practice recording, correction, library, and scene commands
 guiai/gem/data/            Packaged HELEN prediction artifact
+stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
 stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
 stress/cog_stress.py       Cog model, integrity, CLI, and supplied-book tests
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests

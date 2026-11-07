@@ -5,6 +5,7 @@ import json
 import math
 import os
 from pathlib import Path
+import subprocess
 
 import gi
 gi.require_version("Gdk", "3.0")
@@ -177,7 +178,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None, leadership_log=None, leadership_library=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -206,6 +207,11 @@ class AtlasWindow(Gtk.Window):
         self.cog_report = demo_cog_report()
         self.cog_source = "memory://cog-demo"
         self.cog_prompt = "inspect"
+        from .practice import demo_log
+        self.leadership_log = leadership_log if leadership_log is not None else demo_log()
+        self.leadership_library = leadership_library
+        self.leadership_log_path = ""
+        self.leadership_library_root = ""
         from .unified import ComponentRegistry
         self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
@@ -348,6 +354,26 @@ class AtlasWindow(Gtk.Window):
             self.add_entry("patchbay_plan", "Acceptance plan JSON (validation only)", "")
             self.add_action("Validate plan without executing commands", self.validate_patchbay_plan)
             self.add_text("Original board art, not a fabrication drawing. Cog is a small bigram model, not an LLM. No firmware is flashed and no acceptance command runs here.")
+        elif self.module == "leadership":
+            self.add_text("Practice is perishable. Record what actually happened; do not manufacture a leadership score.")
+            self.add_entry("leadership_situation", "Situation you actually faced")
+            self.add_entry("leadership_action", "What you actually did")
+            self.add_entry("leadership_outcome", "What happened, not what you hoped")
+            self.add_entry("leadership_next_try", "One small different next experiment")
+            self.add_entry("leadership_frame", "Situation labels (comma-separated)", "ordinary,practice")
+            self.add_entry("leadership_mistake", "What did not work? (optional)")
+            self.add_entry("leadership_advice", "Advice received or considered (optional)")
+            self.add_entry("leadership_learning", "Lesson or correction (optional)")
+            self.add_entry("leadership_support", "People and support they need (optional)")
+            self.add_entry("leadership_unknown", "What remains uncertain? (optional)")
+            self.add_entry("leadership_stop", "Stop condition (optional)")
+            self.add_action("Record actual practice · not a command", self.record_leadership_practice)
+            self.add_entry("leadership_log_path", "Practice log JSON to load", self.leadership_log_path)
+            self.add_action("Load practice log from explicit path", self.load_leadership_log)
+            self.add_action("Save practice log as new JSON", self.save_leadership_log)
+            self.add_entry("leadership_library_root", "Reference folder (books advise; practice teaches)", self.leadership_library_root)
+            self.add_action("Inspect reference library", self.inspect_leadership_library)
+            self.add_text("A failed attempt is information, not an identity. Corrections append new lessons; they never rewrite an earlier event or authorize a next action.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -566,6 +592,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "patchbay":
             from .patchbay import patchbay_scene
             self.scene, self.report = patchbay_scene(self.patchbay_report, self.choice("patchbay_board"), self.cog_report)
+        elif self.module == "leadership":
+            from .leadership import leadership_scene
+            self.scene, self.report = leadership_scene(self.leadership_log, self.leadership_library)
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -1021,6 +1050,73 @@ class AtlasWindow(Gtk.Window):
             self.report = {"error": f"Acceptance plan validation failed: {error}"}
             self.update_summary()
 
+    def record_leadership_practice(self, *_args):
+        try:
+            event = self.leadership_log.add_practice(
+                self.controls["leadership_situation"].get_text(),
+                self.controls["leadership_action"].get_text(),
+                self.controls["leadership_outcome"].get_text(),
+                self.controls["leadership_next_try"].get_text(),
+                frame=self.controls["leadership_frame"].get_text(),
+                mistake=self.controls["leadership_mistake"].get_text(),
+                advice=self.controls["leadership_advice"].get_text(),
+                learning=self.controls["leadership_learning"].get_text(),
+                support=self.controls["leadership_support"].get_text(),
+                unknown=self.controls["leadership_unknown"].get_text(),
+                stop_condition=self.controls["leadership_stop"].get_text(),
+            )
+            self.leadership_log_path = ""
+            self.build_controls()
+        except ValueError as error:
+            self.report = {"error": f"Practice was not recorded: {error}"}
+            self.update_summary()
+
+    def load_leadership_log(self, *_args):
+        from .practice import PracticeLog
+        try:
+            path = self.controls["leadership_log_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("practice log path must contain 1-4096 characters")
+            log = PracticeLog.load(path)
+            self.leadership_log = log
+            self.leadership_log_path = path
+            self.build_controls()
+        except (OSError, ValueError) as error:
+            self.report = {"error": f"Practice log load failed: {error}"}
+            self.update_summary()
+
+    def save_leadership_log(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Save practice log as new JSON", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Save", Gtk.ResponseType.OK)
+        dialog.set_current_name("leadership-practice.json")
+        dialog.set_do_overwrite_confirmation(False)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                output = self.leadership_log.save(dialog.get_filename())
+                self.leadership_log_path = str(output)
+                self.report = {"summary": f"Saved {len(self.leadership_log.events)} events to {output}\nThe log was not executed; the next experiment remains yours."}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.report = {"error": f"Practice log save failed: {error}"}
+            self.update_summary()
+        finally:
+            dialog.destroy()
+
+    def inspect_leadership_library(self, *_args):
+        from .leadership import inspect_library
+        try:
+            root = self.controls["leadership_library_root"].get_text().strip()
+            if not root or len(root) > 4096:
+                raise ValueError("reference folder path must contain 1-4096 characters")
+            library = inspect_library(root)
+            self.leadership_library = library
+            self.leadership_library_root = root
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as error:
+            self.report = {"error": f"Reference library inspection failed: {error}"}
+            self.update_summary()
+
     def observe_presence(self, *_args):
         try:
             sector, trace = self.choice("sector"), self.choice("trace")
@@ -1136,7 +1232,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
@@ -1190,8 +1286,10 @@ class AtlasWindow(Gtk.Window):
             write_metafile(self.scene, path)
         elif suffix == ".json" and self.module == "field":
             self.field.save(path)
+        elif suffix == ".json" and self.module == "leadership":
+            self.leadership_log.save(path)
         else:
-            raise ValueError("atlas export must use .svg, .png, .gem, or field-only .json")
+            raise ValueError("atlas export must use .svg, .png, .gem, or field/leadership .json")
         if self.module == "brain":
             self.brain.mark_exported()
             self.refresh()
