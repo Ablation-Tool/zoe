@@ -177,7 +177,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -196,6 +196,8 @@ class AtlasWindow(Gtk.Window):
         self.cognitive = CognitiveField()
         from .presence import demo_presence
         self.presence = presence if presence is not None else demo_presence()
+        from .waveform import demo_replay
+        self.waveform_replay = waveform if waveform is not None else demo_replay()
         from .unified import ComponentRegistry
         self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
@@ -321,6 +323,11 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "protocol":
             self.add_spin("read_count", "SPECS read count", 0, 255, 1, 0x80)
             self.add_text("Recovered frame formats and recorded AMAC replies. No hardware command is generated or sent.")
+        elif self.module == "waveform":
+            self.add_entry("waveform_path", "Replay path (.vcd / .jsonl / .wdb / .json)", self.waveform_replay.source["path"])
+            self.add_combo("waveform_signal", "Highlighted signal", tuple((signal["identifier"], signal["name"]) for signal in self.waveform_replay.signals), self.waveform_replay.signals[0]["identifier"])
+            self.add_action("Load waveform from explicit path", self.load_waveform)
+            self.add_text("Only the explicit Load action reads a file. Named VCD declarations are distinct from legacy storage IDs; no live acquisition or identity inference.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -533,6 +540,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "protocol":
             from .protocol_lab import protocol_scene
             self.scene, self.report = protocol_scene(self.integer("read_count"))
+        elif self.module == "waveform":
+            from .waveform import waveform_scene
+            self.scene, self.report = waveform_scene(self.waveform_replay, self.choice("waveform_signal"))
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -909,6 +919,19 @@ class AtlasWindow(Gtk.Window):
         self.brain.volume_bridge.minimum = minimum
         self.brain.volume_bridge.maximum = maximum
 
+    def load_waveform(self, *_args):
+        from pathlib import Path
+        from .waveform import WaveformReplay
+        try:
+            path = self.controls["waveform_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("replay path must contain 1-4096 characters")
+            self.waveform_replay = WaveformReplay.load(Path(path), max_events=4096)
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Waveform load failed: {error}"}
+            self.update_summary()
+
     def observe_presence(self, *_args):
         try:
             sector, trace = self.choice("sector"), self.choice("trace")
@@ -1024,7 +1047,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (

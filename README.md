@@ -215,6 +215,20 @@ zoe protocol --output protocol.svg
 
 Read the [Protocol Lab guide](guiai-lab/docs/PROTOCOL.md) or its [visual edition](guiai-lab/docs/visual/zoe-protocol-visual.pdf).
 
+## Waveform Replay: named signals, anonymous events
+
+**Zoe Waveform Replay** reads bounded VCD files, legacy event JSONL, normalized replay JSON, and supported WDB files through Ablation's optional existing reader. It preserves source hashes, declarations, event windows, and truncation. Native controls load only an explicitly supplied path. Clock-like signatures are labeled corroborated, ambiguous, or unmapped; matching periods never prove signal identity.
+
+```bash
+zoe waveform guiai-lab/docs/examples/endeavour-clocks.vcd --signal c1
+zoe waveform capture.vcd --max-events 4096 --output replay.json
+zoe waveform replay.json --output replay.svg
+```
+
+The included VCD is synthetic. No CERN waveform, proprietary HDL, or live acquisition is included. Replay does not supply missing bootloaders, MCU layouts, authenticity, analog timing, vendor-IP behavior, or deployed-hardware acceptance. Read the [Waveform Replay guide](guiai-lab/docs/WAVEFORM.md) or its [visual edition](guiai-lab/docs/visual/zoe-waveform-visual.pdf).
+
+![Zoe Waveform Replay](guiai-lab/docs/images/zoe-waveform.png)
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
@@ -354,6 +368,8 @@ guiai/gem/field.py         Bayesian memory, chamber registry, equations, noteboo
 guiai/gem/cognitive.py     Bounded memory operations, Cognitive Field scene, safe exports
 guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
+guiai/gem/waveform.py      Bounded VCD/legacy replay, source identity, and signal analysis
+guiai/gem/waveform_view.py Native waveform launcher and headless export commands
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
 guiai/gem/unified.py       Component registry, isolated launch environments, and Zoe hub scene

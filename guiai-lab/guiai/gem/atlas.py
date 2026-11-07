@@ -19,6 +19,7 @@ ATLAS_MODULES = {
     "resilience": "Zoe Resilience Atlas · services and signal evidence",
     "presence": "Zoe Presence · an explicit self-model, not sentience",
     "protocol": "Zoe Protocol Lab · SPECS and AMAC evidence",
+    "waveform": "Zoe Waveform Replay · bounded signal evidence",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -427,6 +428,9 @@ def default_document(module, research_root=None):
     if module == "protocol":
         from .protocol_lab import protocol_scene
         return protocol_scene()
+    if module == "waveform":
+        from .waveform import demo_replay, waveform_scene
+        return waveform_scene(demo_replay())
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":
