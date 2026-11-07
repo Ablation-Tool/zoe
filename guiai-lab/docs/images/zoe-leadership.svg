@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Leadership Garden · practice, advice, failure, learning, adaptation">
+  <title>Zoe Leadership Garden · practice, advice, failure, learning, adaptation</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#0b1516" stroke="#0b1516" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="42.0" y="55.0" font-family="sans-serif" font-size="32.0" fill="#a7f3d0">Zoe Leadership Garden</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="44.0" y="86.0" font-family="sans-serif" font-size="16.0" fill="#c7d2d1">Do · notice · advice · miss · learn · adapt</text>
+  </g>
+  <g data-object-id="skill">
+    <title>skill</title>
+    <text x="44.0" y="111.0" font-family="sans-serif" font-size="13.0" fill="#8fb3a9">Adaptive · perishable · always in practice</text>
+  </g>
+  <g data-object-id="garden-caption">
+    <title>garden-caption</title>
+    <text x="133.0" y="151.0" font-family="sans-serif" font-size="16.0" fill="#a7f3d0">Practice, not a badge</text>
+  </g>
+  <g data-object-id="loop-0">
+    <title>loop-0</title>
+    <polyline points="315,220 458,315" stroke-linejoin="round" fill="none" stroke="#47706a" stroke-width="3.0" />
+  </g>
+  <g data-object-id="loop-1">
+    <title>loop-1</title>
+    <polyline points="458,315 458,455" stroke-linejoin="round" fill="none" stroke="#47706a" stroke-width="3.0" />
+  </g>
+  <g data-object-id="loop-2">
+    <title>loop-2</title>
+    <polyline points="458,455 315,525" stroke-linejoin="round" fill="none" stroke="#47706a" stroke-width="3.0" />
+  </g>
+  <g data-object-id="loop-3">
+    <title>loop-3</title>
+    <polyline points="315,525 172,455" stroke-linejoin="round" fill="none" stroke="#47706a" stroke-width="3.0" />
+  </g>
+  <g data-object-id="loop-4">
+    <title>loop-4</title>
+    <polyline points="172,455 172,315" stroke-linejoin="round" fill="none" stroke="#47706a" stroke-width="3.0" />
+  </g>
+  <g data-object-id="loop-5">
+    <title>loop-5</title>
+    <polyline points="172,315 315,220" stroke-linejoin="round" fill="none" stroke="#47706a" stroke-width="3.0" />
+  </g>
+  <g data-object-id="garden-center">
+    <title>garden-center</title>
+    <ellipse cx="315.0" cy="385.0" rx="82.0" ry="63.0" fill="#143630" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="center-people">
+    <title>center-people</title>
+    <text x="270.0" y="380.0" font-family="sans-serif" font-size="23.0" fill="#a7f3d0">People</text>
+  </g>
+  <g data-object-id="center-rank">
+    <title>center-rank</title>
+    <text x="263.0" y="410.0" font-family="sans-serif" font-size="19.0" fill="#c7d2d1">before rank</text>
+  </g>
+  <g data-object-id="petal-0">
+    <title>petal-0</title>
+    <ellipse cx="315.0" cy="220.0" rx="54.0" ry="42.0" fill="#102729" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="petal-label-0">
+    <title>petal-label-0</title>
+    <text x="305.0" y="226.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">DO</text>
+  </g>
+  <g data-object-id="petal-1">
+    <title>petal-1</title>
+    <ellipse cx="458.0" cy="315.0" rx="54.0" ry="42.0" fill="#102729" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="petal-label-1">
+    <title>petal-label-1</title>
+    <text x="428.0" y="321.0" font-family="sans-serif" font-size="13.0" fill="#a7f3d0">NOTICE</text>
+  </g>
+  <g data-object-id="petal-2">
+    <title>petal-2</title>
+    <ellipse cx="458.0" cy="455.0" rx="54.0" ry="42.0" fill="#102729" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="petal-label-2">
+    <title>petal-label-2</title>
+    <text x="428.0" y="461.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">ADVICE</text>
+  </g>
+  <g data-object-id="petal-3">
+    <title>petal-3</title>
+    <ellipse cx="315.0" cy="525.0" rx="54.0" ry="42.0" fill="#102729" stroke="#fda4af" stroke-width="2.0" />
+  </g>
+  <g data-object-id="petal-label-3">
+    <title>petal-label-3</title>
+    <text x="295.0" y="531.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">MISS</text>
+  </g>
+  <g data-object-id="petal-4">
+    <title>petal-4</title>
+    <ellipse cx="172.0" cy="455.0" rx="54.0" ry="42.0" fill="#102729" stroke="#c4b5fd" stroke-width="2.0" />
+  </g>
+  <g data-object-id="petal-label-4">
+    <title>petal-label-4</title>
+    <text x="147.0" y="461.0" font-family="sans-serif" font-size="13.0" fill="#c4b5fd">LEARN</text>
+  </g>
+  <g data-object-id="petal-5">
+    <title>petal-5</title>
+    <ellipse cx="172.0" cy="315.0" rx="54.0" ry="42.0" fill="#102729" stroke="#a7f3d0" stroke-width="2.0" />
+  </g>
+  <g data-object-id="petal-label-5">
+    <title>petal-label-5</title>
+    <text x="147.0" y="321.0" font-family="sans-serif" font-size="13.0" fill="#a7f3d0">ADAPT</text>
+  </g>
+  <g data-object-id="garden-tending">
+    <title>garden-tending</title>
+    <text x="148.0" y="610.0" font-family="sans-serif" font-size="13.0" fill="#8fb3a9">The garden needs tending, not domination.</text>
+  </g>
+  <g data-object-id="advice-title">
+    <title>advice-title</title>
+    <text x="596.0" y="151.0" font-family="sans-serif" font-size="21.0" fill="#fde68a">Advice from experience</text>
+  </g>
+  <g data-object-id="personal-quote-0">
+    <title>personal-quote-0</title>
+    <text x="596.0" y="190.0" font-family="sans-serif" font-size="14.0" fill="#f3f4f6">“There are two types of leaders, the</text>
+  </g>
+  <g data-object-id="personal-quote-1">
+    <title>personal-quote-1</title>
+    <text x="596.0" y="214.0" font-family="sans-serif" font-size="14.0" fill="#f3f4f6">ones you HAVE to follow, and the ones</text>
+  </g>
+  <g data-object-id="personal-quote-2">
+    <title>personal-quote-2</title>
+    <text x="596.0" y="238.0" font-family="sans-serif" font-size="14.0" fill="#f3f4f6">you WANT to follow. You get to decide</text>
+  </g>
+  <g data-object-id="personal-quote-3">
+    <title>personal-quote-3</title>
+    <text x="596.0" y="262.0" font-family="sans-serif" font-size="14.0" fill="#f3f4f6">which one you become”</text>
+  </g>
+  <g data-object-id="personal-attribution-0">
+    <title>personal-attribution-0</title>
+    <text x="596.0" y="307.0" font-family="sans-serif" font-size="11.0" fill="#8fb3a9">Nicholas Michael Kloster, recalling advice</text>
+  </g>
+  <g data-object-id="personal-attribution-1">
+    <title>personal-attribution-1</title>
+    <text x="596.0" y="327.0" font-family="sans-serif" font-size="11.0" fill="#8fb3a9">from his 1SG · personal experience, not a</text>
+  </g>
+  <g data-object-id="personal-attribution-2">
+    <title>personal-attribution-2</title>
+    <text x="596.0" y="347.0" font-family="sans-serif" font-size="11.0" fill="#8fb3a9">leadership classification</text>
+  </g>
+  <g data-object-id="honesty">
+    <title>honesty</title>
+    <text x="596.0" y="398.0" font-family="sans-serif" font-size="25.0" fill="#fda4af">No deception</text>
+  </g>
+  <g data-object-id="honesty-scope">
+    <title>honesty-scope</title>
+    <text x="596.0" y="427.0" font-family="sans-serif" font-size="13.0" fill="#c7d2d1">Not even a flattering score.</text>
+  </g>
+  <g data-object-id="next-title">
+    <title>next-title</title>
+    <text x="596.0" y="474.0" font-family="sans-serif" font-size="16.0" fill="#a7f3d0">Next small experiment</text>
+  </g>
+  <g data-object-id="next-question-0">
+    <title>next-question-0</title>
+    <text x="596.0" y="505.0" font-family="sans-serif" font-size="13.0" fill="#f3f4f6">What is the smallest useful next</text>
+  </g>
+  <g data-object-id="next-question-1">
+    <title>next-question-1</title>
+    <text x="596.0" y="528.0" font-family="sans-serif" font-size="13.0" fill="#f3f4f6">experiment, and how will you review it?</text>
+  </g>
+  <g data-object-id="practice-count">
+    <title>practice-count</title>
+    <text x="596.0" y="609.0" font-family="sans-serif" font-size="12.0" fill="#8fb3a9">3 worked-example events · 0 corrections · no score</text>
+  </g>
+  <g data-object-id="reference-shelf">
+    <title>reference-shelf</title>
+    <text x="596.0" y="648.0" font-family="sans-serif" font-size="12.0" fill="#8fb3a9">Books advise. Practice makes the rep.</text>
+  </g>
+  <g data-object-id="garden-boundary">
+    <title>garden-boundary</title>
+    <text x="596.0" y="674.0" font-family="sans-serif" font-size="13.0" fill="#c7d2d1">Experience is the curriculum.</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="44.0" y="730.0" font-family="sans-serif" font-size="14.0" fill="#fda4af">Failure is information, not identity · no leadership score · no automatic action</text>
+  </g>
+</svg>

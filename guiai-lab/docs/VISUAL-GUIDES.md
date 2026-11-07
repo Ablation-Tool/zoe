@@ -44,6 +44,12 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Firmware, boards, signed updates, and Cog](images/zoe-patchbay.png){width=72%}](visual/zoe-patchbay-visual.pdf)
 
+## Practice and adaptation
+
+**[Zoe Leadership Garden](visual/zoe-leadership-visual.pdf)**
+
+[![Practice, advice, failure, learning, and adaptation](images/zoe-leadership.png){width=72%}](visual/zoe-leadership-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**

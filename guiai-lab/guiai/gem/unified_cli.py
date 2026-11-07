@@ -23,7 +23,7 @@ def parser():
     knowledge.add_argument("--output", required=True, help="new JSON knowledge-memory path")
     show = commands.add_parser("show", help="inspect a component without launching a process")
     show.add_argument("component", help="component identifier from `zoe list`")
-    for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench")):
+    for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden")):
         command = commands.add_parser(name, help=description)
         command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
     return result
@@ -31,13 +31,13 @@ def parser():
 
 def main(argv=None):
     raw_arguments = list(sys.argv[1:] if argv is None else argv)
-    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay"}:
+    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership"}:
         from importlib import import_module
         return import_module(f".{raw_arguments[0]}_view", __package__).main(raw_arguments[1:])
     arguments = parser().parse_args(raw_arguments)
     registry = ComponentRegistry()
     try:
-        if arguments.command in {"artline", "pentomino", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay"}:
+        if arguments.command in {"artline", "pentomino", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership"}:
             from importlib import import_module
             return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
         if arguments.command in {"list", "components"}:
