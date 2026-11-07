@@ -177,7 +177,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -198,6 +198,14 @@ class AtlasWindow(Gtk.Window):
         self.presence = presence if presence is not None else demo_presence()
         from .waveform import demo_replay
         self.waveform_replay = waveform if waveform is not None else demo_replay()
+        from .patchbay import demo_artifact
+        self.patchbay_report = patchbay_report if patchbay_report is not None else demo_artifact()
+        from .cog import demo_cog
+        from .patchbay import demo_cog_report
+        self.cog = demo_cog()
+        self.cog_report = demo_cog_report()
+        self.cog_source = "memory://cog-demo"
+        self.cog_prompt = "inspect"
         from .unified import ComponentRegistry
         self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
@@ -328,6 +336,18 @@ class AtlasWindow(Gtk.Window):
             self.add_combo("waveform_signal", "Highlighted signal", tuple((signal["identifier"], signal["name"]) for signal in self.waveform_replay.signals), self.waveform_replay.signals[0]["identifier"])
             self.add_action("Load waveform from explicit path", self.load_waveform)
             self.add_text("Only the explicit Load action reads a file. Named VCD declarations are distinct from legacy storage IDs; no live acquisition or identity inference.")
+        elif self.module == "patchbay":
+            from .patchbay import BOARDS
+            self.add_combo("patchbay_board", "Board illustration", tuple((identifier, board["name"]) for identifier, board in BOARDS.items()), self.patchbay_report.get("board") or "genesys2")
+            self.add_entry("patchbay_artifact", "Firmware path (.hex / .bit / .zip / .bin / .ub / .json)", self.patchbay_report["path"])
+            self.add_action("Inspect firmware from explicit path", self.load_patchbay_artifact)
+            self.add_entry("patchbay_cog_path", "Cog training text / HTML / HDL", self.cog_source)
+            self.add_action("Train small Cog from explicit text", self.train_patchbay_cog)
+            self.add_entry("patchbay_prompt", "Two-way Cog prompt", self.cog_prompt)
+            self.add_action("Forecast forward and backward", self.walk_patchbay_cog)
+            self.add_entry("patchbay_plan", "Acceptance plan JSON (validation only)", "")
+            self.add_action("Validate plan without executing commands", self.validate_patchbay_plan)
+            self.add_text("Original board art, not a fabrication drawing. Cog is a small bigram model, not an LLM. No firmware is flashed and no acceptance command runs here.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -543,6 +563,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "waveform":
             from .waveform import waveform_scene
             self.scene, self.report = waveform_scene(self.waveform_replay, self.choice("waveform_signal"))
+        elif self.module == "patchbay":
+            from .patchbay import patchbay_scene
+            self.scene, self.report = patchbay_scene(self.patchbay_report, self.choice("patchbay_board"), self.cog_report)
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -932,6 +955,72 @@ class AtlasWindow(Gtk.Window):
             self.report = {"error": f"Waveform load failed: {error}"}
             self.update_summary()
 
+    def load_patchbay_artifact(self, *_args):
+        from .patchbay import inspect_artifact
+        try:
+            path = self.controls["patchbay_artifact"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("firmware path must contain 1-4096 characters")
+            report = inspect_artifact(path)
+            report["board"] = report.get("board") or self.choice("patchbay_board")
+            self.patchbay_report = report
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Firmware inspection failed: {error}"}
+            self.update_summary()
+
+    def make_patchbay_cog_report(self, model, prompt):
+        forward = model.walk(prompt, steps=4)
+        backward = model.walk(prompt, steps=4, reverse=True)
+        return {
+            "model_type": "bounded_interpolated_bigram",
+            "vocabulary_size": len(model.vocabulary),
+            "forward": forward,
+            "backward": backward,
+            "summary": f"Cog: {forward['text']}\nBackward: {backward['text']}\nToken forecasts are review-only; no command is generated.",
+        }
+
+    def train_patchbay_cog(self, *_args):
+        from .cog import Cog
+        try:
+            path = self.controls["patchbay_cog_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("Cog training path must contain 1-4096 characters")
+            model = Cog.from_paths([path])
+            prompt = self.controls["patchbay_prompt"].get_text()
+            report = self.make_patchbay_cog_report(model, prompt)
+            self.cog = model
+            self.cog_report = report
+            self.cog_source = path
+            self.cog_prompt = prompt
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Cog training failed: {error}"}
+            self.update_summary()
+
+    def walk_patchbay_cog(self, *_args):
+        try:
+            prompt = self.controls["patchbay_prompt"].get_text()
+            self.cog_report = self.make_patchbay_cog_report(self.cog, prompt)
+            self.cog_prompt = prompt
+            self.refresh()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Cog forecast failed: {error}"}
+            self.update_summary()
+
+    def validate_patchbay_plan(self, *_args):
+        from .acceptance import load_plan
+        try:
+            path = self.controls["patchbay_plan"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("acceptance plan path must contain 1-4096 characters")
+            plan = load_plan(path)
+            self.report = {"summary": f"Acceptance plan validated for {plan['target']} · {len(plan['steps'])} steps\nExecuted=False · hardware writes requested={plan['hardware_write_requested']}\nNo command was executed by the native validator."}
+            self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Acceptance plan validation failed: {error}"}
+            self.update_summary()
+
     def observe_presence(self, *_args):
         try:
             sector, trace = self.choice("sector"), self.choice("trace")
@@ -1047,7 +1136,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (

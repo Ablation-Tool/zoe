@@ -40,6 +40,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Bounded VCD and legacy waveform replay](images/zoe-waveform.png){width=72%}](visual/zoe-waveform-visual.pdf)
 
+**[Zoe Patchbay](visual/zoe-patchbay-visual.pdf)**
+
+[![Firmware, boards, signed updates, and Cog](images/zoe-patchbay.png){width=72%}](visual/zoe-patchbay-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**

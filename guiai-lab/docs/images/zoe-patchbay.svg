@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Patchbay · firmware, boards, and review loops">
+  <title>Zoe Patchbay · firmware, boards, and review loops</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="42.0" y="55.0" font-family="sans-serif" font-size="32.0" fill="#67e8f9">Zoe Patchbay</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="44.0" y="84.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Firmware · boards · signed updates · small-cog language play</text>
+  </g>
+  <g data-object-id="artifact">
+    <title>artifact</title>
+    <text x="510.0" y="130.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">demo · Zoe Patchbay demonstration</text>
+  </g>
+  <g data-object-id="source-hash">
+    <title>source-hash</title>
+    <text x="510.0" y="153.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">SHA-256 aa648770cafbe1111f5af54c5ca1d2d2...</text>
+  </g>
+  <g data-object-id="detail-0">
+    <title>detail-0</title>
+    <text x="510.0" y="190.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Original board geometry from documented overall...</text>
+  </g>
+  <g data-object-id="detail-1">
+    <title>detail-1</title>
+    <text x="510.0" y="224.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">No artifact is loaded until an explicit path is...</text>
+  </g>
+  <g data-object-id="cog-heading">
+    <title>cog-heading</title>
+    <text x="510.0" y="428.0" font-family="sans-serif" font-size="15.0" fill="#f0abfc">Cog · 35 tokens · A(τ)=1</text>
+  </g>
+  <g data-object-id="cog-forward">
+    <title>cog-forward</title>
+    <text x="510.0" y="458.0" font-family="sans-serif" font-size="11.0" fill="#dbeafe">F&gt; inspect the artifact before assigning a</text>
+  </g>
+  <g data-object-id="cog-backward">
+    <title>cog-backward</title>
+    <text x="510.0" y="480.0" font-family="sans-serif" font-size="11.0" fill="#dbeafe">B&lt; inspect the update</text>
+  </g>
+  <g data-object-id="cog-boundary">
+    <title>cog-boundary</title>
+    <text x="510.0" y="506.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">Small bigram model · not an LLM · no command output</text>
+  </g>
+  <g data-object-id="board">
+    <title>board</title>
+    <rect x="45.0" y="185.0" width="420.0" height="358.0" fill="#102b2a" stroke="#4ade80" stroke-width="3.0" />
+  </g>
+  <g data-object-id="mount-0">
+    <title>mount-0</title>
+    <ellipse cx="61.0" cy="201.0" rx="7.0" ry="7.0" fill="#08111f" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="mount-1">
+    <title>mount-1</title>
+    <ellipse cx="449.0" cy="201.0" rx="7.0" ry="7.0" fill="#08111f" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="mount-2">
+    <title>mount-2</title>
+    <ellipse cx="61.0" cy="527.0" rx="7.0" ry="7.0" fill="#08111f" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="mount-3">
+    <title>mount-3</title>
+    <ellipse cx="449.0" cy="527.0" rx="7.0" ry="7.0" fill="#08111f" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cog-chip">
+    <title>cog-chip</title>
+    <rect x="175.0" y="260.0" width="160.0" height="100.0" fill="#08111f" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="cog-label">
+    <title>cog-label</title>
+    <text x="206.0" y="304.0" font-family="sans-serif" font-size="23.0" fill="#f0abfc">ZOE COG</text>
+  </g>
+  <g data-object-id="cog-subtitle">
+    <title>cog-subtitle</title>
+    <text x="196.0" y="331.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">two-way tokens</text>
+  </g>
+  <g data-object-id="pin-left-0">
+    <title>pin-left-0</title>
+    <polyline points="164,267 175,267" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-0">
+    <title>pin-right-0</title>
+    <polyline points="335,267 346,267" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-1">
+    <title>pin-left-1</title>
+    <polyline points="164,278 175,278" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-1">
+    <title>pin-right-1</title>
+    <polyline points="335,278 346,278" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-2">
+    <title>pin-left-2</title>
+    <polyline points="164,289 175,289" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-2">
+    <title>pin-right-2</title>
+    <polyline points="335,289 346,289" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-3">
+    <title>pin-left-3</title>
+    <polyline points="164,300 175,300" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-3">
+    <title>pin-right-3</title>
+    <polyline points="335,300 346,300" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-4">
+    <title>pin-left-4</title>
+    <polyline points="164,311 175,311" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-4">
+    <title>pin-right-4</title>
+    <polyline points="335,311 346,311" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-5">
+    <title>pin-left-5</title>
+    <polyline points="164,322 175,322" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-5">
+    <title>pin-right-5</title>
+    <polyline points="335,322 346,322" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-6">
+    <title>pin-left-6</title>
+    <polyline points="164,333 175,333" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-6">
+    <title>pin-right-6</title>
+    <polyline points="335,333 346,333" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-left-7">
+    <title>pin-left-7</title>
+    <polyline points="164,344 175,344" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pin-right-7">
+    <title>pin-right-7</title>
+    <polyline points="335,344 346,344" stroke-linejoin="round" fill="none" stroke="#4ade80" stroke-width="2.0" />
+  </g>
+  <g data-object-id="port-0">
+    <title>port-0</title>
+    <rect x="73.0" y="210.0" width="90.0" height="20.0" fill="#08111f" stroke="#4ade80" stroke-width="1.0" />
+  </g>
+  <g data-object-id="port-label-0">
+    <title>port-label-0</title>
+    <text x="78.0" y="225.0" font-family="sans-serif" font-size="10.0" fill="#4ade80">USB/UART</text>
+  </g>
+  <g data-object-id="port-1">
+    <title>port-1</title>
+    <rect x="205.0" y="210.0" width="90.0" height="20.0" fill="#08111f" stroke="#4ade80" stroke-width="1.0" />
+  </g>
+  <g data-object-id="port-label-1">
+    <title>port-label-1</title>
+    <text x="210.0" y="225.0" font-family="sans-serif" font-size="10.0" fill="#4ade80">ETHERNET</text>
+  </g>
+  <g data-object-id="port-2">
+    <title>port-2</title>
+    <rect x="337.0" y="210.0" width="90.0" height="20.0" fill="#08111f" stroke="#4ade80" stroke-width="1.0" />
+  </g>
+  <g data-object-id="port-label-2">
+    <title>port-label-2</title>
+    <text x="342.0" y="225.0" font-family="sans-serif" font-size="10.0" fill="#4ade80">PMOD</text>
+  </g>
+  <g data-object-id="port-3">
+    <title>port-3</title>
+    <rect x="73.0" y="501.0" width="90.0" height="20.0" fill="#08111f" stroke="#4ade80" stroke-width="1.0" />
+  </g>
+  <g data-object-id="port-label-3">
+    <title>port-label-3</title>
+    <text x="78.0" y="516.0" font-family="sans-serif" font-size="10.0" fill="#4ade80">FMC</text>
+  </g>
+  <g data-object-id="port-4">
+    <title>port-4</title>
+    <rect x="205.0" y="501.0" width="90.0" height="20.0" fill="#08111f" stroke="#4ade80" stroke-width="1.0" />
+  </g>
+  <g data-object-id="port-label-4">
+    <title>port-label-4</title>
+    <text x="210.0" y="516.0" font-family="sans-serif" font-size="10.0" fill="#4ade80">SD</text>
+  </g>
+  <g data-object-id="port-5">
+    <title>port-5</title>
+    <rect x="337.0" y="501.0" width="90.0" height="20.0" fill="#08111f" stroke="#4ade80" stroke-width="1.0" />
+  </g>
+  <g data-object-id="port-label-5">
+    <title>port-label-5</title>
+    <text x="342.0" y="516.0" font-family="sans-serif" font-size="10.0" fill="#4ade80">VGA</text>
+  </g>
+  <g data-object-id="board-name">
+    <title>board-name</title>
+    <text x="150.0" y="465.0" font-family="sans-serif" font-size="24.0" fill="#4ade80">GENESYS 2</text>
+  </g>
+  <g data-object-id="board-dimensions">
+    <title>board-dimensions</title>
+    <text x="127.0" y="566.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">6.8 × 5.8 in · overall dimensions only</text>
+  </g>
+  <g data-object-id="board-scale">
+    <title>board-scale</title>
+    <text x="134.0" y="586.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">Original illustration · not a fabrication drawing</text>
+  </g>
+  <g data-object-id="flow-0">
+    <title>flow-0</title>
+    <rect x="80.0" y="660.0" width="105.0" height="34.0" fill="#111d30" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="flow-label-0">
+    <title>flow-label-0</title>
+    <text x="100.0" y="682.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">READ</text>
+  </g>
+  <g data-object-id="flow-arrow-0">
+    <title>flow-arrow-0</title>
+    <polyline points="193,677 244,677" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="flow-1">
+    <title>flow-1</title>
+    <rect x="260.0" y="660.0" width="105.0" height="34.0" fill="#111d30" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="flow-label-1">
+    <title>flow-label-1</title>
+    <text x="280.0" y="682.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">HASH</text>
+  </g>
+  <g data-object-id="flow-arrow-1">
+    <title>flow-arrow-1</title>
+    <polyline points="373,677 424,677" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="flow-2">
+    <title>flow-2</title>
+    <rect x="440.0" y="660.0" width="105.0" height="34.0" fill="#111d30" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="flow-label-2">
+    <title>flow-label-2</title>
+    <text x="460.0" y="682.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">SIGN</text>
+  </g>
+  <g data-object-id="flow-arrow-2">
+    <title>flow-arrow-2</title>
+    <polyline points="553,677 604,677" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="flow-3">
+    <title>flow-3</title>
+    <rect x="620.0" y="660.0" width="105.0" height="34.0" fill="#111d30" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="flow-label-3">
+    <title>flow-label-3</title>
+    <text x="640.0" y="682.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">VERIFY</text>
+  </g>
+  <g data-object-id="flow-arrow-3">
+    <title>flow-arrow-3</title>
+    <polyline points="733,677 784,677" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.0" />
+  </g>
+  <g data-object-id="flow-4">
+    <title>flow-4</title>
+    <rect x="800.0" y="660.0" width="105.0" height="34.0" fill="#111d30" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="flow-label-4">
+    <title>flow-label-4</title>
+    <text x="820.0" y="682.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">TEST?</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="86.0" y="730.0" font-family="sans-serif" font-size="14.0" fill="#fda4af">Two-way street · no magic smoke · measurements never authorize actions</text>
+  </g>
+</svg>

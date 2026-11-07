@@ -225,9 +225,28 @@ zoe waveform capture.vcd --max-events 4096 --output replay.json
 zoe waveform replay.json --output replay.svg
 ```
 
-The included VCD is synthetic. No CERN waveform, proprietary HDL, or live acquisition is included. Replay does not supply missing bootloaders, MCU layouts, authenticity, analog timing, vendor-IP behavior, or deployed-hardware acceptance. Read the [Waveform Replay guide](guiai-lab/docs/WAVEFORM.md) or its [visual edition](guiai-lab/docs/visual/zoe-waveform-visual.pdf).
+The included VCD is synthetic. No CERN waveform, proprietary HDL, or live acquisition is included. Replay is inspection, not a recovered original bootloader or a physical measurement. Patchbay adds new signing and acceptance workflows alongside it. Read the [Waveform Replay guide](guiai-lab/docs/WAVEFORM.md) or its [visual edition](guiai-lab/docs/visual/zoe-waveform-visual.pdf).
 
 ![Zoe Waveform Replay](guiai-lab/docs/images/zoe-waveform.png)
+
+## Patchbay: firmware, boards, signed updates, and Cog
+
+**Zoe Patchbay** turns the supplied firmware, mechanical, source, and media collections into an interactive workbench. It inspects Intel HEX, Xilinx BIT, source ZIPs, ZynqMP boot images, U-Boot legacy and FIT images, timing evidence, and Git source inventories. Original Genesys 2 and Nexys Video illustrations keep the hardware visible without treating the drawings as fabrication files.
+
+```bash
+zoe patchbay scene --board nexys-video
+zoe patchbay scene /media/cowboy/research/CERN/fw/emp/BOOT.BIN
+zoe patchbay source /media/cowboy/research/CERN/source/firmware
+zoe patchbay media --root /media/cowboy/research/CERN --output patchbay-media.html
+```
+
+New update capsules use real Ed25519 signatures through OpenSSL, with explicit trusted-key and artifact checks. Acceptance plans use argument arrays, timeouts, bounded output, and separate execution and hardware-write gates. The native interface validates plans without running them.
+
+**Zoe Cog** is a small trainable bigram processor with forward and backward token walks, source hashes, and accessible-volume measurements. It can learn from the supplied LLM book or HDL, but it is not an LLM, a consciousness model, or a command generator. The original accessible-volume equation remains credited to **Nicholas Michael Kloster alone, March 6, 2026**.
+
+Read the [Patchbay guide](guiai-lab/docs/PATCHBAY.md) or its [visual edition](guiai-lab/docs/visual/zoe-patchbay-visual.pdf). No firmware, raw research media, book pages, or proprietary HDL is bundled.
+
+![Zoe Patchbay](guiai-lab/docs/images/zoe-patchbay.png)
 
 ## Cognitive Field: memory you can inspect
 
@@ -383,7 +402,14 @@ guiai/gem/dorothy_rings.py Baobab ontology rings by exact subtree volume
 guiai/gem/dorothy_stack.py Exploded coronal slab stack of the CCF meshes
 guiai/gem/spatial3d.py     PLY loader, orbit camera, deterministic painter renderer
 guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook / gem cognitive
+guiai/gem/patchbay.py      Firmware/media inspection, board scenes, and source inventory
+guiai/gem/capsule.py       Ed25519 update capsules and explicit trust verification
+guiai/gem/acceptance.py    Gated command plans, process groups, and evidence reports
+guiai/gem/cog.py           Bounded two-way token model and accessible-volume measurements
+guiai/gem/patchbay_view.py Patchbay native launcher and headless command surface
 guiai/gem/data/            Packaged HELEN prediction artifact
+stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
+stress/cog_stress.py       Cog model, integrity, CLI, and supplied-book tests
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests
 ```
