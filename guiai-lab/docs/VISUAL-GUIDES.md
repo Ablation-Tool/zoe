@@ -54,6 +54,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Executive clarity, luxury restraint, and enterprise evidence](images/zoe-maison.png){width=72%}](visual/zoe-maison-visual.pdf)
 
+**[Zoe Evidence Navigator](visual/zoe-evidence-visual.pdf)**
+
+[![Source-first evidence bridges and bounded replay](images/zoe-evidence.png){width=72%}](visual/zoe-evidence-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**

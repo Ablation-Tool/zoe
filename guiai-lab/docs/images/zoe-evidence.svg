@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Evidence Navigator · source-first bridges">
+  <title>Zoe Evidence Navigator · source-first bridges</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#0b1220" stroke="#0b1220" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="44.0" y="57.0" font-family="sans-serif" font-size="31.0" fill="#67e8f9">Zoe Evidence Navigator</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="46.0" y="86.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Sources before inference · bridges before connections</text>
+  </g>
+  <g data-object-id="level-1">
+    <title>level-1</title>
+    <rect x="50.0" y="133.0" width="210.0" height="72.0" fill="#111d30" stroke="#94a3b8" stroke-width="1.0" />
+  </g>
+  <g data-object-id="level-title-1">
+    <title>level-title-1</title>
+    <text x="64.0" y="160.0" font-family="sans-serif" font-size="14.0" fill="#94a3b8">C1 · foundational</text>
+  </g>
+  <g data-object-id="level-count-1">
+    <title>level-count-1</title>
+    <text x="64.0" y="188.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">40 previews</text>
+  </g>
+  <g data-object-id="level-2">
+    <title>level-2</title>
+    <rect x="282.0" y="133.0" width="210.0" height="72.0" fill="#111d30" stroke="#c4b5fd" stroke-width="1.0" />
+  </g>
+  <g data-object-id="level-title-2">
+    <title>level-title-2</title>
+    <text x="296.0" y="160.0" font-family="sans-serif" font-size="14.0" fill="#c4b5fd">C2 · subsystem</text>
+  </g>
+  <g data-object-id="level-count-2">
+    <title>level-count-2</title>
+    <text x="296.0" y="188.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">49 previews</text>
+  </g>
+  <g data-object-id="level-3">
+    <title>level-3</title>
+    <rect x="514.0" y="133.0" width="210.0" height="72.0" fill="#111d30" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="level-title-3">
+    <title>level-title-3</title>
+    <text x="528.0" y="160.0" font-family="sans-serif" font-size="14.0" fill="#fde68a">C3 · integrated</text>
+  </g>
+  <g data-object-id="level-count-3">
+    <title>level-count-3</title>
+    <text x="528.0" y="188.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">125 previews</text>
+  </g>
+  <g data-object-id="level-4">
+    <title>level-4</title>
+    <rect x="746.0" y="133.0" width="210.0" height="72.0" fill="#111d30" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="level-title-4">
+    <title>level-title-4</title>
+    <text x="760.0" y="160.0" font-family="sans-serif" font-size="14.0" fill="#67e8f9">C4 · cross-domain</text>
+  </g>
+  <g data-object-id="level-count-4">
+    <title>level-count-4</title>
+    <text x="760.0" y="188.0" font-family="sans-serif" font-size="13.0" fill="#dbeafe">12 previews</text>
+  </g>
+  <g data-object-id="bridge-title">
+    <title>bridge-title</title>
+    <text x="50.0" y="253.0" font-family="sans-serif" font-size="20.0" fill="#a7f3d0">Bridge 1 · A timing-aware readout digital twin</text>
+  </g>
+  <g data-object-id="bridge-mode">
+    <title>bridge-mode</title>
+    <text x="50.0" y="279.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">synthetic-replay · proposal only · executed=False</text>
+  </g>
+  <g data-object-id="bridge-experiment-0">
+    <title>bridge-experiment-0</title>
+    <text x="50.0" y="313.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">Produce a bounded replay using one documented clock pattern and one synthetic</text>
+  </g>
+  <g data-object-id="bridge-experiment-1">
+    <title>bridge-experiment-1</title>
+    <text x="50.0" y="335.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">24-channel build. Preserve the source digest and every assumption. Success means that</text>
+  </g>
+  <g data-object-id="bridge-experiment-2">
+    <title>bridge-experiment-2</title>
+    <text x="50.0" y="357.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">the same input produces the same timeline and descriptor state twice, with no</text>
+  </g>
+  <g data-object-id="bridge-experiment-3">
+    <title>bridge-experiment-3</title>
+    <text x="50.0" y="379.0" font-family="sans-serif" font-size="12.0" fill="#dbeafe">hardware access and no invented measurement presented as hardware truth.</text>
+  </g>
+  <g data-object-id="retrieval-title">
+    <title>retrieval-title</title>
+    <text x="50.0" y="407.0" font-family="sans-serif" font-size="16.0" fill="#67e8f9">Deterministic retrieval · 226 matches</text>
+  </g>
+  <g data-object-id="record-label-0">
+    <title>record-label-0</title>
+    <text x="50.0" y="442.0" font-family="sans-serif" font-size="12.0" fill="#94a3b8">C1-N1-Slate-reference-guide--02ab8b63</text>
+  </g>
+  <g data-object-id="record-source-0">
+    <title>record-source-0</title>
+    <text x="50.0" y="463.0" font-family="sans-serif" font-size="10.0" fill="#9fb1c8">reference-guide · 01-documentation/edms_public_docs/edms_1705149.pdf</text>
+  </g>
+  <g data-object-id="record-label-1">
+    <title>record-label-1</title>
+    <text x="50.0" y="490.0" font-family="sans-serif" font-size="12.0" fill="#94a3b8">C1-N1-Slate-reference-guide--03359807</text>
+  </g>
+  <g data-object-id="record-source-1">
+    <title>record-source-1</title>
+    <text x="50.0" y="511.0" font-family="sans-serif" font-size="10.0" fill="#9fb1c8">reference-guide · 01-documentation/docs/converted/l1track_r3_system_201307.pdf</text>
+  </g>
+  <g data-object-id="record-label-2">
+    <title>record-label-2</title>
+    <text x="50.0" y="538.0" font-family="sans-serif" font-size="12.0" fill="#94a3b8">C1-N1-Slate-reference-guide--046f7a72</text>
+  </g>
+  <g data-object-id="record-source-2">
+    <title>record-source-2</title>
+    <text x="50.0" y="559.0" font-family="sans-serif" font-size="10.0" fill="#9fb1c8">reference-guide · 01-documentation/edms_public_docs/edms_1705141.pdf</text>
+  </g>
+  <g data-object-id="record-label-3">
+    <title>record-label-3</title>
+    <text x="50.0" y="586.0" font-family="sans-serif" font-size="12.0" fill="#94a3b8">C1-N1-Slate-reference-guide--104de062</text>
+  </g>
+  <g data-object-id="record-source-3">
+    <title>record-source-3</title>
+    <text x="50.0" y="607.0" font-family="sans-serif" font-size="10.0" fill="#9fb1c8">reference-guide · 01-documentation/docs/amtp_diags_tdr_20171017.pdf</text>
+  </g>
+  <g data-object-id="timeline-occupancy">
+    <title>timeline-occupancy</title>
+    <polyline points="55,697 68.4921,690 81.9841,690 95.4762,683 108.968,676 122.46,676 135.952,669 149.444,662 162.937,662 176.429,655 189.921,648 203.413,648 216.905,648 230.397,648 243.889,648 257.381,648 270.873,648 284.365,648 297.857,648 311.349,648 324.841,648 338.333,648 351.825,648 365.317,648 378.81,648 392.302,648 405.794,648 419.286,648 432.778,648 446.27,648 459.762,648 473.254,648 486.746,648 500.238,648 513.73,648 527.222,648 540.714,648 554.206,648 567.698,648 581.19,648 594.683,648 608.175,648 621.667,648 635.159,648 648.651,648 662.143,648 675.635,648 689.127,648 702.619,648 716.111,648 729.603,648 743.095,648 756.587,648 770.079,648 783.571,648 797.063,648 810.556,648 824.048,648 837.54,648 851.032,648 864.524,648 878.016,648 891.508,648 905,648" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="timeline-label">
+    <title>timeline-label</title>
+    <text x="50.0" y="626.0" font-family="sans-serif" font-size="13.0" fill="#f0abfc">Synthetic replay · 64 events · buffer occupancy</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="50.0" y="730.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">Metadata is not hardware truth · no driver, register write, flash, or autonomous action</text>
+  </g>
+</svg>

@@ -178,7 +178,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None, leadership_log=None, leadership_library=None, maison_word="stewardship", maison_reference=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None, leadership_log=None, leadership_library=None, maison_word="stewardship", maison_reference=None, evidence_index=None, bridge_id=1, timeline=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -215,6 +215,12 @@ class AtlasWindow(Gtk.Window):
         self.maison_word = maison_word
         self.maison_reference = maison_reference
         self.maison_reference_path = ""
+        from .evidence import demo_index
+        self.evidence_index = evidence_index if evidence_index is not None else demo_index()
+        self.navigator_bridge_id = bridge_id
+        self.navigator_timeline = timeline
+        self.navigator_index_path = ""
+        self.navigator_query = ""
         from .unified import ComponentRegistry
         self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
@@ -387,6 +393,17 @@ class AtlasWindow(Gtk.Window):
             self.add_entry("maison_reference_path", "Association reference PDF", self.maison_reference_path)
             self.add_action("Inspect association reference", self.inspect_maison_reference)
             self.add_text("Executive accountability. Luxury restraint. Enterprise evidence. The deck supplies questions, not doctrine, prestige, or commands.")
+        elif self.module == "evidence":
+            from .evidence import BRIDGE_TITLES
+            self.add_combo("evidence_bridge", "Evidence bridge", tuple((str(identifier), title) for identifier, title in BRIDGE_TITLES.items()), str(self.navigator_bridge_id))
+            self.add_entry("evidence_query", "Deterministic source query", self.navigator_query)
+            self.add_action("Retrieve cited evidence", self.present_evidence)
+            self.add_entry("evidence_index_path", "Gallery index.json", self.navigator_index_path)
+            self.add_action("Load gallery index from explicit path", self.load_evidence_index)
+            self.add_action("Verify source, preview, and compatibility hashes", self.verify_evidence_index)
+            self.add_action("Run synthetic timing and DMA replay", self.replay_evidence_timeline)
+            self.add_action("Export evidence sonification as new WAV", self.export_evidence_wav)
+            self.add_text("Deterministic retrieval first. Replay and audio are synthetic, not live hardware behavior. No register writes, driver loading, firmware flashing, or autonomous action.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -611,6 +628,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "maison":
             from .maison import maison_scene
             self.scene, self.report = maison_scene(self.leadership_log, self.maison_word, self.maison_reference)
+        elif self.module == "evidence":
+            from .evidence import navigator_scene
+            self.scene, self.report = navigator_scene(self.evidence_index, self.navigator_bridge_id, self.navigator_timeline, self.navigator_query)
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -1155,6 +1175,76 @@ class AtlasWindow(Gtk.Window):
             self.report = {"error": f"Association reference inspection failed: {error}"}
             self.update_summary()
 
+    def present_evidence(self, *_args):
+        try:
+            self.navigator_bridge_id = int(self.choice("evidence_bridge"))
+            self.navigator_query = self.controls["evidence_query"].get_text()
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": f"Evidence retrieval failed: {error}"}
+            self.update_summary()
+
+    def load_evidence_index(self, *_args):
+        from .evidence import EvidenceIndex
+        try:
+            path = self.controls["evidence_index_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("gallery index path must contain 1-4096 characters")
+            index = EvidenceIndex.load(path)
+            self.evidence_index = index
+            self.navigator_timeline = None
+            self.navigator_index_path = path
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Gallery index load failed: {error}"}
+            self.update_summary()
+
+    def verify_evidence_index(self, *_args):
+        from .evidence import EvidenceIndex
+        try:
+            path = self.controls["evidence_index_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("gallery index path must contain 1-4096 characters")
+            index = EvidenceIndex.load(path, verify=True)
+            self.evidence_index = index
+            self.navigator_timeline = None
+            self.navigator_index_path = path
+            self.build_controls()
+            self.report = {"summary": f"{len(index.records)} source files, previews, and compatibility links verified.\nNo hardware action was executed."}
+            self.update_summary()
+        except (OSError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"Evidence verification failed: {error}"}
+            self.update_summary()
+
+    def replay_evidence_timeline(self, *_args):
+        from .twin import timing_replay
+        try:
+            self.navigator_timeline = timing_replay(index=self.evidence_index)
+            self.refresh()
+        except ValueError as error:
+            self.report = {"error": f"Synthetic replay failed: {error}"}
+            self.update_summary()
+
+    def export_evidence_wav(self, *_args):
+        from .twin import export_wav, timing_replay
+        dialog = Gtk.FileChooserDialog(title="Export evidence sonification as new WAV", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Export", Gtk.ResponseType.OK)
+        dialog.set_current_name("evidence-sonification.wav")
+        dialog.set_do_overwrite_confirmation(False)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                timeline = self.navigator_timeline or timing_replay(index=self.evidence_index)
+                self.navigator_timeline = timeline
+                _, report = export_wav(timeline, dialog.get_filename())
+                self.report = {"summary": f"Saved deterministic evidence sonification to {report['path']}\nThis is not live detector sound or an alarm; no audio was played automatically."}
+                self.update_summary()
+        except (OSError, ValueError) as error:
+            self.report = {"error": f"Evidence sonification failed: {error}"}
+            self.update_summary()
+        finally:
+            dialog.destroy()
+
     def observe_presence(self, *_args):
         try:
             sector, trace = self.choice("sector"), self.choice("trace")
@@ -1270,7 +1360,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership", "maison"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
@@ -1326,8 +1416,11 @@ class AtlasWindow(Gtk.Window):
             self.field.save(path)
         elif suffix == ".json" and self.module in {"leadership", "maison"}:
             self.leadership_log.save(path)
+        elif suffix == ".wav" and self.module == "evidence":
+            from .twin import export_wav, timing_replay
+            export_wav(self.navigator_timeline or timing_replay(index=self.evidence_index), path)
         else:
-            raise ValueError("atlas export must use .svg, .png, .gem, or field/practice .json")
+            raise ValueError("atlas export must use .svg, .png, .gem, field/practice .json, or evidence .wav")
         if self.module == "brain":
             self.brain.mark_exported()
             self.refresh()
