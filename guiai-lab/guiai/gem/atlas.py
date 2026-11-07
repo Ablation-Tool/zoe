@@ -23,6 +23,7 @@ ATLAS_MODULES = {
     "patchbay": "Zoe Patchbay · firmware, boards, and review loops",
     "leadership": "Zoe Leadership Garden · practice, advice, failure, learning, adaptation",
     "maison": "Zoe Maison · executive clarity, luxury restraint, enterprise evidence",
+    "evidence": "Zoe Evidence Navigator · source-first bridges and bounded replay",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -443,6 +444,9 @@ def default_document(module, research_root=None):
     if module == "maison":
         from .maison import maison_scene
         return maison_scene()
+    if module == "evidence":
+        from .evidence import navigator_scene
+        return navigator_scene()
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":

@@ -284,6 +284,24 @@ Read the [Maison guide](guiai-lab/docs/MAISON.md) or its [visual edition](guiai-
 
 ![Zoe Maison](guiai-lab/docs/images/zoe-maison.png)
 
+## Evidence Navigator: sources before inference
+
+**Zoe Evidence Navigator** turns the 226-preview CERN gallery into a read-only, source-first workbench. It verifies source and preview hashes and compatibility links, retrieves cited records, and exposes all seven bridge proposals without implying physical hardware connections.
+
+```bash
+zoe evidence scene
+zoe evidence query --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json --query TIM3C_Clock_Flow
+zoe evidence verify --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json
+zoe evidence twin --events 64 --output timeline.json --wav timeline.wav
+zoe evidence curriculum --level 1
+```
+
+The navigator includes protocol observation schemas, guarded-observation manifests, a cross-experiment review checklist, deterministic shadow retrieval, and a complexity-directed practice curriculum. Its timing/DMA replay and 40.08 Hz sonification are explicitly synthetic: no register writes, driver loading, firmware flashing, protocol translation, or autonomous action.
+
+The full local check covers **226 source hashes, 226 preview hashes, 226 compatibility links, and 17 bridge-document links**. The [Evidence Navigator guide](guiai-lab/docs/EVIDENCE.md) explains the schema, resolver, seven bridge workflows, and reproducible timeline/WAV examples.
+
+![Zoe Evidence Navigator](guiai-lab/docs/images/zoe-evidence.png)
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
@@ -448,7 +466,11 @@ guiai/gem/leadership.py    Reference library, sourced snippets, and garden scene
 guiai/gem/leadership_view.py Practice recording, correction, library, and scene commands
 guiai/gem/maison.py        Association deck, reference provenance, and Maison scenes
 guiai/gem/maison_view.py   Maison CLI and native studio launcher
+guiai/gem/evidence.py      Source-first index, retrieval, bridge schemas, and gallery
+guiai/gem/twin.py          Deterministic timing/DMA replay and evidence sonification
+guiai/gem/evidence_view.py Evidence commands and native launcher
 guiai/gem/data/            Packaged HELEN prediction artifact
+stress/evidence_stress.py  Source integrity, seven bridges, replay, audio, CLI, and native tests
 stress/maison_stress.py    Association, reference, CLI, and native studio tests
 stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
 stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
