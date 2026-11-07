@@ -18,6 +18,7 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe
 ## Functional modules
 
 - **BRAIN:** observe HELEN's actual stored forward or retrograde distributions by index or in sequence. Zoe computes top-1 correctness when a target exists, negative log probability, entropy, maximum probability, strict accessible volume, complement, and accessible momentum. The recommendation identifies the next module to inspect; it never executes an action.
+- **FELIX:** index local FELIX builds, correlate exact-build Ablation findings, replay observations into Zoe's Cognitive Field, refresh corpus evidence, inspect TIM and LCB/STAR HDL context, and export Spatial IR, observation JSON, or deterministic stereo WAV. Open **Zoe × FELIX** in the native module selector or run `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module felix --output zoe-felix.svg`. Use `gem felix-hdl --output recovered-hdl` to recover clean LCB and STAR/Flink source files with provenance indexes. Filesystem observation is not hardware telemetry and host-source capabilities never authorize execution. The default root is `/media/cowboy/research/CERN/Boutique`; legacy `/media/cowboy/research/CERN` paths remain supported through compatibility symlinks, with logical source names and catalogue verification preserved.
 - **Field notebook:** organize questions, competing binary claims, explicit Bayesian evidence updates, deterministic and stochastic chambers, next-test priorities, and decisions in one append-only hash-chained memory. BRAIN observations are preserved without automatically changing belief. The equation registry includes strict, normalized, adaptive, joint, momentum, temperature, Markov, timing, geometry, and categorical-sampling sections; custom equations can be registered without `eval`.
 
 ![Zoe Bayesian field notebook](images/zoe-field-notebook.png)
@@ -101,6 +102,7 @@ Normal BRAIN use does not import a transformer, tokenizer, model runtime, scikit
 - Chamber measurements and sampled outcomes never update claims automatically. Quarantined chambers remain inspectable but cannot run.
 - The notebook hash chain provides tamper evidence, not authentication. Large probability vectors are represented by hashes rather than embedded in memory.
 - The Cognitive Field is a bounded software memory instrument, not ACT-R or a consciousness model. Storage, retrieval, matching, and review-required performance are explicit operations; no rule or measurement authorizes execution. Its JSON and visual exports never overwrite existing files.
+- FELIX observations describe filesystem artifacts and source-derived capabilities, not connected hardware, live link health, driver availability, or executed control actions. HTML HDL recovery does not prove synthesis or simulation. STAR/Flink alignment `010` belongs to the archived tester. Sonification encodes build evidence, not live detector audio.
 - Zoe's name and "living" tagline are creative metaphors, not claims of sentience. The Qualia guide's references to life, consciousness, and redness are artistic or philosophical context, not measurements of Zoe.
 - The Qualia module computes the documented COPY, silent-AND, and Accessible Q-Volume toy comparisons. The complete continuous filtration has an exact reconstruction identity; finite sweeps remain approximate. It does not search minimum partitions, calculate general Φ or γ, infer causal repertoires from forecasts, map a brain, or update notebook beliefs.
 
@@ -110,12 +112,17 @@ Normal BRAIN use does not import a transformer, tokenizer, model runtime, scikit
 guiai/gem/brain.py         Observation state, recommendations, exact continuations
 guiai/gem/field.py         Bayesian memory, chamber registry, equations, notebook scene
 guiai/gem/cognitive.py     Bounded memory operations, Cognitive Field scene, safe exports
+guiai/gem/felix.py         FELIX corpus, Zoe observations, native scene, HTML HDL recovery
+guiai/gem/cern_layout.py   Canonical Boutique and legacy path resolution and verification
+guiai/gem/felix_sources.py STAR/Flink protocol map and host capability evidence
+guiai/gem/felix_audio.py   Deterministic FELIX/TIM stereo sonification
+guiai/gem/felix_hdl.py     Clean HDL and provenance-index export
 guiai/gem/qualia.py        Five-lens IIT guide, causal threshold filtrations, and two-way toy
 guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
 guiai/gem/atlas_view.py    Native GTK controls and host integration
-guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem notebook / gem cognitive
+guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem notebook / gem cognitive / gem felix-hdl
 guiai/gem/data/            Packaged HELEN prediction artifact
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests

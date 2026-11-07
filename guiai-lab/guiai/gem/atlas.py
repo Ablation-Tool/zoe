@@ -9,6 +9,9 @@ from .qualia import qualia_scene
 from .volume import measure_probabilities
 
 ATLAS_MODULES = {
+    "unified": "Ablation = All = ZOE = ALL",
+    "felix": "Zoe × FELIX · living readout evidence",
+    "cern": "Zoe × CERN · corpus Repair Atlas",
     "brain": "Zoe · BRAIN orchestration",
     "field": "Zoe · Bayesian field notebook",
     "cognitive": "Z.O.E. · Cognitive Field / GSP",
@@ -385,7 +388,17 @@ def onset_scene(experiment, tau=.05, temperature=1.0):
     return scene, {"forward": forward_metrics, "retrograde": retrograde_metrics, "forward_at_tau": forward_at_tau, "retrograde_at_tau": retrograde_at_tau, "temperature": temperature, "tau": tau}
 
 
-def default_document(module, research_root=None):
+def default_document(module, research_root=None, cern_root=None, felix_build=None, observations=1):
+    if module == "unified":
+        from .unified import unified_scene
+        return unified_scene()
+    if module == "felix":
+        from .felix import default_felix_observer, felix_scene
+        observer = default_felix_observer(cern_root, felix_build, observations)
+        return felix_scene(observer)
+    if module == "cern":
+        from .cern_repair import default_repair_document
+        return default_repair_document(cern_root or None)
     if module == "brain":
         from .brain import BrainKernel, brain_scene
         kernel = BrainKernel()

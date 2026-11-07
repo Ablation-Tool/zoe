@@ -1,16 +1,23 @@
 from __future__ import annotations
 
 import contextlib
+import hashlib
 import io
 import json
 import os
 from pathlib import Path
 import tempfile
 import unittest
+import wave
 
 from guiai.gem.atlas import default_document
 from guiai.gem.brain import BrainKernel, toy_horizon
+from guiai.gem.cern_layout import BOUTIQUE_SECTIONS
 from guiai.gem.cli import main as gem_main
+from guiai.gem.felix import FelixCorpus, FelixObserver, default_felix_observer, felix_scene, recover_hdl_html
+from guiai.gem.felix_audio import write_felix_sonification
+from guiai.gem.felix_hdl import export_html_hdl
+from guiai.gem.felix_sources import host_integration_evidence
 from guiai.gem.field import FieldNotebook, bayes_binary, volume_joint
 from guiai.gem.geometry import verify
 from guiai.gem.qualia import (
@@ -267,8 +274,283 @@ class ZoeSceneCase(unittest.TestCase):
             self.assertIn("Groove · Forward", output.read_text())
 
 
+def _put(root, relative, content):
+    path = root / relative
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if isinstance(content, bytes):
+        path.write_bytes(content)
+    else:
+        path.write_text(content, encoding="utf-8")
+    return path
+
+
+def _html_source(title, body):
+    return f"<html><head><title>{title}</title></head><body><pre>{body}</pre></body></html>"
+
+
+def make_felix_cern(root):
+    flx182 = "FLX182_STRIPS_24CH_LTICLK_GIT_mwarren-FLX-2747_more_resets_rm-5.4_637_260325_1448"
+    flx155 = "FLX155_STRIPS_24CH_LTICLK_GIT_FLX-2533_add_strips_dcs_data_path_rm-5.4_232_250819_2141"
+    flx712 = "FLX712_STRIPS_12CH_TTCCLK_GIT_mwarren-release-5.3_l0a_mask_reversed_rm-5.3_765_260826_1137"
+    _put(root, f"fw/felix/{flx182}.pdi", b"pdi")
+    _put(root, f"fw/felix/{flx182}.tar.gz", b"archive")
+    _put(root, f"fw/felix/{flx155}.tar.gz", b"archive155")
+    _put(root, f"fw/felix/{flx712}.tar.gz", b"archive712")
+    _put(root, "fw/felix/CHANGELOG.TXT", "builds\n")
+    _put(root, "analysis/felix-flx182/findings.json", json.dumps({
+        "source_provenance": {"build_datetime": "2603251448", "source_git_hash": "a1b2c2493ae5"},
+        "pdi": {"device": "xcvm1802", "design": "felix_top", "cdo_sections": [{"command_count": 49}]},
+        "source_findings": {"timing_met": False, "wns_ns": -0.025},
+        "security_limits": "Static evidence only",
+    }))
+    _put(root, "analysis/felix-flx155/findings.json", json.dumps({
+        "source_provenance": {"build_datetime": "2508192141"},
+        "platform": {"device": "xcvp1552", "top_level_cdo_sections": [{"command_count": 100}]},
+        "build_findings": {"timing_met": False, "wns_ns": -0.096},
+    }))
+    _put(root, "analysis/tim-fpga/findings.json", json.dumps({
+        "baseline": {"source_archive": "v20"},
+        "latest": {"bit": {"version": "v5d_2024-06-20"}},
+        "version_inventory": {"bit_files": 54},
+        "changelog": {"verification_limit": "later HDL unavailable"},
+    }))
+    _put(root, "fw/tim/tim_fpga2_v5d_2024-06-20.bit", b"bit")
+    _put(root, "fw/tim/tim_fpga2_v5d_2024-06-20.mcs", b"mcs")
+    _put(root, "fw/tim/tim_fpga2_v5c_2023-03-03.mcs", b"mcs-old")
+    _put(root, "fw/tim/TIM3_Firmware_v20_src_2011-08-15.tar.gz", b"source")
+    _put(root, "fw/tim/TIM3_Firmware_src_2004-12-12.zip", b"source-old")
+    _put(root, "analysis/tim-fpga/source-v20/fpga2/hdl/tim.vhd", "entity tim is end tim;\n")
+    _put(root, "docs/tim/TIM_manual.html", "TIM stand-alone 40.08MHz clock\n")
+    _put(root, "docs/tim/TIM_Registers.shtml", "DEBUG_CTL\n")
+    _put(root, "docs/tim/fdr/TIM-FDR-mp-5_Timing-and-Jitter-2.ppt", b"timing")
+    _put(root, "sw/timsoft.tar.gz", b"software")
+    _put(root, "docs/FFTV_Document.pdf", b"fftv")
+    _put(root, "docs/FFTV_test_results.doc", b"fftv-results")
+    _put(root, "sims/fftv_results.xls", b"fftv-sim")
+    _put(root, "sims/stream8040/streamsplit_8040_struct.vhd", "entity streamsplit_8040 is end streamsplit_8040;\n")
+    _put(root, "sims/lcb/downlink/lcb_decoder_vhdContentFrame0.htm", _html_source(
+        "lcb_decoder.vhd", "<span class=K>entity</span> lcb_decoder <span class=K>is</span>\narchitecture rtl of lcb_decoder is\nbegin\npar4_o &lt;= par4_i;\nend rtl;",
+    ))
+    primary = {
+        "pkg_star_flink.vhd": "package pkg_star_flink is constant sIDLE : integer := 1; end pkg_star_flink;",
+        "star_flink_encoder.vhd": "entity star_flink_encoder is end star_flink_encoder; architecture rtl of star_flink_encoder is begin end rtl;",
+        "star_flink_decoder.vhd": "entity star_flink_decoder is end star_flink_decoder; architecture rtl of star_flink_decoder is begin end rtl;",
+        "star_flink_sim_spy.vhd": "entity star_flink_sim_spy is end star_flink_sim_spy; architecture rtl of star_flink_sim_spy is begin end rtl;",
+        "star_flink_tester.vhd": "entity star_flink_tester is end star_flink_tester; architecture sim of star_flink_tester is begin end sim;",
+    }
+    for title, body in primary.items():
+        stem = title.removesuffix(".vhd")
+        _put(root, f"sims/star_flink/readout130/{stem}_vhdContentFrame0.htm", _html_source(title, body))
+    for name in ("std_logic_arith", "std_logic_unsigned"):
+        _put(root, f"sims/star_flink/ieee/{name}_vhdContentFrame0.htm", _html_source(f"{name}.vhd", f"package {name} is end {name};"))
+    _put(root, "sims/star_flink/readout130/star_flink_tb/struct_bd.svg", "<svg><text>star_flink_tester star_flink_encoder star_flink_decoder</text></svg>")
+    _put(root, "source/ftools/README.md", "ftools\n")
+    _put(root, "source/ftools/src/FlxDaq.h", "int64_t bytesReceivedCount( );\nint blockErrors( );\nint crcErrors( );\n")
+    _put(root, "source/ftools/src/FlxChecker.h", "class FlxChecker {};\n")
+    _put(root, "source/ftools/src/FlxParser.h", "class FlxParser {};\n")
+    _put(root, "source/ftools/src/FlxReceiver.h", "#define DFLT_RECV_BUF_SIZE 0x040000000\n")
+    _put(root, "source/ftools/src/FlxConfig.h", "class FlxConfig {};\n")
+    _put(root, "source/ftools/src/FlxUpload.h", "class FlxUpload {};\n")
+    _put(root, "source/ftools/tools/fcheck.cpp", "const int BUFSIZE = 8*1024*1024;\n")
+    _put(root, "source/ftools/tools/fpepo.cpp", "if (write) bar64[index] = data;\n")
+    _put(root, "source/wupper/firmware/sources/pcie/dma_control.vhd", "NUMBER_OF_DESCRIPTORS : integer := 8;\n")
+    _put(root, "source/wupper/firmware/sources/pcie/dma_read_write.vhd", "entity dma_read_write is end dma_read_write;\n")
+    _put(root, "source/wupper/firmware/sources/pcie/wupper_core.vhd", "entity wupper_core is end wupper_core;\n")
+    _put(root, "source/wupper/software/drivers/src/wupper.c", "int wupper_probe(void) { return 0; }\n")
+    _put(root, "source/wupper/software/drivers/src/cmem_rcc.c", "int cmem_rcc_probe(void) { return 0; }\n")
+    _put(root, "source/regmap/yaml/registers-5.5.yaml", "Registers:\n  version: '5.5'\nDMA_DESC:\n  number: 8\nBar0:\n  entries:\n    - name: BUSY_STATUS\n    - name: DMA_RESET\n")
+    _put(root, "source/felix-tdaq-drivers/.gitmodules", '[submodule "cmem"]\n path = cmem\n[submodule "flx"]\n path = flx\n[submodule "flxnet"]\n path = flxnet-drivers\n')
+    _put(root, "source/felix-tdaq-drivers/Makefile", "all:\n")
+    for name in ("cmem", "flx", "flxnet-drivers"):
+        (root / "source" / "felix-tdaq-drivers" / name).mkdir(parents=True, exist_ok=True)
+    _put(root, "source/firmware/README.md", "FELIX firmware\n")
+    _put(root, "source/firmware/sources/ItkStrip/README.md", "ITk strips\n")
+    _put(root, "source/flxcard/README.md", "flxcard\n")
+    _put(root, "source/regmap/README.md", "regmap\n")
+    _put(root, "docs/FELIX_Phase2_firmware_specs.pdf", b"spec")
+    _put(root, "docs/CHANGELOG.TXT", "FELIX changes\n")
+    _put(root, "analysis/REPORT.md", "CERN analysis\n")
+    _put(root, "data/results/readout.txt", "result\n")
+    _put(root, "asic/abcn/abcn-emulator.txt", "ABC\n")
+    return root
+
+
+def make_boutique_cern(root):
+    make_felix_cern(root)
+    boutique = root / "Boutique"
+    boutique.mkdir()
+    for logical, section in BOUTIQUE_SECTIONS.items():
+        original = root / logical
+        if not original.exists():
+            continue
+        destination = boutique / section
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        original.rename(destination)
+        original.symlink_to(Path("Boutique") / section)
+    _put(boutique, "11-catalogue/verification.json", json.dumps({"hash_mismatches": [], "compatibility_failures": [], "regular_files": 9965}))
+    _put(boutique, "11-catalogue/inventory.jsonl", "")
+    _put(boutique, "11-catalogue/inventory.csv", "")
+    _put(boutique, "11-catalogue/MANIFEST.sha256", "")
+    _put(boutique, "11-catalogue/moves.jsonl", "")
+    return boutique
+
+
+class ZoeFelixCase(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.root = make_felix_cern(Path(self.temporary.name))
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
+    def test_boutique_layout_and_legacy_symlinks(self):
+        boutique = make_boutique_cern(self.root)
+        canonical = FelixCorpus(boutique)
+        legacy = FelixCorpus(self.root)
+        canonical_summary = canonical.summary()
+        self.assertEqual(canonical_summary["layout"], "boutique")
+        self.assertEqual(canonical_summary["build_count"], 3)
+        self.assertEqual(canonical_summary["artifact_count"], 4)
+        self.assertEqual(canonical_summary["analyzed_build_count"], 2)
+        self.assertEqual(canonical_summary["simulation_evidence"]["html_hdl_files"], 8)
+        self.assertEqual(canonical_summary["boutique_catalogue"]["verification"]["hash_mismatches"], [])
+        self.assertTrue(canonical.build()["analysis"]["path"].startswith(str(boutique)))
+        self.assertEqual(canonical.build()["id"], legacy.build()["id"])
+        self.assertEqual(legacy.summary()["layout"], "legacy")
+        self.assertEqual(legacy.summary()["build_count"], canonical_summary["build_count"])
+        report = export_html_hdl(boutique, self.root / "recovered-boutique")
+        self.assertEqual(report["layout"], "boutique")
+        self.assertEqual(report["file_count"], 8)
+        self.assertTrue(all(row["source"].startswith("sims/") for row in report["files"]))
+
+    def test_corpus_analysis_star_and_host_capabilities(self):
+        corpus = FelixCorpus(self.root)
+        summary = corpus.summary()
+        self.assertEqual(summary["build_count"], 3)
+        self.assertEqual(summary["artifact_count"], 4)
+        self.assertEqual(summary["analyzed_build_count"], 2)
+        self.assertEqual(corpus.build()["card"], "FLX182")
+        self.assertEqual(corpus.build()["analysis"]["wns_ns"], -0.025)
+        self.assertEqual(summary["tim_analysis"]["inventory"], {"bit_files": 1, "mcs_files": 2, "source_archives": 2})
+        self.assertEqual(summary["simulation_evidence"]["hdl_files"], 1)
+        self.assertEqual(summary["simulation_evidence"]["html_hdl_files"], 8)
+        self.assertTrue(summary["star_flink"]["primary_source_views_complete"])
+        self.assertEqual(len(summary["star_flink"]["ieee_compatibility_packages"]), 2)
+        host = summary["host_integration"]
+        self.assertEqual(host["ftools"]["observation_tools"]["fcheck"]["blocked_options"]["-w"], "writes ./dataout.dat")
+        self.assertIn("fpepo", host["ftools"]["control_tools"])
+        self.assertEqual(host["wupper"]["descriptor_count"], 8)
+        self.assertEqual(host["regmap"]["latest_version"], "5.5")
+        self.assertIn("BUSY_STATUS", host["regmap"]["status_register_examples"])
+        self.assertTrue(all(not row["source_present"] for row in host["drivers"]["expected_submodules"]))
+        self.assertTrue(host["zoe_execution_policy"]["hardware_writes"] is False)
+
+    def test_html_hdl_recovery_preserves_real_code(self):
+        source = recover_hdl_html(self.root / "sims/lcb/downlink/lcb_decoder_vhdContentFrame0.htm")
+        self.assertEqual(source["title"], "lcb_decoder.vhd")
+        self.assertIn("par4_o <= par4_i;", source["text"])
+        self.assertNotIn("<span", source["text"])
+        self.assertEqual(source["sha256"], hashlib.sha256(source["text"].encode()).hexdigest())
+        self.assertGreater(source["line_count"], 3)
+
+    def test_html_hdl_export_writes_clean_sources_and_index(self):
+        output = self.root / "recovered"
+        report = export_html_hdl(self.root, output)
+        self.assertEqual(report["file_count"], 8)
+        self.assertTrue((output / "index.json").is_file())
+        self.assertTrue((output / "INDEX.md").is_file())
+        decoder = output / "sims/lcb/downlink/lcb_decoder.vhd"
+        self.assertIn("par4_o <= par4_i;", decoder.read_text())
+        self.assertNotIn("<span", decoder.read_text())
+        self.assertEqual(len(report["files"]), 8)
+        with self.assertRaises(ValueError):
+            export_html_hdl(self.root, output)
+        cli_output = self.root / "recovered-cli"
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(gem_main(["felix-hdl", "--cern-root", str(self.root), "--output", str(cli_output)]), 0)
+        self.assertEqual(json.loads((cli_output / "index.json").read_text())["file_count"], 8)
+
+    def test_observer_scene_memory_and_refresh(self):
+        observer = FelixObserver(self.root)
+        observer.observe()
+        observer.observe(next_build=True)
+        self.assertEqual(observer.report()["observation_count"], 2)
+        self.assertFalse(observer.report()["executed"])
+        scene, _ = felix_scene(observer)
+        self.assertTrue(verify(scene).passed, verify(scene).text())
+        self.assertTrue(verify_vdi(scene).passed)
+        memory = self.root / "out" / "memory.json"
+        observer.save(memory)
+        document = json.loads(memory.read_text())
+        self.assertEqual(document["instrument"], "zoe-felix-observation")
+        self.assertEqual(len(document["memory"]["events"]), 2)
+        with self.assertRaises(FileExistsError):
+            observer.save(memory)
+        _put(self.root, "fw/felix/FLX712_STRIPS_12CH_TTCCLK_GIT_mwarren-release-5.3_l0a_mask_reversed_rm-5.3_767_260826_1637.tar.gz", b"new-build")
+        self.assertTrue(observer.refresh())
+        self.assertEqual(observer.corpus.summary()["build_count"], 4)
+        self.assertEqual(len(observer.memory.events), 3)
+        self.assertFalse(observer.refresh())
+
+    def test_deterministic_sonification_and_no_overwrite(self):
+        observer = default_felix_observer(self.root, observations=3)
+        first = self.root / "audio" / "first.wav"
+        second = self.root / "audio" / "second.wav"
+        _, report = write_felix_sonification(observer, first)
+        write_felix_sonification(observer, second)
+        self.assertEqual(first.read_bytes(), second.read_bytes())
+        self.assertEqual(report["event_count"], 3)
+        self.assertEqual(report["tim_reference_drone_hz"], 40.08)
+        self.assertFalse(report["hardware_telemetry"])
+        with wave.open(str(first), "rb") as audio:
+            self.assertEqual(audio.getnchannels(), 2)
+            self.assertEqual(audio.getsampwidth(), 2)
+            self.assertEqual(audio.getframerate(), 22050)
+            self.assertEqual(audio.getnframes(), report["frame_count"])
+        with self.assertRaises(FileExistsError):
+            write_felix_sonification(observer, first)
+        with self.assertRaises(ValueError):
+            write_felix_sonification(observer, self.root / "audio" / "invalid.wav", max_events=0)
+
+    def test_felix_cli_svg_json_and_wav(self):
+        outputs = {suffix: self.root / "cli" / f"felix.{suffix}" for suffix in ("svg", "json", "wav")}
+        outputs["svg"].parent.mkdir(parents=True, exist_ok=True)
+        for suffix, output in outputs.items():
+            with self.subTest(suffix=suffix), contextlib.redirect_stdout(io.StringIO()):
+                result = gem_main(["zoe", "--module", "felix", "--cern-root", str(self.root), "--observations", "2", "--output", str(output)])
+                self.assertEqual(result, 0)
+                self.assertTrue(output.is_file())
+        self.assertIn("ZOE × FELIX", outputs["svg"].read_text())
+        self.assertEqual(json.loads(outputs["json"].read_text())["corpus"]["build_count"], 3)
+        self.assertTrue(outputs["wav"].read_bytes().startswith(b"RIFF"))
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(gem_main(["zoe", "--module", "felix", "--cern-root", str(self.root), "--output", str(outputs["json"])]), 2)
+
+
 @unittest.skipUnless(HAS_GTK, "native Zoe tests require GTK, Cairo, and an X11 DISPLAY")
 class ZoeNativeCase(unittest.TestCase):
+    def test_native_felix_observation_replay_and_exports(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = make_felix_cern(Path(directory))
+            window = AtlasWindow("felix", cern_root=root)
+            try:
+                self.assertEqual(window.report["observation_count"], 0)
+                window.observe_felix()
+                self.assertEqual(window.felix.report()["observation_count"], 1)
+                window.observe_felix_next()
+                self.assertEqual(window.felix.report()["observation_count"], 2)
+                self.assertFalse(window.refresh_felix_corpus() is True)
+                window.toggle_felix_replay()
+                self.assertIsNotNone(window.felix_timer)
+                window.stop_felix_replay()
+                self.assertIsNone(window.felix_timer)
+                memory = window.export_current(root / "native" / "memory.json")
+                audio = window.export_current(root / "native" / "felix.wav")
+                self.assertTrue(memory.is_file())
+                self.assertTrue(audio.is_file())
+            finally:
+                window.destroy()
+
     def test_observe_navigate_horizon_and_export(self):
         window = AtlasWindow("brain")
         try:

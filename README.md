@@ -56,6 +56,7 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 | Forecasts | Strict `p > τ` accessible volume, complements, momentum, target bands, temperature transforms, top-1 correctness, negative log probability, entropy, maximum probability, log-loss, and calibration evidence. |
 | Bayesian field notebook | Questions, competing binary claims, priors, posteriors, falsifiers, likelihood-ratio and log-odds updates, belief diffs, evidence families, dependence acknowledgment, deterministic and stochastic chambers, next-test priorities, review-required decisions, and append-only hash-chained memory. |
 | Cognitive Field | Sourced sensory encoding, bounded FIFO working memory, explicit declarative storage and revision-checked retrieval, tag-based procedural matching, review-required performance proposals, event-linked replay, and no-overwrite JSON/SVG/PNG/GEM VDI exports. |
+| FELIX living readout | FELIX build indexing, exact-build Ablation correlation, native replay and refresh, Zoe memory observations, TIM/FFTV context, LCB and STAR/Flink HTML-to-HDL recovery, source-backed ftools/Wupper/regmap/driver capability maps, and no-overwrite JSON plus deterministic stereo WAV exports. |
 | HELEN observations | Lazy stored forward and retrograde distributions with 1,920 held-out cases per condition, selectable by index or sequence, without a transformer or model runtime. |
 | Multi-horizon | Exact continuation probabilities, volume, and complement for a defined two-state Markov toy with horizons 1–6. This is not a completed real-language-model benchmark. |
 | Research evidence | Hash-checked Groove reports and on-demand individual NPZ predictions; aggregate-only Nightingale metrics; 17 conformance checks; rejected HOP and deterministic baselines. |
@@ -113,6 +114,21 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe --module horizon --output horizon.g
 PYTHONPATH=guiai-lab python -m guiai.gem notebook --output zoe-field.json
 PYTHONPATH=guiai-lab python -m guiai.gem notebook zoe-field.json --output zoe-field.svg
 ```
+
+**FELIX** (`gem zoe --module felix`) observes a local CERN firmware corpus without contacting hardware. Set `ZOE_CERN_ROOT` or pass `--cern-root`; use `--felix-build` for a specific build and `--observations` for replay length:
+
+```bash
+PYTHONPATH=guiai-lab python -m guiai.gem zoe --module felix \
+  --cern-root /media/cowboy/research/CERN/Boutique --observations 16 --output zoe-felix.svg
+PYTHONPATH=guiai-lab python -m guiai.gem zoe --module felix --output zoe-felix.json
+PYTHONPATH=guiai-lab python -m guiai.gem zoe --module felix --observations 16 --output zoe-felix.wav
+PYTHONPATH=guiai-lab python -m guiai.gem felix-hdl \
+  --cern-root /media/cowboy/research/CERN/Boutique --output recovered-hdl
+```
+
+The default corpus is the canonical `/media/cowboy/research/CERN/Boutique`; `/media/cowboy/research/CERN` remains supported through its compatibility symlinks. Zoe resolves the numbered Boutique sections directly, normalizes legacy paths back to logical names such as `sims/star_flink`, and includes `11-catalogue/verification.json` when available.
+
+The JSON export preserves the selected build and Zoe's hash-chained observation memory. WAV is deterministic evidence sonification, not live detector audio. `felix-hdl` writes clean `.vhd`/`.v` files plus `INDEX.md` and `index.json` into a new or empty directory.
 
 **Dorothy** (`gem dorothy`) renders Allen Mouse CCFv3 (2017) structure meshes as a native GEM scene. Fetch the vendored data once, then export deterministically (identical scene state produces identical SVG and VDI bytes):
 
@@ -198,12 +214,19 @@ The standalone `gem-helen` launcher remains available for lightweight creative u
 
 Zoe's "living" tagline is a creative metaphor, not a claim of consciousness or sentience. Accessible volume measures forecast breadth, not correctness or human surprise. HOP remains a rejected baseline. Field-notebook posteriors are conditional on user-supplied priors and likelihoods, not objective truth scores. Chamber measurements and sampled outcomes never update claims automatically. Dependent evidence requires explicit acknowledgment and adjusted likelihoods. The memory hash chain provides tamper evidence, not authentication. BRAIN recommendations are experimental, not automatic actions: `executed=False` remains the boundary between measurement and execution, and the user decides what happens next.
 
+FELIX observations describe filesystem artifacts and source-derived capabilities, not connected hardware, live link health, driver availability, or executed control actions. Recovered HTML HDL preserves source text but does not establish synthesis or simulation results. STAR/Flink's alignment `010` is the archived tester's selection, not a universal hardware setting. FELIX sonification maps build metadata and evidence to sound; it is not detector audification.
+
 ## Implementation map
 
 ```text
 guiai/gem/brain.py         Observation state, recommendations, exact continuations
 guiai/gem/field.py         Bayesian memory, chamber registry, equations, notebook scene
 guiai/gem/cognitive.py     Bounded memory operations, Cognitive Field scene, safe exports
+guiai/gem/felix.py         FELIX corpus, Zoe observations, native scene, HTML HDL recovery
+guiai/gem/cern_layout.py   Canonical Boutique and legacy path resolution and verification
+guiai/gem/felix_sources.py STAR/Flink protocol map and host capability evidence
+guiai/gem/felix_audio.py   Deterministic FELIX/TIM stereo sonification
+guiai/gem/felix_hdl.py     Clean HDL and provenance-index export
 guiai/gem/helen_onset.py   Lazy HELEN artifact and temperature transforms
 guiai/gem/research.py      Hash-checked research evidence and conformance
 guiai/gem/atlas.py         Module registry and headless scene builders
@@ -214,7 +237,7 @@ guiai/gem/dorothy_jenga.py Jenga block tower, exploded, and pull layouts by volu
 guiai/gem/dorothy_rings.py Baobab ontology rings by exact subtree volume
 guiai/gem/dorothy_stack.py Exploded coronal slab stack of the CCF meshes
 guiai/gem/spatial3d.py     PLY loader, orbit camera, deterministic painter renderer
-guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook / gem cognitive
+guiai/gem/cli.py           gem zoe / gem master / gem brain / gem atlas / gem dorothy / gem notebook / gem cognitive / gem felix-hdl
 guiai/gem/data/            Packaged HELEN prediction artifact
 stress/zoe_stress.py       Core, evidence, CLI, and native integration tests
 stress/cognitive_stress.py Cognitive Field core, exports, and native workflow tests
@@ -240,3 +263,7 @@ PYTHONPATH=guiai-lab:/home/cowboy/security-tools/lib/python3.14/site-packages \
 ```
 
 The integration suite covers sequential HELEN observations, real Groove loading, all 17 research conformance checks, exact continuation counts, Bayesian belief diffs, dependent-evidence guards, deterministic and stochastic chambers, quarantine enforcement, memory roundtrips and tamper detection, notebook JSON/SVG/VDI exports, native question/claim/evidence workflows, and the GUIAI host launch. Qualia coverage includes all six lens choices, causal-repertoire normalization, both threshold crossings, entering and exiting states, strict equality, coarse and fine labeled sweeps, custom threshold pairs, two-way JSON evidence, installed-package execution, and unchanged notebook observations. The broader GUIAI stress suite also contains unrelated investigation-CLI and saved-layout checks; those are separate from Zoe's focused integration results.
+
+## CERN Workbench component
+
+The `cern-console` component hands the CERN console, HELIOS, and Atelier to Zoe with health checks, direct browser targets, Zoe-owned process lifecycle, verification, and a no-overwrite manifest. See `guiai-lab/docs/ZOE_WORKBENCH.md` for commands, evidence boundaries, and integration tests.

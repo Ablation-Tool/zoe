@@ -58,7 +58,7 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    module_choices = ("brain", "field", "cognitive", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
+    module_choices = ("unified", "felix", "cern", "brain", "field", "cognitive", "qualia", "procrustes", "ellipses", "parabola", "circle", "clock", "graph", "volume", "onset", "horizon", "research", "dorothy", "dorothy-jenga", "dorothy-stack", "dorothy-rings")
     atlas = commands.add_parser("atlas", help="open the native geometry atlas or export one module")
     atlas.add_argument("--module", choices=module_choices, default="procrustes")
     atlas.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")
@@ -67,8 +67,11 @@ def _parser():
     master = commands.add_parser("master", aliases=["brain", "zoe"], help="open Zoe / MASTER GEM with the BRAIN orchestrator")
     master.add_argument("--module", choices=module_choices, default="brain")
     master.add_argument("--research-root", help="next-token-predictability repository; default: MASTER_GEM_RESEARCH_ROOT")
-    master.add_argument("--output", help="export the default scene to .svg, .png, or .gem instead of opening GTK")
-    master.add_argument("--format", choices=("svg", "png", "gem"), help="default: infer from output suffix")
+    master.add_argument("--cern-root", help="CERN corpus for the FELIX module; default: ZOE_CERN_ROOT or /media/cowboy/research/CERN/Boutique")
+    master.add_argument("--felix-build", help="FELIX build ID, card, or unique filename substring")
+    master.add_argument("--observations", type=int, default=1, help="FELIX builds to observe for JSON/WAV export, 1-64")
+    master.add_argument("--output", help="export the scene, FELIX memory, or FELIX sonification instead of opening GTK")
+    master.add_argument("--format", choices=("svg", "png", "gem", "json", "wav"), help="default: infer from output suffix")
     master.add_argument("--width", type=int, default=1200, help="SVG/PNG width in pixels")
     qualia = commands.add_parser("qualia", help="run the Accessible Q-Volume toy demonstration and save JSON evidence")
     qualia.add_argument("--tau", action="append", type=float, help="additional q-arrow threshold; repeat to override the default 0.20 and 0.30")
@@ -100,6 +103,16 @@ def _parser():
     cognitive.add_argument("--output", required=True, help="new .json, .svg, .png, or .gem output path")
     cognitive.add_argument("--format", choices=("json", "svg", "png", "gem"), help="default: infer from output suffix")
     cognitive.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels")
+    hdl = commands.add_parser("felix-hdl", help="recover LCB and STAR/Flink HDL from HTML into clean source files")
+    hdl.add_argument("--cern-root", help="CERN corpus; default: ZOE_CERN_ROOT or /media/cowboy/research/CERN/Boutique")
+    hdl.add_argument("--output", required=True, help="new or empty recovered-HDL output directory")
+    cern = commands.add_parser("cern", help="inventory, audit, verify, and visualize the complete CERN corpus")
+    cern.add_argument("operation", choices=("scan", "forge", "report", "chart", "verify"))
+    cern.add_argument("--cern-root", default="/media/cowboy/research/CERN")
+    cern.add_argument("--input", help="existing corpus directory or Repair Atlas JSON")
+    cern.add_argument("--output", required=True, help="new output directory or artifact path")
+    cern.add_argument("--workers", type=int, default=1, help="parallel hash readers, 1-32")
+    cern.add_argument("--format", choices=("json", "svg", "png", "gem"), help="chart format; default: infer from output suffix")
     return parser
 
 
@@ -110,6 +123,14 @@ def _print_report(report):
 def main(argv=None):
     arguments = _parser().parse_args(argv)
     try:
+        if arguments.command == "cern":
+            from .cern_cli import run
+            return run(arguments)
+        if arguments.command == "felix-hdl":
+            from .felix_hdl import export_html_hdl
+            report = export_html_hdl(arguments.cern_root, arguments.output)
+            print(json.dumps({"module": "felix-hdl", "file_count": report["file_count"], "line_count": report["line_count"], "languages": report["languages"], "output": report["output_root"]}, ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
         if arguments.command == "qualia":
             import math
             from .qualia import accessible_sweep, accessible_q_toy, q_arrow_annotation, reconstruct_filtration
@@ -244,23 +265,39 @@ def main(argv=None):
             return 0
         if arguments.command in {"atlas", "master", "brain", "zoe"}:
             research_root = getattr(arguments, "research_root", None) or os.environ.get("MASTER_GEM_RESEARCH_ROOT")
+            cern_root = getattr(arguments, "cern_root", None)
+            felix_build = getattr(arguments, "felix_build", None)
+            observations = getattr(arguments, "observations", 1)
             if arguments.output:
                 from .atlas import default_document
-                scene, report = default_document(arguments.module, research_root=research_root)
                 output = Path(arguments.output)
                 kind = arguments.format or output.suffix.lower().lstrip(".")
-                if kind == "svg":
-                    write_svg(scene, output, arguments.width)
-                elif kind == "png":
-                    write_png(scene, output, arguments.width)
-                elif kind == "gem":
-                    write_metafile(scene, output)
+                if arguments.module == "felix" and kind in {"json", "wav"}:
+                    from .felix import default_felix_observer
+                    observer = default_felix_observer(cern_root, felix_build, observations)
+                    if kind == "json":
+                        observer.save(output)
+                        report = observer.report()
+                    else:
+                        from .felix_audio import write_felix_sonification
+                        _, report = write_felix_sonification(observer, output)
                 else:
-                    raise ValueError("atlas output format must be svg, png, or gem")
+                    scene, report = default_document(
+                        arguments.module, research_root=research_root, cern_root=cern_root,
+                        felix_build=felix_build, observations=observations,
+                    )
+                    if kind == "svg":
+                        write_svg(scene, output, arguments.width)
+                    elif kind == "png":
+                        write_png(scene, output, arguments.width)
+                    elif kind == "gem":
+                        write_metafile(scene, output)
+                    else:
+                        raise ValueError("atlas output format must be svg, png, gem, or FELIX json/wav")
                 print(json.dumps({"module": arguments.module, "output": str(output), "bytes": output.stat().st_size, "measurement": report}, ensure_ascii=False, indent=2, sort_keys=True))
             else:
                 from .atlas_view import launch_atlas
-                launch_atlas(arguments.module, research_root=research_root)
+                launch_atlas(arguments.module, research_root=research_root, cern_root=cern_root, felix_build=felix_build)
             return 0
         if arguments.command == "volume":
             report = measure_artifact(
