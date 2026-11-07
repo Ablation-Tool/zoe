@@ -121,6 +121,16 @@ zoe evidence gallery --index /media/cowboy/research/CERN/Boutique/10-accessible/
 
 The local HTML gallery keeps the original preview images and source-document links. It does not copy those files into Zoe or claim that a preview is a complete understanding of its document.
 
+## vidlib transcript references
+
+The separate `video` workflow grandfathers in **Nicholas Michael Kloster's original vidlib, created with Claude Code**. It invokes the existing executable for local search, explicit index rebuilds, and explicitly requested YouTube retrieval. Zoe adds source hashes, bounded citations, report integrity checks, and scene exports without absorbing the tool or bundling transcripts.
+
+```bash
+zoe evidence video --library /path/to/vidlib --search timing --output vidlib.json
+```
+
+Search does not request network access. A fetch requires a user-supplied URL, and a playlist also requires `--playlist`. Transcript references are not measurements, hardware evidence, or permission to act. See the [vidlib integration guide](VIDLIB.md).
+
 ## Integrity and examples
 
 `docs/examples/evidence-twin.json` contains four synthetic observations. `docs/examples/evidence-sonification.wav` is the matching deterministic audio. They are worked examples, not detector measurements.

@@ -11,6 +11,7 @@ from .evidence import (
     save_evidence_report, shadow_finding, write_navigator_gallery,
 )
 from .twin import export_wav, timing_replay
+from .video_library import VideoLibrary, export_video_library_scene, save_video_report
 
 
 def parser():
@@ -65,6 +66,18 @@ def parser():
     _index_arguments(gallery)
     gallery.add_argument("--query", default="")
     gallery.add_argument("--output", required=True)
+    video = commands.add_parser("video", help="use the original vidlib for cited transcript retrieval")
+    video.add_argument("--library", default=str(Path.home() / "vidlib"), help="vidlib Markdown library; default: ~/vidlib")
+    video.add_argument("--vidlib", default="vidlib", help="original vidlib executable or path")
+    modes = video.add_mutually_exclusive_group(required=True)
+    modes.add_argument("--search", help="search an existing local library without requesting network access")
+    modes.add_argument("--index", dest="rebuild_index", action="store_true", help="explicitly rebuild the existing library index")
+    modes.add_argument("--url", help="explicit YouTube video or playlist URL to retrieve")
+    video.add_argument("--playlist", action="store_true", help="explicitly permit playlist retrieval; required for playlist URLs")
+    video.add_argument("--limit", type=int, default=16, help="maximum cited results, from 1 to 64")
+    video.add_argument("--timeout", type=float, default=300, help="original-tool process timeout in seconds")
+    video.add_argument("--output", help="new no-overwrite Zoe evidence JSON report")
+    video.add_argument("--scene-output", help="also export a new .svg, .png, or .gem citation scene")
     return result
 
 
@@ -183,6 +196,32 @@ def main(argv=None):
             output, report = write_navigator_gallery(index, arguments.output, arguments.query, arguments.color, arguments.complexity, arguments.purpose, arguments.limit)
             _print({"output": str(output), **report})
             return 0
+        if arguments.command == "video":
+            if arguments.playlist and not arguments.url:
+                raise ValueError("--playlist requires --url")
+            for destination, suffixes in ((arguments.output, {".json"}), (arguments.scene_output, {".svg", ".png", ".gem"})):
+                if destination is None:
+                    continue
+                output = Path(destination)
+                if output.exists():
+                    raise FileExistsError(output)
+                if output.suffix.lower() not in suffixes:
+                    raise ValueError(f"vidlib output must use {', '.join(sorted(suffixes))}")
+                if not output.parent.is_dir():
+                    raise ValueError("vidlib output directory does not exist")
+            library = VideoLibrary(arguments.library, arguments.vidlib, arguments.limit, arguments.timeout)
+            if arguments.search is not None:
+                report = library.search(arguments.search)
+            elif arguments.rebuild_index:
+                report = library.rebuild_index()
+            else:
+                report = library.fetch(arguments.url, arguments.playlist)
+            if arguments.scene_output:
+                export_video_library_scene(arguments.scene_output, report)
+            if arguments.output:
+                save_video_report(report, arguments.output)
+            _print(report)
+            return report["returncode"]
         return 2
     except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as error:
         print(f"evidence: {error}", file=os.sys.stderr)

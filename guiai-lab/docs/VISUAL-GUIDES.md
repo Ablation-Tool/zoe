@@ -58,6 +58,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Source-first evidence bridges and bounded replay](images/zoe-evidence.png){width=72%}](visual/zoe-evidence-visual.pdf)
 
+**[Zoe + vidlib](visual/zoe-vidlib-visual.pdf)**
+
+[![Original vidlib transcript retrieval and cited evidence](images/zoe-vidlib.png){width=72%}](visual/zoe-vidlib-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**
