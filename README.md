@@ -302,6 +302,23 @@ The full local check covers **226 source hashes, 226 preview hashes, 226 compati
 
 ![Zoe Evidence Navigator](guiai-lab/docs/images/zoe-evidence.png)
 
+## vidlib: transcripts as cited references
+
+**vidlib is Nicholas Michael Kloster's original tool, created with Claude Code.** Zoe preserves and invokes that existing executable; it does not rename or replace it. The new evidence adapter adds local search, explicit index rebuilds, gated YouTube retrieval, source hashes, bounded citations, tamper-evident JSON, and verified SVG/PNG/GEM scenes.
+
+```bash
+zoe evidence video --library /path/to/vidlib --search timing --output vidlib.json
+zoe evidence video --library /path/to/vidlib --index
+zoe evidence video --library /path/to/vidlib --url "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+zoe evidence video --library /path/to/vidlib --url "https://www.youtube.com/playlist?list=YOUR_PLAYLIST_ID" --playlist
+```
+
+Search and missing-library results do not request network access. Only an explicit URL permits retrieval, and playlists require the separate flag. Reports distinguish an attempted network operation from an actual new/changed Markdown transcript. No video was downloaded for this integration; the real original tool was verified offline with synthetic JSON3 and Markdown fixtures.
+
+A transcript is reference material, **not a measurement, hardware evidence, or permission to act**. Complete transcripts remain external. Read the [vidlib integration guide](guiai-lab/docs/VIDLIB.md) or its [visual edition](guiai-lab/docs/visual/zoe-vidlib-visual.pdf).
+
+![Zoe + vidlib](guiai-lab/docs/images/zoe-vidlib.png)
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
@@ -469,8 +486,10 @@ guiai/gem/maison_view.py   Maison CLI and native studio launcher
 guiai/gem/evidence.py      Source-first index, retrieval, bridge schemas, and gallery
 guiai/gem/twin.py          Deterministic timing/DMA replay and evidence sonification
 guiai/gem/evidence_view.py Evidence commands and native launcher
+guiai/gem/video_library.py Original vidlib adapter, cited reports, and verified scenes
 guiai/gem/data/            Packaged HELEN prediction artifact
 stress/evidence_stress.py  Source integrity, seven bridges, replay, audio, CLI, and native tests
+stress/video_stress.py     Original vidlib offline workflow, adapter, integrity, and scene tests
 stress/maison_stress.py    Association, reference, CLI, and native studio tests
 stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
 stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests

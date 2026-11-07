@@ -27,3 +27,8 @@ Terminal palettes
 - The high-contrast palette is a GUIAI-specific arrangement. Color preferences are applied through VTE; no terminal emulator source files are copied.
 
 GUIAI does not use xdg-open for untrusted artifacts. Show in Files uses Nautilus with --select after an explicit user action.
+
+vidlib
+- vidlib was created by Nicholas Michael Kloster with Claude Code.
+- Zoe invokes the original executable without replacing, renaming, or claiming authorship of it. The original tool was not modified for this integration.
+- The Zoe adapter supplies separate normalized evidence reports, source verification, tests, and original visual scenes. Transcripts remain external and are not bundled.
