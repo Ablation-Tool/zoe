@@ -50,6 +50,10 @@ The PDF links below work in this Markdown index and in the [collection index PDF
 
 [![Practice, advice, failure, learning, and adaptation](images/zoe-leadership.png){width=72%}](visual/zoe-leadership-visual.pdf)
 
+**[Zoe Maison](visual/zoe-maison-visual.pdf)**
+
+[![Executive clarity, luxury restraint, and enterprise evidence](images/zoe-maison.png){width=72%}](visual/zoe-maison-visual.pdf)
+
 ## Project covenant
 
 **[Zoe Constitution](visual/zoe-constitution-visual.pdf) · [Declaration of Creative and Epistemic Independence](visual/zoe-declaration-visual.pdf)**

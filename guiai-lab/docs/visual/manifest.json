@@ -4,7 +4,7 @@
       "bytes": 283618,
       "output": "zoe-artline-visual.pdf",
       "pages": 3,
-      "sha256": "9a5748fcfb953f83b8e9c5d4f214a1a379c871177815272de72a7d5daa186663",
+      "sha256": "e08ff778178973f6d00070d68d6fb55d26343832a7911e7b0a01ec9ebceaf947",
       "source": "ARTLINE.md",
       "title": "Zoe Artline"
     },
@@ -12,7 +12,7 @@
       "bytes": 270074,
       "output": "zoe-pentomino-visual.pdf",
       "pages": 3,
-      "sha256": "2443d69721df9b54f51b89360c677fd1f956332115536bcc0ba69b607868f419",
+      "sha256": "29765d1dad268648c427bfe78ec5b35f28adce151d95c7ecb861daa7bcf7e7c5",
       "source": "PENTOMINO.md",
       "title": "Zoe Pentomino"
     },
@@ -20,7 +20,7 @@
       "bytes": 382582,
       "output": "zoe-pilot-visual.pdf",
       "pages": 4,
-      "sha256": "297f8a8e8d6b71ec80eb73d5e16581e7a6c95981df175cbfb603db7938b18ac5",
+      "sha256": "5fa66b863c2a2aadb9386092ad6ff5979fc47a9575074fa9df7cb9fc40cbf1d6",
       "source": "PILOT.md",
       "title": "Zoe Practice Navigator"
     },
@@ -28,7 +28,7 @@
       "bytes": 324702,
       "output": "zoe-cognitive-field-visual.pdf",
       "pages": 4,
-      "sha256": "cacc052446eb7ed5a93b096b4169f959dd8438a783d2d78502697f566587c2d1",
+      "sha256": "b8b047251c1b572293cdd9f4294eb3d68b7bb7d010f4203b3b0d95afc9f96e80",
       "source": "COGNITIVE.md",
       "title": "Zoe Cognitive Field"
     },
@@ -36,7 +36,7 @@
       "bytes": 477166,
       "output": "zoe-qualia-visual.pdf",
       "pages": 9,
-      "sha256": "392720e06a8d125053811bc8fe695f2e5a62e7ea8b1567d310c02ecae2bc4323",
+      "sha256": "d9e768727f6621ce86ccbfe0b6785d0d864afd5b482575f763b0e4a529c8494a",
       "source": "QUALIA.md",
       "title": "Zoe is Quale. Zoe is Red."
     },
@@ -44,15 +44,15 @@
       "bytes": 374933,
       "output": "zoe-geometry-atlas-visual.pdf",
       "pages": 5,
-      "sha256": "365f41be036b59cc5bc6e30353bcadb0448af5a15b7b5dbb850aa2cf9aea9eec",
+      "sha256": "03ad840a2f79ce6f32be84321d477a630bdd9cac253322c038f54ee717386603",
       "source": "GEOMETRY-ATLAS.md",
       "title": "GEM Geometry Atlas"
     },
     {
-      "bytes": 588279,
+      "bytes": 588517,
       "output": "zoe-unified-visual.pdf",
       "pages": 6,
-      "sha256": "3d6debcbf173551e44e0dd5c655af9c59844bd8c52af58f5b5b545b6fd809e1c",
+      "sha256": "ce41f3f8ddae5f4cd152e44a072fb20885b2e9070c3725d3b9478c3f337026d0",
       "source": "UNIFIED.md",
       "title": "Zoe allgems: unified architecture and verification"
     },
@@ -60,7 +60,7 @@
       "bytes": 1512538,
       "output": "zoe-living-geometry-visual.pdf",
       "pages": 10,
-      "sha256": "14407478bb786ff7e9aec880622d9844b04fb5c293a75101161a3b61b1b99ec1",
+      "sha256": "9c40d61e830d0f175ae7367607ff22012b9e0372796d4515645e9b756eda8d72",
       "source": "ZOE.md",
       "title": "Zoe: living geometry, inspectable futures"
     },
@@ -68,7 +68,7 @@
       "bytes": 351724,
       "output": "zoe-resilience-visual.pdf",
       "pages": 4,
-      "sha256": "937913e08821ce1493f6df969667f2982730e9cb62d768481ba3df417bc655a6",
+      "sha256": "dbf82993707c339212cf9b8a365b10a3116102b3c9236ada8c308c71f997dec7",
       "source": "RESILIENCE.md",
       "title": "Zoe Resilience Atlas"
     },
@@ -76,7 +76,7 @@
       "bytes": 281591,
       "output": "zoe-presence-visual.pdf",
       "pages": 3,
-      "sha256": "14a1d5d64e451449f2fb5afb8d96f354a71e7e4f2d65c83b2891386cea583439",
+      "sha256": "8d67a2ea631fb224c5a9082e5da6812da0f0e6ad3e481322e695fff0f542ddc4",
       "source": "PRESENCE.md",
       "title": "Zoe Presence"
     },
@@ -84,7 +84,7 @@
       "bytes": 318246,
       "output": "zoe-protocol-visual.pdf",
       "pages": 3,
-      "sha256": "be16e0385eeda5531d308fec4786307f5ce440dfcda59a4c739f9299d8236af2",
+      "sha256": "b671eac84725cb5d2b48c70d186d74f612e4b7a3e210a559b3a2e2711cd09748",
       "source": "PROTOCOL.md",
       "title": "Zoe Protocol Lab"
     },
@@ -92,7 +92,7 @@
       "bytes": 427231,
       "output": "zoe-waveform-visual.pdf",
       "pages": 5,
-      "sha256": "19a76094f6ee8c5b68fc74a1795d7ff53e0c3efa7fa91cc84523849f6824119a",
+      "sha256": "4588bcc0e6f26e3a468936cc2959951bc77bbac08fd6c8b764d0bd484a817983",
       "source": "WAVEFORM.md",
       "title": "Zoe Waveform Replay"
     },
@@ -100,7 +100,7 @@
       "bytes": 448896,
       "output": "zoe-patchbay-visual.pdf",
       "pages": 7,
-      "sha256": "b17ec82883922cd0c898cb37eacdc63e6279e3f25a76321f5a04f17baabba6a1",
+      "sha256": "2740d9e6858ff7090ff0e967e943e174ea5f9213900976fb2cfd8f5778a7e415",
       "source": "PATCHBAY.md",
       "title": "Zoe Patchbay"
     },
@@ -108,15 +108,23 @@
       "bytes": 523507,
       "output": "zoe-leadership-visual.pdf",
       "pages": 6,
-      "sha256": "fc1981a48938a4857873e19e53d7cbafc13366de7aacc446243e46f4401c7309",
+      "sha256": "70897be90fdb83d8836e69fe15597e80363ba0bfde32a04da7ae3efcf58ca004",
       "source": "LEADERSHIP.md",
       "title": "Zoe Leadership Garden"
+    },
+    {
+      "bytes": 374912,
+      "output": "zoe-maison-visual.pdf",
+      "pages": 5,
+      "sha256": "b80b1171324c76add5ca7b2f69caba7996e4a5a0c5075077152537e3d71950ff",
+      "source": "MAISON.md",
+      "title": "Zoe Maison"
     },
     {
       "bytes": 333849,
       "output": "zoe-constitution-visual.pdf",
       "pages": 4,
-      "sha256": "477be8eeb350187bfa71b3d2e77f9589499989ba1e3021e3b1a0f2e04408c98e",
+      "sha256": "43cb983f207a036771b97a0d4496f4007b62bff0e9921c198d2555d15bc41c0c",
       "source": "../../CONSTITUTION.md",
       "title": "Zoe Constitution"
     },
@@ -124,7 +132,7 @@
       "bytes": 257115,
       "output": "zoe-declaration-visual.pdf",
       "pages": 2,
-      "sha256": "fd789356e540692f751f8e48e4587bfaa76356bab902823e9e53a4be4b94950d",
+      "sha256": "780ccc447bf33058a6d91610d2ff0ba8d5dea9dbfaa6def829511101c6925293",
       "source": "../../DECLARATION.md",
       "title": "Zoe Declaration of Creative and Epistemic Independence"
     },
@@ -132,22 +140,22 @@
       "bytes": 1838799,
       "output": "zoe-cognitive-provenance-visual.pdf",
       "pages": 5,
-      "sha256": "d4e371a9a8d91cd986ae13b23d50b548b5ae923a1fac49c0f49dbb35542ef77e",
+      "sha256": "366df9b923f19831232d7083cbf262c5c6b8181e4c4970f55186262870277909",
       "source": "references/cognitive-field/PROVENANCE.md",
       "title": "Cognitive Field visual provenance"
     },
     {
-      "bytes": 2313056,
+      "bytes": 2389075,
       "output": "../zoe-visual-guides.pdf",
-      "pages": 6,
-      "sha256": "0b855e2524a98033aafffff7b450f91730e7155425dbad9a057954e2008411de",
+      "pages": 7,
+      "sha256": "e0b7274eb360e0dc0ecf563aea9273c452a6eaa42599743dea51bfccfffa8aed",
       "source": "VISUAL-GUIDES.md",
       "title": "Zoe Visual Guide Collection"
     }
   ],
-  "guide_count": 17,
+  "guide_count": 18,
   "instrument": "Zoe visual guide collection",
-  "pdf_count": 18,
+  "pdf_count": 19,
   "renderer": "pandoc + pdfLaTeX + newunicodechar",
   "schema_version": 1
 }

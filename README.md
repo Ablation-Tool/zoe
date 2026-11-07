@@ -266,6 +266,24 @@ The garden also preserves advice **Nicholas Michael Kloster remembers from his 1
 
 ![Zoe Leadership Garden](guiai-lab/docs/images/zoe-leadership.png)
 
+## Maison: executive clarity, luxury restraint, enterprise evidence
+
+**Zoe Maison** is a distinct design studio for building with context, care, and provenance. It pairs the existing practice log with a curated association deck: executive accountability, luxury as restraint rather than excess, and enterprise as inspectable, reversible work.
+
+```bash
+zoe maison
+zoe maison --word provenance
+zoe maison --word bespoke --output maison.svg
+zoe maison deck --output maison-deck.json
+zoe maison reference "/home/cowboy/Music/Word Association.pdf" --output maison-reference.json
+```
+
+The 18 associations are questions, not commands or a status model. Native controls select a card, load a real practice log, inspect an association PDF, and save the history without overwriting it. The supplied one-page AI-assisted brainstorm remains external and is not treated as doctrine.
+
+Read the [Maison guide](guiai-lab/docs/MAISON.md) or its [visual edition](guiai-lab/docs/visual/zoe-maison-visual.pdf). No prestige score or enterprise certification is claimed.
+
+![Zoe Maison](guiai-lab/docs/images/zoe-maison.png)
+
 ## Cognitive Field: memory you can inspect
 
 ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
@@ -428,7 +446,10 @@ guiai/gem/patchbay_view.py Patchbay native launcher and headless command surface
 guiai/gem/practice.py      Adaptive practice events, corrections, and hash-chained logs
 guiai/gem/leadership.py    Reference library, sourced snippets, and garden scenes
 guiai/gem/leadership_view.py Practice recording, correction, library, and scene commands
+guiai/gem/maison.py        Association deck, reference provenance, and Maison scenes
+guiai/gem/maison_view.py   Maison CLI and native studio launcher
 guiai/gem/data/            Packaged HELEN prediction artifact
+stress/maison_stress.py    Association, reference, CLI, and native studio tests
 stress/leadership_stress.py Practice, source, library, CLI, and native workflow tests
 stress/patchbay_stress.py  Real firmware, capsule, acceptance, media, and native tests
 stress/cog_stress.py       Cog model, integrity, CLI, and supplied-book tests
