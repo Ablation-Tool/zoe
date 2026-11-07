@@ -10,7 +10,7 @@ import gi
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_foreign("cairo")
-from gi.repository import Gdk, Gtk, Pango
+from gi.repository import Gdk, GLib, Gtk, Pango
 
 from .._callbacks import weak_callback
 from .atlas import (
@@ -177,7 +177,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, cern_root=None, felix_build=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -193,6 +193,13 @@ class AtlasWindow(Gtk.Window):
         self.field = FieldNotebook()
         from .cognitive import CognitiveField
         self.cognitive = CognitiveField()
+        from .unified import ComponentRegistry
+        self.unified_registry = ComponentRegistry()
+        self.cern_root = cern_root
+        self.felix_build = felix_build
+        self.felix = None
+        self.felix_timer = None
+        self.connect("destroy", self.stop_felix_replay)
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
         self.volume_bridge = VolumeBridge(minimum=1, maximum=4)
         self.volume_current = VOLUME_PRESETS["baseline"]
@@ -291,11 +298,45 @@ class AtlasWindow(Gtk.Window):
         self.control_box.pack_start(button, False, False, 0)
         return button
 
+    def ensure_felix(self):
+        if self.felix is None:
+            from .felix import FelixObserver
+            self.felix = FelixObserver(self.cern_root)
+            if self.felix_build:
+                self.felix.select(self.felix_build)
+        return self.felix
+
     def build_controls(self):
         self.updating = True
         self.clear_controls()
         self.add_text(ATLAS_MODULES[self.module])
-        if self.module == "brain":
+        if self.module == "unified":
+            from .unified import COMPONENTS
+            self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
+            for component in COMPONENTS:
+                if component.identifier in {"zoe", "cerotto"}:
+                    continue
+                self.add_action(f"Launch {component.title}", self.make_unified_launch(component.identifier))
+                self.add_text(f"{component.summary}. Source: {component.checkout}.")
+            self.add_entry("cerotto_case", "Cerotto case ID", os.environ.get("CEROTTO_CASE", "incident-7"))
+            self.add_entry("cerotto_conversation", "Cerotto conversation ID", os.environ.get("CEROTTO_CONVERSATION", "conv-7"))
+            self.add_action("Choose Cerotto case DB and launch", self.choose_cerotto)
+            self.add_action("Export unified component manifest", self.save_unified_manifest)
+            self.add_text("The hub launches nothing automatically. Each button starts only its selected component. Cerotto requires a user-selected case. Component processes retain their own dependencies, evidence models, and authorization rules.")
+        elif self.module == "felix":
+            observer = self.ensure_felix()
+            choices = tuple((build["id"], f"{build['card']} · {build['flavor']} · build {build['build']} · {build['evidence_state']}") for build in observer.corpus.builds)
+            self.add_combo("felix_build", "FELIX build", choices, observer.corpus.selected_id)
+            self.add_action("Observe selected build", self.observe_felix)
+            self.add_action("Observe next build", self.observe_felix_next)
+            self.add_action("Refresh CERN file evidence", self.refresh_felix_corpus)
+            self.felix_replay_button = self.add_action("Start living replay", self.toggle_felix_replay)
+            self.add_action("Export observation JSON", self.on_export_felix_json)
+            self.add_action("Export sonification WAV", self.on_export_felix_wav)
+            self.add_text("Observations replay local FELIX build artifacts and supporting CERN evidence. TIM and simulation HTML supply historical context and recoverable HDL. No hardware is contacted and no control action is executed.")
+        elif self.module == "cern":
+            self.add_text("The Repair Atlas reads generated corpus and FORGE evidence without scanning or executing code in the GUI. Use `gem cern scan` for an explicit full hash and `gem cern chart` for exports. Original artifacts are never patched in place.")
+        elif self.module == "brain":
             self.add_combo("condition", "HELEN held-out condition", (("forward", "Forward"), ("retrograde", "Retrograde")), "forward")
             self.add_spin("index", "Held-out onset index", 0, 1919, 1, 0)
             self.add_scale("tau", "Probability threshold τ", 0, .5, .001, .05)
@@ -428,9 +469,47 @@ class AtlasWindow(Gtk.Window):
         self.refresh()
         self.control_box.show_all()
 
+    def open_cognitive(self, *_args):
+        self.module = "cognitive"
+        self.build_controls()
+
+    def save_unified_manifest(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Export unified component manifest", transient_for=self, action=Gtk.FileChooserAction.SAVE)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Export", Gtk.ResponseType.OK)
+        dialog.set_current_name("zoe-unified.json")
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                self.unified_registry.write_manifest(dialog.get_filename())
+        finally:
+            dialog.destroy()
+
+    def make_unified_launch(self, identifier):
+        def launch(*_args):
+            process = self.unified_registry.launch(identifier, detach=True)
+            self.report["last_launch"] = {"component": identifier, "pid": process.pid, "started": True, "readiness_verified": False}
+            self.update_summary()
+        return launch
+
+    def choose_cerotto(self, *_args):
+        dialog = Gtk.FileChooserDialog(title="Choose Cerotto case database", transient_for=self, action=Gtk.FileChooserAction.OPEN)
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        dialog.add_button("Open", Gtk.ResponseType.OK)
+        try:
+            if dialog.run() == Gtk.ResponseType.OK:
+                case = self.controls["cerotto_case"].get_text().strip()
+                conversation = self.controls["cerotto_conversation"].get_text().strip()
+                if not case or not conversation:
+                    raise ValueError("Cerotto case and conversation IDs are required")
+                self.unified_registry.launch("cerotto", ["--db", dialog.get_filename(), "--case", case, "--conversation", conversation], detach=True)
+        finally:
+            dialog.destroy()
+
     def on_module_changed(self, widget):
         if self.updating:
             return
+        if self.module == "felix":
+            self.stop_felix_replay()
         self.module = widget.get_active_id()
         self.build_controls()
 
@@ -448,7 +527,19 @@ class AtlasWindow(Gtk.Window):
         return self.controls[key].get_active_id()
 
     def refresh(self):
-        if self.module == "brain":
+        if self.module == "unified":
+            from .unified import unified_scene
+            self.scene, self.report = unified_scene(self.unified_registry)
+        elif self.module == "felix":
+            from .felix import felix_scene
+            observer = self.ensure_felix()
+            if self.controls and self.choice("felix_build"):
+                observer.select(self.choice("felix_build"))
+            self.scene, self.report = felix_scene(observer)
+        elif self.module == "cern":
+            from .cern_repair import default_repair_document
+            self.scene, self.report = default_repair_document(self.cern_root or None)
+        elif self.module == "brain":
             self.scene, self.report = brain_scene(self.brain)
         elif self.module == "field":
             self.scene, self.report = field_scene(self.field)
@@ -764,6 +855,61 @@ class AtlasWindow(Gtk.Window):
         self.brain = BrainKernel()
         self.refresh()
 
+    def observe_felix(self, *_args, next_build=False):
+        try:
+            observer = self.ensure_felix()
+            identifier = None if next_build else self.choice("felix_build")
+            observer.observe(identifier, next_build=next_build)
+            self.updating = True
+            self.controls["felix_build"].set_active_id(observer.corpus.selected_id)
+            self.updating = False
+            self.refresh()
+        except (OSError, ImportError, RuntimeError, ValueError) as error:
+            self.updating = False
+            self.report = {"error": f"FELIX observation failed: {error}"}
+            self.update_summary()
+
+    def observe_felix_next(self, *_args):
+        self.observe_felix(next_build=True)
+
+    def refresh_felix_corpus(self, *_args):
+        try:
+            changed = self.ensure_felix().refresh()
+            self.build_controls()
+            self.report["summary"] += " · corpus changed" if changed else " · corpus unchanged"
+            self.update_summary()
+        except (OSError, ImportError, RuntimeError, ValueError) as error:
+            self.report = {"error": f"FELIX corpus refresh failed: {error}"}
+            self.update_summary()
+
+    def toggle_felix_replay(self, *_args):
+        if self.felix_timer is None:
+            self.felix_timer = GLib.timeout_add(900, self.replay_felix)
+            self.felix_replay_button.set_label("Stop living replay")
+        else:
+            self.stop_felix_replay()
+
+    def replay_felix(self):
+        if self.module != "felix":
+            self.stop_felix_replay()
+            return False
+        self.observe_felix(next_build=True)
+        return self.felix_timer is not None
+
+    def stop_felix_replay(self, *_args):
+        if self.felix_timer is not None:
+            GLib.source_remove(self.felix_timer)
+            self.felix_timer = None
+        if hasattr(self, "felix_replay_button"):
+            self.felix_replay_button.set_label("Start living replay")
+        return False
+
+    def on_export_felix_json(self, *_args):
+        self.choose_export("json")
+
+    def on_export_felix_wav(self, *_args):
+        self.choose_export("wav")
+
     def observe_research(self, *_args):
         try:
             identifier = self.choice("case")
@@ -820,7 +966,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia"}:
+        elif self.module in {"felix", "brain", "field", "cognitive", "research", "qualia"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
@@ -861,8 +1007,14 @@ class AtlasWindow(Gtk.Window):
             write_metafile(self.scene, path)
         elif suffix == ".json" and self.module == "field":
             self.field.save(path)
+        elif suffix == ".json" and self.module == "felix":
+            self.ensure_felix().save(path)
+        elif suffix == ".wav" and self.module == "felix":
+            from .felix_audio import write_felix_sonification
+            _, self.report = write_felix_sonification(self.ensure_felix(), path)
+            self.update_summary()
         else:
-            raise ValueError("atlas export must use .svg, .png, .gem, or field-only .json")
+            raise ValueError("atlas export must use .svg, .png, .gem, field .json, or FELIX .json/.wav")
         if self.module == "brain":
             self.brain.mark_exported()
             self.refresh()
@@ -875,7 +1027,7 @@ class AtlasWindow(Gtk.Window):
         )
         dialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
         dialog.add_button("Export", Gtk.ResponseType.OK)
-        dialog.set_do_overwrite_confirmation(self.module != "cognitive")
+        dialog.set_do_overwrite_confirmation(self.module not in {"cognitive", "felix"})
         dialog.set_current_name(f"atlas-{self.module}.{suffix}")
         try:
             if dialog.run() == Gtk.ResponseType.OK:
@@ -897,17 +1049,17 @@ class AtlasWindow(Gtk.Window):
         self.choose_export("gem")
 
 
-def show_atlas(module="procrustes", research_root=None):
+def show_atlas(module="procrustes", research_root=None, cern_root=None, felix_build=None):
     research_root = research_root or os.environ.get("MASTER_GEM_RESEARCH_ROOT")
-    window = AtlasWindow(module, research_root=research_root)
+    window = AtlasWindow(module, research_root=research_root, cern_root=cern_root, felix_build=felix_build)
     window.show_all()
     return window
 
 
-def launch_atlas(module="procrustes", research_root=None):
+def launch_atlas(module="procrustes", research_root=None, cern_root=None, felix_build=None):
     if not os.environ.get("DISPLAY"):
         raise RuntimeError("the native geometry atlas requires a GTK display; use --output for headless export")
-    window = show_atlas(module, research_root=research_root)
+    window = show_atlas(module, research_root=research_root, cern_root=cern_root, felix_build=felix_build)
     window.connect("destroy", Gtk.main_quit)
     Gtk.main()
     return window

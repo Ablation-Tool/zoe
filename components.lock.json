@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "identity": "Ablation = All = ZOE = ALL",
+  "zoe_baseline": "f30c981",
+  "components": {
+    "ablation": {
+      "path": "components/ablation",
+      "repository": "https://github.com/Ablation-Tool/ablation",
+      "revision": "b56f91e4c54cfd996bceea63a38d8136dc1e689f",
+      "includes": "Complete repository: core engine, framework, analyzers, parsers, modules, sweeps, gem-lab, tests, documentation, and assets"
+    },
+    "graphics-environment-manager": {
+      "path": "components/graphics-environment-manager",
+      "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+      "revision": "e63f6a7b84c2e8fffc0fcf01001986ae928f66b5"
+    },
+    "gem-helen": {
+      "path": "components/gem-helen",
+      "repository": "https://github.com/Ablation-Tool/gem-helen",
+      "revision": "55fb1e494662e9b69e964ac2f9df41724cffeb0c"
+    },
+    "brain-gem": {
+      "path": "components/brain-gem",
+      "repository": "https://github.com/Ablation-Tool/brain-gem",
+      "revision": "ed819c2824a55b019a532f4fa2cb440532030127"
+    },
+    "cerotto": {
+      "path": "components/cerotto",
+      "repository": "https://github.com/Ablation-Tool/cerotto",
+      "revision": "5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4"
+    },
+    "next-token-predictability": {
+      "path": "components/next-token-predictability",
+      "repository": "https://github.com/Ablation-Tool/next-token-predictability",
+      "revision": "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9"
+    }
+  },
+  "scope": "Full tracked source snapshots imported with git subtree --squash. Component processes and evidence boundaries remain distinct. PALA is a separate non-GEM recovery engine and is not represented as a GEM component."
+}
