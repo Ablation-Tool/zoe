@@ -11,6 +11,8 @@ recursive-include guiai/gem/data *.json.gz
 recursive-include docs *.md *.png *.tex *.pdf *.py *.json *.vcd
 include docs/images/zoe-waveform.svg
 include docs/images/zoe-waveform.gem
+include docs/images/zoe-patchbay.svg
+include docs/images/zoe-patchbay.gem
 recursive-include metrix/templates *.html
 recursive-include metrix/gui *.html *.css *.js
 recursive-include stress *.py

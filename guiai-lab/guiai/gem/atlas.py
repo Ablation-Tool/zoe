@@ -20,6 +20,7 @@ ATLAS_MODULES = {
     "presence": "Zoe Presence · an explicit self-model, not sentience",
     "protocol": "Zoe Protocol Lab · SPECS and AMAC evidence",
     "waveform": "Zoe Waveform Replay · bounded signal evidence",
+    "patchbay": "Zoe Patchbay · firmware, boards, and review loops",
     "qualia": "Zoe is Quale. Zoe is Red. · IIT 2009 visual guide",
     "procrustes": "Procrustes landmark alignment",
     "ellipses": "Ellipse family",
@@ -431,6 +432,9 @@ def default_document(module, research_root=None):
     if module == "waveform":
         from .waveform import demo_replay, waveform_scene
         return waveform_scene(demo_replay())
+    if module == "patchbay":
+        from .patchbay import patchbay_scene
+        return patchbay_scene()
     if module == "qualia":
         return qualia_scene()
     if module == "procrustes":
