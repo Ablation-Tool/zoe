@@ -24,6 +24,8 @@ include docs/images/zoe-vidlib.gem
 include docs/images/zoe-pentacube.svg
 include docs/images/zoe-pentacube.gem
 include docs/images/zoetic-research.svg
+include docs/images/zoe-cicada.svg
+include docs/images/zoe-cicada.gem
 include docs/examples/evidence-sonification.wav
 recursive-include metrix/templates *.html
 recursive-include metrix/gui *.html *.css *.js
