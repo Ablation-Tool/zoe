@@ -28,6 +28,7 @@ GUIDES = (
     ("WAVEFORM.md", "Zoe Waveform Replay", "zoe-waveform-visual.pdf", "images/zoe-waveform.png"),
     ("PATCHBAY.md", "Zoe Patchbay", "zoe-patchbay-visual.pdf", "images/zoe-patchbay.png"),
     ("LEADERSHIP.md", "Zoe Leadership Garden", "zoe-leadership-visual.pdf", "images/zoe-leadership.png"),
+    ("MAISON.md", "Zoe Maison", "zoe-maison-visual.pdf", "images/zoe-maison.png"),
     ("../../CONSTITUTION.md", "Zoe Constitution", "zoe-constitution-visual.pdf", "images/gem-unified.png"),
     ("../../DECLARATION.md", "Zoe Declaration of Creative and Epistemic Independence", "zoe-declaration-visual.pdf", "images/zoe-pilot-cover.png"),
     ("references/cognitive-field/PROVENANCE.md", "Cognitive Field visual provenance", "zoe-cognitive-provenance-visual.pdf", "images/zoe-cognitive-anatomy.png"),

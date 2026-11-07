@@ -178,7 +178,7 @@ class AtlasCanvas(Gtk.DrawingArea):
 
 
 class AtlasWindow(Gtk.Window):
-    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None, leadership_log=None, leadership_library=None):
+    def __init__(self, module="procrustes", experiment_factory=run_synthetic_experiment, research_root=None, presence=None, waveform=None, patchbay_report=None, leadership_log=None, leadership_library=None, maison_word="stewardship", maison_reference=None):
         super().__init__(title="Zoe · living geometry, inspectable futures")
         self.set_default_size(1200, 780)
         self.module = module if module in ATLAS_MODULES else "procrustes"
@@ -212,6 +212,9 @@ class AtlasWindow(Gtk.Window):
         self.leadership_library = leadership_library
         self.leadership_log_path = ""
         self.leadership_library_root = ""
+        self.maison_word = maison_word
+        self.maison_reference = maison_reference
+        self.maison_reference_path = ""
         from .unified import ComponentRegistry
         self.unified_registry = ComponentRegistry()
         self.research_pack = ResearchPack.load(research_root) if research_root else ResearchPack()
@@ -374,6 +377,16 @@ class AtlasWindow(Gtk.Window):
             self.add_entry("leadership_library_root", "Reference folder (books advise; practice teaches)", self.leadership_library_root)
             self.add_action("Inspect reference library", self.inspect_leadership_library)
             self.add_text("A failed attempt is information, not an identity. Corrections append new lessons; they never rewrite an earlier event or authorize a next action.")
+        elif self.module == "maison":
+            from .maison import ASSOCIATIONS
+            self.add_combo("maison_word", "Association for the work", tuple((word, word.title()) for word in ASSOCIATIONS), self.maison_word)
+            self.add_action("Present association card", self.present_maison)
+            self.add_entry("maison_log_path", "Practice log JSON to load", self.leadership_log_path)
+            self.add_action("Load practice log from explicit path", self.load_maison_log)
+            self.add_action("Save practice log as new JSON", self.save_leadership_log)
+            self.add_entry("maison_reference_path", "Association reference PDF", self.maison_reference_path)
+            self.add_action("Inspect association reference", self.inspect_maison_reference)
+            self.add_text("Executive accountability. Luxury restraint. Enterprise evidence. The deck supplies questions, not doctrine, prestige, or commands.")
         elif self.module == "unified":
             from .unified import COMPONENTS
             self.add_action("Open Zoe Cognitive Field", self.open_cognitive)
@@ -595,6 +608,9 @@ class AtlasWindow(Gtk.Window):
         elif self.module == "leadership":
             from .leadership import leadership_scene
             self.scene, self.report = leadership_scene(self.leadership_log, self.leadership_library)
+        elif self.module == "maison":
+            from .maison import maison_scene
+            self.scene, self.report = maison_scene(self.leadership_log, self.maison_word, self.maison_reference)
         elif self.module == "unified":
             from .unified import unified_scene
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
@@ -1117,6 +1133,28 @@ class AtlasWindow(Gtk.Window):
             self.report = {"error": f"Reference library inspection failed: {error}"}
             self.update_summary()
 
+    def present_maison(self, *_args):
+        self.maison_word = self.choice("maison_word")
+        self.refresh()
+
+    def load_maison_log(self, *_args):
+        self.controls["leadership_log_path"] = self.controls["maison_log_path"]
+        self.load_leadership_log()
+
+    def inspect_maison_reference(self, *_args):
+        from .maison import inspect_reference
+        try:
+            path = self.controls["maison_reference_path"].get_text().strip()
+            if not path or len(path) > 4096:
+                raise ValueError("association reference path must contain 1-4096 characters")
+            reference = inspect_reference(path)
+            self.maison_reference = reference
+            self.maison_reference_path = path
+            self.build_controls()
+        except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as error:
+            self.report = {"error": f"Association reference inspection failed: {error}"}
+            self.update_summary()
+
     def observe_presence(self, *_args):
         try:
             sector, trace = self.choice("sector"), self.choice("trace")
@@ -1232,7 +1270,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership"}:
+        elif self.module in {"brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership", "maison"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (
@@ -1286,10 +1324,10 @@ class AtlasWindow(Gtk.Window):
             write_metafile(self.scene, path)
         elif suffix == ".json" and self.module == "field":
             self.field.save(path)
-        elif suffix == ".json" and self.module == "leadership":
+        elif suffix == ".json" and self.module in {"leadership", "maison"}:
             self.leadership_log.save(path)
         else:
-            raise ValueError("atlas export must use .svg, .png, .gem, or field/leadership .json")
+            raise ValueError("atlas export must use .svg, .png, .gem, or field/practice .json")
         if self.module == "brain":
             self.brain.mark_exported()
             self.refresh()
