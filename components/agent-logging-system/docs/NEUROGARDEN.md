@@ -152,7 +152,7 @@ Chapter 6 adds `ai_risk_review()`, a static checklist for affected groups, synth
 
 ### MATLAB Numerical Calculations
 
-The introduction and first six chapters are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
+All nine substantive sections are reviewed. The inventory excludes seven cover/front/back-matter artifacts with reasons.
 
 `complex_integer_power()` implements bounded exact integer-complex multiplication. For `(2+3i)^10`, it returns the chapter's exact `-341525-145668i` rather than a rounded display. Integer components are bounded and exponents are limited to 0–64; general complex powers, symbolic algebra, MATLAB syntax, and Maple integration are not claimed. The introduction has a no-tool rationale because it is a capability overview rather than an independent numerical method.
 
@@ -165,6 +165,8 @@ Chapter 4 reviews variable state, symbolic and numeric values, vector/matrix lay
 Chapter 5 reviews matrix norms, eigensystems, decompositions, similarity, sparse storage, and special matrices. Reusing `matrix_layout_review()` reproduces determinant -28 for the LU/Smith example and zero for the rank-two affine family. No general inverse, rank, norm, eigensolver, decomposition, sparse solver, or MATLAB/Maple implementation is inferred from the historical command survey.
 
 Chapter 6 reviews reusable functions, loops, conditional branches, recursion, Newton and Schroder iterations, piecewise definitions, composition, and inverse domains. `spatial_piecewise_profile()` implements only exercise 6-6's fixed scalar profile for synthetic intensity-transfer demonstrations, reproducing every branch and interval boundary without evaluating arbitrary code. No M-file parser, general iterative or symbolic solver, or MATLAB/Maple compatibility is claimed.
+
+Chapters 7–8 review numerical programming, optimization, interpolation, differentiation, integration, and ordinary or partial differential equations. The existing bounded Pennes model demonstrates stability-limited explicit time stepping and perfusion sensitivity without a general solver, patient model, or treatment simulation. The complete book review preserves domain, convergence, residual, and conditioning limits rather than claiming MATLAB/Maple compatibility.
 
 ### Tumor and legacy research
 
