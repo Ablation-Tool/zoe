@@ -553,6 +553,20 @@
       "limitations": "accepts rectangular numeric matrices up to 8x8 only; determinant uses exact decimal representations of supplied values, not exact binary floats; no inverse, condition-number, symbolic, MATLAB/Maple, or clinical claim",
       "use": "matrix_layout_review",
       "reviewed_at": "2026-11-08T13:39:50Z"
+    },
+    "MATLAB Numerical Calculations/012_9781484203477_Ch05.html": {
+      "source_sha256": "b053e57c9cc9b87c8e896fb25cc9614be00147e8ea81df059b9b9ee9b8738bce",
+      "concepts": [
+        "determinant, rank, trace, norms, and condition numbers describe different matrix properties",
+        "eigensystems and matrix decompositions require reconstruction checks and domain preconditions",
+        "similarity, congruence, and equivalence are distinct matrix relationships",
+        "sparse storage records nonzero coordinates without changing matrix values",
+        "nonzero determinant alone does not establish numerical conditioning"
+      ],
+      "application": "reuse Dorothy's matrix_layout_review to reproduce determinant -28 for the chapter's LU/Smith matrix and zero determinant for its rank-two affine family",
+      "limitations": "only the two determinant demonstrations are independently reproduced; no general inverse, rank, norm, eigensolver, decomposition, sparse solver, MATLAB/Maple compatibility, or clinical claim; historical transcription and typesetting inconsistencies are not treated as verified output",
+      "use": "matrix_layout_review",
+      "reviewed_at": "2026-11-08T13:49:04Z"
     }
   }
 }
