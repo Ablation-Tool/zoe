@@ -331,6 +331,15 @@
       "status": "link-only",
       "access": "not-probed",
       "scope": "User-suggested learning platform only; no account access, course enrollment, credential claim, endorsement, or bulk download."
+    },
+    {
+      "id": "texas-instruments-engineering",
+      "kind": "engineering-resource",
+      "label": "Texas Instruments engineering resources",
+      "url": "https://www.ti.com/",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested embedded and analog learning resource only; no endorsement, part selection, hardware operation, or bulk download."
     }
   ],
   "drawing_research_contract": {
