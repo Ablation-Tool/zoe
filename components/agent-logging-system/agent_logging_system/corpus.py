@@ -50,6 +50,19 @@ BOOK_ARTIFACTS = {
         "005_9781484203477_FM_3_About_the_Author.html": "author biography",
         "006_9781484203477_FM_4_Preface.html": "also available",
     },
+    "Windows 98 Unleashed": {
+        "001_0672312352_pref01.html": "author biography",
+        "002_0672312352_pref02.html": "acknowledgements",
+        "003_0672312352_pref03.html": "preface",
+        "004_0672312352_part01.html": "part divider",
+        "038_0672312352_part02.html": "part divider",
+        "098_0672312352_part03.html": "part divider",
+        "135_0672312352_part04.html": "part divider",
+        "186_0672312352_part05.html": "part divider",
+        "208_0672312352_part06.html": "part divider",
+        "239_0672312352_part07.html": "part divider",
+        "309_0672312352_bvdidx.html": "index",
+    },
 }
 
 

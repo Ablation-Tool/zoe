@@ -107,6 +107,18 @@ Its successful response is:
 
 These encode `A = 3`, complement `1`, vocabulary size `4`, quantized `τ = 0x0666`, and success status `0x9000`. **Share session** includes up to twelve retained transactions with request/response bytes and statuses, equation credit, and a prominent simulation disclaimer. It contains no timestamp or device identifier, writes no file, and uploads nothing. Reset clears history and replay state.
 
+## Legacy offline prototype
+
+[`mobile/legacy/`](legacy/) contains a bounded **C99** measurement and JSON exporter for older, resource-constrained environments. It uses fixed-size storage for 1–64 probabilities, strict `p > τ`, exact Q0.15 allocation, and the same APDU fixtures as the modern kernel. It needs no C++, Python, .NET, browser, network, registry writes, or third-party library.
+
+```sh
+cd mobile/legacy
+make check
+./build/zoe-legacy build/example.json 0.70,0.20,0.08,0.02 0.05
+```
+
+Normal and address/undefined-behavior sanitizer suites pass, along with strict warnings and GCC static analysis. The CLI refuses to overwrite an existing file and preserves Nicholas Michael Kloster's sole original-equation credit, March 6, 2026. **Windows 95/98 remains unverified.** A compatible legacy compiler, actual legacy OS and filesystem tests, and assistive-technology review are still required. This is not a medical-device or clinical deployment claim. See the [legacy scope and verification guide](legacy/README.md) and [verification record](../evidence/legacy/verification.json).
+
 ## Talk and Multi-view
 
 **Talk** provides continuous turn-taking rather than an always-on listener. Zoe speaks a prompt, you answer, Zoe displays the transcript and responds, and the next turn begins. Turns repeat until **Stop**, you leave the activity, or it pauses. Transcripts are bounded to twelve exchanges and remain on screen until you clear or explicitly share them. Replies are deterministic for device topics; open-ended understanding is handed to Gemini rather than fabricated locally.

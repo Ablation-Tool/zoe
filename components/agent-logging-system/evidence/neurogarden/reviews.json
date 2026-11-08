@@ -581,6 +581,89 @@
       "limitations": "implements only the chapter's fixed scalar profile for bounded finite numbers; no M-file parser, arbitrary code evaluation, Newton solver, symbolic composition or inversion, general piecewise engine, MATLAB/Maple compatibility, or clinical claim",
       "use": "spatial_piecewise_profile",
       "reviewed_at": "2026-11-08T13:54:43Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/011_c06.html": {
+      "source_sha256": "4adfc98a639ea6fc0f23bcb1eeeb670c31d167defc4f7bb70505ec52d9221a5f",
+      "concepts": [
+        "multiclass tumor-image evaluation requires patient-level separation and control of slice and augmentation leakage",
+        "accuracy alone is insufficient for imbalanced classes; class support, per-class recall, confidence intervals, and external validation matter",
+        "feature selection and hyperparameter tuning must remain inside training folds",
+        "dataset provenance and citations must identify the actual evidence used",
+        "diagnostic classification performance is not treatment or cure evidence"
+      ],
+      "application": "Dorothy tumor-imaging evidence audit and prerequisite checklist for any future public-data classification experiment",
+      "limitations": "the reported 90.5% DNN accuracy is not independently reproducible from aggregate scores; dataset version, patient-level splits, predictions, confusion matrices, class support, confidence intervals, architecture, training details, code, and fitted models are absent; several citations do not support their adjacent claims, including reference 9 cited for Kaggle but describing glioblastoma survival radiomics",
+      "no_tool_rationale": "No classifier or metric calculator was created: the chapter lacks the dataset version, patient-level split, predictions, class support, and fitted models required for a demonstrated use or independent reproduction. The next valid experiment requires licensed public data and a preregistered external-validation protocol.",
+      "reviewed_at": "2026-11-08T14:03:37Z"
+    },
+    "Biomedical Imaging Principles/015_9781118271926c10.html": {
+      "source_sha256": "c4cf129ddb29c244291204b7c20c907ff802cfa4d81ff72ff21c26c02ea86f85",
+      "concepts": [
+        "CARS provides chemically selective imaging, but coherent signal and nonresonant background complicate direct concentration inference",
+        "collagen fibers can provide invasion tethers while also forming mechanical barriers; these roles must not be collapsed into one direction of effect",
+        "early invasive distance, invasive-cell pattern, and later central spheroid growth are distinct time-dependent endpoints",
+        "collagen mesh size and elastic modulus do not follow a universal simple concentration-scaling law",
+        "in-vitro matrix remodeling is not patient anatomy, treatment efficacy, or a cure claim"
+      ],
+      "application": "Dorothy collagen-matrix evidence review using Kaufman et al.'s primary measurements and a simple mesh-scaling residual calculation",
+      "limitations": "the primary in-vitro U87dEGFR study averages four spheroids per trace and pools anchored and relaxed gels; raw images were not reanalyzed, unresolved fibrils and integrin or MMP causality remain open, and no patient-specific, treatment, universal-growth-law, or clinical claim is made",
+      "use": "collagen_mesh_scaling_review",
+      "reviewed_at": "2026-11-08T14:08:19Z"
+    },
+    "Biosensors Nanotechnology/019_c14.html": {
+      "source_sha256": "34ae771122199a69a3fbae5386ce920d866f99b7486d9e18996528d755630590",
+      "concepts": [
+        "nanomaterial biosensors require separate evidence for recognition, transduction, toxicity, biodistribution, and therapeutic effect",
+        "Fe@Au particles combine MRI/CT contrast with near-infrared two-photon photothermal heating",
+        "short blood residence and liver uptake can prevent therapeutic tumor accumulation regardless of in-vitro potency",
+        "histology is needed to distinguish nanoparticle accumulation from necrosis after photothermal treatment",
+        "local intratumoral proof of concept is not evidence of systemic efficacy, survival benefit, or a cure"
+      ],
+      "application": "Dorothy photothermal evidence review preserving delivery and toxicity constraints, with the existing bounded Pennes model demonstrating only perfusion-dependent cooling",
+      "limitations": "the primary study uses C6 rat glioma cells and subcutaneous C6 tumors in small animal groups rather than intracranial human glioblastoma; it does not establish survival benefit, systemic safety, clinical dosing, or patient efficacy; the Pennes demonstration is synthetic and not nanoparticle- or treatment-specific",
+      "use": "pennes_heat",
+      "reviewed_at": "2026-11-08T14:17:43Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/010_c05.html": {
+      "source_sha256": "7bd6773867951209750f4170a431e0be0bf0e61594b9ce2326fc92b63c3714dd",
+      "concepts": [
+        "imaging, histology, nucleic-acid assays, protein measurements, and computational classification provide distinct evidence types",
+        "EGFR and PI3K/AKT/mTOR observations are target hypotheses until linked to validated patient-specific treatment outcomes",
+        "MRI does not use ionizing radiation but still requires implant, contrast, and procedure-specific safety review",
+        "AI classification requires representative data, external validation, interpretability, and bias review",
+        "tumor classification and treatment planning must account for heterogeneity and molecular context"
+      ],
+      "application": "Dorothy evidence-type triage using the existing MRI safety and AI deployment checklists before any target or imaging experiment",
+      "limitations": "this is a broad nonsystematic survey without a reproducible experiment or treatment comparison; the FISH discussion incorrectly conflates nucleic-acid detection with MGMT protein measurement and is not used for treatment selection; several generalized imaging and machine-learning claims and citation mismatches remain unverified",
+      "use": "mri_review; ai_risk_review",
+      "reviewed_at": "2026-11-08T14:20:50Z"
+    },
+    "Windows 98 Unleashed/006_0672312352_ch01lev1sec1.html": {
+      "source_sha256": "fb303afbbfb7d3eb8cba7d82b344b62b32936ba3dbd2c515975048e605fb26c7",
+      "concepts": [
+        "the historical Windows 98 baseline is a 66 MHz 486DX2, 16 MB RAM, VGA, and 225 MB setup space",
+        "a more practical historical target is a Pentium with 24–32 MB RAM, about 400 MB installation space, and 256-color 1024x768 video",
+        "Windows 98 mixes 16-bit and 32-bit code and requires a FAT partition rather than NTFS or HPFS",
+        "memory, storage, display, peripheral, and filesystem constraints must be explicit in legacy compatibility design"
+      ],
+      "application": "bounded C99 Dorothy legacy measurement and JSON export with fixed storage, strict threshold semantics, exact Q0.15 allocation, local files, and no modern-runtime dependency",
+      "limitations": "these are 1998 installation guidelines, not medical-device requirements or evidence that most devices use Windows 95/98; the C99 host build is not a Windows 95/98 run, market-share claim, patient-safety certification, accessibility certification, or production deployment",
+      "use": "legacy_measure; legacy_write_json",
+      "reviewed_at": "2026-11-08T14:29:08Z"
+    },
+    "Windows 98 Unleashed/051_0672312352_ch07lev1sec1.html": {
+      "source_sha256": "fe6de705aa3d22ea3645e976d2b6284d3670fb437273fe8f9e2333b1edcf5f98",
+      "concepts": [
+        "StickyKeys, FilterKeys, ToggleKeys, and MouseKeys provide keyboard and timing alternatives to simultaneous or pointer-only input",
+        "SoundSentry and ShowSounds provide visual equivalents for audible events",
+        "high-contrast schemes, larger text and icons, and magnification improve visibility",
+        "SerialKey devices can provide alternative mouse and keyboard input through a serial port",
+        "accessibility settings need discoverable configuration, status, and user control"
+      ],
+      "application": "Dorothy legacy interface contract requiring keyboard-only operation, configurable timing, visual sound cues, high contrast, large-text support, explicit status, and optional alternative input",
+      "limitations": "historical feature descriptions do not establish current accessibility compliance, assistive-technology interoperability, SerialKey hardware availability, medical-device suitability, or user-tested usability",
+      "no_tool_rationale": "No accessibility feature was reimplemented from documentation alone. A valid implementation needs an explicit interaction contract and testing with the actual operating system and assistive technology before making a compliance or equal-access claim.",
+      "reviewed_at": "2026-11-08T14:35:12Z"
     }
   }
 }

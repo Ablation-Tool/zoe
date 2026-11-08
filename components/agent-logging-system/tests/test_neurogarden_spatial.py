@@ -1,9 +1,26 @@
+import math
+
 import pytest
 
 from agent_logging_system.neurogarden_spatial import (
-    Volume, average_pool, convolve, matrix_layout_review, project, projection_svg,
-    recovery_coefficient, sphere, spatial_piecewise_profile,
+    Volume, average_pool, collagen_mesh_scaling_review, convolve, matrix_layout_review,
+    project, projection_svg, recovery_coefficient, sphere, spatial_piecewise_profile,
 )
+
+
+def test_collagen_mesh_scaling_preserves_measurements_and_model_deviation():
+    review = collagen_mesh_scaling_review()
+    assert len(review["observations"]) == 3
+    low, middle, reference = review["observations"]
+    assert low["measured_mesh_um"] == 27.8
+    assert low["simple_scaling_mesh_um"] == pytest.approx(16.6)
+    assert low["residual_um"] == pytest.approx(11.2)
+    assert middle["simple_scaling_mesh_um"] == pytest.approx(8.3 * math.sqrt(2))
+    assert reference["residual_um"] == 0
+    assert "universal" in review["interpretation"]
+    assert review["primary_source"].endswith("PMC1366562/")
+    assert not review["raw_images_analyzed"]
+    assert not review["clinical_claim"]
 
 
 def test_spatial_piecewise_profile_reproduces_all_chapter_branches():
