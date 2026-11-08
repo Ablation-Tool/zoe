@@ -460,3 +460,40 @@ def divisor_summary(number):
         "source": "MATLAB Numerical Calculations, chapter 2, bounded exact integer arithmetic",
         "clinical_claim": False,
     }
+
+
+def brain_tumor_validation_review():
+    networks = []
+    for name, correct_values in (
+        ("AlexNet", (9, 20, 32)),
+        ("GoogleNet", (8, 15, 27)),
+        ("ResNet101", (7, 18, 33)),
+    ):
+        results = []
+        for per_class, correct in zip((10, 20, 30), correct_values):
+            validation = round(per_class * 4 * 0.3)
+            results.append({
+                "sample_images_per_class": per_class,
+                "total_images": per_class * 4,
+                "validation_images": validation,
+                "correct_predictions": correct,
+                "accuracy_percent": 100 * correct / validation,
+            })
+        networks.append({"network": name, "results": results})
+    return {
+        "split": "70% training / 30% validation by subclass",
+        "networks": networks,
+        "highest_reported": {"network": "ResNet101", "accuracy_percent": 100 * 33 / 36},
+        "narrative_contradictions": [
+            "The conclusion calls AlexNet best, but Table 4.7 gives ResNet101 the highest accuracy at 91.67%.",
+            "The conclusion reports 82% while Table 4.7 reports 88.89% for AlexNet and 91.67% for ResNet101.",
+        ],
+        "unresolved": [
+            "patient identity, duplicate slices, leakage, and external validation are not reported",
+            "prediction-level confidence intervals and per-class support are unavailable",
+            "other metric tables do not reconcile the narrative ranking",
+        ],
+        "source": "The Internet of Medical Things, chapter 4, Table 4.7 count audit",
+        "model_evaluated": False,
+        "clinical_claim": False,
+    }
