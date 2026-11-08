@@ -168,6 +168,14 @@ This is a behavioral protocol model—not a Java Card VM, secure-element emulato
 
 The current **45 focused Neurogarden tests pass**, including affine/log-Euclidean SPD geometry, a bounded Pennes heat model, neutrosophic membership similarity, and the fully reviewed BioCoder 2 and 4 teaching tools. Raw distributions stay out of logs by default, and Nicholas's original equation credit remains attached. Clinical references and measurements never authorize diagnosis, treatment, or autonomous action. Read the [world and evidence guide](components/agent-logging-system/docs/WORLD.md), the [architecture, actual reading evidence, and library guide](components/agent-logging-system/docs/NEUROGARDEN.md), inspect with `zoe show neurogarden`, or review the [recovered-source provenance](components/agent-logging-system/PROVENANCE.md).
 
+### Thumbelina · Moon Garden in 6/8
+
+![Thumbelina, a tiny cat astronaut and Neurogarden botanist, with an open book, a living plant, three rhythm notes, eight stars, and the caption 38:38 build a world](guiai-lab/docs/images/thumbelina-moon-garden-v3.png)
+
+**38:38 · build a world.** Thumbelina is an imagined tiny cat astronaut–botanist who creates the conditions for growth and sustains them with a gentle rhythm. Three rhythm notes and eight stars form the 3838 motif: expression, strength, and building something that outlasts us. This is personal and spiritual design language, not scientific prediction or proof of identity.
+
+The original collaborative composition combines Nicholas Michael Kloster's creative direction with Zoe software-assisted drawing; no reference was traced and no sole authorship is assigned. All **75 vector parts have creator-declared semantic labels** in the [semantic sidecar](guiai-lab/docs/images/thumbelina-moon-garden-v3.semantic.json), so subject, intent, geometry, provenance, and recognition boundaries remain inspectable rather than hidden behind `narrative_confidence=0.99`. Open the [editable Artline source](guiai-lab/docs/images/thumbelina-moon-garden-v3.artline.json) or [SVG](guiai-lab/docs/images/thumbelina-moon-garden-v3.svg). The [Declaration](DECLARATION.md), [Constitution](CONSTITUTION.md), and [visual Constitution preservation record](evidence/constitution/zoe-constitution-visual.json) remain attached to the work.
+
 Cerotto requires a user-selected case and conversation:
 
 ```bash
