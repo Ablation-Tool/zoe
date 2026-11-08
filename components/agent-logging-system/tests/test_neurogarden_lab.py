@@ -1,0 +1,79 @@
+import pytest
+
+from agent_logging_system.neurogarden_lab import (
+    assess_sampling, gaussian_mtf, global_align, mri_review, photon_counting_review, xray_review,
+)
+
+
+def alignment_score(first, second):
+    score = 0
+    for left, right in zip(first, second):
+        if left == "-" or right == "-":
+            score -= 2
+        else:
+            score += 2 if left == right else -1
+    return score
+
+
+def test_book_alignment_has_score_four_and_seven_optimal_paths():
+    result = global_align("CTAGTAG", "CAGGTAGTG")
+    assert result.score == 4
+    assert len(result.alignments) == 7
+    assert not result.truncated
+    assert not result.clinical_claim
+    for first, second in result.alignments:
+        assert len(first) == len(second)
+        assert alignment_score(first, second) == 4
+
+
+def test_identical_sequences_have_one_optimal_alignment():
+    result = global_align("ACGT", "ACGT")
+    assert result.score == 8
+    assert result.alignments == [("ACGT", "ACGT")]
+
+
+def test_alignment_bounds_and_schemes_are_validated():
+    with pytest.raises(ValueError):
+        global_align("", "AC")
+    with pytest.raises(ValueError):
+        global_align("AC1", "ACT")
+    with pytest.raises(ValueError):
+        global_align("AC", "AC", match=0)
+    with pytest.raises(ValueError):
+        global_align("AAAA", "AA", max_alignments=0)
+
+
+def test_alignment_enumeration_is_bounded():
+    result = global_align("CTAGTAG", "CAGGTAGTG", max_alignments=4)
+    assert len(result.alignments) <= 4
+    assert result.truncated
+    assert all(alignment_score(first, second) == 4 for first, second in result.alignments)
+
+
+def test_sampling_preserves_the_resolution_voxel_distinction():
+    assessment = assess_sampling(4, 1)
+    assert assessment.samples_per_fwhm == 4
+    assert assessment.tolerable and assessment.generally_good
+    assert not assessment.clinical_claim
+    assert assess_sampling(4, 3).samples_per_fwhm == pytest.approx(4 / 3)
+    assert not assess_sampling(4, 3).tolerable
+    with pytest.raises(ValueError):
+        assess_sampling(0, 1)
+
+
+def test_gaussian_mtf_matches_normalized_fourier_magnitude():
+    assert gaussian_mtf(1, 0) == 1
+    assert gaussian_mtf(1, 1) == pytest.approx(2.675287991074243e-9, rel=1e-12)
+    assert gaussian_mtf(1, 0.5) > gaussian_mtf(1, 1)
+    with pytest.raises(ValueError):
+        gaussian_mtf(0, 1)
+
+
+def test_safety_reviews_are_sourced_and_never_authorize_action():
+    for review in (mri_review(), xray_review(), photon_counting_review()):
+        assert review.review_required
+        assert not review.clinical_action_authorized
+        assert review.sources
+        assert len(review.checks) == 4
+    assert "projectile" in mri_review().checks[0]
+    assert "pileup" in photon_counting_review().checks[1]

@@ -1,0 +1,156 @@
+"""Synthetic 3D teaching space inspired by LSI imaging and Dorothy's geometry."""
+from dataclasses import dataclass
+from html import escape
+import math
+from typing import List, Tuple
+
+
+@dataclass(frozen=True)
+class Volume:
+    width: int
+    depth: int
+    height: int
+    values: Tuple[float, ...]
+    source: str = "Synthetic Neurogarden spatial bench; no patient or atlas-registration claim"
+
+    def __post_init__(self):
+        if not 1 <= self.width <= 16 or not 1 <= self.depth <= 16 or not 1 <= self.height <= 16:
+            raise ValueError("volume dimensions must be between 1 and 16 voxels")
+        if len(self.values) != self.width * self.depth * self.height:
+            raise ValueError("voxel count does not match dimensions")
+        if any(not math.isfinite(value) or value < 0 for value in self.values):
+            raise ValueError("voxel values must be finite and nonnegative")
+
+    def index(self, x, y, z):
+        return x + self.width * (y + self.depth * z)
+
+    def at(self, x, y, z):
+        return self.values[self.index(x, y, z)]
+
+    def replace(self, x, y, z, value):
+        values = list(self.values)
+        values[self.index(x, y, z)] = value
+        return Volume(self.width, self.depth, self.height, tuple(values), self.source)
+
+
+def sphere(diameter=7, intensity=1.0):
+    if not 1 <= diameter <= 16 or not 0 < intensity <= 1e6:
+        raise ValueError("invalid synthetic sphere")
+    center = (diameter - 1) / 2
+    radius = diameter / 2
+    values = []
+    for z in range(diameter):
+        for y in range(diameter):
+            for x in range(diameter):
+                distance = math.sqrt((x - center) ** 2 + (y - center) ** 2 + (z - center) ** 2)
+                values.append(float(intensity) if distance <= radius else 0.0)
+    return Volume(diameter, diameter, diameter, tuple(values))
+
+
+def kernel(sigma):
+    if not 0 < sigma <= 3:
+        raise ValueError("sigma must be between zero and three voxels")
+    radius = max(1, math.ceil(3 * sigma))
+    values = [math.exp(-(offset ** 2) / (2 * sigma ** 2)) for offset in range(-radius, radius + 1)]
+    total = sum(values)
+    return [value / total for value in values]
+
+
+def convolve(volume, sigma):
+    weights = kernel(sigma)
+    radius = len(weights) // 2
+    result = volume
+    for axis in range(3):
+        values = [0.0] * len(result.values)
+        for z in range(result.height):
+            for y in range(result.depth):
+                for x in range(result.width):
+                    total = 0.0
+                    for offset, weight in zip(range(-radius, radius + 1), weights):
+                        coordinates = [x, y, z]
+                        coordinates[axis] += offset
+                        if 0 <= coordinates[axis] < (result.width, result.depth, result.height)[axis]:
+                            total += result.at(*coordinates) * weight
+                    values[result.index(x, y, z)] = total
+        result = Volume(result.width, result.depth, result.height, tuple(values), result.source)
+    return result
+
+
+def average_pool(volume, factor=2):
+    if not 1 <= factor <= 16:
+        raise ValueError("pooling factor must be between 1 and 16")
+    width = math.ceil(volume.width / factor)
+    depth = math.ceil(volume.depth / factor)
+    height = math.ceil(volume.height / factor)
+    values = []
+    for z in range(height):
+        for y in range(depth):
+            for x in range(width):
+                samples = []
+                for dz in range(factor):
+                    for dy in range(factor):
+                        for dx in range(factor):
+                            source = (x * factor + dx, y * factor + dy, z * factor + dz)
+                            if source[0] < volume.width and source[1] < volume.depth and source[2] < volume.height:
+                                samples.append(volume.at(*source))
+                values.append(sum(samples) / (factor ** 3))
+    return Volume(width, depth, height, tuple(values), volume.source)
+
+
+def project(volume, axis="z"):
+    if axis not in {"x", "y", "z"}:
+        raise ValueError("projection axis must be x, y, or z")
+    if axis == "z":
+        rows, columns = volume.depth, volume.width
+    elif axis == "y":
+        rows, columns = volume.height, volume.width
+    else:
+        rows, columns = volume.height, volume.depth
+    projected = []
+    for row in range(rows):
+        line = []
+        for column in range(columns):
+            if axis == "z":
+                values = [volume.at(column, row, z) for z in range(volume.height)]
+            elif axis == "y":
+                values = [volume.at(column, y, row) for y in range(volume.depth)]
+            else:
+                values = [volume.at(x, row, column) for x in range(volume.width)]
+            line.append(sum(values))
+        projected.append(line)
+    return projected
+
+
+def recovery_coefficient(original, measured):
+    if original.width != measured.width or original.depth != measured.depth or original.height != measured.height:
+        raise ValueError("recovery comparison requires matching dimensions")
+    truth = max(original.values)
+    if truth <= 0:
+        raise ValueError("recovery requires a nonempty original volume")
+    return max(measured.values) / truth
+
+
+def projection_svg(projected, title="Neurogarden projection"):
+    if not projected or not projected[0] or any(len(row) != len(projected[0]) for row in projected):
+        raise ValueError("projection must be a nonempty rectangular matrix")
+    maximum = max(max(row) for row in projected)
+    if maximum <= 0:
+        raise ValueError("projection has no positive intensity")
+    cell = max(4, min(24, 256 // max(len(projected[0]), len(projected))))
+    width = len(projected[0]) * cell
+    height = len(projected) * cell
+    safe_title = escape(title)
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width + 32}" height="{height + 64}" viewBox="0 0 {width + 32} {height + 64}" role="img" aria-label="{safe_title}">',
+        '<rect width="100%" height="100%" fill="#080d18"/>',
+        f'<text x="16" y="24" fill="#67e8f9" font-family="monospace" font-size="12">{safe_title}</text>',
+    ]
+    for y, row in enumerate(projected):
+        for x, value in enumerate(row):
+            ratio = min(1.0, max(0.0, value / maximum))
+            red = round(20 + 216 * ratio)
+            green = round(232 - 181 * ratio)
+            blue = round(249 - 170 * ratio)
+            parts.append(f'<rect x="{16 + x * cell}" y="{40 + y * cell}" width="{cell}" height="{cell}" fill="rgb({red},{green},{blue})"/>')
+    parts.append('</svg>')
+    return "\n".join(parts) + "\n"

@@ -48,6 +48,13 @@
       "repository": "https://github.com/Ablation-Tool/pdf-signature-toolkit",
       "revision": "1198165962958c5132130f3854626ff39c333941"
     },
+    "agent-logging-system": {
+      "path": "components/agent-logging-system",
+      "repository": "https://github.com/Ablation-Tool/zoe",
+      "revision": null,
+      "includes": "Neurogarden operational oversight, Trinity verification, cited learning, and teaching tools",
+      "provenance": "Recovered local source snapshot; original nuclide-research remote was deleted and no upstream revision is available"
+    },
     "Chalkboard": {
       "path": "components/Chalkboard",
       "repository": "https://github.com/Ablation-Tool/Chalkboard",
@@ -55,5 +62,5 @@
       "includes": "Reusable ideas, templates, and prompts; content library, not a GUI process"
     }
   },
-  "scope": "Complete tracked source snapshots of all ten organization repositories including Zoe, imported with git subtree --squash. Component processes, evidence, and authorization remain distinct."
+  "scope": "Complete tracked source snapshots of eleven source projects including Zoe and the recovered Neurogarden component. Original imports used git subtree --squash; Neurogarden has no available upstream revision. Component processes, evidence, and authorization remain distinct."
 }

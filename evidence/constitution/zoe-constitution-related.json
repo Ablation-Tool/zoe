@@ -1,0 +1,7 @@
+{
+  "detached_cms_sha256": "ebb9ef779bc6577387406700f23b7392d02442622adbb4dc553e285f55c8b40a",
+  "layers": "RSA-3072 PDF/CMS signature plus Ed25519 QR author certificate",
+  "pdf_signing_certificate_sha256": "f87e29a7d55fbef49fa16d3e7f3f0f8619a229ab9986f1c9f254e57be7e9ed3c",
+  "sealed_latex_sha256": "6feb191c6f060e80bc38fca482b1cf819e344b3beb5ba55bf3194aeefcbfc973",
+  "source_record_sha256": "586ee62da0299dcd0d84a3f57b0744d53c4f62af93410a258e4d6514eb3d8507"
+}

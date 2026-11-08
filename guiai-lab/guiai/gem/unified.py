@@ -43,6 +43,7 @@ COMPONENTS = (
     Component("research", "Research GEM", "next-token-predictability", "https://github.com/Ablation-Tool/next-token-predictability", "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9", "Accessible-volume research, evidence packs, and mirrored workbench", "evidence/master-gem/conformance.json", ("",), "gem", ("os",), "graphics-environment-manager"),
     Component("kevlar", "Kevlar MCP firewall", "kevlar", "https://github.com/Ablation-Tool/kevlar", "8ac3e0181e98572d6c41f964385393aa441a5f2a", "MCP proxy firewall, content disarm, policy enforcement, and audit evidence", "kevlar.py", ("",), "kevlar", ("--help",)),
     Component("pdf", "PDF Signature Toolkit", "pdf-signature-toolkit", "https://github.com/Ablation-Tool/pdf-signature-toolkit", "1198165962958c5132130f3854626ff39c333941", "Reproducible source integrity records and detached PDF signatures", "pdf_signature_toolkit/verify.py", ("",), "pdf_signature_toolkit.verify", ("--help",)),
+    Component("neurogarden", "Neurogarden Agent Logging", "agent-logging-system", "https://github.com/Ablation-Tool/zoe", None, "OT-inspired oversight, Trinity verification, cited learning, and teaching tools", "agent_logging_system/adapters/neurogarden_adapter.py", ("",), "", (), None, True),
     Component("chalkboard", "Chalkboard library", "Chalkboard", "https://github.com/Ablation-Tool/Chalkboard", "63646eb15737d822316073ba1f2114c608571c72", "Reusable ideas, templates, and prompts for knowledge engineering", "README.md", ("",), "", (), None, True),
 )
 
@@ -160,8 +161,8 @@ class ComponentRegistry:
             "product": "Zoe allgems knowledge-engineering distribution",
             "root": str(self.root),
             "entrypoint_count": len(rows),
-            "repository_count": 10,
-            "upstream_repository_count": 9,
+            "repository_count": 11,
+            "upstream_repository_count": 10,
             "components": rows,
             "knowledge_engineering": {
                 "trust_context": "source, repository, revision, evidence scope, and authorization boundary",
@@ -216,7 +217,7 @@ def unified_scene(registry=None, knowledge=None):
     manifest = registry.manifest()
     knowledge_state = knowledge.knowledge_state()
     cyan, yellow, pink, green, muted = "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#9fb1c8"
-    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad"]
+    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a"]
     objects = [_rectangle("background", [0, 0, 1400, 1080], "#080d18", "#080d18")]
     objects.extend([
         _text("title", [40, 51], "Zoe · ALLGEMS", 29, cyan),
@@ -224,7 +225,7 @@ def unified_scene(registry=None, knowledge=None):
         _text("scope", [40, 109], f"{IDENTITY} · full source trees · one replayable knowledge field", 12, muted),
         _text("entrypoints", [45, 178], str(len(COMPONENTS)), 41, cyan),
         _text("entrypoint-label", [121, 175], "registered entrypoints", 15, muted),
-        _text("repositories", [45, 222], "9", 32, yellow),
+        _text("repositories", [45, 222], "10", 32, yellow),
         _text("repository-label", [101, 220], "upstream repositories + Zoe", 14, muted),
         _text("engine", [355, 178], "FULL", 28, pink),
         _text("engine-label", [451, 176], "Ablation core and framework", 14, muted),
