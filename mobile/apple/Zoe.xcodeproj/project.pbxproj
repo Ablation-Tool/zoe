@@ -70,6 +70,7 @@
 				A10000000000000000000028,
 				A1000000000000000000002B,
 				A1000000000000000000002F,
+				A10000000000000000000040,
 			);
 			path = Zoe;
 			sourceTree = "<group>";
@@ -80,6 +81,7 @@
 				A10000000000000000000029,
 				A1000000000000000000002A,
 				A1000000000000000000002D,
+				A10000000000000000000042,
 			);
 			name = ZoeCore;
 			path = ../shared/Sources/ZoeCore;
@@ -109,6 +111,8 @@
 				A1000000000000000000003B,
 				A1000000000000000000003C,
 				A1000000000000000000003D,
+				A10000000000000000000041,
+				A10000000000000000000043,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +255,10 @@
 		A1000000000000000000003C = {isa = PBXBuildFile; fileRef = A1000000000000000000002D; };
 		A1000000000000000000003D = {isa = PBXBuildFile; fileRef = A1000000000000000000002E; };
 		A1000000000000000000003E = {isa = PBXBuildFile; fileRef = A1000000000000000000002F; };
+			A10000000000000000000040 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrinityView.swift; sourceTree = "<group>"; };
+			A10000000000000000000041 = {isa = PBXBuildFile; fileRef = A10000000000000000000040; };
+			A10000000000000000000042 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrinityModels.swift; sourceTree = "<group>"; };
+			A10000000000000000000043 = {isa = PBXBuildFile; fileRef = A10000000000000000000042; };
 	};
 	rootObject = A10000000000000000000001;
 }

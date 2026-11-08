@@ -53,6 +53,7 @@
         <activity android:name=".CellActivity" android:exported="false" />
         <activity android:name=".FieldKitActivity" android:exported="false" />
         <activity android:name=".ResearchActivity" android:exported="false" />
+        <activity android:name=".TrinityActivity" android:exported="false" />
         <activity android:name=".ConversationActivity" android:exported="false" />
         <activity android:name=".MultiVisionActivity" android:exported="false" />
         <activity android:name=".RangingActivity" android:exported="false" />

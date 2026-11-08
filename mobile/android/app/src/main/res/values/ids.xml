@@ -62,4 +62,14 @@
     <item name="research_open_cell" type="id" />
     <item name="research_source" type="id" />
     <item name="research_status" type="id" />
+    <item name="trinity_status" type="id" />
+    <item name="trinity_probabilities" type="id" />
+    <item name="trinity_threshold" type="id" />
+    <item name="trinity_connect" type="id" />
+    <item name="trinity_measure" type="id" />
+    <item name="trinity_reset" type="id" />
+    <item name="trinity_tiny" type="id" />
+    <item name="trinity_mobile" type="id" />
+    <item name="trinity_laptop" type="id" />
+    <item name="trinity_history" type="id" />
 </resources>

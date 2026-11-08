@@ -22,6 +22,13 @@
     <string>Zoe captures microphone audio only for a voice command you explicitly start.</string>
     <key>NSSpeechRecognitionUsageDescription</key>
     <string>Zoe performs one-shot voice commands with on-device speech recognition when supported.</string>
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>Zoe Trinity connects only to a laptop address and pairing code you explicitly provide for shared local experiments.</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
     <key>UILaunchScreen</key>

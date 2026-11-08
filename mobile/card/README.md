@@ -36,7 +36,7 @@ Bitwise inversion is still bit flipping; it does not save storage by itself. The
 
 ## Native simulation inside Zoe
 
-The Android app includes **Tiny Zoe · Zoe Cell** on its simplified home screen, so development does not require a reader. `CellSimulator.java` is an original behavioral model of the two-command protocol; `CellCodec.java` performs bounded Q0.15 encoding and response validation. It runs actual requests through the model on the phone, including rejection paths and strict equality behavior.
+The Android app includes **Tiny Zoe · Zoe Cell** under **Field kit**, with its shared three-plane counterpart under **Trinity**, so development does not require a reader. `CellSimulator.java` is an original behavioral model of the two-command protocol; `CellCodec.java` performs bounded Q0.15 encoding and response validation. It runs actual requests through the model on the phone, including rejection paths and strict equality behavior.
 
 The protocol console exposes raw hexadecimal requests, full request/response bytes, ISO-style statuses, deterministic replay, and twelve in-memory transaction summaries. `CellSession.java` uses defensive copies and clears replay/history state on reset. An explicit **Share session** action exports retained request/response bytes, statuses, equation credit, and simulation disclaimers through Android's chooser; it writes no file, adds no timestamp or device identifier, and uploads nothing. Raw commands never leave the simulator except through that deliberate share action. Text, vector, command, and history bounds are tested with malformed, oversized, randomized, and mutation-focused cases. No simulator input authorizes an external action.
 
