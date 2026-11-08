@@ -875,6 +875,41 @@
       "limitations": "this is a historical broad narrative review with many secondary examples; no raw PET/CT or dynamic images, SUV measurements, arterial input functions, patient-level predictions, reference-standard labels, confidence intervals, complete cohort protocols, or external validation is supplied; illustrative plates and the single glioma reporter-cell example were not independently reproduced; detector checks are review prompts, not scanner tests; no tracer administration, treatment decision, or current guideline claim is made",
       "use": "photon_counting_review",
       "reviewed_at": "2026-11-08T16:36:03Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/014_c09.html": {
+      "source_sha256": "0a6615c9b97416589ef8f536908a9af6af0f604d848678013c80ef1fde80018a",
+      "concepts": [
+        "artificial immune systems use antigen/antibody representations, affinity-based selection, clonal expansion, mutation, and memory as computational optimization metaphors",
+        "an immune-inspired algorithm is not itself a nanoparticle synthesis method or evidence of immune evasion, targeted delivery, or therapeutic benefit",
+        "nanoparticle size, shape, surface charge, and targeting ligands require explicit design constraints and measured links to delivery, toxicity, and biological response",
+        "the chapter supplies no nanoparticle design variables, fitness function, training dataset, comparator, convergence criterion, or experimental evaluation",
+        "no brain-tumor model, blood–brain delivery measurement, pharmacokinetic result, biodistribution, toxicity assessment, or patient outcome is supplied",
+        "many references concern network security or unrelated biomedical topics rather than direct evidence for the chapter's immune-evading nanoparticle claims"
+      ],
+      "application": "Dorothy delivery-evidence gate: require a specified optimization objective, design constraints, baseline methods, and separately measured efficacy, immune clearance, blood–brain delivery, pharmacokinetics, biodistribution, and toxicity before considering an AIS-designed nanoparticle hypothesis",
+      "limitations": "this is a conceptual algorithm overview, not a reproducible computational or experimental study; no executable model, nanoparticle formulation, brain-tumor dataset, raw delivery measurement, toxicity result, or clinical evidence is supplied; no optimization, synthesis, cell, animal, or patient experiment was performed and no treatment or cure claim is made",
+      "no_tool_rationale": "No AIS optimizer or nanoparticle designer was implemented because the chapter does not define a nanoparticle representation, fitness function, parameter bounds, training data, baseline, convergence rule, or validation endpoint. Generating candidates without those specifications would not test immune evasion, blood–brain delivery, toxicity, or therapeutic efficacy.",
+      "reviewed_at": "2026-11-08T16:52:41Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/019_B9780128181485000096.html": {
+      "source_sha256": "ebfa1d98f5dd1e5f2b8d58f713680e0af6e1172b15ea2eccede2eeb4802281c8",
+      "concepts": [
+        "the proposed pipeline combines nonlocal-means filtering, neutrosophic membership mapping, and FCM guided by a modified PSO with linearly decreasing inertia",
+        "Table 1 specifies 150 iterations, 50 particles, c1=c2=2, and inertia from 0.98 to 0.45; four convergence plots do not establish convergence across the cohort or random seeds",
+        "Table 2 reports proposed sensitivity 0.9543, specificity 0.9858, Jaccard 0.8756, and Dice 0.9432 over 100 randomly selected images, with gains over NS-FCM of 0.0196, 0.0053, 0.0406, and 0.0231 respectively",
+        "equation 21's MathML labels the right side as 1 minus specificity and its linked display image is unrelated, so the printed artifact cannot be reused as a specificity definition",
+        "Dice and Jaccard means need not satisfy the single-count algebraic identity when averaging nonlinear image-level ratios; the chapter supplies no per-image counts to test that relationship",
+        "the public dataset has 3,064 images from 233 patients with patient IDs, tumor masks, and five-fold indices, but the selected 100 image IDs and exact dataset version are not reported",
+        "two illustrative segmentation examples and mean scores do not establish patient independence, external validation, diagnostic accuracy, treatment efficacy, or a cure"
+      ],
+      "application": "Dorothy segmentation-evidence audit using binary_confusion_metrics for the correct TN/(TN+FP) definition, while requiring selected image IDs, patient-level splits, dataset version, random seeds, raw masks, per-image metrics, and external validation before reproducing the PSO-FCM comparison",
+      "limitations": "the public metadata confirms dataset scale and available patient identifiers but not the chapter's exact subset or historical version; no selected IDs, patient-level assignments, raw predictions, ground-truth masks, per-image metrics, confidence intervals, statistical tests, executable implementation, or external cohort is supplied; no segmentation model was trained or evaluated; reported means and convergence examples were not independently reproduced; the equation artifact remains unresolved; no diagnosis, treatment, or cure claim is made",
+      "use": "binary_confusion_metrics",
+      "reviewed_at": "2026-11-08T17:01:11Z",
+      "external_sources": [
+        "https://api.figshare.com/v2/articles/1512427",
+        "https://ndownloader.figshare.com/files/51340418"
+      ]
     }
   }
 }

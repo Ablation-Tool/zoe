@@ -22,6 +22,7 @@ This tree preserves the available package, license, documentation, examples, and
 - MRI denoising review preserving Rician-noise, residual-anatomy, and metric-ordering limits; U251 hydrazine-probe review documenting absent raw microscopy and chemical/citation inconsistencies rather than claiming tumor or treatment validation.
 - Therapy-response imaging review preserving pseudoprogression, tracer, and small-cohort limits with an aggregate MET count audit rather than independent clinical validation.
 - PET quantification and tracer review preserving SUV/kinetic prerequisites and reporter-cell limits; strengthened four-class MRI audit with figure/table, dataset-citation, and unrelated-reference findings.
+- AIS nanoparticle-design review with an explicit no-tool rationale; direct PSO-FCM brain-tumor segmentation review with public Figshare provenance, a broken metric artifact, and unresolved subset/split/output evidence.
 - Fixed synthetic LQ/TCP/NTCP radiobiology review with explicit omitted biology, radiation-protection distinctions, numeric saturation, and no patient-specific treatment planning.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
