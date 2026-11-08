@@ -1,6 +1,6 @@
 <img src="assets/branding/zoe-eye.png" width="560" alt="Zoe allgems orbital eye emblem">
 
-# Zoe · allgems
+# Zoe
 
 **Zoe is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The eleven source projects are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
 
