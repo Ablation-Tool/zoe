@@ -155,7 +155,7 @@ The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subje
 
 ## External resource queue
 
-[`external-resources-v1.json`](../evidence/neurogarden/external-resources-v1.json) preserves **12 O'Reilly book links and nineteen infrastructure, learning, recognition, and application links** without adding them to the 35-book target or review coverage. None of the linked books was locally present. The two drawing pages probed returned HTTP 403; the others remain unprobed and unreviewed. PETSc, USC iLab, IBM, and Your.Org indexes were inspected only as directories. No Google Drive, mirror, package archive, or book full text was downloaded or redistributed.
+[`external-resources-v1.json`](../evidence/neurogarden/external-resources-v1.json) preserves **12 O'Reilly book links and twenty infrastructure, learning, recognition, and application links** without adding them to the 35-book target or review coverage. None of the linked books was locally present. The two drawing pages probed returned HTTP 403; the others remain unprobed and unreviewed. PETSc, USC iLab, IBM, and Your.Org indexes were inspected only as directories. No Google Drive, mirror, package archive, or book full text was downloaded or redistributed.
 
 The drawing contract treats Thumbelina as a proposed artistic persona with `narrative_confidence=0.99`, not empirical species or identity evidence. Current Artline source provides editable vector geometry but no verified visual subject recognizer. Future work must distinguish declared subject, drawing intent, geometry, style, provenance, and review; generating geometry is not proof of recognition or understanding.
 
@@ -165,7 +165,7 @@ TEEX and FEMA are preserved as Nicholas's reported learning influences and publi
 
 Official advisories directly credit Nicholas Michael Kloster for reporting [CISA ICSA-25-140-11 / CVE-2025-4364](https://www.cisa.gov/news-events/ics-advisories/icsa-25-140-11) and [Cisco CVE-2026-20241](https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-cert-mE9BD5GO). The other four 2026 identifiers in the profile screenshot remain user-reported attribution, as does Ablation's role. No profile or certificate image was imported, and no exploit, target test, or vendor-fix validation was performed. CISA's cyber-hygiene and K–12 resources are public references only; no enrollment, scan, or school assessment occurred. The 2022 training certificate remains user-provided rather than independently issuer-verified.
 
-CENTCOM and CYBERCOM are link-only public institutional context. Cyber incidents can have physical consequences, but these links create no affiliation, endorsement, contact, tasking, scanning, or operational authorization.
+CENTCOM, CYBERCOM, and the CIA are link-only public institutional context. Cyber incidents can have physical consequences, but these links create no endorsement or condemnation, affiliation, contact, tasking, intelligence activity, scanning, or operational authorization.
 
 ## Next reading queue
 
