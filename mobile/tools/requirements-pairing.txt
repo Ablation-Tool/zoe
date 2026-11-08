@@ -1,0 +1,4 @@
+cryptography==43.0.3
+qrcode==8.2
+Pillow==12.3.0
+zxing-cpp==2.3.0

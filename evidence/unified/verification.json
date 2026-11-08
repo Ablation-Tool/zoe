@@ -51,6 +51,27 @@
     "chalkboard": {
       "template_and_prompt_paths_verified": true,
       "content_only": true
+    },
+    "neurogarden": {
+      "focused_tests_passed": 21,
+      "original_examples_verified": true,
+      "isolated_wheel_verified": true,
+      "clinical_action_authorized": false
+    },
+    "qr_pairing_and_author": {
+      "tests_passed": 8,
+      "qr_roundtrip_verified": true,
+      "combined_images_byte_identical": true,
+      "exact_document_verification": true
+    },
+    "constitution": {
+      "source_seal_verified": true,
+      "pdf_sha256": "7968e16cc71d8d20bdde84d9590ae2578ead798f6ffa04622a803e3b7a783b15",
+      "pdf_signature_type": "adbe.pkcs7.detached",
+      "total_document_signed": true,
+      "rsa_pdf_certificate": "RSA-3072 self-signed",
+      "ed25519_author_certificate_verified": true,
+      "certificate_chain_validation": "not_checked; no CA or trusted timestamp claim"
     }
   },
   "zoe_regressions": {
@@ -64,9 +85,9 @@
     "headless_passed": 8,
     "native_passed": 8,
     "real_component_commands": true,
-    "source_observations": 11,
-    "declared_links": 10,
-    "chain_events": 21,
+    "source_observations": 13,
+    "declared_links": 12,
+    "chain_events": 25,
     "installed_graph_reload_passed": true,
     "vdi_verification": "vdi-verification.json"
   },

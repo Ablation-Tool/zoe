@@ -35,15 +35,15 @@ except (ImportError, ValueError):
 
 
 class UnifiedSourceCase(unittest.TestCase):
-    def test_all_ten_repositories_and_full_ablation_are_present(self):
+    def test_all_eleven_source_projects_and_full_ablation_are_present(self):
         lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
         self.assertEqual(lock["identity"], IDENTITY)
-        self.assertEqual(len(lock["components"]), 9)
-        self.assertEqual(len(COMPONENTS), 12)
+        self.assertEqual(len(lock["components"]), 10)
+        self.assertEqual(len(COMPONENTS), 13)
         manifest = REGISTRY.manifest()
-        self.assertEqual(manifest["repository_count"], 10)
-        self.assertEqual(manifest["upstream_repository_count"], 9)
-        self.assertEqual(manifest["entrypoint_count"], 12)
+        self.assertEqual(manifest["repository_count"], 11)
+        self.assertEqual(manifest["upstream_repository_count"], 10)
+        self.assertEqual(manifest["entrypoint_count"], 13)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
         self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe", "host"} for row in manifest["components"]))
         self.assertEqual(REGISTRY.source("chalkboard")["mode"], "bundled")
@@ -58,12 +58,14 @@ class UnifiedSourceCase(unittest.TestCase):
             "components/kevlar/policy.py",
             "components/pdf-signature-toolkit/pdf_signature_toolkit/verify.py",
             "components/Chalkboard/templates/README.template.md",
+            "components/agent-logging-system/agent_logging_system/adapters/neurogarden_adapter.py",
+            "components/agent-logging-system/docs/NEUROGARDEN.md",
         ):
             self.assertTrue((ROOT / relative).exists(), relative)
         self.assertTrue((ROOT / "assets/branding/orbital-emblem.png").is_file())
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 12)
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 11)
-        self.assertEqual(len(REGISTRY.knowledge.events), 23)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 13)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 12)
+        self.assertEqual(len(REGISTRY.knowledge.events), 25)
 
     def test_knowledge_observations_and_declared_links_preserve_boundaries(self):
         registry = ComponentRegistry(ROOT)
@@ -123,6 +125,8 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertEqual(environment["MASTER_GEM_RESEARCH_ROOT"], str(ROOT / "components/next-token-predictability"))
         with self.assertRaisesRegex(ValueError, "content library"):
             REGISTRY.command("chalkboard")
+        with self.assertRaisesRegex(ValueError, "content library"):
+            REGISTRY.command("neurogarden")
         with self.assertRaisesRegex(ValueError, "--db"):
             REGISTRY.command("cerotto")
 
@@ -153,8 +157,10 @@ class UnifiedSourceCase(unittest.TestCase):
                 self.assertEqual(zoe_main(["knowledge", "--output", str(knowledge)]), 0)
                 self.assertEqual(zoe_main(["manifest", "--output", str(manifest)]), 2)
                 self.assertEqual(zoe_main(["show", "chalkboard"]), 0)
+                self.assertEqual(zoe_main(["show", "neurogarden"]), 0)
             self.assertIn("chalkboard", stdout.getvalue())
-            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 12)
+            self.assertIn("neurogarden", stdout.getvalue())
+            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 13)
             self.assertEqual(KnowledgeField.load(knowledge).document(), REGISTRY.knowledge.document())
             with mock.patch("guiai.gem.atlas_view.launch_atlas") as launch:
                 self.assertEqual(zoe_main([]), 0)
@@ -167,9 +173,9 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(first.document["id"], "zoe-allgems")
         self.assertTrue(verify(first).passed, verify(first).text())
         self.assertTrue(verify_vdi(first).passed, verify_vdi(first).text())
-        self.assertEqual(report["knowledge"]["observation_count"], 12)
-        self.assertEqual(report["knowledge"]["link_count"], 11)
-        self.assertEqual(len(report["memory"]["events"]), 23)
+        self.assertEqual(report["knowledge"]["observation_count"], 13)
+        self.assertEqual(report["knowledge"]["link_count"], 12)
+        self.assertEqual(len(report["memory"]["events"]), 25)
         self.assertTrue(report["scene_only"])
         self.assertFalse(report["executed"])
         with tempfile.TemporaryDirectory() as directory:
@@ -211,13 +217,13 @@ class UnifiedNativeCase(unittest.TestCase):
     def test_native_hub_inspect_link_launch_and_memory(self):
         window = AtlasWindow("unified")
         try:
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 12)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 13)
             window.show_unified("chalkboard")
             self.assertIn("Chalkboard", window.summary.get_text())
             self.assertIn("Content inspection only", window.summary.get_text())
             window.record_unified_source("kevlar")
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 13)
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 11)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 14)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 13)
             with mock.patch.object(window.unified_registry, "launch", return_value=types.SimpleNamespace(pid=12345)) as launch:
                 window.launch_unified("kevlar", ["--help"])
                 launch.assert_called_once_with("kevlar", ["--help"], detach=True)

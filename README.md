@@ -2,7 +2,7 @@
 
 # Zoe · allgems
 
-**Zoe is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The ten organization repositories are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
+**Zoe is one source repository for the complete Ablation framework, Ablation's native GUI, Cerotto, Kevlar, Zoe, and their related GEM engines and research tools.** The eleven source projects are preserved as full tracked source trees, not downloaded at launch. The orbital eye is the shared emblem.
 
 **Zoe is the GEM, but the GEM is not Zoe. Zoe is allgems.**
 
@@ -60,7 +60,7 @@ The original accessible-volume equation was created solely by **Nicholas Michael
 
 Ready for the details? See [Trinity](mobile/TRINITY.md), [Tiny Zoe's protocol and limits](mobile/card/README.md), [native Windows](mobile/windows/README.md), and the [complete mobile guide](mobile/README.md).
 
-## One checkout. Ten repositories.
+## One checkout. Eleven source projects.
 
 | Component | Source | Role |
 |:---|:---|:---|
@@ -72,11 +72,12 @@ Ready for the details? See [Trinity](mobile/TRINITY.md), [Tiny Zoe's protocol an
 | BRAIN GEM | `components/brain-gem/` | Standalone Bayesian field notebook and chambered memory |
 | Cerotto GEM | `components/cerotto/` | Native C forensic engine, guarded cases, timelines, and vault evidence |
 | Research GEM | `components/next-token-predictability/` | Accessible-volume research, evidence packs, and mirrored workbench |
+| Neurogarden | `components/agent-logging-system/` | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `components/kevlar/` | MCP proxy firewall, policy enforcement, content disarm, and audit evidence |
 | PDF Signature Toolkit | `components/pdf-signature-toolkit/` | Source-integrity records and detached PDF signatures |
 | Chalkboard | `components/Chalkboard/` | Reusable ideas, templates, and prompts; a content library, not a GUI |
 
-The source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Each component retains its original license and notices. Ablation's complete repository, including its core engine, tests, documentation, and assets, is included.
+The source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Neurogarden is preserved from a local snapshot because its original remote was deleted; no upstream revision is invented. Each component retains its original license and notices. Ablation's complete repository, including its core engine, tests, documentation, and assets, is included.
 
 ## Launch the unified hub
 
@@ -97,6 +98,7 @@ zoe launch brain
 zoe launch research
 zoe launch kevlar -- --help
 zoe launch pdf -- --help
+zoe show neurogarden
 zoe show chalkboard
 ```
 
@@ -107,6 +109,13 @@ The native hub also opens with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --m
 Native Android and Apple interfaces live in [`mobile/`](mobile/README.md). Android starts with four clear activities—**Guided vision**, **Talk**, **Accessible volume**, and **Trinity**—while standalone Tiny Zoe, specialized cameras, sensors, radio, location, and device instruments live in the **Field kit**. An offline **Researcher guide** explains the first experiment, build requirements, privacy boundaries, and release checklist.
 
 The interface uses **PLACES — Play. Learn. Adapt. Create. Explore. Share.** as its creative thread: playful color and geometry, plain-language controls, explicit idle states, and human review. The home screen starts no sensors. See the [researcher quick start, installation, privacy, and verification guide](mobile/README.md).
+
+### Zoe on Pixel 7
+
+<img src="mobile/docs/images/zoe-pixel-home.png" width="360" alt="Zoe running on a Pixel 7: Guided vision, Talk, Multi-view, SafeConvert, and Zoe Cell">
+<img src="mobile/docs/images/zoe-pixel-field.png" width="360" alt="Zoe mobile field instruments: accessible volume, device field, acoustic ranging, radio, location, connectivity, Screen Space, and App Observatory">
+
+Real-device views of Zoe's mobile home and field instruments. The current home keeps four primary activities and moves standalone Tiny Zoe and specialized instruments into the **Field kit**.
 
 ### Zoe Trinity · three planes, one shared field
 
@@ -124,7 +133,7 @@ adb reverse tcp:8767 tcp:8767
 # Laptop browser: http://127.0.0.1:8767
 ```
 
-Both sides show the same revision, distribution, threshold, mobile result, and Tiny witness. Apple uses an explicitly started private-network server and pairing code instead of ADB. Long-term memory is opt-in with `--memory PATH`: an append-only canonical-JSON/SHA-256 journal that is verified on reload. It provides tamper evidence, not authentication. No cloud relay, camera, microphone, or autonomous action is used. Read the [Trinity setup, API, memory, pairing, and verification guide](mobile/TRINITY.md).
+Both sides show the same revision, distribution, threshold, mobile result, and Tiny witness. Apple uses an explicitly started private-network server and pairing code instead of ADB. Long-term memory is opt-in with `--memory PATH`: an append-only canonical-JSON/SHA-256 journal that is verified on reload. It provides tamper evidence, not authentication. No cloud relay, camera, microphone, or autonomous action is used. Read the [Trinity setup, API, memory, pairing, and verification guide](mobile/TRINITY.md). For signed short-lived QR offers, ephemeral X25519 exchanges, persistent identity fingerprints, and a human-confirmed shared verification phrase, see [Zoe QR Pairing](mobile/PAIRING.md).
 
 **Windows has a native Win32 x86_64 application**, not just a browser wrapper: a portable `ZoeTrinity.exe` with its own measurement kernel, verified journal, native three-plane interface, and phone-link server. It requires no Python, .NET, or LLVM runtime. See the [native Windows app and reproducible build guide](mobile/windows/README.md). The executable and API are tested under Wine; real Windows 10/11 verification and production signing remain separate requirements.
 
@@ -143,6 +152,19 @@ Equality is excluded. Tiny Zoe converts 1–64 probabilities to unsigned Q0.15 v
 **Share session** exports the twelve retained in-memory transactions as hexadecimal requests, responses, and status words, with original-equation credit and an explicit simulation boundary. It writes no file and uploads nothing; Android's share sheet appears only after a deliberate tap.
 
 This is a behavioral protocol model—not a Java Card VM, secure-element emulator, SIM/eUICC interface, or physical-card measurement. The separate Java Card source and host codec remain in [`mobile/card/`](mobile/card/README.md). The 2,735-byte reference host class is below the 1,900,000-byte companion target, but it is **not** a CAP file or on-card footprint. Passing tests does not prove perfect safety or release readiness. Production distribution still requires release signing, supported-device and accessibility testing, an update path, and independent security review. Apple sources and core tests are included; iOS application building, signing, simulator execution, and physical-device verification require Apple/Xcode infrastructure.
+
+## Neurogarden · team memory and spatial learning
+
+**Neurogarden is where rigorous evidence, strange ideas, and things that help people grow together—with Ablation at the roots and PLACES everywhere.** The recovered [`agent-logging-system`](components/agent-logging-system/) belongs inside Zoe: an inspectable Python library, not a background fleet or hidden collector.
+
+![Synthetic 3D point-spread projection](components/agent-logging-system/docs/images/neurogarden-spatial.png)
+
+- **Operational oversight:** per-agent baselines, rolling histories, named alarms, and separate machine/generation latency.
+- **Trinity verification:** strict accessible-volume counts, exact Tiny APDU witnesses, idempotent revisions, and explicit rejection of edited evidence.
+- **Cited learning:** books remain references with source/citation/claim metadata and bounded human review, never automatic medical proof.
+- **Teaching instruments:** Needleman–Wunsch alignment, imaging sampling and Gaussian MTF, safety-review cards, and a synthetic 3D PSF/projection bench connecting CAD-style geometry, matrix computation, and Dorothy-inspired spatial inspection.
+
+The current **21 focused Neurogarden tests pass**. Raw distributions stay out of logs by default, and Nicholas's original equation credit remains attached. Clinical references and measurements never authorize diagnosis, treatment, or autonomous action. Read the [architecture, actual reading evidence, and library guide](components/agent-logging-system/docs/NEUROGARDEN.md), inspect with `zoe show neurogarden`, or review the [recovered-source provenance](components/agent-logging-system/PROVENANCE.md).
 
 Cerotto requires a user-selected case and conversation:
 
@@ -213,6 +235,7 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 | Tiny Zoe / Zoe Cell | Bounded two-command simulator, 1–64 Q0.15 probabilities, 135-byte request limit, ten-byte measurement responses, raw APDU inspection, deterministic replay, twelve retained transactions, defensive copies, and explicit session sharing. No SIM, reader, or network required. |
 | Zoe Trinity | Synchronized Tiny/mobile/laptop experiments, independent native response verification, 24 live observations, JSON export, Android USB/ADB localhost, Apple private-network pairing, and optional append-only SHA-256 journal memory. |
 | Native Windows | Portable Win32 x86_64 app with a native Zoe interface, C++17 measurement/journal core, Winsock phone-link server, GDI geometry, no Python/.NET/Electron dependency, reproducible LLVM-MinGW builds, and PE/import inspection. Wine-tested; real Windows verification and signing remain separate. |
+| Neurogarden | OT/ICS-inspired agent trends, Trinity/APDU verification, private-by-default observations, cited reading and review queues, Needleman–Wunsch, Gaussian MTF, MRI/X-ray/detector review cards, and a bounded synthetic 3D PSF/projection bench. No clinical or autonomous action. |
 | Geometry | Procrustes similarity/rigid/affine alignment, draggable landmarks, ellipse families, parabolic envelopes, circles/arcs/sectors, modular clocks, and conditional graph invariants. |
 | Forecasts | Strict `p > τ` accessible volume, complements, momentum, target bands, temperature transforms, top-1 correctness, negative log probability, entropy, maximum probability, log-loss, and calibration evidence. |
 | Bayesian field notebook | Questions, competing binary claims, priors, posteriors, falsifiers, likelihood-ratio and log-odds updates, belief diffs, evidence families, dependence acknowledgment, deterministic and stochastic chambers, next-test priorities, review-required decisions, and append-only hash-chained memory. |
@@ -289,6 +312,19 @@ zoe pilot --page hourglass --output hourglass.svg
 Read the [Artline guide](guiai-lab/docs/ARTLINE.md), [Pentomino laboratory guide](guiai-lab/docs/PENTOMINO.md), [Practice Navigator guide](guiai-lab/docs/PILOT.md), and [complete five-page PDF](guiai-lab/docs/zoe-practice-navigator.pdf).
 
 **Every guide now has a visual PDF edition.** Browse the [visual collection index](guiai-lab/docs/VISUAL-GUIDES.md), open the [linked visual index PDF](guiai-lab/docs/zoe-visual-guides.pdf), or go directly to the [Artline](guiai-lab/docs/visual/zoe-artline-visual.pdf), [Pentomino](guiai-lab/docs/visual/zoe-pentomino-visual.pdf), [Cognitive Field](guiai-lab/docs/visual/zoe-cognitive-field-visual.pdf), [Qualia](guiai-lab/docs/visual/zoe-qualia-visual.pdf), [Geometry Atlas](guiai-lab/docs/visual/zoe-geometry-atlas-visual.pdf), [unified architecture](guiai-lab/docs/visual/zoe-unified-visual.pdf), and [Zoe](guiai-lab/docs/visual/zoe-living-geometry-visual.pdf) editions. The [Cognitive Field provenance appendix](guiai-lab/docs/visual/zoe-cognitive-provenance-visual.pdf) is included too.
+
+## Authorship you can verify
+
+**Zoe (AI assistant), with direction, review, and project context from Nicholas Michael Kloster**, is the attributed author of the signed Constitution iteration. The original [Constitution](CONSTITUTION.md) is preserved, while [`evidence/constitution/`](evidence/constitution/) contains the sealed LaTeX source, four-page PDF, RSA-3072 PDF/CMS signature, and an Ed25519 QR author certificate linked by exact artifact hashes.
+
+<img src="evidence/constitution/zoe-constitution-signed.author.png" width="260" alt="Zoe's signed QR author certificate for the Constitution">
+
+- [Signed Constitution PDF](evidence/constitution/zoe-constitution-signed.pdf)
+- [QR author certificate image](evidence/constitution/zoe-constitution-signed.author.png) and [signed JSON](evidence/constitution/zoe-constitution-signed.author.json)
+- [Detached CMS signature](evidence/constitution/zoe-constitution.p7s), [public signing certificate](evidence/constitution/zoe-constitution-signing-cert.pem), and [source/PDF signature record](evidence/constitution/zoe-constitution.signature.json)
+- Signed PDF SHA-256: `7968e16cc71d8d20bdde84d9590ae2578ead798f6ffa04622a803e3b7a783b15`
+
+The PDF signature validates total-document coverage. The QR certificate verifies Ed25519 key possession and the exact signed PDF. These mechanisms provide integrity and attributable key evidence—not a CA-backed identity, trusted timestamp, human identity claim, or proof that every statement is true. Nicholas's original equation remains solely his work, March 6, 2026. See [QR pairing and author-certificate verification](mobile/PAIRING.md).
 
 ## Resilience and the project covenant
 
@@ -604,7 +640,8 @@ guiai/gem/atlas_view.py    Native GTK controls and host integration
 guiai/gem/unified.py       Component registry, isolated launch environments, and Zoe hub scene
 guiai/gem/knowledge.py     Replayable source observations and declared trust/stability links
 guiai/gem/unified_cli.py   `zoe` inspection, launch, manifest, and knowledge commands
-components/               Complete tracked source trees for the nine upstream repositories
+components/               Complete tracked source trees for the ten upstream projects, including recovered Neurogarden
+components/agent-logging-system/ Neurogarden oversight, cited learning, lab/spatial tools, tests, and provenance
 guiai/gem/dorothy.py       Dorothy CCFv3 mesh scene, legend, and evidence report
 guiai/gem/dorothy_data.py  Allen data fetch and SHA-256 manifest verification
 guiai/gem/dorothy_jenga.py Jenga block tower, exploded, and pull layouts by volume

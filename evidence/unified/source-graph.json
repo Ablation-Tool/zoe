@@ -543,14 +543,65 @@
       "sequence": 21
     },
     {
-      "hash": "cf1b3db82b90a70cd1b2dfe39b8428e31164703991396319859dee88647962b8",
+      "hash": "e8a0f55dff7f96c429281157d2ce3ea8a02582518822694e6b2b993e2d2913c6",
+      "kind": "knowledge_observation_recorded",
+      "payload": {
+        "observation": {
+          "belief_updated": false,
+          "component": "neurogarden",
+          "executed": false,
+          "id": "k-12",
+          "observation": {
+            "anchor": "agent_logging_system/adapters/neurogarden_adapter.py",
+            "source_mode": "bundled",
+            "source_present": true,
+            "summary": "OT-inspired oversight, Trinity verification, cited learning, and teaching tools"
+          },
+          "stability_context": {
+            "process": "component-specific",
+            "replay": "canonical SHA-256 event chain",
+            "runtime_verified": false,
+            "state": "recorded, not inferred"
+          },
+          "trust_context": {
+            "repository": "https://github.com/Ablation-Tool/zoe",
+            "revision": null,
+            "scope": "Source registration only; runtime behavior is not inferred or verified.",
+            "source": "component registry source inventory"
+          }
+        }
+      },
+      "previous_hash": "dc199f6ae0e567946145a52c49a22cb053e2aacd35fa9353bbb017bc68bc8743",
+      "sequence": 22
+    },
+    {
+      "hash": "86eda26b53696cb3bb5bdc141f3f8d3922798eed5c65d2c6b33fbbe20e8eaa35",
+      "kind": "knowledge_link_recorded",
+      "payload": {
+        "link": {
+          "belief_updated": false,
+          "evidence_transfer": false,
+          "executed": false,
+          "id": "l-11",
+          "kind": "declared_context_link",
+          "permission_transfer": false,
+          "relation": "Shared source and trust context; no evidence or permission transfer.",
+          "source_observation_id": "k-12",
+          "target_component": "zoe"
+        }
+      },
+      "previous_hash": "e8a0f55dff7f96c429281157d2ce3ea8a02582518822694e6b2b993e2d2913c6",
+      "sequence": 23
+    },
+    {
+      "hash": "1ec27fbd367a8718bc84a77f3c75a46abc67f87143e0418763400b731d737d88",
       "kind": "knowledge_observation_recorded",
       "payload": {
         "observation": {
           "belief_updated": false,
           "component": "chalkboard",
           "executed": false,
-          "id": "k-12",
+          "id": "k-13",
           "observation": {
             "anchor": "README.md",
             "source_mode": "bundled",
@@ -571,27 +622,27 @@
           }
         }
       },
-      "previous_hash": "dc199f6ae0e567946145a52c49a22cb053e2aacd35fa9353bbb017bc68bc8743",
-      "sequence": 22
+      "previous_hash": "86eda26b53696cb3bb5bdc141f3f8d3922798eed5c65d2c6b33fbbe20e8eaa35",
+      "sequence": 24
     },
     {
-      "hash": "36781d83cea7c4c92a03a16577c55106e8966025ee06c5c0e8759498051d9e7f",
+      "hash": "94642c839469ef0bc4fcd7f27c18a1cce5af0637b3c89bf235d3fb841709e1c1",
       "kind": "knowledge_link_recorded",
       "payload": {
         "link": {
           "belief_updated": false,
           "evidence_transfer": false,
           "executed": false,
-          "id": "l-11",
+          "id": "l-12",
           "kind": "declared_context_link",
           "permission_transfer": false,
           "relation": "Shared source and trust context; no evidence or permission transfer.",
-          "source_observation_id": "k-12",
+          "source_observation_id": "k-13",
           "target_component": "zoe"
         }
       },
-      "previous_hash": "cf1b3db82b90a70cd1b2dfe39b8428e31164703991396319859dee88647962b8",
-      "sequence": 23
+      "previous_hash": "1ec27fbd367a8718bc84a77f3c75a46abc67f87143e0418763400b731d737d88",
+      "sequence": 25
     }
   ],
   "instrument": "gem-knowledge-field",

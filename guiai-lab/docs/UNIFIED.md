@@ -1,12 +1,12 @@
 # Zoe · allgems: unified architecture and verification
 
-Zoe is a single source repository containing the ten public Ablation-Tool organization repositories, including Zoe. The original repositories remain independent upstream projects. This repository does not require submodules or a runtime download to inspect their source.
+Zoe is a single source repository containing eleven source projects, including Zoe and the recovered Neurogarden component. Original upstream repositories remain independent projects. This repository does not require submodules or a runtime download to inspect their source.
 
-Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_CEROTTO_ROOT`, or `ZOE_CHALKBOARD_ROOT`. Bundled sources take precedence. Host sources are used only when their component anchors exist. Chalkboard remains a content library, not a GUI process.
+Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_CEROTTO_ROOT`, or `ZOE_CHALKBOARD_ROOT`. Bundled sources take precedence. Host sources are used only when their component anchors exist. Chalkboard and Neurogarden remain content/library inspection components, not fictitious GUI processes.
 
 ## Source and provenance
 
-[`components.lock.json`](../../components.lock.json) records the upstream repository and full revision for every imported source tree. The snapshots were imported with `git subtree --squash`, preserving their content, licenses, notices, and source-revision metadata.
+[`components.lock.json`](../../components.lock.json) records the upstream repository and full revision for every imported source tree. Original snapshots were imported with `git subtree --squash`, preserving their content, licenses, notices, and source-revision metadata. Neurogarden was recovered from a local snapshot after its original `nuclide-research` remote was deleted; no upstream revision is invented.
 
 | Source | Revision | Included role |
 |:---|:---|:---|
@@ -17,11 +17,12 @@ Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_
 | BRAIN GEM | `ed819c2824a55b019a532f4fa2cb440532030127` | Standalone Bayesian field notebook |
 | Cerotto | `5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4` | Native C forensic engine and guarded GEM workbench |
 | next-token-predictability | `83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9` | Accessible-volume research and saved evidence |
+| Neurogarden | unavailable; recovered local snapshot | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `8ac3e0181e98572d6c41f964385393aa441a5f2a` | MCP firewall and pure policy engine |
 | PDF Signature Toolkit | `1198165962958c5132130f3854626ff39c333941` | Source integrity and PDF signature commands |
 | Chalkboard | `63646eb15737d822316073ba1f2114c608571c72` | Ideas, templates, and prompts; content only |
 
-Eleven launch or inspection endpoints span those ten repositories because Ablation supplies both its core CLI and native Lab. Chalkboard has an inspection endpoint, not a fictitious GUI command.
+Thirteen launch or inspection endpoints span those eleven source projects because Ablation supplies both its core CLI and native Lab. Chalkboard and Neurogarden have inspection endpoints rather than fictitious GUI commands.
 
 ## The mesh
 
@@ -49,18 +50,19 @@ The native selector is **Zoe · allgems**. It supports:
 
 - Opening Zoe's Cognitive Field.
 - Launching the Ablation core CLI, native Ablation Lab, canonical GEM, HELEN, BRAIN, Cerotto, research workbench, Kevlar, and PDF verification.
-- Inspecting Chalkboard's content source without starting a process.
+- Inspecting Chalkboard and Neurogarden source without starting a process.
 - Recording source-context observations and declared links.
 - Exporting a component manifest or the knowledge graph.
 
 The default native Ablation Lab command is `gem launch --no-agent`. Cerotto launches only after a case database, case ID, and conversation ID are supplied. No component starts merely because the hub or its scene was opened.
 
-The selector also opens built-in creative modules: **Zoe Artline**, **Zoe Pentomino**, **Zoe Pentacube**, **Zoe Internal Clock**, **Zoe Practice Navigator**, **Zoe Resilience Atlas**, **Zoe Presence**, **Zoe Protocol Lab**, **Zoe Waveform Replay**, **Zoe Patchbay**, **Zoe Leadership Garden**, **Zoe Maison**, and **Zoe Evidence Navigator**. These are part of the Zoe source tree, not additional upstream repositories or new component endpoints. They retain the ten-repository manifest and twelve launch/inspection endpoints. The local CERN Workbench is an additional endpoint, not another upstream repository. Their editors, clocks, exports, and replay actions run only after explicit user interaction. Waveform Replay reads bounded VCD, legacy JSONL, normalized JSON, and optional WDB evidence only after an explicit path or command is supplied; matching signatures are not proof of signal identity or hardware behavior. Patchbay inspects firmware only after an explicit path, signs new update capsules through a separate CLI action, and requires both an execution flag and a hardware-write gate for applicable acceptance plans. Its native Cog produces review-only token forecasts, not commands. Leadership Garden records actual attempts, advice, mistakes, and append-only corrections without turning them into a leadership score or executing the next experiment. Maison applies executive clarity, luxury restraint, and enterprise evidence to that practice history; it is a separate design lens, not a global theme or an enterprise certification. Evidence Navigator retrieves source metadata before proposing a bridge, verifies source and compatibility hashes, and labels replay and sonification as synthetic rather than hardware measurements or protocol translations. Its `video` workflow invokes Nicholas Michael Kloster's original vidlib, created with Claude Code, as an external tool rather than a new source endpoint. Local search and indexing are explicit; network retrieval requires a user-supplied YouTube URL, and playlists require a separate flag. Transcript citations are not measurements, hardware evidence, or authorization for action. Pentacube adds thirty exact-cover pentomino regions and 24 legal outer/inner cube-turn variants with verified replay; its hints are non-optimal and never automatic, and its historical artifact inspector does not execute payloads or claim firmware validation. NuClide Research is a user-created co-brand and Digital Research homage, not a new component endpoint or an official DRI mark. Internal Clock uses exact software ticks and a bounded Act timer for local visual/replay events only after explicit user action; host cycles, hypothetical internal gates, daily entrainment, and synthetic environmental cues are not biological or CERN measurements, and no external actuator is authorized. The root [Declaration](../../DECLARATION.md) and [Constitution](../../CONSTITUTION.md) define the project's agency, honesty, privacy, accessibility, provenance, and review commitments.
+The selector also opens built-in creative modules: **Zoe Artline**, **Zoe Pentomino**, **Zoe Pentacube**, **Zoe Internal Clock**, **Zoe Practice Navigator**, **Zoe Resilience Atlas**, **Zoe Presence**, **Zoe Protocol Lab**, **Zoe Waveform Replay**, **Zoe Patchbay**, **Zoe Leadership Garden**, **Zoe Maison**, and **Zoe Evidence Navigator**. These are part of the Zoe source tree, not additional upstream repositories or new component endpoints. They retain the eleven-source-project manifest and thirteen launch/inspection endpoints. The local CERN Workbench is an additional endpoint, not another upstream repository. Their editors, clocks, exports, and replay actions run only after explicit user interaction. Waveform Replay reads bounded VCD, legacy JSONL, normalized JSON, and optional WDB evidence only after an explicit path or command is supplied; matching signatures are not proof of signal identity or hardware behavior. Patchbay inspects firmware only after an explicit path, signs new update capsules through a separate CLI action, and requires both an execution flag and a hardware-write gate for applicable acceptance plans. Its native Cog produces review-only token forecasts, not commands. Leadership Garden records actual attempts, advice, mistakes, and append-only corrections without turning them into a leadership score or executing the next experiment. Maison applies executive clarity, luxury restraint, and enterprise evidence to that practice history; it is a separate design lens, not a global theme or an enterprise certification. Evidence Navigator retrieves source metadata before proposing a bridge, verifies source and compatibility hashes, and labels replay and sonification as synthetic rather than hardware measurements or protocol translations. Its `video` workflow invokes Nicholas Michael Kloster's original vidlib, created with Claude Code, as an external tool rather than a new source endpoint. Local search and indexing are explicit; network retrieval requires a user-supplied YouTube URL, and playlists require a separate flag. Transcript citations are not measurements, hardware evidence, or authorization for action. Pentacube adds thirty exact-cover pentomino regions and 24 legal outer/inner cube-turn variants with verified replay; its hints are non-optimal and never automatic, and its historical artifact inspector does not execute payloads or claim firmware validation. NuClide Research is a user-created co-brand and Digital Research homage, not a new component endpoint or an official DRI mark. Internal Clock uses exact software ticks and a bounded Act timer for local visual/replay events only after explicit user action; host cycles, hypothetical internal gates, daily entrainment, and synthetic environmental cues are not biological or CERN measurements, and no external actuator is authorized. The root [Declaration](../../DECLARATION.md) and [Constitution](../../CONSTITUTION.md) define the project's agency, honesty, privacy, accessibility, provenance, and review commitments.
 
 Equivalent command examples:
 
 ```bash
 zoe list
+zoe show neurogarden
 zoe show chalkboard
 zoe launch ablation -- --help
 zoe launch gem-lab
@@ -89,9 +91,9 @@ PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   /usr/bin/python3 -m unittest stress.unified_stress -v
 ```
 
-The suite checks all ten source trees, full Ablation engine presence, manifest revisions, trust/stability metadata, graph replay, edited and reordered event detection, no-overwrite saves, content-library inspection, command isolation, actual component CLI calls, native launch and source-link controls, and Spatial IR/VDI verification.
+The suite checks all eleven source projects, full Ablation engine presence, manifest revisions, trust/stability metadata, graph replay, edited and reordered event detection, no-overwrite saves, content-library inspection, command isolation, actual component CLI calls, native launch and source-link controls, and Spatial IR/VDI verification.
 
-Component-specific verification uses each project's own commands. Cerotto's normal and sanitizer suites are required. Kevlar uses its full `pytest` suite. Canonical GEM and Zoe use their core and native X11 suites. Research uses the frozen evidence verifiers and the canonical 17-operation workbench check. PDF Signature Toolkit is exercised with a temporary synthetic LaTeX source record, not a real identity or production signature. Chalkboard is checked as content, including its documented template paths.
+Component-specific verification uses each project's own commands. Cerotto's normal and sanitizer suites are required. Kevlar uses its full `pytest` suite. Canonical GEM and Zoe use their core and native X11 suites. Research uses the frozen evidence verifiers and the canonical 17-operation workbench check. PDF Signature Toolkit is exercised with a temporary synthetic LaTeX source record, not a real identity or production signature. Chalkboard is checked as content, including its documented template paths. Neurogarden runs 21 focused tests for oversight, verification, privacy, citations, alignment/sampling math, metadata, and the synthetic spatial bench, plus its original examples and isolated wheel workflow. Zoe QR Pairing and author certificates run eight signed-offer, QR-roundtrip, replay, expiry, trust, and exact-document tests.
 
 Measured results for this integration:
 
@@ -100,6 +102,7 @@ Measured results for this integration:
 - Canonical GEM: **65 integration tests passed**, plus **30 tool-discovery checks in both core and native runs** and the **17-operation workbench check**.
 - Cerotto: **65 normal and 65 sanitizer tests passed**. Kevlar: **149 tests passed**. BRAIN: **16 tests passed**, including native workflows.
 - Research: **16 comparison cases** and **120 BioBERT cases verified**. PDF seal/verify and no-overwrite checks used a synthetic source record. Chalkboard template and prompt paths were checked.
+- Neurogarden: **21 focused tests passed** with original examples and isolated wheel verification. QR Pairing and author certificates: **8 tests passed**, including QR decoding, identical combined verification images, and exact-document author verification.
 - Unified integration: **8 headless and 8 native tests passed**, including real component commands, source graph replay, native controls, and VDI checks.
 - Zoe regressions: **31 existing tests with four optional skips**, **28 cognitive/GEM native regressions**, and **8 headless plus 8 native unified tests passed**.
 - Package: both wheel and source distribution built; the wheel installed into the isolated test runtime. The installed `zoe` entrypoint opened the native hub used for the screenshot below. The exported graph reloaded with 11 observations, 10 links, and 21 events. The actual VDI file passed `verify_vdi` in `vdi-verification.json`.

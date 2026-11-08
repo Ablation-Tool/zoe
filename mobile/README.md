@@ -219,7 +219,10 @@ mobile/
   tools/zoe_trinity.py    Loopback/private-LAN three-plane companion server
   tools/trinity_page.html Self-contained responsive laptop observation deck
   tools/trinity_memory.py Optional append-only verified journal
+  tools/zoe_pair.py     Signed short-lived QR pairing and trust verification
+  tools/zoe_author.py   Exact-document Ed25519 author certificates
   TRINITY.md              Phone/laptop setup, API, memory, and platform limits
+  PAIRING.md            QR pairing and author-certificate verification
   docs/images/            Captured Trinity desktop, responsive, and native Windows decks
   windows/                Native Win32 app, CMake build, and Windows guide
   dist/windows/           Local portable Windows artifacts and hashes (not a signed release)

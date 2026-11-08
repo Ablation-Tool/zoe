@@ -265,6 +265,28 @@
       "title": "PDF Signature Toolkit"
     },
     {
+      "anchor": "agent_logging_system/adapters/neurogarden_adapter.py",
+      "checkout": "agent-logging-system",
+      "default_args": [],
+      "identifier": "neurogarden",
+      "inspect_only": true,
+      "module": "",
+      "python_paths": [
+        ""
+      ],
+      "repository": "https://github.com/Ablation-Tool/zoe",
+      "revision": null,
+      "runtime_checkout": null,
+      "source": {
+        "mode": "bundled",
+        "path": "/home/cowboy/_projects/zoe/components/agent-logging-system",
+        "runtime_verified": false,
+        "source_present": true
+      },
+      "summary": "OT-inspired oversight, Trinity verification, cited learning, and teaching tools",
+      "title": "Neurogarden Agent Logging"
+    },
+    {
       "anchor": "README.md",
       "checkout": "Chalkboard",
       "default_args": [],
@@ -287,7 +309,7 @@
       "title": "Chalkboard library"
     }
   ],
-  "entrypoint_count": 12,
+  "entrypoint_count": 13,
   "execution": "explicit component launch only; no process is started by inspecting this manifest",
   "identity": "Zoe is allgems",
   "knowledge_engineering": {
@@ -295,8 +317,8 @@
     "trust_context": "source, repository, revision, evidence scope, and authorization boundary"
   },
   "product": "Zoe allgems knowledge-engineering distribution",
-  "repository_count": 10,
+  "repository_count": 11,
   "root": "/home/cowboy/_projects/zoe",
   "schema_version": 1,
-  "upstream_repository_count": 9
+  "upstream_repository_count": 10
 }

@@ -1,0 +1,25 @@
+{
+  "signature_version": 1,
+  "algorithm": "SHA-256",
+  "signer": "Zoe (AI assistant) [bc4fb81775bcd1bb5ef5c58c1fee18df5e5071a8565bcc2857995f9c7aa648fc]",
+  "timestamp_utc": "2026-11-08T08:35:17Z",
+  "payload_scope": "UTF-8 LaTeX source preceding \\section{Source signature}",
+  "payload_sha256": "0b76c82dcbcb1e05b5118ef63eec9f0a5de26169882c5745e7fd63a1efccedc2",
+  "signed_source_sha256": "6feb191c6f060e80bc38fca482b1cf819e344b3beb5ba55bf3194aeefcbfc973",
+  "integrity_note": "SHA-256 binds the named signer to the exact source payload and evidence values. This is not a third-party identity certificate.",
+  "pdf": {
+    "file": "zoe-constitution-signed.pdf",
+    "sha256": "7968e16cc71d8d20bdde84d9590ae2578ead798f6ffa04622a803e3b7a783b15",
+    "signature_type": "adbe.pkcs7.detached",
+    "total_document_signed": true,
+    "signature_validation": "cryptographically_valid",
+    "certificate_validation_during_signing": "not_checked",
+    "signature_file": "zoe-constitution.p7s",
+    "signature_sha256": "ebb9ef779bc6577387406700f23b7392d02442622adbb4dc553e285f55c8b40a",
+    "certificate_file": "zoe-constitution-signing-cert.pem",
+    "certificate_sha256": "f87e29a7d55fbef49fa16d3e7f3f0f8619a229ab9986f1c9f254e57be7e9ed3c",
+    "certificate_sha256_fingerprint": "e29be942cd15e491ced876a648dc41417a63fdd9e3e509aa339685e3ac729db3",
+    "attachment_count": 0,
+    "verification_utc": "2026-11-08T08:39:16Z"
+  }
+}
