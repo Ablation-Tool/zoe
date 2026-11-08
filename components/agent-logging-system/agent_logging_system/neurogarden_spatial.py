@@ -1,8 +1,61 @@
 """Synthetic 3D teaching space inspired by LSI imaging and Dorothy's geometry."""
 from dataclasses import dataclass
+from fractions import Fraction
 from html import escape
 import math
 from typing import List, Tuple
+
+
+def matrix_layout_review(matrix):
+    if not isinstance(matrix, (list, tuple)) or not 1 <= len(matrix) <= 8:
+        raise ValueError("matrix requires 1 to 8 rows")
+    if any(not isinstance(row, (list, tuple)) or not 1 <= len(row) <= 8 for row in matrix):
+        raise ValueError("matrix rows require 1 to 8 columns")
+    columns = len(matrix[0])
+    if any(len(row) != columns for row in matrix):
+        raise ValueError("matrix must be rectangular")
+    if any(not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value) or abs(value) > 1e12
+           for row in matrix for value in row):
+        raise ValueError("matrix values must be finite bounded numbers")
+    exact = [[Fraction(str(value)) for value in row] for row in matrix]
+    square = len(matrix) == columns
+    determinant = None
+    if square:
+        work = [row[:] for row in exact]
+        determinant = Fraction(1)
+        for column in range(columns):
+            pivot = next((row for row in range(column, columns) if work[row][column]), None)
+            if pivot is None:
+                determinant = Fraction(0)
+                break
+            if pivot != column:
+                work[column], work[pivot] = work[pivot], work[column]
+                determinant = -determinant
+            pivot_value = work[column][column]
+            determinant *= pivot_value
+            for row in range(column + 1, columns):
+                factor = work[row][column] / pivot_value
+                for index in range(column + 1, columns):
+                    work[row][index] -= factor * work[column][index]
+    singular = determinant == 0 if square else None
+    if not square:
+        inversion = "not applicable to a rectangular matrix"
+    elif singular:
+        inversion = "refused: zero determinant"
+    else:
+        inversion = "not computed; a nonzero determinant does not establish numerical conditioning"
+    return {
+        "shape": [len(matrix), columns],
+        "transpose": [list(row) for row in zip(*matrix)],
+        "diagonal": [matrix[index][index] for index in range(min(len(matrix), columns))],
+        "column_major": [matrix[row][column] for column in range(columns) for row in range(len(matrix))],
+        "square": square,
+        "determinant": None if determinant is None else int(determinant) if determinant.denominator == 1 else float(determinant),
+        "singular": singular,
+        "inversion": inversion,
+        "source": "MATLAB Numerical Calculations, chapter 4, matrix layout and exact-decimal determinant review",
+        "clinical_claim": False,
+    }
 
 
 @dataclass(frozen=True)
