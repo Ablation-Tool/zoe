@@ -56,7 +56,7 @@ The current full-corpus report contains **36 populated books, 1,458 chapters, an
 
 ## Current verification
 
-**51 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.7 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, GPT-3, and exact integer-complex exponentiation.
+**52 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.8 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, GPT-3, exact integer-complex exponentiation, and the post-quantum pairing review.
 
 ## Evidence boundaries
 

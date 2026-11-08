@@ -3,7 +3,7 @@ import pytest
 from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
     ai_risk_review, mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
-    complex_integer_power, translation_ratio, xray_review,
+    complex_integer_power, post_quantum_pairing_review, translation_ratio, xray_review,
 )
 
 
@@ -189,3 +189,20 @@ def test_complex_integer_power_reproduces_the_book_example_exactly():
         complex_integer_power(2, 3, 65)
     with pytest.raises(ValueError):
         complex_integer_power(2.5, 3, 2)
+
+
+def test_post_quantum_pairing_review_is_honest_about_current_limits():
+    review = post_quantum_pairing_review()
+    assert review["post_quantum_ready"] is False
+    assert review["current_vulnerable_algorithms"] == ["X25519", "Ed25519", "RSA-3072"]
+    assert review["qkd_is_not_pqc"]
+    assert len(review["qkd_limitations"]) == 4
+    assert "hybrid X25519 + ML-KEM" in review["research_path"][0]
+    assert "hybrid Ed25519 + ML-DSA" in review["research_path"][1]
+    assert review["algorithm_sources"]["ML-KEM"].endswith("203/final")
+    assert review["algorithm_sources"]["ML-DSA"].endswith("204/final")
+    assert review["algorithm_sources"]["SLH-DSA"].endswith("205/final")
+    assert not review["migration_implemented"]
+    assert not review["qkd_deployed"]
+    assert not review["network_called"]
+    assert not review["clinical_claim"]

@@ -196,6 +196,35 @@ def ai_risk_review() -> SafetyReview:
     )
 
 
+def post_quantum_pairing_review():
+    return {
+        "post_quantum_ready": False,
+        "current_vulnerable_algorithms": ["X25519", "Ed25519", "RSA-3072"],
+        "qkd_is_not_pqc": True,
+        "qkd_limitations": [
+            "authenticated source still requires asymmetric cryptography or preplaced keys",
+            "special-purpose hardware, distance, loss, and trusted-relay costs",
+            "hardware imperfections, validation difficulty, and side channels",
+            "denial-of-service risk and limited upgrade paths",
+        ],
+        "research_path": [
+            "evaluate hybrid X25519 + ML-KEM session establishment",
+            "evaluate hybrid Ed25519 + ML-DSA identity and author signatures",
+            "test downgrade handling, payload bounds, side channels, and transcript verification",
+        ],
+        "algorithm_sources": {
+            "ML-KEM": "https://csrc.nist.gov/pubs/fips/203/final",
+            "ML-DSA": "https://csrc.nist.gov/pubs/fips/204/final",
+            "SLH-DSA": "https://csrc.nist.gov/pubs/fips/205/final",
+        },
+        "qkd_source": "https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/",
+        "migration_implemented": False,
+        "qkd_deployed": False,
+        "network_called": False,
+        "clinical_claim": False,
+    }
+
+
 @dataclass(frozen=True)
 class ReadPlan:
     fragment_length_bases: int
