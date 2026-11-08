@@ -6,6 +6,27 @@ import math
 from typing import List, Tuple
 
 
+def spatial_piecewise_profile(value):
+    if not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value) or abs(value) > 1e12:
+        raise ValueError("profile input must be a finite bounded number")
+    if value <= -3:
+        result, branch = 0, "zero-low"
+    elif value < -2:
+        result, branch = value ** 3, "cubic"
+    elif value <= 2:
+        result, branch = value ** 2, "quadratic"
+    elif value < 3:
+        result, branch = value, "linear"
+    else:
+        result, branch = 0, "zero-high"
+    return {
+        "value": result,
+        "branch": branch,
+        "source": "MATLAB Numerical Calculations, chapter 6, exercise 6-6 fixed piecewise profile",
+        "clinical_claim": False,
+    }
+
+
 def matrix_layout_review(matrix):
     if not isinstance(matrix, (list, tuple)) or not 1 <= len(matrix) <= 8:
         raise ValueError("matrix requires 1 to 8 rows")

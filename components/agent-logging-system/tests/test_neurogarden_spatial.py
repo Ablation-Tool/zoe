@@ -2,8 +2,26 @@ import pytest
 
 from agent_logging_system.neurogarden_spatial import (
     Volume, average_pool, convolve, matrix_layout_review, project, projection_svg,
-    recovery_coefficient, sphere,
+    recovery_coefficient, sphere, spatial_piecewise_profile,
 )
+
+
+def test_spatial_piecewise_profile_reproduces_all_chapter_branches():
+    assert spatial_piecewise_profile(-3) == {
+        "value": 0,
+        "branch": "zero-low",
+        "source": "MATLAB Numerical Calculations, chapter 6, exercise 6-6 fixed piecewise profile",
+        "clinical_claim": False,
+    }
+    assert spatial_piecewise_profile(-2.5)["value"] == -15.625
+    assert spatial_piecewise_profile(-2.5)["branch"] == "cubic"
+    assert spatial_piecewise_profile(-2)["value"] == 4
+    assert spatial_piecewise_profile(2)["value"] == 4
+    assert spatial_piecewise_profile(2.5)["value"] == 2.5
+    assert spatial_piecewise_profile(2.5)["branch"] == "linear"
+    assert spatial_piecewise_profile(3)["branch"] == "zero-high"
+    with pytest.raises(ValueError):
+        spatial_piecewise_profile(float("nan"))
 
 
 def test_matrix_layout_review_preserves_shape_and_guards_singular_inverse():
