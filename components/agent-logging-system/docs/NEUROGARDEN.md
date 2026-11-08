@@ -153,6 +153,14 @@ python examples/neurogarden_library.py "/path/to/Zoe Brain Surgeon Course" \
 
 The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subject shelves, waiting directories, and intentional folder/title mismatches. Every entry is marked `cataloged`, never `fully read`. A snapshot taken on the current collection contained **32 directories: 22 with content and 10 waiting**. Downloads in another session were not interrupted.
 
+## External resource queue
+
+[`external-resources-v1.json`](../evidence/neurogarden/external-resources-v1.json) preserves **12 O'Reilly book links and eight infrastructure/application links** without adding them to the 35-book target or review coverage. None of the linked books was locally present. The two drawing pages probed returned HTTP 403; the others remain unprobed and unreviewed. PETSc, USC iLab, IBM, and Your.Org indexes were inspected only as directories. No Google Drive, mirror, package archive, or book full text was downloaded or redistributed.
+
+The drawing contract treats Thumbelina as a proposed artistic persona with `narrative_confidence=0.99`, not empirical species or identity evidence. Current Artline source provides editable vector geometry but no verified visual subject recognizer. Future work must distinguish declared subject, drawing intent, geometry, style, provenance, and review; generating geometry is not proof of recognition or understanding.
+
+Fortinet, HPE, and Juniper are user-suggested application areas only, with no endorsement, outreach, testing, or integration claim. HPE and Juniper were historically separate companies, not one company renamed; [HPE completed its acquisition of Juniper Networks on July 2, 2025](https://www.sec.gov/Archives/edgar/data/1645590/000114036125024519/ef20051378_ex99-1.htm).
+
 ## Next reading queue
 
 1. The remaining Needleman–Wunsch exercises and scoring comparisons, before adding substitution matrices or local alignment.

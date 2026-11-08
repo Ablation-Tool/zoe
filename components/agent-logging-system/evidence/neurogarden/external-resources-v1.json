@@ -1,0 +1,193 @@
+{
+  "schema": "neurogarden-external-resources-v1",
+  "cataloged_at": "2026-11-08T10:34:03Z",
+  "source": "user-supplied links and descriptions",
+  "coverage_effect": "none; linked metadata and directory listings are not chapter reviews or evidence of comprehension",
+  "local_corpus_policy": "No linked title was present in the 36 local book directories when checked. No full text, package, drive, or mirror was downloaded or redistributed.",
+  "resources": [
+    {
+      "id": "oreilly-9781394176106",
+      "kind": "book-link",
+      "slug": "resilience-confidence-and",
+      "isbn": "9781394176106",
+      "url": "https://learning.oreilly.com/library/view/resilience-confidence-and/9781394176106/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9781680457704",
+      "kind": "book-link",
+      "slug": "make-volume-82",
+      "isbn": "9781680457704",
+      "url": "https://learning.oreilly.com/library/view/make-volume-82/9781680457704/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9780760393475",
+      "kind": "book-link",
+      "slug": "how-to-draw",
+      "isbn": "9780760393475",
+      "url": "https://learning.oreilly.com/library/view/how-to-draw/9780760393475/",
+      "status": "linked-unreviewed",
+      "access": "http-403"
+    },
+    {
+      "id": "oreilly-9781394318100",
+      "kind": "book-link",
+      "slug": "space-architecture",
+      "isbn": "9781394318100",
+      "url": "https://learning.oreilly.com/library/view/space-architecture/9781394318100/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9781484210888",
+      "kind": "book-link",
+      "slug": "the-introverted-presenter",
+      "isbn": "9781484210888",
+      "url": "https://learning.oreilly.com/library/view/the-introverted-presenter/9781484210888/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9781119545880",
+      "kind": "book-link",
+      "slug": "drone-technology-in",
+      "isbn": "9781119545880",
+      "url": "https://learning.oreilly.com/library/view/drone-technology-in/9781119545880/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9781633228337",
+      "kind": "book-link",
+      "slug": "art-of-basic",
+      "isbn": "9781633228337",
+      "url": "https://learning.oreilly.com/library/view/art-of-basic/9781633228337/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9781484289891",
+      "kind": "book-link",
+      "slug": "industrial-robotics-control",
+      "isbn": "9781484289891",
+      "url": "https://learning.oreilly.com/library/view/industrial-robotics-control/9781484289891/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9780132963381",
+      "kind": "book-link",
+      "slug": "presentation-patterns-techniques",
+      "isbn": "9780132963381",
+      "url": "https://learning.oreilly.com/library/view/presentation-patterns-techniques/9780132963381/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9780419244301",
+      "kind": "book-link",
+      "slug": "the-architectural-expression",
+      "isbn": "9780419244301",
+      "url": "https://learning.oreilly.com/library/view/the-architectural-expression/9780419244301/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9780080943626",
+      "kind": "book-link",
+      "slug": "manual-of-engineering",
+      "isbn": "9780080943626",
+      "url": "https://learning.oreilly.com/library/view/manual-of-engineering/9780080943626/",
+      "status": "linked-unreviewed",
+      "access": "not-probed"
+    },
+    {
+      "id": "oreilly-9780760392508",
+      "kind": "book-link",
+      "slug": "meditative-drawing",
+      "isbn": "9780760392508",
+      "url": "https://learning.oreilly.com/library/view/meditative-drawing/9780760392508/",
+      "status": "linked-unreviewed",
+      "access": "http-403"
+    },
+    {
+      "id": "usc-ilab-packages",
+      "kind": "software-index",
+      "label": "USC iLab package index",
+      "url": "https://ilab.usc.edu/packages/",
+      "status": "index-inspected",
+      "scope": "Directory names and timestamps only; no package was selected, downloaded, license-checked, or claimed to provide drawing recognition."
+    },
+    {
+      "id": "petsc-release",
+      "kind": "scientific-software",
+      "label": "PETSc and TAO official release resources",
+      "url": "https://petsc.org/release/",
+      "status": "index-inspected",
+      "scope": "The official page identifies PDE solvers, optimization, language bindings, parallel backends, documentation, and citations. No installation or solver validation was performed."
+    },
+    {
+      "id": "ibm-public-software",
+      "kind": "software-index",
+      "label": "IBM public software directory",
+      "url": "https://public.dhe.ibm.com/software/",
+      "status": "index-inspected",
+      "scope": "Public directory navigation only; not a complete IBM catalogue, current support statement, package recommendation, or security assessment."
+    },
+    {
+      "id": "user-ibm-drive",
+      "kind": "user-reported-collection",
+      "label": "User-reported IBM Google Drive collection",
+      "url": "https://drive.google.com/drive/folders/1UcBYqiV9tEkLeax0ENUuZbw0r2DHr4b-",
+      "status": "not-ingested",
+      "scope": "Availability and coverage were not independently verified. Review requires explicit per-file selection, bibliographic identity, local content hashes, and redistribution boundaries."
+    },
+    {
+      "id": "microsoft-developer-mirror",
+      "kind": "historical-software-index",
+      "label": "Your.Org Microsoft developer mirror",
+      "url": "https://ftpmirror.your.org/pub/misc/ftp.microsoft.com/developr/",
+      "status": "index-inspected",
+      "scope": "Historical directory names only; no authenticity, current vendor support, package safety, or license review is inferred."
+    },
+    {
+      "id": "yourorg-misc-mirror",
+      "kind": "historical-software-index",
+      "label": "Your.Org miscellaneous mirror",
+      "url": "https://ftpmirror.your.org/pub/misc/",
+      "status": "index-inspected",
+      "scope": "Broad archive navigation only; no bulk download, execution, or ingestion is authorized by this record."
+    },
+    {
+      "id": "fortinet-application-idea",
+      "kind": "application-idea",
+      "label": "Fortinet future application area",
+      "url": "https://www.fortinet.com/",
+      "status": "idea-only",
+      "scope": "User-suggested possibility only; no vendor endorsement, product need, security testing, outreach, or integration claim."
+    },
+    {
+      "id": "hpe-juniper-application-idea",
+      "kind": "application-idea",
+      "label": "HPE and Juniper future application area",
+      "url": "https://www.hpe.com/us/en/home.html",
+      "status": "idea-only",
+      "relationship": "HPE and Juniper Networks were historically separate companies, not one company renamed. HPE completed its acquisition of Juniper Networks on July 2, 2025.",
+      "relationship_evidence": "https://www.sec.gov/Archives/edgar/data/1645590/000114036125024519/ef20051378_ex99-1.htm",
+      "scope": "User-suggested possibility only; no vendor endorsement, product need, security testing, outreach, or integration claim."
+    }
+  ],
+  "drawing_research_contract": {
+    "persona_reference": "Thumbelina, as proposed by the user",
+    "persona_status": "No existing Thumbelina or cat representation was found in the inspected Zoe source",
+    "narrative_confidence": 0.99,
+    "empirical_species_classification": false,
+    "identity_evidence": false,
+    "current_artline_evidence": "Editable vector geometry, layers, transformations, exports, and event history; no verified visual subject recognizer was found",
+    "semantic_requirement": "Keep declared subject, drawing intent, geometry, style, source provenance, and review separate. Geometry generation is not proof of visual recognition or understanding.",
+    "book_status": "Drawing books are queued links, not read sources; no drawing-training or art-instruction claim is made"
+  }
+}
