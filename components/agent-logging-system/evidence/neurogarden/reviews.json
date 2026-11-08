@@ -720,6 +720,48 @@
       "limitations": "only table counts are reproduced; patient identity, duplicate slices, leakage, raw predictions, confidence intervals, per-class support, code, and fitted models are absent; no model training, clinical validation, or treatment claim is made",
       "use": "brain_tumor_validation_review",
       "reviewed_at": "2026-11-08T15:15:17Z"
+    },
+    "The Internet of Medical Things/006_c01.html": {
+      "source_sha256": "4720c5ebc9785d5a8f87cb0f32b9750d4efff8501024ecc466a26bef7c7ac287",
+      "concepts": [
+        "homology models and docking scores generate target hypotheses rather than measured binding or efficacy",
+        "EGFR, K-ras, and TP53 are lung-cancer targets in this chapter, not brain-cancer targets",
+        "model validation, active-site selection, ligand preparation, and scoring conventions affect docking outcomes",
+        "wet-lab target engagement, blood–brain delivery, pharmacokinetics, toxicity, and patient outcomes remain separate requirements",
+        "scores from different docking tools and studies are not directly comparable"
+      ],
+      "application": "Dorothy target-evidence gate rejecting any interpretation of docking alone as proof of treatment, while preserving the chapter's wet-lab requirement",
+      "limitations": "the study is about lung-cancer proteins, not brain-cancer targets; raw model structures, docking parameters, and output files are absent, so scores were not independently reproduced; no binding assay, blood–brain delivery, pharmacokinetics, toxicity, clinical dosing, survival, or patient evidence is supplied",
+      "no_tool_rationale": "No docking run or candidate selection was performed because the raw structures, parameters, and BSP-Slim outputs needed for independent reproduction are unavailable. Wet-lab target engagement and delivery evidence are required before a treatment hypothesis can advance.",
+      "reviewed_at": "2026-11-08T15:24:36Z"
+    },
+    "Biomedical Imaging Principles/012_9781118271926c07.html": {
+      "source_sha256": "e99a2386c8a99f1d4ea92bef81fd4ac9c6ba2633c008b484fdec86a21268df46",
+      "concepts": [
+        "tracer evidence depends on isotope production, radiochemistry, quality control, detectors, reconstruction, input functions, and kinetic models",
+        "reporter imaging can measure delivery and expression without proving tumor killing or clinical benefit",
+        "scatter, dead time, attenuation, and nonlinear reconstruction can change quantitative results",
+        "SUV and binding potential are not unique measures of malignancy or treatment response without identifiability and competitor analysis",
+        "microdosing still requires ethical, radiation-safety, and regulatory review"
+      ],
+      "application": "Dorothy reporter and dose-occupancy evidence review using the existing photon-counting checklist for detector and quantification limits",
+      "limitations": "no raw dynamic images, arterial input functions, reporter constructs, cohort data, or validated kinetic models are supplied; historical examples were not independently reproduced; no tracer validation, gene-therapy efficacy, radiation-safety approval, clinical dosing, or cure claim is made",
+      "use": "photon_counting_review",
+      "reviewed_at": "2026-11-08T15:27:44Z"
+    },
+    "Biomedical Imaging Principles/013_9781118271926c08.html": {
+      "source_sha256": "c763646ab033f0ddd38d1206ccd13cad72927bdb0638c1ca4d24a23bc5f5f194",
+      "concepts": [
+        "fluorescence contrast depends on endogenous and exogenous reporters, tissue attenuation, scattering, autofluorescence, and delivery rather than abundance alone",
+        "excitation-field normalization can reduce spatial gain heterogeneity but cannot eliminate noise or an ill-posed inverse problem",
+        "point-spread and deconvolution processing cannot create missing detail",
+        "reporter expression and probe localization do not establish treatment efficacy",
+        "imaging geometry and penetration depth affect what can be measured"
+      ],
+      "application": "Dorothy synthetic PSF blur and peak-recovery demonstration to prevent deconvolution overclaim",
+      "limitations": "no raw fluorescence images, excitation fields, forward model, noise model, or cohort data are supplied; normalized and tomographic reconstructions were not independently validated; synthetic Gaussian PSF processing is not an actual fluorescence molecular tomography system, surgical guide, patient diagnosis, or treatment",
+      "use": "convolve; recovery_coefficient",
+      "reviewed_at": "2026-11-08T15:31:06Z"
     }
   }
 }
