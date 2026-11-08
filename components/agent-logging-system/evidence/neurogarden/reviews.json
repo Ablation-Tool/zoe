@@ -441,6 +441,18 @@
       "limitations": "historical wrappers and sandbox deployment were not installed or verified; no model output is reproduced, credential scanning is limited to common key shapes, and the Java example's embedded API-key-shaped string was not copied or tested",
       "use": "programming_request_review",
       "reviewed_at": "2026-11-08T11:52:47Z"
+    },
+    "GPT-3/011_xhtml-0-9.html": {
+      "source_sha256": "1fd07382a61c796dadb334dae4b9de2e952a51e5210979bae1b9aba73bc68a5b",
+      "concepts": [
+        "human curation and review remain necessary for interactive storytelling and business applications",
+        "pre-generation, bounded live interaction, and task-specific infrastructure can reduce cost and variability",
+        "real user value, worst-case evaluation, and vendor dependence matter more than model hype"
+      ],
+      "application": "creative-product and research review checklist covering human oversight, cost, evaluation, privacy, and claims of aliveness",
+      "limitations": "2021-2022 interviews and self-reported metrics are not independently reproduced evidence of current company status, product accuracy, safety, sentience, clinical validity, investment merit, or compatibility",
+      "no_tool_rationale": "No interactive persona, startup score, or product-evaluation tool was created: the case studies do not provide their datasets, prompts, implementations, or evaluation harnesses, so a demonstration would simulate evidence rather than verify it.",
+      "reviewed_at": "2026-11-08T12:02:39Z"
     }
   }
 }

@@ -14,7 +14,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Bounded affine/log-Euclidean SPD operations, a perfusion-stable Pennes teaching model, and neutrosophic membership similarity with three additional source-linked chapter reviews.
 - Complete BioCoder, Summer 2014 article reviews with current-SDS chemical guidance, idealized read-overlap geometry, and explicit hardware/wet-lab no-tool boundaries.
 - Complete BioCoder, Winter 2014 article reviews with an exploratory abundance-ratio teaching tool and explicit treatment, legal, organism-welfare, and tissue-processing boundaries.
-- GPT-3 preface and chapters 1–3 reviews, explicit artifact exclusions, offline prompt budgets, and credential-safe programming-request review with no model calls.
+- GPT-3 preface and chapters 1–4 reviews, explicit artifact exclusions, offline prompt budgets, credential-safe programming-request review, and startup-case-study no-tool rationale.
 - Version 0.6.5 packaging and focused verification.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.
