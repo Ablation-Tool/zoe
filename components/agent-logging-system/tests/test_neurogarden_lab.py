@@ -202,6 +202,8 @@ def test_post_quantum_pairing_review_is_honest_about_current_limits():
     assert review["algorithm_sources"]["ML-KEM"].endswith("203/final")
     assert review["algorithm_sources"]["ML-DSA"].endswith("204/final")
     assert review["algorithm_sources"]["SLH-DSA"].endswith("205/final")
+    assert review["qkd_source"].endswith("quantum-cryptographic-solutions-are-limited-compared-to-post-quantum-algorithms/")
+    assert "environmental degradation" in review["qkd_limitations"][2]
     assert not review["migration_implemented"]
     assert not review["qkd_deployed"]
     assert not review["network_called"]
