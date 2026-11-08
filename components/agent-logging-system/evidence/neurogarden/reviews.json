@@ -792,6 +792,37 @@
       "limitations": "this is a broad literature survey, not a common-protocol benchmark; no shared dataset, raw images, patient-level splits, predictions, fitted models, or external validation is supplied; cited model percentages and clinical generalizations were not independently reproduced; the synthetic count demonstration validates arithmetic only, not any cited model, segmentation, diagnosis, treatment, or patient outcome",
       "use": "binary_confusion_metrics",
       "reviewed_at": "2026-11-08T15:47:59Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/013_B9780128181485000047.html": {
+      "source_sha256": "d03c1ee0802e4d2060e42b7525d325a96f77932824edc11fbdd706ff38ac3f88",
+      "concepts": [
+        "Rician magnitude noise arises from Gaussian noise in real and imaginary complex channels; its squared-magnitude bias of 2 sigma squared differs from generic additive pixel noise",
+        "neutrosophic mapping uses local mean intensity, absolute local deviation, and complementary truth/false memberships before entropy-guided median or Wiener filtering",
+        "nonlocal means uses normalized patch-similarity weights, but filtering and bias-correction choices can remove anatomical structure as well as noise",
+        "PSNR, SSIM, Bhattacharyya coefficient, MAD, and residual images assess different properties and do not replace downstream lesion or tumor-task validation",
+        "the Brainweb experiments use simulated MS lesions, not brain tumors; the displayed clinical example is described as a normal brain rather than a tumor cohort result",
+        "Table 1's T2-weighted 9%-noise case has higher SSIM for NS Wiener at 0.9887 than NLNS Wiener at 0.9816, so universal superiority across every case and metric is unsupported"
+      ],
+      "application": "Dorothy MRI preprocessing review gate: preserve the exact noise model, reference volumes, complete filter and boundary settings, residual-anatomy review, and downstream lesion-task validation before accepting a denoising result; retain the Table 1 SSIM counterexample to universal method rankings",
+      "limitations": "source text and supplied figures were reviewed, but raw Brainweb and clinical volumes, patient-level metadata, noise realizations, reference implementations, all gamma/omega/delta settings, inverse transforms, and boundary conventions are unavailable; reported metrics were not independently recomputed from images; the clinical dataset description does not supply cohort-level denoising or tumor outcomes; no diagnosis, segmentation, treatment, or cure claim is made",
+      "no_tool_rationale": "No neutrosophic, NLM, Wiener, or Rician-bias-correction pipeline was implemented or applied to images because the exact source volumes, noise realizations, complete iteration settings, inverse transforms, and executable reference pipeline are not supplied. Existing synthetic Gaussian-PSF tools model blur, not this denoising method, and a generic filter would not independently validate the reported tables or preserve pathology.",
+      "reviewed_at": "2026-11-08T16:02:46Z"
+    },
+    "Biosensors Nanotechnology/017_c12.html": {
+      "source_sha256": "5f0af4194595d8b1f473fc15540a6b48bdb5952cb745c61f4abc863d3c5b82ea",
+      "concepts": [
+        "fluorescent chemosensors couple recognition and optical signaling through mechanisms including ICT, ESIPT, FRET, aggregation, quenching, and emission enhancement",
+        "calibration, matrix, selectivity, reversibility, photostability, and cytotoxicity are separate requirements from observing a fluorescence response",
+        "the chapter reports a coumarin-based hydrazine probe with a 3.2 ppb LOD and U251 glioma-cell imaging, but this does not establish a glioma biomarker, patient imaging, or treatment efficacy",
+        "LOD values in ppb and molar units across different matrices and probes are not directly comparable without units, molecular identity, and protocol context",
+        "Figure 12.9 supplies chemical structures rather than U251 microscopy; its coumarin/BODIPY numbering for sensors 17–18 conflicts with the adjacent text",
+        "Table 12.2 identifies the U251 row as Xu et al. 2018 while reference 52 gives Wu et al. 2015 at the same journal volume and page, so the citation requires primary-source resolution",
+        "the separate HeLa tryptamine-probe IC50 is reported as 29.16 micrograms without volume-normalized concentration units and cannot establish general biocompatibility"
+      ],
+      "application": "Dorothy probe-evidence gate for any future glioma-cell imaging review: resolve primary-source chemical identity and citation metadata, then require calibration, selectivity, raw microscopy, exposure and toxicity controls, and cell-line-specific interpretation before considering tumor relevance",
+      "limitations": "this is a literature survey, not a reproduced experiment; no raw U251 microscopy, spectral time series, full calibration, cell controls, hydrazine-exposure rationale, or patient data is supplied in the chapter; probe numbering and citation inconsistencies remain unresolved; general amine and polyamine associations with cancer are not brain-tumor evidence; no chemical synthesis, cell assay, diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No chemical synthesis, hydrazine handling, cell assay, microscopy processing, or LOD conversion was performed because the primary U251 images, calibration data, complete protocols, matrix context, and unambiguous probe identity are unavailable. A ppb-to-molar conversion or generic fluorescence filter would not repair the missing chemical and experimental evidence.",
+      "reviewed_at": "2026-11-08T16:07:20Z"
     }
   }
 }
