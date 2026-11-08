@@ -73,3 +73,31 @@ def test_empty_directories_remain_explicit(tmp_path):
     assert document["books"][0]["status"] == "waiting-for-content"
     assert document["coverage"]["chapters"] == 0
     assert document["coverage"]["understood"] is False
+
+
+def test_gpt3_artifacts_are_excluded_with_provenance(tmp_path):
+    artifacts = {
+        "001_nav.html": "navigation",
+        "002_xhtml-0-0.html": "title page",
+        "003_xhtml-0-1.html": "copyright",
+        "004_xhtml-0-2.html": "dedication",
+        "005_xhtml-0-3.html": "praise",
+        "007_xhtml-0-5.html": "contents",
+        "015_xhtml-0-13.html": "acknowledgements",
+        "016_xhtml-0-14.html": "author biography",
+        "017_xhtml-0-15.html": "author biography",
+    }
+    files = {name: f"<p>{reason}</p>" for name, reason in artifacts.items()}
+    files.update({
+        "006_xhtml-0-4.html": "<p>Preface</p>",
+        "008_xhtml-0-6.html": "<p>Chapter 1</p>",
+        "009_xhtml-0-7.html": "<p>Chapter 2</p>",
+    })
+    write_book(tmp_path, "GPT-3", files)
+    document = build(tmp_path)
+    book = document["books"][0]
+    assert len(book["chapters"]) == 3
+    assert len(book["excluded_artifacts"]) == 9
+    assert {item["reason"] for item in book["excluded_artifacts"]} == set(artifacts.values())
+    assert all(item["source"].startswith("GPT-3/") for item in book["excluded_artifacts"])
+    assert document["coverage"]["chapters"] == 3

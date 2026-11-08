@@ -393,6 +393,42 @@
       "limitations": "announcements do not establish current availability, eligibility, advice quality, program outcomes, or laboratory safety",
       "no_tool_rationale": "No service directory, eligibility checker, or protocol importer was created; links were not fetched and current authoritative requirements were not verified.",
       "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "GPT-3/006_xhtml-0-4.html": {
+      "source_sha256": "546bd002e31132a73755931661da85346f33e7bf34db2cc4bb5b62e677f00c04",
+      "concepts": [
+        "model-as-a-service presents a large language model through a text-in, text-out interface",
+        "the book addresses technical and nontechnical readers across foundations and applications"
+      ],
+      "application": "historical framing for hosted-model access, audience, and chapter scope",
+      "limitations": "2022 promotional framing does not establish universal access, current API terms, affordability, safety, or model understanding",
+      "no_tool_rationale": "The preface supplies navigation and motivation rather than an independently demonstrable method; no API access or application was created from it.",
+      "reviewed_at": "2026-11-08T11:43:30Z"
+    },
+    "GPT-3/008_xhtml-0-6.html": {
+      "source_sha256": "fc6988b5cf5d1a34611d22c6a8fedab3159b7f4c63239140a0708125fc29e925",
+      "concepts": [
+        "language models assign probabilities to text sequences and can reuse pretraining",
+        "transformer attention and decoder-only generation support zero-shot and few-shot task transfer",
+        "dataset language imbalance, bias, misinformation, and low-quality content remain risks"
+      ],
+      "application": "source-linked vocabulary and limitation review for language-model research",
+      "limitations": "historical claims and human-brain metaphors do not prove general intelligence, perfect multilingual output, human reasoning, current model availability, or independently reproduced dataset statistics",
+      "no_tool_rationale": "No model training or inference was inferred from broad historical claims; the review records concepts and limitations without claiming measured model capability.",
+      "reviewed_at": "2026-11-08T11:43:30Z"
+    },
+    "GPT-3/009_xhtml-0-7.html": {
+      "source_sha256": "603dffa06efce8d42f7b00947dc81202f7ad3fb8f87cb7fdd0fb6291e557049a",
+      "concepts": [
+        "prompt context and zero-shot or few-shot examples influence generated completions",
+        "temperature, top-p, response length, stop sequences, and penalties require task-specific review",
+        "historical token, pricing, privacy, and fine-tuning workflows have budget and data-stewardship consequences",
+        "classification, entity extraction, summarization, and generation can produce unreliable or false outputs"
+      ],
+      "application": "offline prompt hashing, approximate character-based token budgeting, and generation-parameter validation without credentials or network calls",
+      "limitations": "the four-characters-per-token estimate is not a model tokenizer or cost quote; 2022 engines, endpoints, prices, examples, and performance claims are historical and were not independently reproduced",
+      "use": "offline_prompt_plan",
+      "reviewed_at": "2026-11-08T11:43:30Z"
     }
   }
 }

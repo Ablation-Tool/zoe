@@ -2,7 +2,7 @@ import pytest
 
 from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
-    mri_review, photon_counting_review, translation_ratio, xray_review,
+    mri_review, offline_prompt_plan, photon_counting_review, translation_ratio, xray_review,
 )
 
 
@@ -116,3 +116,25 @@ def test_translation_ratio_uses_median_and_remains_exploratory():
         translation_ratio(4, [1, 0, 2])
     with pytest.raises(ValueError):
         translation_ratio(4, [1, float("nan"), 2])
+
+
+def test_offline_prompt_plan_estimates_budget_without_calling_a_model():
+    plan = offline_prompt_plan("abcdefghijklmnop", response_length=4, temperature=0.2)
+    assert plan.estimated_prompt_tokens == 4
+    assert plan.estimated_total_tokens == 8
+    assert plan.within_historical_budget
+    assert plan.temperature == 0.2
+    assert plan.top_p == 1
+    assert not plan.actual_tokenizer_used
+    assert not plan.network_called
+    assert not plan.clinical_claim
+    assert "abcdefghijklmnop" not in repr(plan)
+    assert offline_prompt_plan("x" * 9000, response_length=100).within_historical_budget is False
+    with pytest.raises(ValueError):
+        offline_prompt_plan("valid", response_length=0)
+    with pytest.raises(ValueError):
+        offline_prompt_plan("valid", temperature=-0.1)
+    with pytest.raises(ValueError):
+        offline_prompt_plan("valid", top_p=1.1)
+    with pytest.raises(ValueError):
+        offline_prompt_plan("x" * 16001)

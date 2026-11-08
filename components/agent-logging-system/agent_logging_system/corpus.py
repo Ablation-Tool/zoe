@@ -32,6 +32,19 @@ TERMS = {
     "imaging": ("imaging", "image", "microscopy", "tomographic"),
 }
 STOP_WORDS = NON_CONTENT
+BOOK_ARTIFACTS = {
+    "GPT-3": {
+        "001_nav.html": "navigation",
+        "002_xhtml-0-0.html": "title page",
+        "003_xhtml-0-1.html": "copyright",
+        "004_xhtml-0-2.html": "dedication",
+        "005_xhtml-0-3.html": "praise",
+        "007_xhtml-0-5.html": "contents",
+        "015_xhtml-0-13.html": "acknowledgements",
+        "016_xhtml-0-14.html": "author biography",
+        "017_xhtml-0-15.html": "author biography",
+    },
+}
 
 
 def sha256(path):
@@ -81,7 +94,9 @@ class TextParser(HTMLParser):
             self.heading[1].append(data)
 
 
-def content_file(path):
+def content_file(path, book=None):
+    if book in BOOK_ARTIFACTS and path.name in BOOK_ARTIFACTS[book]:
+        return False
     stem = path.stem.lower()
     return not any(stem == word or stem.endswith("_" + word) or word in stem for word in STOP_WORDS)
 
@@ -111,11 +126,19 @@ def chapter(path, book):
 
 def book(path):
     html = sorted(path.glob("*.html"))
-    chapters = [chapter(file, path.name) for file in html if content_file(file)]
+    chapters = [chapter(file, path.name) for file in html if content_file(file, path.name)]
+    excluded = [
+        {
+            "source": f"{path.name}/{file.name}",
+            "reason": BOOK_ARTIFACTS.get(path.name, {}).get(file.name, "filename classification"),
+        }
+        for file in html if not content_file(file, path.name)
+    ]
     return {
         "folder": path.name,
         "status": "cataloged" if html else "waiting-for-content",
         "html_files": len(html),
+        "excluded_artifacts": excluded,
         "chapters": chapters,
     }
 
