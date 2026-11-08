@@ -17,6 +17,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Complete GPT-3 review across all eight substantive sections, with explicit artifact exclusions, offline prompt and programming-request tools, an AI deployment checklist, and startup/enterprise/conclusion no-tool rationales.
 - Complete MATLAB Numerical Calculations review across all nine substantive sections, with exact bounded integer arithmetic, matrix/determinant review, a fixed spatial piecewise profile, and bounded Pennes time stepping.
 - Tumor-focused classification, collagen, and Fe@Au photothermal reviews with primary-source limitations, a bounded collagen mesh-scaling tool, and a count-based deep-learning narrative audit.
+- Tracer-imaging review preserving reporter, kinetic-model, and radiation-safety limits; fluorescence review distinguishing normalization and synthetic PSF recovery from independently validated molecular tomography or clinical evidence.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.14 packaging and focused verification.
