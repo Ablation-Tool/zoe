@@ -152,11 +152,13 @@ Chapter 6 adds `ai_risk_review()`, a static checklist for affected groups, synth
 
 ### MATLAB Numerical Calculations
 
-The introduction and first two chapters are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
+The introduction and first three chapters are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
 
 `complex_integer_power()` implements bounded exact integer-complex multiplication. For `(2+3i)^10`, it returns the chapter's exact `-341525-145668i` rather than a rounded display. Integer components are bounded and exponents are limited to 0–64; general complex powers, symbolic algebra, MATLAB syntax, and Maple integration are not claimed. The introduction has a no-tool rationale because it is a capability overview rather than an independent numerical method.
 
 Chapter 2 adds exact bounded `gcd_lcm()`, `binomial_coefficient()`, `convert_base_number()`, and `divisor_summary()` tools. Verified examples include GCD 125, LCM 5000, `45 choose 9 = 886163135`, binary `100101 → 37`, decimal `242345341 → E71E57D`, and one million having 49 divisors summing to 2,480,437. Inputs and outputs are bounded; no Diophantine solver, symbolic algebra, or Maple integration is inferred.
+
+Chapter 3 reviews rational and continued fractions, irrational and algebraic representations, real and complex functions, Gaussian integers, approximation, types, and pseudorandom generation. Its Dorothy application is a numerical-representation and precision review. No new tool was added because the broad historical command survey supplies no atlas-specific algorithm. Rational display formatting is not treated as proof of exact floating-point storage; MATLAB/Maple outputs, complex branches, and random examples were not independently reproduced.
 
 ### QKD and post-quantum pairing
 
