@@ -1,4 +1,4 @@
-"""Bounded SPD, bioheat, and neutrosophic teaching models from cited chapters."""
+"""Bounded SPD, bioheat, radiobiology, and neutrosophic teaching models from cited chapters."""
 import math
 
 SPD_SOURCE = "Riemannian Geometric Statistics in Medical Image Analysis, chapter 3, sections 3.2, 3.3.1, and 3.6.1"
@@ -152,3 +152,69 @@ def neutrosophic_similarity(left, right):
     if left_norm == 0 or right_norm == 0:
         raise ValueError("similarity requires nonzero membership vectors")
     return numerator / (left_norm * right_norm)
+
+
+def linear_quadratic_survival(dose_per_fraction, fractions, alpha, beta):
+    values = (dose_per_fraction, alpha, beta)
+    if any(not isinstance(value, (int, float)) or isinstance(value, bool) or not math.isfinite(value)
+           for value in values):
+        raise ValueError("LQ parameters must be finite numbers")
+    if not isinstance(fractions, int) or isinstance(fractions, bool) or not 1 <= fractions <= 1000:
+        raise ValueError("fractions must be a bounded positive integer")
+    if not 0 < dose_per_fraction <= 1000 or not 0 <= alpha <= 100 \
+            or not 0 <= beta <= 100 or alpha + beta == 0:
+        raise ValueError("invalid LQ dose or coefficients")
+    return math.exp(-fractions * dose_per_fraction * (alpha + beta * dose_per_fraction))
+
+
+def radiobiology_model_review():
+    survival = []
+    for fractions in (1, 2, 5):
+        dose = 15 / fractions
+        survival.append({
+            "fractions": fractions,
+            "dose_per_fraction_gy": dose,
+            "tumor_survival": linear_quadratic_survival(dose, fractions, 0.35, 0.035),
+            "normal_tissue_survival": linear_quadratic_survival(dose, fractions, 0.15, 0.05),
+        })
+    tumor_survival = linear_quadratic_survival(2, 25, 0.35, 0.035)
+    tcp = []
+    for volume_cm3 in (0.1, 1, 10, 100):
+        expected_survivors = 1e7 * volume_cm3 * tumor_survival
+        tcp.append({
+            "volume_cm3": volume_cm3,
+            "clonogenic_cells": 1e7 * volume_cm3,
+            "expected_survivors": expected_survivors,
+            "tcp": math.exp(-expected_survivors),
+        })
+    normal_survival = linear_quadratic_survival(1.2, 50, 0.15, 0.05)
+    fsu_failure = (1 - normal_survival) ** 10000
+    serial_ntcp = [{
+        "irradiated_fsus": count,
+        "fsu_failure_probability": fsu_failure,
+        "ntcp": -math.expm1(count * math.log1p(-fsu_failure)),
+    } for count in (1, 10, 100, 1000)]
+    return {
+        "survival_at_total_15_gy": survival,
+        "tcp_at_total_50_gy": tcp,
+        "tcp_parameters": {"fractions": 25, "dose_per_fraction_gy": 2, "alpha": 0.35, "beta": 0.035, "density_per_cm3": 1e7},
+        "serial_ntcp_at_total_60_gy": serial_ntcp,
+        "ntcp_parameters": {"fractions": 50, "dose_per_fraction_gy": 1.2, "alpha": 0.15, "beta": 0.05, "cells_per_fsu": 10000, "normal_cell_survival": normal_survival},
+        "assumptions": [
+            "complete repair between fractions, uniform dose, and identical independent cells",
+            "Poisson probability of zero surviving clonogenic tumor cells",
+            "serial-organ FSU failure requires all 10,000 constituent cells to be killed",
+        ],
+        "omitted": ["repopulation", "redistribution", "incomplete repair", "reoxygenation", "heterogeneity", "inhomogeneous dose", "patient-specific outcomes"],
+        "numeric_precision": "IEEE-754 double; probabilities may round to 0 or 1",
+        "radiation_protection": {
+            "effective_dose_is_not_absorbed_treatment_dose": True,
+            "lnt_low_dose_estimates_are_model_dependent": True,
+            "current_jurisdiction_limits_verified": False,
+        },
+        "source": "Biomedical Imaging (De Gruyter), sections 5.4.4–5.5.3, equations 5.98 and 5.101–5.107",
+        "synthetic": True,
+        "patient_specific": False,
+        "treatment_planning_authorized": False,
+        "clinical_claim": False,
+    }

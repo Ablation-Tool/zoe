@@ -823,6 +823,38 @@
       "limitations": "this is a literature survey, not a reproduced experiment; no raw U251 microscopy, spectral time series, full calibration, cell controls, hydrazine-exposure rationale, or patient data is supplied in the chapter; probe numbering and citation inconsistencies remain unresolved; general amine and polyamine associations with cancer are not brain-tumor evidence; no chemical synthesis, cell assay, diagnosis, treatment, or cure claim is made",
       "no_tool_rationale": "No chemical synthesis, hydrazine handling, cell assay, microscopy processing, or LOD conversion was performed because the primary U251 images, calibration data, complete protocols, matrix context, and unambiguous probe identity are unavailable. A ppb-to-molar conversion or generic fluorescence filter would not repair the missing chemical and experimental evidence.",
       "reviewed_at": "2026-11-08T16:07:20Z"
+    },
+    "Biomedical Imaging (Elsevier)/013_CHP004.html": {
+      "source_sha256": "6f7d74dc2204dccdf2b5c7e621dc5a13e0a8435d893f2080e61631f9a6afe49b",
+      "concepts": [
+        "contrast enhancement and structural MRI change cannot reliably separate recurrent tumor from radiation necrosis, pseudoprogression, pseudoresponse, or altered blood–brain barrier permeability",
+        "MRS metabolite ratios, ADC, and perfusion rCBV probe different biology and are affected by contralateral references, edema, contrast leakage, acquisition, and analysis choices",
+        "FDG, amino-acid tracers MET/FET/FDOPA, FLT, and FMISO measure different aspects of metabolism, transport, proliferation, and hypoxia rather than interchangeable tumor truth",
+        "FDG sensitivity can coexist with poor post-therapy specificity because normal brain and inflammation also take up tracer",
+        "the cited 21-patient metastasis study identifies 7/9 recurrences and 10/12 radiation injuries; aggregate counts give recall 77.78%, specificity 83.33%, and accuracy 80.95% without independent model evaluation",
+        "FLT can have limited low-grade-glioma sensitivity when the blood–brain barrier is intact, and reduced FLT uptake in an illustrative case is not proof of survival benefit",
+        "the chapter's historical WHO classifications, treatment thresholds, and small cohort examples are not current patient-specific guidance or a universal imaging standard"
+      ],
+      "application": "Dorothy therapy-response evidence review using binary_confusion_metrics with TP=7, TN=10, FP=2, FN=2 to reproduce the MET study's aggregate rates; require histology or longitudinal ground truth, modality-specific acquisition and leakage corrections, patient-level data, and external validation before treating an imaging biomarker as a response decision",
+      "limitations": "this is a historical narrative review with small cited cohorts and illustrative plates rather than a reproducible comparative trial; no raw dynamic PET/MRI images, spectra, patient-level predictions, reference-standard labels, confidence intervals, complete treatment data, or external validation is supplied; linked plates illustrate MRS, FDG pseudoprogression, and FLT response but do not independently establish histology, recurrence, survival, treatment efficacy, or a cure; no tracer or patient study was performed",
+      "use": "binary_confusion_metrics",
+      "reviewed_at": "2026-11-08T16:14:17Z"
+    },
+    "Biomedical Imaging (De Gruyter)/029_12_chapter05_5.html": {
+      "source_sha256": "dea74309c11dafb44da2c520c278ff9ef18e8483d1fa5fb78de29f8a1a0eca4c",
+      "concepts": [
+        "the linear-quadratic model gives survival exp(-n*d*(alpha+beta*d)) under complete repair and uniform repeated conditions; fractionation changes tumor and normal-tissue responses differently",
+        "repopulation, redistribution, repair, and reoxygenation can change actual fractionation outcomes and are omitted from the simplest equations",
+        "Poisson TCP models zero surviving clonogenic cells and depends on clonogenic density, tumor volume, dose, and radiosensitivity rather than imaging size alone",
+        "the fixed synthetic example with 100 cm3, density 10^7/cm3, 25 fractions of 2 Gy, alpha=0.35 and beta=0.035 gives TCP approximately 0.46848, not a patient prognosis",
+        "serial NTCP increases with the number of irradiated FSUs; parallel NTCP instead uses a binomial tail for at least M failed FSUs",
+        "absorbed treatment dose in Gy, equivalent dose, and effective dose in Sv are distinct quantities; stochastic LNT protection models are not deterministic tumor-control models",
+        "historical ICRP weights, German exposure averages, and LNT risk estimates are not current jurisdiction-specific limits or individualized clinical predictions"
+      ],
+      "application": "Dorothy bounded radiobiology_model_review reproduces the chapter's fixed LQ survival, Poisson TCP, and serial-FSU NTCP examples, preserves omitted biological assumptions and floating-point saturation, and marks treatment planning and current-limit verification as unauthorized",
+      "limitations": "only fixed synthetic formula demonstrations are implemented; parallel-organ NTCP, inhomogeneous dose, heterogeneity, repopulation, redistribution, incomplete repair, reoxygenation, and patient-specific outcomes are not modeled; no patient anatomy, dose-volume histogram, measured radiosensitivity, clonogenic count, clinical outcome, or external validation is supplied; probabilities may round to 0 or 1; no dose optimization, radiation exposure, treatment recommendation, or cure claim is made",
+      "use": "radiobiology_model_review",
+      "reviewed_at": "2026-11-08T16:24:07Z"
     }
   }
 }
