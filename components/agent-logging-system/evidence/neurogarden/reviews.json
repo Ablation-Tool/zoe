@@ -453,6 +453,18 @@
       "limitations": "2021-2022 interviews and self-reported metrics are not independently reproduced evidence of current company status, product accuracy, safety, sentience, clinical validity, investment merit, or compatibility",
       "no_tool_rationale": "No interactive persona, startup score, or product-evaluation tool was created: the case studies do not provide their datasets, prompts, implementations, or evaluation harnesses, so a demonstration would simulate evidence rather than verify it.",
       "reviewed_at": "2026-11-08T12:02:39Z"
+    },
+    "GPT-3/012_xhtml-0-10.html": {
+      "source_sha256": "71bfad56ad36522b62a8b2d0b19f388aacdc60c23559dcf271a8693a03e64a07",
+      "concepts": [
+        "enterprise adoption requires explicit retention, extraction, access-control, and data-processing terms",
+        "latency, cost, context size, suggestion quality, and user experience must be measured together",
+        "hybrid retrieval and smaller models can help, but production still needs application-specific evaluation and human review"
+      ],
+      "application": "enterprise adoption risk review covering privacy, compliance claims, cost, latency, accessibility, and real user problems",
+      "limitations": "2021-2022 interviews and product metrics are not independently reproduced; current compliance certifications, geofencing, private networking, security, accessibility, accuracy, or return on investment are not established",
+      "no_tool_rationale": "No enterprise compliance or production benchmark was fabricated: proprietary data, architectures, policies, evaluation sets, and service terms are unavailable for a valid independent demonstration.",
+      "reviewed_at": "2026-11-08T12:11:04Z"
     }
   }
 }

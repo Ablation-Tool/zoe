@@ -140,13 +140,13 @@ The medical-device essay does not authorize insulin dosing, pump control, implan
 
 The title page identifies *GPT-3: The Ultimate Guide to Building NLP Products with OpenAI API* by Sandra Kublik and Shubham Saboo. The inventory preserves eight substantive sections and ten cover/front/back-matter artifacts with explicit exclusion reasons.
 
-The preface and first four chapters are reviewed. Their useful lesson is not “the model knows”: prompt context, pretraining, attention, and zero/few-shot examples shape outputs, while dataset imbalance, bias, unreliable generation, token cost, and uploaded-data stewardship remain limits.
+The preface and first five chapters are reviewed. Their useful lesson is not “the model knows”: prompt context, pretraining, attention, and zero/few-shot examples shape outputs, while dataset imbalance, bias, unreliable generation, token cost, and uploaded-data stewardship remain limits.
 
 `offline_prompt_plan()` implements a bounded offline exercise from chapter 2. It stores a SHA-256 prompt digest rather than the prompt, estimates prompt tokens as `ceil(characters / 4)`, adds the requested response length, checks the historical 2,048-token budget, and validates temperature and top-p in `[0, 1]`. `actual_tokenizer_used=False` and `network_called=False` are explicit. Historical engines, endpoint shapes, prices, performance anecdotes, and fine-tuning claims were not reproduced.
 
 Chapter 3 adds `programming_request_review()`: bounded historical engine selection, frequency-penalty and stop-sequence checks, and rejection of common OpenAI-key-shaped prompt content. The Java example's embedded key-shaped string was not copied, tested, or retained in evidence. No third-party library, deployment, or model call occurs.
 
-Chapter 4 distinguishes startup interviews from independently validated product evidence. Its review preserves human curation, pre-generation, bounded live interaction, worst-case evaluation, real user value, and vendor-dependence concerns. No interactive persona, startup score, or product-evaluation tool was created because the datasets, prompts, implementations, and evaluation harnesses are absent. Chapters 5–6 and the conclusion remain pending.
+Chapters 4–5 distinguish startup and enterprise interviews from independently validated product evidence. Their reviews preserve human curation, pre-generation, bounded live interaction, worst-case evaluation, real user value, vendor dependence, data-processing terms, cost, latency, and accessibility concerns. No interactive persona, startup score, compliance claim, or production benchmark was created because the datasets, prompts, implementations, architectures, policies, and evaluation harnesses are absent. Chapter 6 and the conclusion remain pending.
 
 ### De Gruyter Handbook of Humor Studies
 
