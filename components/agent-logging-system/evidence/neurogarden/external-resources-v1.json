@@ -134,6 +134,7 @@
       "kind": "software-index",
       "label": "IBM public software directory",
       "url": "https://public.dhe.ibm.com/software/",
+      "official_home": "https://www.ibm.com/us-en",
       "status": "index-inspected",
       "scope": "Public directory navigation only; not a complete IBM catalogue, current support statement, package recommendation, or security assessment."
     },
@@ -321,6 +322,15 @@
       "historical_precision": "The United States is the only country to have landed astronauts on the Moon, not the only country to reach the Moon with robotic missions.",
       "context_evidence": "https://www.nasa.gov/mission/apollo-11/",
       "scope": "User-suggested public research and exploration context only; no endorsement, affiliation, contact, tasking, or operational authorization."
+    },
+    {
+      "id": "cisco-networking-academy",
+      "kind": "public-learning-resource",
+      "label": "Cisco Networking Academy",
+      "url": "https://www.netacad.com/",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested learning platform only; no account access, course enrollment, credential claim, endorsement, or bulk download."
     }
   ],
   "drawing_research_contract": {
