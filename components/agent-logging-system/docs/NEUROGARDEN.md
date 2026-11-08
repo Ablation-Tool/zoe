@@ -137,7 +137,7 @@ The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subje
 
 ## Verification
 
-The current suite contains **21 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, library metadata, and the synthetic 3D spatial bench. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **38 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 

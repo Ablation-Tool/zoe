@@ -37,8 +37,8 @@ def test_projection_svg_is_local_bounded_markup():
 
 def test_volume_bounds_are_enforced():
     with pytest.raises(ValueError):
-        Volume(0, 1, 1, ())
+            Volume(0, 1, 1, ())
     with pytest.raises(ValueError):
-        sphere(0)
+            sphere(0)
     with pytest.raises(ValueError):
-        convolve(sphere(3), 4)
+            convolve(sphere(3), 4)
