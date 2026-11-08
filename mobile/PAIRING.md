@@ -104,3 +104,7 @@ python -m pytest mobile/tools/test_zoe_pair.py mobile/tools/test_zoe_author.py -
 ```
 
 Eight tests cover real QR decoding, byte-identical combined images, signature tampering, expiration, session mismatch, explicit trust acceptance, changed identities, identity-file permissions, and exact-document author verification. No real identity or peer trust is used by the tests.
+
+## Post-quantum status
+
+X25519, Ed25519, and RSA-3072 are not post-quantum secure, and QKD is not a drop-in replacement. The separate [QKD and post-quantum pairing research guide](../components/agent-logging-system/docs/QUANTUM.md) records the current audit and a hybrid ML-KEM/ML-DSA research path. It does not implement a migration or change the security claims of the current protocol.
