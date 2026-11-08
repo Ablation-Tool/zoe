@@ -49,4 +49,36 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertTrue(ConversationResponse.isStop("goodbye"))
         XCTAssertFalse(ConversationResponse.isStop("keep talking"))
     }
+
+    func testTrinityQuantizationMatchesTheSharedWitness() throws {
+        let measurement = try TrinityMeasurement(probabilities: example, tau: 0.05)
+        XCTAssertEqual(measurement.zoe.accessible, 3)
+        XCTAssertEqual(measurement.tiny.accessible, 3)
+        XCTAssertEqual(measurement.tiny.request, "800200000A0666599A199A0A3D028F")
+        XCTAssertEqual(measurement.tiny.response, "00030001000406669000")
+        XCTAssertFalse(measurement.quantizationChanged)
+        XCTAssertEqual(try TrinityMeasurement(probabilities: example, tau: 0.20).tiny.accessible, 1)
+    }
+
+    func testTrinityStateVerifiesBothPlanes() throws {
+        let state = try TrinityState(data: Data(trinityFixture.utf8))
+        XCTAssertEqual(state.revision, 1)
+        XCTAssertEqual(state.active.zoe.accessible, 3)
+        XCTAssertEqual(state.active.tiny.accessible, 3)
+        XCTAssertFalse(state.memoryEnabled)
+    }
+
+    func testTrinityStateRejectsAnEditedApduWitness() {
+        let edited = trinityFixture.replacingOccurrences(of: "00030001000406669000", with: "00020002000406669000")
+        XCTAssertThrowsError(try TrinityState(data: Data(edited.utf8)))
+    }
+
+    private let trinityFixture = """
+    {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
+    "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,
+    "zoe":{"accessible":3,"complement":1,"vocabularySize":4},
+    "tiny":{"probabilities":[22938,6554,2621,655],"tau":1638,"accessible":3,"complement":1,"vocabularySize":4,
+    "request":"800200000A0666599A199A0A3D028F","response":"00030001000406669000"},
+    "quantizationChanged":false},"memory":{"enabled":false,"records":0,"tamperEvidenceOnly":true},"events":[]}
+    """
 }

@@ -28,6 +28,8 @@ public final class FieldKitActivity extends ComponentActivity {
         tool(content, "Acoustic ranging", "One-shot chirp and uncalibrated echo candidates",
                 android.R.drawable.ic_menu_call, Ui.PINK, RangingActivity.class);
         content.addView(Ui.section(this, "MEASURE"));
+        tool(content, "Tiny Zoe", "Standalone Zoe Cell protocol simulator and APDU console",
+                android.R.drawable.ic_menu_preferences, Ui.YELLOW, CellActivity.class);
         tool(content, "Radio field", "Bonded Bluetooth metadata, optional RSSI, and NFC presence",
                 android.R.drawable.ic_menu_share, Ui.GREEN, RadioActivity.class);
         tool(content, "Location field", "One-shot position with cancel, timeout, and clear",

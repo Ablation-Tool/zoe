@@ -64,8 +64,8 @@ final class HomeView extends ScrollView {
                 android.R.drawable.ic_btn_speak_now, Ui.PINK, view -> open(ConversationActivity.class));
         tool(content, "Accessible volume", "Create a small experiment with strict p > τ",
                 android.R.drawable.ic_menu_sort_by_size, Ui.GREEN, view -> activity.showVolume());
-        tool(content, "Tiny Zoe", "Zoe Cell · play with a two-command protocol",
-                android.R.drawable.ic_menu_preferences, Ui.YELLOW, view -> open(CellActivity.class));
+        tool(content, "Trinity", "Tiny + mobile + laptop · one shared experiment",
+                android.R.drawable.ic_menu_preferences, Ui.YELLOW, view -> open(TrinityActivity.class));
 
         content.addView(Ui.section(activity, "KEEP EXPLORING"));
         tool(content, "Field kit", "Cameras, sensors, radio, location, and device tools",

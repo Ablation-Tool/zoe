@@ -8,8 +8,8 @@ struct RootView: View {
             GuidedVisionView(selection: $selection)
                 .tabItem { Label("Vision", systemImage: "eye") }
                 .tag(0)
-            VolumeView()
-                .tabItem { Label("Volume", systemImage: "chart.bar") }
+            TrinityView()
+                .tabItem { Label("Trinity", systemImage: "triangle") }
                 .tag(1)
             DeviceView()
                 .tabItem { Label("Device", systemImage: "battery.100") }

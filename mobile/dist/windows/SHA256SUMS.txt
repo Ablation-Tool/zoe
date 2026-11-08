@@ -1,0 +1,2 @@
+1affc307b18701c6990fa5a7e016756aa02dd82dded965e771913c72025d9f29  ZoeTrinity.exe
+3aa04eb57cebbafcd853539fc846c5cceedb902a4f865b02f7c53fe26fdbdb07  trinity_core_tests.exe

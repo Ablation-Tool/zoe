@@ -63,13 +63,33 @@ The native hub also opens with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --m
 
 ## Native mobile
 
-Native Android and Apple interfaces live in [`mobile/`](mobile/README.md). Android starts with four clear activities—**Guided vision**, **Talk**, **Accessible volume**, and **Tiny Zoe**—while specialized cameras, sensors, radio, location, and device instruments live in the **Field kit**. An offline **Researcher guide** explains the first experiment, build requirements, privacy boundaries, and release checklist.
+Native Android and Apple interfaces live in [`mobile/`](mobile/README.md). Android starts with four clear activities—**Guided vision**, **Talk**, **Accessible volume**, and **Trinity**—while standalone Tiny Zoe, specialized cameras, sensors, radio, location, and device instruments live in the **Field kit**. An offline **Researcher guide** explains the first experiment, build requirements, privacy boundaries, and release checklist.
 
 The interface uses **PLACES — Play. Learn. Adapt. Create. Explore. Share.** as its creative thread: playful color and geometry, plain-language controls, explicit idle states, and human review. The home screen starts no sensors. See the [researcher quick start, installation, privacy, and verification guide](mobile/README.md).
 
+### Zoe Trinity · three planes, one shared field
+
+**Trinity lets people use Tiny Zoe, Zoe mobile, and laptop Zoe together.** These are three coordinated instruments, not three claimed minds:
+
+1. **Tiny Zoe / cell plane:** a bounded Q0.15 witness with exact APDU request and response bytes.
+2. **Zoe mobile / native plane:** Android or Apple input and strict floating-point accessible-volume measurement.
+3. **Laptop Zoe / field plane:** a local editorial observation deck, 24 retained live observations, and optional long-term memory.
+
+Start the laptop deck, map Android's loopback port, and open **Trinity** in Zoe:
+
+```bash
+python mobile/tools/zoe_trinity.py
+adb reverse tcp:8767 tcp:8767
+# Laptop browser: http://127.0.0.1:8767
+```
+
+Both sides show the same revision, distribution, threshold, mobile result, and Tiny witness. Apple uses an explicitly started private-network server and pairing code instead of ADB. Long-term memory is opt-in with `--memory PATH`: an append-only canonical-JSON/SHA-256 journal that is verified on reload. It provides tamper evidence, not authentication. No cloud relay, camera, microphone, or autonomous action is used. Read the [Trinity setup, API, memory, pairing, and verification guide](mobile/TRINITY.md).
+
+**Windows has a native Win32 x86_64 application**, not just a browser wrapper: a portable `ZoeTrinity.exe` with its own measurement kernel, verified journal, native three-plane interface, and phone-link server. It requires no Python, .NET, or LLVM runtime. See the [native Windows app and reproducible build guide](mobile/windows/README.md). The executable and API are tested under Wine; real Windows 10/11 verification and production signing remain separate requirements.
+
 ### Tiny Zoe · Zoe Cell
 
-**Tiny Zoe is Zoe's little sister: a complete, bounded protocol laboratory inside the Android app.** Open **Tiny Zoe**, read the simulated card, measure the worked distribution, inspect the exact request and response bytes, replay the command, and explicitly share the retained session. No reader, SIM, storage permission, network, or third-party card runtime is required.
+**Tiny Zoe is Zoe's little sister: a complete, bounded protocol laboratory inside the Android app.** Open **Field kit → Tiny Zoe**, read the simulated card, measure the worked distribution, inspect the exact request and response bytes, replay the command, and explicitly share the retained session. No reader, SIM, storage permission, network, or third-party card runtime is required.
 
 The simulator preserves Nicholas Michael Kloster's original accessible-volume equation, created solely by him on **March 6, 2026**:
 
