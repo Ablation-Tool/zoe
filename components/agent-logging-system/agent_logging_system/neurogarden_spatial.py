@@ -27,6 +27,27 @@ def spatial_piecewise_profile(value):
     }
 
 
+def collagen_mesh_scaling_review():
+    observations = []
+    for concentration, measured in ((0.5, 27.8), (1.0, 12.1), (2.0, 8.3)):
+        predicted = 8.3 * math.sqrt(2.0 / concentration)
+        observations.append({
+            "concentration_mg_ml": concentration,
+            "measured_mesh_um": measured,
+            "simple_scaling_mesh_um": predicted,
+            "residual_um": measured - predicted,
+        })
+    return {
+        "observations": observations,
+        "scaling_model": "mesh(c) = 8.3 um * sqrt((2 mg/ml) / c)",
+        "interpretation": "The 0.5 mg/ml measurement deviates by 11.2 um; do not infer a universal concentration-scaling law.",
+        "source": "Kaufman et al. 2005, doi:10.1529/biophysj.105.061994; Biomedical Imaging Principles chapter 10",
+        "primary_source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1366562/",
+        "raw_images_analyzed": False,
+        "clinical_claim": False,
+    }
+
+
 def matrix_layout_review(matrix):
     if not isinstance(matrix, (list, tuple)) or not 1 <= len(matrix) <= 8:
         raise ValueError("matrix requires 1 to 8 rows")

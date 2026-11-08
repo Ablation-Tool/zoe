@@ -53,9 +53,16 @@
       "content_only": true
     },
     "neurogarden": {
-      "focused_tests_passed": 56,
+      "focused_tests_passed": 58,
       "original_examples_verified": true,
       "isolated_wheel_verified": true,
+      "clinical_action_authorized": false
+    },
+    "legacy_c99": {
+      "suites_passed": 3,
+      "sanitizer_passed": true,
+      "gcc_static_analysis_passed": true,
+      "windows_95_98_verified": false,
       "clinical_action_authorized": false
     },
     "qr_pairing_and_author": {

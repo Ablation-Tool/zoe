@@ -16,7 +16,9 @@ This tree preserves the available package, license, documentation, examples, and
 - Complete BioCoder, Winter 2014 article reviews with an exploratory abundance-ratio teaching tool and explicit treatment, legal, organism-welfare, and tissue-processing boundaries.
 - Complete GPT-3 review across all eight substantive sections, with explicit artifact exclusions, offline prompt and programming-request tools, an AI deployment checklist, and startup/enterprise/conclusion no-tool rationales.
 - MATLAB Numerical Calculations introduction and chapters 1–6 review, with exact bounded integer arithmetic, matrix/determinant review, and a fixed Dorothy spatial piecewise profile.
+- Tumor-focused classification, collagen, and Fe@Au photothermal reviews with primary-source limitations and a bounded collagen mesh-scaling tool.
+- Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
-- Version 0.6.12 packaging and focused verification.
+- Version 0.6.13 packaging and focused verification.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.

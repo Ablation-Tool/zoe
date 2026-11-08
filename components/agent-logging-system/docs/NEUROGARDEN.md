@@ -166,6 +166,14 @@ Chapter 5 reviews matrix norms, eigensystems, decompositions, similarity, sparse
 
 Chapter 6 reviews reusable functions, loops, conditional branches, recursion, Newton and Schroder iterations, piecewise definitions, composition, and inverse domains. `spatial_piecewise_profile()` implements only exercise 6-6's fixed scalar profile for synthetic intensity-transfer demonstrations, reproducing every branch and interval boundary without evaluating arbitrary code. No M-file parser, general iterative or symbolic solver, or MATLAB/Maple compatibility is claimed.
 
+### Tumor and legacy research
+
+The brain-tumor MRI classification review records that aggregate accuracy is not independently reproducible without dataset versions, patient-level splits, class support, predictions, and external validation. Diagnostic classification is not treatment evidence. A second methods review distinguishes imaging, nucleic-acid assays, protein measurements, and target hypotheses; it preserves an internal FISH/MGMT protein-measurement error rather than using it for treatment selection.
+
+`collagen_mesh_scaling_review()` preserves Kaufman et al.'s measured collagen mesh sizes and computes residuals against a simple scaling model. Early invasion, invasive-cell patterns, and later spheroid growth remain separate endpoints; no universal collagen effect or growth law is claimed. The Fe@Au photothermal review preserves short blood residence, liver uptake, intratumoral delivery, and histology requirements from the primary study. The existing bounded Pennes model demonstrates perfusion cooling only, not nanoparticle efficacy or a cure.
+
+*Windows 98 Unleashed* now supplies 310 downloaded source pages and 807 images outside the repository, with 298 substantive sections and 12 front-matter/index artifacts excluded. `mobile/legacy/` adds a bounded C99 measurement and JSON exporter using the modern APDU fixtures. Strict `p > τ`, original-equation credit, fixed storage, no modern runtime, and output-overwrite refusal are tested on the development host. Windows 95/98, legacy compiler, filesystem, assistive-technology, and medical-device compatibility remain unverified.
+
 ### QKD and post-quantum pairing
 
 The [QKD and post-quantum research guide](QUANTUM.md) distinguishes physical key distribution from algorithms designed to resist quantum attacks. NSA documents QKD's source-authentication, hardware, relay, validation, environmental-degradation, side-channel, upgrade, and denial-of-service limitations. NIST supplies ML-KEM, ML-DSA, and SLH-DSA standards, but those standards do not make arbitrary implementations safe.
@@ -191,7 +199,7 @@ The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subje
 
 ## External resource queue
 
-[`external-resources-v1.json`](../evidence/neurogarden/external-resources-v1.json) preserves **12 O'Reilly book links and twenty-five infrastructure, learning, recognition, and application links** without adding them to the 35-book target or review coverage. None of the linked books was locally present. The two drawing pages probed returned HTTP 403; the others remain unprobed and unreviewed. PETSc, USC iLab, IBM, and Your.Org indexes were inspected only as directories. No Google Drive, mirror, package archive, or book full text was downloaded or redistributed.
+[`external-resources-v1.json`](../evidence/neurogarden/external-resources-v1.json) preserves **12 O'Reilly book links and twenty-five infrastructure, learning, recognition, and application links** as a link-only queue without review credit. The two drawing pages probed returned HTTP 403; the others remain unprobed and unreviewed. PETSc, USC iLab, IBM, and Your.Org indexes were inspected only as directories. *Windows 98 Unleashed* was subsequently downloaded through an authorized O'Reilly session and is indexed separately; no book full text was redistributed. No Google Drive, mirror, or package archive was used.
 
 The drawing contract treats Thumbelina as a proposed artistic persona with `narrative_confidence=0.99`, not empirical species or identity evidence. Current Artline source provides editable vector geometry but no verified visual subject recognizer. Future work must distinguish declared subject, drawing intent, geometry, style, provenance, and review; generating geometry is not proof of recognition or understanding.
 
@@ -212,7 +220,7 @@ CENTCOM, CYBERCOM, the CIA, NSA, FBI, and NASA are link-only public institutiona
 
 ## Verification
 
-The current suite contains **56 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **58 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 

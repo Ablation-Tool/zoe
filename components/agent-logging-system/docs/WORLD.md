@@ -48,15 +48,17 @@ GPT-3's inventory distinguishes eight substantive sections from ten cover/front/
 
 *MATLAB Numerical Calculations* now has its introduction and first six chapters reviewed, with five other named artifacts plus cover/title/copyright excluded. `complex_integer_power()` reproduces `(2+3i)^10 = -341525-145668i` exactly for integer components and exponents from 0 to 64. `gcd_lcm()`, `binomial_coefficient()`, `convert_base_number()`, and `divisor_summary()` reproduce chapter outputs for GCD/LCM, combinatorics, representation, and divisors. Chapter 3 contributes representation and precision cautions for Dorothy without a new generic tool. Chapters 4–5 use `matrix_layout_review()` for bounded spatial shape/layout checks, singular-inversion refusal, and two determinant demonstrations without claiming conditioning, decomposition, or general MATLAB/Maple compatibility. Chapter 6 adds `spatial_piecewise_profile()`, a fixed bounded synthetic intensity profile with explicit branch boundaries and no arbitrary code evaluation. The other two sections remain pending.
 
+Tumor-focused reviews now cover MRI classification reproducibility, evidence types, collagen-matrix scaling, and Fe@Au photothermal delivery. `collagen_mesh_scaling_review()` preserves primary measurements and scaling deviations; `pennes_heat()` remains a synthetic perfusion-cooling demonstration. No classification claim becomes treatment evidence, and no small animal proof becomes a cure. *Windows 98 Unleashed* contributes 298 substantive sections after excluding 12 artifacts. The bounded C99 `mobile/legacy` prototype preserves strict threshold semantics and exact APDU fixtures without claiming Windows 95/98 execution.
+
 ## Corpus states
 
 `corpus.py` distinguishes `cataloged`, `extracted`, and `reviewed`. Review requires source hashes, concepts, application, limitations, and demonstrated use or an explicit no-tool rationale. Extraction and keyword indexing are not comprehension.
 
-The current full-corpus report contains **36 populated books, 1,458 chapters, and 50 fully reviewed source chapters**. Another 1,408 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
+The current full-corpus report contains **37 populated books, 1,756 chapters, and 56 fully reviewed source chapters**. Another 1,700 chapters remain pending. The expected 35-book target is complete numerically, with two additional entries preserved, but the comprehension goal remains explicitly incomplete.
 
 ## Current verification
 
-**56 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.12 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, GPT-3, exact integer-complex exponentiation, integer arithmetic, spatial matrix review, fixed piecewise profiles, and the post-quantum pairing review.
+**58 focused tests pass**, plus the original multi-agent examples, an isolated Neurogarden 0.6.13 wheel workflow, and three C99 legacy suites with sanitizer and static-analysis checks. Coverage includes CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, GPT-3, exact integer arithmetic, spatial matrix review, fixed piecewise profiles, collagen evidence, and the post-quantum pairing review.
 
 ## Evidence boundaries
 
