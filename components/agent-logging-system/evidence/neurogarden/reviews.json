@@ -664,6 +664,34 @@
       "limitations": "historical feature descriptions do not establish current accessibility compliance, assistive-technology interoperability, SerialKey hardware availability, medical-device suitability, or user-tested usability",
       "no_tool_rationale": "No accessibility feature was reimplemented from documentation alone. A valid implementation needs an explicit interaction contract and testing with the actual operating system and assistive technology before making a compliance or equal-access claim.",
       "reviewed_at": "2026-11-08T14:35:12Z"
+    },
+    "MATLAB Numerical Calculations/014_9781484203477_Ch07.html": {
+      "source_sha256": "b166d4fd7d797817247101a2fa878c45db0f31d6e874922e5b8a888f3bdb4ca2",
+      "concepts": [
+        "local and global state require explicit ownership to avoid hidden coupling",
+        "bounded flow control and error paths support reproducible numerical programs",
+        "array shape, dimension order, and column-major reshape conventions must remain explicit",
+        "optimization and numerical integration require domain, tolerance, and convergence review",
+        "ordinary and partial differential models require initial or boundary conditions and stability checks"
+      ],
+      "application": "reuse Dorothy's bounded Pennes finite-difference model to demonstrate stable time stepping and nonclinical perfusion sensitivity",
+      "limitations": "the chapter is a historical command survey and MATLAB solvers were not executed; Pennes is a synthetic radial teaching model, not an ode/pde implementation, general optimizer, patient model, or treatment simulation; no arbitrary code evaluation is added",
+      "use": "pennes_heat",
+      "reviewed_at": "2026-11-08T15:02:49Z"
+    },
+    "MATLAB Numerical Calculations/015_9781484203477_Ch08.html": {
+      "source_sha256": "41affcf75baca391aad1ee9ee52fd5a5494d6e6fdc733513812e5b68fff6e84d",
+      "concepts": [
+        "fixed-point, Newton, Seidel, and Raphson iterations require convergence criteria and residual checks",
+        "interpolation requires distinct nodes and attention to numerical conditioning",
+        "numerical derivatives and integrals require tolerance, refinement, and method-comparison review",
+        "explicit Euler stepping needs suitable step size, initial conditions, and stability limits",
+        "iteration tolerance is not proof of a unique or globally correct solution"
+      ],
+      "application": "reuse Dorothy's bounded Pennes explicit finite-difference model to demonstrate stability-limited time stepping and nonclinical sensitivity",
+      "limitations": "historical root finders, interpolation routines, and integration methods were not executed; Pennes is a synthetic radial teaching model, not a general nonlinear solver, interpolation engine, MATLAB-compatible ODE implementation, patient model, or treatment simulation",
+      "use": "pennes_heat",
+      "reviewed_at": "2026-11-08T15:06:19Z"
     }
   }
 }
