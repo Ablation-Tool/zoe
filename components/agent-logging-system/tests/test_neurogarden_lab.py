@@ -2,7 +2,7 @@ import pytest
 
 from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
-    mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
+    ai_risk_review, mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
     translation_ratio, xray_review,
 )
 
@@ -158,3 +158,14 @@ def test_programming_request_review_is_offline_and_rejects_credentials():
         programming_request_review("valid", engine="unsupported")
     with pytest.raises(ValueError):
         programming_request_review("valid", stop_sequences=["a", "b", "c", "d", "e"])
+
+
+def test_ai_risk_review_is_a_checklist_not_a_safety_score():
+    review = ai_risk_review()
+    assert review.review_required
+    assert not review.clinical_action_authorized
+    assert len(review.checks) == 5
+    assert "fluency is not evidence" in review.checks[1]
+    assert "full model lifecycle" in review.checks[3]
+    assert "stop/recovery path" in review.checks[4]
+    assert review.sources == ("GPT-3, chapter 6, risk and mitigation review",)

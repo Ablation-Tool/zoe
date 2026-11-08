@@ -9,4 +9,4 @@ from .observation import Observation, LATENCY_MACHINE, LATENCY_GENERATION
 from .logging_agent import LoggingAgent
 
 __all__ = ["Observation", "LoggingAgent", "LATENCY_MACHINE", "LATENCY_GENERATION"]
-__version__ = "0.6.5"
+__version__ = "0.6.6"
