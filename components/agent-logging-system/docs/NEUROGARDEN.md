@@ -152,7 +152,7 @@ Chapter 6 adds `ai_risk_review()`, a static checklist for affected groups, synth
 
 ### MATLAB Numerical Calculations
 
-The introduction and first four chapters are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
+The introduction and first five chapters are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
 
 `complex_integer_power()` implements bounded exact integer-complex multiplication. For `(2+3i)^10`, it returns the chapter's exact `-341525-145668i` rather than a rounded display. Integer components are bounded and exponents are limited to 0–64; general complex powers, symbolic algebra, MATLAB syntax, and Maple integration are not claimed. The introduction has a no-tool rationale because it is a capability overview rather than an independent numerical method.
 
@@ -161,6 +161,8 @@ Chapter 2 adds exact bounded `gcd_lcm()`, `binomial_coefficient()`, `convert_bas
 Chapter 3 reviews rational and continued fractions, irrational and algebraic representations, real and complex functions, Gaussian integers, approximation, types, and pseudorandom generation. Its Dorothy application is a numerical-representation and precision review. No new tool was added because the broad historical command survey supplies no atlas-specific algorithm. Rational display formatting is not treated as proof of exact floating-point storage; MATLAB/Maple outputs, complex branches, and random examples were not independently reproduced.
 
 Chapter 4 reviews variable state, symbolic and numeric values, vector/matrix layout, dimension rules, operators, and matrix functions. `matrix_layout_review()` preserves shape, transpose, diagonal, and column-major values for bounded matrices up to 8×8, computes a determinant using exact decimal representations, and refuses singular inversion. It reproduces the chapter's singular 3×3 example without treating its huge numerical inverse as useful. Nonzero determinants do not establish conditioning; no inverse, symbolic solver, or MATLAB/Maple compatibility is claimed.
+
+Chapter 5 reviews matrix norms, eigensystems, decompositions, similarity, sparse storage, and special matrices. Reusing `matrix_layout_review()` reproduces determinant -28 for the LU/Smith example and zero for the rank-two affine family. No general inverse, rank, norm, eigensolver, decomposition, sparse solver, or MATLAB/Maple implementation is inferred from the historical command survey.
 
 ### QKD and post-quantum pairing
 
@@ -208,7 +210,7 @@ CENTCOM, CYBERCOM, the CIA, NSA, FBI, and NASA are link-only public institutiona
 
 ## Verification
 
-The current suite contains **54 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **55 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 

@@ -32,6 +32,16 @@ def test_matrix_layout_review_preserves_shape_and_guards_singular_inverse():
         matrix_layout_review([[float("nan")]])
 
 
+def test_matrix_layout_review_reproduces_chapter_five_determinants():
+    result = matrix_layout_review([[1, 5, -2], [-7, 3, 1], [2, 2, -2]])
+    assert result["determinant"] == -28
+    assert result["singular"] is False
+    rank_two = matrix_layout_review([[i + j - 0.5 for j in range(1, 6)] for i in range(1, 6)])
+    assert rank_two["determinant"] == 0
+    assert rank_two["singular"] is True
+    assert rank_two["inversion"] == "refused: zero determinant"
+
+
 def test_projection_axes_preserve_matrix_shapes_and_sums():
     volume = Volume(2, 2, 2, (1, 1, 1, 1, 1, 1, 1, 1))
     assert project(volume, "z") == [[2, 2], [2, 2]]
