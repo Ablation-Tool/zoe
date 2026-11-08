@@ -205,3 +205,26 @@ def bidirectional_read_plan(fragment_length_bases: int, read_length_bases: int) 
         overlap,
         read_length_bases < fragment_length_bases,
     )
+
+
+@dataclass(frozen=True)
+class TranslationRatio:
+    value: float
+    median_rna_intensity: float
+    source: str = "BioCoder 2, Molecular Tools for Synthetic Biology in Plants"
+    exploratory: bool = True
+    clinical_claim: bool = False
+
+
+def translation_ratio(protein_abundance: float, rna_intensities) -> TranslationRatio:
+    if not 1 <= len(rna_intensities) <= 4096:
+        raise ValueError("RNA intensities require 1 to 4096 values")
+    protein = float(protein_abundance)
+    values = [float(value) for value in rna_intensities]
+    if not math.isfinite(protein) or protein <= 0 \
+            or any(not math.isfinite(value) or value <= 0 for value in values):
+        raise ValueError("protein abundance and RNA intensities must be finite and positive")
+    values.sort()
+    midpoint = len(values) // 2
+    median = values[midpoint] if len(values) % 2 else (values[midpoint - 1] + values[midpoint]) / 2
+    return TranslationRatio(protein / median, median)

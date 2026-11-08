@@ -2,7 +2,7 @@ import pytest
 
 from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
-    mri_review, photon_counting_review, xray_review,
+    mri_review, photon_counting_review, translation_ratio, xray_review,
 )
 
 
@@ -101,3 +101,18 @@ def test_bidirectional_read_plan_is_idealized_sequence_geometry():
         bidirectional_read_plan(0, 650)
     with pytest.raises(ValueError):
         bidirectional_read_plan(800, 650.5)
+
+
+def test_translation_ratio_uses_median_and_remains_exploratory():
+    result = translation_ratio(4, [1, 3, 2])
+    assert result.value == 2
+    assert result.median_rna_intensity == 2
+    assert result.exploratory
+    assert not result.clinical_claim
+    assert translation_ratio(4, [1, 3]).value == 2
+    with pytest.raises(ValueError):
+        translation_ratio(4, [])
+    with pytest.raises(ValueError):
+        translation_ratio(4, [1, 0, 2])
+    with pytest.raises(ValueError):
+        translation_ratio(4, [1, float("nan"), 2])

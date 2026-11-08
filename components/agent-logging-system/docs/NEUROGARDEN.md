@@ -130,6 +130,12 @@ Two bounded teaching uses survived review:
 
 The remaining articles have specific no-tool rationales. NFC implants do not acquire security or clinical validation from short read range; the high-voltage design receives no controller or construction path; wet-lab reports do not become autonomous protocols; and historical product, food, startup, and community claims are not promoted into current evidence.
 
+### BioCoder, Winter 2014
+
+The front matter identifies the second completed issue as *BioCoder, Winter 2014*. All 14 substantive articles were read and reviewed. Its open plant-bioinformatics workshop motivates `translation_ratio()`: positive protein abundance divided by the median of bounded positive RNA intensities. The result is explicitly exploratory because microarray intensity is not absolute RNA concentration and the ratio is not a translation rate. The chapter's weak RNA–protein correlation and call for experimental validation remain attached to the review.
+
+The medical-device essay does not authorize insulin dosing, pump control, implants, or treatment recommendations. Historical legal and biosafety statements do not become compliance or disposal instructions. Biotic games receive no electrode controller or claim of harmless stimulation, and the ghost-heart narrative does not become a tissue protocol or transplant claim. Other essays, interviews, fiction recommendations, crowdfunding recollections, and announcements have documented no-tool rationales.
+
 ### De Gruyter Handbook of Humor Studies
 
 **Thomas E. Ford, Władysław Chłopicki, and Giselinde Kuipers**, editors. The title page confirms the actual title. Its folder currently has a different mathematical-methods name; that is a metadata mismatch, not a reason to erase the intentionally included book.
@@ -156,7 +162,7 @@ The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subje
 
 ## Verification
 
-The current suite contains **44 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **45 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 
