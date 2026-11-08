@@ -18,8 +18,9 @@ This tree preserves the available package, license, documentation, examples, and
 - Complete MATLAB Numerical Calculations review across all nine substantive sections, with exact bounded integer arithmetic, matrix/determinant review, a fixed spatial piecewise profile, and bounded Pennes time stepping.
 - Tumor-focused classification, collagen, and Fe@Au photothermal reviews with primary-source limitations, a bounded collagen mesh-scaling tool, and a count-based deep-learning narrative audit.
 - Tracer-imaging review preserving reporter, kinetic-model, and radiation-safety limits; fluorescence review distinguishing normalization and synthetic PSF recovery from independently validated molecular tomography or clinical evidence.
+- Brain-tumor cohort/split/count audit and a tumor-survey review with bounded binary confusion metrics correcting specificity to TN/(TN+FP); synthetic arithmetic does not evaluate a model or authorize clinical action.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
-- Version 0.6.14 packaging and focused verification.
+- Version 0.6.15 packaging and focused verification.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.
