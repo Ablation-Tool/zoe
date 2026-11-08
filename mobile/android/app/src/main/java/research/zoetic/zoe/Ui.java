@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -79,6 +80,55 @@ final class Ui {
         int margin = dp(context, marginDp);
         params.setMargins(margin, margin, margin, margin);
         return params;
+    }
+
+    static LinearLayout tool(Context context, String title, String subtitle, int icon,
+                             int accent, View.OnClickListener listener) {
+        LinearLayout row = new LinearLayout(context);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setMinimumHeight(dp(context, 80));
+        row.setPadding(dp(context, 14), dp(context, 10), dp(context, 12), dp(context, 10));
+        row.setBackground(panelBackground(context, PANEL, 22));
+        row.setClickable(true);
+        row.setFocusable(true);
+        row.setContentDescription(title + ". " + subtitle);
+        row.setOnClickListener(listener);
+
+        ImageView symbol = new ImageView(context);
+        symbol.setImageResource(icon);
+        symbol.setColorFilter(accent);
+        symbol.setPadding(dp(context, 10), dp(context, 10), dp(context, 10), dp(context, 10));
+        symbol.setBackground(panelBackground(context, accent, 24));
+        symbol.setContentDescription(null);
+        row.addView(symbol, new LinearLayout.LayoutParams(dp(context, 46), dp(context, 46)));
+
+        LinearLayout labels = vertical(context);
+        labels.setBackgroundColor(Color.TRANSPARENT);
+        labels.setPadding(dp(context, 14), 0, dp(context, 6), 0);
+        TextView titleView = text(context, title, 17, TEXT);
+        titleView.setTypeface(Typeface.create("sans", Typeface.BOLD));
+        labels.addView(titleView);
+        labels.addView(text(context, subtitle, 12, MUTED));
+        row.addView(labels, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+
+        TextView chevron = text(context, "›", 28, accent);
+        chevron.setGravity(Gravity.CENTER);
+        chevron.setContentDescription(null);
+        row.addView(chevron, new LinearLayout.LayoutParams(dp(context, 24), dp(context, 46)));
+        LinearLayout.LayoutParams margins = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        margins.setMargins(dp(context, 16), dp(context, 5), dp(context, 16), dp(context, 5));
+        row.setLayoutParams(margins);
+        return row;
+    }
+
+    static TextView section(Context context, String label) {
+        TextView section = text(context, label, 13, PINK);
+        section.setTypeface(Typeface.create("sans", Typeface.BOLD));
+        section.setLetterSpacing(0.08f);
+        section.setPadding(dp(context, 24), dp(context, 18), dp(context, 16), dp(context, 5));
+        return section;
     }
 
     static LinearLayout buttonRow(Context context, Button... buttons) {

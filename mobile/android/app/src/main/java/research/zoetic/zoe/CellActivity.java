@@ -1,5 +1,7 @@
 package research.zoetic.zoe;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,8 +34,9 @@ public final class CellActivity extends ComponentActivity {
         scroll.addView(content);
         setContentView(scroll);
 
-        content.addView(Ui.heading(this, "Zoe Cell"));
-        content.addView(Ui.text(this, "Little sister · native simulated development card", 15, Ui.PINK));
+        content.addView(Ui.button(this, "‹ Zoe home", view -> finish()));
+        content.addView(Ui.heading(this, "Tiny Zoe"));
+        content.addView(Ui.text(this, "Zoe Cell · a tiny protocol lab with big ideas", 15, Ui.PINK));
         android.widget.ImageView geometry = new android.widget.ImageView(this);
         geometry.setImageResource(R.drawable.cell_hourglass);
         geometry.setAdjustViewBounds(true);
@@ -57,10 +60,13 @@ public final class CellActivity extends ComponentActivity {
                 "This is a behavioral protocol model. It does not emulate a specific chip, secure storage, radio firmware, or authentication.",
                 13, Ui.MUTED));
 
+        content.addView(Ui.section(this, "TRY THE WORKED EXAMPLE"));
+        content.addView(Ui.text(this, "Probability distribution", 14, Ui.TEXT));
         probabilities = input("0.70, 0.20, 0.08, 0.02");
         probabilities.setId(R.id.cell_probabilities);
         probabilities.setContentDescription("Probabilities separated by commas or spaces");
         content.addView(probabilities);
+        content.addView(Ui.text(this, "Threshold τ", 14, Ui.TEXT));
         threshold = input("0.05");
         threshold.setId(R.id.cell_threshold);
         threshold.setContentDescription("Threshold tau between zero and one");
@@ -73,7 +79,9 @@ public final class CellActivity extends ComponentActivity {
         content.addView(Ui.buttonRow(this, info, measure));
         Button reset = Ui.button(this, "Reset simulation", view -> reset());
         reset.setId(R.id.cell_reset);
-        content.addView(reset);
+        Button share = Ui.button(this, "Share session", view -> shareSession());
+        share.setId(R.id.cell_share);
+        content.addView(Ui.buttonRow(this, reset, share));
 
         report = Ui.text(this,
                 "No command sent. Choose Read simulated card or Measure on simulated card.",
@@ -217,6 +225,23 @@ public final class CellActivity extends ComponentActivity {
     private void fail(IllegalArgumentException error) {
         status.setText("Command rejected: " + error.getMessage());
         report.setText("No measurement was returned. Check the distribution and threshold, then try again.");
+    }
+
+    private void shareSession() {
+        if (session.history().isEmpty()) {
+            status.setText("Nothing to share yet. Read or measure on the simulated card first.");
+            return;
+        }
+        Intent share = new Intent(Intent.ACTION_SEND)
+                .setType("text/plain")
+                .putExtra(Intent.EXTRA_SUBJECT, "Tiny Zoe · simulated protocol session")
+                .putExtra(Intent.EXTRA_TEXT, session.exportText());
+        try {
+            startActivity(Intent.createChooser(share, "Share simulated session"));
+            status.setText("Share sheet opened. The export describes a simulation, not physical-card evidence.");
+        } catch (ActivityNotFoundException error) {
+            status.setText("No sharing app is available. The session remains only on this screen.");
+        }
     }
 
     private void reset() {

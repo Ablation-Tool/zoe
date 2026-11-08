@@ -57,4 +57,9 @@
     <item name="cell_send" type="id" />
     <item name="cell_replay" type="id" />
     <item name="cell_history" type="id" />
+    <item name="cell_share" type="id" />
+    <item name="research_version" type="id" />
+    <item name="research_open_cell" type="id" />
+    <item name="research_source" type="id" />
+    <item name="research_status" type="id" />
 </resources>
