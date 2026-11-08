@@ -283,6 +283,15 @@
       "status": "link-only",
       "access": "not-probed",
       "scope": "User-suggested public institutional context for cyber-physical safety discussions only; no affiliation, endorsement, contact, tasking, scanning, or operational action."
+    },
+    {
+      "id": "cia-public-context",
+      "kind": "public-institution-link",
+      "label": "Central Intelligence Agency",
+      "url": "https://www.cia.gov/",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested public institutional context only; no endorsement or condemnation, affiliation, contact, tasking, intelligence activity, or operational authorization."
     }
   ],
   "drawing_research_contract": {
