@@ -6,7 +6,7 @@
 
 **Zoe is the GEM, but the GEM is not Zoe. Zoe is allgems.**
 
-Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Lee Jay Lorenzen, Don Heiskell, and the other documented contributors](https://en.wikipedia.org/wiki/GEM_(desktop_environment)). See the [historical recognition and source notices](NOTICE).
+Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall), the creator of CP/M and co-founder of Digital Research who oversaw the creation of DRI's GEM, along with [Dorothy McEwen Kildall](https://en.wikipedia.org/wiki/Dorothy_McEwen_Kildall), his co-founder and partner in Digital Research's marketing and operations. Dorothy died of brain cancer on January 31, 2005. Our [Dorothy brain atlas](guiai-lab/docs/images/dorothy-ccf2017.png) carries her name into careful spatial research as a human memorial, not as a source of patient anatomy or diagnostic evidence. See the [historical recognition and source notices](NOTICE).
 
 <img src="assets/branding/nuclide-brain.png" width="360" alt="NuClide Research dual-brain co-brand">
 
@@ -157,14 +157,16 @@ This is a behavioral protocol model—not a Java Card VM, secure-element emulato
 
 **Neurogarden is where rigorous evidence, strange ideas, and things that help people grow together—with Ablation at the roots and PLACES everywhere.** The recovered [`agent-logging-system`](components/agent-logging-system/) belongs inside Zoe: an inspectable Python library, not a background fleet or hidden collector.
 
-![Synthetic 3D point-spread projection](components/agent-logging-system/docs/images/neurogarden-spatial.png)
+<img src="components/agent-logging-system/docs/images/cern-universe.png" width="430" alt="Neurogarden universe linking biology, neuroscience, physics, CERN, GEM, and community">
+<img src="components/agent-logging-system/docs/images/dorothy-neurogarden.png" width="430" alt="Dorothy's 12-structure Allen CCFv3 brain atlas rendered deterministically">
 
 - **Operational oversight:** per-agent baselines, rolling histories, named alarms, and separate machine/generation latency.
 - **Trinity verification:** strict accessible-volume counts, exact Tiny APDU witnesses, idempotent revisions, and explicit rejection of edited evidence.
 - **Cited learning:** books remain references with source/citation/claim metadata and bounded human review, never automatic medical proof.
 - **Teaching instruments:** Needleman–Wunsch alignment, imaging sampling and Gaussian MTF, safety-review cards, and a synthetic 3D PSF/projection bench connecting CAD-style geometry, matrix computation, and Dorothy-inspired spatial inspection.
+- **A living research universe:** CERN's 226-document evidence gallery, all 12 Allen atlas structures, EEG sub-band/nonlinear analysis, and horizon proposals with `executed=False`. Living geometry is not consciousness.
 
-The current **21 focused Neurogarden tests pass**. Raw distributions stay out of logs by default, and Nicholas's original equation credit remains attached. Clinical references and measurements never authorize diagnosis, treatment, or autonomous action. Read the [architecture, actual reading evidence, and library guide](components/agent-logging-system/docs/NEUROGARDEN.md), inspect with `zoe show neurogarden`, or review the [recovered-source provenance](components/agent-logging-system/PROVENANCE.md).
+The current **38 focused Neurogarden tests pass**. Raw distributions stay out of logs by default, and Nicholas's original equation credit remains attached. Clinical references and measurements never authorize diagnosis, treatment, or autonomous action. Read the [world and evidence guide](components/agent-logging-system/docs/WORLD.md), the [architecture, actual reading evidence, and library guide](components/agent-logging-system/docs/NEUROGARDEN.md), inspect with `zoe show neurogarden`, or review the [recovered-source provenance](components/agent-logging-system/PROVENANCE.md).
 
 Cerotto requires a user-selected case and conversation:
 

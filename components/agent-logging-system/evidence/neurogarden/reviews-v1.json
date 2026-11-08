@@ -1,0 +1,71 @@
+{
+  "schema": "neurogarden-reviews-v1",
+  "reviews": {
+    "Basic Applied Bioinformatics/018_c09.html": {
+      "source_sha256": "50eadfbb0907fbf079d3764e855bab168962469a36947cdde2587d3562688e13",
+      "concepts": [
+        "global alignment uses dynamic programming and gap penalties",
+        "ties can produce multiple optimal paths"
+      ],
+      "application": "bounded alignment teaching and verification",
+      "limitations": "synthetic sequences; scoring is not identity or clinical evidence",
+      "use": "global_align",
+      "reviewed_at": "2026-11-08T09:31:45Z"
+    },
+    "Biomedical Imaging Principles/007_9781118271926c02.html": {
+      "source_sha256": "982500b7787342a24c3d349034f9854dc8a41db4138cfc6d39971c377271a306",
+      "concepts": [
+        "voxel size differs from spatial resolution",
+        "PSF and partial-volume recovery"
+      ],
+      "application": "sampling assessment and 3D PSF projection",
+      "limitations": "educational ratios and synthetic volumes; no scanner calibration",
+      "use": "assess_sampling; neurogarden_spatial",
+      "reviewed_at": "2026-11-08T09:31:45Z"
+    },
+    "Biomedical Imaging Principles/008_9781118271926c03.html": {
+      "source_sha256": "3ee1bbcb3e55badd7645041a54bf29d702de11ae90f3c7d3be18a217c1c63f02",
+      "concepts": [
+        "dose-area product differs from effective dose",
+        "staff and scattered-beam geometry"
+      ],
+      "application": "radiation safety review card",
+      "limitations": "historical context is not a universal current limit or patient dose recommendation",
+      "use": "xray_review",
+      "reviewed_at": "2026-11-08T09:31:45Z"
+    },
+    "Biomedical Imaging Principles/010_9781118271926c05.html": {
+      "source_sha256": "315a8e6d3935ad729a30432f54d2c8e194df96101b8b423461abfaf17f6f81a8",
+      "concepts": [
+        "projectile, SAR, gradient, and high-field safety",
+        "motion and artifact boundaries"
+      ],
+      "application": "MRI safety review card",
+      "limitations": "review topics only; no patient clearance or protocol recommendation",
+      "use": "mri_review",
+      "reviewed_at": "2026-11-08T09:31:45Z"
+    },
+    "Biomedical Imaging (De Gruyter)/010_09_chapter02_3.html": {
+      "source_sha256": "a292fb30e868f644868b5d504a2a0ce86a4e967274695452d5fdbf755eb3e0ff",
+      "concepts": [
+        "LSI systems use convolution with PSF",
+        "MTF is normalized Fourier magnitude of PSF"
+      ],
+      "application": "Gaussian MTF and spatial projection",
+      "limitations": "normalized Gaussian teaching model only",
+      "use": "gaussian_mtf; neurogarden_spatial",
+      "reviewed_at": "2026-11-08T09:31:45Z"
+    },
+    "Radiation Detectors for Medical Imaging/002_K24712_C000p.html": {
+      "source_sha256": "457fbcc156d45bb8808cddde3471291a0e594e0b4a2be61e47395229c989128a",
+      "concepts": [
+        "energy-discriminating photon counting preserves spectral information",
+        "pileup and charge effects distort measurements"
+      ],
+      "application": "detector limitation review",
+      "limitations": "no detector-superiority or clinical performance claim",
+      "use": "photon_counting_review",
+      "reviewed_at": "2026-11-08T09:31:45Z"
+    }
+  }
+}

@@ -10,6 +10,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Bounded review queues, cited reading observations, and explicit non-authorization of clinical action.
 - Needleman–Wunsch and imaging-sampling teaching instruments derived from specifically cited reading.
 - Extracted-library metadata cataloging with intentional folder/title mismatch preservation.
-- Version 0.5.0 packaging and focused verification.
+- CERN evidence, Allen atlas geometry, neural-signal analysis, and a generative world with review-required experiments.
+- Version 0.6.0 packaging and focused verification.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.
