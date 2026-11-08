@@ -1,8 +1,35 @@
 import pytest
 
 from agent_logging_system.neurogarden_spatial import (
-    Volume, average_pool, convolve, project, projection_svg, recovery_coefficient, sphere,
+    Volume, average_pool, convolve, matrix_layout_review, project, projection_svg,
+    recovery_coefficient, sphere,
 )
+
+
+def test_matrix_layout_review_preserves_shape_and_guards_singular_inverse():
+    singular = matrix_layout_review([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    assert singular["shape"] == [3, 3]
+    assert singular["transpose"] == [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+    assert singular["diagonal"] == [1, 5, 9]
+    assert singular["column_major"] == [1, 4, 7, 2, 5, 8, 3, 6, 9]
+    assert singular["determinant"] == 0
+    assert singular["singular"] is True
+    assert singular["inversion"] == "refused: zero determinant"
+    rectangular = matrix_layout_review([[1, 3, 5], [7, 9, 0]])
+    assert rectangular["shape"] == [2, 3]
+    assert rectangular["transpose"] == [[1, 7], [3, 9], [5, 0]]
+    assert rectangular["column_major"] == [1, 7, 3, 9, 5, 0]
+    assert rectangular["determinant"] is None
+    assert rectangular["singular"] is None
+    invertible = matrix_layout_review([[1, 2], [3, 4]])
+    assert invertible["determinant"] == -2
+    assert invertible["singular"] is False
+    assert "conditioning" in invertible["inversion"]
+    assert not singular["clinical_claim"]
+    with pytest.raises(ValueError):
+        matrix_layout_review([[1, 2], [3]])
+    with pytest.raises(ValueError):
+        matrix_layout_review([[float("nan")]])
 
 
 def test_projection_axes_preserve_matrix_shapes_and_sums():

@@ -539,6 +539,20 @@
       "limitations": "historical MATLAB/Maple commands and outputs were read but not executed; display formatting does not make floating-point storage exact; symbolic roots, complex branches, arbitrary precision, and random output examples were not independently reproduced",
       "no_tool_rationale": "No new generic numeric or Dorothy tool was added: this broad command survey supplies representation cautions but no atlas-specific algorithm. No MATLAB/Maple compatibility layer, symbolic solver, random generator, or clinical inference is claimed.",
       "reviewed_at": "2026-11-08T13:30:17Z"
+    },
+    "MATLAB Numerical Calculations/011_9781484203477_Ch04.html": {
+      "source_sha256": "2497f6c35f50b78f00dffe43d8547f2952754a9ccfc0feadaf3a0a8906bf89e4",
+      "concepts": [
+        "assigned values persist until changed, while previously computed expressions must be explicitly recomputed",
+        "vector and matrix operations require compatible dimensions and distinct elementwise and matrix semantics",
+        "transpose, diagonal, and column-major layout must remain explicit when exchanging spatial data",
+        "a singular matrix has no inverse; a numerical inverse warning is not a useful inverse",
+        "finite-value and logical checks are necessary before numerical results become evidence"
+      ],
+      "application": "bounded Dorothy spatial matrix layout review with transpose, diagonal, column-major values, exact-decimal determinant, and singular-inversion refusal",
+      "limitations": "accepts rectangular numeric matrices up to 8x8 only; determinant uses exact decimal representations of supplied values, not exact binary floats; no inverse, condition-number, symbolic, MATLAB/Maple, or clinical claim",
+      "use": "matrix_layout_review",
+      "reviewed_at": "2026-11-08T13:39:50Z"
     }
   }
 }
