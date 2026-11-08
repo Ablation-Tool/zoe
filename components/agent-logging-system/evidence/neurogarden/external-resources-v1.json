@@ -178,6 +178,111 @@
       "relationship": "HPE and Juniper Networks were historically separate companies, not one company renamed. HPE completed its acquisition of Juniper Networks on July 2, 2025.",
       "relationship_evidence": "https://www.sec.gov/Archives/edgar/data/1645590/000114036125024519/ef20051378_ex99-1.htm",
       "scope": "User-suggested possibility only; no vendor endorsement, product need, security testing, outreach, or integration claim."
+    },
+    {
+      "id": "teex-learning-source",
+      "kind": "learning-resource",
+      "label": "TEEX student portal",
+      "url": "https://my.teex.org/TeexPortal/Default.aspx",
+      "status": "user-reported-learning-source",
+      "access": "not-accessed",
+      "scope": "The user reports meaningful learning here. No login was attempted and no student record, completion, or credential was independently verified."
+    },
+    {
+      "id": "nicholas-fema-article",
+      "kind": "user-authored-reference",
+      "label": "Nicholas Michael Kloster FEMA certifications article",
+      "author": "Nicholas Michael Kloster",
+      "article_date": "2024-12-03",
+      "url": "https://medium.com/@NicholasKloster/nicholas-michael-kloster-fema-certifications-b9f0bbb12016",
+      "status": "public-page-inspected",
+      "scope": "Self-published narrative and images, not independent issuer verification or a FEMA endorsement. Transcript images and SID data were not imported into this evidence record."
+    },
+    {
+      "id": "fema-public-learning",
+      "kind": "public-learning-resource",
+      "label": "FEMA public training and emergency-management resources",
+      "url": "https://www.fema.gov/",
+      "status": "public-page-inspected",
+      "scope": "The official public page links training, response, recovery, readiness, and community resources. User-reported learning is preserved without credential verification, endorsement, or autonomous emergency action."
+    },
+    {
+      "id": "cisa-critical-infrastructure-certificate-2022",
+      "kind": "user-provided-certificate",
+      "label": "Critical Infrastructure Protection certificate image",
+      "participant": "Nicholas M. Kloster",
+      "course": "Critical Infrastructure Protection - 2 Hours",
+      "completed_at": "2022-02-03T11:54:54Z",
+      "url": null,
+      "status": "user-provided-image",
+      "credential_verified": false,
+      "scope": "Course and timestamp transcribed from the user-provided image. The image was not copied into the repository and no issuer verification or endorsement is claimed."
+    },
+    {
+      "id": "cisa-cyber-hygiene-services",
+      "kind": "public-security-resource",
+      "label": "CISA Cyber Hygiene Services",
+      "url": "https://www.cisa.gov/cyber-hygiene-services",
+      "status": "public-page-inspected",
+      "scope": "Public information about eligible organizations and defensive scanning services. No enrollment, contact, asset submission, vulnerability scan, or security claim was made."
+    },
+    {
+      "id": "cisa-k12-school-security-guide",
+      "kind": "public-security-resource",
+      "label": "CISA K-12 School Security Guide, third edition",
+      "url": "https://www.cisa.gov/resources-tools/resources/k-12-school-security-guide-3rd-edition",
+      "status": "public-page-inspected",
+      "scope": "Public guide description for layered physical-security assessment and planning. No school assessment, vulnerable-site details, or operational security action was created."
+    },
+    {
+      "id": "cisa-icsa-25-140-11",
+      "kind": "official-research-recognition",
+      "label": "CISA ICSA-25-140-11 and CVE-2025-4364",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-25-140-11",
+      "related_cve_url": "https://www.cve.org/CVERecord?id=CVE-2025-4364",
+      "status": "public-advisory-inspected",
+      "researcher_credit": "Nicholas Michael Kloster reported this vulnerability to CISA.",
+      "advisory_id": "ICSA-25-140-11",
+      "cve_id": "CVE-2025-4364",
+      "user_reported_first_cve": true,
+      "scope": "The official CISA advisory directly verifies researcher attribution. First-CVE status remains user-reported. No exploit, target testing, or independent vendor-fix validation was performed."
+    },
+    {
+      "id": "cisco-cve-2026-20241",
+      "kind": "official-research-recognition",
+      "label": "Cisco ISE authorization-bypass advisory and CVE-2026-20241",
+      "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ise-cert-mE9BD5GO",
+      "status": "public-advisory-inspected",
+      "researcher_credit": "Cisco thanks independent security researcher Nicholas Michael Kloster for reporting this vulnerability.",
+      "cve_id": "CVE-2026-20241",
+      "scope": "Cisco directly verifies researcher attribution. Ablation's role remains user-reported and is not attributed by this advisory. No exploit, target testing, or independent fix validation was performed."
+    },
+    {
+      "id": "cisco-user-reported-additional-ids",
+      "kind": "user-provided-profile-reference",
+      "label": "Additional user-reported Cisco CVE identifiers",
+      "url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-notice-jfxK98ZP",
+      "status": "attribution-not-verified",
+      "identifiers": ["CVE-2026-76420", "CVE-2026-76412", "CVE-2026-76413", "CVE-2026-76447"],
+      "scope": "Identifiers were transcribed from a user-provided profile screenshot, which was not imported. No researcher attribution, Ablation role, exploit, or target testing is claimed from the profile or advance-notice page."
+    },
+    {
+      "id": "centcom-public-context",
+      "kind": "public-institution-link",
+      "label": "United States Central Command",
+      "url": "https://www.centcom.mil/",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested public institutional context only; no affiliation, endorsement, contact, tasking, or operational action."
+    },
+    {
+      "id": "cybercom-public-context",
+      "kind": "public-institution-link",
+      "label": "United States Cyber Command",
+      "url": "https://www.cybercom.mil/",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested public institutional context for cyber-physical safety discussions only; no affiliation, endorsement, contact, tasking, scanning, or operational action."
     }
   ],
   "drawing_research_contract": {
