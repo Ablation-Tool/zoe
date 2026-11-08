@@ -585,16 +585,19 @@
     "Bio-inspired Optimization for Medical Data Mining/011_c06.html": {
       "source_sha256": "4adfc98a639ea6fc0f23bcb1eeeb670c31d167defc4f7bb70505ec52d9221a5f",
       "concepts": [
-        "multiclass tumor-image evaluation requires patient-level separation and control of slice and augmentation leakage",
+        "multiclass tumor-image evaluation requires patient-level separation and control of duplicate-slice and augmentation leakage; class-count bars do not establish independence",
+        "the four classes—no tumor, glioma, meningioma, and pituitary—must not be collapsed into a binary confusion-matrix audit",
+        "Table 6.1 ranks DNN at 90.5%, SVM at 85.3%, RF at 81.9%, and KNN at 78.5% accuracy, but supplies no raw predictions, confusion matrix, per-class support, or confidence intervals",
+        "Figure 6.3's RF/KNN bars and DNN recall bar do not visually reconcile with Table 6.1, leaving the plotted and tabulated metrics unresolved",
+        "the Kaggle methods citation points to reference 9, a glioblastoma-survival paper rather than the dataset; reference 16 is the separate Kaggle dataset entry; references 3 and 4 concern electronic-waste management and blockchain DDoS prevention rather than the adjacent tumor claims",
+        "feature selection and hyperparameter tuning must remain inside training folds; the chapter does not supply executable feature lists, architectures, statistical results, or hyperparameters",
         "accuracy alone is insufficient for imbalanced classes; class support, per-class recall, confidence intervals, and external validation matter",
-        "feature selection and hyperparameter tuning must remain inside training folds",
-        "dataset provenance and citations must identify the actual evidence used",
         "diagnostic classification performance is not treatment or cure evidence"
       ],
-      "application": "Dorothy tumor-imaging evidence audit and prerequisite checklist for any future public-data classification experiment",
-      "limitations": "the reported 90.5% DNN accuracy is not independently reproducible from aggregate scores; dataset version, patient-level splits, predictions, confusion matrices, class support, confidence intervals, architecture, training details, code, and fitted models are absent; several citations do not support their adjacent claims, including reference 9 cited for Kaggle but describing glioblastoma survival radiomics",
-      "no_tool_rationale": "No classifier or metric calculator was created: the chapter lacks the dataset version, patient-level split, predictions, class support, and fitted models required for a demonstrated use or independent reproduction. The next valid experiment requires licensed public data and a preregistered external-validation protocol.",
-      "reviewed_at": "2026-11-08T14:03:37Z"
+      "application": "Dorothy multiclass tumor-imaging evidence audit using ai_risk_review for bias, provenance, privacy, human review, and stop/recovery requirements, with prerequisites for any future licensed public-data experiment",
+      "limitations": "the reported 90.5% DNN accuracy is not independently reproducible from aggregate scores; dataset version, patient-level splits, deduplication record, predictions, confusion matrices, class support, confidence intervals, architecture, training details, code, and fitted models are absent; figure/table discrepancies and citation mismatches remain unresolved; no model was trained or evaluated and no binary-metric substitution was made; no diagnosis, treatment, or cure claim is made",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-08T16:42:09Z"
     },
     "Biomedical Imaging Principles/015_9781118271926c10.html": {
       "source_sha256": "c4cf129ddb29c244291204b7c20c907ff802cfa4d81ff72ff21c26c02ea86f85",
@@ -855,6 +858,23 @@
       "limitations": "only fixed synthetic formula demonstrations are implemented; parallel-organ NTCP, inhomogeneous dose, heterogeneity, repopulation, redistribution, incomplete repair, reoxygenation, and patient-specific outcomes are not modeled; no patient anatomy, dose-volume histogram, measured radiosensitivity, clonogenic count, clinical outcome, or external validation is supplied; probabilities may round to 0 or 1; no dose optimization, radiation exposure, treatment recommendation, or cure claim is made",
       "use": "radiobiology_model_review",
       "reviewed_at": "2026-11-08T16:24:07Z"
+    },
+    "Biomedical Imaging (Elsevier)/009_CHP001.html": {
+      "source_sha256": "b1d2a410724e9af6116d253e36bddb2a99bdc1e0042d178a0dcb69e394913458",
+      "concepts": [
+        "PET maps radiotracer distributions through annihilation-photon coincidence detection, while CT supplies anatomical context and attenuation correction; neither alone supplies biological ground truth",
+        "SUV and lesion-to-background ratios require explicit normalization, uptake timing, acquisition, reconstruction, calibration, and ROI protocols; cross-centre comparison without standardization is not established",
+        "absolute kinetic modeling needs dynamic data and an arterial input function, which cannot be replaced by an uncalibrated SUV threshold",
+        "FDG uptake occurs in normal brain, inflammation, infection, and repair, while some low-grade tumors have limited uptake; FDOPA, choline, FLT, FMISO, and angiogenesis tracers probe different biology and are not universally superior",
+        "PET-guided target delineation or early metabolic response does not by itself establish survival benefit or authorize automatic treatment escalation, intensification, or cessation",
+        "the glioblastoma plate illustrates reported post-treatment choline PET findings rather than an independent histology-verified recurrence cohort",
+        "18F-FHBG tracking of administered HSV1-tk cytolytic CD8 T cells in a glioma trial demonstrates reporter-cell detection, not tumor killing, clinical efficacy, or a cure",
+        "historical PERCIST proposals, regulatory forecasts, and predictions about PET/MRI, immunoPET, and gene therapy are not current guideline or clinical-outcome validation"
+      ],
+      "application": "Dorothy tracer-evidence and detector-limit review using photon_counting_review, plus a prerequisite checklist for standardized SUV, kinetic input functions, patient-level reference labels, uncertainty, and external validation before interpreting therapy response",
+      "limitations": "this is a historical broad narrative review with many secondary examples; no raw PET/CT or dynamic images, SUV measurements, arterial input functions, patient-level predictions, reference-standard labels, confidence intervals, complete cohort protocols, or external validation is supplied; illustrative plates and the single glioma reporter-cell example were not independently reproduced; detector checks are review prompts, not scanner tests; no tracer administration, treatment decision, or current guideline claim is made",
+      "use": "photon_counting_review",
+      "reviewed_at": "2026-11-08T16:36:03Z"
     }
   }
 }
