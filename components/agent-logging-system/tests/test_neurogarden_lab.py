@@ -1,7 +1,8 @@
 import pytest
 
 from agent_logging_system.neurogarden_lab import (
-    assess_sampling, gaussian_mtf, global_align, mri_review, photon_counting_review, xray_review,
+    assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
+    mri_review, photon_counting_review, xray_review,
 )
 
 
@@ -77,3 +78,26 @@ def test_safety_reviews_are_sourced_and_never_authorize_action():
         assert len(review.checks) == 4
     assert "projectile" in mri_review().checks[0]
     assert "pileup" in photon_counting_review().checks[1]
+
+
+def test_chemical_review_requires_current_sds_not_human_dose_extrapolation():
+    review = chemical_review()
+    assert review.review_required
+    assert not review.clinical_action_authorized
+    assert "current supplier SDS" in review.checks[0]
+    assert "Do not extrapolate animal LD50 values into human doses" in review.checks
+
+
+def test_bidirectional_read_plan_is_idealized_sequence_geometry():
+    plan = bidirectional_read_plan(800, 650)
+    assert plan.overlap_bases == 500
+    assert plan.bidirectional_recommended
+    assert plan.idealized
+    assert not plan.clinical_claim
+    single = bidirectional_read_plan(800, 800)
+    assert single.overlap_bases == 800
+    assert not single.bidirectional_recommended
+    with pytest.raises(ValueError):
+        bidirectional_read_plan(0, 650)
+    with pytest.raises(ValueError):
+        bidirectional_read_plan(800, 650.5)

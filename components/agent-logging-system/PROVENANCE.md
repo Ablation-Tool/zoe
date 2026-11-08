@@ -12,6 +12,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Extracted-library metadata cataloging with intentional folder/title mismatch preservation.
 - CERN evidence, Allen atlas geometry, neural-signal analysis, and a generative world with review-required experiments.
 - Bounded affine/log-Euclidean SPD operations, a perfusion-stable Pennes teaching model, and neutrosophic membership similarity with three additional source-linked chapter reviews.
-- Version 0.6.1 packaging and focused verification.
+- Complete BioCoder, Summer 2014 article reviews with current-SDS chemical guidance, idealized read-overlap geometry, and explicit hardware/wet-lab no-tool boundaries.
+- Version 0.6.2 packaging and focused verification.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.

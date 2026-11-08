@@ -42,15 +42,17 @@ The source is *Computational Intelligence and Predictive Analysis for Medical Sc
 
 `neurogarden_advanced.py` adds three bounded numerical models: beta=0 affine-invariant and log-Euclidean distances for 2×2 SPD matrices, the log-Euclidean mean, a radial Pennes conduction/perfusion model with a stability bound that includes cooling, and cosine-form neutrosophic similarity. These are synthetic teaching operations, not tissue-estimation, treatment-planning, EEG-classification, or diagnostic tools.
 
+The first complete book review is **BioCoder, Summer 2014**: all 11 substantive articles have source-linked notes. `chemical_review()` requires a current SDS and rejects animal-to-human LD50 dose extrapolation; `bidirectional_read_plan()` demonstrates idealized forward/reverse read overlap without inferring base quality or species. Implant, high-voltage, wet-lab, and project-proposal articles have explicit no-tool rationales. Signup and publisher-bio pages are classified as non-chapters.
+
 ## Corpus states
 
 `corpus.py` distinguishes `cataloged`, `extracted`, and `reviewed`. Review requires source hashes, concepts, application, limitations, and demonstrated use or an explicit no-tool rationale. Extraction and keyword indexing are not comprehension.
 
-The current full-corpus report contains **36 populated books, 1,475 chapters, and 10 fully reviewed source chapters**. Another 1,465 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
+The current full-corpus report contains **36 populated books, 1,471 chapters, and 21 fully reviewed source chapters**. Another 1,450 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
 
 ## Current verification
 
-**42 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.1 wheel workflow covering CERN, Dorothy, neural analysis, and the advanced numerical models.
+**44 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.2 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, and the BioCoder 4 teaching tools.
 
 ## Evidence boundaries
 

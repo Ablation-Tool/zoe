@@ -113,6 +113,128 @@
       "limitations": "similarity alone does not implement the chapter's image or EEG pipeline; no focal/nonfocal classification, diagnostic claim, or reproduction of reported accuracy",
       "use": "neutrosophic_similarity",
       "reviewed_at": "2026-11-08T10:01:42Z"
+    },
+    "BioCoder 4/003_ch01.html": {
+      "source_sha256": "37d9ed2515ab75dbd79820df2f69b0862fb2dd89e231d69b25bc25e249959648",
+      "concepts": [
+        "passive NFC/RFID tags are presented as body-interface and access-control conveniences",
+        "implant power, sensing, security, and human-enhancement claims are distinct questions"
+      ],
+      "application": "ethics and threat-model discussion for body-interface research",
+      "limitations": "first-person 2014 account; short read range does not prove confidentiality, access-control security, implant safety, or ethical acceptability",
+      "no_tool_rationale": "No implant, NFC access-control change, or biometric security tool: the article supplies no clinical or security validation and Zoe will not prototype body modification.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/004_ch02.html": {
+      "source_sha256": "d7973aeb2bdba2daf755835ebbea799a1b4b9a8c538313178daa8b94fbc90a13",
+      "concepts": [
+        "replicable DNA information differs from production and purification of functional proteins",
+        "material-transfer terms, resource access, and production cost affect reproducibility"
+      ],
+      "application": "provenance, licensing, and access questions for research-resource review",
+      "limitations": "economic, legal, and access arguments are the author's 2014 perspective; no current supplier terms, freedom to operate, production economics, or biosafety are validated",
+      "no_tool_rationale": "No reagent-production or procurement tool: the article does not provide a validated current catalogue, legal review, or quality-assurance dataset.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/005_ch03.html": {
+      "source_sha256": "06a4c458eb54087300ef80c0f69b74ddc2a6472e89a6c9195a59b3d19f03daef",
+      "concepts": [
+        "cloud collaboration combines distributed expertise, software catalogues, and modular in-silico design",
+        "Leukippos, SynBio App Selector, and SynBrick are described as developing prototypes"
+      ],
+      "application": "design review for attributed, review-required, offline-first research collaboration",
+      "limitations": "platform proposals and simulated biological building blocks do not establish biological function, reproducibility, data privacy, or current service availability",
+      "no_tool_rationale": "No external platform or biological-circuit simulation was contacted or inferred; the source prototypes and characterization datasets are not bundled for verification.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/006_ch04.html": {
+      "source_sha256": "079afd5c46e9bc6acd21d115b7e76be97de0ff7eaa7d167c27e1d2c5da77aedc",
+      "concepts": [
+        "product design joins technical function with usability, interfaces, manufacturing, and social acceptance",
+        "standardized biological parts alone do not establish a useful or viable product"
+      ],
+      "application": "human-centered requirements and accessibility review for research tools",
+      "limitations": "a 2014 advocacy article with forecasts and project examples, not validated market growth, product efficacy, manufacturing scale, or public acceptance",
+      "no_tool_rationale": "No product-readiness score was created because the article supplies no comparable product-validation or manufacturing dataset.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/007_ch05.html": {
+      "source_sha256": "4ab7d820cde823807ff18a8a6a8f48ac5afc763120e64ada7afe196a9c863d24",
+      "concepts": [
+        "chemical identity, current SDS information, hazard labels, and compatible PPE serve different review roles",
+        "pictograms and aggregate NFPA ratings do not substitute for exposure-specific risk assessment"
+      ],
+      "application": "chemical_review source-linked checklist with no safe/unsafe score",
+      "limitations": "2014 introductory guidance only; use current SDS, compatibility data, local rules, and qualified review; animal LD50 values must not be converted into human doses",
+      "use": "chemical_review",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/008_ch06.html": {
+      "source_sha256": "4c8008d4f55308c8ac9b157b7e0516a2cabfb779aefdc247e7c75dcf6b9e6c8f",
+      "concepts": [
+        "a capacitor-diode cascade trades voltage multiplication for current capacity and losses",
+        "current limiting, stored charge, isolation, and load-dependent voltage drop are safety-relevant requirements"
+      ],
+      "application": "hazard and requirements traceability for historical hardware literature",
+      "limitations": "low output current does not make high voltage safe; stored charge, noise, component variation, liquids, and construction faults require qualified electrical and laboratory review",
+      "no_tool_rationale": "No construction, output control, circuit simulation, or hardware execution: the source explicitly disclaims practical safety and no certified apparatus or qualified test setup is available.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/009_ch07.html": {
+      "source_sha256": "138b6adf49c5e3fd796e3e2487dbc20443392bee2c16129bed5c9581da57a50e",
+      "concepts": [
+        "alkaline lysis and selective precipitation are distinguished from salt-dependent DNA adsorption to silica",
+        "resin particle preparation and possible DNA shearing affect the reported comparisons"
+      ],
+      "application": "mechanism literacy and evidence-quality review of a historical DIY purification report",
+      "limitations": "small qualitative technical replicates do not establish yield, purity, reproducibility, or safety; dust and chemical hazards require formal controls",
+      "no_tool_rationale": "No wet-lab protocol or purification controller was created or run; the report lacks validated quantitative comparisons and a qualified laboratory setting.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/010_ch08.html": {
+      "source_sha256": "275432ad7cf2ab4ce69f80d91e11e3953ea6a51e694099c6b3305eb162afda19",
+      "concepts": [
+        "DNA fragment length must support the intended barcode amplicon",
+        "forward and reverse Sanger reads and chromatogram quality help inspect a sequence longer than one reliable read",
+        "a database similarity result is not automatically a species determination"
+      ],
+      "application": "idealized 800-base fragment and 650-base read overlap demonstration",
+      "limitations": "assumes ideal full-length end-anchored reads; excludes base qualities, trimming, alignment errors, contaminants, extraction chemistry, and taxonomic validation",
+      "use": "bidirectional_read_plan",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/011_ch09.html": {
+      "source_sha256": "91e21e0d5eb89a3f3858dabb15d2c9022ca2d494ab3d91cecad63c8ecbdb81a3",
+      "concepts": [
+        "casein interactions, phosphorylation, and micelle formation are separate challenges from protein expression",
+        "food production raises allergenicity, containment, ethics, and comparative environmental questions"
+      ],
+      "application": "research-question decomposition and evidence checklist for alternative-food proposals",
+      "limitations": "2014 project proposal; no final-product evidence for allergenicity, food safety, labeling, sterility, stability, sensory quality, or environmental superiority",
+      "no_tool_rationale": "No food-production, allergenicity, or environmental-impact tool was inferred because protein formation and comparative lifecycle claims require empirical validation.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/012_ch10.html": {
+      "source_sha256": "32bd7db9895e97087c43ba18b4e4f8df2d34ccdeb32fec2e07dc2644ab1be7de",
+      "concepts": [
+        "five interviews contrast team backgrounds, distributed collaboration, project goals, and prototype constraints",
+        "medical, environmental, material, and consumer claims need separate evidence tracks"
+      ],
+      "application": "claim-versus-evidence registry design for early-stage research teams",
+      "limitations": "2014 interviews report aspirations, not validated product performance, clinical efficacy, environmental benefit, current company status, or surgical suitability",
+      "no_tool_rationale": "No efficacy, sustainability, or company evaluation was computed because the interviews provide no common quantitative validation dataset.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 4/013_ch11.html": {
+      "source_sha256": "3c948d9fc4430b94eec74ee718656a7fc5206e7a73bac009001e497d8612ff19",
+      "concepts": [
+        "community laboratories, crowdsourced protocol repositories, and public classes support shared research infrastructure",
+        "protocol versioning and local training are distinct from proof of experimental correctness"
+      ],
+      "application": "community provenance and versioned-protocol review",
+      "limitations": "historical announcements do not verify current services, protocol correctness, training quality, laboratory safety, or availability",
+      "no_tool_rationale": "No current-service directory or protocol importer was built; links were not fetched and community protocols require independent technical and safety review.",
+      "reviewed_at": "2026-11-08T10:12:40Z"
     }
   }
 }
