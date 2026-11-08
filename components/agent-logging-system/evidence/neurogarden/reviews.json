@@ -513,6 +513,18 @@
       "limitations": "accepts integer components and exponents 0-64 only; does not implement general complex powers, MATLAB syntax, symbolic algebra, Maple integration, or numerical precision guarantees",
       "use": "complex_integer_power",
       "reviewed_at": "2026-11-08T12:27:36Z"
+    },
+    "MATLAB Numerical Calculations/009_9781484203477_Ch02.html": {
+      "source_sha256": "80427eb1ec27ae9b10bb9e20c2afe933fc65066a3ddbb0ce1b12ad275b50c1b5",
+      "concepts": [
+        "exact integer arithmetic can avoid floating-point display rounding",
+        "gcd, lcm, binomial coefficients, and divisor summaries have direct exact tests",
+        "base conversion and modular arithmetic operate on distinct representations and domains"
+      ],
+      "application": "bounded gcd/lcm, binomial, base conversion, and divisor summary demonstrations reproducing chapter outputs",
+      "limitations": "bounded integers only; no symbolic algebra, Diophantine solver, Maple integration, arbitrary real or complex arithmetic, or proof of MATLAB compatibility",
+      "use": "gcd_lcm; binomial_coefficient; convert_base_number; divisor_summary",
+      "reviewed_at": "2026-11-08T12:56:44Z"
     }
   }
 }

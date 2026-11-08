@@ -4,6 +4,7 @@ from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
     ai_risk_review, mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
     complex_integer_power, post_quantum_pairing_review, translation_ratio, xray_review,
+    gcd_lcm, binomial_coefficient, convert_base_number, divisor_summary,
 )
 
 
@@ -208,3 +209,27 @@ def test_post_quantum_pairing_review_is_honest_about_current_limits():
     assert not review["qkd_deployed"]
     assert not review["network_called"]
     assert not review["clinical_claim"]
+
+
+def test_integer_toolkit_reproduces_chapter_two_examples():
+    assert gcd_lcm([1000, 500, 625])["gcd"] == 125
+    assert gcd_lcm([1000, 500, 625])["lcm"] == 5000
+    assert gcd_lcm([840, 384])["gcd"] == 24
+    assert binomial_coefficient(45, 9)["value"] == 886163135
+    assert convert_base_number("100101", 2, 10)["value"] == "37"
+    assert convert_base_number(242345341, 10, 16)["value"] == "E71E57D"
+    assert convert_base_number(190096544, 10, 5)["value"] == "342131042134"
+    million = divisor_summary(1_000_000)
+    assert million["count"] == 49
+    assert million["sum"] == 2480437
+    assert divisor_summary(24)["sum"] == 60
+    with pytest.raises(ValueError):
+        gcd_lcm([])
+    with pytest.raises(ValueError):
+        binomial_coefficient(9, 45)
+    with pytest.raises(ValueError):
+        convert_base_number("2", 2, 10)
+    with pytest.raises(ValueError):
+        convert_base_number(10, 10, 37)
+    with pytest.raises(ValueError):
+        divisor_summary(0)

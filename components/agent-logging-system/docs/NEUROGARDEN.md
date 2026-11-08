@@ -152,9 +152,11 @@ Chapter 6 adds `ai_risk_review()`, a static checklist for affected groups, synth
 
 ### MATLAB Numerical Calculations
 
-The introduction and chapter 1 are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
+The introduction and first two chapters are reviewed. The inventory preserves nine substantive sections and excludes seven cover/front/back-matter artifacts with reasons.
 
 `complex_integer_power()` implements bounded exact integer-complex multiplication. For `(2+3i)^10`, it returns the chapter's exact `-341525-145668i` rather than a rounded display. Integer components are bounded and exponents are limited to 0–64; general complex powers, symbolic algebra, MATLAB syntax, and Maple integration are not claimed. The introduction has a no-tool rationale because it is a capability overview rather than an independent numerical method.
+
+Chapter 2 adds exact bounded `gcd_lcm()`, `binomial_coefficient()`, `convert_base_number()`, and `divisor_summary()` tools. Verified examples include GCD 125, LCM 5000, `45 choose 9 = 886163135`, binary `100101 → 37`, decimal `242345341 → E71E57D`, and one million having 49 divisors summing to 2,480,437. Inputs and outputs are bounded; no Diophantine solver, symbolic algebra, or Maple integration is inferred.
 
 ### QKD and post-quantum pairing
 
@@ -202,7 +204,7 @@ CENTCOM, CYBERCOM, the CIA, NSA, FBI, and NASA are link-only public institutiona
 
 ## Verification
 
-The current suite contains **52 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer-complex arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **53 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 
