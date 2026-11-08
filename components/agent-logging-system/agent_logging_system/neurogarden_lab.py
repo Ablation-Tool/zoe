@@ -228,3 +228,46 @@ def translation_ratio(protein_abundance: float, rna_intensities) -> TranslationR
     midpoint = len(values) // 2
     median = values[midpoint] if len(values) % 2 else (values[midpoint - 1] + values[midpoint]) / 2
     return TranslationRatio(protein / median, median)
+
+
+@dataclass(frozen=True)
+class PromptPlan:
+    prompt_sha256: str
+    characters: int
+    response_length: int
+    estimated_prompt_tokens: int
+    estimated_total_tokens: int
+    within_historical_budget: bool
+    temperature: float
+    top_p: float
+    historical_budget_tokens: int = 2048
+    actual_tokenizer_used: bool = False
+    network_called: bool = False
+    clinical_claim: bool = False
+    source: str = "GPT-3, chapter 2, historical token approximation and parameter ranges"
+
+
+def offline_prompt_plan(prompt, response_length=128, temperature=0.0, top_p=1.0):
+    if not isinstance(prompt, str) or not prompt.strip() or len(prompt) > 16_000:
+        raise ValueError("prompt must contain 1 to 16000 characters")
+    if not isinstance(response_length, int) or isinstance(response_length, bool) \
+            or not 1 <= response_length <= 2048:
+        raise ValueError("response length must be an integer from 1 to 2048")
+    if not isinstance(temperature, (int, float)) or isinstance(temperature, bool) \
+            or not isinstance(top_p, (int, float)) or isinstance(top_p, bool) \
+            or not math.isfinite(temperature) or not math.isfinite(top_p) \
+            or not 0 <= temperature <= 1 or not 0 <= top_p <= 1:
+        raise ValueError("temperature and top_p must be finite values in [0, 1]")
+    import hashlib
+    estimated_prompt_tokens = math.ceil(len(prompt) / 4)
+    estimated_total_tokens = estimated_prompt_tokens + response_length
+    return PromptPlan(
+        hashlib.sha256(prompt.encode("utf-8")).hexdigest(),
+        len(prompt),
+        response_length,
+        estimated_prompt_tokens,
+        estimated_total_tokens,
+        estimated_total_tokens <= 2048,
+        float(temperature),
+        float(top_p),
+    )

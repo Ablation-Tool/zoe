@@ -136,6 +136,14 @@ The front matter identifies the second completed issue as *BioCoder, Winter 2014
 
 The medical-device essay does not authorize insulin dosing, pump control, implants, or treatment recommendations. Historical legal and biosafety statements do not become compliance or disposal instructions. Biotic games receive no electrode controller or claim of harmless stimulation, and the ghost-heart narrative does not become a tissue protocol or transplant claim. Other essays, interviews, fiction recommendations, crowdfunding recollections, and announcements have documented no-tool rationales.
 
+### GPT-3 foundations and API
+
+The title page identifies *GPT-3: The Ultimate Guide to Building NLP Products with OpenAI API* by Sandra Kublik and Shubham Saboo. The inventory preserves eight substantive sections and ten cover/front/back-matter artifacts with explicit exclusion reasons.
+
+The preface and first two chapters are reviewed. Their useful lesson is not “the model knows”: prompt context, pretraining, attention, and zero/few-shot examples shape outputs, while dataset imbalance, bias, unreliable generation, token cost, and uploaded-data stewardship remain limits.
+
+`offline_prompt_plan()` implements a bounded offline exercise from chapter 2. It stores a SHA-256 prompt digest rather than the prompt, estimates prompt tokens as `ceil(characters / 4)`, adds the requested response length, checks the historical 2,048-token budget, and validates temperature and top-p in `[0, 1]`. `actual_tokenizer_used=False` and `network_called=False` are explicit. Historical engines, endpoint shapes, prices, performance anecdotes, and fine-tuning claims were not reproduced. Chapters 3–6 and the conclusion remain pending.
+
 ### De Gruyter Handbook of Humor Studies
 
 **Thomas E. Ford, Władysław Chłopicki, and Giselinde Kuipers**, editors. The title page confirms the actual title. Its folder currently has a different mathematical-methods name; that is a metadata mismatch, not a reason to erase the intentionally included book.
@@ -176,7 +184,7 @@ CENTCOM, CYBERCOM, the CIA, NSA, FBI, and NASA are link-only public institutiona
 
 ## Verification
 
-The current suite contains **45 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **47 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 
