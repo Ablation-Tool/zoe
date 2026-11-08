@@ -101,3 +101,24 @@ def test_gpt3_artifacts_are_excluded_with_provenance(tmp_path):
     assert {item["reason"] for item in book["excluded_artifacts"]} == set(artifacts.values())
     assert all(item["source"].startswith("GPT-3/") for item in book["excluded_artifacts"])
     assert document["coverage"]["chapters"] == 3
+
+
+def test_matlab_artifacts_are_excluded_with_provenance(tmp_path):
+    artifacts = {
+        "003_9781484203477_FM_6_Contents_at_a_Glance.html": "contents at a glance",
+        "004_9781484203477_FM_5_Contents.html": "contents",
+        "005_9781484203477_FM_3_About_the_Author.html": "author biography",
+        "006_9781484203477_FM_4_Preface.html": "also available",
+    }
+    files = {name: f"<p>{reason}</p>" for name, reason in artifacts.items()}
+    files.update({
+        "007_9781484203477_FM_7_Introduction.html": "<p>Introduction</p>",
+        "008_9781484203477_Ch01.html": "<p>Chapter 1</p>",
+    })
+    write_book(tmp_path, "MATLAB Numerical Calculations", files)
+    document = build(tmp_path)
+    book = document["books"][0]
+    assert len(book["chapters"]) == 2
+    assert len(book["excluded_artifacts"]) == 4
+    assert {item["reason"] for item in book["excluded_artifacts"]} == set(artifacts.values())
+    assert all(item["source"].startswith("MATLAB Numerical Calculations/") for item in book["excluded_artifacts"])
