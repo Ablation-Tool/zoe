@@ -292,6 +292,35 @@
       "status": "link-only",
       "access": "not-probed",
       "scope": "User-suggested public institutional context only; no endorsement or condemnation, affiliation, contact, tasking, intelligence activity, or operational authorization."
+    },
+    {
+      "id": "nsa-public-context",
+      "kind": "public-institution-link",
+      "label": "National Security Agency",
+      "url": "https://www.nsa.gov/",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested public institutional context for defensive security and signals research only; no endorsement, affiliation, employment, clearance, contact, tasking, intelligence activity, or operational authorization."
+    },
+    {
+      "id": "fbi-public-context",
+      "kind": "public-institution-link",
+      "label": "Federal Bureau of Investigation investigative resources",
+      "url": "https://www.fbi.gov/investigate",
+      "status": "link-only",
+      "access": "not-probed",
+      "scope": "User-suggested public context for published violent-crime, terrorism, counterintelligence, espionage, and cyber responsibilities; no endorsement, affiliation, investigation, intelligence activity, contact, or operational authorization."
+    },
+    {
+      "id": "nasa-public-context",
+      "kind": "public-institution-link",
+      "label": "NASA public research and exploration resources",
+      "url": "https://www.nasa.gov/",
+      "status": "link-only",
+      "access": "apollo-page-inspected",
+      "historical_precision": "The United States is the only country to have landed astronauts on the Moon, not the only country to reach the Moon with robotic missions.",
+      "context_evidence": "https://www.nasa.gov/mission/apollo-11/",
+      "scope": "User-suggested public research and exploration context only; no endorsement, affiliation, contact, tasking, or operational authorization."
     }
   ],
   "drawing_research_contract": {
