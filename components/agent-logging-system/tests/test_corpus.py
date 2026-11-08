@@ -16,6 +16,8 @@ def write_book(root, folder, files):
 def test_extracts_chapters_without_claiming_understanding(tmp_path):
     write_book(tmp_path, "Imaging", {
         "001_toc.html": '<a href="c02.xhtml">Chapter 2</a>',
+        "001_biocoder_signup_page.html": '<img alt="Signup" src="signup.png">',
+        "014_author_bios.html": "<h2>About the Author</h2><p>Publisher biography.</p>",
         "007_c02.html": "<h1>Evaluation of Tomographic Data</h1><p>Voxel size is not resolution.</p>" + "x" * 1000,
         "008_c03.html": "<h1>Radiation Exposure</h1><p>Dose area product.</p>",
     })

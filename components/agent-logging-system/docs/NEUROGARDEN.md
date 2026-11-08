@@ -119,6 +119,17 @@ Three additional chapters have source-linked reviews and executable teaching dem
 - *Bioheat transfer during radiofrequency ablation* informs a radial Pennes conduction/perfusion teaching model. Its fixed electrode boundary, omitted electric/metabolic heat sources, and explicit stability bound are explicit approximations, not patient-specific treatment planning.
 - *Neutrosophic similarity score-based entropy measure for focal and nonfocal electroencephalogram signal classification* informs the cosine-form similarity of truth/indeterminacy/falsity membership triples. The tool does not reproduce the chapter's full feature pipeline, classifier, or reported accuracy.
 
+### BioCoder, Summer 2014
+
+The O'Reilly Media front matter identifies the issue as *BioCoder, Summer 2014*. All 11 substantive articles were read and have source-hashed review records; signup and publisher-bio artifacts are not counted as chapters.
+
+Two bounded teaching uses survived review:
+
+- `chemical_review()` preserves SDS/GHS/PPE review topics while requiring current product-specific documentation and qualified local risk assessment. It explicitly rejects the article's animal-to-human LD50 extrapolation as a dosing method.
+- `bidirectional_read_plan()` shows that two idealized 650-base reads anchored at opposite ends of an 800-base fragment overlap by 500 bases. It does not infer read quality, perform alignment, or identify a species.
+
+The remaining articles have specific no-tool rationales. NFC implants do not acquire security or clinical validation from short read range; the high-voltage design receives no controller or construction path; wet-lab reports do not become autonomous protocols; and historical product, food, startup, and community claims are not promoted into current evidence.
+
 ### De Gruyter Handbook of Humor Studies
 
 **Thomas E. Ford, Władysław Chłopicki, and Giselinde Kuipers**, editors. The title page confirms the actual title. Its folder currently has a different mathematical-methods name; that is a metadata mismatch, not a reason to erase the intentionally included book.
@@ -145,7 +156,7 @@ The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subje
 
 ## Verification
 
-The current suite contains **42 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **44 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 

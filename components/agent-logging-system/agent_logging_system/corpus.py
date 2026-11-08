@@ -10,7 +10,7 @@ EXPECTED_BOOKS = 35
 MAX_SNIPPET = 280
 NON_CONTENT = {
     "cover", "title", "titlepage", "halftitle", "copyright", "imprint", "eula",
-    "index", "toc", "navigation", "seriespage", "abbreviations",
+    "index", "toc", "navigation", "seriespage", "abbreviations", "signup", "author_bios",
 }
 TERMS = {
     "alignment": ("alignment", "needleman", "smith–waterman", "smith-waterman"),

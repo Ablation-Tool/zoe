@@ -166,3 +166,42 @@ def photon_counting_review() -> SafetyReview:
         ),
         ("Radiation Detectors for Medical Imaging, preface",),
     )
+
+
+def chemical_review() -> SafetyReview:
+    return SafetyReview(
+        "Chemical safety",
+        (
+            "Identify the exact chemical and product and consult the current supplier SDS",
+            "Review GHS pictograms and hazard statements without treating NFPA ratings as exposure limits",
+            "Select glove material, thickness, and other PPE through SDS compatibility and qualified risk assessment",
+            "Review ventilation, segregation, waste, and emergency plans under current local requirements",
+            "Do not extrapolate animal LD50 values into human doses",
+        ),
+        ("BioCoder 4, Chemical Safety in DIYbio",),
+    )
+
+
+@dataclass(frozen=True)
+class ReadPlan:
+    fragment_length_bases: int
+    read_length_bases: int
+    overlap_bases: int
+    bidirectional_recommended: bool
+    source: str = "BioCoder 4, Fun and Fights with Fungi, Part 2"
+    idealized: bool = True
+    clinical_claim: bool = False
+
+
+def bidirectional_read_plan(fragment_length_bases: int, read_length_bases: int) -> ReadPlan:
+    if not isinstance(fragment_length_bases, int) or isinstance(fragment_length_bases, bool) \
+            or not isinstance(read_length_bases, int) or isinstance(read_length_bases, bool) \
+            or not 1 <= fragment_length_bases <= 100_000 or not 1 <= read_length_bases <= 100_000:
+        raise ValueError("fragment and read lengths must be integers from 1 to 100000 bases")
+    overlap = min(fragment_length_bases, max(0, 2 * read_length_bases - fragment_length_bases))
+    return ReadPlan(
+        fragment_length_bases,
+        read_length_bases,
+        overlap,
+        read_length_bases < fragment_length_bases,
+    )
