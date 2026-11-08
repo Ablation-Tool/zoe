@@ -235,6 +235,164 @@
       "limitations": "historical announcements do not verify current services, protocol correctness, training quality, laboratory safety, or availability",
       "no_tool_rationale": "No current-service directory or protocol importer was built; links were not fetched and community protocols require independent technical and safety review.",
       "reviewed_at": "2026-11-08T10:12:40Z"
+    },
+    "BioCoder 2/003_ch01.html": {
+      "source_sha256": "a7c44816dabcb45a24d9edefe423922dea65122ef35e1d10755eae8bb6848bc2",
+      "concepts": [
+        "journal clubs and open educational venues can connect independent learners with current research",
+        "accessible education and reader participation are editorial goals"
+      ],
+      "application": "accessible journal-club and collaborative-learning design",
+      "limitations": "editorial overview; reported readership and aspirations are not measured learning outcomes or research validation",
+      "no_tool_rationale": "No educational-effectiveness tool was created because the editorial provides no curriculum execution data or comparative learning measurements.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/004_ch02.html": {
+      "source_sha256": "5407b6cd106a0e5d42f7d39870dcc42c3a4f4ea815f8d8ed81460e81cd96f59a",
+      "concepts": [
+        "the hacking metaphor illuminates creative modification but can obscure biological training and metrology",
+        "one-to-one analogies between software and in-vivo biological outcomes are contested"
+      ],
+      "application": "language and assumption review when explaining biological engineering",
+      "limitations": "a conceptual 2014 essay, not a quantitative forecast of technical feasibility, risk, or the time required for laboratory validation",
+      "no_tool_rationale": "No biological-risk or technology-maturity score was inferred because the article offers argument and anecdote rather than a predictive dataset.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/005_ch03.html": {
+      "source_sha256": "099579feb697d4becab44970eda67039ff436cb9f092206d7965f6063cc5f351",
+      "concepts": [
+        "science museums can move from passive exhibits to interactive workshops and shared laboratories",
+        "museums are proposed as hubs for citizen-science collaboration and data work"
+      ],
+      "application": "public research-space and participatory-learning design review",
+      "limitations": "historical examples and a forward-looking proposal do not establish current programs, accessibility, safety, or educational effectiveness",
+      "no_tool_rationale": "No museum-program or workshop controller was created; the article supplies no executable curriculum, current institutional verification, or evaluation dataset.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/006_ch04.html": {
+      "source_sha256": "6437ceb5669c36671d1dc2e0957da8e205322112f90945fbe2f6a060b4ab6b5e",
+      "concepts": [
+        "visual observation and detailed recording connect artistic and scientific practices",
+        "interdisciplinary STEAM education can broaden how research questions are framed"
+      ],
+      "application": "observation, sketching, and interdisciplinary research-communication practice",
+      "limitations": "historical and contemporary anecdotes do not prove that art causes discovery or improves clinical observation; historical claims were not independently validated",
+      "no_tool_rationale": "No causal creativity score, diagnostic-observation claim, or biological-art protocol was created from this reflective essay.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/007_ch05.html": {
+      "source_sha256": "8f24b71a06f40ff158fd75d1ab76125d070308184fc98752275af9fc4c7263f2",
+      "concepts": [
+        "DNA origami uses a long scaffold and shorter staples to form nanoscale shapes",
+        "AFM imaging cost and variability constrain a reported proof of concept",
+        "bioart can expose questions about genetic privacy and public perception"
+      ],
+      "application": "evidence and privacy discussion around historical DIY and museum projects",
+      "limitations": "travel narrative and proof-of-concept account; no reusable structure dataset, imaging validation, genetic-privacy measurement, or current exhibition assessment",
+      "no_tool_rationale": "No DNA-origami designer, AFM controller, phenotype inference, or genetic-privacy tool was created because the necessary design, imaging, consent, and validation data are absent.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/008_ch06.html": {
+      "source_sha256": "07dd518848f184645e18024eec50e3adae91e3cd17f358660d8e1485c5ac4633",
+      "concepts": [
+        "offline open datasets and reproducible experiments are proposed for medical-device research",
+        "closed-loop physiology involves delays, noise, multiple variables, and uncertain models",
+        "institutional incentives and limits of statistical inference require critical review"
+      ],
+      "application": "research-governance, reproducibility, and bounded-risk discussion",
+      "limitations": "opinionated historical essay with secondary treatment and device claims; not current clinical guidance, a device security assessment, or validation of proposed control strategies",
+      "no_tool_rationale": "No insulin dosing, pump control, implant, sensing, or treatment tool was created; patient safety requires validated data, devices, regulatory review, and clinical oversight absent here.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/009_ch07.html": {
+      "source_sha256": "bc1deef0bade1264664a53fdd63677ed52d8a9afa9260ae673ad8498c2d2b94d",
+      "concepts": [
+        "laboratory risk depends on organisms, facilities, procedures, waste, and local legal context",
+        "biosafety guidance, regulated-agent restrictions, and qualified environmental-health review have different roles"
+      ],
+      "application": "questions for current qualified laboratory, waste, insurance, and regulatory review",
+      "limitations": "2014 informal US-centered overview, not legal advice or a safety clearance; examples, disposal instructions, and jurisdiction-specific claims may be incomplete or outdated",
+      "no_tool_rationale": "No legal-compliance classifier, biosafety-level assignment, sterilization cycle, or waste-disposal instruction was generated from this historical article.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/010_ch08.html": {
+      "source_sha256": "4296941c86eda1a2f9b55d61b05ea1ff708ffc36e3155858a72ee3676ac07cc1",
+      "concepts": [
+        "plant initiation-motif surveys combine genome annotations with transcript and protein datasets",
+        "the workshop estimates protein abundance divided by median microarray intensity",
+        "weak reported RNA-protein correlation and probe differences motivate experimental validation"
+      ],
+      "application": "bounded synthetic translation_ratio demonstration using positive abundance measurements",
+      "limitations": "exploratory ratio only; microarray intensity is not absolute RNA concentration, the ratio is not a translation rate, and the source data and reported analysis were not reproduced",
+      "use": "translation_ratio",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/011_ch09.html": {
+      "source_sha256": "c6dcb28f3b0141f008c019ad223c9c094ea307af2e8f6bdab907021f04e6ee56",
+      "concepts": [
+        "galvanotaxis and motion tracking can connect living organisms to an interactive game prototype",
+        "environmental robustness and organism welfare are design questions rather than gameplay features"
+      ],
+      "application": "ethics and systems-reliability review of biotic-game literature",
+      "limitations": "prototype narrative without formal organism-welfare or pain assessment; absence of a nervous system is not proof of harmless stimulation",
+      "no_tool_rationale": "No organism-tracking, electrode-control, or biotic-game actuation was created; the article provides neither validated stimulation limits nor a welfare assessment.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/012_ch10.html": {
+      "source_sha256": "53cc6b82320c6742789303fa2087eded449a6c31ed16512d184aacfc31707e77",
+      "concepts": [
+        "decellularization leaves an extracellular-matrix scaffold that researchers may later attempt to recellularize",
+        "a visual showpiece is fundamentally different from a sterile, functional, transplantable organ"
+      ],
+      "application": "distinction between historical demonstration artifacts and tissue-engineering evidence",
+      "limitations": "informal account with unvalidated substitutions and timing changes; no verified decellularization, sterility, recellularization, tissue function, or transplant outcome",
+      "no_tool_rationale": "No tissue-processing protocol, perfusion controller, animal-tissue workflow, or transplantation claim was created; biological, chemical, electrical, and clinical validation are absent.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/013_ch11.html": {
+      "source_sha256": "19109bd3b0615b0d2943c48ad07682f997f5062a6bb1ba848f766ed1b6bc0db6",
+      "concepts": [
+        "prelaunch feedback, phased outreach, and post-campaign planning shaped one crowdfunding account",
+        "gross pledges, net proceeds, execution risk, and regulatory obligations are distinct"
+      ],
+      "application": "research-communication and project-risk retrospective",
+      "limitations": "single first-person campaign account; does not establish repeatable fundraising results, scientific validity, product delivery, or current platform and regulatory conditions",
+      "no_tool_rationale": "No fundraising forecast, persuasion engine, financial recommendation, or campaign automation was created from this noncomparative historical account.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/014_ch12.html": {
+      "source_sha256": "dc5c9de826b629e12e9cc7cbc056d1d83bab791933b2531e02a5df44bfb535c6",
+      "concepts": [
+        "art and design can reveal cultural dimensions of biotechnology and support different questions",
+        "biological complexity limits simplistic computer analogies",
+        "curiosity and interdisciplinary learning connect making with knowing"
+      ],
+      "application": "interdisciplinary question formulation and research-communication review",
+      "limitations": "interview perspectives and project descriptions, not experimental validation of engineered ecologies, food safety, educational outcomes, or future technical feasibility",
+      "no_tool_rationale": "No biological-design or learning-outcome tool was created because the interview supplies concepts and experience rather than a reproducible computational dataset.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/015_ch13.html": {
+      "source_sha256": "bb0f1e2758426a365166a7172f4803ec5182bba43c1b86851569b5be0a8993fc",
+      "concepts": [
+        "speculative fiction can supply questions about biotechnology, identity, ecology, and governance",
+        "imagined technologies are prompts for inquiry rather than evidence of feasibility"
+      ],
+      "application": "creative reading leads kept separate from the scientific evidence corpus",
+      "limitations": "recommendation list only; the referenced books were not reviewed here and their scenarios are not scientific, clinical, or biosafety evidence",
+      "no_tool_rationale": "No scenario simulator, biological design, or feasibility score was created from fictional recommendations.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
+    },
+    "BioCoder 2/016_ch14.html": {
+      "source_sha256": "e2c088a49318a8db509ff8d8fd0dd003bc333dd640c8d338a688cc1c6fe95fef",
+      "concepts": [
+        "community laboratories, accelerators, expert advice, and iGEM are presented as shared research infrastructure",
+        "access to mentoring and protocols does not itself validate scientific results"
+      ],
+      "application": "historical community-resource and provenance review",
+      "limitations": "announcements do not establish current availability, eligibility, advice quality, program outcomes, or laboratory safety",
+      "no_tool_rationale": "No service directory, eligibility checker, or protocol importer was created; links were not fetched and current authoritative requirements were not verified.",
+      "reviewed_at": "2026-11-08T10:23:40Z"
     }
   }
 }
