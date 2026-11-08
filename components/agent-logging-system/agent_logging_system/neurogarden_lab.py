@@ -368,3 +368,95 @@ def complex_integer_power(real, imaginary, exponent):
         "source": "MATLAB Numerical Calculations, chapter 1, exact integer-complex arithmetic",
         "clinical_claim": False,
     }
+
+
+def gcd_lcm(numbers):
+    if not isinstance(numbers, (list, tuple)) or not 1 <= len(numbers) <= 64:
+        raise ValueError("gcd/lcm requires 1 to 64 integers")
+    if any(not isinstance(value, int) or isinstance(value, bool) or value == 0 or abs(value) > 1e12 for value in numbers):
+        raise ValueError("values must be nonzero bounded integers")
+    greatest = math.gcd(*numbers)
+    least = 1
+    for value in numbers:
+        least = least // math.gcd(least, value) * abs(value)
+        if least > 1e18:
+            raise ValueError("lcm exceeds the output bound")
+    return {
+        "gcd": greatest,
+        "lcm": least,
+        "exact": True,
+        "source": "MATLAB Numerical Calculations, chapter 2, bounded exact integer arithmetic",
+        "clinical_claim": False,
+    }
+
+
+def binomial_coefficient(n, k):
+    if not isinstance(n, int) or isinstance(n, bool) or not isinstance(k, int) or isinstance(k, bool) \
+            or not 0 <= k <= n <= 1024:
+        raise ValueError("require 0 <= k <= n <= 1024")
+    return {
+        "value": math.comb(n, k),
+        "exact": True,
+        "source": "MATLAB Numerical Calculations, chapter 2, bounded exact integer arithmetic",
+        "clinical_claim": False,
+    }
+
+
+def convert_base_number(value, from_base, to_base):
+    if not isinstance(from_base, int) or isinstance(from_base, bool) \
+            or not isinstance(to_base, int) or isinstance(to_base, bool) \
+            or not 2 <= from_base <= 36 or not 2 <= to_base <= 36:
+        raise ValueError("bases must be integers from 2 to 36")
+    if isinstance(value, int) and not isinstance(value, bool):
+        decimal = value
+        if not 0 <= decimal <= 1e18:
+            raise ValueError("decimal input exceeds the bound")
+    elif isinstance(value, str) and value and len(value) <= 128:
+        decimal = 0
+        for character in value.upper():
+            try:
+                digit = int(character, 36)
+            except ValueError as error:
+                raise ValueError("input contains a non-base digit") from error
+            if digit >= from_base:
+                raise ValueError("digit is outside the source base")
+            decimal = decimal * from_base + digit
+            if decimal > 1e18:
+                raise ValueError("decimal input exceeds the bound")
+    else:
+        raise ValueError("value must be a bounded integer or base string")
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if decimal == 0:
+        result = "0"
+    else:
+        digits = []
+        while decimal:
+            decimal, remainder = divmod(decimal, to_base)
+            digits.append(alphabet[remainder])
+        result = "".join(reversed(digits))
+    return {
+        "value": result,
+        "from_base": from_base,
+        "to_base": to_base,
+        "exact": True,
+        "source": "MATLAB Numerical Calculations, chapter 2, bounded exact integer arithmetic",
+        "clinical_claim": False,
+    }
+
+
+def divisor_summary(number):
+    if not isinstance(number, int) or isinstance(number, bool) or not 1 <= number <= 1e12:
+        raise ValueError("number must be a positive bounded integer")
+    divisors = set()
+    for candidate in range(1, math.isqrt(number) + 1):
+        if number % candidate == 0:
+            divisors.update((candidate, number // candidate))
+    ordered = sorted(divisors)
+    return {
+        "divisors": ordered,
+        "count": len(ordered),
+        "sum": sum(ordered),
+        "exact": True,
+        "source": "MATLAB Numerical Calculations, chapter 2, bounded exact integer arithmetic",
+        "clinical_claim": False,
+    }
