@@ -762,6 +762,36 @@
       "limitations": "no raw fluorescence images, excitation fields, forward model, noise model, or cohort data are supplied; normalized and tomographic reconstructions were not independently validated; synthetic Gaussian PSF processing is not an actual fluorescence molecular tomography system, surgical guide, patient diagnosis, or treatment",
       "use": "convolve; recovery_coefficient",
       "reviewed_at": "2026-11-08T15:31:06Z"
+    },
+    "Bioinformatics and Medical Applications/013_c09.html": {
+      "source_sha256": "9cfd4a79a089e37303829e5b835b7a77ffdbe84c8a1163bf3b63452fbd0575be",
+      "concepts": [
+        "Figure 9.11 reconciles arithmetically to 18,460 correct predictions among 19,223 test images, or 96.0308%, but this is not independent model evaluation",
+        "the screenshot shows an image-level random 80/20 split with random_state=0; patient identity, duplicate slices, and patient-level separation are not reported",
+        "the abstract's approximate 98% training and 95% validation values, the text's 96.95% and 96.03%, and the comparison chart's DNN 96.97% are not reconciled",
+        "Figure 9.2's superpixel, feature-selection, extremely randomized trees, and tumor-mask pipeline is not linked methodologically to the later CNN classification pipeline",
+        "Figure 9.5's first five class counts sum to 96,115, while its additional BRAINS count of 556 is not reconciled with the stated 96,115 total or the text's hospital dataset description",
+        "MRI classification accuracy, IoT data handling, and tumor-mask segmentation are distinct tasks and do not establish treatment efficacy"
+      ],
+      "application": "Dorothy source and count audit: preserve the 18,460/19,223 arithmetic and the unresolved cohort, split, pipeline, and reporting discrepancies; require patient-level separation, class-specific predictions, and external validation before any future imaging experiment",
+      "limitations": "no source images, patient identifiers, cohort manifest, executable training code, fitted model, raw predictions, confusion matrix, class support, confidence intervals, or external test set is available; figure arithmetic was checked but neither the CNN nor the extremely-randomized-trees pipeline was reproduced; the chapter's literature survey and garbled clinical descriptions are not independent clinical evidence; no diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No CNN, segmentation model, or image-level split was created or executed because the underlying images, patient identities, cohort assignments, and complete executable pipeline are absent and the screenshot is not a reproducible implementation. Reconciling 18,460/19,223 with the displayed accuracy is a source audit, not model validation; a new generic classifier would not resolve those missing prerequisites.",
+      "reviewed_at": "2026-11-08T15:40:39Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/009_c04.html": {
+      "source_sha256": "0ff35e089982cb315d49b03584cc8fe9e7a0005dfff0b38c2c83b89609de1dc4",
+      "concepts": [
+        "accuracy, precision, recall, specificity, F1, Dice, and segmentation overlap measure different properties and are not interchangeable",
+        "section 4.6.4 defines specificity as the true-negative rate but prints TN/(TP+FP); the appropriate aggregate specificity denominator is TN+FP",
+        "the literature tables combine different studies, datasets, tasks, and metrics, so their percentages do not establish a universal best classifier or segmentation method",
+        "seed selection, intensity thresholds, noise, pooling, spatial context, and three-dimensional sampling can change segmentation and classification results",
+        "the conclusion's categorical limitation of CNNs for 3D MRI is not established by the chapter's heterogeneous survey",
+        "image classification or tumor segmentation does not establish tumor grade, patient outcome, treatment efficacy, or a cure"
+      ],
+      "application": "Dorothy bounded binary_confusion_metrics demonstration with synthetic TP=7, TN=8, FP=2, FN=3: specificity is 8/10=0.8, not the printed formula's 8/9; use the corrected metric as a review gate for future aggregate tumor-classification counts",
+      "limitations": "this is a broad literature survey, not a common-protocol benchmark; no shared dataset, raw images, patient-level splits, predictions, fitted models, or external validation is supplied; cited model percentages and clinical generalizations were not independently reproduced; the synthetic count demonstration validates arithmetic only, not any cited model, segmentation, diagnosis, treatment, or patient outcome",
+      "use": "binary_confusion_metrics",
+      "reviewed_at": "2026-11-08T15:47:59Z"
     }
   }
 }

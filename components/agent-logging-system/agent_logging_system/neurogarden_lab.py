@@ -497,3 +497,30 @@ def brain_tumor_validation_review():
         "model_evaluated": False,
         "clinical_claim": False,
     }
+
+
+def binary_confusion_metrics(tp, tn, fp, fn):
+    counts = {"tp": tp, "tn": tn, "fp": fp, "fn": fn}
+    if any(not isinstance(value, int) or isinstance(value, bool) or not 0 <= value <= 1e9
+           for value in counts.values()):
+        raise ValueError("confusion-matrix counts must be nonnegative bounded integers")
+    total = sum(counts.values())
+    if not 0 < total <= 1e9:
+        raise ValueError("confusion-matrix total must be positive and bounded")
+
+    def ratio(numerator, denominator):
+        return numerator / denominator if denominator else None
+
+    return {
+        "counts": counts,
+        "total": total,
+        "accuracy": ratio(tp + tn, total),
+        "precision": ratio(tp, tp + fp),
+        "recall": ratio(tp, tp + fn),
+        "specificity": ratio(tn, tn + fp),
+        "f1": ratio(2 * tp, 2 * tp + fp + fn),
+        "source": "Bio-inspired Optimization for Medical Data Mining, chapter 4, section 4.6; specificity denominator corrected to TN + FP",
+        "aggregate_counts_only": True,
+        "model_evaluated": False,
+        "clinical_claim": False,
+    }

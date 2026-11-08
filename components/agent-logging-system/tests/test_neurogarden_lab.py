@@ -5,7 +5,7 @@ from agent_logging_system.neurogarden_lab import (
     ai_risk_review, mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
     complex_integer_power, post_quantum_pairing_review, translation_ratio, xray_review,
     gcd_lcm, binomial_coefficient, convert_base_number, divisor_summary,
-    brain_tumor_validation_review,
+    brain_tumor_validation_review, binary_confusion_metrics,
 )
 
 
@@ -250,3 +250,25 @@ def test_brain_tumor_validation_review_detects_narrative_contradictions():
     assert len(review["narrative_contradictions"]) == 2
     assert not review["model_evaluated"]
     assert not review["clinical_claim"]
+
+
+def test_binary_confusion_metrics_corrects_specificity_and_handles_empty_denominators():
+    metrics = binary_confusion_metrics(tp=7, tn=8, fp=2, fn=3)
+    assert metrics["total"] == 20
+    assert metrics["accuracy"] == pytest.approx(15 / 20)
+    assert metrics["precision"] == pytest.approx(7 / 9)
+    assert metrics["recall"] == pytest.approx(7 / 10)
+    assert metrics["specificity"] == pytest.approx(8 / 10)
+    assert metrics["specificity"] != 8 / 9
+    assert metrics["f1"] == pytest.approx(14 / 19)
+    assert metrics["aggregate_counts_only"]
+    assert not metrics["model_evaluated"]
+    assert not metrics["clinical_claim"]
+    empty_predicted_positive = binary_confusion_metrics(0, 2, 0, 3)
+    assert empty_predicted_positive["precision"] is None
+    assert empty_predicted_positive["recall"] == 0
+    assert empty_predicted_positive["specificity"] == 1
+    assert binary_confusion_metrics(2, 0, 0, 3)["specificity"] is None
+    for counts in ((-1, 1, 1, 1), (True, 1, 1, 1), (0, 0, 0, 0), (1_000_000_001, 0, 0, 0)):
+        with pytest.raises(ValueError):
+            binary_confusion_metrics(*counts)
