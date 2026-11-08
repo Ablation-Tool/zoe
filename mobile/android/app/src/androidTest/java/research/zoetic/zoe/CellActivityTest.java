@@ -33,15 +33,15 @@ public class CellActivityTest {
 
     @Test
     public void informationUsesRealProtocolResponses() {
-        onView(withId(R.id.cell_info)).perform(click());
+        onView(withId(R.id.cell_info)).perform(scrollTo(), click());
         onView(withId(R.id.cell_report)).check(matches(withText(containsString("ZOE/NUCLIDE"))));
         onView(withId(R.id.cell_report)).check(matches(withText(containsString("0x9000"))));
     }
 
     @Test
     public void measurementExcludesThresholdEquality() {
-        onView(withId(R.id.cell_threshold)).perform(replaceText("0.20"));
-        onView(withId(R.id.cell_measure)).perform(click());
+        onView(withId(R.id.cell_threshold)).perform(scrollTo(), replaceText("0.20"));
+        onView(withId(R.id.cell_measure)).perform(scrollTo(), click());
         onView(withId(R.id.cell_report)).check(matches(withText(containsString("A = 1 of 4"))));
         onView(withId(R.id.cell_report)).check(matches(withText(containsString("APDU request: 15 bytes"))));
         onView(withId(R.id.cell_report)).check(matches(withText(containsString("no action authorized"))));
@@ -75,7 +75,7 @@ public class CellActivityTest {
 
     @Test
     public void resetClearsHistoryAndPreventsEmptyReplay() {
-        onView(withId(R.id.cell_info)).perform(click());
+        onView(withId(R.id.cell_info)).perform(scrollTo(), click());
         onView(withId(R.id.cell_reset)).perform(scrollTo(), click());
         onView(withId(R.id.cell_history)).check(matches(withText("No transactions in this session.")));
         onView(withId(R.id.cell_replay)).perform(scrollTo(), click());
@@ -84,9 +84,17 @@ public class CellActivityTest {
     }
 
     @Test
+    public void emptySessionCannotOpenAnExport() {
+        onView(withId(R.id.cell_share)).perform(scrollTo(), click());
+        onView(withId(R.id.cell_status)).check(matches(withText(
+                "Nothing to share yet. Read or measure on the simulated card first.")));
+        onView(withId(R.id.cell_history)).check(matches(withText("No transactions in this session.")));
+    }
+
+    @Test
     public void oversizedProbabilityTextIsRejectedBeforeParsing() {
-        onView(withId(R.id.cell_probabilities)).perform(replaceText("1".repeat(4097)));
-        onView(withId(R.id.cell_measure)).perform(click());
+        onView(withId(R.id.cell_probabilities)).perform(scrollTo(), replaceText("1".repeat(4097)));
+        onView(withId(R.id.cell_measure)).perform(scrollTo(), click());
         onView(withId(R.id.cell_status)).check(matches(withText(containsString("4096 characters"))));
         onView(withId(R.id.cell_history)).check(matches(withText("No transactions in this session.")));
     }

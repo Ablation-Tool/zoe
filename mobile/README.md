@@ -2,44 +2,57 @@
 
 Original native Android and Apple interfaces for **Zoe · NuClide Research**. The mobile work keeps three capabilities separate:
 
-1. **Deterministic Zoe:** strict accessible-volume measurement, local voice-command parsing, and review-required observations.
+1. **Deterministic Zoe:** strict accessible-volume measurement, local voice-command parsing, bounded protocol experiments, and review-required observations.
 2. **Optional on-device AI:** Gemini Nano image descriptions through the public ML Kit GenAI API when Android and the installed model support it. Apple uses its native Vision framework instead.
 3. **External assistants:** an explicit Gemini app/web handoff. Zoe does not read Gemini Live's camera, inject private commands, retrieve private responses, or claim Gemini's permissions.
 
-Research = fun = discovery. Model confidence remains separate from correctness, evidence, belief, and authorization.
+**Research = fun = discovery.** The design uses **PLACES — Play. Learn. Adapt. Create. Explore. Share.** as a creative thread, not as cryptic navigation. Controls use plain language, specialized instruments stay out of the first-run path, and model confidence remains separate from correctness, evidence, belief, and authorization.
 
-## Android
+## Researcher quick start
 
-The application ID is `research.zoetic.zoe`. It includes:
-
-- **Guided Vision:** explicit camera start, one-frame inspection, bundled offline OCR and image labels, and spoken results on request.
-- **Optional device AI:** public `genai-image-description` feature checks and a separate **Enable AI model** action. No model download is triggered by opening the app. Feature availability is checked at runtime rather than inferred from AICore's presence.
-- **Accessible Volume:** Nicholas Michael Kloster's original strict threshold equation, created solely by him on March 6, 2026. Equality is excluded.
-- **Device Field:** local battery, thermal/capability observations where public APIs expose them, sensor counts, speech availability, and an explicit speaker check.
-- **Voice navigation:** one-shot `inspect`, `repeat`, `stop`, `measure`, `battery`, and `Gemini` commands. On-device speech is selected when Android reports it available; otherwise offline recognition is preferred and the service controls actual processing.
-
-Zoe is **offline-first, not offline-only**. Its merged manifest includes `CAMERA`, `RECORD_AUDIO`, `INTERNET`, `ACCESS_NETWORK_STATE`, AICore's `BIND_SERVICE`, Bluetooth, vibration, one-shot fine/coarse location, and launcher-only app visibility. There are no storage, contacts, device-administrator, full-package-inventory, or bootloader privileges. Cloud backup and device transfer exclude app data. Screen Space additionally requires an explicit, user-enabled AccessibilityService; it does not passively read accessibility events. Location and app metadata are accessed only through the relevant activities, and no Play Protect control or private app-data API is claimed. Bundled OCR and image-label models and the local UI work offline; optional model downloads, external apps, and model services may use the network the user authorized. Zoe-authored code has no telemetry or image-upload path, and sharing is always user-initiated.
-
-### Build
-
-Requirements: Java 17+, Android SDK 36, and an Android device or emulator. From `mobile/android`:
+Requirements: **Java 17+**, **Android SDK 36**, and **Android 8.0/API 26 or later**. Use a device for instrumentation and hardware checks; an emulator is sufficient for many UI checks. The first Gradle build needs network access to retrieve declared dependencies. From `mobile/android`:
 
 ```bash
 export ANDROID_HOME=/path/to/android-sdk
-./gradlew testDebugUnitTest assembleDebug assembleAndroidTest
+./gradlew testDebugUnitTest lintDebug assembleDebug assembleAndroidTest --no-daemon
 adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n research.zoetic.zoe/.MainActivity
+```
+
+To run the separate on-device suite:
+
+```bash
 adb install -r app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 adb shell am instrument -w -r \
   research.zoetic.zoe.test/androidx.test.runner.AndroidJUnitRunner
 ```
 
-Check the reported JUnit result, not only ADB's exit status. The current **26 device tests** verify the settings-style home, strict volume measurement, SafeConvert's hidden cover and exit, Talk controls, scoped idle states, and actual cancellation of a pending platform location request. Hardware-dependent results are listed separately below rather than inferred from these UI tests.
+Check the reported JUnit result, not only ADB's exit status. Hardware-dependent results are listed separately below rather than inferred from UI tests. No release keystore is included: the generated APK is a development-signed build, not a production distribution. Before a public release, configure signing and an update path, test the supported device matrix and large-text/screen-reader flows, review third-party services, and obtain independent security and accessibility review.
 
-On the connected Pixel, Zoe can also be launched with:
+### Your first five minutes
 
-```bash
-adb shell am start -n research.zoetic.zoe/.MainActivity
-```
+1. Open **Accessible volume** and measure the worked distribution.
+2. Open **Tiny Zoe**. Choose **Read simulated card**, then **Measure on simulated card**.
+3. Inspect the request, response, status word, accessible count, complement, and quantized threshold.
+4. Change `τ` from `0.05` to `0.20`. Equality is excluded, so the default distribution produces **A = 1 of 4** instead of **A = 3 of 4**.
+5. Choose **Replay last** and confirm identical bytes. Choose **Share session** only if you want Android's share sheet to export the retained simulation transcript.
+
+The same workflow is available offline inside **Researcher guide**. That screen also explains build requirements, privacy, evidence boundaries, and the remaining production-release checklist.
+
+## Android
+
+The application ID is `research.zoetic.zoe`. The home screen has four primary destinations:
+
+- **Guided vision:** explicit camera start, one-frame inspection, bundled offline OCR and image labels, optional device AI, and spoken results on request.
+- **Talk:** continuous turn-taking only after explicit start, captions, bounded transcripts, and installed English voice selection.
+- **Accessible volume:** Nicholas Michael Kloster's original strict threshold equation, created solely by him on March 6, 2026. Equality is excluded.
+- **Tiny Zoe:** the Zoe Cell protocol simulator, raw APDU console, deterministic replay, bounded history, and explicit session sharing.
+
+**Field kit** groups Multi-view, Acoustic ranging, Radio field, Location field, Connectivity, Screen Space, and App Observatory. **Device field**, **SafeConvert**, and the **Researcher guide** remain one tap away. Returning home explicitly unbinds the Guided Vision camera. No sensor starts merely because its row is visible.
+
+Additional deterministic and platform capabilities include local battery/thermal/capability observations, sensor counts, speech availability, an explicit speaker check, and one-shot voice commands: `inspect`, `repeat`, `stop`, `measure`, `battery`, and `Gemini`. On-device speech is selected when Android reports it available; otherwise offline recognition is preferred and the service controls actual processing.
+
+Zoe is **offline-first, not offline-only**. Its merged manifest includes `CAMERA`, `RECORD_AUDIO`, `INTERNET`, `ACCESS_NETWORK_STATE`, AICore's `BIND_SERVICE`, Bluetooth, vibration, one-shot fine/coarse location, and launcher-only app visibility. There are no storage, contacts, device-administrator, full-package-inventory, or bootloader privileges. Cloud backup and device transfer exclude app data. Screen Space additionally requires an explicit, user-enabled AccessibilityService; it does not passively read accessibility events. Location and app metadata are accessed only through the relevant activities, and no Play Protect control or private app-data API is claimed. Bundled OCR and image-label models and the local UI work offline; optional model downloads, external apps, and model services may use the network the user authorized. Zoe-authored code has no telemetry or image-upload path, and sharing is always user-initiated.
 
 ### Device-AI behavior
 
@@ -54,13 +67,25 @@ OCR and image labeling run whenever **Inspect once** is pressed after camera per
 
 A feature status of `DOWNLOADABLE` or `AVAILABLE` is not evidence of description quality. Descriptions, OCR, labels, and accessible-volume measurements remain separate observations. No output is a safety guarantee, object-identity proof, or instruction to act.
 
-## Home and layered little sister
-
-**Zoe home** uses a Pixel-settings-inspired app drawer: Everyday, Measure & explore, and Device tools. Guided Vision, Accessible Volume, and Device Field open inside the shell; the other capabilities open their own activities. Returning home explicitly unbinds the Guided Vision camera. No sensor starts merely because its settings row is visible.
+## Tiny Zoe · layered little sister
 
 `mobile/card/` contains **Zoe Cell**, the original little-sister companion: a two-command Java Card applet, a bounded host probability encoder, and a generated layer manifest. It preserves strict `p > τ` over explicitly quantized Q0.15 inputs. The current host class for simulation is 2,735 bytes; that is not a CAP or physical-card footprint. Eight APDU simulator tests and six host-codec tests cover shared fixtures, boundary behavior, deterministic encoding, malformed requests, and malformed responses. No reader, CAP installation, physical card, or carrier eSIM modification is claimed. See `mobile/card/README.md` for the protocol, limits, and hardware requirements.
 
-The **Little sister → Zoe Cell** settings row opens a native Android protocol simulator. It executes real bounded requests and responses inside Zoe without a reader, network, SIM access, or third-party card runtime. The screen displays the under-1,900,000-byte companion budget and distinguishes the 2,735-byte reference class from Android APK, CAP, and physical-card footprints. This is a behavioral model, not a Java Card VM or secure-chip emulator.
+The **Tiny Zoe** home row opens the native Android behavioral simulator. It executes real bounded requests and responses inside Zoe without a reader, network, SIM access, storage permission, or third-party card runtime. Visible labels explain the worked distribution and threshold. The screen displays the under-1,900,000-byte companion budget and distinguishes the 2,735-byte reference class from Android APK, CAP, and physical-card footprints. This is a behavioral model, not a Java Card VM or secure-chip emulator.
+
+The default measure command is:
+
+```text
+800200000A0666599A199A0A3D028F
+```
+
+Its successful response is:
+
+```text
+00030001000406669000
+```
+
+These encode `A = 3`, complement `1`, vocabulary size `4`, quantized `τ = 0x0666`, and success status `0x9000`. **Share session** includes up to twelve retained transactions with request/response bytes and statuses, equation credit, and a prominent simulation disclaimer. It contains no timestamp or device identifier, writes no file, and uploads nothing. Reset clears history and replay state.
 
 ## Talk and Multi-view
 
@@ -113,9 +138,9 @@ If Wireless ADB is enabled later, use its current phone IP and port, then `adb c
 
 ## Measured verification
 
-On the connected Pixel 7, all **29 Android host unit tests**, both APK builds, Android lint, and all **26 on-device tests pass**. Lint reports zero errors without a baseline; non-fatal warnings remain visible. The five Swift core tests and five shared equation fixtures also pass. Zoe Cell passes eight Java Card APDU tests and six Python host-codec tests; its measured host class is 2,735 bytes.
+On the current checkout, all **31 Android host unit tests**, debug and instrumentation APK builds, an unsigned release APK build, Android lint, and all **five shared equation fixtures pass**. Lint reports zero errors without a baseline; non-fatal warnings remain visible. The **30 on-device tests compile**, but the updated suite has not run because no phone was connected after the interface redesign. An earlier Pixel 7 run passed 26 device tests before these changes; that result does not verify the new home, Field kit, researcher guide, or empty-export flow. The five Swift core tests and Zoe Cell's eight Java Card APDU plus six Python host-codec tests passed in the preceding verification; unchanged source was not rerun for this documentation and Android-interface update. The measured Java simulation host class remains 2,735 bytes.
 
-The native Android protocol/session model includes 15 host tests and six on-device UI tests, including strict equality, raw APDU errors, defensive copies, reset, replay, and oversized input. Adversarial checks cover 4,352 arbitrary command cases and 1,000 hostile strings with deterministic replay and bounded history. A visible UI transaction returned `A = 3 of 4` with a 15-byte request and 10-byte response, without hardware, SIM, or network access. Ablation reports no dangerous-call, reflection, class-loader, unsafe-operation, or serialization findings in the three compiled core classes. These are bounded test results, not proof of perfect safety.
+The native Android protocol/session model now has **17 passing host tests**, including strict equality, exact export bytes, empty export behavior, raw APDU errors, defensive copies, reset, replay, and oversized input. Seven Tiny Zoe on-device UI tests are present in the compiled, not-yet-rerun device suite. Adversarial host checks cover 4,352 arbitrary command cases and 1,000 hostile strings with deterministic replay and bounded history. An earlier visible UI transaction returned `A = 3 of 4` with a 15-byte request and 10-byte response, without hardware, SIM, or network access. Ablation's preceding report found no dangerous-call, reflection, class-loader, unsafe-operation, or serialization findings in the three compiled core classes; the new export formatter has not undergone a separate Ablation review. These are bounded test results, not proof of perfect safety or production readiness.
 
 Live observations, kept separate from test claims:
 

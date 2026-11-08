@@ -34,7 +34,7 @@ public class MainActivityTest {
     @Test
     public void startupDoesNotOpenCameraOrMicrophone() {
         onView(withText("Guided vision")).check(matches(isDisplayed()));
-        onView(withText("Small core. Thoughtful tools.")).check(matches(isDisplayed()));
+        onView(withText("Follow your curiosity.")).check(matches(isDisplayed()));
         onView(withText("Guided vision")).perform(click());
         onView(withId(R.id.start_camera)).check(matches(isDisplayed()));
         onView(withId(R.id.inspect_button)).check(matches(not(isEnabled())));

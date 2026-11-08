@@ -38,6 +38,30 @@ final class CellSession {
         return Collections.unmodifiableList(new ArrayList<>(history));
     }
 
+    String exportText() {
+        List<Transaction> transactions = history();
+        StringBuilder text = new StringBuilder()
+                .append("Zoe Cell · simulated protocol session\n")
+                .append("Native Android behavioral model; no hardware, SIM, storage, or network used.\n")
+                .append("No external action authorized. This is not physical-card evidence.\n")
+                .append("Strict p > tau; equality excluded. Unsigned Q0.15 probabilities sum to 32768.\n")
+                .append("Original equation: Nicholas Michael Kloster alone, March 6, 2026.\n")
+                .append("Retained transactions: ").append(transactions.size())
+                .append(" of an in-memory maximum of 12; oldest entries are evicted.\n");
+        if (transactions.isEmpty()) {
+            text.append("\nNo transactions.\n");
+            return text.toString();
+        }
+        for (Transaction transaction : transactions) {
+            text.append("\n#").append(transaction.ordinal())
+                    .append("\nrequest: ").append(CellCodec.hex(transaction.request()))
+                    .append("\nresponse: ").append(CellCodec.hex(transaction.response()))
+                    .append("\nstatus: ").append(String.format(Locale.US, "0x%04X", transaction.status()))
+                    .append('\n');
+        }
+        return text.toString();
+    }
+
     void reset() {
         simulator = new CellSimulator();
         history.clear();

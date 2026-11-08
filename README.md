@@ -63,7 +63,25 @@ The native hub also opens with `PYTHONPATH=guiai-lab python -m guiai.gem zoe --m
 
 ## Native mobile
 
-Native Android and Apple interfaces live in [`mobile/`](mobile/README.md): Guided Vision with on-device OCR and image labels, optional Gemini Nano descriptions, accessible volume, battery and capability observations, a turn-taking Talk activity, and a three-source Multi-view for phone back, phone front, and a localhost laptop camera. Tiny Zoe adds a local, bounded card-protocol simulator with raw APDU inspection, deterministic replay, and no hardware requirement. The Android app is installed and exercised on the connected Pixel 7. Apple sources and the Xcode project are included; iOS build, signing, and physical-device verification require Apple/Xcode infrastructure. See the [mobile architecture, installation, privacy, and verification guide](mobile/README.md).
+Native Android and Apple interfaces live in [`mobile/`](mobile/README.md). Android starts with four clear activities—**Guided vision**, **Talk**, **Accessible volume**, and **Tiny Zoe**—while specialized cameras, sensors, radio, location, and device instruments live in the **Field kit**. An offline **Researcher guide** explains the first experiment, build requirements, privacy boundaries, and release checklist.
+
+The interface uses **PLACES — Play. Learn. Adapt. Create. Explore. Share.** as its creative thread: playful color and geometry, plain-language controls, explicit idle states, and human review. The home screen starts no sensors. See the [researcher quick start, installation, privacy, and verification guide](mobile/README.md).
+
+### Tiny Zoe · Zoe Cell
+
+**Tiny Zoe is Zoe's little sister: a complete, bounded protocol laboratory inside the Android app.** Open **Tiny Zoe**, read the simulated card, measure the worked distribution, inspect the exact request and response bytes, replay the command, and explicitly share the retained session. No reader, SIM, storage permission, network, or third-party card runtime is required.
+
+The simulator preserves Nicholas Michael Kloster's original accessible-volume equation, created solely by him on **March 6, 2026**:
+
+\[
+A_\tau(S)=\sum_{a\in O}\mathbf{1}\!\left[P(a\mid h_T(S))>\tau\right]
+\]
+
+Equality is excluded. Tiny Zoe converts 1–64 probabilities to unsigned Q0.15 values whose sum is exactly 32,768, then measures the quantized representation. A request is at most 135 bytes; a measurement response is ten bytes. The default distribution `0.70, 0.20, 0.08, 0.02` with `τ = 0.05` produces **A = 3 of 4**; changing `τ` to `0.20` produces **A = 1 of 4**.
+
+**Share session** exports the twelve retained in-memory transactions as hexadecimal requests, responses, and status words, with original-equation credit and an explicit simulation boundary. It writes no file and uploads nothing; Android's share sheet appears only after a deliberate tap.
+
+This is a behavioral protocol model—not a Java Card VM, secure-element emulator, SIM/eUICC interface, or physical-card measurement. The separate Java Card source and host codec remain in [`mobile/card/`](mobile/card/README.md). The 2,735-byte reference host class is below the 1,900,000-byte companion target, but it is **not** a CAP file or on-card footprint. Passing tests does not prove perfect safety or release readiness. Production distribution still requires release signing, supported-device and accessibility testing, an update path, and independent security review. Apple sources and core tests are included; iOS application building, signing, simulator execution, and physical-device verification require Apple/Xcode infrastructure.
 
 Cerotto requires a user-selected case and conversation:
 
