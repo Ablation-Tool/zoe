@@ -44,17 +44,17 @@ The source is *Computational Intelligence and Predictive Analysis for Medical Sc
 
 Two complete book reviews now cover **BioCoder, Summer 2014** (11 articles) and **BioCoder, Winter 2014** (14 articles). `chemical_review()` requires a current SDS and rejects animal-to-human LD50 dose extrapolation; `bidirectional_read_plan()` demonstrates idealized forward/reverse read overlap without inferring base quality or species. `translation_ratio()` demonstrates the plant workshop's protein-to-median-RNA intensity ratio without predicting translation rates. Implant, medical-device, high-voltage, wet-lab, organism-stimulation, and project-proposal articles have explicit no-tool rationales. Signup and publisher-bio pages are classified as non-chapters.
 
-GPT-3's preface and first two chapters are now reviewed. Its inventory distinguishes eight substantive sections from ten cover/front/back-matter artifacts, all excluded with paths and reasons preserved. `offline_prompt_plan()` hashes prompts without retaining their text, estimates tokens with the historical four-character approximation, validates temperature/top-p and response-length bounds, and makes no network or tokenizer claim. Chapters 3–6 and the conclusion remain pending.
+GPT-3's preface and first three chapters are now reviewed. Its inventory distinguishes eight substantive sections from ten cover/front/back-matter artifacts, all excluded with paths and reasons preserved. `offline_prompt_plan()` hashes prompts without retaining their text, estimates tokens with the historical four-character approximation, validates temperature/top-p and response-length bounds, and makes no network or tokenizer claim. `programming_request_review()` adds bounded historical engine, frequency-penalty, and stop-sequence checks while rejecting common credential-shaped input. The Java example's embedded key-shaped string was not copied or tested. Chapters 4–6 and the conclusion remain pending.
 
 ## Corpus states
 
 `corpus.py` distinguishes `cataloged`, `extracted`, and `reviewed`. Review requires source hashes, concepts, application, limitations, and demonstrated use or an explicit no-tool rationale. Extraction and keyword indexing are not comprehension.
 
-The current full-corpus report contains **36 populated books, 1,462 chapters, and 38 fully reviewed source chapters**. Another 1,424 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
+The current full-corpus report contains **36 populated books, 1,462 chapters, and 39 fully reviewed source chapters**. Another 1,423 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
 
 ## Current verification
 
-**47 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.4 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, and the GPT-3 offline prompt plan.
+**48 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.5 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, and the GPT-3 offline prompt and programming-request reviews.
 
 ## Evidence boundaries
 

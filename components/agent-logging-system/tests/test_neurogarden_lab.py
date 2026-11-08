@@ -2,7 +2,8 @@ import pytest
 
 from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
-    mri_review, offline_prompt_plan, photon_counting_review, translation_ratio, xray_review,
+    mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
+    translation_ratio, xray_review,
 )
 
 
@@ -138,3 +139,22 @@ def test_offline_prompt_plan_estimates_budget_without_calling_a_model():
         offline_prompt_plan("valid", top_p=1.1)
     with pytest.raises(ValueError):
         offline_prompt_plan("x" * 16001)
+
+
+def test_programming_request_review_is_offline_and_rejects_credentials():
+    review = programming_request_review("Summarize this synthetic paragraph")
+    assert review["engine"] == "davinci"
+    assert review["prompt_plan"].response_length == 100
+    assert review["stop_sequences"] == ["\n\n"]
+    assert review["historical_example"]
+    assert not review["credentials_embedded"]
+    assert not review["network_called"]
+    assert not review["library_installed"]
+    assert not review["clinical_claim"]
+    assert "Summarize this synthetic paragraph" not in repr(review)
+    with pytest.raises(ValueError, match="credential-shaped"):
+        programming_request_review("sk-example1234567890abcdef")
+    with pytest.raises(ValueError):
+        programming_request_review("valid", engine="unsupported")
+    with pytest.raises(ValueError):
+        programming_request_review("valid", stop_sequences=["a", "b", "c", "d", "e"])

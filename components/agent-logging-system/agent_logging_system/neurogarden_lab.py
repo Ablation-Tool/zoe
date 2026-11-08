@@ -271,3 +271,34 @@ def offline_prompt_plan(prompt, response_length=128, temperature=0.0, top_p=1.0)
         float(temperature),
         float(top_p),
     )
+
+
+def programming_request_review(
+    prompt, engine="davinci", response_length=100, temperature=0.5,
+    top_p=1.0, frequency_penalty=0.2, stop_sequences=("\n\n",),
+):
+    import re
+    if isinstance(prompt, str) and re.search(r"\bsk-[A-Za-z0-9_-]{16,}\b", prompt):
+        raise ValueError("credential-shaped prompt content is not accepted")
+    if engine not in {"davinci", "curie", "babbage", "ada"}:
+        raise ValueError("engine must be one of the four historical examples")
+    if not isinstance(stop_sequences, (list, tuple)) or len(stop_sequences) > 4 \
+            or any(not isinstance(value, str) or not 1 <= len(value) <= 128 for value in stop_sequences):
+        raise ValueError("stop sequences must contain at most four short strings")
+    if not isinstance(frequency_penalty, (int, float)) or isinstance(frequency_penalty, bool) \
+            or not math.isfinite(frequency_penalty) or abs(frequency_penalty) > 2:
+        raise ValueError("frequency penalty must be finite and bounded")
+    plan = offline_prompt_plan(prompt, response_length, temperature, top_p)
+    return {
+        "engine": engine,
+        "prompt_plan": plan,
+        "frequency_penalty": float(frequency_penalty),
+        "stop_sequences": list(stop_sequences),
+        "historical_example": True,
+        "credential_scan": "limited to common OpenAI-key-shaped strings",
+        "credentials_embedded": False,
+        "network_called": False,
+        "library_installed": False,
+        "source": "GPT-3, chapter 3, offline programming-request review",
+        "clinical_claim": False,
+    }

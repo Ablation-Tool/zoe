@@ -429,6 +429,18 @@
       "limitations": "the four-characters-per-token estimate is not a model tokenizer or cost quote; 2022 engines, endpoints, prices, examples, and performance claims are historical and were not independently reproduced",
       "use": "offline_prompt_plan",
       "reviewed_at": "2026-11-08T11:43:30Z"
+    },
+    "GPT-3/010_xhtml-0-8.html": {
+      "source_sha256": "9522dda136a0d937241a90ad510e6d5519483056ae3a5469424284f5a8059c04",
+      "concepts": [
+        "Python, Go, and Java examples map the same prompt and generation parameters into API requests",
+        "asynchronous calls and prompt chaining can structure completion workflows",
+        "low-code sandboxes simplify interfaces but do not remove deployment, privacy, or credential responsibilities"
+      ],
+      "application": "offline request validation with historical engine choices, bounded parameters, prompt hashing, and credential-shaped input rejection",
+      "limitations": "historical wrappers and sandbox deployment were not installed or verified; no model output is reproduced, credential scanning is limited to common key shapes, and the Java example's embedded API-key-shaped string was not copied or tested",
+      "use": "programming_request_review",
+      "reviewed_at": "2026-11-08T11:52:47Z"
     }
   }
 }
