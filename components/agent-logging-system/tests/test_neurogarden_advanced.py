@@ -3,8 +3,8 @@ import math
 import pytest
 
 from agent_logging_system.neurogarden_advanced import (
-    affine_distance, log_euclidean_distance, log_euclidean_mean,
-    neutrosophic_similarity, pennes_heat, spd_log,
+    affine_distance, linear_quadratic_survival, log_euclidean_distance, log_euclidean_mean,
+    neutrosophic_similarity, pennes_heat, radiobiology_model_review, spd_log,
 )
 
 IDENTITY = ((1, 0), (0, 1))
@@ -68,3 +68,31 @@ def test_neutrosophic_similarity_is_cosine_not_a_diagnosis():
         neutrosophic_similarity((0, 0, 0), (1, 0, 0))
     with pytest.raises(ValueError):
         neutrosophic_similarity((2, 0, 0), (1, 0, 0))
+
+
+def test_radiobiology_review_reproduces_synthetic_lq_tcp_and_serial_ntcp():
+    review = radiobiology_model_review()
+    survival = review["survival_at_total_15_gy"]
+    assert survival[0]["tumor_survival"] == pytest.approx(math.exp(-15 * (0.35 + 0.035 * 15)))
+    assert survival[1]["tumor_survival"] == pytest.approx(math.exp(-15 * (0.35 + 0.035 * 7.5)))
+    assert survival[1]["normal_tissue_survival"] > survival[1]["tumor_survival"]
+    assert survival[2]["normal_tissue_survival"] > survival[2]["tumor_survival"]
+    largest = review["tcp_at_total_50_gy"][-1]
+    assert largest["clonogenic_cells"] == 1e9
+    assert largest["expected_survivors"] == pytest.approx(1e9 * math.exp(-21))
+    assert largest["tcp"] == pytest.approx(math.exp(-1e9 * math.exp(-21)))
+    serial = review["serial_ntcp_at_total_60_gy"]
+    assert len(serial) == 4
+    assert serial[0]["ntcp"] < serial[-1]["ntcp"]
+    assert serial[-1]["ntcp"] == pytest.approx(-math.expm1(1000 * math.log1p(-serial[-1]["fsu_failure_probability"])))
+    assert all(0 <= item["ntcp"] <= 1 for item in serial)
+    assert review["synthetic"] and not review["patient_specific"]
+    assert not review["treatment_planning_authorized"]
+    assert not review["clinical_claim"]
+    assert not review["radiation_protection"]["current_jurisdiction_limits_verified"]
+    with pytest.raises(ValueError):
+        linear_quadratic_survival(0, 1, 0.35, 0.035)
+    with pytest.raises(ValueError):
+        linear_quadratic_survival(2, 0, 0.35, 0.035)
+    with pytest.raises(ValueError):
+        linear_quadratic_survival(2, 1, 0, 0)
