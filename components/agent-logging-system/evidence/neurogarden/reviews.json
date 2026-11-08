@@ -692,6 +692,34 @@
       "limitations": "historical root finders, interpolation routines, and integration methods were not executed; Pennes is a synthetic radial teaching model, not a general nonlinear solver, interpolation engine, MATLAB-compatible ODE implementation, patient model, or treatment simulation",
       "use": "pennes_heat",
       "reviewed_at": "2026-11-08T15:06:19Z"
+    },
+    "Biomedical Imaging Principles/014_9781118271926c09.html": {
+      "source_sha256": "dc11e6e310ac08f4a483de55016bf222a3e4a2ecaded061f433aa414b16ffd3d",
+      "concepts": [
+        "IR and Raman imaging provide chemical specificity alongside, not instead of, histological morphology",
+        "spatial resolution, chemical sensitivity, water absorption, sample preparation, laser exposure, and preprocessing can change the evidence",
+        "supervised discriminant analysis needs histological assignments and external validation; clustering does not establish clinical truth",
+        "spectral consistency with histology is not survival benefit, treatment efficacy, or a cure",
+        "preprocessing can remove biological signal as well as artifacts"
+      ],
+      "application": "Dorothy spectral-imaging review using the existing voxel-versus-resolution assessment and AI deployment checklist before any classification experiment",
+      "limitations": "no raw spectra, cohort metadata, preprocessing pipeline, or external validation dataset is supplied; historical examples and cell-line or tissue classifications were not independently reproduced; no new classifier, surgical guidance, patient diagnosis, or treatment claim is made",
+      "use": "assess_sampling; ai_risk_review",
+      "reviewed_at": "2026-11-08T15:11:40Z"
+    },
+    "The Internet of Medical Things/009_c04.html": {
+      "source_sha256": "62ec66f2c39b8fa047f6956c5e62813c0171c7def911e8adbafc4638ca26ebe7",
+      "concepts": [
+        "a 70/30 split by subclass yields 12, 24, and 36 validation images for 10, 20, and 30 images per class",
+        "Table 4.7 percentages can be reproduced from integer correct-prediction counts",
+        "the conclusion naming AlexNet best contradicts Table 4.7, where ResNet101 is highest at 33/36 or 91.67%",
+        "small validation sets need prediction-level confidence intervals and per-class support",
+        "classification accuracy is not treatment or cure evidence"
+      ],
+      "application": "Dorothy count-based audit reproducing Table 4.7 and flagging narrative contradictions without evaluating a model",
+      "limitations": "only table counts are reproduced; patient identity, duplicate slices, leakage, raw predictions, confidence intervals, per-class support, code, and fitted models are absent; no model training, clinical validation, or treatment claim is made",
+      "use": "brain_tumor_validation_review",
+      "reviewed_at": "2026-11-08T15:15:17Z"
     }
   }
 }

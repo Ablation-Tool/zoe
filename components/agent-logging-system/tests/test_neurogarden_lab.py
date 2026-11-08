@@ -5,6 +5,7 @@ from agent_logging_system.neurogarden_lab import (
     ai_risk_review, mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
     complex_integer_power, post_quantum_pairing_review, translation_ratio, xray_review,
     gcd_lcm, binomial_coefficient, convert_base_number, divisor_summary,
+    brain_tumor_validation_review,
 )
 
 
@@ -233,3 +234,19 @@ def test_integer_toolkit_reproduces_chapter_two_examples():
         convert_base_number(10, 10, 37)
     with pytest.raises(ValueError):
         divisor_summary(0)
+
+
+def test_brain_tumor_validation_review_detects_narrative_contradictions():
+    review = brain_tumor_validation_review()
+    assert review["highest_reported"]["network"] == "ResNet101"
+    assert review["highest_reported"]["accuracy_percent"] == pytest.approx(100 * 33 / 36)
+    alex = review["networks"][0]["results"][-1]
+    assert alex["total_images"] == 120
+    assert alex["validation_images"] == 36
+    assert alex["correct_predictions"] == 32
+    assert alex["accuracy_percent"] == pytest.approx(100 * 32 / 36)
+    google = review["networks"][1]["results"][-1]
+    assert google["accuracy_percent"] == 75
+    assert len(review["narrative_contradictions"]) == 2
+    assert not review["model_evaluated"]
+    assert not review["clinical_claim"]

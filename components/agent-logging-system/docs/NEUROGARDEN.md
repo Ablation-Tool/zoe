@@ -170,7 +170,9 @@ Chapters 7–8 review numerical programming, optimization, interpolation, differ
 
 ### Tumor and legacy research
 
-The brain-tumor MRI classification review records that aggregate accuracy is not independently reproducible without dataset versions, patient-level splits, class support, predictions, and external validation. Diagnostic classification is not treatment evidence. A second methods review distinguishes imaging, nucleic-acid assays, protein measurements, and target hypotheses; it preserves an internal FISH/MGMT protein-measurement error rather than using it for treatment selection.
+The brain-tumor MRI classification review records that aggregate accuracy is not independently reproducible without dataset versions, patient-level splits, class support, predictions, and external validation. Diagnostic classification is not treatment evidence. A second methods review distinguishes imaging, nucleic-acid assays, protein measurements, and target hypotheses; it preserves an internal FISH/MGMT protein-measurement error rather than using it for treatment selection. The IR/Raman review keeps histological agreement, spatial sampling, and AI validation distinct from treatment benefit.
+
+`brain_tumor_validation_review()` reproduces the 12, 24, and 36 validation-set sizes and their exact percentage calculations. It confirms ResNet101 at 33/36 = 91.67% and flags the conclusion's contradictory AlexNet-best and 82% narratives. The audit evaluates no model and supplies no clinical validation.
 
 `collagen_mesh_scaling_review()` preserves Kaufman et al.'s measured collagen mesh sizes and computes residuals against a simple scaling model. Early invasion, invasive-cell patterns, and later spheroid growth remain separate endpoints; no universal collagen effect or growth law is claimed. The Fe@Au photothermal review preserves short blood residence, liver uptake, intratumoral delivery, and histology requirements from the primary study. The existing bounded Pennes model demonstrates perfusion cooling only, not nanoparticle efficacy or a cure.
 
@@ -222,7 +224,7 @@ CENTCOM, CYBERCOM, the CIA, NSA, FBI, and NASA are link-only public institutiona
 
 ## Verification
 
-The current suite contains **58 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **59 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, chemical review, read-overlap geometry, exploratory abundance ratios, offline prompt budgets, credential-safe programming reviews, AI deployment checklists, exact integer arithmetic, post-quantum pairing review, corpus artifact classification, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 
