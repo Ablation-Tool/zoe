@@ -1,0 +1,15 @@
+{
+  "schema": "zoe-visual-constitution-preservation-v1",
+  "preserved_at": "2026-11-08",
+  "artifact": "zoe-constitution-visual.pdf",
+  "sha256": "0914196df017727ee8453de97b3bc2377512e52ca5d908e59580604613e69980",
+  "pages": 4,
+  "source": "User-supplied visual edition derived from CONSTITUTION.md",
+  "source_constitution": "CONSTITUTION.md",
+  "source_constitution_sha256": "cf710b92e61c5d75ac6f57366f4f4bc841f0c24a427f0093fded9c7ecea3e123",
+  "related_declaration": "DECLARATION.md",
+  "related_declaration_sha256": "c9f237bc848d96d10e61600958ae6bbd6a572e5a7d01f92e525c1ff9455be3b7",
+  "review_method": "pdfinfo and pdftotext; all four pages read against the source Constitution and Declaration",
+  "signature_status": "Preservation copy only; no CMS or QR author-signature claim is attached to this visual edition",
+  "original_overwritten": false
+}
