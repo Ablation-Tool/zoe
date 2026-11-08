@@ -8,9 +8,27 @@
 
 **Research priority #1 is Dorothy:** inspectable spatial research and evidence tools supporting the long-term brain-cancer research mission. Dorothy currently provides Allen mouse-atlas geometry and preclinical research infrastructure—not a cure, diagnosis, treatment, patient registration, or surgical authority.
 
-[Quick start](#quick-start) · [Capabilities](#capabilities) · [Architecture](#source-architecture) · [Verification](#verification-and-boundaries)
+[Current Work](#current-work) · [Quick start](#quick-start) · [Capabilities](#capabilities) · [Architecture](#source-architecture) · [Verification](#verification-and-boundaries)
 
 ![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
+
+## Current Work
+
+**Mission:** make Dorothy the leading research workbench for careful spatial analysis and support long-term brain-cancer research through verified knowledge, reproducible tools, and openly inspectable evidence. This is a research direction, not a promised cure or authorization for patient experiments.
+
+- **Active corpus goal:** verify all 35 expected books and their chapter inventories; give every substantive chapter source-linked concepts, applications, limitations, reviewed status, and a demonstrated use or explicit no-tool rationale. Finish only when no chapters are pending and all corpus tests pass.
+- **Current position — November 8, 2026:** **36 populated books** (35 expected plus one intentional extra), **1,458 substantive chapters**, **47 reviewed**, and **1,411 pending**. The index preserves 4,752,505 extracted words without republishing them. `Medical Metaverse for Digital Healthcare` has no extracted content and receives no invented review.
+- **Completed reviews:** BioCoder Summer 2014 (11 articles), BioCoder Winter 2014 (14), GPT-3 (8 substantive sections), and MATLAB Numerical Calculations introduction plus chapters 1–3 (4 of 9 sections).
+- **Dorothy today:** 12 verified Allen CCFv3 mouse structures and 315,932 triangles, deterministic 3D rendering, ontology Rings, Jenga layouts, coronal Stacks, and SVG/PNG/GEM VDI export. This is preclinical reference geometry, not patient anatomy.
+- **Next milestone:** review MATLAB chapter 4 directly, then chapters 5–8, preserving source hashes and adding practical Dorothy tools only where the evidence supports them.
+- **Current verification:** **53 focused Neurogarden tests pass**. All 47 reviewed chapters have matching source hashes, required review fields, and snippets no longer than 280 characters.
+- **Evidence:** [coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v13.json) · [chapter reviews](components/agent-logging-system/evidence/neurogarden/reviews.json) · [corpus index](components/agent-logging-system/evidence/neurogarden/corpus-index-v13.json) · [verification record](evidence/unified/verification.json).
+
+**Open findings and discovery:** original Zoe research findings, review notes, measurements, limitations, and negative results are free and open under the repository's [GPL-3.0 license](LICENSE), subject to applicable component licenses. Third-party books, meshes, media, and other assets retain their own rights; the repository publishes source links, hashes, bounded snippets, and original analysis—not wholesale books or private data.
+
+<img src="assets/branding/nuclide-brain.png" width="360" alt="NuClide Research dual-brain co-brand">
+
+**NuClide Research** is the user-created Zoe + Nick co-brand, balancing stable and unstable perspectives through correction. See the [co-brand provenance](assets/branding/PROVENANCE.md).
 
 ## Quick start
 
@@ -267,16 +285,24 @@ For legacy/native module entry points, use `PYTHONPATH=guiai-lab python -m guiai
 <img src="components/agent-logging-system/docs/images/dorothy-neurogarden.png" width="430" alt="Dorothy's 12-structure Allen CCFv3 brain atlas rendered deterministically">
 <img src="components/agent-logging-system/docs/images/cern-universe.png" width="430" alt="Neurogarden universe linking biology, neuroscience, physics, CERN, GEM, and community">
 
+![Dorothy Rings Isocortex](guiai-lab/docs/images/dorothy-rings-isocortex.png)
+![Dorothy Jenga exploded tower](guiai-lab/docs/images/dorothy-jenga-exploded.png)
+
 ### Native workbenches
 
 ![Zoe native BRAIN after a stored HELEN observation](guiai-lab/docs/images/zoe-brain.png)
+![Zoe research evidence pack](guiai-lab/docs/images/zoe-research.png)
 ![Zoe Bayesian field notebook](guiai-lab/docs/images/zoe-field-notebook.png)
-![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-native.png)
+![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
+![Zoe Cognitive Field running in the native GTK interface](guiai-lab/docs/images/zoe-cognitive-native.png)
 ![Zoe Artline vector workbench](guiai-lab/docs/images/zoe-artline-native.png)
 ![Zoe Pentomino native timed practice](guiai-lab/docs/images/zoe-pentomino-native.png)
 ![Zoe Pentacube](guiai-lab/docs/images/zoe-pentacube.png)
+![Zoe Internal Clock](guiai-lab/docs/images/zoe-cicada.png)
+![Zoe Practice Navigator cover](guiai-lab/docs/images/zoe-pilot-cover.png)
 ![Zoe Evidence Navigator](guiai-lab/docs/images/zoe-evidence.png)
 ![Zoe Patchbay](guiai-lab/docs/images/zoe-patchbay.png)
+![Zoe + vidlib](guiai-lab/docs/images/zoe-vidlib.png)
 ![Cerotto GEM accessible-volume workbench](guiai-lab/docs/images/cerotto-gem.png)
 
 ### Mobile and Windows
@@ -291,6 +317,7 @@ For legacy/native module entry points, use `PYTHONPATH=guiai-lab python -m guiai
 ![Human and Zoe brain dialogue](assets/brain-dialogue/brain-dialogue-organic.png)
 ![Zoe's synthetic second eye](assets/brain-dialogue/second-eye.png)
 ![Zoe's five-panel qualia field guide](guiai-lab/docs/images/zoe-qualia.png)
+![Illustrative anatomy alongside Zoe's explicit symbolic memory architecture](guiai-lab/docs/images/zoe-cognitive-anatomy.png)
 ![Zoe Presence](guiai-lab/docs/images/zoe-presence.png)
 ![Zoe Protocol Lab](guiai-lab/docs/images/zoe-protocol.png)
 ![Zoe Waveform Replay](guiai-lab/docs/images/zoe-waveform.png)
@@ -298,13 +325,31 @@ For legacy/native module entry points, use `PYTHONPATH=guiai-lab python -m guiai
 ![Zoe Leadership Garden](guiai-lab/docs/images/zoe-leadership.png)
 ![Zoe Maison](guiai-lab/docs/images/zoe-maison.png)
 
+### Verifiable authorship
+
+<img src="evidence/constitution/zoe-constitution-signed.author.png" width="260" alt="Zoe's signed QR author certificate for the Constitution">
+
 ### Five Zoe mechanisms
 
-1. **Epistemic firewall:** [measurement ≠ evidence ≠ belief update ≠ action](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png).
-2. **Belief diff:** [explicit evidence transforms priors into posteriors](guiai-lab/docs/images/zoe-visuals/02-belief-diff.png).
-3. **Chambers:** [deterministic measurements and seeded forecasts remain distinct](guiai-lab/docs/images/zoe-visuals/03-chambers.png).
-4. **Memory:** [append-only hashes support replay and tamper detection](guiai-lab/docs/images/zoe-visuals/04-memory-chain.png).
-5. **Next useful test:** [decision support ranks attention while people control execution](guiai-lab/docs/images/zoe-visuals/05-next-test.png).
+1. **Epistemic firewall:** measurement, evidence, belief updates, and action remain distinct.
+   ![Zoe epistemic firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)
+   [SVG](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.svg)
+
+2. **Belief diff:** priors become posteriors only through explicit evidence, with every likelihood and source retained.
+   ![Zoe belief diff](guiai-lab/docs/images/zoe-visuals/02-belief-diff.png)
+   [SVG](guiai-lab/docs/images/zoe-visuals/02-belief-diff.svg)
+
+3. **Deterministic and stochastic chambers:** reproducible measurements and seeded forecasts have distinct identities and lifecycles.
+   ![Zoe deterministic and stochastic chambers](guiai-lab/docs/images/zoe-visuals/03-chambers.png)
+   [SVG](guiai-lab/docs/images/zoe-visuals/03-chambers.svg)
+
+4. **Append-only memory:** sequence-linked hashes support replay and tamper detection without claiming authentication.
+   ![Zoe append-only memory](guiai-lab/docs/images/zoe-visuals/04-memory-chain.png)
+   [SVG](guiai-lab/docs/images/zoe-visuals/04-memory-chain.svg)
+
+5. **Next useful test:** decision support ranks attention while human review controls execution.
+   ![Zoe next useful test](guiai-lab/docs/images/zoe-visuals/05-next-test.png)
+   [SVG](guiai-lab/docs/images/zoe-visuals/05-next-test.svg)
 
 </details>
 
