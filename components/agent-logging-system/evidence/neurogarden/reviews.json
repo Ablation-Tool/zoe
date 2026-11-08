@@ -490,6 +490,29 @@
       "limitations": "2022 forecasts and promotional examples do not establish current no-code capability, equitable access, empathy, safety, accuracy, or democratized benefit",
       "no_tool_rationale": "No future-capability or democratization score was created because the conclusion supplies projections and interviews rather than a reproducible evaluation dataset.",
       "reviewed_at": "2026-11-08T12:18:00Z"
+    },
+    "MATLAB Numerical Calculations/007_9781484203477_FM_7_Introduction.html": {
+      "source_sha256": "5f76ec8f206e3585b3e464453b0bcac06bb537508796ca9567af872a4d146dbc",
+      "concepts": [
+        "MATLAB can serve as a scientific calculator and a programming environment",
+        "the book moves from numbers and symbolic computation to matrices, numerical analysis, and differential equations"
+      ],
+      "application": "scope and evidence-boundary review for MATLAB-based teaching tools",
+      "limitations": "the introduction is a capability overview, not a numerical result, compatibility claim, or independently verified speed and accuracy comparison",
+      "no_tool_rationale": "No numerical tool was inferred from the general orientation alone; executable demonstrations are reviewed against their specific chapter examples.",
+      "reviewed_at": "2026-11-08T12:27:36Z"
+    },
+    "MATLAB Numerical Calculations/008_9781484203477_Ch01.html": {
+      "source_sha256": "dab2ec44b3f0bc1ec27079cac11cd663c24f56a9adcab29d1f05aa349cf08356",
+      "concepts": [
+        "MATLAB supports numerical and symbolic calculation with configurable display precision",
+        "complex arithmetic can produce exact integer results without floating-point display rounding",
+        "command syntax, case sensitivity, semicolons, comments, and procedural programs affect evaluation"
+      ],
+      "application": "bounded exact integer-complex exponentiation reproducing the chapter's (2+3i)^10 example",
+      "limitations": "accepts integer components and exponents 0-64 only; does not implement general complex powers, MATLAB syntax, symbolic algebra, Maple integration, or numerical precision guarantees",
+      "use": "complex_integer_power",
+      "reviewed_at": "2026-11-08T12:27:36Z"
     }
   }
 }

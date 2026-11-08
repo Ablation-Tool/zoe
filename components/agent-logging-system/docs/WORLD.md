@@ -46,15 +46,17 @@ Three complete book reviews now cover **BioCoder, Summer 2014** (11 articles), *
 
 GPT-3's inventory distinguishes eight substantive sections from ten cover/front/back-matter artifacts, all excluded with paths and reasons preserved. `offline_prompt_plan()` hashes prompts without retaining their text, estimates tokens with the historical four-character approximation, validates temperature/top-p and response-length bounds, and makes no network or tokenizer claim. `programming_request_review()` adds bounded historical engine, frequency-penalty, and stop-sequence checks while rejecting common credential-shaped input. The Java example's embedded key-shaped string was not copied or tested. Startup and enterprise case studies have specific no-tool rationales because the datasets, prompts, implementations, architectures, and evaluation harnesses needed for independent demonstration are unavailable. `ai_risk_review()` adds a static checklist for affected groups, disclosure, data minimization, lifecycle energy, and recovery; the conclusion's democratization forecasts retain a no-tool rationale.
 
+*MATLAB Numerical Calculations* now has its introduction and chapter 1 reviewed, with five other named artifacts plus cover/title/copyright excluded. `complex_integer_power()` reproduces `(2+3i)^10 = -341525-145668i` exactly for integer components and exponents from 0 to 64. It does not claim general complex-power or MATLAB/Maple compatibility. The other seven sections remain pending.
+
 ## Corpus states
 
 `corpus.py` distinguishes `cataloged`, `extracted`, and `reviewed`. Review requires source hashes, concepts, application, limitations, and demonstrated use or an explicit no-tool rationale. Extraction and keyword indexing are not comprehension.
 
-The current full-corpus report contains **36 populated books, 1,462 chapters, and 43 fully reviewed source chapters**. Another 1,419 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
+The current full-corpus report contains **36 populated books, 1,458 chapters, and 45 fully reviewed source chapters**. Another 1,413 chapters remain pending. The expected 35-book target is complete numerically, with one additional entry preserved, but the comprehension goal remains explicitly incomplete.
 
 ## Current verification
 
-**49 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.6 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, and the GPT-3 offline prompt, programming-request, and AI risk reviews.
+**51 focused tests pass**, plus the original multi-agent examples and an isolated Neurogarden 0.6.7 wheel workflow covering CERN, Dorothy, neural analysis, advanced numerical models, both BioCoder issues, GPT-3, and exact integer-complex exponentiation.
 
 ## Evidence boundaries
 

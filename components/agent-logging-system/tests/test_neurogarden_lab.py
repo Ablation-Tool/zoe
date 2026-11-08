@@ -3,7 +3,7 @@ import pytest
 from agent_logging_system.neurogarden_lab import (
     assess_sampling, bidirectional_read_plan, chemical_review, gaussian_mtf, global_align,
     ai_risk_review, mri_review, offline_prompt_plan, photon_counting_review, programming_request_review,
-    translation_ratio, xray_review,
+    complex_integer_power, translation_ratio, xray_review,
 )
 
 
@@ -169,3 +169,23 @@ def test_ai_risk_review_is_a_checklist_not_a_safety_score():
     assert "full model lifecycle" in review.checks[3]
     assert "stop/recovery path" in review.checks[4]
     assert review.sources == ("GPT-3, chapter 6, risk and mitigation review",)
+
+
+def test_complex_integer_power_reproduces_the_book_example_exactly():
+    result = complex_integer_power(2, 3, 10)
+    assert result["real"] == -341525
+    assert result["imaginary"] == -145668
+    assert result["multiplications"] == 10
+    assert result["exact"]
+    assert not result["clinical_claim"]
+    assert complex_integer_power(2, 3, 0) == {
+        "real": 1, "imaginary": 0, "multiplications": 0, "exact": True,
+        "source": "MATLAB Numerical Calculations, chapter 1, exact integer-complex arithmetic",
+        "clinical_claim": False,
+    }
+    with pytest.raises(ValueError):
+        complex_integer_power(2, 3, -1)
+    with pytest.raises(ValueError):
+        complex_integer_power(2, 3, 65)
+    with pytest.raises(ValueError):
+        complex_integer_power(2.5, 3, 2)

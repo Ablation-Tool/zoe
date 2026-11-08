@@ -316,3 +316,26 @@ def programming_request_review(
         "source": "GPT-3, chapter 3, offline programming-request review",
         "clinical_claim": False,
     }
+
+
+def complex_integer_power(real, imaginary, exponent):
+    if not isinstance(real, int) or isinstance(real, bool) \
+            or not isinstance(imaginary, int) or isinstance(imaginary, bool) \
+            or abs(real) > 1_000_000 or abs(imaginary) > 1_000_000:
+        raise ValueError("complex components must be bounded integers")
+    if not isinstance(exponent, int) or isinstance(exponent, bool) or not 0 <= exponent <= 64:
+        raise ValueError("exponent must be an integer from 0 to 64")
+    result_real, result_imaginary = 1, 0
+    for _ in range(exponent):
+        result_real, result_imaginary = (
+            result_real * real - result_imaginary * imaginary,
+            result_real * imaginary + result_imaginary * real,
+        )
+    return {
+        "real": result_real,
+        "imaginary": result_imaginary,
+        "multiplications": exponent,
+        "exact": True,
+        "source": "MATLAB Numerical Calculations, chapter 1, exact integer-complex arithmetic",
+        "clinical_claim": False,
+    }

@@ -44,6 +44,12 @@ BOOK_ARTIFACTS = {
         "016_xhtml-0-14.html": "author biography",
         "017_xhtml-0-15.html": "author biography",
     },
+    "MATLAB Numerical Calculations": {
+        "003_9781484203477_FM_6_Contents_at_a_Glance.html": "contents at a glance",
+        "004_9781484203477_FM_5_Contents.html": "contents",
+        "005_9781484203477_FM_3_About_the_Author.html": "author biography",
+        "006_9781484203477_FM_4_Preface.html": "also available",
+    },
 }
 
 
