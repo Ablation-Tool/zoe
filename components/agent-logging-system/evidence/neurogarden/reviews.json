@@ -525,6 +525,20 @@
       "limitations": "bounded integers only; no symbolic algebra, Diophantine solver, Maple integration, arbitrary real or complex arithmetic, or proof of MATLAB compatibility",
       "use": "gcd_lcm; binomial_coefficient; convert_base_number; divisor_summary",
       "reviewed_at": "2026-11-08T12:56:44Z"
+    },
+    "MATLAB Numerical Calculations/010_9781484203477_Ch03.html": {
+      "source_sha256": "4030f9c447e3f861359324c0a89601e171fde15d66e5831264c446a49a301c68",
+      "concepts": [
+        "exact rational arithmetic differs from floating-point values displayed in rational form",
+        "continued fractions represent rational numbers exactly and supply convergents",
+        "irrational and algebraic numbers require symbolic representations or explicitly approximate numerical values",
+        "complex operations require branch and domain conventions; Gaussian integers use the norm a^2+b^2",
+        "reproducible pseudorandom experiments require a specified generator, seed, and implementation"
+      ],
+      "application": "numerical-representation and precision review for Dorothy atlas geometry, reproducible synthetic measurements, and evidence metadata",
+      "limitations": "historical MATLAB/Maple commands and outputs were read but not executed; display formatting does not make floating-point storage exact; symbolic roots, complex branches, arbitrary precision, and random output examples were not independently reproduced",
+      "no_tool_rationale": "No new generic numeric or Dorothy tool was added: this broad command survey supplies representation cautions but no atlas-specific algorithm. No MATLAB/Maple compatibility layer, symbolic solver, random generator, or clinical inference is claimed.",
+      "reviewed_at": "2026-11-08T13:30:17Z"
     }
   }
 }

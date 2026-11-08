@@ -15,7 +15,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Complete BioCoder, Summer 2014 article reviews with current-SDS chemical guidance, idealized read-overlap geometry, and explicit hardware/wet-lab no-tool boundaries.
 - Complete BioCoder, Winter 2014 article reviews with an exploratory abundance-ratio teaching tool and explicit treatment, legal, organism-welfare, and tissue-processing boundaries.
 - Complete GPT-3 review across all eight substantive sections, with explicit artifact exclusions, offline prompt and programming-request tools, an AI deployment checklist, and startup/enterprise/conclusion no-tool rationales.
-- MATLAB Numerical Calculations introduction and chapters 1–2 review, with exact bounded integer-complex exponentiation, gcd/lcm, binomial coefficients, base conversion, and divisor summaries.
+- MATLAB Numerical Calculations introduction and chapters 1–3 review, with exact bounded integer arithmetic and a Dorothy-oriented numerical-representation review without a new generic tool.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.10 packaging and focused verification.
 
