@@ -17,12 +17,12 @@
 **Mission:** make Dorothy the leading research workbench for careful spatial analysis and support long-term brain-cancer research through verified knowledge, reproducible tools, and openly inspectable evidence. This is a research direction, not a promised cure or authorization for patient experiments.
 
 - **Active corpus goal:** verify all 35 expected books and their chapter inventories; give every substantive chapter source-linked concepts, applications, limitations, reviewed status, and a demonstrated use or explicit no-tool rationale. Finish only when no chapters are pending and all corpus tests pass.
-- **Current position — November 8, 2026:** **36 populated books** (35 expected plus one intentional extra), **1,458 substantive chapters**, **49 reviewed**, and **1,409 pending**. The index preserves 4,752,505 extracted words without republishing them. `Medical Metaverse for Digital Healthcare` has no extracted content and receives no invented review.
-- **Completed reviews:** BioCoder Summer 2014 (11 articles), BioCoder Winter 2014 (14), GPT-3 (8 substantive sections), and MATLAB Numerical Calculations introduction plus chapters 1–5 (6 of 9 sections).
-- **Dorothy today:** 12 verified Allen CCFv3 mouse structures and 315,932 triangles, deterministic 3D rendering, ontology Rings, Jenga layouts, coronal Stacks, bounded spatial matrix review, and SVG/PNG/GEM VDI export. This is preclinical reference geometry, not patient anatomy.
-- **Next milestone:** review MATLAB chapter 6 directly, then chapters 7–8, preserving source hashes and adding practical Dorothy tools only where the evidence supports them.
-- **Current verification:** **55 focused Neurogarden tests pass**. All 49 reviewed chapters have matching source hashes, required review fields, and snippets no longer than 280 characters.
-- **Evidence:** [coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v15.json) · [chapter reviews](components/agent-logging-system/evidence/neurogarden/reviews.json) · [corpus index](components/agent-logging-system/evidence/neurogarden/corpus-index-v15.json) · [verification record](evidence/unified/verification.json).
+- **Current position — November 8, 2026:** **36 populated books** (35 expected plus one intentional extra), **1,458 substantive chapters**, **50 reviewed**, and **1,408 pending**. The index preserves 4,752,505 extracted words without republishing them. `Medical Metaverse for Digital Healthcare` has no extracted content and receives no invented review.
+- **Completed reviews:** BioCoder Summer 2014 (11 articles), BioCoder Winter 2014 (14), GPT-3 (8 substantive sections), and MATLAB Numerical Calculations introduction plus chapters 1–6 (7 of 9 sections).
+- **Dorothy today:** 12 verified Allen CCFv3 mouse structures and 315,932 triangles, deterministic 3D rendering, ontology Rings, Jenga layouts, coronal Stacks, bounded spatial matrix review, a fixed piecewise intensity profile, and SVG/PNG/GEM VDI export. This is preclinical reference geometry, not patient anatomy.
+- **Next milestone:** review MATLAB chapter 7 directly, then chapter 8, preserving source hashes and adding practical Dorothy tools only where the evidence supports them.
+- **Current verification:** **56 focused Neurogarden tests pass**. All 50 reviewed chapters have matching source hashes, required review fields, and snippets no longer than 280 characters.
+- **Evidence:** [coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v16.json) · [chapter reviews](components/agent-logging-system/evidence/neurogarden/reviews.json) · [corpus index](components/agent-logging-system/evidence/neurogarden/corpus-index-v16.json) · [verification record](evidence/unified/verification.json).
 
 **Open findings and discovery:** original Zoe research findings, review notes, measurements, limitations, and negative results are free and open under the repository's [GPL-3.0 license](LICENSE), subject to applicable component licenses. Third-party books, meshes, media, and other assets retain their own rights; the repository publishes source links, hashes, bounded snippets, and original analysis—not wholesale books or private data.
 
@@ -367,7 +367,7 @@ PYTHONPATH=guiai-lab:/home/cowboy/security-tools/lib/python3.14/site-packages \
   guiai-lab/stress/nested_x11.sh python guiai-lab/stress/zoe_stress.py
 ```
 
-Component-specific commands and measured results live in the [unified verification guide](guiai-lab/docs/UNIFIED.md) and [verification record](evidence/unified/verification.json). Neurogarden has **55 passing focused tests**, plus its original examples and isolated-wheel workflow. These are bounded test results, not proof of perfect safety or production readiness.
+Component-specific commands and measured results live in the [unified verification guide](guiai-lab/docs/UNIFIED.md) and [verification record](evidence/unified/verification.json). Neurogarden has **56 passing focused tests**, plus its original examples and isolated-wheel workflow. These are bounded test results, not proof of perfect safety or production readiness.
 
 - **Research:** atlas geometry is not patient anatomy, connectivity, diagnosis, treatment, or a cancer cure. Book learning is not clinical licensure.
 - **Cognition:** “living” geometry is a creative metaphor, not consciousness or sentience. A self-model is not a self.

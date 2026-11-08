@@ -567,6 +567,20 @@
       "limitations": "only the two determinant demonstrations are independently reproduced; no general inverse, rank, norm, eigensolver, decomposition, sparse solver, MATLAB/Maple compatibility, or clinical claim; historical transcription and typesetting inconsistencies are not treated as verified output",
       "use": "matrix_layout_review",
       "reviewed_at": "2026-11-08T13:49:04Z"
+    },
+    "MATLAB Numerical Calculations/013_9781484203477_Ch06.html": {
+      "source_sha256": "f8c37ced93c6c6312c9684a0ad45a740940f7cdb809b5f54dfec981185a5a367",
+      "concepts": [
+        "named function files separate reusable definitions from interactive commands",
+        "loops and conditionals support deterministic recurrence and iterative numerical methods",
+        "Newton and Schroder iterations require derivative, convergence, and stopping-bound review; tolerance is not an exact-root proof",
+        "piecewise functions require explicit interval boundaries and branch semantics",
+        "inverse functions can be nonunique and require domain restrictions"
+      ],
+      "application": "bounded fixed spatial piecewise profile reproducing every branch and interval boundary of exercise 6-6 for synthetic intensity-transfer demonstrations",
+      "limitations": "implements only the chapter's fixed scalar profile for bounded finite numbers; no M-file parser, arbitrary code evaluation, Newton solver, symbolic composition or inversion, general piecewise engine, MATLAB/Maple compatibility, or clinical claim",
+      "use": "spatial_piecewise_profile",
+      "reviewed_at": "2026-11-08T13:54:43Z"
     }
   }
 }
