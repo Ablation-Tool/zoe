@@ -53,7 +53,7 @@
       "content_only": true
     },
     "neurogarden": {
-      "focused_tests_passed": 38,
+      "focused_tests_passed": 42,
       "original_examples_verified": true,
       "isolated_wheel_verified": true,
       "clinical_action_authorized": false

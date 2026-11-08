@@ -111,6 +111,14 @@ CAD-style geometry, MATLAB-style matrices, and Dorothy-inspired spatial inspecti
 
 ![Synthetic 3D point-spread projection](images/neurogarden-spatial.png)
 
+### Advanced numerical models
+
+Three additional chapters have source-linked reviews and executable teaching demonstrations:
+
+- Xavier Pennec's *Manifold-valued image processing with SPD matrices* informs bounded 2×2 matrix logarithms, exponentials, beta=0 affine-invariant distance, log-Euclidean distance, and the mean computed by averaging logarithms before exponentiation. Log-Euclidean and affine-invariant means remain distinct.
+- *Bioheat transfer during radiofrequency ablation* informs a radial Pennes conduction/perfusion teaching model. Its fixed electrode boundary, omitted electric/metabolic heat sources, and explicit stability bound are explicit approximations, not patient-specific treatment planning.
+- *Neutrosophic similarity score-based entropy measure for focal and nonfocal electroencephalogram signal classification* informs the cosine-form similarity of truth/indeterminacy/falsity membership triples. The tool does not reproduce the chapter's full feature pipeline, classifier, or reported accuracy.
+
 ### De Gruyter Handbook of Humor Studies
 
 **Thomas E. Ford, Władysław Chłopicki, and Giselinde Kuipers**, editors. The title page confirms the actual title. Its folder currently has a different mathematical-methods name; that is a metadata mismatch, not a reason to erase the intentionally included book.
@@ -137,7 +145,7 @@ The catalog preserves title/TOC sources and SHA-256 hashes, actual titles, subje
 
 ## Verification
 
-The current suite contains **38 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
+The current suite contains **42 passing focused tests** across Trinity verification, replay/privacy/review behavior, alignment and sampling math, advanced numerical models, library metadata, the synthetic 3D spatial bench, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world. Original multi-agent, Warrant, orchestrator, and self-monitor examples also pass through an isolated wheel installation. A real cited-reading + Trinity + alignment workflow preserves `clinical_action_authorized=False`.
 
 ## Boundary
 

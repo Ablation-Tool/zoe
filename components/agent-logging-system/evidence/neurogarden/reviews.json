@@ -78,6 +78,41 @@
       "limitations": "teaching methods only; no patient diagnosis, clinical validation, or real EEG acquisition",
       "use": "neurogarden_eeg; neurogarden_neural",
       "reviewed_at": "2026-11-08T09:41:09Z"
+    },
+    "Computational Intelligence and Predictive Analysis for Medical Science/009_9783110714982_007810.html": {
+      "source_sha256": "0131bcbd01bc282e390ab89c44b9c4143c2c3abc20ca69745ea87e0eee3b6681",
+      "concepts": [
+        "Pennes bioheat combines conduction, blood-perfusion cooling, and heat-source terms",
+        "RFA research couples tissue heating with electric-field and finite-element models"
+      ],
+      "application": "bounded radial teaching simulation with fixed electrode temperature and perfusion cooling",
+      "limitations": "constant-property one-dimensional explicit model; omits patient anatomy, coupled electric heating, metabolism, and the chapter's FEM validation; not treatment planning",
+      "use": "pennes_heat",
+      "reviewed_at": "2026-11-08T10:01:42Z"
+    },
+    "Riemannian Geometric Statistics in Medical Image Analysis/009_B9780128147252000108.html": {
+      "source_sha256": "a39dfba6337da892b8d043e16bd51720858e6405d145ac97a7485b82aa50d247",
+      "concepts": [
+        "SPD matrix exponential, logarithm, and square root act on eigenvalues in an orthonormal eigenbasis",
+        "the beta=0 affine-invariant distance uses the Frobenius norm of log(P^-1/2 Q P^-1/2)",
+        "log-Euclidean operations average matrix logarithms before exponentiating"
+      ],
+      "application": "bounded 2x2 SPD distance and log-Euclidean mean teaching tools",
+      "limitations": "small synthetic matrices only; log-Euclidean is not interchangeable with the affine-invariant Frechet mean, and no patient imaging or diagnostic inference is used",
+      "use": "affine_distance; log_euclidean_distance; log_euclidean_mean",
+      "reviewed_at": "2026-11-08T10:01:42Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/023_B9780128181485000126.html": {
+      "source_sha256": "e76cd2e710f38566f7b8d8f9f072fa65680bde84a4972e0c0b62397764f2df16",
+      "concepts": [
+        "truth, indeterminacy, and falsity memberships form a three-component representation",
+        "equations 5-7 use a dot product divided by membership-vector norms",
+        "the complete research pipeline also uses image transforms, local criteria, entropy features, and classifiers"
+      ],
+      "application": "bounded cosine-form similarity for synthetic membership triples",
+      "limitations": "similarity alone does not implement the chapter's image or EEG pipeline; no focal/nonfocal classification, diagnostic claim, or reproduction of reported accuracy",
+      "use": "neutrosophic_similarity",
+      "reviewed_at": "2026-11-08T10:01:42Z"
     }
   }
 }
