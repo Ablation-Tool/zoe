@@ -158,7 +158,7 @@ The introduction and chapter 1 are reviewed. The inventory preserves nine substa
 
 ### QKD and post-quantum pairing
 
-The [QKD and post-quantum research guide](QUANTUM.md) distinguishes physical key distribution from algorithms designed to resist quantum attacks. NSA documents QKD's source-authentication, hardware, relay, validation, side-channel, upgrade, and denial-of-service limitations. NIST supplies ML-KEM, ML-DSA, and SLH-DSA standards, but those standards do not make arbitrary implementations safe.
+The [QKD and post-quantum research guide](QUANTUM.md) distinguishes physical key distribution from algorithms designed to resist quantum attacks. NSA documents QKD's source-authentication, hardware, relay, validation, environmental-degradation, side-channel, upgrade, and denial-of-service limitations. NIST supplies ML-KEM, ML-DSA, and SLH-DSA standards, but those standards do not make arbitrary implementations safe.
 
 `post_quantum_pairing_review()` records `post_quantum_ready=False`, `migration_implemented=False`, and `qkd_deployed=False`. Current X25519, Ed25519, and RSA-3072 are Shor-vulnerable. The research path evaluates hybrid X25519 + ML-KEM session establishment and hybrid Ed25519 + ML-DSA identity signatures, with downgrade, payload, side-channel, and transcript tests. No migration or QKD hardware is implemented.
 

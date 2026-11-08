@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agent-logging-system"
-version = "0.6.8"
+version = "0.6.9"
 description = "Operational discipline for multi-agent AI: OT-inspired logging, trend analysis, and anomaly detection for worker agents."
 readme = "README.md"
 requires-python = ">=3.9"

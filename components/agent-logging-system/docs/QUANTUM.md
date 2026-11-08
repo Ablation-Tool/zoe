@@ -12,7 +12,7 @@
 | Main practical concerns | Distance, photon loss, trusted relays, cost, hardware imperfections, validation, side channels, denial of service, and upgrades | Implementation correctness, parameter sets, side channels, payload sizes, protocol composition, downgrade handling, and migration complexity |
 | Is safety guaranteed? | No; theoretical guarantees depend on implementation and assumptions | No; standardized algorithms still require correct protocols, implementations, and review |
 
-NSA describes QKD as a partial solution requiring source authentication, special-purpose equipment, trusted-relay and infrastructure review, hardware validation, and denial-of-service analysis. It does not support QKD for National Security Systems unless those limitations are overcome. ([NSA QKD limitations](https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/))
+NSA's June 2026 comparison describes QKD as a partial solution requiring source authentication, special-purpose equipment, trusted-relay and infrastructure review, hardware validation, and denial-of-service analysis. It does not support QKD for National Security Systems unless those limitations are overcome. The same review notes that environmental conditions and physical degradation can weaken operational security after certification, while the strongest QC applications remain tied to a future fully quantum network. ([NSA QKD limitations](https://www.nsa.gov/Cybersecurity/Post-Quantum-Cryptography-Resource-Hub/Article-Display/Article/4616320/quantum-cryptographic-solutions-are-limited-compared-to-post-quantum-algorithms/))
 
 NIST has finalized **ML-KEM (FIPS 203)**, **ML-DSA (FIPS 204)**, and **SLH-DSA (FIPS 205)** for key establishment and digital signatures. These are standardized algorithms, not blanket guarantees that every implementation or protocol is secure. ([NIST standards announcement](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards))
 
@@ -53,5 +53,5 @@ No QKD hardware, production migration, security certification, or new encrypted 
 - [FIPS 203 · ML-KEM](https://csrc.nist.gov/pubs/fips/203/final)
 - [FIPS 204 · ML-DSA](https://csrc.nist.gov/pubs/fips/204/final)
 - [FIPS 205 · SLH-DSA](https://csrc.nist.gov/pubs/fips/205/final)
-- [NSA · QKD and quantum cryptography limitations](https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/)
+- [NSA · QKD and quantum cryptography limitations](https://www.nsa.gov/Cybersecurity/Post-Quantum-Cryptography-Resource-Hub/Article-Display/Article/4616320/quantum-cryptographic-solutions-are-limited-compared-to-post-quantum-algorithms/)
 - [Zoe's current pairing protocol](../../mobile/PAIRING.md)

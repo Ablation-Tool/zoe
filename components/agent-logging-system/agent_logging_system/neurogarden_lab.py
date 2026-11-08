@@ -204,7 +204,7 @@ def post_quantum_pairing_review():
         "qkd_limitations": [
             "authenticated source still requires asymmetric cryptography or preplaced keys",
             "special-purpose hardware, distance, loss, and trusted-relay costs",
-            "hardware imperfections, validation difficulty, and side channels",
+            "hardware imperfections, environmental degradation, validation difficulty, and side channels",
             "denial-of-service risk and limited upgrade paths",
         ],
         "research_path": [
@@ -217,7 +217,7 @@ def post_quantum_pairing_review():
             "ML-DSA": "https://csrc.nist.gov/pubs/fips/204/final",
             "SLH-DSA": "https://csrc.nist.gov/pubs/fips/205/final",
         },
-        "qkd_source": "https://www.nsa.gov/Cybersecurity/Quantum-Key-Distribution-QKD-and-Quantum-Cryptography-QC/",
+        "qkd_source": "https://www.nsa.gov/Cybersecurity/Post-Quantum-Cryptography-Resource-Hub/Article-Display/Article/4616320/quantum-cryptographic-solutions-are-limited-compared-to-post-quantum-algorithms/",
         "migration_implemented": False,
         "qkd_deployed": False,
         "network_called": False,
