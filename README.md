@@ -19,6 +19,47 @@ Built using GEM. Zoe honors [Gary Kildall](https://en.wikipedia.org/wiki/Gary_Ki
 
 ![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
 
+## Meet Tiny Zoe and Zoe Trinity
+
+**New here? Start with the three planes.** Zoe can be a small protocol instrument in your hand, a native mobile companion, and a laptop workbench—all looking at the same experiment at the same time.
+
+- **Tiny Zoe** is Zoe's little sister: a bounded Q0.15 protocol lab with exact bytes and no hardware requirement.
+- **Zoe mobile** is the native Android or Apple interface for curious, accessible experiments.
+- **Laptop Zoe** is the shared field deck: synchronized observations, export, and optional long-term memory.
+
+Together they form **Zoe Trinity**: three coordinated instruments, not three claimed minds.
+
+![Zoe Trinity: Tiny, mobile, and laptop sharing one experiment](mobile/docs/images/zoe-trinity-deck.png)
+
+The default experiment uses `0.70, 0.20, 0.08, 0.02` with `τ = 0.05`. Mobile Zoe and Tiny Zoe both return **A = 3 of 4**. Set `τ = 0.20` and strict `p > τ` returns **A = 1 of 4**: equality is excluded. The screen keeps the full floating-point result beside Tiny's quantized witness and its exact APDU request/response, so a representation change never disappears into a black box.
+
+### Native Windows, same Zoe
+
+![Native Zoe Trinity for Windows](mobile/docs/images/zoe-trinity-native-windows.png)
+
+The native **Win32 x86_64** application has its own measurement kernel, phone-link server, optional verified journal, and Zoe's orbital/chalice geometry. It needs **no Python, .NET, Electron, or LLVM runtime**. The portable app, source, reproducible build, and Windows guide are included.
+
+### Choose your plane
+
+| Platform | What you get | Start here |
+|:---|:---|:---|
+| **Android / Google Pixel** | Guided vision, Talk, Accessible Volume, Trinity, standalone Tiny Zoe, Field kit, SafeConvert, and an offline Researcher guide | [Mobile quick start and APK build](mobile/README.md) |
+| **Windows 10/11 x86_64** | Portable native `ZoeTrinity.exe` with local phone sync and journal | [Windows bundle](mobile/dist/ZoeTrinity-Windows-x86_64.zip) · [Windows guide](mobile/windows/README.md) |
+| **Linux** | The full GEM workbench plus the responsive Trinity companion deck | Run `python mobile/tools/zoe_trinity.py`, then open `http://127.0.0.1:8767` |
+| **Apple / iOS 17+** | Native SwiftUI, Vision, Speech, SafeConvert, and Trinity with explicit private-network pairing | [Apple project and verification limits](mobile/README.md#apple) |
+
+For Android-to-laptop synchronization, use `adb reverse tcp:8767 tcp:8767`, then open **Trinity** in Zoe. Apple uses an explicit private-address server and pairing code instead. No cloud account is needed.
+
+### What makes this feel like Zoe
+
+**PLACES — Play. Learn. Adapt. Create. Explore. Share.** is the creative thread. Porcelain panels, editorial typography, the orbital eye, and the chalice/hourglass make the instruments feel like a small gallery. Underneath, the rules stay serious: bounded inputs, explicit permissions, deterministic replay, cited evidence, and human review.
+
+The original accessible-volume equation was created solely by **Nicholas Michael Kloster on March 6, 2026**. Accessible volume measures how many alternatives remain above a threshold—not correctness, consciousness, or permission to act.
+
+**Tiny is small on purpose, not secretly magical.** The Android simulator is a behavioral protocol model, not a SIM/eUICC writer or secure-chip emulator. Its reference Java simulation class is 2,735 bytes; that is not an APK, CAP, or physical-card footprint. Windows and phone tests have explicit verification levels too: source tests, Wine, browser checks, and physical-device checks are not interchangeable.
+
+Ready for the details? See [Trinity](mobile/TRINITY.md), [Tiny Zoe's protocol and limits](mobile/card/README.md), [native Windows](mobile/windows/README.md), and the [complete mobile guide](mobile/README.md).
+
 ## One checkout. Ten repositories.
 
 | Component | Source | Role |
@@ -168,6 +209,10 @@ Run `python -m gem eye` in the [canonical GEM repository](https://github.com/Abl
 | Area | What it includes |
 |:---|:---|
 | Native GUI | GTK3, direct pointer and keyboard interaction, GUIAI Lab integration, and headless operation. No browser or development server is required. |
+| Mobile and accessibility | Native Android/Apple interfaces, one-frame OCR and labels, optional on-device descriptions, turn-taking Talk and installed voices, Accessible Volume, SafeConvert, Field kit instruments, and an offline Researcher guide. Sensors stay idle until explicitly started. |
+| Tiny Zoe / Zoe Cell | Bounded two-command simulator, 1–64 Q0.15 probabilities, 135-byte request limit, ten-byte measurement responses, raw APDU inspection, deterministic replay, twelve retained transactions, defensive copies, and explicit session sharing. No SIM, reader, or network required. |
+| Zoe Trinity | Synchronized Tiny/mobile/laptop experiments, independent native response verification, 24 live observations, JSON export, Android USB/ADB localhost, Apple private-network pairing, and optional append-only SHA-256 journal memory. |
+| Native Windows | Portable Win32 x86_64 app with a native Zoe interface, C++17 measurement/journal core, Winsock phone-link server, GDI geometry, no Python/.NET/Electron dependency, reproducible LLVM-MinGW builds, and PE/import inspection. Wine-tested; real Windows verification and signing remain separate. |
 | Geometry | Procrustes similarity/rigid/affine alignment, draggable landmarks, ellipse families, parabolic envelopes, circles/arcs/sectors, modular clocks, and conditional graph invariants. |
 | Forecasts | Strict `p > τ` accessible volume, complements, momentum, target bands, temperature transforms, top-1 correctness, negative log probability, entropy, maximum probability, log-loss, and calibration evidence. |
 | Bayesian field notebook | Questions, competing binary claims, priors, posteriors, falsifiers, likelihood-ratio and log-odds updates, belief diffs, evidence families, dependence acknowledgment, deterministic and stochastic chambers, next-test priorities, review-required decisions, and append-only hash-chained memory. |
@@ -587,6 +632,15 @@ guiai/gem/twin.py          Deterministic timing/DMA replay and evidence sonifica
 guiai/gem/evidence_view.py Evidence commands and native launcher
 guiai/gem/video_library.py Original vidlib adapter, cited reports, and verified scenes
 guiai/gem/data/            Packaged HELEN prediction artifact
+mobile/android/            Native Android app, Trinity client, Tiny simulator, and device tests
+mobile/apple/              Native SwiftUI app, Trinity pairing, and Xcode project
+mobile/shared/             Shared Swift measurement/Trinity models and XCTest suite
+mobile/card/               Java Card applet, host codec, and protocol guide
+mobile/tools/              Trinity companion server, responsive deck, journal, and Python tests
+mobile/windows/native/     C++17 measurement, JSON/SHA-256, journal, Winsock, and Win32 UI
+mobile/windows/            Reproducible CMake/LLVM-MinGW build and native Windows guide
+mobile/dist/               Portable Windows bundle, executables, documentation, and hashes
+mobile/docs/images/        Captured Linux, responsive, and native Windows Trinity decks
 stress/evidence_stress.py  Source integrity, seven bridges, replay, audio, CLI, and native tests
 stress/video_stress.py     Original vidlib offline workflow, adapter, integrity, and scene tests
 stress/maison_stress.py    Association, reference, CLI, and native studio tests
