@@ -182,6 +182,20 @@ def chemical_review() -> SafetyReview:
     )
 
 
+def ai_risk_review() -> SafetyReview:
+    return SafetyReview(
+        "Generative AI deployment",
+        (
+            "Evaluate biased and toxic outputs across affected groups; high-stakes medical, legal, or safety advice requires domain validation",
+            "Require provenance, factual review, and synthetic-content disclosure; fluency is not evidence",
+            "Minimize personal data and document retention, consent, access, and deletion",
+            "Measure training and inference energy across the full model lifecycle",
+            "Use private beta, gradual rollout, human review, and a tested stop/recovery path",
+        ),
+        ("GPT-3, chapter 6, risk and mitigation review",),
+    )
+
+
 @dataclass(frozen=True)
 class ReadPlan:
     fragment_length_bases: int

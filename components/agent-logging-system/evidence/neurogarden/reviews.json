@@ -465,6 +465,31 @@
       "limitations": "2021-2022 interviews and product metrics are not independently reproduced; current compliance certifications, geofencing, private networking, security, accessibility, accuracy, or return on investment are not established",
       "no_tool_rationale": "No enterprise compliance or production benchmark was fabricated: proprietary data, architectures, policies, evaluation sets, and service terms are unavailable for a valid independent demonstration.",
       "reviewed_at": "2026-11-08T12:11:04Z"
+    },
+    "GPT-3/013_xhtml-0-11.html": {
+      "source_sha256": "a20f0ee35ec4336f98fd5dc7299998e257b2aedf92983a7698053c31f00cc5b3",
+      "concepts": [
+        "biased training data and fluent output can amplify stereotypes, automation bias, and misinformation",
+        "high-stakes advice can cause direct harm and requires domain-specific validation and human accountability",
+        "values-targeted evaluation, provenance, privacy, and lifecycle energy require separate measurements",
+        "private beta, gradual rollout, and stop/recovery planning are necessary safeguards"
+      ],
+      "application": "static AI risk review covering affected groups, disclosure, data minimization, energy, and recovery",
+      "limitations": "the checklist is not a safety score, toxicity classifier, or independent model evaluation; historical examples, metrics, product policies, and mitigation effectiveness were not reproduced",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-08T12:18:00Z"
+    },
+    "GPT-3/014_xhtml-0-12.html": {
+      "source_sha256": "347d1f5d4f41ab7fb4a566ef0ed6e8cb718f8db272eedb1f679b391389c19b3a",
+      "concepts": [
+        "no-code and low-code interfaces can lower barriers to creation while retaining implementation complexity",
+        "hosted models can improve access but also create cost, privacy, capability, and vendor chokepoints",
+        "predictions about future benefits are aspirations rather than demonstrated universal outcomes"
+      ],
+      "application": "accessibility and dependency review for human-centered model access",
+      "limitations": "2022 forecasts and promotional examples do not establish current no-code capability, equitable access, empathy, safety, accuracy, or democratized benefit",
+      "no_tool_rationale": "No future-capability or democratization score was created because the conclusion supplies projections and interviews rather than a reproducible evaluation dataset.",
+      "reviewed_at": "2026-11-08T12:18:00Z"
     }
   }
 }
