@@ -31,6 +31,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Blood-cell HNK and skin-lesion NKGC reviews preserving sensitivity/specificity tradeoffs, missing cohort/protocol details, and an unsupported pie-chart AUC presentation rather than universal performance claims.
 - Skin NMDCNN label/consistency audit and mammography ROC/FROC review preserving private single-center, patch-assignment, repeated-run, and external-validation limits without brain-tumor or treatment claims.
 - Concluding neutrosophic survey table-quality review and bounded GA-ANN shape audit correcting the matrix/citation errors while preserving missing experiment and validation boundaries.
+- Ultrasound forward/inverse arithmetic audit with conflicting linked equation assets; bioinspired case-outline review requiring trial identifiers, delivery evidence, raw outcomes, and external validation before therapeutic interpretation.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.17 packaging and all 62 focused tests verified.
