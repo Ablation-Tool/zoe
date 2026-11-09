@@ -1385,6 +1385,46 @@
       "evidence_artifacts": [
         "mace-dissolution-audit.json"
       ]
+    },
+    "Bio-inspired Optimization for Medical Data Mining/008_c03.html": {
+      "source_sha256": "3b6c24c4925acee7f8d205b8a89a68d012d76ad00ff91d24e487c34f031495a5",
+      "concepts": [
+        "the SLR states a 2016–2022 ScienceDirect/PubMed search and PRISMA screening; its text says 220 records screened and 60 full texts assessed, whereas Figure 3.1 shows 220 identified, 193 after deduplication and screening, 103 full texts, and 60 included",
+        "the figure's arithmetic is consistent: 220−27=193, 193−90=103, exclusion reasons sum to 43, and 103−43=60; the narrative conflates different stages",
+        "the UCI dataset section says 195 recordings while Table 3.1 says 197, and Table 3.2 rows labeled only UCI Dataset variously report 8/23, 20/20, 8/42, and 64/188 HC/PD groups without a common cohort or split identity",
+        "IPVS is described as 28 PD/20 HC and 2,000 utterances in the dataset and algorithm sections, but Table 3.1 reports 28 PD/37 HC and 495 recordings",
+        "the multiple-sound-recordings description reports 42 people and 756 recordings, while its table reports separate 40-person training and 28-person testing groups with 872+168 recordings, without reconciling versions or participant assignments",
+        "the performance table includes pre-2016 studies and a 2023 study without explaining their eligibility under the stated 2016–2022 inclusion window",
+        "heterogeneous classifiers, datasets, recording tasks, metrics, and splits cannot be ranked as a common benchmark; reported 100% results do not establish universal accuracy or early-disease detection",
+        "repeated recordings require participant-disjoint splitting; the VGGish summary describes an 80/20 split and training-fold cross-validation intended to prevent patient-specific leakage, but supplies no participant IDs or raw predictions to reproduce it",
+        "the jitter/shimmer equation images have garbled summation notation and quoted pathology thresholds are not a validated patient-specific rule; the MFCC diagram supplies no complete signal or classifier configuration",
+        "no brain-tumor cohort, molecular target, brain delivery, treatment experiment, or cure evidence is supplied"
+      ],
+      "application": "Dorothy bounded SLR-flow and dataset-metadata audit using the linked figure/count evidence, while requiring a dated search record, deduplicated study list, dataset versions, participant-disjoint assignments, raw audio/features/predictions, uncertainty, and external validation before accepting a PD or cross-disease model claim",
+      "limitations": "only the printed PRISMA arithmetic and internal metadata consistency were checked; the chapter supplies no included-study/deduplication ledger, common cohort, raw audio, exact feature extraction settings, participant assignments, raw predictions, fitted models, confidence intervals, or external validation; secondary accuracies were not independently reproduced, and no classifier, diagnostic threshold, brain-tumor inference, treatment, or cure claim was made",
+      "use": "bounded PRISMA-flow and dataset metadata audit",
+      "reviewed_at": "2026-11-09T08:29:49Z",
+      "evidence_artifacts": [
+        "parkinson-review-audit.json"
+      ]
+    },
+    "Bio-inspired Optimization for Medical Data Mining/013_c08.html": {
+      "source_sha256": "925b4c0ad5501b3eafe4f258f637269a708da0abbf9f36818d9ef72c7776b448",
+      "concepts": [
+        "the chapter introduces population-based GA selection, crossover, and mutation as derivative-free search metaphors, but supplies no chapter-specific encoding, fitness function, constraints, stopping rule, seed, or executable benchmark",
+        "Figure 8.1 illustrates one-point crossover and a single changed block; it is a schematic rather than a measured optimization run or medical validation",
+        "the 2014–2018 related-work table provides generic titles and claimed advantages without authors, bibliography links, search criteria, datasets, or reproducible study identities",
+        "only 12 references support many named medical domains; representative mismatches include a DDoS paper for the mutation diagram, LTE/arrhythmia papers for the GA cycle, and a J48 cancer-recurrence paper for the mammography Az result",
+        "an anemia-classification reference is used for tongue-cancer MRI and prenatal-wavelet claims, while a big-health clustering reference is used for EEG-hypoglycemia and cardiac-surgery claims, preventing confident primary-source attribution",
+        "Sections 8.10 and 8.11 repeat the same two rehabilitation/robot paragraphs, so radiotherapy and rehabilitation are not independent evidence",
+        "reported sensitivity, specificity, accuracy, similarity, error, and correlation values across mammography, oncology, pediatrics, neurology, and other domains are secondary and not a common evaluation",
+        "pediatric 100% results and mitochondrial-PD complete-effectiveness claims have no supplied cohorts, splits, raw predictions, confidence intervals, or external validation and do not justify pediatric application",
+        "the 87% GA/radiologist MS-lesion similarity is not a brain-tumor result, diagnostic equivalence, treatment benefit, or cure"
+      ],
+      "application": "Dorothy GA medical-evidence matrix requiring primary study identifiers, exact encodings and objectives, dataset and patient-level partitions, nested training-only optimization, matched baselines, repeated seeds, raw predictions, uncertainty, and external validation before accepting a diagnostic, pediatric, or therapeutic claim",
+      "limitations": "this is a broad secondary narrative with sparse and frequently mismatched citations and a duplicated section, not a reproducible experiment or systematic review; no unified dataset, GA configuration, original cohort, code, fitted model, raw prediction, baseline run, confidence interval, or external validation is supplied; secondary metrics were not independently reproduced, and no brain-tumor, diagnosis, treatment, pediatric experiment, or cure claim is made",
+      "no_tool_rationale": "No GA or medical classifier was implemented because the chapter supplies no source-specific encoding, fitness function, cohort, split, baseline, stopping rule, or raw outcomes. A generic crossover/mutation demonstration from the schematic would not reproduce the secondary medical claims or validate brain-cancer relevance.",
+      "reviewed_at": "2026-11-09T08:29:49Z"
     }
   }
 }
