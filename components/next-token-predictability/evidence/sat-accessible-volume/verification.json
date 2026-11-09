@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "instrument": "bounded 3-SAT accessible-volume heuristic benchmark",
+  "equation": "A_tau(S) = sum over tokens a in O of 1[P(a | h_T(S)) > tau]",
+  "equation_creator": "Nicholas Michael Kloster alone, March 6, 2026",
+  "threshold_rule": "At each branch, normalize occurrence-weighted true/false literal scores; prune only when A_tau(S)=0. Zero accessible volume returns unknown, never unsat.",
+  "results": [
+    {
+      "name": "unit_sat",
+      "variables": 3,
+      "clauses": [
+        [
+          1
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          -1,
+          2,
+          -3
+        ]
+      ],
+      "independent_brute_force": "sat",
+      "exact": {
+        "status": "sat",
+        "nodes": 2,
+        "accessible_trace": []
+      },
+      "heuristic": {
+        "tau": 0.5,
+        "status": "sat",
+        "nodes": 2,
+        "accessible_trace": [
+          {
+            "variable": 2,
+            "accessible_volume": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "tie_sat",
+      "variables": 3,
+      "clauses": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          -1,
+          2,
+          -3
+        ],
+        [
+          1,
+          -2,
+          3
+        ],
+        [
+          -1,
+          -2,
+          -3
+        ]
+      ],
+      "independent_brute_force": "sat",
+      "exact": {
+        "status": "sat",
+        "nodes": 3,
+        "accessible_trace": []
+      },
+      "heuristic": {
+        "tau": 0.5,
+        "status": "unknown",
+        "nodes": 1,
+        "accessible_trace": [
+          {
+            "variable": 1,
+            "accessible_volume": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "tie_unsat",
+      "variables": 3,
+      "clauses": [
+        [
+          -1,
+          -2,
+          -3
+        ],
+        [
+          -1,
+          -2,
+          3
+        ],
+        [
+          -1,
+          2,
+          -3
+        ],
+        [
+          -1,
+          2,
+          3
+        ],
+        [
+          1,
+          -2,
+          -3
+        ],
+        [
+          1,
+          -2,
+          3
+        ],
+        [
+          1,
+          2,
+          -3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "independent_brute_force": "unsat",
+      "exact": {
+        "status": "unsat",
+        "nodes": 7,
+        "accessible_trace": []
+      },
+      "heuristic": {
+        "tau": 0.5,
+        "status": "unknown",
+        "nodes": 1,
+        "accessible_trace": [
+          {
+            "variable": 1,
+            "accessible_volume": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "unit_unsat",
+      "variables": 1,
+      "clauses": [
+        [
+          1
+        ],
+        [
+          -1
+        ]
+      ],
+      "independent_brute_force": "unsat",
+      "exact": {
+        "status": "unsat",
+        "nodes": 1,
+        "accessible_trace": []
+      },
+      "heuristic": {
+        "tau": 0.5,
+        "status": "unsat",
+        "nodes": 1,
+        "accessible_trace": []
+      }
+    }
+  ],
+  "checks": {
+    "strict_threshold_examples": true,
+    "exact_fixtures_match_independent_brute_force": true,
+    "tie_sat_is_not_falsely_rejected": true,
+    "random_formulas_crosschecked": 24
+  },
+  "p_vs_np": "unresolved",
+  "scope": [
+    "A heuristic accessible-volume count is not a satisfiability or unsatisfiability certificate.",
+    "A zero count returns unknown; it never proves unsat.",
+    "Bounded examples and random seeds are not complexity proofs or polynomial-time bounds.",
+    "No physical collider, hardware, patient data, or external target was accessed."
+  ],
+  "generated_utc": "2026-11-09T04:18:32Z"
+}
