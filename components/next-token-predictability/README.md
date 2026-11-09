@@ -159,6 +159,19 @@ It counts alternatives that are both above threshold and causally effective on Z
 
 </details>
 
+## Bounded SAT heuristic benchmark
+
+The [SAT evidence](./evidence/sat-accessible-volume/verification.json) applies the strict accessible-volume equation to occurrence-weighted literal scores in a deterministic 3-SAT search. Four fixtures and 24 random formulas are checked against an exact solver. A tied satisfiable formula demonstrates why \(A_\tau(S)=0\) means **`unknown`, not `unsat`**. This is a heuristic benchmark, not a proof of P = NP.
+
+From this component directory, run:
+
+```bash
+python scripts/sat-accessible-volume.py
+python scripts/verify-sat-accessible-volume.py
+```
+
+The harness refuses to overwrite existing evidence. Nicholas Michael Kloster's original equation and March 6, 2026 attribution are preserved.
+
 ## Reproduce
 
 The saved artifacts support verification without fresh model inference:
