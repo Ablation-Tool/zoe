@@ -1346,6 +1346,45 @@
       "limitations": "the index provides locators rather than raw data, complete methods, experiments, or clinical outcomes; it does not independently validate its targets, and no claim is made that every printed page or cross-reference was externally verified",
       "no_tool_rationale": "No search ranking, classifier, or evidence score was created because index-term counts measure editorial organization, not scientific validity. The existing source-hash and chapter-review pipeline already provides the appropriate bounded use; interpreting page references as experimental evidence would be unsupported.",
       "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/006_c01.html": {
+      "source_sha256": "4a511dbbee6f9431869008a16122c17d1622e6e35fa1dff57769b1e42fa6ac61",
+      "concepts": [
+        "the overview groups evolutionary, swarm, neural-network, immune, bacterial-foraging, firefly, grey-wolf, and related algorithms by biological inspiration; a biological metaphor is not biological or clinical efficacy",
+        "generic GA, PSO, and ACO stages describe population search, personal/global best updates, pheromone reinforcement, and exploration/exploitation without a unified executable parameterization",
+        "parameter tuning, premature convergence, local optima, computational cost, limited theory, interpretability, bias, privacy, and accountability are explicit challenges",
+        "population evaluation can support parallel computation, but the chapter supplies no implementation, scaling measurement, runtime, or hardware benchmark",
+        "Figure 1.1 is a conceptual taxonomy rather than an algorithm specification or comparative experiment",
+        "reference 9 is a honey-bee numerical-optimization report but is cited for PSO/ACO and ANN types; reference 28 concerns evolving neural networks but is cited for the 1995 Kennedy/Eberhart PSO origin",
+        "references 26 and 27 are a swarm-intelligence book and an Ant System paper used to support the GA subsection, so citation identity must be checked rather than assumed from adjacent claims",
+        "broad claims of robustness, global or near-global solutions, medical diagnosis, and drug-discovery usefulness are not supported by a source-specific objective, dataset, comparator, seeds, or raw outcomes",
+        "no brain-tumor cohort, molecular target, brain delivery, target engagement, toxicity result, treatment experiment, or patient outcome is supplied"
+      ],
+      "application": "Dorothy optimization research-protocol gate using ai_risk_review for bias, provenance, privacy, human oversight, and stop/recovery; require exact objectives, constraints, updates, seeds, matched baselines, training-only tuning, raw outcomes, and external validation before any medical or tumor-research optimization",
+      "limitations": "this is a broad narrative review with representative citation mismatches rather than a reproducible benchmark; no common objective, complete update equations, dataset, patient-level split, executable configuration, random seed, fitted model, prediction, confidence interval, runtime, or external validation is supplied; the static five-check governance review evaluates no optimizer or medical model; no brain-cancer diagnosis, treatment, novel cure, or clinical authorization claim is made",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-09T08:18:08Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/007_c02.html": {
+      "source_sha256": "6f62fb4b5bcc664b78ac87eca8155eb99051f9c38ca2850951ec3bc66e3dadb9",
+      "concepts": [
+        "the chapter describes aqueous and ethanolic mace-spice extraction, qualitative phytochemical screening, synthetic calcium-oxalate dissolution through an egg membrane, and titration",
+        "the screening table provides presence/absence marks rather than identified active molecules, concentrations, purity, dose–response, or toxicity measurements",
+        "the methods specify 1 mg calcium oxalate per group, whereas the results use 10 mg totals; this discrepancy cannot be resolved from the supplied text",
+        "using the results-text 10 mg totals, undissolved masses 10, 1.9, 1.8, and 2.6 mg give dissolution percentages 0, 81, 82, and 74 for blank, Neeri, ethanol extract, and aqueous extract respectively",
+        "Neeri's text implies 81%, not the table's 80%; ethanol's 82% exceeds Neeri by one percentage point using the text or two using the table, with no replicate uncertainty establishing superiority",
+        "the methods specify 40 degrees C for two hours while the results specify 37 degrees C, and the conclusion calls the preparation leaf extract although the collection protocol describes mace-spice powder",
+        "the title names machine learning, but no model, feature set, training data, fitting procedure, prediction, or machine-learning evaluation is supplied",
+        "references 5–10 include X-ray CNN, BIoT neural networks, blockchain DDoS prevention, LTE-WBAN, arrhythmia optimization, and another X-ray CNN citation instead of the adjacent phytochemical and titration protocols",
+        "the powder, membrane/vessel, and egg photographs do not provide labeled raw titers or validation, and no brain-tumor experiment or clinical outcome is supplied"
+      ],
+      "application": "Dorothy bounded dissolution-arithmetic audit using the linked results-only calculations while requiring reconciled starting masses and temperatures, plant-part and extract characterization, raw titers, replicate counts, uncertainty, appropriate controls, and independent validation before interpreting antiurolithiatic or other therapeutic potential",
+      "limitations": "only the printed results values were recomputed; starting mass, incubation temperature, plant-part terminology, and the Neeri percentage are internally inconsistent; raw titration endpoints, extract dry yields and concentrations, identified active compounds, replicate measurements, variance, statistical tests, independent replication, machine-learning artifacts, toxicity, and clinical outcomes are unavailable; no wet-lab procedure, extract administration, brain-tumor experiment, diagnosis, treatment recommendation, or cure claim was performed or made",
+      "use": "bounded calcium-oxalate dissolution arithmetic audit",
+      "reviewed_at": "2026-11-09T08:18:08Z",
+      "evidence_artifacts": [
+        "mace-dissolution-audit.json"
+      ]
     }
   }
 }
