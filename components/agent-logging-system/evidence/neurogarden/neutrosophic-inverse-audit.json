@@ -1,0 +1,40 @@
+{
+  "schema": "neurogarden-forward-inverse-audit-v1",
+  "source": "Neutrosophic Set in Medical Image Analysis/011_B9780128181485000035.html",
+  "source_sha256": "4e39cc829d13f91756a4465100fb53730cb7aa7fb2336731ce08c6186a4e2d97",
+  "reviewed_at": "2026-11-09T07:33:48Z",
+  "synthetic_inputs": {
+    "minimum_intensity": 40,
+    "maximum_intensity": 240,
+    "local_mean_intensity": 140
+  },
+  "printed_forward": {
+    "expression": "(local_mean - minimum) / maximum",
+    "exact_value": "5/12",
+    "decimal_value": 0.4166666666666667
+  },
+  "range_normalized_forward": {
+    "expression": "(local_mean - minimum) / (maximum - minimum)",
+    "exact_value": "1/2",
+    "decimal_value": 0.5
+  },
+  "printed_inverse": {
+    "expression": "minimum + (maximum + minimum) * printed_forward",
+    "exact_value": "470/3",
+    "decimal_value": 156.66666666666666
+  },
+  "range_normalized_inverse": {
+    "expression": "minimum + (maximum - minimum) * range_normalized_forward",
+    "exact_value": 140,
+    "decimal_value": 140
+  },
+  "round_trip_matches_input": false,
+  "corrected_round_trip_matches_input": true,
+  "linked_equation_assets": {
+    "images/si1_e.png": "displays a different A-set expression, not the chapter's TM normalization",
+    "images/si14_e.png": "displays a supremum-membership inequality, not the chapter's inverse gray-level transform"
+  },
+  "limitations": "The MathML formulas and linked images conflict, so this audit checks only a synthetic numerical inconsistency. It does not establish the intended implementation, reproduce an ultrasound method, or evaluate a clinical image.",
+  "model_evaluated": false,
+  "clinical_claim": false
+}

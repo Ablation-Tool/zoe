@@ -1116,6 +1116,41 @@
       "evidence_artifacts": [
         "ga-ann-shape-audit.json"
       ]
+    },
+    "Neutrosophic Set in Medical Image Analysis/011_B9780128181485000035.html": {
+      "source_sha256": "4e39cc829d13f91756a4465100fb53730cb7aa7fb2336731ce08c6186a4e2d97",
+      "concepts": [
+        "the ultrasound review describes preprocessing, segmentation, feature extraction, and classification with NS truth, indeterminacy, and falsity memberships for handling speckle and uncertain boundaries",
+        "NLM cannot segment more than one lesion and fails under severe shadowing; NKUAN and the nonconvex method do not preserve edges/details, and other methods have semiautomatic, isoechoic, over-segmentation, or small-cohort limitations",
+        "the MathML forward TM expression divides local mean minus minimum by maximum rather than maximum minus minimum, while the inverse uses maximum plus minimum rather than their difference, so the printed transforms do not round-trip",
+        "with synthetic minimum 40, maximum 240, and local mean 140, the printed forward gives 5/12 and the printed inverse gives 470/3 rather than 140; range normalization gives T=1/2 and returns 140",
+        "the linked si1_e and si14_e images show unrelated set and supremum expressions rather than the chapter's forward and inverse formulas, so they cannot resolve the MathML ambiguity",
+        "illustrative breast and thyroid cases and the secondary 97.6% retinal result do not supply cohort assignments, raw predictions, per-image metrics, or independent validation",
+        "secondary brain-tumor MRI references and calls for larger real-time datasets do not establish brain-tumor performance, treatment efficacy, or a cure"
+      ],
+      "application": "Dorothy modality and formula-consistency gate using the linked synthetic forward/inverse arithmetic check, with exact normalization conventions, artifact hashes, cohort splits, negative cases, and independent validation required before implementing any ultrasound method",
+      "limitations": "this is a secondary review with inconsistent MathML and unrelated linked equation assets; the intended normalization is unresolved, and there is no common raw cohort, complete protocol, patient-level split, executable implementation, per-image result, confidence interval, or external validation; the synthetic check evaluates no ultrasound model or clinical image and no brain-tumor diagnosis, treatment, or cure claim is made",
+      "use": "bounded forward/inverse arithmetic audit",
+      "reviewed_at": "2026-11-09T07:33:48Z",
+      "evidence_artifacts": [
+        "neutrosophic-inverse-audit.json"
+      ]
+    },
+    "Bio-inspired Optimization for Medical Data Mining/019_c14.html": {
+      "source_sha256": "d81e4dd894461a76a5c8164a77c29751687f0c1b509589c2cf2dbf5cc1962e6e",
+      "concepts": [
+        "bioinspired optimization can structure search over features, model parameters, and treatment-planning constraints, but a biological metaphor is not biological efficacy",
+        "the chapter explicitly provides a general outline for a future case study rather than a completed experiment, including instructions to specify cancer type, data, settings, baselines, and metrics",
+        "no actual cancer dataset, cohort, algorithm configuration, fitted model, prediction, statistical comparison, or patient outcome is supplied for the proposed cancer-diagnosis case",
+        "the stent, virus-like nanoparticle, and robotic-surgery examples claim preclinical promise and human trials without study identifiers, protocols, device specifications, trial registrations, cohorts, or outcome data in the chapter",
+        "drug targeting and controlled release require separately measured cell uptake, biodistribution, pharmacokinetics, blood–brain delivery, target engagement, toxicity, and clinical benefit",
+        "the chapter appropriately calls for validation standards, bias and privacy review, interpretability, interoperability, and security, but these recommendations do not validate a device or therapy",
+        "no brain-tumor model, drug candidate, delivery measurement, treatment experiment, novel cure, or clinical authorization is established"
+      ],
+      "application": "Dorothy evidence gate using ai_risk_review for provenance, bias, privacy, human oversight, and stop/recovery requirements; require trial and device identifiers, molecular and delivery evidence, matched baselines, raw outcomes, and external validation before treating a bioinspired example as a therapeutic result",
+      "limitations": "this is a conceptual outline and narrative set of examples rather than a completed case study; trial registrations, device and formulation details, raw preclinical and clinical evidence, patient cohorts, baseline comparisons, and external validation are unavailable; the checklist does not evaluate a device, nanoparticle, surgical system, diagnosis, treatment, or cure; no experiment or patient intervention was performed",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-09T07:33:48Z"
     }
   }
 }
