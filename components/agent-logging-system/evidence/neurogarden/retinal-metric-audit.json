@@ -1,0 +1,70 @@
+{
+  "schema": "neurogarden-retinal-metric-audit-v1",
+  "source": "Bio-inspired Optimization for Medical Data Mining/015_c10.html",
+  "source_sha256": "e080adb4f9a13fb36a58e7ad787e0901858d9d1d395532e2c7dbafd00e510b67",
+  "reviewed_at": "2026-11-09T08:39:16Z",
+  "shared_table_rows": {
+    "GA": {
+      "accuracy": 93.22,
+      "sensitivity": 93.08,
+      "specificity": 92.94,
+      "f_score": 92.0
+    },
+    "CNN": {
+      "accuracy": 96.75,
+      "sensitivity": 97.01,
+      "specificity": 98.79,
+      "f_score": 94.03
+    },
+    "Proposed Method": {
+      "accuracy": 97.98,
+      "sensitivity": 97.82,
+      "specificity": 98.53,
+      "f_score": 94.4
+    },
+    "boundary": "Tables 10.1 and 10.2 repeat all four values for these three classifiers on both datasets; no per-image predictions establish two independent evaluations."
+  },
+  "proposed_minus_cnn_percentage_points": {
+    "accuracy": 1.23,
+    "sensitivity": 0.81,
+    "specificity": -0.26,
+    "f_score": 0.37,
+    "abstract_claimed_improvement_range": "2.6% to 4%",
+    "accuracy_gain_matches_abstract": false,
+    "conclusion": "The proposed row is not best on specificity and its printed accuracy gain does not match the abstract range."
+  },
+  "drive_narrative_check": {
+    "narrative_cnn_sensitivity": 97.82,
+    "narrative_cnn_specificity": 98.53,
+    "narrative_cnn_f_score": 94.4,
+    "matches_table_cnn_row": false,
+    "matches_table_proposed_row": true
+  },
+  "figure_table_checks": [
+    {
+      "figure": "Bio-inspired Optimization for Medical Data Mining/images/fig10-5.jpg",
+      "sha256": "9eda89e2e97ba0affc112d7cf37c6c053d6934d8faa692b1e0dfae43f3384c20",
+      "caption_dataset": "STARE",
+      "observed_svm_values": [76.09, 70, 65.09, 91.91],
+      "matches_table_10_1_stare_svm": false,
+      "matches_table_10_2_drive_svm": true
+    },
+    {
+      "figure": "Bio-inspired Optimization for Medical Data Mining/images/fig10-6.jpg",
+      "sha256": "86866ca560e6ba5e7d8e863f5983aac1c1f468ce38135d1fe841dd163bb19beb",
+      "caption_dataset": "DRIVE",
+      "observed_svm_values": [71.06, 80, 54.17, 78],
+      "matches_table_10_1_stare_svm": true,
+      "matches_table_10_2_drive_svm": false
+    }
+  ],
+  "equation_scope": [
+    "Equation 10.1 states a median non-additivity inequality, not a complete median-filter kernel or boundary rule.",
+    "Equation 10.2 prints 1/(1+(x+y)^2), and Equation 10.3 has an s-1 lower summation index; neither is silently replaced with a conventional texture formula.",
+    "Equation 10.11 ends with multiplication by T0 rather than an unambiguous percentage conversion, so the printed F-score definition is not used as a validated implementation."
+  ],
+  "evaluation_boundary": "Only printed metrics and figure values were compared. Selected image IDs, patient-level assignments, raw masks, class labels, confusion counts, predictions, fitted models, seeds, and external validation are unavailable; swapped plot labels cannot be reconciled into two validated dataset results.",
+  "model_evaluated": false,
+  "clinical_claim": false,
+  "brain_cancer_relevance": "No brain-tumor cohort, brain delivery, molecular target, target engagement, toxicity result, treatment outcome, or survival evidence is supplied."
+}
