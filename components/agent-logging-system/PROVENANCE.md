@@ -24,8 +24,10 @@ This tree preserves the available package, license, documentation, examples, and
 - PET quantification and tracer review preserving SUV/kinetic prerequisites and reporter-cell limits; strengthened four-class MRI audit with figure/table, dataset-citation, and unrelated-reference findings.
 - AIS nanoparticle-design review with an explicit no-tool rationale; direct PSO-FCM brain-tumor segmentation review with public Figshare provenance, a broken metric artifact, and unresolved subset/split/output evidence.
 - Fixed synthetic LQ/TCP/NTCP radiobiology review with explicit omitted biology, radiation-protection distinctions, numeric saturation, and no patient-specific treatment planning.
+- Presurgical fMRI review preserving neurovascular coupling, task, motion, and individual-patient limits; corpus review loading now rejects duplicate JSON keys and conflicting use/no-tool rationales.
+- Neutrosophic segmentation survey review preserving modality-specific membership, blur, tuning, and cohort limitations, with no implementation or validation of the secondary 20-image 100% claim.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
-- Version 0.6.16 packaging and focused verification.
+- Version 0.6.17 packaging and all 62 focused tests verified.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.
