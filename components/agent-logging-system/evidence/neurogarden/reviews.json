@@ -1264,6 +1264,88 @@
       "limitations": "this nine-word part divider contains no substantive analysis, experiment, dataset, or clinical evidence; reviewed status records navigation only and does not reproduce the concluding chapter's findings or establish any medical claim",
       "no_tool_rationale": "No research tool was created from a section label with no method or evaluable content. The concluding chapter is separately source-hashed and reviewed; duplicating its claims here would create false independent evidence.",
       "reviewed_at": "2026-11-09T08:03:18Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/001_B9780128181485099938.html": {
+      "source_sha256": "0c9765452fcca004bacd1448d389544424db935748e20bd1e4644221c791e2e9",
+      "concepts": [
+        "the title page identifies Neutrosophic Set in Medical Image Analysis, First Edition",
+        "Yanhui Guo and Amira S. Ashour are named on the title page; the publisher logo is branding, not scientific evidence"
+      ],
+      "application": "Dorothy book-identity and source-provenance record linking the title, edition, and editors to the separately reviewed copyright metadata and chapter sources",
+      "limitations": "this title page supplies no methods, cohort, experiment, or clinical result; it verifies bibliographic identity only and does not validate any chapter's diagnostic, treatment, or cure claim",
+      "no_tool_rationale": "No research tool was created because the source is a 13-word title page with no scientific procedure or data. Its appropriate use is identity verification, not an invented imaging or authorship analysis.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/003_B9780128181485099951.html": {
+      "source_sha256": "ecdb48868b44fe9f6d277d8280203fcfd8fc21e97ccec53a1b9faf262dc67fb5",
+      "concepts": [
+        "the copyright page identifies Academic Press as an Elsevier imprint, copyright 2019 Elsevier Inc., and ISBN 978-0-12-818148-5",
+        "the publisher reserves reproduction rights and warns that changing knowledge and professional judgment must inform use of medical information",
+        "copyright and publisher notices are provenance and usage boundaries, not evidence that a method is clinically effective"
+      ],
+      "application": "Dorothy rights-and-provenance gate preserving the ISBN, publication year, source hashes, original analysis, and bounded snippets without committing the book HTML or treating the notice as clinical guidance",
+      "limitations": "this is a copyright and liability page, not a scientific chapter or legal opinion; it supplies no imaging experiment or clinical validation, grants no new redistribution permission, and does not establish current medical best practice",
+      "no_tool_rationale": "No scientific tool was created from copyright metadata. The applicable implementation is the existing source-hash and bounded-snippet publication process; creating a diagnostic method or interpreting this page as redistribution permission would be unsupported.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/004_B9780128181485099902.html": {
+      "source_sha256": "507adb5aa797dff5da176bce012e5d7e566d9687a7e2f9f81dd7a0b1d22f1a3b",
+      "concepts": [
+        "the contributors page lists author names with institutional affiliations across engineering, computer science, mathematics, radiology, and related fields",
+        "a contributor roster supports attribution checks but does not specify each person's contribution or validate the associated research"
+      ],
+      "application": "Dorothy attribution cross-check between chapter bylines and this roster while retaining source-specific claims and avoiding unsupported expertise, endorsement, or clinical-authority inferences",
+      "limitations": "this is a names-and-affiliations roster, not a methods or results chapter; no individual contribution statement, raw data, independent replication, patient cohort, or clinical validation is supplied, and current affiliations were not externally verified",
+      "no_tool_rationale": "No analysis or profiling tool was created because the source contains contributor metadata rather than a research method. Automatically inferring expertise, author contributions, or institutional endorsement from this list would be unsupported.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/005_B9780128181485099987.html": {
+      "source_sha256": "cd6ec71db2ac65b02adea8cf435bd3252de33d0aa8d31cb7c692d5f825e27a00",
+      "concepts": [
+        "the preface describes 15 chapters in five parts spanning foundations, microscopy and ultrasound, denoising, clustering and segmentation, classification, and future directions",
+        "its overview motivates neutrosophic representations for imprecise image information, but broad claims of effectiveness are editorial summaries rather than independent experiments",
+        "the Chapter 8 dermoscopic-clustering description links to B9780128181485000096, while the Chapter 9 brain-tumor optimization description links to B9780128181485000084",
+        "those two links conflict with the actual source titles: 0084 is the dermoscopic clustering chapter and 0096 is the brain-tumor optimization chapter",
+        "Chapter 1 is split across two extracted source sections, so 15 book chapters correspond to 16 substantive source sections rather than 16 independent chapters"
+      ],
+      "application": "Dorothy chapter-inventory reconciliation using actual source titles and hashes instead of the preface's mismatched Chapter 8/9 links; preserve one Chapter 1 across two source files and use each substantive chapter's own review for evidence",
+      "limitations": "the preface is an editorial overview, not a new experiment or independent validation; its Chapter 8/9 hyperlinks are inconsistent with the described topics and source titles; no raw images, cohort assignments, predictions, comparative results, or clinical authorization are supplied by this overview",
+      "no_tool_rationale": "No new imaging tool was created from the preface because it summarizes methods evaluated elsewhere and supplies no additional implementation or validation data. Its demonstrated role is inventory reconciliation; the two mismatched links require preservation, not an invented algorithm or corrected experimental claim.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/006_B9780128181485099999.html": {
+      "source_sha256": "c7bdb6f6c50d2bc9ccc14d7a193127a303134f6f4b5fde86ee289df660efb0e2",
+      "concepts": [
+        "the acknowledgement offers a quotation about curiosity and uncertainty, followed by thanks to families, contributing authors, publisher staff, and readers",
+        "the text records editorial appreciation and motivation rather than a scientific claim, protocol, measurement, or validation"
+      ],
+      "application": "Dorothy provenance note retaining the editorial context without converting an inspirational quotation or expressions of gratitude into scientific or clinical evidence",
+      "limitations": "this acknowledgement contains no research method, dataset, experiment, measurement, clinical cohort, or independently verifiable performance result; it supplies no diagnostic, treatment, or cure evidence",
+      "no_tool_rationale": "No creativity, uncertainty, or medical tool was generated from the acknowledgement because a quotation and expressions of thanks define no measurable model or protocol. Treating them as an equation or empirical finding would be invented rather than source-linked.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/007_parti.html": {
+      "source_sha256": "4ba57d44cf270d7cc2a1e6a731779537ca6d474dc69814883768b87b4ad33387",
+      "concepts": [
+        "Part I is a navigational divider titled Background on neutrosophic set in medical image analysis",
+        "the divider introduces the foundations, microscopy, and ultrasound sources but contains no independent method, experiment, or result"
+      ],
+      "application": "Dorothy inventory-only link to the two Chapter 1 source sections and the separately reviewed microscopy and ultrasound chapters; do not treat the divider as a fourth independent study",
+      "limitations": "this ten-word part divider supplies no procedure, equation, dataset, prediction, clinical cohort, or result; reviewed status records navigation only and does not add evidence to the linked chapter reviews",
+      "no_tool_rationale": "No background-imaging tool was created because this source contains only a part label. Any algorithm, equation, or validation attributed to it would be invented; the substantive sources have their own source-linked uses and no-tool rationales.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/028_B9780128181485099914.html": {
+      "source_sha256": "b52f12c1d4569663b115bb7a5800b7ea02212e63d5a73bfc8be5916fde7dd6f3",
+      "concepts": [
+        "the index is an alphabetical locator for concepts, modalities, methods, and metrics, with f, t, and b marking figure, table, and box page references",
+        "entries and cross-references point to substantive source sections but do not independently reproduce or validate the linked methods and results",
+        "acronyms and method names must be interpreted in their linked source context rather than merged into a universal disease or performance claim"
+      ],
+      "application": "Dorothy navigation-only locator for returning to source-hashed chapters, preserving figure/table/box distinctions and using the linked reviews rather than index frequency as evidence of correctness or importance",
+      "limitations": "the index provides locators rather than raw data, complete methods, experiments, or clinical outcomes; it does not independently validate its targets, and no claim is made that every printed page or cross-reference was externally verified",
+      "no_tool_rationale": "No search ranking, classifier, or evidence score was created because index-term counts measure editorial organization, not scientific validity. The existing source-hash and chapter-review pipeline already provides the appropriate bounded use; interpreting page references as experimental evidence would be unsupported.",
+      "reviewed_at": "2026-11-09T08:10:08Z"
     }
   }
 }
