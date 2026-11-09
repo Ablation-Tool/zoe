@@ -1186,6 +1186,40 @@
       "limitations": "this is a narrative algorithm overview rather than a reproducible implementation or experiment; update equations, branch rules, benchmark objectives, constraints, code, seeds, raw outcomes, and external validation are missing; no optimizer was run and no brain-tumor, diagnosis, treatment, or cure claim is made",
       "no_tool_rationale": "No Dingo optimizer was implemented because the chapter omits the actual position/velocity updates, branch probabilities, constraint rules, and objective-specific evaluation protocol. Inventing these definitions would create a different unvalidated algorithm rather than reproduce the chapter.",
       "reviewed_at": "2026-11-09T07:41:35Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/008_B9780128181485000011_1.html": {
+      "source_sha256": "bef9bdea4c116ecc87e9e1a16949450c4bf0e83e15770c27bc8641cec022fe13",
+      "concepts": [
+        "crisp, fuzzy, intuitionistic fuzzy, interval-valued, and cubic sets use distinct membership and nonmembership representations rather than interchangeable uncertainty scores",
+        "standard neutrosophic sets represent truth, indeterminacy, and falsity independently within the unit interval, while the nonstandard formulation admits values beyond its endpoints",
+        "single-valued neutrosophic sets specialize the general framework; oversets, undersets, and offsets explicitly permit membership components outside the usual bounds",
+        "linguistic and interval-valued linguistic variants preserve qualitative or interval-valued truth, indeterminacy, and falsity instead of silently converting them to calibrated probabilities",
+        "bipolar representations distinguish positive and negative membership information, and complex variants add phase-related structure to the membership components",
+        "bipolar complex, interval complex, and interval-valued bipolar extensions require explicit domain and operation definitions rather than collapsing every representation into three scalars",
+        "the three figures describe relationships among membership-sum, rough-set, and neutrosophic/cubic-set environments; they are conceptual diagrams, not imaging measurements",
+        "this first source section covers sections 1–11 of a mathematical introduction, not a clinical cohort or comparative medical-imaging experiment"
+      ],
+      "application": "Dorothy terminology and provenance gate distinguishing standard, nonstandard, interval, bipolar, and complex membership domains before any bounded synthetic operator demonstration; preserve the selected definition and domain constraints with every measurement",
+      "limitations": "this is mathematical background with many alternative definitions, not a unified implementation or validation study; no shared medical-image dataset, clinical cohort, ground-truth annotations, raw predictions, comparative imaging benchmark, executable implementation, or external validation is supplied; the diagrams and definitions do not establish diagnostic, treatment, or cure claims",
+      "no_tool_rationale": "Implementing selected operators would create a teaching exercise, not validate an imaging method or resolve which definition applies clinically. Without a specified operator, common data representation, imaging task, and evaluation cohort, a new implementation would not provide source-linked demonstrated use.",
+      "reviewed_at": "2026-11-09T07:55:03Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/009_B9780128181485000011_2.html": {
+      "source_sha256": "ac29beb5cea23093c71587e37cdd61052d5e4c390486d590fa45b36b1a0d01f4",
+      "concepts": [
+        "this continuation covers sections 12–15 of the same introductory chapter: single-valued neutrosophic rough sets and extensions, neutrosophic cubic sets, and plithogenic sets",
+        "single-valued neutrosophic rough sets combine membership triples with lower and upper approximations, preserving approximation uncertainty rather than treating a set boundary as exact",
+        "neutrosophic cubic sets pair interval-valued and point-valued neutrosophic components; their P-order uses interval inclusion with increasing point membership, while R-order reverses the point-membership comparison",
+        "P/R unions and intersections use different operations on interval and point components, so an ordering convention must accompany any claimed implementation",
+        "the NCS distance averages nine absolute differences per element with factor 1/(9n): three lower endpoints, three upper endpoints, and three point-valued components",
+        "the recognition outline uses d <= 0.5 for recognition and d >= 0.5 for nonrecognition, leaving d = 0.5 assigned to both outcomes rather than defining a unique tie rule",
+        "plithogenic sets characterize elements by multiple attribute values with appurtenance and contradiction degrees; operators combine fuzzy t-norms and t-conorms using contradiction information",
+        "the distance metric statements and recognition rule are definitions without a source-specific cohort, worked evaluation, or comparative clinical validation"
+      ],
+      "application": "Dorothy mathematical-semantics review preserving the selected rough/cubic-set definition, P/R ordering, interval endpoints, and the unresolved d = 0.5 recognition overlap; any future use is limited to a bounded synthetic semantics check, never a diagnostic decision",
+      "limitations": "this source section defines mathematical structures and an unvalidated recognition threshold; no medical-image cohort, brain-tumor data, reference labels, baseline method, raw predictions, source-specific implementation, tie-resolution protocol, or external validation is supplied; the distance and threshold were not applied to a patient or image, and no diagnostic, treatment, or cure claim is made",
+      "no_tool_rationale": "No clinical or imaging implementation should be inferred from rough/cubic-set definitions and a threshold alone. The chapter supplies no source-specific imaging representation or evaluation, and its recognition and nonrecognition conditions overlap at d = 0.5; inventing a tie rule or membership encoding would create a different, unvalidated method.",
+      "reviewed_at": "2026-11-09T07:55:03Z"
     }
   }
 }
