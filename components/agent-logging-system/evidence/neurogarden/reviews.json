@@ -1151,6 +1151,41 @@
       "limitations": "this is a conceptual outline and narrative set of examples rather than a completed case study; trial registrations, device and formulation details, raw preclinical and clinical evidence, patient cohorts, baseline comparisons, and external validation are unavailable; the checklist does not evaluate a device, nanoparticle, surgical system, diagnosis, treatment, or cure; no experiment or patient intervention was performed",
       "use": "ai_risk_review",
       "reviewed_at": "2026-11-09T07:33:48Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/010_B9780128181485000023.html": {
+      "source_sha256": "46f032b153e7d4538d7f3ad146080f40705ce841144644959741bd421992f9a5",
+      "concepts": [
+        "the microscopy review describes NS enhancement, multicriteria similarity scores, adaptive weights, WBC localization and segmentation, mitosis detection, and shearlet/NS clustering",
+        "the five reported cell-class segmentation percentages have an unweighted mean of 97.0%, matching the chapter's average but not supplying per-cell or per-image counts",
+        "reported mitosis precision 65.42% and recall 66.03% give F1 approximately 65.7236%, consistent with the printed 65.73% after rounding and substantially different from a 97% segmentation score",
+        "the rat GBM study reports SPM 0.68, HDist 4.59, and AvgDist 1.99; these different metrics and its stated 1371 WBCs cannot be converted into the other chapters' accuracy claims",
+        "the optimized alpha-mean experiment uses 50 training and 850 test images, while HBCENCM uses 900 training and 379 test images, so their 99.3% and 96.281% accuracies are not shown to be a matched comparison",
+        "the region-growing result has 95.3% accuracy and 88.8% specificity, and the reported study-specific sensitivity/specificity tradeoffs cannot establish universal NS superiority",
+        "all performance results are secondary; selected dataset versions, patient and donor assignments, source images, labels, predictions, complete protocols, and external validation are unavailable",
+        "secondary brain-tumor MRI references do not supply a brain-tumor experiment or treatment evidence"
+      ],
+      "application": "Dorothy bounded metric and cohort-consistency audit using the linked mean and F1 calculations while requiring exact cohort partitions, cell-level counts, per-image outputs, complete protocols, and independent validation before transferring microscopy methods to tumor research",
+      "limitations": "only aggregate secondary percentages were independently checked; raw images, labels, patient and donor splits, per-cell predictions, complete preprocessing, fitted models, confidence intervals, and external validation are unavailable; no segmentation or classification model was trained or evaluated; no brain-tumor diagnosis, treatment, or cure claim is made",
+      "use": "bounded microscopy metric audit",
+      "reviewed_at": "2026-11-09T07:41:35Z",
+      "evidence_artifacts": [
+        "microscopy-metric-audit.json"
+      ]
+    },
+    "Bio-inspired Optimization for Medical Data Mining/012_c07.html": {
+      "source_sha256": "9ca8520fb2f659776771b52c99caa9760a3f0f26eac53da9d84f6b11e144c162",
+      "concepts": [
+        "the dingo overview suggests a population of about 10–50 candidates with initialization, fitness assessment, selection, movement, survival, and termination stages",
+        "the flowchart names group-attack, persecution, and scavenger strategies but supplies no branch probabilities, position or velocity equations, constraint handling, or executable pseudocode",
+        "the original Dingo Optimization Algorithm references concern hunting strategies, while the separate DINGO reference concerns distributed Newton-type gradient-norm optimization; these are not one algorithm or evidence base",
+        "no original benchmark objective, dataset, baseline, random seed, raw fitness trace, runtime, convergence result, or independent validation is supplied for the broad claims of efficiency and multi-objective flexibility",
+        "the chapter acknowledges premature convergence and difficulty with many variables or constraints, but supplies no measured failure analysis or scaling results",
+        "no brain-tumor data, patient-level evaluation, therapeutic candidate, delivery measurement, or treatment outcome is supplied"
+      ],
+      "application": "Dorothy optimizer-evidence gate requiring exact update equations, objective and constraints, primary algorithm identity, branch settings, deterministic seeds, matched baselines, repeated runs, and independent validation before any bounded research benchmark",
+      "limitations": "this is a narrative algorithm overview rather than a reproducible implementation or experiment; update equations, branch rules, benchmark objectives, constraints, code, seeds, raw outcomes, and external validation are missing; no optimizer was run and no brain-tumor, diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No Dingo optimizer was implemented because the chapter omits the actual position/velocity updates, branch probabilities, constraint rules, and objective-specific evaluation protocol. Inventing these definitions would create a different unvalidated algorithm rather than reproduce the chapter.",
+      "reviewed_at": "2026-11-09T07:41:35Z"
     }
   }
 }
