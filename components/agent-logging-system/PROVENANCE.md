@@ -34,6 +34,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Ultrasound forward/inverse arithmetic audit with conflicting linked equation assets; bioinspired case-outline review requiring trial identifiers, delivery evidence, raw outcomes, and external validation before therapeutic interpretation.
 - Bounded microscopy mean/F1 audit with incompatible-cohort limits; Dingo overview no-tool rationale preserving absent update equations, primary algorithm identity, and original benchmark evidence.
 - Foundational neutrosophic-set review preserving distinct membership domains, followed by rough/cubic-set and plithogenic definitions, P/R ordering, the nine-term distance, and an overlapping d = 0.5 recognition boundary; mathematical definitions are not clinical evidence.
+- Explicit inventory-only reviews for all four neutrosophic part dividers, preserving their section labels and no-tool rationales without treating navigation as independent scientific evidence or changing the extracted-chapter count.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.17 packaging and all 62 focused tests verified.

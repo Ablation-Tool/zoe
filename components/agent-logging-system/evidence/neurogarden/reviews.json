@@ -1220,6 +1220,50 @@
       "limitations": "this source section defines mathematical structures and an unvalidated recognition threshold; no medical-image cohort, brain-tumor data, reference labels, baseline method, raw predictions, source-specific implementation, tie-resolution protocol, or external validation is supplied; the distance and threshold were not applied to a patient or image, and no diagnostic, treatment, or cure claim is made",
       "no_tool_rationale": "No clinical or imaging implementation should be inferred from rough/cubic-set definitions and a threshold alone. The chapter supplies no source-specific imaging representation or evaluation, and its recognition and nonrecognition conditions overlap at d = 0.5; inventing a tie rule or membership encoding would create a different, unvalidated method.",
       "reviewed_at": "2026-11-09T07:55:03Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/012_partii.html": {
+      "source_sha256": "961e2e8ebbb02200a13088c1efd77b3e4e117e2a738b97d44473c0efbae9b239",
+      "concepts": [
+        "Part II is a navigational divider titled Neutrosophic set in medical image denoising",
+        "the divider contains no denoising method, data, experiment, or result; its title is not independent scientific evidence"
+      ],
+      "application": "Dorothy inventory-only link to the three denoising chapters in Part II; use their separately source-hashed reviews for methods and limitations rather than this divider",
+      "limitations": "this eight-word part divider has no scientific procedure, cohort, equation, comparative result, or clinical evidence; reviewed status records its inventory role only and supplies no diagnosis, treatment, or cure claim",
+      "no_tool_rationale": "No denoising tool was created because this source contains only a part title. Implementing a filter from that label would invent a method; the substantive denoising chapters already have separate reviews and no-tool rationales.",
+      "reviewed_at": "2026-11-09T08:03:18Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/016_partiii.html": {
+      "source_sha256": "96e8ebca220bed4670961f9d72fcd95726c6c45933189e6ffb01214fac2880f6",
+      "concepts": [
+        "Part III is a navigational divider titled Neutrosophic set in medical image clustering and segmentation",
+        "the divider introduces a topic but supplies no clustering or segmentation method, image, annotation, metric, or validation"
+      ],
+      "application": "Dorothy inventory-only link to the survey, clustering, optimization, blood-cell, and dermoscopic segmentation sources in Part III; preserve each chapter's separate evidence review",
+      "limitations": "this ten-word part divider contains no scientific procedure, dataset, ground truth, prediction, result, or clinical evidence; reviewed status records navigation only and does not establish tumor segmentation, diagnosis, treatment, or cure",
+      "no_tool_rationale": "No clustering or segmentation tool was created because a part title specifies no algorithm, parameters, data, or evaluation protocol. The linked substantive chapters, rather than this divider, define the available methods and their no-tool boundaries.",
+      "reviewed_at": "2026-11-09T08:03:18Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/022_partiv.html": {
+      "source_sha256": "e5e568c0ca2af5e569e4c29980aeffad96500f14d2b8923219404af860c349b4",
+      "concepts": [
+        "Part IV is a navigational divider titled Neutrosophic set in medical image classification",
+        "the divider contains no classification model, class definition, training or test cohort, prediction, or performance result"
+      ],
+      "application": "Dorothy inventory-only link to the EEG, dermoscopic, and mammography classification chapters in Part IV; preserve their distinct modalities, class schemas, and validation limits",
+      "limitations": "this eight-word part divider supplies no scientific method, cohort, class labels, predictions, metrics, or clinical evidence; reviewed status records inventory only and supplies no brain-tumor classification, diagnosis, treatment, or cure claim",
+      "no_tool_rationale": "No classifier was created because this source provides only a section heading. Choosing an architecture, labels, data, or metrics from that heading would fabricate a study; the three substantive classification sources have independent reviews.",
+      "reviewed_at": "2026-11-09T08:03:18Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/026_partv.html": {
+      "source_sha256": "a602504cb2a63f2967590c155a3b48ff325385728f0b01cb2f3ab087ea08b30a",
+      "concepts": [
+        "Part V is a navigational divider titled Challenges and future directions in neutrosophic theory",
+        "the divider names a section but supplies no challenge analysis, future-direction evidence, method, experiment, or validation"
+      ],
+      "application": "Dorothy inventory-only link to the concluding challenges and future-directions chapter; use that chapter's separate review for secondary claims, table anomalies, and research limitations",
+      "limitations": "this nine-word part divider contains no substantive analysis, experiment, dataset, or clinical evidence; reviewed status records navigation only and does not reproduce the concluding chapter's findings or establish any medical claim",
+      "no_tool_rationale": "No research tool was created from a section label with no method or evaluable content. The concluding chapter is separately source-hashed and reviewed; duplicating its claims here would create false independent evidence.",
+      "reviewed_at": "2026-11-09T08:03:18Z"
     }
   }
 }
