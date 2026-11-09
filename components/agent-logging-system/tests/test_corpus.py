@@ -62,9 +62,22 @@ def test_review_requires_hashes_concepts_application_limitations_and_use(tmp_pat
     with pytest.raises(ValueError, match="needs use or no-tool rationale"):
         build(tmp_path, review)
     review[source]["use"] = "assess_sampling"
+    review[source]["no_tool_rationale"] = "conflicting rationale"
+    with pytest.raises(ValueError, match="exactly one"):
+        build(tmp_path, review)
+    review[source].pop("no_tool_rationale")
     review[source]["source_sha256"] = "changed"
     with pytest.raises(ValueError, match="source changed"):
         build(tmp_path, review)
+
+
+def test_reviews_reject_duplicate_json_keys(tmp_path):
+    review_path = tmp_path / "reviews.json"
+    review_path.write_text(
+        '{"schema": "neurogarden-reviews-v1", "reviews": {"Imaging/c02.html": {}, "Imaging/c02.html": {}}}'
+    )
+    with pytest.raises(ValueError, match="duplicate JSON key"):
+        load_reviews(review_path)
 
 
 def test_empty_directories_remain_explicit(tmp_path):

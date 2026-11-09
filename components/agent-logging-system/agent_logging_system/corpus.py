@@ -175,8 +175,8 @@ def merge_reviews(document, reviews):
             required = ("concepts", "application", "limitations", "reviewed_at")
             if any(not review.get(field) for field in required):
                 raise ValueError(f"incomplete review: {chapter['source']}")
-            if not review.get("use") and not review.get("no_tool_rationale"):
-                raise ValueError(f"review needs use or no-tool rationale: {chapter['source']}")
+            if bool(review.get("use")) == bool(review.get("no_tool_rationale")):
+                raise ValueError(f"review needs use or no-tool rationale, exactly one: {chapter['source']}")
             chapter["status"] = "reviewed"
             chapter["review"] = review
 
@@ -213,8 +213,17 @@ def build(root, reviews=None):
     return coverage(document)
 
 
+def unique_json_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
 def load_reviews(path):
-    document = json.loads(Path(path).read_text(encoding="utf-8"))
+    document = json.loads(Path(path).read_text(encoding="utf-8"), object_pairs_hook=unique_json_object)
     if document.get("schema") != "neurogarden-reviews-v1" or not isinstance(document.get("reviews"), dict):
         raise ValueError("unsupported review document")
     return document["reviews"]

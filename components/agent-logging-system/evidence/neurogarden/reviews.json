@@ -910,6 +910,38 @@
         "https://api.figshare.com/v2/articles/1512427",
         "https://ndownloader.figshare.com/files/51340418"
       ]
+    },
+    "Biomedical Imaging (Elsevier)/014_CHP005.html": {
+      "source_sha256": "22180773d8238b1ac88e4cd047de694f59af98d1399287fd24548c3080e914c1",
+      "concepts": [
+        "BOLD fMRI measures delayed hemodynamic changes rather than neuronal activity directly; draining veins, physiology, field strength, and acquisition choices affect localization",
+        "gradient-echo and spin-echo BOLD trade sensitivity against spatial specificity, while ASL offers baseline perfusion measurements with different contrast and temporal limitations",
+        "presurgical fMRI has shown agreement with direct cortical stimulation and Wada testing in cited studies, but this does not make it a universal replacement or establish patient-specific surgical safety",
+        "tumor-related edema and altered neurovascular coupling can invalidate simple activation interpretations; DTI, EEG, and MEG provide complementary rather than interchangeable evidence",
+        "EEG/MEG source estimation is nonunique and simultaneous EEG-fMRI introduces artifacts; resting-state connectivity removes some task-performance confounds but not motion, physiology, or causal uncertainty",
+        "group-normalized maps and high-resolution research examples do not establish reliability for an individual patient or replace task and clinical assessment",
+        "MRS measures metabolism with distinct localization and sensitivity constraints rather than supplying a universal tumor biomarker or treatment-response decision"
+      ],
+      "application": "Dorothy presurgical evidence gate using mri_review for static-field, RF/heating, gradient/noise, motion, and high-field artifact review, while requiring task quality, neurovascular coupling, complementary mapping, and patient-specific functional assessment before any surgical interpretation",
+      "limitations": "this is a historical methods review with many secondary examples; no raw patient BOLD/ASL/DTI/EEG/MEG maps, task-performance data, cortical-stimulation labels, complete cohorts, or current protocols are supplied; cited concordance and high-resolution results were not independently reproduced; no patient atlas registration, surgical plan, diagnosis, treatment, or autonomous action is made",
+      "use": "mri_review",
+      "reviewed_at": "2026-11-08T17:08:59Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/017_B9780128181485000072.html": {
+      "source_sha256": "ab7981fad8c448e924e508d6b5759bd8f1a867ef1a3f9d3769beb55e8d89a9e4",
+      "concepts": [
+        "neutrosophic segmentation commonly transforms images into truth, indeterminacy, and falsity memberships before clustering, level-set, watershed, or other segmentation methods",
+        "the survey's limitations section states that one membership definition is not appropriate for every medical image type and that iterative NS processing can blur detail",
+        "NS is usually a preprocessing or enhancement component combined with another segmentation method, not a standalone validated segmentation framework",
+        "accuracy, sensitivity, specificity, overlap, Dice, Jaccard, Hausdorff distance, mean distance, and runtime measure different properties and cannot establish a universal best method",
+        "the secondary brain-tumor report claims 100% segmentation on 20 test images but supplies no image IDs, predictions, patient splits, or independent validation",
+        "reported cohorts and parameter choices are study-specific, including 42 thyroid subjects and 30 liver-CT patients; they do not establish generalization to other cohorts or to children",
+        "the survey acknowledges that membership definitions and enhancement parameters require adjustment for different modalities and calls for blur-prevention cost functions"
+      ],
+      "application": "Dorothy modality-specific segmentation evidence matrix: distinguish classification metrics from overlap and boundary metrics, require ground truth and per-image outputs, preserve the survey's blur and parameter-tuning limitations, and treat the 20-image 100% brain-tumor report as unverified secondary evidence",
+      "limitations": "this is a narrative survey with secondary rather than reproduced results; no source images, ground-truth masks, selected IDs, raw metrics, patient-level splits, executable pipelines, confidence intervals, or external validation is supplied; no study was independently reproduced and no diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No NS segmentation implementation was created because the survey supplies no raw images, ground-truth masks, executable studies, or consistent modality-independent membership definition. A generic implementation would not reproduce the reported 20-image result and could erase anatomical detail through iterative enhancement.",
+      "reviewed_at": "2026-11-09T06:21:26Z"
     }
   }
 }
