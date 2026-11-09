@@ -1080,6 +1080,42 @@
       "limitations": "private NFH images and labels, selected INbreast IDs, DctS and complete preprocessing, exact NRSL integer schedule and thresholds, augmentation and split assignments, fitted models, random seeds, raw patch and case predictions, per-case errors, confidence intervals, repeated runs, and external validation are unavailable; aggregate plots and reported values were not independently reproduced; the checklist does not evaluate a model; no unnecessary-biopsy reduction, brain-tumor inference, diagnosis, treatment, or cure claim is made",
       "use": "ai_risk_review",
       "reviewed_at": "2026-11-09T07:16:37Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/027_B9780128181485000151.html": {
+      "source_sha256": "a8a75a54ba1e88d749ef95a324c0312cadd5edd2d69297a9c094c09ad3c1901f",
+      "concepts": [
+        "neutrosophic truth, indeterminacy, and falsity memberships are used to represent uncertain image information, but that representation alone does not establish superiority over fuzzy or conventional methods",
+        "the survey repeatedly identifies small evaluated image sets, reliance on PSNR alone, computational burden, missing ground truth, reader variability, and manufacturer-specific tuning as open limitations",
+        "the brain-tumor entries are secondary claims: MNLFCM is explicitly listed as having less accuracy and NS-EMFSE as computationally complex, so neither supplies a validated tumor segmentation or treatment result",
+        "Table 1 reports SSIM 13.88, outside the conventional 0–1 range, without defining an alternative scale or supplying the underlying computation",
+        "Table 2 places noise removal in a drawback column and loss of edges/details in a benefit column for NKUAN/NLEE, while Table 3 labels an OCT example as liver despite its retinal EAMD source context, indicating table-integrity problems",
+        "the review calls for larger heterogeneous datasets, multiple image-quality metrics, better ground-truth annotations, reader-variability assessment, and external adaptation rather than relying on visual impressions",
+        "no new clinical cohort, patient-level evaluation, brain-tumor therapy experiment, or cure evidence is supplied by this concluding survey"
+      ],
+      "application": "Dorothy evidence-quality matrix preserving modality-specific noise models, small-cohort and tuning limitations, metric-scale checks, negative cases, and the need for independent brain-tumor validation before adopting any surveyed method",
+      "limitations": "this is a broad secondary survey with no unified experiment, raw data, ground-truth masks, per-image predictions, executable implementation, confidence intervals, or external validation; several table labels and numerical claims are internally inconsistent and were not resolved against every primary study; no reported method was independently reproduced and no brain-tumor diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No surveyed NS method was implemented because the chapter is a secondary overview with inconsistent table entries and no common reproducible protocol, raw images, masks, patient splits, or per-image results. Reimplementing a generic membership transform would not resolve the SSIM-scale anomaly or validate the secondary brain-tumor claims.",
+      "reviewed_at": "2026-11-09T07:25:26Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/018_c13.html": {
+      "source_sha256": "1a786bda51a4e1304c592d2dfa1ba0e6bf85b9a7fdd1f9e4ca76b37da3f7c47f",
+      "concepts": [
+        "genetic algorithms can encode neural-network weights for selection, crossover, and mutation, but optimization on training data does not guarantee a global optimum or generalization to held-out patients",
+        "the diagram's shapes contain 108x120=12,960, 120x80=9,600, and 80x4=320 weights, totaling 22,880; six such chromosomes contain 137,280 parameters",
+        "the printed 150x60 matrix has 9,000 rather than 9,600 elements; the diagram's 120x80 shape supplies 9,600 and yields the stated indices 0–12,959, 12,960–22,559, and 22,560–22,879",
+        "flattened shape arithmetic can verify chromosome layout but not backpropagation, GA convergence, predictive accuracy, or clinical utility",
+        "the chapter's comparative table is secondary evidence; it supplies no original fruit360 split, images, training logs, fitted weights, predictions, baseline runs, or independent evaluation",
+        "reference numbering is inconsistent: Montana and Davis is reference 15 rather than cited 7, Billings and Zheng is 17 rather than 8, classroom evaluation is 18 rather than 9, and Sexton and Gupta is 19 rather than 10; the fruit360 example also cites reference 17, an RBFN paper",
+        "population 350, 100 versus 300 generations, mutation 25% versus the abstract's 5%, recombination 9%, and single-point crossover 70% are presented without a unified configuration or matched ablation",
+        "no brain-tumor dataset, patient-level separation, molecular target, treatment experiment, or cure evidence is supplied"
+      ],
+      "application": "Dorothy bounded weight-shape and protocol audit preserving the linked index calculations while requiring exact architectures and bias handling, dataset splits, nested tuning, repeated seeds, matched baselines, raw predictions, and external validation before using GA-ANN for tumor research",
+      "limitations": "only flattened shape arithmetic was independently checked; the printed 150x60 shape and citation numbering are erroneous; no original experiment, executable implementation, complete dataset, exact activation/loss or bias protocol, random seeds, fitted model, prediction, confidence interval, or external validation is supplied; the audit does not train a neural network or establish GA superiority, brain-tumor relevance, diagnosis, treatment, or cure",
+      "use": "bounded weight-shape arithmetic audit",
+      "reviewed_at": "2026-11-09T07:25:26Z",
+      "evidence_artifacts": [
+        "ga-ann-shape-audit.json"
+      ]
     }
   }
 }
