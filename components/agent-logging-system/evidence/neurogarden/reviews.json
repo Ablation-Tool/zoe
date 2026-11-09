@@ -942,6 +942,39 @@
       "limitations": "this is a narrative survey with secondary rather than reproduced results; no source images, ground-truth masks, selected IDs, raw metrics, patient-level splits, executable pipelines, confidence intervals, or external validation is supplied; no study was independently reproduced and no diagnosis, treatment, or cure claim is made",
       "no_tool_rationale": "No NS segmentation implementation was created because the survey supplies no raw images, ground-truth masks, executable studies, or consistent modality-independent membership definition. A generic implementation would not reproduce the reported 20-image result and could erase anatomical detail through iterative enhancement.",
       "reviewed_at": "2026-11-09T06:21:26Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/018_B9780128181485000084.html": {
+      "source_sha256": "7dee4d0ede18a80b680a16dbc5ee114711679272fe02f2a0fde1fbd0d7c199ab",
+      "concepts": [
+        "neutrosophic clustering maps images into truth, indeterminacy, and falsity memberships before threshold-guided K-means clustering",
+        "edge-detection filter type and window size change boundary determination and downstream clustering rather than being a universal implementation detail",
+        "the proposed unsharp 7x7 filter reports JAC 0.80, Dice 0.89, and accuracy 95.25% over 50 randomly selected ISIC 2016 images",
+        "Prewitt 9x9 has higher sensitivity at 79.49% than the proposed unsharp filter's 79.14%, and the 99.95% specificity result is shared by several filters",
+        "unsharp 3x3 is fastest at 1.74 seconds versus 5.07 seconds for unsharp 7x7, so accuracy and computation time require separate evaluation",
+        "all evaluated filters fail on the listed ISIC_0010447 example with dissimilar or dark regions, providing a necessary negative case",
+        "the study evaluates dermoscopic skin lesions, not brain-tumor MRI, so its filter ranking cannot establish brain-tumor or pediatric clinical performance"
+      ],
+      "application": "Dorothy filter-specific evidence gate requiring selected image IDs, patient-level splits, ground-truth masks, per-image metrics, and negative-case review before transferring a clustering filter to tumor imaging",
+      "limitations": "only aggregate averages and illustrative images are supplied; the 50 selected image IDs, random seed, raw masks, per-image predictions and metrics, executable pipeline, confidence intervals, and external validation are unavailable; reported values were not independently reproduced; no brain-tumor dataset, diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No new clustering filter was implemented because selected images, masks, per-image outputs, complete preprocessing, and validation data are absent. A generic unsharp implementation would not reproduce the reported 95.25% result or establish modality-independent superiority.",
+      "reviewed_at": "2026-11-09T06:31:23Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/014_B9780128181485000059.html": {
+      "source_sha256": "340f69a6c0c6f17c6cd332f6282502600d314e1b60a6bba6c0c3fecf34cadbd3",
+      "concepts": [
+        "the proposed OIF maps grayscale dermoscopy images into truth, indeterminacy, and falsity memberships, then smooths more strongly where indeterminacy and the Gaussian-kernel standard deviation are higher",
+        "a genetic algorithm optimizes only kernel size h by minimizing reciprocal mean training PSNR; the reported setup uses 20 random training images, 10 population members, 20 generations, and a five-generation stall limit",
+        "the reported h=7 result is evaluated on 900 test images with added zero-mean Gaussian noise of variance 0.01, while preprocessed source images are assumed to be noise-free",
+        "Table 1 reports OIF mean SNR 27.75, PSNR 31.47, MSE 57.86, and RMSE 7.18, improving those averages over the default h=5 filter but not establishing lesion-feature preservation",
+        "the proposed filter's MAX error is 128.27 versus 97.40 for Wiener and 121.61 for default IF, and its ISNR 7.79 is below default IF's 10.26, contradicting a claim of superiority on every reported metric",
+        "Figure 1 displays an essentially flat best-penalty trace from generation 0, so its single trajectory does not demonstrate a sixth-generation improvement or robust optimization across random seeds",
+        "the kernel equations mix local neighborhood coordinates with image coordinates and m while optimization uses h, and do not specify explicit discrete-weight normalization or boundary handling",
+        "five illustrative iterations for ISIC_0000395 and two visual test examples do not establish brain-tumor MRI denoising, diagnostic accuracy, or pediatric performance"
+      ],
+      "application": "Dorothy denoising-evidence gate requiring training/test IDs, patient-independent splits, measured modality-specific noise, kernel and boundary definitions, independent optimization runs, per-image and residual-anatomy metrics, and downstream tumor-task validation before considering this filter",
+      "limitations": "selected training/test IDs, patient-level assignments, original arrays, preprocessing, noise realizations, local-mean settings, r/q values, discrete kernel normalization, boundary handling, exact T updates, stopping rule, GA encoding and bounds, random seeds, per-image metrics, confidence intervals, and external validation are unavailable; the figures do not independently reproduce the aggregate results; synthetic grayscale AWGN experiments do not establish real acquisition noise, brain-tumor MRI performance, diagnosis, treatment, or cure",
+      "no_tool_rationale": "No OIF implementation or optimization run was created because the discrete kernel conventions, membership updates, complete preprocessing, selected images, noise realizations, and independent evaluation data are not supplied. Substituting a generic Gaussian kernel and testing against a noise-contaminated compressed figure would not reproduce the chapter's experiment or validate tumor-feature preservation.",
+      "reviewed_at": "2026-11-09T06:37:13Z"
     }
   }
 }

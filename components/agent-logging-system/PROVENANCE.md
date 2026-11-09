@@ -26,6 +26,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Fixed synthetic LQ/TCP/NTCP radiobiology review with explicit omitted biology, radiation-protection distinctions, numeric saturation, and no patient-specific treatment planning.
 - Presurgical fMRI review preserving neurovascular coupling, task, motion, and individual-patient limits; corpus review loading now rejects duplicate JSON keys and conflicting use/no-tool rationales.
 - Neutrosophic segmentation survey review preserving modality-specific membership, blur, tuning, and cohort limitations, with no implementation or validation of the secondary 20-image 100% claim.
+- Filter-specific neutrosophic clustering review retaining a shared negative case, and GA-optimized denoising review preserving MAX/ISNR counterexamples, incomplete kernel conventions, and unvalidated dermoscopy-to-tumor transfer.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.17 packaging and all 62 focused tests verified.
