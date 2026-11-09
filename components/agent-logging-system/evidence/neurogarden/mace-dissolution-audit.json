@@ -1,0 +1,71 @@
+{
+  "schema": "neurogarden-bounded-dissolution-audit-v1",
+  "source": "Bio-inspired Optimization for Medical Data Mining/007_c02.html",
+  "source_sha256": "6f62fb4b5bcc664b78ac87eca8155eb99051f9c38ca2850951ec3bc66e3dadb9",
+  "reviewed_at": "2026-11-09T08:18:08Z",
+  "formula": "dissolved_percent = 100 * (total_calcium_oxalate_mg - undissolved_calcium_oxalate_mg) / total_calcium_oxalate_mg",
+  "method_result_boundary": {
+    "methods_initial_mass_mg": 1,
+    "results_total_mass_mg": 10,
+    "status": "unresolved discrepancy",
+    "note": "Only the results-text values are recomputed. No rescaling or reconciliation with the methods section is inferred."
+  },
+  "results_text_cases": [
+    {
+      "group": "blank",
+      "total_mg": 10,
+      "undissolved_mg": 10,
+      "text_dissolved_mg": 0,
+      "computed_percent": 0,
+      "table_percent": 0,
+      "table_minus_computed_percentage_points": 0
+    },
+    {
+      "group": "neeri_positive_control",
+      "total_mg": 10,
+      "undissolved_mg": 1.9,
+      "text_dissolved_mg": 8.1,
+      "computed_percent": 81,
+      "table_percent": 80,
+      "table_minus_computed_percentage_points": -1
+    },
+    {
+      "group": "ethanol_mace_extract",
+      "total_mg": 10,
+      "undissolved_mg": 1.8,
+      "text_dissolved_mg": 8.2,
+      "computed_percent": 82,
+      "table_percent": 82,
+      "table_minus_computed_percentage_points": 0
+    },
+    {
+      "group": "aqueous_mace_extract",
+      "total_mg": 10,
+      "undissolved_mg": 2.6,
+      "text_dissolved_mg": 7.4,
+      "computed_percent": 74,
+      "table_percent": 74,
+      "table_minus_computed_percentage_points": 0
+    }
+  ],
+  "comparison_limits": {
+    "ethanol_minus_neeri_from_results_text_percentage_points": 1,
+    "ethanol_minus_neeri_from_table_percentage_points": 2,
+    "replicate_count": null,
+    "variance": null,
+    "statistical_test": null,
+    "conclusion": "The small numerical difference does not establish superiority or clinical efficacy."
+  },
+  "additional_source_inconsistencies": [
+    "the methods specify 40 degrees C for two hours, while the results specify 37 degrees C",
+    "the title names machine learning, but no model, features, training data, fit, or prediction is supplied",
+    "the methods describe powdered mace spice, while the conclusion calls the preparation leaf extract without a leaf-specific protocol"
+  ],
+  "figure_scope": "The powder, vessel/membrane, and decalcified-egg photographs do not supply labeled raw titers, replicate measurements, chemical identities, uncertainty, or independent validation.",
+  "arithmetic_checked": true,
+  "machine_learning_evaluated": false,
+  "wet_lab_performed": false,
+  "plant_extract_administered": false,
+  "clinical_claim": false,
+  "brain_cancer_relevance": "No brain-tumor model, brain delivery, target engagement, toxicity assessment, disease-control outcome, or survival evidence is supplied."
+}
