@@ -713,16 +713,22 @@
     "The Internet of Medical Things/009_c04.html": {
       "source_sha256": "62ec66f2c39b8fa047f6956c5e62813c0171c7def911e8adbafc4638ca26ebe7",
       "concepts": [
-        "a 70/30 split by subclass yields 12, 24, and 36 validation images for 10, 20, and 30 images per class",
-        "Table 4.7 percentages can be reproduced from integer correct-prediction counts",
-        "the conclusion naming AlexNet best contradicts Table 4.7, where ResNet101 is highest at 33/36 or 91.67%",
-        "small validation sets need prediction-level confidence intervals and per-class support",
-        "classification accuracy is not treatment or cure evidence"
+        "a 70/30 split by subclass yields 12, 24, and 36 validation images for 10, 20, and 30 images per class, but image-level splitting cannot establish patient independence",
+        "Table 4.7 percentages can be reproduced from integer correct-prediction counts; ResNet101 is highest at 33/36 or 91.67% for 30 images per class",
+        "Table 4.6 instead reports accuracy 1.00 for AlexNet at 10 and 20 images and for ResNet101 at 10 images, while Figure 4.2 reports 97%, 74%, and 86% for the three architectures and the post-table narrative gives 82.40%, 68.05%, and 75%",
+        "rounded figure-matrix diagonal means for GoogleNet are 75%, 74.75%, and 61.25%, not Table 4.7's 66.67%, 62.5%, and 75%; for ResNet101 they are 66.75%, 91.5%, and 83.5%, not 58.33%, 75%, and 91.67%",
+        "the figure matrices are explicitly described with predicted classes as rows and actual classes as columns but have no normalization definition, so their diagonal means are consistency checks rather than recovered prediction counts or independent accuracy",
+        "the displayed sensitivity and specificity equations are binary, and the chapter does not define how TP, TN, FP, FN, prevalence, F-score, or balanced accuracy are aggregated across the four classes",
+        "the 120 .mat images have 30 files per class and are resized to 240x240 before augmented transfer learning, but dataset provenance, duplicate slices, patient identities, augmentation boundaries, and split assignments are not supplied",
+        "small validation sets need per-class predictions, support, uncertainty, and external validation; image classification is not early diagnosis by itself and is not treatment or cure evidence"
       ],
-      "application": "Dorothy count-based audit reproducing Table 4.7 and flagging narrative contradictions without evaluating a model",
-      "limitations": "only table counts are reproduced; patient identity, duplicate slices, leakage, raw predictions, confidence intervals, per-class support, code, and fitted models are absent; no model training, clinical validation, or treatment claim is made",
+      "application": "Dorothy count-based and figure-consistency audit using brain_tumor_validation_review and the linked rounded-matrix calculations; require dataset provenance, patient-level separation, class-specific predictions, and external validation before any future imaging experiment",
+      "limitations": "only printed aggregate tables and rounded figure matrices are checked; the matrices' normalization is undefined, and the tables, summary chart, and narrative are not reconciled; dataset version, patient identities, duplicate-slice handling, patient-level splits, raw images and predictions, exact class support, confidence intervals, architecture modifications, random seeds, executable code, fitted models, and external validation are absent; no model training, independent performance measurement, clinical validation, diagnosis, treatment, or cure claim is made",
       "use": "brain_tumor_validation_review",
-      "reviewed_at": "2026-11-08T15:15:17Z"
+      "reviewed_at": "2026-11-09T06:48:57Z",
+      "evidence_artifacts": [
+        "brain-tumor-chapter4-figure-audit.json"
+      ]
     },
     "The Internet of Medical Things/006_c01.html": {
       "source_sha256": "4720c5ebc9785d5a8f87cb0f32b9750d4efff8501024ecc466a26bef7c7ac287",
@@ -975,6 +981,40 @@
       "limitations": "selected training/test IDs, patient-level assignments, original arrays, preprocessing, noise realizations, local-mean settings, r/q values, discrete kernel normalization, boundary handling, exact T updates, stopping rule, GA encoding and bounds, random seeds, per-image metrics, confidence intervals, and external validation are unavailable; the figures do not independently reproduce the aggregate results; synthetic grayscale AWGN experiments do not establish real acquisition noise, brain-tumor MRI performance, diagnosis, treatment, or cure",
       "no_tool_rationale": "No OIF implementation or optimization run was created because the discrete kernel conventions, membership updates, complete preprocessing, selected images, noise realizations, and independent evaluation data are not supplied. Substituting a generic Gaussian kernel and testing against a noise-contaminated compressed figure would not reproduce the chapter's experiment or validate tumor-feature preservation.",
       "reviewed_at": "2026-11-09T06:37:13Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/015_B9780128181485000060.html": {
+      "source_sha256": "b194d869fb3413f743603078eaf97d6cca0516344b4419f839a51a1d85088c99",
+      "concepts": [
+        "the proposed OCT pipeline applies indeterminacy-guided Wiener filtering to the truth subset, computes neutrosophic c-means memberships, applies a second indeterminacy filter, and maps the result back to an image",
+        "Table 1 reports mean PSNR 36.63615, CNR 27.19125, MSE 16.682225, and SSIM 0.7045375, but these aggregate values do not identify clean references or prove preservation of retinal layers or pathology",
+        "Figure 7 contradicts the claim of highest CNR for every class: the DME bar for the proposed method is approximately 17, below TV's approximately 23, so a higher aggregate mean cannot establish per-class dominance",
+        "the PSNR equation places summed squared depth-map differences over 255 squared rather than using the conventional peak-squared-over-MSE ratio, and its depth-map definitions do not describe this OCT experiment",
+        "the CNR discussion assigns Wiener a second-place value of 34.7259, which is NLM's PSNR in Table 1; Table 1 instead gives Wiener CNR 21.53228 and TV CNR 24.357075",
+        "Table 2 gives proposed-method times of 0.2498, 0.219, 0.245, and 0.358 seconds, not the text's 0.498-second lower bound; the decrease from 0.2498 to 0.219 also contradicts the assertion that every non-TV method's time increases with image size",
+        "the proposed filter is slower than ADF and Wiener in every listed timing row even though it is faster than NLM, so low complexity cannot be inferred from one comparator",
+        "the stated 207,130-image dataset and listed 108,312 images from 4,686 patients are not reconciled by a version or subset definition, and no brain-tumor images or downstream diagnostic evaluation are supplied"
+      ],
+      "application": "Dorothy modality-specific denoising gate preserving the DME negative case and requiring explicit clean references, image IDs, patient-level grouping, complete filter and clustering definitions, per-image residual and retinal-layer measurements, and downstream task validation before cross-modal tumor use",
+      "limitations": "raw OCT inputs, clean reference images, exact dataset version and evaluated subset, patient assignments, image IDs, full membership/window/cluster parameters, a and b values, NLM filtering degree, random seeds, inverse mapping, executable implementation, per-image metrics, confidence intervals, and external validation are unavailable; printed metric definitions and narrative/table comparisons are inconsistent; the figures do not independently reproduce aggregate results; no filter was applied to brain-tumor images and no diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No NS-Wiener/NCM implementation was created because the complete parameterization, inverse mapping, evaluated images, clean references, and per-image outputs are missing. Reusing the printed depth-map PSNR ratio or substituting a generic OCT filter would not reproduce the tables or establish brain-tumor relevance.",
+      "reviewed_at": "2026-11-09T06:53:36Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/017_c12.html": {
+      "source_sha256": "7d3a645ac89a8c85a7378e95256b1f8024dd7e9d4822cc2e8c9e98deb5a028b0",
+      "concepts": [
+        "genetic algorithms, swarm methods, and neural networks can represent feature-selection and model-optimization searches, but biological metaphors do not themselves create therapeutic efficacy",
+        "feature selection and architecture or hyperparameter optimization must occur inside training folds with patient-level separation; evaluating these choices on held-out test data would leak information",
+        "multimodal imaging, clinical, and molecular features can support biomarker hypotheses, but correlation with diagnosis is not causal target validation or evidence of treatment benefit",
+        "Table 12.1's blanket contrasts between adaptive nonlinear bioinspired methods and supposedly linear, nonlearning traditional approaches are not an empirical benchmark and do not establish universal superiority",
+        "representative citation-title mismatches include electronic-waste management and blockchain DDoS prevention supporting broad healthcare claims, an SPTLC2 infection study supporting swarm surgical robotics, and mechanical sensors supporting an Alzheimer's discussion",
+        "the chapter acknowledges black-box behavior, tuning burden, local optima, seed sensitivity, overfitting, privacy, and clinical-integration limits but supplies no comparative run, seed, baseline, or independent validation",
+        "no original neurological-disease cohort, executable algorithm, brain-tumor therapy experiment, drug candidate, delivery measurement, target engagement, toxicity result, or patient outcome is supplied",
+        "diagnostic model optimization and treatment planning are separate evidence tasks; neither an imaging score nor an optimized treatment label authorizes a patient intervention or establishes a cure"
+      ],
+      "application": "Dorothy research-prioritization evidence gate using ai_risk_review for provenance, bias, privacy, human oversight, and stop/recovery checks; require training-only optimization plus molecularly defined brain delivery, target engagement, toxicity, and independently measured outcomes before advancing any brain-cancer therapy hypothesis",
+      "limitations": "this is a broad narrative overview rather than a reproducible experiment or systematic evidence synthesis; representative citations do not support the adjacent claims, and no disease-specific dataset, predictions, fitted model, baseline, code, treatment protocol, biological measurements, or external validation is supplied; the generic checklist does not evaluate a diagnostic or therapeutic model; no drug discovery, diagnosis, patient-specific treatment, novel cure, or clinical authorization claim is made",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-09T06:57:46Z"
     }
   }
 }
