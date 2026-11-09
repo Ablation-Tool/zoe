@@ -29,6 +29,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Filter-specific neutrosophic clustering review retaining a shared negative case, and GA-optimized denoising review preserving MAX/ISNR counterexamples, incomplete kernel conventions, and unvalidated dermoscopy-to-tumor transfer.
 - Strengthened nine-matrix brain-tumor MRI source audit; OCT denoising review retaining its DME counterexample and missing-reference limits; neurological optimization review separating research prioritization from unvalidated treatment or novel-cure claims.
 - Blood-cell HNK and skin-lesion NKGC reviews preserving sensitivity/specificity tradeoffs, missing cohort/protocol details, and an unsupported pie-chart AUC presentation rather than universal performance claims.
+- Skin NMDCNN label/consistency audit and mammography ROC/FROC review preserving private single-center, patch-assignment, repeated-run, and external-validation limits without brain-tumor or treatment claims.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.17 packaging and all 62 focused tests verified.
