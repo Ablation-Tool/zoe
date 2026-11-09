@@ -1015,6 +1015,38 @@
       "limitations": "this is a broad narrative overview rather than a reproducible experiment or systematic evidence synthesis; representative citations do not support the adjacent claims, and no disease-specific dataset, predictions, fitted model, baseline, code, treatment protocol, biological measurements, or external validation is supplied; the generic checklist does not evaluate a diagnostic or therapeutic model; no drug discovery, diagnosis, patient-specific treatment, novel cure, or clinical authorization claim is made",
       "use": "ai_risk_review",
       "reviewed_at": "2026-11-09T06:57:46Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/020_B9780128181485000102.html": {
+      "source_sha256": "a5009ea65f0e48517366d2d3499ff55ee9041bf46c8ff4c031ee4bcbc1eb369b",
+      "concepts": [
+        "HNK first uses red-channel Canny edges and circular Hough voting to mask a white blood cell, then applies neutrosophic memberships and K-means to segment its nucleus",
+        "the CHT setup lists radii 14–60 pixels, radius sampling 1, and angular sampling 0.01, but circle selection and Canny thresholds involve trial and error",
+        "over 50 randomly selected images, Table 1 reports HNK JAC 87.14%, Dice 93.10%, sensitivity 95.08%, specificity 98.88%, and accuracy 98.44% without per-image values",
+        "NS with K-means has higher sensitivity at 96.31% than HNK's 95.08%, and K-means alone has higher specificity at 98.94% than HNK's 98.88%, so HNK is not best on every reported metric",
+        "pixel-level specificity and accuracy can be dominated by background; cell-level false positives, missed cells, and the separate WBC-localization error rate are not reported",
+        "circular masks and red-channel processing are dataset-specific assumptions for irregular, touching, or overlapping cells and do not establish generality across stains, donors, or microscopes",
+        "nucleus segmentation is not leukemia classification, brain-tumor measurement, or therapeutic evidence"
+      ],
+      "application": "Dorothy cell-imaging evidence gate requiring selected image IDs, donor-level splits, separate cell-localization and nucleus-segmentation metrics, fixed thresholds, clustering seeds, raw masks, and external validation before linking morphology to tumor research",
+      "limitations": "the 50 selected image IDs, donor assignments, Canny and circle-selection thresholds, K value and initialization, exact membership updates and stopping criteria, raw predictions and masks, per-image metrics, cell-level counts, confidence intervals, executable pipeline, and external validation are unavailable; the five displayed examples do not reproduce the aggregate results; no blood-cell disease, brain-tumor, diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No HNK pipeline was implemented because the selected images and masks, donor separation, Canny/circle thresholds, cluster initialization, exact update process, and evaluation outputs are missing. Substituting generic circle detection and clustering would not reproduce the reported means or establish cell-level clinical validity.",
+      "reviewed_at": "2026-11-09T07:07:27Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/021_B9780128181485000114.html": {
+      "source_sha256": "3ff818f6782086e6536a4e8ad3c4503142815c525a2ee9944f220ee176c37002",
+      "concepts": [
+        "NKGC sequentially uses histogram-based cluster estimation, neutrosophic c-means memberships, and kernel graph cuts for grayscale skin-lesion segmentation",
+        "Table 1 reports NKGC accuracy 97.41%, Dice 93.27%, JAC 87.78%, sensitivity 99.21%, and specificity 90.87% over an unspecified selected test subset",
+        "traditional graph cut has higher specificity at 96.1% than NKGC's 90.87%, so the proposed method is not superior on every metric",
+        "NKGC sensitivity differs from the two NCM baselines by only 0.04 percentage points and has a larger reported SD of 1.81 versus 0.57; no paired per-image comparison or statistical test establishes a meaningful gain",
+        "Figure 3 is an unlabeled pie chart without numeric AUC values, threshold sweep, ROC coordinates, or other operating points, so it does not substantiate the caption's area-under-curve claim",
+        "the exact selected training/test image IDs, subset size, patient-level separation, NCM weights and stopping constant, kernel form and bandwidth, graph neighborhood, and energy weights are not supplied",
+        "dermoscopic boundary segmentation is not a diagnostic label or a brain-tumor result and cannot establish treatment efficacy or a cure"
+      ],
+      "application": "Dorothy segmentation-evidence gate requiring selected IDs, patient-level splits, complete kernel and clustering settings, per-image masks and metrics, sensitivity-specificity tradeoff review, and actual threshold-dependent ROC analysis whenever AUC is claimed",
+      "limitations": "the evaluated subset and patient assignments are undefined; raw images, ground-truth masks, predictions, per-image metrics, complete NCM/KGC parameterization, code, confidence intervals, statistical tests, ROC coordinates, and external validation are unavailable; three visual examples and aggregate means were not independently reproduced; the pie chart supplies no ROC/AUC validation; no brain-tumor, diagnosis, treatment, or cure claim is made",
+      "no_tool_rationale": "No NKGC implementation was created because the evaluated data, patient splits, kernel and energy definitions, cluster parameters, and raw predictions are absent. A generic graph cut or a pie chart derived from aggregate means would not reproduce the results or constitute ROC/AUC evidence.",
+      "reviewed_at": "2026-11-09T07:07:27Z"
     }
   }
 }
