@@ -1047,6 +1047,39 @@
       "limitations": "the evaluated subset and patient assignments are undefined; raw images, ground-truth masks, predictions, per-image metrics, complete NCM/KGC parameterization, code, confidence intervals, statistical tests, ROC coordinates, and external validation are unavailable; three visual examples and aggregate means were not independently reproduced; the pie chart supplies no ROC/AUC validation; no brain-tumor, diagnosis, treatment, or cure claim is made",
       "no_tool_rationale": "No NKGC implementation was created because the evaluated data, patient splits, kernel and energy definitions, cluster parameters, and raw predictions are absent. A generic graph cut or a pie chart derived from aggregate means would not reproduce the results or constitute ROC/AUC evidence.",
       "reviewed_at": "2026-11-09T07:07:27Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/024_B9780128181485000138.html": {
+      "source_sha256": "c5cb26e79aab09f16e4e020113059defba1076433c5a16b6cbfb82772197529a",
+      "concepts": [
+        "NMDCNN cascades five ResNet50 networks for five epochs, using neutrosophic similarity scores to reinforce poorly performing samples and a voting scheme for binary skin-lesion classification",
+        "Table 1 reports training accuracy 97.78% and testing accuracy 85.22% with testing specificity 86% and sensitivity 77.1%, a 12.56-point train-test accuracy gap rather than independent clinical validation",
+        "the stated task is melanoma versus nevi, but Figure 1 labels BCC malignant, the TP definition also uses BCC, and the conclusion groups BCC and SCC under benign examples, leaving the positive-class schema internally inconsistent",
+        "FN and FP are both described using nevus images, so the supplied text cannot unambiguously reconstruct the binary confusion matrix",
+        "ROC/AUC is listed as an evaluation metric, but no ROC coordinates, AUC result, confusion matrix, class support, or per-image prediction is supplied",
+        "the reinforcement threshold Tr=0.9 is chosen by trial and error, while the exact reinforced-number schedule, random seeds, patient-level assignments, and matched non-NRSL baseline or timing ablation are absent",
+        "the text alternates between selecting the model with the highest performance score and voting across models without resolving their combination, and no brain-tumor or treatment outcome is evaluated"
+      ],
+      "application": "Dorothy classification-evidence gate using ai_risk_review to require a fixed class ontology, dataset version, patient-level separation, complete training and ablation protocols, raw predictions and ROC analysis, and external validation before accepting a diagnostic or cross-modal tumor claim",
+      "limitations": "only aggregate percentages and two illustrative images are supplied; class definitions are internally inconsistent; the exact dataset version and assignments, patient identities, raw predictions, confusion matrices, class support, ROC/AUC results, confidence intervals, architecture modifications, random seeds, executable code, fitted weights, independent baselines, and external validation are unavailable; the generic checklist evaluates no model; no training, brain-tumor inference, diagnosis, treatment, or cure claim is made",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-09T07:16:37Z"
+    },
+    "Neutrosophic Set in Medical Image Analysis/025_B978012818148500014X.html": {
+      "source_sha256": "e46eca1473c5b2fd158fcaf354d1794ca372b7ed9b67fa8aee7c1abb147f525c",
+      "concepts": [
+        "the pipeline combines NS-guided MC candidate detection, DCNN1 false-positive reduction, DBSCAN clustering with M=4, DCNN2 MCC classification, and a weighted maximum-score combination of CC and MLO views",
+        "DCNN1 uses 88/15/12 INbreast cases with 4,970/800/720 true patches and 7,249/800/784 negative patches; the text calls the second group testing while Figure 2 correctly labels validation, and patch-to-case assignments and the earlier DctS implementation remain unspecified",
+        "at epoch 40 the reported NRSL testing accuracy is 93.68% versus 92.36% for traditional training, but the displayed validation curves cross at intermediate epochs and single runs do not establish improvement across random seeds",
+        "the MC candidate stage reportedly misses about 10% of subtle MCs; cluster detection reports 92.5% sensitivity at 0.50 false-positive clusters per image, and Figure 12 shows about 0.95 for malignant and 0.90 for benign cases at that operating point",
+        "DCNN2 uses 197 NFH training cases with separate 70 validation and 71 testing cases; the 1,421/454/546 training/validation/testing patch groups are balanced only in the latter two groups, and their case-level assignment process is not fully described",
+        "Figure 11 supplies actual ROC curves with AUC 0.90767 for validation and 0.87192 for testing, rounded in the text to 0.908 and 0.872; case accuracies are 0.855 and 0.813 without raw case-level scores or confidence intervals",
+        "the private single-center NFH cohort has reported ethics-committee permission and radiologist review but no external cohort; population-wide claims about Asian women, reduced unnecessary biopsies, and brain-tumor transfer are not established",
+        "lesion detection, cluster detection, case classification, and patient management are distinct tasks; high reported AUC is not treatment or cure evidence"
+      ],
+      "application": "Dorothy detection-and-classification evidence gate using ai_risk_review to require case/patient-separated patch assignments, complete candidate-detection settings, explicit FROC and ROC operating points, raw predictions, repeated-seed uncertainty, and independent external validation before any cross-modal tumor use",
+      "limitations": "private NFH images and labels, selected INbreast IDs, DctS and complete preprocessing, exact NRSL integer schedule and thresholds, augmentation and split assignments, fitted models, random seeds, raw patch and case predictions, per-case errors, confidence intervals, repeated runs, and external validation are unavailable; aggregate plots and reported values were not independently reproduced; the checklist does not evaluate a model; no unnecessary-biopsy reduction, brain-tumor inference, diagnosis, treatment, or cure claim is made",
+      "use": "ai_risk_review",
+      "reviewed_at": "2026-11-09T07:16:37Z"
     }
   }
 }
