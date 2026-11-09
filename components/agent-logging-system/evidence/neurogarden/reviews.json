@@ -1425,6 +1425,47 @@
       "limitations": "this is a broad secondary narrative with sparse and frequently mismatched citations and a duplicated section, not a reproducible experiment or systematic review; no unified dataset, GA configuration, original cohort, code, fitted model, raw prediction, baseline run, confidence interval, or external validation is supplied; secondary metrics were not independently reproduced, and no brain-tumor, diagnosis, treatment, pediatric experiment, or cure claim is made",
       "no_tool_rationale": "No GA or medical classifier was implemented because the chapter supplies no source-specific encoding, fitness function, cohort, split, baseline, stopping rule, or raw outcomes. A generic crossover/mutation demonstration from the schematic would not reproduce the secondary medical claims or validate brain-cancer relevance.",
       "reviewed_at": "2026-11-09T08:29:49Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/015_c10.html": {
+      "source_sha256": "e080adb4f9a13fb36a58e7ad787e0901858d9d1d395532e2c7dbafd00e510b67",
+      "concepts": [
+        "the abstract and Figure 10.1 describe cuttlefish segmentation with CNN/SOM voting, while the introduction instead describes modified-FCM/SVM segmentation and CNN/random-forest classification; later text again mixes SOM and random forest, so no single pipeline is specified",
+        "the experiment mentions 20 samples with an 80/20 split but supplies no selected DRIVE/STARE image IDs, patient assignments, fixed split, seed, raw masks, or distinction between vessel-pixel segmentation and diabetic-retinopathy classification",
+        "Tables 10.1 and 10.2 repeat identical GA, CNN, and proposed-method metrics on both datasets without supplying two sets of predictions or independent evaluations",
+        "proposed minus CNN is +1.23 accuracy, +0.81 sensitivity, −0.26 specificity, and +0.37 F-score percentage points; the proposed row is not best on specificity and the accuracy gain does not match the abstract's 2.6–4% claim",
+        "the DRIVE narrative assigns sensitivity 97.82%, specificity 98.53%, and F-score 94.4% to CNN, which are the proposed-method row rather than the CNN row's 97.01%, 98.79%, and 94.03%",
+        "Figure 10.5 is captioned STARE but plots the DRIVE SVM row 76.09/70/65.09/91.91; Figure 10.6 is captioned DRIVE but plots the STARE SVM row 71.06/80/54.17/78",
+        "the narrative introduces cuttlefish/GA/CNN results on natural and medical datasets and kappa values that are not reconciled with the two tables",
+        "Equation 10.1 is a median non-additivity inequality rather than a filter definition; IDMN prints x+y, ELBP starts its sum at s−1, and the F-score equation ends in ×T0, so these artifacts cannot be silently replaced with conventional implementations",
+        "representative evidence mismatches include a Parkinson quantum-computing citation for the global-threshold comparator and unrelated security, e-waste, DDoS, X-ray, and cancer-recurrence references",
+        "no brain-tumor images, molecular target, treatment outcome, or cure evidence is supplied"
+      ],
+      "application": "Dorothy bounded retinal metric and figure-consistency audit using the linked table/plot values; require a fixed pipeline, selected IDs, patient-level splits, separate pixel- and patient-level tasks, raw masks and predictions, exact preprocessing, matched baselines, repeated seeds, and external validation before diagnostic interpretation",
+      "limitations": "only printed table and figure values were compared; the pipeline and dataset-to-figure mapping are inconsistent, and raw images, masks, class labels, confusion counts, selected IDs, fitted models, per-image metrics, seeds, confidence intervals, and external validation are unavailable; the audit does not train or evaluate a segmentation or diabetic-retinopathy model and makes no brain-tumor, diagnosis, treatment, or cure claim",
+      "use": "bounded retinal metric and figure consistency audit",
+      "reviewed_at": "2026-11-09T08:39:16Z",
+      "evidence_artifacts": [
+        "retinal-metric-audit.json"
+      ]
+    },
+    "Bio-inspired Optimization for Medical Data Mining/016_c11.html": {
+      "source_sha256": "abd6b951d600283965ad44902c5113eee207c83f741655c34dcdf2fb5f5c7cce",
+      "concepts": [
+        "the chapter combines general background with multiple secondary diabetes studies rather than one unified longitudinal prognosis cohort, model, or evaluation protocol",
+        "the 250-patient neural-network section lists three conjugate-gradient methods but supplies no participant split, complete feature definitions, architecture, missing-data protocol, random seeds, or raw predictions",
+        "Table 11.1 and Figure 11.5 report R values 0.056466, 0.88026, and 0.097219; correlation is not classification accuracy or clinical validity",
+        "Figure 11.4c labels best validation at epoch 52 while its best marker and Table 11.1 indicate about 108 epochs for the R=0.88026 run; algorithm labels and training budgets are not consistently mapped",
+        "Table 11.4 lists BP=742 and SNB=724 under classification/accuracy; these cannot be accepted as percentages and must not be silently changed to 74.2 and 72.4",
+        "the RF narrative reports 99.7% correct classification and MAE 0.2877 without a confusion matrix or raw predictions, while the 935-record/13-attribute description and Pima-style nine-attribute table are not reconciled into one dataset",
+        "ARIC/SAHS/Framingham calibration comparisons lack cohort-level predictions and coefficients, so the preferred ARIC model cannot be independently validated or transferred",
+        "representative citation mismatches include electronic waste for chronic-disease mortality, DDoS prevention for disease costs, microaneurysm detection for fuzzy diabetes reasoning, and EEG/insulin-pump/fundus references for the genetic-model discussion",
+        "the BMI/triglyceride scatter plot does not supply raw participant data or future outcomes, and diagnosis classification is not automatically prognosis",
+        "no brain-tumor cohort, molecular target, brain delivery, target engagement, treatment outcome, or cure evidence is supplied"
+      ],
+      "application": "Dorothy prognosis-evidence gate requiring an explicit time origin and outcome, dataset provenance, patient-level partitions, training-only imputation and feature selection, model and epoch definitions, calibration and discrimination measurements, raw predictions, uncertainty, and external validation before any clinical or research prioritization",
+      "limitations": "this is a heterogeneous secondary narrative with citation mismatches, internally inconsistent epoch and accuracy artifacts, and no unified experiment; no common cohort, raw participant data, outcome timeline, complete preprocessing, fitted model, raw prediction, confidence interval, or external validation is supplied; correlation, MAE, and reported accuracy are not independently reproduced; no model was trained and no diagnosis, prognosis, treatment, pediatric application, brain-tumor inference, or cure claim is made",
+      "no_tool_rationale": "No diabetes classifier or prognosis model was implemented because the chapter combines incompatible secondary cohorts and supplies no unified dataset, outcome definition, complete model configuration, participant split, or raw predictions. Guessing a neural architecture, correcting BP/SNB values without evidence, or using self-reported outputs as new training truth would create an unvalidated method rather than reproduce the chapter.",
+      "reviewed_at": "2026-11-09T08:39:16Z"
     }
   }
 }
