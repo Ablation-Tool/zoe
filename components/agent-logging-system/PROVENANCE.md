@@ -27,6 +27,7 @@ This tree preserves the available package, license, documentation, examples, and
 - Presurgical fMRI review preserving neurovascular coupling, task, motion, and individual-patient limits; corpus review loading now rejects duplicate JSON keys and conflicting use/no-tool rationales.
 - Neutrosophic segmentation survey review preserving modality-specific membership, blur, tuning, and cohort limitations, with no implementation or validation of the secondary 20-image 100% claim.
 - Filter-specific neutrosophic clustering review retaining a shared negative case, and GA-optimized denoising review preserving MAX/ISNR counterexamples, incomplete kernel conventions, and unvalidated dermoscopy-to-tumor transfer.
+- Strengthened nine-matrix brain-tumor MRI source audit; OCT denoising review retaining its DME counterexample and missing-reference limits; neurological optimization review separating research prioritization from unvalidated treatment or novel-cure claims.
 - Windows 98 Unleashed inventory plus a bounded C99 offline measurement/JSON exporter; Windows 95/98 remains unverified.
 - QKD/post-quantum pairing audit with NIST and NSA sources, explicit current-algorithm vulnerability, environmental-degradation limits, and a hybrid research path rather than an implemented migration.
 - Version 0.6.17 packaging and all 62 focused tests verified.
