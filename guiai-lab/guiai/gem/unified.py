@@ -41,6 +41,7 @@ COMPONENTS = (
     Component("helen", "GEM HELEN", "gem-helen", "https://github.com/Ablation-Tool/gem-helen", "55fb1e494662e9b69e964ac2f9df41724cffeb0c", "Optimized geometry, rhythm, and forecast laboratory", "helen_gem/core.py", ("",), "helen_gem"),
     Component("brain", "BRAIN GEM", "brain-gem", "https://github.com/Ablation-Tool/brain-gem", "ed819c2824a55b019a532f4fa2cb440532030127", "Standalone Bayesian field notebook and chambered memory", "brain_gem/field.py", ("",), "brain_gem", ("field",)),
     Component("hpux-tools", "HP-UX Tools", "hpux-tools", "https://github.com/Ablation-Tool/zoe", None, "Zoe-managed HP-UX SOM debugging and PA-RISC emulation", "hpux_tools/cli.py", ("",), "hpux_tools.cli", ("doctor",), use_caller_cwd=True),
+    Component("life", "Zoe Life", "guiai-lab", "https://github.com/Ablation-Tool/zoe", None, "Conway's Game of Life, cellular automata, and reproducible scenes", "guiai/gem/life.py", ("",), "guiai.gem.life_view", use_caller_cwd=True),
     Component("cerotto", "Cerotto GEM", "cerotto", "https://github.com/Ablation-Tool/cerotto", "5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4", "Guarded forensic cases, native C engine, timelines, and vault evidence", "cerotto_gem/cli.py", ("",), "cerotto_gem"),
     Component("research", "Research GEM", "next-token-predictability", "https://github.com/Ablation-Tool/next-token-predictability", "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9", "Accessible-volume research, evidence packs, and mirrored workbench", "evidence/master-gem/conformance.json", ("",), "gem", ("os",), "graphics-environment-manager"),
     Component("kevlar", "Kevlar MCP firewall", "kevlar", "https://github.com/Ablation-Tool/kevlar", "8ac3e0181e98572d6c41f964385393aa441a5f2a", "MCP proxy firewall, content disarm, policy enforcement, and audit evidence", "kevlar.py", ("",), "kevlar", ("--help",)),
@@ -110,7 +111,7 @@ class ComponentRegistry:
         }
         host_variable = host_variables.get(identifier)
         host = Path(os.environ.get(host_variable, self.root.parent)).expanduser().resolve() if host_variable else None
-        if component.identifier in {"zoe", "cern-console"}:
+        if component.identifier in {"zoe", "cern-console", "life"}:
             path = self.root / component.checkout
             if not (path / component.anchor).is_file():
                 package_root = Path(__file__).resolve().parents[2]
@@ -256,7 +257,7 @@ def unified_scene(registry=None, knowledge=None):
     manifest = registry.manifest()
     knowledge_state = knowledge.knowledge_state()
     cyan, yellow, pink, green, muted = "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#9fb1c8"
-    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15"]
+    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15", "#a5f3fc"]
     objects = [_rectangle("background", [0, 0, 1400, 1080], "#080d18", "#080d18")]
     objects.extend([
         _text("title", [40, 51], "Zoe · ALLGEMS", 29, cyan),
@@ -277,29 +278,28 @@ def unified_scene(registry=None, knowledge=None):
     objects.append(_text("identity-center-label", [1117, 175], "Zoe", 20, "#e2e8f0"))
     objects.append(_text("orbital-caption", [984, 254], "Zoe orbital eye · allgems · original vector interpretation", 11, muted))
     for index, component in enumerate(manifest["components"]):
-        x = 40 + (index % 4) * 340
-        y = 294 + (index // 4) * 202
+        x = 40 + (index % 5) * 268
+        y = 294 + (index // 5) * 202
         color = colors[index]
         source = component["source"]
-        objects.append(_rectangle(f"component-{component['identifier']}", [x, y, x + 300, y + 181], color, "#101b2b", 2))
-        objects.append(_ellipse(f"component-icon-{index}", [x + 29, y + 31], [8, 8], color, color))
-        objects.append(_text(f"component-title-{index}", [x + 48, y + 37], component["title"], 18, color))
-        objects.append(_text(f"component-summary-{index}", [x + 18, y + 72], _fit(component["summary"], 43), 11, "#d8e2ee"))
-        objects.append(_text(f"component-summary-2-{index}", [x + 18, y + 91], _fit(component["summary"][43:], 43), 11, "#d8e2ee"))
+        objects.append(_rectangle(f"component-{component['identifier']}", [x, y, x + 240, y + 181], color, "#101b2b", 2))
+        objects.append(_ellipse(f"component-icon-{index}", [x + 25, y + 31], [8, 8], color, color))
+        objects.append(_text(f"component-title-{index}", [x + 43, y + 37], component["title"], 17, color))
+        objects.append(_text(f"component-summary-{index}", [x + 16, y + 72], _fit(component["summary"], 32), 11, "#d8e2ee"))
+        objects.append(_text(f"component-summary-2-{index}", [x + 16, y + 91], _fit(component["summary"][32:], 32), 11, "#d8e2ee"))
         command = "show" if component["inspect_only"] else "launch"
-        objects.append(_text(f"component-command-{index}", [x + 18, y + 125], f"zoe {command} {component['identifier']}", 12, muted))
+        objects.append(_text(f"component-command-{index}", [x + 16, y + 125], f"zoe {command} {component['identifier']}", 12, muted))
         status = "source present" if source["source_present"] else "source unavailable"
-        objects.append(_text(f"component-status-{index}", [x + 18, y + 151], f"{source['mode']} · {status}", 11, green if source["source_present"] else "#fdba74"))
-        objects.append(_text(f"component-revision-{index}", [x + 18, y + 170], f"upstream {component['revision'][:12] if component['revision'] else 'Zoe baseline'}", 9, "#64748b"))
+        objects.append(_text(f"component-status-{index}", [x + 16, y + 151], f"{source['mode']} · {status}", 11, green if source["source_present"] else "#fdba74"))
+        objects.append(_text(f"component-revision-{index}", [x + 16, y + 170], f"upstream {component['revision'][:12] if component['revision'] else 'Zoe baseline'}", 9, "#64748b"))
     objects.extend([
-        _rectangle("knowledge-card", [1060, 698, 1360, 879], cyan, "#101b2b", 2),
-        _text("knowledge-card-title", [1078, 735], "Shared knowledge field", 18, cyan),
-        _text("knowledge-observations", [1078, 776], f"{knowledge_state['observation_count']} source observations", 13, "#e2e8f0"),
-        _text("knowledge-links", [1078, 801], f"{knowledge_state['link_count']} declared context links", 13, "#e2e8f0"),
-        _text("knowledge-hash", [1078, 827], f"SHA-256 {(knowledge.events[-1]['hash'][:24] if knowledge.events else 'empty')}", 10, yellow),
-        _text("knowledge-scope", [1078, 852], "links do not transfer evidence", 11, muted),
-        _text("knowledge-scope-2", [1078, 870], "or permission · executed=False", 11, green),
         _rectangle("unified-memory", [40, 915, 1360, 1048], "#475569", "#0e1828"),
+        _rectangle("knowledge-card", [1050, 925, 1360, 1038], cyan, "#101b2b", 1.5),
+        _text("knowledge-card-title", [1068, 951], "Shared knowledge field", 15, cyan),
+        _text("knowledge-observations", [1068, 974], f"{knowledge_state['observation_count']} source observations", 11, "#e2e8f0"),
+        _text("knowledge-links", [1068, 994], f"{knowledge_state['link_count']} declared context links", 11, "#e2e8f0"),
+        _text("knowledge-hash", [1068, 1013], f"SHA-256 {(knowledge.events[-1]['hash'][:24] if knowledge.events else 'empty')}", 9, yellow),
+        _text("knowledge-scope", [1068, 1030], "no evidence/permission transfer · executed=False", 8, green),
     ])
     for index, symbol in enumerate(("G", "E", "M")):
         x = 62 + index * 50

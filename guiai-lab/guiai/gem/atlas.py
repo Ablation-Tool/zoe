@@ -19,6 +19,7 @@ ATLAS_MODULES = {
     "pentomino": "Zoe Pentomino · timed spatial practice",
     "pentacube": "Zoe Pentacube · pentomino regions and legal cube permutations",
     "cicada": "Zoe Internal Clock · CERN ticks and cicada timing hypotheses",
+    "life": "Zoe Life · Conway's Game of Life",
     "pilot": "Zoe Practice Navigator · original visual guide",
     "resilience": "Zoe Resilience Atlas · services and signal evidence",
     "presence": "Zoe Presence · an explicit self-model, not sentience",
@@ -440,6 +441,10 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
         game = CicadaClock(cycle_years=13, initial_cycles=8)
         game.step(5)
         return game.scene(), {"measurements": game.measurements(), "biological_measurement": False, "external_actions_executed": False}
+    if module == "life":
+        from .life import Life
+        game = Life.from_pattern("glider").advance(4)
+        return game.scene(), game.document()
     if module == "pilot":
         from .pilot import guide_page
         return guide_page("cover")
