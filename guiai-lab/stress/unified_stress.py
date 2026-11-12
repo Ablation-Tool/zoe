@@ -14,6 +14,8 @@ from guiai.gem.atlas import default_document
 from guiai.gem.cli import main as gem_main
 from guiai.gem.geometry import verify
 from guiai.gem.knowledge import KnowledgeField
+from guiai.gem.life import Life
+from guiai.gem.life_view import main as life_main
 from guiai.gem.runner import verify_vdi
 from guiai.gem.unified import COMPONENTS, IDENTITY, ComponentRegistry, unified_scene
 from guiai.gem.unified_cli import main as zoe_main
@@ -39,15 +41,16 @@ class UnifiedSourceCase(unittest.TestCase):
         lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
         self.assertEqual(lock["identity"], IDENTITY)
         self.assertEqual(len(lock["components"]), 10)
-        self.assertEqual(len(COMPONENTS), 14)
+        self.assertEqual(len(COMPONENTS), 15)
         manifest = REGISTRY.manifest()
         self.assertEqual(manifest["repository_count"], 11)
         self.assertEqual(manifest["upstream_repository_count"], 10)
-        self.assertEqual(manifest["entrypoint_count"], 14)
+        self.assertEqual(manifest["entrypoint_count"], 15)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
         self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe", "host"} for row in manifest["components"]))
         self.assertEqual(REGISTRY.source("chalkboard")["mode"], "bundled")
         self.assertTrue(REGISTRY.source("chalkboard")["available"])
+        self.assertEqual(REGISTRY.source("life")["mode"], "zoe")
         for component in COMPONENTS:
             if component.revision is not None:
                 self.assertEqual(component.revision, lock["components"][component.checkout]["revision"])
@@ -56,6 +59,7 @@ class UnifiedSourceCase(unittest.TestCase):
             "components/ablation/gem-lab/gem/gtk_app.py",
             "components/ablation/tests",
             "components/hpux-tools/hpux_tools/cli.py",
+            "guiai-lab/guiai/gem/life.py",
             "components/kevlar/policy.py",
             "components/pdf-signature-toolkit/pdf_signature_toolkit/verify.py",
             "components/Chalkboard/templates/README.template.md",
@@ -64,9 +68,9 @@ class UnifiedSourceCase(unittest.TestCase):
         ):
             self.assertTrue((ROOT / relative).exists(), relative)
         self.assertTrue((ROOT / "assets/branding/orbital-emblem.png").is_file())
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 14)
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 13)
-        self.assertEqual(len(REGISTRY.knowledge.events), 27)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 15)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 14)
+        self.assertEqual(len(REGISTRY.knowledge.events), 29)
 
     def test_knowledge_observations_and_declared_links_preserve_boundaries(self):
         registry = ComponentRegistry(ROOT)
@@ -182,7 +186,7 @@ class UnifiedSourceCase(unittest.TestCase):
                 self.assertEqual(zoe_main(["show", "neurogarden"]), 0)
             self.assertIn("chalkboard", stdout.getvalue())
             self.assertIn("neurogarden", stdout.getvalue())
-            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 14)
+            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 15)
             self.assertEqual(KnowledgeField.load(knowledge).document(), REGISTRY.knowledge.document())
             with mock.patch("guiai.gem.atlas_view.launch_atlas") as launch:
                 self.assertEqual(zoe_main([]), 0)
@@ -195,9 +199,9 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(first.document["id"], "zoe-allgems")
         self.assertTrue(verify(first).passed, verify(first).text())
         self.assertTrue(verify_vdi(first).passed, verify_vdi(first).text())
-        self.assertEqual(report["knowledge"]["observation_count"], 14)
-        self.assertEqual(report["knowledge"]["link_count"], 13)
-        self.assertEqual(len(report["memory"]["events"]), 27)
+        self.assertEqual(report["knowledge"]["observation_count"], 15)
+        self.assertEqual(report["knowledge"]["link_count"], 14)
+        self.assertEqual(len(report["memory"]["events"]), 29)
         self.assertTrue(report["scene_only"])
         self.assertFalse(report["executed"])
         with tempfile.TemporaryDirectory() as directory:
@@ -208,6 +212,65 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertIn("Zoe · ALLGEMS", text)
             self.assertIn("Kevlar", text)
             self.assertIn("Chalkboard", text)
+            self.assertIn("Zoe Life", text)
+
+
+class LifeRulesCase(unittest.TestCase):
+    def test_still_life_oscillator_and_glider(self):
+        block = Life.from_pattern("block")
+        initial = set(block.cells)
+        block.advance(10)
+        self.assertEqual(block.cells, initial)
+        blinker = Life.from_pattern("blinker")
+        initial = set(blinker.cells)
+        blinker.advance(2)
+        self.assertEqual(blinker.cells, initial)
+        self.assertEqual(blinker.generation, 2)
+        glider = Life.from_pattern("glider")
+        initial = set(glider.cells)
+        glider.advance(4)
+        self.assertEqual(glider.cells, {(x + 1, y + 1) for x, y in initial})
+        self.assertEqual(glider.population, 5)
+
+    def test_boundaries_toggle_clear_and_validation(self):
+        game = Life(width=8, height=8)
+        game.toggle(0, 0)
+        self.assertIn((0, 0), game.cells)
+        game.toggle(0, 0)
+        self.assertNotIn((0, 0), game.cells)
+        game.cells = {(0, 0), (7, 7)}
+        game.step()
+        self.assertEqual(game.cells, set())
+        game.clear()
+        self.assertEqual(game.generation, 0)
+        with self.assertRaises(ValueError):
+            Life([(8, 0)], width=8, height=8)
+        with self.assertRaises(ValueError):
+            game.toggle(-1, 0)
+        with self.assertRaises(ValueError):
+            game.advance(10001)
+        with self.assertRaises(ValueError):
+            Life.from_pattern("unknown")
+
+    def test_scene_and_no_overwrite_exports(self):
+        game = Life.from_pattern("glider").advance(4)
+        scene = game.scene()
+        self.assertTrue(verify(scene).passed, verify(scene).text())
+        self.assertTrue(verify_vdi(scene).passed, verify_vdi(scene).text())
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for kind in ("json", "svg", "png", "gem"):
+                output = root / f"life.{kind}"
+                game.export(output)
+                self.assertGreater(output.stat().st_size, 0)
+                with self.assertRaises(FileExistsError):
+                    game.export(output)
+            document = json.loads((root / "life.json").read_text())
+            self.assertEqual(document["state_sha256"], game.digest())
+            self.assertFalse(document["biological_life_created"])
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(life_main(["--steps", "4", "--output", str(root / "cli.svg")]), 0)
+            self.assertIn("Zoe Life", (root / "cli.svg").read_text())
 
 
 @unittest.skipUnless(os.environ.get("GEM_COMPONENT_TESTS") == "1", "set GEM_COMPONENT_TESTS=1 for real component commands")
@@ -223,6 +286,7 @@ class UnifiedCommandCase(unittest.TestCase):
                 ("helen", ["--module", "onset", "--output", str(root / "helen.json")], "helen.json"),
                 ("brain", ["notebook", "--output", str(root / "brain.json")], "brain.json"),
                 ("hpux-tools", ["doctor"], None),
+                ("life", ["--steps", "4", "--output", str(root / "life.svg")], "life.svg"),
                 ("kevlar", ["--help"], None),
                 ("pdf", ["--help"], None),
                 ("research", ["workbench", "list"], None),
@@ -240,13 +304,13 @@ class UnifiedNativeCase(unittest.TestCase):
     def test_native_hub_inspect_link_launch_and_memory(self):
         window = AtlasWindow("unified")
         try:
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 14)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 15)
             window.show_unified("chalkboard")
             self.assertIn("Chalkboard", window.summary.get_text())
             self.assertIn("Content inspection only", window.summary.get_text())
             window.record_unified_source("kevlar")
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 15)
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 14)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 16)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 15)
             with mock.patch.object(window.unified_registry, "launch", return_value=types.SimpleNamespace(pid=12345)) as launch:
                 window.launch_unified("kevlar", ["--help"])
                 launch.assert_called_once_with("kevlar", ["--help"], detach=True)
@@ -259,6 +323,27 @@ class UnifiedNativeCase(unittest.TestCase):
                     window.export_current(path)
             window.open_cognitive()
             self.assertEqual(window.module, "cognitive")
+        finally:
+            window.destroy()
+
+    def test_native_life_window_controls(self):
+        from guiai.gem.life_view import LifeWindow
+
+        window = LifeWindow(Life.from_pattern("glider"))
+        try:
+            window.step()
+            self.assertEqual(window.game.generation, 1)
+            window.reset()
+            self.assertEqual(window.game.generation, 0)
+            population = window.game.population
+            window.action("toggle", 0, 0)
+            self.assertEqual(window.game.population, population + 1)
+            window.clear()
+            self.assertEqual(window.game.population, 0)
+            window.play()
+            self.assertIsNotNone(window.timer)
+            window.stop()
+            self.assertIsNone(window.timer)
         finally:
             window.destroy()
 

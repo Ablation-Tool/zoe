@@ -63,6 +63,12 @@ METRIX and `pyte` are included or installed automatically. The Installation Prom
 
 Start with the **[all-platform installation guide](INSTALL.md)** or copy the **[Universal OS Installation Prompt](INSTALL-PROMPT.md)** into your agent.
 
+## Zoe Life
+
+Run Conway's Game of Life through Zoe with `zoe life` or `zoe launch life`. The native window supports clickable cell editing, named patterns, single-step and timed generation controls, reset, and clear. Space toggles play, Right advances one generation, R resets the selected pattern, and C clears the grid.
+
+Headless exports use `zoe life --pattern glider --steps 4 --output life.svg`. JSON, SVG, PNG, and GEM outputs are no-overwrite and include the finite B3/S23 state; relative paths resolve from the caller's working directory. This is a deterministic mathematical simulation, not biological life or an external action.
+
 ## Start a session
 
 Investigate one binary:
