@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- Added dependency-free HP-UX SOM parsing and PA-RISC 1.0/1.1 decoding to `ablation.hpux`, `BinaryContext`, the `ablation hpux` CLI, and `WindowAnalyzer`, including SOM VA mapping, import labels, direct calls, and unwind-based function alignment.
+- Added SunOS SPARC OMAGIC a.out symbols, twelve-byte relocation records with signed addends, direct-call recovery, and the `ablation sunos` CLI.
 - Replaced the pre-launch target prompts with a direct GEM home screen on Linux, Windows, and macOS. **Open binary** and **Open directory** now select the target inside GEM before creating a stable session and opening the full workbench.
 - Consolidated node details and actions under a collapsed-by-default bowtie toggle in Tk and GTK, with normal and inverse icon states and preserved responsive layout behavior.
 - Adopted the woven-diamond master icon set across the README, Wiki, Tk and GTK headers, Linux hicolor launchers, native Windows shortcuts, and macOS application bundles.
