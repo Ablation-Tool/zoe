@@ -230,6 +230,9 @@ Task-to-tool lookup. For constructor patterns and key methods, see `docs/referen
 | "Parse TI COFF2 object files and AR archives" | `TiCoffLoader.from_path(path)` |
 | "Parse Motorola 88K BCS COFF executable (magic 0x016D, DG AViiON / DG/UX)" | `from ablation.core.coff_m88k_parser import parse; b = parse(path)` |
 | "Disassemble MC88100 instructions / find function starts on 88K binary" | `M88kDecoder(b).disassemble_va(va)` / `.function_starts()` / `.string_refs()` |
+| "Parse an HP-UX SOM executable / inspect imports, exports, and unwind ranges" | `ablation hpux info INPUT --full` or `read_som(path)`; SOM is detected by `BinaryContext` before ELF parsing |
+| "Disassemble PA-RISC instructions and direct calls" | `ablation hpux disassemble INPUT 0xSTART --length 0x80` or `ablation window INPUT 0xSTART --calls --funcs`; both use the native `ablation.hpux` decoder |
+| "Parse SunOS SPARC OMAGIC a.out / apply signed relocation addends to direct calls" | `ablation sunos info INPUT --json` or `ablation sunos calls INPUT --target 0xADDRESS --json`; use `read_aout(path)` for typed symbols, relocations, and calls |
 | "Locate MetaKit VFS appended to a TclKit binary (BitRock installer, embedded appliance)" | `MetaKitParser.from_path(path)` → `.found`, `.mk_start`, `.schema` |
 | "Extract all files from a TclKit MetaKit VFS" | `parser.iter_files()` → yields `(label, bytes)` per zlib blob |
 | "Get BitRock file manifest from MetaKit (lists installed files + LZMA chunk offsets)" | `parser.get_manifest()` → bytes of the first large text blob |

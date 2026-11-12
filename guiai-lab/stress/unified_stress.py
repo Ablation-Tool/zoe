@@ -39,11 +39,11 @@ class UnifiedSourceCase(unittest.TestCase):
         lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
         self.assertEqual(lock["identity"], IDENTITY)
         self.assertEqual(len(lock["components"]), 10)
-        self.assertEqual(len(COMPONENTS), 13)
+        self.assertEqual(len(COMPONENTS), 14)
         manifest = REGISTRY.manifest()
         self.assertEqual(manifest["repository_count"], 11)
         self.assertEqual(manifest["upstream_repository_count"], 10)
-        self.assertEqual(manifest["entrypoint_count"], 13)
+        self.assertEqual(manifest["entrypoint_count"], 14)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
         self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe", "host"} for row in manifest["components"]))
         self.assertEqual(REGISTRY.source("chalkboard")["mode"], "bundled")
@@ -55,6 +55,7 @@ class UnifiedSourceCase(unittest.TestCase):
             "components/ablation/ablation/analyzers/entropy_mapper.py",
             "components/ablation/gem-lab/gem/gtk_app.py",
             "components/ablation/tests",
+            "components/hpux-tools/hpux_tools/cli.py",
             "components/kevlar/policy.py",
             "components/pdf-signature-toolkit/pdf_signature_toolkit/verify.py",
             "components/Chalkboard/templates/README.template.md",
@@ -63,9 +64,9 @@ class UnifiedSourceCase(unittest.TestCase):
         ):
             self.assertTrue((ROOT / relative).exists(), relative)
         self.assertTrue((ROOT / "assets/branding/orbital-emblem.png").is_file())
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 13)
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 12)
-        self.assertEqual(len(REGISTRY.knowledge.events), 25)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 14)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 13)
+        self.assertEqual(len(REGISTRY.knowledge.events), 27)
 
     def test_knowledge_observations_and_declared_links_preserve_boundaries(self):
         registry = ComponentRegistry(ROOT)
@@ -130,6 +131,27 @@ class UnifiedSourceCase(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "--db"):
             REGISTRY.command("cerotto")
 
+    def test_ablation_uses_current_interpreter_and_caller_cwd(self):
+        import sys
+
+        with mock.patch.dict(os.environ, {}, clear=True):
+            command, cwd = REGISTRY.command("ablation", ["analyze", "relative.bin"])
+            self.assertEqual(command[0], sys.executable)
+            self.assertEqual(cwd, Path.cwd())
+            self.assertEqual(command[-2:], ["analyze", "relative.bin"])
+        with mock.patch.dict(os.environ, {"ZOE_PYTHON": "/explicit/python"}, clear=False):
+            command, _cwd = REGISTRY.command("ablation", ["--help"])
+            self.assertEqual(command[0], "/explicit/python")
+
+    def test_manifest_separates_locked_and_actual_checkout_provenance(self):
+        lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
+        row = next(item for item in REGISTRY.manifest()["components"] if item["identifier"] == "ablation")
+        self.assertEqual(row["revision"], lock["components"]["ablation"]["revision"])
+        self.assertEqual(row["source"]["checkout_root"], str(ROOT))
+        self.assertRegex(row["source"]["checkout_revision"], r"^[0-9a-f]{40}$")
+        self.assertNotEqual(row["source"]["checkout_revision"], row["revision"])
+        self.assertIsInstance(row["source"]["checkout_dirty"], bool)
+
     def test_installed_cern_source_fallback(self):
         with tempfile.TemporaryDirectory() as directory:
             package = Path(directory)
@@ -160,7 +182,7 @@ class UnifiedSourceCase(unittest.TestCase):
                 self.assertEqual(zoe_main(["show", "neurogarden"]), 0)
             self.assertIn("chalkboard", stdout.getvalue())
             self.assertIn("neurogarden", stdout.getvalue())
-            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 13)
+            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 14)
             self.assertEqual(KnowledgeField.load(knowledge).document(), REGISTRY.knowledge.document())
             with mock.patch("guiai.gem.atlas_view.launch_atlas") as launch:
                 self.assertEqual(zoe_main([]), 0)
@@ -173,9 +195,9 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(first.document["id"], "zoe-allgems")
         self.assertTrue(verify(first).passed, verify(first).text())
         self.assertTrue(verify_vdi(first).passed, verify_vdi(first).text())
-        self.assertEqual(report["knowledge"]["observation_count"], 13)
-        self.assertEqual(report["knowledge"]["link_count"], 12)
-        self.assertEqual(len(report["memory"]["events"]), 25)
+        self.assertEqual(report["knowledge"]["observation_count"], 14)
+        self.assertEqual(report["knowledge"]["link_count"], 13)
+        self.assertEqual(len(report["memory"]["events"]), 27)
         self.assertTrue(report["scene_only"])
         self.assertFalse(report["executed"])
         with tempfile.TemporaryDirectory() as directory:
@@ -200,6 +222,7 @@ class UnifiedCommandCase(unittest.TestCase):
                 ("gem", ["workbench", "check", "--output", str(root / "canonical.json")], "canonical.json"),
                 ("helen", ["--module", "onset", "--output", str(root / "helen.json")], "helen.json"),
                 ("brain", ["notebook", "--output", str(root / "brain.json")], "brain.json"),
+                ("hpux-tools", ["doctor"], None),
                 ("kevlar", ["--help"], None),
                 ("pdf", ["--help"], None),
                 ("research", ["workbench", "list"], None),
@@ -217,13 +240,13 @@ class UnifiedNativeCase(unittest.TestCase):
     def test_native_hub_inspect_link_launch_and_memory(self):
         window = AtlasWindow("unified")
         try:
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 13)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 14)
             window.show_unified("chalkboard")
             self.assertIn("Chalkboard", window.summary.get_text())
             self.assertIn("Content inspection only", window.summary.get_text())
             window.record_unified_source("kevlar")
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 14)
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 13)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 15)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 14)
             with mock.patch.object(window.unified_registry, "launch", return_value=types.SimpleNamespace(pid=12345)) as launch:
                 window.launch_unified("kevlar", ["--help"])
                 launch.assert_called_once_with("kevlar", ["--help"], detach=True)

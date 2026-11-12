@@ -172,8 +172,8 @@ class BinaryContext:
     """
     Pre-computed binary context. One object = complete working context for a
     stripped binary: symbols, strings, function starts, call graph.
-    Supports ELF (x86_64, x86_32, arm64, arm32, loongarch64, mips32, mips64, ppc32, ppc64, riscv32, riscv64)
-    and Windows PE / .sys (x86_64, x86_32).
+    Supports ELF (x86_64, x86_32, arm64, arm32, loongarch64, mips32, mips64, ppc32, ppc64, riscv32, riscv64),
+    Windows PE / .sys (x86_64, x86_32), and HP-UX SOM (PA-RISC).
     """
 
     def __init__(self):
@@ -644,6 +644,9 @@ class BinaryContext:
         ctx = cls()
         ctx.path = path
         ctx.sha256 = sha
+
+        if len(data) >= 128 and data[:2] in (b'\x02\x0b', b'\x02\x10', b'\x02\x11', b'\x02\x14') and data[2:4] in (b'\x01\x04', b'\x01\x07', b'\x01\x08', b'\x01\x0b', b'\x01\x0d', b'\x01\x0e'):
+            return cls._build_som(data, path, sha)
 
         if not _LIEF_OK:
             return ctx
@@ -3089,6 +3092,48 @@ class BinaryContext:
                         owner = func_arr[idx]
                 edges.append((owner, target, label))
 
+        ctx.call_edges = edges
+        ctx._build_indices()
+        return ctx
+
+    # ── HP-UX SOM support ─────────────────────────────────────────────────────
+
+    @classmethod
+    def _build_som(cls, data: bytes, path: str, sha: str) -> "BinaryContext":
+        from ablation.hpux import parse_som
+
+        ctx = cls()
+        ctx.path = path
+        ctx.sha256 = sha
+        try:
+            image = parse_som(data, path)
+        except Exception:
+            return ctx
+
+        ctx.arch = 'pa-risc'
+        ctx.base_va = image.exec_header['exec_tmem']
+        for item in image.exports:
+            if item.name and item.type == 3:
+                ctx.exports.setdefault(item.name, item.value)
+        for item in image.plt:
+            symbol = image.import_for_plt(item)
+            if item.proc_addr and symbol.type == 3 and symbol.external and symbol.name:
+                ctx.plt[item.proc_addr] = symbol.name
+        for section in image.subspaces:
+            if section.name in ('$LIT$', '$DATA$', '$STATICDATA$', '$SHORTDATA$', '$SHORTSTATICDATA$') and section.initialized_size:
+                _extract_strings_into(data[section.file_offset:section.file_offset + section.initialized_size], section.va, ctx.strings)
+        ctx.func_starts = sorted({item.start for item in image.unwind} | {image.entry})
+        edges: List[Tuple[int, int, str]] = []
+        for section in image.subspaces:
+            if section.name != '$CODE$' or not section.initialized_size:
+                continue
+            for call in image.call_sites(section.va, section.end, 400000):
+                target = call['target_va']
+                if target is None:
+                    continue
+                owner = call['owner_start'] if call['owner_start'] is not None else section.va
+                label = call['name'] or f'sub_{target:08x}'
+                edges.append((owner, target, label))
         ctx.call_edges = edges
         ctx._build_indices()
         return ctx

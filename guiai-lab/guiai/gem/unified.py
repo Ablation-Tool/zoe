@@ -29,16 +29,18 @@ class Component:
     default_args: tuple[str, ...] = ()
     runtime_checkout: str | None = None
     inspect_only: bool = False
+    use_caller_cwd: bool = False
 
 
 COMPONENTS = (
     Component("zoe", "Zoe native shell", "guiai-lab", "https://github.com/Ablation-Tool/zoe", None, "Cognitive Field, Bayesian memory, geometry, and unified hub", "guiai/gem/cognitive.py", ("",), "guiai.gem", ("zoe", "--module", "unified")),
     Component("cern-console", "Zoe CERN Workbench", "guiai-lab", "local-cern-gem-console", None, "CERN corpus, HELIOS virtual collider, Atelier input lab, and opt-in system drivers", "guiai/gem/zoe_workbench_cli.py", ("",), "guiai.gem.zoe_workbench_cli", ("start",)),
-    Component("ablation", "Ablation core engine", "ablation", "https://github.com/Ablation-Tool/ablation", "b56f91e4c54cfd996bceea63a38d8136dc1e689f", "Complete AIARE framework, analyzers, parsers, modules, and core CLI", "ablation/analyzers/entropy_mapper.py", ("",), "ablation.cli", ("--help",)),
+    Component("ablation", "Ablation core engine", "ablation", "https://github.com/Ablation-Tool/ablation", "b56f91e4c54cfd996bceea63a38d8136dc1e689f", "Complete AIARE framework, analyzers, parsers, modules, and core CLI", "ablation/analyzers/entropy_mapper.py", ("",), "ablation.cli", ("--help",), use_caller_cwd=True),
     Component("gem-lab", "Ablation GEM Lab", "ablation", "https://github.com/Ablation-Tool/ablation", "b56f91e4c54cfd996bceea63a38d8136dc1e689f", "Default native investigation GUI and shared Lab evidence protocol", "gem-lab/gem/gtk_app.py", ("gem-lab",), "gem", ("launch", "--no-agent")),
     Component("gem", "Canonical GEM", "graphics-environment-manager", "https://github.com/Ablation-Tool/graphics-environment-manager", "e63f6a7b84c2e8fffc0fcf01001986ae928f66b5", "Native workbench, mirrored brain, geometry, Spatial IR, and VDI", "gem/cli.py", ("",), "gem", ("os",)),
     Component("helen", "GEM HELEN", "gem-helen", "https://github.com/Ablation-Tool/gem-helen", "55fb1e494662e9b69e964ac2f9df41724cffeb0c", "Optimized geometry, rhythm, and forecast laboratory", "helen_gem/core.py", ("",), "helen_gem"),
     Component("brain", "BRAIN GEM", "brain-gem", "https://github.com/Ablation-Tool/brain-gem", "ed819c2824a55b019a532f4fa2cb440532030127", "Standalone Bayesian field notebook and chambered memory", "brain_gem/field.py", ("",), "brain_gem", ("field",)),
+    Component("hpux-tools", "HP-UX Tools", "hpux-tools", "https://github.com/Ablation-Tool/zoe", None, "Zoe-managed HP-UX SOM debugging and PA-RISC emulation", "hpux_tools/cli.py", ("",), "hpux_tools.cli", ("doctor",), use_caller_cwd=True),
     Component("cerotto", "Cerotto GEM", "cerotto", "https://github.com/Ablation-Tool/cerotto", "5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4", "Guarded forensic cases, native C engine, timelines, and vault evidence", "cerotto_gem/cli.py", ("",), "cerotto_gem"),
     Component("research", "Research GEM", "next-token-predictability", "https://github.com/Ablation-Tool/next-token-predictability", "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9", "Accessible-volume research, evidence packs, and mirrored workbench", "evidence/master-gem/conformance.json", ("",), "gem", ("os",), "graphics-environment-manager"),
     Component("kevlar", "Kevlar MCP firewall", "kevlar", "https://github.com/Ablation-Tool/kevlar", "8ac3e0181e98572d6c41f964385393aa441a5f2a", "MCP proxy firewall, content disarm, policy enforcement, and audit evidence", "kevlar.py", ("",), "kevlar", ("--help",)),
@@ -49,10 +51,38 @@ COMPONENTS = (
 
 
 def _python():
-    if os.environ.get("ZOE_PYTHON"):
-        return os.environ["ZOE_PYTHON"]
-    system = Path("/usr/bin/python3")
-    return str(system) if system.is_file() else sys.executable
+    return os.environ.get("ZOE_PYTHON") or sys.executable
+
+
+def _checkout_provenance(path):
+    result = {"checkout_root": None, "checkout_revision": None, "checkout_dirty": None}
+    try:
+        root_result = subprocess.run(
+            ["git", "-C", str(path), "rev-parse", "--show-toplevel"],
+            capture_output=True, text=True, check=False, timeout=10,
+        )
+        if root_result.returncode:
+            return result
+        root = Path(root_result.stdout.strip())
+        revision_result = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=False, timeout=10,
+        )
+        if revision_result.returncode:
+            return result
+        relative = path.relative_to(root).as_posix() or "."
+        status_result = subprocess.run(
+            ["git", "-C", str(root), "status", "--short", "--", relative],
+            capture_output=True, text=True, check=False, timeout=10,
+        )
+        result.update({
+            "checkout_root": str(root),
+            "checkout_revision": revision_result.stdout.strip(),
+            "checkout_dirty": bool(status_result.stdout.strip()) if status_result.returncode == 0 else None,
+        })
+    except (OSError, ValueError, subprocess.SubprocessError):
+        pass
+    return result
 
 
 class ComponentRegistry:
@@ -138,7 +168,10 @@ class ComponentRegistry:
         if identifier == "cerotto" and not arguments:
             raise ValueError("cerotto requires --db, --case, and --conversation; pass them after `--` or use the native case picker")
         source = self.source("gem" if component.runtime_checkout else identifier)
-        cwd = source["path"] / component.python_paths[0] if component.python_paths and component.python_paths[0] else source["path"]
+        if component.use_caller_cwd:
+            cwd = Path.cwd()
+        else:
+            cwd = source["path"] / component.python_paths[0] if component.python_paths and component.python_paths[0] else source["path"]
         return [_python(), "-m", component.module, *arguments], cwd
 
     def launch(self, identifier, arguments=None, detach=True):
@@ -153,7 +186,13 @@ class ComponentRegistry:
         for component in COMPONENTS:
             source = self.source(component.identifier)
             row = asdict(component)
-            row["source"] = {"path": str(source["path"]), "mode": source["mode"], "source_present": source["available"], "runtime_verified": False}
+            row["source"] = {
+                "path": str(source["path"]),
+                "mode": source["mode"],
+                "source_present": source["available"],
+                "runtime_verified": False,
+                **_checkout_provenance(source["path"]),
+            }
             rows.append(row)
         return {
             "schema_version": 1,
@@ -217,7 +256,7 @@ def unified_scene(registry=None, knowledge=None):
     manifest = registry.manifest()
     knowledge_state = knowledge.knowledge_state()
     cyan, yellow, pink, green, muted = "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#9fb1c8"
-    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a"]
+    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15"]
     objects = [_rectangle("background", [0, 0, 1400, 1080], "#080d18", "#080d18")]
     objects.extend([
         _text("title", [40, 51], "Zoe · ALLGEMS", 29, cyan),
