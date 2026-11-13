@@ -26,11 +26,13 @@ BOOTSTRAP = (
 
 
 class EmbeddedAgentPanel(Gtk.Box):
-    def __init__(self, command="kimi", workspace=None, status_changed=None):
+    def __init__(self, command="kimi", workspace=None, status_changed=None, bridge=None):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.command = command
         self.workspace = Path(workspace or Path.cwd()).resolve()
         self.status_changed = status_changed or (lambda _text: None)
+        self.bridge = bridge
+        self.bridge_timer = None
         self.pid = None
         self.exited = False
         self.kill_id = 0
@@ -93,8 +95,15 @@ class EmbeddedAgentPanel(Gtk.Box):
                 raise RuntimeError("embedded agent requires VTE")
             if not self.workspace.is_dir():
                 raise ValueError(f"agent workspace is unavailable: {self.workspace}")
+            bootstrap = BOOTSTRAP
+            if self.bridge is not None:
+                self.bridge.start()
+                self.bridge_timer = GLib.timeout_add(100, self.bridge.poll)
+                bootstrap = self.bridge.bootstrap()
             environment = os.environ.copy()
-            environment.update({"ZOE_OS": "1", "ZOE_AGENT_BOOTSTRAP": BOOTSTRAP})
+            environment.update({"ZOE_OS": "1", "ZOE_AGENT_BOOTSTRAP": bootstrap})
+            if self.bridge is not None:
+                environment["ZOE_AGENT_SOCKET"] = str(self.bridge.path)
             environment = [f"{key}={value}" for key, value in environment.items()]
             self.exited = False
             success, self.pid = self.terminal.spawn_sync(
@@ -105,9 +114,10 @@ class EmbeddedAgentPanel(Gtk.Box):
                 raise RuntimeError("VTE failed to start the agent")
             self.command = command
             self.set_status(f"Embedded CLI: {Path(command[0]).name} · PID {self.pid}")
-            self.terminal.feed_child(BOOTSTRAP.encode("utf-8"))
+            self.terminal.feed_child(bootstrap.encode("utf-8"))
             self.terminal.feed_child(b"\r")
         except (GLib.Error, OSError, RuntimeError, ValueError) as error:
+            self._close_bridge()
             self.pid = None
             self.exited = True
             self.set_status(f"Unable to start agent: {error}")
@@ -149,7 +159,15 @@ class EmbeddedAgentPanel(Gtk.Box):
         Gtk.drag_finish(context, succeeded, False, event_time)
         return True
 
+    def _close_bridge(self):
+        if self.bridge_timer is not None:
+            GLib.source_remove(self.bridge_timer)
+            self.bridge_timer = None
+        if self.bridge is not None:
+            self.bridge.close()
+
     def on_child_exit(self, _terminal, status=0):
+        self._close_bridge()
         self.pid = None
         self.exited = True
         if self.kill_id:
@@ -158,6 +176,7 @@ class EmbeddedAgentPanel(Gtk.Box):
         self.set_status(f"Agent session closed with status {status}")
 
     def stop(self, *_args):
+        self._close_bridge()
         if self.kill_id:
             GLib.source_remove(self.kill_id)
             self.kill_id = 0

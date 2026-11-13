@@ -10,9 +10,10 @@ gi.require_version("Gtk", "3.0")
 gi.require_foreign("cairo")
 from gi.repository import GLib, Gtk
 
+from .agent_bridge import AgentBridgeServer
 from .agent_terminal import EmbeddedAgentPanel
 from .desktop import DesktopProcesses
-from .desktop_theme import PALETTE, PHI, SPACE, apply_theme
+from .desktop_theme import CADENCE, PALETTE, PHI, SPACE, apply_theme
 from .geometry import verify
 from .render import write_png, write_svg
 from .runner import verify_vdi
@@ -49,6 +50,11 @@ class ZoeDesktopWindow(Gtk.Window):
         self.layout_selector.connect("changed", self.set_agent_side)
         self.layout_selector.set_no_show_all(True)
         header.pack_end(self.layout_selector)
+        self.details_toggle = Gtk.ToggleButton(label="Details")
+        self.details_toggle.set_active(True)
+        self.details_toggle.get_style_context().add_class("zoe-action")
+        self.details_toggle.connect("toggled", self.toggle_details)
+        header.pack_end(self.details_toggle)
         self.agent_toggle = Gtk.ToggleButton(label="AI Agent")
         self.agent_toggle.get_style_context().add_class("zoe-action")
         self.agent_toggle.connect("toggled", self.toggle_agent)
@@ -102,6 +108,8 @@ class ZoeDesktopWindow(Gtk.Window):
             self.app_grid.add(button)
         right = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=SPACE[2], border_width=SPACE[1])
         right.set_size_request(430, -1)
+        self.details_pane = right
+        self.details_position = round(1440 / PHI)
         self.panes.pack2(right, False, True)
         self.details = Gtk.Label(xalign=0)
         self.details.set_line_wrap(True)
@@ -142,7 +150,8 @@ class ZoeDesktopWindow(Gtk.Window):
         self.stop_button.connect("clicked", self.stop_selected)
         right.pack_start(self.stop_button, False, False, 0)
         command = agent_command or os.environ.get("ZOE_AGENT_COMMAND", "kimi")
-        self.agent_panel = EmbeddedAgentPanel(command, status_changed=self.agent_status)
+        self.agent_bridge = AgentBridgeServer(self)
+        self.agent_panel = EmbeddedAgentPanel(command, status_changed=self.agent_status, bridge=self.agent_bridge)
         self.agent_panel.set_size_request(420, 360)
         self.agent_panel.set_no_show_all(True)
         self.workspace_panes.pack2(self.agent_panel, True, True)
@@ -153,10 +162,23 @@ class ZoeDesktopWindow(Gtk.Window):
         outer.pack_end(self.status, False, False, 0)
         self.select_component()
         self.refresh_processes()
-        self.timer = GLib.timeout_add(500, self.refresh_processes)
+        self.timer = GLib.timeout_add(CADENCE[3], self.refresh_processes)
         if agent:
             self.agent_toggle.set_active(True)
             self.agent_panel.start()
+
+    def toggle_details(self, *_args):
+        if self.details_toggle.get_active():
+            self.details_pane.set_no_show_all(False)
+            self.details_pane.show_all()
+            extent = max(1, self.panes.get_allocated_width())
+            self.panes.set_position(min(self.details_position, extent))
+        else:
+            self.details_position = max(1, self.panes.get_position())
+            self.details_pane.set_no_show_all(True)
+            self.details_pane.hide()
+            self.panes.set_position(max(1, self.panes.get_allocated_width()))
+        return False
 
     def set_agent_side(self, *_args):
         self.agent_side = self.layout_selector.get_active_id() or "right"
@@ -298,6 +320,72 @@ class ZoeDesktopWindow(Gtk.Window):
                     self.status.set_text(str(error))
         finally:
             dialog.destroy()
+
+    def agent_action(self, document):
+        try:
+            if not isinstance(document, dict) or not isinstance(document.get("action"), str):
+                raise ValueError("agent action must be an object with an action string")
+            action = document["action"]
+            if action == "list":
+                if set(document) != {"action"}:
+                    raise ValueError("list accepts no additional fields")
+                return {
+                    "ok": True,
+                    "selected": self.selected_component,
+                    "components": [
+                        {"identifier": row["identifier"], "title": row["title"], "summary": row["summary"]}
+                        for row in self.registry.manifest()["components"]
+                    ],
+                    "processes": [
+                        {"title": record["title"], "pid": pid}
+                        for pid, record in sorted(self.processes.running.items())
+                    ],
+                }
+            if action in {"select", "launch"}:
+                allowed = {"action", "identifier"} | ({"arguments"} if action == "launch" else set())
+                if set(document) - allowed or not isinstance(document.get("identifier"), str):
+                    raise ValueError(f"{action} requires only an identifier and optional component arguments")
+                identifier = document["identifier"]
+                self.registry.component(identifier)
+                arguments = document.get("arguments", [])
+                if not isinstance(arguments, list) or len(arguments) > 128 or any(not isinstance(value, str) or not value or len(value) > 4096 for value in arguments):
+                    raise ValueError("component arguments must contain at most 128 nonempty strings of at most 4096 characters")
+                self.select_component(identifier=identifier)
+                if action == "select":
+                    return {"ok": True, "selected": identifier}
+                record = self.processes.launch(identifier, arguments)
+                self.refresh_processes()
+                return {"ok": True, "selected": identifier, "pid": record["pid"], "readiness_verified": False}
+            if action == "stop":
+                if set(document) != {"action", "pid"} or isinstance(document.get("pid"), bool) or not isinstance(document.get("pid"), int):
+                    raise ValueError("stop requires only an integer pid")
+                record = self.processes.stop(document["pid"])
+                self.refresh_processes()
+                return {"ok": True, "pid": document["pid"], "exit_status": record["exit_status"]}
+            if action == "layout":
+                if set(document) != {"action", "side"} or document.get("side") not in {"left", "right"}:
+                    raise ValueError("layout requires side left or right")
+                self.layout_selector.set_active_id(document["side"])
+                return {"ok": True, "side": self.agent_side}
+            if action == "details":
+                if set(document) != {"action", "visible"} or not isinstance(document.get("visible"), bool):
+                    raise ValueError("details requires a boolean visible field")
+                self.details_toggle.set_active(document["visible"])
+                return {"ok": True, "visible": self.details_toggle.get_active()}
+            if action == "export":
+                if set(document) != {"action", "kind", "path"} or document.get("kind") not in {"manifest", "knowledge"}:
+                    raise ValueError("export requires kind manifest or knowledge and a filename")
+                filename = document.get("path")
+                if not isinstance(filename, str) or not filename.endswith(".json") or Path(filename).name != filename:
+                    raise ValueError("export path must be a JSON filename without directories")
+                output = Path.cwd() / filename
+                if output.exists():
+                    raise FileExistsError(output)
+                output = self.registry.write_manifest(output) if document["kind"] == "manifest" else self.registry.knowledge.save(output)
+                return {"ok": True, "output": str(output), "bytes": output.stat().st_size}
+            raise ValueError(f"unsupported agent action: {action}")
+        except (OSError, RuntimeError, ValueError, TypeError, KeyError) as error:
+            return {"ok": False, "error": str(error)}
 
     def on_destroy(self, *_args):
         self.agent_panel.close()

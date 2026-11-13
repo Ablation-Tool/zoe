@@ -383,6 +383,32 @@ class DesktopCase(unittest.TestCase):
             self.assertIn("life", stdout.getvalue())
             self.assertIn("Zoe Life", output.read_text())
 
+    def test_agent_bridge_socket_roundtrip(self):
+        from concurrent.futures import ThreadPoolExecutor
+        import time
+        from guiai.gem.agent_bridge import AgentBridgeServer, request
+
+        window = types.SimpleNamespace(agent_action=lambda document: {"ok": True, "echo": document})
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "bridge.sock"
+            server = AgentBridgeServer(window, path)
+            server.start()
+            try:
+                with ThreadPoolExecutor(max_workers=1) as pool:
+                    future = pool.submit(request, path, {"action": "list"})
+                    deadline = time.monotonic() + 3
+                    while not future.done():
+                        server.poll()
+                        if time.monotonic() > deadline:
+                            self.fail("agent bridge roundtrip timed out")
+                        time.sleep(0.001)
+                    response = future.result()
+                self.assertEqual(response, {"ok": True, "echo": {"action": "list"}})
+                self.assertIn("agent_bridge", server.bootstrap())
+            finally:
+                server.close()
+            self.assertFalse(path.exists())
+
 
 @unittest.skipUnless(os.environ.get("GEM_COMPONENT_TESTS") == "1", "set GEM_COMPONENT_TESTS=1 for real component commands")
 class UnifiedCommandCase(unittest.TestCase):
@@ -506,6 +532,11 @@ class UnifiedNativeCase(unittest.TestCase):
         self.assertEqual(window.workspace_panes.get_child2(), window.agent_panel)
         self.assertEqual(window.workspace_panes.get_position(), 864)
         window.agent_toggle.set_active(False)
+        window.details_toggle.set_active(False)
+        self.assertFalse(window.details_pane.get_visible())
+        self.assertTrue(window.details_pane.get_no_show_all())
+        window.details_toggle.set_active(True)
+        self.assertTrue(window.details_pane.get_visible())
         try:
             window.select_component(identifier="life")
             with mock.patch.object(window.registry, "launch", return_value=process):
@@ -518,6 +549,34 @@ class UnifiedNativeCase(unittest.TestCase):
             with mock.patch("guiai.gem.desktop.os.killpg"):
                 window.stop_selected()
             self.assertEqual(window.processes.running, {})
+        finally:
+            window.destroy()
+
+    def test_native_agent_actions(self):
+        from guiai.gem.desktop_view import ZoeDesktopWindow
+
+        window = ZoeDesktopWindow(ComponentRegistry(ROOT))
+        try:
+            response = window.agent_action({"action": "list"})
+            self.assertTrue(response["ok"])
+            self.assertEqual(len(response["components"]), 15)
+            self.assertEqual(window.agent_action({"action": "select", "identifier": "life"})["selected"], "life")
+            self.assertFalse(window.agent_action({"action": "details", "visible": False})["visible"])
+            self.assertTrue(window.agent_action({"action": "details", "visible": True})["visible"])
+            self.assertEqual(window.agent_action({"action": "layout", "side": "left"})["side"], "left")
+            process = _FakeProcess()
+            with mock.patch.object(window.registry, "launch", return_value=process):
+                response = window.agent_action({"action": "launch", "identifier": "life", "arguments": ["--text", "ZOE"]})
+            self.assertEqual(response["pid"], 4321)
+            with mock.patch("guiai.gem.desktop.os.killpg"):
+                self.assertEqual(window.agent_action({"action": "stop", "pid": 4321})["exit_status"], 0)
+            with tempfile.TemporaryDirectory() as directory:
+                with mock.patch("guiai.gem.desktop_view.Path.cwd", return_value=Path(directory)):
+                    response = window.agent_action({"action": "export", "kind": "manifest", "path": "agent.json"})
+                    self.assertTrue(response["ok"])
+                    self.assertTrue((Path(directory) / "agent.json").is_file())
+                    self.assertFalse(window.agent_action({"action": "export", "kind": "manifest", "path": "../bad.json"})["ok"])
+            self.assertFalse(window.agent_action({"action": "unknown"})["ok"])
         finally:
             window.destroy()
 

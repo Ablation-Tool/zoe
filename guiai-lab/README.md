@@ -75,6 +75,8 @@ Headless exports use `zoe life --pattern glider --steps 4 --output life.svg`, `z
 
 The **AI Agent** toggle reveals an optional Ablation-style VTE terminal with explicit Start/Stop controls and quoted local path drops. Start it with `zoe os --agent --agent-command kimi`, or use the toggle and Start button in the interface. **Agent right/left** places the terminal beside the workspace with a draggable divider and a minimum usable size; `--agent-layout left` selects the other side at launch. No agent starts by default; Zoe supplies no model or credentials, and the selected CLI's authentication, permissions, and data policy apply.
 
+**Details** closes and reopens the source/action pane. While the agent runs, an owner-only Unix socket provides validated `list`, `select`, `launch`, `stop`, `layout`, `details`, and `export` actions through `python -m guiai.gem.agent_bridge --socket "$ZOE_AGENT_SOCKET" ACTION`. Messages are bounded to 64 KiB, no arbitrary code is evaluated, and component permissions and no-overwrite exports remain enforced.
+
 ## Start a session
 
 Investigate one binary:
