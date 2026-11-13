@@ -497,12 +497,23 @@ class UnifiedNativeCase(unittest.TestCase):
         self.assertIsNone(window.agent_panel.pid)
         window.agent_toggle.set_active(True)
         self.assertFalse(window.agent_panel.get_no_show_all())
+        self.assertEqual(window.workspace_panes.get_child2(), window.agent_panel)
+        window.workspace_ratio = 0.6
+        window.layout_selector.set_active_id("left")
+        self.assertEqual(window.workspace_panes.get_child1(), window.agent_panel)
+        self.assertEqual(window.workspace_panes.get_position(), 576)
+        window.layout_selector.set_active_id("right")
+        self.assertEqual(window.workspace_panes.get_child2(), window.agent_panel)
+        self.assertEqual(window.workspace_panes.get_position(), 864)
         window.agent_toggle.set_active(False)
         try:
             window.select_component(identifier="life")
             with mock.patch.object(window.registry, "launch", return_value=process):
                 window.launch_selected()
             self.assertIn(4321, window.processes.running)
+            rows = window.process_list.get_children()
+            window.refresh_processes()
+            self.assertEqual(window.process_list.get_children(), rows)
             window.selected_pid = 4321
             with mock.patch("guiai.gem.desktop.os.killpg"):
                 window.stop_selected()
