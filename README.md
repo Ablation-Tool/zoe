@@ -154,6 +154,24 @@ Sensors stay idle until explicitly started. No cloud account is required. Tiny Z
 | **PDF Signature Toolkit** | [`components/pdf-signature-toolkit/`](components/pdf-signature-toolkit/) | Source-integrity records and detached PDF signatures |
 | **Chalkboard** | [`components/Chalkboard/`](components/Chalkboard/) | Reusable ideas, templates, and prompts; a content library, not a GUI |
 | **CERN Workbench** | [Guide](guiai-lab/docs/ZOE_WORKBENCH.md) | Zoe-owned CERN console, HELIOS, and Atelier process lifecycle, health checks, browser targets, and no-overwrite manifests |
+| **Zoe Life** | [Engine](guiai-lab/guiai/gem/life.py) · [native window](guiai-lab/guiai/gem/life_view.py) | Conway's Game of Life with clickable cells, named patterns, timed evolution, and reproducible JSON/SVG/PNG/GEM exports |
+
+### Zoe Life — Conway's Game of Life
+
+![Zoe Life running a Gosper glider gun](life.png)
+
+**Zoe Life** is a deterministic, zero-player cellular automaton—not biological life or an AI organism. Every cell follows the standard **B3/S23** rules on a finite, non-wrapping grid: live cells survive with two or three neighbors, and dead cells become alive with exactly three.
+
+Choose from block, blinker, glider, toad, beacon, and Gosper glider gun patterns, or click cells to create your own. Use **Space** to play or pause, **Right** to advance one generation, **R** to reset the selected pattern, and **C** to clear the grid.
+
+```bash
+zoe life
+zoe life --pattern gosper --play
+zoe launch --detach life -- --play
+zoe life --pattern glider --steps 4 --output life.svg
+```
+
+JSON, SVG, PNG, and GEM exports use new paths and refuse to overwrite existing files. Each state records its generation, population, cells, and SHA-256 digest. The implementation is covered by rule, boundary, native-control, export, registry, and real component-command tests.
 
 ```bash
 zoe launch ablation -- --help
