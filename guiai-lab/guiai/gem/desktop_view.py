@@ -21,15 +21,18 @@ from .vdi import write_metafile
 
 
 class ZoeDesktopWindow(Gtk.Window):
-    def __init__(self, registry=None, processes=None, agent_command=None, agent=False):
+    def __init__(self, registry=None, processes=None, agent_command=None, agent=False, agent_layout="right"):
         super().__init__(title="Zoe OS · One ZOE. One GEM.")
         self.registry = registry or ComponentRegistry()
         self.processes = processes or DesktopProcesses(self.registry)
         self.selected_component = "zoe"
         self.selected_pid = None
         self.process_rows = {}
+        self.process_signature = ()
         self.app_buttons = {}
         self.active_button = None
+        self.agent_side = agent_layout if agent_layout in {"left", "right"} else "right"
+        self.workspace_ratio = 1 / PHI
         self.timer = None
         apply_theme(self)
         self.set_default_size(1440, 900)
@@ -39,6 +42,13 @@ class ZoeDesktopWindow(Gtk.Window):
         header.set_title("Zoe OS")
         header.set_subtitle("ONE ZOE · ONE GEM · ONE INSPECTABLE DESKTOP")
         self.set_titlebar(header)
+        self.layout_selector = Gtk.ComboBoxText()
+        self.layout_selector.append("right", "Agent right")
+        self.layout_selector.append("left", "Agent left")
+        self.layout_selector.set_active_id(self.agent_side)
+        self.layout_selector.connect("changed", self.set_agent_side)
+        self.layout_selector.set_no_show_all(True)
+        header.pack_end(self.layout_selector)
         self.agent_toggle = Gtk.ToggleButton(label="AI Agent")
         self.agent_toggle.get_style_context().add_class("zoe-action")
         self.agent_toggle.connect("toggled", self.toggle_agent)
@@ -53,7 +63,10 @@ class ZoeDesktopWindow(Gtk.Window):
         outer.pack_start(title, False, False, 0)
         self.panes = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL, wide_handle=True)
         self.panes.set_position(round(1440 / PHI))
-        outer.pack_start(self.panes, True, True, 0)
+        self.workspace_panes = Gtk.Paned(orientation=Gtk.Orientation.HORIZONTAL, wide_handle=True)
+        self.workspace_panes.pack1(self.panes, True, True)
+        self.workspace_panes.connect("notify::position", self.remember_position)
+        outer.pack_start(self.workspace_panes, True, True, 0)
         left = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=SPACE[2])
         self.panes.pack1(left, True, True)
         filter_label = Gtk.Label(xalign=0, label="Applications · mathematical order, explicit action")
@@ -130,8 +143,9 @@ class ZoeDesktopWindow(Gtk.Window):
         right.pack_start(self.stop_button, False, False, 0)
         command = agent_command or os.environ.get("ZOE_AGENT_COMMAND", "kimi")
         self.agent_panel = EmbeddedAgentPanel(command, status_changed=self.agent_status)
+        self.agent_panel.set_size_request(420, 360)
         self.agent_panel.set_no_show_all(True)
-        outer.pack_start(self.agent_panel, True, True, 0)
+        self.workspace_panes.pack2(self.agent_panel, True, True)
         self.status = Gtk.Label(xalign=0)
         self.status.set_line_wrap(True)
         self.status.set_selectable(True)
@@ -144,12 +158,50 @@ class ZoeDesktopWindow(Gtk.Window):
             self.agent_toggle.set_active(True)
             self.agent_panel.start()
 
+    def set_agent_side(self, *_args):
+        self.agent_side = self.layout_selector.get_active_id() or "right"
+        self.apply_layout()
+        return False
+
+    def remember_position(self, *_args):
+        if not self.agent_toggle.get_active():
+            return
+        extent = self.workspace_panes.get_allocated_width()
+        position = self.workspace_panes.get_position()
+        if extent > 1 and position > 0:
+            ratio = position / extent
+            if self.agent_side == "left":
+                ratio = 1 - ratio
+            self.workspace_ratio = min(0.8, max(0.2, ratio))
+
+    def apply_layout(self):
+        extent = self.workspace_panes.get_allocated_width()
+        if extent <= 1:
+            extent = max(1, self.get_allocated_width())
+        if extent <= 1:
+            extent = 1440
+        self.workspace_panes.remove(self.panes)
+        self.workspace_panes.remove(self.agent_panel)
+        if self.agent_side == "left":
+            first, second = self.agent_panel, self.panes
+            position = round(extent * (1 - self.workspace_ratio))
+        else:
+            first, second = self.panes, self.agent_panel
+            position = round(extent * self.workspace_ratio)
+        self.workspace_panes.pack1(first, True, True)
+        self.workspace_panes.pack2(second, True, True)
+        self.workspace_panes.set_position(position)
+
     def toggle_agent(self, *_args):
         if self.agent_toggle.get_active():
+            self.layout_selector.set_no_show_all(False)
+            self.layout_selector.show()
             self.agent_panel.set_no_show_all(False)
-            self.agent_panel.show_all()
+            self.apply_layout()
+            self.workspace_panes.show_all()
             self.agent_panel.command_entry.grab_focus()
         else:
+            self.layout_selector.hide()
             self.agent_panel.hide()
         return False
 
@@ -198,6 +250,10 @@ class ZoeDesktopWindow(Gtk.Window):
 
     def refresh_processes(self):
         self.processes.reap()
+        signature = tuple(sorted(self.processes.running))
+        if signature == self.process_signature:
+            return True
+        self.process_signature = signature
         selected = self.selected_pid
         for child in self.process_list.get_children():
             self.process_list.remove(child)
@@ -250,10 +306,10 @@ class ZoeDesktopWindow(Gtk.Window):
             self.timer = None
 
 
-def launch_desktop(registry=None, agent_command=None, agent=False):
+def launch_desktop(registry=None, agent_command=None, agent=False, agent_layout="right"):
     if not os.environ.get("DISPLAY"):
         raise RuntimeError("Zoe OS requires a GTK display; use --output or --list for headless operation")
-    window = ZoeDesktopWindow(registry, agent_command=agent_command, agent=agent)
+    window = ZoeDesktopWindow(registry, agent_command=agent_command, agent=agent, agent_layout=agent_layout)
     window.show_all()
     window.connect("destroy", Gtk.main_quit)
     Gtk.main()
@@ -268,6 +324,7 @@ def parser():
     result.add_argument("--width", type=int, default=1400)
     result.add_argument("--agent", action="store_true", help="start the embedded interactive agent explicitly")
     result.add_argument("--agent-command", help="interactive local agent command used with --agent; the panel alone starts no process")
+    result.add_argument("--agent-layout", choices=("left", "right"), default="right", help="place the agent beside the workspace with a draggable divider")
     return result
 
 
@@ -298,7 +355,7 @@ def main(argv=None):
                 raise ValueError("desktop output must be svg, png, or gem")
             print(json.dumps({"instrument": "zoe-os", "components": report["entrypoint_count"], "output": str(output), "bytes": output.stat().st_size, "operating_system_claimed": False}, indent=2, sort_keys=True))
             return 0
-        launch_desktop(registry, agent_command=arguments.agent_command, agent=arguments.agent)
+        launch_desktop(registry, agent_command=arguments.agent_command, agent=arguments.agent, agent_layout=arguments.agent_layout)
         return 0
     except (OSError, ImportError, RuntimeError, ValueError) as error:
         print(f"zoe os: {error}", file=os.sys.stderr)

@@ -169,9 +169,12 @@ The native desktop uses a golden-ratio main split, a restrained 4/6/10/16/26/42 
 
 The optional **AI Agent** toggle reveals an Ablation-style VTE terminal with explicit Start/Stop controls. It can run an interactive local agent such as `kimi`, accepts quoted local path drops without automatic execution, and preserves the same no-agent workflow when closed. Zoe supplies no model, credentials, or provider; the selected CLI's authentication, permissions, and data policy apply.
 
+Use the **Agent right/left** selector to place the terminal on either side of the workspace. The wide divider is draggable and preserves its ratio when switching sides, while the process list updates only when a process starts or exits.
+
 ```bash
 zoe os
 zoe os --agent --agent-command kimi
+zoe os --agent --agent-command kimi --agent-layout left
 ```
 
 Starting the agent is always an explicit user action. The desktop, Life, Brain Life, and text rendering do not require an agent, model, network connection, or prompt protocol.

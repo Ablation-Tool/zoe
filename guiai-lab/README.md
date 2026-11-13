@@ -73,7 +73,7 @@ Headless exports use `zoe life --pattern glider --steps 4 --output life.svg`, `z
 
 `zoe os` opens the unified OS-style desktop with the same 15-component registry, explicit application launching, duplicate prevention, process tracking, source inspection, and shared manifest/knowledge export. It is a user-space workbench, not a bootable operating system. The visual system uses a golden-ratio split, bounded spacing, numbered cards, and a consistent mathematical palette.
 
-The **AI Agent** toggle reveals an optional Ablation-style VTE terminal with explicit Start/Stop controls and quoted local path drops. Start it with `zoe os --agent --agent-command kimi`, or use the toggle and Start button in the interface. No agent starts by default; Zoe supplies no model or credentials, and the selected CLI's authentication, permissions, and data policy apply.
+The **AI Agent** toggle reveals an optional Ablation-style VTE terminal with explicit Start/Stop controls and quoted local path drops. Start it with `zoe os --agent --agent-command kimi`, or use the toggle and Start button in the interface. **Agent right/left** places the terminal beside the workspace with a draggable divider and a minimum usable size; `--agent-layout left` selects the other side at launch. No agent starts by default; Zoe supplies no model or credentials, and the selected CLI's authentication, permissions, and data policy apply.
 
 ## Start a session
 
