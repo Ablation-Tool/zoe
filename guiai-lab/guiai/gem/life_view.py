@@ -64,15 +64,27 @@ class LifeWindow(Gtk.Window):
     def __init__(self, game=None):
         super().__init__(title="Zoe Life · Conway's Game of Life")
         self.game = game or Life.from_pattern("glider")
+        self.initial_cells = set(self.game.cells)
         self.pattern = "glider"
         self.timer = None
-        self.set_default_size(1120, 830)
+        self.set_default_size(1120, 870)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.connect("destroy", self.on_destroy)
         outer = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8, border_width=8)
         self.add(outer)
         self.canvas = LifeCanvas(self.game, self.action)
         outer.pack_start(self.canvas, True, True, 0)
+        creative = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=7)
+        outer.pack_start(creative, False, False, 0)
+        creative.pack_start(Gtk.Label(label="Text to cells"), False, False, 0)
+        self.text_entry = Gtk.Entry()
+        self.text_entry.set_max_length(32)
+        self.text_entry.set_text("ZOE")
+        self.text_entry.connect("activate", self.render_text)
+        creative.pack_start(self.text_entry, True, True, 0)
+        text_button = Gtk.Button(label="Render text")
+        text_button.connect("clicked", self.render_text)
+        creative.pack_start(text_button, False, False, 0)
         controls = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=7)
         outer.pack_start(controls, False, False, 0)
         self.play_button = Gtk.Button(label="Play")
@@ -151,13 +163,25 @@ class LifeWindow(Gtk.Window):
         self.stop()
         self.pattern = self.patterns.get_active_id()
         self.game = Life.from_pattern(self.pattern, self.game.width, self.game.height)
+        self.initial_cells = set(self.game.cells)
         self.canvas.game = self.game
         self.refresh()
         return False
 
+    def render_text(self, *_args):
+        self.stop()
+        try:
+            self.game = Life.from_text(self.text_entry.get_text(), self.game.width, self.game.height)
+            self.initial_cells = set(self.game.cells)
+            self.canvas.game = self.game
+            self.refresh()
+        except ValueError as error:
+            self.status.set_text(str(error))
+        return False
+
     def reset(self, *_args):
         self.stop()
-        self.game = Life.from_pattern(self.pattern, self.game.width, self.game.height)
+        self.game = Life(self.initial_cells, self.game.width, self.game.height)
         self.canvas.game = self.game
         self.refresh()
         return False
@@ -205,7 +229,9 @@ def launch_life(game=None, play=False):
 
 def parser():
     result = argparse.ArgumentParser(prog="zoe life", description="Conway's Game of Life through Zoe/GEM")
-    result.add_argument("--pattern", choices=tuple(PATTERNS), default="glider")
+    source = result.add_mutually_exclusive_group()
+    source.add_argument("--pattern", choices=tuple(PATTERNS), default="glider")
+    source.add_argument("--text", help="render ASCII text directly as cells")
     result.add_argument("--steps", type=int, default=0, help="generations to advance before export (0–10000)")
     result.add_argument("--play", action="store_true", help="start the native generation timer")
     result.add_argument("--output", help="new .json, .svg, .png, or .gem export instead of opening GTK")
@@ -215,14 +241,19 @@ def parser():
 
 
 def main(argv=None):
-    arguments = parser().parse_args(argv)
+    raw = list(os.sys.argv[1:] if argv is None else argv)
+    if "--3d" in raw:
+        from .brain_life_view import main as brain_main
+        return brain_main([value for value in raw if value != "--3d"])
+    arguments = parser().parse_args(raw)
     try:
-        game = Life.from_pattern(arguments.pattern).advance(arguments.steps)
+        game = Life.from_text(arguments.text) if arguments.text is not None else Life.from_pattern(arguments.pattern)
+        game.advance(arguments.steps)
         if arguments.output:
             kind = arguments.format or Path(arguments.output).suffix.lower().lstrip(".")
             output = game.export(arguments.output, kind, arguments.width)
             print(json.dumps({
-                "instrument": "zoe-life", "pattern": arguments.pattern,
+                "instrument": "zoe-life", "pattern": arguments.text or arguments.pattern,
                 "generation": game.generation, "population": game.population,
                 "state_sha256": game.digest(), "output": str(output),
                 "bytes": output.stat().st_size, "biological_life_created": False,
