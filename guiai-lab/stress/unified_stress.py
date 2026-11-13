@@ -11,7 +11,11 @@ import unittest
 from unittest import mock
 
 from guiai.gem.atlas import default_document
+from guiai.gem.brain_life import BrainLife
+from guiai.gem.brain_life_view import main as brain_main
 from guiai.gem.cli import main as gem_main
+from guiai.gem.desktop import DesktopProcesses
+from guiai.gem.desktop_view import main as desktop_main
 from guiai.gem.geometry import verify
 from guiai.gem.knowledge import KnowledgeField
 from guiai.gem.life import Life
@@ -188,9 +192,9 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertIn("neurogarden", stdout.getvalue())
             self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 15)
             self.assertEqual(KnowledgeField.load(knowledge).document(), REGISTRY.knowledge.document())
-            with mock.patch("guiai.gem.atlas_view.launch_atlas") as launch:
+            with mock.patch("guiai.gem.desktop_view.launch_desktop") as launch:
                 self.assertEqual(zoe_main([]), 0)
-                launch.assert_called_once_with("unified")
+                launch.assert_called_once()
 
     def test_orbital_scene_vdi_and_headless_export(self):
         first, report = default_document("unified")
@@ -273,6 +277,113 @@ class LifeRulesCase(unittest.TestCase):
             self.assertIn("Zoe Life", (root / "cli.svg").read_text())
 
 
+class BrainLifeCase(unittest.TestCase):
+    def test_three_dimensional_rules_and_boundaries(self):
+        game = BrainLife([(1, 1, 1)], size=4)
+        game.step()
+        self.assertEqual(game.cells, set())
+        game = BrainLife([(1, 1, 1), (2, 1, 1), (1, 2, 1)], size=4)
+        game.step()
+        self.assertIn((2, 2, 1), game.cells)
+        game.toggle(0, 0, 0)
+        self.assertIn((0, 0, 0), game.cells)
+        game.clear()
+        self.assertEqual(game.generation, 0)
+        with self.assertRaises(ValueError):
+            game.toggle(-1, 0, 0)
+        with self.assertRaises(ValueError):
+            BrainLife(size=11)
+        with self.assertRaises(ValueError):
+            game.advance(1001)
+
+    def test_text_rendering_and_cli(self):
+        game = Life.from_text("A")
+        self.assertEqual(game.population, 18)
+        with self.assertRaises(ValueError):
+            Life.from_text("@")
+        with self.assertRaises(ValueError):
+            Life.from_text("AA", width=8, height=8)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "text.svg"
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(life_main(["--text", "ZOE", "--output", str(output)]), 0)
+            self.assertIn("Zoe Life", output.read_text())
+
+    def test_brain_scene_exports_and_cli(self):
+        game = BrainLife.from_brain()
+        self.assertGreater(game.population, 0)
+        self.assertFalse(game.document()["anatomical_brain"])
+        scene = game.scene(65)
+        self.assertTrue(verify(scene).passed, verify(scene).text())
+        self.assertTrue(verify_vdi(scene).passed, verify_vdi(scene).text())
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for kind in ("json", "svg", "png", "gem"):
+                output = root / f"brain.{kind}"
+                game.export(output, yaw=65)
+                self.assertGreater(output.stat().st_size, 0)
+                with self.assertRaises(FileExistsError):
+                    game.export(output, yaw=65)
+            document = json.loads((root / "brain.json").read_text())
+            self.assertEqual(document["state_sha256"], game.digest())
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(brain_main(["--output", str(root / "cli.svg")]), 0)
+            self.assertIn("Zoe Brain Life", (root / "cli.svg").read_text())
+
+
+class _FakeProcess:
+    def __init__(self, pid=4321):
+        self.pid = pid
+        self.returncode = None
+
+    def poll(self):
+        return self.returncode
+
+    def wait(self, timeout=None):
+        self.returncode = 0
+        return 0
+
+
+class DesktopCase(unittest.TestCase):
+    def registry(self, process):
+        component = types.SimpleNamespace(title="Zoe Life", inspect_only=False)
+        return types.SimpleNamespace(
+            component=lambda _identifier: component,
+            launch=mock.Mock(return_value=process),
+        )
+
+    def test_launch_deduplicate_reap_and_stop(self):
+        process = _FakeProcess()
+        registry = self.registry(process)
+        processes = DesktopProcesses(registry)
+        record = processes.launch("life")
+        self.assertEqual(record["pid"], 4321)
+        with self.assertRaisesRegex(ValueError, "already running"):
+            processes.launch("life")
+        with mock.patch("guiai.gem.desktop.os.killpg") as killpg:
+            stopped = processes.stop(4321)
+        self.assertEqual(stopped["exit_status"], 0)
+        self.assertEqual(processes.running, {})
+        process.returncode = 0
+        self.assertEqual(processes.reap(), [])
+
+    def test_reap_and_headless_desktop(self):
+        process = _FakeProcess()
+        processes = DesktopProcesses(self.registry(process))
+        processes.launch("life")
+        process.returncode = 7
+        self.assertEqual(processes.reap()[0]["exit_status"], 7)
+        self.assertEqual(processes.running, {})
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "desktop.svg"
+            stdout = io.StringIO()
+            with contextlib.redirect_stdout(stdout):
+                self.assertEqual(desktop_main(["--list"]), 0)
+                self.assertEqual(desktop_main(["--output", str(output)]), 0)
+            self.assertIn("life", stdout.getvalue())
+            self.assertIn("Zoe Life", output.read_text())
+
+
 @unittest.skipUnless(os.environ.get("GEM_COMPONENT_TESTS") == "1", "set GEM_COMPONENT_TESTS=1 for real component commands")
 class UnifiedCommandCase(unittest.TestCase):
     def test_real_component_commands(self):
@@ -287,6 +398,7 @@ class UnifiedCommandCase(unittest.TestCase):
                 ("brain", ["notebook", "--output", str(root / "brain.json")], "brain.json"),
                 ("hpux-tools", ["doctor"], None),
                 ("life", ["--steps", "4", "--output", str(root / "life.svg")], "life.svg"),
+                ("life", ["--3d", "--output", str(root / "brain.svg")], "brain.svg"),
                 ("kevlar", ["--help"], None),
                 ("pdf", ["--help"], None),
                 ("research", ["workbench", "list"], None),
@@ -344,6 +456,52 @@ class UnifiedNativeCase(unittest.TestCase):
             self.assertIsNotNone(window.timer)
             window.stop()
             self.assertIsNone(window.timer)
+            window.text_entry.set_text("A")
+            window.render_text()
+            self.assertEqual(window.game.population, 18)
+            window.step()
+            window.reset()
+            self.assertEqual(window.game.population, 18)
+            self.assertEqual(window.game.generation, 0)
+        finally:
+            window.destroy()
+
+    def test_native_brain_life_controls(self):
+        from guiai.gem.brain_life_view import BrainLifeWindow
+
+        window = BrainLifeWindow(BrainLife.from_brain())
+        try:
+            initial = set(window.game.cells)
+            window.step()
+            self.assertEqual(window.game.generation, 1)
+            window.reset()
+            self.assertEqual(window.game.cells, initial)
+            yaw = window.yaw
+            window.rotate_right()
+            self.assertEqual(window.yaw, yaw + 15)
+            window.clear()
+            self.assertEqual(window.game.population, 0)
+            window.play()
+            self.assertIsNotNone(window.timer)
+            window.stop()
+            self.assertIsNone(window.timer)
+        finally:
+            window.destroy()
+
+    def test_native_desktop_launch_and_stop(self):
+        from guiai.gem.desktop_view import ZoeDesktopWindow
+
+        window = ZoeDesktopWindow(ComponentRegistry(ROOT))
+        process = _FakeProcess()
+        try:
+            window.select_component(identifier="life")
+            with mock.patch.object(window.registry, "launch", return_value=process):
+                window.launch_selected()
+            self.assertIn(4321, window.processes.running)
+            window.selected_pid = 4321
+            with mock.patch("guiai.gem.desktop.os.killpg"):
+                window.stop_selected()
+            self.assertEqual(window.processes.running, {})
         finally:
             window.destroy()
 

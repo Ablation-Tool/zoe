@@ -35,10 +35,11 @@
 ```bash
 python -m pip install ./guiai-lab
 zoe
-zoe list
+zoe os
+zoe os --list
 ```
 
-`zoe` opens the native orbital hub. It does **not** start another engine, agent, MCP server, model download, sensor, or remote analysis automatically.
+`zoe` and `zoe os` open the same unified desktop: one application registry, one process view, source inspection, and shared manifest/knowledge export. It is an OS-style **user-space workbench**, not a bootable operating system. The desktop does **not** start another engine, agent, MCP server, model download, sensor, or remote analysis automatically. Applications start only after explicit selection, duplicate launches are prevented, and desktop-started processes can be stopped from the same window.
 
 | Platform | What you get | Start here |
 |:---|:---|:---|
@@ -154,7 +155,13 @@ Sensors stay idle until explicitly started. No cloud account is required. Tiny Z
 | **PDF Signature Toolkit** | [`components/pdf-signature-toolkit/`](components/pdf-signature-toolkit/) | Source-integrity records and detached PDF signatures |
 | **Chalkboard** | [`components/Chalkboard/`](components/Chalkboard/) | Reusable ideas, templates, and prompts; a content library, not a GUI |
 | **CERN Workbench** | [Guide](guiai-lab/docs/ZOE_WORKBENCH.md) | Zoe-owned CERN console, HELIOS, and Atelier process lifecycle, health checks, browser targets, and no-overwrite manifests |
-| **Zoe Life** | [Engine](guiai-lab/guiai/gem/life.py) · [native window](guiai-lab/guiai/gem/life_view.py) | Conway's Game of Life with clickable cells, named patterns, timed evolution, and reproducible JSON/SVG/PNG/GEM exports |
+| **Zoe Life** | [2D engine](guiai-lab/guiai/gem/life.py) · [3D engine](guiai-lab/guiai/gem/brain_life.py) · [text renderer](guiai-lab/guiai/gem/life_text.py) | Conway's Game of Life, 3D Brain Life, direct text-to-cell rendering, and reproducible JSON/SVG/PNG/GEM exports |
+
+### One ZOE. One GEM.
+
+![Unified Zoe component scene](zoe-os.png)
+
+`zoe os` and the default `zoe` command open one OS-style desktop for all 15 registered engines. The desktop provides explicit application launching, duplicate prevention, process tracking and stopping, source inspection, and shared manifest/knowledge export. It does not replace component permissions or turn source presence into runtime verification. This is a unified **user-space environment**, not a bootable operating system.
 
 ### Zoe Life — Conway's Game of Life
 
@@ -169,6 +176,22 @@ zoe life
 zoe life --pattern gosper --play
 zoe launch --detach life -- --play
 zoe life --pattern glider --steps 4 --output life.svg
+```
+
+### Brain Life and visual text
+
+![Three-dimensional Brain Life voxel volume](brain-life.png)
+
+`zoe life --3d` opens **Brain Life**, a rotating 3D voxel automaton with 26-neighbor B3/S23 updates. Its brain-shaped seed is illustrative geometry, not anatomical data, diagnosis, or a claim of biological life. Use brackets to rotate, Space to play, Right to step, R to reset, and C to clear.
+
+![Text rendered directly as Life cells](life-text.png)
+
+The native **Text to cells** field renders ASCII letters, digits, spaces, and `. ! - :` directly into the 2D grid. It creates images and words locally without a model, prompt protocol, or CLI text-generation step; no token-saving measurement is claimed. Evolution remains optional, so you can preserve the original text or advance it like any other Life pattern.
+
+```bash
+zoe life --text ZOE --output life-text.png
+zoe life --3d --play
+zoe life --3d --output brain-life.png
 ```
 
 JSON, SVG, PNG, and GEM exports use new paths and refuse to overwrite existing files. Each state records its generation, population, cells, and SHA-256 digest. The implementation is covered by rule, boundary, native-control, export, registry, and real component-command tests.

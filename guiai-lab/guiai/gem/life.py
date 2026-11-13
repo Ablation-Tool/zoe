@@ -63,6 +63,11 @@ class Life:
         offset_y = (height - (bottom - top + 1)) // 2 - top
         return cls(((x + offset_x, y + offset_y) for x, y in points), width, height)
 
+    @classmethod
+    def from_text(cls, text, width=40, height=28):
+        from .life_text import text_cells
+        return cls(text_cells(text, width, height), width, height)
+
     @property
     def population(self):
         return len(self.cells)

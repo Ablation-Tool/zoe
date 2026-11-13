@@ -67,7 +67,11 @@ Start with the **[all-platform installation guide](INSTALL.md)** or copy the **[
 
 Run Conway's Game of Life through Zoe with `zoe life` or `zoe launch life`. The native window supports clickable cell editing, named patterns, single-step and timed generation controls, reset, and clear. Space toggles play, Right advances one generation, R resets the selected pattern, and C clears the grid.
 
-Headless exports use `zoe life --pattern glider --steps 4 --output life.svg`. JSON, SVG, PNG, and GEM outputs are no-overwrite and include the finite B3/S23 state; relative paths resolve from the caller's working directory. This is a deterministic mathematical simulation, not biological life or an external action.
+Use **Text to cells** in the native window or `zoe life --text ZOE` to render ASCII letters, digits, spaces, and `. ! - :` directly without a model or CLI prompt. Use `zoe life --3d` for Brain Life, a rotating three-dimensional voxel automaton with 26-neighbor B3/S23 updates. Its illustrative brain-shaped seed is mathematical geometry, not anatomical data.
+
+Headless exports use `zoe life --pattern glider --steps 4 --output life.svg`, `zoe life --text ZOE --output life-text.png`, or `zoe life --3d --output brain-life.png`. JSON, SVG, PNG, and GEM outputs are no-overwrite and include the finite state; relative paths resolve from the caller's working directory. These are deterministic mathematical simulations, not biological life or external actions.
+
+`zoe os` opens the unified OS-style desktop with the same 15-component registry, explicit application launching, duplicate prevention, process tracking, source inspection, and shared manifest/knowledge export. It is a user-space workbench, not a bootable operating system.
 
 ## Start a session
 

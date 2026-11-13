@@ -23,6 +23,8 @@ def parser():
     knowledge.add_argument("--output", required=True, help="new JSON knowledge-memory path")
     show = commands.add_parser("show", help="inspect a component without launching a process")
     show.add_argument("component", help="component identifier from `zoe list`")
+    os_command = commands.add_parser("os", help="open one ZOE and one GEM desktop")
+    os_command.add_argument("arguments", nargs=argparse.REMAINDER)
     for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pentacube", "open the pentomino cube permutation laboratory"), ("cicada", "open the CERN and cicada-inspired internal clock"), ("life", "open Conway's Game of Life"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden"), ("maison", "open the executive luxury enterprise studio"), ("evidence", "open the source-first evidence navigator")):
         command = commands.add_parser(name, help=description)
         command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
@@ -31,12 +33,18 @@ def parser():
 
 def main(argv=None):
     raw_arguments = list(sys.argv[1:] if argv is None else argv)
+    if raw_arguments and raw_arguments[0] == "os":
+        from .desktop_view import main as desktop_main
+        return desktop_main(raw_arguments[1:])
     if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
         from importlib import import_module
         return import_module(f".{raw_arguments[0]}_view", __package__).main(raw_arguments[1:])
     arguments = parser().parse_args(raw_arguments)
     registry = ComponentRegistry()
     try:
+        if arguments.command == "os":
+            from .desktop_view import main as desktop_main
+            return desktop_main(arguments.arguments)
         if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             from importlib import import_module
             return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
@@ -68,8 +76,8 @@ def main(argv=None):
                 print(json.dumps({"component": arguments.component, "pid": result.pid, "started": True, "readiness_verified": False}, indent=2, sort_keys=True))
                 return 0
             return result.returncode
-        from .atlas_view import launch_atlas
-        launch_atlas("unified")
+        from .desktop_view import launch_desktop
+        launch_desktop(registry)
         return 0
     except (OSError, RuntimeError, ValueError) as error:
         print(f"zoe: {error}", file=sys.stderr)
