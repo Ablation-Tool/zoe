@@ -159,9 +159,24 @@ Sensors stay idle until explicitly started. No cloud account is required. Tiny Z
 
 ### One ZOE. One GEM.
 
-![Unified Zoe component scene](zoe-os.png)
+![Zoe OS mathematical desktop](zoe-desktop.png)
 
 `zoe os` and the default `zoe` command open one OS-style desktop for all 15 registered engines. The desktop provides explicit application launching, duplicate prevention, process tracking and stopping, source inspection, and shared manifest/knowledge export. It does not replace component permissions or turn source presence into runtime verification. This is a unified **user-space environment**, not a bootable operating system.
+
+### Mathematical beauty and the embedded agent
+
+The native desktop uses a golden-ratio main split, a restrained 4/6/10/16/26/42 spacing scale, numbered component cards, a consistent mathematical palette, and a native header bar. Selection, source boundaries, process state, and agent state remain visible text rather than color-only signals.
+
+The optional **AI Agent** toggle reveals an Ablation-style VTE terminal with explicit Start/Stop controls. It can run an interactive local agent such as `kimi`, accepts quoted local path drops without automatic execution, and preserves the same no-agent workflow when closed. Zoe supplies no model, credentials, or provider; the selected CLI's authentication, permissions, and data policy apply.
+
+```bash
+zoe os
+zoe os --agent --agent-command kimi
+```
+
+Starting the agent is always an explicit user action. The desktop, Life, Brain Life, and text rendering do not require an agent, model, network connection, or prompt protocol.
+
+![Zoe OS with the optional embedded agent panel](zoe-agent.png)
 
 ### Zoe Life — Conway's Game of Life
 

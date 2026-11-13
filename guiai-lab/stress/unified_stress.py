@@ -493,6 +493,11 @@ class UnifiedNativeCase(unittest.TestCase):
 
         window = ZoeDesktopWindow(ComponentRegistry(ROOT))
         process = _FakeProcess()
+        self.assertFalse(window.agent_toggle.get_active())
+        self.assertIsNone(window.agent_panel.pid)
+        window.agent_toggle.set_active(True)
+        self.assertFalse(window.agent_panel.get_no_show_all())
+        window.agent_toggle.set_active(False)
         try:
             window.select_component(identifier="life")
             with mock.patch.object(window.registry, "launch", return_value=process):
@@ -504,6 +509,37 @@ class UnifiedNativeCase(unittest.TestCase):
             self.assertEqual(window.processes.running, {})
         finally:
             window.destroy()
+
+    def test_native_agent_panel_lifecycle(self):
+        from guiai.gem.agent_terminal import BOOTSTRAP, EmbeddedAgentPanel
+
+        with tempfile.TemporaryDirectory() as directory:
+            panel = EmbeddedAgentPanel("fixture --flag", workspace=directory)
+            panel.terminal = mock.Mock()
+            panel.terminal.spawn_sync.return_value = (True, 24680)
+            panel.start()
+            self.assertEqual(panel.pid, 24680)
+            arguments = panel.terminal.spawn_sync.call_args.args
+            self.assertEqual(arguments[2], ["fixture", "--flag"])
+            self.assertIn("ZOE_OS=1", arguments[3])
+            panel.terminal.feed_child.assert_any_call(BOOTSTRAP.encode("utf-8"))
+            panel.submit("inspect")
+            panel.terminal.feed_child.assert_any_call(b"inspect")
+            panel.insert_paths(["/tmp/a b"])
+            panel.terminal.feed_child.assert_any_call(b"'/tmp/a b'")
+            panel.start()
+            self.assertEqual(panel.terminal.spawn_sync.call_count, 1)
+            with mock.patch("guiai.gem.agent_terminal.os.killpg") as killpg:
+                panel.stop()
+                panel.kill()
+            self.assertEqual(killpg.call_args_list[0].args, (24680, 15))
+            self.assertEqual(killpg.call_args_list[1].args, (24680, 9))
+            panel.on_child_exit(panel.terminal, status=0)
+            self.assertIsNone(panel.pid)
+            panel.command_entry.set_text("'")
+            panel.start()
+            self.assertIn("Unable to start agent", panel.status.get_text())
+            panel.close()
 
 
 if __name__ == "__main__":

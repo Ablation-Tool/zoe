@@ -71,7 +71,9 @@ Use **Text to cells** in the native window or `zoe life --text ZOE` to render AS
 
 Headless exports use `zoe life --pattern glider --steps 4 --output life.svg`, `zoe life --text ZOE --output life-text.png`, or `zoe life --3d --output brain-life.png`. JSON, SVG, PNG, and GEM outputs are no-overwrite and include the finite state; relative paths resolve from the caller's working directory. These are deterministic mathematical simulations, not biological life or external actions.
 
-`zoe os` opens the unified OS-style desktop with the same 15-component registry, explicit application launching, duplicate prevention, process tracking, source inspection, and shared manifest/knowledge export. It is a user-space workbench, not a bootable operating system.
+`zoe os` opens the unified OS-style desktop with the same 15-component registry, explicit application launching, duplicate prevention, process tracking, source inspection, and shared manifest/knowledge export. It is a user-space workbench, not a bootable operating system. The visual system uses a golden-ratio split, bounded spacing, numbered cards, and a consistent mathematical palette.
+
+The **AI Agent** toggle reveals an optional Ablation-style VTE terminal with explicit Start/Stop controls and quoted local path drops. Start it with `zoe os --agent --agent-command kimi`, or use the toggle and Start button in the interface. No agent starts by default; Zoe supplies no model or credentials, and the selected CLI's authentication, permissions, and data policy apply.
 
 ## Start a session
 
