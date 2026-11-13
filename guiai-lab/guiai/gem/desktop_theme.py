@@ -5,6 +5,7 @@ from gi.repository import Gtk
 
 PHI = (1 + 5 ** 0.5) / 2
 SPACE = (4, 6, 10, 16, 26, 42)
+CADENCE = (100, 160, 260, 420, 640, 1000)
 PALETTE = (
     "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#fda4af",
     "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4",
@@ -42,7 +43,7 @@ CSS = b"""
     color: #d8e2ee;
     padding: 14px;
     margin: 5px;
-    transition: background-color 150ms ease-in-out, border-color 150ms ease-in-out;
+    transition: background-color 160ms ease-in-out, border-color 160ms ease-in-out;
 }
 .zoe-card:hover, .zoe-card:focus {
     background-color: #14263c;

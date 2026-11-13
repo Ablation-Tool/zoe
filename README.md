@@ -165,11 +165,20 @@ Sensors stay idle until explicitly started. No cloud account is required. Tiny Z
 
 ### Mathematical beauty and the embedded agent
 
-The native desktop uses a golden-ratio main split, a restrained 4/6/10/16/26/42 spacing scale, numbered component cards, a consistent mathematical palette, and a native header bar. Selection, source boundaries, process state, and agent state remain visible text rather than color-only signals.
+The native desktop uses a golden-ratio main split, a restrained 4/6/10/16/26/42 spacing scale, numbered component cards, a consistent mathematical palette, and a native header bar. Interaction cadence uses 100/160/260/420/640/1000 ms intervals without distracting animation. Selection, source boundaries, process state, and agent state remain visible text rather than color-only signals.
 
 The optional **AI Agent** toggle reveals an Ablation-style VTE terminal with explicit Start/Stop controls. It can run an interactive local agent such as `kimi`, accepts quoted local path drops without automatic execution, and preserves the same no-agent workflow when closed. Zoe supplies no model, credentials, or provider; the selected CLI's authentication, permissions, and data policy apply.
 
-Use the **Agent right/left** selector to place the terminal on either side of the workspace. The wide divider is draggable and preserves its ratio when switching sides, while the process list updates only when a process starts or exits.
+Use the **Agent right/left** selector to place the terminal on either side of the workspace. The wide divider is draggable and preserves its ratio when switching sides, while the process list updates only when a process starts or exits. The **Details** toggle closes and reopens the source/action pane so the application grid can use the full width.
+
+While the agent runs, a local Unix socket exposes validated desktop actions: list, select, launch, stop, layout, details, and export. The socket is owner-only, bounded to 64 KiB messages, and provides no arbitrary code evaluation. Component permissions and no-overwrite export rules remain in force.
+
+```bash
+python -m guiai.gem.agent_bridge --socket "$ZOE_AGENT_SOCKET" list
+python -m guiai.gem.agent_bridge --socket "$ZOE_AGENT_SOCKET" select life
+python -m guiai.gem.agent_bridge --socket "$ZOE_AGENT_SOCKET" launch life --arguments '["--3d", "--play"]'
+python -m guiai.gem.agent_bridge --socket "$ZOE_AGENT_SOCKET" details --visible false
+```
 
 ```bash
 zoe os
