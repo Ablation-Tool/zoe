@@ -1466,6 +1466,66 @@
       "limitations": "this is a heterogeneous secondary narrative with citation mismatches, internally inconsistent epoch and accuracy artifacts, and no unified experiment; no common cohort, raw participant data, outcome timeline, complete preprocessing, fitted model, raw prediction, confidence interval, or external validation is supplied; correlation, MAE, and reported accuracy are not independently reproduced; no model was trained and no diagnosis, prognosis, treatment, pediatric application, brain-tumor inference, or cure claim is made",
       "no_tool_rationale": "No diabetes classifier or prognosis model was implemented because the chapter combines incompatible secondary cohorts and supplies no unified dataset, outcome definition, complete model configuration, participant split, or raw predictions. Guessing a neural architecture, correcting BP/SNB values without evidence, or using self-reported outputs as new training truth would create an unvalidated method rather than reproduce the chapter.",
       "reviewed_at": "2026-11-09T08:39:16Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/002_f01.html": {
+      "source_sha256": "d7a0b897b3abad5fa577bf6f9f784b9eb28b8f44e907db4f77a2dce86845795d",
+      "concepts": [
+        "the series page identifies Scrivener Publishing and its Beverly, Massachusetts office, plus two publisher contacts",
+        "publisher identity and contact metadata are provenance, not a medical method, experiment, or validation"
+      ],
+      "application": "Dorothy publisher-provenance record linked to the separately reviewed title and copyright pages; no contact, endorsement, or affiliation is inferred",
+      "limitations": "this 23-word publisher page supplies no chapter inventory, scientific procedure, dataset, clinical cohort, or result; it does not establish medical efficacy, current contact details, or redistribution permission",
+      "no_tool_rationale": "No research or outreach tool was created because the source contains only publisher metadata. Its appropriate use is provenance, not automated contact, medical inference, or an invented publication analysis.",
+      "reviewed_at": "2026-11-09T08:46:56Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/003_f02.html": {
+      "source_sha256": "fce2ee0c8b7ad19e70c45d6ec3acf18c962820abcf7e148ad266f73d911848cb",
+      "concepts": [
+        "the title page identifies Bio-Inspired Optimization for Medical Data Mining as an edited volume",
+        "the editors are Sumit Srivastava, Abhineet Anand, Abhishek Kumar, Bhavna Saini, and Pramod Singh Rathore, with affiliations printed in the source",
+        "the Wiley wordmark is publisher branding rather than scientific or clinical evidence"
+      ],
+      "application": "Dorothy book-identity record linking the title and five editors to the copyright ISBN and all 14 chapter-specific reviews without treating editorial roles as validation",
+      "limitations": "this title page supplies no research method, cohort, experiment, or clinical outcome; printed affiliations were not externally verified and editorial attribution does not establish any chapter's accuracy, clinical authority, or treatment benefit",
+      "no_tool_rationale": "No scientific or author-profiling tool was created because the title page provides bibliographic metadata only. It supports identity verification, not an inferred expertise score, medical model, or clinical claim.",
+      "reviewed_at": "2026-11-09T08:46:56Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/004_f03.html": {
+      "source_sha256": "4225b63bddecd82fb3dc107609c3f0b9ba60c8886f07c96a37576bbbe08faa6b",
+      "concepts": [
+        "the copyright page records first publication in 2024 by John Wiley & Sons and Scrivener Publishing, copyright 2024 Scrivener Publishing LLC, and ISBN 978-1-394-21418-1",
+        "reproduction rights are reserved, and the liability notice disclaims guaranteed accuracy, completeness, fitness, professional services, and endorsement of referenced organizations or websites",
+        "publication and disclaimer metadata establish provenance boundaries rather than scientific validation"
+      ],
+      "application": "Dorothy rights-and-provenance gate preserving the ISBN, year, source hashes, original reviews, and bounded snippets without committing book HTML or interpreting citation as endorsement or clinical guidance",
+      "limitations": "this is a copyright and liability page, not a scientific chapter or legal opinion; it grants no new redistribution permission, verifies no medical result, and supplies no cohort, experiment, or current professional recommendation",
+      "no_tool_rationale": "No diagnostic or redistribution tool was created from copyright metadata. The applicable use is the existing hash-checked, bounded-snippet evidence process; treating this page as permission, endorsement, or a medical method would be unsupported.",
+      "reviewed_at": "2026-11-09T08:46:56Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/005_f04.html": {
+      "source_sha256": "58bad62d14e12799d6e92e1557c8c968259509eb01611b1893c38f86ced638db",
+      "concepts": [
+        "the preface explicitly organizes the book into 14 chapters with sequential c01–c14 links matching the chapter inventory",
+        "its editorial summaries cover optimization, an in vitro plant study, Parkinson voice detection, tumor imaging, Dingo, medical GA, nanoparticle delivery, retinal segmentation, diabetes, neurological diagnosis, GA-ANN, and case studies",
+        "the Chapter 7 summary says mathematical equations simulate dingo behavior, but the actual chapter supplies no position/velocity equations, branch probabilities, or executable update rules",
+        "reported performance, immune-evasion, diagnostic, and treatment claims in the preface are secondary editorial assertions rather than independent evidence"
+      ],
+      "application": "Dorothy chapter-inventory and evidence-routing record using the sequential links to reach each source-hashed review; preserve the Dingo summary-versus-source discrepancy and do not use the preface to fill missing algorithms or validation",
+      "limitations": "the preface is an overview rather than an independent experiment; it supplies no additional cohorts, configurations, raw predictions, or external validation and does not resolve the Dingo equation gap, nanoparticle evidence limits, conflicting dataset metrics, or clinical claims",
+      "no_tool_rationale": "No new optimization, delivery, or diagnostic tool was created from the preface because it summarizes other chapters without adding reproducible methods. Its appropriate use is inventory routing; accepting editorial performance claims or inventing the omitted Dingo equations would be unsupported.",
+      "reviewed_at": "2026-11-09T08:46:56Z"
+    },
+    "Bio-inspired Optimization for Medical Data Mining/020_b01.html": {
+      "source_sha256": "31ed582c4ba948d19a9cddf865b8e51c74be2dbb099f6e6e610ac1cf9683a75e",
+      "concepts": [
+        "the index supplies alphabetical subject and method locators with page and chapter-link targets",
+        "brain-tumor entries point to Chapter 6, while other entries cover optimization, imaging, voice, nanoparticles, retinal analysis, and diabetes; locators are not independent studies",
+        "index presence or frequency measures editorial organization rather than scientific correctness, clinical importance, or treatment efficacy"
+      ],
+      "application": "Dorothy navigation-only locator for returning to the 14 source-hashed chapter reviews; preserve the referenced modality and task and never treat a brain-tumor index entry as a cure or validated outcome",
+      "limitations": "the index supplies no raw data, complete methods, cohorts, predictions, or clinical outcomes; it does not independently validate its targets, and not every printed page reference or index omission was externally verified",
+      "no_tool_rationale": "No index-frequency ranking, classifier, or evidence score was created because page locators do not measure scientific validity. The existing chapter-hash and review pipeline provides the appropriate bounded use; converting a brain-tumor locator into treatment evidence would be unsupported.",
+      "reviewed_at": "2026-11-09T08:46:56Z"
     }
   }
 }
