@@ -1,0 +1,12 @@
+{
+  "expected_books": 35,
+  "present_books": 37,
+  "missing_books": 0,
+  "extra_books": 2,
+  "chapters": 1751,
+  "reviewed_chapters": 130,
+  "pending_chapters": 1621,
+  "words": 5058619,
+  "understood": false,
+  "boundary": "Extraction and indexing are not comprehension; reviewed status requires concepts, application, limitations, and demonstrated use or no-tool rationale."
+}
