@@ -1,0 +1,47 @@
+{
+ "schema": "neurogarden-bounded-audit-v1",
+ "source": "Accelerating MATLAB Performance/011_chapter-12.html",
+ "claim": "Amdahl's law table at alpha=0.6: run time (alpha+(1-alpha)/P)*100 and speedup 1/(alpha+(1-alpha)/P), asymptotic limit 1/alpha",
+ "checks": [
+  {
+   "P": 1,
+   "printed_run_time_pct": 100,
+   "computed_run_time_pct": 100.0,
+   "printed_speedup": 1.0,
+   "computed_speedup": 1.0,
+   "match": true
+  },
+  {
+   "P": 2,
+   "printed_run_time_pct": 80,
+   "computed_run_time_pct": 80.0,
+   "printed_speedup": 1.25,
+   "computed_speedup": 1.25,
+   "match": true
+  },
+  {
+   "P": 4,
+   "printed_run_time_pct": 70,
+   "computed_run_time_pct": 70.0,
+   "printed_speedup": 1.43,
+   "computed_speedup": 1.428571,
+   "match": true
+  },
+  {
+   "P": 8,
+   "printed_run_time_pct": 65,
+   "computed_run_time_pct": 65.0,
+   "printed_speedup": 1.54,
+   "computed_speedup": 1.538462,
+   "match": true
+  },
+  {
+   "P": "infinity",
+   "printed_speedup": 1.67,
+   "computed_speedup": 1.666667,
+   "match": true
+  }
+ ],
+ "all_match": true,
+ "boundary": "arithmetic verification of printed idealized values only; not a measurement of any real parallel system and not validation of the realistic-curve figure"
+}

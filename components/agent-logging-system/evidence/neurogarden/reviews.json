@@ -1597,6 +1597,68 @@
    "limitations": "this is a biography page, not technical content; community reputation and prior publication do not validate any specific performance technique in this book",
    "no_tool_rationale": "No tool was created from biographical metadata. The applicable use is the existing provenance process; treating author reputation as evidence of correctness would be unsupported.",
    "reviewed_at": "2026-11-14T16:31:29Z"
+  },
+  "Accelerating MATLAB Performance/008_chapter-09.html": {
+   "source_sha256": "6498dcc669970a11d90089e14f5d822d5a27336562c0d1f7faf1acc2d75e827d",
+   "concepts": [
+    "chapter 1 opening (pp. 1-5): performance tuning defined as iterative run-speed improvement, more art than science, with tuning justified by amortized user time, hard real-time deadlines (trading and data-acquisition examples), usability/revenue effects, and formal acceptance criteria",
+    "section 1.2 prescribes when not to tune: one-off code, brute force that runs unattended, waiting for faster hardware, and code that is not yet functionally stable or profiled; Knuth's premature-optimization warning and the 'optimize late, benchmark early' reconciliation place the dedicated tuning effort near the 80-85% development mark with 3-5% of project time budgeted",
+    "a rule of thumb of one bug per 10 new/modified lines makes unnecessary tuning a correctness risk, not just a time cost",
+    "section 1.3 opens the iterative tuning cycle: measure against requirements, profile hotspots, fix only top hotspots, retest for regressions and actual speedup, then loop; measurement (goal check) is distinguished from profiling (hotspot localization)"
+   ],
+   "application": "Dorothy tuning-governance checklist: no optimization before functional stability and profiling, quantified goals before tuning, one bounded change per cycle with re-measurement, and rollback of pessimizations",
+   "limitations": "the guidance is the author's experience-based heuristics; the 72% Java poll, one-bug-per-10-lines rule, and 80-85% timing mark are unreferenced or weakly referenced rules of thumb, not measurements; stock-trading examples are illustrative, not validated MATLAB benchmarks",
+   "no_tool_rationale": "No tool was built: the section prescribes process, not an algorithm. The applicable use is the documented tuning-governance checklist; every later numeric speedup in this book still requires its own bounded re-measurement.",
+   "reviewed_at": "2026-11-14T16:45:00Z"
+  },
+  "Accelerating MATLAB Performance/009_chapter-10.html": {
+   "source_sha256": "8c6448dcdb286fb3a5bd3eca8e1b1e3cf26083528759ca4e323b8b69106799b8",
+   "concepts": [
+    "section 1.3.1 applies Pareto's principle (80-20, noting a claimed 90-10 practice) recursively: tune the top 3-5 functions and within them the top 3-5 lines, with the legend-functions example (35/25/15/10%) showing that a shared underlying cause can outrank the single top item",
+    "never trust intuition for hotspot location; tune only top bottlenecks per cycle because dispersed edits raise bug risk, force full retests, can hurt performance through contention, and mask per-fix effects; re-profile every cycle since hotspots move and JIT can beat hand vectorization on recent MATLAB",
+    "bottlenecks are classified by limiting resource (CPU, memory, I/O) with cross-references to the relevant chapters; built-in functions should not be tuned except as last resort",
+    "sections 1.3.2-1.4: stop criteria include meeting predefined measurable targets, diminishing returns (e.g., 3x first round to 10% fifth round), incremental gains under 5-10%, top hoggers below 5-10% of total time, and platform-specific over-optimization; the IB-Matlab case reports tuning 45 ms to 5 ms per event over dozens of iterations; tunable aspects span availability, latency, throughput, capacity, processing speed, initial response, scalability, resource usage, user perception, and graceful degradation, with only one or two aspects optimized per cycle"
+   ],
+   "application": "Dorothy hotspot-triage rule: rank by profiled totals including shared root causes, one bounded hotspot per cycle, recorded per-cycle measurements, and explicit stop criteria tied to targets rather than open-ended tuning",
+   "limitations": "the 45-to-5 ms IB-Matlab result is a single anecdotal case without published code, data, or environment details; the 90-10 variant, diminishing-return figures, and 0.3 s 'instant' perception threshold are cited heuristics; Pareto percentages are descriptive, not guarantees for any given codebase",
+   "no_tool_rationale": "No tool was built: the content is triage heuristics plus one unverifiable case narrative. Applying it needs only the documented triage rule; the anecdote is preserved as the author's report, not reproduced evidence.",
+   "reviewed_at": "2026-11-14T16:45:00Z"
+  },
+  "Accelerating MATLAB Performance/010_chapter-11.html": {
+   "source_sha256": "d4a3048fa7561110705ae59bbd4d4e802369f2a20fe9c2a01506e3eea0911a88",
+   "concepts": [
+    "sections 1.5.2-1.5.4 catalog tuning antipatterns: irrelevant or partial ('coin under the lamp') metrics, moving targets set by the same team doing the tuning, intuition-based hotspot guesses, blaming external components instead of questioning the workflow (xlswrite example), tic/toc-only profiling, CPU versus wall-clock confusion, micro-benchmarking on non-representative data, and optimizing data-adjacent code while ignoring the data itself",
+    "optimization pitfalls include algorithmic antipathy and its opposite, algorithmic frenzy: replacing a simple O(n^2) with a complex O(n) algorithm can degrade real run time when n is small; I/O, not algorithms, is the real bottleneck in most applications; the first tuning question is whether the hotspot can be eliminated rather than accelerated",
+    "section 1.6 enumerates tradeoffs: development time, functionality, accuracy ('a program that produces incorrect results twice as fast is infinitely slower'), portability, maintainability, robustness (polyfit versus robustfit), repeatability, variability, system resources, specialization, scalability, hand-crafted 'coding against the JIT', selective tuning, hardware versus software, actual versus perceived performance, interactive versus batch, and throughput versus latency; tradeoff ratios shift across cycles as returns diminish"
+   ],
+   "application": "Dorothy antipattern gate: fixed measurable goals set outside the tuning loop, data-first hotspot questioning, elimination before acceleration, and an explicit tradeoff list reviewed at each tuning cycle",
+   "limitations": "the pitfall and tradeoff lists are experienced-based opinion without systematic evidence; claims like 'I/O is the real bottleneck in most applications' and the small-n O(n^2) advantage are unquantified; platform anecdotes (vectorization faster on Windows than Mac) are unreferenced and release-dependent",
+   "no_tool_rationale": "No tool was built: the section is a qualitative antipattern/tradeoff catalog. The applicable use is the documented gate checklist; none of the lists constitute measurements that a bounded tool could verify.",
+   "reviewed_at": "2026-11-14T17:05:00Z"
+  },
+  "Accelerating MATLAB Performance/011_chapter-12.html": {
+   "source_sha256": "da1d8e97ea1d85bc1c7c2ddf4a9157da0fc6d05a709d1b11762ae0c1e7a911f9",
+   "concepts": [
+    "section 1.7 contrasts vertical scaling (hardware upgrade, transparent to software, superlinear cost per speedup, suited to small 2-3x needs) with horizontal scaling (commodity nodes, distribution/assembly overhead, contention risks, but unbounded node counts) and capacity planning across both",
+    "Amdahl's law speedup = 1/(alpha + (1-alpha)/P) with a worked table at alpha=0.6 (P=2 -> 80%/1.25; P=4 -> 70%/1.43; P=8 -> 65%/1.54; limit 1.67) and the 1-alpha=0.95 ceiling of 20x; the realistic curve degrades below ideal and can invert to slowdown from communication and load-balancing overhead, while larger problem sizes amortize overhead better",
+    "section 1.8 separates perceived from actual performance: improvements under 20% are not perceived; continuous feedback, user-controlled Fast/Default/Comprehensive throttling, background processing with early GUI return, lazy evaluation, and pre-fetching (Google Maps example) improve perceived speed at the cost of memory, network, or delayed work"
+   ],
+   "application": "bounded arithmetic audit evidence/neurogarden/amdahl-table-audit.json recomputes all four printed table rows and the asymptotic limit from the stated formula at alpha=0.6; every printed value matches",
+   "limitations": "the audit verifies only the printed idealized arithmetic, not any real system; the realistic-Amdahl figure is an unquantified sketch; the 20% perception threshold and feedback-duration studies are asserted without cited data; pre-fetching tradeoffs (bandwidth, memory, stale data) are acknowledged only generally",
+   "use": "Ran a bounded Python audit (evidence/neurogarden/amdahl-table-audit.json) recomputing the printed Amdahl table at alpha=0.6 for P=1,2,4,8 and the P->infinity limit 1/alpha=1.67; all printed run-time percentages and speedups match to their printed precision.",
+   "reviewed_at": "2026-11-14T17:05:00Z"
+  },
+  "Accelerating MATLAB Performance/012_chapter-13.html": {
+   "source_sha256": "1b479fa9187b8f1004dd229596945b0bde5259ecd52e545cb4ddd29f8d64d0b4",
+   "concepts": [
+    "sections 1.8.4-1.8.5: stream partial results as they arrive (early Internet Explorer table-rendering and interlaced-image examples), update displays automatically rather than via user-driven Refresh controls, and streamline flows since each extra click loses users (Amazon one-click patent reference)",
+    "section 1.8.6: users perceive run time near the maximum, not the mean, so worst-case execution time (WCET) tuning can matter more than average speed (5s average/10s max reported as 8-9s example); reporting should prefer mean or 95th percentile over median, with confidence intervals for rigor; benchmark choice matters less than using it consistently",
+    "section 1.8.7 distinguishes performance from real time: RT means a deterministic deadline guarantee (hard/firm/soft/near), independent of average speed; MATLAB applications are non-RT by definition and run on non-RT operating systems, so they can be practical-RT at best"
+   ],
+   "application": "Dorothy UX-latency rules: stream partial results, auto-updating displays, WCET-aware reporting (mean/95th percentile, not median), and an explicit non-real-time boundary for every MATLAB-based pipeline including medical imaging",
+   "limitations": "the usability claims (perception near maximum, click drop-off, feedback-duration studies) are asserted from unnamed studies; the 8-9s perception example is illustrative; the RT taxonomy is standard but the practical-RT suggestion has no latency measurements; nothing here is MATLAB-version verified",
+   "no_tool_rationale": "No tool was built: the section reports usability heuristics and a definitional RT boundary with no numeric table to audit. The applicable use is the documented reporting and non-RT boundary rules.",
+   "reviewed_at": "2026-11-14T17:20:00Z"
   }
  }
 }
