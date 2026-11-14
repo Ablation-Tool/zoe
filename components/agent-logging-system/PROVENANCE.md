@@ -46,3 +46,4 @@ This tree preserves the available package, license, documentation, examples, and
 - Version 0.6.17 packaging and all 62 focused tests verified.
 
 Unrelated network-scan directories, `empire.db`, Git metadata, caches, and temporary build artifacts were not imported. The component remains an inspectable Python library, not a background agent, external collector, clinical authority, or autonomous execution service.
+- MATLAB Performance Chapter 2 (Profiling) review across seven section files: Profiler data model, caching session, undocumented switches, Windows CPU-timer and timestamp-offset bugs, and timer-resolution limits preserved as dated single-platform reports; bounded audit verifies the printed log delta and serial-day conventions without validating tool behavior.

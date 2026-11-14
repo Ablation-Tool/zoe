@@ -1659,6 +1659,91 @@
    "limitations": "the usability claims (perception near maximum, click drop-off, feedback-duration studies) are asserted from unnamed studies; the 8-9s perception example is illustrative; the RT taxonomy is standard but the practical-RT suggestion has no latency measurements; nothing here is MATLAB-version verified",
    "no_tool_rationale": "No tool was built: the section reports usability heuristics and a definitional RT boundary with no numeric table to audit. The applicable use is the documented reporting and non-RT boundary rules.",
    "reviewed_at": "2026-11-14T17:20:00Z"
+  },
+  "Accelerating MATLAB Performance/013_chapter-14.html": {
+   "source_sha256": "ef02928132e5ccadb00b59f1b14573a7bf38b0c6b8c9a2d6e23372be8b386846",
+   "concepts": [
+    "chapter 2 opening (pp. 25-29): profiling defined as monitoring a run to learn where time is spent; profile only after the algorithm works correctly; profiling identifies bottlenecks, removable or cacheable segments, in-loop call counts, and whether the program is CPU, memory, or I/O bound",
+    "the MATLAB Profiler workflow (profile on/off/viewer) reports total versus self time; the surf(peaks) example shows 1.31 s total with 0.249 s self time and newplot at 873 ms (57% self), illustrating drill-down by self time and the main>sub, package\\private\\func, and package.class.func naming notations; MEX/Java functions are marked, built-ins need -detail builtin",
+    "profsave archives HTML reports; the Profiler also covers memory, coverage, and Code Analyzer; the hypothetical bypass of newplot would cut surf from 1.31 s to about 0.44 s (3x), a stated estimate not a measurement",
+    "section 2.1.1 details the per-function report: parent links, copy-to-new-window for run comparison, top lines/children (lines 61 and 74 dominate; ObserveAxesNextPlot 41%), and source listing hyperlinks"
+   ],
+   "application": "Dorothy profiling-first rule for all performance work: self-time-sorted drill-down, call-count checks for loop-hoisting, CPU/memory/I-O classification before any tuning",
+   "limitations": "the surf/newplot numbers come from one undocumented environment and release; the 0.44 s bypass estimate is arithmetic on that single run, not a verified result; screenshots and figure contents are not present in the extracted text; the claim that the Profiler is the most important tool is the author's stance",
+   "no_tool_rationale": "No profiling tool was built or run: Dorothy has no MATLAB runtime, and the numbers are preserved as the book's report of a single environment. The applicable use is the documented profiling-first rule.",
+   "reviewed_at": "2026-11-14T17:40:00Z"
+  },
+  "Accelerating MATLAB Performance/014_chapter-15.html": {
+   "source_sha256": "e7ae1aff5cc677f2eb94ced40d6c27a3d1634bf56d280f34d7dcb0699e68b157",
+   "concepts": [
+    "detailed-report color coding (pp. 30-34): gray for lines that never ran (possible algorithmic bugs), call counts per line, red timing at 10 ms default granularity versus 1 ms recording resolution, with a profview.m patch (R2014a lines 1441-1446) lowering the display threshold to 1 ms, plus a CSS monospace fix for the proportional-font rendering bug",
+    "the sample session profiles perfTest/subFunc: 35 s total with about 30 s spent re-reading data.mat 100 times; persistent-caching the load cuts run time to 5.6 s (about 6x); caching the recomputed result cuts to 1.4 s with subFunc at 0.9 s (65%)",
+    "after caching, 95% of subFunc time is the single unavoidable file load, so attention shifts to perfTest; hoisting subFunc out of the loop then leaves total time virtually unchanged, within profiling noise"
+   ],
+   "application": "Dorothy caching pattern: cache invariant I/O and derived results, re-profile after each pass, and stop when the residual hotspot is irreducible; the gray-line check doubles as a dead-code audit",
+   "limitations": "the 35/5.6/1.4 s sequence is a synthetic teaching example without stated release, platform, or data size; the profview.m and CSS patches are release-specific (R2014a), unsupported modifications requiring admin rights, and unverified on any other version; the final hoisting attempt deliberately shows a failed optimization within noise",
+   "no_tool_rationale": "No tool was built: the timing sequence cannot be reproduced without the book's data.mat and MATLAB. The applicable use is the documented caching and re-profiling pattern; the patch listings are preserved as source excerpts, not applied anywhere.",
+   "reviewed_at": "2026-11-14T17:40:00Z"
+  },
+  "Accelerating MATLAB Performance/015_chapter-16.html": {
+   "source_sha256": "1bec7668553ef43014ab7e52a18e3001dc4141e55fd5b8262c98294be51548a3",
+   "concepts": [
+    "the perfTest session concludes (pp. 35-37): hoisting the constant max computation empties the measurable loop for a ~40x total improvement; at one million iterations memory reallocation dominates (1.095 s attributed to the end line), MLint flags the growing array, preallocation saves a second, and vectorizing rand(1,1000000) removes the loop; the author stresses the example is contrived and warns that the widely cited 2002 MathWorks Mandelbrot article's tips are outdated and must be retested on the current platform",
+    "section 2.1.3 documents programmatic access: profiler preferences via getpref/setpref, and profile('info') returning FunctionTable structures with Children/Parents indexes, ExecutedLines triples (line, calls, time), ClockPrecision 0.001 s, and profview(0,profData) replay of saved data",
+    "section 2.1.4 introduces the -history switch: FunctionHistory rows encode function entry(0)/exit(1) and FunctionTable index, convertible to an indented call trace"
+   ],
+   "application": "Dorothy profiling-data model: treat ExecutedLines triples and parent/child indexes as the canonical record for any future importer; adopt the retest-on-current-platform rule for all inherited performance tips",
+   "limitations": "timing figures remain from the contrived example; the struct field layout and preference keys are R2012a-era and may differ now; the claim that relative speedups transfer across platforms is hedged by the author himself; no data file or script accompanies the session",
+   "no_tool_rationale": "No tool was built: without a MATLAB runtime the struct formats cannot be exercised. The applicable use is the documented data model and retest rule; nothing here is independently verified.",
+   "reviewed_at": "2026-11-14T18:00:00Z"
+  },
+  "Accelerating MATLAB Performance/016_chapter-17.html": {
+   "source_sha256": "c9cc9644bbecb11621d2fcd8ecf3576e67321d25fdcd1329252d8dddbee14ed8",
+   "concepts": [
+    "history decoding (pp. 40-42): the call trace prints isempty/transpose/meshgrid/peaks order; the undocumented -timestamp switch adds seconds and microsecond rows (epoch-based, with a reported Windows bug offsetting values by over a day, matching on Mac/Linux); plotting relative times exposes uneven invocations, e.g. one 0.5 s first call hidden inside a 0.6 s ten-call total; the File Exchange profile_history utility renders this interactively",
+    "section 2.1.5: the Profiler defaults to CPU time; -timer real gives wall clock for perceived-performance work, and comparing the two classifies CPU versus I/O bound code; a recognized Windows bug (at least R2008a) makes the cpu option fall back to wall clock",
+    "section 2.1.6: profiling consistency rules — relative over absolute times, cross-platform expectations (2x on one platform often 1.5-3x on another, rarely reversed), discard two warm-up runs, average multiple runs, restrict OS/antivirus interference, keep caching and RNG seeds fixed, profile functions rather than Command Window lines, and re-profile on target-like hardware as usage patterns evolve"
+   ],
+   "application": "Dorothy measurement-protocol checklist: warm-up runs, fixed seeds and cache state, wall-clock plus CPU comparison, per-invocation timelines before tuning any single call",
+   "limitations": "the -timestamp switch is undocumented/unsupported and its Windows epoch offset is described as a bug without a MathWorks reference number; the CPU-timer Windows bug is asserted as officially recognized without a linked report; the 1.5-3x cross-platform transfer range is a guess; the profile_history utility is third-party and unreviewed",
+   "no_tool_rationale": "No tool was built: the undocumented switches cannot be exercised without MATLAB. The applicable use is the measurement-protocol checklist; the epoch-offset and cpu-timer bugs are preserved as unverified reports.",
+   "reviewed_at": "2026-11-14T18:00:00Z"
+  },
+  "Accelerating MATLAB Performance/017_chapter-18.html": {
+   "source_sha256": "0c2a14916ecf10a9d2ba73cb0137d30bc56e40da7d077b02321b0b37aef77bf4",
+   "concepts": [
+    "sections 2.1.6.3-2.1.6.4 (pp. 45-47): profile many repeatable scenarios rather than one (a fix for scenario A can slow scenario B); load-test late in the cycle with enlarged data, faster timers, and java.awt.Robot-driven GUI actions; profile GUI and I/O separately from algorithmic code, starting and stopping the Profiler around one workflow, since I/O is the slowest and least repetitive part",
+    "section 2.1.6.5: the Profiler's coverage report exposes dead code and unrun paths (56% example); above 90% is difficult in practice and below 50% makes tuning conclusions unreliable",
+    "sections 2.1.7-2.1.8 catalog Profiler limitations: instrumentation overhead distorts short functions, 1 kHz sampling misses fast lines (a statistical approximation, not ground truth), I/O waits overweight waiting functions, OS latencies pollute sub-second measurements, call overhead is billed to the caller, and JIT is disabled during profiling so absolute times are unreliable; JIT behavior varies with minor code or data changes"
+   ],
+   "application": "Dorothy profiling-hygiene rules: per-workflow windows, scenario matrices, explicit coverage thresholds before trusting hotspot rankings, and relative-only comparisons because JIT is off under the Profiler",
+   "limitations": "the 1 kHz sampling rate, JIT-disable behavior, and coverage thresholds are release-specific claims; the scenario-slowdown warning is anecdotal; no measured overhead percentages are given for instrumentation",
+   "no_tool_rationale": "No tool was built: Profiler internals cannot be exercised without MATLAB. The applicable use is the documented hygiene rules; the limitations list is preserved as the author's claims, not verified behavior.",
+   "reviewed_at": "2026-11-14T18:30:00Z"
+  },
+  "Accelerating MATLAB Performance/018_chapter-19.html": {
+   "source_sha256": "c12940f2ca1f9d1e5efeb259bfa47c1d9cb96f751a01582da0bcbb0a05b4ebf3",
+   "concepts": [
+    "JIT visibility history (pp. 50-51): the showJitLines preference exposes an 'unjitted' column only on R2010b and earlier; the feature was hidden to discourage coding against the JIT and removed in R2011a",
+    "section 2.2.1: tic/toc usage and pitfalls — toc inside a loop reports cumulative time, an inner tic silently resets the global timer (0.000481 s artifact), and R2008b+ t=tic/toc(t) handles fix nesting; resolution history from clock-based 10 ms (pre-R2006a) to about a microsecond (R2006b+), with feature('timing','resolution_tictoc') reporting 1.396826e-06 and R2014a's matlab.internal.timeit.tictocCallTime reporting 9.85e-08 averaged over a thousand calls",
+    "sub-millisecond timing is unreliable especially on Windows, and the pause(2)x3 loop measures 6.040262 s instead of exactly 6; section 2.2.2 compares sampling Profiler versus structural tic/toc timing across ease, realism, automation, detail, and CPU/wall-clock coverage, noting heisenbug risk from high-frequency timed logging; section 2.2.3 covers cputime (15.6 ms resolution on Win7 64-bit R2012b) and MathWorks' tic/toc-over-cputime recommendation despite the hyperthreading bug being fixed in R2006a"
+   ],
+   "application": "Dorothy timer-selection rule: tic/toc (handle form) for absolute segment timing, Profiler for structure, timeit for repeatable microbenchmarks, and explicit distrust of sub-millisecond measurements",
+   "limitations": "the resolution figures are single-machine reports (R2006b-era 1.4 us, R2014a 98.5 ns) that vary by platform; the pause example's excess is mostly pause's own overhead per the footnote, not tic/toc error; the comparison criteria are admittedly subjective; undocumented feature() calls may vanish",
+   "no_tool_rationale": "No tool was built: the timer behaviors require a MATLAB runtime and are platform-specific. The applicable use is the timer-selection rule; the resolution numbers are preserved as dated single-platform reports.",
+   "reviewed_at": "2026-11-14T18:30:00Z"
+  },
+  "Accelerating MATLAB Performance/019_chapter-20.html": {
+   "source_sha256": "41cd5d1ea04b7287bf9ace78487fd02e2c52eb970149b094f06e9419e1cdc90a",
+   "concepts": [
+    "clock/now/etime/bench utilities (pp. 55-58): clock returns a six-element vector with milliseconds, now returns serial days since day 0 of year 0000 (example 735118.696029178 for 06-Sep-2012 16:42), clock resolution via 1/feature('timing','clocks_per_sec') = 0.001 on R2013b and earlier, and bench compares platforms without helping tune specific code",
+    "timeit (Steve Eddins, standard since R2013b) repeats measurements, reports the median, discounts tic/toc overhead, and forces at least 1 ms total duration, at the cost of requiring zero-argument function handles; R2014a's History.xml logs per-command execution_time but Command Window timings skip JIT and are non-representative",
+    "timed log files with yyyy-mm-dd HH:MM:SS.fff timestamps (log4m/log4matlab on the File Exchange) remain a valid profiling method, and external OS tools (Process Explorer/Monitor, top/ps, sar/vmstat/iostat, netstat/Wireshark/Fiddler, VMMap, VTune/Valgrind/Callgrind and others) cover CPU, I/O, and memory footprints the Profiler cannot see, though without links to specific MATLAB functions"
+   ],
+   "application": "bounded arithmetic audit evidence/neurogarden/timestamp-log-audit.json verifies the printed 3.218 s log delta, the 735118 serial day for 06-Sep-2012 (anchored on 01-Jan-2000 = 730486), and shows the printed fractional day corresponds to 16:42:16.92, displayed truncated",
+   "limitations": "the audit checks printed arithmetic only; timeit's median and 1 ms forcing are design choices that can hide bimodal behavior; external-tool lists are 2014-era and some tools are defunct; Command History timings are explicitly non-representative",
+   "use": "Ran a bounded Python audit (evidence/neurogarden/timestamp-log-audit.json) verifying the printed log delta of 3.218 s and MATLAB serial-day conventions in the printed now/clock example, including the anchor datenum 730486 for 01-Jan-2000; all checks match.",
+   "reviewed_at": "2026-11-14T18:30:00Z"
   }
  }
 }
