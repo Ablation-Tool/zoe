@@ -50,6 +50,13 @@ BOOK_ARTIFACTS = {
         "005_9781484203477_FM_3_About_the_Author.html": "author biography",
         "006_9781484203477_FM_4_Preface.html": "also available",
     },
+    "Accelerating MATLAB Performance": {
+        "000_chapter-01.html": "front cover",
+        "006_chapter-07.html": "blank page",
+        "035_chapter-36.html": "blank page",
+        "088_chapter-89.html": "blank page",
+        "162_chapter-163.html": "back cover",
+    },
     "Windows 98 Unleashed": {
         "001_0672312352_pref01.html": "author biography",
         "002_0672312352_pref02.html": "acknowledgements",
