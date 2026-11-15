@@ -6,13 +6,16 @@ from ablation.analyzers.sunos_aout import (
     AoutSymbol,
     AoutRelocation,
     AoutCall,
+    AoutCallArgument,
     SunosAout,
     parse_aout,
     read_aout,
     render_calls,
+    render_dispatch,
 )
 
 __all__ = [
     "AoutError", "AoutHeader", "AoutSymbol", "AoutRelocation", "AoutCall",
-    "SunosAout", "parse_aout", "read_aout", "render_calls",
+    "AoutCallArgument", "SunosAout", "parse_aout", "read_aout", "render_calls",
+    "render_dispatch",
 ]
