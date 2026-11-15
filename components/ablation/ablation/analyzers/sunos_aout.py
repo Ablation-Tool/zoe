@@ -1,4 +1,4 @@
-"""Bounded SunOS SPARC OMAGIC a.out symbols and direct-call recovery."""
+"""Bounded SunOS SPARC OMAGIC a.out symbols, calls, and argument provenance."""
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -9,6 +9,7 @@ import struct
 MAX_AOUT_BYTES = 67_108_864
 MAGIC_SPARC_OMAGIC = 0x01030107
 TEXT_BASE = 0x2000
+_REGISTER_CLASSES = "goli"
 
 
 class AoutError(ValueError):
@@ -95,6 +96,21 @@ class AoutCall:
         return result
 
 
+@dataclass(frozen=True)
+class AoutCallArgument:
+    call_address: int
+    register: str
+    value: int | None
+    provenance: str
+    setup_address: int | None
+    branch_address: int | None = None
+    wrapper_address: int | None = None
+    dispatcher_call_address: int | None = None
+
+    def to_dict(self) -> dict:
+        return self.__dict__.copy()
+
+
 @dataclass
 class SunosAout:
     data: bytes
@@ -156,6 +172,99 @@ class SunosAout:
             delay = self._text_word(va + 4) if offset + 4 < self.header.text_size else None
             calls.append(AoutCall(va, word, raw_target, resolved, external_name, delay, relocation))
         return calls
+
+    @staticmethod
+    def _register_number(register: str) -> tuple[str, int]:
+        normalized = register if register.startswith("%") else "%" + register
+        if len(normalized) != 3 or normalized[1] not in _REGISTER_CLASSES or not normalized[2].isdigit():
+            raise AoutError(f"invalid SPARC register {register!r}")
+        number = int(normalized[2])
+        if number > 7:
+            raise AoutError(f"invalid SPARC register {register!r}")
+        return normalized, _REGISTER_CLASSES.index(normalized[1]) * 8 + number
+
+    @staticmethod
+    def _mov_immediate(word: int | None, register: int) -> int | None:
+        if word is None or word >> 30 != 2 or (word >> 19) & 0x3F != 2:
+            return None
+        if (word >> 25) & 0x1F != register:
+            return None
+        if (word >> 13) & 1:
+            if (word >> 14) & 0x1F:
+                return None
+            return _signed(word & 0x1FFF, 13)
+        if word & 0x1F or (word >> 14) & 0x1F:
+            return None
+        return 0
+
+    def _incoming_branches(self, target: int) -> list[tuple[int, int | None]]:
+        result = []
+        for offset in range(0, self.header.text_size, 4):
+            va = self.text_base + offset
+            word = self._text_word(va)
+            if word >> 30 != 0 or (word >> 22) & 7 != 2:
+                continue
+            destination = (va + _signed(word & 0x3FFFFF, 22) * 4) & 0xFFFFFFFF
+            if destination == target:
+                delay = self._text_word(va + 4) if offset + 4 < self.header.text_size else None
+                result.append((va, delay))
+        return result
+
+    def _has_fallthrough(self, address: int) -> bool:
+        if address - 8 < self.text_base:
+            return True
+        word = self._text_word(address - 8)
+        return not (word >> 30 == 0 and (word >> 22) & 7 == 2 and (word >> 25) & 0xF == 8)
+
+    def call_argument(self, call: AoutCall, register: str = "%o1") -> AoutCallArgument:
+        normalized, number = self._register_number(register)
+        value = self._mov_immediate(call.delay_slot_word, number)
+        if value is not None:
+            return AoutCallArgument(call.address, normalized, value, "call_delay_slot", call.address + 4)
+        incoming = self._incoming_branches(call.address)
+        if call.address - 4 >= self.text_base:
+            value = self._mov_immediate(self._text_word(call.address - 4), number)
+            if value is not None and not incoming:
+                return AoutCallArgument(call.address, normalized, value, "preceding_instruction", call.address - 4)
+        if len(incoming) == 1 and not self._has_fallthrough(call.address):
+            branch, delay = incoming[0]
+            value = self._mov_immediate(delay, number)
+            if value is not None:
+                return AoutCallArgument(call.address, normalized, value, "branch_delay_slot", branch + 4, branch)
+        return AoutCallArgument(call.address, normalized, None, "unresolved", None)
+
+    def dispatch_arguments(self, target: int, register: str = "%o1",
+                           wrappers: tuple[int, ...] = ()) -> list[AoutCallArgument]:
+        wrapper_set = set(wrappers)
+        if target in wrapper_set:
+            raise AoutError("dispatcher cannot also be a wrapper")
+        calls = self.calls()
+        result = []
+        for call in calls:
+            if call.target == target:
+                result.append(self.call_argument(call, register))
+                continue
+            if call.target not in wrapper_set:
+                continue
+            if call.target < self.text_base or call.target >= self.text_base + self.header.text_size:
+                raise AoutError(f"wrapper outside text at {call.target:#x}")
+            end = None
+            for address in range(call.target, self.text_base + self.header.text_size, 4):
+                if self._text_word(address) == 0x81C7E008:
+                    end = address
+                    break
+            if end is None:
+                raise AoutError(f"wrapper return not found for {call.target:#x}")
+            internal = [item for item in calls if call.target <= item.address < end and item.target == target]
+            if len(internal) != 1:
+                raise AoutError(f"expected one dispatcher call in wrapper {call.target:#x}, found {len(internal)}")
+            argument = self.call_argument(internal[0], register)
+            result.append(AoutCallArgument(
+                call.address, argument.register, argument.value,
+                "wrapper" if argument.value is not None else "wrapper_unresolved",
+                argument.setup_address, argument.branch_address, call.target, internal[0].address,
+            ))
+        return result
 
     def to_dict(self, full: bool = False) -> dict:
         result = {
@@ -261,4 +370,22 @@ def render_calls(image: SunosAout, target: int | None = None) -> str:
             f"0x{call.target:x}" if call.target is not None else "unresolved")
         lines.append(f"0x{call.address:x} -> {destination}")
     lines.append(f"direct_calls={len(calls)}")
+    return "\n".join(lines) + "\n"
+
+
+def render_dispatch(image: SunosAout, target: int, register: str = "%o1",
+                    wrappers: tuple[int, ...] = ()) -> str:
+    lines = [f"{image.format}", f"input_sha256={image.sha256}"]
+    arguments = image.dispatch_arguments(target, register, wrappers)
+    if not arguments:
+        raise AoutError(f"no direct or wrapper calls to {target:#x}")
+    for argument in arguments:
+        value = str(argument.value) if argument.value is not None else "unresolved"
+        destination = argument.wrapper_address or target
+        lines.append(
+            f"0x{argument.call_address:x} -> 0x{destination:x} "
+            f"{argument.register}={value} provenance={argument.provenance}"
+        )
+    resolved = sum(argument.value is not None for argument in arguments)
+    lines.append(f"dispatch_calls={len(arguments)} resolved={resolved} unresolved={len(arguments) - resolved}")
     return "\n".join(lines) + "\n"
