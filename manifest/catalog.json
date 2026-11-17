@@ -2574,7 +2574,7 @@
         {
           "source": "zoe",
           "path": "assets/branding/Nick+Zoe.gif",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/assets/branding/Nick+Zoe.gif"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/assets/branding/Nick%2BZoe.gif"
         },
         {
           "source": "zoe",
@@ -3170,7 +3170,7 @@
         {
           "source": "zoe",
           "path": "components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_128x128@2x.png",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_128x128@2x.png"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_128x128%402x.png"
         },
         {
           "source": "zoe",
@@ -3208,7 +3208,7 @@
         {
           "source": "zoe",
           "path": "components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_16x16@2x.png",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_16x16@2x.png"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_16x16%402x.png"
         },
         {
           "source": "zoe",
@@ -3404,7 +3404,7 @@
         {
           "source": "zoe",
           "path": "components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_256x256@2x.png",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_256x256@2x.png"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_256x256%402x.png"
         },
         {
           "source": "zoe",
@@ -3457,7 +3457,7 @@
         {
           "source": "zoe",
           "path": "components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_32x32@2x.png",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_32x32@2x.png"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_32x32%402x.png"
         },
         {
           "source": "zoe",
@@ -3528,7 +3528,7 @@
         {
           "source": "zoe",
           "path": "components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_512x512@2x.png",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_512x512@2x.png"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/assets/branding/woven-diamond/macos/gem-woven-diamond.iconset/icon_512x512%402x.png"
         },
         {
           "source": "zoe",
@@ -5048,7 +5048,7 @@
         {
           "source": "zoe",
           "path": "components/ablation/experiments/sacred-geometry/source/Untitled drawing (1).png",
-          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/experiments/sacred-geometry/source/Untitled drawing (1).png"
+          "url": "https://github.com/Ablation-Tool/zoe/blob/main/components/ablation/experiments/sacred-geometry/source/Untitled%20drawing%20%281%29.png"
         }
       ]
     },

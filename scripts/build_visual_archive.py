@@ -9,6 +9,7 @@ import shutil
 import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from pathlib import Path
+from urllib.parse import quote
 
 from PIL import Image
 
@@ -219,6 +220,7 @@ def role_for(category: str, relative: str) -> str:
 
 
 def source_url(source: str, relative: str) -> str:
+    relative = quote(relative)
     if source == 'zoe':
         return f'https://github.com/Ablation-Tool/zoe/blob/main/{relative}'
     if source == 'zoe-autonomy':
