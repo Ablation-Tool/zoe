@@ -10,39 +10,39 @@
     "ablation": {
       "path": "components/ablation",
       "repository": "https://github.com/Ablation-Tool/ablation",
-      "revision": "b56f91e4c54cfd996bceea63a38d8136dc1e689f",
+      "revision": "a44ec5d5019cd0944e992e2600965b12fa67f480",
       "includes": "Complete repository: core engine, framework, analyzers, parsers, modules, sweeps, gem-lab, tests, documentation, and assets"
     },
     "graphics-environment-manager": {
       "path": "components/graphics-environment-manager",
       "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
-      "revision": "e63f6a7b84c2e8fffc0fcf01001986ae928f66b5"
+      "revision": "544da874fc1a066f1fa2e8783bb0f86e8d2a59a3"
     },
     "gem-helen": {
       "path": "components/gem-helen",
       "repository": "https://github.com/Ablation-Tool/gem-helen",
-      "revision": "55fb1e494662e9b69e964ac2f9df41724cffeb0c"
+      "revision": "1989eac8e43e70578d3fa7fbfd63488f519e3869"
     },
     "brain-gem": {
       "path": "components/brain-gem",
       "repository": "https://github.com/Ablation-Tool/brain-gem",
-      "revision": "ed819c2824a55b019a532f4fa2cb440532030127"
+      "revision": "483bba83bb8c4564552a487241d009b6b313c447"
     },
     "cerotto": {
       "path": "components/cerotto",
       "repository": "https://github.com/Ablation-Tool/cerotto",
-      "revision": "5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4"
+      "revision": "17678c514956b06b5e77b0ff343b2df45c4996e2"
     },
     "next-token-predictability": {
       "path": "components/next-token-predictability",
       "repository": "https://github.com/Ablation-Tool/next-token-predictability",
-      "revision": "8f2f320f52acb56d9bc92e7b9d07bb1c7e8da84b",
+      "revision": "4d015ea7580c8c9c0917c35150b054568c177f3f",
       "includes": "Upstream README, response-planning evidence, and reproduction updates plus retained SAT research"
     },
     "Zoe-Autonomy": {
       "path": "components/Zoe-Autonomy",
       "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-      "revision": "1ed6baaa9934d402340bc088f956ec3ee54b59f6",
+      "revision": "a101a81e57a33d28df7827b0bb8bc5aa2e3a63d1",
       "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
     },
     "kevlar": {

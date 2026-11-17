@@ -46,7 +46,11 @@ def load_application_class():
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = parser().parse_args(argv)
+    raw_arguments = list(sys.argv[1:] if argv is None else argv)
+    if raw_arguments and raw_arguments[0] == "autonomy":
+        from .autonomy import main as autonomy_main
+        return autonomy_main(raw_arguments[1:])
+    args = parser().parse_args(raw_arguments)
     if args.screenshot and not args.self_test:
         parser().error("--screenshot requires --self-test")
     try:

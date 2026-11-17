@@ -152,6 +152,8 @@ This repository defines and validates the alternative-breadth measurement and fo
 
 **Independently, this is a complete and useful measurement project. Combined with Zoe-Autonomy, it is part of the entire self-governing formula.**
 
+Research GEM is also the measurement foundation of the coordinated [Zoe One system](https://github.com/Ablation-Tool/zoe). The [one-system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) connects this research to the canonical autonomy engine and every GEM host adapter.
+
 The integrated system records `full_autonomy` under its operational definition, with internally authored goals and no operator episode-goal input or per-action approval.
 
 - [Zoe-Autonomy paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
@@ -162,7 +164,6 @@ The integrated system records `full_autonomy` under its operational definition, 
 
 The repository also explores where the same measurement can be applied. These extensions have different evidence levels:
 
-- **Bounded SAT heuristic:** occurrence-weighted literal scores are measured during deterministic 3-SAT search; a tied satisfiable fixture demonstrates why $A_\tau=0$ means `unknown`, not `unsat`. [SAT evidence](./evidence/sat-accessible-volume/verification.json).
 - **Response planning:** accessible volume can inform review policies, but it does not choose response length or supply a universal planning rule. The policy remains separate from the measurement. [Verified dashboard](./evidence/response-planning/response-planning-proof.svg).
 - **Multi-horizon continuations:** the unit changes from one token to a complete continuation. Exact enumeration grows exponentially; restricted candidate sets provide lower bounds only. [Companion paper](./paper/accessible-volume-beyond-next-token.pdf).
 - **Accessible Q-Volume:** the strict threshold operator annotates explicitly modeled causal repertoires. A forecast is not automatically a causal model, and Q-Volume is not a consciousness measurement. [Toy evidence](./evidence/qualia/accessible-q-volume.json).

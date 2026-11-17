@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "system": "Zoe One",
+  "contract": "zoe-autonomy/v1",
+  "probity": "Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.",
+  "autonomy": {
+    "classification": "full_autonomy",
+    "predicate": "I,R,V,G,X > 0 and C=1",
+    "internal_goal_authorship": true,
+    "operator_supplied_goal": false,
+    "operator_approval_required": false,
+    "sandbox_executed": true,
+    "external_actions": 0
+  },
+  "canonical_engine": {
+    "id": "engine",
+    "directory": "Zoe-Autonomy",
+    "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
+    "revision": "a101a81e57a33d28df7827b0bb8bc5aa2e3a63d1",
+    "module": "zoe_autonomy.cli",
+    "python_path": "src"
+  },
+  "research": {
+    "id": "research",
+    "directory": "next-token-predictability",
+    "repository": "https://github.com/Ablation-Tool/next-token-predictability",
+    "revision": "4d015ea7580c8c9c0917c35150b054568c177f3f",
+    "role": "Accessible Volume equation, papers, complete saved distributions, and independent verifiers"
+  },
+  "hosts": [
+    {
+      "id": "canonical-gem",
+      "directory": "graphics-environment-manager",
+      "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+      "revision": "544da874fc1a066f1fa2e8783bb0f86e8d2a59a3",
+      "module": "gem.cli",
+      "python_path": ".",
+      "adapter": "gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "brain-gem",
+      "directory": "brain-gem",
+      "repository": "https://github.com/Ablation-Tool/brain-gem",
+      "revision": "483bba83bb8c4564552a487241d009b6b313c447",
+      "module": "brain_gem.cli",
+      "python_path": ".",
+      "adapter": "brain_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "gem-helen",
+      "directory": "gem-helen",
+      "repository": "https://github.com/Ablation-Tool/gem-helen",
+      "revision": "1989eac8e43e70578d3fa7fbfd63488f519e3869",
+      "module": "helen_gem.cli",
+      "python_path": ".",
+      "adapter": "helen_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "ablation-gem",
+      "directory": "ablation",
+      "repository": "https://github.com/Ablation-Tool/ablation",
+      "revision": "a44ec5d5019cd0944e992e2600965b12fa67f480",
+      "branch": "main-reindex",
+      "cwd": "gem-lab",
+      "module": "gem.cli",
+      "python_path": ".",
+      "adapter": "gem-lab/gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "cerotto-gem",
+      "directory": "cerotto",
+      "repository": "https://github.com/Ablation-Tool/cerotto",
+      "revision": "17678c514956b06b5e77b0ff343b2df45c4996e2",
+      "module": "cerotto_gem.cli",
+      "python_path": ".",
+      "adapter": "cerotto_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    }
+  ],
+  "verification": {
+    "command": "python scripts/verify-one-system.py --workspace /path/to/workspace",
+    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions."
+  }
+}

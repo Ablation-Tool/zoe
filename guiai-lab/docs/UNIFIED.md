@@ -2,6 +2,12 @@
 
 Zoe is a single source repository containing twelve source projects, including Zoe, Zoe-Autonomy, and the recovered Neurogarden component. Original upstream repositories remain independent projects. This repository does not require submodules or a runtime download to inspect their source.
 
+## Zoe One contract
+
+[`one-system.json`](../../one-system.json) pins the canonical Zoe-Autonomy engine, Research GEM, and every GEM host adapter. Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards. The contract requires inspectable source and evidence for every capability claim.
+
+Run `python scripts/verify-one-system.py --workspace /path/to/workspace` to check every pinned revision and invoke all six canonical entry points. The verifier requires identical `full_autonomy` documents, internal goal authorship, internal value-based selection and execution, passing guards, and zero external actions. The [preserved result](../../evidence/one-system/verification.json) records the coordinated run.
+
 Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_CEROTTO_ROOT`, or `ZOE_CHALKBOARD_ROOT`. Bundled sources take precedence. Host sources are used only when their component anchors exist. Chalkboard and Neurogarden remain content/library inspection components, not fictitious GUI processes.
 
 ## Source and provenance
@@ -11,13 +17,13 @@ Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_
 | Source | Revision | Included role |
 |:---|:---|:---|
 | Zoe | `f30c981` baseline | Native Cognitive Field, Bayesian memory, geometry, and unified hub |
-| Ablation | `b56f91e4c54cfd996bceea63a38d8136dc1e689f` | Complete core engine, framework, native GEM Lab, tests, docs, and assets |
-| graphics-environment-manager | `e63f6a7b84c2e8fffc0fcf01001986ae928f66b5` | Canonical native GEM and mathematical workbench |
-| GEM HELEN | `55fb1e494662e9b69e964ac2f9df41724cffeb0c` | Optimized native geometry and forecast experiments |
-| BRAIN GEM | `ed819c2824a55b019a532f4fa2cb440532030127` | Standalone Bayesian field notebook |
-| Cerotto | `5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4` | Native C forensic engine and guarded GEM workbench |
-| next-token-predictability | `8f2f320f52acb56d9bc92e7b9d07bb1c7e8da84b` | Accessible-volume research, response-planning evidence, and retained SAT research |
-| Zoe-Autonomy | `1ed6baaa9934d402340bc088f956ec3ee54b59f6` | Full self-governing goals, proposals, valuation, execution, and evidence |
+| Ablation | `a44ec5d5019cd0944e992e2600965b12fa67f480` | Complete core engine, framework, native GEM Lab, tests, docs, and assets |
+| graphics-environment-manager | `544da874fc1a066f1fa2e8783bb0f86e8d2a59a3` | Canonical native GEM and mathematical workbench |
+| GEM HELEN | `1989eac8e43e70578d3fa7fbfd63488f519e3869` | Optimized native geometry and forecast experiments |
+| BRAIN GEM | `483bba83bb8c4564552a487241d009b6b313c447` | Standalone Bayesian field notebook |
+| Cerotto | `17678c514956b06b5e77b0ff343b2df45c4996e2` | Native C forensic engine and guarded GEM workbench |
+| next-token-predictability | `4d015ea7580c8c9c0917c35150b054568c177f3f` | Accessible-volume research, response-planning evidence, and retained SAT research |
+| Zoe-Autonomy | `a101a81e57a33d28df7827b0bb8bc5aa2e3a63d1` | Full self-governing goals, proposals, valuation, execution, and evidence |
 | Neurogarden | unavailable; recovered local snapshot | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `8ac3e0181e98572d6c41f964385393aa441a5f2a` | MCP firewall and pure policy engine |
 | PDF Signature Toolkit | `1198165962958c5132130f3854626ff39c333941` | Source integrity and PDF signature commands |
