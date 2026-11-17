@@ -23,6 +23,7 @@ zoe
 zoe os --list
 zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
+zoe autonomy step
 zoe autonomy actuate status
 zoe autonomy agents list
 zoe autonomy capabilities --help
@@ -83,6 +84,17 @@ zoe autonomy agents run kimi --prompt "Explain this repository"
 ```
 
 Kimi and Claude are registered through their existing authenticated CLIs. See [GATEWAY.md](components/Zoe-Autonomy/GATEWAY.md), the [real exploration evidence](evidence/exploration/example-com.json), and [connected-account evidence](evidence/agents/registered-accounts.json).
+
+## Zoe chooses the capability
+
+```bash
+zoe autonomy step
+zoe autonomy verify-step evidence/autonomous/first-step.json
+```
+
+The no-argument `step` cycle accepts no operator goal or tool selection. Zoe observes her persistent state, authors the goal, constructs ten capability calls and their arguments, ranks them by declared utility, applies the owner-grant guard, executes her selection, and carries the outcome into the next decision. State defaults to `~/.zoe/autonomy`; `--state` changes storage without choosing the action.
+
+The [native no-argument step](evidence/autonomous/native-step.json) selected Crossref and authored its own query. Its [verification](evidence/autonomous/native-verification.json) passes. The native integration test includes a ten-step sequence in which Zoe selects every adapter once, plus denied-grant, unsuccessful-result, and failure-recovery checks. Selection is deterministic and bounded by the declared operation catalog; it is not open-ended tool invention.
 
 ## Ten capability adapters
 

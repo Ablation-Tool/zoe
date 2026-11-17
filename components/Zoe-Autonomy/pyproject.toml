@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zoe-autonomy"
-version = "0.4.0"
+version = "0.5.0"
 description = "Operational full self-governing autonomy through Zoe and Accessible Volume"
 readme = "README.md"
 requires-python = ">=3.10"

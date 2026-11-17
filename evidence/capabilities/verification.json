@@ -61,6 +61,6 @@
   "instrument": "zoe-ten-capability-verification",
   "schema_version": 1,
   "scope": "All ten adapters passed their implemented local or harmless public tests. Optional account, container-image, email, speech-model, and physical-device integrations require their own configuration and verification.",
-  "total_repository_tests": 30,
+  "total_repository_tests": 34,
   "verified": true
 }

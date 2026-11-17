@@ -27,6 +27,11 @@ def parser():
     agents.add_argument("arguments", nargs=argparse.REMAINDER)
     capabilities = commands.add_parser("capabilities", help="use the unified Zoe capability pack")
     capabilities.add_argument("arguments", nargs=argparse.REMAINDER)
+    step = commands.add_parser("step", help="let Zoe author a goal and select and execute a capability without operator selection")
+    step.add_argument("--state", help="autonomous state directory; default: ZOE_AUTONOMY_STATE or ~/.zoe/autonomy")
+    step.add_argument("--output", help="new JSON decision evidence path")
+    verify_step = commands.add_parser("verify-step", help="verify autonomous-step integrity and decision provenance")
+    verify_step.add_argument("report")
     return result
 
 
@@ -58,6 +63,18 @@ def main(argv=None):
                 print(summary(report))
                 if output:
                     print(f"Evidence: {output} · profile_sha256={report['profile_sha256']}")
+            return 0
+        if arguments.command == "step":
+            from .autonomous import run_step, save_step_report, step_summary
+            report = run_step(arguments.state)
+            output = save_step_report(report, arguments.output) if arguments.output else None
+            print(step_summary(report))
+            if output:
+                print(f"Evidence: {output} · step_sha256={report['step_sha256']}")
+            return 0 if report["execution"]["succeeded"] else 1
+        if arguments.command == "verify-step":
+            from .autonomous import verify_step_report
+            print(json.dumps(verify_step_report(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         result = verify_report(arguments.report, arguments.zoe_root)
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
