@@ -94,6 +94,7 @@ Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](http
 | **Bayesian field notebook** | [Implementation](guiai-lab/guiai/gem/field.py) | Questions, competing claims, falsifiers, likelihood ratios, log-odds updates, belief diffs, evidence dependence, chambers, and next-test priorities |
 | **Epistemic firewall** | [Worked memory](evidence/cognitive-field/worked-example.json) | Measurement, evidence, belief updates, and action remain separate; decisions require review |
 | **Accessible Volume** | [Research component](components/next-token-predictability/) | Strict `p > τ` forecast breadth, complements, momentum, target bands, temperature transforms, and calibration evidence |
+| **Operational bounded-autonomy profile** | [Guide](guiai-lab/docs/AUTONOMY.md) · [implementation](guiai-lab/guiai/gem/autonomy.py) · [evidence](evidence/autonomy/zoe-profile.json) | Six-context counterfactual suite, internal proposal and state-response measurements, equal-breadth controls, and five guard checks; current Zoe measures proposal-level agency, not executive autonomy |
 | **HELEN observations** | [Implementation](guiai-lab/guiai/gem/helen_onset.py) | Lazy stored forward/retrograde distributions with held-out cases; no transformer runtime |
 | **Multi-horizon forecasts** | [Implementation](guiai-lab/guiai/gem/brain.py) | Exact continuation probabilities for a defined two-state Markov toy with horizons 1–6 |
 | **Research evidence** | [Implementation](guiai-lab/guiai/gem/research.py) | Hash-checked Groove reports, on-demand NPZ predictions, aggregate-only Nightingale metrics, and rejected-baseline records |
@@ -106,6 +107,8 @@ zoe manifest --output gem-components.json
 zoe knowledge --output gem-knowledge.json
 PYTHONPATH=guiai-lab python -m guiai.gem zoe --module cognitive
 PYTHONPATH=guiai-lab python -m guiai.gem notebook --output zoe-field.json
+zoe autonomy
+zoe autonomy --verify evidence/autonomy/zoe-profile.json
 ```
 
 Exports use new paths and refuse to overwrite existing files. Hash chaining provides tamper evidence, not authentication. Forecast breadth is not correctness; a self-model is not a self.
@@ -424,6 +427,9 @@ For legacy/native module entry points, use `PYTHONPATH=guiai-lab python -m guiai
 ## Verification and boundaries
 
 ```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
+  python -m unittest stress.autonomy_stress -v
+
 PYTHONPATH=guiai-lab /usr/bin/python3 -m unittest stress.cognitive_stress -v
 PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   /usr/bin/python3 -m unittest stress.cognitive_stress -v

@@ -22,7 +22,7 @@ Tokens exactly at $\tau$ are **excluded**. For probabilities $[0.70,0.20,0.08,0.
 
 Accessible volume is useful because two forecasts can select the same token while leaving very different sets of alternatives open. It complements correctness, entropy, calibration, and human judgment rather than replacing them.
 
-[Original equation and research](./docs/RESEARCH.md#the-equation) · [Normalized and adaptive forms](./docs/RESEARCH.md#the-equation) · [Evidence guide](./evidence/README.md)
+[Original equation and research](./docs/RESEARCH.md#the-equation) · [Normalized and adaptive forms](./docs/RESEARCH.md#the-equation) · [Autonomy analysis and Zoe measurement](../../guiai-lab/docs/AUTONOMY.md) · [Evidence guide](./evidence/README.md)
 
 ## Papers
 
