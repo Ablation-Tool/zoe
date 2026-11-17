@@ -58,7 +58,7 @@ def _parser():
     volume.add_argument("--max-volume", type=int, default=4, help="target band upper bound")
     volume.add_argument("--output", required=True, help="new evidence JSON path")
 
-    for name, description in (("artline", "create, edit, or export an original Zoe vector drawing"), ("pentomino", "play, replay, or compare timed spatial challenges"), ("pentacube", "play and verify pentomino cube permutations"), ("cicada", "run a bounded CERN and cicada-inspired internal clock"), ("pilot", "open or export the original Zoe Practice Navigator guide"), ("resilience", "explore essential services and signal evidence"), ("presence", "inspect an explicit self-model and its uncertainties"), ("protocol", "decode SPECS and AMAC protocol evidence"), ("waveform", "replay bounded VCD and legacy waveform evidence"), ("patchbay", "inspect firmware, sign updates, and explore small-cog language models"), ("leadership", "practice leadership through action, advice, failure, learning, and adaptation"), ("maison", "explore executive clarity, luxury restraint, and enterprise evidence"), ("evidence", "navigate source-first evidence bridges and bounded replay")):
+    for name, description in (("artline", "create, edit, or export an original Zoe vector drawing"), ("pentomino", "play, replay, or compare timed spatial challenges"), ("pentacube", "play and verify pentomino cube permutations"), ("cicada", "run a bounded CERN and cicada-inspired internal clock"), ("pilot", "open or export the original Zoe Practice Navigator guide"), ("resilience", "explore essential services and signal evidence"), ("autonomy", "measure operational bounded-autonomy profiles"), ("presence", "inspect an explicit self-model and its uncertainties"), ("protocol", "decode SPECS and AMAC protocol evidence"), ("waveform", "replay bounded VCD and legacy waveform evidence"), ("patchbay", "inspect firmware, sign updates, and explore small-cog language models"), ("leadership", "practice leadership through action, advice, failure, learning, and adaptation"), ("maison", "explore executive clarity, luxury restraint, and enterprise evidence"), ("evidence", "navigate source-first evidence bridges and bounded replay")):
         command = commands.add_parser(name, help=description)
         command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
 
@@ -126,7 +126,7 @@ def _print_report(report):
 
 def main(argv=None):
     raw_arguments = list(sys.argv[1:] if argv is None else argv)
-    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
+    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "pilot", "resilience", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
         from importlib import import_module
         return import_module(f".{raw_arguments[0]}_view", __package__).main(raw_arguments[1:])
     arguments = _parser().parse_args(raw_arguments)
@@ -139,7 +139,7 @@ def main(argv=None):
             report = export_html_hdl(arguments.cern_root, arguments.output)
             print(json.dumps({"module": "felix-hdl", "file_count": report["file_count"], "line_count": report["line_count"], "languages": report["languages"], "output": report["output_root"]}, ensure_ascii=False, indent=2, sort_keys=True))
             return 0
-        if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
+        if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "pilot", "resilience", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             from importlib import import_module
             return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
         if arguments.command == "qualia":
