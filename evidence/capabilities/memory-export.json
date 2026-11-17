@@ -1,0 +1,37 @@
+{
+  "claims": [
+    {
+      "created_utc": "2026-11-17T08:09:43Z",
+      "id": 1,
+      "source_id": 1,
+      "statement": "Forecast breadth alone establishes correctness.",
+      "status": "contradicted"
+    },
+    {
+      "created_utc": "2026-11-17T08:09:43Z",
+      "id": 2,
+      "source_id": 1,
+      "statement": "Forecast breadth and correctness remain separate.",
+      "status": "contradicted"
+    }
+  ],
+  "contradictions": [
+    {
+      "claim_a": 1,
+      "claim_b": 2,
+      "created_utc": "2026-11-17T08:09:43Z",
+      "id": 1,
+      "reason": "The repository preserves experiments separating breadth from correctness."
+    }
+  ],
+  "sources": [
+    {
+      "content": "Accessible Volume measures forecast breadth.",
+      "created_utc": "2026-11-17T08:09:43Z",
+      "id": 1,
+      "sha256": "dd4e5469604cd3ff0d006cde52b478710d2347317c80372dabd15bb54ad3238b",
+      "title": "Zoe Autonomy paper",
+      "url": "https://github.com/Ablation-Tool/Zoe-Autonomy"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "audit_hash": "92b203b9f0f4ecc6ed89b02b0724872d9060b74cc5470c057e7ac5b0b07a9297",
+  "count": 1,
+  "provider": "crossref",
+  "query": "language model uncertainty",
+  "records": [
+    {
+      "doi": "10.20944/preprints202604.0920.v1",
+      "publisher": "MDPI AG",
+      "title": "Toward a Possibilistic Language Model: Grounding Large Language Model Uncertainty in Epistemic Support-Point Theory and Possibility Theory",
+      "url": "https://doi.org/10.20944/preprints202604.0920.v1"
+    }
+  ]
+}
