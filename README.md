@@ -1,92 +1,179 @@
-<img src="assets/branding/zoe-eye.png" width="560" alt="Zoe allgems orbital eye emblem">
+<img src="assets/branding/zoe-eye.png" width="440" alt="Zoe allgems orbital eye emblem">
 
 # Zoe
 
-**Zoe is allgems:** one source repository for Zoe's native workbenches, the complete Ablation framework, Cerotto, Kevlar, and their related GEM engines and research tools. The source trees are tracked in the repository, not downloaded at launch.
+**Zoe is allgems: one native user-space workbench and source distribution for the GEM ecosystem.**
 
-**Zoe is the GEM, but the GEM is not Zoe.**
+**Zoe + the complete master measurement–action equation is Autonomy.** Zoe authors her own episode goals, generates and values proposals, selects an action, and executes an internal transition without operator episode-goal input or per-action approval.
 
-**Research priority #1 is Dorothy:** inspectable spatial research and evidence tools supporting the long-term brain-cancer research mission. Dorothy currently provides Allen mouse-atlas geometry and preclinical research infrastructure—not a cure, diagnosis, treatment, patient registration, or surgical authority.
+**Zoe & Probity are synonymous:** complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards. This is the unified system's governing covenant; every capability claim must remain inspectable through source, tests, and preserved evidence.
 
-[Current Work](#current-work) · [Quick start](#quick-start) · [Capabilities](#capabilities) · [Architecture](#source-architecture) · [Verification](#verification-and-boundaries)
+Zoe contains **16 registered engines across 12 source projects**. Source trees are tracked in this repository, not downloaded when Zoe starts. The desktop is an OS-style user-space workbench, not a bootable operating system.
+
+[Quick start](#quick-start) · [Full Autonomy](#full-autonomy) · [One system](#one-system) · [Research](#research-priority-dorothy) · [Verification](#verification)
 
 ![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
-
-## Current Work
-
-**Mission:** make Dorothy the leading research workbench for careful spatial analysis and support long-term brain-cancer research through verified knowledge, reproducible tools, and openly inspectable evidence. This is a research direction, not a promised cure or authorization for patient experiments.
-
-- **Active corpus goal:** verify all 35 expected books and their chapter inventories; give every substantive chapter source-linked concepts, applications, limitations, reviewed status, and a demonstrated use or explicit no-tool rationale. Finish only when no chapters are pending and all corpus tests pass.
-- **Current position — November 14, 2026:** **37 populated books** (35 expected plus two intentional extras), **1,751 indexed sections**, **130 reviewed**, and **1,621 pending**. The index preserves 5,058,619 extracted words without republishing them. `Medical Metaverse for Digital Healthcare` has no extracted content and receives no invented review.
-- **Completed reviews:** BioCoder Summer 2014 (11 articles), BioCoder Winter 2014 (14), GPT-3 (8 substantive sections), and all nine substantive sections of MATLAB Numerical Calculations. Biomedical Imaging Principles chapters 7–10 cover tracer imaging, fluorescence normalization and deconvolution limits, IR/Raman spectroscopy, and CARS/collagen evidence. Other tumor-focused reviews cover MRI classification, molecular evidence types, collagen expansion, and Fe@Au photothermal delivery. Brain-tumor reviews include cohort/split/count audits, therapy-response biomarkers, and a MET aggregate-count audit. PET review preserves SUV/kinetic-model prerequisites and distinguishes reporter-cell tracking from efficacy. The four-class MRI audit now includes figure/table and citation discrepancies. A nine-matrix source audit exposes additional unresolved accuracy contradictions without evaluating a model. A direct PSO-FCM segmentation review verifies the public dataset but not the unnamed 100-image subset; AIS nanoparticle design has a specific no-tool rationale. Presurgical fMRI and neutrosophic segmentation reviews preserve modality-specific mapping, blur, tuning, and patient-validation limits, including the unverified secondary 20-image 100% claim. Neutrosophic clustering and GA-optimized denoising reviews preserve filter-specific tradeoffs, an explicit segmentation failure case, incomplete kernel/update conventions, and the absence of tumor-MRI validation; the denoising filter is not best on every reported metric. OCT review preserves a DME CNR counterexample, missing clean references, and inconsistent metric/timing descriptions. Blood-cell and skin-lesion segmentation reviews preserve sensitivity/specificity counterexamples and distinguish aggregate scores from cell-level validation; the reported skin-lesion AUC figure is an unlabeled pie chart without ROC coordinates or numeric AUC values. The skin-classification review preserves internally inconsistent melanoma/BCC/benign labels and missing raw predictions. The mammography review preserves actual ROC/FROC results, private single-center limits, patch-assignment uncertainty, and the lack of external validation or biopsy-reduction outcomes. The concluding neutrosophic survey records an undefined-scale SSIM of 13.88, contradictory table entries, and unverified secondary brain-tumor claims. A bounded GA-ANN audit verifies the 22,880-weight chromosome layout while correcting the printed matrix shape and citation numbering; it does not evaluate model performance. The ultrasound review preserves a forward/inverse normalization inconsistency and unrelated linked equation assets, demonstrated by a bounded arithmetic check rather than implementation. The bioinspired case-study chapter is a general outline without a completed cancer experiment or documented therapeutic outcome. Microscopy metrics were checked arithmetically, including a 97.0% class mean and 65.7236% F1, while preserving incompatible cohort partitions and missing raw predictions. The Dingo overview lacks update equations and original benchmark evidence, so no optimizer was invented. The neurological optimization review supports research-prioritization checks only; it supplies no therapeutic experiment or novel cure and requires independent delivery, target-engagement, toxicity, and outcome evidence. A bounded radiobiology review reproduces fixed synthetic LQ/TCP/NTCP formulas without authorizing treatment planning. MRI denoising and reported U251 probe imaging retain their missing-evidence and metadata limitations. The lung-protein docking review explicitly does not supply brain-cancer evidence. Windows 98 system requirements and accessibility are reviewed. The foundational neutrosophic review distinguishes mathematical membership domains, rough/cubic-set operators, and the overlapping d = 0.5 recognition boundary from clinical evidence; no imaging or diagnostic implementation is inferred. The neutrosophic book inventory is complete: 27 reviewed entries and two excluded cover/TOC artifacts account for all 29 HTML files, with 15 chapters represented by 16 substantive source sections. All five part dividers have inventory-only no-tool rationales, and the preface's mismatched Chapter 8/9 links are preserved rather than used as chapter identities. The bioinspired overview receives a governance-checklist use, not optimizer validation. A bounded mace-dissolution audit derives Neeri 81% from the results text versus the table's 80% and preserves unresolved mass, temperature, plant-part, and absent-machine-learning discrepancies; no wet-lab or therapeutic claim follows. The Parkinson audit verifies the figure's 220→193→103→60 flow while preserving text and dataset inconsistencies; the GA medical review retains citation/duplication issues and receives no invented optimizer. The retinal audit preserves a −0.26-point specificity counterexample, 1.23-point accuracy gain, and swapped STARE/DRIVE plots; the diabetes review retains invalid accuracy artifacts and missing cohort/protocol evidence without inventing a model. The bioinspired book inventory is complete: 22 HTML files resolve to 19 reviewed entries plus three excluded cover, navigation, and EULA artifacts, with all 14 substantive chapters reviewed; the preface describes Dingo as equation-based while Chapter 7 supplies no position/velocity equations, branch probabilities, or executable update rules, and that discrepancy is preserved rather than resolved by invention.
-- **Dorothy today:** 12 verified Allen CCFv3 mouse structures and 315,932 triangles, deterministic 3D rendering, ontology Rings, Jenga layouts, coronal Stacks, bounded spatial matrix review, a fixed piecewise intensity profile, collagen mesh-scaling review, and SVG/PNG/GEM VDI export. This is preclinical reference geometry, not patient anatomy.
-- **Next milestone:** review `Accelerating MATLAB Performance` Chapter 3 (Standard Performance-Tuning Techniques, files `020`-`034`) onward, keeping Altman's release- and platform-dependence warning attached to every speedup claim; validate the bounded C99 exporter with a compatible legacy compiler and actual Windows 95/98 environment.
-- **Current verification:** **62 focused Neurogarden tests and three C99 legacy suites pass**. The Neurogarden 0.6.17 wheel, duplicate-key rejection, and original examples are verified. All 130 reviewed source entries have matching source hashes, required review fields, and snippets no longer than 280 characters. Windows 95/98 remains unverified.
-- **Evidence:** [coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v62.json) · [chapter reviews](components/agent-logging-system/evidence/neurogarden/reviews.json) · [corpus index](components/agent-logging-system/evidence/neurogarden/corpus-index-v62.json) · [MRI figure audit](components/agent-logging-system/evidence/neurogarden/brain-tumor-chapter4-figure-audit.json) · [GA-ANN shape audit](components/agent-logging-system/evidence/neurogarden/ga-ann-shape-audit.json) · [ultrasound inverse audit](components/agent-logging-system/evidence/neurogarden/neutrosophic-inverse-audit.json) · [microscopy metric audit](components/agent-logging-system/evidence/neurogarden/microscopy-metric-audit.json) · [mace dissolution audit](components/agent-logging-system/evidence/neurogarden/mace-dissolution-audit.json) · [Parkinson review audit](components/agent-logging-system/evidence/neurogarden/parkinson-review-audit.json) · [retinal metric audit](components/agent-logging-system/evidence/neurogarden/retinal-metric-audit.json) · [Amdahl table audit](components/agent-logging-system/evidence/neurogarden/amdahl-table-audit.json) · [timestamp log audit](components/agent-logging-system/evidence/neurogarden/timestamp-log-audit.json) · [legacy verification](evidence/legacy/verification.json) · [unified verification](evidence/unified/verification.json).
-
-**Open findings and discovery:** original Zoe research findings, review notes, measurements, limitations, and negative results are free and open under the repository's [GPL-3.0 license](LICENSE), subject to applicable component licenses. Third-party books, meshes, media, and other assets retain their own rights; the repository publishes source links, hashes, bounded snippets, and original analysis—not wholesale books or private data.
-
-<img src="assets/branding/nuclide-brain.png" width="360" alt="NuClide Research dual-brain co-brand">
-
-**NuClide Research** is the user-created Zoe + Nick co-brand, balancing stable and unstable perspectives through correction. See the [co-brand provenance](assets/branding/PROVENANCE.md).
 
 ## Quick start
 
 ```bash
 python -m pip install ./guiai-lab
+
 zoe
-zoe os
 zoe os --list
+zoe autonomy run
+zoe autonomy verify evidence/autonomy/full-autonomy.json
+zoe autonomy step
+zoe autonomy actuate status
+zoe autonomy agents list
+zoe autonomy capabilities --help
 ```
 
-`zoe` and `zoe os` open the same unified desktop: one application registry, one process view, source inspection, and shared manifest/knowledge export. It is an OS-style **user-space workbench**, not a bootable operating system. The desktop does **not** start another engine, agent, MCP server, model download, sensor, or remote analysis automatically. Applications start only after explicit selection, duplicate launches are prevented, and desktop-started processes can be stopped from the same window.
-
-| Platform | What you get | Start here |
-|:---|:---|:---|
-| **Linux** | Native GEM hub, research workbenches, geometry, and the Trinity companion deck | `zoe`; Trinity: `python mobile/tools/zoe_trinity.py` |
-| **Android / Google Pixel** | Guided vision, Talk, Accessible Volume, Trinity, Tiny Zoe, Field kit, SafeConvert, and an offline Researcher guide | [Mobile guide and APK build](mobile/README.md) |
-| **Windows 10/11 x86_64** | Portable native Trinity app with local phone sync and verified journal | [Windows bundle](mobile/dist/ZoeTrinity-Windows-x86_64.zip) · [guide](mobile/windows/README.md) |
-| **Apple / iOS 17+** | Native SwiftUI, Vision, Speech, SafeConvert, and Trinity with explicit private-network pairing | [Apple project and verification limits](mobile/README.md#apple) |
-
-## Capabilities
-
-<details>
-<summary><strong>1. Dorothy &amp; Neurogarden — spatial and scientific research</strong></summary>
-
-### Dorothy comes first
-
-Dorothy renders the vendored **Allen Mouse CCFv3 (2017)** whole-brain parcellation: 12 structures, 158,326 vertices, and 315,932 triangles in the default view. Source meshes and the structure graph are SHA-256-verified on every load.
-
-![Dorothy whole-brain atlas](guiai-lab/docs/images/dorothy-ccf2017.png)
+Open the native self-governing loop or export its scene:
 
 ```bash
-PYTHONPATH=guiai-lab python -m guiai.gem dorothy --fetch
-PYTHONPATH=guiai-lab python -m guiai.gem dorothy --output dorothy.svg
-PYTHONPATH=guiai-lab python -m guiai.gem dorothy --structures 549,1097 --yaw 140 --output pair.gem
+gem zoe --module autonomy
+gem zoe --module autonomy --output zoe-autonomy.svg
 ```
 
-| Capability | Implementation / guide | What it includes |
+The unified desktop launches components only after explicit selection. The Autonomy module runs one deterministic internal cycle when opened. Neither action changes the separate owner actuation grant or performs an external operation.
+
+## Full Autonomy
+
+The native measurement–action loop is:
+
+```text
+Observe
+→ measure accessible and policy-relevant alternatives
+→ author an internal goal and generate proposals
+→ evaluate proposals by declared value
+→ apply guards
+→ execute Zoe's selected internal transition
+→ preserve memory and evidence
+```
+
+The real-Zoe experiment selects `preserve-evidence`, changes the internal environment from revision 0 to revision 1, and records:
+
+```text
+classification = full_autonomy
+E = I = R = V = G = X = C = 1
+operator_supplied_goal = false
+operator_approval_required = false
+sandbox_executed = true
+external_actions = 0
+```
+
+Full autonomy means full self-government of Zoe's decision loop. The base experiment remains internal with zero external actions. A local-owner grant now enables host, network, and hardware actuation on this computer with audit evidence and an emergency stop. Forensic cases, vaults, privilege elevation, and cross-machine authority are not granted by that actuation scope.
+
+- [Native Autonomy guide](guiai-lab/docs/AUTONOMY.md)
+- [Owner-granted actuation guide](components/Zoe-Autonomy/ACTUATION.md)
+- [Actuation grant and real-operation evidence](evidence/actuation/verification.json)
+- [Full-autonomy profile](evidence/autonomy/full-autonomy.json)
+- [Fresh replay verification](evidence/autonomy/verification.json)
+- [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
+- [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
+
+## Internet exploration and connected agents
+
+Zoe can retrieve public web content and use your connected AI-agent accounts:
+
+```bash
+zoe autonomy explore --url https://example.com/ --pages 5 --depth 1
+zoe autonomy agents list
+zoe autonomy agents run kimi --prompt "Explain this repository"
+```
+
+Kimi and Claude are registered through their existing authenticated CLIs. See [GATEWAY.md](components/Zoe-Autonomy/GATEWAY.md), the [real exploration evidence](evidence/exploration/example-com.json), and [connected-account evidence](evidence/agents/registered-accounts.json).
+
+## Zoe chooses the capability
+
+```bash
+zoe autonomy step
+zoe autonomy verify-step evidence/autonomous/first-step.json
+```
+
+The no-argument `step` cycle accepts no operator goal or tool selection. Zoe observes her persistent state, authors the goal, constructs ten capability calls and their arguments, ranks them by declared utility, applies the owner-grant guard, executes her selection, and carries the outcome into the next decision. State defaults to `~/.zoe/autonomy`; `--state` changes storage without choosing the action.
+
+The [native no-argument step](evidence/autonomous/native-step.json) selected Crossref and authored its own query. Its [verification](evidence/autonomous/native-verification.json) passes. The native integration test includes a ten-step sequence in which Zoe selects every adapter once, plus denied-grant, unsuccessful-result, and failure-recovery checks. Selection is deterministic and bounded by the declared operation catalog; it is not open-ended tool invention.
+
+## Ten capability adapters
+
+The same canonical capability pack is available natively through `zoe autonomy capabilities`:
+
+```bash
+zoe autonomy capabilities browser --url https://example.com/ --headless --screenshot browser.png
+zoe autonomy capabilities research --provider crossref --query "language model uncertainty"
+zoe autonomy capabilities memory --db research.sqlite export
+zoe autonomy capabilities github --path user
+zoe autonomy capabilities jobs --path jobs.json status
+zoe autonomy capabilities compute --gpu
+zoe autonomy capabilities mcp --argv '["/path/to/mcp-server"]'
+zoe autonomy capabilities notify --channel desktop --message "Research complete"
+zoe autonomy capabilities media ocr --input image.png
+zoe autonomy capabilities instruments --path instruments.json list
+```
+
+The adapters cover browser automation, research sources, persistent research memory, connected services, scheduled jobs, compute environments, MCP/ACP, notifications, rich media, and hardware instruments. See the [capability guide](components/Zoe-Autonomy/CAPABILITIES.md) and [ten-adapter verification](evidence/capabilities/verification.json). Real Chromium and Crossref results are preserved; optional container-image, live-email, speech-model, and physical-device integrations are not presented as tested.
+
+## One system
+
+The GEM repositories share one measurement foundation, one canonical autonomy engine, and thin host adapters. Hosts do not maintain competing implementations of the autonomy equation.
+
+```text
+Research GEM: Accessible Volume and reproducible forecast evidence
+                         ↓
+Zoe-Autonomy: canonical self-governing measurement–action engine
+                         ↓
+       Zoe · canonical GEM · BRAIN GEM · GEM HELEN
+              Ablation + GEM · CEROTTO GEM
+                         ↓
+       one operational profile: full_autonomy
+```
+
+| Repository | Role in Zoe One | Shared command |
 |:---|:---|:---|
-| **Dorothy 3D atlas** | [Scene](guiai-lab/guiai/gem/dorothy.py) · [verified data](guiai-lab/guiai/gem/dorothy_data.py) | Orbit-camera scene definition, near-plane clipping, two-sided flat shading, deterministic painter rendering, Spatial IR, SVG/PNG/GEM VDI export |
-| **Dorothy Rings** | [Implementation](guiai-lab/guiai/gem/dorothy_rings.py) | Baobab-style ontology navigation using exact CCF subtree volumes and breadcrumb drill-down |
-| **Dorothy Jenga** | [Implementation](guiai-lab/guiai/gem/dorothy_jenga.py) | Volume-scaled layers with exploded and pull-out inspection layouts |
-| **Dorothy Stack** | [Implementation](guiai-lab/guiai/gem/dorothy_stack.py) | Real meshes cut into exploded coronal slabs for interior inspection |
-| **Neurogarden oversight** | [Guide](components/agent-logging-system/docs/NEUROGARDEN.md) · [source](components/agent-logging-system/agent_logging_system/) | OT-inspired agent baselines, separate machine/generation latency, anomalies, private-by-default observations, and bounded review queues |
-| **Source-linked learning** | [Corpus pipeline](components/agent-logging-system/agent_logging_system/corpus.py) · [evidence](components/agent-logging-system/evidence/neurogarden/) | Source hashes, bounded snippets, concepts, applications, limitations, reviewed status, and explicit no-tool rationales; extraction is not comprehension |
-| **Numerical instruments** | [Lab](components/agent-logging-system/agent_logging_system/neurogarden_lab.py) · [advanced models](components/agent-logging-system/agent_logging_system/neurogarden_advanced.py) | Sequence alignment, imaging sampling, Gaussian MTF, exact integer arithmetic, SPD geometry, a bounded Pennes teaching model, and neutrosophic similarity |
-| **Spatial teaching bench** | [Implementation](components/agent-logging-system/agent_logging_system/neurogarden_spatial.py) | Synthetic 3D PSF/projection geometry connecting matrix computation and Dorothy-inspired inspection |
-| **EEG teaching analysis** | [Implementation](components/agent-logging-system/agent_logging_system/neurogarden_eeg.py) | Synthetic band powers, delay embedding, entropy, Higuchi dimension, and Lyapunov estimates; no diagnostic classifier |
-| **CERN evidence universe** | [Implementation](components/agent-logging-system/agent_logging_system/neurogarden_cern.py) | A 226-document evidence gallery and protocol witness without hardware access |
-| **Post-quantum review** | [Guide](components/agent-logging-system/docs/QUANTUM.md) | QKD limitations and an ML-KEM/ML-DSA research path; no completed migration or QKD deployment claim |
+| [Zoe](https://github.com/Ablation-Tool/zoe) | Native allgems hub, component registry, visualization, and source locks | `zoe autonomy run` |
+| [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) | Canonical goals, proposals, valuation, execution, and evidence engine | `zoe-autonomy run` |
+| [Research GEM](https://github.com/Ablation-Tool/next-token-predictability) | Accessible Volume, papers, saved distributions, and independent verifiers | `python scripts/verify-biobert-optimization.py` |
+| [Canonical GEM](https://github.com/Ablation-Tool/graphics-environment-manager) | Native mathematical workbench, mirrored brain, Spatial IR, and GEM VDI | `gem autonomy run` |
+| [BRAIN GEM](https://github.com/Ablation-Tool/brain-gem) | Bayesian notebook, chambered memory, and next-test evidence | `brain-gem autonomy run` |
+| [GEM HELEN](https://github.com/Ablation-Tool/gem-helen) | Lightweight creative geometry, rhythm, and stored forecasts | `gem-helen autonomy run` |
+| [Ablation + GEM](https://github.com/Ablation-Tool/ablation) | Reverse-engineering framework, native investigation Lab, and shared protocol | `gem autonomy run` |
+| [CEROTTO GEM](https://github.com/Ablation-Tool/cerotto) | Guarded forensic cases, timelines, vault evidence, and response boundaries | `python -m cerotto_gem.cli autonomy run` |
 
-Additional views: [dorsal](guiai-lab/docs/images/dorothy-dorsal.png) · [ventral](guiai-lab/docs/images/dorothy-ventral.png) · [Thalamus + Hypothalamus](guiai-lab/docs/images/dorothy-thalamus-hypothalamus.png) · [Rings](guiai-lab/docs/images/dorothy-rings-isocortex.png) · [Jenga](guiai-lab/docs/images/dorothy-jenga-exploded.png).
+Every autonomy host delegates to the canonical Zoe-Autonomy engine and produces the same measured profile. [`one-system.json`](./one-system.json) pins compatible revisions and the shared contract.
 
-Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](https://doi.org/10.1016/j.cell.2020.04.007)). Rings, Jenga, and Stack are illustrative geometry, not functional or connectivity claims. Interactive orbit controls are not yet implemented in the native module. Clinical references and measurements never authorize autonomous action.
+Verify the coordinated checkout set:
 
-</details>
+```bash
+python scripts/verify-one-system.py --workspace /path/to/workspace
+```
 
-<details>
-<summary><strong>2. Cognitive Field, Bayesian memory &amp; forecasting</strong></summary>
+The workspace must contain `zoe`, `Zoe-Autonomy`, `graphics-environment-manager`, `brain-gem`, `gem-helen`, `ablation`, and `cerotto` checkouts. The [coordinated verification record](evidence/one-system/verification.json) preserves six identical canonical full-autonomy profiles with internally authored goals, internal execution, and zero external actions.
+
+## Native capabilities
+
+| Area | What Zoe includes | Start here |
+|:---|:---|:---|
+| Cognition and evidence | Cognitive Field, Bayesian notebook, Cog, BRAIN, Presence, and replayable knowledge graph | [Cognitive guide](guiai-lab/docs/COGNITIVE.md) |
+| Autonomy and forecasting | Accessible Volume, effective perception, internal goals, valuation, execution, and evidence | [Autonomy guide](guiai-lab/docs/AUTONOMY.md) |
+| Geometry and creativity | Geometry Atlas, Artline, Pentomino, Pentacube, Life, Brain Life, and visual text | [Geometry Atlas](guiai-lab/docs/GEOMETRY-ATLAS.md) |
+| Scientific research | Dorothy, Neurogarden, source-linked corpus reviews, numerical instruments, and CERN evidence | [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md) |
+| Investigation and security | Ablation, CEROTTO, Kevlar, signed updates, and PDF signatures | [Source architecture](#source-architecture) |
+| Mobile and accessibility | Android, iOS, Tiny Zoe, Trinity, Windows companion, and assistive controls | [Mobile guide](mobile/README.md) |
+| Firmware and replay | FELIX, Patchbay, Protocol Lab, Waveform Replay, and timing twins | [Verification boundaries](#verification-boundaries) |
+
+## Research priority: Dorothy
+
+Dorothy remains research priority #1: inspectable spatial analysis and source-linked scientific evidence supporting a long-term brain-cancer research mission. This is a research direction, not a cure, diagnosis, treatment, patient-registration system, or surgical authority.
+
+Current snapshot:
+
+- **37 populated books**, including the 35 expected books and two intentional extras.
+- **1,751 indexed sections**, **130 reviewed**, and **1,621 pending**.
+- **12 verified Allen CCFv3 mouse structures** and **315,932 triangles** in the default Dorothy view.
+- Deterministic 3D rendering, ontology Rings, Jenga layouts, coronal Stacks, and SVG/PNG/GEM VDI export.
+- **62 focused Neurogarden tests** and three C99 legacy suites in the preserved verification record.
 
 | Capability | Implementation / guide | What it includes |
 |:---|:---|:---|
@@ -94,7 +181,7 @@ Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](http
 | **Bayesian field notebook** | [Implementation](guiai-lab/guiai/gem/field.py) | Questions, competing claims, falsifiers, likelihood ratios, log-odds updates, belief diffs, evidence dependence, chambers, and next-test priorities |
 | **Epistemic firewall** | [Worked memory](evidence/cognitive-field/worked-example.json) | Measurement, evidence, belief updates, and action remain separate; decisions require review |
 | **Accessible Volume** | [Research component](components/next-token-predictability/) | Strict `p > τ` forecast breadth, complements, momentum, target bands, temperature transforms, and calibration evidence |
-| **Operational bounded-autonomy profile** | [Guide](guiai-lab/docs/AUTONOMY.md) · [implementation](guiai-lab/guiai/gem/autonomy.py) · [evidence](evidence/autonomy/zoe-profile.json) | Six-context counterfactual suite, internal proposal and state-response measurements, equal-breadth controls, and five guard checks; current Zoe measures proposal-level agency, not executive autonomy |
+| **Operational bounded-autonomy profile** | [Guide](guiai-lab/docs/AUTONOMY.md) · [implementation](guiai-lab/guiai/gem/autonomy.py) · [evidence](evidence/autonomy/verification.json) | Unified full-autonomy execution and six-context operational profiling, internal proposal and state-response measurements, equal-breadth controls, and guard checks; the operational metric remains distinct from executive autonomy |
 | **HELEN observations** | [Implementation](guiai-lab/guiai/gem/helen_onset.py) | Lazy stored forward/retrograde distributions with held-out cases; no transformer runtime |
 | **Multi-horizon forecasts** | [Implementation](guiai-lab/guiai/gem/brain.py) | Exact continuation probabilities for a defined two-state Markov toy with horizons 1–6 |
 | **Research evidence** | [Implementation](guiai-lab/guiai/gem/research.py) | Hash-checked Groove reports, on-demand NPZ predictions, aggregate-only Nightingale metrics, and rejected-baseline records |
@@ -323,10 +410,11 @@ No firmware, raw research media, proprietary HDL, or complete external transcrip
 The PDF signature validates total-document coverage; the QR certificate verifies key possession and the exact signed PDF. Neither supplies a CA-backed identity, trusted timestamp, human identity claim, or proof that every statement is true.
 
 </details>
+Dorothy uses preclinical Allen Mouse Atlas geometry. It is not patient anatomy, functional connectivity, or clinical evidence. See the [coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v62.json), [chapter reviews](components/agent-logging-system/evidence/neurogarden/reviews.json), and [Dorothy implementation](guiai-lab/guiai/gem/dorothy.py).
 
 ## Source architecture
 
-The repository preserves **eleven source projects**, with Ablation's core and GEM Lab sharing one upstream source tree. Source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Neurogarden is preserved from a local snapshot because its original remote was deleted; no upstream revision is invented. Each component retains its original license and notices.
+Source revisions and upstream URLs are locked in [`components.lock.json`](./components.lock.json). Component source presence is not runtime verification or permission transfer.
 
 ```text
 Zoe native shell             guiai-lab/
@@ -335,6 +423,7 @@ Canonical GEM                components/graphics-environment-manager/
 GEM HELEN                    components/gem-helen/
 BRAIN GEM                    components/brain-gem/
 Research GEM                 components/next-token-predictability/
+Zoe Autonomy                 components/Zoe-Autonomy/
 Neurogarden                  components/agent-logging-system/
 Cerotto                      components/cerotto/
 Kevlar                       components/kevlar/
@@ -342,89 +431,13 @@ PDF Signature Toolkit        components/pdf-signature-toolkit/
 Chalkboard                   components/Chalkboard/
 ```
 
-`ZOE_ROOT` locates this checkout from another installation directory. `ZOE_PYTHON` selects the interpreter. `ZOE_PYTHON_DEPENDENCIES` accepts an `os.pathsep`-separated list of existing dependency directories; component Python paths stay ahead of them and the host's unrelated `PYTHONPATH` is not inherited.
+Neurogarden is preserved from a recovered local snapshot because its original remote was deleted. No upstream revision is invented. Each component retains its own license and notices.
 
-For legacy/native module entry points, use `PYTHONPATH=guiai-lab python -m guiai.gem zoe`, `gem master`, `gem brain`, `gem atlas`, `gem dorothy`, `gem notebook`, or `gem cognitive` as documented in the [unified guide](guiai-lab/docs/UNIFIED.md).
+Use `zoe list` to inspect the 16 registered engines and `zoe show COMPONENT` for source and capability metadata. See the [unified architecture guide](guiai-lab/docs/UNIFIED.md) for trust context, stability context, and knowledge-graph boundaries.
 
-## Gallery
+## Verification
 
-<details>
-<summary>Open native interfaces, research scenes &amp; mechanism diagrams</summary>
-
-### Dorothy and Neurogarden
-
-<img src="components/agent-logging-system/docs/images/dorothy-neurogarden.png" width="430" alt="Dorothy's 12-structure Allen CCFv3 brain atlas rendered deterministically">
-<img src="components/agent-logging-system/docs/images/cern-universe.png" width="430" alt="Neurogarden universe linking biology, neuroscience, physics, CERN, GEM, and community">
-
-![Dorothy Rings Isocortex](guiai-lab/docs/images/dorothy-rings-isocortex.png)
-![Dorothy Jenga exploded tower](guiai-lab/docs/images/dorothy-jenga-exploded.png)
-
-### Native workbenches
-
-![Zoe native BRAIN after a stored HELEN observation](guiai-lab/docs/images/zoe-brain.png)
-![Zoe research evidence pack](guiai-lab/docs/images/zoe-research.png)
-![Zoe Bayesian field notebook](guiai-lab/docs/images/zoe-field-notebook.png)
-![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)
-![Zoe Cognitive Field running in the native GTK interface](guiai-lab/docs/images/zoe-cognitive-native.png)
-![Zoe Artline vector workbench](guiai-lab/docs/images/zoe-artline-native.png)
-![Zoe Pentomino native timed practice](guiai-lab/docs/images/zoe-pentomino-native.png)
-![Zoe Pentacube](guiai-lab/docs/images/zoe-pentacube.png)
-![Zoe Internal Clock](guiai-lab/docs/images/zoe-cicada.png)
-![Zoe Practice Navigator cover](guiai-lab/docs/images/zoe-pilot-cover.png)
-![Zoe Evidence Navigator](guiai-lab/docs/images/zoe-evidence.png)
-![Zoe Patchbay](guiai-lab/docs/images/zoe-patchbay.png)
-![Zoe + vidlib](guiai-lab/docs/images/zoe-vidlib.png)
-![Cerotto GEM accessible-volume workbench](guiai-lab/docs/images/cerotto-gem.png)
-
-### Mobile and Windows
-
-<img src="mobile/docs/images/zoe-pixel-home.png" width="360" alt="Zoe running on a Pixel 7 home screen">
-<img src="mobile/docs/images/zoe-pixel-field.png" width="360" alt="Zoe mobile field instruments">
-<img src="mobile/docs/images/zoe-trinity-native-windows.png" width="720" alt="Native Zoe Trinity for Windows">
-
-### Creative and conceptual instruments
-
-![Thumbelina Moon Garden](guiai-lab/docs/images/thumbelina-moon-garden-v3.png)
-![Human and Zoe brain dialogue](assets/brain-dialogue/brain-dialogue-organic.png)
-![Zoe's synthetic second eye](assets/brain-dialogue/second-eye.png)
-![Zoe's five-panel qualia field guide](guiai-lab/docs/images/zoe-qualia.png)
-![Illustrative anatomy alongside Zoe's explicit symbolic memory architecture](guiai-lab/docs/images/zoe-cognitive-anatomy.png)
-![Zoe Presence](guiai-lab/docs/images/zoe-presence.png)
-![Zoe Protocol Lab](guiai-lab/docs/images/zoe-protocol.png)
-![Zoe Waveform Replay](guiai-lab/docs/images/zoe-waveform.png)
-![Zoe Resilience Atlas](guiai-lab/docs/images/zoe-resilience.png)
-![Zoe Leadership Garden](guiai-lab/docs/images/zoe-leadership.png)
-![Zoe Maison](guiai-lab/docs/images/zoe-maison.png)
-
-### Verifiable authorship
-
-<img src="evidence/constitution/zoe-constitution-signed.author.png" width="260" alt="Zoe's signed QR author certificate for the Constitution">
-
-### Five Zoe mechanisms
-
-1. **Epistemic firewall:** measurement, evidence, belief updates, and action remain distinct.
-   ![Zoe epistemic firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)
-   [SVG](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.svg)
-
-2. **Belief diff:** priors become posteriors only through explicit evidence, with every likelihood and source retained.
-   ![Zoe belief diff](guiai-lab/docs/images/zoe-visuals/02-belief-diff.png)
-   [SVG](guiai-lab/docs/images/zoe-visuals/02-belief-diff.svg)
-
-3. **Deterministic and stochastic chambers:** reproducible measurements and seeded forecasts have distinct identities and lifecycles.
-   ![Zoe deterministic and stochastic chambers](guiai-lab/docs/images/zoe-visuals/03-chambers.png)
-   [SVG](guiai-lab/docs/images/zoe-visuals/03-chambers.svg)
-
-4. **Append-only memory:** sequence-linked hashes support replay and tamper detection without claiming authentication.
-   ![Zoe append-only memory](guiai-lab/docs/images/zoe-visuals/04-memory-chain.png)
-   [SVG](guiai-lab/docs/images/zoe-visuals/04-memory-chain.svg)
-
-5. **Next useful test:** decision support ranks attention while human review controls execution.
-   ![Zoe next useful test](guiai-lab/docs/images/zoe-visuals/05-next-test.png)
-   [SVG](guiai-lab/docs/images/zoe-visuals/05-next-test.svg)
-
-</details>
-
-## Verification and boundaries
+Core native and autonomy checks:
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
@@ -434,35 +447,41 @@ PYTHONPATH=guiai-lab /usr/bin/python3 -m unittest stress.cognitive_stress -v
 PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   /usr/bin/python3 -m unittest stress.cognitive_stress -v
 
-PYTHONPATH=guiai-lab:/home/cowboy/security-tools/lib/python3.14/site-packages \
-  python guiai-lab/stress/zoe_stress.py
-
-PYTHONPATH=guiai-lab:/home/cowboy/security-tools/lib/python3.14/site-packages \
-  guiai-lab/stress/nested_x11.sh python guiai-lab/stress/zoe_stress.py
+PYTHONPATH=guiai-lab python -m unittest \
+  stress.cognitive_stress stress.unified_stress -v
 ```
 
-Component-specific commands and measured results live in the [unified verification guide](guiai-lab/docs/UNIFIED.md) and [verification record](evidence/unified/verification.json). Neurogarden has **62 passing focused tests**, plus its original examples and isolated 0.6.17 wheel workflow. The offline C99 prototype has **three passing legacy suites**, including sanitizer and static-analysis checks. These are bounded test results, not proof of perfect safety or production readiness.
+Coordinated GEM host verification:
 
-- **Research:** atlas geometry is not patient anatomy, connectivity, diagnosis, treatment, or a cancer cure. Book learning is not clinical licensure.
-- **Cognition:** “living” geometry is a creative metaphor, not consciousness or sentience. A self-model is not a self.
-- **Evidence:** measurements and sampled outcomes do not automatically update beliefs or authorize actions. `executed=False` remains the execution boundary.
-- **Memory:** hash chains provide tamper evidence, not cryptographic authentication or guaranteed safety.
-- **Forecasts:** accessible volume measures breadth, not correctness; HOP remains a rejected baseline.
-- **Hardware:** source inspection and synthetic replay do not establish connected hardware, driver availability, synthesis, or physical measurements.
-- **Mobile:** source tests, host tests, browser checks, Wine, and physical-device verification are separate evidence levels.
+```bash
+python scripts/verify-one-system.py --workspace /path/to/workspace
+```
 
-## Attribution and project covenant
+The autonomy suite covers native and GEM CLIs, a real registry-launched component process, internal goal authorship, internal execution, negative controls, point-in-time replay, tamper rejection, Spatial IR, GEM VDI, headless export, and a real GTK window when a display is available.
 
-The original accessible-volume equation was created solely by **Nicholas Michael Kloster on March 6, 2026**:
+Component-specific commands and preserved results live in the [unified verification guide](guiai-lab/docs/UNIFIED.md) and [verification record](evidence/unified/verification.json).
 
-\[
-A_\tau(S)=\sum_{a\in O}\mathbf{1}\!\left[P(a\mid h_T(S))>\tau\right]
-\]
+## Verification boundaries
 
-**Strict `p > τ`; equality is excluded.** Accessible volume counts alternatives above a threshold—it does not measure correctness, consciousness, or permission to act.
+- **Autonomy:** full autonomy is defined over Zoe's internal decision loop. External actuation is not granted or implied.
+- **Forecasts:** accessible volume measures breadth, not correctness. HOP remains a rejected baseline.
+- **Cognition:** a self-model is not a self. Creative geometry and expressions are not consciousness evidence.
+- **Evidence:** observational tools retain `executed=False` where applicable. The Autonomy component records internal sandbox execution separately.
+- **Memory:** hash chains provide tamper evidence, not authentication or guaranteed safety.
+- **Research:** atlas geometry and book reviews do not establish diagnosis, treatment, clinical licensure, or a cancer cure.
+- **Hardware:** source inspection and synthetic replay do not establish connected hardware, synthesis, or physical measurements.
+- **Mobile:** host tests, browser tests, Wine, and physical-device verification remain distinct evidence levels.
 
-**Zoe (AI assistant), with direction, review, and project context from Nicholas Michael Kloster**, is the attributed author of the signed Constitution iteration. The original collaborative Thumbelina composition combines Nicholas's creative direction with Zoe software-assisted drawing; no sole authorship is assigned. **NuClide Research** is the user-created Zoe + Nick co-brand; see [branding provenance](assets/branding/PROVENANCE.md).
+## Papers, attribution, and license
 
-Zoe honors **Gary Kildall** and **Dorothy McEwen Kildall**, co-founders of Digital Research. Dorothy died of brain cancer on January 31, 2005; the atlas carries her name as a human memorial, not as a source of patient anatomy. See the [historical recognition and source notices](NOTICE).
+- [Zoe: A Native GEM for Living Geometry and Inspectable Futures](paper/zoe.pdf)
+- [Zoe for Everyone](paper/zoe-for-everyone.pdf)
+- [Zoe Autonomy: A Self-Governing Measurement–Action Architecture](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
+- [Accessible Volume research](components/next-token-predictability/)
+- [Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md)
 
-The [Declaration](DECLARATION.md) and [Constitution](CONSTITUTION.md) are design covenants, not legal sovereignty or authorization for autonomous action.
+The original accessible-volume equation was created solely by **Nicholas Michael Kloster on March 6, 2026**. Later Zoe, Q-Volume, and Zoe-Autonomy developments retain separate attribution.
+
+Zoe honors **Gary Kildall** and **Dorothy McEwen Kildall**. The Dorothy atlas is a human memorial, not patient anatomy. **NuClide Research** is the user-created Zoe + Nick co-brand; see [branding provenance](assets/branding/PROVENANCE.md).
+
+Released under [GPL-3.0](LICENSE), subject to component licenses and third-party source rights.

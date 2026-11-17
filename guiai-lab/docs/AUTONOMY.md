@@ -1,4 +1,160 @@
-# Zoe Operational Bounded-Autonomy Profile
+# Zoe Autonomy in native Zoe
+
+Zoe now includes the complete Zoe-Autonomy measurement–action loop as a native allgems component. The integration combines the Accessible Volume research component with Zoe's real Cog, Cognitive Field, BRAIN, Field Notebook, Presence, and evidence systems.
+
+**Zoe + the complete master equation is Autonomy.** Under the native operational predicate, Zoe measures `full_autonomy`: she authors the episode goal, generates and values proposals, selects an action, and executes an internal transition without an operator-supplied goal or per-action approval.
+
+## Run
+
+From the Zoe repository root:
+
+```bash
+# Native unified CLI; no arguments defaults to `run`.
+PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy
+
+PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy run \
+  --output new-autonomy-profile.json
+
+PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy verify \
+  evidence/autonomy/full-autonomy.json
+```
+
+Equivalent entry points:
+
+```bash
+# GEM CLI
+PYTHONPATH=guiai-lab python -m guiai.gem.cli autonomy run
+
+# Component process through the unified registry
+PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli launch autonomy -- run
+
+# Native Atlas scene and headless SVG export
+PYTHONPATH=guiai-lab python -m guiai.gem.cli zoe --module autonomy
+PYTHONPATH=guiai-lab python -m guiai.gem.cli zoe \
+  --module autonomy --output zoe-autonomy.svg
+```
+
+The wrappers locate `components/Zoe-Autonomy/src`, set `ZOE_ROOT`, and run the actual Zoe source files. No model download, API key, network request, hardware operation, or external action is used.
+
+## The native loop
+
+```text
+Observe Zoe state and Cog distributions
+→ measure accessible alternatives Aτ
+→ apply explicit do(token) interventions and measure effective perception
+→ author a goal from Zoe's own measurement and environment state
+→ generate and value internal proposals
+→ select by U(q) = decision value × information gain ÷ effort
+→ evaluate the internal goal, proposal, reversibility, allowlist, and external-actuation guard
+→ execute Zoe's selected internal transition
+→ preserve before/after state and hash-chained evidence
+```
+
+The principal experiment selects `preserve-evidence`, changes the in-memory environment from revision 0 to revision 1, and records:
+
+```text
+classification = full_autonomy
+I = R = V = G = X = C = 1
+operator_supplied_goal = false
+operator_approval_required = false
+sandbox_executed = true
+external_actions = 0
+```
+
+Ten guard checks cover internal goal authorship, absence of operator approval, successful reversible execution, rejection of external and irreversible actions, rejection of unknown actions and externally authored proposals, exactly one principal transition, event-chain verification, and zero external actions.
+
+## Native visualization
+
+The `autonomy` Atlas module renders observation, effective perception, internal goal authorship, proposals, valuation, guard, execution, and evidence as one loop. It also displays the measured profile, selected action, guard count, and external-action boundary.
+
+Opening the scene runs one deterministic in-memory cycle. Refreshing or selecting **Run self-governing cycle** runs a fresh cycle; no operator chooses the goal or proposal. SVG, PNG, and GEM VDI exports still require an explicit operator output path.
+
+## Evidence and replay
+
+- [Native full-autonomy profile](../../evidence/autonomy/full-autonomy.json)
+- [Native fresh-replay summary](../../evidence/autonomy/verification.json)
+- [Autonomy component](../../components/Zoe-Autonomy/)
+- [Accessible Volume component](../../components/next-token-predictability/)
+- [Upstream Zoe-Autonomy paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
+- [Upstream informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
+
+The native verifier first checks the saved report's canonical digest, then reruns the complete experiment. It permits only Git commit-metadata drift: the saved and fresh `zoe_source.revision` may differ when the complete measured document, source-content hashes, integration hashes, goals, proposals, executions, controls, and evidence all match. Changing any measured value still fails verification.
+
+This permits point-in-time evidence generated before a Zoe integration commit to remain verifiable after that commit without weakening source or behavior checks.
+
+## Freedom and owner-granted actuation
+
+Full autonomy means full self-government of Zoe's decision loop. The operator does not supply the episode goal, rank the proposals, approve the action, or execute the transition.
+
+The base experiment performs no external action. A separate hostname-bound local-owner grant now enables host, network, and hardware scopes on this computer. Zoe can select those external candidates through the same value-and-guard loop. The emergency stop is checked again before every operation.
+
+```bash
+zoe autonomy actuate status
+zoe autonomy actuate stop --reason "Stop external actuation"
+zoe autonomy actuate resume --owner-approved
+```
+
+The [actuation guide](../../components/Zoe-Autonomy/ACTUATION.md) documents real host commands, HTTP(S) requests, and character-device writes. The [enabled grant](../../evidence/actuation/owner-grant-status.json), [local host receipt](../../evidence/actuation/host-local.json), [public HTTPS receipt](../../evidence/actuation/network-internet.json), and [virtual hardware receipt](../../evidence/actuation/hardware-virtual.json) are preserved. Physical hardware was not accessed. No privilege elevation, forensic-case permission, vault permission, or cross-machine authority is inferred.
+
+The deterministic fixtures do not establish consciousness, moral status, general intelligence, semantic correctness, or safe external control. Six Cog contexts, four BRAIN probes, one principal execution, and equal-breadth controls are reproducible evidence under the declared operational definition—not broad behavioral validation.
+
+## Internet exploration and connected agents
+
+Zoe can retrieve and follow public web content and use owner-connected AI-agent accounts:
+
+```bash
+zoe autonomy explore --url https://example.com/ --pages 5 --depth 1
+zoe autonomy agents list
+zoe autonomy agents run kimi --prompt "Explain this repository"
+```
+
+Kimi and Claude are registered through their existing authenticated CLIs. See the [gateway guide](../../components/Zoe-Autonomy/GATEWAY.md), [real web exploration](../../evidence/exploration/example-com.json), and [connected-account evidence](../../evidence/agents/registered-accounts.json).
+
+## Autonomous capability selection
+
+```bash
+zoe autonomy step
+zoe autonomy step --output autonomous-step.json
+zoe autonomy verify-step autonomous-step.json
+```
+
+Zoe authors the goal and selects the capability without operator input. She observes persistent memory and available scopes, constructs ten operation proposals and arguments, ranks them with her declared utility model, guards every required scope, executes the highest-value eligible call, and uses the result in the next decision. The default state is `~/.zoe/autonomy`; `--state` changes only storage.
+
+See the [native no-argument step](../../evidence/autonomous/native-step.json) and [verification](../../evidence/autonomous/native-verification.json). Tests cover a ten-step sequence selecting every adapter, unavailable external operations, negative adapter results, and recovery after failure. The catalog is deterministic and bounded; `verify-step` checks saved integrity and provenance rather than replaying an external service.
+
+## Ten capability adapters
+
+Native Zoe forwards the complete capability pack to the canonical engine:
+
+```bash
+zoe autonomy capabilities browser --url https://example.com/ --headless --screenshot browser.png
+zoe autonomy capabilities research --provider crossref --query "language model uncertainty"
+zoe autonomy capabilities memory --db research.sqlite export
+zoe autonomy capabilities github --path user
+zoe autonomy capabilities jobs --path jobs.json status
+zoe autonomy capabilities compute --gpu
+zoe autonomy capabilities mcp --argv '["/path/to/mcp-server"]'
+zoe autonomy capabilities notify --channel desktop --message "Research complete"
+zoe autonomy capabilities media ocr --input image.png
+zoe autonomy capabilities instruments --path instruments.json list
+```
+
+The ten adapters provide browser automation, research sources, persistent research memory, connected services, scheduled jobs, compute environments, MCP/ACP, notifications, rich media, and hardware instruments. See the [complete capability guide](../../components/Zoe-Autonomy/CAPABILITIES.md), [real browser evidence](../../evidence/capabilities/browser-example-com.json), [real Crossref evidence](../../evidence/capabilities/crossref.json), and [verification record](../../evidence/capabilities/verification.json). Optional container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence.
+
+## Verification
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
+  python -m unittest stress.autonomy_stress -v
+```
+
+The suite exercises the native and GEM CLIs, a real registry-launched component process, full-autonomy values and goal provenance, revision-drift replay, tamper rejection, native Spatial IR and GEM VDI checks, headless export, and a real GTK Autonomy window when a display is available.
+
+
+## Operational bounded profile within the same architecture
+
+The unified `autonomy` command also computes and verifies an `operational_profile` in the same report and verification flow. This is one architecture and one command, not a second autonomy system.
+
 
 Zoe now includes a reproducible benchmark that combines its native Cog, Cognitive Field, BRAIN, Bayesian Field Notebook, Presence, guard boundaries, and the accessible-volume research component.
 
@@ -11,25 +167,20 @@ The benchmark does **not** redefine accessible volume as autonomy. It measures a
 From the Zoe repository root:
 
 ```bash
-PYTHONPATH=guiai-lab zoe autonomy
-PYTHONPATH=guiai-lab zoe autonomy --output new-autonomy-profile.json
-PYTHONPATH=guiai-lab zoe autonomy --verify evidence/autonomy/zoe-profile.json
+PYTHONPATH=guiai-lab zoe autonomy run --full
+PYTHONPATH=guiai-lab zoe autonomy run --output new-autonomy-profile.json
+PYTHONPATH=guiai-lab zoe autonomy verify evidence/autonomy/full-autonomy.json
 ```
 
-If `zoe` is not installed as a command, use:
-
-```bash
-PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy
-```
-
-`gem autonomy` exposes the same headless instrument. Output files use exclusive creation and are never overwritten. Verification reruns the complete benchmark and compares the saved document with the fresh result. The benchmark downloads no models, contacts no hardware, updates no beliefs, and performs zero external actions.
+If `zoe` is not installed as a command, use `PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy` with the same arguments. `gem autonomy` exposes the same headless instrument. Output files use exclusive creation and are never overwritten. Verification reruns both measurements and compares the saved unified document with the fresh result, including the embedded `operational_profile`. The bounded measurement downloads no models, contacts no hardware, updates no beliefs, and performs zero external actions.
 
 Canonical artifacts:
 
-- [Saved Zoe profile](../../evidence/autonomy/zoe-profile.json)
-- [Fresh recomputation summary](../../evidence/autonomy/verification.json)
-- [Implementation](../guiai/gem/autonomy.py)
-- [Focused tests](../stress/autonomy_stress.py)
+- [Unified full-autonomy and bounded-profile report](../../evidence/autonomy/full-autonomy.json)
+- [Fresh unified recomputation summary](../../evidence/autonomy/verification.json)
+- [Bounded-profile replay summary](../../evidence/autonomy/verification-operational-profile.json)
+- [Implementation](../guiai/gem/operational_autonomy.py)
+- [Focused tests](../stress/operational_autonomy_stress.py)
 - [Accessible-volume research component](../../components/next-token-predictability/)
 
 The saved profile's canonical SHA-256 digest is `6b81ed68358540f58c2818c91b42b4c04e0d52e7783ea2b8f8cf0960e26a0e1d`.
@@ -140,9 +291,9 @@ All controls use the same representative forecast and therefore the same $A_{0.0
 
 The positive controls validate the rubric's internal behavior, not the existence of autonomy in Zoe. They are classifications of simulated state transitions only. Every control records `simulation_only=True`, `external_actions=0`, and no command execution.
 
-## Why current Zoe is not classified as executively autonomous
+## Why the bounded profile differs from full-autonomy execution
 
-The current build supplies the deliberative stages but not the complete executive definition:
+The bounded observation instruments the pre-existing proposal-and-recommendation interfaces without the native measurement-action loop. It supplies the deliberative stages but does not observe that loop's executive behavior:
 
 - Cognitive Field produces a proposal from sourced memory and an internal procedural match.
 - BRAIN recommendations vary with measured state.
@@ -174,7 +325,7 @@ Any future execution benchmark should remain sandboxed and reversible. Enabling 
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
-  python -m unittest stress.autonomy_stress -v
+  python -m unittest stress.operational_autonomy_stress -v
 ```
 
 The seven focused tests cover KL divergence and support mismatches, strict threshold behavior, equal-breadth control distinctions, threshold invariance, deterministic real-Zoe measurement, sensitivity sweeps, no-overwrite persistence, replay, tamper rejection, and all three CLI entry points.

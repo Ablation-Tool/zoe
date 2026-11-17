@@ -21,6 +21,8 @@ def parser():
         command.add_argument("--output", help="export the scene to .svg, .png, or .gem instead of opening GTK")
         command.add_argument("--format", choices=("svg", "png", "gem"), help="default: infer from output suffix")
         command.add_argument("--width", type=int, default=1200, help="SVG/PNG width in pixels")
+    autonomy = commands.add_parser("autonomy", help="run the shared Zoe One full-autonomy engine")
+    autonomy.add_argument("arguments", nargs=argparse.REMAINDER, help="run or verify with canonical Zoe-Autonomy arguments")
     notebook = commands.add_parser("notebook", help="save, verify, or render unified notebook memory")
     notebook.add_argument("input", nargs="?", help="saved notebook JSON; omit for the worked GEM example")
     notebook.add_argument("--output", required=True, help="new .json, .svg, .png, or .gem output path")
@@ -32,6 +34,9 @@ def parser():
 def main(argv=None):
     arguments = parser().parse_args(argv)
     try:
+        if arguments.command == "autonomy":
+            from .autonomy import main as autonomy_main
+            return autonomy_main(arguments.arguments)
         if arguments.command == "notebook":
             notebook = FieldNotebook.load(arguments.input) if arguments.input else FieldNotebook.demo()
             output = Path(arguments.output)

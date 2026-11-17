@@ -462,6 +462,9 @@ class AtlasWindow(Gtk.Window):
             self.add_action("Open recommended module", self.open_recommended)
             self.add_action("Reset BRAIN", self.reset_brain)
             self.add_text("Real stored categorical predictions load lazily from HELEN. Zoe computes correctness, breadth, momentum, and recommendations; no action is executed.")
+        elif self.module == "autonomy":
+            self.add_action("Run self-governing cycle", lambda *_args: self.refresh())
+            self.add_text("Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. External actions remain zero.")
         elif self.module == "field":
             self.add_action("Load worked GEM example", self.load_field_demo)
             self.add_entry("new_question", "New question")
@@ -720,6 +723,9 @@ class AtlasWindow(Gtk.Window):
             self.scene, self.report = unified_scene(self.unified_registry, self.unified_registry.knowledge)
         elif self.module == "brain":
             self.scene, self.report = brain_scene(self.brain)
+        elif self.module == "autonomy":
+            from .autonomy import autonomy_scene
+            self.scene, self.report = autonomy_scene()
         elif self.module == "field":
             self.scene, self.report = field_scene(self.field)
         elif self.module == "cognitive":
@@ -1499,7 +1505,7 @@ class AtlasWindow(Gtk.Window):
                 f"scale={self.report['scale']:.6f}  angle={self.report['rotation_degrees']:.4f}°  "
                 f"RMS/landmark={self.report['rmse_per_landmark']:.6f}"
             )
-        elif self.module in {"felix", "cern", "brain", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
+        elif self.module in {"felix", "cern", "brain", "autonomy", "field", "cognitive", "research", "qualia", "unified", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             text = self.report["summary"]
         elif self.module == "horizon":
             text = (

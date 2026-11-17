@@ -2,36 +2,82 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+from pathlib import Path
 import sys
 
-from .autonomy import measure_zoe_profile, profile_summary, save_profile, verify_profile
+from .operational_autonomy import profile_summary, verify_profile
+
+ROOT = Path(__file__).resolve().parents[3]
+COMPONENT_SRC = ROOT / "components" / "Zoe-Autonomy" / "src"
+
+
+def configure_autonomy():
+    if not (COMPONENT_SRC / "zoe_autonomy" / "experiment.py").is_file():
+        raise ValueError(f"Zoe-Autonomy component is unavailable: {COMPONENT_SRC}")
+    os.environ.setdefault("ZOE_ROOT", str(ROOT))
+    if str(COMPONENT_SRC) not in sys.path:
+        sys.path.insert(0, str(COMPONENT_SRC))
+    return ROOT
+
+
+def _unified_report(tau, delta, zoe_root=ROOT):
+    configure_autonomy()
+    from zoe_autonomy.experiment import run_experiment
+
+    return run_experiment(zoe_root)
+
+
+def _verify(path):
+    configure_autonomy()
+    from zoe_autonomy.experiment import verify_report
+
+    document = json.loads(Path(path).read_text(encoding="utf-8"))
+    if document.get("instrument") == "zoe-operational-bounded-autonomy-profile":
+        return verify_profile(path)
+    return verify_report(path)
 
 
 def parser():
-    result = argparse.ArgumentParser(prog="autonomy", description="Zoe · operational bounded-autonomy profile with counterfactual and control evidence")
-    result.add_argument("--verify", help="recompute and verify a saved autonomy profile")
+    result = argparse.ArgumentParser(prog="autonomy", description="Zoe · unified measurement, autonomy, and operational profile")
+    result.add_argument("--zoe-root", help="Zoe source checkout; default: ZOE_ROOT")
+    result.add_argument("--verify", help="recompute and verify a saved unified autonomy report")
     result.add_argument("--output", help="new JSON evidence path")
     result.add_argument("--tau", type=float, default=.05, help="strict accessible-forecast threshold; default: 0.05")
     result.add_argument("--delta", type=float, default=.001, help="strict policy-effect threshold in bits; default: 0.001")
-    result.add_argument("--full", action="store_true", help="print the complete profile instead of its summary")
+    result.add_argument("--full", action="store_true", help="print the complete unified report instead of its summary")
     return result
 
 
 def main(argv=None):
-    arguments = parser().parse_args(argv)
+    raw_arguments = list(sys.argv[1:] if argv is None else argv)
+    unified_prefixes = {"run", "verify", "--verify", "--output", "--tau", "--delta", "--full"}
+    if raw_arguments and raw_arguments[0] not in unified_prefixes:
+        configure_autonomy()
+        from zoe_autonomy.cli import main as autonomy_main
+        return autonomy_main(raw_arguments)
+    if raw_arguments and raw_arguments[0] == "run":
+        raw_arguments = raw_arguments[1:]
+    elif raw_arguments and raw_arguments[0] == "verify":
+        raw_arguments = ["--verify", raw_arguments[1]]
+    arguments = parser().parse_args(raw_arguments)
     try:
         if arguments.verify:
             if arguments.output:
                 raise ValueError("choose --verify or --output, not both")
-            result = verify_profile(arguments.verify)
+            result = _verify(arguments.verify)
             print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
             return 0
-        report = measure_zoe_profile(arguments.tau, arguments.delta)
-        output = save_profile(report, arguments.output) if arguments.output else None
+        configure_autonomy()
+        from zoe_autonomy.experiment import save_report, summary
+
+        report = _unified_report(arguments.tau, arguments.delta, arguments.zoe_root or ROOT)
+        output = save_report(report, arguments.output) if arguments.output else None
         if arguments.full:
             print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
         else:
-            print(profile_summary(report))
+            print(summary(report))
+            print(profile_summary(report["operational_profile"]))
             if output is not None:
                 print(f"Evidence: {output} · profile_sha256={report['profile_sha256']}")
         return 0

@@ -1,0 +1,10 @@
+{
+  "execution_succeeded": true,
+  "goal_internal": true,
+  "instrument": "zoe-autonomous-capability-step",
+  "operator_supplied_capability": false,
+  "selected_action": "research.crossref",
+  "sequence": 1,
+  "step_sha256": "51e91ebee31c4f546f27671641e31e6e98568efd7a9c9ce1b3f1cf4176c6debd",
+  "verified": true
+}

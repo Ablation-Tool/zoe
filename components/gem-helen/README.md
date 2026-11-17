@@ -2,6 +2,21 @@
 
 GEM HELEN is a separate native repository for creative geometry, rhythm, and forecast-breadth experiments. It is the right-brain counterpart to investigation-focused GEM workbenches: local, compact, inspectable, and optimized for interactive use rather than reverse-engineering or forensic case management.
 
+## Zoe One: shared full autonomy
+
+GEM HELEN is one host in the [Zoe One system](https://github.com/Ablation-Tool/zoe). Its native geometry and forecast modules remain unchanged. The separate `autonomy` command delegates to the canonical [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) engine.
+
+```bash
+export ZOE_ROOT=/path/to/zoe
+export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
+
+gem-helen autonomy run
+gem-helen autonomy run --output new-profile.json
+gem-helen autonomy verify new-profile.json
+```
+
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. Native HELEN modules still launch no agent or automatic action. External actuation remains outside Zoe's authority. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+
 ## Launch
 
 ```bash

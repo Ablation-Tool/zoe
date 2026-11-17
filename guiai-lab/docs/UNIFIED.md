@@ -1,6 +1,12 @@
 # Zoe · allgems: unified architecture and verification
 
-Zoe is a single source repository containing eleven source projects, including Zoe and the recovered Neurogarden component. Original upstream repositories remain independent projects. This repository does not require submodules or a runtime download to inspect their source.
+Zoe is a single source repository containing twelve source projects, including Zoe, Zoe-Autonomy, and the recovered Neurogarden component. Original upstream repositories remain independent projects. This repository does not require submodules or a runtime download to inspect their source.
+
+## Zoe One contract
+
+[`one-system.json`](../../one-system.json) pins the canonical Zoe-Autonomy engine, Research GEM, and every GEM host adapter. Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards. The contract requires inspectable source and evidence for every capability claim.
+
+Run `python scripts/verify-one-system.py --workspace /path/to/workspace` to check every pinned revision and invoke all six canonical entry points. The verifier requires identical `full_autonomy` documents, internal goal authorship, internal value-based selection and execution, passing guards, and zero external actions. The [preserved result](../../evidence/one-system/verification.json) records the coordinated run.
 
 Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_CEROTTO_ROOT`, or `ZOE_CHALKBOARD_ROOT`. Bundled sources take precedence. Host sources are used only when their component anchors exist. Chalkboard and Neurogarden remain content/library inspection components, not fictitious GUI processes.
 
@@ -11,18 +17,19 @@ Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_
 | Source | Revision | Included role |
 |:---|:---|:---|
 | Zoe | `f30c981` baseline | Native Cognitive Field, Bayesian memory, geometry, and unified hub |
-| Ablation | `b56f91e4c54cfd996bceea63a38d8136dc1e689f` | Complete core engine, framework, native GEM Lab, tests, docs, and assets |
-| graphics-environment-manager | `e63f6a7b84c2e8fffc0fcf01001986ae928f66b5` | Canonical native GEM and mathematical workbench |
-| GEM HELEN | `55fb1e494662e9b69e964ac2f9df41724cffeb0c` | Optimized native geometry and forecast experiments |
-| BRAIN GEM | `ed819c2824a55b019a532f4fa2cb440532030127` | Standalone Bayesian field notebook |
-| Cerotto | `5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4` | Native C forensic engine and guarded GEM workbench |
-| next-token-predictability | `83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9` | Accessible-volume research and saved evidence |
+| Ablation | `d405b6866fbfe2f66d6595fb11d5302e42f009c9` | Complete core engine, framework, native GEM Lab, tests, docs, and assets |
+| graphics-environment-manager | `93ea1a32a7bbdfd3a8ba55309fa10640c0e25d8a` | Canonical native GEM and mathematical workbench |
+| GEM HELEN | `273c4eeb6fd6044f1ab9068561ddc33290357eed` | Optimized native geometry and forecast experiments |
+| BRAIN GEM | `7420a8f0d8d2c370a72b76d93defcc7fb585b913` | Standalone Bayesian field notebook |
+| Cerotto | `b73d399b638b4de8a0a9829b17c95203c5deaabd` | Native C forensic engine and guarded GEM workbench |
+| next-token-predictability | `79575d94325a43b5dbbef17d38bc1cb1d56d9321` | Accessible-volume research, response-planning evidence, and retained SAT research |
+| Zoe-Autonomy | `a46c42b9a1072cc577397372c984588757db529b` | Full self-governing goals, proposals, valuation, execution, and evidence |
 | Neurogarden | unavailable; recovered local snapshot | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `8ac3e0181e98572d6c41f964385393aa441a5f2a` | MCP firewall and pure policy engine |
 | PDF Signature Toolkit | `1198165962958c5132130f3854626ff39c333941` | Source integrity and PDF signature commands |
 | Chalkboard | `63646eb15737d822316073ba1f2114c608571c72` | Ideas, templates, and prompts; content only |
 
-Thirteen launch or inspection endpoints span those eleven source projects because Ablation supplies both its core CLI and native Lab. Chalkboard and Neurogarden have inspection endpoints rather than fictitious GUI commands.
+Sixteen launch or inspection endpoints span those twelve source projects because Ablation supplies both its core CLI and native Lab, Zoe supplies additional native entry points, and Zoe-Autonomy supplies the self-governing loop. Chalkboard and Neurogarden have inspection endpoints rather than fictitious GUI commands.
 
 ## The mesh
 
@@ -91,7 +98,7 @@ PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   /usr/bin/python3 -m unittest stress.unified_stress -v
 ```
 
-The suite checks all eleven source projects, full Ablation engine presence, manifest revisions, trust/stability metadata, graph replay, edited and reordered event detection, no-overwrite saves, content-library inspection, command isolation, actual component CLI calls, native launch and source-link controls, and Spatial IR/VDI verification.
+The suite checks all twelve source projects, full Ablation engine presence, native Zoe Autonomy goal authorship and execution, manifest revisions, trust/stability metadata, graph replay, edited and reordered event detection, no-overwrite saves, content-library inspection, command isolation, actual component CLI calls, native launch and source-link controls, and Spatial IR/VDI verification.
 
 Component-specific verification uses each project's own commands. Cerotto's normal and sanitizer suites are required. Kevlar uses its full `pytest` suite. Canonical GEM and Zoe use their core and native X11 suites. Research uses the frozen evidence verifiers and the canonical 17-operation workbench check. PDF Signature Toolkit is exercised with a temporary synthetic LaTeX source record, not a real identity or production signature. Chalkboard is checked as content, including its documented template paths. Neurogarden runs 62 focused tests for oversight, verification, privacy, citations, alignment/sampling math, advanced SPD/bioheat/radiobiology/neutrosophic numerical models, metadata, CERN evidence, Dorothy atlas geometry, neural-signal analysis, and the generative world, plus its original examples and isolated wheel workflow. Zoe QR Pairing and author certificates run eight signed-offer, QR-roundtrip, replay, expiry, trust, and exact-document tests.
 

@@ -21,7 +21,11 @@ def parser():
 
 
 def main(argv=None):
-    arguments = parser().parse_args(argv)
+    raw_arguments = list(sys.argv[1:] if argv is None else argv)
+    if raw_arguments and raw_arguments[0] == "autonomy":
+        from .autonomy import main as autonomy_main
+        return autonomy_main(raw_arguments[1:])
+    arguments = parser().parse_args(raw_arguments)
     try:
         if arguments.output:
             scene, report = default_document(arguments.module)
