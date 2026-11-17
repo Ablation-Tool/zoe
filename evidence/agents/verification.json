@@ -1,0 +1,15 @@
+{
+  "available_executables": [
+    "kimi",
+    "claude"
+  ],
+  "credential_values_included": false,
+  "gateway_tests": 4,
+  "model_invocations_during_registration": 0,
+  "owner_authorized_accounts": [
+    "kimi",
+    "claude"
+  ],
+  "scope": "Connected local CLI accounts registered through their existing authenticated interfaces. No model was invoked during registration.",
+  "verified": true
+}

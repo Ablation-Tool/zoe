@@ -98,6 +98,18 @@ The [actuation guide](../../components/Zoe-Autonomy/ACTUATION.md) documents real
 
 The deterministic fixtures do not establish consciousness, moral status, general intelligence, semantic correctness, or safe external control. Six Cog contexts, four BRAIN probes, one principal execution, and equal-breadth controls are reproducible evidence under the declared operational definition—not broad behavioral validation.
 
+## Internet exploration and connected agents
+
+Zoe can retrieve and follow public web content and use owner-connected AI-agent accounts:
+
+```bash
+zoe autonomy explore --url https://example.com/ --pages 5 --depth 1
+zoe autonomy agents list
+zoe autonomy agents run kimi --prompt "Explain this repository"
+```
+
+Kimi and Claude are registered through their existing authenticated CLIs. See the [gateway guide](../../components/Zoe-Autonomy/GATEWAY.md), [real web exploration](../../evidence/exploration/example-com.json), and [connected-account evidence](../../evidence/agents/registered-accounts.json).
+
 ## Verification
 
 ```bash

@@ -16,7 +16,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "1a31f0b6a89cda7167630cf5e203ea856120ba4f",
+    "revision": "25bd0a47e5eb11972fea4a149bd66387218e7a38",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -114,5 +114,22 @@
     "emergency_stop_verified": true,
     "external_operations": 3,
     "evidence": "evidence/actuation/verification.json"
+  },
+  "exploration": {
+    "contract": "zoe-web-exploration/v1",
+    "real_https_executed": true,
+    "status": 200,
+    "title": "Example Domain",
+    "evidence": "evidence/exploration/example-com.json"
+  },
+  "connected_agents": {
+    "contract": "zoe-agent-gateway/v1",
+    "owner_authorized_accounts": [
+      "kimi",
+      "claude"
+    ],
+    "model_invocations_during_registration": 0,
+    "credential_values_in_evidence": false,
+    "evidence": "evidence/agents/verification.json"
   }
 }
