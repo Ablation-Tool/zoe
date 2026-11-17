@@ -25,6 +25,8 @@ def parser():
     explore.add_argument("arguments", nargs=argparse.REMAINDER)
     agents = commands.add_parser("agents", help="use owner-connected AI agent accounts")
     agents.add_argument("arguments", nargs=argparse.REMAINDER)
+    capabilities = commands.add_parser("capabilities", help="use the unified Zoe capability pack")
+    capabilities.add_argument("arguments", nargs=argparse.REMAINDER)
     return result
 
 
@@ -40,6 +42,9 @@ def main(argv=None):
         if raw_arguments and raw_arguments[0] == "agents":
             from .agents import agents_main
             return agents_main(raw_arguments[1:])
+        if raw_arguments and raw_arguments[0] == "capabilities":
+            from .capabilities_cli import capabilities_main
+            return capabilities_main(raw_arguments[1:])
         arguments = parser().parse_args(raw_arguments)
         if arguments.command == "actuate":
             from .actuation import actuation_main

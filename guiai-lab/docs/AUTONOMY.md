@@ -110,6 +110,25 @@ zoe autonomy agents run kimi --prompt "Explain this repository"
 
 Kimi and Claude are registered through their existing authenticated CLIs. See the [gateway guide](../../components/Zoe-Autonomy/GATEWAY.md), [real web exploration](../../evidence/exploration/example-com.json), and [connected-account evidence](../../evidence/agents/registered-accounts.json).
 
+## Ten capability adapters
+
+Native Zoe forwards the complete capability pack to the canonical engine:
+
+```bash
+zoe autonomy capabilities browser --url https://example.com/ --headless --screenshot browser.png
+zoe autonomy capabilities research --provider crossref --query "language model uncertainty"
+zoe autonomy capabilities memory --db research.sqlite export
+zoe autonomy capabilities github --path user
+zoe autonomy capabilities jobs --path jobs.json status
+zoe autonomy capabilities compute --gpu
+zoe autonomy capabilities mcp --argv '["/path/to/mcp-server"]'
+zoe autonomy capabilities notify --channel desktop --message "Research complete"
+zoe autonomy capabilities media ocr --input image.png
+zoe autonomy capabilities instruments --path instruments.json list
+```
+
+The ten adapters provide browser automation, research sources, persistent research memory, connected services, scheduled jobs, compute environments, MCP/ACP, notifications, rich media, and hardware instruments. See the [complete capability guide](../../components/Zoe-Autonomy/CAPABILITIES.md), [real browser evidence](../../evidence/capabilities/browser-example-com.json), [real Crossref evidence](../../evidence/capabilities/crossref.json), and [verification record](../../evidence/capabilities/verification.json). Optional container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence.
+
 ## Verification
 
 ```bash

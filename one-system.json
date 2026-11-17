@@ -16,7 +16,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "25bd0a47e5eb11972fea4a149bd66387218e7a38",
+    "revision": "1880fd4230930d19260354fcd53aa8a2fb814da2",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -131,5 +131,22 @@
     "model_invocations_during_registration": 0,
     "credential_values_in_evidence": false,
     "evidence": "evidence/agents/verification.json"
+  },
+  "capabilities": {
+    "command": "zoe autonomy capabilities",
+    "adapter_count": 10,
+    "adapters": [
+      "browser_automation",
+      "research_apis",
+      "persistent_research_memory",
+      "connected_productivity_services",
+      "scheduled_jobs",
+      "compute_environments",
+      "agent_protocols",
+      "notifications",
+      "rich_media",
+      "hardware_instruments"
+    ],
+    "evidence": "evidence/capabilities/verification.json"
   }
 }
