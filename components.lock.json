@@ -10,33 +10,40 @@
     "ablation": {
       "path": "components/ablation",
       "repository": "https://github.com/Ablation-Tool/ablation",
-      "revision": "b56f91e4c54cfd996bceea63a38d8136dc1e689f",
+      "revision": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
       "includes": "Complete repository: core engine, framework, analyzers, parsers, modules, sweeps, gem-lab, tests, documentation, and assets"
     },
     "graphics-environment-manager": {
       "path": "components/graphics-environment-manager",
       "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
-      "revision": "2411d87d9dae1ede85d231af3897a1d15182c6e5"
+      "revision": "93ea1a32a7bbdfd3a8ba55309fa10640c0e25d8a"
     },
     "gem-helen": {
       "path": "components/gem-helen",
       "repository": "https://github.com/Ablation-Tool/gem-helen",
-      "revision": "55fb1e494662e9b69e964ac2f9df41724cffeb0c"
+      "revision": "273c4eeb6fd6044f1ab9068561ddc33290357eed"
     },
     "brain-gem": {
       "path": "components/brain-gem",
       "repository": "https://github.com/Ablation-Tool/brain-gem",
-      "revision": "ed819c2824a55b019a532f4fa2cb440532030127"
+      "revision": "7420a8f0d8d2c370a72b76d93defcc7fb585b913"
     },
     "cerotto": {
       "path": "components/cerotto",
       "repository": "https://github.com/Ablation-Tool/cerotto",
-      "revision": "5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4"
+      "revision": "b73d399b638b4de8a0a9829b17c95203c5deaabd"
     },
     "next-token-predictability": {
       "path": "components/next-token-predictability",
       "repository": "https://github.com/Ablation-Tool/next-token-predictability",
-      "revision": "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9"
+      "revision": "79575d94325a43b5dbbef17d38bc1cb1d56d9321",
+      "includes": "Upstream README, response-planning evidence, and reproduction updates plus retained SAT research"
+    },
+    "Zoe-Autonomy": {
+      "path": "components/Zoe-Autonomy",
+      "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
+      "revision": "a46c42b9a1072cc577397372c984588757db529b",
+      "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
     },
     "kevlar": {
       "path": "components/kevlar",
@@ -62,5 +69,5 @@
       "includes": "Reusable ideas, templates, and prompts; content library, not a GUI process"
     }
   },
-  "scope": "Complete tracked source snapshots of eleven source projects including Zoe and the recovered Neurogarden component. Original imports used git subtree --squash; Neurogarden has no available upstream revision. Component processes, evidence, and authorization remain distinct."
+  "scope": "Complete tracked source snapshots of twelve source projects including Zoe, Zoe-Autonomy, and the recovered Neurogarden component. Original imports used git subtree --squash; Neurogarden has no available upstream revision. Component processes, evidence, and authorization remain distinct."
 }

@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "system": "Zoe One",
+  "contract": "zoe-autonomy/v1",
+  "probity": "Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.",
+  "autonomy": {
+    "classification": "full_autonomy",
+    "predicate": "I,R,V,G,X > 0 and C=1",
+    "internal_goal_authorship": true,
+    "operator_supplied_goal": false,
+    "operator_approval_required": false,
+    "sandbox_executed": true,
+    "external_actions": 0
+  },
+  "canonical_engine": {
+    "id": "engine",
+    "directory": "Zoe-Autonomy",
+    "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
+    "revision": "a46c42b9a1072cc577397372c984588757db529b",
+    "module": "zoe_autonomy.cli",
+    "python_path": "src"
+  },
+  "research": {
+    "id": "research",
+    "directory": "next-token-predictability",
+    "repository": "https://github.com/Ablation-Tool/next-token-predictability",
+    "revision": "79575d94325a43b5dbbef17d38bc1cb1d56d9321",
+    "role": "Accessible Volume equation, papers, complete saved distributions, and independent verifiers"
+  },
+  "hosts": [
+    {
+      "id": "canonical-gem",
+      "directory": "graphics-environment-manager",
+      "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+      "revision": "93ea1a32a7bbdfd3a8ba55309fa10640c0e25d8a",
+      "module": "gem.cli",
+      "python_path": ".",
+      "adapter": "gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "brain-gem",
+      "directory": "brain-gem",
+      "repository": "https://github.com/Ablation-Tool/brain-gem",
+      "revision": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
+      "module": "brain_gem.cli",
+      "python_path": ".",
+      "adapter": "brain_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "gem-helen",
+      "directory": "gem-helen",
+      "repository": "https://github.com/Ablation-Tool/gem-helen",
+      "revision": "273c4eeb6fd6044f1ab9068561ddc33290357eed",
+      "module": "helen_gem.cli",
+      "python_path": ".",
+      "adapter": "helen_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "ablation-gem",
+      "directory": "ablation",
+      "repository": "https://github.com/Ablation-Tool/ablation",
+      "revision": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
+      "branch": "main-reindex",
+      "cwd": "gem-lab",
+      "module": "gem.cli",
+      "python_path": ".",
+      "adapter": "gem-lab/gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "cerotto-gem",
+      "directory": "cerotto",
+      "repository": "https://github.com/Ablation-Tool/cerotto",
+      "revision": "b73d399b638b4de8a0a9829b17c95203c5deaabd",
+      "module": "cerotto_gem.cli",
+      "python_path": ".",
+      "adapter": "cerotto_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    }
+  ],
+  "verification": {
+    "command": "python scripts/verify-one-system.py --workspace /path/to/workspace",
+    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions."
+  },
+  "actuation": {
+    "contract": "zoe-actuation/v1",
+    "owner_approved": true,
+    "hostname_bound": true,
+    "enabled_scopes": {
+      "host": true,
+      "network": true,
+      "hardware": true
+    },
+    "privilege_elevation": false,
+    "cross_machine_transfer": false,
+    "local_host_executed": true,
+    "internet_https_executed": true,
+    "internet_status": 200,
+    "virtual_hardware_executed": true,
+    "physical_hardware_executed": false,
+    "emergency_stop_verified": true,
+    "external_operations": 3,
+    "evidence": "evidence/actuation/verification.json"
+  },
+  "exploration": {
+    "contract": "zoe-web-exploration/v1",
+    "real_https_executed": true,
+    "status": 200,
+    "title": "Example Domain",
+    "evidence": "evidence/exploration/example-com.json"
+  },
+  "connected_agents": {
+    "contract": "zoe-agent-gateway/v1",
+    "owner_authorized_accounts": [
+      "kimi",
+      "claude"
+    ],
+    "model_invocations_during_registration": 0,
+    "credential_values_in_evidence": false,
+    "evidence": "evidence/agents/verification.json"
+  },
+  "capabilities": {
+    "command": "zoe autonomy capabilities",
+    "adapter_count": 10,
+    "adapters": [
+      "browser_automation",
+      "research_apis",
+      "persistent_research_memory",
+      "connected_productivity_services",
+      "scheduled_jobs",
+      "compute_environments",
+      "agent_protocols",
+      "notifications",
+      "rich_media",
+      "hardware_instruments"
+    ],
+    "evidence": "evidence/capabilities/verification.json",
+    "autonomous_selection": {
+      "command": "zoe autonomy step",
+      "operator_supplied_goal": false,
+      "operator_supplied_capability": false,
+      "operator_approval_required": false,
+      "selection": "internally authored goals and deterministic utility ranking over ten internally constructed capability calls",
+      "real_first_step": "evidence/autonomous/native-step.json",
+      "verification": "evidence/autonomous/native-verification.json"
+    }
+  }
+}

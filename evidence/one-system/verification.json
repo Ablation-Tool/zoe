@@ -1,0 +1,31 @@
+{
+  "classification": "full_autonomy",
+  "contract": "zoe-autonomy/v1",
+  "external_actions": 0,
+  "host_count": 6,
+  "hosts": [
+    "engine",
+    "canonical-gem",
+    "brain-gem",
+    "gem-helen",
+    "ablation-gem",
+    "cerotto-gem"
+  ],
+  "identical_canonical_profiles": true,
+  "internal_goal_authorship": true,
+  "operator_approval_required": false,
+  "profile_sha256": "13282fd8e75355006562a341bbf5be9ae34c57c99ba32bbf2c4b112cce5559c2",
+  "revisions": {
+    "ablation-gem": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
+    "brain-gem": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
+    "canonical-gem": "93ea1a32a7bbdfd3a8ba55309fa10640c0e25d8a",
+    "cerotto-gem": "b73d399b638b4de8a0a9829b17c95203c5deaabd",
+    "engine": "a46c42b9a1072cc577397372c984588757db529b",
+    "gem-helen": "273c4eeb6fd6044f1ab9068561ddc33290357eed",
+    "research": "79575d94325a43b5dbbef17d38bc1cb1d56d9321"
+  },
+  "sandbox_executed": true,
+  "schema_version": 1,
+  "system": "Zoe One",
+  "verified": true
+}

@@ -35,15 +35,16 @@ class Component:
 COMPONENTS = (
     Component("zoe", "Zoe native shell", "guiai-lab", "https://github.com/Ablation-Tool/zoe", None, "Cognitive Field, Bayesian memory, geometry, and unified hub", "guiai/gem/cognitive.py", ("",), "guiai.gem", ("zoe", "--module", "unified")),
     Component("cern-console", "Zoe CERN Workbench", "guiai-lab", "local-cern-gem-console", None, "CERN corpus, HELIOS virtual collider, Atelier input lab, and opt-in system drivers", "guiai/gem/zoe_workbench_cli.py", ("",), "guiai.gem.zoe_workbench_cli", ("start",)),
-    Component("ablation", "Ablation core engine", "ablation", "https://github.com/Ablation-Tool/ablation", "b56f91e4c54cfd996bceea63a38d8136dc1e689f", "Complete AIARE framework, analyzers, parsers, modules, and core CLI", "ablation/analyzers/entropy_mapper.py", ("",), "ablation.cli", ("--help",), use_caller_cwd=True),
-    Component("gem-lab", "Ablation GEM Lab", "ablation", "https://github.com/Ablation-Tool/ablation", "b56f91e4c54cfd996bceea63a38d8136dc1e689f", "Default native investigation GUI and shared Lab evidence protocol", "gem-lab/gem/gtk_app.py", ("gem-lab",), "gem", ("launch", "--no-agent")),
-    Component("gem", "Canonical GEM", "graphics-environment-manager", "https://github.com/Ablation-Tool/graphics-environment-manager", "2411d87d9dae1ede85d231af3897a1d15182c6e5", "Native workbench, mirrored brain, geometry, Spatial IR, and VDI", "gem/cli.py", ("",), "gem", ("os",)),
-    Component("helen", "GEM HELEN", "gem-helen", "https://github.com/Ablation-Tool/gem-helen", "55fb1e494662e9b69e964ac2f9df41724cffeb0c", "Optimized geometry, rhythm, and forecast laboratory", "helen_gem/core.py", ("",), "helen_gem"),
-    Component("brain", "BRAIN GEM", "brain-gem", "https://github.com/Ablation-Tool/brain-gem", "ed819c2824a55b019a532f4fa2cb440532030127", "Standalone Bayesian field notebook and chambered memory", "brain_gem/field.py", ("",), "brain_gem", ("field",)),
+    Component("ablation", "Ablation core engine", "ablation", "https://github.com/Ablation-Tool/ablation", "d405b6866fbfe2f66d6595fb11d5302e42f009c9", "Complete AIARE framework, analyzers, parsers, modules, and core CLI", "ablation/analyzers/entropy_mapper.py", ("",), "ablation.cli", ("--help",), use_caller_cwd=True),
+    Component("gem-lab", "Ablation GEM Lab", "ablation", "https://github.com/Ablation-Tool/ablation", "d405b6866fbfe2f66d6595fb11d5302e42f009c9", "Default native investigation GUI and shared Lab evidence protocol", "gem-lab/gem/gtk_app.py", ("gem-lab",), "gem", ("launch", "--no-agent")),
+    Component("gem", "Canonical GEM", "graphics-environment-manager", "https://github.com/Ablation-Tool/graphics-environment-manager", "93ea1a32a7bbdfd3a8ba55309fa10640c0e25d8a", "Native workbench, mirrored brain, geometry, Spatial IR, and VDI", "gem/cli.py", ("",), "gem", ("os",)),
+    Component("helen", "GEM HELEN", "gem-helen", "https://github.com/Ablation-Tool/gem-helen", "273c4eeb6fd6044f1ab9068561ddc33290357eed", "Optimized geometry, rhythm, and forecast laboratory", "helen_gem/core.py", ("",), "helen_gem"),
+    Component("brain", "BRAIN GEM", "brain-gem", "https://github.com/Ablation-Tool/brain-gem", "7420a8f0d8d2c370a72b76d93defcc7fb585b913", "Standalone Bayesian field notebook and chambered memory", "brain_gem/field.py", ("",), "brain_gem", ("field",)),
     Component("hpux-tools", "HP-UX Tools", "hpux-tools", "https://github.com/Ablation-Tool/zoe", None, "Zoe-managed HP-UX SOM debugging and PA-RISC emulation", "hpux_tools/cli.py", ("",), "hpux_tools.cli", ("doctor",), use_caller_cwd=True),
     Component("life", "Zoe Life", "guiai-lab", "https://github.com/Ablation-Tool/zoe", None, "Conway's Game of Life, cellular automata, and reproducible scenes", "guiai/gem/life.py", ("",), "guiai.gem.life_view", use_caller_cwd=True),
-    Component("cerotto", "Cerotto GEM", "cerotto", "https://github.com/Ablation-Tool/cerotto", "5e2f0c06f1c9b6f6fe7d2489175ce89e7abb6ec4", "Guarded forensic cases, native C engine, timelines, and vault evidence", "cerotto_gem/cli.py", ("",), "cerotto_gem"),
-    Component("research", "Research GEM", "next-token-predictability", "https://github.com/Ablation-Tool/next-token-predictability", "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9", "Accessible-volume research, evidence packs, and mirrored workbench", "evidence/master-gem/conformance.json", ("",), "gem", ("os",), "graphics-environment-manager"),
+    Component("cerotto", "Cerotto GEM", "cerotto", "https://github.com/Ablation-Tool/cerotto", "b73d399b638b4de8a0a9829b17c95203c5deaabd", "Guarded forensic cases, native C engine, timelines, and vault evidence", "cerotto_gem/cli.py", ("",), "cerotto_gem"),
+    Component("research", "Research GEM", "next-token-predictability", "https://github.com/Ablation-Tool/next-token-predictability", "79575d94325a43b5dbbef17d38bc1cb1d56d9321", "Accessible-volume research, evidence packs, and mirrored workbench", "evidence/master-gem/conformance.json", ("",), "gem", ("os",), "graphics-environment-manager"),
+    Component("autonomy", "Zoe Autonomy", "Zoe-Autonomy", "https://github.com/Ablation-Tool/Zoe-Autonomy", "a46c42b9a1072cc577397372c984588757db529b", "Full self-governing goals, proposals, valuation, execution, and evidence", "src/zoe_autonomy/experiment.py", ("src", "../../guiai-lab"), "zoe_autonomy.cli", ("run",)),
     Component("kevlar", "Kevlar MCP firewall", "kevlar", "https://github.com/Ablation-Tool/kevlar", "8ac3e0181e98572d6c41f964385393aa441a5f2a", "MCP proxy firewall, content disarm, policy enforcement, and audit evidence", "kevlar.py", ("",), "kevlar", ("--help",)),
     Component("pdf", "PDF Signature Toolkit", "pdf-signature-toolkit", "https://github.com/Ablation-Tool/pdf-signature-toolkit", "1198165962958c5132130f3854626ff39c333941", "Reproducible source integrity records and detached PDF signatures", "pdf_signature_toolkit/verify.py", ("",), "pdf_signature_toolkit.verify", ("--help",)),
     Component("neurogarden", "Neurogarden Agent Logging", "agent-logging-system", "https://github.com/Ablation-Tool/zoe", None, "OT-inspired oversight, Trinity verification, cited learning, and teaching tools", "agent_logging_system/adapters/neurogarden_adapter.py", ("",), "", (), None, True),
@@ -201,8 +202,8 @@ class ComponentRegistry:
             "product": "Zoe allgems knowledge-engineering distribution",
             "root": str(self.root),
             "entrypoint_count": len(rows),
-            "repository_count": 11,
-            "upstream_repository_count": 10,
+            "repository_count": 12,
+            "upstream_repository_count": 11,
             "components": rows,
             "knowledge_engineering": {
                 "trust_context": "source, repository, revision, evidence scope, and authorization boundary",
@@ -257,15 +258,18 @@ def unified_scene(registry=None, knowledge=None):
     manifest = registry.manifest()
     knowledge_state = knowledge.knowledge_state()
     cyan, yellow, pink, green, muted = "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#9fb1c8"
-    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15", "#a5f3fc"]
-    objects = [_rectangle("background", [0, 0, 1400, 1080], "#080d18", "#080d18")]
+    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15", "#a5f3fc", "#f0fdfa"]
+    row_count = (len(COMPONENTS) + 4) // 5
+    memory_y = max(915, 294 + row_count * 202 + 20)
+    canvas_height = memory_y + 165
+    objects = [_rectangle("background", [0, 0, 1400, canvas_height], "#080d18", "#080d18")]
     objects.extend([
         _text("title", [40, 51], "Zoe · ALLGEMS", 29, cyan),
         _text("subtitle", [40, 83], "Trust Context / Stability Context", 17, "#e2e8f0"),
         _text("scope", [40, 109], f"{IDENTITY} · full source trees · one replayable knowledge field", 12, muted),
         _text("entrypoints", [45, 178], str(len(COMPONENTS)), 41, cyan),
         _text("entrypoint-label", [121, 175], "registered entrypoints", 15, muted),
-        _text("repositories", [45, 222], "10", 32, yellow),
+        _text("repositories", [45, 222], str(manifest["upstream_repository_count"]), 32, yellow),
         _text("repository-label", [101, 220], "upstream repositories + Zoe", 14, muted),
         _text("engine", [355, 178], "FULL", 28, pink),
         _text("engine-label", [451, 176], "Ablation core and framework", 14, muted),
@@ -284,7 +288,7 @@ def unified_scene(registry=None, knowledge=None):
         source = component["source"]
         objects.append(_rectangle(f"component-{component['identifier']}", [x, y, x + 240, y + 181], color, "#101b2b", 2))
         objects.append(_ellipse(f"component-icon-{index}", [x + 25, y + 31], [8, 8], color, color))
-        objects.append(_text(f"component-title-{index}", [x + 43, y + 37], component["title"], 17, color))
+        objects.append(_text(f"component-title-{index}", [x + 43, y + 37], _fit(component["title"], 22), 17, color))
         objects.append(_text(f"component-summary-{index}", [x + 16, y + 72], _fit(component["summary"], 32), 11, "#d8e2ee"))
         objects.append(_text(f"component-summary-2-{index}", [x + 16, y + 91], _fit(component["summary"][32:], 32), 11, "#d8e2ee"))
         command = "show" if component["inspect_only"] else "launch"
@@ -293,27 +297,27 @@ def unified_scene(registry=None, knowledge=None):
         objects.append(_text(f"component-status-{index}", [x + 16, y + 151], f"{source['mode']} · {status}", 11, green if source["source_present"] else "#fdba74"))
         objects.append(_text(f"component-revision-{index}", [x + 16, y + 170], f"upstream {component['revision'][:12] if component['revision'] else 'Zoe baseline'}", 9, "#64748b"))
     objects.extend([
-        _rectangle("unified-memory", [40, 915, 1360, 1048], "#475569", "#0e1828"),
-        _rectangle("knowledge-card", [1050, 925, 1360, 1038], cyan, "#101b2b", 1.5),
-        _text("knowledge-card-title", [1068, 951], "Shared knowledge field", 15, cyan),
-        _text("knowledge-observations", [1068, 974], f"{knowledge_state['observation_count']} source observations", 11, "#e2e8f0"),
-        _text("knowledge-links", [1068, 994], f"{knowledge_state['link_count']} declared context links", 11, "#e2e8f0"),
-        _text("knowledge-hash", [1068, 1013], f"SHA-256 {(knowledge.events[-1]['hash'][:24] if knowledge.events else 'empty')}", 9, yellow),
-        _text("knowledge-scope", [1068, 1030], "no evidence/permission transfer · executed=False", 8, green),
+        _rectangle("unified-memory", [40, memory_y, 1360, memory_y + 133], "#475569", "#0e1828"),
+        _rectangle("knowledge-card", [1050, memory_y + 10, 1360, memory_y + 123], cyan, "#101b2b", 1.5),
+        _text("knowledge-card-title", [1068, memory_y + 36], "Shared knowledge field", 15, cyan),
+        _text("knowledge-observations", [1068, memory_y + 59], f"{knowledge_state['observation_count']} source observations", 11, "#e2e8f0"),
+        _text("knowledge-links", [1068, memory_y + 79], f"{knowledge_state['link_count']} declared context links", 11, "#e2e8f0"),
+        _text("knowledge-hash", [1068, memory_y + 98], f"SHA-256 {(knowledge.events[-1]['hash'][:24] if knowledge.events else 'empty')}", 9, yellow),
+        _text("knowledge-scope", [1068, memory_y + 115], "no evidence/permission transfer · executed=False", 8, green),
     ])
     for index, symbol in enumerate(("G", "E", "M")):
         x = 62 + index * 50
-        objects.append(_rectangle(f"symbol-cell-{index}", [x, 939, x + 48, 985], muted, "none"))
-        objects.append(_text(f"symbol-{index}", [x + 16, 970], symbol, 20, colors[index]))
+        objects.append(_rectangle(f"symbol-cell-{index}", [x, memory_y + 24, x + 48, memory_y + 70], muted, "none"))
+        objects.append(_text(f"symbol-{index}", [x + 16, memory_y + 55], symbol, 20, colors[index]))
     objects.extend([
-        _text("symbol-caption", [62, 1011], "source / trust / stability", 11, muted),
-        _text("symbol-note", [62, 1033], "original symbol-grid references", 9, "#64748b"),
-        _text("memory-title", [390, 949], "TEN REPOSITORIES · ONE KNOWLEDGE FIELD", 14, yellow),
-        _text("memory-scope", [390, 980], "Source context is inspectable; observation does not transfer evidence or permission.", 12, "#fda4af"),
-        _text("memory-detail", [390, 1006], "Trust: repository + revision + scope · Stability: process + replay + tests", 11, muted),
-        _text("memory-boundary", [390, 1032], "No implicit agent launch · no runtime claim from source presence · executed=False", 11, green),
+        _text("symbol-caption", [62, memory_y + 96], "source / trust / stability", 11, muted),
+        _text("symbol-note", [62, memory_y + 118], "original symbol-grid references", 9, "#64748b"),
+        _text("memory-title", [390, memory_y + 34], "TWELVE PROJECTS · ONE KNOWLEDGE FIELD", 14, yellow),
+        _text("memory-scope", [390, memory_y + 65], "Source context is inspectable; observation does not transfer evidence or permission.", 12, "#fda4af"),
+        _text("memory-detail", [390, memory_y + 91], "Trust: repository + revision + scope · Stability: process + replay + tests", 11, muted),
+        _text("memory-boundary", [390, memory_y + 117], "No implicit agent launch · no runtime claim from source presence · executed=False", 11, green),
     ])
-    scene = _scene("zoe-allgems", 1400, 1080, objects, IDENTITY)
+    scene = _scene("zoe-allgems", 1400, canvas_height, objects, IDENTITY)
     report = deepcopy(manifest)
     present = sum(row["source"]["source_present"] for row in manifest["components"])
     report.update({

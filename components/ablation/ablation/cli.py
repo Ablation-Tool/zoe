@@ -9,7 +9,7 @@ Usage:
     ablation taint    <binary> --flow-sensitive        CFG MFP + interprocedural (most precise)
     ablation overflow <binary>              ARM32 integer overflow scan (MUL -> malloc without check)
     ablation hpux     info|imports|disassemble|calls|functions  HP-UX SOM / PA-RISC
-    ablation sunos    info|calls|render             SunOS SPARC a.out
+    ablation sunos    info|calls|render|dispatch    SunOS SPARC a.out
     ablation window   <binary> <va>         annotated disassembly window around a VA
     ablation profile  <binary> <va>         full function profile: strings + call args + sinks
     ablation cfg      <binary> <va>         control-flow graph for one function (hex VA)
@@ -1590,7 +1590,7 @@ def main():
 
     # sunos
     p_sunos = sub.add_parser('sunos', help='SunOS SPARC a.out analysis')
-    p_sunos.add_argument('arguments', nargs=argparse.REMAINDER, help='info, calls, or render arguments')
+    p_sunos.add_argument('arguments', nargs=argparse.REMAINDER, help='info, calls, render, or dispatch arguments')
     p_sunos.set_defaults(func=cmd_sunos)
 
     # search

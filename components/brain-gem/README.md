@@ -2,6 +2,21 @@
 
 BRAIN GEM is a standalone Bayesian field notebook and chambered-memory engine. It organizes questions, competing claims, explicit evidence updates, deterministic and stochastic chambers, and next-test decisions in one inspectable, append-only history.
 
+## Zoe One: shared full autonomy
+
+BRAIN GEM is one host in the [Zoe One system](https://github.com/Ablation-Tool/zoe). The notebook preserves its measurement/evidence/action boundary. The separate `autonomy` command delegates to the canonical [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) engine.
+
+```bash
+export ZOE_ROOT=/path/to/zoe
+export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
+
+brain-gem autonomy run
+brain-gem autonomy run --output new-profile.json
+brain-gem autonomy verify new-profile.json
+```
+
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. External actuation and autonomous posterior updates remain unimplemented. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+
 The core epistemic boundary is:
 
 ```text
@@ -85,7 +100,7 @@ The `brain_gem` package includes HELEN's compressed seed-7 artifact for 1,920 st
 - Likelihoods are explicit user assessments, not learned calibration.
 - Measurements and sampled outcomes never update posteriors automatically.
 - MASTER GEM observations can be preserved without becoming evidence for a claim.
-- No autonomous agent, external execution, synchronization, encryption, or multi-user collaboration is implemented.
+- The standalone notebook does not autonomously execute actions, synchronize state, encrypt memory, or support multi-user collaboration. The optional Zoe One `autonomy` command runs the canonical engine separately with internal execution only and no external actuation.
 - Custom next tests and decisions currently use the Python API rather than dedicated native controls.
 - Global novelty is not claimed; the novelty is the particular architecture and combination of capabilities.
 - No stability or consciousness claim is made for Zoe, its users, or its forecasts.
