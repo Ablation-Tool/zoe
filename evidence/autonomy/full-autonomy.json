@@ -848,10 +848,12 @@
   },
   "instrument": "zoe-autonomy-measurement-action-profile",
   "integration_source_sha256": {
-    "__init__.py": "b1745bffc58beb49084c6229686463c06cb1c5faa7b438452001202ffa47b80f",
+    "__init__.py": "4654a7c6ec367abe0e9db7c737548182939e176487c493b0e9b722654b0bdd94",
     "actuation.py": "7031f4deb81e77519682c5f7d8e19c18abd5d776a4825b2e8e25b2414302dbef",
-    "cli.py": "97539214fac210899ec7bf409f64a3a0c8ed74ecbdeca65f04e6a539029c3bdb",
+    "agents.py": "b378bc25ad094d8f3fc3b3fb3775647f0076f746b4299d3974a7f8df3b9a5697",
+    "cli.py": "7b825a72e9a3289b522dbd4408fbfbf34af7fcb99ef636f0b4e46284922175d0",
     "experiment.py": "14e8738d7a9531ca409ed699e2becc279eabc294ec422b714d476d8889b4a0cc",
+    "explore.py": "85891da36729e59550f7fdcf3d5b1a178ed9efbb5cc3e6cba5a6b949b632a2d7",
     "loop.py": "363b2d2351b9d75d5dcea61720ab698697ac01e98d06ed187d4cf067ac2c05c8",
     "metrics.py": "642dd2ad467f765a06e1f4b5269e833e2c39b8c4edf1870a6c291dc27713936b"
   },
@@ -2422,7 +2424,7 @@
     "delta": 0.001,
     "tau": 0.05
   },
-  "profile_sha256": "16f4abda5631fdc84d3696263df7584546c31c198695ad4d55cd6cecb3bafd3d",
+  "profile_sha256": "a7e43b1912a5d7344aa95ba0df41d03977f2e5b845e0ab1039e837dd1e8da5fc",
   "sandbox_executed": true,
   "schema_version": 1,
   "scope": [
@@ -2506,7 +2508,7 @@
   },
   "zoe_source": {
     "repository": "https://github.com/Ablation-Tool/zoe",
-    "revision": "61922fe896156c483fdd48ccb99b85f16e3ce87f",
+    "revision": "122095bfb8566c2dfa972f4dbefddd5a925ec678",
     "source_sha256": {
       "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
       "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",

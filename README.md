@@ -24,6 +24,7 @@ zoe os --list
 zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
 zoe autonomy actuate status
+zoe autonomy agents list
 ```
 
 Open the native self-governing loop or export its scene:
@@ -69,6 +70,18 @@ Full autonomy means full self-government of Zoe's decision loop. The base experi
 - [Fresh replay verification](evidence/autonomy/verification.json)
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
 - [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
+
+## Internet exploration and connected agents
+
+Zoe can retrieve public web content and use your connected AI-agent accounts:
+
+```bash
+zoe autonomy explore --url https://example.com/ --pages 5 --depth 1
+zoe autonomy agents list
+zoe autonomy agents run kimi --prompt "Explain this repository"
+```
+
+Kimi and Claude are registered through their existing authenticated CLIs. See [GATEWAY.md](components/Zoe-Autonomy/GATEWAY.md), the [real exploration evidence](evidence/exploration/example-com.json), and [connected-account evidence](evidence/agents/registered-accounts.json).
 
 ## One system
 

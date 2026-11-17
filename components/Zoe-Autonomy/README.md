@@ -26,6 +26,7 @@ Full autonomy applies to Zoe's decision and state-transition loop. The base expe
 - [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
 - [Upstream measured profile](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/zoe-autonomy-profile.json)
 - [Native Zoe integration guide](../../guiai-lab/docs/AUTONOMY.md)
+- [Internet exploration and connected-agent gateway](GATEWAY.md)
 - [Native Zoe evidence](../../evidence/autonomy/full-autonomy.json)
 
 The native verifier accepts a difference in Git commit metadata when the complete measured document and all source-content hashes still match. This permits point-in-time evidence to remain verifiable after Zoe commits the integration.

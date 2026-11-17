@@ -21,6 +21,10 @@ def parser():
     verify.add_argument("report")
     actuate = commands.add_parser("actuate", help="owner-granted host, network, and hardware actuation")
     actuate.add_argument("arguments", nargs=argparse.REMAINDER)
+    explore = commands.add_parser("explore", help="retrieve and follow public web content")
+    explore.add_argument("arguments", nargs=argparse.REMAINDER)
+    agents = commands.add_parser("agents", help="use owner-connected AI agent accounts")
+    agents.add_argument("arguments", nargs=argparse.REMAINDER)
     return result
 
 
@@ -30,6 +34,12 @@ def main(argv=None):
         if raw_arguments and raw_arguments[0] == "actuate":
             from .actuation import actuation_main
             return actuation_main(raw_arguments[1:])
+        if raw_arguments and raw_arguments[0] == "explore":
+            from .explore import explore_main
+            return explore_main(raw_arguments[1:])
+        if raw_arguments and raw_arguments[0] == "agents":
+            from .agents import agents_main
+            return agents_main(raw_arguments[1:])
         arguments = parser().parse_args(raw_arguments)
         if arguments.command == "actuate":
             from .actuation import actuation_main
