@@ -36,7 +36,14 @@
     "next-token-predictability": {
       "path": "components/next-token-predictability",
       "repository": "https://github.com/Ablation-Tool/next-token-predictability",
-      "revision": "83b89a385aa4e67fb0c1b60ba30a21efcc0e50f9"
+      "revision": "8f2f320f52acb56d9bc92e7b9d07bb1c7e8da84b",
+      "includes": "Upstream README, response-planning evidence, and reproduction updates plus retained SAT research"
+    },
+    "Zoe-Autonomy": {
+      "path": "components/Zoe-Autonomy",
+      "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
+      "revision": "1ed6baaa9934d402340bc088f956ec3ee54b59f6",
+      "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
     },
     "kevlar": {
       "path": "components/kevlar",
@@ -62,5 +69,5 @@
       "includes": "Reusable ideas, templates, and prompts; content library, not a GUI process"
     }
   },
-  "scope": "Complete tracked source snapshots of eleven source projects including Zoe and the recovered Neurogarden component. Original imports used git subtree --squash; Neurogarden has no available upstream revision. Component processes, evidence, and authorization remain distinct."
+  "scope": "Complete tracked source snapshots of twelve source projects including Zoe, Zoe-Autonomy, and the recovered Neurogarden component. Original imports used git subtree --squash; Neurogarden has no available upstream revision. Component processes, evidence, and authorization remain distinct."
 }

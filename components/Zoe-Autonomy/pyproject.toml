@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zoe-autonomy"
+version = "0.1.0"
+description = "Operational full self-governing autonomy through Zoe and Accessible Volume"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "GPL-3.0-only"}
+authors = [{name = "Nicholas Michael Kloster"}]
+dependencies = []
+
+[project.scripts]
+zoe-autonomy = "zoe_autonomy.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

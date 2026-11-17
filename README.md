@@ -94,6 +94,7 @@ Meshes and the structure graph are Allen Institute data ([Wang et al. 2020](http
 | **Bayesian field notebook** | [Implementation](guiai-lab/guiai/gem/field.py) | Questions, competing claims, falsifiers, likelihood ratios, log-odds updates, belief diffs, evidence dependence, chambers, and next-test priorities |
 | **Epistemic firewall** | [Worked memory](evidence/cognitive-field/worked-example.json) | Measurement, evidence, belief updates, and action remain separate; decisions require review |
 | **Accessible Volume** | [Research component](components/next-token-predictability/) | Strict `p > τ` forecast breadth, complements, momentum, target bands, temperature transforms, and calibration evidence |
+| **Zoe Autonomy** | [Native guide](guiai-lab/docs/AUTONOMY.md) · [component](components/Zoe-Autonomy/) · [evidence](evidence/autonomy/full-autonomy.json) | Full self-governing goals, proposals, valuation, selection, execution, and evidence; native result `full_autonomy` with no operator episode goal or per-action approval |
 | **HELEN observations** | [Implementation](guiai-lab/guiai/gem/helen_onset.py) | Lazy stored forward/retrograde distributions with held-out cases; no transformer runtime |
 | **Multi-horizon forecasts** | [Implementation](guiai-lab/guiai/gem/brain.py) | Exact continuation probabilities for a defined two-state Markov toy with horizons 1–6 |
 | **Research evidence** | [Implementation](guiai-lab/guiai/gem/research.py) | Hash-checked Groove reports, on-demand NPZ predictions, aggregate-only Nightingale metrics, and rejected-baseline records |
@@ -106,6 +107,9 @@ zoe manifest --output gem-components.json
 zoe knowledge --output gem-knowledge.json
 PYTHONPATH=guiai-lab python -m guiai.gem zoe --module cognitive
 PYTHONPATH=guiai-lab python -m guiai.gem notebook --output zoe-field.json
+zoe autonomy run
+zoe autonomy verify evidence/autonomy/full-autonomy.json
+gem zoe --module autonomy
 ```
 
 Exports use new paths and refuse to overwrite existing files. Hash chaining provides tamper evidence, not authentication. Forecast breadth is not correctness; a self-model is not a self.
@@ -149,7 +153,8 @@ Sensors stay idle until explicitly started. No cloud account is required. Tiny Z
 | **Canonical GEM** | [`components/graphics-environment-manager/`](components/graphics-environment-manager/) | Native workbench, mirrored brain, Spatial IR, and real little-endian GEM VDI |
 | **GEM HELEN** | [`components/gem-helen/`](components/gem-helen/) | Optimized geometry, rhythm, stored forecasts, and lightweight creative use |
 | **BRAIN GEM** | [`components/brain-gem/`](components/brain-gem/) | Standalone Bayesian notebook and chambered memory |
-| **Research GEM** | [`components/next-token-predictability/`](components/next-token-predictability/) | Accessible-volume research, evidence packs, and mirrored workbench |
+| **Research GEM** | [`components/next-token-predictability/`](components/next-token-predictability/) | Accessible-volume research, evidence packs, response planning, SAT heuristics, and mirrored workbench |
+| **Zoe Autonomy** | [`components/Zoe-Autonomy/`](components/Zoe-Autonomy/) | Full self-governing measurement–action loop, native CLI, component process, and Atlas scene |
 | **Cerotto** | [`components/cerotto/`](components/cerotto/) | Native C11 forensic engine, guarded cases, timelines, carving, manifests, vault evidence, and release workflows |
 | **Kevlar** | [`components/kevlar/`](components/kevlar/) | MCP proxy firewall, policy enforcement, content disarm, and audit evidence |
 | **PDF Signature Toolkit** | [`components/pdf-signature-toolkit/`](components/pdf-signature-toolkit/) | Source-integrity records and detached PDF signatures |
@@ -161,7 +166,7 @@ Sensors stay idle until explicitly started. No cloud account is required. Tiny Z
 
 ![Zoe OS mathematical desktop](zoe-desktop.png)
 
-`zoe os` and the default `zoe` command open one OS-style desktop for all 15 registered engines. The desktop provides explicit application launching, duplicate prevention, process tracking and stopping, source inspection, and shared manifest/knowledge export. It does not replace component permissions or turn source presence into runtime verification. This is a unified **user-space environment**, not a bootable operating system.
+`zoe os` and the default `zoe` command open one OS-style desktop for all 16 registered engines. The desktop provides explicit application launching, duplicate prevention, process tracking and stopping, source inspection, and shared manifest/knowledge export. It does not replace component permissions or turn source presence into runtime verification. This is a unified **user-space environment**, not a bootable operating system.
 
 ### Mathematical beauty and the embedded agent
 
@@ -312,6 +317,7 @@ No firmware, raw research media, proprietary HDL, or complete external transcrip
 
 - **[Zoe: A Native GEM for Living Geometry and Inspectable Futures](paper/zoe.pdf):** proof of concept, history, equations, verification matrix, limitations, and reproducible evidence.
 - **[Zoe for Everyone](paper/zoe-for-everyone.pdf):** an accessible guide to the experiments and creative tools.
+- **[Zoe Autonomy: A Self-Governing Measurement–Action Architecture](components/Zoe-Autonomy/):** native integration source and commands; [formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf) and [informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md) in the upstream repository.
 - **[Visual guide collection](guiai-lab/docs/VISUAL-GUIDES.md):** linked visual editions for Zoe, Artline, Pentomino, Pentacube, Cognitive Field, Qualia, Geometry Atlas, Presence, Resilience, and more.
 - **[LaTeX sources and demo memory](paper/):** included for review and rebuilding.
 - **[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md):** commitments to human agency, honesty, privacy, accessibility, provenance, reversibility, and review.
@@ -323,7 +329,7 @@ The PDF signature validates total-document coverage; the QR certificate verifies
 
 ## Source architecture
 
-The repository preserves **eleven source projects**, with Ablation's core and GEM Lab sharing one upstream source tree. Source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Neurogarden is preserved from a local snapshot because its original remote was deleted; no upstream revision is invented. Each component retains its original license and notices.
+The repository preserves **twelve source projects**, with Ablation's core and GEM Lab sharing one upstream source tree. Source revisions and upstream URLs are locked in [`components.lock.json`](components.lock.json). Neurogarden is preserved from a local snapshot because its original remote was deleted; no upstream revision is invented. Each component retains its original license and notices.
 
 ```text
 Zoe native shell             guiai-lab/
@@ -332,6 +338,7 @@ Canonical GEM                components/graphics-environment-manager/
 GEM HELEN                    components/gem-helen/
 BRAIN GEM                    components/brain-gem/
 Research GEM                 components/next-token-predictability/
+Zoe Autonomy                 components/Zoe-Autonomy/
 Neurogarden                  components/agent-logging-system/
 Cerotto                      components/cerotto/
 Kevlar                       components/kevlar/
@@ -424,6 +431,9 @@ For legacy/native module entry points, use `PYTHONPATH=guiai-lab python -m guiai
 ## Verification and boundaries
 
 ```bash
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
+  python -m unittest stress.autonomy_stress -v
+
 PYTHONPATH=guiai-lab /usr/bin/python3 -m unittest stress.cognitive_stress -v
 PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   /usr/bin/python3 -m unittest stress.cognitive_stress -v

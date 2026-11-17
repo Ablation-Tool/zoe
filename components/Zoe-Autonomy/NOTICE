@@ -1,0 +1,9 @@
+Zoe Autonomy attribution and scope
+
+The original Accessible Volume equation, early research, experiments, and original papers were created by Nicholas Michael Kloster on March 6, 2026. That original credit is not reassigned by this integration.
+
+Zoe is developed in the Ablation-Tool Zoe repository and related GEM components. The original two Accessible Volume papers retain Nicholas Michael Kloster's sole authorship; the Zoe papers identify their own authorship separately.
+
+This repository implements the master measurement-action architecture and operational full self-governing autonomy measurements within Zoe's internal state domain. It does not grant external permissions, establish consciousness, or turn a forecast into authorization.
+
+The combined integration is distributed under GPL-3.0-only, matching the Zoe source tree. The upstream Accessible Volume repository retains its own MIT license. No upstream license is changed by this repository.

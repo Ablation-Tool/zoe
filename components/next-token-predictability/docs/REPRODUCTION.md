@@ -18,6 +18,15 @@ The first command independently checks threshold counts, target ranks, entropy, 
 
 The [long-form research archive](./RESEARCH.md#reproduction-procedure) contains the original inference environments, exact public model identifiers, immutable revisions, and baseline/XLNet procedures. The [evidence guide](../evidence/README.md) separates canonical results from historical context.
 
+## Verify the response-planning visual proof
+
+```bash
+python scripts/visualize-response-planning.py
+python scripts/verify-response-planning.py
+```
+
+The generator recomputes every measurement from the saved raw probability distributions and the frozen Zoe and GEM reports, then renders `evidence/response-planning/response-planning-proof.png` and `.svg`. Output is deterministic: repeated runs produce byte-for-byte identical artifacts. The verifier independently recomputes the statistics, checks semantic content inside the SVG, and confirms the SHA-256 hash of every generated artifact against its manifest. No model weights are downloaded. The dashboard documents measured accessible-volume behavior; it does not validate any response-length or autonomy policy.
+
 ## Verify the unified workbench
 
 From the [graphics-environment-manager](https://github.com/Ablation-Tool/graphics-environment-manager) checkout:
