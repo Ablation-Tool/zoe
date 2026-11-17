@@ -23,6 +23,7 @@ zoe
 zoe os --list
 zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
+zoe autonomy actuate status
 ```
 
 Open the native self-governing loop or export its scene:
@@ -32,7 +33,7 @@ gem zoe --module autonomy
 gem zoe --module autonomy --output zoe-autonomy.svg
 ```
 
-The unified desktop launches components only after explicit selection. The Autonomy module runs one deterministic internal cycle when opened. Neither action grants host, network, hardware, or other external-actuation authority.
+The unified desktop launches components only after explicit selection. The Autonomy module runs one deterministic internal cycle when opened. Neither action changes the separate owner actuation grant or performs an external operation.
 
 ## Full Autonomy
 
@@ -59,9 +60,11 @@ sandbox_executed = true
 external_actions = 0
 ```
 
-Full autonomy means full self-government of Zoe's **internal decision and state-transition loop**. Host, network, hardware, forensic cases, vaults, and external evidence remain outside her authority.
+Full autonomy means full self-government of Zoe's decision loop. The base experiment remains internal with zero external actions. A local-owner grant now enables host, network, and hardware actuation on this computer with audit evidence and an emergency stop. Forensic cases, vaults, privilege elevation, and cross-machine authority are not granted by that actuation scope.
 
 - [Native Autonomy guide](guiai-lab/docs/AUTONOMY.md)
+- [Owner-granted actuation guide](components/Zoe-Autonomy/ACTUATION.md)
+- [Actuation grant and real-operation evidence](evidence/actuation/verification.json)
 - [Full-autonomy profile](evidence/autonomy/full-autonomy.json)
 - [Fresh replay verification](evidence/autonomy/verification.json)
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)

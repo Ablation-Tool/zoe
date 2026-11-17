@@ -68,6 +68,29 @@ class AutonomyIntegrationCase(unittest.TestCase):
             self.assertEqual(outputs["zoe.json"], outputs["gem.json"])
             self.assertEqual(outputs["zoe.json"], outputs["component.json"])
 
+    def test_native_owner_actuation_dispatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(zoe_main([
+                    "autonomy", "actuate", "--root", str(root),
+                    "enable", "--all", "--owner-approved",
+                ]), 0)
+                self.assertEqual(zoe_main([
+                    "autonomy", "actuate", "--root", str(root), "host",
+                    "--argv", json.dumps(["/usr/bin/printf", "zoe-native-actuation"]),
+                    "--cwd", str(root),
+                ]), 0)
+                self.assertEqual(zoe_main([
+                    "autonomy", "actuate", "--root", str(root), "stop",
+                    "--reason", "Native dispatch test",
+                ]), 0)
+            configure_autonomy()
+            from zoe_autonomy.actuation import ActuationPolicy
+            policy = ActuationPolicy(root)
+            self.assertTrue(policy.status()["emergency_stop"])
+            self.assertFalse(any(policy.status()["enabled_scopes"].values()))
+
     def test_point_in_time_replay_allows_only_revision_metadata_drift(self):
         report = run_native_autonomy()
         with tempfile.TemporaryDirectory() as directory:

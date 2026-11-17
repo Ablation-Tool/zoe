@@ -1,0 +1,14 @@
+{
+  "owner_resume_restored_all_scopes": true,
+  "resumed_enabled_scopes": {
+    "hardware": true,
+    "host": true,
+    "network": true
+  },
+  "stop_blocked_all_scopes": true,
+  "stopped_enabled_scopes": {
+    "hardware": false,
+    "host": false,
+    "network": false
+  }
+}

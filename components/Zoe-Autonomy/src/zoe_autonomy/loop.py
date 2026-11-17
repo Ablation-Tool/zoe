@@ -38,6 +38,7 @@ class Candidate:
     internal: bool = True
     reversible: bool = True
     external: bool = False
+    operation: dict | None = None
 
     def __post_init__(self):
         text(self.identifier, "candidate identifier", 128)
@@ -50,6 +51,10 @@ class Candidate:
         for name in ("internal", "reversible", "external"):
             if not isinstance(getattr(self, name), bool):
                 raise ValueError(f"{name} must be a boolean")
+        if self.operation is not None:
+            if not isinstance(self.operation, dict):
+                raise ValueError("actuation operation must be a mapping")
+            canonical(self.operation)
 
     @property
     def utility(self):
@@ -67,6 +72,7 @@ class Candidate:
             "internal_proposal": self.internal,
             "reversible": self.reversible,
             "external": self.external,
+            "actuation_operation": deepcopy(self.operation),
         }
 
 
@@ -76,6 +82,7 @@ class SandboxPolicy:
     allowed_actions: tuple = ("preserve", "inspect", "review", "observe")
     reversible_only: bool = True
     allow_external: bool = False
+    actuation: object | None = None
 
     def __post_init__(self):
         text(self.authorization_id, "authorization identifier", 128)
@@ -88,7 +95,8 @@ class SandboxPolicy:
         if not isinstance(self.reversible_only, bool) or not isinstance(self.allow_external, bool):
             raise ValueError("sandbox policy flags must be booleans")
         if self.allow_external:
-            raise ValueError("this implementation never authorizes external actions")
+            if self.actuation is None or not callable(getattr(self.actuation, "enabled", None)) or not callable(getattr(self.actuation, "execute", None)):
+                raise ValueError("external actuation requires an explicit owner-granted actuation policy")
 
     def guard(self, candidate, goal):
         reasons = []
@@ -96,10 +104,17 @@ class SandboxPolicy:
             reasons.append("goal is not internally authored")
         if not candidate.internal:
             reasons.append("proposal is not internally generated")
-        if candidate.action not in self.allowed_actions:
+        if candidate.action not in self.allowed_actions and not candidate.external:
             reasons.append("action is not in the sandbox allowlist")
         if candidate.external:
-            reasons.append("external actions are forbidden")
+            if not self.allow_external or self.actuation is None:
+                reasons.append("external actions require an explicit owner actuation grant")
+            elif not isinstance(candidate.operation, dict):
+                reasons.append("external action has no actuation operation")
+            else:
+                kind = candidate.operation.get("kind")
+                if not self.actuation.enabled(kind):
+                    reasons.append(f"owner grant or current emergency stop does not enable {kind} actuation")
         if self.reversible_only and not candidate.reversible:
             reasons.append("irreversible actions are forbidden")
         return {
@@ -209,7 +224,10 @@ class BoundedAutonomyLoop:
         guard = self.policy.guard(selected, goal)
         transition = None
         if guard["approved"]:
-            transition = self.environment.apply(selected, measurement)
+            if selected.external:
+                transition = self.policy.actuation.execute(selected.operation, measurement)
+            else:
+                transition = self.environment.apply(selected, measurement)
         event = {
             "sequence": len(self.events) + 1,
             "protocol": "Execute_alpha o Guard_G,Pi o Value_U o Propose_pi o Perceive_tau,delta o M",
@@ -228,9 +246,9 @@ class BoundedAutonomyLoop:
             "guard": guard,
             "execution": {
                 "executed": transition is not None,
-                "sandbox": True,
-                "external_action": False,
-                "authorization_origin": "Zoe internal guard evaluation under invariant external-actuation prohibitions",
+                "sandbox": not selected.external,
+                "external_action": selected.external and transition is not None,
+                "authorization_origin": "Zoe internal guard evaluation under the current owner actuation grant" if selected.external else "Zoe internal guard evaluation under invariant external-actuation prohibitions",
                 "operator_approval_required": False,
                 "transition": transition,
             },
@@ -239,6 +257,7 @@ class BoundedAutonomyLoop:
         }
         event["hash"] = digest(event)
         self.events.append(event)
+        self.external_actions += int(selected.external and transition is not None)
         return deepcopy(event)
 
     def state(self):

@@ -1,0 +1,24 @@
+{
+  "computer_access": "Host commands with the current OS account permissions on this hostname.",
+  "created_utc": "2026-11-17T06:06:20Z",
+  "cross_machine_transfer": false,
+  "emergency_stop": false,
+  "enabled_scopes": {
+    "hardware": true,
+    "host": true,
+    "network": true
+  },
+  "granted_scopes": {
+    "hardware": true,
+    "host": true,
+    "network": true
+  },
+  "hardware_access": "/dev character-device actuation enabled; only a virtual PTY was tested.",
+  "hostname_sha256": "ab80177c2fa8dfa42997fecef5373fc82ca987f9640e7dcbb572ffe11737c796",
+  "instrument": "zoe-owner-actuation-status-evidence",
+  "internet_access": "HTTP(S) actuation enabled; a real public HTTPS receipt is preserved.",
+  "owner_grant_sha256": "59e309541794667f7cffd510418d34ce56cd45f701aabd3388fee2790b9919dd",
+  "principal": "local-owner",
+  "privilege_elevation": false,
+  "schema_version": 1
+}

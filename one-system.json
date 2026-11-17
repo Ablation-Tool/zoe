@@ -16,7 +16,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "a101a81e57a33d28df7827b0bb8bc5aa2e3a63d1",
+    "revision": "1a31f0b6a89cda7167630cf5e203ea856120ba4f",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -94,5 +94,25 @@
   "verification": {
     "command": "python scripts/verify-one-system.py --workspace /path/to/workspace",
     "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions."
+  },
+  "actuation": {
+    "contract": "zoe-actuation/v1",
+    "owner_approved": true,
+    "hostname_bound": true,
+    "enabled_scopes": {
+      "host": true,
+      "network": true,
+      "hardware": true
+    },
+    "privilege_elevation": false,
+    "cross_machine_transfer": false,
+    "local_host_executed": true,
+    "internet_https_executed": true,
+    "internet_status": 200,
+    "virtual_hardware_executed": true,
+    "physical_hardware_executed": false,
+    "emergency_stop_verified": true,
+    "external_operations": 3,
+    "evidence": "evidence/actuation/verification.json"
   }
 }

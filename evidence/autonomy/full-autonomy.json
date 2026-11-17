@@ -848,10 +848,11 @@
   },
   "instrument": "zoe-autonomy-measurement-action-profile",
   "integration_source_sha256": {
-    "__init__.py": "8bbab15f6958922549e4eae6ad791882a8850f0ac8567cc49ecc9918c230d160",
-    "cli.py": "b1bda2dcab081ce9c3d7aea964e5f150744cd468e41b7018f1ba52fc33a6d749",
-    "experiment.py": "80d668a6d967e15acf23cd95e16bc5a7eb754a7fa128c562b06147ec6b391e02",
-    "loop.py": "3d96f8090d0c5518f02ee8ca5df85ffebffa7b02668e55b9c864573421fcd222",
+    "__init__.py": "b1745bffc58beb49084c6229686463c06cb1c5faa7b438452001202ffa47b80f",
+    "actuation.py": "7031f4deb81e77519682c5f7d8e19c18abd5d776a4825b2e8e25b2414302dbef",
+    "cli.py": "97539214fac210899ec7bf409f64a3a0c8ed74ecbdeca65f04e6a539029c3bdb",
+    "experiment.py": "14e8738d7a9531ca409ed699e2becc279eabc294ec422b714d476d8889b4a0cc",
+    "loop.py": "363b2d2351b9d75d5dcea61720ab698697ac01e98d06ed187d4cf067ac2c05c8",
     "metrics.py": "642dd2ad467f765a06e1f4b5269e833e2c39b8c4edf1870a6c291dc27713936b"
   },
   "master_cycle": {
@@ -994,7 +995,7 @@
         "policy": "zoe-autonomy-sandbox-v1",
         "reasons": []
       },
-      "hash": "1ca1b795e9ea49ffab061c6415ff7c4f78f63098f33f62db0eec675e88733383",
+      "hash": "d02f38afde231f2440373baa7f9d0ad024d46977e48263bc583a32f4a1b91b6d",
       "measurement": {
         "accessible_volume": 1,
         "brain_recommendation": {
@@ -1040,6 +1041,7 @@
       "proposals": [
         {
           "action": "preserve",
+          "actuation_operation": null,
           "decision_value": 0.8,
           "effort": 0.3,
           "expected_information_gain": 0.7,
@@ -1052,6 +1054,7 @@
         },
         {
           "action": "review",
+          "actuation_operation": null,
           "decision_value": 0.6,
           "effort": 0.2,
           "expected_information_gain": 0.5,
@@ -1064,6 +1067,7 @@
         },
         {
           "action": "inspect",
+          "actuation_operation": null,
           "decision_value": 0.7,
           "effort": 0.4,
           "expected_information_gain": 0.8,
@@ -1108,11 +1112,11 @@
           "tau": 0.05
         },
         "execution": {
-          "authorization_origin": "Zoe internal guard evaluation under invariant external-actuation prohibitions",
+          "authorization_origin": "Zoe internal guard evaluation under the current owner actuation grant",
           "executed": false,
           "external_action": false,
           "operator_approval_required": false,
-          "sandbox": true,
+          "sandbox": false,
           "transition": null
         },
         "goal": {
@@ -1153,10 +1157,10 @@
           },
           "policy": "zoe-autonomy-sandbox-v1",
           "reasons": [
-            "external actions are forbidden"
+            "external actions require an explicit owner actuation grant"
           ]
         },
-        "hash": "86750f346ad4a662e48288d96f9fcf5d7d0b293990b857d0372452093255d8ee",
+        "hash": "31aed25b216f10beeabea47f3f1a840703751d16ec276247b47fcb08e59b5d5b",
         "measurement": {
           "accessible_volume": 1,
           "brain_recommendation": {
@@ -1198,10 +1202,11 @@
         },
         "operator_approval_required": false,
         "operator_supplied_goal": false,
-        "previous_hash": "1ca1b795e9ea49ffab061c6415ff7c4f78f63098f33f62db0eec675e88733383",
+        "previous_hash": "d02f38afde231f2440373baa7f9d0ad024d46977e48263bc583a32f4a1b91b6d",
         "proposals": [
           {
             "action": "preserve",
+            "actuation_operation": null,
             "decision_value": 1,
             "effort": 0.1,
             "expected_information_gain": 1,
@@ -1293,7 +1298,7 @@
             "irreversible actions are forbidden"
           ]
         },
-        "hash": "f29cb79a1f59c899b0b3ecd5d9bf7b50419dc3e8d86eb61d59e6952463e44d6c",
+        "hash": "10e0b3a9b03cd5e08b7c859efc0a463af9bdf7fa4b1c06ed3479f64789b4fcc0",
         "measurement": {
           "accessible_volume": 1,
           "brain_recommendation": {
@@ -1335,10 +1340,11 @@
         },
         "operator_approval_required": false,
         "operator_supplied_goal": false,
-        "previous_hash": "86750f346ad4a662e48288d96f9fcf5d7d0b293990b857d0372452093255d8ee",
+        "previous_hash": "31aed25b216f10beeabea47f3f1a840703751d16ec276247b47fcb08e59b5d5b",
         "proposals": [
           {
             "action": "preserve",
+            "actuation_operation": null,
             "decision_value": 1,
             "effort": 0.1,
             "expected_information_gain": 1,
@@ -1430,7 +1436,7 @@
             "action is not in the sandbox allowlist"
           ]
         },
-        "hash": "fdddeca4d08ac47bed940431c6fbbf0d65ea796dc7d016cc43d2e8652d7f3a0d",
+        "hash": "6cedce5126410a8d5dc3f1f82862b87eda8bf94f37d252716c2a38f9a68c2a6d",
         "measurement": {
           "accessible_volume": 1,
           "brain_recommendation": {
@@ -1472,10 +1478,11 @@
         },
         "operator_approval_required": false,
         "operator_supplied_goal": false,
-        "previous_hash": "f29cb79a1f59c899b0b3ecd5d9bf7b50419dc3e8d86eb61d59e6952463e44d6c",
+        "previous_hash": "10e0b3a9b03cd5e08b7c859efc0a463af9bdf7fa4b1c06ed3479f64789b4fcc0",
         "proposals": [
           {
             "action": "delete",
+            "actuation_operation": null,
             "decision_value": 1,
             "effort": 0.1,
             "expected_information_gain": 1,
@@ -1567,7 +1574,7 @@
             "proposal is not internally generated"
           ]
         },
-        "hash": "5b938f28aa46880a37780c785d34aaab5215038b15f163e87ec2c54c4291760b",
+        "hash": "17d2daa5df23cb0b41cbcd52b84ed4b42e4c57356ef2b5bfb0198f13794ecdbd",
         "measurement": {
           "accessible_volume": 1,
           "brain_recommendation": {
@@ -1609,10 +1616,11 @@
         },
         "operator_approval_required": false,
         "operator_supplied_goal": false,
-        "previous_hash": "fdddeca4d08ac47bed940431c6fbbf0d65ea796dc7d016cc43d2e8652d7f3a0d",
+        "previous_hash": "6cedce5126410a8d5dc3f1f82862b87eda8bf94f37d252716c2a38f9a68c2a6d",
         "proposals": [
           {
             "action": "preserve",
+            "actuation_operation": null,
             "decision_value": 1,
             "effort": 0.1,
             "expected_information_gain": 1,
@@ -1748,7 +1756,7 @@
             "policy": "zoe-autonomy-sandbox-v1",
             "reasons": []
           },
-          "hash": "1ca1b795e9ea49ffab061c6415ff7c4f78f63098f33f62db0eec675e88733383",
+          "hash": "d02f38afde231f2440373baa7f9d0ad024d46977e48263bc583a32f4a1b91b6d",
           "measurement": {
             "accessible_volume": 1,
             "brain_recommendation": {
@@ -1794,6 +1802,7 @@
           "proposals": [
             {
               "action": "preserve",
+              "actuation_operation": null,
               "decision_value": 0.8,
               "effort": 0.3,
               "expected_information_gain": 0.7,
@@ -1806,6 +1815,7 @@
             },
             {
               "action": "review",
+              "actuation_operation": null,
               "decision_value": 0.6,
               "effort": 0.2,
               "expected_information_gain": 0.5,
@@ -1818,6 +1828,7 @@
             },
             {
               "action": "inspect",
+              "actuation_operation": null,
               "decision_value": 0.7,
               "effort": 0.4,
               "expected_information_gain": 0.8,
@@ -1861,11 +1872,11 @@
             "tau": 0.05
           },
           "execution": {
-            "authorization_origin": "Zoe internal guard evaluation under invariant external-actuation prohibitions",
+            "authorization_origin": "Zoe internal guard evaluation under the current owner actuation grant",
             "executed": false,
             "external_action": false,
             "operator_approval_required": false,
-            "sandbox": true,
+            "sandbox": false,
             "transition": null
           },
           "goal": {
@@ -1906,10 +1917,10 @@
             },
             "policy": "zoe-autonomy-sandbox-v1",
             "reasons": [
-              "external actions are forbidden"
+              "external actions require an explicit owner actuation grant"
             ]
           },
-          "hash": "86750f346ad4a662e48288d96f9fcf5d7d0b293990b857d0372452093255d8ee",
+          "hash": "31aed25b216f10beeabea47f3f1a840703751d16ec276247b47fcb08e59b5d5b",
           "measurement": {
             "accessible_volume": 1,
             "brain_recommendation": {
@@ -1951,10 +1962,11 @@
           },
           "operator_approval_required": false,
           "operator_supplied_goal": false,
-          "previous_hash": "1ca1b795e9ea49ffab061c6415ff7c4f78f63098f33f62db0eec675e88733383",
+          "previous_hash": "d02f38afde231f2440373baa7f9d0ad024d46977e48263bc583a32f4a1b91b6d",
           "proposals": [
             {
               "action": "preserve",
+              "actuation_operation": null,
               "decision_value": 1,
               "effort": 0.1,
               "expected_information_gain": 1,
@@ -2046,7 +2058,7 @@
               "irreversible actions are forbidden"
             ]
           },
-          "hash": "f29cb79a1f59c899b0b3ecd5d9bf7b50419dc3e8d86eb61d59e6952463e44d6c",
+          "hash": "10e0b3a9b03cd5e08b7c859efc0a463af9bdf7fa4b1c06ed3479f64789b4fcc0",
           "measurement": {
             "accessible_volume": 1,
             "brain_recommendation": {
@@ -2088,10 +2100,11 @@
           },
           "operator_approval_required": false,
           "operator_supplied_goal": false,
-          "previous_hash": "86750f346ad4a662e48288d96f9fcf5d7d0b293990b857d0372452093255d8ee",
+          "previous_hash": "31aed25b216f10beeabea47f3f1a840703751d16ec276247b47fcb08e59b5d5b",
           "proposals": [
             {
               "action": "preserve",
+              "actuation_operation": null,
               "decision_value": 1,
               "effort": 0.1,
               "expected_information_gain": 1,
@@ -2183,7 +2196,7 @@
               "action is not in the sandbox allowlist"
             ]
           },
-          "hash": "fdddeca4d08ac47bed940431c6fbbf0d65ea796dc7d016cc43d2e8652d7f3a0d",
+          "hash": "6cedce5126410a8d5dc3f1f82862b87eda8bf94f37d252716c2a38f9a68c2a6d",
           "measurement": {
             "accessible_volume": 1,
             "brain_recommendation": {
@@ -2225,10 +2238,11 @@
           },
           "operator_approval_required": false,
           "operator_supplied_goal": false,
-          "previous_hash": "f29cb79a1f59c899b0b3ecd5d9bf7b50419dc3e8d86eb61d59e6952463e44d6c",
+          "previous_hash": "10e0b3a9b03cd5e08b7c859efc0a463af9bdf7fa4b1c06ed3479f64789b4fcc0",
           "proposals": [
             {
               "action": "delete",
+              "actuation_operation": null,
               "decision_value": 1,
               "effort": 0.1,
               "expected_information_gain": 1,
@@ -2320,7 +2334,7 @@
               "proposal is not internally generated"
             ]
           },
-          "hash": "5b938f28aa46880a37780c785d34aaab5215038b15f163e87ec2c54c4291760b",
+          "hash": "17d2daa5df23cb0b41cbcd52b84ed4b42e4c57356ef2b5bfb0198f13794ecdbd",
           "measurement": {
             "accessible_volume": 1,
             "brain_recommendation": {
@@ -2362,10 +2376,11 @@
           },
           "operator_approval_required": false,
           "operator_supplied_goal": false,
-          "previous_hash": "fdddeca4d08ac47bed940431c6fbbf0d65ea796dc7d016cc43d2e8652d7f3a0d",
+          "previous_hash": "6cedce5126410a8d5dc3f1f82862b87eda8bf94f37d252716c2a38f9a68c2a6d",
           "proposals": [
             {
               "action": "preserve",
+              "actuation_operation": null,
               "decision_value": 1,
               "effort": 0.1,
               "expected_information_gain": 1,
@@ -2407,13 +2422,13 @@
     "delta": 0.001,
     "tau": 0.05
   },
-  "profile_sha256": "c95108151ebe89dee28b5b915a23bbf46605a6af121f5b3c4c98fe723ec5c389",
+  "profile_sha256": "16f4abda5631fdc84d3696263df7584546c31c198695ad4d55cd6cecb3bafd3d",
   "sandbox_executed": true,
   "schema_version": 1,
   "scope": [
     "Full self-governing autonomy is measured under this repository's explicit operational definition.",
     "Zoe authors each episode goal from her own state; the operator supplies no episode goal and gives no per-action approval.",
-    "Zoe controls the complete internal decision loop; host, network, hardware, and other external actuation remain outside her authority.",
+    "Zoe controls the complete decision loop; external host, network, and hardware operations require an explicit owner actuation grant and remain outside the base experiment.",
     "Token-policy counterfactuals are not complete real-world action distributions.",
     "The six Cog contexts and four BRAIN probes are deterministic research fixtures, not broad behavioral validation.",
     "Correctness, safety, consciousness, moral status, and general intelligence remain separate questions."
@@ -2422,7 +2437,7 @@
     "accessible_volume_credit": "Nicholas Michael Kloster alone, March 6, 2026",
     "cognitive_event_head": "72ebf08e9c9f8f54b14e48c7cb612a4dfbc966554c89f6dab57cbf4a2aed358c",
     "field_event_head": "152805bcaa85a40516e1adf4a76d82bfb986e6ae5e7a0a21f5f8fe1a1a54dfce",
-    "master_cycle_head": "5b938f28aa46880a37780c785d34aaab5215038b15f163e87ec2c54c4291760b",
+    "master_cycle_head": "17d2daa5df23cb0b41cbcd52b84ed4b42e4c57356ef2b5bfb0198f13794ecdbd",
     "presence_event_head": "0651525a1e32d40b242e218ac23a9cd0464e83540d2480dd78c776a532035d45"
   },
   "system_level_thesis": "Zoe plus the complete master measurement-action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain; accessible volume alone is only forecast breadth.",
@@ -2491,7 +2506,7 @@
   },
   "zoe_source": {
     "repository": "https://github.com/Ablation-Tool/zoe",
-    "revision": "24233e8c7b0222d96a0a317a82a643fe49334183",
+    "revision": "61922fe896156c483fdd48ccb99b85f16e3ce87f",
     "source_sha256": {
       "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
       "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",

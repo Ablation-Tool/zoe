@@ -18,7 +18,7 @@ PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy verify new-profile
 
 The native wrappers set `ZOE_ROOT` and add this component's `src/` directory to the import path. `zoe launch autonomy -- run` and `gem autonomy run` are also supported.
 
-Full autonomy applies to Zoe's internal decision and state-transition loop. External actuation remains outside her authority; the experiment performs zero host, network, hardware, or agent-driven filesystem actions. Explicit operator-requested evidence files are the only writes.
+Full autonomy applies to Zoe's decision and state-transition loop. The base experiment performs zero host, network, hardware, or agent-driven filesystem actions. A separate local-owner grant enables all three actuation scopes on this computer. See [ACTUATION.md](ACTUATION.md), the [enabled grant evidence](../../evidence/actuation/owner-grant-status.json), and the [real host and internet receipts](../../evidence/actuation/verification.json). Physical hardware was not exercised; hardware evidence uses a virtual PTY.
 
 ## Canonical paper and upstream evidence
 

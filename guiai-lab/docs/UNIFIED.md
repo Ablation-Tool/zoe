@@ -23,7 +23,7 @@ Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_
 | BRAIN GEM | `483bba83bb8c4564552a487241d009b6b313c447` | Standalone Bayesian field notebook |
 | Cerotto | `17678c514956b06b5e77b0ff343b2df45c4996e2` | Native C forensic engine and guarded GEM workbench |
 | next-token-predictability | `4d015ea7580c8c9c0917c35150b054568c177f3f` | Accessible-volume research, response-planning evidence, and retained SAT research |
-| Zoe-Autonomy | `a101a81e57a33d28df7827b0bb8bc5aa2e3a63d1` | Full self-governing goals, proposals, valuation, execution, and evidence |
+| Zoe-Autonomy | `1a31f0b6a89cda7167630cf5e203ea856120ba4f` | Full self-governing goals, proposals, valuation, execution, and evidence |
 | Neurogarden | unavailable; recovered local snapshot | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `8ac3e0181e98572d6c41f964385393aa441a5f2a` | MCP firewall and pure policy engine |
 | PDF Signature Toolkit | `1198165962958c5132130f3854626ff39c333941` | Source integrity and PDF signature commands |

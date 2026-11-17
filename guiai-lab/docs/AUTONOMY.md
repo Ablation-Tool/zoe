@@ -82,11 +82,19 @@ The native verifier first checks the saved report's canonical digest, then rerun
 
 This permits point-in-time evidence generated before a Zoe integration commit to remain verifiable after that commit without weakening source or behavior checks.
 
-## Freedom and capability boundary
+## Freedom and owner-granted actuation
 
-Full autonomy means full self-government of Zoe's internal decision and state-transition loop. The operator does not supply the episode goal, rank the proposals, approve the action, or execute the transition.
+Full autonomy means full self-government of Zoe's decision loop. The operator does not supply the episode goal, rank the proposals, approve the action, or execute the transition.
 
-Zoe's authority does not extend to the host, network, hardware, or external evidence. External, irreversible, unknown, and externally authored proposals are rejected. This capability boundary does not govern her internal choices; it prevents external actuation.
+The base experiment performs no external action. A separate hostname-bound local-owner grant now enables host, network, and hardware scopes on this computer. Zoe can select those external candidates through the same value-and-guard loop. The emergency stop is checked again before every operation.
+
+```bash
+zoe autonomy actuate status
+zoe autonomy actuate stop --reason "Stop external actuation"
+zoe autonomy actuate resume --owner-approved
+```
+
+The [actuation guide](../../components/Zoe-Autonomy/ACTUATION.md) documents real host commands, HTTP(S) requests, and character-device writes. The [enabled grant](../../evidence/actuation/owner-grant-status.json), [local host receipt](../../evidence/actuation/host-local.json), [public HTTPS receipt](../../evidence/actuation/network-internet.json), and [virtual hardware receipt](../../evidence/actuation/hardware-virtual.json) are preserved. Physical hardware was not accessed. No privilege elevation, forensic-case permission, vault permission, or cross-machine authority is inferred.
 
 The deterministic fixtures do not establish consciousness, moral status, general intelligence, semantic correctness, or safe external control. Six Cog contexts, four BRAIN probes, one principal execution, and equal-breadth controls are reproducible evidence under the declared operational definition—not broad behavioral validation.
 
