@@ -1,0 +1,22 @@
+{
+  "audit_hash": "eba4cb82f67c49a7fa97be4dbf43474bfaba9f8f062631e6c901392a92e08c64",
+  "executed": true,
+  "external_action": true,
+  "kind": "host",
+  "measurement_sha256": null,
+  "result": {
+    "argv": [
+      "/home/cowboy/security-tools/bin/python",
+      "-c",
+      "print('zoe-local-host-ok')"
+    ],
+    "cwd": "/tmp",
+    "returncode": 0,
+    "shell_used": false,
+    "stderr": "",
+    "stderr_truncated": false,
+    "stdout": "zoe-local-host-ok\n",
+    "stdout_truncated": false,
+    "succeeded": true
+  }
+}

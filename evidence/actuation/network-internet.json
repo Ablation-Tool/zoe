@@ -1,0 +1,16 @@
+{
+  "audit_hash": "1959e17e67869915198fbb05cf3fda0ae562b9dfb9e3c07bd7dc55938572a3a2",
+  "executed": true,
+  "external_action": true,
+  "kind": "network",
+  "result": {
+    "content_type": "text/html; charset=utf-8",
+    "method": "GET",
+    "response_bytes": 577,
+    "status": 200,
+    "succeeded": true,
+    "tls_verification": "Python default certificate verification",
+    "url": "https://example.com/"
+  },
+  "scope": "Read-only HTTPS GET to a public example domain; response body omitted from evidence."
+}

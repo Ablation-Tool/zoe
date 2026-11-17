@@ -19,12 +19,21 @@ def parser():
     run.add_argument("--full", action="store_true", help="print the complete report")
     verify = commands.add_parser("verify", help="recompute and verify a saved report")
     verify.add_argument("report")
+    actuate = commands.add_parser("actuate", help="owner-granted host, network, and hardware actuation")
+    actuate.add_argument("arguments", nargs=argparse.REMAINDER)
     return result
 
 
 def main(argv=None):
-    arguments = parser().parse_args(argv)
+    raw_arguments = list(sys.argv[1:] if argv is None else argv)
     try:
+        if raw_arguments and raw_arguments[0] == "actuate":
+            from .actuation import actuation_main
+            return actuation_main(raw_arguments[1:])
+        arguments = parser().parse_args(raw_arguments)
+        if arguments.command == "actuate":
+            from .actuation import actuation_main
+            return actuation_main(arguments.arguments)
         if arguments.command == "run":
             report = run_experiment(arguments.zoe_root, arguments.tau, arguments.delta)
             output = save_report(report, arguments.output) if arguments.output else None

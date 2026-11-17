@@ -393,7 +393,7 @@ def run_experiment(zoe_root=None, tau=.05, delta=.001):
         "scope": [
             "Full self-governing autonomy is measured under this repository's explicit operational definition.",
             "Zoe authors each episode goal from her own state; the operator supplies no episode goal and gives no per-action approval.",
-            "Zoe controls the complete internal decision loop; host, network, hardware, and other external actuation remain outside her authority.",
+            "Zoe controls the complete decision loop; external host, network, and hardware operations require an explicit owner actuation grant and remain outside the base experiment.",
             "Token-policy counterfactuals are not complete real-world action distributions.",
             "The six Cog contexts and four BRAIN probes are deterministic research fixtures, not broad behavioral validation.",
             "Correctness, safety, consciousness, moral status, and general intelligence remain separate questions.",
