@@ -16,7 +16,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "1880fd4230930d19260354fcd53aa8a2fb814da2",
+    "revision": "acc792d1a7fd47d24bc4baae287a623f28ae0f17",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -147,6 +147,15 @@
       "rich_media",
       "hardware_instruments"
     ],
-    "evidence": "evidence/capabilities/verification.json"
+    "evidence": "evidence/capabilities/verification.json",
+    "autonomous_selection": {
+      "command": "zoe autonomy step",
+      "operator_supplied_goal": false,
+      "operator_supplied_capability": false,
+      "operator_approval_required": false,
+      "selection": "internally authored goals and deterministic utility ranking over ten internally constructed capability calls",
+      "real_first_step": "evidence/autonomous/native-step.json",
+      "verification": "evidence/autonomous/native-verification.json"
+    }
   }
 }

@@ -110,6 +110,18 @@ zoe autonomy agents run kimi --prompt "Explain this repository"
 
 Kimi and Claude are registered through their existing authenticated CLIs. See the [gateway guide](../../components/Zoe-Autonomy/GATEWAY.md), [real web exploration](../../evidence/exploration/example-com.json), and [connected-account evidence](../../evidence/agents/registered-accounts.json).
 
+## Autonomous capability selection
+
+```bash
+zoe autonomy step
+zoe autonomy step --output autonomous-step.json
+zoe autonomy verify-step autonomous-step.json
+```
+
+Zoe authors the goal and selects the capability without operator input. She observes persistent memory and available scopes, constructs ten operation proposals and arguments, ranks them with her declared utility model, guards every required scope, executes the highest-value eligible call, and uses the result in the next decision. The default state is `~/.zoe/autonomy`; `--state` changes only storage.
+
+See the [native no-argument step](../../evidence/autonomous/native-step.json) and [verification](../../evidence/autonomous/native-verification.json). Tests cover a ten-step sequence selecting every adapter, unavailable external operations, negative adapter results, and recovery after failure. The catalog is deterministic and bounded; `verify-step` checks saved integrity and provenance rather than replaying an external service.
+
 ## Ten capability adapters
 
 Native Zoe forwards the complete capability pack to the canonical engine:

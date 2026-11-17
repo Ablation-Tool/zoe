@@ -2,6 +2,24 @@
 
 Zoe-Autonomy includes ten unified capability adapters through `zoe-autonomy capabilities`.
 
+## Autonomous selection
+
+Use `zoe-autonomy step` when Zoe—not the operator—should choose the goal and capability:
+
+```bash
+zoe-autonomy step
+zoe-autonomy step --output autonomous-step.json
+zoe-autonomy verify-step autonomous-step.json
+```
+
+Zoe observes her persistent state, authors a goal, constructs calls and arguments for all ten adapters, ranks them by `U = decision value × expected information gain ÷ effort`, guards their required scopes, executes the highest-value eligible call, and carries the result into the next step. No goal, adapter, query, or per-action approval is supplied by the operator.
+
+The default state is `~/.zoe/autonomy`; `ZOE_AUTONOMY_STATE` or `--state` selects another storage directory without selecting a decision. External calls require the corresponding owner-granted host/network scopes. Browser automation requires Playwright and Node, connected GitHub calls require `gh`, desktop notifications require `notify-send`, and OCR requires Tesseract. Internal memory, WAV inspection, and simulated instruments remain available without those tools.
+
+The [real autonomous first step](../../evidence/autonomous/first-step.json) selected Crossref and authored the query `language model uncertainty`; its [verification](../../evidence/autonomous/verification.json) passes. The integration suite also runs a ten-step sequence in which Zoe selects every adapter once, using loopback or test doubles for external accounts. `verify-step` authenticates neither the external service nor a real-time replay; it checks the saved digest and decision provenance.
+
+## Direct adapter commands
+
 ## 1. Browser automation
 
 Render JavaScript pages, extract visible text and links, and capture screenshots through Playwright:
@@ -153,4 +171,4 @@ Simulators return declared responses. Serial instruments write command frames th
 
 ## Verification level
 
-[Capability verification](../../evidence/capabilities/verification.json) records all ten passing tests and all 30 repository tests. Optional account, container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence. The guide does not present those untested external integrations as completed live results.
+[Capability verification](../../evidence/capabilities/verification.json) records all ten passing adapter tests and all 34 repository tests. Optional account, container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence. The guide does not present those untested external integrations as completed live results.
