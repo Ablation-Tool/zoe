@@ -21,6 +21,7 @@ The repository is organized as a research paper, an evidence archive, and a nati
 - [BioBERT verification evidence](../evidence/biobert-optimization/optimization.json)
 - [Accessible Q-Volume toy evidence](../evidence/qualia/accessible-q-volume.json)
 - [Mirrored workbench verification](../evidence/workbench/verification.json)
+- [Response-planning visual proof](../evidence/response-planning/response-planning-proof.svg) and [artifact manifest](../evidence/response-planning/artifact-manifest.json)
 - [Native GEM repository](https://github.com/Ablation-Tool/graphics-environment-manager)
 - [Standalone BRAIN GEM](https://github.com/Ablation-Tool/brain-gem)
 - [Zoetic guide to causal geometry](https://github.com/Ablation-Tool/zoe/blob/main/guiai-lab/docs/QUALIA.md)

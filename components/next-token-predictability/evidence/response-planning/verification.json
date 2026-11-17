@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "verified": true,
+  "comparison_cases": 16,
+  "threshold_cells": 96,
+  "biobert_cases": 120,
+  "biobert_test_cases": 40,
+  "biobert_test_auroc": 0.7736572890025576,
+  "biobert_test_auprc": 0.7978260869565218,
+  "numpy_zoe_gem_agreement": true,
+  "gem_workbench_operations_passed": 17,
+  "strict_threshold_boundary_passed": true,
+  "visual": {
+    "png_dimensions": [
+      2000,
+      1500
+    ],
+    "svg_semantic_labels_verified": true,
+    "artifact_hashes_verified": true
+  },
+  "artifact_sha256": {
+    "measurements.json": "897063b1a587209dbaa243743fb2a25be3032370028b4e7f5208d4d2be2e1b7d",
+    "response-planning-proof.png": "202c1e2928b7147fc4059e138243846ae516dae654bc6711e941f2de7244e002",
+    "response-planning-proof.svg": "d36de0f2514f79b5b92a646daade484f7fb249b9a9605a02a5c792a9bf0b965d"
+  },
+  "scope": "Verified distribution measurements and visual integrity; not validation of response length, autonomy, or a universal policy."
+}

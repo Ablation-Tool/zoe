@@ -13,6 +13,7 @@ ATLAS_MODULES = {
     "felix": "Zoe × FELIX · living readout evidence",
     "cern": "Zoe × CERN · corpus Repair Atlas",
     "brain": "Zoe · BRAIN orchestration",
+    "autonomy": "Zoe Autonomy · full self-governing measurement-action loop",
     "field": "Zoe · Bayesian field notebook",
     "cognitive": "Z.O.E. · Cognitive Field / GSP",
     "artline": "Zoe Artline · vector workbench",
@@ -418,6 +419,9 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
         kernel = BrainKernel()
         kernel.observe_onset()
         return brain_scene(kernel)
+    if module == "autonomy":
+        from .autonomy import autonomy_scene
+        return autonomy_scene()
     if module == "field":
         from .field import FieldNotebook, field_scene
         return field_scene(FieldNotebook.demo())

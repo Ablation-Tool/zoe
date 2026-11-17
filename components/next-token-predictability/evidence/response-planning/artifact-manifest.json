@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "deterministic_outputs": true,
+  "artifacts": {
+    "measurements.json": {
+      "sha256": "897063b1a587209dbaa243743fb2a25be3032370028b4e7f5208d4d2be2e1b7d"
+    },
+    "response-planning-proof.png": {
+      "sha256": "202c1e2928b7147fc4059e138243846ae516dae654bc6711e941f2de7244e002",
+      "width": 2000,
+      "height": 1500
+    },
+    "response-planning-proof.svg": {
+      "sha256": "d36de0f2514f79b5b92a646daade484f7fb249b9a9605a02a5c792a9bf0b965d"
+    }
+  }
+}

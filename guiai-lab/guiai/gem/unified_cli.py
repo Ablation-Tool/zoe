@@ -25,7 +25,7 @@ def parser():
     show.add_argument("component", help="component identifier from `zoe list`")
     os_command = commands.add_parser("os", help="open one ZOE and one GEM desktop")
     os_command.add_argument("arguments", nargs=argparse.REMAINDER)
-    for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pentacube", "open the pentomino cube permutation laboratory"), ("cicada", "open the CERN and cicada-inspired internal clock"), ("life", "open Conway's Game of Life"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden"), ("maison", "open the executive luxury enterprise studio"), ("evidence", "open the source-first evidence navigator")):
+    for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pentacube", "open the pentomino cube permutation laboratory"), ("cicada", "open the CERN and cicada-inspired internal clock"), ("life", "open Conway's Game of Life"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("autonomy", "run Zoe's full self-governing autonomy loop"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden"), ("maison", "open the executive luxury enterprise studio"), ("evidence", "open the source-first evidence navigator")):
         command = commands.add_parser(name, help=description)
         command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
     return result
@@ -36,7 +36,7 @@ def main(argv=None):
     if raw_arguments and raw_arguments[0] == "os":
         from .desktop_view import main as desktop_main
         return desktop_main(raw_arguments[1:])
-    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
+    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
         from importlib import import_module
         return import_module(f".{raw_arguments[0]}_view", __package__).main(raw_arguments[1:])
     arguments = parser().parse_args(raw_arguments)
@@ -45,7 +45,7 @@ def main(argv=None):
         if arguments.command == "os":
             from .desktop_view import main as desktop_main
             return desktop_main(arguments.arguments)
-        if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
+        if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             from importlib import import_module
             return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
         if arguments.command in {"list", "components"}:
