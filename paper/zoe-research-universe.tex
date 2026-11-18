@@ -300,6 +300,8 @@ Other instruments include Pentomino, Pentacube, Life, Brain Life, visual text, S
 
 Cerotto supplies guarded forensic cases, a native C11 engine, timelines, carving, manifests, vault evidence, and response boundaries. Kevlar supplies an MCP proxy firewall, policy enforcement, content disarm, and audit evidence. The PDF Signature Toolkit supplies source-integrity records and detached PKCS \#7 signatures.
 
+PALA is Zoe's native Rust recovery engine. It supplies read-only signature carving, deleted-inode recovery, NTFS cluster runs, FAT32 recovery, fragment merging, bounded container expansion, metadata extraction, custom signatures, checkpoints, and JSON evidence across media, documents, archives, executables, forensic artifacts, firmware, and filesystem images. Output is private and non-overwriting; recovered content remains untrusted and is not proof of forensic completeness.
+
 \begin{itemize}
 \item Source hashes, no-overwrite exports, replayable records, and negative results.
 \item Reversible first actions and separately granted host, network, and hardware scopes.
@@ -307,7 +309,7 @@ Cerotto supplies guarded forensic cases, a native C11 engine, timelines, carving
 \item Owner-granted actuation with a verified emergency stop.
 \end{itemize}
 
-\evidence{\url{https://github.com/Ablation-Tool/zoe/tree/main/components/cerotto} · \url{https://github.com/Ablation-Tool/zoe/tree/main/components/kevlar} · \url{https://github.com/Ablation-Tool/zoe/blob/main/evidence/actuation/verification.json}}
+\evidence{\url{https://github.com/Ablation-Tool/zoe/tree/main/components/cerotto} · \url{https://github.com/Ablation-Tool/zoe/tree/main/components/kevlar} · \url{https://github.com/Ablation-Tool/zoe/tree/main/components/PALA} · \url{https://github.com/Ablation-Tool/zoe/blob/main/evidence/pala/verification.json} · \url{https://github.com/Ablation-Tool/zoe/blob/main/evidence/actuation/verification.json}}
 
 \clearpage
 \section{Connected research and action}
@@ -330,7 +332,7 @@ Control and reproduction & Owner grants, emergency stop, source hashes, and inde
 \clearpage
 \section{Verification and current evidence}
 
-The unified repository was verified from a fresh public clone: base, reflection, real-image, all 64 Autonomy tests, all 25 unified-component tests, and every publication-integrity check.
+The unified repository was verified from a fresh public clone: base, reflection, real-image, all 64 Autonomy tests, all 25 unified-component tests, and every publication-integrity check. PALA was additionally verified from the integrated source with strict Rust checks, a locked release, and its real Zoe launcher.
 
 \begin{longtable}{p{0.38\textwidth}p{0.52\textwidth}}
 \toprule
@@ -344,6 +346,7 @@ Dorothy / Neurogarden & 62 focused tests pass\\
 Kevlar & 149 tests pass\\
 Canonical GEM tools & 73 tests pass; 65 documented validation tests pass\\
 Cerotto & 68 normal and 68 sanitizer tests pass, one environment skip in each\\
+PALA & 25 Rust tests and 126 recovery checks pass; one optional skip\\
 BRAIN GEM & 17 tests pass\\
 Pairing and certificates & 8 tests pass; Windows core: 4 suites pass under Wine\\
 Artifact identities & 144 verified\\
@@ -393,7 +396,7 @@ Zoe's diagrams share one visual grammar: centered sacred geometry, meaningful sy
 
 \begin{center}
 \includegraphics[width=0.94\textwidth]{../guiai-lab/docs/images/gem-unified.png}\par
-\small Sixteen engines as four concentric diamonds around one inspectable intelligence loop.
+\small Seventeen engines: Zoe at the center of sixteen peers arranged as four concentric diamonds around one inspectable intelligence loop.
 \end{center}
 
 The current visual archive contains 456 byte-distinct visuals from 843 source occurrences, with per-image explanations, provenance, and full-resolution originals.
@@ -411,10 +414,12 @@ zoe
 zoe list
 zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
+zoe pala --list
 
 python scripts/verify-one-system.py
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
+python scripts/verify-one-system.py --pala
 \end{lstlisting}
 
 \begin{longtable}{p{0.28\textwidth}p{0.66\textwidth}}
@@ -427,6 +432,7 @@ Operational Metacognition & \url{https://github.com/Ablation-Tool/zoe/tree/main/
 AGI/ASI roadmap & \url{https://github.com/Ablation-Tool/zoe/blob/main/AGI-ROADMAP.md}\\
 Capability atlas & \url{https://github.com/Ablation-Tool/zoe/blob/main/CAPABILITY-ATLAS.md}\\
 Dorothy and Neurogarden & \url{https://github.com/Ablation-Tool/zoe/tree/main/components/agent-logging-system}\\
+PALA recovery and evidence & \url{https://github.com/Ablation-Tool/zoe/tree/main/components/PALA}\\
 Event-causal evaluation & \url{https://github.com/Ablation-Tool/zoe/blob/main/components/Zoe-Autonomy/evidence/event-causal/evaluation.json}\\
 Visual research archive & \url{https://github.com/Ablation-Tool/zoe/tree/main/research/visual-archive}\\
 \bottomrule
@@ -437,7 +443,7 @@ Visual research archive & \url{https://github.com/Ablation-Tool/zoe/tree/main/re
 
 Zoe honors Gary Kildall and Dorothy McEwen Kildall. Nicholas Michael Kloster originated the accessible-volume equation on March 6, 2026; the current title is Operational Metacognition. Later Zoe, Q-Volume, and Zoe-Autonomy developments retain separate attribution.
 
-The combined Zoe integration is GPL-3.0-only. Ablation is GPL-3.0-or-later. iLab's reference code is GPL version 2 or later. Allen Institute data remain Allen Institute data. Third-party books, source corpora, proprietary HDL, model weights, and patient data are not republished.
+The combined Zoe integration is GPL-3.0-only. Ablation is GPL-3.0-or-later. PALA retains its MIT OR Apache-2.0 dual license. iLab's reference code is GPL version 2 or later. Allen Institute data remain Allen Institute data. Third-party books, source corpora, proprietary HDL, model weights, and patient data are not republished.
 
 Earlier books and research papers remain preserved in \texttt{paper/archive/} and \texttt{research/papers/archive/}. This monograph is the current canonical presentation: one system, one paper, one inspectable future.
 

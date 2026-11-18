@@ -23,11 +23,11 @@ class WorkbenchRegistrationCase(unittest.TestCase):
         self.assertIn("guiai.gem.zoe_workbench_cli", command)
         self.assertIn("start", command)
         self.assertTrue(cwd.is_dir())
-        self.assertEqual(len(COMPONENTS), 16)
+        self.assertEqual(len(COMPONENTS), 17)
 
     def test_unified_layout_fits_the_new_component(self):
         scene, report = unified_scene()
-        self.assertEqual(report["entrypoint_count"], 16)
+        self.assertEqual(report["entrypoint_count"], 17)
         memory = next(item for item in scene.objects if item["id"] == "unified-memory")
         component = next(item for item in scene.objects if item["id"] == "component-cern-console")
         self.assertGreater(memory["bounds"][1], component["bounds"][3])
@@ -163,7 +163,7 @@ class NativeUnifiedCase(unittest.TestCase):
         window = AtlasWindow("unified")
         try:
             self.assertIsNotNone(window.scene)
-            self.assertEqual(window.report["entrypoint_count"], 16)
+            self.assertEqual(window.report["entrypoint_count"], 17)
             window.unified_registry = RecordingRegistry()
             window.make_unified_launch("cern-console")()
             self.assertIn("cern-console", window.summary.get_text())

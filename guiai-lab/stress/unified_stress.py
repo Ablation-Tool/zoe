@@ -5,6 +5,7 @@ import io
 import json
 import os
 from pathlib import Path
+import subprocess
 import tempfile
 import types
 import unittest
@@ -44,13 +45,13 @@ class UnifiedSourceCase(unittest.TestCase):
     def test_all_source_projects_and_full_ablation_are_present(self):
         lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
         self.assertEqual(lock["identity"], IDENTITY)
-        self.assertEqual(len(lock["components"]), 11)
-        self.assertEqual(len(COMPONENTS), 16)
+        self.assertEqual(len(lock["components"]), 12)
+        self.assertEqual(len(COMPONENTS), 17)
         manifest = REGISTRY.manifest()
         self.assertEqual(manifest["repository_count"], 1)
-        self.assertEqual(manifest["source_project_count"], 12)
-        self.assertEqual(manifest["imported_repository_count"], 12)
-        self.assertEqual(manifest["entrypoint_count"], 16)
+        self.assertEqual(manifest["source_project_count"], 13)
+        self.assertEqual(manifest["imported_repository_count"], 13)
+        self.assertEqual(manifest["entrypoint_count"], 17)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
         self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe", "host"} for row in manifest["components"]))
         self.assertEqual(REGISTRY.source("chalkboard")["mode"], "bundled")
@@ -67,6 +68,9 @@ class UnifiedSourceCase(unittest.TestCase):
             "guiai-lab/guiai/gem/life.py",
             "components/kevlar/policy.py",
             "components/pdf-signature-toolkit/pdf_signature_toolkit/verify.py",
+            "components/PALA/src/main.rs",
+            "components/PALA/src/corpus.rs",
+            "components/PALA/tests/test_pala.py",
             "components/Chalkboard/templates/README.template.md",
             "components/agent-logging-system/agent_logging_system/adapters/neurogarden_adapter.py",
             "components/agent-logging-system/docs/NEUROGARDEN.md",
@@ -76,9 +80,9 @@ class UnifiedSourceCase(unittest.TestCase):
         ):
             self.assertTrue((ROOT / relative).exists(), relative)
         self.assertTrue((ROOT / "assets/branding/orbital-emblem.png").is_file())
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 16)
-        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 15)
-        self.assertEqual(len(REGISTRY.knowledge.events), 31)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["observation_count"], 17)
+        self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 16)
+        self.assertEqual(len(REGISTRY.knowledge.events), 33)
 
     def test_knowledge_observations_and_declared_links_preserve_boundaries(self):
         registry = ComponentRegistry(ROOT)
@@ -143,6 +147,35 @@ class UnifiedSourceCase(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "--db"):
             REGISTRY.command("cerotto")
 
+    def test_pala_native_binary_and_direct_cli(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkout = root / "components" / "PALA"
+            binary = checkout / "target" / "release" / "pala"
+            binary.parent.mkdir(parents=True)
+            (checkout / "src").mkdir()
+            (checkout / "README.md").write_text("PALA fixture\n", encoding="utf-8")
+            (checkout / "src" / "main.rs").write_text("fn main() {}\n", encoding="utf-8")
+            binary.write_text("#!/bin/sh\nprintf 'jpeg png pdf\\n'\n", encoding="utf-8")
+            binary.chmod(0o755)
+            registry = ComponentRegistry(root)
+            command, cwd = registry.command("pala")
+            self.assertEqual(command, [str(binary), "--list"])
+            self.assertEqual(cwd, checkout)
+            completed = subprocess.run(command, cwd=cwd, capture_output=True, text=True, check=False)
+            self.assertEqual(completed.returncode, 0)
+            self.assertEqual(completed.stdout, "jpeg png pdf\n")
+            with mock.patch("guiai.gem.pala_view.ComponentRegistry", return_value=registry):
+                with mock.patch.object(registry, "launch", return_value=types.SimpleNamespace(returncode=0)) as launch:
+                    self.assertEqual(zoe_main(["pala"]), 0)
+            launch.assert_called_once_with("pala", ["--list"], detach=False)
+            binary.unlink()
+            with mock.patch("guiai.gem.unified.shutil.which", return_value="/usr/bin/cargo"):
+                command, cwd = registry.command("pala", ["--version"])
+            self.assertEqual(command[:5], ["/usr/bin/cargo", "run", "--release", "--locked", "--manifest-path"])
+            self.assertEqual(command[-2:], ["--", "--version"])
+            self.assertEqual(cwd, checkout)
+
     def test_ablation_uses_current_interpreter_and_caller_cwd(self):
         import sys
 
@@ -194,7 +227,7 @@ class UnifiedSourceCase(unittest.TestCase):
                 self.assertEqual(zoe_main(["show", "neurogarden"]), 0)
             self.assertIn("chalkboard", stdout.getvalue())
             self.assertIn("neurogarden", stdout.getvalue())
-            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 16)
+            self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 17)
             self.assertEqual(KnowledgeField.load(knowledge).document(), REGISTRY.knowledge.document())
             with mock.patch("guiai.gem.desktop_view.launch_desktop") as launch:
                 self.assertEqual(zoe_main([]), 0)
@@ -207,9 +240,9 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(first.document["id"], "zoe-allgems")
         self.assertTrue(verify(first).passed, verify(first).text())
         self.assertTrue(verify_vdi(first).passed, verify_vdi(first).text())
-        self.assertEqual(report["knowledge"]["observation_count"], 16)
-        self.assertEqual(report["knowledge"]["link_count"], 15)
-        self.assertEqual(len(report["memory"]["events"]), 31)
+        self.assertEqual(report["knowledge"]["observation_count"], 17)
+        self.assertEqual(report["knowledge"]["link_count"], 16)
+        self.assertEqual(len(report["memory"]["events"]), 33)
         self.assertTrue(report["scene_only"])
         self.assertFalse(report["executed"])
         with tempfile.TemporaryDirectory() as directory:
@@ -219,6 +252,7 @@ class UnifiedSourceCase(unittest.TestCase):
             text = output.read_text(encoding="utf-8")
             self.assertIn("Zoe · ALLGEMS", text)
             self.assertIn("Kevlar", text)
+            self.assertIn("PALA Recovery", text)
             self.assertIn("Chalkboard", text)
             self.assertIn("Zoe Life", text)
 
@@ -447,13 +481,13 @@ class UnifiedNativeCase(unittest.TestCase):
     def test_native_hub_inspect_link_launch_and_memory(self):
         window = AtlasWindow("unified")
         try:
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 16)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 17)
             window.show_unified("chalkboard")
             self.assertIn("Chalkboard", window.summary.get_text())
             self.assertIn("Content inspection only", window.summary.get_text())
             window.record_unified_source("kevlar")
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 17)
-            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 16)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["observation_count"], 18)
+            self.assertEqual(window.unified_registry.knowledge.knowledge_state()["link_count"], 17)
             with mock.patch.object(window.unified_registry, "launch", return_value=types.SimpleNamespace(pid=12345)) as launch:
                 window.launch_unified("kevlar", ["--help"])
                 launch.assert_called_once_with("kevlar", ["--help"], detach=True)
@@ -564,7 +598,7 @@ class UnifiedNativeCase(unittest.TestCase):
         try:
             response = window.agent_action({"action": "list"})
             self.assertTrue(response["ok"])
-            self.assertEqual(len(response["components"]), 16)
+            self.assertEqual(len(response["components"]), 17)
             self.assertEqual(window.agent_action({"action": "select", "identifier": "life"})["selected"], "life")
             self.assertFalse(window.agent_action({"action": "details", "visible": False})["visible"])
             self.assertTrue(window.agent_action({"action": "details", "visible": True})["visible"])

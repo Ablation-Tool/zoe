@@ -54,13 +54,19 @@ PALA does not require Python or an AI service at runtime. Filesystem support in 
 
 ## Build and installation
 
-From a source checkout:
+From the unified Zoe root:
+
+```bash
+cargo build --manifest-path components/PALA/Cargo.toml --release --locked
+```
+
+Or from `components/PALA/` itself:
 
 ```bash
 cargo build --release --locked
 ```
 
-The executable is written to `target/release/pala`. Copy it to a location on your `PATH` or to removable media used for recovery work.
+The executable is written to `target/release/pala`, or `$CARGO_TARGET_DIR/release/pala` when Cargo's target override is set. On a filesystem that cannot execute newly compiled files, use an executable target such as `export CARGO_TARGET_DIR=/dev/shm/zoe-pala` before building and running `zoe pala`. Copy the binary to a location on your `PATH` or to removable media used for recovery work.
 
 For a locally optimized build:
 

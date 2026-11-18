@@ -1,3 +1,30 @@
+# PALA
+
+**PALA is Zoe's filesystem-agnostic file-carving and data-recovery engine.** It inspects authorized disk images and block devices read-only, recovers supported content without overwriting existing output, and emits structured evidence for Zoe's research and forensic workflows.
+
+The canonical source is `components/PALA/` in the [unified Zoe repository](https://github.com/Ablation-Tool/zoe). All 12 commits from the original PALA repository are preserved in Zoe's history. The former standalone GitHub remote no longer resolves; the original local checkout remains an unmodified recovery source.
+
+## Build and use with Zoe
+
+From the unified Zoe root:
+
+```bash
+export ZOE_ROOT="$PWD"
+cargo build --manifest-path components/PALA/Cargo.toml --release --locked
+zoe pala --list
+zoe pala disk.img /media/usb/recovered/ --types jpeg,png,pdf
+```
+
+On a filesystem that cannot execute newly compiled files, select an executable target before building and launching:
+
+```bash
+export CARGO_TARGET_DIR=/dev/shm/zoe-pala
+cargo build --manifest-path components/PALA/Cargo.toml --release --locked
+zoe pala --list
+```
+
+`zoe pala` forwards arguments directly to PALA. Without arguments it lists supported types. Recovery requires an explicit authorized source and a separate output destination. Never scan a device or write recovered output without the owner's authorization.
+
 ## Capabilities
 
 <details>

@@ -3,8 +3,8 @@
   "identity": "Zoe is allgems",
   "canonical_repository": "https://github.com/Ablation-Tool/zoe",
   "repository_count": 1,
-  "source_project_count": 12,
-  "imported_repository_count": 12,
+  "source_project_count": 13,
+  "imported_repository_count": 13,
   "import_strategy": "Full upstream Git histories imported with git subtree; Zoe-local changes preserved in subsequent commits",
   "zoe_baseline": "f30c981",
   "knowledge_engineering": {
@@ -72,6 +72,14 @@
       "repository": "https://github.com/Ablation-Tool/Chalkboard",
       "revision": "63646eb15737d822316073ba1f2114c608571c72",
       "includes": "Reusable ideas, templates, and prompts; content library, not a GUI process"
+    },
+    "PALA": {
+      "path": "components/PALA",
+      "repository": "https://github.com/Ablation-Tool/PALA",
+      "canonical_repository": "https://github.com/Ablation-Tool/zoe",
+      "revision": "197e91b88b9c7bad185a21635a68aa6659dcec3b",
+      "includes": "Complete Rust recovery engine, custom corpus support, locked dependencies, synthetic integration suite, operator documentation, CI sources, and dual licenses",
+      "provenance": "Complete clean local Git repository with 12 commits; the former standalone remote did not resolve at integration time"
     }
   },
   "research_collections": {
@@ -92,5 +100,5 @@
       "provenance": "Complete preserved local arxiv-autonomy-papers source workspace; no Git history was available"
     }
   },
-  "scope": "One canonical Zoe repository with complete tracked source trees and full imported histories for twelve runtime source projects, the research-paper collection, and the visual archive, plus preserved arXiv sources. Ablation remains independently developable as well as integrated. Neurogarden has no available upstream revision. Component processes, evidence, and authorization remain distinct."
+  "scope": "One canonical Zoe repository with complete tracked source trees and thirteen imported source histories across runtime projects and research collections, plus preserved arXiv sources. Ablation remains independently developable as well as integrated. Neurogarden has no available upstream revision. PALA was recovered from a complete local Git repository after its former remote became unavailable. Component processes, evidence, and authorization remain distinct."
 }

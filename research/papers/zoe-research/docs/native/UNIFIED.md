@@ -2,7 +2,7 @@
 
 The authoritative architecture and verification guide is maintained at [`guiai-lab/docs/UNIFIED.md`](../../../../../guiai-lab/docs/UNIFIED.md).
 
-Zoe is one repository containing twelve runtime source projects, sixteen registered engines, twelve imported upstream histories, the complete paper collection, the visual archive, and arXiv submission sources. A fresh clone requires no sibling checkouts, submodules, or runtime source downloads.
+Zoe is one repository containing thirteen runtime source projects, seventeen registered engines, thirteen imported upstream histories, the complete paper collection, the visual archive, and arXiv submission sources. A fresh clone requires no sibling checkouts, submodules, or runtime source downloads.
 
 ## Canonical references
 
@@ -30,6 +30,7 @@ export ZOE_ROOT="$PWD"
 python scripts/verify-one-system.py
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
+python scripts/verify-one-system.py --pala
 ```
 
 The verifier resolves all components inside this repository, checks imported revisions as Git ancestors, invokes the canonical engine and five hosts, and requires identical autonomy profiles, 42 saliency maps, replayable evidence, and zero external base actions.

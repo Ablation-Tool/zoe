@@ -5,8 +5,8 @@
     "url": "https://github.com/Ablation-Tool/zoe",
     "single_checkout": true,
     "repository_count": 1,
-    "source_project_count": 12,
-    "imported_repository_count": 12,
+    "source_project_count": 13,
+    "imported_repository_count": 13,
     "submodules_required": false,
     "atlas": "CAPABILITY-ATLAS.md",
     "agi_roadmap": "AGI-ROADMAP.md",
@@ -80,6 +80,23 @@
     "camera_images_retained": false,
     "evidence": "components/Zoe-Autonomy/evidence/event-causal/evaluation.json",
     "ilab_catalog": "components/Zoe-Autonomy/evidence/ilab/catalog.json"
+  },
+  "pala_recovery": {
+    "id": "pala",
+    "contract": "pala-recovery/v1",
+    "directory": "PALA",
+    "repository": "https://github.com/Ablation-Tool/zoe",
+    "upstream_repository": "https://github.com/Ablation-Tool/PALA",
+    "revision": "197e91b88b9c7bad185a21635a68aa6659dcec3b",
+    "list": "zoe pala --list",
+    "run": "zoe pala /authorized/source.img /separate/output-directory --json",
+    "build": "cargo build --manifest-path components/PALA/Cargo.toml --release --locked",
+    "verify": "python scripts/verify-one-system.py --pala",
+    "source_access": "read_only",
+    "non_overwriting_output": true,
+    "external_ai_required": false,
+    "raw_device_scan_requires_explicit_operator_request": true,
+    "evidence": "evidence/pala/verification.json"
   },
   "semantic_artifact_analysis": {
     "contract": "zoe-semantic-artifact-evaluation/v1",
@@ -212,7 +229,7 @@
     "command": "python scripts/verify-one-system.py",
     "single_checkout": true,
     "imported_revisions_checked_as_git_ancestors": true,
-    "requirements": "Every host resolves inside the unified Zoe checkout, invokes the canonical engine, and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence."
+    "requirements": "Every host resolves inside the unified Zoe checkout, invokes the canonical engine, and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence. PALA's imported revision is always checked. --pala additionally verifies formatting, strict Clippy, locked Rust tests, a release build, the synthetic recovery suite, and the real zoe pala interface."
   },
   "actuation": {
     "contract": "zoe-actuation/v1",

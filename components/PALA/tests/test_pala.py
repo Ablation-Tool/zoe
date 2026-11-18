@@ -30,7 +30,10 @@ from pathlib import Path
 # ── binary location ───────────────────────────────────────────────────────────
 
 REPO = Path(__file__).parent.parent
-PALA = REPO / "target" / "release" / "pala"
+TARGET = Path(os.environ.get("CARGO_TARGET_DIR", REPO / "target")).expanduser()
+if not TARGET.is_absolute():
+    TARGET = REPO / TARGET
+PALA = TARGET.resolve() / "release" / "pala"
 
 RED    = "\033[0;31m"
 GREEN  = "\033[0;32m"

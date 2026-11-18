@@ -57,7 +57,7 @@ DESCRIPTIONS = {
     'second-eye': 'Two calibrated synthetic pinhole views showing parallax, depth, focus, and disparity-sensitivity controls. The scene visualizes geometry rather than subjective sight or a second model opinion.',
     'zoe-eye': 'The current primary Zoe emblem: the red woven diamond designated by Nicholas Michael Kloster on November 18, 2026, with matching PNG and SVG originals. The earlier orbital eye is preserved separately as legacy artwork.',
     'zoe-orbital-eye-legacy': 'The former Zoe orbital emblem: a central Z, nested eye curves, stars, and numbered nodes preserved as historical identity artwork.',
-    'gem-unified': 'The unified Zoe knowledge-engineering hub with the current woven-diamond vector emblem, sixteen registered engines, one repository, and the replayable knowledge field.',
+    'gem-unified': 'The unified Zoe knowledge-engineering hub with the current woven-diamond vector emblem, seventeen registered engines including PALA Recovery, one repository, and the replayable knowledge field.',
     'orbital-emblem': 'The user-supplied orbital reference that established the shared Zoe motif. Later hub and eye scenes are new vector interpretations rather than copies of this source.',
     'nuclide-brain': 'The NuClide Research dual-brain co-brand, balancing Zoe and Nick through stable/unstable perspectives and correction. It is a user-supplied identity image, not an anatomical diagram.',
     'gem-woven-diamond': 'An original GEM woven-diamond geometric ornament, preserving the project’s interest in executable Spatial IR and decorative mathematical structure.',

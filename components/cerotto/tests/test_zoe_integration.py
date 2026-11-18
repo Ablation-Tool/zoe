@@ -29,8 +29,8 @@ class ZoeIntegrationTests(unittest.TestCase):
         manifest = registry.manifest()
         self.assertEqual(manifest["identity"], "Zoe is allgems")
         self.assertEqual(manifest["repository_count"], 1)
-        self.assertEqual(manifest["source_project_count"], 12)
-        self.assertEqual(len(manifest["components"]), 16)
+        self.assertEqual(manifest["source_project_count"], 13)
+        self.assertEqual(len(manifest["components"]), 17)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
 
     def test_zoe_cli_launches_bundled_cerotto(self):
@@ -44,7 +44,7 @@ class ZoeIntegrationTests(unittest.TestCase):
             cwd=ROOT, env=environment, check=True, capture_output=True, text=True,
         )
         rows = [line for line in result.stdout.splitlines() if line.strip()]
-        self.assertEqual(len(rows), 16)
+        self.assertEqual(len(rows), 17)
         self.assertTrue(all("present" in line for line in rows))
         launch = subprocess.run(
             [sys.executable, "-m", "guiai.gem.unified_cli", "launch", "cerotto", "--", "--help"],

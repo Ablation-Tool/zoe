@@ -8,7 +8,7 @@ Ablation is the deliberate exception to retirement: its complete source and hist
 
 ## Imported repositories
 
-These twelve repositories were imported with full Git history through `git subtree`. Revisions identify the imported upstream state; Zoe-local changes are layered on top in subsequent commits.
+These thirteen repositories were imported with full Git history through `git subtree`. Revisions identify the imported upstream state; Zoe-local changes are layered on top in subsequent commits.
 
 | Imported source | Imported revision | Canonical path | Disposition |
 |:---|:---|:---|:---|
@@ -23,7 +23,10 @@ These twelve repositories were imported with full Git history through `git subtr
 | pdf-signature-toolkit | `1198165962958c5132130f3854626ff39c333941` | `components/pdf-signature-toolkit/` | Retire old repo after final verification |
 | research-papers | `c5d0c8c2a8eabbff1b72d2e96d19d6f637906bde` | `research/papers/` | Retire old repo after final verification |
 | zoe-visual-archive | `d9b8c69f631ee68bf527dd49dc2d300d60c056e4` | `research/visual-archive/` | Retire old repo after final verification |
+| PALA | `197e91b88b9c7bad185a21635a68aa6659dcec3b` | `components/PALA/` | Canonical in Zoe; former remote unavailable; retain local recovery source |
 | ablation | `fa8377ea5fa009967a3bf3b837c342347678409b` | `components/ablation/` | **Keep standalone and integrated** |
+
+PALA was imported from the complete, clean local Git repository at `_projects/PALA-rust` after `https://github.com/Ablation-Tool/PALA` stopped resolving. All 12 local commits and the full tracked Rust source, tests, documentation, workflows, and licenses are included. The original local checkout remains untouched as a recovery source; Zoe is now the canonical development copy.
 
 The local `arxiv-autonomy-papers` source workspace had no Git repository. Its complete submission sources, archives, figures, evidence, and metadata are preserved under `research/arxiv/`.
 
@@ -54,6 +57,7 @@ zoe/
 │   ├── cerotto/
 │   ├── kevlar/
 │   ├── pdf-signature-toolkit/
+│   ├── PALA/                      Read-only carving and data recovery
 │   ├── agent-logging-system/     Dorothy and Neurogarden
 │   ├── hpux-tools/
 │   └── Chalkboard/
@@ -98,8 +102,8 @@ No redundant repository is considered safe to delete until:
 2. A fresh clone on the research drive completes successfully.
 3. All imported revisions are ancestors of that clone's history.
 4. Required source, paper, archive, and evidence paths exist.
-5. Six-host autonomy, reflection, event-causal, semantic, native, and component checks pass at their declared scopes.
+5. Six-host autonomy, reflection, event-causal, semantic, native, component, and PALA recovery checks pass at their declared scopes.
 6. Local-only checkouts are audited for unmerged commits and uncommitted work.
-7. The deletion list explicitly excludes `zoe` and `ablation`.
+7. The deletion list explicitly excludes `zoe`, `ablation`, and the local PALA recovery source.
 
 The old repositories remain untouched until those checks and the final deletion review are complete.
