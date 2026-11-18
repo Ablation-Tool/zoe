@@ -5,6 +5,7 @@ from .agents import AgentGateway
 from .explore import WebExplorer
 from .metrics import accessible_volume, effective_perception, kl_divergence_bits
 from .loop import BoundedAutonomyLoop, Candidate, InMemoryEnvironment, SandboxPolicy
+from .self_reflection import run_reflection, verify_reflection
 
 __all__ = [
     "ActuationPolicy",
@@ -17,6 +18,8 @@ __all__ = [
     "Candidate",
     "InMemoryEnvironment",
     "SandboxPolicy",
+    "run_reflection",
+    "verify_reflection",
 ]
 
-__version__ = "0.6.0"
+__version__ = "0.7.0"

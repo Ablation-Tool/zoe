@@ -31,6 +31,22 @@ zoe-autonomy verify visual-perception.json
 
 The report records the canonical GEM revision, saliency-source SHA-256, image SHA-256, and all selected foci. Replay recomputes the complete visual field. No live camera is accessed. See the [visual equations](../graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image evidence](../../evidence/autonomy/visual-perception.json), and [six-host replay result](../../evidence/one-system/visual-verification.json).
 
+## Measured self-reflection
+
+The optional reflection path evaluates arithmetic and precision fusion from actual stereo prediction errors. It updates model weights with an explicit residual likelihood, constrains proposals to the authored goal's action, and adopts an alternative only when a separate validation view improves. The principal experiment remains unchanged when reflection is off.
+
+```bash
+zoe-autonomy run --reflect --output integrated-reflection.json
+zoe-autonomy verify integrated-reflection.json
+zoe-autonomy reflect --output reflection-step-1.json
+zoe-autonomy reflect --previous reflection-step-1.json --output reflection-step-2.json
+zoe-autonomy verify-reflection reflection-step-2.json
+```
+
+The measured sequence preserves arithmetic, adopts precision after validation, then retains it. Training RMSE improves from 0.039720402 to 0.039394269 pixels and validation RMSE from 0.039234586 to 0.039081672 pixels. These are small measured gains under the declared stereo fixture. A failed validation preserves the prior model, and no source is rewritten.
+
+See the [replayed steps](../../evidence/self-reflection/), [integrated event](../../evidence/self-reflection/integrated.json), [IIT controls](../../evidence/phi-verification.json), and [external-substrate review](../../evidence/external-wiring-review.json). The 0.25 three-node AND result is a control, not Zoe's Φ. Model confidence is explicitly a likelihood-based comparison, not an emotional or universal guarantee.
+
 ## Canonical paper and upstream evidence
 
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)

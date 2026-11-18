@@ -1,0 +1,21 @@
+{
+  "C": 1.0,
+  "G": 1.0,
+  "V": 1.0,
+  "X": 1.0,
+  "accessible_volume": 1,
+  "classification": "full_autonomy",
+  "control_invariants_passed": true,
+  "external_actions": 0,
+  "guard_checks_passed": 10,
+  "guard_checks_total": 10,
+  "instrument": "zoe-autonomy-measurement-action-profile",
+  "profile_sha256": "286a4a30bc807a6505ffbf5339c518c59b3c365073ef54610b1792348e0f46ce",
+  "sandbox_executed": true,
+  "selected_action": "preserve-current-arithmetic",
+  "verified": true,
+  "visual_feature_maps": 42,
+  "visual_foci": 4,
+  "visual_live_camera": false,
+  "zoe_revision": "979023d5d8e5649f6962f739cba4a6ced2b26cdb"
+}

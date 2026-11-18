@@ -68,6 +68,30 @@ class AutonomyIntegrationCase(unittest.TestCase):
             self.assertEqual(outputs["zoe.json"], outputs["gem.json"])
             self.assertEqual(outputs["zoe.json"], outputs["component.json"])
 
+    def test_reflection_clis_share_real_model_updates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            outputs = {}
+            with contextlib.redirect_stdout(io.StringIO()) as stdout:
+                self.assertEqual(zoe_main(["autonomy", "run", "--reflect", "--output", str(root / "zoe.json")]), 0)
+                self.assertIn("belief_updated=True", stdout.getvalue())
+                self.assertEqual(gem_main(["autonomy", "run", "--reflect", "--output", str(root / "gem.json")]), 0)
+                result = ComponentRegistry(ROOT).launch(
+                    "autonomy", ["run", "--reflect", "--output", str(root / "component.json")], detach=False,
+                )
+                self.assertEqual(result.returncode, 0, (result.stdout, result.stderr))
+                self.assertEqual(zoe_main(["autonomy", "verify", str(root / "zoe.json")]), 0)
+            for name in ("zoe.json", "gem.json", "component.json"):
+                report = json.loads((root / name).read_text(encoding="utf-8"))
+                self.assertTrue(report["belief_updated"])
+                self.assertEqual(report["self_reflection"]["self_model"]["selected_model"], "arithmetic")
+                self.assertEqual(report["master_cycle"]["main_event"]["goal"]["target_action"], "preserve")
+                self.assertEqual(report["master_cycle"]["main_event"]["hash"], report["self_reflection"]["event"]["hash"])
+                self.assertTrue(report["self_reflection"]["event"]["belief_update"]["changed"])
+                outputs[name] = report
+            self.assertEqual(outputs["zoe.json"], outputs["gem.json"])
+            self.assertEqual(outputs["zoe.json"], outputs["component.json"])
+
     def test_native_owner_actuation_dispatch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

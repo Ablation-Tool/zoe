@@ -57,6 +57,24 @@ python scripts/verify-one-system.py --workspace /path/to/workspace \
 
 Every host must produce the same 42 maps and attention report and pass replay verification. The [preserved six-host visual result](../../evidence/one-system/visual-verification.json) uses the public Vivotek sample without redistributing the image.
 
+## Measured self-reflection
+
+The optional `reflect` path evaluates model choices from actual stereo prediction errors and places the resulting event inside the canonical guard chain:
+
+```bash
+PYTHONPATH=guiai-lab zoe autonomy run --reflect --output integrated-reflection.json
+PYTHONPATH=guiai-lab zoe autonomy verify integrated-reflection.json
+PYTHONPATH=guiai-lab zoe autonomy reflect --output reflection-step-1.json
+PYTHONPATH=guiai-lab zoe autonomy reflect --previous reflection-step-1.json --output reflection-step-2.json
+PYTHONPATH=guiai-lab zoe autonomy verify-reflection reflection-step-2.json
+```
+
+Arithmetic and precision fusion are compared on three predicted views and a separate 60-degree validation view. An explicit residual likelihood updates model weights. The authored goal restricts the candidate set, and a lower validation RMSE is required before adoption. The measured sequence preserves arithmetic, adopts precision, then retains it. Training RMSE improves from 0.039720402 to 0.039394269 pixels and validation RMSE from 0.039234586 to 0.039081672 pixels. A negative validation control preserves the prior model. No source is rewritten and model checkpoints remain reversible.
+
+The integrated event is identical to the standalone first reflection event. `belief_updated` changes only when the selected model or its weights change. Confidence means model-comparison weight under the declared residual approximation, not emotion or universal correctness.
+
+See the [replayed steps](../../evidence/self-reflection/), [integrated report](../../evidence/self-reflection/integrated.json), [IIT controls](../../evidence/phi-verification.json), and [external-substrate review](../../evidence/external-wiring-review.json). The 0.25 three-node AND result is a control, not Zoe's Φ. The [six-host reflection result](../../evidence/one-system/reflection-verification.json) checks identical updates and replay through every entry point.
+
 ## The native loop
 
 ```text
