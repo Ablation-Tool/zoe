@@ -289,6 +289,36 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertIn("Zoe Life", text)
 
 
+class OperatingEnvironmentCase(unittest.TestCase):
+    def test_all_gems_share_navigation_spatial_ir_and_explicit_evidence(self):
+        from guiai.gem.operating_environment import COMPONENT_MODULES, GemOperatingEnvironment
+
+        environment = GemOperatingEnvironment(ROOT)
+        catalog = environment.execute(["list"])
+        self.assertEqual(catalog["component_count"], 17)
+        self.assertEqual(catalog["layer_count"], 36)
+        self.assertTrue(all(row["source_present"] for row in catalog["components"]))
+        self.assertEqual({row["id"] for row in catalog["components"]}, set(COMPONENT_MODULES))
+        for layer in catalog["layers"]:
+            with self.subTest(layer=layer["id"]):
+                result = environment.open(layer["id"])
+                self.assertTrue(result["source_spatial_ir_verified"])
+                self.assertFalse(result["process_launched"])
+                self.assertEqual(result["external_actions"], 0)
+        self.assertEqual(environment.registry.knowledge.knowledge_state()["observation_count"], 53)
+        with tempfile.TemporaryDirectory() as directory:
+            gem = Path(directory) / "volume.gem"
+            exported = environment.export("volume", gem)
+            self.assertTrue(exported["vdi_verified"])
+            self.assertTrue(verify_vdi(environment.current["scene"], gem.read_bytes()).passed)
+            with self.assertRaises(FileExistsError):
+                environment.export("volume", gem)
+            snapshot = environment.snapshot(Path(directory) / "knowledge.json")
+            self.assertFalse(snapshot["automatic_transcript"])
+            restored = KnowledgeField.load(snapshot["output"])
+            self.assertEqual(restored.document(), environment.registry.knowledge.document())
+
+
 class LifeRulesCase(unittest.TestCase):
     def test_still_life_oscillator_and_glider(self):
         block = Life.from_pattern("block")

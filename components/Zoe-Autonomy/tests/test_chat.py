@@ -112,6 +112,24 @@ class ZoeChatCase(unittest.TestCase):
         self.assertEqual(len(self.chat.store.memory.export()["sources"]), 1)
         self.assertFalse((self.state / "events.jsonl").exists())
 
+    def test_shared_gem_navigation_and_explicit_exports(self):
+        status = self.handle("gem status")
+        self.assertIn("17 components · 36 layers", status)
+        opened = self.handle("gem open volume")
+        self.assertIn("source_verified=True", opened)
+        self.assertIn("process_launched=False", opened)
+        artifact = Path(self.temporary.name) / "volume.gem"
+        exported = self.handle(f"gem export volume {artifact}")
+        self.assertIn("no_overwrite=True", exported)
+        self.assertTrue(artifact.is_file())
+        repeated = self.handle(f"gem export volume {artifact}")
+        self.assertIn("could not complete", repeated)
+        snapshot = Path(self.temporary.name) / "knowledge.json"
+        self.assertIn("GEM evidence:", self.handle(f"gem snapshot {snapshot}"))
+        self.assertTrue(snapshot.is_file())
+        self.assertFalse((self.state / "events.jsonl").exists())
+        self.assertFalse((self.state / "metacognition.json").exists())
+
     def test_plan_is_internal_reversible_and_non_executing(self):
         before = self.chat.session["sandbox"]["revision"]
         response = self.handle("plan")

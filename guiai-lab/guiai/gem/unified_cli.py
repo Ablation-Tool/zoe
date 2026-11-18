@@ -25,6 +25,8 @@ def parser():
     show.add_argument("component", help="component identifier from `zoe list`")
     os_command = commands.add_parser("os", help="open one ZOE and one GEM desktop")
     os_command.add_argument("arguments", nargs=argparse.REMAINDER)
+    gem_command = commands.add_parser("gem", help="use the shared GEM operating environment")
+    gem_command.add_argument("arguments", nargs=argparse.REMAINDER, help="status, list, open ID, export ID PATH, or snapshot PATH")
     for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pentacube", "open the pentomino cube permutation laboratory"), ("cicada", "open the CERN and cicada-inspired internal clock"), ("life", "open Conway's Game of Life"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("chat", "talk with Zoe through evidence, memory, autonomy, and metacognition"), ("pala", "run PALA file carving and data recovery"), ("autonomy", "run Zoe's full self-governing autonomy loop"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden"), ("maison", "open the executive luxury enterprise studio"), ("evidence", "open the source-first evidence navigator")):
         command = commands.add_parser(name, help=description)
         command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
@@ -48,6 +50,9 @@ def main(argv=None):
         if arguments.command == "os":
             from .desktop_view import main as desktop_main
             return desktop_main(arguments.arguments)
+        if arguments.command == "gem":
+            from .operating_environment import main as gem_main
+            return gem_main(arguments.arguments)
         if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "chat", "pala", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
             from importlib import import_module
             return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
