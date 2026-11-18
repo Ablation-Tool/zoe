@@ -1,6 +1,6 @@
 # Zoe research library
 
-This section preserves the broader Zoe research program that extends beyond the standalone PDF papers: Dorothy and Neurogarden, CERN evidence and virtual workbenches, native cognitive and creative instruments, source-linked reviews, examples, and visual assets.
+This section preserves the broader Zoe research program that extends beyond the standalone PDF papers: Dorothy and Neurogarden, CERN evidence and virtual workbenches, native cognitive and creative instruments, source-linked reviews, examples, and visual assets. Its canonical home is the unified [Zoe repository](../../../README.md); navigate the complete system through the [capability atlas](../../../CAPABILITY-ATLAS.md).
 
 ## Zoe — The Research Universe
 
@@ -53,13 +53,13 @@ Dorothy's neural simulation world includes DFT band powers, delay embedding, Lya
 
 ## Current measured reflection and working memory
 
-The [measured self-reflection evidence](https://github.com/Ablation-Tool/Zoe-Autonomy/tree/main/evidence/self-reflection) records goal-constrained model selection, residual-likelihood updates, held-out validation, and reversible adoption. The [soroban and ecological working-memory model](https://github.com/Ablation-Tool/graphics-environment-manager/blob/main/COGNITION.md#soroban-working-memory-and-ecological-feedback) adds exact earth/heaven bead arithmetic, observation and adoption counters, and a declared resource-feedback experiment. These are measured software mechanisms, not claims of biological calibration or consciousness.
+The [measured self-reflection evidence](../../../components/Zoe-Autonomy/evidence/self-reflection/) records goal-constrained model selection, residual-likelihood updates, held-out validation, and reversible adoption. The [soroban and ecological working-memory model](../../../components/graphics-environment-manager/COGNITION.md#soroban-working-memory-and-ecological-feedback) adds exact earth/heaven bead arithmetic, observation and adoption counters, and a declared resource-feedback experiment. These measured software mechanisms connect working memory, metacognition, and evidence-gated learning.
 
 ## Event-Causal Active Perception and iLab
 
 The [event-causal evaluation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json) records a pre-registered closed loop of sparse event reconstruction, causal memory, action-conditioned prediction, independent uncertainty, gated local learning, and reversible attention. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning. Transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. The real-camera check retains no audio or photograph.
 
-The [complete iLab integration guide](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/ILAB-INTEGRATION.md) and [machine-readable catalog](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/ilab/catalog.json) classify every source file and mirrored web artifact as reference, adaptation, optional, blocked, or unsuitable for production. These are declared-fixture engineering results, not AGI, biological equivalence, semantic recognition, or uncontrolled-scene competence.
+The [complete iLab integration guide](../../../components/Zoe-Autonomy/ILAB-INTEGRATION.md) and [machine-readable catalog](../../../components/Zoe-Autonomy/evidence/ilab/catalog.json) classify every source file and mirrored web artifact as reference, adaptation, optional, blocked, or unsuitable for production. These results establish measured declared-fixture competence and provide validated perception mechanisms for Zoe's broader AGI evaluation.
 
 ## Canonical source and rights
 

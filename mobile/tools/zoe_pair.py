@@ -135,11 +135,20 @@ def text(draw, xy, value, size=24, color="#101018", center=False):
     draw.text(xy, value, font=font, fill=color)
 
 
-def orbital(draw, center, radius, color="#d8334f"):
+def woven_diamond(draw, center, radius, color="#d8334f"):
     x, y = center
-    draw.ellipse((x - radius, y - radius // 2, x + radius, y + radius // 2), outline=color, width=3)
-    draw.ellipse((x - radius // 2, y - radius, x + radius // 2, y + radius), outline="#146f7c", width=3)
-    draw.ellipse((x - 5, y - 5, x + 5, y + 5), fill=color)
+    points = [(x, y - radius), (x + radius, y), (x, y + radius), (x - radius, y), (x, y - radius)]
+    draw.line(points, fill=color, width=3)
+    step = max(4, radius // 7)
+    for offset in range(-radius + step, radius, step):
+        span = radius - abs(offset)
+        draw.line((x - span, y + offset, x + span, y + offset), fill=color, width=1)
+        draw.line((x + offset, y - span, x + offset, y + span), fill=color, width=1)
+    inner = max(8, radius // 3)
+    draw.polygon([(x, y - inner), (x + inner, y), (x, y + inner), (x - inner, y)], outline=color, width=2)
+
+
+orbital = woven_diamond
 
 
 def save_offer_images(offer, prefix):
@@ -148,7 +157,7 @@ def save_offer_images(offer, prefix):
     draw = ImageDraw.Draw(image)
     draw.rectangle((22, 22, 978, 1098), outline="#101018", width=2)
     text(draw, (500, 52), "ZOE / SIGNED PAIRING OFFER", 30, center=True)
-    orbital(draw, (500, 132), 42)
+    woven_diamond(draw, (500, 132), 42)
     image.paste(qr.resize((720, 720)), (140, 198))
     text(draw, (500, 944), f"SESSION {offer['session_id'][:12]}", 24, center=True)
     expires = datetime.fromtimestamp(offer["expires_at"], timezone.utc).isoformat().replace("+00:00", "Z")
@@ -212,7 +221,7 @@ def verification_image(left, right, sas, output):
     text(draw, (900, 960), "Compare this phrase and sigil through an independent channel.", 20, center=True)
     seed = hashlib.sha256(sas.encode("ascii")).digest()
     colors = ("#d8334f", "#146f7c", "#a855f7", "#15803d")
-    orbital(draw, (876 + seed[1] % 49, 118), 24 + seed[0] % 20, colors[seed[2] % len(colors)])
+    woven_diamond(draw, (876 + seed[1] % 49, 118), 24 + seed[0] % 20, colors[seed[2] % len(colors)])
     image.save(output, optimize=True)
 
 

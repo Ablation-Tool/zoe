@@ -12,7 +12,7 @@ The extracted-image section preserves original embedded image data where availab
 
 | Image | PDF page | Dimensions | Caption/context | Full resolution |
 |---:|---:|---:|---|---|
-| 1 | 1 | 1200×760 | Embedded image; see the rendered page for full context. | [Open](figures/figure-000-page-001.png) |
+| 1 | 1 | 512×512 | Embedded image; see the rendered page for full context. | [Open](figures/figure-000-page-001.png) |
 | 2 | 4 | 1600×1190 | Embedded image; see the rendered page for full context. | [Open](figures/figure-001-page-004.png) |
 | 3 | 11 | 1600×1050 | Embedded image; see the rendered page for full context. | [Open](figures/figure-002-page-011.png) |
 | 4 | 13 | 1600×1200 | Embedded image; see the rendered page for full context. | [Open](figures/figure-003-page-013.png) |
@@ -22,7 +22,7 @@ The extracted-image section preserves original embedded image data where availab
 | 8 | 23 | 1920×1080 | Embedded image; see the rendered page for full context. | [Open](figures/figure-009-page-023.png) |
 | 9 | 24 | 1920×1200 | Embedded image; see the rendered page for full context. | [Open](figures/figure-010-page-024.png) |
 | 10 | 28 | 1492×1007 | Embedded image; see the rendered page for full context. | [Open](figures/figure-011-page-028.png) |
-| 11 | 32 | 1200×760 | Embedded image; see the rendered page for full context. | [Open](figures/figure-013-page-032.png) |
+| 11 | 32 | 512×512 | Embedded image; see the rendered page for full context. | [Open](figures/figure-013-page-032.png) |
 | 12 | 34 | 1600×1120 | Embedded image; see the rendered page for full context. | [Open](figures/figure-014-page-034.png) |
 
 ### Image 1 — PDF page 1

@@ -14,12 +14,14 @@ from urllib.parse import quote
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
+MONOREPO = ROOT.parents[1]
+BUNDLED = (MONOREPO / 'guiai-lab').is_dir()
 SOURCES = {
-    'zoe': Path(os.environ.get('ZOE_ROOT', ROOT.parent / 'zoe')),
-    'zoe-autonomy': Path(os.environ.get('ZOE_AUTONOMY_ROOT', ROOT.parent / 'zoe-autonomy')),
-    'next-token': Path(os.environ.get('NEXT_TOKEN_ROOT', ROOT.parent / 'next-token-predictability')),
-    'research-paper-figures': Path(os.environ.get('RESEARCH_PAPERS_ROOT', ROOT.parent / 'research-papers')) / 'galleries',
-    'paper-source-figures': Path(os.environ.get('ARXIV_PAPERS_ROOT', ROOT.parent / 'arxiv-autonomy-papers')),
+    'zoe': Path(os.environ.get('ZOE_ROOT', MONOREPO if BUNDLED else ROOT.parent / 'zoe')),
+    'zoe-autonomy': Path(os.environ.get('ZOE_AUTONOMY_ROOT', MONOREPO / 'components' / 'Zoe-Autonomy' if BUNDLED else ROOT.parent / 'zoe-autonomy')),
+    'next-token': Path(os.environ.get('NEXT_TOKEN_ROOT', MONOREPO / 'components' / 'next-token-predictability' if BUNDLED else ROOT.parent / 'next-token-predictability')),
+    'research-paper-figures': Path(os.environ.get('RESEARCH_PAPERS_ROOT', ROOT.parent / 'papers' if BUNDLED else ROOT.parent / 'research-papers')) / 'galleries',
+    'paper-source-figures': Path(os.environ.get('ARXIV_PAPERS_ROOT', ROOT.parent / 'arxiv' if BUNDLED else ROOT.parent / 'arxiv-autonomy-papers')),
 }
 EXTENSIONS = {'.png', '.jpg', '.jpeg', '.svg', '.gif', '.webp'}
 SKIP_PARTS = {'.git', 'node_modules', '__pycache__', '.venv', 'target'}
@@ -53,7 +55,9 @@ DESCRIPTIONS = {
     'zoe-brain': 'The Zoe plate in the shared-field series, using explicit partitions, mirrored forecast paths, nested futures, and inspectable evidence connections.',
     'projection-iris': 'A central-slice study titled “A field learning to see.” Projection becomes spectrum and spectrum becomes form; the work pairs a mathematical research instrument with original visual composition.',
     'second-eye': 'Two calibrated synthetic pinhole views showing parallax, depth, focus, and disparity-sensitivity controls. The scene visualizes geometry rather than subjective sight or a second model opinion.',
-    'zoe-eye': 'The primary Zoe orbital emblem: a central Z, nested eye curves, stars, and numbered nodes generated from the user-supplied orbital reference. It is an original identity composition, not a scientific model.',
+    'zoe-eye': 'The current primary Zoe emblem: the red woven diamond designated by Nicholas Michael Kloster on November 18, 2026, with matching PNG and SVG originals. The earlier orbital eye is preserved separately as legacy artwork.',
+    'zoe-orbital-eye-legacy': 'The former Zoe orbital emblem: a central Z, nested eye curves, stars, and numbered nodes preserved as historical identity artwork.',
+    'gem-unified': 'The unified Zoe knowledge-engineering hub with the current woven-diamond vector emblem, sixteen registered engines, one repository, and the replayable knowledge field.',
     'orbital-emblem': 'The user-supplied orbital reference that established the shared Zoe motif. Later hub and eye scenes are new vector interpretations rather than copies of this source.',
     'nuclide-brain': 'The NuClide Research dual-brain co-brand, balancing Zoe and Nick through stable/unstable perspectives and correction. It is a user-supplied identity image, not an anatomical diagram.',
     'gem-woven-diamond': 'An original GEM woven-diamond geometric ornament, preserving the project’s interest in executable Spatial IR and decorative mathematical structure.',
@@ -127,6 +131,8 @@ def files_for(source: str, root: Path) -> list[Path]:
         if not path.is_file() or path.suffix.lower() not in EXTENSIONS or any(part in SKIP_PARTS for part in path.parts):
             continue
         relative = path.relative_to(root)
+        if source == 'zoe' and BUNDLED and relative.parts and relative.parts[0] == 'research':
+            continue
         if source == 'research-paper-figures' and 'figures' not in relative.parts:
             continue
         if source == 'paper-source-figures' and 'figures' not in relative.parts:

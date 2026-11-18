@@ -13,7 +13,7 @@
 
 # Kevlar
 
-Kevlar is a proxy firewall for Model Context Protocol
+Kevlar is a proxy firewall for Model Context Protocol and the MCP security component in the unified [Zoe repository](../../README.md). See Zoe's [capability atlas](../../CAPABILITY-ATLAS.md).
 
 ```
 LLM  [ KEVLAR ]  MCP

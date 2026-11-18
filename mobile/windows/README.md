@@ -60,7 +60,7 @@ The journal is append-only, sequence-linked, SHA-256-hashed canonical JSON, boun
 
 ## Native interface
 
-The Win32/GDI interface uses Georgia and Consolas, porcelain panels, the Zoe orbital eye, chalice/hourglass geometry, and PLACES microcopy. Standard Windows edit controls and buttons remain in the interaction path. No camera, microphone, accessibility capture, telemetry, cloud account, model download, or autonomous action is used by Trinity.
+The Win32/GDI interface uses Georgia and Consolas, porcelain panels, the Zoe woven diamond, chalice/hourglass geometry, and PLACES microcopy. Standard Windows edit controls and buttons remain in the interaction path. No camera, microphone, accessibility capture, telemetry, cloud account, model download, or autonomous action is used by Trinity.
 
 ## Build reproducibly
 

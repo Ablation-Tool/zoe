@@ -1,6 +1,17 @@
 {
   "schema_version": 1,
   "system": "Zoe One",
+  "repository": {
+    "url": "https://github.com/Ablation-Tool/zoe",
+    "single_checkout": true,
+    "repository_count": 1,
+    "source_project_count": 12,
+    "imported_repository_count": 12,
+    "submodules_required": false,
+    "atlas": "CAPABILITY-ATLAS.md",
+    "agi_roadmap": "AGI-ROADMAP.md",
+    "monorepo_guide": "MONOREPO.md"
+  },
   "contract": "zoe-autonomy/v1",
   "probity": "Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.",
   "autonomy": {
@@ -28,7 +39,7 @@
     "pages": 35,
     "companion_pdf": "paper/zoe-capability-prospectus.pdf",
     "companion_pages": 18,
-    "visual_archive": "https://github.com/Ablation-Tool/zoe-visual-archive",
+    "visual_archive": "research/visual-archive",
     "scope": "Complete illustrated capability book with verified, narrow, optional, research, and blocked boundaries"
   },
   "dorothy_brain_research": {
@@ -69,8 +80,8 @@
     "validation_false_positive_rate": 0.0,
     "camera_audio_captured": false,
     "camera_images_retained": false,
-    "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json",
-    "ilab_catalog": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/ilab/catalog.json"
+    "evidence": "components/Zoe-Autonomy/evidence/event-causal/evaluation.json",
+    "ilab_catalog": "components/Zoe-Autonomy/evidence/ilab/catalog.json"
   },
   "semantic_artifact_analysis": {
     "contract": "zoe-semantic-artifact-evaluation/v1",
@@ -83,7 +94,7 @@
     "limited_support": true,
     "automatic_vulnerability_claim": false,
     "external_actions": 0,
-    "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json"
+    "evidence": "components/Zoe-Autonomy/evidence/semantic-artifacts/evaluation.json"
   },
   "autonomy_evaluation": {
     "contract": "zoe-four-capability-evaluation/v1",
@@ -97,7 +108,7 @@
     "camera_audio_captured": false,
     "camera_image_retained": false,
     "camera_autonomously_selected": false,
-    "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/tree/main/evidence/evaluation"
+    "evidence": "components/Zoe-Autonomy/evidence/evaluation/"
   },
   "shared_reflection": {
     "instrument": "zoe-self-reflection/v1",
@@ -200,8 +211,10 @@
     }
   ],
   "verification": {
-    "command": "python scripts/verify-one-system.py --workspace /path/to/workspace",
-    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence."
+    "command": "python scripts/verify-one-system.py",
+    "single_checkout": true,
+    "imported_revisions_checked_as_git_ancestors": true,
+    "requirements": "Every host resolves inside the unified Zoe checkout, invokes the canonical engine, and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence."
   },
   "actuation": {
     "contract": "zoe-actuation/v1",

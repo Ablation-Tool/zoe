@@ -2,6 +2,8 @@
 
 A systematic, fully browsable archive of Zoe’s visual research, generated artwork, mechanism diagrams, interface scenes, identity assets, animations, and source-reference imagery.
 
+This is the canonical visual archive inside the unified [Zoe repository](../../README.md). The catalog preserves **359 byte-distinct visuals from 668 source occurrences** at its reviewed source state. All original sources, papers, and arXiv figures needed for a refreshed build now live in this same repository. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [source-state record](SOURCES.md).
+
 ## Browse the archive
 
 - **[Complete visual catalog](catalog/README.md)** — all **359 byte-distinct visuals** collected from **668 source occurrences**.
@@ -20,7 +22,8 @@ Every category is a scrolling visual index. Every image links to its original fu
 
 | Visual | Archive entry |
 |---|---|
-| Zoe orbital eye | [ZVA-0078](catalog/items/ZVA-0078.md) |
+| **Current Zoe woven diamond** | [Canonical PNG](../../assets/branding/zoe-eye.png) · [Canonical SVG](../../assets/branding/zoe-eye.svg) |
+| Former Zoe orbital eye (historical) | [ZVA-0078](catalog/items/ZVA-0078.md) |
 | Human × Zoe organic brain dialogue | [ZVA-0052](catalog/items/ZVA-0052.md) |
 | Projection iris — “A field learning to see” | [ZVA-0060](catalog/items/ZVA-0060.md) |
 | Lots of Ellipses | [ZVA-0227](catalog/items/ZVA-0227.md) |
@@ -66,7 +69,7 @@ The archive systematically covers every visual file found in the enumerated cano
 
 It includes component artwork and interface assets from Ablation, GEM, HELEN, Cerotto, Kevlar, Neurogarden, Dorothy, mobile Zoe, SafeConvert, and related integrated projects. Third-party and user-supplied references are labeled rather than misattributed to Zoe.
 
-Full page-by-page PDF renders remain in the companion [research-papers galleries](https://github.com/Ablation-Tool/research-papers/blob/main/galleries/README.md); this archive includes their original extracted figures without duplicating every derivative page render. External books, CERN corpora, proprietary waveform media, and images not present in the enumerated sources are not republished.
+Full page-by-page PDF renders remain in the companion [research-paper galleries](../papers/galleries/README.md); this archive includes their original extracted figures without duplicating every derivative page render. External books, CERN corpora, proprietary waveform media, and images not present in the enumerated sources are not republished.
 
 This is an exhaustive archive of the declared source set, not an unfalsifiable claim that no Zoe-related image exists anywhere else.
 
@@ -78,15 +81,13 @@ Artwork is not anatomical or empirical evidence. Interface screenshots document 
 
 ## Rebuild
 
-The generator requires Python and Pillow (reviewed with Pillow 12.3.0). Source paths are configurable:
+The generator requires Python and Pillow (reviewed with Pillow 12.3.0). From the unified Zoe root:
 
 ```bash
-export ZOE_ROOT=/path/to/zoe
-export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
-export NEXT_TOKEN_ROOT=/path/to/next-token-predictability
-export RESEARCH_PAPERS_ROOT=/path/to/research-papers
-export ARXIV_PAPERS_ROOT=/path/to/arxiv-autonomy-papers
-python scripts/build_visual_archive.py
+export ZOE_ROOT="$PWD"
+python research/visual-archive/scripts/build_visual_archive.py
 ```
 
-`SHA256SUMS` identifies the archived images, catalog, explanations, and manifests.
+The source collections default to this repository's component, paper, and arXiv paths. Environment overrides remain available for archival comparisons but are not required. The `research/` tree is excluded from the root Zoe scan and indexed through dedicated source keys, preventing recursive self-archiving.
+
+`SHA256SUMS` identifies the preserved archived images, catalog, explanations, and manifests. Rebuilding creates a new source-state measurement; update the sums and documented totals together when intentionally refreshing the catalog.

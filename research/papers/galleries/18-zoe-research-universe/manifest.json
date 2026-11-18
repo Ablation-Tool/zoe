@@ -6,8 +6,8 @@
     {
       "pdf_page": 1,
       "number": 0,
-      "width": 1200,
-      "height": 760,
+      "width": 512,
+      "height": 512,
       "file": "figures/figure-000-page-001.png",
       "captions": []
     },
@@ -86,8 +86,8 @@
     {
       "pdf_page": 32,
       "number": 13,
-      "width": 1200,
-      "height": 760,
+      "width": 512,
+      "height": 512,
       "file": "figures/figure-013-page-032.png",
       "captions": []
     },

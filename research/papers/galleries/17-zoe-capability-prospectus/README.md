@@ -12,7 +12,7 @@ The extracted-image section preserves original embedded image data where availab
 
 | Image | PDF page | Dimensions | Caption/context | Full resolution |
 |---:|---:|---:|---|---|
-| 1 | 1 | 1200×760 | Embedded image; see the rendered page for full context. | [Open](figures/figure-000-page-001.png) |
+| 1 | 1 | 512×512 | Embedded image; see the rendered page for full context. | [Open](figures/figure-000-page-001.png) |
 | 2 | 6 | 1600×1200 | Embedded image; see the rendered page for full context. | [Open](figures/figure-001-page-006.png) |
 | 3 | 8 | 248×280 | Embedded image; see the rendered page for full context. | [Open](figures/figure-003-page-008.png) |
 | 4 | 10 | 1920×1080 | Embedded image; see the rendered page for full context. | [Open](figures/figure-005-page-010.png) |

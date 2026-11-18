@@ -4,6 +4,8 @@
 
 ABL∀TION is an AI-assisted reverse engineering (AIARE) framework.
 
+Ablation is fully integrated into the unified [Zoe research system](../../README.md), where it supplies executable-artifact semantics to Zoe's perception, reasoning, memory, and guarded action loop. It also remains an independent reverse-engineering project at `https://github.com/Ablation-Tool/ablation`. See Zoe's [capability atlas](../../CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../AGI-ROADMAP.md).
+
 ---
 
 ![GEM native workbench demo](assets/demos/gem-workbench-demo.gif)

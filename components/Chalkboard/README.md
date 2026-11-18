@@ -6,20 +6,20 @@ Chalkboard's original templates and prompts are free for anyone to take and use 
 
 ## Zoe · allgems
 
-**Zoe is the GEM, but the GEM is not Zoe. Zoe is allgems.** The complete Zoe component is included in `zoe/`: its native Cognitive Field, Bayesian memory, geometry, replayable knowledge graph, unified hub, and the other GEM source trees. Chalkboard supplies its templates and prompts as the host content library, so `components/Chalkboard` is not duplicated. The imported Zoe revision is recorded in `zoe/ZOE-SOURCE.json`.
+Chalkboard is the reusable idea, template, and prompt library in the unified [Zoe repository](../../README.md). Its material supports Zoe's research and knowledge-engineering work. See the [capability atlas](../../CAPABILITY-ATLAS.md).
 
 Install and inspect the unified hub:
 
 ```bash
-python -m pip install ./zoe/guiai-lab
-export ZOE_ROOT="$PWD/zoe"
-export ZOE_CHALKBOARD_ROOT="$PWD"
+cd /path/to/zoe
+python -m pip install ./guiai-lab
+export ZOE_ROOT="$PWD"
 zoe
 zoe list
 zoe show chalkboard
 ```
 
-`zoe show chalkboard` inspects this checkout without starting a process. Chalkboard remains a content library, not a GUI or an AI agent. Other component launches are explicit. Newly generated unified evidence is not included in the import. See [Zoe's architecture and verification guide](zoe/guiai-lab/docs/UNIFIED.md) and the [native hub screenshot](zoe/guiai-lab/docs/images/gem-unified-native.png).
+`zoe show chalkboard` inspects the content without starting a process. Chalkboard remains a content library, not a GUI or an AI agent. Other component launches are explicit. See [Zoe's architecture and verification guide](../../guiai-lab/docs/UNIFIED.md) and the [native hub screenshot](../../guiai-lab/docs/images/gem-unified-native.png).
 
 ---
 

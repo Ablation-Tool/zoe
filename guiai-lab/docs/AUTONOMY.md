@@ -51,8 +51,7 @@ The `perception` optional dependency set in Zoe-Autonomy supplies NumPy and Pill
 The complete host set can be checked with a real image:
 
 ```bash
-python scripts/verify-one-system.py --workspace /path/to/workspace \
-  --image /path/to/image.jpg --foci 4
+python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 ```
 
 Every host must produce the same 42 maps and attention report and pass replay verification. The [preserved six-host visual result](../../evidence/one-system/visual-verification.json) uses the public Vivotek sample without redistributing the image.
@@ -70,7 +69,7 @@ Sparse polarity events reconstruct a scene and drive causal memory retrieval, ac
 ## Semantic artifact analysis with Ablation
 
 ```bash
-export ABLATION_ROOT=/path/to/canonical-ablation
+export ABLATION_ROOT="$PWD/components/ablation"
 export PYTHONPATH="$PWD/components/Zoe-Autonomy/src:$PWD/guiai-lab:$ABLATION_ROOT"
 zoe autonomy semantic-evaluate --artifact /path/to/binary \
   --state /path/to/semantic-state --output semantic-artifact.json

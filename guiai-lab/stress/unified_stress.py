@@ -47,8 +47,9 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(len(lock["components"]), 11)
         self.assertEqual(len(COMPONENTS), 16)
         manifest = REGISTRY.manifest()
-        self.assertEqual(manifest["repository_count"], 12)
-        self.assertEqual(manifest["upstream_repository_count"], 11)
+        self.assertEqual(manifest["repository_count"], 1)
+        self.assertEqual(manifest["source_project_count"], 12)
+        self.assertEqual(manifest["imported_repository_count"], 12)
         self.assertEqual(manifest["entrypoint_count"], 16)
         self.assertTrue(all(row["source"]["source_present"] for row in manifest["components"]))
         self.assertTrue(all(row["source"]["mode"] in {"bundled", "zoe", "host"} for row in manifest["components"]))
@@ -69,6 +70,9 @@ class UnifiedSourceCase(unittest.TestCase):
             "components/Chalkboard/templates/README.template.md",
             "components/agent-logging-system/agent_logging_system/adapters/neurogarden_adapter.py",
             "components/agent-logging-system/docs/NEUROGARDEN.md",
+            "research/papers/papers/18-zoe-research-universe.pdf",
+            "research/visual-archive/manifest/catalog.json",
+            "research/arxiv/01-original-autonomy/arxiv-metadata.txt",
         ):
             self.assertTrue((ROOT / relative).exists(), relative)
         self.assertTrue((ROOT / "assets/branding/orbital-emblem.png").is_file())

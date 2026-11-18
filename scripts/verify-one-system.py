@@ -13,22 +13,34 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def revision(path):
-    result = subprocess.run(
-        ["git", "-C", str(path), "rev-parse", "HEAD"],
+def git(*arguments, check=True):
+    return subprocess.run(
+        ["git", "-C", str(ROOT), *arguments],
         capture_output=True,
         text=True,
-        timeout=15,
+        timeout=30,
+        check=check,
+    ).stdout.strip()
+
+
+def verify_import(item):
+    path = ROOT / "components" / item["directory"]
+    if not path.is_dir():
+        raise ValueError(f"{item['id']} is missing from the unified checkout: {path}")
+    source_revision = item["revision"]
+    included = subprocess.run(
+        ["git", "-C", str(ROOT), "merge-base", "--is-ancestor", source_revision, "HEAD"],
+        capture_output=True,
+        timeout=30,
         check=False,
-    )
-    if result.returncode:
-        raise ValueError(f"unable to read revision for {path}: {result.stderr.strip()}")
-    return result.stdout.strip()
+    ).returncode == 0
+    if not included:
+        raise ValueError(f"{item['id']} source revision is not included in Zoe history: {source_revision}")
+    return source_revision
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Verify the coordinated Zoe One GEM host set")
-    parser.add_argument("--workspace", type=Path, default=ROOT.parent)
+    parser = argparse.ArgumentParser(description="Verify all Zoe One GEM hosts from the unified checkout")
     parser.add_argument("--output", help="new JSON verification path")
     parser.add_argument("--image", help="verify the same RGB image through every host")
     parser.add_argument("--foci", type=int, default=4, help="attention selections per host, from 1 to 8")
@@ -37,27 +49,23 @@ def main(argv=None):
     if not 1 <= arguments.foci <= 8:
         raise ValueError("foci must be from 1 to 8")
     image = Path(arguments.image).expanduser().resolve(strict=True) if arguments.image else None
-    workspace = arguments.workspace.expanduser().resolve()
     manifest = json.loads((ROOT / "one-system.json").read_text(encoding="utf-8"))
     if manifest["schema_version"] != 1 or manifest["system"] != "Zoe One":
         raise ValueError("unsupported Zoe One manifest")
-    checked_revisions = {}
-    for item in [manifest["canonical_engine"], manifest["research"], *manifest["hosts"]]:
-        path = workspace / item["directory"]
-        actual = revision(path)
-        if actual != item["revision"]:
-            raise ValueError(f"{item['id']} revision mismatch: {actual} != {item['revision']}")
-        checked_revisions[item["id"]] = actual
+    checked_revisions = {
+        item["id"]: verify_import(item)
+        for item in [manifest["canonical_engine"], manifest["research"], *manifest["hosts"]]
+    }
     reports = {}
     with tempfile.TemporaryDirectory(prefix="zoe-one-") as directory:
         temporary = Path(directory)
         for host in [manifest["canonical_engine"], *manifest["hosts"]]:
-            checkout = workspace / host["directory"]
+            checkout = ROOT / "components" / host["directory"]
             cwd = checkout / host.get("cwd", ".")
             output = temporary / f"{host['id']}.json"
             environment = os.environ.copy()
-            environment["ZOE_ROOT"] = str(workspace / "zoe")
-            environment["ZOE_AUTONOMY_ROOT"] = str(workspace / "Zoe-Autonomy")
+            environment["ZOE_ROOT"] = str(ROOT)
+            environment["ZOE_AUTONOMY_ROOT"] = str(ROOT / "components" / "Zoe-Autonomy")
             environment["PYTHONPATH"] = str(cwd / host["python_path"])
             command = [sys.executable, "-m", host["module"], *host.get("command_prefix", []), "run", "--output", str(output)]
             if image is not None:
@@ -119,6 +127,8 @@ def main(argv=None):
         "system": "Zoe One",
         "contract": manifest["contract"],
         "verified": True,
+        "single_checkout": True,
+        "monorepo_revision": git("rev-parse", "HEAD"),
         "hosts": list(reports),
         "host_count": len(reports),
         "revisions": checked_revisions,

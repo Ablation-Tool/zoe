@@ -202,8 +202,9 @@ class ComponentRegistry:
             "product": "Zoe allgems knowledge-engineering distribution",
             "root": str(self.root),
             "entrypoint_count": len(rows),
-            "repository_count": 12,
-            "upstream_repository_count": 11,
+            "repository_count": 1,
+            "source_project_count": 12,
+            "imported_repository_count": 12,
             "components": rows,
             "knowledge_engineering": {
                 "trust_context": "source, repository, revision, evidence scope, and authorization boundary",
@@ -250,6 +251,33 @@ def _orbit(identifier, center, radii, angle, color):
     return {"id": identifier, "type": "polygon", "points": points, "stroke": color, "fill": "none", "width": 1.2}
 
 
+def _woven_diamond(identifier, center, radius, color):
+    cx, cy = center
+    objects = [{
+        "id": f"{identifier}-outer", "type": "polygon",
+        "points": [[cx, cy - radius], [cx + radius, cy], [cx, cy + radius], [cx - radius, cy], [cx, cy - radius]],
+        "stroke": color, "fill": "none", "width": 2,
+    }]
+    for index, offset in enumerate(range(-90, 100, 15)):
+        span = radius - abs(offset)
+        objects.append({
+            "id": f"{identifier}-horizontal-{index}", "type": "polyline",
+            "points": [[cx - span, cy + offset], [cx + span, cy + offset]],
+            "stroke": color, "fill": "none", "width": 1,
+        })
+        objects.append({
+            "id": f"{identifier}-vertical-{index}", "type": "polyline",
+            "points": [[cx + offset, cy - span], [cx + offset, cy + span]],
+            "stroke": color, "fill": "none", "width": 1,
+        })
+    objects.append({
+        "id": f"{identifier}-center", "type": "polygon",
+        "points": [[cx, cy - 42], [cx + 42, cy], [cx, cy + 42], [cx - 42, cy], [cx, cy - 42]],
+        "stroke": color, "fill": "#080d18", "width": 2,
+    })
+    return objects
+
+
 def unified_scene(registry=None, knowledge=None):
     from .atlas import _ellipse, _scene, _text
 
@@ -269,18 +297,16 @@ def unified_scene(registry=None, knowledge=None):
         _text("scope", [40, 109], f"{IDENTITY} · full source trees · one replayable knowledge field", 12, muted),
         _text("entrypoints", [45, 178], str(len(COMPONENTS)), 41, cyan),
         _text("entrypoint-label", [121, 175], "registered entrypoints", 15, muted),
-        _text("repositories", [45, 222], str(manifest["upstream_repository_count"]), 32, yellow),
-        _text("repository-label", [101, 220], "upstream repositories + Zoe", 14, muted),
+        _text("repositories", [45, 222], str(manifest["imported_repository_count"]), 32, yellow),
+        _text("repository-label", [101, 220], "imported source histories", 14, muted),
         _text("engine", [355, 178], "FULL", 28, pink),
         _text("engine-label", [451, 176], "Ablation core and framework", 14, muted),
         _text("checkout", [355, 218], "ONE", 24, green),
         _text("checkout-label", [427, 216], "checkout · identity · manifest", 14, muted),
     ])
-    for index, color in enumerate(colors[:10]):
-        objects.append(_orbit(f"identity-orbit-{index}", [1150, 168], [120, 42], index * 18, color))
-    objects.append(_ellipse("identity-center", [1150, 168], [43, 30], cyan, "#080d18", 2))
+    objects.extend(_woven_diamond("identity-woven", [1150, 168], 120, "#f87171"))
     objects.append(_text("identity-center-label", [1117, 175], "Zoe", 20, "#e2e8f0"))
-    objects.append(_text("orbital-caption", [984, 254], "Zoe orbital eye · allgems · original vector interpretation", 11, muted))
+    objects.append(_text("orbital-caption", [984, 254], "Zoe woven diamond · allgems · original vector interpretation", 11, muted))
     for index, component in enumerate(manifest["components"]):
         x = 40 + (index % 5) * 268
         y = 294 + (index // 5) * 202
@@ -312,7 +338,7 @@ def unified_scene(registry=None, knowledge=None):
     objects.extend([
         _text("symbol-caption", [62, memory_y + 96], "source / trust / stability", 11, muted),
         _text("symbol-note", [62, memory_y + 118], "original symbol-grid references", 9, "#64748b"),
-        _text("memory-title", [390, memory_y + 34], "TWELVE PROJECTS · ONE KNOWLEDGE FIELD", 14, yellow),
+        _text("memory-title", [390, memory_y + 34], "SIXTEEN ENGINES · ONE KNOWLEDGE FIELD", 14, yellow),
         _text("memory-scope", [390, memory_y + 65], "Source context is inspectable; observation does not transfer evidence or permission.", 12, "#fda4af"),
         _text("memory-detail", [390, memory_y + 91], "Trust: repository + revision + scope · Stability: process + replay + tests", 11, muted),
         _text("memory-boundary", [390, memory_y + 117], "No implicit agent launch · no runtime claim from source presence · executed=False", 11, green),

@@ -1,21 +1,23 @@
 # GEM HELEN
 
-GEM HELEN is a separate native repository for creative geometry, rhythm, and forecast-breadth experiments. It is the right-brain counterpart to investigation-focused GEM workbenches: local, compact, inspectable, and optimized for interactive use rather than reverse-engineering or forensic case management.
+GEM HELEN is Zoe's native creative-geometry, rhythm, and forecast-breadth laboratory. It is the right-brain counterpart to investigation-focused GEM workbenches: local, compact, inspectable, and optimized for interactive use. Its canonical home is the unified [Zoe repository](../../README.md); see the [capability atlas](../../CAPABILITY-ATLAS.md).
 
 ## Zoe One: shared full autonomy
 
-GEM HELEN is one host in the [Zoe One system](https://github.com/Ablation-Tool/zoe). Its native geometry and forecast modules remain unchanged. The separate `autonomy` command delegates to the canonical [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) engine.
+GEM HELEN is one host in Zoe One. Its native geometry and forecast modules remain unchanged. The `autonomy` command delegates directly to the bundled [Zoe Autonomy](../Zoe-Autonomy/README.md) engine.
 
 ```bash
-export ZOE_ROOT=/path/to/zoe
-export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
+cd /path/to/zoe
+export ZOE_ROOT="$PWD"
+export ZOE_AUTONOMY_ROOT="$ZOE_ROOT/components/Zoe-Autonomy"
 
 gem-helen autonomy run
 gem-helen autonomy run --output new-profile.json
 gem-helen autonomy verify new-profile.json
+python scripts/verify-one-system.py
 ```
 
-Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. Native HELEN modules still launch no agent or automatic action. External actuation remains outside Zoe's authority. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. Native HELEN modules still launch no agent or automatic action. External actuation requires a separate owner grant. See the [system manifest](../../one-system.json) for source provenance and runtime contracts.
 
 ## Launch
 

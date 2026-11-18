@@ -1,21 +1,23 @@
 # Graphics Environment Manager
 
-The standalone home of the canonical **Ablation native workbench**, reusable as a graphical environment for **your project + your AI agent**.
+Canonical GEM is the native mathematical workbench inside the unified [Zoe repository](../../README.md), reusable as a graphical environment for **your project + your AI agent**. It contributes mirrored forecasts, Spatial IR, GEM VDI, geometry, and 17 verified mathematical operations to Zoe's AGI/ASI research mission. See the [capability atlas](../../CAPABILITY-ATLAS.md).
 
 ## Zoe One: shared full autonomy
 
-Canonical GEM is one host in the [Zoe One system](https://github.com/Ablation-Tool/zoe). Its `autonomy` command delegates to the canonical [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) engine rather than maintaining a second implementation.
+Canonical GEM is one host in Zoe One. Its `autonomy` command delegates directly to the bundled [Zoe Autonomy](../Zoe-Autonomy/README.md) engine rather than maintaining a second implementation.
 
 ```bash
-export ZOE_ROOT=/path/to/zoe
-export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
+cd /path/to/zoe
+export ZOE_ROOT="$PWD"
+export ZOE_AUTONOMY_ROOT="$ZOE_ROOT/components/Zoe-Autonomy"
 
 gem autonomy run
 gem autonomy run --output new-profile.json
 gem autonomy verify new-profile.json
+python scripts/verify-one-system.py
 ```
 
-Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. Every host uses the same operational profile and `full_autonomy` classification. External actuation remains outside Zoe's authority. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. Every host uses the same operational profile and `full_autonomy` classification. External actuation requires a separate owner grant. See the [system manifest](../../one-system.json) for source provenance and runtime contracts.
 
 ## Zoe OS: one mirrored brain, shared instruments
 

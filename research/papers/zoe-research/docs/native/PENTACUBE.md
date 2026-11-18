@@ -4,9 +4,9 @@
 
 This is a new turn-based puzzle and inspection tool, not a Tetris clone, an official Rubik product, an optimal cube solver, or an intelligence test.
 
-![NuClide Research co-brand](images/nuclide-brain.png)
+![NuClide Research co-brand](../../assets/native/nuclide-brain.png)
 
-The **NuClide Research** co-brand is user-created artwork and an homage to Gary Kildall and Digital Research. It is independent from Digital Research and does not replace the Zoe orbital eye.
+The **NuClide Research** co-brand is user-created artwork and an homage to Gary Kildall and Digital Research. It is independent from Digital Research and does not replace the Zoe woven diamond.
 
 ## Why a 5×5 cube fits
 
@@ -42,7 +42,7 @@ The native window provides:
 - Original rhyme hints, replay save/open, and SVG/PNG/GEM VDI export.
 - A scrollable control column and accessible face-net description.
 
-![Native Zoe Pentacube](images/zoe-pentacube-native.png)
+![Native Zoe Pentacube](../../assets/native/zoe-pentacube-native.png)
 
 ## The equations
 
@@ -124,7 +124,7 @@ Undo applies an inverse permutation and appends an event; it does not delete his
 
 `docs/examples/pentacube-session.json` is a worked replay with two player turns remaining after an undo.
 
-![Zoe Pentacube scene](images/zoe-pentacube.png)
+![Zoe Pentacube scene](../../assets/native/zoe-pentacube.png)
 
 ## Original rhyme hints
 
