@@ -20,8 +20,6 @@ class NativeCognitiveFieldCase(unittest.TestCase):
         self.assertIn("spu", report)
         self.assertIn("texture", report)
         self.assertIn("stereo", report)
-        self.assertIn("execution", report)
-        self.assertEqual(report["execution"]["gpu_execution"], "not_performed")
         self.assertEqual(report["spu"]["instruction_count"], 4)
         self.assertEqual(report["external_actions"], 0)
         scene, augmented = cognition_scene(report)

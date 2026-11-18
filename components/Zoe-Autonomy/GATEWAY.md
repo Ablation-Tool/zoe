@@ -15,7 +15,7 @@ zoe-autonomy explore \
 
 The explorer retrieves public HTTP(S) pages, extracts titles, visible text, and links, and stores short text excerpts with audit hashes. It begins from an explicit URL, follows same-origin links, checks robots.txt, and applies bounded page, depth, and delay settings. It does not submit forms, use credentials, or bypass authentication.
 
-The preserved [Example Domain exploration](evidence/exploration/example-com.json) records a real HTTP 200 response, page title, visible-text excerpt, and network audit hash.
+The preserved [Example Domain exploration](../../evidence/exploration/example-com.json) records a real HTTP 200 response, page title, visible-text excerpt, and network audit hash.
 
 ## Discover connected agents
 
@@ -30,7 +30,7 @@ Discovery recognizes locally installed Kimi, Claude, and Codex CLIs. Registratio
 zoe-autonomy agents discover --register --owner-approved
 ```
 
-The current owner-authorized registration contains Kimi and Claude. See [registered account evidence](evidence/agents/registered-accounts.json).
+The current owner-authorized registration contains Kimi and Claude. See [registered account evidence](../../evidence/agents/registered-accounts.json).
 
 ## Invoke a connected account
 

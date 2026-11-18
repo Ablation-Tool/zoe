@@ -14,41 +14,10 @@ python scripts/verify-model-comparison.py \
 python scripts/verify-biobert-optimization.py
 ```
 
-The first command independently checks threshold counts, target ranks, entropy, top-ten mass, token ordering, and raw-array hashes for all sixteen comparison cases. **It also regenerates the summary JSON and CSV, including a fresh timestamp.** Run it in a working copy when the reference artifacts must remain byte-for-byte unchanged. The second command recomputes the BioBERT optimization and original/adaptive metrics from the frozen cases and raw distributions without writing that evidence. No model weights are downloaded by these verification commands.
+The first command independently checks threshold counts, target ranks, entropy, top-ten mass, token ordering, and raw-array hashes for all sixteen comparison cases. The second recomputes the BioBERT optimization and original/adaptive metrics from the frozen cases and raw distributions. No model weights are downloaded by these verification commands.
 
 The [long-form research archive](./RESEARCH.md#reproduction-procedure) contains the original inference environments, exact public model identifiers, immutable revisions, and baseline/XLNet procedures. The [evidence guide](../evidence/README.md) separates canonical results from historical context.
 
-## Inspect the integrated Zoe proof of concept
-
-The primary significance paper now includes a substantive Zoe chapter and embeds the complete [Zoe paper](../evidence/zoe-integration/zoe.pdf), its source, core implementation files, worked field and Cognitive Field memories, license, notices, and [hash manifest](../evidence/zoe-integration/provenance.json). The manifest pins these copies to Zoe revision `8fcdcfe4`. The embedded Zoe source retains its original repository-relative paths; rebuild it from a Zoe checkout rather than treating the copied source as a standalone distribution.
-
-The Zoe chapter covers the epistemic firewall, Bayesian updates, bounded symbolic memory, mirrored observations, exact toy continuations, Cog's actual bigram smoothing and reverse-count construction, native geometry, CERN evidence, and guarded updates. These are later engineering contributions with separately preserved authorship and verification scope, not changes to the original equation or new claims of creativity, consciousness, correctness, or hardware validation.
-
-## Reproduce the Zoe repository audit
-
-The November 7 audit targeted [Zoe `8fcdcfe4`](https://github.com/Ablation-Tool/zoe/commit/8fcdcfe49959761f87c746e808c168a1100a9707). Its [report](../evidence/zoe-audit/report.json), [audit script](../scripts/audit-zoe.py), and focused test logs are preserved. Run the numerical, source, chain, and documentation checks against a Zoe checkout and supply the preserved logs to reproduce the recorded test classification:
-
-```bash
-python scripts/audit-zoe.py \
-  --zoe-root /path/to/zoe \
-  --audit-date 2026-11-07 \
-  --test-log evidence/zoe-audit/headless-and-components.txt \
-  --test-log evidence/zoe-audit/native-unified.txt \
-  --output reproduced-zoe-audit.json
-```
-
-The script writes only the new report path and refuses to overwrite it. It does not invoke the summary-writing comparison verifier, download model weights, perform fresh inference, run firmware acceptance plans, or contact hardware. The report is point-in-time evidence: after this paper update, the standalone research checkout intentionally differs from Zoe's older bundled snapshot. The native log records the confirmed stale 11-versus-12 link assertion rather than claiming a native all-pass.
-
-The headless/component command used for the preserved log was:
-
-```bash
-cd /path/to/zoe
-env -u DISPLAY GEM_COMPONENT_TESTS=1 PYTHONDONTWRITEBYTECODE=1 \
-  PYTHONPATH=guiai-lab /usr/bin/python3 -m unittest \
-  stress.unified_stress stress.zoe_workbench_stress stress.cern_stress -v
-```
-
-The isolated native check used `guiai-lab/stress/nested_x11.sh` with `stress.unified_stress.UnifiedNativeCase`. It currently fails at `stress/unified_stress.py:220`: the implementation adds a declared source link while the assertion retains the old count. This is an open test-maintenance finding; the audit does not modify Zoe or weaken the assertion.
 ## Verify the response-planning visual proof
 
 ```bash

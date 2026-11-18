@@ -4,18 +4,13 @@
 
 ## Unreleased
 
+- Added dependency-free HP-UX SOM parsing and PA-RISC 1.0/1.1 decoding to `ablation.hpux`, `BinaryContext`, the `ablation hpux` CLI, and `WindowAnalyzer`, including SOM VA mapping, import labels, direct calls, and unwind-based function alignment.
+- Added SunOS SPARC OMAGIC a.out symbols, twelve-byte relocation records with signed addends, direct-call recovery, and the `ablation sunos` CLI.
 - Replaced the pre-launch target prompts with a direct GEM home screen on Linux, Windows, and macOS. **Open binary** and **Open directory** now select the target inside GEM before creating a stable session and opening the full workbench.
 - Consolidated node details and actions under a collapsed-by-default bowtie toggle in Tk and GTK, with normal and inverse icon states and preserved responsive layout behavior.
 - Adopted the woven-diamond master icon set across the README, Wiki, Tk and GTK headers, Linux hicolor launchers, native Windows shortcuts, and macOS application bundles.
 - Added optional next-token accessible-volume measurement with a local DistilGPT2 provider, strict thresholds, separate evidence events and raw probabilities, complementary volume, accessible momentum with advisory target-band guidance, and candidate-future concentration previews that never authorize or execute actions.
 - Added the NPZ VolumeBridge feedback loop with monotonic elapsed time and no-overwrite reports, plus a reproducible sacred-geometry dataset with exact math transcription, OCR, component measurements, lossless pixel vectors, VDI replay, and Procrustes landmark alignment.
-
-**HP-UX SOM, PA-RISC, and Motorola MC88100 analysis.**
-
-- Added standard-library-only SOM parsing with subspace/VA mapping, dynamic imports and exports, DLT/PLT linkage, dynamic relocations, and unwind recovery. `ablation.hpux` supplies info, import, disassembly, direct-call, and function commands, plus `BinaryContext` integration.
-- Added ordered-table PA-RISC 1.0/1.1 decoding with explicit unknowns. The Lotus Motif corpus decodes all 302,965 instructions with zero unknown encodings and recovers 28,661 direct calls. Corrected short five-bit operand extraction to instruction bits 11–15 and base-modify load/store immediates to low-bit sign extension, with comparison and memory-offset regression vectors.
-- Replaced the partial M88K model with a table-driven MC88100 decoder and added DG/UX ELF parsing with `.rela.gotp` import recovery. Both M88K samples decode completely; the `dg_gen` `gets` destination is now proven to be a 64-byte stack region.
-- Added focused and real-corpus tests, capability references, and tool-selection guidance.
 
 ## v2.94.0
 
@@ -40,6 +35,7 @@
 - Hardened concurrent exports with exclusive writer locks and atomic artifact writes, added stale-export rejection and coherent investigation snapshots, and verified process-group termination and bounded agent output.
 - Corrected small-device connector verification by accounting for half-pixel coordinate quantization, and fixed `ablation analyze --entropy` to consume `EntropyMapResult` correctly.
 - Added a real system-binary integration workflow: Ablation analysis becomes scoped Lab evidence and a replayed GEM run.
+
 **Android APK/XAPK, DEX, JNI, and cross-layer taint workflow.**
 
 - Added bounded in-memory APK/XAPK split decoding, namespace/text-aware AXML, overload-aware Java-like DEX decompilation, and byte-backed ARM/Thumb ELF disassembly with PLT/direct-call resolution.
