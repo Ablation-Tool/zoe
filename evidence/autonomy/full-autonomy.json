@@ -4005,7 +4005,7 @@
     "delta": 0.001,
     "tau": 0.05
   },
-  "profile_sha256": "13282fd8e75355006562a341bbf5be9ae34c57c99ba32bbf2c4b112cce5559c2",
+  "profile_sha256": "5b8061489ca60fb5ccacf85716bf328d4db477767799acb7dc344b0e65977afa",
   "sandbox_executed": true,
   "schema_version": 1,
   "scope": [
@@ -4089,7 +4089,7 @@
   },
   "zoe_source": {
     "repository": "https://github.com/Ablation-Tool/zoe",
-    "revision": "b747a05e76ad5579ceb167ecef201aaa39b8d06a",
+    "revision": "fca1ca50f35403dc9b1ccaa25b2a1a8b386f8df4",
     "source_sha256": {
       "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
       "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",
