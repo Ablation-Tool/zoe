@@ -13,8 +13,9 @@
   ],
   "identical_canonical_profiles": true,
   "internal_goal_authorship": true,
+  "monorepo_revision": "6680d8cf2b895f1699692f2207cbdecd9d3f1507",
   "operator_approval_required": false,
-  "profile_sha256": "1660eddcf90493ec42766a9138f582a70369450eddb569db1f83a0cdb4cdb436",
+  "profile_sha256": "31c180ac0e61cd3be36380fa43df04ca9691b20f7ddccd56e7c90a0d132d4771",
   "revisions": {
     "ablation-gem": "fa8377ea5fa009967a3bf3b837c342347678409b",
     "brain-gem": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
@@ -32,12 +33,13 @@
     "replay_verified": true,
     "selected_model": null
   },
+  "single_checkout": true,
   "system": "Zoe One",
   "verified": true,
   "visual_perception": {
     "feature_maps": 42,
     "foci": 4,
-    "image_sha256": "e501a270fc29387ae58755eb359a8d4e3607afacb5bd956c6391bea8437a3a7d",
+    "image_sha256": "4f47aa4dcc837c892009f9d1ef86670da34e4ffc4edc640c58aebcf0f6d767b4",
     "live_camera": false,
     "replay_verified": true,
     "source_kind": "image_file"

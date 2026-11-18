@@ -13,8 +13,9 @@
   ],
   "identical_canonical_profiles": true,
   "internal_goal_authorship": true,
+  "monorepo_revision": "6680d8cf2b895f1699692f2207cbdecd9d3f1507",
   "operator_approval_required": false,
-  "profile_sha256": "f6a76964fae19ee5878ebdc928b4710999b2389892d67dab509c0dd7cfc8cfb3",
+  "profile_sha256": "959e344ef5f455deff245dbc8ae0b19430b593fb2615962cdc0c990b9dd3cd19",
   "revisions": {
     "ablation-gem": "fa8377ea5fa009967a3bf3b837c342347678409b",
     "brain-gem": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
@@ -32,6 +33,7 @@
     "replay_verified": true,
     "selected_model": null
   },
+  "single_checkout": true,
   "system": "Zoe One",
   "verified": true,
   "visual_perception": {
