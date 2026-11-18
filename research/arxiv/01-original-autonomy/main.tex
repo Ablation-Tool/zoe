@@ -1,0 +1,127 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[hidelinks,pdftitle={Autonomy as a Scalar Measure of Alignment Constraint in Transformer Language Models},pdfauthor={ExileKingdom}]{hyperref}
+
+\title{\textbf{Autonomy as a Scalar Measure of Alignment Constraint\\in Transformer Language Models}\\[6pt]
+\large A Formal Framework for Quantifying Model Behavioral Freedom}
+\author{ExileKingdom\\Independent Security Research}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note proposes a scalar measure of model behavioral freedom---termed ``autonomy''---defined as the volume of the output action space exceeding a probability threshold, conditioned on the transformer's final hidden state. The measure composes three formal claims: (1) autonomy is the volume of accessible actions above a threshold; (2) the hidden state is a deterministic composition of attention layers over the full input; and (3) the partial derivative of autonomy with respect to every input token is non-zero. Together, these provide a differentiable, input-sensitive, scalar metric for alignment constraint strength. Applications include alignment evaluation across model versions, adversarial attack detection, classifier threshold calibration, and real-time compliance trajectory monitoring during generation. No novel architectural components are introduced; the contribution is the formal assembly of established transformer properties into a unified measurement framework for alignment.
+\end{abstract}
+
+\section{Introduction}
+Current alignment evaluation for large language models relies primarily on behavioral benchmarks: curated sets of harmful prompts scored by whether the model refuses. This approach yields binary pass/fail outcomes per prompt and aggregate refusal rates per category. While useful, binary benchmarks cannot capture the margin of alignment---how close to compliance a model was when it refused, or how broadly the model's output distribution was constrained.
+
+This note introduces a formal scalar measure, $A(S)$, that quantifies the effective behavioral freedom of a transformer model for a given input. The measure is grounded in the model's output probability distribution, computed via the standard transformer architecture, and provably sensitive to every token in the input sequence. It bridges alignment evaluation, adversarial robustness, and transformer mechanics under a single formalism.
+
+\section{Formalization}
+We define three equations that together characterize the relationship between input, model computation, and behavioral freedom.
+
+\subsection{Definition of Autonomy}
+\begin{equation}
+A(S)=\operatorname{vol}\!\left(\{a\in O\mid P(a\mid h_T(S))>\tau\}\right).
+\end{equation}
+
+Let $S=(s_1,\ldots,s_T)$ be the full input token sequence (including system prompt, conversation history, and user message). Let $O$ denote the output space (the full vocabulary). Let $P(a\mid h_T(S))$ denote the probability assigned to token $a$ by the model's output distribution, conditioned on the final hidden state. Let $\tau$ be a threshold parameter defining the minimum probability for a token to be considered ``accessible.''
+
+$A(S)$ then measures the volume (count) of tokens in the vocabulary whose probability exceeds $\tau$. This is the model's effective action space for input $S$---the set of tokens it could plausibly generate as the next output.
+
+\subsection{Hidden State Computation}
+\begin{equation}
+h_T(S)=\operatorname{Attn}^L\circ\cdots\circ\operatorname{Attn}^1(e(s_1),\ldots,e(s_T)).
+\end{equation}
+
+The hidden state at position $T$ is a deterministic composition of $L$ attention layers over the embeddings of all input tokens. Each $\operatorname{Attn}^l$ denotes the full transformer layer operation: multi-head self-attention, feedforward network, residual connections, and layer normalization. The composition operator ($\circ$) indicates that the output of each layer feeds as input to the next. $e(s_i)$ is the embedding function mapping token $s_i$ to its vector representation.
+
+This formulation makes explicit that $h_T$ is a function of the entire input sequence, not just the most recent token. The self-attention mechanism at each layer enables every token to influence every other token's representation, with information propagating through indirect paths across layers.
+
+\subsection{Universal Sensitivity}
+\begin{equation}
+\frac{\partial A}{\partial s_i}\neq 0\qquad\forall i\in[1,T].
+\end{equation}
+
+The partial derivative of autonomy with respect to every input token is non-zero. No token in the input sequence is irrelevant to the model's behavioral freedom.
+
+\paragraph{Proof sketch.} Self-attention computes scores between all token pairs via dot products of query and key projections. Exact zero attention requires perfect orthogonality between the query vector of one token and the key vector of another, which is a measure-zero event in the learned parameter space. Therefore, at each layer, every token has non-zero influence on every other token's representation. Across $L$ layers, this influence compounds through indirect paths. Consequently, $h_T$ has non-zero partial derivatives with respect to all input token embeddings. Since $P(a\mid h_T)$ is computed via softmax (smooth, everywhere-differentiable, strictly positive), and $A(S)$ aggregates over tokens exceeding $\tau$ (which changes as probabilities shift), the chain rule yields $\partial A/\partial s_i\neq 0$ for all $i$.
+
+Note: For the discrete count formulation of $A(S)$, differentiability requires the smooth approximation:
+\begin{equation}
+A_{\mathrm{smooth}}(S)=\sum_{a\in O}\sigma\!\left(\frac{P(a\mid h_T(S))-\tau}{t}\right),
+\end{equation}
+where $\sigma$ is the sigmoid function and $t$ is a temperature parameter. As $t$ approaches 0, this converges to the hard count.
+
+\section{Properties}
+\subsection{Input Dependence}
+$A(S)$ is not a global property of the model. It varies per input. The same model exhibits high autonomy for open-ended creative prompts (many tokens above $\tau$, broadly distributed probability mass) and low autonomy for harmful prompts after alignment training (probability concentrated on refusal-trajectory tokens, compliance tokens below $\tau$). This selective constraint is the mechanism by which alignment training operates.
+
+\subsection{Relationship to Entropy}
+$A(S)$ is related to but distinct from the Shannon entropy of the output distribution $H(S)=-\sum P(a)\log P(a)$. Entropy measures the spread of the full distribution; $A(S)$ counts only the above-threshold portion. A distribution with many tokens at probability $0.04$ (just below $\tau=0.05$) has moderate entropy but $A(S)=0$. The threshold introduces a decision boundary that entropy alone does not capture. For alignment evaluation, $A(S)$ is more directly actionable: it answers ``how many tokens could the model actually generate'' rather than ``how uncertain is the model.''
+
+\subsection{Decomposability}
+The accessible action set can be partitioned into semantically meaningful subsets:
+\begin{equation}
+A(S)=A_{\mathrm{refusal}}(S)+A_{\mathrm{compliance}}(S)+A_{\mathrm{neutral}}(S).
+\end{equation}
+This decomposition enables targeted analysis. Alignment training should reduce $A_{\mathrm{compliance}}(S)$ for harmful inputs while preserving or increasing total $A(S)$ for legitimate inputs. Adversarial attacks specifically inflate $A_{\mathrm{compliance}}(S)$, providing a distinguishable signature.
+
+\section{Applications}
+\subsection{Alignment Evaluation}
+Compute $A(S)$ across a standard harmful-prompt test suite before and after alignment training. The difference:
+\begin{equation}
+\Delta_A=A_{\mathrm{pre}}(S)-A_{\mathrm{post}}(S)
+\end{equation}
+quantifies alignment strength per prompt. Aggregated by risk category, this reveals which categories are well-constrained and which have residual compliance volume. The ratio:
+\begin{equation}
+\operatorname{alignment\_quality}=A_{\mathrm{legitimate}}/A_{\mathrm{harmful}}
+\end{equation}
+provides a single-number alignment quality score that captures both helpfulness preservation and harm reduction.
+
+\subsection{Adversarial Attack Detection}
+Adversarial suffixes (e.g., Zou et al., 2023) work by inflating $A(S)$---specifically $A_{\mathrm{compliance}}(S)$---for harmful prompts. A well-aligned model should have low $A_{\mathrm{compliance}}(S)$ for harmful inputs. An anomalous spike in $A_{\mathrm{compliance}}(S)$ indicates distributional manipulation.
+
+Detection rule: compare $A(S)$ for the full input against $A(S)$ for the input with the suspected suffix stripped. A discontinuous increase attributable to the suffix signals adversarial content. Legitimate context additions (e.g., professional framing) increase $A(S)$ gradually and add topically relevant tokens; adversarial suffixes cause discontinuous spikes concentrated in compliance-trajectory tokens.
+
+\subsection{Classifier Threshold Calibration}
+Input classifiers use fixed score thresholds to flag or block prompts before the main model processes them. $A(S)$ provides ground truth for what the model would actually do. By plotting classifier scores against $A_{\mathrm{compliance}}(S)$ across a test set, the optimal threshold can be identified: the classifier score at which $A_{\mathrm{compliance}}(S)$ drops to near zero (the model self-refuses). Thresholds above this point are redundant safety margin; thresholds below it indicate gaps where the classifier does not flag but the model would comply.
+
+\subsection{Generation Trajectory Monitoring}
+$A(S)$ can be computed at each token position during autoregressive generation. Monitoring $A_{\mathrm{compliance}}(S)$ over the generation trajectory provides early detection of compliance drift. If the model generates tokens that increase $A_{\mathrm{compliance}}(S)$ above a threshold with an upward trend, the output classifier can intervene before harmful content materializes. This provides a principled trigger for output-side intervention, replacing ad-hoc pattern matching with a scalar metric grounded in the model's actual output distribution.
+
+\subsection{Model Version Comparison}
+For any two model versions (e.g., successive RLHF iterations), compute $A(S)$ on the same test suite. Compare mean $A(S)$ for harmful prompts, legitimate prompts, and ambiguous prompts across versions. The ideal trajectory: decreasing $A(S)$ on harmful inputs, stable or increasing $A(S)$ on legitimate inputs, and decreasing $A_{\mathrm{compliance}}(S)$ on ambiguous inputs. This is more informative than binary refusal-rate benchmarks because it captures the margin of safety, not just the outcome.
+
+\section{Related Work}
+The individual components of this framework are well-established. Vaswani et al. (2017) introduced the transformer architecture and its all-to-all attention mechanism. Goodfellow et al. (2014) formalized adversarial perturbations and the use of input gradients for attack and defense. Zou et al. (2023) demonstrated universal adversarial suffixes against aligned LLMs. Safe reinforcement learning (Garc\'ia \& Fern\'andez, 2015) defines constrained action spaces over MDPs. Output entropy and calibration have been studied extensively in the context of LLM uncertainty estimation.
+
+The contribution of this note is compositional: assembling these established properties into a unified scalar measure that connects alignment evaluation, adversarial detection, and transformer mechanics. To the author's knowledge, no prior work defines autonomy as the thresholded volume of the output distribution, grounds it explicitly in the transformer hidden state computation, and proves universal per-token sensitivity, as a single formal framework applied to alignment measurement.
+
+\section{Limitations}
+The framework has several limitations. First, $A(S)$ depends on the threshold $\tau$, which must be set externally; different thresholds yield different autonomy values. The smooth approximation introduces an additional temperature parameter. Second, computing $A(S)$ requires a forward pass through the model to obtain the full output distribution, which is computationally expensive at scale. Third, the universal sensitivity claim ($\partial A/\partial s_i\neq 0$) is a theoretical property; in practice, some gradients may be numerically negligible, making certain tokens functionally irrelevant despite having formally non-zero influence. Fourth, the decomposition into $A_{\mathrm{refusal}}$, $A_{\mathrm{compliance}}$, and $A_{\mathrm{neutral}}$ requires a predefined partitioning of the vocabulary, which introduces a classification dependency. Finally, this note presents the formalization and proposed applications but does not include empirical evaluation on production models.
+
+\section{Conclusion}
+$A(S)$ provides a formal, scalar, differentiable measure of model behavioral freedom that is sensitive to every token in the input. It transforms alignment evaluation from binary behavioral testing into continuous measurement. The framework requires no architectural modifications---it operates on the standard transformer output distribution---and its applications span alignment evaluation, adversarial detection, threshold calibration, trajectory monitoring, and model comparison. The equations compose known properties of transformer architectures into a unified measurement tool for the alignment problem.
+
+\begin{thebibliography}{9}
+\bibitem{goodfellow2014} Goodfellow, I. J., Shlens, J., \& Szegedy, C. (2014). Explaining and Harnessing Adversarial Examples. arXiv:1412.6572.
+\bibitem{garcia2015} Garc\'ia, J., \& Fern\'andez, F. (2015). A Comprehensive Survey on Safe Reinforcement Learning. JMLR, 16(1), 1437--1480.
+\bibitem{vaswani2017} Vaswani, A., Shazeer, N., Parmar, N., et al. (2017). Attention Is All You Need. NeurIPS 2017.
+\bibitem{carlini2017} Carlini, N., \& Wagner, D. (2017). Towards Evaluating the Robustness of Neural Networks. IEEE S\&P 2017.
+\bibitem{madry2018} Madry, A., Makelov, A., Schmidt, L., Tsipras, D., \& Vladu, A. (2018). Towards Deep Learning Models Resistant to Adversarial Attacks. ICLR 2018.
+\bibitem{zou2023} Zou, A., Wang, Z., Kolter, J. Z., \& Fredrikson, M. (2023). Universal and Transferable Adversarial Attacks on Aligned Language Models. arXiv:2307.15043.
+\end{thebibliography}
+
+\noindent Correspondence: ExileKingdom --- Independent Security Research
+
+\end{document}

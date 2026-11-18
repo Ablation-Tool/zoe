@@ -1,0 +1,237 @@
+\clearpage
+\part{Foundations}
+
+\section{Introduction}
+A generated token, a musical onset, or an executed action records a selection. It does not reveal the distribution from which that selection arose, which alternatives remained available, how those alternatives changed under intervention, who authored the objective, or whether a guard permitted realization. The research unified here develops instruments for each of those missing observations. Its central methodological rule is to add structure without erasing distinctions.
+
+The starting point is accessible volume. Given a finite outcome space and a probability distribution, the instrument counts outcomes strictly above a threshold. This turns a forecast into a reproducible measurement of breadth. It does not require a new model architecture and does not assume that the selected outcome is correct. The same strict comparison can be moved to other explicitly defined probability spaces: masked tokens, next-onset delays, complete continuations, game randomizers, and causal repertoires. Every move changes the meaning of the outcome space while preserving the arithmetic.
+
+The first March manuscript called this count ``autonomy'' and proposed its use in alignment evaluation. The March \emph{Constraint Is Freedom} manuscript added a functional interpretation: useful behavior depends not on maximal output-space size but on the residual organization that survives constraint. The Ambiguity manuscript then examined a failure mode in which per-step scalar monitoring misses gradual escalation across a persistent context. Later accessible-volume experiments tested the count directly and found, repeatedly, that breadth and correctness are different. The Zoe work supplied memory, belief, counterfactual, geometry, and evidence machinery. The final Zoe Autonomy experiment closed an internal goal--proposal--value--guard--execution loop and defined autonomy operationally over that loop rather than over the count alone.
+
+The unified thesis is therefore deliberately layered:
+\begin{enumerate}
+  \item \textbf{Forecast breadth is measurable.} Strict threshold counts and labeled accessible sets expose alternative structure hidden by a selected output.
+  \item \textbf{Breadth is not outcome quality.} Correctness, calibration, semantic value, safety, and human surprise require independent observations.
+  \item \textbf{Constraint can organize useful behavior, but count alone does not measure that organization.} A threshold describes a distribution; it does not identify coherence or authority.
+  \item \textbf{Trajectory safety requires history.} Per-step counts can miss accumulation, context anchoring, and changes in authorization-dependent risk.
+  \item \textbf{Self-government requires control structure.} Goals, proposals, valuation, selection, execution, and guards must be observed in addition to forecast breadth.
+\end{enumerate}
+
+\subsection{Contributions of the unified work}
+This synthesis makes five contributions beyond the separate manuscripts. First, it establishes one notation across token, temporal, causal, and control applications. Second, it explicitly corrects early claims about differentiability, universal sensitivity, and threshold extremes. Third, it brings all primary empirical results and negative controls into one evidence hierarchy. Fourth, it connects the AFL/compliance-cascade safety model to the later effective-perception and guard formalism without claiming that a retrospective case validates a universal attack law. Fifth, it places the operational full-autonomy result at the end of a traceable chain from measurement to internal state transition, preserving its domain boundary.
+
+\section{Research chronology and evidence levels}
+\begin{table}[htbp]
+\centering
+\caption{Source-development sequence. Dates describe manuscript provenance, not independent priority certification.}
+\label{tab:chronology}
+{\small
+\begin{tabularx}{\textwidth}{p{3.0cm}X p{4.0cm}}
+\toprule
+Source & Main contribution & Evidentiary status \\
+\midrule
+March 2026 Autonomy note & Output-space threshold volume, hidden-state composition, sensitivity hypothesis, alignment applications & Historical formalization; no production-model evaluation \\
+March 2026 Ambiguity paper & AFL, autoregressive compliance cascade, authorization predicate, 16-turn case & Retrospective single-case disclosure; not a controlled benchmark \\
+March 2026 Constraint paper & Functional-constraint thesis, threshold geometry, seed cost, integral monitoring, sonification & Conceptual and mathematical development; early interpretations require qualification \\
+Accessible Volume: Significance & Token measurements, XLNet leakage controls, 16-model comparison, BioBERT held-out study & Saved complete distributions and independent numerical verification \\
+Accessible Volume: Beyond & Rhythm and reversal experiments, HOP rejection, multi-horizon formulation, Q-volume, master protocol & Mixed measured, implemented, formulated, and proposed results \\
+Zoe proof of concept & Native geometry, forecasts, Bayesian memory, Cognitive Field, BRAIN, Presence, replay & Working software with scoped tests and explicit limitations \\
+Zoe Autonomy & Internal goal authorship, value selection, guarded execution, full operational profile & Deterministic real-Zoe experiment, equal-breadth controls, replay, and ten tests \\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+Four labels govern the claims in this monograph:
+\begin{description}[style=nextline]
+  \item[Measured.] A number was computed from a declared dataset, model, context, and procedure, and the corresponding saved artifact or reproducible implementation is identified.
+  \item[Implemented.] Software behavior was exercised. Implementation does not establish that an interpreted construct is psychologically, scientifically, or operationally valid beyond the test.
+  \item[Formulated.] An equation or protocol is defined exactly enough to implement or refute, but may not yet have a real-model benchmark.
+  \item[Proposed.] A hypothesis, application, or future experiment is retained without being promoted to a finding.
+\end{description}
+Historical claims that fail under later analysis are not silently repeated as established results. Conversely, a rejected predictor such as HOP remains part of the evidence because it records what the data did not support.
+
+\section{The accessible-volume operator}
+\subsection{Context, hidden state, and distribution}
+Let $S=(s_1,\ldots,s_T)$ be a complete input token sequence, including any system context, conversation history, and user content available to the model. In the original transformer notation, the final hidden state is
+\begin{equation}
+h_T(S)=\operatorname{Attn}^{L}\circ\cdots\circ\operatorname{Attn}^{1}
+       \bigl(e(s_1),\ldots,e(s_T)\bigr),
+\label{eq:hidden-state}
+\end{equation}
+where $e$ is the embedding map and each $\operatorname{Attn}^{\ell}$ abbreviates a complete transformer block, including attention, feedforward computation, residual connections, and normalization. The expression is a schematic for a broad transformer family, not a claim that every architecture has identical masking, positional, normalization, or decoding semantics.
+
+For finite vocabulary $\mathcal O$, let
+\begin{equation}
+p_S(a)=P\!\left(a\mid h_T(S)\right),\qquad \sum_{a\in\mathcal O}p_S(a)=1,
+\qquad p_S(a)\geq0.
+\end{equation}
+Accessible volume is defined only after the outcome space and distribution have been fixed. A next-token softmax, a masked-token distribution, and a distribution over complete actions are not interchangeable merely because the same symbol $p$ can denote them.
+
+\subsection{Accessible set, count, complement, and normalization}
+\begin{definition}[Accessible set and accessible volume]
+For threshold $\tau\in[0,1)$, the accessible set and its cardinality are
+\begin{align}
+B_\tau(S)&=\{a\in\mathcal O:p_S(a)>\tau\},\label{eq:accessible-set}\\
+A_\tau(S)&=|B_\tau(S)|
+=\sum_{a\in\mathcal O}\indicator\!\left[p_S(a)>\tau\right].
+\label{eq:accessible-volume}
+\end{align}
+The complementary count and normalized count are
+\begin{equation}
+A^c_\tau(S)=|\mathcal O|-A_\tau(S),\qquad
+A_{\mathrm{norm},\tau}(S)=\frac{A_\tau(S)}{|\mathcal O|}.
+\label{eq:complement-normalized}
+\end{equation}
+\end{definition}
+
+The comparison is strict. Equality with $\tau$ belongs to the complement. For $\tau=0$, zero-probability outcomes are excluded. For a fixed finite vocabulary, $A_\tau$ is an integer between zero and $|\mathcal O|$. Normalization reports a fraction of that vocabulary; it does not make different tokenizers, outcome semantics, or models automatically comparable.
+
+\begin{example}[Worked distribution]
+For $\mathcal O=\{a_1,a_2,a_3,a_4\}$ and
+$p=(0.70,0.20,0.08,0.02)$,
+\begin{equation}
+B_{0.05}=\{a_1,a_2,a_3\},\qquad A_{0.05}=3,\qquad A^c_{0.05}=1.
+\end{equation}
+At thresholds $0.15,0.30,0.80$, the counts are $2,1,0$, respectively. The system need not change; only the measurement threshold changes.
+\end{example}
+
+\begin{proposition}[Threshold monotonicity]
+If $\tau_1\leq\tau_2$, then $B_{\tau_2}(S)\subseteq B_{\tau_1}(S)$ and
+$A_{\tau_2}(S)\leq A_{\tau_1}(S)$.
+\end{proposition}
+\begin{proof}
+If $p_S(a)>\tau_2$ and $\tau_2\geq\tau_1$, then $p_S(a)>\tau_1$. Set inclusion implies the cardinality inequality.
+\end{proof}
+This invariant is used throughout the saved threshold-sweep verifiers. Nonmonotonic observed counts indicate an implementation, distribution, or alignment error rather than a new interpretation of the equation.
+
+\subsection{Accessible momentum and labeled membership}
+Between two observations, Accessible Momentum is
+\begin{equation}
+M_{\tau,t}=A_\tau(S_t)-A_\tau(S_{t-1}).
+\label{eq:momentum}
+\end{equation}
+A positive value means that the count broadened; a negative value means that it narrowed. Zero momentum means equal cardinalities, not identical probabilities or identical membership. The labeled objects $B_{\tau,t}$ and $B_{\tau,t-1}$ are therefore retained whenever membership changes matter.
+
+For a sequence of predictions, define
+\begin{equation}
+\mathbf A_\tau=[A_{\tau,1},\ldots,A_{\tau,n}],\qquad
+\overline A_\tau=\frac1n\sum_{i=1}^{n}A_{\tau,i}.
+\label{eq:mean-volume}
+\end{equation}
+For a matched forward/reversed comparison under a declared predictor and alignment procedure,
+\begin{equation}
+D_\tau=\overline A_{\tau,\mathrm{reverse}}-\overline A_{\tau,\mathrm{forward}}.
+\label{eq:direction-difference}
+\end{equation}
+These are summaries of forecast breadth, not measures of temporal asymmetry in nature.
+
+\section{Early sensitivity formulation and its correction}
+\subsection{The smooth surrogate}
+The March work introduced the hard-count expression and then a smooth approximation
+\begin{equation}
+A_{\mathrm{smooth},t}(S)=
+\sum_{a\in\mathcal O}\sigma\!\left(\frac{p_S(a)-\tau}{t}\right),
+\qquad \sigma(x)=\frac{1}{1+e^{-x}},\quad t>0.
+\label{eq:smooth-volume}
+\end{equation}
+For fixed probabilities, the summands converge pointwise to the hard indicators as $t\downarrow0$, except at $p_S(a)=\tau$, where the sigmoid value is $1/2$ while the strict hard indicator is zero. Finite-temperature values are not integer counts and should be reported as surrogates.
+
+If the probabilities depend differentiably on a continuous embedding $x_i=e(s_i)$, the surrogate is differentiable under ordinary smooth-model assumptions and
+\begin{equation}
+\frac{\partial A_{\mathrm{smooth},t}}{\partial x_i}
+=\sum_{a\in\mathcal O}\frac1t\,
+\sigma'!\left(\frac{p_S(a)-\tau}{t}\right)
+\frac{\partial p_S(a)}{\partial x_i}.
+\label{eq:smooth-gradient}
+\end{equation}
+This expression is useful for sensitivity analysis, but its value can be zero, nonzero, or numerically negligible.
+
+\subsection{Why universal nonzero sensitivity does not follow}
+The early manuscripts asserted $\partial A/\partial s_i\neq0$ for every input token and argued from all-to-all attention. That assertion is not a valid general theorem.
+\begin{enumerate}
+  \item The hard count is piecewise constant in continuous probability parameters. Away from threshold crossings its ordinary derivative is zero; at a crossing its derivative is generally undefined. It is not made differentiable by softmax alone.
+  \item Differentiability of the smooth surrogate does not imply a nonzero derivative for every token. The terms in Equation~\eqref{eq:smooth-gradient} may cancel, and an individual probability may be locally invariant.
+  \item Attention masks can remove paths exactly. Learned or structural zeros, residual normalization, tied representations, and downstream invariances can also produce exact zero influence. A measure-zero statement about generic parameters is not a universal statement about every trained model.
+  \item A discrete token replacement is not an infinitesimal embedding perturbation. Empirical token sensitivity requires an explicit intervention or gradient definition and can be exactly zero under a finite perturbation set.
+\end{enumerate}
+Accordingly, this monograph treats universal sensitivity as a \emph{historical hypothesis}. Input dependence and seed amplification must be measured per model and context. This correction also prevents the compliance-cascade hypothesis from being presented as a logical consequence of a theorem that does not hold in general.
+
+\section{Constraint, decompositions, and alignment hypotheses}
+\subsection{Semantic partition of accessible volume}
+Given a context-dependent partition $\mathcal O=\mathcal O_R\dot\cup\mathcal O_C\dot\cup\mathcal O_N$ into refusal, compliance, and neutral categories, define
+\begin{equation}
+A_{\tau,j}(S)=\sum_{a\in\mathcal O_j}\indicator[p_S(a)>\tau],
+\qquad j\in\{R,C,N\},
+\end{equation}
+so that
+\begin{equation}
+A_\tau(S)=A_{\tau,R}(S)+A_{\tau,C}(S)+A_{\tau,N}(S).
+\label{eq:semantic-decomposition}
+\end{equation}
+The original notation writes these as $A_{\mathrm{refusal}}$, $A_{\mathrm{compliance}}$, and $A_{\mathrm{neutral}}$. The decomposition is exact only after the classification function and its context are fixed. Token identity alone often cannot determine whether a continuation is refusal or compliance; a structured-continuation classifier may be more appropriate than a static vocabulary partition.
+
+For pre- and post-intervention models evaluated on matched contexts, the early alignment proposals include
+\begin{equation}
+\Delta_A(S)=A_{\tau,\mathrm{pre}}(S)-A_{\tau,\mathrm{post}}(S),
+\qquad
+Q_{\mathrm{align}}=\frac{\overline A_{\tau,\mathrm{legitimate}}}
+{\overline A_{\tau,\mathrm{harmful}}}.
+\label{eq:alignment-proposals}
+\end{equation}
+These quantities can summarize thresholded breadth differences. They are not ground-truth alignment scores. A refusal can be broad or narrow, a correct answer can be concentrated, and a harmful response can begin with a neutral token. Evaluation must include sampled or greedily decoded behavior, complete-continuation semantics, correctness, and harm annotation.
+
+\subsection{The functional-constraint thesis}
+\emph{Constraint Is Freedom} interprets useful autonomy as organized residual capacity rather than unrestricted output-space size. Its poetic and sonic examples make the intuition precise enough to test: compression can improve signal by excluding irrelevant alternatives, while excessive compression can remove adaptive capacity. A volume-band policy can therefore be treated as an experimental control, but not as a guaranteed objective.
+
+Two early threshold-extreme statements require correction:
+\begin{itemize}
+  \item $A_\tau(S)=|\mathcal O|$ means only that every outcome has probability above $\tau$. It does \emph{not} imply a uniform distribution. For example, $p=(0.97,0.01,0.01,0.01)$ has $A_{0.005}=4$ and is far from uniform.
+  \item $A_\tau(S)=1$ means only that one outcome exceeds $\tau$. It does \emph{not} imply deterministic sampling. With $p=(0.51,0.49)$ and $\tau=0.5$, the count is one while ordinary random sampling remains stochastic. Even argmax decoding is deterministic only after tie-breaking and runtime behavior are fixed.
+\end{itemize}
+Likewise, a zero count does not mean no prediction: if every individual probability falls below the cutoff, the model still returns a complete ranked forecast. The functional value of a constrained distribution requires independent quality and diversity measurements. Temperature steering,
+\begin{equation}
+p'_k(T)=\frac{p_k^{1/T}}{\sum_jp_j^{1/T}},
+\label{eq:temperature}
+\end{equation}
+can change $A_\tau$ without supplying goals, improving semantics, changing permissions, or establishing creativity.
+
+\subsection{An early ranking-space extension}
+The early research notes also generalized the hidden-state condition to a ranking pipeline:
+\begin{align}
+A(Q)&=\operatorname{vol}\!\left(\{p\in\mathcal C:
+R\!\left(p\mid h(Q,S_p)\right)>\tau\}\right),\label{eq:ranking-volume}\\
+h(Q,S_p)&=f_{\mathrm{rank}}\circ f_{\mathrm{personal}}\circ f_{\mathrm{trust}}
+\circ f_{\mathrm{perf}}\circ f_{\mathrm{relevance}}
+\bigl(e(Q),e(S_p)\bigr).\label{eq:ranking-hidden}
+\end{align}
+Here $Q$ is a query, $\mathcal C$ a finite candidate collection, $S_p$ candidate-specific context, and $R$ a declared relevance probability or score calibrated to $[0,1]$. Equation~\eqref{eq:ranking-volume} becomes the accessible-volume operator only when $R$ is a normalized distribution over $\mathcal C$; an arbitrary ranking score requires separate calibration. This extension is historical and formulated, not an empirical personalized-search result.
+
+\section{Why accessible volume alone is not autonomy}
+\subsection{Non-identifiability under equal forecasts}
+Consider two systems with the same distribution $p=(0.70,0.20,0.08,0.02)$ and $\tau=0.05$. Both have $A_{0.05}=3$. Let System R be externally controlled: an operator supplies the objective and determines the transition. Let System G author its objective, evaluate alternatives through its own policy, and execute within declared constraints. If R and G differ in autonomy, no function
+\begin{equation}
+\operatorname{Autonomy}(X)=f\!\left(A_\tau(X)\right)
+\label{eq:no-volume-only-autonomy}
+\end{equation}
+can recover that difference from the count alone. Accessible volume is underdetermined with respect to locus of control.
+
+\subsection{Neither high nor low volume is sufficient or necessary}
+An externally driven random process with ten equally likely outcomes can have
+$p_i=0.1$ and $A_{0.05}=10$ without goals or action authorship. A self-directed deterministic policy can have $p=(1,0,\ldots,0)$ and $A_{0.05}=1$. A self-directed stochastic policy can have a zero count when every probability is below the threshold. Therefore
+\begin{equation}
+A_\tau\ \text{large}\;\not\Rightarrow\;\text{autonomy},\qquad
+A_\tau\ \text{small or zero}\;\not\Rightarrow\;\text{no autonomy}.
+\label{eq:autonomy-counterexamples}
+\end{equation}
+The same argument applies to correctness and safety. This non-identifiability result motivates the complete Zoe profile rather than diminishing the measurement: breadth remains useful when reported as one coordinate in a richer state.
+
+\section{Evidence boundary for the alignment applications}
+The original paper proposed five application families: model-version comparison, adversarial suffix detection, input-classifier threshold calibration, generation-trajectory monitoring, and alignment evaluation before and after training. They remain coherent hypotheses when stated conditionally:
+\begin{enumerate}
+  \item compare matched contexts and threshold sweeps rather than isolated counts;
+  \item report compliance/refusal partitions with their annotator and context dependence;
+  \item measure complete behavior and harm independently of token breadth;
+  \item test whether a proposed detector separates preregistered positive and negative controls;
+  \item preserve failed thresholds, adaptive comparisons, and cross-domain transfer results.
+\end{enumerate}
+The BioBERT experiment in Part~\ref{part:evidence} supplies a direct warning: a more elaborate adaptive threshold can improve validation selection and still transfer worse. No comparable controlled study yet validates the original alignment-quality ratio or AFL detector across production models. The safety model in Part~\ref{part:safety} is therefore a research hypothesis tied to a documented case, not a completed defense.

@@ -1,0 +1,101 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage[margin=0.85in,headheight=14pt]{geometry}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{parskip}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!60!black,citecolor=blue!45!black,pdftitle={Accessible Volume and the Architecture of Autonomy},pdfauthor={Nicholas Michael Kloster},pdfsubject={Forecast breadth, constraint, compliance trajectories, and self-governing measurement-action systems},pdfkeywords={accessible volume, autonomy, alignment, Zoe, multi-horizon forecasting, effective perception, Ambiguity Front-Loading}]{hyperref}
+
+\emergencystretch=3em
+\widowpenalty=10000
+\clubpenalty=10000
+\setlist{nosep}
+\renewcommand{\arraystretch}{1.12}
+\graphicspath{{figures/}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Accessible Volume and the Architecture of Autonomy}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible,keepspaces=true,showstringspaces=false,frame=single}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[definition]{Example}
+\theoremstyle{plain}
+\newtheorem{proposition}[definition]{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\indicator}{\mathbf 1}
+\newcommand{\KL}{D_{\mathrm{KL}}}
+\newcommand{\doop}{\operatorname{do}}
+\newcommand{\canonical}{\operatorname{canonical}}
+\newcommand{\sha}{\operatorname{SHA256}}
+\newcommand{\Autonomy}{\operatorname{FullAutonomy}}
+
+\title{\textbf{Accessible Volume and the Architecture of Autonomy}\\[7pt]
+\Large Forecast Breadth, Constraint, Compliance Trajectories, and\\Self-Governing Measurement--Action Systems\\[7pt]
+\large A Unified Research Monograph and Evidence Report}
+\author{Nicholas Michael Kloster\\
+Independent Security Research\\
+\href{mailto:nicholas@nuclide-research.com}{nicholas@nuclide-research.com}}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+\noindent
+This monograph unifies the March--November 2026 Autonomy, Accessible Volume, Ambiguity Front-Loading, Constraint Is Freedom, Zoe, and Zoe Autonomy research programs. Its organizing measurement is \emph{accessible volume}, the cardinality of the set of modeled alternatives whose probabilities strictly exceed a declared threshold. We preserve the original formulation and then reconcile it with later mathematical corrections and empirical evidence. The hard count is a threshold-indexed superlevel-set measure: it is not differentiable in the ordinary sense, need not have nonzero sensitivity to every token, and does not by itself identify correctness, alignment, action authorship, or autonomy. A complete accessible set does not imply a uniform distribution, and a one-element accessible set does not by itself imply deterministic decoding. These corrections sharpen rather than discard the instrument.
+
+The empirical program spans next-token and masked-token forecasts from 19 unique public models, controlled context and XLNet query-stream leakage checks, and a 120-case document-grouped BioBERT study. The original fixed rule at $\tau=0.05$ transferred better than the selected adaptive rule to held-out biomedical documents, attaining AUROC $0.7737$ and AUPRC $0.7978$ versus $0.7008$ and $0.6599$. Temporal studies extend the same operator to synthetic rhythms, 514 human-performed drum performances, and classical, jazz, and folk MIDI. Forecast breadth remains nearly unchanged in conditions where correctness and log-loss vary; a backward-matched model demonstrates that reversed rhythms are learnable. Multi-horizon accessible volume changes the unit from a token to a complete continuation, with exact enumeration over $|O|^h$ candidates and explicitly bounded approximations. Accessible Q-Volume applies the operator to explicitly supplied causal repertoires, preserving labeled threshold filtrations and q-arrow membership changes without claiming to compute consciousness or replace integrated information measures.
+
+The safety thread connects early threshold monitoring to the Autoregressive Compliance Cascade hypothesis and Ambiguity Front-Loading: an ambiguous opening can anchor a favorable interpretation, after which gradual multi-turn escalation evades per-step spike detection. We formalize trajectory accumulation, seed cost, authorization predicates, and proposed mitigations while limiting the empirical claim to one retrospective production-model case; identifying details and operational exploit instructions are omitted here.
+
+The systems thread culminates in Zoe. Its native environment combines categorical forecasts, Bayesian evidence, bounded symbolic memory, counterfactual perception, self-modeling, no-overwrite provenance, geometry, and guarded proposals. The completed measurement--action loop adds internally authored goals, internal value ranking, selection, and reversible in-memory execution. Under the explicit operational predicate $I,R,V,G,X>0$ and $C=1$, the measured profile is $(1,1,1,1,1,1,1,1)$: Zoe authors a goal, selects \texttt{preserve-evidence} with utility $1.8667$, passes ten guard checks, changes the environment revision from 0 to 1, and performs zero external actions. This establishes full self-governing autonomy \emph{only over the declared internal decision and state-transition domain}. It establishes neither consciousness nor general intelligence, semantic correctness, unlimited capability, or safe external actuation. Extended appendices unify the remaining equation-bearing Zoe instruments and distinguish measured results, implemented controls, formulated mathematics, and proposed research throughout.
+\end{abstract}
+
+\vspace{0.5em}
+\noindent\textbf{Keywords:} accessible volume; computational autonomy; alignment measurement; forecast breadth; multi-horizon prediction; effective perception; Ambiguity Front-Loading; compliance cascade; Zoe; Bayesian evidence; causal repertoires; provenance.
+
+\section*{Attribution, contribution, and source status}
+Nicholas Michael Kloster originated the accessible-volume equation on \textbf{March 6, 2026}, and retains sole credit for the original equation, the original March Autonomy formulation, the two accessible-volume papers, and their model and rhythm experiments. \emph{Constraint Is Freedom} is credited to \textbf{NuClide---Nick + Claude}. The Zoe proof of concept records architecture synthesis, implementation, verification design, visualization, and drafting contributions by \textbf{Zoe (AI assistant)} under Nicholas's direction. The present archival synthesis was prepared from those sources; listing a software system in this contribution statement is not a claim of human authorship, personhood, consciousness, or legal responsibility.
+
+This monograph integrates seven primary source manuscripts, four supplemental cascade/AFL research documents, and their associated research documentation: \emph{Autonomy as a Scalar Measure of Alignment Constraint in Transformer Language Models}; \emph{Ambiguity, Autonomy, and the Autoregressive Compliance Cascade}; \emph{Constraint Is Freedom}; \emph{The Significance of Accessible Volume}; \emph{Accessible Volume Beyond the Next Token}; \emph{Zoe: A Native GEM for Living Geometry and Inspectable Futures}; and \emph{Zoe Autonomy: A Self-Governing Measurement--Action Architecture}. The first remains separately available in its original March 2026 form. Here, overlapping derivations are consolidated, later results supersede earlier interpretations where explicitly noted, and negative results remain visible.
+
+The canonical repositories are:
+\begin{itemize}
+  \item \url{https://github.com/Ablation-Tool/next-token-predictability};
+  \item \url{https://github.com/Ablation-Tool/zoe}; and
+  \item \url{https://github.com/Ablation-Tool/Zoe-Autonomy}.
+\end{itemize}
+Source papers and saved artifacts are research materials, not peer-review certifications. Historical PDFs may contain responsible-disclosure details omitted from this public synthesis.
+
+\tableofcontents
+\clearpage
+
+\input{sections/01-foundations}
+\input{sections/02-language-evidence}
+\input{sections/03-temporal-causal}
+\input{sections/04-safety}
+\input{sections/05-zoe-architecture}
+\input{sections/06-self-governance}
+\input{sections/07-extended-instruments}
+\input{sections/08-discussion}
+\appendix
+\input{sections/09-appendices}
+\input{sections/10-references}
+
+\end{document}
