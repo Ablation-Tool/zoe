@@ -67,6 +67,18 @@ PYTHONPATH=guiai-lab zoe autonomy verify-event-evaluation event-camera-evaluatio
 
 Sparse polarity events reconstruct a scene and drive causal memory retrieval, action-conditioned future predictions, independent uncertainty, and reversible attention transitions. Gated local plasticity and interleaved replay update the next cycle only through validated outcomes. The pre-registered synthetic contract and real-camera check pass. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning; transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. The camera path captures no audio and retains no photograph. See [the architecture and limits](../../components/Zoe-Autonomy/EVENT-CAUSAL.md) and [complete iLab use/blocker catalog](../../components/Zoe-Autonomy/ILAB-INTEGRATION.md).
 
+## Semantic artifact analysis with Ablation
+
+```bash
+export ABLATION_ROOT=/path/to/canonical-ablation
+export PYTHONPATH="$PWD/components/Zoe-Autonomy/src:$PWD/guiai-lab:$ABLATION_ROOT"
+zoe autonomy semantic-evaluate --artifact /path/to/binary \
+  --state /path/to/semantic-state --output semantic-artifact.json
+zoe autonomy verify-semantic-evaluation semantic-artifact.json
+```
+
+Ablation supplies behavioral retrieval and reverse-engineering knowledge while Zoe supplies direct disassembly, Cognitive Field memory, guarded action, and evidence. The stripped fixture preserves weak embeddings and `limited_support=true`, then independently finds `func_11c0` tail-jumping to `strcpy@plt` and selects `semantic-inspect` with zero external actions. This is executable-artifact semantics, not general world semantics, vulnerability proof without bounds review, or AGI. See [the complete implementation and limits](../../components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md).
+
 ## Four-capability autonomy evaluation
 
 ```bash

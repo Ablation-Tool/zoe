@@ -17,13 +17,13 @@ Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_
 | Source | Revision | Included role |
 |:---|:---|:---|
 | Zoe | `f30c981` baseline | Native Cognitive Field, Bayesian memory, geometry, and unified hub |
-| Ablation | `d405b6866fbfe2f66d6595fb11d5302e42f009c9` | Complete core engine, framework, native GEM Lab, tests, docs, and assets |
+| Ablation | `fa8377ea5fa009967a3bf3b837c342347678409b` | Complete core engine, framework, native GEM Lab, tests, docs, and assets |
 | graphics-environment-manager | `0ab35bffa0453689f00b321a6a7e972d14bc8ba7` | Canonical native GEM and mathematical workbench |
 | GEM HELEN | `273c4eeb6fd6044f1ab9068561ddc33290357eed` | Optimized native geometry and forecast experiments |
 | BRAIN GEM | `7420a8f0d8d2c370a72b76d93defcc7fb585b913` | Standalone Bayesian field notebook |
 | Cerotto | `b73d399b638b4de8a0a9829b17c95203c5deaabd` | Native C forensic engine and guarded GEM workbench |
 | next-token-predictability | `79575d94325a43b5dbbef17d38bc1cb1d56d9321` | Accessible-volume research, response-planning evidence, and retained SAT research |
-| Zoe-Autonomy | `12e031d9aca0ffe002538964a65071d352e0c47e` | Full self-governing goals, proposals, valuation, execution, and evidence |
+| Zoe-Autonomy | `0b6b8da9986c31d356fbe8aeb7c9f646ede03429` | Full self-governing goals, proposals, valuation, execution, and evidence |
 | Neurogarden | unavailable; recovered local snapshot | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `8ac3e0181e98572d6c41f964385393aa441a5f2a` | MCP firewall and pure policy engine |
 | PDF Signature Toolkit | `1198165962958c5132130f3854626ff39c333941` | Source integrity and PDF signature commands |

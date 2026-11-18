@@ -59,6 +59,15 @@ def parser():
     event_evaluate.add_argument("--full", action="store_true", help="print the complete event-causal evaluation")
     verify_event = commands.add_parser("verify-event-evaluation", help="verify event-causal evaluation integrity and result consistency")
     verify_event.add_argument("report")
+    semantic = commands.add_parser("semantic-evaluate", help="analyze executable-artifact semantics with Ablation and Zoe")
+    semantic.add_argument("--artifact", required=True, help="ELF artifact to analyze without executing it")
+    semantic.add_argument("--query", default=None, help="natural-language behavioral query")
+    semantic.add_argument("--ablation-root", help="Ablation checkout; default: ABLATION_ROOT or the canonical workspace checkout")
+    semantic.add_argument("--state", help="persistent semantic-memory directory; default: .zoe/semantic-artifacts")
+    semantic.add_argument("--output", help="new JSON semantic-artifact report path")
+    semantic.add_argument("--full", action="store_true", help="print the complete semantic-artifact report")
+    verify_semantic = commands.add_parser("verify-semantic-evaluation", help="verify semantic-artifact report integrity and result consistency")
+    verify_semantic.add_argument("report")
     return result
 
 
@@ -159,6 +168,24 @@ def main(argv=None):
         if arguments.command == "verify-event-evaluation":
             from .event_evaluation import verify_event_evaluation
             print(json.dumps(verify_event_evaluation(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
+        if arguments.command == "semantic-evaluate":
+            from .semantic_artifacts import DEFAULT_QUERY, analyze_artifact, save_semantic_report, semantic_summary
+            report = analyze_artifact(
+                arguments.zoe_root,
+                arguments.artifact,
+                query=arguments.query or DEFAULT_QUERY,
+                state_root=arguments.state,
+                ablation_root=arguments.ablation_root,
+            )
+            output = save_semantic_report(report, arguments.output) if arguments.output else None
+            print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) if arguments.full else semantic_summary(report))
+            if output:
+                print(f"Evidence: {output} · evaluation_sha256={report['evaluation_sha256']}")
+            return 0 if report["overall"]["passed"] else 1
+        if arguments.command == "verify-semantic-evaluation":
+            from .semantic_artifacts import verify_semantic_report
+            print(json.dumps(verify_semantic_report(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         if arguments.command == "verify":
             forwarded = ["verify", arguments.report]

@@ -22,6 +22,31 @@
     "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
     "verify": "zoe-autonomy verify visual-perception.json"
   },
+  "capability_prospectus": {
+    "pdf": "paper/zoe-capability-prospectus.pdf",
+    "source": "paper/zoe-capability-prospectus.tex",
+    "pages": 18,
+    "scope": "Complete capability overview with verified, narrow, optional, research, and blocked boundaries"
+  },
+  "dorothy_brain_research": {
+    "mission": "Inspectable spatial analysis, neural simulation, and source-linked scientific review supporting long-term brain-cancer research",
+    "atlas_structures": 12,
+    "atlas_triangles": 315932,
+    "atlas_source": "Allen Mouse CCFv3 2017",
+    "neural_signal_methods": ["DFT band powers", "delay embedding", "Lyapunov estimate", "Higuchi dimension", "Shannon entropy"],
+    "generative_world": "components/agent-logging-system/agent_logging_system/neurogarden_world.py",
+    "neural_implementation": "components/agent-logging-system/agent_logging_system/neurogarden_neural.py",
+    "advanced_models": "components/agent-logging-system/agent_logging_system/neurogarden_advanced.py",
+    "populated_books": 37,
+    "indexed_sections": 1751,
+    "reviewed_entries": 130,
+    "pending_entries": 1621,
+    "patient_anatomy": false,
+    "whole_brain_or_patient_simulation": false,
+    "clinical_action_authorized": false,
+    "guide": "components/agent-logging-system/docs/NEUROGARDEN.md",
+    "evidence": "components/agent-logging-system/evidence/neurogarden/"
+  },
   "event_causal_active_perception": {
     "contract": "zoe-event-causal-active-perception/v1",
     "evaluation_contract": "zoe-event-causal-evaluation/v1",
@@ -43,6 +68,19 @@
     "camera_images_retained": false,
     "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json",
     "ilab_catalog": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/ilab/catalog.json"
+  },
+  "semantic_artifact_analysis": {
+    "contract": "zoe-semantic-artifact-evaluation/v1",
+    "run": "zoe-autonomy semantic-evaluate --artifact /path/to/binary --output semantic-artifact.json",
+    "verify": "zoe-autonomy verify-semantic-evaluation semantic-artifact.json",
+    "retrieval": "Normalized behavior embeddings with PLT-excluded scope and fitted PCA whitening",
+    "direct_evidence": "Capstone direct calls and tail jumps in .text",
+    "demonstrated_call": "func_11c0 tail jump to strcpy@plt",
+    "selected_action": "semantic-inspect",
+    "limited_support": true,
+    "automatic_vulnerability_claim": false,
+    "external_actions": 0,
+    "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json"
   },
   "autonomy_evaluation": {
     "contract": "zoe-four-capability-evaluation/v1",
@@ -83,7 +121,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "12e031d9aca0ffe002538964a65071d352e0c47e",
+    "revision": "0b6b8da9986c31d356fbe8aeb7c9f646ede03429",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -135,7 +173,7 @@
       "id": "ablation-gem",
       "directory": "ablation",
       "repository": "https://github.com/Ablation-Tool/ablation",
-      "revision": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
+      "revision": "fa8377ea5fa009967a3bf3b837c342347678409b",
       "branch": "main-reindex",
       "cwd": "gem-lab",
       "module": "gem.cli",

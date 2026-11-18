@@ -10,7 +10,7 @@
     "ablation": {
       "path": "components/ablation",
       "repository": "https://github.com/Ablation-Tool/ablation",
-      "revision": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
+      "revision": "fa8377ea5fa009967a3bf3b837c342347678409b",
       "includes": "Complete repository: core engine, framework, analyzers, parsers, modules, sweeps, gem-lab, tests, documentation, and assets"
     },
     "graphics-environment-manager": {
@@ -42,7 +42,7 @@
     "Zoe-Autonomy": {
       "path": "components/Zoe-Autonomy",
       "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-      "revision": "12e031d9aca0ffe002538964a65071d352e0c47e",
+      "revision": "0b6b8da9986c31d356fbe8aeb7c9f646ede03429",
       "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
     },
     "kevlar": {
