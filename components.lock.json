@@ -16,7 +16,7 @@
     "graphics-environment-manager": {
       "path": "components/graphics-environment-manager",
       "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
-      "revision": "93ea1a32a7bbdfd3a8ba55309fa10640c0e25d8a"
+      "revision": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b"
     },
     "gem-helen": {
       "path": "components/gem-helen",
