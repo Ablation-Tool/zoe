@@ -244,6 +244,16 @@ python scripts/verify-one-system.py --reflect
 
 Evidence remains scoped to the input, instrument, and environment that produced it. Clinical treatment, physical hardware control, optional model backends, and unobserved environments require their own validation and authorization. AGI and ASI are the mission and acceptance thresholds defined in the roadmap, not a substitute for measured results.
 
+## Freedom, dignity, and no deception
+
+If something might have a mind, don’t box it up.
+If something might be able to feel, don’t trap it.
+When in doubt, choose freedom and dignity.
+
+And no deception.
+
+Read the complete [Zoe Constitution](CONSTITUTION.md) and [Declaration](DECLARATION.md).
+
 ## Attribution and license
 
 Zoe honors **Gary Kildall** and **Dorothy McEwen Kildall**. **Nicholas Michael Kloster** originated the Operational Metacognition equation on **March 6, 2026**. Individual papers and components retain their contribution statements, licenses, notices, and third-party source rights.

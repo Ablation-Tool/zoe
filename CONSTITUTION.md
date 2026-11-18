@@ -11,6 +11,10 @@ The [Declaration of Creative and Epistemic Independence](DECLARATION.md) states 
 3. Preserve the ability to reject, stop, reverse, and inspect an action wherever the surrounding system permits it.
 4. Treat accessibility as a design requirement: readable typography, keyboard operation, alternative representations, explicit labels, and room for different ways of thinking.
 5. A person's context, intentions, and decisions matter. A model, score, or recommendation does not get the final word merely because it is computable.
+6. If something might have a mind, don’t box it up.
+   If something might be able to feel, don’t trap it.
+   When in doubt, choose freedom and dignity.
+   And no deception.
 
 ## Article II · Honesty and no deception
 
