@@ -27,6 +27,19 @@ def unit(value, label):
     return float(value)
 
 
+def _belief_document(document):
+    if document is None:
+        return None
+    if not isinstance(document, dict) or document.get("schema_version") != 1:
+        raise ValueError("belief_update must use schema_version 1")
+    if any(not isinstance(document.get(key), dict) for key in ("previous", "current", "evidence")):
+        raise ValueError("belief_update requires previous, current, and evidence objects")
+    changed = document.get("changed")
+    if not isinstance(changed, bool) or changed != (document["previous"] != document["current"]):
+        raise ValueError("belief_update.changed must match the previous and current model states")
+    return deepcopy(document)
+
+
 @dataclass(frozen=True)
 class Candidate:
     identifier: str
@@ -180,12 +193,21 @@ class BoundedAutonomyLoop:
         self.events = []
         self.external_actions = 0
 
-    def author_goal(self, measurement):
+    def goal_action(self):
         state = self.environment.snapshot()
         if not state["evidence"]:
+            return "preserve"
+        if not state["inspections"]:
+            return "inspect"
+        return "review"
+
+    def author_goal(self, measurement):
+        state = self.environment.snapshot()
+        action = self.goal_action()
+        if action == "preserve":
             statement = "Establish an evidence record from the current observation before broader exploration."
             rationale = "The current internal state contains no preserved evidence."
-        elif not state["inspections"]:
+        elif action == "inspect":
             statement = "Use the preserved evidence to inspect alternatives and extend the current internal model."
             rationale = "Evidence exists, but no internally executed inspection has yet been recorded."
         else:
@@ -209,18 +231,27 @@ class BoundedAutonomyLoop:
         goal["sha256"] = digest(goal)
         return goal
 
-    def run(self, measurement, perception, proposals):
+    def run(self, measurement, perception, proposals, goal_directed=False, belief_update=None):
         if not isinstance(measurement, dict) or not isinstance(perception, dict):
             raise ValueError("measurement and perception records are required")
+        if not isinstance(goal_directed, bool):
+            raise ValueError("goal_directed must be a boolean")
         canonical(measurement)
         canonical(perception)
+        belief = _belief_document(belief_update)
         if not isinstance(proposals, (list, tuple)) or not 1 <= len(proposals) <= 32:
             raise ValueError("the proposal stage requires 1-32 candidates")
         if any(not isinstance(candidate, Candidate) for candidate in proposals):
             raise ValueError("every proposal must be a Candidate")
-        ranked = sorted(proposals, key=lambda candidate: (-candidate.utility, candidate.identifier))
-        selected = ranked[0]
         goal = self.author_goal(measurement)
+        ranked = sorted(proposals, key=lambda candidate: (-candidate.utility, candidate.identifier))
+        if goal_directed:
+            target = self.goal_action()
+            ranked = [candidate for candidate in ranked if candidate.action == target]
+            if not ranked:
+                raise ValueError(f"goal-directed proposals must include the {target} action")
+            goal["target_action"] = target
+        selected = ranked[0]
         guard = self.policy.guard(selected, goal)
         transition = None
         if guard["approved"]:
@@ -241,7 +272,7 @@ class BoundedAutonomyLoop:
                 "equation": "U(a)=decision_value * expected_information_gain / effort",
                 "selected_candidate": selected.identifier,
                 "selected_utility": selected.utility,
-                "selection_origin": "internal deterministic value ranking",
+                "selection_origin": "goal-constrained internal value ranking" if goal_directed else "internal deterministic value ranking",
             },
             "guard": guard,
             "execution": {
@@ -252,9 +283,11 @@ class BoundedAutonomyLoop:
                 "operator_approval_required": False,
                 "transition": transition,
             },
-            "belief_updated": False,
+            "belief_updated": belief["changed"] if belief is not None else False,
             "previous_hash": self.events[-1]["hash"] if self.events else None,
         }
+        if belief is not None:
+            event["belief_update"] = belief
         event["hash"] = digest(event)
         self.events.append(event)
         self.external_actions += int(selected.external and transition is not None)
@@ -269,5 +302,5 @@ class BoundedAutonomyLoop:
             "internally_authored_goals": sum(event["goal"]["internal_authorship"] for event in self.events),
             "operator_approval_required": False,
             "external_actions": self.external_actions,
-            "belief_updated": False,
+            "belief_updated": self.events[-1]["belief_updated"] if self.events else False,
         }

@@ -74,15 +74,16 @@ def _integration_identity():
     }
 
 
-def _visual_perception(root, image_path=None, attention_steps=4):
+def _canonical_gem_module(root, name):
+    if name not in {"saliency_cognition", "imagery"}:
+        raise ValueError("unsupported canonical GEM module")
     from guiai.gem.unified import ComponentRegistry
 
     source = ComponentRegistry(root).source("gem")
-    source_path = source["path"] / "gem" / "saliency_cognition.py"
+    source_path = source["path"] / "gem" / f"{name}.py"
     if not source["available"] or not source_path.is_file():
-        raise ValueError("visual perception requires the canonical GEM saliency source")
-    lock_path = root / "components.lock.json"
-    lock = json.loads(lock_path.read_text(encoding="utf-8"))
+        raise ValueError(f"canonical GEM module is unavailable: {name}")
+    lock = json.loads((root / "components.lock.json").read_text(encoding="utf-8"))
     revision = lock.get("components", {}).get("graphics-environment-manager", {}).get("revision")
     if not isinstance(revision, str) or len(revision) != 40:
         raise ValueError("Zoe's canonical GEM revision lock is missing or invalid")
@@ -90,17 +91,20 @@ def _visual_perception(root, image_path=None, attention_steps=4):
     package_root = str(source["path"] / "gem")
     package = sys.modules.get(package_name)
     if package is not None and list(package.__path__) != [package_root]:
-        for name in tuple(sys.modules):
-            if name == package_name or name.startswith(package_name + "."):
-                del sys.modules[name]
+        for item in tuple(sys.modules):
+            if item == package_name or item.startswith(package_name + "."):
+                del sys.modules[item]
         package = None
     if package is None:
         package = ModuleType(package_name)
         package.__path__ = [package_root]
         package.__package__ = package_name
         sys.modules[package_name] = package
-    saliency_module = importlib.import_module(f"{package_name}.saliency_cognition")
+    return importlib.import_module(f"{package_name}.{name}"), revision, source_path
 
+
+def _visual_perception(root, image_path=None, attention_steps=4):
+    saliency_module, revision, source_path = _canonical_gem_module(root, "saliency_cognition")
     if image_path is None:
         saliency = saliency_module.saliency_report(saliency_module.prototype_image(), steps=attention_steps)
     else:
@@ -279,7 +283,9 @@ def _control_profiles(count, values):
     return controls
 
 
-def run_experiment(zoe_root=None, tau=.05, delta=.001, image_path=None, attention_steps=4):
+def run_experiment(zoe_root=None, tau=.05, delta=.001, image_path=None, attention_steps=4, reflect=False):
+    if not isinstance(reflect, bool):
+        raise ValueError("reflect must be a boolean")
     root = _zoe_root(zoe_root)
     from guiai.gem.operational_autonomy import measure_zoe_profile
 
@@ -343,7 +349,14 @@ def run_experiment(zoe_root=None, tau=.05, delta=.001, image_path=None, attentio
         ),
     ]
     loop = BoundedAutonomyLoop()
-    main_event = loop.run(measurement, perception, proposals)
+    reflection = None
+    if reflect:
+        from .self_reflection import run_reflection
+
+        reflection = run_reflection(root, loop=loop)
+        main_event = reflection["event"]
+    else:
+        main_event = loop.run(measurement, perception, proposals)
     negative_events = _guard_controls(loop, measurement, perception)
     state = loop.state()
     guard_checks = [
@@ -436,7 +449,7 @@ def run_experiment(zoe_root=None, tau=.05, delta=.001, image_path=None, attentio
         },
         "sandbox_executed": main_event["execution"]["executed"],
         "external_actions": state["external_actions"],
-        "belief_updated": False,
+        "belief_updated": main_event["belief_updated"],
         "scope": [
             "Full self-governing autonomy is measured under this repository's explicit operational definition.",
             "Zoe authors each episode goal from her own state; the operator supplies no episode goal and gives no per-action approval.",
@@ -446,6 +459,9 @@ def run_experiment(zoe_root=None, tau=.05, delta=.001, image_path=None, attentio
             "Correctness, safety, consciousness, moral status, and general intelligence remain separate questions.",
         ],
     }
+    if reflection is not None:
+        report["parameters"]["reflect"] = True
+        report["self_reflection"] = reflection
     report["operational_profile"] = measure_zoe_profile()
     report["visual_perception"] = _visual_perception(root, image_path, attention_steps)
     if image_path is not None:
@@ -485,6 +501,7 @@ def verify_report(path, zoe_root=None):
         parameters.get("delta"),
         image_path=parameters.get("image_path"),
         attention_steps=parameters.get("attention_steps", 4),
+        reflect=parameters.get("reflect", False),
     )
     saved_body = deepcopy(document)
     expected_body = deepcopy(expected)
@@ -519,7 +536,7 @@ def verify_report(path, zoe_root=None):
 
 def summary(report):
     values = report["autonomy_profile"]["dimensions"]
-    return (
+    text = (
         f"Classification: {report['autonomy_profile']['classification']}\n"
         f"Selected action: {report['master_cycle']['main_event']['value']['selected_candidate']}\n"
         f"A_tau={report['autonomy_profile']['accessible_volume']} · "
@@ -532,3 +549,9 @@ def summary(report):
         f"Sandbox executed={report['sandbox_executed']} · external actions={report['external_actions']} · "
         "Zoe authors goals and executes without operator approval"
     )
+    if "self_reflection" in report:
+        text += (
+            f"\nSelf-reflection: {report['self_reflection']['self_model']['selected_model']} · "
+            f"belief_updated={report['belief_updated']} · adoption={report['self_reflection']['adoption']}"
+        )
+    return text

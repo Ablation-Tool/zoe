@@ -22,11 +22,26 @@
     "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
     "verify": "zoe-autonomy verify visual-perception.json"
   },
+  "shared_reflection": {
+    "instrument": "zoe-self-reflection/v1",
+    "default_enabled": false,
+    "models": ["arithmetic", "precision"],
+    "training_views": [0, 45, 30, 15],
+    "validation_view": 60,
+    "selection": "goal-constrained model proposals with likelihood-derived values",
+    "adoption": "adopt only when validation RMSE improves; otherwise preserve the prior model",
+    "reversible": true,
+    "source_rewritten": false,
+    "run": "zoe-autonomy run --reflect --output integrated-reflection.json",
+    "standalone": "zoe-autonomy reflect --output reflection-step-1.json",
+    "verify": "zoe-autonomy verify-reflection reflection-step-2.json",
+    "evidence": "evidence/self-reflection/integrated.json"
+  },
   "canonical_engine": {
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "bd8fa12bda3ed116a09775081684d1b79088372b",
+    "revision": "79267045fbfc7712cd76f02c229e82446aab62f0",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -103,7 +118,7 @@
   ],
   "verification": {
     "command": "python scripts/verify-one-system.py --workspace /path/to/workspace",
-    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host."
+    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence."
   },
   "actuation": {
     "contract": "zoe-actuation/v1",

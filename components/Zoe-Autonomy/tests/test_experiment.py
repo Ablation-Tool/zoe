@@ -14,7 +14,7 @@ from types import ModuleType
 from unittest import mock
 
 from zoe_autonomy.cli import main
-from zoe_autonomy.experiment import run_experiment, save_report, verify_report
+from zoe_autonomy.experiment import _event_chain_valid, run_experiment, save_report, verify_report
 from guiai.gem.operational_autonomy import measure_zoe_profile
 from zoe_autonomy.loop import digest
 
@@ -94,6 +94,34 @@ class ExperimentCase(unittest.TestCase):
                     "--zoe-root", str(ZOE_ROOT), "run", "--image", str(image_path),
                     "--foci", "2", "--output", str(cli_path),
                 ]), 0)
+                self.assertEqual(main(["--zoe-root", str(ZOE_ROOT), "verify", str(cli_path)]), 0)
+            self.assertEqual(json.loads(cli_path.read_text(encoding="utf-8")), report)
+
+    def test_reflection_is_wired_into_main_loop_and_replay(self):
+        baseline = run_experiment(ZOE_ROOT)
+        self.assertFalse(baseline["belief_updated"])
+        self.assertNotIn("self_reflection", baseline)
+        report = run_experiment(ZOE_ROOT, reflect=True)
+        self.assertTrue(report["belief_updated"])
+        self.assertTrue(report["parameters"]["reflect"])
+        self.assertEqual(report["master_cycle"]["main_event"]["value"]["selected_candidate"], "preserve-current-arithmetic")
+        self.assertEqual(report["master_cycle"]["main_event"]["goal"]["target_action"], "preserve")
+        self.assertEqual(report["master_cycle"]["main_event"]["hash"], report["self_reflection"]["event"]["hash"])
+        self.assertTrue(report["self_reflection"]["belief_updated"])
+        self.assertEqual(report["self_reflection"]["self_model"]["selected_model"], "arithmetic")
+        self.assertTrue(_event_chain_valid(report["master_cycle"]["state"]["events"]))
+        self.assertEqual(report["autonomy_profile"]["classification"], "full_autonomy")
+        self.assertEqual(report["external_actions"], 0)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "reflect.json"
+            save_report(report, path)
+            verification = verify_report(path, ZOE_ROOT)
+            self.assertTrue(verification["verified"])
+            self.assertEqual(verification["visual_feature_maps"], 42)
+            self.assertEqual(verification["visual_foci"], 4)
+            cli_path = Path(directory) / "reflect-cli.json"
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(main(["--zoe-root", str(ZOE_ROOT), "run", "--reflect", "--output", str(cli_path)]), 0)
                 self.assertEqual(main(["--zoe-root", str(ZOE_ROOT), "verify", str(cli_path)]), 0)
             self.assertEqual(json.loads(cli_path.read_text(encoding="utf-8")), report)
 

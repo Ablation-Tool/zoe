@@ -18,9 +18,18 @@ def parser():
     run.add_argument("--delta", type=float, default=.001)
     run.add_argument("--image", help="RGB image for shared saliency; default: documented synthetic pop-out")
     run.add_argument("--foci", type=int, default=4, help="attention selections with inhibition of return, from 1 to 8")
+    run.add_argument("--reflect", action="store_true", help="use measured, goal-directed self-reflection in the main loop")
     run.add_argument("--full", action="store_true", help="print the complete report")
     verify = commands.add_parser("verify", help="recompute and verify a saved report")
     verify.add_argument("report")
+    reflect = commands.add_parser("reflect", help="learn and validate model choices from actual prediction errors")
+    reflect.add_argument("--input", help="stereo observation JSON document; default: documented synthetic stereo")
+    reflect.add_argument("--previous", help="earlier self-reflection JSON report")
+    reflect.add_argument("--initial-model", choices=("arithmetic", "precision"), help="initial fusion model; default: arithmetic")
+    reflect.add_argument("--output", help="new JSON evidence path")
+    reflect.add_argument("--full", action="store_true", help="print the complete reflection report")
+    verify_reflection = commands.add_parser("verify-reflection", help="recompute and verify a self-reflection report")
+    verify_reflection.add_argument("report")
     actuate = commands.add_parser("actuate", help="owner-granted host, network, and hardware actuation")
     actuate.add_argument("arguments", nargs=argparse.REMAINDER)
     explore = commands.add_parser("explore", help="retrieve and follow public web content")
@@ -56,7 +65,7 @@ def main(argv=None):
         if arguments.command == "actuate":
             from .actuation import actuation_main
             return actuation_main(arguments.arguments)
-        if arguments.command in {"run", "verify"}:
+        if arguments.command in {"run", "verify", "reflect", "verify-reflection"}:
             _zoe_root(arguments.zoe_root)
             from guiai.gem.autonomy_view import main as unified_main
         if arguments.command == "run":
@@ -67,11 +76,29 @@ def main(argv=None):
             if arguments.image:
                 forwarded.extend(["--image", arguments.image])
             forwarded.extend(["--foci", str(arguments.foci)])
+            if arguments.reflect:
+                forwarded.append("--reflect")
             if arguments.output:
                 forwarded.extend(["--output", arguments.output])
             if arguments.full:
                 forwarded.append("--full")
             return unified_main(forwarded)
+        if arguments.command == "reflect":
+            from .self_reflection import _read_json, run_reflection, save_reflection, summary
+
+            document = _read_json(arguments.input) if arguments.input else None
+            previous = _read_json(arguments.previous) if arguments.previous else None
+            report = run_reflection(arguments.zoe_root, previous, document, arguments.initial_model)
+            output = save_reflection(report, arguments.output) if arguments.output else None
+            print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) if arguments.full else summary(report))
+            if output is not None:
+                print(f"Evidence: {output} · profile_sha256={report['profile_sha256']}")
+            return 0
+        if arguments.command == "verify-reflection":
+            from .self_reflection import verify_reflection
+
+            print(json.dumps(verify_reflection(arguments.report, arguments.zoe_root), ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
         if arguments.command == "step":
             from .autonomous import run_step, save_step_report, step_summary
             report = run_step(arguments.state)

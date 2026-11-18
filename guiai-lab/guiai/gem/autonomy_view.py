@@ -21,12 +21,12 @@ def configure_autonomy():
     return ROOT
 
 
-def _unified_report(tau, delta, zoe_root=ROOT, image_path=None, attention_steps=4):
+def _unified_report(tau, delta, zoe_root=ROOT, image_path=None, attention_steps=4, reflect=False):
     configure_autonomy()
     from zoe_autonomy.experiment import run_experiment
 
     return run_experiment(
-        zoe_root, tau=tau, delta=delta, image_path=image_path, attention_steps=attention_steps,
+        zoe_root, tau=tau, delta=delta, image_path=image_path, attention_steps=attention_steps, reflect=reflect,
     )
 
 
@@ -49,13 +49,14 @@ def parser():
     result.add_argument("--delta", type=float, default=.001, help="strict policy-effect threshold in bits; default: 0.001")
     result.add_argument("--image", help="RGB image for shared saliency; default: documented synthetic pop-out")
     result.add_argument("--foci", type=int, default=4, help="attention selections with inhibition of return, from 1 to 8")
+    result.add_argument("--reflect", action="store_true", help="use measured, goal-directed self-reflection in the main loop")
     result.add_argument("--full", action="store_true", help="print the complete unified report instead of its summary")
     return result
 
 
 def main(argv=None):
     raw_arguments = list(sys.argv[1:] if argv is None else argv)
-    unified_prefixes = {"run", "verify", "--verify", "--output", "--tau", "--delta", "--image", "--foci", "--full"}
+    unified_prefixes = {"run", "verify", "--verify", "--output", "--tau", "--delta", "--image", "--foci", "--reflect", "--full"}
     if raw_arguments and raw_arguments[0] not in unified_prefixes:
         configure_autonomy()
         from zoe_autonomy.cli import main as autonomy_main
@@ -77,7 +78,7 @@ def main(argv=None):
 
         report = _unified_report(
             arguments.tau, arguments.delta, arguments.zoe_root or ROOT,
-            image_path=arguments.image, attention_steps=arguments.foci,
+            image_path=arguments.image, attention_steps=arguments.foci, reflect=arguments.reflect,
         )
         output = save_report(report, arguments.output) if arguments.output else None
         if arguments.full:

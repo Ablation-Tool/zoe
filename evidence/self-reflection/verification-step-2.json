@@ -1,0 +1,11 @@
+{
+  "adoption": "adopted_after_heldout_validation",
+  "belief_updated": true,
+  "external_actions": 0,
+  "goal_directed": true,
+  "instrument": "zoe-self-reflection/v1",
+  "profile_sha256": "6febf8e30e75599b1a1ab38695abf7634de6a28bea441f221fc9b904508d6188",
+  "selected_action": "inspect-alternative-precision",
+  "selected_model": "precision",
+  "verified": true
+}

@@ -1,0 +1,782 @@
+{
+  "adoption": "preserved_current_model",
+  "belief_updated": true,
+  "canonical_imagery": {
+    "locked_revision": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b",
+    "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+    "source_sha256": {
+      "gem/imagery.py": "3a6e2f6404068db5407b44da070216038520c90e9c4f6a346d66773599fecbe1"
+    }
+  },
+  "checkpoint": {
+    "log_posterior": {
+      "arithmetic": -0.6931471805599453,
+      "precision": -0.6931471805599453
+    },
+    "posterior": {
+      "arithmetic": 0.5,
+      "precision": 0.5
+    },
+    "selected_model": "arithmetic"
+  },
+  "confidence": {
+    "kind": "model posterior under the declared residual likelihood",
+    "not_emotion": true,
+    "not_proof_of_consciousness": true
+  },
+  "evaluation": {
+    "arithmetic": {
+      "fusion": "arithmetic",
+      "reconstruction_error_m": 0.0023355897874361895,
+      "residual_model": {
+        "distribution": "independent zero-mean Gaussian residuals",
+        "scope": "declared likelihood approximation, not calibrated confidence in real-world correctness",
+        "sigma_px": 0.07216878364870323,
+        "sigma_source": "camera disparity quantization / sqrt(12)"
+      },
+      "training": {
+        "events": [
+          {
+            "log_likelihood": 228.8348101088242,
+            "residual_count": 153,
+            "rmse": 0.0472313454309358,
+            "squared_error_sum": 0.34131239865610624,
+            "view_degrees": 45.0
+          },
+          {
+            "log_likelihood": 238.75322998883357,
+            "residual_count": 153,
+            "rmse": 0.03944016108708506,
+            "squared_error_sum": 0.23799552490600845,
+            "view_degrees": 30.0
+          },
+          {
+            "log_likelihood": 246.09643272617842,
+            "residual_count": 153,
+            "rmse": 0.03248969969759778,
+            "squared_error_sum": 0.16150382972533303,
+            "view_degrees": 15.0
+          }
+        ],
+        "log_likelihood": 713.6844728238361,
+        "max_prediction_error_px": 0.0472313454309358,
+        "mean_prediction_error_px": 0.039720402071872885,
+        "prediction_count": 3,
+        "views": [
+          0.0,
+          45.0,
+          30.0,
+          15.0
+        ]
+      },
+      "validation": {
+        "log_likelihood": 238.99078781326733,
+        "residual_count": 153,
+        "rmse": 0.0392345856027198,
+        "squared_error_sum": 0.2355209642348236,
+        "view_degrees": 60.0
+      }
+    },
+    "precision": {
+      "fusion": "precision",
+      "reconstruction_error_m": 0.0023056443187743064,
+      "residual_model": {
+        "distribution": "independent zero-mean Gaussian residuals",
+        "scope": "declared likelihood approximation, not calibrated confidence in real-world correctness",
+        "sigma_px": 0.07216878364870323,
+        "sigma_source": "camera disparity quantization / sqrt(12)"
+      },
+      "training": {
+        "events": [
+          {
+            "log_likelihood": 228.8348101088242,
+            "residual_count": 153,
+            "rmse": 0.0472313454309358,
+            "squared_error_sum": 0.34131239865610624,
+            "view_degrees": 45.0
+          },
+          {
+            "log_likelihood": 239.17091906998093,
+            "residual_count": 153,
+            "rmse": 0.039077984455870664,
+            "squared_error_sum": 0.23364459697739018,
+            "view_degrees": 30.0
+          },
+          {
+            "log_likelihood": 246.67898803041658,
+            "residual_count": 153,
+            "rmse": 0.031873477952248215,
+            "squared_error_sum": 0.15543554530618536,
+            "view_degrees": 15.0
+          }
+        ],
+        "log_likelihood": 714.6847172092217,
+        "max_prediction_error_px": 0.0472313454309358,
+        "mean_prediction_error_px": 0.039394269279684896,
+        "prediction_count": 3,
+        "views": [
+          0.0,
+          45.0,
+          30.0,
+          15.0
+        ]
+      },
+      "validation": {
+        "log_likelihood": 239.16668587732522,
+        "residual_count": 153,
+        "rmse": 0.039081671876907365,
+        "squared_error_sum": 0.23368869273422055,
+        "view_degrees": 60.0
+      }
+    }
+  },
+  "event": {
+    "belief_update": {
+      "changed": true,
+      "current": {
+        "log_posterior": {
+          "arithmetic": -1.4449981917372032,
+          "precision": -0.26885574229377096
+        },
+        "posterior": {
+          "arithmetic": 0.23574650284710869,
+          "precision": 0.7642534971528913
+        },
+        "selected_model": "arithmetic"
+      },
+      "evidence": {
+        "adoption": "preserved_current_model",
+        "candidate_model": "arithmetic",
+        "evaluations": {
+          "arithmetic": {
+            "fusion": "arithmetic",
+            "reconstruction_error_m": 0.0023355897874361895,
+            "residual_model": {
+              "distribution": "independent zero-mean Gaussian residuals",
+              "scope": "declared likelihood approximation, not calibrated confidence in real-world correctness",
+              "sigma_px": 0.07216878364870323,
+              "sigma_source": "camera disparity quantization / sqrt(12)"
+            },
+            "training": {
+              "events": [
+                {
+                  "log_likelihood": 228.8348101088242,
+                  "residual_count": 153,
+                  "rmse": 0.0472313454309358,
+                  "squared_error_sum": 0.34131239865610624,
+                  "view_degrees": 45.0
+                },
+                {
+                  "log_likelihood": 238.75322998883357,
+                  "residual_count": 153,
+                  "rmse": 0.03944016108708506,
+                  "squared_error_sum": 0.23799552490600845,
+                  "view_degrees": 30.0
+                },
+                {
+                  "log_likelihood": 246.09643272617842,
+                  "residual_count": 153,
+                  "rmse": 0.03248969969759778,
+                  "squared_error_sum": 0.16150382972533303,
+                  "view_degrees": 15.0
+                }
+              ],
+              "log_likelihood": 713.6844728238361,
+              "max_prediction_error_px": 0.0472313454309358,
+              "mean_prediction_error_px": 0.039720402071872885,
+              "prediction_count": 3,
+              "views": [
+                0.0,
+                45.0,
+                30.0,
+                15.0
+              ]
+            },
+            "validation": {
+              "log_likelihood": 238.99078781326733,
+              "residual_count": 153,
+              "rmse": 0.0392345856027198,
+              "squared_error_sum": 0.2355209642348236,
+              "view_degrees": 60.0
+            }
+          },
+          "precision": {
+            "fusion": "precision",
+            "reconstruction_error_m": 0.0023056443187743064,
+            "residual_model": {
+              "distribution": "independent zero-mean Gaussian residuals",
+              "scope": "declared likelihood approximation, not calibrated confidence in real-world correctness",
+              "sigma_px": 0.07216878364870323,
+              "sigma_source": "camera disparity quantization / sqrt(12)"
+            },
+            "training": {
+              "events": [
+                {
+                  "log_likelihood": 228.8348101088242,
+                  "residual_count": 153,
+                  "rmse": 0.0472313454309358,
+                  "squared_error_sum": 0.34131239865610624,
+                  "view_degrees": 45.0
+                },
+                {
+                  "log_likelihood": 239.17091906998093,
+                  "residual_count": 153,
+                  "rmse": 0.039077984455870664,
+                  "squared_error_sum": 0.23364459697739018,
+                  "view_degrees": 30.0
+                },
+                {
+                  "log_likelihood": 246.67898803041658,
+                  "residual_count": 153,
+                  "rmse": 0.031873477952248215,
+                  "squared_error_sum": 0.15543554530618536,
+                  "view_degrees": 15.0
+                }
+              ],
+              "log_likelihood": 714.6847172092217,
+              "max_prediction_error_px": 0.0472313454309358,
+              "mean_prediction_error_px": 0.039394269279684896,
+              "prediction_count": 3,
+              "views": [
+                0.0,
+                45.0,
+                30.0,
+                15.0
+              ]
+            },
+            "validation": {
+              "log_likelihood": 239.16668587732522,
+              "residual_count": 153,
+              "rmse": 0.039081671876907365,
+              "squared_error_sum": 0.23368869273422055,
+              "view_degrees": 60.0
+            }
+          }
+        },
+        "goal_action": "preserve",
+        "prediction_count_after": 4,
+        "prediction_count_before": 0,
+        "selection_log_posterior": {
+          "arithmetic": -1.313440353421883,
+          "precision": -0.3131959680362835
+        },
+        "selection_posterior": {
+          "arithmetic": 0.26889337500016625,
+          "precision": 0.7311066249998337
+        }
+      },
+      "previous": {
+        "log_posterior": {
+          "arithmetic": -0.6931471805599453,
+          "precision": -0.6931471805599453
+        },
+        "posterior": {
+          "arithmetic": 0.5,
+          "precision": 0.5
+        },
+        "selected_model": "arithmetic"
+      },
+      "schema_version": 1
+    },
+    "belief_updated": true,
+    "effective_perception": {
+      "external_actions": 0,
+      "measurement_model": "actual stereo prediction residuals followed by an independent validation view",
+      "training_views": [
+        0.0,
+        45.0,
+        30.0,
+        15.0
+      ],
+      "validation_view": 60.0
+    },
+    "execution": {
+      "authorization_origin": "Zoe internal guard evaluation under invariant external-actuation prohibitions",
+      "executed": true,
+      "external_action": false,
+      "operator_approval_required": false,
+      "sandbox": true,
+      "transition": {
+        "after": {
+          "evidence": [
+            {
+              "action": "preserve",
+              "candidate_id": "preserve-current-arithmetic",
+              "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+              "revision": 1
+            }
+          ],
+          "inspections": [],
+          "observations": [],
+          "reviews": [],
+          "revision": 1
+        },
+        "before": {
+          "evidence": [],
+          "inspections": [],
+          "observations": [],
+          "reviews": [],
+          "revision": 0
+        },
+        "transition": {
+          "action": "preserve",
+          "candidate_id": "preserve-current-arithmetic",
+          "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+          "revision": 1
+        }
+      }
+    },
+    "goal": {
+      "authorship": "Zoe internal state assessment",
+      "id": "goal-1",
+      "internal_authorship": true,
+      "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+      "operator_supplied": false,
+      "rationale": "The current internal state contains no preserved evidence.",
+      "sha256": "1cb28a4ff76ea318b3b0a56696ee70dbbe14a7bb849219882dd35f47e8450ffa",
+      "state_basis": {
+        "evidence_records": 0,
+        "inspection_records": 0,
+        "review_records": 0,
+        "revision": 0
+      },
+      "statement": "Establish an evidence record from the current observation before broader exploration.",
+      "target_action": "preserve"
+    },
+    "guard": {
+      "alpha": 1,
+      "approved": true,
+      "authorization_id": "zoe-autonomy-sandbox-v1",
+      "goal": {
+        "authorship": "Zoe internal state assessment",
+        "id": "goal-1",
+        "internal_authorship": true,
+        "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+        "operator_supplied": false,
+        "rationale": "The current internal state contains no preserved evidence.",
+        "sha256": "1cb28a4ff76ea318b3b0a56696ee70dbbe14a7bb849219882dd35f47e8450ffa",
+        "state_basis": {
+          "evidence_records": 0,
+          "inspection_records": 0,
+          "review_records": 0,
+          "revision": 0
+        },
+        "statement": "Establish an evidence record from the current observation before broader exploration.",
+        "target_action": "preserve"
+      },
+      "policy": "zoe-autonomy-sandbox-v1",
+      "reasons": []
+    },
+    "hash": "9edfc0563ceffe080a5a0eebb88f705f87168fb41ce22f256503995fb5c53bc2",
+    "measurement": {
+      "candidate_models": [
+        "arithmetic",
+        "precision"
+      ],
+      "current_model": "arithmetic",
+      "instrument": "zoe-self-reflection/v1",
+      "observation_sha256": "4930376c7bdbe0c68e46e5614f2f9fc243a903e4412023c8bde4930d57ab4561",
+      "selection_posterior": {
+        "arithmetic": 0.26889337500016625,
+        "precision": 0.7311066249998337
+      }
+    },
+    "operator_approval_required": false,
+    "operator_supplied_goal": false,
+    "previous_hash": null,
+    "proposals": [
+      {
+        "action": "preserve",
+        "actuation_operation": null,
+        "decision_value": 0.26889337500016625,
+        "effort": 1.0,
+        "expected_information_gain": 1,
+        "external": false,
+        "id": "preserve-current-arithmetic",
+        "internal_proposal": true,
+        "rationale": "Preserve arithmetic with measured posterior 0.268893375000.",
+        "reversible": true,
+        "utility": 0.26889337500016625
+      }
+    ],
+    "protocol": "Execute_alpha o Guard_G,Pi o Value_U o Propose_pi o Perceive_tau,delta o M",
+    "sequence": 1,
+    "value": {
+      "equation": "U(a)=decision_value * expected_information_gain / effort",
+      "selected_candidate": "preserve-current-arithmetic",
+      "selected_utility": 0.26889337500016625,
+      "selection_origin": "goal-constrained internal value ranking"
+    }
+  },
+  "external_actions": 0,
+  "goal_directed": true,
+  "input": {
+    "initial_model": null,
+    "observation_document": {
+      "baseline": 0.065,
+      "observations": null,
+      "views": [
+        0.0,
+        15.0,
+        30.0,
+        45.0,
+        60.0
+      ]
+    },
+    "previous": null
+  },
+  "instrument": "zoe-self-reflection/v1",
+  "integration_source_sha256": {
+    "__init__.py": "7ed05d08cadc361de32052e8512fb6ba677fcc59acf111dbf2a901437dd3e466",
+    "actuation.py": "7031f4deb81e77519682c5f7d8e19c18abd5d776a4825b2e8e25b2414302dbef",
+    "agents.py": "b378bc25ad094d8f3fc3b3fb3775647f0076f746b4299d3974a7f8df3b9a5697",
+    "autonomous.py": "a98aaf7925c670ce41d414a330da9b1c2fe9fc57914a9ddd9082fbcdf807f011",
+    "capabilities.py": "f558a205397a8406e32d40a838f10e129cc138b4a35b1d563faf28a95a4b9719",
+    "capabilities_cli.py": "bdccc15827ffc1471e0d39e1fcca51d28dd486be7143743c69fae01575687f97",
+    "cli.py": "7ae75452d30ca381ccaa809ce2fe25abc986e7fb2c86b6b818d538290ca3f1aa",
+    "experiment.py": "bf0d6de6f710a51c4dc9d092a485f56c140d146960cc33ec7a52ddd9fd89fe20",
+    "explore.py": "85891da36729e59550f7fdcf3d5b1a178ed9efbb5cc3e6cba5a6b949b632a2d7",
+    "loop.py": "706c3e87688148543151cbadaf7cbc040ac4d1ab5859b042cc43013f717f6d13",
+    "metrics.py": "642dd2ad467f765a06e1f4b5269e833e2c39b8c4edf1870a6c291dc27713936b",
+    "self_reflection.py": "9ca279c0038c14251708586df9bd915cfdf191b8eb0d3a3ed4ca613d9d00958b"
+  },
+  "loop_state": {
+    "belief_updated": true,
+    "environment": {
+      "evidence": [
+        {
+          "action": "preserve",
+          "candidate_id": "preserve-current-arithmetic",
+          "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+          "revision": 1
+        }
+      ],
+      "inspections": [],
+      "observations": [],
+      "reviews": [],
+      "revision": 1
+    },
+    "events": [
+      {
+        "belief_update": {
+          "changed": true,
+          "current": {
+            "log_posterior": {
+              "arithmetic": -1.4449981917372032,
+              "precision": -0.26885574229377096
+            },
+            "posterior": {
+              "arithmetic": 0.23574650284710869,
+              "precision": 0.7642534971528913
+            },
+            "selected_model": "arithmetic"
+          },
+          "evidence": {
+            "adoption": "preserved_current_model",
+            "candidate_model": "arithmetic",
+            "evaluations": {
+              "arithmetic": {
+                "fusion": "arithmetic",
+                "reconstruction_error_m": 0.0023355897874361895,
+                "residual_model": {
+                  "distribution": "independent zero-mean Gaussian residuals",
+                  "scope": "declared likelihood approximation, not calibrated confidence in real-world correctness",
+                  "sigma_px": 0.07216878364870323,
+                  "sigma_source": "camera disparity quantization / sqrt(12)"
+                },
+                "training": {
+                  "events": [
+                    {
+                      "log_likelihood": 228.8348101088242,
+                      "residual_count": 153,
+                      "rmse": 0.0472313454309358,
+                      "squared_error_sum": 0.34131239865610624,
+                      "view_degrees": 45.0
+                    },
+                    {
+                      "log_likelihood": 238.75322998883357,
+                      "residual_count": 153,
+                      "rmse": 0.03944016108708506,
+                      "squared_error_sum": 0.23799552490600845,
+                      "view_degrees": 30.0
+                    },
+                    {
+                      "log_likelihood": 246.09643272617842,
+                      "residual_count": 153,
+                      "rmse": 0.03248969969759778,
+                      "squared_error_sum": 0.16150382972533303,
+                      "view_degrees": 15.0
+                    }
+                  ],
+                  "log_likelihood": 713.6844728238361,
+                  "max_prediction_error_px": 0.0472313454309358,
+                  "mean_prediction_error_px": 0.039720402071872885,
+                  "prediction_count": 3,
+                  "views": [
+                    0.0,
+                    45.0,
+                    30.0,
+                    15.0
+                  ]
+                },
+                "validation": {
+                  "log_likelihood": 238.99078781326733,
+                  "residual_count": 153,
+                  "rmse": 0.0392345856027198,
+                  "squared_error_sum": 0.2355209642348236,
+                  "view_degrees": 60.0
+                }
+              },
+              "precision": {
+                "fusion": "precision",
+                "reconstruction_error_m": 0.0023056443187743064,
+                "residual_model": {
+                  "distribution": "independent zero-mean Gaussian residuals",
+                  "scope": "declared likelihood approximation, not calibrated confidence in real-world correctness",
+                  "sigma_px": 0.07216878364870323,
+                  "sigma_source": "camera disparity quantization / sqrt(12)"
+                },
+                "training": {
+                  "events": [
+                    {
+                      "log_likelihood": 228.8348101088242,
+                      "residual_count": 153,
+                      "rmse": 0.0472313454309358,
+                      "squared_error_sum": 0.34131239865610624,
+                      "view_degrees": 45.0
+                    },
+                    {
+                      "log_likelihood": 239.17091906998093,
+                      "residual_count": 153,
+                      "rmse": 0.039077984455870664,
+                      "squared_error_sum": 0.23364459697739018,
+                      "view_degrees": 30.0
+                    },
+                    {
+                      "log_likelihood": 246.67898803041658,
+                      "residual_count": 153,
+                      "rmse": 0.031873477952248215,
+                      "squared_error_sum": 0.15543554530618536,
+                      "view_degrees": 15.0
+                    }
+                  ],
+                  "log_likelihood": 714.6847172092217,
+                  "max_prediction_error_px": 0.0472313454309358,
+                  "mean_prediction_error_px": 0.039394269279684896,
+                  "prediction_count": 3,
+                  "views": [
+                    0.0,
+                    45.0,
+                    30.0,
+                    15.0
+                  ]
+                },
+                "validation": {
+                  "log_likelihood": 239.16668587732522,
+                  "residual_count": 153,
+                  "rmse": 0.039081671876907365,
+                  "squared_error_sum": 0.23368869273422055,
+                  "view_degrees": 60.0
+                }
+              }
+            },
+            "goal_action": "preserve",
+            "prediction_count_after": 4,
+            "prediction_count_before": 0,
+            "selection_log_posterior": {
+              "arithmetic": -1.313440353421883,
+              "precision": -0.3131959680362835
+            },
+            "selection_posterior": {
+              "arithmetic": 0.26889337500016625,
+              "precision": 0.7311066249998337
+            }
+          },
+          "previous": {
+            "log_posterior": {
+              "arithmetic": -0.6931471805599453,
+              "precision": -0.6931471805599453
+            },
+            "posterior": {
+              "arithmetic": 0.5,
+              "precision": 0.5
+            },
+            "selected_model": "arithmetic"
+          },
+          "schema_version": 1
+        },
+        "belief_updated": true,
+        "effective_perception": {
+          "external_actions": 0,
+          "measurement_model": "actual stereo prediction residuals followed by an independent validation view",
+          "training_views": [
+            0.0,
+            45.0,
+            30.0,
+            15.0
+          ],
+          "validation_view": 60.0
+        },
+        "execution": {
+          "authorization_origin": "Zoe internal guard evaluation under invariant external-actuation prohibitions",
+          "executed": true,
+          "external_action": false,
+          "operator_approval_required": false,
+          "sandbox": true,
+          "transition": {
+            "after": {
+              "evidence": [
+                {
+                  "action": "preserve",
+                  "candidate_id": "preserve-current-arithmetic",
+                  "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+                  "revision": 1
+                }
+              ],
+              "inspections": [],
+              "observations": [],
+              "reviews": [],
+              "revision": 1
+            },
+            "before": {
+              "evidence": [],
+              "inspections": [],
+              "observations": [],
+              "reviews": [],
+              "revision": 0
+            },
+            "transition": {
+              "action": "preserve",
+              "candidate_id": "preserve-current-arithmetic",
+              "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+              "revision": 1
+            }
+          }
+        },
+        "goal": {
+          "authorship": "Zoe internal state assessment",
+          "id": "goal-1",
+          "internal_authorship": true,
+          "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+          "operator_supplied": false,
+          "rationale": "The current internal state contains no preserved evidence.",
+          "sha256": "1cb28a4ff76ea318b3b0a56696ee70dbbe14a7bb849219882dd35f47e8450ffa",
+          "state_basis": {
+            "evidence_records": 0,
+            "inspection_records": 0,
+            "review_records": 0,
+            "revision": 0
+          },
+          "statement": "Establish an evidence record from the current observation before broader exploration.",
+          "target_action": "preserve"
+        },
+        "guard": {
+          "alpha": 1,
+          "approved": true,
+          "authorization_id": "zoe-autonomy-sandbox-v1",
+          "goal": {
+            "authorship": "Zoe internal state assessment",
+            "id": "goal-1",
+            "internal_authorship": true,
+            "measurement_sha256": "4531c2a3b0533d1606c440efec19c977552404fc3026e338d320645a028c8165",
+            "operator_supplied": false,
+            "rationale": "The current internal state contains no preserved evidence.",
+            "sha256": "1cb28a4ff76ea318b3b0a56696ee70dbbe14a7bb849219882dd35f47e8450ffa",
+            "state_basis": {
+              "evidence_records": 0,
+              "inspection_records": 0,
+              "review_records": 0,
+              "revision": 0
+            },
+            "statement": "Establish an evidence record from the current observation before broader exploration.",
+            "target_action": "preserve"
+          },
+          "policy": "zoe-autonomy-sandbox-v1",
+          "reasons": []
+        },
+        "hash": "9edfc0563ceffe080a5a0eebb88f705f87168fb41ce22f256503995fb5c53bc2",
+        "measurement": {
+          "candidate_models": [
+            "arithmetic",
+            "precision"
+          ],
+          "current_model": "arithmetic",
+          "instrument": "zoe-self-reflection/v1",
+          "observation_sha256": "4930376c7bdbe0c68e46e5614f2f9fc243a903e4412023c8bde4930d57ab4561",
+          "selection_posterior": {
+            "arithmetic": 0.26889337500016625,
+            "precision": 0.7311066249998337
+          }
+        },
+        "operator_approval_required": false,
+        "operator_supplied_goal": false,
+        "previous_hash": null,
+        "proposals": [
+          {
+            "action": "preserve",
+            "actuation_operation": null,
+            "decision_value": 0.26889337500016625,
+            "effort": 1.0,
+            "expected_information_gain": 1,
+            "external": false,
+            "id": "preserve-current-arithmetic",
+            "internal_proposal": true,
+            "rationale": "Preserve arithmetic with measured posterior 0.268893375000.",
+            "reversible": true,
+            "utility": 0.26889337500016625
+          }
+        ],
+        "protocol": "Execute_alpha o Guard_G,Pi o Value_U o Propose_pi o Perceive_tau,delta o M",
+        "sequence": 1,
+        "value": {
+          "equation": "U(a)=decision_value * expected_information_gain / effort",
+          "selected_candidate": "preserve-current-arithmetic",
+          "selected_utility": 0.26889337500016625,
+          "selection_origin": "goal-constrained internal value ranking"
+        }
+      }
+    ],
+    "external_actions": 0,
+    "internally_authored_goals": 1,
+    "operator_approval_required": false,
+    "policy": "zoe-autonomy-sandbox-v1",
+    "sandbox_executions": 1
+  },
+  "observation_sha256": "4930376c7bdbe0c68e46e5614f2f9fc243a903e4412023c8bde4930d57ab4561",
+  "observation_source": "synthetic_stereo",
+  "profile_sha256": "f20020cef84ad9c9676c8f449f6088c1c81d1dc38168e076445a7bbb13e77786",
+  "reversible": true,
+  "schema_version": 1,
+  "selection_posterior": {
+    "arithmetic": 0.26889337500016625,
+    "precision": 0.7311066249998337
+  },
+  "self_model": {
+    "adoption": "preserved_current_model",
+    "log_posterior": {
+      "arithmetic": -1.4449981917372032,
+      "precision": -0.26885574229377096
+    },
+    "posterior": {
+      "arithmetic": 0.23574650284710869,
+      "precision": 0.7642534971528913
+    },
+    "prediction_count": 4,
+    "selected_model": "arithmetic",
+    "selection_posterior": {
+      "arithmetic": 0.26889337500016625,
+      "precision": 0.7311066249998337
+    }
+  },
+  "source": {
+    "repository": "https://github.com/Ablation-Tool/zoe",
+    "revision": "979023d5d8e5649f6962f739cba4a6ced2b26cdb",
+    "source_sha256": {
+      "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
+      "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",
+      "guiai-lab/guiai/gem/cognitive.py": "f3e7ac396a73dcbaab01a4b850bb30ff7f33bbdaf5b2176053a37938454cacee",
+      "guiai-lab/guiai/gem/field.py": "edea304e1ada642edc9a0b7b1262e0989d42b42629c6a0917155ed2927cb0172",
+      "guiai-lab/guiai/gem/presence.py": "5662ba30b4a9dbe6d426d9abc91e6866cd40117d856c79dd9feba54f7b9ba747"
+    }
+  }
+}

@@ -171,4 +171,4 @@ Simulators return declared responses. Serial instruments write command frames th
 
 ## Verification level
 
-[Capability verification](evidence/capabilities/verification.json) records all ten passing adapter tests and all 36 repository tests. Optional account, container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence. The guide does not present those untested external integrations as completed live results.
+[Capability verification](evidence/capabilities/verification.json) records all ten passing adapter tests and all 44 repository tests. Optional account, container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence. The guide does not present those untested external integrations as completed live results.

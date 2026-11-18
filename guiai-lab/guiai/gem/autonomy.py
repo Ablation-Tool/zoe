@@ -71,6 +71,8 @@ def autonomy_scene(report=None):
         f"Visual perception: {visual['feature_map_counts']['total']} maps · {len(visual['scanpath'])} foci\n"
         f"Operational profile: {operational_profile['zoe_profile']['classification']}"
     )
+    if "self_reflection" in report:
+        summary += f"\nSelf-reflection: {report['self_reflection']['self_model']['selected_model']} · belief_updated={report['belief_updated']}"
     scene = _scene("zoe-autonomy", 1000, 650, objects, "Zoe Autonomy · full self-governing measurement-action loop")
     return scene, {
         "summary": summary,
