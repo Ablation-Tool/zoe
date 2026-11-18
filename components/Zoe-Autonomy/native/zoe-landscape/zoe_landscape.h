@@ -144,6 +144,11 @@ zoe_landscape_status_t zoe_landscape_visit_range(
     zoe_landscape_visitor_t visitor,
     void *user_data);
 
+zoe_landscape_status_t zoe_landscape_write_svg(
+    const zoe_probability_landscape_t *landscape,
+    const char *path,
+    unsigned int width,
+    unsigned int height);
 zoe_landscape_status_t zoe_landscape_write_file(
     const zoe_probability_landscape_t *landscape,
     const char *path);

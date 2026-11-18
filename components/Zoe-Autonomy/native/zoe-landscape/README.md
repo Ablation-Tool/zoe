@@ -11,7 +11,15 @@ cd components/Zoe-Autonomy/native/zoe-landscape
 make clean && make check
 ```
 
-On a filesystem that cannot execute newly compiled files, copy the four source files to an executable temporary directory and run the same commands there. The repository checkout keeps source and evidence; build outputs stay temporary.
+On a filesystem that cannot execute newly compiled files, copy the C sources and Makefile to an executable temporary directory and run the same commands there. The repository checkout keeps source and evidence; build outputs stay temporary.
+
+## Explicit visual output
+
+```bash
+build/zoe_landscape_demo /path/to/new-landscape.svg
+```
+
+The demo creates a synthetic intent landscape and reports its strict `Aτ`. `demo.svg` and `demo.png` are the preserved example outputs. The renderer writes only a new explicit path and has no monitoring, notebook, or actuation behavior.
 
 ## Boundaries
 
