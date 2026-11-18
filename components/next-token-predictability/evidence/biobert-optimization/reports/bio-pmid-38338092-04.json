@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-38338092-04",
+  "source_document_id": "pmid-38338092",
+  "split": "test",
+  "context_sha256": "356a8fb97a5544c8b0a9141dcc7c7eac0ded9c5840f81d19d9c8e5f2ca2a7518",
+  "target": "species",
+  "target_position": 288,
+  "target_token_id": 1530,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999996,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.01133139284541097,
+  "maximum_probability": 0.9993185988887923,
+  "top_10_probability_mass": 0.9998101467716466,
+  "target_probability": 0.9993185988887923,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 1530,
+      "token": "species",
+      "probability": 0.9993185988887923
+    },
+    {
+      "token_id": 2982,
+      "token": "products",
+      "probability": 0.000134127442500101
+    },
+    {
+      "token_id": 10071,
+      "token": "compounds",
+      "probability": 0.000114665777301323
+    },
+    {
+      "token_id": 9533,
+      "token": "intermediate",
+      "probability": 6.771141894874026e-05
+    },
+    {
+      "token_id": 10799,
+      "token": "molecules",
+      "probability": 4.8386877156640725e-05
+    },
+    {
+      "token_id": 3001,
+      "token": "levels",
+      "probability": 3.1479156028968454e-05
+    },
+    {
+      "token_id": 2114,
+      "token": "groups",
+      "probability": 3.0509684023465628e-05
+    },
+    {
+      "token_id": 11763,
+      "token": "Species",
+      "probability": 2.9175024036557454e-05
+    },
+    {
+      "token_id": 7418,
+      "token": "##ants",
+      "probability": 1.801448714669574e-05
+    },
+    {
+      "token_id": 15804,
+      "token": "substances",
+      "probability": 1.7478015712000007e-05
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "05361565974f78b259ff24ab2543980a5dc7dd4a2b94aef2237f1f0196252d56",
+  "input_ids_sha256": "f13a0815892961faacbe41330ec628e7571524d267a7b71cf08f8ca58d957dc5",
+  "original_input_ids_sha256": "75bc43a755ae28eccc3ff3348e57c7eb56383e5aa156937b9e76d408cb4f786e"
+}

@@ -1,0 +1,320 @@
+test_real_component_commands (stress.unified_stress.UnifiedCommandCase.test_real_component_commands) ... usage: ablation [-h] <command> ...
+
+Semantic firmware analysis for vulnerability researchers.
+
+positional arguments:
+  <command>
+    analyze             binary summary, strings, entropy
+    android             APK/XAPK, DEX, JNI, and cross-layer analysis
+    elf-disasm          disassemble an ELF virtual address
+    junos               Junos package, signature, inventory, and diff
+                        workflows
+    search              semantic function search
+    taint               taint analysis: network sources to sinks (arch-aware)
+    overflow            ARM32 integer overflow scan: MUL -> alloc without
+                        check
+    window              annotated disassembly window around a VA
+    profile             full function profile: strings + call args + sinks
+    cfg                 control-flow graph for one function
+    crypto              entropy scan and crypto key detection
+    corpus              build semantic function corpus
+    sweep               run all registered patterns against a binary
+    driver              Windows .sys kernel driver analysis (IOCTL, callbacks,
+                        dangerous patterns)
+    byovd               BYOVD risk score: signed driver + IOCTL + dangerous
+                        primitive
+    fmtstr              format string vulnerability scan (printf/syslog/err
+                        with non-literal format arg)
+    heap                heap vulnerability scan: int overflow before alloc,
+                        UAF, double-free, off-by-one
+    mips                MIPS 32+nM taint analysis: recv/read to
+                        system/strcpy/exec (O32 ABI)
+    mips64              MIPS 64 taint analysis: N64 ABI; Cisco IOS/OCTEON +
+                        RouterOS 64
+    nanomips            nanoMIPS frame decoder: function-start detection,
+                        frame walk (Ingenic/MediaTek)
+    nanomips-taint      nanoMIPS taint analysis: O32 ABI; Ingenic X-series,
+                        MediaTek Helio embedded
+    ppc32               PPC32 taint analysis: System V/EABI; Cisco IOS,
+                        VxWorks, MikroTik RB600
+    ppc64               PPC64 taint analysis: ELFv2/ELFv1; IBM POWER,
+                        OpenPOWER Linux, AIX
+    riscv64             RISC-V 64 taint analysis: lp64 ABI; VisionFive 2,
+                        SiFive Unmatched, Milk-V Pioneer, SpacemiT K1
+    riscv32             RISC-V 32 taint analysis: ilp32 ABI; SiFive, StarFive,
+                        Allwinner D1, ESP32-C3, GD32VF103
+    arc                 ARC taint analysis: ARC EM/HS/770D; smart TV SoCs,
+                        storage controllers, automotive
+    arc-decode          ARC instruction frame decoder: width discriminant +
+                        BL/J[blink] classification
+    v850                V850 taint analysis: V850 EABI; RH850/G3M automotive
+                        ECU, V850E2R industrial, V850E3V5 ASIL-D
+    v850-decode         V850 instruction frame decoder: 16/32-bit width
+                        discriminant + JARL/JMP[lp] classification
+    loongarch64         LoongArch64 taint analysis: lp64 ABI; TencentOS 4.6,
+                        Loongson 3A5000/3C5000, kernel modules
+    loongarch64-decode  LoongArch64 instruction frame decoder: fixed 32-bit
+                        width, jirl polymorphism, branch classification
+    news                show recent updates
+    findings            list confirmed findings
+    sigs                match and auto-name functions from signature library
+
+options:
+  -h, --help            show this help message and exit
+PASS · gem-house-demo · 4/4 constraints
+PASS [0] touches: bounding-box boundary contact within ε=6
+PASS [1] contains: door bounds Bounds(left=4600.0, top=4000.0, right=5400.0, bottom=5500.0) within body bounds Bounds(left=3000.0, top=2500.0, right=7000.0, bottom=5500.0)
+PASS [2] symmetric: centers 3750, 6250 around x=5000; size error=0
+PASS [3] inside_canvas: all objects inside canvas
+VDI: PASS
+cga: PASS
+vga: PASS
+ndc: PASS
+Run: /tmp/tmp1xqchobb/lab-run
+{
+  "output": "/tmp/tmp1xqchobb/canonical.json",
+  "algorithm_count": 17,
+  "passed": 17,
+  "failed": 0
+}
+{
+  "application": "GEM HELEN",
+  "bytes": 17759,
+  "measurement": {
+    "forward": {
+      "accessible_at_0_05": 1.5833333333333333,
+      "log_loss": 0.33885633598124937,
+      "mean_accessible_volume": 1.3096875,
+      "mean_max_probability": 0.8416658216360187,
+      "observations": 1920,
+      "predictive_entropy": 0.34962181227469863,
+      "sweep_area": 0.6474739583333332,
+      "top1": 0.84375
+    },
+    "forward_at_tau": 1.5833333333333333,
+    "retrograde": {
+      "accessible_at_0_05": 1.5526041666666666,
+      "log_loss": 2.898662373434196,
+      "mean_accessible_volume": 1.3138802083333334,
+      "mean_max_probability": 0.8388349308263715,
+      "observations": 1920,
+      "predictive_entropy": 0.3548779980768483,
+      "sweep_area": 0.6491796875,
+      "top1": 0.5895833333333333
+    },
+    "retrograde_at_tau": 1.5526041666666666,
+    "tau": 0.05,
+    "temperature": 1.0
+  },
+  "module": "onset",
+  "output": "/tmp/tmp1xqchobb/helen.json",
+  "scene_digest": "8aa4fa41377a38e679e22ab5d876e360bd3e32c3a1eb244d4be32eb505fbf62c"
+}
+{
+  "bytes": 9095,
+  "claims": 1,
+  "events": 10,
+  "instrument": "Zoe Bayesian field notebook",
+  "measurements": 1,
+  "output": "/tmp/tmp1xqchobb/brain.json",
+  "questions": 1
+}
+usage: python3 -m kevlar [-h] [--mode {audit,lenient,strict}] [--log PATH] ...
+
+Kevlar — MCP stdio firewall proxy
+
+positional arguments:
+  server_cmd            Server command (after --)
+
+options:
+  -h, --help            show this help message and exit
+  --mode {audit,lenient,strict}
+                        Firewall mode: strict (default) | lenient | audit
+  --log PATH            Append forensic JSONL events to this file
+
+Example: kevlar --mode strict --log /tmp/kevlar.jsonl -- npx -y
+@modelcontextprotocol/server-filesystem /tmp
+usage: pdf-verify [-h] [--version] {source,pdf} ...
+
+Verify LaTeX source and PDF signatures
+
+positional arguments:
+  {source,pdf}
+    source      Verify a LaTeX source-integrity record
+    pdf         Verify a PKCS #7 detached PDF signature
+
+options:
+  -h, --help    show this help message and exit
+  --version     show program's version number and exit
+{
+  "algorithm_count": 17,
+  "algorithms": [
+    {
+      "chamber": "both",
+      "equation": "P(H|E) = LR · P(H) / (1 - P(H) + LR · P(H))",
+      "id": "bayes/binary@v1",
+      "provenance": "Bayes' theorem",
+      "scope": "Binary claims with explicit likelihoods; dependent evidence requires adjusted likelihoods.",
+      "status": "core"
+    },
+    {
+      "chamber": "deterministic",
+      "equation": "(ei, delta QA_tau, states in, states out)",
+      "id": "causal/q-arrow@v1",
+      "provenance": "Accessible Q-Volume annotation proposed in the Zoe collaboration",
+      "scope": "Information and accessible-set annotation; Phi and gamma remain separate.",
+      "status": "toy_verified"
+    },
+    {
+      "chamber": "deterministic",
+      "equation": "rho_m(x0|x1) = K_m(x1|x0) mu(x0) / normalization",
+      "id": "causal/repertoire@v1",
+      "provenance": "Balduzzi & Tononi (2009), with explicit causal likelihoods and interventions",
+      "scope": "A causal posterior, not a next-token forecast or general IIT calculator.",
+      "status": "toy_verified"
+    },
+    {
+      "chamber": "deterministic",
+      "equation": "(accessible causal pasts, accessible forecast futures)",
+      "id": "causal/two-way@v1",
+      "provenance": "Nicholas's threshold operator applied in two explicitly separate directions",
+      "scope": "An explicit forecast and context are required; no internal-state mapping is inferred.",
+      "status": "toy_verified"
+    },
+    {
+      "chamber": "stochastic",
+      "equation": "p'_k(T) = p_k^(1/T) / sum_j p_j^(1/T)",
+      "id": "distribution/temperature@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "",
+      "status": "experimental"
+    },
+    {
+      "chamber": "both",
+      "equation": "A_tau with entropy, maximum mass, optional log loss and Brier score",
+      "id": "forecast/measure@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "A deterministic measurement of a supplied stochastic or deterministic forecast.",
+      "status": "core"
+    },
+    {
+      "chamber": "deterministic",
+      "equation": "D(p,q) after similarity, rigid, or affine alignment",
+      "id": "geometry/procrustes@v1",
+      "provenance": "Zoe geometry atlas and next-token-predictability",
+      "scope": "",
+      "status": "core"
+    },
+    {
+      "chamber": "both",
+      "equation": "priority = decision value · expected information gain / effort",
+      "id": "heuristic/inspection-priority@v1",
+      "provenance": "Zoe field notebook",
+      "scope": "Inspection triage only; not a probability, reward, or authorization rule.",
+      "status": "heuristic"
+    },
+    {
+      "chamber": "stochastic",
+      "equation": "P_h(a_1:h | C_t) = product_j p(a_j | C_t+j-1, a_<j)",
+      "id": "process/continuation@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "Exact bounded Markov enumeration only; not a real language-model benchmark.",
+      "status": "core"
+    },
+    {
+      "chamber": "stochastic",
+      "equation": "pi_(n+1) = pi_n P",
+      "id": "process/markov-step@v1",
+      "provenance": "Giuseppe Modica and Laura Poggiolini, A First Course in Probability and Markov Chains",
+      "scope": "",
+      "status": "core"
+    },
+    {
+      "chamber": "stochastic",
+      "equation": "X ~ categorical(p); seed and generator recorded",
+      "id": "sample/categorical@v1",
+      "provenance": "Brian D. Ripley, Stochastic Simulation: record the generator and treat simulation as experiment",
+      "scope": "",
+      "status": "experimental"
+    },
+    {
+      "chamber": "deterministic",
+      "equation": "E = sqrt((1/n) sum_i (t_i - t_hat_i)^2)",
+      "id": "timing/rmse@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "",
+      "status": "core"
+    },
+    {
+      "chamber": "both",
+      "equation": "A_alpha,beta = sum_i 1[p_i > max(beta, alpha · p_max)]",
+      "id": "volume/adaptive@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "Retain as a comparison; the selected adaptive rule did not transfer better on held-out BioBERT cases.",
+      "status": "tested_negative_transfer"
+    },
+    {
+      "chamber": "both",
+      "equation": "A_tau^(h) = sum 1[P_h(a_1:h | C_t) > tau]",
+      "id": "volume/joint@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "Complete vectors produce exact counts; restricted vectors produce lower bounds only.",
+      "status": "core"
+    },
+    {
+      "chamber": "deterministic",
+      "equation": "M_tau,i = A_tau,i - A_tau,i-1",
+      "id": "volume/momentum@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "",
+      "status": "core"
+    },
+    {
+      "chamber": "both",
+      "equation": "A_tau = sum_i 1[p_i > tau]; A_norm = A_tau / |O|",
+      "id": "volume/strict@v1",
+      "provenance": "next-token-predictability and Zoe numerical conformance",
+      "scope": "Forecast breadth, not correctness; tokens exactly at tau are excluded.",
+      "status": "core"
+    },
+    {
+      "chamber": "stochastic",
+      "equation": "paired forward/retrograde observations; agreement and forward minus retrograde volume",
+      "id": "brain/mirror@v1",
+      "provenance": "HELEN seed-7 held-out categorical distributions",
+      "scope": "Paired evaluation, not a time-reversed model, implicit mixture, causal reconstruction, or consciousness measurement.",
+      "status": "stored_evidence_verified"
+    }
+  ],
+  "executed": false
+}
+ok
+test_native_hub_inspect_link_launch_and_memory (stress.unified_stress.UnifiedNativeCase.test_native_hub_inspect_link_launch_and_memory) ... skipped 'native unified tests require GTK, Cairo, and an X11 DISPLAY'
+test_all_ten_repositories_and_full_ablation_are_present (stress.unified_stress.UnifiedSourceCase.test_all_ten_repositories_and_full_ablation_are_present) ... ok
+test_cli_manifest_knowledge_show_and_default_native (stress.unified_stress.UnifiedSourceCase.test_cli_manifest_knowledge_show_and_default_native) ... zoe: [Errno 17] File exists: '/tmp/tmpkufj2zyt/manifest.json'
+ok
+test_command_source_isolation_research_runtime_and_content_library (stress.unified_stress.UnifiedSourceCase.test_command_source_isolation_research_runtime_and_content_library) ... ok
+test_installed_cern_source_fallback (stress.unified_stress.UnifiedSourceCase.test_installed_cern_source_fallback) ... ok
+test_knowledge_observations_and_declared_links_preserve_boundaries (stress.unified_stress.UnifiedSourceCase.test_knowledge_observations_and_declared_links_preserve_boundaries) ... ok
+test_knowledge_roundtrip_tamper_detection_and_no_overwrite (stress.unified_stress.UnifiedSourceCase.test_knowledge_roundtrip_tamper_detection_and_no_overwrite) ... ok
+test_orbital_scene_vdi_and_headless_export (stress.unified_stress.UnifiedSourceCase.test_orbital_scene_vdi_and_headless_export) ... ok
+test_native_controls_and_cognitive_shortcut (stress.zoe_workbench_stress.NativeUnifiedCase.test_native_controls_and_cognitive_shortcut) ... ok
+test_attach_health_and_no_overwrite_manifest (stress.zoe_workbench_stress.WorkbenchBridgeCase.test_attach_health_and_no_overwrite_manifest) ... ok
+test_cli_start_health_and_stop (stress.zoe_workbench_stress.WorkbenchBridgeCase.test_cli_start_health_and_stop) ... ok
+test_full_verification_bridge (stress.zoe_workbench_stress.WorkbenchBridgeCase.test_full_verification_bridge) ... ok
+test_open_targets_without_gui_side_effects (stress.zoe_workbench_stress.WorkbenchBridgeCase.test_open_targets_without_gui_side_effects) ... ok
+test_unhealthy_start_timeout_stops_owned_process (stress.zoe_workbench_stress.WorkbenchBridgeCase.test_unhealthy_start_timeout_stops_owned_process) ... ok
+test_zoe_owned_start_and_stop (stress.zoe_workbench_stress.WorkbenchBridgeCase.test_zoe_owned_start_and_stop) ... ok
+test_component_is_registered_and_launchable (stress.zoe_workbench_stress.WorkbenchRegistrationCase.test_component_is_registered_and_launchable) ... ok
+test_unified_layout_fits_the_new_component (stress.zoe_workbench_stress.WorkbenchRegistrationCase.test_unified_layout_fits_the_new_component) ... ok
+test_atlas_and_existing_gem_entrypoints (stress.cern_stress.CernCorpusCase.test_atlas_and_existing_gem_entrypoints) ... ok
+test_changed_file_is_an_explicit_error_not_a_pass (stress.cern_stress.CernCorpusCase.test_changed_file_is_an_explicit_error_not_a_pass) ... ok
+test_cli_scan_report_chart_and_fresh_verification (stress.cern_stress.CernCorpusCase.test_cli_scan_report_chart_and_fresh_verification) ... ok
+test_full_identity_dispositions_and_tamper_checked_reload (stress.cern_stress.CernCorpusCase.test_full_identity_dispositions_and_tamper_checked_reload) ... ok
+test_repair_scene_is_deterministic_and_vdi_verified (stress.cern_stress.CernCorpusCase.test_repair_scene_is_deterministic_and_vdi_verified) ... ok
+test_wupper_safe_yaml_repair_and_no_side_effect (stress.cern_stress.CernCorpusCase.test_wupper_safe_yaml_repair_and_no_side_effect) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 14.786s
+
+OK (skipped=1)
