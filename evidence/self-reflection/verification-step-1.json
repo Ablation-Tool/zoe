@@ -4,7 +4,7 @@
   "external_actions": 0,
   "goal_directed": true,
   "instrument": "zoe-self-reflection/v1",
-  "profile_sha256": "aff880078f846812731b874fe672b94855660813d96c95e10c7969ee52e95c67",
+  "profile_sha256": "84ce4406b4a361c3b5b289897fe8e3cd0f55905097b1adf88833c3ac75b0df01",
   "selected_action": "preserve-current-arithmetic",
   "selected_model": "arithmetic",
   "verified": true

@@ -31,6 +31,16 @@ zoe-autonomy verify visual-perception.json
 
 The report records the canonical GEM revision, saliency-source SHA-256, image SHA-256, and all selected foci. Replay recomputes the complete visual field. No live camera is accessed by the base `run` command. See the [visual equations](../graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image evidence](../../evidence/autonomy/visual-perception.json), and [six-host replay result](../../evidence/one-system/visual-verification.json).
 
+## Event-Causal Active Perception
+
+```bash
+zoe-autonomy event-evaluate --output event-evaluation.json
+zoe-autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json
+zoe-autonomy verify-event-evaluation event-camera-evaluation.json
+```
+
+The event-causal engine connects sparse event reconstruction, causal memory, action-conditioned prediction, independent uncertainty, gated local learning, and reversible attention. Its pre-registered synthetic contract and real-camera check pass. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning; transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. No audio or photograph is retained, and this is not AGI, biological equivalence, or semantic recognition. See [the architecture](EVENT-CAUSAL.md), [evaluation evidence](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json), and [complete iLab integration catalog](ILAB-INTEGRATION.md).
+
 ## Four-capability autonomy evaluation
 
 ```bash

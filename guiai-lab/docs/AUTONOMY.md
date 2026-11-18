@@ -57,6 +57,16 @@ python scripts/verify-one-system.py --workspace /path/to/workspace \
 
 Every host must produce the same 42 maps and attention report and pass replay verification. The [preserved six-host visual result](../../evidence/one-system/visual-verification.json) uses the public Vivotek sample without redistributing the image.
 
+## Event-Causal Active Perception
+
+```bash
+PYTHONPATH=guiai-lab zoe autonomy event-evaluate --output event-evaluation.json
+PYTHONPATH=guiai-lab zoe autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json
+PYTHONPATH=guiai-lab zoe autonomy verify-event-evaluation event-camera-evaluation.json
+```
+
+Sparse polarity events reconstruct a scene and drive causal memory retrieval, action-conditioned future predictions, independent uncertainty, and reversible attention transitions. Gated local plasticity and interleaved replay update the next cycle only through validated outcomes. The pre-registered synthetic contract and real-camera check pass. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning; transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. The camera path captures no audio and retains no photograph. See [the architecture and limits](../../components/Zoe-Autonomy/EVENT-CAUSAL.md) and [complete iLab use/blocker catalog](../../components/Zoe-Autonomy/ILAB-INTEGRATION.md).
+
 ## Four-capability autonomy evaluation
 
 ```bash
