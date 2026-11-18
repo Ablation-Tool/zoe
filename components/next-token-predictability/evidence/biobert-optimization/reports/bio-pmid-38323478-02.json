@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-38323478-02",
+  "source_document_id": "pmid-38323478",
+  "split": "development",
+  "context_sha256": "29e7e0b3ebb218f94465b9441ecdf038fa43a94def89bbb25587162505952fe3",
+  "target": "interactions",
+  "target_position": 114,
+  "target_token_id": 10393,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    6,
+    4,
+    3,
+    1,
+    1,
+    0
+  ],
+  "entropy_bits": 3.664012098523727,
+  "maximum_probability": 0.4317768649622446,
+  "top_10_probability_mass": 0.843556120173958,
+  "target_probability": 0.05597423810917283,
+  "target_rank": 4,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 12793,
+      "token": "alignment",
+      "probability": 0.4317768649622446
+    },
+    {
+      "token_id": 5839,
+      "token": "assembly",
+      "probability": 0.12225151439484305
+    },
+    {
+      "token_id": 23208,
+      "token": "positioning",
+      "probability": 0.10234993114630414
+    },
+    {
+      "token_id": 10393,
+      "token": "interactions",
+      "probability": 0.05597423810917283
+    },
+    {
+      "token_id": 14189,
+      "token": "dynamics",
+      "probability": 0.04438166129930192
+    },
+    {
+      "token_id": 10592,
+      "token": "orientation",
+      "probability": 0.027192183917273707
+    },
+    {
+      "token_id": 8234,
+      "token": "interaction",
+      "probability": 0.01676502091227278
+    },
+    {
+      "token_id": 2369,
+      "token": "organization",
+      "probability": 0.015304986276912517
+    },
+    {
+      "token_id": 21079,
+      "token": "segregation",
+      "probability": 0.01456050830329738
+    },
+    {
+      "token_id": 3852,
+      "token": "association",
+      "probability": 0.012999210852335056
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "b75cde584c288a1f5096bf3fc7fc90c063de47d791f5bccd51d31f064c77ab7e",
+  "input_ids_sha256": "345146544ba50595a07b0ced82db563a895d67b2d5aad1b4c1da68a511810bfe",
+  "original_input_ids_sha256": "ed2f932b8aa37cb06384a5bad82d5f9a00d4975e3bac81253ebc39c249a29d32"
+}

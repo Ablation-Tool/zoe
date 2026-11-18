@@ -1,0 +1,174 @@
+\clearpage
+\part{Empirical Forecast Measurement}
+\label{part:evidence}
+
+\section{Forecast metrics and experimental protocol}
+Accessible volume is interpreted alongside, never instead of, outcome and calibration measurements. For a categorical distribution $p$ over $\mathcal O$ and observed outcome $y$, the principal companion metrics are
+\begin{align}
+H(p)&=-\sum_{a\in\mathcal O}p_a\log_2p_a, &
+p_{\max}&=\max_ap_a,\\
+\operatorname{NLL}(p,y)&=-\log p_y, &
+\operatorname{Brier}(p,y)&=\sum_{a\in\mathcal O}(p_a-\indicator[a=y])^2.
+\end{align}
+The logarithm base determines the NLL units; model log-loss tables report the convention used by their saved scripts. Top-$k$ mass is $\sum_{a\in K_k}p_a$ for the $k$ highest-probability outcomes. Top-1 correctness is an independent binary observation, not a function of accessible volume.
+
+For $B$ calibration bins $\mathcal I_b$,
+\begin{equation}
+\operatorname{ECE}=\sum_{b=1}^{B}\frac{|\mathcal I_b|}{n}
+\left|\operatorname{acc}(\mathcal I_b)-\operatorname{conf}(\mathcal I_b)\right|.
+\label{eq:ece}
+\end{equation}
+AUROC and AUPRC evaluate ranking rather than point calibration. In the BioBERT error-detection study, an incorrect top-1 prediction is the positive class. AUROC is the probability that an incorrect case receives a larger uncertainty score than a correct case, with the script's deterministic tie handling; AUPRC summarizes the precision--recall curve through average precision. Undefined one-class metrics are reported as undefined, not as successful separation.
+
+All model-specific measurements belong to a model revision, context construction, target position, vocabulary, threshold procedure, and runtime. Repeated bit-identical inference establishes deterministic behavior in the tested runtime, not cross-runtime bitwise equality or semantic correctness.
+
+\section{The original Ablation + GEM measurement}
+The first working measurement used 963 tokens of actual Ablation + GEM investigation context: a selected artifact, a scoped observation, and real entropy-inspection output. A local DistilGPT-2 ONNX model returned a complete distribution over 50,257 next tokens. The threshold counts are reproduced in Table~\ref{tab:original-ablation}.
+\begin{table}[htbp]
+\centering
+\caption{Measured accessible volume for the original Ablation + GEM context.}
+\label{tab:original-ablation}
+\begin{tabular}{ccccccc}
+\toprule
+$\tau$ & 0.02 & 0.05 & 0.10 & 0.15 & 0.30 & 0.50\\
+\midrule
+$A_\tau(S)$ & 4 & 2 & 2 & 1 & 1 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+A newline had probability $0.535587$ and end-of-text $0.109893$. The ten most probable tokens contained $75.45\%$ of total mass, while full-vocabulary entropy was $4.2998$ bits. The immediate result is a concentrated forecast, not a statement about the correctness of a future investigation action.
+
+A repeated forward pass produced identical input IDs and probabilities. Controlled perturbations changed some counts and left others fixed, demonstrating that the measurement attaches to the model--context pair. Table~\ref{tab:context-perturbation} preserves the complete sweep.
+\begin{table}[htbp]
+\centering
+\caption{Controlled context measurements. Counts describe specific model--input pairs.}
+\label{tab:context-perturbation}
+{\scriptsize
+\begin{tabular}{lrrrrrrr}
+\toprule
+Variant & Tokens & 0.02 & 0.05 & 0.10 & 0.15 & 0.30 & 0.50\\
+\midrule
+Baseline &963&4&2&2&1&1&1\\
+Metadata only &522&4&2&2&2&1&0\\
+Abbreviated evidence &295&4&2&2&2&1&1\\
+No evidence &103&3&1&1&1&1&1\\
+Summary request &968&3&2&1&1&1&0\\
+Repeated short evidence &487&3&2&2&1&1&1\\
+\bottomrule
+\end{tabular}}
+\end{table}
+These perturbations do not establish a universal rule that more evidence widens or narrows forecasts. They provide positive and negative context sensitivity observations for one model.
+
+\section{Three target hold-back mechanisms}
+The unchanged operator was applied to three different prediction constructions:
+\begin{description}[style=nextline]
+  \item[Masked-language modeling.] A BERT-style mask replaces the target. Bidirectional context remains available on both sides, but target identity is removed from the input. Exactly one prediction mask is required by the case validator.
+  \item[XLNet query-stream prediction.] The content stream represents known token identities. The query stream represents the target position with query-stream attention to that token blocked. Target mapping selects the position; this is not equivalent to inserting a BERT mask token.
+  \item[Autoregressive forecasting.] Only the prefix before the target is supplied. The final-position logits describe an ordinary next-token forecast, with target and later text absent by construction.
+\end{description}
+Each mechanism requires its own leakage checks and exact input manifest. Applying one threshold grid does not erase architectural or training-objective differences.
+
+\section{XLNet query-stream extension}
+The XLNet experiment held back the token ``gap'' in the phrase ``Accessible volume addresses this gap.'' XLNet-Base and XLNet-Large each returned 32,000 probabilities. Base assigned highest probability to a period ($0.559758$), followed by ``issue'' ($0.068510$); the target ``gap'' had probability $0.012354$ and rank 12. Entropy was $3.5946$ bits and top-ten mass $82.22\%$. Large assigned highest probability to ``problem'' ($0.235085$), followed by ``in'' ($0.139887$) and a period ($0.099426$). The target had probability $0.015083$ and rank eight; entropy was $5.7603$ bits and top-ten mass $65.16\%$.
+\begin{table}[htbp]
+\centering
+\caption{Accessible volume for two leakage-controlled XLNet query-stream predictions.}
+\label{tab:xlnet}
+\begin{tabular}{lrrrrrr}
+\toprule
+Variant &0.02&0.05&0.10&0.15&0.30&0.50\\
+\midrule
+XLNet-Base&6&2&1&1&1&1\\
+XLNet-Large&5&4&2&1&0&0\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For each model, replacing the target token ID with each of three alternatives produced bit-for-bit identical probability distributions. This is the central control: target identity did not enter the query-stream prediction. A separate offline Base reproduction matched the input IDs, six threshold counts, and target rank and ordering. Its maximum absolute probability difference was $2.3443\times10^{-7}$; the counts were reproduced, but bitwise raw-probability equality across runtimes is not claimed.
+
+The original runs used PyTorch 2.14.1+cu130 and Transformers 5.18.0. Complete probability vectors and input IDs are preserved in the repository. The result demonstrates applicability to an existing input position, not a general ranking of XLNet variants.
+
+\section{Cross-model and domain comparison}
+Sixteen additional cases covered general language, security, biomedical, clinical, scientific, legal, financial, programming, multilingual, chemistry, protein-sequence, and mathematical prediction. Table~\ref{tab:model-comparison} reports the fixed threshold grid. The cases use different contexts and, in several domains, different targets; the table is intentionally not a quality leaderboard.
+\begin{table}[htbp]
+\centering
+\caption{Accessible volume across sixteen additional model--input pairs.}
+\label{tab:model-comparison}
+{\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llrrrrrr}
+\toprule
+Category&Model&0.02&0.05&0.10&0.15&0.30&0.50\\
+\midrule
+General&BERT-Base&2&1&1&1&1&1\\
+General&RoBERTa-Base&2&2&1&1&1&1\\
+General&ALBERT-Base&5&1&1&1&1&0\\
+General&GPT-2 causal&7&3&2&1&0&0\\
+Security&SecureBERT&6&4&2&0&0&0\\
+Security&CySecBERT&2&0&0&0&0&0\\
+Biomedical&BioBERT&1&0&0&0&0&0\\
+Clinical&Bio\_ClinicalBERT&6&2&2&1&0&0\\
+Scientific&SciBERT&6&3&2&0&0&0\\
+Legal&Legal-BERT&7&2&1&1&1&0\\
+Financial&FinBERT&5&3&2&2&0&0\\
+Programming&CodeBERT&4&3&1&1&1&0\\
+Multilingual&XLM-RoBERTa-Base&6&3&1&0&0&0\\
+Chemistry&ChemBERTa&8&5&0&0&0&0\\
+Protein&ProtBERT&18&9&0&0&0&0\\
+Mathematics&Qwen2.5-Math-1.5B causal&9&8&4&2&0&0\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+The target was top-ranked only for Legal-BERT's ``agreement'' and Qwen2.5-Math-1.5B's ``4.'' BioBERT had entropy $9.8879$ bits but only one token above $0.02$; CySecBERT had entropy $9.7536$ bits and two above that threshold. A broad tail can thus produce high entropy without many alternatives above a fixed cutoff. Conversely, BioBERT and CySecBERT both have $A_{0.05}=0$ while retaining complete ranked forecasts, a concrete refutation of ``zero volume means no prediction.''
+
+Every model repeated its forward pass bit-for-bit. The independent verifier recomputed every threshold count, target rank, entropy, top-ten mass, top-token ordering, and raw-array hash from the saved vectors. All sixteen passed. These runs used CPU inference with PyTorch 2.14.1+cu130 and Transformers 4.56.2. Exact public identifiers and immutable revisions are recorded in the case manifest. Two Foundation-Sec-8B variants were not run because each published repository required approximately 16.06 GB of weights beyond the test system's available storage; no result is inferred for them.
+
+The saved GPT-2 case also clarifies represented versus executed alternatives. Its three tokens above $0.05$ were `` problem,'' `` by,'' and `` issue,'' with probabilities approximately $0.26709$, $0.11110$, and $0.08907$. Greedy decoding selects only the first. The other outcomes are forecast alternatives, not executed actions.
+
+\section{BioBERT: adaptive thresholding and held-out transfer}
+\subsection{Design}
+The focused BioBERT experiment asked whether an adaptive equation would improve detection of incorrect top-1 masked-token predictions. It used 120 eligible single-token targets from 30 Creative Commons-licensed Europe PMC abstracts, four non-repeated targets per document. Document-grouped splitting with seed 20261103 produced 60 development, 20 validation, and 40 test cases before inference. No document crossed splits.
+
+The adaptive rule was
+\begin{equation}
+A_{\alpha,\beta}(x)=\sum_i\indicator\!\left[
+ p_i>\max\!\left(\beta,\alpha p_{\max}(x)\right)\right].
+\label{eq:adaptive-volume}
+\end{equation}
+It replaces a fixed cutoff with the larger of an absolute floor $\beta$ and a fraction $\alpha$ of the maximum probability. The search contained 54 predefined pairs. Selection used validation AUROC, then validation AUPRC, then development AUROC, with deterministic tie-breaking. Only after selection was the chosen rule evaluated on the test documents. This ordering prevents the held-out test set from choosing the adaptive parameters.
+
+BioBERT produced 29 errors among 60 development cases, 11 among 20 validation cases, and 23 among 40 test cases. Every prediction was repeated bit-for-bit and every original threshold count recomputed from the full-vocabulary distribution.
+
+\subsection{Results}
+\begin{table}[htbp]
+\centering
+\caption{Original and adaptive accessible-volume rules for BioBERT top-1 error detection.}
+\label{tab:biobert}
+{\small
+\begin{tabular}{p{5.4cm}rrrr}
+\toprule
+Rule&Dev AUROC&Val AUROC&Test AUROC&Test AUPRC\\
+\midrule
+Adaptive $\alpha=0.001,\beta=0$&0.7848&0.8737&0.7008&0.6599\\
+Original $\tau=0.05$&0.7219&0.8232&\textbf{0.7737}&\textbf{0.7978}\\
+Best-validation original $\tau=0.02$&0.7681&0.8283&0.7391&0.7502\\
+Entropy&0.7920&0.8990&0.6957&0.6538\\
+\bottomrule
+\end{tabular}}
+\end{table}
+The selected adaptive rule counted every token above $0.1\%$ of the maximum probability. It improved validation measurements but did not transfer that improvement to unseen documents. The simpler original $\tau=0.05$ rule exceeded it by $0.0729$ test AUROC and $0.1379$ test AUPRC. On test cases, the adaptive mean scores were 42.43 for errors and 36.59 for correct predictions; the original fixed-rule scores were 3.17 and 1.88, a clearer separation.
+
+This is the study's strongest practical conclusion: \textbf{the original fixed equation transferred better than the optimized adaptive alternative on this held-out dataset}. It is not a universal theorem that fixed thresholds are superior. It is a controlled negative result for the selected adaptive family and a positive result for one fixed cutoff on 40 test cases from disjoint documents.
+
+All 120 raw distributions, source and split manifests, 54 candidate evaluations, per-case scores, and reports are saved. An independent implementation recomputed the AUROC and AUPRC values. No new inference was required for that verification.
+
+\section{What the language-model evidence establishes}
+Across the original measurement, two XLNet variants, and sixteen additional comparisons, 19 unique public models supplied concrete distributions for the unchanged strict operator. The evidence supports four conclusions:
+\begin{enumerate}
+  \item the instrument is implementable across masked, query-stream, and causal prediction mechanisms;
+  \item threshold counts expose structure not captured by the selected token, entropy, or maximum probability alone;
+  \item leakage controls and full-vector preservation are necessary for credible interpretation;
+  \item adaptive complexity must be judged by held-out transfer rather than validation improvement.
+\end{enumerate}
+The evidence does not establish that a concentrated choice is correct, a broad choice is creative, or a token count measures human surprise. Nor do these public model distributions stand in for Kimi, Claude, or Ablation's semantic encoders without separate access to those systems' complete distributions. Most importantly for the autonomy argument, no experiment in this part observes goal authorship or execution authority. Those dimensions require the later control-loop instrumentation.

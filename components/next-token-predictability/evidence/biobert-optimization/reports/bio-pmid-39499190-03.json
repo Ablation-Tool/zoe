@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39499190-03",
+  "source_document_id": "pmid-39499190",
+  "split": "development",
+  "context_sha256": "d40ecb2b1def7441cd02a54266161009b9204c5ba47a5c030c8eeacfeedb14c9",
+  "target": "exposed",
+  "target_position": 209,
+  "target_token_id": 5490,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999994,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.39844541490782986,
+  "maximum_probability": 0.9274529832923242,
+  "top_10_probability_mass": 0.9997162837392534,
+  "target_probability": 0.9274529832923242,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 5490,
+      "token": "exposed",
+      "probability": 0.9274529832923242
+    },
+    {
+      "token_id": 13927,
+      "token": "subjected",
+      "probability": 0.06984294068072743
+    },
+    {
+      "token_id": 7402,
+      "token": "submitted",
+      "probability": 0.0017958365733711235
+    },
+    {
+      "token_id": 2548,
+      "token": "subject",
+      "probability": 0.000304251801236116
+    },
+    {
+      "token_id": 5165,
+      "token": "treated",
+      "probability": 0.00012067955207849134
+    },
+    {
+      "token_id": 7964,
+      "token": "challenged",
+      "probability": 5.24202313047047e-05
+    },
+    {
+      "token_id": 10491,
+      "token": "adjusted",
+      "probability": 4.509267577346096e-05
+    },
+    {
+      "token_id": 7246,
+      "token": "sensitive",
+      "probability": 4.238521792485387e-05
+    },
+    {
+      "token_id": 10645,
+      "token": "induced",
+      "probability": 3.094584611638382e-05
+    },
+    {
+      "token_id": 7401,
+      "token": "exposure",
+      "probability": 2.874786839654595e-05
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "2ed0879142b426d473f9dbe19791e4cb8e0d9d48d8fa390e9af05a30c1bb66e2",
+  "input_ids_sha256": "7b595d45090c4e33e9342235da8245f333882bc9ff4fc0ec551ff072e995a700",
+  "original_input_ids_sha256": "1ecf8c567e6b576f082db812d2ad6181102c5625f85073c6dbf92ae677f94793"
+}

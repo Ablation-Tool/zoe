@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-38338092-01",
+  "source_document_id": "pmid-38338092",
+  "split": "test",
+  "context_sha256": "356a8fb97a5544c8b0a9141dcc7c7eac0ded9c5840f81d19d9c8e5f2ca2a7518",
+  "target": "effect",
+  "target_position": 113,
+  "target_token_id": 2629,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999998,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    2,
+    2,
+    2,
+    2,
+    1,
+    1
+  ],
+  "entropy_bits": 1.0639910295334076,
+  "maximum_probability": 0.7970972321689819,
+  "top_10_probability_mass": 0.990606104899145,
+  "target_probability": 0.15503566649741296,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 3154,
+      "token": "effects",
+      "probability": 0.7970972321689819
+    },
+    {
+      "token_id": 2629,
+      "token": "effect",
+      "probability": 0.15503566649741296
+    },
+    {
+      "token_id": 2933,
+      "token": "influence",
+      "probability": 0.01627247845344291
+    },
+    {
+      "token_id": 1648,
+      "token": "role",
+      "probability": 0.006122062114331426
+    },
+    {
+      "token_id": 3772,
+      "token": "impact",
+      "probability": 0.005454242619099757
+    },
+    {
+      "token_id": 23891,
+      "token": "efficacy",
+      "probability": 0.002872430158158665
+    },
+    {
+      "token_id": 6245,
+      "token": "benefits",
+      "probability": 0.002571379564474616
+    },
+    {
+      "token_id": 7751,
+      "token": "influences",
+      "probability": 0.0019203062819660695
+    },
+    {
+      "token_id": 15791,
+      "token": "impacts",
+      "probability": 0.0018828463443290385
+    },
+    {
+      "token_id": 12949,
+      "token": "effectiveness",
+      "probability": 0.0013774606969477192
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "7398543739a038632ba69a7fef2eb62674bbc822a2ef5685d9a57e45d60fc9c4",
+  "input_ids_sha256": "c6768ba8e6bf17f8ab1756441f4421beb040ed39807a54ec9286a7fd552eb6fc",
+  "original_input_ids_sha256": "75bc43a755ae28eccc3ff3348e57c7eb56383e5aa156937b9e76d408cb4f786e"
+}

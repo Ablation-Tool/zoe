@@ -1,0 +1,64 @@
+# Zoe · allgems — notices and historical recognition
+
+Zoe is built using GEM: native graphical components, Spatial IR, VDI scenes, replayable geometry, and inspectable evidence. Zoe is the GEM, but the GEM is not Zoe. Zoe is allgems.
+
+## Gary Kildall and the original GEM
+
+Zoe honors **Gary Arlen Kildall (1942–1994)** for his technical talent, creativity, and lasting influence on personal computing. He created **CP/M**, co-founded **Digital Research**, and **oversaw the creation of Digital Research's graphical environment, GEM**, introduced on February 28, 1985. His work on operating systems, the BIOS, and graphical environments helped make personal computing more capable and more accessible.
+
+The original desktop is not assigned to one person alone. It was a **Digital Research** product with documented contributions from **Lee Jay Lorenzen**, **Don Heiskell's GSX team**, and other engineers. Kildall's role is recognized without erasing theirs.
+
+Historical references:
+
+- [Gary Kildall: CP/M, Digital Research, and oversight of GEM](https://en.wikipedia.org/wiki/Gary_Kildall)
+- [GEM desktop environment: Digital Research, Lee Jay Lorenzen, GSX, and Don Heiskell](https://en.wikipedia.org/wiki/GEM_(desktop_environment))
+
+Zoe is a separate modern project, not the original 1985 desktop or a claim of authorship by its historical contributors. The orbital eye emblem and the G, E, and M symbol-grid references are visual identities for this project, not claims about the original font or symbols.
+
+## Source components
+
+The ten source repositories retain their original copyright, licenses, and notices. Their upstream identities and source revisions are recorded in `components.lock.json`. Kevlar's MIT license and the other component licenses remain with their respective source trees. No component is presented as evidence of another component's correctness, security, or authorization.
+
+The original accessible-volume equation is credited to **Nicholas Michael Kloster alone, March 6, 2026**. Later Zoe and Accessible Q-Volume developments are identified separately.
+
+## Original creative modules and reference boundaries
+
+**Zoe Artline** is an original implementation informed by the interaction goals in five user-supplied Artline 2.0 manuals. Artline was published by Digital Research and later Computer Associates. Those organizations and the original developers are not affiliated with Zoe. No proprietary program code, fonts, clip art, manual pages, advertisements, or cover artwork are copied into this repository, and no legacy Artline-file compatibility is claimed.
+
+**Zoe Pentomino** uses the long-established twelve free pentomino shapes and an original timed, replayable implementation. It does not copy Tetris code or assets. Alexey Pajitnov's use of pentomino inspiration is a historical distinction, not an affiliation. Draughts/checkers is a separate game.
+
+**Zoe Practice Navigator** uses new vector artwork and synthetic examples. Historical pilot guides, navigation plotters, pen tablets, product names, covers, and logos remain the property of their respective authors and manufacturers; those references are not redistributed or presented as endorsements. The guide is not certified flight-training or navigation material.
+
+The user-supplied March 2026 **Hourglass Defense** proposal and defense PDFs carry **ExileKingdom** and **Claude + Nick = Nuclide / Nuclide** attributions respectively. They inspired only a labeled normalized-weight toy. Zoe does not implement or validate their proposed transformer defense, positional authority mechanism, A(S) metric, or security claims. The supplied hourglass icon is not redistributed; the guide's hourglass is new geometry.
+
+The supplied **Voice and Video Communication Over Packet Networks, Chapter 2** Markdown informed general layer and timing concepts. Its prose and figures are not copied. Zoe's arrival-spacing example is synthetic and is not an RTP jitter implementation, a synchronized-clock measurement, or a live network observation.
+
+## Resilience and project covenant
+
+The **Zoe Resilience Atlas** uses original summaries and dependency examples linked to the official [CISA critical-infrastructure sector pages](https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/critical-infrastructure-sectors). CISA does not endorse Zoe. The atlas is an educational scene, not a live monitor, risk assessment, or controller for essential services.
+
+The waveform preview is an original implementation informed by the local CERN `analysis/wdb/MAPPER.md` evidence methodology. It does not copy the external MIT-licensed Vivado WDB reader, proprietary HDL, or waveform data. Aggregate counts are cited as prior research observations, while the four displayed traces are synthetic. CERN and the original analyzer authors do not endorse Zoe.
+
+`DECLARATION.md` and `CONSTITUTION.md` are original project covenants informed by public discussions of constitutional AI, oversight, honesty, humility, and corrigibility, including [Claude's Constitution](https://www.anthropic.com/constitution) and [Amanda Askell](https://en.wikipedia.org/wiki/Amanda_Askell). They are not Anthropic documents and imply no endorsement by Anthropic or Amanda Askell. Historical anatomical, fluorescent, and Brainbow references informed only the broad visual direction; no anatomical or fluorescence image is imported into the atlas.
+
+**Zoe Presence** is an original metacognitive instrument, not a consciousness implementation or measurement. Its expression glyphs are original interface annotations, not emotions or biological states. BARE's adapter architecture supplied only the design distinction between source identity and derived scores; BARE's corpus, code, and rankings are not included or used to infer mental states. Historical glyph charts and Artline materials remain references rather than copied assets.
+
+**Zoe Protocol Lab** is an original implementation of the recovered SPECS and AMAC models documented in the local CERN research reports. The external WDB reader, HDL, simulator outputs, and corpus are not bundled or executed by this module. The examples preserve their model/RTL evidence boundaries and are not presented as new hardware validation.
+
+**Zoe Waveform Replay** uses original VCD, normalized-document, analysis, and visualization code. Optional legacy WDB decoding calls Ablation's existing `ablation/analyzers/xilinx_wdb.py`; it is not a new proprietary decoder. That reader credits **Vivado-WDB-Waveform-Converter**, commit `419f78bad3e8286a70574a685acf1043e33105c5`, and retains the upstream MIT license, copyright **2025 Roshan Tripathy**, in `components/ablation/ablation/data/vivado_wdb_upstream_LICENSE.txt`. No raw CERN waveform, proprietary HDL, or vendor IP is bundled. CERN, Xilinx, and the upstream authors do not endorse Zoe. Signature matches are bounded corroboration, not identity or hardware acceptance.
+
+**Zoe Patchbay and Zoe Cog** are original implementations. Board illustrations use overall mechanical dimensions from the user-supplied Genesys 2 and Nexys Video drawings, not copied board artwork. Firmware parsing reuses Ablation's ZynqMP reader and the system's `fdtget`; signing uses the system's OpenSSL; optional video metadata uses `ffprobe`. FELIX source is inspected from its Apache-2.0 checkout without copying its source into this module. Cog's original bounded bigram implementation is informed by tokenization and probability concepts from the supplied *Build a Large Language Model (From Scratch)* capture; no book text, images, GPT implementation, firmware, or research media is bundled. Local media galleries reference user-supplied originals. CERN, UCL, Digilent, AMD/Xilinx, and the book's author and publisher do not endorse Zoe.
+
+**Zoe Leadership Garden** is an original practice instrument, not an official military leadership qualification or a leadership score. Its personal advice is attributed to **Nicholas Michael Kloster recalling advice from his 1SG**, not presented as a newly verified quotation or a biography. Worked examples are explicitly synthetic. The U.S. Army Center of Military History publications and ICRC Geneva Conventions remain external references; no PDFs, personal photographs, or service records are bundled. The 1974 UN declaration on protecting women and children is distinct from the ICRC document. The Army, ICRC, publication authors, and people named in the notes do not endorse Zoe.
+
+**Zoe Maison** is an original design studio and association prompt deck. The supplied *Word Association.pdf* is a one-page AI-assisted brainstorm created with Google Gemini; it is treated as a source of associations, not doctrine, factual authority, or leadership evidence. The PDF and its full lists are not bundled. Maison's prompts, illustrations, and restrained ink/pearl/champagne palette are original. Google does not endorse Zoe, and no prestige, wealth, institutional-status, or enterprise-certification claim is made.
+
+**Zoe Evidence Navigator** is an original source-first implementation informed by the supplied complexity/bridge document. CERN preview images, documents, source trees, and media remain external. Complexity and novelty are navigation heuristics, not correctness or readiness scores. Synthetic replay and sonification are not hardware measurements, detector audio, alarms, or protocol translation. No bridge implies hardware compatibility. Shadow retrieval does not call an LLM or manufacture telemetry.
+
+**vidlib** was created by **Nicholas Michael Kloster with Claude Code**. Zoe's adapter invokes the user's original executable and preserves its name and authorship; the original tool was not modified for this integration. Zoe's normalized reports, evidence boundaries, tests, and visual scenes are separate integration work. Transcripts and YouTube content remain external, are not bundled, and retain their own reuse constraints. A transcript citation is not a measurement, hardware evidence, or authorization for action.
+
+**Zoe Pentacube** is an original pentomino exact-cover and 5×5 cube-permutation puzzle, not an official Rubik product, Tetris implementation, optimal solver, or intelligence measurement. **ARTetris**, copyright **2017 Exyte** under the MIT license, informed only the engine/view separation at revision `c9d10828487b0fb5477a336a032c0fca62becb66`; no Swift code or assets are copied. The IBM PC Tetris work by Alexey Pajitnov and Vadim Gerasimov remains external and is not executed or bundled. The Atari archive is treated as historical source/object evidence, not a validated firmware image. Digital Research and GSX documents/source remain external; their device-independent graphics and accessible interface work informs the design rather than supplying copied code or assets.
+
+**Zoetic Research** is the user-created co-brand, supplied as `Zoetic_Research_Logo.{png,svg}` and used as an independent homage to **Gary Kildall and Digital Research**. The two supplied historical Digital Research SVG logos remain external. Zoetic Research is not an official Digital Research mark or endorsement and does not replace Zoe's orbital eye. The supplied 1937 *Songs of the IBM* fellowship songbook remains external; only newly written rhyme hints are used, not its lyrics or corporate-loyalty themes.
+
+**Zoe Internal Clock** is an original deterministic timing toy. The TIM3C diagram informs only its 80/2 MHz and 25,000 ps software-tick reference; no CERN time is measured. Karban, Black, and Weinbaum's host-season research is distinguished from Yoshimura's hypothetical four-year internal gate and from Sato et al.'s PDF-neuron identification in *Meimuna opalifera*. UConn's emergence guidance informs synthetic soil/sunset release cues. No study text, photographs, anatomy, sensor data, or biological specimens are bundled, and no fitted biological, molecular, or hardware-timing claim is made. The cicada glyph is original geometry.

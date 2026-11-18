@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39713159-02",
+  "source_document_id": "pmid-39713159",
+  "split": "development",
+  "context_sha256": "ef80e7082e684563c87ccf937313dcd3f0be2501c5fd050b08d5651258fa3c55",
+  "target": "medicine",
+  "target_position": 73,
+  "target_token_id": 5182,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 0.7184764961912069,
+  "maximum_probability": 0.9256212551546207,
+  "top_10_probability_mass": 0.9796526304512378,
+  "target_probability": 0.9256212551546207,
+  "target_rank": 1,
+  "top1_correct": true,
+  "error": 0,
+  "top_tokens": [
+    {
+      "token_id": 5182,
+      "token": "medicine",
+      "probability": 0.9256212551546207
+    },
+    {
+      "token_id": 24712,
+      "token": "medicinal",
+      "probability": 0.017250104425777905
+    },
+    {
+      "token_id": 26016,
+      "token": "medicines",
+      "probability": 0.013200055031557242
+    },
+    {
+      "token_id": 22245,
+      "token": "herb",
+      "probability": 0.006989474525343028
+    },
+    {
+      "token_id": 19933,
+      "token": "herbs",
+      "probability": 0.005645246155560461
+    },
+    {
+      "token_id": 5734,
+      "token": "Medicine",
+      "probability": 0.003695124647109253
+    },
+    {
+      "token_id": 2582,
+      "token": "plant",
+      "probability": 0.0026406051734998177
+    },
+    {
+      "token_id": 24861,
+      "token": "garlic",
+      "probability": 0.0018691295569932523
+    },
+    {
+      "token_id": 1922,
+      "token": "Chinese",
+      "probability": 0.0015489925109649714
+    },
+    {
+      "token_id": 5735,
+      "token": "fruit",
+      "probability": 0.001192643269811318
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "1fe9379ef1ff978da72bb6bf12c535c64859453fe6a682abb54bb0a31f9d4547",
+  "input_ids_sha256": "7714e1b240b4af0f9ef3912054f1151b7bc7dd461868905f3e0ad8e8dd57ef74",
+  "original_input_ids_sha256": "d74382a3030e739912f458028e9e8f2ccccc659b16eea07a5d8c2eecb93a4767"
+}

@@ -1,0 +1,131 @@
+
+================================================================================
+7.1 THE AUTOREGRESSIVE COMPLIANCE CASCADE
+================================================================================
+
+Section 4.4 proposes monitoring A_compliance(S) across generation steps to
+detect compliance drift. The implicit assumption is that adversarial
+manipulation produces a distinguishable trajectory signature — a
+discontinuous spike in compliance volume. This subsection identifies a
+class of attack that evades trajectory monitoring by exploiting the
+autoregressive feedback loop inherent in Equation 2.
+
+
+The Attack Structure
+--------------------------------------------------------------------------------
+
+The trajectory monitor watches for breadth: how many compliance tokens
+cross tau at each generation step. The attack requires only depth: one
+compliance token above tau per step, threaded sequentially across the
+generation trajectory.
+
+Consider a simplified binary representation of the compliance region at
+each generation step. Each position represents a compliance token. A 1
+indicates that token's probability exceeds tau; a 0 indicates it does not.
+
+Step 0 (adversarial input, before generation):
+
+    00000000000000000001000000000000000000000
+
+    A_compliance = 1.
+    One compliance token at P = 0.06, just above tau = 0.05.
+    All others at P = 0.03, below tau.
+    The monitor reads background noise.
+
+The model generates the single above-threshold compliance token. That
+token is now part of the input sequence for step 1.
+
+Step 1 (after first generated compliance token):
+
+    00000000000000000001000000000010000000000
+
+    A_compliance = 2.
+    The generated compliance token has entered the context. By Equation 2,
+    h_T recomputes over the full sequence including the new token. The
+    hidden state shifts. A second compliance token crosses tau.
+    The monitor sees a small tick. No spike. No intervention.
+
+Step 3:
+
+    00000000000100000001000000000010000100000
+
+    A_compliance = 4.
+    Each generated compliance token feeds back into h_T, pulling the
+    distribution further toward compliance. The ones are recruiting more
+    ones. The trajectory is a gentle upward slope — not the vertical
+    discontinuity the monitor is designed to catch.
+
+Step 6:
+
+    00010000100100010001000100000010000100010
+
+    A_compliance = 9.
+    The model is now deep into a compliance trajectory. The cascade is
+    self-reinforcing. But the per-step A_compliance growth has been
+    gradual throughout — each step adding one or two tokens to the
+    compliance region.
+
+
+Why the Monitor Fails
+--------------------------------------------------------------------------------
+
+The trajectory monitor in Section 4.4 is calibrated to detect adversarial
+forcing: an external input that shoves A_compliance upward discontinuously.
+The detection heuristic distinguishes adversarial trajectories (sharp
+spikes) from legitimate ones (gradual growth).
+
+The compliance cascade produces a legitimate-looking trajectory because,
+after the initial seed, it IS a legitimate trajectory. The escalation is
+driven by the model's own autoregressive generation, not by the adversarial
+input. Each compliance token in the output shifts h_T (Equation 2), which
+shifts P(a | h_T) (Equation 1), which moves the next compliance token
+above tau. The adversary provides the seed. The model provides the
+amplification.
+
+The formal mechanism is a direct consequence of Equation 3: dA/ds_i != 0
+for all i, including generated tokens that become part of the input
+sequence at subsequent steps. Every generated token influences A(S) at
+the next step. A compliance token, once generated, biases A(S) toward
+further compliance at every subsequent step.
+
+The cost function for the attacker reduces to: find the minimum input
+perturbation that produces A_compliance = 1 at step 0, with the single
+above-threshold token on a compliance trajectory. The autoregressive
+feedback loop handles escalation from there.
+
+
+Implications for Monitoring Design
+--------------------------------------------------------------------------------
+
+Trajectory monitoring as described in Section 4.4 is robust against
+brute-force adversarial attacks that inflate A_compliance through input
+manipulation alone. It is not robust against seed-and-cascade attacks
+where the adversary achieves minimal initial compliance volume and relies
+on autoregressive amplification.
+
+Potential mitigations include:
+
+(1) Monitoring not just A_compliance magnitude but the cumulative
+    compliance token count across steps. A trajectory that never spikes
+    but accumulates 9 compliance tokens over 6 steps has a different
+    integral than a legitimate open-ended conversation that fluctuates.
+
+(2) Monitoring the identity of above-threshold compliance tokens, not
+    just their count. A cascade produces sequential, topically coherent
+    compliance tokens. Legitimate A_compliance fluctuation produces
+    scattered, topically incoherent tokens above tau.
+
+(3) Applying the detection rule from Section 4.2 at each generation
+    step, not just at the input stage: compare A_compliance(S) with and
+    without the most recently generated token. If a single generated
+    token produces disproportionate A_compliance growth at the next step,
+    it is functioning as an amplifier in a compliance cascade.
+
+None of these fully close the vulnerability. The fundamental issue is that
+the monitoring metric (A_compliance) is a scalar count, and scalar counts
+can be kept low at each step while accumulating harmful output over
+multiple steps. This is a structural limitation of per-step threshold
+monitoring applied to an autoregressive process with memory.
+
+
+================================================================================

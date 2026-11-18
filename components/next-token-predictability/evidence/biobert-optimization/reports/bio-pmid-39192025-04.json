@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39192025-04",
+  "source_document_id": "pmid-39192025",
+  "split": "test",
+  "context_sha256": "09afa6e8b0f69aaacfa2c87fc75d4455507412cbdc18ed3c12990e95254f13c1",
+  "target": "extensive",
+  "target_position": 330,
+  "target_token_id": 4154,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999999,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    4,
+    3,
+    2,
+    2,
+    1,
+    0
+  ],
+  "entropy_bits": 3.120132681778372,
+  "maximum_probability": 0.41085228228628373,
+  "top_10_probability_mass": 0.8829321925956303,
+  "target_probability": 2.955255650455147e-05,
+  "target_rank": 251,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 8458,
+      "token": "functional",
+      "probability": 0.41085228228628373
+    },
+    {
+      "token_id": 12638,
+      "token": "regulatory",
+      "probability": 0.29008751932599924
+    },
+    {
+      "token_id": 23292,
+      "token": "physiological",
+      "probability": 0.07069781792998997
+    },
+    {
+      "token_id": 1696,
+      "token": "important",
+      "probability": 0.04128969553624808
+    },
+    {
+      "token_id": 3607,
+      "token": "critical",
+      "probability": 0.015345599038866843
+    },
+    {
+      "token_id": 7269,
+      "token": "biological",
+      "probability": 0.013841623731815883
+    },
+    {
+      "token_id": 1111,
+      "token": "for",
+      "probability": 0.011572920927990058
+    },
+    {
+      "token_id": 2501,
+      "token": "key",
+      "probability": 0.011237599269592034
+    },
+    {
+      "token_id": 2129,
+      "token": "central",
+      "probability": 0.009791331386093463
+    },
+    {
+      "token_id": 3209,
+      "token": "potential",
+      "probability": 0.00821580316275104
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "04dfd6ac70e3e1f3623007894451d426aa6d8b0d9363ab03e931ed40d37b57b1",
+  "input_ids_sha256": "15801cc985bf3101b7aa1daefb582a526a4397b566483a7cdfa3e1e6880a9a45",
+  "original_input_ids_sha256": "6c98975ab5283f4114e52fbbde28e2b700039f50bbcbc95422566c8b00071a6d"
+}
