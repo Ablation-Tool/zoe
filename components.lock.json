@@ -42,7 +42,7 @@
     "Zoe-Autonomy": {
       "path": "components/Zoe-Autonomy",
       "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-      "revision": "8f6724b5f8bbeac1cdbeadba93bcc1092fd489fe",
+      "revision": "f864331798f1d4e0378b5abf387e376efdf52b4c",
       "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
     },
     "kevlar": {

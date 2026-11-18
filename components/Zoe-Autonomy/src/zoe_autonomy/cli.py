@@ -43,6 +43,15 @@ def parser():
     step.add_argument("--output", help="new JSON decision evidence path")
     verify_step = commands.add_parser("verify-step", help="verify autonomous-step integrity and decision provenance")
     verify_step.add_argument("report")
+    evaluate = commands.add_parser("evaluate", help="test perception, thinking, learning, action, and their feedback links")
+    visual_input = evaluate.add_mutually_exclusive_group()
+    visual_input.add_argument("--image", help="RGB image-file input for the visual evaluation")
+    visual_input.add_argument("--camera", nargs="?", const="/dev/video0", help="capture one camera frame; default device: /dev/video0")
+    evaluate.add_argument("--foci", type=int, default=4, help="attention selections with inhibition of return, from 1 to 8")
+    evaluate.add_argument("--output", help="new JSON evaluation evidence path")
+    evaluate.add_argument("--full", action="store_true", help="print the complete evaluation report")
+    verify_evaluation = commands.add_parser("verify-evaluation", help="verify autonomy-evaluation integrity and coverage consistency")
+    verify_evaluation.add_argument("report")
     return result
 
 
@@ -110,6 +119,23 @@ def main(argv=None):
         if arguments.command == "verify-step":
             from .autonomous import verify_step_report
             print(json.dumps(verify_step_report(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
+        if arguments.command == "evaluate":
+            from .evaluation import evaluation_summary, run_evaluation, save_evaluation
+            report = run_evaluation(
+                arguments.zoe_root,
+                image_path=arguments.image,
+                camera=arguments.camera,
+                attention_steps=arguments.foci,
+            )
+            output = save_evaluation(report, arguments.output) if arguments.output else None
+            print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) if arguments.full else evaluation_summary(report))
+            if output:
+                print(f"Evidence: {output} · evaluation_sha256={report['evaluation_sha256']}")
+            return 0 if report["overall"]["integrated_visual_autonomy_passed"] else 1
+        if arguments.command == "verify-evaluation":
+            from .evaluation import verify_evaluation
+            print(json.dumps(verify_evaluation(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         if arguments.command == "verify":
             forwarded = ["verify", arguments.report]

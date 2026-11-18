@@ -29,7 +29,17 @@ zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.
 zoe-autonomy verify visual-perception.json
 ```
 
-The report records the canonical GEM revision, saliency-source SHA-256, image SHA-256, and all selected foci. Replay recomputes the complete visual field. No live camera is accessed. See the [visual equations](../graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image evidence](../../evidence/autonomy/visual-perception.json), and [six-host replay result](../../evidence/one-system/visual-verification.json).
+The report records the canonical GEM revision, saliency-source SHA-256, image SHA-256, and all selected foci. Replay recomputes the complete visual field. No live camera is accessed by the base `run` command. See the [visual equations](../graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image evidence](../../evidence/autonomy/visual-perception.json), and [six-host replay result](../../evidence/one-system/visual-verification.json).
+
+## Four-capability autonomy evaluation
+
+```bash
+zoe-autonomy evaluate --output evaluation.json
+zoe-autonomy evaluate --camera /dev/video0 --output camera-evaluation.json
+zoe-autonomy verify-evaluation camera-evaluation.json
+```
+
+The evaluation separately tests perception, thinking, learning, action, and their feedback links. Current synthetic and real-camera evidence passes the four narrow capability checks but fails `vision_changes_decision`: different RGB scenes produce different saliency fields and identical autonomy events. Integrated visual autonomy therefore remains unpassed. The optional camera path captures one frame without audio, deletes the temporary photograph, and records only its hash, dimensions, provenance, and computed measurements. Camera activation is operator-requested. See [the evaluation guide and coverage limits](EVALUATION.md).
 
 ## Measured self-reflection
 
