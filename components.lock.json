@@ -16,7 +16,7 @@
     "graphics-environment-manager": {
       "path": "components/graphics-environment-manager",
       "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
-      "revision": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b"
+      "revision": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7"
     },
     "gem-helen": {
       "path": "components/gem-helen",
@@ -42,7 +42,7 @@
     "Zoe-Autonomy": {
       "path": "components/Zoe-Autonomy",
       "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-      "revision": "79267045fbfc7712cd76f02c229e82446aab62f0",
+      "revision": "8f6724b5f8bbeac1cdbeadba93bcc1092fd489fe",
       "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
     },
     "kevlar": {

@@ -36,7 +36,10 @@ class SelfReflectionCase(unittest.TestCase):
         self.assertEqual([item["adoption"] for item in (first, second, third)], [
             "preserved_current_model", "adopted_after_heldout_validation", "preserved_current_model",
         ])
-        for report in (first, second, third):
+        for index, report in enumerate((first, second, third), 1):
+            self.assertEqual(report["self_model"]["working_memory"]["observations"]["value"], index * 4)
+            self.assertEqual(report["self_model"]["working_memory"]["adoptions"]["value"], int(index >= 2))
+            self.assertEqual(report["self_model"]["prediction_count"], index * 4)
             self.assertTrue(report["goal_directed"])
             self.assertTrue(report["belief_updated"])
             self.assertTrue(report["event"]["belief_update"]["changed"])

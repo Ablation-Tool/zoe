@@ -73,6 +73,8 @@ Arithmetic and precision fusion are compared on three predicted views and a sepa
 
 The integrated event is identical to the standalone first reflection event. `belief_updated` changes only when the selected model or its weights change. Confidence means model-comparison weight under the declared residual approximation, not emotion or universal correctness.
 
+A native soroban working memory records 4, 8, and 12 observations and 0, 1, and 1 adoptions with exact earth/heaven bead transitions. The counters are separate from likelihood weights. See the [soroban and ecological model](../../components/graphics-environment-manager/COGNITION.md#soroban-working-memory-and-ecological-feedback).
+
 See the [replayed steps](../../evidence/self-reflection/), [integrated report](../../evidence/self-reflection/integrated.json), [IIT controls](../../evidence/phi-verification.json), and [external-substrate review](../../evidence/external-wiring-review.json). The 0.25 three-node AND result is a control, not Zoe's Φ. The [six-host reflection result](../../evidence/one-system/reflection-verification.json) checks identical updates and replay through every entry point.
 
 ## The native loop

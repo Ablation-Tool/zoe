@@ -227,6 +227,28 @@ def _compact_belief(model, posterior, log_posterior):
     return {"selected_model": model, "posterior": posterior, "log_posterior": log_posterior}
 
 
+def _working_memory(previous, abacus, prediction_count, adoption):
+    if previous is None:
+        observations = abacus.Soroban(0)
+        adoptions = abacus.Soroban(0)
+    else:
+        memory = previous.get("self_model", {}).get("working_memory", {})
+        observations = (
+            abacus.Soroban.from_snapshot(memory["observations"], memory["observations"].get("rod_count", 16))
+            if "observations" in memory else abacus.Soroban(prediction_count)
+        )
+        adoptions = (
+            abacus.Soroban.from_snapshot(memory["adoptions"], memory["adoptions"].get("rod_count", 16))
+            if "adoptions" in memory else abacus.Soroban(0)
+        )
+    if observations.value() != prediction_count:
+        raise ValueError("working-memory observation count does not match prediction_count")
+    observations.add(abacus.Soroban(4))
+    if adoption == "adopted_after_heldout_validation":
+        adoptions.add(abacus.Soroban(1))
+    return {"observations": observations.document(), "adoptions": adoptions.document()}
+
+
 def run_reflection(zoe_root=None, previous=None, document=None, initial_model=None, loop=None):
     root = _zoe_root(zoe_root)
     imagery, revision, imagery_path = _canonical_gem_module(root, "imagery")
@@ -250,6 +272,8 @@ def run_reflection(zoe_root=None, previous=None, document=None, initial_model=No
     target = loop.goal_action()
     candidate_model = {"preserve": current_model, "inspect": alternative, "review": best}[target]
     adopted, adoption = decide_adoption(current_model, candidate_model, evaluations)
+    abacus, _, abacus_path = _canonical_gem_module(root, "abacus_cognition")
+    working_memory = _working_memory(previous, abacus, prediction_count, adoption)
     evidence_bits = abs(selection_log[MODELS[0]] - selection_log[MODELS[1]]) / math.log(2)
     proposals = [
         Candidate(
@@ -278,6 +302,7 @@ def run_reflection(zoe_root=None, previous=None, document=None, initial_model=No
             "adoption": adoption,
             "goal_action": target,
             "candidate_model": candidate_model,
+            "working_memory": working_memory,
             "prediction_count_before": prediction_count,
             "prediction_count_after": prediction_count + 4,
         },
@@ -309,7 +334,10 @@ def run_reflection(zoe_root=None, previous=None, document=None, initial_model=No
         "canonical_imagery": {
             "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
             "locked_revision": revision,
-            "source_sha256": {"gem/imagery.py": hashlib.sha256(imagery_path.read_bytes()).hexdigest()},
+            "source_sha256": {
+                "gem/imagery.py": hashlib.sha256(imagery_path.read_bytes()).hexdigest(),
+                "gem/abacus_cognition.py": hashlib.sha256(abacus_path.read_bytes()).hexdigest(),
+            },
         },
         "observation_source": "supplied_stereo_observations" if document["observations"] is not None else "synthetic_stereo",
         "observation_sha256": digest(document),
@@ -318,6 +346,7 @@ def run_reflection(zoe_root=None, previous=None, document=None, initial_model=No
         "self_model": {
             **after,
             "prediction_count": prediction_count + 4,
+            "working_memory": working_memory,
             "adoption": adoption,
             "selection_posterior": selection_posterior,
         },

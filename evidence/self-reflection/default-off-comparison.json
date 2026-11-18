@@ -1,5 +1,10 @@
 {
-  "current_profile_sha256": "6e72ea278f3ffebe547dcea47d09e140f3417485147c916d17fb25b6a139b4b2",
+  "current_profile_sha256": "095d90d336cfbc76d9843c2ec3d527fa368b0995b9ab9bce77a4e986d2edde96",
+  "normalized_provenance_fields": [
+    "integration_source_sha256",
+    "zoe_source.revision",
+    "visual_perception.locked_revision"
+  ],
   "previous_behavior_preserved_except_source_hashes": true,
-  "previous_profile_sha256": "3ddfb1d01beee72edae8ac80bcb6f323aa21e2617fdf5c55f5f366d22f87c0de"
+  "previous_profile_sha256": "6e72ea278f3ffebe547dcea47d09e140f3417485147c916d17fb25b6a139b4b2"
 }
