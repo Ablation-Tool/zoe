@@ -68,7 +68,7 @@ HELP = """Commands:
   search <query>               rank repository evidence and saved notes with citations
   import-pala <report.json>    import validated PALA finding metadata for later research
   gem [operation]              navigate the shared GEM operating environment
-  agent [on|off|ask <text>]    enter or exit collaboration with the embedded agent
+  agent [on|off|ask|proof]     collaborate with the embedded agent and export proof
   goal [interest]              show Zoe's internal goal or declare a research interest
   plan                         construct and value internal reversible plans without executing
   run                          execute one guarded reversible internal plan
@@ -335,7 +335,9 @@ class ZoeChat:
         insufficient = not candidates or candidates[0]["coverage"] < 0.34 or candidates[0]["score"] < 1.0
         greeting = bool(_tokens(query)) and _tokens(query) <= {"hello", "hi", "hey", "greetings"}
         if self.collaboration_enabled and not self.session["stopped"] and (insufficient or greeting):
-            return self._consult_agent(query, candidates)
+            assessment = self._collaboration().evaluate(query, candidates, consult_requested=True)
+            if assessment["consult_agent"]:
+                return self._consult_agent(query, candidates, assessment)
         if insufficient:
             return "I do not have enough indexed evidence to answer that reliably. Try a more specific term, use `remember` to supply a note, or use `agent ask <question>` to collaborate with the embedded agent."
         return self._evidence_answer(query, candidates)
@@ -346,14 +348,16 @@ class ZoeChat:
             self.collaboration_bridge = CollaborationBridge()
         return self.collaboration_bridge
 
-    def _consult_agent(self, query, candidates=None):
+    def _consult_agent(self, query, candidates=None, assessment=None):
         self._require_actions("agent collaboration")
         candidates = self._repository_candidates(query) if candidates is None else candidates
         bridge = self._collaboration()
         status = bridge.status()
         if not status["available"]:
             raise ValueError(f"embedded agent '{bridge.agent_id}' is not registered and available; inspect with `zoe-autonomy agents list`")
-        result = bridge.consult(query, candidates)
+        assessment = assessment or bridge.evaluate(query, candidates, consult_requested=True)
+        result = bridge.consult(query, candidates, assessment=assessment)
+        breadth = result["operational_metacognition"]["breadth"]
         local = (
             self._evidence_answer(query, candidates) if candidates
             else "No sufficient local evidence was found; I preserved that boundary while consulting the embedded agent."
@@ -361,6 +365,8 @@ class ZoeChat:
         return "\n".join([
             "Zoe · local evidence",
             local,
+            "Zoe · Operational Metacognition before collaboration",
+            f"Aτ(action)={breadth['accessible_count']}/{breadth['represented_count']} at τ={breadth['tau']:.2f} · boxed={breadth['boxed']} · selected=consult_agent · normalized heuristic options, not correctness probabilities",
             f"Embedded AI agent · {result['agent']} · consulted by Zoe",
             result["content"],
             "Zoe · shared-context boundary",
@@ -379,7 +385,7 @@ class ZoeChat:
                 f"Three-way collaboration: user ↔ Zoe ↔ {bridge.agent_id} · automatic={self.collaboration_enabled} · available={status['available']}",
                 f"Registered agents: {connections}",
                 f"Shared in-memory turns={status['shared_turns']} · persistent transcript=False",
-                "Use `agent on`, `agent off`, `agent ask <text>`, `agent use ID`, or `agent clear`.",
+                "Use `agent on`, `agent off`, `agent ask <text>`, `agent use ID`, `agent proof PATH`, or `agent clear`.",
             ])
         if argument in {"on", "auto"}:
             self.collaboration_enabled = True
@@ -391,6 +397,9 @@ class ZoeChat:
         if argument == "clear":
             count = bridge.clear()
             return f"Cleared {count} in-memory shared turns. No hidden transcript was deleted because none is kept."
+        if argument.startswith("proof "):
+            proof = bridge.save_proof(argument[6:].strip())
+            return f"Operational Metacognition collaboration proof saved: {proof['path']} · proof_sha256={proof['proof_sha256']}"
         if argument.startswith("use "):
             identifier = argument[4:].strip()
             if identifier not in {item["id"] for item in bridge.gateway.list()}:

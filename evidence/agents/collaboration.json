@@ -23,6 +23,20 @@
     "gem_selection_shared": true,
     "gateway_audit_records_content": false
   },
+  "operational_metacognition_proof": {
+    "path": "evidence/metacognition/collaboration-proof.json",
+    "verifier": "scripts/verify-metacognition-collaboration.py",
+    "verified": true,
+    "domain": "action",
+    "tau": 0.05,
+    "represented_options": ["stay_local", "consult_agent"],
+    "probabilities": {"stay_local": 0.3333333333333333, "consult_agent": 0.6666666666666667},
+    "accessible_count": 2,
+    "selected_action": "consult_agent",
+    "agent_marker_observed": "METACOGNITION-PROOF-READY",
+    "proof_sha256": "5901b3689eef02906b1eb6170b4ea3cbebc5a89a0e97c8fa146a03541e053776",
+    "response_sha256": "2b31baee758a25b9e123c6d5db8e0f7bab5946e2d2e539879efba6dbd9c7449a"
+  },
   "nested_gui_live_agent_check": {
     "backend_invocation_succeeded_according_to_gateway_audit": true,
     "response_display_verified": false,

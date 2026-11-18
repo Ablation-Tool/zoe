@@ -8,7 +8,7 @@ import unittest
 from unittest import mock
 
 from zoe_autonomy.chat import ZoeChat
-from zoe_autonomy.collaboration import CollaborationBridge
+from zoe_autonomy.collaboration import CollaborationBridge, verify_collaboration_proof
 
 
 ZOE_ROOT = Path(os.environ.get("ZOE_ROOT", ""))
@@ -53,14 +53,17 @@ class CollaborationCase(unittest.TestCase):
             "target_kind": "directory",
             "selected": {"id": "artifact:research", "label": "Research"},
         }), encoding="utf-8")
-        evidence = [{"citation": "README.md:5", "content": "Zoe's research mission", "kind": "document"}]
+        evidence = [{"citation": "README.md:5", "content": "Zoe's research mission", "kind": "document", "score": 2.0, "coverage": 0.5}]
         with mock.patch.dict(os.environ, {"GEM_SESSION": str(session)}):
             first = self.bridge.consult("Evaluate this research", evidence)
             second = self.bridge.consult("Continue with the next step", evidence)
         self.assertTrue(first["gem_context_shared"])
         self.assertEqual(first["shared_turns"], 1)
         self.assertFalse(first["persistent_transcript"])
+        self.assertEqual(first["operational_metacognition"]["breadth"]["accessible_count"], 2)
+        self.assertEqual(first["operational_metacognition"]["selected_action"], "consult_agent")
         prompt = json.loads(self.gateway.prompts[0])
+        self.assertEqual(prompt["zoe_operational_metacognition"]["breadth"]["accessible_count"], 2)
         self.assertEqual(prompt["current_question"], "Evaluate this research")
         self.assertEqual(prompt["gem_selection"]["selected_id"], "artifact:research")
         self.assertEqual(prompt["zoe_local_evidence"][0]["citation"], "README.md:5")
@@ -80,7 +83,19 @@ class CollaborationCase(unittest.TestCase):
         self.assertEqual(len(self.gateway.prompts), 1)
         direct = self.chat.handle("agent ask what is PALA?")[1]
         self.assertIn("PALA", direct)
+        self.assertIn("Aτ(action)=", direct)
         self.assertIn("CAPABILITY-ATLAS.md", self.gateway.prompts[-1])
+        proof_path = Path(self.temporary.name) / "proof.json"
+        saved = self.chat.handle(f"agent proof {proof_path}")[1]
+        self.assertIn("proof_sha256=", saved)
+        proof = json.loads(proof_path.read_text(encoding="utf-8"))
+        verification = verify_collaboration_proof(proof)
+        self.assertTrue(verification["verified"])
+        self.assertEqual(verification["selected_action"], "consult_agent")
+        self.assertIn("could not complete", self.chat.handle(f"agent proof {proof_path}")[1])
+        proof["operational_metacognition"]["breadth"]["accessible_count"] += 1
+        with self.assertRaises(ValueError):
+            verify_collaboration_proof(proof)
         self.assertIn("Automatic agent collaboration is off", self.chat.handle("agent off")[1])
         before = len(self.gateway.prompts)
         local = self.chat.handle("what is a zqfrangible inverse owlet?")[1]

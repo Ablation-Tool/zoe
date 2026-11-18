@@ -45,7 +45,7 @@ Zoe's `gem status`, `gem list`, `gem open ID`, `gem export ID PATH`, and `gem sn
 | `search <query>` | Search indexed Zoe sources and saved notes with citations. |
 | `import-pala <report.json>` | Validate PALA finding metadata and add it to research memory without reading recovered contents. |
 | `gem [operation]` | Use the shared GEM environment: `status`, `list`, `open ID`, `export ID PATH`, or `snapshot PATH`. |
-| `agent [operation]` | Collaborate with the embedded agent: `status`, `on`, `off`, `ask TEXT`, `use ID`, or `clear`. |
+| `agent [operation]` | Collaborate with the embedded agent: `status`, `on`, `off`, `ask TEXT`, `use ID`, `proof PATH`, or `clear`. |
 | `goal [interest]` | Show Zoe's internally authored goal or declare a research interest. |
 | `plan` | Represent internal candidate plans and their utilities without executing. |
 | `run` | Execute one guarded reversible internal plan; external actions remain zero. |
@@ -66,7 +66,11 @@ Zoe's `gem status`, `gem list`, `gem open ID`, `gem export ID PATH`, and `gem sn
 
 Zoe can enter and exit collaboration with the owner-connected agent embedded in the GEM environment. She supplies bounded local evidence and the current GEM selection, receives the agent's reasoning, and returns it to the user with both roles labeled. In GEM mode, Zoe may consult the agent when local evidence is insufficient or the input is conversational; `agent ask <text>` always requests collaboration directly.
 
-Use `agent on` for automatic consultation, `agent off` for local-only answers, `agent use <id>` to select a registered agent, and `agent clear` to reset the in-memory shared turns. The agent response is external context, not independently verified evidence, and is not automatically added to Zoe's research memory. No persistent conversation transcript is created. See [the connected-agent guide](../../components/Zoe-Autonomy/GATEWAY.md#three-way-collaboration-inside-zoe-chat) and [verification evidence](../../evidence/agents/collaboration.json).
+Use `agent on` for automatic consultation, `agent off` for local-only answers, `agent use <id>` to select a registered agent, and `agent clear` to reset the in-memory shared turns. The agent response is external context, not independently verified evidence, and is not automatically added to Zoe's research memory. No persistent conversation transcript is created.
+
+Before collaboration, Zoe computes \(A_{\tau,\mathrm{action}}\) over `stay_local` and `consult_agent` with \(\tau=0.05\) declared for the episode. The observation is included in the agent's shared context and displayed in Zoe's response. These probabilities are normalized heuristic decision scores, not calibrated correctness probabilities. `agent proof <path>` explicitly writes a no-overwrite proof containing the options, probabilities, provenance, threshold, choice, prompt/response hashes, and source hashes.
+
+The [real collaboration proof](../../evidence/metacognition/collaboration-proof.json) records probabilities \(1/3\) for `stay_local` and \(2/3\) for `consult_agent`, hence \(A_{0.05,\mathrm{action}}=2\), with Kimi returning `METACOGNITION-PROOF-READY`. Independently verify it with `python scripts/verify-metacognition-collaboration.py evidence/metacognition/collaboration-proof.json`. See [the connected-agent guide](../../components/Zoe-Autonomy/GATEWAY.md#three-way-collaboration-inside-zoe-chat) and [verification evidence](../../evidence/agents/collaboration.json).
 
 ## Operational Metacognition inside Zoe
 

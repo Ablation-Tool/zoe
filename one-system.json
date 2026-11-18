@@ -289,6 +289,10 @@
     "three_way_loop": "user ↔ Zoe ↔ owner-connected embedded AI agent",
     "native_chat_bridge": "components/Zoe-Autonomy/src/zoe_autonomy/collaboration.py",
     "real_shared_context_connectivity_verified": true,
+    "metacognition_proof": "evidence/metacognition/collaboration-proof.json",
+    "metacognition_proof_verifier": "scripts/verify-metacognition-collaboration.py",
+    "metacognition_proof_accessible_count": 2,
+    "metacognition_proof_tau": 0.05,
     "collaboration_evidence": "evidence/agents/collaboration.json",
     "evidence": "evidence/agents/verification.json"
   },
