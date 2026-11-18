@@ -22,6 +22,28 @@
     "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
     "verify": "zoe-autonomy verify visual-perception.json"
   },
+  "event_causal_active_perception": {
+    "contract": "zoe-event-causal-active-perception/v1",
+    "evaluation_contract": "zoe-event-causal-evaluation/v1",
+    "run": "zoe-autonomy event-evaluate --output event-evaluation.json",
+    "camera": "zoe-autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json",
+    "verify": "zoe-autonomy verify-event-evaluation event-camera-evaluation.json",
+    "protocol_sha256": "2bb2e92ecd81d5822bec7249dd39d00ab645b3bf61990ba30b1b43af58433ebc",
+    "synthetic_checks_passed": 11,
+    "camera_passed": true,
+    "adaptive_validation_prediction_rmse": 4.641453,
+    "no_learning_validation_prediction_rmse": 5.058147,
+    "adaptive_transfer_tracking_mae": 3.265625,
+    "static_saliency_transfer_tracking_mae": 3.53125,
+    "fixed_transfer_tracking_mae": 3.5625,
+    "random_transfer_tracking_mae": 3.703125,
+    "ood_detection_rate": 0.875,
+    "validation_false_positive_rate": 0.0,
+    "camera_audio_captured": false,
+    "camera_images_retained": false,
+    "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json",
+    "ilab_catalog": "https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/ilab/catalog.json"
+  },
   "autonomy_evaluation": {
     "contract": "zoe-four-capability-evaluation/v1",
     "run": "zoe-autonomy evaluate --output evaluation.json",
@@ -61,7 +83,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "f864331798f1d4e0378b5abf387e376efdf52b4c",
+    "revision": "12e031d9aca0ffe002538964a65071d352e0c47e",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },

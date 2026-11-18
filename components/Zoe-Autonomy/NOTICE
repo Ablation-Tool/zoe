@@ -9,3 +9,12 @@ The multiscale visual-attention model follows Laurent Itti, Christof Koch, and E
 This repository implements the master measurement-action architecture, full self-governing autonomy, and optional owner-granted host, network, and hardware actuation. External permissions require an explicit hostname-bound owner grant and emergency-stop checks. The base experiment performs no external actions. No consciousness is established, and a forecast alone is not authorization.
 
 The combined integration is distributed under GPL-3.0-only, matching the Zoe source tree. The upstream Accessible Volume repository retains its own MIT license. No upstream license is changed by this repository.
+
+
+iLab Neuromorphic Vision C++ Toolkit reference and adaptation
+
+The iLab toolkit is Copyright (C) 2001-2005 by the University of Southern California and iLab at USC and is distributed under GNU GPL version 2 or any later version. The complete public source snapshot at https://ilab.usc.edu/source/saliency-current.tar.bz2 was analyzed with SHA-256 c17af77c0796439d0e1a188841525133432c61ea176d2583a03acb072b20644b. No iLab C++ source is bundled in this repository.
+
+Zoe's event-causal modules are independent Python adaptations, not the original iLab implementation and not a claim of endorsement by USC or iLab. VisualCortex, Brain, saliency, Bayesian surprise, visual memory, component composition, Beowulf, and reference tests inform the architecture; new event reconstruction, temporal prediction, independent uncertainty, gated plasticity, and evidence guards are Zoe-specific work. `ILAB-INTEGRATION.md` and `evidence/ilab/catalog.json` preserve per-file classification and reference-build modifications.
+
+The 2014 iLab source carries a pending-patent notice. Later public records list US8098886B2 as expired by lifetime on 2024-05-28 and US8515131B2 as expired fee-related effective 2025-08-20. These records are preserved for provenance and are not legal advice or an exhaustive patent clearance.

@@ -73,6 +73,16 @@ Full autonomy means full self-government of Zoe's decision loop. The base experi
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
 - [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
 
+## Event-Causal Active Perception
+
+```bash
+zoe autonomy event-evaluate --output event-evaluation.json
+zoe autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json
+zoe autonomy verify-event-evaluation event-camera-evaluation.json
+```
+
+Zoe's event-driven loop reconstructs sparse events, retrieves causal memories, predicts each candidate's sensory consequences, evaluates independent uncertainty, and learns through gated local updates and replay. Its pre-registered synthetic contract and real-camera check pass. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning; transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. The camera captures no audio and retains no photograph. These are declared-fixture engineering results, not AGI, biological equivalence, semantic recognition, or uncontrolled-scene competence. See [the architecture](components/Zoe-Autonomy/EVENT-CAUSAL.md) and [complete iLab integration catalog](components/Zoe-Autonomy/ILAB-INTEGRATION.md).
+
 ## Four-capability autonomy evaluation
 
 ```bash

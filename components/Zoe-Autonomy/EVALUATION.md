@@ -54,10 +54,14 @@ Across the documented RGB pop-out and its horizontal reflection, the visual-fiel
 
 This is a measured integration gap, not evidence that Zoe cannot ever support visual autonomy. The required engineering change is to derive a goal, candidate, value, or internal-state transition from the perceived visual measurement, then rerun this same counterfactual without weakening its condition.
 
-Evidence in the canonical repository:
+Evidence:
 
-- [`evidence/evaluation/synthetic.json`](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/evaluation/synthetic.json)
-- [`evidence/evaluation/camera.json`](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/evaluation/camera.json)
+- `evidence/evaluation/synthetic.json`
+- `evidence/evaluation/camera.json`
+
+## Separate event-causal result
+
+The newer `event-evaluate` path does not overwrite this negative result. It replaces scene-independent decisions with an event-causal architecture in which reconstructed event scenes change goals, candidate predictions, utility, and reversible attention transitions. Its pre-registered synthetic contract and real-camera conversion check pass. Compare the [event-causal report](event-causal/evaluation.json) with this document's original static-path failure. The two instruments measure different implementations; neither result may be used to rewrite the other.
 
 ## Camera boundary
 

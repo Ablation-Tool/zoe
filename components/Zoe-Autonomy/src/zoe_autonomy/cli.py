@@ -52,6 +52,13 @@ def parser():
     evaluate.add_argument("--full", action="store_true", help="print the complete evaluation report")
     verify_evaluation = commands.add_parser("verify-evaluation", help="verify autonomy-evaluation integrity and coverage consistency")
     verify_evaluation.add_argument("report")
+    event_evaluate = commands.add_parser("event-evaluate", help="evaluate event-causal active perception against pre-registered controls")
+    event_evaluate.add_argument("--protocol", help="pre-registered event-causal protocol JSON")
+    event_evaluate.add_argument("--camera", nargs="?", const="/dev/video0", help="also convert two real camera frames into events; default device: /dev/video0")
+    event_evaluate.add_argument("--output", help="new JSON event-causal evaluation path")
+    event_evaluate.add_argument("--full", action="store_true", help="print the complete event-causal evaluation")
+    verify_event = commands.add_parser("verify-event-evaluation", help="verify event-causal evaluation integrity and result consistency")
+    verify_event.add_argument("report")
     return result
 
 
@@ -136,6 +143,22 @@ def main(argv=None):
         if arguments.command == "verify-evaluation":
             from .evaluation import verify_evaluation
             print(json.dumps(verify_evaluation(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
+            return 0
+        if arguments.command == "event-evaluate":
+            from .event_evaluation import event_evaluation_summary, run_event_evaluation, save_event_evaluation
+            report = run_event_evaluation(
+                arguments.zoe_root,
+                protocol_path=arguments.protocol,
+                include_camera=arguments.camera if arguments.camera is not None else False,
+            )
+            output = save_event_evaluation(report, arguments.output) if arguments.output else None
+            print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) if arguments.full else event_evaluation_summary(report))
+            if output:
+                print(f"Evidence: {output} · evaluation_sha256={report['evaluation_sha256']}")
+            return 0 if report["overall"]["passed"] else 1
+        if arguments.command == "verify-event-evaluation":
+            from .event_evaluation import verify_event_evaluation
+            print(json.dumps(verify_event_evaluation(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         if arguments.command == "verify":
             forwarded = ["verify", arguments.report]
