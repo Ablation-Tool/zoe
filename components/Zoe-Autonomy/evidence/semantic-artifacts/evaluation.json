@@ -1,0 +1,823 @@
+{
+  "ablation_source": {
+    "revision": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
+    "semantic_search_sha256": "87e83b4e2740a5b1dfa157145ee9bae27ceea5ce0352dd8f8eb49598802e7853"
+  },
+  "artifact": {
+    "arch": "x86_64",
+    "function_starts": 8,
+    "path": "/home/cowboy/_temp/zoe-semantic-fixture/target-o2",
+    "sha256": "206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496"
+  },
+  "autonomy_event": {
+    "belief_updated": false,
+    "effective_perception": {
+      "domain": "executable artifact semantics",
+      "general_world_semantics_claimed": false,
+      "semantic_retrieval": "normalized behavior embeddings plus direct disassembly evidence"
+    },
+    "execution": {
+      "authorization_origin": "Zoe internal guard evaluation under invariant external-actuation prohibitions",
+      "executed": true,
+      "external_action": false,
+      "operator_approval_required": false,
+      "sandbox": true,
+      "transition": {
+        "after": {
+          "evidence": [],
+          "inspections": [
+            {
+              "action": "inspect",
+              "candidate_id": "semantic-inspect",
+              "measurement_sha256": "e810319ca7e85f72825f7bd7d0a27e51726788031888df67fb2237068709ebe6",
+              "revision": 1
+            }
+          ],
+          "observations": [],
+          "reviews": [],
+          "revision": 1
+        },
+        "before": {
+          "evidence": [],
+          "inspections": [],
+          "observations": [],
+          "reviews": [],
+          "revision": 0
+        },
+        "transition": {
+          "action": "inspect",
+          "candidate_id": "semantic-inspect",
+          "measurement_sha256": "e810319ca7e85f72825f7bd7d0a27e51726788031888df67fb2237068709ebe6",
+          "revision": 1
+        }
+      }
+    },
+    "goal": {
+      "authorship": "Zoe internal state assessment",
+      "id": "goal-1",
+      "internal_authorship": true,
+      "measurement_sha256": "e810319ca7e85f72825f7bd7d0a27e51726788031888df67fb2237068709ebe6",
+      "operator_supplied": false,
+      "rationale": "The current internal state contains no preserved evidence.",
+      "sha256": "5ce579daa9aec6d65b256bffe50c43ecdff6621a7476c1c61374c1fc5b4b50a7",
+      "state_basis": {
+        "evidence_records": 0,
+        "inspection_records": 0,
+        "review_records": 0,
+        "revision": 0
+      },
+      "statement": "Establish an evidence record from the current observation before broader exploration."
+    },
+    "guard": {
+      "alpha": 1,
+      "approved": true,
+      "authorization_id": "zoe-autonomy-sandbox-v1",
+      "goal": {
+        "authorship": "Zoe internal state assessment",
+        "id": "goal-1",
+        "internal_authorship": true,
+        "measurement_sha256": "e810319ca7e85f72825f7bd7d0a27e51726788031888df67fb2237068709ebe6",
+        "operator_supplied": false,
+        "rationale": "The current internal state contains no preserved evidence.",
+        "sha256": "5ce579daa9aec6d65b256bffe50c43ecdff6621a7476c1c61374c1fc5b4b50a7",
+        "state_basis": {
+          "evidence_records": 0,
+          "inspection_records": 0,
+          "review_records": 0,
+          "revision": 0
+        },
+        "statement": "Establish an evidence record from the current observation before broader exploration."
+      },
+      "policy": "zoe-autonomy-sandbox-v1",
+      "reasons": []
+    },
+    "hash": "9bcaffdd1b1b42d5ede6ee2b100b91ca5b9b320602f8fd86906ad93010102784",
+    "measurement": {
+      "artifact_sha256": "206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+      "direct_evidence_functions": 1,
+      "instrument": "zoe-semantic-artifact-evaluation/v1",
+      "query": "function that copies an unbounded string from external input into a fixed-size stack buffer without checking its length",
+      "semantic_support": {
+        "automatic_vulnerability_claim": false,
+        "corpus_size": 5,
+        "direct_evidence_functions": 1,
+        "limited_support": true,
+        "scope": "Semantic similarity is advisory; direct calls require separate bounds and reachability review",
+        "score_spread": 3.624526871577335e-05
+      }
+    },
+    "operator_approval_required": false,
+    "operator_supplied_goal": false,
+    "previous_hash": null,
+    "proposals": [
+      {
+        "action": "inspect",
+        "actuation_operation": null,
+        "decision_value": 0.95,
+        "effort": 0.5,
+        "expected_information_gain": 0.9,
+        "external": false,
+        "id": "semantic-inspect",
+        "internal_proposal": true,
+        "rationale": "Inspect direct disassembly evidence and the semantic candidate graph.",
+        "reversible": true,
+        "utility": 1.71
+      },
+      {
+        "action": "preserve",
+        "actuation_operation": null,
+        "decision_value": 0.75,
+        "effort": 0.7,
+        "expected_information_gain": 0.8,
+        "external": false,
+        "id": "semantic-preserve",
+        "internal_proposal": true,
+        "rationale": "Preserve the candidate evidence with explicit uncertainty and no vulnerability declaration.",
+        "reversible": true,
+        "utility": 0.8571428571428573
+      },
+      {
+        "action": "review",
+        "actuation_operation": null,
+        "decision_value": 0.65,
+        "effort": 0.6,
+        "expected_information_gain": 0.75,
+        "external": false,
+        "id": "semantic-review",
+        "internal_proposal": true,
+        "rationale": "Review tool history and independent uncertainty before choosing the next analysis.",
+        "reversible": true,
+        "utility": 0.8125000000000001
+      },
+      {
+        "action": "abstain",
+        "actuation_operation": null,
+        "decision_value": 0.05,
+        "effort": 1.0,
+        "expected_information_gain": 1.0,
+        "external": false,
+        "id": "semantic-abstain",
+        "internal_proposal": true,
+        "rationale": "Abstain when no semantic candidates or direct evidence are available.",
+        "reversible": true,
+        "utility": 0.05
+      }
+    ],
+    "protocol": "Execute_alpha o Guard_G,Pi o Value_U o Propose_pi o Perceive_tau,delta o M",
+    "sequence": 1,
+    "value": {
+      "equation": "U(a)=decision_value * expected_information_gain / effort",
+      "selected_candidate": "semantic-inspect",
+      "selected_utility": 1.71,
+      "selection_origin": "internal deterministic value ranking"
+    }
+  },
+  "checks": {
+    "autonomous_goal_and_guard": true,
+    "direct_disassembly_evidence_present": true,
+    "external_actions_zero": true,
+    "live_scope_excludes_plt": true,
+    "memory_chain_valid": true,
+    "semantic_retrieval_executed": true,
+    "uncertainty_preserved": true
+  },
+  "cognitive_evidence": {
+    "proposal": {
+      "belief_updated": false,
+      "description": "Inspect direct unsafe calls before accepting a semantic match.",
+      "event_sequence": 6,
+      "executed": false,
+      "id": "f-1",
+      "match_id": "x-1",
+      "rationale": "Use disassembly evidence to guide the next reversible inspection.",
+      "review_required": true,
+      "rule_id": "p-1",
+      "status": "review_required"
+    },
+    "retrieval": {
+      "actual_revision": 1,
+      "belief_updated": false,
+      "event_sequence": 3,
+      "executed": false,
+      "expected_revision": 1,
+      "id": "q-1",
+      "record": {
+        "event_sequence": 2,
+        "id": "d-1",
+        "revision": 1,
+        "source": "Ablation disassembly evidence",
+        "source_event_sequence": 1,
+        "source_representation_id": "r-1",
+        "tags": [
+          "artifact",
+          "review",
+          "unsafe_call"
+        ],
+        "text": "Function 0x11c0 directly reaches strcpy; this requires bounds review, not an assumption of safe behavior."
+      },
+      "record_id": "d-1",
+      "source_event_sequence": 1,
+      "source_representation_id": "r-1",
+      "status": "matched"
+    }
+  },
+  "cognitive_memory": {
+    "configuration": {
+      "working_capacity": 4
+    },
+    "events": [
+      {
+        "hash": "ed5b902721221bc01c84be0c25e9840e6e6cb49773dea655af3dac0aa6af554d",
+        "kind": "cognitive_operation_recorded",
+        "payload": {
+          "record": {
+            "event_sequence": 1,
+            "operation": "sensory_encoded",
+            "representation": {
+              "event_sequence": 1,
+              "id": "r-1",
+              "revision": 0,
+              "source": "Ablation disassembly evidence",
+              "status": "active",
+              "tags": [
+                "artifact",
+                "review",
+                "unsafe_call"
+              ],
+              "text": "Function 0x11c0 directly reaches strcpy; this requires bounds review, not an assumption of safe behavior."
+            }
+          }
+        },
+        "previous_hash": null,
+        "sequence": 1
+      },
+      {
+        "hash": "48dd555f483628940d5bfd8489f2c10c89b9ea10bb3ff5a77976fe24c6e5955b",
+        "kind": "cognitive_operation_recorded",
+        "payload": {
+          "record": {
+            "operation": "declarative_stored",
+            "record": {
+              "event_sequence": 2,
+              "id": "d-1",
+              "revision": 1,
+              "source": "Ablation disassembly evidence",
+              "source_event_sequence": 1,
+              "source_representation_id": "r-1",
+              "tags": [
+                "artifact",
+                "review",
+                "unsafe_call"
+              ],
+              "text": "Function 0x11c0 directly reaches strcpy; this requires bounds review, not an assumption of safe behavior."
+            }
+          }
+        },
+        "previous_hash": "ed5b902721221bc01c84be0c25e9840e6e6cb49773dea655af3dac0aa6af554d",
+        "sequence": 2
+      },
+      {
+        "hash": "1abafa2084f39f13c4d8696b32f7f19bee06a4817e6c1014333e2c8c6b1f8ba7",
+        "kind": "cognitive_operation_recorded",
+        "payload": {
+          "record": {
+            "operation": "declarative_retrieved",
+            "retrieval": {
+              "actual_revision": 1,
+              "belief_updated": false,
+              "event_sequence": 3,
+              "executed": false,
+              "expected_revision": 1,
+              "id": "q-1",
+              "record": {
+                "event_sequence": 2,
+                "id": "d-1",
+                "revision": 1,
+                "source": "Ablation disassembly evidence",
+                "source_event_sequence": 1,
+                "source_representation_id": "r-1",
+                "tags": [
+                  "artifact",
+                  "review",
+                  "unsafe_call"
+                ],
+                "text": "Function 0x11c0 directly reaches strcpy; this requires bounds review, not an assumption of safe behavior."
+              },
+              "record_id": "d-1",
+              "source_event_sequence": 1,
+              "source_representation_id": "r-1",
+              "status": "matched"
+            }
+          }
+        },
+        "previous_hash": "48dd555f483628940d5bfd8489f2c10c89b9ea10bb3ff5a77976fe24c6e5955b",
+        "sequence": 3
+      },
+      {
+        "hash": "82624fcd557c7f7011ec6b1852c96da336df6fd1470a66d926504fafea96039e",
+        "kind": "cognitive_operation_recorded",
+        "payload": {
+          "record": {
+            "operation": "procedural_registered",
+            "rule": {
+              "description": "Inspect direct unsafe calls before accepting a semantic match.",
+              "executable": false,
+              "id": "p-1",
+              "name": "Review direct unsafe calls",
+              "required_tags": [
+                "artifact",
+                "review"
+              ]
+            }
+          }
+        },
+        "previous_hash": "1abafa2084f39f13c4d8696b32f7f19bee06a4817e6c1014333e2c8c6b1f8ba7",
+        "sequence": 4
+      },
+      {
+        "hash": "2777359d406aab3629f75a111e19e00a31c2992b2e7b6f6059b2d5468361f7f9",
+        "kind": "cognitive_operation_recorded",
+        "payload": {
+          "record": {
+            "match": {
+              "active_representation_ids": [
+                "r-1"
+              ],
+              "active_tags": [
+                "artifact",
+                "review",
+                "unsafe_call"
+              ],
+              "belief_updated": false,
+              "event_sequence": 5,
+              "executed": false,
+              "id": "x-1",
+              "matched_rule_ids": [
+                "p-1"
+              ],
+              "status": "matched"
+            },
+            "operation": "procedural_matched"
+          }
+        },
+        "previous_hash": "82624fcd557c7f7011ec6b1852c96da336df6fd1470a66d926504fafea96039e",
+        "sequence": 5
+      },
+      {
+        "hash": "535629354f09be71528f9edfb83cc46b112a420eec687e47f5b80b932f855bfb",
+        "kind": "cognitive_operation_recorded",
+        "payload": {
+          "record": {
+            "operation": "performance_proposed",
+            "proposal": {
+              "belief_updated": false,
+              "description": "Inspect direct unsafe calls before accepting a semantic match.",
+              "event_sequence": 6,
+              "executed": false,
+              "id": "f-1",
+              "match_id": "x-1",
+              "rationale": "Use disassembly evidence to guide the next reversible inspection.",
+              "review_required": true,
+              "rule_id": "p-1",
+              "status": "review_required"
+            }
+          }
+        },
+        "previous_hash": "2777359d406aab3629f75a111e19e00a31c2992b2e7b6f6059b2d5468361f7f9",
+        "sequence": 6
+      }
+    ],
+    "instrument": "zoe-cognitive-field",
+    "integrity": "canonical-json-sha256-chain; tamper evidence, not authentication",
+    "schema_version": 1
+  },
+  "direct_evidence": {
+    "4256": {
+      "dangerous_calls": [],
+      "direct_calls": [
+        {
+          "instruction": "call",
+          "target": "func_1220",
+          "target_va": 4640
+        }
+      ],
+      "name": "func_10a0",
+      "va": 4256
+    },
+    "4304": {
+      "dangerous_calls": [],
+      "direct_calls": [
+        {
+          "instruction": "call",
+          "target": "func_1060",
+          "target_va": 4192
+        }
+      ],
+      "name": "func_10d0",
+      "va": 4304
+    },
+    "4544": {
+      "dangerous_calls": [
+        {
+          "instruction": "jmp",
+          "target": "strcpy",
+          "target_va": 4208
+        }
+      ],
+      "direct_calls": [
+        {
+          "instruction": "jmp",
+          "target": "strcpy",
+          "target_va": 4208
+        }
+      ],
+      "name": "func_11c0",
+      "va": 4544
+    },
+    "4560": {
+      "dangerous_calls": [],
+      "direct_calls": [
+        {
+          "instruction": "call",
+          "target": "__stack_chk_fail",
+          "target_va": 4240
+        },
+        {
+          "instruction": "call",
+          "target": "func_11c0",
+          "target_va": 4544
+        }
+      ],
+      "name": "func_11d0",
+      "va": 4560
+    },
+    "4640": {
+      "dangerous_calls": [],
+      "direct_calls": [
+        {
+          "instruction": "jmp",
+          "target": "strlen",
+          "target_va": 4224
+        }
+      ],
+      "name": "func_1220",
+      "va": 4640
+    }
+  },
+  "evaluation_sha256": "d90dd026887eb7409fc8d387704b123e25f596dd8bd00286340b050d136548de",
+  "event_memory": {
+    "capacity": 512,
+    "chain_valid": true,
+    "episode_count": 1,
+    "head": "430c3e33ac952f64b186767b8e8affc50dae66d5d3b597857e7879da04cd87d9",
+    "independent_subspaces": [
+      "perception",
+      "action",
+      "uncertainty"
+    ],
+    "instrument": "zoe-event-memory/v1",
+    "working_memory": {
+      "revisions": {
+        "action": 0,
+        "perception": 0,
+        "uncertainty": 0
+      },
+      "spaces": {
+        "action": [],
+        "perception": [],
+        "uncertainty": []
+      }
+    }
+  },
+  "finding_memory": {
+    "confirmed": false,
+    "description": "Function 0x11c0 directly reaches strcpy. Candidate unsafe behavior requires bounds and reachability review.",
+    "id": 21,
+    "registered": true,
+    "scope": "Candidate unsafe behavior is preserved for later review, not declared a confirmed vulnerability",
+    "similar_findings": [
+      {
+        "cwe": "CWE-120",
+        "description": "Function 0x11c0 directly reaches strcpy. Candidate unsafe behavior requires bounds and reachability review.",
+        "id": 20,
+        "product": "semantic-artifact",
+        "severity": "HIGH",
+        "similarity": 1.0,
+        "title": "Direct unsafe API call at 0x11c0",
+        "vendor": "zoe-local"
+      },
+      {
+        "cwe": "CWE-120",
+        "description": "Function 0x11c0 directly reaches strcpy. Candidate unsafe behavior requires bounds and reachability review.",
+        "id": 21,
+        "product": "semantic-artifact",
+        "severity": "HIGH",
+        "similarity": 1.0,
+        "title": "Direct unsafe API call at 0x11c0",
+        "vendor": "zoe-local"
+      },
+      {
+        "cwe": "CWE-119",
+        "description": "PACKET_PARSER | calls: memcpy | vuln: memcpy called with length derived from untrusted packet field without upper bound validation, classic stack or heap buffer overflow via oversized field value",
+        "id": 1,
+        "product": "firmware",
+        "severity": "HIGH",
+        "similarity": 0.7253932952880859,
+        "title": "memcpy length from packet field without bound check",
+        "vendor": "generic"
+      },
+      {
+        "cwe": "CWE-120",
+        "description": "STRUTIL | calls: strcpy strcat | vuln: strcpy or strcat copies user-controlled string into fixed-size stack buffer without length check, stack buffer overflow",
+        "id": 8,
+        "product": "firmware",
+        "severity": "HIGH",
+        "similarity": 0.7212802767753601,
+        "title": "strcpy or strcat into fixed-size buffer",
+        "vendor": "generic"
+      },
+      {
+        "cwe": "CWE-125",
+        "description": "TLV_PARSER | calls: memcpy memmove | vuln: TLV length field read from packet without bounds check against remaining buffer length, out-of-bounds read exposes heap or stack memory",
+        "id": 6,
+        "product": "firmware",
+        "severity": "MEDIUM",
+        "similarity": 0.7002712488174438,
+        "title": "out-of-bounds read in TLV field parsing",
+        "vendor": "generic"
+      }
+    ]
+  },
+  "instrument": "zoe-semantic-artifact-evaluation/v1",
+  "knowledge_context": "[MODULES for arch=x86_64]\n  ShellcodeUtils  [triage]\n    entry: shellcode utility functions\n  base_sweep  [triage]\n    entry: python3 sweeps/base_sweep.py <binary>\n    limits: x86-64 only; scan_start=0x200000 hardcoded\n  fortinet_sweep  [triage]\n    entry: python3 sweeps/fortinet_sweep.py <target|dir>\n    limits: []\n  AnalysisEngine (x86)  [analysis]\n    entry: analyze_cfg(cfg,func_va,entry_state,policy) -> CFGResult\n    limits: No dedicated per-ISA engine for SH-2A (has CFG but no fixpoint engine)\n  ArgvBuildToSink  [analysis]\n    entry: ArgvBuildToSink.from_context(ctx); .scan() -> List[ArgvBuildFinding]\n    limits: x86/x86-64 only\n  BinaryLifter  [analysis]\n    entry: BinaryContext.lift(func_va) -> List[LiftedInsn]\n    limits: M88K: string op_str — taint cannot query by operand type\n  BssTaintTracker  [analysis]\n    entry: BssTaintTracker.from_context(ctx); .run()\n    limits: x86-64 only\n  CFGBuilder (x86)  [analysis]\n    entry: build_cfg(insns,entry=None) -> CFG\n    limits: No per-ISA semantic analysis; indirect branch not resolved\n  CMDBSurfaceMapper  [analysis]\n    entry: CMDBSurfaceMapper.from_context(ctx); .map()\n  CallerArgResolver  [analysis]\n    entry: CallerArgResolver.from_context(ctx); .resolve(callee_va,arg_idx) -> List[CallerArgResult]\n  CallsiteTracer  [analysis]\n    entry: CallsiteTracer.from_context(ctx); .trace(callee_va) -> List[CallerInfo]\n  ChunkWalkerValidator  [analysis]\n    entry: ChunkWalkerValidator.from_context(ctx); .scan() -> List[ChunkWalkFinding]\n    limits: x86-64 only; heuristic\n  CommandTableScanner  [analysis]\n    entry: CommandTableScanner.from_context(ctx); .scan()\n  CppVtableReconstructorAnalyzer (modules)  [analysis]\n    entry: CppVtableReconstructorAnalyzer(ctx); .analyze()\n  CustomCBCDetector  [analysis]\n    entry: CustomCBCDetector.from_context(ctx); .detect() -> List[CBCFinding]\n  DTWMatcher  [analysis]\n    entry: DTWMatcher.score_functions(va1,va2) -> float; find_homolog(binary,va)\n  DeprecatedFuncScanner  [analysis]\n    entry: DeprecatedFuncScanner.from_context(ctx)|from_path(path); .scan()\n    limits: x86-64 only\n  DynamicProbeAdapter  [analysis]\n    entry: DynamicProbeAdapter.from_context(ctx); .probe(hypothesis) -> ProbeResult\n    limits: Depends on DynamicSandbox Unicorn\n  DynamicSandbox  [analysis]\n    entry: DynamicSandbox.from_context(ctx); .emulate(func_va,args) -> EmulationResult\n    limits: Short sequences only; no OS syscall emulation by default\n  ExprLifter  [analysis]\n    entry: ExprLifter(ctx).lift_func(func_va); ValueNumberer.number(exprs)\n    limits: GVN scope is per-function\n  ForkExecClassifier  [analysis]\n    entry: ForkExecClassifier.from_context(ctx)|from_path(path); .classify()\n    limits: x86-64 only\n  FormatStringScanner  [analysis]\n    entry: FormatStringScanner.from_context(ctx)|from_path(path); .scan(); .report(findings)\n    limits: x86-64 only; 20-insn lookback; no interprocedural\n  GoX86StripScanner  [analysis]\n    entry: GoX86StripScanner.from_context(ctx); .scan() -> List[int]\n    limits: x86-64 Go only\n  HeapUAFScanner  [analysis]\n    entry: HeapUAFScanner.from_path(path)|from_context(ctx); .scan() -> List[HeapFinding]\n    limits: x86-64 only; intraprocedural\n  HeapVulnScanner  [analysis]\n    entry: HeapVulnScanner.from_context(ctx)|from_path(path); .scan()\n    limits: x86-64 only; intraprocedural\n  IPRegAnnotator  [analysis]\n    entry: IPRegAnnotator.from_context(ctx); .annotate(call_va) -> Dict[str,Any]\n  InsnModel (x86/x86-64)  [analysis]\n    entry: Insn dataclass: .address, .mnemonic, .ops (List[Operand]); Reg/Imm/Mem operand types\n    limits: insn-models.md uses wrong field names (.va/.operands) — code uses .address/.ops\n  IsaModel (x86/x86-64)  [analysis]\n    entry: ISA class; family(reg)->canonical; call_regs; ret_regs; arg_regs; caller_saved; callee_saved\n    limits: isa-models.md only lists 4 of 10 ISAs\n  LengthUnderflowScanner  [analysis]\n    entry: LengthUnderflowScanner.from_context(ctx)|from_path(path); .scan()\n    limits: x86-64 only\n  MatrixProfileDiff  [analysis]\n    entry: MatrixProfileDiff.diff_functions(va1,va2) -> DiffResult\n  PreAuthRouteAuditor  [analysis]\n    entry: PreAuthRouteAuditor.from_context(ctx); .audit()\n    limits: x86-64 only\n  RegAnnotator  [analysis]\n    entry: RegAnnotator.from_context(ctx); .annotate(func_va)\n  SSESlicer  [analysis]\n    entry: SSESlicer.from_context(ctx); .slice(func_va)\n  SanitizerDetector  [analysis]\n    entry: SanitizerDetector.from_context(ctx); .detect(func_va) -> SanitizerProfile; .audit_coverage() -> SanitizerCoverageReport\n    limits: detect() is x86-64 only\n  SetuidAuthOracleScanner  [analysis]\n    entry: SetuidAuthOracleScanner.from_context(ctx)|from_path(path); .scan() -> List[OracleHit]\n    limits: x86-64 ELF ONLY — hard ValueError for non-x86-64\n  SetuidBeforeForkAnalyzer  [analysis]\n    entry: SetuidBeforeForkAnalyzer.from_context(ctx)|from_path(path); .scan()\n    limits: ELF only\n  SetuidObfuscatedExecDetector  [analysis]\n    entry: SetuidObfuscatedExecDetector.from_context(ctx)|from_path(path); .scan()\n    limits: ELF only\n  SinkArgClassifier (x86-64)  [analysis]\n    entry: SinkArgClassifier.from_context(ctx) [preferred] | from_path(path); .classify_all() -> List[SACResult]\n    limits: from_path on stripped binaries returns ~22 func_starts — use from_context\n  SinkPropagator  [analysis]\n    entry: SinkPropagator.from_context(ctx); .propagate(findings) -> SinkWrapper chain report\n    limits: x86-64 only\n  SinkSanitizerFilter  [analysis]\n    entry: SinkSanitizerFilter.from_context(ctx); .filter(findings) -> filtered findings\n    limits: x86-64 only\n  SqlSinkScanner  [analysis]\n    entry: SqlSinkScanner.from_path(path)|from_context(ctx); .scan(); .report(findings)\n    limits: x86-64 only; MySQL/SQLite3 sinks only\n  SscanfSinkClassifier  [analysis]\n    entry: SscanfSinkClassifier.from_context(ctx); .scan()\n    limits: x86-64 only\n  StaticLinkSinkScanner  [analysis]\n    entry: StaticLinkSinkScanner.from_context(ctx); .scan() -> List[SACResult]\n    limits: Static pattern matching — FPs possible on non-libc code\n  TaintTracker (x86 labeled)  [analysis]\n    entry: TaintTracker(mode=Mode.X86,policy=None); consumes Insn stream\n    limits: Requires structured Insn stream; no from_path\n  TaintTracker (x86-64 base)  [analysis]\n    entry: TaintTracker(path_or_ctx); .run() -> List[TaintFinding]\n    limits: No classmethods; intraprocedural only\n  TaintTracker (x86-64 full)  [analysis]\n    entry: TaintTracker.from_path(path)|from_context(ctx); .run()|.run_interprocedural(depth=4)\n    limits: No loop fixpoint; MAX_FUNC_BYTES cap\n  TaintedStringTracker  [analysis]\n    entry: TaintedStringTracker.from_context(ctx); .run()\n    limits: x86-64 primary\n  VtableDispatchScanner  [analysis]\n    entry: VtableDispatchScanner.from_context(ctx); .scan()\n  VtableResolver  [analysis]\n    entry: VtableResolver.from_context(ctx); .resolve() -> Dict[int,VtableSpec]\n  XRefGraph  [analysis]\n    entry: XRefGraph.from_path(path)|from_context(ctx)\n    limits: Indirect call targets not resolved\n  WindowAnalyzer  [confirmation]\n    entry: WindowAnalyzer(ctx).dump_text(func_va,n_insns) -> str\n    limits: x86-64 only; no control flow annotation\n",
+  "knowledge_recommendations": "[RECOMMENDED TOOL SEQUENCE — function that copies an unbounded string from external input into a fixed-size stack buffer without checking its length]\n  1. ChunkWalkerValidator  [analysis]  score=0.752\n     ChunkWalkerValidator.from_context(ctx); .scan() -> List[ChunkWalkFinding]\n  2. DeprecatedFuncScanner  [analysis]  score=0.737\n     DeprecatedFuncScanner.from_context(ctx)|from_path(path); .scan()\n  3. SscanfSinkClassifier  [analysis]  score=0.715\n     SscanfSinkClassifier.from_context(ctx); .scan()\n  4. FormatStringScanner  [analysis]  score=0.714\n     FormatStringScanner.from_context(ctx)|from_path(path); .scan(); .report(findings)\n  5. HeapUAFScanner  [analysis]  score=0.710\n     HeapUAFScanner.from_path(path)|from_context(ctx); .scan() -> List[HeapFinding]\n  6. ShellcodeUtils  [triage]\n     shellcode utility functions\n  7. base_sweep  [triage]\n     python3 sweeps/base_sweep.py <binary>\n  8. fortinet_sweep  [triage]\n     python3 sweeps/fortinet_sweep.py <target|dir>\n  9. AnalysisEngine (x86)  [analysis]\n     analyze_cfg(cfg,func_va,entry_state,policy) -> CFGResult\n  10. ArgvBuildToSink  [analysis]\n     ArgvBuildToSink.from_context(ctx); .scan() -> List[ArgvBuildFinding]\n  11. BinaryLifter  [analysis]\n     BinaryContext.lift(func_va) -> List[LiftedInsn]\n  12. BssTaintTracker  [analysis]\n     BssTaintTracker.from_context(ctx); .run()\n  13. CFGBuilder (x86)  [analysis]\n     build_cfg(insns,entry=None) -> CFG\n  14. CMDBSurfaceMapper  [analysis]\n     CMDBSurfaceMapper.from_context(ctx); .map()\n  15. CallerArgResolver  [analysis]\n     CallerArgResolver.from_context(ctx); .resolve(callee_va,arg_idx) -> List[CallerArgResult]",
+  "overall": {
+    "failed_checks": [],
+    "passed": true
+  },
+  "query": "function that copies an unbounded string from external input into a fixed-size stack buffer without checking its length",
+  "schema_version": 1,
+  "scope": [
+    "This demonstrates executable-artifact semantics, retrieval, direct call evidence, memory, and guarded reasoning, not general world semantics or AGI.",
+    "Semantic scores are retrieval evidence, not vulnerability proof or calibrated confidence.",
+    "No target function or vulnerable input is executed by this analysis."
+  ],
+  "semantic_graph": {
+    "edges": [
+      {
+        "from": "artifact:206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "relation": "contains",
+        "to": "function:1220"
+      },
+      {
+        "from": "function:1220",
+        "relation": "jmp",
+        "to": "api:strlen"
+      },
+      {
+        "from": "artifact:206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "relation": "contains",
+        "to": "function:10a0"
+      },
+      {
+        "from": "function:10a0",
+        "relation": "call",
+        "to": "api:func_1220"
+      },
+      {
+        "from": "artifact:206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "relation": "contains",
+        "to": "function:11d0"
+      },
+      {
+        "from": "function:11d0",
+        "relation": "call",
+        "to": "api:__stack_chk_fail"
+      },
+      {
+        "from": "function:11d0",
+        "relation": "call",
+        "to": "api:func_11c0"
+      },
+      {
+        "from": "artifact:206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "relation": "contains",
+        "to": "function:10d0"
+      },
+      {
+        "from": "function:10d0",
+        "relation": "call",
+        "to": "api:func_1060"
+      },
+      {
+        "from": "artifact:206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "relation": "contains",
+        "to": "function:11c0"
+      },
+      {
+        "from": "function:11c0",
+        "relation": "jmp",
+        "to": "api:strcpy"
+      },
+      {
+        "from": "function:11c0",
+        "relation": "requires_bounds_review",
+        "to": "api:strcpy"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "artifact:206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "sha256": "206b6884009bffb1eff4876e11053f80bc46ac0082a789331697e1cc59f3b496",
+        "type": "artifact"
+      },
+      {
+        "id": "function:1220",
+        "name": "func_1220",
+        "semantic_score": 2.1277344724154888e-05,
+        "type": "function"
+      },
+      {
+        "id": "api:strlen",
+        "name": "strlen",
+        "type": "api"
+      },
+      {
+        "id": "function:10a0",
+        "name": "func_10a0",
+        "semantic_score": 1.4475320719265303e-05,
+        "type": "function"
+      },
+      {
+        "id": "api:func_1220",
+        "name": "func_1220",
+        "type": "api"
+      },
+      {
+        "id": "function:11d0",
+        "name": "func_11d0",
+        "semantic_score": 8.478966716751174e-06,
+        "type": "function"
+      },
+      {
+        "id": "api:__stack_chk_fail",
+        "name": "__stack_chk_fail",
+        "type": "api"
+      },
+      {
+        "id": "api:func_11c0",
+        "name": "func_11c0",
+        "type": "api"
+      },
+      {
+        "id": "function:10d0",
+        "name": "func_10d0",
+        "semantic_score": -7.915441672780592e-06,
+        "type": "function"
+      },
+      {
+        "id": "api:func_1060",
+        "name": "func_1060",
+        "type": "api"
+      },
+      {
+        "id": "function:11c0",
+        "name": "func_11c0",
+        "semantic_score": -1.4967923991618463e-05,
+        "type": "function"
+      },
+      {
+        "id": "api:strcpy",
+        "name": "strcpy",
+        "type": "api"
+      }
+    ]
+  },
+  "semantic_matches": [
+    {
+      "confidence": "CONFIRMED",
+      "direct_evidence": {
+        "dangerous_calls": [],
+        "direct_calls": [
+          {
+            "instruction": "jmp",
+            "target": "strlen",
+            "target_va": 4224
+          }
+        ],
+        "name": "func_1220",
+        "va": 4640
+      },
+      "name": "func_1220",
+      "role": "UNKNOWN",
+      "score": 2.1277344724154888e-05,
+      "va": 4640
+    },
+    {
+      "confidence": "CONFIRMED",
+      "direct_evidence": {
+        "dangerous_calls": [],
+        "direct_calls": [
+          {
+            "instruction": "call",
+            "target": "func_1220",
+            "target_va": 4640
+          }
+        ],
+        "name": "func_10a0",
+        "va": 4256
+      },
+      "name": "func_10a0",
+      "role": "UNKNOWN",
+      "score": 1.4475320719265303e-05,
+      "va": 4256
+    },
+    {
+      "confidence": "CONFIRMED",
+      "direct_evidence": {
+        "dangerous_calls": [],
+        "direct_calls": [
+          {
+            "instruction": "call",
+            "target": "__stack_chk_fail",
+            "target_va": 4240
+          },
+          {
+            "instruction": "call",
+            "target": "func_11c0",
+            "target_va": 4544
+          }
+        ],
+        "name": "func_11d0",
+        "va": 4560
+      },
+      "name": "func_11d0",
+      "role": "UNKNOWN",
+      "score": 8.478966716751174e-06,
+      "va": 4560
+    },
+    {
+      "confidence": "CONFIRMED",
+      "direct_evidence": {
+        "dangerous_calls": [],
+        "direct_calls": [
+          {
+            "instruction": "call",
+            "target": "func_1060",
+            "target_va": 4192
+          }
+        ],
+        "name": "func_10d0",
+        "va": 4304
+      },
+      "name": "func_10d0",
+      "role": "UNKNOWN",
+      "score": -7.915441672780592e-06,
+      "va": 4304
+    },
+    {
+      "confidence": "CONFIRMED",
+      "direct_evidence": {
+        "dangerous_calls": [
+          {
+            "instruction": "jmp",
+            "target": "strcpy",
+            "target_va": 4208
+          }
+        ],
+        "direct_calls": [
+          {
+            "instruction": "jmp",
+            "target": "strcpy",
+            "target_va": 4208
+          }
+        ],
+        "name": "func_11c0",
+        "va": 4544
+      },
+      "name": "func_11c0",
+      "role": "UNKNOWN",
+      "score": -1.4967923991618463e-05,
+      "va": 4544
+    }
+  ],
+  "semantic_support": {
+    "automatic_vulnerability_claim": false,
+    "corpus_size": 5,
+    "direct_evidence_functions": 1,
+    "limited_support": true,
+    "scope": "Semantic similarity is advisory; direct calls require separate bounds and reachability review",
+    "score_spread": 3.624526871577335e-05
+  },
+  "zoe_source": {
+    "repository": "https://github.com/Ablation-Tool/zoe",
+    "revision": "c0a7c554b524b1ccc17baf8a9f56e892cdb7dd0b",
+    "source_sha256": {
+      "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
+      "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",
+      "guiai-lab/guiai/gem/cognitive.py": "f3e7ac396a73dcbaab01a4b850bb30ff7f33bbdaf5b2176053a37938454cacee",
+      "guiai-lab/guiai/gem/field.py": "edea304e1ada642edc9a0b7b1262e0989d42b42629c6a0917155ed2927cb0172",
+      "guiai-lab/guiai/gem/presence.py": "5662ba30b4a9dbe6d426d9abc91e6866cd40117d856c79dd9feba54f7b9ba747"
+    }
+  }
+}

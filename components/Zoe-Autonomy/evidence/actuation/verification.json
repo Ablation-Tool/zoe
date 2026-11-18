@@ -1,0 +1,21 @@
+{
+  "audit_events": 6,
+  "audit_head_sha256": "0800e4a06f82ff08463ccd081a2e3624823832a8f40bbd9b4fee1494ef11f5ee",
+  "emergency_stop_verified": true,
+  "external_operations": 3,
+  "full_autonomy": true,
+  "instrument": "zoe-actuation-evidence-verification",
+  "internet_https_executed": true,
+  "internet_status": 200,
+  "local_host_executed": true,
+  "owner_grants": {
+    "hardware": true,
+    "host": true,
+    "network": true
+  },
+  "physical_hardware_executed": false,
+  "schema_version": 1,
+  "scope": "Owner-granted host, network, and hardware access on this computer. Host and public internet operations were real. Hardware evidence uses a virtual PTY and makes no physical-device claim.",
+  "verified": true,
+  "virtual_hardware_executed": true
+}

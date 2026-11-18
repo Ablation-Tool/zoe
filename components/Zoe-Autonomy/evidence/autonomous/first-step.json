@@ -1,0 +1,434 @@
+{
+  "capability_discovery": {
+    "agent_protocols": {
+      "available": true,
+      "reason": null
+    },
+    "browser_automation": {
+      "available": true,
+      "reason": null
+    },
+    "compute_environments": {
+      "available": true,
+      "reason": null
+    },
+    "connected_productivity_services": {
+      "available": true,
+      "reason": null
+    },
+    "hardware_instruments": {
+      "available": true,
+      "reason": null
+    },
+    "notifications": {
+      "available": true,
+      "reason": null
+    },
+    "persistent_research_memory": {
+      "available": true,
+      "reason": null
+    },
+    "research_apis": {
+      "available": true,
+      "reason": null
+    },
+    "rich_media": {
+      "available": true,
+      "ocr_available": true,
+      "reason": null
+    },
+    "scheduled_jobs": {
+      "available": true,
+      "reason": null
+    }
+  },
+  "execution": {
+    "error": null,
+    "executed": true,
+    "result": {
+      "audit_hash": "387af925d459d67c1a01710d60c852c5e6f32d5d9254891dc48452adde3b4b64",
+      "count": 1,
+      "provider": "crossref",
+      "query": "language model uncertainty",
+      "records": [
+        {
+          "doi": "10.20944/preprints202604.0920.v1",
+          "publisher": "MDPI AG",
+          "title": "Toward a Possibilistic Language Model: Grounding Large Language Model Uncertainty in Epistemic Support-Point Theory and Possibility Theory",
+          "url": "https://doi.org/10.20944/preprints202604.0920.v1"
+        }
+      ]
+    },
+    "succeeded": true
+  },
+  "goal": {
+    "authorship": "Zoe internal state assessment",
+    "id": "autonomous-goal-1",
+    "internal_authorship": true,
+    "kind": "research",
+    "operator_supplied": false,
+    "rationale": "No sourced research memory exists yet.",
+    "sha256": "98d408f05a03de1bdfe5dd06abfedcb6a33107139f1c2d8eaa9a7faa96a3c319",
+    "state_basis": {
+      "claims": 0,
+      "pending_capture": false,
+      "pending_source": false,
+      "previous_capability": null,
+      "previous_execution_failed": false,
+      "sources": 0,
+      "step_count": 0
+    },
+    "statement": "Establish an initial sourced research memory for the declared interest in model uncertainty."
+  },
+  "guard": {
+    "alpha": 1,
+    "approved": true,
+    "operator_approval_required": false,
+    "policy": "zoe-autonomous-capability-guard/v1",
+    "reasons": []
+  },
+  "guards": {
+    "step-1:browser.open": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:compute.self_check": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:instruments.simulated_identity": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:jobs.self_check": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:media.wav": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:memory.review": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:notifications.desktop": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:protocols.mcp_self_description": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:research.crossref": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    },
+    "step-1:services.github_user": {
+      "alpha": 1,
+      "approved": true,
+      "operator_approval_required": false,
+      "policy": "zoe-autonomous-capability-guard/v1",
+      "reasons": []
+    }
+  },
+  "instrument": "zoe-autonomous-capability-step",
+  "observation": {
+    "actuation": {
+      "emergency_stop": false,
+      "enabled_scopes": {
+        "hardware": true,
+        "host": true,
+        "network": true
+      },
+      "grant_present": true
+    },
+    "memory": {
+      "claims": 0,
+      "contradictions": 0,
+      "sources": 0
+    },
+    "observed_utc": "2026-11-17T08:58:23Z",
+    "pending_capture": false,
+    "pending_source": false,
+    "previous_capability": null,
+    "previous_execution_failed": false,
+    "sequence": 1
+  },
+  "operator_approval_required": false,
+  "operator_supplied_capability": false,
+  "operator_supplied_goal": false,
+  "previous_hash": null,
+  "proposals": [
+    {
+      "action": "research.crossref",
+      "availability_reason": null,
+      "available": true,
+      "capability": "research_apis",
+      "decision_value": 0.99,
+      "effort": 0.25,
+      "expected_information_gain": 0.9,
+      "id": "step-1:research.crossref",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "limit": 1,
+        "provider": "crossref",
+        "query": "language model uncertainty"
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.99; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [
+        "network"
+      ],
+      "utility": 3.564
+    },
+    {
+      "action": "compute.self_check",
+      "availability_reason": null,
+      "available": true,
+      "capability": "compute_environments",
+      "decision_value": 0.5,
+      "effort": 0.25,
+      "expected_information_gain": 0.8,
+      "id": "step-1:compute.self_check",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "argv": [
+          "/home/cowboy/security-tools/bin/python",
+          "-c",
+          "probabilities=[0.5,0.2,0.1,0.01]; print(sum(p > 0.05 for p in probabilities))"
+        ],
+        "timeout": 30
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.50; its selection utility is computed without operator ranking.",
+      "read_only": false,
+      "required_scopes": [
+        "host"
+      ],
+      "utility": 1.6
+    },
+    {
+      "action": "memory.review",
+      "availability_reason": null,
+      "available": true,
+      "capability": "persistent_research_memory",
+      "decision_value": 0.15,
+      "effort": 0.1,
+      "expected_information_gain": 0.75,
+      "id": "step-1:memory.review",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "operation": "review",
+        "recent_claims": 5
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.15; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [],
+      "utility": 1.1249999999999998
+    },
+    {
+      "action": "instruments.simulated_identity",
+      "availability_reason": null,
+      "available": true,
+      "capability": "hardware_instruments",
+      "decision_value": 0.2,
+      "effort": 0.1,
+      "expected_information_gain": 0.55,
+      "id": "step-1:instruments.simulated_identity",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "command": "*IDN?",
+        "driver": "simulated",
+        "name": "zoe-internal"
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.20; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [],
+      "utility": 1.1
+    },
+    {
+      "action": "services.github_user",
+      "availability_reason": null,
+      "available": true,
+      "capability": "connected_productivity_services",
+      "decision_value": 0.35,
+      "effort": 0.3,
+      "expected_information_gain": 0.65,
+      "id": "step-1:services.github_user",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "fields": [
+          "login",
+          "html_url"
+        ],
+        "path": "user"
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.35; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [
+        "host",
+        "network"
+      ],
+      "utility": 0.7583333333333333
+    },
+    {
+      "action": "browser.open",
+      "availability_reason": null,
+      "available": true,
+      "capability": "browser_automation",
+      "decision_value": 0.4,
+      "effort": 0.5,
+      "expected_information_gain": 0.85,
+      "id": "step-1:browser.open",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "capture": "captures/step-1.png",
+        "headless": true,
+        "url": "https://example.com/"
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.40; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [
+        "host",
+        "network"
+      ],
+      "utility": 0.68
+    },
+    {
+      "action": "media.wav",
+      "availability_reason": null,
+      "available": true,
+      "capability": "rich_media",
+      "decision_value": 0.15,
+      "effort": 0.2,
+      "expected_information_gain": 0.8,
+      "id": "step-1:media.wav",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "duration_seconds": 0.125,
+        "sample_rate": 8000
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.15; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [],
+      "utility": 0.6
+    },
+    {
+      "action": "protocols.mcp_self_description",
+      "availability_reason": null,
+      "available": true,
+      "capability": "agent_protocols",
+      "decision_value": 0.15,
+      "effort": 0.25,
+      "expected_information_gain": 0.75,
+      "id": "step-1:protocols.mcp_self_description",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "server": "zoe-internal",
+        "tool": "self_description",
+        "transport": "stdio"
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.15; its selection utility is computed without operator ranking.",
+      "read_only": true,
+      "required_scopes": [
+        "host"
+      ],
+      "utility": 0.44999999999999996
+    },
+    {
+      "action": "jobs.self_check",
+      "availability_reason": null,
+      "available": true,
+      "capability": "scheduled_jobs",
+      "decision_value": 0.15,
+      "effort": 0.3,
+      "expected_information_gain": 0.7,
+      "id": "step-1:jobs.self_check",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "argv": [
+          "/home/cowboy/security-tools/bin/python",
+          "-c",
+          "print('zoe-autonomous-job')"
+        ],
+        "id": "zoe-self-check",
+        "timeout": 30
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.15; its selection utility is computed without operator ranking.",
+      "read_only": false,
+      "required_scopes": [
+        "host"
+      ],
+      "utility": 0.35
+    },
+    {
+      "action": "notifications.desktop",
+      "availability_reason": null,
+      "available": true,
+      "capability": "notifications",
+      "decision_value": 0.15,
+      "effort": 0.15,
+      "expected_information_gain": 0.35,
+      "id": "step-1:notifications.desktop",
+      "internal_proposal": true,
+      "operator_supplied": false,
+      "parameters": {
+        "message": "Zoe completed autonomous step 1.",
+        "title": "Zoe One"
+      },
+      "rationale": "Zoe's research goal gives this internally constructed call value 0.15; its selection utility is computed without operator ranking.",
+      "read_only": false,
+      "required_scopes": [
+        "host"
+      ],
+      "utility": 0.35
+    }
+  ],
+  "protocol": "Execute o Guard o Value o Propose o Perceive o M",
+  "schema_version": 1,
+  "sequence": 1,
+  "step_sha256": "51e91ebee31c4f546f27671641e31e6e98568efd7a9c9ce1b3f1cf4176c6debd",
+  "value": {
+    "equation": "U(a)=decision_value * expected_information_gain / effort",
+    "selected_action": "research.crossref",
+    "selected_candidate": "step-1:research.crossref",
+    "selected_utility": 3.564,
+    "selection_origin": "Zoe internal deterministic value ranking over internally constructed capability calls"
+  }
+}
