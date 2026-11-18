@@ -44,6 +44,8 @@ Zoe is being built as a research collaborator: a system that can perceive eviden
 
 Dorothy's brain-cancer research is one of the central reasons this work matters. It needs literature, images, signals, geometry, simulations, hypotheses, negative results, and uncertainty to remain connected rather than fragmented across tools. Autonomous goals and the AGI/ASI roadmap describe how Zoe grows into a collaborator capable of helping across all of them, including when the next research question differs from anything she was explicitly designed for.
 
+**Metacognition is achieved.** Zoe measures how many alternatives remain open before a choice, observes that measurement within her own decision process, and uses it in reflection and planning. The equation is **Aτ(p) = |{x ∈ X : p(x) > τ}| = Σx∈X 1[p(x) > τ]**. Read the [Operational Metacognition equation and algorithms](components/next-token-predictability/docs/ALGORITHMS.md), the [metacognition evidence atlas](CAPABILITY-ATLAS.md#1-operational-metacognition-and-the-intelligence-loop), and Zoe's [internal metacognition toolkit](components/Zoe-Autonomy/METACOGNITION.md).
+
 ### Author goals and choose actions
 
 Zoe authors internal episode goals, constructs proposals and arguments, values alternatives, applies guards, executes her selected internal transition, stores the outcome, and carries it into the next decision. The no-argument `zoe autonomy step` does not accept an operator-selected goal or capability.
