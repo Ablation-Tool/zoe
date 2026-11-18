@@ -5,7 +5,7 @@ CFLAGS += -std=c11 -Wall -Wextra -Wpedantic -Werror
 
 .PHONY: all check clean
 
-all: $(BUILD_DIR)/libzoe_landscape.a $(BUILD_DIR)/test_zoe_landscape
+all: $(BUILD_DIR)/libzoe_landscape.a $(BUILD_DIR)/test_zoe_landscape $(BUILD_DIR)/zoe_landscape_demo
 
 $(BUILD_DIR):
 	mkdir -p $@
@@ -18,6 +18,9 @@ $(BUILD_DIR)/libzoe_landscape.a: $(BUILD_DIR)/zoe_landscape.o
 
 $(BUILD_DIR)/test_zoe_landscape: test_zoe_landscape.c zoe_landscape.h $(BUILD_DIR)/libzoe_landscape.a
 	$(CC) $(CFLAGS) test_zoe_landscape.c $(BUILD_DIR)/libzoe_landscape.a -lm -o $@
+
+$(BUILD_DIR)/zoe_landscape_demo: zoe_landscape_demo.c zoe_landscape.h $(BUILD_DIR)/libzoe_landscape.a
+	$(CC) $(CFLAGS) zoe_landscape_demo.c $(BUILD_DIR)/libzoe_landscape.a -lm -o $@
 
 check: all
 	$(BUILD_DIR)/test_zoe_landscape

@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static void make_provenance(zoe_provenance_t *provenance) {
     provenance->source_flags = 7u;
@@ -70,8 +71,35 @@ int main(void) {
     assert(restored->t_index == first->t_index);
     assert(restored->points[2].probability == first->points[2].probability);
     zoe_landscape_destroy(restored);
+    {
+        const uint64_t ids[] = {10u, 11u};
+        const float xs[] = {0.2f, 0.8f};
+        const float ys[] = {0.3f, 0.7f};
+        zoe_provenance_t sources[2];
+        zoe_probability_landscape_t *built;
+        make_provenance(&sources[0]);
+        make_provenance(&sources[1]);
+        built = zoe_landscape_from_arrays(
+            ZOE_DOMAIN_ACTION, 9u, 0.05f, 0u, "array-test",
+            ids, xs, ys, second_probs, sources, 2u);
+        assert(built != NULL && built->num_points == 2u);
+        zoe_landscape_destroy(built);
+    }
+    assert(zoe_landscape_write_svg(first, "build/landscape.svg", 960u, 540u) == ZOE_LANDSCAPE_OK);
+    assert(zoe_landscape_write_svg(first, "build/landscape.svg", 960u, 540u) == ZOE_LANDSCAPE_ERROR_IO);
+    {
+        FILE *svg = fopen("build/landscape.svg", "rb");
+        char text[256];
+        size_t size;
+        assert(svg != NULL);
+        size = fread(text, 1u, sizeof(text) - 1u, svg);
+        text[size] = '\0';
+        assert(strstr(text, "<svg") != NULL);
+        fclose(svg);
+    }
     zoe_landscape_series_destroy(series);
     remove("build/landscape.bin");
+    remove("build/landscape.svg");
     puts("zoe_landscape: all checks passed");
     return 0;
 }

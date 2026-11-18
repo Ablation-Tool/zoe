@@ -380,6 +380,63 @@ static zoe_landscape_status_t write_exact(FILE *file, const void *data, size_t s
     return fwrite(data, 1u, size, file) == size ? ZOE_LANDSCAPE_OK : ZOE_LANDSCAPE_ERROR_IO;
 }
 
+zoe_landscape_status_t zoe_landscape_write_svg(
+    const zoe_probability_landscape_t *landscape,
+    const char *path,
+    unsigned int width,
+    unsigned int height) {
+    FILE *file;
+    int descriptor;
+    size_t index;
+    size_t count;
+    zoe_landscape_status_t status = ZOE_LANDSCAPE_OK;
+    if (landscape == NULL || path == NULL || width < 320u || height < 180u ||
+        width > 4096u || height > 2304u) {
+        return ZOE_LANDSCAPE_ERROR_INVALID;
+    }
+    count = zoe_landscape_compute_A_tau(landscape, landscape->tau);
+    descriptor = open(path, O_WRONLY | O_CREAT | O_EXCL, 0600);
+    if (descriptor < 0) {
+        return ZOE_LANDSCAPE_ERROR_IO;
+    }
+    file = fdopen(descriptor, "wb");
+    if (file == NULL) {
+        close(descriptor);
+        return ZOE_LANDSCAPE_ERROR_IO;
+    }
+    if (fprintf(file,
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"%u\" height=\"%u\" viewBox=\"0 0 %u %u\">\n"
+        "<title>Zoe probability landscape</title>\n"
+        "<rect width=\"100%%\" height=\"100%%\" fill=\"#080d1a\"/>\n"
+        "<text x=\"40\" y=\"46\" fill=\"#e2e8f0\" font-family=\"sans-serif\" font-size=\"24\">Zoe / Probability Landscape</text>\n"
+        "<text x=\"40\" y=\"76\" fill=\"#67e8f9\" font-family=\"monospace\" font-size=\"14\">A_tau=%zu tau=%.3f</text>\n",
+        width, height, width, height, count, landscape->tau) < 0) {
+        status = ZOE_LANDSCAPE_ERROR_IO;
+    }
+    for (index = 0u; status == ZOE_LANDSCAPE_OK && index < landscape->num_points; index += 1u) {
+        const zoe_landscape_point_t *point = &landscape->points[index];
+        float px = 40.0f + point->x * (width - 80.0f);
+        float py = height - 60.0f - point->y * (height - 150.0f);
+        float radius = 4.0f + point->probability * 20.0f;
+        unsigned int green = (unsigned int)(point->probability * 150.0f);
+        unsigned int blue = 255u - (unsigned int)(point->probability * 90.0f);
+        if (fprintf(file,
+            "<circle cx=\"%.2f\" cy=\"%.2f\" r=\"%.2f\" fill=\"#f0%02x%02x\" stroke=\"#e2e8f0\"/>\n"
+            "<text x=\"%.2f\" y=\"%.2f\" fill=\"#9fb1c8\" font-family=\"monospace\" font-size=\"12\">%llu</text>\n",
+            px, py, radius, green, blue, px, py - radius - 8.0f,
+            (unsigned long long)point->option_id) < 0) {
+            status = ZOE_LANDSCAPE_ERROR_IO;
+        }
+    }
+    if (fprintf(file, "</svg>\n") < 0) {
+        status = ZOE_LANDSCAPE_ERROR_IO;
+    }
+    if (fclose(file) != 0 && status == ZOE_LANDSCAPE_OK) {
+        status = ZOE_LANDSCAPE_ERROR_IO;
+    }
+    return status;
+}
+
 static zoe_landscape_status_t read_exact(FILE *file, void *data, size_t size) {
     return fread(data, 1u, size, file) == size ? ZOE_LANDSCAPE_OK : ZOE_LANDSCAPE_ERROR_FORMAT;
 }
