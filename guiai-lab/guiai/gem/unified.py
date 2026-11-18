@@ -6,6 +6,7 @@ import json
 import math
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 
@@ -31,6 +32,7 @@ class Component:
     runtime_checkout: str | None = None
     inspect_only: bool = False
     use_caller_cwd: bool = False
+    native_executable: str | None = None
 
 
 COMPONENTS = (
@@ -50,6 +52,7 @@ COMPONENTS = (
     Component("pdf", "PDF Signature Toolkit", "pdf-signature-toolkit", "https://github.com/Ablation-Tool/pdf-signature-toolkit", "1198165962958c5132130f3854626ff39c333941", "Reproducible source integrity records and detached PDF signatures", "pdf_signature_toolkit/verify.py", ("",), "pdf_signature_toolkit.verify", ("--help",)),
     Component("neurogarden", "Neurogarden Agent Logging", "agent-logging-system", "https://github.com/Ablation-Tool/zoe", None, "OT-inspired oversight, Trinity verification, cited learning, and teaching tools", "agent_logging_system/adapters/neurogarden_adapter.py", ("",), "", (), None, True),
     Component("chalkboard", "Chalkboard library", "Chalkboard", "https://github.com/Ablation-Tool/Chalkboard", "63646eb15737d822316073ba1f2114c608571c72", "Reusable ideas, templates, and prompts for knowledge engineering", "README.md", ("",), "", (), None, True),
+    Component("pala", "PALA Recovery", "PALA", "https://github.com/Ablation-Tool/zoe", "197e91b88b9c7bad185a21635a68aa6659dcec3b", "Read-only file carving, deleted-file recovery, metadata, checkpoints, and private non-overwriting output", "src/main.rs", (), "", ("--list",), native_executable="pala"),
 )
 
 
@@ -171,6 +174,18 @@ class ComponentRegistry:
         if identifier == "cerotto" and not arguments:
             raise ValueError("cerotto requires --db, --case, and --conversation; pass them after `--` or use the native case picker")
         source = self.source("gem" if component.runtime_checkout else identifier)
+        if component.native_executable:
+            target = Path(os.environ.get("CARGO_TARGET_DIR", source["path"] / "target")).expanduser()
+            if not target.is_absolute():
+                target = source["path"] / target
+            executable = component.native_executable + (".exe" if os.name == "nt" else "")
+            binary = target.resolve() / "release" / executable
+            if binary.is_file() and os.access(binary, os.X_OK):
+                return [str(binary), *arguments], source["path"]
+            cargo = shutil.which("cargo")
+            if cargo is None:
+                raise ValueError(f"PALA requires Rust; build it with `cargo build --manifest-path {source['path'] / 'Cargo.toml'} --release --locked`")
+            return [cargo, "run", "--release", "--locked", "--manifest-path", str(source["path"] / "Cargo.toml"), "--", *arguments], source["path"]
         if component.use_caller_cwd:
             cwd = Path.cwd()
         else:
@@ -204,8 +219,8 @@ class ComponentRegistry:
             "root": str(self.root),
             "entrypoint_count": len(rows),
             "repository_count": 1,
-            "source_project_count": 12,
-            "imported_repository_count": 12,
+            "source_project_count": 13,
+            "imported_repository_count": 13,
             "components": rows,
             "knowledge_engineering": {
                 "trust_context": "source, repository, revision, evidence scope, and authorization boundary",
@@ -321,14 +336,14 @@ def unified_scene(registry=None, knowledge=None):
     objects.extend([
         _centered_text("title", 960, 76, "Zoe · ALLGEMS", 44, "#e2e8f0"),
         _centered_text("subtitle", 960, 115, "A L L G E M S  /  THE RESEARCH UNIVERSE", 15, cyan),
-        _centered_text("scope", 960, 149, "16 ENGINES · 12 IMPORTED HISTORIES · 1 REPOSITORY · 42 VISUAL MAPS", 13, muted),
+        _centered_text("scope", 960, 149, "17 ENGINES · 13 IMPORTED HISTORIES · 1 REPOSITORY · 42 VISUAL MAPS", 13, muted),
         {"id": "header-rule", "type": "polyline", "points": [[650, 176], [1270, 176]], "stroke": "#1e3a5f", "fill": "none", "width": 1},
     ])
     center_x, center_y = 960, 630
     for radius in (150, 230, 310, 390, 450):
         objects.append(_ellipse(f"orbit-{radius}", [center_x, center_y], [radius, radius], "#162a44", "none", 1))
     ring_specs = [
-        (150, cyan, ("Zoe native shell", "Canonical GEM", "Zoe Autonomy", "Research GEM")),
+        (150, cyan, ("PALA Recovery", "Canonical GEM", "Zoe Autonomy", "Research GEM")),
         (230, pink, ("Ablation core engine", "Ablation GEM Lab", "Cerotto GEM", "HP-UX Tools")),
         (310, yellow, ("CERN Workbench", "Neurogarden", "Chalkboard", "BRAIN GEM")),
         (390, green, ("GEM HELEN", "Zoe Life", "PDF Signature Toolkit", "Kevlar MCP firewall")),
@@ -346,7 +361,7 @@ def unified_scene(registry=None, knowledge=None):
     objects.extend(_woven_diamond("identity-woven", [center_x, center_y], 110, "#f87171"))
     objects.append(_centered_text("identity-center-label", center_x, center_y + 9, "ZOE", 27, "#e2e8f0"))
     objects.extend([
-        _centered_text("loop", 960, 1098, "SENSE  →  MODEL  →  IMAGINE  →  DOUBT  →  CHOOSE  →  ACT  →  LEARN", 15, "#e2e8f0"),
+        _centered_text("loop", 960, 1098, "SENSE  >  MODEL  >  IMAGINE  >  DOUBT  >  CHOOSE  >  ACT  >  LEARN", 15, "#e2e8f0"),
         _centered_text("evidence", 960, 1134, f"{present}/{len(COMPONENTS)} SOURCE PRESENT · {knowledge_state['observation_count']} OBSERVATIONS · {knowledge_state['link_count']} LINKS · REPLAYABLE EVIDENCE", 11, green),
         _centered_text("memory", 960, 1164, "ONE REPOSITORY · ONE KNOWLEDGE FIELD · HUMAN CONTROL", 11, muted),
     ])

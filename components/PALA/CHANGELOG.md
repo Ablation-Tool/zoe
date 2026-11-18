@@ -6,6 +6,7 @@ Notable changes to PALA are recorded here. The format follows Keep a Changelog, 
 
 ### Added
 
+- Integrated PALA into the unified Zoe repository with complete Git history, component registration, `zoe pala`, and one-checkout verification.
 - Implemented `--version`, `--min-size`, and `-n/--count`; added strict unknown-option handling.
 - Added raw-device same-device refusal with the explicit `--allow-same-device` override.
 - Added SHA-256 deduplication state to checkpoints while retaining compatibility with older checkpoint files.

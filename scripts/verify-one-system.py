@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
+import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -39,12 +42,74 @@ def verify_import(item):
     return source_revision
 
 
+def verify_pala(manifest):
+    item = manifest["pala_recovery"]
+    checkout = ROOT / "components" / item["directory"]
+    cargo = shutil.which("cargo")
+    if cargo is None:
+        raise ValueError("PALA verification requires Cargo and a stable Rust toolchain")
+    commands = [
+        ("format", [cargo, "fmt", "--check"]),
+        ("clippy", [cargo, "clippy", "--locked", "--all-targets", "--", "-D", "warnings"]),
+        ("rust_tests", [cargo, "test", "--locked"]),
+        ("release_build", [cargo, "build", "--release", "--locked"]),
+        ("recovery_integration", [sys.executable, "tests/test_pala.py"]),
+    ]
+    records = []
+    outputs = {}
+    for name, command in commands:
+        completed = subprocess.run(
+            command, cwd=checkout, capture_output=True, text=True, timeout=300, check=False,
+        )
+        output = completed.stdout + completed.stderr
+        outputs[name] = output
+        if completed.returncode:
+            raise ValueError(f"PALA {name} failed:\n{output[-8000:]}")
+        records.append({"name": name, "argv": command, "returncode": completed.returncode})
+    plain = re.sub(r"\x1b\[[0-9;]*m", "", outputs["recovery_integration"])
+    integration = re.search(r"PASSED:\s+(\d+)", plain)
+    skipped = re.search(r"SKIPPED:\s+(\d+)", plain)
+    rust = re.search(r"test result: ok\.\s+(\d+) passed", outputs["rust_tests"])
+    if integration is None or rust is None:
+        raise ValueError("PALA test summaries could not be verified")
+    target = Path(os.environ.get("CARGO_TARGET_DIR", checkout / "target")).expanduser()
+    if not target.is_absolute():
+        target = checkout / target
+    binary = target.resolve() / "release" / ("pala.exe" if os.name == "nt" else "pala")
+    environment = os.environ.copy()
+    environment["ZOE_ROOT"] = str(ROOT)
+    environment["PYTHONPATH"] = str(ROOT / "guiai-lab")
+    version = subprocess.run([sys.executable, "-m", "guiai.gem.unified_cli", "pala", "--version"], cwd=ROOT, env=environment, capture_output=True, text=True, timeout=30, check=False)
+    listed = subprocess.run([sys.executable, "-m", "guiai.gem.unified_cli", "pala", "--list"], cwd=ROOT, env=environment, capture_output=True, text=True, timeout=30, check=False)
+    if version.returncode or listed.returncode or "jpeg" not in listed.stdout + listed.stderr:
+        raise ValueError(f"PALA zoe-command verification failed:\n{version.stdout + version.stderr + listed.stdout + listed.stderr}")
+    return {
+        "verified": True,
+        "source_revision": item["revision"],
+        "checks": records,
+        "rust_tests_passed": int(rust.group(1)),
+        "integration_passed": int(integration.group(1)),
+        "integration_skipped": int(skipped.group(1)) if skipped else 0,
+        "integration_total": int(integration.group(1)) + (int(skipped.group(1)) if skipped else 0),
+        "version": version.stdout.strip(),
+        "launcher": "zoe pala",
+        "launcher_verified": True,
+        "signature_list_verified": True,
+        "build_target": str(target.resolve()),
+        "binary_sha256": hashlib.sha256(binary.read_bytes()).hexdigest(),
+        "binary_bytes": binary.stat().st_size,
+        "raw_devices_accessed": False,
+        "test_inputs": "synthetic images and temporary filesystem fixtures only",
+    }
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Verify all Zoe One GEM hosts from the unified checkout")
     parser.add_argument("--output", help="new JSON verification path")
     parser.add_argument("--image", help="verify the same RGB image through every host")
     parser.add_argument("--foci", type=int, default=4, help="attention selections per host, from 1 to 8")
     parser.add_argument("--reflect", action="store_true", help="verify measured self-reflection in every host")
+    parser.add_argument("--pala", action="store_true", help="also build and verify PALA with its synthetic recovery suite")
     arguments = parser.parse_args(argv)
     if not 1 <= arguments.foci <= 8:
         raise ValueError("foci must be from 1 to 8")
@@ -54,7 +119,7 @@ def main(argv=None):
         raise ValueError("unsupported Zoe One manifest")
     checked_revisions = {
         item["id"]: verify_import(item)
-        for item in [manifest["canonical_engine"], manifest["research"], *manifest["hosts"]]
+        for item in [manifest["canonical_engine"], manifest["research"], manifest["pala_recovery"], *manifest["hosts"]]
     }
     reports = {}
     with tempfile.TemporaryDirectory(prefix="zoe-one-") as directory:
@@ -122,6 +187,7 @@ def main(argv=None):
     for identifier, report in reports.items():
         if report != reference:
             raise ValueError(f"{identifier} produced a different canonical autonomy profile")
+    pala_report = verify_pala(manifest) if arguments.pala else None
     result = {
         "schema_version": 1,
         "system": "Zoe One",
@@ -154,6 +220,8 @@ def main(argv=None):
             "replay_verified": True,
         },
     }
+    if pala_report is not None:
+        result["pala_recovery"] = pala_report
     if arguments.output:
         output = Path(arguments.output).expanduser().resolve()
         output.parent.mkdir(parents=True, exist_ok=True)

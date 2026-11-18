@@ -4,9 +4,9 @@
 
 **Zoe is one unified research and intelligence repository. The mission is to develop Zoe into a general research collaborator, advance through AGI to ASI, and continue beyond those labels through measurable, generalized self-improvement.**
 
-Zoe combines perception, semantic reverse engineering, Operational Metacognition, autonomous decisions, persistent memory, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
+Zoe combines perception, semantic reverse engineering, Operational Metacognition, autonomous decisions, persistent memory, data recovery, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
 
-**One repository. Twelve imported source histories. Twelve runtime source projects. Sixteen registered engines. No submodules or runtime source downloads.**
+**One repository. Thirteen imported source histories. Thirteen runtime source projects. Seventeen registered engines. No submodules or runtime source downloads.**
 
 [Quick start](#quick-start) · [AGI/ASI acceptance roadmap](AGI-ROADMAP.md) · [Complete capability atlas](CAPABILITY-ATLAS.md) · [Monorepo guide](MONOREPO.md) · [23-page research monograph](paper/zoe-research-universe.pdf) · [Research library](research/papers/README.md) · [Visual archive](research/visual-archive/README.md)
 
@@ -186,14 +186,24 @@ Sensors remain idle until explicitly started. See the [mobile guide](mobile/READ
 ### Protect research and investigate systems
 
 - **Cerotto:** guarded forensic cases, native C11 engine, timelines, carving, manifests, vault evidence, and response boundaries.
+- **PALA:** read-only filesystem-agnostic carving, deleted-inode recovery, NTFS cluster runs, FAT32 recovery, fragment merging, container expansion, metadata extraction, custom signatures, resumable checkpoints, JSON reports, and private non-overwriting output across media, documents, archives, executables, forensic artifacts, firmware, databases, and filesystem images.
 - **Kevlar:** MCP proxy firewall, policy enforcement, content disarm, and audit evidence.
 - **PDF Signature Toolkit:** reproducible source-integrity records and detached PKCS #7 signatures.
 - **Signed update capsules:** Ed25519 signatures, trusted-key checks, artifact verification, and separately gated acceptance plans.
 - **Evidence controls:** source hashes, no-overwrite exports, replay, negative results, reversible first actions, owner-granted scopes, and emergency stop.
 
-See [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), and the [PDF toolkit](components/pdf-signature-toolkit/README.md).
+See [Cerotto](components/cerotto/README.md), [PALA](components/PALA/README.md), [Kevlar](components/kevlar/README.md), and the [PDF toolkit](components/pdf-signature-toolkit/README.md).
 
-## Sixteen engines, one registry
+Build and inspect PALA's supported recovery types from this checkout:
+
+```bash
+cargo build --manifest-path components/PALA/Cargo.toml --release --locked
+zoe pala --list
+```
+
+Recovery requires an explicitly authorized source and a separate output destination: `zoe pala source.img /separate/output --json`. PALA opens sources read-only and never overwrites existing recoveries. See the [operator guide](components/PALA/docs/operations.md) before using raw devices. If the checkout's filesystem cannot execute compiled files, set `CARGO_TARGET_DIR=/dev/shm/zoe-pala` before building and launching.
+
+## Seventeen engines, one registry
 
 | Engine | Source | Role |
 |:---|:---|:---|
@@ -207,6 +217,7 @@ See [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.m
 | HP-UX Tools | `components/hpux-tools/` | SOM debugging and PA-RISC emulation |
 | Zoe Life | `guiai-lab/` | Cellular automata and reproducible scenes |
 | Cerotto GEM | `components/cerotto/` | Guarded digital forensics and vault evidence |
+| PALA Recovery | `components/PALA/` | Read-only carving, deleted-file recovery, and forensic evidence |
 | Research GEM | `components/next-token-predictability/` | Operational Metacognition and reproduction evidence |
 | Zoe Autonomy | `components/Zoe-Autonomy/` | Goals, valuation, perception, reflection, and action |
 | Kevlar | `components/kevlar/` | MCP firewall and policy engine |
@@ -230,7 +241,7 @@ zoe knowledge --output gem-knowledge.json
 
 ## Evidence and verification
 
-Current verified results include 64 Zoe-Autonomy tests, 64 vendored tests from the preserved pre-merge suite, 2,842 Ablation tests with 93 skips, six native stress tests, identical base/visual/reflection profiles across all six hosts, and 144 verified artifact identities. The unified monorepo verifier has also passed all six hosts directly from this checkout.
+Current verified results include 64 Zoe-Autonomy tests, 64 vendored tests from the preserved pre-merge suite, 2,842 Ablation tests with 93 skips, six native stress tests, identical base/visual/reflection profiles across all six hosts, and 144 verified artifact identities. PALA passes 25 Rust tests and 126 recovery integration checks with one optional skip; its locked release and real `zoe pala` launcher are verified in [the recovery evidence](evidence/pala/verification.json). The unified monorepo verifier has also passed all six hosts directly from this checkout.
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
@@ -240,6 +251,7 @@ PYTHONPATH=guiai-lab python -m unittest \
   stress.cognitive_stress stress.unified_stress -v
 
 python scripts/verify-one-system.py --reflect
+python scripts/verify-one-system.py --pala
 ```
 
 Evidence remains scoped to the input, instrument, and environment that produced it. Clinical treatment, physical hardware control, optional model backends, and unobserved environments require their own validation and authorization. AGI and ASI are the mission and acceptance thresholds defined in the roadmap, not a substitute for measured results.

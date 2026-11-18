@@ -5,7 +5,7 @@ edition     = "2021"
 license     = "MIT OR Apache-2.0"
 authors     = ["Nicholas Kloster"]
 description = "Filesystem-agnostic file carving and data recovery."
-repository  = "https://github.com/Ablation-Tool/PALA"
+repository  = "https://github.com/Ablation-Tool/zoe"
 
 [[bin]]
 name = "pala"

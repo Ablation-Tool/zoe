@@ -23,8 +23,8 @@ def test_ablation_is_bundled_in_the_unified_zoe_repository():
     manifest = registry.manifest()
     assert manifest["identity"] == "Zoe is allgems"
     assert manifest["repository_count"] == 1
-    assert manifest["source_project_count"] == 12
-    assert len(manifest["components"]) == 16
+    assert manifest["source_project_count"] == 13
+    assert len(manifest["components"]) == 17
     assert all(row["source"]["source_present"] for row in manifest["components"])
 
 
@@ -39,7 +39,7 @@ def test_zoe_cli_uses_unified_sources():
         cwd=ROOT, env=environment, check=True, capture_output=True, text=True,
     )
     rows = [line for line in result.stdout.splitlines() if line.strip()]
-    assert len(rows) == 16
+    assert len(rows) == 17
     assert all("present" in line for line in rows)
     launch = subprocess.run(
         [sys.executable, "-m", "guiai.gem.unified_cli", "launch", "ablation", "--", "--help"],

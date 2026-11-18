@@ -245,6 +245,17 @@ Guarded forensic cases and conversations, native C11 engine, timelines, carving,
 - **Validation:** [Cerotto tests](components/cerotto/tests/) · [Autonomy adapter tests](components/cerotto/tests/test_autonomy.py)
 - **Evidence:** [Cerotto documentation](components/cerotto/README.md) · [Cerotto investigation sources](components/cerotto/investigation/)
 
+### PALA Recovery
+
+PALA performs read-only filesystem-agnostic signature carving, deleted-inode recovery through Sleuth Kit, NTFS cluster-run reconstruction, FAT32 deleted-entry recovery, fragment merging, bounded container expansion, metadata extraction, custom PALA v1 signatures, triage presets, resumable checkpoints, and JSON reporting. It creates private non-overwriting output and requires an explicit source and destination. Its built-in types cover media, documents, archives, data, executables, forensic artifacts, firmware, databases, memory, network captures, and filesystem structures.
+
+- **Implementation:** [PALA recovery engine](components/PALA/src/main.rs) · [Custom corpus parser](components/PALA/src/corpus.rs) · [Zoe native launcher](guiai-lab/guiai/gem/pala_view.py) · [Component registration](guiai-lab/guiai/gem/unified.py) · [Operator guide](components/PALA/docs/operations.md)
+- **Validation:** [Rust unit tests](components/PALA/src/main.rs) · [127-case integration suite](components/PALA/tests/test_pala.py) · [Unified registry tests](guiai-lab/stress/unified_stress.py) · [One-checkout verifier](scripts/verify-one-system.py)
+- **Evidence:** [Integrated verification](evidence/pala/verification.json) · [Source provenance](components.lock.json) · [Security model](components/PALA/SECURITY.md)
+- **Run:** `cargo build --manifest-path components/PALA/Cargo.toml --release --locked`, then `zoe pala --list` or `zoe pala /authorized/source.img /separate/output --json`.
+
+PALA cannot recover overwritten data, decrypt encrypted content, guarantee arbitrary fragmented-file reconstruction, or establish forensic completeness. Raw-device work requires a separate explicit operator request and destination on a different physical device.
+
 ### Kevlar
 
 MCP proxy firewall, pure policy engine, content disarm, audit evidence, and explicit security operations.
@@ -315,9 +326,9 @@ Reusable ideas, templates, and prompts for research and knowledge engineering. C
 
 The current visual archive contains **456 byte-distinct visuals from 843 source occurrences**, with detailed explanation pages and provenance.
 
-## 15. Sixteen registered engines
+## 15. Seventeen registered engines
 
-The runtime registry exposes Zoe native shell, CERN Workbench, Ablation core, Ablation GEM Lab, Canonical GEM, GEM HELEN, BRAIN GEM, HP-UX Tools, Zoe Life, Cerotto GEM, Research GEM, Zoe Autonomy, Kevlar, PDF Signature Toolkit, Neurogarden, and Chalkboard.
+The runtime registry exposes Zoe native shell, CERN Workbench, Ablation core, Ablation GEM Lab, Canonical GEM, GEM HELEN, BRAIN GEM, HP-UX Tools, Zoe Life, Cerotto GEM, Research GEM, Zoe Autonomy, Kevlar, PDF Signature Toolkit, Neurogarden, Chalkboard, and PALA Recovery.
 
 - **Implementation:** [Authoritative registry](guiai-lab/guiai/gem/unified.py) · [Source locks](components.lock.json) · [Runtime and evidence contract](one-system.json)
 - **Validation:** [Unified source tests](guiai-lab/stress/unified_stress.py) · [Six-host verifier](scripts/verify-one-system.py)

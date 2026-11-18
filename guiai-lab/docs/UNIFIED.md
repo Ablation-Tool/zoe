@@ -1,6 +1,6 @@
 # Zoe · allgems: unified architecture and verification
 
-Zoe is one repository containing twelve runtime source projects, sixteen registered engines, twelve imported upstream histories, the complete research-paper collection, the visual archive, and arXiv submission sources. All tracked source is available in a fresh clone. No submodule, sibling checkout, or runtime source download is required.
+Zoe is one repository containing thirteen runtime source projects, seventeen registered engines, thirteen imported upstream histories, the complete research-paper collection, the visual archive, and arXiv submission sources. All tracked source is available in a fresh clone. No submodule, sibling checkout, or runtime source download is required.
 
 Ablation is both integrated under `components/ablation/` and independently maintained as a reverse-engineering project. The other former Zoe-family repositories have canonical homes in this tree. See [MONOREPO.md](../../MONOREPO.md) for the complete import manifest.
 
@@ -21,6 +21,7 @@ export ZOE_ROOT="$PWD"
 python scripts/verify-one-system.py
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
+python scripts/verify-one-system.py --pala
 ```
 
 The verifier:
@@ -41,12 +42,12 @@ The runtime registry reports:
 
 ```text
 repository_count = 1
-source_project_count = 12
-imported_repository_count = 12
-entrypoint_count = 16
+source_project_count = 13
+imported_repository_count = 13
+entrypoint_count = 17
 ```
 
-The sixteen engines are Zoe native shell, CERN Workbench, Ablation core, Ablation GEM Lab, Canonical GEM, GEM HELEN, BRAIN GEM, HP-UX Tools, Zoe Life, Cerotto GEM, Research GEM, Zoe Autonomy, Kevlar, PDF Signature Toolkit, Neurogarden, and Chalkboard.
+The seventeen engines are Zoe native shell, CERN Workbench, Ablation core, Ablation GEM Lab, Canonical GEM, GEM HELEN, BRAIN GEM, HP-UX Tools, Zoe Life, Cerotto GEM, Research GEM, Zoe Autonomy, Kevlar, PDF Signature Toolkit, Neurogarden, Chalkboard, and PALA Recovery.
 
 Chalkboard and Neurogarden are content/library inspection endpoints. The other engines launch only through explicit selection. Cerotto additionally requires a case database, case ID, and conversation ID.
 
@@ -57,9 +58,12 @@ zoe
 zoe list
 zoe show neurogarden
 zoe show chalkboard
+zoe pala --list
 zoe manifest --output gem-components.json
 zoe knowledge --output gem-knowledge.json
 ```
+
+PALA is the native Rust recovery engine. `zoe pala` uses `components/PALA/target/release/pala` when built, or invokes Cargo with `--release --locked`. Build it explicitly with `cargo build --manifest-path components/PALA/Cargo.toml --release --locked`. When `CARGO_TARGET_DIR` is set, both the launcher and verifier use `$CARGO_TARGET_DIR/release/pala`; this supports executable build locations such as `/dev/shm/zoe-pala` on filesystems that cannot execute compiled files. Supplying no recovery arguments lists supported types. Scanning and output always require separate explicit operator arguments.
 
 `ZOE_ROOT` should name the unified checkout. `ZOE_PYTHON` and `ZOE_PYTHON_DEPENDENCIES` can select an interpreter and additional dependency directories. Component working directories and Python paths remain explicit; unrelated host `PYTHONPATH` values are not inherited by launched components.
 
@@ -79,6 +83,7 @@ zoe knowledge --output gem-knowledge.json
 | Kevlar | `components/kevlar/` | `8ac3e0181e98572d6c41f964385393aa441a5f2a` |
 | PDF Signature Toolkit | `components/pdf-signature-toolkit/` | `1198165962958c5132130f3854626ff39c333941` |
 | Chalkboard | `components/Chalkboard/` | `63646eb15737d822316073ba1f2114c608571c72` |
+| PALA Recovery | `components/PALA/` | `197e91b88b9c7bad185a21635a68aa6659dcec3b`; complete local Git history; former remote unavailable |
 | Research papers | `research/papers/` | `c5d0c8c2a8eabbff1b72d2e96d19d6f637906bde` |
 | Visual archive | `research/visual-archive/` | `d9b8c69f631ee68bf527dd49dc2d300d60c056e4` |
 | arXiv sources | `research/arxiv/` | Complete preserved local source workspace |
@@ -129,6 +134,7 @@ Component-specific suites remain authoritative for their own domains:
 - Ablation: core, parser, analyzer, semantic, native Lab, and architecture tests.
 - Canonical GEM: integration, native, workbench, and VDI checks.
 - Cerotto: normal and sanitizer suites.
+- PALA: formatting, strict Clippy, locked Rust tests, release build, and synthetic byte-exact recovery integration tests.
 - Kevlar: full `pytest` suite.
 - BRAIN and HELEN: native workflow and shared-autonomy tests.
 - Research GEM: frozen evidence verifiers and the 17-operation workbench.
@@ -136,7 +142,7 @@ Component-specific suites remain authoritative for their own domains:
 - PDF signatures: synthetic source seal/verify and no-overwrite checks.
 - Mobile pairing: signed offers, QR roundtrip, replay, expiry, trust, and exact-document tests.
 
-Current integration verification includes 2,842 Ablation tests with 93 skips, 64 Zoe-Autonomy tests plus 64 vendored tests from the preserved pre-merge suite, six native stress tests, 62 focused Neurogarden tests, 68 normal and 68 sanitizer Cerotto tests with one environment-dependent skip in each, 149 Kevlar tests, and six identical host base/visual/reflection profiles. See `evidence/` and each component's own evidence directory for scope and command records.
+Current integration verification includes 2,842 Ablation tests with 93 skips, 64 Zoe-Autonomy tests plus 64 vendored tests from the preserved pre-merge suite, six native stress tests, 62 focused Neurogarden tests, 68 normal and 68 sanitizer Cerotto tests with one environment-dependent skip in each, 149 Kevlar tests, PALA's 25 Rust tests and 126 recovery integration checks with one optional skip, and six identical host base/visual/reflection profiles. See `evidence/` and each component's own evidence directory for scope and command records.
 
 No single command certifies every optional model backend, graphics driver, mobile device, external service, physical instrument, or production security boundary. Those require their own environment-specific checks.
 
