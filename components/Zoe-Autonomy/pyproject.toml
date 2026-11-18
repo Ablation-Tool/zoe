@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zoe-autonomy"
-version = "0.8.0"
+version = "0.8.1"
 description = "Operational full self-governing autonomy through Zoe and Accessible Volume"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -14,6 +14,7 @@ dependencies = []
 
 [project.optional-dependencies]
 perception = ["numpy>=2.3.5,<3", "Pillow>=10,<13"]
+semantic = ["fastembed>=0.3.0", "lief>=0.16.0", "capstone>=5.0.1", "pyelftools>=0.29"]
 
 [project.scripts]
 zoe-autonomy = "zoe_autonomy.cli:main"

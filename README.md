@@ -10,9 +10,11 @@
 
 Zoe contains **16 registered engines across 12 source projects**. Source trees are tracked in this repository, not downloaded when Zoe starts. The desktop is an OS-style user-space workbench, not a bootable operating system.
 
-[Quick start](#quick-start) · [Full Autonomy](#full-autonomy) · [One system](#one-system) · [Research](#research-priority-dorothy) · [Verification](#verification)
-
 ![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
+
+**[Download the illustrated 18-page Zoe Capability Prospectus](paper/zoe-capability-prospectus.pdf)** — metacognition, autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete component directory. [LaTeX source](paper/zoe-capability-prospectus.tex).
+
+[Quick start](#quick-start) · [Full Autonomy](#full-autonomy) · [Dorothy brain-cancer research and neural simulation](#dorothy-brain-cancer-research-and-neural-simulation) · [One system](#one-system) · [Research](#research-priority-dorothy) · [Verification](#verification)
 
 ## Quick start
 
@@ -72,6 +74,32 @@ Full autonomy means full self-government of Zoe's decision loop. The base experi
 - [Fresh replay verification](evidence/autonomy/verification.json)
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
 - [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
+
+## Semantic artifact analysis with Ablation
+
+```bash
+export ABLATION_ROOT=/path/to/canonical-ablation
+export PYTHONPATH="$PWD/components/Zoe-Autonomy/src:$PWD/guiai-lab:$ABLATION_ROOT"
+zoe autonomy semantic-evaluate --artifact /path/to/binary \
+  --state /path/to/semantic-state --output semantic-artifact.json
+zoe autonomy verify-semantic-evaluation semantic-artifact.json
+```
+
+Ablation contributes executable-artifact semantics: normalized behavioral retrieval, binary context, knowledge graphs, vulnerability evidence, and prior analysis memory. Zoe adds direct Capstone disassembly, Cognitive Field concepts, causal event memory, and guarded action. The real stripped-binary demonstration records `limited_support=true` rather than trusting weak embeddings, then finds `func_11c0` tail-jumping to `strcpy@plt` and selects `semantic-inspect` with zero external actions. This is reverse-engineering semantics, not general world semantics or AGI. See [the implementation and limits](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md) and [measured report](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json).
+
+## Dorothy brain-cancer research and neural simulation
+
+![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png)
+
+Dorothy honors **Dorothy McEwen Kildall**, who died of brain cancer on January 31, 2005. It is both a brain-cancer research mission and a set of executable teaching and simulation instruments—not merely an atlas or bibliography.
+
+- **Atlas and spatial inspection:** 12 verified Allen CCFv3 structures, 315,932 triangles, deterministic rendering, ontology Rings, volume-scaled Jenga, coronal Stacks, and SVG/PNG/GEM VDI export. These are mouse reference meshes, not patient anatomy or registration.
+- **Neural-signal simulation:** DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, and Shannon entropy on synthetic signals.
+- **Generative research world:** bounded, review-required experiments across biology, neuroscience, physics, CERN, GEM, and community research, with measurement and human review kept separate from clinical action.
+- **Numerical and biological models:** synthetic point-spread convolution and recovery, bounded SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic membership similarity, exact integer arithmetic, and fixed synthetic radiobiology examples with assumptions and omissions preserved.
+- **Research library:** 37 populated books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, including negative and contradictory source findings.
+
+Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), [advanced numerical models](components/agent-logging-system/agent_logging_system/neurogarden_advanced.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). These are teaching and research models, not a whole brain, patient simulation, diagnosis, treatment plan, or clinical authority.
 
 ## Event-Causal Active Perception
 

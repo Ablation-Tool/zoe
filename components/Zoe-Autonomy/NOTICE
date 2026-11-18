@@ -18,3 +18,12 @@ The iLab toolkit is Copyright (C) 2001-2005 by the University of Southern Califo
 Zoe's event-causal modules are independent Python adaptations, not the original iLab implementation and not a claim of endorsement by USC or iLab. VisualCortex, Brain, saliency, Bayesian surprise, visual memory, component composition, Beowulf, and reference tests inform the architecture; new event reconstruction, temporal prediction, independent uncertainty, gated plasticity, and evidence guards are Zoe-specific work. `ILAB-INTEGRATION.md` and `evidence/ilab/catalog.json` preserve per-file classification and reference-build modifications.
 
 The 2014 iLab source carries a pending-patent notice. Later public records list US8098886B2 as expired by lifetime on 2024-05-28 and US8515131B2 as expired fee-related effective 2025-08-20. These records are preserved for provenance and are not legal advice or an exhaustive patent clearance.
+
+
+Ablation semantic-artifact integration and modifications
+
+Ablation is developed by the Ablation-Tool contributors and distributed under GPL-3.0-or-later. Source: https://github.com/Ablation-Tool/ablation. The integration preserves that license and the original attribution. No upstream endorsement or vulnerability claim is implied.
+
+Canonical changes to `ablation/analyzers/semantic_search.py` apply `live_addrs` filtering after either SQL branch and apply the fitted PCA whitening transform to corpus and query vectors, with parameters preserved in cache files. Regression tests are included. The `BAAI/bge-small-en-v1.5` model is used through the existing fastembed dependency; its authors and license remain with their respective project.
+
+Zoe's `semantic_artifacts.py` composes Ablation with independent disassembly evidence and Zoe's own guard, memory, and evidence chain. A semantic similarity score is not a vulnerability determination or a statement about AGI.

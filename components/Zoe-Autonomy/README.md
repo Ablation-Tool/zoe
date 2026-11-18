@@ -6,6 +6,8 @@ The component combines Accessible Volume with the complete measurement–action 
 
 The component is the canonical engine in Zoe One. Host adapters delegate to this implementation rather than maintaining competing copies. The [one-system manifest](../../one-system.json) pins compatible revisions, and the [coordinated verification](../../evidence/one-system/verification.json) records identical profiles across all hosts. Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.
 
+The complete [18-page Zoe Capability Prospectus](../../paper/zoe-capability-prospectus.pdf) covers autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the component directory. [LaTeX source](../../paper/zoe-capability-prospectus.tex).
+
 ## Run inside Zoe
 
 From the Zoe repository root:
@@ -40,6 +42,16 @@ zoe-autonomy verify-event-evaluation event-camera-evaluation.json
 ```
 
 The event-causal engine connects sparse event reconstruction, causal memory, action-conditioned prediction, independent uncertainty, gated local learning, and reversible attention. Its pre-registered synthetic contract and real-camera check pass. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning; transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. No audio or photograph is retained, and this is not AGI, biological equivalence, or semantic recognition. See [the architecture](EVENT-CAUSAL.md), [evaluation evidence](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json), and [complete iLab integration catalog](ILAB-INTEGRATION.md).
+
+## Semantic artifact analysis with Ablation
+
+```bash
+zoe-autonomy semantic-evaluate --artifact /path/to/binary \
+  --state /path/to/semantic-state --output semantic-artifact.json
+zoe-autonomy verify-semantic-evaluation semantic-artifact.json
+```
+
+Ablation supplies behavioral retrieval, binary context, knowledge graphs, and finding history; Zoe adds direct disassembly, Cognitive Field concepts, causal event memory, and guarded action. The stripped fixture records `limited_support=true` while direct evidence finds `func_11c0` tail-jumping to `strcpy@plt`, producing `semantic-inspect` with zero external actions. This is reverse-engineering semantics, not general world semantics, vulnerability proof without bounds review, or AGI. See [the implementation and limits](SEMANTIC-ARTIFACTS.md) and [measured evidence](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json).
 
 ## Four-capability autonomy evaluation
 
