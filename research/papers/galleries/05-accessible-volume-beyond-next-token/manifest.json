@@ -1,6 +1,6 @@
 {
   "paper": "papers/05-accessible-volume-beyond-next-token.pdf",
-  "title": "Accessible Volume Beyond the Next Token",
+  "title": "Operational Metacognition Beyond the Next Token",
   "pdf_pages": 19,
   "extracted_images": [
     {
@@ -30,7 +30,7 @@
       "height": 900,
       "file": "figures/figure-004-page-007.png",
       "captions": [
-        "Figure 3: Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together."
+        "Figure 3: Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together."
       ]
     },
     {

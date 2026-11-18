@@ -2,7 +2,7 @@
 \part{Temporal, Geometric, Multi-Horizon, and Causal Extensions}
 
 \section{Next-onset forecasts}
-Accessible volume can be moved from token identity to time only when a model supplies a normalized distribution over a finite timing vocabulary. Let $H_i$ be the musical history before event $i$ and define
+Operational Metacognition can be moved from token identity to time only when a model supplies a normalized distribution over a finite timing vocabulary. Let $H_i$ be the musical history before event $i$ and define
 \begin{equation}
 \mathcal O_\delta=\{\delta,2\delta,\ldots,M\delta\},\qquad
 p_i(k)=P(\text{next onset occurs after }k\delta\mid H_i).
@@ -35,7 +35,7 @@ A separate controller could use
 a_{i+1}=\pi(\mathcal S_i,\text{candidates}_i,\text{goal},\text{constraints}).
 \label{eq:temporal-control}
 \end{equation}
-Equation~\eqref{eq:temporal-control} is a control hypothesis. Accessible volume supplies neither a reward nor a direction; goals, candidate semantics, and observed outcomes remain necessary.
+Equation~\eqref{eq:temporal-control} is a control hypothesis. Operational Metacognition supplies neither a reward nor a direction; goals, candidate semantics, and observed outcomes remain necessary.
 
 \section{Geometric comparison and temporal reflection}
 For corresponding one-dimensional onset vectors, restricted Procrustes alignment fits
@@ -57,7 +57,7 @@ A zero residual means exact agreement after this restricted alignment. It does n
 \subsection{Method}
 The synthetic study used eight motifs with 60 training and 20 held-out variations per motif. Tempo ranged from 65 to 150 beats per minute and intervals received Gaussian jitter with standard deviation 0.025 beats. Held-out variations shared their underlying motifs with training, so the experiment did not test unseen-motif generalization.
 
-The pipeline normalized intervals by seconds per beat, centered and unit-scaled trailing four-interval onset vectors, fitted eight $k$-means context clusters on training windows only, and trained a hierarchically smoothed categorical predictor using context cluster and the previous two interval bins. The target vocabulary had eight interval categories and smoothing $\alpha=4$. Accessible volume was evaluated over 100 thresholds from $0.005$ to $0.5$. Forward-trained prediction was evaluated on forward and reversed held-out sequences.
+The pipeline normalized intervals by seconds per beat, centered and unit-scaled trailing four-interval onset vectors, fitted eight $k$-means context clusters on training windows only, and trained a hierarchically smoothed categorical predictor using context cluster and the previous two interval bins. The target vocabulary had eight interval categories and smoothing $\alpha=4$. Operational Metacognition was evaluated over 100 thresholds from $0.005$ to $0.5$. Forward-trained prediction was evaluated on forward and reversed held-out sequences.
 
 \subsection{Results}
 \begin{table}[htbp]
@@ -73,7 +73,7 @@ Retrograde&59.0\%&2.899&0.839&1.31&0.649\\
 \bottomrule
 \end{tabular}
 \end{table}
-The exact seeded implementation produced 1,620 correct forward and 1,132 correct retrograde predictions among 1,920 per condition: 84.375\% and 58.958\%. Log-loss values were 0.338856 and 2.898662, with sweep areas 0.647474 and 0.649180. A deterministic linear-extrapolation baseline achieved 37.019\% forward and 32.837\% retrograde but supplied no probability distribution and therefore no accessible volume.
+The exact seeded implementation produced 1,620 correct forward and 1,132 correct retrograde predictions among 1,920 per condition: 84.375\% and 58.958\%. Log-loss values were 0.338856 and 2.898662, with sweep areas 0.647474 and 0.649180. A deterministic linear-extrapolation baseline achieved 37.019\% forward and 32.837\% retrograde but supplied no probability distribution and therefore no operational metacognition.
 
 \begin{figure}[htbp]
 \centering
@@ -81,7 +81,7 @@ The exact seeded implementation produced 1,620 correct forward and 1,132 correct
 \caption{Synthetic forward and retrograde accessible-volume sweeps. Similar breadth coexists with substantially different correctness and log-loss.}
 \label{fig:synthetic}
 \end{figure}
-Reversal reduced top-1 by 25.4 percentage points and greatly increased log-loss while mean accessible volume remained unchanged to two decimal places. Mean maximum probability also remained close. The retrograde predictor was often confidently wrong. This is a direct empirical separation of breadth, confidence, and correctness.
+Reversal reduced top-1 by 25.4 percentage points and greatly increased log-loss while mean operational metacognition remained unchanged to two decimal places. Mean maximum probability also remained close. The retrograde predictor was often confidently wrong. This is a direct empirical separation of breadth, confidence, and correctness.
 
 \section{Magenta Groove human-drumming experiment}
 \subsection{Data and matched reversal control}
@@ -116,7 +116,7 @@ Backward matched&17.06\%&55.52\%&\textbf{3.183}&0.060&1.886&0.899\\
 \end{table}
 The backward-matched model nearly recovered forward top-1 and top-5 performance and had numerically slightly lower log-loss. No significance test is claimed for that small difference. Direct reversal transfer performed worse. The supported conclusion is that reversed rhythms are learnable by the same model class, not that time reversal has no effect in every system.
 
-Mean maximum probabilities were 0.233 forward, 0.232 for reversal transfer, and 0.230 for backward matching. Mean accessible volume and sweep area again changed only slightly while accuracy and log-loss varied. Low top-1 is expected for fine-grained human timing over 192 categories and must not be compared directly with the eight-category synthetic task.
+Mean maximum probabilities were 0.233 forward, 0.232 for reversal transfer, and 0.230 for backward matching. Mean operational metacognition and sweep area again changed only slightly while accuracy and log-loss varied. Low top-1 is expected for fine-grained human timing over 192 categories and must not be compared directly with the eight-category synthetic task.
 
 \begin{figure}[htbp]
 \centering
@@ -127,7 +127,7 @@ Mean maximum probabilities were 0.233 forward, 0.232 for reversal transfer, and 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.97\textwidth]{groove-predictability-map.png}
-\caption{Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed.}
+\caption{Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed.}
 \label{fig:groove-map}
 \end{figure}
 
@@ -170,7 +170,7 @@ Under this model and quantization, jazz had the lowest top-1, highest log-loss, 
 \label{fig:nightingale-calibration}
 \end{figure}
 
-The repository also contains 18 listening excerpts stratified by genre and low, medium, or high $A_{0.1}$. Its browser interface requests a 1--5 surprise rating and exports data for Spearman correlations with accessible volume, entropy, negative log probability, and maximum probability. \textbf{No human correlation is reported}: real ratings remain pending and no synthetic judgments were substituted. Browser testing is interface validation, not perceptual evidence.
+The repository also contains 18 listening excerpts stratified by genre and low, medium, or high $A_{0.1}$. Its browser interface requests a 1--5 surprise rating and exports data for Spearman correlations with operational metacognition, entropy, negative log probability, and maximum probability. \textbf{No human correlation is reported}: real ratings remain pending and no synthetic judgments were substituted. Browser testing is interface validation, not perceptual evidence.
 
 \section{HOP: a rejected geometric predictor}
 The Harmonic Osculating Predictor (HOP) tested whether local hidden-state trajectories could be extrapolated as turning paths. The experiment evaluated 1,647 positions from extracted music-theory and classical-geometry chapters and repeated code using DistilGPT-2 \cite{distilgpt2}. Tokens were ranked through the learned output embedding, not an assumed cosine decoder.
@@ -207,9 +207,9 @@ HOP, two ahead&3.2\%&8.1\%\\
 \end{table}
 HOP lost decisively. For this model and text sample, hidden states did not follow these turning paths often enough to outperform linear velocity. This is a negative result for the tested construction, not a theorem against all geometric prediction.
 
-Several stronger interpretations are explicitly rejected: arbitrary states in $\mathbb R^d$ need not be collinear, so a four-point projective cross-ratio is not an established cadence detector; nonzero curvature alone does not imply error growth $\varepsilon e^{\kappa n}$; musical terms are metaphors unless independently operationalized; and learned multi-token systems such as Medusa or EAGLE do not validate this handcrafted rule. HOP supplies a point forecast, not a distribution, so it cannot supply accessible volume without separately calibrated and discretized errors.
+Several stronger interpretations are explicitly rejected: arbitrary states in $\mathbb R^d$ need not be collinear, so a four-point projective cross-ratio is not an established cadence detector; nonzero curvature alone does not imply error growth $\varepsilon e^{\kappa n}$; musical terms are metaphors unless independently operationalized; and learned multi-token systems such as Medusa or EAGLE do not validate this handcrafted rule. HOP supplies a point forecast, not a distribution, so it cannot supply operational metacognition without separately calibrated and discretized errors.
 
-\section{Multi-horizon accessible volume}
+\section{Multi-horizon operational metacognition}
 \subsection{Complete continuations}
 Let $C_t$ be an autoregressive context and $a_{1:h}=(a_1,\ldots,a_h)$ a complete candidate continuation. The learned conditional joint probability is
 \begin{equation}
@@ -217,7 +217,7 @@ P_h(a_{1:h}\mid C_t)=
 \prod_{j=1}^{h}p(a_j\mid C_{t+j-1},a_{<j}),
 \label{eq:joint-continuation}
 \end{equation}
-where each candidate prefix is carried into the next context. Multi-horizon accessible volume and its complement are
+where each candidate prefix is carried into the next context. Multi-horizon operational metacognition and its complement are
 \begin{align}
 A^{(h)}_\tau(C_t)&=\sum_{a_{1:h}\in\mathcal O^h}
 \indicator[P_h(a_{1:h}\mid C_t)>\tau],\label{eq:multi-horizon}\\
@@ -316,7 +316,7 @@ The toy pairs three accessible causal pasts at $\tau=0.20$ with three independen
 \end{figure}
 
 \section{Mirrored observation}
-The mirrored brain pairs forward and retrograde forecasts at the same held-out index $i$ while retaining each distribution independently. It records correctness, entropy, negative log probability, accessible volume, and
+The mirrored brain pairs forward and retrograde forecasts at the same held-out index $i$ while retaining each distribution independently. It records correctness, entropy, negative log probability, operational metacognition, and
 \begin{align}
 D_{\tau,i}&=A^{\mathrm{forward}}_{\tau,i}-A^{\mathrm{retrograde}}_{\tau,i},\\
 G_i&=\indicator\!\left[\arg\max_aP^{\mathrm{forward}}_i(a)

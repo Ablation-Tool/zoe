@@ -17,17 +17,17 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small Accessible Volume Beyond the Next Token}
+\fancyhead[L]{\small Operational Metacognition Beyond the Next Token}
 \fancyhead[R]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
-\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black,pdftitle={Accessible Volume Beyond the Next Token: Temporal Forecast Breadth, Reversal, and Multi-Horizon Continuations},pdfauthor={Nicholas Michael Kloster}]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black,pdftitle={Operational Metacognition Beyond the Next Token: Temporal Forecast Breadth, Reversal, and Multi-Horizon Continuations},pdfauthor={Nicholas Michael Kloster}]{hyperref}
 \usepackage{listings}
 \usepackage{embedfile}
 \embedfilesetup{stringmethod=escape}
 \lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible,keepspaces=true,showstringspaces=false}
 
-\title{\textbf{Accessible Volume Beyond the Next Token}\\[5pt]
+\title{\textbf{Operational Metacognition Beyond the Next Token}\\[5pt]
 \large Temporal Forecast Breadth, Reversal, and Multi-Horizon Continuations}
 \author{Nicholas Michael Kloster}
 \date{November 2026}
@@ -39,19 +39,19 @@
 \noindent\textbf{Sole authorship and research credit:} All research, the accessible-volume equation and its development, the experiments, and this paper are solely the work of \textbf{Nicholas Michael Kloster}. No other person is a creator, contributor, or coauthor. The original accessible-volume equation was created on \textbf{March 6, 2026}.
 
 \begin{abstract}
-Accessible volume counts the alternatives whose predicted probabilities strictly exceed a chosen threshold. This companion paper extends that measurement from next-token distributions to musical onset forecasts and multi-token continuations. Three rhythm experiments separate forecast breadth from correctness. In 514 human-performed drum performances with disjoint recording-session splits, a forward model achieved 17.33\% top-1 accuracy, direct reversal transfer achieved 16.01\%, and a matched model trained on reversed performances achieved 17.06\%. Their mean accessible volumes over the threshold sweep were 1.886, 1.885, and 1.886. Thus reversed rhythms were learnable, while nearly unchanged forecast breadth did not identify changes in correctness or log-loss. A second real-MIDI study found the broadest and least accurate forecasts in jazz under the tested categorical model. A deterministic Harmonic Osculating Predictor was rejected: its 11.3\% one-step top-1 accuracy trailed both linear extrapolation at 41.3\% and the language model at 46.6\%. We then define multi-horizon accessible volume over complete continuations, including its complement and exponential enumeration cost. This formulation measures how many multi-step futures remain plausible under a model; it does not guarantee their prediction. Volume-band steering is an implemented experimental control, not yet evidence of improved creativity, quality, reasoning, safety, or human surprise.
+Operational Metacognition counts the alternatives whose predicted probabilities strictly exceed a chosen threshold. This companion paper extends that measurement from next-token distributions to musical onset forecasts and multi-token continuations. Three rhythm experiments separate forecast breadth from correctness. In 514 human-performed drum performances with disjoint recording-session splits, a forward model achieved 17.33\% top-1 accuracy, direct reversal transfer achieved 16.01\%, and a matched model trained on reversed performances achieved 17.06\%. Their mean operational metacognitions over the threshold sweep were 1.886, 1.885, and 1.886. Thus reversed rhythms were learnable, while nearly unchanged forecast breadth did not identify changes in correctness or log-loss. A second real-MIDI study found the broadest and least accurate forecasts in jazz under the tested categorical model. A deterministic Harmonic Osculating Predictor was rejected: its 11.3\% one-step top-1 accuracy trailed both linear extrapolation at 41.3\% and the language model at 46.6\%. We then define multi-horizon operational metacognition over complete continuations, including its complement and exponential enumeration cost. This formulation measures how many multi-step futures remain plausible under a model; it does not guarantee their prediction. Volume-band steering is an implemented experimental control, not yet evidence of improved creativity, quality, reasoning, safety, or human surprise.
 \end{abstract}
 
 \section{Introduction}
-An observed token or musical onset records what happened. It does not completely describe the forecast that preceded it. Two contexts can produce the same observation while assigning very different probabilities to the alternatives. Accessible volume was introduced to make that distinction measurable by counting the alternatives above a probability threshold \cite{kloster2026significance}.
+An observed token or musical onset records what happened. It does not completely describe the forecast that preceded it. Two contexts can produce the same observation while assigning very different probabilities to the alternatives. Operational Metacognition was introduced to make that distinction measurable by counting the alternatives above a probability threshold \cite{kloster2026significance}.
 
-This paper investigates what happens when the same measurement moves beyond one token. The investigation has four parts. First, a categorical next-onset model supplies probabilities over possible musical delays, allowing accessible volume to describe rhythmic forecasts. Second, temporal reflection tests whether reversing a sequence inherently makes it less predictable. Third, a geometric hidden-state predictor is evaluated rather than assumed to work. Fourth, accessible volume is defined over complete multi-token continuations, making the computational boundary explicit.
+This paper investigates what happens when the same measurement moves beyond one token. The investigation has four parts. First, a categorical next-onset model supplies probabilities over possible musical delays, allowing operational metacognition to describe rhythmic forecasts. Second, temporal reflection tests whether reversing a sequence inherently makes it less predictable. Third, a geometric hidden-state predictor is evaluated rather than assumed to work. Fourth, operational metacognition is defined over complete multi-token continuations, making the computational boundary explicit.
 
-The central result is deliberately limited but useful: \textbf{accessible volume measures forecast breadth under a specified model, context, representation, and threshold; it does not measure correctness by itself}. The experiments support this statement with real and synthetic data. They do not establish a universal theory of time, cognition, creativity, or future behavior.
+The central result is deliberately limited but useful: \textbf{operational metacognition measures forecast breadth under a specified model, context, representation, and threshold; it does not measure correctness by itself}. The experiments support this statement with real and synthetic data. They do not establish a universal theory of time, cognition, creativity, or future behavior.
 
 \section{Background and evidence boundaries}
-\subsection{Original accessible volume}
-Let $S$ be an input context, $\mathcal{O}$ a finite output vocabulary, and $P(a\mid h_T(S))$ the probability assigned to alternative $a$. For threshold $\tau$, accessible volume is
+\subsection{Original operational metacognition}
+Let $S$ be an input context, $\mathcal{O}$ a finite output vocabulary, and $P(a\mid h_T(S))$ the probability assigned to alternative $a$. For threshold $\tau$, operational metacognition is
 \begin{equation}
 A_\tau(S)=\sum_{a\in\mathcal{O}}\mathbf{1}\!\left[P(a\mid h_T(S))>\tau\right].
 \label{eq:original-volume}
@@ -64,13 +64,13 @@ The measure is not entropy, maximum probability, probability mass, or accuracy. 
 This paper distinguishes four kinds of statement:
 \begin{enumerate}[nosep]
   \item \textbf{Measured:} synthetic and real-MIDI rhythm results, calibration, temporal reversal, geometric residuals, and HOP accuracy.
-  \item \textbf{Formulated:} the multi-horizon joint distribution, accessible volume, complement, and enumeration bound.
+  \item \textbf{Formulated:} the multi-horizon joint distribution, operational metacognition, complement, and enumeration bound.
   \item \textbf{Implemented:} Ablation + GEM integration, evidence preservation, native Procrustes landmarks, independent NPZ keys, and volume-band controls.
   \item \textbf{Proposed:} empirical multi-horizon benchmarks, human-surprise correlations, and outcome-validated steering.
 \end{enumerate}
 An implemented control is not automatically a validated improvement. A mathematical extension is not automatically an experimental result. These distinctions govern every conclusion below.
 
-\section{Temporal forecasts and accessible volume}
+\section{Temporal forecasts and operational metacognition}
 \subsection{Next-onset distributions}
 Let $H_i$ be the musical history before event $i$. Define a finite vocabulary of possible delays until the next onset:
 \begin{equation}
@@ -80,7 +80,7 @@ where $\delta$ can be a fixed duration or a tempo-relative subdivision. A timing
 \begin{equation}
 p_i(k)=P(\text{next onset occurs after }k\delta\mid H_i),\qquad k=1,\ldots,M.
 \end{equation}
-Accessible volume then applies without changing its strict threshold rule:
+Operational Metacognition then applies without changing its strict threshold rule:
 \begin{equation}
 A_{\tau,i}(H_i)=\sum_{k=1}^{M}\mathbf{1}\!\left[p_i(k)>\tau\right].
 \label{eq:onset-volume}
@@ -91,7 +91,7 @@ A tempo-independent representation normalizes intervals by seconds per beat $B$:
 \begin{equation}
 r_i=\frac{t_{i+1}-t_i}{B}.
 \end{equation}
-The model can instead predict categorical bins over $r_i$. The result remains a measurement of the model's distribution, not an intrinsic property of the performance. If a model predicts note identities rather than onset delays, accessible volume describes note-choice breadth rather than timing breadth.
+The model can instead predict categorical bins over $r_i$. The result remains a measurement of the model's distribution, not an intrinsic property of the performance. If a model predicts note identities rather than onset delays, operational metacognition describes note-choice breadth rather than timing breadth.
 
 \subsection{Timing error and momentum}
 Forecast breadth must be accompanied by observed error. For predicted onset time $\hat t_i$ and actual onset time $t_i$,
@@ -115,7 +115,7 @@ A separate policy could select a candidate action using
 \begin{equation}
 a_{i+1}=\pi(\mathcal{S}_i,\text{candidates}_i,\text{goal},\text{constraints}).
 \end{equation}
-Accessible volume supplies neither a direction nor a reward by itself. Candidate semantics, goals, constraints, and observed outcomes remain necessary. This feedback formulation is a control hypothesis, not a result validated by the rhythm experiments.
+Operational Metacognition supplies neither a direction nor a reward by itself. Candidate semantics, goals, constraints, and observed outcomes remain necessary. This feedback formulation is a control hypothesis, not a result validated by the rhythm experiments.
 
 \section{Geometric alignment and temporal reflection}
 Procrustes-style alignment removes simple geometric differences before measuring structural dissimilarity. For corresponding onset times $p_i$ and $q_i$ in one dimension,
@@ -151,7 +151,7 @@ The pipeline was:
   \item center and unit-scale trailing four-interval onset vectors;
   \item fit eight $k$-means context clusters on training windows only;
   \item train a hierarchically smoothed categorical predictor using the context cluster and previous two interval bins;
-  \item compute accessible volume over 100 thresholds from 0.005 to 0.5;
+  \item compute operational metacognition over 100 thresholds from 0.005 to 0.5;
   \item evaluate held-out forward and reversed sequences under the forward-trained model.
 \end{enumerate}
 The target vocabulary contained eight interval categories. Smoothing used $\alpha=4$. A separate deterministic linear-extrapolation baseline supplied no probability distribution and therefore no accessible-volume measurement.
@@ -171,9 +171,9 @@ Retrograde & 59.0\% & 2.899 & 0.839 & 1.31 & 0.649 \\
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:synthetic} exposes the central measurement problem. Reversal reduced top-1 accuracy by 25.4 percentage points and greatly increased log-loss, yet mean accessible volume was unchanged to two decimal places. Mean maximum probability also remained almost identical. The reversed predictor was therefore often confidently wrong: concentrated or broad forecasts alone did not identify forecast correctness.
+Table~\ref{tab:synthetic} exposes the central measurement problem. Reversal reduced top-1 accuracy by 25.4 percentage points and greatly increased log-loss, yet mean operational metacognition was unchanged to two decimal places. Mean maximum probability also remained almost identical. The reversed predictor was therefore often confidently wrong: concentrated or broad forecasts alone did not identify forecast correctness.
 
-The deterministic linear baseline achieved 37.0\% forward and 32.8\% retrograde accuracy. It is retained only as a deterministic comparison; assigning it an accessible volume would require an independently calibrated distribution over alternatives.
+The deterministic linear baseline achieved 37.0\% forward and 32.8\% retrograde accuracy. It is retained only as a deterministic comparison; assigning it an operational metacognition would require an independently calibrated distribution over alternatives.
 
 \begin{figure}[htbp]
 \centering
@@ -217,7 +217,7 @@ Backward matched & 17.06\% & 55.52\% & \textbf{3.183} & 0.060 & 1.886 & 0.899 \\
 
 The matched backward model nearly recovered forward top-1 and top-5 performance, with numerically slightly lower log-loss. No significance test is claimed for that small difference. Direct reversal transfer was worse than both matched conditions. The principal reversal penalty in this experiment was therefore a model-transfer effect, not evidence that retrograde rhythms are intrinsically unpredictable.
 
-Mean maximum probabilities were 0.233 forward, 0.232 for reversal transfer, and 0.230 for backward matching. Mean accessible volume and sweep area changed only slightly while accuracy and log-loss varied. Once again, \textbf{forecast breadth did not identify forecast correctness}. Low top-1 accuracy is also expected for fine-grained human timing across 192 categories and should not be compared directly with the eight-category synthetic task.
+Mean maximum probabilities were 0.233 forward, 0.232 for reversal transfer, and 0.230 for backward matching. Mean operational metacognition and sweep area changed only slightly while accuracy and log-loss varied. Once again, \textbf{forecast breadth did not identify forecast correctness}. Low top-1 accuracy is also expected for fine-grained human timing across 192 categories and should not be compared directly with the eight-category synthetic task.
 
 \begin{figure}[htbp]
 \centering
@@ -229,7 +229,7 @@ Mean maximum probabilities were 0.233 forward, 0.232 for reversal transfer, and 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.98\textwidth]{evidence/rhythm-midi/predictability-map.png}
-\caption{Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together.}
+\caption{Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together.}
 \label{fig:groove-map}
 \end{figure}
 
@@ -263,7 +263,7 @@ Folk & 19,762 & 61.9\% / 61.4\% & 1.125 / 1.143 & 2.21 / 2.22 & 54.8\% & 0.031 \
 }
 \end{table}
 
-Under this model and quantization, jazz had the lowest top-1 accuracy, highest log-loss, and broadest forecasts. Classical had the narrowest and most accurate forecasts. The categorical predictor exceeded persistence in every genre, most substantially in jazz and folk. Deterministic linear extrapolation was less accurate and supplied no distribution for accessible volume.
+Under this model and quantization, jazz had the lowest top-1 accuracy, highest log-loss, and broadest forecasts. Classical had the narrowest and most accurate forecasts. The categorical predictor exceeded persistence in every genre, most substantially in jazz and folk. Deterministic linear extrapolation was less accurate and supplied no distribution for operational metacognition.
 
 Retrograde changes were small in this transfer setup. This does not contradict the larger Groove transfer penalty: the datasets, preprocessing, vocabularies, and context models differ. Nor does it replace the Groove backward-matched control. The defensible conclusion across both datasets is that reversal does not possess a universal predictability direction independent of model and training procedure.
 
@@ -284,7 +284,7 @@ Retrograde changes were small in this transfer setup. This does not contradict t
 A reproduction regenerated the reported metrics and figures. The results and stimuli are saved as JSON, while a derived onset cache preserves the parsed sequences used for the same context clusters and measurements. Raw MIDI files are not redistributed in this repository.
 
 \subsection{Human-surprise listening test}
-The repository includes 18 listening excerpts stratified by genre and low, medium, or high $A_{0.1}$. A browser interface plays each rhythm and requests a 1--5 rating of the final click. The planned analysis computes Spearman correlations with accessible volume, predictive entropy, negative log probability, and maximum probability, as well as mean surprise by volume stratum.
+The repository includes 18 listening excerpts stratified by genre and low, medium, or high $A_{0.1}$. A browser interface plays each rhythm and requests a 1--5 rating of the final click. The planned analysis computes Spearman correlations with operational metacognition, predictive entropy, negative log probability, and maximum probability, as well as mean surprise by volume stratum.
 
 \textbf{No human correlation is reported. Real ratings remain pending, and no synthetic judgments were substituted.} The interface and export/analysis flow passed browser testing, but even a completed small listening sample would not by itself establish a general perceptual effect.
 
@@ -329,7 +329,7 @@ HOP, 2 ahead & 3.2\% & 8.1\% \\
 
 HOP lost decisively. For this model and text sample, hidden-state trajectories did not locally behave like these turning paths often enough to outperform linear velocity. This is a negative experimental result, not proof that every geometric predictor must fail. It establishes a useful baseline requirement: added geometric structure should outperform simple extrapolation before that structure is credited.
 
-HOP also supplies a point forecast, not a distribution over alternative tokens. It therefore cannot supply accessible volume without a separately calibrated probabilistic model of its errors. Taking an argmax over output embeddings does not recover the discarded alternatives.
+HOP also supplies a point forecast, not a distribution over alternative tokens. It therefore cannot supply operational metacognition without a separately calibrated probabilistic model of its errors. Taking an argmax over output embeddings does not recover the discarded alternatives.
 
 \subsection{Rejected interpretations}
 Several stronger interpretations are not established:
@@ -342,7 +342,7 @@ Several stronger interpretations are not established:
 \end{itemize}
 These corrections are part of the result. The experiment does not support predicting all future tokens from local arcs.
 
-\section{Multi-horizon accessible volume}
+\section{Multi-horizon operational metacognition}
 \subsection{Joint continuation probability}
 Let $O$ be a finite token vocabulary, $C_t$ the context at time $t$, and $a_{1:h}=(a_1,\ldots,a_h)$ a candidate continuation of horizon $h$. A learned autoregressive model defines the conditional joint probability
 \begin{equation}
@@ -351,7 +351,7 @@ P_h(a_{1:h}\mid C_t)=\prod_{j=1}^{h}p(a_j\mid C_{t+j-1},a_{<j}),
 \end{equation}
 where the candidate prefix $a_{<j}$ is carried into successive contexts and $a_{<1}$ is empty. For a fixed base context, the conditional can equivalently be written $p(a_j\mid C_t,a_{<j})$ when later contexts are constructed by appending that prefix.
 
-Multi-horizon accessible volume counts complete continuations whose joint probabilities strictly exceed $\tau$:
+Multi-horizon operational metacognition counts complete continuations whose joint probabilities strictly exceed $\tau$:
 \begin{equation}
 A^{(h)}_\tau(C_t)=
 \sum_{a_{1:h}\in O^h}
@@ -376,7 +376,7 @@ Exact enumeration contains $|O|^h$ candidates. Its computational cost therefore 
 \end{equation}
 is a lower bound on the exact count when the included joint probabilities are exact. It is not automatically an unbiased estimate of the total: excluded continuations may also exceed $\tau$. Sampled estimates need a stated estimator and uncertainty analysis. Beam, top-$k$, top-$p$, and other candidate restrictions must preserve this exact-versus-approximate distinction.
 
-Multi-horizon accessible volume is formulated in this paper; its language-model benchmark has not yet been run. No multi-horizon accuracy or steering result is claimed.
+Multi-horizon operational metacognition is formulated in this paper; its language-model benchmark has not yet been run. No multi-horizon accuracy or steering result is claimed.
 
 \section{Ablation + GEM implementation and steering boundary}
 The public Ablation + GEM implementation connects the measurement to inspectable evidence and geometric tooling \cite{ablationintegration,gemlandmarks}. The integration records four relevant properties:
@@ -386,7 +386,7 @@ The public Ablation + GEM implementation connects the measurement to inspectable
   \item volume-band controls expose target breadth as an experimental steering parameter;
   \item \texttt{executed=False} prevents a measurement or proposal from being represented as an executed action.
 \end{itemize}
-Ablation revision \href{https://github.com/Ablation-Tool/ablation/commit/a1fdea008d2ae2969e0eafd7fa7d8abe9a9b37b9}{\texttt{a1fdea00}} merged the accessible-volume workflows. A follow-up, \href{https://github.com/Ablation-Tool/ablation/commit/b56f91e4c54cfd996bceea63a38d8136dc1e689f}{\texttt{b56f91e4}}, fixed an obsolete Linux installer icon discovered during CI. That installer correction is software maintenance, not an experimental validation of accessible volume.
+Ablation revision \href{https://github.com/Ablation-Tool/ablation/commit/a1fdea008d2ae2969e0eafd7fa7d8abe9a9b37b9}{\texttt{a1fdea00}} merged the accessible-volume workflows. A follow-up, \href{https://github.com/Ablation-Tool/ablation/commit/b56f91e4c54cfd996bceea63a38d8136dc1e689f}{\texttt{b56f91e4}}, fixed an obsolete Linux installer icon discovered during CI. That installer correction is software maintenance, not an experimental validation of operational metacognition.
 
 The native Graphics Environment Manager landmark example at revision \href{https://github.com/Ablation-Tool/graphics-environment-manager/commit/6f95f4f}{\texttt{6f95f4f}} provides \texttt{gem landmarks}, \texttt{GemLabHost.align\_landmarks}, GTK integration, correspondence geometry, VDI replay, and \texttt{landmark-report.json}. It records affine-rank limitations explicitly: two landmark pairs cannot uniquely determine a general affine transform, and exact landmark residuals do not establish whole-shape, anatomical, or semantic correctness.
 
@@ -459,7 +459,7 @@ together with the states entering and leaving the accessible set. A zero count c
 The silent AND demonstration assigns $(1/4,1/4,1/4,1/4)$ before the complete mechanism and $(1/3,1/3,1/3,0)$ afterward. Its effective information is $\log_2(4/3)=0.4150374993\ldots$ bits. At $\tau=0.20$, the volume changes from four to three and $11$ exits; at $\tau=0.30$, it changes from zero to three and $00,01,10$ enter. The same positive information accompanies opposite volume changes, so accessible Q-volume is not $\Phi$ or $\gamma$.
 
 \subsection{Mirrored observation}
-The mirrored brain pairs forward and retrograde forecasts at the same held-out index $i$ and records, separately for each direction, the categorical distribution, top-1 correctness, entropy, negative log probability, and accessible volume. It adds
+The mirrored brain pairs forward and retrograde forecasts at the same held-out index $i$ and records, separately for each direction, the categorical distribution, top-1 correctness, entropy, negative log probability, and operational metacognition. It adds
 \begin{equation}
 D_{\tau,i}=A_{\tau,i}^{\mathrm{forward}}-A_{\tau,i}^{\mathrm{retrograde}},\qquad
 G_i=\mathbf 1[\arg\max_a P^{\mathrm{forward}}_i(a)=\arg\max_a P^{\mathrm{retrograde}}_i(a)].
@@ -551,16 +551,16 @@ The experiments have several deliberate limitations:
   \item Reported differences are descriptive. Confidence intervals and hypothesis tests are not supplied for the small backward-versus-forward differences.
   \item HOP was evaluated on one model and a limited text sample. Its failure rejects this predictor in that setting, not all possible geometric approaches.
   \item Human-surprise ratings are pending. Browser validation is not perceptual evidence.
-  \item Multi-horizon accessible volume has not yet received its proposed real-language-model benchmark, and volume-band steering has not been outcome-validated.
+  \item Multi-horizon operational metacognition has not yet received its proposed real-language-model benchmark, and volume-band steering has not been outcome-validated.
 \end{itemize}
-These limitations define the proper use of the measurement. Accessible volume is an instrument for inspecting forecast breadth, not an authorization mechanism, a semantic correctness score, or a universal future predictor.
+These limitations define the proper use of the measurement. Operational Metacognition is an instrument for inspecting forecast breadth, not an authorization mechanism, a semantic correctness score, or a universal future predictor.
 
 \section{Conclusion}
-Moving accessible volume beyond the next token clarifies both its usefulness and its boundary. Categorical onset models provide a genuine distribution over musical futures, allowing the same strict threshold count to describe forecast breadth. Synthetic and real-MIDI results repeatedly show that this breadth can remain nearly constant while correctness changes. Groove's backward-matched condition further shows that reversed rhythms are learnable; direct reversal transfer is the weaker comparison.
+Moving operational metacognition beyond the next token clarifies both its usefulness and its boundary. Categorical onset models provide a genuine distribution over musical futures, allowing the same strict threshold count to describe forecast breadth. Synthetic and real-MIDI results repeatedly show that this breadth can remain nearly constant while correctness changes. Groove's backward-matched condition further shows that reversed rhythms are learnable; direct reversal transfer is the weaker comparison.
 
-Procrustes alignment measures geometric dissimilarity after restricted alignment, while HOP supplies a deterministic point forecast and fails its accuracy comparison. Neither substitutes for a probability distribution. Multi-horizon accessible volume extends the unit of measurement from one alternative to a complete continuation, but exact enumeration grows exponentially and approximate counts require their own evidence.
+Procrustes alignment measures geometric dissimilarity after restricted alignment, while HOP supplies a deterministic point forecast and fails its accuracy comparison. Neither substitutes for a probability distribution. Multi-horizon operational metacognition extends the unit of measurement from one alternative to a complete continuation, but exact enumeration grows exponentially and approximate counts require their own evidence.
 
-The resulting research direction is therefore concrete rather than speculative: measure breadth alongside correctness and calibration, preserve rejected baselines, test bounded multi-horizon approximations, and validate steering against independent outcomes. Accessible volume provides a ruler for how open a model's forecast appears. Whether controlling that openness produces useful results remains an empirical question.
+The resulting research direction is therefore concrete rather than speculative: measure breadth alongside correctness and calibration, preserve rejected baselines, test bounded multi-horizon approximations, and validate steering against independent outcomes. Operational Metacognition provides a ruler for how open a model's forecast appears. Whether controlling that openness produces useful results remains an empirical question.
 
 \appendix
 \section{Reproduction procedures}
@@ -660,7 +660,7 @@ This PDF embeds 23 attachments: this \LaTeX\ source, four experiment scripts, th
 \begin{thebibliography}{9}
 \bibitem{kloster2026significance}
 Nicholas Michael Kloster.
-\newblock \emph{The Significance of Accessible Volume}.
+\newblock \emph{The Significance of Operational Metacognition}.
 \newblock November 2026. Original accessible-volume equation created March 6, 2026.
 \newblock \url{https://github.com/Ablation-Tool/next-token-predictability}.
 

@@ -15,7 +15,7 @@ if len(rows) < 3:
     raise SystemExit("At least three ratings are needed")
 ratings = np.asarray([row["rating"] for row in rows], dtype=float)
 measurements = {
-    "accessible volume A(.1)": "accessible_0.1",
+    "operational metacognition A(.1)": "accessible_0.1",
     "negative log probability": "negative_log_probability",
     "predictive entropy": "entropy",
     "maximum probability": "max_probability",

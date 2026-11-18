@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "dmis-lab/biobert-base-cased-v1.2",
   "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
   "requested_revision": "67c9c25b46986521ca33df05d8540da1210b3256",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "markusbayer/CySecBERT",
   "model_revision": "c9e04e355a2bc0690b6e55833a9895d7591afcd0",
   "requested_revision": "c9e04e355a2bc0690b6e55833a9895d7591afcd0",

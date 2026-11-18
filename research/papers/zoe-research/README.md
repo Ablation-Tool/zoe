@@ -4,7 +4,7 @@ This section preserves the broader Zoe research program that extends beyond the 
 
 ## Zoe — The Research Universe
 
-The [35-page illustrated book](../papers/18-zoe-research-universe.pdf) presents the complete system as one coherent work: metacognition, autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete visual research archive. [LaTeX source](../sources/zoe-research-universe.tex) · [Source and visual archive](../archives/zoe-research-universe.tar.gz) · [Gallery](../galleries/18-zoe-research-universe/README.md).
+The [23-page illustrated monograph](../papers/18-zoe-research-universe.pdf) presents the complete system as one coherent work: metacognition, autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete visual research archive. [LaTeX source](../sources/zoe-research-universe.tex) · [Source and visual archive](../archives/zoe-research-universe.tar.gz) · [Gallery](../galleries/18-zoe-research-universe/README.md).
 
 ## Dedicated research areas
 

@@ -1,6 +1,6 @@
 # Zoe Autonomy: A Self-Governing Measurement–Action Architecture
 
-**How combining Accessible Volume, counterfactual perception, internally authored goals, value-based selection, and execution turns Zoe into a full autonomy architecture.**
+**How combining Operational Metacognition, counterfactual perception, internally authored goals, value-based selection, and execution turns Zoe into a full autonomy architecture.**
 
 The central idea behind **Zoe-Autonomy** is straightforward:
 
@@ -8,7 +8,7 @@ The central idea behind **Zoe-Autonomy** is straightforward:
 
 That claim does not belong to an isolated probability count. It belongs to the complete system: one that represents alternatives, determines which alternatives matter, authors its own goals, evaluates proposals, selects among them, executes a choice, and preserves evidence of the entire process.
 
-Accessible Volume began by making normally hidden alternatives visible. Zoe-Autonomy closes the loop around that measurement.
+Operational Metacognition began by making normally hidden alternatives visible. Zoe-Autonomy closes the loop around that measurement.
 
 The result is a working architecture and reproducible experiment in which Zoe authors her own episode goal, ranks internal proposals, selects an action, and executes it without an operator supplying the goal or approving the action.
 
@@ -35,7 +35,7 @@ The code, paper, evidence, and verification tools are publicly available:
 
 A language model’s output tells us which token was selected. It does not tell us how many other realistic alternatives existed immediately before selection.
 
-Accessible Volume answers that narrower question with a strict threshold count:
+Operational Metacognition answers that narrower question with a strict threshold count:
 
 ```text
 Aτ(S) = Σ over a in O of 1[P(a | h_T(S)) > τ]
@@ -53,17 +53,17 @@ At a threshold of 0.05, three tokens exceed the cutoff, so:
 A0.05(S) = 3
 ```
 
-![Accessible Volume in plain English, including the equation, variable definitions, and a worked threshold example](images/04-accessible-volume.png)
+![Operational Metacognition in plain English, including the equation, variable definitions, and a worked threshold example](images/04-accessible-volume.png)
 
-*Accessible Volume counts alternatives above a strict threshold. It measures breadth, not correctness.*
+*Operational Metacognition counts alternatives above a strict threshold. It measures breadth, not correctness.*
 
-![Original Accessible Volume explanation supplied for this guide](images/05-accessible-volume-reference.jpeg)
+![Original Operational Metacognition explanation supplied for this guide](images/05-accessible-volume-reference.jpeg)
 
 *Original reference explanation of the threshold count and its role as the first profile measurement.*
 
 This measures forecast breadth. A small count means the above-threshold forecast is concentrated on a few alternatives. A larger count means more alternatives remain in play.
 
-But Accessible Volume alone does not:
+But Operational Metacognition alone does not:
 
 - predict the selected token;
 - establish correctness;
@@ -113,7 +113,7 @@ Zoe supplies the surrounding capabilities that make this composition operational
 - **Presence** maintains an explicit self-model and its uncertainties.
 - **Evidence chains** preserve the resulting measurements, decisions, and state transitions.
 
-The autonomy claim belongs to this combination—not to Accessible Volume alone.
+The autonomy claim belongs to this combination—not to Operational Metacognition alone.
 
 ![Pipeline breakdown for Memory and State, Perception, Proposal, Valuation, Guarding, and Execution](images/03-pipeline-breakdown.png)
 
@@ -282,7 +282,7 @@ A configuration with G = 0 may exhibit bounded means control, but it is not full
 
 If the system merely rewarded a high accessible-volume count, the autonomy claim would collapse.
 
-The benchmark therefore holds accessible volume fixed while changing the control structure:
+The benchmark therefore holds operational metacognition fixed while changing the control structure:
 
 - **External control** remains forecast/external control only.
 - **Random broadcasting** does not become autonomous merely because outcomes vary.
@@ -331,7 +331,7 @@ No consciousness, moral status, general intelligence, privilege elevation, or cr
 
 ## Conclusion
 
-Accessible Volume made alternatives measurable.
+Operational Metacognition made alternatives measurable.
 
 Effective perception identified alternatives that matter.
 

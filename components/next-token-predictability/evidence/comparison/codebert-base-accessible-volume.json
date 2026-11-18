@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "microsoft/codebert-base",
   "model_revision": "3b0952feddeffad0063f274080e3c23d75e7eb39",
   "requested_revision": "3b0952feddeffad0063f274080e3c23d75e7eb39",

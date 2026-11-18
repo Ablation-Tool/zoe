@@ -188,7 +188,7 @@ def run(output, tau=0.5, random_checks=24):
         "instrument": "bounded 3-SAT accessible-volume heuristic benchmark",
         "equation": EQUATION,
         "equation_creator": EQUATION_CREATOR,
-        "threshold_rule": "At each branch, normalize occurrence-weighted true/false literal scores; prune only when A_tau(S)=0. Zero accessible volume returns unknown, never unsat.",
+        "threshold_rule": "At each branch, normalize occurrence-weighted true/false literal scores; prune only when A_tau(S)=0. Zero operational metacognition returns unknown, never unsat.",
         "results": results,
         "checks": {
             "strict_threshold_examples": True,

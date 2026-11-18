@@ -37,9 +37,9 @@ ATLAS_MODULES = {
     "circle": "Circle, arc, and sector",
     "clock": "Modular arithmetic clock",
     "graph": "Hub-and-loop graph",
-    "volume": "Accessible volume bridge",
+    "volume": "Operational Metacognition bridge",
     "onset": "Onset forecast laboratory",
-    "horizon": "Multi-horizon accessible volume",
+    "horizon": "Multi-horizon operational metacognition",
     "research": "Research evidence pack",
     "dorothy": "Dorothy · CCFv3 3D brain atlas",
     "dorothy-jenga": "Dorothy · Jenga block tower",
@@ -398,7 +398,7 @@ def onset_scene(experiment, tau=.05, temperature=1.0):
     objects.append(_text("forward-metrics", [70, 360], f"Forward: top1={forward_metrics['top1']:.1%}  log-loss={forward_metrics['log_loss']:.3f}  A(τ)={forward_at_tau:.2f}", 14))
     objects.append(_text("retrograde-metrics", [70, 385], f"Retrograde: top1={retrograde_metrics['top1']:.1%}  log-loss={retrograde_metrics['log_loss']:.3f}  A(τ)={retrograde_at_tau:.2f}", 14))
     objects.append(_text("scope", [70, 410], "Synthetic training only · breadth is not correctness", 13))
-    objects.append(_text("scope-hop", [70, 432], "HOP supplies no categorical distribution or accessible volume", 13))
+    objects.append(_text("scope-hop", [70, 432], "HOP supplies no categorical distribution or operational metacognition", 13))
     scene = _scene("atlas-onset", 760, 450, objects, ATLAS_MODULES["onset"])
     return scene, {"forward": forward_metrics, "retrograde": retrograde_metrics, "forward_at_tau": forward_at_tau, "retrograde_at_tau": retrograde_at_tau, "temperature": temperature, "tau": tau}
 

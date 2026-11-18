@@ -53,7 +53,7 @@ The fixed artifact makes startup fast and reproducible, but it also means the di
 
 ## Interpretation boundaries
 
-Accessible volume is defined only for complete categorical distributions with strict `p > tau`. Deterministic point forecasts, including HOP and linear extrapolation, have no accessible-volume measurement in HELEN. Forecast breadth is not correctness, authorization, safety, or human surprise.
+Operational Metacognition is defined only for complete categorical distributions with strict `p > tau`. Deterministic point forecasts, including HOP and linear extrapolation, have no accessible-volume measurement in HELEN. Forecast breadth is not correctness, authorization, safety, or human surprise.
 
 The native graph module preserves two readings of ambiguous crossings rather than choosing one without evidence. The Onset experiment remains synthetic and is not a human-music or MIDI result.
 

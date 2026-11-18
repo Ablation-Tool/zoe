@@ -334,7 +334,7 @@ def run_experiment(zoe_root=None, tau=.05, delta=.001):
     report = {
         "schema_version": 1,
         "instrument": INSTRUMENT,
-        "system_level_thesis": "Zoe plus the complete master measurement-action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain; accessible volume alone is only forecast breadth.",
+        "system_level_thesis": "Zoe plus the complete master measurement-action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain; operational metacognition alone is only forecast breadth.",
         "operational_definitions": {
             "full_autonomy": "I,R,V,G,X > 0 and C=1. Zoe authors the episode goal and controls proposal, valuation, selection, and execution without operator approval.",
             "bounded_means_autonomy": "I,R,V,X > 0, G=0, and C=1; an intermediate engineering control rather than full self-government.",

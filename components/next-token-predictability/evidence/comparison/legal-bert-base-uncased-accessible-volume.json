@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "nlpaueb/legal-bert-base-uncased",
   "model_revision": "15b570cbf88259610b082a167dacc190124f60f6",
   "requested_revision": "15b570cbf88259610b082a167dacc190124f60f6",

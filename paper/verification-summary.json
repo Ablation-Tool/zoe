@@ -14,7 +14,7 @@
   "interactive_browser": {"paths": 10, "feedback_paths": 3, "particles": 23, "external_requests": 0, "browser_errors": 0, "result": "desktop, mobile, reduced motion, and field details passed"},
   "packaging": {"brain-gem": "wheel, sdist, installed notebook, and packaged HELEN asset passed", "zoe": "wheel, sdist, installed notebook, packaged HELEN asset, and all 17 conformance checks passed"},
   "evidence_boundaries": [
-    "Accessible volume measures forecast breadth, not correctness or human surprise.",
+    "Operational Metacognition measures forecast breadth, not correctness or human surprise.",
     "HOP remains a rejected deterministic baseline.",
     "Nightingale per-onset distributions are aggregate-only in the saved evidence pack.",
     "Multi-horizon continuation results are exact toy Markov enumerations, not a real language-model benchmark.",

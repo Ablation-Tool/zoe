@@ -420,7 +420,7 @@
     "Measurements describe this categorical model, quantization, and session-grouped held-out split.",
     "Reversal transfer evaluates reversed test performances with the forward-trained model.",
     "Backward matched trains the same architecture on reversed training performances and evaluates reversed test performances.",
-    "Accessible volume measures forecast breadth, not correctness or human surprise.",
+    "Operational Metacognition measures forecast breadth, not correctness or human surprise.",
     "No claim is made about other instruments, genres, models, or all future events."
   ]
 }

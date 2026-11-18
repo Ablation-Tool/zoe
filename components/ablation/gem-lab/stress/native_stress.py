@@ -120,8 +120,8 @@ class NativeCase(unittest.TestCase):
             self.root.mainloop()
         self.assertFalse(self.app.measurement_running)
         self.assertTrue(self.app.details_visible)
-        self.assertEqual(self.app.counts_variable.get(), "Accessible volume: 3 above 0.05 · evidence saved")
-        self.assertEqual(self.app.measurement_button.cget("text"), "Accessible Volume")
+        self.assertEqual(self.app.counts_variable.get(), "Operational Metacognition: 3 above 0.05 · evidence saved")
+        self.assertEqual(self.app.measurement_button.cget("text"), "Operational Metacognition")
         self.assertEqual(self.session.current_state()["selected_id"], event["id"])
 
     def test_details_and_actions_collapse_under_inverting_icon(self):

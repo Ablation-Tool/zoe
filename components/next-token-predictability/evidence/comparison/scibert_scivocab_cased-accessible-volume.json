@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "allenai/scibert_scivocab_cased",
   "model_revision": "ddf0be025f8e432a1870e34811997ba6725bf04a",
   "requested_revision": "ddf0be025f8e432a1870e34811997ba6725bf04a",

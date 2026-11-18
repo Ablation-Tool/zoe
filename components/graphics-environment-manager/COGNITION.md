@@ -11,7 +11,7 @@ GEM has one integration point for live forecasts, saved distributions, evidence 
 - entropy, maximum probability, and top-ten probability mass;
 - accessible momentum and target-volume suggestions;
 - optional observed-token correctness, log loss, and Brier score;
-- exact accessible volume over supplied multi-horizon joint distributions;
+- exact operational metacognition over supplied multi-horizon joint distributions;
 - canonical document hashes and forecast-context binding.
 
 The providers are:
@@ -29,7 +29,7 @@ For a horizon \(h\), an autoregressive model defines a conditional joint probabi
 P_h(a_{1:h}\mid C_t)=\prod_{j=1}^{h}p(a_j\mid C_{t+j-1},a_{<j})
 \]
 
-Accessible volume counts the continuations whose joint probability strictly exceeds a threshold:
+Operational Metacognition counts the continuations whose joint probability strictly exceeds a threshold:
 
 \[
 A^{(h)}_\tau(C_t)=\sum_{a_{1:h}\in O^h}\mathbf 1[P_h(a_{1:h}\mid C_t)>\tau]
@@ -63,7 +63,7 @@ gem calibrate measurement-1.json measurement-2.json \
   --bins 10 --output calibration.json
 ```
 
-Calibration reports require an `outcome` object with a boolean `correct` field. Undefined one-class AUROC is reported as `null`, not as a successful separation. Accessible volume remains a breadth measurement and is not substituted for these outcome metrics.
+Calibration reports require an `outcome` object with a boolean `correct` field. Undefined one-class AUROC is reported as `null`, not as a successful separation. Operational Metacognition remains a breadth measurement and is not substituted for these outcome metrics.
 
 ## Optional state estimation
 
@@ -92,7 +92,7 @@ The JSON input supplies `observations`, process and observation matrices and cov
 ## Analytical cycle and action guard
 
 1. **Observe:** read the selected Lab context or a saved distribution.
-2. **Measure:** record accessible volume, complement, entropy, momentum, and available outcome metrics.
+2. **Measure:** record operational metacognition, complement, entropy, momentum, and available outcome metrics.
 3. **Advise:** run heuristic steering or equation-sensitivity experiments. Recommendations do not authorize actions.
 4. **Generate:** optionally create bounded hypotheses with the deterministic baseline or an external JSON generator.
 5. **Bind:** connect each forecast to the exact target, selected event, revision, proposal, and action ID.
@@ -174,7 +174,7 @@ python -m gem workbench list
 python -m gem workbench check --output workbench-verification.json
 ```
 
-`gem.workbench` registers **17 runnable operations**: 13 original equation sections, causal-repertoire normalization, q-arrow annotation, two-way accessible records, and mirrored observation. It includes strict accessible volume, adaptive volume, exact joint counts, temperature, categorical sampling, Markov continuations, timing RMSE, Procrustes alignment, and a labeled inspection-priority heuristic. The catalog gives each operation's evidence scope; the verification command checks all 17 against expected results and reports failures rather than converting them into successes.
+`gem.workbench` registers **17 runnable operations**: 13 original equation sections, causal-repertoire normalization, q-arrow annotation, two-way accessible records, and mirrored observation. It includes strict operational metacognition, adaptive volume, exact joint counts, temperature, categorical sampling, Markov continuations, timing RMSE, Procrustes alignment, and a labeled inspection-priority heuristic. The catalog gives each operation's evidence scope; the verification command checks all 17 against expected results and reports failures rather than converting them into successes.
 
 The mirrored evaluation covers **1,920 matched pairs**, preserves correctness and accessible-set membership separately, and caps its history at the latest **128 pairs**. `executed=False` describes the measurement boundary; it is not a permission token.
 
@@ -253,7 +253,7 @@ Z=\frac{f_{px}B}{x_l-x_r},\qquad X=\frac{(x_l+x_r)Z}{2f_{px}},\qquad Y=\frac{vZ}
 
 The camera-centered point is rotated back into the shared world frame. Precision fusion updates a labeled point with weight \(w=\sigma_q^{-1/2}\), where \(\sigma_q\) is the existing disparity-quantization sensitivity in meters. The report retains each point's weighted reconstruction spread. `fusion: arithmetic` selects the former uniform mean for comparison. Correspondence is supplied by the synthetic scene or input labels; automatic feature matching, occlusion handling, camera calibration, and natural-image encoding are outside the current scope.
 
-Accessible volume gates live targets through \(V_\tau=\{v:p_v>\tau\}\), using the declared forecast distribution and \(\tau=0.05\). It limits candidates without measuring correctness or granting action authorization. Dijkstra then plans over the current view and accessible graph. Transition cost is angular distance divided by 15 plus `log1p` of the historical mean prediction error in pixels. The target rule maximizes minimum angular separation from observed views, then minimizes current path cost. A previous report can therefore change the selected route without being treated as a correctness oracle. Optimality is limited to the current declared graph and nonnegative weights. Navigation stops when the unobserved accessible set is exhausted.
+Operational Metacognition gates live targets through \(V_\tau=\{v:p_v>\tau\}\), using the declared forecast distribution and \(\tau=0.05\). It limits candidates without measuring correctness or granting action authorization. Dijkstra then plans over the current view and accessible graph. Transition cost is angular distance divided by 15 plus `log1p` of the historical mean prediction error in pixels. The target rule maximizes minimum angular separation from observed views, then minimizes current path cost. A previous report can therefore change the selected route without being treated as a correctness oracle. Optimality is limited to the current declared graph and nonnegative weights. Navigation stops when the unobserved accessible set is exhausted.
 
 ```bash
 python -m pip install -e '.[imagery]'
@@ -271,7 +271,7 @@ The optional JSON input contains:
 - `fusion`: `precision` for the default \(\sigma_q^{-1/2}\) weights or `arithmetic` for a uniform mean.
 - `points`: labeled world-space `{name, x, y, z}` records for a synthetic ground-truth run.
 - `observations`: an alternative to `points`, mapping every declared angle to labeled `{name, left, right, v}` stereo measurements.
-- `forecast`: an explicit normalized distribution keyed by formatted view angle. Without one, the report declares a uniform prior. Accessible volume uses the strict \(p>0.05\) count to gate candidates, never to score correctness or authorize actions.
+- `forecast`: an explicit normalized distribution keyed by formatted view angle. Without one, the report declares a uniform prior. Operational Metacognition uses the strict \(p>0.05\) count to gate candidates, never to score correctness or authorize actions.
 
 `--live` streams one compact JSON object per observe–imagine–plan cycle. With `--output`, a final compact `artifact` record identifies the saved report or scene. Without `--live`, the complete report retains the same navigation records under `navigation`.
 
@@ -279,7 +279,7 @@ The default synthetic scene reconstructs 51 points. Precision fusion reduces fou
 
 ### Cyclic Field: editable creative network
 
-`gem.cyclic_flow` turns the same report into a symmetric cyclic canvas. Perception, thinking/imagery, learning, and action/navigation form four outer cards around shared geometry and vividness. Curved transitions show the loop; the cards contain the actual observation count, accessible volume, prediction error, fusion mode, and Dijkstra path. The center keeps observed, imagined, and reconstructed provenance distinct. The visualization does not manufacture an intelligence, creativity, or aesthetic score.
+`gem.cyclic_flow` turns the same report into a symmetric cyclic canvas. Perception, thinking/imagery, learning, and action/navigation form four outer cards around shared geometry and vividness. Curved transitions show the loop; the cards contain the actual observation count, operational metacognition, prediction error, fusion mode, and Dijkstra path. The center keeps observed, imagined, and reconstructed provenance distinct. The visualization does not manufacture an intelligence, creativity, or aesthetic score.
 
 ```bash
 python -m gem imagery --layout network --output cyclic-field.png
@@ -472,7 +472,7 @@ The nested X11 wrapper isolates native checks from the live desktop. System GTK/
 
 ## Limits
 
-Accessible volume describes forecast breadth, not correctness, safety, maliciousness, authorization, creativity, or understanding. Observed-token scoring requires the actual token and vocabulary mapping. A DistilGPT2 distribution is not automatically the embedded agent's distribution or a distribution over permitted actions.
+Operational Metacognition describes forecast breadth, not correctness, safety, maliciousness, authorization, creativity, or understanding. Observed-token scoring requires the actual token and vocabulary mapping. A DistilGPT2 distribution is not automatically the embedded agent's distribution or a distribution over permitted actions.
 
 Advisory modes and target bands are inspectable heuristics. Equation tournaments measure sensitivity, not superiority. Multi-horizon counts do not guarantee correct future tokens. Generated text is not evidence of reasoning, and no model weights are trained or updated.
 

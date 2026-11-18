@@ -1,257 +1,677 @@
 <?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1120" viewBox="0 0 1000 800" role="img" aria-label="Zoe Resilience Atlas · services and signal evidence">
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1200" viewBox="0 0 1920 1200" role="img" aria-label="Zoe Resilience Atlas · services and signal evidence">
   <title>Zoe Resilience Atlas · services and signal evidence</title>
-  <rect x="0" y="0" width="1000.0" height="800.0" fill="#ffffff" />
+  <rect x="0" y="0" width="1920.0" height="1200.0" fill="#ffffff" />
+  <g data-object-id="style-background">
+    <title>style-background</title>
+    <rect x="0.0" y="0.0" width="1920.0" height="1200.0" fill="#080d18" stroke="#080d18" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-0">
+    <title>style-star-0</title>
+    <ellipse cx="41.0" cy="29.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-1">
+    <title>style-star-1</title>
+    <ellipse cx="238.0" cy="138.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-2">
+    <title>style-star-2</title>
+    <ellipse cx="435.0" cy="247.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-3">
+    <title>style-star-3</title>
+    <ellipse cx="632.0" cy="356.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-4">
+    <title>style-star-4</title>
+    <ellipse cx="829.0" cy="465.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-5">
+    <title>style-star-5</title>
+    <ellipse cx="1026.0" cy="574.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-6">
+    <title>style-star-6</title>
+    <ellipse cx="1223.0" cy="683.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-7">
+    <title>style-star-7</title>
+    <ellipse cx="1420.0" cy="792.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-8">
+    <title>style-star-8</title>
+    <ellipse cx="1617.0" cy="901.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-9">
+    <title>style-star-9</title>
+    <ellipse cx="1814.0" cy="1010.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-10">
+    <title>style-star-10</title>
+    <ellipse cx="171.0" cy="1119.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-11">
+    <title>style-star-11</title>
+    <ellipse cx="368.0" cy="108.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-12">
+    <title>style-star-12</title>
+    <ellipse cx="565.0" cy="217.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-13">
+    <title>style-star-13</title>
+    <ellipse cx="762.0" cy="326.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-14">
+    <title>style-star-14</title>
+    <ellipse cx="959.0" cy="435.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-15">
+    <title>style-star-15</title>
+    <ellipse cx="1156.0" cy="544.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-16">
+    <title>style-star-16</title>
+    <ellipse cx="1353.0" cy="653.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-17">
+    <title>style-star-17</title>
+    <ellipse cx="1550.0" cy="762.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-18">
+    <title>style-star-18</title>
+    <ellipse cx="1747.0" cy="871.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-19">
+    <title>style-star-19</title>
+    <ellipse cx="104.0" cy="980.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-20">
+    <title>style-star-20</title>
+    <ellipse cx="301.0" cy="1089.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-21">
+    <title>style-star-21</title>
+    <ellipse cx="498.0" cy="78.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-22">
+    <title>style-star-22</title>
+    <ellipse cx="695.0" cy="187.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-23">
+    <title>style-star-23</title>
+    <ellipse cx="892.0" cy="296.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-24">
+    <title>style-star-24</title>
+    <ellipse cx="1089.0" cy="405.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-25">
+    <title>style-star-25</title>
+    <ellipse cx="1286.0" cy="514.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-26">
+    <title>style-star-26</title>
+    <ellipse cx="1483.0" cy="623.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-27">
+    <title>style-star-27</title>
+    <ellipse cx="1680.0" cy="732.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-28">
+    <title>style-star-28</title>
+    <ellipse cx="1877.0" cy="841.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-29">
+    <title>style-star-29</title>
+    <ellipse cx="234.0" cy="950.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-30">
+    <title>style-star-30</title>
+    <ellipse cx="431.0" cy="1059.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-31">
+    <title>style-star-31</title>
+    <ellipse cx="628.0" cy="48.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-32">
+    <title>style-star-32</title>
+    <ellipse cx="825.0" cy="157.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-33">
+    <title>style-star-33</title>
+    <ellipse cx="1022.0" cy="266.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-34">
+    <title>style-star-34</title>
+    <ellipse cx="1219.0" cy="375.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-35">
+    <title>style-star-35</title>
+    <ellipse cx="1416.0" cy="484.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-36">
+    <title>style-star-36</title>
+    <ellipse cx="1613.0" cy="593.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-37">
+    <title>style-star-37</title>
+    <ellipse cx="1810.0" cy="702.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-38">
+    <title>style-star-38</title>
+    <ellipse cx="167.0" cy="811.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-39">
+    <title>style-star-39</title>
+    <ellipse cx="364.0" cy="920.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-40">
+    <title>style-star-40</title>
+    <ellipse cx="561.0" cy="1029.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-41">
+    <title>style-star-41</title>
+    <ellipse cx="758.0" cy="1138.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-42">
+    <title>style-star-42</title>
+    <ellipse cx="955.0" cy="127.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-43">
+    <title>style-star-43</title>
+    <ellipse cx="1152.0" cy="236.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-44">
+    <title>style-star-44</title>
+    <ellipse cx="1349.0" cy="345.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-45">
+    <title>style-star-45</title>
+    <ellipse cx="1546.0" cy="454.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-46">
+    <title>style-star-46</title>
+    <ellipse cx="1743.0" cy="563.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-47">
+    <title>style-star-47</title>
+    <ellipse cx="100.0" cy="672.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-48">
+    <title>style-star-48</title>
+    <ellipse cx="297.0" cy="781.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-49">
+    <title>style-star-49</title>
+    <ellipse cx="494.0" cy="890.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-50">
+    <title>style-star-50</title>
+    <ellipse cx="691.0" cy="999.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-51">
+    <title>style-star-51</title>
+    <ellipse cx="888.0" cy="1108.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-52">
+    <title>style-star-52</title>
+    <ellipse cx="1085.0" cy="97.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-53">
+    <title>style-star-53</title>
+    <ellipse cx="1282.0" cy="206.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-54">
+    <title>style-star-54</title>
+    <ellipse cx="1479.0" cy="315.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-55">
+    <title>style-star-55</title>
+    <ellipse cx="1676.0" cy="424.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-56">
+    <title>style-star-56</title>
+    <ellipse cx="1873.0" cy="533.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-57">
+    <title>style-star-57</title>
+    <ellipse cx="230.0" cy="642.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-58">
+    <title>style-star-58</title>
+    <ellipse cx="427.0" cy="751.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-59">
+    <title>style-star-59</title>
+    <ellipse cx="624.0" cy="860.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-60">
+    <title>style-star-60</title>
+    <ellipse cx="821.0" cy="969.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-61">
+    <title>style-star-61</title>
+    <ellipse cx="1018.0" cy="1078.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-62">
+    <title>style-star-62</title>
+    <ellipse cx="1215.0" cy="67.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-63">
+    <title>style-star-63</title>
+    <ellipse cx="1412.0" cy="176.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-64">
+    <title>style-star-64</title>
+    <ellipse cx="1609.0" cy="285.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-65">
+    <title>style-star-65</title>
+    <ellipse cx="1806.0" cy="394.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-66">
+    <title>style-star-66</title>
+    <ellipse cx="163.0" cy="503.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-67">
+    <title>style-star-67</title>
+    <ellipse cx="360.0" cy="612.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-68">
+    <title>style-star-68</title>
+    <ellipse cx="557.0" cy="721.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-69">
+    <title>style-star-69</title>
+    <ellipse cx="754.0" cy="830.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-70">
+    <title>style-star-70</title>
+    <ellipse cx="951.0" cy="939.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-71">
+    <title>style-star-71</title>
+    <ellipse cx="1148.0" cy="1048.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-72">
+    <title>style-star-72</title>
+    <ellipse cx="1345.0" cy="37.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-73">
+    <title>style-star-73</title>
+    <ellipse cx="1542.0" cy="146.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-74">
+    <title>style-star-74</title>
+    <ellipse cx="1739.0" cy="255.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-75">
+    <title>style-star-75</title>
+    <ellipse cx="96.0" cy="364.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-76">
+    <title>style-star-76</title>
+    <ellipse cx="293.0" cy="473.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-77">
+    <title>style-star-77</title>
+    <ellipse cx="490.0" cy="582.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-78">
+    <title>style-star-78</title>
+    <ellipse cx="687.0" cy="691.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-79">
+    <title>style-star-79</title>
+    <ellipse cx="884.0" cy="800.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-80">
+    <title>style-star-80</title>
+    <ellipse cx="1081.0" cy="909.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-81">
+    <title>style-star-81</title>
+    <ellipse cx="1278.0" cy="1018.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-82">
+    <title>style-star-82</title>
+    <ellipse cx="1475.0" cy="1127.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-83">
+    <title>style-star-83</title>
+    <ellipse cx="1672.0" cy="116.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-84">
+    <title>style-star-84</title>
+    <ellipse cx="1869.0" cy="225.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-85">
+    <title>style-star-85</title>
+    <ellipse cx="226.0" cy="334.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-86">
+    <title>style-star-86</title>
+    <ellipse cx="423.0" cy="443.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-87">
+    <title>style-star-87</title>
+    <ellipse cx="620.0" cy="552.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-88">
+    <title>style-star-88</title>
+    <ellipse cx="817.0" cy="661.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-89">
+    <title>style-star-89</title>
+    <ellipse cx="1014.0" cy="770.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-90">
+    <title>style-star-90</title>
+    <ellipse cx="1211.0" cy="879.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-91">
+    <title>style-star-91</title>
+    <ellipse cx="1408.0" cy="988.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-92">
+    <title>style-star-92</title>
+    <ellipse cx="1605.0" cy="1097.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-93">
+    <title>style-star-93</title>
+    <ellipse cx="1802.0" cy="86.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-94">
+    <title>style-star-94</title>
+    <ellipse cx="159.0" cy="195.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-95">
+    <title>style-star-95</title>
+    <ellipse cx="356.0" cy="304.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-title">
+    <title>style-title</title>
+    <text x="338.82000000000005" y="76.0" font-family="sans-serif" font-size="42.0" fill="#e2e8f0">Zoe Resilience Atlas · services and signal evidence</text>
+  </g>
+  <g data-object-id="style-subtitle">
+    <title>style-subtitle</title>
+    <text x="712.05" y="116.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">SIXTEEN SECTORS · SYNTHETIC SIGNALS · MEASURED RESILIENCE</text>
+  </g>
+  <g data-object-id="style-header-rule">
+    <title>style-header-rule</title>
+    <polyline points="650,158 1270,158" stroke-linejoin="round" fill="none" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-content-frame">
+    <title>style-content-frame</title>
+    <rect x="48.0" y="185.0" width="1824.0" height="820.0" fill="none" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-content-orbit">
+    <title>style-content-orbit</title>
+    <ellipse cx="960.0" cy="595.0" rx="590.0" ry="350.0" fill="none" stroke="#12233c" stroke-width="1.0" />
+  </g>
   <g data-object-id="background">
     <title>background</title>
-    <rect x="0.0" y="0.0" width="1000.0" height="800.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+    <rect x="453.75" y="190.0" width="1012.5" height="810.0" fill="#08111f" stroke="#08111f" stroke-width="1.0125" />
   </g>
   <g data-object-id="title">
     <title>title</title>
-    <text x="42.0" y="55.0" font-family="sans-serif" font-size="30.0" fill="#67e8f9">Zoe Resilience Atlas</text>
+    <text x="496.275" y="245.6875" font-family="sans-serif" font-size="30.375" fill="#67e8f9">Zoe Resilience Atlas</text>
   </g>
   <g data-object-id="subtitle">
     <title>subtitle</title>
-    <text x="44.0" y="84.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Essential services, evidence boundaries, and the space between signals</text>
+    <text x="498.3" y="275.05" font-family="sans-serif" font-size="15.1875" fill="#9fb1c8">Essential services, evidence boundaries, and the space between signals</text>
   </g>
   <g data-object-id="sector-heading">
     <title>sector-heading</title>
-    <text x="48.0" y="132.0" font-family="sans-serif" font-size="16.0" fill="#fde68a">16 critical infrastructure sectors</text>
+    <text x="502.35" y="323.65" font-family="sans-serif" font-size="16.2" fill="#fde68a">16 critical infrastructure sectors</text>
   </g>
   <g data-object-id="waveform-heading">
     <title>waveform-heading</title>
-    <text x="662.0" y="132.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">Waveform · synthetic preview</text>
+    <text x="1124.025" y="323.65" font-family="sans-serif" font-size="15.1875" fill="#fde68a">Waveform · synthetic preview</text>
   </g>
   <g data-object-id="dependency-communications">
     <title>dependency-communications</title>
-    <polyline points="328,374 487.099,214.901" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+    <polyline points="785.85,568.675 946.938,407.587" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="dependency-transportation">
     <title>dependency-transportation</title>
-    <polyline points="328,374 168.901,214.901" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+    <polyline points="785.85,568.675 624.762,407.587" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="dependency-water">
     <title>dependency-water</title>
-    <polyline points="328,374 241.896,166.127" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+    <polyline points="785.85,568.675 698.67,358.204" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="dependency-critical-manufacturing">
     <title>dependency-critical-manufacturing</title>
-    <polyline points="328,374 535.873,287.896" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+    <polyline points="785.85,568.675 996.321,481.495" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="sector-chemical">
     <title>sector-chemical</title>
-    <ellipse cx="328.0" cy="149.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="785.8499999999999" cy="340.86249999999995" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-chemical">
     <title>label-chemical</title>
-    <text x="299.2" y="179.0" font-family="sans-serif" font-size="12.0" fill="#31445d">Chemical</text>
+    <text x="756.69" y="371.23749999999995" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Chemical</text>
   </g>
   <g data-object-id="sector-commercial">
     <title>sector-commercial</title>
-    <ellipse cx="414.1037722821452" cy="166.12710518496047" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="873.030069435672" cy="358.20369399977244" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-commercial">
     <title>label-commercial</title>
-    <text x="378.1037722821452" y="196.12710518496047" font-family="sans-serif" font-size="12.0" fill="#31445d">Commercial</text>
+    <text x="836.5800694356719" y="388.57869399977244" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Commercial</text>
   </g>
   <g data-object-id="sector-communications">
     <title>sector-communications</title>
-    <ellipse cx="487.0990257669732" cy="214.90097423302683" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+    <ellipse cx="946.9377635890603" cy="407.5872364109397" rx="13.1625" ry="13.1625" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="label-communications">
     <title>label-communications</title>
-    <text x="469.0990257669732" y="244.90097423302683" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Comms</text>
+    <text x="928.7127635890604" y="437.9622364109397" font-family="sans-serif" font-size="12.149999999999999" fill="#67e8f9">Comms</text>
   </g>
   <g data-object-id="sector-critical-manufacturing">
     <title>sector-critical-manufacturing</title>
-    <ellipse cx="535.8728948150396" cy="287.8962277178548" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+    <ellipse cx="996.3213060002275" cy="481.49493056432794" rx="13.1625" ry="13.1625" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="label-critical-manufacturing">
     <title>label-critical-manufacturing</title>
-    <text x="496.27289481503954" y="317.8962277178548" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Manufacture</text>
+    <text x="956.2263060002275" y="511.86993056432794" font-family="sans-serif" font-size="12.149999999999999" fill="#67e8f9">Manufacture</text>
   </g>
   <g data-object-id="sector-dams">
     <title>sector-dams</title>
-    <ellipse cx="553.0" cy="374.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="1013.6625" cy="568.675" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-dams">
     <title>label-dams</title>
-    <text x="538.6" y="404.0" font-family="sans-serif" font-size="12.0" fill="#31445d">Dams</text>
+    <text x="999.0825" y="599.05" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Dams</text>
   </g>
   <g data-object-id="sector-defense">
     <title>sector-defense</title>
-    <ellipse cx="535.8728948150396" cy="460.1037722821452" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="996.3213060002275" cy="655.855069435672" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-defense">
     <title>label-defense</title>
-    <text x="510.67289481503957" y="490.1037722821452" font-family="sans-serif" font-size="12.0" fill="#31445d">Defense</text>
+    <text x="970.8063060002276" y="686.230069435672" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Defense</text>
   </g>
   <g data-object-id="sector-emergency">
     <title>sector-emergency</title>
-    <ellipse cx="487.0990257669732" cy="533.0990257669732" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="946.9377635890603" cy="729.7627635890603" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-emergency">
     <title>label-emergency</title>
-    <text x="454.69902576697325" y="563.0990257669732" font-family="sans-serif" font-size="12.0" fill="#31445d">Emergency</text>
+    <text x="914.1327635890605" y="760.1377635890603" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Emergency</text>
   </g>
   <g data-object-id="sector-energy">
     <title>sector-energy</title>
-    <ellipse cx="414.1037722821452" cy="581.8728948150396" rx="13.0" ry="13.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
+    <ellipse cx="873.030069435672" cy="779.1463060002276" rx="13.1625" ry="13.1625" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.025" />
   </g>
   <g data-object-id="label-energy">
     <title>label-energy</title>
-    <text x="392.5037722821452" y="611.8728948150396" font-family="sans-serif" font-size="12.0" fill="#f0abfc">Energy</text>
+    <text x="851.160069435672" y="809.5213060002275" font-family="sans-serif" font-size="12.149999999999999" fill="#f0abfc">Energy</text>
   </g>
   <g data-object-id="sector-financial">
     <title>sector-financial</title>
-    <ellipse cx="328.0" cy="599.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="785.8499999999999" cy="796.4875" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-financial">
     <title>label-financial</title>
-    <text x="302.8" y="629.0" font-family="sans-serif" font-size="12.0" fill="#31445d">Finance</text>
+    <text x="760.335" y="826.8625" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Finance</text>
   </g>
   <g data-object-id="sector-food">
     <title>sector-food</title>
-    <ellipse cx="241.8962277178548" cy="581.8728948150396" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="698.669930564328" cy="779.1463060002276" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-food">
     <title>label-food</title>
-    <text x="227.4962277178548" y="611.8728948150396" font-family="sans-serif" font-size="12.0" fill="#31445d">Food</text>
+    <text x="684.0899305643279" y="809.5213060002275" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Food</text>
   </g>
   <g data-object-id="sector-government">
     <title>sector-government</title>
-    <ellipse cx="168.90097423302683" cy="533.0990257669732" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="624.7622364109396" cy="729.7627635890603" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-government">
     <title>label-government</title>
-    <text x="154.50097423302682" y="563.0990257669732" font-family="sans-serif" font-size="12.0" fill="#31445d">Govt</text>
+    <text x="610.1822364109396" y="760.1377635890603" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Govt</text>
   </g>
   <g data-object-id="sector-healthcare">
     <title>sector-healthcare</title>
-    <ellipse cx="120.12710518496053" cy="460.1037722821453" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="575.3786939997725" cy="655.8550694356721" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-healthcare">
     <title>label-healthcare</title>
-    <text x="98.52710518496053" y="490.1037722821453" font-family="sans-serif" font-size="12.0" fill="#31445d">Health</text>
+    <text x="553.5086939997725" y="686.2300694356721" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Health</text>
   </g>
   <g data-object-id="sector-information-technology">
     <title>sector-information-technology</title>
-    <ellipse cx="103.0" cy="374.0" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="558.0375" cy="568.675" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-information-technology">
     <title>label-information-technology</title>
-    <text x="95.8" y="404.0" font-family="sans-serif" font-size="12.0" fill="#31445d">IT</text>
+    <text x="550.7475" y="599.05" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">IT</text>
   </g>
   <g data-object-id="sector-nuclear">
     <title>sector-nuclear</title>
-    <ellipse cx="120.1271051849605" cy="287.89622771785474" rx="13.0" ry="13.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+    <ellipse cx="575.3786939997725" cy="481.4949305643279" rx="13.1625" ry="13.1625" fill="#101b2b" stroke="#31445d" stroke-width="2.025" />
   </g>
   <g data-object-id="label-nuclear">
     <title>label-nuclear</title>
-    <text x="94.9271051849605" y="317.89622771785474" font-family="sans-serif" font-size="12.0" fill="#31445d">Nuclear</text>
+    <text x="549.8636939997725" y="511.8699305643279" font-family="sans-serif" font-size="12.149999999999999" fill="#31445d">Nuclear</text>
   </g>
   <g data-object-id="sector-transportation">
     <title>sector-transportation</title>
-    <ellipse cx="168.90097423302677" cy="214.90097423302683" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+    <ellipse cx="624.7622364109396" cy="407.5872364109397" rx="13.1625" ry="13.1625" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="label-transportation">
     <title>label-transportation</title>
-    <text x="136.50097423302677" y="244.90097423302683" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Transport</text>
+    <text x="591.9572364109396" y="437.9622364109397" font-family="sans-serif" font-size="12.149999999999999" fill="#67e8f9">Transport</text>
   </g>
   <g data-object-id="sector-water">
     <title>sector-water</title>
-    <ellipse cx="241.89622771785469" cy="166.12710518496053" rx="13.0" ry="13.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
+    <ellipse cx="698.6699305643278" cy="358.20369399977255" rx="13.1625" ry="13.1625" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.025" />
   </g>
   <g data-object-id="label-water">
     <title>label-water</title>
-    <text x="223.89622771785469" y="196.12710518496053" font-family="sans-serif" font-size="12.0" fill="#67e8f9">Water</text>
+    <text x="680.4449305643278" y="388.57869399977255" font-family="sans-serif" font-size="12.149999999999999" fill="#67e8f9">Water</text>
   </g>
   <g data-object-id="selected-center">
     <title>selected-center</title>
-    <ellipse cx="328.0" cy="374.0" rx="66.0" ry="66.0" fill="#101b2b" stroke="#f0abfc" stroke-width="3.0" />
+    <ellipse cx="785.8499999999999" cy="568.675" rx="66.825" ry="66.825" fill="#101b2b" stroke="#f0abfc" stroke-width="3.0374999999999996" />
   </g>
   <g data-object-id="selected-label">
     <title>selected-label</title>
-    <text x="295.0" y="381.0" font-family="sans-serif" font-size="19.0" fill="#f0abfc">Energy</text>
+    <text x="752.4375" y="575.7625" font-family="sans-serif" font-size="19.2375" fill="#f0abfc">Energy</text>
   </g>
   <g data-object-id="dependency-label">
     <title>dependency-label</title>
-    <text x="248.0" y="468.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">documented example links</text>
+    <text x="704.85" y="663.8499999999999" font-family="sans-serif" font-size="12.149999999999999" fill="#9fb1c8">documented example links</text>
   </g>
   <g data-object-id="trace-label-host80">
     <title>trace-label-host80</title>
-    <text x="664.0" y="182.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">host80 · corroborated</text>
+    <text x="1126.05" y="374.275" font-family="sans-serif" font-size="13.1625" fill="#f0abfc">host80 · corroborated</text>
   </g>
   <g data-object-id="trace-host80">
     <title>trace-host80</title>
-    <polyline points="666,207 670.444,241 674.889,207 679.333,241 683.778,207 688.222,241 692.667,207 697.111,241 701.556,207 706,241 710.444,207 714.889,241 719.333,207 723.778,241 728.222,207 732.667,241 737.111,207 741.556,241 746,207 750.444,241 754.889,207 759.333,241 763.778,207 768.222,241 772.667,207 777.111,241 781.556,207 786,241 790.444,207 794.889,241 799.333,207 803.778,241 808.222,207 812.667,241 817.111,207 821.556,241 826,207 830.444,241 834.889,207 839.333,241 843.778,207 848.222,241 852.667,207 857.111,241 861.556,207 866,241 870.444,207 874.889,241 879.333,207 883.778,241 888.222,207 892.667,241 897.111,207 901.556,241 906,207 910.444,241 914.889,207 919.333,241 923.778,207 928.222,241 932.667,207 937.111,241 941.556,207 946,241" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="2.0" />
+    <polyline points="1128.07,399.587 1132.57,434.012 1137.08,399.587 1141.58,434.012 1146.08,399.587 1150.57,434.012 1155.07,399.587 1159.57,434.012 1164.07,399.587 1168.57,434.012 1173.07,399.587 1177.58,434.012 1182.08,399.587 1186.58,434.012 1191.07,399.587 1195.57,434.012 1200.07,399.587 1204.57,434.012 1209.07,399.587 1213.57,434.012 1218.08,399.587 1222.58,434.012 1227.08,399.587 1231.57,434.012 1236.07,399.587 1240.57,434.012 1245.07,399.587 1249.57,434.012 1254.07,399.587 1258.58,434.012 1263.08,399.587 1267.58,434.012 1272.07,399.587 1276.57,434.012 1281.07,399.587 1285.57,434.012 1290.07,399.587 1294.57,434.012 1299.07,399.587 1303.58,434.012 1308.08,399.587 1312.57,434.012 1317.07,399.587 1321.57,434.012 1326.07,399.587 1330.57,434.012 1335.07,399.587 1339.57,434.012 1344.08,399.587 1348.58,434.012 1353.07,399.587 1357.57,434.012 1362.07,399.587 1366.57,434.012 1371.07,399.587 1375.57,434.012 1380.07,399.587 1384.58,434.012 1389.08,399.587 1393.57,434.012 1398.08,399.587 1402.57,434.012 1407.07,399.587 1411.57,434.012" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="2.025" />
   </g>
   <g data-object-id="trace-base-host80">
     <title>trace-base-host80</title>
-    <polyline points="666,242 946,242" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="1128.07,435.025 1411.57,435.025" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0125" />
   </g>
   <g data-object-id="trace-label-host40">
     <title>trace-label-host40</title>
-    <text x="664.0" y="274.0" font-family="sans-serif" font-size="13.0" fill="#f0abfc">host40 · ambiguous</text>
+    <text x="1126.05" y="467.425" font-family="sans-serif" font-size="13.1625" fill="#fde68a">host40 · ambiguous</text>
   </g>
   <g data-object-id="trace-host40">
     <title>trace-host40</title>
-    <polyline points="666,299 670.444,333 674.889,299 679.333,333 683.778,299 688.222,333 692.667,299 697.111,333 701.556,299 706,333 710.444,299 714.889,333 719.333,299 723.778,333 728.222,299 732.667,333 737.111,299 741.556,333 746,299 750.444,333 754.889,299 759.333,333 763.778,299 768.222,333 772.667,299 777.111,333 781.556,299 786,333 790.444,299 794.889,333 799.333,299 803.778,333 808.222,299 812.667,333 817.111,299 821.556,333 826,299 830.444,333 834.889,299 839.333,333 843.778,299 848.222,333 852.667,299 857.111,333 861.556,299 866,333 870.444,299 874.889,333 879.333,299 883.778,333 888.222,299 892.667,333 897.111,299 901.556,333 906,299 910.444,333 914.889,299 919.333,333 923.778,299 928.222,333 932.667,299 937.111,333 941.556,299 946,333" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="2.0" />
+    <polyline points="1128.07,492.738 1132.57,527.162 1137.08,492.738 1141.58,527.162 1146.08,492.738 1150.57,527.162 1155.07,492.738 1159.57,527.162 1164.07,492.738 1168.57,527.162 1173.07,492.738 1177.58,527.162 1182.08,492.738 1186.58,527.162 1191.07,492.738 1195.57,527.162 1200.07,492.738 1204.57,527.162 1209.07,492.738 1213.57,527.162 1218.08,492.738 1222.58,527.162 1227.08,492.738 1231.57,527.162 1236.07,492.738 1240.57,527.162 1245.07,492.738 1249.57,527.162 1254.07,492.738 1258.58,527.162 1263.08,492.738 1267.58,527.162 1272.07,492.738 1276.57,527.162 1281.07,492.738 1285.57,527.162 1290.07,492.738 1294.57,527.162 1299.07,492.738 1303.58,527.162 1308.08,492.738 1312.57,527.162 1317.07,492.738 1321.57,527.162 1326.07,492.738 1330.57,527.162 1335.07,492.738 1339.57,527.162 1344.08,492.738 1348.58,527.162 1353.07,492.738 1357.57,527.162 1362.07,492.738 1366.57,527.162 1371.07,492.738 1375.57,527.162 1380.07,492.738 1384.58,527.162 1389.08,492.738 1393.57,527.162 1398.08,492.738 1402.57,527.162 1407.07,492.738 1411.57,527.162" stroke-linejoin="round" fill="none" stroke="#fde68a" stroke-width="2.025" />
   </g>
   <g data-object-id="trace-base-host40">
     <title>trace-base-host40</title>
-    <polyline points="666,334 946,334" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="1128.07,528.175 1411.57,528.175" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0125" />
   </g>
   <g data-object-id="trace-label-amac40">
     <title>trace-label-amac40</title>
-    <text x="664.0" y="366.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">amac40 · ambiguous</text>
+    <text x="1126.05" y="560.575" font-family="sans-serif" font-size="13.1625" fill="#fde68a">amac40 · ambiguous</text>
   </g>
   <g data-object-id="trace-amac40">
     <title>trace-amac40</title>
-    <polyline points="666,391 670.444,425 674.889,391 679.333,425 683.778,391 688.222,425 692.667,391 697.111,425 701.556,391 706,425 710.444,391 714.889,425 719.333,391 723.778,425 728.222,391 732.667,425 737.111,391 741.556,425 746,391 750.444,425 754.889,391 759.333,425 763.778,391 768.222,425 772.667,391 777.111,425 781.556,391 786,425 790.444,391 794.889,425 799.333,391 803.778,425 808.222,391 812.667,425 817.111,391 821.556,425 826,391 830.444,425 834.889,391 839.333,425 843.778,391 848.222,425 852.667,391 857.111,425 861.556,391 866,425 870.444,391 874.889,425 879.333,391 883.778,425 888.222,391 892.667,425 897.111,391 901.556,425 906,391 910.444,425 914.889,391 919.333,425 923.778,391 928.222,425 932.667,391 937.111,425 941.556,391 946,425" stroke-linejoin="round" fill="none" stroke="#fde68a" stroke-width="2.0" />
+    <polyline points="1128.07,585.888 1132.57,620.312 1137.08,585.888 1141.58,620.312 1146.08,585.888 1150.57,620.312 1155.07,585.888 1159.57,620.312 1164.07,585.888 1168.57,620.312 1173.07,585.888 1177.58,620.312 1182.08,585.888 1186.58,620.312 1191.07,585.888 1195.57,620.312 1200.07,585.888 1204.57,620.312 1209.07,585.888 1213.57,620.312 1218.08,585.888 1222.58,620.312 1227.08,585.888 1231.57,620.312 1236.07,585.888 1240.57,620.312 1245.07,585.888 1249.57,620.312 1254.07,585.888 1258.58,620.312 1263.08,585.888 1267.58,620.312 1272.07,585.888 1276.57,620.312 1281.07,585.888 1285.57,620.312 1290.07,585.888 1294.57,620.312 1299.07,585.888 1303.58,620.312 1308.08,585.888 1312.57,620.312 1317.07,585.888 1321.57,620.312 1326.07,585.888 1330.57,620.312 1335.07,585.888 1339.57,620.312 1344.08,585.888 1348.58,620.312 1353.07,585.888 1357.57,620.312 1362.07,585.888 1366.57,620.312 1371.07,585.888 1375.57,620.312 1380.07,585.888 1384.58,620.312 1389.08,585.888 1393.57,620.312 1398.08,585.888 1402.57,620.312 1407.07,585.888 1411.57,620.312" stroke-linejoin="round" fill="none" stroke="#fde68a" stroke-width="2.025" />
   </g>
   <g data-object-id="trace-base-amac40">
     <title>trace-base-amac40</title>
-    <polyline points="666,426 946,426" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="1128.07,621.325 1411.57,621.325" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0125" />
   </g>
   <g data-object-id="trace-label-unmapped">
     <title>trace-label-unmapped</title>
-    <text x="664.0" y="458.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">unmapped · unmapped</text>
+    <text x="1126.05" y="653.7249999999999" font-family="sans-serif" font-size="13.1625" fill="#9fb1c8">unmapped · unmapped</text>
   </g>
   <g data-object-id="trace-unmapped">
     <title>trace-unmapped</title>
-    <polyline points="666,517 670.444,517 674.889,517 679.333,517 683.778,517 688.222,483 692.667,483 697.111,483 701.556,483 706,483 710.444,517 714.889,517 719.333,517 723.778,517 728.222,517 732.667,483 737.111,483 741.556,483 746,483 750.444,483 754.889,517 759.333,517 763.778,517 768.222,517 772.667,517 777.111,483 781.556,483 786,483 790.444,483 794.889,483 799.333,517 803.778,517 808.222,517 812.667,517 817.111,517 821.556,483 826,483 830.444,483 834.889,483 839.333,483 843.778,517 848.222,517 852.667,517 857.111,517 861.556,517 866,483 870.444,483 874.889,483 879.333,483 883.778,483 888.222,517 892.667,517 897.111,517 901.556,517 906,517 910.444,483 914.889,483 919.333,483 923.778,483 928.222,483 932.667,517 937.111,517 941.556,517 946,517" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.0" />
+    <polyline points="1128.07,713.462 1132.57,713.462 1137.08,713.462 1141.58,713.462 1146.08,713.462 1150.57,679.037 1155.07,679.037 1159.57,679.037 1164.07,679.037 1168.57,679.037 1173.07,713.462 1177.58,713.462 1182.08,713.462 1186.58,713.462 1191.07,713.462 1195.57,679.037 1200.07,679.037 1204.57,679.037 1209.07,679.037 1213.57,679.037 1218.08,713.462 1222.58,713.462 1227.08,713.462 1231.57,713.462 1236.07,713.462 1240.57,679.037 1245.07,679.037 1249.57,679.037 1254.07,679.037 1258.58,679.037 1263.08,713.462 1267.58,713.462 1272.07,713.462 1276.57,713.462 1281.07,713.462 1285.57,679.037 1290.07,679.037 1294.57,679.037 1299.07,679.037 1303.58,679.037 1308.08,713.462 1312.57,713.462 1317.07,713.462 1321.57,713.462 1326.07,713.462 1330.57,679.037 1335.07,679.037 1339.57,679.037 1344.08,679.037 1348.58,679.037 1353.07,713.462 1357.57,713.462 1362.07,713.462 1366.57,713.462 1371.07,713.462 1375.57,679.037 1380.07,679.037 1384.58,679.037 1389.08,679.037 1393.57,679.037 1398.08,713.462 1402.57,713.462 1407.07,713.462 1411.57,713.462" stroke-linejoin="round" fill="none" stroke="#9fb1c8" stroke-width="2.025" />
   </g>
   <g data-object-id="trace-base-unmapped">
     <title>trace-base-unmapped</title>
-    <polyline points="666,518 946,518" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="1128.07,714.475 1411.57,714.475" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0125" />
   </g>
   <g data-object-id="selected-trace">
     <title>selected-trace</title>
-    <text x="662.0" y="568.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">Selected: 2 reviewed 40 MHz candidates</text>
+    <text x="1124.025" y="765.1" font-family="sans-serif" font-size="13.1625" fill="#67e8f9">Selected: endeavour_tb.clk</text>
   </g>
   <g data-object-id="selected-sector">
     <title>selected-sector</title>
-    <text x="45.0" y="636.0" font-family="sans-serif" font-size="21.0" fill="#67e8f9">Energy</text>
+    <text x="499.3125" y="833.9499999999999" font-family="sans-serif" font-size="21.2625" fill="#67e8f9">Energy</text>
   </g>
   <g data-object-id="dependency-summary">
     <title>dependency-summary</title>
-    <text x="45.0" y="665.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Example dependencies: Comms, Transport, Water, Manufacture; not an exhaustive graph.</text>
+    <text x="499.3125" y="863.3125" font-family="sans-serif" font-size="13.1625" fill="#9fb1c8">Example dependencies: Comms, Transport, Water, Manufacture; not an exhaustive graph.</text>
   </g>
   <g data-object-id="sector-why-0">
     <title>sector-why-0</title>
-    <text x="45.0" y="691.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Electricity, oil, and natural gas provide an enabling function for homes, industry, public</text>
+    <text x="499.3125" y="889.6374999999999" font-family="sans-serif" font-size="14.174999999999999" fill="#d8e5f2">Electricity, oil, and natural gas provide an enabling function for homes, industry, public</text>
   </g>
   <g data-object-id="sector-why-1">
     <title>sector-why-1</title>
-    <text x="45.0" y="714.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">health, and every other infrastructure sector.</text>
+    <text x="499.3125" y="912.925" font-family="sans-serif" font-size="14.174999999999999" fill="#d8e5f2">health, and every other infrastructure sector.</text>
   </g>
   <g data-object-id="source">
     <title>source</title>
-    <text x="45.0" y="757.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Sources: CISA sector pages · CERN waveform-mapping methodology · no live monitoring</text>
+    <text x="499.3125" y="956.4625" font-family="sans-serif" font-size="13.1625" fill="#9fb1c8">Sources: CISA sector pages · CERN waveform-mapping methodology · no live monitoring</text>
   </g>
   <g data-object-id="boundary">
     <title>boundary</title>
-    <text x="45.0" y="783.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">Measurement != evidence != belief update != action · no risk score or automatic control</text>
+    <text x="499.3125" y="982.7874999999999" font-family="sans-serif" font-size="13.1625" fill="#fda4af">Measurement != evidence != belief update != action · no risk score or automatic control</text>
+  </g>
+  <g data-object-id="style-footer">
+    <title>style-footer</title>
+    <text x="703.35" y="1080.0" font-family="sans-serif" font-size="15.0" fill="#e2e8f0">NATIVE MODEL · DETERMINISTIC GEOMETRY · REPLAYABLE EVIDENCE</text>
+  </g>
+  <g data-object-id="style-loop">
+    <title>style-loop</title>
+    <text x="711.1800000000001" y="1120.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">SENSE  →  MODEL  →  IMAGINE  →  DOUBT  →  CHOOSE  →  ACT  →  LEARN</text>
+  </g>
+  <g data-object-id="style-control">
+    <title>style-control</title>
+    <text x="794.12" y="1154.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">ONE REPOSITORY · ONE KNOWLEDGE FIELD · HUMAN CONTROL</text>
   </g>
 </svg>

@@ -179,7 +179,7 @@ def _parser():
     state = commands.add_parser("lab-state", help="inspect unified investigation and derived spatial objects")
     state.add_argument("--session", required=True, help="investigation session directory")
 
-    predict = commands.add_parser("predict", help="measure next-token accessible volume for the selected Lab context")
+    predict = commands.add_parser("predict", help="measure next-token operational metacognition for the selected Lab context")
     predict.add_argument("--session", required=True, help="investigation session directory")
     predict.add_argument("--model-dir", help="local distilgpt2 model cache (default: per-user GEM data directory)")
     predict.add_argument("--thresholds", default="0.02,0.05,0.10,0.15,0.30,0.50", help="comma-separated probability thresholds")

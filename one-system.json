@@ -36,9 +36,7 @@
   "capability_prospectus": {
     "pdf": "paper/zoe-research-universe.pdf",
     "source": "paper/zoe-research-universe.tex",
-    "pages": 35,
-    "companion_pdf": "paper/zoe-capability-prospectus.pdf",
-    "companion_pages": 18,
+    "pages": 23,
     "visual_archive": "research/visual-archive",
     "scope": "Complete illustrated capability book with verified, narrow, optional, research, and blocked boundaries"
   },
@@ -144,7 +142,7 @@
     "directory": "next-token-predictability",
     "repository": "https://github.com/Ablation-Tool/next-token-predictability",
     "revision": "79575d94325a43b5dbbef17d38bc1cb1d56d9321",
-    "role": "Accessible Volume equation, papers, complete saved distributions, and independent verifiers"
+    "role": "Operational Metacognition equation, papers, complete saved distributions, and independent verifiers"
   },
   "hosts": [
     {

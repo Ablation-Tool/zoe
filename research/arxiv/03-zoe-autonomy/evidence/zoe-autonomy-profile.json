@@ -2425,7 +2425,7 @@
     "master_cycle_head": "5b938f28aa46880a37780c785d34aaab5215038b15f163e87ec2c54c4291760b",
     "presence_event_head": "0651525a1e32d40b242e218ac23a9cd0464e83540d2480dd78c776a532035d45"
   },
-  "system_level_thesis": "Zoe plus the complete master measurement-action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain; accessible volume alone is only forecast breadth.",
+  "system_level_thesis": "Zoe plus the complete master measurement-action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain; operational metacognition alone is only forecast breadth.",
   "zoe_observations": {
     "brain_decision_recommendation": {
       "action": "preserve",
@@ -2450,7 +2450,7 @@
         "recommendation": {
           "action": "inspect",
           "module": "volume",
-          "reason": "Accessible volume 6 is outside the target band [1, 4]."
+          "reason": "Operational Metacognition 6 is outside the target band [1, 4]."
         }
       },
       {

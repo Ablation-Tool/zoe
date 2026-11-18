@@ -22,7 +22,7 @@ class MirroredBrain:
         if not current["argmax_agreement"]:
             return {"module": "research", "action": "inspect_disagreement", "reason": "The two directions select different categories; inspect correctness and source distributions before interpreting the pair."}
         if current["volume_delta"]:
-            return {"module": "volume", "action": "inspect_difference", "reason": "Accessible volume differs by direction; inspect the threshold and accessible-set membership."}
+            return {"module": "volume", "action": "inspect_difference", "reason": "Operational Metacognition differs by direction; inspect the threshold and accessible-set membership."}
         if self.evidence_exports == 0:
             return {"module": "research", "action": "preserve", "reason": "Preserve both observations and their matched index before another experiment."}
         return {"module": "horizon", "action": "inspect", "reason": "The mirrored pair is measured; compare a bounded continuation or record another pair."}

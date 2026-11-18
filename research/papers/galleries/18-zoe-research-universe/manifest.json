@@ -1,7 +1,7 @@
 {
   "paper": "papers/18-zoe-research-universe.pdf",
   "title": "Zoe — The Research Universe",
-  "pdf_pages": 35,
+  "pdf_pages": 23,
   "extracted_images": [
     {
       "pdf_page": 1,
@@ -12,91 +12,75 @@
       "captions": []
     },
     {
-      "pdf_page": 4,
+      "pdf_page": 3,
       "number": 1,
-      "width": 1600,
-      "height": 1190,
-      "file": "figures/figure-001-page-004.png",
+      "width": 1920,
+      "height": 1200,
+      "file": "figures/figure-001-page-003.png",
       "captions": []
     },
     {
-      "pdf_page": 11,
+      "pdf_page": 4,
       "number": 2,
+      "width": 1920,
+      "height": 1200,
+      "file": "figures/figure-002-page-004.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 5,
+      "number": 3,
+      "width": 1920,
+      "height": 1200,
+      "file": "figures/figure-003-page-005.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 10,
+      "number": 4,
       "width": 1600,
-      "height": 1050,
-      "file": "figures/figure-002-page-011.png",
+      "height": 1200,
+      "file": "figures/figure-004-page-010.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 12,
+      "number": 6,
+      "width": 1920,
+      "height": 1200,
+      "file": "figures/figure-006-page-012.png",
       "captions": []
     },
     {
       "pdf_page": 13,
-      "number": 3,
-      "width": 1600,
+      "number": 7,
+      "width": 1425,
+      "height": 1427,
+      "file": "figures/figure-007-page-013.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 14,
+      "number": 8,
+      "width": 1920,
       "height": 1200,
-      "file": "figures/figure-003-page-013.png",
+      "file": "figures/figure-008-page-014.png",
       "captions": []
     },
     {
       "pdf_page": 15,
-      "number": 5,
-      "width": 248,
-      "height": 280,
-      "file": "figures/figure-005-page-015.png",
-      "captions": []
-    },
-    {
-      "pdf_page": 17,
-      "number": 7,
-      "width": 1920,
-      "height": 1080,
-      "file": "figures/figure-007-page-017.png",
-      "captions": []
-    },
-    {
-      "pdf_page": 22,
-      "number": 8,
-      "width": 1400,
-      "height": 942,
-      "file": "figures/figure-008-page-022.png",
-      "captions": []
-    },
-    {
-      "pdf_page": 23,
       "number": 9,
       "width": 1920,
-      "height": 1080,
-      "file": "figures/figure-009-page-023.png",
+      "height": 1200,
+      "file": "figures/figure-009-page-015.png",
       "captions": []
     },
     {
-      "pdf_page": 24,
+      "pdf_page": 21,
       "number": 10,
       "width": 1920,
       "height": 1200,
-      "file": "figures/figure-010-page-024.png",
-      "captions": []
-    },
-    {
-      "pdf_page": 28,
-      "number": 11,
-      "width": 1492,
-      "height": 1007,
-      "file": "figures/figure-011-page-028.png",
-      "captions": []
-    },
-    {
-      "pdf_page": 32,
-      "number": 13,
-      "width": 512,
-      "height": 512,
-      "file": "figures/figure-013-page-032.png",
-      "captions": []
-    },
-    {
-      "pdf_page": 34,
-      "number": 14,
-      "width": 1600,
-      "height": 1120,
-      "file": "figures/figure-014-page-034.png",
+      "file": "figures/figure-010-page-021.png",
       "captions": []
     }
   ],
@@ -123,18 +107,6 @@
     "pages/page-020.jpg",
     "pages/page-021.jpg",
     "pages/page-022.jpg",
-    "pages/page-023.jpg",
-    "pages/page-024.jpg",
-    "pages/page-025.jpg",
-    "pages/page-026.jpg",
-    "pages/page-027.jpg",
-    "pages/page-028.jpg",
-    "pages/page-029.jpg",
-    "pages/page-030.jpg",
-    "pages/page-031.jpg",
-    "pages/page-032.jpg",
-    "pages/page-033.jpg",
-    "pages/page-034.jpg",
-    "pages/page-035.jpg"
+    "pages/page-023.jpg"
   ]
 }

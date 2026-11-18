@@ -2,7 +2,7 @@
 
 Zoe unifies **GEM HELEN + MASTER GEM + BRAIN GEM** inside Ablation's native GEM host. HELEN supplies lightweight creative geometry and stored categorical predictions. next-token-predictability supplies research evidence and numerical conformance. Ablation supplies native GTK, Spatial IR, Lab integration, VDI replay, and evidence export. BRAIN is the deterministic observation and recommendation layer; it is not a consciousness claim or an autonomous agent.
 
-![Zoe native BRAIN after a real HELEN observation](images/zoe-brain.png)
+![Zoe native BRAIN after a real HELEN observation](../../assets/native/zoe-brain.png)
 
 ## Launch
 
@@ -17,38 +17,38 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe
 
 ## Functional modules
 
-- **BRAIN:** observe HELEN's actual stored forward or retrograde distributions by index or in sequence. Zoe computes top-1 correctness when a target exists, negative log probability, entropy, maximum probability, strict accessible volume, complement, and accessible momentum. The recommendation identifies the next module to inspect; it never executes an action.
+- **BRAIN:** observe HELEN's actual stored forward or retrograde distributions by index or in sequence. Zoe computes top-1 correctness when a target exists, negative log probability, entropy, maximum probability, strict operational metacognition, complement, and accessible momentum. The recommendation identifies the next module to inspect; it never executes an action.
 - **FELIX:** index local FELIX builds, correlate exact-build Ablation findings, replay observations into Zoe's Cognitive Field, refresh corpus evidence, inspect TIM and LCB/STAR HDL context, and export Spatial IR, observation JSON, or deterministic stereo WAV. Open **Zoe × FELIX** in the native module selector or run `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module felix --output zoe-felix.svg`. Use `gem felix-hdl --output recovered-hdl` to recover clean LCB and STAR/Flink source files with provenance indexes. Filesystem observation is not hardware telemetry and host-source capabilities never authorize execution. The default root is `/media/cowboy/research/CERN/Boutique`; legacy `/media/cowboy/research/CERN` paths remain supported through compatibility symlinks, with logical source names and catalogue verification preserved.
 - **Field notebook:** organize questions, competing binary claims, explicit Bayesian evidence updates, deterministic and stochastic chambers, next-test priorities, and decisions in one append-only hash-chained memory. BRAIN observations are preserved without automatically changing belief. The equation registry includes strict, normalized, adaptive, joint, momentum, temperature, Markov, timing, geometry, and categorical-sampling sections; custom equations can be registered without `eval`.
 
-![Zoe Bayesian field notebook](images/zoe-field-notebook.png)
+![Zoe Bayesian field notebook](../../assets/native/zoe-field-notebook.png)
 
 - **Cognitive Field:** encode sourced observations into bounded FIFO working memory, explicitly store active representations, retrieve them with provenance and revision checks, match declared procedural tags, and prepare review-required performance proposals. No rule is executable code and no measurement updates a posterior automatically. Open **Zoe · Cognitive Field** in the native module selector or run `PYTHONPATH=guiai-lab python -m guiai.gem cognitive --output cognitive-field.png`. See the [instrument guide](COGNITIVE.md).
 
-![Zoe Cognitive Field](images/zoe-cognitive-field.png)
+![Zoe Cognitive Field](../../assets/native/zoe-cognitive-field.png)
 
 <details>
 <summary>Five Zoe mechanisms in pictures</summary>
 
 1. **Epistemic firewall:** measurement, evidence, belief updates, and action remain distinct.
-   ![Zoe epistemic firewall](images/zoe-visuals/01-epistemic-firewall.png)
-   [SVG](images/zoe-visuals/01-epistemic-firewall.svg)
+   ![Zoe epistemic firewall](../../assets/native/zoe-visuals/01-epistemic-firewall.png)
+   [SVG](../../assets/native/zoe-visuals/01-epistemic-firewall.svg)
 
 2. **Belief diff:** priors become posteriors only through explicit evidence, with every likelihood and source retained.
-   ![Zoe belief diff](images/zoe-visuals/02-belief-diff.png)
-   [SVG](images/zoe-visuals/02-belief-diff.svg)
+   ![Zoe belief diff](../../assets/native/zoe-visuals/02-belief-diff.png)
+   [SVG](../../assets/native/zoe-visuals/02-belief-diff.svg)
 
 3. **Deterministic and stochastic chambers:** reproducible measurements and seeded forecasts have distinct identities and lifecycles.
-   ![Zoe deterministic and stochastic chambers](images/zoe-visuals/03-chambers.png)
-   [SVG](images/zoe-visuals/03-chambers.svg)
+   ![Zoe deterministic and stochastic chambers](../../assets/native/zoe-visuals/03-chambers.png)
+   [SVG](../../assets/native/zoe-visuals/03-chambers.svg)
 
 4. **Append-only memory:** sequence-linked hashes support replay and tamper detection without claiming authentication.
-   ![Zoe append-only memory](images/zoe-visuals/04-memory-chain.png)
-   [SVG](images/zoe-visuals/04-memory-chain.svg)
+   ![Zoe append-only memory](../../assets/native/zoe-visuals/04-memory-chain.png)
+   [SVG](../../assets/native/zoe-visuals/04-memory-chain.svg)
 
 5. **Next useful test:** decision support ranks attention while human review controls execution.
-   ![Zoe next useful test](images/zoe-visuals/05-next-test.png)
-   [SVG](images/zoe-visuals/05-next-test.svg)
+   ![Zoe next useful test](../../assets/native/zoe-visuals/05-next-test.png)
+   [SVG](../../assets/native/zoe-visuals/05-next-test.svg)
 
 </details>
 
@@ -59,7 +59,7 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe
 - **Research:** inspect hash-checked Groove and Nightingale reports. Individual Groove distributions load on demand from the 98 MB NPZ only when requested. Nightingale entries are explicitly aggregate-only.
 - **Qualia:** explore five visual lenses for Balduzzi & Tononi's 2009 IIT geometry and the proposed Accessible Q-Volume annotation. The [Zoetic field guide](QUALIA.md) separates philosophical qualia, IIT's theoretical constructs, and Zoe's actual software behavior. `gem qualia --output accessible-q-volume.json` checks and saves the two-way toy. This is not a general IIT calculator or a consciousness measurement.
 
-![Zoe's five-panel qualia field guide](images/zoe-qualia.png)
+![Zoe's five-panel qualia field guide](../../assets/native/zoe-qualia.png)
 
 Every module exports the current Spatial IR scene as SVG, PNG, or real little-endian GEM VDI. BRAIN exports also advance the evidence-export state without changing `executed=False`.
 
@@ -92,7 +92,7 @@ Normal BRAIN use does not import a transformer, tokenizer, model runtime, scikit
 
 ## Evidence boundaries
 
-- Accessible volume measures forecast breadth, not correctness, safety, or human surprise.
+- Operational Metacognition measures forecast breadth, not correctness, safety, or human surprise.
 - Synthetic HELEN evidence is not real musical performance. Groove and Nightingale have their own distinct real-MIDI results and preprocessing scopes.
 - Backward-matched Groove evaluation is distinct from direct reversal transfer.
 - HOP and deterministic extrapolation supply no categorical accessible-volume measurement; HOP remains a rejected baseline.

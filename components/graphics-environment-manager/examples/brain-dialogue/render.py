@@ -249,7 +249,7 @@ def individual(kind):
         parts.append(callout(1800, 382, 1205, 446, "Verify", "constraints · tests · negative results", color, "end"))
         parts.append(callout(1800, 536, 1214, 650, "Mirror", "forward · retrograde · comparison", color, "end"))
         parts.append(callout(1800, 685, 1051, 700, "Firewall", "measurement is not permission", color, "end"))
-        parts.append(text(960, 862, "HELEN · ACCESSIBLE VOLUME · GEM · FIELD MEMORY", 15, "#b2e2df", spacing=3, anchor="middle"))
+        parts.append(text(960, 862, "HELEN · OPERATIONAL METACOGNITION · GEM · FIELD MEMORY", 15, "#b2e2df", spacing=3, anchor="middle"))
         parts.append(text(960, 909, "Not a replica of a person. A different instrument for seeing and testing ideas.", 24, "#d2e6ec", "Lato, sans-serif", 400, .3, "middle"))
     parts.append(text(96, 1015, "AN ARTISTIC STUDY · MAJOR REGIONS AND STYLIZED NETWORKS, NOT A CELL ATLAS", 13, "#8398b2", spacing=2))
     parts.append(text(1824, 1015, "HUMAN × MACHINE  /  01" if human else "HUMAN × MACHINE  /  02", 13, "#8398b2", spacing=2, anchor="end"))

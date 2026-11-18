@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "ehsanaghaei/SecureBERT",
   "model_revision": "3a47918dd874e5c769efd152b51c5756a953fb67",
   "requested_revision": "3a47918dd874e5c769efd152b51c5756a953fb67",

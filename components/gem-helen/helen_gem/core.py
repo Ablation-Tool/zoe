@@ -13,7 +13,7 @@ MODULES = {
     "circle": "Circle and arc",
     "clock": "Modular clock",
     "graph": "Looped star graph",
-    "volume": "Accessible volume",
+    "volume": "Operational Metacognition",
     "onset": "Onset laboratory",
 }
 DEFAULT_SOURCE = [[101.0, 114.0], [285.0, 159.0]]
@@ -383,7 +383,7 @@ def onset_scene(data, tau=.05, temperature=1.0):
     objects.append(text("forward-metrics", [70, 360], f"Forward: top1={forward['top1']:.1%} log-loss={forward['log_loss']:.3f} A(τ)={forward_at_tau:.2f}", 14))
     objects.append(text("retrograde-metrics", [70, 385], f"Retrograde: top1={retrograde['top1']:.1%} log-loss={retrograde['log_loss']:.3f} A(τ)={retrograde_at_tau:.2f}", 14))
     objects.append(text("scope", [70, 410], "Synthetic evidence · breadth is not correctness", 13))
-    objects.append(text("scope-hop", [70, 432], "HOP supplies no categorical distribution or accessible volume", 13))
+    objects.append(text("scope-hop", [70, 432], "HOP supplies no categorical distribution or operational metacognition", 13))
     return make_scene("atlas-onset", 760, 450, objects, MODULES["onset"]), {"forward": forward, "retrograde": retrograde, "forward_at_tau": forward_at_tau, "retrograde_at_tau": retrograde_at_tau, "temperature": temperature, "tau": tau}
 
 

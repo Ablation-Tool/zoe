@@ -3,14 +3,14 @@
 \label{part:evidence}
 
 \section{Forecast metrics and experimental protocol}
-Accessible volume is interpreted alongside, never instead of, outcome and calibration measurements. For a categorical distribution $p$ over $\mathcal O$ and observed outcome $y$, the principal companion metrics are
+Operational Metacognition is interpreted alongside, never instead of, outcome and calibration measurements. For a categorical distribution $p$ over $\mathcal O$ and observed outcome $y$, the principal companion metrics are
 \begin{align}
 H(p)&=-\sum_{a\in\mathcal O}p_a\log_2p_a, &
 p_{\max}&=\max_ap_a,\\
 \operatorname{NLL}(p,y)&=-\log p_y, &
 \operatorname{Brier}(p,y)&=\sum_{a\in\mathcal O}(p_a-\indicator[a=y])^2.
 \end{align}
-The logarithm base determines the NLL units; model log-loss tables report the convention used by their saved scripts. Top-$k$ mass is $\sum_{a\in K_k}p_a$ for the $k$ highest-probability outcomes. Top-1 correctness is an independent binary observation, not a function of accessible volume.
+The logarithm base determines the NLL units; model log-loss tables report the convention used by their saved scripts. Top-$k$ mass is $\sum_{a\in K_k}p_a$ for the $k$ highest-probability outcomes. Top-1 correctness is an independent binary observation, not a function of operational metacognition.
 
 For $B$ calibration bins $\mathcal I_b$,
 \begin{equation}
@@ -26,7 +26,7 @@ All model-specific measurements belong to a model revision, context construction
 The first working measurement used 963 tokens of actual Ablation + GEM investigation context: a selected artifact, a scoped observation, and real entropy-inspection output. A local DistilGPT-2 ONNX model returned a complete distribution over 50,257 next tokens. The threshold counts are reproduced in Table~\ref{tab:original-ablation}.
 \begin{table}[htbp]
 \centering
-\caption{Measured accessible volume for the original Ablation + GEM context.}
+\caption{Measured operational metacognition for the original Ablation + GEM context.}
 \label{tab:original-ablation}
 \begin{tabular}{ccccccc}
 \toprule
@@ -69,10 +69,10 @@ The unchanged operator was applied to three different prediction constructions:
 Each mechanism requires its own leakage checks and exact input manifest. Applying one threshold grid does not erase architectural or training-objective differences.
 
 \section{XLNet query-stream extension}
-The XLNet experiment held back the token ``gap'' in the phrase ``Accessible volume addresses this gap.'' XLNet-Base and XLNet-Large each returned 32,000 probabilities. Base assigned highest probability to a period ($0.559758$), followed by ``issue'' ($0.068510$); the target ``gap'' had probability $0.012354$ and rank 12. Entropy was $3.5946$ bits and top-ten mass $82.22\%$. Large assigned highest probability to ``problem'' ($0.235085$), followed by ``in'' ($0.139887$) and a period ($0.099426$). The target had probability $0.015083$ and rank eight; entropy was $5.7603$ bits and top-ten mass $65.16\%$.
+The XLNet experiment held back the token ``gap'' in the phrase ``Operational Metacognition addresses this gap.'' XLNet-Base and XLNet-Large each returned 32,000 probabilities. Base assigned highest probability to a period ($0.559758$), followed by ``issue'' ($0.068510$); the target ``gap'' had probability $0.012354$ and rank 12. Entropy was $3.5946$ bits and top-ten mass $82.22\%$. Large assigned highest probability to ``problem'' ($0.235085$), followed by ``in'' ($0.139887$) and a period ($0.099426$). The target had probability $0.015083$ and rank eight; entropy was $5.7603$ bits and top-ten mass $65.16\%$.
 \begin{table}[htbp]
 \centering
-\caption{Accessible volume for two leakage-controlled XLNet query-stream predictions.}
+\caption{Operational Metacognition for two leakage-controlled XLNet query-stream predictions.}
 \label{tab:xlnet}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -92,7 +92,7 @@ The original runs used PyTorch 2.14.1+cu130 and Transformers 5.18.0. Complete pr
 Sixteen additional cases covered general language, security, biomedical, clinical, scientific, legal, financial, programming, multilingual, chemistry, protein-sequence, and mathematical prediction. Table~\ref{tab:model-comparison} reports the fixed threshold grid. The cases use different contexts and, in several domains, different targets; the table is intentionally not a quality leaderboard.
 \begin{table}[htbp]
 \centering
-\caption{Accessible volume across sixteen additional model--input pairs.}
+\caption{Operational Metacognition across sixteen additional model--input pairs.}
 \label{tab:model-comparison}
 {\scriptsize
 \setlength{\tabcolsep}{3.5pt}

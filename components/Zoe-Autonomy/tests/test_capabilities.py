@@ -102,8 +102,8 @@ class CapabilityCase(unittest.TestCase):
 
     def test_03_persistent_memory_contradictions_and_search(self):
         memory = ResearchMemory(self.root / "memory.sqlite")
-        source = memory.add_source("Evidence", "Accessible volume measures breadth", "https://example.com/source")
-        self.assertEqual(source, memory.add_source("Evidence", "Accessible volume measures breadth"))
+        source = memory.add_source("Evidence", "Operational Metacognition measures breadth", "https://example.com/source")
+        self.assertEqual(source, memory.add_source("Evidence", "Operational Metacognition measures breadth"))
         first = memory.add_claim("Breadth is correctness", source)
         second = memory.add_claim("Breadth is not correctness", source)
         memory.contradict(first, second, "The repository separates breadth and correctness")

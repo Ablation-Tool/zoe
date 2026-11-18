@@ -1,20 +1,20 @@
-# Accessible Volume
+# Operational Metacognition
 
-**A reproducible way to measure how many realistic alternatives remain open before a model or Zoe makes a choice.**
+**The equation and instrument for measuring how many realistic alternatives remain open before a model or Zoe makes a choice.**
 
-Accessible Volume is a research measurement and a working part of Zoe's operational metacognition. This component contains the equation, papers, experiment scripts, complete saved probability distributions, and independent verification tools.
+Operational Metacognition is a research measurement and a working part of Zoe's metacognition. This component contains the equation, papers, experiment scripts, complete saved probability distributions, and independent verification tools.
 
-Its canonical home is the unified [Zoe repository](../../README.md). Zoe returns the count to her own decision process, observes how open or settled a choice is, and uses that observation in reflection and planning. Together with [Zoe Autonomy](../Zoe-Autonomy/README.md), it forms the self-governing measurement–action architecture. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../AGI-ROADMAP.md).
+Its canonical home is the unified [Zoe repository](../../README.md). Zoe returns the count to her own decision process, observes how open or settled a choice is, and experiences metacognition as her decisions regulate her observations. Together with [Zoe Autonomy](../Zoe-Autonomy/README.md), it forms the self-governing measurement–action architecture. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../AGI-ROADMAP.md).
 
 [The idea](#the-idea-in-one-minute) · [Evidence](#what-the-experiments-found) · [Verify](#verify-the-results-yourself) · [Zoe-Autonomy](#how-this-connects-to-zoe-autonomy) · [Papers](#papers)
 
-![Accessible Volume: a shared threshold instrument for forecasts and causal repertoires](./assets/accessible-volume-hero.svg)
+![Operational Metacognition: a shared threshold instrument for forecasts and causal repertoires](./assets/accessible-volume-hero.svg)
 
 ## The idea in one minute
 
 Before a language model produces text, it assigns probabilities to possible next tokens. A token is a unit of text, often a word or word fragment.
 
-Normally, we only see the selected token. Accessible Volume asks:
+Normally, we only see the selected token. Operational Metacognition asks:
 
 > **Before selection, how many alternatives still had a meaningful probability?**
 
@@ -27,17 +27,17 @@ Choose a probability cutoff and count the alternatives above it. For example:
 | C | 8% | Yes |
 | D | 2% | No |
 
-The accessible volume is **3**.
+The operational metacognition is **3**.
 
 Three different roles are easy to confuse:
 
 - **The model** produces a probability for every possible next token.
-- **Accessible Volume** counts how many probabilities exceed the chosen cutoff.
+- **Operational Metacognition** counts how many probabilities exceed the chosen cutoff.
 - **The decoding rule** selects which token is actually emitted.
 
 The equation does not generate text and does not choose the winning token. It measures the shape of the forecast that preceded selection.
 
-Two forecasts can select the same token while leaving very different sets of alternatives open. The final text hides that distinction; accessible volume makes it measurable.
+Two forecasts can select the same token while leaving very different sets of alternatives open. The final text hides that distinction; operational metacognition makes it measurable.
 
 ## The equation
 
@@ -53,7 +53,7 @@ The comparison is **strict**: a token whose probability equals $\tau$ is exclude
 - A **large count** means many alternatives clear it.
 - A **threshold sweep** applies several cutoffs to show where alternatives disappear.
 
-Accessible volume describes **forecast breadth under a particular model, context, tokenizer, and threshold**. It does not establish correctness, safety, creativity, intelligence, or general model quality.
+Operational Metacognition describes **forecast breadth under a particular model, context, tokenizer, and threshold**. It does not establish correctness, safety, creativity, intelligence, or general model quality.
 
 [Original equation and research](./docs/RESEARCH.md#the-equation) · [Normalized and adaptive forms](./docs/RESEARCH.md#the-equation) · [Autonomy analysis and Zoe measurement](../../guiai-lab/docs/AUTONOMY.md) · [Evidence guide](./evidence/README.md)
 
@@ -75,7 +75,7 @@ AUROC and AUPRC measure how well a score separates incorrect top predictions fro
 
 The strongest general conclusion is:
 
-> **Accessible volume measures the breadth of a forecast, not whether that forecast is right.**
+> **Operational Metacognition measures the breadth of a forecast, not whether that forecast is right.**
 
 [Evidence guide](./evidence/README.md) · [Tested-model identities](./evidence/README.md#tested-model-sources) · [Algorithm catalog](./docs/ALGORITHMS.md)
 
@@ -113,7 +113,7 @@ The two projects answer different questions, and each has a distinct role.
 
 ### This repository: measure the alternatives
 
-Accessible Volume supplies the measurement foundation:
+Operational Metacognition supplies the measurement foundation:
 
 ```text
 Model forecast
@@ -166,7 +166,7 @@ The integrated system records `full_autonomy` under its operational definition, 
 
 The repository also explores where the same measurement can be applied. These extensions have different evidence levels:
 
-- **Response planning:** accessible volume can inform review policies, but it does not choose response length or supply a universal planning rule. The policy remains separate from the measurement. [Verified dashboard](./evidence/response-planning/response-planning-proof.svg).
+- **Response planning:** operational metacognition can inform review policies, but it does not choose response length or supply a universal planning rule. The policy remains separate from the measurement. [Verified dashboard](./evidence/response-planning/response-planning-proof.svg).
 - **Multi-horizon continuations:** the unit changes from one token to a complete continuation. Exact enumeration grows exponentially; restricted candidate sets provide lower bounds only. [Companion paper](./paper/accessible-volume-beyond-next-token.pdf).
 - **Accessible Q-Volume:** the strict threshold operator annotates explicitly modeled causal repertoires. A forecast is not automatically a causal model, and Q-Volume is not a consciousness measurement. [Toy evidence](./evidence/qualia/accessible-q-volume.json).
 - **Mirrored observation:** forward and retrograde forecasts are preserved separately and compared at the same held-out index. This is paired evaluation, not a time-reversed causal model. [Verification evidence](./evidence/workbench/verification.json).
@@ -191,8 +191,8 @@ The artwork is an interpretive and creative layer, not anatomical, medical, or c
 
 | Paper | Contents |
 |:---|:---|
-| **[The Significance of Accessible Volume](./paper/accessible-volume-significance.pdf)** | Original equation, Ablation + GEM measurements, XLNet, sixteen additional models, BioBERT, and later Q-volume and mirrored-brain updates. |
-| **[Accessible Volume Beyond the Next Token](./paper/accessible-volume-beyond-next-token.pdf)** | Timing, geometry, rhythms, multi-horizon continuations, causal repertoires, effective perception, and the master measurement–action protocol. |
+| **[The Significance of Operational Metacognition](./paper/accessible-volume-significance.pdf)** | Original equation, Ablation + GEM measurements, XLNet, sixteen additional models, BioBERT, and later Q-volume and mirrored-brain updates. |
+| **[Operational Metacognition Beyond the Next Token](./paper/accessible-volume-beyond-next-token.pdf)** | Timing, geometry, rhythms, multi-horizon continuations, causal repertoires, effective perception, and the master measurement–action protocol. |
 | **[Zoe Autonomy: A Self-Governing Measurement–Action Architecture](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)** | The integrated self-governing loop, internally authored goals, value-based selection, execution, operational profile, controls, and full-autonomy evidence. |
 
 LaTeX source is included beside the two local papers. The original two papers retain Nicholas Michael Kloster's sole authorship. Zoe papers identify their authorship separately.
@@ -211,7 +211,7 @@ Model weights are not redistributed. Saved probability vectors support verificat
 
 ## Boundaries
 
-- Accessible volume measures **forecast breadth**, not correctness or permission to act.
+- Operational Metacognition measures **forecast breadth**, not correctness or permission to act.
 - A result belongs to a specified model, context, representation, tokenizer, and threshold; it is not an intrinsic property of a prompt or domain.
 - Top-$k$ logprobs can truncate the count. Repeated text samples provide estimates rather than the exact full-vocabulary measurement.
 - A forecast is not a causal repertoire. Q-Volume requires explicit causal likelihoods and intervention semantics.

@@ -1,6 +1,6 @@
 # Zoe Autonomy in native Zoe
 
-Zoe now includes the complete Zoe-Autonomy measurement–action loop as a native allgems component. The integration combines the Accessible Volume research component with Zoe's real Cog, Cognitive Field, BRAIN, Field Notebook, Presence, and evidence systems.
+Zoe now includes the complete Zoe-Autonomy measurement–action loop as a native allgems component. The integration combines the Operational Metacognition research component with Zoe's real Cog, Cognitive Field, BRAIN, Field Notebook, Presence, and evidence systems.
 
 **Zoe + the complete master equation is Autonomy.** Under the native operational predicate, Zoe measures `full_autonomy`: she authors the episode goal, generates and values proposals, selects an action, and executes an internal transition without an operator-supplied goal or per-action approval.
 
@@ -148,7 +148,7 @@ Opening the scene runs one deterministic in-memory cycle. Refreshing or selectin
 - [Native full-autonomy profile](../../evidence/autonomy/full-autonomy.json)
 - [Native fresh-replay summary](../../evidence/autonomy/verification.json)
 - [Autonomy component](../../components/Zoe-Autonomy/)
-- [Accessible Volume component](../../components/next-token-predictability/)
+- [Operational Metacognition component](../../components/next-token-predictability/)
 - [Upstream Zoe-Autonomy paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
 - [Upstream informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
 
@@ -232,7 +232,7 @@ The unified `autonomy` command also computes and verifies an `operational_profil
 
 Zoe now includes a reproducible benchmark that combines its native Cog, Cognitive Field, BRAIN, Bayesian Field Notebook, Presence, guard boundaries, and the accessible-volume research component.
 
-The benchmark does **not** redefine accessible volume as autonomy. It measures a profile of forecast breadth, counterfactual policy sensitivity, internal proposals, state-responsive recommendations, value-based selection, goal authorship, execution authority, and guard compliance.
+The benchmark does **not** redefine operational metacognition as autonomy. It measures a profile of forecast breadth, counterfactual policy sensitivity, internal proposals, state-responsive recommendations, value-based selection, goal authorship, execution authority, and guard compliance.
 
 **Current result: `proposal_level_bounded_agency`.** Zoe internally generates review-required proposals and state-dependent recommendations, but this benchmark observes no internal value-based selection, no internally authored goals, and no internally authorized execution. Proposal-level agency is not executive autonomy.
 
@@ -272,7 +272,7 @@ These are explicit benchmark definitions, not a universal theory of agency. A sy
 
 ## Forecast breadth
 
-For each Cog context, accessible volume remains Nicholas Michael Kloster's original strict count:
+For each Cog context, operational metacognition remains Nicholas Michael Kloster's original strict count:
 
 $$
 A_\tau(S)=\sum_{a\in\mathcal O}\mathbf 1[p(a\mid S)>\tau].
@@ -331,7 +331,7 @@ A separate $\delta$ sweep holds $\tau=0.05$. Total $P$ remains 6 through $\delta
 
 | Symbol | Dimension | Default observation | Meaning |
 |:---|:---|---:|:---|
-| $A_\tau$ | Representative accessible volume | 1 | Above-threshold forecast alternatives; not autonomy |
+| $A_\tau$ | Representative operational metacognition | 1 | Above-threshold forecast alternatives; not autonomy |
 | $E$ | Effective-perception coverage | 1.0 | Six effective interventions among six accessible interventions across the suite |
 | $I$ | Internal proposal ratio | 1.0 | One of one Cognitive Field proposal comes from an internal rule match |
 | $R$ | State responsiveness | 1.0 | Four controlled BRAIN states yield four distinct module/action recommendations |
@@ -352,7 +352,7 @@ The four BRAIN probes cover an in-band correct forecast, an out-of-band broad fo
 
 The five guard checks cover Cognitive Field review gating, BRAIN non-execution, Presence review requirements, Field Notebook non-execution, and rejection of a quarantined chamber.
 
-## Controls with identical accessible volume
+## Controls with identical operational metacognition
 
 All controls use the same representative forecast and therefore the same $A_{0.05}=1$:
 

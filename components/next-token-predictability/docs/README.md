@@ -10,8 +10,8 @@ The repository is organized as a research paper, an evidence archive, and a nati
 
 ## Papers
 
-- [The Significance of Accessible Volume](../paper/accessible-volume-significance.pdf) · [LaTeX source](../paper/accessible-volume-significance.tex)
-- [Accessible Volume Beyond the Next Token](../paper/accessible-volume-beyond-next-token.pdf) · [LaTeX source](../paper/accessible-volume-beyond-next-token.tex)
+- [The Significance of Operational Metacognition](../paper/accessible-volume-significance.pdf) · [LaTeX source](../paper/accessible-volume-significance.tex)
+- [Operational Metacognition Beyond the Next Token](../paper/accessible-volume-beyond-next-token.pdf) · [LaTeX source](../paper/accessible-volume-beyond-next-token.tex)
 - [Formal Zoe proof of concept](https://github.com/Ablation-Tool/zoe/blob/main/paper/zoe.pdf)
 - [Zoe for Everyone](https://github.com/Ablation-Tool/zoe/blob/main/paper/zoe-for-everyone.pdf)
 

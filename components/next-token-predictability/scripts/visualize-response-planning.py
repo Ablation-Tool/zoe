@@ -254,7 +254,7 @@ def render(measurements, output):
     fig = plt.figure(figsize=(16, 12), dpi=125, facecolor=BACKGROUND)
     grid = fig.add_gridspec(2, 2, left=0.07, right=0.96, top=0.80, bottom=0.13, wspace=0.25, hspace=0.42, width_ratios=[1.35, 1])
     fig.text(0.07, 0.945, "SEE THE DECISION BEFORE THE TOKEN", color=CYAN, fontsize=12, fontweight="bold")
-    fig.text(0.07, 0.905, "Accessible volume, made visible", color=TEXT, fontsize=28, fontweight="bold")
+    fig.text(0.07, 0.905, "Operational Metacognition, made visible", color=TEXT, fontsize=28, fontweight="bold")
     fig.text(0.07, 0.866, "A(τ) counts real next-token alternatives with probability strictly above τ", color=MUTED, fontsize=12)
     fig.text(0.96, 0.935, "16 MODELS  /  96 CELLS  /  120 BIOBERT CASES", color=TEXT, fontsize=11, ha="right", fontweight="bold")
     fig.text(0.96, 0.900, "NumPy = Zoe = GEM  ·  GPT-2 A(0.05) = 3", color=CYAN, fontsize=11, ha="right")
@@ -287,7 +287,7 @@ def render(measurements, output):
     bio_ax.set_ylim(-0.6, maximum + 1.2)
     bio_ax.set_yticks(range(maximum + 1))
     bio_ax.set_xticks([0, 1], ["Correct · n=17", "Error · n=23"])
-    bio_ax.set_ylabel("Accessible volume at τ = 0.05")
+    bio_ax.set_ylabel("Operational Metacognition at τ = 0.05")
     bio_ax.set_title("Held-out BioBERT: breadth carries an error signal", loc="left", fontsize=12, fontweight="bold", pad=12)
     bio_ax.text(0.02, 0.97, f"AUROC {test['auroc']:.4f}   ·   AUPRC {test['auprc']:.4f}", transform=bio_ax.transAxes, va="top", color=TEXT, fontsize=12, fontweight="bold")
     bio_ax.text(0.02, 0.89, "40 frozen test cases · points jittered only for visibility", transform=bio_ax.transAxes, va="top", color=MUTED, fontsize=8)
@@ -318,15 +318,15 @@ def render(measurements, output):
     colorbar.outline.set_edgecolor("#2b3a52")
 
     fig.text(0.07, 0.075, "RESPONSE POLICY  ·  measure → inspect alternatives → decode → respond", color=TEXT, fontsize=11, fontweight="bold")
-    fig.text(0.07, 0.047, "Accessible volume informs review; it does not choose a token, set response length, establish correctness, or authorize autonomy.", color=MUTED, fontsize=10)
+    fig.text(0.07, 0.047, "Operational Metacognition informs review; it does not choose a token, set response length, establish correctness, or authorize autonomy.", color=MUTED, fontsize=10)
     fig.text(0.96, 0.047, "Strict p > τ  ·  executed = false", color=CYAN, fontsize=10, ha="right")
 
     png_path = output / "response-planning-proof.png"
     svg_path = output / "response-planning-proof.svg"
-    fig.savefig(png_path, dpi=125, facecolor=BACKGROUND, metadata={"Software": "Accessible Volume response-planning proof"})
+    fig.savefig(png_path, dpi=125, facecolor=BACKGROUND, metadata={"Software": "Operational Metacognition response-planning proof"})
     fig.savefig(svg_path, facecolor=BACKGROUND, metadata={
         "Date": None,
-        "Title": "Accessible volume response-planning proof",
+        "Title": "Operational Metacognition response-planning proof",
         "Description": "Real next-token distributions, 96 recomputed threshold counts, held-out BioBERT error separation, and NumPy/Zoe/GEM agreement.",
     })
     plt.close(fig)
@@ -364,7 +364,7 @@ def main():
         },
         "scope": [
             "Real saved model-context pairs, not a model-quality leaderboard or a Claude/Kimi benchmark.",
-            "Accessible volume measures next-token forecast breadth, not response length, correctness, safety, or autonomy.",
+            "Operational Metacognition measures next-token forecast breadth, not response length, correctness, safety, or autonomy.",
             "The BioBERT panel reproduces the original fixed-threshold held-out test result; it does not validate a response policy.",
             "No wall-clock value enters the measurements, figures, or artifact manifest.",
         ],

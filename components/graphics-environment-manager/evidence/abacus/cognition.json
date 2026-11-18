@@ -18495,7 +18495,7 @@
         0.25,
         0.25
       ],
-      "scope": "Accessible volume measures forecast breadth, not visual correctness or uncertainty.",
+      "scope": "Operational Metacognition measures forecast breadth, not visual correctness or uncertainty.",
       "source": "declared uniform prior; not learned from observations",
       "used_for_planning": true,
       "vocabulary": [

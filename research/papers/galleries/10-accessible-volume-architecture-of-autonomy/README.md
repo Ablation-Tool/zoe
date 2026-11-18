@@ -1,4 +1,4 @@
-# Accessible Volume and the Architecture of Autonomy — Visual index
+# Operational Metacognition and the Architecture of Autonomy — Visual index
 
 [Open the paper PDF](../../papers/10-accessible-volume-architecture-of-autonomy.pdf) · [All paper galleries](../README.md)
 
@@ -14,7 +14,7 @@ The extracted-image section preserves original embedded image data where availab
 |---:|---:|---:|---|---|
 | 1 | 22 | 1050×600 | Figure 1: Synthetic forward and retrograde accessible-volume sweeps. Similar breadth coexists with substantially different correctness and log-loss. | [Open](figures/figure-000-page-022.png) |
 | 2 | 23 | 1200×675 | Figure 2: Groove sweeps for forward, reversal-transfer, and backward-matched conditions. | [Open](figures/figure-002-page-023.png) |
-| 3 | 24 | 1650×900 | Figure 3: Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed. | [Open](figures/figure-004-page-024.png) |
+| 3 | 24 | 1650×900 | Figure 3: Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed. | [Open](figures/figure-004-page-024.png) |
 | 4 | 25 | 1950×600 | Figure 4: Nightingale accessible-volume sweeps by genre and direction. | [Open](figures/figure-006-page-025.png) |
 | 5 | 25 | 750×750 | Figure 5: Forward forecast calibration for the three Nightingale genres. | [Open](figures/figure-008-page-025.png) |
 | 6 | 29 | 1200×1160 | Figure 6: Zoe’s causal-geometry and Accessible Q-Volume workbench. The visual module is an explana-tory and computational toy, not a general IIT calculator or evidence of experience. | [Open](figures/figure-010-page-029.png) |
@@ -47,165 +47,165 @@ The extracted-image section preserves original embedded image data where availab
 
 Figure 1: Synthetic forward and retrograde accessible-volume sweeps. Similar breadth coexists with substantially different correctness and log-loss.
 
-<a href="figures/figure-000-page-022.png"><img src="figures/figure-000-page-022.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 1, PDF page 22" style="max-width:100%;"></a>
+<a href="figures/figure-000-page-022.png"><img src="figures/figure-000-page-022.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 1, PDF page 22" style="max-width:100%;"></a>
 
 ### Image 2 — PDF page 23
 
 Figure 2: Groove sweeps for forward, reversal-transfer, and backward-matched conditions.
 
-<a href="figures/figure-002-page-023.png"><img src="figures/figure-002-page-023.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 2, PDF page 23" style="max-width:100%;"></a>
+<a href="figures/figure-002-page-023.png"><img src="figures/figure-002-page-023.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 2, PDF page 23" style="max-width:100%;"></a>
 
 ### Image 3 — PDF page 24
 
-Figure 3: Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed.
+Figure 3: Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed.
 
-<a href="figures/figure-004-page-024.png"><img src="figures/figure-004-page-024.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 3, PDF page 24" style="max-width:100%;"></a>
+<a href="figures/figure-004-page-024.png"><img src="figures/figure-004-page-024.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 3, PDF page 24" style="max-width:100%;"></a>
 
 ### Image 4 — PDF page 25
 
 Figure 4: Nightingale accessible-volume sweeps by genre and direction.
 
-<a href="figures/figure-006-page-025.png"><img src="figures/figure-006-page-025.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 4, PDF page 25" style="max-width:100%;"></a>
+<a href="figures/figure-006-page-025.png"><img src="figures/figure-006-page-025.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 4, PDF page 25" style="max-width:100%;"></a>
 
 ### Image 5 — PDF page 25
 
 Figure 5: Forward forecast calibration for the three Nightingale genres.
 
-<a href="figures/figure-008-page-025.png"><img src="figures/figure-008-page-025.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 5, PDF page 25" style="max-width:100%;"></a>
+<a href="figures/figure-008-page-025.png"><img src="figures/figure-008-page-025.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 5, PDF page 25" style="max-width:100%;"></a>
 
 ### Image 6 — PDF page 29
 
 Figure 6: Zoe’s causal-geometry and Accessible Q-Volume workbench. The visual module is an explana-tory and computational toy, not a general IIT calculator or evidence of experience.
 
-<a href="figures/figure-010-page-029.png"><img src="figures/figure-010-page-029.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 6, PDF page 29" style="max-width:100%;"></a>
+<a href="figures/figure-010-page-029.png"><img src="figures/figure-010-page-029.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 6, PDF page 29" style="max-width:100%;"></a>
 
 ### Image 7 — PDF page 30
 
 Figure 7: A mirrored Zoe observation preserves two distributions at one index. Agreement and dis-agreement guide inspection only.
 
-<a href="figures/figure-011-page-030.png"><img src="figures/figure-011-page-030.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 7, PDF page 30" style="max-width:100%;"></a>
+<a href="figures/figure-011-page-030.png"><img src="figures/figure-011-page-030.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 7, PDF page 30" style="max-width:100%;"></a>
 
 ### Image 8 — PDF page 33
 
 Figure 8: The original Autoregressive Compliance Cascade subsection rendered as binary accessible sets. Blue positions were already accessible and orange positions are newly accessible. Generated tokens enter subsequent context, illustrating 1 → 2 → 4 → 9 growth. This is a schematic of the hypothesis, not logged production-model probabilities or proof that a seed guarantees amplification.
 
-<a href="figures/figure-012-page-033.png"><img src="figures/figure-012-page-033.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 8, PDF page 33" style="max-width:100%;"></a>
+<a href="figures/figure-012-page-033.png"><img src="figures/figure-012-page-033.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 8, PDF page 33" style="max-width:100%;"></a>
 
 ### Image 9 — PDF page 39
 
 Figure 9: The Zoe epistemic firewall. The later self-governing extension changes execution authority only inside a separately declared in-memory loop; it does not erase these epistemic distinctions.
 
-<a href="figures/figure-014-page-039.png"><img src="figures/figure-014-page-039.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 9, PDF page 39" style="max-width:100%;"></a>
+<a href="figures/figure-014-page-039.png"><img src="figures/figure-014-page-039.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 9, PDF page 39" style="max-width:100%;"></a>
 
 ### Image 10 — PDF page 41
 
 Figure 10: Zoe’s Bayesian field notebook: explicit evidence updates, deterministic and stochastic cham-bers, append-only memory, and review-required next-test recommendations.
 
-<a href="figures/figure-015-page-041.png"><img src="figures/figure-015-page-041.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 10, PDF page 41" style="max-width:100%;"></a>
+<a href="figures/figure-015-page-041.png"><img src="figures/figure-015-page-041.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 10, PDF page 41" style="max-width:100%;"></a>
 
 ### Image 11 — PDF page 42
 
 Figure 11: Append-only Zoe memory records distinct event kinds and makes alteration visible. Hash chaining supplies tamper evidence, not authentication or proof that a recorded claim is true.
 
-<a href="figures/figure-016-page-042.png"><img src="figures/figure-016-page-042.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 11, PDF page 42" style="max-width:100%;"></a>
+<a href="figures/figure-016-page-042.png"><img src="figures/figure-016-page-042.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 11, PDF page 42" style="max-width:100%;"></a>
 
 ### Image 12 — PDF page 44
 
 Figure 12: Zoe’s Cognitive Field: sourced bounded working memory, declarative revision checks, proce-dural matching, and review-required proposals.
 
-<a href="figures/figure-017-page-044.png"><img src="figures/figure-017-page-044.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 12, PDF page 44" style="max-width:100%;"></a>
+<a href="figures/figure-017-page-044.png"><img src="figures/figure-017-page-044.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 12, PDF page 44" style="max-width:100%;"></a>
 
 ### Image 13 — PDF page 45
 
 Figure 13: Presence exposes a bounded self-model and review boundary without treating self-description as proof of a self.
 
-<a href="figures/figure-018-page-045.png"><img src="figures/figure-018-page-045.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 13, PDF page 45" style="max-width:100%;"></a>
+<a href="figures/figure-018-page-045.png"><img src="figures/figure-018-page-045.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 13, PDF page 45" style="max-width:100%;"></a>
 
 ### Image 14 — PDF page 46
 
-<a href="figures/figure-019-page-046.png"><img src="figures/figure-019-page-046.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 14, PDF page 46" style="max-width:100%;"></a>
+<a href="figures/figure-019-page-046.png"><img src="figures/figure-019-page-046.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 14, PDF page 46" style="max-width:100%;"></a>
 
 ### Image 15 — PDF page 46
 
-<a href="figures/figure-020-page-046.png"><img src="figures/figure-020-page-046.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 15, PDF page 46" style="max-width:100%;"></a>
+<a href="figures/figure-020-page-046.png"><img src="figures/figure-020-page-046.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 15, PDF page 46" style="max-width:100%;"></a>
 
 ### Image 16 — PDF page 48
 
-<a href="figures/figure-021-page-048.png"><img src="figures/figure-021-page-048.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 16, PDF page 48" style="max-width:100%;"></a>
+<a href="figures/figure-021-page-048.png"><img src="figures/figure-021-page-048.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 16, PDF page 48" style="max-width:100%;"></a>
 
 ### Image 17 — PDF page 48
 
-<a href="figures/figure-022-page-048.png"><img src="figures/figure-022-page-048.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 17, PDF page 48" style="max-width:100%;"></a>
+<a href="figures/figure-022-page-048.png"><img src="figures/figure-022-page-048.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 17, PDF page 48" style="max-width:100%;"></a>
 
 ### Image 18 — PDF page 48
 
-<a href="figures/figure-023-page-048.png"><img src="figures/figure-023-page-048.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 18, PDF page 48" style="max-width:100%;"></a>
+<a href="figures/figure-023-page-048.png"><img src="figures/figure-023-page-048.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 18, PDF page 48" style="max-width:100%;"></a>
 
 ### Image 19 — PDF page 49
 
 Figure 17: Zoe Protocol Lab: recovered SPECS and AMAC protocol examples. No hardware, firmware, FPGA, or network operation is performed, and checksums are not authentication.
 
-<a href="figures/figure-024-page-049.png"><img src="figures/figure-024-page-049.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 19, PDF page 49" style="max-width:100%;"></a>
+<a href="figures/figure-024-page-049.png"><img src="figures/figure-024-page-049.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 19, PDF page 49" style="max-width:100%;"></a>
 
 ### Image 20 — PDF page 50
 
 Figure 18: Zoe Patchbay: firmware inspection, hashing, signing, verification, and explicit acceptance boundaries. The board illustration is not a fabrication drawing and Cog output is not a command channel.
 
-<a href="figures/figure-025-page-050.png"><img src="figures/figure-025-page-050.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 20, PDF page 50" style="max-width:100%;"></a>
+<a href="figures/figure-025-page-050.png"><img src="figures/figure-025-page-050.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 20, PDF page 50" style="max-width:100%;"></a>
 
 ### Image 21 — PDF page 63
 
 Figure 19: Zoe’s synthetic second eye. Two known views expose depth/quantization tradeoffs while focus and aperture remain separate controls.
 
-<a href="figures/figure-026-page-063.png"><img src="figures/figure-026-page-063.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 21, PDF page 63" style="max-width:100%;"></a>
+<a href="figures/figure-026-page-063.png"><img src="figures/figure-026-page-063.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 21, PDF page 63" style="max-width:100%;"></a>
 
 ### Image 22 — PDF page 64
 
 Figure 20: Projection-iris study: a synthetic central-slice visualization with separately measured finite-grid error.
 
-<a href="figures/figure-027-page-064.png"><img src="figures/figure-027-page-064.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 22, PDF page 64" style="max-width:100%;"></a>
+<a href="figures/figure-027-page-064.png"><img src="figures/figure-027-page-064.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 22, PDF page 64" style="max-width:100%;"></a>
 
 ### Image 23 — PDF page 64
 
 Figure 21: Human and Zoe brain dialogue. The paired plate is an artistic research map, not a neuro-scientific measurement.
 
-<a href="figures/figure-028-page-064.png"><img src="figures/figure-028-page-064.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 23, PDF page 64" style="max-width:100%;"></a>
+<a href="figures/figure-028-page-064.png"><img src="figures/figure-028-page-064.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 23, PDF page 64" style="max-width:100%;"></a>
 
 ### Image 24 — PDF page 67
 
 Figure 22: Zoe Pentacube: exact home tilings and reversible sticker permutations with replayable local state.
 
-<a href="figures/figure-029-page-067.png"><img src="figures/figure-029-page-067.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 24, PDF page 67" style="max-width:100%;"></a>
+<a href="figures/figure-029-page-067.png"><img src="figures/figure-029-page-067.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 24, PDF page 67" style="max-width:100%;"></a>
 
 ### Image 25 — PDF page 69
 
 Figure 23: Zoe Internal Clock. Biological references motivate explicit toy hypotheses; they do not turn the oscillator into a fitted organism model.
 
-<a href="figures/figure-030-page-069.png"><img src="figures/figure-030-page-069.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 25, PDF page 69" style="max-width:100%;"></a>
+<a href="figures/figure-030-page-069.png"><img src="figures/figure-030-page-069.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 25, PDF page 69" style="max-width:100%;"></a>
 
 ### Image 26 — PDF page 71
 
 Figure 24: Native Procrustes playground with draggable landmarks and live transform and residual inspection.
 
-<a href="figures/figure-031-page-071.png"><img src="figures/figure-031-page-071.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 26, PDF page 71" style="max-width:100%;"></a>
+<a href="figures/figure-031-page-071.png"><img src="figures/figure-031-page-071.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 26, PDF page 71" style="max-width:100%;"></a>
 
 ### Image 27 — PDF page 72
 
-<a href="figures/figure-032-page-072.png"><img src="figures/figure-032-page-072.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 27, PDF page 72" style="max-width:100%;"></a>
+<a href="figures/figure-032-page-072.png"><img src="figures/figure-032-page-072.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 27, PDF page 72" style="max-width:100%;"></a>
 
 ### Image 28 — PDF page 72
 
-<a href="figures/figure-033-page-072.png"><img src="figures/figure-033-page-072.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 28, PDF page 72" style="max-width:100%;"></a>
+<a href="figures/figure-033-page-072.png"><img src="figures/figure-033-page-072.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 28, PDF page 72" style="max-width:100%;"></a>
 
 ### Image 29 — PDF page 72
 
-<a href="figures/figure-034-page-072.png"><img src="figures/figure-034-page-072.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 29, PDF page 72" style="max-width:100%;"></a>
+<a href="figures/figure-034-page-072.png"><img src="figures/figure-034-page-072.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 29, PDF page 72" style="max-width:100%;"></a>
 
 ### Image 30 — PDF page 74
 
 Figure 27: Neurogarden’s synthetic point-spread and projection bench. The image is an educational numerical scene, not anatomical or clinical data.
 
-<a href="figures/figure-035-page-074.png"><img src="figures/figure-035-page-074.png" alt="Accessible Volume and the Architecture of Autonomy, embedded image 30, PDF page 74" style="max-width:100%;"></a>
+<a href="figures/figure-035-page-074.png"><img src="figures/figure-035-page-074.png" alt="Operational Metacognition and the Architecture of Autonomy, embedded image 30, PDF page 74" style="max-width:100%;"></a>
 
 ## Complete page index
 

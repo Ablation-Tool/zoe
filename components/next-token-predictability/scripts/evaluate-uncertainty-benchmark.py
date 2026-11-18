@@ -277,7 +277,7 @@ def main():
     output = {
         "schema_version": 1,
         "generated_utc": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "objective": "Determine whether accessible volume adds top-1 error-detection information beyond distribution baselines and improves expected error discovery under fixed review budgets",
+        "objective": "Determine whether operational metacognition adds top-1 error-detection information beyond distribution baselines and improves expected error discovery under fixed review budgets",
         "source": {
             "model": summary["model"],
             "model_revision": summary["model_revision"],

@@ -16,7 +16,7 @@ THRESHOLDS = (0.02, 0.05, 0.10, 0.15, 0.30, 0.50)
 TEXT = (
     "A language model's output tells us what it generated. It does not, by itself, "
     "tell us how many plausible continuations preceded that output. "
-    "Accessible volume addresses this gap"
+    "Operational Metacognition addresses this gap"
 )
 
 
@@ -35,7 +35,7 @@ def probabilities_for(model, inputs, target_mapping, perm_mask):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Measure accessible volume with XLNet's query stream")
+    parser = argparse.ArgumentParser(description="Measure operational metacognition with XLNet's query stream")
     parser.add_argument("--model", default=MODEL_ID)
     parser.add_argument("--output", type=Path, default=Path("evidence"))
     args = parser.parse_args()
@@ -83,7 +83,7 @@ def main():
     atomic_savez(probability_path, input_ids=ids, probabilities=probabilities)
     report = {
         "schema_version": 1,
-        "instrument": "hidden-token accessible volume using XLNet query-stream self-attention",
+        "instrument": "hidden-token operational metacognition using XLNet query-stream self-attention",
         "model": args.model if args.model == MODEL_ID else Path(args.model).name,
         "runtime": {"torch": torch.__version__, "transformers": transformers.__version__},
         "text": TEXT,

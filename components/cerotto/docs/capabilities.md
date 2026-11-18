@@ -88,11 +88,11 @@ Adds a dedicated Vault tab to CEROTTO GEM with native event filtering, status su
 
 ## Ablation + GEM Defense Research
 
-### Accessible Volume Measurement
+### Operational Metacognition Measurement
 
 Computes accessible-volume threshold sweeps with strict probability cutoffs. Validates full distributions, rejects non-finite or unnormalized values, and records entropy, maximum probability, top-ten mass, vocabulary size, and probability-value hashes. The optional integration runs a real forward pass with hash-pinned DistilGPT2 ONNX artifacts.
 
-### Native Accessible Volume
+### Native Operational Metacognition
 
 Implements the same strict threshold sweep in C. Accepts at most 100,000 finite, nonnegative probabilities, requires normalization within 1e-8, and records entropy, maximum probability, top-ten mass, and a SHA-256 digest of packed float64 values. No Python runtime or model runtime is required by the native measurement.
 
@@ -116,7 +116,7 @@ Binds each forecast to the exact GEM target, selected event, revision, and struc
 
 ### Guard Evidence Chains
 
-Produces `model_forecast`, `action_proposal`, `policy_decision`, and `execution_receipt` events. Shared identifiers link each chain. Denied actions have no execution receipt. Broker failures produce failed receipts rather than success claims. Accessible volume remains observational and has no authorization effect.
+Produces `model_forecast`, `action_proposal`, `policy_decision`, and `execution_receipt` events. Shared identifiers link each chain. Denied actions have no execution receipt. Broker failures produce failed receipts rather than success claims. Operational Metacognition remains observational and has no authorization effect.
 
 ### GEM History Export
 

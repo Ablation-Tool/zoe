@@ -2,17 +2,17 @@
 
 A systematic, fully browsable archive of Zoe’s visual research, generated artwork, mechanism diagrams, interface scenes, identity assets, animations, and source-reference imagery.
 
-This is the canonical visual archive inside the unified [Zoe repository](../../README.md). The catalog preserves **359 byte-distinct visuals from 668 source occurrences** at its reviewed source state. All original sources, papers, and arXiv figures needed for a refreshed build now live in this same repository. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [source-state record](SOURCES.md).
+This is the canonical visual archive inside the unified [Zoe repository](../../README.md). The catalog contains **456 byte-distinct visuals from 843 source occurrences** at the current unified source state. All original sources, papers, and arXiv figures needed for a refreshed build live in this same repository. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [source-state record](SOURCES.md).
 
 ## Browse the archive
 
-- **[Complete visual catalog](catalog/README.md)** — all **359 byte-distinct visuals** collected from **668 source occurrences**.
-- **[Artwork and generative compositions](catalog/categories/artwork.md)** — 29 visuals
-- **[Research–art compositions](catalog/categories/research-art.md)** — 17 visuals
-- **[Research figures and measurements](catalog/categories/research-figure.md)** — 136 visuals
-- **[Mechanism and architecture diagrams](catalog/categories/mechanism-diagram.md)** — 36 visuals
-- **[Native interfaces and application scenes](catalog/categories/interface.md)** — 52 visuals
-- **[Identity, emblems, and interface icons](catalog/categories/branding.md)** — 48 visuals
+- **[Complete visual catalog](catalog/README.md)** — all **456 byte-distinct visuals** collected from **843 source occurrences**.
+- **[Artwork and generative compositions](catalog/categories/artwork.md)** — 32 visuals
+- **[Research–art compositions](catalog/categories/research-art.md)** — 20 visuals
+- **[Research figures and measurements](catalog/categories/research-figure.md)** — 213 visuals
+- **[Mechanism and architecture diagrams](catalog/categories/mechanism-diagram.md)** — 40 visuals
+- **[Native interfaces and application scenes](catalog/categories/interface.md)** — 59 visuals
+- **[Identity, emblems, and interface icons](catalog/categories/branding.md)** — 51 visuals
 - **[Source references and derivative reading copies](catalog/categories/reference.md)** — 33 visuals
 - **[Animations and historical motion assets](catalog/categories/animation.md)** — 8 visuals
 
@@ -23,18 +23,18 @@ Every category is a scrolling visual index. Every image links to its original fu
 | Visual | Archive entry |
 |---|---|
 | **Current Zoe woven diamond** | [Canonical PNG](../../assets/branding/zoe-eye.png) · [Canonical SVG](../../assets/branding/zoe-eye.svg) |
-| Former Zoe orbital eye (historical) | [ZVA-0078](catalog/items/ZVA-0078.md) |
-| Human × Zoe organic brain dialogue | [ZVA-0052](catalog/items/ZVA-0052.md) |
-| Projection iris — “A field learning to see” | [ZVA-0060](catalog/items/ZVA-0060.md) |
-| Lots of Ellipses | [ZVA-0227](catalog/items/ZVA-0227.md) |
-| Thumbelina Moon Garden | [ZVA-0254](catalog/items/ZVA-0254.md) |
-| Zoe Life | [ZVA-0327](catalog/items/ZVA-0327.md) |
-| Dorothy Allen CCFv3 atlas | [ZVA-0175](catalog/items/ZVA-0175.md) |
-| HELIOS virtual collider laboratory | [ZVA-0272](catalog/items/ZVA-0272.md) |
-| Zoe OS-style desktop | [ZVA-0350](catalog/items/ZVA-0350.md) |
-| Zoe Autonomy at a glance | [ZVA-0351](catalog/items/ZVA-0351.md) |
-| Complete self-governing loop | [ZVA-0352](catalog/items/ZVA-0352.md) |
-| Autoregressive Compliance Cascade | [ZVA-0359](catalog/items/ZVA-0359.md) |
+| Former Zoe orbital eye (historical) | [ZVA-0112](catalog/items/ZVA-0112.md) |
+| Human × Zoe organic brain dialogue | [ZVA-0084](catalog/items/ZVA-0084.md) |
+| Projection iris — “A field learning to see” | [ZVA-0092](catalog/items/ZVA-0092.md) |
+| Lots of Ellipses | [ZVA-0310](catalog/items/ZVA-0310.md) |
+| Thumbelina Moon Garden | [ZVA-0356](catalog/items/ZVA-0356.md) |
+| Zoe Life | [ZVA-0433](catalog/items/ZVA-0433.md) |
+| Dorothy Allen CCFv3 atlas | [ZVA-0134](catalog/items/ZVA-0134.md) |
+| HELIOS virtual collider laboratory | [ZVA-0154](catalog/items/ZVA-0154.md) |
+| Zoe OS-style desktop | [ZVA-0456](catalog/items/ZVA-0456.md) |
+| Zoe Autonomy at a glance | [ZVA-0115](catalog/items/ZVA-0115.md) |
+| Complete self-governing loop | [ZVA-0117](catalog/items/ZVA-0117.md) |
+| Autoregressive Compliance Cascade | [ZVA-0131](catalog/items/ZVA-0131.md) |
 
 ## What every item page explains
 
@@ -65,7 +65,7 @@ Examples:
 
 ## Scope and completeness
 
-The archive systematically covers every visual file found in the enumerated canonical sources listed in [`SOURCES.md`](SOURCES.md): the main Zoe checkout, current Zoe-Autonomy and Accessible Volume clones, research-paper figure collections, and unified-paper source figures.
+The archive systematically covers every visual file found in the enumerated canonical sources listed in [`SOURCES.md`](SOURCES.md): the main Zoe checkout, current Zoe-Autonomy and Operational Metacognition clones, research-paper figure collections, and unified-paper source figures.
 
 It includes component artwork and interface assets from Ablation, GEM, HELEN, Cerotto, Kevlar, Neurogarden, Dorothy, mobile Zoe, SafeConvert, and related integrated projects. Third-party and user-supplied references are labeled rather than misattributed to Zoe.
 

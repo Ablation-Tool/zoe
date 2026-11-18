@@ -1,4 +1,4 @@
-# The Significance of Accessible Volume — Visual index
+# The Significance of Operational Metacognition — Visual index
 
 [Open the paper PDF](../../papers/04-accessible-volume-significance.pdf) · [All paper galleries](../README.md)
 
@@ -19,13 +19,13 @@ The extracted-image section preserves original embedded image data where availab
 
 Figure 1: Zoe’s Bayesian field notebook combines explicit evidence updates, deterministic and stochastic chambers, append-only memory, and a review-required next-test recommendation. The displayed DEMOMENU example is a worked historical-software investigation, not a forecast of user intent.
 
-<a href="figures/figure-000-page-010.png"><img src="figures/figure-000-page-010.png" alt="The Significance of Accessible Volume, embedded image 1, PDF page 10" style="max-width:100%;"></a>
+<a href="figures/figure-000-page-010.png"><img src="figures/figure-000-page-010.png" alt="The Significance of Operational Metacognition, embedded image 1, PDF page 10" style="max-width:100%;"></a>
 
 ### Image 2 — PDF page 11
 
 Figure 2: A mirrored Zoe observation preserves two distributions at one index. Paired evaluation is not causal reversal, a backward-trained model, or an automatic action.
 
-<a href="figures/figure-001-page-011.png"><img src="figures/figure-001-page-011.png" alt="The Significance of Accessible Volume, embedded image 2, PDF page 11" style="max-width:100%;"></a>
+<a href="figures/figure-001-page-011.png"><img src="figures/figure-001-page-011.png" alt="The Significance of Operational Metacognition, embedded image 2, PDF page 11" style="max-width:100%;"></a>
 
 ## Complete page index
 

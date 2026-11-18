@@ -26,7 +26,7 @@ class BrainKernel:
             return {"module": "volume", "action": "observe", "reason": "Observe a categorical distribution to establish the first state."}
         volume = self.current["accessible_volume"]
         if volume < self.minimum or volume > self.maximum:
-            return {"module": "volume", "action": "inspect", "reason": f"Accessible volume {volume} is outside the target band [{self.minimum}, {self.maximum}]."}
+            return {"module": "volume", "action": "inspect", "reason": f"Operational Metacognition {volume} is outside the target band [{self.minimum}, {self.maximum}]."}
         if self.current.get("top1") is False:
             return {"module": "research", "action": "inspect", "reason": "The top prediction was incorrect; compare breadth and correctness before steering."}
         if self.evidence_exports == 0:
@@ -227,4 +227,4 @@ def horizon_scene(horizon=3, tau=.1):
         objects.append(_text(f"continuation-{index}", [48, 155+index*31], f"{sequence:<12} p={continuation['probability']:.6f}  {'ACCESSIBLE' if continuation['accessible'] else 'below τ'}", 15, color))
     objects.append(_text("scope", [36, 492], "Exact toy Markov enumeration only · not a real language-model benchmark", 13, "#fca5a5"))
     objects.append(_text("cost", [36, 522], "Full vocabulary enumeration grows as |O|ʰ · bounded counts require explicit approximation labels", 12, "#9fb1c8"))
-    return _scene("atlas-horizon", 940, 550, objects, "Multi-horizon accessible volume"), report
+    return _scene("atlas-horizon", 940, 550, objects, "Multi-horizon operational metacognition"), report

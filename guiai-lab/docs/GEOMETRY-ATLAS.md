@@ -22,7 +22,7 @@ gem atlas --module procrustes
 PYTHONPATH=guiai-lab python -m guiai.gem zoe
 ```
 
-See [Zoe — living geometry, inspectable futures](Zoe.md) for BRAIN observation, exact multi-horizon continuations, and research-pack ingestion. In GUIAI Lab, open **Chart → GEM → Zoe / MASTER GEM**. The native window is independent of the investigation scene; the existing Lab selection, evidence states, and session history remain unchanged.
+See [Zoe — living geometry, inspectable futures](ZOE.md) for BRAIN observation, exact multi-horizon continuations, and research-pack ingestion. In GUIAI Lab, open **Chart → GEM → Zoe / MASTER GEM**. The native window is independent of the investigation scene; the existing Lab selection, evidence states, and session history remain unchanged.
 
 Headless export does not require GTK:
 
@@ -44,7 +44,7 @@ Use `--width` for SVG/PNG output and `--format` when the suffix is not sufficien
 | Circle, arc, and sector | Radius and central angle | Diameter, circumference, disk area, arc length, sector area; angles are converted to radians |
 | Modular arithmetic clock | Modulus and integer value | Quotient, remainder, congruence, angular step, and hand angle |
 | Hub-and-loop graph | Whether six line crossings are vertices | Both conditional vertex/edge/component counts and cycle ranks; the source image does not settle incidence |
-| Accessible volume bridge | Distribution preset, threshold, target band, observation button | Strict `p>τ` volume, complement, momentum after observation, and experimental steering recommendation; no action is executed |
+| Operational Metacognition bridge | Distribution preset, threshold, target band, observation button | Strict `p>τ` volume, complement, momentum after observation, and experimental steering recommendation; no action is executed |
 | Onset forecast laboratory | Threshold and experimental temperature | Held-out forward/retrograde top-1, log-loss, maximum probability, accessible-volume sweep, and deterministic baselines |
 
 Every module exports the current Spatial IR scene as SVG, PNG, or a real little-endian GEM VDI metafile. The scene builders also pass source-constraint and VDI-roundtrip checks.
@@ -68,7 +68,7 @@ A\approx\begin{bmatrix}1.008054&-0.677378\\0.677378&1.008054\end{bmatrix},
 
 with scale `1.2145018039`, screen-coordinate rotation `33.8997475549°`, and zero landmark residual before dragging.
 
-## Accessible volume and rhythm
+## Operational Metacognition and rhythm
 
 The volume module uses the existing `VolumeBridge` and full categorical distributions:
 
@@ -95,7 +95,7 @@ With seed 7, the reproducible results are:
 | Forward | 84.375% | 0.338856 | 0.841666 | 0.647474 |
 | Retrograde | 58.958% | 2.898662 | 0.838835 | 0.649180 |
 
-The deterministic linear-extrapolation baseline reaches 37.019% forward and 32.837% retrograde. It supplies no categorical distribution and therefore no accessible-volume measurement. HOP is shown as the measured negative hidden-state baseline: 11.3% top-1 versus 41.3% for linear velocity and 46.6% for the model at one step ahead. HOP also supplies no accessible volume.
+The deterministic linear-extrapolation baseline reaches 37.019% forward and 32.837% retrograde. It supplies no categorical distribution and therefore no accessible-volume measurement. HOP is shown as the measured negative hidden-state baseline: 11.3% top-1 versus 41.3% for linear velocity and 46.6% for the model at one step ahead. HOP also supplies no operational metacognition.
 
 The temperature control evaluates only the explicit transform
 

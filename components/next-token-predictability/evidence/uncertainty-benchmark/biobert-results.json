@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "generated_utc": "2026-11-12T16:16:15Z",
-  "objective": "Determine whether accessible volume adds top-1 error-detection information beyond distribution baselines and improves expected error discovery under fixed review budgets",
+  "objective": "Determine whether operational metacognition adds top-1 error-detection information beyond distribution baselines and improves expected error discovery under fixed review budgets",
   "source": {
     "model": "dmis-lab/biobert-base-cased-v1.2",
     "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",

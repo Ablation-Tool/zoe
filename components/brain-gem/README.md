@@ -66,10 +66,10 @@ brain-gem notebook field-memory.json --output field-memory.svg
 ## Initial equation sections
 
 1. Binary Bayesian posterior updates
-2. Strict accessible volume, normalized volume, and complements
+2. Strict operational metacognition, normalized volume, and complements
 3. Forecast measurement with entropy, maximum probability, top-ten mass, optional log loss, and Brier score
 4. Adaptive accessible-volume thresholds, labeled with the held-out negative-transfer result
-5. Multi-horizon joint accessible volume
+5. Multi-horizon joint operational metacognition
 6. Accessible momentum
 7. Temperature transformations
 8. Seeded categorical sampling with generator identification

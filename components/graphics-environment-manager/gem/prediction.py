@@ -250,7 +250,7 @@ def measure_session(session, model_dir=None, thresholds=THRESHOLDS, predictor=No
     )
     report = {
         "schema_version": 1,
-        "instrument": "next-token accessible volume",
+        "instrument": "next-token operational metacognition",
         "formula": "A_tau(S) = sum over tokens a in O of 1[P(a | h_T(S)) > tau]",
         "equation_reference_verified": True,
         "model": prediction.model,
@@ -260,7 +260,7 @@ def measure_session(session, model_dir=None, thresholds=THRESHOLDS, predictor=No
             "One local distilgpt2-ONNX next-token distribution for the recorded Lab context.",
             "This is not a measurement of Kimi, Claude, Codex, Ablation semantic encoders, or human judgment.",
             "This is a token-level distribution, not a distribution over complete permitted actions.",
-            "Accessible volume measures breadth only; it is not a correctness, autonomy, safety, or authorization score.",
+            "Operational Metacognition measures breadth only; it is not a correctness, autonomy, safety, or authorization score.",
         ],
         "probability_artifact": probability_path.name,
         "probability_sha256": _sha256(probability_path),

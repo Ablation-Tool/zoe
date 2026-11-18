@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Modular rhythm experiment: alignment -> categorical forecast -> accessible volume.
+"""Modular rhythm experiment: alignment -> categorical forecast -> operational metacognition.
 
 Synthetic data only: eight rhythm motifs with random tempo and onset jitter.
 The predictor sees forward training rhythms; retrograde is a held-out transform.
@@ -131,7 +131,7 @@ plt.figure(figsize=(7, 4))
 plt.plot(thresholds, forward_curve, label="held-out forward")
 plt.plot(thresholds, retro_curve, label="held-out retrograde")
 plt.xlabel("probability threshold τ")
-plt.ylabel("mean accessible volume A(τ)")
+plt.ylabel("mean operational metacognition A(τ)")
 plt.title("Synthetic next-onset forecasts")
 plt.legend()
 plt.tight_layout()

@@ -41,9 +41,9 @@ Pipeline:
 | Forward | **84.4%** | **0.339** | 1.31 | 0.647 |
 | Retrograde | 59.0% | 2.899 | 1.31 | 0.649 |
 
-The retrograde predictor is often **confidently wrong**: mean maximum probability is nearly identical at 0.842 forward versus 0.839 retrograde, so accessible volume barely changes.
+The retrograde predictor is often **confidently wrong**: mean maximum probability is nearly identical at 0.842 forward versus 0.839 retrograde, so operational metacognition barely changes.
 
-> **Accessible volume measures the breadth of plausible alternatives, not whether the forecast is right.**
+> **Operational Metacognition measures the breadth of plausible alternatives, not whether the forecast is right.**
 
 A deterministic linear-extrapolation baseline achieved 37.0% forward and 32.8% retrograde. It correctly contributes no accessible-volume measurement because it supplies no alternative distribution.
 
@@ -53,22 +53,22 @@ A deterministic linear-extrapolation baseline achieved 37.0% forward and 32.8% r
 
 The best use is an **uncertainty diagnostic and control signal**, not a standalone predictor.
 
-- **Predictability map:** plot per-onset probability, accessible volume, and eventual prediction error. Show accuracy and breadth together to reveal repetitive grooves, ambiguous transitions, and confidently wrong forecasts.
-- **Model evaluation:** compare top-\(k\) accuracy and log-loss for correctness, accessible volume for breadth, calibration for confidence, and forward/retrograde tests for temporal sensitivity.
-- **Composition control:** adjust sampling temperature or candidate selection until accessible volume reaches a chosen range. Low breadth can support stable grooves, medium breadth controlled variation, and high breadth exploratory transitions.
+- **Predictability map:** plot per-onset probability, operational metacognition, and eventual prediction error. Show accuracy and breadth together to reveal repetitive grooves, ambiguous transitions, and confidently wrong forecasts.
+- **Model evaluation:** compare top-\(k\) accuracy and log-loss for correctness, operational metacognition for breadth, calibration for confidence, and forward/retrograde tests for temporal sensitivity.
+- **Composition control:** adjust sampling temperature or candidate selection until operational metacognition reaches a chosen range. Low breadth can support stable grooves, medium breadth controlled variation, and high breadth exploratory transitions.
 - **Baseline testing:** require new geometric or learned predictors to outperform linear velocity. Learned draft heads remain the promising route for multi-token generation; the handcrafted arc predictor is not competitive.
 
-The tradeoff is that a narrow forecast can be confidently wrong, while a broad forecast may represent legitimate uncertainty. Accessible volume must be interpreted alongside calibration and observed outcomes.
+The tradeoff is that a narrow forecast can be confidently wrong, while a broad forecast may represent legitimate uncertainty. Operational Metacognition must be interpreted alongside calibration and observed outcomes.
 
 ## Strongest next experiment
 
 Use real MIDI performances across several genres:
 
 1. Train the categorical onset predictor on forward sequences.
-2. Measure per-onset accessible volume and calibration.
+2. Measure per-onset operational metacognition and calibration.
 3. Compare forward and retrograde sequences.
 4. Collect human ratings of surprise at each onset.
-5. Test whether accessible volume predicts human surprise better than raw probability or model entropy.
+5. Test whether operational metacognition predicts human surprise better than raw probability or model entropy.
 
 That would connect the mathematical measurement to something musically meaningful and potentially produce a useful composition tool.
 
@@ -89,4 +89,4 @@ Requirements include NumPy, PyTorch, Transformers, scikit-learn, and Matplotlib.
 - [Nightingale real-MIDI experiment](../rhythm-lab/README.md): jazz has the broadest forecasts, reversal has only small effects, and the categorical predictor beats persistence. A human-surprise listening workflow is included, but its correlation remains pending real ratings.
 - [Native GEM Procrustes integration](https://github.com/Ablation-Tool/graphics-environment-manager/tree/main/examples/landmark-alignment): the geometric alignment step is connected to native Lab, VDI, replay, and scoped evidence.
 
-All three confirm the central lesson: **accessible volume measures forecast breadth, not correctness**.
+All three confirm the central lesson: **operational metacognition measures forecast breadth, not correctness**.

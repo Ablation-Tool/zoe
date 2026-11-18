@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "google-bert/bert-base-cased",
   "model_revision": "cd5ef92a9fb2f889e972770a36d4ed042daf221e",
   "requested_revision": "cd5ef92a9fb2f889e972770a36d4ed042daf221e",
@@ -9,7 +9,7 @@
     "transformers": "4.56.2"
   },
   "prediction_style": "masked",
-  "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Accessible volume addresses this gap",
+  "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Operational Metacognition addresses this gap",
   "sequence_length": 38,
   "target_position": 36,
   "target_token_id": 7275,

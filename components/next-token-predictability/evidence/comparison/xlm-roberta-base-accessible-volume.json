@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "FacebookAI/xlm-roberta-base",
   "model_revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
   "requested_revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",

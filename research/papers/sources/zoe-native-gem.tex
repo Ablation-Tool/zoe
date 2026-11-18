@@ -43,10 +43,10 @@ Zoe is a working native graphical environment for creative geometry, forecast in
 
 \textbf{What was verified.} Twenty-five Zoe tests and 20 broader GEM tests passed under native X11. Seventeen research conformance checks passed. Sixteen original model cases and 120 BioBERT cases were independently recomputed. Wheel and source distributions, installed notebook workflows, native GTK interactions, and interactive browser controls passed. Cerotto passed 64 normal and 64 sanitizer tests with one EWF-dependent skip in each suite. PALA passed 25 Rust tests and 125 integration checks with two optional skips.
 
-\textbf{What remains limited.} Accessible volume measures forecast breadth, not correctness or human surprise. Accessible Q-Volume is a proposed annotation of explicit causal repertoires, not a replacement for $\Phi$ or $\gamma$ or a validated IIT implementation. HOP is a rejected baseline. Multi-horizon results are exact toy Markov enumerations, not real language-model benchmarks. Nightingale is aggregate-only in the saved evidence. Posteriors follow user-supplied likelihoods. The memory chain supplies tamper evidence, not authentication. Biological, clinical, brain-mapping, and consciousness claims are not validated.
+\textbf{What remains limited.} Operational Metacognition measures forecast breadth, not correctness or human surprise. Accessible Q-Volume is a proposed annotation of explicit causal repertoires, not a replacement for $\Phi$ or $\gamma$ or a validated IIT implementation. HOP is a rejected baseline. Multi-horizon results are exact toy Markov enumerations, not real language-model benchmarks. Nightingale is aggregate-only in the saved evidence. Posteriors follow user-supplied likelihoods. The memory chain supplies tamper evidence, not authentication. Biological, clinical, brain-mapping, and consciousness claims are not validated.
 
 \begin{abstract}
-Zoe is a native graphical environment for exploring how forecasts, measurements, beliefs, and actions differ. It unifies HELEN's lightweight geometry and stored predictions, Ablation's Spatial IR and VDI evidence environment, Cerotto's forensic workbench, and BRAIN's deterministic observation and recommendation layer. Its Bayesian field notebook adds questions, competing claims, explicit likelihoods, dependent-evidence barriers, deterministic and stochastic chambers, and append-only memory. This paper documents the complete proof of concept: the accessible-volume equation and its development, temporal and geometric formulations, native GEM versions, Bayesian memory, native interfaces, and independent verification. The work separates measured evidence from interpretation and proposals. Reversed rhythms are learnable under a matched backward model; HOP's geometric predictor is rejected; accessible volume measures breadth rather than correctness. Twenty-five Zoe tests, 20 broader GEM tests, and 17 conformance checks pass, alongside original model and BioBERT verification, packaging checks, native GUI tests, and a working interactive concept map. Zoe is not a conscious entity, a universal predictor, a diagnostic system, or an autonomous controller. It is a reproducible environment for inspecting alternatives, testing beliefs, preserving evidence, and choosing the next investigation under human direction.
+Zoe is a native graphical environment for exploring how forecasts, measurements, beliefs, and actions differ. It unifies HELEN's lightweight geometry and stored predictions, Ablation's Spatial IR and VDI evidence environment, Cerotto's forensic workbench, and BRAIN's deterministic observation and recommendation layer. Its Bayesian field notebook adds questions, competing claims, explicit likelihoods, dependent-evidence barriers, deterministic and stochastic chambers, and append-only memory. This paper documents the complete proof of concept: the accessible-volume equation and its development, temporal and geometric formulations, native GEM versions, Bayesian memory, native interfaces, and independent verification. The work separates measured evidence from interpretation and proposals. Reversed rhythms are learnable under a matched backward model; HOP's geometric predictor is rejected; operational metacognition measures breadth rather than correctness. Twenty-five Zoe tests, 20 broader GEM tests, and 17 conformance checks pass, alongside original model and BioBERT verification, packaging checks, native GUI tests, and a working interactive concept map. Zoe is not a conscious entity, a universal predictor, a diagnostic system, or an autonomous controller. It is a reproducible environment for inspecting alternatives, testing beliefs, preserving evidence, and choosing the next investigation under human direction.
 \end{abstract}
 
 \section{Origin and scope of the proof of concept}
@@ -55,7 +55,7 @@ The original measurement began with a simple question: can a probability distrib
 Subsequent work tested the measurement across language models, adaptive thresholds, geometric extrapolation, synthetic rhythms, and real MIDI performances. Ablation's GEM supplied deterministic execution and evidence replay. HELEN supplied a compact creative interface. Cerotto supplied a separate forensic GEM with guarded evidence actions and an existing Ablation + GEM bridge. Zoe unifies these perspectives without asserting that their models, permissions, or evidence stores are interchangeable.
 
 \subsection{Authorship and contributions}
-\textbf{Nicholas Michael Kloster} originated accessible volume, directed the research, supplied the experimental questions, and retains sole credit for the original equation. \textbf{Zoe (AI assistant)} contributed architecture synthesis, implementation, verification design, native visualizations, and manuscript drafting. Zoe is a software assistant, not a human author or a conscious person. Coauthorship records technical and creative contributions, not personhood.
+\textbf{Nicholas Michael Kloster} originated operational metacognition, directed the research, supplied the experimental questions, and retains sole credit for the original equation. \textbf{Zoe (AI assistant)} contributed architecture synthesis, implementation, verification design, native visualizations, and manuscript drafting. Zoe is a software assistant, not a human author or a conscious person. Coauthorship records technical and creative contributions, not personhood.
 
 The proof of concept is deliberately broader than a single equation. It includes the research that supported or rejected successive ideas, the native software that made those ideas usable, and the verification needed to distinguish an impressive demo from a reproducible system.
 
@@ -84,8 +84,8 @@ The architecture has four cooperating but distinct parts:
 
 PALA is an optional recovery companion. It supplies signature carving, deleted-inode recovery, NTFS cluster-run reconstruction, FAT32 recovery, container expansion, and hash-rich JSON reports. Zoe does not require PALA to run, and PALA does not make recovered content authentic, safe, or complete.
 
-\section{Accessible volume and forecast measurement}
-Let $\mathcal O$ be a finite vocabulary and $P(a\mid h_T(S))$ the probability of alternative $a$ after context $S$. Accessible volume is
+\section{Operational Metacognition and forecast measurement}
+Let $\mathcal O$ be a finite vocabulary and $P(a\mid h_T(S))$ the probability of alternative $a$ after context $S$. Operational Metacognition is
 \begin{equation}
 A_\tau(S)=\sum_{a\in\mathcal O}\mathbf 1[P(a\mid h_T(S))>\tau].
 \label{eq:av}
@@ -110,7 +110,7 @@ For a learned autoregressive model, a candidate continuation has joint probabili
 \begin{equation}
 P_h(a_{1:h}\mid C_t)=\prod_{j=1}^{h}p(a_j\mid C_{t+j-1},a_{<j}).
 \end{equation}
-Multi-horizon accessible volume counts complete continuations above a threshold:
+Multi-horizon operational metacognition counts complete continuations above a threshold:
 \begin{equation}
 A^{(h)}_\tau(C_t)=\sum_{a_{1:h}\in O^h}\mathbf 1[P_h(a_{1:h}\mid C_t)>\tau],
 \qquad
@@ -267,14 +267,14 @@ The original Ablation + GEM measurement produced concentrated next-token distrib
 The BioBERT study used 120 cases from 30 documents with document-grouped splits. The original $\tau=0.05$ rule achieved AUROC $0.7737$ and AUPRC $0.7978$, compared with adaptive values $0.7008$ and $0.6599$. The adaptive rule improved validation measurements but transferred worse to unseen documents. This is a direct warning against treating a more complicated threshold as inherently better.
 
 \subsection{HOP is a rejected baseline}
-The Harmonic Osculating Predictor used composed rotations to extrapolate hidden-state trajectories. On 1,647 positions it achieved 11.3\% top-1 and 21.4\% top-5 accuracy, compared with 41.3\% and 60.0\% for linear velocity and 46.6\% and 66.6\% for the model. HOP therefore remains a rejected deterministic baseline. It supplies no categorical accessible volume.
+The Harmonic Osculating Predictor used composed rotations to extrapolate hidden-state trajectories. On 1,647 positions it achieved 11.3\% top-1 and 21.4\% top-5 accuracy, compared with 41.3\% and 60.0\% for linear velocity and 46.6\% and 66.6\% for the model. HOP therefore remains a rejected deterministic baseline. It supplies no categorical operational metacognition.
 
 The experiment also rejected unsupported interpretations: non-accumulating rotations do not imply an arc, arbitrary hidden states need not be collinear, curvature alone does not imply exponential error growth, and musical metaphors do not establish transformer dynamics.
 
 \subsection{Synthetic and real rhythm experiments}
 The synthetic experiment used eight motifs, 60 training and 20 held-out variations per motif, randomized tempo, and jitter. Forward top-1 was 84.375\% (1,620/1,920), retrograde 58.958\% (1,132/1,920). Log-loss was 0.338856 versus 2.898662, while sweep areas were 0.647474 and 0.649180. The retrograde predictor was often confidently wrong: forecast breadth stayed nearly unchanged as correctness fell.
 
-The Magenta Groove experiment used 514 usable 4/4 performances, 396 training and 118 test performances with disjoint recording sessions, 218,033 training windows, and 121,392 predictions per condition. Forward, reversal-transfer, and backward-matched top-1 values were 17.33\%, 16.01\%, and 17.06\%; mean accessible volumes over the sweep were 1.886, 1.885, and 1.886. Backward-matched log-loss was 3.183, slightly lower than forward 3.194. Reversed rhythms were learnable, while direct reversal transfer was worse.
+The Magenta Groove experiment used 514 usable 4/4 performances, 396 training and 118 test performances with disjoint recording sessions, 218,033 training windows, and 121,392 predictions per condition. Forward, reversal-transfer, and backward-matched top-1 values were 17.33\%, 16.01\%, and 17.06\%; mean operational metacognitions over the sweep were 1.886, 1.885, and 1.886. Backward-matched log-loss was 3.183, slightly lower than forward 3.194. Reversed rhythms were learnable, while direct reversal transfer was worse.
 
 Nightingale supplied 420 files with 139,839 training positions and 57,113 predictions per direction. Classical achieved 68.3\%/67.9\% forward/retrograde top-1, jazz 49.5\%/47.1\%, and folk 61.9\%/61.4\%. Jazz was least predictable and had the broadest forecasts. Reversal effects were small. The saved Nightingale evidence is aggregate-only and does not supply individual per-onset distributions.
 
@@ -340,7 +340,7 @@ brain-gem notebook field-memory.json --output field-memory.svg
 The research root supplies the saved Groove NPZ and Nightingale reports. The 98 MB Groove archive is referenced by path and hash rather than embedded in this PDF. The complete demo memory, conformance contract, verification summary, source code, and visual evidence are embedded as attachments.
 
 \section{Conclusion}
-Zoe is a working native laboratory for living geometry and inspectable futures. It demonstrates that accessible volume can measure breadth, deterministic and stochastic processes can share an equation registry, Bayesian updates can remain inspectable, and memory can be unified without erasing the distinction between measurement, evidence, belief, and action. Its value is practical: a researcher can see what might happen, measure what happened, understand why a belief changed, and choose what to investigate next without pretending that the system knows more than it does.
+Zoe is a working native laboratory for living geometry and inspectable futures. It demonstrates that operational metacognition can measure breadth, deterministic and stochastic processes can share an equation registry, Bayesian updates can remain inspectable, and memory can be unified without erasing the distinction between measurement, evidence, belief, and action. Its value is practical: a researcher can see what might happen, measure what happened, understand why a belief changed, and choose what to investigate next without pretending that the system knows more than it does.
 
 \appendix
 \section{Evidence identity and attachments}
@@ -392,7 +392,7 @@ The conformance contract, demo memory, verification summary, and this paper's so
 
 \begin{thebibliography}{9}
 \bibitem{kloster2026significance}
-Nicholas Michael Kloster. \emph{The Significance of Accessible Volume}. November 2026. Original equation created March 6, 2026. \url{https://github.com/Ablation-Tool/next-token-predictability}.
+Nicholas Michael Kloster. \emph{The Significance of Operational Metacognition}. November 2026. Original equation created March 6, 2026. \url{https://github.com/Ablation-Tool/next-token-predictability}.
 \bibitem{ablation}
 Ablation-Tool. \emph{Ablation and GUIAI Lab}. \url{https://github.com/Ablation-Tool/ablation}.
 \bibitem{gemhelen}

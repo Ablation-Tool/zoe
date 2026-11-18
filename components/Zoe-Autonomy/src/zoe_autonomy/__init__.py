@@ -1,4 +1,4 @@
-"""Operational full self-governing autonomy through Zoe and Accessible Volume."""
+"""Operational full self-governing autonomy through Zoe and Operational Metacognition."""
 
 from .actuation import ActuationPolicy
 from .agents import AgentGateway

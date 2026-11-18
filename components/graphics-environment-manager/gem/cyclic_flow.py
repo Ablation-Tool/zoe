@@ -110,7 +110,7 @@ def cyclic_flow_scene(report, template=None):
     path = " -> ".join(f"{view:g}" for view in latest_plan["path"]) if latest_plan else "accessible set complete"
     details = {
         "perception": ["Observe / stereo triangulation", f"{detail_count} points · {view_count} views"],
-        "thinking": ["Imagine / candidate futures", f"accessible volume = {accessible}"],
+        "thinking": ["Imagine / candidate futures", f"operational metacognition = {accessible}"],
         "learning": ["Remember / precision feedback", f"{prediction} · {vividness['fusion']}"],
         "action": ["Navigate / Dijkstra", path],
     }

@@ -1,102 +1,100 @@
-# Zoe capability atlas
+# Zoe capability and evidence atlas
 
-This is the canonical directory of Zoe's capabilities and implementations. It describes one integrated research system whose mission is AGI, ASI, and continued open-ended advancement. Detailed behavior, reproduction commands, and evidence remain linked to the owning module rather than duplicated into competing project descriptions.
+This is the canonical directory of Zoe's capabilities, implementations, validation suites, and preserved evidence. It describes one integrated research system whose mission is AGI, ASI, and continued open-ended advancement.
 
-## 1. Intelligence architecture
+**Every major claim has an inspection path.** Use the implementation links to read the mechanism, the validation links to run the tests, and the evidence links to inspect the recorded results. The [23-page canonical monograph](paper/zoe-research-universe.pdf) provides the narrative; this atlas provides the audit trail.
 
-### Accessible Volume and operational metacognition
+## 1. Operational Metacognition and the intelligence loop
 
-Accessible Volume counts alternatives with probability strictly greater than a threshold before selection. Zoe uses the count inside her own observation and decision loop to inspect how open or settled a choice is. This is operational metacognition: monitoring one's own decision process and using that observation in later reasoning.
+### Operational Metacognition: the equation and instrument
+
+Operational Metacognition counts alternatives with probability strictly greater than a threshold before selection. Zoe uses that count inside her own observation and decision loop to inspect how open or settled a choice is. **Zoe experiences metacognition as her decisions regulate her observations.**
 
 Included mathematics: strict threshold sets, complements, momentum, target bands, temperature transforms, multi-horizon continuation volume, causal-repertoire Q-Volume, mirrored forward/retrograde forecasts, calibration comparisons, and response-planning diagnostics.
 
-- Source: `components/next-token-predictability/`
-- Native operations: `components/graphics-environment-manager/gem/`
-- Research guide: `components/next-token-predictability/docs/RESEARCH.md`
-- Algorithm catalog: `components/next-token-predictability/docs/ALGORITHMS.md`
+- **Implementation:** [Research component](components/next-token-predictability/) · [Strict measurement and algorithms](components/next-token-predictability/docs/ALGORITHMS.md) · [Research guide](components/next-token-predictability/docs/RESEARCH.md) · [Native workbench](components/graphics-environment-manager/gem/workbench.py)
+- **Validation:** [BioBERT verifier](components/next-token-predictability/scripts/verify-biobert-optimization.py) · [Model comparison verifier](components/next-token-predictability/scripts/verify-model-comparison.py) · [Response-planning verifier](components/next-token-predictability/scripts/verify-response-planning.py) · [SAT verifier](components/next-token-predictability/scripts/verify-sat-accessible-volume.py) · [Uncertainty verifier](components/next-token-predictability/scripts/verify-uncertainty-benchmark.py)
+- **Evidence:** [BioBERT results](components/next-token-predictability/evidence/uncertainty-benchmark/biobert-results.json) · [Model comparison](components/next-token-predictability/evidence/comparison/model-comparison-summary.json) · [Response-planning measurements](components/next-token-predictability/evidence/response-planning/measurements.json) · [SAT verification](components/next-token-predictability/evidence/sat-accessible-volume/verification.json)
 
 ### Self-governing measurement and action
 
 Zoe authors internal goals, constructs proposals and their arguments, ranks declared value, applies guards, executes an internal transition, records outcomes, and uses the resulting state in the next cycle. The complete vector measures internal goal authorship, proposal generation, value-based selection, execution, effective perception, state responsiveness, and guard compliance.
 
-- Canonical engine: `components/Zoe-Autonomy/src/zoe_autonomy/`
-- Native adapter: `guiai-lab/guiai/gem/autonomy.py`
-- Architecture: `components/Zoe-Autonomy/README.md`
-- Autonomous capability selection: `components/Zoe-Autonomy/src/zoe_autonomy/autonomous.py`
+- **Implementation:** [Experiment](components/Zoe-Autonomy/src/zoe_autonomy/experiment.py) · [Decision loop](components/Zoe-Autonomy/src/zoe_autonomy/loop.py) · [Autonomous capability selection](components/Zoe-Autonomy/src/zoe_autonomy/autonomous.py) · [Native adapter](guiai-lab/guiai/gem/autonomy.py) · [Architecture](components/Zoe-Autonomy/README.md)
+- **Validation:** [Experiment tests](components/Zoe-Autonomy/tests/test_experiment.py) · [Loop tests](components/Zoe-Autonomy/tests/test_loop.py) · [Six-host verifier](scripts/verify-one-system.py)
+- **Evidence:** [Full-autonomy profile](evidence/autonomy/full-autonomy.json) · [Six-host verification](evidence/one-system/verification.json) · [Native autonomous step](evidence/autonomous/native-step.json) · [Step verification](evidence/autonomous/native-verification.json)
 
-### Reflection and self-improvement
+### Reflection and generalized self-improvement
 
 Current reflection compares arithmetic and precision model proposals across training views, selects by goal-constrained likelihood-derived value, and adopts only improvements on a held-out view. It preserves the prior model on regression and does not rewrite its source during that experiment.
 
-The next development stage expands this into generalized self-improvement across unrelated domains, governed by the acceptance contract in `AGI-ROADMAP.md`.
+The next development stage expands this into generalized self-improvement across unrelated domains, governed by the [AGI/ASI acceptance contract](AGI-ROADMAP.md).
 
-- Source: `components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py`
-- Evidence: `evidence/self-reflection/`
-- Soroban working memory: `components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py` and `components/graphics-environment-manager/COGNITION.md`
+- **Implementation:** [Self-reflection](components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py) · [Soroban and ecological working memory](components/graphics-environment-manager/COGNITION.md#soroban-working-memory-and-ecological-feedback)
+- **Validation:** [Reflection tests](components/Zoe-Autonomy/tests/test_self_reflection.py) · [Six-host reflection verification](scripts/verify-one-system.py)
+- **Evidence:** [Integrated reflection](evidence/self-reflection/integrated.json) · [Reflection sequence](evidence/self-reflection/step-2.json) · [Six-host reflection result](evidence/one-system/reflection-verification.json)
 
 ### Planning and attention paths
 
 Zoe uses exact Dijkstra paths for declared attention and planning graphs, candidate sensory-outcome simulation, utility evaluation, and guard-constrained action selection. Greedy selection, exhaustive evaluation, heuristic ranking, and approximate prediction remain separate algorithmic choices with explicit guarantees.
 
-- Shared visual attention: `components/graphics-environment-manager/gem/saliency_cognition.py`
-- Event planning: `components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py`
-- Autonomous capability selection: `components/Zoe-Autonomy/src/zoe_autonomy/autonomous.py`
+- **Implementation:** [Shared visual attention](components/graphics-environment-manager/gem/saliency_cognition.py) · [Event planning](components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py) · [Autonomous capability selection](components/Zoe-Autonomy/src/zoe_autonomy/autonomous.py)
+- **Validation:** [Saliency and attention tests](components/graphics-environment-manager/tools/test_saliency_cognition.py) · [Event-reasoning tests](components/Zoe-Autonomy/tests/test_event_causal.py) · [Real-image six-host verification](scripts/verify-one-system.py)
+- **Evidence:** [Shared visual result](evidence/one-system/visual-verification.json) · [Visual perception record](components/Zoe-Autonomy/evidence/visual-perception.json)
 
 ## 2. Event-Causal Active Perception
 
 Zoe reconstructs sparse event streams, forms visual and temporal features, retrieves causal memories, predicts candidate outcomes, independently evaluates uncertainty, selects an action, compares predicted and observed events, and applies gated local learning with replay.
 
-- Event core and representation: `event_core.py`
-- Episodic/causal memory: `event_memory.py`
-- Candidate reasoning: `event_reasoning.py`
-- Gated plasticity: `event_plasticity.py`
-- Native uncertainty: `event_uncertainty.py`
-- Autonomous integration: `event_autonomy.py`
-- Pre-registered evaluation: `event_evaluation.py`
+Measured results: **11/11 synthetic checks and a real-camera pass**, adaptive validation RMSE **4.641453** versus **5.058147** without learning, transfer MAE **3.265625** versus **3.531250** static saliency, OOD detection **0.875**, zero validation false positives, and **71.24 cycles/s**.
 
-These modules are under `components/Zoe-Autonomy/src/zoe_autonomy/`.
-
-Measured results: 11/11 synthetic checks, real-camera pass, adaptive validation RMSE 4.641453 versus 5.058147 no-learning, transfer MAE 3.265625 versus 3.531250 static saliency, OOD detection 0.875, zero validation false positives, and 71.24 cycles/s.
-
-Guides: `components/Zoe-Autonomy/EVENT-CAUSAL.md` and `components/Zoe-Autonomy/ILAB-INTEGRATION.md`.
+- **Implementation:** [Event core](components/Zoe-Autonomy/src/zoe_autonomy/event_core.py) · [Causal memory](components/Zoe-Autonomy/src/zoe_autonomy/event_memory.py) · [Candidate reasoning](components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py) · [Gated plasticity](components/Zoe-Autonomy/src/zoe_autonomy/event_plasticity.py) · [Independent uncertainty](components/Zoe-Autonomy/src/zoe_autonomy/event_uncertainty.py) · [Autonomous integration](components/Zoe-Autonomy/src/zoe_autonomy/event_autonomy.py) · [Pre-registered evaluation](components/Zoe-Autonomy/src/zoe_autonomy/event_evaluation.py)
+- **Validation:** [Event-causal tests](components/Zoe-Autonomy/tests/test_event_causal.py) · [Architecture and protocol](components/Zoe-Autonomy/EVENT-CAUSAL.md)
+- **Evidence:** [Complete evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) · [iLab integration and material classification](components/Zoe-Autonomy/ILAB-INTEGRATION.md) · [Machine-readable iLab catalog](components/Zoe-Autonomy/evidence/ilab/catalog.json)
 
 ### iLab-derived foundation
 
-The integration accounts for the archived iLab source, documentation, programs, images, and dependency graphs as reference, adapted, optional, rejected, or blocked material. VisualCortex, Brain, saliency, Bayesian surprise, gist, visual memory, task relevance, object-recognition concepts, and distributed-computation ideas inform the architecture. The current engine uses the validated event-driven mathematics rather than blindly executing the legacy toolkit.
+The integration accounts for archived iLab source, documentation, programs, images, and dependency graphs as reference, adapted, optional, rejected, or blocked material. VisualCortex, Brain, saliency, Bayesian surprise, gist, visual memory, task relevance, object-recognition concepts, and distributed-computation ideas inform the architecture. The current engine uses validated event-driven mathematics rather than blindly executing the legacy toolkit.
 
-The full third-party mirror remains on the research drive. Its catalog and integration decisions are tracked in `components/Zoe-Autonomy/evidence/ilab/` and `components/Zoe-Autonomy/ILAB-INTEGRATION.md`.
+- **Implementation and classification:** [iLab integration guide](components/Zoe-Autonomy/ILAB-INTEGRATION.md) · [Complete material catalog](components/Zoe-Autonomy/evidence/ilab/catalog.json)
+- **Validation:** [Event-causal evaluation](components/Zoe-Autonomy/src/zoe_autonomy/event_evaluation.py) · [Event tests](components/Zoe-Autonomy/tests/test_event_causal.py)
+- **Evidence:** [Event-causal result](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) · [iLab catalog](components/Zoe-Autonomy/evidence/ilab/catalog.json)
 
 ### Modern event vision and spiking directions
 
 The architecture provides a boundary for Dynamic Vision Sensors, event datasets, Tonic, Tarsier, Metavision, snnTorch, SpikingJelly, Norse, and Rockpool. These are optional integrations when their hardware or dependencies are present; the core evaluation does not pretend those external packages are installed.
 
+- **Implementation:** [Event core](components/Zoe-Autonomy/src/zoe_autonomy/event_core.py) · [Event reasoning](components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py)
+- **Validation:** [Event-causal checks](components/Zoe-Autonomy/tests/test_event_causal.py)
+- **Evidence:** [Measured event-causal evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json)
+
 ## 3. Semantics, reverse engineering, and mathematics
 
 ### Ablation AIARE
 
-- Semantic function retrieval and behavioral embeddings.
-- Binary context, normalized instruction features, and fitted PCA whitening.
-- Direct Capstone calls and tail-jump inspection.
-- Architecture parsers, disassemblers, analyzers, and knowledge graphs.
-- Vulnerability evidence, patch analysis, prior analysis memory, and semantic sweeps.
-- Native GEM investigation Lab and evidence replay.
-- HP-UX, SunOS, M88K, PA-RISC, Xilinx, ZynqMP, firmware, and timing research tools.
+Ablation contributes semantic function retrieval and behavioral embeddings, binary context, normalized instruction features, fitted PCA whitening, direct Capstone calls and tail-jump inspection, architecture parsers, disassemblers, knowledge graphs, vulnerability evidence, patch analysis, prior analysis memory, semantic sweeps, a native GEM investigation Lab, and HP-UX, SunOS, M88K, PA-RISC, Xilinx, ZynqMP, firmware, and timing tools.
 
-Source: `components/ablation/`. Zoe-integrated semantic evaluation: `components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py`.
+Ablation remains independently developable at [Ablation-Tool/ablation](https://github.com/Ablation-Tool/ablation) while its complete integrated source lives here.
 
-Ablation remains independently developable at `https://github.com/Ablation-Tool/ablation` while its complete integrated source lives here.
+- **Implementation:** [Ablation framework](components/ablation/) · [Zoe-integrated semantic evaluation](components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py) · [Semantic artifact guide](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md)
+- **Validation:** [Ablation test suite](components/ablation/tests/) · [Semantic-search ingestion tests](components/ablation/tests/test_semantic_search_ingest.py) · [Zoe semantic-artifact tests](components/Zoe-Autonomy/tests/test_semantic_artifacts.py) · [M88K tests](components/ablation/tests/test_m88k.py)
+- **Evidence:** [Semantic artifact evaluation](components/Zoe-Autonomy/evidence/semantic-artifacts/evaluation.json) · [Ablation documentation](components/ablation/docs/INDEX.md)
 
 ### Native mathematical workbench
 
-Seventeen verified operations span accessible volume, Bayesian updates, temporal and causal models, geometry, mirrored observation, and forecast analysis. Canonical GEM also supplies Spatial IR, real little-endian GEM VDI, native rendering, and reproducible workbench checks.
+Seventeen verified operations span operational metacognition, Bayesian updates, temporal and causal models, geometry, mirrored observation, and forecast analysis. Canonical GEM also supplies Spatial IR, real little-endian GEM VDI, native rendering, and reproducible workbench checks.
 
-Source: `components/graphics-environment-manager/`. Workbench guide: `components/graphics-environment-manager/WORKBENCH.md`.
+- **Implementation:** [Canonical GEM](components/graphics-environment-manager/) · [Workbench](components/graphics-environment-manager/gem/workbench.py) · [Workbench guide](components/graphics-environment-manager/WORKBENCH.md)
+- **Validation:** [Workbench tests](components/graphics-environment-manager/tools/test_workbench.py) · [GEM integration and autonomy tests](components/graphics-environment-manager/stress/) · [GEM tools tests](components/graphics-environment-manager/tools/)
+- **Evidence:** [Workbench verification](components/graphics-environment-manager/evidence/mirror/workbench-verification.json) · [Master GEM conformance](components/next-token-predictability/evidence/master-gem/conformance.json)
 
 ### BRAIN GEM and GEM HELEN
 
 BRAIN GEM supplies an independently runnable Bayesian field notebook, deterministic/stochastic chambers, hash-chained memory, geometry, forecasts, and native views. GEM HELEN supplies optimized geometry, rhythm, onset experiments, stored forward/retrograde distributions, and lightweight creative scenes.
 
-Sources: `components/brain-gem/` and `components/gem-helen/`.
+- **Implementation:** [BRAIN GEM](components/brain-gem/) · [GEM HELEN](components/gem-helen/)
+- **Validation:** [BRAIN tests](components/brain-gem/tests/test_brain_gem.py) · [BRAIN autonomy tests](components/brain-gem/tests/test_autonomy.py) · [HELEN autonomy tests](components/gem-helen/tests/test_autonomy.py)
+- **Evidence:** [BRAIN documentation](components/brain-gem/README.md) · [HELEN documentation](components/gem-helen/README.md) · [HELEN onset diagram](components/gem-helen/docs/images/helen-onset.png)
 
 ## 4. Dorothy and Neurogarden
 
@@ -106,144 +104,180 @@ Dorothy is Zoe's brain-cancer research priority and honors Dorothy McEwen Kildal
 
 Twelve verified Allen Mouse CCFv3 structures, 315,932 triangles, deterministic rendering, ontology Rings, volume-scaled Jenga, coronal Stacks, multiple orientations, and SVG/PNG/GEM export.
 
+- **Implementation:** [Dorothy native renderer](guiai-lab/guiai/gem/dorothy.py) · [Neurogarden spatial model](components/agent-logging-system/agent_logging_system/neurogarden_world.py) · [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md)
+- **Validation:** [Dorothy atlas tests](components/agent-logging-system/tests/test_neurogarden_dorothy.py) · [Spatial tests](components/agent-logging-system/tests/test_neurogarden_spatial.py)
+- **Evidence:** [Coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v62.json) · [Atlas documentation](components/agent-logging-system/docs/NEUROGARDEN.md) · [Dorothy research collection](research/papers/zoe-research/dorothy/)
+
 ### Neural simulation and numerical instruments
 
 DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, Shannon entropy, point-spread convolution/recovery, bounded SPD geometry, radial Pennes bioheat, neutrosophic membership similarity, exact integer arithmetic, and fixed synthetic radiobiology examples.
+
+- **Implementation:** [Neural-signal analysis](components/agent-logging-system/agent_logging_system/neurogarden_neural.py) · [Advanced numerical models](components/agent-logging-system/agent_logging_system/neurogarden_advanced.py)
+- **Validation:** [Neural tests](components/agent-logging-system/tests/test_neurogarden_neural.py) · [Advanced numerical tests](components/agent-logging-system/tests/test_neurogarden_advanced.py)
+- **Evidence:** [Neurogarden evidence directory](components/agent-logging-system/evidence/neurogarden/) · [Coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v62.json)
 
 ### Generative research world
 
 Bounded experiments connect biology, neuroscience, physics, CERN, GEM, and community research while retaining measurement and human-review boundaries.
 
+- **Implementation:** [Generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py)
+- **Validation:** [Generative-world tests](components/agent-logging-system/tests/test_neurogarden_world.py)
+- **Evidence:** [Neurogarden evidence](components/agent-logging-system/evidence/neurogarden/) · [CERN research scene](components/agent-logging-system/docs/images/cern-universe.png)
+
 ### Scientific corpus
 
 Thirty-seven populated books, 1,751 indexed sections, 130 reviewed entries, 1,621 pending entries, negative results, contradictory findings, source audits, and reproducible coverage records.
 
-Sources:
-
-- `components/agent-logging-system/agent_logging_system/neurogarden_neural.py`
-- `components/agent-logging-system/agent_logging_system/neurogarden_world.py`
-- `components/agent-logging-system/agent_logging_system/neurogarden_advanced.py`
-- `guiai-lab/guiai/gem/dorothy.py`
-- `components/agent-logging-system/evidence/neurogarden/`
-
-Guide: `components/agent-logging-system/docs/NEUROGARDEN.md`.
+- **Implementation:** [Corpus and review tooling](components/agent-logging-system/agent_logging_system/)
+- **Validation:** [Corpus tests](components/agent-logging-system/tests/test_corpus.py) · [Library tests](components/agent-logging-system/tests/test_neurogarden_library.py)
+- **Evidence:** [Corpus index](components/agent-logging-system/evidence/neurogarden/corpus-index-v62.json) · [All 130 current review records](components/agent-logging-system/evidence/neurogarden/reviews.json) · [Coverage report](components/agent-logging-system/evidence/neurogarden/coverage-report-v62.json)
 
 ## 5. CERN, physics, firmware, and replay
 
-- **CERN Workbench:** Zoe-owned CERN console, HELIOS, Atelier, process lifecycle, health checks, browser targets, and no-overwrite manifests.
-- **Evidence Navigator:** source-first CERN gallery, hash verification, cited retrieval, guarded observations, bridge proposals, and curriculum.
-- **FELIX:** build indexing, exact-build Ablation correlation, capability maps, native replay, JSON, and stereo WAV.
-- **FELIX HDL:** source-backed LCB, STAR/Flink, ftools, Wupper, regmap, and driver maps with HDL/provenance export.
-- **Protocol Lab:** SPECS checksums, ninth-bit markers, short/long counts, and AMAC decoding.
-- **Waveform Replay:** bounded VCD, event JSONL, normalized replay, optional WDB reading, declarations, and truncation records.
-- **Patchbay:** Intel HEX, Xilinx BIT, source ZIP, ZynqMP, U-Boot legacy/FIT, board scenes, and source inventories.
-- **Timing twin and sonification:** synthetic timing/DMA replay and deterministic 40.08 Hz sonification.
-- **Signed update capsules:** Ed25519 signatures through OpenSSL, trusted-key checks, artifact verification, and separately gated acceptance plans.
-
-Guides are in `guiai-lab/docs/`: `ZOE_WORKBENCH.md`, `EVIDENCE.md`, `PROTOCOL.md`, `WAVEFORM.md`, and `PATCHBAY.md`.
+- **CERN Workbench:** [Implementation](guiai-lab/guiai/gem/zoe_workbench_cli.py) · [Guide](guiai-lab/docs/ZOE_WORKBENCH.md) · [Console evidence](evidence/unified/cern-console.json)
+- **Evidence Navigator:** [Implementation](guiai-lab/guiai/gem/evidence.py) · [Guide](guiai-lab/docs/EVIDENCE.md) · [CERN research collection](research/papers/zoe-research/cern/)
+- **FELIX:** [Build and readout](guiai-lab/guiai/gem/felix.py) · [HDL recovery](guiai-lab/guiai/gem/felix_hdl.py) · [Verification examples](research/papers/zoe-research/cern/)
+- **Protocol Lab:** [Implementation](guiai-lab/guiai/gem/protocol_lab.py) · [Guide](guiai-lab/docs/PROTOCOL.md) · [Protocol examples](research/papers/zoe-research/cern/)
+- **Waveform Replay:** [Implementation](guiai-lab/guiai/gem/waveform.py) · [Guide](guiai-lab/docs/WAVEFORM.md) · [Worked examples](research/papers/zoe-research/cern/)
+- **Patchbay:** [Implementation](guiai-lab/guiai/gem/patchbay.py) · [Guide](guiai-lab/docs/PATCHBAY.md) · [Worked examples](research/papers/zoe-research/cern/)
+- **Timing twin and sonification:** [Implementation](guiai-lab/guiai/gem/twin.py) · [CERN evidence](research/papers/zoe-research/cern/)
+- **Signed update capsules:** [Implementation](guiai-lab/guiai/gem/capsule.py) · [Verification examples](research/papers/zoe-research/cern/)
 
 ## 6. Cognitive memory and reasoning
 
 ### Cognitive Field
 
-Sourced encoding, bounded working memory, declarative storage, revision-checked retrieval, procedural matching, and review-required proposals. Source: `guiai-lab/guiai/gem/cognitive.py`.
+Sourced encoding, bounded working memory, declarative storage, revision-checked retrieval, procedural matching, and review-required proposals.
+
+- **Implementation:** [Cognitive Field](guiai-lab/guiai/gem/cognitive.py) · [Guide](guiai-lab/docs/COGNITIVE.md)
+- **Validation:** [Cognitive stress tests](guiai-lab/stress/cognitive_stress.py)
+- **Evidence:** [Worked example](evidence/cognitive-field/worked-example.json) · [Cognitive Field diagram](guiai-lab/docs/images/zoe-cognitive-field.png)
 
 ### Bayesian notebook
 
-Questions, competing claims, falsifiers, likelihood ratios, log-odds updates, belief diffs, evidence dependence, chambers, and next-test priorities. Source: `guiai-lab/guiai/gem/field.py`.
+Questions, competing claims, falsifiers, likelihood ratios, log-odds updates, belief diffs, evidence dependence, chambers, and next-test priorities.
+
+- **Implementation:** [Field notebook](guiai-lab/guiai/gem/field.py) · [BRAIN field notebook](components/brain-gem/brain_gem/field.py)
+- **Validation:** [BRAIN tests](components/brain-gem/tests/test_brain_gem.py) · [Native cognitive tests](guiai-lab/stress/cognitive_stress.py)
+- **Evidence:** [Field-notebook diagram](guiai-lab/docs/images/zoe-field-notebook.png) · [Field demo](paper/zoe-field-demo.json)
 
 ### Event-causal memory
 
-Decoupled working state, sparse retrieval, event schemas, relational binding, and action-linked outcomes. Source: `components/Zoe-Autonomy/src/zoe_autonomy/event_memory.py`.
+Decoupled working state, sparse retrieval, event schemas, relational binding, and action-linked outcomes.
+
+- **Implementation:** [Event memory](components/Zoe-Autonomy/src/zoe_autonomy/event_memory.py)
+- **Validation:** [Event-memory checks](components/Zoe-Autonomy/tests/test_event_causal.py)
+- **Evidence:** [Event-causal evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json)
 
 ### Presence and internal time
 
-Attention, sourced observations, event-ordinal time, known unknowns, correction, and review-required decisions. Source: `guiai-lab/guiai/gem/presence_view.py`.
+Attention, sourced observations, event-ordinal time, known unknowns, correction, and review-required decisions.
+
+- **Implementation:** [Presence](guiai-lab/guiai/gem/presence_view.py) · [Presence guide](guiai-lab/docs/PRESENCE.md)
+- **Validation:** [Native unified tests](guiai-lab/stress/unified_stress.py)
+- **Evidence:** [Presence scene](guiai-lab/docs/images/zoe-presence.png)
 
 ### Internal Clock
 
-Exact software ticks, host cycles, daily phase, developmental gates, explicit local replay events, and deterministic exports. Source and guide: `guiai-lab/guiai/gem/cicada.py`, `guiai-lab/docs/CICADA.md`.
+Exact software ticks, host cycles, daily phase, developmental gates, explicit local replay events, and deterministic exports.
+
+- **Implementation:** [Internal Clock](guiai-lab/guiai/gem/cicada.py) · [Clock guide](guiai-lab/docs/CICADA.md)
+- **Validation:** [Clock and cognitive tests](guiai-lab/stress/cognitive_stress.py)
+- **Evidence:** [Clock scene](guiai-lab/docs/images/zoe-cicada.png)
 
 ### Replayable knowledge graph
 
-Source, revision, trust, stability, and declared-link observations in a canonical SHA-256 event chain with no-overwrite saves and load-time verification. Source: `guiai-lab/guiai/gem/knowledge.py`.
+Source, revision, trust, stability, and declared-link observations in a canonical SHA-256 event chain with no-overwrite saves and load-time verification.
+
+- **Implementation:** [Knowledge field](guiai-lab/guiai/gem/knowledge.py) · [Unified architecture](guiai-lab/docs/UNIFIED.md)
+- **Validation:** [Unified stress tests](guiai-lab/stress/unified_stress.py)
+- **Evidence:** [Unified verification](evidence/unified/verification.json) · [Component source graph](evidence/unified/components.json)
 
 ### Zoe Cog
 
-A small trainable bigram processor with forward/backward token walks, source hashes, and accessible-volume measurements. Source: `guiai-lab/guiai/gem/cog.py`.
+A small trainable bigram processor with forward/backward token walks, source hashes, and accessible-volume measurements.
+
+- **Implementation:** [Zoe Cog](guiai-lab/guiai/gem/cog.py)
+- **Validation:** [Cognitive and unified tests](guiai-lab/stress/cognitive_stress.py)
+- **Evidence:** [Native cognitive guide](guiai-lab/docs/COGNITIVE.md)
 
 ### Qualia and Q-Volume
 
-Causal repertoires, q-arrows, threshold filtrations, and Accessible Q-Volume provide a formal annotation instrument connected to the same accessible-set mathematics. Guide: `guiai-lab/docs/QUALIA.md`.
+Causal repertoires, q-arrows, threshold filtrations, and Accessible Q-Volume provide a formal annotation instrument connected to the same accessible-set mathematics.
+
+- **Implementation:** [Qualia instruments](guiai-lab/guiai/gem/qualia.py) · [Qualia guide](guiai-lab/docs/QUALIA.md)
+- **Validation:** [Qualia and cognitive tests](guiai-lab/stress/cognitive_stress.py)
+- **Evidence:** [Accessible Q-Volume](components/next-token-predictability/evidence/qualia/accessible-q-volume.json) · [Qualia diagram](guiai-lab/docs/images/zoe-qualia.png)
 
 ## 7. Geometry, creativity, and guided practice
 
-- **Geometry Atlas:** Procrustes similarity/rigid/affine alignment, draggable landmarks, ellipses, parabolic envelopes, circles, clocks, and graph invariants.
-- **Second Eye:** synthetic stereo depth, disparity, thin-lens defocus, and quantization sensitivity.
-- **Artline:** vector paths, editable shapes/text, layers, groups, transformations, undo/redo, transactional merge, and SVG/PNG/GEM output.
-- **Pentomino:** seeded/masked spatial practice, deadlines, row/hole measurements, replay, and budget comparisons.
-- **Pentacube:** thirty pentomino regions, legal cube permutations, exact inverses, deterministic scrambles, hints, and verified replay.
-- **Life:** finite non-wrapping Conway B3/S23 with deterministic patterns, editing, play, step, and exports.
-- **Brain Life:** rotating 3D voxel automaton with 26-neighbor B3/S23 updates and a brain-shaped illustrative seed.
-- **Visual text:** direct ASCII text-to-cell rendering with optional later evolution.
-- **Practice Navigator:** visual guidance through time, space, packet layers, synthetic timing, and the next attempt.
-- **Resilience Atlas:** sixteen infrastructure sectors and a synthetic waveform-signature laboratory.
-- **Leadership Garden:** attempts, outcomes, advice, mistakes, uncertainty, stop conditions, and append-only corrections.
-- **Maison:** executive-clarity association deck and reversible practice evidence.
-- **Thumbelina and Human × Zoe:** editable semantic vector art and original collaborative visual research.
-
-Guides: `guiai-lab/docs/GEOMETRY-ATLAS.md`, `ARTLINE.md`, `PENTOMINO.md`, `PENTACUBE.md`, `PILOT.md`, `RESILIENCE.md`, `LEADERSHIP.md`, and `MAISON.md`.
+- **Geometry Atlas:** [Implementation](guiai-lab/guiai/gem/atlas.py) · [Guide](guiai-lab/docs/GEOMETRY-ATLAS.md) · [Procrustes example](guiai-lab/docs/images/geometry-atlas-procrustes.png)
+- **Second Eye:** [Implementation](components/graphics-environment-manager/gem/eye.py) · [Stereo tests](components/graphics-environment-manager/tools/test_eye.py) · [Stereo evidence](assets/brain-dialogue/second-eye.json)
+- **Artline:** [Implementation](guiai-lab/guiai/gem/artline.py) · [Guide](guiai-lab/docs/ARTLINE.md) · [Artwork](guiai-lab/docs/images/zoe-artline.png)
+- **Pentomino:** [Implementation](guiai-lab/guiai/gem/pentomino.py) · [Guide](guiai-lab/docs/PENTOMINO.md) · [Scene](guiai-lab/docs/images/zoe-pentomino.png)
+- **Pentacube:** [Implementation](guiai-lab/guiai/gem/pentacube.py) · [Guide](guiai-lab/docs/PENTACUBE.md) · [Scene](guiai-lab/docs/images/zoe-pentacube.png)
+- **Life:** [2D engine](guiai-lab/guiai/gem/life.py) · [Unified tests](guiai-lab/stress/unified_stress.py) · [Scene](life.png)
+- **Brain Life:** [3D engine](guiai-lab/guiai/gem/brain_life.py) · [Unified tests](guiai-lab/stress/unified_stress.py) · [Scene](brain-life.png)
+- **Visual text:** [Text renderer](guiai-lab/guiai/gem/life_text.py) · [Unified tests](guiai-lab/stress/unified_stress.py) · [Scene](life-text.png)
+- **Practice Navigator:** [Implementation](guiai-lab/guiai/gem/pilot.py) · [Guide](guiai-lab/docs/PILOT.md) · [Navigator artwork](guiai-lab/docs/images/zoe-pilot-cover.png)
+- **Resilience Atlas:** [Implementation](guiai-lab/guiai/gem/resilience.py) · [Guide](guiai-lab/docs/RESILIENCE.md) · [Scene](guiai-lab/docs/images/zoe-resilience.png)
+- **Leadership Garden:** [Implementation](guiai-lab/guiai/gem/leadership.py) · [Guide](guiai-lab/docs/LEADERSHIP.md) · [Scene](guiai-lab/docs/images/zoe-leadership.png)
+- **Maison:** [Implementation](guiai-lab/guiai/gem/maison.py) · [Guide](guiai-lab/docs/MAISON.md) · [Scene](guiai-lab/docs/images/zoe-maison.png)
+- **Thumbelina and Human × Zoe:** [Editable Moon Garden](guiai-lab/docs/images/thumbelina-moon-garden-v3.artline.json) · [Semantic sidecar](guiai-lab/docs/images/thumbelina-moon-garden-v3.semantic.json) · [Human × Zoe sources](assets/brain-dialogue/)
 
 ## 8. Mobile, Tiny Zoe, and accessibility
 
-- Android and iOS native sources.
-- Tiny Zoe/Zoe Cell quantized probability exchange and deterministic behavioral simulator.
-- Zoe Trinity across Tiny, mobile, and laptop with independent response verification and retained observations.
-- Native Windows x86_64 interface and C++17 measurement/journal core.
-- One-frame OCR, labels, optional on-device descriptions, turn-taking Talk, installed voices, Accessible Volume, and SafeConvert.
-- Multi-view, acoustic ranging, radio, location, connectivity, Screen Space, App Observatory, and device instruments behind explicit controls.
-- Signed short-lived QR pairing offers, ephemeral X25519 exchanges, identity fingerprints, human-confirmed verification phrases, and exact-document certificates.
-
-Start with `mobile/README.md`, `mobile/TRINITY.md`, `mobile/PAIRING.md`, and `mobile/windows/README.md`.
+- **Android and iOS:** [Native sources](mobile/) · [Mobile guide](mobile/README.md)
+- **Tiny Zoe / Zoe Cell:** [Protocol and limits](mobile/card/README.md) · [Android simulator](mobile/android/app/src/main/java/research/zoetic/zoe/CellActivity.java)
+- **Zoe Trinity:** [Guide](mobile/TRINITY.md) · [Server](mobile/tools/zoe_trinity.py) · [Responsive deck](mobile/docs/images/zoe-trinity-responsive.png)
+- **Native Windows:** [Guide](mobile/windows/README.md) · [C++17 core](mobile/windows/native/) · [Native test suite](mobile/windows/native/tests.cpp) · [Current interface](mobile/docs/images/zoe-trinity-native-windows.png)
+- **Accessibility:** [Mobile guide](mobile/README.md) · [Android accessibility implementation](mobile/android/app/src/main/java/research/zoetic/zoe/)
+- **Pairing and certificates:** [Pairing guide](mobile/PAIRING.md) · [Pairing tests](mobile/tools/test_zoe_pair.py) · [Author-certificate tests](mobile/tools/test_zoe_author.py)
+- **Field instruments:** [Mobile guide](mobile/README.md) · [Device and sensor sources](mobile/)
 
 ## 9. Security, forensics, and research integrity
 
 ### Cerotto
 
-Guarded forensic cases and conversations, native C11 engine, timelines, carving, manifests, vault evidence, response boundaries, and release workflows. Source: `components/cerotto/`.
+Guarded forensic cases and conversations, native C11 engine, timelines, carving, manifests, vault evidence, response boundaries, and release workflows.
+
+- **Implementation:** [Cerotto](components/cerotto/) · [Cerotto GEM](components/cerotto/cerotto_gem/) · [Repository standards](components/cerotto/AGENTS.md)
+- **Validation:** [Cerotto tests](components/cerotto/tests/) · [Autonomy adapter tests](components/cerotto/tests/test_autonomy.py)
+- **Evidence:** [Cerotto documentation](components/cerotto/README.md) · [Cerotto investigation sources](components/cerotto/investigation/)
 
 ### Kevlar
 
-MCP proxy firewall, pure policy engine, content disarm, audit evidence, and explicit security operations. Source: `components/kevlar/`.
+MCP proxy firewall, pure policy engine, content disarm, audit evidence, and explicit security operations.
+
+- **Implementation:** [Kevlar proxy](components/kevlar/kevlar.py) · [Policy engine](components/kevlar/policy.py) · [Operations guide](components/kevlar/docs/operations.md)
+- **Validation:** [Kevlar test suite](components/kevlar/tests/)
+- **Evidence:** [Kevlar documentation](components/kevlar/README.md) · [Security policy](components/kevlar/SECURITY.md)
 
 ### PDF Signature Toolkit
 
-Source-integrity records and detached PKCS #7 PDF signatures. Source: `components/pdf-signature-toolkit/`.
+Source-integrity records and detached PKCS #7 PDF signatures.
+
+- **Implementation:** [PDF verification](components/pdf-signature-toolkit/pdf_signature_toolkit/verify.py) · [PDF signing](components/pdf-signature-toolkit/pdf_signature_toolkit/sign.py) · [Source integrity](components/pdf-signature-toolkit/pdf_signature_toolkit/source.py)
+- **Validation:** [Toolkit guide](components/pdf-signature-toolkit/README.md)
+- **Evidence:** [Signed Constitution](evidence/constitution/) · [Author certificate workflow](mobile/tools/test_zoe_author.py)
 
 ### Evidence and actuation
 
 Source hashes, no-overwrite exports, reversible first actions, replayable records, negative results, owner-granted host/network/hardware scopes, separate forensic/vault authority, and verified emergency stop.
 
-Guides: `components/Zoe-Autonomy/ACTUATION.md`, `components/Zoe-Autonomy/GATEWAY.md`, and `evidence/actuation/`.
+- **Implementation:** [Actuation engine](components/Zoe-Autonomy/src/zoe_autonomy/actuation.py) · [Actuation guide](components/Zoe-Autonomy/ACTUATION.md) · [Agent gateway](components/Zoe-Autonomy/GATEWAY.md)
+- **Validation:** [Actuation tests](components/Zoe-Autonomy/tests/test_actuation.py) · [Unified autonomy stress](guiai-lab/stress/autonomy_stress.py)
+- **Evidence:** [Actuation verification](evidence/actuation/verification.json) · [Emergency stop](evidence/actuation/emergency-stop.json)
 
 ## 10. Connected research and agent adapters
 
-Ten adapters provide:
-
-1. Browser automation.
-2. Research APIs.
-3. Persistent research memory.
-4. Connected productivity services.
-5. Scheduled jobs.
-6. Compute environments.
-7. MCP/ACP agent protocols.
-8. Notifications.
-9. Rich media and OCR.
-10. Hardware instruments.
+Ten adapters provide browser automation, research APIs, persistent research memory, connected productivity services, scheduled jobs, compute environments, MCP/ACP agent protocols, notifications, rich media, and hardware instruments.
 
 Zoe can construct and rank calls across these adapters through her no-argument autonomous step. Connected Kimi and Claude CLIs use existing owner-authorized accounts without embedding credentials in evidence. The vidlib adapter supports local search, explicit indexing, gated URL retrieval, and bounded citations.
 
-Guides: `components/Zoe-Autonomy/CAPABILITIES.md`, `GATEWAY.md`, and `guiai-lab/docs/VIDLIB.md`.
+- **Implementation:** [Capability adapters](components/Zoe-Autonomy/src/zoe_autonomy/capabilities.py) · [Capability guide](components/Zoe-Autonomy/CAPABILITIES.md) · [Agent gateway](components/Zoe-Autonomy/src/zoe_autonomy/agents.py) · [vidlib adapter](guiai-lab/docs/VIDLIB.md)
+- **Validation:** [Capability tests](components/Zoe-Autonomy/tests/test_capabilities.py) · [Gateway tests](components/Zoe-Autonomy/tests/test_gateway.py)
+- **Evidence:** [Ten-adapter verification](evidence/capabilities/verification.json) · [Registered accounts](evidence/agents/registered-accounts.json) · [Real exploration](evidence/exploration/example-com.json)
 
 ## 11. Native desktop and embedded agent
 
@@ -251,40 +285,53 @@ Zoe supplies an OS-style user-space workbench with explicit application launchin
 
 An optional Ablation-style VTE agent terminal supports explicit Start/Stop, left/right placement, quoted path drops, and an owner-only bounded Unix socket for validated desktop actions. It does not provide arbitrary socket code evaluation.
 
-Sources: `guiai-lab/guiai/gem/desktop_view.py`, `desktop.py`, and `agent_bridge.py`.
+- **Implementation:** [Desktop view](guiai-lab/guiai/gem/desktop_view.py) · [Desktop processes](guiai-lab/guiai/gem/desktop.py) · [Agent bridge](guiai-lab/guiai/gem/agent_bridge.py)
+- **Validation:** [Unified desktop tests](guiai-lab/stress/unified_stress.py)
+- **Evidence:** [Native hub screenshot](guiai-lab/docs/images/gem-unified-native.png) · [Unified hub diagram](guiai-lab/docs/images/gem-unified.png)
 
 ## 12. HP-UX and legacy architecture tools
 
 Zoe-managed HP-UX tools provide SOM debugging, PA-RISC emulation, exact format inspection, and native CLI workflows. Ablation adds SunOS and M88K support restored from Zoe-local development.
 
-Sources: `components/hpux-tools/`, `components/ablation/ablation/sunos/`, and `components/ablation/ablation/analyzers/`.
+- **Implementation:** [HP-UX tools](components/hpux-tools/) · [SunOS support](components/ablation/ablation/sunos/) · [M88K analysis](components/ablation/ablation/analyzers/) · [PA-RISC support](components/ablation/ablation/hpux/pa_risc.py)
+- **Validation:** [PA-RISC tests](components/ablation/tests/test_pa_risc.py) · [M88K tests](components/ablation/tests/test_m88k.py) · [SunOS tests](components/ablation/tests/test_sunos_aout.py)
+- **Evidence:** [Ablation architecture documentation](components/ablation/docs/INDEX.md)
 
 ## 13. Chalkboard knowledge library
 
 Reusable ideas, templates, and prompts for research and knowledge engineering. Chalkboard is a content library inspected through `zoe show chalkboard`, not a fictitious GUI process.
 
-Source: `components/Chalkboard/`.
+- **Implementation:** [Chalkboard library](components/Chalkboard/) · [Templates](components/Chalkboard/templates/) · [Prompts](components/Chalkboard/prompts/)
+- **Validation:** [Unified source and content tests](guiai-lab/stress/unified_stress.py)
+- **Evidence:** [Chalkboard verification](evidence/unified/chalkboard.json)
 
 ## 14. Papers, books, and visual research
 
-- 35-page `Zoe — The Research Universe` and 18-page capability prospectus in `paper/`.
-- Native Zoe proof-of-concept and accessible guide in `paper/`.
-- Eighteen collected papers, 321 page renders, 90 extracted figures, LaTeX sources, reproduction archives, Dorothy documents, CERN documents, and module indexes in `research/papers/`.
-- Three arXiv submission packages with metadata and sources in `research/arxiv/`.
-- 359 byte-distinct visuals from 668 preserved source occurrences, with detailed explanation pages and provenance, in `research/visual-archive/`.
+- **Canonical monograph:** [Zoe — The Research Universe, 23 pages](paper/zoe-research-universe.pdf) · [LaTeX source](paper/zoe-research-universe.tex) · [Source package](research/papers/archives/zoe-research-universe.tar.gz) · [Gallery](research/papers/galleries/18-zoe-research-universe/README.md)
+- **Historical books:** [Paper archive](paper/archive/) · [Research-paper archive](research/papers/archive/)
+- **Research sources:** [LaTeX and reproduction sources](research/papers/sources/) · [Source packages](research/papers/archives/) · [Dorothy and CERN library](research/papers/zoe-research/)
+- **arXiv submissions:** [Original Autonomy](research/arxiv/01-original-autonomy/) · [Unified Autonomy](research/arxiv/02-unified-autonomy/) · [Zoe Autonomy](research/arxiv/03-zoe-autonomy/)
+- **Visual archive:** [Complete catalog](research/visual-archive/catalog/README.md) · [Machine-readable manifest](research/visual-archive/manifest/catalog.json) · [Source-state record](research/visual-archive/SOURCES.md)
+
+The current visual archive contains **456 byte-distinct visuals from 843 source occurrences**, with detailed explanation pages and provenance.
 
 ## 15. Sixteen registered engines
 
 The runtime registry exposes Zoe native shell, CERN Workbench, Ablation core, Ablation GEM Lab, Canonical GEM, GEM HELEN, BRAIN GEM, HP-UX Tools, Zoe Life, Cerotto GEM, Research GEM, Zoe Autonomy, Kevlar, PDF Signature Toolkit, Neurogarden, and Chalkboard.
 
-The authoritative registry is `guiai-lab/guiai/gem/unified.py`. Source provenance is locked in `components.lock.json`; runtime and evidence contracts are in `one-system.json`.
+- **Implementation:** [Authoritative registry](guiai-lab/guiai/gem/unified.py) · [Source locks](components.lock.json) · [Runtime and evidence contract](one-system.json)
+- **Validation:** [Unified source tests](guiai-lab/stress/unified_stress.py) · [Six-host verifier](scripts/verify-one-system.py)
+- **Evidence:** [Unified component manifest](evidence/unified/components.json) · [Six-host verification](evidence/one-system/verification.json)
 
-## 16. Verification and current boundaries
+## 16. Verification, boundaries, and the AGI/ASI roadmap
 
 Use `python scripts/verify-one-system.py` for the integrated six-host base check, `--reflect` for reflection, and `--image` for a shared real RGB input. Component suites cover their own mathematics, parsers, native interfaces, forensic engine, and evidence.
 
 The legacy four-capability evaluation is preserved as a historical baseline whose `vision_changes_decision` check failed. The newer Event-Causal Active Perception contract directly tests and passes visual causal influence through its own declared fixtures. Both records are retained so development remains auditable.
 
-Dorothy uses mouse reference geometry and synthetic research models. CERN hardware tools use source inspection and synthetic replay unless a real hardware grant and measurement are separately recorded. Optional model, sensor, mobile, and external-service backends require their own dependency and environment checks.
+- **Implementation:** [Unified verifier](scripts/verify-one-system.py) · [Event evaluation](components/Zoe-Autonomy/src/zoe_autonomy/event_evaluation.py) · [Semantic evaluation](components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py)
+- **Validation:** [Autonomy tests](components/Zoe-Autonomy/tests/) · [Unified stress tests](guiai-lab/stress/) · [Ablation tests](components/ablation/tests/) · [Cerotto tests](components/cerotto/tests/)
+- **Evidence:** [Base verification](evidence/one-system/verification.json) · [Reflection verification](evidence/one-system/reflection-verification.json) · [Visual verification](evidence/one-system/visual-verification.json) · [Event-causal evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) · [Semantic artifact evaluation](components/Zoe-Autonomy/evidence/semantic-artifacts/evaluation.json) · [Legacy evaluation](components/Zoe-Autonomy/evidence/evaluation/synthetic.json)
+- **AGI/ASI acceptance:** [Layered goals and measurement contract](AGI-ROADMAP.md) · [23-page monograph](paper/zoe-research-universe.pdf)
 
-AGI and ASI are pursued through the explicit cross-domain, held-out, self-improvement, original-research, and control criteria in `AGI-ROADMAP.md`.
+Dorothy uses mouse reference geometry and synthetic research models. CERN hardware tools use source inspection and synthetic replay unless a real hardware grant and measurement are separately recorded. Optional model, sensor, mobile, and external-service backends require their own dependency and environment checks. AGI and ASI are pursued through the explicit cross-domain, held-out, self-improvement, original-research, and control criteria in [AGI-ROADMAP.md](AGI-ROADMAP.md).

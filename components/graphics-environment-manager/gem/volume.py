@@ -145,7 +145,7 @@ class VolumeBridge:
             "run_digest": digest,
             "scope": [
                 "The NPZ artifact supplies the complete distribution being measured; no embedded agent is inferred.",
-                "Accessible volume describes forecast breadth, not correctness, safety, or action authorization.",
+                "Operational Metacognition describes forecast breadth, not correctness, safety, or action authorization.",
                 "Advisory steering is experimental and never executes an action.",
             ],
             "executed": False,
@@ -171,7 +171,7 @@ class VolumeBridge:
                 f"evidence:accessible-volume:{digest[:24]}",
                 state["selected_id"],
                 "evidence",
-                f"NPZ accessible volume · τ={decision['tau']}: {decision['accessible_volume']}",
+                f"NPZ operational metacognition · τ={decision['tau']}: {decision['accessible_volume']}",
                 "complete_scoped",
                 "tool",
                 report_path.relative_to(self.session.root).as_posix(),

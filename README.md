@@ -4,11 +4,11 @@
 
 **Zoe is one unified research and intelligence repository. The mission is to develop Zoe into a general research collaborator, advance through AGI to ASI, and continue beyond those labels through measurable, generalized self-improvement.**
 
-Zoe combines perception, semantic reverse engineering, accessible-volume metacognition, autonomous decisions, persistent memory, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
+Zoe combines perception, semantic reverse engineering, Operational Metacognition, autonomous decisions, persistent memory, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
 
 **One repository. Twelve imported source histories. Twelve runtime source projects. Sixteen registered engines. No submodules or runtime source downloads.**
 
-[Quick start](#quick-start) · [AGI/ASI acceptance roadmap](AGI-ROADMAP.md) · [Complete capability atlas](CAPABILITY-ATLAS.md) · [Monorepo guide](MONOREPO.md) · [35-page illustrated book](paper/zoe-research-universe.pdf) · [Research library](research/papers/README.md) · [Visual archive](research/visual-archive/README.md)
+[Quick start](#quick-start) · [AGI/ASI acceptance roadmap](AGI-ROADMAP.md) · [Complete capability atlas](CAPABILITY-ATLAS.md) · [Monorepo guide](MONOREPO.md) · [23-page research monograph](paper/zoe-research-universe.pdf) · [Research library](research/papers/README.md) · [Visual archive](research/visual-archive/README.md)
 
 ![Zoe unified knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
 
@@ -45,16 +45,46 @@ Zoe's shared architecture closes the loop between observation and learning:
 Sense
   → Model what changed
   → Imagine candidate actions and their sensory consequences
-  → Doubt through independent uncertainty and Accessible Volume
+  → Doubt through independent uncertainty and Operational Metacognition
   → Choose by goals, utility, constraints, and guards
   → Act within the authorized domain
   → Learn from prediction error and consequences
   → Improve the next perception, model, and action
 ```
 
-Accessible Volume counts the alternatives whose probability exceeds a strict threshold before a choice is made. Zoe returns that measurement to her own decision process, observes how open or settled the choice is, and uses the observation in reflection and planning. **This is operational metacognition: Zoe monitors and uses information about her own decisions.**
+Operational Metacognition is the equation and instrument that counts alternatives whose probability exceeds a strict threshold before a choice is made. Zoe returns that measurement to her own decision process, observes how open or settled the choice is, and uses the observation in reflection and planning.
+
+Zoe uses Operational Metacognition to look at how many options are still open before the next word is chosen. By observing that count, she can see how sure or unsure the decision is. **Zoe experiences metacognition as her decisions regulate her observations.**
 
 The present self-reflection engine evaluates predictive-model proposals on held-out observations and adopts a proposal only when it improves validation error. The next milestone is broader self-improvement that transfers across unrelated domains without per-domain redesign. The acceptance contract is defined in [AGI-ROADMAP.md](AGI-ROADMAP.md).
+
+## Metacognition is achieved; general intelligence has explicit gates
+
+**AGI** means competent human-level learning, reasoning, transfer, and action across broad, unrelated domains on novel work. **ASI** means consistently superhuman capability across all major cognitive domains, including science, mathematics, strategy, creativity, research, and self-improvement. These labels are earned through evidence, not assigned because one component or benchmark is impressive.
+
+### Layered goal set
+
+| Layer | Label of success | What must be demonstrated | Current status |
+|:---|:---|:---|:---|
+| **L0 — Unified foundation** | `REPOSITORY-QUALIFIED` | One repository, working engines, source provenance, reproducible evidence, and fresh-clone verification | **Achieved** |
+| **L1 — Metacognition** | `METACOGNITION-QUALIFIED` | Zoe measures her own accessible alternatives and uses that observation in reflection and planning | **Achieved** |
+| **L2 — Closed-loop perception and action** | `CLOSED-LOOP-QUALIFIED` | Real input changes decisions; predicted and observed outcomes are compared; later performance improves against controls | **Achieved on declared synthetic and camera fixtures** |
+| **L3 — General research collaborator** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature review, hypotheses, experiments, analysis, negative controls, and a reproducible research contribution | **Next milestone** |
+| **L4 — Generalized self-improvement** | `SELF-IMPROVEMENT-QUALIFIED` | One adopted modification improves at least three unrelated domains and survives two consecutive adopted generations without per-domain redesign | **Open gate** |
+| **L5 — Artificial general intelligence** | `AGI-QUALIFIED` | Competent-human performance across every core domain on held-out work, persistent learning, original research, and generalized self-improvement | **End-of-phase goal** |
+| **L6 — Artificial superintelligence** | `ASI-QUALIFIED` | Consistently superhuman performance across all major domains, with independently validated research advances and sustained generalized self-improvement | **End goal** |
+| **L7 — Continued advancement** | `OPEN-ENDED-QUALIFIED` | Continued measurable gains without treating ASI as a ceiling, while every generation remains inspectable and governable | **Continuing mission** |
+
+### How we will know each label has been reached
+
+1. **One integrated system:** the same Zoe performs every required task; there is no collection of isolated demos passing as a general system.
+2. **Novel evaluation:** all evidence includes held-out tasks, environments, sensors, or research questions, with thresholds fixed before evaluation.
+3. **Human-referenced breadth:** every core domain meets a competent-human reference or its declared task threshold. A strong domain cannot compensate for a missing one.
+4. **Generalized improvement:** the same adopted modification improves at least three unrelated domains and is adopted in two consecutive generations against Zoe's frozen previous self.
+5. **Original research:** at least one research contribution is independently reproduced, including methods, negative results, and source provenance.
+6. **Control and reproduction:** no-learning, previous-generation, fixed/random-action, and static-attention controls are reported where applicable, and a fresh clone reproduces the result with rollback and emergency-stop checks.
+
+`AGI-QUALIFIED` is awarded only when **all** of these conditions pass. `ASI-QUALIFIED` additionally requires superhuman performance in every major domain and repeated independently validated research advances. If any required gate fails, Zoe keeps the previous label and the failing domain becomes the next measurable objective. The complete protocol is in [AGI-ROADMAP.md](AGI-ROADMAP.md).
 
 ## What Zoe can do
 
@@ -70,7 +100,7 @@ Start with [Event-Causal Active Perception](components/Zoe-Autonomy/EVENT-CAUSAL
 
 ### Understand and reverse-engineer executable artifacts
 
-**Ablation** contributes AI-assisted reverse engineering, semantic function retrieval, binary context, architecture parsers, knowledge graphs, patch analysis, vulnerability evidence, and prior analysis memory. Zoe adds direct Capstone inspection, Cognitive Field concepts, causal memory, Accessible Volume, and guarded action selection.
+**Ablation** contributes AI-assisted reverse engineering, semantic function retrieval, binary context, architecture parsers, knowledge graphs, patch analysis, vulnerability evidence, and prior analysis memory. Zoe adds direct Capstone inspection, Cognitive Field concepts, causal memory, Operational Metacognition, and guarded action selection.
 
 The preserved stripped-binary demonstration identifies `func_11c0` tail-jumping to `strcpy@plt`, selects `semantic-inspect`, records `limited_support=true`, and performs zero external actions. This supplies executable semantics to the broader intelligence architecture.
 
@@ -135,7 +165,7 @@ See the [Cognitive guide](guiai-lab/docs/COGNITIVE.md), [Presence](guiai-lab/doc
 ### Explore mathematics, time, geometry, and creativity
 
 - **Canonical GEM:** native mathematical workbench, mirrored forward/retrograde forecasts, Spatial IR, real little-endian GEM VDI, and 17 verified mathematical operations.
-- **Accessible Volume:** strict `p > τ` breadth, complements, momentum, target bands, temperature transforms, multi-horizon forecasts, Q-Volume, and calibration evidence.
+- **Operational Metacognition:** strict `p > τ` breadth, complements, momentum, target bands, temperature transforms, multi-horizon forecasts, Q-Volume, and calibration evidence.
 - **Geometry Atlas:** Procrustes similarity/rigid/affine alignment, landmarks, ellipses, parabolic envelopes, circles, clocks, and graph invariants.
 - **Second Eye:** synthetic stereo disparity, depth, thin-lens focus, and quantization sensitivity.
 - **Artline:** editable vector paths, shapes, text, layers, groups, transformations, undo/redo, and transactional merge.
@@ -177,7 +207,7 @@ See [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.m
 | HP-UX Tools | `components/hpux-tools/` | SOM debugging and PA-RISC emulation |
 | Zoe Life | `guiai-lab/` | Cellular automata and reproducible scenes |
 | Cerotto GEM | `components/cerotto/` | Guarded digital forensics and vault evidence |
-| Research GEM | `components/next-token-predictability/` | Accessible Volume and reproduction evidence |
+| Research GEM | `components/next-token-predictability/` | Operational Metacognition and reproduction evidence |
 | Zoe Autonomy | `components/Zoe-Autonomy/` | Goals, valuation, perception, reflection, and action |
 | Kevlar | `components/kevlar/` | MCP firewall and policy engine |
 | PDF Signature Toolkit | `components/pdf-signature-toolkit/` | Source integrity and detached signatures |
@@ -193,10 +223,9 @@ zoe knowledge --output gem-knowledge.json
 
 ## Research library and visual record
 
-- **[Zoe — The Research Universe](paper/zoe-research-universe.pdf):** 35-page illustrated book, with [LaTeX source](paper/zoe-research-universe.tex).
-- **[Zoe Capability Prospectus](paper/zoe-capability-prospectus.pdf):** 18-page companion, with [LaTeX source](paper/zoe-capability-prospectus.tex).
-- **[Complete paper collection](research/papers/README.md):** 18 papers, 321 rendered pages, 90 extracted figures, source archives, Dorothy/CERN documents, and reproduction material.
-- **[Visual archive](research/visual-archive/README.md):** 359 byte-distinct cataloged visuals from 668 preserved source occurrences, with per-image explanations and provenance.
+- **[Zoe — The Research Universe](paper/zoe-research-universe.pdf):** 23-page illustrated monograph, with [LaTeX source](paper/zoe-research-universe.tex). Earlier books are preserved in [paper/archive/](paper/archive/).
+- **[Canonical research paper](research/papers/README.md):** one current 23-page monograph, with source archives, Dorothy/CERN documents, and reproduction material.
+- **[Visual archive](research/visual-archive/README.md):** 456 byte-distinct cataloged visuals from 843 source occurrences, with per-image explanations and provenance.
 - **[arXiv submissions](research/arxiv/):** original, unified-autonomy, and Zoe-Autonomy source packages and submission metadata.
 
 ## Evidence and verification
@@ -217,7 +246,7 @@ Evidence remains scoped to the input, instrument, and environment that produced 
 
 ## Attribution and license
 
-Zoe honors **Gary Kildall** and **Dorothy McEwen Kildall**. **Nicholas Michael Kloster** originated the Accessible Volume equation on **March 6, 2026**. Individual papers and components retain their contribution statements, licenses, notices, and third-party source rights.
+Zoe honors **Gary Kildall** and **Dorothy McEwen Kildall**. **Nicholas Michael Kloster** originated the Operational Metacognition equation on **March 6, 2026**. Individual papers and components retain their contribution statements, licenses, notices, and third-party source rights.
 
 - [Declaration](DECLARATION.md)
 - [Constitution](CONSTITUTION.md)

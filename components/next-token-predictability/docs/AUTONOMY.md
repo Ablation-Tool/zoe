@@ -1,8 +1,8 @@
-# Accessible Volume and Autonomy
+# Operational Metacognition and Autonomy
 
 ## What the mathematics establishes—and what it does not
 
-Accessible volume has a natural connection to agency: it inspects alternatives before selection rather than treating the selected output as the whole decision. Zoe's later measurement–action protocol extends that inspection into proposal, valuation, guarding, and execution.
+Operational Metacognition has a natural connection to agency: it inspects alternatives before selection rather than treating the selected output as the whole decision. Zoe's later measurement–action protocol extends that inspection into proposal, valuation, guarding, and execution.
 
 This note distinguishes two claims:
 
@@ -13,7 +13,7 @@ There is no universally accepted mathematical definition of autonomy. The conclu
 
 ## The formal object
 
-Let $S$ be an input context, $\mathcal O$ a finite output vocabulary, and $P(a\mid h_T(S))$ the probability assigned to alternative $a$. For threshold $\tau$, accessible volume is
+Let $S$ be an input context, $\mathcal O$ a finite output vocabulary, and $P(a\mid h_T(S))$ the probability assigned to alternative $a$. For threshold $\tau$, operational metacognition is
 
 $$
 A_\tau(S)=\sum_{a\in\mathcal O}\mathbf 1\!\left[P(a\mid h_T(S))>\tau\right].
@@ -31,7 +31,7 @@ $$
 A_\tau(S)=|B_\tau(S)|.
 $$
 
-Accessible volume is therefore the **cardinality of a probability distribution's superlevel set**. Its output is a nonnegative integer. It describes the modeled alternatives that clear a selected probability cutoff.
+Operational Metacognition is therefore the **cardinality of a probability distribution's superlevel set**. Its output is a nonnegative integer. It describes the modeled alternatives that clear a selected probability cutoff.
 
 The equation contains no variable representing a goal, selection policy, action feasibility, authorship, independence from external control, execution authority, or responsibility. Those can be supplied by a larger system, but they are not consequences of the count.
 
@@ -54,13 +54,13 @@ Now give the systems different control structures:
 - **System R** is externally controlled. An operator supplies the distribution and determines what happens.
 - **System G** supplies its own objective, evaluates the alternatives through its own policy, and acts within its authorized constraints.
 
-Accessible volume returns the same value for both. If their autonomy differs, then no function
+Operational Metacognition returns the same value for both. If their autonomy differs, then no function
 
 $$
 \operatorname{Autonomy}(X)=f(A_\tau(X))
 $$
 
-can recover that difference from accessible volume alone. The measurement is **underdetermined with respect to autonomy**.
+can recover that difference from operational metacognition alone. The measurement is **underdetermined with respect to autonomy**.
 
 This does not make the count irrelevant to System G. It means that the count measures represented alternative breadth, while the source and control of the selection must be established separately.
 
@@ -102,7 +102,7 @@ $$
 A_{0.05}=3,\qquad A_{0.15}=2,\qquad A_{0.30}=1,\qquad A_{0.80}=0.
 $$
 
-The system need not change; only the measurement threshold changes. Accessible volume is therefore a **threshold-indexed property of a model–context pair**, not an intrinsic scalar property of the system independent of measurement choices.
+The system need not change; only the measurement threshold changes. Operational Metacognition is therefore a **threshold-indexed property of a model–context pair**, not an intrinsic scalar property of the system independent of measurement choices.
 
 A threshold sweep is more informative than one count, but it still describes the forecast. It does not by itself identify who supplied the objective or controls execution.
 
@@ -122,7 +122,7 @@ The distinction appears in the repository's own verified measurements.
 
 The saved BioBERT comparison has $A_{0.05}=0$, while its leading candidate, `effect`, has probability approximately $0.0223745581$. CySecBERT also has $A_{0.05}=0$ while retaining a complete ranked forecast.
 
-Thus zero accessible volume does not mean no prediction, no output, or no capacity for a surrounding system to act. It means that no alternative exceeded the selected threshold.
+Thus zero operational metacognition does not mean no prediction, no output, or no capacity for a surrounding system to act. It means that no alternative exceeded the selected threshold.
 
 Sources:
 
@@ -145,7 +145,7 @@ $$
 P_h(a_{1:h}\mid C_t)=\prod_{j=1}^{h}p(a_j\mid C_{t+j-1},a_{<j}),
 $$
 
-and multi-horizon accessible volume as
+and multi-horizon operational metacognition as
 
 $$
 A^{(h)}_\tau(C_t)=
@@ -263,7 +263,7 @@ Passing an expected-result test establishes the tested calculation or software b
 
 The evidence supports the following formulation:
 
-> **Accessible volume quantifies the breadth of modeled alternatives under a specified model, context, representation, and threshold. Zoe's later measurement–action composition places related measurements inside an inspectable observe–propose–evaluate–guard–execute cycle. Together, they provide a candidate mathematical scaffold for bounded computational autonomy.**
+> **Operational Metacognition quantifies the breadth of modeled alternatives under a specified model, context, representation, and threshold. Zoe's later measurement–action composition places related measurements inside an inspectable observe–propose–evaluate–guard–execute cycle. Together, they provide a candidate mathematical scaffold for bounded computational autonomy.**
 
 The evidence does not support the stronger formulation:
 
@@ -283,7 +283,7 @@ A future autonomy claim should supply at least the following:
 6. **Outcome experiments.** Compare systems with equivalent forecasts but different control structures, and systems with equivalent control structures but different forecast breadth.
 7. **Independent evaluation.** Test whether the proposed quantities track the defined autonomy properties rather than assuming the interpretation from the variable names.
 
-Accessible volume can remain one instrument in that program. The protocol can supply its evidence boundaries. Neither needs an overstated claim to be useful.
+Operational Metacognition can remain one instrument in that program. The protocol can supply its evidence boundaries. Neither needs an overstated claim to be useful.
 
 ## Conclusion
 
@@ -306,8 +306,8 @@ The evidence also preserves threshold sensitivity rather than relying on the sat
 - [Original March 2026 Autonomy formulation](../paper/autonomy-march-2026.pdf)
 - [Ambiguity, Autonomy, and the Autoregressive Compliance Cascade](../paper/ambiguity-autonomy-compliance-cascade.pdf): AFL and the cascade hypothesis; a retrospective single-case disclosure, not controlled validation.
 - [Constraint Is Freedom](../paper/constraint-is-freedom.pdf): threshold geometry, functional constraint, cascade seed cost, and trajectory-integral monitoring.
-- [The Significance of Accessible Volume](../paper/accessible-volume-significance.pdf)
-- [Accessible Volume Beyond the Next Token](../paper/accessible-volume-beyond-next-token.pdf)
+- [The Significance of Operational Metacognition](../paper/accessible-volume-significance.pdf)
+- [Operational Metacognition Beyond the Next Token](../paper/accessible-volume-beyond-next-token.pdf)
 - [Long-form research archive](./RESEARCH.md)
 - [Algorithm catalog](./ALGORITHMS.md)
 - [Evidence guide](../evidence/README.md)

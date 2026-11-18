@@ -58,7 +58,7 @@ def forward_probabilities(tokenizer, session, prompt):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Measure next-token accessible volume using actual Ablation + GEM evidence")
+    parser = argparse.ArgumentParser(description="Measure next-token operational metacognition using actual Ablation + GEM evidence")
     parser.add_argument("--project", type=Path, default=Path("/home/cowboy/_projects/ablation-standard"))
     parser.add_argument("--output", type=Path, default=Path.home() / "Desktop")
     parser.add_argument("--model-dir", type=Path, default=Path("/tmp/gem-distilgpt2"))
@@ -135,7 +135,7 @@ def main():
         atomic_write_text(entropy_output_path, analysis.stdout)
         report = {
             "schema_version": 1,
-            "instrument": "next-token accessible volume",
+            "instrument": "next-token operational metacognition",
             "formula": "A_tau(S) = sum over tokens a in O of 1[P(a | h_T(S)) > tau]",
             "model": {
                 "id": MODEL_ID,
@@ -165,7 +165,7 @@ def main():
                 "One real forward pass by distilgpt2-ONNX using actual Ablation + GEM session evidence.",
                 "This is not a measurement of Kimi, Claude, Ablation semantic encoders, or human judgment.",
                 "This is a next-token distribution, not a distribution over complete GEM actions.",
-                "Accessible volume measures breadth only; it is not autonomy, safety, compliance, or cascade evidence.",
+                "Operational Metacognition measures breadth only; it is not autonomy, safety, compliance, or cascade evidence.",
                 "No empirical predictive or cross-model claim is made.",
             ],
             "elapsed_ms": round((time.monotonic() - started) * 1000, 3),

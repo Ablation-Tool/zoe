@@ -367,7 +367,7 @@ class AtlasWindow(Gtk.Window):
             self.add_scale("temperature", "Experimental distribution temperature", .25, 4, .01, 1)
             self.add_action("Recompute seeded synthetic experiment", self.recompute_onset)
             self.add_text("Eight motifs, forward training, held-out forward and retrograde tests. Temperature reshapes probabilities only; it does not generate music.")
-            self.add_text("HOP negative baseline: top-1 11.3%, versus linear velocity 41.3% and the model 46.6%. HOP supplies no categorical distribution or accessible volume.")
+            self.add_text("HOP negative baseline: top-1 11.3%, versus linear velocity 41.3% and the model 46.6%. HOP supplies no categorical distribution or operational metacognition.")
         elif self.module == "horizon":
             self.add_spin("horizon", "Continuation horizon h", 1, 6, 1, 3)
             self.add_scale("tau", "Joint probability threshold τ", 0, .5, .001, .1)
