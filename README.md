@@ -12,7 +12,7 @@ Zoe contains **16 registered engines across 12 source projects**. Source trees a
 
 ![Zoe allgems knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
 
-**[Download the illustrated 18-page Zoe Capability Prospectus](paper/zoe-capability-prospectus.pdf)** — metacognition, autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete component directory. [LaTeX source](paper/zoe-capability-prospectus.tex).
+**[Download the 35-page illustrated book: Zoe — The Research Universe](paper/zoe-research-universe.pdf)** — metacognition, autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete visual research archive. [LaTeX source](paper/zoe-research-universe.tex). The shorter [18-page capability prospectus](paper/zoe-capability-prospectus.pdf) remains available as a companion summary.
 
 [Quick start](#quick-start) · [Full Autonomy](#full-autonomy) · [Dorothy brain-cancer research and neural simulation](#dorothy-brain-cancer-research-and-neural-simulation) · [One system](#one-system) · [Research](#research-priority-dorothy) · [Verification](#verification)
 
