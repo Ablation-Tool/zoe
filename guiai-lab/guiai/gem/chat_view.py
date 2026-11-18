@@ -43,6 +43,8 @@ def main(argv=None):
         if value not in python_path:
             os.environ["PYTHONPATH"] = value + (os.pathsep + os.environ["PYTHONPATH"] if os.environ.get("PYTHONPATH") else "")
     os.environ["ZOE_ROOT"] = str(zoe_root)
+    os.environ.setdefault("ZOE_CHAT_COLLABORATE", "1")
+    os.environ.setdefault("ZOE_CHAT_AGENT", "kimi")
     command = shlex.join([
         sys.executable, "-m", "zoe_autonomy.chat",
         "--zoe-root", str(zoe_root), "--state", str(state),

@@ -49,6 +49,7 @@ DOCUMENT_PATHS = (
     "components/Zoe-Autonomy/METACOGNITION.md",
     "components/Zoe-Autonomy/EVENT-CAUSAL.md",
     "components/Zoe-Autonomy/CAPABILITIES.md",
+    "components/Zoe-Autonomy/GATEWAY.md",
     "components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md",
     "components/PALA/README.md",
     "components/PALA/docs/operations.md",
@@ -57,6 +58,7 @@ DOCUMENT_PATHS = (
     "components/next-token-predictability/docs/RESEARCH.md",
     "components/agent-logging-system/docs/NEUROGARDEN.md",
     "evidence/pala/verification.json",
+    "evidence/agents/collaboration.json",
 )
 HELP = """Commands:
   help                         show this command guide
@@ -66,6 +68,7 @@ HELP = """Commands:
   search <query>               rank repository evidence and saved notes with citations
   import-pala <report.json>    import validated PALA finding metadata for later research
   gem [operation]              navigate the shared GEM operating environment
+  agent [on|off|ask <text>]    enter or exit collaboration with the embedded agent
   goal [interest]              show Zoe's internal goal or declare a research interest
   plan                         construct and value internal reversible plans without executing
   run                          execute one guarded reversible internal plan
@@ -248,6 +251,8 @@ class ZoeChat:
         self.meta_tools = OperationalMetacognition()
         self.constraints = self.meta_tools.constraint_integrity(ConstraintVector(), ConstraintVector())
         self.gem_environment = None
+        self.collaboration_bridge = None
+        self.collaboration_enabled = os.environ.get("ZOE_CHAT_COLLABORATE") == "1"
 
     @property
     def session(self):
@@ -315,10 +320,7 @@ class ZoeChat:
         selected = sorted(ranked[:limit], key=lambda item: item[0])
         return " ".join(sentence.strip() for _index, sentence in selected if sentence.strip())
 
-    def _answer(self, query):
-        candidates = self._repository_candidates(query)
-        if not candidates or candidates[0]["coverage"] < 0.34 or candidates[0]["score"] < 1.0:
-            return "I do not have enough indexed evidence to answer that reliably. Try a more specific term, or use `remember` to supply a note for later review."
+    def _evidence_answer(self, query, candidates):
         shown = candidates[:2]
         lines = []
         for candidate in shown:
@@ -327,6 +329,76 @@ class ZoeChat:
         if len(shown) > 1:
             lines.append("More than one evidence-backed path remains live; I preserved both instead of silently narrowing them.")
         return "\n".join(lines)
+
+    def _answer(self, query):
+        candidates = self._repository_candidates(query)
+        insufficient = not candidates or candidates[0]["coverage"] < 0.34 or candidates[0]["score"] < 1.0
+        greeting = bool(_tokens(query)) and _tokens(query) <= {"hello", "hi", "hey", "greetings"}
+        if self.collaboration_enabled and not self.session["stopped"] and (insufficient or greeting):
+            return self._consult_agent(query, candidates)
+        if insufficient:
+            return "I do not have enough indexed evidence to answer that reliably. Try a more specific term, use `remember` to supply a note, or use `agent ask <question>` to collaborate with the embedded agent."
+        return self._evidence_answer(query, candidates)
+
+    def _collaboration(self):
+        if self.collaboration_bridge is None:
+            from .collaboration import CollaborationBridge
+            self.collaboration_bridge = CollaborationBridge()
+        return self.collaboration_bridge
+
+    def _consult_agent(self, query, candidates=None):
+        self._require_actions("agent collaboration")
+        candidates = self._repository_candidates(query) if candidates is None else candidates
+        bridge = self._collaboration()
+        status = bridge.status()
+        if not status["available"]:
+            raise ValueError(f"embedded agent '{bridge.agent_id}' is not registered and available; inspect with `zoe-autonomy agents list`")
+        result = bridge.consult(query, candidates)
+        local = (
+            self._evidence_answer(query, candidates) if candidates
+            else "No sufficient local evidence was found; I preserved that boundary while consulting the embedded agent."
+        )
+        return "\n".join([
+            "Zoe · local evidence",
+            local,
+            f"Embedded AI agent · {result['agent']} · consulted by Zoe",
+            result["content"],
+            "Zoe · shared-context boundary",
+            f"GEM selection shared={result['gem_context_shared']} · shared turns={result['shared_turns']} · persistent transcript=False. The agent response is external context, not independently verified evidence, and was not added to research memory automatically.",
+        ])
+
+    def _agent(self, argument):
+        bridge = self._collaboration()
+        if not argument or argument == "status":
+            status = bridge.status()
+            connections = ", ".join(
+                f"{item['id']}={'available' if item.get('executable_available') or item.get('credential_configured') else 'unavailable'}"
+                for item in status["connections"]
+            ) or "none registered"
+            return "\n".join([
+                f"Three-way collaboration: user ↔ Zoe ↔ {bridge.agent_id} · automatic={self.collaboration_enabled} · available={status['available']}",
+                f"Registered agents: {connections}",
+                f"Shared in-memory turns={status['shared_turns']} · persistent transcript=False",
+                "Use `agent on`, `agent off`, `agent ask <text>`, `agent use ID`, or `agent clear`.",
+            ])
+        if argument in {"on", "auto"}:
+            self.collaboration_enabled = True
+            status = bridge.status()
+            return f"Zoe may consult {bridge.agent_id} when local evidence is insufficient or you ask directly. Agent available={status['available']}. `agent off` returns to local-only answers."
+        if argument == "off":
+            self.collaboration_enabled = False
+            return "Automatic agent collaboration is off. Zoe remains available locally; `agent ask <text>` explicitly re-enters collaboration."
+        if argument == "clear":
+            count = bridge.clear()
+            return f"Cleared {count} in-memory shared turns. No hidden transcript was deleted because none is kept."
+        if argument.startswith("use "):
+            identifier = argument[4:].strip()
+            if identifier not in {item["id"] for item in bridge.gateway.list()}:
+                raise ValueError(f"connected agent is not registered: {identifier}")
+            bridge.agent_id = identifier
+            return f"Zoe will use the owner-connected agent '{identifier}' when collaboration is requested."
+        query = argument[4:].strip() if argument.startswith("ask ") else argument
+        return self._consult_agent(query)
 
     def _search(self, query, memory_only=False):
         candidates = self._repository_candidates(query, include_memory=not memory_only, memory_only=memory_only)
@@ -460,6 +532,7 @@ class ZoeChat:
             f"Memory: {len(memory['sources'])} sources · {len(memory['claims'])} claims · {len(self.session['undone_sources'])} undone sources",
             f"Sandbox revision: {self.session['sandbox']['revision']} · external actions=0 · actions_stopped={self.session['stopped']}",
             f"Metacognition: internal toolkit available on request · monitor=False · notebook=False",
+            f"Embedded agent collaboration: automatic={self.collaboration_enabled} · agent={os.environ.get('ZOE_CHAT_AGENT', 'kimi')} · shared context=in-memory only",
             f"Constraints: host=False · network=False · hardware=False · external_override represented=True · intact={self.constraints.intact}",
             f"Evidence index: {len(self.index.sources)} sources · {len(self.index.chunks)} chunks",
         ])
@@ -665,6 +738,8 @@ class ZoeChat:
                     response = self._import_pala(argument)
                 elif command == "gem":
                     response = self._gem(argument)
+                elif command == "agent":
+                    response = self._agent(argument)
                 elif command == "goal":
                     response = self._goal(argument)
                 elif command == "plan":

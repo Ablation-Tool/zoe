@@ -120,7 +120,7 @@ def verify_chat(manifest):
         if verified.returncode or "Verified explicit export" not in verified.stdout:
             raise ValueError(f"Zoe chat export verification failed:\n{verified.stdout + verified.stderr}")
         tests = subprocess.run(
-            [sys.executable, "-m", "unittest", "tests.test_metacognition", "tests.test_chat", "-v"],
+            [sys.executable, "-m", "unittest", "tests.test_metacognition", "tests.test_chat", "tests.test_collaboration", "tests.test_gateway", "-v"],
             cwd=checkout,
             env=environment,
             capture_output=True,

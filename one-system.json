@@ -286,6 +286,10 @@
     ],
     "model_invocations_during_registration": 0,
     "credential_values_in_evidence": false,
+    "three_way_loop": "user ↔ Zoe ↔ owner-connected embedded AI agent",
+    "native_chat_bridge": "components/Zoe-Autonomy/src/zoe_autonomy/collaboration.py",
+    "real_shared_context_connectivity_verified": true,
+    "collaboration_evidence": "evidence/agents/collaboration.json",
     "evidence": "evidence/agents/verification.json"
   },
   "capabilities": {
@@ -319,6 +323,8 @@
     "run": "zoe chat",
     "state": "zoe chat --state /path/to/state",
     "one_shot": "zoe chat --state /path/to/state --command 'meta what is PALA?'",
+    "embedded_agent_collaboration": ["agent on", "agent off", "agent ask TEXT", "agent use ID", "agent clear"],
+    "collaboration_evidence": "evidence/agents/collaboration.json",
     "verify": "python scripts/verify-one-system.py --chat",
     "evidence": "evidence/chat/verification.json",
     "external_language_model_required": false,
