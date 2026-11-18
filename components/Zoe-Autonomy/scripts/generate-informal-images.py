@@ -106,7 +106,7 @@ def complete_loop():
     paragraph(draw, (95, 310), "∘ Proposeπ ∘ Perceiveτ,δ ∘ M(Sₜ,Cₜ)", size=31, color=TEXT, maximum=1410, mono=True)
     card(draw, (60, 425, 770, 875), "Full autonomy profile", "full_autonomy\n\nI, R, V, G, X > 0 and C = 1\n\nG = 1: Zoe authors the goal\nV = 1: Zoe selects by declared value\nX = 1: Zoe executes the choice", GREEN, body_size=26)
     card(draw, (830, 425, 1540, 875), "Two evidence domains", "BASE EXPERIMENT\nInternal transition · external_actions = 0\n\nOWNER ACTUATION\nzoe-actuation/v1 · host, network, hardware\nLocal host and public HTTPS receipts\nVirtual hardware test · emergency stop", YELLOW, body_size=25)
-    paragraph(draw, (75, 915), "Accessible Volume supplies alternatives. Zoe supplies the self-governing measurement–action loop.", size=28, color=CYAN, maximum=1450, bold=True)
+    paragraph(draw, (75, 915), "Operational Metacognition supplies alternatives. Zoe supplies the self-governing measurement–action loop.", size=28, color=CYAN, maximum=1450, bold=True)
     footer(draw, height)
     image.save(OUTPUT / "02-self-governing-loop.png", optimize=True)
 
@@ -133,7 +133,7 @@ def pipeline():
 def accessible_volume():
     height = 1200
     image, draw = canvas(height)
-    header(draw, "Accessible Volume in plain English", "How many realistic alternatives remain open immediately before a selection?")
+    header(draw, "Operational Metacognition in plain English", "How many realistic alternatives remain open immediately before a selection?")
     draw.rounded_rectangle((60, 225, 1540, 350), radius=20, fill=PANEL_ALT, outline=CYAN, width=2)
     paragraph(draw, (95, 262), "Aτ(S) = Σ over a∈O of 1[P(a | h_T(S)) > τ]", size=34, color=TEXT, maximum=1410, mono=True)
     card(draw, (60, 385, 770, 880), "The pieces", "O: finite token or modeled-action vocabulary\n\nh_T(S): current model history or situation\n\nP(a | h_T(S)): probability assigned to alternative a\n\nτ: selected probability threshold\n\n1[...] = 1 when true, otherwise 0", BLUE, body_size=25)

@@ -21,7 +21,7 @@ class ForecastChart(Gtk.DrawingArea):
         self.set_vexpand(True)
         self.get_accessible().set_name("Accessible-volume chart")
         self.get_accessible().set_description(
-            "Line chart of accessible volume at each probability threshold. The Lab event details provide the text alternative."
+            "Line chart of operational metacognition at each probability threshold. The Lab event details provide the text alternative."
         )
 
     def set_event(self, event: CaseEvent | None) -> None:
@@ -49,7 +49,7 @@ class ForecastChart(Gtk.DrawingArea):
         left, top, right, bottom = 64, 44, max(65, width - 28), max(46, height - 52)
         context.set_font_size(15)
         context.move_to(left, 24)
-        title = "Accessible volume by probability threshold"
+        title = "Operational Metacognition by probability threshold"
         if self.vocabulary_size is not None:
             title += f" (vocabulary {self.vocabulary_size})"
         context.show_text(title)

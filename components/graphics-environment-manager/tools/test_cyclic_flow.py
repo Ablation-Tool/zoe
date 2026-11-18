@@ -33,7 +33,7 @@ class CyclicFlowCase(unittest.TestCase):
         self.assertEqual(east[1], west[1])
         self.assertEqual(east[3], west[3])
         self.assertEqual((east[0] + east[2] + west[0] + west[2]) / 4, 960)
-        self.assertIn("accessible volume = 4", objects["metric-thinking"]["text"])
+        self.assertIn("operational metacognition = 4", objects["metric-thinking"]["text"])
         self.assertIn("precision", objects["metric-learning"]["text"])
         expected_path = " -> ".join(
             f"{view:g}" for view in self.report["plans"][-1]["path"]

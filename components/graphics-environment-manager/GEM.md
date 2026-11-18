@@ -16,7 +16,7 @@ The name refers to this project's **Graphics Environment Manager** and its GEM V
 
 “Bicameral operating system” is an architectural metaphor here, not a claim that GEM owns a kernel, CPU, memory, or devices. The AI Agent proposes actions stochastically; the human supplies direction and judgment; Ablation and GEM execute constrained operations, preserve evidence, and verify results deterministically.
 
-Next-token accessible volume measures breadth, not correctness:
+Next-token operational metacognition measures breadth, not correctness:
 
 \[
 A_\tau(S)=\sum_{a\in O}\mathbf{1}[P(a\mid h_T(S))>\tau]
@@ -28,7 +28,7 @@ Here \(S\) is the model context and \(O\) is its output vocabulary. In a Lab, co
 B_\tau(S)=\sum_{a\in O}\mathbf{1}[P(a\mid S)>\tau]\cdot\mathbf{1}[a\in\operatorname{Allow}(S)]
 \]
 
-The operational sequence is `proposal → constrained action gate → deterministic execution → evidence on disk → verification/replay`. This reduces unbounded and uninspectable action; it does not eliminate stochastic variation or prove safety. Accessible volume must not be presented as a correctness, autonomy, or safety score. Current interactive agent CLIs do not expose token probabilities, so GEM does not calculate either score for them. A provider exposing suitable logits and complete structured actions would be required before making such a measurement.
+The operational sequence is `proposal → constrained action gate → deterministic execution → evidence on disk → verification/replay`. This reduces unbounded and uninspectable action; it does not eliminate stochastic variation or prove safety. Operational Metacognition must not be presented as a correctness, autonomy, or safety score. Current interactive agent CLIs do not expose token probabilities, so GEM does not calculate either score for them. A provider exposing suitable logits and complete structured actions would be required before making such a measurement.
 
 The standalone distribution adds an optional local provider path for the token-level equation. `gem predict` runs hash-checked `distilgpt2-ONNX` inference on the current Lab context, preserves the complete distribution and threshold sweep, and records scoped evidence. `gem steer` adds an inspectable heuristic advisory and trend comparison. These measure the local model only—not the embedded interactive agent or a distribution over complete actions. Advisories can recommend gathering evidence, human review, or verification, but never authorize execution or permission escalation. `gem tournament` compares fixed and adaptive equations on identical distributions and attacked contexts, recording advisory flips without inferring an equation winner. `gem landmarks` applies least-squares Procrustes alignment to supplied correspondences, exports native Spatial IR/VDI, replays the geometry, and links scoped alignment evidence into the Lab.
 
@@ -41,7 +41,7 @@ GEM is the outer environment; GEM Lab is its investigation application. The migr
 - `investigation:ID` addresses real event objects. `spatial:SCENE:OBJECT` addresses generated graphical objects and links them back to `event_id` where applicable.
 - The broker supports snapshot, resolve, revision-checked select/begin, and replayed export operations. GTK export and the host use the same service code.
 
-![Unified Memory Architecture: human, AI Agent, Ablation, and GEM](../assets/demos/gem-unified-memory-architecture.png)
+![Unified Memory Architecture: human, AI Agent, Ablation, and GEM](../ablation/assets/demos/gem-unified-memory-architecture.png)
 
 **Authoritative state** remains investigation events, evidence, selections, statuses, agent actions, and verifier results. **Derived visual state** includes trees, rings, treemaps, Spatial IR, Cairo output, VDI commands, and layouts. Derived scenes never replace or become the source of investigation truth; they can be regenerated and replayed.
 

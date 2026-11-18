@@ -452,7 +452,7 @@ class SharedImagery:
                 "measurement": measurement,
                 "used_for_planning": True,
                 "planning_scope": "candidate gating only; explicit probabilities are not correctness scores or action authorization",
-                "scope": "Accessible volume measures forecast breadth, not visual correctness or uncertainty.",
+                "scope": "Operational Metacognition measures forecast breadth, not visual correctness or uncertainty.",
             },
             "telemetry": {
                 "observation_count": len(self.events),
@@ -577,7 +577,7 @@ def imagery_scene(report):
     path = " -> ".join(_view_name(view) for view in latest_plan["path"]) if latest_plan else "initial observation"
     objects.extend([
         _text("planner", [90, 885], f"DIJKSTRA / {path}", 18, "cyan"),
-        _text("planner-scope", [90, 921], "Accessible volume gates live view candidates; Dijkstra uses angular and historical prediction-error costs.", 15, "lightgray"),
+        _text("planner-scope", [90, 921], "Operational Metacognition gates live view candidates; Dijkstra uses angular and historical prediction-error costs.", 15, "lightgray"),
         _text("vividness", [90, 955], "Vividness is geometric precision and stability, not emotion; precision weights guide fusion.", 15, "magenta"),
         _text("provenance", [90, 989], "Imagined points are never relabeled as observations. Reconstruction is geometric inference, not subjective sight.", 15, "yellow"),
         _text("view", [90, 1025], f"Current view: {_view_name(data['view_degrees'])}° · external actions: 0", 14, "gray"),

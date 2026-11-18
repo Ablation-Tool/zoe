@@ -1468,7 +1468,7 @@
         "recommendation": {
           "action": "inspect",
           "module": "volume",
-          "reason": "Accessible volume 6 is outside the target band [1, 4]."
+          "reason": "Operational Metacognition 6 is outside the target band [1, 4]."
         }
       },
       {

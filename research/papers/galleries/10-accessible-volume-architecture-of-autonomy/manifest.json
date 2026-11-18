@@ -1,6 +1,6 @@
 {
   "paper": "papers/10-accessible-volume-architecture-of-autonomy.pdf",
-  "title": "Accessible Volume and the Architecture of Autonomy",
+  "title": "Operational Metacognition and the Architecture of Autonomy",
   "pdf_pages": 87,
   "extracted_images": [
     {
@@ -30,7 +30,7 @@
       "height": 900,
       "file": "figures/figure-004-page-024.png",
       "captions": [
-        "Figure 3: Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed."
+        "Figure 3: Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. Breadth and correctness are displayed together rather than collapsed."
       ]
     },
     {

@@ -271,7 +271,7 @@ class HelenWindow(Gtk.Window):
             self.add_scale("temperature", "Experimental distribution temperature", .25, 4, .01, 1)
             self.add_action("Reset Onset parameters", self.reload_onset)
             self.add_text("Precomputed seed-7 experiment: no model download, NumPy, scikit-learn, or clustering at startup. Temperature transforms probabilities only.")
-            self.add_text("HOP negative baseline: 11.3% top-1, versus 41.3% linear velocity and 46.6% model. It supplies no categorical accessible volume.")
+            self.add_text("HOP negative baseline: 11.3% top-1, versus 41.3% linear velocity and 46.6% model. It supplies no categorical operational metacognition.")
         self.updating = False
         self.refresh()
         self.control_box.show_all()

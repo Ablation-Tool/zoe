@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "instrument": "hidden-token accessible volume using XLNet query-stream self-attention",
+  "instrument": "hidden-token operational metacognition using XLNet query-stream self-attention",
   "model": "xlnet/xlnet-base-cased",
   "runtime": {
     "torch": "2.14.1+cu130",
     "transformers": "5.18.0"
   },
-  "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Accessible volume addresses this gap",
+  "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Operational Metacognition addresses this gap",
   "sequence_length": 38,
   "target_position": 35,
   "target_token_id": 4774,

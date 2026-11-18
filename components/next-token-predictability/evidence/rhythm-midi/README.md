@@ -1,6 +1,6 @@
 # Magenta Groove MIDI experiment
 
-This is a real-MIDI follow-up to the synthetic rhythm experiment. The categorical model predicts **192 fine-grained interval categories** from expressive human drumming. Accessible volume measures forecast breadth, not correctness or human surprise.
+This is a real-MIDI follow-up to the synthetic rhythm experiment. The categorical model predicts **192 fine-grained interval categories** from expressive human drumming. Operational Metacognition measures forecast breadth, not correctness or human surprise.
 
 ## Setup
 
@@ -20,7 +20,7 @@ This is a real-MIDI follow-up to the synthetic rhythm experiment. The categorica
 
 The matched backward model nearly matches forward performance, while direct reversal transfer is worse. The reversal penalty is therefore primarily a **model-transfer effect**, not proof that retrograde rhythms are intrinsically unpredictable.
 
-Accessible volume remains effectively unchanged: **forecast breadth did not identify forecast correctness**. The low top-1 accuracy is expected for fine-grained human timing across 192 categories.
+Operational Metacognition remains effectively unchanged: **forecast breadth did not identify forecast correctness**. The low top-1 accuracy is expected for fine-grained human timing across 192 categories.
 
 ## Evidence
 
@@ -28,7 +28,7 @@ Accessible volume remains effectively unchanged: **forecast breadth did not iden
 - [`sources.json`](./sources.json): all 514 performances and their train/test session assignments.
 - [`predictions.npz`](./predictions.npz): all three probability distributions, targets, sequence indices, and target positions (94 MB).
 - [`accessible-volume.png`](./accessible-volume.png): threshold sweeps for all three conditions.
-- [`predictability-map.png`](./predictability-map.png): accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out performance.
+- [`predictability-map.png`](./predictability-map.png): operational metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out performance.
 
 ![Accessible-volume sweep](./accessible-volume.png)
 

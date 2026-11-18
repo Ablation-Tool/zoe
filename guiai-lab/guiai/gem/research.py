@@ -160,7 +160,7 @@ def research_scene(pack, identifier=None):
         lines = [
             f"Top-1 {metrics['top_1_accuracy']:.4%}   Top-5 {metrics['top_5_accuracy']:.4%}",
             f"Log-loss {metrics['log_loss_nats']:.6f}   ECE {metrics['expected_calibration_error']:.6f}",
-            f"Mean accessible volume over sweep {metrics['mean_accessible_volume_over_sweep']:.6f}",
+            f"Mean operational metacognition over sweep {metrics['mean_accessible_volume_over_sweep']:.6f}",
             f"Sweep area {metrics['accessible_volume_sweep_area']:.6f}",
             "Individual saved distributions available to BRAIN on demand",
         ]

@@ -1,10 +1,10 @@
 # Temporal predictability and the two-way bridge
 
-This note is an exploratory extension of accessible volume. It is not a validated musical or timing experiment.
+This note is an exploratory extension of operational metacognition. It is not a validated musical or timing experiment.
 
 ## From next-token probabilities to next-onset probabilities
 
-Accessible volume can measure a forecast of the next musical onset if a model supplies a complete probability distribution over possible delays.
+Operational Metacognition can measure a forecast of the next musical onset if a model supplies a complete probability distribution over possible delays.
 
 Let \(H_i\) be the musical history before event \(i\), and define a finite delay vocabulary:
 
@@ -18,7 +18,7 @@ Here \(\delta\) is a fixed timing quantization, such as 10 ms or a tempo-relativ
 p_i(k)=P(\text{next onset occurs after }k\delta\mid H_i)
 \]
 
-Accessible volume then applies with the same strict threshold rule:
+Operational Metacognition then applies with the same strict threshold rule:
 
 \[
 A_{\tau,i}(H_i)=\sum_{k=1}^{M}\mathbf 1[p_i(k)>\tau]
@@ -45,7 +45,7 @@ This preserves the same accessible-volume measurement while allowing tempo chang
 
 ## Timing prediction error
 
-Accessible volume describes forecast breadth, not whether the predicted onset time was correct. Keep a separate timing error:
+Operational Metacognition describes forecast breadth, not whether the predicted onset time was correct. Keep a separate timing error:
 
 \[
 e_i=t_i-\hat t_i
@@ -69,7 +69,7 @@ The present state can retain three different measurements without combining inco
 \mathcal S_i=(A_{\tau,i}(H_i),\ M_{\tau,i},\ e_i)
 \]
 
-- **Accessible volume:** how many alternatives remain plausible.
+- **Operational Metacognition:** how many alternatives remain plausible.
 - **Accessible Momentum:** how that breadth changed between observations:
   \[
   M_{\tau,i}=A_{\tau,i}(H_i)-A_{\tau,i-1}(H_{i-1})
@@ -92,9 +92,9 @@ Predict the next event and its breadth
 → record the new evidence and repeat
 ```
 
-Accessible volume does not supply a direction or reward by itself. A separate policy and candidate semantics are still required.
+Operational Metacognition does not supply a direction or reward by itself. A separate policy and candidate semantics are still required.
 
-## Multi-horizon accessible volume
+## Multi-horizon operational metacognition
 
 The same measurement can be extended from the next token to a sequence of \(h\) future tokens. Let \(O\) be a finite token vocabulary, \(C_t\) the context at time \(t\), and \(a_{1:h}=(a_1,\ldots,a_h)\) a candidate continuation. A learned autoregressive model defines its conditional joint probability as:
 
@@ -102,7 +102,7 @@ The same measurement can be extended from the next token to a sequence of \(h\) 
 P_h(a_{1:h}\mid C_t)=\prod_{j=1}^{h}p(a_j\mid C_{t+j-1},a_{<j})
 \]
 
-The multi-horizon accessible volume counts complete candidate continuations whose joint probabilities strictly exceed the threshold:
+The multi-horizon operational metacognition counts complete candidate continuations whose joint probabilities strictly exceed the threshold:
 
 \[
 A^{(h)}_\tau(C_t)=\sum_{a_{1:h}\in O^h}\mathbf 1[P_h(a_{1:h}\mid C_t)>\tau]
@@ -114,7 +114,7 @@ Its complement counts all remaining continuations:
 A^{c,(h)}_\tau(C_t)=|O|^h-A^{(h)}_\tau(C_t)
 \]
 
-At \(h=1\), this reduces to the original next-token accessible volume. At larger horizons, it measures the breadth of plausible multi-token futures under the model, context, and threshold. It is not a guarantee that the model will predict every future token correctly, nor does a narrow forecast establish that the selected continuation is correct.
+At \(h=1\), this reduces to the original next-token operational metacognition. At larger horizons, it measures the breadth of plausible multi-token futures under the model, context, and threshold. It is not a guarantee that the model will predict every future token correctly, nor does a narrow forecast establish that the selected continuation is correct.
 
 Exact enumeration considers \(|O|^h\) continuations, so its cost grows exponentially with the horizon. Practical experiments need bounded candidate sets or explicitly identified approximations; an approximate count must not be presented as the exact sum over \(O^h\).
 
@@ -148,7 +148,7 @@ D_{\mathrm{retrograde}}=D(p,p')
 
 It describes how different a rhythm remains from its reverse after removing tempo and starting-position differences. At least three onsets are required for a meaningful structural comparison; two onsets can always be aligned by scaling and shifting, so an exact two-onset alignment says nothing interesting about the complete rhythm.
 
-Procrustes distance measures **how different rhythms are**. Accessible volume measures **how open each next-onset forecast is**. These are related experiments, but they are not the same measurement.
+Procrustes distance measures **how different rhythms are**. Operational Metacognition measures **how open each next-onset forecast is**. These are related experiments, but they are not the same measurement.
 
 ## Song-level summaries and reversal
 
@@ -183,7 +183,7 @@ A numerical timing experiment needs:
 3. A model that supplies the complete next-delay distribution.
 4. A consistent procedure for forward and reversed comparisons.
 
-The result belongs to the **model–context–quantization combination**, not to the song in absolute terms or to a listener's brain. Accessible volume measures forecast breadth, not correctness, safety, or complete future behavior. A separate timing model and actual observations are required to evaluate timing prediction error.
+The result belongs to the **model–context–quantization combination**, not to the song in absolute terms or to a listener's brain. Operational Metacognition measures forecast breadth, not correctness, safety, or complete future behavior. A separate timing model and actual observations are required to evaluate timing prediction error.
 
 ## Harmonic osculating extrapolator
 
@@ -201,7 +201,7 @@ Let \(\Delta\theta_t=\theta_t-\theta_{t-1}\), and let \(R(\alpha)\) rotate vecto
 \hat h_{t+n}=h_t+\sum_{k=1}^{n}s_t^k\,R(\theta_t+(k-1)\Delta\theta_t)\,v_t
 \]
 
-**HOP cannot supply accessible volume by itself.** A predicted point \(\hat h_{t+n}\) is one geometric forecast, not a probability distribution over alternatives. Accessible volume requires either the model's full softmax distribution or a probabilistic HOP variant whose observed prediction errors are calibrated and discretized into timing bins. Taking `argmax` discards the alternative structure that accessible volume measures.
+**HOP cannot supply operational metacognition by itself.** A predicted point \(\hat h_{t+n}\) is one geometric forecast, not a probability distribution over alternatives. Operational Metacognition requires either the model's full softmax distribution or a probabilistic HOP variant whose observed prediction errors are calibrated and discretized into timing bins. Taking `argmax` discards the alternative structure that operational metacognition measures.
 
 ### Corrections and unresolved assumptions
 
@@ -232,7 +232,7 @@ Selected Lab node
 
 The native implementation includes the `gem landmarks` CLI, `GemLabHost.align_landmarks`, a GTK menu action, source/target/fitted objects, correspondence lines, `landmark-report.json`, and evidence chaining from replayed geometry. It explicitly records affine-rank limitations: two pairs cannot uniquely determine a full affine transform, and exact landmark residuals do not establish whole-shape, anatomical, or semantic correctness.
 
-This is the implementation bridge for the Procrustes section above. It does not supply a next-onset probability distribution by itself, so accessible volume still requires a compatible probabilistic model.
+This is the implementation bridge for the Procrustes section above. It does not supply a next-onset probability distribution by itself, so operational metacognition still requires a compatible probabilistic model.
 
 ## Background consulted
 

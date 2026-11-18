@@ -45,7 +45,7 @@ Existing output files are not overwritten by the CLI.
 
 ## Optimization
 
-- Standard-library mathematics, scene construction, accessible volume, SVG export, and compressed experiment loading.
+- Standard-library mathematics, scene construction, operational metacognition, SVG export, and compressed experiment loading.
 - A 12 KB seed-7 rhythm artifact replaces model downloads and startup clustering.
 - Lazy experiment loading only when the Onset module is selected.
 - Bounded scenes, landmarks, ellipse/rule counts, and display vocabularies.
@@ -67,14 +67,14 @@ On the development machine, core import took about 3.5 ms and the first lazy Ons
 - Procrustes alignment with draggable landmarks and similarity, rigid, and affine modes.
 - Ellipse fields and a ruled parabolic envelope.
 - Circle, arc, sector, modular clock, and conditional graph invariants.
-- Accessible volume with strict `p > τ`, complements, momentum, and experimental recommendations.
+- Operational Metacognition with strict `p > τ`, complements, momentum, and experimental recommendations.
 - Onset forecasts with held-out forward/retrograde correctness, log-loss, and threshold sweeps.
 
 Every module exports the current scene as SVG, JSON, or PNG when Cairo is available.
 
 ## Onset evidence
 
-The packaged artifact contains 1,920 held-out predictions for each condition from eight synthetic motifs, with 60 training and 20 test variations per motif. Forward top-1 is 84.375%; retrograde top-1 is 58.958%. Log-loss is 0.338856 and 2.898662, and sweep areas are 0.647474 and 0.649180. Accessible volume measures breadth, not correctness. HOP and deterministic extrapolation are separate baselines and supply no accessible-volume measurement.
+The packaged artifact contains 1,920 held-out predictions for each condition from eight synthetic motifs, with 60 training and 20 test variations per motif. Forward top-1 is 84.375%; retrograde top-1 is 58.958%. Log-loss is 0.338856 and 2.898662, and sweep areas are 0.647474 and 0.649180. Operational Metacognition measures breadth, not correctness. HOP and deterministic extrapolation are separate baselines and supply no accessible-volume measurement.
 
 The evidence is synthetic. It is not a result from real MIDI performances or a model of human surprise.
 

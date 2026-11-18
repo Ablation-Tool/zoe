@@ -31,7 +31,7 @@ Check the reported JUnit result, not only ADB's exit status. Hardware-dependent 
 
 ### Your first five minutes
 
-1. Open **Accessible volume** and measure the worked distribution.
+1. Open **Operational Metacognition** and measure the worked distribution.
 2. Open **Tiny Zoe**. Choose **Read simulated card**, then **Measure on simulated card**.
 3. Inspect the request, response, status word, accessible count, complement, and quantized threshold.
 4. Change `τ` from `0.05` to `0.20`. Equality is excluded, so the default distribution produces **A = 1 of 4** instead of **A = 3 of 4**.
@@ -65,7 +65,7 @@ The application ID is `research.zoetic.zoe`. The home screen has four primary de
 
 - **Guided vision:** explicit camera start, one-frame inspection, bundled offline OCR and image labels, optional device AI, and spoken results on request.
 - **Talk:** continuous turn-taking only after explicit start, captions, bounded transcripts, and installed English voice selection.
-- **Accessible volume:** Nicholas Michael Kloster's original strict threshold equation, created solely by him on March 6, 2026. Equality is excluded.
+- **Operational Metacognition:** Nicholas Michael Kloster's original strict threshold equation, created solely by him on March 6, 2026. Equality is excluded.
 - **Trinity:** synchronized mobile, laptop, and Tiny measurement planes with native response verification.
 
 **Field kit** groups standalone Tiny Zoe, Multi-view, Acoustic ranging, Radio field, Location field, Connectivity, Screen Space, and App Observatory. **Device field**, **SafeConvert**, and the **Researcher guide** remain one tap away. Returning home explicitly unbinds the Guided Vision camera. No sensor starts merely because its row is visible.

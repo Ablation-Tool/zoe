@@ -736,7 +736,7 @@ def field_scene(notebook):
     else:
         objects.append(_text("memory-boundary", [48, 620], "Measurements do not silently become evidence. Every belief change retains its prior, likelihoods, and source.", 12, "#9fb1c8"))
     objects.append(_text("scope", [32, 710], "Posteriors follow supplied likelihoods · breadth is not correctness · no autonomous action · executed=False", 12, "#fca5a5"))
-    objects.append(_text("inspiration", [32, 735], "Bayesian process models · stochastic simulation · Markov transitions · accessible volume · negative results preserved", 10, "#64748b"))
+    objects.append(_text("inspiration", [32, 735], "Bayesian process models · stochastic simulation · Markov transitions · operational metacognition · negative results preserved", 10, "#64748b"))
     summary = "No question yet" if question is None else f"{_fit(question['text'], 90)} · {len(state['claims'])} claims · {len(state['measurements'])} measurements · {state['event_count']} memory events"
     scene = _scene("zoe-field-notebook", 1200, 760, objects, "Zoe Bayesian field notebook")
     return scene, {"summary": summary, "memory": notebook.document(), "state": state, "recommended_module": "field"}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "seyonec/ChemBERTa-zinc-base-v1",
   "model_revision": "761d6a18cf99db371e0b43baf3e2d21b3e865a20",
   "requested_revision": "761d6a18cf99db371e0b43baf3e2d21b3e865a20",

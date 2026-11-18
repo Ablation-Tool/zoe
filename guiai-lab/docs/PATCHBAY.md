@@ -168,7 +168,7 @@ zoe patchbay cog --model attention-cog.json \
 
 Cog accepts up to 16 explicit local text, Markdown, HTML, HDL, C/C++, or Python files, each at most 2 MiB. Training retains at most 500,000 tokens and 2,048 vocabulary entries; the default is 512. HTML tags, scripts, and styles are not executed. Source paths, original-file hashes, normalized-text hashes, and decoding replacements are retained.
 
-The forward distribution interpolates observed next-token counts with the corpus unigram distribution. Backward walks reverse the observed transition relation, not meaning, causality, or time. Every walk reports top candidates, a digest of the complete probability vector, and accessible volume at the chosen threshold.
+The forward distribution interpolates observed next-token counts with the corpus unigram distribution. Backward walks reverse the observed transition relation, not meaning, causality, or time. Every walk reports top candidates, a digest of the complete probability vector, and operational metacognition at the chosen threshold.
 
 The accessible-volume calculation is:
 

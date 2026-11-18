@@ -1001,7 +1001,7 @@
   },
   "scope": [
     "Real saved model-context pairs, not a model-quality leaderboard or a Claude/Kimi benchmark.",
-    "Accessible volume measures next-token forecast breadth, not response length, correctness, safety, or autonomy.",
+    "Operational Metacognition measures next-token forecast breadth, not response length, correctness, safety, or autonomy.",
     "The BioBERT panel reproduces the original fixed-threshold held-out test result; it does not validate a response policy.",
     "No wall-clock value enters the measurements, figures, or artifact manifest."
   ]

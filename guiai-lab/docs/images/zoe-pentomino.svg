@@ -1,413 +1,617 @@
 <?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Pentomino · timed spatial practice">
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1200" viewBox="0 0 1920 1200" role="img" aria-label="Zoe Pentomino · timed spatial practice">
   <title>Zoe Pentomino · timed spatial practice</title>
-  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <rect x="0" y="0" width="1920.0" height="1200.0" fill="#ffffff" />
+  <g data-object-id="style-background">
+    <title>style-background</title>
+    <rect x="0.0" y="0.0" width="1920.0" height="1200.0" fill="#080d18" stroke="#080d18" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-0">
+    <title>style-star-0</title>
+    <ellipse cx="41.0" cy="29.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-1">
+    <title>style-star-1</title>
+    <ellipse cx="238.0" cy="138.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-2">
+    <title>style-star-2</title>
+    <ellipse cx="435.0" cy="247.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-3">
+    <title>style-star-3</title>
+    <ellipse cx="632.0" cy="356.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-4">
+    <title>style-star-4</title>
+    <ellipse cx="829.0" cy="465.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-5">
+    <title>style-star-5</title>
+    <ellipse cx="1026.0" cy="574.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-6">
+    <title>style-star-6</title>
+    <ellipse cx="1223.0" cy="683.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-7">
+    <title>style-star-7</title>
+    <ellipse cx="1420.0" cy="792.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-8">
+    <title>style-star-8</title>
+    <ellipse cx="1617.0" cy="901.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-9">
+    <title>style-star-9</title>
+    <ellipse cx="1814.0" cy="1010.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-10">
+    <title>style-star-10</title>
+    <ellipse cx="171.0" cy="1119.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-11">
+    <title>style-star-11</title>
+    <ellipse cx="368.0" cy="108.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-12">
+    <title>style-star-12</title>
+    <ellipse cx="565.0" cy="217.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-13">
+    <title>style-star-13</title>
+    <ellipse cx="762.0" cy="326.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-14">
+    <title>style-star-14</title>
+    <ellipse cx="959.0" cy="435.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-15">
+    <title>style-star-15</title>
+    <ellipse cx="1156.0" cy="544.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-16">
+    <title>style-star-16</title>
+    <ellipse cx="1353.0" cy="653.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-17">
+    <title>style-star-17</title>
+    <ellipse cx="1550.0" cy="762.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-18">
+    <title>style-star-18</title>
+    <ellipse cx="1747.0" cy="871.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-19">
+    <title>style-star-19</title>
+    <ellipse cx="104.0" cy="980.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-20">
+    <title>style-star-20</title>
+    <ellipse cx="301.0" cy="1089.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-21">
+    <title>style-star-21</title>
+    <ellipse cx="498.0" cy="78.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-22">
+    <title>style-star-22</title>
+    <ellipse cx="695.0" cy="187.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-23">
+    <title>style-star-23</title>
+    <ellipse cx="892.0" cy="296.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-24">
+    <title>style-star-24</title>
+    <ellipse cx="1089.0" cy="405.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-25">
+    <title>style-star-25</title>
+    <ellipse cx="1286.0" cy="514.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-26">
+    <title>style-star-26</title>
+    <ellipse cx="1483.0" cy="623.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-27">
+    <title>style-star-27</title>
+    <ellipse cx="1680.0" cy="732.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-28">
+    <title>style-star-28</title>
+    <ellipse cx="1877.0" cy="841.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-29">
+    <title>style-star-29</title>
+    <ellipse cx="234.0" cy="950.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-30">
+    <title>style-star-30</title>
+    <ellipse cx="431.0" cy="1059.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-31">
+    <title>style-star-31</title>
+    <ellipse cx="628.0" cy="48.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-32">
+    <title>style-star-32</title>
+    <ellipse cx="825.0" cy="157.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-33">
+    <title>style-star-33</title>
+    <ellipse cx="1022.0" cy="266.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-34">
+    <title>style-star-34</title>
+    <ellipse cx="1219.0" cy="375.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-35">
+    <title>style-star-35</title>
+    <ellipse cx="1416.0" cy="484.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-36">
+    <title>style-star-36</title>
+    <ellipse cx="1613.0" cy="593.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-37">
+    <title>style-star-37</title>
+    <ellipse cx="1810.0" cy="702.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-38">
+    <title>style-star-38</title>
+    <ellipse cx="167.0" cy="811.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-39">
+    <title>style-star-39</title>
+    <ellipse cx="364.0" cy="920.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-40">
+    <title>style-star-40</title>
+    <ellipse cx="561.0" cy="1029.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-41">
+    <title>style-star-41</title>
+    <ellipse cx="758.0" cy="1138.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-42">
+    <title>style-star-42</title>
+    <ellipse cx="955.0" cy="127.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-43">
+    <title>style-star-43</title>
+    <ellipse cx="1152.0" cy="236.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-44">
+    <title>style-star-44</title>
+    <ellipse cx="1349.0" cy="345.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-45">
+    <title>style-star-45</title>
+    <ellipse cx="1546.0" cy="454.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-46">
+    <title>style-star-46</title>
+    <ellipse cx="1743.0" cy="563.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-47">
+    <title>style-star-47</title>
+    <ellipse cx="100.0" cy="672.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-48">
+    <title>style-star-48</title>
+    <ellipse cx="297.0" cy="781.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-49">
+    <title>style-star-49</title>
+    <ellipse cx="494.0" cy="890.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-50">
+    <title>style-star-50</title>
+    <ellipse cx="691.0" cy="999.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-51">
+    <title>style-star-51</title>
+    <ellipse cx="888.0" cy="1108.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-52">
+    <title>style-star-52</title>
+    <ellipse cx="1085.0" cy="97.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-53">
+    <title>style-star-53</title>
+    <ellipse cx="1282.0" cy="206.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-54">
+    <title>style-star-54</title>
+    <ellipse cx="1479.0" cy="315.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-55">
+    <title>style-star-55</title>
+    <ellipse cx="1676.0" cy="424.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-56">
+    <title>style-star-56</title>
+    <ellipse cx="1873.0" cy="533.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-57">
+    <title>style-star-57</title>
+    <ellipse cx="230.0" cy="642.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-58">
+    <title>style-star-58</title>
+    <ellipse cx="427.0" cy="751.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-59">
+    <title>style-star-59</title>
+    <ellipse cx="624.0" cy="860.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-60">
+    <title>style-star-60</title>
+    <ellipse cx="821.0" cy="969.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-61">
+    <title>style-star-61</title>
+    <ellipse cx="1018.0" cy="1078.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-62">
+    <title>style-star-62</title>
+    <ellipse cx="1215.0" cy="67.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-63">
+    <title>style-star-63</title>
+    <ellipse cx="1412.0" cy="176.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-64">
+    <title>style-star-64</title>
+    <ellipse cx="1609.0" cy="285.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-65">
+    <title>style-star-65</title>
+    <ellipse cx="1806.0" cy="394.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-66">
+    <title>style-star-66</title>
+    <ellipse cx="163.0" cy="503.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-67">
+    <title>style-star-67</title>
+    <ellipse cx="360.0" cy="612.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-68">
+    <title>style-star-68</title>
+    <ellipse cx="557.0" cy="721.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-69">
+    <title>style-star-69</title>
+    <ellipse cx="754.0" cy="830.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-70">
+    <title>style-star-70</title>
+    <ellipse cx="951.0" cy="939.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-71">
+    <title>style-star-71</title>
+    <ellipse cx="1148.0" cy="1048.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-72">
+    <title>style-star-72</title>
+    <ellipse cx="1345.0" cy="37.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-73">
+    <title>style-star-73</title>
+    <ellipse cx="1542.0" cy="146.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-74">
+    <title>style-star-74</title>
+    <ellipse cx="1739.0" cy="255.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-75">
+    <title>style-star-75</title>
+    <ellipse cx="96.0" cy="364.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-76">
+    <title>style-star-76</title>
+    <ellipse cx="293.0" cy="473.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-77">
+    <title>style-star-77</title>
+    <ellipse cx="490.0" cy="582.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-78">
+    <title>style-star-78</title>
+    <ellipse cx="687.0" cy="691.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-79">
+    <title>style-star-79</title>
+    <ellipse cx="884.0" cy="800.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-80">
+    <title>style-star-80</title>
+    <ellipse cx="1081.0" cy="909.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-81">
+    <title>style-star-81</title>
+    <ellipse cx="1278.0" cy="1018.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-82">
+    <title>style-star-82</title>
+    <ellipse cx="1475.0" cy="1127.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-83">
+    <title>style-star-83</title>
+    <ellipse cx="1672.0" cy="116.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-84">
+    <title>style-star-84</title>
+    <ellipse cx="1869.0" cy="225.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-85">
+    <title>style-star-85</title>
+    <ellipse cx="226.0" cy="334.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-86">
+    <title>style-star-86</title>
+    <ellipse cx="423.0" cy="443.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-87">
+    <title>style-star-87</title>
+    <ellipse cx="620.0" cy="552.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-88">
+    <title>style-star-88</title>
+    <ellipse cx="817.0" cy="661.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-89">
+    <title>style-star-89</title>
+    <ellipse cx="1014.0" cy="770.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-90">
+    <title>style-star-90</title>
+    <ellipse cx="1211.0" cy="879.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-91">
+    <title>style-star-91</title>
+    <ellipse cx="1408.0" cy="988.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-92">
+    <title>style-star-92</title>
+    <ellipse cx="1605.0" cy="1097.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-93">
+    <title>style-star-93</title>
+    <ellipse cx="1802.0" cy="86.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-94">
+    <title>style-star-94</title>
+    <ellipse cx="159.0" cy="195.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-95">
+    <title>style-star-95</title>
+    <ellipse cx="356.0" cy="304.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-title">
+    <title>style-title</title>
+    <text x="497.16" y="76.0" font-family="sans-serif" font-size="42.0" fill="#e2e8f0">Zoe Pentomino · timed spatial practice</text>
+  </g>
+  <g data-object-id="style-subtitle">
+    <title>style-subtitle</title>
+    <text x="729.45" y="116.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">SPATIAL PRACTICE · FINITE DEADLINES · VERIFIED REPLAY</text>
+  </g>
+  <g data-object-id="style-header-rule">
+    <title>style-header-rule</title>
+    <polyline points="650,158 1270,158" stroke-linejoin="round" fill="none" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-content-frame">
+    <title>style-content-frame</title>
+    <rect x="48.0" y="185.0" width="1824.0" height="820.0" fill="none" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-content-orbit">
+    <title>style-content-orbit</title>
+    <ellipse cx="960.0" cy="595.0" rx="590.0" ry="350.0" fill="none" stroke="#12233c" stroke-width="1.0" />
+  </g>
   <g data-object-id="background">
     <title>background</title>
-    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+    <rect x="427.1052631578947" y="189.99999999999994" width="1065.7894736842109" height="810.0" fill="#08111f" stroke="#08111f" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-0">
     <title>row-0</title>
-    <polyline points="72,100 396,100" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,296.579 849.158,296.579" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-1">
     <title>row-1</title>
-    <polyline points="72,154 396,154" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,354.132 849.158,354.132" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-2">
     <title>row-2</title>
-    <polyline points="72,208 396,208" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,411.684 849.158,411.684" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-3">
     <title>row-3</title>
-    <polyline points="72,262 396,262" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,469.237 849.158,469.237" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-4">
     <title>row-4</title>
-    <polyline points="72,316 396,316" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,526.789 849.158,526.789" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-5">
     <title>row-5</title>
-    <polyline points="72,370 396,370" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,584.342 849.158,584.342" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-6">
     <title>row-6</title>
-    <polyline points="72,424 396,424" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,641.895 849.158,641.895" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-7">
     <title>row-7</title>
-    <polyline points="72,478 396,478" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,699.447 849.158,699.447" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-8">
     <title>row-8</title>
-    <polyline points="72,532 396,532" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,757 849.158,757" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-9">
     <title>row-9</title>
-    <polyline points="72,586 396,586" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,814.553 849.158,814.553" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="row-10">
     <title>row-10</title>
-    <polyline points="72,640 396,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,872.105 849.158,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-0">
     <title>column-0</title>
-    <polyline points="72,100 72,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="503.842,296.579 503.842,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-1">
     <title>column-1</title>
-    <polyline points="126,100 126,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="561.395,296.579 561.395,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-2">
     <title>column-2</title>
-    <polyline points="180,100 180,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="618.947,296.579 618.947,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-3">
     <title>column-3</title>
-    <polyline points="234,100 234,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="676.5,296.579 676.5,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-4">
     <title>column-4</title>
-    <polyline points="288,100 288,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="734.053,296.579 734.053,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-5">
     <title>column-5</title>
-    <polyline points="342,100 342,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="791.605,296.579 791.605,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
   <g data-object-id="column-6">
     <title>column-6</title>
-    <polyline points="396,100 396,640" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0" />
+    <polyline points="849.158,296.579 849.158,872.105" stroke-linejoin="round" fill="none" stroke="#20304a" stroke-width="1.0657894736842106" />
   </g>
-  <g data-object-id="cell-0">
-    <title>cell-0</title>
-    <rect x="182.0" y="264.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  <g data-object-id="preview-0">
+    <title>preview-0</title>
+    <rect x="938.6842105263158" y="618.4473684210526" width="18.11842105263156" height="18.11842105263156" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="1.0657894736842106" />
   </g>
-  <g data-object-id="cell-1">
-    <title>cell-1</title>
-    <rect x="236.0" y="210.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  <g data-object-id="preview-1">
+    <title>preview-1</title>
+    <rect x="960.0" y="597.1315789473683" width="18.11842105263156" height="18.118421052631675" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="1.0657894736842106" />
   </g>
-  <g data-object-id="cell-2">
-    <title>cell-2</title>
-    <rect x="236.0" y="264.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  <g data-object-id="preview-2">
+    <title>preview-2</title>
+    <rect x="960.0" y="618.4473684210526" width="18.11842105263156" height="18.11842105263156" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="1.0657894736842106" />
   </g>
-  <g data-object-id="cell-3">
-    <title>cell-3</title>
-    <rect x="236.0" y="318.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  <g data-object-id="preview-3">
+    <title>preview-3</title>
+    <rect x="960.0" y="639.7631578947369" width="18.11842105263156" height="18.118421052631447" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="1.0657894736842106" />
   </g>
-  <g data-object-id="cell-4">
-    <title>cell-4</title>
-    <rect x="290.0" y="264.0" width="50.0" height="50.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="2.0" />
+  <g data-object-id="preview-4">
+    <title>preview-4</title>
+    <rect x="981.3157894736842" y="618.4473684210526" width="18.118421052631675" height="18.11842105263156" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="1.0657894736842106" />
   </g>
-  <g data-object-id="cell-5">
-    <title>cell-5</title>
-    <rect x="74.0" y="102.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-6">
-    <title>cell-6</title>
-    <rect x="74.0" y="156.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-7">
-    <title>cell-7</title>
-    <rect x="74.0" y="210.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-8">
-    <title>cell-8</title>
-    <rect x="128.0" y="210.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-9">
-    <title>cell-9</title>
-    <rect x="182.0" y="210.0" width="50.0" height="50.0" fill="#fdba74" stroke="#fdba74" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-10">
-    <title>cell-10</title>
-    <rect x="128.0" y="102.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-11">
-    <title>cell-11</title>
-    <rect x="128.0" y="156.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-12">
-    <title>cell-12</title>
-    <rect x="182.0" y="102.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-13">
-    <title>cell-13</title>
-    <rect x="182.0" y="156.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-14">
-    <title>cell-14</title>
-    <rect x="236.0" y="156.0" width="50.0" height="50.0" fill="#fde68a" stroke="#fde68a" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-15">
-    <title>cell-15</title>
-    <rect x="344.0" y="156.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-16">
-    <title>cell-16</title>
-    <rect x="344.0" y="210.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-17">
-    <title>cell-17</title>
-    <rect x="344.0" y="264.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-18">
-    <title>cell-18</title>
-    <rect x="344.0" y="318.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-19">
-    <title>cell-19</title>
-    <rect x="344.0" y="372.0" width="50.0" height="50.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-20">
-    <title>cell-20</title>
-    <rect x="74.0" y="264.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-21">
-    <title>cell-21</title>
-    <rect x="74.0" y="318.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-22">
-    <title>cell-22</title>
-    <rect x="74.0" y="372.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-23">
-    <title>cell-23</title>
-    <rect x="74.0" y="426.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-24">
-    <title>cell-24</title>
-    <rect x="128.0" y="264.0" width="50.0" height="50.0" fill="#fda4af" stroke="#fda4af" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-25">
-    <title>cell-25</title>
-    <rect x="236.0" y="372.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-26">
-    <title>cell-26</title>
-    <rect x="290.0" y="318.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-27">
-    <title>cell-27</title>
-    <rect x="290.0" y="372.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-28">
-    <title>cell-28</title>
-    <rect x="290.0" y="426.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-29">
-    <title>cell-29</title>
-    <rect x="344.0" y="426.0" width="50.0" height="50.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-30">
-    <title>cell-30</title>
-    <rect x="74.0" y="480.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-31">
-    <title>cell-31</title>
-    <rect x="74.0" y="534.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-32">
-    <title>cell-32</title>
-    <rect x="128.0" y="372.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-33">
-    <title>cell-33</title>
-    <rect x="128.0" y="426.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-34">
-    <title>cell-34</title>
-    <rect x="128.0" y="480.0" width="50.0" height="50.0" fill="#7dd3fc" stroke="#7dd3fc" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-35">
-    <title>cell-35</title>
-    <rect x="128.0" y="318.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-36">
-    <title>cell-36</title>
-    <rect x="182.0" y="318.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-37">
-    <title>cell-37</title>
-    <rect x="182.0" y="372.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-38">
-    <title>cell-38</title>
-    <rect x="182.0" y="426.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-39">
-    <title>cell-39</title>
-    <rect x="236.0" y="426.0" width="50.0" height="50.0" fill="#fca5a5" stroke="#fca5a5" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-40">
-    <title>cell-40</title>
-    <rect x="236.0" y="102.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-41">
-    <title>cell-41</title>
-    <rect x="290.0" y="102.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-42">
-    <title>cell-42</title>
-    <rect x="290.0" y="156.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-43">
-    <title>cell-43</title>
-    <rect x="290.0" y="210.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-44">
-    <title>cell-44</title>
-    <rect x="344.0" y="102.0" width="50.0" height="50.0" fill="#86efac" stroke="#86efac" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-45">
-    <title>cell-45</title>
-    <rect x="74.0" y="588.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-46">
-    <title>cell-46</title>
-    <rect x="128.0" y="534.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-47">
-    <title>cell-47</title>
-    <rect x="128.0" y="588.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-48">
-    <title>cell-48</title>
-    <rect x="182.0" y="480.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-49">
-    <title>cell-49</title>
-    <rect x="182.0" y="534.0" width="50.0" height="50.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-50">
-    <title>cell-50</title>
-    <rect x="236.0" y="480.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-51">
-    <title>cell-51</title>
-    <rect x="236.0" y="534.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-52">
-    <title>cell-52</title>
-    <rect x="290.0" y="480.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-53">
-    <title>cell-53</title>
-    <rect x="344.0" y="480.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-54">
-    <title>cell-54</title>
-    <rect x="344.0" y="534.0" width="50.0" height="50.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-55">
-    <title>cell-55</title>
-    <rect x="182.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-56">
-    <title>cell-56</title>
-    <rect x="236.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-57">
-    <title>cell-57</title>
-    <rect x="290.0" y="534.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-58">
-    <title>cell-58</title>
-    <rect x="290.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
-  </g>
-  <g data-object-id="cell-59">
-    <title>cell-59</title>
-    <rect x="344.0" y="588.0" width="50.0" height="50.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="2.0" />
+  <g data-object-id="preview-label">
+    <title>preview-label</title>
+    <text x="1087.8947368421054" y="626.9736842105262" font-family="sans-serif" font-size="18.118421052631582" fill="#f9a8d4">Current: X</text>
   </g>
   <g data-object-id="title">
     <title>title</title>
-    <text x="62.0" y="48.0" font-family="sans-serif" font-size="32.0" fill="#67e8f9">Zoe Pentomino</text>
+    <text x="493.1842105263157" y="241.15789473684205" font-family="sans-serif" font-size="34.10526315789474" fill="#67e8f9">Zoe Pentomino</text>
   </g>
   <g data-object-id="subtitle">
     <title>subtitle</title>
-    <text x="64.0" y="77.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Twelve shapes · sixty cells · one finite field</text>
+    <text x="495.31578947368416" y="272.06578947368416" font-family="sans-serif" font-size="15.98684210526316" fill="#9fb1c8">Twelve shapes · sixty cells · one finite field</text>
   </g>
   <g data-object-id="summary-0">
     <title>summary-0</title>
-    <text x="470.0" y="145.0" font-family="sans-serif" font-size="17.0" fill="#d8e5f2">Budget  298.8 s remaining / 300 s</text>
+    <text x="928.0263157894738" y="344.5394736842105" font-family="sans-serif" font-size="18.118421052631582" fill="#d8e5f2">Budget  300.0 s remaining / 300 s</text>
   </g>
   <g data-object-id="summary-1">
     <title>summary-1</title>
-    <text x="470.0" y="185.0" font-family="sans-serif" font-size="17.0" fill="#d8e5f2">Placed  12 / 12     Filled  60 / 60</text>
+    <text x="928.0263157894738" y="387.1710526315789" font-family="sans-serif" font-size="18.118421052631582" fill="#d8e5f2">Placed  0 / 12     Filled  0 / 60</text>
   </g>
   <g data-object-id="summary-2">
     <title>summary-2</title>
-    <text x="470.0" y="225.0" font-family="sans-serif" font-size="17.0" fill="#d8e5f2">Full rows  10     Holes  0</text>
+    <text x="928.0263157894738" y="429.80263157894734" font-family="sans-serif" font-size="18.118421052631582" fill="#d8e5f2">Full rows  0     Holes  0</text>
   </g>
   <g data-object-id="summary-3">
     <title>summary-3</title>
-    <text x="470.0" y="265.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">Status  won</text>
+    <text x="928.0263157894738" y="472.4342105263158" font-family="sans-serif" font-size="18.118421052631582" fill="#fde68a">Status  playing</text>
   </g>
   <g data-object-id="summary-4">
     <title>summary-4</title>
-    <text x="470.0" y="305.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Next  revealed at game end</text>
+    <text x="928.0263157894738" y="515.0657894736842" font-family="sans-serif" font-size="14.921052631578949" fill="#d8e5f2">Next  V</text>
   </g>
   <g data-object-id="summary-5">
     <title>summary-5</title>
-    <text x="470.0" y="345.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Rows counted, never cleared. Tile all 12 pieces.</text>
+    <text x="928.0263157894738" y="557.6973684210526" font-family="sans-serif" font-size="14.921052631578949" fill="#d8e5f2">Rows counted, never cleared. Tile all 12 pieces.</text>
   </g>
   <g data-object-id="summary-6">
     <title>summary-6</title>
-    <text x="470.0" y="385.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">Practice only · no intelligence or optimum claim.</text>
+    <text x="928.0263157894738" y="600.328947368421" font-family="sans-serif" font-size="14.921052631578949" fill="#d8e5f2">Practice only · no intelligence or optimum claim.</text>
   </g>
   <g data-object-id="piece-F">
     <title>piece-F</title>
-    <text x="470.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#f0abfc">F  placed</text>
+    <text x="928.0263157894738" y="706.9078947368421" font-family="sans-serif" font-size="14.921052631578949" fill="#f0abfc">F  open</text>
   </g>
   <g data-object-id="piece-I">
     <title>piece-I</title>
-    <text x="587.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#67e8f9">I  placed</text>
+    <text x="1052.7236842105262" y="706.9078947368421" font-family="sans-serif" font-size="14.921052631578949" fill="#67e8f9">I  open</text>
   </g>
   <g data-object-id="piece-L">
     <title>piece-L</title>
-    <text x="704.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#fda4af">L  placed</text>
+    <text x="1177.421052631579" y="706.9078947368421" font-family="sans-serif" font-size="14.921052631578949" fill="#fda4af">L  open</text>
   </g>
   <g data-object-id="piece-P">
     <title>piece-P</title>
-    <text x="821.0" y="485.0" font-family="sans-serif" font-size="14.0" fill="#fde68a">P  placed</text>
+    <text x="1302.1184210526317" y="706.9078947368421" font-family="sans-serif" font-size="14.921052631578949" fill="#fde68a">P  open</text>
   </g>
   <g data-object-id="piece-T">
     <title>piece-T</title>
-    <text x="470.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#86efac">T  placed</text>
+    <text x="928.0263157894738" y="774.0526315789473" font-family="sans-serif" font-size="14.921052631578949" fill="#86efac">T  open</text>
   </g>
   <g data-object-id="piece-U">
     <title>piece-U</title>
-    <text x="587.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#93c5fd">U  placed</text>
+    <text x="1052.7236842105262" y="774.0526315789473" font-family="sans-serif" font-size="14.921052631578949" fill="#93c5fd">U  open</text>
   </g>
   <g data-object-id="piece-V">
     <title>piece-V</title>
-    <text x="704.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#fdba74">V  placed</text>
+    <text x="1177.421052631579" y="774.0526315789473" font-family="sans-serif" font-size="14.921052631578949" fill="#fdba74">V  open</text>
   </g>
   <g data-object-id="piece-W">
     <title>piece-W</title>
-    <text x="821.0" y="548.0" font-family="sans-serif" font-size="14.0" fill="#c4b5fd">W  placed</text>
+    <text x="1302.1184210526317" y="774.0526315789473" font-family="sans-serif" font-size="14.921052631578949" fill="#c4b5fd">W  open</text>
   </g>
   <g data-object-id="piece-X">
     <title>piece-X</title>
-    <text x="470.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#f9a8d4">X  placed</text>
+    <text x="928.0263157894738" y="841.1973684210527" font-family="sans-serif" font-size="14.921052631578949" fill="#f9a8d4">X  open</text>
   </g>
   <g data-object-id="piece-Y">
     <title>piece-Y</title>
-    <text x="587.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#a7f3d0">Y  placed</text>
+    <text x="1052.7236842105262" y="841.1973684210527" font-family="sans-serif" font-size="14.921052631578949" fill="#a7f3d0">Y  open</text>
   </g>
   <g data-object-id="piece-Z">
     <title>piece-Z</title>
-    <text x="704.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#fca5a5">Z  placed</text>
+    <text x="1177.421052631579" y="841.1973684210527" font-family="sans-serif" font-size="14.921052631578949" fill="#fca5a5">Z  open</text>
   </g>
   <g data-object-id="piece-N">
     <title>piece-N</title>
-    <text x="821.0" y="611.0" font-family="sans-serif" font-size="14.0" fill="#7dd3fc">N  placed</text>
+    <text x="1302.1184210526317" y="841.1973684210527" font-family="sans-serif" font-size="14.921052631578949" fill="#7dd3fc">N  open</text>
   </g>
   <g data-object-id="attempt">
     <title>attempt</title>
-    <text x="64.0" y="699.0" font-family="sans-serif" font-size="14.0" fill="#f0abfc">Attempt value = immediate reward + information + future skill + enjoyment - expected failure cost</text>
+    <text x="495.31578947368416" y="934.9868421052631" font-family="sans-serif" font-size="14.921052631578949" fill="#f0abfc">Attempt value = immediate reward + information + future skill + enjoyment - expected failure cost</text>
   </g>
   <g data-object-id="lens">
     <title>lens</title>
-    <text x="64.0" y="729.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">A decision lens, not a biological equation. Outcomes are evidence for the next attempt.</text>
+    <text x="495.31578947368416" y="966.9605263157896" font-family="sans-serif" font-size="13.855263157894738" fill="#9fb1c8">A decision lens, not a biological equation. Outcomes are evidence for the next attempt.</text>
+  </g>
+  <g data-object-id="style-footer">
+    <title>style-footer</title>
+    <text x="703.35" y="1080.0" font-family="sans-serif" font-size="15.0" fill="#e2e8f0">NATIVE MODEL · DETERMINISTIC GEOMETRY · REPLAYABLE EVIDENCE</text>
+  </g>
+  <g data-object-id="style-loop">
+    <title>style-loop</title>
+    <text x="711.1800000000001" y="1120.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">SENSE  →  MODEL  →  IMAGINE  →  DOUBT  →  CHOOSE  →  ACT  →  LEARN</text>
+  </g>
+  <g data-object-id="style-control">
+    <title>style-control</title>
+    <text x="794.12" y="1154.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">ONE REPOSITORY · ONE KNOWLEDGE FIELD · HUMAN CONTROL</text>
   </g>
 </svg>

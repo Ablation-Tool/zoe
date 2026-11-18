@@ -1,4 +1,4 @@
-# Accessible Volume Beyond the Next Token — Visual index
+# Operational Metacognition Beyond the Next Token — Visual index
 
 [Open the paper PDF](../../papers/05-accessible-volume-beyond-next-token.pdf) · [All paper galleries](../README.md)
 
@@ -14,7 +14,7 @@ The extracted-image section preserves original embedded image data where availab
 |---:|---:|---:|---|---|
 | 1 | 5 | 1050×600 | Figure 1: Synthetic forward and retrograde accessible-volume threshold sweeps. Similar breadth coexists with substantially different accuracy and log-loss. | [Open](figures/figure-000-page-005.png) |
 | 2 | 6 | 1200×675 | Figure 2: Groove accessible-volume sweeps for forward, reversal-transfer, and backward-matched conditions. | [Open](figures/figure-002-page-006.png) |
-| 3 | 7 | 1650×900 | Figure 3: Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together. | [Open](figures/figure-004-page-007.png) |
+| 3 | 7 | 1650×900 | Figure 3: Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together. | [Open](figures/figure-004-page-007.png) |
 | 4 | 8 | 1950×600 | Figure 4: Nightingale accessible-volume sweeps by genre and direction. | [Open](figures/figure-006-page-008.png) |
 | 5 | 8 | 750×750 | Figure 5: Forward forecast calibration for the three Nightingale genres. | [Open](figures/figure-008-page-008.png) |
 
@@ -22,31 +22,31 @@ The extracted-image section preserves original embedded image data where availab
 
 Figure 1: Synthetic forward and retrograde accessible-volume threshold sweeps. Similar breadth coexists with substantially different accuracy and log-loss.
 
-<a href="figures/figure-000-page-005.png"><img src="figures/figure-000-page-005.png" alt="Accessible Volume Beyond the Next Token, embedded image 1, PDF page 5" style="max-width:100%;"></a>
+<a href="figures/figure-000-page-005.png"><img src="figures/figure-000-page-005.png" alt="Operational Metacognition Beyond the Next Token, embedded image 1, PDF page 5" style="max-width:100%;"></a>
 
 ### Image 2 — PDF page 6
 
 Figure 2: Groove accessible-volume sweeps for forward, reversal-transfer, and backward-matched conditions.
 
-<a href="figures/figure-002-page-006.png"><img src="figures/figure-002-page-006.png" alt="Accessible Volume Beyond the Next Token, embedded image 2, PDF page 6" style="max-width:100%;"></a>
+<a href="figures/figure-002-page-006.png"><img src="figures/figure-002-page-006.png" alt="Operational Metacognition Beyond the Next Token, embedded image 2, PDF page 6" style="max-width:100%;"></a>
 
 ### Image 3 — PDF page 7
 
-Figure 3: Accessible volume, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together.
+Figure 3: Operational Metacognition, confidence, and incorrect predictions over the first 256 beats of a held-out Groove performance. The map deliberately displays breadth and correctness together.
 
-<a href="figures/figure-004-page-007.png"><img src="figures/figure-004-page-007.png" alt="Accessible Volume Beyond the Next Token, embedded image 3, PDF page 7" style="max-width:100%;"></a>
+<a href="figures/figure-004-page-007.png"><img src="figures/figure-004-page-007.png" alt="Operational Metacognition Beyond the Next Token, embedded image 3, PDF page 7" style="max-width:100%;"></a>
 
 ### Image 4 — PDF page 8
 
 Figure 4: Nightingale accessible-volume sweeps by genre and direction.
 
-<a href="figures/figure-006-page-008.png"><img src="figures/figure-006-page-008.png" alt="Accessible Volume Beyond the Next Token, embedded image 4, PDF page 8" style="max-width:100%;"></a>
+<a href="figures/figure-006-page-008.png"><img src="figures/figure-006-page-008.png" alt="Operational Metacognition Beyond the Next Token, embedded image 4, PDF page 8" style="max-width:100%;"></a>
 
 ### Image 5 — PDF page 8
 
 Figure 5: Forward forecast calibration for the three Nightingale genres.
 
-<a href="figures/figure-008-page-008.png"><img src="figures/figure-008-page-008.png" alt="Accessible Volume Beyond the Next Token, embedded image 5, PDF page 8" style="max-width:100%;"></a>
+<a href="figures/figure-008-page-008.png"><img src="figures/figure-008-page-008.png" alt="Operational Metacognition Beyond the Next Token, embedded image 5, PDF page 8" style="max-width:100%;"></a>
 
 ## Complete page index
 

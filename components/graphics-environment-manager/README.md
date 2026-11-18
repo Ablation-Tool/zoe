@@ -86,7 +86,7 @@ python -m gem imagery --layout network --output cyclic-field.png
 python -m gem imagery --template examples/cyclic-flow.json --output my-cyclic-field.svg
 ```
 
-The input schema supports declared view angles, explicit forecast probabilities, synthetic 3D points, or supplied per-view stereo measurements. Accessible volume selects the live candidate set \(V_\tau=\{v:p_v>\tau\}\); it does not score correctness or authorize actions. Historical prediction error increases Dijkstra transition costs on later runs. Geometric vividness records detail, prediction precision, and reconstruction stability—not emotion or subjective experience. The default precision fusion uses \(w=\sigma_q^{-1/2}\), with arithmetic fusion available for comparison. It reduces four-view mean reconstruction error from **2.336 mm** to **2.306 mm** in the declared synthetic benchmark; this small measured gain is not evidence of universal superiority or general visual intelligence.
+The input schema supports declared view angles, explicit forecast probabilities, synthetic 3D points, or supplied per-view stereo measurements. Operational Metacognition selects the live candidate set \(V_\tau=\{v:p_v>\tau\}\); it does not score correctness or authorize actions. Historical prediction error increases Dijkstra transition costs on later runs. Geometric vividness records detail, prediction precision, and reconstruction stability—not emotion or subjective experience. The default precision fusion uses \(w=\sigma_q^{-1/2}\), with arithmetic fusion available for comparison. It reduces four-view mean reconstruction error from **2.336 mm** to **2.306 mm** in the declared synthetic benchmark; this small measured gain is not evidence of universal superiority or general visual intelligence.
 
 The optional **Cyclic Field** view arranges perception, imagery/thinking, learning, and navigation/action as a symmetric outer cycle around shared geometry and vividness. Its editable JSON template can reorder the cycle and change labels, transition text, and palette while preserving live metrics and provenance. It is a creative visualization template, not a creativity score or a claim of aesthetic optimization.
 
@@ -361,7 +361,7 @@ SVG and VDI use the Python standard library. PNG and native graphical views requ
 <details>
 <summary><strong>Unified analytical engine</strong></summary>
 
-The analytical engine uses one measurement kernel for live ONNX forecasts and saved NPZ distributions. It records accessible volume, complements, entropy, momentum, exact multi-horizon joint counts, and optional observed-token scoring. Existing prediction, steering, tournament, and landmark workflows share the same evidence model.
+The analytical engine uses one measurement kernel for live ONNX forecasts and saved NPZ distributions. It records operational metacognition, complements, entropy, momentum, exact multi-horizon joint counts, and optional observed-token scoring. Existing prediction, steering, tournament, and landmark workflows share the same evidence model.
 
 `gem volume` adds NPZ feedback with independent current/previous keys and no-overwrite reports. `gem calibrate` evaluates observed confidence and correctness. `gem estimate` applies an explicit linear state-space model or direct nonlinear EKF callbacks. `gem generate` produces bounded baseline or external-agent hypotheses and sends every unique proposal through the guard without executing it. `gem guard` binds a forecast to the exact target, selection, revision, proposal, and action ID; only a separate explicit `--approve` can execute a valid proposal.
 
@@ -427,7 +427,7 @@ The native GTK node menu also includes **Align landmarks (Procrustes)**. Both pa
 </details>
 
 <details>
-<summary><strong>Accessible volume, steering, and equation tournaments</strong></summary>
+<summary><strong>Operational Metacognition, steering, and equation tournaments</strong></summary>
 
 The optional prediction integration applies the [accessible-volume equation](https://github.com/Ablation-Tool/next-token-predictability) to a real local model distribution using the current Lab selection, recent events, and selected evidence:
 
@@ -498,7 +498,7 @@ A_{\alpha,\beta}(x)=\sum_i\mathbf{1}\left[p_i>\max(\beta,\alpha p_{\max}(x))\rig
 
 It evaluates twelve adaptive parameter pairs on the baseline distribution and three context attacks: removed evidence, repeated evidence, and irrelevant context. It records count disagreements and advisory flips in `tournament.json`. A flip demonstrates sensitivity, not that either rule is correct or better. Verified task outcomes are required to rank equations or policies.
 
-The GTK node menu includes **Measure next-token accessible volume**, **Advise on next action**, and **Run equation tournament**. The same host and CLI paths work across Windows, macOS, and Linux. The master Tk interface can use those CLI paths directly.
+The GTK node menu includes **Measure next-token operational metacognition**, **Advise on next action**, and **Run equation tournament**. The same host and CLI paths work across Windows, macOS, and Linux. The master Tk interface can use those CLI paths directly.
 
 </details>
 
@@ -509,7 +509,7 @@ The GTK node menu includes **Measure next-token accessible volume**, **Advise on
 - `gem/app.py` and `metrix/desktop.py` — the master's Tk and embedded-terminal implementation.
 - `gem/events.py` — authoritative sessions, selections, and append-only events.
 - `gem/model.py`, `gem/geometry.py`, `gem/runner.py`, and `gem/vdi.py` — graphical execution, verification, and replay.
-- `gem/prediction.py` — live context construction, ONNX inference, accessible volume, and evidence artifacts.
+- `gem/prediction.py` — live context construction, ONNX inference, operational metacognition, and evidence artifacts.
 - `gem/steering.py` — deterministic advisories, modes, and same-context trends.
 - `gem/tournament.py` — fixed/adaptive comparisons and context attacks.
 - `gem/landmarks.py` and `examples/landmark-alignment/` — Procrustes solvers, native Spatial IR scenes, and replayable alignment evidence.

@@ -1,16 +1,649 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1885" height="1579" viewBox="0 0 1885 1579" role="img" aria-labelledby="title desc">
-<title id="title">MASTER GEM architecture</title>
-<desc id="desc">Colored box-drawing diagram showing GEM HELEN, next-token-predictability, and Ablation GEM feeding a shared mathematical and evidence layer, interactive studios, exports, and human-controlled feedback.</desc>
-<defs>
-  <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#070b14" /><stop offset="0.55" stop-color="#0c1424" /><stop offset="1" stop-color="#111020" />
-  </linearGradient>
-  <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-    <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#334155" stroke-opacity="0.16" stroke-width="1" />
-  </pattern>
-</defs>
-<rect width="100%" height="100%" fill="url(#background)" />
-<rect width="100%" height="100%" fill="url(#grid)" />
-<g font-family="DejaVu Sans Mono, JetBrains Mono, monospace" font-size="20" dominant-baseline="alphabetic">
-<text x="52" y="64" xml:space="preserve"><tspan fill="#67e8f9" font-weight="700">                                      ╔══════════════════════════════════════════════════╗</tspan></text><text x="52" y="93" xml:space="preserve"><tspan fill="#67e8f9" font-weight="700">                                      ║               Z O E                ║</tspan></text><text x="52" y="122" xml:space="preserve"><tspan fill="#67e8f9" font-weight="700">                                      ║     One native workspace · shared open evidence  ║</tspan></text><text x="52" y="151" xml:space="preserve"><tspan fill="#9fb1c8">                                      ╚═════════════════════════╦════════════════════════╝</tspan></text><text x="52" y="180" xml:space="preserve"><tspan fill="#9fb1c8">                                                                ║</tspan></text><text x="52" y="209" xml:space="preserve"><tspan fill="#9fb1c8">                                   </tspan><tspan fill="#e5eefb" font-weight="700">user direction</tspan><tspan fill="#9fb1c8"> ──────────────╨────────────── </tspan><tspan fill="#f0abfc" font-weight="700">creative exploration</tspan></text><text x="52" y="238" xml:space="preserve"><tspan fill="#9fb1c8">                                                                │</tspan></text><text x="52" y="267" xml:space="preserve"><tspan fill="#9fb1c8">  ┌─ CREATE ────────────────────┐  ┌─ VERIFY ───────────────────┐  ┌─ HOST ─────────────────────┐</tspan></text><text x="52" y="296" xml:space="preserve"><tspan fill="#9fb1c8">  │ </tspan><tspan fill="#f0abfc" font-weight="700">GEM HELEN</tspan><tspan fill="#9fb1c8">                   │  │ </tspan><tspan fill="#86efac" font-weight="700">NEXT-TOKEN PREDICTABILITY</tspan><tspan fill="#9fb1c8">  │  │ </tspan><tspan fill="#67e8f9" font-weight="700">ABLATION GEM</tspan><tspan fill="#9fb1c8">              │</tspan></text><text x="52" y="325" xml:space="preserve"><tspan fill="#9fb1c8">  │ </tspan><tspan fill="#f0abfc" font-weight="700">Creative native workspace</tspan><tspan fill="#9fb1c8">   │  │ </tspan><tspan fill="#86efac" font-weight="700">Research + evidence pack</tspan><tspan fill="#9fb1c8">   │  │ </tspan><tspan fill="#67e8f9" font-weight="700">Native investigation host</tspan><tspan fill="#9fb1c8"> │</tspan></text><text x="52" y="354" xml:space="preserve"><tspan fill="#9fb1c8">  │                             │  │                            │  │                           │</tspan></text><text x="52" y="383" xml:space="preserve"><tspan fill="#9fb1c8">  │ </tspan><tspan fill="#f0abfc" font-weight="700">Geometry + volume + onset</tspan><tspan fill="#9fb1c8">   │  │ </tspan><tspan fill="#86efac" font-weight="700">Equations + experiments</tspan><tspan fill="#9fb1c8">    │  │ </tspan><tspan fill="#67e8f9" font-weight="700">GTK + Lab + sessions</tspan><tspan fill="#9fb1c8">      │</tspan></text><text x="52" y="412" xml:space="preserve"><tspan fill="#9fb1c8">  │ </tspan><tspan fill="#f0abfc" font-weight="700">Lazy scenes + direct input</tspan><tspan fill="#9fb1c8">  │  │ </tspan><tspan fill="#86efac" font-weight="700">Golden vectors + reports</tspan><tspan fill="#9fb1c8">   │  │ </tspan><tspan fill="#67e8f9" font-weight="700">Replay + VDI + provenance</tspan><tspan fill="#9fb1c8"> │</tspan></text><text x="52" y="441" xml:space="preserve"><tspan fill="#9fb1c8">  └──────────────┬──────────────┘  └──────────────┬─────────────┘  └──────────────┬────────────┘</tspan></text><text x="52" y="470" xml:space="preserve"><tspan fill="#9fb1c8">                 │ scenes + interaction            │ math + artifacts              │ native runtime</tspan></text><text x="52" y="499" xml:space="preserve"><tspan fill="#9fb1c8">                 └─────────────────────────────────┼───────────────────────────────┘</tspan></text><text x="52" y="528" xml:space="preserve"><tspan fill="#9fb1c8">                                                   ▼</tspan></text><text x="52" y="557" xml:space="preserve"><tspan fill="#9fb1c8">       ╔══════════════════════════════════════════════════════════════════════════════════╗</tspan></text><text x="52" y="586" xml:space="preserve"><tspan fill="#9fb1c8">       ║               </tspan><tspan fill="#93c5fd" font-weight="700">SHARED MATH + CONFORMANCE + ARTIFACT API</tspan><tspan fill="#9fb1c8">                           ║</tspan></text><text x="52" y="615" xml:space="preserve"><tspan fill="#9fb1c8">       ║ </tspan><tspan fill="#93c5fd" font-weight="700">strict p &gt; τ</tspan><tspan fill="#9fb1c8"> · complements · momentum · Procrustes · calibration · joint paths ║</tspan></text><text x="52" y="644" xml:space="preserve"><tspan fill="#9fb1c8">       ║ </tspan><tspan fill="#86efac" font-weight="700">golden metrics</tspan><tspan fill="#9fb1c8"> · versioned JSON · lazy NPZ loaders · immutable source hashes    ║</tspan></text><text x="52" y="673" xml:space="preserve"><tspan fill="#9fb1c8">       ╚══════════════════════════════════════════════════════════════════════════════════╝</tspan></text><text x="52" y="702" xml:space="preserve"><tspan fill="#9fb1c8">                                                   │</tspan></text><text x="52" y="731" xml:space="preserve"><tspan fill="#9fb1c8">             ┌─────────────────────────────────────┼─────────────────────────────────────┐</tspan></text><text x="52" y="760" xml:space="preserve"><tspan fill="#9fb1c8">             ▼                                     ▼                                     ▼</tspan></text><text x="52" y="789" xml:space="preserve"><tspan fill="#9fb1c8">  ┌─ </tspan><tspan fill="#c4b5fd" font-weight="700">GEOMETRY</tspan><tspan fill="#9fb1c8"> ────────┐       ┌─ </tspan><tspan fill="#67e8f9" font-weight="700">FORECAST</tspan><tspan fill="#9fb1c8"> ────────┐       ┌─ </tspan><tspan fill="#86efac" font-weight="700">RHYTHM</tspan><tspan fill="#9fb1c8"> ──────────┐       ┌─ </tspan><tspan fill="#fdba74" font-weight="700">MULTI-HORIZON</tspan><tspan fill="#9fb1c8"> ────┐       ┌─ </tspan><tspan fill="#fde68a" font-weight="700">EVIDENCE</tspan><tspan fill="#9fb1c8"> ─────────┐</tspan></text><text x="52" y="818" xml:space="preserve"><tspan fill="#9fb1c8">  │ Landmarks         │       │ </tspan><tspan fill="#67e8f9" font-weight="700">Volume + momentum</tspan><tspan fill="#9fb1c8"> │       │ </tspan><tspan fill="#86efac" font-weight="700">Synthetic motifs</tspan><tspan fill="#9fb1c8">  │       │ h = 1, 2, 3       │       │ Lab + replay       │</tspan></text><text x="52" y="847" xml:space="preserve"><tspan fill="#9fb1c8">  │ Similarity/rigid  │       │ </tspan><tspan fill="#67e8f9" font-weight="700">Threshold sweeps</tspan><tspan fill="#9fb1c8">  │       │ </tspan><tspan fill="#86efac" font-weight="700">Real MIDI onsets</tspan><tspan fill="#9fb1c8">  │       │ </tspan><tspan fill="#fdba74" font-weight="700">Exact / bounded</tspan><tspan fill="#9fb1c8">   │       │ Hashes + scope     │</tspan></text><text x="52" y="876" xml:space="preserve"><tspan fill="#9fb1c8">  │ Affine + scenes   │       │ </tspan><tspan fill="#67e8f9" font-weight="700">Temperature</tspan><tspan fill="#9fb1c8">       │       │ </tspan><tspan fill="#86efac" font-weight="700">Forward / reverse</tspan><tspan fill="#9fb1c8"> │       │ </tspan><tspan fill="#fdba74" font-weight="700">Approximation</tspan><tspan fill="#9fb1c8">     │       │ Papers + reports   │</tspan></text><text x="52" y="905" xml:space="preserve"><tspan fill="#9fb1c8">  └───────────────────┘       └───────────────────┘       └───────────────────┘       └────────────────────┘       └────────────────────┘</tspan></text><text x="52" y="934" xml:space="preserve"><tspan fill="#9fb1c8">  ┌─ </tspan><tspan fill="#f0abfc" font-weight="700">BAYESIAN FIELD NOTEBOOK</tspan><tspan fill="#9fb1c8"> ──────────────────────────────────────────────────────────────────────────────┐</tspan></text><text x="52" y="963" xml:space="preserve"><tspan fill="#9fb1c8">  │ Questions · claims · belief diffs · evidence families · chambers · next tests · unified memory         │</tspan></text><text x="52" y="992" xml:space="preserve"><tspan fill="#9fb1c8">  └────────────────────────────────────────────────────────────────────────────────────────────────────────┘</tspan></text><text x="52" y="1021" xml:space="preserve"><tspan fill="#9fb1c8">            │                            │                            │                             │                            │</tspan></text><text x="52" y="1050" xml:space="preserve"><tspan fill="#9fb1c8">            └────────────────────────────┴────────────────────────────┴─────────────────────────────┴────────────────────────────┘</tspan></text><text x="52" y="1079" xml:space="preserve"><tspan fill="#9fb1c8">                                                                      │</tspan></text><text x="52" y="1108" xml:space="preserve"><tspan fill="#9fb1c8">                    ┌──────────────────────────────────────────┼──────────────────────────────────────────┐</tspan></text><text x="52" y="1137" xml:space="preserve"><tspan fill="#9fb1c8">                    ▼                                          ▼                                          ▼</tspan></text><text x="52" y="1166" xml:space="preserve"><tspan fill="#9fb1c8">             ┌─ </tspan><tspan fill="#fde68a" font-weight="700">EXPORTS</tspan><tspan fill="#9fb1c8"> ──────────────┐              ┌─ </tspan><tspan fill="#fde68a" font-weight="700">EVIDENCE FLOW</tspan><tspan fill="#9fb1c8"> ──────────┐               ┌─ </tspan><tspan fill="#93c5fd" font-weight="700">TWO MODES</tspan><tspan fill="#9fb1c8"> ───────────────┐</tspan></text><text x="52" y="1195" xml:space="preserve"><tspan fill="#9fb1c8">             │ SVG · PNG · GEM VDI    │              │ Observe → measure        │               │ gem-helen = lightweight   │</tspan></text><text x="52" y="1224" xml:space="preserve"><tspan fill="#9fb1c8">             │ Versioned scene JSON   │              │ Recommend → </tspan><tspan fill="#fde68a" font-weight="700">human decides</tspan><tspan fill="#9fb1c8">│               │ gem zoe = integrated   │</tspan></text><text x="52" y="1253" xml:space="preserve"><tspan fill="#9fb1c8">             │ </tspan><tspan fill="#fde68a" font-weight="700">No-overwrite artifacts</tspan><tspan fill="#9fb1c8"> │              │ Replay → compare → learn │               │ Same math · same evidence │</tspan></text><text x="52" y="1282" xml:space="preserve"><tspan fill="#9fb1c8">             └────────────────────────┘              └──────────────────────────┘               └───────────────────────────┘</tspan></text><text x="52" y="1311" xml:space="preserve"><tspan fill="#9fb1c8">                                                               │</tspan></text><text x="52" y="1340" xml:space="preserve"><tspan fill="#9fb1c8">                                                               ▼</tspan></text><text x="52" y="1369" xml:space="preserve"><tspan fill="#9fb1c8">       ╔══════════════════════════════════════════════════════════════════════════════════╗</tspan></text><text x="52" y="1398" xml:space="preserve"><tspan fill="#9fb1c8">       ║                              </tspan><tspan fill="#fde68a" font-weight="700">HUMAN-CONTROLLED FEEDBACK</tspan><tspan fill="#9fb1c8">                            ║</tspan></text><text x="52" y="1427" xml:space="preserve"><tspan fill="#fca5a5" font-weight="700">       ║      observation → forecast → breadth + correctness → recommendation → action     ║</tspan></text><text x="52" y="1456" xml:space="preserve"><tspan fill="#fca5a5" font-weight="700">       ║      </tspan><tspan fill="#fca5a5" font-weight="700">breadth ≠ correctness</tspan><tspan fill="#fca5a5" font-weight="700"> · </tspan><tspan fill="#fca5a5" font-weight="700">executed=False</tspan><tspan fill="#fca5a5" font-weight="700"> · </tspan><tspan fill="#fca5a5" font-weight="700">HOP rejected</tspan><tspan fill="#fca5a5" font-weight="700"> · </tspan><tspan fill="#fca5a5" font-weight="700">ratings pending</tspan><tspan fill="#fca5a5" font-weight="700">      ║</tspan></text><text x="52" y="1485" xml:space="preserve"><tspan fill="#fca5a5" font-weight="700">       ║      </tspan><tspan fill="#fca5a5" font-weight="700">no automatic execution</tspan><tspan fill="#fca5a5" font-weight="700"> · </tspan><tspan fill="#fca5a5" font-weight="700">no universal future predictor</tspan><tspan fill="#fca5a5" font-weight="700"> · </tspan><tspan fill="#fca5a5" font-weight="700">no hidden rewrites</tspan><tspan fill="#fca5a5" font-weight="700">  ║</tspan></text><text x="52" y="1514" xml:space="preserve"><tspan fill="#fca5a5" font-weight="700">       ╚══════════════════════════════════════════════════════════════════════════════════╝</tspan></text></g>
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1200" viewBox="0 0 1920 1200" role="img" aria-label="Master GEM architecture">
+  <title>Master GEM architecture</title>
+  <rect x="0" y="0" width="1920.0" height="1200.0" fill="#ffffff" />
+  <g data-object-id="style-background">
+    <title>style-background</title>
+    <rect x="0.0" y="0.0" width="1920.0" height="1200.0" fill="#080d18" stroke="#080d18" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-0">
+    <title>style-star-0</title>
+    <ellipse cx="41.0" cy="29.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-1">
+    <title>style-star-1</title>
+    <ellipse cx="238.0" cy="138.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-2">
+    <title>style-star-2</title>
+    <ellipse cx="435.0" cy="247.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-3">
+    <title>style-star-3</title>
+    <ellipse cx="632.0" cy="356.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-4">
+    <title>style-star-4</title>
+    <ellipse cx="829.0" cy="465.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-5">
+    <title>style-star-5</title>
+    <ellipse cx="1026.0" cy="574.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-6">
+    <title>style-star-6</title>
+    <ellipse cx="1223.0" cy="683.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-7">
+    <title>style-star-7</title>
+    <ellipse cx="1420.0" cy="792.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-8">
+    <title>style-star-8</title>
+    <ellipse cx="1617.0" cy="901.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-9">
+    <title>style-star-9</title>
+    <ellipse cx="1814.0" cy="1010.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-10">
+    <title>style-star-10</title>
+    <ellipse cx="171.0" cy="1119.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-11">
+    <title>style-star-11</title>
+    <ellipse cx="368.0" cy="108.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-12">
+    <title>style-star-12</title>
+    <ellipse cx="565.0" cy="217.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-13">
+    <title>style-star-13</title>
+    <ellipse cx="762.0" cy="326.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-14">
+    <title>style-star-14</title>
+    <ellipse cx="959.0" cy="435.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-15">
+    <title>style-star-15</title>
+    <ellipse cx="1156.0" cy="544.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-16">
+    <title>style-star-16</title>
+    <ellipse cx="1353.0" cy="653.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-17">
+    <title>style-star-17</title>
+    <ellipse cx="1550.0" cy="762.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-18">
+    <title>style-star-18</title>
+    <ellipse cx="1747.0" cy="871.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-19">
+    <title>style-star-19</title>
+    <ellipse cx="104.0" cy="980.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-20">
+    <title>style-star-20</title>
+    <ellipse cx="301.0" cy="1089.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-21">
+    <title>style-star-21</title>
+    <ellipse cx="498.0" cy="78.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-22">
+    <title>style-star-22</title>
+    <ellipse cx="695.0" cy="187.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-23">
+    <title>style-star-23</title>
+    <ellipse cx="892.0" cy="296.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-24">
+    <title>style-star-24</title>
+    <ellipse cx="1089.0" cy="405.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-25">
+    <title>style-star-25</title>
+    <ellipse cx="1286.0" cy="514.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-26">
+    <title>style-star-26</title>
+    <ellipse cx="1483.0" cy="623.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-27">
+    <title>style-star-27</title>
+    <ellipse cx="1680.0" cy="732.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-28">
+    <title>style-star-28</title>
+    <ellipse cx="1877.0" cy="841.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-29">
+    <title>style-star-29</title>
+    <ellipse cx="234.0" cy="950.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-30">
+    <title>style-star-30</title>
+    <ellipse cx="431.0" cy="1059.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-31">
+    <title>style-star-31</title>
+    <ellipse cx="628.0" cy="48.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-32">
+    <title>style-star-32</title>
+    <ellipse cx="825.0" cy="157.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-33">
+    <title>style-star-33</title>
+    <ellipse cx="1022.0" cy="266.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-34">
+    <title>style-star-34</title>
+    <ellipse cx="1219.0" cy="375.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-35">
+    <title>style-star-35</title>
+    <ellipse cx="1416.0" cy="484.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-36">
+    <title>style-star-36</title>
+    <ellipse cx="1613.0" cy="593.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-37">
+    <title>style-star-37</title>
+    <ellipse cx="1810.0" cy="702.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-38">
+    <title>style-star-38</title>
+    <ellipse cx="167.0" cy="811.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-39">
+    <title>style-star-39</title>
+    <ellipse cx="364.0" cy="920.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-40">
+    <title>style-star-40</title>
+    <ellipse cx="561.0" cy="1029.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-41">
+    <title>style-star-41</title>
+    <ellipse cx="758.0" cy="1138.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-42">
+    <title>style-star-42</title>
+    <ellipse cx="955.0" cy="127.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-43">
+    <title>style-star-43</title>
+    <ellipse cx="1152.0" cy="236.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-44">
+    <title>style-star-44</title>
+    <ellipse cx="1349.0" cy="345.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-45">
+    <title>style-star-45</title>
+    <ellipse cx="1546.0" cy="454.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-46">
+    <title>style-star-46</title>
+    <ellipse cx="1743.0" cy="563.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-47">
+    <title>style-star-47</title>
+    <ellipse cx="100.0" cy="672.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-48">
+    <title>style-star-48</title>
+    <ellipse cx="297.0" cy="781.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-49">
+    <title>style-star-49</title>
+    <ellipse cx="494.0" cy="890.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-50">
+    <title>style-star-50</title>
+    <ellipse cx="691.0" cy="999.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-51">
+    <title>style-star-51</title>
+    <ellipse cx="888.0" cy="1108.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-52">
+    <title>style-star-52</title>
+    <ellipse cx="1085.0" cy="97.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-53">
+    <title>style-star-53</title>
+    <ellipse cx="1282.0" cy="206.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-54">
+    <title>style-star-54</title>
+    <ellipse cx="1479.0" cy="315.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-55">
+    <title>style-star-55</title>
+    <ellipse cx="1676.0" cy="424.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-56">
+    <title>style-star-56</title>
+    <ellipse cx="1873.0" cy="533.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-57">
+    <title>style-star-57</title>
+    <ellipse cx="230.0" cy="642.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-58">
+    <title>style-star-58</title>
+    <ellipse cx="427.0" cy="751.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-59">
+    <title>style-star-59</title>
+    <ellipse cx="624.0" cy="860.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-60">
+    <title>style-star-60</title>
+    <ellipse cx="821.0" cy="969.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-61">
+    <title>style-star-61</title>
+    <ellipse cx="1018.0" cy="1078.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-62">
+    <title>style-star-62</title>
+    <ellipse cx="1215.0" cy="67.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-63">
+    <title>style-star-63</title>
+    <ellipse cx="1412.0" cy="176.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-64">
+    <title>style-star-64</title>
+    <ellipse cx="1609.0" cy="285.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-65">
+    <title>style-star-65</title>
+    <ellipse cx="1806.0" cy="394.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-66">
+    <title>style-star-66</title>
+    <ellipse cx="163.0" cy="503.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-67">
+    <title>style-star-67</title>
+    <ellipse cx="360.0" cy="612.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-68">
+    <title>style-star-68</title>
+    <ellipse cx="557.0" cy="721.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-69">
+    <title>style-star-69</title>
+    <ellipse cx="754.0" cy="830.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-70">
+    <title>style-star-70</title>
+    <ellipse cx="951.0" cy="939.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-71">
+    <title>style-star-71</title>
+    <ellipse cx="1148.0" cy="1048.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-72">
+    <title>style-star-72</title>
+    <ellipse cx="1345.0" cy="37.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-73">
+    <title>style-star-73</title>
+    <ellipse cx="1542.0" cy="146.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-74">
+    <title>style-star-74</title>
+    <ellipse cx="1739.0" cy="255.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-75">
+    <title>style-star-75</title>
+    <ellipse cx="96.0" cy="364.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-76">
+    <title>style-star-76</title>
+    <ellipse cx="293.0" cy="473.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-77">
+    <title>style-star-77</title>
+    <ellipse cx="490.0" cy="582.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-78">
+    <title>style-star-78</title>
+    <ellipse cx="687.0" cy="691.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-79">
+    <title>style-star-79</title>
+    <ellipse cx="884.0" cy="800.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-80">
+    <title>style-star-80</title>
+    <ellipse cx="1081.0" cy="909.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-81">
+    <title>style-star-81</title>
+    <ellipse cx="1278.0" cy="1018.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-82">
+    <title>style-star-82</title>
+    <ellipse cx="1475.0" cy="1127.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-83">
+    <title>style-star-83</title>
+    <ellipse cx="1672.0" cy="116.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-84">
+    <title>style-star-84</title>
+    <ellipse cx="1869.0" cy="225.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-85">
+    <title>style-star-85</title>
+    <ellipse cx="226.0" cy="334.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-86">
+    <title>style-star-86</title>
+    <ellipse cx="423.0" cy="443.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-87">
+    <title>style-star-87</title>
+    <ellipse cx="620.0" cy="552.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-88">
+    <title>style-star-88</title>
+    <ellipse cx="817.0" cy="661.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-89">
+    <title>style-star-89</title>
+    <ellipse cx="1014.0" cy="770.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-90">
+    <title>style-star-90</title>
+    <ellipse cx="1211.0" cy="879.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-91">
+    <title>style-star-91</title>
+    <ellipse cx="1408.0" cy="988.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-92">
+    <title>style-star-92</title>
+    <ellipse cx="1605.0" cy="1097.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-93">
+    <title>style-star-93</title>
+    <ellipse cx="1802.0" cy="86.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-94">
+    <title>style-star-94</title>
+    <ellipse cx="159.0" cy="195.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-star-95">
+    <title>style-star-95</title>
+    <ellipse cx="356.0" cy="304.0" rx="1.4" ry="1.4" fill="#1e3a5f" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-title">
+    <title>style-title</title>
+    <text x="679.86" y="76.0" font-family="sans-serif" font-size="42.0" fill="#e2e8f0">Master GEM architecture</text>
+  </g>
+  <g data-object-id="style-subtitle">
+    <title>style-subtitle</title>
+    <text x="733.8" y="116.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">CREATE · VERIFY · HOST · SHARED MATH · EVIDENCE FLOW</text>
+  </g>
+  <g data-object-id="style-header-rule">
+    <title>style-header-rule</title>
+    <polyline points="650,158 1270,158" stroke-linejoin="round" fill="none" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-content-frame">
+    <title>style-content-frame</title>
+    <rect x="48.0" y="185.0" width="1824.0" height="820.0" fill="none" stroke="#1e3a5f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="style-content-orbit">
+    <title>style-content-orbit</title>
+    <ellipse cx="960.0" cy="595.0" rx="590.0" ry="350.0" fill="none" stroke="#12233c" stroke-width="1.0" />
+  </g>
+  <g data-object-id="process-outer">
+    <title>process-outer</title>
+    <ellipse cx="957.0695033027145" cy="647.6746312525629" rx="538.6942458245796" ry="344.76431732773096" fill="none" stroke="#475569" stroke-width="1.292866189978991" />
+  </g>
+  <g data-object-id="process-inner">
+    <title>process-inner</title>
+    <ellipse cx="957.0695033027145" cy="647.6746312525629" rx="355.53820224422253" ry="227.54444943630244" fill="none" stroke="#1e3a5f" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-halo-0">
+    <title>process-halo-0</title>
+    <ellipse cx="957.0695033027145" cy="302.91031392483194" rx="16.160827374737387" ry="16.160827374737387" fill="#080d18" stroke="#67e8f9" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-node-0">
+    <title>process-node-0</title>
+    <ellipse cx="957.0695033027145" cy="302.91031392483194" rx="7.541719441544114" ry="7.541719441544114" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-label-0">
+    <title>process-label-0</title>
+    <text x="914.5773011920716" y="226.63120871607146" font-family="sans-serif" font-size="18.315604358035706" fill="#e2e8f0">Geometry</text>
+  </g>
+  <g data-object-id="process-number-0">
+    <title>process-number-0</title>
+    <text x="950.1957647259928" y="201.8512734081408" font-family="sans-serif" font-size="11.85127340814075" fill="#67e8f9">01</text>
+  </g>
+  <g data-object-id="process-halo-1">
+    <title>process-halo-1</title>
+    <ellipse cx="1469.3981760848842" cy="541.1365981442168" rx="16.160827374737387" ry="16.160827374737387" fill="#080d18" stroke="#f0abfc" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-node-1">
+    <title>process-node-1</title>
+    <ellipse cx="1469.3981760848842" cy="541.1365981442168" rx="7.541719441544114" ry="7.541719441544114" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-label-1">
+    <title>process-label-1</title>
+    <text x="1549.864855441962" y="522.0318011481088" font-family="sans-serif" font-size="18.315604358035706" fill="#e2e8f0">Forecast</text>
+  </g>
+  <g data-object-id="process-number-1">
+    <title>process-number-1</title>
+    <text x="1585.4833189758829" y="497.2518658401781" font-family="sans-serif" font-size="11.85127340814075" fill="#f0abfc">02</text>
+  </g>
+  <g data-object-id="process-halo-2">
+    <title>process-halo-2</title>
+    <ellipse cx="1273.7060364932186" cy="926.5948230247743" rx="16.160827374737387" ry="16.160827374737387" fill="#080d18" stroke="#fde68a" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-node-2">
+    <title>process-node-2</title>
+    <ellipse cx="1273.7060364932186" cy="926.5948230247743" rx="7.541719441544114" ry="7.541719441544114" fill="#fde68a" stroke="#fde68a" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-label-2">
+    <title>process-label-2</title>
+    <text x="1317.8296528759574" y="1000.0000000000001" font-family="sans-serif" font-size="18.315604358035706" fill="#e2e8f0">Rhythm</text>
+  </g>
+  <g data-object-id="process-number-2">
+    <title>process-number-2</title>
+    <text x="1342.825065882218" y="975.2200646920694" font-family="sans-serif" font-size="11.85127340814075" fill="#fde68a">03</text>
+  </g>
+  <g data-object-id="process-halo-3">
+    <title>process-halo-3</title>
+    <ellipse cx="640.4329701122103" cy="926.5948230247743" rx="16.160827374737387" ry="16.160827374737387" fill="#080d18" stroke="#86efac" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-node-3">
+    <title>process-node-3</title>
+    <ellipse cx="640.4329701122103" cy="926.5948230247743" rx="7.541719441544114" ry="7.541719441544114" fill="#86efac" stroke="#86efac" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-label-3">
+    <title>process-label-3</title>
+    <text x="495.39037371669485" y="1000.0000000000001" font-family="sans-serif" font-size="18.315604358035706" fill="#e2e8f0">Multi-horizon</text>
+  </g>
+  <g data-object-id="process-number-3">
+    <title>process-number-3</title>
+    <text x="557.5664635697678" y="975.2200646920694" font-family="sans-serif" font-size="11.85127340814075" fill="#86efac">04</text>
+  </g>
+  <g data-object-id="process-halo-4">
+    <title>process-halo-4</title>
+    <ellipse cx="444.74083052054465" cy="541.1365981442169" rx="16.160827374737387" ry="16.160827374737387" fill="#080d18" stroke="#67e8f9" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-node-4">
+    <title>process-node-4</title>
+    <ellipse cx="444.74083052054465" cy="541.1365981442169" rx="7.541719441544114" ry="7.541719441544114" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-label-4">
+    <title>process-label-4</title>
+    <text x="279.28974694218107" y="522.0318011481088" font-family="sans-serif" font-size="18.315604358035706" fill="#e2e8f0">Evidence</text>
+  </g>
+  <g data-object-id="process-number-4">
+    <title>process-number-4</title>
+    <text x="314.9082104761023" y="497.2518658401782" font-family="sans-serif" font-size="11.85127340814075" fill="#67e8f9">05</text>
+  </g>
+  <g data-object-id="process-direction-0">
+    <title>process-direction-0</title>
+    <polyline points="957.07,302.91 1469.4,541.137" stroke-linejoin="round" fill="none" stroke="#475569" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-direction-1">
+    <title>process-direction-1</title>
+    <polyline points="1469.4,541.137 1273.71,926.595" stroke-linejoin="round" fill="none" stroke="#475569" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-direction-2">
+    <title>process-direction-2</title>
+    <polyline points="1273.71,926.595 640.433,926.595" stroke-linejoin="round" fill="none" stroke="#475569" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-direction-3">
+    <title>process-direction-3</title>
+    <polyline points="640.433,926.595 444.741,541.137" stroke-linejoin="round" fill="none" stroke="#475569" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-direction-4">
+    <title>process-direction-4</title>
+    <polyline points="444.741,541.137 957.07,302.91" stroke-linejoin="round" fill="none" stroke="#475569" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-outer">
+    <title>process-emblem-outer</title>
+    <polygon points="957.07,527.007 1077.74,647.675 957.07,768.342 836.402,647.675 957.07,527.007" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="2.1547769832983183" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-0">
+    <title>process-emblem-horizontal-0</title>
+    <polyline points="933.367,550.71 980.772,550.71" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-0">
+    <title>process-emblem-vertical-0</title>
+    <polyline points="860.105,623.972 860.105,671.377" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-1">
+    <title>process-emblem-horizontal-1</title>
+    <polyline points="917.206,566.87 996.933,566.87" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-1">
+    <title>process-emblem-vertical-1</title>
+    <polyline points="876.265,607.811 876.265,687.538" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-2">
+    <title>process-emblem-horizontal-2</title>
+    <polyline points="901.045,583.031 1013.09,583.031" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-2">
+    <title>process-emblem-vertical-2</title>
+    <polyline points="892.426,591.65 892.426,703.699" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-3">
+    <title>process-emblem-horizontal-3</title>
+    <polyline points="884.884,599.192 1029.25,599.192" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-3">
+    <title>process-emblem-vertical-3</title>
+    <polyline points="908.587,575.49 908.587,719.86" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-4">
+    <title>process-emblem-horizontal-4</title>
+    <polyline points="868.724,615.353 1045.42,615.353" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-4">
+    <title>process-emblem-vertical-4</title>
+    <polyline points="924.748,559.329 924.748,736.02" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-5">
+    <title>process-emblem-horizontal-5</title>
+    <polyline points="852.563,631.514 1061.58,631.514" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-5">
+    <title>process-emblem-vertical-5</title>
+    <polyline points="940.909,543.168 940.909,752.181" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-6">
+    <title>process-emblem-horizontal-6</title>
+    <polyline points="836.402,647.675 1077.74,647.675" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-6">
+    <title>process-emblem-vertical-6</title>
+    <polyline points="957.07,527.007 957.07,768.342" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-7">
+    <title>process-emblem-horizontal-7</title>
+    <polyline points="852.563,663.835 1061.58,663.835" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-7">
+    <title>process-emblem-vertical-7</title>
+    <polyline points="973.23,543.168 973.23,752.181" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-8">
+    <title>process-emblem-horizontal-8</title>
+    <polyline points="868.724,679.996 1045.42,679.996" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-8">
+    <title>process-emblem-vertical-8</title>
+    <polyline points="989.391,559.329 989.391,736.02" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-9">
+    <title>process-emblem-horizontal-9</title>
+    <polyline points="884.884,696.157 1029.25,696.157" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-9">
+    <title>process-emblem-vertical-9</title>
+    <polyline points="1005.55,575.49 1005.55,719.86" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-10">
+    <title>process-emblem-horizontal-10</title>
+    <polyline points="901.045,712.318 1013.09,712.318" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-10">
+    <title>process-emblem-vertical-10</title>
+    <polyline points="1021.71,591.65 1021.71,703.699" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-11">
+    <title>process-emblem-horizontal-11</title>
+    <polyline points="917.206,728.479 996.933,728.479" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-11">
+    <title>process-emblem-vertical-11</title>
+    <polyline points="1037.87,607.811 1037.87,687.538" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-horizontal-12">
+    <title>process-emblem-horizontal-12</title>
+    <polyline points="933.367,744.64 980.772,744.64" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-vertical-12">
+    <title>process-emblem-vertical-12</title>
+    <polyline points="1054.03,623.972 1054.03,671.377" stroke-linejoin="round" fill="none" stroke="#f87171" stroke-width="1.0773884916491592" />
+  </g>
+  <g data-object-id="process-emblem-center">
+    <title>process-emblem-center</title>
+    <polygon points="957.07,602.424 1002.32,647.675 957.07,692.925 911.819,647.675 957.07,602.424" stroke-linejoin="round" fill="#080d18" stroke="#f87171" stroke-width="2.1547769832983183" />
+  </g>
+  <g data-object-id="process-center">
+    <title>process-center</title>
+    <text x="910.203103915976" y="657.3711276774053" font-family="sans-serif" font-size="26.93471229122898" fill="#e2e8f0">MASTER</text>
+  </g>
+  <g data-object-id="style-footer">
+    <title>style-footer</title>
+    <text x="786.0" y="1080.0" font-family="sans-serif" font-size="15.0" fill="#e2e8f0">SHARED MATH + CONFORMANCE + ARTIFACT API</text>
+  </g>
+  <g data-object-id="style-loop">
+    <title>style-loop</title>
+    <text x="711.1800000000001" y="1120.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">SENSE  →  MODEL  →  IMAGINE  →  DOUBT  →  CHOOSE  →  ACT  →  LEARN</text>
+  </g>
+  <g data-object-id="style-control">
+    <title>style-control</title>
+    <text x="794.12" y="1154.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">ONE REPOSITORY · ONE KNOWLEDGE FIELD · HUMAN CONTROL</text>
+  </g>
 </svg>

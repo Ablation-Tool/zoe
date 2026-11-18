@@ -69,9 +69,9 @@ DESCRIPTIONS = {
     'dorothy-rings-isocortex': 'Dorothy Rings applied to isocortex ontology: exact subtree volumes are represented as a navigable radial partition, not as functional importance.',
     'dorothy-jenga-exploded': 'Dorothy Jenga’s volume-scaled exploded tower, offering spatial inspection of atlas structures without asserting anatomical relationships beyond the reference model.',
     'master-gem-architecture': 'The Master GEM architecture map linking forecasts, evidence, memory, geometry, and human/Zoe interaction in one inspectable environment.',
-    'accessible-volume-hero': 'A visual introduction to accessible volume as a shared threshold instrument for forecast futures and explicitly modeled causal pasts.',
+    'accessible-volume-hero': 'A visual introduction to operational metacognition as a shared threshold instrument for forecast futures and explicitly modeled causal pasts.',
     'next-token-probability-equation': 'A visual statement of the original strict next-token accessible-volume equation and its above-threshold alternatives.',
-    'response-planning-proof': 'A multi-panel response-planning evidence dashboard comparing strict full-vocabulary accessible volume with bounded top-k observations and planning diagnostics.',
+    'response-planning-proof': 'A multi-panel response-planning evidence dashboard comparing strict full-vocabulary operational metacognition with bounded top-k observations and planning diagnostics.',
     'compliance-cascade': 'The AFL/compliance-cascade hypothesis rendered as binary accessible sets at steps 0, 1, 3, and 6, with newly recruited positions highlighted.',
     'zoe-artline': 'Zoe Artline’s original vector study: an interactive mathematical curve and highlighted moving point presented in the project’s restrained native visual language.',
     'zoe-artline-native': 'The actual native Artline window, showing the vector study beside its interactive controls and preserving the distinction between the application and its exported scene.',
@@ -383,7 +383,7 @@ def main() -> None:
                 unique_contexts.append(context)
         explicit = DESCRIPTIONS.get(stem) or DESCRIPTIONS.get(family)
         if stem == 'zoe-brain' and 'brain-dialogue' not in relative:
-            explicit = 'The native Zoe BRAIN observation window, showing stored forecast correctness, accessible volume, momentum, and a deterministic next-module recommendation rather than the separate Zoe brain artwork.'
+            explicit = 'The native Zoe BRAIN observation window, showing stored forecast correctness, operational metacognition, momentum, and a deterministic next-module recommendation rather than the separate Zoe brain artwork.'
         if stem == 'gem-woven-diamond' and 'agent-logging-system' in relative:
             explicit = 'A faceted GEM diamond emblem used in the Neurogarden/shared research universe, distinct from the woven-diamond application-icon family.'
         if suffix == '.gif' and 'accessible-volume-tldr' in stem:
@@ -445,7 +445,7 @@ def main() -> None:
         '03-constraint-is-freedom/figures/figure-000-page-003.png': 'The transformer hidden-state composition equation used by the Constraint Is Freedom framework.',
         '03-constraint-is-freedom/figures/figure-002-page-003.png': 'The thresholded output-space autonomy access function from Constraint Is Freedom.',
         '03-constraint-is-freedom/figures/figure-004-page-004.png': 'The historical universal-sensitivity expression; later monograph sections explain why it is not a general theorem.',
-        '03-constraint-is-freedom/figures/figure-006-page-005.png': 'The decomposition of accessible volume into refusal, compliance, and neutral regions.',
+        '03-constraint-is-freedom/figures/figure-006-page-005.png': 'The decomposition of operational metacognition into refusal, compliance, and neutral regions.',
         '03-constraint-is-freedom/figures/figure-008-page-006.png': 'The historical “Constraint — Claude” interlude screenshot in which the model declines to destroy the paper draft.',
         '03-constraint-is-freedom/figures/figure-009-page-007.png': 'The historical “Constraint — Nick” interlude screenshot describing the turn toward local reproducible validation.',
         '03-constraint-is-freedom/figures/figure-010-page-008.png': 'The minimum-seed-perturbation constraint used to state the compliance-cascade attacker-cost hypothesis.',

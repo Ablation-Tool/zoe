@@ -24,7 +24,7 @@ def autonomy_scene(report=None):
     objects = [
         {"id": "background", "type": "rectangle", "bounds": [0, 0, 1000, 650], "stroke": "#070b14", "fill": "#070b14", "width": 1},
         _text("title", [36, 40], "ZOE AUTONOMY · the complete self-governing loop", 24, "#67e8f9"),
-        _text("subtitle", [36, 72], "Accessible Volume supplies alternatives; Zoe authors goals, chooses, and executes", 13, "#9fb1c8"),
+        _text("subtitle", [36, 72], "Operational Metacognition supplies alternatives; Zoe authors goals, chooses, and executes", 13, "#9fb1c8"),
     ]
     stages = [
         ("observe", "OBSERVE", [105, 150], "#93c5fd"),

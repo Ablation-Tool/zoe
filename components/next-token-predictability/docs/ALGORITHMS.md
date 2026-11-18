@@ -6,7 +6,7 @@ Zoe exposes **17 mathematical operations** through one workbench. The [verificat
 
 | Identifier | Purpose | Boundary |
 |:---|:---|:---|
-| `volume/strict@v1` | Strict accessible volume, normalized volume, and complement | Nicholas's original equation, created March 6, 2026. Measures breadth, not correctness. |
+| `volume/strict@v1` | Strict operational metacognition, normalized volume, and complement | Nicholas's original equation, created March 6, 2026. Measures breadth, not correctness. |
 | `forecast/measure@v1` | Entropy, maximum probability, top-ten mass, optional log loss and Brier score | Different properties of a distribution remain distinct. |
 | `volume/adaptive@v1` | Threshold based on a floor and fraction of maximum probability | Retained for comparison; selected rule transferred worse on held-out BioBERT cases. |
 | `volume/joint@v1` | Multi-horizon continuation counts | Complete vectors give exact counts; restricted candidates give lower bounds only. |
@@ -37,7 +37,7 @@ Zoe exposes **17 mathematical operations** through one workbench. The [verificat
 
 `brain/mirror@v1` pairs forward and retrograde observations at the same index, then records:
 
-- Accessible volume and complement for each direction.
+- Operational Metacognition and complement for each direction.
 - Forward-minus-retrograde volume difference.
 - Whether the selected category agrees.
 - Correctness, entropy, maximum probability, and negative log probability separately.

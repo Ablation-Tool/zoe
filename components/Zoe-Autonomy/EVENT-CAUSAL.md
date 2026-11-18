@@ -99,7 +99,7 @@ Events
   → sparse modules and temporal features
   → causal memory retrieval
   → candidate future predictions and independent uncertainty
-  → authored goal, Accessible Volume, utility, and guard
+  → authored goal, Operational Metacognition, utility, and guard
   → reversible attention action
   → new observed events
   → measured surprise and gated local update

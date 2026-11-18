@@ -16,7 +16,7 @@ THRESHOLDS = (0.02, 0.05, 0.10, 0.15, 0.30, 0.50)
 DEFAULT_TEXT = (
     "A language model's output tells us what it generated. It does not, by itself, "
     "tell us how many plausible continuations preceded that output. "
-    "Accessible volume addresses this gap"
+    "Operational Metacognition addresses this gap"
 )
 
 
@@ -72,7 +72,7 @@ def causal_prediction(model, inputs, target):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Measure accessible volume for masked or causal token predictions")
+    parser = argparse.ArgumentParser(description="Measure operational metacognition for masked or causal token predictions")
     parser.add_argument("--model", required=True, help="Public Hugging Face model ID")
     parser.add_argument("--style", choices=("masked", "causal"), required=True)
     parser.add_argument("--revision", help="Optional immutable model revision")
@@ -131,7 +131,7 @@ def main():
     )
     report = {
         "schema_version": 1,
-        "instrument": "accessible volume of a full-vocabulary token distribution",
+        "instrument": "operational metacognition of a full-vocabulary token distribution",
         "model": model_name,
         "model_revision": getattr(model.config, "_commit_hash", None),
         "requested_revision": args.revision,

@@ -27,7 +27,7 @@ class ForecastKernel:
         if self.current["top1"] is False:
             return {"module": "research", "action": "inspect", "reason": "The top prediction was incorrect; compare breadth and correctness before steering."}
         if self.current["accessible_volume"] < self.minimum or self.current["accessible_volume"] > self.maximum:
-            return {"module": "volume", "action": "inspect", "reason": "Accessible volume is outside the target band; inspect the threshold before choosing a next test."}
+            return {"module": "volume", "action": "inspect", "reason": "Operational Metacognition is outside the target band; inspect the threshold before choosing a next test."}
         if self.evidence_exports == 0:
             return {"module": "research", "action": "preserve", "reason": "Preserve the measured state and its source evidence before the next experiment."}
         return {"module": "horizon", "action": "inspect", "reason": "The current band is measured; explore bounded continuations or record another observation."}

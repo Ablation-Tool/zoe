@@ -86,7 +86,7 @@ python scripts/verify-one-system.py
 zoe list
 ```
 
-Edit the canonical source under `components/` or the native Zoe tree. Do not create a second checkout to change Autonomy, Accessible Volume, GEM, Dorothy, papers, or visual assets.
+Edit the canonical source under `components/` or the native Zoe tree. Do not create a second checkout to change Autonomy, Operational Metacognition, GEM, Dorothy, papers, or visual assets.
 
 Ablation can be synchronized in either direction with reviewed `git subtree` operations. Every synchronization must preserve Zoe-local changes, rerun affected tests, and update provenance.
 

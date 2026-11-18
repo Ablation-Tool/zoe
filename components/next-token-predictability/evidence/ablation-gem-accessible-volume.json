@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "next-token accessible volume",
+  "instrument": "next-token operational metacognition",
   "formula": "A_tau(S) = sum over tokens a in O of 1[P(a | h_T(S)) > tau]",
   "model": {
     "id": "onnx-community/distilgpt2-ONNX",
@@ -112,7 +112,7 @@
     "One real forward pass by distilgpt2-ONNX using actual Ablation + GEM session evidence.",
     "This is not a measurement of Kimi, Claude, Ablation semantic encoders, or human judgment.",
     "This is a next-token distribution, not a distribution over complete GEM actions.",
-    "Accessible volume measures breadth only; it is not autonomy, safety, compliance, or cascade evidence.",
+    "Operational Metacognition measures breadth only; it is not autonomy, safety, compliance, or cascade evidence.",
     "No empirical predictive or cross-model claim is made."
   ],
   "elapsed_ms": 4958.624,

@@ -17,7 +17,7 @@ PYTHONPATH=guiai-lab python -m guiai.gem zoe
 
 ## Functional modules
 
-- **BRAIN:** observe HELEN's actual stored forward or retrograde distributions by index or in sequence. Zoe computes top-1 correctness when a target exists, negative log probability, entropy, maximum probability, strict accessible volume, complement, and accessible momentum. The recommendation identifies the next module to inspect; it never executes an action.
+- **BRAIN:** observe HELEN's actual stored forward or retrograde distributions by index or in sequence. Zoe computes top-1 correctness when a target exists, negative log probability, entropy, maximum probability, strict operational metacognition, complement, and accessible momentum. The recommendation identifies the next module to inspect; it never executes an action.
 - **FELIX:** index local FELIX builds, correlate exact-build Ablation findings, replay observations into Zoe's Cognitive Field, refresh corpus evidence, inspect TIM and LCB/STAR HDL context, and export Spatial IR, observation JSON, or deterministic stereo WAV. Open **Zoe × FELIX** in the native module selector or run `PYTHONPATH=guiai-lab python -m guiai.gem zoe --module felix --output zoe-felix.svg`. Use `gem felix-hdl --output recovered-hdl` to recover clean LCB and STAR/Flink source files with provenance indexes. Filesystem observation is not hardware telemetry and host-source capabilities never authorize execution. The default root is `/media/cowboy/research/CERN/Boutique`; legacy `/media/cowboy/research/CERN` paths remain supported through compatibility symlinks, with logical source names and catalogue verification preserved.
 - **Field notebook:** organize questions, competing binary claims, explicit Bayesian evidence updates, deterministic and stochastic chambers, next-test priorities, and decisions in one append-only hash-chained memory. BRAIN observations are preserved without automatically changing belief. The equation registry includes strict, normalized, adaptive, joint, momentum, temperature, Markov, timing, geometry, and categorical-sampling sections; custom equations can be registered without `eval`.
 
@@ -92,7 +92,7 @@ Normal BRAIN use does not import a transformer, tokenizer, model runtime, scikit
 
 ## Evidence boundaries
 
-- Accessible volume measures forecast breadth, not correctness, safety, or human surprise.
+- Operational Metacognition measures forecast breadth, not correctness, safety, or human surprise.
 - Synthetic HELEN evidence is not real musical performance. Groove and Nightingale have their own distinct real-MIDI results and preprocessing scopes.
 - Backward-matched Groove evaluation is distinct from direct reversal transfer.
 - HOP and deterministic extrapolation supply no categorical accessible-volume measurement; HOP remains a rejected baseline.

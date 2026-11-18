@@ -2,12 +2,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="864pt" viewBox="0 0 1152 864" xmlns="http://www.w3.org/2000/svg" version="1.1" id="accessible-volume-response-planning">
- <title>Accessible volume response-planning proof</title>
+ <title>Operational Metacognition response-planning proof</title>
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title>Accessible volume response-planning proof</dc:title>
+    <dc:title>Operational Metacognition response-planning proof</dc:title>
     <dc:description>Real next-token distributions, 96 recomputed threshold counts, held-out BioBERT error separation, and NumPy/Zoe/GEM agreement.</dc:description>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
@@ -655,7 +655,7 @@ L 1105.92 209.601017
      </g>
     </g>
     <g id="text_45">
-     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #9aabc3" x="699.61489" y="292.403306" transform="rotate(-90 699.61489 292.403306)">Accessible volume at τ = 0.05</text>
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #9aabc3" x="699.61489" y="292.403306" transform="rotate(-90 699.61489 292.403306)">Operational Metacognition at τ = 0.05</text>
     </g>
    </g>
    <g id="PathCollection_1">
@@ -1469,7 +1469,7 @@ z
    <text style="font-weight: 700; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #67e8f9" x="80.64" y="47.52" transform="rotate(-0 80.64 47.52)">SEE THE DECISION BEFORE THE TOKEN</text>
   </g>
   <g id="text_183">
-   <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #e5edf8" x="80.64" y="82.08" transform="rotate(-0 80.64 82.08)">Accessible volume, made visible</text>
+   <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #e5edf8" x="80.64" y="82.08" transform="rotate(-0 80.64 82.08)">Operational Metacognition, made visible</text>
   </g>
   <g id="text_184">
    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #9aabc3" x="80.64" y="115.776" transform="rotate(-0 80.64 115.776)">A(τ) counts real next-token alternatives with probability strictly above τ</text>
@@ -1487,7 +1487,7 @@ z
    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #e5edf8" x="80.64" y="799.2" transform="rotate(-0 80.64 799.2)">RESPONSE POLICY  ·  measure → inspect alternatives → decode → respond</text>
   </g>
   <g id="text_189">
-   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #9aabc3" x="80.64" y="823.392" transform="rotate(-0 80.64 823.392)">Accessible volume informs review; it does not choose a token, set response length, establish correctness, or authorize autonomy.</text>
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #9aabc3" x="80.64" y="823.392" transform="rotate(-0 80.64 823.392)">Operational Metacognition informs review; it does not choose a token, set response length, establish correctness, or authorize autonomy.</text>
   </g>
   <g id="text_190">
    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #67e8f9" x="1105.92" y="823.392" transform="rotate(-0 1105.92 823.392)">Strict p &gt; τ  ·  executed = false</text>

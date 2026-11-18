@@ -48,7 +48,7 @@ def _parser():
     agent.add_argument("--constraints", help="JSON file containing required constraint objects")
     agent.add_argument("--cwd", help="working directory for the external agent")
 
-    volume = commands.add_parser("volume", help="measure accessible volume and optional accessible momentum")
+    volume = commands.add_parser("volume", help="measure operational metacognition and optional accessible momentum")
     volume.add_argument("probabilities", help="NPZ file containing a full-vocabulary probability vector")
     volume.add_argument("--key", default="probabilities", help="NPZ key for the current distribution")
     volume.add_argument("--previous", help="earlier NPZ distribution used to compute momentum")

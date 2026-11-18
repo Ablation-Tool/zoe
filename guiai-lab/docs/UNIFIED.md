@@ -142,7 +142,7 @@ No single command certifies every optional model backend, graphics driver, mobil
 
 ## Development discipline
 
-Edit the canonical component directly in this repository. Do not create a sibling checkout for routine Zoe, Autonomy, Accessible Volume, GEM, Dorothy, paper, or visual-archive work.
+Edit the canonical component directly in this repository. Do not create a sibling checkout for routine Zoe, Autonomy, Operational Metacognition, GEM, Dorothy, paper, or visual-archive work.
 
 Ablation alone retains an independent upstream repository. Reviewed changes can move between `components/ablation/` and that upstream with `git subtree`, preserving Zoe-local changes and updating provenance. Never force-push over either project.
 

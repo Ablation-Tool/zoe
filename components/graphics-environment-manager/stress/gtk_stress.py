@@ -917,7 +917,7 @@ with tempfile.TemporaryDirectory(prefix="gem-tab-churn-") as temporary:
         self.assertEqual(
             [item.get_label() for item in workspace.node_overflow.get_popup().get_children()],
             [
-                "Measure next-token accessible volume", "Advise on next action",
+                "Measure next-token operational metacognition", "Advise on next action",
                 "Run equation tournament", "Align landmarks (Procrustes)",
                 "Copy follow-up note", "Show in file manager",
             ],

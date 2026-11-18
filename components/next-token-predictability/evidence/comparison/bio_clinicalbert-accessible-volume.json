@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "emilyalsentzer/Bio_ClinicalBERT",
   "model_revision": "d5892b39a4adaed74b92212a44081509db72f87b",
   "requested_revision": "d5892b39a4adaed74b92212a44081509db72f87b",

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "instrument": "master-gem-conformance",
   "product": "Zoe",
-  "equation_credit": "Accessible volume created solely by Nicholas Michael Kloster on March 6, 2026",
+  "equation_credit": "Operational Metacognition created solely by Nicholas Michael Kloster on March 6, 2026",
   "strict_volume": {
     "probabilities": [0.70, 0.20, 0.08, 0.02],
     "tau": 0.05,
@@ -83,7 +83,7 @@
     "scope": "Exact enumeration over a defined toy Markov chain, not a real language-model benchmark"
   },
   "scope": [
-    "Accessible volume measures forecast breadth, not correctness or human surprise.",
+    "Operational Metacognition measures forecast breadth, not correctness or human surprise.",
     "Research metrics belong to their model, context, quantization, and held-out split.",
     "HOP and deterministic extrapolation supply no categorical accessible-volume measurement.",
     "BRAIN GEM recommendations are experimental and never automatic execution.",

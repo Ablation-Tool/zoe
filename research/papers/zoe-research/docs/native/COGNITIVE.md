@@ -4,7 +4,7 @@ The Cognitive Field is a working, bounded memory instrument and software-level c
 
 **GSP** means **General Symbol Processor** here: the explicit symbols are sourced text, tags, record IDs, revisions, and rule descriptions. Operations are deterministic transformations and subset matches over those symbols. GSP is not the historical General Problem Solver, a learned model, or a claim of unrestricted general intelligence.
 
-![Zoe Cognitive Field worked example](images/zoe-cognitive-field.png)
+![Zoe Cognitive Field worked example](../../assets/native/zoe-cognitive-field.png)
 
 ## Open it
 
@@ -54,7 +54,7 @@ Cognitive operations share the field-notebook event chain:
 
 The event clock is a **local ordinal**, not a clock battery, a measurement of physical time, or a prediction of the future. The logical work area stays at 1400 × 900 scene coordinates; the physical viewport scales it without changing the memory or the exported geometry. This follows the supplied physical-screen/work-area reference without copying the source figure.
 
-The **Z.O.E.** scene uses layered polygons for active memory and a compact visual key for records, sourced inputs, matching, review, and the event chain. These symbols make the view easier to scan; the accompanying text and JSON preserve the full context. The [supplied visual references and provenance](references/cognitive-field/PROVENANCE.md) remain separate from Zoe's generated scenes. The layered glyph is an illustrative projection, not a neural or anatomical model.
+The **Z.O.E.** scene uses layered polygons for active memory and a compact visual key for records, sourced inputs, matching, review, and the event chain. These symbols make the view easier to scan; the accompanying text and JSON preserve the full context. The [supplied visual references and provenance](../../../../../guiai-lab/docs/references/cognitive-field/PROVENANCE.md) remain separate from Zoe's generated scenes. The layered glyph is an illustrative projection, not a neural or anatomical model.
 
 The hash chain supplies **tamper evidence, not authentication**. It has no secret key and cannot establish who created or edited a document.
 
@@ -74,6 +74,6 @@ The suite covers capacity and eviction, provenance, revision mismatches, negativ
 
 ## Scope
 
-This is an original software architecture inspired by the supplied memory-flow composition. It is **not ACT-R or Spaun**, a trained neural network, a model of consciousness, or an autonomous agent. No CNN or regression forest is trained here. Anatomical artwork elsewhere in Zoe is illustrative or atlas-derived; this module uses no medical data. Accessible volume measures forecast breadth, not correctness. Human review remains the action boundary.
+This is an original software architecture inspired by the supplied memory-flow composition. It is **not ACT-R or Spaun**, a trained neural network, a model of consciousness, or an autonomous agent. No CNN or regression forest is trained here. Anatomical artwork elsewhere in Zoe is illustrative or atlas-derived; this module uses no medical data. Operational Metacognition measures forecast breadth, not correctness. Human review remains the action boundary.
 
-The [anatomical dialogue](images/zoe-cognitive-anatomy.png) pairs Zoe's existing organic brain artwork with the GSP memory pipeline. Inspired by the supplied [Cognitive architecture reference](https://en.wikiquote.org/wiki/Cognitive_architecture), it distinguishes sensory encoding, explicit transforms, decoding, and review. It does not map these operations to cortical regions or implement reward estimation, action selection, or motor output. The anatomical panel is illustrative; it is not a medical image or a model of Zoe's software.
+The [anatomical dialogue](../../assets/native/zoe-cognitive-anatomy.png) pairs Zoe's existing organic brain artwork with the GSP memory pipeline. Inspired by the supplied [Cognitive architecture reference](https://en.wikiquote.org/wiki/Cognitive_architecture), it distinguishes sensory encoding, explicit transforms, decoding, and review. It does not map these operations to cortical regions or implement reward estimation, action selection, or motor output. The anatomical panel is illustrative; it is not a medical image or a model of Zoe's software.

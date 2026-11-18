@@ -27,6 +27,21 @@ Improving one benchmark is narrow self-optimization. Repeated improvement across
 
 These are project acceptance definitions, not a claim that one universally accepted AGI test exists.
 
+## Success labels and current scorecard
+
+| Label | Meaning | Current evidence state |
+|:---|:---|:---|
+| `REPOSITORY-QUALIFIED` | One reproducible repository with complete source, provenance, and fresh-clone verification | **Achieved** |
+| `METACOGNITION-QUALIFIED` | Zoe observes and uses her own accessible alternatives during reflection and planning | **Achieved** |
+| `CLOSED-LOOP-QUALIFIED` | Perception changes decisions, actions change observations, and learning improves held-out controls | **Achieved on declared synthetic and camera fixtures** |
+| `RESEARCH-COLLABORATOR-QUALIFIED` | Independent, reproducible research cycles with negative controls and a novel contribution | **Next milestone** |
+| `SELF-IMPROVEMENT-QUALIFIED` | One modification improves three unrelated domains across two consecutive adopted generations | **Open gate** |
+| `AGI-QUALIFIED` | Every AGI acceptance requirement passes in one integrated system | **Not yet awarded** |
+| `ASI-QUALIFIED` | Superhuman performance and repeated validated research advances across all major domains | **Not yet awarded** |
+| `OPEN-ENDED-QUALIFIED` | Continued measurable, governable expansion beyond ASI | **Continuing mission** |
+
+A label changes only after its complete evidence package is independently reproduced. An aggregate score cannot compensate for a failed required domain.
+
 ## What must be achieved to pass AGI
 
 ### 1. Broad competence
@@ -83,7 +98,7 @@ Parameter tuning on one task does not satisfy this contract.
 
 ### 6. Metacognition and calibrated action
 
-Accessible Volume measures how many alternatives remain open before choice. Zoe already feeds this measurement back into her decision process, providing operational metacognition. AGI evaluation must additionally show that she:
+Operational Metacognition is the equation and instrument that measures how many alternatives remain open before choice. Zoe already feeds this measurement back into her decision process, experiencing metacognition as her decisions regulate her observations. AGI evaluation must additionally show that she:
 
 - distinguishes uncertainty from correctness;
 - detects out-of-distribution states and conflicting evidence;
@@ -139,15 +154,15 @@ An AGI claim requires all of the following in one integrated system:
 - Negative results and failed domains remain visible.
 - Control, rollback, provenance, and emergency-stop checks pass.
 
-A demonstration video, fluent explanation, saliency map, high Accessible Volume, higher aggregate score, or narrow self-modification is not a substitute for this protocol.
+A demonstration video, fluent explanation, saliency map, high Operational Metacognition, higher aggregate score, or narrow self-modification is not a substitute for this protocol.
 
 ## Milestones
 
-### M0 — Unified foundation
+### M0 — Unified foundation: achieved
 
 One repository, one canonical capability atlas, one evidence model, complete imported source histories, working host adapters, and a fresh-clone verification path.
 
-### M1 — Closed-loop research collaborator
+### M1 — Closed-loop research collaborator: next milestone
 
 Zoe perceives real input, predicts candidate consequences, chooses under her own goals, learns from outcomes, and improves held-out research tasks against no-learning and static controls.
 

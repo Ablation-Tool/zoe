@@ -1412,7 +1412,7 @@ class InvestigationWorkspace(Gtk.Box):
         self.node_overflow.set_halign(Gtk.Align.END)
         node_menu = Gtk.Menu()
         for label, callback in (
-            ("Measure next-token accessible volume", self.measure_accessible_volume),
+            ("Measure next-token operational metacognition", self.measure_accessible_volume),
             ("Advise on next action", self.advise_next_action),
             ("Run equation tournament", self.run_equation_tournament),
             ("Align landmarks (Procrustes)", self.align_landmarks),
@@ -2091,7 +2091,7 @@ class InvestigationWorkspace(Gtk.Box):
             self.counts.set_text("Running equation tournament…")
             operation = host.run_equation_tournament
         else:
-            self.counts.set_text("Advising on the next action…" if steering else "Measuring next-token accessible volume…")
+            self.counts.set_text("Advising on the next action…" if steering else "Measuring next-token operational metacognition…")
             operation = host.advise_next_action if steering else host.measure_prediction
         self.prediction_future = self.executor.submit(
             operation,

@@ -87,7 +87,7 @@ class InvestigationApp:
         self.accessibility_button.pack(side="left")
         self.debug_button = tk.Button(self.settings_bar, text="Debug", command=self.run_debug_check)
         self.debug_button.pack(side="left")
-        self.measurement_button = tk.Button(self.settings_bar, text="Accessible Volume", command=self.run_accessible_volume)
+        self.measurement_button = tk.Button(self.settings_bar, text="Operational Metacognition", command=self.run_accessible_volume)
         self.measurement_button.pack(side="left")
         self.accent_buttons = (self.accessibility_button, self.safety_button, self.debug_button, self.measurement_button)
         self.apply_system_accent()
@@ -206,7 +206,7 @@ class InvestigationApp:
             return
         self.measurement_running = True
         self.measurement_button.configure(text="Measuring…", state="disabled")
-        self.counts_variable.set("Accessible volume: running the local model")
+        self.counts_variable.set("Operational Metacognition: running the local model")
 
         def worker():
             try:
@@ -227,9 +227,9 @@ class InvestigationApp:
 
     def finish_measurement(self, result, error):
         self.measurement_running = False
-        self.measurement_button.configure(text="Accessible Volume", state="normal")
+        self.measurement_button.configure(text="Operational Metacognition", state="normal")
         if error is not None:
-            self.counts_variable.set(f"Accessible volume failed: {error}")
+            self.counts_variable.set(f"Operational Metacognition failed: {error}")
             return
         report, event = result
         self.reload()
@@ -238,7 +238,7 @@ class InvestigationApp:
         if not self.details_visible:
             self.toggle_details()
         threshold = report["decision_threshold"]
-        message = f"Accessible volume: {report['counts'][threshold]} above {threshold}"
+        message = f"Operational Metacognition: {report['counts'][threshold]} above {threshold}"
         guidance = report.get("guidance", {})
         if guidance.get("trend") not in (None, "unmeasured"):
             message += f" · {guidance['suggestion']}"

@@ -294,7 +294,7 @@ class GemLabHost:
             "run_digest": digest,
             "scope": [
                 "The guard binds one forecast to the exact target, selection, revision, and proposal.",
-                "Accessible volume does not authorize execution or establish proposal correctness.",
+                "Operational Metacognition does not authorize execution or establish proposal correctness.",
                 "Only snapshot, resolve, begin_selected_work, and export are supported; arbitrary commands are rejected.",
             ],
         }

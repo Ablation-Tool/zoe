@@ -9,7 +9,7 @@
       "model": "google-bert/bert-base-cased",
       "revision": "cd5ef92a9fb2f889e972770a36d4ed042daf221e",
       "style": "masked",
-      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Accessible volume addresses this gap",
+      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Operational Metacognition addresses this gap",
       "target": "gap"
     },
     {
@@ -17,7 +17,7 @@
       "model": "FacebookAI/roberta-base",
       "revision": "e2da8e2f811d1448a5b465c236feacd80ffbac7b",
       "style": "masked",
-      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Accessible volume addresses this gap",
+      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Operational Metacognition addresses this gap",
       "target": "gap"
     },
     {
@@ -25,7 +25,7 @@
       "model": "albert/albert-base-v2",
       "revision": "8e2f239c5f8a2c0f253781ca60135db913e5c80c",
       "style": "masked",
-      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Accessible volume addresses this gap",
+      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Operational Metacognition addresses this gap",
       "target": "gap"
     },
     {
@@ -33,7 +33,7 @@
       "model": "openai-community/gpt2",
       "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
       "style": "causal",
-      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Accessible volume addresses this gap",
+      "text": "A language model's output tells us what it generated. It does not, by itself, tell us how many plausible continuations preceded that output. Operational Metacognition addresses this gap",
       "target": "gap"
     },
     {

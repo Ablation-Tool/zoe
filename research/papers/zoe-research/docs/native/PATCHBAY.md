@@ -168,7 +168,7 @@ zoe patchbay cog --model attention-cog.json \
 
 Cog accepts up to 16 explicit local text, Markdown, HTML, HDL, C/C++, or Python files, each at most 2 MiB. Training retains at most 500,000 tokens and 2,048 vocabulary entries; the default is 512. HTML tags, scripts, and styles are not executed. Source paths, original-file hashes, normalized-text hashes, and decoding replacements are retained.
 
-The forward distribution interpolates observed next-token counts with the corpus unigram distribution. Backward walks reverse the observed transition relation, not meaning, causality, or time. Every walk reports top candidates, a digest of the complete probability vector, and accessible volume at the chosen threshold.
+The forward distribution interpolates observed next-token counts with the corpus unigram distribution. Backward walks reverse the observed transition relation, not meaning, causality, or time. Every walk reports top candidates, a digest of the complete probability vector, and operational metacognition at the chosen threshold.
 
 The accessible-volume calculation is:
 
@@ -196,6 +196,6 @@ ZOE_ABLATION_ROOT=/home/cowboy/_projects/GEM/components/ablation \
 
 The suites cover actual HEX, BIT, source ZIP, EMP, FIT, timing, source, and media inputs; Ed25519 signing and trust failures; dry-run and gated execution; process timeout and output bounds; report tampering; Cog training and forward/backward probabilities; direct and forwarded CLIs; and native inspection, Cog, validation, and export workflows. Optional local-evidence tests are skipped when their inputs or tools are unavailable.
 
-![Zoe Patchbay](images/zoe-patchbay.png)
+![Zoe Patchbay](../../assets/native/zoe-patchbay.png)
 
-![Native Zoe Patchbay](images/zoe-patchbay-native.png)
+![Native Zoe Patchbay](../../assets/native/zoe-patchbay-native.png)

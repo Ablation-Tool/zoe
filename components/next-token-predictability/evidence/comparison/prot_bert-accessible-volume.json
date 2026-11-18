@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "Rostlab/prot_bert",
   "model_revision": "7a894481acdc12202f0a415dd567f6cfdb698908",
   "requested_revision": "7a894481acdc12202f0a415dd567f6cfdb698908",

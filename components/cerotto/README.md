@@ -105,20 +105,20 @@ GEMSEAL is experimental and has not received an independent cryptographic review
 </details>
 
 <details>
-<summary>Deterministic Guard & Accessible Volume</summary>
+<summary>Deterministic Guard & Operational Metacognition</summary>
 
-**Deterministic guard and accessible volume**
+**Deterministic guard and operational metacognition**
 
 The native `guard` command supports `query_timeline`, `get_event`, `get_manifest`, and `verify_case`. It validates the proposal schema, duplicate fields, arguments, expected case event count, forecast context hash, normalized distribution, existing output, and duplicate action IDs. Denied actions do not execute. Failed executions cannot produce success receipts.
 
-Accessible volume describes the shape of a particular next-token forecast. It is an observational research measurement, not a maliciousness score, authorization rule, trained attack predictor, or measurement of the embedded agent unless that exact model supplied the distribution.
+Operational Metacognition describes the shape of a particular next-token forecast. It is an observational research measurement, not a maliciousness score, authorization rule, trained attack predictor, or measurement of the embedded agent unless that exact model supplied the distribution.
 
 | Capability | Code | Description |
 |:---|:---|:---|
 | [Native guarded evidence actions](docs/capabilities.md) | [1](src/guard.c)&nbsp;[2](src/timeline.c)&nbsp;[3](src/manifest.c) | Validates and executes four bounded evidence actions inside a write transaction with stale-state and forecast-binding checks. |
 | [Guard proposal provenance](docs/capabilities.md) | [1](src/guard.c) | Registers raw proposals as hashed sources and appends forecast, proposal, decision, and execution records, with duplicate-action rollback. |
-| [Native accessible volume](docs/capabilities.md) | [1](src/forecast.c) | Measures up to 100,000 normalized probabilities with strict thresholds, entropy, maximum probability, top-ten mass, and packed-value SHA-256. |
-| [Python accessible volume](docs/capabilities.md) | [1](investigation/forecast.py) | Supports up to 1,000,000 probabilities, 32 custom ordered thresholds, logits conversion, and document, probability, and token-ID hashes. |
+| [Native operational metacognition](docs/capabilities.md) | [1](src/forecast.c) | Measures up to 100,000 normalized probabilities with strict thresholds, entropy, maximum probability, top-ten mass, and packed-value SHA-256. |
+| [Python operational metacognition](docs/capabilities.md) | [1](investigation/forecast.py) | Supports up to 1,000,000 probabilities, 32 custom ordered thresholds, logits conversion, and document, probability, and token-ID hashes. |
 
 </details>
 
@@ -484,7 +484,7 @@ The latest code-and-behavior audit identified these concrete improvement areas:
 - SIGKILL and power loss can leave temporary files. Permissions and atomic publication depend on filesystem behavior.
 - Same-user agents, root compromise, key theft, plaintext exposure, and agent-writable evidence stores weaken the security boundary. The SQLite event store is not inherently tamper-evident. Protected or remote evidence replication is required for stronger custody.
 - Native analysis accepts HTTP as well as HTTPS. Use a trusted endpoint and protect case metadata, prompts, API keys, and responses as sensitive material.
-- Accessible volume is not a maliciousness score. No trained attack predictor or measured detection advantage is claimed. The DistilGPT2 bridge does not measure Kimi, Claude, Codex, or another external agent unless that exact model supplies the distribution.
+- Operational Metacognition is not a maliciousness score. No trained attack predictor or measured detection advantage is claimed. The DistilGPT2 bridge does not measure Kimi, Claude, Codex, or another external agent unless that exact model supplies the distribution.
 - Paths and identifiers remain untrusted evidence. LLM observations and hypotheses require human verification. Citations establish that referenced events exist, not that the model's interpretation is correct.
 - The optional embedded terminal is explicitly unguarded and retains the selected agent's permissions.
 - GEMSEAL remains experimental and has not received an independent cryptographic audit.

@@ -9,7 +9,7 @@ from .experiment import _zoe_root, run_experiment, save_report, summary, verify_
 
 
 def parser():
-    result = argparse.ArgumentParser(prog="zoe-autonomy", description="Zoe + Accessible Volume · operational full self-governing autonomy")
+    result = argparse.ArgumentParser(prog="zoe-autonomy", description="Zoe + Operational Metacognition · operational full self-governing autonomy")
     result.add_argument("--zoe-root", help="Zoe source checkout; default: ZOE_ROOT")
     commands = result.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run", help="run the real-Zoe measurement-action experiment")

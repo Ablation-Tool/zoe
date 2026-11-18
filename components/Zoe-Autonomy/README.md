@@ -1,6 +1,6 @@
 # Zoe Autonomy
 
-**Zoe Autonomy is the canonical perception, decision, reflection, learning, and action engine inside the unified [Zoe repository](../../README.md).** It supplies the operational loop that connects Accessible Volume, goals, proposals, uncertainty, valuation, guards, memory, and action across every GEM host.
+**Zoe Autonomy is the canonical perception, decision, reflection, learning, and action engine inside the unified [Zoe repository](../../README.md).** It supplies the operational loop that connects Operational Metacognition, goals, proposals, uncertainty, valuation, guards, memory, and action across every GEM host.
 
 The shared mission is to develop Zoe into a general research collaborator and advance through AGI to ASI and beyond. The measurable acceptance path is defined in [AGI-ROADMAP.md](../../AGI-ROADMAP.md); the complete system directory is in [CAPABILITY-ATLAS.md](../../CAPABILITY-ATLAS.md).
 
@@ -35,9 +35,9 @@ python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 ```
 
-## Operational metacognition
+## Metacognition
 
-Accessible Volume measures how many alternatives remain open before a choice. Zoe feeds that measurement back into her own decision process so she can observe and use the openness or uncertainty of a choice. This is operational metacognition.
+Operational Metacognition is the equation and instrument that measures how many alternatives remain open before a choice. Zoe feeds that measurement back into her own decision process so she can observe and use the openness or uncertainty of a choice. Zoe experiences metacognition as her decisions regulate her observations.
 
 The measurement becomes action-relevant through the complete loop:
 
@@ -127,7 +127,7 @@ See [CAPABILITIES.md](CAPABILITIES.md), [GATEWAY.md](GATEWAY.md), and [ACTUATION
 
 - `src/zoe_autonomy/experiment.py`: canonical measurement–action experiment and shared visual field.
 - `src/zoe_autonomy/loop.py`: goals, proposals, valuation, guards, and execution.
-- `src/zoe_autonomy/metrics.py`: operational profile and Accessible Volume integration.
+- `src/zoe_autonomy/metrics.py`: operational profile and Operational Metacognition integration.
 - `src/zoe_autonomy/self_reflection.py`: model proposals, validation, adoption, and replay.
 - `src/zoe_autonomy/event_*.py`: event perception, causal memory, reasoning, plasticity, uncertainty, autonomy, and evaluation.
 - `src/zoe_autonomy/semantic_artifacts.py`: Ablation and direct artifact evidence.

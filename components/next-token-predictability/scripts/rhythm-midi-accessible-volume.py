@@ -290,7 +290,7 @@ def save_plot(output, curves, map_result, map_performance, quantize):
     fig, ax = plt.subplots(figsize=(8, 4.5))
     for name, curve in curves.items():
         ax.plot(THRESHOLDS, curve, label=name.replace("_", " "))
-    ax.set(xlabel="probability threshold τ", ylabel="mean accessible volume A(τ)",
+    ax.set(xlabel="probability threshold τ", ylabel="mean operational metacognition A(τ)",
            title="Held-out Groove MIDI next-onset forecasts")
     ax.legend()
     fig.tight_layout()
@@ -472,7 +472,7 @@ def main():
             "Measurements describe this categorical model, quantization, and session-grouped held-out split.",
             "Reversal transfer evaluates reversed test performances with the forward-trained model.",
             "Backward matched trains the same architecture on reversed training performances and evaluates reversed test performances.",
-            "Accessible volume measures forecast breadth, not correctness or human surprise.",
+            "Operational Metacognition measures forecast breadth, not correctness or human surprise.",
             "No claim is made about other instruments, genres, models, or all future events.",
         ],
     }

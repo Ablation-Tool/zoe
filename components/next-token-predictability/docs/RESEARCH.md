@@ -1,4 +1,4 @@
-# The Significance of Accessible Volume
+# The Significance of Operational Metacognition
 
 ![Next-token probability and the accessible-volume equation](../assets/next-token-probability-equation.png)
 
@@ -12,7 +12,7 @@
 
 [Read the paper](../paper/accessible-volume-significance.pdf)
 
-[Read the companion paper: Accessible Volume Beyond the Next Token](../paper/accessible-volume-beyond-next-token.pdf)
+[Read the companion paper: Operational Metacognition Beyond the Next Token](../paper/accessible-volume-beyond-next-token.pdf)
 
 [Evidence guide: verified artifacts, historical research context, and links to all 19 tested models](../evidence/README.md)
 
@@ -20,7 +20,7 @@
 
 ## Abstract
 
-Before a language model produces a token, it assigns probabilities to the alternatives. Accessible volume turns that forecast into a direct measurement of next-token predictability. It counts how many alternatives have probabilities above a chosen threshold. A small count means the next-token choice is concentrated on a few alternatives; a large count means many alternatives remain in play. The final text records which token was selected, while accessible volume shows how open or settled the decision was before selection. This makes the model’s hidden decision surface measurable, comparable, and reproducible. Experiments with Ablation + GEM, XLNet, and sixteen additional models demonstrate the measurement on real probability distributions. In a subsequent 120-case BioBERT experiment, the original fixed rule at $\tau=0.05$ outperformed an optimized adaptive equation on held-out biomedical documents, achieving AUROC $0.7737$ and AUPRC $0.7978$ compared with $0.7008$ and $0.6599$ for distinguishing incorrect and correct top predictions. The adaptive rule improved validation measurements, but the simpler original equation transferred better to unseen cases.
+Before a language model produces a token, it assigns probabilities to the alternatives. Operational Metacognition turns that forecast into a direct measurement of next-token predictability. It counts how many alternatives have probabilities above a chosen threshold. A small count means the next-token choice is concentrated on a few alternatives; a large count means many alternatives remain in play. The final text records which token was selected, while operational metacognition shows how open or settled the decision was before selection. This makes the model’s hidden decision surface measurable, comparable, and reproducible. Experiments with Ablation + GEM, XLNet, and sixteen additional models demonstrate the measurement on real probability distributions. In a subsequent 120-case BioBERT experiment, the original fixed rule at $\tau=0.05$ outperformed an optimized adaptive equation on held-out biomedical documents, achieving AUROC $0.7737$ and AUPRC $0.7978$ compared with $0.7008$ and $0.6599$ for distinguishing incorrect and correct top predictions. The adaptive rule improved validation measurements, but the simpler original equation transferred better to unseen cases.
 
 ## The missing information in an output
 
@@ -28,7 +28,7 @@ A generated answer is a record of what happened. It is not a complete descriptio
 
 Two model states can produce the same next token while having very different distributions of alternatives. In one state, the selected token may dominate every other possibility. In another, many tokens may remain plausible. Reading only the final token hides that distinction.
 
-The relevant question is therefore not merely, “What did the model choose?” It is also, “How much room did the model have to choose differently?” Accessible volume provides one way to answer that question with a number.
+The relevant question is therefore not merely, “What did the model choose?” It is also, “How much room did the model have to choose differently?” Operational Metacognition provides one way to answer that question with a number.
 
 ## Origin of the research
 
@@ -40,7 +40,7 @@ The present experiment tests that question with controlled measurements using ac
 
 ## The equation
 
-Let $S$ be the full input context and $\mathcal{O}$ a finite output vocabulary. Let $P(a\mid h_T(S))$ be the probability that the model assigns to token $a$ as the next token after processing $S$. For a threshold $\tau$, accessible volume is
+Let $S$ be the full input context and $\mathcal{O}$ a finite output vocabulary. Let $P(a\mid h_T(S))$ be the probability that the model assigns to token $a$ as the next token after processing $S$. For a threshold $\tau$, operational metacognition is
 
 $$
 A_\tau(S)=\sum_{a\in\mathcal{O}}\mathbf{1}\!\left[P(a\mid h_T(S))>\tau\right]. \tag{1}
@@ -64,13 +64,13 @@ The computation is simple: after obtaining the distribution, evaluate one compar
 
 ### It distinguishes a forecast from an outcome
 
-The probability distribution is the forecast. Sampling or taking the maximum selects an outcome. Accessible volume describes the shape of the forecast without committing to that outcome.
+The probability distribution is the forecast. Sampling or taking the maximum selects an outcome. Operational Metacognition describes the shape of the forecast without committing to that outcome.
 
 A small count indicates that the model has concentrated its above-threshold alternatives. A large count indicates a broader set. The measurement does not say which token will win. It says how much of the vocabulary remains meaningfully in play at the selected threshold.
 
 ### It makes concentration observable
 
-Concentration is usually discussed through entropy, maximum probability, or top-token mass. Accessible volume adds a different description: the size of the region above a chosen cutoff.
+Concentration is usually discussed through entropy, maximum probability, or top-token mass. Operational Metacognition adds a different description: the size of the region above a chosen cutoff.
 
 The three descriptions are not interchangeable. A distribution can have one dominant token and few above-threshold alternatives, or one dominant token and many alternatives just below the threshold. The count captures a boundary that a single maximum or entropy value does not fully express.
 
@@ -80,7 +80,7 @@ The threshold sweep is more informative than one reading. As $\tau$ increases, $
 
 Ablation + GEM is built around the interaction of a stochastic agent, deterministic execution, shared memory, and human judgment. The agent proposes. The environment executes and records. The human directs and reviews.
 
-Accessible volume supplies a way to inspect the agent before its proposal becomes an action. Actual investigation evidence can be placed into a model context, and the resulting distribution can be measured without generating another token. The deterministic environment can then preserve that measurement alongside the rest of the evidence.
+Operational Metacognition supplies a way to inspect the agent before its proposal becomes an action. Actual investigation evidence can be placed into a model context, and the resulting distribution can be measured without generating another token. The deterministic environment can then preserve that measurement alongside the rest of the evidence.
 
 This does not make the metric an authorization mechanism. It makes it an instrument for understanding the agent’s immediate decision surface while the rest of the system remains constrained and inspectable.
 
@@ -88,7 +88,7 @@ This does not make the metric an authorization mechanism. It makes it an instrum
 
 The measurement was performed on a real forward pass using 963 tokens of actual Ablation + GEM investigation context. The context included a selected artifact, a scoped observation, and real entropy-inspection output from Ablation. A local autoregressive model returned a full distribution over 50,257 next tokens.
 
-| Threshold $\tau$ | Accessible volume $A_\tau(S)$ |
+| Threshold $\tau$ | Operational Metacognition $A_\tau(S)$ |
 |:----------------:|:-----------------------------:|
 |       0.02       |               4               |
 |       0.05       |               2               |
@@ -97,11 +97,11 @@ The measurement was performed on a real forward pass using 963 tokens of actual 
 |       0.30       |               1               |
 |       0.50       |               1               |
 
-Measured accessible volume for the actual Ablation + GEM context.
+Measured operational metacognition for the actual Ablation + GEM context.
 
 The distribution is concentrated. A newline has probability $0.535587$. End-of-text follows with probability $0.109893$. The ten most probable tokens contain $75.45\%$ of the total probability mass. Entropy over the full distribution is $4.2998$ bits.
 
-The immediate meaning is straightforward: the model is not spreading its above-threshold probability across many alternatives. Its next-token decision is concentrated on a small set. Accessible volume turns that observation into a precise, reproducible statement rather than an impression based on the final text.
+The immediate meaning is straightforward: the model is not spreading its above-threshold probability across many alternatives. Its next-token decision is concentrated on a small set. Operational Metacognition turns that observation into a precise, reproducible statement rather than an impression based on the final text.
 
 A repeated forward pass on the same context produced identical input IDs and probability values. Controlled context perturbations changed some threshold counts and left others unchanged. This confirms that the instrument measures the distribution associated with a particular model and context rather than a universal property of the prompt.
 
@@ -115,11 +115,11 @@ XLNet uses a different mechanism. Its content stream represents token identities
 
 An autoregressive model receives only the prefix preceding the target. Its final-position logits therefore describe an ordinary next-token forecast. The target and all later text are absent by construction.
 
-In every case, accessible volume is applied without changing the equation, threshold grid, temperature, or model weights. The result describes one model’s distribution for one input construction. It does not by itself compare training objectives or establish which architecture is better.
+In every case, operational metacognition is applied without changing the equation, threshold grid, temperature, or model weights. The result describes one model’s distribution for one input construction. It does not by itself compare training objectives or establish which architecture is better.
 
 ## An XLNet query-stream extension
 
-The instrument can also examine a prediction for a token already present in the input, not only an ordinary next-token forecast. We used the public XLNet-Base and XLNet-Large models’ query streams with the target token masked out of query-stream attention. The input ended with the paper’s phrase “Accessible volume addresses this gap.” Each resulting distribution contained 32,000 token probabilities.
+The instrument can also examine a prediction for a token already present in the input, not only an ordinary next-token forecast. We used the public XLNet-Base and XLNet-Large models’ query streams with the target token masked out of query-stream attention. The input ended with the paper’s phrase “Operational Metacognition addresses this gap.” Each resulting distribution contained 32,000 token probabilities.
 
 For XLNet-Base, the most likely token was a period, with probability $0.559758$. The second was “issue,” with probability $0.068510$. The actual hidden token “gap” had probability $0.012354$, ranked 12th. Entropy was $3.5946$ bits and the ten most probable tokens contained $82.22\%$ of the mass.
 
@@ -130,13 +130,13 @@ XLNet-Large assigned the highest probability to “problem” ($0.235085$), foll
 | XLNet-Base  |    6 |    2 |    1 |    1 |    1 |    1 |
 | XLNet-Large |    5 |    4 |    2 |    1 |    0 |    0 |
 
-Accessible volume for two XLNet query-stream predictions.
+Operational Metacognition for two XLNet query-stream predictions.
 
 For each model, replacing the target token ID with each of three alternatives produced bit-for-bit identical probability distributions. This confirms that the target token’s identity did not enter either query-stream prediction. The query stream could use the remaining context, but not the hidden token itself. Both experiments used PyTorch 2.14.1+cu130 and Transformers 5.18.0; the scripts, complete probability vectors, and input IDs are included as evidence.
 
 A separate offline XLNet-Base reproduction matched the input IDs, all six threshold counts, and the target-token rank and ordering. Its maximum absolute probability difference was $2.3443\times10^{-7}$. It was therefore numerically close, but not bit-for-bit identical across the two runtimes. The reported threshold counts are reproducible observations; exact raw-probability equality across different runtimes is not claimed.
 
-This extension demonstrates that accessible volume can describe a leakage-free prediction for an existing input token as well as a forecast of what comes next. The two model results are measurements of specific contexts, not a general ranking of model capability. They remain token-level measurements, not evidence about complete actions, correctness, or safety.
+This extension demonstrates that operational metacognition can describe a leakage-free prediction for an existing input token as well as a forecast of what comes next. The two model results are measurements of specific contexts, not a general ranking of model capability. They remain token-level measurements, not evidence about complete actions, correctness, or safety.
 
 ## Cross-model and domain comparisons
 
@@ -161,9 +161,9 @@ We next applied the unchanged equation to sixteen additional models. The general
 | Protein      | ProtBERT                   |   18 |    9 |    0 |    0 |    0 |    0 |
 | Mathematics  | Qwen2.5-Math-1.5B (causal) |    9 |    8 |    4 |    2 |    0 |    0 |
 
-Accessible volume across the fixed threshold grid. Counts describe individual model–input pairs, not a quality leaderboard.
+Operational Metacognition across the fixed threshold grid. Counts describe individual model–input pairs, not a quality leaderboard.
 
-The results illustrate why accessible volume and entropy are different instruments. BioBERT had entropy $9.8879$ bits but only one token above probability 0.02. CySecBERT had entropy $9.7536$ bits but two tokens above that threshold. A broad tail of very small probabilities can produce high entropy without producing many alternatives above a fixed cutoff.
+The results illustrate why operational metacognition and entropy are different instruments. BioBERT had entropy $9.8879$ bits but only one token above probability 0.02. CySecBERT had entropy $9.7536$ bits but two tokens above that threshold. A broad tail of very small probabilities can produce high entropy without producing many alternatives above a fixed cutoff.
 
 The target was the highest-probability token in two of these sixteen cases: Legal-BERT’s “agreement” and Qwen2.5-Math-1.5B’s “4.” This is not a model ranking. Most domain cases used different contexts, targets, vocabularies, and input formats. A single masked-token or next-token prediction is not a benchmark of correctness or domain competence.
 
@@ -173,7 +173,7 @@ The complete input IDs and probability vectors are included for all sixteen case
 
 ## BioBERT: does an adaptive equation improve the original?
 
-We next tested whether an adaptive version of accessible volume could improve detection of BioBERT’s top-1 masked-token prediction errors. The experiment used 120 cases from 30 Creative Commons-licensed Europe PMC abstracts. Each document supplied four eligible, non-repeated, single-token targets. Document-grouped splits contained 60 development, 20 validation, and 40 test cases, assigned with seed 20261103 before inference. No document crossed splits.
+We next tested whether an adaptive version of operational metacognition could improve detection of BioBERT’s top-1 masked-token prediction errors. The experiment used 120 cases from 30 Creative Commons-licensed Europe PMC abstracts. Each document supplied four eligible, non-repeated, single-token targets. Document-grouped splits contained 60 development, 20 validation, and 40 test cases, assigned with seed 20261103 before inference. No document crossed splits.
 
 The original equation was evaluated first on every case. BioBERT produced 29 errors among 60 development cases, 11 among 20 validation cases, and 23 among 40 test cases. Every prediction was repeated bit-for-bit, and every original threshold count was recomputed from the saved full-vocabulary distribution.
 
@@ -202,9 +202,9 @@ The significance is direct: making the threshold responsive to the maximum proba
 
 ## Wider experiments: rhythm, reversal, and multiple horizons
 
-Exploratory extensions have now tested accessible volume on musical onsets, temporal reflection, geometric extrapolation, and multi-token continuations. Together, they support a precise conclusion: accessible volume is a reproducible measurement of **forecast breadth under a model, context, and threshold**. It is not a standalone measurement of correctness or a guarantee of future prediction.
+Exploratory extensions have now tested operational metacognition on musical onsets, temporal reflection, geometric extrapolation, and multi-token continuations. Together, they support a precise conclusion: operational metacognition is a reproducible measurement of **forecast breadth under a model, context, and threshold**. It is not a standalone measurement of correctness or a guarantee of future prediction.
 
-**Forecast breadth is not correctness.** The [Magenta Groove experiment](../evidence/rhythm-midi/README.md) used 514 human-performed drum performances with disjoint recording-session splits. Accuracy and log-loss changed across conditions while mean accessible volume remained effectively unchanged:
+**Forecast breadth is not correctness.** The [Magenta Groove experiment](../evidence/rhythm-midi/README.md) used 514 human-performed drum performances with disjoint recording-session splits. Accuracy and log-loss changed across conditions while mean operational metacognition remained effectively unchanged:
 
 | Condition | Top-1 accuracy | Log-loss | Mean $A_\tau$ over threshold sweep |
 |:---|---:|---:|---:|
@@ -212,23 +212,23 @@ Exploratory extensions have now tested accessible volume on musical onsets, temp
 | Reversal transfer | 16.01% | 3.333 | 1.885 |
 | Backward matched | 17.06% | 3.183 | 1.886 |
 
-A model can therefore have a narrow forecast and still be confidently wrong. Accessible volume should be reported alongside accuracy, log-loss, and calibration rather than substituted for them.
+A model can therefore have a narrow forecast and still be confidently wrong. Operational Metacognition should be reported alongside accuracy, log-loss, and calibration rather than substituted for them.
 
 **Reversed sequences are not inherently unpredictable.** The backward-matched model, trained on reversed performances, nearly matched forward accuracy. Applying the forward-trained model directly to reversed input performed worse. Much of the observed reversal penalty was therefore a model-transfer effect, not evidence of a fundamental property of time reversal.
 
 **Different material can produce different forecast breadth.** In the [Nightingale experiment](../evidence/rhythm-lab/README.md), classical music had 68.3% forward top-1 accuracy and $A_{0.1}=1.91$; jazz had 49.5% and $A_{0.1}=2.69$; folk had 61.9% and $A_{0.1}=2.21$. Under this categorical model and quantization, jazz was the least predictable and had the broadest forecasts. Retrograde accuracies were similar at 67.9%, 47.1%, and 61.4%, respectively. These are measurements of particular model–data combinations, not universal properties of genres or listeners.
 
-**Geometry helps comparison, but the geometric predictor was rejected.** Procrustes alignment provides a reproducible way to compare rhythms or landmarks after removing differences such as tempo, starting position, rotation, or scale. It does not supply a probability distribution. The composed-rotation Harmonic Osculating Predictor (HOP) achieved only 11.3% top-1 accuracy, compared with 41.3% for linear extrapolation and 46.6% for the model. HOP is retained as a [rejected experimental baseline](../evidence/rhythm-hop/README.md), not as evidence that transformer hidden states follow musical circles. A deterministic geometric forecast cannot supply accessible volume without probabilistic calibration.
+**Geometry helps comparison, but the geometric predictor was rejected.** Procrustes alignment provides a reproducible way to compare rhythms or landmarks after removing differences such as tempo, starting position, rotation, or scale. It does not supply a probability distribution. The composed-rotation Harmonic Osculating Predictor (HOP) achieved only 11.3% top-1 accuracy, compared with 41.3% for linear extrapolation and 46.6% for the model. HOP is retained as a [rejected experimental baseline](../evidence/rhythm-hop/README.md), not as evidence that transformer hidden states follow musical circles. A deterministic geometric forecast cannot supply operational metacognition without probabilistic calibration.
 
 **Multiple horizons extend the measurement, not the guarantee.** The [multi-horizon formulation](../evidence/research-context/temporal-predictability.md#multi-horizon-accessible-volume) counts complete candidate continuations whose learned conditional joint probabilities exceed a threshold. It can describe how many multi-token futures remain open, but it cannot guarantee correct prediction of every future token. Exact enumeration considers $|O|^h$ continuations for vocabulary size $|O|$ and horizon $h$, so computational cost grows exponentially. Practical experiments require bounded candidate sets or explicitly identified approximations; an approximate count must not be presented as the exact sum.
 
 **Implementation is not outcome validation.** The [Ablation + GEM integration records](../evidence/README.md#exploratory-experiment-results) show that measurement, geometry, evidence preservation, and volume-band steering can be implemented. They do not yet demonstrate that steering improves creativity, musical quality, reasoning, or safety. Likewise, the [native GEM Procrustes integration](https://github.com/Ablation-Tool/graphics-environment-manager/tree/main/examples/landmark-alignment) demonstrates working geometric alignment and scoped evidence, not probabilistic prediction.
 
-These experiments do not yet establish that accessible volume predicts human surprise—the listening study awaits real ratings—that volume-band steering produces useful creative output, that narrow forecasts are semantically correct, or that these equations model human expectation or guarantee future behavior.
+These experiments do not yet establish that operational metacognition predicts human surprise—the listening study awaits real ratings—that volume-band steering produces useful creative output, that narrow forecasts are semantically correct, or that these equations model human expectation or guarantee future behavior.
 
 ### Strongest next experiment
 
-The strongest next step is to validate multi-horizon accessible volume on real language-model outputs and test whether steering it produces useful results. The central tradeoff is exactness versus computational cost:
+The strongest next step is to validate multi-horizon operational metacognition on real language-model outputs and test whether steering it produces useful results. The central tradeoff is exactness versus computational cost:
 
 1. Measure horizons $h=1,2,3$ on real model outputs.
 2. Compare exact enumeration on tiny candidate sets with bounded top-$k$, beam, or sampled approximations.
@@ -261,7 +261,7 @@ From Zoe's perspective, GEM is the connective tissue between imagination and ver
 |:---|:---|
 | Native GUI | GTK3, direct pointer and keyboard interaction, GUIAI Lab integration, and headless operation. No browser or development server is required. |
 | Geometry | Procrustes similarity/rigid/affine alignment, draggable landmarks, ellipse families, parabolic envelopes, circles/arcs/sectors, modular clocks, and conditional graph invariants. |
-| Forecasts | Strict `p > τ` accessible volume, complements, momentum, target bands, temperature transforms, top-1 correctness, negative log probability, entropy, maximum probability, log-loss, and calibration evidence. |
+| Forecasts | Strict `p > τ` operational metacognition, complements, momentum, target bands, temperature transforms, top-1 correctness, negative log probability, entropy, maximum probability, log-loss, and calibration evidence. |
 | Bayesian field notebook | Questions, competing binary claims, priors, posteriors, falsifiers, explicit likelihood-ratio and log-odds updates, belief diffs, evidence families, dependence acknowledgment, deterministic and stochastic chambers, next-test priorities, review-required decisions, and append-only hash-chained memory. |
 | HELEN observations | Lazy stored forward and retrograde distributions with 1,920 held-out cases per condition, selectable by index or sequence, without a transformer or model runtime. |
 | Multi-horizon | Exact continuation probabilities, volume, and complement for a defined two-state Markov toy with horizons 1–6. This is not a completed real-language-model benchmark. |
@@ -305,7 +305,7 @@ Zoe's HELEN observations load real stored distributions lazily without a transfo
 
 These are real application screenshots, not mockups. The concept art remains separate from the working interfaces.
 
-**Zoe BRAIN after a real stored HELEN observation:** correctness, accessible volume, complement, momentum, and a deterministic next-module recommendation.
+**Zoe BRAIN after a real stored HELEN observation:** correctness, operational metacognition, complement, momentum, and a deterministic next-module recommendation.
 
 ![Zoe native BRAIN after a real HELEN observation](../assets/zoe-native-gui.png)
 
@@ -346,7 +346,7 @@ These are real application screenshots, not mockups. The concept art remains sep
 
 ![Cerotto GEM accessible-volume workbench](../assets/cerotto-gem-gui.png)
 
-Zoe does not claim consciousness, universal future prediction, or automatic execution. Accessible volume measures forecast breadth, not correctness or human surprise. HOP remains a rejected baseline. Field-notebook posteriors are conditional on user-supplied priors and likelihoods, not objective truth scores. Chamber measurements and sampled outcomes never update claims automatically. Dependent evidence requires explicit acknowledgment and adjusted likelihoods. The memory hash chain provides tamper evidence, not authentication. Recommendations are experimental, `executed=False` remains the boundary between measurement and action, and the user decides what happens next.
+Zoe does not claim consciousness, universal future prediction, or automatic execution. Operational Metacognition measures forecast breadth, not correctness or human surprise. HOP remains a rejected baseline. Field-notebook posteriors are conditional on user-supplied priors and likelihoods, not objective truth scores. Chamber measurements and sampled outcomes never update claims automatically. Dependent evidence requires explicit acknowledgment and adjusted likelihoods. The memory hash chain provides tamper evidence, not authentication. Recommendations are experimental, `executed=False` remains the boundary between measurement and action, and the user decides what happens next.
 
 ## What the result does not establish
 
@@ -356,7 +356,7 @@ The measured models are also not interchangeable with Kimi, Claude, or Ablation�
 
 The two Foundation-Sec-8B variants were not run. Each published repository contains approximately 16.06 GB of model weights, exceeding the available test-system storage for this experiment. They require a separate resource configuration; no result or limitation of those models is inferred here.
 
-These limits do not weaken the measurement. They define its proper use. Accessible volume describes the shape of a particular forecast at a particular moment. Broader interpretations require separate evidence.
+These limits do not weaken the measurement. They define its proper use. Operational Metacognition describes the shape of a particular forecast at a particular moment. Broader interpretations require separate evidence.
 
 ## Possible paths opened by the equation
 
@@ -366,17 +366,17 @@ The measurement also suggests directions for further work, without establishing 
 
 **From tokens to structured actions.** A future experiment could examine distributions over complete permitted actions rather than command-text tokens. This might help a system prepare for several plausible next steps while preserving the same constraints on every action. It would not establish a user’s intent or make an action safe by virtue of being predicted.
 
-**Authenticated, evolving evidence.** Prediction observations could become part of a signed evidence record whose keys rotate over time. Standard cryptographic key derivation and authenticated encryption would be required. A timestamp could determine when to rotate a key, but neither timing nor accessible volume should determine the key itself. The metric is not an entropy source or a source of cryptographic key material.
+**Authenticated, evolving evidence.** Prediction observations could become part of a signed evidence record whose keys rotate over time. Standard cryptographic key derivation and authenticated encryption would be required. A timestamp could determine when to rotate a key, but neither timing nor operational metacognition should determine the key itself. The metric is not an entropy source or a source of cryptographic key material.
 
 These are possible paths for investigation, not claims established by the present experiment.
 
 ## Conclusion
 
-Accessible volume turns next-token predictability into a measurement. It counts the alternatives above a probability cutoff, showing whether a model’s immediate choice is concentrated on a few options or spread across many. The final output records a selection; accessible volume reveals the decision surface that preceded it.
+Operational Metacognition turns next-token predictability into a measurement. It counts the alternatives above a probability cutoff, showing whether a model’s immediate choice is concentrated on a few options or spread across many. The final output records a selection; operational metacognition reveals the decision surface that preceded it.
 
 The measured example shows the instrument working in practice. Four tokens exceed 0.02, two exceed 0.05, and one exceeds 0.15. That is the finding: a real investigation context produced a concentrated next-token decision surface, and the equation made it measurable.
 
-The XLNet and sixteen additional comparisons show the same instrument operating across masked, query-stream, and causal prediction mechanisms. Their results also demonstrate that accessible volume and entropy can describe different aspects of the same distribution. These are individual, reproducible observations, not universal claims about model quality or safety.
+The XLNet and sixteen additional comparisons show the same instrument operating across masked, query-stream, and causal prediction mechanisms. Their results also demonstrate that operational metacognition and entropy can describe different aspects of the same distribution. These are individual, reproducible observations, not universal claims about model quality or safety.
 
 The BioBERT experiment provides a direct practical result. The original fixed rule at $\tau=0.05$ distinguished incorrect and correct top predictions more effectively than the optimized adaptive equation on held-out biomedical documents. Although the adaptive rule improved validation measurements, the original equation achieved the stronger test AUROC and AUPRC. For this experiment, the simpler original equation was the better measurement of prediction uncertainty.
 
@@ -474,7 +474,7 @@ The baseline was repeated before perturbing the context. It produced identical i
 | Summary request         |    968 |    3 |    2 |    1 |    1 |    1 |    0 |
 | Repeated short evidence |    487 |    3 |    2 |    2 |    1 |    1 |    1 |
 
-Accessible volume across controlled context variants.
+Operational Metacognition across controlled context variants.
 
 These differences are observations about specific model/context pairs. They do not establish a universal rule about which context increases or decreases breadth.
 
@@ -615,28 +615,28 @@ These historical screenshots record the stage before the working Zoe integration
 <details>
 <summary>Original paper pages (12 images)</summary>
 
-![The Significance of Accessible Volume, page 1](../assets/paper-pages/page-01.jpg)
+![The Significance of Operational Metacognition, page 1](../assets/paper-pages/page-01.jpg)
 
-![The Significance of Accessible Volume, page 2](../assets/paper-pages/page-02.jpg)
+![The Significance of Operational Metacognition, page 2](../assets/paper-pages/page-02.jpg)
 
-![The Significance of Accessible Volume, page 3](../assets/paper-pages/page-03.jpg)
+![The Significance of Operational Metacognition, page 3](../assets/paper-pages/page-03.jpg)
 
-![The Significance of Accessible Volume, page 4](../assets/paper-pages/page-04.jpg)
+![The Significance of Operational Metacognition, page 4](../assets/paper-pages/page-04.jpg)
 
-![The Significance of Accessible Volume, page 5](../assets/paper-pages/page-05.jpg)
+![The Significance of Operational Metacognition, page 5](../assets/paper-pages/page-05.jpg)
 
-![The Significance of Accessible Volume, page 6](../assets/paper-pages/page-06.jpg)
+![The Significance of Operational Metacognition, page 6](../assets/paper-pages/page-06.jpg)
 
-![The Significance of Accessible Volume, page 7](../assets/paper-pages/page-07.jpg)
+![The Significance of Operational Metacognition, page 7](../assets/paper-pages/page-07.jpg)
 
-![The Significance of Accessible Volume, page 8](../assets/paper-pages/page-08.jpg)
+![The Significance of Operational Metacognition, page 8](../assets/paper-pages/page-08.jpg)
 
-![The Significance of Accessible Volume, page 9](../assets/paper-pages/page-09.jpg)
+![The Significance of Operational Metacognition, page 9](../assets/paper-pages/page-09.jpg)
 
-![The Significance of Accessible Volume, page 10](../assets/paper-pages/page-10.jpg)
+![The Significance of Operational Metacognition, page 10](../assets/paper-pages/page-10.jpg)
 
-![The Significance of Accessible Volume, page 11](../assets/paper-pages/page-11.jpg)
+![The Significance of Operational Metacognition, page 11](../assets/paper-pages/page-11.jpg)
 
-![The Significance of Accessible Volume, page 12](../assets/paper-pages/page-12.jpg)
+![The Significance of Operational Metacognition, page 12](../assets/paper-pages/page-12.jpg)
 
 </details>

@@ -103,7 +103,7 @@ class CerottoGemWindow(Gtk.ApplicationWindow):
         details_scroller.add(self.details)
         self.notebook.append_page(details_scroller, Gtk.Label(label="Details"))
         self.chart = ForecastChart()
-        self.notebook.append_page(self.chart, Gtk.Label(label="Accessible Volume"))
+        self.notebook.append_page(self.chart, Gtk.Label(label="Operational Metacognition"))
         self.vault_view = VaultView()
         self.notebook.append_page(self.vault_view, Gtk.Label(label="Vault"))
         if self.agent_command:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Real-MIDI rhythm forecasts: alignment, accessible volume, calibration, retrograde."""
+"""Real-MIDI rhythm forecasts: alignment, operational metacognition, calibration, retrograde."""
 import json
 import os
 import pickle
@@ -256,7 +256,7 @@ for axis, genre in zip(axes, GENRES):
     axis.set_title(genre)
     axis.set_xlabel("probability threshold τ")
     axis.legend()
-axes[0].set_ylabel("mean accessible volume A(τ)")
+axes[0].set_ylabel("mean operational metacognition A(τ)")
 fig.suptitle("Real MIDI: next-onset forecast breadth")
 fig.tight_layout()
 fig.savefig(RESULTS / "real_midi_accessible_volume.png", dpi=150)

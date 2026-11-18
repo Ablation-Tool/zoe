@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "instrument": "accessible volume of a full-vocabulary token distribution",
+  "instrument": "operational metacognition of a full-vocabulary token distribution",
   "model": "yiyanghkust/finbert-pretrain",
   "model_revision": "88ab954a39ea6d3ce2b62cff086dd5ad1172c664",
   "requested_revision": "88ab954a39ea6d3ce2b62cff086dd5ad1172c664",
