@@ -6,7 +6,7 @@ The component combines Accessible Volume with the complete measurement–action 
 
 The component is the canonical engine in Zoe One. Host adapters delegate to this implementation rather than maintaining competing copies. The [one-system manifest](../../one-system.json) pins compatible revisions, and the [coordinated verification](../../evidence/one-system/verification.json) records identical profiles across all hosts. Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.
 
-The complete [18-page Zoe Capability Prospectus](../../paper/zoe-capability-prospectus.pdf) covers autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the component directory. [LaTeX source](../../paper/zoe-capability-prospectus.tex).
+The complete [35-page illustrated book, Zoe — The Research Universe](../../paper/zoe-research-universe.pdf) covers autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete visual research archive. [LaTeX source](../../paper/zoe-research-universe.tex). The shorter [18-page prospectus](../../paper/zoe-capability-prospectus.pdf) remains a companion summary.
 
 ## Run inside Zoe
 

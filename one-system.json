@@ -23,10 +23,13 @@
     "verify": "zoe-autonomy verify visual-perception.json"
   },
   "capability_prospectus": {
-    "pdf": "paper/zoe-capability-prospectus.pdf",
-    "source": "paper/zoe-capability-prospectus.tex",
-    "pages": 18,
-    "scope": "Complete capability overview with verified, narrow, optional, research, and blocked boundaries"
+    "pdf": "paper/zoe-research-universe.pdf",
+    "source": "paper/zoe-research-universe.tex",
+    "pages": 35,
+    "companion_pdf": "paper/zoe-capability-prospectus.pdf",
+    "companion_pages": 18,
+    "visual_archive": "https://github.com/Ablation-Tool/zoe-visual-archive",
+    "scope": "Complete illustrated capability book with verified, narrow, optional, research, and blocked boundaries"
   },
   "dorothy_brain_research": {
     "mission": "Inspectable spatial analysis, neural simulation, and source-linked scientific review supporting long-term brain-cancer research",
