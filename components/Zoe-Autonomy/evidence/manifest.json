@@ -1,0 +1,585 @@
+{
+  "classification": "full_autonomy",
+  "files": {
+    ".gitignore": {
+      "bytes": 103,
+      "sha256": "45fac5b94947d99bfbc809106665a8eac17772af6f5ada801e6813dd136359a0"
+    },
+    "ACTUATION.md": {
+      "bytes": 3997,
+      "sha256": "dc05982936bf38c3d9f76363b0b2e220691f2323e5e2fc7d0f9b5d2169a70992"
+    },
+    "CAPABILITIES.md": {
+      "bytes": 8378,
+      "sha256": "b3c860d37834657073c250222b2dde76f232428149eebc74b2cf15543ceab065"
+    },
+    "EVALUATION.md": {
+      "bytes": 8216,
+      "sha256": "a469bd4d84756a3c2f51835297fa38ad64cb5ef6037c545b9808b3966d50c4e3"
+    },
+    "EVENT-CAUSAL.md": {
+      "bytes": 8322,
+      "sha256": "7e70670afb3defb3bfbafdfb9c6de4a96e55d9acae4939d39d18b83abc75ba0a"
+    },
+    "GATEWAY.md": {
+      "bytes": 3248,
+      "sha256": "4fa6fc0335eaf6fb03fb6dc44f420c4433cfc872ce988c77f222f11a18a6d59a"
+    },
+    "ILAB-INTEGRATION.md": {
+      "bytes": 24150,
+      "sha256": "9039cb721865af7f574fa51b4acc9870d041220dd551e353844aece075d16dba"
+    },
+    "LICENSE": {
+      "bytes": 34033,
+      "sha256": "5434a3381c0efcd5c1a41bce3aed8051e49e7bcb749412bf723cccea1fa49404"
+    },
+    "NOTICE": {
+      "bytes": 3967,
+      "sha256": "88be071c66272ac032ada7b4125283520ca5fcaac5114e7fef068d917c24a812"
+    },
+    "README.md": {
+      "bytes": 20353,
+      "sha256": "9ccb61a9c4490a99a517a3b39cc3ae6faf490a320098ff697be9a89fd995c542"
+    },
+    "SEMANTIC-ARTIFACTS.md": {
+      "bytes": 5003,
+      "sha256": "46aa6b1ad26eeccf3b58d6af121c1ca378c71ef00227c6ed27e4e8f8acd2063b"
+    },
+    "articles/images/01-zoe-at-a-glance.png": {
+      "bytes": 99269,
+      "sha256": "63e97109ac5087efa367af0c7fd3a71f0a79c4a1909a14cbc7c46a6949ea8d65"
+    },
+    "articles/images/02-self-governing-loop.png": {
+      "bytes": 116693,
+      "sha256": "94f588a567109c1c2d7d98b91d9a2427e8aa16be46d4dc3a7d22d167948b05af"
+    },
+    "articles/images/03-pipeline-breakdown.png": {
+      "bytes": 126958,
+      "sha256": "7298f22081e007d5a14cfaef59bab164a503f3eaecb0b9948c9fb016e2de8485"
+    },
+    "articles/images/04-accessible-volume.png": {
+      "bytes": 115068,
+      "sha256": "ce978f25c5986095c9af74698cf0b42010e416995bbd9a5eee75bba63eb6bec8"
+    },
+    "articles/images/05-accessible-volume-reference.jpeg": {
+      "bytes": 70880,
+      "sha256": "a50f31f778954eb99df6cbbad75d34ef79529dc2d1d1364e47c7cb74f3e0ece0"
+    },
+    "articles/images/06-pipeline-reference.png": {
+      "bytes": 190540,
+      "sha256": "be082622e78568dda06abee7eba588175f8bd8bf5ed8aee69e7e07a731334f09"
+    },
+    "articles/images/07-zoe-overview-reference.png": {
+      "bytes": 127383,
+      "sha256": "2686fd366d87429ab605d5b8fe6000e528f0c350aeb4b37141e0bb624c142766"
+    },
+    "articles/informal-explanation.md": {
+      "bytes": 16021,
+      "sha256": "7dd5280f354866bf558436775dc167c280a7a7b7ee1352cf0877a12ca1068bf1"
+    },
+    "evidence/actuation/emergency-stop.json": {
+      "bytes": 275,
+      "sha256": "33fe844781c2efa3c2fa21878d0b229529b9506dec4b5215b6c30c95d0b1a340"
+    },
+    "evidence/actuation/hardware-virtual.json": {
+      "bytes": 503,
+      "sha256": "5515432725d6b2acfd32f0e4ba74f35a9536355383142a968127aadfda425f4a"
+    },
+    "evidence/actuation/host-local.json": {
+      "bytes": 521,
+      "sha256": "db1cd3ed48ee3492296193093d219522e32254a4c53e01155160b02a619bf994"
+    },
+    "evidence/actuation/network-internet.json": {
+      "bytes": 512,
+      "sha256": "c02434410129c318cabb8344d682d6d11156c8286491a2619b5d4dc3c353058e"
+    },
+    "evidence/actuation/owner-grant-status.json": {
+      "bytes": 886,
+      "sha256": "d1b57a95d1741ca897c9430c1e68fd7a05ba8687fa91bf9614d1f076643024ff"
+    },
+    "evidence/actuation/verification.json": {
+      "bytes": 755,
+      "sha256": "1805c8025182e445edd960e1fbd5d1c5ead0283f5fad7132daaa8fc490beb5c9"
+    },
+    "evidence/agents/registered-accounts.json": {
+      "bytes": 477,
+      "sha256": "7bfc9ab8aab1e5bfaf5ba009ddba14e7eb0d1326321f5c24b01902e066b055d3"
+    },
+    "evidence/agents/verification.json": {
+      "bytes": 397,
+      "sha256": "f2c5e03e9d8c4c8bd265f63a05ba3989aade651adcb796c6c4c71103b49d1505"
+    },
+    "evidence/autonomous/first-step.json": {
+      "bytes": 13097,
+      "sha256": "1746ea7bdc1b77571cda5f23582b1f9afc4333b9a648770cdfe72fe7ba2ab042"
+    },
+    "evidence/autonomous/verification.json": {
+      "bytes": 314,
+      "sha256": "b9f24bb74c9956dadb4bc5dc1c0b1d6d0a90d9bb1b801fb2e9b4ad0bbe4c1ee5"
+    },
+    "evidence/capabilities/browser-example-com.json": {
+      "bytes": 1600,
+      "sha256": "da93a492ec35e0f74c7ff493ba4915247a077b6a59a4ab9f20934e4b502984b1"
+    },
+    "evidence/capabilities/crossref.json": {
+      "bytes": 500,
+      "sha256": "1e3e0854d8242f400bad84268ed02623b01100a35e61afafb29bfb391e7ea3b5"
+    },
+    "evidence/capabilities/example-com-browser.png": {
+      "bytes": 75888,
+      "sha256": "05aec8c112cd68d45c094ef97413244a06e739a22b0a8abda40dd2e5c89f3f53"
+    },
+    "evidence/capabilities/memory-export.json": {
+      "bytes": 985,
+      "sha256": "a66694eff01e9b62edae37fc861c08ac4c2a4c67a4ffb9619ddaae423260668b"
+    },
+    "evidence/capabilities/verification.json": {
+      "bytes": 1858,
+      "sha256": "8f9dafb9012618a6d11cdc898e9ca054238e98e887b93b9ed3bdd8168c7dcbad"
+    },
+    "evidence/evaluation/camera.json": {
+      "bytes": 868042,
+      "sha256": "fe67a8aca072d7f70894ff54ca6d6842a4efd7e42651ef7df85d83caadd69a8e"
+    },
+    "evidence/evaluation/synthetic.json": {
+      "bytes": 840564,
+      "sha256": "ffa32b879673086859d052fb225a9aa1305e332ff7482e5584f67a125ad43017"
+    },
+    "evidence/event-causal/evaluation.json": {
+      "bytes": 5752087,
+      "sha256": "293c5ba286a11b8bf4bf47010f7ba59878c5fcf412ddc148760e537aedf183b1"
+    },
+    "evidence/event-causal/protocol.json": {
+      "bytes": 5771,
+      "sha256": "87bbf5cc9945294b59b21c452d266e271e6ab19ef167276d4f4ab09a01e905ed"
+    },
+    "evidence/exploration/example-com.json": {
+      "bytes": 1107,
+      "sha256": "ce26f12f478f0e2af35e9fba1533ca5fe76e4a9ba79800d63f989040b70dfa70"
+    },
+    "evidence/external-wiring-review.json": {
+      "bytes": 2729,
+      "sha256": "e4cd9eec4f80df0d57787e7211e012e5a95332df7797d1eef16faf8464626890"
+    },
+    "evidence/ilab/catalog.json": {
+      "bytes": 21852975,
+      "sha256": "c6afa2640839953779135802261f585c56e9463fd3e403f1dfc357604f855fb8"
+    },
+    "evidence/phi-verification.json": {
+      "bytes": 8442,
+      "sha256": "1aa72124ffd5e02ed65a398f3c81e260197faaa406f9f2f57674d7d535d75956"
+    },
+    "evidence/self-reflection/default-off-comparison.json": {
+      "bytes": 397,
+      "sha256": "f825e6fa2ec103e7ef3e47cc82549a1bdc8abfb1e46e2286348a8c17dc7d023a"
+    },
+    "evidence/self-reflection/integrated-verification.json": {
+      "bytes": 622,
+      "sha256": "c5d6a9ddebde0a322069b36e7903513ea303ebcb40249f81e76c84020c457426"
+    },
+    "evidence/self-reflection/integrated.json": {
+      "bytes": 313336,
+      "sha256": "58c0a3a9485b17fd04291e926c3d77231fd9b33b4984a66b297ca66eef8eccee"
+    },
+    "evidence/self-reflection/step-1.json": {
+      "bytes": 78146,
+      "sha256": "daf3e6008ba5c839118b738b4845b7ba6ef89f044a8f8d09b2c9814a47c716c7"
+    },
+    "evidence/self-reflection/step-2.json": {
+      "bytes": 149839,
+      "sha256": "d1fb300e6d0f2833dec145f48b950b1dedc338d68f321042baaba39d96ac7afe"
+    },
+    "evidence/self-reflection/step-3.json": {
+      "bytes": 192051,
+      "sha256": "5f6c5b716045394b0408fca87a84ea61aa9b3fb2a923980760ca5ecb7396aebc"
+    },
+    "evidence/self-reflection/verification-step-1.json": {
+      "bytes": 356,
+      "sha256": "6d2ea2f72661794a9d6349883834927e1bdc4a61dc7a3e11a7d971bb1371448e"
+    },
+    "evidence/self-reflection/verification-step-2.json": {
+      "bytes": 366,
+      "sha256": "4d257e556156ce1ca7446cadbc95b449ea1e6257868931a50871c5749faa62ba"
+    },
+    "evidence/self-reflection/verification-step-3.json": {
+      "bytes": 350,
+      "sha256": "27571dc1010be2c6c919a2a12ac31c2f2f856f9bc800f6511a6e298a57a6f6da"
+    },
+    "evidence/semantic-artifacts/evaluation.json": {
+      "bytes": 34721,
+      "sha256": "51420cdeeb2d67076ff2c79abfd2f7b105c471ce937cfa2cf0a0b5bfa0f517a0"
+    },
+    "evidence/verification.json": {
+      "bytes": 612,
+      "sha256": "1a361a3f094b1fbd2ffe47b4cac698e9d7bf64d4850b3ca82167709cebbc9a3d"
+    },
+    "evidence/visual-perception.json": {
+      "bytes": 213004,
+      "sha256": "dd6fb31f0d2bba3b4fe19986e1680c08a815f9d4d9361dd4b4f5991cae788712"
+    },
+    "evidence/visual-verification.json": {
+      "bytes": 612,
+      "sha256": "ca0d5cd35bed97895db329b968e42bb18562f71928039d1d97a69f4e3d1c2004"
+    },
+    "evidence/zoe-autonomy-profile.json": {
+      "bytes": 184914,
+      "sha256": "9b265e84b223995e26fe7e6ba5ed64b7e59f19019785898e1d3261cd5cc9be4f"
+    },
+    "paper/ambiguity-autonomy-compliance-cascade.pdf": {
+      "bytes": 350885,
+      "sha256": "dec64904f5954e29b44105ba6d41a97f38915ffbecf972554e4eda70d8abbebc"
+    },
+    "paper/autonomy-march-2026.pdf": {
+      "bytes": 14893,
+      "sha256": "9396025d2283524aff9d3f0c7bb1b4c24a0403959c36dba5571d495f529a9b17"
+    },
+    "paper/autonomy-march-2026.tex": {
+      "bytes": 14582,
+      "sha256": "33e5b9e035af8ddcc6f67a335a20be2c564379a8d75cea1aeb710bb6efc325d4"
+    },
+    "paper/constraint-is-freedom.pdf": {
+      "bytes": 469119,
+      "sha256": "191dfe0a50c053111b363d0eb4a093a740e2a510150e1f2667859501b68a60da"
+    },
+    "paper/unified/figures/brain-dialogue.png": {
+      "bytes": 1181571,
+      "sha256": "6c6a082d1cf2e6a88e44b0dda53c86f410ff7268a9fa4da9471b8683b41abf52"
+    },
+    "paper/unified/figures/cicada.png": {
+      "bytes": 118562,
+      "sha256": "108bed312a37a2e05c7ddb375556d9b9bdbf69efd0604ea8b9d62e8b538a73bb"
+    },
+    "paper/unified/figures/cognitive-field.png": {
+      "bytes": 146212,
+      "sha256": "b2129c02a795069651c42660d2b8cf63969babab64aad69855f40008ce114b78"
+    },
+    "paper/unified/figures/compliance-cascade.png": {
+      "bytes": 130199,
+      "sha256": "0aea6090ae04f772c7bd126a9af10424765b2ff4b54232040b4915c6a3f53a2a"
+    },
+    "paper/unified/figures/dorothy-ccf2017.png": {
+      "bytes": 1313483,
+      "sha256": "febc77d1ecda73dce62232be55f3b5a1256623da87d5378f781eb689fa5d3592"
+    },
+    "paper/unified/figures/dorothy-jenga-exploded.png": {
+      "bytes": 214145,
+      "sha256": "872190f58f484fce7c1127895be4531acf4c6b52e59a1a0952fd2001533fefdd"
+    },
+    "paper/unified/figures/dorothy-rings-isocortex.png": {
+      "bytes": 321503,
+      "sha256": "cbbf65decf5cd42f4f291baf3fe528037c5daefb26e97eeeca73be313b189aae"
+    },
+    "paper/unified/figures/epistemic-firewall.png": {
+      "bytes": 236581,
+      "sha256": "2a7967c2d19a53e87cb76380b9d0525f0a1930d1ab1326d35b88dea02d4b6451"
+    },
+    "paper/unified/figures/field-notebook.png": {
+      "bytes": 83542,
+      "sha256": "75af3f71fbc4d4dc2da62b9d0508c8bcec3b08b3be25db47f1e28777a433a1a4"
+    },
+    "paper/unified/figures/geometry-atlas.png": {
+      "bytes": 55605,
+      "sha256": "12f0f896416059a6a21b5ca4458b2a5e89735e7ac80efe42d6459aed99202b73"
+    },
+    "paper/unified/figures/groove-accessible-volume.png": {
+      "bytes": 61592,
+      "sha256": "0323b1c3b49b2e8a40a9d9366ec05a55ecca12b8d68b8298bd0da4aa8f65aa5a"
+    },
+    "paper/unified/figures/groove-predictability-map.png": {
+      "bytes": 321938,
+      "sha256": "1a4dd98e6f8ac4c4ef34e0ba0c2275cc3beed43b4e9722ed62f313d6b7cac3b7"
+    },
+    "paper/unified/figures/memory-chain.png": {
+      "bytes": 236836,
+      "sha256": "14afe7b1abd4475b9347b7b01c958e51cbce2be8806378d8478673152520b9ea"
+    },
+    "paper/unified/figures/neurogarden-spatial.png": {
+      "bytes": 5302,
+      "sha256": "2e2788fed407451bb06298c5ad9c5415bc953502d837789eb06aa0648f8039c6"
+    },
+    "paper/unified/figures/nightingale-accessible-volume.png": {
+      "bytes": 97405,
+      "sha256": "6e569469c121d27a291733bfa30d471be70b2041c9a7a04b974dd70e57ea8c8d"
+    },
+    "paper/unified/figures/nightingale-calibration.png": {
+      "bytes": 71493,
+      "sha256": "696c2d52a9f8bb7242c58f919d8ec27155785a5ad2a2d5e34ec82ec335128821"
+    },
+    "paper/unified/figures/patchbay.png": {
+      "bytes": 91768,
+      "sha256": "4739a85cfbca0feb50d1ba9b7dcbf73b167cf0378455ed835b7ec676df991000"
+    },
+    "paper/unified/figures/pentacube.png": {
+      "bytes": 127639,
+      "sha256": "f9eea05d7191bad018b6e27301ef21107ed39bcd2530b494c59d6dd364a9fd25"
+    },
+    "paper/unified/figures/presence.png": {
+      "bytes": 100389,
+      "sha256": "ca4fba96fa31c4ed57b347ee055cc2b4b038742ce43703b62007704ac96c66b7"
+    },
+    "paper/unified/figures/projection-iris.png": {
+      "bytes": 972386,
+      "sha256": "cc95188660512c7cb953e487fb75166deca9f1898b81d62a5ee3ea38e96a7a0b"
+    },
+    "paper/unified/figures/protocol.png": {
+      "bytes": 141766,
+      "sha256": "1d90a2f2c11ffdc19056bb27563e28809d462d3141701a81b1e58399471e5ca6"
+    },
+    "paper/unified/figures/qualia.png": {
+      "bytes": 142662,
+      "sha256": "6fdc8b9de46a49d508b99750dfabdbeb858e16deb67bed960d5196e904ab4b9d"
+    },
+    "paper/unified/figures/rhythm-synthetic.png": {
+      "bytes": 48743,
+      "sha256": "116fd761324a5dbc97f2956b7d1066386b52c5ae84e0e53078ae8e47e787e452"
+    },
+    "paper/unified/figures/second-eye.png": {
+      "bytes": 91506,
+      "sha256": "affae29c81605d5d6f10cb622af5046ebd9779cebae656e1f747193d280ddb79"
+    },
+    "paper/unified/figures/zoe-atelier.png": {
+      "bytes": 178606,
+      "sha256": "ca870888f677d6e775af220e7e126c7b129c192ce7c284a269febf70641af484"
+    },
+    "paper/unified/figures/zoe-evidence.png": {
+      "bytes": 125905,
+      "sha256": "072a688d77c696bbf30b7d6e5d553be2cae5292d596e7c60e1f14ed5da20cd38"
+    },
+    "paper/unified/figures/zoe-helios.png": {
+      "bytes": 202063,
+      "sha256": "3b0720761d937124c68f353cb42a40481fb22562d8dc8ce751ea1dd7d03b5013"
+    },
+    "paper/unified/figures/zoe-mirror.png": {
+      "bytes": 74077,
+      "sha256": "8b8e09d5925104467db12d529ea1da9198bf3dc82b980d9193770d85b482b401"
+    },
+    "paper/unified/figures/zoe-resilience.png": {
+      "bytes": 183453,
+      "sha256": "214dc20294a510424cd07f246f751ac613f225ee8f6a405e0727432a0e9f44d5"
+    },
+    "paper/unified/figures/zoe-waveform.png": {
+      "bytes": 125954,
+      "sha256": "6959062545031326b2d27fdd72e20f71b07bb1adebf6983f21cfb430e12a9e26"
+    },
+    "paper/unified/main.tex": {
+      "bytes": 8828,
+      "sha256": "934bf73b2c6ba6715c2a7e307f6416fc163a4f051a5384449fd0cc6951c6c163"
+    },
+    "paper/unified/sections/01-foundations.tex": {
+      "bytes": 20284,
+      "sha256": "ab2df6988fa18b72f30123ade5c19060764cdc79d32014e9719825e864486679"
+    },
+    "paper/unified/sections/02-language-evidence.tex": {
+      "bytes": 13531,
+      "sha256": "d9418718ea63054aaa4de2402e1b91f4d0fd7cc7f7edb449b99559453316015f"
+    },
+    "paper/unified/sections/03-temporal-causal.tex": {
+      "bytes": 23318,
+      "sha256": "2a7521a9d47198d3a389ae319a4548b85f71a81f7ec1be4789d7bfd7a1b9d9da"
+    },
+    "paper/unified/sections/04-safety.tex": {
+      "bytes": 22894,
+      "sha256": "2880f7f7c12202d647bab7b18d658b7bce63e4206cdd478e011c552a4486d7da"
+    },
+    "paper/unified/sections/05-zoe-architecture.tex": {
+      "bytes": 22790,
+      "sha256": "942e7d61ed41d5aed53aa6fca43a0194fdcbc6f116360e947eb498ab98863d71"
+    },
+    "paper/unified/sections/06-self-governance.tex": {
+      "bytes": 17971,
+      "sha256": "2d49f58f3edb9ccdd5e55ea95bbf170b0e3df4caa76c53f9be60b50247f13391"
+    },
+    "paper/unified/sections/07-extended-instruments.tex": {
+      "bytes": 32115,
+      "sha256": "30d39ee105afee7bc06d509ce2afc71ea1f5ece729def1b5cb8192ed7f3172d6"
+    },
+    "paper/unified/sections/08-discussion.tex": {
+      "bytes": 11485,
+      "sha256": "8a06dc9d1954bc8037447c562be2bbd80eaabcc29ea8fe1029765deb581bd0a1"
+    },
+    "paper/unified/sections/09-appendices.tex": {
+      "bytes": 16390,
+      "sha256": "5ec6fd1ae39ec59837c4641ce03f2604da781bc84142520cb2c59e1158d0aa7e"
+    },
+    "paper/unified/sections/10-references.tex": {
+      "bytes": 10731,
+      "sha256": "637181d6e72a88a6095d658802a1b4de2df1af695c7c605abef7c5979777ef4e"
+    },
+    "paper/unified/sources/cascade-subsection.txt": {
+      "bytes": 5793,
+      "sha256": "6ec3131767517b7d6763255e087b84c6b88d4f7b38223cf4a64dd9770d3748c7"
+    },
+    "paper/zoe-autonomy-complete.pdf": {
+      "bytes": 6998726,
+      "sha256": "129d7b5b76de6350f61186685572adca8ec27cd02f0a3a1ee7940048dac8c1c4"
+    },
+    "paper/zoe-autonomy-operational-profile.pdf": {
+      "bytes": 1103628,
+      "sha256": "a63b79a376dc803f012e0f01411f2637e75e687aebf4e86a21f28d0e0fecc9a9"
+    },
+    "paper/zoe-autonomy-operational-profile.tex": {
+      "bytes": 36520,
+      "sha256": "6f4c740e7246e02345154524bfaadf50a6a76dd52af7536230ec3aa49d14876e"
+    },
+    "paper/zoe-autonomy.pdf": {
+      "bytes": 914075,
+      "sha256": "057e33af3e7b762c42230e59ef66375b236fb406b8c7e6879843f2d8a8fc481b"
+    },
+    "paper/zoe-autonomy.tex": {
+      "bytes": 47121,
+      "sha256": "68c7bf65cdbda059638855c3fba5284a2c19b2a0dfc9bfceac9f5ffe78c85c25"
+    },
+    "pyproject.toml": {
+      "bytes": 699,
+      "sha256": "c17c2404ba13835863d2e4210da1d61a8fddc28d5021f854c22ca2435c7c3ae6"
+    },
+    "scripts/build-ilab-catalog.py": {
+      "bytes": 15092,
+      "sha256": "141cf1ea470588a18e18ea768b75be1ef4515c69bd8c5d822741480e5340024a"
+    },
+    "scripts/generate-informal-images.py": {
+      "bytes": 8611,
+      "sha256": "1da56dcf2c69d4cd4f5969b474190bc8625b2515ddbc539b581d52d602d43b1b"
+    },
+    "scripts/measure-phi.py": {
+      "bytes": 6069,
+      "sha256": "ba3ba5da62124f2ba037341b5a20f88c5c0082d8889499caa0f73771c665a371"
+    },
+    "scripts/verify-artifacts.py": {
+      "bytes": 966,
+      "sha256": "b37a1ba75cf2d684e67fd82566bf17f247fb59d26fa11630e2968755c7fc5456"
+    },
+    "src/zoe_autonomy/__init__.py": {
+      "bytes": 939,
+      "sha256": "64f96316eb5dcf473ad4f1bc9bfd243fdc6327eff034d6bb67f8609ef7d9e4f3"
+    },
+    "src/zoe_autonomy/actuation.py": {
+      "bytes": 17972,
+      "sha256": "7031f4deb81e77519682c5f7d8e19c18abd5d776a4825b2e8e25b2414302dbef"
+    },
+    "src/zoe_autonomy/agents.py": {
+      "bytes": 15271,
+      "sha256": "b378bc25ad094d8f3fc3b3fb3775647f0076f746b4299d3974a7f8df3b9a5697"
+    },
+    "src/zoe_autonomy/autonomous.py": {
+      "bytes": 31360,
+      "sha256": "a98aaf7925c670ce41d414a330da9b1c2fe9fc57914a9ddd9082fbcdf807f011"
+    },
+    "src/zoe_autonomy/capabilities.py": {
+      "bytes": 29825,
+      "sha256": "f558a205397a8406e32d40a838f10e129cc138b4a35b1d563faf28a95a4b9719"
+    },
+    "src/zoe_autonomy/capabilities_cli.py": {
+      "bytes": 8511,
+      "sha256": "bdccc15827ffc1471e0d39e1fcca51d28dd486be7143743c69fae01575687f97"
+    },
+    "src/zoe_autonomy/cli.py": {
+      "bytes": 13337,
+      "sha256": "c10865ca3b2caa0841609ab3e4b1b8cfc8427a80bed1dd840a25d9ebdd79fae9"
+    },
+    "src/zoe_autonomy/evaluation.py": {
+      "bytes": 19691,
+      "sha256": "b59e81635d8161a2b7dbe3abecbe2e655b15350c4b319ec3f293bad8cfbbddb3"
+    },
+    "src/zoe_autonomy/event_autonomy.py": {
+      "bytes": 11967,
+      "sha256": "cdda447686a630fd9804a51a64af603ad315c7b90828b6697173710ce167beb4"
+    },
+    "src/zoe_autonomy/event_core.py": {
+      "bytes": 16865,
+      "sha256": "f317d77ea409b98a123b8e08856d2ca8f6db05f99ddd465e8fbe0529361eb6b7"
+    },
+    "src/zoe_autonomy/event_evaluation.py": {
+      "bytes": 20281,
+      "sha256": "66ca6c04bce8f074aeb173a3d21ec8a93c3dcdaa9bca441751bf377d66d9df09"
+    },
+    "src/zoe_autonomy/event_memory.py": {
+      "bytes": 9930,
+      "sha256": "4da24cc406c63f3f4f49938f5b4480ebdf666f7411bb0057c31f6fc3e1409b31"
+    },
+    "src/zoe_autonomy/event_plasticity.py": {
+      "bytes": 4364,
+      "sha256": "3be350574c149d9d461088b805366876d0033627a8a91d3614acff8c79ec6770"
+    },
+    "src/zoe_autonomy/event_reasoning.py": {
+      "bytes": 11020,
+      "sha256": "73474594e802bc25004d4da8da20a13e8aca0a6abb50288136e95cb83506833d"
+    },
+    "src/zoe_autonomy/event_uncertainty.py": {
+      "bytes": 3984,
+      "sha256": "e4fae295b723a19d806d8dc5fd224e4415981d38a6373f846f8528400fb41b78"
+    },
+    "src/zoe_autonomy/experiment.py": {
+      "bytes": 26100,
+      "sha256": "f8d37be3bfdb8829565a46869cb11e3eba95f47f80e39de4b722ab801f389795"
+    },
+    "src/zoe_autonomy/explore.py": {
+      "bytes": 8507,
+      "sha256": "85891da36729e59550f7fdcf3d5b1a178ed9efbb5cc3e6cba5a6b949b632a2d7"
+    },
+    "src/zoe_autonomy/loop.py": {
+      "bytes": 13826,
+      "sha256": "706c3e87688148543151cbadaf7cbc040ac4d1ab5859b042cc43013f717f6d13"
+    },
+    "src/zoe_autonomy/metrics.py": {
+      "bytes": 7258,
+      "sha256": "642dd2ad467f765a06e1f4b5269e833e2c39b8c4edf1870a6c291dc27713936b"
+    },
+    "src/zoe_autonomy/self_reflection.py": {
+      "bytes": 19702,
+      "sha256": "05ad47bd593cd84a2042af1d9563f56022eb82e9a67c04ca1a80af7f8e590a6e"
+    },
+    "src/zoe_autonomy/semantic_artifacts.py": {
+      "bytes": 16899,
+      "sha256": "4a0f9e36c089599496328a385dc22e85a018f5e74541f5c679ac35c88617d5a2"
+    },
+    "tests/test_actuation.py": {
+      "bytes": 6409,
+      "sha256": "37e3651ecc17322e7a9a3ab2c570e18371e65bf34dadd3bc5a203fa7b03a19d2"
+    },
+    "tests/test_autonomous.py": {
+      "bytes": 7994,
+      "sha256": "bec803be35fd1e60a9db014f09029395e071679ee0ce88b82e911e4a171d8f79"
+    },
+    "tests/test_capabilities.py": {
+      "bytes": 10954,
+      "sha256": "9004bd2dc09165fa6466c31ba94cc08916f07c5a04ba1485c622fbbc46c4921e"
+    },
+    "tests/test_evaluation.py": {
+      "bytes": 4816,
+      "sha256": "e1719193edfb6a4ff296ed060f906b0cac52d0d40a9def2fe7a0ea75c8a06e4f"
+    },
+    "tests/test_event_causal.py": {
+      "bytes": 11868,
+      "sha256": "4ae84b70d4e19c552fc7ab12c282e451ac447f08bdfee9aae33a5588f58475d8"
+    },
+    "tests/test_experiment.py": {
+      "bytes": 9892,
+      "sha256": "cd3cb2af806781ec22f8ea08c16040ccdc3b6c95e2eab04cfdaffd399bfead2a"
+    },
+    "tests/test_gateway.py": {
+      "bytes": 5299,
+      "sha256": "84024a466b30519b36457ee4a01178e6f243ead8f2031c382ccc15ce68233402"
+    },
+    "tests/test_loop.py": {
+      "bytes": 4210,
+      "sha256": "0379484385955974ad655fc1fb29b5e9aa22192936bdf8d98bfe44977a160d42"
+    },
+    "tests/test_metrics.py": {
+      "bytes": 3257,
+      "sha256": "4b770f4c53c3d7f05af13c895f8280fdfeba6bb1aaa7c4ef1dc2283214c45b66"
+    },
+    "tests/test_self_reflection.py": {
+      "bytes": 8477,
+      "sha256": "3d70f30374ec956309fe1a0102775ffd2cabafa8f2a3742c8d8382dca86f43f5"
+    },
+    "tests/test_semantic_artifacts.py": {
+      "bytes": 3590,
+      "sha256": "790e8aa91d350fec6ee5447ea5e8d831b18d4e9e559f7f8489411438ff1e9b8f"
+    }
+  },
+  "instrument": "zoe-autonomy-artifact-manifest",
+  "profile_sha256": "f6a76964fae19ee5878ebdc928b4710999b2389892d67dab509c0dd7cfc8cfb3",
+  "schema_version": 1,
+  "zoe_revision": "c0a7c554b524b1ccc17baf8a9f56e892cdb7dd0b"
+}

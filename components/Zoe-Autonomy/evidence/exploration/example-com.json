@@ -1,0 +1,29 @@
+{
+  "delay_seconds": 0.1,
+  "errors": [],
+  "external_page_requests": 1,
+  "finished_utc": "2026-11-17T07:32:27Z",
+  "instrument": "zoe-bounded-web-exploration",
+  "max_depth": 0,
+  "max_pages": 1,
+  "pages": [
+    {
+      "audit_hash": "1c60035c59ef42a2f4cdc39bbb7ae0b5730b23856136704dc7b852c4dd94b129",
+      "depth": 0,
+      "excerpt": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.",
+      "excerpt_truncated": false,
+      "links_found": 0,
+      "status": 200,
+      "title": "Example Domain",
+      "url": "https://example.com/"
+    }
+  ],
+  "pages_fetched": 1,
+  "robots_txt_respected": true,
+  "same_origin_only": true,
+  "schema_version": 1,
+  "scope": "Read-only HTTP(S) exploration from an explicit URL. Same-origin links only, bounded pages and depth, robots.txt and rate limits enforced. No login, form submission, credential use, or authentication bypass.",
+  "start_url": "https://example.com/",
+  "started_utc": "2026-11-17T07:32:27Z",
+  "user_agent": "ZoeOneResearchBot/1.0"
+}
