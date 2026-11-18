@@ -26,11 +26,11 @@ Zoe authors internal goals, constructs proposals and their arguments, ranks decl
 
 ### Native conversation and internal metacognition toolkit
 
-`zoe chat` provides Zoe's native conversational interface. It answers from cited Zoe sources, preserves multiple evidence-backed interpretations, refuses unsupported claims, stores explicitly unverified notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks and executes guarded reversible plans, runs measured self-reflection, supports compensating undo, and exposes Operational Metacognition as internal tools for `intent`, `action`, and `self` domains.
+`zoe`, `zoe os`, and `zoe chat` open Ablation's existing GEM GUI and run Zoe's native conversational engine in its original embedded terminal. She answers from cited Zoe sources, preserves multiple evidence-backed interpretations, refuses unsupported claims, stores explicitly unverified notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks and executes guarded reversible plans, runs measured self-reflection, supports compensating undo, and exposes Operational Metacognition as internal tools for `intent`, `action`, and `self` domains. `zoe chat --cli` provides direct terminal access without GEM.
 
 The architecture has **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress gauge, no weirdness normalizer, and no hidden switch** that disables the internal tools. Ordinary evidence retrieval does not force metacognitive bookkeeping; `meta`, planning, and reflection use the tools when meaningful.
 
-- **Implementation:** [Conversation engine](components/Zoe-Autonomy/src/zoe_autonomy/chat.py) · [Internal toolkit](components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py) · [Conversation guide](guiai-lab/docs/CHAT.md) · [Toolkit contract](components/Zoe-Autonomy/METACOGNITION.md)
+- **Implementation:** [Conversation engine](components/Zoe-Autonomy/src/zoe_autonomy/chat.py) · [Zoe GEM launcher](guiai-lab/guiai/gem/chat_view.py) · [Ablation's existing GEM GUI](components/ablation/gem-lab/gem/gtk_app.py) · [Internal toolkit](components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py) · [Conversation guide](guiai-lab/docs/CHAT.md) · [Toolkit contract](components/Zoe-Autonomy/METACOGNITION.md)
 - **Validation:** [Conversation tests](components/Zoe-Autonomy/tests/test_chat.py) · [Toolkit tests](components/Zoe-Autonomy/tests/test_metacognition.py) · [One-checkout verifier](scripts/verify-one-system.py)
 - **Evidence:** [Conversation verification](evidence/chat/verification.json) · [Architecture contract](components/Zoe-Autonomy/METACOGNITION.md)
 - **Run:** `zoe chat` or `zoe chat --state /path/to/state --command "meta what is PALA?"`.
@@ -302,15 +302,15 @@ Zoe can construct and rank calls across these adapters through her no-argument a
 - **Validation:** [Capability tests](components/Zoe-Autonomy/tests/test_capabilities.py) · [Gateway tests](components/Zoe-Autonomy/tests/test_gateway.py)
 - **Evidence:** [Ten-adapter verification](evidence/capabilities/verification.json) · [Registered accounts](evidence/agents/registered-accounts.json) · [Real exploration](evidence/exploration/example-com.json)
 
-## 11. Native desktop and embedded agent
+## 11. Native Ablation GEM desktop and embedded Zoe
 
-Zoe supplies an OS-style user-space workbench with explicit application launching, duplicate prevention, process tracking/stopping, source inspection, manifest export, and shared knowledge export. The mathematical interface uses a golden-ratio split, consistent spacing and palette, accessible text state, and restrained timing.
+Zoe's default graphical environment is the exact Ablation GEM workbench, launched through its existing `gem.lab_cli` interface. It retains the original Lab tabs, authoritative investigation state, search and navigation, Rings/Treemap/Spatial IR views, preferences, accessibility, adjustable layouts, and VTE terminal. Zoe's native conversation runs in that terminal; no replacement GUI or separate chatbot shell is used.
 
-An optional Ablation-style VTE agent terminal supports explicit Start/Stop, left/right placement, quoted path drops, and an owner-only bounded Unix socket for validated desktop actions. It does not provide arbitrary socket code evaluation.
+The older Zoe component selector remains available for explicit component inspection and headless exports. Component permissions and external-agent configuration remain separate from Zoe's internal conversation engine.
 
-- **Implementation:** [Desktop view](guiai-lab/guiai/gem/desktop_view.py) · [Desktop processes](guiai-lab/guiai/gem/desktop.py) · [Agent bridge](guiai-lab/guiai/gem/agent_bridge.py)
-- **Validation:** [Unified desktop tests](guiai-lab/stress/unified_stress.py)
-- **Evidence:** [Native hub screenshot](guiai-lab/docs/images/gem-unified-native.png) · [Unified hub diagram](guiai-lab/docs/images/gem-unified.png)
+- **Implementation:** [Zoe launcher](guiai-lab/guiai/gem/chat_view.py) · [Ablation GEM GUI](components/ablation/gem-lab/gem/gtk_app.py) · [Existing GEM desktop entry](components/ablation/gem-lab/gem/lab_cli.py)
+- **Validation:** [Unified routing tests](guiai-lab/stress/unified_stress.py) · [Ablation GTK tests](components/ablation/gem-lab/stress/gtk_stress.py)
+- **Evidence:** [Canonical GEM interface](components/ablation/assets/demos/gem-demo-01.png) · [Real Zoe-in-GEM verification](evidence/chat/gem-verification.json)
 
 ## 12. HP-UX and legacy architecture tools
 

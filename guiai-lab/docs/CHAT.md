@@ -2,7 +2,7 @@
 
 **Zoe Chat is Zoe's native conversational interface for evidence, memory, guarded autonomy, measured reflection, and internal Operational Metacognition tools.** It is deterministic and source-linked by default. It does not invoke an external language model and does not present an outside assistant as Zoe.
 
-Start it from the unified repository:
+`zoe`, `zoe os`, and `zoe chat` use Ablation's **existing GEM GUI code** from `components/ablation/gem-lab/`. The launcher calls its unmodified `gem.lab_cli` desktop entry point, and Zoe runs in the workbench's existing embedded VTE terminal. The original Lab, tabs, navigation, themes, layouts, accessibility, and terminal behavior remain intact.
 
 ```bash
 cd /path/to/zoe
@@ -11,13 +11,15 @@ python -m pip install ./guiai-lab ./components/Zoe-Autonomy
 zoe chat
 ```
 
-A persistent state directory can be selected explicitly:
+A persistent state directory can be selected explicitly. Direct terminal and one-shot modes remain available for accessibility, automation, and headless use:
 
 ```bash
-zoe chat --state /path/to/zoe-chat-state
+zoe chat --cli --state /path/to/zoe-chat-state
 zoe-autonomy chat --state /path/to/zoe-chat-state
 zoe chat --state /path/to/zoe-chat-state --command "what is PALA?"
 ```
+
+In GEM mode, the Lab session defaults to `gem-lab/` inside the selected chat-state directory. `--session` and `--target` select another research workflow explicitly.
 
 ## What Zoe does in a conversation
 

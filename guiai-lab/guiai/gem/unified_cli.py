@@ -34,6 +34,9 @@ def parser():
 def main(argv=None):
     raw_arguments = list(sys.argv[1:] if argv is None else argv)
     if raw_arguments and raw_arguments[0] == "os":
+        if len(raw_arguments) == 1:
+            from .chat_view import main as chat_main
+            return chat_main([])
         from .desktop_view import main as desktop_main
         return desktop_main(raw_arguments[1:])
     if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "chat", "pala", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence"}:
@@ -76,9 +79,8 @@ def main(argv=None):
                 print(json.dumps({"component": arguments.component, "pid": result.pid, "started": True, "readiness_verified": False}, indent=2, sort_keys=True))
                 return 0
             return result.returncode
-        from .desktop_view import launch_desktop
-        launch_desktop(registry)
-        return 0
+        from .chat_view import main as chat_main
+        return chat_main([])
     except (OSError, RuntimeError, ValueError) as error:
         print(f"zoe: {error}", file=sys.stderr)
         return 2
