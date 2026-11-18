@@ -73,6 +73,18 @@ Full autonomy means full self-government of Zoe's decision loop. The base experi
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
 - [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
 
+## Four-capability autonomy evaluation
+
+```bash
+zoe autonomy evaluate --output evaluation.json
+zoe autonomy evaluate --camera /dev/video0 --output camera-evaluation.json
+zoe autonomy verify-evaluation camera-evaluation.json
+```
+
+The evaluator tests **Perceive → Think → Learn → Act**, experience-dependent decisions, action–observation feedback, autonomous capability selection, and guards. Current synthetic and physical-camera runs pass the four narrow capability checks but fail `vision_changes_decision`: two different RGB scenes produce different saliency fields and byte-identical autonomy events. Integrated visual autonomy therefore remains **unpassed** until vision causally affects the decision loop.
+
+The optional camera adapter captures one FFmpeg frame without audio and deletes the temporary photograph after measurement. It is operator-requested input, not autonomous camera activation. The report records the image hash and visual field without retaining the photograph. See the [evaluation guide and capability-coverage limits](components/Zoe-Autonomy/EVALUATION.md).
+
 ## Internet exploration and connected agents
 
 Zoe can retrieve public web content and use your connected AI-agent accounts:

@@ -1847,7 +1847,7 @@
         "policy": "zoe-autonomy-sandbox-v1",
         "sandbox_executions": 1
       },
-      "profile_sha256": "2701ba721e9a373d276d1f58b013634c9c3819fa4bd5ea24fea4fddd467c7891",
+      "profile_sha256": "aff880078f846812731b874fe672b94855660813d96c95e10c7969ee52e95c67",
       "self_model": {
         "adoption": "preserved_current_model",
         "log_posterior": {
@@ -2491,7 +2491,8 @@
     "autonomous.py": "a98aaf7925c670ce41d414a330da9b1c2fe9fc57914a9ddd9082fbcdf807f011",
     "capabilities.py": "f558a205397a8406e32d40a838f10e129cc138b4a35b1d563faf28a95a4b9719",
     "capabilities_cli.py": "bdccc15827ffc1471e0d39e1fcca51d28dd486be7143743c69fae01575687f97",
-    "cli.py": "7ae75452d30ca381ccaa809ce2fe25abc986e7fb2c86b6b818d538290ca3f1aa",
+    "cli.py": "79a615bdbf352e8974281024ad9bee04125b206f30c0ca39a37848b16b097551",
+    "evaluation.py": "b59e81635d8161a2b7dbe3abecbe2e655b15350c4b319ec3f293bad8cfbbddb3",
     "experiment.py": "f8d37be3bfdb8829565a46869cb11e3eba95f47f80e39de4b722ab801f389795",
     "explore.py": "85891da36729e59550f7fdcf3d5b1a178ed9efbb5cc3e6cba5a6b949b632a2d7",
     "loop.py": "706c3e87688148543151cbadaf7cbc040ac4d1ab5859b042cc43013f717f6d13",
@@ -4207,7 +4208,7 @@
   },
   "observation_sha256": "4930376c7bdbe0c68e46e5614f2f9fc243a903e4412023c8bde4930d57ab4561",
   "observation_source": "synthetic_stereo",
-  "profile_sha256": "7bc1b41e945f2953c4c6b0f4a94248f0d2cb53d99c66fcca8138d24c1528d1f2",
+  "profile_sha256": "acca5abf12ff3bbcaafe0141145fae72c0c1150fde1a0cd40e85d7da0c0d7d14",
   "reversible": true,
   "schema_version": 1,
   "selection_posterior": {
@@ -4723,7 +4724,7 @@
   },
   "source": {
     "repository": "https://github.com/Ablation-Tool/zoe",
-    "revision": "6ef233e789c786bcd0fcc8a633c84e63402e40bf",
+    "revision": "e6245145e11fca58ba970130237e748b2144cd94",
     "source_sha256": {
       "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
       "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",

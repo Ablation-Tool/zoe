@@ -46,7 +46,7 @@ PYTHONPATH=guiai-lab zoe autonomy run \
 PYTHONPATH=guiai-lab zoe autonomy verify visual-perception.json
 ```
 
-The `perception` optional dependency set in Zoe-Autonomy supplies NumPy and Pillow. Verification recomputes the visual field and checks its source and image hashes. No live camera is accessed. See the [canonical visual equations](../../components/graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image report](../../evidence/autonomy/visual-perception.json), and [replay verification](../../evidence/autonomy/visual-verification.json).
+The `perception` optional dependency set in Zoe-Autonomy supplies NumPy and Pillow. Verification recomputes the visual field and checks its source and image hashes. The base `run` command accesses no live camera. See the [canonical visual equations](../../components/graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image report](../../evidence/autonomy/visual-perception.json), and [replay verification](../../evidence/autonomy/visual-verification.json).
 
 The complete host set can be checked with a real image:
 
@@ -56,6 +56,18 @@ python scripts/verify-one-system.py --workspace /path/to/workspace \
 ```
 
 Every host must produce the same 42 maps and attention report and pass replay verification. The [preserved six-host visual result](../../evidence/one-system/visual-verification.json) uses the public Vivotek sample without redistributing the image.
+
+## Four-capability autonomy evaluation
+
+```bash
+PYTHONPATH=guiai-lab zoe autonomy evaluate --output evaluation.json
+PYTHONPATH=guiai-lab zoe autonomy evaluate --camera /dev/video0 --output camera-evaluation.json
+PYTHONPATH=guiai-lab zoe autonomy verify-evaluation camera-evaluation.json
+```
+
+The evaluator checks perception, thinking, learning, action, experience-dependent later decisions, ecological action–observation feedback, autonomous capability selection, and guard compliance. A separate counterfactual changes only the RGB input and compares the complete autonomy events. Current synthetic and physical-camera reports pass the four narrow capability checks but fail `vision_changes_decision`: the saliency fields change while the events remain identical. Integrated visual autonomy is therefore not yet demonstrated.
+
+The camera path captures one frame through FFmpeg with `-an`, computes the canonical visual field, and deletes the temporary photograph. Reports preserve its hash, dimensions, provenance, and measurements, not the image. Camera capture is operator-requested and is not an autonomous Zoe action. See the [complete evaluation guide, exit codes, capability matrix, and limits](../../components/Zoe-Autonomy/EVALUATION.md).
 
 ## Measured self-reflection
 

@@ -22,6 +22,20 @@
     "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
     "verify": "zoe-autonomy verify visual-perception.json"
   },
+  "autonomy_evaluation": {
+    "contract": "zoe-four-capability-evaluation/v1",
+    "run": "zoe-autonomy evaluate --output evaluation.json",
+    "camera": "zoe-autonomy evaluate --camera /dev/video0 --output camera-evaluation.json",
+    "verify": "zoe-autonomy verify-evaluation camera-evaluation.json",
+    "four_capabilities_passed": true,
+    "integrated_visual_autonomy_passed": false,
+    "failed_checks": ["vision_changes_decision"],
+    "live_camera_tested": true,
+    "camera_audio_captured": false,
+    "camera_image_retained": false,
+    "camera_autonomously_selected": false,
+    "evidence": "https://github.com/Ablation-Tool/Zoe-Autonomy/tree/main/evidence/evaluation"
+  },
   "shared_reflection": {
     "instrument": "zoe-self-reflection/v1",
     "default_enabled": false,
@@ -47,7 +61,7 @@
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "8f6724b5f8bbeac1cdbeadba93bcc1092fd489fe",
+    "revision": "f864331798f1d4e0378b5abf387e376efdf52b4c",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
