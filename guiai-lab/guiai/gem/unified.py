@@ -9,6 +9,7 @@ from pathlib import Path
 import subprocess
 import sys
 
+from .atlas import _ellipse, _scene, _text
 from .field import _fit
 
 
@@ -278,72 +279,78 @@ def _woven_diamond(identifier, center, radius, color):
     return objects
 
 
-def unified_scene(registry=None, knowledge=None):
-    from .atlas import _ellipse, _scene, _text
+def _centered_text(identifier, x, y, text, size, color):
+    return _text(identifier, [x - len(text) * size * 0.29, y], text, size, color)
 
+
+def _constellation_node(identifier, label, x, y, direction, color, level):
+    objects = [
+        _ellipse(f"{identifier}-halo", [x, y], [14, 14], color, "#080d18", 1),
+        _ellipse(f"{identifier}-core", [x, y], [7, 7], color, color),
+    ]
+    width = len(label) * 8.4
+    if direction == "top":
+        position = [x - width / 2, y - 31]
+    elif direction == "bottom":
+        position = [x - width / 2, y + 27]
+    else:
+        stagger = (level - 1.5) * 45
+        label_y = y - stagger if direction == "right" else y + stagger
+        objects.append({
+            "id": f"{identifier}-leader", "type": "polyline",
+            "points": [[x, y], [x + 24 if direction == "right" else x - 24, label_y]],
+            "stroke": color, "fill": "none", "width": 0.8,
+        })
+        position = [x + 24, label_y + 6] if direction == "right" else [x - 24 - width, label_y + 6]
+    objects.append(_text(f"{identifier}-label", position, label, 16, "#e2e8f0"))
+    return objects
+
+
+def unified_scene(registry=None, knowledge=None):
     registry = registry or ComponentRegistry()
     knowledge = knowledge or registry.knowledge
     manifest = registry.manifest()
     knowledge_state = knowledge.knowledge_state()
+    present = sum(row["source"]["source_present"] for row in manifest["components"])
     cyan, yellow, pink, green, muted = "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#9fb1c8"
-    colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15", "#a5f3fc", "#f0fdfa"]
-    row_count = (len(COMPONENTS) + 3) // 4
-    memory_y = max(915, 294 + row_count * 202 + 20)
-    canvas_height = memory_y + 165
-    objects = [_rectangle("background", [0, 0, 1400, canvas_height], "#080d18", "#080d18")]
+    objects = [_rectangle("background", [0, 0, 1920, 1200], "#080d18", "#080d18")]
+    for index in range(96):
+        x = 41 + (index * 197) % 1840
+        y = 29 + (index * 109) % 1120
+        objects.append(_ellipse(f"star-{index}", [x, y], [1.4, 1.4], "#1e3a5f", "#1e3a5f"))
     objects.extend([
-        _text("title", [40, 51], "Zoe · ALLGEMS", 29, cyan),
-        _text("subtitle", [40, 83], "Trust Context / Stability Context", 17, "#e2e8f0"),
-        _text("scope", [40, 109], f"{IDENTITY} · full source trees · one replayable knowledge field", 12, muted),
-        _text("entrypoints", [45, 178], str(len(COMPONENTS)), 41, cyan),
-        _text("entrypoint-label", [121, 175], "registered entrypoints", 15, muted),
-        _text("repositories", [45, 222], str(manifest["imported_repository_count"]), 32, yellow),
-        _text("repository-label", [101, 220], "imported source histories", 14, muted),
-        _text("engine", [355, 178], "FULL", 28, pink),
-        _text("engine-label", [451, 176], "Ablation core and framework", 14, muted),
-        _text("checkout", [355, 218], "ONE", 24, green),
-        _text("checkout-label", [427, 216], "checkout · identity · manifest", 14, muted),
+        _centered_text("title", 960, 76, "Zoe · ALLGEMS", 44, "#e2e8f0"),
+        _centered_text("subtitle", 960, 115, "A L L G E M S  /  THE RESEARCH UNIVERSE", 15, cyan),
+        _centered_text("scope", 960, 149, "16 ENGINES · 12 IMPORTED HISTORIES · 1 REPOSITORY · 42 VISUAL MAPS", 13, muted),
+        {"id": "header-rule", "type": "polyline", "points": [[650, 176], [1270, 176]], "stroke": "#1e3a5f", "fill": "none", "width": 1},
     ])
-    objects.extend(_woven_diamond("identity-woven", [1150, 168], 120, "#f87171"))
-    objects.append(_text("identity-center-label", [1117, 175], "Zoe", 20, "#e2e8f0"))
-    objects.append(_text("orbital-caption", [984, 254], "Zoe woven diamond · allgems · original vector interpretation", 11, muted))
-    for index, component in enumerate(manifest["components"]):
-        x = 40 + (index % 4) * 340
-        y = 294 + (index // 4) * 202
-        color = colors[index % 4]
-        source = component["source"]
-        objects.append(_rectangle(f"component-{component['identifier']}", [x, y, x + 300, y + 181], color, "#101b2b", 2))
-        objects.append(_ellipse(f"component-icon-{index}", [x + 25, y + 31], [8, 8], color, color))
-        objects.append(_text(f"component-title-{index}", [x + 43, y + 37], _fit(component["title"], 26), 17, color))
-        objects.append(_text(f"component-summary-{index}", [x + 16, y + 72], _fit(component["summary"], 40), 11, "#d8e2ee"))
-        objects.append(_text(f"component-summary-2-{index}", [x + 16, y + 91], _fit(component["summary"][40:], 40), 11, "#d8e2ee"))
-        command = "show" if component["inspect_only"] else "launch"
-        objects.append(_text(f"component-command-{index}", [x + 16, y + 125], f"zoe {command} {component['identifier']}", 12, muted))
-        status = "source present" if source["source_present"] else "source unavailable"
-        objects.append(_text(f"component-status-{index}", [x + 16, y + 151], f"{source['mode']} · {status}", 11, green if source["source_present"] else "#fdba74"))
-        objects.append(_text(f"component-revision-{index}", [x + 16, y + 170], f"upstream {component['revision'][:12] if component['revision'] else 'Zoe baseline'}", 9, "#64748b"))
+    center_x, center_y = 960, 630
+    for radius in (150, 230, 310, 390, 450):
+        objects.append(_ellipse(f"orbit-{radius}", [center_x, center_y], [radius, radius], "#162a44", "none", 1))
+    ring_specs = [
+        (150, cyan, ("Zoe native shell", "Canonical GEM", "Zoe Autonomy", "Research GEM")),
+        (230, pink, ("Ablation core engine", "Ablation GEM Lab", "Cerotto GEM", "HP-UX Tools")),
+        (310, yellow, ("CERN Workbench", "Neurogarden", "Chalkboard", "BRAIN GEM")),
+        (390, green, ("GEM HELEN", "Zoe Life", "PDF Signature Toolkit", "Kevlar MCP firewall")),
+    ]
+    for ring_index, (radius, color, labels) in enumerate(ring_specs):
+        objects.append({
+            "id": f"diamond-ring-{ring_index}", "type": "polygon",
+            "points": [[center_x, center_y - radius], [center_x + radius, center_y], [center_x, center_y + radius], [center_x - radius, center_y], [center_x, center_y - radius]],
+            "stroke": color, "fill": "none", "width": 1.2,
+        })
+        for direction, label in zip(("top", "right", "bottom", "left"), labels):
+            node_x = center_x + (radius if direction == "right" else -radius if direction == "left" else 0)
+            node_y = center_y + (radius if direction == "bottom" else -radius if direction == "top" else 0)
+            objects.extend(_constellation_node(f"engine-{label.lower().replace(' ', '-')}", label, node_x, node_y, direction, color, ring_index))
+    objects.extend(_woven_diamond("identity-woven", [center_x, center_y], 110, "#f87171"))
+    objects.append(_centered_text("identity-center-label", center_x, center_y + 9, "ZOE", 27, "#e2e8f0"))
     objects.extend([
-        _rectangle("unified-memory", [40, memory_y, 1360, memory_y + 133], "#475569", "#0e1828"),
-        _rectangle("knowledge-card", [1050, memory_y + 10, 1360, memory_y + 123], cyan, "#101b2b", 1.5),
-        _text("knowledge-card-title", [1068, memory_y + 36], "Shared knowledge field", 15, cyan),
-        _text("knowledge-observations", [1068, memory_y + 59], f"{knowledge_state['observation_count']} source observations", 11, "#e2e8f0"),
-        _text("knowledge-links", [1068, memory_y + 79], f"{knowledge_state['link_count']} declared context links", 11, "#e2e8f0"),
-        _text("knowledge-hash", [1068, memory_y + 98], f"SHA-256 {(knowledge.events[-1]['hash'][:24] if knowledge.events else 'empty')}", 9, yellow),
-        _text("knowledge-scope", [1068, memory_y + 115], "no evidence/permission transfer · executed=False", 8, green),
+        _centered_text("loop", 960, 1098, "SENSE  →  MODEL  →  IMAGINE  →  DOUBT  →  CHOOSE  →  ACT  →  LEARN", 15, "#e2e8f0"),
+        _centered_text("evidence", 960, 1134, f"{present}/{len(COMPONENTS)} SOURCE PRESENT · {knowledge_state['observation_count']} OBSERVATIONS · {knowledge_state['link_count']} LINKS · REPLAYABLE EVIDENCE", 11, green),
+        _centered_text("memory", 960, 1164, "ONE REPOSITORY · ONE KNOWLEDGE FIELD · HUMAN CONTROL", 11, muted),
     ])
-    for index, symbol in enumerate(("G", "E", "M")):
-        x = 62 + index * 50
-        objects.append(_rectangle(f"symbol-cell-{index}", [x, memory_y + 24, x + 48, memory_y + 70], muted, "none"))
-        objects.append(_text(f"symbol-{index}", [x + 16, memory_y + 55], symbol, 20, colors[index]))
-    objects.extend([
-        _text("symbol-caption", [62, memory_y + 96], "source / trust / stability", 11, muted),
-        _text("symbol-note", [62, memory_y + 118], "original symbol-grid references", 9, "#64748b"),
-        _text("memory-title", [390, memory_y + 34], "SIXTEEN ENGINES · ONE KNOWLEDGE FIELD", 14, yellow),
-        _text("memory-scope", [390, memory_y + 65], "Source context is inspectable; observation does not transfer evidence or permission.", 12, "#fda4af"),
-        _text("memory-detail", [390, memory_y + 91], "Trust: repository + revision + scope · Stability: process + replay + tests", 11, muted),
-        _text("memory-boundary", [390, memory_y + 117], "No implicit agent launch · no runtime claim from source presence · executed=False", 11, green),
-    ])
-    scene = _scene("zoe-allgems", 1400, canvas_height, objects, IDENTITY)
+    scene = _scene("zoe-allgems", 1920, 1200, objects, IDENTITY)
     report = deepcopy(manifest)
     present = sum(row["source"]["source_present"] for row in manifest["components"])
     report.update({
