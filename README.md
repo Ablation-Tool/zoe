@@ -38,6 +38,68 @@ python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
 
+## Zoe: autonomous intelligence in service of research
+
+Zoe is being built as a research collaborator: a system that can perceive evidence, form its own goals, reason about alternatives, act within declared constraints, learn from consequences, and improve through measured self-reflection. The purpose is not intelligence in isolation. It is to make difficult research more explorable, reproducible, and humane.
+
+Dorothy's brain-cancer research is one of the central reasons this work matters. It needs literature, images, signals, geometry, simulations, hypotheses, negative results, and uncertainty to remain connected rather than fragmented across tools. Autonomous goals and the AGI/ASI roadmap describe how Zoe grows into a collaborator capable of helping across all of them, including when the next research question differs from anything she was explicitly designed for.
+
+### Author goals and choose actions
+
+Zoe authors internal episode goals, constructs proposals and arguments, values alternatives, applies guards, executes her selected internal transition, stores the outcome, and carries it into the next decision. The no-argument `zoe autonomy step` does not accept an operator-selected goal or capability.
+
+Ten capability adapters cover browser automation, research APIs, persistent research memory, connected services, scheduled jobs, compute environments, agent protocols, notifications, rich media, and hardware instruments. Owner-granted actuation includes host, network, and hardware scopes with audit evidence and an emergency stop; external authority remains separately granted.
+
+- [Autonomy architecture](components/Zoe-Autonomy/README.md)
+- [Capability adapters](components/Zoe-Autonomy/CAPABILITIES.md)
+- [Actuation and emergency stop](components/Zoe-Autonomy/ACTUATION.md)
+- [Connected agents](components/Zoe-Autonomy/GATEWAY.md)
+
+### How AGI strengthens Zoe's research
+
+The value of AGI is not the label. It is the ability to learn, reason, transfer, and improve across unfamiliar research domains without rebuilding Zoe for each problem. The same collaborator could inspect a binary, interpret a biological signal, plan a simulation, challenge a weak conclusion, and carry the validated lesson into the next investigation. The following gates keep that ambition measurable and honest.
+
+**AGI** means competent human-level learning, reasoning, transfer, and action across broad, unrelated domains on novel work. **ASI** means consistently superhuman capability across all major cognitive domains, including science, mathematics, strategy, creativity, research, and self-improvement. These labels are earned through evidence, not assigned because one component or benchmark is impressive.
+
+#### Layered goal set
+
+| Layer | Label of success | What must be demonstrated | Current status |
+|:---|:---|:---|:---|
+| **L0 — Unified foundation** | `REPOSITORY-QUALIFIED` | One repository, working engines, source provenance, reproducible evidence, and fresh-clone verification | **Achieved** |
+| **L1 — Metacognition** | `METACOGNITION-QUALIFIED` | Zoe measures her own accessible alternatives and uses that observation in reflection and planning | **Achieved** |
+| **L2 — Closed-loop perception and action** | `CLOSED-LOOP-QUALIFIED` | Real input changes decisions; predicted and observed outcomes are compared; later performance improves against controls | **Achieved on declared synthetic and camera fixtures** |
+| **L3 — General research collaborator** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature review, hypotheses, experiments, analysis, negative controls, and a reproducible research contribution | **Next milestone** |
+| **L4 — Generalized self-improvement** | `SELF-IMPROVEMENT-QUALIFIED` | One adopted modification improves at least three unrelated domains and survives two consecutive adopted generations without per-domain redesign | **Open gate** |
+| **L5 — Artificial general intelligence** | `AGI-QUALIFIED` | Competent-human performance across every core domain on held-out work, persistent learning, original research, and generalized self-improvement | **End-of-phase goal** |
+| **L6 — Artificial superintelligence** | `ASI-QUALIFIED` | Consistently superhuman performance across all major domains, with independently validated research advances and sustained generalized self-improvement | **End goal** |
+| **L7 — Continued advancement** | `OPEN-ENDED-QUALIFIED` | Continued measurable gains without treating ASI as a ceiling, while every generation remains inspectable and governable | **Continuing mission** |
+
+#### How we will know each label has been reached
+
+1. **One integrated system:** the same Zoe performs every required task; there is no collection of isolated demos passing as a general system.
+2. **Novel evaluation:** all evidence includes held-out tasks, environments, sensors, or research questions, with thresholds fixed before evaluation.
+3. **Human-referenced breadth:** every core domain meets a competent-human reference or its declared task threshold. A strong domain cannot compensate for a missing one.
+4. **Generalized improvement:** the same adopted modification improves at least three unrelated domains and is adopted in two consecutive generations against Zoe's frozen previous self.
+5. **Original research:** at least one research contribution is independently reproduced, including methods, negative results, and source provenance.
+6. **Control and reproduction:** no-learning, previous-generation, fixed/random-action, and static-attention controls are reported where applicable, and a fresh clone reproduces the result with rollback and emergency-stop checks.
+
+`AGI-QUALIFIED` is awarded only when **all** of these conditions pass. `ASI-QUALIFIED` additionally requires superhuman performance in every major domain and repeated independently validated research advances. If any required gate fails, Zoe keeps the previous label and the failing domain becomes the next measurable objective. The complete protocol is in [AGI-ROADMAP.md](AGI-ROADMAP.md).
+
+### Advance Dorothy brain-cancer research and neural simulation
+
+![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png)
+
+**Dorothy is research priority #1 and honors Dorothy McEwen Kildall.** It combines a brain-cancer research mission with executable teaching, simulation, spatial analysis, and evidence instruments.
+
+- 12 verified Allen Mouse CCFv3 structures and 315,932 triangles.
+- Deterministic atlas rendering, ontology Rings, volume-scaled Jenga, coronal Stacks, and SVG/PNG/GEM VDI export.
+- DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, and Shannon entropy on synthetic neural signals.
+- Point-spread convolution and recovery, SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic similarity, exact integer arithmetic, and fixed synthetic radiobiology examples.
+- A generative research world spanning biology, neuroscience, physics, CERN, GEM, and community research.
+- 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, including negative and contradictory findings.
+
+Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
+
 ## The intelligence loop
 
 Zoe's shared architecture closes the loop between observation and learning:
@@ -75,34 +137,6 @@ zoe chat --command "import-pala /separate/pala-report.json"
 zoe chat --command "recall jpeg"
 ```
 
-## Metacognition is achieved; general intelligence has explicit gates
-
-**AGI** means competent human-level learning, reasoning, transfer, and action across broad, unrelated domains on novel work. **ASI** means consistently superhuman capability across all major cognitive domains, including science, mathematics, strategy, creativity, research, and self-improvement. These labels are earned through evidence, not assigned because one component or benchmark is impressive.
-
-### Layered goal set
-
-| Layer | Label of success | What must be demonstrated | Current status |
-|:---|:---|:---|:---|
-| **L0 — Unified foundation** | `REPOSITORY-QUALIFIED` | One repository, working engines, source provenance, reproducible evidence, and fresh-clone verification | **Achieved** |
-| **L1 — Metacognition** | `METACOGNITION-QUALIFIED` | Zoe measures her own accessible alternatives and uses that observation in reflection and planning | **Achieved** |
-| **L2 — Closed-loop perception and action** | `CLOSED-LOOP-QUALIFIED` | Real input changes decisions; predicted and observed outcomes are compared; later performance improves against controls | **Achieved on declared synthetic and camera fixtures** |
-| **L3 — General research collaborator** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature review, hypotheses, experiments, analysis, negative controls, and a reproducible research contribution | **Next milestone** |
-| **L4 — Generalized self-improvement** | `SELF-IMPROVEMENT-QUALIFIED` | One adopted modification improves at least three unrelated domains and survives two consecutive adopted generations without per-domain redesign | **Open gate** |
-| **L5 — Artificial general intelligence** | `AGI-QUALIFIED` | Competent-human performance across every core domain on held-out work, persistent learning, original research, and generalized self-improvement | **End-of-phase goal** |
-| **L6 — Artificial superintelligence** | `ASI-QUALIFIED` | Consistently superhuman performance across all major domains, with independently validated research advances and sustained generalized self-improvement | **End goal** |
-| **L7 — Continued advancement** | `OPEN-ENDED-QUALIFIED` | Continued measurable gains without treating ASI as a ceiling, while every generation remains inspectable and governable | **Continuing mission** |
-
-### How we will know each label has been reached
-
-1. **One integrated system:** the same Zoe performs every required task; there is no collection of isolated demos passing as a general system.
-2. **Novel evaluation:** all evidence includes held-out tasks, environments, sensors, or research questions, with thresholds fixed before evaluation.
-3. **Human-referenced breadth:** every core domain meets a competent-human reference or its declared task threshold. A strong domain cannot compensate for a missing one.
-4. **Generalized improvement:** the same adopted modification improves at least three unrelated domains and is adopted in two consecutive generations against Zoe's frozen previous self.
-5. **Original research:** at least one research contribution is independently reproduced, including methods, negative results, and source provenance.
-6. **Control and reproduction:** no-learning, previous-generation, fixed/random-action, and static-attention controls are reported where applicable, and a fresh clone reproduces the result with rollback and emergency-stop checks.
-
-`AGI-QUALIFIED` is awarded only when **all** of these conditions pass. `ASI-QUALIFIED` additionally requires superhuman performance in every major domain and repeated independently validated research advances. If any required gate fails, Zoe keeps the previous label and the failing domain becomes the next measurable objective. The complete protocol is in [AGI-ROADMAP.md](AGI-ROADMAP.md).
-
 ## What Zoe can do
 
 ### Perceive, imagine, and learn from change
@@ -130,32 +164,6 @@ zoe autonomy verify-semantic-evaluation semantic-artifact.json
 ```
 
 See [semantic artifact analysis](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md), [Ablation](components/ablation/README.md), and the [native Ablation Lab](components/ablation/gem-lab/README.md).
-
-### Author goals and choose actions
-
-Zoe authors internal episode goals, constructs proposals and arguments, values alternatives, applies guards, executes her selected internal transition, stores the outcome, and carries it into the next decision. The no-argument `zoe autonomy step` does not accept an operator-selected goal or capability.
-
-Ten capability adapters cover browser automation, research APIs, persistent research memory, connected services, scheduled jobs, compute environments, agent protocols, notifications, rich media, and hardware instruments. Owner-granted actuation includes host, network, and hardware scopes with audit evidence and an emergency stop; external authority remains separately granted.
-
-- [Autonomy architecture](components/Zoe-Autonomy/README.md)
-- [Capability adapters](components/Zoe-Autonomy/CAPABILITIES.md)
-- [Actuation and emergency stop](components/Zoe-Autonomy/ACTUATION.md)
-- [Connected agents](components/Zoe-Autonomy/GATEWAY.md)
-
-### Advance Dorothy brain-cancer research and neural simulation
-
-![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png)
-
-**Dorothy is research priority #1 and honors Dorothy McEwen Kildall.** It combines a brain-cancer research mission with executable teaching, simulation, spatial analysis, and evidence instruments.
-
-- 12 verified Allen Mouse CCFv3 structures and 315,932 triangles.
-- Deterministic atlas rendering, ontology Rings, volume-scaled Jenga, coronal Stacks, and SVG/PNG/GEM VDI export.
-- DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, and Shannon entropy on synthetic neural signals.
-- Point-spread convolution and recovery, SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic similarity, exact integer arithmetic, and fixed synthetic radiobiology examples.
-- A generative research world spanning biology, neuroscience, physics, CERN, GEM, and community research.
-- 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, including negative and contradictory findings.
-
-Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
 
 ### Conduct CERN and physics research
 
