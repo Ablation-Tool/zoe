@@ -4,6 +4,8 @@ The original Accessible Volume equation, early research, experiments, and origin
 
 Zoe is developed in the Ablation-Tool Zoe repository and related GEM components. The original two Accessible Volume papers retain Nicholas Michael Kloster's sole authorship; the Zoe papers identify their own authorship separately.
 
+The multiscale visual-attention model follows Laurent Itti, Christof Koch, and Ernst Niebur, "A Model of Saliency-Based Visual Attention for Rapid Scene Analysis" (IEEE PAMI 20(11), 1998). The implementation resides in the canonical GEM and is called directly by this repository's canonical report. The published iLab toolkit and source snapshot were used as references; no iLab C++ source is bundled. References: https://ilab.usc.edu/publications/doc/Itti_etal98pami.pdf and https://ilab.usc.edu/toolkit/downloads.shtml. A public Vivotek sample was used for local input verification and is not redistributed.
+
 This repository implements the master measurement-action architecture, full self-governing autonomy, and optional owner-granted host, network, and hardware actuation. External permissions require an explicit hostname-bound owner grant and emergency-stop checks. The base experiment performs no external actions. No consciousness is established, and a forecast alone is not authorization.
 
 The combined integration is distributed under GPL-3.0-only, matching the Zoe source tree. The upstream Accessible Volume repository retains its own MIT license. No upstream license is changed by this repository.

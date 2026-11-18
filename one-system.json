@@ -12,11 +12,21 @@
     "sandbox_executed": true,
     "external_actions": 0
   },
+  "shared_perception": {
+    "engine": "canonical GEM saliency field",
+    "feature_maps": 42,
+    "default_source": "documented_synthetic_rgb_popout",
+    "selection": "winner selection, inhibition of return, and exact Dijkstra attention paths",
+    "source_locked": true,
+    "live_camera": false,
+    "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
+    "verify": "zoe-autonomy verify visual-perception.json"
+  },
   "canonical_engine": {
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "a46c42b9a1072cc577397372c984588757db529b",
+    "revision": "bd8fa12bda3ed116a09775081684d1b79088372b",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -93,7 +103,7 @@
   ],
   "verification": {
     "command": "python scripts/verify-one-system.py --workspace /path/to/workspace",
-    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions."
+    "requirements": "Every host invokes the canonical engine and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host."
   },
   "actuation": {
     "contract": "zoe-actuation/v1",

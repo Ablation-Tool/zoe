@@ -16,6 +16,8 @@ def parser():
     run.add_argument("--output", help="new JSON evidence path")
     run.add_argument("--tau", type=float, default=.05)
     run.add_argument("--delta", type=float, default=.001)
+    run.add_argument("--image", help="RGB image for shared saliency; default: documented synthetic pop-out")
+    run.add_argument("--foci", type=int, default=4, help="attention selections with inhibition of return, from 1 to 8")
     run.add_argument("--full", action="store_true", help="print the complete report")
     verify = commands.add_parser("verify", help="recompute and verify a saved report")
     verify.add_argument("report")
@@ -62,6 +64,9 @@ def main(argv=None):
             if arguments.zoe_root:
                 forwarded.extend(["--zoe-root", arguments.zoe_root])
             forwarded.extend(["--tau", str(arguments.tau), "--delta", str(arguments.delta)])
+            if arguments.image:
+                forwarded.extend(["--image", arguments.image])
+            forwarded.extend(["--foci", str(arguments.foci)])
             if arguments.output:
                 forwarded.extend(["--output", arguments.output])
             if arguments.full:
@@ -80,7 +85,10 @@ def main(argv=None):
             print(json.dumps(verify_step_report(arguments.report), ensure_ascii=False, indent=2, sort_keys=True))
             return 0
         if arguments.command == "verify":
-            return unified_main(["verify", arguments.report])
+            forwarded = ["verify", arguments.report]
+            if arguments.zoe_root:
+                forwarded.extend(["--zoe-root", arguments.zoe_root])
+            return unified_main(forwarded)
         result = verify_report(arguments.report, arguments.zoe_root)
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
         return 0

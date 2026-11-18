@@ -6,7 +6,7 @@ Zoe is a single source repository containing twelve source projects, including Z
 
 [`one-system.json`](../../one-system.json) pins the canonical Zoe-Autonomy engine, Research GEM, and every GEM host adapter. Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards. The contract requires inspectable source and evidence for every capability claim.
 
-Run `python scripts/verify-one-system.py --workspace /path/to/workspace` to check every pinned revision and invoke all six canonical entry points. The verifier requires identical `full_autonomy` documents, internal goal authorship, internal value-based selection and execution, passing guards, and zero external actions. The [preserved result](../../evidence/one-system/verification.json) records the coordinated run.
+Run `python scripts/verify-one-system.py --workspace /path/to/workspace` to check every pinned revision and invoke all six canonical entry points. The verifier requires identical `full_autonomy` documents, internal goal authorship, internal value-based selection and execution, passing guards, and zero external actions. Every report also includes 42 saliency maps, a source-locked attention scanpath, and successful replay. The [preserved result](../../evidence/one-system/verification.json) records the coordinated run. `--image /path/to/image.jpg --foci 4` checks the same real image through every host; the [six-host visual result](../../evidence/one-system/visual-verification.json) preserves that verification.
 
 Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_CEROTTO_ROOT`, or `ZOE_CHALKBOARD_ROOT`. Bundled sources take precedence. Host sources are used only when their component anchors exist. Chalkboard and Neurogarden remain content/library inspection components, not fictitious GUI processes.
 
@@ -23,7 +23,7 @@ Embedded layouts can resolve a host component through `ZOE_ABLATION_ROOT`, `ZOE_
 | BRAIN GEM | `7420a8f0d8d2c370a72b76d93defcc7fb585b913` | Standalone Bayesian field notebook |
 | Cerotto | `b73d399b638b4de8a0a9829b17c95203c5deaabd` | Native C forensic engine and guarded GEM workbench |
 | next-token-predictability | `79575d94325a43b5dbbef17d38bc1cb1d56d9321` | Accessible-volume research, response-planning evidence, and retained SAT research |
-| Zoe-Autonomy | `a46c42b9a1072cc577397372c984588757db529b` | Full self-governing goals, proposals, valuation, execution, and evidence |
+| Zoe-Autonomy | `bd8fa12bda3ed116a09775081684d1b79088372b` | Full self-governing goals, proposals, valuation, execution, and evidence |
 | Neurogarden | unavailable; recovered local snapshot | OT-inspired oversight, Trinity verification, cited learning, and teaching tools |
 | Kevlar | `8ac3e0181e98572d6c41f964385393aa441a5f2a` | MCP firewall and pure policy engine |
 | PDF Signature Toolkit | `1198165962958c5132130f3854626ff39c333941` | Source integrity and PDF signature commands |

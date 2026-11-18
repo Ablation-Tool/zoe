@@ -16,7 +16,7 @@ Zoe observes her persistent state, authors a goal, constructs calls and argument
 
 The default state is `~/.zoe/autonomy`; `ZOE_AUTONOMY_STATE` or `--state` selects another storage directory without selecting a decision. External calls require the corresponding owner-granted host/network scopes. Browser automation requires Playwright and Node, connected GitHub calls require `gh`, desktop notifications require `notify-send`, and OCR requires Tesseract. Internal memory, WAV inspection, and simulated instruments remain available without those tools.
 
-The [real autonomous first step](../../evidence/autonomous/first-step.json) selected Crossref and authored the query `language model uncertainty`; its [verification](../../evidence/autonomous/verification.json) passes. The integration suite also runs a ten-step sequence in which Zoe selects every adapter once, using loopback or test doubles for external accounts. `verify-step` authenticates neither the external service nor a real-time replay; it checks the saved digest and decision provenance.
+The [real autonomous first step](evidence/autonomous/first-step.json) selected Crossref and authored the query `language model uncertainty`; its [verification](evidence/autonomous/verification.json) passes. The integration suite also runs a ten-step sequence in which Zoe selects every adapter once, using loopback or test doubles for external accounts. `verify-step` authenticates neither the external service nor a real-time replay; it checks the saved digest and decision provenance.
 
 ## Direct adapter commands
 
@@ -30,7 +30,7 @@ zoe-autonomy capabilities browser \
   --screenshot browser.png
 ```
 
-The default is a visible Chromium window. Add `--headless` for headless operation. Set `ZOE_PLAYWRIGHT_RUNNER` when the Playwright skill runner is installed elsewhere. The real [browser result](../../evidence/capabilities/browser-example-com.json) and [screenshot](../../evidence/capabilities/example-com-browser.png) are preserved.
+The default is a visible Chromium window. Add `--headless` for headless operation. Set `ZOE_PLAYWRIGHT_RUNNER` when the Playwright skill runner is installed elsewhere. The real [browser result](evidence/capabilities/browser-example-com.json) and [screenshot](evidence/capabilities/example-com-browser.png) are preserved.
 
 ## 2. Research sources
 
@@ -42,7 +42,7 @@ zoe-autonomy capabilities research --provider feed --url https://example.com/fee
 zoe-autonomy capabilities research --provider sitemap --url https://example.com/sitemap.xml
 ```
 
-Crossref returns titles, DOIs, publishers, and URLs. arXiv returns titles, identifiers, and summaries. PubMed returns identifiers and record URLs. RSS/Atom and sitemap parsing preserve source metadata and network audit hashes. A real [Crossref result](../../evidence/capabilities/crossref.json) is included.
+Crossref returns titles, DOIs, publishers, and URLs. arXiv returns titles, identifiers, and summaries. PubMed returns identifiers and record URLs. RSS/Atom and sitemap parsing preserve source metadata and network audit hashes. A real [Crossref result](evidence/capabilities/crossref.json) is included.
 
 ## 3. Persistent research memory
 
@@ -55,7 +55,7 @@ zoe-autonomy capabilities memory --db research.sqlite search --query "Claim"
 zoe-autonomy capabilities memory --db research.sqlite export
 ```
 
-SQLite preserves sources, claims, lifecycle status, content hashes, and explicit contradictions. Duplicate content is deduplicated. See the [worked memory export](../../evidence/capabilities/memory-export.json).
+SQLite preserves sources, claims, lifecycle status, content hashes, and explicit contradictions. Duplicate content is deduplicated. See the [worked memory export](evidence/capabilities/memory-export.json).
 
 ## 4. Connected services
 
@@ -171,4 +171,4 @@ Simulators return declared responses. Serial instruments write command frames th
 
 ## Verification level
 
-[Capability verification](../../evidence/capabilities/verification.json) records all ten passing adapter tests and all 34 repository tests. Optional account, container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence. The guide does not present those untested external integrations as completed live results.
+[Capability verification](evidence/capabilities/verification.json) records all ten passing adapter tests and all 36 repository tests. Optional account, container-image, live-email, speech-model, and physical-device integrations require their own configuration and evidence. The guide does not present those untested external integrations as completed live results.

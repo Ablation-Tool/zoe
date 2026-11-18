@@ -848,14 +848,14 @@
   },
   "instrument": "zoe-autonomy-measurement-action-profile",
   "integration_source_sha256": {
-    "__init__.py": "fab8b5c8efb5ebc6b4df4849326bd3a5aa7f49424d54ac06cba5f33f199d230f",
+    "__init__.py": "4c65dcab8ac63dfa06612c06d91f5765d551d0149b36952ac86b182d0cac0138",
     "actuation.py": "7031f4deb81e77519682c5f7d8e19c18abd5d776a4825b2e8e25b2414302dbef",
     "agents.py": "b378bc25ad094d8f3fc3b3fb3775647f0076f746b4299d3974a7f8df3b9a5697",
     "autonomous.py": "a98aaf7925c670ce41d414a330da9b1c2fe9fc57914a9ddd9082fbcdf807f011",
     "capabilities.py": "f558a205397a8406e32d40a838f10e129cc138b4a35b1d563faf28a95a4b9719",
     "capabilities_cli.py": "bdccc15827ffc1471e0d39e1fcca51d28dd486be7143743c69fae01575687f97",
-    "cli.py": "c9874eb12e73f75cfad44f10f60e01e1cd96ff7ffadbf4eb10e88bd40cf1dc0d",
-    "experiment.py": "8a2a2847ad1a42066da21297ca93abf82d0bec246bb83f1de6b9d49d3e595e2a",
+    "cli.py": "c55b9ceb72297c55f23ab3201c161dee8faa2c0d71b8b1f5ed6e2c9e7d2a5f10",
+    "experiment.py": "2ef852459d7d9ed0b34cb96f3f82a3abacd410742015f5e56494276afcbbd726",
     "explore.py": "85891da36729e59550f7fdcf3d5b1a178ed9efbb5cc3e6cba5a6b949b632a2d7",
     "loop.py": "363b2d2351b9d75d5dcea61720ab698697ac01e98d06ed187d4cf067ac2c05c8",
     "metrics.py": "642dd2ad467f765a06e1f4b5269e833e2c39b8c4edf1870a6c291dc27713936b"
@@ -3998,6 +3998,7 @@
     }
   },
   "parameters": {
+    "attention_steps": 4,
     "brain_target_band": [
       1,
       4
@@ -4005,7 +4006,7 @@
     "delta": 0.001,
     "tau": 0.05
   },
-  "profile_sha256": "5b8061489ca60fb5ccacf85716bf328d4db477767799acb7dc344b0e65977afa",
+  "profile_sha256": "3ddfb1d01beee72edae8ac80bcb6f323aa21e2617fdf5c55f5f366d22f87c0de",
   "sandbox_executed": true,
   "schema_version": 1,
   "scope": [
@@ -4024,6 +4025,1148 @@
     "presence_event_head": "0651525a1e32d40b242e218ac23a9cd0464e83540d2480dd78c776a532035d45"
   },
   "system_level_thesis": "Zoe plus the complete master measurement-action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain; accessible volume alone is only forecast breadth.",
+  "visual_perception": {
+    "engine": "canonical GEM shared saliency field",
+    "locked_revision": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b",
+    "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+    "saliency": {
+      "attention_mechanism": {
+        "continuous_neural_dynamics_simulated": false,
+        "inhibition": "zero a disk of radius min(map height, map width)/6 after each selection",
+        "live_camera_control": false,
+        "object_recognition_performed": false,
+        "selection": "deterministic maximum with row-major tie breaking"
+      },
+      "center_scales": [
+        2,
+        3,
+        4
+      ],
+      "conspicuity": {
+        "color": {
+          "map": [
+            [
+              0.16848973843589735,
+              0.16799315853575125,
+              0.16714958429335036,
+              0.16639286904047207
+            ],
+            [
+              0.19583661150789441,
+              0.195653728476261,
+              0.18040814152621473,
+              0.16907829366800475
+            ],
+            [
+              0.44400463637739607,
+              0.672531729450856,
+              0.28117901753129515,
+              0.18026828683934595
+            ],
+            [
+              0.7720310302974067,
+              1.0,
+              0.42786991045381223,
+              0.19652129392350198
+            ]
+          ],
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 3.028720330539918,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          }
+        },
+        "intensity": {
+          "map": [
+            [
+              0.1842597272209366,
+              0.1636600293581131,
+              0.09770097070215245,
+              0.3672556770459675
+            ],
+            [
+              0.1756955378421743,
+              0.15432637825300666,
+              0.19308547645031007,
+              0.4850853393833362
+            ],
+            [
+              0.0953604631382211,
+              0.07452469496126858,
+              0.05354027227944252,
+              0.13714937162723465
+            ],
+            [
+              0.09287794409542421,
+              0.10048613196626495,
+              0.08919379275700065,
+              0.1569524560183635
+            ]
+          ],
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 1.4250101352080196,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.30351931872927285,
+            "other_local_maximum_mean": 0.4325181054206471,
+            "reason": "peak_competition",
+            "weight": 0.4850853393833362
+          }
+        },
+        "orientation": {
+          "map": [
+            [
+              0.41479218134813506,
+              0.6107636608369218,
+              0.8711161588620641,
+              0.701270783721959
+            ],
+            [
+              0.5377347734003081,
+              0.5333515261586094,
+              0.9019729653625603,
+              1.0
+            ],
+            [
+              0.44548739171919965,
+              0.4365186907082908,
+              0.4675994953800835,
+              0.5720423842078444
+            ],
+            [
+              0.18463626458521057,
+              0.25807034052716626,
+              0.17141636256409987,
+              0.1129713063488087
+            ]
+          ],
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.314760540128762,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          }
+        }
+      },
+      "executed": false,
+      "external_actions": 0,
+      "feature_combination": "across-scale addition at scale four, then equal averaging of the three normalized conspicuity maps",
+      "feature_map_counts": {
+        "color": 12,
+        "intensity": 6,
+        "orientation": 24,
+        "total": 42
+      },
+      "feature_maps": [
+        {
+          "center": 2,
+          "kind": "intensity",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.4965744388167006,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.15711214868180073,
+            "other_local_maximum_mean": 0.07801787706295123,
+            "reason": "peak_competition",
+            "weight": 0.7104599298998107
+          },
+          "orientation_degrees": null,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "intensity",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.4993180369772528,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.1490189578375725,
+            "other_local_maximum_mean": 0.0744078534998527,
+            "reason": "peak_competition",
+            "weight": 0.7241687341198513
+          },
+          "orientation_degrees": null,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "intensity",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.1560887785808447,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.3304486518880494,
+            "other_local_maximum_mean": 0.051579326456892366,
+            "reason": "peak_competition",
+            "weight": 0.4482990077585305
+          },
+          "orientation_degrees": null,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "intensity",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.1560887785808447,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.3304486518880494,
+            "other_local_maximum_mean": 0.051579326456892366,
+            "reason": "peak_competition",
+            "weight": 0.4482990077585305
+          },
+          "orientation_degrees": null,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "intensity",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.04497810330447957,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.28411258357244007,
+            "other_local_maximum_mean": 0.012778845134023794,
+            "reason": "peak_competition",
+            "weight": 0.5124947929993267
+          },
+          "orientation_degrees": null,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "intensity",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.04497810330447957,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.28411258357244007,
+            "other_local_maximum_mean": 0.012778845134023794,
+            "reason": "peak_competition",
+            "weight": 0.5124947929993267
+          },
+          "orientation_degrees": null,
+          "surround": 8
+        },
+        {
+          "center": 2,
+          "kind": "red_green",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.0,
+            "local_maximum_count": 0,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "other_local_maximum_mean": 0.0,
+            "reason": "empty_map",
+            "weight": 0.0
+          },
+          "orientation_degrees": null,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "blue_yellow",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 1.249297115224218,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.037771776071806804,
+            "other_local_maximum_mean": 0.04718817088340339,
+            "reason": "peak_competition",
+            "weight": 0.9258831549240051
+          },
+          "orientation_degrees": null,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "red_green",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.0,
+            "local_maximum_count": 0,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "other_local_maximum_mean": 0.0,
+            "reason": "empty_map",
+            "weight": 0.0
+          },
+          "orientation_degrees": null,
+          "surround": 6
+        },
+        {
+          "center": 2,
+          "kind": "blue_yellow",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 1.2398478671728927,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": null,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "red_green",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.0,
+            "local_maximum_count": 0,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "other_local_maximum_mean": 0.0,
+            "reason": "empty_map",
+            "weight": 0.0
+          },
+          "orientation_degrees": null,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "blue_yellow",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.43595844452229304,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": null,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "red_green",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.0,
+            "local_maximum_count": 0,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "other_local_maximum_mean": 0.0,
+            "reason": "empty_map",
+            "weight": 0.0
+          },
+          "orientation_degrees": null,
+          "surround": 7
+        },
+        {
+          "center": 3,
+          "kind": "blue_yellow",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.43595844452229304,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": null,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "red_green",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.0,
+            "local_maximum_count": 0,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "other_local_maximum_mean": 0.0,
+            "reason": "empty_map",
+            "weight": 0.0
+          },
+          "orientation_degrees": null,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "blue_yellow",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.17559329452632838,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": null,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "red_green",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.0,
+            "local_maximum_count": 0,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "other_local_maximum_mean": 0.0,
+            "reason": "empty_map",
+            "weight": 0.0
+          },
+          "orientation_degrees": null,
+          "surround": 8
+        },
+        {
+          "center": 4,
+          "kind": "blue_yellow",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.17559329452632838,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": null,
+          "surround": 8
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.5667110765849737,
+            "local_maximum_count": 9,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.44222891554313637,
+            "other_local_maximum_mean": 1.135073855910729,
+            "reason": "peak_competition",
+            "weight": 0.3111085826561857
+          },
+          "orientation_degrees": 0,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.5679539551558,
+            "local_maximum_count": 7,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.5896864171855141,
+            "other_local_maximum_mean": 1.514287567313194,
+            "reason": "peak_competition",
+            "weight": 0.16835723624206
+          },
+          "orientation_degrees": 0,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.9255149914361116,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.3772008168107945,
+            "other_local_maximum_mean": 0.34910501074033673,
+            "reason": "peak_competition",
+            "weight": 0.3878788225811415
+          },
+          "orientation_degrees": 0,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.9255149914361116,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.3772008168107945,
+            "other_local_maximum_mean": 0.34910501074033673,
+            "reason": "peak_competition",
+            "weight": 0.3878788225811415
+          },
+          "orientation_degrees": 0,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.07119836733573291,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.7987736420187067,
+            "other_local_maximum_mean": 0.0568713791825491,
+            "reason": "peak_competition",
+            "weight": 0.0404920471464156
+          },
+          "orientation_degrees": 0,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.07119836733573291,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.7987736420187067,
+            "other_local_maximum_mean": 0.0568713791825491,
+            "reason": "peak_competition",
+            "weight": 0.0404920471464156
+          },
+          "orientation_degrees": 0,
+          "surround": 8
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.426958210613313,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.13330469453836089,
+            "other_local_maximum_mean": 0.3235249229231746,
+            "reason": "peak_competition",
+            "weight": 0.7511607525092439
+          },
+          "orientation_degrees": 45,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.4304252771627146,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.3980099503353259,
+            "other_local_maximum_mean": 0.9673334438572526,
+            "reason": "peak_competition",
+            "weight": 0.36239201989527686
+          },
+          "orientation_degrees": 45,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.7664502371325073,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.9391582532612788,
+            "other_local_maximum_mean": 0.7198180659170584,
+            "reason": "peak_competition",
+            "weight": 0.003701718146218695
+          },
+          "orientation_degrees": 45,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.7664502371325073,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.9391582532612788,
+            "other_local_maximum_mean": 0.7198180659170584,
+            "reason": "peak_competition",
+            "weight": 0.003701718146218695
+          },
+          "orientation_degrees": 45,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.21397246144913343,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 45,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.21397246144913343,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 45,
+          "surround": 8
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.5460417745965427,
+            "local_maximum_count": 9,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.36952442656331935,
+            "other_local_maximum_mean": 0.9408246267640434,
+            "reason": "peak_competition",
+            "weight": 0.39749944870031134
+          },
+          "orientation_degrees": 90,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.5491207873230266,
+            "local_maximum_count": 7,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.4929044111322152,
+            "other_local_maximum_mean": 1.2564728805803453,
+            "reason": "peak_competition",
+            "weight": 0.2571459362491655
+          },
+          "orientation_degrees": 90,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.8877854995975498,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.34732594425229296,
+            "other_local_maximum_mean": 0.3083509369412126,
+            "reason": "peak_competition",
+            "weight": 0.42598342304616105
+          },
+          "orientation_degrees": 90,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.8877854995975498,
+            "local_maximum_count": 2,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.34732594425229296,
+            "other_local_maximum_mean": 0.3083509369412126,
+            "reason": "peak_competition",
+            "weight": 0.42598342304616105
+          },
+          "orientation_degrees": 90,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.30874503356174954,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 90,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.30874503356174954,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 90,
+          "surround": 8
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.3544083363441435,
+            "local_maximum_count": 6,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.35552230937815205,
+            "other_local_maximum_mean": 0.8370446889562428,
+            "reason": "peak_competition",
+            "weight": 0.41535149370927027
+          },
+          "orientation_degrees": 135,
+          "surround": 5
+        },
+        {
+          "center": 2,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 2.3578660975331394,
+            "local_maximum_count": 4,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.5921881849712975,
+            "other_local_maximum_mean": 1.3963004447035061,
+            "reason": "peak_competition",
+            "weight": 0.16631047647700462
+          },
+          "orientation_degrees": 135,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.7664502371325068,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 135,
+          "surround": 6
+        },
+        {
+          "center": 3,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.7664502371325068,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 135,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.21397246144913323,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 135,
+          "surround": 7
+        },
+        {
+          "center": 4,
+          "kind": "orientation",
+          "normalization": {
+            "fixed_range": [
+              0,
+              1
+            ],
+            "global_maximum": 0.21397246144913323,
+            "local_maximum_count": 1,
+            "local_maximum_rule": "strictly greater than all eight neighbors",
+            "normalized_other_maximum_mean": 0.0,
+            "other_local_maximum_mean": 0.0,
+            "reason": "single_peak_promoted",
+            "weight": 1.0
+          },
+          "orientation_degrees": 135,
+          "surround": 8
+        }
+      ],
+      "instrument": "Itti-Koch-Niebur multiscale saliency within Zoe's native cognitive field",
+      "normalization": "N(X) = (X/M) * (1 - mean(other local maxima)/M)^2; strict eight-neighbor maxima",
+      "orientation_angles": [
+        0,
+        45,
+        90,
+        135
+      ],
+      "pyramid_scales": 9,
+      "references": [
+        "https://ilab.usc.edu/publications/doc/Itti_etal98pami.pdf",
+        "https://ilab.usc.edu/bu/theory/index.html"
+      ],
+      "saliency_map": [
+        [
+          0.25584721566832297,
+          0.3141389495769287,
+          0.37865557128585564,
+          0.4116397766027995
+        ],
+        [
+          0.3030889742501256,
+          0.29444387762929236,
+          0.42515552777969506,
+          0.5513878776837803
+        ],
+        [
+          0.32828416374493896,
+          0.3945250383734718,
+          0.26743959506360704,
+          0.296486680891475
+        ],
+        [
+          0.3498484129926805,
+          0.4528521574978104,
+          0.22949335525830425,
+          0.15548168543022473
+        ]
+      ],
+      "scale": 4,
+      "scanpath": [
+        {
+          "inhibition_radius_map_pixels": 1,
+          "map_xy": [
+            3,
+            1
+          ],
+          "saliency": 0.5513878776837803,
+          "sequence": 1,
+          "source_xy": [
+            48,
+            16
+          ]
+        },
+        {
+          "inhibition_radius_map_pixels": 1,
+          "map_xy": [
+            1,
+            3
+          ],
+          "navigation": {
+            "algorithm": "exact four-neighbor Dijkstra on the unchanged pre-inhibition saliency map",
+            "cost": 10.491232965729527,
+            "edge_cost": "Euclidean pixel distance divided by max(destination saliency, 0.001)",
+            "map_path": [
+              [
+                3,
+                1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ]
+            ],
+            "scope": "attention routing, not physical navigation or object identity"
+          },
+          "saliency": 0.4528521574978104,
+          "sequence": 2,
+          "source_xy": [
+            16,
+            48
+          ]
+        },
+        {
+          "inhibition_radius_map_pixels": 1,
+          "map_xy": [
+            2,
+            0
+          ],
+          "navigation": {
+            "algorithm": "exact four-neighbor Dijkstra on the unchanged pre-inhibition saliency map",
+            "cost": 10.923929215900834,
+            "edge_cost": "Euclidean pixel distance divided by max(destination saliency, 0.001)",
+            "map_path": [
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                0
+              ]
+            ],
+            "scope": "attention routing, not physical navigation or object identity"
+          },
+          "saliency": 0.37865557128585564,
+          "sequence": 3,
+          "source_xy": [
+            32,
+            0
+          ]
+        },
+        {
+          "inhibition_radius_map_pixels": 1,
+          "map_xy": [
+            0,
+            2
+          ],
+          "navigation": {
+            "algorithm": "exact four-neighbor Dijkstra on the unchanged pre-inhibition saliency map",
+            "cost": 11.32914821770982,
+            "edge_cost": "Euclidean pixel distance divided by max(destination saliency, 0.001)",
+            "map_path": [
+              [
+                2,
+                0
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                0,
+                2
+              ]
+            ],
+            "scope": "attention routing, not physical navigation or object identity"
+          },
+          "saliency": 0.32828416374493896,
+          "sequence": 4,
+          "source_xy": [
+            0,
+            32
+          ]
+        }
+      ],
+      "schema_version": 1,
+      "scope": "Independent NumPy implementation of the published feature and attention equations; not the full iLab C++ toolkit or a human-fixation validation",
+      "shape": [
+        64,
+        64
+      ],
+      "source": {
+        "kind": "documented_synthetic_rgb_popout",
+        "live_camera": false
+      },
+      "surround_offsets": [
+        3,
+        4
+      ]
+    },
+    "source_sha256": {
+      "gem/saliency_cognition.py": "fce18376ba6e3ffb05c6f63aad11db2d7302c01e52bca7f0d3f4d916ef86b836"
+    }
+  },
   "zoe_observations": {
     "brain_decision_recommendation": {
       "action": "preserve",
@@ -4089,7 +5232,7 @@
   },
   "zoe_source": {
     "repository": "https://github.com/Ablation-Tool/zoe",
-    "revision": "fca1ca50f35403dc9b1ccaa25b2a1a8b386f8df4",
+    "revision": "5314998308df6a5abffd90a91a0cbd93c1df404d",
     "source_sha256": {
       "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
       "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",

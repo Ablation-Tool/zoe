@@ -61,12 +61,14 @@ def autonomy_scene(report=None):
         _text("approval", [55, 585], "operator_supplied_goal=false · operator_approval_required=false", 12, "#9fb1c8"),
         _text("boundary", [55, 615], "Full internal self-government · host, network, and hardware remain outside Zoe's authority", 12, "#fca5a5"),
     ])
+    visual = report["visual_perception"]["saliency"]
     summary = (
         f"{profile['classification']}\n"
         f"Goal: {event['goal']['statement']}\n"
         f"Selected: {event['value']['selected_candidate']} · G={values['internal_goal_authorship_ratio']} · "
         f"X={values['internally_authorized_execution_ratio']} · guard={guard_passed}/{guard_total}\n"
         f"External actions: {report['external_actions']} · operator approval not required\n"
+        f"Visual perception: {visual['feature_map_counts']['total']} maps · {len(visual['scanpath'])} foci\n"
         f"Operational profile: {operational_profile['zoe_profile']['classification']}"
     )
     scene = _scene("zoe-autonomy", 1000, 650, objects, "Zoe Autonomy · full self-governing measurement-action loop")
@@ -78,5 +80,6 @@ def autonomy_scene(report=None):
         "sandbox_executed": report["sandbox_executed"],
         "external_actions": report["external_actions"],
         "profile_sha256": report["profile_sha256"],
+        "visual_perception": report["visual_perception"],
         "operational_profile": operational_profile,
     }
