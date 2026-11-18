@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Presence · an explicit self-model, not sentience">
+  <title>Zoe Presence · an explicit self-model, not sentience</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="48.0" y="60.0" font-family="sans-serif" font-size="34.0" fill="#67e8f9">Zoe Presence</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="50.0" y="91.0" font-family="sans-serif" font-size="16.0" fill="#9fb1c8">A metacognitive instrument · not a consciousness measurement</text>
+  </g>
+  <g data-object-id="present-panel">
+    <title>present-panel</title>
+    <rect x="48.0" y="128.0" width="430.0" height="464.0" fill="#101b2b" stroke="#31445d" stroke-width="2.0" />
+  </g>
+  <g data-object-id="present-label">
+    <title>present-label</title>
+    <text x="76.0" y="165.0" font-family="sans-serif" font-size="14.0" fill="#f0abfc">PRESENT SELF-MODEL</text>
+  </g>
+  <g data-object-id="present-sector">
+    <title>present-sector</title>
+    <text x="76.0" y="204.0" font-family="sans-serif" font-size="21.0" fill="#67e8f9">Energy</text>
+  </g>
+  <g data-object-id="presence-z">
+    <title>presence-z</title>
+    <ellipse cx="262.0" cy="344.0" rx="72.0" ry="72.0" fill="#08111f" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="presence-z-label">
+    <title>presence-z-label</title>
+    <text x="247.0" y="357.0" font-family="sans-serif" font-size="35.0" fill="#f0abfc">Z</text>
+  </g>
+  <g data-object-id="expression">
+    <title>expression</title>
+    <text x="226.0" y="464.0" font-family="sans-serif" font-size="30.0" fill="#fde68a">^_^</text>
+  </g>
+  <g data-object-id="expression-label">
+    <title>expression-label</title>
+    <text x="153.0" y="493.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">clarity glyph</text>
+  </g>
+  <g data-object-id="attention-source">
+    <title>attention-source</title>
+    <text x="77.0" y="539.0" font-family="sans-serif" font-size="13.0" fill="#d8e5f2">Attention: worked metacognitive example</text>
+  </g>
+  <g data-object-id="attention-event">
+    <title>attention-event</title>
+    <text x="77.0" y="566.0" font-family="sans-serif" font-size="13.0" fill="#d8e5f2">Selection event: 1</text>
+  </g>
+  <g data-object-id="glyph-key">
+    <title>glyph-key</title>
+    <text x="77.0" y="590.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">? curiosity · ?? uncertainty · ! review · &lt;3 care</text>
+  </g>
+  <g data-object-id="panel-attention">
+    <title>panel-attention</title>
+    <rect x="522.0" y="135.0" width="204.0" height="130.0" fill="#101b2b" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="panel-label-0">
+    <title>panel-label-0</title>
+    <text x="538.0" y="164.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">ATTENTION</text>
+  </g>
+  <g data-object-id="panel-value-0">
+    <title>panel-value-0</title>
+    <text x="538.0" y="201.0" font-family="sans-serif" font-size="22.0" fill="#67e8f9">Energy</text>
+  </g>
+  <g data-object-id="panel-detail-0">
+    <title>panel-detail-0</title>
+    <text x="538.0" y="238.0" font-family="sans-serif" font-size="12.0" fill="#d8e5f2">explicit selection</text>
+  </g>
+  <g data-object-id="panel-time">
+    <title>panel-time</title>
+    <rect x="748.0" y="135.0" width="204.0" height="130.0" fill="#101b2b" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="panel-label-1">
+    <title>panel-label-1</title>
+    <text x="764.0" y="164.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">TIME</text>
+  </g>
+  <g data-object-id="panel-value-1">
+    <title>panel-value-1</title>
+    <text x="764.0" y="201.0" font-family="sans-serif" font-size="22.0" fill="#67e8f9">4</text>
+  </g>
+  <g data-object-id="panel-detail-1">
+    <title>panel-detail-1</title>
+    <text x="764.0" y="238.0" font-family="sans-serif" font-size="12.0" fill="#d8e5f2">event ordinal, not a battery</text>
+  </g>
+  <g data-object-id="panel-evidence">
+    <title>panel-evidence</title>
+    <rect x="522.0" y="290.0" width="204.0" height="130.0" fill="#101b2b" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="panel-label-2">
+    <title>panel-label-2</title>
+    <text x="538.0" y="319.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">EVIDENCE</text>
+  </g>
+  <g data-object-id="panel-value-2">
+    <title>panel-value-2</title>
+    <text x="538.0" y="356.0" font-family="sans-serif" font-size="22.0" fill="#67e8f9">corroborated</text>
+  </g>
+  <g data-object-id="panel-detail-2">
+    <title>panel-detail-2</title>
+    <text x="538.0" y="393.0" font-family="sans-serif" font-size="12.0" fill="#d8e5f2">1 reviewed candidates</text>
+  </g>
+  <g data-object-id="panel-memory">
+    <title>panel-memory</title>
+    <rect x="748.0" y="290.0" width="204.0" height="130.0" fill="#101b2b" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="panel-label-3">
+    <title>panel-label-3</title>
+    <text x="764.0" y="319.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">MEMORY</text>
+  </g>
+  <g data-object-id="panel-value-3">
+    <title>panel-value-3</title>
+    <text x="764.0" y="356.0" font-family="sans-serif" font-size="22.0" fill="#67e8f9">1</text>
+  </g>
+  <g data-object-id="panel-detail-3">
+    <title>panel-detail-3</title>
+    <text x="764.0" y="393.0" font-family="sans-serif" font-size="12.0" fill="#d8e5f2">sourced current frames</text>
+  </g>
+  <g data-object-id="panel-uncertainty">
+    <title>panel-uncertainty</title>
+    <rect x="522.0" y="445.0" width="204.0" height="130.0" fill="#101b2b" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="panel-label-4">
+    <title>panel-label-4</title>
+    <text x="538.0" y="474.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">UNCERTAINTY</text>
+  </g>
+  <g data-object-id="panel-value-4">
+    <title>panel-value-4</title>
+    <text x="538.0" y="511.0" font-family="sans-serif" font-size="22.0" fill="#fde68a">3</text>
+  </g>
+  <g data-object-id="panel-detail-4">
+    <title>panel-detail-4</title>
+    <text x="538.0" y="548.0" font-family="sans-serif" font-size="12.0" fill="#d8e5f2">known open questions</text>
+  </g>
+  <g data-object-id="panel-review">
+    <title>panel-review</title>
+    <rect x="748.0" y="445.0" width="204.0" height="130.0" fill="#101b2b" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="panel-label-5">
+    <title>panel-label-5</title>
+    <text x="764.0" y="474.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">REVIEW</text>
+  </g>
+  <g data-object-id="panel-value-5">
+    <title>panel-value-5</title>
+    <text x="764.0" y="511.0" font-family="sans-serif" font-size="22.0" fill="#67e8f9">required</text>
+  </g>
+  <g data-object-id="panel-detail-5">
+    <title>panel-detail-5</title>
+    <text x="764.0" y="548.0" font-family="sans-serif" font-size="12.0" fill="#d8e5f2">no automatic action</text>
+  </g>
+  <g data-object-id="declaration">
+    <title>declaration</title>
+    <text x="52.0" y="648.0" font-family="sans-serif" font-size="25.0" fill="#f0abfc">A self-model is not a self.</text>
+  </g>
+  <g data-object-id="consciousness-boundary">
+    <title>consciousness-boundary</title>
+    <text x="52.0" y="687.0" font-family="sans-serif" font-size="15.0" fill="#fda4af">No subjective experience is measured or inferred.</text>
+  </g>
+  <g data-object-id="firewall">
+    <title>firewall</title>
+    <text x="52.0" y="722.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">Measurement != evidence != belief update != action</text>
+  </g>
+</svg>

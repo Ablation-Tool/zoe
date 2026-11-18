@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Maison · executive clarity, luxury restraint, enterprise evidence">
+  <title>Zoe Maison · executive clarity, luxury restraint, enterprise evidence</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#0b1220" stroke="#0b1220" stroke-width="1.0" />
+  </g>
+  <g data-object-id="frame">
+    <title>frame</title>
+    <rect x="28.0" y="28.0" width="944.0" height="704.0" fill="none" stroke="#8b6f47" stroke-width="1.0" />
+  </g>
+  <g data-object-id="monogram">
+    <title>monogram</title>
+    <rect x="50.0" y="51.0" width="34.0" height="38.0" fill="none" stroke="#c8a96a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="monogram-z">
+    <title>monogram-z</title>
+    <text x="62.0" y="80.0" font-family="sans-serif" font-size="26.0" fill="#c8a96a">Z</text>
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="110.0" y="77.0" font-family="sans-serif" font-size="33.0" fill="#f4f0e8">Zoe Maison</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="112.0" y="107.0" font-family="sans-serif" font-size="14.0" fill="#c8a96a">Executive · Luxury · Enterprise</text>
+  </g>
+  <g data-object-id="title-rule">
+    <title>title-rule</title>
+    <polyline points="50,133 950,133" stroke-linejoin="round" fill="none" stroke="#8b6f47" stroke-width="1.0" />
+  </g>
+  <g data-object-id="pillar">
+    <title>pillar</title>
+    <text x="72.0" y="184.0" font-family="sans-serif" font-size="12.0" fill="#8aa39a">ENTERPRISE</text>
+  </g>
+  <g data-object-id="association">
+    <title>association</title>
+    <text x="70.0" y="231.0" font-family="sans-serif" font-size="36.0" fill="#c8a96a">STEWARDSHIP</text>
+  </g>
+  <g data-object-id="association-prompt-0">
+    <title>association-prompt-0</title>
+    <text x="72.0" y="280.0" font-family="sans-serif" font-size="18.0" fill="#f4f0e8">What are you preserving while making a change?</text>
+  </g>
+  <g data-object-id="association-boundary">
+    <title>association-boundary</title>
+    <text x="72.0" y="360.0" font-family="sans-serif" font-size="13.0" fill="#a3b0c1">A question for the work, not a command for a person.</text>
+  </g>
+  <g data-object-id="pillar-card-executive">
+    <title>pillar-card-executive</title>
+    <rect x="60.0" y="402.0" width="280.0" height="152.0" fill="#111c2e" stroke="#111c2e" stroke-width="1.0" />
+  </g>
+  <g data-object-id="pillar-rule-executive">
+    <title>pillar-rule-executive</title>
+    <polyline points="60,402 340,402" stroke-linejoin="round" fill="none" stroke="#c8a96a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pillar-title-executive">
+    <title>pillar-title-executive</title>
+    <text x="76.0" y="436.0" font-family="sans-serif" font-size="12.0" fill="#c8a96a">EXECUTIVE</text>
+  </g>
+  <g data-object-id="pillar-action-executive">
+    <title>pillar-action-executive</title>
+    <text x="76.0" y="469.0" font-family="sans-serif" font-size="16.0" fill="#f4f0e8">Decide with context</text>
+  </g>
+  <g data-object-id="pillar-prompt-executive-0">
+    <title>pillar-prompt-executive-0</title>
+    <text x="76.0" y="502.0" font-family="sans-serif" font-size="11.0" fill="#a3b0c1">Who bears the consequences—and</text>
+  </g>
+  <g data-object-id="pillar-prompt-executive-1">
+    <title>pillar-prompt-executive-1</title>
+    <text x="76.0" y="521.0" font-family="sans-serif" font-size="11.0" fill="#a3b0c1">who can review?</text>
+  </g>
+  <g data-object-id="pillar-card-luxury">
+    <title>pillar-card-luxury</title>
+    <rect x="363.0" y="402.0" width="280.0" height="152.0" fill="#111c2e" stroke="#111c2e" stroke-width="1.0" />
+  </g>
+  <g data-object-id="pillar-rule-luxury">
+    <title>pillar-rule-luxury</title>
+    <polyline points="363,402 643,402" stroke-linejoin="round" fill="none" stroke="#c8a96a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pillar-title-luxury">
+    <title>pillar-title-luxury</title>
+    <text x="379.0" y="436.0" font-family="sans-serif" font-size="12.0" fill="#c8a96a">LUXURY</text>
+  </g>
+  <g data-object-id="pillar-action-luxury">
+    <title>pillar-action-luxury</title>
+    <text x="379.0" y="469.0" font-family="sans-serif" font-size="16.0" fill="#f4f0e8">Make fewer, better things</text>
+  </g>
+  <g data-object-id="pillar-prompt-luxury-0">
+    <title>pillar-prompt-luxury-0</title>
+    <text x="379.0" y="502.0" font-family="sans-serif" font-size="11.0" fill="#a3b0c1">Where is the care in the detail?</text>
+  </g>
+  <g data-object-id="pillar-card-enterprise">
+    <title>pillar-card-enterprise</title>
+    <rect x="666.0" y="402.0" width="280.0" height="152.0" fill="#111c2e" stroke="#111c2e" stroke-width="1.0" />
+  </g>
+  <g data-object-id="pillar-rule-enterprise">
+    <title>pillar-rule-enterprise</title>
+    <polyline points="666,402 946,402" stroke-linejoin="round" fill="none" stroke="#c8a96a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="pillar-title-enterprise">
+    <title>pillar-title-enterprise</title>
+    <text x="682.0" y="436.0" font-family="sans-serif" font-size="12.0" fill="#c8a96a">ENTERPRISE</text>
+  </g>
+  <g data-object-id="pillar-action-enterprise">
+    <title>pillar-action-enterprise</title>
+    <text x="682.0" y="469.0" font-family="sans-serif" font-size="16.0" fill="#f4f0e8">Preserve the evidence</text>
+  </g>
+  <g data-object-id="pillar-prompt-enterprise-0">
+    <title>pillar-prompt-enterprise-0</title>
+    <text x="682.0" y="502.0" font-family="sans-serif" font-size="11.0" fill="#a3b0c1">Can someone trace, verify, and</text>
+  </g>
+  <g data-object-id="pillar-prompt-enterprise-1">
+    <title>pillar-prompt-enterprise-1</title>
+    <text x="682.0" y="521.0" font-family="sans-serif" font-size="11.0" fill="#a3b0c1">reverse the work?</text>
+  </g>
+  <g data-object-id="current-label">
+    <title>current-label</title>
+    <text x="72.0" y="603.0" font-family="sans-serif" font-size="12.0" fill="#8aa39a">CURRENT PRACTICE</text>
+  </g>
+  <g data-object-id="current-events">
+    <title>current-events</title>
+    <text x="72.0" y="633.0" font-family="sans-serif" font-size="13.0" fill="#a3b0c1">3 worked-example events · 0 corrections · no score</text>
+  </g>
+  <g data-object-id="current-next-0">
+    <title>current-next-0</title>
+    <text x="72.0" y="668.0" font-family="sans-serif" font-size="15.0" fill="#f4f0e8">What is the smallest useful next experiment, and how will you review it?</text>
+  </g>
+  <g data-object-id="reference">
+    <title>reference</title>
+    <text x="72.0" y="724.0" font-family="sans-serif" font-size="11.0" fill="#8aa39a">Curated association prompts · no document loaded · no doctrine inferred</text>
+  </g>
+</svg>
