@@ -1,0 +1,47 @@
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+
+from .experiment import run_experiment, save_report, summary, verify_report
+
+
+def parser():
+    result = argparse.ArgumentParser(prog="zoe-autonomy", description="Zoe + Accessible Volume · operational full self-governing autonomy")
+    result.add_argument("--zoe-root", help="Zoe source checkout; default: ZOE_ROOT")
+    commands = result.add_subparsers(dest="command", required=True)
+    run = commands.add_parser("run", help="run the real-Zoe measurement-action experiment")
+    run.add_argument("--output", help="new JSON evidence path")
+    run.add_argument("--tau", type=float, default=.05)
+    run.add_argument("--delta", type=float, default=.001)
+    run.add_argument("--full", action="store_true", help="print the complete report")
+    verify = commands.add_parser("verify", help="recompute and verify a saved report")
+    verify.add_argument("report")
+    return result
+
+
+def main(argv=None):
+    arguments = parser().parse_args(argv)
+    try:
+        if arguments.command == "run":
+            report = run_experiment(arguments.zoe_root, arguments.tau, arguments.delta)
+            output = save_report(report, arguments.output) if arguments.output else None
+            if arguments.full:
+                print(json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True))
+            else:
+                print(summary(report))
+                if output:
+                    print(f"Evidence: {output} · profile_sha256={report['profile_sha256']}")
+            return 0
+        result = verify_report(arguments.report, arguments.zoe_root)
+        print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+        return 0
+    except (OSError, RuntimeError, ValueError, subprocess.SubprocessError) as error:
+        print(f"zoe-autonomy: {error}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

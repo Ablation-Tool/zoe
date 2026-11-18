@@ -1,0 +1,13 @@
+Title: Accessible Volume and the Architecture of Autonomy: Forecast Breadth, Constraint, Compliance Trajectories, and Self-Governing Measurement–Action Systems
+Authors: Nicholas Michael Kloster
+Primary category: cs.AI
+Cross-list categories: cs.CL, cs.LG, cs.CR
+Comments: Unified archival monograph integrating seven primary manuscripts, supplemental cascade/AFL research, Dorothy/Neurogarden, CERN, and associated Zoe artifacts. 84 pages. Source and evidence: https://github.com/Ablation-Tool/next-token-predictability and https://github.com/Ablation-Tool/Zoe-Autonomy
+Journal reference: None
+Report number: None
+ACM class: None
+MSC class: None
+License: Select during arXiv submission; no license choice has been made by this package.
+
+Abstract:
+Accessible volume counts modeled alternatives whose probabilities strictly exceed a declared threshold. This monograph unifies the Autonomy, Accessible Volume, Ambiguity Front-Loading, Constraint Is Freedom, Zoe, and Zoe Autonomy research programs while correcting early claims about differentiability, universal token sensitivity, and volume-only autonomy. Evidence spans 19 public models and a 120-case BioBERT study in which the original fixed threshold transferred better than the selected adaptive rule. Rhythm experiments separate forecast breadth from correctness; multi-horizon and causal-repertoire extensions preserve exact-versus-approximate and forecast-versus-intervention boundaries. The safety chapter formalizes gradual compliance trajectories and Ambiguity Front-Loading while limiting empirical support to one retrospective, sanitized case. Zoe integrates forecasts, Bayesian evidence, symbolic proposals, memory, counterfactual perception, and guarded execution. Under the explicit predicate I,R,V,G,X>0 and C=1, the measured internal loop authors its goal, selects and executes a reversible transition, passes ten guard checks, and performs zero external actions. This establishes full self-government only over the declared internal state domain, not consciousness, general intelligence, or safe external actuation.
