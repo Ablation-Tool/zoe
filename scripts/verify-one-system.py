@@ -132,8 +132,20 @@ def verify_chat(manifest):
         if tests.returncode or "\nOK" not in test_output:
             raise ValueError(f"Zoe chat unit tests failed:\n{test_output[-8000:]}")
         test_count = re.search(r"Ran (\d+) tests", test_output)
+        proof = subprocess.run(
+            [sys.executable, "scripts/verify-metacognition-collaboration.py", "evidence/metacognition/collaboration-proof.json"],
+            cwd=ROOT,
+            env=environment,
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+        if proof.returncode or '"verified": true' not in proof.stdout:
+            raise ValueError(f"Zoe collaboration metacognition proof failed:\n{proof.stdout + proof.stderr}")
         return {
             "verified": True,
+            "metacognition_collaboration_proof_verified": True,
             "commands": records,
             "command_count": len(records),
             "unit_tests": int(test_count.group(1)) if test_count else None,

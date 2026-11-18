@@ -100,7 +100,9 @@ Zoe shares the current question, up to three cited local evidence records, the c
 
 `agent off` disables automatic consultation while preserving explicit `agent ask`. `agent clear` clears only the in-memory shared turns. Zoe's `stop` blocks agent invocation along with other actions. The gateway's existing owner registration, host/network scopes, emergency stop, timeouts, output bounds, and hash-only audits remain in force.
 
-A real synthetic connectivity check through Zoe returned the expected response with `GEM selection shared=True`; no private files or credentials were supplied. See [collaboration evidence](../../evidence/agents/collaboration.json) for that result, mocked test scope, and the separate nested-display limitation.
+Before consulting, Zoe measures `stay_local` and `consult_agent` with \(A_{\tau,\mathrm{action}}\), using a fixed \(\tau=0.05\) and explicit provenance. The measurement is included in the agent's prompt and returned in Zoe's response. `agent proof PATH` writes a no-overwrite, digest-protected proof for inspection.
+
+A real synthetic connectivity check through Zoe returned the expected response with `GEM selection shared=True`; no private files or credentials were supplied. The [real metacognition proof](../../evidence/metacognition/collaboration-proof.json) records two live options at probabilities \(1/3\) and \(2/3\), selection of `consult_agent`, and Kimi's `METACOGNITION-PROOF-READY` response. `scripts/verify-metacognition-collaboration.py` independently recomputes the equation and validates its hashes. See [collaboration evidence](../../evidence/agents/collaboration.json) for the connectivity result, mocked test scope, and the separate nested-display limitation.
 
 ## Verification
 
