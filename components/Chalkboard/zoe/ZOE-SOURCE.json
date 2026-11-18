@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "identity": "Zoe is allgems",
+  "repository": "https://github.com/Ablation-Tool/zoe",
+  "revision": "ab57d9cd97ee6dd2cfde26015a1a4bb6c7247b0c",
+  "import": "git archive",
+  "host": {
+    "repository": "https://github.com/Ablation-Tool/Chalkboard",
+    "revision": "63646eb15737d822316073ba1f2114c608571c72",
+    "components": ["chalkboard"],
+    "duplicate_path_excluded": "components/Chalkboard",
+    "detection": "The host checkout is used when the Chalkboard README and content anchors exist; ZOE_CHALKBOARD_ROOT overrides it."
+  },
+  "repository_policy": "Newly generated unified evidence is excluded; original research and content sources are preserved."
+}
