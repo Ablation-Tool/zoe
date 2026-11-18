@@ -287,7 +287,7 @@ def unified_scene(registry=None, knowledge=None):
     knowledge_state = knowledge.knowledge_state()
     cyan, yellow, pink, green, muted = "#67e8f9", "#fde68a", "#f0abfc", "#86efac", "#9fb1c8"
     colors = [cyan, yellow, pink, green, "#fda4af", "#93c5fd", "#fdba74", "#c4b5fd", "#a7f3d0", "#f9a8d4", "#d9f99d", "#e7d6ad", "#fef08a", "#facc15", "#a5f3fc", "#f0fdfa"]
-    row_count = (len(COMPONENTS) + 4) // 5
+    row_count = (len(COMPONENTS) + 3) // 4
     memory_y = max(915, 294 + row_count * 202 + 20)
     canvas_height = memory_y + 165
     objects = [_rectangle("background", [0, 0, 1400, canvas_height], "#080d18", "#080d18")]
@@ -308,15 +308,15 @@ def unified_scene(registry=None, knowledge=None):
     objects.append(_text("identity-center-label", [1117, 175], "Zoe", 20, "#e2e8f0"))
     objects.append(_text("orbital-caption", [984, 254], "Zoe woven diamond · allgems · original vector interpretation", 11, muted))
     for index, component in enumerate(manifest["components"]):
-        x = 40 + (index % 5) * 268
-        y = 294 + (index // 5) * 202
-        color = colors[index]
+        x = 40 + (index % 4) * 340
+        y = 294 + (index // 4) * 202
+        color = colors[index % 4]
         source = component["source"]
-        objects.append(_rectangle(f"component-{component['identifier']}", [x, y, x + 240, y + 181], color, "#101b2b", 2))
+        objects.append(_rectangle(f"component-{component['identifier']}", [x, y, x + 300, y + 181], color, "#101b2b", 2))
         objects.append(_ellipse(f"component-icon-{index}", [x + 25, y + 31], [8, 8], color, color))
-        objects.append(_text(f"component-title-{index}", [x + 43, y + 37], _fit(component["title"], 22), 17, color))
-        objects.append(_text(f"component-summary-{index}", [x + 16, y + 72], _fit(component["summary"], 32), 11, "#d8e2ee"))
-        objects.append(_text(f"component-summary-2-{index}", [x + 16, y + 91], _fit(component["summary"][32:], 32), 11, "#d8e2ee"))
+        objects.append(_text(f"component-title-{index}", [x + 43, y + 37], _fit(component["title"], 26), 17, color))
+        objects.append(_text(f"component-summary-{index}", [x + 16, y + 72], _fit(component["summary"], 40), 11, "#d8e2ee"))
+        objects.append(_text(f"component-summary-2-{index}", [x + 16, y + 91], _fit(component["summary"][40:], 40), 11, "#d8e2ee"))
         command = "show" if component["inspect_only"] else "launch"
         objects.append(_text(f"component-command-{index}", [x + 16, y + 125], f"zoe {command} {component['identifier']}", 12, muted))
         status = "source present" if source["source_present"] else "source unavailable"
