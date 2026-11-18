@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 from guiai.gem.atlas import default_document
 from guiai.gem.autonomy import run_native_autonomy
@@ -130,6 +131,17 @@ class AutonomyIntegrationCase(unittest.TestCase):
             path.write_text(json.dumps(document), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "fresh end-to-end"):
                 verify_report(path, ROOT)
+
+    def test_component_root_uses_environment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            component = Path(directory)
+            package = component / "src" / "zoe_autonomy"
+            package.mkdir(parents=True)
+            (package / "experiment.py").write_text("", encoding="utf-8")
+            with mock.patch.dict(os.environ, {"ZOE_AUTONOMY_ROOT": str(component)}):
+                self.assertEqual(configure_autonomy(), ROOT)
+            with mock.patch.dict(os.environ, {"ZOE_AUTONOMY_ROOT": str(component / "src")}):
+                self.assertEqual(configure_autonomy(), ROOT)
 
     def test_native_scene_vdi_and_headless_export(self):
         scene, report = default_document("autonomy")

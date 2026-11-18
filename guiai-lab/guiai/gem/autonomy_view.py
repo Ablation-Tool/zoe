@@ -13,6 +13,14 @@ COMPONENT_SRC = ROOT / "components" / "Zoe-Autonomy" / "src"
 
 
 def configure_autonomy():
+    global COMPONENT_SRC
+    override = os.environ.get("ZOE_AUTONOMY_ROOT")
+    if override:
+        component_root = Path(override).expanduser().resolve()
+        COMPONENT_SRC = component_root if component_root.name == "src" else component_root / "src"
+    else:
+        zoe_root = Path(os.environ.get("ZOE_ROOT", ROOT)).expanduser().resolve()
+        COMPONENT_SRC = zoe_root / "components" / "Zoe-Autonomy" / "src"
     if not (COMPONENT_SRC / "zoe_autonomy" / "experiment.py").is_file():
         raise ValueError(f"Zoe-Autonomy component is unavailable: {COMPONENT_SRC}")
     os.environ.setdefault("ZOE_ROOT", str(ROOT))
