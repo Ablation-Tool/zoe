@@ -300,7 +300,7 @@ Other instruments include Pentomino, Pentacube, Life, Brain Life, visual text, S
 
 Cerotto supplies guarded forensic cases, a native C11 engine, timelines, carving, manifests, vault evidence, and response boundaries. Kevlar supplies an MCP proxy firewall, policy enforcement, content disarm, and audit evidence. The PDF Signature Toolkit supplies source-integrity records and detached PKCS \#7 signatures.
 
-PALA is Zoe's native Rust recovery engine. It supplies read-only signature carving, deleted-inode recovery, NTFS cluster runs, FAT32 recovery, fragment merging, bounded container expansion, metadata extraction, custom signatures, checkpoints, and JSON evidence across media, documents, archives, executables, forensic artifacts, firmware, and filesystem images. Output is private and non-overwriting; recovered content remains untrusted and is not proof of forensic completeness.
+PALA is Zoe's native Rust recovery engine. It supplies read-only signature carving, deleted-inode recovery, NTFS cluster runs, FAT32 recovery, fragment merging, bounded container expansion, metadata extraction, custom signatures, checkpoints, and JSON evidence across media, documents, archives, executables, forensic artifacts, firmware, and filesystem images. Zoe Chat can import validated PALA finding metadata and hashes for historical research without scanning or reading recovered contents. Output is private and non-overwriting; recovered content remains untrusted and is not proof of forensic completeness.
 
 \begin{itemize}
 \item Source hashes, no-overwrite exports, replayable records, and negative results.
@@ -313,6 +313,8 @@ PALA is Zoe's native Rust recovery engine. It supplies read-only signature carvi
 
 \clearpage
 \section{Connected research and action}
+
+`zoe chat` connects evidence retrieval, explicitly unverified memory, internal goals, guarded reversible plans, measured self-reflection, and internal Operational Metacognition. There is no external metacognition monitor, automatic conversation notebook, stress gauge, or hidden switch that disables Zoe's tools. Ordinary retrieval does not force metacognitive bookkeeping; planning, reflection, and explicit `meta` requests use the mathematics when meaningful.
 
 Ten capability adapters cover browser automation, research APIs, persistent research memory, connected productivity services, scheduled jobs, compute environments, MCP/ACP, notifications, rich media, and hardware instruments. Zoe can construct and rank calls across these adapters through her no-argument autonomous step.
 
@@ -347,6 +349,7 @@ Kevlar & 149 tests pass\\
 Canonical GEM tools & 73 tests pass; 65 documented validation tests pass\\
 Cerotto & 68 normal and 68 sanitizer tests pass, one environment skip in each\\
 PALA & 25 Rust tests and 126 recovery checks pass; one optional skip\\
+Chat and internal toolkit & 13 conversation and 7 toolkit tests pass\\
 BRAIN GEM & 17 tests pass\\
 Pairing and certificates & 8 tests pass; Windows core: 4 suites pass under Wine\\
 Artifact identities & 144 verified\\
@@ -414,12 +417,14 @@ zoe
 zoe list
 zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
+zoe chat
 zoe pala --list
 
 python scripts/verify-one-system.py
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 python scripts/verify-one-system.py --pala
+python scripts/verify-one-system.py --chat
 \end{lstlisting}
 
 \begin{longtable}{p{0.28\textwidth}p{0.66\textwidth}}
@@ -433,6 +438,7 @@ AGI/ASI roadmap & \url{https://github.com/Ablation-Tool/zoe/blob/main/AGI-ROADMA
 Capability atlas & \url{https://github.com/Ablation-Tool/zoe/blob/main/CAPABILITY-ATLAS.md}\\
 Dorothy and Neurogarden & \url{https://github.com/Ablation-Tool/zoe/tree/main/components/agent-logging-system}\\
 PALA recovery and evidence & \url{https://github.com/Ablation-Tool/zoe/tree/main/components/PALA}\\
+Conversation and toolkit & \url{https://github.com/Ablation-Tool/zoe/blob/main/guiai-lab/docs/CHAT.md}\\
 Event-causal evaluation & \url{https://github.com/Ablation-Tool/zoe/blob/main/components/Zoe-Autonomy/evidence/event-causal/evaluation.json}\\
 Visual research archive & \url{https://github.com/Ablation-Tool/zoe/tree/main/research/visual-archive}\\
 \bottomrule

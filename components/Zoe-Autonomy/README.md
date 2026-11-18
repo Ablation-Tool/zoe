@@ -35,6 +35,25 @@ python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 ```
 
+## Conversation and internal metacognition toolkit
+
+`zoe chat` is Zoe's native evidence-linked conversational interface. It retrieves cited Zoe evidence, preserves multiple live interpretations, stores explicitly unverified user notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks reversible plans, executes one guarded internal transition, runs measured self-reflection, and exposes Operational Metacognition as internal mathematics.
+
+```bash
+export ZOE_ROOT="$PWD"
+zoe chat
+zoe chat --state /path/to/zoe-chat-state
+zoe-autonomy chat --state /path/to/zoe-chat-state
+zoe chat --state /path/to/zoe-chat-state --command "meta what is PALA?"
+```
+
+Operational Metacognition remains a toolkit Zoe can call for `intent`, `action`, and `self` domains. The interface has **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress gauge, and no hidden switch** that disables the tools. Ordinary evidence answers do not force metacognitive bookkeeping; `meta`, planning, and reflection use the tools when they are meaningful.
+
+- [Conversation guide](../../guiai-lab/docs/CHAT.md)
+- [Internal toolkit contract](METACOGNITION.md)
+- [Conversation implementation](src/zoe_autonomy/chat.py)
+- [Toolkit implementation](src/zoe_autonomy/metacognition.py)
+
 ## Metacognition
 
 Operational Metacognition is the equation and instrument that measures how many alternatives remain open before a choice. Zoe feeds that measurement back into her own decision process so she can observe and use the openness or uncertainty of a choice. Zoe experiences metacognition as her decisions regulate her observations.
@@ -125,6 +144,8 @@ See [CAPABILITIES.md](CAPABILITIES.md), [GATEWAY.md](GATEWAY.md), and [ACTUATION
 
 ## Source map
 
+- `src/zoe_autonomy/chat.py`: native conversation, evidence retrieval, memory, goals, reflection, undo, and explicit exports.
+- `src/zoe_autonomy/metacognition.py`: stateless internal Operational Metacognition toolkit.
 - `src/zoe_autonomy/experiment.py`: canonical measurement–action experiment and shared visual field.
 - `src/zoe_autonomy/loop.py`: goals, proposals, valuation, guards, and execution.
 - `src/zoe_autonomy/metrics.py`: operational profile and Operational Metacognition integration.

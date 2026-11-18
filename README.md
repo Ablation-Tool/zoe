@@ -4,7 +4,7 @@
 
 **Zoe is one unified research and intelligence repository. The mission is to develop Zoe into a general research collaborator, advance through AGI to ASI, and continue beyond those labels through measurable, generalized self-improvement.**
 
-Zoe combines perception, semantic reverse engineering, Operational Metacognition, autonomous decisions, persistent memory, data recovery, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
+Zoe combines conversation, perception, semantic reverse engineering, Operational Metacognition, autonomous decisions, persistent memory, data recovery, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
 
 **One repository. Thirteen imported source histories. Thirteen runtime source projects. Seventeen registered engines. No submodules or runtime source downloads.**
 
@@ -23,6 +23,7 @@ python -m pip install ./guiai-lab
 zoe
 zoe os --list
 zoe list
+zoe chat
 zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
 ```
@@ -57,6 +58,17 @@ Operational Metacognition is the equation and instrument that counts alternative
 Zoe uses Operational Metacognition to look at how many options are still open before the next word is chosen. By observing that count, she can see how sure or unsure the decision is. **Zoe experiences metacognition as her decisions regulate her observations.**
 
 The present self-reflection engine evaluates predictive-model proposals on held-out observations and adopts a proposal only when it improves validation error. The next milestone is broader self-improvement that transfers across unrelated domains without per-domain redesign. The acceptance contract is defined in [AGI-ROADMAP.md](AGI-ROADMAP.md).
+
+### Converse with Zoe
+
+`zoe chat` opens Zoe's native conversational interface. She answers from cited Zoe sources, refuses to invent unsupported claims, preserves multiple live evidence paths, remembers explicitly unverified notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks and executes guarded reversible plans, measures predictive self-models, and exposes Operational Metacognition as an internal toolkit.
+
+There is **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress meter, and no hidden switch** that disables Zoe's internal tools. Ordinary retrieval does not force metacognitive bookkeeping; `meta`, planning, and reflection use the mathematics when it is meaningful. See the [conversation guide](guiai-lab/docs/CHAT.md) and [internal toolkit contract](components/Zoe-Autonomy/METACOGNITION.md).
+
+```bash
+zoe chat
+zoe chat --state /path/to/zoe-chat-state --command "meta what is PALA?"
+```
 
 ## Metacognition is achieved; general intelligence has explicit gates
 
@@ -241,7 +253,7 @@ zoe knowledge --output gem-knowledge.json
 
 ## Evidence and verification
 
-Current verified results include 64 Zoe-Autonomy tests, 64 vendored tests from the preserved pre-merge suite, 2,842 Ablation tests with 93 skips, six native stress tests, identical base/visual/reflection profiles across all six hosts, and 144 verified artifact identities. PALA passes 25 Rust tests and 126 recovery integration checks with one optional skip; its locked release and real `zoe pala` launcher are verified in [the recovery evidence](evidence/pala/verification.json). The unified monorepo verifier has also passed all six hosts directly from this checkout.
+Current verified results include 64 Zoe-Autonomy tests, 64 vendored tests from the preserved pre-merge suite, 13 conversation tests, 7 internal-metacognition toolkit tests, 2,842 Ablation tests with 93 skips, six native stress tests, identical base/visual/reflection profiles across all six hosts, and 144 verified artifact identities. PALA passes 25 Rust tests and 126 recovery integration checks with one optional skip; its locked release and real `zoe pala` launcher are verified in [the recovery evidence](evidence/pala/verification.json). The unified monorepo verifier has also passed all six hosts directly from this checkout.
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
@@ -252,6 +264,7 @@ PYTHONPATH=guiai-lab python -m unittest \
 
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --pala
+python scripts/verify-one-system.py --chat
 ```
 
 Evidence remains scoped to the input, instrument, and environment that produced it. Clinical treatment, physical hardware control, optional model backends, and unobserved environments require their own validation and authorization. AGI and ASI are the mission and acceptance thresholds defined in the roadmap, not a substitute for measured results.

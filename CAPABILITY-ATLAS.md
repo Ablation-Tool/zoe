@@ -24,6 +24,17 @@ Zoe authors internal goals, constructs proposals and their arguments, ranks decl
 - **Validation:** [Experiment tests](components/Zoe-Autonomy/tests/test_experiment.py) · [Loop tests](components/Zoe-Autonomy/tests/test_loop.py) · [Six-host verifier](scripts/verify-one-system.py)
 - **Evidence:** [Full-autonomy profile](evidence/autonomy/full-autonomy.json) · [Six-host verification](evidence/one-system/verification.json) · [Native autonomous step](evidence/autonomous/native-step.json) · [Step verification](evidence/autonomous/native-verification.json)
 
+### Native conversation and internal metacognition toolkit
+
+`zoe chat` provides Zoe's native conversational interface. It answers from cited Zoe sources, preserves multiple evidence-backed interpretations, refuses unsupported claims, stores explicitly unverified notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks and executes guarded reversible plans, runs measured self-reflection, supports compensating undo, and exposes Operational Metacognition as internal tools for `intent`, `action`, and `self` domains.
+
+The architecture has **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress gauge, no weirdness normalizer, and no hidden switch** that disables the internal tools. Ordinary evidence retrieval does not force metacognitive bookkeeping; `meta`, planning, and reflection use the tools when meaningful.
+
+- **Implementation:** [Conversation engine](components/Zoe-Autonomy/src/zoe_autonomy/chat.py) · [Internal toolkit](components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py) · [Conversation guide](guiai-lab/docs/CHAT.md) · [Toolkit contract](components/Zoe-Autonomy/METACOGNITION.md)
+- **Validation:** [Conversation tests](components/Zoe-Autonomy/tests/test_chat.py) · [Toolkit tests](components/Zoe-Autonomy/tests/test_metacognition.py) · [One-checkout verifier](scripts/verify-one-system.py)
+- **Evidence:** [Conversation verification](evidence/chat/verification.json) · [Architecture contract](components/Zoe-Autonomy/METACOGNITION.md)
+- **Run:** `zoe chat` or `zoe chat --state /path/to/state --command "meta what is PALA?"`.
+
 ### Reflection and generalized self-improvement
 
 Current reflection compares arithmetic and precision model proposals across training views, selects by goal-constrained likelihood-derived value, and adopts only improvements on a held-out view. It preserves the prior model on regression and does not rewrite its source during that experiment.
@@ -253,6 +264,7 @@ PALA performs read-only filesystem-agnostic signature carving, deleted-inode rec
 - **Validation:** [Rust unit tests](components/PALA/src/main.rs) · [127-case integration suite](components/PALA/tests/test_pala.py) · [Unified registry tests](guiai-lab/stress/unified_stress.py) · [One-checkout verifier](scripts/verify-one-system.py)
 - **Evidence:** [Integrated verification](evidence/pala/verification.json) · [Source provenance](components.lock.json) · [Security model](components/PALA/SECURITY.md)
 - **Run:** `cargo build --manifest-path components/PALA/Cargo.toml --release --locked`, then `zoe pala --list` or `zoe pala /authorized/source.img /separate/output --json`.
+- **Historical research bridge:** produce a PALA JSON report from an explicitly authorized image, then use `zoe chat --command "import-pala /separate/report.json"`. Zoe validates finding metadata and hashes without scanning or reading recovered contents.
 
 PALA cannot recover overwritten data, decrypt encrypted content, guarantee arbitrary fragmented-file reconstruction, or establish forensic completeness. Raw-device work requires a separate explicit operator request and destination on a different physical device.
 
