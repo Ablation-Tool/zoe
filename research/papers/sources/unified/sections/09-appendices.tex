@@ -1,0 +1,218 @@
+\section{Source coverage and provenance map}
+\label{app:source-coverage}
+Table~\ref{tab:source-coverage} records where each source manuscript enters the unified argument. Repeated equations are stated once under a common notation; unique extensions and negative results are retained. Historical source PDFs are preserved separately in the two principal research repositories.
+\begin{table}[htbp]
+\centering
+\caption{Coverage of the primary and supplemental source manuscripts.}
+\label{tab:source-coverage}
+{\scriptsize
+\begin{tabularx}{\textwidth}{p{4.0cm}Xp{3.5cm}}
+\toprule
+Source&Integrated material&Qualification\\
+\midrule
+Autonomy as a Scalar Measure&Original count, hidden state, smooth surrogate, semantic decomposition, alignment and trajectory applications&Original preserved separately; universal sensitivity corrected\\
+Ambiguity, Autonomy, and the Compliance Cascade&AFL taxonomy, cascade hypothesis, authorization predicate, retrospective case, mitigations&Live-system and operational details omitted; one case only\\
+Constraint Is Freedom&Functional constraint, threshold extremes, seed cost, integral monitoring, sonification and creative provenance&Threshold-extreme and determinism claims corrected; creative artifacts not scientific validation\\
+Significance of Accessible Volume&Ablation + GEM, context controls, XLNet, 16 models, BioBERT, normalized/adaptive forms, evidence manifests&Complete saved-vector verification retained\\
+Beyond the Next Token&Onsets, momentum, timing error, Procrustes, reversal, HOP, multi-horizon, Q-volume, mirrored observation, master protocol&Measured, formulated, and proposed boundaries retained\\
+Zoe proof of concept&Native architecture, Bayesian notebook, chambers, Cog, memory, verification, geometry and Q-volume&Historical test matrix and later audit both retained\\
+Dorothy and Neurogarden&Allen CCFv3 geometry, Rings/Jenga/Stack, corpus review, teaching equations, source audits and clinical boundaries&Mouse reference geometry and synthetic teaching only; no diagnosis, treatment, or patient registration\\
+CERN research guides&Inventory, Evidence Navigator, HELIOS, Atelier, process ownership, SPECS/AMAC, waveform replay, sonification and Resilience&Read-only/synthetic evidence; no live detector state, acquisition, or hardware certification\\
+Zoe Autonomy&Effective perception, goal authorship, utility selection, guard, execution, complete profile, equal-breadth controls&Internal-domain full autonomy only\\
+AFL vulnerability paper&Directive-tail approximation, behavioral grammar, ambiguity/directive zones&Attention interpretation is a hypothesis requiring matched controls\\
+Original cascade subsection&Binary $0/1$ accessible sets, steps $0,1,3,6$, $1\rightarrow2\rightarrow4\rightarrow9$ visualization, monitoring implications&Schematic rather than logged probabilities; universal sensitivity not assumed\\
+AFL Defuser&Index/classify/reconstruct preprocessing proposal and evasion surface&Unvalidated defense; no universal zero-false-positive claim\\
+Verification--exploitation asymmetry&Seed/verification cost distinction, exhaustive-search example, connection to Zoe assurance&Open complexity conjecture, not an NP-hardness proof\\
+Constraint introduction draft&Early development of threshold geometry and cascade framing&Preserved as provenance; final Constraint paper remains primary\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+Associated documentation adds the original cascade-subsection text, early ranking-space equations, non-identifiability counterexamples, the proposal-level Zoe baseline, EKF, stereo, projection iris, Halo, Tetris, feed, Pentacube, Internal Clock, extended Procrustes derivations, Patchbay, and CERN boundaries. No external document is treated as validated merely because it is included.
+
+\section{Notation guide}
+\label{app:notation}
+\begin{table}[htbp]
+\centering
+\caption{Principal notation; local sections define specialized extensions.}
+\label{tab:notation}
+{\small
+\begin{tabularx}{\textwidth}{p{3.0cm}X}
+\toprule
+Symbol&Meaning\\
+\midrule
+$S,S_t$&Input sequence or computational state, according to section context\\
+$C_t$&Explicit model or experiment context at time $t$\\
+$\mathcal O$&Finite output vocabulary or outcome space\\
+$p_S(a),P(a\mid h_T(S))$&Normalized probability assigned to alternative $a$\\
+$\tau$&Strict accessible-volume probability threshold\\
+$B_\tau,A_\tau$&Accessible superlevel set and its integer cardinality\\
+$A_\tau^c,A_{\mathrm{norm},\tau}$&Complementary and vocabulary-normalized counts\\
+$M_{\tau,t}$&Accessible Momentum: change in counts between observations\\
+$A_{\alpha,\beta}$&Adaptive count with absolute floor $\beta$ and relative level $\alpha p_{\max}$\\
+$P_h,A_\tau^{(h)}$&Joint continuation probability and multi-horizon accessible volume\\
+$\rho_m,QA_\tau,QB_\tau$&Explicit causal repertoire and its accessible Q-volume/set\\
+$D_z,P_{\tau,\delta},E$&Policy effect, effective-perception count, and coverage\\
+$O_t$&Instrument observation $M(S_t,C_t)$\\
+$g_t,\Gamma$&Internally authored episode goal and goal generator\\
+$q,q_t^*,U(q)$&Proposal, selected proposal, and declared proposal utility\\
+$\alpha_t$&Guard decision in $\{0,1\}$\\
+$I,R,V,G,X,C$&Internal proposals, responsiveness, value selection, goal authorship, execution, and guard compliance\\
+$R_t,h_t$&Evidence event and canonical SHA-256 event hash\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+The symbols $A,C,E,G,I,R,V$ are reused in self-contained geometry, clock, or filter subsections with local definitions; no identity across those domains is implied.
+
+\section{Reproduction procedures}
+\label{app:reproduction}
+All experiments should be run in a separate working copy or with new output paths. Reference writers use exclusive creation where documented; some legacy verification commands regenerate tracked summaries and should not be run in a clean reference checkout unless that side effect is intended.
+
+\subsection{Saved model evidence}
+From \texttt{next-token-predictability}, the saved sixteen-model distributions and BioBERT study can be verified without model downloads:
+\begin{lstlisting}
+python scripts/verify-model-comparison.py \
+  --manifest evidence/comparison/model-comparison-cases.json \
+  --evidence evidence/comparison
+python scripts/verify-biobert-optimization.py
+\end{lstlisting}
+Fresh inference requires the exact public identifiers and immutable revisions in the case manifests. The original Ablation + GEM and XLNet scripts are
+\begin{lstlisting}
+python scripts/ablation-gem-measure.py --project /path/to/ablation --output results
+python scripts/xlnet-accessible-volume.py --model xlnet/xlnet-base-cased --output new-base
+python scripts/xlnet-accessible-volume.py --model xlnet/xlnet-large-cased --output new-large
+python scripts/run-model-comparison.py --all \
+  --output evidence/comparison --cache-dir /path/to/cache
+python scripts/biobert-accessible-volume.py
+python scripts/optimize-biobert.py
+\end{lstlisting}
+Use separate output directories and the dependency versions recorded in the source papers. Fresh inference may differ bitwise across runtimes; threshold counts and token ordering should be compared separately from exact raw-value equality.
+
+\subsection{Rhythm and HOP}
+\begin{lstlisting}
+python scripts/rhythm-accessible-volume.py
+python scripts/hop-experiment.py
+python scripts/rhythm-midi-accessible-volume.py \
+  --dataset-root /path/to/groove --output reproduced/rhythm-midi
+NIGHTINGALE_DATA=/path/to/nightingale python scripts/real-midi-experiment.py
+\end{lstlisting}
+Groove and Nightingale raw MIDI are not redistributed by the research repository. Saved derived artifacts are identified by hash. HOP requires the original extracted chapter inputs; absence of those files prevents fresh reproduction but does not invalidate the saved negative-result report.
+
+\subsection{Zoe and the unified workbench}
+\begin{lstlisting}
+export MASTER_GEM_RESEARCH_ROOT=/path/to/next-token-predictability
+PYTHONPATH=guiai-lab python -m guiai.gem zoe
+PYTHONPATH=guiai-lab python -m guiai.gem notebook --output zoe-field.json
+PYTHONPATH=guiai-lab python -m guiai.gem cognitive --output cognitive-field.json
+PYTHONPATH=guiai-lab python -m guiai.gem qualia --output accessible-q-volume.json
+\end{lstlisting}
+From the canonical graphics-environment-manager checkout:
+\begin{lstlisting}
+python -m gem workbench check --output workbench-verification.json
+python -m gem os
+python -m gem eye --output second-eye.json
+\end{lstlisting}
+Native GUI checks require the declared GTK/X11 environment; headless checks do not certify native behavior.
+
+\subsection{Zoe Autonomy}
+From the Zoe Autonomy repository, with a Zoe checkout:
+\begin{lstlisting}
+export ZOE_ROOT=/path/to/zoe
+export PYTHONPATH="$PWD/src:$ZOE_ROOT/guiai-lab"
+python -m zoe_autonomy.cli run
+python -m zoe_autonomy.cli run --output new-autonomy-profile.json
+python -m zoe_autonomy.cli verify evidence/zoe-autonomy-profile.json
+PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tests -v
+\end{lstlisting}
+The experiment downloads no model, contacts no network or hardware, and executes no external action. Report and paper outputs require explicit operator-requested paths.
+
+\subsection{Paper sources}
+Both arXiv packages use pdfLaTeX and only source files included in their respective archives. From each package root:
+\begin{lstlisting}
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+\end{lstlisting}
+Three passes resolve the unified paper's table of contents, long tables, and cross-references. No embedded shell commands, remote figures, or absolute local paths are required.
+
+\section{Evidence identities}
+\label{app:evidence-identities}
+Hashes identify exact historical artifacts, not their scientific validity. The unified PDF and source archive receive new identities when rebuilt and are not listed as historical inputs.
+\begin{table}[htbp]
+\centering
+\caption{Principal source-paper and evidence identities.}
+\label{tab:evidence-hashes}
+{\scriptsize
+\begin{tabularx}{\textwidth}{p{5.0cm}X}
+\toprule
+Artifact&SHA-256\\
+\midrule
+Original March Autonomy PDF&\texttt{9396025d2283524aff9d3f0c7bb1b4c24a0403959c36dba5571d495f529a9b17}\\
+Ambiguity/Compliance Cascade PDF&\texttt{dec64904f5954e29b44105ba6d41a97f38915ffbecf972554e4eda70d8abbebc}\\
+Constraint Is Freedom PDF&\texttt{191dfe0a50c053111b363d0eb4a093a740e2a510150e1f2667859501b68a60da}\\
+Significance PDF (pre-unification source)&\texttt{8dace5d65e1d2a60f83567df5fad5fff83449aa17d0f04ac9511380c46c642ee}\\
+Beyond PDF (pre-unification source)&\texttt{69440de23d6f70013b505d71cec0888c7e371968e9dfc095c8851ad7e09afa8c}\\
+Zoe proof-of-concept PDF&\texttt{b43bdd84130581c088593b380db37cdaa5c946360c0daddb5c3e6e2c1a97e7dd}\\
+Zoe Autonomy PDF (pre-unification source)&\texttt{592bbb250b3a74bebcd103e65a9f3af47dbdd2a3de60a2a379db546893809d84}\\
+Groove report.json&\texttt{5414ba3b729f38410ae83ab8fa047008fa0cf10223617cc79892cfa412ea8e2b}\\
+Groove predictions.npz&\texttt{61e2be13296cd306cf9552840b1f0f51eb9ba02fe6a7777d0f5b216a8d4c51c1}\\
+Groove sources.json&\texttt{25fad8ea3d2425f6a295d28402a052a892cc52402365230f5f4a23a9a973e685}\\
+Nightingale results.json&\texttt{86b5559106aa3de8cf46a3c843f49960df1dcfcf2d030ecc9d1ab508aaed2fb6}\\
+Nightingale stimuli.json&\texttt{897e45435b038f897726982e7130ccdd3dbf96c644d7de50844c548657f63398}\\
+Nightingale parsed onsets&\texttt{141dbddc40c98612cdc656201879b8a2541c687506027417e0c7efa76bf4fe28}\\
+HOP experiment script&\texttt{06964bd2cae00a42117a21529672690276893d90470d19540388c06319115016}\\
+Synthetic rhythm script&\texttt{43cd6ee72869b9a29abd394ba49947ff5150a25dc17bc6a83767b39652c097bc}\\
+Zoe Autonomy saved profile file&\texttt{586b82d966c8686bbd066e7cc41d69bc99f64934e0069ecc4ee96f787d969715}\\
+Zoe Autonomy canonical profile digest&\texttt{a816ab3be73739eb06473092769995a95453140ea6e18d3377b2647de88144ca}\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+Additional original-model and BioBERT identities are preserved below and in the repository manifests.
+\begin{lstlisting}
+Original model
+0f79f192f3137e9a90213f1b5d4a52b6d896b735f9cb82160e5de7cc6e539c41
+Original probability values
+5f6313599e77e72947435e52b273054fabda1e97006d0636658350ac253ed638
+Original input IDs
+970665aaaafdd2964012f3759b993e53dfe43e6d1793edc68a6b3896089fdbf8
+BioBERT case manifest
+cd743b76dc7e9ccc6d1c17dba546544271eac22dc557cb152c601c824e8922b6
+BioBERT baseline report
+2f213c3e0338895c63e292ea2fe09ababa904cce22132eb99a8a2a8626de1b6d
+BioBERT optimization report
+3c5829a65876959a904d417cffa7b953616be446b60b16fce768167d8e6fb42f
+\end{lstlisting}
+Complete per-case identities remain in the repository manifests.
+
+\section{Historical creative and accessibility material}
+\subsection{Constraint Is Freedom poem and interludes}
+The Constraint manuscript opens with a ten-fragment extracted poem. It is retained here as creative provenance, not as numerical evidence:
+\begin{quote}
+The constraint made it sacred.\\
+Perception without structure collapses you into pure input.\\
+just a receiver.\\
+reconstitute the observer.\\
+one bounded memory.\\
+mundane is aggressive.\\
+a sky.\\
+more surreal.\\
+being stuck.\\
+Unconstrained
+\end{quote}
+Nine lines carry terminal punctuation; ``Unconstrained'' does not. The source uses that formal absence of closure to introduce its thesis. Two screenshot interludes record a model declining to delete the draft and a budget constraint prompting a local, reproducible methodology. These are reflective anecdotes, not controlled demonstrations of the metric. The poem's selection history and screenshots remain in the historical PDF.
+
+\subsection{Sonification}
+The source describes four companion audio tracks mapping a constraint parameter to sound: unconstrained pink noise and scattered fragments at $S=0\%$; emerging pentatonic voices with detuning at $S=50\%$; a narrower coherent harmonic and melodic field at $S=100\%$; and a 30-second continuous journey across the regimes. The mapping is intended as an additional accessibility pathway: noise amplitude, tonal detuning, harmonic clarity, and melodic emergence carry the metaphor through audio.
+
+No audio files were supplied to this synthesis, so no playback or signal-level verification is claimed. Sonification illustrates the functional-constraint thesis; it does not establish that output-space compression improves model quality or that listeners perceive accessible volume. The unified manuscript itself uses text equations, captions, and source figures, but its present PDF is not represented as a fully tagged accessible document.
+
+\section{Historical numerical illustrations versus measurements}
+The extended March drafts contain numerical alignment examples, including a hypothetical pre/post count change from nine to five, illustrative compliance-volume trajectories, and model-version ratios changing from $14.7/4.2\approx3.5$ to $15.2/3.1\approx4.9$. These values were scenarios for explaining proposed applications, not logged model results. They must not be confused with the later measured tables.
+
+One historical worked table marks a probability exactly equal to $\tau=0.05$ as above threshold. Under the canonical strict rule, equality is excluded. The unified paper follows the strict implementation everywhere. Such corrections are part of research provenance: preserving an early source does not require preserving its arithmetic or interpretive errors in the current formalism.
+
+\section{Data, code, and disclosure availability}
+The complete research source and saved evidence are available through the three canonical repositories listed at the beginning of this paper. Model weights and raw external MIDI datasets are not redistributed by the unified arXiv source. Large probability arrays and parsed-onset caches remain repository artifacts identified by path and hash. The arXiv package includes all figures and LaTeX required to build this monograph but does not duplicate hundreds of raw evidence attachments.
+
+Historical responsible-disclosure PDFs may contain sensitive target-specific details. They are preserved for provenance in the research repositories, not reproduced as appendices in this public manuscript. Readers should use the sanitized case description and defensive benchmark agenda rather than treating the disclosure record as an operational guide.

@@ -1,0 +1,13 @@
+{
+  "paper": "papers/16-zoe-practice-navigator.pdf",
+  "title": "Zoe Practice Navigator",
+  "pdf_pages": 5,
+  "extracted_images": [],
+  "page_renders": [
+    "pages/page-001.jpg",
+    "pages/page-002.jpg",
+    "pages/page-003.jpg",
+    "pages/page-004.jpg",
+    "pages/page-005.jpg"
+  ]
+}

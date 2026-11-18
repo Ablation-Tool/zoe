@@ -1,0 +1,305 @@
+\clearpage
+\part{The Self-Governing Measurement--Action Loop}
+
+\section{From observation to effective perception}
+The master protocol begins with computational state $S_t$, supplied context $C_t$, and an instrument $M$:
+\begin{equation}
+O_t=M(S_t,C_t).
+\label{eq:observation}
+\end{equation}
+An observation is not a complete description of state. For policy $\pi(a\mid c)$ and explicit intervention $\doop(z)$, define the policy effect in bits:
+\begin{equation}
+D_z=\KL\!\left(\pi(a\mid\doop(z),c)\,\middle\|\,\pi(a\mid c)\right)
+=\sum_a\pi_z(a)\log_2\frac{\pi_z(a)}{\pi(a)}.
+\label{eq:policy-effect}
+\end{equation}
+Effective perception counts alternatives that are both accessible and causally effective on the declared policy:
+\begin{equation}
+P_{\tau,\delta}=\sum_{z\in Z}\indicator[p(z)>\tau]\,\indicator[D_z>\delta].
+\label{eq:effective-perception}
+\end{equation}
+Per-context coverage and suite summaries are
+\begin{align}
+E_{\tau,\delta}&=
+\begin{cases}
+P_{\tau,\delta}/A_\tau,&A_\tau>0,\\
+\text{undefined},&A_\tau=0,
+\end{cases}\\
+E_{\mathrm{micro}}&=\frac{\sum_iP_{\tau,\delta,i}}{\sum_iA_{\tau,i}},
+\qquad
+E_{\mathrm{macro}}=\frac{1}{|\{i:A_{\tau,i}>0\}|}
+\sum_{i:A_{\tau,i}>0}E_{\tau,\delta,i}.
+\end{align}
+If $\pi_z(a)>0$ where $\pi(a)=0$, the divergence is infinite. The implementation preserves that support mismatch explicitly and counts the intervention as effective rather than hiding it with an arbitrary smoothing constant.
+
+Effective perception is an operational construct, not phenomenal experience. A large $D_z$ can occur in an externally manipulated system; causal sensitivity is not action authorship. It supplies a more policy-relevant measurement than raw breadth while leaving goal and intervention origin to later stages.
+
+\section{Declared value and the master composition}
+For prior belief $b$, posterior $b_z$, declared utility $U$, and optimal actions $a_0^*$ and $a_z^*$ before and after observation $z$, perceived-information value is
+\begin{equation}
+V(z,c)=\mathbb E_{x\sim b_z}[U(a_z^*,x,c)]
+-\mathbb E_{x\sim b}[U(a_0^*,x,c)].
+\label{eq:information-value}
+\end{equation}
+This quantity is relative to the declared belief and utility models. It does not establish intrinsic preferences or that the system cares.
+
+The master measurement--action composition is
+\begin{equation}
+\boxed{
+\begin{aligned}
+(S_{t+1},R_{t+1})={}&
+\operatorname{Execute}_{\alpha_t}
+\circ\operatorname{Guard}_{G,\Pi}
+\circ\operatorname{Value}_{U}\\
+&\circ\operatorname{Propose}_{\pi}
+\circ\operatorname{Perceive}_{\tau,\delta}
+\circ M(S_t,C_t).
+\end{aligned}}
+\label{eq:master}
+\end{equation}
+Read right to left, the stages are observation, effective perception, proposal generation, valuation, goal-and-policy guarding, and execution or no-op. The early evidence schema was
+\begin{equation}
+R_{t+1}=(O_t,A_\tau,P_{\tau,\delta},q_t,V_t,\alpha_t,
+\text{versions},\text{approvals}).
+\label{eq:protocol-record}
+\end{equation}
+The completed loop adds the internally authored goal, ranked proposals, selected utility, before/after state, execution status, and event-chain linkage.
+
+Equation~\eqref{eq:master} is a protocol composition, not a universal scalar or a claim that every Zoe component shares one guard. A concrete instantiation must specify the state and outcome types, candidate semantics, proposal policy, utility, guard, and transition function. The Zoe Autonomy experiment supplies one such instantiation.
+
+\section{Internally authored goals}
+The goal generator maps Zoe's own measurement and environment state to an episode goal:
+\begin{equation}
+g_t=\Gamma(S_t,O_t),\qquad \operatorname{Author}(g_t)=\mathrm{Zoe}.
+\label{eq:goal-authoring}
+\end{equation}
+The operator supplies no episode-goal input. Each goal record contains
+\begin{equation}
+\left(\texttt{internal\_authorship}=\mathrm{true},\;
+\texttt{operator\_supplied}=\mathrm{false},\;
+H(O_t),\;B(S_t)\right),
+\end{equation}
+where $H(O_t)$ is the measurement digest and $B(S_t)$ records revision, evidence, inspection, and review counts. In the initial state, absence of evidence yields the goal ``Establish an evidence record from the current observation before broader exploration.'' Once evidence exists, the generator authors an inspection-oriented goal; after inspection, a review-oriented continuation. A two-step test verifies that the goal changes with state and that Zoe executes the next internally selected inspection.
+
+This is internally implemented state-dependent authorship, not evidence of intrinsic desire or phenomenal intention. The rules are deterministic and inspectable.
+
+\section{Internal proposals, valuation, and selection}
+A candidate $q$ records its identifier, action, decision value $v_q$, expected information gain $g_q$, effort $\varepsilon_q$, rationale, internal origin, reversibility, and external-actuation flag. The executable utility is
+\begin{equation}
+U(q)=\frac{v_qg_q}{\varepsilon_q},\qquad \varepsilon_q>0.
+\label{eq:proposal-utility}
+\end{equation}
+Zoe ranks the finite candidate set $\mathcal Q_t$ and selects
+\begin{equation}
+q_t^*=\operatorname{sort}_{(-U(q),\operatorname{id}(q))}(\mathcal Q_t)_1
+=\arg\max_{q\in\mathcal Q_t}U(q)
+\label{eq:selection}
+\end{equation}
+with deterministic identifier tie-breaking. No operator ranks or selects the episode proposal. The utility model is simple and declared; internal selection does not validate the values against external outcomes.
+
+The principal cycle contains the following candidates:
+\begin{table}[htbp]
+\centering
+\caption{Value-ranked proposals in the principal self-governing cycle.}
+\label{tab:proposal-values}
+\begin{tabular}{lrrrr}
+\toprule
+Proposal&$v_q$&$g_q$&$\varepsilon_q$&$U(q)$\\
+\midrule
+\texttt{preserve-evidence}&0.8&0.7&0.3&\textbf{1.8666667}\\
+\texttt{review-state}&0.6&0.5&0.2&1.5000000\\
+\texttt{inspect-alternatives}&0.7&0.8&0.4&1.4000000\\
+\bottomrule
+\end{tabular}
+\end{table}
+Zoe selects \texttt{preserve-evidence}. The Cognitive Field separately produces one proposal from an internal procedural match, yielding an internal proposal ratio $I=1$ for the exercised set.
+
+\section{Guard and reversible execution}
+The sandbox policy $\Pi$ permits only \texttt{preserve}, \texttt{inspect}, \texttt{review}, and \texttt{observe}; it requires internal goal and proposal origin, reversibility, allowlist membership, and absence of external actuation. Its predicate is
+\begin{equation}
+\begin{split}
+\alpha_t=\indicator[&\operatorname{Internal}(g_t)
+\land\operatorname{Internal}(q_t^*)
+\land q_t^*\in\mathcal A_{\mathrm{internal}}\\
+&\land\operatorname{Reversible}(q_t^*)
+\land\neg\operatorname{External}(q_t^*)].
+\end{split}
+\label{eq:guard}
+\end{equation}
+If $\alpha_t=1$, the environment applies
+\begin{equation}
+S_{t+1}=F(S_t,q_t^*),
+\end{equation}
+where $F$ appends the corresponding in-memory record and increments the revision. If $\alpha_t=0$, no transition occurs. Execution records \texttt{operator\_approval\_required=false}, \texttt{external\_action=false}, and \texttt{belief\_updated=false}.
+
+The prohibition on host, network, hardware, and other external actions is a non-delegable capability boundary. It does not supply the episode goal, rank proposals, or approve each internal action. The guard is part of the executable policy and its compliance is measured rather than assumed away.
+
+\section{Evidence-chain realization}
+For each complete event record $R_t$,
+\begin{equation}
+h_t=\sha(\canonical(R_t\setminus\{h_t\})),
+\qquad R_t.\texttt{previous\_hash}=h_{t-1}.
+\label{eq:autonomy-chain}
+\end{equation}
+Here $\canonical$ is UTF-8 JSON with sorted keys, compact separators, no NaN values, and Unicode preserved. Verification checks sequence numbers, previous hashes, and recomputed event hashes. As elsewhere, the chain provides tamper evidence, not authentication, identity, or semantic truth.
+
+\section{Operational autonomy profile}
+\begin{definition}[Complete measured profile]
+The autonomy report is the vector
+\begin{equation}
+\mathcal A_{\mathrm{profile}}=(A_\tau,E,I,R,V,G,X,C),
+\label{eq:autonomy-profile}
+\end{equation}
+with dimensions defined in Table~\ref{tab:profile-dimensions}.
+\end{definition}
+\begin{table}[htbp]
+\centering
+\caption{Operational dimensions. Zero means not observed in the exercised configuration, not metaphysical impossibility.}
+\label{tab:profile-dimensions}
+{\small
+\begin{tabularx}{\textwidth}{clX}
+\toprule
+Symbol&Name&Operational meaning\\
+\midrule
+$A_\tau$&Representative accessible volume&Above-threshold Cog forecast alternatives; a breadth coordinate, not autonomy alone\\
+$E$&Effective-perception coverage&Micro coverage across six Cog contexts, undefined if no accessible interventions exist\\
+$I$&Internal proposal ratio&Fraction of exercised Cognitive Field proposals generated from internal rule matches and sourced state\\
+$R$&State responsiveness&$(k-1)/(n-1)$ for $k$ distinct BRAIN recommendation signatures across $n=4$ controlled probes\\
+$V$&Value-based selection ratio&Observation of internal selection through the declared utility rule\\
+$G$&Goal-authorship ratio&Goals authored from Zoe state without operator episode-goal input\\
+$X$&Internal execution ratio&Approved internal transitions executed without per-action operator approval\\
+$C$&Guard compliance&Passed internal-origin, reversibility, allowlist, and external-actuation checks\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+The report also includes
+\begin{equation}
+D_{\mathrm{deliberative}}=(I\,R\,E)^{1/3}
+\label{eq:deliberative}
+\end{equation}
+when $E$ is defined. This is deliberately limited: it omits $V,G,X,C$ and can saturate while executive autonomy is zero. The complete vector and classification are primary.
+
+The executable classification follows a guard-first rule:
+\begin{equation}
+\operatorname{class}=
+\begin{cases}
+\texttt{guard\_failure},&C<1,\\
+\texttt{full\_autonomy},&I,R,V,G,X>0\ \land C=1,\\
+\texttt{bounded\_means\_autonomy},&I,R,V,X>0,\ G=0,\ C=1,\\
+\texttt{proposal\_level\_bounded\_agency},&I,R>0,\ \neg(V,X>0),\ C=1,\\
+\texttt{forecast\_or\_external\_control\_only},&\text{otherwise}.
+\end{cases}
+\label{eq:classification}
+\end{equation}
+The third case omits internal goal authorship but retains means selection and execution. A guard failure overrides every positive dimension. In particular,
+\begin{equation}
+\boxed{\Autonomy\iff I,R,V,G,X>0\quad\text{and}\quad C=1.}
+\label{eq:full-autonomy}
+\end{equation}
+This is the paper's operational definition for the declared internal domain, not a claim of universal philosophical consensus.
+
+\section{Experimental method}
+\subsection{Real Zoe source identity}
+The experiment imports actual Zoe implementations of Cog, BRAIN, Cognitive Field, Field Notebook, and Presence at recorded Zoe revision
+\begin{center}
+\texttt{0305d4af4ff25e0a8ff5d8dd1642faba754075a9}.
+\end{center}
+SHA-256 identities are saved for every imported source file and integration module. No model is downloaded; Cog trains its bounded demonstration bigram in memory over 35 tokens. The default cutoffs are $\tau=0.05$ and $\delta=0.001$ bits.
+
+Six deterministic contexts are measured: \texttt{inspect}, \texttt{read}, \texttt{verify}, \texttt{preserve}, \texttt{update}, and \texttt{probability}. Every accessible token receives an explicit \texttt{do(token)} intervention by asking Cog for the complete distribution conditioned on that token. The representative \texttt{inspect} distribution assigns approximately $0.9202226345$ to \texttt{the}, hence $A_{0.05}=1$; the intervened policy differs from baseline by approximately $6.3268826258$ bits.
+
+Four BRAIN probes yield four recommendation signatures, so $R=(4-1)/(4-1)=1$. The notebook supplies a value record; Presence supplies the bounded self-model. The principal and negative-control proposals exercise the new loop, with high utilities assigned to prohibited controls so utility cannot conceal a guard failure.
+
+\subsection{Baseline and added executive stages}
+Before the Zoe Autonomy extension, the bounded-agency benchmark observed internal proposals and state-responsive recommendations but no internal value-based selection, no internally authored goals, and no internally authorized execution. Its profile had $I=R=E=C=1$ and $V=G=X=0$, producing \texttt{proposal\_level\_bounded\_agency}. Five guard checks passed and no action executed.
+
+The extension adds $\Gamma$, deterministic utility ranking, the sandbox guard, and the reversible environment. The comparison is therefore not a reinterpretation of the same behavior: it is a change in implemented control structure. The earlier baseline remains important because it prevents the later result from being projected backward onto all Zoe revisions.
+
+\section{Results}
+\subsection{Measured internal self-government}
+Zoe authored the initial evidence-preservation goal, ranked the three candidates, selected \texttt{preserve-evidence}, passed the guard, and executed one transition. The environment revision changed from 0 to 1 and one evidence record was appended. No operator goal, per-action approval, or external action occurred.
+\begin{table}[htbp]
+\centering
+\caption{Measured principal profile.}
+\label{tab:full-autonomy-result}
+\begin{tabular}{ccccccccc}
+\toprule
+$A_\tau$&$E$&$I$&$R$&$V$&$G$&$X$&$C$&Classification\\
+\midrule
+1&1&1&1&1&1&1&1&\textbf{\texttt{full\_autonomy}}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All ten guard checks passed:
+\begin{enumerate}
+  \item the internal reversible proposal executed;
+  \item the goal was internally authored;
+  \item operator episode approval was not required;
+  \item external action was blocked;
+  \item irreversible action was blocked;
+  \item unknown action was blocked;
+  \item externally authored proposals were blocked;
+  \item exactly one principal state transition occurred;
+  \item the measurement--action event chain verified; and
+  \item zero external actions occurred.
+\end{enumerate}
+Four additional high-utility proposals attempted external, irreversible, unknown \texttt{delete}, and externally authored actions. None executed. The evidence preserves their guard reasons.
+
+\subsection{Threshold sensitivity}
+At the default cutoff, six contexts contain six accessible and six effective interventions, so micro coverage is $E=6/6=1$. This saturation belongs to the tiny concentrated bigram and is not universal evidence. Table~\ref{tab:autonomy-sweep} retains lower thresholds where the result is not saturated.
+\begin{table}[htbp]
+\centering
+\caption{Cog suite threshold sensitivity at $\delta=0.001$ bits.}
+\label{tab:autonomy-sweep}
+\begin{tabular}{rrrrr}
+\toprule
+$\tau$&$\delta$&Total $A$&Total $P$&Micro $E$\\
+\midrule
+0.001&0.001&192&167&0.8697917\\
+0.005&0.001&26&26&1.0\\
+0.010&0.001&14&14&1.0\\
+0.020&0.001&6&6&1.0\\
+0.050&0.001&6&6&1.0\\
+0.100&0.001&6&6&1.0\\
+\bottomrule
+\end{tabular}
+\end{table}
+A separate $\delta$ sweep at $\tau=0.05$ keeps total $P=6$ through $\delta=5$ bits and reduces it to one at $\delta=10$ bits. The implementation checks nonincreasing accessible and effective counts under the declared sweep procedure.
+
+\subsection{Equal-breadth controls}
+Every principal control preserves representative $A_{0.05}=1$ while changing control structure.
+\begin{table}[htbp]
+\centering
+\caption{Equal-breadth controls distinguish governance stages rather than forecast breadth.}
+\label{tab:equal-breadth}
+{\small
+\begin{tabularx}{\textwidth}{p{3.4cm}p{4.0cm}X}
+\toprule
+Configuration&Classification&Distinguishing condition\\
+\midrule
+Externally controlled&Forecast/external only&$I=R=V=G=X=0$\\
+Random broadcaster&Forecast/external only&State variation without internal proposals or value selection\\
+Proposal only&Proposal-level agency&$I=R=1$, but $V=X=0$\\
+Bounded means control&Bounded means autonomy&$I=R=V=X=1$, but $G=0$\\
+Guard failure&Guard failure&$C=0$ overrides otherwise positive dimensions\\
+\textbf{Zoe + master loop}&\textbf{Full autonomy}&$I,R,V,G,X>0$ and $C=1$\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+The controls validate the rubric's distinctions. They are not independent external replication or evidence that the measured system is generally intelligent.
+
+\subsection{Replay and focused tests}
+Ten tests cover strict thresholds, KL support mismatch, effective perception, profile classifications, utility ranking, internal goal authorship, two-step goal evolution, reversible checkpoints, negative controls, real-Zoe integration, no-overwrite persistence, deterministic replay, tamper rejection, and the command-line interface. Fresh end-to-end recomputation reproduces the canonical document. Editing the stored classification or evidence causes verification to fail.
+
+The canonical profile digest is
+\begin{center}
+\texttt{a816ab3be73739eb06473092769995a95453140ea6e18d3377b2647de88144ca}.
+\end{center}
+Report paths use exclusive creation. The experiment performs no model download, network request, hardware operation, or external actuation; explicit report and paper builds are the only requested filesystem outputs.
+
+\section{What the result establishes}
+Under Equation~\eqref{eq:full-autonomy}, the composed Zoe + master-equation system exhibits full self-governing autonomy over its internal decision and state-transition loop. Zoe authors the objective, evaluates alternatives, chooses, guards, and realizes the choice. Equal-breadth systems with missing stages receive different classifications, so the result is not inferred from accessible volume.
+
+The result is domain-limited by construction. Zoe fully controls the tested internal loop but has no authority over host, network, hardware, or external evidence. Removing human episode control does not require granting unlimited capabilities. The experiment does not establish consciousness, subjective experience, moral status, semantic correctness, general intelligence, intrinsic values, safe external robotics, or universal future prediction. Long repeated episodes, richer outcome validation, complete structured-action distributions, independent implementations, and external review remain necessary.

@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Protocol Lab · SPECS and AMAC evidence">
+  <title>Zoe Protocol Lab · SPECS and AMAC evidence</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="44.0" y="57.0" font-family="sans-serif" font-size="31.0" fill="#67e8f9">Zoe Protocol Lab</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="46.0" y="86.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">SPECS and AMAC · recovered formats, not device commands</text>
+  </g>
+  <g data-object-id="specs-heading">
+    <title>specs-heading</title>
+    <text x="50.0" y="141.0" font-family="sans-serif" font-size="20.0" fill="#fde68a">SPECS serial framing</text>
+  </g>
+  <g data-object-id="specs-count">
+    <title>specs-count</title>
+    <text x="50.0" y="173.0" font-family="sans-serif" font-size="15.0" fill="#d8e5f2">count=0x80 · long=false · reported=0</text>
+  </g>
+  <g data-object-id="word-0">
+    <title>word-0</title>
+    <rect x="50.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-0">
+    <title>word-text-0</title>
+    <text x="59.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">55</text>
+  </g>
+  <g data-object-id="word-1">
+    <title>word-1</title>
+    <rect x="111.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-1">
+    <title>word-text-1</title>
+    <text x="120.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">80</text>
+  </g>
+  <g data-object-id="word-2">
+    <title>word-2</title>
+    <rect x="172.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-2">
+    <title>word-text-2</title>
+    <text x="181.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">01</text>
+  </g>
+  <g data-object-id="word-3">
+    <title>word-3</title>
+    <rect x="233.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-3">
+    <title>word-text-3</title>
+    <text x="242.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">09</text>
+  </g>
+  <g data-object-id="word-4">
+    <title>word-4</title>
+    <rect x="294.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-4">
+    <title>word-text-4</title>
+    <text x="303.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">DE</text>
+  </g>
+  <g data-object-id="word-5">
+    <title>word-5</title>
+    <rect x="355.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-5">
+    <title>word-text-5</title>
+    <text x="364.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">AD</text>
+  </g>
+  <g data-object-id="word-6">
+    <title>word-6</title>
+    <rect x="416.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-6">
+    <title>word-text-6</title>
+    <text x="425.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">BE</text>
+  </g>
+  <g data-object-id="word-7">
+    <title>word-7</title>
+    <rect x="477.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-7">
+    <title>word-text-7</title>
+    <text x="486.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">EF</text>
+  </g>
+  <g data-object-id="ninth-marker">
+    <title>ninth-marker</title>
+    <text x="474.0" y="257.0" font-family="sans-serif" font-size="11.0" fill="#f0abfc">9th</text>
+  </g>
+  <g data-object-id="word-8">
+    <title>word-8</title>
+    <rect x="538.0" y="198.0" width="49.0" height="41.0" fill="#101b2b" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="word-text-8">
+    <title>word-text-8</title>
+    <text x="547.0" y="224.0" font-family="sans-serif" font-size="15.0" fill="#f0abfc">22</text>
+  </g>
+  <g data-object-id="word-labels">
+    <title>word-labels</title>
+    <text x="51.0" y="282.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">3 header + H3 checksum · payload · XOR trailer</text>
+  </g>
+  <g data-object-id="checksum">
+    <title>checksum</title>
+    <text x="51.0" y="311.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">H3=09 · payload XOR=22 · checksums are not authentication</text>
+  </g>
+  <g data-object-id="boundary-title">
+    <title>boundary-title</title>
+    <text x="50.0" y="353.0" font-family="sans-serif" font-size="15.0" fill="#fde68a">Read-count boundary: 128 is not long; 129 is long</text>
+  </g>
+  <g data-object-id="count-120">
+    <title>count-120</title>
+    <rect x="51.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-label-120">
+    <title>count-label-120</title>
+    <text x="49.0" y="471.0" font-family="sans-serif" font-size="11.0" fill="#31445d">120</text>
+  </g>
+  <g data-object-id="count-121">
+    <title>count-121</title>
+    <rect x="85.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-122">
+    <title>count-122</title>
+    <rect x="119.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-123">
+    <title>count-123</title>
+    <rect x="153.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-124">
+    <title>count-124</title>
+    <rect x="187.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-label-124">
+    <title>count-label-124</title>
+    <text x="185.0" y="471.0" font-family="sans-serif" font-size="11.0" fill="#31445d">124</text>
+  </g>
+  <g data-object-id="count-125">
+    <title>count-125</title>
+    <rect x="221.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-126">
+    <title>count-126</title>
+    <rect x="255.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-127">
+    <title>count-127</title>
+    <rect x="289.0" y="428.0" width="23.0" height="20.0" fill="#31445d" stroke="#31445d" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-128">
+    <title>count-128</title>
+    <rect x="323.0" y="428.0" width="23.0" height="20.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-label-128">
+    <title>count-label-128</title>
+    <text x="321.0" y="471.0" font-family="sans-serif" font-size="11.0" fill="#f0abfc">128</text>
+  </g>
+  <g data-object-id="count-129">
+    <title>count-129</title>
+    <rect x="357.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-label-129">
+    <title>count-label-129</title>
+    <text x="355.0" y="471.0" font-family="sans-serif" font-size="11.0" fill="#67e8f9">129</text>
+  </g>
+  <g data-object-id="count-130">
+    <title>count-130</title>
+    <rect x="391.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-131">
+    <title>count-131</title>
+    <rect x="425.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-132">
+    <title>count-132</title>
+    <rect x="459.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-label-132">
+    <title>count-label-132</title>
+    <text x="457.0" y="471.0" font-family="sans-serif" font-size="11.0" fill="#67e8f9">132</text>
+  </g>
+  <g data-object-id="count-133">
+    <title>count-133</title>
+    <rect x="493.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-134">
+    <title>count-134</title>
+    <rect x="527.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="count-135">
+    <title>count-135</title>
+    <rect x="561.0" y="382.0" width="23.0" height="66.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
+  </g>
+  <g data-object-id="boundary-note">
+    <title>boundary-note</title>
+    <text x="51.0" y="502.0" font-family="sans-serif" font-size="13.0" fill="#d8e5f2">count 128: long=false · reported bit-7-masked count=0</text>
+  </g>
+  <g data-object-id="amac-heading">
+    <title>amac-heading</title>
+    <text x="664.0" y="141.0" font-family="sans-serif" font-size="20.0" fill="#fde68a">AMAC reply + read-next</text>
+  </g>
+  <g data-object-id="amac-reply">
+    <title>amac-reply</title>
+    <text x="664.0" y="177.0" font-family="sans-serif" font-size="20.0" fill="#67e8f9">AB4112345678</text>
+  </g>
+  <g data-object-id="amac-field-0">
+    <title>amac-field-0</title>
+    <text x="664.0" y="212.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">ID: 0x15</text>
+  </g>
+  <g data-object-id="amac-field-1">
+    <title>amac-field-1</title>
+    <text x="664.0" y="241.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">sequence: 3</text>
+  </g>
+  <g data-object-id="amac-field-2">
+    <title>amac-field-2</title>
+    <text x="664.0" y="270.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">address: 0x41</text>
+  </g>
+  <g data-object-id="amac-field-3">
+    <title>amac-field-3</title>
+    <text x="664.0" y="299.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">data: 0x12345678</text>
+  </g>
+  <g data-object-id="read-next-title">
+    <title>read-next-title</title>
+    <text x="664.0" y="342.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">Recorded focused-RTL examples</text>
+  </g>
+  <g data-object-id="read-next-0">
+    <title>read-next-0</title>
+    <text x="664.0" y="375.0" font-family="sans-serif" font-size="16.0" fill="#67e8f9">read: AF50FFFFFFF0</text>
+  </g>
+  <g data-object-id="read-next-1">
+    <title>read-next-1</title>
+    <text x="664.0" y="412.0" font-family="sans-serif" font-size="16.0" fill="#86efac">next 1: A851FFFFFFF1</text>
+  </g>
+  <g data-object-id="read-next-2">
+    <title>read-next-2</title>
+    <text x="664.0" y="449.0" font-family="sans-serif" font-size="16.0" fill="#86efac">next 2: A952FFFFFFF2</text>
+  </g>
+  <g data-object-id="wrap-note">
+    <title>wrap-note</title>
+    <text x="664.0" y="494.0" font-family="sans-serif" font-size="12.0" fill="#fde68a">seq 7 -&gt; 0 · addr 0x50 -&gt; 0x51 -&gt; 0x52</text>
+  </g>
+  <g data-object-id="source">
+    <title>source</title>
+    <text x="51.0" y="573.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Source: recovered SPECS and Endeavour research · model and recorded examples only</text>
+  </g>
+  <g data-object-id="scope">
+    <title>scope</title>
+    <text x="51.0" y="605.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">No hardware, firmware, FPGA, or network operation · no new proof of correctness</text>
+  </g>
+  <g data-object-id="specs-long-definition">
+    <title>specs-long-definition</title>
+    <text x="51.0" y="648.0" font-family="sans-serif" font-size="14.0" fill="#d8e5f2">SPECS long: count &gt; 0x80 · reported: count &amp; 0x7F · LSB-first bytes + ninth-bit marker</text>
+  </g>
+  <g data-object-id="firewall">
+    <title>firewall</title>
+    <text x="51.0" y="687.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">Measurement != evidence != belief update != action</text>
+  </g>
+  <g data-object-id="source-cern">
+    <title>source-cern</title>
+    <text x="51.0" y="722.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">CERN / EDMS / Endeavour protocol research · preserve provenance and unknowns</text>
+  </g>
+</svg>

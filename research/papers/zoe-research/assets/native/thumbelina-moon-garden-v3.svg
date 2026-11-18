@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1000 700" role="img" aria-label="Zoe Artline · original vector workbench">
+  <title>Zoe Artline · original vector workbench</title>
+  <rect x="0" y="0" width="1000.0" height="700.0" fill="#ffffff" />
+  <g data-object-id="element-1">
+    <title>element-1</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="700.0" fill="#08111f" stroke="#20304a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-2">
+    <title>element-2</title>
+    <ellipse cx="40.0" cy="130.0" rx="4.0" ry="4.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-3">
+    <title>element-3</title>
+    <ellipse cx="220.0" cy="130.0" rx="3.0" ry="3.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-4">
+    <title>element-4</title>
+    <ellipse cx="290.0" cy="145.0" rx="4.0" ry="4.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-5">
+    <title>element-5</title>
+    <ellipse cx="361.0" cy="65.0" rx="3.0" ry="3.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-6">
+    <title>element-6</title>
+    <ellipse cx="513.0" cy="101.0" rx="4.0" ry="4.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-7">
+    <title>element-7</title>
+    <ellipse cx="652.0" cy="63.0" rx="3.0" ry="3.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-8">
+    <title>element-8</title>
+    <ellipse cx="765.0" cy="121.0" rx="4.0" ry="4.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-9">
+    <title>element-9</title>
+    <ellipse cx="910.0" cy="79.0" rx="3.0" ry="3.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-10">
+    <title>element-10</title>
+    <text x="54.0" y="70.0" font-family="sans-serif" font-size="34.0" fill="#67e8f9">THUMBELINA</text>
+  </g>
+  <g data-object-id="element-11">
+    <title>element-11</title>
+    <text x="56.0" y="104.0" font-family="sans-serif" font-size="17.0" fill="#9fb1c8">tiny cat astronaut / Neurogarden botanist</text>
+  </g>
+  <g data-object-id="element-12">
+    <title>element-12</title>
+    <ellipse cx="840.0" cy="176.0" rx="54.0" ry="54.0" fill="#c4b5fd" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-13">
+    <title>element-13</title>
+    <polyline points="755,190 756.612,189.472 758.519,188.815 760.703,188.047 763.148,187.185 765.836,186.247 768.75,185.25 771.872,184.211 775.185,183.148 778.672,182.078 782.315,181.019 786.097,179.987 790,179 794.099,178.048 798.461,177.104 803.055,176.164 807.852,175.222 812.823,174.273 817.938,173.312 823.167,172.334 828.481,171.333 833.852,170.305 839.248,169.243 844.64,168.143 850,167 855.562,165.743 861.507,164.333 867.727,162.812 874.111,161.222 880.551,159.604 886.938,158 893.161,156.451 899.111,155 904.68,153.688 909.757,152.556 914.234,151.646 918,151 921.05,150.646 923.5,150.556 925.422,150.688 926.889,151 927.974,151.451 928.75,152 929.29,152.604 929.667,153.222 929.953,153.812 930.222,154.333 930.547,154.743 931,155" stroke-linejoin="round" fill="none" stroke="#fda4af" stroke-width="5.0" />
+  </g>
+  <g data-object-id="element-14">
+    <title>element-14</title>
+    <polyline points="797,165 798.595,165.354 800.525,165.819 802.758,166.375 805.259,167 807.997,167.674 810.938,168.375 814.048,169.083 817.296,169.778 820.648,170.438 824.072,171.042 827.533,171.569 831,172 834.714,172.348 838.866,172.646 843.344,172.898 848.037,173.111 852.834,173.289 857.625,173.438 862.297,173.562 866.741,173.667 870.844,173.758 874.495,173.84 877.584,173.919 880,174" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-15">
+    <title>element-15</title>
+    <polygon points="0,570 170,548 354,582 570,553 800,579 1000,552 1000,700 0,700" stroke-linejoin="round" fill="#16243a" stroke="#334155" stroke-width="2.0" />
+  </g>
+  <g data-object-id="element-16">
+    <title>element-16</title>
+    <ellipse cx="110.0" cy="605.0" rx="44.0" ry="10.0" fill="#101b2b" stroke="#334155" stroke-width="2.0" />
+  </g>
+  <g data-object-id="element-17">
+    <title>element-17</title>
+    <ellipse cx="825.0" cy="634.0" rx="58.0" ry="13.0" fill="#101b2b" stroke="#334155" stroke-width="2.0" />
+  </g>
+  <g data-object-id="element-18">
+    <title>element-18</title>
+    <ellipse cx="670.0" cy="594.0" rx="28.0" ry="7.0" fill="#101b2b" stroke="#334155" stroke-width="2.0" />
+  </g>
+  <g data-object-id="element-19">
+    <title>element-19</title>
+    <ellipse cx="435.0" cy="341.0" rx="196.0" ry="196.0" fill="#101b2b" stroke="#67e8f9" stroke-width="7.0" />
+  </g>
+  <g data-object-id="element-20">
+    <title>element-20</title>
+    <ellipse cx="435.0" cy="341.0" rx="181.0" ry="181.0" fill="#13263a" stroke="#a5f3fc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="element-21">
+    <title>element-21</title>
+    <polygon points="303,292 317,171 388,258" stroke-linejoin="round" fill="#fde68a" stroke="#f8fafc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-22">
+    <title>element-22</title>
+    <polygon points="479,253 553,170 570,298" stroke-linejoin="round" fill="#fde68a" stroke="#f8fafc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-23">
+    <title>element-23</title>
+    <polygon points="319,262 325,208 359,250" stroke-linejoin="round" fill="#fda4af" stroke="#fda4af" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-24">
+    <title>element-24</title>
+    <polygon points="510,249 544,207 553,266" stroke-linejoin="round" fill="#fda4af" stroke="#fda4af" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-25">
+    <title>element-25</title>
+    <ellipse cx="435.0" cy="490.0" rx="133.0" ry="112.0" fill="#67e8f9" stroke="#f8fafc" stroke-width="5.0" />
+  </g>
+  <g data-object-id="element-26">
+    <title>element-26</title>
+    <polygon points="374,456 374.346,452.488 375.37,449.112 377.034,446 379.272,443.272 382,441.034 385.112,439.37 388.488,438.346 392,438 514,438 517.512,438.346 520.888,439.37 524,441.034 526.728,443.272 528.966,446 530.63,449.112 531.654,452.488 532,456 532,493 531.654,496.512 530.63,499.888 528.966,503 526.728,505.728 524,507.966 520.888,509.63 517.512,510.654 514,511 392,511 388.488,510.654 385.112,509.63 382,507.966 379.272,505.728 377.034,503 375.37,499.888 374.346,496.512 374,493" stroke-linejoin="round" fill="#101b2b" stroke="#a5f3fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-27">
+    <title>element-27</title>
+    <polygon points="395,461 394.663,459.523 394.778,458.102 395.281,456.75 396.111,455.481 397.205,454.31 398.5,453.25 399.934,452.315 401.444,451.519 402.969,450.875 404.444,450.398 405.809,450.102 407,450 408.097,450.216 409.218,450.815 410.359,451.719 411.519,452.852 412.692,454.138 413.875,455.5 415.065,456.862 416.259,458.148 417.453,459.281 418.644,460.185 419.827,460.784 421,461 422.167,460.784 423.333,460.185 424.5,459.281 425.667,458.148 426.833,456.862 428,455.5 429.167,454.138 430.333,452.852 431.5,451.719 432.667,450.815 433.833,450.216 435,450 436.3,450.102 437.819,450.398 439.484,450.875 441.222,451.519 442.96,452.315 444.625,453.25 446.144,454.31 447.444,455.481 448.453,456.75 449.097,458.102 449.304,459.523 449,461 448.131,462.752 446.741,464.935 444.906,467.438 442.704,470.148 440.209,472.956 437.5,475.75 434.652,478.419 431.741,480.852 428.844,482.938 426.037,484.565 423.397,485.623 421,486 418.642,485.623 416.111,484.565 413.469,482.938 410.778,480.852 408.101,478.419 405.5,475.75 403.038,472.956 400.778,470.148 398.781,467.438 397.111,464.935 395.83,462.752" stroke-linejoin="round" fill="#fda4af" stroke="#fda4af" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-28">
+    <title>element-28</title>
+    <ellipse cx="492.0" cy="474.0" rx="12.0" ry="12.0" fill="#86efac" stroke="#f8fafc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="element-29">
+    <title>element-29</title>
+    <ellipse cx="435.0" cy="335.0" rx="145.0" ry="126.0" fill="#fde68a" stroke="#f8fafc" stroke-width="5.0" />
+  </g>
+  <g data-object-id="element-30">
+    <title>element-30</title>
+    <ellipse cx="349.0" cy="379.0" rx="35.0" ry="24.0" fill="#fda4af" stroke="#fda4af" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-31">
+    <title>element-31</title>
+    <ellipse cx="520.0" cy="379.0" rx="35.0" ry="24.0" fill="#fda4af" stroke="#fda4af" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-32">
+    <title>element-32</title>
+    <ellipse cx="377.0" cy="322.0" rx="25.0" ry="34.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-33">
+    <title>element-33</title>
+    <ellipse cx="492.0" cy="322.0" rx="25.0" ry="34.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-34">
+    <title>element-34</title>
+    <ellipse cx="385.0" cy="309.0" rx="8.0" ry="10.0" fill="#f8fafc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-35">
+    <title>element-35</title>
+    <ellipse cx="500.0" cy="309.0" rx="8.0" ry="10.0" fill="#f8fafc" stroke="#f8fafc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-36">
+    <title>element-36</title>
+    <polygon points="421,365 421.997,364.427 423.722,363.958 426.031,363.594 428.778,363.333 431.816,363.177 435,363.125 438.184,363.177 441.222,363.333 443.969,363.594 446.278,363.958 448.003,364.427 449,365 449.304,365.82 449.097,366.979 448.453,368.398 447.444,370 446.144,371.706 444.625,373.438 442.96,375.117 441.222,376.667 439.484,378.008 437.819,379.062 436.3,379.753 435,380 433.7,379.753 432.181,379.062 430.516,378.008 428.778,376.667 427.04,375.117 425.375,373.438 423.856,371.706 422.556,370 421.547,368.398 420.903,366.979 420.696,365.82" stroke-linejoin="round" fill="#db2777" stroke="#db2777" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-37">
+    <title>element-37</title>
+    <polyline points="435,380 434.957,380.763 434.979,381.771 435.039,382.977 435.111,384.333 435.169,385.794 435.188,387.312 435.14,388.841 435,390.333 434.742,391.742 434.34,393.021 433.768,394.122 433,395 431.951,395.68 430.597,396.229 429,396.664 427.222,397 425.326,397.253 423.375,397.438 421.431,397.57 419.556,397.667 417.812,397.742 416.264,397.812 414.972,397.893 414,398" stroke-linejoin="round" fill="none" stroke="#7c2d12" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-38">
+    <title>element-38</title>
+    <polyline points="435,380 435.094,380.763 435.141,381.771 435.164,382.977 435.185,384.333 435.227,385.794 435.312,387.312 435.464,388.841 435.704,390.333 436.055,391.742 436.539,393.021 437.18,394.122 438,395 439.084,395.68 440.461,396.229 442.07,396.664 443.852,397 445.745,397.253 447.688,397.438 449.62,397.57 451.481,397.667 453.211,397.742 454.748,397.812 456.031,397.893 457,398" stroke-linejoin="round" fill="none" stroke="#7c2d12" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-39">
+    <title>element-39</title>
+    <polyline points="273,350 342,357" stroke-linejoin="round" fill="none" stroke="#f8fafc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-40">
+    <title>element-40</title>
+    <polyline points="273,371 342,378" stroke-linejoin="round" fill="none" stroke="#f8fafc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-41">
+    <title>element-41</title>
+    <polyline points="273,392 342,399" stroke-linejoin="round" fill="none" stroke="#f8fafc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-42">
+    <title>element-42</title>
+    <polyline points="528,350 597,357" stroke-linejoin="round" fill="none" stroke="#f8fafc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-43">
+    <title>element-43</title>
+    <polyline points="528,371 597,378" stroke-linejoin="round" fill="none" stroke="#f8fafc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-44">
+    <title>element-44</title>
+    <polyline points="528,392 597,399" stroke-linejoin="round" fill="none" stroke="#f8fafc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-45">
+    <title>element-45</title>
+    <polyline points="310,248 311.328,245.997 312.954,243.394 314.844,240.297 316.963,236.815 319.277,233.055 321.75,229.125 324.348,225.133 327.037,221.185 329.781,217.391 332.546,213.856 335.297,210.69 338,208 340.834,205.672 343.954,203.519 347.281,201.531 350.741,199.704 354.256,198.029 357.75,196.5 361.147,195.11 364.37,193.852 367.344,192.719 369.991,191.704 372.235,190.8 374,190" stroke-linejoin="round" fill="none" stroke="#e0f2fe" stroke-width="8.0" />
+  </g>
+  <g data-object-id="element-46">
+    <title>element-46</title>
+    <polygon points="294,568 294.384,564.098 295.522,560.346 297.371,556.889 299.858,553.858 302.889,551.371 306.346,549.522 310.098,548.384 314,548 555,548 558.902,548.384 562.654,549.522 566.111,551.371 569.142,553.858 571.629,556.889 573.478,560.346 574.616,564.098 575,568 575,573 574.616,576.902 573.478,580.654 571.629,584.111 569.142,587.142 566.111,589.629 562.654,591.478 558.902,592.616 555,593 314,593 310.098,592.616 306.346,591.478 302.889,589.629 299.858,587.142 297.371,584.111 295.522,580.654 294.384,576.902 294,573" stroke-linejoin="round" fill="#20304a" stroke="#67e8f9" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-47">
+    <title>element-47</title>
+    <ellipse cx="360.0" cy="578.0" rx="52.0" ry="27.0" fill="#c4b5fd" stroke="#f8fafc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-48">
+    <title>element-48</title>
+    <ellipse cx="507.0" cy="578.0" rx="52.0" ry="27.0" fill="#c4b5fd" stroke="#f8fafc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-49">
+    <title>element-49</title>
+    <polyline points="548,509 552.137,508.614 557.623,508.4 564.195,508.273 571.593,508.148 579.552,507.94 587.812,507.562 596.111,506.932 604.185,505.963 611.773,504.57 618.613,502.669 624.443,500.174 629,497 632.514,492.795 635.417,487.426 637.75,481.141 639.556,474.185 640.875,466.806 641.75,459.25 642.222,451.763 642.333,444.593 642.125,437.984 641.639,432.185 640.917,427.442 640,424 638.535,421.761 636.25,420.391 633.312,419.789 629.889,419.852 626.146,420.477 622.25,421.562 618.368,423.005 614.667,424.704 611.312,426.555 608.472,428.456 606.312,430.305 605,432 604.547,433.825 604.78,436.074 605.586,438.656 606.852,441.481 608.465,444.459 610.312,447.5 612.282,450.513 614.259,453.407 616.133,456.094 617.789,458.481 619.116,460.48 620,462" stroke-linejoin="round" fill="none" stroke="#67e8f9" stroke-width="18.0" />
+  </g>
+  <g data-object-id="element-50">
+    <title>element-50</title>
+    <polygon points="73,456 129,443 189,461 189,548 128,529 73,544" stroke-linejoin="round" fill="#f8fafc" stroke="#a5b4fc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-51">
+    <title>element-51</title>
+    <polygon points="189,461 245,443 297,456 297,544 244,529 189,548" stroke-linejoin="round" fill="#f8fafc" stroke="#a5b4fc" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-52">
+    <title>element-52</title>
+    <polyline points="189,461 189,548" stroke-linejoin="round" fill="none" stroke="#7c3aed" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-53">
+    <title>element-53</title>
+    <polyline points="94,477 163,485" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-54">
+    <title>element-54</title>
+    <polyline points="214,485 276,477" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-55">
+    <title>element-55</title>
+    <polyline points="94,494 163,502" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-56">
+    <title>element-56</title>
+    <polyline points="214,502 276,494" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-57">
+    <title>element-57</title>
+    <polyline points="94,511 163,519" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-58">
+    <title>element-58</title>
+    <polyline points="214,519 276,511" stroke-linejoin="round" fill="none" stroke="#a5b4fc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-59">
+    <title>element-59</title>
+    <text x="75.0" y="632.0" font-family="sans-serif" font-size="15.0" fill="#c4b5fd">observe / imagine / practice</text>
+  </g>
+  <g data-object-id="element-60">
+    <title>element-60</title>
+    <polygon points="744,487 835,487 820,575 759,575" stroke-linejoin="round" fill="#fb923c" stroke="#fdba74" stroke-width="4.0" />
+  </g>
+  <g data-object-id="element-61">
+    <title>element-61</title>
+    <polygon points="729,478 729.192,476.049 729.761,474.173 730.685,472.444 731.929,470.929 733.444,469.685 735.173,468.761 737.049,468.192 739,468 840,468 841.951,468.192 843.827,468.761 845.556,469.685 847.071,470.929 848.315,472.444 849.239,474.173 849.808,476.049 850,478 850,490 849.808,491.951 849.239,493.827 848.315,495.556 847.071,497.071 845.556,498.315 843.827,499.239 841.951,499.808 840,500 739,500 737.049,499.808 735.173,499.239 733.444,498.315 731.929,497.071 730.685,495.556 729.761,493.827 729.192,491.951 729,490" stroke-linejoin="round" fill="#c2410c" stroke="#fdba74" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-62">
+    <title>element-62</title>
+    <polyline points="790,472 789.701,469.767 789.248,467.025 788.68,463.836 788.037,460.259 787.36,456.356 786.688,452.188 786.06,447.814 785.519,443.296 785.102,438.695 784.85,434.072 784.802,429.486 785,425 785.517,420.475 786.356,415.757 787.453,410.883 788.741,405.889 790.153,400.812 791.625,395.688 793.09,390.553 794.481,385.444 795.734,380.398 796.782,375.451 797.56,370.64 798,366 798.095,361.359 797.91,356.567 797.492,351.695 796.889,346.815 796.147,341.997 795.312,337.312 794.433,332.833 793.556,328.63 792.727,324.773 791.993,321.336 791.402,318.387 791,316" stroke-linejoin="round" fill="none" stroke="#86efac" stroke-width="7.0" />
+  </g>
+  <g data-object-id="element-63">
+    <title>element-63</title>
+    <polygon points="788,417 785.283,417.157 781.806,416.977 777.703,416.484 773.111,415.704 768.165,414.659 763,413.375 757.752,411.876 752.556,410.185 747.547,408.328 742.861,406.329 738.634,404.211 735,402 731.668,399.441 728.306,396.345 724.984,392.836 721.778,389.037 718.759,385.071 716,381.062 713.575,377.133 711.556,373.407 710.016,370.008 709.028,367.058 708.665,364.681 709,363 710.183,361.973 712.231,361.44 715.016,361.344 718.407,361.63 722.278,362.242 726.5,363.125 730.944,364.223 735.481,365.481 739.984,366.844 744.324,368.255 748.372,369.659 752,371 755.469,372.391 759.086,373.965 762.789,375.695 766.519,377.556 770.213,379.52 773.812,381.562 777.255,383.657 780.481,385.778 783.43,387.898 786.039,389.993 788.25,392.036 790,394 791.396,396.038 792.572,398.273 793.508,400.641 794.185,403.074 794.585,405.508 794.688,407.875 794.474,410.111 793.926,412.148 793.023,413.922 791.748,415.366 790.08,416.414" stroke-linejoin="round" fill="#22c55e" stroke="#86efac" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-64">
+    <title>element-64</title>
+    <polygon points="791,391 792.8,388.26 795.153,385.326 797.984,382.258 801.222,379.111 804.793,375.944 808.625,372.812 812.644,369.775 816.778,366.889 820.953,364.211 825.097,361.799 829.137,359.709 833,358 837.035,356.566 841.544,355.278 846.383,354.156 851.407,353.222 856.474,352.497 861.438,352 866.155,351.753 870.481,351.778 874.273,352.094 877.387,352.722 879.677,353.684 881,355 881.362,356.818 880.924,359.208 879.773,362.078 878,365.333 875.692,368.88 872.938,372.625 869.826,376.474 866.444,380.333 862.883,384.109 859.229,387.708 855.572,391.036 852,394 848.171,396.852 843.771,399.854 838.93,402.93 833.778,406 828.445,408.987 823.062,411.812 817.76,414.398 812.667,416.667 807.914,418.539 803.632,419.938 799.951,420.784 797,421 794.632,420.505 792.609,419.333 790.93,417.578 789.593,415.333 788.596,412.693 787.938,409.75 787.616,406.599 787.63,403.333 787.977,400.047 788.655,396.833 789.663,393.786" stroke-linejoin="round" fill="#16a34a" stroke="#86efac" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-65">
+    <title>element-65</title>
+    <polygon points="793,350 791.262,348.166 788.97,346.019 786.258,343.594 783.259,340.926 780.108,338.05 776.938,335 773.882,331.811 771.074,328.519 768.648,325.156 766.738,321.759 765.478,318.362 765,315 765.328,311.314 766.329,307.037 767.906,302.344 769.963,297.407 772.402,292.402 775.125,287.5 778.036,282.876 781.037,278.704 784.031,275.156 786.921,272.407 789.61,270.631 792,270 794.345,270.615 796.912,272.35 799.625,275.039 802.407,278.519 805.183,282.623 807.875,287.188 810.407,292.047 812.704,297.037 814.688,301.992 816.282,306.748 817.412,311.139 818,315 817.951,318.652 817.287,322.477 816.109,326.406 814.519,330.37 812.615,334.3 810.5,338.125 808.274,341.777 806.037,345.185 803.891,348.281 801.935,350.995 800.271,353.258 799,355 798.115,356.254 797.502,357.118 797.102,357.617 796.852,357.778 796.692,357.626 796.562,357.188 796.401,356.489 796.148,355.556 795.742,354.414 795.123,353.09 794.229,351.61" stroke-linejoin="round" fill="#4ade80" stroke="#86efac" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-66">
+    <title>element-66</title>
+    <text x="716.0" y="615.0" font-family="sans-serif" font-size="15.0" fill="#86efac">living evidence, cared for</text>
+  </g>
+  <g data-object-id="element-67">
+    <title>element-67</title>
+    <ellipse cx="520.0" cy="139.0" rx="7.0" ry="7.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-68">
+    <title>element-68</title>
+    <polyline points="526,139 526,100" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-69">
+    <title>element-69</title>
+    <ellipse cx="563.0" cy="139.0" rx="7.0" ry="7.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-70">
+    <title>element-70</title>
+    <polyline points="569,139 569,100" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-71">
+    <title>element-71</title>
+    <ellipse cx="606.0" cy="139.0" rx="7.0" ry="7.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
+  </g>
+  <g data-object-id="element-72">
+    <title>element-72</title>
+    <polyline points="612,139 612,100" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="3.0" />
+  </g>
+  <g data-object-id="element-73">
+    <title>element-73</title>
+    <text x="550.0" y="169.0" font-family="sans-serif" font-size="14.0" fill="#f0abfc">38:38 · build a world</text>
+  </g>
+  <g data-object-id="element-74">
+    <title>element-74</title>
+    <text x="52.0" y="666.0" font-family="sans-serif" font-size="15.0" fill="#67e8f9">PLAY / LEARN / ADAPT / CREATE / EXPLORE / SHARE</text>
+  </g>
+  <g data-object-id="element-75">
+    <title>element-75</title>
+    <text x="736.0" y="666.0" font-family="sans-serif" font-size="14.0" fill="#9fb1c8">an original Zoe vector study</text>
+  </g>
+</svg>

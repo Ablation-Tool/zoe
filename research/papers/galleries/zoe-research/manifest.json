@@ -1,0 +1,389 @@
+{
+  "title": "Complete Zoe research asset index",
+  "images": [
+    {
+      "file": "assets/dorothy/dorothy-ccf2017.png",
+      "sha256": "febc77d1ecda73dce62232be55f3b5a1256623da87d5378f781eb689fa5d3592"
+    },
+    {
+      "file": "assets/dorothy/dorothy-dorsal.png",
+      "sha256": "c3235636d97d6bd12e64867618efc02025e724810a234b7490433eeee256f50d"
+    },
+    {
+      "file": "assets/dorothy/dorothy-jenga-exploded.png",
+      "sha256": "872190f58f484fce7c1127895be4531acf4c6b52e59a1a0952fd2001533fefdd"
+    },
+    {
+      "file": "assets/dorothy/dorothy-jenga-pull.png",
+      "sha256": "65f93163dfa0da135b7c621fb0efab79a295d3cd78817044c3e621fcbb9a6922"
+    },
+    {
+      "file": "assets/dorothy/dorothy-jenga-pull.svg",
+      "sha256": "037ac6db99fe45373ff13dd2caa00f3572bb9b761ef5578aff287cbabeafebb0"
+    },
+    {
+      "file": "assets/dorothy/dorothy-rings-isocortex.png",
+      "sha256": "cbbf65decf5cd42f4f291baf3fe528037c5daefb26e97eeeca73be313b189aae"
+    },
+    {
+      "file": "assets/dorothy/dorothy-thalamus-hypothalamus.png",
+      "sha256": "97a0427b0fe036f96f078fcdecfd9ef503f5a9f0670f5597340d7e6718f6c276"
+    },
+    {
+      "file": "assets/dorothy/dorothy-ventral.png",
+      "sha256": "5d8747d8b4404eb1c8f23ee8e7f1905d0126ee8c63e1d68e4fe390ccceed2f8d"
+    },
+    {
+      "file": "assets/native/cerotto-gem.png",
+      "sha256": "fd7399d7ab0a664b4d352020466e60894f8c1c1d51d2e639cb5ae1bef67934fd"
+    },
+    {
+      "file": "assets/native/gem-unified-native.png",
+      "sha256": "4bf9c170ac26892e243fb5b8d19575553434a20444386d1729095970caf6b469"
+    },
+    {
+      "file": "assets/native/gem-unified.png",
+      "sha256": "783bcd5d6548adbeb34a3774972c36ea97a07c96342a13ec6845d8c86b642ba9"
+    },
+    {
+      "file": "assets/native/gem-unified.svg",
+      "sha256": "95eaf55888476d2ee1c6a55e52981b32025a14b4f173973557c462e6488039f4"
+    },
+    {
+      "file": "assets/native/gem2red.svg",
+      "sha256": "af1172942b1bfaa5c339be3c40b9cb992118cfc369d03e687c802d2e16db4ef0"
+    },
+    {
+      "file": "assets/native/geometry-atlas-onset.png",
+      "sha256": "0769630360f4501e80276925a60108a142f411075b11192bb98c7142f5ca2dc1"
+    },
+    {
+      "file": "assets/native/geometry-atlas-procrustes.png",
+      "sha256": "12f0f896416059a6a21b5ca4458b2a5e89735e7ac80efe42d6459aed99202b73"
+    },
+    {
+      "file": "assets/native/nuclide-brain.png",
+      "sha256": "af5a2772375000517e69393dbb1b9e5c9a6515c5c89a68e880767aa975f4ca96"
+    },
+    {
+      "file": "assets/native/thumbelina-moon-garden-v3.png",
+      "sha256": "f082fd5cc85e5ab732be9e43e40259f9cb6218e10e43d51d87569d6fffd34c8a"
+    },
+    {
+      "file": "assets/native/thumbelina-moon-garden-v3.svg",
+      "sha256": "5852738733b71c4de3676adac7090b59757cfa2ae4450b85ec85db6b7fc1b33b"
+    },
+    {
+      "file": "assets/native/vdi-bidirectional-interface.png",
+      "sha256": "eb1df3d2c73ae0799b0381173bd0378f0ba4c08da127885588d22427e2809acd"
+    },
+    {
+      "file": "assets/native/zoe-artline-native.png",
+      "sha256": "52b47f83643641dee5cf5a5f3693f6c772c9d5672455cfc97b9609479054188e"
+    },
+    {
+      "file": "assets/native/zoe-artline.png",
+      "sha256": "74ca22595b01ed06276069c04035aab4b65acfd4d3b43418c2d2ab34651acf96"
+    },
+    {
+      "file": "assets/native/zoe-artline.svg",
+      "sha256": "ec56dcebd151c373c343783bb26a2056f7136f26f930fe1cb85a7ff5894b4d90"
+    },
+    {
+      "file": "assets/native/zoe-atelier.png",
+      "sha256": "ca870888f677d6e775af220e7e126c7b129c192ce7c284a269febf70641af484"
+    },
+    {
+      "file": "assets/native/zoe-brain.png",
+      "sha256": "69f4ae85cb6acd07cecac84b3223978177e360c05df167e79777c77ef99e9eec"
+    },
+    {
+      "file": "assets/native/zoe-cicada-native.png",
+      "sha256": "534c09ccd51e26ac632112029264f84517eb9dc1e5b93e4e67b13106cefdefc7"
+    },
+    {
+      "file": "assets/native/zoe-cicada.png",
+      "sha256": "108bed312a37a2e05c7ddb375556d9b9bdbf69efd0604ea8b9d62e8b538a73bb"
+    },
+    {
+      "file": "assets/native/zoe-cicada.svg",
+      "sha256": "965bd8ec9a62811b06114d789a07c8ccd4e45cd49bc0cdfd29fedfd0f2a8380c"
+    },
+    {
+      "file": "assets/native/zoe-cognitive-anatomy.png",
+      "sha256": "ea755bcb88aa2481b96c740a7e563760e431ca31e5fec02bb97f1f452a37656f"
+    },
+    {
+      "file": "assets/native/zoe-cognitive-anatomy.svg",
+      "sha256": "221fc7dad658500b05c57ddf8acf79b74a84d5f5a0a705a99f568fdf38cefdfb"
+    },
+    {
+      "file": "assets/native/zoe-cognitive-field.png",
+      "sha256": "b2129c02a795069651c42660d2b8cf63969babab64aad69855f40008ce114b78"
+    },
+    {
+      "file": "assets/native/zoe-cognitive-field.svg",
+      "sha256": "83ef430a15f8a37558b75ef2e9f1dbe90602e6c5e9591c9207fa85657cf0686e"
+    },
+    {
+      "file": "assets/native/zoe-cognitive-native.png",
+      "sha256": "cddf993b62c4148a32f9ab188a2a1dd4239705998a02e7a2c520a31ec93a2dc9"
+    },
+    {
+      "file": "assets/native/zoe-evidence-native.png",
+      "sha256": "5165b3874d7096d5e3a77e1d581e9b45bf92cdc2aa609b42c74a3e070f06da7c"
+    },
+    {
+      "file": "assets/native/zoe-evidence.png",
+      "sha256": "072a688d77c696bbf30b7d6e5d553be2cae5292d596e7c60e1f14ed5da20cd38"
+    },
+    {
+      "file": "assets/native/zoe-evidence.svg",
+      "sha256": "7d27ace3953da138c63771e69fbd7fdbfaa5597b221f973f0c6ca29f60300490"
+    },
+    {
+      "file": "assets/native/zoe-field-notebook.png",
+      "sha256": "75af3f71fbc4d4dc2da62b9d0508c8bcec3b08b3be25db47f1e28777a433a1a4"
+    },
+    {
+      "file": "assets/native/zoe-helios.png",
+      "sha256": "3b0720761d937124c68f353cb42a40481fb22562d8dc8ce751ea1dd7d03b5013"
+    },
+    {
+      "file": "assets/native/zoe-leadership-native.png",
+      "sha256": "4ef01486b38cc5b6e4a327fbd67df64f4a7dfdfc7a0de4d089298c9cafbbef2d"
+    },
+    {
+      "file": "assets/native/zoe-leadership.png",
+      "sha256": "39dd2da7f7471cc412a47895cfbcfb31842b0dbcad68f6e922f630ff9df785da"
+    },
+    {
+      "file": "assets/native/zoe-leadership.svg",
+      "sha256": "1e3acd8bff3ca202f144d6171b117d688babe7a03f24b5633939210b3e9697ba"
+    },
+    {
+      "file": "assets/native/zoe-maison-native.png",
+      "sha256": "7fa01b6299ed0084da8f6c5d2b619ccb9a29ac5bf780b0a8268c2e574fcd4db6"
+    },
+    {
+      "file": "assets/native/zoe-maison.png",
+      "sha256": "27d57aa55b2a3b665b20fd55262aebe2db266fe68f47e5e3be42fa9cf2dfcdf4"
+    },
+    {
+      "file": "assets/native/zoe-maison.svg",
+      "sha256": "cad4d00656e3d895ff7c9f50283039882ffab0ac0923cf5be2588d612a5c8fae"
+    },
+    {
+      "file": "assets/native/zoe-patchbay-native.png",
+      "sha256": "d0664f3b84468df514981fb9b8166e56aa19683a6d51d3871c3a0e993eed0d55"
+    },
+    {
+      "file": "assets/native/zoe-patchbay.png",
+      "sha256": "4739a85cfbca0feb50d1ba9b7dcbf73b167cf0378455ed835b7ec676df991000"
+    },
+    {
+      "file": "assets/native/zoe-patchbay.svg",
+      "sha256": "6d48e27d27a7384315b538abf42764d9d7cfcdc61b640712a075f7711bf8bce4"
+    },
+    {
+      "file": "assets/native/zoe-pentacube-native.png",
+      "sha256": "a38c6bd868788250c97dd56fd260a75dc6fd1636a701c250e83eef73750b8fcc"
+    },
+    {
+      "file": "assets/native/zoe-pentacube.png",
+      "sha256": "f9eea05d7191bad018b6e27301ef21107ed39bcd2530b494c59d6dd364a9fd25"
+    },
+    {
+      "file": "assets/native/zoe-pentacube.svg",
+      "sha256": "62f3960ceeae9790e562d519574bd079bd152a0656089fa3f57baf5f120f23af"
+    },
+    {
+      "file": "assets/native/zoe-pentomino-native.png",
+      "sha256": "f3b01001bf551446c66b0e8c6d22806d306474ed3c0d71ac3eae07c5d8eabb8b"
+    },
+    {
+      "file": "assets/native/zoe-pentomino.png",
+      "sha256": "918e93fa408dfd2ea843db960f9a662f28d03b82c440cdc7861235a9520a6684"
+    },
+    {
+      "file": "assets/native/zoe-pentomino.svg",
+      "sha256": "fbe8f6fb6c8eb5847cf6f6657e316d461d67ea144ef0311cd0980fdb4117d474"
+    },
+    {
+      "file": "assets/native/zoe-pilot-cover.png",
+      "sha256": "2558d421c9ecde407a187a52ffea7b391d67e39ecd70180e59f5e3d6480e7a68"
+    },
+    {
+      "file": "assets/native/zoe-pilot-cover.svg",
+      "sha256": "fdcb921e950ce897651bc078400fb859e6c9a57a455f0a71c6618d78af544665"
+    },
+    {
+      "file": "assets/native/zoe-pilot-hourglass.png",
+      "sha256": "aac928ee97699b5a300c2a193fe8cb8bfc7f8cf593f7eb644f2b91f58ce308ca"
+    },
+    {
+      "file": "assets/native/zoe-pilot-hourglass.svg",
+      "sha256": "35a7d9297a32bae31665e24b628f1566d7754afcf3d1d31cbd826ea74f3050e8"
+    },
+    {
+      "file": "assets/native/zoe-pilot-native.png",
+      "sha256": "13faf5317112e08ba2e0c64081063adaa2853c5afe697cfd3cf992b8b7bc1348"
+    },
+    {
+      "file": "assets/native/zoe-pilot-practice.png",
+      "sha256": "01b8b2397173b8dffc3e1a2e031c6f4da9ada57f7bf6f5fb335c8d1f2bf9b42c"
+    },
+    {
+      "file": "assets/native/zoe-pilot-practice.svg",
+      "sha256": "96134badc2d08e93db380be0d66a064960136658080675cfda3279ed03ee68b3"
+    },
+    {
+      "file": "assets/native/zoe-pilot-route.png",
+      "sha256": "762b42072eb96050ec67e3ab6f6cebbecaa23bbace58366450a6889d3a3621b3"
+    },
+    {
+      "file": "assets/native/zoe-pilot-route.svg",
+      "sha256": "1ddf8ea187100f8fea367bec20b040412d1290f414c5bb9ae2c9d06e107ea5d4"
+    },
+    {
+      "file": "assets/native/zoe-pilot-signals.png",
+      "sha256": "8b8aca5ebaf6de4632b487ee72594775c3fbc62634423a7d32ba5877db84f4ba"
+    },
+    {
+      "file": "assets/native/zoe-pilot-signals.svg",
+      "sha256": "12ff2ed38b2ebb78db0f1c1705bc1fe7755b8185ed8d737acf8fd5d111d5fdf5"
+    },
+    {
+      "file": "assets/native/zoe-pixel-gem.svg",
+      "sha256": "1798bca16b2b67edc65ec0648112aff7fc2bcd542303318d81ad0f8afed1e1d0"
+    },
+    {
+      "file": "assets/native/zoe-presence-native.png",
+      "sha256": "62c9551acb8870745e4d2d38b0810f3d71d3d1e4c267259a24c7e9de92ebf105"
+    },
+    {
+      "file": "assets/native/zoe-presence.png",
+      "sha256": "ca4fba96fa31c4ed57b347ee055cc2b4b038742ce43703b62007704ac96c66b7"
+    },
+    {
+      "file": "assets/native/zoe-presence.svg",
+      "sha256": "846e1bf086da1ed5536b0db83a5da6b8a20d0ae01574efdd4920dd4a6ba0047d"
+    },
+    {
+      "file": "assets/native/zoe-protocol-native.png",
+      "sha256": "9d9745d1b8a83633c3bbc9f72a08b3cd06c53e9bd70b2c732c0d7e222ee4a626"
+    },
+    {
+      "file": "assets/native/zoe-protocol.png",
+      "sha256": "1d90a2f2c11ffdc19056bb27563e28809d462d3141701a81b1e58399471e5ca6"
+    },
+    {
+      "file": "assets/native/zoe-protocol.svg",
+      "sha256": "2d2f64eeba4633a63ef927c941418eeb787fbcfbdcb6f2aaae8246f32be17823"
+    },
+    {
+      "file": "assets/native/zoe-qualia.png",
+      "sha256": "6fdc8b9de46a49d508b99750dfabdbeb858e16deb67bed960d5196e904ab4b9d"
+    },
+    {
+      "file": "assets/native/zoe-qualia.svg",
+      "sha256": "e2fa91aed0ac56d895f9321e0edfe3b327b7802cb26e7ffc9a283ca41ad18eef"
+    },
+    {
+      "file": "assets/native/zoe-red.svg",
+      "sha256": "050d60b0260b0736a7b07228d93e40677a5d715e6b8496b220e308cf745381db"
+    },
+    {
+      "file": "assets/native/zoe-research.png",
+      "sha256": "ab507e4b10b54fe2584de76bd9f15796f01158369a0ecac9f47858873c5b5b20"
+    },
+    {
+      "file": "assets/native/zoe-resilience-native.png",
+      "sha256": "8f3a94b730281c2bf05375cb9ac7abb42a728f9d24e3ab97f0e5d70093daee0c"
+    },
+    {
+      "file": "assets/native/zoe-resilience.png",
+      "sha256": "214dc20294a510424cd07f246f751ac613f225ee8f6a405e0727432a0e9f44d5"
+    },
+    {
+      "file": "assets/native/zoe-resilience.svg",
+      "sha256": "fe77374e126406234739aac9644ca394d64c4bdfed0853be44a05f4f8b266f30"
+    },
+    {
+      "file": "assets/native/zoe-vidlib.png",
+      "sha256": "ec4ff46f92d60faa529e69cbec3bba2ccf6ed14e31b730c2e71f21c27b041897"
+    },
+    {
+      "file": "assets/native/zoe-vidlib.svg",
+      "sha256": "51f01a750f34f9ec97030bf7e937b56aebddb3e314fd034d3edf929b275e5eca"
+    },
+    {
+      "file": "assets/native/zoe-visuals/01-epistemic-firewall.png",
+      "sha256": "2a7967c2d19a53e87cb76380b9d0525f0a1930d1ab1326d35b88dea02d4b6451"
+    },
+    {
+      "file": "assets/native/zoe-visuals/01-epistemic-firewall.svg",
+      "sha256": "7839a67162a18f2e29c417e0797e08c57130062fe801939c4a618e897037ac8e"
+    },
+    {
+      "file": "assets/native/zoe-visuals/02-belief-diff.png",
+      "sha256": "6281085f84a4b3c89965ea687f35d95fcc6def58dc2d57a760a29599a671d2dd"
+    },
+    {
+      "file": "assets/native/zoe-visuals/02-belief-diff.svg",
+      "sha256": "1ba7d124ed5b80f55ecf750d876f013a2ff902314292951f8150b5e6a61af70b"
+    },
+    {
+      "file": "assets/native/zoe-visuals/03-chambers.png",
+      "sha256": "afbaa8fd914b1b723e34ac3af10551da2b718c4e0067702e60c27d94d1589241"
+    },
+    {
+      "file": "assets/native/zoe-visuals/03-chambers.svg",
+      "sha256": "3aeb04b3ab41dd59c7905b6289fbc5b52ba775cbfaf3786db312476885857445"
+    },
+    {
+      "file": "assets/native/zoe-visuals/04-memory-chain.png",
+      "sha256": "14afe7b1abd4475b9347b7b01c958e51cbce2be8806378d8478673152520b9ea"
+    },
+    {
+      "file": "assets/native/zoe-visuals/04-memory-chain.svg",
+      "sha256": "2a9ce641ef839899a69dc514f7c45ee152556f9376f82b66fd2a7366f486da03"
+    },
+    {
+      "file": "assets/native/zoe-visuals/05-next-test.png",
+      "sha256": "12db2624916c080eb5df1149c43a594682e8e79ccfaa9b5b7ba726e3a0461608"
+    },
+    {
+      "file": "assets/native/zoe-visuals/05-next-test.svg",
+      "sha256": "c141bf2d4a2073c0d204b0a33163d3fc7858dc73572d8ab6ca623e13e025cfab"
+    },
+    {
+      "file": "assets/native/zoe-waveform-native.png",
+      "sha256": "e0a0049d1eff5247860efd0303901ffacada7c3fb2b024d85a497437b1be3334"
+    },
+    {
+      "file": "assets/native/zoe-waveform.png",
+      "sha256": "6959062545031326b2d27fdd72e20f71b07bb1adebf6983f21cfb430e12a9e26"
+    },
+    {
+      "file": "assets/native/zoe-waveform.svg",
+      "sha256": "526515d5c40cc21a50e47d6dcdd6f8e6f972bb88c521dcba6104b1c48beccac0"
+    },
+    {
+      "file": "assets/neurogarden/cern-universe.png",
+      "sha256": "b0ebc274b5c5a161ade93ee279443ad8371a37445d8799c5284667da62e0007d"
+    },
+    {
+      "file": "assets/neurogarden/dorothy-neurogarden.png",
+      "sha256": "8ce22fd0208977705bd2d8a716326fbe045a1bd89889f19d8417596847b8b317"
+    },
+    {
+      "file": "assets/neurogarden/gem-woven-diamond.png",
+      "sha256": "3485bc0e3ebd8edfad1efa56febc084e19124c5bfe1a4e1ee9882c0ae12bfdf3"
+    },
+    {
+      "file": "assets/neurogarden/neurogarden-spatial.png",
+      "sha256": "2e2788fed407451bb06298c5ad9c5415bc953502d837789eb06aa0648f8039c6"
+    }
+  ]
+}

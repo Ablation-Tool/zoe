@@ -1,0 +1,41 @@
+{
+  "title": "Dorothy and Neurogarden \u2014 Visual research index",
+  "images": [
+    {
+      "file": "assets/native/dorothy-ccf2017.png",
+      "sha256": "febc77d1ecda73dce62232be55f3b5a1256623da87d5378f781eb689fa5d3592"
+    },
+    {
+      "file": "assets/native/dorothy-dorsal.png",
+      "sha256": "c3235636d97d6bd12e64867618efc02025e724810a234b7490433eeee256f50d"
+    },
+    {
+      "file": "assets/native/dorothy-jenga-exploded.png",
+      "sha256": "872190f58f484fce7c1127895be4531acf4c6b52e59a1a0952fd2001533fefdd"
+    },
+    {
+      "file": "assets/native/dorothy-rings-isocortex.png",
+      "sha256": "cbbf65decf5cd42f4f291baf3fe528037c5daefb26e97eeeca73be313b189aae"
+    },
+    {
+      "file": "assets/native/dorothy-thalamus-hypothalamus.png",
+      "sha256": "97a0427b0fe036f96f078fcdecfd9ef503f5a9f0670f5597340d7e6718f6c276"
+    },
+    {
+      "file": "assets/native/dorothy-ventral.png",
+      "sha256": "5d8747d8b4404eb1c8f23ee8e7f1905d0126ee8c63e1d68e4fe390ccceed2f8d"
+    },
+    {
+      "file": "assets/neurogarden/dorothy-neurogarden.png",
+      "sha256": "8ce22fd0208977705bd2d8a716326fbe045a1bd89889f19d8417596847b8b317"
+    },
+    {
+      "file": "assets/neurogarden/neurogarden-spatial.png",
+      "sha256": "2e2788fed407451bb06298c5ad9c5415bc953502d837789eb06aa0648f8039c6"
+    },
+    {
+      "file": "assets/dorothy/dorothy-jenga-pull.png",
+      "sha256": "65f93163dfa0da135b7c621fb0efab79a295d3cd78817044c3e621fcbb9a6922"
+    }
+  ]
+}

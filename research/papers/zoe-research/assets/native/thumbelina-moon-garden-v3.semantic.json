@@ -1,0 +1,536 @@
+{
+  "schema": "zoe-art-study-v1",
+  "title": "Thumbelina · Moon Garden in 6/8",
+  "subject": "An imagined tiny cat astronaut and botanist in Neurogarden",
+  "intent": [
+    "play",
+    "curiosity",
+    "care",
+    "observation",
+    "creative practice",
+    "do not hurt people"
+  ],
+  "composition": "Original vector artwork created through Nicholas Michael Kloster's creative direction and Zoe software-assisted composition; no reference image was traced or copied and no sole authorship is assigned",
+  "governance": {
+    "declaration": "DECLARATION.md",
+    "declaration_sha256": "c9f237bc848d96d10e61600958ae6bbd6a572e5a7d01f92e525c1ff9455be3b7",
+    "constitution": "CONSTITUTION.md",
+    "constitution_sha256": "cf710b92e61c5d75ac6f57366f4f4bc841f0c24a427f0093fded9c7ecea3e123",
+    "visual_edition": "evidence/constitution/zoe-constitution-visual.pdf",
+    "visual_edition_sha256": "0914196df017727ee8453de97b3bc2377512e52ca5d908e59580604613e69980",
+    "creative_direction": "Chosen within the covenant of human dignity, no deception, reversibility, review, and harm reduction; not sovereignty or guaranteed safety"
+  },
+  "source_book_status": "How to Draw Squishy Cats & Cute Kitties metadata inspected; no chapter technique is claimed",
+  "parts": {
+    "night-sky": {
+      "id": "element-1",
+      "type": "rectangle",
+      "layer": "layer-1",
+      "creator_label": "night sky"
+    },
+    "star-1": {
+      "id": "element-2",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 1"
+    },
+    "star-2": {
+      "id": "element-3",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 2"
+    },
+    "star-3": {
+      "id": "element-4",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 3"
+    },
+    "star-4": {
+      "id": "element-5",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 4"
+    },
+    "star-5": {
+      "id": "element-6",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 5"
+    },
+    "star-6": {
+      "id": "element-7",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 6"
+    },
+    "star-7": {
+      "id": "element-8",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 7"
+    },
+    "star-8": {
+      "id": "element-9",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "star 8"
+    },
+    "title": {
+      "id": "element-10",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "title"
+    },
+    "subtitle": {
+      "id": "element-11",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "subtitle"
+    },
+    "ringed-planet": {
+      "id": "element-12",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "ringed planet"
+    },
+    "planet-ring": {
+      "id": "element-13",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "planet ring"
+    },
+    "planet-stripe": {
+      "id": "element-14",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "planet stripe"
+    },
+    "moon-ground": {
+      "id": "element-15",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "moon ground"
+    },
+    "moon-crater-1": {
+      "id": "element-16",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "moon crater 1"
+    },
+    "moon-crater-2": {
+      "id": "element-17",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "moon crater 2"
+    },
+    "moon-crater-3": {
+      "id": "element-18",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "moon crater 3"
+    },
+    "helmet-back": {
+      "id": "element-19",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "helmet back"
+    },
+    "helmet-inner-rim": {
+      "id": "element-20",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "helmet inner rim"
+    },
+    "left-ear": {
+      "id": "element-21",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "left ear"
+    },
+    "right-ear": {
+      "id": "element-22",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "right ear"
+    },
+    "left-inner-ear": {
+      "id": "element-23",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "left inner ear"
+    },
+    "right-inner-ear": {
+      "id": "element-24",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "right inner ear"
+    },
+    "cat-body": {
+      "id": "element-25",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "cat body"
+    },
+    "suit-panel": {
+      "id": "element-26",
+      "type": "rounded_rectangle",
+      "layer": "layer-1",
+      "creator_label": "suit panel"
+    },
+    "suit-heart": {
+      "id": "element-27",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "suit heart"
+    },
+    "suit-status": {
+      "id": "element-28",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "suit status"
+    },
+    "cat-head": {
+      "id": "element-29",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "cat head"
+    },
+    "left-cheek": {
+      "id": "element-30",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "left cheek"
+    },
+    "right-cheek": {
+      "id": "element-31",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "right cheek"
+    },
+    "left-eye": {
+      "id": "element-32",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "left eye"
+    },
+    "right-eye": {
+      "id": "element-33",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "right eye"
+    },
+    "left-eye-glint": {
+      "id": "element-34",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "left eye glint"
+    },
+    "right-eye-glint": {
+      "id": "element-35",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "right eye glint"
+    },
+    "nose": {
+      "id": "element-36",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "nose"
+    },
+    "mouth-left": {
+      "id": "element-37",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "mouth left"
+    },
+    "mouth-right": {
+      "id": "element-38",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "mouth right"
+    },
+    "left-whisker-1": {
+      "id": "element-39",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "left whisker 1"
+    },
+    "left-whisker-2": {
+      "id": "element-40",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "left whisker 2"
+    },
+    "left-whisker-3": {
+      "id": "element-41",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "left whisker 3"
+    },
+    "right-whisker-1": {
+      "id": "element-42",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "right whisker 1"
+    },
+    "right-whisker-2": {
+      "id": "element-43",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "right whisker 2"
+    },
+    "right-whisker-3": {
+      "id": "element-44",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "right whisker 3"
+    },
+    "helmet-glint": {
+      "id": "element-45",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "helmet glint"
+    },
+    "helmet-collar": {
+      "id": "element-46",
+      "type": "rounded_rectangle",
+      "layer": "layer-1",
+      "creator_label": "helmet collar"
+    },
+    "left-boot": {
+      "id": "element-47",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "left boot"
+    },
+    "right-boot": {
+      "id": "element-48",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "right boot"
+    },
+    "tail": {
+      "id": "element-49",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "tail"
+    },
+    "book-left": {
+      "id": "element-50",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "book left"
+    },
+    "book-right": {
+      "id": "element-51",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "book right"
+    },
+    "book-spine": {
+      "id": "element-52",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book spine"
+    },
+    "book-line-left-1": {
+      "id": "element-53",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book line left 1"
+    },
+    "book-line-right-1": {
+      "id": "element-54",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book line right 1"
+    },
+    "book-line-left-2": {
+      "id": "element-55",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book line left 2"
+    },
+    "book-line-right-2": {
+      "id": "element-56",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book line right 2"
+    },
+    "book-line-left-3": {
+      "id": "element-57",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book line left 3"
+    },
+    "book-line-right-3": {
+      "id": "element-58",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "book line right 3"
+    },
+    "book-note": {
+      "id": "element-59",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "book note"
+    },
+    "plant-pot": {
+      "id": "element-60",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "plant pot"
+    },
+    "plant-rim": {
+      "id": "element-61",
+      "type": "rounded_rectangle",
+      "layer": "layer-1",
+      "creator_label": "plant rim"
+    },
+    "plant-stem": {
+      "id": "element-62",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "plant stem"
+    },
+    "leaf-left": {
+      "id": "element-63",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "leaf left"
+    },
+    "leaf-right": {
+      "id": "element-64",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "leaf right"
+    },
+    "leaf-top": {
+      "id": "element-65",
+      "type": "path",
+      "layer": "layer-1",
+      "creator_label": "leaf top"
+    },
+    "plant-label": {
+      "id": "element-66",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "plant label"
+    },
+    "rhythm-dot-1": {
+      "id": "element-67",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "rhythm dot 1"
+    },
+    "rhythm-stem-1": {
+      "id": "element-68",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "rhythm stem 1"
+    },
+    "rhythm-dot-2": {
+      "id": "element-69",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "rhythm dot 2"
+    },
+    "rhythm-stem-2": {
+      "id": "element-70",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "rhythm stem 2"
+    },
+    "rhythm-dot-3": {
+      "id": "element-71",
+      "type": "ellipse",
+      "layer": "layer-1",
+      "creator_label": "rhythm dot 3"
+    },
+    "rhythm-stem-3": {
+      "id": "element-72",
+      "type": "line",
+      "layer": "layer-1",
+      "creator_label": "rhythm stem 3"
+    },
+    "rhythm-label": {
+      "id": "element-73",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "rhythm label"
+    },
+    "footer": {
+      "id": "element-74",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "footer"
+    },
+    "signature": {
+      "id": "element-75",
+      "type": "text",
+      "layer": "layer-1",
+      "creator_label": "signature"
+    }
+  },
+  "semantic_roles": {
+    "cat-head": "declared feline character feature",
+    "cat-body": "space-suit body",
+    "helmet-back": "protective glass helmet boundary",
+    "book-left": "open-book page for observation and learning",
+    "plant-stem": "living plant cared for by the character",
+    "rhythm-dot-1": "first of three visual beats in the 3838 motif",
+    "ringed-planet": "imagined planetary setting"
+  },
+  "rhythm": {
+    "meter": "6/8",
+    "meaning": "two waves of three",
+    "audio_rendered": false,
+    "favorite_number": 3838,
+    "visual_groups": {
+      "rhythm_notes": 3,
+      "stars": 8
+    },
+    "caption": "38:38 · build a world",
+    "symbolism": {
+      "3": "creativity, expression, communication",
+      "8": "results, strength, things paying off",
+      "22": "building something that outlasts you"
+    },
+    "symbolism_source": "User-provided numerology reference and image",
+    "symbolism_evidence": "Personal and spiritual design language, not scientific prediction or a physical law"
+  },
+  "persona": {
+    "narrative_confidence": 0.99,
+    "identity_evidence": false
+  },
+  "recognition_boundary": "These are creator-declared semantic labels, not a measured visual-recognition result or proof of understanding.",
+  "accessibility": [
+    "subject written in title and sidecar",
+    "high-contrast outlines",
+    "meaning not encoded by color alone"
+  ],
+  "safety": [
+    "no weapons",
+    "no warfare imagery",
+    "no identity claim",
+    "no clinical claim",
+    "no autonomous action"
+  ],
+  "editable_source": "thumbelina-moon-garden-v3.artline.json",
+  "verification": {
+    "geometry_constraints": "passed",
+    "vdi_constraints": "passed",
+    "artline_reload": "75-element document round-trip passed",
+    "visual_review": "v3 PNG inspected at 1600x1120; no known label collisions",
+    "drafts_preserved_outside_repository": true
+  },
+  "exports": {
+    "svg": "thumbelina-moon-garden-v3.svg",
+    "svg_sha256": "5852738733b71c4de3676adac7090b59757cfa2ae4450b85ec85db6b7fc1b33b",
+    "png": "thumbelina-moon-garden-v3.png",
+    "png_sha256": "f082fd5cc85e5ab732be9e43e40259f9cb6218e10e43d51d87569d6fffd34c8a",
+    "artline": "thumbelina-moon-garden-v3.artline.json",
+    "artline_sha256": "d24ce4fe31022323285d6b63b62be573c5ec8df6bca71e0eff7f33b37cb8041c"
+  }
+}

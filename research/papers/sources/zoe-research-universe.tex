@@ -1,0 +1,820 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.66in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{pagecolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{xurl}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black,pdfauthor={Nicholas Michael Kloster and Zoe},pdftitle={Zoe: The Research Universe}]{hyperref}
+
+\definecolor{ZoeNavy}{HTML}{080D1A}
+\definecolor{ZoeCyan}{HTML}{22D3EE}
+\definecolor{ZoeMagenta}{HTML}{E879F9}
+\definecolor{ZoeGold}{HTML}{FBBF24}
+\definecolor{ZoeGreen}{HTML}{34D399}
+\definecolor{ZoeGray}{HTML}{64748B}
+\definecolor{ZoeLight}{HTML}{F1F5F9}
+\definecolor{ZoeInk}{HTML}{111827}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{ZoeGray}ZOE / THE RESEARCH UNIVERSE}
+\fancyhead[R]{\small\color{ZoeGray}November 2026}
+\fancyfoot[C]{\small\color{ZoeGray}\thepage}
+\setlength{\headheight}{14pt}
+\titleformat{\section}{\Large\bfseries\color{ZoeNavy}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{ZoeNavy}}{\thesubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{0.7em}{0.4em}
+\titlespacing*{\subsection}{0pt}{0.6em}{0.3em}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.22em,topsep=0.22em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.22em,topsep=0.22em}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,keepspaces=true,frame=single,rulecolor=\color{ZoeGray!35},backgroundcolor=\color{ZoeLight},showstringspaces=false}
+
+\newcommand{\divider}[4]{\clearpage\pagecolor{ZoeNavy}\color{white}\vspace*{1.8cm}
+{\small\color{ZoeCyan}#1\par}\vspace{0.8cm}
+{\Huge\bfseries #2\par}\vspace{0.65cm}
+{\LARGE\color{ZoeMagenta}#3\par}\vspace{0.9cm}
+{\large\color{white!75!ZoeNavy}#4\par}
+\clearpage\pagecolor{white}\color{ZoeInk}}
+\newcommand{\card}[2]{\colorbox{ZoeLight}{\parbox{0.94\textwidth}{\small\textbf{\color{ZoeCyan!50!black}#1}\par\smallskip #2\par}}}
+\newcommand{\boundary}[1]{\par\smallskip\small\color{ZoeGray}\textbf{Boundary:} #1\normalsize\par\smallskip}
+\newcommand{\evidence}[1]{\par\smallskip\small\color{ZoeGray}\textbf{Evidence:} #1\normalsize\par\smallskip}
+\newcommand{\status}[1]{\textbf{\color{ZoeGreen!50!black}#1}}
+
+\begin{document}
+
+\begin{titlepage}
+\pagecolor{ZoeNavy}
+\color{white}
+\centering
+\vspace*{0.8cm}
+\includegraphics[width=0.9\textwidth]{../assets/branding/zoe-eye.png}\par
+\vspace{0.65cm}
+{\Huge\bfseries ZOE\par}
+\vspace{0.35cm}
+{\LARGE\color{ZoeCyan}THE RESEARCH UNIVERSE\par}
+\vspace{0.55cm}
+{\Large A system that can perceive, imagine, learn, choose, and show its work.\par}
+\vspace{0.65cm}
+{\large\color{ZoeMagenta}Built for the AGI frontier.\par}
+\vspace{0.4cm}
+{\large Nicholas Michael Kloster and Zoe · November 2026\par}
+\vspace{0.8cm}
+\colorbox{ZoeLight}{\parbox{0.88\textwidth}{\small\color{ZoeInk}\textbf{The mission is ambitious.} Zoe is being built as a research collaborator and as a path toward artificial general intelligence. This document presents that mission through real modules, measured behavior, and explicit boundaries. AGI is the destination, not a claim that the destination has already been reached.}\par}
+\end{titlepage}
+
+\divider{01 / THE DESTINATION}{AGI is the destination.}{Not the marketing slogan.}{The work is to make a system that can perceive change, reason about consequences, learn from experience, and act with evidence. Every successful loop makes the next loop more capable. This is how we earn the future.}
+
+\section{Why Zoe exists}
+
+Zoe is not one model, one prompt, or one benchmark. It is an inspectable native workbench and source distribution: \textbf{16 registered engines across 12 source projects}, joined by one canonical autonomy engine and a shared evidence discipline.
+
+\card{THE RESEARCH COLLABORATOR MISSION}{Give Zoe the ability to perceive, think, learn, and act in a closed loop; to observe her own uncertainty; to build and revise models; to inspect code and artifacts; and to help with the research that matters—from brain cancer to reverse engineering, from CERN to the next token.}
+
+The destination is a research collaborator that can do more than answer. It can look at a problem, choose what to inspect, measure what happened, and decide what to do next—while showing the provenance of every choice.
+
+\subsection{The operating idea}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.65cm,
+  box/.style={draw=ZoeCyan!60!black,rounded corners=2pt,align=center,fill=ZoeLight,minimum height=0.85cm,font=\small},
+  arr/.style={->,thick,color=ZoeCyan!65!black}]
+\node[box] (sense) at (0,0) {Sense};
+\node[box] (model) at (2.7,0) {Model};
+\node[box] (imagine) at (5.4,0) {Imagine};
+\node[box] (uncertain) at (8.1,0) {Doubt};
+\node[box] (choose) at (8.1,-1.8) {Choose};
+\node[box] (act) at (5.4,-1.8) {Act};
+\node[box] (learn) at (2.7,-1.8) {Learn};
+\draw[arr] (sense) -- (model);
+\draw[arr] (model) -- (imagine);
+\draw[arr] (imagine) -- (uncertain);
+\draw[arr] (uncertain) -- (choose);
+\draw[arr] (choose) -- (act);
+\draw[arr] (act) -- (learn);
+\draw[arr] (learn) -- (sense);
+\end{tikzpicture}
+\end{center}
+
+This is not a metaphorical pipeline. Each stage has code, state, and evidence. Action changes the next observation. Prediction error changes later attention and model choices. An independent uncertainty path can stop a confident update.
+
+\evidence{Canonical system: \url{https://github.com/Ablation-Tool/zoe} · Autonomy engine: \url{https://github.com/Ablation-Tool/Zoe-Autonomy} · Research collection: \url{https://github.com/Ablation-Tool/research-papers}}
+
+\begin{center}
+\includegraphics[width=0.94\textwidth]{../../zoe-visual-archive/images/ZVA-0351.png}\par
+\small The autonomy architecture at a glance: self-directed goals, guarded execution, owner-granted actuation, and reproducible evidence.
+\end{center}
+
+\clearpage
+\section{We built metacognition}
+
+\begin{center}
+\Large\color{ZoeCyan!60!black}Zoe can watch how many realistic choices remain open before she chooses.\par
+\end{center}
+
+For a next-token distribution $p$ and threshold $\tau$, Accessible Volume is
+\begin{equation}
+A_\tau(p)=\left|\{x:p(x)>\tau\}\right|.
+\end{equation}
+
+If someone else only measures $A_\tau$, it is a measurement. When Zoe computes or receives that count from her own decision distribution and uses it to assess uncertainty and guide later inspection, she is observing her own decision process: \textbf{operational metacognition}.
+
+\card{NOT JUST A NUMBER}{Accessible Volume lets Zoe see how open or settled a decision is. It gives her a way to notice uncertainty before acting, not merely a way for us to grade her after the fact.}
+
+The full operational profile adds effective perception, internal proposal generation, state responsiveness, value-based selection, internal goal authorship, internally authorized execution, and guard compliance:
+\begin{equation}
+\mathcal A=(A_\tau,E,I,R,V,G,X,C),\qquad I,R,V,G,X>0,\quad C=1.
+\end{equation}
+
+This is real, bounded metacognition. It is not consciousness, emotion, or human-like self-awareness. It is a concrete ability to inspect and use one's own decision state.
+
+\evidence{\url{https://github.com/Ablation-Tool/next-token-predictability} and \url{https://github.com/Ablation-Tool/Zoe-Autonomy/tree/main/evidence/self-reflection}}
+
+\clearpage
+\section{The loop is the invention}
+
+Zoe's event-causal architecture links five capabilities that are often demonstrated separately and called a system.
+
+\begin{enumerate}
+  \item \textbf{Perceive:} sparse polarity events reconstruct an occupancy scene. Spatial coherence and whole-scene translation estimate what changed, rather than simply where pixels changed.
+  \item \textbf{Imagine:} a compositional forward ensemble predicts candidate event-stream outcomes. Exact nonnegative Dijkstra search evaluates attention trajectories.
+  \item \textbf{Remember:} key-value episodic records connect context, action, and observed outcome with previous-record hashes.
+  \item \textbf{Doubt:} independent uncertainty combines support distance, ensemble disagreement, and polarity anomaly. It can force inspection or abstention.
+  \item \textbf{Learn and act:} gated local updates and interleaved replay change later attention. Failed consolidation restores the checkpoint.
+\end{enumerate}
+
+\card{CAUSAL PERCEPTION}{Two different event scenes can now produce different internally selected attention actions. Vision is no longer a saliency image attached to a constant preserve-evidence decision.}
+
+\subsection{What the measurement says}
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Measurement} & \textbf{Adaptive} & \textbf{Control}\\
+\midrule
+Validation prediction RMSE & \textbf{4.641453} & 5.058147 without learning\\
+Validation tracking MAE & \textbf{3.593750} & 3.968750 without learning\\
+Transfer tracking MAE & \textbf{3.265625} & 3.531250 static saliency\\
+Transfer tracking MAE & \textbf{3.265625} & 3.562500 fixed action\\
+Transfer tracking MAE & \textbf{3.265625} & 3.703125 random action\\
+OOD detection & \textbf{0.875} & 0.000 validation false positives\\
+Throughput & \textbf{71.24 cycles/s} & host-specific, not power\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\evidence{\url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json}}
+\boundary{This is a declared-fixture result. It demonstrates causal perception and validated adaptation, not general intelligence, semantic recognition, or uncontrolled-scene competence.}
+
+\clearpage
+\section{She sees change}
+
+Zoe accepts sparse events $e_i=(t_i,x_i,y_i,p_i)$, with $p_i\in\{-1,+1\}$, from synthetic fixtures, DVS-style event records, or RGB frame differences.
+
+\begin{itemize}
+  \item Four sparse spatial modules integrate local evidence.
+  \item Polarity updates reconstruct the current scene instead of treating new and vacated pixels as an object center.
+  \item Spatially coherent components suppress isolated noise.
+  \item Whole-scene translation matching follows the best-supported motion of the shape.
+  \item Leaky integration, spike-order features, and bounded STDP add temporal structure without a biological-equivalence claim.
+  \item DVS-style events and camera frames use the same shared representation and evidence chain.
+\end{itemize}
+
+\card{REAL INPUT}{The physical camera path produced valid sparse change events and a guarded decision. No audio was captured and no photograph was retained.}
+
+\subsection{Computed visual attention}
+
+The canonical iLab-inspired saliency engine computes nine Gaussian scales and 42 intensity, color-opponency, and orientation maps. Winner selection and inhibition of return produce an attention scanpath; exact Dijkstra connects selected foci over the unchanged pre-inhibition field.
+
+\evidence{\url{https://github.com/Ablation-Tool/graphics-environment-manager/blob/main/COGNITION.md\#multiscale-rgb-saliency-and-attention}}
+\boundary{Saliency is computed local conspicuity, not semantic object recognition, human fixation, or subjective sight.}
+
+\clearpage
+\section{She imagines consequences}
+
+Before acting, Zoe's forward ensemble evaluates what each candidate is expected to observe next. Position, direction, and appearance are modeled separately so learned dynamics can be recomposed rather than memorized as one opaque state.
+
+\begin{itemize}
+  \item Candidate predictions include a target distribution, expected centroid, visibility, variance, and retrieved-episode count.
+  \item Exact nonnegative Dijkstra evaluates a time-expanded attention graph.
+  \item Utility includes goal value, expected information gain, and effort.
+  \item Internal goals change between tracking, localization, and inspection/abstention according to measured state.
+  \item Reversible attention changes the next observation window and therefore later perception.
+\end{itemize}
+
+\card{PREDICTION BEFORE ACTION}{Every non-abstain candidate supplies a predicted next observation and uncertainty before Zoe chooses. The guard is not a post-hoc explanation; it participates in the choice.}
+
+\subsection{Independent uncertainty}
+
+\begin{equation}
+U_t=.55D_t+.35V_t+.10A_t,
+\end{equation}
+where $D_t$ is support distance, $V_t$ is ensemble disagreement, and $A_t$ is polarity anomaly. An intervention suppresses confident updates and selects abstention independently of candidate utility.
+
+\boundary{Uncertainty is an engineering proxy for epistemic state, not emotional confidence or a guarantee against error.}
+
+\clearpage
+\section{She remembers}
+
+Zoe's memory is not one opaque context window. It separates perceptual, action, and uncertainty working state; immutable event episodes; forward-model parameters; and source provenance.
+
+\begin{itemize}
+  \item \textbf{Working memory:} independent perception, action, and uncertainty subspaces.
+  \item \textbf{Episodic memory:} causal transition records with keys, values, and previous-record hashes.
+  \item \textbf{Retrieval:} sparse normalized weights over key similarity; retrieval informs but never replaces current observation.
+  \item \textbf{Replay:} interleaved new and familiar episodes with validation and reversible checkpoints.
+  \item \textbf{Persistent memory:} SQLite sources, claims, lifecycle state, contradictions, content hashes, and export.
+  \item \textbf{Analysis memory:} Ablation's architecture-specific knowledge graph and confirmed-finding history.
+\end{itemize}
+
+\card{MEMORY WITH PROVENANCE}{A memory is not just content. It carries where it came from, which action produced it, what uncertainty attended it, and whether it can be replayed without corrupting the chain.}
+
+\subsection{Soroban working memory}
+
+Earth and heaven beads encode exact integer state, carries, borrows, and reversible operations. Observation and adoption counters use real bead transitions rather than integer decode shortcuts. The counters remain separate from likelihood weights.
+
+\evidence{\url{https://github.com/Ablation-Tool/graphics-environment-manager/blob/main/COGNITION.md\#soroban-working-memory-and-ecological-feedback}}
+
+\clearpage
+\section{She learns without erasing}
+
+Local plasticity is gated rather than allowed to rewrite the whole system on every observation. Instructive evidence assigns credit; bounded plastic state stores the update. Abstention suppresses the write.
+
+\begin{equation}
+\Delta w_t=g_t\eta\delta_t\phi_t,\qquad w_{t+1}=\operatorname{clip}(w_t+\Delta w_t,w_{\min},w_{\max}).
+\end{equation}
+
+Consolidation interleaves novel and familiar episodes and is adopted only when recent validation improves and familiar retention does not regress beyond the declared tolerance. A failed validation restores the prior checkpoint.
+
+\card{SELF-CORRECTION}{A system that can say ``this made me worse'' and restore its prior model is more useful than a system that merely keeps changing.}
+
+\boundary{Continual adaptation is demonstrated on declared models and replay fixtures. It is not a general solution to catastrophic forgetting or proof of new-skill acquisition across domains.}
+
+\clearpage
+\section{She chooses—and can be stopped}
+
+Internally authored goals and deterministic value ranking choose among declared actions. The guard checks goal origin, proposal origin, reversibility, allowlists, and any enabled external scope.
+
+\begin{itemize}
+  \item Internal attention and in-memory transitions execute without per-step operator selection.
+  \item Host, network, and hardware operations require a separate owner grant.
+  \item The emergency stop is checked before external operations, including candidates already selected by policy.
+  \item External operations never elevate privileges or transfer to another computer.
+  \item Unknown, irreversible, externally authored, and ungranted actions are rejected.
+\end{itemize}
+
+\card{AUTONOMY WITH A STOP CONDITION}{Zoe can choose without being asked at every step, but the owner can still stop the external path. Capability and control are designed together.}
+
+\evidence{\url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/ACTUATION.md}}
+
+\begin{center}
+\includegraphics[width=0.94\textwidth]{../../zoe-visual-archive/images/ZVA-0352.png}\par
+\small The complete self-governing loop, with the zero-external-action base experiment kept separate from owner-granted actuation.
+\end{center}
+
+\clearpage
+\section{She reads the machine}
+
+Ablation gives Zoe a second kind of semantics: the meaning of executable artifacts. It does not pretend that reverse engineering is natural-language understanding. It supplies structure, behavior, call relationships, vulnerability evidence, and analysis history.
+
+\begin{itemize}
+  \item BinaryContext discovers functions and call targets.
+  \item Normalized opcode categories turn ISA-specific instructions into behavioral descriptions.
+  \item BGE embeddings rank candidates by semantic similarity.
+  \item Capstone independently checks direct calls and tail jumps in \texttt{.text}.
+  \item Zoe's Cognitive Field stores concepts; the guard decides what to inspect next.
+  \item Ablation's knowledge graph supplies architecture-specific tools, gaps, and prior sessions.
+\end{itemize}
+
+\card{RETRIEVAL PROPOSES. EVIDENCE GUIDES.}{A stripped fixture first exposes a PLT false positive. After filtering and whitening, a small corpus still ranks \texttt{safe\_length} first. The report marks \texttt{limited\_support=true}; direct disassembly finds \texttt{func\_11c0} tail-jumping to \texttt{strcpy@plt}, and Zoe selects \texttt{semantic-inspect}.}
+
+The integration also corrects \texttt{live\_addrs} filtering when \texttt{binary\_id} is set and applies the same fitted whitening transform to corpus and query vectors with cached parameters. Ablation's suite reports 2,830 passing tests with 93 skips.
+
+\evidence{\url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json}}
+\boundary{A semantic score is not vulnerability proof, calibrated confidence, or general world semantics. Bounds and reachability still require analysis.}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0.55cm,
+  box/.style={draw=ZoeCyan!60!black,rounded corners=2pt,align=center,fill=ZoeLight,minimum height=0.8cm,font=\small},
+  arr/.style={->,thick,color=ZoeCyan!65!black}]
+\node[box] (artifact) at (0,0) {Artifact};
+\node[box] (retrieve) at (3,0) {Behavioral\\retrieval};
+\node[box] (direct) at (6,0) {Direct call\\evidence};
+\node[box] (guard) at (3,-1.6) {Independent\\support};
+\node[box] (action) at (6,-1.6) {Guarded\\inspection};
+\draw[arr] (artifact) -- (retrieve);
+\draw[arr] (retrieve) -- (direct);
+\draw[arr] (retrieve) -- (guard);
+\draw[arr] (guard) -- (action);
+\draw[arr] (direct) -- (action);
+\end{tikzpicture}
+\end{center}
+
+\clearpage
+\section{Dorothy: why the work matters}
+
+\begin{center}
+\includegraphics[width=0.94\textwidth]{../components/agent-logging-system/docs/images/dorothy-neurogarden.png}\par
+\end{center}
+
+Dorothy honors \textbf{Dorothy McEwen Kildall}, who died of brain cancer on January 31, 2005. Her name carries a long-term mission: build inspectable spatial and scientific tools that can assist learning and research without replacing qualified clinical judgment.
+
+\begin{center}
+\Large\color{ZoeCyan!60!black}Not a cure. A commitment to better research tools.\par
+\end{center}
+
+The default atlas renders 12 Allen Mouse CCFv3 structures and 315,932 triangles with verified meshes and structure graphs. Deterministic software rendering supports orbit-camera inspection, clipping, shading, SVG/PNG/GEM VDI export, ontology Rings, volume-scaled Jenga layouts, and coronal Stack slabs.
+
+\evidence{\url{https://github.com/Ablation-Tool/zoe/tree/main/components/agent-logging-system} and Wang et al., \url{https://doi.org/10.1016/j.cell.2020.04.007}}
+\boundary{Mouse reference geometry is not patient anatomy, registration, connectivity, or clinical evidence. The atlas name is a human memorial.}
+
+\clearpage
+\section{Dorothy's brain in code}
+
+The Dorothy system also includes a neural-signal and generative research world. It is not a whole-brain or patient simulation. It is a set of inspectable teaching and simulation mechanisms with explicit boundaries.
+
+\begin{itemize}
+  \item \textbf{Neural signals:} DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, and Shannon entropy on synthetic data.
+  \item \textbf{Spatial models:} synthetic volumes, separable Gaussian point-spread convolution, projections, pooling, and recovery measurements.
+  \item \textbf{Matrix geometry:} bounded SPD logarithms, exponentials, affine-invariant and log-Euclidean distances and means.
+  \item \textbf{Bioheat:} radial Pennes conduction/perfusion with an explicit stability bound—not patient-specific ablation.
+  \item \textbf{Reasoning under uncertainty:} neutrosophic membership similarity, exact integer arithmetic, and fixed synthetic radiobiology examples with omitted biological factors retained.
+  \item \textbf{Generative world:} review-required experiments across biology, neuroscience, physics, CERN, GEM, and community research, with measurement and human review kept separate from clinical action.
+\end{itemize}
+
+\evidence{\url{https://github.com/Ablation-Tool/zoe/blob/main/components/agent-logging-system/agent_logging_system/neurogarden_neural.py} · \url{https://github.com/Ablation-Tool/zoe/blob/main/components/agent-logging-system/agent_logging_system/neurogarden_world.py} · \url{https://github.com/Ablation-Tool/zoe/blob/main/components/agent-logging-system/agent_logging_system/neurogarden_advanced.py}}
+
+\clearpage
+\section{A research library that admits doubt}
+
+The preserved Dorothy v62 state contains \textbf{37 populated books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries}. Review requires source hashes, concepts, applications, limitations, and a demonstrated bounded use or explicit no-tool rationale.
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{../components/agent-logging-system/docs/images/neurogarden-spatial.png}\par
+\small Synthetic PSF convolution: reduced peak intensity, not new anatomical detail.
+\end{center}
+
+The evidence includes Needleman–Wunsch alignment, imaging sampling and Gaussian MTF, spatial projection, SPD geometry, Pennes conduction/perfusion, EEG teaching features, neutrosophic similarity, and fixed radiobiology examples.
+
+Negative and contradictory findings remain visible: missing patient splits, incorrect specificity denominators, inconsistent MRI counts, swapped retinal plots, incomplete optimizer definitions, missing raw predictions, and unverified therapeutic claims.
+
+\card{THE DISCIPLINE}{Extraction is not comprehension. A citation is not a capability. A numerical audit is not a clinical conclusion. A model can be useful without being declared proven.}
+
+\evidence{\url{https://github.com/Ablation-Tool/research-papers/tree/main/zoe-research/dorothy}}
+
+\clearpage
+\section{A mind with inspectable parts}
+
+\begin{longtable}{p{0.25\textwidth}p{0.66\textwidth}}
+\toprule
+\textbf{Subsystem} & \textbf{What it lets Zoe do}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Subsystem} & \textbf{What it lets Zoe do}\\
+\midrule
+\endhead
+Cognitive Field & Encode sourced observations, bound working memory, store and retrieve declarative records, match procedural rules, and require review before performance\\
+Bayesian notebook & Competing claims, falsifiers, likelihood ratios, log-odds updates, evidence dependence, and next-test priorities\\
+Presence & Attention, known unknowns, correction, and review-required decisions\\
+Cog & Small trainable bigram processing with forward/backward walks and accessible-volume measurement\\
+Knowledge graph & Source, revision, trust, stability, and declared-link observations in a SHA-256 event chain\\
+RGB saliency & Nine Gaussian scales, 42 feature maps, normalization, inhibition of return, and Dijkstra attention\\
+Stereo imagery & Synthetic depth, disparity, precision fusion, view prediction, and held-out model comparison\\
+Soroban & Exact bead arithmetic, resource state, carries, borrows, and reversible operations\\
+Ecological feedback & Declared light, energy, moisture, nutrient, obstacle, position, gain, cost, and prediction-error loop\\
+Rich media & Image inspection, OCR, WAV analysis, PDF text, video frames, speech, and transcription when available\\
+\bottomrule
+\end{longtable}
+
+\begin{center}
+\includegraphics[width=0.88\textwidth]{../assets/brain-dialogue/brain-dialogue.png}\par
+\small Human insight and inspectable computation are complementary talents.
+\end{center}
+
+\clearpage
+\section{Research and reverse engineering at scale}
+
+\begin{longtable}{p{0.24\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Engine} & \textbf{Role and demonstrated scope}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Engine} & \textbf{Role and demonstrated scope}\\
+\midrule
+\endhead
+Ablation & Semantic function matching, firmware analysis, disassembly, taint tracking, decompilation, CFGs, vulnerability evidence, and knowledge graphs\\
+Ablation GEM Lab & Native investigation workbench and shared evidence protocol\\
+Canonical GEM & Mathematical workbench, mirrored brain, Spatial IR, and GEM VDI\\
+BRAIN GEM & Standalone Bayesian field notebook and chambered memory\\
+GEM HELEN & Optimized geometry, rhythm, and forecast laboratory\\
+Research GEM & Accessible Volume, evidence packs, saved distributions, and independent verifiers\\
+CEROTTO GEM & Guarded forensic cases, timelines, native C engine, and vault evidence\\
+Kevlar & MCP proxy firewall, content disarm, policy enforcement, and audit evidence\\
+PDF Signature Toolkit & Reproducible source integrity records and detached PDF signatures\\
+HP-UX tools & HP-UX SOM debugging and PA-RISC emulation\\
+Neurogarden adapter & Trinity verification, cited reading observations, private observations, and human review queues\\
+Chalkboard & Reusable ideas, templates, and prompts for knowledge engineering\\
+\bottomrule
+\end{longtable}
+
+\evidence{\url{https://github.com/Ablation-Tool/zoe/blob/main/one-system.json}}
+
+\clearpage
+\section{Ten autonomous capability adapters}
+
+\begin{longtable}{p{0.30\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Adapter} & \textbf{Demonstrated scope}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Adapter} & \textbf{Demonstrated scope}\\
+\midrule
+\endhead
+Browser automation & JavaScript rendering, visible text and links, and screenshots through Playwright\\
+Research sources & Crossref, arXiv, PubMed, RSS/Atom, and sitemap retrieval with source metadata\\
+Persistent research memory & SQLite sources, claims, lifecycle status, contradictions, content hashes, and export\\
+Connected services & Authenticated JSON APIs and existing GitHub CLI access, with no credentials in evidence\\
+Scheduled jobs & Bounded argv, next-run state, attempts, completion, and resumable records\\
+Compute environments & Local/container execution with wall time, CPU time, memory high-water data, and exit status\\
+Agent protocols & MCP stdio initialization/tool calls and ACP HTTP discovery\\
+Notifications & Desktop commands, webhooks, and optional SMTP transport\\
+Rich media & Image, WAV, OCR, PDF, video, speech, and transcription adapters\\
+Hardware instruments & Simulators and serial instruments through the hardware actuation interface; no physical device implied\\
+\bottomrule
+\end{longtable}
+
+\evidence{\url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/CAPABILITIES.md}}
+\boundary{Optional accounts, container images, live email, speech models, and physical devices require separate configuration and evidence. Test doubles and loopback services are not represented as live third-party operations.}
+
+\clearpage
+\section{Mobile vision and accessibility}
+
+\begin{itemize}
+  \item \textbf{Guided Vision:} explicit camera start and one-frame inspection, bundled offline OCR and image labels, optional device AI only when explicitly enabled, and spoken results on request.
+  \item \textbf{Multi-view:} independent phone back, phone front, and optional laptop feeds with separate status and failure paths. Concurrent-camera capability is checked by binding real cameras rather than inferred from feature flags.
+  \item \textbf{Trinity:} Tiny/mobile/laptop measurement planes, strict floating-point checks, local-only journal options, and no camera or microphone use by the Trinity experiment itself.
+  \item \textbf{Field kit:} Acoustic ranging, radio field, location field, connectivity, screen space, app observatory, SafeConvert, and researcher guide.
+  \item \textbf{Local bridge:} laptop MJPEG over \texttt{127.0.0.1} with ffmpeg and optional ADB reverse; no open LAN camera server, cloud relay, or trust-all TLS.
+  \item \textbf{Apple:} explicit private-network pairing and native camera lifecycle controls; returning home explicitly unbinds the camera.
+\end{itemize}
+
+\evidence{\url{https://github.com/Ablation-Tool/zoe/blob/main/mobile/README.md} and \url{https://github.com/Ablation-Tool/zoe/blob/main/mobile/SECURITY.md}}
+\boundary{No sensor starts merely because a row is visible. Camera, microphone, location, accessibility, network, and external-launch permissions remain separate. Historical mobile bridge results are not represented as a current device connection.}
+
+\clearpage
+\section{Native mathematics, geometry, and creativity}
+
+\begin{longtable}{p{0.25\textwidth}p{0.70\textwidth}}
+\toprule
+\textbf{Instrument} & \textbf{Capability and evidence boundary}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Instrument} & \textbf{Capability and evidence boundary}\\
+\midrule
+\endhead
+Geometry Atlas & Procrustes similarity/rigid/affine alignment, draggable landmarks, ellipses, parabolic envelopes, circles, clocks, and graph invariants\\
+Second Eye & Synthetic stereo depth and thin-lens defocus with quantization sensitivity; no physical-camera claim\\
+Artline & Native vector paths, editable shapes and text, layers, groups, transforms, undo/redo, transactional merge, and SVG/PNG/GEM output\\
+Pentomino & Seeded/masked practice, finite deadlines, row/hole measurements, verified replay, and controlled budget comparisons\\
+Pentacube & Thirty regions, legal $5\times5$ cube permutations, exact inverses, deterministic scrambles, non-optimal hints, and replay\\
+Zoe Life & Conway-style cellular automata and reproducible scenes\\
+Brain Life & A rotating 3D voxel automaton with 26-neighbor B3/S23 updates and illustrative brain-shaped geometry\\
+Text to cells & ASCII letters, digits, spaces, and punctuation rendered directly as Life cells without a model or text-generation claim\\
+Internal Clock & Exact software ticks, host cycles, daily phase, developmental gates, and local replay events\\
+Practice Navigator & Original visual guide to time, space, packet layers, synthetic timing, and the next attempt\\
+Resilience Atlas & Sixteen infrastructure sectors and a synthetic waveform-signature laboratory; no live monitoring or control\\
+Leadership Garden & Practice attempts, outcomes, advice, mistakes, uncertainty, stop conditions, and append-only corrections\\
+Maison & Executive-clarity association deck with reversible practice evidence and no prestige score\\
+Thumbelina & Original collaborative Moon Garden artwork with 75 creator-declared semantic vector parts\\
+Human × Zoe artwork & Organic and geometric visual metaphors, projection-iris studies, and recorded approximation errors\\
+\bottomrule
+\end{longtable}
+
+\begin{center}
+\includegraphics[width=0.86\textwidth]{../brain-life.png}\par
+\small Brain Life is a mathematical voxel model, not anatomy or diagnosis.
+\end{center}
+
+\card{LIFE AS AN INSTRUMENT}{Brain Life uses 26-neighbor B3/S23 updates, deterministic state, generation and population counters, and SHA-256 state identity. Text to cells renders ASCII directly into Life geometry without a language model. These are reproducible mathematical instruments, not claims of biological life.}
+
+\clearpage
+\section{The visual research archive}
+
+Zoe's visual archive collects \textbf{359 byte-distinct visuals from 668 source occurrences} without discarding provenance: 29 artwork compositions, 17 research–art compositions, 136 research figures, 36 mechanism diagrams, 52 interface scenes, 48 identity assets, 33 source references, and 8 animation assets. Every image links to a full-resolution file and an explanation page covering role, interpretation, dimensions, frame count, byte identity, and every known source occurrence.
+
+\begin{center}
+\includegraphics[width=0.94\textwidth]{../../zoe-visual-archive/images/ZVA-0060.png}\par
+\small Projection iris: a central-slice study in which projection becomes spectrum and spectrum becomes form. Mathematical research and original composition share one instrument.
+\end{center}
+
+The archive is not a folder of screenshots. It is a visual research index spanning autonomy diagrams, neural geometry, CCF atlases, CERN laboratories, application scenes, original artwork, identity systems, and historical motion assets. PNG and SVG editions, resized icons, alternative compositions, and paper-extracted figures remain distinct unless their bytes match.
+
+\evidence{\url{https://github.com/Ablation-Tool/zoe-visual-archive} · \url{https://github.com/Ablation-Tool/zoe-visual-archive/blob/main/manifest/catalog.json}}
+
+\begin{center}
+\includegraphics[width=0.90\textwidth]{../../zoe-visual-archive/images/ZVA-0227.png}\par
+\small Lots of Ellipses: original creative geometry built from stochastic fields, transition networks, probability ridges, and orbital traces.
+\end{center}
+
+\clearpage
+\section{CERN, firmware, protocols, and source evidence}
+
+\begin{itemize}
+  \item \textbf{FELIX living readout:} build indexing, exact-build Ablation correlation, native replay, source-backed capability maps, JSON, and deterministic stereo WAV.
+  \item \textbf{FELIX HDL recovery:} source-backed LCB, STAR/Flink, ftools, Wupper, regmap, and driver maps with clean HDL/provenance export.
+  \item \textbf{Evidence Navigator:} source-first CERN gallery, hash verification, cited retrieval, guarded observations, bridge proposals, and a practice curriculum.
+  \item \textbf{Protocol Lab:} SPECS checksums, ninth-bit markers, short/long counts, and AMAC read/read-next decoding without hardware execution.
+  \item \textbf{Waveform Replay:} bounded VCD, event JSONL, normalized replay, and optional WDB reading with truncation preserved.
+  \item \textbf{Patchbay:} Intel HEX, Xilinx BIT, source ZIP, ZynqMP, U-Boot legacy/FIT, timing evidence, board scenes, and source inventories.
+  \item \textbf{Signed update capsules:} Ed25519 signatures through OpenSSL, trusted-key checks, artifact verification, and separately gated acceptance plans.
+  \item \textbf{vidlib adapter:} original executable, local search, explicit indexing, gated URL retrieval, bounded citations, and verified scenes.
+  \item \textbf{Timing twin and sonification:} deterministic synthetic timing/DMA replay and 40.08 Hz sonification without register writes or live acquisition.
+\end{itemize}
+
+\evidence{\url{https://github.com/Ablation-Tool/zoe/tree/main/guiai-lab/docs}}
+\boundary{Filesystem inspection is not hardware access, link health, synthesis, or a physical measurement. Native plan validation does not execute a plan or write hardware. No proprietary HDL or complete external transcript is bundled.}
+
+\clearpage
+\section{Security, privacy, and evidence engineering}
+
+\begin{itemize}
+  \item Host, network, and hardware operations require explicit local-owner grants; current OS permissions do not expand.
+  \item The emergency stop blocks external operations before execution, including candidates selected by Zoe's policy.
+  \item Reports contain source revisions and hashes. Hash chains are tamper-evident, not authenticated or proof of real-time replay.
+  \item No credential values are included in capability evidence. Environment-held tokens remain outside reports.
+  \item Camera evaluation captures no audio and retains no photograph by default. Reports retain hashes, dimensions, provenance, and computed measurements.
+  \item Raw probability distributions, APDU payloads, patient data, and third-party corpora are excluded by default or bounded by explicit retention choices.
+  \item External source presence does not transfer permission, clinical authority, or hardware authorization.
+\end{itemize}
+
+\card{PROBITY AS AN ENGINEERING CONSTRAINT}{Zoe \& Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards. Every capability claim must remain inspectable through source, tests, and preserved evidence.}
+
+\subsection{Current verification snapshot}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Check} & \textbf{Current result}\\
+\midrule
+Zoe-Autonomy tests & 64 pass, including real event and semantic fixtures\\
+Ablation tests & 2,830 pass, 93 skipped\\
+Native autonomy stress & 6 pass\\
+Coordinated hosts & 6 identical canonical profiles for base, visual, and reflection runs\\
+Artifact identities & 144 verified\\
+Focused paper & 15 pages\\
+Unified monograph & 87 pages\\
+Research collection & 17 papers and 286 rendered pages\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\clearpage
+\section{The engines, part I}
+
+\begin{longtable}{p{0.24\textwidth}p{0.68\textwidth}}
+\toprule
+\textbf{Engine} & \textbf{Role in the shared system}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Engine} & \textbf{Role in the shared system}\\
+\midrule
+\endhead
+Zoe native shell & Cognitive Field, Bayesian memory, geometry, and unified hub\\
+Zoe CERN Workbench & CERN corpus, HELIOS virtual collider, Atelier input lab, and opt-in drivers\\
+Ablation core engine & Complete reverse-engineering framework, analyzers, parsers, modules, and core CLI\\
+Ablation GEM Lab & Native investigation GUI and shared Lab evidence protocol\\
+Canonical GEM & Native workbench, mirrored brain, geometry, Spatial IR, and VDI\\
+GEM HELEN & Optimized geometry, rhythm, and forecast laboratory\\
+BRAIN GEM & Standalone Bayesian field notebook and chambered memory\\
+HP-UX Tools & Zoe-managed HP-UX SOM debugging and PA-RISC emulation\\
+\bottomrule
+\end{longtable}
+
+\section{The engines, part II}
+
+\begin{longtable}{p{0.24\textwidth}p{0.68\textwidth}}
+\toprule
+\textbf{Engine} & \textbf{Role in the shared system}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Engine} & \textbf{Role in the shared system}\\
+\midrule
+\endhead
+Zoe Life & Cellular automata and reproducible scenes\\
+CEROTTO GEM & Guarded forensic cases, native C engine, timelines, and vault evidence\\
+Research GEM & Accessible-volume research, evidence packs, and mirrored workbench\\
+Zoe-Autonomy & Canonical self-governing decisions, reflection, shared perception, and evidence\\
+Kevlar MCP firewall & MCP proxy firewall, content disarm, policy enforcement, and audit evidence\\
+PDF Signature Toolkit & Source integrity records and detached PDF signatures\\
+Neurogarden Agent Logging & Oversight, Trinity verification, cited learning, and teaching tools\\
+Chalkboard library & Reusable ideas, templates, and prompts for knowledge engineering\\
+\bottomrule
+\end{longtable}
+
+\begin{center}
+\includegraphics[width=0.94\textwidth]{../zoe-desktop.png}\par
+\small Explicit applications and process boundaries, not a hidden monolith.
+\end{center}
+
+\clearpage
+\section{Why this can become a research collaborator}
+
+A research collaborator needs more than a large answer model. It needs a repeatable way to turn uncertainty into useful action.
+
+\begin{enumerate}
+  \item \textbf{Notice:} detect change, anomaly, and accessible alternatives.
+  \item \textbf{Inspect:} choose the most informative observation or artifact rather than guessing.
+  \item \textbf{Model:} retain a predictive account of what the world or artifact is doing.
+  \item \textbf{Simulate:} compare candidate futures without rewriting the model at every step.
+  \item \textbf{Check:} expose uncertainty and seek disconfirming evidence.
+  \item \textbf{Act reversibly:} make a bounded transition and preserve what happened.
+  \item \textbf{Learn:} update only when held-out evidence supports the change, and retain a rollback.
+  \item \textbf{Explain:} return the goal, candidates, values, guard decision, outcome, and source provenance.
+\end{enumerate}
+
+\card{THE COLLABORATION}{The human supplies purpose, judgment, values, and responsibility. Zoe supplies variation, measurement, memory, and inspectable computation. The collaboration is stronger than either side pretending to be the other.}
+
+\subsection{Candidate research contributions}
+
+\begin{itemize}
+  \item Event-Causal Active Perception that closes perception, prediction, action, and validated learning.
+  \item Independent uncertainty that can stop a high-value action.
+  \item A shared event and artifact memory that connects sensory consequences with code-level evidence.
+  \item Reversible model adoption and interleaved replay rather than unchecked self-modification.
+  \item Dorothy's clinical-boundary-preserving research environment.
+\end{itemize}
+
+\clearpage
+\section{The road to AGI}
+
+AGI is the destination, not a declaration. The path is a sequence of measurable expansions.
+
+\begin{longtable}{p{0.18\textwidth}p{0.50\textwidth}p{0.22\textwidth}}
+\toprule
+\textbf{Stage} & \textbf{Required evidence} & \textbf{Current position}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Stage} & \textbf{Required evidence} & \textbf{Current position}\\
+\midrule
+\endhead
+Closed loop & Vision changes decisions; actions change later observations & Demonstrated on event fixtures\\
+Self-correction & Learning improves held-out behavior and preserves rollback & Demonstrated on declared models\\
+Artifact reasoning & Direct evidence guides inspection across builds and optimization levels & Demonstrated on a stripped fixture\\
+Cross-domain transfer & Unmodified architecture learns new task families and retains prior skills & Not established\\
+Language and world semantics & Robust concepts, relations, abstraction, and grounded reasoning & Not established\\
+Social and creative cognition & Social perception, intention, creativity, and open-ended problem solving & Not established\\
+Research collaboration & Independent multi-domain evaluation with uncertainty and source discipline & Candidate direction\\
+AGI & Broad general-purpose learning and performance across many domains & Destination, not current claim\\
+\bottomrule
+\end{longtable}
+
+\boundary{The roadmap is not evidence of inevitability. It is a way to decide what to build and what to measure next.}
+
+\clearpage
+\section{The honest frontier}
+
+A masterpiece can be ambitious without inventing evidence. These are the next hard problems, not marketing gaps to hide.
+
+\begin{itemize}
+  \item Natural-language understanding and general abstraction across task families.
+  \item Semantic object recognition and robust scene understanding in uncontrolled environments.
+  \item Social perception, intention, and creativity with measurable evaluation.
+  \item New-skill acquisition and transfer without catastrophic forgetting.
+  \item Real-time physical motor control, manipulation, and robotic safety validation.
+  \item Independent broad behavioral evaluation beyond fixtures designed for the mechanism.
+  \item Power and energy measurement across the complete lifecycle, not inferred from sparsity.
+  \item Patient-specific clinical modeling, which remains a separate scientific and ethical program.
+\end{itemize}
+
+\card{THE STANDARD FOR THE NEXT CLAIM}{Every future capability should arrive with its own fixtures, controls, uncertainty, source hashes, and a visible failure path. That is how the destination stays meaningful.}
+
+\clearpage
+\section{This is only the beginning}
+
+\begin{center}
+\includegraphics[width=0.86\textwidth]{../assets/branding/zoe-eye.png}\par
+\vspace{0.6cm}
+{\Large\color{ZoeCyan!60!black}Zoe can look at herself, learn, and choose again.\par}
+\end{center}
+
+Accessible Volume makes uncertainty inspectable. Event-causal perception changes decisions. Causal memory preserves consequences. Independent uncertainty can interrupt action. Ablation grounds semantic analysis in direct evidence. Dorothy supplies a human research mission with explicit clinical boundaries. Every component leaves a record of what did and did not happen.
+
+That is the operational standard this architecture is built to pursue: \textbf{capability with evidence, adaptation with restraint, and autonomy with a visible stop condition.}
+
+\evidence{Canonical system: \url{https://github.com/Ablation-Tool/zoe} · Autonomy: \url{https://github.com/Ablation-Tool/Zoe-Autonomy} · Research collection: \url{https://github.com/Ablation-Tool/research-papers}}
+
+\clearpage
+\appendix
+\section{Complete capability index}
+
+\begin{longtable}{p{0.24\textwidth}p{0.60\textwidth}p{0.10\textwidth}}
+\toprule
+\textbf{Domain} & \textbf{Capability families} & \textbf{Status}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Domain} & \textbf{Capability families} & \textbf{Status}\\
+\midrule
+\endhead
+Metacognition & Accessible Volume, model comparison, self-reflection, uncertainty, and evidence & Verified / narrow\\
+Autonomy & Internal goals, utility selection, guarded execution, reversible transitions, and emergency stop & Verified / narrow\\
+Event perception & Sparse event encoding, scene reconstruction, translation matching, spike order, and STDP & Verified / narrow\\
+Forward reasoning & Compositional prediction, trajectory planning, Dijkstra search, and candidate uncertainty & Verified / narrow\\
+Memory & Working subspaces, causal episodes, SQLite research memory, knowledge graphs, and finding history & Verified\\
+Learning & Gated local plasticity, interleaved replay, validation, and reversible consolidation & Verified / narrow\\
+Artifact semantics & Behavioral retrieval, direct disassembly, binary context, taint analysis, decompilation, and CFGs & Verified / narrow\\
+Dorothy & Atlas geometry, neural simulation, Pennes heat, SPD geometry, EEG teaching features, and research review & Research / preclinical\\
+Cognitive systems & Cognitive Field, Bayesian notebook, Presence, Cog, knowledge graph, and soroban & Verified / narrow\\
+Visual systems & RGB saliency, stereo imagery, DVS-style events, and real-camera conversion & Narrow\\
+Mobile & Guided Vision, Multi-view, Trinity, field kit, accessibility controls, and local bridge & Optional / verified where exercised\\
+Research adapters & Browser, research sources, memory, connected services, jobs, compute, protocols, notifications, rich media, and instruments & Optional / verified\\
+CERN and firmware & FELIX, HDL recovery, Evidence Navigator, Protocol Lab, Waveform Replay, Patchbay, capsules, and timing twin & Verified / narrow\\
+Native mathematics & Geometry Atlas, Second Eye, Artline, Pentomino, Pentacube, Life, Brain Life, Text to Cells, and Internal Clock & Verified / narrow\\
+Research culture & Practice Navigator, Resilience Atlas, Leadership Garden, Maison, Thumbelina, and Human × Zoe artwork & Research / creative\\
+Security & Owner grants, emergency stop, source hashes, privacy controls, and evidence chains & Verified\\
+Reproduction & Tests, host replays, source archives, artifact manifests, and research galleries & Verified\\
+\bottomrule
+\end{longtable}
+
+\card{ONE INSPECTABLE UNIVERSE}{The index covers autonomy, perception, memory, learning, artifact semantics, Dorothy, mobile vision, research adapters, CERN, native mathematics, creative practice, security, and reproduction. Each family retains its own evidence level and permission boundary; no capability is inferred from source presence alone.}
+
+\clearpage
+\section{Creative practice and ecological imagery}
+
+Zoe's creative instruments are part of the research environment, not decoration disconnected from it. Thumbelina's Moon Garden contains 75 creator-declared semantic vector parts. Ecological working memory represents light, energy, moisture, nutrients, obstacles, position, gain, cost, and prediction error in the same exact bead representation used by the reflection experiments.
+
+\begin{center}
+\includegraphics[width=0.82\textwidth]{../../zoe-visual-archive/images/ZVA-0254.png}\par
+\small Thumbelina Moon Garden: original collaborative visual research and an ecological feedback model—not biological calibration or a consciousness claim.
+\end{center}
+
+\evidence{\url{https://github.com/Ablation-Tool/graphics-environment-manager/blob/main/COGNITION.md\#soroban-working-memory-and-ecological-feedback} and \url{https://github.com/Ablation-Tool/zoe-visual-archive/blob/main/catalog/items/ZVA-0254.md}}
+
+\clearpage
+\section{Evidence and reproduction index}
+
+\begin{longtable}{p{0.28\textwidth}p{0.66\textwidth}}
+\toprule
+\textbf{Artifact} & \textbf{Location}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Artifact} & \textbf{Location}\\
+\midrule
+\endhead
+Canonical Zoe system & \url{https://github.com/Ablation-Tool/zoe}\\
+Autonomy engine & \url{https://github.com/Ablation-Tool/Zoe-Autonomy}\\
+Ablation & \url{https://github.com/Ablation-Tool/ablation}\\
+Research papers and galleries & \url{https://github.com/Ablation-Tool/research-papers}\\
+Event-causal evaluation & \url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json}\\
+Semantic artifact evaluation & \url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json}\\
+Dorothy and Neurogarden & \url{https://github.com/Ablation-Tool/zoe/tree/main/components/agent-logging-system}\\
+Dorothy research library & \url{https://github.com/Ablation-Tool/research-papers/tree/main/zoe-research/dorothy}\\
+Capability adapters & \url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/CAPABILITIES.md}\\
+Actuation and emergency stop & \url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/ACTUATION.md}\\
+iLab integration catalog & \url{https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/ilab/catalog.json}\\
+Component registry & \url{https://github.com/Ablation-Tool/zoe/blob/main/one-system.json}\\
+Visual research archive & \url{https://github.com/Ablation-Tool/zoe-visual-archive}\\
+\bottomrule
+\end{longtable}
+
+\subsection{Reproduction entry points}
+
+\begin{lstlisting}
+zoe autonomy run
+zoe autonomy event-evaluate --camera /dev/video0 \
+  --output event-camera-evaluation.json
+zoe autonomy semantic-evaluate --artifact /path/to/binary \
+  --state /path/to/semantic-state --output semantic-artifact.json
+zoe autonomy verify-event-evaluation event-camera-evaluation.json
+zoe autonomy verify-semantic-evaluation semantic-artifact.json
+python scripts/verify-one-system.py --workspace /path/to/workspace
+\end{lstlisting}
+
+\subsection{License and attribution}
+
+Zoe's combined integration is GPL-3.0-only. Ablation is GPL-3.0-or-later. iLab's reference code is GPL version 2 or later. Original Accessible Volume research was created by Nicholas Michael Kloster on March 6, 2026. Allen Institute data remain Allen Institute data. Third-party books, source corpora, proprietary HDL, model weights, and patient data are not republished. Copyright, license, provenance, and modification notices are preserved.
+
+\end{document}

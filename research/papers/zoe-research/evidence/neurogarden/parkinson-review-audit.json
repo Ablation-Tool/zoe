@@ -1,0 +1,64 @@
+{
+  "schema": "neurogarden-parkinson-review-audit-v1",
+  "source": "Bio-inspired Optimization for Medical Data Mining/008_c03.html",
+  "source_sha256": "3b6c24c4925acee7f8d205b8a89a68d012d76ad00ff91d24e487c34f031495a5",
+  "figure": {
+    "source": "Bio-inspired Optimization for Medical Data Mining/images/fig3-1.jpg",
+    "sha256": "2f6e8680924b57c6b61a8a046deffd079e1d56534446a558789e66314f3c6b20"
+  },
+  "reviewed_at": "2026-11-09T08:29:49Z",
+  "prisma_figure_arithmetic": {
+    "identified": 220,
+    "duplicates_removed": 27,
+    "computed_after_duplicates": 193,
+    "printed_after_duplicates": 193,
+    "screened": 193,
+    "screening_exclusions": 90,
+    "computed_full_text_assessed": 103,
+    "printed_full_text_assessed": 103,
+    "eligibility_exclusion_reason_counts": [17, 5, 10, 10, 1],
+    "computed_eligibility_exclusions": 43,
+    "printed_eligibility_exclusions": 43,
+    "computed_included": 60,
+    "printed_included": 60,
+    "all_figure_arithmetic_matches": true
+  },
+  "text_figure_discrepancy": {
+    "methods_text_records_screened": 220,
+    "figure_records_screened": 193,
+    "methods_text_full_text_assessed": 60,
+    "figure_full_text_assessed": 103,
+    "status": "The narrative abbreviates different stages as though they were the same screening and full-text counts; the figure's staged arithmetic is internally consistent."
+  },
+  "dataset_metadata_conflicts": [
+    {
+      "dataset": "UCI Parkinson's dataset",
+      "narrative": "31 people, 23 PD and 8 HC; 195 recordings",
+      "table_3_1": "31 people, 23 PD and 8 HC; 197 recordings",
+      "additional_table_3_2_boundary": "Rows labeled only UCI Dataset variously report 8/23, 20/20, 8/42, and 64/188 HC/PD counts; they are not shown to be one cohort or split.",
+      "status": "unresolved recording count and cohort/split identity"
+    },
+    {
+      "dataset": "Italian Parkinson's Voice and Speech",
+      "narrative_and_algorithm_section": "28 PD and 20 HC; 2,000 utterances in the dataset section",
+      "table_3_1": "65 people, 28 PD and 37 HC; 495 recordings",
+      "status": "unresolved control count and recording/utterance count"
+    },
+    {
+      "dataset": "Parkinson Speech Dataset with Multiple Types of Sound Recordings",
+      "narrative": "42 people, 23 PD and 19 HC; 756 recordings",
+      "table_3_1": "training 40 people (20 PD, 20 HC) and 872 recordings; testing 28 people (28 PD, 0 HC) and 168 recordings",
+      "status": "narrative and training/testing descriptions are not reconciled by IDs, version, or split definitions"
+    }
+  ],
+  "inclusion_window_boundary": {
+    "stated_years": "2016–2022",
+    "table_or_referenced_examples_outside_window": [2011, 2014, 2015, 2023],
+    "status": "Eligibility rationale for older performance-table studies and the 2023 study is not supplied; background references alone do not resolve it."
+  },
+  "reproduction_boundary": "Only the printed flow arithmetic and metadata consistency were checked. No included-study list with deduplication decisions, dataset version, participant assignments, raw audio, extracted features, predictions, fitted models, or external validation is available in the chapter.",
+  "study_selection_reproduced": false,
+  "classifier_evaluated": false,
+  "clinical_claim": false,
+  "brain_cancer_relevance": "No brain-tumor cohort, imaging, molecular target, brain delivery, target engagement, toxicity result, treatment outcome, or survival evidence is supplied."
+}

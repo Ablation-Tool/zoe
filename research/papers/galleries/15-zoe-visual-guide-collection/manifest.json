@@ -1,0 +1,186 @@
+{
+  "paper": "papers/15-zoe-visual-guide-collection.pdf",
+  "title": "Zoe Visual Guide Collection",
+  "pdf_pages": 9,
+  "extracted_images": [
+    {
+      "pdf_page": 1,
+      "number": 0,
+      "width": 1400,
+      "height": 980,
+      "file": "figures/figure-000-page-001.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 1,
+      "number": 1,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-001-page-001.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 2,
+      "number": 2,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-002-page-002.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 2,
+      "number": 3,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-003-page-002.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 4,
+      "width": 1400,
+      "height": 980,
+      "file": "figures/figure-004-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 5,
+      "width": 1400,
+      "height": 900,
+      "file": "figures/figure-005-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 6,
+      "width": 1200,
+      "height": 1160,
+      "file": "figures/figure-006-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 7,
+      "width": 1200,
+      "height": 780,
+      "file": "figures/figure-007-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 8,
+      "width": 1400,
+      "height": 1080,
+      "file": "figures/figure-008-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 9,
+      "width": 1200,
+      "height": 780,
+      "file": "figures/figure-009-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 4,
+      "number": 10,
+      "width": 1425,
+      "height": 954,
+      "file": "figures/figure-010-page-004.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 4,
+      "number": 11,
+      "width": 1400,
+      "height": 1120,
+      "file": "figures/figure-011-page-004.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 5,
+      "number": 12,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-012-page-005.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 5,
+      "number": 13,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-013-page-005.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 6,
+      "number": 14,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-014-page-006.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 6,
+      "number": 15,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-015-page-006.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 7,
+      "number": 16,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-016-page-007.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 7,
+      "number": 17,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-017-page-007.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 8,
+      "number": 18,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-018-page-008.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 8,
+      "number": 19,
+      "width": 1400,
+      "height": 1064,
+      "file": "figures/figure-019-page-008.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 9,
+      "number": 20,
+      "width": 1920,
+      "height": 1080,
+      "file": "figures/figure-020-page-009.png",
+      "captions": []
+    }
+  ],
+  "page_renders": [
+    "pages/page-001.jpg",
+    "pages/page-002.jpg",
+    "pages/page-003.jpg",
+    "pages/page-004.jpg",
+    "pages/page-005.jpg",
+    "pages/page-006.jpg",
+    "pages/page-007.jpg",
+    "pages/page-008.jpg",
+    "pages/page-009.jpg"
+  ]
+}
