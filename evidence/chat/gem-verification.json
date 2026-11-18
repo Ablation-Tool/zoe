@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "instrument": "zoe-native-conversation-in-ablation-gem/v1",
+  "verified": true,
+  "launcher": "zoe chat --zoe-root $ZOE_ROOT --state /dev/shm/<temporary>/state",
+  "launch_path": [
+    "guiai.gem.chat_view.main",
+    "gem.lab_cli.main",
+    "gem.gtk_app.GemGtkApplication"
+  ],
+  "gui_implementation": "components/ablation/gem-lab/gem/gtk_app.py",
+  "gui_sha256": "cbb835db414a1927d921da5a7a00424bad56995e89ed87b95b1f5f467c8f98de",
+  "desktop_entry": "components/ablation/gem-lab/gem/lab_cli.py",
+  "desktop_entry_sha256": "df742255806c5e16a3f20d1ece13f3d2a4a59464338a173866973781bdcf1374",
+  "ablation_gui_source_modified": false,
+  "window_title": "GEM · zoe-monorepo",
+  "terminal": "Ablation's existing VTE terminal",
+  "real_gui_display": "nested X11",
+  "query": "what is PALA?",
+  "cited_answer_observed": true,
+  "citation_observed": "CAPABILITY-ATLAS.md",
+  "automatic_conversation_notebook": false,
+  "external_metacognition_monitor": false,
+  "forbidden_files_absent": [
+    "events.jsonl in Zoe chat state",
+    "metacognition.json"
+  ],
+  "lab_events_before_and_after": 31,
+  "launcher_routing_tests_passed": 3,
+  "unified_tests_passed": 28,
+  "unified_optional_component_test_skipped": 1,
+  "one_checkout_chat_verifier": "passed; 15 commands, 20 unit tests, six identical hosts"
+}

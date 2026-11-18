@@ -37,12 +37,13 @@ python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 
 ## Conversation and internal metacognition toolkit
 
-`zoe chat` is Zoe's native evidence-linked conversational interface. It retrieves cited Zoe evidence, preserves multiple live interpretations, stores explicitly unverified user notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks reversible plans, executes one guarded internal transition, runs measured self-reflection, and exposes Operational Metacognition as internal mathematics.
+`zoe chat` runs Zoe's native evidence-linked conversation inside Ablation's existing GEM workbench and its original embedded terminal. It retrieves cited Zoe evidence, preserves multiple live interpretations, stores explicitly unverified user notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks reversible plans, executes one guarded internal transition, runs measured self-reflection, and exposes Operational Metacognition as internal mathematics.
 
 ```bash
 export ZOE_ROOT="$PWD"
 zoe chat
 zoe chat --state /path/to/zoe-chat-state
+zoe chat --cli --state /path/to/zoe-chat-state
 zoe-autonomy chat --state /path/to/zoe-chat-state
 zoe chat --state /path/to/zoe-chat-state --command "meta what is PALA?"
 ```

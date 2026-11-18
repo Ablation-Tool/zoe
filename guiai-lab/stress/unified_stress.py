@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import types
 import unittest
@@ -187,8 +188,28 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertFalse((state / "events.jsonl").exists())
             self.assertFalse((state / "metacognition.json").exists())
 
+    def test_chat_uses_ablations_existing_gem_gui_and_terminal(self):
+        gem_root = ROOT / "components" / "ablation" / "gem-lab"
+        if str(gem_root) not in sys.path:
+            sys.path.insert(0, str(gem_root))
+        from gem import lab_cli
+
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory) / "state"
+            with mock.patch.dict(os.environ, {"ZOE_ROOT": str(ROOT)}), mock.patch.object(lab_cli, "main", return_value=0) as gui:
+                self.assertEqual(zoe_main(["chat", "--state", str(state)]), 0)
+                self.assertEqual(zoe_main([]), 0)
+                self.assertEqual(zoe_main(["os"]), 0)
+            self.assertEqual(gui.call_count, 3)
+            arguments = gui.call_args_list[0].args[0]
+            self.assertEqual(arguments[:2], ["desktop", str(ROOT)])
+            self.assertEqual(arguments[arguments.index("--session") + 1], str(state / "gem-lab"))
+            self.assertEqual(arguments[arguments.index("--toolkit") + 1], "gtk")
+            command = arguments[arguments.index("--agent-command") + 1]
+            self.assertIn("zoe_autonomy.chat", command)
+            self.assertIn(str(state), command)
+
     def test_ablation_uses_current_interpreter_and_caller_cwd(self):
-        import sys
 
         with mock.patch.dict(os.environ, {}, clear=True):
             command, cwd = REGISTRY.command("ablation", ["analyze", "relative.bin"])
@@ -240,9 +261,9 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertIn("neurogarden", stdout.getvalue())
             self.assertEqual(json.loads(manifest.read_text())["entrypoint_count"], 17)
             self.assertEqual(KnowledgeField.load(knowledge).document(), REGISTRY.knowledge.document())
-            with mock.patch("guiai.gem.desktop_view.launch_desktop") as launch:
+            with mock.patch("guiai.gem.chat_view.main", return_value=0) as chat:
                 self.assertEqual(zoe_main([]), 0)
-                launch.assert_called_once()
+                chat.assert_called_once_with([])
 
     def test_orbital_scene_vdi_and_headless_export(self):
         first, report = default_document("unified")

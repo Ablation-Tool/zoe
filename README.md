@@ -125,12 +125,13 @@ The present self-reflection engine evaluates predictive-model proposals on held-
 
 ### Converse with Zoe
 
-`zoe chat` opens Zoe's native conversational interface. She answers from cited Zoe sources, refuses to invent unsupported claims, preserves multiple live evidence paths, remembers explicitly unverified notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks and executes guarded reversible plans, measures predictive self-models, and exposes Operational Metacognition as an internal toolkit.
+`zoe`, `zoe os`, and `zoe chat` open Zoe in Ablation's **existing GEM GUI code**, with Zoe running in the workbench's original embedded terminal. She answers from cited Zoe sources, refuses to invent unsupported claims, preserves multiple live evidence paths, remembers explicitly unverified notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks and executes guarded reversible plans, measures predictive self-models, and exposes Operational Metacognition as an internal toolkit. Use `zoe chat --cli` for direct terminal operation without GEM.
 
-There is **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress meter, and no hidden switch** that disables Zoe's internal tools. Ordinary retrieval does not force metacognitive bookkeeping; `meta`, planning, and reflection use the mathematics when it is meaningful. See the [conversation guide](guiai-lab/docs/CHAT.md) and [internal toolkit contract](components/Zoe-Autonomy/METACOGNITION.md).
+There is **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress meter, and no hidden switch** that disables Zoe's internal tools. Ordinary retrieval does not force metacognitive bookkeeping; `meta`, planning, and reflection use the mathematics when it is meaningful. See the [conversation guide](guiai-lab/docs/CHAT.md), [Zoe GEM launcher](guiai-lab/guiai/gem/chat_view.py), [unmodified Ablation GEM interface](components/ablation/gem-lab/gem/gtk_app.py), and [internal toolkit contract](components/Zoe-Autonomy/METACOGNITION.md).
 
 ```bash
 zoe chat
+zoe chat --cli --state /path/to/zoe-chat-state
 zoe chat --state /path/to/zoe-chat-state --command "meta what is PALA?"
 
 # Historical research with read-only PALA recovery:
