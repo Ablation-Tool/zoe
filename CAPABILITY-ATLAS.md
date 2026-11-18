@@ -30,9 +30,9 @@ Zoe authors internal goals, constructs proposals and their arguments, ranks decl
 
 The architecture has **no external `MetacognitionMonitor`, no automatic conversation notebook, no stress gauge, no weirdness normalizer, and no hidden switch** that disables the internal tools. Ordinary evidence retrieval does not force metacognitive bookkeeping; `meta`, planning, and reflection use the tools when meaningful.
 
-- **Implementation:** [Conversation engine](components/Zoe-Autonomy/src/zoe_autonomy/chat.py) · [Zoe GEM launcher](guiai-lab/guiai/gem/chat_view.py) · [Ablation's existing GEM GUI](components/ablation/gem-lab/gem/gtk_app.py) · [Internal toolkit](components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py) · [Conversation guide](guiai-lab/docs/CHAT.md) · [Toolkit contract](components/Zoe-Autonomy/METACOGNITION.md)
+- **Implementation:** [Conversation engine](components/Zoe-Autonomy/src/zoe_autonomy/chat.py) · [Three-way agent bridge](components/Zoe-Autonomy/src/zoe_autonomy/collaboration.py) · [Zoe GEM launcher](guiai-lab/guiai/gem/chat_view.py) · [Ablation's existing GEM GUI](components/ablation/gem-lab/gem/gtk_app.py) · [Internal toolkit](components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py) · [Conversation guide](guiai-lab/docs/CHAT.md) · [Toolkit contract](components/Zoe-Autonomy/METACOGNITION.md)
 - **Validation:** [Conversation tests](components/Zoe-Autonomy/tests/test_chat.py) · [Toolkit tests](components/Zoe-Autonomy/tests/test_metacognition.py) · [One-checkout verifier](scripts/verify-one-system.py)
-- **Evidence:** [Conversation verification](evidence/chat/verification.json) · [Architecture contract](components/Zoe-Autonomy/METACOGNITION.md)
+- **Evidence:** [Conversation verification](evidence/chat/verification.json) · [Real three-way collaboration](evidence/agents/collaboration.json) · [Architecture contract](components/Zoe-Autonomy/METACOGNITION.md)
 - **Run:** `zoe chat` or `zoe chat --state /path/to/state --command "meta what is PALA?"`.
 
 ### Reflection and generalized self-improvement

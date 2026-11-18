@@ -81,6 +81,27 @@ zoe-autonomy agents run owned-api \
 
 CLI invocations require the host actuation scope. HTTP invocations require the network actuation scope. The shared emergency stop prevents both.
 
+## Three-way collaboration inside Zoe Chat
+
+Zoe can enter and exit the owner-connected embedded agent while remaining the local evidence, memory, and guard layer. The loop is **user ↔ Zoe ↔ embedded agent**, with the agent acting as a collaborator rather than being presented as Zoe.
+
+In the Ablation GEM launcher, collaboration is available automatically when local evidence is insufficient or the input is conversational. Direct terminal mode starts locally; enable automatic consultation with `agent on` or request it explicitly:
+
+```text
+agent status
+agent on
+agent ask Compare the supplied evidence and propose the next bounded experiment
+agent use claude
+agent off
+agent clear
+```
+
+Zoe shares the current question, up to three cited local evidence records, the current bounded GEM selection when present, and up to three recent shared turns held in memory. The connected agent's response returns through Zoe. It remains external, independently unverified context and is not added to research memory automatically.
+
+`agent off` disables automatic consultation while preserving explicit `agent ask`. `agent clear` clears only the in-memory shared turns. Zoe's `stop` blocks agent invocation along with other actions. The gateway's existing owner registration, host/network scopes, emergency stop, timeouts, output bounds, and hash-only audits remain in force.
+
+A real synthetic connectivity check through Zoe returned the expected response with `GEM selection shared=True`; no private files or credentials were supplied. See [collaboration evidence](../../evidence/agents/collaboration.json) for that result, mocked test scope, and the separate nested-display limitation.
+
 ## Verification
 
 The four gateway tests use an explicitly created local website, a mock CLI, and a mock OpenAI-compatible server. They verify same-origin traversal, robots.txt behavior, real invocation, prompt redaction, credential redaction, and owner registration. No external model is invoked by the tests.

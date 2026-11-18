@@ -45,6 +45,7 @@ Zoe's `gem status`, `gem list`, `gem open ID`, `gem export ID PATH`, and `gem sn
 | `search <query>` | Search indexed Zoe sources and saved notes with citations. |
 | `import-pala <report.json>` | Validate PALA finding metadata and add it to research memory without reading recovered contents. |
 | `gem [operation]` | Use the shared GEM environment: `status`, `list`, `open ID`, `export ID PATH`, or `snapshot PATH`. |
+| `agent [operation]` | Collaborate with the embedded agent: `status`, `on`, `off`, `ask TEXT`, `use ID`, or `clear`. |
 | `goal [interest]` | Show Zoe's internally authored goal or declare a research interest. |
 | `plan` | Represent internal candidate plans and their utilities without executing. |
 | `run` | Execute one guarded reversible internal plan; external actions remain zero. |
@@ -60,6 +61,12 @@ Zoe's `gem status`, `gem list`, `gem open ID`, `gem export ID PATH`, and `gem sn
 | `verify [path]` | Verify current state or an explicit export. |
 | `stop` | Stop new state-changing actions while inspection and internal tools remain available. |
 | `quit` | Save and exit. |
+
+## User ↔ Zoe ↔ embedded AI agent
+
+Zoe can enter and exit collaboration with the owner-connected agent embedded in the GEM environment. She supplies bounded local evidence and the current GEM selection, receives the agent's reasoning, and returns it to the user with both roles labeled. In GEM mode, Zoe may consult the agent when local evidence is insufficient or the input is conversational; `agent ask <text>` always requests collaboration directly.
+
+Use `agent on` for automatic consultation, `agent off` for local-only answers, `agent use <id>` to select a registered agent, and `agent clear` to reset the in-memory shared turns. The agent response is external context, not independently verified evidence, and is not automatically added to Zoe's research memory. No persistent conversation transcript is created. See [the connected-agent guide](../../components/Zoe-Autonomy/GATEWAY.md#three-way-collaboration-inside-zoe-chat) and [verification evidence](../../evidence/agents/collaboration.json).
 
 ## Operational Metacognition inside Zoe
 
