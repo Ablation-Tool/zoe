@@ -45,6 +45,8 @@ zoe-autonomy verify-reflection reflection-step-2.json
 
 The measured sequence preserves arithmetic, adopts precision after validation, then retains it. Training RMSE improves from 0.039720402 to 0.039394269 pixels and validation RMSE from 0.039234586 to 0.039081672 pixels. These are small measured gains under the declared stereo fixture. A failed validation preserves the prior model, and no source is rewritten.
 
+A native soroban working memory records 4, 8, and 12 observations and 0, 1, and 1 adoptions with exact earth/heaven bead transitions. The counters remain separate from likelihood weights and are not a second confidence score. See the [soroban and ecological model](../graphics-environment-manager/COGNITION.md#soroban-working-memory-and-ecological-feedback).
+
 See the [replayed steps](../../evidence/self-reflection/), [integrated event](../../evidence/self-reflection/integrated.json), [IIT controls](../../evidence/phi-verification.json), and [external-substrate review](../../evidence/external-wiring-review.json). The 0.25 three-node AND result is a control, not Zoe's Φ. Model confidence is explicitly a likelihood-based comparison, not an emotional or universal guarantee.
 
 ## Canonical paper and upstream evidence

@@ -35,13 +35,19 @@
     "run": "zoe-autonomy run --reflect --output integrated-reflection.json",
     "standalone": "zoe-autonomy reflect --output reflection-step-1.json",
     "verify": "zoe-autonomy verify-reflection reflection-step-2.json",
-    "evidence": "evidence/self-reflection/integrated.json"
+    "evidence": "evidence/self-reflection/integrated.json",
+    "working_memory": {
+      "representation": "soroban earth and heaven beads",
+      "observation_counts": [4, 8, 12],
+      "adoption_counts": [0, 1, 1],
+      "likelihood_weights_replaced": false
+    }
   },
   "canonical_engine": {
     "id": "engine",
     "directory": "Zoe-Autonomy",
     "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
-    "revision": "79267045fbfc7712cd76f02c229e82446aab62f0",
+    "revision": "8f6724b5f8bbeac1cdbeadba93bcc1092fd489fe",
     "module": "zoe_autonomy.cli",
     "python_path": "src"
   },
@@ -57,7 +63,7 @@
       "id": "canonical-gem",
       "directory": "graphics-environment-manager",
       "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
-      "revision": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b",
+      "revision": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7",
       "module": "gem.cli",
       "python_path": ".",
       "adapter": "gem/autonomy.py",

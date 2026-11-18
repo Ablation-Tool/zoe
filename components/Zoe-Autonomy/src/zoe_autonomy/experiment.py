@@ -75,7 +75,7 @@ def _integration_identity():
 
 
 def _canonical_gem_module(root, name):
-    if name not in {"saliency_cognition", "imagery"}:
+    if name not in {"saliency_cognition", "imagery", "abacus_cognition", "ecology_cognition"}:
         raise ValueError("unsupported canonical GEM module")
     from guiai.gem.unified import ComponentRegistry
 

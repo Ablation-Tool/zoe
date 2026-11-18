@@ -2,9 +2,10 @@
   "adoption": "preserved_current_model",
   "belief_updated": true,
   "canonical_imagery": {
-    "locked_revision": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b",
+    "locked_revision": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7",
     "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
     "source_sha256": {
+      "gem/abacus_cognition.py": "55307624964d21e16c82709e1930355ea4069079833e4e009fce033cd3c706ca",
       "gem/imagery.py": "3a6e2f6404068db5407b44da070216038520c90e9c4f6a346d66773599fecbe1"
     }
   },
@@ -263,6 +264,353 @@
         "selection_posterior": {
           "arithmetic": 0.03381243707513938,
           "precision": 0.9661875629248607
+        },
+        "working_memory": {
+          "adoptions": {
+            "history": [],
+            "rod_count": 16,
+            "rods": [
+              {
+                "lower": 1,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              }
+            ],
+            "value": 1
+          },
+          "observations": {
+            "history": [
+              {
+                "after": {
+                  "rods": [
+                    {
+                      "lower": 2,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 1,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    }
+                  ]
+                },
+                "before": {
+                  "rods": [
+                    {
+                      "lower": 3,
+                      "upper": 1
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    }
+                  ]
+                },
+                "moves": [
+                  {
+                    "after": {
+                      "lower": 4,
+                      "upper": 1
+                    },
+                    "before": {
+                      "lower": 3,
+                      "upper": 1
+                    },
+                    "carry": false,
+                    "rod": 0
+                  },
+                  {
+                    "after": {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    "before": {
+                      "lower": 4,
+                      "upper": 1
+                    },
+                    "carry": true,
+                    "rod": 0
+                  },
+                  {
+                    "after": {
+                      "lower": 1,
+                      "upper": 0
+                    },
+                    "before": {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    "carry": false,
+                    "rod": 1
+                  },
+                  {
+                    "after": {
+                      "lower": 1,
+                      "upper": 0
+                    },
+                    "before": {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    "carry": false,
+                    "rod": 0
+                  },
+                  {
+                    "after": {
+                      "lower": 2,
+                      "upper": 0
+                    },
+                    "before": {
+                      "lower": 1,
+                      "upper": 0
+                    },
+                    "carry": false,
+                    "rod": 0
+                  }
+                ],
+                "operand": 4,
+                "operation": "add"
+              }
+            ],
+            "rod_count": 16,
+            "rods": [
+              {
+                "lower": 2,
+                "upper": 0
+              },
+              {
+                "lower": 1,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              }
+            ],
+            "value": 12
+          }
         }
       },
       "previous": {
@@ -395,7 +743,7 @@
       "policy": "zoe-autonomy-sandbox-v1",
       "reasons": []
     },
-    "hash": "451f19341379c720e640e2f7e2d397710aebb7799962e023a8bd9bc2f3ca4fdc",
+    "hash": "30cedc1cd1eb18226a06d139914be54ac3ce509a65a3e77400ef2ca08238e369",
     "measurement": {
       "candidate_models": [
         "arithmetic",
@@ -411,7 +759,7 @@
     },
     "operator_approval_required": false,
     "operator_supplied_goal": false,
-    "previous_hash": "73281e2759b6927ed44534364e4d2d1db843b7c7073017bd5322a11d1825b6b9",
+    "previous_hash": "f9b4681eb796845a4f610f05797cd13f19f7481f872cb6976fdb1469c8477faf",
     "proposals": [
       {
         "action": "review",
@@ -609,6 +957,622 @@
                 "selection_posterior": {
                   "arithmetic": 0.26889337500016625,
                   "precision": 0.7311066249998337
+                },
+                "working_memory": {
+                  "adoptions": {
+                    "history": [
+                      {
+                        "after": {
+                          "rods": [
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "before": {
+                          "rods": [
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "operation": "set",
+                        "value": 0
+                      }
+                    ],
+                    "rod_count": 16,
+                    "rods": [
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      }
+                    ],
+                    "value": 0
+                  },
+                  "observations": {
+                    "history": [
+                      {
+                        "after": {
+                          "rods": [
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "before": {
+                          "rods": [
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "operation": "set",
+                        "value": 0
+                      },
+                      {
+                        "after": {
+                          "rods": [
+                            {
+                              "lower": 4,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "before": {
+                          "rods": [
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "moves": [
+                          {
+                            "after": {
+                              "lower": 1,
+                              "upper": 0
+                            },
+                            "before": {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            "carry": false,
+                            "rod": 0
+                          },
+                          {
+                            "after": {
+                              "lower": 2,
+                              "upper": 0
+                            },
+                            "before": {
+                              "lower": 1,
+                              "upper": 0
+                            },
+                            "carry": false,
+                            "rod": 0
+                          },
+                          {
+                            "after": {
+                              "lower": 3,
+                              "upper": 0
+                            },
+                            "before": {
+                              "lower": 2,
+                              "upper": 0
+                            },
+                            "carry": false,
+                            "rod": 0
+                          },
+                          {
+                            "after": {
+                              "lower": 4,
+                              "upper": 0
+                            },
+                            "before": {
+                              "lower": 3,
+                              "upper": 0
+                            },
+                            "carry": false,
+                            "rod": 0
+                          }
+                        ],
+                        "operand": 4,
+                        "operation": "add"
+                      }
+                    ],
+                    "rod_count": 16,
+                    "rods": [
+                      {
+                        "lower": 4,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      }
+                    ],
+                    "value": 4
+                  }
                 }
               },
               "previous": {
@@ -713,7 +1677,7 @@
               "policy": "zoe-autonomy-sandbox-v1",
               "reasons": []
             },
-            "hash": "9edfc0563ceffe080a5a0eebb88f705f87168fb41ce22f256503995fb5c53bc2",
+            "hash": "4c6df39c0f23ea12923a90b98e82d59677f4ac61435e38ff25706f213c9191c8",
             "measurement": {
               "candidate_models": [
                 "arithmetic",
@@ -887,6 +1851,496 @@
                 "selection_posterior": {
                   "arithmetic": 0.1018910908238159,
                   "precision": 0.8981089091761841
+                },
+                "working_memory": {
+                  "adoptions": {
+                    "history": [
+                      {
+                        "after": {
+                          "rods": [
+                            {
+                              "lower": 1,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "before": {
+                          "rods": [
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "moves": [
+                          {
+                            "after": {
+                              "lower": 1,
+                              "upper": 0
+                            },
+                            "before": {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            "carry": false,
+                            "rod": 0
+                          }
+                        ],
+                        "operand": 1,
+                        "operation": "add"
+                      }
+                    ],
+                    "rod_count": 16,
+                    "rods": [
+                      {
+                        "lower": 1,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      }
+                    ],
+                    "value": 1
+                  },
+                  "observations": {
+                    "history": [
+                      {
+                        "after": {
+                          "rods": [
+                            {
+                              "lower": 3,
+                              "upper": 1
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "before": {
+                          "rods": [
+                            {
+                              "lower": 4,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            },
+                            {
+                              "lower": 0,
+                              "upper": 0
+                            }
+                          ]
+                        },
+                        "moves": [
+                          {
+                            "after": {
+                              "lower": 0,
+                              "upper": 1
+                            },
+                            "before": {
+                              "lower": 4,
+                              "upper": 0
+                            },
+                            "carry": false,
+                            "rod": 0
+                          },
+                          {
+                            "after": {
+                              "lower": 1,
+                              "upper": 1
+                            },
+                            "before": {
+                              "lower": 0,
+                              "upper": 1
+                            },
+                            "carry": false,
+                            "rod": 0
+                          },
+                          {
+                            "after": {
+                              "lower": 2,
+                              "upper": 1
+                            },
+                            "before": {
+                              "lower": 1,
+                              "upper": 1
+                            },
+                            "carry": false,
+                            "rod": 0
+                          },
+                          {
+                            "after": {
+                              "lower": 3,
+                              "upper": 1
+                            },
+                            "before": {
+                              "lower": 2,
+                              "upper": 1
+                            },
+                            "carry": false,
+                            "rod": 0
+                          }
+                        ],
+                        "operand": 4,
+                        "operation": "add"
+                      }
+                    ],
+                    "rod_count": 16,
+                    "rods": [
+                      {
+                        "lower": 3,
+                        "upper": 1
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      },
+                      {
+                        "lower": 0,
+                        "upper": 0
+                      }
+                    ],
+                    "value": 8
+                  }
                 }
               },
               "previous": {
@@ -1005,7 +2459,7 @@
               "policy": "zoe-autonomy-sandbox-v1",
               "reasons": []
             },
-            "hash": "73281e2759b6927ed44534364e4d2d1db843b7c7073017bd5322a11d1825b6b9",
+            "hash": "f9b4681eb796845a4f610f05797cd13f19f7481f872cb6976fdb1469c8477faf",
             "measurement": {
               "candidate_models": [
                 "arithmetic",
@@ -1021,7 +2475,7 @@
             },
             "operator_approval_required": false,
             "operator_supplied_goal": false,
-            "previous_hash": "9edfc0563ceffe080a5a0eebb88f705f87168fb41ce22f256503995fb5c53bc2",
+            "previous_hash": "4c6df39c0f23ea12923a90b98e82d59677f4ac61435e38ff25706f213c9191c8",
             "proposals": [
               {
                 "action": "inspect",
@@ -1053,7 +2507,7 @@
         "policy": "zoe-autonomy-sandbox-v1",
         "sandbox_executions": 2
       },
-      "profile_sha256": "6febf8e30e75599b1a1ab38695abf7634de6a28bea441f221fc9b904508d6188",
+      "profile_sha256": "7bc1b41e945f2953c4c6b0f4a94248f0d2cb53d99c66fcca8138d24c1528d1f2",
       "self_model": {
         "adoption": "adopted_after_heldout_validation",
         "log_posterior": {
@@ -1069,6 +2523,496 @@
         "selection_posterior": {
           "arithmetic": 0.1018910908238159,
           "precision": 0.8981089091761841
+        },
+        "working_memory": {
+          "adoptions": {
+            "history": [
+              {
+                "after": {
+                  "rods": [
+                    {
+                      "lower": 1,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    }
+                  ]
+                },
+                "before": {
+                  "rods": [
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    }
+                  ]
+                },
+                "moves": [
+                  {
+                    "after": {
+                      "lower": 1,
+                      "upper": 0
+                    },
+                    "before": {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    "carry": false,
+                    "rod": 0
+                  }
+                ],
+                "operand": 1,
+                "operation": "add"
+              }
+            ],
+            "rod_count": 16,
+            "rods": [
+              {
+                "lower": 1,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              }
+            ],
+            "value": 1
+          },
+          "observations": {
+            "history": [
+              {
+                "after": {
+                  "rods": [
+                    {
+                      "lower": 3,
+                      "upper": 1
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    }
+                  ]
+                },
+                "before": {
+                  "rods": [
+                    {
+                      "lower": 4,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    },
+                    {
+                      "lower": 0,
+                      "upper": 0
+                    }
+                  ]
+                },
+                "moves": [
+                  {
+                    "after": {
+                      "lower": 0,
+                      "upper": 1
+                    },
+                    "before": {
+                      "lower": 4,
+                      "upper": 0
+                    },
+                    "carry": false,
+                    "rod": 0
+                  },
+                  {
+                    "after": {
+                      "lower": 1,
+                      "upper": 1
+                    },
+                    "before": {
+                      "lower": 0,
+                      "upper": 1
+                    },
+                    "carry": false,
+                    "rod": 0
+                  },
+                  {
+                    "after": {
+                      "lower": 2,
+                      "upper": 1
+                    },
+                    "before": {
+                      "lower": 1,
+                      "upper": 1
+                    },
+                    "carry": false,
+                    "rod": 0
+                  },
+                  {
+                    "after": {
+                      "lower": 3,
+                      "upper": 1
+                    },
+                    "before": {
+                      "lower": 2,
+                      "upper": 1
+                    },
+                    "carry": false,
+                    "rod": 0
+                  }
+                ],
+                "operand": 4,
+                "operation": "add"
+              }
+            ],
+            "rod_count": 16,
+            "rods": [
+              {
+                "lower": 3,
+                "upper": 1
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              },
+              {
+                "lower": 0,
+                "upper": 0
+              }
+            ],
+            "value": 8
+          }
         }
       }
     }
@@ -1082,11 +3026,11 @@
     "capabilities.py": "f558a205397a8406e32d40a838f10e129cc138b4a35b1d563faf28a95a4b9719",
     "capabilities_cli.py": "bdccc15827ffc1471e0d39e1fcca51d28dd486be7143743c69fae01575687f97",
     "cli.py": "7ae75452d30ca381ccaa809ce2fe25abc986e7fb2c86b6b818d538290ca3f1aa",
-    "experiment.py": "bf0d6de6f710a51c4dc9d092a485f56c140d146960cc33ec7a52ddd9fd89fe20",
+    "experiment.py": "f8d37be3bfdb8829565a46869cb11e3eba95f47f80e39de4b722ab801f389795",
     "explore.py": "85891da36729e59550f7fdcf3d5b1a178ed9efbb5cc3e6cba5a6b949b632a2d7",
     "loop.py": "706c3e87688148543151cbadaf7cbc040ac4d1ab5859b042cc43013f717f6d13",
     "metrics.py": "642dd2ad467f765a06e1f4b5269e833e2c39b8c4edf1870a6c291dc27713936b",
-    "self_reflection.py": "9ca279c0038c14251708586df9bd915cfdf191b8eb0d3a3ed4ca613d9d00958b"
+    "self_reflection.py": "05ad47bd593cd84a2042af1d9563f56022eb82e9a67c04ca1a80af7f8e590a6e"
   },
   "loop_state": {
     "belief_updated": true,
@@ -1252,6 +3196,622 @@
             "selection_posterior": {
               "arithmetic": 0.26889337500016625,
               "precision": 0.7311066249998337
+            },
+            "working_memory": {
+              "adoptions": {
+                "history": [
+                  {
+                    "after": {
+                      "rods": [
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "before": {
+                      "rods": [
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "operation": "set",
+                    "value": 0
+                  }
+                ],
+                "rod_count": 16,
+                "rods": [
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  }
+                ],
+                "value": 0
+              },
+              "observations": {
+                "history": [
+                  {
+                    "after": {
+                      "rods": [
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "before": {
+                      "rods": [
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "operation": "set",
+                    "value": 0
+                  },
+                  {
+                    "after": {
+                      "rods": [
+                        {
+                          "lower": 4,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "before": {
+                      "rods": [
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "moves": [
+                      {
+                        "after": {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 2,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 3,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 2,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 4,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 3,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      }
+                    ],
+                    "operand": 4,
+                    "operation": "add"
+                  }
+                ],
+                "rod_count": 16,
+                "rods": [
+                  {
+                    "lower": 4,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  }
+                ],
+                "value": 4
+              }
             }
           },
           "previous": {
@@ -1356,7 +3916,7 @@
           "policy": "zoe-autonomy-sandbox-v1",
           "reasons": []
         },
-        "hash": "9edfc0563ceffe080a5a0eebb88f705f87168fb41ce22f256503995fb5c53bc2",
+        "hash": "4c6df39c0f23ea12923a90b98e82d59677f4ac61435e38ff25706f213c9191c8",
         "measurement": {
           "candidate_models": [
             "arithmetic",
@@ -1530,6 +4090,496 @@
             "selection_posterior": {
               "arithmetic": 0.1018910908238159,
               "precision": 0.8981089091761841
+            },
+            "working_memory": {
+              "adoptions": {
+                "history": [
+                  {
+                    "after": {
+                      "rods": [
+                        {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "before": {
+                      "rods": [
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "moves": [
+                      {
+                        "after": {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      }
+                    ],
+                    "operand": 1,
+                    "operation": "add"
+                  }
+                ],
+                "rod_count": 16,
+                "rods": [
+                  {
+                    "lower": 1,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  }
+                ],
+                "value": 1
+              },
+              "observations": {
+                "history": [
+                  {
+                    "after": {
+                      "rods": [
+                        {
+                          "lower": 3,
+                          "upper": 1
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "before": {
+                      "rods": [
+                        {
+                          "lower": 4,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "moves": [
+                      {
+                        "after": {
+                          "lower": 0,
+                          "upper": 1
+                        },
+                        "before": {
+                          "lower": 4,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 1,
+                          "upper": 1
+                        },
+                        "before": {
+                          "lower": 0,
+                          "upper": 1
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 2,
+                          "upper": 1
+                        },
+                        "before": {
+                          "lower": 1,
+                          "upper": 1
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 3,
+                          "upper": 1
+                        },
+                        "before": {
+                          "lower": 2,
+                          "upper": 1
+                        },
+                        "carry": false,
+                        "rod": 0
+                      }
+                    ],
+                    "operand": 4,
+                    "operation": "add"
+                  }
+                ],
+                "rod_count": 16,
+                "rods": [
+                  {
+                    "lower": 3,
+                    "upper": 1
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  }
+                ],
+                "value": 8
+              }
             }
           },
           "previous": {
@@ -1648,7 +4698,7 @@
           "policy": "zoe-autonomy-sandbox-v1",
           "reasons": []
         },
-        "hash": "73281e2759b6927ed44534364e4d2d1db843b7c7073017bd5322a11d1825b6b9",
+        "hash": "f9b4681eb796845a4f610f05797cd13f19f7481f872cb6976fdb1469c8477faf",
         "measurement": {
           "candidate_models": [
             "arithmetic",
@@ -1664,7 +4714,7 @@
         },
         "operator_approval_required": false,
         "operator_supplied_goal": false,
-        "previous_hash": "9edfc0563ceffe080a5a0eebb88f705f87168fb41ce22f256503995fb5c53bc2",
+        "previous_hash": "4c6df39c0f23ea12923a90b98e82d59677f4ac61435e38ff25706f213c9191c8",
         "proposals": [
           {
             "action": "inspect",
@@ -1822,6 +4872,353 @@
             "selection_posterior": {
               "arithmetic": 0.03381243707513938,
               "precision": 0.9661875629248607
+            },
+            "working_memory": {
+              "adoptions": {
+                "history": [],
+                "rod_count": 16,
+                "rods": [
+                  {
+                    "lower": 1,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  }
+                ],
+                "value": 1
+              },
+              "observations": {
+                "history": [
+                  {
+                    "after": {
+                      "rods": [
+                        {
+                          "lower": 2,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "before": {
+                      "rods": [
+                        {
+                          "lower": 3,
+                          "upper": 1
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        {
+                          "lower": 0,
+                          "upper": 0
+                        }
+                      ]
+                    },
+                    "moves": [
+                      {
+                        "after": {
+                          "lower": 4,
+                          "upper": 1
+                        },
+                        "before": {
+                          "lower": 3,
+                          "upper": 1
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 4,
+                          "upper": 1
+                        },
+                        "carry": true,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 1
+                      },
+                      {
+                        "after": {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 0,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      },
+                      {
+                        "after": {
+                          "lower": 2,
+                          "upper": 0
+                        },
+                        "before": {
+                          "lower": 1,
+                          "upper": 0
+                        },
+                        "carry": false,
+                        "rod": 0
+                      }
+                    ],
+                    "operand": 4,
+                    "operation": "add"
+                  }
+                ],
+                "rod_count": 16,
+                "rods": [
+                  {
+                    "lower": 2,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 1,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  },
+                  {
+                    "lower": 0,
+                    "upper": 0
+                  }
+                ],
+                "value": 12
+              }
             }
           },
           "previous": {
@@ -1954,7 +5351,7 @@
           "policy": "zoe-autonomy-sandbox-v1",
           "reasons": []
         },
-        "hash": "451f19341379c720e640e2f7e2d397710aebb7799962e023a8bd9bc2f3ca4fdc",
+        "hash": "30cedc1cd1eb18226a06d139914be54ac3ce509a65a3e77400ef2ca08238e369",
         "measurement": {
           "candidate_models": [
             "arithmetic",
@@ -1970,7 +5367,7 @@
         },
         "operator_approval_required": false,
         "operator_supplied_goal": false,
-        "previous_hash": "73281e2759b6927ed44534364e4d2d1db843b7c7073017bd5322a11d1825b6b9",
+        "previous_hash": "f9b4681eb796845a4f610f05797cd13f19f7481f872cb6976fdb1469c8477faf",
         "proposals": [
           {
             "action": "review",
@@ -2004,7 +5401,7 @@
   },
   "observation_sha256": "4930376c7bdbe0c68e46e5614f2f9fc243a903e4412023c8bde4930d57ab4561",
   "observation_source": "synthetic_stereo",
-  "profile_sha256": "5864051cac2db64e04ecba779efb8f5349d82593094e13ef48c28e2337bb23ec",
+  "profile_sha256": "ab0930f23213942bac8b2cbc3a761346c6e80dc1a36e5aee51f7813fde55b93e",
   "reversible": true,
   "schema_version": 1,
   "selection_posterior": {
@@ -2026,11 +5423,358 @@
     "selection_posterior": {
       "arithmetic": 0.03381243707513938,
       "precision": 0.9661875629248607
+    },
+    "working_memory": {
+      "adoptions": {
+        "history": [],
+        "rod_count": 16,
+        "rods": [
+          {
+            "lower": 1,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          }
+        ],
+        "value": 1
+      },
+      "observations": {
+        "history": [
+          {
+            "after": {
+              "rods": [
+                {
+                  "lower": 2,
+                  "upper": 0
+                },
+                {
+                  "lower": 1,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                }
+              ]
+            },
+            "before": {
+              "rods": [
+                {
+                  "lower": 3,
+                  "upper": 1
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                },
+                {
+                  "lower": 0,
+                  "upper": 0
+                }
+              ]
+            },
+            "moves": [
+              {
+                "after": {
+                  "lower": 4,
+                  "upper": 1
+                },
+                "before": {
+                  "lower": 3,
+                  "upper": 1
+                },
+                "carry": false,
+                "rod": 0
+              },
+              {
+                "after": {
+                  "lower": 0,
+                  "upper": 0
+                },
+                "before": {
+                  "lower": 4,
+                  "upper": 1
+                },
+                "carry": true,
+                "rod": 0
+              },
+              {
+                "after": {
+                  "lower": 1,
+                  "upper": 0
+                },
+                "before": {
+                  "lower": 0,
+                  "upper": 0
+                },
+                "carry": false,
+                "rod": 1
+              },
+              {
+                "after": {
+                  "lower": 1,
+                  "upper": 0
+                },
+                "before": {
+                  "lower": 0,
+                  "upper": 0
+                },
+                "carry": false,
+                "rod": 0
+              },
+              {
+                "after": {
+                  "lower": 2,
+                  "upper": 0
+                },
+                "before": {
+                  "lower": 1,
+                  "upper": 0
+                },
+                "carry": false,
+                "rod": 0
+              }
+            ],
+            "operand": 4,
+            "operation": "add"
+          }
+        ],
+        "rod_count": 16,
+        "rods": [
+          {
+            "lower": 2,
+            "upper": 0
+          },
+          {
+            "lower": 1,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          },
+          {
+            "lower": 0,
+            "upper": 0
+          }
+        ],
+        "value": 12
+      }
     }
   },
   "source": {
     "repository": "https://github.com/Ablation-Tool/zoe",
-    "revision": "979023d5d8e5649f6962f739cba4a6ced2b26cdb",
+    "revision": "6ef233e789c786bcd0fcc8a633c84e63402e40bf",
     "source_sha256": {
       "guiai-lab/guiai/gem/brain.py": "c1d6eeac7082de3ceb7a9b404a061e60cd704a838e977925808a0d183b937e49",
       "guiai-lab/guiai/gem/cog.py": "390394a9d04cbcb34d11f9ce13ad08c85f832f990c3c57de30e99a71c84795fd",

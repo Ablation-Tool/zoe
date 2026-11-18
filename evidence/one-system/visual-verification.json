@@ -14,13 +14,13 @@
   "identical_canonical_profiles": true,
   "internal_goal_authorship": true,
   "operator_approval_required": false,
-  "profile_sha256": "c74a0c305f7aff23a7777faae3e7312dbf85f9edc6c9f4723b32d692c6053583",
+  "profile_sha256": "9d9799c22b2dff8013ce3d9a3aee2b252c2b4d626f7da692a961485098e9d0ae",
   "revisions": {
     "ablation-gem": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
     "brain-gem": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
-    "canonical-gem": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b",
+    "canonical-gem": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7",
     "cerotto-gem": "b73d399b638b4de8a0a9829b17c95203c5deaabd",
-    "engine": "79267045fbfc7712cd76f02c229e82446aab62f0",
+    "engine": "8f6724b5f8bbeac1cdbeadba93bcc1092fd489fe",
     "gem-helen": "273c4eeb6fd6044f1ab9068561ddc33290357eed",
     "research": "79575d94325a43b5dbbef17d38bc1cb1d56d9321"
   },
