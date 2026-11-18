@@ -68,6 +68,11 @@ There is **no external `MetacognitionMonitor`, no automatic conversation noteboo
 ```bash
 zoe chat
 zoe chat --state /path/to/zoe-chat-state --command "meta what is PALA?"
+
+# Historical research with read-only PALA recovery:
+zoe pala source.img /separate/output --quiet --json > /separate/pala-report.json
+zoe chat --command "import-pala /separate/pala-report.json"
+zoe chat --command "recall jpeg"
 ```
 
 ## Metacognition is achieved; general intelligence has explicit gates
@@ -213,7 +218,7 @@ cargo build --manifest-path components/PALA/Cargo.toml --release --locked
 zoe pala --list
 ```
 
-Recovery requires an explicitly authorized source and a separate output destination: `zoe pala source.img /separate/output --json`. PALA opens sources read-only and never overwrites existing recoveries. See the [operator guide](components/PALA/docs/operations.md) before using raw devices. If the checkout's filesystem cannot execute compiled files, set `CARGO_TARGET_DIR=/dev/shm/zoe-pala` before building and launching.
+Recovery requires an explicitly authorized source and a separate output destination: `zoe pala source.img /separate/output --json`. PALA opens sources read-only and never overwrites existing recoveries. For historical research, `zoe chat --command "import-pala /separate/report.json"` validates report metadata and finding hashes without scanning or reading recovered contents. See the [operator guide](components/PALA/docs/operations.md) before using raw devices. If the checkout's filesystem cannot execute compiled files, set `CARGO_TARGET_DIR=/dev/shm/zoe-pala` before building and launching.
 
 ## Seventeen engines, one registry
 
