@@ -172,7 +172,7 @@
   </g>
   <g data-object-id="component-zoe">
     <title>component-zoe</title>
-    <rect x="40.0" y="294.0" width="240.0" height="181.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
+    <rect x="40.0" y="294.0" width="300.0" height="181.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-0">
     <title>component-icon-0</title>
@@ -184,11 +184,11 @@
   </g>
   <g data-object-id="component-summary-0">
     <title>component-summary-0</title>
-    <text x="56.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Cognitive Field, Bayesian memor…</text>
+    <text x="56.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Cognitive Field, Bayesian memory, geome…</text>
   </g>
   <g data-object-id="component-summary-2-0">
     <title>component-summary-2-0</title>
-    <text x="56.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">, geometry, and unified hub</text>
+    <text x="56.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ry, and unified hub</text>
   </g>
   <g data-object-id="component-command-0">
     <title>component-command-0</title>
@@ -204,483 +204,483 @@
   </g>
   <g data-object-id="component-cern-console">
     <title>component-cern-console</title>
-    <rect x="308.0" y="294.0" width="240.0" height="181.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
+    <rect x="380.0" y="294.0" width="300.0" height="181.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-1">
     <title>component-icon-1</title>
-    <ellipse cx="333.0" cy="325.0" rx="8.0" ry="8.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
+    <ellipse cx="405.0" cy="325.0" rx="8.0" ry="8.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-1">
     <title>component-title-1</title>
-    <text x="351.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">Zoe CERN Workbench</text>
+    <text x="423.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">Zoe CERN Workbench</text>
   </g>
   <g data-object-id="component-summary-1">
     <title>component-summary-1</title>
-    <text x="324.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">CERN corpus, HELIOS virtual col…</text>
+    <text x="396.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">CERN corpus, HELIOS virtual collider, A…</text>
   </g>
   <g data-object-id="component-summary-2-1">
     <title>component-summary-2-1</title>
-    <text x="324.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ider, Atelier input lab, and op…</text>
+    <text x="396.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">elier input lab, and opt-in system driv…</text>
   </g>
   <g data-object-id="component-command-1">
     <title>component-command-1</title>
-    <text x="324.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch cern-console</text>
+    <text x="396.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch cern-console</text>
   </g>
   <g data-object-id="component-status-1">
     <title>component-status-1</title>
-    <text x="324.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">zoe · source present</text>
+    <text x="396.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">zoe · source present</text>
   </g>
   <g data-object-id="component-revision-1">
     <title>component-revision-1</title>
-    <text x="324.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
+    <text x="396.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
   </g>
   <g data-object-id="component-ablation">
     <title>component-ablation</title>
-    <rect x="576.0" y="294.0" width="240.0" height="181.0" fill="#101b2b" stroke="#f0abfc" stroke-width="2.0" />
+    <rect x="720.0" y="294.0" width="300.0" height="181.0" fill="#101b2b" stroke="#f0abfc" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-2">
     <title>component-icon-2</title>
-    <ellipse cx="601.0" cy="325.0" rx="8.0" ry="8.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
+    <ellipse cx="745.0" cy="325.0" rx="8.0" ry="8.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-2">
     <title>component-title-2</title>
-    <text x="619.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#f0abfc">Ablation core engine</text>
+    <text x="763.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#f0abfc">Ablation core engine</text>
   </g>
   <g data-object-id="component-summary-2">
     <title>component-summary-2</title>
-    <text x="592.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Complete AIARE framework, analy…</text>
+    <text x="736.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Complete AIARE framework, analyzers, pa…</text>
   </g>
   <g data-object-id="component-summary-2-2">
     <title>component-summary-2-2</title>
-    <text x="592.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ers, parsers, modules, and core…</text>
+    <text x="736.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">sers, modules, and core CLI</text>
   </g>
   <g data-object-id="component-command-2">
     <title>component-command-2</title>
-    <text x="592.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch ablation</text>
+    <text x="736.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch ablation</text>
   </g>
   <g data-object-id="component-status-2">
     <title>component-status-2</title>
-    <text x="592.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="736.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-2">
     <title>component-revision-2</title>
-    <text x="592.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream fa8377ea5fa0</text>
+    <text x="736.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream fa8377ea5fa0</text>
   </g>
   <g data-object-id="component-gem-lab">
     <title>component-gem-lab</title>
-    <rect x="844.0" y="294.0" width="240.0" height="181.0" fill="#101b2b" stroke="#86efac" stroke-width="2.0" />
+    <rect x="1060.0" y="294.0" width="300.0" height="181.0" fill="#101b2b" stroke="#86efac" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-3">
     <title>component-icon-3</title>
-    <ellipse cx="869.0" cy="325.0" rx="8.0" ry="8.0" fill="#86efac" stroke="#86efac" stroke-width="1.0" />
+    <ellipse cx="1085.0" cy="325.0" rx="8.0" ry="8.0" fill="#86efac" stroke="#86efac" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-3">
     <title>component-title-3</title>
-    <text x="887.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#86efac">Ablation GEM Lab</text>
+    <text x="1103.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#86efac">Ablation GEM Lab</text>
   </g>
   <g data-object-id="component-summary-3">
     <title>component-summary-3</title>
-    <text x="860.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Default native investigation GU…</text>
+    <text x="1076.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Default native investigation GUI and sh…</text>
   </g>
   <g data-object-id="component-summary-2-3">
     <title>component-summary-2-3</title>
-    <text x="860.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee"> and shared Lab evidence protoc…</text>
+    <text x="1076.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">red Lab evidence protocol</text>
   </g>
   <g data-object-id="component-command-3">
     <title>component-command-3</title>
-    <text x="860.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch gem-lab</text>
+    <text x="1076.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch gem-lab</text>
   </g>
   <g data-object-id="component-status-3">
     <title>component-status-3</title>
-    <text x="860.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="1076.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-3">
     <title>component-revision-3</title>
-    <text x="860.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream fa8377ea5fa0</text>
+    <text x="1076.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream fa8377ea5fa0</text>
   </g>
   <g data-object-id="component-gem">
     <title>component-gem</title>
-    <rect x="1112.0" y="294.0" width="240.0" height="181.0" fill="#101b2b" stroke="#fda4af" stroke-width="2.0" />
+    <rect x="40.0" y="496.0" width="300.0" height="181.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-4">
     <title>component-icon-4</title>
-    <ellipse cx="1137.0" cy="325.0" rx="8.0" ry="8.0" fill="#fda4af" stroke="#fda4af" stroke-width="1.0" />
+    <ellipse cx="65.0" cy="527.0" rx="8.0" ry="8.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-4">
     <title>component-title-4</title>
-    <text x="1155.0" y="331.0" font-family="sans-serif" font-size="17.0" fill="#fda4af">Canonical GEM</text>
+    <text x="83.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#67e8f9">Canonical GEM</text>
   </g>
   <g data-object-id="component-summary-4">
     <title>component-summary-4</title>
-    <text x="1128.0" y="366.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Native workbench, mirrored brai…</text>
+    <text x="56.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Native workbench, mirrored brain, geome…</text>
   </g>
   <g data-object-id="component-summary-2-4">
     <title>component-summary-2-4</title>
-    <text x="1128.0" y="385.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">, geometry, Spatial IR, and VDI</text>
+    <text x="56.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ry, Spatial IR, and VDI</text>
   </g>
   <g data-object-id="component-command-4">
     <title>component-command-4</title>
-    <text x="1128.0" y="419.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch gem</text>
+    <text x="56.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch gem</text>
   </g>
   <g data-object-id="component-status-4">
     <title>component-status-4</title>
-    <text x="1128.0" y="445.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="56.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-4">
     <title>component-revision-4</title>
-    <text x="1128.0" y="464.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 0ab35bffa045</text>
+    <text x="56.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 0ab35bffa045</text>
   </g>
   <g data-object-id="component-helen">
     <title>component-helen</title>
-    <rect x="40.0" y="496.0" width="240.0" height="181.0" fill="#101b2b" stroke="#93c5fd" stroke-width="2.0" />
+    <rect x="380.0" y="496.0" width="300.0" height="181.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-5">
     <title>component-icon-5</title>
-    <ellipse cx="65.0" cy="527.0" rx="8.0" ry="8.0" fill="#93c5fd" stroke="#93c5fd" stroke-width="1.0" />
+    <ellipse cx="405.0" cy="527.0" rx="8.0" ry="8.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-5">
     <title>component-title-5</title>
-    <text x="83.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#93c5fd">GEM HELEN</text>
+    <text x="423.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">GEM HELEN</text>
   </g>
   <g data-object-id="component-summary-5">
     <title>component-summary-5</title>
-    <text x="56.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Optimized geometry, rhythm, and…</text>
+    <text x="396.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Optimized geometry, rhythm, and forecas…</text>
   </g>
   <g data-object-id="component-summary-2-5">
     <title>component-summary-2-5</title>
-    <text x="56.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">forecast laboratory</text>
+    <text x="396.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee"> laboratory</text>
   </g>
   <g data-object-id="component-command-5">
     <title>component-command-5</title>
-    <text x="56.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch helen</text>
+    <text x="396.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch helen</text>
   </g>
   <g data-object-id="component-status-5">
     <title>component-status-5</title>
-    <text x="56.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="396.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-5">
     <title>component-revision-5</title>
-    <text x="56.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 273c4eeb6fd6</text>
+    <text x="396.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 273c4eeb6fd6</text>
   </g>
   <g data-object-id="component-brain">
     <title>component-brain</title>
-    <rect x="308.0" y="496.0" width="240.0" height="181.0" fill="#101b2b" stroke="#fdba74" stroke-width="2.0" />
+    <rect x="720.0" y="496.0" width="300.0" height="181.0" fill="#101b2b" stroke="#f0abfc" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-6">
     <title>component-icon-6</title>
-    <ellipse cx="333.0" cy="527.0" rx="8.0" ry="8.0" fill="#fdba74" stroke="#fdba74" stroke-width="1.0" />
+    <ellipse cx="745.0" cy="527.0" rx="8.0" ry="8.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-6">
     <title>component-title-6</title>
-    <text x="351.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#fdba74">BRAIN GEM</text>
+    <text x="763.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#f0abfc">BRAIN GEM</text>
   </g>
   <g data-object-id="component-summary-6">
     <title>component-summary-6</title>
-    <text x="324.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Standalone Bayesian field noteb…</text>
+    <text x="736.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Standalone Bayesian field notebook and …</text>
   </g>
   <g data-object-id="component-summary-2-6">
     <title>component-summary-2-6</title>
-    <text x="324.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ok and chambered memory</text>
+    <text x="736.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">hambered memory</text>
   </g>
   <g data-object-id="component-command-6">
     <title>component-command-6</title>
-    <text x="324.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch brain</text>
+    <text x="736.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch brain</text>
   </g>
   <g data-object-id="component-status-6">
     <title>component-status-6</title>
-    <text x="324.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="736.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-6">
     <title>component-revision-6</title>
-    <text x="324.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 7420a8f0d8d2</text>
+    <text x="736.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 7420a8f0d8d2</text>
   </g>
   <g data-object-id="component-hpux-tools">
     <title>component-hpux-tools</title>
-    <rect x="576.0" y="496.0" width="240.0" height="181.0" fill="#101b2b" stroke="#c4b5fd" stroke-width="2.0" />
+    <rect x="1060.0" y="496.0" width="300.0" height="181.0" fill="#101b2b" stroke="#86efac" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-7">
     <title>component-icon-7</title>
-    <ellipse cx="601.0" cy="527.0" rx="8.0" ry="8.0" fill="#c4b5fd" stroke="#c4b5fd" stroke-width="1.0" />
+    <ellipse cx="1085.0" cy="527.0" rx="8.0" ry="8.0" fill="#86efac" stroke="#86efac" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-7">
     <title>component-title-7</title>
-    <text x="619.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#c4b5fd">HP-UX Tools</text>
+    <text x="1103.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#86efac">HP-UX Tools</text>
   </g>
   <g data-object-id="component-summary-7">
     <title>component-summary-7</title>
-    <text x="592.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Zoe-managed HP-UX SOM debugging…</text>
+    <text x="1076.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Zoe-managed HP-UX SOM debugging and PA-…</text>
   </g>
   <g data-object-id="component-summary-2-7">
     <title>component-summary-2-7</title>
-    <text x="592.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">and PA-RISC emulation</text>
+    <text x="1076.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ISC emulation</text>
   </g>
   <g data-object-id="component-command-7">
     <title>component-command-7</title>
-    <text x="592.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch hpux-tools</text>
+    <text x="1076.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch hpux-tools</text>
   </g>
   <g data-object-id="component-status-7">
     <title>component-status-7</title>
-    <text x="592.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="1076.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-7">
     <title>component-revision-7</title>
-    <text x="592.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
+    <text x="1076.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
   </g>
   <g data-object-id="component-life">
     <title>component-life</title>
-    <rect x="844.0" y="496.0" width="240.0" height="181.0" fill="#101b2b" stroke="#a7f3d0" stroke-width="2.0" />
+    <rect x="40.0" y="698.0" width="300.0" height="181.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-8">
     <title>component-icon-8</title>
-    <ellipse cx="869.0" cy="527.0" rx="8.0" ry="8.0" fill="#a7f3d0" stroke="#a7f3d0" stroke-width="1.0" />
+    <ellipse cx="65.0" cy="729.0" rx="8.0" ry="8.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-8">
     <title>component-title-8</title>
-    <text x="887.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#a7f3d0">Zoe Life</text>
+    <text x="83.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#67e8f9">Zoe Life</text>
   </g>
   <g data-object-id="component-summary-8">
     <title>component-summary-8</title>
-    <text x="860.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Conway's Game of Life, cellular…</text>
+    <text x="56.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Conway's Game of Life, cellular automat…</text>
   </g>
   <g data-object-id="component-summary-2-8">
     <title>component-summary-2-8</title>
-    <text x="860.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">automata, and reproducible scen…</text>
+    <text x="56.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">, and reproducible scenes</text>
   </g>
   <g data-object-id="component-command-8">
     <title>component-command-8</title>
-    <text x="860.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch life</text>
+    <text x="56.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch life</text>
   </g>
   <g data-object-id="component-status-8">
     <title>component-status-8</title>
-    <text x="860.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">zoe · source present</text>
+    <text x="56.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">zoe · source present</text>
   </g>
   <g data-object-id="component-revision-8">
     <title>component-revision-8</title>
-    <text x="860.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
+    <text x="56.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
   </g>
   <g data-object-id="component-cerotto">
     <title>component-cerotto</title>
-    <rect x="1112.0" y="496.0" width="240.0" height="181.0" fill="#101b2b" stroke="#f9a8d4" stroke-width="2.0" />
+    <rect x="380.0" y="698.0" width="300.0" height="181.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-9">
     <title>component-icon-9</title>
-    <ellipse cx="1137.0" cy="527.0" rx="8.0" ry="8.0" fill="#f9a8d4" stroke="#f9a8d4" stroke-width="1.0" />
+    <ellipse cx="405.0" cy="729.0" rx="8.0" ry="8.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-9">
     <title>component-title-9</title>
-    <text x="1155.0" y="533.0" font-family="sans-serif" font-size="17.0" fill="#f9a8d4">Cerotto GEM</text>
+    <text x="423.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">Cerotto GEM</text>
   </g>
   <g data-object-id="component-summary-9">
     <title>component-summary-9</title>
-    <text x="1128.0" y="568.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Guarded forensic cases, native …</text>
+    <text x="396.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Guarded forensic cases, native C engine…</text>
   </g>
   <g data-object-id="component-summary-2-9">
     <title>component-summary-2-9</title>
-    <text x="1128.0" y="587.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee"> engine, timelines, and vault e…</text>
+    <text x="396.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee"> timelines, and vault evidence</text>
   </g>
   <g data-object-id="component-command-9">
     <title>component-command-9</title>
-    <text x="1128.0" y="621.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch cerotto</text>
+    <text x="396.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch cerotto</text>
   </g>
   <g data-object-id="component-status-9">
     <title>component-status-9</title>
-    <text x="1128.0" y="647.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="396.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-9">
     <title>component-revision-9</title>
-    <text x="1128.0" y="666.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream b73d399b638b</text>
+    <text x="396.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream b73d399b638b</text>
   </g>
   <g data-object-id="component-research">
     <title>component-research</title>
-    <rect x="40.0" y="698.0" width="240.0" height="181.0" fill="#101b2b" stroke="#d9f99d" stroke-width="2.0" />
+    <rect x="720.0" y="698.0" width="300.0" height="181.0" fill="#101b2b" stroke="#f0abfc" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-10">
     <title>component-icon-10</title>
-    <ellipse cx="65.0" cy="729.0" rx="8.0" ry="8.0" fill="#d9f99d" stroke="#d9f99d" stroke-width="1.0" />
+    <ellipse cx="745.0" cy="729.0" rx="8.0" ry="8.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-10">
     <title>component-title-10</title>
-    <text x="83.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#d9f99d">Research GEM</text>
+    <text x="763.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#f0abfc">Research GEM</text>
   </g>
   <g data-object-id="component-summary-10">
     <title>component-summary-10</title>
-    <text x="56.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Accessible-volume research, evi…</text>
+    <text x="736.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Accessible-volume research, evidence pa…</text>
   </g>
   <g data-object-id="component-summary-2-10">
     <title>component-summary-2-10</title>
-    <text x="56.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ence packs, and mirrored workbe…</text>
+    <text x="736.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ks, and mirrored workbench</text>
   </g>
   <g data-object-id="component-command-10">
     <title>component-command-10</title>
-    <text x="56.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch research</text>
+    <text x="736.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch research</text>
   </g>
   <g data-object-id="component-status-10">
     <title>component-status-10</title>
-    <text x="56.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="736.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-10">
     <title>component-revision-10</title>
-    <text x="56.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 79575d94325a</text>
+    <text x="736.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 79575d94325a</text>
   </g>
   <g data-object-id="component-autonomy">
     <title>component-autonomy</title>
-    <rect x="308.0" y="698.0" width="240.0" height="181.0" fill="#101b2b" stroke="#e7d6ad" stroke-width="2.0" />
+    <rect x="1060.0" y="698.0" width="300.0" height="181.0" fill="#101b2b" stroke="#86efac" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-11">
     <title>component-icon-11</title>
-    <ellipse cx="333.0" cy="729.0" rx="8.0" ry="8.0" fill="#e7d6ad" stroke="#e7d6ad" stroke-width="1.0" />
+    <ellipse cx="1085.0" cy="729.0" rx="8.0" ry="8.0" fill="#86efac" stroke="#86efac" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-11">
     <title>component-title-11</title>
-    <text x="351.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#e7d6ad">Zoe Autonomy</text>
+    <text x="1103.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#86efac">Zoe Autonomy</text>
   </g>
   <g data-object-id="component-summary-11">
     <title>component-summary-11</title>
-    <text x="324.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Full self-governing decisions, …</text>
+    <text x="1076.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Full self-governing decisions, measured…</text>
   </g>
   <g data-object-id="component-summary-2-11">
     <title>component-summary-2-11</title>
-    <text x="324.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">easured self-reflection, soroba…</text>
+    <text x="1076.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">self-reflection, soroban working memory…</text>
   </g>
   <g data-object-id="component-command-11">
     <title>component-command-11</title>
-    <text x="324.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch autonomy</text>
+    <text x="1076.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch autonomy</text>
   </g>
   <g data-object-id="component-status-11">
     <title>component-status-11</title>
-    <text x="324.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="1076.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-11">
     <title>component-revision-11</title>
-    <text x="324.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 0b6b8da9986c</text>
+    <text x="1076.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 0b6b8da9986c</text>
   </g>
   <g data-object-id="component-kevlar">
     <title>component-kevlar</title>
-    <rect x="576.0" y="698.0" width="240.0" height="181.0" fill="#101b2b" stroke="#fef08a" stroke-width="2.0" />
+    <rect x="40.0" y="900.0" width="300.0" height="181.0" fill="#101b2b" stroke="#67e8f9" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-12">
     <title>component-icon-12</title>
-    <ellipse cx="601.0" cy="729.0" rx="8.0" ry="8.0" fill="#fef08a" stroke="#fef08a" stroke-width="1.0" />
+    <ellipse cx="65.0" cy="931.0" rx="8.0" ry="8.0" fill="#67e8f9" stroke="#67e8f9" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-12">
     <title>component-title-12</title>
-    <text x="619.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#fef08a">Kevlar MCP firewall</text>
+    <text x="83.0" y="937.0" font-family="sans-serif" font-size="17.0" fill="#67e8f9">Kevlar MCP firewall</text>
   </g>
   <g data-object-id="component-summary-12">
     <title>component-summary-12</title>
-    <text x="592.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">MCP proxy firewall, content dis…</text>
+    <text x="56.0" y="972.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">MCP proxy firewall, content disarm, pol…</text>
   </g>
   <g data-object-id="component-summary-2-12">
     <title>component-summary-2-12</title>
-    <text x="592.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">rm, policy enforcement, and aud…</text>
+    <text x="56.0" y="991.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">cy enforcement, and audit evidence</text>
   </g>
   <g data-object-id="component-command-12">
     <title>component-command-12</title>
-    <text x="592.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch kevlar</text>
+    <text x="56.0" y="1025.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch kevlar</text>
   </g>
   <g data-object-id="component-status-12">
     <title>component-status-12</title>
-    <text x="592.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="56.0" y="1051.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-12">
     <title>component-revision-12</title>
-    <text x="592.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 8ac3e0181e98</text>
+    <text x="56.0" y="1070.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 8ac3e0181e98</text>
   </g>
   <g data-object-id="component-pdf">
     <title>component-pdf</title>
-    <rect x="844.0" y="698.0" width="240.0" height="181.0" fill="#101b2b" stroke="#facc15" stroke-width="2.0" />
+    <rect x="380.0" y="900.0" width="300.0" height="181.0" fill="#101b2b" stroke="#fde68a" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-13">
     <title>component-icon-13</title>
-    <ellipse cx="869.0" cy="729.0" rx="8.0" ry="8.0" fill="#facc15" stroke="#facc15" stroke-width="1.0" />
+    <ellipse cx="405.0" cy="931.0" rx="8.0" ry="8.0" fill="#fde68a" stroke="#fde68a" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-13">
     <title>component-title-13</title>
-    <text x="887.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#facc15">PDF Signature Toolkit</text>
+    <text x="423.0" y="937.0" font-family="sans-serif" font-size="17.0" fill="#fde68a">PDF Signature Toolkit</text>
   </g>
   <g data-object-id="component-summary-13">
     <title>component-summary-13</title>
-    <text x="860.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Reproducible source integrity r…</text>
+    <text x="396.0" y="972.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Reproducible source integrity records a…</text>
   </g>
   <g data-object-id="component-summary-2-13">
     <title>component-summary-2-13</title>
-    <text x="860.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">cords and detached PDF signatur…</text>
+    <text x="396.0" y="991.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">d detached PDF signatures</text>
   </g>
   <g data-object-id="component-command-13">
     <title>component-command-13</title>
-    <text x="860.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch pdf</text>
+    <text x="396.0" y="1025.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe launch pdf</text>
   </g>
   <g data-object-id="component-status-13">
     <title>component-status-13</title>
-    <text x="860.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="396.0" y="1051.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-13">
     <title>component-revision-13</title>
-    <text x="860.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 119816596295</text>
+    <text x="396.0" y="1070.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 119816596295</text>
   </g>
   <g data-object-id="component-neurogarden">
     <title>component-neurogarden</title>
-    <rect x="1112.0" y="698.0" width="240.0" height="181.0" fill="#101b2b" stroke="#a5f3fc" stroke-width="2.0" />
+    <rect x="720.0" y="900.0" width="300.0" height="181.0" fill="#101b2b" stroke="#f0abfc" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-14">
     <title>component-icon-14</title>
-    <ellipse cx="1137.0" cy="729.0" rx="8.0" ry="8.0" fill="#a5f3fc" stroke="#a5f3fc" stroke-width="1.0" />
+    <ellipse cx="745.0" cy="931.0" rx="8.0" ry="8.0" fill="#f0abfc" stroke="#f0abfc" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-14">
     <title>component-title-14</title>
-    <text x="1155.0" y="735.0" font-family="sans-serif" font-size="17.0" fill="#a5f3fc">Neurogarden Agent Log…</text>
+    <text x="763.0" y="937.0" font-family="sans-serif" font-size="17.0" fill="#f0abfc">Neurogarden Agent Logging</text>
   </g>
   <g data-object-id="component-summary-14">
     <title>component-summary-14</title>
-    <text x="1128.0" y="770.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">OT-inspired oversight, Trinity …</text>
+    <text x="736.0" y="972.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">OT-inspired oversight, Trinity verifica…</text>
   </g>
   <g data-object-id="component-summary-2-14">
     <title>component-summary-2-14</title>
-    <text x="1128.0" y="789.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">erification, cited learning, an…</text>
+    <text x="736.0" y="991.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">ion, cited learning, and teaching tools</text>
   </g>
   <g data-object-id="component-command-14">
     <title>component-command-14</title>
-    <text x="1128.0" y="823.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe show neurogarden</text>
+    <text x="736.0" y="1025.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe show neurogarden</text>
   </g>
   <g data-object-id="component-status-14">
     <title>component-status-14</title>
-    <text x="1128.0" y="849.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="736.0" y="1051.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-14">
     <title>component-revision-14</title>
-    <text x="1128.0" y="868.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
+    <text x="736.0" y="1070.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream Zoe baseline</text>
   </g>
   <g data-object-id="component-chalkboard">
     <title>component-chalkboard</title>
-    <rect x="40.0" y="900.0" width="240.0" height="181.0" fill="#101b2b" stroke="#f0fdfa" stroke-width="2.0" />
+    <rect x="1060.0" y="900.0" width="300.0" height="181.0" fill="#101b2b" stroke="#86efac" stroke-width="2.0" />
   </g>
   <g data-object-id="component-icon-15">
     <title>component-icon-15</title>
-    <ellipse cx="65.0" cy="931.0" rx="8.0" ry="8.0" fill="#f0fdfa" stroke="#f0fdfa" stroke-width="1.0" />
+    <ellipse cx="1085.0" cy="931.0" rx="8.0" ry="8.0" fill="#86efac" stroke="#86efac" stroke-width="1.0" />
   </g>
   <g data-object-id="component-title-15">
     <title>component-title-15</title>
-    <text x="83.0" y="937.0" font-family="sans-serif" font-size="17.0" fill="#f0fdfa">Chalkboard library</text>
+    <text x="1103.0" y="937.0" font-family="sans-serif" font-size="17.0" fill="#86efac">Chalkboard library</text>
   </g>
   <g data-object-id="component-summary-15">
     <title>component-summary-15</title>
-    <text x="56.0" y="972.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Reusable ideas, templates, and …</text>
+    <text x="1076.0" y="972.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">Reusable ideas, templates, and prompts …</text>
   </g>
   <g data-object-id="component-summary-2-15">
     <title>component-summary-2-15</title>
-    <text x="56.0" y="991.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">rompts for knowledge engineering</text>
+    <text x="1076.0" y="991.0" font-family="sans-serif" font-size="11.0" fill="#d8e2ee">or knowledge engineering</text>
   </g>
   <g data-object-id="component-command-15">
     <title>component-command-15</title>
-    <text x="56.0" y="1025.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe show chalkboard</text>
+    <text x="1076.0" y="1025.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">zoe show chalkboard</text>
   </g>
   <g data-object-id="component-status-15">
     <title>component-status-15</title>
-    <text x="56.0" y="1051.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
+    <text x="1076.0" y="1051.0" font-family="sans-serif" font-size="11.0" fill="#86efac">bundled · source present</text>
   </g>
   <g data-object-id="component-revision-15">
     <title>component-revision-15</title>
-    <text x="56.0" y="1070.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 63646eb15737</text>
+    <text x="1076.0" y="1070.0" font-family="sans-serif" font-size="9.0" fill="#64748b">upstream 63646eb15737</text>
   </g>
   <g data-object-id="unified-memory">
     <title>unified-memory</title>
