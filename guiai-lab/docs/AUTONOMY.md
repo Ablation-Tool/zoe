@@ -36,6 +36,27 @@ PYTHONPATH=guiai-lab python -m guiai.gem.cli zoe \
 
 The wrappers locate `components/Zoe-Autonomy/src`, set `ZOE_ROOT`, and run the actual Zoe source files. No model download, API key, network request, hardware operation, or external action is used.
 
+## Shared visual perception
+
+Every canonical report now includes `visual_perception`: 42 multiscale saliency maps, competitive normalization, a winner-selected scanpath with inhibition of return, and exact Dijkstra paths over the unchanged pre-inhibition field. The canonical GEM revision and saliency-source SHA-256 are recorded in each report. The default is a documented synthetic RGB pop-out.
+
+```bash
+PYTHONPATH=guiai-lab zoe autonomy run \
+  --image /path/to/image.jpg --foci 4 --output visual-perception.json
+PYTHONPATH=guiai-lab zoe autonomy verify visual-perception.json
+```
+
+The `perception` optional dependency set in Zoe-Autonomy supplies NumPy and Pillow. Verification recomputes the visual field and checks its source and image hashes. No live camera is accessed. See the [canonical visual equations](../../components/graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image report](../../evidence/autonomy/visual-perception.json), and [replay verification](../../evidence/autonomy/visual-verification.json).
+
+The complete host set can be checked with a real image:
+
+```bash
+python scripts/verify-one-system.py --workspace /path/to/workspace \
+  --image /path/to/image.jpg --foci 4
+```
+
+Every host must produce the same 42 maps and attention report and pass replay verification. The [preserved six-host visual result](../../evidence/one-system/visual-verification.json) uses the public Vivotek sample without redistributing the image.
+
 ## The native loop
 
 ```text

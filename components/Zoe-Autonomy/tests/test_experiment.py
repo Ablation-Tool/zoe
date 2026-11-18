@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -9,6 +10,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from types import ModuleType
+from unittest import mock
 
 from zoe_autonomy.cli import main
 from zoe_autonomy.experiment import run_experiment, save_report, verify_report
@@ -17,6 +20,12 @@ from zoe_autonomy.loop import digest
 
 
 ZOE_ROOT = Path(os.environ.get("ZOE_ROOT", ""))
+
+try:
+    from PIL import Image, ImageDraw
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
 
 
 @unittest.skipUnless(ZOE_ROOT.is_dir() and (ZOE_ROOT / "guiai-lab").is_dir(), "set ZOE_ROOT to a Zoe checkout")
@@ -46,6 +55,47 @@ class ExperimentCase(unittest.TestCase):
         self.assertEqual(len(report["zoe_observations"]["brain_probes"]), 4)
         self.assertEqual(report["controls"]["proposal_only"]["accessible_volume"], autonomy["accessible_volume"])
         self.assertEqual(report["controls"]["proposal_only"]["classification"], "proposal_level_bounded_agency")
+        visual = report["visual_perception"]
+        self.assertEqual(visual["saliency"]["feature_map_counts"]["total"], 42)
+        self.assertEqual(len(visual["saliency"]["scanpath"]), 4)
+        self.assertEqual(visual["saliency"]["source"]["kind"], "documented_synthetic_rgb_popout")
+        self.assertEqual(len(visual["locked_revision"]), 40)
+        self.assertEqual(len(visual["source_sha256"]["gem/saliency_cognition.py"]), 64)
+        with mock.patch.dict(sys.modules, {"gem": ModuleType("gem")}):
+            self.assertEqual(run_experiment(ZOE_ROOT)["visual_perception"], visual)
+
+    @unittest.skipUnless(HAS_PIL, "visual image-file test requires Pillow")
+    def test_visual_perception_real_image_and_replay(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            image_path = root / "popout.png"
+            image = Image.new("RGB", (64, 64), (20, 20, 20))
+            draw = ImageDraw.Draw(image)
+            draw.rectangle((44, 12, 51, 19), fill=(230, 230, 230))
+            draw.rectangle((12, 44, 19, 51), fill=(20, 20, 210))
+            image.save(image_path)
+            report = run_experiment(ZOE_ROOT, image_path=image_path, attention_steps=2)
+            self.assertEqual(report, run_experiment(ZOE_ROOT, image_path=image_path, attention_steps=2))
+            visual = report["visual_perception"]["saliency"]
+            self.assertEqual(visual["feature_map_counts"]["total"], 42)
+            self.assertEqual(len(visual["scanpath"]), 2)
+            self.assertEqual(visual["source"]["path"], str(image_path))
+            self.assertEqual(visual["source"]["sha256"], hashlib.sha256(image_path.read_bytes()).hexdigest())
+            self.assertFalse(visual["source"]["live_camera"])
+            path = root / "visual.json"
+            save_report(report, path)
+            verification = verify_report(path, ZOE_ROOT)
+            self.assertEqual(verification["visual_feature_maps"], 42)
+            self.assertEqual(verification["visual_foci"], 2)
+            self.assertFalse(verification["visual_live_camera"])
+            cli_path = root / "visual-cli.json"
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(main([
+                    "--zoe-root", str(ZOE_ROOT), "run", "--image", str(image_path),
+                    "--foci", "2", "--output", str(cli_path),
+                ]), 0)
+                self.assertEqual(main(["--zoe-root", str(ZOE_ROOT), "verify", str(cli_path)]), 0)
+            self.assertEqual(json.loads(cli_path.read_text(encoding="utf-8")), report)
 
     def test_standalone_cli_configures_native_zoe_path(self):
         root = Path(__file__).resolve().parents[1]

@@ -20,6 +20,17 @@ The native wrappers set `ZOE_ROOT` and add this component's `src/` directory to 
 
 Full autonomy applies to Zoe's decision and state-transition loop. The base experiment performs zero host, network, hardware, or agent-driven filesystem actions. A separate local-owner grant enables all three actuation scopes on this computer. See [ACTUATION.md](ACTUATION.md), the [enabled grant evidence](../../evidence/actuation/owner-grant-status.json), and the [real host and internet receipts](../../evidence/actuation/verification.json). Physical hardware was not exercised; hardware evidence uses a virtual PTY.
 
+## Shared visual perception
+
+Every report includes the canonical GEM saliency field: 42 feature maps, competitive normalization, inhibition of return, and exact Dijkstra attention paths. The default is a documented synthetic RGB pop-out. Real image files are supported directly through the canonical command:
+
+```bash
+zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json
+zoe-autonomy verify visual-perception.json
+```
+
+The report records the canonical GEM revision, saliency-source SHA-256, image SHA-256, and all selected foci. Replay recomputes the complete visual field. No live camera is accessed. See the [visual equations](../graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image evidence](../../evidence/autonomy/visual-perception.json), and [six-host replay result](../../evidence/one-system/visual-verification.json).
+
 ## Canonical paper and upstream evidence
 
 - [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)

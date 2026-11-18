@@ -1,0 +1,39 @@
+{
+  "classification": "full_autonomy",
+  "contract": "zoe-autonomy/v1",
+  "external_actions": 0,
+  "host_count": 6,
+  "hosts": [
+    "engine",
+    "canonical-gem",
+    "brain-gem",
+    "gem-helen",
+    "ablation-gem",
+    "cerotto-gem"
+  ],
+  "identical_canonical_profiles": true,
+  "internal_goal_authorship": true,
+  "operator_approval_required": false,
+  "profile_sha256": "fb3dbe7885478d132cfb97e3ff7bf8b1d2085a49fe6e7e07bd8b2109d4a8dc5e",
+  "revisions": {
+    "ablation-gem": "d405b6866fbfe2f66d6595fb11d5302e42f009c9",
+    "brain-gem": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
+    "canonical-gem": "4e1a7ac34aa96c707a52cf8dc9044464b3fa688b",
+    "cerotto-gem": "b73d399b638b4de8a0a9829b17c95203c5deaabd",
+    "engine": "bd8fa12bda3ed116a09775081684d1b79088372b",
+    "gem-helen": "273c4eeb6fd6044f1ab9068561ddc33290357eed",
+    "research": "79575d94325a43b5dbbef17d38bc1cb1d56d9321"
+  },
+  "sandbox_executed": true,
+  "schema_version": 1,
+  "system": "Zoe One",
+  "verified": true,
+  "visual_perception": {
+    "feature_maps": 42,
+    "foci": 4,
+    "image_sha256": "e501a270fc29387ae58755eb359a8d4e3607afacb5bd956c6391bea8437a3a7d",
+    "live_camera": false,
+    "replay_verified": true,
+    "source_kind": "image_file"
+  }
+}
