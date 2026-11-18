@@ -38,6 +38,9 @@ def parser():
     agents.add_argument("arguments", nargs=argparse.REMAINDER)
     capabilities = commands.add_parser("capabilities", help="use the unified Zoe capability pack")
     capabilities.add_argument("arguments", nargs=argparse.REMAINDER)
+    chat = commands.add_parser("chat", help="talk with Zoe through evidence, memory, autonomy, and metacognition")
+    chat.add_argument("--state", help="persistent chat state directory; default: ZOE_CHAT_STATE or ~/.zoe/chat")
+    chat.add_argument("--command", dest="chat_command", help="process one chat command or question, then exit")
     step = commands.add_parser("step", help="let Zoe author a goal and select and execute a capability without operator selection")
     step.add_argument("--state", help="autonomous state directory; default: ZOE_AUTONOMY_STATE or ~/.zoe/autonomy")
     step.add_argument("--output", help="new JSON decision evidence path")
@@ -124,6 +127,16 @@ def main(argv=None):
 
             print(json.dumps(verify_reflection(arguments.report, arguments.zoe_root), ensure_ascii=False, indent=2, sort_keys=True))
             return 0
+        if arguments.command == "chat":
+            from .chat import main as chat_main
+            forwarded = []
+            if arguments.zoe_root:
+                forwarded.extend(["--zoe-root", arguments.zoe_root])
+            if arguments.state:
+                forwarded.extend(["--state", arguments.state])
+            if arguments.chat_command:
+                forwarded.extend(["--command", arguments.chat_command])
+            return chat_main(forwarded)
         if arguments.command == "step":
             from .autonomous import run_step, save_step_report, step_summary
             report = run_step(arguments.state)

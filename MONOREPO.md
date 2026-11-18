@@ -102,7 +102,7 @@ No redundant repository is considered safe to delete until:
 2. A fresh clone on the research drive completes successfully.
 3. All imported revisions are ancestors of that clone's history.
 4. Required source, paper, archive, and evidence paths exist.
-5. Six-host autonomy, reflection, event-causal, semantic, native, component, and PALA recovery checks pass at their declared scopes.
+5. Six-host autonomy, reflection, event-causal, semantic, native, component, PALA recovery, and no-monitor chat checks pass at their declared scopes.
 6. Local-only checkouts are audited for unmerged commits and uncommitted work.
 7. The deletion list explicitly excludes `zoe`, `ablation`, and the local PALA recovery source.
 

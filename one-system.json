@@ -229,7 +229,7 @@
     "command": "python scripts/verify-one-system.py",
     "single_checkout": true,
     "imported_revisions_checked_as_git_ancestors": true,
-    "requirements": "Every host resolves inside the unified Zoe checkout, invokes the canonical engine, and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence. PALA's imported revision is always checked. --pala additionally verifies formatting, strict Clippy, locked Rust tests, a release build, the synthetic recovery suite, and the real zoe pala interface."
+    "requirements": "Every host resolves inside the unified Zoe checkout, invokes the canonical engine, and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence. PALA's imported revision is always checked. --pala additionally verifies formatting, strict Clippy, locked Rust tests, a release build, the synthetic recovery suite, and the real zoe pala interface. --chat additionally verifies the real conversational workflow, measured reflection, explicit export, and the absence of external monitor and automatic notebook files."
   },
   "actuation": {
     "contract": "zoe-actuation/v1",
@@ -293,5 +293,27 @@
       "real_first_step": "evidence/autonomous/native-step.json",
       "verification": "evidence/autonomous/native-verification.json"
     }
+  },
+  "conversation": {
+    "contract": "zoe-native-conversation/v2",
+    "run": "zoe chat",
+    "state": "zoe chat --state /path/to/state",
+    "one_shot": "zoe chat --state /path/to/state --command 'meta what is PALA?'",
+    "verify": "python scripts/verify-one-system.py --chat",
+    "evidence": "evidence/chat/verification.json",
+    "external_language_model_required": false,
+    "external_metacognition_monitor": false,
+    "automatic_conversation_notebook": false,
+    "stress_gauge": false,
+    "internal_domains": [
+      "intent",
+      "action",
+      "self"
+    ],
+    "operator_export_required_for_full_snapshot": true,
+    "pala_report_metadata_import": true,
+    "pala_recovered_content_imported": false,
+    "guide": "guiai-lab/docs/CHAT.md",
+    "toolkit": "components/Zoe-Autonomy/METACOGNITION.md"
   }
 }

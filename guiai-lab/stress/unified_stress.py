@@ -176,6 +176,17 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertEqual(command[-2:], ["--", "--version"])
             self.assertEqual(cwd, checkout)
 
+    def test_chat_is_internal_toolkit_without_monitor_or_notebook(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory) / "chat-state"
+            with mock.patch.dict(os.environ, {"ZOE_ROOT": str(ROOT)}):
+                with contextlib.redirect_stdout(io.StringIO()) as stdout:
+                    self.assertEqual(zoe_main(["chat", "--state", str(state), "--command", "status"]), 0)
+            self.assertIn("internal toolkit", stdout.getvalue())
+            self.assertIn("monitor=False · notebook=False", stdout.getvalue())
+            self.assertFalse((state / "events.jsonl").exists())
+            self.assertFalse((state / "metacognition.json").exists())
+
     def test_ablation_uses_current_interpreter_and_caller_cwd(self):
         import sys
 

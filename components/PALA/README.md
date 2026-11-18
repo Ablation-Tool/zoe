@@ -25,6 +25,16 @@ zoe pala --list
 
 `zoe pala` forwards arguments directly to PALA. Without arguments it lists supported types. Recovery requires an explicit authorized source and a separate output destination. Never scan a device or write recovered output without the owner's authorization.
 
+For historical research, generate a PALA JSON report with an explicitly authorized image, then import only its structured metadata into Zoe Chat:
+
+```bash
+zoe pala source.img /separate/output --quiet --json > /separate/pala-report.json
+zoe chat --command "import-pala /separate/pala-report.json"
+zoe chat --command "recall jpeg"
+```
+
+`import-pala` validates finding offsets, types, sizes, quality values, paths, and SHA-256 hashes. It does not scan a device, execute PALA, or read recovered file contents. Undo removes the imported metadata from active chat recall while preserving the original report.
+
 ## Capabilities
 
 <details>
