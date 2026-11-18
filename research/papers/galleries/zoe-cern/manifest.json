@@ -1,0 +1,89 @@
+{
+  "title": "CERN research in Zoe \u2014 Visual research index",
+  "images": [
+    {
+      "file": "assets/neurogarden/cern-universe.png",
+      "sha256": "b0ebc274b5c5a161ade93ee279443ad8371a37445d8799c5284667da62e0007d"
+    },
+    {
+      "file": "assets/native/zoe-helios.png",
+      "sha256": "3b0720761d937124c68f353cb42a40481fb22562d8dc8ce751ea1dd7d03b5013"
+    },
+    {
+      "file": "assets/native/zoe-atelier.png",
+      "sha256": "ca870888f677d6e775af220e7e126c7b129c192ce7c284a269febf70641af484"
+    },
+    {
+      "file": "assets/native/zoe-evidence.png",
+      "sha256": "072a688d77c696bbf30b7d6e5d553be2cae5292d596e7c60e1f14ed5da20cd38"
+    },
+    {
+      "file": "assets/native/zoe-evidence-native.png",
+      "sha256": "5165b3874d7096d5e3a77e1d581e9b45bf92cdc2aa609b42c74a3e070f06da7c"
+    },
+    {
+      "file": "assets/native/zoe-waveform.png",
+      "sha256": "6959062545031326b2d27fdd72e20f71b07bb1adebf6983f21cfb430e12a9e26"
+    },
+    {
+      "file": "assets/native/zoe-waveform-native.png",
+      "sha256": "e0a0049d1eff5247860efd0303901ffacada7c3fb2b024d85a497437b1be3334"
+    },
+    {
+      "file": "assets/native/zoe-protocol.png",
+      "sha256": "1d90a2f2c11ffdc19056bb27563e28809d462d3141701a81b1e58399471e5ca6"
+    },
+    {
+      "file": "assets/native/zoe-protocol-native.png",
+      "sha256": "9d9745d1b8a83633c3bbc9f72a08b3cd06c53e9bd70b2c732c0d7e222ee4a626"
+    },
+    {
+      "file": "assets/native/zoe-patchbay.png",
+      "sha256": "4739a85cfbca0feb50d1ba9b7dcbf73b167cf0378455ed835b7ec676df991000"
+    },
+    {
+      "file": "assets/native/zoe-patchbay-native.png",
+      "sha256": "d0664f3b84468df514981fb9b8166e56aa19683a6d51d3871c3a0e993eed0d55"
+    },
+    {
+      "file": "assets/native/zoe-resilience.png",
+      "sha256": "214dc20294a510424cd07f246f751ac613f225ee8f6a405e0727432a0e9f44d5"
+    },
+    {
+      "file": "assets/native/zoe-resilience-native.png",
+      "sha256": "8f3a94b730281c2bf05375cb9ac7abb42a728f9d24e3ab97f0e5d70093daee0c"
+    },
+    {
+      "file": "assets/native/zoe-vidlib.png",
+      "sha256": "ec4ff46f92d60faa529e69cbec3bba2ccf6ed14e31b730c2e71f21c27b041897"
+    },
+    {
+      "file": "assets/native/zoe-cicada.png",
+      "sha256": "108bed312a37a2e05c7ddb375556d9b9bdbf69efd0604ea8b9d62e8b538a73bb"
+    },
+    {
+      "file": "assets/native/zoe-cicada-native.png",
+      "sha256": "534c09ccd51e26ac632112029264f84517eb9dc1e5b93e4e67b13106cefdefc7"
+    },
+    {
+      "file": "assets/native/zoe-pilot-cover.png",
+      "sha256": "2558d421c9ecde407a187a52ffea7b391d67e39ecd70180e59f5e3d6480e7a68"
+    },
+    {
+      "file": "assets/native/zoe-pilot-native.png",
+      "sha256": "13faf5317112e08ba2e0c64081063adaa2853c5afe697cfd3cf992b8b7bc1348"
+    },
+    {
+      "file": "assets/native/zoe-pilot-practice.png",
+      "sha256": "01b8b2397173b8dffc3e1a2e031c6f4da9ada57f7bf6f5fb335c8d1f2bf9b42c"
+    },
+    {
+      "file": "assets/native/zoe-pilot-route.png",
+      "sha256": "762b42072eb96050ec67e3ab6f6cebbecaa23bbace58366450a6889d3a3621b3"
+    },
+    {
+      "file": "assets/native/zoe-pilot-signals.png",
+      "sha256": "8b8aca5ebaf6de4632b487ee72594775c3fbc62634423a7d32ba5877db84f4ba"
+    }
+  ]
+}

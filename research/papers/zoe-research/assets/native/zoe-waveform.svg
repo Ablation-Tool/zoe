@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1064" viewBox="0 0 1000 760" role="img" aria-label="Zoe Waveform Replay · bounded signal evidence">
+  <title>Zoe Waveform Replay · bounded signal evidence</title>
+  <rect x="0" y="0" width="1000.0" height="760.0" fill="#ffffff" />
+  <g data-object-id="background">
+    <title>background</title>
+    <rect x="0.0" y="0.0" width="1000.0" height="760.0" fill="#08111f" stroke="#08111f" stroke-width="1.0" />
+  </g>
+  <g data-object-id="title">
+    <title>title</title>
+    <text x="44.0" y="57.0" font-family="sans-serif" font-size="31.0" fill="#67e8f9">Zoe Waveform Replay</text>
+  </g>
+  <g data-object-id="subtitle">
+    <title>subtitle</title>
+    <text x="46.0" y="86.0" font-family="sans-serif" font-size="15.0" fill="#9fb1c8">Named VCD signals · legacy storage IDs · bounded evidence</text>
+  </g>
+  <g data-object-id="source">
+    <title>source</title>
+    <text x="46.0" y="122.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">Source: guiai-lab/docs/examples/endeavour-clocks.vcd</text>
+  </g>
+  <g data-object-id="source-hash">
+    <title>source-hash</title>
+    <text x="46.0" y="147.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">SHA-256 a76d185a9ee0a978ac0f6218c05b4bd4... · 200 retained events</text>
+  </g>
+  <g data-object-id="signal-name-0">
+    <title>signal-name-0</title>
+    <text x="50.0" y="190.0" font-family="sans-serif" font-size="13.0" fill="#f0abfc">demo.host80</text>
+  </g>
+  <g data-object-id="signal-status-0">
+    <title>signal-status-0</title>
+    <text x="470.0" y="190.0" font-family="sans-serif" font-size="12.0" fill="#67e8f9">corroborated · state-or-enumerated-scalar-like</text>
+  </g>
+  <g data-object-id="signal-count-0">
+    <title>signal-count-0</title>
+    <text x="856.0" y="190.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">80 events</text>
+  </g>
+  <g data-object-id="signal-name-1">
+    <title>signal-name-1</title>
+    <text x="50.0" y="247.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">demo.host40</text>
+  </g>
+  <g data-object-id="signal-status-1">
+    <title>signal-status-1</title>
+    <text x="470.0" y="247.0" font-family="sans-serif" font-size="12.0" fill="#fde68a">ambiguous · state-or-enumerated-scalar-like</text>
+  </g>
+  <g data-object-id="signal-count-1">
+    <title>signal-count-1</title>
+    <text x="856.0" y="247.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">40 events</text>
+  </g>
+  <g data-object-id="signal-name-2">
+    <title>signal-name-2</title>
+    <text x="50.0" y="304.0" font-family="sans-serif" font-size="13.0" fill="#fde68a">demo.amac40</text>
+  </g>
+  <g data-object-id="signal-status-2">
+    <title>signal-status-2</title>
+    <text x="470.0" y="304.0" font-family="sans-serif" font-size="12.0" fill="#fde68a">ambiguous · state-or-enumerated-scalar-like</text>
+  </g>
+  <g data-object-id="signal-count-2">
+    <title>signal-count-2</title>
+    <text x="856.0" y="304.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">40 events</text>
+  </g>
+  <g data-object-id="signal-name-3">
+    <title>signal-name-3</title>
+    <text x="50.0" y="361.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">demo.unmapped</text>
+  </g>
+  <g data-object-id="signal-status-3">
+    <title>signal-status-3</title>
+    <text x="470.0" y="361.0" font-family="sans-serif" font-size="12.0" fill="#9fb1c8">unmapped · state-or-enumerated-scalar-like</text>
+  </g>
+  <g data-object-id="signal-count-3">
+    <title>signal-count-3</title>
+    <text x="856.0" y="361.0" font-family="sans-serif" font-size="11.0" fill="#9fb1c8">40 events</text>
+  </g>
+  <g data-object-id="selected-trace">
+    <title>selected-trace</title>
+    <polyline points="70,592 80.7595,667 91.519,592 102.278,667 113.038,592 123.797,667 134.557,592 145.316,667 156.076,592 166.835,667 177.595,592 188.354,667 199.114,592 209.873,667 220.633,592 231.392,667 242.152,592 252.911,667 263.671,592 274.43,667 285.19,592 295.949,667 306.709,592 317.468,667 328.228,592 338.987,667 349.747,592 360.506,667 371.266,592 382.025,667 392.785,592 403.544,667 414.304,592 425.063,667 435.823,592 446.582,667 457.342,592 468.101,667 478.861,592 489.62,667 500.38,592 511.139,667 521.899,592 532.658,667 543.418,592 554.177,667 564.937,592 575.696,667 586.456,592 597.215,667 607.975,592 618.734,667 629.494,592 640.253,667 651.013,592 661.772,667 672.532,592 683.291,667 694.051,592 704.81,667 715.57,592 726.329,667 737.089,592 747.848,667 758.608,592 769.367,667 780.127,592 790.886,667 801.646,592 812.405,667 823.165,592 833.924,667 844.684,592 855.443,667 866.203,592 876.962,667 887.722,592 898.481,667 909.241,592 920,667" stroke-linejoin="round" fill="none" stroke="#f0abfc" stroke-width="2.0" />
+  </g>
+  <g data-object-id="selected-title">
+    <title>selected-title</title>
+    <text x="50.0" y="559.0" font-family="sans-serif" font-size="17.0" fill="#f0abfc">Selected: demo.host80</text>
+  </g>
+  <g data-object-id="selected-status">
+    <title>selected-status</title>
+    <text x="50.0" y="590.0" font-family="sans-serif" font-size="13.0" fill="#67e8f9">corroborated · period 12500 ps · no identity claim</text>
+  </g>
+  <g data-object-id="time-range">
+    <title>time-range</title>
+    <text x="50.0" y="700.0" font-family="sans-serif" font-size="13.0" fill="#9fb1c8">first=0 ps · last=493750 ps · ordinal replay only</text>
+  </g>
+  <g data-object-id="boundary">
+    <title>boundary</title>
+    <text x="50.0" y="731.0" font-family="sans-serif" font-size="13.0" fill="#fda4af">Measurement != evidence != belief update != action · no live acquisition</text>
+  </g>
+</svg>
