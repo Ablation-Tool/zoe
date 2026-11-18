@@ -100,7 +100,7 @@ The graph uses canonical JSON, sequence numbers, previous-event hashes, SHA-256,
 
 ## Native intelligence environment
 
-`zoe`, `zoe os`, and `zoe chat` launch the exact Ablation GEM workbench and place Zoe's native conversation in its existing embedded terminal. The older native selector remains available for explicit component inspection and headless exports; it includes Cognitive Field, Bayesian memory, geometry, Life, Brain Life, Artline, Pentomino, Pentacube, Internal Clock, Practice Navigator, Resilience Atlas, Presence, Protocol Lab, Waveform Replay, Patchbay, Leadership Garden, Maison, Evidence Navigator, Dorothy, CERN, FELIX, and related instruments.
+`zoe`, `zoe os`, and `zoe chat` launch the exact Ablation GEM workbench and place Zoe's native conversation in its existing embedded terminal. The [shared GEM operating environment](GEM-OS.md) gives Zoe common `status/list/open/export/snapshot` operations across all 17 components and 36 navigable layers, with shared knowledge events and verified Spatial IR/VDI. The older native selector remains available for explicit component inspection and headless exports; it includes Cognitive Field, Bayesian memory, geometry, Life, Brain Life, Artline, Pentomino, Pentacube, Internal Clock, Practice Navigator, Resilience Atlas, Presence, Protocol Lab, Waveform Replay, Patchbay, Leadership Garden, Maison, Evidence Navigator, Dorothy, CERN, FELIX, and related instruments.
 
 Component permissions and no-overwrite export rules remain in force. External agent processes and actuation still require their own explicit commands or grants.
 

@@ -37,7 +37,7 @@ python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 
 ## Conversation and internal metacognition toolkit
 
-`zoe chat` runs Zoe's native evidence-linked conversation inside Ablation's existing GEM workbench and its original embedded terminal. It retrieves cited Zoe evidence, preserves multiple live interpretations, stores explicitly unverified user notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks reversible plans, executes one guarded internal transition, runs measured self-reflection, and exposes Operational Metacognition as internal mathematics.
+`zoe chat` runs Zoe's native evidence-linked conversation inside Ablation's existing GEM workbench and its original embedded terminal. It retrieves cited Zoe evidence, preserves multiple live interpretations, stores explicitly unverified user notes, imports validated PALA finding metadata for historical research, authors internal goals, ranks reversible plans, executes one guarded internal transition, runs measured self-reflection, and exposes Operational Metacognition as internal mathematics. Its `gem` operations navigate the [shared GEM operating environment](../../guiai-lab/docs/GEM-OS.md) across all 17 components and 36 layers.
 
 ```bash
 export ZOE_ROOT="$PWD"

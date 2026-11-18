@@ -21,6 +21,8 @@ zoe chat --state /path/to/zoe-chat-state --command "what is PALA?"
 
 In GEM mode, the Lab session defaults to `gem-lab/` inside the selected chat-state directory. `--session` and `--target` select another research workflow explicitly.
 
+Zoe's `gem status`, `gem list`, `gem open ID`, `gem export ID PATH`, and `gem snapshot PATH` operations navigate the [shared GEM operating environment](GEM-OS.md) across all 17 components and 36 layers. Navigation uses common knowledge events and verified Spatial IR without launching a component process; exports and snapshots occur only on explicit request.
+
 ## What Zoe does in a conversation
 
 - Answers natural-language questions from indexed Zoe sources with repository-relative citations.
@@ -42,6 +44,7 @@ In GEM mode, the Lab session defaults to `gem-lab/` inside the selected chat-sta
 | `recall <query>` | Search active saved notes only. |
 | `search <query>` | Search indexed Zoe sources and saved notes with citations. |
 | `import-pala <report.json>` | Validate PALA finding metadata and add it to research memory without reading recovered contents. |
+| `gem [operation]` | Use the shared GEM environment: `status`, `list`, `open ID`, `export ID PATH`, or `snapshot PATH`. |
 | `goal [interest]` | Show Zoe's internally authored goal or declare a research interest. |
 | `plan` | Represent internal candidate plans and their utilities without executing. |
 | `run` | Execute one guarded reversible internal plan; external actions remain zero. |

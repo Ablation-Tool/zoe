@@ -33,6 +33,26 @@
     "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
     "verify": "zoe-autonomy verify visual-perception.json"
   },
+  "gem_operating_environment": {
+    "contract": "zoe-gem-operating-environment/v1",
+    "component_count": 17,
+    "navigable_layer_count": 36,
+    "gui": "components/ablation/gem-lab/gem/gtk_app.py",
+    "ablation_gui_source_modified": false,
+    "runtime": "guiai-lab/guiai/gem/operating_environment.py",
+    "guide": "guiai-lab/docs/GEM-OS.md",
+    "operations": ["status", "list", "open", "export", "snapshot"],
+    "chat_prefix": "gem",
+    "cli": "zoe gem",
+    "shared_knowledge_events": true,
+    "source_spatial_ir_verified_layers": 36,
+    "real_vdi_export": true,
+    "no_overwrite_exports": true,
+    "open_launches_component_process": false,
+    "external_actions": 0,
+    "automatic_conversation_notebook": false,
+    "evidence": "evidence/gem-os/verification.json"
+  },
   "capability_prospectus": {
     "pdf": "paper/zoe-research-universe.pdf",
     "source": "paper/zoe-research-universe.tex",

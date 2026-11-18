@@ -9,6 +9,7 @@ import math
 import os
 from pathlib import Path
 import re
+import shlex
 import sys
 import uuid
 
@@ -43,6 +44,7 @@ DOCUMENT_PATHS = (
     "DECLARATION.md",
     "guiai-lab/docs/UNIFIED.md",
     "guiai-lab/docs/CHAT.md",
+    "guiai-lab/docs/GEM-OS.md",
     "components/Zoe-Autonomy/README.md",
     "components/Zoe-Autonomy/METACOGNITION.md",
     "components/Zoe-Autonomy/EVENT-CAUSAL.md",
@@ -63,6 +65,7 @@ HELP = """Commands:
   recall <query>               retrieve active saved notes only
   search <query>               rank repository evidence and saved notes with citations
   import-pala <report.json>    import validated PALA finding metadata for later research
+  gem [operation]              navigate the shared GEM operating environment
   goal [interest]              show Zoe's internal goal or declare a research interest
   plan                         construct and value internal reversible plans without executing
   run                          execute one guarded reversible internal plan
@@ -244,6 +247,7 @@ class ZoeChat:
         self.index = EvidenceIndex(self.zoe_root)
         self.meta_tools = OperationalMetacognition()
         self.constraints = self.meta_tools.constraint_integrity(ConstraintVector(), ConstraintVector())
+        self.gem_environment = None
 
     @property
     def session(self):
@@ -531,6 +535,16 @@ class ZoeChat:
             f"Aτ(action)={breadth.accessible_count} at τ={breadth.tau:.2f} · boxed={breadth.boxed}",
         ])
 
+    def _gem(self, argument):
+        if self.gem_environment is None:
+            native = self.zoe_root / "guiai-lab"
+            if str(native) not in sys.path:
+                sys.path.insert(0, str(native))
+            from guiai.gem.operating_environment import GemOperatingEnvironment
+            self.gem_environment = GemOperatingEnvironment(self.zoe_root)
+        from guiai.gem.operating_environment import format_result
+        return format_result(self.gem_environment.execute(shlex.split(argument)))
+
     def _goal(self, argument):
         if argument:
             self._require_actions("goal")
@@ -649,6 +663,8 @@ class ZoeChat:
                     response = self._search(text(argument, "search query", 1000)) if argument else "Usage: search <query>"
                 elif command == "import-pala":
                     response = self._import_pala(argument)
+                elif command == "gem":
+                    response = self._gem(argument)
                 elif command == "goal":
                     response = self._goal(argument)
                 elif command == "plan":

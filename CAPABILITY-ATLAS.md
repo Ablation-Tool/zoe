@@ -306,11 +306,13 @@ Zoe can construct and rank calls across these adapters through her no-argument a
 
 Zoe's default graphical environment is the exact Ablation GEM workbench, launched through its existing `gem.lab_cli` interface. It retains the original Lab tabs, authoritative investigation state, search and navigation, Rings/Treemap/Spatial IR views, preferences, accessibility, adjustable layouts, and VTE terminal. Zoe's native conversation runs in that terminal; no replacement GUI or separate chatbot shell is used.
 
+The [shared GEM operating environment](guiai-lab/docs/GEM-OS.md) connects all 17 components and 36 navigable layers through common knowledge events, verified Spatial IR, real VDI, and explicit no-overwrite snapshots. Zoe can call `gem status`, `gem list`, `gem open`, `gem export`, and `gem snapshot` from inside the workbench. Opening a layer verifies its declared default scene without launching a component process or transferring permissions.
+
 The older Zoe component selector remains available for explicit component inspection and headless exports. Component permissions and external-agent configuration remain separate from Zoe's internal conversation engine.
 
-- **Implementation:** [Zoe launcher](guiai-lab/guiai/gem/chat_view.py) · [Ablation GEM GUI](components/ablation/gem-lab/gem/gtk_app.py) · [Existing GEM desktop entry](components/ablation/gem-lab/gem/lab_cli.py)
-- **Validation:** [Unified routing tests](guiai-lab/stress/unified_stress.py) · [Ablation GTK tests](components/ablation/gem-lab/stress/gtk_stress.py)
-- **Evidence:** [Canonical GEM interface](components/ablation/assets/demos/gem-demo-01.png) · [Real Zoe-in-GEM verification](evidence/chat/gem-verification.json)
+- **Implementation:** [Shared GEM runtime](guiai-lab/guiai/gem/operating_environment.py) · [Zoe launcher](guiai-lab/guiai/gem/chat_view.py) · [Ablation GEM GUI](components/ablation/gem-lab/gem/gtk_app.py) · [Existing GEM desktop entry](components/ablation/gem-lab/gem/lab_cli.py)
+- **Validation:** [Unified runtime and routing tests](guiai-lab/stress/unified_stress.py) · [Conversation GEM tests](components/Zoe-Autonomy/tests/test_chat.py) · [Ablation GTK tests](components/ablation/gem-lab/stress/gtk_stress.py)
+- **Evidence:** [Canonical GEM interface](components/ablation/assets/demos/gem-demo-01.png) · [Real Zoe-in-GEM verification](evidence/chat/gem-verification.json) · [36-layer operating-environment verification](evidence/gem-os/verification.json)
 
 ## 12. HP-UX and legacy architecture tools
 

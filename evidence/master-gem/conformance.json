@@ -32,7 +32,10 @@
   },
   "groove": {
     "report": "evidence/rhythm-midi/report.json",
-    "report_sha256": "5414ba3b729f38410ae83ab8fa047008fa0cf10223617cc79892cfa412ea8e2b",
+    "report_sha256": "97724e7fb8af80b4312d3717163a00d2c68b6865f0b7e9ba192b7a851488beaa",
+    "previous_report_sha256": "5414ba3b729f38410ae83ab8fa047008fa0cf10223617cc79892cfa412ea8e2b",
+    "terminology_migration_revision": "bb2ac42b1ebc96b35643a04c3bf417a4dba52fa9",
+    "terminology_migration_scope": "Only the Accessible Volume terminology sentence changed to Operational Metacognition; numerical results are unchanged.",
     "predictions": "evidence/rhythm-midi/predictions.npz",
     "predictions_sha256": "61e2be13296cd306cf9552840b1f0f51eb9ba02fe6a7777d0f5b216a8d4c51c1",
     "performances": 514,
