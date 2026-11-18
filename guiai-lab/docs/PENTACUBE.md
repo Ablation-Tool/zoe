@@ -6,7 +6,7 @@ This is a new turn-based puzzle and inspection tool, not a Tetris clone, an offi
 
 ![NuClide Research co-brand](images/nuclide-brain.png)
 
-The **NuClide Research** co-brand is user-created artwork and an homage to Gary Kildall and Digital Research. It is independent from Digital Research and does not replace the Zoe orbital eye.
+The **NuClide Research** co-brand is user-created artwork and an homage to Gary Kildall and Digital Research. It is independent from Digital Research and does not replace the Zoe woven diamond.
 
 ## Why a 5×5 cube fits
 

@@ -52,11 +52,11 @@ def build():
 
 
 def render():
-    svg_path = ROOT / "zoe-eye.svg"
-    png_path = ROOT / "zoe-eye.png"
+    svg_path = ROOT / "zoe-orbital-eye-legacy.svg"
+    png_path = ROOT / "zoe-orbital-eye-legacy.png"
     if svg_path.exists() or png_path.exists():
-        raise FileExistsError("Zoe emblem exports will not overwrite existing files")
-    svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="Zoe allgems orbital eye emblem"><title>Zoe allgems orbital eye emblem</title>{build()}</svg>\n'
+        raise FileExistsError("Legacy Zoe emblem exports will not overwrite existing files")
+    svg = f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="Legacy Zoe orbital eye emblem"><title>Legacy Zoe orbital eye emblem</title>{build()}</svg>\n'
     with svg_path.open("x", encoding="utf-8") as stream:
         stream.write(svg)
     converter = shutil.which("rsvg-convert")

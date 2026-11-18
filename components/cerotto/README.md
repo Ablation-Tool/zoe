@@ -4,31 +4,29 @@ CEROTTO investigates attacks involving autonomous AI agents and sandbox escapes.
 
 CEROTTO GEM is the native graphical workbench. It is a desktop application built with GTK3, the Linux UI toolkit used by GNOME applications, not a web page. It shows investigation timelines, defense events, vault activity, and accessible-volume charts. It can also embed the user's own AI command-line agent in a terminal inside the window.
 
-## ZOE · allgems
+## Zoe · allgems
 
-**ZOE is the GEM, but the GEM is not ZOE. ZOE is allgems.** The complete ZOE component is included in `zoe/`, with its native Cognitive Field, Bayesian memory, geometry, replayable knowledge graph, unified hub, and the other GEM source trees. Cerotto supplies the `cerotto` component as the host, so its source is not duplicated under `zoe/components/`. The other upstream source trees, including Ablation, remain bundled. The imported ZOE revision is recorded in [`zoe/ZOE-SOURCE.json`](zoe/ZOE-SOURCE.json).
+CEROTTO is the guarded digital-forensics engine in the unified [Zoe repository](../../README.md). It contributes forensic evidence, timelines, vault inspection, and response boundaries to Zoe's research architecture. See the [capability atlas](../../CAPABILITY-ATLAS.md).
 
 Install and inspect the unified hub:
 
 ```bash
-python -m pip install ./zoe/guiai-lab
-export ZOE_ROOT="$PWD/zoe"
-export ZOE_CEROTTO_ROOT="$PWD"
+cd /path/to/zoe
+python -m pip install ./guiai-lab
+export ZOE_ROOT="$PWD"
 zoe
 zoe list
 zoe launch cerotto -- --help
 ```
 
-The `cerotto` entry resolves to this checkout. No component or AI agent starts automatically. Guarded cases still require an explicit case database, case ID, and conversation ID. Newly generated unified evidence, case databases, reports, and build output are excluded from the import. Existing upstream research sources are preserved. See [ZOE's architecture and verification guide](zoe/guiai-lab/docs/UNIFIED.md) and the [native hub screenshot](zoe/guiai-lab/docs/images/gem-unified-native.png).
+No component or AI agent starts automatically. Guarded cases still require an explicit case database, case ID, and conversation ID. See [Zoe's architecture and verification guide](../../guiai-lab/docs/UNIFIED.md) and the [native hub screenshot](../../guiai-lab/docs/images/gem-unified-native.png).
 
 ### Zoe One autonomy adapter
 
-CEROTTO GEM also exposes the canonical Zoe-Autonomy engine without connecting it to forensic cases or vault authority:
+CEROTTO GEM exposes the bundled Zoe Autonomy engine without connecting it to forensic cases or vault authority:
 
 ```bash
-export ZOE_ROOT=/path/to/zoe
-export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
-
+export ZOE_AUTONOMY_ROOT="$ZOE_ROOT/components/Zoe-Autonomy"
 python -m cerotto_gem.cli autonomy run
 python -m cerotto_gem.cli autonomy run --output new-profile.json
 python -m cerotto_gem.cli autonomy verify new-profile.json

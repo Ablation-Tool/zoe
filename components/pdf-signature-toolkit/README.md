@@ -1,5 +1,7 @@
 # PDF Signature Toolkit
 
+The source-integrity and detached-signature component in the unified [Zoe repository](../../README.md). See Zoe's [capability atlas](../../CAPABILITY-ATLAS.md).
+
 A small, reproducible toolkit for LaTeX source-integrity records and `adbe.pkcs7.detached` PDF signatures. The Python runtime uses only the standard library. Cryptographic and PDF operations are performed by established command-line tools.
 
 ## Capabilities

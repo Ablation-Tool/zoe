@@ -18,10 +18,12 @@ class AutonomyCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "profile.json"
             environment = os.environ.copy()
+            bundled = WORKSPACE.name == "components" and (WORKSPACE.parent / "guiai-lab").is_dir()
+            zoe_root = WORKSPACE.parent if bundled else WORKSPACE / "zoe"
             environment.update({
                 "PYTHONPATH": str(ROOT),
                 "PYTHONDONTWRITEBYTECODE": "1",
-                "ZOE_ROOT": str(WORKSPACE / "zoe"),
+                "ZOE_ROOT": str(zoe_root),
                 "ZOE_AUTONOMY_ROOT": str(WORKSPACE / "Zoe-Autonomy"),
             })
             for arguments in (["run", "--output", str(output)], ["verify", str(output)]):

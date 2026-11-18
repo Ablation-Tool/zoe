@@ -1,10 +1,10 @@
 # Accessible Volume
 
-**A reproducible way to measure how many realistic alternatives a model has before it selects its next token.**
+**A reproducible way to measure how many realistic alternatives remain open before a model or Zoe makes a choice.**
 
-Accessible Volume is a **research measurement**, not a new language model or an application you must install. This repository contains the equation, papers, experiment scripts, complete saved probability distributions, and independent verification tools.
+Accessible Volume is a research measurement and a working part of Zoe's operational metacognition. This component contains the equation, papers, experiment scripts, complete saved probability distributions, and independent verification tools.
 
-You can understand and use this repository entirely on its own. It also supplies the measurement foundation for [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy): together, the two projects form the complete self-governing measurement–action architecture.
+Its canonical home is the unified [Zoe repository](../../README.md). Zoe returns the count to her own decision process, observes how open or settled a choice is, and uses that observation in reflection and planning. Together with [Zoe Autonomy](../Zoe-Autonomy/README.md), it forms the self-governing measurement–action architecture. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../AGI-ROADMAP.md).
 
 [The idea](#the-idea-in-one-minute) · [Evidence](#what-the-experiments-found) · [Verify](#verify-the-results-yourself) · [Zoe-Autonomy](#how-this-connects-to-zoe-autonomy) · [Papers](#papers)
 

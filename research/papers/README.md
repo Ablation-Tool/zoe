@@ -2,6 +2,8 @@
 
 A curated public collection of the March–November 2026 Autonomy, Accessible Volume, Ambiguity Front-Loading, Constraint Is Freedom, Zoe, and Zoe Autonomy manuscripts.
 
+This is the canonical paper library inside the unified [Zoe repository](../../README.md). The [capability atlas](../../CAPABILITY-ATLAS.md) explains the complete system; [AGI-ROADMAP.md](../../AGI-ROADMAP.md) defines the long-term intelligence mission and acceptance thresholds. No separate research-papers or visual-archive checkout is required.
+
 ## Start here
 
 - **[Accessible Volume and the Architecture of Autonomy](papers/10-accessible-volume-architecture-of-autonomy.pdf)** — the **87-page unified research monograph**, integrating seven primary source papers, four supplemental cascade/AFL documents, and the extended Zoe equation work.
@@ -14,7 +16,7 @@ A curated public collection of the March–November 2026 Autonomy, Accessible Vo
 
 **[Open the master visual index](galleries/README.md)** — every paper has its own fully viewable image gallery.
 
-For the complete original artwork, animation, interface, branding, and diagram collection—with **359 detailed per-image explanation pages**—visit the dedicated **[Zoe Visual Archive](https://github.com/Ablation-Tool/zoe-visual-archive)**.
+For the complete original artwork, animation, interface, branding, and diagram collection—with **359 detailed per-image explanation pages**—visit the dedicated **[Zoe Visual Archive](../visual-archive/)**.
 
 - **18 paper galleries**
 - **90 original embedded figures** with captions and PDF page numbers where recoverable
@@ -80,12 +82,18 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 
 Other individual LaTeX files are preserved for provenance. Their complete evidence, figures, embedded attachments, and executable reproduction environments remain in the canonical repositories below.
 
-## Canonical research repositories
+## Canonical research sources
 
-- [Accessible Volume / next-token-predictability](https://github.com/Ablation-Tool/next-token-predictability)
-- [Zoe Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy)
-- [Zoe native environment](https://github.com/Ablation-Tool/zoe)
-- [Graphics Environment Manager](https://github.com/Ablation-Tool/graphics-environment-manager)
+All current source and reproduction material is unified in Zoe:
+
+- [Accessible Volume](../../components/next-token-predictability/)
+- [Zoe Autonomy](../../components/Zoe-Autonomy/)
+- [Zoe native environment](../../guiai-lab/)
+- [Graphics Environment Manager](../../components/graphics-environment-manager/)
+- [Dorothy and Neurogarden](../../components/agent-logging-system/)
+- [Visual archive](../visual-archive/)
+- [arXiv submission sources](../arxiv/)
+- [Monorepo provenance and layout](../../MONOREPO.md)
 
 ## Attribution and evidence boundaries
 

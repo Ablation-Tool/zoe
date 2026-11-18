@@ -22,8 +22,8 @@ final class HomeView extends ScrollView {
         header.setPadding(Ui.dp(activity, 20), Ui.dp(activity, 8), Ui.dp(activity, 16), Ui.dp(activity, 8));
         ImageView emblem = new ImageView(activity);
         emblem.setImageResource(R.drawable.zoe_eye);
-        emblem.setContentDescription("Zoe orbital eye");
-        header.addView(emblem, new LinearLayout.LayoutParams(Ui.dp(activity, 68), Ui.dp(activity, 56)));
+        emblem.setContentDescription("Zoe woven diamond");
+        header.addView(emblem, new LinearLayout.LayoutParams(Ui.dp(activity, 56), Ui.dp(activity, 56)));
         LinearLayout titles = Ui.vertical(activity);
         titles.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
         TextView title = Ui.text(activity, "Zoe", 32, Ui.CYAN);

@@ -1,21 +1,23 @@
 # BRAIN GEM
 
-BRAIN GEM is a standalone Bayesian field notebook and chambered-memory engine. It organizes questions, competing claims, explicit evidence updates, deterministic and stochastic chambers, and next-test decisions in one inspectable, append-only history.
+BRAIN GEM is Zoe's independently runnable Bayesian field notebook and chambered-memory engine. It organizes questions, competing claims, explicit evidence updates, deterministic and stochastic chambers, and next-test decisions in one inspectable, append-only history. Its canonical home is the unified [Zoe repository](../../README.md); see the [capability atlas](../../CAPABILITY-ATLAS.md).
 
 ## Zoe One: shared full autonomy
 
-BRAIN GEM is one host in the [Zoe One system](https://github.com/Ablation-Tool/zoe). The notebook preserves its measurement/evidence/action boundary. The separate `autonomy` command delegates to the canonical [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) engine.
+BRAIN GEM is one host in Zoe One. The notebook preserves its measurement/evidence/action boundary. The `autonomy` command delegates directly to the bundled [Zoe Autonomy](../Zoe-Autonomy/README.md) engine.
 
 ```bash
-export ZOE_ROOT=/path/to/zoe
-export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
+cd /path/to/zoe
+export ZOE_ROOT="$PWD"
+export ZOE_AUTONOMY_ROOT="$ZOE_ROOT/components/Zoe-Autonomy"
 
 brain-gem autonomy run
 brain-gem autonomy run --output new-profile.json
 brain-gem autonomy verify new-profile.json
+python scripts/verify-one-system.py
 ```
 
-Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. External actuation and autonomous posterior updates remain unimplemented. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. External actuation and autonomous posterior updates remain separate capabilities. See the [system manifest](../../one-system.json) for source provenance and runtime contracts.
 
 The core epistemic boundary is:
 

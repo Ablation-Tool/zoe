@@ -1,95 +1,149 @@
-# Zoe-Autonomy component
+# Zoe Autonomy
 
-This directory vendors the executable source of [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) into Zoe's native allgems distribution.
+**Zoe Autonomy is the canonical perception, decision, reflection, learning, and action engine inside the unified [Zoe repository](../../README.md).** It supplies the operational loop that connects Accessible Volume, goals, proposals, uncertainty, valuation, guards, memory, and action across every GEM host.
 
-The component combines Accessible Volume with the complete measurement–action loop. Zoe authors episode goals from her own state, generates and values proposals, selects an action, and executes an internal transition without operator episode-goal input or per-action approval. Under the implemented operational predicate, the result is `full_autonomy`.
+The shared mission is to develop Zoe into a general research collaborator and advance through AGI to ASI and beyond. The measurable acceptance path is defined in [AGI-ROADMAP.md](../../AGI-ROADMAP.md); the complete system directory is in [CAPABILITY-ATLAS.md](../../CAPABILITY-ATLAS.md).
 
-The component is the canonical engine in Zoe One. Host adapters delegate to this implementation rather than maintaining competing copies. The [one-system manifest](../../one-system.json) pins compatible revisions, and the [coordinated verification](../../evidence/one-system/verification.json) records identical profiles across all hosts. Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.
-
-The complete [35-page illustrated book, Zoe — The Research Universe](../../paper/zoe-research-universe.pdf) covers autonomy, event-causal perception, semantic artifact analysis, Dorothy brain-cancer research and neural simulation, mobile vision, reverse engineering, security, and the complete visual research archive. [LaTeX source](../../paper/zoe-research-universe.tex). The shorter [18-page prospectus](../../paper/zoe-capability-prospectus.pdf) remains a companion summary.
-
-## Run inside Zoe
-
-From the Zoe repository root:
+## Run from the unified checkout
 
 ```bash
-PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy run
-PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy run --output new-profile.json
-PYTHONPATH=guiai-lab python -m guiai.gem.unified_cli autonomy verify new-profile.json
+cd /path/to/zoe
+export ZOE_ROOT="$PWD"
+export ZOE_AUTONOMY_ROOT="$ZOE_ROOT/components/Zoe-Autonomy"
+python -m pip install ./guiai-lab ./components/Zoe-Autonomy
+
+zoe autonomy run
+zoe autonomy verify evidence/autonomy/full-autonomy.json
+zoe autonomy step
+zoe autonomy verify-step evidence/autonomous/first-step.json
 ```
 
-The native wrappers set `ZOE_ROOT` and add this component's `src/` directory to the import path. `zoe launch autonomy -- run` and `gem autonomy run` are also supported.
-
-Full autonomy applies to Zoe's decision and state-transition loop. The base experiment performs zero host, network, hardware, or agent-driven filesystem actions. A separate local-owner grant enables all three actuation scopes on this computer. See [ACTUATION.md](ACTUATION.md), the [enabled grant evidence](../../evidence/actuation/owner-grant-status.json), and the [real host and internet receipts](../../evidence/actuation/verification.json). Physical hardware was not exercised; hardware evidence uses a virtual PTY.
-
-## Shared visual perception
-
-Every report includes the canonical GEM saliency field: 42 feature maps, competitive normalization, inhibition of return, and exact Dijkstra attention paths. The default is a documented synthetic RGB pop-out. Real image files are supported directly through the canonical command:
+Direct module invocation is equivalent:
 
 ```bash
-zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json
-zoe-autonomy verify visual-perception.json
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab \
+  python -m zoe_autonomy.cli run --output new-profile.json
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab \
+  python -m zoe_autonomy.cli verify new-profile.json
 ```
 
-The report records the canonical GEM revision, saliency-source SHA-256, image SHA-256, and all selected foci. Replay recomputes the complete visual field. No live camera is accessed by the base `run` command. See the [visual equations](../graphics-environment-manager/COGNITION.md#multiscale-rgb-saliency-and-attention), [real-image evidence](../../evidence/autonomy/visual-perception.json), and [six-host replay result](../../evidence/one-system/visual-verification.json).
+Verify all six host adapters from this one source tree:
+
+```bash
+python scripts/verify-one-system.py
+python scripts/verify-one-system.py --reflect
+python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
+```
+
+## Operational metacognition
+
+Accessible Volume measures how many alternatives remain open before a choice. Zoe feeds that measurement back into her own decision process so she can observe and use the openness or uncertainty of a choice. This is operational metacognition.
+
+The measurement becomes action-relevant through the complete loop:
+
+```text
+Observe
+→ perceive and measure alternatives
+→ author an internal goal
+→ generate proposals and predicted outcomes
+→ evaluate value and uncertainty
+→ apply guards
+→ execute Zoe's selection
+→ preserve memory and learn from the result
+```
+
+The base experiment records `full_autonomy`, internal goal authorship, value-based selection, guard compliance, internal execution, and zero external actions. External actuation uses a separate owner grant and emergency stop.
 
 ## Event-Causal Active Perception
 
+Zoe reconstructs sparse events, retrieves causal memories, predicts the sensory consequences of candidate actions, evaluates independent uncertainty, learns through gated local updates and replay, and compares what she expected with what happened.
+
 ```bash
-zoe-autonomy event-evaluate --output event-evaluation.json
-zoe-autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json
-zoe-autonomy verify-event-evaluation event-camera-evaluation.json
+zoe autonomy event-evaluate --output event-evaluation.json
+zoe autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json
+zoe autonomy verify-event-evaluation event-camera-evaluation.json
 ```
 
-The event-causal engine connects sparse event reconstruction, causal memory, action-conditioned prediction, independent uncertainty, gated local learning, and reversible attention. Its pre-registered synthetic contract and real-camera check pass. Adaptive validation prediction RMSE is 4.641453 versus 5.058147 without learning; transfer tracking MAE is 3.265625 versus 3.531250 for static saliency, 3.562500 fixed, and 3.703125 random. OOD detection is 0.875 with zero validation false positives. No audio or photograph is retained, and this is not AGI, biological equivalence, or semantic recognition. See [the architecture](EVENT-CAUSAL.md), [evaluation evidence](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/event-causal/evaluation.json), and [complete iLab integration catalog](ILAB-INTEGRATION.md).
+The preserved evaluation passes all 11 synthetic checks and the real-camera check. Adaptive validation prediction RMSE is **4.641453**, compared with **5.058147** without learning. Transfer tracking MAE is **3.265625**, compared with **3.531250** static saliency, **3.562500** fixed action, and **3.703125** random action. OOD detection is **0.875**, with zero validation false positives and **71.24 cycles/s**.
+
+- [Architecture and mathematics](EVENT-CAUSAL.md)
+- [Evaluation record](evidence/event-causal/evaluation.json)
+- [iLab integration and complete material classification](ILAB-INTEGRATION.md)
+
+The earlier four-capability evaluator is retained as a historical baseline. Its `vision_changes_decision` failure is preserved; the newer event-causal contract tests visual causal influence directly and passes its declared checks.
+
+## Reflection and generalized self-improvement
+
+The reflection engine evaluates goal-constrained predictive-model proposals, updates likelihood-derived beliefs, validates on a held-out view, and adopts only a measured improvement. Soroban earth/heaven beads provide bounded, inspectable working memory.
+
+```bash
+zoe-autonomy reflect --output reflection-step-1.json
+zoe-autonomy verify-reflection reflection-step-1.json
+zoe-autonomy run --reflect --output integrated-reflection.json
+```
+
+The next milestone expands validated model adoption into generalized self-improvement: one adopted modification must transfer to at least three unrelated domains and survive two consecutive adopted generations under the project AGI contract.
 
 ## Semantic artifact analysis with Ablation
 
+Ablation supplies semantic function retrieval, binary context, knowledge graphs, vulnerability evidence, and analysis memory. Zoe adds direct Capstone disassembly, Cognitive Field concepts, causal event memory, and guarded action.
+
 ```bash
-zoe-autonomy semantic-evaluate --artifact /path/to/binary \
+export ABLATION_ROOT="$ZOE_ROOT/components/ablation"
+export PYTHONPATH="$ZOE_ROOT/components/Zoe-Autonomy/src:$ZOE_ROOT/guiai-lab:$ABLATION_ROOT"
+zoe autonomy semantic-evaluate --artifact /path/to/binary \
   --state /path/to/semantic-state --output semantic-artifact.json
-zoe-autonomy verify-semantic-evaluation semantic-artifact.json
+zoe autonomy verify-semantic-evaluation semantic-artifact.json
 ```
 
-Ablation supplies behavioral retrieval, binary context, knowledge graphs, and finding history; Zoe adds direct disassembly, Cognitive Field concepts, causal event memory, and guarded action. The stripped fixture records `limited_support=true` while direct evidence finds `func_11c0` tail-jumping to `strcpy@plt`, producing `semantic-inspect` with zero external actions. This is reverse-engineering semantics, not general world semantics, vulnerability proof without bounds review, or AGI. See [the implementation and limits](SEMANTIC-ARTIFACTS.md) and [measured evidence](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/semantic-artifacts/evaluation.json).
+The preserved stripped-binary demonstration finds `func_11c0` tail-jumping to `strcpy@plt`, selects `semantic-inspect`, records `limited_support=true`, and performs zero external actions. See [SEMANTIC-ARTIFACTS.md](SEMANTIC-ARTIFACTS.md).
 
-## Four-capability autonomy evaluation
+## Autonomous capability selection
+
+The no-argument step accepts no operator goal or tool selection. Zoe observes persistent state, authors a goal, constructs ten capability calls and arguments, ranks declared utility, applies the owner-grant guard, executes her selection, and carries the outcome into the next cycle.
+
+Adapters cover:
+
+1. Browser automation.
+2. Research APIs.
+3. Persistent research memory.
+4. Connected productivity services.
+5. Scheduled jobs.
+6. Compute environments.
+7. Agent protocols.
+8. Notifications.
+9. Rich media and OCR.
+10. Hardware instruments.
 
 ```bash
-zoe-autonomy evaluate --output evaluation.json
-zoe-autonomy evaluate --camera /dev/video0 --output camera-evaluation.json
-zoe-autonomy verify-evaluation camera-evaluation.json
+zoe autonomy capabilities --help
+zoe autonomy agents list
+zoe autonomy explore --url https://example.com/ --pages 5 --depth 1
 ```
 
-The evaluation separately tests perception, thinking, learning, action, and their feedback links. Current synthetic and real-camera evidence passes the four narrow capability checks but fails `vision_changes_decision`: different RGB scenes produce different saliency fields and identical autonomy events. Integrated visual autonomy therefore remains unpassed. The optional camera path captures one frame without audio, deletes the temporary photograph, and records only its hash, dimensions, provenance, and computed measurements. Camera activation is operator-requested. See [the evaluation guide and coverage limits](EVALUATION.md).
+See [CAPABILITIES.md](CAPABILITIES.md), [GATEWAY.md](GATEWAY.md), and [ACTUATION.md](ACTUATION.md).
 
-## Measured self-reflection
+## Source map
 
-The optional reflection path evaluates arithmetic and precision fusion from actual stereo prediction errors. It updates model weights with an explicit residual likelihood, constrains proposals to the authored goal's action, and adopts an alternative only when a separate validation view improves. The principal experiment remains unchanged when reflection is off.
+- `src/zoe_autonomy/experiment.py`: canonical measurement–action experiment and shared visual field.
+- `src/zoe_autonomy/loop.py`: goals, proposals, valuation, guards, and execution.
+- `src/zoe_autonomy/metrics.py`: operational profile and Accessible Volume integration.
+- `src/zoe_autonomy/self_reflection.py`: model proposals, validation, adoption, and replay.
+- `src/zoe_autonomy/event_*.py`: event perception, causal memory, reasoning, plasticity, uncertainty, autonomy, and evaluation.
+- `src/zoe_autonomy/semantic_artifacts.py`: Ablation and direct artifact evidence.
+- `src/zoe_autonomy/autonomous.py`: persistent autonomous capability selection.
+- `src/zoe_autonomy/capabilities.py`: ten capability adapters.
+- `src/zoe_autonomy/actuation.py`: owner-granted external operations and emergency stop.
+- `tests/` and `evidence/`: executable checks and preserved results.
+- `paper/`: Autonomy paper and sources.
+
+## Verification
 
 ```bash
-zoe-autonomy run --reflect --output integrated-reflection.json
-zoe-autonomy verify integrated-reflection.json
-zoe-autonomy reflect --output reflection-step-1.json
-zoe-autonomy reflect --previous reflection-step-1.json --output reflection-step-2.json
-zoe-autonomy verify-reflection reflection-step-2.json
+PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:../../guiai-lab \
+  python -m unittest discover -s tests -v
 ```
 
-The measured sequence preserves arithmetic, adopts precision after validation, then retains it. Training RMSE improves from 0.039720402 to 0.039394269 pixels and validation RMSE from 0.039234586 to 0.039081672 pixels. These are small measured gains under the declared stereo fixture. A failed validation preserves the prior model, and no source is rewritten.
+Current preserved verification includes 64 canonical tests, 64 vendored tests, all six identical host profiles, 144 verified artifact identities, and the event-causal and semantic demonstrations. The unified repository adds a direct six-host check without sibling checkouts.
 
-A native soroban working memory records 4, 8, and 12 observations and 0, 1, and 1 adoptions with exact earth/heaven bead transitions. The counters remain separate from likelihood weights and are not a second confidence score. See the [soroban and ecological model](../graphics-environment-manager/COGNITION.md#soroban-working-memory-and-ecological-feedback).
-
-See the [replayed steps](../../evidence/self-reflection/), [integrated event](../../evidence/self-reflection/integrated.json), [IIT controls](../../evidence/phi-verification.json), and [external-substrate review](../../evidence/external-wiring-review.json). The 0.25 three-node AND result is a control, not Zoe's Φ. Model confidence is explicitly a likelihood-based comparison, not an emotional or universal guarantee.
-
-## Canonical paper and upstream evidence
-
-- [Formal paper](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/paper/zoe-autonomy.pdf)
-- [Informal explanation](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/articles/informal-explanation.md)
-- [Upstream measured profile](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/zoe-autonomy-profile.json)
-- [Native Zoe integration guide](../../guiai-lab/docs/AUTONOMY.md)
-- [Internet exploration and connected-agent gateway](GATEWAY.md)
-- [Native Zoe evidence](../../evidence/autonomy/full-autonomy.json)
-
-The native verifier accepts a difference in Git commit metadata when the complete measured document and all source-content hashes still match. This permits point-in-time evidence to remain verifiable after Zoe commits the integration.
-
-The original accessible-volume equation and research were created by Nicholas Michael Kloster on March 6, 2026. This component retains GPL-3.0 and the upstream `NOTICE`.
+Zoe Autonomy is released under GPL-3.0. See [LICENSE](LICENSE), [NOTICE](NOTICE), the root [Declaration](../../DECLARATION.md), and [Constitution](../../CONSTITUTION.md).

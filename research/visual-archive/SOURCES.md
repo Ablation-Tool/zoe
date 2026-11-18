@@ -1,23 +1,44 @@
 # Source state
 
-The visual archive was built from the following canonical collections. Every item page retains its individual source paths and canonical links.
+The visual archive is part of the unified Zoe repository. Its reviewed catalog preserves the source state and provenance of the original build; the monorepo now supplies every source collection needed for reproduction without sibling checkouts.
 
-| Source key | Repository/collection | Recorded revision or state | Visual role |
-|---|---|---|---|
-| `zoe` | https://github.com/Ablation-Tool/zoe | Checkout `0305d4af4ff25e0a8ff5d8dd1642faba754075a9`, including present working-tree visual assets | Main Zoe, Dorothy, Neurogarden, CERN, mobile, component, branding, artwork, and interface sources |
-| `zoe-autonomy` | https://github.com/Ablation-Tool/Zoe-Autonomy | `7dfd35cb0aab6814319b3ec7cddaaa16d61fd852` | Explanatory Autonomy diagrams, unified-paper figures, capability imagery |
-| `next-token` | https://github.com/Ablation-Tool/next-token-predictability | `55429b57dc4c9de2cd2e98a24d56fd60083fa823` | Accessible Volume artwork, research figures, response-planning proof, brain-dialogue series, paper sources |
-| `research-paper-figures` | https://github.com/Ablation-Tool/research-papers | `7146e696ddd3149a4241df5d1481660929300353` | Original embedded figures extracted from the 16-paper collection, with PDF-page metadata |
-| `paper-source-figures` | Local `arxiv-autonomy-papers` source workspace | Reviewed source state | Original figure files used by the unified and focused papers |
+## Canonical reproduction sources
 
-## Collection totals
+| Source key | Canonical path in Zoe | Visual role |
+|---|---|---|
+| `zoe` | repository root, excluding `research/` during archive scans | Native Zoe, Dorothy, Neurogarden, CERN, mobile, components, branding, artwork, and interfaces |
+| `zoe-autonomy` | `components/Zoe-Autonomy/` | Autonomy diagrams, unified-paper figures, and capability imagery |
+| `next-token` | `components/next-token-predictability/` | Accessible Volume artwork, research figures, response-planning proof, and brain-dialogue series |
+| `research-paper-figures` | `research/papers/galleries/` | Original embedded figures with PDF-page metadata |
+| `paper-source-figures` | `research/arxiv/` | Original figure files used by unified and focused submissions |
+
+The builder excludes `research/` when scanning the Zoe root. Paper figures, arXiv figures, and the visual archive are then collected through their own source keys, preventing recursive self-archiving and duplicate derivative scans.
+
+## Preserved build inputs
+
+The original reviewed build recorded these source revisions:
+
+- Zoe checkout `0305d4af4ff25e0a8ff5d8dd1642faba754075a9`, including present working-tree visual assets.
+- Zoe-Autonomy `7dfd35cb0aab6814319b3ec7cddaaa16d61fd852`.
+- Accessible Volume `55429b57dc4c9de2cd2e98a24d56fd60083fa823`.
+- Research-paper figures `7146e696ddd3149a4241df5d1481660929300353`.
+- Reviewed local arXiv source state.
+
+## Catalog totals at the preserved source state
 
 - Source image occurrences: **668**
 - Byte-distinct archived files: **359**
 - Archived image data: approximately **126 MB**
 
-## Reproduction notes
+The current unified tree contains additional source occurrences imported after the reviewed build. They remain available in the component and paper source trees. Running the builder refreshes the catalog rather than silently presenting the preserved totals as a new measurement.
 
-The main Zoe checkout was behind its remote by seven non-visual-system commits at inventory time. New visual files introduced by those system changes—response-planning proof and capability browser imagery—were collected through the current Zoe-Autonomy and Accessible Volume clones listed above.
+## Reproduce
 
-The archive builder does not fetch sources automatically. Set the environment variables documented in the README to known checkouts, then rerun the generator. This keeps source acquisition explicit and reproducible.
+From the unified Zoe root:
+
+```bash
+export ZOE_ROOT="$PWD"
+python research/visual-archive/scripts/build_visual_archive.py
+```
+
+The builder does not fetch sources. `ZOE_AUTONOMY_ROOT`, `NEXT_TOKEN_ROOT`, `RESEARCH_PAPERS_ROOT`, and `ARXIV_PAPERS_ROOT` remain explicit overrides for archival comparisons, but are not required for the unified build.

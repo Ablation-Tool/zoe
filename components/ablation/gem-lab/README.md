@@ -4,18 +4,20 @@ GEM (Graphics Environment Manager) is Ablation's **standard native graphical env
 
 ## Zoe One: shared full autonomy
 
-Ablation + GEM is one host in the [Zoe One system](https://github.com/Ablation-Tool/zoe). The investigation protocol remains separate from the optional `autonomy` command, which delegates to the canonical [Zoe-Autonomy](https://github.com/Ablation-Tool/Zoe-Autonomy) engine.
+Ablation + GEM is one host in the unified [Zoe One system](../../../README.md). The investigation protocol remains separate from the optional `autonomy` command, which delegates directly to the bundled [Zoe Autonomy](../../Zoe-Autonomy/README.md) engine.
 
 ```bash
-export ZOE_ROOT=/path/to/zoe
-export ZOE_AUTONOMY_ROOT=/path/to/Zoe-Autonomy
+cd /path/to/zoe
+export ZOE_ROOT="$PWD"
+export ZOE_AUTONOMY_ROOT="$ZOE_ROOT/components/Zoe-Autonomy"
 
 gem autonomy run
 gem autonomy run --output new-profile.json
 gem autonomy verify new-profile.json
+python scripts/verify-one-system.py
 ```
 
-Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. This does not execute reverse-engineering targets, modify investigation cases, or authorize external actions. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. This does not execute reverse-engineering targets, modify investigation cases, or authorize external actions. See the [system manifest](../../../one-system.json) for source provenance and runtime contracts.
 
 The user’s real interactive CLI supplies labor. The workspace supplies memory and navigation. The human supplies direction and judgment. GEM supports any interactive agent executable through `--agent`, and custom argument lists through `--agent-command`; it provides no model or credentials.
 

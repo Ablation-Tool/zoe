@@ -12,7 +12,7 @@ from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
 from PIL import Image, ImageDraw
 
 from zoe_pair import (
-    b64, canonical, fingerprint, fresh, identity, orbital, qr_image, text, unb64,
+    b64, canonical, fingerprint, fresh, identity, woven_diamond, qr_image, text, unb64,
 )
 
 AUTHOR_PROTOCOL = "zoe-author-v1"
@@ -54,7 +54,7 @@ def sign_document(identity_path, document_path, output_prefix, author=STATEMENT,
     draw = ImageDraw.Draw(image)
     draw.rectangle((22, 22, 978, 1098), outline="#101018", width=2)
     text(draw, (500, 52), "ZOE / SIGNED AUTHOR CERTIFICATE", 30, center=True)
-    orbital(draw, (500, 132), 42)
+    woven_diamond(draw, (500, 132), 42)
     image.paste(qr, (140, 198))
     text(draw, (500, 944), body["document"][:48], 22, center=True)
     text(draw, (500, 988), f"SHA256 {body['sha256'][:24]}", 20, center=True)

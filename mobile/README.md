@@ -242,7 +242,7 @@ mobile/
 
 ## Brand and authorship
 
-The launcher uses the original orbital Zoe eye. The dual-brain **NuClide Research** mark is a supporting co-brand supplied by Nicholas, not a Google/Gemini or Digital Research mark. Mobile identity:
+The launcher uses the red woven-diamond Zoe emblem. The dual-brain **NuClide Research** mark is a supporting co-brand supplied by Nicholas, not a Google/Gemini or Digital Research mark. Mobile identity:
 
 **Zoe = NuClide Research partner + Nicholas Michael Kloster. Zoetic = Zoe = life; research = fun = discovery. PLACES = Play. Learn. Adapt. Create. Explore. Share.**
 
