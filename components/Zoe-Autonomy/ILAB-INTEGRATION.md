@@ -118,4 +118,4 @@ The code is GPL version 2 or later. Zoe remains GPL-3.0-only and retains copyrig
 
 ## Machine-readable coverage
 
-`evidence/ilab/catalog.json` contains every source-file SHA-256, classification, reason, Zoe path, and every mirrored web artifact including all failures. Regenerate with `python scripts/build-ilab-catalog.py`.
+The canonical repository's [`evidence/ilab/catalog.json`](https://github.com/Ablation-Tool/Zoe-Autonomy/blob/main/evidence/ilab/catalog.json) contains every source-file SHA-256, classification, reason, Zoe path, and every mirrored web artifact including all failures. Regenerate with `python scripts/build-ilab-catalog.py`.

@@ -10,10 +10,7 @@ These are the canonical artifacts for the current paper and reproduction procedu
 - [XLNet-Base report](./xlnet-hidden-token-accessible-volume.json) and [XLNet-Large report](./xlnet-large/xlnet-hidden-token-accessible-volume.json), with complete probability vectors and input IDs.
 - [Sixteen-model comparison summary](./comparison/model-comparison-summary.json) and [frozen case manifest](./comparison/model-comparison-cases.json).
 - [BioBERT optimization results](./biobert-optimization/optimization.json), [per-case scores](./biobert-optimization/optimization-scores.csv), and [frozen cases](./biobert-optimization/cases.json).
-- [Response-planning visual proof](./response-planning/response-planning-proof.svg), with [recomputed measurements](./response-planning/measurements.json), [artifact hashes](./response-planning/artifact-manifest.json), [verifier output](./response-planning/verification.json), and frozen [Zoe](./response-planning/zoe-gpt2-volume.json) and [GEM](./response-planning/gem-gpt2-strict.json) recomputations.
 - [Current paper](../paper/accessible-volume-significance.pdf) and [LaTeX source](../paper/accessible-volume-significance.tex).
-- [Zoe repository audit](./zoe-audit/report.json), [read-only audit script](../scripts/audit-zoe.py), and focused [headless/component](./zoe-audit/headless-and-components.txt) and [native](./zoe-audit/native-unified.txt) logs. This is point-in-time engineering evidence for Zoe revision `8fcdcfe4`, not a new model measurement or an all-pass claim.
-- [Zoe integration provenance](./zoe-integration/provenance.json), the complete [Zoe proof of concept](./zoe-integration/zoe.pdf), core source, and worked memory artifacts. These later Zoe materials preserve their own authorship and historical verification scope; they do not reassign credit for the original accessible-volume equation or papers.
 
 ## Historical research context
 

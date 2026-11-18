@@ -322,7 +322,6 @@ class SemanticSearcher:
         self._meta: Optional[list[dict]]     = None
         self._live_addrs: 'set[int] | None'  = None
         self._binary_id: Optional[int]       = None
-        self._whitener = WhiteningTransform()
 
     @classmethod
     def from_context(cls, ctx, cache_dir: Optional[Path] = None) -> 'SemanticSearcher':
@@ -498,12 +497,6 @@ class SemanticSearcher:
             if cached.get('db_hash') == db_hash:
                 self._vectors = cached['vectors']
                 self._meta    = cached['meta']
-                whitening = cached.get('whitening')
-                if whitening:
-                    self._whitener._mu = whitening['mu']
-                    self._whitener._W = whitening['W']
-                else:
-                    self._whitener.fit(self._vectors)
                 return len(self._meta)
 
         con = sqlite3.connect(self._db_path)
@@ -520,8 +513,8 @@ class SemanticSearcher:
                   FROM functions
                  WHERE confidence IN ('CONFIRMED', 'ANGR_INFERRED')
             ''').fetchall()
-        if live_addrs is not None:
-            rows = [r for r in rows if r[0] in live_addrs]
+            if live_addrs is not None:
+                rows = [r for r in rows if r[0] in live_addrs]
         con.close()
 
         if not rows:
@@ -535,7 +528,6 @@ class SemanticSearcher:
         ]
         model = self._get_model()
         vectors = np.array(list(model.embed(descriptions)), dtype=np.float32)
-        vectors = self._whitener.fit_transform(vectors)
 
         meta = [
             {'va': r[0], 'name': r[1], 'role': r[2], 'confidence': r[3]}
@@ -543,12 +535,7 @@ class SemanticSearcher:
         ]
 
         with open(cache, 'wb') as f:
-            pickle.dump({
-                'db_hash': db_hash,
-                'vectors': vectors,
-                'meta': meta,
-                'whitening': {'mu': self._whitener._mu, 'W': self._whitener._W},
-            }, f)
+            pickle.dump({'db_hash': db_hash, 'vectors': vectors, 'meta': meta}, f)
 
         self._vectors = vectors
         self._meta    = meta
@@ -567,7 +554,6 @@ class SemanticSearcher:
             return []
 
         q = np.array(next(self._get_model().embed([description])), dtype=np.float32)
-        q = self._whitener.transform(q)
 
         scores = self._vectors @ q          # cosine sim (both L2-normalized)
         top_k  = min(top_k, len(scores))
@@ -606,7 +592,6 @@ class SemanticSearcher:
             cache.unlink()
         self._vectors = None
         self._meta    = None
-        self._whitener = WhiteningTransform()
 
 
 # ── Known query patterns for common vuln classes ─────────────────────────────
