@@ -49,10 +49,12 @@ python components/agent-logging-system/agent_logging_system/neurogarden_vision_h
   --image components/agent-logging-system/docs/images/dorothy-neurogarden.png \
   --out /tmp/zoe-4head-dissection.png
 
-# Open the Causal Chiasm or Stage-3 AGI Genesis Symphony layer and export interactive HTML
+# Open the Causal Chiasm, Spectral Theorem, or AGI Genesis layer and run live chat proof
 zoe gem open chiasm
+zoe gem open spectral
 zoe gem open genesis
-zoe gem export genesis /tmp/zoe-agi-genesis.html
+zoe gem export spectral /tmp/zoe-spectral-theorem.html
+zoe chat --cli --command "spectral benchmark"
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
@@ -121,6 +123,7 @@ The value of AGI is not the label. It is the ability to learn, reason, transfer,
 - **Neural & Numerical Simulation:** DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, Shannon entropy, point-spread convolution and recovery, SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic similarity, and fixed synthetic radiobiology examples.
 - **Beyond Metacognition — The Causal Chiasm & Filtration Tomography:** Intersects the Retrograde Causal Past Cone ($\rho_T$) with the Counterfactual Future Cone ($P_h$) at $t=0$ (`guiai/gem/chiasm.py`), sweeps persistent filtration thresholds $\mathcal{F}(t, \tau)$, and transfers one unified filtration operator across three unrelated domains (`zoe_autonomy/cross_domain_transfer.py`).
 - **Stage 3 — Autopoietic AGI Genesis & 10-Domain Discovery Symphony:** Combines Causal Chiasm filtration with temporal curvature stability and Cross-Domain Analogical Morphism ($\Omega_\tau: D_A \xrightarrow{\sim} D_B$) across all 10 `AGI-ROADMAP.md` domain families, executing a 9-stage closed-loop research cycle with zero catastrophic forgetting (`zoe_autonomy/agi_discovery.py` & `guiai/gem/genesis.py`).
+- **Original Mathematical Result — The Kloster Spectral Filtration Generating Theorem:** Proves every classical Rényi/Tsallis/Shannon/Min-Entropy measure is an exact linear integral over $A_\tau(p)$ (`H(p) = -∫(1 + ln τ) A_τ(p) dτ`, `M_k(p) = ∫ k·τ^(k-1) A_τ(p) dτ = Σ p^k`), and demonstrates across 3 real unrelated domains (3,840 HELEN observations, 138k 3D PSF+Rician voxels, and Dorothy CCFv3 256-patch attention) that $M_4^{1/4}(A_\tau)$ beats both single-slice $A_\tau$ and Shannon $H(p)$ on 4/4 benchmarks while preserving the honest negative result on naive forward/retrograde JSD mixing ([Theorem Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py)).
 - **Scientific Corpus & Unified Book Ingest:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, plus `neurogarden_ingest.py` chaining SHA-256 chapter provenance with 4-head plate dissections.
 
 Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [Autopoietic AGI Discovery engine](components/Zoe-Autonomy/src/zoe_autonomy/agi_discovery.py), [AGI Genesis GEM scene](guiai-lab/guiai/gem/genesis.py), [Causal Chiasm engine](guiai-lab/guiai/gem/chiasm.py), [L4 cross-domain transfer harness](components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py), [unified book ingest pipeline](components/agent-logging-system/agent_logging_system/neurogarden_ingest.py), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
