@@ -537,4 +537,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"symphony", "jam"}:
         from .creative_symphony import symphony_scene
         return symphony_scene()
+    if module in {"l3-research", "research-lab"}:
+        from .l3_research import l3_research_scene
+        return l3_research_scene()
     raise ValueError(f"unknown atlas module: {module}")

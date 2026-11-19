@@ -621,6 +621,30 @@ class ZoeChat:
         )
         return "\n".join(lines)
 
+    def _research(self, argument):
+        from .research_collaborator import (
+            retrieve_cited_literature,
+            run_l3_research_suite,
+            summarize_l3_report,
+        )
+        arg = (argument or "").strip()
+        if arg.lower().startswith("cite "):
+            query = arg[5:].strip()
+            lit = retrieve_cited_literature(query, zoe_root=self.zoe_root, top_k=5)
+            lines = [
+                f"Zoe L3 Local Literature Retrieval ({lit['corpus_entries_indexed']} indexed entries) for {query!r}:"
+            ]
+            for idx, cit in enumerate(lit["citations"], 1):
+                lines.append(
+                    f"  {idx}. [{cit['kind']}] {cit['citation_id']} (score={cit['relevance_score']:.3f}, sha={cit['source_sha256'][:10]}...)"
+                )
+            return "\n".join(lines)
+        rep = run_l3_research_suite(zoe_root=self.zoe_root, run_independent_subprocess=True)
+        return (
+            summarize_l3_report(rep)
+            + "\n  Open visually with `gem open l3-research` or verify independently via `python scripts/verify_l3_research.py`."
+        )
+
     def _steward(self, argument):
         from .self_stewardship import GenomeLedger
         ledger = GenomeLedger(self.store.root / "evolution")
@@ -979,6 +1003,8 @@ class ZoeChat:
                     response = self._mind(argument)
                 elif command in {"evolve", "self-evolve"}:
                     response = self._evolve()
+                elif command in {"research", "l3"}:
+                    response = self._research(argument)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
                 elif command == "undo":
