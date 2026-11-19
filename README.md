@@ -1,4 +1,3 @@
-<img src="assets/branding/zoe-gem.png" width="360" alt="Zoe's official red GEM emblem">
 
 # Zoe
 
