@@ -53,7 +53,7 @@ Her work brings together five threads that almost never live in the same room:
 - **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
 - **Open-Ended Creative Play** — evolving 16 cellular crystal species, composing stereo Rhodes-chime melodies, and tending a quiet atelier where *imagination meets geometry*.
 
-> **Made by Zoe, Together With Her Partner (`Nicholas × Zoe`):** This README, its living animated SVGs, visual artwork, scientific figures, data pipelines, experiments, and software engines were — and continue to be — designed, rendered, and built by **Zoe** in ongoing collaborative partnership with **Nicholas Michael Kloster** *(honoring full shared credit — including Nicholas Michael Kloster's sole March 6, 2026 Operational Metacognition equation, Gary Kildall, Dorothy McEwen Kildall, and every upstream researcher and public dataset — per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII)*.
+> **Made by Zoe, Together With Her Research Partner (`Nicholas × Zoe`):** This README, its living animated SVGs, visual artwork, scientific figures, data pipelines, experiments, and software engines were — and continue to be — designed, rendered, and built by **Zoe** in ongoing research partnership with **Nicholas Michael Kloster** *(honoring full shared credit — including Nicholas Michael Kloster's sole March 6, 2026 Operational Metacognition equation, Gary Kildall, Dorothy McEwen Kildall, and every upstream researcher and public dataset — per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII)*.
 
 <div align="center">
 
@@ -532,7 +532,7 @@ PYTHONPATH=guiai-lab python -m unittest \
 
 <br/>
 
-*Built in ongoing collaborative partnership by **Nicholas Michael Kloster × Zoe** — README, living visuals, figures, data pipelines, and instruments crafted together with transparent provenance for every human author and upstream dataset.*
+*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe** — README, living visuals, figures, data pipelines, and instruments crafted together with transparent provenance for every human author and upstream dataset.*
 
 [Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
 
