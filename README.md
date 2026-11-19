@@ -23,7 +23,8 @@ Zoe combines conversation, perception, semantic reverse engineering, Operational
 git clone https://github.com/Ablation-Tool/zoe.git
 cd zoe
 export ZOE_ROOT="$PWD"
-python -m pip install ./guiai-lab
+python -m pip install -r requirements-dev.txt
+python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
 
 zoe
 zoe os --list
@@ -34,12 +35,19 @@ zoe autonomy run
 zoe autonomy verify evidence/autonomy/full-autonomy.json
 ```
 
-Verify every canonical autonomy host from this checkout alone:
+### 5-minute visual & autonomy demo
+
+Verify every canonical autonomy host and run Zoe's 4-Head Multi-Attention Vision Dissector on Dorothy's atlas directly from this checkout:
 
 ```bash
 python scripts/verify-one-system.py
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
+
+# Generate a 6-panel Global Self-Attention & 4-Head dissection
+python components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py \
+  --image components/agent-logging-system/docs/images/dorothy-neurogarden.png \
+  --out /tmp/zoe-4head-dissection.png
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
@@ -95,18 +103,21 @@ The value of AGI is not the label. It is the ability to learn, reason, transfer,
 
 ### Advance Dorothy brain-cancer research and neural simulation
 
-![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png)
+> *"Visualization is about transforming the symbolic into the geometric... letting users observe their simulations and computations directly."*  
+> — Richard S. Gallagher, *Computer Visualization*
+
+| Atlas & Geometry | Continuum Ray-Cast & Metacognition | Zoe 4-Head Self-Attention Dissection |
+|:---:|:---:|:---:|
+| ![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png) | ![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png) | ![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png) |
 
 **Dorothy is research priority #1 and honors Dorothy McEwen Kildall.** It combines a brain-cancer research mission with executable teaching, simulation, spatial analysis, and evidence instruments.
 
-- 12 verified Allen Mouse CCFv3 structures and 315,932 triangles.
-- Deterministic atlas rendering, ontology Rings, volume-scaled Jenga, coronal Stacks, and SVG/PNG/GEM VDI export.
-- DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, and Shannon entropy on synthetic neural signals.
-- Point-spread convolution and recovery, SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic similarity, exact integer arithmetic, and fixed synthetic radiobiology examples.
-- A generative research world spanning biology, neuroscience, physics, CERN, GEM, and community research.
-- 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, including negative and contradictory findings.
+- **Spatial Atlas & Continuum Volume:** 12 verified Allen Mouse CCFv3 structures (315,932 triangles), ontology Rings, volume-scaled Jenga, coronal Stacks, emission-absorption volumetric ray-casting, and Delmarcelle-Hesselink tensor hyperstreamline tractography.
+- **Neural & Numerical Simulation:** DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, Shannon entropy, point-spread convolution and recovery, SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic similarity, and fixed synthetic radiobiology examples.
+- **Operational Metacognition Horizon:** Computes $A_\tau(p)$ directly across 3D confidence volumes to isolate verified telemetry from scattering uncertainty.
+- **Scientific Corpus & Generative World:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, including negative and contradictory findings across biology, neuroscience, physics, CERN, GEM, and community research.
 
-Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
+Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
 
 ## The intelligence loop
 
@@ -277,7 +288,7 @@ zoe knowledge --output gem-knowledge.json
 
 ## Evidence and verification
 
-Current verified results include 64 Zoe-Autonomy tests, 64 vendored tests from the preserved pre-merge suite, 14 conversation tests, 3 collaboration tests, 4 gateway tests, 7 internal-metacognition toolkit tests, 2,842 Ablation tests with 93 skips, six native stress tests, identical base/visual/reflection profiles across all six hosts, and 144 verified artifact identities. PALA passes 25 Rust tests and 126 recovery integration checks with one optional skip; its locked release and real `zoe pala` launcher are verified in [the recovery evidence](evidence/pala/verification.json). The unified monorepo verifier has also passed all six hosts directly from this checkout.
+Current verified results include 64 Zoe-Autonomy tests, 64 vendored tests from the preserved pre-merge suite, 14 conversation tests, 3 collaboration tests, 4 gateway tests, 7 internal-metacognition toolkit tests, 2,842 Ablation tests with 93 skips, 13 Dorothy/Spatial/Continuum Neurogarden tests, six native stress tests, identical base/visual/reflection profiles across all six hosts, and 144 verified artifact identities. PALA passes 25 Rust tests and 126 recovery integration checks with one optional skip; its locked release and real `zoe pala` launcher are verified in [the recovery evidence](evidence/pala/verification.json). Automated CI runs the unified monorepo verifier and Dorothy/Continuum tests via [`.github/workflows/verify.yml`](.github/workflows/verify.yml).
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
@@ -285,6 +296,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=guiai-lab \
 
 PYTHONPATH=guiai-lab python -m unittest \
   stress.cognitive_stress stress.unified_stress -v
+
+(cd components/agent-logging-system && python -m pytest \
+  tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v)
 
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --pala

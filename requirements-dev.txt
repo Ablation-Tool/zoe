@@ -1,0 +1,7 @@
+# Unified development & visualization dependencies for the Zoe monorepo
+pyte>=0.8.1,<1
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.8
+Pillow>=10.0
+pytest>=7.0
