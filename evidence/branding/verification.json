@@ -4,9 +4,11 @@
   "verified": true,
   "official_source": "assets/branding/zoe-gem.svg",
   "source_supplied": "/home/cowboy/Pictures/Zoe_GEM.svg",
-  "source_sha256": "1798bca16b2b67edc65ec0648112aff7fc2bcd542303318d81ad0f8afed1e1d0",
+  "source_sha256": "afa467dc17a80f80b99d69be6fdbfa6d68ac43c1a5ffccbe5b8f27ee74fa5bf3",
   "canonical_png": "assets/branding/zoe-gem.png",
-  "canonical_png_sha256": "06ac9e23c6295daa01717e4b96cd8f84841a2f02b67ed9a63ad4cb3a6234f110",
+  "canonical_png_sha256": "0fb9b90524adba1e39182c79c9f43ecdfe751254ceae30706f5fbc03c33bfd81",
+  "filled_diamond": true,
+  "transparent_background": true,
   "generator": "assets/branding/render_zoe_gem.py",
   "pixel_verified_generated_icons": 49,
   "desktop": {
