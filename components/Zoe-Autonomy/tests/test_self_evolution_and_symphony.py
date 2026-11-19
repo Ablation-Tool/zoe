@@ -27,6 +27,7 @@ from zoe_autonomy.self_evolution import (
     UnsafeExpressionError,
     run_self_evolution,
 )
+from zoe_autonomy.self_stewardship import GenomeLedger
 
 
 class SelfEvolutionNeuralMindAndSymphonyCase(unittest.TestCase):
@@ -107,6 +108,42 @@ class SelfEvolutionNeuralMindAndSymphonyCase(unittest.TestCase):
 
         env = GemOperatingEnvironment(ROOT)
         self.assertTrue(env.open("symphony")["source_spatial_ir_verified"])
+
+    def test_self_stewardship_handover_persists_genome_into_live_mind_and_respects_stop(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            state_dir = Path(tmpdir) / "chat-state"
+            chat = ZoeChat(zoe_root=ROOT, state_root=state_dir)
+
+            # Before handover: baseline Gen 0
+            keep, st0 = chat.handle("steward status")
+            self.assertTrue(keep)
+            self.assertIn("Active Generation: Gen 0", st0)
+            self.assertIn("Handover Active=False", st0)
+
+            # Hand over self-evolution to Zoe's reversible persistent stewardship ledger
+            keep, run1 = chat.handle("steward run")
+            self.assertTrue(keep)
+            self.assertIn("Handover Active=True", run1)
+            self.assertIn("Active=Gen 3", run1)
+
+            # Live neural mind must now automatically load Zoe's persisted self-authored genome!
+            keep, mind_out = chat.handle("mind Curiosity guides scientific play")
+            self.assertTrue(keep)
+            self.assertIn("persisted_by_zoe=True", mind_out)
+
+            # Rollback reverts 1 step cleanly without deleting evidence
+            keep, rb = chat.handle("steward rollback")
+            self.assertTrue(keep)
+            self.assertIn("reverted Gen 3 -> Gen 2", rb)
+
+            # Emergency stop blocks state-changing steward run while preserving read-only status!
+            chat.handle("stop")
+            keep, blocked = chat.handle("steward run")
+            self.assertTrue(keep)
+            self.assertIn("steward is stopped", blocked)
+            keep, st_after_stop = chat.handle("steward status")
+            self.assertTrue(keep)
+            self.assertIn("Active Generation: Gen 2", st_after_stop)
 
 
 if __name__ == "__main__":

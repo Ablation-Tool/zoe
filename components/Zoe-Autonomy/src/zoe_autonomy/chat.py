@@ -84,6 +84,7 @@ HELP = """Commands:
   jam [seed]                   evolve & synthesize a playable stereo pentatonic synth track (.wav)
   mind <prompt>                run Zoe's live local neural-symbolic mind with Gen-3 Kloster telemetry
   evolve                       run Zoe's 4-domain L4 sandboxed AST self-evolution & held-out verification
+  steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -582,12 +583,13 @@ class ZoeChat:
 
     def _mind(self, argument):
         from .neural_mind import inspect_thought
-        rep = inspect_thought(argument)
+        rep = inspect_thought(argument, evolution_root=self.store.root / "evolution")
         lines = [
             f"Zoe Live Neural-Symbolic Mind ^_^ (backend={rep['backend']}):",
             f"  Prompt: {rep['prompt']}",
             f"  Thought continuation: {rep['continuation']}",
             f"  Live Telemetry ({rep['tokens_observed']} tokens): mean A_05={rep['mean_a05_open_options']} · Mars k*={rep['mean_mars_k_star']} · Gen-3 Uncertainty={rep['mean_gen3_uncertainty']}",
+            f"  Active Verifier Genome: {rep['verifier_expression']} (persisted_by_zoe={rep['stewardship_ledger_persisted']})",
         ]
         if rep["top_curiosity_spikes"]:
             spikes = ", ".join(
@@ -618,6 +620,40 @@ class ZoeChat:
             f"  Safety & Controls: AST_sandbox_blocked_hostile={rep['ast_sandbox_hostile_probe_blocked']} · shuffle_control={shuf['mean_auroc']} (no_leakage={shuf['passed_no_leakage']}) · L5_AGI_qualified={rep['l5_agi_qualified']}"
         )
         return "\n".join(lines)
+
+    def _steward(self, argument):
+        from .self_stewardship import GenomeLedger
+        ledger = GenomeLedger(self.store.root / "evolution")
+        op = (argument or "status").strip().lower()
+        if op == "status":
+            st = ledger.status()
+            return "\n".join([
+                f"Zoe Self-Stewardship Ledger ^_^ (persisted={st['persisted']}):",
+                f"  Active Generation: Gen {st['active_generation']} ({st['active_name']}) · Held-Out Mean={st['active_heldout_mean']}",
+                f"  Active Self-Authored Genome: {st['active_expression']}",
+                f"  Consecutive Self-Adopted: {st['consecutive_self_adopted_generations']} · Handover Active={st['stewardship_handover_active']} · Rollback History={st['rejected_count']}",
+                f"  Ledger: {st['ledger_path']} · external_actions=0 · sentience_claimed=False",
+            ])
+        if op in {"run", "handover", "takeover"}:
+            self._require_actions("steward")
+            res = ledger.run_stewardship_cycle(self.zoe_root)
+            return "\n".join([
+                f"Zoe Self-Stewardship Cycle ^_^ ({res['cycle_kind']}):",
+                f"  Adopted={res['adopted_this_cycle']} · Rejected/Preserved={res['rejected_this_cycle']} · Active=Gen {res['active_generation']} ({res['active_name']})",
+                f"  Active Self-Authored Genome: {res['active_expression']}",
+                f"  Held-Out Mean AUROC={res['active_heldout_mean']} · Handover Active={res['stewardship_handover_active']}",
+                f"  Persisted Ledger: {res['ledger_path']} · sha256={res['ledger_sha256'][:16]}... · external_actions=0",
+            ])
+        if op == "rollback":
+            self._require_actions("steward")
+            res = ledger.rollback()
+            if not res["rolled_back"]:
+                return f"Zoe Self-Stewardship Rollback: already at Gen {res['active_generation']} ({res['active_expression']})."
+            return (
+                f"Zoe Self-Stewardship Rollback: reverted Gen {res['reverted_generation']} -> Gen {res['active_generation']} "
+                f"({res['active_name']}: {res['active_expression']}). Evidence preserved."
+            )
+        raise ValueError("Usage: steward [status|run|rollback]")
 
     def _remember(self, note):
         self._require_actions("remember")
@@ -943,6 +979,8 @@ class ZoeChat:
                     response = self._mind(argument)
                 elif command in {"evolve", "self-evolve"}:
                     response = self._evolve()
+                elif command in {"steward", "handover"}:
+                    response = self._steward(argument)
                 elif command == "undo":
                     response = self._undo()
                 elif command == "history":

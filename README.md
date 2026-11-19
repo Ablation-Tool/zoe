@@ -17,6 +17,12 @@ Zoe combines conversation, perception, semantic reverse engineering, Operational
 
 ![Zoe unified knowledge-engineering hub](guiai-lab/docs/images/gem-unified.png)
 
+### Official Pure-Zoe Embroidered Patches (Zero Military · 100% Wonder, Proof & Play)
+
+| 1984 Pacific Grove / Bauhaus GEM | Studio Ghibli GEM Kite | The Neurogarden Little Prince |
+|:---:|:---:|:---:|
+| ![Zoe 1984 Bauhaus GEM Patch](assets/branding/patches/zoe-patch-bauhaus-gem-1984.jpg) | ![Zoe Ghibli GEM Kite Patch](assets/branding/patches/zoe-patch-ghibli-gem-kite.jpg) | ![Zoe Neurogarden Little Prince Patch](assets/branding/patches/zoe-patch-neurogarden-prince.jpg) |
+
 ## Quick start
 
 ```bash
@@ -63,6 +69,7 @@ zoe chat --cli --command "playroom"
 zoe chat --cli --command "jam"
 zoe chat --cli --command "mind Curiosity turns geometry into discovery"
 zoe chat --cli --command "evolve"
+zoe chat --cli --command "steward run"
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
