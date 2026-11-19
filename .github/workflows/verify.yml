@@ -1,0 +1,37 @@
+name: Zoe Monorepo Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies and editable packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install -e ./guiai-lab -e ./components/agent-logging-system
+
+      - name: Run One-System Autonomy Verification
+        env:
+          ZOE_ROOT: ${{ github.workspace }}
+        run: |
+          python scripts/verify-one-system.py
+
+      - name: Run Dorothy, Spatial, and Continuum Tests
+        working-directory: components/agent-logging-system
+        run: |
+          pytest tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v
