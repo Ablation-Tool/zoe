@@ -17,11 +17,17 @@ from zoe_autonomy.cross_domain_transfer import (
     gen2_causal_chiasm_operator,
     run_cross_domain_self_improvement,
 )
+from zoe_autonomy.agi_discovery import (
+    AGI_TEN_DOMAINS,
+    gen3_autopoietic_genesis_operator,
+    run_autonomous_discovery_cycle,
+)
 from guiai.gem.chiasm import (
     causal_chiasm,
     chiasm_scene,
     persistent_filtration_tomography,
 )
+from guiai.gem.genesis import genesis_scene
 from guiai.gem.geometry import verify
 from guiai.gem.operating_environment import GemOperatingEnvironment
 from guiai.gem.runner import verify_vdi
@@ -90,6 +96,34 @@ class CrossDomainChiasmCase(unittest.TestCase):
             self.assertIn("ZOE / DOROTHY QUALIA HUD", html_out.read_text(encoding="utf-8"))
             with self.assertRaises(FileExistsError):
                 env.export("chiasm", html_out)
+
+    def test_autopoietic_agi_discovery_ten_domains_and_zero_forgetting(self):
+        report = run_autonomous_discovery_cycle()
+        self.assertEqual(report["domain_count"], 10)
+        self.assertEqual(tuple(report["domains"]), AGI_TEN_DOMAINS)
+        self.assertEqual(len(report["research_cycle_stages"]), 9)
+        self.assertEqual(report["catastrophic_forgetting_events"], 0)
+        self.assertTrue(report["all_ten_domains_qualified"])
+        self.assertTrue(report["independent_reproduction_verified"])
+        self.assertEqual(report["external_actions"], 0)
+
+        means = report["mean_f1_by_generation"]
+        self.assertLess(means["static_gen0_control"], means["gen1_filtration"])
+        self.assertLess(means["gen1_filtration"], means["gen2_causal_chiasm"])
+        self.assertLess(means["gen2_causal_chiasm"], means["gen3_autopoietic_genesis"])
+        self.assertEqual(means["gen3_autopoietic_genesis"], 1.0)
+
+    def test_genesis_gem_scene_spatial_ir_and_vdi(self):
+        scene, report = genesis_scene()
+        self.assertTrue(verify(scene).passed, verify(scene).text())
+        self.assertTrue(verify_vdi(scene).passed, verify_vdi(scene).text())
+        self.assertEqual(report["domains_qualified"], 10)
+        self.assertFalse(report["executed"])
+
+        env = GemOperatingEnvironment(ROOT)
+        opened = env.open("genesis")
+        self.assertTrue(opened["source_spatial_ir_verified"])
+        self.assertEqual(opened["external_actions"], 0)
 
 
 if __name__ == "__main__":

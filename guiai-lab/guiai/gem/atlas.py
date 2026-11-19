@@ -522,4 +522,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"dorothy-continuum", "dorothy-qualia"}:
         from .dorothy import default_dorothy_qualia_document
         return default_dorothy_qualia_document()
+    if module in {"genesis", "agi-symphony"}:
+        from .genesis import genesis_scene
+        return genesis_scene()
     raise ValueError(f"unknown atlas module: {module}")
