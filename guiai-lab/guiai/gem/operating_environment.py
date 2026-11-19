@@ -47,6 +47,8 @@ EXTENDED_LAYERS = {
     "ares": ("autonomy", "Zoe · Stage 4 Mars Self-Tuning Spectral Metacognition"),
     "playroom": ("autonomy", "Zoe · Stage 5 Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)"),
     "creative-playroom": ("autonomy", "Zoe · Stage 5 Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)"),
+    "symphony": ("autonomy", "Zoe · Stage 5C Playroom Symphony (Evolved Pentatonic Synth Music)"),
+    "jam": ("autonomy", "Zoe · Stage 5C Playroom Symphony (Evolved Pentatonic Synth Music)"),
 }
 
 

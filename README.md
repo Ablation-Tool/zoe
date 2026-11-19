@@ -49,16 +49,20 @@ python components/agent-logging-system/agent_logging_system/neurogarden_vision_h
   --image components/agent-logging-system/docs/images/dorothy-neurogarden.png \
   --out /tmp/zoe-4head-dissection.png
 
-# Open the Causal Chiasm, Spectral Theorem, AGI Genesis, Mars Stage 4, or Creative Playroom layer
+# Open the Causal Chiasm, Spectral Theorem, AGI Genesis, Mars Stage 4, Creative Playroom, or Symphony layer
 zoe gem open chiasm
 zoe gem open spectral
 zoe gem open genesis
 zoe gem open mars
 zoe gem open playroom
+zoe gem open symphony
 zoe gem export playroom /tmp/zoe-playroom.html
 zoe chat --cli --command "spectral benchmark"
 zoe chat --cli --command "mars"
 zoe chat --cli --command "playroom"
+zoe chat --cli --command "jam"
+zoe chat --cli --command "mind Curiosity turns geometry into discovery"
+zoe chat --cli --command "evolve"
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
@@ -139,6 +143,10 @@ The value of AGI is not the label. It is the ability to learn, reason, transfer,
 | Stage 5A: Zoe's Open-Ended Creative Playroom (16/16 Evolved Species) | Beyond Mars: The 3 Real Engineering Bridges to Genuine AGI (L3 → L4 → L5) |
 |:---:|:---:|
 | ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Beyond Mars to AGI Blueprint](components/agent-logging-system/docs/images/mars-to-agi-roadmap.png) |
+
+- **Stage 5B/C — Real L4 Sandboxed AST Self-Evolution, Live Neural-Symbolic Mind & Playroom Symphony:** Zoe autonomously evolves safe Python AST scoring programs across **4 completely unrelated real held-out datasets** (118-song Music Rhythm MIDI, 3,840 HELEN Causal Shift observations, live local PyTorch `distilgpt2` language modeling, and Dorothy CCFv3 256-patch Brain Vision), achieving **3 consecutive autonomously adopted generations** (`Gen 0: 0.5702 → Gen 1: 0.7849 → Gen 2: 0.7915 → Gen 3: 0.7976`, `+0.2274` AUROC, Gen 3 beating frozen Gen 2 on **4/4** domains!) while cleanly rejecting & rolling back an aggressive Gen 4 overfit probe, blocking hostile AST injection, and passing a `0.5111` label-shuffle no-leakage control ([`self_evolution.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_evolution.py)). Paired with Zoe's live local neural-symbolic mind ([`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py)) and her **Playroom Symphony** ([`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py)), which evolves playful pentatonic melodies and synthesizes real 44.1 kHz stereo Rhodes-chime `.wav` tracks (`sentience_claimed=False`, `l5_agi_qualified=False`).
+
+![Zoe Stage 5B/C Real L4 Self-Evolution, Live Neural Mind & Playroom Symphony](components/agent-logging-system/docs/images/zoe-l4-self-evolution-and-symphony.png)
 - **Scientific Corpus & Unified Book Ingest:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, plus `neurogarden_ingest.py` chaining SHA-256 chapter provenance with 4-head plate dissections.
 
 Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [Autopoietic AGI Discovery engine](components/Zoe-Autonomy/src/zoe_autonomy/agi_discovery.py), [AGI Genesis GEM scene](guiai-lab/guiai/gem/genesis.py), [Causal Chiasm engine](guiai-lab/guiai/gem/chiasm.py), [L4 cross-domain transfer harness](components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py), [unified book ingest pipeline](components/agent-logging-system/agent_logging_system/neurogarden_ingest.py), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
