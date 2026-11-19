@@ -19,7 +19,7 @@ def square(size):
     with Image.open(SOURCE) as source:
         source = source.convert("RGBA")
         height = round(size * source.height / source.width)
-        resized = source.resize((size, height), Image.Resampling.NEAREST)
+        resized = source.resize((size, height), Image.Resampling.LANCZOS)
         image = Image.new("RGBA", (size, size), (0, 0, 0, 0))
         image.paste(resized, (0, (size - height) // 2))
         return image
@@ -31,11 +31,13 @@ def render(size, path):
 
 def write_vector_editions():
     encoded = base64.b64encode(SOURCE.read_bytes()).decode("ascii")
+    with Image.open(SOURCE) as source:
+        width, height = source.size
     document = (
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
-        'width="47" height="29" viewBox="0 0 47 29" role="img" aria-labelledby="title description">\n'
+        f'width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title description">\n'
         '  <title id="title">Zoe GEM official emblem</title>\n'
-        '  <desc id="description">The exact gem3red PNG artwork preserved in an SVG container.</desc>\n'
+        '  <desc id="description">Zoe’s exact official PNG artwork preserved in an SVG container.</desc>\n'
         f'  <image id="gem3red" width="47" height="29" xlink:href="data:image/png;base64,{encoded}"/>\n'
         '</svg>\n'
     )
@@ -87,7 +89,7 @@ def main():
     render(32, PACKAGED / "gem-woven-diamond-32.png")
     shutil.copyfile(GEM_ROOT / "windows" / "gem-woven-diamond.ico", PACKAGED / "gem-woven-diamond.ico")
     shutil.copyfile(GEM_ROOT / "macos" / "gem-woven-diamond.icns", PACKAGED / "gem-woven-diamond.icns")
-    print(f"Rendered Zoe's official gem3red emblem from {SOURCE}")
+    print(f"Rendered Zoe's official GEM emblem from {SOURCE}")
 
 
 if __name__ == "__main__":
