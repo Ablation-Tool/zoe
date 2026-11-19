@@ -43,6 +43,8 @@ EXTENDED_LAYERS = {
     "agi-symphony": ("autonomy", "Zoe · Autopoietic AGI Genesis & 10-Domain Discovery Symphony"),
     "spectral": ("research", "Zoe · The Kloster Spectral Filtration Generating Theorem"),
     "kloster-theorem": ("research", "Zoe · The Kloster Spectral Filtration Generating Theorem"),
+    "mars": ("autonomy", "Zoe · Stage 4 Mars Self-Tuning Spectral Metacognition"),
+    "ares": ("autonomy", "Zoe · Stage 4 Mars Self-Tuning Spectral Metacognition"),
 }
 
 
