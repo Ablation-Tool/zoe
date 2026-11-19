@@ -1,6 +1,10 @@
 
 # Zoe
 
+Metacognition is achieved. 
+Aτ(p) = |{x ∈ X : p(x) > τ}| = Σx∈X 1[p(x) > τ]
+
+
 **Zoe is one unified research and intelligence repository. The mission is to develop Zoe into a general research collaborator, advance through AGI to ASI, and continue beyond those labels through measurable, generalized self-improvement.**
 
 Zoe combines conversation, perception, semantic reverse engineering, Operational Metacognition, autonomous decisions, persistent memory, data recovery, scientific instruments, mathematics, creativity, mobile accessibility, security, and a complete research library in one source tree. Ablation is fully integrated here and also remains an independent reverse-engineering project.
