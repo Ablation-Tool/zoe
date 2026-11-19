@@ -39,6 +39,8 @@ EXTENDED_LAYERS = {
     "causal-chiasm": ("zoe", "Zoe · The Causal Chiasm & Filtration Tomography"),
     "dorothy-continuum": ("neurogarden", "Dorothy · Continuum & Qualia Atlas"),
     "dorothy-qualia": ("neurogarden", "Dorothy · CCFv3 3D brain atlas (Qualia theme)"),
+    "genesis": ("autonomy", "Zoe · Autopoietic AGI Genesis & 10-Domain Discovery Symphony"),
+    "agi-symphony": ("autonomy", "Zoe · Autopoietic AGI Genesis & 10-Domain Discovery Symphony"),
 }
 
 
