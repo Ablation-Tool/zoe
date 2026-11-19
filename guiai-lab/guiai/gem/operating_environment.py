@@ -41,6 +41,8 @@ EXTENDED_LAYERS = {
     "dorothy-qualia": ("neurogarden", "Dorothy · CCFv3 3D brain atlas (Qualia theme)"),
     "genesis": ("autonomy", "Zoe · Autopoietic AGI Genesis & 10-Domain Discovery Symphony"),
     "agi-symphony": ("autonomy", "Zoe · Autopoietic AGI Genesis & 10-Domain Discovery Symphony"),
+    "spectral": ("research", "Zoe · The Kloster Spectral Filtration Generating Theorem"),
+    "kloster-theorem": ("research", "Zoe · The Kloster Spectral Filtration Generating Theorem"),
 }
 
 

@@ -57,6 +57,8 @@ DOCUMENT_PATHS = (
     "components/next-token-predictability/docs/ALGORITHMS.md",
     "components/next-token-predictability/docs/RESEARCH.md",
     "components/agent-logging-system/docs/NEUROGARDEN.md",
+    "research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md",
+    "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
@@ -74,6 +76,9 @@ HELP = """Commands:
   run                          execute one guarded reversible internal plan
   reflect                      evaluate and adopt or preserve predictive self-models
   meta [question|action|self]  optionally measure live-option breadth with Aτ,D
+  chiasm                       inspect the Causal Chiasm (past rho_T <-> future P_h) & filtration
+  spectral [benchmark]         verify the Kloster Spectral Filtration Theorem (add 'benchmark' for 3-domain run)
+  genesis                      run the 9-stage Autopoietic Discovery & 10-domain retention engine
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -451,6 +456,62 @@ class ZoeChat:
         breadth = self.meta_tools.count(options, self.meta_tools.threshold(Domain.INTENT, 0.05), represented_count=len(options))
         return f"Intent candidates represented={len(options)} · Aτ(intent)={breadth.accessible_count} at τ={breadth.tau:.2f} · boxed={breadth.boxed} · computed_on_request=True"
 
+    def _ensure_guiai(self):
+        guiai_root = str(self.zoe_root / "guiai-lab")
+        if guiai_root not in sys.path:
+            sys.path.insert(0, guiai_root)
+
+    def _chiasm(self):
+        self._ensure_guiai()
+        from guiai.gem.chiasm import default_chiasm_demo
+        demo = default_chiasm_demo()
+        c = demo["chiasm"]
+        t = demo["tomography"]
+        return "\n".join([
+            f"Causal Chiasm {c['presence_glyph']} (t=0 nexus, tau={c['tau']:.2f}, horizon={c['horizon']}):",
+            f"  Retrograde Past A_tau(rho_T)={c['past_accessible_volume']} · Counterfactual Future A_tau(P_h)={c['future_accessible_volume']} · shift={c['chiasm_shift']:+d}",
+            f"  Effective Information={c['effective_information_bits']:.4f} bits · future_boxed_in={c['future_boxed_in']} · executed=False",
+            f"  Filtration Invariants (tau>={t['invariant_tau']:.2f}): {', '.join(t['structural_invariants'])}",
+            "  Open visually with `gem open chiasm` or export with `gem export chiasm /path/out.html`.",
+        ])
+
+    def _spectral(self, argument):
+        self._ensure_guiai()
+        from guiai.gem.spectral_filtration import run_real_three_domain_benchmark, verify_generating_theorem
+        theorem = verify_generating_theorem()
+        lines = [
+            f"Kloster Spectral Filtration Generating Theorem: verified={theorem['verified']} (max_err={theorem['max_quadrature_error']:.2e})",
+            "  int_0^1 A_tau(p) d_tau = 1  |  H(p) = -int_0^1 (1+ln tau) A_tau(p) d_tau  |  M_k(p) = int_0^1 k*tau^(k-1) A_tau(p) d_tau = sum p^k",
+        ]
+        if argument.lower() in {"benchmark", "real", "full"}:
+            bench = run_real_three_domain_benchmark(self.zoe_root)
+            f = bench["domain_1_helen_forward"]
+            r = bench["domain_1_helen_retrograde"]
+            p = bench["domain_2_psf_rician_3d_volumes"]
+            v = bench["domain_3_dorothy_ccfv3_attention"]
+            neg = bench["negative_result_naive_fwd_ret_jsd"]
+            lines.extend([
+                f"  1A. HELEN Forward (1,920 obs):     A05={f['single_slice_a05_auroc']} · Shannon={f['shannon_entropy_auroc']} · M4={f['m4_spectral_auroc']} (Acc@80%cov={f['m4_acc_at_80cov']:.4f})",
+                f"  1B. HELEN Retrograde (1,920 obs):  A05={r['single_slice_a05_auroc']} · Shannon={r['shannon_entropy_auroc']} · M2={r['m2_spectral_auroc']} · M4={r['m4_spectral_auroc']}",
+                f"  2.  3D PSF+Rician (138,240 vox):   A_tau={p['single_slice_auroc']} · Shannon={p['shannon_auroc']} · M4={p['m4_spectral_auroc']}",
+                f"  3.  Dorothy CCFv3 256-Patch Attn:  A_tau={v['single_slice_auroc']} · Shannon={v['shannon_auroc']} · M4={v['m4_spectral_auroc']}",
+                f"  Negative Control (Naive JSD mix):  AUROC={neg['auroc']} (alignment={neg['target_alignment_rate']}) · M4 beats both all 4={bench['m4_beats_single_slice_and_shannon_all_four']}",
+            ])
+        else:
+            lines.append("  Run `spectral benchmark` for the live 3-domain real-data proof or `gem open spectral` for the GEM scene.")
+        return "\n".join(lines)
+
+    def _genesis(self):
+        from .agi_discovery import run_autonomous_discovery_cycle
+        rep = run_autonomous_discovery_cycle()
+        m = rep["mean_f1_by_generation"]
+        return "\n".join([
+            f"Autopoietic AGI Genesis ^_^: {rep['domain_count']} domains · {len(rep['research_cycle_stages'])}-stage discovery loop · forgetting_events={rep['catastrophic_forgetting_events']}",
+            f"  Mean F1 progression: Gen0={m['static_gen0_control']:.3f} -> Gen1={m['gen1_filtration']:.3f} -> Gen2={m['gen2_causal_chiasm']:.3f} -> Gen3={m['gen3_autopoietic_genesis']:.3f}",
+            f"  Independent reproduction={rep['independent_reproduction_verified']} · external_actions={rep['external_actions']} · sha256={rep['evidence_sha256'][:16]}...",
+            "  Open visually with `gem open genesis` or export with `gem export genesis /path/out.html`.",
+        ])
+
     def _remember(self, note):
         self._require_actions("remember")
         note = text(note, "memory note", 4000)
@@ -759,6 +820,12 @@ class ZoeChat:
                     response = self._reflect()
                 elif command in {"meta", "metacognition"}:
                     response = self._meta(argument)
+                elif command == "chiasm":
+                    response = self._chiasm()
+                elif command == "spectral":
+                    response = self._spectral(argument)
+                elif command == "genesis":
+                    response = self._genesis()
                 elif command == "undo":
                     response = self._undo()
                 elif command == "history":

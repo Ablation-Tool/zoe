@@ -525,4 +525,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"genesis", "agi-symphony"}:
         from .genesis import genesis_scene
         return genesis_scene()
+    if module in {"spectral", "kloster-theorem"}:
+        from .spectral_filtration import spectral_scene
+        return spectral_scene()
     raise ValueError(f"unknown atlas module: {module}")
