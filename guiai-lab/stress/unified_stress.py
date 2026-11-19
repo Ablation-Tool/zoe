@@ -85,6 +85,19 @@ class UnifiedSourceCase(unittest.TestCase):
         self.assertEqual(REGISTRY.knowledge.knowledge_state()["link_count"], 16)
         self.assertEqual(len(REGISTRY.knowledge.events), 33)
 
+    def test_official_zoe_gem_identity_reaches_active_integration_points(self):
+        official_svg = (ROOT / "assets/branding/zoe-gem.svg").read_bytes()
+        official_png = (ROOT / "mobile/android/app/src/main/res/drawable/zoe_eye.png").read_bytes()
+        for relative in (
+            "components/ablation/gem-lab/gem/icons/gem-woven-diamond.svg",
+            "components/ablation/assets/branding/woven-diamond/source/gem-woven-diamond.svg",
+            "components/ablation/assets/branding/woven-diamond/linux/hicolor/scalable/apps/gem-woven-diamond.svg",
+        ):
+            self.assertEqual((ROOT / relative).read_bytes(), official_svg)
+        self.assertEqual((ROOT / "components/ablation/gem-lab/gem/icons/gem-woven-diamond.png").read_bytes(), official_png)
+        self.assertIn("android:icon=\"@drawable/zoe_eye\"", (ROOT / "mobile/android/app/src/main/AndroidManifest.xml").read_text())
+        self.assertIn("assets/branding/zoe-gem.png", (ROOT / "README.md").read_text())
+
     def test_knowledge_observations_and_declared_links_preserve_boundaries(self):
         registry = ComponentRegistry(ROOT)
         observation = registry.observe(
