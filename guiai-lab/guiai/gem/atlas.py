@@ -531,4 +531,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"mars", "ares"}:
         from .mars_adaptive import mars_scene
         return mars_scene()
+    if module in {"playroom", "creative-playroom"}:
+        from .creative_playroom import playroom_scene
+        return playroom_scene()
     raise ValueError(f"unknown atlas module: {module}")

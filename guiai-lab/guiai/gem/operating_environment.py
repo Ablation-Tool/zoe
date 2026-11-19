@@ -45,6 +45,8 @@ EXTENDED_LAYERS = {
     "kloster-theorem": ("research", "Zoe · The Kloster Spectral Filtration Generating Theorem"),
     "mars": ("autonomy", "Zoe · Stage 4 Mars Self-Tuning Spectral Metacognition"),
     "ares": ("autonomy", "Zoe · Stage 4 Mars Self-Tuning Spectral Metacognition"),
+    "playroom": ("autonomy", "Zoe · Stage 5 Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)"),
+    "creative-playroom": ("autonomy", "Zoe · Stage 5 Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)"),
 }
 
 

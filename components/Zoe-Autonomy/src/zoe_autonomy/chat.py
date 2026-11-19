@@ -80,6 +80,7 @@ HELP = """Commands:
   spectral [benchmark]         verify the Kloster Spectral Filtration Theorem (add 'benchmark' for 3-domain run)
   genesis                      run the 9-stage Autopoietic Discovery & 10-domain retention engine
   mars                         run Stage 4 Self-Tuning Adaptive Lens k*(kappa) on real data
+  playroom [seed]              run Zoe's Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -527,6 +528,29 @@ class ZoeChat:
             "  Open visually with `gem open mars` or export with `gem export mars /path/out.html`.",
         ])
 
+    def _playroom(self, argument):
+        self._ensure_guiai()
+        from guiai.gem.creative_playroom import run_creative_playroom
+        seed = 2026
+        if argument:
+            try:
+                seed = int(argument.strip())
+            except ValueError as err:
+                raise ValueError("playroom accepts an optional integer seed, e.g. `playroom 2026`") from err
+        rep = run_creative_playroom(seed=seed, iterations=200, archive_bins=4)
+        top = sorted(rep["elites"], key=lambda e: -e["descriptors"]["curiosity_fitness"])[:3]
+        lines = [
+            f"Zoe Creative Playroom ^_^ (MAP-Elites + Kloster Curiosity, seed={seed}):",
+            f"  Evolved {rep['niches_filled']}/{rep['total_niches']} distinct geometric species · mean_curiosity={rep['mean_curiosity_fitness']:.4f} · sentience_claimed={rep['sentience_claimed']} · external_actions={rep['external_actions']}",
+        ]
+        for idx, elite in enumerate(top, 1):
+            d = elite["descriptors"]
+            lines.append(
+                f"  #{idx} [{elite['cell'][0]},{elite['cell'][1]}] {elite['rule_name']} (Gen #{elite['generation_discovered']}): Sym={d['symmetry']:.2f} · Spec={d['spectral_complexity']:.2f} · Curiosity={d['curiosity_fitness']:.4f}"
+            )
+        lines.append("  Open visually with `gem open playroom` or export with `gem export playroom /path/out.html`.")
+        return "\n".join(lines)
+
     def _remember(self, note):
         self._require_actions("remember")
         note = text(note, "memory note", 4000)
@@ -843,6 +867,8 @@ class ZoeChat:
                     response = self._genesis()
                 elif command in {"mars", "ares"}:
                     response = self._mars()
+                elif command in {"playroom", "play"}:
+                    response = self._playroom(argument)
                 elif command == "undo":
                     response = self._undo()
                 elif command == "history":
