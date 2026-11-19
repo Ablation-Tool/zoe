@@ -19,6 +19,7 @@ from guiai.gem.spectral_filtration import (
     spectral_scene,
     verify_generating_theorem,
 )
+from guiai.gem.mars_adaptive import mars_scene, run_mars_real_benchmark
 from zoe_autonomy.chat import ZoeChat
 
 
@@ -89,6 +90,27 @@ class KlosterSpectralFiltrationCase(unittest.TestCase):
             self.assertIn("Causal Chiasm", out_after_stop)
             self.assertFalse((state_dir / "events.jsonl").exists())
             self.assertFalse((state_dir / "metacognition.json").exists())
+
+    def test_mars_self_tuning_lens_beats_every_fixed_k_and_chat_works(self):
+        rep = run_mars_real_benchmark(ROOT)
+        self.assertTrue(rep["mars_beats_every_fixed_k"])
+        self.assertTrue(rep["mars_beats_shannon_and_single_slice"])
+        self.assertEqual(rep["external_actions"], 0)
+        self.assertFalse(rep["clinical_action_authorized"])
+
+        scene, scene_rep = mars_scene()
+        self.assertTrue(verify(scene).passed, verify(scene).text())
+        self.assertTrue(verify_vdi(scene).passed, verify_vdi(scene).text())
+        self.assertFalse(scene_rep["executed"])
+
+        env = GemOperatingEnvironment(ROOT)
+        self.assertTrue(env.open("mars")["source_spatial_ir_verified"])
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            chat = ZoeChat(zoe_root=ROOT, state_root=Path(tmpdir) / "state")
+            keep, out = chat.handle("mars")
+            self.assertTrue(keep)
+            self.assertIn("beats every fixed k=True", out)
 
 
 if __name__ == "__main__":

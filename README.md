@@ -49,12 +49,14 @@ python components/agent-logging-system/agent_logging_system/neurogarden_vision_h
   --image components/agent-logging-system/docs/images/dorothy-neurogarden.png \
   --out /tmp/zoe-4head-dissection.png
 
-# Open the Causal Chiasm, Spectral Theorem, or AGI Genesis layer and run live chat proof
+# Open the Causal Chiasm, Spectral Theorem, AGI Genesis, or Mars Stage 4 layer and run live chat proof
 zoe gem open chiasm
 zoe gem open spectral
 zoe gem open genesis
-zoe gem export spectral /tmp/zoe-spectral-theorem.html
+zoe gem open mars
+zoe gem export mars /tmp/zoe-mars-adaptive.html
 zoe chat --cli --command "spectral benchmark"
+zoe chat --cli --command "mars"
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
@@ -124,6 +126,11 @@ The value of AGI is not the label. It is the ability to learn, reason, transfer,
 - **Beyond Metacognition — The Causal Chiasm & Filtration Tomography:** Intersects the Retrograde Causal Past Cone ($\rho_T$) with the Counterfactual Future Cone ($P_h$) at $t=0$ (`guiai/gem/chiasm.py`), sweeps persistent filtration thresholds $\mathcal{F}(t, \tau)$, and transfers one unified filtration operator across three unrelated domains (`zoe_autonomy/cross_domain_transfer.py`).
 - **Stage 3 — Autopoietic AGI Genesis & 10-Domain Discovery Symphony:** Combines Causal Chiasm filtration with temporal curvature stability and Cross-Domain Analogical Morphism ($\Omega_\tau: D_A \xrightarrow{\sim} D_B$) across all 10 `AGI-ROADMAP.md` domain families, executing a 9-stage closed-loop research cycle with zero catastrophic forgetting (`zoe_autonomy/agi_discovery.py` & `guiai/gem/genesis.py`).
 - **Original Mathematical Result — The Kloster Spectral Filtration Generating Theorem:** Proves every classical Rényi/Tsallis/Shannon/Min-Entropy measure is an exact linear integral over $A_\tau(p)$ (`H(p) = -∫(1 + ln τ) A_τ(p) dτ`, `M_k(p) = ∫ k·τ^(k-1) A_τ(p) dτ = Σ p^k`), and demonstrates across 3 real unrelated domains (3,840 HELEN observations, 138k 3D PSF+Rician voxels, and Dorothy CCFv3 256-patch attention) that $M_4^{1/4}(A_\tau)$ beats both single-slice $A_\tau$ and Shannon $H(p)$ on 4/4 benchmarks while preserving the honest negative result on naive forward/retrograde JSD mixing ([Theorem Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py)).
+- **Stage 4 (Mars) — Self-Tuning Adaptive Spectral Metacognition ($k^*(\kappa)$):** Zoe measures her own unlabeled Mud-to-Mountain Ratio ($\kappa = \mathrm{mean}(M_2^{1/2}/M_4^{1/4})$) and automatically zooms her own spectral exponent $k^*(\kappa) \in [2.0, 6.0]$ without labels or human tuning (`2.57` on HELEN Retrograde shift $\to$ `0.5945` peak; `6.00` on Dorothy CCFv3 $\to$ `0.9373` peak), achieving a higher cross-domain real mean (`0.79374`) than every fixed $k \in [1.5, 8.0]$, single-slice $A_\tau$ (`0.7738`), and Shannon Entropy (`0.7631`) ([`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py)).
+
+| Earth-to-Mars Flight Map | Mars Self-Tuning Lens $k^*(\kappa)$ | Project Ares-Dorothy Surgical AR Cockpit |
+|:---:|:---:|:---:|
+| ![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png) | ![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png) | ![Ares-Dorothy Surgical AR Flight Deck](components/agent-logging-system/docs/images/mars-03-surgical-cockpit.png) |
 - **Scientific Corpus & Unified Book Ingest:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, plus `neurogarden_ingest.py` chaining SHA-256 chapter provenance with 4-head plate dissections.
 
 Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [Autopoietic AGI Discovery engine](components/Zoe-Autonomy/src/zoe_autonomy/agi_discovery.py), [AGI Genesis GEM scene](guiai-lab/guiai/gem/genesis.py), [Causal Chiasm engine](guiai-lab/guiai/gem/chiasm.py), [L4 cross-domain transfer harness](components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py), [unified book ingest pipeline](components/agent-logging-system/agent_logging_system/neurogarden_ingest.py), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.

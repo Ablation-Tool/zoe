@@ -79,6 +79,7 @@ HELP = """Commands:
   chiasm                       inspect the Causal Chiasm (past rho_T <-> future P_h) & filtration
   spectral [benchmark]         verify the Kloster Spectral Filtration Theorem (add 'benchmark' for 3-domain run)
   genesis                      run the 9-stage Autopoietic Discovery & 10-domain retention engine
+  mars                         run Stage 4 Self-Tuning Adaptive Lens k*(kappa) on real data
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -512,6 +513,20 @@ class ZoeChat:
             "  Open visually with `gem open genesis` or export with `gem export genesis /path/out.html`.",
         ])
 
+    def _mars(self):
+        self._ensure_guiai()
+        from guiai.gem.mars_adaptive import run_mars_real_benchmark
+        rep = run_mars_real_benchmark(self.zoe_root)
+        m = rep["mars_adaptive"]
+        return "\n".join([
+            f"Mars Stage 4 Self-Tuning Lens k*(kappa) ^_^: mean AUROC={m['mean_auroc']} (beats every fixed k={rep['mars_beats_every_fixed_k']})",
+            f"  HELEN Forward (1,920): kappa={m['helen_forward']['kappa']} -> auto k*={m['helen_forward']['auto_k_star']} | AUROC={m['helen_forward']['auroc']}",
+            f"  HELEN Retro   (1,920): kappa={m['helen_retrograde']['kappa']} -> auto k*={m['helen_retrograde']['auto_k_star']} | AUROC={m['helen_retrograde']['auroc']}",
+            f"  Dorothy CCFv3 (256pt): kappa={m['dorothy_ccfv3']['kappa']} -> auto k*={m['dorothy_ccfv3']['auto_k_star']} | AUROC={m['dorothy_ccfv3']['auroc']}",
+            f"  Baselines: Best Fixed k={rep['best_fixed_k_mean_auroc']} · Single-Slice={rep['single_slice_mean_auroc']} · Shannon={rep['shannon_mean_auroc']} · executed=False",
+            "  Open visually with `gem open mars` or export with `gem export mars /path/out.html`.",
+        ])
+
     def _remember(self, note):
         self._require_actions("remember")
         note = text(note, "memory note", 4000)
@@ -826,6 +841,8 @@ class ZoeChat:
                     response = self._spectral(argument)
                 elif command == "genesis":
                     response = self._genesis()
+                elif command in {"mars", "ares"}:
+                    response = self._mars()
                 elif command == "undo":
                     response = self._undo()
                 elif command == "history":
