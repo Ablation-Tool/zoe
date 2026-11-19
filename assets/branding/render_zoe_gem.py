@@ -1,56 +1,65 @@
 from __future__ import annotations
 
+import base64
 from pathlib import Path
 import shutil
-import subprocess
-import tempfile
 
 from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "assets" / "branding" / "zoe-gem.svg"
-MASTER = ROOT / "assets" / "branding" / "zoe-gem.png"
+SOURCE = ROOT / "assets" / "branding" / "zoe-gem.png"
+VECTOR = ROOT / "assets" / "branding" / "zoe-gem.svg"
 GEM = ROOT / "components" / "ablation"
 GEM_ROOT = GEM / "assets" / "branding" / "woven-diamond"
 PACKAGED = GEM / "gem-lab" / "gem" / "icons"
 
 
+def square(size):
+    with Image.open(SOURCE) as source:
+        source = source.convert("RGBA")
+        height = round(size * source.height / source.width)
+        resized = source.resize((size, height), Image.Resampling.NEAREST)
+        image = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        image.paste(resized, (0, (size - height) // 2))
+        return image
+
+
 def render(size, path):
-    with Image.open(MASTER) as image:
-        image = image.convert("RGBA").resize((size, size), Image.Resampling.LANCZOS)
-        image.save(path, format="PNG", optimize=True)
+    square(size).save(path, format="PNG", optimize=True)
+
+
+def write_vector_editions():
+    encoded = base64.b64encode(SOURCE.read_bytes()).decode("ascii")
+    document = (
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+        'width="47" height="29" viewBox="0 0 47 29" role="img" aria-labelledby="title description">\n'
+        '  <title id="title">Zoe GEM official emblem</title>\n'
+        '  <desc id="description">The exact gem3red PNG artwork preserved in an SVG container.</desc>\n'
+        f'  <image id="gem3red" width="47" height="29" xlink:href="data:image/png;base64,{encoded}"/>\n'
+        '</svg>\n'
+    )
+    for path in (
+        VECTOR,
+        GEM_ROOT / "source" / "gem-woven-diamond.svg",
+        GEM_ROOT / "linux" / "hicolor" / "scalable" / "apps" / "gem-woven-diamond.svg",
+        GEM_ROOT / "web" / "favicon.svg",
+        PACKAGED / "gem-woven-diamond.svg",
+    ):
+        path.write_text(document, encoding="utf-8")
 
 
 def main():
-    with tempfile.TemporaryDirectory(prefix="zoe-gem-render-") as directory:
-        rendered = Path(directory) / "zoe-gem.png"
-        subprocess.run([
-            "rsvg-convert", str(SOURCE), "--keep-aspect-ratio",
-            "--width", "940", "--height", "580",
-            "--page-width", "1024", "--page-height", "1024",
-            "--left", "42", "--top", "222",
-            "--format", "png", "--output", str(rendered),
-        ], check=True)
-        shutil.copyfile(rendered, MASTER)
-
+    write_vector_editions()
     render(512, ROOT / "mobile" / "android" / "app" / "src" / "main" / "res" / "drawable" / "zoe_eye.png")
     apple = ROOT / "mobile" / "apple" / "Zoe" / "Assets.xcassets" / "AppIcon.appiconset"
     for path in apple.glob("zoe-icon-*.png"):
         render(int(path.stem.removeprefix("zoe-icon-")), path)
 
-    for name in ("gem-woven-diamond.svg",):
-        for path in (GEM_ROOT / "source" / name, GEM_ROOT / "linux" / "hicolor" / "scalable" / "apps" / name, PACKAGED / name):
-            shutil.copyfile(SOURCE, path)
-    for name in ("favicon.svg",):
-        shutil.copyfile(SOURCE, GEM_ROOT / "web" / name)
-
     for path in (GEM_ROOT / "png").glob("gem-woven-diamond-*.png"):
-        size = int(path.stem.removeprefix("gem-woven-diamond-").split("x")[0])
-        render(size, path)
+        render(int(path.stem.removeprefix("gem-woven-diamond-").split("x")[0]), path)
     for path in (GEM_ROOT / "linux" / "hicolor").glob("*x*/apps/gem-woven-diamond.png"):
-        size = int(path.parent.parent.name.split("x")[0])
-        render(size, path)
+        render(int(path.parent.parent.name.split("x")[0]), path)
     for path in (GEM_ROOT / "macos" / "gem-woven-diamond.iconset").glob("icon_*.png"):
         size = int(path.stem.split("_")[1].split("x")[0])
         if path.stem.endswith("@2x"):
@@ -68,18 +77,17 @@ def main():
     for name, size in web_sizes.items():
         render(size, GEM_ROOT / "web" / name)
 
-    with Image.open(MASTER) as image:
-        image = image.convert("RGBA")
-        ico = GEM_ROOT / "windows" / "gem-woven-diamond.ico"
-        image.save(ico, format="ICO", sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
-        image.save(GEM_ROOT / "macos" / "gem-woven-diamond.icns", format="ICNS")
-        image.save(GEM_ROOT / "web" / "favicon.ico", format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    image = square(1024)
+    ico = GEM_ROOT / "windows" / "gem-woven-diamond.ico"
+    image.save(ico, format="ICO", sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+    image.save(GEM_ROOT / "macos" / "gem-woven-diamond.icns", format="ICNS")
+    image.save(GEM_ROOT / "web" / "favicon.ico", format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
 
     render(512, PACKAGED / "gem-woven-diamond.png")
     render(32, PACKAGED / "gem-woven-diamond-32.png")
     shutil.copyfile(GEM_ROOT / "windows" / "gem-woven-diamond.ico", PACKAGED / "gem-woven-diamond.ico")
     shutil.copyfile(GEM_ROOT / "macos" / "gem-woven-diamond.icns", PACKAGED / "gem-woven-diamond.icns")
-    print(f"Rendered Zoe's official GEM emblem from {SOURCE}")
+    print(f"Rendered Zoe's official gem3red emblem from {SOURCE}")
 
 
 if __name__ == "__main__":
