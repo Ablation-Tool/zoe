@@ -13,6 +13,7 @@ venv/
 env/
 .coverage
 htmlcov/
+.pytest_cache/
 
 # Ablation runtime
 checkpoints/
