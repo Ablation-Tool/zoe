@@ -49,14 +49,16 @@ python components/agent-logging-system/agent_logging_system/neurogarden_vision_h
   --image components/agent-logging-system/docs/images/dorothy-neurogarden.png \
   --out /tmp/zoe-4head-dissection.png
 
-# Open the Causal Chiasm, Spectral Theorem, AGI Genesis, or Mars Stage 4 layer and run live chat proof
+# Open the Causal Chiasm, Spectral Theorem, AGI Genesis, Mars Stage 4, or Creative Playroom layer
 zoe gem open chiasm
 zoe gem open spectral
 zoe gem open genesis
 zoe gem open mars
-zoe gem export mars /tmp/zoe-mars-adaptive.html
+zoe gem open playroom
+zoe gem export playroom /tmp/zoe-playroom.html
 zoe chat --cli --command "spectral benchmark"
 zoe chat --cli --command "mars"
+zoe chat --cli --command "playroom"
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
@@ -131,6 +133,12 @@ The value of AGI is not the label. It is the ability to learn, reason, transfer,
 | Earth-to-Mars Flight Map | Mars Self-Tuning Lens $k^*(\kappa)$ | Project Ares-Dorothy Surgical AR Cockpit |
 |:---:|:---:|:---:|
 | ![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png) | ![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png) | ![Ares-Dorothy Surgical AR Flight Deck](components/agent-logging-system/docs/images/mars-03-surgical-cockpit.png) |
+
+- **Stage 5A (Beyond Mars) — Open-Ended Creative Playroom (MAP-Elites + Kloster Spectral Curiosity):** Zoe autonomously evolves 16/16 distinct geometric cellular organisms across a `(Symmetry × Spectral Complexity)` Creative Atlas using real mutation, selection, and Kloster motif spectral complexity (`1 - M_4^(1/4)`), verified in GEM Spatial IR & VDI with `sentience_claimed=False` and `external_actions=0` ([`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py)).
+
+| Stage 5A: Zoe's Open-Ended Creative Playroom (16/16 Evolved Species) | Beyond Mars: The 3 Real Engineering Bridges to Genuine AGI (L3 → L4 → L5) |
+|:---:|:---:|
+| ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Beyond Mars to AGI Blueprint](components/agent-logging-system/docs/images/mars-to-agi-roadmap.png) |
 - **Scientific Corpus & Unified Book Ingest:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, plus `neurogarden_ingest.py` chaining SHA-256 chapter provenance with 4-head plate dissections.
 
 Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [Autopoietic AGI Discovery engine](components/Zoe-Autonomy/src/zoe_autonomy/agi_discovery.py), [AGI Genesis GEM scene](guiai-lab/guiai/gem/genesis.py), [Causal Chiasm engine](guiai-lab/guiai/gem/chiasm.py), [L4 cross-domain transfer harness](components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py), [unified book ingest pipeline](components/agent-logging-system/agent_logging_system/neurogarden_ingest.py), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.

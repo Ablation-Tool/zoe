@@ -20,6 +20,7 @@ from guiai.gem.spectral_filtration import (
     verify_generating_theorem,
 )
 from guiai.gem.mars_adaptive import mars_scene, run_mars_real_benchmark
+from guiai.gem.creative_playroom import playroom_scene, run_creative_playroom
 from zoe_autonomy.chat import ZoeChat
 
 
@@ -111,6 +112,29 @@ class KlosterSpectralFiltrationCase(unittest.TestCase):
             keep, out = chat.handle("mars")
             self.assertTrue(keep)
             self.assertIn("beats every fixed k=True", out)
+
+    def test_creative_playroom_evolves_diverse_species_and_chat_works(self):
+        rep = run_creative_playroom(seed=2026, iterations=200, archive_bins=4)
+        self.assertGreaterEqual(rep["niches_filled"], 6)
+        self.assertFalse(rep["sentience_claimed"])
+        self.assertEqual(rep["external_actions"], 0)
+        self.assertGreater(rep["mean_curiosity_fitness"], 0.0)
+
+        scene, scene_rep = playroom_scene(seed=2026)
+        self.assertTrue(verify(scene).passed, verify(scene).text())
+        self.assertTrue(verify_vdi(scene).passed, verify_vdi(scene).text())
+        self.assertFalse(scene_rep["executed"])
+        self.assertFalse(scene_rep["sentience_claimed"])
+
+        env = GemOperatingEnvironment(ROOT)
+        self.assertTrue(env.open("playroom")["source_spatial_ir_verified"])
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            chat = ZoeChat(zoe_root=ROOT, state_root=Path(tmpdir) / "state")
+            keep, out = chat.handle("playroom 2026")
+            self.assertTrue(keep)
+            self.assertIn("Zoe Creative Playroom", out)
+            self.assertIn("sentience_claimed=False", out)
 
 
 if __name__ == "__main__":
