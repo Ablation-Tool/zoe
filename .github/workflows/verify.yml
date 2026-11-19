@@ -33,6 +33,18 @@ jobs:
         run: |
           python scripts/verify-one-system.py
 
+      - name: Cache Allen Mouse CCFv3 reference meshes (Dorothy)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/dorothy/ccf_2017
+          key: dorothy-ccf-2017-v1
+
+      - name: Fetch Allen Mouse CCFv3 reference meshes if not cached
+        run: |
+          if [ ! -f "$HOME/.cache/dorothy/ccf_2017/manifest.json" ]; then
+            python -c "from guiai.gem.dorothy_data import fetch; fetch()"
+          fi
+
       - name: Run Dorothy, Spatial, Continuum, Causal Chiasm, and Spectral Theorem Tests
         run: |
           python scripts/zoe_groove_forensics.py --verify
