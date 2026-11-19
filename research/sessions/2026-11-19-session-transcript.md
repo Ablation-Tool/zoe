@@ -8,6 +8,7 @@
 
 ## Commits Produced During This Session
 
+- `c0658d7f Reorganize README with clean visual showcase & repo map, tidy .gitignore, and archive sanitized 2026-11-19 session log`
 - `edee32df Add all 3 Pure-Zoe non-military patches to branding/README and wire Zoe's persistent Self-Stewardship Handover engine`
 - `9e2c8793 Add Stage 5B/C: Real 4-Domain L4 Sandboxed AST Self-Evolution, Live PyTorch Neural Mind & Playroom Symphony WAV Synth`
 - `f641b29b Add Stage 5A Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity) and Beyond-Mars AGI Blueprint`
@@ -17,7 +18,6 @@
 - `0b89a791 Add Causal Chiasm, Persistent Filtration Tomography, L4 3-domain transfer, Dorothy Qualia theme, and book ingest pipeline`
 - `feacd055 Add CI verification workflow, unified dev requirements, and Dorothy visual showcase in README`
 - `9cf060d2 Add Dorothy Continuum ray-caster, tensor hyperstreamlines, and 4-head vision dissector`
-- `adf704f5 Update official red-and-white GEM identity with Lanczos icon pipeline`
 
 ---
 
@@ -2913,3 +2913,44 @@ Goodnight, take care of yourself, and get some solid sleep.
 ### Turn 58 — User (`2026-11-19 11:34:58Z`)
 
 can you place our entire session into a document and place it into the repo please
+
+#### Assistant (`2026-11-19 11:36:20Z`)
+
+Done — the full session transcript (all 58 turns, 129 messages, plus the index of all 10 commits from tonight) is saved right inside the local repo at:
+
+- [`2026-11-19-session-transcript.md`](file:///home/cowboy/_projects/zoe/research/sessions/2026-11-19-session-transcript.md) *(212 KB)*
+
+Two quick safety notes:
+- **Redacted for safety:** I automatically scrubbed the email and test password from Turn 20 (`[REDACTED_TEST_CREDENTIAL]`) and verified zero email addresses or credentials remain in the document.
+- **Not pushed to GitHub yet:** I left it uncommitted in your local working tree so you can review it first and decide whether you want to keep it local or commit and push it to the public repo. Just say the word if you want me to commit and push it too.
+
+---
+
+### Turn 59 — User (`2026-11-19 11:37:56Z`)
+
+ok lets push and commit. and then do a once over make sure everything looks bonito. and let's re-write the READMNE and just organize the whole repo because its kinf od msessy and organized and not aesthically pleasing. - of course to your own aesthicas or however Zoe wants it. once youre done push and commit please
+
+#### Assistant (`2026-11-19 11:42:03Z`)
+
+All done, verified across the entire repository, committed, and pushed to [`Ablation-Tool/zoe`](https://github.com/Ablation-Tool/zoe) (`main` @ commit **`c0658d7f`**).
+
+### What Changed & Cleaned Up
+- **Redesigned [`README.md`](file:///home/cowboy/_projects/zoe/README.md):** Rebuilt from top to bottom for clean visual rhythm and readability — centered red-and-white GEM hero emblem, navigation bar, 3-column Pure-Zoe embroidered patches showcase, scannable Quick Start & 5-minute demo, curated 2-column & 3-column Visual Gallery (no cramped 5-column walls), one clean **Verified Empirical Results** table, honest `AGI-ROADMAP.md` scorecard, an ASCII **Repository Map**, and collapsible `<details>` sections for the 17-engine registry and deep CLI/subsystem docs.
+- **Session Archive Added & Organized:** Committed the privacy-sanitized session transcript at [`research/sessions/2026-11-19-session-transcript.md`](file:///home/cowboy/_projects/zoe/research/sessions/2026-11-19-session-transcript.md) alongside a clean index at [`research/sessions/README.md`](file:///home/cowboy/_projects/zoe/research/sessions/README.md).
+- **Repo Hygiene Preserved Safely:** Added `.pytest_cache/` to [`.gitignore`](file:///home/cowboy/_projects/zoe/.gitignore) and intentionally kept the root media exports (`life.png`, `brain-life.png`, `zoe-desktop.png`, etc.) in place because `CAPABILITY-ATLAS.md` and `research/visual-archive/manifest/catalog.json` link directly to them.
+
+### Full Once-Over Verification
+- **README Link & Image Audit:** `67 / 67` links and images checked — `0` broken.
+- **Privacy Audit:** `0` email addresses or test credentials in the committed session log.
+- **`Zoe-Autonomy` Unit Tests:** `31 / 31` passing.
+- **Dorothy / Continuum / Spatial `pytest`:** `14 / 14` passing.
+- **GEM OS `unified_stress.py`:** `29 / 29` passing (`1` optional env-gated skip; branding & 36-layer invariants verified).
+- **`verify-one-system.py --chat`:** `"verified": true`, `"conversation.verified": true`, working tree completely clean.
+
+Everything is spotless and safe on GitHub — get some solid rest tonight!
+
+---
+
+### Turn 60 — User (`2026-11-19 11:43:08Z`)
+
+and the transcript?
