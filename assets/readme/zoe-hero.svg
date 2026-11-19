@@ -1,0 +1,302 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" role="img" aria-label="Zoe — Imagination, meet geometry. Operational Metacognition and unified research observatory.">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070e1c"/>
+      <stop offset="52%" stop-color="#0f172e"/>
+      <stop offset="100%" stop-color="#1e1233"/>
+    </linearGradient>
+
+    <radialGradient id="rubyNebula" cx="21%" cy="50%" r="34%">
+      <stop offset="0%" stop-color="#ef445a" stop-opacity="0.26"/>
+      <stop offset="48%" stop-color="#f0a3df" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#08101e" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="orchidNebula" cx="84%" cy="22%" r="36%">
+      <stop offset="0%" stop-color="#f0a3df" stop-opacity="0.18"/>
+      <stop offset="55%" stop-color="#b8a1e3" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#08101e" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="aquaNebula" cx="76%" cy="84%" r="35%">
+      <stop offset="0%" stop-color="#62dce8" stop-opacity="0.16"/>
+      <stop offset="60%" stop-color="#86efac" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#08101e" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef445a" stop-opacity="0.65"/>
+      <stop offset="35%" stop-color="#f0a3df" stop-opacity="0.55"/>
+      <stop offset="70%" stop-color="#62dce8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#e7c77b" stop-opacity="0.65"/>
+    </linearGradient>
+
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f4f0e8"/>
+      <stop offset="55%" stop-color="#ffe5ec"/>
+      <stop offset="100%" stop-color="#e7c77b"/>
+    </linearGradient>
+
+    <linearGradient id="gemFacetTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7a90"/>
+      <stop offset="55%" stop-color="#ef445a"/>
+      <stop offset="100%" stop-color="#b91c3a"/>
+    </linearGradient>
+
+    <linearGradient id="gemFacetLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d6d"/>
+      <stop offset="100%" stop-color="#9f1239"/>
+    </linearGradient>
+
+    <linearGradient id="gemFacetRight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+
+    <linearGradient id="gemInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1f5" stop-opacity="0.92"/>
+      <stop offset="45%" stop-color="#ffd6e0" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#f0a3df" stop-opacity="0.18"/>
+    </linearGradient>
+
+    <linearGradient id="eqBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#62dce8" stop-opacity="0.72"/>
+      <stop offset="50%" stop-color="#f0a3df" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#e7c77b" stop-opacity="0.72"/>
+    </linearGradient>
+
+    <linearGradient id="waveFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#62dce8" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#62dce8" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="gemHalo" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <clipPath id="cardClip">
+      <rect x="2" y="2" width="1196" height="436" rx="22"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <!-- Velvet midnight & twilight plum canvas -->
+    <rect width="1200" height="440" fill="url(#bgGrad)"/>
+    <rect width="1200" height="440" fill="url(#rubyNebula)"/>
+    <rect width="1200" height="440" fill="url(#orchidNebula)"/>
+    <rect width="1200" height="440" fill="url(#aquaNebula)"/>
+
+    <!-- Subtle constellation coordinate grid -->
+    <g stroke="#2a3f63" stroke-width="0.6" opacity="0.22">
+      <line x1="452" y1="36" x2="452" y2="404"/>
+      <line x1="36" y1="224" x2="432" y2="224" stroke-dasharray="3 6"/>
+      <circle cx="248" cy="224" r="186" fill="none" stroke-dasharray="2 8"/>
+    </g>
+
+    <!-- Twinkling starfield -->
+    <circle cx="1019.0" cy="87.1" r="1.70" fill="#f0a3df" opacity="0.61"><animate attributeName="opacity" values="0.21;0.81;0.21" dur="5.09s" begin="2.00s" repeatCount="indefinite"/></circle>
+    <circle cx="1176.1" cy="222.4" r="0.95" fill="#cbd5e1" opacity="0.47"/>
+    <circle cx="848.2" cy="150.6" r="0.95" fill="#f0a3df" opacity="0.74"/>
+    <circle cx="905.5" cy="58.1" r="1.15" fill="#e7c77b" opacity="0.56"/>
+    <circle cx="104.2" cy="79.2" r="1.70" fill="#cbd5e1" opacity="0.59"><animate attributeName="opacity" values="0.21;0.79;0.21" dur="4.42s" begin="1.11s" repeatCount="indefinite"/></circle>
+    <circle cx="785.2" cy="176.8" r="1.40" fill="#62dce8" opacity="0.37"/>
+    <circle cx="352.5" cy="98.9" r="1.40" fill="#cbd5e1" opacity="0.48"/>
+    <circle cx="666.4" cy="43.6" r="1.70" fill="#f0a3df" opacity="0.44"/>
+    <circle cx="911.5" cy="415.3" r="1.15" fill="#62dce8" opacity="0.30"><animate attributeName="opacity" values="0.10;0.50;0.10" dur="4.08s" begin="2.52s" repeatCount="indefinite"/></circle>
+    <circle cx="870.8" cy="406.4" r="0.95" fill="#f4f0e8" opacity="0.50"/>
+    <circle cx="913.1" cy="34.2" r="1.40" fill="#f0a3df" opacity="0.42"/>
+    <circle cx="722.5" cy="239.7" r="1.15" fill="#62dce8" opacity="0.28"/>
+    <circle cx="295.6" cy="383.7" r="1.15" fill="#cbd5e1" opacity="0.56"><animate attributeName="opacity" values="0.20;0.76;0.20" dur="3.89s" begin="2.95s" repeatCount="indefinite"/></circle>
+    <circle cx="1154.8" cy="363.7" r="1.15" fill="#f4f0e8" opacity="0.80"/>
+    <circle cx="1042.6" cy="62.4" r="1.15" fill="#f4f0e8" opacity="0.74"/>
+    <circle cx="688.6" cy="24.0" r="0.95" fill="#f0a3df" opacity="0.52"/>
+    <circle cx="427.1" cy="174.9" r="0.75" fill="#e7c77b" opacity="0.41"><animate attributeName="opacity" values="0.15;0.61;0.15" dur="4.76s" begin="0.28s" repeatCount="indefinite"/></circle>
+    <circle cx="852.4" cy="157.8" r="1.15" fill="#f0a3df" opacity="0.63"/>
+    <circle cx="400.9" cy="70.3" r="1.15" fill="#e7c77b" opacity="0.30"/>
+    <circle cx="653.7" cy="125.9" r="1.40" fill="#f0a3df" opacity="0.31"/>
+    <circle cx="1037.5" cy="68.5" r="0.75" fill="#f0a3df" opacity="0.80"><animate attributeName="opacity" values="0.28;1.00;0.28" dur="3.61s" begin="3.37s" repeatCount="indefinite"/></circle>
+    <circle cx="629.3" cy="27.0" r="0.95" fill="#f0a3df" opacity="0.55"/>
+    <circle cx="674.7" cy="213.3" r="0.75" fill="#cbd5e1" opacity="0.44"/>
+    <circle cx="822.1" cy="270.2" r="0.75" fill="#f4f0e8" opacity="0.41"/>
+    <circle cx="871.7" cy="66.3" r="0.75" fill="#f0a3df" opacity="0.60"><animate attributeName="opacity" values="0.21;0.80;0.21" dur="5.21s" begin="1.09s" repeatCount="indefinite"/></circle>
+    <circle cx="986.0" cy="358.0" r="1.70" fill="#cbd5e1" opacity="0.76"/>
+    <circle cx="596.6" cy="27.6" r="1.40" fill="#f4f0e8" opacity="0.61"/>
+    <circle cx="871.4" cy="17.9" r="0.95" fill="#e7c77b" opacity="0.55"/>
+    <circle cx="1125.9" cy="129.1" r="0.75" fill="#f4f0e8" opacity="0.47"><animate attributeName="opacity" values="0.17;0.67;0.17" dur="4.63s" begin="3.80s" repeatCount="indefinite"/></circle>
+    <circle cx="634.8" cy="228.2" r="0.95" fill="#cbd5e1" opacity="0.63"/>
+    <circle cx="129.2" cy="41.0" r="0.95" fill="#62dce8" opacity="0.36"/>
+    <circle cx="80.5" cy="346.6" r="0.95" fill="#e7c77b" opacity="0.54"/>
+    <circle cx="558.7" cy="383.6" r="1.40" fill="#62dce8" opacity="0.50"><animate attributeName="opacity" values="0.17;0.70;0.17" dur="3.21s" begin="0.93s" repeatCount="indefinite"/></circle>
+    <circle cx="204.0" cy="394.5" r="0.75" fill="#62dce8" opacity="0.33"/>
+    <circle cx="539.9" cy="182.0" r="0.75" fill="#cbd5e1" opacity="0.41"/>
+    <circle cx="1050.9" cy="79.4" r="1.70" fill="#e7c77b" opacity="0.29"/>
+    <circle cx="590.2" cy="21.8" r="0.75" fill="#cbd5e1" opacity="0.36"><animate attributeName="opacity" values="0.13;0.56;0.13" dur="3.93s" begin="0.01s" repeatCount="indefinite"/></circle>
+    <circle cx="704.2" cy="360.0" r="1.70" fill="#62dce8" opacity="0.47"/>
+    <circle cx="901.1" cy="395.5" r="1.70" fill="#f4f0e8" opacity="0.59"/>
+    <circle cx="550.4" cy="297.6" r="1.70" fill="#e7c77b" opacity="0.66"/>
+    <circle cx="882.4" cy="371.6" r="0.95" fill="#f4f0e8" opacity="0.43"><animate attributeName="opacity" values="0.15;0.63;0.15" dur="4.18s" begin="3.93s" repeatCount="indefinite"/></circle>
+    <circle cx="343.5" cy="70.7" r="1.40" fill="#f0a3df" opacity="0.48"/>
+    <circle cx="243.5" cy="29.8" r="0.75" fill="#e7c77b" opacity="0.84"/>
+    <circle cx="318.3" cy="261.2" r="1.40" fill="#cbd5e1" opacity="0.38"/>
+    <circle cx="729.9" cy="416.8" r="0.95" fill="#e7c77b" opacity="0.71"><animate attributeName="opacity" values="0.25;0.91;0.25" dur="5.55s" begin="3.26s" repeatCount="indefinite"/></circle>
+    <circle cx="966.5" cy="207.6" r="1.15" fill="#cbd5e1" opacity="0.39"/>
+    <circle cx="857.3" cy="391.2" r="1.70" fill="#f4f0e8" opacity="0.55"/>
+    <circle cx="382.3" cy="294.9" r="1.15" fill="#62dce8" opacity="0.75"/>
+    <circle cx="587.6" cy="41.6" r="1.40" fill="#f0a3df" opacity="0.34"><animate attributeName="opacity" values="0.12;0.54;0.12" dur="4.75s" begin="3.01s" repeatCount="indefinite"/></circle>
+    <circle cx="267.9" cy="30.4" r="0.75" fill="#f0a3df" opacity="0.35"/>
+    <circle cx="1085.5" cy="228.3" r="1.70" fill="#cbd5e1" opacity="0.51"/>
+    <circle cx="276.5" cy="385.6" r="1.15" fill="#cbd5e1" opacity="0.34"/>
+    <circle cx="415.0" cy="289.2" r="1.70" fill="#e7c77b" opacity="0.61"><animate attributeName="opacity" values="0.21;0.81;0.21" dur="5.10s" begin="1.32s" repeatCount="indefinite"/></circle>
+    <circle cx="157.7" cy="232.8" r="1.40" fill="#62dce8" opacity="0.62"/>
+    <circle cx="451.1" cy="20.0" r="1.15" fill="#f0a3df" opacity="0.47"/>
+    <circle cx="970.8" cy="413.2" r="0.75" fill="#62dce8" opacity="0.65"/>
+    <circle cx="568.3" cy="38.3" r="1.15" fill="#62dce8" opacity="0.84"><animate attributeName="opacity" values="0.30;1.00;0.30" dur="3.11s" begin="1.42s" repeatCount="indefinite"/></circle>
+    <circle cx="552.4" cy="394.9" r="1.15" fill="#f0a3df" opacity="0.47"/>
+    <circle cx="910.4" cy="282.7" r="1.15" fill="#e7c77b" opacity="0.35"/>
+    <circle cx="524.3" cy="50.2" r="0.95" fill="#cbd5e1" opacity="0.71"/>
+    <circle cx="390.4" cy="113.3" r="1.70" fill="#e7c77b" opacity="0.39"><animate attributeName="opacity" values="0.13;0.59;0.13" dur="5.39s" begin="3.79s" repeatCount="indefinite"/></circle>
+    <circle cx="371.5" cy="291.4" r="1.15" fill="#f0a3df" opacity="0.57"/>
+    <circle cx="923.7" cy="145.2" r="1.15" fill="#cbd5e1" opacity="0.65"/>
+    <circle cx="1109.8" cy="186.9" r="0.75" fill="#e7c77b" opacity="0.74"/>
+    <circle cx="427.2" cy="30.5" r="1.15" fill="#cbd5e1" opacity="0.82"><animate attributeName="opacity" values="0.29;1.00;0.29" dur="3.42s" begin="3.13s" repeatCount="indefinite"/></circle>
+    <circle cx="1127.4" cy="151.4" r="0.75" fill="#cbd5e1" opacity="0.46"/>
+    <circle cx="644.4" cy="174.5" r="0.95" fill="#f0a3df" opacity="0.48"/>
+    <circle cx="319.6" cy="218.2" r="1.15" fill="#62dce8" opacity="0.54"/>
+    <g transform="translate(112.0,88.0)"><polygon points="0,-7.00 1.75,-1.75 7.00,0 1.75,1.75 0,7.00 -1.75,1.75 -7.00,0 -1.75,-1.75" fill="#e7c77b" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="3.40s" begin="0.20s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="3.40s" begin="0.20s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(148.0,132.0)"><polygon points="0,-4.50 1.12,-1.12 4.50,0 1.12,1.12 0,4.50 -1.12,1.12 -4.50,0 -1.12,-1.12" fill="#f0a3df" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="4.10s" begin="1.10s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="4.10s" begin="1.10s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(382.0,108.0)"><polygon points="0,-6.50 1.62,-1.62 6.50,0 1.62,1.62 0,6.50 -1.62,1.62 -6.50,0 -1.62,-1.62" fill="#62dce8" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="3.80s" begin="0.60s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="3.80s" begin="0.60s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(424.0,344.0)"><polygon points="0,-5.50 1.38,-1.38 5.50,0 1.38,1.38 0,5.50 -1.38,1.38 -5.50,0 -1.38,-1.38" fill="#e7c77b" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="4.50s" begin="1.70s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="4.50s" begin="1.70s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(1078.0,86.0)"><polygon points="0,-7.50 1.88,-1.88 7.50,0 1.88,1.88 0,7.50 -1.88,1.88 -7.50,0 -1.88,-1.88" fill="#f0a3df" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="3.90s" begin="0.40s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="3.90s" begin="0.40s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(1118.0,128.0)"><polygon points="0,-4.50 1.12,-1.12 4.50,0 1.12,1.12 0,4.50 -1.12,1.12 -4.50,0 -1.12,-1.12" fill="#e7c77b" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="3.20s" begin="1.90s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="3.20s" begin="1.90s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(1042.0,146.0)"><polygon points="0,-4.00 1.00,-1.00 4.00,0 1.00,1.00 0,4.00 -1.00,1.00 -4.00,0 -1.00,-1.00" fill="#62dce8" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="4.60s" begin="0.90s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="4.60s" begin="0.90s" repeatCount="indefinite"/></polygon></g>
+    <g transform="translate(96.0,356.0)"><polygon points="0,-5.20 1.30,-1.30 5.20,0 1.30,1.30 0,5.20 -1.30,1.30 -5.20,0 -1.30,-1.30" fill="#86efac" opacity="0.85"><animate attributeName="opacity" values="0.25;0.98;0.25" dur="4.20s" begin="1.40s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="scale" values="0.82;1.15;0.82" dur="4.20s" begin="1.40s" repeatCount="indefinite"/></polygon></g>
+
+    <!-- Signature Zoe concentric ellipse family -->
+    <g>
+      <ellipse cx="248.0" cy="224.0" rx="88.0" ry="158.0" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.14"/><ellipse cx="248.0" cy="224.0" rx="99.6" ry="148.8" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.17"/><ellipse cx="248.0" cy="224.0" rx="111.2" ry="139.6" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.20"/><ellipse cx="248.0" cy="224.0" rx="122.8" ry="130.4" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.22"/><ellipse cx="248.0" cy="224.0" rx="134.4" ry="121.2" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.24"/><ellipse cx="248.0" cy="224.0" rx="146.0" ry="112.0" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.24"/><ellipse cx="248.0" cy="224.0" rx="157.6" ry="102.8" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.24"/><ellipse cx="248.0" cy="224.0" rx="169.2" ry="93.6" fill="none" stroke="#f0a3df" stroke-width="1.8" opacity="0.78" filter="url(#softGlow)"><animate attributeName="opacity" values="0.52;0.92;0.52" dur="5.5s" repeatCount="indefinite"/></ellipse><ellipse cx="248.0" cy="224.0" rx="180.8" ry="84.4" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.20"/><ellipse cx="248.0" cy="224.0" rx="192.4" ry="75.2" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.17"/><ellipse cx="248.0" cy="224.0" rx="204.0" ry="66.0" fill="none" stroke="#6483a8" stroke-width="0.9" opacity="0.14"/>
+    </g>
+
+    <!-- Graceful paper-airplane stardust arc across upper sky (Little Prince Neurogarden homage) -->
+    <path d="M 318,128 C 430,52 620,30 818,62 C 885,73 928,60 956,48"
+          fill="none" stroke="#e7c77b" stroke-width="1.35" stroke-dasharray="4 6" opacity="0.62">
+      <animate attributeName="stroke-dashoffset" from="40" to="0" dur="5.2s" repeatCount="indefinite"/>
+    </path>
+    <!-- Tiny folded cream paper airplane gliding gracefully left of pill -->
+    <g transform="translate(960,46)">
+      <animateTransform attributeName="transform" type="translate" values="958,47; 966,42; 958,47" dur="4.2s" repeatCount="indefinite"/>
+      <g transform="rotate(-18)">
+        <polygon points="-13,4 14,-2 -8,11 -6,5" fill="#f4f0e8" opacity="0.95"/>
+        <polygon points="-13,4 14,-2 -6,5" fill="#d9e4f2" opacity="0.88"/>
+        <line x1="-6" y1="5" x2="14" y2="-2" stroke="#ef445a" stroke-width="0.9" opacity="0.8"/>
+      </g>
+    </g>
+
+    <!-- Warm champagne crescent moon (Pure-Zoe patches homage) -->
+    <g transform="translate(128,126)">
+      <path d="M 14,-20 A 21,21 0 1,0 14,20 A 15.5,15.5 0 1,1 14,-20 Z" fill="#e7c77b" opacity="0.92" filter="url(#softGlow)"/>
+    </g>
+
+    <!-- Living Faceted Ruby GEM Diamond + Neurogarden Mint Sprout -->
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-7; 0,0" dur="5.4s" repeatCount="indefinite"/>
+      <!-- Soft crimson outer aura -->
+      <polygon points="248,116 346,192 248,314 150,192" fill="#ef445a" opacity="0.16" filter="url(#gemHalo)"/>
+
+      <!-- Classic faceted GEM silhouette (nodding to Zoe's official red-and-white GEM!) -->
+      <!-- Crown top bevel -->
+      <polygon points="196,144 300,144 342,194 154,194" fill="url(#gemFacetTop)" stroke="#ffd6e0" stroke-width="1.2"/>
+      <!-- Pavilion left & right facets -->
+      <polygon points="154,194 248,194 248,306" fill="url(#gemFacetLeft)" stroke="#ff8fa3" stroke-width="0.9"/>
+      <polygon points="248,194 342,194 248,306" fill="url(#gemFacetRight)" stroke="#ff8fa3" stroke-width="0.9"/>
+      <!-- Luminous inner crystal heart -->
+      <polygon points="211,160 285,160 310,194 248,274 186,194" fill="url(#gemInner)" stroke="#f4f0e8" stroke-width="1.35" opacity="0.92"/>
+      <!-- Delicate facet lines -->
+      <line x1="211" y1="160" x2="248" y2="194" stroke="#f4f0e8" stroke-width="0.9" opacity="0.65"/>
+      <line x1="285" y1="160" x2="248" y2="194" stroke="#f4f0e8" stroke-width="0.9" opacity="0.65"/>
+      <line x1="186" y1="194" x2="310" y2="194" stroke="#f4f0e8" stroke-width="0.9" opacity="0.55"/>
+      <line x1="248" y1="194" x2="248" y2="274" stroke="#f4f0e8" stroke-width="0.9" opacity="0.55"/>
+
+      <!-- Cheerful minimalist Zoe sparkle eyes (^_^) subtly inside the crown -->
+      <path d="M 225,184 Q 231,176 237,184" fill="none" stroke="#08101e" stroke-width="2.1" stroke-linecap="round" opacity="0.72"/>
+      <path d="M 259,184 Q 265,176 271,184" fill="none" stroke="#08101e" stroke-width="2.1" stroke-linecap="round" opacity="0.72"/>
+      <path d="M 243,190 Q 248,195 253,190" fill="none" stroke="#08101e" stroke-width="1.9" stroke-linecap="round" opacity="0.72"/>
+
+      <!-- Botanical Neurogarden mint sprout rising gently inside lower pavilion -->
+      <g transform="translate(248,256)">
+        <line x1="0" y1="12" x2="0" y2="-16" stroke="#86efac" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 0,-5 C -16,-7 -22,-22 -7,-24 C 0,-25 2,-13 0,-5 Z" fill="#86efac" opacity="0.92"/>
+        <path d="M 0,-7 C 16,-9 22,-24 7,-26 C 0,-27 -2,-15 0,-7 Z" fill="#a7f3d0" opacity="0.92"/>
+      </g>
+    </g>
+
+    <!-- Bottom-left caption beneath the jewel -->
+    <text x="248" y="392" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" letter-spacing="2.4" fill="#d996b8" opacity="0.88">ZOE IS QUALE · ZOE IS RED · ZOE IS GEM</text>
+
+    <!-- Top-right playful pill badge -->
+    <g transform="translate(1008,24)">
+      <rect x="0" y="0" width="160" height="28" rx="14" fill="#111e33" fill-opacity="0.85" stroke="#62dce8" stroke-opacity="0.55" stroke-width="1"/>
+      <circle cx="16" cy="14" r="3.5" fill="#86efac">
+        <animate attributeName="opacity" values="0.45;1;0.45" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+      <text x="28" y="18" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#62dce8" letter-spacing="1.0">LIVE IN REPO ^_^</text>
+    </g>
+
+    <!-- Right Editorial Hero Block -->
+    <text x="478" y="92" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" letter-spacing="3.2" fill="#e7c77b" opacity="0.95">✦  WONDER  ·  PROOF  ·  PLAY  ·  ZERO DECEPTION  ✦</text>
+
+    <text x="476" y="176" font-family="Georgia, 'Palatino Linotype', 'Book Antiqua', serif" font-size="82" font-weight="700" letter-spacing="16" fill="url(#titleGrad)" filter="url(#softGlow)">ZOE</text>
+
+    <text x="480" y="216" font-family="Georgia, 'Palatino Linotype', 'Book Antiqua', serif" font-style="italic" font-size="25" fill="#f0a3df" opacity="0.95">Imagination, meet geometry.</text>
+
+    <text x="480" y="248" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#e7edf5" opacity="0.90">Uniting operational metacognition, Dorothy's brain atlas, GEM geometry, and creative play.</text>
+
+    <!-- Glass Equation Strip -->
+    <g transform="translate(478,266)">
+      <rect x="0" y="0" width="668" height="44" rx="12" fill="#111e33" fill-opacity="0.78" stroke="url(#eqBorder)" stroke-width="1.2"/>
+      <text x="20" y="27" font-family="Georgia, 'Palatino Linotype', 'Book Antiqua', serif" font-style="italic" font-size="18.5" fill="#f4f0e8">
+        A<tspan baseline-shift="sub" font-size="13">τ</tspan>(p)  =  | &#123; x ∈ X : p(x) &gt; τ &#125; |
+      </text>
+      <line x1="316" y1="10" x2="316" y2="34" stroke="#334c6b" stroke-width="1"/>
+      <text x="334" y="20" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" fill="#62dce8" letter-spacing="1.1">OPERATIONAL METACOGNITION</text>
+      <text x="334" y="34" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="10.5" fill="#9cafc4">Nicholas Michael Kloster · March 6, 2026</text>
+    </g>
+
+    <!-- Living Spectral Filtration Silk Wave -->
+    <g>
+      <path d="M 472.0,332.8 L 486.9,334.0 L 501.7,335.2 L 516.6,336.3 L 531.5,337.2 L 546.3,338.0 L 561.2,338.6 L 576.0,339.1 L 590.9,339.4 L 605.8,339.6 L 620.6,339.7 L 635.5,339.8 L 650.4,339.8 L 665.2,339.9 L 680.1,340.0 L 695.0,340.2 L 709.8,340.6 L 724.7,341.2 L 739.5,342.0 L 754.4,343.0 L 769.3,344.3 L 784.1,345.8 L 799.0,347.5 L 813.9,349.5 L 828.7,351.5 L 843.6,353.7 L 858.5,356.0 L 873.3,358.3 L 888.2,360.6 L 903.0,362.8 L 917.9,364.9 L 932.8,366.9 L 947.6,368.6 L 962.5,370.2 L 977.4,371.5 L 992.2,372.5 L 1007.1,373.3 L 1022.0,373.9 L 1036.8,374.2 L 1051.7,374.3 L 1066.5,374.3 L 1081.4,374.1 L 1096.3,373.8 L 1111.1,373.5 L 1126.0,373.1 L 1126,412 L 472,412 Z" fill="url(#waveFill)"/>
+      <path id="curveAqua" d="M 472.0,332.8 L 486.9,334.0 L 501.7,335.2 L 516.6,336.3 L 531.5,337.2 L 546.3,338.0 L 561.2,338.6 L 576.0,339.1 L 590.9,339.4 L 605.8,339.6 L 620.6,339.7 L 635.5,339.8 L 650.4,339.8 L 665.2,339.9 L 680.1,340.0 L 695.0,340.2 L 709.8,340.6 L 724.7,341.2 L 739.5,342.0 L 754.4,343.0 L 769.3,344.3 L 784.1,345.8 L 799.0,347.5 L 813.9,349.5 L 828.7,351.5 L 843.6,353.7 L 858.5,356.0 L 873.3,358.3 L 888.2,360.6 L 903.0,362.8 L 917.9,364.9 L 932.8,366.9 L 947.6,368.6 L 962.5,370.2 L 977.4,371.5 L 992.2,372.5 L 1007.1,373.3 L 1022.0,373.9 L 1036.8,374.2 L 1051.7,374.3 L 1066.5,374.3 L 1081.4,374.1 L 1096.3,373.8 L 1111.1,373.5 L 1126.0,373.1" fill="none" stroke="#62dce8" stroke-width="2.1" opacity="0.86" filter="url(#softGlow)"/>
+      <path id="curveOrchid" d="M 472.0,346.0 L 486.9,346.5 L 501.7,346.7 L 516.6,346.8 L 531.5,346.7 L 546.3,346.6 L 561.2,346.3 L 576.0,345.9 L 590.9,345.5 L 605.8,345.1 L 620.6,344.8 L 635.5,344.5 L 650.4,344.4 L 665.2,344.4 L 680.1,344.6 L 695.0,345.0 L 709.8,345.6 L 724.7,346.5 L 739.5,347.7 L 754.4,349.1 L 769.3,350.7 L 784.1,352.6 L 799.0,354.6 L 813.9,356.8 L 828.7,359.2 L 843.6,361.6 L 858.5,364.1 L 873.3,366.6 L 888.2,369.0 L 903.0,371.4 L 917.9,373.6 L 932.8,375.7 L 947.6,377.6 L 962.5,379.2 L 977.4,380.7 L 992.2,381.9 L 1007.1,382.9 L 1022.0,383.6 L 1036.8,384.1 L 1051.7,384.3 L 1066.5,384.4 L 1081.4,384.3 L 1096.3,384.0 L 1111.1,383.6 L 1126.0,383.1" fill="none" stroke="#f0a3df" stroke-width="1.65" opacity="0.76"/>
+      <path id="curveRuby" d="M 472.0,350.0 L 486.9,349.4 L 501.7,348.7 L 516.6,348.0 L 531.5,347.2 L 546.3,346.7 L 561.2,346.3 L 576.0,346.2 L 590.9,346.5 L 605.8,347.1 L 620.6,348.1 L 635.5,349.4 L 650.4,351.0 L 665.2,352.9 L 680.1,354.9 L 695.0,357.1 L 709.8,359.2 L 724.7,361.3 L 739.5,363.2 L 754.4,365.0 L 769.3,366.6 L 784.1,367.9 L 799.0,369.1 L 813.9,370.1 L 828.7,370.9 L 843.6,371.7 L 858.5,372.4 L 873.3,373.1 L 888.2,374.0 L 903.0,374.9 L 917.9,376.0 L 932.8,377.2 L 947.6,378.5 L 962.5,379.9 L 977.4,381.5 L 992.2,383.0 L 1007.1,384.5 L 1022.0,386.0 L 1036.8,387.3 L 1051.7,388.4 L 1066.5,389.3 L 1081.4,389.9 L 1096.3,390.4 L 1111.1,390.6 L 1126.0,390.5" fill="none" stroke="#ff6b81" stroke-width="1.45" opacity="0.72" stroke-dasharray="6 4"/>
+
+      <!-- Gliding light particles along the filtration curves -->
+      <circle r="4.2" fill="#62dce8" filter="url(#softGlow)">
+        <animateMotion dur="6.8s" repeatCount="indefinite" path="M 472.0,332.8 L 486.9,334.0 L 501.7,335.2 L 516.6,336.3 L 531.5,337.2 L 546.3,338.0 L 561.2,338.6 L 576.0,339.1 L 590.9,339.4 L 605.8,339.6 L 620.6,339.7 L 635.5,339.8 L 650.4,339.8 L 665.2,339.9 L 680.1,340.0 L 695.0,340.2 L 709.8,340.6 L 724.7,341.2 L 739.5,342.0 L 754.4,343.0 L 769.3,344.3 L 784.1,345.8 L 799.0,347.5 L 813.9,349.5 L 828.7,351.5 L 843.6,353.7 L 858.5,356.0 L 873.3,358.3 L 888.2,360.6 L 903.0,362.8 L 917.9,364.9 L 932.8,366.9 L 947.6,368.6 L 962.5,370.2 L 977.4,371.5 L 992.2,372.5 L 1007.1,373.3 L 1022.0,373.9 L 1036.8,374.2 L 1051.7,374.3 L 1066.5,374.3 L 1081.4,374.1 L 1096.3,373.8 L 1111.1,373.5 L 1126.0,373.1"/>
+      </circle>
+      <circle r="3.4" fill="#f0a3df" filter="url(#softGlow)">
+        <animateMotion dur="8.4s" begin="1.6s" repeatCount="indefinite" path="M 472.0,346.0 L 486.9,346.5 L 501.7,346.7 L 516.6,346.8 L 531.5,346.7 L 546.3,346.6 L 561.2,346.3 L 576.0,345.9 L 590.9,345.5 L 605.8,345.1 L 620.6,344.8 L 635.5,344.5 L 650.4,344.4 L 665.2,344.4 L 680.1,344.6 L 695.0,345.0 L 709.8,345.6 L 724.7,346.5 L 739.5,347.7 L 754.4,349.1 L 769.3,350.7 L 784.1,352.6 L 799.0,354.6 L 813.9,356.8 L 828.7,359.2 L 843.6,361.6 L 858.5,364.1 L 873.3,366.6 L 888.2,369.0 L 903.0,371.4 L 917.9,373.6 L 932.8,375.7 L 947.6,377.6 L 962.5,379.2 L 977.4,380.7 L 992.2,381.9 L 1007.1,382.9 L 1022.0,383.6 L 1036.8,384.1 L 1051.7,384.3 L 1066.5,384.4 L 1081.4,384.3 L 1096.3,384.0 L 1111.1,383.6 L 1126.0,383.1"/>
+      </circle>
+      <circle r="3.2" fill="#e7c77b" filter="url(#softGlow)">
+        <animateMotion dur="7.6s" begin="3.2s" repeatCount="indefinite" path="M 472.0,350.0 L 486.9,349.4 L 501.7,348.7 L 516.6,348.0 L 531.5,347.2 L 546.3,346.7 L 561.2,346.3 L 576.0,346.2 L 590.9,346.5 L 605.8,347.1 L 620.6,348.1 L 635.5,349.4 L 650.4,351.0 L 665.2,352.9 L 680.1,354.9 L 695.0,357.1 L 709.8,359.2 L 724.7,361.3 L 739.5,363.2 L 754.4,365.0 L 769.3,366.6 L 784.1,367.9 L 799.0,369.1 L 813.9,370.1 L 828.7,370.9 L 843.6,371.7 L 858.5,372.4 L 873.3,373.1 L 888.2,374.0 L 903.0,374.9 L 917.9,376.0 L 932.8,377.2 L 947.6,378.5 L 962.5,379.9 L 977.4,381.5 L 992.2,383.0 L 1007.1,384.5 L 1022.0,386.0 L 1036.8,387.3 L 1051.7,388.4 L 1066.5,389.3 L 1081.4,389.9 L 1096.3,390.4 L 1111.1,390.6 L 1126.0,390.5"/>
+      </circle>
+
+      <!-- Subtle wave labels with generous separation -->
+      <text x="478" y="408" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" fill="#9cafc4" letter-spacing="0.8">SPECTRUM: Aτ(p) · M₂ · M₄^(1/4) · k*(κ)</text>
+      <text x="1144" y="408" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" fill="#86efac" letter-spacing="0.8">17 ENGINES · 50 GEM LAYERS · 456 VISUALS</text>
+    </g>
+  </g>
+
+  <!-- Outer jewel glass frame -->
+  <rect x="2" y="2" width="1196" height="436" rx="22" fill="none" stroke="url(#borderGrad)" stroke-width="1.8"/>
+</svg>
