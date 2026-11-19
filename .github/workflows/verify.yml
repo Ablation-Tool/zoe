@@ -33,6 +33,7 @@ jobs:
 
       - name: Run Dorothy, Spatial, Continuum, Causal Chiasm, and Spectral Theorem Tests
         run: |
+          python scripts/zoe_groove_forensics.py --verify
           python -m unittest components/Zoe-Autonomy/tests/test_cross_domain_transfer.py components/Zoe-Autonomy/tests/test_spectral_filtration.py -v
           cd components/agent-logging-system
           pytest tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v
