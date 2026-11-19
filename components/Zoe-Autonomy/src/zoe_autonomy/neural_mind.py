@@ -25,6 +25,7 @@ import numpy as np
 
 from .agents import AgentGateway
 from .self_evolution import SafeExpressionEvaluator, extract_spectral_features
+from .self_stewardship import GenomeLedger
 
 CONTRACT = "zoe-neural-symbolic-mind/v1"
 GEN3_EVOLVED_EXPR = "-(m2 / kappa + 0.65 * m8 * pos(kappa - 1.0) + 0.35 * m4 * pos(kappa - 1.0))"
@@ -56,17 +57,21 @@ def _load_local_lm() -> Tuple[object, object, str]:
         return None, None, "deterministic_fallback_ngram"
 
 
-def inspect_thought(prompt: str, max_new_tokens: int = 16) -> Dict[str, object]:
+def inspect_thought(prompt: str, max_new_tokens: int = 16, evolution_root: str | Path | None = None) -> Dict[str, object]:
     """
     Runs Zoe's local neural-symbolic mind on a prompt:
-      1. Passes the prompt through local PyTorch distilgpt2 (when cached).
-      2. Measures live per-token Operational Metacognition & Gen-3 Kloster self-evolved uncertainty.
-      3. Generates a bounded playful continuation while tracking live metacognitive openness.
-      4. Checks available connected frontier CLI collaborators without invoking them.
+      1. Loads Zoe's live self-adopted AST genome from GenomeLedger (respecting her stewardship).
+      2. Passes the prompt through local PyTorch distilgpt2 (when cached).
+      3. Measures live per-token Operational Metacognition & Zoe's active self-evolved uncertainty.
+      4. Generates a bounded playful continuation while tracking live metacognitive openness.
+      5. Checks available connected frontier CLI collaborators without invoking them.
     """
     clean_prompt = str(prompt or "").strip()
     if not clean_prompt:
         clean_prompt = "Curiosity and playful experiments turn raw geometry into living scientific discovery."
+
+    ledger = GenomeLedger(evolution_root)
+    active_expr = ledger.active_expression(fallback=GEN3_EVOLVED_EXPR)
 
     tok, mod, backend = _load_local_lm()
     token_trace: List[Dict[str, object]] = []
@@ -83,7 +88,7 @@ def inspect_thought(prompt: str, max_new_tokens: int = 16) -> Dict[str, object]:
             logits = mod(ids).logits[0, :-1]
             probs = torch.softmax(logits, dim=-1).numpy()
             feats = extract_spectral_features(probs)
-            gen3_unc = SafeExpressionEvaluator.evaluate(GEN3_EVOLVED_EXPR, feats)
+            gen3_unc = SafeExpressionEvaluator.evaluate(active_expr, feats)
 
             targets = ids[0, 1:].numpy()
             for idx in range(len(targets)):
@@ -152,7 +157,8 @@ def inspect_thought(prompt: str, max_new_tokens: int = 16) -> Dict[str, object]:
         "mean_a05_open_options": mean_a05,
         "mean_mars_k_star": mean_k_star,
         "mean_gen3_uncertainty": mean_gen3,
-        "verifier_expression": GEN3_EVOLVED_EXPR,
+        "verifier_expression": active_expr,
+        "stewardship_ledger_persisted": ledger.ledger_path.is_file(),
         "top_curiosity_spikes": top_curiosity,
         "token_trace": token_trace,
         "discovered_cli_collaborators": available_clones,
