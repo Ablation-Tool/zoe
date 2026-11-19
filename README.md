@@ -1,7 +1,9 @@
 
 # Zoe
 
-Metacognition is achieved. 
+Metacognition is achieved.
+
+
 Aτ(p) = |{x ∈ X : p(x) > τ}| = Σx∈X 1[p(x) > τ]
 
 
