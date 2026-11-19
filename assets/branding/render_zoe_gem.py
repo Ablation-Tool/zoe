@@ -18,7 +18,7 @@ PACKAGED = GEM / "gem-lab" / "gem" / "icons"
 
 def render(size, path):
     with Image.open(MASTER) as image:
-        image = image.convert("RGB").resize((size, size), Image.Resampling.LANCZOS)
+        image = image.convert("RGBA").resize((size, size), Image.Resampling.LANCZOS)
         image.save(path, format="PNG", optimize=True)
 
 
@@ -29,7 +29,7 @@ def main():
             "rsvg-convert", str(SOURCE), "--keep-aspect-ratio",
             "--width", "940", "--height", "580",
             "--page-width", "1024", "--page-height", "1024",
-            "--left", "42", "--top", "222", "--background-color", "white",
+            "--left", "42", "--top", "222",
             "--format", "png", "--output", str(rendered),
         ], check=True)
         shutil.copyfile(rendered, MASTER)
@@ -69,7 +69,7 @@ def main():
         render(size, GEM_ROOT / "web" / name)
 
     with Image.open(MASTER) as image:
-        image = image.convert("RGB")
+        image = image.convert("RGBA")
         ico = GEM_ROOT / "windows" / "gem-woven-diamond.ico"
         image.save(ico, format="ICO", sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
         image.save(GEM_ROOT / "macos" / "gem-woven-diamond.icns", format="ICNS")
