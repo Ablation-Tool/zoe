@@ -92,3 +92,29 @@ def test_multihead_vision_embeddings_and_attention():
         assert out_path.exists()
         assert telemetry["total_tokens"] == 64
         assert telemetry["mean_attention_entropy"] > 0.0
+
+
+def test_book_ingest_hashes_chapters_and_dissects_plates():
+    from agent_logging_system.neurogarden_ingest import ingest_book_directory
+
+    rng = np.random.default_rng(11)
+    arr = rng.integers(0, 255, size=(96, 96, 3), dtype=np.uint8)
+    with tempfile.TemporaryDirectory() as tmpdir:
+        book_dir = Path(tmpdir) / "sample-book"
+        img_dir = book_dir / "images"
+        img_dir.mkdir(parents=True)
+        (book_dir / "001_ch1.html").write_text("<html><body><h1>Ch1</h1></body></html>", encoding="utf-8")
+        Image.fromarray(arr).save(img_dir / "plate1.png")
+
+        out_dir = Path(tmpdir) / "ingest-out"
+        manifest = ingest_book_directory(book_dir, out_dir, max_plates=1, grid_n=8)
+        assert manifest["chapter_count"] == 1
+        assert manifest["image_count"] == 1
+        assert manifest["dissected_plate_count"] == 1
+        assert manifest["clinical_action_authorized"] is False
+        assert manifest["fully_read_claimed"] is False
+        assert (out_dir / "ingest-manifest.json").is_file()
+
+        with pytest.raises(FileExistsError):
+            ingest_book_directory(book_dir, out_dir, max_plates=1, grid_n=8)
+
