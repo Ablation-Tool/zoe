@@ -1088,7 +1088,7 @@ class BrandingCase(unittest.TestCase):
         packaged = root / "gem-lab" / "gem" / "icons"
         self.assertEqual(int.from_bytes((packaged / "gem-woven-diamond.ico").read_bytes()[4:6], "little"), 7)
         self.assertTrue((packaged / "gem-woven-diamond.icns").read_bytes().startswith(b"icns"))
-        self.assertIn("Zoe GEM diamond icon", (packaged / "gem-woven-diamond.svg").read_text())
+        self.assertIn("Zoe GEM official emblem", (packaged / "gem-woven-diamond.svg").read_text())
         desktop = root / "gem-lab" / "packaging" / "re.gem.workbench.desktop.in"
         self.assertIn("Icon=gem-woven-diamond", desktop.read_text())
         linux_installer = (root / "gem-lab" / "packaging" / "install_linux.sh").read_text()

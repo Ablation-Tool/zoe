@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="47" height="29" viewBox="0 0 47 29" role="img" aria-labelledby="title description">
-  <title id="title">Zoe GEM diamond icon</title>
-  <desc id="description">Zoe's symmetric solid red diamond on a transparent background.</desc>
-  <path id="gem-diamond" fill="#ff0000" d="M 13 4 H 34 L 45 11 L 23.5 26 L 2 11 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="47" height="29" viewBox="0 0 47 29" role="img" aria-labelledby="title description">
+  <title id="title">Zoe GEM official emblem</title>
+  <desc id="description">The exact gem3red PNG artwork preserved in an SVG container.</desc>
+  <image id="gem3red" width="47" height="29" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAdAQMAAAAAW6dJAAAABlBMVEX/AAD///9BHTQRAAAAG3RFWHRTb2Z0d2FyZQBnaWYycG5nIDAuNiAoYmV0YSmq3WmSAAAAd0lEQVR4nGXOsQ3DIBAF0G/ZUppIjMAilsgoGcOFJehYK5IXYQTSUSC+L2donN88oTs+AFc8JfVOAZyQACMEtlmYyKlin8mwY3uQnxVvQ6YnXpbMyzj1Wd/s90ZL8vXXmV2xQrXZC80kfT0eyhGVr1WKU9r/P6+cUB9vij+xzWIAAAAASUVORK5CYII="/>
 </svg>
