@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "instrument": "zoe-official-gem-identity/v1",
+  "verified": true,
+  "official_source": "assets/branding/zoe-gem.svg",
+  "source_supplied": "/home/cowboy/Pictures/Zoe_GEM.svg",
+  "source_sha256": "1798bca16b2b67edc65ec0648112aff7fc2bcd542303318d81ad0f8afed1e1d0",
+  "canonical_png": "assets/branding/zoe-gem.png",
+  "canonical_png_sha256": "06ac9e23c6295daa01717e4b96cd8f84841a2f02b67ed9a63ad4cb3a6234f110",
+  "generator": "assets/branding/render_zoe_gem.py",
+  "pixel_verified_generated_icons": 49,
+  "desktop": {
+    "application_icon": "components/ablation/gem-lab/gem/icons/gem-woven-diamond.png",
+    "actual_window_icon_pixels_match": true,
+    "actual_window_icon_dimensions": [512, 512],
+    "actual_top_left_brand_dimensions": [24, 24],
+    "real_nested_x11_gui_verified": true,
+    "gui_source_modified": false
+  },
+  "android": {
+    "manifest_icon": "@drawable/zoe_eye",
+    "resource": "mobile/android/app/src/main/res/drawable/zoe_eye.png",
+    "dimensions": [512, 512],
+    "matches_gem_desktop_png_bytes": true,
+    "apk_build_verified": false,
+    "build_boundary": "Asset and manifest integration verified; no Android SDK was configured for an APK build."
+  },
+  "apple_app_icons_refreshed": 13,
+  "desktop_ico_entries": 7,
+  "desktop_icns_magic_verified": true,
+  "branding_tests_passed": 2,
+  "unified_identity_regression_test_passed": true,
+  "historical_visual_archive_modified": false,
+  "scope": "Official active identity, application icons, packaging assets, and real GEM rendering; historical research artwork remains archival."
+}

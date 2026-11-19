@@ -1,4 +1,4 @@
-<img src="assets/branding/zoe-eye.png" width="360" alt="Zoe woven diamond emblem">
+<img src="assets/branding/zoe-gem.png" width="360" alt="Zoe's official red GEM emblem">
 
 # Zoe
 
