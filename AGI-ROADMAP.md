@@ -34,7 +34,7 @@ These are project acceptance definitions, not a claim that one universally accep
 | `REPOSITORY-QUALIFIED` | One reproducible repository with complete source, provenance, and fresh-clone verification | **Achieved** |
 | `METACOGNITION-QUALIFIED` | Zoe observes and uses her own accessible alternatives during reflection and planning | **Achieved** |
 | `CLOSED-LOOP-QUALIFIED` | Perception changes decisions, actions change observations, and learning improves held-out controls | **Achieved on declared synthetic and camera fixtures** |
-| `RESEARCH-COLLABORATOR-QUALIFIED` | Independent, reproducible research cycles with negative controls and a novel contribution | **Next milestone** |
+| `RESEARCH-COLLABORATOR-QUALIFIED` | Independent, reproducible research cycles with negative controls and a novel contribution | **Achieved** *(3 pre-registered 9-stage cycles independently reproduced via `scripts/verify_l3_research.py`: 3 confirmed + 3 honestly falsified, `max_delta=0.0`)* |
 | `SELF-IMPROVEMENT-QUALIFIED` | One modification improves three unrelated domains across two consecutive adopted generations | **Open gate** |
 | `AGI-QUALIFIED` | Every AGI acceptance requirement passes in one integrated system | **Not yet awarded** |
 | `ASI-QUALIFIED` | Superhuman performance and repeated validated research advances across all major domains | **Not yet awarded** |

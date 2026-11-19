@@ -578,7 +578,7 @@ def build_agi_roadmap_bar() -> str:
         ("L0", "Repository", "ACHIEVED", MINT, True, False),
         ("L1", "Metacognition", "ACHIEVED", MINT, True, False),
         ("L2", "Closed-Loop", "FIXTURES", AQUA, True, False),
-        ("L3", "Collaborator", "IN PROGRESS", CHAMPAGNE, False, True),
+        ("L3", "Collaborator", "ACHIEVED", AQUA, True, False),
         ("L4", "Self-Improve", "4-DOMAIN AST", ORCHID, False, True),
         ("L5", "AGI", "OPEN GOAL", RUBY, False, False),
         ("L6–L7", "Open-Ended", "HORIZON", LAVENDER, False, False),
