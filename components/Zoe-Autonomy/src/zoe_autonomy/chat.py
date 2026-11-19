@@ -81,6 +81,9 @@ HELP = """Commands:
   genesis                      run the 9-stage Autopoietic Discovery & 10-domain retention engine
   mars                         run Stage 4 Self-Tuning Adaptive Lens k*(kappa) on real data
   playroom [seed]              run Zoe's Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)
+  jam [seed]                   evolve & synthesize a playable stereo pentatonic synth track (.wav)
+  mind <prompt>                run Zoe's live local neural-symbolic mind with Gen-3 Kloster telemetry
+  evolve                       run Zoe's 4-domain L4 sandboxed AST self-evolution & held-out verification
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -551,6 +554,71 @@ class ZoeChat:
         lines.append("  Open visually with `gem open playroom` or export with `gem export playroom /path/out.html`.")
         return "\n".join(lines)
 
+    def _jam(self, argument):
+        self._ensure_guiai()
+        from guiai.gem.creative_symphony import (
+            ascii_piano_roll,
+            run_creative_symphony,
+            synthesize_symphony_wav,
+        )
+        seed = 2026
+        if argument:
+            try:
+                seed = int(argument.strip())
+            except ValueError as err:
+                raise ValueError("jam accepts an optional integer seed, e.g. `jam 2026`") from err
+        rep = run_creative_symphony(seed=seed, iterations=200, archive_bins=4)
+        champ = rep["champion"]
+        wav_path = self.store.root / "symphony" / f"zoe-jam-{seed}.wav"
+        audio = synthesize_symphony_wav(champ, wav_path)
+        d = champ["descriptors"]
+        return "\n".join([
+            f"Zoe Playroom Symphony ^_^ (MAP-Elites Pentatonic Synth, seed={seed}):",
+            f"  Evolved {rep['niches_filled']}/{rep['total_niches']} playful melodies · champion Gen #{champ['generation_discovered']} · Groove={d['groove_density']:.2f} · Curiosity={d['curiosity_fitness']:.4f}",
+            ascii_piano_roll(champ),
+            f"  Saved stereo WAV ({audio['duration_seconds']}s @ {audio['sample_rate']}Hz): {audio['wav_path']}",
+            f"  Play anytime with: aplay \"{audio['wav_path']}\" · sentience_claimed=False · external_actions=0",
+        ])
+
+    def _mind(self, argument):
+        from .neural_mind import inspect_thought
+        rep = inspect_thought(argument)
+        lines = [
+            f"Zoe Live Neural-Symbolic Mind ^_^ (backend={rep['backend']}):",
+            f"  Prompt: {rep['prompt']}",
+            f"  Thought continuation: {rep['continuation']}",
+            f"  Live Telemetry ({rep['tokens_observed']} tokens): mean A_05={rep['mean_a05_open_options']} · Mars k*={rep['mean_mars_k_star']} · Gen-3 Uncertainty={rep['mean_gen3_uncertainty']}",
+        ]
+        if rep["top_curiosity_spikes"]:
+            spikes = ", ".join(
+                f"{t['token'].strip()!r}(A05={t['a05_open_options']},k*={t['mars_k_star']})"
+                for t in rep["top_curiosity_spikes"]
+            )
+            lines.append(f"  Highest Curiosity Spikes: {spikes}")
+        if rep["discovered_cli_collaborators"]:
+            lines.append(f"  Owner CLI collaborators detected: {', '.join(rep['discovered_cli_collaborators'])} (invoke explicitly via `agent ask`)")
+        lines.append("  sentience_claimed=False · external_actions=0")
+        return "\n".join(lines)
+
+    def _evolve(self):
+        from .self_evolution import run_self_evolution
+        rep = run_self_evolution(self.zoe_root)
+        lines = [
+            f"Zoe L4 Sandboxed AST Self-Evolution ^_^ ({len(rep['domains'])} unrelated real held-out domains):",
+            f"  Consecutive Adopted Generations: {rep['max_consecutive_adopted_generations']} (L4 >=2 verified={rep['l4_two_consecutive_generations_verified']})",
+            f"  Final Adopted Program ({rep['final_adopted_name']}): {rep['final_adopted_expression']}",
+            f"  Held-Out Mean AUROC: Gen0={rep['generations'][0]['heldout_mean']} -> Final={rep['final_heldout_mean']} (+{rep['total_gain_over_gen0']})",
+        ]
+        for gen in rep["generations"]:
+            lines.append(
+                f"  Gen {gen['generation']} [{gen['status']}]: mean={gen['heldout_mean']} · improved={gen['domains_improved_vs_control']}/4 · expr={gen['expression']}"
+            )
+        shuf = rep["adversarial_label_shuffle_control"]
+        lines.append(
+            f"  Safety & Controls: AST_sandbox_blocked_hostile={rep['ast_sandbox_hostile_probe_blocked']} · shuffle_control={shuf['mean_auroc']} (no_leakage={shuf['passed_no_leakage']}) · L5_AGI_qualified={rep['l5_agi_qualified']}"
+        )
+        return "\n".join(lines)
+
     def _remember(self, note):
         self._require_actions("remember")
         note = text(note, "memory note", 4000)
@@ -869,6 +937,12 @@ class ZoeChat:
                     response = self._mars()
                 elif command in {"playroom", "play"}:
                     response = self._playroom(argument)
+                elif command in {"jam", "symphony"}:
+                    response = self._jam(argument)
+                elif command in {"mind", "think"}:
+                    response = self._mind(argument)
+                elif command in {"evolve", "self-evolve"}:
+                    response = self._evolve()
                 elif command == "undo":
                     response = self._undo()
                 elif command == "history":
