@@ -31,7 +31,8 @@ jobs:
         run: |
           python scripts/verify-one-system.py
 
-      - name: Run Dorothy, Spatial, and Continuum Tests
-        working-directory: components/agent-logging-system
+      - name: Run Dorothy, Spatial, Continuum, and Causal Chiasm Tests
         run: |
+          python -m unittest components/Zoe-Autonomy/tests/test_cross_domain_transfer.py -v
+          cd components/agent-logging-system
           pytest tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v

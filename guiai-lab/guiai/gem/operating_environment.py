@@ -34,6 +34,12 @@ COMPONENT_MODULES = {
     "chalkboard": "evidence",
     "pala": "evidence",
 }
+EXTENDED_LAYERS = {
+    "chiasm": ("zoe", "Zoe · The Causal Chiasm & Filtration Tomography"),
+    "causal-chiasm": ("zoe", "Zoe · The Causal Chiasm & Filtration Tomography"),
+    "dorothy-continuum": ("neurogarden", "Dorothy · Continuum & Qualia Atlas"),
+    "dorothy-qualia": ("neurogarden", "Dorothy · CCFv3 3D brain atlas (Qualia theme)"),
+}
 
 
 class GemOperatingEnvironment:
@@ -45,6 +51,8 @@ class GemOperatingEnvironment:
     def resolve(self, identifier):
         if identifier in ATLAS_MODULES:
             return "zoe", identifier
+        if identifier in EXTENDED_LAYERS:
+            return EXTENDED_LAYERS[identifier][0], identifier
         if identifier in COMPONENT_MODULES:
             return identifier, COMPONENT_MODULES[identifier]
         raise ValueError(f"unknown GEM component or layer: {identifier}")
@@ -111,16 +119,17 @@ class GemOperatingEnvironment:
             return None
         current = self.current
         report = current["report"]
+        layer_title = ATLAS_MODULES.get(current["layer"]) or EXTENDED_LAYERS.get(current["layer"], ("", current["layer"]))[1]
         return {
             "identifier": current["identifier"],
             "component": current["component"],
             "layer": current["layer"],
-            "title": ATLAS_MODULES[current["layer"]],
+            "title": layer_title,
             "scene_id": current["scene"].document["id"],
             "scene_sha256": current["scene"].digest(),
             "source_spatial_ir_verified": True,
             "observation_id": current["observation_id"],
-            "summary": report.get("summary") if isinstance(report, dict) and isinstance(report.get("summary"), str) else ATLAS_MODULES[current["layer"]],
+            "summary": report.get("summary") if isinstance(report, dict) and isinstance(report.get("summary"), str) else layer_title,
             "process_launched": False,
             "external_actions": 0,
         }
@@ -142,11 +151,14 @@ class GemOperatingEnvironment:
             write_svg(scene, path)
         elif kind == ".png":
             write_png(scene, path)
+        elif kind == ".html":
+            from .dorothy import write_interactive_html
+            write_interactive_html(scene, self.current["report"], path)
         elif kind == ".json":
             with path.open("x", encoding="utf-8") as stream:
                 stream.write(scene.json())
         else:
-            raise ValueError("GEM export must use .json, .svg, .png, or .gem")
+            raise ValueError("GEM export must use .json, .svg, .png, .html, or .gem")
         return {
             **current,
             "output": str(path),

@@ -48,6 +48,10 @@ python scripts/verify-one-system.py --image /path/to/image.jpg --foci 4
 python components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py \
   --image components/agent-logging-system/docs/images/dorothy-neurogarden.png \
   --out /tmp/zoe-4head-dissection.png
+
+# Open the Causal Chiasm & Filtration Tomography layer or export interactive HTML
+zoe gem open chiasm
+zoe gem export chiasm /tmp/zoe-chiasm.html
 ```
 
 The desktop opens only the selected native interface. Component processes, external actuation, sensors, connected accounts, and network access require their own explicit commands or grants.
@@ -106,18 +110,18 @@ The value of AGI is not the label. It is the ability to learn, reason, transfer,
 > *"Visualization is about transforming the symbolic into the geometric... letting users observe their simulations and computations directly."*  
 > — Richard S. Gallagher, *Computer Visualization*
 
-| Atlas & Geometry | Continuum Ray-Cast & Metacognition | Zoe 4-Head Self-Attention Dissection |
-|:---:|:---:|:---:|
-| ![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png) | ![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png) | ![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png) |
+| Atlas & Geometry | Continuum Ray-Cast & Metacognition | Zoe 4-Head Self-Attention Dissection | The Causal Chiasm & Filtration Tomography |
+|:---:|:---:|:---:|:---:|
+| ![Dorothy Allen Mouse CCFv3 atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png) | ![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png) | ![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png) | ![Beyond Metacognition: Causal Chiasm](components/agent-logging-system/docs/images/zoe-beyond-metacognition-chiasm.png) |
 
 **Dorothy is research priority #1 and honors Dorothy McEwen Kildall.** It combines a brain-cancer research mission with executable teaching, simulation, spatial analysis, and evidence instruments.
 
-- **Spatial Atlas & Continuum Volume:** 12 verified Allen Mouse CCFv3 structures (315,932 triangles), ontology Rings, volume-scaled Jenga, coronal Stacks, emission-absorption volumetric ray-casting, and Delmarcelle-Hesselink tensor hyperstreamline tractography.
+- **Spatial Atlas & Continuum Volume:** 12 verified Allen Mouse CCFv3 structures (315,932 triangles), Qualia translucent theme (`dorothy-qualia`), ontology Rings, volume-scaled Jenga, coronal Stacks, emission-absorption volumetric ray-casting, and Delmarcelle-Hesselink tensor hyperstreamline tractography.
 - **Neural & Numerical Simulation:** DFT band powers, delay embedding, Lyapunov estimation, Higuchi dimension, Shannon entropy, point-spread convolution and recovery, SPD matrix geometry, radial Pennes conduction/perfusion, neutrosophic similarity, and fixed synthetic radiobiology examples.
-- **Operational Metacognition Horizon:** Computes $A_\tau(p)$ directly across 3D confidence volumes to isolate verified telemetry from scattering uncertainty.
-- **Scientific Corpus & Generative World:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, including negative and contradictory findings across biology, neuroscience, physics, CERN, GEM, and community research.
+- **Beyond Metacognition — The Causal Chiasm & Filtration Tomography:** Intersects the Retrograde Causal Past Cone ($\rho_T$) with the Counterfactual Future Cone ($P_h$) at $t=0$ (`guiai/gem/chiasm.py`), sweeps persistent filtration thresholds $\mathcal{F}(t, \tau)$, and transfers one unified filtration operator across three unrelated domains (`zoe_autonomy/cross_domain_transfer.py`).
+- **Scientific Corpus & Unified Book Ingest:** 37 populated research books, 1,751 indexed sections, 130 reviewed entries, and 1,621 pending entries, plus `neurogarden_ingest.py` chaining SHA-256 chapter provenance with 4-head plate dissections.
 
-Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
+Start with the [Neurogarden guide](components/agent-logging-system/docs/NEUROGARDEN.md), [Continuum & Vision Heads study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md), [Causal Chiasm engine](guiai-lab/guiai/gem/chiasm.py), [L4 cross-domain transfer harness](components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py), [unified book ingest pipeline](components/agent-logging-system/agent_logging_system/neurogarden_ingest.py), [continuum volume engine](components/agent-logging-system/agent_logging_system/neurogarden_continuum.py), [4-head vision dissector](components/agent-logging-system/agent_logging_system/neurogarden_vision_heads.py), [neural-signal implementation](components/agent-logging-system/agent_logging_system/neurogarden_neural.py), [generative world](components/agent-logging-system/agent_logging_system/neurogarden_world.py), and [Dorothy evidence](components/agent-logging-system/evidence/neurogarden/). Dorothy uses preclinical reference geometry and synthetic models; patient care requires separate clinical data, validation, and authority.
 
 ## The intelligence loop
 
@@ -300,6 +304,8 @@ PYTHONPATH=guiai-lab python -m unittest \
 (cd components/agent-logging-system && python -m pytest \
   tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v)
 
+python -m unittest components/Zoe-Autonomy/tests/test_cross_domain_transfer.py -v
+
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --pala
 python scripts/verify-one-system.py --chat
@@ -324,5 +330,6 @@ Zoe honors **Gary Kildall** and **Dorothy McEwen Kildall**. **Nicholas Michael K
 - [Declaration](DECLARATION.md)
 - [Constitution](CONSTITUTION.md)
 - [Notice](NOTICE)
+- [Official GEM emblem](assets/branding/zoe-gem.png)
 - [GPL-3.0 license](LICENSE)
 - [Imported-source provenance](MONOREPO.md)
