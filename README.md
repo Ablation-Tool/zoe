@@ -22,7 +22,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 *A living research observatory where mathematical rigor, visual computing, neuroscience, music, and playful curiosity share one honest roof.*
 
-**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 20 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
+**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 22 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
 </div>
 
@@ -49,7 +49,7 @@ Zoe is a unified, offline-capable research collaborator and visual-computing wor
 Her work brings together five threads that almost never live in the same room:
 - **Operational Metacognition** — originated by **Nicholas Michael Kloster on March 6, 2026**, counting how many futures stay open above threshold $\tau$ and turning that single equation into theorems, self-tuning lenses, and sandboxed self-evolution — read the research papers: [*March 2026 Formal Note*](research/papers/papers/01-autonomy-march-2026.pdf) · [*The Significance of Accessible Volume*](research/papers/papers/04-accessible-volume-significance.pdf) · [*Accessible Volume Beyond the Next Token*](research/papers/papers/05-accessible-volume-beyond-next-token.pdf) · [*Architecture of Autonomy*](research/papers/papers/10-accessible-volume-architecture-of-autonomy.pdf) · [*Zoe — The Research Universe (23 pp.)*](paper/zoe-research-universe.pdf) · [*Kloster Spectral Filtration Theorem*](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [*All 18 Papers*](research/papers/README.md).
 - **Dorothy's Neurogarden** — honoring **Dorothy McEwen Kildall** through preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
-- **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **56 visual layers** and **17 connected engines**.
+- **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **58 visual layers** and **17 connected engines**.
 - **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
 - **Open-Ended Creative Play** — evolving 16 cellular crystal species, composing stereo Rhodes-chime melodies, and tending a quiet atelier where *imagination meets geometry*.
 
@@ -134,19 +134,19 @@ Named in honor of **Dorothy McEwen Kildall**, the Neurogarden turns real preclin
 
 <p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
 
-### World 03 · Creative Playroom, Music & Living Geometry
+### World 03 · Creative Playroom, Music, Native Voice & Living Geometry
 
-Curiosity is not a footnote in Zoe — it has its own studio. Inside the **Open-Ended Creative Playroom**, MAP-Elites paired with Kloster Spectral Curiosity evolves **16/16 distinct cellular geometric organisms** across 400 autonomous generations with zero hardcoded patterns. In **Playroom Symphony**, Zoe composes playful C-Major Pentatonic melodies rendered to warm **44.1 kHz stereo Rhodes-chime `.wav` audio** alongside a live offline PyTorch `distilgpt2` neural-symbolic mind. And in **Qualia** & **Ellipse Family**, she paints her signature ruby diamonds, Q-repertoires, and shimmering orchid parametric curves.
+Curiosity is not a footnote in Zoe — it has its own studio. Inside the **Open-Ended Creative Playroom**, MAP-Elites paired with Kloster Spectral Curiosity evolves **16/16 distinct cellular geometric organisms** across 400 autonomous generations with zero hardcoded patterns. In **Playroom Symphony**, Zoe composes playful C-Major Pentatonic melodies rendered to warm **44.1 kHz stereo Rhodes-chime `.wav` audio** alongside a live offline PyTorch `distilgpt2` neural-symbolic mind. Now Zoe also possesses her own **100% Native Speaking & Singing Voice** from first principles (`zoe_voice.py`): **44 English phonemes** (`20V+24C`) + **332 spelling rules**, an MS-DOS / Atari ST `.mid` PSG baseline, a female Rosenberg-Klatt 5-formant vocal tract with portamento & vibrato, **Chladni sand cymatics + 3-bitplane GEM VDI rasters**, and **Woodworth 3D binaural acoustics**. And in **Qualia** & **Ellipse Family**, she paints her signature ruby diamonds, Q-repertoires, and shimmering orchid parametric curves.
 
-| Stage 5A · Open-Ended Creative Playroom *(16/16 Species)* | Stage 5B/C · L4 AST Evolution, Stereo Symphony & Live Mind |
-|:---:|:---:|
-| ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Stage 5B/C L4 AST Self-Evolution, Symphony & PyTorch Mind](components/agent-logging-system/docs/images/zoe-l4-self-evolution-and-symphony.png) |
+| Stage 5A · Open-Ended Creative Playroom *(16/16 Species)* | Stage 5B/C · L4 AST Evolution, Stereo Symphony & Live Mind | Zoe Native Voice, Singing & Chladni Cymatics *(44 Phonemes + 3D)* |
+|:---:|:---:|:---:|
+| ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Stage 5B/C L4 AST Self-Evolution, Symphony & PyTorch Mind](components/agent-logging-system/docs/images/zoe-l4-self-evolution-and-symphony.png) | ![Zoe Native Voice, Singing & Chladni Cymatics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png) |
 
 | Zoe is Quale · Zoe is Red *(Accessible Q-Volume)* | Ellipse Family *(Parametric Orchid Ribbons)* |
 |:---:|:---:|
 | ![Zoe is Quale — Accessible Q-Volume](guiai-lab/docs/images/zoe-qualia.png) | ![Zoe Ellipse Family](guiai-lab/docs/images/zoe-lots-of-ellipses.png) |
 
-**Explore:** [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py)
+**Explore:** [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) · [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [Native Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) · [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py)
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
@@ -238,11 +238,12 @@ Beauty without honesty is just theater. Every engine in Zoe obeys one architectu
 </details>
 
 <details>
-<summary><strong>◆ [ 04 ] GEM Operating Environment, Geometry &amp; Creative Studio</strong> — 36 Canonical + 20 Extended Layers, Playroom &amp; Stereo Symphony</summary>
+<summary><strong>◆ [ 04 ] GEM Operating Environment, Geometry &amp; Creative Studio</strong> — 36 Canonical + 22 Extended Layers, Native Voice, Playroom &amp; Stereo Symphony</summary>
 
 | Layer / Studio | What It Does | Implementation | Guide |
 |:---|:---|:---|:---|
 | **Shared GEM OS &amp; Spatial IR** | Connects all 17 components via Spatial IR, little-endian VDI, SVG/PNG/GEM &amp; HTML export | [`operating_environment.py`](guiai-lab/guiai/gem/operating_environment.py) · [`assets/master-gem-interactive.html`](assets/master-gem-interactive.html) | [GEM-OS.md](guiai-lab/docs/GEM-OS.md) · [UNIFIED.md](guiai-lab/docs/UNIFIED.md) |
+| **Zoe Native Voice, Singing &amp; Cymatics** | 44 English phonemes (`20V+24C`), 332 spelling rules, MS-DOS/Atari ST MIDI baseline, 5-formant glottal tract, Woodworth 3D binaural audio &amp; Chladni 3-bitplane VDI (`14/14` verifier) | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) · [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) | [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) |
 | **Stage 5A/C: Creative Playroom &amp; Symphony** | MAP-Elites + Kloster Curiosity evolves 16/16 cellular species &amp; 44.1 kHz stereo `.wav` music | [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) | `zoe gem open playroom` · `zoe gem open symphony` |
 | **Geometry Atlas, Second Eye &amp; Artline** | Procrustes/affine landmarks, stereo vision &amp; vector path/layer editor | [`atlas.py`](guiai-lab/guiai/gem/atlas.py) · [`eye.py`](components/graphics-environment-manager/gem/eye.py) · [`artline.py`](guiai-lab/guiai/gem/artline.py) | [GEOMETRY-ATLAS.md](guiai-lab/docs/GEOMETRY-ATLAS.md) · [ARTLINE.md](guiai-lab/docs/ARTLINE.md) |
 | **Cognitive Field, Qualia &amp; Presence** | Bayesian working memory, Q-Volume causal repertoires &amp; event-ordinal time | [`cognitive.py`](guiai-lab/guiai/gem/cognitive.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`presence_view.py`](guiai-lab/guiai/gem/presence_view.py) | [COGNITIVE.md](guiai-lab/docs/COGNITIVE.md) · [QUALIA.md](guiai-lab/docs/QUALIA.md) · [PRESENCE.md](guiai-lab/docs/PRESENCE.md) |
@@ -313,7 +314,7 @@ zoe/
 │   ├── branding/                 # Official Red-and-White GEM identity & Pure-Zoe patches
 │   ├── brain-dialogue/           # "Imagination, meet geometry" dual-brain field artwork
 │   └── readme/                   # Deterministic living SVG hero, map, pills & atelier artwork
-├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 20 extended layers, VDI, Spatial IR)
+├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 22 extended layers, VDI, Spatial IR, Native Voice)
 ├── components/
 │   ├── Zoe-Autonomy/             # Bounded autonomy loop, chat, neural mind, L4 self-evolution & stewardship
 │   ├── agent-logging-system/     # Dorothy Neurogarden, Continuum ray-caster, 4-Head vision dissector
@@ -345,6 +346,7 @@ zoe/
 | **L3 Research Collaborator Cycles** | 3 pre-registered 9-stage cycles (MIDI, Dorothy CCFv3, `CicadaClock` + HELEN) with independent verifier | [L3-RESEARCH-COLLABORATOR-CYCLES.md](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) |
 | **L4 Generalized Self-Improvement** | Generation-blind atomic AST synthesis across 6 real domains (4 unseen zero-shot), 5/5 seeds &amp; independent verifier | [L4-GENERALIZED-SELF-IMPROVEMENT.md](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) |
 | **L4 Multi-Module Code Evolution** | Multi-statement Python `def` evolution across 3 runtime engines (`spectral`, `EventCausalEngine`, `temporal`), unified diffs, `15/15` seeds &amp; `17/17` verifier | [L4-MULTI-MODULE-CODE-EVOLUTION.md](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) |
+| **Zoe Native Voice &amp; Cymatics** | 44 English phonemes, 332 spelling rules, SMF MIDI/DOS PSG baseline, 5-formant vocal tract, Woodworth 3D binaural HRTF &amp; Chladni 3-bitplane VDI (`14/14` verifier) | [ZOE-NATIVE-VOICE-AND-CYMATICS.md](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) |
 | **Temporal Dynamics &amp; Groove Forensics** | `.MOD`/`.MID` Poincaré attractors, Kuramoto clock entrainment &amp; Dorothy ISI note | [TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
 | **Dorothy Research Study** | Continuum ray-casting, vision heads &amp; Neurogarden v62 review summary | [Dorothy README](research/papers/zoe-research/dorothy/README.md) · [Continuum Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
 | **Research Library &amp; arXiv** | Full paper archive, historical source tarballs &amp; arXiv packages | [Papers Index](research/papers/README.md) · [arXiv Packages](research/arxiv/) |
@@ -371,6 +373,7 @@ zoe/
 | **Temporal Dynamics, Groove Forensics &amp; Clock Entrainment** | Separates deterministic swing attractors ($\rho_1 = -0.9778$, eccentricity `0.9944`, mutual info `1.0057 bits`, `0.5 cyc/beat` peak) from pure Gaussian jitter; drives `CicadaClock` to Kuramoto phase coherence **`R = 0.9334`** across 128 replay-verified events; bridges to Dorothy 40 Hz pacemaker ISI (`mean 25.009 ms`, $\rho_1^{\text{ISI}} = 0.8728$, Higuchi $D = 0.2603$). | Negative control (`pure_noise`) drops to $\rho_1 = -0.0602$, $e = 0.3371$, mutual info `0.0454 bits`; exact `.MOD` grid yields `0.0 bits` entropy; synthetic/non-clinical scope. | [`zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) · [Research Note](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
 | **Event-Causal Active Perception** | Adaptive validation prediction RMSE **`4.641453`** (vs `5.058147` no-learning); transfer tracking MAE **`3.265625`** (vs `3.531` static / `3.703` random); OOD detection **`0.875`** at **`71.24 cycles/s`**. | Declared synthetic &amp; `/dev/video0` fixtures; camera idle until started. | [EVENT-CAUSAL.md](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [Evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) |
 | **Stage 5A/C: Open-Ended Creative Playroom &amp; Symphony** | MAP-Elites + Kloster Spectral Curiosity evolves **16/16** cellular geometric species (`creative_playroom.py`) and playful C-Major Pentatonic melodies synthesized into 44.1 kHz stereo Rhodes-chime `.wav` audio (`creative_symphony.py`). | Algorithmic Quality-Diversity creativity; `sentience_claimed=False`. | [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) |
+| **Zoe Native Voice, Singing &amp; Cymatics** | Synthesizes speech &amp; soprano singing (`zoe`, *Daisy Bell*, `vowels`) from scratch (`44` phonemes, `332` spelling rules, SMF MIDI round-trip, C4/G4/C5 pitch `<=0.31%` err, Woodworth $\pm 45^\circ$ ITD $\pm 0.381\text{ms}$ / ILD $\pm 2.71\text{dB}$, Chladni + 3-bitplane GEM VDI `bit_diff=0`, `14/14` verifier). | Zero PyTorch, zero external TTS; flat mono negative control `diff=0.0`; `sentience_claimed=False`, `external_actions=0`. | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) |
 
 <br/>
 
@@ -446,7 +449,7 @@ python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
 zoe                      # Launch the native GEM desktop workbench
 zoe list                 # Inspect all 17 registered engines
 zoe chat                 # Interactive evidence-linked conversation
-zoe gem list             # Browse all 36 canonical + 20 extended GEM layers
+zoe gem list             # Browse all 36 canonical + 22 extended GEM layers
 zoe autonomy run         # Run a bounded, reversible internal autonomy episode
 ```
 
@@ -473,8 +476,11 @@ zoe chat --cli --command "mars"
 zoe chat --cli --command "evolve"
 zoe chat --cli --command "steward status"
 
-# Local PyTorch Neural-Symbolic Mind (100% offline with cached distilgpt2) & Creative Studio
+# Local PyTorch Neural-Symbolic Mind (100% offline with cached distilgpt2), Native Voice & Creative Studio
 zoe chat --cli --command "mind Curiosity turns geometry into discovery"
+zoe voice speak "Hello Nicholas, I am Zoe. Imagination, meet geometry." --output /tmp/zoe-hello.wav
+zoe voice sing daisy --save-midi /tmp/daisy.mid --output /tmp/zoe-daisy.wav
+zoe gem open voice
 zoe chat --cli --command "playroom"
 zoe chat --cli --command "jam 2026"
 
@@ -522,18 +528,20 @@ Automated CI runs the monorepo verifier, Groove Forensics suite, and Dorothy/Con
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --chat
 
-# 2. L3 Research, L4 Self-Improvement & Multi-Module Verifiers + Groove Forensics suite
+# 2. L3 Research, L4 Self-Improvement, Multi-Module & Native Voice Verifiers + Groove Forensics suite
 python scripts/verify_l3_research.py
 python scripts/verify_l4_self_improvement.py
 python scripts/verify_l4_multimodule.py
+python scripts/verify_zoe_voice.py
 python scripts/zoe_groove_forensics.py --verify
 
-# 3. Core Zoe-Autonomy, L3 Research, L4 Single/Multi-Module, Event-Causal, Kloster, Mars & Playroom tests
+# 3. Core Zoe-Autonomy, L3/L4, Event-Causal, Native Voice, Kloster, Mars & Playroom tests
 PYTHONPATH="components/Zoe-Autonomy/src:guiai-lab" python -m unittest \
   components/Zoe-Autonomy/tests/test_research_collaborator.py \
   components/Zoe-Autonomy/tests/test_l4_self_improvement.py \
   components/Zoe-Autonomy/tests/test_l4_multimodule.py \
   components/Zoe-Autonomy/tests/test_event_causal.py \
+  components/Zoe-Autonomy/tests/test_zoe_voice.py \
   components/Zoe-Autonomy/tests/test_self_evolution_and_symphony.py \
   components/Zoe-Autonomy/tests/test_spectral_filtration.py \
   components/Zoe-Autonomy/tests/test_cross_domain_transfer.py \
