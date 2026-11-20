@@ -399,7 +399,7 @@ zoe/
 | **Dorothy Research Study** | Continuum ray-casting, vision heads &amp; Neurogarden v62 review summary | [Dorothy README](research/papers/zoe-research/dorothy/README.md) · [Continuum Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
 | **Research Library &amp; arXiv** | Full paper archive, historical source tarballs &amp; arXiv packages | [Papers Index](research/papers/README.md) · [arXiv Packages](research/arxiv/) |
 | **Visual Research Archive** | **456 byte-distinct visuals** from 843 occurrences with provenance &amp; SHA-256 sums | [Visual Archive Index](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [Manifest](research/visual-archive/manifest/catalog.json) |
-| **Session Chronicles** | Sanitized 2026-11-19 engineering transcript in HTML, 24-bit ANSI &amp; Markdown | [Sessions Index](research/sessions/README.md) |
+| **Session Chronicles** | Sanitized `2026-11-19` &amp; `2026-11-19 → 2026-11-20` (34-turn, 10-chapter) TrueColor transcripts in HTML, 24-bit ANSI &amp; Markdown | [Sessions Index](research/sessions/README.md) |
 | **Master Audit Directory** | Every claim mapped to implementation, test suite &amp; recorded JSON artifact | [CAPABILITY-ATLAS.md](CAPABILITY-ATLAS.md) |
 | **Constitution &amp; Governance** | Epistemic rules (`measurement != evidence != belief update != action`), roadmap &amp; license | [CONSTITUTION.md](CONSTITUTION.md) · [AGI-ROADMAP.md](AGI-ROADMAP.md) · [DECLARATION.md](DECLARATION.md) · [MONOREPO.md](MONOREPO.md) |
 
