@@ -59,6 +59,8 @@ EXTENDED_LAYERS = {
     "sing": ("autonomy", "Zoe · Native 44-Phoneme Voice, Singing, MIDI Baseline & Chladni Cymatics"),
     "l5-core": ("autonomy", "Zoe · L5 Phase 1 Integrated 10-Domain Cognitive Core & 4-System Memory"),
     "unified-mind": ("autonomy", "Zoe · L5 Phase 1 Integrated 10-Domain Cognitive Core & 4-System Memory"),
+    "l5-phase2": ("autonomy", "Zoe · L5 Phase 2 Open-World Generalization, Code Repair & Neural Science"),
+    "openworld": ("autonomy", "Zoe · L5 Phase 2 Open-World Generalization, Code Repair & Neural Science"),
 }
 
 

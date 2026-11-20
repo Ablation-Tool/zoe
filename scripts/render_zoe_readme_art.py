@@ -372,7 +372,7 @@ def build_hero() -> str:
 
       <!-- Subtle wave labels with generous separation -->
       <text x="478" y="408" font-family="{MONO}" font-size="10" fill="{MUTED}" letter-spacing="0.8">SPECTRUM: Aτ(p) · M₂ · M₄^(1/4) · k*(κ)</text>
-      <text x="1144" y="408" text-anchor="end" font-family="{MONO}" font-size="10" fill="{MINT}" letter-spacing="0.8">17 ENGINES · 60 GEM LAYERS · 456 VISUALS</text>
+      <text x="1144" y="408" text-anchor="end" font-family="{MONO}" font-size="10" fill="{MINT}" letter-spacing="0.8">17 ENGINES · 62 GEM LAYERS · 456 VISUALS</text>
     </g>
   </g>
 
@@ -448,7 +448,7 @@ def build_constellation_map() -> str:
         (36, 86, "left", "01", "MIND & METACOGNITION", RUBY, [
             "Operational Metacognition Aτ(p)",
             "Kloster Theorem & Mars k*(κ) Lens",
-            "L4 Code Evolution & L5 Phase 1 Core",
+            "L4 Code Evolution & L5 Phase 1–2",
         ]),
         (36, 224, "left", "02", "DOROTHY & NEUROGARDEN", MINT, [
             "Allen Mouse CCFv3 (315,932 tris)",
@@ -456,7 +456,7 @@ def build_constellation_map() -> str:
             "40 Hz Spike ISI & Bio-Math Corpus",
         ]),
         (36, 362, "left", "03", "VOICE, PLAYROOM & GEM OS", ORCHID, [
-            "36 Canonical + 24 Extended Layers",
+            "36 Canonical + 26 Extended Layers",
             "44-Phoneme Voice, Cymatics & Symphony",
             "16/16 Evolved Cellular Organisms",
         ]),
@@ -559,7 +559,7 @@ def build_constellation_map() -> str:
       <text x="0" y="-14" text-anchor="middle" font-family="{SERIF}" font-size="27" font-weight="700" letter-spacing="5" fill="{PEARL}">ZOE</text>
       <text x="0" y="10" text-anchor="middle" font-family="{SERIF}" font-style="italic" font-size="15" fill="{ORCHID}">Aτ(p) · GEM</text>
       <text x="0" y="32" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{CHAMPAGNE}">17 ENGINES</text>
-      <text x="0" y="46" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{MINT}">60 LAYERS</text>
+      <text x="0" y="46" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{MINT}">62 LAYERS</text>
     </g>
 
     <!-- Footer Epistemic Ribbon -->
@@ -580,7 +580,7 @@ def build_agi_roadmap_bar() -> str:
         ("L2", "Closed-Loop", "FIXTURES", AQUA, True, False),
         ("L3", "Collaborator", "ACHIEVED", AQUA, True, False),
         ("L4", "Self-Improve", "ACHIEVED", ORCHID, True, False),
-        ("L5", "AGI", "PHASE 1", RUBY, False, True),
+        ("L5", "AGI", "PHASE 2", RUBY, False, True),
         ("L6–L7", "Open-Ended", "HORIZON", LAVENDER, False, False),
     ]
     xs = [96 + i * 168 for i in range(len(stages))]
@@ -645,7 +645,7 @@ def build_agi_roadmap_bar() -> str:
   {"".join(nodes_svg)}
 
   <text x="600" y="186" text-anchor="middle" font-family="{MONO}" font-size="10.5" fill="{MUTED}">
-    L0–L4 achieved  ·  L5 Phase 1 10-Domain Core verified (16/16)  ·  l5_agi_qualified = False  ·  sentience_claimed = False
+    L0–L4 achieved  ·  L5 Phases 1 &amp; 2 verified (16/16 + 18/18)  ·  l5_agi_qualified = False  ·  sentience_claimed = False
   </text>
 </svg>
 '''

@@ -64,6 +64,7 @@ DOCUMENT_PATHS = (
     "research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md",
     "research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md",
     "research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md",
+    "research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
@@ -96,6 +97,7 @@ HELP = """Commands:
   l4 [verify]                  run L4 uniform AST self-improvement across 6 domains (4 unseen zero-shot) & independent verifier
   l4-multi [run]               run L4 3-engine multi-module guarded `def` AST code evolution & atomic rollback verifier
   l5 [run|speak]               run L5 Phase 1 integrated 10-domain core, mission & optional spoken summary
+  l5-phase2 [run|speak]        run L5 Phase 2 open-world code repair, 2400-ep memory, real vision & 16-LLM science
   steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
@@ -750,6 +752,25 @@ class ZoeChat:
             + "\n  Open visually with `gem open l5-core` or verify independently via `python scripts/verify_l5_core.py`."
         )
 
+    def _l5_phase2(self, argument):
+        from .l5_phase2_openworld import run_l5_phase2_suite, summarize_l5_phase2_report
+
+        arg = (argument or "").strip().lower()
+        cached = self.zoe_root / "evidence/l5-phase2/l5-phase2-report.json"
+        wav_path = (self.store.root / "voice" / "zoe-l5-phase2.wav") if arg == "speak" else None
+        if arg not in {"run", "speak"} and cached.is_file():
+            rep = json.loads(cached.read_text(encoding="utf-8"))
+        else:
+            rep = run_l5_phase2_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
+        extra = ""
+        if wav_path is not None and wav_path.is_file():
+            extra = f"\n  Saved spoken Phase 2 summary WAV: {wav_path}"
+        return (
+            summarize_l5_phase2_report(rep)
+            + extra
+            + "\n  Open visually with `gem open l5-phase2` or verify independently via `python scripts/verify_l5_phase2.py`."
+        )
+
     def _steward(self, argument):
         from .self_stewardship import GenomeLedger
         ledger = GenomeLedger(self.store.root / "evolution")
@@ -1122,6 +1143,8 @@ class ZoeChat:
                     response = self._l4_multi(argument)
                 elif command in {"l5", "l5-core", "unified-mind"}:
                     response = self._l5(argument)
+                elif command in {"l5-phase2", "phase2", "openworld"}:
+                    response = self._l5_phase2(argument)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
                 elif command == "undo":
