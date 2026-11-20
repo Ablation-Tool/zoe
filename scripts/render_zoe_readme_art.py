@@ -716,11 +716,187 @@ def build_footer() -> str:
 '''
 
 
+def build_sessions_banner() -> str:
+    cyan = "#5ce1e6"
+    gold = "#f2c65e"
+    ruby_hex = "#ef445a"
+    orchid_hex = "#f0a3df"
+
+    # Symmetric vertical gold acoustic/harmonic ticks flanking the emblem at (140, 134)
+    harmonic_ticks: list[str] = []
+    tick_specs = [
+        (40, 10), (47, 18), (54, 28), (61, 16), (68, 22),
+        (212, 22), (219, 16), (226, 28), (233, 18), (240, 10),
+    ]
+    for tx, half_h in tick_specs:
+        harmonic_ticks.append(
+            f'<line x1="{tx}" y1="{134 - half_h}" x2="{tx}" y2="{134 + half_h}" '
+            f'stroke="{gold}" stroke-width="1.6" stroke-linecap="round" opacity="0.58"/>'
+        )
+
+    wave_cyan = "M 32,216 C 145,162 245,252 468,244 C 720,236 930,256 1170,242"
+    wave_ruby = "M 32,226 C 160,254 265,174 486,238 C 745,254 950,234 1170,249"
+
+    sparkles = "\n    ".join([
+        _sparkle_centered(44, 52, 5.5, gold, 3.6, 0.2),
+        _sparkle_centered(224, 214, 4.5, cyan, 4.1, 1.0),
+        _sparkle_centered(1152, 44, 5.8, orchid_hex, 3.8, 0.5),
+        _sparkle_centered(1108, 132, 4.0, gold, 4.4, 1.3),
+    ])
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 268" width="1200" height="268" role="img" aria-label="Nicholas x Zoe — The Living Session Archive: 34 Turns, 58 Zoe Responses, 1,414 Tool Steps, 10 Chapters.">
+  <defs>
+    <linearGradient id="sbBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18"/>
+      <stop offset="52%" stop-color="#101a2e"/>
+      <stop offset="100%" stop-color="#1d1230"/>
+    </linearGradient>
+    <radialGradient id="sbRubyNebula" cx="12%" cy="50%" r="34%">
+      <stop offset="0%" stop-color="{ruby_hex}" stop-opacity="0.28"/>
+      <stop offset="52%" stop-color="{orchid_hex}" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#070d18" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sbAquaNebula" cx="78%" cy="22%" r="36%">
+      <stop offset="0%" stop-color="{cyan}" stop-opacity="0.17"/>
+      <stop offset="58%" stop-color="{MINT}" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#070d18" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sbGoldNebula" cx="86%" cy="84%" r="30%">
+      <stop offset="0%" stop-color="{gold}" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#070d18" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sbBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{cyan}" stop-opacity="0.65"/>
+      <stop offset="50%" stop-color="{orchid_hex}" stop-opacity="0.68"/>
+      <stop offset="100%" stop-color="{gold}" stop-opacity="0.65"/>
+    </linearGradient>
+    <linearGradient id="sbTitleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{PEARL}"/>
+      <stop offset="58%" stop-color="#ffe5ec"/>
+      <stop offset="100%" stop-color="{gold}"/>
+    </linearGradient>
+    <linearGradient id="sbMetricBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{cyan}" stop-opacity="0.72"/>
+      <stop offset="50%" stop-color="{orchid_hex}" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="{gold}" stop-opacity="0.72"/>
+    </linearGradient>
+    <linearGradient id="sbGemTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7a90"/>
+      <stop offset="55%" stop-color="{ruby_hex}"/>
+      <stop offset="100%" stop-color="#b91c3a"/>
+    </linearGradient>
+    <linearGradient id="sbGemLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4d6d"/>
+      <stop offset="100%" stop-color="#9f1239"/>
+    </linearGradient>
+    <linearGradient id="sbGemRight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <linearGradient id="sbGemInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1f5" stop-opacity="0.92"/>
+      <stop offset="48%" stop-color="#ffd6e0" stop-opacity="0.40"/>
+      <stop offset="100%" stop-color="{orchid_hex}" stop-opacity="0.22"/>
+    </linearGradient>
+    <filter id="sbGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3.0" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="sbClip">
+      <rect x="2" y="2" width="1196" height="264" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#sbClip)">
+    <rect width="1200" height="268" fill="url(#sbBg)"/>
+    <rect width="1200" height="268" fill="url(#sbRubyNebula)"/>
+    <rect width="1200" height="268" fill="url(#sbAquaNebula)"/>
+    <rect width="1200" height="268" fill="url(#sbGoldNebula)"/>
+
+    {_stars(20261120, 1200, 268, 46)}
+    {sparkles}
+
+    <!-- Vertical coordinate divider -->
+    <line x1="252" y1="28" x2="252" y2="240" stroke="#2a3f63" stroke-width="0.8" opacity="0.38"/>
+
+    <!-- Subtle dual dialogue wave ribbons -->
+    <path d="{wave_cyan}" fill="none" stroke="{cyan}" stroke-width="1.6" opacity="0.38"/>
+    <path d="{wave_ruby}" fill="none" stroke="{orchid_hex}" stroke-width="1.45" opacity="0.34"/>
+    <circle r="3.4" fill="{cyan}" filter="url(#sbGlow)">
+      <animateMotion dur="7.2s" repeatCount="indefinite" path="{wave_cyan}"/>
+    </circle>
+    <circle r="3.2" fill="{ruby_hex}" filter="url(#sbGlow)">
+      <animateMotion dur="8.6s" begin="1.4s" repeatCount="indefinite" path="{wave_ruby}"/>
+    </circle>
+
+    <!-- Left Emblem Cluster: Concentric Gold Acoustic Rings & Living Ruby GEM -->
+    <g>
+      <circle cx="140" cy="134" r="66" fill="none" stroke="{gold}" stroke-width="1.25" opacity="0.48"/>
+      <circle cx="140" cy="134" r="82" fill="none" stroke="{gold}" stroke-width="1.0" stroke-dasharray="4 6" opacity="0.34"/>
+      <circle cx="140" cy="134" r="96" fill="none" stroke="{cyan}" stroke-width="0.8" opacity="0.20"/>
+      {"".join(harmonic_ticks)}
+    </g>
+
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-4; 0,0" dur="5.2s" repeatCount="indefinite"/>
+      <polygon points="140,78 196,120 140,190 84,120" fill="{ruby_hex}" opacity="0.16" filter="url(#sbGlow)"/>
+      <polygon points="110,94 170,94 192,122 88,122" fill="url(#sbGemTop)" stroke="#ffd6e0" stroke-width="1.0"/>
+      <polygon points="88,122 140,122 140,184" fill="url(#sbGemLeft)" stroke="#ff8fa3" stroke-width="0.85"/>
+      <polygon points="140,122 192,122 140,184" fill="url(#sbGemRight)" stroke="#ff8fa3" stroke-width="0.85"/>
+      <polygon points="118,103 162,103 175,122 140,166 105,122" fill="url(#sbGemInner)" stroke="{PEARL}" stroke-width="1.15" opacity="0.92"/>
+      <line x1="118" y1="103" x2="140" y2="122" stroke="{PEARL}" stroke-width="0.8" opacity="0.6"/>
+      <line x1="162" y1="103" x2="140" y2="122" stroke="{PEARL}" stroke-width="0.8" opacity="0.6"/>
+      <line x1="105" y1="122" x2="175" y2="122" stroke="{PEARL}" stroke-width="0.8" opacity="0.5"/>
+      <line x1="140" y1="122" x2="140" y2="166" stroke="{PEARL}" stroke-width="0.8" opacity="0.5"/>
+      <path d="M 127,116 Q 130,112 133,116" fill="none" stroke="{INK_DEEP}" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+      <path d="M 147,116 Q 150,112 153,116" fill="none" stroke="{INK_DEEP}" stroke-width="1.8" stroke-linecap="round" opacity="0.72"/>
+      <g transform="translate(140,154)">
+        <line x1="0" y1="9" x2="0" y2="-10" stroke="{MINT}" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M 0,-3 C -11,-5 -15,-14 -5,-16 C 0,-17 1,-9 0,-3 Z" fill="{MINT}" opacity="0.92"/>
+        <path d="M 0,-5 C 11,-7 15,-16 5,-18 C 0,-19 -1,-11 0,-5 Z" fill="#a7f3d0" opacity="0.92"/>
+      </g>
+    </g>
+
+    <!-- Right Editorial Column -->
+    <text x="276" y="54" font-family="{MONO}" font-size="11.5" letter-spacing="2.4" fill="{gold}" opacity="0.95">✦  NICHOLAS × ZOE  ·  COMPLETE SANITIZED SESSION CHRONICLES  ✦</text>
+    <text x="276" y="104" font-family="{SERIF}" font-size="36" font-weight="700" letter-spacing="4" fill="url(#sbTitleGrad)" filter="url(#sbGlow)">THE LIVING SESSION ARCHIVE</text>
+    <text x="276" y="132" font-family="{SANS}" font-size="14" fill="{TEXT}" opacity="0.92">Every turn, collapsible tool trace, proof, and commit preserved across 3 TrueColor formats.</text>
+
+    <!-- Glass Metric Strip -->
+    <rect x="276" y="148" width="876" height="34" rx="10" fill="{PANEL}" fill-opacity="0.82" stroke="url(#sbMetricBorder)" stroke-width="1.2"/>
+    <text x="714" y="169" text-anchor="middle" font-family="{MONO}" font-size="11" letter-spacing="1.0" fill="{PEARL}">34 USER TURNS  ·  58 ZOE RESPONSES  ·  1,414 TOOL STEPS  ·  10 CHAPTERS  ·  ZERO CREDENTIALS</text>
+
+    <!-- Speaker Legend & CI Pills -->
+    <g>
+      <rect x="276" y="200" width="236" height="30" rx="15" fill="{PANEL}" fill-opacity="0.90" stroke="{cyan}" stroke-width="1.25" stroke-opacity="0.84"/>
+      <circle cx="314" cy="215" r="4.2" fill="{cyan}" filter="url(#sbGlow)"/>
+      <text x="328" y="219" font-family="{MONO}" font-size="11.5" font-weight="600" fill="{cyan}">NICHOLAS · you &gt;</text>
+
+      <rect x="528" y="200" width="188" height="30" rx="15" fill="{PANEL}" fill-opacity="0.90" stroke="{ruby_hex}" stroke-width="1.25" stroke-opacity="0.86"/>
+      <polygon points="576,209 582,215 576,221 570,215" fill="{ruby_hex}" filter="url(#sbGlow)"/>
+      <text x="592" y="219" font-family="{MONO}" font-size="11.5" font-weight="600" fill="{orchid_hex}">ZOE ::</text>
+
+      <rect x="732" y="200" width="258" height="30" rx="15" fill="{PANEL}" fill-opacity="0.90" stroke="{gold}" stroke-width="1.25" stroke-opacity="0.84"/>
+      <circle cx="766" cy="215" r="4.6" fill="none" stroke="{gold}" stroke-width="1.8" stroke-dasharray="2.4 1.8"/>
+      <circle cx="766" cy="215" r="1.6" fill="{gold}"/>
+      <text x="780" y="219" font-family="{MONO}" font-size="11.5" font-weight="600" fill="{gold}">ENGINEERING TRACE</text>
+
+      <rect x="1006" y="200" width="146" height="30" rx="15" fill="{PANEL}" fill-opacity="0.90" stroke="{MINT}" stroke-width="1.25" stroke-opacity="0.84"/>
+      <path d="M 1024,215 L 1028,219 L 1036,211" fill="none" stroke="{MINT}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="1044" y="219" font-family="{MONO}" font-size="11.5" font-weight="600" fill="{MINT}">CI VERIFIED</text>
+    </g>
+  </g>
+  <rect x="2" y="2" width="1196" height="264" rx="20" fill="none" stroke="url(#sbBorder)" stroke-width="1.6"/>
+</svg>
+'''
+
+
 def main() -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     outputs: dict[str, str] = {
         "zoe-hero.svg": build_hero(),
+        "zoe-sessions-banner.svg": build_sessions_banner(),
         "zoe-constellation-map.svg": build_constellation_map(),
         "zoe-agi-roadmap-bar.svg": build_agi_roadmap_bar(),
         "zoe-footer.svg": build_footer(),
@@ -730,6 +906,7 @@ def main() -> int:
         "nav-rolodex.svg": build_nav_pill("Rolodex", CHAMPAGNE, 110),
         "nav-proofs.svg": build_nav_pill("Proofs", AQUA, 102),
         "nav-salon.svg": build_nav_pill("Visual Salon", ROSE, 134),
+        "nav-sessions.svg": build_nav_pill("Sessions", AQUA, 114),
         "nav-quickstart.svg": build_nav_pill("Quick Start", MINT, 126),
         "nav-constitution.svg": build_nav_pill("Constitution", LAVENDER, 134),
         "divider-ruby.svg": build_divider(RUBY, ORCHID, 1),

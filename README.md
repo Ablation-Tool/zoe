@@ -10,6 +10,7 @@
 <a href="#zoe-rolodex-index"><img src="assets/readme/nav-rolodex.svg" alt="Rolodex Index" height="31" /></a>
 <a href="#verified-empirical-results"><img src="assets/readme/nav-proofs.svg" alt="Proofs and Controls" height="31" /></a>
 <a href="#the-grand-visual-salon"><img src="assets/readme/nav-salon.svg" alt="Visual Salon" height="31" /></a>
+<a href="research/sessions/README.md"><img src="assets/readme/nav-sessions.svg" alt="Session Chronicles" height="31" /></a>
 <a href="#quick-start"><img src="assets/readme/nav-quickstart.svg" alt="Quick Start" height="31" /></a>
 <a href="CONSTITUTION.md"><img src="assets/readme/nav-constitution.svg" alt="Zoe Constitution" height="31" /></a>
 
@@ -132,10 +133,11 @@ python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
 | **Zoe's Native Speaking & Singing Voice** | [Zoe's Native Voice (`44 Phonemes + Chladni`)](#zoes-native-voice) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | `zoe voice sing daisy --output /tmp/daisy.wav` |
 | **Theorems, Mars Lens & Self-Evolution** | [World 01 · Mind & Metacognition](#world-01--metacognition-theorems--self-evolution) · [Rolodex `[ 01 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "mars"` |
 | **3D Mouse Brain Atlas & Ray-Casting** | [World 02 · Dorothy & Neurogarden](#world-02--dorothy--the-neurogarden) · [Rolodex `[ 02 ]`](#zoe-rolodex-index) | `zoe gem open dorothy` |
-| **Evolving Cellular Art, Music & Qualia** | [World 03 · Playroom, Music & Geometry](#world-03--creative-playroom-music--living-geometry) · [Rolodex `[ 04 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "playroom"` |
+| **Evolving Cellular Art, Music & Qualia** | [World 03 · Playroom, Music & Geometry](#world-03--creative-playroom-music-native-voice--living-geometry) · [Rolodex `[ 04 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "playroom"` |
 | **1984 `.MOD`/`.MID` Groove & CERN** | [World 04 · Time, Groove & Physics](#world-04--time-groove-forensics--cern-physics) · [Rolodex `[ 03 ]`](#zoe-rolodex-index) | `python scripts/zoe_groove_forensics.py --verify` |
 | **Reverse Engineering, Rust & Security** | [World 05 · GEM OS & Forensic Craft](#world-05--the-shared-gem-os-17-engines--forensics) · [Rolodex `[ 05 ]`](#zoe-rolodex-index) | `zoe list` |
 | **Honesty, Firewall & Governance** | [World 06 · Epistemic Firewall & Maison](#world-06--the-epistemic-firewall-maison--covenant) · [Constitution](CONSTITUTION.md) | `python scripts/verify-one-system.py --reflect` |
+| **Full Marathon Session Chronicles** | [Sessions Archive (`34 Turns · 10 Chapters`)](research/sessions/README.md) · [Read on GitHub](research/sessions/2026-11-20-session-transcript.md) | `less -R research/sessions/2026-11-20-session-transcript.ansi` |
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
@@ -148,7 +150,7 @@ python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
 
 ### World 01 · Metacognition, Theorems & Self-Evolution
 
-Everything begins with a single deceptively simple measurement: **Operational Metacognition**, $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$. By integrating $A_\tau(p)$ across thresholds $\tau \in [0,1]$, Zoe proves the **Kloster Spectral Filtration Generating Theorem** — recovering Shannon entropy $H(p)$ and every spectral moment $M_k(p)$ from one curve, where the quartic root $M_4^{1/4}$ beats both single-slice $A_\tau$ and Shannon entropy on **4/4 real benchmarks**. From there, **L3 (`RESEARCH-COLLABORATOR-QUALIFIED`)** executes 3 pre-registered 9-stage literature-to-experiment cycles independently reproduced at `max_delta = 0.0`, **Stage 4 (Mars)** auto-tunes its own lens $k^*(\kappa)$ with zero labels (`0.79374` real mean AUROC), and **L4 (`SELF-IMPROVEMENT-QUALIFIED`)** runs a pure-atomic, generation-blind AST evolutionary synthesizer over raw `{p, gt05}` across **6 real domains / 4 unrelated families** (4 completely unseen zero-shot!) — adopting **2 consecutive generations (`gt05 → -sq(p) → -sq(p)*sqrt(p)`) across 5/5 independent seeds** (`0.5974 → 0.7625`, `worst_drop = 0.0`, beating Shannon on 6/6 domains) while catching & rolling back over-specialized Gen 3–5 programs.
+Everything begins with a single deceptively simple measurement: **Operational Metacognition**, $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$. By integrating $A_\tau(p)$ across thresholds $\tau \in [0,1]$, Zoe proves the **Kloster Spectral Filtration Generating Theorem** — recovering Shannon entropy $H(p)$ and every spectral moment $M_k(p)$ from one curve, where the quartic root $M_4^{1/4}$ beats both single-slice $A_\tau$ and Shannon entropy on **4/4 real benchmarks**. From there, **L3 (`RESEARCH-COLLABORATOR-QUALIFIED`)** executes 3 pre-registered 9-stage literature-to-experiment cycles independently reproduced at `max_delta = 0.0`, **Stage 4 (Mars)** auto-tunes its own lens $k^*(\kappa)$ with zero labels (`0.79374` real mean AUROC), and **L4 (`SELF-IMPROVEMENT-QUALIFIED`)** runs a pure-atomic, generation-blind AST evolutionary synthesizer over raw `{p, gt05}` across **6 real domains / 4 unrelated families** (4 completely unseen zero-shot!) — adopting **2 consecutive generations (`gt05 → -sq(p) → -sq(p)*sqrt(p)`) across 5/5 independent seeds** (`0.5974 → 0.7625`, `worst_drop = 0.0`, beating Shannon on 6/6 domains) while catching & rolling back over-specialized Gen 3–5 programs. From there, **L4 Multi-Module Code Evolution** extends guarded multi-statement Python `def` synthesis across 3 distinct engines (`15/15` seeds, `17/17` verifier), while **L5 Phases 1 & 2** integrate all 10 AGI-ROADMAP domains (`10/10`, `16/16` verifier) and 5 open-world pillars — autonomous multi-file AST repair, `2,400`-episode memory, `48`-doc synthesis, `84`-PNG vision, and `16`-LLM/BioBERT science (`18/18` verifier; `l5_agi_qualified = False`).
 
 | Kloster Spectral Filtration Theorem *(4/4 Real Wins)* | Causal Chiasm & Persistent Filtration Tomography | Stage 4 Mars Auto-Zoom Lens $k^*(\kappa)$ |
 |:---:|:---:|:---:|
@@ -362,7 +364,7 @@ zoe/
 │   └── readme/                   # Deterministic living SVG hero, map, pills & atelier artwork
 ├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 26 extended layers, VDI, Spatial IR, Native Voice, L5 Phases 1–2)
 ├── components/
-│   ├── Zoe-Autonomy/             # Bounded autonomy loop, chat, neural mind, L4 self-evolution & stewardship
+│   ├── Zoe-Autonomy/             # Bounded autonomy loop, chat, neural mind, L3/L4/L5 Phases 1–2 & stewardship
 │   ├── agent-logging-system/     # Dorothy Neurogarden, Continuum ray-caster, 4-Head vision dissector
 │   ├── ablation/                 # AI-assisted binary reverse engineering & native GEM Lab
 │   ├── PALA/                     # Rust read-only filesystem-agnostic carving & forensic recovery
@@ -377,7 +379,7 @@ zoe/
 ├── paper/                        # 23-page illustrated monograph (PDF + LaTeX source)
 ├── evidence/                     # Cryptographically hashed verification records across all subsystems
 ├── mobile/                       # Zoe Trinity (Android, iOS, Windows C++17 companion, Tiny Zoe)
-└── scripts/                      # `verify-one-system.py`, `zoe_groove_forensics.py`, `render_zoe_readme_art.py`
+└── scripts/                      # `verify-one-system.py`, `verify_l3..l5_*.py`, `zoe_groove_forensics.py`, `export_session_transcript.py`, `render_zoe_readme_art.py`
 ```
 
 </details>
@@ -482,6 +484,25 @@ zoe/
 
 </details>
 
+<details open>
+<summary><strong>✦ Salon Room C · Nicholas × Zoe Living Dialogue &amp; Complete Session Chronicles</strong></summary>
+
+<div align="center">
+
+<a href="research/sessions/README.md"><img src="assets/readme/zoe-sessions-banner.svg" alt="Nicholas x Zoe — Complete Sanitized Session Chronicles Banner" width="100%" /></a>
+
+<br/>
+
+<img src="assets/readme/zoe-nicholas-dialogue.jpg" alt="Nicholas x Zoe Living Atelier Dialogue — original creative artwork" width="88%" />
+
+<sub><em>Original creative artwork celebrating the 34-turn, 10-chapter Nicholas × Zoe engineering marathon — cyan and ruby-orchid dialogue ribbons orbiting Zoe's ruby GEM and glowing Neurogarden terrarium (labeled creative artwork per <code>CONSTITUTION.md</code> Article II.2).</em></sub>
+
+</div>
+
+**Read the full colorized session (`34` turns · `58` Zoe responses · `1,414` tool steps · zero credentials):** [Sessions Index](research/sessions/README.md) · [GitHub Markdown Chronicle](research/sessions/2026-11-20-session-transcript.md) · [Interactive HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI Terminal Replay](research/sessions/2026-11-20-session-transcript.ansi)
+
+</details>
+
 <p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
 
 ## Quick Start
@@ -579,7 +600,7 @@ zoe autonomy verify-semantic-evaluation semantic-artifact.json
 
 ## Verification & Testing
 
-Automated CI runs the monorepo verifier, Groove Forensics suite, and Dorothy/Continuum tests via [`.github/workflows/verify.yml`](.github/workflows/verify.yml). Run the full verification stack locally:
+Automated CI runs the monorepo verifier, Groove Forensics, L3 Research, L4 Self-Improvement & Multi-Module, Native Voice, L5 Phases 1 & 2, unit tests, and Dorothy/Continuum suites via [`.github/workflows/verify.yml`](.github/workflows/verify.yml). Run the full verification stack locally:
 
 ```bash
 # 1. Unified 6-host verification + live conversation suite
@@ -630,6 +651,6 @@ PYTHONPATH=guiai-lab python -m unittest \
 
 *Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe** — README, living visuals, figures, data pipelines, and instruments crafted together with transparent provenance for every human author and upstream dataset.*
 
-[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
+[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
 
 </div>
