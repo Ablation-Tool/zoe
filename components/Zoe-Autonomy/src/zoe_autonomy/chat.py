@@ -61,6 +61,7 @@ DOCUMENT_PATHS = (
     "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md",
     "research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md",
     "research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md",
+    "research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
@@ -88,6 +89,7 @@ HELP = """Commands:
   evolve                       run Zoe's 4-domain L4 sandboxed AST self-evolution & held-out verification
   research [cite <q>]          run L3 pre-registered 9-stage research cycles or cite SHA-256 local literature
   l4 [verify]                  run L4 uniform AST self-improvement across 6 domains (4 unseen zero-shot) & independent verifier
+  l4-multi [run]               run L4 3-engine multi-module guarded `def` AST code evolution & atomic rollback verifier
   steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
@@ -661,6 +663,23 @@ class ZoeChat:
             + "\n  Open visually with `gem open l4-evolution` or verify independently via `python scripts/verify_l4_self_improvement.py`."
         )
 
+    def _l4_multi(self, argument):
+        from .l4_multi_module import (
+            DEFAULT_REPORT_REL,
+            run_l4_multimodule_suite,
+            summarize_l4_multimodule_report,
+        )
+        arg = (argument or "").strip().lower()
+        cached = self.zoe_root / DEFAULT_REPORT_REL
+        if arg != "run" and cached.is_file():
+            rep = json.loads(cached.read_text(encoding="utf-8"))
+        else:
+            rep = run_l4_multimodule_suite(zoe_root=self.zoe_root, run_independent_subprocess=True)
+        return (
+            summarize_l4_multimodule_report(rep)
+            + "\n  Open visually with `gem open l4-multimodule` or verify independently via `python scripts/verify_l4_multimodule.py`."
+        )
+
     def _steward(self, argument):
         from .self_stewardship import GenomeLedger
         ledger = GenomeLedger(self.store.root / "evolution")
@@ -1023,6 +1042,8 @@ class ZoeChat:
                     response = self._research(argument)
                 elif command in {"l4", "self-improve"}:
                     response = self._l4(argument)
+                elif command in {"l4-multi", "multimodule"}:
+                    response = self._l4_multi(argument)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
                 elif command == "undo":

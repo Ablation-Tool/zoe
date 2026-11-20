@@ -53,6 +53,8 @@ EXTENDED_LAYERS = {
     "research-lab": ("autonomy", "Zoe · L3 Research Collaborator (9-Stage Pre-Registered Cycles)"),
     "l4-evolution": ("autonomy", "Zoe · L4 Generalized Self-Improvement (Uniform AST + Zero-Shot Transfer)"),
     "self-improvement": ("autonomy", "Zoe · L4 Generalized Self-Improvement (Uniform AST + Zero-Shot Transfer)"),
+    "l4-multimodule": ("autonomy", "Zoe · L4 Multi-Module Guarded Code Self-Improvement (3 Distinct Engines)"),
+    "multi-module": ("autonomy", "Zoe · L4 Multi-Module Guarded Code Self-Improvement (3 Distinct Engines)"),
 }
 
 

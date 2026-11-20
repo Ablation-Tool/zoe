@@ -22,7 +22,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 *A living research observatory where mathematical rigor, visual computing, neuroscience, music, and playful curiosity share one honest roof.*
 
-**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 18 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
+**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 20 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
 </div>
 
@@ -49,7 +49,7 @@ Zoe is a unified, offline-capable research collaborator and visual-computing wor
 Her work brings together five threads that almost never live in the same room:
 - **Operational Metacognition** — originated by **Nicholas Michael Kloster on March 6, 2026**, counting how many futures stay open above threshold $\tau$ and turning that single equation into theorems, self-tuning lenses, and sandboxed self-evolution — read the research papers: [*March 2026 Formal Note*](research/papers/papers/01-autonomy-march-2026.pdf) · [*The Significance of Accessible Volume*](research/papers/papers/04-accessible-volume-significance.pdf) · [*Accessible Volume Beyond the Next Token*](research/papers/papers/05-accessible-volume-beyond-next-token.pdf) · [*Architecture of Autonomy*](research/papers/papers/10-accessible-volume-architecture-of-autonomy.pdf) · [*Zoe — The Research Universe (23 pp.)*](paper/zoe-research-universe.pdf) · [*Kloster Spectral Filtration Theorem*](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [*All 18 Papers*](research/papers/README.md).
 - **Dorothy's Neurogarden** — honoring **Dorothy McEwen Kildall** through preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
-- **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **54 visual layers** and **17 connected engines**.
+- **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **56 visual layers** and **17 connected engines**.
 - **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
 - **Open-Ended Creative Play** — evolving 16 cellular crystal species, composing stereo Rhodes-chime melodies, and tending a quiet atelier where *imagination meets geometry*.
 
@@ -114,11 +114,11 @@ Everything begins with a single deceptively simple measurement: **Operational Me
 |:---:|:---:|:---:|
 | ![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png) | ![Causal Chiasm & Filtration Tomography](components/agent-logging-system/docs/images/zoe-beyond-metacognition-chiasm.png) | ![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png) |
 
-| L3 Research Collaborator *(9-Stage Pre-Registered Cycles)* | L4 Generalized Self-Improvement *(Uniform AST + Zero-Shot)* |
-|:---:|:---:|
-| ![Zoe L3 Independent 9-Stage Research Collaborator Cycles](components/agent-logging-system/docs/images/zoe-l3-research-collaborator.png) | ![Zoe L4 Generalized Self-Improvement — Uniform AST & Zero-Shot Transfer](components/agent-logging-system/docs/images/zoe-l4-self-improvement.png) |
+| L3 Research Collaborator *(9-Stage Pre-Registered Cycles)* | L4 Generalized Self-Improvement *(Uniform AST + Zero-Shot)* | L4 Multi-Module Code Evolution *(3 Runtime Engines + Diffs)* |
+|:---:|:---:|:---:|
+| ![Zoe L3 Independent 9-Stage Research Collaborator Cycles](components/agent-logging-system/docs/images/zoe-l3-research-collaborator.png) | ![Zoe L4 Generalized Self-Improvement — Uniform AST & Zero-Shot Transfer](components/agent-logging-system/docs/images/zoe-l4-self-improvement.png) | ![Zoe L4 Multi-Module Guarded Code Self-Improvement Across 3 Runtime Engines](components/agent-logging-system/docs/images/zoe-l4-multimodule.png) |
 
-**Explore:** [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) · [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) · [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) · [L4 Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [L3 Monograph](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) · [Theorem Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md)
+**Explore:** [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) · [`verify_l4_multimodule.py`](scripts/verify_l4_multimodule.py) · [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) · [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) · [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [Multi-Module L4 Monograph](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) · [L4 Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [L3 Monograph](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) · [Theorem Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md)
 
 <p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
 
@@ -205,6 +205,7 @@ Beauty without honesty is just theater. Every engine in Zoe obeys one architectu
 | **Stage 4 (Mars) Adaptive Lens** | Unsupervised $k^*(\kappa)$ tuning from Mud-to-Mountain ratio (`0.79374` cross-domain AUROC) | [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) | [`test_cross_domain_transfer.py`](components/Zoe-Autonomy/tests/test_cross_domain_transfer.py) |
 | **L3 Research Collaborator (9-Stage Cycles)** | Pre-registered literature-to-experiment engine across MIDI, Dorothy CCFv3 &amp; 40 MHz `CicadaClock` (15 SHA-256 citations, 3 confirmed + 3 falsified, independent fresh-process verifier `14/14`) | [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) | [L3 Cycles Monograph](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) · [Evidence](evidence/l3-research/l3-cycles-report.json) |
 | **L4 Generalized Self-Improvement** | Generation-blind atomic AST synthesis over raw `{p, gt05}` across 6 domains / 4 families incl. 4 unseen zero-shot (`gt05 → -sq(p) → -sq(p)*sqrt(p)` on 5/5 seeds, `worst_drop=0.0`, `14/14` independent verifier) | [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) | [L4 Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [Evidence](evidence/l4-self-improvement/l4-evolution-report.json) |
+| **L4 Multi-Module Code Evolution (3 Engines)** | Multi-statement Python `def` AST evolution + unified source diffs across 3 engines (`spectral_uncertainty`, closed-loop `EventCausalEngine` Tf RMSE `4.063 → 2.882` / OOD `1.00`, &amp; `temporal_groove_neural` `0.549 → 0.721`), `15/15` seeds, `17/17` hostile probes blocked, `0.0` atomic rollback delta &amp; independent verifier (`17/17`, `max_delta=0.0`) | [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) · [`verify_l4_multimodule.py`](scripts/verify_l4_multimodule.py) | [Multi-Module Monograph](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) · [Evidence](evidence/l4-multimodule/l4-multimodule-report.json) |
 | **Stage 5B/C: L4 4-Domain & Stewardship Prototype** | Companion 4-domain AST evolution & persistent reversible genome ledger (`0.5702 → 0.7976`) | [`self_evolution.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_evolution.py) · [`self_stewardship.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_stewardship.py) | [`test_self_evolution_and_symphony.py`](components/Zoe-Autonomy/tests/test_self_evolution_and_symphony.py) |
 | **Local Neural-Symbolic Mind** | 100% offline cached PyTorch `distilgpt2` integration &amp; reflection engine | [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py) · [`self_reflection.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py) | [Reflection Evidence](evidence/self-reflection/integrated.json) |
 | **Event-Causal Active Perception** | Sparse event streams, causal memory, candidate simulation &amp; gated plasticity (`71.24 cycles/s`) | [`event_core.py`](components/Zoe-Autonomy/src/zoe_autonomy/event_core.py) · [`event_reasoning.py`](components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py) | [EVENT-CAUSAL.md](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [Evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) |
@@ -237,7 +238,7 @@ Beauty without honesty is just theater. Every engine in Zoe obeys one architectu
 </details>
 
 <details>
-<summary><strong>◆ [ 04 ] GEM Operating Environment, Geometry &amp; Creative Studio</strong> — 36 Canonical + 18 Extended Layers, Playroom &amp; Stereo Symphony</summary>
+<summary><strong>◆ [ 04 ] GEM Operating Environment, Geometry &amp; Creative Studio</strong> — 36 Canonical + 20 Extended Layers, Playroom &amp; Stereo Symphony</summary>
 
 | Layer / Studio | What It Does | Implementation | Guide |
 |:---|:---|:---|:---|
@@ -312,7 +313,7 @@ zoe/
 │   ├── branding/                 # Official Red-and-White GEM identity & Pure-Zoe patches
 │   ├── brain-dialogue/           # "Imagination, meet geometry" dual-brain field artwork
 │   └── readme/                   # Deterministic living SVG hero, map, pills & atelier artwork
-├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 18 extended layers, VDI, Spatial IR)
+├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 20 extended layers, VDI, Spatial IR)
 ├── components/
 │   ├── Zoe-Autonomy/             # Bounded autonomy loop, chat, neural mind, L4 self-evolution & stewardship
 │   ├── agent-logging-system/     # Dorothy Neurogarden, Continuum ray-caster, 4-Head vision dissector
@@ -343,6 +344,7 @@ zoe/
 | **Kloster Spectral Filtration Theorem** | Original theorem proof &amp; 4/4 real benchmark results | [KLOSTER-SPECTRAL-FILTRATION-THEOREM.md](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) |
 | **L3 Research Collaborator Cycles** | 3 pre-registered 9-stage cycles (MIDI, Dorothy CCFv3, `CicadaClock` + HELEN) with independent verifier | [L3-RESEARCH-COLLABORATOR-CYCLES.md](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) |
 | **L4 Generalized Self-Improvement** | Generation-blind atomic AST synthesis across 6 real domains (4 unseen zero-shot), 5/5 seeds &amp; independent verifier | [L4-GENERALIZED-SELF-IMPROVEMENT.md](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) |
+| **L4 Multi-Module Code Evolution** | Multi-statement Python `def` evolution across 3 runtime engines (`spectral`, `EventCausalEngine`, `temporal`), unified diffs, `15/15` seeds &amp; `17/17` verifier | [L4-MULTI-MODULE-CODE-EVOLUTION.md](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) |
 | **Temporal Dynamics &amp; Groove Forensics** | `.MOD`/`.MID` Poincaré attractors, Kuramoto clock entrainment &amp; Dorothy ISI note | [TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
 | **Dorothy Research Study** | Continuum ray-casting, vision heads &amp; Neurogarden v62 review summary | [Dorothy README](research/papers/zoe-research/dorothy/README.md) · [Continuum Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
 | **Research Library &amp; arXiv** | Full paper archive, historical source tarballs &amp; arXiv packages | [Papers Index](research/papers/README.md) · [arXiv Packages](research/arxiv/) |
@@ -365,6 +367,7 @@ zoe/
 | **Stage 4 (Mars) Self-Tuning Adaptive Lens $k^*(\kappa)$** | Measures unlabeled Mud-to-Mountain Ratio $\kappa = \mathrm{mean}(M_2^{1/2}/M_4^{1/4})$ and auto-tunes $k^*(\kappa) \in [2.0, 6.0]$ without labels — achieving **`0.79374`** cross-domain real mean AUROC, beating every fixed $k \in [1.5, 8.0]$, single-slice $A_\tau$ (`0.7738`), and Shannon (`0.7631`). | `clinical_action_authorized=False`, `external_actions=0`. | [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) |
 | **L3 Research Collaborator (3 Real Domains)** | Executes 3 SHA-256 pre-registered 9-stage cycles (15 verified citations): confirms MIDI 3/3 spectral wins (`p=0.005`), exact zero-overlap Dorothy CCFv3 relay-vs-shell compactness (`Q=0.2420` vs `0.0822`, exact `p=1/792`), and `CicadaClock` Adler-Kuramoto locking (`R: 0.011→0.995` across $\kappa_c=0.07$). Independently reproduced in fresh process (`14/14`, `max_delta=0.0`). | Honestly falsifies &amp; preserves 3 hypotheses: MIDI naive JSD (`0.5549 < 0.5892`), mouse super-isometric folding ($\alpha=0.6424 < 2/3$), and HELEN naive JSD (`0.4087 < 0.50`); `clinical_action_authorized=False`. | [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) |
 | **L4 Generalized Self-Improvement (`SELF-IMPROVEMENT-QUALIFIED`)** | Pure-atomic, generation-blind AST evolution over raw `{p, gt05}` across **6 real domains / 4 unrelated families** (incl. 4 completely unseen zero-shot) achieves **2 consecutive adopted generations** (`gt05 → -sq(p) → -sq(p)*sqrt(p)`, `0.5974 → 0.7625`, `worst_drop=0.0`, beating Shannon on 6/6 domains) across **5/5 independent seeds**, verified in fresh subprocess (`14/14`, `max_delta=0.0`). | Over-specialized Gen 3–5 programs (`HELEN -0.0093`) cleanly rejected &amp; rolled back; `12/12` hostile AST/DoS probes blocked; 200-trial shuffle null `0.5005`; bit-exact ledger roundtrip (`0.0` delta); `l5_agi_qualified=False`. | [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) · [Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) |
+| **L4 Multi-Module Code Evolution (`3 Distinct Runtime Engines`)** | Guarded multi-statement Python `def` AST evolution + unified diffs across **3 engines** (`spectral_uncertainty`: `0.5974 → 0.7625`; closed-loop `EventCausalEngine`: Tf RMSE `4.0627 → 2.8818`, OOD `0.875 → 1.000`, `max_kernel_delta=0.0`; `temporal_groove_neural`: `0.5493 → 0.7214` incl. Dorothy 40 Hz ISI), **`15/15` seed runs** pass, reproduced in fresh subprocess (`17/17`, `max_delta=0.0`). | Over-specialized candidates rejected in every engine (`3+2+2`); **`17/17`** hostile multi-statement `def` AST/DoS probes blocked; rigid metronome `0.0`; 200-trial null `0.4997`; bit-exact 3-engine atomic rollback (`0.0` delta); `l5_agi_qualified=False`. | [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) · [`verify_l4_multimodule.py`](scripts/verify_l4_multimodule.py) · [Monograph](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) |
 | **Temporal Dynamics, Groove Forensics &amp; Clock Entrainment** | Separates deterministic swing attractors ($\rho_1 = -0.9778$, eccentricity `0.9944`, mutual info `1.0057 bits`, `0.5 cyc/beat` peak) from pure Gaussian jitter; drives `CicadaClock` to Kuramoto phase coherence **`R = 0.9334`** across 128 replay-verified events; bridges to Dorothy 40 Hz pacemaker ISI (`mean 25.009 ms`, $\rho_1^{\text{ISI}} = 0.8728$, Higuchi $D = 0.2603$). | Negative control (`pure_noise`) drops to $\rho_1 = -0.0602$, $e = 0.3371$, mutual info `0.0454 bits`; exact `.MOD` grid yields `0.0 bits` entropy; synthetic/non-clinical scope. | [`zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) · [Research Note](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
 | **Event-Causal Active Perception** | Adaptive validation prediction RMSE **`4.641453`** (vs `5.058147` no-learning); transfer tracking MAE **`3.265625`** (vs `3.531` static / `3.703` random); OOD detection **`0.875`** at **`71.24 cycles/s`**. | Declared synthetic &amp; `/dev/video0` fixtures; camera idle until started. | [EVENT-CAUSAL.md](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [Evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) |
 | **Stage 5A/C: Open-Ended Creative Playroom &amp; Symphony** | MAP-Elites + Kloster Spectral Curiosity evolves **16/16** cellular geometric species (`creative_playroom.py`) and playful C-Major Pentatonic melodies synthesized into 44.1 kHz stereo Rhodes-chime `.wav` audio (`creative_symphony.py`). | Algorithmic Quality-Diversity creativity; `sentience_claimed=False`. | [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) |
@@ -388,7 +391,7 @@ zoe/
 | **L1** | `METACOGNITION-QUALIFIED` | Operational Metacognition $A_\tau(p)$ feeds back into reflection &amp; planning | **Achieved** |
 | **L2** | `CLOSED-LOOP-QUALIFIED` | Perception causally updates decisions &amp; improves held-out controls | **Achieved on declared fixtures** |
 | **L3** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature-to-experiment cycles with negative controls &amp; novel contribution | **Achieved** *(3 pre-registered 9-stage cycles independently reproduced via `scripts/verify_l3_research.py`: 3 confirmed + 3 honestly falsified, `max_delta = 0.0`)* |
-| **L4** | `SELF-IMPROVEMENT-QUALIFIED` | One adopted modification improves ≥ 3 unrelated domains across ≥ 2 consecutive generations | **Achieved** *(uniform atomic AST evolution over raw `{p, gt05}` across 6 domains / 4 families incl. 4 unseen zero-shot; 2 consecutive adopted gens across 5/5 seeds, `worst_drop=0.0`, Gen 3–5 rolled back, `14/14` independent verifier `max_delta=0.0`)* |
+| **L4** | `SELF-IMPROVEMENT-QUALIFIED` | One adopted modification improves ≥ 3 unrelated domains across ≥ 2 consecutive generations | **Achieved + Expanded to 3 Engines** *(Single-function L4 `14/14` verifier `max_delta=0.0` + Multi-Module Guarded `def` Code Evolution across `spectral`, closed-loop `EventCausalEngine`, &amp; `temporal_groove_neural` with unified diffs, `15/15` seeds, `17/17` hostile probes blocked, `0.0` atomic rollback delta &amp; `verify_l4_multimodule.py`: `17/17`, `max_delta=0.0`)* |
 | **L5** | `AGI-QUALIFIED` | Competent-human performance across all 10 core domain families on novel held-out work | **Open goal** *(not yet awarded)* |
 | **L6–L7** | `ASI` / `OPEN-ENDED-QUALIFIED` | Superhuman breadth &amp; continued governable expansion | **Long-horizon mission** |
 
@@ -443,7 +446,7 @@ python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
 zoe                      # Launch the native GEM desktop workbench
 zoe list                 # Inspect all 17 registered engines
 zoe chat                 # Interactive evidence-linked conversation
-zoe gem list             # Browse all 36 canonical + 18 extended GEM layers
+zoe gem list             # Browse all 36 canonical + 20 extended GEM layers
 zoe autonomy run         # Run a bounded, reversible internal autonomy episode
 ```
 
@@ -462,6 +465,9 @@ zoe chat --cli --command "research"
 python scripts/verify_l3_research.py
 zoe chat --cli --command "l4"
 python scripts/verify_l4_self_improvement.py
+zoe chat --cli --command "l4-multi"
+python scripts/verify_l4_multimodule.py
+zoe gem open l4-multimodule
 zoe chat --cli --command "spectral benchmark"
 zoe chat --cli --command "mars"
 zoe chat --cli --command "evolve"
@@ -516,15 +522,18 @@ Automated CI runs the monorepo verifier, Groove Forensics suite, and Dorothy/Con
 python scripts/verify-one-system.py --reflect
 python scripts/verify-one-system.py --chat
 
-# 2. L3 Research & L4 Self-Improvement Independent Verifiers + Groove Forensics suite
+# 2. L3 Research, L4 Self-Improvement & Multi-Module Verifiers + Groove Forensics suite
 python scripts/verify_l3_research.py
 python scripts/verify_l4_self_improvement.py
+python scripts/verify_l4_multimodule.py
 python scripts/zoe_groove_forensics.py --verify
 
-# 3. Core Zoe-Autonomy, L3 Research Collaborator, L4 Self-Improvement, Kloster Theorem, Mars, Playroom & Symphony tests
+# 3. Core Zoe-Autonomy, L3 Research, L4 Single/Multi-Module, Event-Causal, Kloster, Mars & Playroom tests
 PYTHONPATH="components/Zoe-Autonomy/src:guiai-lab" python -m unittest \
   components/Zoe-Autonomy/tests/test_research_collaborator.py \
   components/Zoe-Autonomy/tests/test_l4_self_improvement.py \
+  components/Zoe-Autonomy/tests/test_l4_multimodule.py \
+  components/Zoe-Autonomy/tests/test_event_causal.py \
   components/Zoe-Autonomy/tests/test_self_evolution_and_symphony.py \
   components/Zoe-Autonomy/tests/test_spectral_filtration.py \
   components/Zoe-Autonomy/tests/test_cross_domain_transfer.py \

@@ -543,4 +543,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"l4-evolution", "self-improvement"}:
         from .l4_evolution import l4_evolution_scene
         return l4_evolution_scene()
+    if module in {"l4-multimodule", "multi-module"}:
+        from .l4_multimodule import l4_multimodule_scene
+        return l4_multimodule_scene()
     raise ValueError(f"unknown atlas module: {module}")

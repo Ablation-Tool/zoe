@@ -97,14 +97,14 @@ class EventLoop(BoundedAutonomyLoop):
 
 
 class EventCausalEngine:
-    def __init__(self, state_root=None, learning_enabled=True, forced_action=None, seed=0):
+    def __init__(self, state_root=None, learning_enabled=True, forced_action=None, seed=0, policy_fn=None):
         if forced_action is not None and forced_action not in ACTIONS and forced_action != "random":
             raise ValueError("unsupported forced control action")
         self.environment = EventEnvironment()
         self.loop = EventLoop(policy=SandboxPolicy(allowed_actions=ACTIONS), environment=self.environment)
         self.encoder = EventEncoder()
         self.memory = KeyValueEventMemory(state_root)
-        self.ensemble = ForwardEnsemble(history_enabled=bool(learning_enabled))
+        self.ensemble = ForwardEnsemble(history_enabled=bool(learning_enabled), policy_fn=policy_fn)
         self.uncertainty = IndependentUncertainty()
         self.plasticity = GatedLocalPlasticity()
         self.learning_enabled = bool(learning_enabled)
@@ -115,6 +115,10 @@ class EventCausalEngine:
         self.last_uncertainty = None
         self.observation_history = []
         self.step_reports = []
+
+    def set_policy(self, policy_fn):
+        """Hot-swap or clear an opt-in guarded policy callable on the forward ensemble."""
+        self.ensemble.set_policy(policy_fn)
 
     def start_sequence(self):
         self.environment._state["attention"] = 0

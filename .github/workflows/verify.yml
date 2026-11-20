@@ -45,11 +45,12 @@ jobs:
             python -c "from guiai.gem.dorothy_data import fetch; fetch()"
           fi
 
-      - name: Run Dorothy, Spatial, Continuum, Causal Chiasm, L3 Research, L4 Self-Improvement, and Spectral Theorem Tests
+      - name: Run Dorothy, Spatial, Continuum, Causal Chiasm, L3 Research, L4 Self-Improvement, L4 Multi-Module, and Spectral Theorem Tests
         run: |
           python scripts/zoe_groove_forensics.py --verify
           python scripts/verify_l3_research.py
           python scripts/verify_l4_self_improvement.py
-          python -m unittest components/Zoe-Autonomy/tests/test_cross_domain_transfer.py components/Zoe-Autonomy/tests/test_spectral_filtration.py components/Zoe-Autonomy/tests/test_research_collaborator.py components/Zoe-Autonomy/tests/test_l4_self_improvement.py -v
+          python scripts/verify_l4_multimodule.py
+          python -m unittest components/Zoe-Autonomy/tests/test_cross_domain_transfer.py components/Zoe-Autonomy/tests/test_spectral_filtration.py components/Zoe-Autonomy/tests/test_research_collaborator.py components/Zoe-Autonomy/tests/test_l4_self_improvement.py components/Zoe-Autonomy/tests/test_event_causal.py components/Zoe-Autonomy/tests/test_l4_multimodule.py -v
           cd components/agent-logging-system
           pytest tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v
