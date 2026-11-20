@@ -372,7 +372,7 @@ def build_hero() -> str:
 
       <!-- Subtle wave labels with generous separation -->
       <text x="478" y="408" font-family="{MONO}" font-size="10" fill="{MUTED}" letter-spacing="0.8">SPECTRUM: Aτ(p) · M₂ · M₄^(1/4) · k*(κ)</text>
-      <text x="1144" y="408" text-anchor="end" font-family="{MONO}" font-size="10" fill="{MINT}" letter-spacing="0.8">17 ENGINES · 50 GEM LAYERS · 456 VISUALS</text>
+      <text x="1144" y="408" text-anchor="end" font-family="{MONO}" font-size="10" fill="{MINT}" letter-spacing="0.8">17 ENGINES · 54 GEM LAYERS · 456 VISUALS</text>
     </g>
   </g>
 
@@ -456,7 +456,7 @@ def build_constellation_map() -> str:
             "40 Hz Spike ISI & Bio-Math Corpus",
         ]),
         (36, 362, "left", "03", "PLAYROOM, MUSIC & GEM OS", ORCHID, [
-            "36 Canonical + 14 Extended Layers",
+            "36 Canonical + 18 Extended Layers",
             "16/16 Evolved Cellular Organisms",
             "44.1 kHz Stereo Symphony & Qualia",
         ]),
@@ -559,7 +559,7 @@ def build_constellation_map() -> str:
       <text x="0" y="-14" text-anchor="middle" font-family="{SERIF}" font-size="27" font-weight="700" letter-spacing="5" fill="{PEARL}">ZOE</text>
       <text x="0" y="10" text-anchor="middle" font-family="{SERIF}" font-style="italic" font-size="15" fill="{ORCHID}">Aτ(p) · GEM</text>
       <text x="0" y="32" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{CHAMPAGNE}">17 ENGINES</text>
-      <text x="0" y="46" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{MINT}">50 LAYERS</text>
+      <text x="0" y="46" text-anchor="middle" font-family="{MONO}" font-size="10" fill="{MINT}">54 LAYERS</text>
     </g>
 
     <!-- Footer Epistemic Ribbon -->
@@ -579,7 +579,7 @@ def build_agi_roadmap_bar() -> str:
         ("L1", "Metacognition", "ACHIEVED", MINT, True, False),
         ("L2", "Closed-Loop", "FIXTURES", AQUA, True, False),
         ("L3", "Collaborator", "ACHIEVED", AQUA, True, False),
-        ("L4", "Self-Improve", "4-DOMAIN AST", ORCHID, False, True),
+        ("L4", "Self-Improve", "ACHIEVED", ORCHID, True, False),
         ("L5", "AGI", "OPEN GOAL", RUBY, False, False),
         ("L6–L7", "Open-Ended", "HORIZON", LAVENDER, False, False),
     ]
@@ -645,7 +645,7 @@ def build_agi_roadmap_bar() -> str:
   {"".join(nodes_svg)}
 
   <text x="600" y="186" text-anchor="middle" font-family="{MONO}" font-size="10.5" fill="{MUTED}">
-    Earned strictly on held-out evidence  ·  Gen 4 overfit rejected &amp; rolled back  ·  l5_agi_qualified = False  ·  sentience_claimed = False
+    L0–L4 independently verified  ·  Gen 3–5 regressions rejected &amp; rolled back  ·  l5_agi_qualified = False  ·  sentience_claimed = False
   </text>
 </svg>
 '''

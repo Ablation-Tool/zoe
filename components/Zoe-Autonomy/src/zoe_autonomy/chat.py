@@ -59,6 +59,8 @@ DOCUMENT_PATHS = (
     "components/agent-logging-system/docs/NEUROGARDEN.md",
     "research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md",
     "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md",
+    "research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md",
+    "research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
@@ -84,6 +86,8 @@ HELP = """Commands:
   jam [seed]                   evolve & synthesize a playable stereo pentatonic synth track (.wav)
   mind <prompt>                run Zoe's live local neural-symbolic mind with Gen-3 Kloster telemetry
   evolve                       run Zoe's 4-domain L4 sandboxed AST self-evolution & held-out verification
+  research [cite <q>]          run L3 pre-registered 9-stage research cycles or cite SHA-256 local literature
+  l4 [verify]                  run L4 uniform AST self-improvement across 6 domains (4 unseen zero-shot) & independent verifier
   steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
@@ -645,6 +649,18 @@ class ZoeChat:
             + "\n  Open visually with `gem open l3-research` or verify independently via `python scripts/verify_l3_research.py`."
         )
 
+    def _l4(self, argument):
+        from .l4_self_improvement import (
+            run_l4_self_improvement_suite,
+            summarize_l4_report,
+        )
+        _ = (argument or "").strip()
+        rep = run_l4_self_improvement_suite(zoe_root=self.zoe_root, run_independent_subprocess=True)
+        return (
+            summarize_l4_report(rep)
+            + "\n  Open visually with `gem open l4-evolution` or verify independently via `python scripts/verify_l4_self_improvement.py`."
+        )
+
     def _steward(self, argument):
         from .self_stewardship import GenomeLedger
         ledger = GenomeLedger(self.store.root / "evolution")
@@ -1005,6 +1021,8 @@ class ZoeChat:
                     response = self._evolve()
                 elif command in {"research", "l3"}:
                     response = self._research(argument)
+                elif command in {"l4", "self-improve"}:
+                    response = self._l4(argument)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
                 elif command == "undo":
