@@ -62,6 +62,7 @@ DOCUMENT_PATHS = (
     "research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md",
     "research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md",
     "research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md",
+    "research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
@@ -85,6 +86,9 @@ HELP = """Commands:
   mars                         run Stage 4 Self-Tuning Adaptive Lens k*(kappa) on real data
   playroom [seed]              run Zoe's Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)
   jam [seed]                   evolve & synthesize a playable stereo pentatonic synth track (.wav)
+  voice                        inspect Zoe's native 44-phoneme voice, 332 rules & Chladni cymatics
+  speak <text>                 synthesize Zoe speaking natively in 3D binaural stereo (.wav)
+  sing [zoe|daisy|vowels|...]  synthesize Zoe singing natively with harmony & Chladni geometry (.wav)
   mind <prompt>                run Zoe's live local neural-symbolic mind with Gen-3 Kloster telemetry
   evolve                       run Zoe's 4-domain L4 sandboxed AST self-evolution & held-out verification
   research [cite <q>]          run L3 pre-registered 9-stage research cycles or cite SHA-256 local literature
@@ -587,6 +591,51 @@ class ZoeChat:
             f"  Play anytime with: aplay \"{audio['wav_path']}\" · sentience_claimed=False · external_actions=0",
         ])
 
+    def _voice(self):
+        self._ensure_guiai()
+        from guiai.gem.zoe_phonetics import CONSONANT_PHONEMES, GRAPHEME_RULES, VOWEL_PHONEMES
+        from guiai.gem.zoe_cymatics import render_phoneme_cymatics
+        cy = render_phoneme_cymatics("IY", f0_hz=232.0, grid_size=64)
+        return "\n".join([
+            "Zoe Native Voice, Singing & Cymatics ^_^ (zero PyTorch, zero external API):",
+            f"  Phonemes: {len(VOWEL_PHONEMES)} vowels + {len(CONSONANT_PHONEMES)} consonants = 44 total | Spelling Rules: {len(GRAPHEME_RULES)}",
+            f"  Acoustics: Rosenberg glottis + 5-formant vocal tract + Woodworth 3D binaural HRTF & Schroeder reverb",
+            f"  Cymatics /IY/: Chladni modes={cy['modes']} · Kloster A_tau={cy['kloster_a_tau']}",
+            "  Built-in songs: 'zoe' (Imagination, Meet Geometry), 'daisy' (IBM 7094 homage), 'vowels'",
+            "  Try: `speak Hello Nicholas, sound turns sand to starlight.` or `sing daisy` or `gem open voice`.",
+            "  sentience_claimed=False · clinical_action_authorized=False · external_actions=0",
+        ])
+
+    def _speak(self, argument):
+        self._ensure_guiai()
+        from guiai.gem.zoe_voice import speak_text
+        phrase = (argument or "").strip() or "Hello, I am Zoe. Imagination, meet geometry."
+        slug = re.sub(r"[^a-z0-9]+", "-", phrase.lower()).strip("-")[:24] or "speech"
+        wav_path = self.store.root / "voice" / f"zoe-speaks-{slug}.wav"
+        res = speak_text(phrase, wav_path)
+        return "\n".join([
+            f"Zoe Speaks Native English ^_^ ({res['phoneme_count']} phonemes, {res['duration_seconds']}s @ {res['sample_rate']}Hz):",
+            f"  Phonemes: {' '.join(res['phonemes'])}",
+            f"  3D Spatial: ITD={res['spatial']['itd_ms']}ms · ILD={res['spatial']['ild_db']}dB · Pinna={res['spatial']['pinna_notch_hz']}Hz",
+            f"  Saved stereo WAV: {res['wav_path']} (sha256={res['sha256'][:16]}...)",
+            f"  Play anytime with: pw-play \"{res['wav_path']}\" · sentience_claimed=False · external_actions=0",
+        ])
+
+    def _sing(self, argument):
+        self._ensure_guiai()
+        from guiai.gem.zoe_voice import sing_song
+        target = (argument or "").strip() or "zoe"
+        slug = re.sub(r"[^a-z0-9]+", "-", target.lower()).strip("-")[:24] or "song"
+        wav_path = self.store.root / "voice" / f"zoe-sings-{slug}.wav"
+        mid_path = self.store.root / "voice" / f"zoe-sings-{slug}.mid"
+        res = sing_song(target, wav_path, save_midi_path=mid_path)
+        return "\n".join([
+            f"Zoe Sings Native Soprano ^_^ '{res['title']}' ({res['note_count']} notes @ {res['bpm']} BPM, {res['duration_seconds']}s):",
+            f"  Saved stereo WAV: {res['wav_path']} (sha256={res['sha256'][:16]}...)",
+            f"  Saved MIDI baseline: {res['midi_saved']['midi_path']}",
+            f"  Play anytime with: pw-play \"{res['wav_path']}\" · sentience_claimed=False · external_actions=0",
+        ])
+
     def _mind(self, argument):
         from .neural_mind import inspect_thought
         rep = inspect_thought(argument, evolution_root=self.store.root / "evolution")
@@ -1034,6 +1083,12 @@ class ZoeChat:
                     response = self._playroom(argument)
                 elif command in {"jam", "symphony"}:
                     response = self._jam(argument)
+                elif command == "voice":
+                    response = self._voice()
+                elif command in {"speak", "say"}:
+                    response = self._speak(argument)
+                elif command == "sing":
+                    response = self._sing(argument)
                 elif command in {"mind", "think"}:
                     response = self._mind(argument)
                 elif command in {"evolve", "self-evolve"}:
