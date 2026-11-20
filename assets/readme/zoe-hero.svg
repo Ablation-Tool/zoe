@@ -260,7 +260,7 @@
 
     <text x="480" y="216" font-family="Georgia, 'Palatino Linotype', 'Book Antiqua', serif" font-style="italic" font-size="25" fill="#f0a3df" opacity="0.95">Imagination, meet geometry.</text>
 
-    <text x="480" y="248" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#e7edf5" opacity="0.90">Uniting operational metacognition, Dorothy's brain atlas, GEM geometry, and creative play.</text>
+    <text x="480" y="248" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="14" fill="#e7edf5" opacity="0.90">Uniting operational metacognition, native voice, Dorothy's brain atlas, GEM geometry, and play.</text>
 
     <!-- Glass Equation Strip -->
     <g transform="translate(478,266)">

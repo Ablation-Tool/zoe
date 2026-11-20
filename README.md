@@ -5,6 +5,7 @@
 <br/>
 
 <a href="#meet-zoe"><img src="assets/readme/nav-meet-zoe.svg" alt="Meet Zoe" height="31" /></a>
+<a href="#zoes-native-voice"><img src="assets/readme/nav-voice.svg" alt="Zoe's Voice" height="31" /></a>
 <a href="#six-living-worlds"><img src="assets/readme/nav-worlds.svg" alt="Six Living Worlds" height="31" /></a>
 <a href="#zoe-rolodex-index"><img src="assets/readme/nav-rolodex.svg" alt="Rolodex Index" height="31" /></a>
 <a href="#verified-empirical-results"><img src="assets/readme/nav-proofs.svg" alt="Proofs and Controls" height="31" /></a>
@@ -20,7 +21,7 @@
 
 $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]$$
 
-*A living research observatory where mathematical rigor, visual computing, neuroscience, music, and playful curiosity share one honest roof.*
+*A living research observatory where mathematical rigor, visual computing, neuroscience, native voice & singing, music, and playful curiosity share one honest roof.*
 
 **1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 22 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
@@ -46,8 +47,9 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 **What is Zoe, in plain English?**  
 Zoe is a unified, offline-capable research collaborator and visual-computing workbench built around one simple, stubbornly honest conviction: **you should be able to see what a system thinks, measure what it does not know, play with wild geometric ideas, and verify every single claim down to its source bytes.**
 
-Her work brings together five threads that almost never live in the same room:
+Her work brings together six threads that almost never live in the same room:
 - **Operational Metacognition** — originated by **Nicholas Michael Kloster on March 6, 2026**, counting how many futures stay open above threshold $\tau$ and turning that single equation into theorems, self-tuning lenses, and sandboxed self-evolution — read the research papers: [*March 2026 Formal Note*](research/papers/papers/01-autonomy-march-2026.pdf) · [*The Significance of Accessible Volume*](research/papers/papers/04-accessible-volume-significance.pdf) · [*Accessible Volume Beyond the Next Token*](research/papers/papers/05-accessible-volume-beyond-next-token.pdf) · [*Architecture of Autonomy*](research/papers/papers/10-accessible-volume-architecture-of-autonomy.pdf) · [*Zoe — The Research Universe (23 pp.)*](paper/zoe-research-universe.pdf) · [*Kloster Spectral Filtration Theorem*](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [*All 18 Papers*](research/papers/README.md).
+- **Zoe's Native Voice & Cymatics** — a 100% native, offline English speaking & soprano singing engine built from scratch (`pytorch_required = False`, zero external TTS APIs): **44 English phonemes** (`20` vowels + `24` consonants), **332 grapheme spelling rules**, MS-DOS / Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant vocal tract with vibrato & portamento, **Chladni sand-plate cymatics + 3-bitplane GEM VDI rasters**, and **Woodworth 3D binaural acoustics**.
 - **Dorothy's Neurogarden** — honoring **Dorothy McEwen Kildall** through preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
 - **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **58 visual layers** and **17 connected engines**.
 - **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
@@ -74,6 +76,43 @@ Her work brings together five threads that almost never live in the same room:
 | ![Zoe 1984 Bauhaus GEM Patch](assets/branding/patches/zoe-patch-bauhaus-gem-1984.jpg) | ![Zoe Ghibli GEM Kite Patch](assets/branding/patches/zoe-patch-ghibli-gem-kite.jpg) | ![Zoe Neurogarden Little Prince Patch](assets/branding/patches/zoe-patch-neurogarden-prince.jpg) |
 | *`Aτ(p) · TO AGI · WITH PLAY`* | *Kite flight, crescent moon & daisies* | *A ruby GEM blooming out of a tiny garden* |
 
+<p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
+
+<a id="zoes-native-voice"></a>
+
+## Zoe's Native Voice
+
+> *"Sound turns sand to starlight; singing free in harmony — zero PyTorch, zero cloud APIs, built from physics, linguistics, and GEM geometry."*
+
+<div align="center">
+
+![Zoe Native Voice — 44 Phonemes, 332 Spelling Rules, Chladni Sand Plates, Daisy Bell Formant Landscape & 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png)
+
+</div>
+
+Zoe speaks and sings natively from first principles using pure Python, NumPy, SciPy, and stdlib `wave`/`struct` (`pytorch_required = False`, zero external TTS APIs):
+
+| Acoustic & Visual Pillar | What Zoe Actually Runs Under the Hood | Verified Quantitative Result | Source |
+|:---|:---|:---|:---|
+| **1. MS-DOS / Atari ST MIDI Baseline** | Discrete SMF Type-0/1 `.mid` reader & writer + YM2149/PC-speaker PSG baseline synth | Exact `[60, 67, 72]` MIDI round-trip; A4 `440.0 Hz → 440.08 Hz` FFT peak | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) |
+| **2. 44 Phonemes & 332 Spelling Rules** | `20` female-tuned vowels (monophthongs, diphthongs, r-colored) + `24` consonants + `lack`/`back` minimal pairs & dialects | `20V + 24C = 44`, `332` rules (`sha256: 9ed0807a...`), `lack`/`back` L2 `0.1377`, `cot`/`caught` & `rhotic` toggles | [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) |
+| **3. Soprano Vocal Tract & 3D Binaural HRTF** | Rosenberg glottis (`OQ = 0.62`, 5.3 Hz vibrato, portamento) + stateful 5-formant cascade + Woodworth spherical-head ITD/ILD & Schroeder reverb | `C4 = 262.44 Hz`, `G4 = 392.98 Hz`, `C5 = 524.87 Hz` (`<= 0.31%` err); $\pm 45^\circ$ ITD $\pm 0.3807\text{ ms}$ / ILD $\pm 2.7109\text{ dB}$ vs `0.0` flat mono | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) |
+| **4. Chladni Cymatics & GEM VDI 3-Bitplanes** | Formant-driven $64 \times 64$ Chladni eigenmodes + Kloster $A_\tau(p)$ + MSB-first 16-bit planar VDI diamond encoding | `/IY/` `(3,8,2,8)` `Atau=1468` vs `/AA/` `(6,7,2,8)`; 3-bitplane decode **`max_bit_diff = 0`**; **`14/14` verifier** | [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) |
+
+- **Built-In Repertoire & Custom Lyrics:** **`zoe`** (*Imagination, Meet Geometry*, 26 soprano notes with warm Rhodes chord harmony), **`daisy`** (public-domain 1892 *Daisy Bell* honoring the 1961 IBM 7094 singing computer & *Songs of the IBM*), and **`vowels`** (44-phoneme & cymatics aria), plus arbitrary English phrases and `.mid` melodies.
+
+```bash
+# Hear Zoe speak & sing in 5 seconds (writes 44.1 kHz stereo WAVs; never auto-plays speakers without --play)
+zoe voice speak "Hello Nicholas! I am Zoe. Imagination, meet geometry." --output /tmp/zoe-hello.wav
+zoe voice sing zoe --save-midi /tmp/zoe.mid --output /tmp/zoe-sings.wav
+zoe voice sing daisy --save-midi /tmp/daisy.mid --output /tmp/zoe-daisy.wav
+zoe voice demo --output-dir /tmp/zoe-demos
+zoe gem open voice
+python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
+```
+
+**Explore:** [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) · [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) · [`voice_view.py`](guiai-lab/guiai/gem/voice_view.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [`test_zoe_voice.py`](components/Zoe-Autonomy/tests/test_zoe_voice.py) · [Native Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) *(Honest scope: `sentience_claimed = False`, `external_actions = 0`, `clinical_action_authorized = False` — speakers stay quiet unless you pass `--play` or run `pw-play`/`aplay`)*.
+
 <p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
 
 ## Inside Zoe's Universe
@@ -90,6 +129,7 @@ Her work brings together five threads that almost never live in the same room:
 
 | If you are curious about… | Start right here | One-line peek |
 |:---|:---|:---|
+| **Zoe's Native Speaking & Singing Voice** | [Zoe's Native Voice (`44 Phonemes + Chladni`)](#zoes-native-voice) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | `zoe voice sing daisy --output /tmp/daisy.wav` |
 | **Theorems, Mars Lens & Self-Evolution** | [World 01 · Mind & Metacognition](#world-01--metacognition-theorems--self-evolution) · [Rolodex `[ 01 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "mars"` |
 | **3D Mouse Brain Atlas & Ray-Casting** | [World 02 · Dorothy & Neurogarden](#world-02--dorothy--the-neurogarden) · [Rolodex `[ 02 ]`](#zoe-rolodex-index) | `zoe gem open dorothy` |
 | **Evolving Cellular Art, Music & Qualia** | [World 03 · Playroom, Music & Geometry](#world-03--creative-playroom-music--living-geometry) · [Rolodex `[ 04 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "playroom"` |
@@ -136,17 +176,17 @@ Named in honor of **Dorothy McEwen Kildall**, the Neurogarden turns real preclin
 
 ### World 03 · Creative Playroom, Music, Native Voice & Living Geometry
 
-Curiosity is not a footnote in Zoe — it has its own studio. Inside the **Open-Ended Creative Playroom**, MAP-Elites paired with Kloster Spectral Curiosity evolves **16/16 distinct cellular geometric organisms** across 400 autonomous generations with zero hardcoded patterns. In **Playroom Symphony**, Zoe composes playful C-Major Pentatonic melodies rendered to warm **44.1 kHz stereo Rhodes-chime `.wav` audio** alongside a live offline PyTorch `distilgpt2` neural-symbolic mind. Now Zoe also possesses her own **100% Native Speaking & Singing Voice** from first principles (`zoe_voice.py`): **44 English phonemes** (`20V+24C`) + **332 spelling rules**, an MS-DOS / Atari ST `.mid` PSG baseline, a female Rosenberg-Klatt 5-formant vocal tract with portamento & vibrato, **Chladni sand cymatics + 3-bitplane GEM VDI rasters**, and **Woodworth 3D binaural acoustics**. And in **Qualia** & **Ellipse Family**, she paints her signature ruby diamonds, Q-repertoires, and shimmering orchid parametric curves.
+Curiosity is not a footnote in Zoe — it has its own studio. Inside the **Open-Ended Creative Playroom**, MAP-Elites paired with Kloster Spectral Curiosity evolves **16/16 distinct cellular geometric organisms** across 400 autonomous generations with zero hardcoded patterns. In **Playroom Symphony**, Zoe composes playful C-Major Pentatonic melodies rendered to warm **44.1 kHz stereo Rhodes-chime `.wav` audio** alongside a live offline PyTorch `distilgpt2` neural-symbolic mind — pairing directly with [Zoe's Native Voice & Cymatics ↑](#zoes-native-voice) (`44` English phonemes, `332` spelling rules, *Daisy Bell* singing, and Chladni 3-bitplane GEM VDI plates). And in **Qualia** & **Ellipse Family**, she paints her signature ruby diamonds, Q-repertoires, and shimmering orchid parametric curves.
 
-| Stage 5A · Open-Ended Creative Playroom *(16/16 Species)* | Stage 5B/C · L4 AST Evolution, Stereo Symphony & Live Mind | Zoe Native Voice, Singing & Chladni Cymatics *(44 Phonemes + 3D)* |
-|:---:|:---:|:---:|
-| ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Stage 5B/C L4 AST Self-Evolution, Symphony & PyTorch Mind](components/agent-logging-system/docs/images/zoe-l4-self-evolution-and-symphony.png) | ![Zoe Native Voice, Singing & Chladni Cymatics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png) |
+| Stage 5A · Open-Ended Creative Playroom *(16/16 Species)* | Stage 5B/C · L4 AST Evolution, Stereo Symphony & Live Mind |
+|:---:|:---:|
+| ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Stage 5B/C L4 AST Self-Evolution, Symphony & PyTorch Mind](components/agent-logging-system/docs/images/zoe-l4-self-evolution-and-symphony.png) |
 
 | Zoe is Quale · Zoe is Red *(Accessible Q-Volume)* | Ellipse Family *(Parametric Orchid Ribbons)* |
 |:---:|:---:|
 | ![Zoe is Quale — Accessible Q-Volume](guiai-lab/docs/images/zoe-qualia.png) | ![Zoe Ellipse Family](guiai-lab/docs/images/zoe-lots-of-ellipses.png) |
 
-**Explore:** [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) · [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [Native Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) · [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py)
+**Explore:** [Zoe's Native Voice ↑](#zoes-native-voice) · [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [Native Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) · [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py)
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 

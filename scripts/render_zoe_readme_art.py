@@ -339,7 +339,7 @@ def build_hero() -> str:
 
     <text x="480" y="216" font-family="{SERIF}" font-style="italic" font-size="25" fill="{ORCHID}" opacity="0.95">Imagination, meet geometry.</text>
 
-    <text x="480" y="248" font-family="{SANS}" font-size="14" fill="{TEXT}" opacity="0.90">Uniting operational metacognition, Dorothy's brain atlas, GEM geometry, and creative play.</text>
+    <text x="480" y="248" font-family="{SANS}" font-size="14" fill="{TEXT}" opacity="0.90">Uniting operational metacognition, native voice, Dorothy's brain atlas, GEM geometry, and play.</text>
 
     <!-- Glass Equation Strip -->
     <g transform="translate(478,266)">
@@ -455,10 +455,10 @@ def build_constellation_map() -> str:
             "Continuum Ray-Cast & 4-Head Vision",
             "40 Hz Spike ISI & Bio-Math Corpus",
         ]),
-        (36, 362, "left", "03", "PLAYROOM, MUSIC & GEM OS", ORCHID, [
+        (36, 362, "left", "03", "VOICE, PLAYROOM & GEM OS", ORCHID, [
             "36 Canonical + 22 Extended Layers",
+            "44-Phoneme Voice, Cymatics & Symphony",
             "16/16 Evolved Cellular Organisms",
-            "44.1 kHz Stereo Symphony & Qualia",
         ]),
         (806, 86, "right", "04", "TIME, GROOVE & CERN", AQUA, [
             ".MOD / .MID Poincaré Attractors",
@@ -725,6 +725,7 @@ def main() -> int:
         "zoe-agi-roadmap-bar.svg": build_agi_roadmap_bar(),
         "zoe-footer.svg": build_footer(),
         "nav-meet-zoe.svg": build_nav_pill("Meet Zoe", RUBY, 114),
+        "nav-voice.svg": build_nav_pill("Zoe's Voice", ROSE, 128),
         "nav-worlds.svg": build_nav_pill("Six Worlds", ORCHID, 122),
         "nav-rolodex.svg": build_nav_pill("Rolodex", CHAMPAGNE, 110),
         "nav-proofs.svg": build_nav_pill("Proofs", AQUA, 102),
