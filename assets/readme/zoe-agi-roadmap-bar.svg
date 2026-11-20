@@ -58,7 +58,7 @@
       <circle cx="936" cy="94" r="23" fill="#101a2e"/><circle cx="936" cy="94" r="23" fill="#ef445a" fill-opacity="0.18" stroke="#ef445a" stroke-width="2.2" filter="url(#glow)"><animate attributeName="r" values="21;24;21" dur="3.0s" repeatCount="indefinite"/></circle><polygon points="936,86 944,94 936,102 928,94" fill="#ef445a"/>
       <text x="936" y="60" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700" fill="#ef445a">L5</text>
       <text x="936" y="136" text-anchor="middle" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="600" fill="#f4f0e8">AGI</text>
-      <text x="936" y="154" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="0.8" fill="#ef445a">PHASE 1</text>
+      <text x="936" y="154" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="0.8" fill="#ef445a">PHASE 2</text>
     </g>
     <g>
       <circle cx="1104" cy="94" r="21" fill="#101a2e" stroke="#b8a1e3" stroke-width="1.8" stroke-dasharray="4 4" opacity="0.88"/><circle cx="1104" cy="94" r="4.5" fill="#b8a1e3" opacity="0.72"/>
@@ -68,6 +68,6 @@
     </g>
 
   <text x="600" y="186" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" fill="#9cafc4">
-    L0–L4 achieved  ·  L5 Phase 1 10-Domain Core verified (16/16)  ·  l5_agi_qualified = False  ·  sentience_claimed = False
+    L0–L4 achieved  ·  L5 Phases 1 &amp; 2 verified (16/16 + 18/18)  ·  l5_agi_qualified = False  ·  sentience_claimed = False
   </text>
 </svg>

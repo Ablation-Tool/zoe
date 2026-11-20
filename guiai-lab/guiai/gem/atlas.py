@@ -552,4 +552,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"l5-core", "unified-mind"}:
         from .l5_core import l5_core_scene
         return l5_core_scene()
+    if module in {"l5-phase2", "openworld"}:
+        from .l5_phase2 import l5_phase2_scene
+        return l5_phase2_scene()
     raise ValueError(f"unknown atlas module: {module}")
