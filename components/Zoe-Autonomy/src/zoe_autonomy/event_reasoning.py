@@ -32,12 +32,17 @@ def attention_after(attention, action):
 
 
 class ForwardEnsemble:
-    def __init__(self, members=5, history_enabled=True):
+    def __init__(self, members=5, history_enabled=True, policy_fn=None):
         if isinstance(members, bool) or not isinstance(members, int) or not 2 <= members <= 16:
             raise ValueError("forward ensemble requires 2-16 members")
         if not isinstance(history_enabled, bool):
             raise ValueError("history_enabled must be a boolean")
+        if policy_fn is not None and not callable(policy_fn):
+            raise ValueError("policy_fn must be callable when provided")
         self.history_enabled = history_enabled
+        self.policy_fn = policy_fn
+        self._stale_count = 0
+        self._last_centroid_x = None
         self.members = [
             {
                 "position": None,
@@ -55,6 +60,12 @@ class ForwardEnsemble:
             for index in range(members)
         ]
 
+    def set_policy(self, policy_fn):
+        """Hot-swap or clear an opt-in guarded policy callable."""
+        if policy_fn is not None and not callable(policy_fn):
+            raise ValueError("policy_fn must be callable when provided")
+        self.policy_fn = policy_fn
+
     def checkpoint(self):
         return deepcopy(self.members)
 
@@ -64,6 +75,8 @@ class ForwardEnsemble:
         self.members = deepcopy(members)
 
     def start_sequence(self):
+        self._stale_count = 0
+        self._last_centroid_x = None
         for member in self.members:
             member["position"] = None
             member["velocity"] = 0.0
@@ -76,6 +89,9 @@ class ForwardEnsemble:
         if not isinstance(learning, bool):
             raise ValueError("learning flag must be a boolean")
         centroid = observation.get("centroid")
+        if self.policy_fn is not None:
+            self._update_with_policy(observation, centroid, step, learning)
+            return
         for member in self.members:
             if member["position"] is None:
                 if centroid is not None:
@@ -112,6 +128,73 @@ class ForwardEnsemble:
                     member["updates"] += 1
             member["misses"] = 0
             member["position"] = position
+            member["last_visible_step"] = step
+
+    def _update_with_policy(self, observation, centroid, step, learning):
+        cx = float(centroid[0]) if centroid is not None else -1.0
+        ev_cnt = float(observation.get("event_count", 0))
+        sc_cnt = float(observation.get("scene_event_count", 0))
+        if centroid is not None and self._last_centroid_x is not None and abs(cx - self._last_centroid_x) < 1e-6 and ev_cnt == 0:
+            self._stale_count += 1
+        elif centroid is not None and ev_cnt > 0:
+            self._stale_count = 0
+        self._last_centroid_x = cx if centroid is not None else None
+        has_pos = 1.0 if self.members[0]["position"] is not None else 0.0
+        misses = float(self.members[0]["misses"])
+        acc_init, acc_track, coast_flag, reset_flag, _ = self.policy_fn({
+            "sc_cnt": sc_cnt,
+            "ev_cnt": ev_cnt,
+            "stale": float(self._stale_count),
+            "misses": misses,
+            "has_pos": has_pos,
+            "dist": 0.0,
+            "vel": 0.0,
+            "center": 8.0,
+            "target_x": 8.0,
+            "visible": 0.0,
+            "search_req": 1.0 - has_pos,
+            "moving": 0.0,
+            "on_path": 0.0,
+            "has_mem": 0.0,
+        })
+        valid_init = (centroid is not None) and (acc_init > 0.5)
+        valid_track = (centroid is not None) and (acc_track > 0.5)
+        for member in self.members:
+            if member["position"] is None:
+                if valid_init:
+                    member["position"] = cx
+                    member["last_visible_step"] = step
+                continue
+            if (not valid_track) or (reset_flag > 0.5):
+                if coast_flag > 0.5 or learning or reset_flag > 0.5:
+                    member["position"], member["velocity"] = bounce(member["position"], member["velocity"])
+                    member["misses"] += 1
+                    if reset_flag > 0.5:
+                        member["position"] = None
+                        member["velocity"] = 0.0
+                        member["recent_velocities"] = []
+                continue
+            previous_step = member["last_visible_step"]
+            if previous_step is not None and step > previous_step:
+                instantaneous = (cx - member["position"]) / (step - previous_step)
+                instantaneous = max(-4.0, min(4.0, instantaneous))
+                translation = observation.get("translation")
+                if self.history_enabled and translation and translation["overlap"] >= 3:
+                    member["recent_velocities"].append(instantaneous)
+                    member["recent_velocities"] = member["recent_velocities"][-3:]
+                estimated = statistics.median(member["recent_velocities"]) if self.history_enabled and member["recent_velocities"] else 0.0
+                direction = "positive" if estimated > 0 else "negative" if estimated < 0 else None
+                member["current_direction"] = direction
+                member["velocity"] = estimated if self.history_enabled else 0.0
+                if learning:
+                    rate = min(.95, member["alpha"] * member["weight"])
+                    if direction:
+                        prior = member["learned_dynamics"].get(direction, 0.0)
+                        member["learned_dynamics"][direction] = (1 - rate) * prior + rate * estimated
+                        member["learned_velocity"] = member["learned_dynamics"][direction]
+                    member["updates"] += 1
+            member["misses"] = 0
+            member["position"] = cx
             member["last_visible_step"] = step
 
     def predict(self, attention, action, memory=None):
@@ -213,8 +296,9 @@ def shortest_trajectory(ensemble, attention, horizon=2):
     }
 
 
-def propose(ensemble, attention, uncertainty, memory=None):
+def propose(ensemble, attention, uncertainty, memory=None, policy_fn=None):
     trajectory = shortest_trajectory(ensemble, attention)
+    active_policy = policy_fn if policy_fn is not None else getattr(ensemble, "policy_fn", None)
     proposals = []
     details = []
     for action in ACTIONS:
@@ -239,6 +323,24 @@ def propose(ensemble, attention, uncertainty, memory=None):
         )
         if action == "abstain":
             ranking_utility = 1.0 if uncertainty["intervention"] else .01
+        elif active_policy is not None:
+            _, _, _, _, policy_utility = active_policy({
+                "sc_cnt": 6.0,
+                "ev_cnt": 4.0,
+                "stale": float(getattr(ensemble, "_stale_count", 0)),
+                "misses": float(ensemble.members[0]["misses"]),
+                "has_pos": 1.0 if prediction["localized"] else 0.0,
+                "dist": distance,
+                "vel": prediction["velocity"],
+                "center": float(CENTERS[following]),
+                "target_x": prediction["target_x"],
+                "visible": 1.0 if prediction["visible"] else 0.0,
+                "search_req": 1.0 if prediction["search_required"] else 0.0,
+                "moving": 1.0 if action != "hold" else 0.0,
+                "on_path": 1.0 if action == trajectory["path"][0] else 0.0,
+                "has_mem": 1.0 if memory else 0.0,
+            })
+            ranking_utility = max(0.01, min(0.99, float(policy_utility)))
         else:
             ranking_utility = min(.99, utility)
         proposals.append(Candidate(
