@@ -51,6 +51,8 @@ EXTENDED_LAYERS = {
     "jam": ("autonomy", "Zoe · Stage 5C Playroom Symphony (Evolved Pentatonic Synth Music)"),
     "l3-research": ("autonomy", "Zoe · L3 Research Collaborator (9-Stage Pre-Registered Cycles)"),
     "research-lab": ("autonomy", "Zoe · L3 Research Collaborator (9-Stage Pre-Registered Cycles)"),
+    "l4-evolution": ("autonomy", "Zoe · L4 Generalized Self-Improvement (Uniform AST + Zero-Shot Transfer)"),
+    "self-improvement": ("autonomy", "Zoe · L4 Generalized Self-Improvement (Uniform AST + Zero-Shot Transfer)"),
 }
 
 

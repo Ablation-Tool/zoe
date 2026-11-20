@@ -49,10 +49,10 @@
       <text x="600" y="154" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="0.8" fill="#62dce8">ACHIEVED</text>
     </g>
     <g>
-      <circle cx="768" cy="94" r="23" fill="#101a2e"/><circle cx="768" cy="94" r="23" fill="#f0a3df" fill-opacity="0.18" stroke="#f0a3df" stroke-width="2.2" filter="url(#glow)"><animate attributeName="r" values="21;24;21" dur="3.0s" repeatCount="indefinite"/></circle><polygon points="768,86 776,94 768,102 760,94" fill="#f0a3df"/>
+      <circle cx="768" cy="94" r="22" fill="#101a2e"/><circle cx="768" cy="94" r="22" fill="#f0a3df" fill-opacity="0.18" stroke="#f0a3df" stroke-width="2.2" filter="url(#glow)"/><path d="M 761,94 L 766,99 L 776,88" fill="none" stroke="#f0a3df" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
       <text x="768" y="60" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700" fill="#f0a3df">L4</text>
       <text x="768" y="136" text-anchor="middle" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="600" fill="#f4f0e8">Self-Improve</text>
-      <text x="768" y="154" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="0.8" fill="#f0a3df">4-DOMAIN AST</text>
+      <text x="768" y="154" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="0.8" fill="#f0a3df">ACHIEVED</text>
     </g>
     <g>
       <circle cx="936" cy="94" r="21" fill="#101a2e" stroke="#ef445a" stroke-width="1.8" stroke-dasharray="4 4" opacity="0.88"/><circle cx="936" cy="94" r="4.5" fill="#ef445a" opacity="0.72"/>
@@ -68,6 +68,6 @@
     </g>
 
   <text x="600" y="186" text-anchor="middle" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10.5" fill="#9cafc4">
-    Earned strictly on held-out evidence  ·  Gen 4 overfit rejected &amp; rolled back  ·  l5_agi_qualified = False  ·  sentience_claimed = False
+    L0–L4 independently verified  ·  Gen 3–5 regressions rejected &amp; rolled back  ·  l5_agi_qualified = False  ·  sentience_claimed = False
   </text>
 </svg>
