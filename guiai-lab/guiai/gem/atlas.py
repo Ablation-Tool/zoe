@@ -549,4 +549,7 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"voice", "sing"}:
         from .zoe_voice import voice_scene
         return voice_scene()
+    if module in {"l5-core", "unified-mind"}:
+        from .l5_core import l5_core_scene
+        return l5_core_scene()
     raise ValueError(f"unknown atlas module: {module}")

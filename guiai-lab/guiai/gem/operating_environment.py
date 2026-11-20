@@ -57,6 +57,8 @@ EXTENDED_LAYERS = {
     "multi-module": ("autonomy", "Zoe · L4 Multi-Module Guarded Code Self-Improvement (3 Distinct Engines)"),
     "voice": ("autonomy", "Zoe · Native 44-Phoneme Voice, Singing, MIDI Baseline & Chladni Cymatics"),
     "sing": ("autonomy", "Zoe · Native 44-Phoneme Voice, Singing, MIDI Baseline & Chladni Cymatics"),
+    "l5-core": ("autonomy", "Zoe · L5 Phase 1 Integrated 10-Domain Cognitive Core & 4-System Memory"),
+    "unified-mind": ("autonomy", "Zoe · L5 Phase 1 Integrated 10-Domain Cognitive Core & 4-System Memory"),
 }
 
 
