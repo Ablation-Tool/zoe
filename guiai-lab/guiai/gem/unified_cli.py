@@ -27,7 +27,7 @@ def parser():
     os_command.add_argument("arguments", nargs=argparse.REMAINDER)
     gem_command = commands.add_parser("gem", help="use the shared GEM operating environment")
     gem_command.add_argument("arguments", nargs=argparse.REMAINDER, help="status, list, open ID, export ID PATH, or snapshot PATH")
-    for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pentacube", "open the pentomino cube permutation laboratory"), ("cicada", "open the CERN and cicada-inspired internal clock"), ("life", "open Conway's Game of Life"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("chat", "talk with Zoe through evidence, memory, autonomy, and metacognition"), ("pala", "run PALA file carving and data recovery"), ("autonomy", "run Zoe's full self-governing autonomy loop"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden"), ("maison", "open the executive luxury enterprise studio"), ("evidence", "open the source-first evidence navigator"), ("voice", "speak, sing, and inspect Zoe's 44-phoneme native voice & cymatics")):
+    for name, description in (("artline", "open the original Zoe vector workbench"), ("pentomino", "open the timed spatial practice laboratory"), ("pentacube", "open the pentomino cube permutation laboratory"), ("cicada", "open the CERN and cicada-inspired internal clock"), ("life", "open Conway's Game of Life"), ("pilot", "open the original Practice Navigator guide"), ("resilience", "open the Resilience Atlas"), ("chat", "talk with Zoe through evidence, memory, autonomy, and metacognition"), ("eliza", "talk with Zoe-ELIZA x GEM zero-token glass-box atelier (CLI + Web UI + Native Voice)"), ("pala", "run PALA file carving and data recovery"), ("autonomy", "run Zoe's full self-governing autonomy loop"), ("presence", "open the Presence self-model"), ("protocol", "open the SPECS and AMAC Protocol Lab"), ("waveform", "open bounded waveform replay"), ("patchbay", "open firmware, boards, and the small-cog workbench"), ("leadership", "open the adaptive Leadership Garden"), ("maison", "open the executive luxury enterprise studio"), ("evidence", "open the source-first evidence navigator"), ("voice", "speak, sing, and inspect Zoe's 44-phoneme native voice & cymatics")):
         command = commands.add_parser(name, help=description)
         command.add_argument("arguments", nargs=argparse.REMAINDER, help=f"arguments forwarded to Zoe {name}")
     return result
@@ -41,7 +41,7 @@ def main(argv=None):
             return chat_main([])
         from .desktop_view import main as desktop_main
         return desktop_main(raw_arguments[1:])
-    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "chat", "pala", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence", "voice"}:
+    if raw_arguments and raw_arguments[0] in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "chat", "eliza", "pala", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence", "voice"}:
         from importlib import import_module
         return import_module(f".{raw_arguments[0]}_view", __package__).main(raw_arguments[1:])
     arguments = parser().parse_args(raw_arguments)
@@ -53,7 +53,7 @@ def main(argv=None):
         if arguments.command == "gem":
             from .operating_environment import main as gem_main
             return gem_main(arguments.arguments)
-        if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "chat", "pala", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence", "voice"}:
+        if arguments.command in {"artline", "pentomino", "pentacube", "cicada", "life", "pilot", "resilience", "chat", "eliza", "pala", "autonomy", "presence", "protocol", "waveform", "patchbay", "leadership", "maison", "evidence", "voice"}:
             from importlib import import_module
             return import_module(f".{arguments.command}_view", __package__).main(arguments.arguments)
         if arguments.command in {"list", "components"}:

@@ -98,7 +98,9 @@ HELP = """Commands:
   l4-multi [run]               run L4 3-engine multi-module guarded `def` AST code evolution & atomic rollback verifier
   l5 [run|speak]               run L5 Phase 1 integrated 10-domain core, mission & optional spoken summary
   l5-phase2 [run|speak]        run L5 Phase 2 open-world code repair, 2400-ep memory, real vision & 16-LLM science
+  l5-phase3 [run|speak]        run L5 Phase 3 live agentic synthesis, external repo surgery & Eliza-GEM bench
   steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
+  eliza <prompt>               talk with Zoe-ELIZA x GEM zero-token Glass-Box companion
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -640,6 +642,24 @@ class ZoeChat:
             f"  Play anytime with: pw-play \"{res['wav_path']}\" · sentience_claimed=False · external_actions=0",
         ])
 
+    def _eliza(self, argument):
+        from .zoe_eliza import ZoeElizaEngine
+        prompt = (argument or "").strip() or "hello"
+        engine = ZoeElizaEngine(self.zoe_root, state_dir=self.store.root / "eliza")
+        rep = engine.respond(prompt)
+        tr = rep["eliza_trace"]
+        mc = rep["metacognition"]
+        cym = rep["cymatics"]
+        lines = [
+            f"Zoe-ELIZA x GEM ^_^ [{rep['mode']} | rule={tr['matched_rule_id']} | A_{mc['tau']}={mc['a_tau']} | /{cym['dominant_phoneme']}/{tuple(cym['modes'])} | 0 cloud tokens]:",
+            rep["reply"],
+        ]
+        if rep["citations"]:
+            cites = ", ".join(c["citation"] for c in rep["citations"])
+            lines.append(f"  Citations: {cites}")
+        lines.append("  sentience_claimed=False · external_actions=0 · cloud_tokens_used=0")
+        return "\n".join(lines)
+
     def _mind(self, argument):
         from .neural_mind import inspect_thought
         rep = inspect_thought(argument, evolution_root=self.store.root / "evolution")
@@ -769,6 +789,25 @@ class ZoeChat:
             summarize_l5_phase2_report(rep)
             + extra
             + "\n  Open visually with `gem open l5-phase2` or verify independently via `python scripts/verify_l5_phase2.py`."
+        )
+
+    def _l5_phase3(self, argument):
+        from .l5_phase3_live import run_l5_phase3_suite, summarize_l5_phase3_report
+
+        arg = (argument or "").strip().lower()
+        cached = self.zoe_root / "evidence/l5-phase3/l5-phase3-report.json"
+        wav_path = (self.store.root / "voice" / "zoe-l5-phase3.wav") if arg == "speak" else None
+        if arg not in {"run", "speak"} and cached.is_file():
+            rep = json.loads(cached.read_text(encoding="utf-8"))
+        else:
+            rep = run_l5_phase3_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
+        extra = ""
+        if wav_path is not None and wav_path.is_file():
+            extra = f"\n  Saved spoken Phase 3 summary WAV: {wav_path}"
+        return (
+            summarize_l5_phase3_report(rep)
+            + extra
+            + "\n  Open visually with `gem open l5-phase3` or verify independently via `python scripts/verify_l5_phase3.py`."
         )
 
     def _steward(self, argument):
@@ -1145,8 +1184,12 @@ class ZoeChat:
                     response = self._l5(argument)
                 elif command in {"l5-phase2", "phase2", "openworld"}:
                     response = self._l5_phase2(argument)
+                elif command in {"l5-phase3", "phase3", "live-agent"}:
+                    response = self._l5_phase3(argument)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
+                elif command in {"eliza", "zoe-eliza"}:
+                    response = self._eliza(argument)
                 elif command == "undo":
                     response = self._undo()
                 elif command == "history":

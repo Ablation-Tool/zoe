@@ -1,0 +1,145 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "detail": {
+        "normalized": "i am going to build my prototype cleanly"
+      },
+      "id": "01_pre_subs",
+      "passed": true
+    },
+    {
+      "detail": {
+        "reflected": "your idea helps you",
+        "swaps": [
+          "my->your",
+          "me->you"
+        ]
+      },
+      "id": "02_pronoun_reflection",
+      "passed": true
+    },
+    {
+      "detail": {
+        "distinct_replies": true,
+        "rule_id": "what_if"
+      },
+      "id": "03_cyclic_reassembly",
+      "passed": true
+    },
+    {
+      "detail": {
+        "popped": "your oscilloscope rig"
+      },
+      "id": "04_weizenbaum_memory_stack",
+      "passed": true
+    },
+    {
+      "detail": {
+        "refusal_mode": "honest_abstain",
+        "sentience_claimed": false,
+        "zoe_clone_claimed": false
+      },
+      "id": "05_constitutional_honesty",
+      "passed": true
+    },
+    {
+      "detail": {
+        "top_citation": "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:9"
+      },
+      "id": "06_evidence_citations",
+      "passed": true
+    },
+    {
+      "detail": {
+        "mode": "honest_abstain"
+      },
+      "id": "07_honest_abstention",
+      "passed": true
+    },
+    {
+      "detail": {
+        "chain_head": "6b260b81721bb7d2",
+        "relay_notes": 1
+      },
+      "id": "08_persistent_memory_chain",
+      "passed": true
+    },
+    {
+      "detail": {
+        "a_tau": 2,
+        "tau": 0.08
+      },
+      "id": "09_metacognition_atau",
+      "passed": true
+    },
+    {
+      "detail": {
+        "cym_modes": [
+          4,
+          5,
+          2,
+          7
+        ],
+        "wav_bytes": 455500
+      },
+      "id": "10_voice_and_cymatics",
+      "passed": true
+    },
+    {
+      "detail": {
+        "blocked_remote": true,
+        "fallback_used": "gear1",
+        "mock_used": "gear2"
+      },
+      "id": "11_gear2_loopback_and_fallback",
+      "passed": true
+    },
+    {
+      "detail": {
+        "scene_sha256": "6477a0d4ef489242",
+        "verified": true
+      },
+      "id": "12_gem_spatial_ir",
+      "passed": true
+    },
+    {
+      "detail": {
+        "chat_ok": true,
+        "emergency_stop": true,
+        "http_mode": "eliza_reflect"
+      },
+      "id": "13_chat_and_http_studio",
+      "passed": true
+    },
+    {
+      "detail": {
+        "clinical_action_authorized": false,
+        "cloud_tokens_used": 0,
+        "external_actions": 0,
+        "glass_box_transparent": true,
+        "identity_role": "eliza_gem_glass_box_workbench",
+        "local_llm_loopback_only": true,
+        "pytorch_required": false,
+        "sentience_claimed": false,
+        "zoe_clone_claimed": false
+      },
+      "id": "14_epistemic_boundaries",
+      "passed": true
+    }
+  ],
+  "checks_passed": 14,
+  "checks_total": 14,
+  "contract": "zoe-eliza-gem/v1",
+  "epistemic_boundaries": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "external_actions": 0,
+    "glass_box_transparent": true,
+    "identity_role": "eliza_gem_glass_box_workbench",
+    "local_llm_loopback_only": true,
+    "pytorch_required": false,
+    "sentience_claimed": false,
+    "zoe_clone_claimed": false
+  }
+}

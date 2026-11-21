@@ -61,6 +61,10 @@ EXTENDED_LAYERS = {
     "unified-mind": ("autonomy", "Zoe · L5 Phase 1 Integrated 10-Domain Cognitive Core & 4-System Memory"),
     "l5-phase2": ("autonomy", "Zoe · L5 Phase 2 Open-World Generalization, Code Repair & Neural Science"),
     "openworld": ("autonomy", "Zoe · L5 Phase 2 Open-World Generalization, Code Repair & Neural Science"),
+    "l5-phase3": ("autonomy", "Zoe · L5 Phase 3 Live Agentic Synthesis & Eliza-GEM Glass-Box Bench"),
+    "live-agent": ("autonomy", "Zoe · L5 Phase 3 Live Agentic Synthesis & Eliza-GEM Glass-Box Bench"),
+    "eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
+    "zoe-eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
 }
 
 
