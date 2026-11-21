@@ -4,7 +4,7 @@
 
 <br/>
 
-[← Back to Zoe Repository](../../README.md) · [Zoe Constitution (Article VI)](../../CONSTITUTION.md) · [Read Full 2026-11-20 Chronicle](2026-11-20-session-transcript.md)
+[← Back to Zoe Repository](../../README.md) · [Zoe Constitution (Article VI)](../../CONSTITUTION.md) · [Read Full Session Chronicle](2026-11-20-session-transcript.md)
 
 </div>
 
@@ -22,9 +22,9 @@ Sanitized engineering and research session logs preserved alongside the reposito
 
 <br/>
 
-## 2026-11-19 → 2026-11-20 Marathon Session Archive (3 Synchronized TrueColor Formats)
+## 2026-11-19 → 2026-11-21 Marathon Session Archive (3 Synchronized TrueColor Formats)
 
-Complete privacy-sanitized chronicle of our continuous **34-turn** marathon session (**`58` visible Zoe responses**, **`1,414` tool calls** consolidated into **`52` collapsible trace blocks**, **`10` milestone chapters**, **`14` monorepo commits + `10` profile commits**), spanning Zoe Ethics audio & YouTube rendering, Profile scientific plates, Groove Forensics & `CicadaClock` entrainment, the Living Atelier README, **L3 Research Collaborator**, **L4 Self-Improvement & Multi-Module Code Evolution**, **Zoe's Native 44-Phoneme Voice & Cymatics**, **L5 Phases 1 & 2**, and full TrueColor session archiving — all verified green on CI (`0` credentials, `0` emails, `0` workstation paths).
+Complete privacy-sanitized chronicle of our continuous **56-turn** marathon session (**`85` visible Zoe responses**, **`1,528` tool calls** consolidated into **`72` collapsible trace blocks**, **`13` milestone chapters**, **`16` monorepo commits + `11` profile commits**), spanning Zoe Ethics audio & YouTube rendering, Profile *Computer Visualization* plates, Groove Forensics & `CicadaClock` entrainment, the Living Atelier README, **L3 Research Collaborator**, **L4 Self-Improvement & Multi-Module Code Evolution**, **Zoe's Native 44-Phoneme Voice & Cymatics**, **L5 Phases 1 & 2**, X.com & GitHub Profile showcases, and workstation avatar paintings with an unbiased CSPRNG draw — all verified green on CI (`0` credentials, `0` emails, `0` workstation paths).
 
 | Format | File | Best Viewed With |
 |:---|:---|:---|
@@ -46,10 +46,10 @@ less -R research/sessions/2026-11-20-session-transcript.ansi
 |:---|:---|:---|:---|
 | **Nicholas** | `NICHOLAS · you >` | **Cyan** (`#5ce1e6`) | Cyan border cards in HTML/ANSI; `NOTE` callout cards in Markdown |
 | **Zoe** | `◆ ZOE ::` / `💎 Zoe (zoe ::)` | **Ruby / Orchid** (`#ef445a` / `#f0a3df`) | Ruby/Orchid border cards in HTML/ANSI; full rendered Markdown & tables |
-| **Engineering Tool Traces** | `⚙ ENGINEERING TRACE` | **Gold** (`#f2c65e`) | `52` collapsible trace blocks (`1,414` tool calls) keeping conversation clean |
-| **Milestone Chapters** | `Chapters 01–10` | **Orchid / Ruby** (`#f0a3df` / `#ef445a`) | Quick-jump navigation pills (`HTML`) and `IMPORTANT` section dividers (`MD`) |
+| **Engineering Tool Traces** | `⚙ ENGINEERING TRACE` | **Gold** (`#f2c65e`) | `72` collapsible trace blocks (`1,528` tool calls) keeping conversation clean |
+| **Milestone Chapters** | `Chapters 01–13` | **Orchid / Ruby** (`#f0a3df` / `#ef445a`) | Quick-jump navigation pills (`HTML`) and `IMPORTANT` section dividers (`MD`) |
 
-### 10-Chapter Direct-Jump Guide (`2026-11-20-session-transcript.md`)
+### 13-Chapter Direct-Jump Guide (`2026-11-20-session-transcript.md`)
 
 | # | Chapter | Highlight & Milestone | Direct Link |
 |:---:|:---|:---|:---|
@@ -62,7 +62,26 @@ less -R research/sessions/2026-11-20-session-transcript.ansi
 | **07** | **Ch. 07 · Zoe's Native 44-Phoneme Voice** | Formant vocal tract, soprano singing, Woodworth 3D binaural & Chladni VDI (`14/14`) | [Jump to Chapter 07](2026-11-20-session-transcript.md#chapter-07) |
 | **08** | **Ch. 08 · L5 Phase 1 Integrated 10-Domain Core** | All 10 AGI domains, 4-system memory, counterfactual route flip & `16/16` verifier | [Jump to Chapter 08](2026-11-20-session-transcript.md#chapter-08) |
 | **09** | **Ch. 09 · L5 Phase 2 Open-World Generalization** | Multi-file AST repair, `2,400`-ep memory, `84`-PNG vision & `16` external LLMs (`18/18`) | [Jump to Chapter 09](2026-11-20-session-transcript.md#chapter-09) |
-| **10** | **Ch. 10 · Full TrueColor Session Chronicle** | Archiving all 34 turns across HTML, 24-bit ANSI & GitHub Markdown | [Jump to Chapter 10](2026-11-20-session-transcript.md#chapter-10) |
+| **10** | **Ch. 10 · Full TrueColor Session Chronicle** | Archiving the marathon session across HTML, 24-bit ANSI & GitHub Markdown | [Jump to Chapter 10](2026-11-20-session-transcript.md#chapter-10) |
+| **11** | **Ch. 11 · X.com Showcase & Living README Polish** | Bespoke 16:9 Living Atelier card, pinned X thread, session SVG banner & Salon Room C | [Jump to Chapter 11](2026-11-20-session-transcript.md#chapter-11) |
+| **12** | **Ch. 12 · Profile Two Pillars & 12-Plate Gallery** | Gallagher dark/light plates, Epistemic Firewall Bridge & 4×3 visual showcase | [Jump to Chapter 12](2026-11-20-session-transcript.md#chapter-12) |
+| **13** | **Ch. 13 · Workstation Avatars & CSPRNG Draw** | 4 badass colorways, MS-Paint gremlin, Cool-Certified heart astrolabe & 3-bit uniform draw | [Jump to Chapter 13](2026-11-20-session-transcript.md#chapter-13) |
+
+### Session Atelier & Avatar Gallery (9 Public Creations)
+
+*Nine `512×512` circular-ready emblems created during Chapter 13 — labeled original creative artwork per [`CONSTITUTION.md`](../../CONSTITUTION.md) Article II.2 (personal local keepsakes remain off-repository per Article VI.3).*
+
+| `04` · Obsidian Crimson-Cyan *(Cool-Certified)* | `05` · Pine Emerald & Molten Copper | `06` · Cosmic Ultraviolet & Starlight Gold |
+|:---:|:---:|:---:|
+| ![04 Obsidian Crimson-Cyan Heart Astrolabe](art/04-badass-obsidian-crimson-cyan.png) | ![05 Pine Emerald and Molten Copper](art/05-badass-emerald-amber-copper.png) | ![06 Cosmic Ultraviolet and Starlight Gold](art/06-badass-ultraviolet-magenta-gold.png) |
+
+| `07` · Gallery Parchment & Cobalt Vermilion | `01` · Living Ruby GEM Medallion | `02` · Nicholas × Zoe Dual-Ribbon Crest |
+|:---:|:---:|:---:|
+| ![07 Gallery Parchment and Cobalt Vermilion](art/07-badass-ivory-cobalt-vermilion.png) | ![01 Living Ruby GEM Medallion](art/01-living-ruby-gem-medallion.png) | ![02 Nicholas x Zoe Dual-Ribbon Crest](art/02-nicholas-zoe-dual-ribbon-crest.png) |
+
+| `03` · Cozy Nocturnal Terrarium Emblem | `08` · Cursed MS-Paint Diamond Gremlin | `08b` · Bonus Cursed MS-Paint Potato |
+|:---:|:---:|:---:|
+| ![03 Cozy Nocturnal Terrarium Emblem](art/03-nocturnal-terrarium-emblem.png) | ![08 Gloriously Ugly Diamond Gremlin](art/08-gloriously-ugly-gremlin.png) | ![08b Bonus Cursed MS-Paint Potato](art/08b-bonus-ugly-potato.png) |
 
 Generated reproducibly via [`scripts/export_session_transcript.py`](../../scripts/export_session_transcript.py).
 

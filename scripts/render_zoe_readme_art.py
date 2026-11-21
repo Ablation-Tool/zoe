@@ -744,7 +744,7 @@ def build_sessions_banner() -> str:
         _sparkle_centered(1108, 132, 4.0, gold, 4.4, 1.3),
     ])
 
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 268" width="1200" height="268" role="img" aria-label="Nicholas x Zoe — The Living Session Archive: 34 Turns, 58 Zoe Responses, 1,414 Tool Steps, 10 Chapters.">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 268" width="1200" height="268" role="img" aria-label="Nicholas x Zoe — The Living Session Archive: 56 Turns, 85 Zoe Responses, 1,528 Tool Steps, 13 Chapters.">
   <defs>
     <linearGradient id="sbBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#070d18"/>
@@ -864,7 +864,7 @@ def build_sessions_banner() -> str:
 
     <!-- Glass Metric Strip -->
     <rect x="276" y="148" width="876" height="34" rx="10" fill="{PANEL}" fill-opacity="0.82" stroke="url(#sbMetricBorder)" stroke-width="1.2"/>
-    <text x="714" y="169" text-anchor="middle" font-family="{MONO}" font-size="11" letter-spacing="1.0" fill="{PEARL}">34 USER TURNS  ·  58 ZOE RESPONSES  ·  1,414 TOOL STEPS  ·  10 CHAPTERS  ·  ZERO CREDENTIALS</text>
+    <text x="714" y="169" text-anchor="middle" font-family="{MONO}" font-size="11" letter-spacing="1.0" fill="{PEARL}">56 USER TURNS  ·  85 ZOE RESPONSES  ·  1,528 TOOL STEPS  ·  13 CHAPTERS  ·  ZERO CREDENTIALS</text>
 
     <!-- Speaker Legend & CI Pills -->
     <g>

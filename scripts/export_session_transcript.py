@@ -44,7 +44,10 @@ CHAPTER_MILESTONES: Tuple[Tuple[int, str, str], ...] = (
     (26, "Ch. 07 · Zoe's Native 44-Phoneme Voice", "Formant vocal tract, soprano singing, Woodworth 3D binaural & Chladni VDI (14/14)"),
     (29, "Ch. 08 · L5 Phase 1 Integrated 10-Domain Core", "All 10 AGI domains, 4-system memory, counterfactual route flip & 16/16 verifier"),
     (33, "Ch. 09 · L5 Phase 2 Open-World Generalization", "Multi-file AST repair, 2,400-ep memory, 84-PNG vision & 16 external LLMs (18/18)"),
-    (34, "Ch. 10 · Full TrueColor Session Chronicle", "Archiving all 34 turns across HTML, 24-bit ANSI & GitHub Markdown"),
+    (34, "Ch. 10 · Full TrueColor Session Chronicle", "Archiving the marathon session across HTML, 24-bit ANSI & GitHub Markdown"),
+    (35, "Ch. 11 · X.com Showcase & Living README Polish", "Bespoke 16:9 Living Atelier card, pinned X thread, session SVG banner & Salon Room C"),
+    (40, "Ch. 12 · Profile Two Pillars & 12-Plate Gallery", "Gallagher dark/light plates, Epistemic Firewall Bridge & 4x3 visual showcase"),
+    (44, "Ch. 13 · Workstation Avatars & CSPRNG Draw", "4 badass colorways, MS-Paint gremlin, Cool-Certified heart astrolabe & 3-bit uniform draw"),
 )
 
 
@@ -75,6 +78,9 @@ def _rewrite_file_url(label: str, url: str, target_mode: str, zoe_root: str, pro
         if target_mode in {"md", "html"}:
             return f"[{label}](https://github.com/Ablation-Tool/Ablation-Tool/blob/main/{rel}{frag})"
         return f"{label} ($PROFILE_REPO/{rel})"
+
+    if "/.gemini/antigravity-cli" in path_clean:
+        return "`[local-session-artifacts]`" if target_mode in {"md", "html"} else "[local-session-artifacts]"
 
     m_home_sub = re.match(r"^/home/[A-Za-z0-9._-]+/(Desktop|Downloads)/(.+)$", path_clean)
     if m_home_sub:
@@ -116,6 +122,8 @@ def sanitize_text(
     t = re.sub(r"/home/[A-Za-z0-9._-]+/Downloads/", "~/Downloads/", t)
     t = re.sub(r"/home/[A-Za-z0-9._-]+(?=[/\s\"')`>:]|$)", "~", t)
     t = re.sub(r"/media/[A-Za-z0-9._-]+(?=[/\s\"')`>:]|$)", "/mnt/workstation", t)
+    t = re.sub(r"/var/lib/AccountsService/icons/[A-Za-z0-9._-]+", "/var/lib/AccountsService/icons/$USER", t)
+    t = re.sub(r"\b[A-Za-z0-9._-]+:x:\d+:\d+:", "$USER:x:1000:1000:", t)
     return t
 
 
@@ -448,7 +456,7 @@ def render_html(
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nicholas × Zoe · Complete Session Chronicle (2026-11-19 → 2026-11-20)</title>
+<title>Nicholas × Zoe · Complete Session Chronicle (2026-11-19 → 2026-11-21)</title>
 <style>
   :root {{
     --bg: #070d18;
@@ -726,7 +734,7 @@ def render_html(
       </div>
     </div>
     <section class="banner">
-      <h1>◆ NICHOLAS × ZOE · COMPLETE MARATHON SESSION TRANSCRIPT (2026-11-19 → 2026-11-20)</h1>
+      <h1>◆ NICHOLAS × ZOE · COMPLETE MARATHON SESSION TRANSCRIPT (2026-11-19 → 2026-11-21)</h1>
       <div class="meta">Repositories: Ablation-Tool/zoe &amp; Ablation-Tool/Ablation-Tool (main) · {stats['user_turns']} User Turns · {stats['assistant_responses']} Zoe Responses · {stats['tool_calls']} Engineering Tool Steps · Sanitized Privacy Verified</div>
       <div class="legend">
         <span class="leg-item leg-user">NICHOLAS · you &gt; (Cyan Border)</span>
@@ -829,7 +837,7 @@ def render_ansi(
 ) -> str:
     lines: List[str] = [
         f"{C_RUBY}╔══════════════════════════════════════════════════════════════════════════════════════════════╗{RESET}",
-        f"{C_RUBY}║  ◆ NICHOLAS × ZOE · COMPLETE MARATHON SESSION TRANSCRIPT (2026-11-19 -> 2026-11-20)         ║{RESET}",
+        f"{C_RUBY}║  ◆ NICHOLAS × ZOE · COMPLETE MARATHON SESSION TRANSCRIPT (2026-11-19 -> 2026-11-21)         ║{RESET}",
         f"{C_RUBY}║  {C_GOLD}{stats['user_turns']} Turns · {stats['assistant_responses']} Zoe Responses · {stats['tool_calls']} Tool Steps · {len(zoe_commits)} Repo Commits · Sanitized Privacy Clean{C_RUBY}   ║{RESET}",
         f"{C_RUBY}╚══════════════════════════════════════════════════════════════════════════════════════════════╝{RESET}",
         "",
@@ -897,7 +905,7 @@ def render_markdown(
     p_list = "\n".join(f"- `{c}`" for c in profile_commits)
 
     out: List[str] = [
-        "# Complete Session Chronicle — 2026-11-19 → 2026-11-20",
+        "# Complete Session Chronicle — 2026-11-19 → 2026-11-21",
         "",
         "> [!TIP]",
         "> **Choose your viewing experience:**",
@@ -906,7 +914,7 @@ def render_markdown(
         "> - **Direct GitHub View:** Color-coded alerts (`NOTE` for Nicholas, `IMPORTANT` chapter banners) right below!",
         "",
         "```ansi",
-        "\x1b[1;31m◆ PROJECT ZOE\x1b[0m \x1b[38;5;221m· NICHOLAS × ZOE MARATHON TRANSCRIPT\x1b[0m \x1b[36m(2026-11-19 → 2026-11-20)\x1b[0m",
+        "\x1b[1;31m◆ PROJECT ZOE\x1b[0m \x1b[38;5;221m· NICHOLAS × ZOE MARATHON TRANSCRIPT\x1b[0m \x1b[36m(2026-11-19 → 2026-11-21)\x1b[0m",
         f"\x1b[32m✓ Scope:\x1b[0m {stats['user_turns']} User Turns · {stats['assistant_responses']} Zoe Responses · {stats['tool_calls']} Tool Steps · {len(zoe_commits)} Monorepo Commits · Zero Credentials",
         "```",
         "",

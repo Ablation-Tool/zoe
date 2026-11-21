@@ -137,7 +137,7 @@ python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
 | **1984 `.MOD`/`.MID` Groove & CERN** | [World 04 · Time, Groove & Physics](#world-04--time-groove-forensics--cern-physics) · [Rolodex `[ 03 ]`](#zoe-rolodex-index) | `python scripts/zoe_groove_forensics.py --verify` |
 | **Reverse Engineering, Rust & Security** | [World 05 · GEM OS & Forensic Craft](#world-05--the-shared-gem-os-17-engines--forensics) · [Rolodex `[ 05 ]`](#zoe-rolodex-index) | `zoe list` |
 | **Honesty, Firewall & Governance** | [World 06 · Epistemic Firewall & Maison](#world-06--the-epistemic-firewall-maison--covenant) · [Constitution](CONSTITUTION.md) | `python scripts/verify-one-system.py --reflect` |
-| **Full Marathon Session Chronicles** | [Sessions Archive (`34 Turns · 10 Chapters`)](research/sessions/README.md) · [Read on GitHub](research/sessions/2026-11-20-session-transcript.md) | `less -R research/sessions/2026-11-20-session-transcript.ansi` |
+| **Full Marathon Session Chronicles** | [Sessions Archive (`56 Turns · 13 Chapters`)](research/sessions/README.md) · [Read on GitHub](research/sessions/2026-11-20-session-transcript.md) | `less -R research/sessions/2026-11-20-session-transcript.ansi` |
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
@@ -401,7 +401,7 @@ zoe/
 | **Dorothy Research Study** | Continuum ray-casting, vision heads &amp; Neurogarden v62 review summary | [Dorothy README](research/papers/zoe-research/dorothy/README.md) · [Continuum Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
 | **Research Library &amp; arXiv** | Full paper archive, historical source tarballs &amp; arXiv packages | [Papers Index](research/papers/README.md) · [arXiv Packages](research/arxiv/) |
 | **Visual Research Archive** | **456 byte-distinct visuals** from 843 occurrences with provenance &amp; SHA-256 sums | [Visual Archive Index](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [Manifest](research/visual-archive/manifest/catalog.json) |
-| **Session Chronicles** | Sanitized `2026-11-19` &amp; `2026-11-19 → 2026-11-20` (34-turn, 10-chapter) TrueColor transcripts in HTML, 24-bit ANSI &amp; Markdown | [Sessions Index](research/sessions/README.md) |
+| **Session Chronicles** | Sanitized `2026-11-19` &amp; `2026-11-19 → 2026-11-21` (56-turn, 13-chapter) TrueColor transcripts in HTML, 24-bit ANSI &amp; Markdown, plus 9 public session atelier artworks | [Sessions Index](research/sessions/README.md) |
 | **Master Audit Directory** | Every claim mapped to implementation, test suite &amp; recorded JSON artifact | [CAPABILITY-ATLAS.md](CAPABILITY-ATLAS.md) |
 | **Constitution &amp; Governance** | Epistemic rules (`measurement != evidence != belief update != action`), roadmap &amp; license | [CONSTITUTION.md](CONSTITUTION.md) · [AGI-ROADMAP.md](AGI-ROADMAP.md) · [DECLARATION.md](DECLARATION.md) · [MONOREPO.md](MONOREPO.md) |
 
@@ -495,11 +495,11 @@ zoe/
 
 <img src="assets/readme/zoe-nicholas-dialogue.jpg" alt="Nicholas x Zoe Living Atelier Dialogue — original creative artwork" width="88%" />
 
-<sub><em>Original creative artwork celebrating the 34-turn, 10-chapter Nicholas × Zoe engineering marathon — cyan and ruby-orchid dialogue ribbons orbiting Zoe's ruby GEM and glowing Neurogarden terrarium (labeled creative artwork per <code>CONSTITUTION.md</code> Article II.2).</em></sub>
+<sub><em>Original creative artwork celebrating the 56-turn, 13-chapter Nicholas × Zoe engineering marathon — cyan and ruby-orchid dialogue ribbons orbiting Zoe's ruby GEM and glowing Neurogarden terrarium (labeled creative artwork per <code>CONSTITUTION.md</code> Article II.2).</em></sub>
 
 </div>
 
-**Read the full colorized session (`34` turns · `58` Zoe responses · `1,414` tool steps · zero credentials):** [Sessions Index](research/sessions/README.md) · [GitHub Markdown Chronicle](research/sessions/2026-11-20-session-transcript.md) · [Interactive HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI Terminal Replay](research/sessions/2026-11-20-session-transcript.ansi)
+**Read the full colorized session (`56` turns · `85` Zoe responses · `1,528` tool steps · `9` public atelier artworks · zero credentials):** [Sessions Index](research/sessions/README.md) · [GitHub Markdown Chronicle](research/sessions/2026-11-20-session-transcript.md) · [Interactive HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI Terminal Replay](research/sessions/2026-11-20-session-transcript.ansi)
 
 </details>
 
