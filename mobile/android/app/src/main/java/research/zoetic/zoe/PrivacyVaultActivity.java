@@ -47,76 +47,82 @@ public final class PrivacyVaultActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 4));
-        header.addView(Ui.topBar(this, "Privacy Vault", "Signal-Grade E2EE · AES-256-GCM"));
+        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 2));
+        header.addView(Ui.topBar(this, "Privacy Vault", null));
         root.addView(header);
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
         LinearLayout body = Ui.vertical(this);
-        body.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 20));
+        body.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 36));
 
         boolean hw = ZoeSignalCrypto.isHardwareKeystoreActive();
         status = Ui.text(this,
-                (hw ? "Hardware AndroidKeyStore AES-256-GCM active." : "AES-256-GCM local vault active.")
-                        + " Saved Zoe Chat threads are encrypted on disk with unique 96-bit IVs.",
-                13.5f, Ui.GREEN);
+                hw ? "🔒 Hardware AES-256-GCM · Chats encrypted on disk"
+                        : "🔒 AES-256-GCM Vault · Chats encrypted on disk",
+                12.5f, Ui.GREEN);
         status.setId(R.id.vault_status);
-        status.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
-        status.setBackground(Ui.cardBackground(this, 20));
+        status.setTypeface(Ui.SANS_MEDIUM);
+        status.setPadding(Ui.dp(this, 14), Ui.dp(this, 10), Ui.dp(this, 14), Ui.dp(this, 10));
+        status.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.GREEN), 28), Ui.GREEN, 16));
         body.addView(status);
 
-        // 1. 60-Digit Safety Number Card
+        // 1. Spacious 60-Digit Safety Number Card
         LinearLayout fpCard = Ui.vertical(this);
-        fpCard.setBackground(Ui.cardBackground(this, 22));
-        fpCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        fpCard.setBackground(Ui.cardBackground(this, 24));
+        fpCard.setPadding(Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 16));
         LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
+        cardLp.setMargins(0, Ui.dp(this, 14), 0, Ui.dp(this, 14));
 
-        fpCard.addView(Ui.text(this, "YOUR 60-DIGIT SAFETY NUMBER (SIGNAL-STYLE FINGERPRINT)", 11.5f, Ui.COBALT));
-        safetyNumberView = Ui.text(this, "Generating identity key…", 16f, Ui.TEXT);
+        fpCard.addView(Ui.text(this, "60-DIGIT SAFETY NUMBER", 11.5f, Ui.COBALT));
+        safetyNumberView = Ui.text(this, "Generating identity key…", 16.5f, Ui.TEXT);
         safetyNumberView.setId(R.id.vault_safety_number);
         safetyNumberView.setTypeface(android.graphics.Typeface.MONOSPACE);
+        safetyNumberView.setLetterSpacing(0.05f);
         safetyNumberView.setTextIsSelectable(true);
-        safetyNumberView.setPadding(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
+        safetyNumberView.setPadding(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
         fpCard.addView(safetyNumberView);
 
         pubKeyView = Ui.text(this, "", 11.5f, Ui.MUTED);
         pubKeyView.setTextIsSelectable(true);
+        pubKeyView.setPadding(0, 0, 0, Ui.dp(this, 10));
         fpCard.addView(pubKeyView);
 
-        Button copyKeyBtn = Ui.button(this, "Copy Public Key", Ui.COBALT, v -> copyText("Zoe Public Key", myPubB64));
-        Button shareKeySignalBtn = Ui.button(this, "Share Key via Signal ↗", Ui.CYAN, v -> shareViaSignalOrSheet("My Zoe E2EE Public Key:\n" + myPubB64));
+        Button copyKeyBtn = Ui.button(this, "Copy Key", Ui.COBALT, v -> copyText("Zoe Public Key", myPubB64));
+        Button shareKeySignalBtn = Ui.button(this, "Share via Signal ↗", Ui.CYAN, v -> shareViaSignalOrSheet("My Zoe E2EE Public Key:\n" + myPubB64));
         fpCard.addView(Ui.buttonRow(this, copyKeyBtn, shareKeySignalBtn));
         body.addView(fpCard, cardLp);
 
-        // 2. Seal / Unseal End-to-End Encrypted Envelope
+        // 2. Clean E2EE Note Seal Card
         LinearLayout e2eeCard = Ui.vertical(this);
-        e2eeCard.setBackground(Ui.cardBackground(this, 22));
-        e2eeCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
-        e2eeCard.addView(Ui.text(this, "END-TO-END ENCRYPTED NOTE SEAL (ECDH + HKDF-SHA256 + AES-256-GCM)", 11.5f, Ui.GOLD));
+        e2eeCard.setBackground(Ui.cardBackground(this, 24));
+        e2eeCard.setPadding(Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18));
+        e2eeCard.addView(Ui.text(this, "END-TO-END NOTE SEAL · ECDH + AES-256-GCM", 11.5f, Ui.GOLD));
 
-        peerKeyInput = styledInput("Recipient Zoe Public Key (blank = seal for your own device)");
+        peerKeyInput = styledInput("Peer Zoe Public Key (blank = self)");
         peerKeyInput.setId(R.id.vault_peer_key);
         e2eeCard.addView(peerKeyInput);
 
-        messageInput = styledInput("Plaintext note to encrypt — OR paste ZOE-SIGNAL-V1:... to decrypt");
+        messageInput = styledInput("Note to seal — or paste ZOE-SIGNAL-V1:…");
         messageInput.setId(R.id.vault_message_input);
         e2eeCard.addView(messageInput);
 
-        Button sealBtn = Ui.primaryButton(this, "🔒 Seal E2EE Envelope", Ui.COBALT, v -> doSeal());
+        Button sealBtn = Ui.primaryButton(this, "🔒 Seal Note", Ui.COBALT, v -> doSeal());
         sealBtn.setId(R.id.vault_seal_btn);
-        Button openBtn = Ui.button(this, "🔓 Unseal Envelope", Ui.GREEN, v -> doUnseal());
+        Button openBtn = Ui.button(this, "🔓 Unseal", Ui.GREEN, v -> doUnseal());
         openBtn.setId(R.id.vault_unseal_btn);
         e2eeCard.addView(Ui.buttonRow(this, sealBtn, openBtn));
 
-        outputBox = Ui.text(this, "Encrypted or decrypted output appears here. Zero bytes leave this device unless you tap Share.", 13f, Ui.TEXT);
+        outputBox = Ui.text(this, "Encrypted or decrypted output appears here.", 12.5f, Ui.MUTED);
         outputBox.setId(R.id.vault_output);
         outputBox.setTextIsSelectable(true);
-        outputBox.setPadding(Ui.dp(this, 10), Ui.dp(this, 10), Ui.dp(this, 10), Ui.dp(this, 10));
-        outputBox.setBackground(Ui.tonalPillDrawable(this, Ui.tonalWellColor(this), Ui.primaryAccent(this), 14));
-        e2eeCard.addView(outputBox);
+        outputBox.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
+        outputBox.setBackground(Ui.tonalPillDrawable(this, Ui.tonalWellColor(this), Ui.primaryAccent(this), 16));
+        LinearLayout.LayoutParams outLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        outLp.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
+        e2eeCard.addView(outputBox, outLp);
 
         Button copyOutBtn = Ui.button(this, "Copy Output", Ui.MUTED, v -> copyText("Zoe E2EE Output", outputBox.getText().toString()));
         Button sendSignalBtn = Ui.primaryButton(this, "Send via Signal ↗", Ui.CYAN, v -> shareViaSignalOrSheet(outputBox.getText().toString()));

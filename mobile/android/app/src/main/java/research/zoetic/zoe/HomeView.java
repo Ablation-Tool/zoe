@@ -178,43 +178,38 @@ final class HomeView extends ScrollView {
 
         registerSpecs(activity);
 
-        // 3. Focused Primary Stage (Top 3 Big Ergonomic 72dp Pill Cards — Zero Overload!)
+        // 3. Focused Primary Stage (Top 3 Airy Hero Cards with generous spacing)
         primaryContainer = Ui.vertical(activity);
         primaryContainer.setId(R.id.home_zapps_list);
         primaryContainer.setBackgroundColor(Color.TRANSPARENT);
-        primaryContainer.setPadding(Ui.dp(activity, 16), 0, Ui.dp(activity, 16), 0);
+        primaryContainer.setPadding(Ui.dp(activity, 18), 0, Ui.dp(activity, 18), 0);
         content.addView(primaryContainer);
 
-        // 4. Gemini-Style Explore | Arrange Mode Toggle — RIGHT ABOVE THE FOLD!
-        zappsHint = Ui.text(activity, "Tap ★ to pin #1, or ↑ ↓ to move any Zapp.", 13.5f, Ui.MUTED);
+        // 4. Clean inline section header with subtle Arrange / Reset controls (zero floating clutter island!)
+        zappsHint = Ui.text(activity, "Tap ★ to pin #1, or ↑ ↓ to move any Zapp.", 13f, Ui.MUTED);
         zappsHint.setGravity(Gravity.CENTER);
-        zappsHint.setPadding(Ui.dp(activity, 24), Ui.dp(activity, 12), Ui.dp(activity, 24), Ui.dp(activity, 2));
+        zappsHint.setPadding(Ui.dp(activity, 24), Ui.dp(activity, 10), Ui.dp(activity, 24), Ui.dp(activity, 2));
         zappsHint.setVisibility(GONE);
         content.addView(zappsHint);
 
         LinearLayout pillRow = new LinearLayout(activity);
         pillRow.setOrientation(LinearLayout.HORIZONTAL);
-        pillRow.setGravity(Gravity.CENTER);
+        pillRow.setGravity(Gravity.CENTER_VERTICAL);
         pillRow.setBackgroundColor(Color.TRANSPARENT);
-        pillRow.setPadding(Ui.dp(activity, 16), Ui.dp(activity, 18), Ui.dp(activity, 16), Ui.dp(activity, 8));
+        pillRow.setPadding(Ui.dp(activity, 22), Ui.dp(activity, 22), Ui.dp(activity, 18), Ui.dp(activity, 6));
+
+        TextView moreHeading = Ui.text(activity, "Explore more", 13.5f, Ui.MUTED);
+        moreHeading.setTypeface(Ui.SANS_MEDIUM);
+        moreHeading.setPadding(0, 0, 0, 0);
+        pillRow.addView(moreHeading, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
         explorePill = modeTogglePill("Explore", v -> {
             if (arrangeMode) {
                 toggleArrangeMode();
             }
         });
-        LinearLayout.LayoutParams ep = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 44));
-        ep.setMargins(Ui.dp(activity, 4), 0, Ui.dp(activity, 4), 0);
-        pillRow.addView(explorePill, ep);
-
-        arrangeButton = modeTogglePill("Arrange", v -> toggleArrangeMode());
-        arrangeButton.setId(R.id.home_arrange_zapps);
-        arrangeButton.setContentDescription("Arrange Zapps");
-        LinearLayout.LayoutParams ap = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 44));
-        ap.setMargins(Ui.dp(activity, 4), 0, Ui.dp(activity, 4), 0);
-        pillRow.addView(arrangeButton, ap);
+        explorePill.setVisibility(GONE);
+        pillRow.addView(explorePill);
 
         resetButton = modeTogglePill("Reset", v -> {
             performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
@@ -225,15 +220,22 @@ final class HomeView extends ScrollView {
         resetButton.setTextColor(Ui.heroAccent(activity));
         resetButton.setVisibility(GONE);
         LinearLayout.LayoutParams rp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 44));
-        rp.setMargins(Ui.dp(activity, 4), 0, Ui.dp(activity, 4), 0);
+                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 36));
+        rp.setMargins(0, 0, Ui.dp(activity, 6), 0);
         pillRow.addView(resetButton, rp);
+
+        arrangeButton = modeTogglePill("Arrange", v -> toggleArrangeMode());
+        arrangeButton.setId(R.id.home_arrange_zapps);
+        arrangeButton.setContentDescription("Arrange Zapps");
+        LinearLayout.LayoutParams ap = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 36));
+        pillRow.addView(arrangeButton, ap);
         content.addView(pillRow);
 
-        // 5. Calm Grouped "More tools" Drawer-Card tucked gently below the fold
+        // 5. Calm Grouped "More Zapps" card gently tucked below
         moreContainer = Ui.vertical(activity);
         moreContainer.setBackgroundColor(Color.TRANSPARENT);
-        moreContainer.setPadding(0, Ui.dp(activity, 20), 0, 0);
+        moreContainer.setPadding(0, Ui.dp(activity, 4), 0, Ui.dp(activity, 20));
         content.addView(moreContainer);
 
         styleModePills();
@@ -295,12 +297,13 @@ final class HomeView extends ScrollView {
     private Button modeTogglePill(String label, OnClickListener listener) {
         Button b = new Button(getContext());
         b.setText(label);
-        b.setTextSize(14.5f);
+        b.setTextSize(13f);
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
-        b.setMinHeight(Ui.dp(getContext(), 44));
-        b.setMinimumHeight(Ui.dp(getContext(), 44));
-        b.setPadding(Ui.dp(getContext(), 20), 0, Ui.dp(getContext(), 20), 0);
+        b.setMaxLines(1);
+        b.setMinHeight(Ui.dp(getContext(), 36));
+        b.setMinimumHeight(Ui.dp(getContext(), 36));
+        b.setPadding(Ui.dp(getContext(), 14), 0, Ui.dp(getContext(), 14), 0);
         b.setStateListAnimator(null);
         b.setOnClickListener(listener);
         return b;
@@ -384,13 +387,8 @@ final class HomeView extends ScrollView {
             primaryContainer.addView(card, lp);
         }
 
-        // Remaining Zapps inside ONE calm grouped Material 3 container below the fold
+        // Remaining Zapps inside ONE calm grouped Material 3 container below
         if (orderedSpecs.size() > primaryCount) {
-            TextView moreLabel = Ui.section(getContext(), "More Zapps");
-            moreLabel.setPadding(Ui.dp(getContext(), 24), Ui.dp(getContext(), 8),
-                    Ui.dp(getContext(), 20), Ui.dp(getContext(), 8));
-            moreContainer.addView(moreLabel);
-
             LinearLayout groupCard = Ui.groupedCard(getContext());
             for (int i = primaryCount; i < orderedSpecs.size(); i++) {
                 if (i > primaryCount) {
@@ -413,7 +411,7 @@ final class HomeView extends ScrollView {
             }
             LinearLayout.LayoutParams gp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            gp.setMargins(Ui.dp(getContext(), 16), 0, Ui.dp(getContext(), 16), 0);
+            gp.setMargins(Ui.dp(getContext(), 18), 0, Ui.dp(getContext(), 18), 0);
             moreContainer.addView(groupCard, gp);
         }
     }
@@ -590,7 +588,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.6.0-beta · Live, Studio, Arcade & Hybrid · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.6.1-beta · Explore, Vault, Studio, Arcade & Hybrid · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

@@ -149,34 +149,34 @@ public final class ConversationActivity extends ComponentActivity {
         LinearLayout root = Ui.vertical(this);
         root.setBackgroundColor(Color.TRANSPARENT);
 
-        // 1. Compact Header + Threads / New / Brain Settings
+        // 1. Airy Minimal Header + Single Quiet Mode Strip
         LinearLayout headerWrap = Ui.vertical(this);
         headerWrap.setBackgroundColor(Color.TRANSPARENT);
-        headerWrap.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 4));
-        headerWrap.addView(Ui.topBar(this, "Zoe Chat", "Hybrid · Local LLM · Live Web · Multi-AI"));
+        headerWrap.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 2));
+        headerWrap.addView(Ui.topBar(this, "Zoe Chat", null));
 
-        // Top Live Brain Mode Switcher (Hybrid Auto + Offline + Online + Web Grounding)
+        // Sleek borderless translucent pill strip (34dp tall — zero chunky outline clutter)
         HorizontalScrollView modeStrip = new HorizontalScrollView(this);
         modeStrip.setHorizontalScrollBarEnabled(false);
         LinearLayout modeRow = new LinearLayout(this);
         modeRow.setOrientation(LinearLayout.HORIZONTAL);
         modeRow.setGravity(Gravity.CENTER_VERTICAL);
-        modeRow.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
+        modeRow.setPadding(0, Ui.dp(this, 2), 0, Ui.dp(this, 4));
 
         modeAutoBtn = modeChip("⚡ Auto", v -> selectBrainMode(BrainMode.AUTO));
         modeAutoBtn.setId(R.id.conversation_mode_auto);
-        modeLocalLlmBtn = modeChip("Zoe Local", v -> selectBrainMode(BrainMode.LOCAL_LLM));
+        modeLocalLlmBtn = modeChip("Local", v -> selectBrainMode(BrainMode.LOCAL_LLM));
         modeLocalLlmBtn.setId(R.id.conversation_mode_local_llm);
         webToggleBtn = modeChip("Web: off", v -> toggleWebSearch());
         webToggleBtn.setId(R.id.conversation_web_toggle);
-        modeStemBtn = modeChip("Zoe Stem", v -> selectBrainMode(BrainMode.STEM));
-        modeStemBtn.setId(R.id.conversation_mode_stem);
-        modeCloudBtn = modeChip("Cloud AI", v -> selectBrainMode(BrainMode.CLOUD_AI));
-        modeCloudBtn.setId(R.id.conversation_mode_cloud);
-        modeLabBtn = modeChip("Lab Brain", v -> selectBrainMode(BrainMode.LAB_QWEN));
-        modeLabBtn.setId(R.id.conversation_mode_lab);
         Button liveBtn = modeChip("Explore", v -> startActivity(new Intent(this, ZoeLiveActivity.class)));
         liveBtn.setId(R.id.conversation_live_btn);
+        modeStemBtn = modeChip("Stem", v -> selectBrainMode(BrainMode.STEM));
+        modeStemBtn.setId(R.id.conversation_mode_stem);
+        modeCloudBtn = modeChip("Cloud", v -> selectBrainMode(BrainMode.CLOUD_AI));
+        modeCloudBtn.setId(R.id.conversation_mode_cloud);
+        modeLabBtn = modeChip("Lab", v -> selectBrainMode(BrainMode.LAB_QWEN));
+        modeLabBtn.setId(R.id.conversation_mode_lab);
         Button brainSettingsBtn = modeChip("⚙ Brain", v -> showBrainCouncilSheet());
         brainSettingsBtn.setId(R.id.conversation_brain_settings);
         Button threadsBtn = modeChip("Threads", v -> showThreadsSheet());
@@ -187,24 +187,28 @@ public final class ConversationActivity extends ComponentActivity {
         for (Button b : new Button[]{modeAutoBtn, modeLocalLlmBtn, webToggleBtn, liveBtn, modeStemBtn,
                 modeCloudBtn, modeLabBtn, brainSettingsBtn, threadsBtn, newChatBtn}) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 40));
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             lp.setMargins(0, 0, Ui.dp(this, 6), 0);
             modeRow.addView(b, lp);
         }
         modeStrip.addView(modeRow);
         headerWrap.addView(modeStrip);
 
-        // Status + compact Caption / Voice row (keeps all Espresso IDs immediately accessible!)
-        status = Ui.text(this, "⚡ Auto hybrid ready (offline-first · tap Web: off to enable live citations).", 13.5f, Ui.COBALT);
+        // Whisper-quiet status + slim hairline caption/voice bar (gives +40% breathing room to the chat feed!)
+        status = Ui.text(this, "⚡ Auto hybrid ready · tap Web: off for live citations.", 12.5f, Ui.MUTED);
         status.setId(R.id.conversation_status);
-        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 2), Ui.dp(this, 4), Ui.dp(this, 4));
+        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 2), Ui.dp(this, 4), Ui.dp(this, 2));
         headerWrap.addView(status);
 
         LinearLayout quickRow = new LinearLayout(this);
         quickRow.setOrientation(LinearLayout.HORIZONTAL);
         quickRow.setGravity(Gravity.CENTER_VERTICAL);
-        captionToggle = Ui.button(this, "Caption mode: off", Ui.PINK, null);
+        quickRow.setPadding(0, Ui.dp(this, 2), 0, Ui.dp(this, 2));
+        captionToggle = modeChip("Caption mode: off", null);
         captionToggle.setId(R.id.conversation_captions);
+        captionToggle.setTextSize(12f);
+        captionToggle.setTextColor(Ui.mutedColor(this));
+        captionToggle.setBackground(Ui.tonalPillDrawable(this, Color.TRANSPARENT, Ui.primaryAccent(this), 16));
         captionToggle.setOnClickListener(view -> {
             captionMode = !captionMode;
             captionToggle.setText(captionMode ? "Caption mode: on" : "Caption mode: off");
@@ -215,11 +219,11 @@ public final class ConversationActivity extends ComponentActivity {
         voicePicker = new Spinner(this);
         voicePicker.setId(R.id.conversation_voice);
         voicePicker.setContentDescription("Choose an installed English voice");
-        voicePicker.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 16));
-        LinearLayout.LayoutParams capLp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
-        capLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        voicePicker.setBackground(Ui.tonalPillDrawable(this, Color.TRANSPARENT, Ui.primaryAccent(this), 14));
+        LinearLayout.LayoutParams capLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
+        capLp.setMargins(0, 0, Ui.dp(this, 8), 0);
         quickRow.addView(captionToggle, capLp);
-        quickRow.addView(voicePicker, new LinearLayout.LayoutParams(0, Ui.dp(this, 48), 1.0f));
+        quickRow.addView(voicePicker, new LinearLayout.LayoutParams(0, Ui.dp(this, 34), 1.0f));
         headerWrap.addView(quickRow);
         root.addView(headerWrap);
 
@@ -319,10 +323,19 @@ public final class ConversationActivity extends ComponentActivity {
 
         Button start = Ui.primaryButton(this, "Start talking", Ui.CYAN, view -> startConversation());
         start.setId(R.id.conversation_start);
+        start.setTextSize(13f);
+        start.setMinHeight(Ui.dp(this, 40));
+        start.setMinimumHeight(Ui.dp(this, 40));
         Button stop = Ui.button(this, "Stop", Ui.RUBY, view -> stopConversation());
         stop.setId(R.id.conversation_stop);
+        stop.setTextSize(13f);
+        stop.setMinHeight(Ui.dp(this, 40));
+        stop.setMinimumHeight(Ui.dp(this, 40));
         Button askOtherBtn = Ui.button(this, "Ask AI ↗", Ui.GOLD, view -> showAskOtherAiDialog(
                 typedInput.getText().toString().trim().isEmpty() ? lastUserPrompt() : typedInput.getText().toString().trim()));
+        askOtherBtn.setTextSize(13f);
+        askOtherBtn.setMinHeight(Ui.dp(this, 40));
+        askOtherBtn.setMinimumHeight(Ui.dp(this, 40));
         bottomDock.addView(Ui.buttonRow(this, start, stop, askOtherBtn));
         root.addView(bottomDock);
 
@@ -371,12 +384,15 @@ public final class ConversationActivity extends ComponentActivity {
     private Button modeChip(String label, View.OnClickListener listener) {
         Button b = new Button(this);
         b.setText(label);
-        b.setTextSize(13f);
+        b.setTextSize(12.5f);
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
-        b.setMinHeight(Ui.dp(this, 40));
-        b.setMinimumHeight(Ui.dp(this, 40));
-        b.setPadding(Ui.dp(this, 14), 0, Ui.dp(this, 14), 0);
+        b.setMaxLines(1);
+        b.setMinHeight(Ui.dp(this, 34));
+        b.setMinimumHeight(Ui.dp(this, 34));
+        b.setPadding(Ui.dp(this, 13), 0, Ui.dp(this, 13), 0);
+        b.setTextColor(Ui.mutedColor(this));
+        b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         b.setStateListAnimator(null);
         b.setOnClickListener(listener);
         return b;
@@ -459,10 +475,10 @@ public final class ConversationActivity extends ComponentActivity {
     private void styleChip(Button btn, boolean selected) {
         if (selected) {
             btn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 15, 18) : Color.WHITE);
-            btn.setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 20));
+            btn.setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 17));
         } else {
-            btn.setTextColor(Ui.textColor(this));
-            btn.setBackground(Ui.outlinedPillDrawable(this, Ui.panelColor(this), Ui.dividerColor(this), Ui.primaryAccent(this), 20));
+            btn.setTextColor(Ui.mutedColor(this));
+            btn.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         }
     }
 

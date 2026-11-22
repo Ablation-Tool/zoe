@@ -1,6 +1,6 @@
 # Zoe (beta) — Complete Zapps Guide
 
-Welcome to **Zoe (beta)** (`v0.4.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.6.1-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
 
 > **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
 
@@ -18,7 +18,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 
 ---
 
-## Home Zapps (11 Core Zapps)
+## Home Zapps (15 Core Zapps)
 
 | # | Zapp | Plain-English Purpose | Platforms | Network & Sensors |
 |:-:|:---|:---|:---|:---|
@@ -28,15 +28,15 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 | **4** | **Creative Studio** | **Image Lab** (plain-English & filter photo editor) + native offline **H.264 MP4 Video Maker** | Android · Apple | **100% offline editing & MP4 encoding** (film filters, rotate, crop, privacy blur, captions, Chladni Wave / Photo Story Reel / Starlight videos, zero watermarks); optional BYOK online AI image gen |
 | **5** | **Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe**, **Kloster Signal**, & **20 Questions** | Android · Apple | **100% offline, zero ads, zero tracking** — musical harmonic chimes, Kid Mode & Unbeatable Minimax AI, strict $A_\tau(p)$ puzzle, & mystery trivia |
 | **6** | **Privacy Vault** | Signal-grade **AES-256-GCM** encrypted chat vault, **ECDH/HKDF E2EE**, & **60-digit Safety Number** | Android · Apple | Hardware AndroidKeyStore / Apple CryptoKit P-256 ECDH + HKDF-SHA256 + Symmetric Chain Ratchet + AES-256-GCM at-rest encryption & 1-tap share via Signal |
-| **3** | **Trip Journal** | Save field sightings, photos, and private travel/research notes | Android *(Apple planned)* | Private on-device storage; optional explicit export or workstation sync |
-| **4** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, and Workstation Lab Bridge | Android *(Apple planned)* | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge connects only on tap (`127.0.0.1:8765` or HTTPS) |
-| **5** | **Maps & Safety** | Active OS GPS, compass, Google Maps & Apple Maps handoffs, Personal Safety & Flashlight | Android · Apple | Starts **strictly idle**; opt-in one-shot or live OS GPS + compass + Geocoder (stops automatically on exit); native Apple `MapKit` on iOS; zero Maps API keys or tracking SDKs |
-| **6** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | Android · Apple | **100% offline** math — zero permissions |
-| **7** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
-| **8** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
-| **9** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
-| **10** | **SafeConvert** | Clean offline unit converter with a discreet private safety & crisis layer | Android · Apple | **100% offline, zero network loads** — see [Complete SafeConvert Guide](SAFECONVERT.md) |
-| **11** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
+| **7** | **Trip Journal** | Save field sightings, photos, and private travel/research notes | Android *(Apple planned)* | Private on-device storage; optional explicit export or workstation sync |
+| **8** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, and Workstation Lab Bridge | Android *(Apple planned)* | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge connects only on tap (`127.0.0.1:8765` or HTTPS) |
+| **9** | **Maps & Safety** | Active OS GPS, compass, Google Maps & Apple Maps handoffs, Personal Safety & Flashlight | Android · Apple | Starts **strictly idle**; opt-in one-shot or live OS GPS + compass + Geocoder (stops automatically on exit); native Apple `MapKit` on iOS; zero Maps API keys or tracking SDKs |
+| **10** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | Android · Apple | **100% offline** math — zero permissions |
+| **11** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
+| **12** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
+| **13** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
+| **14** | **SafeConvert** | Clean offline unit converter with a discreet private safety & crisis layer | Android · Apple | **100% offline, zero network loads** — see [Complete SafeConvert Guide](SAFECONVERT.md) |
+| **15** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
 
 ---
 

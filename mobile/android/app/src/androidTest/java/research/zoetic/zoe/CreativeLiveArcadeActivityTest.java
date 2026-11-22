@@ -57,9 +57,9 @@ public class CreativeLiveArcadeActivityTest {
             onView(withId(R.id.arcade_tab_ttt)).perform(click());
             onView(withId(R.id.arcade_ttt_cell0)).perform(click());
             onView(withId(R.id.arcade_ttt_cell0)).check(matches(withText("X")));
-            onView(withId(R.id.arcade_tab_signal)).perform(scrollTo(), click());
+            onView(withId(R.id.arcade_tab_signal)).perform(click());
             onView(withText(containsString("Check Signal Lock"))).check(matches(isDisplayed()));
-            onView(withId(R.id.arcade_tab_20q)).perform(scrollTo(), click());
+            onView(withId(R.id.arcade_tab_20q)).perform(click());
             onView(withText("Is it alive?")).perform(click());
             onView(withId(R.id.arcade_status)).check(matches(withText(containsString("Question 1"))));
         }

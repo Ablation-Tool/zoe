@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
@@ -87,41 +86,41 @@ public final class ZoeArcadeActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 4));
-        header.addView(Ui.topBar(this, "Zoe Arcade", "100% Offline · Ad-Free · Play with Zoe"));
+        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 4));
+        header.addView(Ui.topBar(this, "Zoe Arcade", null));
 
-        HorizontalScrollView tabStrip = new HorizontalScrollView(this);
-        tabStrip.setHorizontalScrollBarEnabled(false);
+        // Clean 4-tab segmented pill bar — ALL 4 tabs fit edge-to-edge cleanly with ZERO clipping!
         LinearLayout tabRow = new LinearLayout(this);
         tabRow.setOrientation(LinearLayout.HORIZONTAL);
-        tabRow.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
+        tabRow.setBackground(Ui.cardBackground(this, 22));
+        tabRow.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4));
 
-        String[] names = {"Memory", "Tic-Tac-Toe", "Kloster Signal", "20 Questions"};
+        String[] names = {"Memory", "Tic-Tac-Toe", "Signal", "20Q"};
         int[] tabIds = {R.id.arcade_tab_memory, R.id.arcade_tab_ttt, R.id.arcade_tab_signal, R.id.arcade_tab_20q};
         tabBtns = new Button[4];
         for (int i = 0; i < 4; i++) {
             final int idx = i;
             Button b = pillChip(names[i], v -> selectGameTab(idx));
             b.setId(tabIds[i]);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 40));
-            lp.setMargins(0, 0, Ui.dp(this, 6), 0);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, Ui.dp(this, 36), 1f);
+            if (i < 3) {
+                lp.setMargins(0, 0, Ui.dp(this, 4), 0);
+            }
             tabRow.addView(b, lp);
             tabBtns[i] = b;
         }
-        tabStrip.addView(tabRow);
-        header.addView(tabStrip);
+        header.addView(tabRow);
 
-        status = Ui.text(this, "Pick a game and play with Zoe offline — zero ads, zero tracking.", 13.5f, Ui.COBALT);
+        status = Ui.text(this, "Play offline with Zoe — zero ads, zero tracking.", 12.5f, Ui.MUTED);
         status.setId(R.id.arcade_status);
-        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4));
+        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 8), Ui.dp(this, 4), Ui.dp(this, 2));
         header.addView(status);
         root.addView(header);
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
         LinearLayout body = Ui.vertical(this);
-        body.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 18));
+        body.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 32));
 
         gamePanels = new LinearLayout[]{
                 buildMemoryPanel(),
@@ -143,10 +142,11 @@ public final class ZoeArcadeActivity extends ComponentActivity {
     private Button pillChip(String label, View.OnClickListener listener) {
         Button b = new Button(this);
         b.setText(label);
-        b.setTextSize(13f);
+        b.setTextSize(12.5f);
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
-        b.setPadding(Ui.dp(this, 14), 0, Ui.dp(this, 14), 0);
+        b.setMaxLines(1);
+        b.setPadding(Ui.dp(this, 6), 0, Ui.dp(this, 6), 0);
         b.setStateListAnimator(null);
         b.setOnClickListener(listener);
         return b;
@@ -158,10 +158,10 @@ public final class ZoeArcadeActivity extends ComponentActivity {
             gamePanels[i].setVisibility(sel ? View.VISIBLE : View.GONE);
             if (sel) {
                 tabBtns[i].setTextColor(Ui.isDark(this) ? Color.rgb(14, 15, 18) : Color.WHITE);
-                tabBtns[i].setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 20));
+                tabBtns[i].setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 18));
             } else {
-                tabBtns[i].setTextColor(Ui.textColor(this));
-                tabBtns[i].setBackground(Ui.outlinedPillDrawable(this, Ui.panelColor(this), Ui.dividerColor(this), Ui.primaryAccent(this), 20));
+                tabBtns[i].setTextColor(Ui.mutedColor(this));
+                tabBtns[i].setBackground(Ui.tonalPillDrawable(this, Color.TRANSPARENT, Ui.primaryAccent(this), 18));
             }
         }
     }
@@ -200,7 +200,10 @@ public final class ZoeArcadeActivity extends ComponentActivity {
 
         Button startMem = Ui.primaryButton(this, "Start GEM Memory", Ui.COBALT, v -> startMemoryGame());
         startMem.setId(R.id.arcade_memory_start);
-        panel.addView(startMem);
+        LinearLayout.LayoutParams smLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        smLp.setMargins(0, Ui.dp(this, 12), 0, 0);
+        panel.addView(startMem, smLp);
         return panel;
     }
 
@@ -329,13 +332,15 @@ public final class ZoeArcadeActivity extends ComponentActivity {
             panel.addView(row);
         }
 
-        tttModeBtn = Ui.button(this, "Difficulty: Unbeatable", Ui.GOLD, v -> {
+        tttModeBtn = Ui.button(this, "Mode: Unbeatable", Ui.GOLD, v -> {
             tttUnbeatable = !tttUnbeatable;
-            tttModeBtn.setText(tttUnbeatable ? "Difficulty: Unbeatable" : "Difficulty: Kid Friendly");
+            tttModeBtn.setText(tttUnbeatable ? "Mode: Unbeatable" : "Mode: Kid Friendly");
             resetTicTacToe();
         });
         Button newBoard = Ui.primaryButton(this, "New Board", Ui.COBALT, v -> resetTicTacToe());
-        panel.addView(Ui.buttonRow(this, newBoard, tttModeBtn));
+        LinearLayout tttActions = Ui.buttonRow(this, newBoard, tttModeBtn);
+        tttActions.setPadding(0, Ui.dp(this, 10), 0, 0);
+        panel.addView(tttActions);
         return panel;
     }
 

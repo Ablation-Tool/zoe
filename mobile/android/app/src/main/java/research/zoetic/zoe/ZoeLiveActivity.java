@@ -104,10 +104,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 4));
-        header.addView(Ui.topBar(this, "Zoe Explore", "Live Voice · 'Hi Zoe' · Optional Camera"));
+        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 4));
+        header.addView(Ui.topBar(this, "Zoe Explore", null));
 
-        // Top quick toggles (Camera, Web & 'Hi Zoe' strictly OFF until tapped!)
+        // Sleek borderless translucent mini-pills (zero harsh borders)
         LinearLayout toggles = new LinearLayout(this);
         toggles.setOrientation(LinearLayout.HORIZONTAL);
         toggles.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
@@ -119,10 +119,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
         webToggleBtn.setId(R.id.live_web_toggle);
         voiceModeBtn = chipButton("Voice: OS", v -> toggleVoiceEngine());
         voiceModeBtn.setId(R.id.live_voice_toggle);
-        for (Button b : new Button[]{cameraToggleBtn, hiZoeToggleBtn, webToggleBtn, voiceModeBtn}) {
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
-            lp.setMargins(0, 0, Ui.dp(this, 4), 0);
-            toggles.addView(b, lp);
+        Button[] toggleBtns = new Button[]{cameraToggleBtn, hiZoeToggleBtn, webToggleBtn, voiceModeBtn};
+        for (int i = 0; i < toggleBtns.length; i++) {
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, Ui.dp(this, 34), 1f);
+            if (i < toggleBtns.length - 1) {
+                lp.setMargins(0, 0, Ui.dp(this, 6), 0);
+            }
+            toggles.addView(toggleBtns[i], lp);
         }
         header.addView(toggles);
         root.addView(header);
@@ -204,7 +207,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         // Bottom live controls
         LinearLayout dock = new LinearLayout(this);
         dock.setOrientation(LinearLayout.HORIZONTAL);
-        dock.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 14));
+        dock.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 18));
         listenBtn = Ui.primaryButton(this, "Talk Now", Ui.COBALT, v -> onOrbTapped());
         listenBtn.setId(R.id.live_talk_button);
         Button stopBtn = Ui.button(this, "End / Mute", Ui.RUBY, v -> stopLiveCall());
@@ -223,11 +226,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private Button chipButton(String label, View.OnClickListener listener) {
         Button b = new Button(this);
         b.setText(label);
-        b.setTextSize(12.5f);
+        b.setTextSize(11.5f);
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
-        b.setTextColor(Ui.textColor(this));
-        b.setBackground(Ui.outlinedPillDrawable(this, Ui.panelColor(this), Ui.dividerColor(this), Ui.primaryAccent(this), 20));
+        b.setMaxLines(1);
+        b.setPadding(Ui.dp(this, 6), 0, Ui.dp(this, 6), 0);
+        b.setTextColor(Ui.mutedColor(this));
+        b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         b.setStateListAnimator(null);
         b.setOnClickListener(listener);
         return b;

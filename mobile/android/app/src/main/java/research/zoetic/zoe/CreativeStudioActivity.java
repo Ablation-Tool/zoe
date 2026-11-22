@@ -83,32 +83,34 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 4));
-        header.addView(Ui.topBar(this, "Creative Studio", "Image Lab · MP4 Video Maker"));
+        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 4));
+        header.addView(Ui.topBar(this, "Creative Studio", null));
 
+        // Clean segmented pill bar (Apple Photos style)
         LinearLayout tabRow = new LinearLayout(this);
         tabRow.setOrientation(LinearLayout.HORIZONTAL);
-        tabRow.setPadding(0, Ui.dp(this, 6), 0, Ui.dp(this, 4));
+        tabRow.setBackground(Ui.cardBackground(this, 22));
+        tabRow.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4));
         tabImageBtn = pillChip("Image Lab", v -> showTab(true));
         tabImageBtn.setId(R.id.studio_tab_image);
         tabVideoBtn = pillChip("Video Maker", v -> showTab(false));
         tabVideoBtn.setId(R.id.studio_tab_video);
-        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(0, Ui.dp(this, 42), 1f);
-        tlp.setMargins(0, 0, Ui.dp(this, 8), 0);
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f);
+        tlp.setMargins(0, 0, Ui.dp(this, 4), 0);
         tabRow.addView(tabImageBtn, tlp);
-        tabRow.addView(tabVideoBtn, new LinearLayout.LayoutParams(0, Ui.dp(this, 42), 1f));
+        tabRow.addView(tabVideoBtn, new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f));
         header.addView(tabRow);
 
-        status = Ui.text(this, "Ready offline — pick any photo or edit Zoe's Atelier canvas below.", 13f, Ui.COBALT);
+        status = Ui.text(this, "Offline studio ready — edit Zoe's Atelier canvas or pick any photo.", 12.5f, Ui.MUTED);
         status.setId(R.id.studio_status);
-        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 2));
+        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 8), Ui.dp(this, 4), Ui.dp(this, 2));
         header.addView(status);
         root.addView(header);
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
         LinearLayout body = Ui.vertical(this);
-        body.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 18));
+        body.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 36));
 
         imagePanel = buildImageLabPanel();
         videoPanel = buildVideoMakerPanel();
@@ -166,6 +168,9 @@ public final class CreativeStudioActivity extends ComponentActivity {
             }
         });
         applyCmdBtn.setId(R.id.studio_apply_cmd);
+        applyCmdBtn.setTextSize(13.5f);
+        applyCmdBtn.setMinHeight(Ui.dp(this, 38));
+        applyCmdBtn.setMinimumHeight(Ui.dp(this, 38));
         cmdRow.addView(commandInput, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         cmdRow.addView(applyCmdBtn);
         LinearLayout.LayoutParams cmdLp = new LinearLayout.LayoutParams(
@@ -173,7 +178,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         cmdLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(cmdRow, cmdLp);
 
-        // Filter preset horizontal pill strip
+        // Filter preset horizontal filmstrip (sleek 34dp pills)
         HorizontalScrollView filterScroll = new HorizontalScrollView(this);
         filterScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout filterRow = new LinearLayout(this);
@@ -185,7 +190,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 status.setText("Filter: " + preset.label);
             });
             LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 38));
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             flp.setMargins(0, 0, Ui.dp(this, 6), 0);
             filterRow.addView(fb, flp);
         }
@@ -195,47 +200,59 @@ public final class CreativeStudioActivity extends ComponentActivity {
         fsLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(filterScroll, fsLp);
 
-        // Quick geometry & privacy controls
-        Button rotateBtn = Ui.button(this, "Rotate 90°", Ui.COBALT, v -> {
+        // Single clean horizontal tool strip (replaces 6 clunky stacked buttons!)
+        HorizontalScrollView toolScroll = new HorizontalScrollView(this);
+        toolScroll.setHorizontalScrollBarEnabled(false);
+        LinearLayout toolRow = new LinearLayout(this);
+        toolRow.setOrientation(LinearLayout.HORIZONTAL);
+        Button rotateBtn = pillChip("Rotate 90°", v -> {
             editSpec.rotationDeg = (editSpec.rotationDeg + 90) % 360;
             refreshImagePreview();
         });
-        cropBtn = Ui.button(this, "Crop: Orig", Ui.CYAN, v -> {
+        cropBtn = pillChip("Crop: Orig", v -> {
             ImageLabEngine.CropMode[] modes = ImageLabEngine.CropMode.values();
             editSpec.crop = modes[(editSpec.crop.ordinal() + 1) % modes.length];
             refreshImagePreview();
         });
-        panel.addView(Ui.buttonRow(this, rotateBtn, cropBtn));
-
-        blurBtn = Ui.button(this, "Privacy blur: off", Ui.GOLD, v -> {
+        blurBtn = pillChip("Blur: off", v -> {
             editSpec.privacyBlur = !editSpec.privacyBlur;
             refreshImagePreview();
         });
-        Button brightBtn = Ui.button(this, "Brighter +", Ui.GREEN, v -> {
+        Button brightBtn = pillChip("Light +", v -> {
             editSpec.brightness = editSpec.brightness >= 48 ? -24 : editSpec.brightness + 24;
             refreshImagePreview();
         });
-        panel.addView(Ui.buttonRow(this, blurBtn, brightBtn));
-
-        Button pickBtn = Ui.button(this, "Pick Photo", Ui.COBALT, v -> pickPhotoLauncher.launch(new String[]{"image/*"}));
-        Button resetBtn = Ui.button(this, "Reset Edits", Ui.MUTED, v -> {
+        Button resetBtn = pillChip("Reset", v -> {
             editSpec = new ImageLabEngine.EditSpec();
             refreshImagePreview();
             status.setText("Reset to original image.");
         });
-        panel.addView(Ui.buttonRow(this, pickBtn, resetBtn));
+        for (Button tb : new Button[]{rotateBtn, cropBtn, blurBtn, brightBtn, resetBtn}) {
+            LinearLayout.LayoutParams tlp2 = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 36));
+            tlp2.setMargins(0, 0, Ui.dp(this, 6), 0);
+            toolRow.addView(tb, tlp2);
+        }
+        toolScroll.addView(toolRow);
+        LinearLayout.LayoutParams tsLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        tsLp.setMargins(0, 0, 0, Ui.dp(this, 14));
+        panel.addView(toolScroll, tsLp);
 
-        Button sharePngBtn = Ui.primaryButton(this, "Save & Share PNG", Ui.GREEN, v -> shareEditedImage());
-        Button toVideoBtn = Ui.button(this, "Use in Video Maker →", Ui.PINK, v -> {
+        // Clean 2-button primary footer
+        Button pickBtn = Ui.button(this, "Pick Photo", Ui.COBALT, v -> pickPhotoLauncher.launch(new String[]{"image/*"}));
+        Button sharePngBtn = Ui.primaryButton(this, "Save & Share", Ui.GREEN, v -> shareEditedImage());
+        panel.addView(Ui.buttonRow(this, pickBtn, sharePngBtn));
+
+        // Quiet secondary disclosure actions (zero bulky box clutter!)
+        Button toVideoBtn = Ui.disclosureButton(this, "Turn into Video Reel →", v -> {
             videoSpec.style = VideoMakerEngine.Style.PHOTO_STORY_REEL;
             showTab(false);
             refreshVideoPreview();
             status.setText("Loaded your edited image into Photo Story Reel!");
         });
-        panel.addView(Ui.buttonRow(this, sharePngBtn, toVideoBtn));
-
-        Button aiGenBtn = Ui.button(this, "✨ Generate AI Image (Optional OpenAI Key)", Ui.GOLD, v -> generateOnlineAiImage());
-        panel.addView(aiGenBtn);
+        Button aiGenBtn = Ui.disclosureButton(this, "✨ AI Art (OpenAI Key)", v -> generateOnlineAiImage());
+        panel.addView(Ui.buttonRow(this, toVideoBtn, aiGenBtn));
 
         return panel;
     }
@@ -265,7 +282,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 status.setText("Video style: " + st.label);
             });
             LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 38));
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             slp.setMargins(0, 0, Ui.dp(this, 6), 0);
             styleRow.addView(sb, slp);
         }
@@ -284,7 +301,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 refreshVideoPreview();
             });
             LinearLayout.LayoutParams plp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 38));
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             plp.setMargins(0, 0, Ui.dp(this, 6), 0);
             palRow.addView(pb, plp);
         }
@@ -296,25 +313,25 @@ public final class CreativeStudioActivity extends ComponentActivity {
         panel.addView(videoTitleInput);
         panel.addView(videoSubInput);
 
-        videoStatus = Ui.text(this, "Encodes a real H.264 .mp4 100% offline using your phone's hardware encoder.", 13f, Ui.MUTED);
+        videoStatus = Ui.text(this, "Encodes a real H.264 .mp4 100% offline using your phone's hardware encoder.", 12.5f, Ui.MUTED);
         videoStatus.setId(R.id.studio_video_status);
-        videoStatus.setPadding(Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 8));
+        videoStatus.setPadding(Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 10));
         panel.addView(videoStatus);
 
-        Button renderBtn = Ui.primaryButton(this, "🎬 Create 4s MP4 Video (Offline)", Ui.COBALT, v -> exportOfflineMp4());
+        Button renderBtn = Ui.primaryButton(this, "🎬 Create MP4", Ui.COBALT, v -> exportOfflineMp4());
         renderBtn.setId(R.id.studio_render_mp4);
         shareVideoBtn = Ui.button(this, "Share MP4", Ui.GREEN, v -> shareExportedVideo());
         shareVideoBtn.setEnabled(false);
         panel.addView(Ui.buttonRow(this, renderBtn, shareVideoBtn));
 
-        Button recordBtn = Ui.button(this, "Record Live Camera Clip", Ui.CYAN, v -> {
+        Button recordBtn = Ui.disclosureButton(this, "Record Live Clip", v -> {
             try {
                 startActivity(new Intent(MediaStore.ACTION_VIDEO_CAPTURE));
             } catch (ActivityNotFoundException ignored) {
                 status.setText("No built-in video recorder available.");
             }
         });
-        Button soundBtn = Ui.button(this, "Preview Zoe Sound", Ui.PINK, v -> {
+        Button soundBtn = Ui.disclosureButton(this, "Preview Zoe Sound", v -> {
             status.setText("Playing Zoe's 44.1 kHz native soprano theme…");
             nativeVoice.singZoe(null);
         });
@@ -342,12 +359,13 @@ public final class CreativeStudioActivity extends ComponentActivity {
     private Button pillChip(String label, View.OnClickListener listener) {
         Button b = new Button(this);
         b.setText(label);
-        b.setTextSize(13f);
+        b.setTextSize(12.5f);
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
+        b.setMaxLines(1);
         b.setPadding(Ui.dp(this, 14), 0, Ui.dp(this, 14), 0);
         b.setTextColor(Ui.textColor(this));
-        b.setBackground(Ui.outlinedPillDrawable(this, Ui.panelColor(this), Ui.dividerColor(this), Ui.primaryAccent(this), 20));
+        b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 18));
         b.setStateListAnimator(null);
         b.setOnClickListener(listener);
         return b;
@@ -363,10 +381,10 @@ public final class CreativeStudioActivity extends ComponentActivity {
     private void styleTab(Button btn, boolean selected) {
         if (selected) {
             btn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 15, 18) : Color.WHITE);
-            btn.setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 20));
+            btn.setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 18));
         } else {
-            btn.setTextColor(Ui.textColor(this));
-            btn.setBackground(Ui.outlinedPillDrawable(this, Ui.panelColor(this), Ui.dividerColor(this), Ui.primaryAccent(this), 20));
+            btn.setTextColor(Ui.mutedColor(this));
+            btn.setBackground(Ui.tonalPillDrawable(this, Color.TRANSPARENT, Ui.primaryAccent(this), 18));
         }
     }
 
@@ -394,7 +412,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         editedBitmap = ImageLabEngine.applyEdits(sourceBitmap, editSpec);
         imagePreview.setImageBitmap(editedBitmap);
         editSummary.setText(editSpec.summary());
-        blurBtn.setText(editSpec.privacyBlur ? "Privacy blur: on" : "Privacy blur: off");
+        blurBtn.setText(editSpec.privacyBlur ? "Blur: on" : "Blur: off");
         cropBtn.setText("Crop: " + editSpec.crop.label);
     }
 

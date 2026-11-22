@@ -313,7 +313,7 @@ final class Ui {
         LinearLayout container = new LinearLayout(activity);
         container.setOrientation(LinearLayout.VERTICAL);
         container.setBackgroundColor(Color.TRANSPARENT);
-        container.setPadding(0, dp(activity, 4), 0, dp(activity, 12));
+        container.setPadding(0, dp(activity, 2), 0, dp(activity, 6));
 
         LinearLayout row = new LinearLayout(activity);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -443,41 +443,45 @@ final class Ui {
         return button(context, label, COBALT, listener);
     }
 
-    /** Primary CTA pill: large 54dp ergonomic Material 3 Expressive stadium pill. */
+    /** Primary CTA pill: refined 48dp Material 3 Expressive stadium pill (never awkwardly wraps). */
     static Button primaryButton(Context context, String label, int accent, View.OnClickListener listener) {
         boolean dark = isDark(context);
         int fill = dark ? Color.rgb(138, 180, 248) : Color.rgb(26, 115, 232);
         int ink = dark ? Color.rgb(14, 15, 18) : Color.WHITE;
         Button button = new Button(context);
         button.setText(label);
-        button.setTextSize(15.5f);
+        button.setTextSize(14.5f);
         button.setTextColor(stateTextColors(ink, withAlpha(textColor(context), 110)));
         button.setTypeface(SANS_MEDIUM);
         button.setAllCaps(false);
-        button.setMinHeight(dp(context, 54));
-        button.setMinimumHeight(dp(context, 54));
-        button.setBackground(statePillDrawable(context, fill, tonalWellColor(context), ink, 27));
-        button.setPadding(dp(context, 20), dp(context, 12), dp(context, 20), dp(context, 12));
+        button.setMaxLines(1);
+        button.setEllipsize(TextUtils.TruncateAt.END);
+        button.setMinHeight(dp(context, 48));
+        button.setMinimumHeight(dp(context, 48));
+        button.setBackground(statePillDrawable(context, fill, tonalWellColor(context), ink, 24));
+        button.setPadding(dp(context, 16), dp(context, 8), dp(context, 16), dp(context, 8));
         button.setOnClickListener(listener);
         button.setContentDescription(label);
         button.setStateListAnimator(null);
         return button;
     }
 
-    /** Secondary action pill: 50dp soft borderless Google Gemini tonal pill (contrasts both on canvas & inside cards). */
+    /** Secondary action pill: 46dp airy tonal pill with subtle hairline definition (single-line crisp). */
     static Button button(Context context, String label, int accent, View.OnClickListener listener) {
         int fill = tonalWellColor(context);
         int ink = textColor(context);
         Button button = new Button(context);
         button.setText(label);
-        button.setTextSize(15f);
+        button.setTextSize(14f);
         button.setTextColor(stateTextColors(ink, withAlpha(ink, 95)));
         button.setTypeface(SANS_MEDIUM);
         button.setAllCaps(false);
-        button.setMinHeight(dp(context, 50));
-        button.setMinimumHeight(dp(context, 50));
-        button.setBackground(statePillDrawable(context, fill, withAlpha(fill, 110), primaryAccent(context), 25));
-        button.setPadding(dp(context, 18), dp(context, 10), dp(context, 18), dp(context, 10));
+        button.setMaxLines(1);
+        button.setEllipsize(TextUtils.TruncateAt.END);
+        button.setMinHeight(dp(context, 46));
+        button.setMinimumHeight(dp(context, 46));
+        button.setBackground(statePillDrawable(context, fill, withAlpha(fill, 110), primaryAccent(context), 23));
+        button.setPadding(dp(context, 14), dp(context, 8), dp(context, 14), dp(context, 8));
         button.setOnClickListener(listener);
         button.setContentDescription(label);
         button.setStateListAnimator(null);
@@ -551,10 +555,12 @@ final class Ui {
         return input;
     }
 
-    /** Soft borderless Google Gemini elevated surface. */
+    /** Soft Google Gemini elevated surface with whisper-thin glass edge definition. */
     static GradientDrawable cardBackground(Context context, int radiusDp) {
+        boolean dark = isDark(context);
         GradientDrawable background = new GradientDrawable();
         background.setColor(panelColor(context));
+        background.setStroke(strokePx(context, 0.75f), withAlpha(dividerColor(context), dark ? 80 : 120));
         background.setCornerRadius(dp(context, radiusDp));
         return background;
     }
