@@ -10,6 +10,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -28,6 +29,9 @@ public class CreativeLiveArcadeActivityTest {
             onView(withId(R.id.live_camera_toggle)).check(matches(withText("Camera: off")));
             onView(withId(R.id.live_hizoe_toggle)).check(matches(withText("Hi Zoe: off")));
             onView(withId(R.id.live_web_toggle)).check(matches(withText("Web: off")));
+            onView(withId(R.id.live_field_toggle)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.live_field_toggle)).check(matches(withText("Field: off")));
+            onView(withId(R.id.live_ar_mode_toggle)).check(matches(not(isDisplayed())));
             onView(withId(R.id.live_web_toggle)).perform(click());
             onView(withId(R.id.live_web_toggle)).check(matches(withText("Web: on")));
             onView(withId(R.id.live_stop_button)).perform(click());

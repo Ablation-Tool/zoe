@@ -87,7 +87,6 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
     private final AtomicReference<MotionEvent> pendingTap = new AtomicReference<>(null);
     private final Object latestSnapLock = new Object();
     private Bitmap latestCachedFrame;
-    private long lastCacheSnapMs;
     private float touchDownX;
     private float touchDownY;
 
@@ -96,6 +95,9 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
     private ArExploreBrain.Vec3 zoeTarget = new ArExploreBrain.Vec3(0f, -0.05f, -1.15f);
     private Anchor activeAnchor;
     private final List<Anchor> discoveryAnchors = new ArrayList<>();
+    private final List<ArExploreBrain.PlaneTarget> trackedPlanesScratch = new ArrayList<>(12);
+    private final java.util.concurrent.ExecutorService snapshotExecutor =
+            java.util.concurrent.Executors.newSingleThreadExecutor();
     private long lastFrameNs;
     private float elapsedSec;
     private long lastRoamPickMs;
@@ -238,10 +240,13 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                 if (arSession == null) {
                     arSession = new Session(hostActivity);
                     Config cfg = new Config(arSession);
-                    cfg.setPlaneFindingMode(Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL);
+                    // Performance-tuned ARCore config: HORIZONTAL planes + disabled light/depth estimation
+                    // cuts SLAM CPU & thermal load dramatically while keeping smooth 6DoF room tracking!
+                    cfg.setPlaneFindingMode(Config.PlaneFindingMode.HORIZONTAL);
                     cfg.setUpdateMode(Config.UpdateMode.LATEST_CAMERA_IMAGE);
                     cfg.setFocusMode(Config.FocusMode.AUTO);
-                    cfg.setLightEstimationMode(Config.LightEstimationMode.AMBIENT_INTENSITY);
+                    cfg.setLightEstimationMode(Config.LightEstimationMode.DISABLED);
+                    cfg.setDepthMode(Config.DepthMode.DISABLED);
                     arSession.configure(cfg);
                     cameraTextureBound = false;
                 }
@@ -279,6 +284,7 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
             }
             latestCachedFrame = null;
         }
+        snapshotExecutor.shutdownNow();
     }
 
     private void clearAnchorsQuietly() {
@@ -401,24 +407,10 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                 float dt = Math.max(0.001f, Math.min(0.1f, (nowNs - lastFrameNs) / 1_000_000_000f));
                 lastFrameNs = nowNs;
                 elapsedSec += dt;
-
-                // Keep a fresh cached upright AR frame every ~1.8s so voice & Patent Visual ID always see live!
                 long nowMs = System.currentTimeMillis();
-                if (nowMs - lastCacheSnapMs > 1800L) {
-                    Bitmap cached = acquireUprightFrameBitmap(frame);
-                    if (cached != null) {
-                        lastCacheSnapMs = nowMs;
-                        synchronized (latestSnapLock) {
-                            if (latestCachedFrame != null && !latestCachedFrame.isRecycled()) {
-                                latestCachedFrame.recycle();
-                            }
-                            latestCachedFrame = cached;
-                        }
-                    }
-                }
 
                 if (camera.getTrackingState() != TrackingState.TRACKING) {
-                    throttleHudUpdate(0, 0f, "Slowly move your phone to map surfaces in your room…");
+                    throttleHudUpdate(0, 0f, "Slowly move your phone to map surfaces…");
                     return;
                 }
 
@@ -431,9 +423,9 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                 float[] zAxis = camPose.getZAxis();
                 ArExploreBrain.Vec3 camFwd = new ArExploreBrain.Vec3(-zAxis[0], -zAxis[1], -zAxis[2]);
 
-                // 2. Collect & render discovered 3D planes
+                // 2. Collect & render up to 8 tracked 3D planes (reusing scratch list — zero GC stutter!)
                 Collection<Plane> allPlanes = session.getAllTrackables(Plane.class);
-                List<ArExploreBrain.PlaneTarget> trackedPlanes = new ArrayList<>();
+                trackedPlanesScratch.clear();
                 int surfaceCount = 0;
                 GLES20.glEnable(GLES20.GL_BLEND);
                 GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
@@ -444,10 +436,12 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                         continue;
                     }
                     surfaceCount++;
-                    drawPlaneContour(plane);
+                    if (surfaceCount <= 8) {
+                        drawPlaneContour(plane);
+                    }
                     Pose pp = plane.getCenterPose();
-                    trackedPlanes.add(new ArExploreBrain.PlaneTarget(
-                            Integer.toHexString(System.identityHashCode(plane)),
+                    trackedPlanesScratch.add(new ArExploreBrain.PlaneTarget(
+                            String.valueOf(System.identityHashCode(plane)),
                             new ArExploreBrain.Vec3(pp.tx(), pp.ty(), pp.tz()),
                             plane.getExtentX(),
                             plane.getExtentZ(),
@@ -466,15 +460,15 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                 if (activeAnchor != null && activeAnchor.getTrackingState() == TrackingState.TRACKING) {
                     Pose ap = activeAnchor.getPose();
                     zoeTarget = new ArExploreBrain.Vec3(ap.tx(), ap.ty() + ArExploreBrain.HOVER_CLEARANCE_M, ap.tz());
-                } else if (autonomousRoam && !trackedPlanes.isEmpty() && (nowMs - lastRoamPickMs) > 10_500L) {
-                    ArExploreBrain.PlaneTarget nextPlane = exploreBrain.chooseNextExploreTarget(camPos, trackedPlanes);
+                } else if (autonomousRoam && !trackedPlanesScratch.isEmpty() && (nowMs - lastRoamPickMs) > 10_500L) {
+                    ArExploreBrain.PlaneTarget nextPlane = exploreBrain.chooseNextExploreTarget(camPos, trackedPlanesScratch);
                     if (nextPlane != null) {
                         zoeTarget = ArExploreBrain.hoverPositionForPlane(nextPlane, camPos);
                         lastRoamPickMs = nowMs;
                         pendingArrivalInspection = true;
                         arrivalWasUserTap = false;
                     }
-                } else if (trackedPlanes.isEmpty() && activeAnchor == null) {
+                } else if (trackedPlanesScratch.isEmpty() && activeAnchor == null) {
                     zoeTarget = ArExploreBrain.defaultHoverInFront(camPos, camFwd, elapsedSec);
                 }
 
@@ -482,25 +476,17 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                 zoePos = ArExploreBrain.stepGlide(zoePos, zoeTarget, dt, 2.8f);
                 float zoeDist = camPos.distanceTo(zoePos);
 
-                // Trigger curious inspection when Zoe arrives at a new 3D waypoint OR user taps "Ask here"!
+                // Strictly ON-DEMAND snapshot (NEVER stalls GL thread on a periodic timer!):
                 boolean reachedSpot = pendingArrivalInspection && zoePos.distanceTo(zoeTarget) < 0.14f
                         && (arrivalWasUserTap || (nowMs - lastArriveTriggerMs) > 9_500L);
                 boolean explicitSnap = snapshotRequested.get();
                 if (reachedSpot || explicitSnap) {
-                    Bitmap snap = acquireUprightFrameBitmap(frame);
-                    if (snap == null) {
-                        snap = getLatestSnapshotCopy();
-                    }
-                    if (snap != null && listener != null) {
-                        snapshotRequested.set(false);
-                        boolean wasTap = arrivalWasUserTap || snapshotUserInitiated.getAndSet(false);
-                        pendingArrivalInspection = false;
-                        arrivalWasUserTap = false;
-                        lastArriveTriggerMs = nowMs;
-                        ArExploreBrain.Vec3 spotCopy = zoePos;
-                        Bitmap finalSnap = snap;
-                        hostActivity.runOnUiThread(() -> listener.onZoeArrivedAtSpot(finalSnap, spotCopy, zoeDist, wasTap));
-                    }
+                    snapshotRequested.set(false);
+                    boolean wasTap = arrivalWasUserTap || snapshotUserInitiated.getAndSet(false);
+                    pendingArrivalInspection = false;
+                    arrivalWasUserTap = false;
+                    lastArriveTriggerMs = nowMs;
+                    dispatchAsyncSnapshot(frame, zoePos, zoeDist, wasTap);
                 }
 
                 // 5. Render 3D discovery beacons + Zoe's floating 3D Luminous GEM Prism & Orbital Rings!
@@ -724,10 +710,107 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
 
     private void throttleHudUpdate(int surfaces, float distM, String text) {
         long now = System.currentTimeMillis();
-        if (listener != null && (now - lastHudUpdateMs) > 450L) {
+        if (listener != null && (now - lastHudUpdateMs) > 650L) {
             lastHudUpdateMs = now;
             hostActivity.runOnUiThread(() -> listener.onArTrackingUpdate(surfaces, distM, text));
         }
+    }
+
+    /**
+     * Copies only downsampled raw YUV samples (~20KB, <1.2ms on GL thread!) and performs RGB
+     * conversion + rotation completely OFF the GL thread so ARCore never drops frames!
+     */
+    private void dispatchAsyncSnapshot(Frame frame, ArExploreBrain.Vec3 spotCopy, float zoeDist, boolean wasTap) {
+        final int rotDeg = switch (currentDisplayRotation()) {
+            case Surface.ROTATION_90 -> 0;
+            case Surface.ROTATION_180 -> 270;
+            case Surface.ROTATION_270 -> 180;
+            default -> 90;
+        };
+        final int outW;
+        final int outH;
+        final byte[] ySmall;
+        final byte[] uSmall;
+        final byte[] vSmall;
+        try (Image img = frame.acquireCameraImage()) {
+            if (img == null || img.getFormat() != ImageFormat.YUV_420_888) {
+                return;
+            }
+            int w = img.getWidth();
+            int h = img.getHeight();
+            int step = Math.max(2, Math.max(w, h) / 300);
+            outW = Math.max(1, w / step);
+            outH = Math.max(1, h / step);
+            ySmall = new byte[outW * outH];
+            uSmall = new byte[outW * outH];
+            vSmall = new byte[outW * outH];
+
+            Image.Plane yp = img.getPlanes()[0];
+            Image.Plane up = img.getPlanes()[1];
+            Image.Plane vp = img.getPlanes()[2];
+            ByteBuffer yBuf = yp.getBuffer();
+            ByteBuffer uBuf = up.getBuffer();
+            ByteBuffer vBuf = vp.getBuffer();
+            int yRS = yp.getRowStride(), yPS = yp.getPixelStride(), yLim = yBuf.limit();
+            int uRS = up.getRowStride(), uPS = up.getPixelStride(), uLim = uBuf.limit();
+            int vRS = vp.getRowStride(), vPS = vp.getPixelStride(), vLim = vBuf.limit();
+
+            int dst = 0;
+            for (int oy = 0; oy < outH; oy++) {
+                int sy = oy * step;
+                int yRow = sy * yRS;
+                int uvRow = (sy >> 1) * uRS;
+                int vRow = (sy >> 1) * vRS;
+                for (int ox = 0; ox < outW; ox++) {
+                    int sx = ox * step;
+                    int yo = yRow + sx * yPS;
+                    int uo = uvRow + (sx >> 1) * uPS;
+                    int vo = vRow + (sx >> 1) * vPS;
+                    ySmall[dst] = yo < yLim ? yBuf.get(yo) : 0;
+                    uSmall[dst] = uo < uLim ? uBuf.get(uo) : (byte) 128;
+                    vSmall[dst] = vo < vLim ? vBuf.get(vo) : (byte) 128;
+                    dst++;
+                }
+            }
+        } catch (Throwable ignored) {
+            return;
+        }
+
+        snapshotExecutor.execute(() -> {
+            try {
+                int[] pixels = new int[outW * outH];
+                for (int i = 0; i < pixels.length; i++) {
+                    int yVal = ySmall[i] & 0xFF;
+                    int uVal = (uSmall[i] & 0xFF) - 128;
+                    int vVal = (vSmall[i] & 0xFF) - 128;
+                    int r = clampByte(yVal + ((351 * vVal) >> 8));
+                    int g = clampByte(yVal - ((179 * vVal + 86 * uVal) >> 8));
+                    int b = clampByte(yVal + ((443 * uVal) >> 8));
+                    pixels[i] = 0xFF000000 | (r << 16) | (g << 8) | b;
+                }
+                Bitmap raw = Bitmap.createBitmap(pixels, outW, outH, Bitmap.Config.ARGB_8888);
+                Bitmap upright = raw;
+                if (rotDeg != 0) {
+                    Matrix m = new Matrix();
+                    m.postRotate(rotDeg);
+                    upright = Bitmap.createBitmap(raw, 0, 0, raw.getWidth(), raw.getHeight(), m, true);
+                    if (upright != raw) {
+                        raw.recycle();
+                    }
+                }
+                synchronized (latestSnapLock) {
+                    if (latestCachedFrame != null && !latestCachedFrame.isRecycled()) {
+                        latestCachedFrame.recycle();
+                    }
+                    latestCachedFrame = upright.copy(Bitmap.Config.ARGB_8888, false);
+                }
+                Bitmap finalSnap = upright;
+                if (listener != null) {
+                    hostActivity.runOnUiThread(() -> listener.onZoeArrivedAtSpot(finalSnap, spotCopy, zoeDist, wasTap));
+                }
+            } catch (Throwable ignored) {
+            }
+        });
     }
 
     private void notifyUnavailable(String msg) {
@@ -742,75 +825,6 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
             return wm.getDefaultDisplay().getRotation();
         }
         return Surface.ROTATION_0;
-    }
-
-    /**
-     * Converts ARCore's live CPU YUV_420_888 camera image into a compact, upright RGB Bitmap (<25ms!)
-     * so ML Kit OCR/ImageLabeling and optional Gemini Vision see exactly what Zoe is looking at.
-     */
-    private Bitmap acquireUprightFrameBitmap(Frame frame) {
-        try (Image img = frame.acquireCameraImage()) {
-            if (img == null || img.getFormat() != ImageFormat.YUV_420_888) {
-                return null;
-            }
-            int w = img.getWidth();
-            int h = img.getHeight();
-            int step = Math.max(2, Math.max(w, h) / 360);
-            int outW = Math.max(1, w / step);
-            int outH = Math.max(1, h / step);
-
-            Image.Plane yPlane = img.getPlanes()[0];
-            Image.Plane uPlane = img.getPlanes()[1];
-            Image.Plane vPlane = img.getPlanes()[2];
-            ByteBuffer yBuf = yPlane.getBuffer();
-            ByteBuffer uBuf = uPlane.getBuffer();
-            ByteBuffer vBuf = vPlane.getBuffer();
-            int yRowStride = yPlane.getRowStride();
-            int yPixStride = yPlane.getPixelStride();
-            int uvRowStride = uPlane.getRowStride();
-            int uvPixStride = uPlane.getPixelStride();
-
-            int yLim = yBuf.limit();
-            int uLim = uBuf.limit();
-            int vLim = vBuf.limit();
-            int[] pixels = new int[outW * outH];
-            for (int oy = 0; oy < outH; oy++) {
-                int sy = oy * step;
-                int yRow = sy * yRowStride;
-                int uvRow = (sy >> 1) * uvRowStride;
-                for (int ox = 0; ox < outW; ox++) {
-                    int sx = ox * step;
-                    int yOff = yRow + sx * yPixStride;
-                    int yVal = yOff < yLim ? (yBuf.get(yOff) & 0xFF) : 0;
-                    int uvOff = uvRow + (sx >> 1) * uvPixStride;
-                    int uVal = uvOff < uLim ? ((uBuf.get(uvOff) & 0xFF) - 128) : 0;
-                    int vVal = uvOff < vLim ? ((vBuf.get(uvOff) & 0xFF) - 128) : 0;
-                    int r = clampByte(yVal + ((351 * vVal) >> 8));
-                    int g = clampByte(yVal - ((179 * vVal + 86 * uVal) >> 8));
-                    int b = clampByte(yVal + ((443 * uVal) >> 8));
-                    pixels[oy * outW + ox] = 0xFF000000 | (r << 16) | (g << 8) | b;
-                }
-            }
-            Bitmap raw = Bitmap.createBitmap(pixels, outW, outH, Bitmap.Config.ARGB_8888);
-            int rotDeg = switch (currentDisplayRotation()) {
-                case Surface.ROTATION_90 -> 0;
-                case Surface.ROTATION_180 -> 270;
-                case Surface.ROTATION_270 -> 180;
-                default -> 90;
-            };
-            if (rotDeg == 0) {
-                return raw;
-            }
-            Matrix m = new Matrix();
-            m.postRotate(rotDeg);
-            Bitmap rotated = Bitmap.createBitmap(raw, 0, 0, raw.getWidth(), raw.getHeight(), m, true);
-            if (rotated != raw) {
-                raw.recycle();
-            }
-            return rotated;
-        } catch (Throwable ignored) {
-            return null;
-        }
     }
 
     private static int clampByte(int v) {

@@ -84,8 +84,12 @@
     <item name="live_flip_camera" type="id" />
     <item name="live_cam_live_button" type="id" />
     <item name="live_ar_toggle" type="id" />
+    <item name="live_ar_mode_toggle" type="id" />
     <item name="live_ar_roam_toggle" type="id" />
     <item name="live_ar_ask_button" type="id" />
+    <item name="live_field_toggle" type="id" />
+    <item name="live_dual_cam_btn" type="id" />
+    <item name="live_telemetry_hud" type="id" />
     <item name="live_talk_button" type="id" />
     <item name="live_stop_button" type="id" />
     <item name="studio_tab_image" type="id" />

@@ -310,6 +310,29 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertTrue(q.contains("guitar"))
         XCTAssertTrue(q.contains("FENDER"))
         XCTAssertTrue(q.hasSuffix("?"))
+
+        // 60fps Spatial Projection + Dual-Cam Light-Field + ENU Grid + CERN Kloster Fusion parity
+        let idMat: [Float] = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+        let worldPt = ArExploreCore.unprojectTapToWorld(tapX: 720, tapY: 880, viewW: 1080, viewH: 2400, rotMat3x3: idMat, depthMeters: 1.30)
+        let proj = ArExploreCore.projectWorldToScreen(worldPos: worldPt, rotMat3x3: idMat, viewW: 1080, viewH: 2400)
+        XCTAssertTrue(proj.inFront && proj.onScreen)
+        XCTAssertEqual(proj.screenX, 720, accuracy: 2.5)
+        XCTAssertEqual(proj.screenY, 880, accuracy: 2.5)
+
+        let lf = ArExploreCore.computeLightField(rearLuma: 0.25, frontLuma: 0.90, calibrated: true)
+        XCTAssertTrue(lf.backlightRatio > 2.0 && lf.rimIntensity > 0.75)
+
+        let enu = ArExploreCore.toLocalEnuGrid(originLat: 36.6177, originLon: -121.9166, originAlt: 15, curLat: 36.6187, curLon: -121.9166, curAlt: 18)
+        XCTAssertEqual(enu.northMeters, 111.19, accuracy: 1.0)
+        XCTAssertEqual(enu.upMeters, 3.0, accuracy: 0.01)
+
+        let fused = ArExploreCore.fuseSpatialChannels(
+            imuStability: 0.9, acousticEnergy: 0.35, opticalEnergy: 0.5,
+            wifiEnergy: 0.7, bleEnergy: 0.4, cellEnergy: 0.6, acousticEchoMeters: 1.8
+        )
+        XCTAssertTrue(fused.klosterATau >= 3 && fused.klosterATau <= 6)
+        XCTAssertTrue(fused.klosterM4Root >= 0.26 && fused.klosterM4Root <= 1.0)
+        XCTAssertEqual(fused.suggestedDepthMeters, 1.8 * 0.68, accuracy: 0.05)
     }
 
     func testSafeBeaconMeshRotatingPacketsAndTamperRejection() {

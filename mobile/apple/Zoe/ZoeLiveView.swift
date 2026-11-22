@@ -22,52 +22,78 @@ struct ZoeLiveView: View {
     @State private var stateLabel = "TAP ORB TO GO LIVE · MIC & CAMERA START OFF"
 
     var body: some View {
-        VStack(spacing: 14) {
-            HStack(spacing: 6) {
-                Button(arModeOn ? "Camera: AR" : (cameraOn ? "Camera: on" : "Camera: off")) {
-                    if arModeOn {
-                        arModeOn = false
-                        return
-                    }
-                    cameraOn.toggle()
-                    if cameraOn {
-                        camera.start()
-                    } else {
-                        camera.stop()
-                    }
-                }
-                .buttonStyle(GemKeycapButtonStyle(accent: (cameraOn || arModeOn) ? GemPalette.emerald : GemPalette.muted))
-
-                Button(hiZoeMode ? "Hi Zoe: on" : "Hi Zoe: off") {
-                    hiZoeMode.toggle()
-                    if hiZoeMode {
-                        active = true
-                        stateLabel = "WAITING FOR 'HI ZOE' · VISIBLE OPT-IN"
-                        caption = "\"Hi Zoe\" hangout mode is active. Say \"Hi Zoe\" anytime — tap End / Mute to turn off."
-                        speech.start()
-                    } else {
-                        stopLive()
-                    }
-                }
-                .buttonStyle(GemKeycapButtonStyle(accent: hiZoeMode ? GemPalette.seafoam : GemPalette.muted))
-
-                Button(useNativeVoice ? "Voice: Zoe 44k" : "Voice: iOS") {
-                    useNativeVoice.toggle()
-                }
-                .buttonStyle(GemKeycapButtonStyle(accent: useNativeVoice ? GemPalette.ruby : GemPalette.muted))
-            }
-            .padding(.horizontal, 16)
-
+        let fullScreen = cameraOn || arModeOn
+        ZStack {
+            // Layer 0: True edge-to-edge full-screen Camera / ARKit stage when active
             if arModeOn {
-                ZStack(alignment: .topLeading) {
-                    ZoeArKitSpaceView(roamEnabled: $arRoamOn, statusText: $arStatus) { spotted in
-                        let q = ArExploreCore.buildCuriousQuestion(for: spotted)
-                        caption = q
-                        speakClean(q)
-                    }
-                    .frame(height: 320)
-                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                ZoeArKitSpaceView(roamEnabled: $arRoamOn, statusText: $arStatus) { spotted in
+                    let q = ArExploreCore.buildCuriousQuestion(for: spotted)
+                    caption = q
+                    speakClean(q)
+                }
+                .ignoresSafeArea()
+            } else if cameraOn {
+                CameraPreview(session: camera.session)
+                    .ignoresSafeArea()
+            }
 
+            // Soft top & bottom gradient scrims over full-screen camera/AR for high-contrast HUD legibility
+            if fullScreen {
+                VStack(spacing: 0) {
+                    LinearGradient(
+                        colors: [Color.black.opacity(0.68), Color.black.opacity(0.22), Color.clear],
+                        startPoint: .top, endPoint: .bottom
+                    )
+                    .frame(height: 170)
+                    Spacer()
+                    LinearGradient(
+                        colors: [Color.black.opacity(0.76), Color.black.opacity(0.32), Color.clear],
+                        startPoint: .bottom, endPoint: .top
+                    )
+                    .frame(height: 240)
+                }
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
+            }
+
+            // Layer 1: Floating foreground controls (never boxes in the camera!)
+            VStack(spacing: 12) {
+                HStack(spacing: 6) {
+                    Button(arModeOn ? "Camera: AR" : (cameraOn ? "Camera: on" : "Camera: off")) {
+                        if arModeOn {
+                            arModeOn = false
+                            return
+                        }
+                        cameraOn.toggle()
+                        if cameraOn {
+                            camera.start()
+                        } else {
+                            camera.stop()
+                        }
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: (cameraOn || arModeOn) ? GemPalette.emerald : GemPalette.muted))
+
+                    Button(hiZoeMode ? "Hi Zoe: on" : "Hi Zoe: off") {
+                        hiZoeMode.toggle()
+                        if hiZoeMode {
+                            active = true
+                            stateLabel = "WAITING FOR 'HI ZOE' · VISIBLE OPT-IN"
+                            caption = "\"Hi Zoe\" hangout mode is active. Say \"Hi Zoe\" anytime — tap End / Mute to turn off."
+                            speech.start()
+                        } else {
+                            stopLive()
+                        }
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: hiZoeMode ? GemPalette.seafoam : GemPalette.muted))
+
+                    Button(useNativeVoice ? "Voice: Zoe 44k" : "Voice: iOS") {
+                        useNativeVoice.toggle()
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: useNativeVoice ? GemPalette.ruby : GemPalette.muted))
+                }
+                .padding(.horizontal, 16)
+
+                if arModeOn {
                     HStack {
                         Text(arStatus)
                             .font(.caption2.weight(.semibold))
@@ -80,155 +106,161 @@ struct ZoeLiveView: View {
                             arRoamOn.toggle()
                         }
                         .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.white)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
                         .background(.ultraThinMaterial, in: Capsule())
                     }
-                    .padding(10)
-                }
-                .padding(.horizontal, 16)
-            } else if cameraOn {
-                ZStack(alignment: .topTrailing) {
-                    CameraPreview(session: camera.session)
-                        .frame(height: 210)
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                    Button("Look now") {
-                        camera.inspect()
-                        let sight = camera.narration
-                        caption = sight
-                        speakClean(sight)
+                    .padding(.horizontal, 16)
+                } else if cameraOn {
+                    HStack {
+                        Text("● LIVE SIGHT · FULL SCREEN")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(.ultraThinMaterial, in: Capsule())
+                        Spacer()
+                        Button("Look now") {
+                            camera.inspect()
+                            let sight = camera.narration
+                            caption = sight
+                            speakClean(sight)
+                        }
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial, in: Capsule())
                     }
-                    .font(.caption.weight(.semibold))
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(.ultraThinMaterial, in: Capsule())
-                    .padding(10)
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
-            }
 
-            if !arModeOn {
                 Spacer(minLength: 4)
-                Button(action: onOrbTap) {
-                    ZStack {
-                        // Iridescent fluid aurora rings matching Android LiveOrbView (v0.9.5-beta)
-                        Circle()
-                            .fill(RadialGradient(
-                                colors: [
-                                    (active ? GemPalette.emerald : GemPalette.cobalt).opacity(0.68),
-                                    GemPalette.seafoam.opacity(0.24),
-                                    GemPalette.ruby.opacity(0.08),
-                                    Color.clear,
-                                ],
-                                center: .center,
-                                startRadius: 16,
-                                endRadius: cameraOn ? 82 : 116
-                            ))
-                            .frame(width: cameraOn ? 156 : 224, height: cameraOn ? 156 : 224)
-                            .scaleEffect(pulse ? 1.07 : 0.94)
-                            .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: pulse)
 
-                        Ellipse()
-                            .stroke(
-                                LinearGradient(
-                                    colors: [GemPalette.cobalt.opacity(0.75), GemPalette.seafoam.opacity(0.55), GemPalette.ruby.opacity(0.45)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 2.4
-                            )
-                            .frame(width: cameraOn ? 116 : 166, height: cameraOn ? 84 : 118)
-                            .rotationEffect(.degrees(pulse ? 26 : -14))
-                            .animation(.easeInOut(duration: 3.4).repeatForever(autoreverses: true), value: pulse)
+                if !fullScreen {
+                    Button(action: onOrbTap) {
+                        ZStack {
+                            // Iridescent fluid aurora rings matching Android LiveOrbView (v0.9.6-beta)
+                            Circle()
+                                .fill(RadialGradient(
+                                    colors: [
+                                        (active ? GemPalette.emerald : GemPalette.cobalt).opacity(0.68),
+                                        GemPalette.seafoam.opacity(0.24),
+                                        GemPalette.ruby.opacity(0.08),
+                                        Color.clear,
+                                    ],
+                                    center: .center,
+                                    startRadius: 16,
+                                    endRadius: 116
+                                ))
+                                .frame(width: 224, height: 224)
+                                .scaleEffect(pulse ? 1.07 : 0.94)
+                                .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: pulse)
 
-                        Ellipse()
-                            .stroke(
-                                LinearGradient(
-                                    colors: [GemPalette.seafoam.opacity(0.65), GemPalette.ochre.opacity(0.42), GemPalette.cobalt.opacity(0.60)],
-                                    startPoint: .bottomLeading,
-                                    endPoint: .topTrailing
-                                ),
-                                lineWidth: 1.8
-                            )
-                            .frame(width: cameraOn ? 92 : 132, height: cameraOn ? 124 : 172)
-                            .rotationEffect(.degrees(pulse ? -24 : 18))
-                            .animation(.easeInOut(duration: 2.9).repeatForever(autoreverses: true), value: pulse)
+                            Ellipse()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [GemPalette.cobalt.opacity(0.75), GemPalette.seafoam.opacity(0.55), GemPalette.ruby.opacity(0.45)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 2.4
+                                )
+                                .frame(width: 166, height: 118)
+                                .rotationEffect(.degrees(pulse ? 26 : -14))
+                                .animation(.easeInOut(duration: 3.4).repeatForever(autoreverses: true), value: pulse)
 
-                        Circle()
-                            .stroke(Color.white.opacity(0.28), lineWidth: 1.2)
-                            .frame(width: cameraOn ? 94 : 132, height: cameraOn ? 94 : 132)
+                            Ellipse()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [GemPalette.seafoam.opacity(0.65), GemPalette.ochre.opacity(0.42), GemPalette.cobalt.opacity(0.60)],
+                                        startPoint: .bottomLeading,
+                                        endPoint: .topTrailing
+                                    ),
+                                    lineWidth: 1.8
+                                )
+                                .frame(width: 132, height: 172)
+                                .rotationEffect(.degrees(pulse ? -24 : 18))
+                                .animation(.easeInOut(duration: 2.9).repeatForever(autoreverses: true), value: pulse)
 
-                        Image("RubySprout")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: cameraOn ? 46 : 64, height: cameraOn ? 46 : 64)
+                            Circle()
+                                .stroke(Color.white.opacity(0.28), lineWidth: 1.2)
+                                .frame(width: 132, height: 132)
+
+                            Image("RubySprout")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 64, height: 64)
+                        }
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Zoe Explore orb. Tap to speak or interrupt.")
+                    Spacer(minLength: 4)
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Zoe Explore orb. Tap to speak or interrupt.")
-            }
 
-            Text(stateLabel)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(GemPalette.cobalt)
+                Text(stateLabel)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(fullScreen ? Color.white : GemPalette.cobalt)
 
-            Text(caption)
-                .font(.body)
-                .foregroundStyle(GemPalette.ink)
-                .multilineTextAlignment(.center)
-                .padding(16)
-                .frame(maxWidth: .infinity)
-                .gemCard(radius: 22)
+                Text(caption)
+                    .font(.body)
+                    .foregroundStyle(fullScreen ? Color.white : GemPalette.ink)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(fullScreen ? 3 : 6)
+                    .padding(14)
+                    .frame(maxWidth: .infinity)
+                    .background(fullScreen ? AnyShapeStyle(.ultraThinMaterial) : AnyShapeStyle(Color.clear))
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .padding(.horizontal, 16)
+
+                HStack(spacing: 8) {
+                    Button(arModeOn ? "✦ AR: On" : "✦ AR Space") {
+                        if arModeOn {
+                            arModeOn = false
+                        } else {
+                            cameraOn = false
+                            camera.stop()
+                            arModeOn = true
+                            onOrbTap()
+                        }
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: arModeOn ? GemPalette.cobalt : GemPalette.muted))
+
+                    Button("Calm fact") {
+                        let reply = brain.respond("Tell me a short calming science fact about nature.").reply
+                        caption = reply
+                        speakClean(reply)
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.seafoam))
+
+                    Button("Sing Zoe") {
+                        stateLabel = "SINGING ZOE (44.1 kHz OFFLINE)"
+                        caption = "Singing Zoe's native soprano melody offline…"
+                        nativeVoice.singZoe()
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.ruby))
+                }
                 .padding(.horizontal, 16)
 
-            HStack(spacing: 8) {
-                Button(arModeOn ? "✦ AR: On" : "✦ AR Space") {
-                    if arModeOn {
+                HStack(spacing: 8) {
+                    Button(active ? "Listening…" : "Talk Now", action: onOrbTap)
+                        .buttonStyle(GemPrimaryButtonStyle())
+                    Button(arModeOn ? "AR Live" : (cameraOn && active ? "Cam Live" : "Live + Cam")) {
                         arModeOn = false
-                    } else {
-                        cameraOn = false
-                        camera.stop()
-                        arModeOn = true
+                        if !cameraOn {
+                            cameraOn = true
+                            camera.start()
+                        }
                         onOrbTap()
                     }
+                    .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.seafoam))
+                    Button("End / Mute", action: stopLive)
+                        .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.ruby))
                 }
-                .buttonStyle(GemKeycapButtonStyle(accent: arModeOn ? GemPalette.cobalt : GemPalette.muted))
-
-                Button("Calm fact") {
-                    let reply = brain.respond("Tell me a short calming science fact about nature.").reply
-                    caption = reply
-                    speakClean(reply)
-                }
-                .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.seafoam))
-
-                Button("Sing Zoe") {
-                    stateLabel = "SINGING ZOE (44.1 kHz OFFLINE)"
-                    caption = "Singing Zoe's native soprano melody offline…"
-                    nativeVoice.singZoe()
-                }
-                .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.ruby))
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
             }
-            .padding(.horizontal, 16)
-
-            Spacer(minLength: 4)
-
-            HStack(spacing: 8) {
-                Button(active ? "Listening…" : "Talk Now", action: onOrbTap)
-                    .buttonStyle(GemPrimaryButtonStyle())
-                Button(arModeOn ? "AR Live" : (cameraOn && active ? "Cam Live" : "Live + Cam")) {
-                    arModeOn = false
-                    if !cameraOn {
-                        cameraOn = true
-                        camera.start()
-                    }
-                    onOrbTap()
-                }
-                .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.seafoam))
-                Button("End / Mute", action: stopLive)
-                    .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.ruby))
-            }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
         }
         .gemScreen()
         .onAppear {

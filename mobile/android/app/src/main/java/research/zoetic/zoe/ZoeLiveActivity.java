@@ -9,11 +9,20 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.graphics.drawable.GradientDrawable;
+import android.location.Location;
 import android.media.AudioAttributes;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +33,7 @@ import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
+import android.util.Size;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +48,8 @@ import android.widget.TextView;
 import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
@@ -47,6 +59,7 @@ import androidx.core.content.ContextCompat;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -90,31 +103,47 @@ public final class ZoeLiveActivity extends ComponentActivity {
     }
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final ExecutorService cameraAnalysisExecutor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final AtomicLong activeTurnId = new AtomicLong(0L);
     private final AtomicLong listenGen = new AtomicLong(0L);
     private final AtomicBoolean cameraAnalysisBusy = new AtomicBoolean(false);
+    private final Object latestCamFrameLock = new Object();
+    private Bitmap latestCameraBitmap;
+    private long lastCameraBitmapMs;
     private final ArExploreBrain arBrain = new ArExploreBrain();
+    private SpatialTelemetryCollector spatialTelemetry;
 
     private ZoeBrainEngine brain;
     private ZoeNativeVoice nativeVoice;
     private OnDeviceLlmEngine localLlm;
     private final List<ChatHistoryStore.ChatMessage> sessionHistory = new ArrayList<>();
 
+    private ZoeBackdropView idleBackdrop;
+    private FrameLayout fullScreenMediaLayer;
+    private View topScrim;
+    private View bottomScrim;
     private LiveOrbView orbView;
     private TextView stateBadge;
     private TextView captionView;
     private ScrollView captionScroll;
+    private View fullScreenSpacer;
+    private LinearLayout quickChips;
+    private LinearLayout hudBar;
+    private LinearLayout sensorHudBar;
+    private TextView telemetryHudLine;
     private PreviewView cameraPreview;
-    private FrameLayout cameraCard;
-    private TextView cameraSightPill;
-    private FrameLayout arCard;
+    private ZoeSpatialOverlayView spatialOverlayView;
     private FrameLayout arSurfaceHost;
     private ZoeArSurfaceView arSurfaceView;
-    private TextView arHudPill;
+    private TextView liveHudPill;
+    private TextView arTapHint;
     private Button arToggleBtn;
+    private Button arModeBtn;
     private Button arRoamBtn;
     private Button arAskBtn;
+    private Button fieldToggleBtn;
+    private Button dualCamBtn;
     private Button cameraToggleBtn;
     private Button lookNowBtn;
     private Button flipCamBtn;
@@ -132,8 +161,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private boolean ttsReady;
     private boolean cameraOn;
     private boolean arModeOn;
+    private boolean useHeavyArCore6Dof;
     private boolean arRoamEnabled = true;
     private boolean useFrontCamera;
+    private boolean spatialFieldOn;
+    private volatile boolean dualCamSweepPending;
+    private boolean dualCamReturnToBack;
+    private final AtomicBoolean acousticPingBusy = new AtomicBoolean(false);
     private boolean webOn;
     private boolean hiZoeWakeMode;
     private boolean useNativeVoice;
@@ -143,6 +177,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private volatile OrbState currentOrbState = OrbState.IDLE;
 
     private volatile String latestCameraReport = "";
+    private volatile String latestSpatialContext = "";
     private volatile byte[] latestCameraJpeg;
     private volatile float latestArDistanceMeters = 0f;
     private String pendingSpeechOnReady = "";
@@ -167,6 +202,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         brain = new ZoeBrainEngine(this);
         nativeVoice = new ZoeNativeVoice();
         localLlm = new OnDeviceLlmEngine(this);
+        spatialTelemetry = new SpatialTelemetryCollector(this, this::onSpatialTelemetryUpdated);
 
         // Pre-warm on-device ML Kit singletons, clean-room visual atlas & shared LiteRT LLM + KV-cache in background!
         executor.execute(() -> {
@@ -179,6 +215,79 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
         });
 
+        // Root Full-Screen Stage:
+        //   Layer 0: Atmospheric idle backdrop (hidden during camera/AR to save GPU overdraw)
+        //   Layer 1: TRUE FULL-SCREEN edge-to-edge CameraX Hardware SurfaceView + 60fps Spatial Companion / ARCore
+        //   Layer 2: Clean floating translucent glass HUD & controls (never boxes in the camera!)
+        FrameLayout stageRoot = new FrameLayout(this);
+        stageRoot.setBackgroundColor(Ui.bgColor(this));
+
+        idleBackdrop = new ZoeBackdropView(this);
+        stageRoot.addView(idleBackdrop, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        fullScreenMediaLayer = new FrameLayout(this);
+        fullScreenMediaLayer.setBackgroundColor(Color.BLACK);
+        fullScreenMediaLayer.setVisibility(View.GONE);
+
+        // Zero-copy hardware SurfaceView camera preview (60/90fps edge-to-edge full screen!)
+        cameraPreview = new PreviewView(this);
+        cameraPreview.setImplementationMode(PreviewView.ImplementationMode.PERFORMANCE);
+        cameraPreview.setScaleType(PreviewView.ScaleType.FILL_CENTER);
+        fullScreenMediaLayer.addView(cameraPreview, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Ultra-light 60fps IMU-Quaternion 3D Spatial Zoe Companion overlay (zero ARCore lag!)
+        spatialOverlayView = new ZoeSpatialOverlayView(this, new ZoeSpatialOverlayView.Listener() {
+            @Override
+            public void onSpatialHudUpdate(float distanceMeters, String statusHint) {
+                latestArDistanceMeters = distanceMeters;
+                if (arModeOn && !useHeavyArCore6Dof && !isFinishing() && !isDestroyed()) {
+                    liveHudPill.setText(statusHint);
+                }
+            }
+
+            @Override
+            public void onSpatialArrived(ArExploreBrain.Vec3 worldPos, float distanceMeters, boolean userTapped) {
+                latestArDistanceMeters = distanceMeters;
+                if (!arModeOn || useHeavyArCore6Dof || isFinishing() || isDestroyed()) {
+                    return;
+                }
+                Bitmap snap = getLatestCameraFrameCopy();
+                if (snap != null) {
+                    handleArSpotInspection(snap, worldPos, distanceMeters, userTapped);
+                }
+            }
+        });
+        spatialOverlayView.setVisibility(View.GONE);
+        fullScreenMediaLayer.addView(spatialOverlayView, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Optional optimized ARCore 6DoF full-screen surface host
+        arSurfaceHost = new FrameLayout(this);
+        arSurfaceHost.setVisibility(View.GONE);
+        fullScreenMediaLayer.addView(arSurfaceHost, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Soft top & bottom gradient scrims so floating HUD stays crisp over bright sunlight or dark rooms
+        topScrim = new View(this);
+        topScrim.setBackground(new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{Color.argb(190, 6, 10, 18), Color.argb(90, 6, 10, 18), Color.TRANSPARENT}));
+        fullScreenMediaLayer.addView(topScrim, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 196), Gravity.TOP));
+
+        bottomScrim = new View(this);
+        bottomScrim.setBackground(new GradientDrawable(
+                GradientDrawable.Orientation.BOTTOM_TOP,
+                new int[]{Color.argb(215, 6, 10, 18), Color.argb(120, 6, 10, 18), Color.TRANSPARENT}));
+        fullScreenMediaLayer.addView(bottomScrim, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 260), Gravity.BOTTOM));
+
+        stageRoot.addView(fullScreenMediaLayer, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        // Foreground Chrome Layer (edge-to-edge inset padded)
         LinearLayout root = Ui.vertical(this);
         root.setBackgroundColor(Color.TRANSPARENT);
 
@@ -208,99 +317,30 @@ public final class ZoeLiveActivity extends ComponentActivity {
             toggles.addView(toggleBtns[i], lp);
         }
         header.addView(toggles);
-        root.addView(header);
 
-        captionScroll = new ScrollView(this);
-        captionScroll.setFillViewport(true);
-        captionScroll.setBackgroundColor(Color.TRANSPARENT);
-        LinearLayout center = Ui.vertical(this);
-        center.setBackgroundColor(Color.TRANSPARENT);
-        center.setGravity(Gravity.CENTER_HORIZONTAL);
-        center.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 12));
+        // Floating Full-Screen Camera / Spatial AR HUD Strip (shown ONLY when camera or AR is active!)
+        hudBar = new LinearLayout(this);
+        hudBar.setOrientation(LinearLayout.HORIZONTAL);
+        hudBar.setGravity(Gravity.CENTER_VERTICAL);
+        hudBar.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 2));
+        hudBar.setVisibility(View.GONE);
 
-        // Concentric Live Camera Sight Card (20dp outer, 6dp frame, 14dp inner radius — hidden & OFF until tapped!)
-        cameraCard = new FrameLayout(this);
-        cameraCard.setBackground(Ui.cardBackground(this, 20));
-        cameraCard.setPadding(Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
-        cameraPreview = new PreviewView(this);
-        cameraPreview.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
-        cameraPreview.setScaleType(PreviewView.ScaleType.FILL_CENTER);
-        cameraPreview.setOutlineProvider(new android.view.ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, android.graphics.Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 14));
-            }
-        });
-        cameraPreview.setClipToOutline(true);
-        cameraCard.addView(cameraPreview, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        liveHudPill = Ui.text(this, "● LIVE SIGHT", 11f, Ui.GREEN);
+        liveHudPill.setTypeface(Ui.SANS_MEDIUM);
+        liveHudPill.setPadding(Ui.dp(this, 10), Ui.dp(this, 5), Ui.dp(this, 10), Ui.dp(this, 5));
+        liveHudPill.setBackground(Ui.tonalPillDrawable(this, Color.argb(185, 14, 18, 26), Ui.GREEN, 14));
+        hudBar.addView(liveHudPill);
 
-        // Subtle live overlay controls inside camera viewfinder (LIVE SIGHT pill + Flip + Look now)
-        LinearLayout camOverlayTop = new LinearLayout(this);
-        camOverlayTop.setOrientation(LinearLayout.HORIZONTAL);
-        camOverlayTop.setGravity(Gravity.CENTER_VERTICAL);
-        camOverlayTop.setPadding(Ui.dp(this, 10), Ui.dp(this, 10), Ui.dp(this, 10), 0);
+        View hudSpacer = new View(this);
+        hudBar.addView(hudSpacer, new LinearLayout.LayoutParams(0, 1, 1f));
 
-        cameraSightPill = Ui.text(this, "● LIVE SIGHT", 11f, Ui.GREEN);
-        cameraSightPill.setTypeface(Ui.SANS_MEDIUM);
-        cameraSightPill.setPadding(Ui.dp(this, 10), Ui.dp(this, 5), Ui.dp(this, 10), Ui.dp(this, 5));
-        cameraSightPill.setBackground(Ui.tonalPillDrawable(this, Color.argb(185, 14, 18, 26), Ui.GREEN, 14));
-        camOverlayTop.addView(cameraSightPill);
-
-        View camSpacer = new View(this);
-        camOverlayTop.addView(camSpacer, new LinearLayout.LayoutParams(0, 1, 1f));
-
-        flipCamBtn = chipButton("⇄ Flip", v -> flipCamera());
-        flipCamBtn.setId(R.id.live_flip_camera);
-        flipCamBtn.setTextColor(Color.WHITE);
-        flipCamBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(185, 14, 18, 26), Ui.primaryAccent(this), 16));
-        LinearLayout.LayoutParams flipLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32));
-        flipLp.setMargins(0, 0, Ui.dp(this, 6), 0);
-        camOverlayTop.addView(flipCamBtn, flipLp);
-
-        lookNowBtn = chipButton("Look now", v -> describeLiveViewProactively());
-        lookNowBtn.setId(R.id.live_look_button);
-        lookNowBtn.setTextColor(Color.WHITE);
-        lookNowBtn.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.COBALT), 215), Ui.COBALT, 16));
-        camOverlayTop.addView(lookNowBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32)));
-
-        cameraCard.addView(camOverlayTop, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP));
-        cameraCard.setVisibility(View.GONE);
-
-        LinearLayout.LayoutParams camLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 236));
-        camLp.setMargins(0, 0, 0, Ui.dp(this, 10));
-        center.addView(cameraCard, camLp);
-
-        // Concentric ARCore 6DoF 3D Interactive Room Card (20dp outer, 6dp frame, 14dp inner radius)
-        arCard = new FrameLayout(this);
-        arCard.setBackground(Ui.cardBackground(this, 20));
-        arCard.setPadding(Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
-        arSurfaceHost = new FrameLayout(this);
-        arSurfaceHost.setOutlineProvider(new android.view.ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, android.graphics.Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 14));
-            }
-        });
-        arSurfaceHost.setClipToOutline(true);
-        arCard.addView(arSurfaceHost, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        LinearLayout arOverlayTop = new LinearLayout(this);
-        arOverlayTop.setOrientation(LinearLayout.HORIZONTAL);
-        arOverlayTop.setGravity(Gravity.CENTER_VERTICAL);
-        arOverlayTop.setPadding(Ui.dp(this, 10), Ui.dp(this, 10), Ui.dp(this, 10), 0);
-
-        arHudPill = Ui.text(this, "● AR 6DoF · Scanning room…", 11f, Ui.GREEN);
-        arHudPill.setTypeface(Ui.SANS_MEDIUM);
-        arHudPill.setPadding(Ui.dp(this, 10), Ui.dp(this, 5), Ui.dp(this, 10), Ui.dp(this, 5));
-        arHudPill.setBackground(Ui.tonalPillDrawable(this, Color.argb(195, 14, 18, 26), Ui.GREEN, 14));
-        arOverlayTop.addView(arHudPill);
-
-        View arSpacer = new View(this);
-        arOverlayTop.addView(arSpacer, new LinearLayout.LayoutParams(0, 1, 1f));
+        arModeBtn = chipButton("Gyro 60", v -> toggleArTrackingMode());
+        arModeBtn.setId(R.id.live_ar_mode_toggle);
+        arModeBtn.setTextColor(Color.WHITE);
+        arModeBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(190, 26, 56, 108), Ui.CYAN, 16));
+        LinearLayout.LayoutParams modeLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32));
+        modeLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        hudBar.addView(arModeBtn, modeLp);
 
         arRoamBtn = chipButton("Roam: on", v -> toggleArRoam());
         arRoamBtn.setId(R.id.live_ar_roam_toggle);
@@ -308,35 +348,83 @@ public final class ZoeLiveActivity extends ComponentActivity {
         arRoamBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(195, 22, 92, 76), Ui.GREEN, 16));
         LinearLayout.LayoutParams roamLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32));
         roamLp.setMargins(0, 0, Ui.dp(this, 6), 0);
-        arOverlayTop.addView(arRoamBtn, roamLp);
+        hudBar.addView(arRoamBtn, roamLp);
 
-        arAskBtn = chipButton("Ask here", v -> {
-            if (arSurfaceView != null) {
-                arSurfaceView.requestInstantLook();
-            }
-        });
+        flipCamBtn = chipButton("⇄", v -> flipCamera());
+        flipCamBtn.setId(R.id.live_flip_camera);
+        flipCamBtn.setContentDescription("Flip camera");
+        flipCamBtn.setTextColor(Color.WHITE);
+        flipCamBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(185, 14, 18, 26), Ui.primaryAccent(this), 16));
+        LinearLayout.LayoutParams flipLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32));
+        flipLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        hudBar.addView(flipCamBtn, flipLp);
+
+        lookNowBtn = chipButton("Look", v -> describeLiveViewProactively());
+        lookNowBtn.setId(R.id.live_look_button);
+        lookNowBtn.setTextColor(Color.WHITE);
+        lookNowBtn.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.COBALT), 215), Ui.COBALT, 16));
+        hudBar.addView(lookNowBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32)));
+
+        arAskBtn = chipButton("Ask", v -> triggerArInstantLook());
         arAskBtn.setId(R.id.live_ar_ask_button);
         arAskBtn.setTextColor(Color.WHITE);
         arAskBtn.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.COBALT), 220), Ui.COBALT, 16));
-        arOverlayTop.addView(arAskBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32)));
-        arCard.addView(arOverlayTop, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP));
+        hudBar.addView(arAskBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32)));
 
-        TextView arTapHint = Ui.text(this, "Tap anywhere in your space to call Zoe over", 11.5f, Ui.TEXT);
-        arTapHint.setTextColor(Color.WHITE);
-        arTapHint.setPadding(Ui.dp(this, 12), Ui.dp(this, 5), Ui.dp(this, 12), Ui.dp(this, 5));
-        arTapHint.setBackground(Ui.tonalPillDrawable(this, Color.argb(165, 14, 18, 26), Ui.COBALT, 14));
-        FrameLayout.LayoutParams hintLp = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
-        hintLp.setMargins(0, 0, 0, Ui.dp(this, 12));
-        arCard.addView(arTapHint, hintLp);
-        arCard.setVisibility(View.GONE);
+        header.addView(hudBar);
 
-        LinearLayout.LayoutParams arLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 348));
-        arLp.setMargins(0, 0, 0, Ui.dp(this, 10));
-        center.addView(arCard, arLp);
+        // Secondary Opt-In Spatial Telemetry Strip (CERN Kloster A_tau/M4 · Dual-Cam Backlight · Acoustic Echo · Google Earth)
+        sensorHudBar = new LinearLayout(this);
+        sensorHudBar.setOrientation(LinearLayout.HORIZONTAL);
+        sensorHudBar.setGravity(Gravity.CENTER_VERTICAL);
+        sensorHudBar.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 2));
+        sensorHudBar.setVisibility(View.GONE);
+
+        fieldToggleBtn = chipButton("Field: off", v -> toggleSpatialField());
+        fieldToggleBtn.setId(R.id.live_field_toggle);
+        fieldToggleBtn.setTextColor(Color.WHITE);
+        fieldToggleBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(175, 16, 22, 34), Ui.CYAN, 15));
+        LinearLayout.LayoutParams fieldLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 30));
+        fieldLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        sensorHudBar.addView(fieldToggleBtn, fieldLp);
+
+        dualCamBtn = chipButton("Dual-Cam", v -> runDualCamAmbientSweep());
+        dualCamBtn.setId(R.id.live_dual_cam_btn);
+        dualCamBtn.setTextColor(Color.WHITE);
+        dualCamBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(175, 22, 34, 58), Ui.COBALT, 15));
+        LinearLayout.LayoutParams dualLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 30));
+        dualLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        sensorHudBar.addView(dualCamBtn, dualLp);
+
+        telemetryHudLine = Ui.text(this, "Tap Field: CERN Aτ/M₄ · RF · ENU · Echo/Earth", 10.5f, Ui.TEXT);
+        telemetryHudLine.setId(R.id.live_telemetry_hud);
+        telemetryHudLine.setTextColor(Color.rgb(188, 236, 255));
+        telemetryHudLine.setMaxLines(2);
+        telemetryHudLine.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        telemetryHudLine.setPadding(Ui.dp(this, 10), Ui.dp(this, 4), Ui.dp(this, 10), Ui.dp(this, 4));
+        telemetryHudLine.setBackground(Ui.tonalPillDrawable(this, Color.argb(165, 10, 14, 24), Ui.CYAN, 14));
+        telemetryHudLine.setClickable(true);
+        telemetryHudLine.setOnClickListener(Ui.withHaptic(v -> onTelemetryHudTapped()));
+        sensorHudBar.addView(telemetryHudLine, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+
+        header.addView(sensorHudBar);
+        root.addView(header);
+
+        // Transparent touch-passthrough window over the full-screen camera/AR stage!
+        fullScreenSpacer = new View(this);
+        fullScreenSpacer.setClickable(false);
+        fullScreenSpacer.setFocusable(false);
+        fullScreenSpacer.setVisibility(View.GONE);
+        root.addView(fullScreenSpacer, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+
+        // Idle / Voice-Only Center Scroll (hidden during full-screen camera/AR so the camera owns the entire screen!)
+        captionScroll = new ScrollView(this);
+        captionScroll.setFillViewport(true);
+        captionScroll.setBackgroundColor(Color.TRANSPARENT);
+        LinearLayout center = Ui.vertical(this);
+        center.setBackgroundColor(Color.TRANSPARENT);
+        center.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        center.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 8));
 
         // Breathing 60fps Audio-Reactive GEM Orb (tap anytime to talk or interrupt mid-sentence!)
         orbView = new LiveOrbView(this);
@@ -348,27 +436,48 @@ public final class ZoeLiveActivity extends ComponentActivity {
         LinearLayout.LayoutParams orbLp = new LinearLayout.LayoutParams(Ui.dp(this, 212), Ui.dp(this, 212));
         orbLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
         center.addView(orbView, orbLp);
+        captionScroll.addView(center);
+        root.addView(captionScroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+
+        // Shared Bottom Translucent Overlay Column (State Badge + Caption + Quick Chips + Control Dock)
+        LinearLayout bottomStack = Ui.vertical(this);
+        bottomStack.setBackgroundColor(Color.TRANSPARENT);
+        bottomStack.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 14));
+
+        arTapHint = Ui.text(this, "Tap anywhere in your view to glide Zoe over", 11.5f, Ui.TEXT);
+        arTapHint.setTextColor(Color.WHITE);
+        arTapHint.setGravity(Gravity.CENTER);
+        arTapHint.setPadding(Ui.dp(this, 12), Ui.dp(this, 4), Ui.dp(this, 12), Ui.dp(this, 4));
+        arTapHint.setBackground(Ui.tonalPillDrawable(this, Color.argb(150, 10, 14, 24), Ui.CYAN, 14));
+        LinearLayout.LayoutParams hintLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        hintLp.gravity = Gravity.CENTER_HORIZONTAL;
+        hintLp.setMargins(0, 0, 0, Ui.dp(this, 6));
+        arTapHint.setVisibility(View.GONE);
+        bottomStack.addView(arTapHint, hintLp);
 
         stateBadge = Ui.text(this, "TAP ORB TO TALK · MIC & CAMERA OFF", 12f, Ui.COBALT);
         stateBadge.setId(R.id.live_state_badge);
         stateBadge.setTypeface(Ui.SANS_MEDIUM);
         stateBadge.setGravity(Gravity.CENTER);
-        center.addView(stateBadge);
+        bottomStack.addView(stateBadge);
 
         captionView = Ui.text(this,
-                "Hi, I'm Zoe. Tap the orb to talk, or tap Live + Cam to show me around.",
-                15.5f, Ui.TEXT);
+                "Hi, I'm Zoe. Tap the orb to talk, or tap Live + Cam for full-screen sight.",
+                15f, Ui.TEXT);
         captionView.setId(R.id.live_caption_view);
         captionView.setGravity(Gravity.CENTER);
-        captionView.setPadding(Ui.dp(this, 18), Ui.dp(this, 16), Ui.dp(this, 18), Ui.dp(this, 16));
-        captionView.setBackground(Ui.cardBackground(this, 22));
+        captionView.setMaxLines(4);
+        captionView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        captionView.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 12));
+        captionView.setBackground(Ui.cardBackground(this, 20));
         LinearLayout.LayoutParams capLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        capLp.setMargins(0, Ui.dp(this, 12), 0, Ui.dp(this, 12));
-        center.addView(captionView, capLp);
+        capLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 10));
+        bottomStack.addView(captionView, capLp);
 
-        // Clean borderless quick actions (✦ AR Space · Calm fact · Sing Zoe)
-        LinearLayout quickChips = new LinearLayout(this);
+        // Quick actions row (✦ AR Space · Calm fact · Sing Zoe)
+        quickChips = new LinearLayout(this);
         quickChips.setOrientation(LinearLayout.HORIZONTAL);
         quickChips.setGravity(Gravity.CENTER);
         arToggleBtn = chipButton("✦ AR Space", v -> toggleArSpace());
@@ -389,22 +498,21 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 }
             }));
         });
-        LinearLayout.LayoutParams qLp1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
+        LinearLayout.LayoutParams qLp1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f);
         qLp1.setMargins(0, 0, Ui.dp(this, 8), 0);
-        LinearLayout.LayoutParams qLp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
+        LinearLayout.LayoutParams qLp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f);
         qLp2.setMargins(0, 0, Ui.dp(this, 8), 0);
         quickChips.addView(arToggleBtn, qLp1);
         quickChips.addView(q1, qLp2);
-        quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f));
-        center.addView(quickChips);
+        quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f));
+        LinearLayout.LayoutParams qcLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        qcLp.setMargins(0, 0, 0, Ui.dp(this, 10));
+        bottomStack.addView(quickChips, qcLp);
 
-        captionScroll.addView(center);
-        root.addView(captionScroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
-
-        // Symmetric 3-button Bottom Control Dock (16dp rails, 8dp gutters, equal 1:1:1 visual weight)
+        // Symmetric 3-button Bottom Control Dock (1:1:1 equal visual weight)
         LinearLayout dock = new LinearLayout(this);
         dock.setOrientation(LinearLayout.HORIZONTAL);
-        dock.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 16));
 
         listenBtn = Ui.primaryButton(this, "Talk Now", Ui.COBALT, v -> onOrbTapped());
         listenBtn.setId(R.id.live_talk_button);
@@ -425,11 +533,16 @@ public final class ZoeLiveActivity extends ComponentActivity {
         dock.addView(listenBtn, dlp1);
         dock.addView(liveCamBtn, dlp2);
         dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-        root.addView(dock);
+        bottomStack.addView(dock);
+        root.addView(bottomStack);
 
-        setContentView(Ui.wrapWithBackdrop(this, root));
+        stageRoot.addView(root, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        setContentView(stageRoot);
         Ui.configureEdgeToEdge(this, root);
         applyResponsiveGeometry(getResources().getConfiguration());
+        updateFullScreenVisualMode();
         styleHeaderPills();
         initTts();
     }
@@ -442,21 +555,86 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
     private void applyResponsiveGeometry(Configuration cfg) {
         boolean landscape = cfg != null && cfg.orientation == Configuration.ORIENTATION_LANDSCAPE;
-        int camH = Ui.dp(this, landscape ? 168 : 236);
-        int arH = Ui.dp(this, landscape ? 220 : 348);
-        int orbSize = Ui.dp(this, cameraOn ? (landscape ? 92 : 132) : (landscape ? 128 : 204));
-        if (cameraCard != null && cameraCard.getLayoutParams() != null) {
-            cameraCard.getLayoutParams().height = camH;
-            cameraCard.requestLayout();
-        }
-        if (arCard != null && arCard.getLayoutParams() != null) {
-            arCard.getLayoutParams().height = arH;
-            arCard.requestLayout();
-        }
+        int orbSize = Ui.dp(this, landscape ? 132 : 212);
         if (orbView != null && orbView.getLayoutParams() != null) {
             orbView.getLayoutParams().width = orbSize;
             orbView.getLayoutParams().height = orbSize;
             orbView.requestLayout();
+        }
+        syncSpatialOverlayOptics(!landscape);
+    }
+
+    private void syncSpatialOverlayOptics(boolean portrait) {
+        if (spatialTelemetry == null || spatialOverlayView == null) {
+            return;
+        }
+        SpatialTelemetryFusion.CameraOptics optics = spatialTelemetry.getCameraOptics(portrait);
+        spatialOverlayView.setVerticalFovRad(optics.activeFovRad(useFrontCamera));
+    }
+
+    private void updateFullScreenVisualMode() {
+        boolean fullScreen = cameraOn || arModeOn;
+        if (idleBackdrop != null) {
+            idleBackdrop.setVisibility(fullScreen ? View.GONE : View.VISIBLE);
+        }
+        if (fullScreenMediaLayer != null) {
+            fullScreenMediaLayer.setVisibility(fullScreen ? View.VISIBLE : View.GONE);
+        }
+        if (captionScroll != null) {
+            captionScroll.setVisibility(fullScreen ? View.GONE : View.VISIBLE);
+        }
+        if (fullScreenSpacer != null) {
+            fullScreenSpacer.setVisibility(fullScreen ? View.VISIBLE : View.GONE);
+        }
+        if (orbView != null) {
+            orbView.setAnimationRunning(!fullScreen);
+        }
+        if (hudBar != null) {
+            hudBar.setVisibility(fullScreen ? View.VISIBLE : View.GONE);
+        }
+        if (sensorHudBar != null) {
+            sensorHudBar.setVisibility(fullScreen ? View.VISIBLE : View.GONE);
+        }
+        if (dualCamBtn != null) {
+            dualCamBtn.setVisibility((cameraOn || (arModeOn && !useHeavyArCore6Dof)) ? View.VISIBLE : View.GONE);
+        }
+        if (arTapHint != null) {
+            arTapHint.setVisibility(arModeOn ? View.VISIBLE : View.GONE);
+            arTapHint.setText(useHeavyArCore6Dof
+                    ? "6DoF ARCore · Tap any surface to anchor Zoe"
+                    : "Spatial 60fps · Tap anywhere to glide Zoe over");
+        }
+        if (arModeBtn != null) {
+            arModeBtn.setVisibility(arModeOn ? View.VISIBLE : View.GONE);
+            arModeBtn.setText(useHeavyArCore6Dof ? "6DoF" : "Gyro 60");
+        }
+        if (arRoamBtn != null) {
+            arRoamBtn.setVisibility(arModeOn ? View.VISIBLE : View.GONE);
+        }
+        if (arAskBtn != null) {
+            arAskBtn.setVisibility(arModeOn ? View.VISIBLE : View.GONE);
+        }
+        if (lookNowBtn != null) {
+            lookNowBtn.setVisibility(cameraOn && !arModeOn ? View.VISIBLE : View.GONE);
+        }
+        if (flipCamBtn != null) {
+            flipCamBtn.setVisibility((cameraOn || (arModeOn && !useHeavyArCore6Dof)) ? View.VISIBLE : View.GONE);
+        }
+        if (captionView != null) {
+            if (fullScreen) {
+                captionView.setTextColor(Color.WHITE);
+                captionView.setMaxLines(3);
+                captionView.setBackground(Ui.tonalPillDrawable(this, Color.argb(178, 10, 14, 24), Ui.primaryAccent(this), 20));
+            } else {
+                captionView.setTextColor(Ui.textColor(this));
+                captionView.setMaxLines(6);
+                captionView.setBackground(Ui.cardBackground(this, 20));
+            }
+        }
+        if (stateBadge != null && fullScreen) {
+            stateBadge.setTextColor(Color.rgb(138, 224, 255));
+        } else if (stateBadge != null) {
+            stateBadge.setTextColor(Ui.resolveColor(this, Ui.COBALT));
         }
     }
 
@@ -467,7 +645,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
         b.setMaxLines(1);
-        b.setPadding(Ui.dp(this, 8), 0, Ui.dp(this, 8), 0);
+        b.setMinWidth(0);
+        b.setMinimumWidth(0);
+        b.setMinHeight(0);
+        b.setMinimumHeight(0);
+        b.setPadding(Ui.dp(this, 10), 0, Ui.dp(this, 10), 0);
         b.setTextColor(Ui.mutedColor(this));
         b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         b.setStateListAnimator(null);
@@ -759,12 +941,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
         startCamera();
     }
 
-    // --- Google Play Services for AR (ARCore 6DoF) Interactive Space ---
+    // --- Full-Screen Spatial Companion (Default 60fps Gyro-Spatial + Optional Optimized 6DoF ARCore) ---
 
     private void toggleArSpace() {
         if (arModeOn) {
             stopArSpace();
-            captionView.setText("Exited AR Space. Tap ✦ AR Space anytime to bring Zoe back into your room.");
+            captionView.setText("Exited AR Space. Tap ✦ AR Space anytime to bring Zoe back into your view.");
             return;
         }
         List<String> needed = new ArrayList<>();
@@ -782,27 +964,102 @@ public final class ZoeLiveActivity extends ComponentActivity {
         startArSpaceAndVoice(true);
     }
 
-    private void startArSpaceAndVoice(boolean withVoice) {
-        if (cameraOn) {
-            stopCamera();
-        }
-        if (!ZoeArSurfaceView.isArCoreSupported(this)) {
-            captionView.setText("Google Play Services for AR is not supported on this device — opening Live + Cam instead.");
-            startLiveVoiceAndCamera();
+    private void toggleArTrackingMode() {
+        if (!arModeOn) {
             return;
         }
-        // Recreate a fresh GL surface on every AR start to prevent stale EGL textures or black-screen restarts
-        if (arSurfaceView != null) {
-            arSurfaceView.stopArSession();
-            arSurfaceView = null;
+        boolean want6Dof = !useHeavyArCore6Dof;
+        if (want6Dof && !ZoeArSurfaceView.isArCoreSupported(this)) {
+            captionView.setText("Google Play Services for AR isn't available on this device — staying in smooth 60fps Spatial Glide!");
+            return;
         }
+        useHeavyArCore6Dof = want6Dof;
+        boolean voiceWasOn = callActive;
+        stopArEnginesOnly();
+        startActiveArEngine();
+        updateFullScreenVisualMode();
+        styleHeaderPills();
+        if (voiceWasOn) {
+            setOrbState(currentOrbState, useHeavyArCore6Dof ? "AR 6DoF LIVE · TAP SURFACES" : "SPATIAL 60fps · EXPLORE & TALK");
+        }
+    }
+
+    private void triggerArInstantLook() {
+        if (!arModeOn) {
+            return;
+        }
+        if (useHeavyArCore6Dof) {
+            if (arSurfaceView != null) {
+                arSurfaceView.requestInstantLook();
+            }
+        } else {
+            Bitmap snap = getLatestCameraFrameCopy();
+            if (snap != null) {
+                handleArSpotInspection(snap, spatialOverlayView.getCurrentWorldPos(),
+                        Math.max(0.8f, latestArDistanceMeters), true);
+            } else {
+                describeLiveViewProactively();
+            }
+        }
+    }
+
+    private void startArSpaceAndVoice(boolean withVoice) {
+        stopArEnginesOnly();
+        arBrain.clearSession();
+        arModeOn = true;
+        startActiveArEngine();
+        cameraToggleBtn.setText(useHeavyArCore6Dof ? "Camera: 6DoF" : "Camera: AR");
+        updateFullScreenVisualMode();
+        styleHeaderPills();
+        updateKeepScreenOn();
+        if (!arModeOn) {
+            return;
+        }
+        if (withVoice) {
+            beginContinuousVoiceSession();
+        } else {
+            setOrbState(OrbState.IDLE, useHeavyArCore6Dof
+                    ? "AR 6DoF ACTIVE · TAP ANY SURFACE"
+                    : "SPATIAL 60fps · TAP ANYWHERE TO GLIDE ZOE");
+            captionView.setText(useHeavyArCore6Dof
+                    ? "Optimized ARCore 6DoF active. Move gently to map floors/tables, or switch back to Gyro 60 anytime."
+                    : "Full-screen 60fps Spatial Zoe active! Pan around your room or tap anywhere to glide Zoe over.");
+        }
+    }
+
+    private void startActiveArEngine() {
+        if (!useHeavyArCore6Dof) {
+            // DEFAULT: Zero-lag 60fps Hardware CameraX Preview + Hardware IMU Quaternion 3D Companion!
+            arSurfaceHost.setVisibility(View.GONE);
+            cameraPreview.setVisibility(View.VISIBLE);
+            spatialOverlayView.setVisibility(View.VISIBLE);
+            spatialOverlayView.setAutonomousRoam(arRoamEnabled);
+            spatialOverlayView.setFrontCameraMirrored(useFrontCamera);
+            syncSpatialOverlayOptics(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE);
+            spatialOverlayView.setLightField(spatialTelemetry.getLightField());
+            spatialOverlayView.setActive(true);
+            liveHudPill.setText("● 60fps · 1.2m");
+            if (!cameraOn) {
+                cameraOn = true;
+                cameraPreview.post(this::bindCameraPreview);
+            }
+            return;
+        }
+        // OPTIONAL: Optimized ARCore 6DoF (horizontal planes only, async off-GL-thread snapshots!)
+        if (cameraOn) {
+            unbindCameraPreviewOnly();
+        }
+        spatialOverlayView.setActive(false);
+        spatialOverlayView.setVisibility(View.GONE);
+        cameraPreview.setVisibility(View.GONE);
         arSurfaceHost.removeAllViews();
+        arSurfaceHost.setVisibility(View.VISIBLE);
         arSurfaceView = new ZoeArSurfaceView(this, arBrain, new ZoeArSurfaceView.Listener() {
             @Override
             public void onArTrackingUpdate(int planeCount, float zoeDistMeters, String statusHint) {
                 latestArDistanceMeters = zoeDistMeters;
-                if (arModeOn && !isFinishing() && !isDestroyed()) {
-                    arHudPill.setText(statusHint);
+                if (arModeOn && useHeavyArCore6Dof && !isFinishing() && !isDestroyed()) {
+                    liveHudPill.setText(statusHint);
                 }
             }
 
@@ -816,49 +1073,281 @@ public final class ZoeLiveActivity extends ComponentActivity {
             @Override
             public void onArUnavailable(String reason) {
                 if (!isFinishing() && !isDestroyed()) {
-                    stopArSpace();
-                    captionView.setText(reason);
+                    useHeavyArCore6Dof = false;
+                    stopArEnginesOnly();
+                    startActiveArEngine();
+                    updateFullScreenVisualMode();
+                    styleHeaderPills();
+                    captionView.setText(reason + " Switched automatically to ultra-smooth 60fps Spatial Glide!");
                 }
             }
         });
         arSurfaceHost.addView(arSurfaceView, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         arSurfaceView.setAutonomousRoam(arRoamEnabled);
-        arBrain.clearSession();
-        arCard.setVisibility(View.VISIBLE);
-        orbView.setVisibility(View.GONE);
-        arModeOn = true;
-        cameraToggleBtn.setText("Camera: AR");
-        styleHeaderPills();
-        updateKeepScreenOn();
+        liveHudPill.setText("● AR 6DoF · Scanning…");
+        arSurfaceView.startArSession();
+    }
 
-        if (!arSurfaceView.startArSession()) {
-            return;
+    private void stopArEnginesOnly() {
+        if (spatialOverlayView != null) {
+            spatialOverlayView.setActive(false);
+            spatialOverlayView.setVisibility(View.GONE);
         }
-        if (withVoice) {
-            beginContinuousVoiceSession();
-        } else {
-            setOrbState(OrbState.IDLE, "AR SPACE ACTIVE · TAP ANYWHERE IN ROOM");
-            captionView.setText("Zoe entered your AR space! Move your phone to map surfaces or tap anywhere to call Zoe over.");
+        if (arSurfaceView != null) {
+            arSurfaceView.stopArSession();
+            arSurfaceView = null;
+        }
+        if (arSurfaceHost != null) {
+            arSurfaceHost.removeAllViews();
+            arSurfaceHost.setVisibility(View.GONE);
         }
     }
 
     private void stopArSpace() {
         arModeOn = false;
-        if (arSurfaceView != null) {
-            arSurfaceView.stopArSession();
-            arSurfaceView = null;
+        stopSpatialTelemetry();
+        stopArEnginesOnly();
+        if (cameraOn) {
+            unbindCameraPreviewOnly();
         }
-        arSurfaceHost.removeAllViews();
-        arCard.setVisibility(View.GONE);
-        orbView.setVisibility(View.VISIBLE);
         cameraToggleBtn.setText("Camera: off");
+        updateFullScreenVisualMode();
         styleHeaderPills();
         updateKeepScreenOn();
     }
 
+    // --- Opt-In Multi-Sensor Spatial Telemetry (CERN Kloster A_tau/M4 · Dual-Cam Light-Field · ENU/Google Earth · Acoustic Echo · RF) ---
+
+    private void toggleSpatialField() {
+        if (spatialFieldOn) {
+            stopSpatialTelemetry();
+            captionView.setText("Spatial Telemetry Field turned off. All extra sensors released.");
+            return;
+        }
+        spatialFieldOn = true;
+        fieldToggleBtn.setText("Field: on");
+        fieldToggleBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(205, 18, 96, 84), Ui.GREEN, 15));
+        telemetryHudLine.setText("Fusing IMU · CERN Aτ/M₄ · RF · Light-Field…");
+        spatialTelemetry.start();
+        if (spatialOverlayView != null) {
+            spatialTelemetry.updateImuStability(spatialOverlayView.getImuStability());
+        }
+        captionView.setText("Spatial Field ON (local-only, zero PII): fusing IMU, CERN Kloster Aτ/M₄, optical light-field, Wi-Fi/BLE/Cell signal, and opt-in ENU grid.");
+    }
+
+    private void stopSpatialTelemetry() {
+        spatialFieldOn = false;
+        dualCamSweepPending = false;
+        latestSpatialContext = "";
+        if (spatialTelemetry != null) {
+            spatialTelemetry.stop();
+        }
+        if (fieldToggleBtn != null) {
+            fieldToggleBtn.setText("Field: off");
+            fieldToggleBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(175, 16, 22, 34), Ui.CYAN, 15));
+        }
+        if (telemetryHudLine != null) {
+            telemetryHudLine.setText("Tap Field for CERN Aτ/M₄ + RF + ENU · Tap here for Echo/Earth");
+        }
+    }
+
+    private void onSpatialTelemetryUpdated(SpatialTelemetryFusion.FusedFieldSnapshot snap) {
+        if (!spatialFieldOn || snap == null || isFinishing() || isDestroyed()) {
+            return;
+        }
+        if (spatialOverlayView != null) {
+            spatialTelemetry.updateImuStability(spatialOverlayView.getImuStability());
+            spatialOverlayView.setLightField(snap.lightField);
+            spatialOverlayView.setSpatialCoherence(snap.spatialCoherence);
+            spatialOverlayView.setPreferredHoverDepth(snap.suggestedDepthMeters);
+        }
+        latestSpatialContext = snap.voiceContextLine;
+        runOnUiThread(() -> {
+            if (spatialFieldOn && telemetryHudLine != null && !isFinishing() && !isDestroyed()) {
+                telemetryHudLine.setText(snap.compactHudLine);
+            }
+        });
+    }
+
+    /**
+     * Optional 1-tap Dual-Camera Ambient Light-Field Calibration:
+     * Briefly samples the front camera (what is BEHIND you) for ~420ms without running two continuous streams,
+     * computes front-vs-rear luminance & warmth, adapts Zoe's 3D rim lighting, and flips straight back!
+     */
+    private void runDualCamAmbientSweep() {
+        if (!cameraOn || (arModeOn && useHeavyArCore6Dof)) {
+            captionView.setText("Dual-Cam Light-Field sweep works in full-screen Camera or Gyro 60 Spatial mode.");
+            return;
+        }
+        if (dualCamSweepPending) {
+            return;
+        }
+        Bitmap curRear = getLatestCameraFrameCopy();
+        if (curRear != null) {
+            if (useFrontCamera) {
+                spatialTelemetry.sampleFrontBitmapForBacklight(curRear);
+            } else {
+                spatialTelemetry.sampleRearBitmap(curRear);
+            }
+            curRear.recycle();
+        }
+        dualCamReturnToBack = !useFrontCamera;
+        dualCamSweepPending = true;
+        useFrontCamera = !useFrontCamera;
+        if (spatialOverlayView != null) {
+            spatialOverlayView.setFrontCameraMirrored(useFrontCamera);
+            syncSpatialOverlayOptics(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE);
+        }
+        captionView.setText("Sampling opposite lens light-field behind you (zero continuous dual-stream load)…");
+        bindCameraPreview();
+        // Safety fallback in case front camera is unavailable on an emulator/device
+        mainHandler.postDelayed(() -> {
+            if (dualCamSweepPending && !isFinishing() && !isDestroyed()) {
+                completeDualCamSweep();
+            }
+        }, 1600L);
+    }
+
+    private void completeDualCamSweep() {
+        if (!dualCamSweepPending) {
+            return;
+        }
+        dualCamSweepPending = false;
+        useFrontCamera = !dualCamReturnToBack;
+        if (spatialOverlayView != null) {
+            spatialOverlayView.setFrontCameraMirrored(useFrontCamera);
+            syncSpatialOverlayOptics(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE);
+            spatialOverlayView.setLightField(spatialTelemetry.getLightField());
+        }
+        if (cameraOn) {
+            bindCameraPreview();
+        }
+        SpatialTelemetryFusion.LightFieldState lf = spatialTelemetry.getLightField();
+        SpatialTelemetryFusion.CameraOptics op = spatialTelemetry.getCameraOptics(
+                getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE);
+        captionView.setText(String.format(Locale.US,
+                "Dual-Cam Light-Field calibrated! Ahead %.0f%% · Behind %.0f%% (backlight %.2fx, rear %.1fmm / front %.1fmm). Zoe's rim lighting adapted.",
+                lf.rearLuma * 100f, lf.frontLuma * 100f, lf.backlightRatio, op.rearFocalMm, op.frontFocalMm));
+    }
+
+    private void onTelemetryHudTapped() {
+        Location loc = spatialTelemetry != null ? spatialTelemetry.getLatestLocation() : null;
+        if (loc != null) {
+            try {
+                String url = SpatialTelemetryFusion.buildGoogleEarthUrl(
+                        loc.getLatitude(), loc.getLongitude(),
+                        loc.hasAltitude() ? loc.getAltitude() : 10.0,
+                        spatialTelemetry.getCompassDegrees());
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                return;
+            } catch (Exception ignored) {
+                try {
+                    String geo = String.format(Locale.US, "geo:%.6f,%.6f?q=%.6f,%.6f(Zoe+Explore)",
+                            loc.getLatitude(), loc.getLongitude(), loc.getLatitude(), loc.getLongitude());
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(geo)));
+                    return;
+                } catch (Exception ignored2) {
+                }
+            }
+        }
+        triggerAcousticEchoPing();
+    }
+
+    private void triggerAcousticEchoPing() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            captionView.setText("Enable Field + Location for Google Earth ENU grid, or allow Mic for an Acoustic Echo depth ping.");
+            return;
+        }
+        if (!acousticPingBusy.compareAndSet(false, true)) {
+            return;
+        }
+        captionView.setText("Sending brief 1.8 kHz acoustic echo ping to gauge nearby room depth…");
+        executor.execute(() -> {
+            final int sr = 44100;
+            AudioRecord recorder = null;
+            AudioTrack track = null;
+            try {
+                short[] chirp = AcousticRanging.chirp(sr, 1800.0, 0.020, 0.16);
+                int recSamples = sr / 3;
+                int minBuf = Math.max(AudioRecord.getMinBufferSize(sr, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT), recSamples * 2);
+                recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, sr, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, minBuf);
+                track = new AudioTrack.Builder()
+                        .setAudioAttributes(new AudioAttributes.Builder()
+                                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                                .build())
+                        .setAudioFormat(new AudioFormat.Builder()
+                                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                                .setSampleRate(sr)
+                                .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                                .build())
+                        .setBufferSizeInBytes(Math.max(chirp.length * 2, 4096))
+                        .setTransferMode(AudioTrack.MODE_STATIC)
+                        .build();
+                track.write(chirp, 0, chirp.length);
+                short[] buf = new short[recSamples];
+                recorder.startRecording();
+                track.play();
+                int offset = 0;
+                while (offset < buf.length) {
+                    int n = recorder.read(buf, offset, Math.min(2048, buf.length - offset));
+                    if (n <= 0) {
+                        break;
+                    }
+                    offset += n;
+                }
+                AcousticRanging.Measurement m = AcousticRanging.analyze(buf, chirp, sr);
+                if (m.candidateDistanceMeters != null && m.candidateDistanceMeters > 0.25 && m.candidateDistanceMeters < 6.0) {
+                    float distM = m.candidateDistanceMeters.floatValue();
+                    spatialTelemetry.recordAcousticEchoDistance(distM);
+                    runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            captionView.setText(String.format(Locale.US,
+                                    "Acoustic echo cue: ~%.2fm reflection (RMS %.1f dBFS). Zoe adjusted spatial hover depth!",
+                                    distM, m.rmsDbfs));
+                        }
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            captionView.setText(String.format(Locale.US,
+                                    "Ambient acoustic level: %.1f dBFS (no distinct close wall echo detected).",
+                                    m.rmsDbfs));
+                        }
+                    });
+                }
+            } catch (RuntimeException err) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        captionView.setText("Acoustic echo ping skipped: " + err.getMessage());
+                    }
+                });
+            } finally {
+                if (recorder != null) {
+                    try {
+                        recorder.stop();
+                    } catch (Exception ignored) {
+                    }
+                    recorder.release();
+                }
+                if (track != null) {
+                    try {
+                        track.stop();
+                    } catch (Exception ignored) {
+                    }
+                    track.release();
+                }
+                acousticPingBusy.set(false);
+            }
+        });
+    }
+
     private void toggleArRoam() {
         arRoamEnabled = !arRoamEnabled;
+        if (spatialOverlayView != null) {
+            spatialOverlayView.setAutonomousRoam(arRoamEnabled);
+        }
         if (arSurfaceView != null) {
             arSurfaceView.setAutonomousRoam(arRoamEnabled);
         }
@@ -1018,6 +1507,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
     private void flipCamera() {
         useFrontCamera = !useFrontCamera;
+        if (spatialOverlayView != null) {
+            spatialOverlayView.setFrontCameraMirrored(useFrontCamera);
+            syncSpatialOverlayOptics(getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE);
+        }
         if (cameraOn) {
             bindCameraPreview();
         }
@@ -1026,8 +1519,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private void startCamera() {
         cameraOn = true;
         cameraToggleBtn.setText("Camera: on");
-        cameraCard.setVisibility(View.VISIBLE);
-        applyResponsiveGeometry(getResources().getConfiguration());
+        cameraPreview.setVisibility(View.VISIBLE);
+        updateFullScreenVisualMode();
         styleHeaderPills();
         updateKeepScreenOn();
         cameraPreview.post(this::bindCameraPreview);
@@ -1044,27 +1537,133 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 cameraProvider.unbindAll();
                 Preview preview = new Preview.Builder().build();
                 preview.setSurfaceProvider(cameraPreview.getSurfaceProvider());
+
+                // Zero-main-thread-stall background ImageAnalysis (replaces slow PreviewView.getBitmap()!)
+                ImageAnalysis analysis = new ImageAnalysis.Builder()
+                        .setTargetResolution(new Size(480, 360))
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build();
+                analysis.setAnalyzer(cameraAnalysisExecutor, this::cacheLatestImageProxy);
+
                 CameraSelector selector = useFrontCamera
                         ? CameraSelector.DEFAULT_FRONT_CAMERA
                         : CameraSelector.DEFAULT_BACK_CAMERA;
-                cameraProvider.bindToLifecycle(this, selector, preview);
-                cameraSightPill.setText("● LIVE SIGHT");
-                if (!callActive) {
-                    captionView.setText("Live sight active! Tap Talk Now (or just speak when live) and ask Zoe about anything you point at.");
+                cameraProvider.bindToLifecycle(this, selector, preview, analysis);
+                if (!arModeOn) {
+                    liveHudPill.setText("● LIVE SIGHT · FULL SCREEN");
+                    if (!callActive) {
+                        captionView.setText("Full-screen live sight active! Tap Talk Now or Look anytime.");
+                    }
                 }
                 mainHandler.removeCallbacks(cameraObserverTick);
-                mainHandler.postDelayed(cameraObserverTick, 900L);
+                mainHandler.postDelayed(cameraObserverTick, 1200L);
             } catch (Exception error) {
-                cameraSightPill.setText("CAMERA UNAVAILABLE");
+                liveHudPill.setText("CAMERA UNAVAILABLE");
                 captionView.setText("Camera unavailable: " + error.getMessage());
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
-    private void stopCamera() {
+    private void cacheLatestImageProxy(@NonNull ImageProxy proxy) {
+        try {
+            long now = System.currentTimeMillis();
+            // Throttle background YUV->Bitmap caching to ~2fps (500ms) so camera preview stays locked at 60/90fps!
+            if (now - lastCameraBitmapMs < 500L) {
+                return;
+            }
+            Bitmap upright = imageProxyToCompactBitmap(proxy);
+            if (upright != null) {
+                lastCameraBitmapMs = now;
+                if (dualCamSweepPending) {
+                    if (useFrontCamera) {
+                        spatialTelemetry.sampleFrontBitmapForBacklight(upright);
+                    } else {
+                        spatialTelemetry.sampleRearBitmap(upright);
+                    }
+                    mainHandler.post(this::completeDualCamSweep);
+                } else if (spatialFieldOn) {
+                    if (useFrontCamera) {
+                        spatialTelemetry.sampleFrontBitmapForBacklight(upright);
+                    } else {
+                        spatialTelemetry.sampleRearBitmap(upright);
+                    }
+                }
+                synchronized (latestCamFrameLock) {
+                    if (latestCameraBitmap != null && !latestCameraBitmap.isRecycled()) {
+                        latestCameraBitmap.recycle();
+                    }
+                    latestCameraBitmap = upright;
+                }
+            }
+        } catch (Throwable ignored) {
+        } finally {
+            proxy.close();
+        }
+    }
+
+    private Bitmap getLatestCameraFrameCopy() {
+        synchronized (latestCamFrameLock) {
+            if (latestCameraBitmap != null && !latestCameraBitmap.isRecycled()) {
+                return latestCameraBitmap.copy(Bitmap.Config.ARGB_8888, false);
+            }
+            return null;
+        }
+    }
+
+    private static Bitmap imageProxyToCompactBitmap(ImageProxy proxy) {
+        if (proxy == null || proxy.getFormat() != ImageFormat.YUV_420_888) {
+            return null;
+        }
+        int w = proxy.getWidth();
+        int h = proxy.getHeight();
+        int step = Math.max(1, Math.max(w, h) / 360);
+        int outW = Math.max(1, w / step);
+        int outH = Math.max(1, h / step);
+        ImageProxy.PlaneProxy[] planes = proxy.getPlanes();
+        ByteBuffer yBuf = planes[0].getBuffer();
+        ByteBuffer uBuf = planes[1].getBuffer();
+        ByteBuffer vBuf = planes[2].getBuffer();
+        int yRS = planes[0].getRowStride(), yPS = planes[0].getPixelStride(), yLim = yBuf.limit();
+        int uRS = planes[1].getRowStride(), uPS = planes[1].getPixelStride(), uLim = uBuf.limit();
+        int vRS = planes[2].getRowStride(), vPS = planes[2].getPixelStride(), vLim = vBuf.limit();
+
+        int[] pixels = new int[outW * outH];
+        int dst = 0;
+        for (int oy = 0; oy < outH; oy++) {
+            int sy = oy * step;
+            int yRow = sy * yRS;
+            int uRow = (sy >> 1) * uRS;
+            int vRow = (sy >> 1) * vRS;
+            for (int ox = 0; ox < outW; ox++) {
+                int sx = ox * step;
+                int yo = yRow + sx * yPS;
+                int uo = uRow + (sx >> 1) * uPS;
+                int vo = vRow + (sx >> 1) * vPS;
+                int yVal = yo < yLim ? (yBuf.get(yo) & 0xFF) : 0;
+                int uVal = uo < uLim ? ((uBuf.get(uo) & 0xFF) - 128) : 0;
+                int vVal = vo < vLim ? ((vBuf.get(vo) & 0xFF) - 128) : 0;
+                int r = Math.max(0, Math.min(255, yVal + ((351 * vVal) >> 8)));
+                int g = Math.max(0, Math.min(255, yVal - ((179 * vVal + 86 * uVal) >> 8)));
+                int b = Math.max(0, Math.min(255, yVal + ((443 * uVal) >> 8)));
+                pixels[dst++] = 0xFF000000 | (r << 16) | (g << 8) | b;
+            }
+        }
+        Bitmap raw = Bitmap.createBitmap(pixels, outW, outH, Bitmap.Config.ARGB_8888);
+        int rot = proxy.getImageInfo().getRotationDegrees();
+        if (rot == 0) {
+            return raw;
+        }
+        Matrix m = new Matrix();
+        m.postRotate(rot);
+        Bitmap rotated = Bitmap.createBitmap(raw, 0, 0, raw.getWidth(), raw.getHeight(), m, true);
+        if (rotated != raw) {
+            raw.recycle();
+        }
+        return rotated;
+    }
+
+    private void unbindCameraPreviewOnly() {
         cameraOn = false;
-        latestCameraReport = "";
-        latestCameraJpeg = null;
         mainHandler.removeCallbacks(cameraObserverTick);
         if (cameraProvider != null) {
             try {
@@ -1072,9 +1671,21 @@ public final class ZoeLiveActivity extends ComponentActivity {
             } catch (Exception ignored) {
             }
         }
-        cameraCard.setVisibility(View.GONE);
+        synchronized (latestCamFrameLock) {
+            if (latestCameraBitmap != null && !latestCameraBitmap.isRecycled()) {
+                latestCameraBitmap.recycle();
+            }
+            latestCameraBitmap = null;
+        }
+    }
+
+    private void stopCamera() {
+        stopSpatialTelemetry();
+        unbindCameraPreviewOnly();
+        latestCameraReport = "";
+        latestCameraJpeg = null;
         cameraToggleBtn.setText("Camera: off");
-        applyResponsiveGeometry(getResources().getConfiguration());
+        updateFullScreenVisualMode();
         styleHeaderPills();
         updateKeepScreenOn();
     }
@@ -1083,24 +1694,19 @@ public final class ZoeLiveActivity extends ComponentActivity {
         if (!cameraOn || !cameraAnalysisBusy.compareAndSet(false, true)) {
             return;
         }
-        Bitmap frame = cameraPreview.getBitmap();
+        Bitmap frame = getLatestCameraFrameCopy();
         if (frame == null) {
             cameraAnalysisBusy.set(false);
             return;
         }
         executor.execute(() -> {
-            Bitmap small = null;
             try {
-                // Skip unnecessary JPEG encoding during silent background heartbeat (cuts CPU/GC!)
-                small = MediaChatHelper.scaleDown(frame, 480);
-                String report = MediaChatHelper.inspectFrameOffline(small);
-                String learnedHint = VisionPriorStore.buildSilentExploreContext(this, small);
+                String report = MediaChatHelper.inspectFrameOffline(frame);
+                String learnedHint = VisionPriorStore.buildSilentExploreContext(this, frame);
                 latestCameraReport = learnedHint.isEmpty() ? report : (report + " " + learnedHint);
             } catch (Exception ignored) {
             } finally {
-                if (small != null && !small.isRecycled()) {
-                    small.recycle();
-                } else if (!frame.isRecycled()) {
+                if (!frame.isRecycled()) {
                     frame.recycle();
                 }
                 cameraAnalysisBusy.set(false);
@@ -1112,10 +1718,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         if (!cameraOn) {
             return;
         }
-        // Snapshot the freshest possible frame immediately and let Zoe describe it aloud!
-        Bitmap frame = cameraPreview.getBitmap();
+        Bitmap frame = getLatestCameraFrameCopy();
         if (frame == null && latestCameraReport.isEmpty()) {
-            captionView.setText("Waiting for camera preview frame — try tapping Look now again.");
+            captionView.setText("Waiting for camera preview frame — try tapping Look again.");
             return;
         }
         long myTurn = activeTurnId.incrementAndGet();
@@ -1124,10 +1729,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         setOrbState(OrbState.THINKING, "LOOKING AT YOUR VIEW…");
         captionView.setText("Looking closely at what's in front of your camera…");
         executor.execute(() -> {
-            Bitmap working = null;
-            if (frame != null) {
+            Bitmap working = frame;
+            if (working != null) {
                 try {
-                    working = MediaChatHelper.scaleDown(frame, 640);
                     String baseReport = MediaChatHelper.inspectFrameOffline(working);
                     String learnedHint = VisionPriorStore.buildSilentExploreContext(this, working);
                     latestCameraReport = learnedHint.isEmpty() ? baseReport : (baseReport + " " + learnedHint);
@@ -1232,7 +1836,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 if (myGen == listenGen.get()) {
                     float norm = Math.max(0f, Math.min(1f, (rmsdB + 2f) / 11f));
                     orbView.setAudioLevel(norm);
-                    if (arSurfaceView != null && arModeOn) {
+                    if (arModeOn && !useHeavyArCore6Dof && spatialOverlayView != null) {
+                        spatialOverlayView.setVoiceLevel(norm);
+                    }
+                    if (spatialFieldOn && spatialTelemetry != null) {
+                        spatialTelemetry.updateAcousticLevel(norm);
+                    }
+                    if (arSurfaceView != null && arModeOn && useHeavyArCore6Dof) {
                         arSurfaceView.setVoiceLevel(norm);
                     }
                 }
@@ -1408,9 +2018,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
             return;
         }
 
-        // Capture a fresh live frame right now from either Live Camera OR AR Space!
+        // Capture a fresh live frame right now from either Live Camera, Spatial 60fps, OR ARCore 6DoF (zero UI stall!)
         final Bitmap freshFrame = cameraOn
-                ? cameraPreview.getBitmap()
+                ? getLatestCameraFrameCopy()
                 : (arModeOn && arSurfaceView != null ? arSurfaceView.getLatestSnapshotCopy() : null);
         executor.execute(() -> {
             if (myTurn != activeTurnId.get()) {
@@ -1469,9 +2079,22 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
         }
         String roomMem = arModeOn ? arBrain.summarizeRoomMemory() : "";
-        String camReport = withCamera
-                ? (roomMem.isEmpty() ? latestCameraReport : (latestCameraReport + " " + roomMem).trim())
-                : "";
+        String fieldCtx = spatialFieldOn ? latestSpatialContext : "";
+        StringBuilder camCtx = new StringBuilder();
+        if (withCamera) {
+            if (latestCameraReport != null && !latestCameraReport.isEmpty()) {
+                camCtx.append(latestCameraReport);
+            }
+            if (!roomMem.isEmpty()) {
+                if (camCtx.length() > 0) camCtx.append(" ");
+                camCtx.append(roomMem);
+            }
+            if (!fieldCtx.isEmpty()) {
+                if (camCtx.length() > 0) camCtx.append(" ");
+                camCtx.append(fieldCtx);
+            }
+        }
+        String camReport = camCtx.toString().trim();
         byte[] camJpeg = withCamera ? latestCameraJpeg : null;
 
         // 1. Live Multimodal Gemini Vision when Camera is ON + user saved a Gemini key
@@ -1728,13 +2351,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private void setOrbState(OrbState state, String label) {
         currentOrbState = state;
         orbView.setOrbState(state);
-        if (arSurfaceView != null && arModeOn) {
-            arSurfaceView.setVisualMood(switch (state) {
-                case LISTENING -> ZoeArSurfaceView.VisualMood.LISTENING;
-                case THINKING -> ZoeArSurfaceView.VisualMood.THINKING;
-                case SPEAKING -> ZoeArSurfaceView.VisualMood.SPEAKING;
-                default -> ZoeArSurfaceView.VisualMood.EXPLORING;
-            });
+        ZoeArSurfaceView.VisualMood arMood = switch (state) {
+            case LISTENING -> ZoeArSurfaceView.VisualMood.LISTENING;
+            case THINKING -> ZoeArSurfaceView.VisualMood.THINKING;
+            case SPEAKING -> ZoeArSurfaceView.VisualMood.SPEAKING;
+            default -> ZoeArSurfaceView.VisualMood.EXPLORING;
+        };
+        if (arModeOn && !useHeavyArCore6Dof && spatialOverlayView != null) {
+            spatialOverlayView.setVisualMood(arMood);
+            if (state != OrbState.LISTENING) {
+                spatialOverlayView.setVoiceLevel(state == OrbState.SPEAKING ? 0.55f : 0f);
+            }
+        }
+        if (arSurfaceView != null && arModeOn && useHeavyArCore6Dof) {
+            arSurfaceView.setVisualMood(arMood);
             if (state != OrbState.LISTENING) {
                 arSurfaceView.setVoiceLevel(state == OrbState.SPEAKING ? 0.55f : 0f);
             }
@@ -1774,6 +2404,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
         }
         localLlm.close();
+        cameraAnalysisExecutor.shutdownNow();
         executor.shutdownNow();
     }
 
@@ -1798,6 +2429,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
         private float smoothLevel;
         private boolean speakingPulse;
         private OrbState state = OrbState.IDLE;
+        private int cachedGradColor = -1;
+        private float cachedGradRadius = -1f;
 
         LiveOrbView(Context context) {
             super(context);
@@ -1818,6 +2451,18 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 invalidate();
             });
             animator.start();
+        }
+
+        void setAnimationRunning(boolean running) {
+            if (running) {
+                if (animator.isPaused()) {
+                    animator.resume();
+                } else if (!animator.isStarted()) {
+                    animator.start();
+                }
+            } else if (animator.isRunning()) {
+                animator.pause();
+            }
         }
 
         void setOrbState(OrbState next) {
@@ -1879,14 +2524,18 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
             float radius = maxR * (0.60f + 0.05f * breathe + 0.16f * smoothLevel);
 
-            // 1. Deep multi-stop atmospheric aura glow
-            haloPaint.setShader(new RadialGradient(cx, cy, maxR,
-                    new int[]{
-                            Color.argb(210, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
-                            Color.argb(105, Color.red(cMid), Color.green(cMid), Color.blue(cMid)),
-                            Color.argb(52, Color.red(cOuter), Color.green(cOuter), Color.blue(cOuter)),
-                            Color.TRANSPARENT},
-                    new float[]{0.14f, 0.44f, 0.72f, 1.0f}, Shader.TileMode.CLAMP));
+            // 1. Deep multi-stop atmospheric aura glow (cached per state & radius — zero per-frame allocation!)
+            if (cachedGradColor != cCore || Math.abs(cachedGradRadius - maxR) > 1f) {
+                cachedGradColor = cCore;
+                cachedGradRadius = maxR;
+                haloPaint.setShader(new RadialGradient(cx, cy, maxR,
+                        new int[]{
+                                Color.argb(210, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
+                                Color.argb(105, Color.red(cMid), Color.green(cMid), Color.blue(cMid)),
+                                Color.argb(52, Color.red(cOuter), Color.green(cOuter), Color.blue(cOuter)),
+                                Color.TRANSPARENT},
+                        new float[]{0.14f, 0.44f, 0.72f, 1.0f}, Shader.TileMode.CLAMP));
+            }
             canvas.drawCircle(cx, cy, maxR, haloPaint);
 
             // 2. Iridescent counter-rotating fluid aurora ribbons

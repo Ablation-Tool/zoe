@@ -74,4 +74,37 @@ public class ArExploreBrainTest {
         assertTrue(prompt.contains("Mug"));
         assertFalse(prompt.toLowerCase().contains("alibaba"));
     }
+
+    @Test
+    public void spatialProjectionUnprojectionRoundTripsCleanlyForSixtyFpsAr() {
+        float[] identity = {
+                1f, 0f, 0f,
+                0f, 1f, 0f,
+                0f, 0f, 1f
+        };
+        float w = 1080f;
+        float h = 2400f;
+        float fov = ArExploreBrain.DEFAULT_SPATIAL_FOV_RAD;
+
+        ArExploreBrain.Vec3 world = ArExploreBrain.unprojectTapToWorld(740f, 920f, w, h, fov, identity, 1.35f);
+        assertEquals(1.35f, world.distanceTo(new ArExploreBrain.Vec3(0f, 0f, 0f)), 0.02f);
+
+        ArExploreBrain.ScreenProjection proj = ArExploreBrain.projectWorldToScreen(world, identity, w, h, fov);
+        assertTrue(proj.inFront);
+        assertTrue(proj.onScreen);
+        assertEquals(740f, proj.screenX, 2.5f);
+        assertEquals(920f, proj.screenY, 2.5f);
+
+        // Point behind camera should report inFront = false, onScreen = false
+        ArExploreBrain.ScreenProjection behind = ArExploreBrain.projectWorldToScreen(
+                new ArExploreBrain.Vec3(0f, 0f, 1.5f), identity, w, h, fov);
+        assertFalse(behind.inFront);
+        assertFalse(behind.onScreen);
+
+        // Spatial roam waypoint stays in front of camera at comfortable 1.0..1.6m range
+        ArExploreBrain.Vec3 roam = ArExploreBrain.chooseSpatialRoamWaypoint(identity, 2);
+        float d = roam.distanceTo(new ArExploreBrain.Vec3(0f, 0f, 0f));
+        assertTrue(d >= 0.9f && d <= 1.8f);
+        assertTrue(roam.z < 0f);
+    }
 }
