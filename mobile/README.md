@@ -2,6 +2,14 @@
 
 > **Status:** **Zoe Bulb (beta)** (`v0.2.0-beta`) is a free, offline-first, privacy-respecting work-in-progress mobile app for **Android** (verified on Pixel 7, direct beta APK on [GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)) and **Apple** (`iPhone`, `iPad`, & `iPhone Duo Fold` native SwiftUI + shared `ZoeCore` package).
 
+<div align="center">
+
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta"><img src="../assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe Bulb (beta) live Pixel 7 screenshots" width="100%" /></a>
+
+**[⬇ Download Zoe Bulb (beta) Android APK (`v0.2.0-beta`)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)**
+
+</div>
+
 Original native Android and Apple interfaces for **Zoe · NuClide Research**, designed in a calm, high-contrast **Google Gemini Material 3 Expressive** layout anchored by the **Zoe GEM-Ellipsis** emblem (tap any GEM logo to return straight to the Home screen), with matching redesigned **SafeConvert**, offline **`ZoeBrainEngine`** (Kloster $A_{0.08}$ metacognition + SHA-256 hash-chained memory), native **44.1 kHz Rosenberg-Klatt Voice & `Sing Zoe`**, and **Eliza-GEM Studio** (offline Chladni cymatics + live L5 Phases 3, 4 & 5 scorecards). The mobile work keeps three capabilities separate:
 
 1. **Deterministic Zoe:** strict accessible-volume measurement, local voice-command parsing, bounded protocol experiments, and review-required observations.

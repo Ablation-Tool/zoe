@@ -88,6 +88,24 @@ Her work brings together seven threads that almost never live in the same room:
 
 > **Beta Notice:** **Zoe Bulb (beta)** is our active work-in-progress mobile companion for **Android** and **Apple (iPhone, iPad & iPhone Duo Fold)** — free, private, ad-free, and zero-tracking. Features, voice, and lab bridges continue to evolve openly in this repository.
 
+<div align="center">
+
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta"><img src="assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe Bulb (beta) live screenshots on Pixel 7 — Home, Talk with Zoe offline Brain & Voice, Eliza-GEM Chladni Studio, and matching SafeConvert" width="100%" /></a>
+
+<br/>
+
+**[⬇ Download Zoe Bulb (beta) for Android (`v0.2.0-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Mobile Guide](mobile/README.md)**
+
+</div>
+
+<br/>
+
+| Home *(GEM-Ellipsis)* | Talk *(Offline Brain & Voice)* | Eliza-GEM *(Chladni & L5)* | SafeConvert *(Matching UI)* |
+|:---:|:---:|:---:|:---:|
+| <img src="assets/readme/zoe-bulb-home.png" alt="Zoe Bulb Home screen on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Talk with Zoe offline brain and voice on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-studio.png" alt="Eliza-GEM Chladni cymatics and Sing Zoe on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-safeconvert.png" alt="SafeConvert matching Material 3 Expressive converter on Pixel 7" width="190" /> |
+
+<br/>
+
 | Platform | Availability | What's Inside **Zoe Bulb (beta)** |
 |:---|:---|:---|
 | **Android** *(API 26+ · Verified on Pixel 7)* | **Direct Beta APK:** [Download `Zoe Bulb (beta)` (`v0.2.0-beta`) from GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta) · Or build from [`mobile/android/`](mobile/android/) | **Google Gemini Material 3 Expressive** calm Dark/Light UI + **Zoe GEM-Ellipsis** emblem (tap any GEM logo to return Home); full offline **`ZoeBrainEngine`** (Kloster $A_{0.08}$ metacognition + SHA-256 hash-chained memory); native **44.1 kHz Rosenberg-Klatt Voice & `Sing Zoe`**; **Guided Vision** (offline OCR + labels); redesigned **`SafeConvert`** matching Zoe's aesthetic; **Trip Journal**; **Accessible Volume**; **Eliza-GEM Studio** (offline Chladni cymatics + live L5 Phases 3, 4 & 5 scorecards + memory sync). `60/60` unit tests, `0` lint errors, hardware Espresso verified on Pixel 7. |
