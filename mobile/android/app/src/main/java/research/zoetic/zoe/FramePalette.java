@@ -2,11 +2,7 @@ package research.zoetic.zoe;
 
 import android.graphics.Bitmap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 final class FramePalette {
     static final class Analysis {
@@ -69,30 +65,26 @@ final class FramePalette {
         double lumaSum = 0.0;
         double lumaSqSum = 0.0;
         double warmBias = 0.0;
-        Map<Integer, int[]> buckets = new HashMap<>();
+        // Flat primitive 512-bucket histogram (zero boxed Integer/HashMap GC churn per frame!)
+        int[] bucketCount = new int[512];
+        int[] bucketR = new int[512];
+        int[] bucketG = new int[512];
+        int[] bucketB = new int[512];
         for (int i = 0; i < total; i++) {
             int c = pixels[i];
             int r = (c >>> 16) & 0xff;
             int g = (c >>> 8) & 0xff;
             int b = c & 0xff;
-            double luma = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0;
+            double luma = (0.2126 * r + 0.7152 * g + 0.0722 * b) * (1.0 / 255.0);
             lumaSum += luma;
             lumaSqSum += luma * luma;
-            warmBias += (r - b) / 255.0;
+            warmBias += (r - b) * (1.0 / 255.0);
 
-            int qr = (r >> 5) & 0x7;
-            int qg = (g >> 5) & 0x7;
-            int qb = (b >> 5) & 0x7;
-            int key = (qr << 6) | (qg << 3) | qb;
-            int[] acc = buckets.get(key);
-            if (acc == null) {
-                acc = new int[4];
-                buckets.put(key, acc);
-            }
-            acc[0]++;
-            acc[1] += r;
-            acc[2] += g;
-            acc[3] += b;
+            int key = ((r & 0xE0) << 1) | ((g & 0xE0) >>> 2) | (b >>> 5);
+            bucketCount[key]++;
+            bucketR[key] += r;
+            bucketG[key] += g;
+            bucketB[key] += b;
         }
         double meanLuma = lumaSum / total;
         double variance = Math.max(0.0, lumaSqSum / total - meanLuma * meanLuma);
@@ -102,18 +94,36 @@ final class FramePalette {
         String tone = meanWarm > 0.06 ? "Warm light"
                 : (meanWarm < -0.06 ? "Cool light" : "Neutral balanced light");
 
-        List<int[]> ranked = new ArrayList<>(buckets.values());
-        ranked.sort((a, b) -> Integer.compare(b[0], a[0]));
-        int count = Math.min(3, ranked.size());
+        // Top-3 selection in single linear scan (zero sorting allocations)
+        int[] topIdx = new int[]{-1, -1, -1};
+        int[] topCnt = new int[]{0, 0, 0};
+        for (int k = 0; k < 512; k++) {
+            int cnt = bucketCount[k];
+            if (cnt <= 0) continue;
+            if (cnt > topCnt[0]) {
+                topCnt[2] = topCnt[1]; topIdx[2] = topIdx[1];
+                topCnt[1] = topCnt[0]; topIdx[1] = topIdx[0];
+                topCnt[0] = cnt; topIdx[0] = k;
+            } else if (cnt > topCnt[1]) {
+                topCnt[2] = topCnt[1]; topIdx[2] = topIdx[1];
+                topCnt[1] = cnt; topIdx[1] = k;
+            } else if (cnt > topCnt[2]) {
+                topCnt[2] = cnt; topIdx[2] = k;
+            }
+        }
+        int count = 0;
+        for (int idx : topIdx) {
+            if (idx >= 0) count++;
+        }
         int[] colors = new int[count];
         String[] hexCodes = new String[count];
         String[] names = new String[count];
         for (int i = 0; i < count; i++) {
-            int[] acc = ranked.get(i);
-            int n = Math.max(1, acc[0]);
-            int r = acc[1] / n;
-            int g = acc[2] / n;
-            int b = acc[3] / n;
+            int k = topIdx[i];
+            int n = Math.max(1, bucketCount[k]);
+            int r = bucketR[k] / n;
+            int g = bucketG[k] / n;
+            int b = bucketB[k] / n;
             colors[i] = (0xff << 24) | (r << 16) | (g << 8) | b;
             hexCodes[i] = String.format(Locale.US, "#%02X%02X%02X", r, g, b);
             names[i] = colorName(r, g, b);

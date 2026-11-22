@@ -1,4 +1,5 @@
 import SwiftUI
+import ZoeCore
 
 struct GuidedVisionView: View {
     @Binding var selection: Int
@@ -6,6 +7,10 @@ struct GuidedVisionView: View {
     @StateObject private var speech = SpeechController()
     @StateObject private var speaker = Speaker()
     @Environment(\.openURL) private var openURL
+    @State private var improveExpanded = false
+    @State private var teachLabel = ""
+    @State private var structuralNote = ""
+    @State private var learnedLabels: [String] = []
 
     var body: some View {
         ScrollView {
@@ -69,6 +74,37 @@ struct GuidedVisionView: View {
                     .padding(18)
                     .gemCard(radius: 22)
 
+                DisclosureGroup("Improve recognition (Offline memory: \(learnedLabels.count))", isExpanded: $improveExpanded) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        if !structuralNote.isEmpty {
+                            Text(structuralNote)
+                                .font(.footnote)
+                                .foregroundStyle(GemPalette.cobalt)
+                        }
+                        HStack(spacing: 8) {
+                            TextField("Teach Zoe object name…", text: $teachLabel)
+                                .textFieldStyle(.roundedBorder)
+                            Button("Learn") {
+                                let cleaned = teachLabel.trimmingCharacters(in: .whitespacesAndNewlines)
+                                guard !cleaned.isEmpty else { return }
+                                if !learnedLabels.contains(where: { $0.caseInsensitiveCompare(cleaned) == .orderedSame }) {
+                                    learnedLabels.append(cleaned)
+                                }
+                                structuralNote = "Learned \"\(cleaned)\" locally on-device to sharpen future Guided Vision & Explore recognition."
+                                teachLabel = ""
+                            }
+                            .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.emerald))
+                        }
+                        Button("Silent Patent Structural Prior (CPC Physical)") {
+                            runSilentPatentPrior()
+                        }
+                        .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.cobalt))
+                    }
+                    .padding(.top, 8)
+                }
+                .padding(14)
+                .gemCard(radius: 18)
+
                 HStack(spacing: 10) {
                     ShareLink(item: camera.shareText)
                         .buttonStyle(GemKeycapButtonStyle())
@@ -90,6 +126,40 @@ struct GuidedVisionView: View {
             camera.stop()
             speech.stop()
             speaker.stop()
+        }
+    }
+
+    private func runSilentPatentPrior() {
+        let base = camera.narration.trimmingCharacters(in: .whitespacesAndNewlines)
+        let detected = ScientificVisualAndPatentCore.extractPatentNumber(from: base)
+        let rawQ = detected.isEmpty ? String(base.prefix(64)) : detected
+        let filtered = ScientificVisualAndPatentCore.applyPhysicalCpcFilter(query: rawQ.isEmpty ? "optical prism gear" : rawQ, detectedPatentId: detected)
+        structuralNote = "Checking physical patent classes (A47/B25/F16/G01/G02/H01) silently…"
+        let inner = "q=\(filtered.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "prism")&num=3"
+        let encoded = inner.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? inner
+        guard let url = URL(string: "https://patents.google.com/xhr/query?url=\(encoded)") else { return }
+        Task {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let raw = String(data: data, encoding: .utf8) ?? ""
+                let matches = ScientificVisualAndPatentCore.parseGooglePatentsJson(raw, maxResults: 3)
+                await MainActor.run {
+                    if let top = matches.first {
+                        let concept = ScientificVisualAndPatentCore.cleanPhysicalConcept(top.title)
+                        if !learnedLabels.contains(where: { $0.caseInsensitiveCompare(concept) == .orderedSame }) {
+                            learnedLabels.append(concept)
+                        }
+                        let dims = top.dimensionsNote.isEmpty ? "" : " · Scale: \(top.dimensionsNote)"
+                        structuralNote = "Refined & learned offline: \(concept)\(dims)"
+                    } else {
+                        structuralNote = "No high-confidence physical patent match — type an object name above to teach Zoe directly."
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    structuralNote = "Offline right now — type an object name above to teach Zoe directly."
+                }
+            }
         }
     }
 

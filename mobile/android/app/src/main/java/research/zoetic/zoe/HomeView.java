@@ -178,11 +178,11 @@ final class HomeView extends ScrollView {
 
         registerSpecs(activity);
 
-        // 3. Focused Primary Stage (Top 3 Airy Hero Cards with generous spacing)
+        // 3. Focused Primary Stage (Top 3 Airy Hero Cards aligned on strict 16dp grid)
         primaryContainer = Ui.vertical(activity);
         primaryContainer.setId(R.id.home_zapps_list);
         primaryContainer.setBackgroundColor(Color.TRANSPARENT);
-        primaryContainer.setPadding(Ui.dp(activity, 18), 0, Ui.dp(activity, 18), 0);
+        primaryContainer.setPadding(Ui.dp(activity, 16), 0, Ui.dp(activity, 16), 0);
         content.addView(primaryContainer);
 
         // 4. Clean inline section header with subtle Arrange / Reset controls (zero floating clutter island!)
@@ -411,7 +411,7 @@ final class HomeView extends ScrollView {
             }
             LinearLayout.LayoutParams gp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            gp.setMargins(Ui.dp(getContext(), 18), 0, Ui.dp(getContext(), 18), 0);
+            gp.setMargins(Ui.dp(getContext(), 16), 0, Ui.dp(getContext(), 16), 0);
             moreContainer.addView(groupCard, gp);
         }
     }
@@ -588,7 +588,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.9.0-beta · Haeckel/Patent Visuals, Global SafeConvert & AR · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.9.1-beta · Production Vision, Haeckel Studio & AR Explore · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

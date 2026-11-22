@@ -19,6 +19,10 @@
     <item name="vision_share_photo" type="id" />
     <item name="vision_cloud_ask" type="id" />
     <item name="vision_palette" type="id" />
+    <item name="vision_improve_toggle" type="id" />
+    <item name="vision_teach_button" type="id" />
+    <item name="vision_patent_prior_button" type="id" />
+    <item name="vision_memory_badge" type="id" />
     <item name="conversation_status" type="id" />
     <item name="conversation_start" type="id" />
     <item name="conversation_stop" type="id" />
@@ -82,8 +86,6 @@
     <item name="live_ar_toggle" type="id" />
     <item name="live_ar_roam_toggle" type="id" />
     <item name="live_ar_ask_button" type="id" />
-    <item name="live_patent_button" type="id" />
-    <item name="live_patent_badge" type="id" />
     <item name="live_talk_button" type="id" />
     <item name="live_stop_button" type="id" />
     <item name="studio_tab_image" type="id" />

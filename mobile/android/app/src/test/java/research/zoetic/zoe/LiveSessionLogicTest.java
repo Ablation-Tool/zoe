@@ -77,4 +77,39 @@ public class LiveSessionLogicTest {
         assertTrue(WakeWordDetector.isHiZoeTrigger("Zoe"));
         assertFalse(WakeWordDetector.isHiZoeTrigger("Let's check the weather"));
     }
+
+    @Test
+    public void sentenceStreamingProtectsAbbreviationsAndBrainEvaluatesExactMathAndUnits() {
+        String s = "Dr. Haeckel drew Fig. 12 at 3.14 mm scale. Look closely now! ";
+        LiveSessionLogic.SentenceBatch batch = LiveSessionLogic.extractReadySentences(s, 0);
+        assertEquals(2, batch.sentences.size());
+        assertEquals("Dr. Haeckel drew Fig. 12 at 3.14 mm scale.", batch.sentences.get(0));
+        assertEquals("Look closely now!", batch.sentences.get(1));
+
+        // Deterministic exact math, unit conversion & local device clock (<2ms offline!)
+        ZoeBrainEngine brain = new ZoeBrainEngine(null);
+        ZoeBrainEngine.BrainReply pct = brain.respond("What is 18% of 245?");
+        assertEquals("exact_math", pct.mode);
+        assertTrue(pct.reply.contains("44.1"));
+
+        ZoeBrainEngine.BrainReply expr = brain.respond("2^10 + 512");
+        assertEquals("exact_math", expr.mode);
+        assertTrue(expr.reply.contains("1536"));
+
+        ZoeBrainEngine.BrainReply sq = brain.respond("square root of 144");
+        assertEquals("exact_math", sq.mode);
+        assertTrue(sq.reply.contains("12"));
+
+        ZoeBrainEngine.BrainReply temp = brain.respond("convert 72 F to C");
+        assertEquals("unit_conversion", temp.mode);
+        assertTrue(temp.reply.contains("22.222222"));
+
+        ZoeBrainEngine.BrainReply dist = brain.respond("10 km to miles");
+        assertEquals("unit_conversion", dist.mode);
+        assertTrue(dist.reply.contains("6.213712"));
+
+        ZoeBrainEngine.BrainReply clk = brain.respond("What time is it?");
+        assertEquals("local_clock", clk.mode);
+        assertTrue(clk.reply.contains("local device clock"));
+    }
 }

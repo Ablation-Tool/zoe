@@ -208,4 +208,249 @@ public enum ScientificVisualAndPatentCore {
         }
         return seen.joined(separator: ", ")
     }
+
+    // MARK: On-Device Visual Contour Reverse-Image Matching (Mirrors PatentReverseImageEngine.java)
+
+    public struct VisualSignature: Sendable {
+        public let hog16: [Double]
+        public let radial8: [Double]
+        public let dHash64: UInt64
+        public let aspectRatio: Double
+        public let bilateralSymmetry: Double
+        public let morphologyKeywords: String
+    }
+
+    private static let genericVagueLabels: Set<String> = [
+        "product", "gadget", "machine", "material", "plastic", "metal", "steel", "aluminum",
+        "hardware", "tool", "device", "electronic device", "electronics", "object", "component",
+        "artifact", "auto part", "part", "equipment", "appliance", "pattern", "design", "wood", "glass"
+    ]
+
+    public static func isHardToIdentify(_ offlineReport: String) -> Bool {
+        let lower = offlineReport.lowercased()
+        if lower.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || lower.contains("none above") || !lower.contains("labels:") {
+            return true
+        }
+        guard let regex = try? NSRegularExpression(pattern: "([A-Za-z][A-Za-z0-9\\s\\-/]{1,36})\\s*\\((\\d{1,3})%\\)") else {
+            return true
+        }
+        let matches = regex.matches(in: offlineReport, range: NSRange(offlineReport.startIndex..., in: offlineReport))
+        var topConf = 0
+        var specific = false
+        for m in matches {
+            if let r1 = Range(m.range(at: 1), in: offlineReport),
+               let r2 = Range(m.range(at: 2), in: offlineReport),
+               let conf = Int(offlineReport[r2]) {
+                let lbl = String(offlineReport[r1]).trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+                topConf = max(topConf, conf)
+                if !genericVagueLabels.contains(lbl) && conf >= 72 {
+                    specific = true
+                }
+            }
+        }
+        return !specific || topConf < 72
+    }
+
+    public static func extractVisualSignature(gray32: [Double]) -> VisualSignature? {
+        let n = 32
+        guard gray32.count == n * n else { return nil }
+        var mag = Array(repeating: 0.0, count: n * n)
+        var hog = Array(repeating: 0.0, count: 16)
+        var radial = Array(repeating: 0.0, count: 8)
+        var maxMag = 1e-5
+        let center = Double(n - 1) * 0.5
+        let maxR = center * 1.4142
+
+        for y in 1..<(n - 1) {
+            for x in 1..<(n - 1) {
+                let gx = -gray32[(y - 1) * n + (x - 1)] + gray32[(y - 1) * n + (x + 1)]
+                    - 2 * gray32[y * n + (x - 1)] + 2 * gray32[y * n + (x + 1)]
+                    - gray32[(y + 1) * n + (x - 1)] + gray32[(y + 1) * n + (x + 1)]
+                let gy = -gray32[(y - 1) * n + (x - 1)] - 2 * gray32[(y - 1) * n + x] - gray32[(y - 1) * n + (x + 1)]
+                    + gray32[(y + 1) * n + (x - 1)] + 2 * gray32[(y + 1) * n + x] + gray32[(y + 1) * n + (x + 1)]
+                let m = hypot(gx, gy)
+                mag[y * n + x] = m
+                maxMag = max(maxMag, m)
+                var ang = atan2(gy, gx)
+                if ang < 0 { ang += .pi }
+                let hBin = min(15, max(0, Int((ang / .pi) * 16.0)))
+                hog[hBin] += m
+                let rBin = min(7, max(0, Int((hypot(Double(x) - center, Double(y) - center) / maxR) * 8.0)))
+                radial[rBin] += m
+            }
+        }
+
+        let thresh = max(0.08, maxMag * 0.24)
+        var minX = n, maxX = 0, minY = n, maxY = 0
+        var symNum = 0.0, symDen = 1e-5
+        for y in 1..<(n - 1) {
+            for x in 1..<(n - 1) {
+                let m = mag[y * n + x]
+                if m >= thresh {
+                    minX = min(minX, x); maxX = max(maxX, x)
+                    minY = min(minY, y); maxY = max(maxY, y)
+                }
+                let mm = mag[y * n + (n - 1 - x)]
+                symNum += min(m, mm)
+                symDen += max(m, mm)
+            }
+        }
+        let bboxW = maxX >= minX ? Double(maxX - minX + 1) : Double(n)
+        let bboxH = maxY >= minY ? Double(maxY - minY + 1) : Double(n)
+        let aspect = bboxW / max(1.0, bboxH)
+        let sym = min(1.0, max(0.0, symNum / symDen))
+        let totalHog = max(1e-5, hog.reduce(0, +))
+        let ortho = (hog[0] + hog[7] + hog[8] + hog[15]) / totalHog
+
+        let normVec: ([Double]) -> [Double] = { v in
+            let s = sqrt(v.reduce(0) { $0 + $1 * $1 })
+            return s > 1e-6 ? v.map { $0 / s } : v
+        }
+        hog = normVec(hog)
+        radial = normVec(radial)
+
+        var dHash: UInt64 = 0
+        var bit = 0
+        for row in 0..<8 {
+            var cells: [Double] = []
+            for col in 0..<9 {
+                var acc = 0.0
+                let y0 = row * 4
+                let x0 = min(n - 3, (col * n) / 9)
+                for dy in 0..<4 {
+                    for dx in 0..<3 {
+                        acc += mag[(y0 + dy) * n + min(n - 1, x0 + dx)]
+                    }
+                }
+                cells.append(acc)
+            }
+            for col in 0..<8 {
+                if cells[col] > cells[col + 1] { dHash |= (1 << UInt64(bit)) }
+                bit += 1
+            }
+        }
+
+        let kw: String
+        if aspect > 1.65 || aspect < 0.60 {
+            kw = "elongated shaft lever handle bracket linkage tool"
+        } else if ortho < 0.29 && sym > 0.56 {
+            kw = "circular rotary ring lens gear bearing hub mechanism"
+        } else if ortho >= 0.44 {
+            kw = "rectangular housing enclosure module panel bracket connector"
+        } else {
+            kw = "symmetrical mechanical structural device assembly"
+        }
+        return VisualSignature(hog16: hog, radial8: radial, dHash64: dHash,
+                               aspectRatio: aspect, bilateralSymmetry: sym, morphologyKeywords: kw)
+    }
+
+    public static func compareVisualSignatures(_ a: VisualSignature, _ b: VisualSignature) -> Double {
+        let hogSim = max(0.0, zip(a.hog16, b.hog16).reduce(0.0) { $0 + $1.0 * $1.1 })
+        let radSim = max(0.0, zip(a.radial8, b.radial8).reduce(0.0) { $0 + $1.0 * $1.1 })
+        let hamming = (a.dHash64 ^ b.dHash64).nonzeroBitCount
+        let hashSim = 1.0 - Double(hamming) / 64.0
+        let aspectSim = min(a.aspectRatio, b.aspectRatio) / max(0.01, max(a.aspectRatio, b.aspectRatio))
+        let symSim = 1.0 - abs(a.bilateralSymmetry - b.bilateralSymmetry)
+        return min(1.0, max(0.0, 0.40 * hogSim + 0.25 * radSim + 0.20 * hashSim + 0.15 * (0.55 * aspectSim + 0.45 * symSim)))
+    }
+
+    // MARK: CPC Physical-Class Patent Filtering & Self-Improving Guided Vision Memory (Mirrors VisionPriorStore.java)
+
+    public static let physicalCpcFilter = "(cpc:A47 OR cpc:B25 OR cpc:F16 OR cpc:G01 OR cpc:G02 OR cpc:H01)"
+
+    public static func applyPhysicalCpcFilter(query: String, detectedPatentId: String) -> String {
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !q.isEmpty else { return "" }
+        if !detectedPatentId.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return q
+        }
+        return "\(q) \(physicalCpcFilter)"
+    }
+
+    public static func cleanPhysicalConcept(_ patentTitle: String) -> String {
+        var cleaned = patentTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleaned.isEmpty else { return "" }
+        let prefixes = [
+            "^(?i)(systems?\\s+and\\s+methods?\\s+for|method\\s+and\\s+apparatus\\s+for|apparatus\\s+for|device\\s+for|improved|novel)\\s+",
+        ]
+        for p in prefixes {
+            cleaned = cleaned.replacingOccurrences(of: p, with: "", options: .regularExpression)
+        }
+        cleaned = cleaned.replacingOccurrences(of: "(?i)\\b(thereof|therefor|comprising.*|having.*)$", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+            .trimmingCharacters(in: CharacterSet(charactersIn: " ,-:"))
+        if cleaned.isEmpty { cleaned = patentTitle.trimmingCharacters(in: .whitespacesAndNewlines) }
+        cleaned = String(cleaned.prefix(54)).trimmingCharacters(in: .whitespacesAndNewlines)
+        return cleaned.prefix(1).uppercased() + cleaned.dropFirst()
+    }
+
+    public struct VisionPrototype: Sendable {
+        public let label: String
+        public let source: String
+        public let signature: VisualSignature
+        public let confirmCount: Int
+
+        public init(label: String, source: String, signature: VisualSignature, confirmCount: Int = 1) {
+            self.label = label.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.source = source
+            self.signature = signature
+            self.confirmCount = max(1, confirmCount)
+        }
+    }
+
+    public static func teachOrReinforce(
+        store: [VisionPrototype],
+        label: String,
+        signature: VisualSignature,
+        source: String = "user_confirmed"
+    ) -> [VisionPrototype] {
+        let clean = label.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !clean.isEmpty else { return store }
+        var next = store
+        if let idx = next.firstIndex(where: { $0.label.caseInsensitiveCompare(clean) == .orderedSame }) {
+            let prev = next[idx]
+            let count = prev.confirmCount + 1
+            let pw = Double(prev.confirmCount) / Double(count)
+            let nw = 1.0 / Double(count)
+            let normBlend: ([Double], [Double]) -> [Double] = { a, b in
+                let raw = zip(a, b).map { $0 * pw + $1 * nw }
+                let s = sqrt(raw.reduce(0) { $0 + $1 * $1 })
+                return s > 1e-6 ? raw.map { $0 / s } : raw
+            }
+            let refined = VisualSignature(
+                hog16: normBlend(prev.signature.hog16, signature.hog16),
+                radial8: normBlend(prev.signature.radial8, signature.radial8),
+                dHash64: signature.dHash64,
+                aspectRatio: prev.signature.aspectRatio * pw + signature.aspectRatio * nw,
+                bilateralSymmetry: prev.signature.bilateralSymmetry * pw + signature.bilateralSymmetry * nw,
+                morphologyKeywords: signature.morphologyKeywords
+            )
+            next[idx] = VisionPrototype(label: prev.label, source: prev.source == "user_confirmed" ? "user_confirmed" : source,
+                                        signature: refined, confirmCount: count)
+        } else {
+            next.append(VisionPrototype(label: clean, source: source, signature: signature, confirmCount: 1))
+        }
+        return next
+    }
+
+    public static func findBestMatch(
+        store: [VisionPrototype],
+        query: VisualSignature,
+        minScore: Double = 0.78
+    ) -> (prototype: VisionPrototype, score: Double)? {
+        var best: VisionPrototype?
+        var bestRaw = -1.0
+        var bestRank = -1.0
+        for proto in store {
+            let sim = compareVisualSignatures(query, proto.signature)
+            guard sim >= minScore else { continue }
+            let rank = sim + (proto.source == "user_confirmed" ? 0.015 : 0.0)
+            if rank > bestRank {
+                bestRank = rank
+                bestRaw = sim
+                best = proto
+            }
+        }
+        return best.map { ($0, bestRaw) }
+    }
 }

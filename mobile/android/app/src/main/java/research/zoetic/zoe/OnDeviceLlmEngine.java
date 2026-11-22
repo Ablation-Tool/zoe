@@ -87,9 +87,14 @@ final class OnDeviceLlmEngine {
         void onProgress(int percent, long downloadedMb, long totalMb);
     }
 
+    private static final Object SHARED_LOCK = new Object();
+    private static LlmInference sharedEngine;
+    private static String sharedLoadedPath = "";
+    private static String sharedActiveBackend = "CPU";
+
     private final Context appContext;
-    private LlmInference engine;
-    private String loadedPath = "";
+    private final java.util.concurrent.atomic.AtomicReference<LlmInferenceSession> activeSession =
+            new java.util.concurrent.atomic.AtomicReference<>(null);
     private final AtomicBoolean downloadCancelled = new AtomicBoolean(false);
 
     OnDeviceLlmEngine(Context context) {
@@ -164,6 +169,7 @@ final class OnDeviceLlmEngine {
     }
 
     static boolean deleteModel(Context ctx, ModelSpec spec) {
+        releaseSharedEngine();
         boolean removed = false;
         File f = modelFile(ctx, spec);
         if (f.exists()) {
@@ -316,66 +322,107 @@ final class OnDeviceLlmEngine {
         return dest;
     }
 
-    /** Pre-loads the MediaPipe LiteRT model into memory on a background thread for low-latency live voice. */
-    synchronized void warmUp(File modelFile) {
+    /**
+     * Loads (or reuses) the process-wide shared MediaPipe LiteRT engine across Zoe Chat & Zoe Explore
+     * (0 ms reload when switching screens!). Prefers hardware GPU (Tensor G2 Mali-G710) with
+     * automatic safe fallback to CPU if a model pack or device lacks GPU delegate support.
+     */
+    private LlmInference ensureSharedEngine(File modelFile) {
+        synchronized (SHARED_LOCK) {
+            String path = modelFile.getAbsolutePath();
+            if (sharedEngine != null && path.equals(sharedLoadedPath)) {
+                return sharedEngine;
+            }
+            releaseSharedEngineLocked();
+            try {
+                LlmInference.LlmInferenceOptions gpuOpts = LlmInference.LlmInferenceOptions.builder()
+                        .setModelPath(path)
+                        .setMaxTokens(1024)
+                        .setMaxTopK(40)
+                        .setPreferredBackend(LlmInference.Backend.GPU)
+                        .build();
+                sharedEngine = LlmInference.createFromOptions(appContext, gpuOpts);
+                sharedLoadedPath = path;
+                sharedActiveBackend = "GPU";
+                return sharedEngine;
+            } catch (Throwable gpuUnavailable) {
+                LlmInference.LlmInferenceOptions cpuOpts = LlmInference.LlmInferenceOptions.builder()
+                        .setModelPath(path)
+                        .setMaxTokens(1024)
+                        .setMaxTopK(40)
+                        .setPreferredBackend(LlmInference.Backend.CPU)
+                        .build();
+                sharedEngine = LlmInference.createFromOptions(appContext, cpuOpts);
+                sharedLoadedPath = path;
+                sharedActiveBackend = "CPU";
+                return sharedEngine;
+            }
+        }
+    }
+
+    static String activeBackendLabel() {
+        return sharedActiveBackend;
+    }
+
+    /** Pre-loads the shared MediaPipe LiteRT model in background for zero-wait live voice & chat. */
+    void warmUp(File modelFile) {
         if (modelFile == null || !modelFile.isFile()) {
             return;
         }
         try {
-            String path = modelFile.getAbsolutePath();
-            if (engine == null || !path.equals(loadedPath)) {
-                close();
-                LlmInference.LlmInferenceOptions options = LlmInference.LlmInferenceOptions.builder()
-                        .setModelPath(path)
-                        .setMaxTokens(1024)
-                        .setMaxTopK(40)
-                        .build();
-                engine = LlmInference.createFromOptions(appContext, options);
-                loadedPath = path;
-            }
-        } catch (Exception ignored) {
+            ensureSharedEngine(modelFile);
+        } catch (Throwable ignored) {
         }
     }
 
-    synchronized String generateStreaming(
+    /**
+     * Immediately interrupts any in-flight local token generation (true Gemini-Live-speed barge-in!).
+     */
+    void cancelActiveGeneration() {
+        LlmInferenceSession current = activeSession.getAndSet(null);
+        if (current != null) {
+            try {
+                current.cancelGenerateResponseAsync();
+            } catch (Throwable ignored) {
+            }
+        }
+    }
+
+    String generateStreaming(
             File modelFile,
             String prompt,
             TokenCallback callback) throws Exception {
         if (modelFile == null || !modelFile.isFile()) {
             throw new IOException("No offline .task model installed yet.");
         }
-        String path = modelFile.getAbsolutePath();
-        if (engine == null || !path.equals(loadedPath)) {
-            close();
-            LlmInference.LlmInferenceOptions options = LlmInference.LlmInferenceOptions.builder()
-                    .setModelPath(path)
-                    .setMaxTokens(1024)
-                    .setMaxTopK(40)
-                    .build();
-            engine = LlmInference.createFromOptions(appContext, options);
-            loadedPath = path;
-        }
-        StringBuilder full = new StringBuilder();
-        LlmInferenceSession.LlmInferenceSessionOptions sessionOpts =
-                LlmInferenceSession.LlmInferenceSessionOptions.builder()
-                        .setTopK(40)
-                        .setTopP(0.92f)
-                        .setTemperature(0.75f)
-                        .setRandomSeed((int) (System.nanoTime() & 0x7fffffffL))
-                        .build();
-        try (LlmInferenceSession session = LlmInferenceSession.createFromOptions(engine, sessionOpts)) {
-            session.addQueryChunk(prompt);
-            ListenableFuture<String> future = session.generateResponseAsync((partialResult, done) -> {
-                if (partialResult != null) {
-                    full.append(partialResult);
-                }
-                if (callback != null) {
-                    callback.onToken(cleanResponse(full.toString()), done);
-                }
-            });
-            String finalText = future.get();
-            String best = (finalText != null && !finalText.trim().isEmpty()) ? finalText : full.toString();
-            return cleanResponse(best);
+        cancelActiveGeneration();
+        LlmInference engine = ensureSharedEngine(modelFile);
+        synchronized (SHARED_LOCK) {
+            StringBuilder full = new StringBuilder();
+            LlmInferenceSession.LlmInferenceSessionOptions sessionOpts =
+                    LlmInferenceSession.LlmInferenceSessionOptions.builder()
+                            .setTopK(40)
+                            .setTopP(0.92f)
+                            .setTemperature(0.75f)
+                            .setRandomSeed((int) (System.nanoTime() & 0x7fffffffL))
+                            .build();
+            try (LlmInferenceSession session = LlmInferenceSession.createFromOptions(engine, sessionOpts)) {
+                activeSession.set(session);
+                session.addQueryChunk(prompt);
+                ListenableFuture<String> future = session.generateResponseAsync((partialResult, done) -> {
+                    if (partialResult != null) {
+                        full.append(partialResult);
+                    }
+                    if (callback != null) {
+                        callback.onToken(cleanResponse(full.toString()), done);
+                    }
+                });
+                String finalText = future.get();
+                String best = (finalText != null && !finalText.trim().isEmpty()) ? finalText : full.toString();
+                return cleanResponse(best);
+            } finally {
+                activeSession.set(null);
+            }
         }
     }
 
@@ -431,14 +478,26 @@ final class OnDeviceLlmEngine {
         return "ZOE LOCAL";
     }
 
-    synchronized void close() {
-        if (engine != null) {
+    /** Cancels this screen's active turn while keeping the shared engine warm across Zoe Chat & Explore. */
+    void close() {
+        cancelActiveGeneration();
+    }
+
+    static void releaseSharedEngine() {
+        synchronized (SHARED_LOCK) {
+            releaseSharedEngineLocked();
+        }
+    }
+
+    private static void releaseSharedEngineLocked() {
+        if (sharedEngine != null) {
             try {
-                engine.close();
+                sharedEngine.close();
             } catch (Exception ignored) {
             }
-            engine = null;
-            loadedPath = "";
+            sharedEngine = null;
+            sharedLoadedPath = "";
+            sharedActiveBackend = "CPU";
         }
     }
 }

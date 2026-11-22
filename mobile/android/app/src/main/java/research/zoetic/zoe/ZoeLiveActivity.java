@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -70,7 +71,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public final class ZoeLiveActivity extends ComponentActivity {
     private static final int PERM_REQ = 84;
     private static final long CAMERA_REFRESH_INTERVAL_MS = 2400L;
-    private static final long ECHO_GUARD_MS = 260L;
+    private static final long ECHO_GUARD_MS = 380L;
 
     private enum OrbState {
         IDLE,
@@ -114,8 +115,6 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private Button arToggleBtn;
     private Button arRoamBtn;
     private Button arAskBtn;
-    private Button patentBtn;
-    private Button patentBadgeBtn;
     private Button cameraToggleBtn;
     private Button lookNowBtn;
     private Button flipCamBtn;
@@ -146,7 +145,6 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private volatile String latestCameraReport = "";
     private volatile byte[] latestCameraJpeg;
     private volatile float latestArDistanceMeters = 0f;
-    private volatile String latestPatentUrl = "";
     private String pendingSpeechOnReady = "";
     private String lastUserSpoken = "";
     private final AtomicInteger pendingTtsChunks = new AtomicInteger(0);
@@ -170,8 +168,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
         nativeVoice = new ZoeNativeVoice();
         localLlm = new OnDeviceLlmEngine(this);
 
-        // Pre-warm on-device 1.5B LLM silently in the background so your first spoken turn responds fast!
+        // Pre-warm on-device ML Kit singletons & shared LiteRT LLM in background so your first turn is instant!
         executor.execute(() -> {
+            MediaChatHelper.warmUp();
+            VisionPriorStore.loadAll(this);
             File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
             if (localModel != null) {
                 localLlm.warmUp(localModel);
@@ -183,10 +183,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 4));
+        header.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 4));
         header.addView(Ui.topBar(this, "Zoe Explore", null));
 
-        // Sleek borderless translucent mini-pills (active pills light up cleanly!)
+        // Symmetric 4-pill status strip (16dp outer rails, 8dp inner gutters, uniform 36dp height)
         LinearLayout toggles = new LinearLayout(this);
         toggles.setOrientation(LinearLayout.HORIZONTAL);
         toggles.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
@@ -200,9 +200,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         voiceModeBtn.setId(R.id.live_voice_toggle);
         Button[] toggleBtns = new Button[]{cameraToggleBtn, hiZoeToggleBtn, webToggleBtn, voiceModeBtn};
         for (int i = 0; i < toggleBtns.length; i++) {
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, Ui.dp(this, 34), 1f);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, Ui.dp(this, 36), 1f);
             if (i < toggleBtns.length - 1) {
-                lp.setMargins(0, 0, Ui.dp(this, 6), 0);
+                lp.setMargins(0, 0, Ui.dp(this, 8), 0);
             }
             toggles.addView(toggleBtns[i], lp);
         }
@@ -213,12 +213,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
         captionScroll.setFillViewport(true);
         captionScroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout center = Ui.vertical(this);
+        center.setBackgroundColor(Color.TRANSPARENT);
         center.setGravity(Gravity.CENTER_HORIZONTAL);
-        center.setPadding(Ui.dp(this, 18), Ui.dp(this, 6), Ui.dp(this, 18), Ui.dp(this, 12));
+        center.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 12));
 
-        // Live Camera Sight Card (hidden & OFF until tapped; runs simultaneously with voice!)
+        // Concentric Live Camera Sight Card (20dp outer, 6dp frame, 14dp inner radius — hidden & OFF until tapped!)
         cameraCard = new FrameLayout(this);
-        cameraCard.setBackground(Ui.cardBackground(this, 24));
+        cameraCard.setBackground(Ui.cardBackground(this, 20));
         cameraCard.setPadding(Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
         cameraPreview = new PreviewView(this);
         cameraPreview.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
@@ -226,12 +227,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
         cameraPreview.setOutlineProvider(new android.view.ViewOutlineProvider() {
             @Override
             public void getOutline(View view, android.graphics.Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 18));
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 14));
             }
         });
         cameraPreview.setClipToOutline(true);
         cameraCard.addView(cameraPreview, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 224)));
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         // Subtle live overlay controls inside camera viewfinder (LIVE SIGHT pill + Flip + Look now)
         LinearLayout camOverlayTop = new LinearLayout(this);
@@ -271,20 +272,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
         camLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         center.addView(cameraCard, camLp);
 
-        // Google Play Services for AR (ARCore 6DoF) 3D Interactive Room Card (hidden until AR Space tapped!)
+        // Concentric ARCore 6DoF 3D Interactive Room Card (20dp outer, 6dp frame, 14dp inner radius)
         arCard = new FrameLayout(this);
-        arCard.setBackground(Ui.cardBackground(this, 24));
+        arCard.setBackground(Ui.cardBackground(this, 20));
         arCard.setPadding(Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
         arSurfaceHost = new FrameLayout(this);
         arSurfaceHost.setOutlineProvider(new android.view.ViewOutlineProvider() {
             @Override
             public void getOutline(View view, android.graphics.Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 18));
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 14));
             }
         });
         arSurfaceHost.setClipToOutline(true);
         arCard.addView(arSurfaceHost, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 336)));
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         LinearLayout arOverlayTop = new LinearLayout(this);
         arOverlayTop.setOrientation(LinearLayout.HORIZONTAL);
@@ -365,33 +366,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
         capLp.setMargins(0, Ui.dp(this, 12), 0, Ui.dp(this, 12));
         center.addView(captionView, capLp);
 
-        // Clickable Patent Catalog citation badge (hidden until a Google Patents lookup returns a candidate!)
-        patentBadgeBtn = chipButton("📐 Open Patent Schematic ↗", v -> {
-            String url = latestPatentUrl;
-            if (WebSearchClient.isSafeWebUrl(url)) {
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)));
-                } catch (Exception ignored) {
-                }
-            }
-        });
-        patentBadgeBtn.setId(R.id.live_patent_badge);
-        patentBadgeBtn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 16, 22) : Color.WHITE);
-        patentBadgeBtn.setBackground(Ui.tonalPillDrawable(this, Ui.resolveColor(this, Ui.COBALT), Ui.COBALT, 18));
-        patentBadgeBtn.setVisibility(View.GONE);
-        LinearLayout.LayoutParams pbLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 38));
-        pbLp.setMargins(0, 0, 0, Ui.dp(this, 10));
-        center.addView(patentBadgeBtn, pbLp);
-
-        // Clean borderless quick actions (✦ AR Space · 📐 Patent · Sing Zoe)
+        // Clean borderless quick actions (✦ AR Space · Calm fact · Sing Zoe)
         LinearLayout quickChips = new LinearLayout(this);
         quickChips.setOrientation(LinearLayout.HORIZONTAL);
         quickChips.setGravity(Gravity.CENTER);
         arToggleBtn = chipButton("✦ AR Space", v -> toggleArSpace());
         arToggleBtn.setId(R.id.live_ar_toggle);
-        patentBtn = chipButton("📐 Patent", v -> runGooglePatentsLookup());
-        patentBtn.setId(R.id.live_patent_button);
+        Button q1 = chipButton("Calm fact", v -> processSpokenPrompt("Tell me a short calming science fact about nature."));
         Button q2 = chipButton("Sing Zoe", v -> {
             long myTurn = activeTurnId.incrementAndGet();
             stopAudioOnly();
@@ -407,22 +388,22 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 }
             }));
         });
-        LinearLayout.LayoutParams qLp1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1.1f);
-        qLp1.setMargins(0, 0, Ui.dp(this, 6), 0);
-        LinearLayout.LayoutParams qLp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1.0f);
-        qLp2.setMargins(0, 0, Ui.dp(this, 6), 0);
+        LinearLayout.LayoutParams qLp1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
+        qLp1.setMargins(0, 0, Ui.dp(this, 8), 0);
+        LinearLayout.LayoutParams qLp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
+        qLp2.setMargins(0, 0, Ui.dp(this, 8), 0);
         quickChips.addView(arToggleBtn, qLp1);
-        quickChips.addView(patentBtn, qLp2);
-        quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 0.95f));
+        quickChips.addView(q1, qLp2);
+        quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f));
         center.addView(quickChips);
 
         captionScroll.addView(center);
         root.addView(captionScroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
 
-        // Gemini-Live-style Bottom Control Dock (Talk Now | Live + Cam | End / Mute)
+        // Symmetric 3-button Bottom Control Dock (16dp rails, 8dp gutters, equal 1:1:1 visual weight)
         LinearLayout dock = new LinearLayout(this);
         dock.setOrientation(LinearLayout.HORIZONTAL);
-        dock.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 18));
+        dock.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 16));
 
         listenBtn = Ui.primaryButton(this, "Talk Now", Ui.COBALT, v -> onOrbTapped());
         listenBtn.setId(R.id.live_talk_button);
@@ -436,19 +417,46 @@ public final class ZoeLiveActivity extends ComponentActivity {
         stopBtn.setId(R.id.live_stop_button);
         stopBtn.setTextSize(13.5f);
 
-        LinearLayout.LayoutParams dlp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.15f);
-        dlp1.setMargins(0, 0, Ui.dp(this, 6), 0);
+        LinearLayout.LayoutParams dlp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        dlp1.setMargins(0, 0, Ui.dp(this, 8), 0);
         LinearLayout.LayoutParams dlp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
-        dlp2.setMargins(0, 0, Ui.dp(this, 6), 0);
+        dlp2.setMargins(0, 0, Ui.dp(this, 8), 0);
         dock.addView(listenBtn, dlp1);
         dock.addView(liveCamBtn, dlp2);
-        dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.95f));
+        dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         root.addView(dock);
 
         setContentView(Ui.wrapWithBackdrop(this, root));
         Ui.configureEdgeToEdge(this, root);
+        applyResponsiveGeometry(getResources().getConfiguration());
         styleHeaderPills();
         initTts();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        applyResponsiveGeometry(newConfig);
+    }
+
+    private void applyResponsiveGeometry(Configuration cfg) {
+        boolean landscape = cfg != null && cfg.orientation == Configuration.ORIENTATION_LANDSCAPE;
+        int camH = Ui.dp(this, landscape ? 168 : 236);
+        int arH = Ui.dp(this, landscape ? 220 : 348);
+        int orbSize = Ui.dp(this, cameraOn ? (landscape ? 92 : 132) : (landscape ? 128 : 204));
+        if (cameraCard != null && cameraCard.getLayoutParams() != null) {
+            cameraCard.getLayoutParams().height = camH;
+            cameraCard.requestLayout();
+        }
+        if (arCard != null && arCard.getLayoutParams() != null) {
+            arCard.getLayoutParams().height = arH;
+            arCard.requestLayout();
+        }
+        if (orbView != null && orbView.getLayoutParams() != null) {
+            orbView.getLayoutParams().width = orbSize;
+            orbView.getLayoutParams().height = orbSize;
+            orbView.requestLayout();
+        }
     }
 
     private Button chipButton(String label, View.OnClickListener listener) {
@@ -532,6 +540,16 @@ public final class ZoeLiveActivity extends ComponentActivity {
                         handleTtsChunkFinished(utteranceId);
                     }
                 });
+                if (!pendingSpeechOnReady.isEmpty()) {
+                    String toSpeak = pendingSpeechOnReady;
+                    pendingSpeechOnReady = "";
+                    speakCompleteReply(toSpeak, activeTurnId.get());
+                }
+            } else {
+                // OS TTS unavailable — cleanly switch to Zoe's 100% offline 44.1 kHz voice so Explore never hangs!
+                useNativeVoice = true;
+                voiceModeBtn.setText("Voice: Zoe 44k");
+                styleHeaderPills();
                 if (!pendingSpeechOnReady.isEmpty()) {
                     String toSpeak = pendingSpeechOnReady;
                     pendingSpeechOnReady = "";
@@ -772,35 +790,38 @@ public final class ZoeLiveActivity extends ComponentActivity {
             startLiveVoiceAndCamera();
             return;
         }
-        if (arSurfaceView == null) {
-            arSurfaceView = new ZoeArSurfaceView(this, arBrain, new ZoeArSurfaceView.Listener() {
-                @Override
-                public void onArTrackingUpdate(int planeCount, float zoeDistMeters, String statusHint) {
-                    latestArDistanceMeters = zoeDistMeters;
-                    if (arModeOn && !isFinishing() && !isDestroyed()) {
-                        arHudPill.setText(statusHint);
-                    }
-                }
-
-                @Override
-                public void onZoeArrivedAtSpot(Bitmap uprightFrame, ArExploreBrain.Vec3 worldPos,
-                                               float distanceMeters, boolean userTapped) {
-                    latestArDistanceMeters = distanceMeters;
-                    handleArSpotInspection(uprightFrame, worldPos, distanceMeters, userTapped);
-                }
-
-                @Override
-                public void onArUnavailable(String reason) {
-                    if (!isFinishing() && !isDestroyed()) {
-                        stopArSpace();
-                        captionView.setText(reason);
-                    }
-                }
-            });
-            arSurfaceHost.removeAllViews();
-            arSurfaceHost.addView(arSurfaceView, new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        // Recreate a fresh GL surface on every AR start to prevent stale EGL textures or black-screen restarts
+        if (arSurfaceView != null) {
+            arSurfaceView.stopArSession();
+            arSurfaceView = null;
         }
+        arSurfaceHost.removeAllViews();
+        arSurfaceView = new ZoeArSurfaceView(this, arBrain, new ZoeArSurfaceView.Listener() {
+            @Override
+            public void onArTrackingUpdate(int planeCount, float zoeDistMeters, String statusHint) {
+                latestArDistanceMeters = zoeDistMeters;
+                if (arModeOn && !isFinishing() && !isDestroyed()) {
+                    arHudPill.setText(statusHint);
+                }
+            }
+
+            @Override
+            public void onZoeArrivedAtSpot(Bitmap uprightFrame, ArExploreBrain.Vec3 worldPos,
+                                           float distanceMeters, boolean userTapped) {
+                latestArDistanceMeters = distanceMeters;
+                handleArSpotInspection(uprightFrame, worldPos, distanceMeters, userTapped);
+            }
+
+            @Override
+            public void onArUnavailable(String reason) {
+                if (!isFinishing() && !isDestroyed()) {
+                    stopArSpace();
+                    captionView.setText(reason);
+                }
+            }
+        });
+        arSurfaceHost.addView(arSurfaceView, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         arSurfaceView.setAutonomousRoam(arRoamEnabled);
         arBrain.clearSession();
         arCard.setVisibility(View.VISIBLE);
@@ -825,7 +846,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         arModeOn = false;
         if (arSurfaceView != null) {
             arSurfaceView.stopArSession();
+            arSurfaceView = null;
         }
+        arSurfaceHost.removeAllViews();
         arCard.setVisibility(View.GONE);
         orbView.setVisibility(View.VISIBLE);
         cameraToggleBtn.setText("Camera: off");
@@ -857,15 +880,26 @@ public final class ZoeLiveActivity extends ComponentActivity {
         executor.execute(() -> {
             String report;
             byte[] jpeg;
+            String learnedHint = "";
             try {
                 report = MediaChatHelper.inspectFrameOffline(uprightFrame);
                 jpeg = MediaChatHelper.bitmapToJpeg(uprightFrame, 78);
+                // Silently query Guided Vision's on-device learned visual memory (<2ms offline, zero UI clutter!)
+                learnedHint = VisionPriorStore.buildSilentExploreContext(this, uprightFrame);
             } catch (Throwable err) {
                 uprightFrame.recycle();
                 return;
             }
             uprightFrame.recycle();
-            latestCameraReport = report;
+            String scaleNote = ScientificVisualSubstrate.describeRelativeScale(distanceMeters);
+            StringBuilder enriched = new StringBuilder(report);
+            if (!learnedHint.isEmpty()) {
+                enriched.append(" ").append(learnedHint);
+            }
+            if (!scaleNote.isEmpty()) {
+                enriched.append(" ").append(scaleNote);
+            }
+            latestCameraReport = enriched.toString().trim();
             latestCameraJpeg = jpeg;
 
             ArExploreBrain.SpatialDiscovery discovery = arBrain.recordDiscoveryIfNew(
@@ -878,7 +912,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                     : new ArExploreBrain.SpatialDiscovery(
                             ArExploreBrain.extractPrimaryLabel(report),
                             ArExploreBrain.extractOcrSnippet(report),
-                            report, worldPos, distanceMeters, System.currentTimeMillis());
+                            latestCameraReport, worldPos, distanceMeters, System.currentTimeMillis());
             runOnUiThread(() -> {
                 if (!arModeOn || isFinishing() || isDestroyed()) {
                     return;
@@ -959,6 +993,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
         if (arModeOn) {
             stopArSpace();
         }
+        if (cameraOn && callActive) {
+            describeLiveViewProactively();
+            return;
+        }
         List<String> needed = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             needed.add(Manifest.permission.RECORD_AUDIO);
@@ -988,11 +1026,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         cameraOn = true;
         cameraToggleBtn.setText("Camera: on");
         cameraCard.setVisibility(View.VISIBLE);
-        // Shrink orb slightly while viewfinder is visible so everything fits comfortably above the fold
-        ViewGroup.LayoutParams lp = orbView.getLayoutParams();
-        lp.width = Ui.dp(this, 148);
-        lp.height = Ui.dp(this, 148);
-        orbView.setLayoutParams(lp);
+        applyResponsiveGeometry(getResources().getConfiguration());
         styleHeaderPills();
         updateKeepScreenOn();
         cameraPreview.post(this::bindCameraPreview);
@@ -1039,10 +1073,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         }
         cameraCard.setVisibility(View.GONE);
         cameraToggleBtn.setText("Camera: off");
-        ViewGroup.LayoutParams lp = orbView.getLayoutParams();
-        lp.width = Ui.dp(this, 212);
-        lp.height = Ui.dp(this, 212);
-        orbView.setLayoutParams(lp);
+        applyResponsiveGeometry(getResources().getConfiguration());
         styleHeaderPills();
         updateKeepScreenOn();
     }
@@ -1057,15 +1088,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
             return;
         }
         executor.execute(() -> {
+            Bitmap small = null;
             try {
-                Bitmap small = MediaChatHelper.scaleDown(frame, 480);
+                // Skip unnecessary JPEG encoding during silent background heartbeat (cuts CPU/GC!)
+                small = MediaChatHelper.scaleDown(frame, 480);
                 String report = MediaChatHelper.inspectFrameOffline(small);
-                byte[] jpeg = MediaChatHelper.bitmapToJpeg(small, 76);
-                latestCameraReport = report;
-                latestCameraJpeg = jpeg;
-                small.recycle();
+                String learnedHint = VisionPriorStore.buildSilentExploreContext(this, small);
+                latestCameraReport = learnedHint.isEmpty() ? report : (report + " " + learnedHint);
             } catch (Exception ignored) {
             } finally {
+                if (small != null && !small.isRecycled()) {
+                    small.recycle();
+                } else if (!frame.isRecycled()) {
+                    frame.recycle();
+                }
                 cameraAnalysisBusy.set(false);
             }
         });
@@ -1087,16 +1123,24 @@ public final class ZoeLiveActivity extends ComponentActivity {
         setOrbState(OrbState.THINKING, "LOOKING AT YOUR VIEW…");
         captionView.setText("Looking closely at what's in front of your camera…");
         executor.execute(() -> {
+            Bitmap working = null;
             if (frame != null) {
                 try {
-                    Bitmap small = MediaChatHelper.scaleDown(frame, 640);
-                    latestCameraReport = MediaChatHelper.inspectFrameOffline(small);
-                    latestCameraJpeg = MediaChatHelper.bitmapToJpeg(small, 80);
-                    small.recycle();
+                    working = MediaChatHelper.scaleDown(frame, 640);
+                    String baseReport = MediaChatHelper.inspectFrameOffline(working);
+                    String learnedHint = VisionPriorStore.buildSilentExploreContext(this, working);
+                    latestCameraReport = learnedHint.isEmpty() ? baseReport : (baseReport + " " + learnedHint);
+                    latestCameraJpeg = MediaChatHelper.bitmapToJpeg(working, 80);
                 } catch (Exception ignored) {
                 }
             }
-            answerTurnInBackground(myTurn, "Tell me naturally in two sentences what you see in my camera right now.", true);
+            try {
+                answerTurnInBackground(myTurn, "Tell me naturally in two sentences what you see in my camera right now.", true, working);
+            } finally {
+                if (working != null && !working.isRecycled()) {
+                    working.recycle();
+                }
+            }
         });
     }
 
@@ -1202,7 +1246,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 if (myGen == listenGen.get()) {
                     orbView.setAudioLevel(0f);
                     if (!hiZoeWakeMode) {
-                        setOrbState(OrbState.THINKING, cameraOn ? "SEEING & THINKING…" : "THINKING…");
+                        setOrbState(OrbState.THINKING, (cameraOn || arModeOn) ? "SEEING & THINKING…" : "THINKING…");
                     }
                 }
             }
@@ -1324,7 +1368,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
             recognizer.startListening(intent);
             setOrbState(OrbState.LISTENING, hiZoeWakeMode
                     ? "WAITING FOR 'HI ZOE' · VISIBLE OPT-IN"
-                    : (cameraOn ? "LIVE VOICE + SIGHT · SPEAK NATURALLY" : "LIVE · LISTENING…"));
+                    : (arModeOn ? "AR SPACE LIVE · EXPLORE & TALK"
+                            : (cameraOn ? "LIVE VOICE + SIGHT · SPEAK NATURALLY" : "LIVE · LISTENING…")));
         } catch (Exception err) {
             preferDeviceRecognizer = false;
             scheduleListeningRearm(500L);
@@ -1342,8 +1387,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         stopAudioOnly();
         lastUserSpoken = spoken;
         sessionHistory.add(new ChatHistoryStore.ChatMessage("user", spoken, "YOU", "", 0));
-        captionView.setText(LiveSessionLogic.formatLiveCaption(spoken, cameraOn ? "Looking & thinking…" : "Thinking…"));
-        setOrbState(OrbState.THINKING, cameraOn ? "SEEING & THINKING…" : "ZOE IS THINKING…");
+        final boolean hasSight = cameraOn || arModeOn;
+        captionView.setText(LiveSessionLogic.formatLiveCaption(spoken, hasSight ? "Looking & thinking…" : "Thinking…"));
+        setOrbState(OrbState.THINKING, hasSight ? "SEEING & THINKING…" : "ZOE IS THINKING…");
 
         String lower = spoken.toLowerCase(Locale.US);
         boolean identity = lower.contains("who are you") || lower.contains("who built you")
@@ -1352,114 +1398,73 @@ public final class ZoeLiveActivity extends ComponentActivity {
             finishSimpleReply(myTurn, brain.respond(spoken).reply);
             return;
         }
+        // Instant <2ms deterministic exact math, unit conversions, and real local device clock!
+        ZoeBrainEngine.BrainReply fastExact = brain.respond(spoken);
+        if ("exact_math".equals(fastExact.mode)
+                || "unit_conversion".equals(fastExact.mode)
+                || "local_clock".equals(fastExact.mode)) {
+            finishSimpleReply(myTurn, fastExact.reply);
+            return;
+        }
 
-        // Capture a fresh live camera frame right now on UI thread if Camera is ON!
-        final boolean hasSight = cameraOn || arModeOn;
-        final Bitmap freshFrame = cameraOn ? cameraPreview.getBitmap() : null;
+        // Capture a fresh live frame right now from either Live Camera OR AR Space!
+        final Bitmap freshFrame = cameraOn
+                ? cameraPreview.getBitmap()
+                : (arModeOn && arSurfaceView != null ? arSurfaceView.getLatestSnapshotCopy() : null);
         executor.execute(() -> {
             if (myTurn != activeTurnId.get()) {
+                if (freshFrame != null && !freshFrame.isRecycled()) {
+                    freshFrame.recycle();
+                }
                 return;
             }
+            Bitmap frameForVision = null;
             if (freshFrame != null) {
                 try {
                     Bitmap small = MediaChatHelper.scaleDown(freshFrame, 512);
-                    latestCameraReport = MediaChatHelper.inspectFrameOffline(small);
+                    String baseReport = MediaChatHelper.inspectFrameOffline(small);
+                    String learnedHint = VisionPriorStore.buildSilentExploreContext(this, small);
+                    latestCameraReport = learnedHint.isEmpty() ? baseReport : (baseReport + " " + learnedHint);
                     latestCameraJpeg = MediaChatHelper.bitmapToJpeg(small, 78);
-                    small.recycle();
+                    frameForVision = small;
                 } catch (Exception ignored) {
-                }
-            }
-            answerTurnInBackground(myTurn, spoken, hasSight);
-        });
-    }
-
-    /**
-     * Opt-in 1-tap Google Patents Catalog lookup from Zoe Explore's live view, ARCore 3D distance,
-     * OCR patent/model text, or recent spoken question (zero API keys, HTTPS patents.google.com).
-     */
-    private void runGooglePatentsLookup() {
-        final long myTurn = activeTurnId.incrementAndGet();
-        stopAudioOnly();
-        lastUserSpoken = "Patent & Schematic Catalog Lookup";
-        setOrbState(OrbState.THINKING, "SEARCHING GOOGLE PATENTS CATALOG…");
-        captionView.setText("Checking optical/mechanical features & stamped patent text against patents.google.com…");
-        patentBadgeBtn.setVisibility(View.GONE);
-
-        final Bitmap freshFrame = cameraOn ? cameraPreview.getBitmap() : null;
-        final String hint = sessionHistory.isEmpty() ? "" : sessionHistory.get(sessionHistory.size() - 1).text;
-        final float distM = arModeOn ? latestArDistanceMeters : 0f;
-
-        executor.execute(() -> {
-            if (myTurn != activeTurnId.get()) {
-                return;
-            }
-            if (freshFrame != null) {
-                try {
-                    Bitmap small = MediaChatHelper.scaleDown(freshFrame, 640);
-                    latestCameraReport = MediaChatHelper.inspectFrameOffline(small);
-                    latestCameraJpeg = MediaChatHelper.bitmapToJpeg(small, 80);
-                    small.recycle();
-                } catch (Exception ignored) {
-                }
-            }
-            GooglePatentsClient.LookupResult res = GooglePatentsClient.searchPatents(
-                    latestCameraReport, hint, distM, 3);
-            String spokenSummary = res.formatSpokenSummary();
-            GooglePatentsClient.PatentMatch top = res.topMatch();
-
-            runOnUiThread(() -> {
-                if (myTurn != activeTurnId.get() || isFinishing() || isDestroyed()) {
-                    return;
-                }
-                if (top != null && WebSearchClient.isSafeWebUrl(top.patentUrl)) {
-                    latestPatentUrl = top.patentUrl;
-                    String label = "📐 " + top.publicationNumber + " · " + top.title;
-                    if (label.length() > 54) {
-                        label = label.substring(0, 53) + "…";
+                    if (!freshFrame.isRecycled()) {
+                        freshFrame.recycle();
                     }
-                    patentBadgeBtn.setText(label + " ↗");
-                    patentBadgeBtn.setVisibility(View.VISIBLE);
-                } else {
-                    latestPatentUrl = "";
-                    patentBadgeBtn.setVisibility(View.GONE);
                 }
-                finishSimpleReply(myTurn, spokenSummary);
-            });
+            }
+            try {
+                answerTurnInBackground(myTurn, spoken, hasSight, frameForVision);
+            } finally {
+                if (frameForVision != null && !frameForVision.isRecycled()) {
+                    frameForVision.recycle();
+                }
+            }
         });
     }
 
-    private void answerTurnInBackground(long myTurn, String spoken, boolean withCamera) {
+    private void answerTurnInBackground(long myTurn, String spoken, boolean withCamera, Bitmap liveFrame) {
         if (myTurn != activeTurnId.get()) {
             return;
         }
         WebSearchClient.SearchResult webRes = webOn ? WebSearchClient.search(spoken) : null;
         String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(700) : "";
 
-        // When Web: on and user asks about an unfamiliar object/mechanism or patent, enrich via patents.google.com!
+        // Silent background patent grounding ONLY when Web: on AND (an exact patent number is stamped/read OR user explicitly asks about a patent).
+        // Zero noisy cards or popups are ever shown to the user in Zoe Explore!
         String lowerSpoken = spoken == null ? "" : spoken.toLowerCase(Locale.US);
-        boolean wantsPatent = webOn && (lowerSpoken.contains("patent")
-                || lowerSpoken.contains("schematic")
-                || lowerSpoken.contains("blueprint")
-                || lowerSpoken.contains("mechanism")
-                || (withCamera && (lowerSpoken.contains("what is this") || lowerSpoken.contains("what's this") || lowerSpoken.contains("identify"))));
-        if (wantsPatent) {
-            GooglePatentsClient.LookupResult patRes = GooglePatentsClient.searchPatents(
-                    latestCameraReport, spoken, arModeOn ? latestArDistanceMeters : 0f, 2);
+        String exactPatentId = GooglePatentsClient.extractPatentNumber(
+                ArExploreBrain.extractOcrSnippet(latestCameraReport) + " " + (spoken == null ? "" : spoken));
+        boolean wantsSilentPatent = webOn && (!exactPatentId.isEmpty()
+                || lowerSpoken.contains("patent")
+                || lowerSpoken.contains("schematic"));
+        GooglePatentsClient.LookupResult patRes = null;
+        if (wantsSilentPatent) {
+            patRes = GooglePatentsClient.silentResolveForVision(
+                    liveFrame, latestCameraReport, spoken, arModeOn ? latestArDistanceMeters : 0f);
             if (patRes.hasMatches()) {
-                String patCtx = patRes.formatPromptContext(560);
+                String patCtx = patRes.formatPromptContext(520);
                 webCtx = webCtx.isEmpty() ? patCtx : (webCtx + "\n" + patCtx);
-                GooglePatentsClient.PatentMatch top = patRes.topMatch();
-                if (top != null && WebSearchClient.isSafeWebUrl(top.patentUrl)) {
-                    latestPatentUrl = top.patentUrl;
-                    String badgeLabel = "📐 " + top.publicationNumber + " · " + top.title;
-                    String finalLabel = (badgeLabel.length() > 54 ? badgeLabel.substring(0, 53) + "…" : badgeLabel) + " ↗";
-                    runOnUiThread(() -> {
-                        if (!isFinishing() && !isDestroyed()) {
-                            patentBadgeBtn.setText(finalLabel);
-                            patentBadgeBtn.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
             }
         }
         String roomMem = arModeOn ? arBrain.summarizeRoomMemory() : "";
@@ -1528,9 +1533,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
         }
 
-        // 4. Instant Offline Fallback (Web summary or Camera observation or Zoe Stem <5ms)
+        // 4. Instant Offline / Patent Reverse-Search Fallback (Patent match or Web summary or Camera or Zoe Stem <5ms)
         String fallback;
-        if (webRes != null && webRes.hasSources()) {
+        if (patRes != null && patRes.hasMatches()) {
+            fallback = patRes.formatSpokenSummary();
+        } else if (webRes != null && webRes.hasSources()) {
             fallback = webRes.formatFallbackAnswer();
         } else if (withCamera && !camReport.isEmpty()) {
             fallback = "Here is what I see right now: " + camReport;
@@ -1623,7 +1630,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
         pendingTtsChunks.incrementAndGet();
         int queueMode = flushFirst ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD;
         String uttId = myTurn + ":" + System.nanoTime();
-        tts.speak(sentence.trim(), queueMode, null, uttId);
+        int rc = tts.speak(sentence.trim(), queueMode, null, uttId);
+        if (rc != TextToSpeech.SUCCESS) {
+            handleTtsChunkFinished(uttId);
+        }
     }
 
     private void finishSimpleReply(long myTurn, String reply) {
@@ -1685,6 +1695,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         pendingTtsChunks.set(0);
         streamCompletedForCurrentTurn = true;
         pendingSpeechOnReady = "";
+        localLlm.cancelActiveGeneration();
         orbView.setAudioLevel(0f);
         orbView.setSpeakingPulse(false);
         destroyRecognizerQuietly();

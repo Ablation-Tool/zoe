@@ -24,7 +24,6 @@ public class CreativeLiveArcadeActivityTest {
         try (ActivityScenario<ZoeLiveActivity> scenario = ActivityScenario.launch(ZoeLiveActivity.class)) {
             onView(withId(R.id.live_orb_view)).check(matches(isDisplayed()));
             onView(withId(R.id.live_ar_toggle)).check(matches(isDisplayed()));
-            onView(withId(R.id.live_patent_button)).check(matches(isDisplayed()));
             onView(withId(R.id.live_cam_live_button)).check(matches(isDisplayed()));
             onView(withId(R.id.live_camera_toggle)).check(matches(withText("Camera: off")));
             onView(withId(R.id.live_hizoe_toggle)).check(matches(withText("Hi Zoe: off")));

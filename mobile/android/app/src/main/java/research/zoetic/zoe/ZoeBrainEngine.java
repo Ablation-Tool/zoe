@@ -194,6 +194,23 @@ final class ZoeBrainEngine {
                     "device_tool_route", "gear1_mobile", scores, "OsToolsBridge · explicit user tap");
         }
 
+        // 0b. Deterministic Real-Time Device Clock, Exact Unit Conversion & Precision Math (<2ms, zero hallucination!)
+        String clockAnswer = tryClockOrDate(value);
+        if (clockAnswer != null) {
+            scores[3] = 4.6;
+            return buildReply(clockAnswer, "local_clock", "gear1_mobile", scores, "Device Clock · Verified Local OS");
+        }
+        String unitAnswer = tryConvertUnits(cleaned);
+        if (unitAnswer != null) {
+            scores[2] = 4.7;
+            return buildReply(unitAnswer, "unit_conversion", "gear1_mobile", scores, "Zoe Exact Dimensional Engine");
+        }
+        String mathAnswer = tryEvaluateMath(cleaned);
+        if (mathAnswer != null) {
+            scores[2] = 4.8;
+            return buildReply(mathAnswer, "exact_math", "gear1_mobile", scores, "Zoe Exact Math Parser");
+        }
+
         // 1. Explicit Memory Commands (`remember ...`, `relay ...`, `recall`)
         Matcher rem = REMEMBER_RE.matcher(cleaned);
         if (rem.matches()) {
@@ -447,6 +464,325 @@ final class ZoeBrainEngine {
             }
         }
         return false;
+    }
+
+    // --- Deterministic Everyday Intelligence: Device Clock, Exact Unit Conversion & Recursive-Descent Math ---
+
+    static String tryClockOrDate(String normalizedLower) {
+        if (normalizedLower == null || normalizedLower.isEmpty()) {
+            return null;
+        }
+        boolean asksTime = normalizedLower.contains("what time is it")
+                || normalizedLower.equals("time")
+                || normalizedLower.contains("current time")
+                || normalizedLower.contains("tell me the time");
+        boolean asksDate = normalizedLower.contains("what day is")
+                || normalizedLower.contains("today's date")
+                || normalizedLower.contains("todays date")
+                || normalizedLower.contains("what is the date")
+                || normalizedLower.contains("what date is");
+        if (!asksTime && !asksDate) {
+            return null;
+        }
+        java.util.Date now = new java.util.Date();
+        java.text.SimpleDateFormat timeFmt = new java.text.SimpleDateFormat("h:mm a", Locale.US);
+        java.text.SimpleDateFormat dateFmt = new java.text.SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.US);
+        if (asksTime && asksDate) {
+            return "It is " + timeFmt.format(now) + " on " + dateFmt.format(now) + ".";
+        }
+        if (asksTime) {
+            return "It is currently " + timeFmt.format(now) + " (local device clock).";
+        }
+        return "Today is " + dateFmt.format(now) + ".";
+    }
+
+    private static final Pattern UNIT_CONV_RE = Pattern.compile(
+            "(?:convert\\s+|what\\s+is\\s+|how\\s+many\\s+(?:[a-z]+\\s+)?(?:is|in)\\s+)?(-?\\d+(?:\\.\\d+)?)\\s*"
+                    + "(°?c|celsius|°?f|fahrenheit|k|kelvin|km|kilometers?|mi|miles?|m|meters?|cm|centimeters?|mm|millimeters?|ft|feet|foot|in|inch(?:es)?|kg|kilograms?|lb|lbs|pounds?|oz|ounces?|g|grams?|l|liters?|gal|gallons?)"
+                    + "\\s+(?:to|in|into|as)\\s+"
+                    + "(°?c|celsius|°?f|fahrenheit|k|kelvin|km|kilometers?|mi|miles?|m|meters?|cm|centimeters?|mm|millimeters?|ft|feet|foot|in|inch(?:es)?|kg|kilograms?|lb|lbs|pounds?|oz|ounces?|g|grams?|l|liters?|gal|gallons?)\\b",
+            Pattern.CASE_INSENSITIVE);
+
+    static String tryConvertUnits(String raw) {
+        if (raw == null || raw.trim().isEmpty()) {
+            return null;
+        }
+        Matcher m = UNIT_CONV_RE.matcher(raw.trim());
+        if (!m.find()) {
+            return null;
+        }
+        double val;
+        try {
+            val = Double.parseDouble(m.group(1));
+        } catch (NumberFormatException ignored) {
+            return null;
+        }
+        String from = canonicalUnit(m.group(2));
+        String to = canonicalUnit(m.group(3));
+        if (from.isEmpty() || to.isEmpty() || from.equals(to)) {
+            return null;
+        }
+        Double out = convertCanonical(val, from, to);
+        if (out == null || !Double.isFinite(out)) {
+            return null;
+        }
+        return formatNum(val) + " " + from + " = " + formatNum(out) + " " + to + ".";
+    }
+
+    private static String canonicalUnit(String u) {
+        String s = u.toLowerCase(Locale.US).replace("°", "").trim();
+        return switch (s) {
+            case "c", "celsius" -> "°C";
+            case "f", "fahrenheit" -> "°F";
+            case "k", "kelvin" -> "K";
+            case "km", "kilometer", "kilometers" -> "km";
+            case "mi", "mile", "miles" -> "mi";
+            case "m", "meter", "meters" -> "m";
+            case "cm", "centimeter", "centimeters" -> "cm";
+            case "mm", "millimeter", "millimeters" -> "mm";
+            case "ft", "feet", "foot" -> "ft";
+            case "in", "inch", "inches" -> "in";
+            case "kg", "kilogram", "kilograms" -> "kg";
+            case "lb", "lbs", "pound", "pounds" -> "lb";
+            case "g", "gram", "grams" -> "g";
+            case "oz", "ounce", "ounces" -> "oz";
+            case "l", "liter", "liters" -> "L";
+            case "gal", "gallon", "gallons" -> "gal";
+            default -> "";
+        };
+    }
+
+    private static Double convertCanonical(double v, String f, String t) {
+        // Temperature
+        if ((f.equals("°C") || f.equals("°F") || f.equals("K"))
+                && (t.equals("°C") || t.equals("°F") || t.equals("K"))) {
+            double c = f.equals("°C") ? v : (f.equals("°F") ? (v - 32.0) * 5.0 / 9.0 : v - 273.15);
+            return t.equals("°C") ? c : (t.equals("°F") ? c * 9.0 / 5.0 + 32.0 : c + 273.15);
+        }
+        // Length -> meters
+        Double fm = lengthToMeters(f);
+        Double tm = lengthToMeters(t);
+        if (fm != null && tm != null) {
+            return (v * fm) / tm;
+        }
+        // Mass -> grams
+        Double fg = massToGrams(f);
+        Double tg = massToGrams(t);
+        if (fg != null && tg != null) {
+            return (v * fg) / tg;
+        }
+        // Volume -> liters
+        Double fl = volToLiters(f);
+        Double tl = volToLiters(t);
+        if (fl != null && tl != null) {
+            return (v * fl) / tl;
+        }
+        return null;
+    }
+
+    private static Double lengthToMeters(String u) {
+        return switch (u) {
+            case "mm" -> 0.001;
+            case "cm" -> 0.01;
+            case "m" -> 1.0;
+            case "km" -> 1000.0;
+            case "in" -> 0.0254;
+            case "ft" -> 0.3048;
+            case "mi" -> 1609.344;
+            default -> null;
+        };
+    }
+
+    private static Double massToGrams(String u) {
+        return switch (u) {
+            case "g" -> 1.0;
+            case "kg" -> 1000.0;
+            case "oz" -> 28.349523125;
+            case "lb" -> 453.59237;
+            default -> null;
+        };
+    }
+
+    private static Double volToLiters(String u) {
+        return switch (u) {
+            case "L" -> 1.0;
+            case "gal" -> 3.785411784;
+            default -> null;
+        };
+    }
+
+    private static final Pattern PCT_OF_RE = Pattern.compile(
+            "(?:what\\s+is\\s+|calculate\\s+)?(-?\\d+(?:\\.\\d+)?)\\s*(?:%|percent)\\s+of\\s+(-?\\d+(?:\\.\\d+)?)",
+            Pattern.CASE_INSENSITIVE);
+    private static final Pattern SQRT_WORDS_RE = Pattern.compile(
+            "(?:what\\s+is\\s+)?(?:the\\s+)?square\\s+root\\s+of\\s+(\\d+(?:\\.\\d+)?)",
+            Pattern.CASE_INSENSITIVE);
+
+    /**
+     * Exact deterministic math evaluator supporting +, -, *, /, ^, (), %, sqrt/sin/cos/tan/log/ln/abs,
+     * pi, e, and common spoken phrasing ("what is 18% of 245", "47 times 83", "square root of 144").
+     */
+    static String tryEvaluateMath(String raw) {
+        if (raw == null || raw.trim().isEmpty()) {
+            return null;
+        }
+        String trimmed = raw.trim();
+        Matcher pct = PCT_OF_RE.matcher(trimmed);
+        if (pct.find()) {
+            double p = Double.parseDouble(pct.group(1));
+            double base = Double.parseDouble(pct.group(2));
+            return formatNum(p) + "% of " + formatNum(base) + " = " + formatNum((p / 100.0) * base) + ".";
+        }
+        Matcher sq = SQRT_WORDS_RE.matcher(trimmed);
+        if (sq.find()) {
+            double x = Double.parseDouble(sq.group(1));
+            return "√" + formatNum(x) + " = " + formatNum(Math.sqrt(x)) + ".";
+        }
+        String expr = trimmed
+                .replaceAll("(?i)^(what\\s+is|what's|calculate|compute|evaluate|solve)\\s+", "")
+                .replaceAll("[?]+$", "")
+                .replaceAll("(?i)\\btimes\\b|\\bmultiplied\\s+by\\b", "*")
+                .replaceAll("(?i)\\bdivided\\s+by\\b|\\bover\\b", "/")
+                .replaceAll("(?i)\\bplus\\b", "+")
+                .replaceAll("(?i)\\bminus\\b", "-")
+                .replaceAll("(?i)\\bto\\s+the\\s+power\\s+of\\b|\\bpower\\s+of\\b", "^")
+                .replace("×", "*")
+                .replace("÷", "/")
+                .trim();
+        // Require at least one digit AND at least one operator or math function (don't swallow normal prose or bare numbers)
+        boolean hasDigit = expr.matches(".*\\d.*");
+        boolean hasMathOp = expr.matches(".*[+\\-*/^()].*") || expr.toLowerCase(Locale.US).matches(".*\\b(sqrt|sin|cos|tan|log|ln|abs|pi)\\b.*");
+        if (!hasDigit || !hasMathOp || !expr.matches("[0-9a-zA-Z.+\\-*/^()\\s]+")) {
+            return null;
+        }
+        try {
+            MathExprParser parser = new MathExprParser(expr);
+            double res = parser.parseFull();
+            if (!Double.isFinite(res)) {
+                return null;
+            }
+            return expr + " = " + formatNum(res) + ".";
+        } catch (RuntimeException ignored) {
+            return null;
+        }
+    }
+
+    private static String formatNum(double v) {
+        if (Math.abs(v) < 1e-12) {
+            return "0";
+        }
+        if (Math.abs(v - Math.rint(v)) < 1e-9 && Math.abs(v) < 1e14) {
+            return String.format(Locale.US, "%d", Math.round(v));
+        }
+        String s = String.format(Locale.US, "%.6f", v);
+        while (s.contains(".") && (s.endsWith("0") || s.endsWith("."))) {
+            s = s.substring(0, s.length() - 1);
+        }
+        return s;
+    }
+
+    private static final class MathExprParser {
+        private final String s;
+        private int pos;
+
+        MathExprParser(String s) {
+            this.s = s;
+        }
+
+        double parseFull() {
+            double v = parseAddSub();
+            skipWs();
+            if (pos != s.length()) {
+                throw new IllegalArgumentException("Unexpected trailing token");
+            }
+            return v;
+        }
+
+        private void skipWs() {
+            while (pos < s.length() && Character.isWhitespace(s.charAt(pos))) {
+                pos++;
+            }
+        }
+
+        private boolean eat(char ch) {
+            skipWs();
+            if (pos < s.length() && s.charAt(pos) == ch) {
+                pos++;
+                return true;
+            }
+            return false;
+        }
+
+        private double parseAddSub() {
+            double x = parseMulDiv();
+            for (;;) {
+                if (eat('+')) x += parseMulDiv();
+                else if (eat('-')) x -= parseMulDiv();
+                else return x;
+            }
+        }
+
+        private double parseMulDiv() {
+            double x = parsePow();
+            for (;;) {
+                if (eat('*')) x *= parsePow();
+                else if (eat('/')) {
+                    double d = parsePow();
+                    if (Math.abs(d) < 1e-15) throw new ArithmeticException("div0");
+                    x /= d;
+                } else return x;
+            }
+        }
+
+        private double parsePow() {
+            double x = parseUnary();
+            if (eat('^')) {
+                x = Math.pow(x, parsePow());
+            }
+            return x;
+        }
+
+        private double parseUnary() {
+            if (eat('+')) return parseUnary();
+            if (eat('-')) return -parseUnary();
+            return parsePrimary();
+        }
+
+        private double parsePrimary() {
+            skipWs();
+            if (eat('(')) {
+                double x = parseAddSub();
+                if (!eat(')')) throw new IllegalArgumentException("Missing )");
+                return x;
+            }
+            int start = pos;
+            if (pos < s.length() && (Character.isDigit(s.charAt(pos)) || s.charAt(pos) == '.')) {
+                while (pos < s.length() && (Character.isDigit(s.charAt(pos)) || s.charAt(pos) == '.')) {
+                    pos++;
+                }
+                return Double.parseDouble(s.substring(start, pos));
+            }
+            if (pos < s.length() && Character.isLetter(s.charAt(pos))) {
+                while (pos < s.length() && Character.isLetter(s.charAt(pos))) {
+                    pos++;
+                }
+                String fn = s.substring(start, pos).toLowerCase(Locale.US);
+                if (fn.equals("pi")) return Math.PI;
+                if (fn.equals("e")) return Math.E;
+                double arg = parsePrimary();
+                return switch (fn) {
+                    case "sqrt" -> Math.sqrt(arg);
+                    case "abs" -> Math.abs(arg);
+                    case "sin" -> Math.sin(arg);
+                    case "cos" -> Math.cos(arg);
+                    case "tan" -> Math.tan(arg);
+                    case "ln" -> Math.log(arg);
+                    case "log" -> Math.log10(arg);
+                    default -> throw new IllegalArgumentException("Unknown fn: " + fn);
+                };
+            }
+            throw new IllegalArgumentException("Unexpected char");
+        }
     }
 
     private static String shortHash(String s) {

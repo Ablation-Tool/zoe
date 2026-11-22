@@ -134,10 +134,10 @@ final class LiveSessionLogic {
             } else if ((ch == '.' || ch == '!' || ch == '?') && scan + 1 < len) {
                 char next = streamedSoFar.charAt(scan + 1);
                 if (Character.isWhitespace(next)) {
-                    // Avoid splitting short numeric decimals like "3.14" or "1.5B"
+                    // Avoid splitting decimals ("3.14") or common abbreviations ("Dr.", "Mr.", "U.S.", "vs.", "Fig.")
                     boolean prevDigit = scan > start && Character.isDigit(streamedSoFar.charAt(scan - 1));
                     boolean nextDigit = scan + 1 < len && Character.isDigit(next);
-                    if (!(ch == '.' && prevDigit && nextDigit)) {
+                    if (!(ch == '.' && ((prevDigit && nextDigit) || endsWithAbbreviation(streamedSoFar, start, scan)))) {
                         boundary = true;
                     }
                 }
@@ -145,7 +145,7 @@ final class LiveSessionLogic {
             if (boundary) {
                 String rawSegment = streamedSoFar.substring(start, scan + 1).trim();
                 String spoken = sanitizeForSpeech(rawSegment);
-                if (spoken.length() >= 8) {
+                if (spoken.length() >= 4) {
                     ready.add(spoken);
                     start = scan + 1;
                 }
@@ -153,6 +153,20 @@ final class LiveSessionLogic {
             scan++;
         }
         return new SentenceBatch(ready, start);
+    }
+
+    private static boolean endsWithAbbreviation(String text, int start, int dotIdx) {
+        int wordStart = dotIdx;
+        while (wordStart > start && Character.isLetter(text.charAt(wordStart - 1))) {
+            wordStart--;
+        }
+        String w = text.substring(wordStart, dotIdx).toLowerCase(Locale.US);
+        if (w.length() == 1 && (wordStart == start || text.charAt(wordStart - 1) == '.')) {
+            return true; // e.g., "U.S.", "e.g.", "i.e."
+        }
+        return w.equals("dr") || w.equals("mr") || w.equals("ms") || w.equals("mrs")
+                || w.equals("prof") || w.equals("st") || w.equals("vs") || w.equals("fig")
+                || w.equals("no") || w.equals("approx") || w.equals("etc") || w.equals("pat");
     }
 
     /**

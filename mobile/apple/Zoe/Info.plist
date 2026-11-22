@@ -11,9 +11,9 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.9.0</string>
+    <string>0.9.1</string>
     <key>CFBundleVersion</key>
-    <string>11</string>
+    <string>12</string>
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>Zoe uses Bluetooth Low Energy only when you explicitly start an offline SafeConvert Help Beacon or nearby scan, and stops automatically on exit.</string>
     <key>LSApplicationQueriesSchemes</key>

@@ -116,6 +116,13 @@ final class ZoeCoreTests: XCTestCase {
 
         XCTAssertEqual(ZoeBrainEngine.normalizeContractions("I'm sure it's fine"), "i am sure it is fine")
         XCTAssertEqual(ZoeBrainEngine.sha256Hex("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+
+        let pct = brain.respond("What is 18% of 245?")
+        XCTAssertEqual(pct.mode, "exact_math")
+        XCTAssertTrue(pct.reply.contains("44.1"))
+        XCTAssertTrue(brain.respond("2^10 + 512").reply.contains("1536"))
+        XCTAssertTrue(brain.respond("convert 72 F to C").reply.contains("22.222222"))
+        XCTAssertEqual(brain.respond("What time is it?").mode, "local_clock")
     }
 
     func testOsToolsBridgeDualMapsUrlsCompassAndActionParser() {
@@ -358,6 +365,41 @@ final class ZoeCoreTests: XCTestCase {
 
         let scale = ScientificVisualAndPatentCore.describeRelativeScale(meters: 0.155)
         XCTAssertTrue(scale.contains("smartphone"))
+
+        XCTAssertTrue(ScientificVisualAndPatentCore.isHardToIdentify("Labels: none above 55%."))
+        XCTAssertTrue(ScientificVisualAndPatentCore.isHardToIdentify("Labels: Product (85%), Metal (79%)."))
+        XCTAssertFalse(ScientificVisualAndPatentCore.isHardToIdentify("Labels: Guitar (92%)."))
+
+        var circleA = Array(repeating: 0.0, count: 32 * 32)
+        var circleB = Array(repeating: 0.1, count: 32 * 32)
+        var bar = Array(repeating: 0.0, count: 32 * 32)
+        for y in 0..<32 {
+            for x in 0..<32 {
+                let d = hypot(Double(x) - 15.5, Double(y) - 15.5)
+                if d >= 7.0 && d <= 10.5 { circleA[y * 32 + x] = 1.0 }
+                if d >= 6.5 && d <= 11.0 { circleB[y * 32 + x] = 0.85 }
+                if y >= 13 && y <= 18 && x >= 3 && x <= 28 { bar[y * 32 + x] = 1.0 }
+            }
+        }
+        let sA = ScientificVisualAndPatentCore.extractVisualSignature(gray32: circleA)!
+        let sB = ScientificVisualAndPatentCore.extractVisualSignature(gray32: circleB)!
+        let sBar = ScientificVisualAndPatentCore.extractVisualSignature(gray32: bar)!
+        XCTAssertTrue(ScientificVisualAndPatentCore.compareVisualSignatures(sA, sB)
+            > ScientificVisualAndPatentCore.compareVisualSignatures(sA, sBar) + 0.12)
+
+        // CPC physical-class filtering + self-improving Guided Vision prototype memory
+        XCTAssertTrue(ScientificVisualAndPatentCore.applyPhysicalCpcFilter(query: "circular gear", detectedPatentId: "").contains("cpc:F16"))
+        XCTAssertEqual(ScientificVisualAndPatentCore.applyPhysicalCpcFilter(query: "US10234567B2", detectedPatentId: "US10234567B2"), "US10234567B2")
+        XCTAssertEqual(ScientificVisualAndPatentCore.cleanPhysicalConcept("Method and apparatus for optical lens mount having ring"), "Optical lens mount")
+
+        var mem: [ScientificVisualAndPatentCore.VisionPrototype] = []
+        XCTAssertNil(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sB))
+        mem = ScientificVisualAndPatentCore.teachOrReinforce(store: mem, label: "Optical Ring", signature: sA)
+        mem = ScientificVisualAndPatentCore.teachOrReinforce(store: mem, label: "optical ring", signature: sB)
+        XCTAssertEqual(mem.count, 1)
+        XCTAssertEqual(mem[0].confirmCount, 2)
+        XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sB)?.prototype.label, "Optical Ring")
+        XCTAssertNil(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sBar))
     }
 
     private let trinityFixture = """

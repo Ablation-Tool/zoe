@@ -170,6 +170,23 @@ public final class ZoeBrainEngine {
             )
         }
 
+        // 0b. Deterministic Exact Device Clock, Unit Conversion & Math (<2ms, zero hallucination!)
+        if let clock = Self.tryClockOrDate(value) {
+            scores[3] = 4.6
+            return buildReply(reply: clock, mode: "local_clock", tier: "gear1_mobile",
+                              scores: scores, citation: "Device Clock · Verified Local OS")
+        }
+        if let conv = Self.tryConvertUnits(cleaned) {
+            scores[2] = 4.7
+            return buildReply(reply: conv, mode: "unit_conversion", tier: "gear1_mobile",
+                              scores: scores, citation: "Zoe Exact Dimensional Engine")
+        }
+        if let math = Self.tryEvaluateMath(cleaned) {
+            scores[2] = 4.8
+            return buildReply(reply: math, mode: "exact_math", tier: "gear1_mobile",
+                              scores: scores, citation: "Zoe Exact Math Parser")
+        }
+
         // 1. Explicit Memory Commands (`remember ...`, `relay ...`, `recall`)
         if let noteText = matchPrefix(cleaned, prefixes: ["please remember ", "remember ", "please save note ", "save note ", "note "]) {
             let saved = appendMemory(kind: "note", text: noteText)
@@ -546,5 +563,188 @@ public final class ZoeBrainEngine {
         return [h0, h1, h2, h3, h4, h5, h6, h7]
             .map { String(format: "%08x", $0) }
             .joined()
+    }
+
+    // MARK: Deterministic Device Clock, Exact Unit Conversion & Precision Math Parser (<2ms offline)
+
+    public static func tryClockOrDate(_ lower: String) -> String? {
+        let asksTime = lower.contains("what time is it") || lower == "time"
+            || lower.contains("current time") || lower.contains("tell me the time")
+        let asksDate = lower.contains("what day is") || lower.contains("today's date")
+            || lower.contains("todays date") || lower.contains("what is the date") || lower.contains("what date is")
+        guard asksTime || asksDate else { return nil }
+        let now = Date()
+        let tf = DateFormatter(); tf.locale = Locale(identifier: "en_US_POSIX"); tf.dateFormat = "h:mm a"
+        let df = DateFormatter(); df.locale = Locale(identifier: "en_US_POSIX"); df.dateFormat = "EEEE, MMMM d, yyyy"
+        if asksTime && asksDate { return "It is \(tf.string(from: now)) on \(df.string(from: now))." }
+        if asksTime { return "It is currently \(tf.string(from: now)) (local device clock)." }
+        return "Today is \(df.string(from: now))."
+    }
+
+    public static func tryConvertUnits(_ raw: String) -> String? {
+        let pattern = #"(?i)(?:convert\s+|what\s+is\s+|how\s+many\s+(?:[a-z]+\s+)?(?:is|in)\s+)?(-?\d+(?:\.\d+)?)\s*(°?c|celsius|°?f|fahrenheit|k|kelvin|km|kilometers?|mi|miles?|m|meters?|cm|centimeters?|mm|millimeters?|ft|feet|foot|in|inch(?:es)?|kg|kilograms?|lb|lbs|pounds?|oz|ounces?|g|grams?|l|liters?|gal|gallons?)\s+(?:to|in|into|as)\s+(°?c|celsius|°?f|fahrenheit|k|kelvin|km|kilometers?|mi|miles?|m|meters?|cm|centimeters?|mm|millimeters?|ft|feet|foot|in|inch(?:es)?|kg|kilograms?|lb|lbs|pounds?|oz|ounces?|g|grams?|l|liters?|gal|gallons?)\b"#
+        guard let re = try? NSRegularExpression(pattern: pattern),
+              let m = re.firstMatch(in: raw, range: NSRange(raw.startIndex..., in: raw)),
+              let rVal = Range(m.range(at: 1), in: raw), let val = Double(raw[rVal]),
+              let rFrom = Range(m.range(at: 2), in: raw),
+              let rTo = Range(m.range(at: 3), in: raw) else { return nil }
+        let f = canonicalUnit(String(raw[rFrom]))
+        let t = canonicalUnit(String(raw[rTo]))
+        guard !f.isEmpty, !t.isEmpty, f != t, let out = convertUnit(val, from: f, to: t), out.isFinite else { return nil }
+        return "\(formatNum(val)) \(f) = \(formatNum(out)) \(t)."
+    }
+
+    private static func canonicalUnit(_ u: String) -> String {
+        switch u.lowercased().replacingOccurrences(of: "°", with: "").trimmingCharacters(in: .whitespaces) {
+        case "c", "celsius": return "°C"
+        case "f", "fahrenheit": return "°F"
+        case "k", "kelvin": return "K"
+        case "km", "kilometer", "kilometers": return "km"
+        case "mi", "mile", "miles": return "mi"
+        case "m", "meter", "meters": return "m"
+        case "cm", "centimeter", "centimeters": return "cm"
+        case "mm", "millimeter", "millimeters": return "mm"
+        case "ft", "feet", "foot": return "ft"
+        case "in", "inch", "inches": return "in"
+        case "kg", "kilogram", "kilograms": return "kg"
+        case "lb", "lbs", "pound", "pounds": return "lb"
+        case "g", "gram", "grams": return "g"
+        case "oz", "ounce", "ounces": return "oz"
+        case "l", "liter", "liters": return "L"
+        case "gal", "gallon", "gallons": return "gal"
+        default: return ""
+        }
+    }
+
+    private static func convertUnit(_ v: Double, from f: String, to t: String) -> Double? {
+        let temps = Set(["°C", "°F", "K"])
+        if temps.contains(f) && temps.contains(t) {
+            let c = f == "°C" ? v : (f == "°F" ? (v - 32.0) * 5.0 / 9.0 : v - 273.15)
+            return t == "°C" ? c : (t == "°F" ? c * 9.0 / 5.0 + 32.0 : c + 273.15)
+        }
+        let lengths: [String: Double] = ["mm": 0.001, "cm": 0.01, "m": 1.0, "km": 1000.0, "in": 0.0254, "ft": 0.3048, "mi": 1609.344]
+        if let fm = lengths[f], let tm = lengths[t] { return (v * fm) / tm }
+        let masses: [String: Double] = ["g": 1.0, "kg": 1000.0, "oz": 28.349523125, "lb": 453.59237]
+        if let fg = masses[f], let tg = masses[t] { return (v * fg) / tg }
+        let vols: [String: Double] = ["L": 1.0, "gal": 3.785411784]
+        if let fl = vols[f], let tl = vols[t] { return (v * fl) / tl }
+        return nil
+    }
+
+    public static func tryEvaluateMath(_ raw: String) -> String? {
+        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        if let re = try? NSRegularExpression(pattern: #"(?i)(?:what\s+is\s+|calculate\s+)?(-?\d+(?:\.\d+)?)\s*(?:%|percent)\s+of\s+(-?\d+(?:\.\d+)?)"#),
+           let m = re.firstMatch(in: trimmed, range: NSRange(trimmed.startIndex..., in: trimmed)),
+           let r1 = Range(m.range(at: 1), in: trimmed), let p = Double(trimmed[r1]),
+           let r2 = Range(m.range(at: 2), in: trimmed), let b = Double(trimmed[r2]) {
+            return "\(formatNum(p))% of \(formatNum(b)) = \(formatNum((p / 100.0) * b))."
+        }
+        if let re = try? NSRegularExpression(pattern: #"(?i)(?:what\s+is\s+)?(?:the\s+)?square\s+root\s+of\s+(\d+(?:\.\d+)?)"#),
+           let m = re.firstMatch(in: trimmed, range: NSRange(trimmed.startIndex..., in: trimmed)),
+           let r1 = Range(m.range(at: 1), in: trimmed), let x = Double(trimmed[r1]) {
+            return "√\(formatNum(x)) = \(formatNum(sqrt(x)))."
+        }
+        let expr = trimmed
+            .replacingOccurrences(of: #"(?i)^(what\s+is|what's|calculate|compute|evaluate|solve)\s+"#, with: "", options: .regularExpression)
+            .replacingOccurrences(of: #"[?]+$"#, with: "", options: .regularExpression)
+            .replacingOccurrences(of: #"(?i)\b(times|multiplied\s+by)\b"#, with: "*", options: .regularExpression)
+            .replacingOccurrences(of: #"(?i)\b(divided\s+by|over)\b"#, with: "/", options: .regularExpression)
+            .replacingOccurrences(of: #"(?i)\bplus\b"#, with: "+", options: .regularExpression)
+            .replacingOccurrences(of: #"(?i)\bminus\b"#, with: "-", options: .regularExpression)
+            .replacingOccurrences(of: "×", with: "*")
+            .replacingOccurrences(of: "÷", with: "/")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        let hasDigit = expr.range(of: #"\d"#, options: .regularExpression) != nil
+        let hasOp = expr.range(of: #"[+\-*/^()]"#, options: .regularExpression) != nil
+            || expr.range(of: #"(?i)\b(sqrt|sin|cos|tan|log|ln|abs|pi)\b"#, options: .regularExpression) != nil
+        let allowed = expr.range(of: #"^[0-9a-zA-Z.+\-*/^()\s]+$"#, options: .regularExpression) != nil
+        guard hasDigit && hasOp && allowed else { return nil }
+        var parser = MathParser(Array(expr))
+        guard let res = parser.parseFull(), res.isFinite else { return nil }
+        return "\(expr) = \(formatNum(res))."
+    }
+
+    private static func formatNum(_ v: Double) -> String {
+        if abs(v) < 1e-12 { return "0" }
+        if abs(v - v.rounded()) < 1e-9 && abs(v) < 1e14 { return String(Int64(v.rounded())) }
+        var s = String(format: "%.6f", v)
+        while s.contains(".") && (s.hasSuffix("0") || s.hasSuffix(".")) { s.removeLast() }
+        return s
+    }
+
+    private struct MathParser {
+        let chars: [Character]
+        var pos: Int = 0
+        init(_ chars: [Character]) { self.chars = chars }
+        mutating func parseFull() -> Double? {
+            guard let v = parseAddSub() else { return nil }
+            skipWs()
+            return pos == chars.count ? v : nil
+        }
+        mutating func skipWs() { while pos < chars.count && chars[pos].isWhitespace { pos += 1 } }
+        mutating func eat(_ c: Character) -> Bool {
+            skipWs()
+            if pos < chars.count && chars[pos] == c { pos += 1; return true }
+            return false
+        }
+        mutating func parseAddSub() -> Double? {
+            guard var x = parseMulDiv() else { return nil }
+            while true {
+                if eat("+") { guard let r = parseMulDiv() else { return nil }; x += r }
+                else if eat("-") { guard let r = parseMulDiv() else { return nil }; x -= r }
+                else { return x }
+            }
+        }
+        mutating func parseMulDiv() -> Double? {
+            guard var x = parsePow() else { return nil }
+            while true {
+                if eat("*") { guard let r = parsePow() else { return nil }; x *= r }
+                else if eat("/") {
+                    guard let d = parsePow(), abs(d) >= 1e-15 else { return nil }
+                    x /= d
+                } else { return x }
+            }
+        }
+        mutating func parsePow() -> Double? {
+            guard var x = parseUnary() else { return nil }
+            if eat("^") { guard let e = parsePow() else { return nil }; x = pow(x, e) }
+            return x
+        }
+        mutating func parseUnary() -> Double? {
+            if eat("+") { return parseUnary() }
+            if eat("-") { return parseUnary().map { -$0 } }
+            return parsePrimary()
+        }
+        mutating func parsePrimary() -> Double? {
+            skipWs()
+            if eat("(") {
+                guard let x = parseAddSub(), eat(")") else { return nil }
+                return x
+            }
+            let start = pos
+            if pos < chars.count && (chars[pos].isNumber || chars[pos] == ".") {
+                while pos < chars.count && (chars[pos].isNumber || chars[pos] == ".") { pos += 1 }
+                return Double(String(chars[start..<pos]))
+            }
+            if pos < chars.count && chars[pos].isLetter {
+                while pos < chars.count && chars[pos].isLetter { pos += 1 }
+                let fn = String(chars[start..<pos]).lowercased()
+                if fn == "pi" { return Double.pi }
+                if fn == "e" { return M_E }
+                guard let arg = parsePrimary() else { return nil }
+                switch fn {
+                case "sqrt": return sqrt(arg)
+                case "abs": return abs(arg)
+                case "sin": return sin(arg)
+                case "cos": return cos(arg)
+                case "tan": return tan(arg)
+                case "ln": return log(arg)
+                case "log": return log10(arg)
+                default: return nil
+                }
+            }
+            return nil
+        }
     }
 }
