@@ -12,11 +12,21 @@
     <item name="stop_button" type="id" />
     <item name="share_button" type="id" />
     <item name="gemini_button" type="id" />
+    <item name="vision_flip_camera" type="id" />
+    <item name="vision_torch" type="id" />
+    <item name="vision_autospeak" type="id" />
+    <item name="vision_save_journal" type="id" />
+    <item name="vision_share_photo" type="id" />
+    <item name="vision_cloud_ask" type="id" />
+    <item name="vision_palette" type="id" />
     <item name="conversation_status" type="id" />
     <item name="conversation_start" type="id" />
     <item name="conversation_stop" type="id" />
     <item name="conversation_voice" type="id" />
     <item name="conversation_captions" type="id" />
+    <item name="conversation_input" type="id" />
+    <item name="conversation_send" type="id" />
+    <item name="conversation_cloud_toggle" type="id" />
     <item name="multi_status" type="id" />
     <item name="multi_start" type="id" />
     <item name="multi_stop" type="id" />
@@ -72,4 +82,39 @@
     <item name="trinity_mobile" type="id" />
     <item name="trinity_laptop" type="id" />
     <item name="trinity_history" type="id" />
+    <item name="journal_status" type="id" />
+    <item name="journal_sync" type="id" />
+    <item name="journal_export" type="id" />
+    <item name="journal_clear" type="id" />
+    <item name="journal_list" type="id" />
+    <item name="eliza_status" type="id" />
+    <item name="eliza_endpoint" type="id" />
+    <item name="eliza_connect" type="id" />
+    <item name="eliza_gear" type="id" />
+    <item name="eliza_input" type="id" />
+    <item name="eliza_send" type="id" />
+    <item name="eliza_messages" type="id" />
+    <item name="eliza_phase3" type="id" />
+    <item name="eliza_phase3_run" type="id" />
+    <item name="eliza_phase4" type="id" />
+    <item name="eliza_phase4_run" type="id" />
+    <item name="eliza_phase5" type="id" />
+    <item name="eliza_phase5_run" type="id" />
+    <item name="eliza_sing_zoe" type="id" />
+    <item name="eliza_sync_memory" type="id" />
+    <item name="eliza_chladni_pad" type="id" />
+    <item name="eliza_chladni_mode" type="id" />
+    <item name="eliza_chladni_play" type="id" />
+    <item name="eliza_relay_input" type="id" />
+    <item name="eliza_relay_send" type="id" />
+    <item name="eliza_cloud_key" type="id" />
+    <item name="eliza_cloud_model" type="id" />
+    <item name="eliza_cloud_save" type="id" />
+    <item name="eliza_net_badge" type="id" />
+    <item name="home_arrange_zapps" type="id" />
+    <item name="home_reset_zapps" type="id" />
+    <item name="home_zapps_list" type="id" />
+    <item name="home_view_toggle" type="id" />
+    <item name="home_theme_toggle" type="id" />
+    <item name="zoe_gem_home" type="id" />
 </resources>

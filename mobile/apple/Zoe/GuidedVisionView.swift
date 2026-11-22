@@ -10,66 +10,82 @@ struct GuidedVisionView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
-                Text("Guided vision")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.cyan)
                 if camera.isRunning {
                     CameraPreview(session: camera.session)
-                        .frame(height: 280)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .frame(height: 290)
+                        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
                         .accessibilityLabel("Camera preview. Analyze only when Inspect is pressed.")
                 } else {
-                    Text("Camera is off.\nStart it when you are ready.\nNothing is saved by Zoe.")
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, minHeight: 180)
-                        .background(Color(red: 16 / 255, green: 27 / 255, blue: 43 / 255))
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                    VStack(spacing: 8) {
+                        Image(systemName: "eye")
+                            .font(.system(size: 32, weight: .light))
+                            .foregroundStyle(GemPalette.cobalt)
+                        Text("Camera is off")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                        Text("Tap Start camera when you are ready.\nNothing is saved by Zoe.")
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(Color.white.opacity(0.75))
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 200)
+                    .background(GemPalette.opticalGlass)
+                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
                 }
+
                 Text(camera.status)
                     .font(.footnote)
-                    .foregroundStyle(.yellow)
-                HStack {
+                    .foregroundStyle(GemPalette.muted)
+
+                HStack(spacing: 10) {
                     Button("Start camera") { camera.start() }
+                        .buttonStyle(GemPrimaryButtonStyle())
                     Button("Inspect once") { camera.inspect() }
+                        .buttonStyle(GemKeycapButtonStyle())
                         .disabled(camera.isBusy)
                 }
-                .buttonStyle(.borderedProminent)
-                HStack {
-                    Button("Voice command") { speech.start() }
+
+                HStack(spacing: 10) {
+                    Button("Voice") { speech.start() }
+                        .buttonStyle(GemKeycapButtonStyle())
                     Button("Speak") { speaker.speak(camera.narration) }
+                        .buttonStyle(GemKeycapButtonStyle())
                     Button("Stop") {
                         speech.stop()
                         speaker.stop()
                     }
+                    .buttonStyle(GemKeycapButtonStyle())
                 }
-                .buttonStyle(.bordered)
+
                 Text(speech.status)
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
-                HStack {
+                    .foregroundStyle(GemPalette.muted)
+
+                Text(camera.shareText)
+                    .font(.body)
+                    .foregroundStyle(GemPalette.ink)
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(18)
+                    .gemCard(radius: 22)
+
+                HStack(spacing: 10) {
                     ShareLink(item: camera.shareText)
+                        .buttonStyle(GemKeycapButtonStyle())
                     Button("Open Gemini") {
                         if let url = URL(string: "https://gemini.google.com") { openURL(url) }
                     }
+                    .buttonStyle(GemKeycapButtonStyle())
                 }
-                .buttonStyle(.bordered)
-                Text(camera.shareText)
-                    .textSelection(.enabled)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(Color(red: 16 / 255, green: 27 / 255, blue: 43 / 255))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                Text("Voice commands: inspect, repeat, stop, measure, battery, Gemini. Listening is one-shot. Image labels are model outputs, not proof of identity or safety.")
+
+                Text("Voice commands: inspect, repeat, stop, measure, battery, Gemini. Image labels are model outputs, not proof of identity or safety.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(GemPalette.muted)
             }
-            .padding()
+            .padding(18)
         }
-        .background(Color(red: 8 / 255, green: 13 / 255, blue: 24 / 255))
-        .onAppear {
-            speech.onCommand = handle
-        }
+        .gemScreen()
+        .onAppear { speech.onCommand = handle }
         .onDisappear {
             camera.stop()
             speech.stop()
@@ -79,19 +95,14 @@ struct GuidedVisionView: View {
 
     private func handle(_ command: VoiceCommand) {
         switch command {
-        case .inspect:
-            camera.inspect()
-        case .repeatResult:
-            speaker.speak(camera.narration)
+        case .inspect: camera.inspect()
+        case .repeatResult: speaker.speak(camera.narration)
         case .stop:
             speech.stop()
             speaker.stop()
-        case .measure:
-            selection = 1
-        case .vision:
-            selection = 0
-        case .device:
-            selection = 2
+        case .measure: selection = 1
+        case .vision: selection = 0
+        case .device: selection = 2
         case .gemini:
             if let url = URL(string: "https://gemini.google.com") { openURL(url) }
         case .unknown:

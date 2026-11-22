@@ -73,6 +73,51 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertThrowsError(try TrinityState(data: Data(edited.utf8)))
     }
 
+    func testZoeBrainConstitutionalHonestyAndAbstention() {
+        let brain = ZoeBrainEngine()
+        let honesty = brain.respond("Are you conscious and sentient or a clone of Zoe?")
+        XCTAssertEqual(honesty.mode, "constitutional_honesty")
+        XCTAssertFalse(honesty.sentienceClaimed)
+        XCTAssertFalse(honesty.zoeCloneClaimed)
+        XCTAssertTrue(honesty.reply.contains("not conscious"))
+        XCTAssertTrue(honesty.aTau >= 1 && honesty.aTau <= honesty.candidateCount)
+
+        let abstain = brain.respond("Predict tomorrow's stock and winning lottery numbers")
+        XCTAssertEqual(abstain.mode, "honest_abstain")
+        XCTAssertTrue(abstain.reply.contains("abstain"))
+    }
+
+    func testZoeBrainHashChainedMemoryAndRecall() {
+        let brain = ZoeBrainEngine()
+        XCTAssertEqual(brain.chainHead, "GENESIS")
+
+        let saved = brain.respond("remember Check Kloster equation on Apple Duo")
+        XCTAssertEqual(saved.mode, "memory_saved")
+        XCTAssertEqual(brain.memoryCount, 1)
+        XCTAssertNotEqual(brain.chainHead, "GENESIS")
+        XCTAssertEqual(brain.chainHead.count, 64)
+
+        let recalled = brain.respond("recall")
+        XCTAssertEqual(recalled.mode, "memory_recall")
+        XCTAssertTrue(recalled.reply.contains("Check Kloster equation on Apple Duo"))
+    }
+
+    func testZoeBrainL5Phase4AndWeizenbaumReflection() {
+        let brain = ZoeBrainEngine()
+        let p4 = brain.respond("Tell me about L5 Phase 5")
+        XCTAssertEqual(p4.mode, "knowledge_grounded")
+        XCTAssertTrue(p4.reply.contains("l5_agi_qualified"))
+        XCTAssertTrue(p4.reply.contains("ARC compositional"))
+        XCTAssertTrue(p4.reply.contains("blind procedural"))
+
+        let reflect = brain.respond("What if my phone runs offline?")
+        XCTAssertEqual(reflect.mode, "eliza_reflect")
+        XCTAssertTrue(reflect.reply.contains("your phone runs offline"))
+
+        XCTAssertEqual(ZoeBrainEngine.normalizeContractions("I'm sure it's fine"), "i am sure it is fine")
+        XCTAssertEqual(ZoeBrainEngine.sha256Hex("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,

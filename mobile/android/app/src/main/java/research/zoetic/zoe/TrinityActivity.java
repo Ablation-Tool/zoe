@@ -47,27 +47,41 @@ public final class TrinityActivity extends ComponentActivity {
         super.onCreate(state);
         handler = new Handler(Looper.getMainLooper());
         ScrollView scroll = new ScrollView(this);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 12), Ui.dp(this, 18), Ui.dp(this, 28));
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 28));
         scroll.addView(content);
-        setContentView(scroll);
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.button(this, "‹ Zoe home", view -> finish()));
-        content.addView(Ui.heading(this, "Zoe Trinity"));
-        content.addView(Ui.text(this, "PLAY · LEARN · ADAPT · CREATE · EXPLORE · SHARE", 11, Ui.PINK));
+        content.addView(Ui.topBar(this, "Zoe Trinity", "Tiny + mobile + laptop · one shared experiment"));
         content.addView(Ui.text(this,
-                "Three planes. One shared field. Tiny checks the bytes, mobile holds the experiment, and laptop keeps the long view.",
-                16, Ui.TEXT));
-        status = Ui.text(this, "Trinity is off. Start the laptop companion, then connect explicitly.", 16, Ui.YELLOW);
+                "Three planes, one shared field. Start the laptop companion, then connect explicitly.",
+                14.5f, Ui.MUTED));
+        status = Ui.text(this, "Trinity is off. Start the laptop companion, then connect explicitly.", 15, Ui.YELLOW);
         status.setId(R.id.trinity_status);
         content.addView(status);
+
+        LinearLayout setupDrawer = Ui.vertical(this);
+        setupDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        setupDrawer.setVisibility(android.view.View.GONE);
         TextView setup = Ui.text(this,
                 "On the laptop, from the Zoe checkout:\npython mobile/tools/zoe_trinity.py\n\nThen connect the Android over USB:\nadb reverse tcp:8767 tcp:8767\n\nOpen http://127.0.0.1:8767 on the laptop. No cloud, camera, or microphone is used.",
                 13, Ui.MUTED);
         setup.setTextIsSelectable(true);
-        setup.setBackground(Ui.panelBackground(this, Ui.CYAN, 18));
-        setup.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
-        content.addView(setup);
+        setup.setBackground(Ui.cardBackground(this, 18));
+        setup.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        setupDrawer.addView(setup);
+
+        Button setupToggle = Ui.disclosureButton(this, "Laptop setup commands ▾", null);
+        setupToggle.setOnClickListener(view -> {
+            boolean open = setupDrawer.getVisibility() != android.view.View.VISIBLE;
+            setupDrawer.setVisibility(open ? android.view.View.VISIBLE : android.view.View.GONE);
+            setupToggle.setText(open ? "Laptop setup commands ▴" : "Laptop setup commands ▾");
+        });
+        content.addView(setupToggle);
+        content.addView(setupDrawer);
 
         content.addView(Ui.section(this, "THE SHARED EXPERIMENT"));
         content.addView(Ui.text(this, "Probability distribution · 1 to 64 values", 14, Ui.TEXT));
@@ -78,7 +92,7 @@ public final class TrinityActivity extends ComponentActivity {
         threshold = input("0.05");
         threshold.setId(R.id.trinity_threshold);
         content.addView(threshold);
-        connect = Ui.button(this, "Connect laptop", view -> connect());
+        connect = Ui.primaryButton(this, "Connect laptop", Ui.RUBY, view -> connect());
         connect.setId(R.id.trinity_connect);
         Button measure = Ui.button(this, "Measure together", view -> measure());
         measure.setId(R.id.trinity_measure);
@@ -110,14 +124,8 @@ public final class TrinityActivity extends ComponentActivity {
     }
 
     private EditText input(String value) {
-        EditText input = new EditText(this);
-        input.setText(value);
-        input.setTextSize(16);
-        input.setTextColor(Ui.TEXT);
-        input.setHintTextColor(Ui.MUTED);
+        EditText input = Ui.input(this, value, "");
         input.setSingleLine(true);
-        input.setPadding(Ui.dp(this, 14), Ui.dp(this, 10), Ui.dp(this, 14), Ui.dp(this, 10));
-        input.setBackground(Ui.panelBackground(this, Ui.MUTED, 12));
         return input;
     }
 
@@ -195,7 +203,7 @@ public final class TrinityActivity extends ComponentActivity {
 
     private void complete(TrinityClient.State state, Exception error, boolean forceInputs, String success) {
         inFlight.set(false);
-        if (!connected) {
+        if (!connected || isFinishing() || isDestroyed()) {
             return;
         }
         if (error != null) {
@@ -252,9 +260,13 @@ public final class TrinityActivity extends ComponentActivity {
 
     @Override
     protected void onPause() {
+        boolean wasConnected = connected;
         connected = false;
         handler.removeCallbacks(poll);
         connect.setText("Connect laptop");
+        if (wasConnected) {
+            status.setText("Trinity disconnected. No further laptop requests will be made.");
+        }
         super.onPause();
     }
 

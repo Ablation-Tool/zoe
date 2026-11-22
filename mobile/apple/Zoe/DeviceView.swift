@@ -9,41 +9,51 @@ struct DeviceView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text("Device field")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.cyan)
-                Image("NuclideBrain")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: 160)
-                    .accessibilityLabel("NuClide Research dual-brain co-brand")
-                Text("NuClide Research = Zoe + Nick + Cat · USA\nStable and unstable in balance. PLACES = Play. Learn. Adapt. Create. Explore. Share. Research = fun = discovery.")
-                    .font(.footnote)
-                    .foregroundStyle(.pink)
-                Text("Local capability and battery observations. No Zoe-authored telemetry or image upload.")
-                    .foregroundStyle(.secondary)
+                Text("Local battery, thermal state, and speaker check. Everything stays on your device.")
+                    .font(.body)
+                    .foregroundStyle(GemPalette.muted)
+
                 Text(report)
+                    .font(.body)
+                    .foregroundStyle(GemPalette.ink)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(Color(red: 16 / 255, green: 27 / 255, blue: 43 / 255))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                HStack {
+                    .padding(18)
+                    .gemCard(radius: 22)
+
+                HStack(spacing: 10) {
                     Button("Refresh", action: refresh)
+                        .buttonStyle(GemPrimaryButtonStyle())
                     Button("Speaker check") {
                         speaker.speak("Zoe speaker check. Measurement, evidence, belief, and action remain distinct.")
                     }
+                    .buttonStyle(GemKeycapButtonStyle())
                 }
-                .buttonStyle(.borderedProminent)
-                Button("Open Gemini") {
+
+                Button("Open Google Gemini") {
                     if let url = URL(string: "https://gemini.google.com") { openURL(url) }
                 }
-                Text("Battery temperature and private sensor streams are not exposed by public iOS APIs. No unavailable measurement is invented.")
+                .buttonStyle(GemKeycapButtonStyle())
+
+                HStack(spacing: 14) {
+                    Image("NuclideBrain")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 72)
+                        .accessibilityLabel("NuClide Research dual-brain emblem")
+                    Text("NuClide Research = Zoe + Nick + Cat · USA\nPlay. Learn. Adapt. Create. Explore. Share.")
+                        .font(.footnote)
+                        .foregroundStyle(GemPalette.muted)
+                }
+                .padding(14)
+                .gemCard(radius: 20)
+
+                Text("Private sensor streams are not exposed by public iOS APIs. No unavailable measurement is invented.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(GemPalette.muted)
             }
-            .padding()
+            .padding(18)
         }
-        .background(Color(red: 8 / 255, green: 13 / 255, blue: 24 / 255))
+        .gemScreen()
         .onAppear {
             UIDevice.current.isBatteryMonitoringEnabled = true
             refresh()

@@ -12,8 +12,12 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
+import android.speech.tts.Voice;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
@@ -21,95 +25,222 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public final class ConversationActivity extends ComponentActivity {
     private static final int MICROPHONE_PERMISSION = 73;
     private final ArrayList<String> exchanges = new ArrayList<>();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ElizaGemClient studioClient = new ElizaGemClient();
+    private ZoeBrainEngine brain;
+    private ZoeNativeVoice nativeVoice;
     private TextView status;
+    private TextView brainBadge;
     private TextView transcript;
+    private EditText typedInput;
+    private Button cloudToggle;
+    private Button nativeVoiceToggle;
+    private Button labBridgeToggle;
     private TextToSpeech textToSpeech;
     private SpeechRecognizer recognizer;
-    private android.widget.Spinner voicePicker;
-    private final java.util.List<android.speech.tts.Voice> voices = new ArrayList<>();
+    private Spinner voicePicker;
+    private final List<Voice> voices = new ArrayList<>();
     private boolean ttsReady;
     private boolean startWhenReady;
     private boolean active;
     private boolean captionMode;
+    private boolean cloudChatMode;
+    private boolean useNativeVoice;
+    private boolean useLabStudio;
     private String lastResponse = "Hi, I'm Zoe. What would you like to explore?";
 
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
-        ScrollView scroll = new ScrollView(this);
-        android.widget.LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 24));
-        scroll.addView(content);
-        setContentView(scroll);
-        content.addView(Ui.heading(this, "Talk with Zoe"));
-        content.addView(Ui.text(this,
-                "Zoe speaks, you answer, Zoe responds. Turns repeat until Stop. The microphone is off when you leave this screen.",
-                16, Ui.MUTED));
-        status = Ui.text(this, "Conversation is off. Start whenever you are ready.", 16, Ui.YELLOW);
+        brain = new ZoeBrainEngine(this);
+        nativeVoice = new ZoeNativeVoice();
+        LinearLayout root = Ui.vertical(this);
+        root.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+
+        // Top calm header + quick mode controls
+        LinearLayout headerWrap = Ui.vertical(this);
+        headerWrap.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        headerWrap.setPadding(Ui.dp(this, 16), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 6));
+        headerWrap.addView(Ui.topBar(this, "Talk with Zoe", "Private on-device voice & chat"));
+
+        status = Ui.text(this, "Conversation is off. Start whenever you are ready.", 14f, Ui.COBALT);
         status.setId(R.id.conversation_status);
-        content.addView(status);
-        voicePicker = new android.widget.Spinner(this);
-        voicePicker.setId(R.id.conversation_voice);
-        voicePicker.setContentDescription("Choose an installed English voice");
-        content.addView(voicePicker);
-        Button start = Ui.button(this, "Start talking", view -> startConversation());
-        start.setId(R.id.conversation_start);
-        Button stop = Ui.button(this, "Stop", view -> stopConversation());
-        stop.setId(R.id.conversation_stop);
-        content.addView(Ui.buttonRow(this, start, stop));
-        Button captionToggle = Ui.button(this, "Caption mode: off", null);
+        status.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 8));
+        headerWrap.addView(status);
+
+        Button captionToggle = Ui.button(this, "Caption mode: off", Ui.PINK, null);
         captionToggle.setId(R.id.conversation_captions);
         captionToggle.setOnClickListener(view -> {
             captionMode = !captionMode;
             captionToggle.setText(captionMode ? "Caption mode: on" : "Caption mode: off");
             status.setText(captionMode ? "Caption mode on. Zoe stays silent and captions your speech." : "Conversation mode on. Zoe speaks and responds.");
         });
-        content.addView(captionToggle);
-        content.addView(Ui.buttonRow(this,
-                Ui.button(this, "Repeat", view -> {
-                    if (ttsReady) {
-                        textToSpeech.speak(lastResponse, TextToSpeech.QUEUE_FLUSH, null, "zoe-repeat");
-                    }
-                }),
-                Ui.button(this, "Open Gemini", view -> openGemini())));
-        content.addView(Ui.button(this, "Clear transcript", view -> {
-            exchanges.clear();
-            updateTranscript();
-        }));
-        transcript = Ui.text(this, "No turns yet. Transcripts stay on this screen unless you clear or share them.", 17, Ui.TEXT);
-        transcript.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
-        transcript.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
+        cloudToggle = Ui.button(this, "Cloud chat: off", Ui.GOLD, view -> {
+            cloudChatMode = !cloudChatMode;
+            cloudToggle.setText(cloudChatMode ? "Cloud chat: on" : "Cloud chat: off");
+            status.setText(cloudChatMode
+                    ? "Cloud chat enabled (requires saved Gemini key; falls back cleanly otherwise)."
+                    : "Cloud chat off. Local deterministic responses active.");
+        });
+        cloudToggle.setId(R.id.conversation_cloud_toggle);
+        headerWrap.addView(Ui.buttonRow(this, captionToggle, cloudToggle));
+
+        voicePicker = new Spinner(this);
+        voicePicker.setId(R.id.conversation_voice);
+        voicePicker.setContentDescription("Choose an installed English voice");
+        voicePicker.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 18));
+        LinearLayout.LayoutParams voiceParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        voiceParams.setMargins(Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 2));
+        headerWrap.addView(voicePicker, voiceParams);
+        root.addView(headerWrap);
+
+        // Center spacious Gemini conversation feed
+        ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        LinearLayout feed = Ui.vertical(this);
+        feed.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        feed.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 12));
+
+        LinearLayout welcomeRow = new LinearLayout(this);
+        welcomeRow.setOrientation(LinearLayout.HORIZONTAL);
+        welcomeRow.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        welcomeRow.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 10));
+        welcomeRow.addView(Ui.gemHomeButton(this, 30, () -> Ui.goHome(this)),
+                new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
+        brainBadge = Ui.text(this,
+                "Zoe Brain · gear1_mobile · mem=" + brain.memoryCount() + " · Offline",
+                13.5f, Ui.MUTED);
+        brainBadge.setPadding(Ui.dp(this, 10), 0, 0, 0);
+        welcomeRow.addView(brainBadge);
+        feed.addView(welcomeRow);
+
+        transcript = Ui.text(this, "No turns yet. Try typing `remember ...`, asking about L5 Phase 4, or tapping Start talking.", 16f, Ui.TEXT);
+        transcript.setBackground(Ui.cardBackground(this, 24));
+        transcript.setPadding(Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18));
         transcript.setTextIsSelectable(true);
-        content.addView(transcript);
-        content.addView(Ui.button(this, "Share transcript", view -> shareTranscript()));
-        content.addView(Ui.text(this,
-                "Local replies are deterministic for camera, volume, battery, multi-view, and Gemini navigation. Open-ended understanding is not faked.",
-                13, Ui.MUTED));
-        textToSpeech = new TextToSpeech(this, result -> {
+        feed.addView(transcript);
+
+        LinearLayout moreDrawer = Ui.vertical(this);
+        moreDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        moreDrawer.setVisibility(android.view.View.GONE);
+
+        nativeVoiceToggle = Ui.button(this, "Voice: OS TTS", Ui.COBALT, view -> {
+            useNativeVoice = !useNativeVoice;
+            nativeVoiceToggle.setText(useNativeVoice ? "Voice: Zoe Synth" : "Voice: OS TTS");
+            status.setText(useNativeVoice
+                    ? "Zoe Native Formant Voice active (44.1 kHz DSP; uses Lab 3D WAV when connected)."
+                    : "Device OS text-to-speech voice active.");
+        });
+        labBridgeToggle = Ui.button(this, "Lab Brain: off", Ui.GREEN, view -> {
+            useLabStudio = !useLabStudio;
+            labBridgeToggle.setText(useLabStudio ? "Lab Brain: on" : "Lab Brain: off");
+            status.setText(useLabStudio
+                    ? "Workstation Lab Brain enabled (routes to Eliza-GEM / Qwen2.5-3B; falls back offline cleanly)."
+                    : "On-device Zoe Glass-Box Brain active (100% offline).");
+        });
+        moreDrawer.addView(Ui.buttonRow(this, nativeVoiceToggle, labBridgeToggle));
+
+        moreDrawer.addView(Ui.buttonRow(this,
+                Ui.button(this, "Sing Zoe", Ui.RUBY, view -> playZoeSong()),
+                Ui.button(this, "Sync memory to Lab", Ui.GOLD, view -> syncMemoryToLab())));
+
+        moreDrawer.addView(Ui.buttonRow(this,
+                Ui.button(this, "Repeat", Ui.GREEN, view -> speakReply(lastResponse, "zoe-repeat")),
+                Ui.button(this, "Open Gemini", Ui.GOLD, view -> openGemini())));
+        moreDrawer.addView(Ui.buttonRow(this,
+                Ui.button(this, "Clear transcript", Ui.MUTED, view -> {
+                    exchanges.clear();
+                    updateTranscript();
+                }),
+                Ui.button(this, "Share transcript", Ui.CYAN, view -> shareTranscript())));
+
+        Button moreToggle = Ui.disclosureButton(this, "More actions ▾", null);
+        moreToggle.setOnClickListener(view -> {
+            boolean open = moreDrawer.getVisibility() != android.view.View.VISIBLE;
+            moreDrawer.setVisibility(open ? android.view.View.VISIBLE : android.view.View.GONE);
+            moreToggle.setText(open ? "More actions ▴" : "More actions ▾");
+        });
+        feed.addView(moreToggle);
+        feed.addView(moreDrawer);
+        scroll.addView(feed);
+        root.addView(scroll, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
+
+        // Bottom thumb-zone Google Gemini Composer & Voice Dock
+        LinearLayout bottomDock = Ui.vertical(this);
+        bottomDock.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        bottomDock.setPadding(Ui.dp(this, 16), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 12));
+
+        LinearLayout composer = new LinearLayout(this);
+        composer.setOrientation(LinearLayout.HORIZONTAL);
+        composer.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        composer.setBackground(Ui.cardBackground(this, 28));
+        composer.setPadding(Ui.dp(this, 10), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
+
+        typedInput = Ui.input(this, "", "Message Zoe…");
+        typedInput.setId(R.id.conversation_input);
+        typedInput.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        typedInput.setPadding(Ui.dp(this, 12), Ui.dp(this, 10), Ui.dp(this, 8), Ui.dp(this, 10));
+        composer.addView(typedInput, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+
+        Button send = Ui.primaryButton(this, "Send", Ui.CYAN, view -> sendTypedMessage());
+        send.setId(R.id.conversation_send);
+        send.setMinHeight(Ui.dp(this, 48));
+        send.setMinimumHeight(Ui.dp(this, 48));
+        composer.addView(send, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        LinearLayout.LayoutParams compLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        compLp.setMargins(0, 0, 0, Ui.dp(this, 8));
+        bottomDock.addView(composer, compLp);
+
+        Button start = Ui.primaryButton(this, "Start talking", Ui.CYAN, view -> startConversation());
+        start.setId(R.id.conversation_start);
+        Button stop = Ui.button(this, "Stop", Ui.RUBY, view -> stopConversation());
+        stop.setId(R.id.conversation_stop);
+        bottomDock.addView(Ui.buttonRow(this, start, stop));
+        root.addView(bottomDock);
+
+        setContentView(Ui.wrapWithBackdrop(this, root));
+        Ui.configureEdgeToEdge(this, root);
+
+        textToSpeech = new TextToSpeech(this, result -> runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
             ttsReady = result == TextToSpeech.SUCCESS;
-            if (ttsReady) {
+            if (ttsReady && textToSpeech != null) {
                 textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                    @Override
-                    public void onStart(String utteranceId) {
-                    }
+                    @Override public void onStart(String utteranceId) { }
 
                     @Override
                     public void onDone(String utteranceId) {
-                        if (active && "zoe-turn".equals(utteranceId)) {
-                            startListening();
-                        }
+                        runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed() && active && "zoe-turn".equals(utteranceId)) {
+                                startListening();
+                            }
+                        });
                     }
 
                     @Override
                     public void onError(String utteranceId) {
-                        if (active && "zoe-turn".equals(utteranceId)) {
-                            startListening();
-                        }
+                        runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed() && active && "zoe-turn".equals(utteranceId)) {
+                                startListening();
+                            }
+                        });
                     }
                 });
                 loadVoices();
@@ -118,29 +249,44 @@ public final class ConversationActivity extends ComponentActivity {
                     speakThenListen(lastResponse);
                 }
             } else {
-                status.setText("Text to speech could not start. You can still read and type in the other Zoe panels.");
+                status.setText("Text to speech could not start. You can still read and type here or in the other Zoe panels.");
             }
-        });
+        }));
     }
 
     private void loadVoices() {
         voices.clear();
-        for (android.speech.tts.Voice voice : textToSpeech.getVoices()) {
-            if ("en".equals(voice.getLocale().getLanguage())) {
-                voices.add(voice);
+        if (textToSpeech == null) {
+            return;
+        }
+        Set<Voice> available = null;
+        try {
+            available = textToSpeech.getVoices();
+        } catch (RuntimeException ignored) {
+        }
+        if (available != null) {
+            for (Voice voice : available) {
+                if (voice != null && voice.getLocale() != null && "en".equals(voice.getLocale().getLanguage())) {
+                    voices.add(voice);
+                }
             }
         }
-        voices.sort(java.util.Comparator.comparing(voice -> voice.getLocale().toString() + " · " + voice.getName()));
-        java.util.List<String> labels = new ArrayList<>();
-        for (android.speech.tts.Voice voice : voices) {
+        voices.sort(Comparator.comparing(voice -> voice.getLocale().toString() + " · " + voice.getName()));
+        List<String> labels = new ArrayList<>();
+        for (Voice voice : voices) {
             labels.add(voice.getLocale() + " · " + voice.getName());
         }
         if (labels.isEmpty()) {
             labels.add("Default English voice");
         }
-        voicePicker.setAdapter(new android.widget.ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, labels));
-        String saved = getPreferences(MODE_PRIVATE).getString("voice_name", textToSpeech.getDefaultVoice().getName());
+        voicePicker.setAdapter(Ui.spinnerAdapter(this, labels));
+        Voice defaultVoice = null;
+        try {
+            defaultVoice = textToSpeech.getDefaultVoice();
+        } catch (RuntimeException ignored) {
+        }
+        String fallbackName = defaultVoice == null ? "" : defaultVoice.getName();
+        String saved = getPreferences(MODE_PRIVATE).getString("voice_name", fallbackName);
         for (int index = 0; index < voices.size(); index++) {
             if (voices.get(index).getName().equals(saved)) {
                 voicePicker.setSelection(index);
@@ -151,7 +297,7 @@ public final class ConversationActivity extends ComponentActivity {
         voicePicker.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
-                if (position < voices.size()) {
+                if (position >= 0 && position < voices.size() && textToSpeech != null) {
                     textToSpeech.setVoice(voices.get(position));
                     getPreferences(MODE_PRIVATE).edit().putString("voice_name", voices.get(position).getName()).apply();
                 }
@@ -163,12 +309,176 @@ public final class ConversationActivity extends ComponentActivity {
         });
     }
 
+    private void sendTypedMessage() {
+        String text = typedInput.getText().toString().trim();
+        if (text.isEmpty()) {
+            return;
+        }
+        typedInput.setText("");
+        addExchange("YOU", text);
+        if (useLabStudio) {
+            String endpoint = ElizaGemClient.savedEndpoint(this);
+            status.setText("Routing through Workstation Lab Brain (" + endpoint + ")…");
+            executor.execute(() -> {
+                try {
+                    ElizaGemClient.ChatReply lab = studioClient.chat(endpoint, text, "gear2");
+                    runOnUiThread(() -> {
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+                        lastResponse = lab.reply;
+                        brainBadge.setText(String.format(Locale.US,
+                                "Lab %s · %s · A_%.2f=%d/%d",
+                                lab.gearUsed, lab.mode, lab.tau, lab.aTau, lab.candidateCount));
+                        addExchange("ZOE LAB [" + lab.gearUsed.toUpperCase(Locale.US) + "]", lab.reply);
+                        status.setText("Workstation Lab Brain replied (" + lab.latencyMs + " ms).");
+                        if (!captionMode) {
+                            speakReply(lab.reply, "zoe-typed");
+                        }
+                    });
+                } catch (Exception error) {
+                    runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            deliverLocalBrainReply(text, "Lab offline — replied via on-device Zoe Brain.");
+                        }
+                    });
+                }
+            });
+            return;
+        }
+        if (cloudChatMode) {
+            String key = CloudVisionClient.savedApiKey(this);
+            if (!key.isEmpty()) {
+                String model = CloudVisionClient.savedModel(this);
+                status.setText("Asking Cloud (" + model + ") via " + Ui.networkStatusLabel(this) + "…");
+                executor.execute(() -> {
+                    try {
+                        String reply = "[ONLINE CLOUD · GEMINI] " + CloudVisionClient.askText(key, model, text);
+                        runOnUiThread(() -> {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+                            lastResponse = reply;
+                            brainBadge.setText("Cloud Gemini · " + model);
+                            addExchange("CLOUD", reply);
+                            status.setText("Cloud reply received.");
+                            if (!captionMode) {
+                                speakReply(reply, "zoe-typed");
+                            }
+                        });
+                    } catch (Exception error) {
+                        runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed()) {
+                                deliverLocalBrainReply(text, "Cloud failed (" + error.getMessage() + "); replied locally.");
+                            }
+                        });
+                    }
+                });
+                return;
+            }
+        }
+        deliverLocalBrainReply(text, "Zoe Brain replied offline (0 cloud tokens).");
+    }
+
+    private void deliverLocalBrainReply(String input, String statusNote) {
+        ZoeBrainEngine.BrainReply res = brain.respond(input);
+        lastResponse = res.reply;
+        brainBadge.setText(res.telemetryBadge());
+        addExchange("ZOE", res.reply);
+        status.setText(statusNote);
+        if (!captionMode) {
+            speakReply(res.reply, "zoe-typed");
+        }
+    }
+
+    private void speakReply(String text, String utteranceId) {
+        if (text == null || text.isBlank()) {
+            return;
+        }
+        if (useNativeVoice) {
+            if (useLabStudio) {
+                String endpoint = ElizaGemClient.savedEndpoint(this);
+                executor.execute(() -> {
+                    try {
+                        byte[] wav = studioClient.fetchSpeakWav(endpoint, text, "speak");
+                        nativeVoice.playWavBytes(wav, () -> onNativeSpeechFinished(utteranceId));
+                    } catch (Exception fallback) {
+                        nativeVoice.speak(text, () -> onNativeSpeechFinished(utteranceId));
+                    }
+                });
+            } else {
+                nativeVoice.speak(text, () -> onNativeSpeechFinished(utteranceId));
+            }
+            return;
+        }
+        if (ttsReady && textToSpeech != null) {
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+        }
+    }
+
+    private void onNativeSpeechFinished(String utteranceId) {
+        runOnUiThread(() -> {
+            if (!isFinishing() && !isDestroyed() && active && "zoe-turn".equals(utteranceId)) {
+                startListening();
+            }
+        });
+    }
+
+    private void playZoeSong() {
+        status.setText("Singing Zoe's native soprano theme (44.1 kHz DSP, offline)…");
+        if (useLabStudio) {
+            String endpoint = ElizaGemClient.savedEndpoint(this);
+            executor.execute(() -> {
+                try {
+                    byte[] wav = studioClient.fetchSpeakWav(endpoint, "zoe", "sing");
+                    nativeVoice.playWavBytes(wav, null);
+                } catch (Exception fallback) {
+                    nativeVoice.singZoe(null);
+                }
+            });
+        } else {
+            nativeVoice.singZoe(null);
+        }
+    }
+
+    private void syncMemoryToLab() {
+        List<ZoeBrainEngine.MemoryNote> notes = brain.notesSnapshot();
+        if (notes.isEmpty()) {
+            status.setText("No local notes to sync yet. Type `remember ...` or `relay ...` first.");
+            return;
+        }
+        String endpoint = ElizaGemClient.savedEndpoint(this);
+        status.setText("Syncing " + notes.size() + " private notes to " + endpoint + "…");
+        executor.execute(() -> {
+            try {
+                ElizaGemClient.SyncResult res = studioClient.syncMemory(endpoint, android.os.Build.MODEL, notes);
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        status.setText("Unified memory synced: " + res.accepted + " added, "
+                                + res.deduplicated + " already synced (chain "
+                                + (res.chainHead.length() > 10 ? res.chainHead.substring(0, 10) : res.chainHead) + ").");
+                    }
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        status.setText("Lab sync unreachable (" + error.getMessage() + "). Notes stay safe on this phone.");
+                    }
+                });
+            }
+        });
+    }
+
     private void startConversation() {
         if (active) {
             return;
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION);
+            return;
+        }
+        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
+            status.setText("No speech-recognition service is available on this device. You can still type below.");
             return;
         }
         active = true;
@@ -190,11 +500,16 @@ public final class ConversationActivity extends ComponentActivity {
         }
         lastResponse = response;
         status.setText("Zoe is speaking…");
-        textToSpeech.speak(response, TextToSpeech.QUEUE_FLUSH, null, "zoe-turn");
+        speakReply(response, "zoe-turn");
     }
 
     private void startListening() {
         if (!active) {
+            return;
+        }
+        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
+            active = false;
+            status.setText("Speech recognition is unavailable.");
             return;
         }
         destroyRecognizer();
@@ -218,7 +533,7 @@ public final class ConversationActivity extends ComponentActivity {
             public void onError(int error) {
                 if (active) {
                     active = false;
-                    status.setText("Listening ended with code " + error + ". Start again whenever you are ready.");
+                    status.setText(speechErrorLabel(error));
                 }
             }
 
@@ -230,6 +545,7 @@ public final class ConversationActivity extends ComponentActivity {
                 ArrayList<String> alternatives = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (alternatives == null || alternatives.isEmpty()) {
                     status.setText("Nothing was recognized. Your turn again…");
+                    startListening();
                     return;
                 }
                 String heard = alternatives.get(0);
@@ -239,15 +555,49 @@ public final class ConversationActivity extends ComponentActivity {
                     return;
                 }
                 addExchange("YOU", heard);
-                String response = ConversationResponse.forInput(heard);
-                addExchange("ZOE", response);
                 if (ConversationResponse.isStop(heard)) {
+                    String goodbye = ConversationResponse.forInput(heard);
+                    addExchange("ZOE", goodbye);
                     active = false;
                     status.setText("Conversation stopped. The microphone is off.");
-                    textToSpeech.speak(response, TextToSpeech.QUEUE_FLUSH, null, "zoe-goodbye");
-                } else {
-                    speakThenListen(response);
+                    if (ttsReady && textToSpeech != null) {
+                        textToSpeech.speak(goodbye, TextToSpeech.QUEUE_FLUSH, null, "zoe-goodbye");
+                    }
+                    return;
                 }
+                if (cloudChatMode) {
+                    String key = CloudVisionClient.savedApiKey(ConversationActivity.this);
+                    if (!key.isEmpty()) {
+                        String model = CloudVisionClient.savedModel(ConversationActivity.this);
+                        status.setText("Asking Cloud (" + model + ") via " + Ui.networkStatusLabel(ConversationActivity.this) + "…");
+                        executor.execute(() -> {
+                            try {
+                                String reply = "[ONLINE CLOUD · GEMINI] " + CloudVisionClient.askText(key, model, heard);
+                                runOnUiThread(() -> {
+                                    if (isFinishing() || isDestroyed() || !active) {
+                                        return;
+                                    }
+                                    addExchange("CLOUD", reply);
+                                    speakThenListen(reply);
+                                });
+                            } catch (Exception error) {
+                                runOnUiThread(() -> {
+                                    if (isFinishing() || isDestroyed() || !active) {
+                                        return;
+                                    }
+                                    String fallback = ConversationResponse.forInput(heard);
+                                    addExchange("ZOE (OFFLINE FALLBACK)", fallback);
+                                    speakThenListen(fallback);
+                                });
+                            }
+                        });
+                        return;
+                    }
+                }
+                ZoeBrainEngine.BrainReply local = brain.respond(heard);
+                brainBadge.setText(local.telemetryBadge());
+                addExchange("ZOE", local.reply);
+                speakThenListen(local.reply);
             }
         });
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -262,6 +612,22 @@ public final class ConversationActivity extends ComponentActivity {
             active = false;
             status.setText("Listening could not start: " + error.getMessage());
         }
+    }
+
+    static String speechErrorLabel(int error) {
+        return switch (error) {
+            case SpeechRecognizer.ERROR_AUDIO -> "Audio recording error (code 3). No command was executed.";
+            case SpeechRecognizer.ERROR_CLIENT -> "Speech client stopped (code 5). No command was executed.";
+            case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "Microphone permission issue (code 9). No command was executed.";
+            case SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_NETWORK_TIMEOUT ->
+                    "Speech network error (code " + error + "). No command was executed.";
+            case SpeechRecognizer.ERROR_NO_MATCH -> "No speech match heard (code 7). Tap again whenever ready.";
+            case SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "Speech recognizer is busy (code 8). Wait a moment and try again.";
+            case SpeechRecognizer.ERROR_SERVER -> "Speech recognition service error (code 4). No command was executed.";
+            case SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "No speech heard before timeout (code 6). Tap again whenever ready.";
+            case 12, 13 -> "On-device speech language model busy or unavailable (code " + error + "). No command was executed.";
+            default -> "Speech recognition ended (code " + error + "). No command was executed.";
+        };
     }
 
     private void addExchange(String role, String text) {
@@ -287,6 +653,9 @@ public final class ConversationActivity extends ComponentActivity {
         if (textToSpeech != null) {
             textToSpeech.stop();
         }
+        if (nativeVoice != null) {
+            nativeVoice.stop();
+        }
         status.setText("Conversation stopped. The microphone is off.");
     }
 
@@ -295,7 +664,11 @@ public final class ConversationActivity extends ComponentActivity {
                 .setType("text/plain")
                 .putExtra(Intent.EXTRA_SUBJECT, "Zoe conversation")
                 .putExtra(Intent.EXTRA_TEXT, transcript.getText().toString());
-        startActivity(Intent.createChooser(share, "Share transcript"));
+        try {
+            startActivity(Intent.createChooser(share, "Share transcript"));
+        } catch (ActivityNotFoundException error) {
+            status.setText("No sharing app is available.");
+        }
     }
 
     private void openGemini() {
@@ -344,6 +717,10 @@ public final class ConversationActivity extends ComponentActivity {
             textToSpeech.stop();
             textToSpeech.shutdown();
         }
+        if (nativeVoice != null) {
+            nativeVoice.close();
+        }
+        executor.shutdownNow();
         super.onDestroy();
     }
 }

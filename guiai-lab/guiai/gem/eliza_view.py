@@ -972,6 +972,46 @@ def create_server(
                 self.end_headers()
                 self.wfile.write(svg)
                 return
+            if path == "/api/l5/phase4":
+                rep_file = resolved_root / "evidence" / "l5-phase4" / "l5-phase4-report.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
+                return
+            if path == "/api/l5/phase4/gem.svg":
+                from .l5_phase4 import l5_phase4_scene
+                from .render import scene_to_svg
+
+                scene, _ = l5_phase4_scene(resolved_root)
+                svg = scene_to_svg(scene).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                self.send_header("Content-Length", str(len(svg)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(svg)
+                return
+            if path == "/api/l5/phase5":
+                rep_file = resolved_root / "evidence" / "l5-phase5" / "l5-phase5-report.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
+                return
+            if path == "/api/l5/phase5/gem.svg":
+                from .l5_phase5 import l5_phase5_scene
+                from .render import scene_to_svg
+
+                scene, _ = l5_phase5_scene(resolved_root)
+                svg = scene_to_svg(scene).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                self.send_header("Content-Length", str(len(svg)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(svg)
+                return
             if path == "/api/export":
                 with lock:
                     raw = json.dumps(engine.export_session(), ensure_ascii=False, indent=2, sort_keys=True).encode("utf-8")
@@ -1042,6 +1082,65 @@ def create_server(
                         saved = engine.relay_for_zoe(note, topic=topic)
                         snap = engine.memory_snapshot()
                     self._send_json(200, {"saved": saved, "memory_snapshot": snap})
+                    return
+                if path == "/api/memory/sync":
+                    from zoe_autonomy.l5_phase4_unified_memory import merge_mobile_sync_batch
+
+                    with lock:
+                        res = merge_mobile_sync_batch(engine, body)
+                    self._send_json(200, res)
+                    return
+                if path == "/api/stem/route":
+                    from zoe_autonomy.stem_layering import route_stem
+
+                    prompt = str(body.get("prompt") or "").strip()
+                    dec = route_stem(
+                        prompt,
+                        offline_only=bool(body.get("offline_only", False)),
+                        privacy_sensitive=bool(body.get("privacy_sensitive", False)),
+                        files_count=int(body.get("files_count", 1)),
+                        multi_file=bool(body.get("multi_file", False)),
+                        probe_local=bool(body.get("probe_local", False)),
+                    )
+                    self._send_json(200, dec.to_dict())
+                    return
+                if path == "/api/l5/phase5/run":
+                    from zoe_autonomy.l5_phase5_frontier import ALL_PHASE5_PILLARS, run_l5_phase5_suite
+
+                    pillar_id = body.get("pillar_id")
+                    with lock:
+                        if pillar_id:
+                            chosen = None
+                            for fn in ALL_PHASE5_PILLARS:
+                                res = fn(resolved_root)
+                                if res["pillar_id"] == str(pillar_id):
+                                    chosen = res
+                                    break
+                            if chosen is None:
+                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
+                            self._send_json(200, chosen)
+                        else:
+                            rep = run_l5_phase5_suite(resolved_root)
+                            self._send_json(200, rep)
+                    return
+                if path == "/api/l5/phase4/run":
+                    from zoe_autonomy.l5_phase4_embodied import ALL_PHASE4_PILLARS, run_l5_phase4_suite
+
+                    pillar_id = body.get("pillar_id")
+                    with lock:
+                        if pillar_id:
+                            chosen = None
+                            for fn in ALL_PHASE4_PILLARS:
+                                res = fn(resolved_root)
+                                if res["pillar_id"] == str(pillar_id):
+                                    chosen = res
+                                    break
+                            if chosen is None:
+                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
+                            self._send_json(200, chosen)
+                        else:
+                            rep = run_l5_phase4_suite(resolved_root)
+                            self._send_json(200, rep)
                     return
                 if path == "/api/l5/phase3/run":
                     from zoe_autonomy.l5_phase3_live import ALL_PHASE3_PILLARS, run_l5_phase3_suite

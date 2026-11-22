@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Zoe GEM-Ellipsis monochrome icon (Material You themed icon safe zone) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M41,34 L67,34 C69.5,34 71.5,35.2 73,37 L81,47 C82.5,48.8 82.4,51.4 80.8,53.1 L56.5,78.5 C55.1,80 52.9,80 51.5,78.5 L27.2,53.1 C25.6,51.4 25.5,48.8 27,47 L35,37 C36.5,35.2 38.5,34 41,34 Z M44.5,50 A3,3 0 1,0 44.5,56 A3,3 0 1,0 44.5,50 Z M54,50 A3,3 0 1,0 54,56 A3,3 0 1,0 54,50 Z M63.5,50 A3,3 0 1,0 63.5,56 A3,3 0 1,0 63.5,50 Z" />
+</vector>

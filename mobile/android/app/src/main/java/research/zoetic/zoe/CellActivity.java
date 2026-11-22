@@ -29,14 +29,15 @@ public final class CellActivity extends ComponentActivity {
         super.onCreate(state);
         session = new CellSession();
         ScrollView scroll = new ScrollView(this);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 24));
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 24));
         scroll.addView(content);
-        setContentView(scroll);
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.button(this, "‹ Zoe home", view -> finish()));
-        content.addView(Ui.heading(this, "Tiny Zoe"));
-        content.addView(Ui.text(this, "Zoe Cell · a tiny protocol lab with big ideas", 15, Ui.PINK));
+        content.addView(Ui.topBar(this, "Tiny Zoe", "Zoe Cell · a tiny protocol lab with big ideas"));
         android.widget.ImageView geometry = new android.widget.ImageView(this);
         geometry.setImageResource(R.drawable.cell_hourglass);
         geometry.setAdjustViewBounds(true);
@@ -74,7 +75,7 @@ public final class CellActivity extends ComponentActivity {
 
         Button info = Ui.button(this, "Read simulated card", view -> readInfo());
         info.setId(R.id.cell_info);
-        Button measure = Ui.button(this, "Measure on simulated card", view -> measure());
+        Button measure = Ui.primaryButton(this, "Measure on simulated card", Ui.RUBY, view -> measure());
         measure.setId(R.id.cell_measure);
         content.addView(Ui.buttonRow(this, info, measure));
         Button reset = Ui.button(this, "Reset simulation", view -> reset());
@@ -126,14 +127,8 @@ public final class CellActivity extends ComponentActivity {
     }
 
     private EditText input(String value) {
-        EditText input = new EditText(this);
-        input.setText(value);
-        input.setTextSize(16);
-        input.setTextColor(Ui.TEXT);
-        input.setHintTextColor(Ui.MUTED);
+        EditText input = Ui.input(this, value, "");
         input.setSingleLine(true);
-        input.setPadding(Ui.dp(this, 14), Ui.dp(this, 10), Ui.dp(this, 14), Ui.dp(this, 10));
-        input.setBackground(Ui.panelBackground(this, Ui.MUTED, 12));
         return input;
     }
 

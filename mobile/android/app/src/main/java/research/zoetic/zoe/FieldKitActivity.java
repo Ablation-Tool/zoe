@@ -2,8 +2,10 @@ package research.zoetic.zoe;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
 
@@ -12,43 +14,61 @@ public final class FieldKitActivity extends ComponentActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ScrollView scroll = new ScrollView(this);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
-        content.setPadding(0, Ui.dp(this, 12), 0, Ui.dp(this, 28));
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(0, Ui.dp(this, 8), 0, Ui.dp(this, 28));
         scroll.addView(content);
-        setContentView(scroll);
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.button(this, "‹ Zoe home", view -> finish()));
-        content.addView(Ui.heading(this, "Field kit"));
-        content.addView(Ui.text(this,
-                "Specialized instruments for deliberate experiments. Each one starts idle and explains its own limits.",
-                15, Ui.MUTED));
-        content.addView(Ui.section(this, "LOOK & LISTEN"));
-        tool(content, "Multi-view", "Phone back, front, and an optional localhost laptop camera",
-                android.R.drawable.ic_menu_gallery, Ui.CYAN, MultiVisionActivity.class);
-        tool(content, "Acoustic ranging", "One-shot chirp and uncalibrated echo candidates",
-                android.R.drawable.ic_menu_call, Ui.PINK, RangingActivity.class);
-        content.addView(Ui.section(this, "MEASURE"));
-        tool(content, "Tiny Zoe", "Standalone Zoe Cell protocol simulator and APDU console",
-                android.R.drawable.ic_menu_preferences, Ui.YELLOW, CellActivity.class);
-        tool(content, "Radio field", "Bonded Bluetooth metadata, optional RSSI, and NFC presence",
-                android.R.drawable.ic_menu_share, Ui.GREEN, RadioActivity.class);
-        tool(content, "Location field", "One-shot position with cancel, timeout, and clear",
-                android.R.drawable.ic_menu_mylocation, Ui.YELLOW, LocationActivity.class);
-        tool(content, "Connectivity", "Transport changes and an optional HTTPS rate check",
-                android.R.drawable.ic_menu_rotate, Ui.CYAN, ConnectivityActivity.class);
-        content.addView(Ui.section(this, "DEVICE TOOLS"));
-        tool(content, "Screen Space", "Explicit captures and mapped gestures · accessibility setup required",
-                android.R.drawable.ic_menu_crop, Ui.PINK, ScreenSpaceActivity.class);
-        tool(content, "App Observatory", "Read-only metadata for launcher-visible apps",
-                android.R.drawable.ic_menu_view, Ui.GREEN, AppObservatoryActivity.class);
-        content.addView(Ui.text(this,
-                "Observations are not proof of identity, safe navigation, position, or correctness.",
-                13, Ui.MUTED));
+        LinearLayout headerPad = new LinearLayout(this);
+        headerPad.setOrientation(LinearLayout.VERTICAL);
+        headerPad.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        headerPad.setPadding(Ui.dp(this, 16), 0, Ui.dp(this, 16), 0);
+        headerPad.addView(Ui.topBar(this, "Field kit", "Each one starts idle"));
+        content.addView(headerPad);
+
+        content.addView(Ui.section(this, "Look & listen"));
+        addGroup(content,
+                row("Multi-view", "Back, front & laptop cameras", R.drawable.ic_zoe_vision, Ui.COBALT, MultiVisionActivity.class),
+                row("Acoustic ranging", "One-shot chirp & echo", R.drawable.ic_zoe_talk, Ui.RUBY, RangingActivity.class));
+
+        content.addView(Ui.section(this, "Measure"));
+        addGroup(content,
+                row("Tiny Zoe", "Cell simulator & APDU console", R.drawable.ic_zoe_gem, Ui.GOLD, CellActivity.class),
+                row("Radio field", "Bluetooth RSSI & NFC", R.drawable.ic_zoe_radio, Ui.GREEN, RadioActivity.class),
+                row("Location field", "One-shot GPS position", R.drawable.ic_zoe_location, Ui.GOLD, LocationActivity.class),
+                row("Connectivity", "Link state & HTTPS rate", R.drawable.ic_zoe_trinity, Ui.CYAN, ConnectivityActivity.class));
+
+        content.addView(Ui.section(this, "Device tools"));
+        addGroup(content,
+                row("Screen Space", "Explicit capture & mapped gestures", R.drawable.ic_zoe_screen, Ui.PINK, ScreenSpaceActivity.class),
+                row("App Observatory", "Installed launcher apps", R.drawable.ic_zoe_apps, Ui.GREEN, AppObservatoryActivity.class));
+
+        TextView note = Ui.text(this, "Observations are not proof.", 12.5f, Ui.MUTED);
+        note.setAlpha(0.75f);
+        note.setGravity(android.view.Gravity.CENTER);
+        note.setPadding(Ui.dp(this, 20), Ui.dp(this, 16), Ui.dp(this, 20), 0);
+        content.addView(note);
     }
 
-    private void tool(LinearLayout content, String title, String subtitle, int icon, int accent,
-                      Class<?> activityClass) {
-        content.addView(Ui.tool(this, title, subtitle, icon, accent,
-                view -> startActivity(new Intent(this, activityClass))));
+    private LinearLayout row(String title, String subtitle, int icon, int accent, Class<?> activityClass) {
+        return Ui.groupedRow(this, title, subtitle, icon, accent,
+                view -> startActivity(new Intent(this, activityClass)));
+    }
+
+    private void addGroup(LinearLayout content, LinearLayout... rows) {
+        LinearLayout card = Ui.groupedCard(this);
+        for (int i = 0; i < rows.length; i++) {
+            if (i > 0) {
+                card.addView(Ui.insetDivider(this));
+            }
+            card.addView(rows[i]);
+        }
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(Ui.dp(this, 16), 0, Ui.dp(this, 16), 0);
+        content.addView(card, params);
     }
 }

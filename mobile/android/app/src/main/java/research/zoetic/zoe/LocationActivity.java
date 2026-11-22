@@ -7,8 +7,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CancellationSignal;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -25,8 +29,8 @@ public final class LocationActivity extends ComponentActivity {
     private TextView report;
     private Location first;
     private Location latest;
-    android.os.CancellationSignal pendingLocation;
-    private final android.os.Handler handler = new android.os.Handler(android.os.Looper.getMainLooper());
+    CancellationSignal pendingLocation;
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable locationTimeout = () -> {
         if (pendingLocation != null) {
             pendingLocation.cancel();
@@ -39,23 +43,27 @@ public final class LocationActivity extends ComponentActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ScrollView scroll = new ScrollView(this);
-        android.widget.LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 24));
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        LinearLayout content = Ui.vertical(this);
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 24));
         scroll.addView(content);
-        setContentView(scroll);
-        content.addView(Ui.heading(this, "Location Field"));
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
+
+        content.addView(Ui.topBar(this, "Location Field", "One-shot position · straight-line distance"));
         content.addView(Ui.text(this,
                 "One-shot location with accuracy and timestamp. Mark two points for a straight-line distance. No background tracking or address lookup.",
-                15, Ui.MUTED));
-        status = Ui.text(this, "Location is idle. No location request is active.", 16, Ui.YELLOW);
+                14.5f, Ui.MUTED));
+        status = Ui.text(this, "Location is idle. No location request is active.", 15, Ui.YELLOW);
         status.setId(R.id.location_status);
         content.addView(status);
-        Button locate = Ui.button(this, "Locate once", view -> locateOnce());
+        Button locate = Ui.button(this, "Locate once", Ui.CYAN, view -> locateOnce());
         locate.setId(R.id.location_once);
-        Button settings = Ui.button(this, "Location settings", view ->
+        Button settings = Ui.button(this, "Location settings", Ui.GOLD, view ->
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
         content.addView(Ui.buttonRow(this, locate, settings));
-        content.addView(Ui.button(this, "Mark first point", view -> {
+        content.addView(Ui.button(this, "Mark first point", Ui.GREEN, view -> {
             if (latest == null) {
                 status.setText("Locate once before marking a point.");
             } else {
@@ -63,10 +71,10 @@ public final class LocationActivity extends ComponentActivity {
                 status.setText("First point marked in memory. Move, then locate again.");
             }
         }));
-        content.addView(Ui.button(this, "Stop and clear points", view -> stopLocation()));
+        content.addView(Ui.button(this, "Stop and clear points", Ui.RUBY, view -> stopLocation()));
         report = Ui.text(this,
                 "No location observation yet. Coordinates, accuracy, and point-to-point distance appear only after you request them.",
-                17, Ui.TEXT);
+                16, Ui.TEXT);
         report.setId(R.id.location_report);
         report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
@@ -74,31 +82,47 @@ public final class LocationActivity extends ComponentActivity {
         content.addView(report);
         content.addView(Ui.text(this,
                 "Straight-line distance ignores terrain, roads, elevation, and obstacles. Location accuracy and provider timestamps remain visible.",
-                13, Ui.MUTED));
+                12.5f, Ui.MUTED));
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
+    private boolean hasLocationPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
     private void locateOnce() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!hasLocationPermission()) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     LOCATION_PERMISSION);
             return;
         }
+        if (manager == null) {
+            status.setText("Location service is unavailable on this device.");
+            return;
+        }
         cancelPendingLocation();
         try {
-            String provider = manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                    ? LocationManager.GPS_PROVIDER
-                    : manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-                    ? LocationManager.NETWORK_PROVIDER : null;
+            String provider = null;
+            if (Build.VERSION.SDK_INT >= 31 && manager.isProviderEnabled(LocationManager.FUSED_PROVIDER)) {
+                provider = LocationManager.FUSED_PROVIDER;
+            } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
+                    && manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                provider = LocationManager.GPS_PROVIDER;
+            } else if (manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                provider = LocationManager.NETWORK_PROVIDER;
+            }
             if (provider == null) {
                 status.setText("No location provider is enabled. No location request is active.");
                 return;
             }
             status.setText("Requesting one location from " + provider + "…");
             if (Build.VERSION.SDK_INT >= 30) {
-                android.os.CancellationSignal request = new android.os.CancellationSignal();
+                CancellationSignal request = new CancellationSignal();
                 pendingLocation = request;
                 handler.postDelayed(locationTimeout, 15_000);
                 manager.getCurrentLocation(provider, request, ContextCompat.getMainExecutor(this), current -> {
@@ -160,7 +184,14 @@ public final class LocationActivity extends ComponentActivity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            boolean granted = false;
+            for (int r : grantResults) {
+                if (r == PackageManager.PERMISSION_GRANTED) {
+                    granted = true;
+                    break;
+                }
+            }
+            if (granted) {
                 locateOnce();
             } else {
                 status.setText("Location permission was not granted. No location was read.");
@@ -170,8 +201,17 @@ public final class LocationActivity extends ComponentActivity {
 
     @Override
     protected void onPause() {
+        boolean wasActive = pendingLocation != null;
         cancelPendingLocation();
-        status.setText("Location paused. No location request is active.");
+        if (wasActive) {
+            status.setText("Location paused. No location request is active.");
+        }
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        cancelPendingLocation();
+        super.onDestroy();
     }
 }

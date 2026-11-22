@@ -6,6 +6,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public final class ConnectivityActivity extends ComponentActivity {
     private final List<String> events = new ArrayList<>();
     private ConnectivityManager manager;
     private ConnectivityManager.NetworkCallback callback;
-    private HttpURLConnection connection;
+    private volatile HttpURLConnection connection;
     private TextView status;
     private TextView report;
     private int ordinal;
@@ -37,26 +38,30 @@ public final class ConnectivityActivity extends ComponentActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ScrollView scroll = new ScrollView(this);
-        android.widget.LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 24));
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        LinearLayout content = Ui.vertical(this);
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 24));
         scroll.addView(content);
-        setContentView(scroll);
-        content.addView(Ui.heading(this, "Connectivity Field"));
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
+
+        content.addView(Ui.topBar(this, "Connectivity Field", "Transport changes · live rate probe"));
         content.addView(Ui.text(this,
-                "Transport changes, Android's downstream estimate, and an optional one-shot download rate. Offline workflows remain available on every network.",
-                15, Ui.MUTED));
-        status = Ui.text(this, "Network observation is idle. No callback or download is active.", 16, Ui.YELLOW);
+                "Transport changes (Wi-Fi or mobile data), Android's downstream estimate, and an optional one-shot download rate. Offline workflows remain available on every network.",
+                14.5f, Ui.MUTED));
+        status = Ui.text(this, "Network observation is idle. No callback or download is active.", 15, Ui.YELLOW);
         status.setId(R.id.network_status);
         content.addView(status);
-        Button watch = Ui.button(this, "Watch network changes", view -> watch());
+        Button watch = Ui.button(this, "Watch network changes", Ui.CYAN, view -> watch());
         watch.setId(R.id.network_watch);
-        Button download = Ui.button(this, "Measure 1 MiB once", view -> download());
+        Button download = Ui.button(this, "Measure 1 MiB once", Ui.GREEN, view -> download());
         download.setId(R.id.network_download);
         content.addView(Ui.buttonRow(this, watch, download));
-        content.addView(Ui.button(this, "Stop observation", view -> stopConnectivity()));
+        content.addView(Ui.button(this, "Stop observation", Ui.RUBY, view -> stopConnectivity()));
         report = Ui.text(this,
                 "No network observation yet. Transport, validation, and rate are different measurements. Carrier band and emergency priority are not inferred.",
-                17, Ui.TEXT);
+                16, Ui.TEXT);
         report.setId(R.id.network_report);
         report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
@@ -64,11 +69,15 @@ public final class ConnectivityActivity extends ComponentActivity {
         content.addView(report);
         content.addView(Ui.text(this,
                 "Low-bandwidth path: use offline OCR and labels, defer optional model downloads, and run the laptop bridge at 320×240 / 2 fps. Band 14, FirstNet, WPS, carrier priority, and emergency coverage are not controlled or guaranteed by this app.",
-                13, Ui.MUTED));
+                12.5f, Ui.MUTED));
         manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     private void watch() {
+        if (manager == null) {
+            status.setText("Connectivity service is unavailable on this device.");
+            return;
+        }
         if (callback != null) {
             stopConnectivity();
             return;
@@ -77,7 +86,7 @@ public final class ConnectivityActivity extends ComponentActivity {
             @Override
             public void onCapabilitiesChanged(Network network, NetworkCapabilities capabilities) {
                 String transport = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ? "Wi-Fi"
-                        : capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ? "cellular"
+                        : capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ? "mobile data"
                         : capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ? "Ethernet" : "other";
                 record(transport + " · validated=" + capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
                         + " · Android downstream estimate=" + capabilities.getLinkDownstreamBandwidthKbps() + " kbps");
@@ -105,46 +114,63 @@ public final class ConnectivityActivity extends ComponentActivity {
         executor.execute(() -> {
             long started = System.nanoTime();
             long total = 0;
+            HttpURLConnection localConn = null;
             try {
-                connection = (HttpURLConnection) new URL("https://speed.hetzner.de/1MB.bin").openConnection();
-                connection.setConnectTimeout(8000);
-                connection.setReadTimeout(120_000);
-                connection.setRequestProperty("User-Agent", "Zoe-Mobile/0.1");
-                connection.connect();
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    throw new IOException("HTTP " + connection.getResponseCode());
+                localConn = (HttpURLConnection) new URL("https://speed.hetzner.de/1MB.bin").openConnection();
+                localConn.setConnectTimeout(8000);
+                localConn.setReadTimeout(120_000);
+                localConn.setRequestProperty("User-Agent", "Zoe-Mobile/0.2");
+                connection = localConn;
+                if (!downloading.get()) {
+                    return;
                 }
-                try (InputStream input = connection.getInputStream()) {
+                localConn.connect();
+                if (localConn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                    throw new IOException("HTTP " + localConn.getResponseCode());
+                }
+                try (InputStream input = localConn.getInputStream()) {
                     byte[] buffer = new byte[16_384];
                     int count;
-                    while (total < 1024 * 1024 && (count = input.read(buffer)) >= 0) {
+                    while (downloading.get() && total < 1024 * 1024 && (count = input.read(buffer)) >= 0) {
                         total += count;
                     }
+                }
+                if (!downloading.get()) {
+                    return;
                 }
                 long elapsed = System.nanoTime() - started;
                 double rate = NetworkSpeedTest.megabitsPerSecond(total, elapsed);
                 long bytes = total;
                 runOnUiThread(() -> {
-                    report.setText(String.format(Locale.US,
-                            "Downloaded %d bytes in %.3f s\nMeasured rate: %.3f Mbit/s\n\nOne third-party HTTPS endpoint is not a measure of every carrier, region, emergency service, or future connection.",
-                            bytes, elapsed / 1e9, rate));
-                    status.setText("Download measurement complete. No download is active.");
+                    if (downloading.get() && !isFinishing() && !isDestroyed()) {
+                        report.setText(String.format(Locale.US,
+                                "Downloaded %d bytes in %.3f s\nMeasured rate: %.3f Mbit/s\n\nOne third-party HTTPS endpoint is not a measure of every carrier, region, emergency service, or future connection.",
+                                bytes, elapsed / 1e9, rate));
+                        status.setText("Download measurement complete. No download is active.");
+                    }
                 });
             } catch (Exception error) {
-                runOnUiThread(() -> status.setText("Download failed or was cancelled: " + error.getMessage()
-                        + ". Offline workflows remain available."));
+                runOnUiThread(() -> {
+                    if (downloading.get() && !isFinishing() && !isDestroyed()) {
+                        status.setText("Download failed or was cancelled: " + error.getMessage()
+                                + ". Offline workflows remain available.");
+                    }
+                });
             } finally {
                 downloading.set(false);
-                if (connection != null) {
-                    connection.disconnect();
-                    connection = null;
+                if (localConn != null) {
+                    localConn.disconnect();
                 }
+                connection = null;
             }
         });
     }
 
     private void record(String event) {
         runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
             events.add((++ordinal) + " · " + event);
             if (events.size() > 12) {
                 events.remove(0);
@@ -155,14 +181,20 @@ public final class ConnectivityActivity extends ComponentActivity {
     }
 
     private void stopConnectivity() {
-        if (callback != null) {
-            manager.unregisterNetworkCallback(callback);
+        if (callback != null && manager != null) {
+            try {
+                manager.unregisterNetworkCallback(callback);
+            } catch (IllegalArgumentException ignored) {
+            }
             callback = null;
         }
         downloading.set(false);
-        if (connection != null) {
-            connection.disconnect();
-            connection = null;
+        HttpURLConnection active = connection;
+        connection = null;
+        if (active != null) {
+            Thread cleanup = new Thread(active::disconnect, "zoe-conn-close");
+            cleanup.setDaemon(true);
+            cleanup.start();
         }
         status.setText("Connectivity observation stopped. No callback or download is active.");
     }

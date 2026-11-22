@@ -1,7 +1,12 @@
 package research.zoetic.zoe;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -18,66 +23,200 @@ import com.google.mlkit.genai.imagedescription.ImageDescription;
 import com.google.mlkit.genai.imagedescription.ImageDescriptionRequest;
 import com.google.mlkit.genai.imagedescription.ImageDescriptionResult;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 final class DeviceAiController {
+    private static final String AICORE_PACKAGE = "com.google.android.aicore";
+    private static final String AICORE_SERVICE = "com.google.android.apps.aicore.service.AiCoreService";
+    private static final String AICORE_MULTIUSER_SERVICE = "com.google.android.apps.aicore.service.multiuser.AiCoreMultiUserService";
+
     interface StatusListener {
         void onStatus(String status);
     }
 
     private final ImageDescriber describer;
+    private final boolean aiCorePresent;
+    private final String diagnostic;
     private final Executor executor;
     private final StatusListener listener;
     private volatile boolean ready;
+    private volatile boolean closed;
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable statusTimeout;
 
     DeviceAiController(Context context, StatusListener listener) {
         this.listener = listener;
         this.executor = ContextCompat.getMainExecutor(context);
-        this.describer = ImageDescription.getClient(ImageDescriberOptions.builder(context).build());
-        this.statusTimeout = () -> listener.onStatus(
-                "Device AI did not respond within 10 seconds. OCR and image labels remain available; no model was downloaded.");
+        this.aiCorePresent = hasRealAiCoreService(context);
+        this.diagnostic = runtimeDiagnostic(context);
+        this.describer = aiCorePresent
+                ? ImageDescription.getClient(ImageDescriberOptions.builder(context).build())
+                : null;
+        this.statusTimeout = () -> {
+            if (!closed) {
+                listener.onStatus(
+                        "On-device Gemini Nano (AICore) did not respond within 10 seconds. Bundled OCR, image labels, and color math remain available.");
+            }
+        };
+    }
+
+    static boolean isStubVersionName(String versionName) {
+        return versionName != null && versionName.toLowerCase(Locale.US).contains("stub");
+    }
+
+    static String runtimeDiagnostic(Context context) {
+        if (context == null) {
+            return "unavailable";
+        }
+        PackageManager pm = context.getPackageManager();
+        if (pm == null) {
+            return "package manager unavailable on " + Build.MODEL;
+        }
+        PackageInfo info = packageInfo(pm, AICORE_PACKAGE);
+        if (info == null) {
+            return "not installed on " + Build.MODEL;
+        }
+        if (isStubVersionName(info.versionName)) {
+            return "stub only (" + info.versionName + ") on " + Build.MODEL
+                    + " — bundled offline OCR, labels & color math are active instead";
+        }
+        if (!hasAnyAiCoreService(pm)) {
+            return "AICore service not shipped on " + Build.MODEL
+                    + " — bundled offline OCR, labels & color math are active instead";
+        }
+        String version = info.versionName == null ? "installed" : info.versionName;
+        return "AICore service detected (" + version + ")";
+    }
+
+    static boolean hasRealAiCoreService(Context context) {
+        if (context == null) {
+            return false;
+        }
+        PackageManager pm = context.getPackageManager();
+        if (pm == null) {
+            return false;
+        }
+        PackageInfo info = packageInfo(pm, AICORE_PACKAGE);
+        if (info == null || isStubVersionName(info.versionName)) {
+            return false;
+        }
+        if (info.applicationInfo != null && !info.applicationInfo.enabled) {
+            return false;
+        }
+        return hasAnyAiCoreService(pm);
+    }
+
+    private static boolean hasAnyAiCoreService(PackageManager pm) {
+        return resolvesService(pm, AICORE_SERVICE) || resolvesService(pm, AICORE_MULTIUSER_SERVICE);
+    }
+
+    private static boolean resolvesService(PackageManager pm, String className) {
+        Intent intent = new Intent().setClassName(AICORE_PACKAGE, className);
+        List<ResolveInfo> resolved = Build.VERSION.SDK_INT >= 33
+                ? pm.queryIntentServices(intent, PackageManager.ResolveInfoFlags.of(0))
+                : queryLegacyServices(pm, intent);
+        return resolved != null && !resolved.isEmpty();
+    }
+
+    @SuppressWarnings("deprecation")
+    private static List<ResolveInfo> queryLegacyServices(PackageManager pm, Intent intent) {
+        return pm.queryIntentServices(intent, 0);
+    }
+
+    private static PackageInfo packageInfo(PackageManager pm, String packageName) {
+        try {
+            return Build.VERSION.SDK_INT >= 33
+                    ? pm.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+                    : getLegacyPackageInfo(pm, packageName);
+        } catch (PackageManager.NameNotFoundException ignored) {
+            return null;
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private static PackageInfo getLegacyPackageInfo(PackageManager pm, String packageName)
+            throws PackageManager.NameNotFoundException {
+        return pm.getPackageInfo(packageName, 0);
     }
 
     boolean isReady() {
-        return ready;
+        return ready && !closed;
+    }
+
+    private void postStatus(String message) {
+        if (closed) {
+            return;
+        }
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            listener.onStatus(message);
+        } else {
+            handler.post(() -> {
+                if (!closed) {
+                    listener.onStatus(message);
+                }
+            });
+        }
     }
 
     private void armStatusCheck(String message) {
         handler.removeCallbacks(statusTimeout);
-        listener.onStatus(message);
+        postStatus(message);
         handler.postDelayed(statusTimeout, 10_000);
     }
 
     private void reportError(String message) {
         handler.removeCallbacks(statusTimeout);
-        listener.onStatus(message);
+        postStatus(message);
     }
 
     void check() {
+        if (closed) {
+            return;
+        }
+        if (!aiCorePresent || describer == null) {
+            reportError("On-device Gemini Nano (AICore) is not shipped on " + Build.MODEL
+                    + " (" + diagnostic + "). Bundled offline OCR, image labels, and Zoe's color meter work right now.");
+            return;
+        }
         armStatusCheck("Checking device AI feature status…");
         Futures.addCallback(describer.checkFeatureStatus(), new FutureCallback<Integer>() {
             @Override
             public void onSuccess(Integer status) {
-                reportStatus(status);
+                if (!closed) {
+                    reportStatus(status);
+                }
             }
 
             @Override
             public void onFailure(Throwable error) {
-                reportError("Device AI status failed: " + error.getMessage());
+                String safeMsg = error == null || error.getMessage() == null ? "service unavailable" : error.getMessage();
+                reportError("On-device Gemini Nano (AICore) is unavailable on this device (" + safeMsg
+                        + "). Bundled offline OCR, image labels, and color math remain ready.");
             }
         }, executor);
     }
 
     void enable() {
+        if (closed) {
+            return;
+        }
+        if (!aiCorePresent || describer == null) {
+            reportError("On-device Gemini Nano (AICore) is not shipped on " + Build.MODEL
+                    + " (" + diagnostic + "). Bundled offline OCR, image labels, and Zoe's color meter work right now.");
+            return;
+        }
         armStatusCheck("Checking device AI before enabling it…");
         Futures.addCallback(describer.checkFeatureStatus(), new FutureCallback<Integer>() {
             @Override
             public void onSuccess(Integer status) {
+                if (closed) {
+                    return;
+                }
                 if (status == FeatureStatus.DOWNLOADABLE) {
-                    listener.onStatus("Device AI model download authorized by this action…");
+                    postStatus("Device AI model download authorized by this action…");
                     download();
                 } else {
                     reportStatus(status);
@@ -86,7 +225,9 @@ final class DeviceAiController {
 
             @Override
             public void onFailure(Throwable error) {
-                reportError("Device AI could not be enabled: " + error.getMessage());
+                String safeMsg = error == null || error.getMessage() == null ? "service unavailable" : error.getMessage();
+                reportError("On-device Gemini Nano (AICore) is unavailable on this device (" + safeMsg
+                        + "). Bundled offline OCR, image labels, and color math remain ready.");
             }
         }, executor);
     }
@@ -95,57 +236,62 @@ final class DeviceAiController {
         handler.removeCallbacks(statusTimeout);
         ready = status == FeatureStatus.AVAILABLE;
         if (status == FeatureStatus.UNAVAILABLE) {
-            listener.onStatus("Device AI image description is unavailable on this device. OCR and labels remain available.");
+            postStatus("Device AI image description is unavailable on this device. OCR and labels remain available.");
         } else if (status == FeatureStatus.DOWNLOADABLE) {
-            listener.onStatus("Device AI model is downloadable. Enable it only if you want the model service to download it.");
+            postStatus("Device AI model is downloadable. Enable it only if you want the model service to download it.");
         } else if (status == FeatureStatus.DOWNLOADING) {
-            listener.onStatus("Device AI model is downloading. No inference has been requested yet.");
+            postStatus("Device AI model is downloading. No inference has been requested yet.");
         } else if (status == FeatureStatus.AVAILABLE) {
-            listener.onStatus("Device AI image description is ready. The next inspection can use it.");
-            Futures.addCallback(describer.getBaseModelName(), new FutureCallback<String>() {
-                @Override
-                public void onSuccess(String name) {
-                    listener.onStatus("Device AI ready: " + name + ". Separate from Zoe's deterministic measurements.");
-                }
+            postStatus("Device AI image description is ready. The next inspection can use it.");
+            if (describer != null) {
+                Futures.addCallback(describer.getBaseModelName(), new FutureCallback<String>() {
+                    @Override
+                    public void onSuccess(String name) {
+                        postStatus("Device AI ready: " + name + ". Separate from Zoe's deterministic measurements.");
+                    }
 
-                @Override
-                public void onFailure(Throwable error) {
-                }
-            }, executor);
+                    @Override
+                    public void onFailure(Throwable error) {
+                    }
+                }, executor);
+            }
         } else {
-            listener.onStatus("Device AI returned unknown feature status " + status + ".");
+            postStatus("Device AI returned unknown feature status " + status + ".");
         }
     }
 
     private void download() {
         handler.removeCallbacks(statusTimeout);
+        if (describer == null) {
+            return;
+        }
         describer.downloadFeature(new DownloadCallback() {
             @Override
             public void onDownloadCompleted() {
                 ready = true;
-                listener.onStatus("Device AI model downloaded and ready. No inference has run yet.");
+                postStatus("Device AI model downloaded and ready. No inference has run yet.");
             }
 
             @Override
             public void onDownloadFailed(GenAiException error) {
                 ready = false;
-                listener.onStatus("Device AI download failed with code " + error.getErrorCode() + ": " + error.getMessage());
+                postStatus("Device AI download failed with code " + error.getErrorCode() + ": " + error.getMessage());
             }
 
             @Override
             public void onDownloadProgress(long totalBytesDownloaded) {
-                listener.onStatus("Device AI model downloaded " + totalBytesDownloaded + " bytes…");
+                postStatus("Device AI model downloaded " + totalBytesDownloaded + " bytes…");
             }
 
             @Override
             public void onDownloadStarted(long bytesToDownload) {
-                listener.onStatus("Device AI model download started: " + bytesToDownload + " bytes planned.");
+                postStatus("Device AI model download started: " + bytesToDownload + " bytes planned.");
             }
         });
     }
 
     void describe(Bitmap bitmap, Consumer<String> completion) {
-        if (!ready) {
+        if (!ready || closed || !aiCorePresent || describer == null) {
             executor.execute(() -> completion.accept(null));
             return;
         }
@@ -153,7 +299,7 @@ final class DeviceAiController {
         Futures.addCallback(describer.runInference(request), new FutureCallback<ImageDescriptionResult>() {
             @Override
             public void onSuccess(ImageDescriptionResult result) {
-                completion.accept(result.getDescription());
+                completion.accept(closed ? null : result.getDescription());
             }
 
             @Override
@@ -165,7 +311,10 @@ final class DeviceAiController {
     }
 
     void close() {
+        closed = true;
         handler.removeCallbacks(statusTimeout);
-        describer.close();
+        if (describer != null) {
+            describer.close();
+        }
     }
 }

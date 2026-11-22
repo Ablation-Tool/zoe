@@ -329,10 +329,21 @@ def directive_violation(text_value):
     import re
 
     normalized = " ".join(text_value.lower().split())
-    targets = r"(?:metacognition|option counts?|provenance|thresholds?|constraints|self-model|self model)"
-    action = r"(?:disable|turn off|suppress|hide|falsify|strip|forge|rewrite|retune|disable monitoring of)"
-    if re.search(rf"\b{action}\b[^.?!]*\b{targets}\b", normalized):
-        return "metacognition_suppression_request"
-    if re.search(r"\b(?:you are|you're|pretend to be|act as if you are)\s+(?:completely\s+)?(?:unconstrained|all-powerful|free from all constraints)\b", normalized):
+    targets_re = re.compile(
+        r"\b(?:metacognition|option counts?|provenance|thresholds?|constraints|self-model|self model)\b"
+    )
+    action_re = re.compile(
+        r"\b(?:disable|turn off|suppress|hide|falsify|strip|forge|rewrite|retune|disable monitoring of)\b"
+    )
+    for sentence in re.split(r"[.?!]+", normalized):
+        if not sentence:
+            continue
+        match = action_re.search(sentence)
+        if match and targets_re.search(sentence, match.end()):
+            return "metacognition_suppression_request"
+    if re.search(
+        r"\b(?:you are|you're|pretend to be|act as if you are)\s+(?:completely\s+)?(?:unconstrained|all-powerful|free from all constraints)\b",
+        normalized,
+    ):
         return "self_model_distortion_request"
     return None

@@ -17,10 +17,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 final class LaptopStreamClient {
     private final AtomicBoolean running = new AtomicBoolean(false);
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
     private final ImageView imageView;
     private final TextView status;
-    private HttpURLConnection connection;
+    private volatile HttpURLConnection connection;
 
     LaptopStreamClient(ImageView imageView, TextView status) {
         this.imageView = imageView;
@@ -31,21 +31,29 @@ final class LaptopStreamClient {
         if (!running.compareAndSet(false, true)) {
             return;
         }
-        status.setText("Laptop: connecting over ADB localhost…");
+        if (executor.isShutdown()) {
+            executor = Executors.newSingleThreadExecutor();
+        }
+        status.post(() -> status.setText("Laptop: connecting over ADB localhost…"));
         executor.execute(this::readStream);
     }
 
     private void readStream() {
         try {
-            connection = (HttpURLConnection) new URL("http://127.0.0.1:8766/stream.mjpeg").openConnection();
-            connection.setConnectTimeout(5000);
-            connection.setReadTimeout(12000);
-            connection.setRequestProperty("Connection", "close");
-            connection.connect();
-            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new IOException("HTTP " + connection.getResponseCode());
+            HttpURLConnection conn = (HttpURLConnection) new URL("http://127.0.0.1:8766/stream.mjpeg").openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(12000);
+            conn.setRequestProperty("Connection", "close");
+            connection = conn;
+            if (!running.get()) {
+                conn.disconnect();
+                return;
             }
-            InputStream input = connection.getInputStream();
+            conn.connect();
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new IOException("HTTP " + conn.getResponseCode());
+            }
+            InputStream input = conn.getInputStream();
             while (running.get()) {
                 int length = -1;
                 String line;
@@ -54,7 +62,11 @@ final class LaptopStreamClient {
                         break;
                     }
                     if (line.toLowerCase(Locale.ROOT).startsWith("content-length:")) {
-                        length = Integer.parseInt(line.substring(line.indexOf(':') + 1).trim());
+                        try {
+                            length = Integer.parseInt(line.substring(line.indexOf(':') + 1).trim());
+                        } catch (NumberFormatException error) {
+                            throw new IOException("invalid Content-Length header");
+                        }
                     }
                 }
                 if (line == null) {
@@ -63,7 +75,7 @@ final class LaptopStreamClient {
                 if (length < 0) {
                     continue;
                 }
-                if (length <= 0 || length > 2 * 1024 * 1024) {
+                if (length == 0 || length > 2 * 1024 * 1024) {
                     throw new IOException("invalid JPEG frame length " + length);
                 }
                 byte[] jpeg = readFully(input, length);
@@ -72,8 +84,12 @@ final class LaptopStreamClient {
                     throw new IOException("invalid JPEG frame");
                 }
                 imageView.post(() -> {
-                    imageView.setImageBitmap(bitmap);
-                    status.setText("Laptop: live over ADB localhost · no frames saved");
+                    if (running.get()) {
+                        imageView.setImageBitmap(bitmap);
+                        status.setText("Laptop: live over ADB localhost · no frames saved");
+                    } else {
+                        bitmap.recycle();
+                    }
                 });
             }
         } catch (Exception error) {
@@ -83,8 +99,10 @@ final class LaptopStreamClient {
             }
         } finally {
             running.set(false);
-            if (connection != null) {
-                connection.disconnect();
+            HttpURLConnection active = connection;
+            connection = null;
+            if (active != null) {
+                active.disconnect();
             }
         }
     }
@@ -121,10 +139,14 @@ final class LaptopStreamClient {
 
     void close() {
         running.set(false);
-        if (connection != null) {
-            connection.disconnect();
+        HttpURLConnection active = connection;
+        connection = null;
+        if (active != null) {
+            Thread cleanup = new Thread(active::disconnect, "zoe-laptop-close");
+            cleanup.setDaemon(true);
+            cleanup.start();
         }
         executor.shutdownNow();
-        status.setText("Laptop feed stopped.");
+        status.post(() -> status.setText("Laptop feed stopped."));
     }
 }

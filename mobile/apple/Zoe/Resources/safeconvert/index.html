@@ -2,91 +2,1700 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#F5F0EB">
 <link rel="manifest" href="manifest.json">
 <title>Unit Converter</title>
 <style>
-:root{color-scheme:light;--paper:#FAFAF8;--ink:#2C2C2C;--muted:#756E68;--line:#E0D8CF;--accent:#8B5E3C;--soft:#F5F0EB}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,a{font:inherit}button,select,input{width:100%;min-height:48px;padding:12px;border:1px solid var(--line);border-radius:9px;background:#FFF;color:var(--ink)}button,a.button{display:block;width:100%;margin:10px 0;padding:13px 16px;min-height:50px;background:var(--soft);color:var(--accent);font-weight:650;text-align:left;text-decoration:none;cursor:pointer}button:hover,button:focus,a.button:hover{outline:2px solid #6B5B8D;outline-offset:2px}.danger{color:#A33D32}.quiet{text-align:center;font-size:13px;color:var(--muted)}h1,h2,h3{line-height:1.25}h1{font-size:25px}h2{font-size:20px}h3{font-size:17px}.top{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--soft);border-bottom:1px solid var(--line)}.top strong{font-family:monospace;letter-spacing:1px}.top button{width:auto;margin:0;padding:8px 12px;min-height:40px}.wrap{max-width:560px;margin:auto;padding:18px 16px 60px}.card{padding:15px;margin:12px 0;border:1px solid var(--line);border-radius:12px;background:#FFF}.card h3{margin-top:0}.result{padding:20px;text-align:center;background:#F5F2EE;border-radius:10px}.result b{display:block;font:700 32px monospace}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row button,.row a.button{margin:4px 0}.note{color:var(--muted)}.hotline{border-color:#E2B7AF;background:#FDF0EE}.kids{border-color:#B8DDD3;background:#EDF7F4}.plan{border-color:#CDD5B8;background:#F3F5ED}.digital{border-color:#CFC8DF;background:#F2F0F7}.contact{border-color:#E0C9AB;background:#FBF5EE}.contact input,.contact textarea{margin-bottom:8px}.contact textarea{min-height:80px;resize:vertical}.small{font-size:14px}.hidden{display:none!important}label{display:block;margin:12px 0 5px;font-size:13px;color:var(--muted)}button.exit{width:auto;float:right}.section-note{font-size:14px;color:var(--muted)}button.text-link{border:0;background:transparent;text-decoration:underline;min-height:40px;padding:5px}.steps{padding-left:22px}.steps li{margin-bottom:10px}a.tel{font-weight:700}
+:root{
+  --paper:#FAFAF8;--soft:#F5F0EB;--card:#FFFFFF;--ink:#2C2C2C;--muted:#7A7470;
+  --line:#E0D8CF;--accent:#8B5E3C;--tab:#E8E2DB;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit}
+.top{
+  position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:14px 18px;background:var(--soft);border-bottom:1px solid var(--line);
+}
+.top strong{font:700 14px/1 monospace;letter-spacing:1px;color:#8B7E74}
+.exit-pill{
+  font:700 13px/1 monospace;color:#C44D3F;background:#FDF0EE;
+  border:1px solid #F0C4BF;border-radius:7px;padding:7px 14px;min-height:36px;cursor:pointer;
+}
+.wrap{max-width:480px;margin:0 auto;padding:22px 16px 72px}
+.hidden{display:none!important}
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+.tabs{
+  display:flex;margin-bottom:20px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card);
+}
+.cat-tab{
+  flex:1;padding:12px 4px;border:0;border-right:1px solid var(--line);background:var(--card);
+  color:#8F8780;font:400 12px/1.2 monospace;text-align:center;cursor:pointer;min-height:46px;
+}
+.cat-tab:last-child{border-right:0}
+.cat-tab.active{background:var(--tab);color:#3D3530;font-weight:700}
+.lbl{
+  display:block;margin:12px 0 6px;font:600 11px/1.2 monospace;letter-spacing:0.6px;color:#8E857D;text-transform:uppercase;
+}
+.val-input,.unit-select,.field-input{
+  width:100%;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);outline:none;
+}
+.val-input{padding:14px 16px;font:600 28px/1.2 monospace;min-height:58px}
+.unit-select,.field-input{padding:12px 14px;font-size:16px;min-height:48px}
+textarea.field-input{min-height:92px;resize:vertical;line-height:1.5}
+.val-input:focus,.unit-select:focus,.field-input:focus{outline:2px solid #8B5E3C;outline-offset:1px}
+.swap-wrap{text-align:center;margin:8px 0 2px}
+.swap-btn{
+  background:none;border:1px solid transparent;border-radius:8px;padding:6px 18px;
+  font-size:20px;color:#9B8F84;cursor:pointer;min-height:42px;
+}
+.result-box{
+  margin-top:20px;padding:20px;text-align:center;background:#F5F2EE;
+  border:1px solid var(--line);border-radius:10px;
+}
+.result-box .lbl{margin:0 0 8px}
+.result-val{display:block;font:700 32px/1.2 monospace;color:#3D3530;min-height:40px;word-break:break-word}
+.result-unit{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.quiet{margin-top:40px;text-align:center;font:11.5px/1.4 monospace;color:#9B938C}
+
+/* Hidden help layer */
+.help-head{text-align:center;padding:12px 8px 20px}
+.help-head h1{margin:0 0 8px;font:700 23px/1.3 Georgia,"Times New Roman",serif;color:#3D3530}
+.help-head p{margin:0;font:15px/1.5 Georgia,serif;color:var(--muted)}
+.acc{margin-bottom:10px}
+.acc-btn{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  text-align:left;cursor:pointer;padding:17px 18px;min-height:56px;
+  background:var(--card);border:2px solid #E8E3DE;border-radius:10px;
+  font:700 17px/1.3 Georgia,serif;color:var(--accent);
+}
+.acc-btn.open{border-radius:10px 10px 0 0;border-bottom-width:1px}
+.acc-plus{font:300 24px/1 sans-serif;flex-shrink:0;transition:transform 0.15s}
+.acc-btn.open .acc-plus{transform:rotate(45deg)}
+.acc-body{
+  background:var(--card);border:2px solid #E8E3DE;border-top:0;
+  border-radius:0 0 10px 10px;padding:10px 12px 16px;
+}
+.item-phone{
+  display:block;text-decoration:none;padding:15px 16px;margin:8px 0;
+  border-radius:10px;border:1px solid var(--line);cursor:pointer;
+}
+.item-phone strong{display:block;font:700 18.5px/1.3 Georgia,serif;margin-bottom:4px}
+.item-phone small{display:block;font-size:14px;color:#6E6762;line-height:1.45}
+.item-big{padding:10px 12px;font:700 19px/1.35 Georgia,serif}
+.item-step{display:flex;gap:12px;align-items:flex-start;padding:11px 6px;border-bottom:1px solid #F0EBE6}
+.item-step:last-of-type{border-bottom:0}
+.step-num{
+  flex-shrink:0;width:30px;height:30px;border-radius:50%;color:#FFF;
+  font:700 14px/30px monospace;text-align:center;margin-top:2px;
+}
+.item-step span.step-txt{font-size:15.5px;color:#3D3530;line-height:1.55}
+.item-note{padding:10px 12px;font-size:15px;color:#4A4440;line-height:1.6;border-bottom:1px solid #F0EBE6}
+.item-note:last-child{border-bottom:0}
+
+/* Contacts */
+.contacts-intro{font-size:14px;color:var(--muted);line-height:1.55;padding:4px 4px 12px;border-bottom:1px solid #F0EBE6;margin-bottom:8px}
+.contact-card{background:#FBF5EE;border:1px solid #E0C9AB;border-radius:10px;padding:13px 14px;margin:8px 0}
+.contact-name{font:700 18px/1.3 Georgia,serif;color:#8B5E3C;margin-bottom:2px}
+.contact-phone{font-size:14px;color:#6F6862;margin-bottom:4px}
+.contact-msg{font:italic 14px/1.45 sans-serif;color:#5B6B3D;margin-bottom:10px}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.chip{
+  background:#FFF;border:1px solid #D9C3A5;border-radius:99px;padding:6px 11px;
+  font:12.5px/1.2 sans-serif;color:#6B4A2E;cursor:pointer;min-height:32px;
+}
+.zoe-chip{
+  background:#FBF9FC;border:1px solid #D6C3E0;border-radius:99px;padding:7px 12px;
+  font:13px/1.25 sans-serif;color:#5D3D6A;cursor:pointer;min-height:34px;
+}
+.field-error{
+  margin-top:8px;padding:8px 10px;border-radius:7px;background:#FDF0EE;
+  border:1px solid #F0C4BF;color:#A33D32;font-size:13.5px;font-weight:600;
+}
+.btn-row{display:flex;gap:8px;margin-top:10px}
+.btn{
+  flex:1;display:block;text-align:center;text-decoration:none;padding:11px 10px;min-height:44px;
+  border:0;border-radius:8px;font:700 15px/1.3 Georgia,serif;cursor:pointer;
+}
+.btn-sms{background:#5B6B3D;color:#FFF}
+.btn-call,.btn-save{background:#8B5E3C;color:#FFF}
+.btn-zoe{background:#6B4677;color:#FFF}
+.btn-zoe-soft{background:#F4EEF7;color:#5D3D6A;border:1px solid #D6C3E0}
+.btn-rec{background:#C44D3F;color:#FFF}
+.btn-rec.active{background:#8E2A1E;box-shadow:0 0 0 3px #F0C4BF}
+.btn-vid{background:#475B6B;color:#FFF}
+.btn-edit,.btn-cancel{background:#F0EBE6;color:#6E6863;flex:0 0 auto;padding:11px 14px}
+.btn-add{
+  width:100%;padding:13px;margin:8px 0 2px;font:600 15.5px/1.3 Georgia,serif;
+  background:#FFF;color:#8B5E3C;border:2px dashed #E0C9AB;border-radius:10px;cursor:pointer;
+}
+.btn-danger-link{
+  margin-top:10px;width:100%;background:none;border:0;padding:8px;
+  color:#C44D3F;font-size:13px;text-decoration:underline;cursor:pointer;
+}
+.del-confirm{margin-top:10px;padding-top:10px;border-top:1px solid #E8DCD0;text-align:center}
+.del-confirm span{display:block;font-size:13px;color:#C44D3F;margin-bottom:8px;font-weight:600}
+.btn-yes{background:#C44D3F;color:#FFF}
+
+/* Talk to Zoe & Constitutional Private Vault */
+.priv-banner{
+  margin-bottom:12px;padding:12px 13px;border-radius:10px;
+  background:#F6EFF9;border:1px solid #D6C3E0;
+}
+.priv-pill{
+  display:inline-block;padding:3px 9px;border-radius:99px;margin-bottom:6px;
+  background:#5D3D6A;color:#FFF;font:700 10.5px/1.3 monospace;letter-spacing:0.6px;
+}
+.priv-banner p{margin:0;font-size:13.5px;color:#473152;line-height:1.5}
+.zoe-subhead{
+  margin:14px 0 6px;font:700 12px/1.2 monospace;letter-spacing:0.7px;color:#6B4677;text-transform:uppercase;
+}
+.breath-card{
+  margin:10px 0;padding:16px 14px;border-radius:10px;background:#EDF7F4;border:1px solid #B8DDD3;text-align:center;
+}
+.breath-orb{
+  width:72px;height:72px;margin:0 auto 10px;border-radius:50%;
+  background:#2E7D6B;color:#FFF;display:flex;align-items:center;justify-content:center;
+  font:700 13px/1.2 monospace;transition:transform 1.2s ease, background 0.4s ease;
+}
+.breath-phase{font:700 18px/1.3 Georgia,serif;color:#2E7D6B;margin-bottom:4px}
+.ground-card{
+  margin:10px 0;padding:12px 14px;border-radius:10px;background:#F3F5ED;border:1px solid #CDD5B8;font-size:14.5px;color:#3D3530;line-height:1.65;
+}
+.chat-feed{margin:10px 0;display:flex;flex-direction:column;gap:8px}
+.chat-bubble{padding:11px 13px;border-radius:10px;font-size:14.5px;line-height:1.55}
+.chat-user{background:#F5F0EB;border:1px solid #E0D8CF;color:#3D3530;align-self:flex-end;max-width:92%}
+.chat-zoe{background:#F9F5FB;border:1px solid #DECFE6;color:#3B2945;align-self:stretch}
+.chat-role{font:700 11px/1 monospace;letter-spacing:0.6px;color:#6B4677;margin-bottom:4px;text-transform:uppercase}
+.chat-save-btn{
+  margin-top:6px;background:none;border:0;padding:2px 0;color:#5B6B3D;
+  font:600 12.5px/1.2 sans-serif;text-decoration:underline;cursor:pointer;
+}
+.rec-timer{
+  margin:8px 0 4px;padding:8px 10px;border-radius:8px;background:#FDF0EE;border:1px solid #F0C4BF;
+  color:#A33D32;font:700 13.5px/1.3 monospace;text-align:center;
+}
+.vault-status{margin:8px 0;font-size:13px;color:#5F5854;line-height:1.45}
+.lock-box{
+  margin:10px 0;padding:14px 13px;border-radius:10px;
+  background:#FBF7F2;border:1px solid #DFC6A8;
+}
+.ev-card{margin:9px 0;padding:12px 13px;border-radius:10px;background:#FBF9FC;border:1px solid #DFD4E6}
+.ev-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.ev-badge{
+  padding:2px 8px;border-radius:99px;font:700 11px/1.3 monospace;letter-spacing:0.5px;color:#FFF;background:#6B4677;
+}
+.ev-badge.audio{background:#C44D3F}
+.ev-badge.video{background:#475B6B}
+.ev-time{font:12px/1.2 monospace;color:#6F6862}
+.ev-note{font-size:14.5px;color:#2C2C2C;line-height:1.5;white-space:pre-wrap;word-break:break-word;margin-bottom:6px}
+.ev-hash{font:11px/1.35 monospace;color:#7A7470;word-break:break-all;margin-bottom:6px}
+.perm-box{
+  margin-top:10px;padding:10px;border-radius:8px;
+  background:#F4EEF7;border:1px solid #D6C3E0;font-size:13px;color:#3B2945;
+}
+.reminder{
+  margin-top:24px;padding:16px 18px;background:#F5F2EE;border:1px solid var(--line);
+  border-radius:10px;font-size:14px;color:#5F5854;line-height:1.75;
+}
+.code-pill{background:#E8E2DB;color:#3D3530;padding:2px 8px;border-radius:4px;font:700 14px monospace}
 </style>
 </head>
 <body>
-<header class="top"><strong>UNIT CONVERTER</strong><button id="exit" class="hidden" aria-label="Exit help and return to converter">× EXIT</button></header>
+<header class="top" id="topBar">
+  <strong>UNIT CONVERTER</strong>
+  <button id="exit" class="exit-pill hidden" type="button" aria-label="Exit help and return to converter">✕ EXIT</button>
+</header>
+
 <main class="wrap">
-<section id="converter" aria-label="Unit converter">
-  <h1>Convert</h1>
-  <label for="category">Category</label><select id="category"><option>Length</option><option>Weight</option><option>Temperature</option><option>Volume</option></select>
-  <label for="value">Value</label><input id="value" inputmode="decimal" autocomplete="off" maxlength="12" placeholder="0">
-  <div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-  <button id="swap" aria-label="Swap units">↕ Swap</button>
-  <div class="result" aria-live="polite"><span class="small">RESULT</span><b id="result">—</b><span id="resultUnit" class="small"></span></div>
-  <p class="quiet">quick conversions · no ads · no tracking</p>
-</section>
-<section id="help" class="hidden" hidden aria-label="Help and safety resources">
-  <h1>You are not alone.</h1><p>Pick what you need. Press Escape or tap EXIT anytime.</p>
-  <div class="card hotline"><h2>I need help right now</h2>
-    <a class="button tel" href="tel:18007997233">Call 1-800-799-7233<small><br>Free. 24 hours. You don't have to give your name.</small></a>
-    <a class="button" href="sms:88788?body=START">Text START to 88788<small><br>If you can't talk out loud.</small></a>
-    <a class="button" href="sms:741741?body=HOME">Text HOME to 741741<small><br>For any crisis. Any age.</small></a>
-    <a class="button danger" href="tel:911">Call 911<small><br>If you or your children are in immediate danger.</small></a>
-    <p>You can hang up anytime. They will not judge you.</p>
-  </div>
-  <div class="card kids"><h2>I'm a kid and I'm scared</h2>
-    <a class="button" href="tel:18004224453">Call 1-800-422-4453<small><br>A free phone line for kids. Grown-ups who want to help answer.</small></a>
-    <p><strong>You are not in trouble. This is not your fault.</strong></p>
-    <p>You can tell a teacher, school counselor, coach, or another grown-up you trust. If someone is hurting you now, go to a neighbor or call 911.</p>
-  </div>
-  <div class="card plan"><h2>I need to make a plan to leave</h2>
-    <ol class="steps"><li>Pick one person you trust. Tell them what is happening.</li><li>Choose a code word that means “call for help.”</li><li>If you can, put copies of ID, keys, and cash somewhere safe outside home.</li><li>Know the exits. Think about locks and windows.</li><li>You can leave with nothing. Shelters can help with children and pets too.</li></ol>
-    <a class="button" href="tel:18007997233">Call 1-800-799-7233<small><br>They will help you make a plan.</small></a>
-  </div>
-  <div class="card digital"><h2>I think my phone is being watched</h2>
-    <p>If you can, use a library computer, a friend's phone, or a phone at work. Use private browsing for safety information.</p>
-    <p>Look for apps you do not recognize. Turn off location sharing. Check bags and cars for unknown trackers. Change passwords only from a safe device.</p>
-    <a class="button" href="https://lawhelp.org">Read legal-help information from LawHelp<small><br>Open only if this is a safe time and device.</small></a>
-  </div>
-  <div class="card"><h2>More numbers to call or text</h2>
-    <a class="button" href="tel:18663319474">Love Is Respect: 1-866-331-9474<small><br>Ages 12–24. Text LOVEIS to 22522.</small></a>
-    <a class="button" href="tel:18006564673">Sexual Assault: 1-800-656-4673<small><br>24/7.</small></a>
-    <a class="button" href="tel:18558121001">Deaf/HoH: 1-855-812-1001<small><br>Video phone. Email hotline@thehotline.org.</small></a>
-    <a class="button danger" href="tel:911">Emergency: 911<small><br>If anyone is in immediate danger.</small></a>
-  </div>
-  <div class="card contact"><h2>My safe people</h2>
-    <p class="small">Save up to five numbers you cannot keep in your regular contacts. They stay in this app's local storage. Add a code word or distress message. Nothing is uploaded.</p>
-    <div id="contacts"></div><button id="addContact">+ Add a safe person</button>
-    <form id="contactForm" class="hidden"><h3>Safe person</h3>
-      <label for="contactName">Name</label><input id="contactName" maxlength="30" autocomplete="off">
-      <label for="contactPhone">Phone number</label><input id="contactPhone" maxlength="20" inputmode="tel" autocomplete="off">
-      <label for="contactMessage">Code word or distress message</label><textarea id="contactMessage" maxlength="100"></textarea>
-      <button type="submit">Save</button><button type="button" id="cancelContact">Cancel</button>
-    </form>
-  </div>
-  <p class="section-note">Before you close: clear this visit from browser history if someone checks your device, or use a private window next time. Your safe contacts stay only in this app's local storage.</p>
-</section>
+  <section id="converter" aria-label="Unit converter">
+    <div id="catTabs" class="tabs" role="tablist" aria-label="Conversion category"></div>
+    <select id="category" class="sr-only" aria-label="Category select">
+      <option value="Length">Length</option>
+      <option value="Weight">Weight</option>
+      <option value="Temperature">Temperature</option>
+      <option value="Volume">Volume</option>
+    </select>
+
+    <label class="lbl" for="value">Value</label>
+    <input id="value" class="val-input" type="text" inputmode="decimal" autocomplete="off" maxlength="14" placeholder="0">
+
+    <label class="lbl" for="from">From</label>
+    <select id="from" class="unit-select"></select>
+
+    <div class="swap-wrap">
+      <button id="swap" class="swap-btn" type="button" aria-label="Swap units">↕ Swap</button>
+    </div>
+
+    <label class="lbl" for="to">To</label>
+    <select id="to" class="unit-select"></select>
+
+    <div class="result-box" aria-live="polite">
+      <span class="lbl">Result</span>
+      <b id="result" class="result-val">—</b>
+      <span id="resultUnit" class="result-unit"></span>
+    </div>
+
+    <p class="quiet">quick conversions — no ads, no tracking</p>
+  </section>
+
+  <section id="help" class="hidden" hidden aria-label="Help and safety resources">
+    <div class="help-head">
+      <h1>You are not alone.</h1>
+      <p>Pick what you need. Press ESC or tap EXIT anytime.</p>
+    </div>
+
+    <div class="acc">
+      <button id="contactsToggle" class="acc-btn" type="button" aria-expanded="false">
+        <span id="contactsTitle">My safe people</span>
+        <span class="acc-plus" aria-hidden="true">+</span>
+      </button>
+      <div id="contactsBody" class="acc-body hidden">
+        <div id="contactsIntro" class="contacts-intro"></div>
+        <div id="contacts"></div>
+        <form id="contactForm" class="contact-card hidden">
+          <label class="lbl" for="contactName">Name</label>
+          <input id="contactName" class="field-input" type="text" maxlength="30" autocomplete="off" placeholder="Mom, Sarah, Uncle Mike...">
+          <label class="lbl" for="contactPhone">Phone number</label>
+          <input id="contactPhone" class="field-input" type="tel" maxlength="20" inputmode="tel" autocomplete="off" placeholder="555-123-4567">
+          <label class="lbl" for="contactMessage">Code word or distress message</label>
+          <input id="contactMessage" class="field-input" type="text" maxlength="100" autocomplete="off" placeholder="e.g. 'Blue sky' or 'I need help, come now'">
+          <div class="chip-row" aria-label="Quick distress messages">
+            <button class="chip" type="button" data-msg="Call me now">Call me now</button>
+            <button class="chip" type="button" data-msg="I need help, come now">I need help, come now</button>
+            <button class="chip" type="button" data-msg="Blue sky">Blue sky</button>
+          </div>
+          <div id="contactError" class="field-error hidden" role="alert"></div>
+          <div class="btn-row">
+            <button id="saveContact" class="btn btn-save" type="submit">Save</button>
+            <button id="cancelContact" class="btn btn-cancel" type="button">Cancel</button>
+          </div>
+          <div id="deleteZone" class="hidden">
+            <button id="deleteAsk" class="btn-danger-link" type="button">Delete this contact</button>
+            <div id="deleteConfirmBox" class="del-confirm hidden">
+              <span>Delete this contact?</span>
+              <div class="btn-row">
+                <button id="deleteYes" class="btn btn-yes" type="button">Yes, delete</button>
+                <button id="deleteNo" class="btn btn-cancel" type="button">No</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button id="addContact" class="btn-add" type="button">+ Add a safe person</button>
+        <div id="contactsMaxNote" class="quiet hidden" style="margin-top:8px">5 contacts maximum. Edit or delete one to add another.</div>
+        <div id="wipeAllZone" class="hidden">
+          <button id="wipeAllAsk" class="btn-danger-link" type="button">Erase all saved contacts</button>
+          <div id="wipeAllConfirm" class="del-confirm hidden">
+            <span>Erase every saved contact from this device?</span>
+            <div class="btn-row">
+              <button id="wipeAllYes" class="btn btn-yes" type="button">Yes, erase all</button>
+              <button id="wipeAllNo" class="btn btn-cancel" type="button">Keep</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc">
+      <button id="zoeToggle" class="acc-btn" type="button" aria-expanded="false">
+        <span id="zoeTitle">Talk to Zoe &amp; Safety Log</span>
+        <span class="acc-plus" aria-hidden="true">+</span>
+      </button>
+      <div id="zoeBody" class="acc-body hidden">
+        <div id="privacyBanner" class="priv-banner">
+          <span class="priv-pill">PRIVATE · USER + ZOE ONLY</span>
+          <p>Privacy &amp; Dignity: Only you and Zoe have access here. Your chat clears when you leave unless you save it, and nothing in your Safety Log ever leaves this private vault until you explicitly grant permission.</p>
+        </div>
+
+        <div class="btn-row">
+          <button id="breathBtn" class="btn btn-zoe-soft" type="button">Breathe (4-4-6)</button>
+          <button id="groundBtn" class="btn btn-zoe-soft" type="button">5-4-3-2-1 Calm</button>
+        </div>
+
+        <div id="breathBox" class="breath-card hidden" aria-live="polite">
+          <div id="breathOrb" class="breath-orb">IN</div>
+          <div id="breathPhase" class="breath-phase">Breathe in gently… 4s</div>
+          <div class="vault-status">Your body is safe in this breath. Follow at your own pace.</div>
+        </div>
+
+        <div id="groundBox" class="ground-card hidden">
+          <strong>5 things</strong> you can see around you<br>
+          <strong>4 things</strong> you can physically feel right now<br>
+          <strong>3 things</strong> you can hear<br>
+          <strong>2 things</strong> you can smell<br>
+          <strong>1 slow breath</strong> — you do not have to carry everything in this second.
+        </div>
+
+        <div class="zoe-subhead">Talk with Zoe (100% offline · ephemeral)</div>
+        <div id="zoeChips" class="chip-row">
+          <button class="zoe-chip" type="button">I'm feeling really sad</button>
+          <button class="zoe-chip" type="button">I'm scared right now</button>
+          <button class="zoe-chip" type="button">They yelled at me</button>
+          <button class="zoe-chip" type="button">I just need to calm down</button>
+        </div>
+        <div id="zoeChat" class="chat-feed" aria-live="polite"></div>
+        <form id="zoeForm" style="margin-top:8px">
+          <label class="lbl" for="zoeInput">Tell Zoe what you're carrying</label>
+          <div class="btn-row">
+            <input id="zoeInput" class="field-input" type="text" maxlength="500" autocomplete="off" placeholder="Write how you feel or what happened...">
+            <button id="zoeSend" class="btn btn-zoe" type="submit" style="flex:0 0 auto;padding:11px 16px">Send</button>
+          </div>
+        </form>
+
+        <div class="zoe-subhead" style="margin-top:18px">Private Safety Log &amp; Proof Vault</div>
+        <div class="vault-status">
+          Stored strictly in app-private storage (never in your phone Gallery) with UTC timestamps and SHA-256 verification. Recording starts ONLY when you press Record; exit saves active audio cleanly. Recording laws vary by state.
+        </div>
+
+        <div id="mediaRecRow" class="btn-row hidden">
+          <button id="recAudioBtn" class="btn btn-rec" type="button">● Record audio</button>
+          <button id="recVideoBtn" class="btn btn-vid" type="button">● Record video</button>
+        </div>
+        <div id="recAudioTimer" class="rec-timer hidden">Recording audio · 00:00</div>
+        <div id="vaultStatus" class="vault-status"></div>
+
+        <label class="lbl" for="logInput">Write timestamped proof note</label>
+        <textarea id="logInput" class="field-input" maxlength="2000" placeholder="Write what happened, exact words or threats spoken, who was nearby, injuries, or dates..."></textarea>
+        <div id="logError" class="field-error hidden" role="alert"></div>
+        <button id="logSaveBtn" class="btn btn-save" type="button" style="margin-top:8px">Save timestamped note</button>
+
+        <div id="vaultLockGate" class="lock-box hidden">
+          <strong>Private Safety Log is locked</strong>
+          <div class="vault-status" style="margin:4px 0 8px">
+            Only you and Zoe can unlock saved proof. You can still talk or capture new audio/video/notes above anytime.
+          </div>
+          <label class="lbl" for="vaultUnlockInput">Passcode</label>
+          <input id="vaultUnlockInput" class="field-input" type="password" maxlength="32" autocomplete="off" placeholder="Enter your vault passcode">
+          <div id="vaultLockError" class="field-error hidden" role="alert"></div>
+          <button id="vaultUnlockBtn" class="btn btn-zoe" type="button" style="margin-top:10px">Unlock private log</button>
+        </div>
+
+        <div id="evidenceList" style="margin-top:12px"></div>
+        <button id="shareAllLogBtn" class="btn btn-zoe-soft hidden" type="button" style="margin-top:10px">Share full Safety Log</button>
+        <div id="shareAllConfirm" class="perm-box hidden">
+          <strong>Permission required to leave private vault</strong>
+          <div style="margin:4px 0 6px">Grant permission to export your private Safety Log outside Zoe?</div>
+          <div class="btn-row">
+            <button id="shareAllYes" class="btn btn-zoe" type="button">Grant permission &amp; share</button>
+            <button id="shareAllNo" class="btn btn-cancel" type="button">Keep private</button>
+          </div>
+        </div>
+
+        <div id="wipeLogZone" class="hidden">
+          <button id="wipeLogAsk" class="btn-danger-link" type="button">Erase entire Safety Log</button>
+          <div id="wipeLogConfirm" class="del-confirm hidden">
+            <span>Permanently delete every saved note, audio, and video from this vault?</span>
+            <div class="btn-row">
+              <button id="wipeLogYes" class="btn btn-yes" type="button">Yes, erase log</button>
+              <button id="wipeLogNo" class="btn btn-cancel" type="button">Keep</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="vaultPassSection" class="hidden" style="margin-top:14px">
+          <div class="btn-row">
+            <button id="vaultPassToggle" class="btn btn-zoe-soft" type="button">Set private passcode</button>
+            <button id="vaultLockNowBtn" class="btn btn-edit hidden" type="button">Lock now</button>
+          </div>
+          <div id="vaultPassPanel" class="lock-box hidden">
+            <div id="vaultPassDesc" class="vault-status">Optional extra lock: locks your saved proof automatically whenever you leave.</div>
+            <label class="lbl" for="vaultPassInput">Passcode (4–32 characters)</label>
+            <input id="vaultPassInput" class="field-input" type="password" maxlength="32" autocomplete="off" placeholder="Choose a passcode you remember">
+            <div id="vaultPassError" class="field-error hidden" role="alert"></div>
+            <div class="btn-row">
+              <button id="vaultPassSaveBtn" class="btn btn-zoe" type="button">Save passcode</button>
+              <button id="vaultPassCancelBtn" class="btn btn-cancel" type="button">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="helpSections"></div>
+
+    <div class="reminder">
+      <strong>Before you close this page:</strong><br>
+      Clear your browser history for this visit, or use a private window next time.<br>
+      To return here, type <span class="code-pill">911</span> in the converter. Any order works. Any decimal works.<br>
+      Your saved contacts and Safety Log stay privately in device-local storage here and auto-hide when you leave.
+    </div>
+  </section>
 </main>
+
 <script>
 "use strict";
-const CATS={Length:{units:["Inches","Feet","Yards","Miles","Centimeters","Meters","Kilometers"],factors:{Inches:1,Feet:12,Yards:36,Miles:63360,Centimeters:.393701,Meters:39.3701,Kilometers:39370.1}},Weight:{units:["Ounces","Pounds","Grams","Kilograms"],factors:{Ounces:1,Pounds:16,Grams:.035274,Kilograms:35.274}},Temperature:{units:["Fahrenheit","Celsius"],factors:null},Volume:{units:["Cups","Pints","Quarts","Gallons","Liters"],factors:{Cups:1,Pints:2,Quarts:4,Gallons:16,Liters:4.22675}}};
-const $=id=>document.getElementById(id), value=$("value"), category=$("category"), from=$("from"), to=$("to"), result=$("result"), resultUnit=$("resultUnit"), contactsEl=$("contacts"), form=$("contactForm");
-let contacts=[],editing=-1;
-function isCode(v){return ["911","991","919","199","119","191","999","111"].includes(v.replace(/[^0-9]/g,""));}
-function fillUnits(){for(const [i,u] of CATS[category.value].units.entries()){from.add(new Option(u,u,i===0));to.add(new Option(u,u,i===1));}from.selectedIndex=0;to.selectedIndex=1;convert();}
-function convert(){if(isCode(value.value)){showHelp();return;}const n=parseFloat(value.value);if(!Number.isFinite(n)){result.textContent="—";resultUnit.textContent="";return;}let answer;if(category.value==="Temperature"){answer=from.value===to.value?n:from.value==="Fahrenheit"?(n-32)*5/9:n*9/5+32;}else{const f=CATS[category.value].factors;answer=n*f[from.value]/f[to.value];}result.textContent=Math.abs(answer)<1e-12?"0":answer.toFixed(2).replace(/\.?0+$/,"");resultUnit.textContent=to.value;}
-function showHelp(){$("converter").classList.add("hidden");$("help").classList.remove("hidden");$("help").hidden=false;$("exit").classList.remove("hidden");value.value="";renderContacts();}
-function exitHelp(){$("help").classList.add("hidden");$("help").hidden=true;$("converter").classList.remove("hidden");$("exit").classList.add("hidden");editing=-1;form.classList.add("hidden");value.value="";value.focus();}
-function loadContacts(){try{const data=JSON.parse(localStorage.getItem("uc_pref_v1")||"[]");contacts=Array.isArray(data)?data.slice(0,5):[];}catch(e){contacts=[];}}
-function saveContacts(){try{localStorage.setItem("uc_pref_v1",JSON.stringify(contacts));}catch(e){}}
-function text(tag,content,className){const el=document.createElement(tag);if(className)el.className=className;el.textContent=content;return el;}
-function renderContacts(){contactsEl.replaceChildren();contacts.forEach((c,i)=>{const card=document.createElement("div");card.className="card contact";card.append(text("strong",c.name||"No name"),text("p",c.phone),text("p",c.message?`Message: “${c.message}”`:""));if(c.message){const sms=document.createElement("a");sms.className="button";sms.href=`sms:${c.phone.replace(/[^0-9+]/g,"")}?body=${encodeURIComponent(c.message)}`;sms.textContent="Send text";card.append(sms);}const call=document.createElement("a");call.className="button";call.href=`tel:${c.phone.replace(/[^0-9+]/g,"")}`;call.textContent="Call";card.append(call);const edit=document.createElement("button");edit.textContent="Edit";edit.onclick=()=>startEdit(i);card.append(edit);const del=document.createElement("button");del.textContent="Delete";del.className="text-link danger";del.onclick=()=>{if(confirm("Delete this safe contact?")){contacts.splice(i,1);saveContacts();renderContacts();}};card.append(del);});}
-function startEdit(i){editing=i;const c=i<0?{name:"",phone:"",message:""}:contacts[i];$("contactName").value=c.name;$("contactPhone").value=c.phone;$("contactMessage").value=c.message;form.classList.remove("hidden");$("contactName").focus();}
-category.onchange=()=>{from.replaceChildren();to.replaceChildren();fillUnits();};value.oninput=convert;$("swap").onclick=()=>{const a=from.value;from.value=to.value;to.value=a;convert();};$("exit").onclick=exitHelp;
-document.addEventListener("keydown",e=>{if(e.key==="Escape")exitHelp();});
-$("addContact").onclick=()=>startEdit(-1);$("cancelContact").onclick=()=>{editing=-1;form.classList.add("hidden");};
-form.onsubmit=e=>{e.preventDefault();const c={name:$("contactName").value.trim().slice(0,30),phone:$("contactPhone").value.replace(/[^0-9+\-() ]/g,"").trim().slice(0,20),message:$("contactMessage").value.trim().slice(0,100)};if(!c.name&&!c.phone)return;if(editing<0){if(contacts.length>=5)return;contacts.push(c);}else{contacts[editing]=c;}saveContacts();editing=-1;form.classList.add("hidden");renderContacts();};
-loadContacts();fillUnits();
-if("serviceWorker" in navigator && location.protocol!=="file:"){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+const SKEY = "uc_pref_v1";
+const LOG_KEY = "uc_log_v1";
+const CODES = ["911", "991", "919", "199", "119", "191", "999", "111"];
+const IDLE_TIMEOUT_MS = 90000;
+const CATS = {
+  Length: {
+    units: ["Inches", "Feet", "Yards", "Miles", "Centimeters", "Meters", "Kilometers"],
+    factors: {
+      Inches: 1,
+      Feet: 12,
+      Yards: 36,
+      Miles: 63360,
+      Centimeters: 1 / 2.54,
+      Meters: 100 / 2.54,
+      Kilometers: 100000 / 2.54
+    }
+  },
+  Weight: {
+    units: ["Ounces", "Pounds", "Grams", "Kilograms"],
+    factors: {
+      Ounces: 1,
+      Pounds: 16,
+      Grams: 1 / 28.349523125,
+      Kilograms: 1000 / 28.349523125
+    }
+  },
+  Temperature: {
+    units: ["Fahrenheit", "Celsius"],
+    factors: null
+  },
+  Volume: {
+    units: ["Cups", "Pints", "Quarts", "Gallons", "Liters"],
+    factors: {
+      Cups: 1,
+      Pints: 2,
+      Quarts: 4,
+      Gallons: 16,
+      Liters: 1000 / 236.5882365
+    }
+  }
+};
+
+const HELP = [
+  {
+    label: "I need help right now",
+    color: "#C44D3F",
+    bg: "#FDF0EE",
+    border: "#F0C4BF",
+    content: [
+      { type: "phone", text: "Call 1-800-799-7233", sub: "Free. 24 hours. You don't have to give your name.", href: "tel:18007997233" },
+      { type: "phone", text: "Text START to 88788", sub: "If you can't talk out loud right now.", href: "sms:88788?body=START" },
+      { type: "phone", text: "Text HOME to 741741", sub: "For any crisis. Any age.", href: "sms:741741?body=HOME" },
+      { type: "phone", text: "Call 988", sub: "Suicide & Crisis Lifeline. Free. 24/7.", href: "tel:988" },
+      { type: "phone", text: "Text 988", sub: "Confidential crisis text support, 24/7.", href: "sms:988" },
+      { type: "phone", text: "Call 911", sub: "If you or your children are in immediate danger.", href: "tel:911" },
+      { type: "note", text: "You can hang up anytime. They will not judge you. They are there for you." }
+    ]
+  },
+  {
+    label: "I'm a kid and I'm scared",
+    color: "#2E7D6B",
+    bg: "#EDF7F4",
+    border: "#B8DDD3",
+    content: [
+      { type: "phone", text: "Call 1-800-422-4453", sub: "Childhelp National Hotline. Free, private, 24/7. Grown-ups answer who want to help you.", href: "tel:18004224453" },
+      { type: "bigtext", text: "You are not in trouble." },
+      { type: "bigtext", text: "This is not your fault." },
+      { type: "note", text: "You can tell a teacher, school counselor, coach, or any grown-up you trust. They can help." },
+      { type: "note", text: "If someone is hurting you right now, go to a neighbor or call 911." }
+    ]
+  },
+  {
+    label: "I need to make a plan to leave",
+    color: "#5B6B3D",
+    bg: "#F3F5ED",
+    border: "#CDD5B8",
+    content: [
+      { type: "step", num: "1", text: "Pick one person you trust. Tell them what is happening." },
+      { type: "step", num: "2", text: "Choose a code word with that person that means \"call for help.\"" },
+      { type: "step", num: "3", text: "If you can, put copies of your ID, keys, and cash somewhere safe outside your home." },
+      { type: "step", num: "4", text: "Know your exits. Think about which rooms have locks, solid doors, or windows." },
+      { type: "step", num: "5", text: "You can leave with nothing. Shelters help with essentials, children, and pets too." },
+      { type: "phone", text: "Call 1-800-799-7233", sub: "Advocates help you make a safety plan step by step.", href: "tel:18007997233" }
+    ]
+  },
+  {
+    label: "I think my phone is being watched",
+    color: "#6B5B8D",
+    bg: "#F2F0F7",
+    border: "#CFC8DF",
+    content: [
+      { type: "note", text: "If you can, use a different device — a library computer, a friend's phone, or a phone at work." },
+      { type: "note", text: "Use private browsing (incognito mode) for anything related to safety or leaving." },
+      { type: "note", text: "Look for apps on your phone you do not recognize. Tracking tools can disguise themselves as battery or system apps." },
+      { type: "note", text: "Check Google Location Sharing, shared Google accounts, and Android Settings → Safety & emergency → Unknown tracker alerts when safe." },
+      { type: "note", text: "Physical trackers like AirTags or Tiles can be hidden in bags, coats, or cars." },
+      { type: "note", text: "Only change passwords from a safe device they have never had access to." }
+    ]
+  },
+  {
+    label: "Can I get legal help?",
+    color: "#7B6840",
+    bg: "#F7F3EC",
+    border: "#DDD2B8",
+    content: [
+      { type: "bigtext", text: "Yes." },
+      { type: "note", text: "You can ask for a protection order (restraining order) for free. You do not need to hire a lawyer first." },
+      { type: "note", text: "Visit your local courthouse clerk or victim advocate — there are staff whose job is to help with forms." },
+      { type: "note", text: "When safe, save evidence: dated notes, screenshots, photos, and call logs somewhere they cannot reach." },
+      { type: "note", text: "Your immigration status does not matter. You are protected by law." },
+      { type: "phone", text: "Read legal-help information from LawHelp", sub: "Opens lawhelp.org externally — open only if this is a safe time and device.", href: "https://lawhelp.org" }
+    ]
+  },
+  {
+    label: "More numbers to call or text",
+    color: "#5A7B9A",
+    bg: "#EEF3F7",
+    border: "#BCCFDD",
+    content: [
+      { type: "phone", text: "DV Hotline: 1-800-799-7233", sub: "24/7. Free and confidential.", href: "tel:18007997233" },
+      { type: "phone", text: "Childhelp: 1-800-422-4453", sub: "For kids or anyone worried about a child.", href: "tel:18004224453" },
+      { type: "phone", text: "Love Is Respect: 1-866-331-9474", sub: "Support for young people ages 12–24.", href: "tel:18663319474" },
+      { type: "phone", text: "Text LOVEIS to 22522", sub: "Confidential text support for young people.", href: "sms:22522?body=LOVEIS" },
+      { type: "phone", text: "Sexual Assault: 1-800-656-4673", sub: "RAINN National Hotline. 24/7.", href: "tel:18006564673" },
+      { type: "phone", text: "Deaf / Hard of Hearing: 1-855-812-1001", sub: "Video phone line, 24/7.", href: "tel:18558121001" },
+      { type: "phone", text: "Email: hotline@thehotline.org", sub: "Opens email app only when tapped.", href: "mailto:hotline@thehotline.org" },
+      { type: "phone", text: "Emergency: 911", sub: "If anyone is in immediate danger.", href: "tel:911" }
+    ]
+  }
+];
+
+const $ = id => document.getElementById(id);
+const converterEl = $("converter");
+const helpEl = $("help");
+const exitBtn = $("exit");
+const catSelect = $("category");
+const catTabs = $("catTabs");
+const valueInput = $("value");
+const fromSelect = $("from");
+const toSelect = $("to");
+const resultEl = $("result");
+const resultUnitEl = $("resultUnit");
+
+const contactsToggle = $("contactsToggle");
+const contactsTitle = $("contactsTitle");
+const contactsBody = $("contactsBody");
+const contactsIntro = $("contactsIntro");
+const contactsList = $("contacts");
+const contactForm = $("contactForm");
+const contactErrorEl = $("contactError");
+const addContactBtn = $("addContact");
+const contactsMaxNote = $("contactsMaxNote");
+const deleteZone = $("deleteZone");
+const deleteAskBtn = $("deleteAsk");
+const deleteConfirmBox = $("deleteConfirmBox");
+const wipeAllZone = $("wipeAllZone");
+const wipeAllAskBtn = $("wipeAllAsk");
+const wipeAllConfirm = $("wipeAllConfirm");
+
+const zoeToggle = $("zoeToggle");
+const zoeTitle = $("zoeTitle");
+const zoeBody = $("zoeBody");
+const breathBtn = $("breathBtn");
+const breathBox = $("breathBox");
+const breathOrb = $("breathOrb");
+const breathPhase = $("breathPhase");
+const groundBtn = $("groundBtn");
+const groundBox = $("groundBox");
+const zoeChat = $("zoeChat");
+const zoeForm = $("zoeForm");
+const zoeInput = $("zoeInput");
+const mediaRecRow = $("mediaRecRow");
+const recAudioBtn = $("recAudioBtn");
+const recVideoBtn = $("recVideoBtn");
+const recAudioTimer = $("recAudioTimer");
+const vaultStatus = $("vaultStatus");
+const logInput = $("logInput");
+const logError = $("logError");
+const logSaveBtn = $("logSaveBtn");
+const vaultLockGate = $("vaultLockGate");
+const vaultUnlockInput = $("vaultUnlockInput");
+const vaultLockError = $("vaultLockError");
+const vaultUnlockBtn = $("vaultUnlockBtn");
+const evidenceList = $("evidenceList");
+const shareAllLogBtn = $("shareAllLogBtn");
+const shareAllConfirm = $("shareAllConfirm");
+const wipeLogZone = $("wipeLogZone");
+const wipeLogAskBtn = $("wipeLogAsk");
+const wipeLogConfirm = $("wipeLogConfirm");
+const vaultPassSection = $("vaultPassSection");
+const vaultPassToggle = $("vaultPassToggle");
+const vaultLockNowBtn = $("vaultLockNowBtn");
+const vaultPassPanel = $("vaultPassPanel");
+const vaultPassDesc = $("vaultPassDesc");
+const vaultPassInput = $("vaultPassInput");
+const vaultPassError = $("vaultPassError");
+const vaultPassSaveBtn = $("vaultPassSaveBtn");
+const vaultPassCancelBtn = $("vaultPassCancelBtn");
+
+let contacts = [];
+let editingIndex = -1;
+let contactsOpen = false;
+let openSection = -1;
+let idleTimer = null;
+
+let zoeOpen = false;
+let breathTimer = null;
+let breathTick = 0;
+let evidence = [];
+let recordingAudio = false;
+let recSeconds = 0;
+let recTimerHandle = null;
+let playingAudioId = "";
+let pendingDeleteEvId = "";
+let pendingShareEvId = "";
+let passPanelOpen = false;
+
+function el(tag, className, textValue) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (textValue !== undefined) node.textContent = textValue;
+  return node;
+}
+
+function isCode(raw) {
+  const digits = String(raw || "").replace(/[^0-9]/g, "");
+  const trimmed = digits.replace(/^0+/, "");
+  return CODES.indexOf(digits) !== -1 || (trimmed.length === 3 && CODES.indexOf(trimmed) !== -1);
+}
+
+function hasNativeStore() {
+  return !!(window.SafeStore
+    && typeof window.SafeStore.loadContacts === "function"
+    && typeof window.SafeStore.saveContacts === "function");
+}
+
+function hasMediaVault() {
+  return !!(window.SafeStore
+    && typeof window.SafeStore.supportsMediaVault === "function"
+    && window.SafeStore.supportsMediaVault());
+}
+
+function hasPasscodeLockBridge() {
+  return !!(window.SafeStore
+    && typeof window.SafeStore.hasVaultPasscode === "function"
+    && typeof window.SafeStore.isVaultUnlocked === "function");
+}
+
+function vaultHasPasscode() {
+  if (!hasPasscodeLockBridge()) return false;
+  try { return !!window.SafeStore.hasVaultPasscode(); } catch (ignored) { return false; }
+}
+
+function vaultIsUnlocked() {
+  if (!hasPasscodeLockBridge()) return true;
+  try { return !!window.SafeStore.isVaultUnlocked(); } catch (ignored) { return true; }
+}
+
+function isAudioRecordingActive() {
+  if (recordingAudio) return true;
+  if (window.SafeStore && typeof window.SafeStore.isAudioRecording === "function") {
+    try { return !!window.SafeStore.isAudioRecording(); } catch (ignored) {}
+  }
+  return false;
+}
+
+function notifyHelpVisibility(visible) {
+  if (window.SafeStore && typeof window.SafeStore.setHelpVisible === "function") {
+    try { window.SafeStore.setHelpVisible(!!visible); } catch (ignored) {}
+  }
+}
+
+function loadContacts() {
+  let localArr = [];
+  try {
+    const parsed = JSON.parse(localStorage.getItem(SKEY) || "[]");
+    if (Array.isArray(parsed)) localArr = parsed.slice(0, 5);
+  } catch (ignored) {}
+  if (hasNativeStore()) {
+    try {
+      const nativeParsed = JSON.parse(window.SafeStore.loadContacts() || "[]");
+      if (Array.isArray(nativeParsed) && nativeParsed.length > 0) {
+        contacts = nativeParsed.slice(0, 5);
+        try { localStorage.setItem(SKEY, JSON.stringify(contacts)); } catch (ignored) {}
+        return;
+      }
+      if (localArr.length > 0) {
+        contacts = localArr;
+        window.SafeStore.saveContacts(JSON.stringify(contacts));
+        return;
+      }
+      contacts = [];
+      return;
+    } catch (ignored) {}
+  }
+  contacts = localArr;
+}
+
+function saveContacts() {
+  const payload = JSON.stringify(contacts.slice(0, 5));
+  try { localStorage.setItem(SKEY, payload); } catch (ignored) {}
+  if (hasNativeStore()) {
+    try { window.SafeStore.saveContacts(payload); } catch (ignored) {}
+  }
+}
+
+function loadEvidence() {
+  if (!vaultIsUnlocked()) {
+    evidence = [];
+    return;
+  }
+  if (hasMediaVault()) {
+    try {
+      const parsed = JSON.parse(window.SafeStore.loadEvidence() || "[]");
+      evidence = Array.isArray(parsed) ? parsed : [];
+      return;
+    } catch (ignored) {}
+  }
+  try {
+    const parsed = JSON.parse(localStorage.getItem(LOG_KEY) || "[]");
+    evidence = Array.isArray(parsed) ? parsed : [];
+  } catch (ignored) {
+    evidence = [];
+  }
+}
+
+function addTextNoteToVault(noteText) {
+  const clean = String(noteText || "").trim().slice(0, 2000);
+  if (!clean) return false;
+  if (hasMediaVault()) {
+    try {
+      const updated = JSON.parse(window.SafeStore.addTextEvidence(clean) || "[]");
+      evidence = vaultIsUnlocked() && Array.isArray(updated) ? updated : [];
+      renderZoeAccordion();
+      return true;
+    } catch (ignored) {}
+  }
+  const entry = {
+    id: Math.random().toString(36).slice(2, 12),
+    type: "text",
+    timestampUtc: new Date().toISOString().replace(/\.\d+Z$/, "Z"),
+    note: clean,
+    fileName: "",
+    mimeType: "text/plain",
+    sizeBytes: clean.length,
+    durationSec: 0,
+    sha256: ""
+  };
+  evidence.unshift(entry);
+  evidence = evidence.slice(0, 50);
+  try { localStorage.setItem(LOG_KEY, JSON.stringify(evidence)); } catch (ignored) {}
+  renderZoeAccordion();
+  return true;
+}
+
+function deleteEvidenceById(id) {
+  if (!vaultIsUnlocked()) return;
+  if (hasMediaVault()) {
+    try {
+      const updated = JSON.parse(window.SafeStore.deleteEvidence(id) || "[]");
+      evidence = Array.isArray(updated) ? updated : [];
+      if (playingAudioId === id) playingAudioId = "";
+      pendingDeleteEvId = "";
+      pendingShareEvId = "";
+      renderZoeAccordion();
+      return;
+    } catch (ignored) {}
+  }
+  evidence = evidence.filter(item => item.id !== id);
+  try { localStorage.setItem(LOG_KEY, JSON.stringify(evidence)); } catch (ignored) {}
+  pendingDeleteEvId = "";
+  pendingShareEvId = "";
+  renderZoeAccordion();
+}
+
+function clearAllEvidenceVault() {
+  if (!vaultIsUnlocked()) return;
+  if (hasMediaVault()) {
+    try { window.SafeStore.clearAllEvidence(); } catch (ignored) {}
+  }
+  evidence = [];
+  playingAudioId = "";
+  pendingDeleteEvId = "";
+  pendingShareEvId = "";
+  try { localStorage.removeItem(LOG_KEY); } catch (ignored) {}
+  renderZoeAccordion();
+}
+
+function resetIdleTimer() {
+  if (idleTimer !== null) {
+    clearTimeout(idleTimer);
+    idleTimer = null;
+  }
+  if (!helpEl.classList.contains("hidden")) {
+    idleTimer = setTimeout(() => {
+      if (isAudioRecordingActive()) {
+        resetIdleTimer();
+      } else {
+        exitHelp();
+      }
+    }, IDLE_TIMEOUT_MS);
+  }
+}
+
+function clearIdleTimer() {
+  if (idleTimer !== null) {
+    clearTimeout(idleTimer);
+    idleTimer = null;
+  }
+}
+
+function setFieldError(target, msg) {
+  if (msg) {
+    target.textContent = msg;
+    target.classList.remove("hidden");
+  } else {
+    target.textContent = "";
+    target.classList.add("hidden");
+  }
+}
+
+function buildTabs() {
+  catTabs.replaceChildren();
+  Object.keys(CATS).forEach(cat => {
+    const btn = el("button", "cat-tab" + (cat === catSelect.value ? " active" : ""), cat);
+    btn.type = "button";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", cat === catSelect.value ? "true" : "false");
+    btn.onclick = () => {
+      if (catSelect.value !== cat) {
+        catSelect.value = cat;
+        onCategoryChanged();
+      }
+    };
+    catTabs.appendChild(btn);
+  });
+}
+
+function updateTabStyles() {
+  Array.from(catTabs.children).forEach(btn => {
+    const active = btn.textContent === catSelect.value;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-selected", active ? "true" : "false");
+  });
+}
+
+function fillUnits() {
+  const units = CATS[catSelect.value].units;
+  fromSelect.replaceChildren();
+  toSelect.replaceChildren();
+  units.forEach((unit, idx) => {
+    fromSelect.add(new Option(unit, unit, idx === 0, idx === 0));
+    const defaultTo = Math.min(1, units.length - 1);
+    toSelect.add(new Option(unit, unit, idx === defaultTo, idx === defaultTo));
+  });
+}
+
+function onCategoryChanged() {
+  updateTabStyles();
+  fillUnits();
+  convert();
+}
+
+function formatNumber(n, decimals) {
+  if (Math.abs(n) < 1e-12) return "0";
+  return n.toFixed(decimals).replace(/\.?0+$/, "");
+}
+
+function convert() {
+  if (isCode(valueInput.value)) {
+    showHelp();
+    return;
+  }
+  const raw = valueInput.value.trim();
+  const n = Number(raw);
+  if (raw === "" || !Number.isFinite(n)) {
+    resultEl.textContent = "—";
+    resultUnitEl.textContent = "";
+    return;
+  }
+  const cat = catSelect.value;
+  let answer;
+  if (cat === "Temperature") {
+    answer = fromSelect.value === toSelect.value
+      ? n
+      : fromSelect.value === "Fahrenheit"
+        ? (n - 32) * 5 / 9
+        : n * 9 / 5 + 32;
+    resultEl.textContent = formatNumber(answer, 1);
+  } else {
+    const f = CATS[cat].factors;
+    answer = (n * f[fromSelect.value]) / f[toSelect.value];
+    resultEl.textContent = formatNumber(answer, 2);
+  }
+  resultUnitEl.textContent = toSelect.value;
+}
+
+function showHelp() {
+  valueInput.value = "";
+  resultEl.textContent = "—";
+  resultUnitEl.textContent = "";
+  converterEl.classList.add("hidden");
+  helpEl.classList.remove("hidden");
+  helpEl.hidden = false;
+  exitBtn.classList.remove("hidden");
+  notifyHelpVisibility(true);
+  loadContacts();
+  loadEvidence();
+  contactsOpen = contacts.length > 0;
+  zoeOpen = false;
+  passPanelOpen = false;
+  openSection = -1;
+  editingIndex = -1;
+  setFieldError(contactErrorEl, "");
+  setFieldError(logError, "");
+  setFieldError(vaultLockError, "");
+  setFieldError(vaultPassError, "");
+  renderContactsAccordion();
+  renderZoeAccordion();
+  renderHelpSections();
+  resetIdleTimer();
+  window.scrollTo(0, 0);
+}
+
+function stopBreathingGuide() {
+  if (breathTimer !== null) {
+    clearInterval(breathTimer);
+    breathTimer = null;
+  }
+  breathBox.classList.add("hidden");
+  breathBtn.textContent = "Breathe (4-4-6)";
+}
+
+function stopRecTimer() {
+  if (recTimerHandle !== null) {
+    clearInterval(recTimerHandle);
+    recTimerHandle = null;
+  }
+  recordingAudio = false;
+  recSeconds = 0;
+  recAudioTimer.classList.add("hidden");
+  recAudioBtn.classList.remove("active");
+  recAudioBtn.textContent = "● Record audio";
+}
+
+function exitHelp() {
+  clearIdleTimer();
+  stopBreathingGuide();
+  stopRecTimer();
+  playingAudioId = "";
+  pendingDeleteEvId = "";
+  pendingShareEvId = "";
+  passPanelOpen = false;
+  if (window.SafeStore && typeof window.SafeStore.lockVaultNow === "function") {
+    try { window.SafeStore.lockVaultNow(); } catch (ignored) {}
+  }
+  notifyHelpVisibility(false);
+  helpEl.classList.add("hidden");
+  helpEl.hidden = true;
+  converterEl.classList.remove("hidden");
+  exitBtn.classList.add("hidden");
+  editingIndex = -1;
+  contactsOpen = false;
+  zoeOpen = false;
+  openSection = -1;
+  zoeChat.replaceChildren();
+  zoeInput.value = "";
+  logInput.value = "";
+  vaultUnlockInput.value = "";
+  vaultPassInput.value = "";
+  vaultStatus.textContent = "";
+  groundBox.classList.add("hidden");
+  setFieldError(contactErrorEl, "");
+  setFieldError(logError, "");
+  setFieldError(vaultLockError, "");
+  setFieldError(vaultPassError, "");
+  contactForm.classList.add("hidden");
+  deleteConfirmBox.classList.add("hidden");
+  wipeAllConfirm.classList.add("hidden");
+  wipeAllAskBtn.classList.remove("hidden");
+  shareAllConfirm.classList.add("hidden");
+  wipeLogConfirm.classList.add("hidden");
+  wipeLogAskBtn.classList.remove("hidden");
+  valueInput.value = "";
+  resultEl.textContent = "—";
+  resultUnitEl.textContent = "";
+  window.scrollTo(0, 0);
+  valueInput.focus();
+}
+
+function sanitizeTel(phone) {
+  return String(phone || "").replace(/[^0-9+]/g, "");
+}
+
+function renderContactsAccordion() {
+  contactsTitle.textContent = contacts.length > 0 ? "My safe people (" + contacts.length + ")" : "My safe people";
+  contactsToggle.setAttribute("aria-expanded", contactsOpen ? "true" : "false");
+  contactsToggle.classList.toggle("open", contactsOpen);
+  contactsToggle.style.background = contactsOpen ? "#FBF5EE" : "#FFFFFF";
+  contactsToggle.style.borderColor = contactsOpen ? "#E0C9AB" : "#E8E3DE";
+  contactsToggle.style.color = "#8B5E3C";
+  contactsBody.style.borderColor = "#E0C9AB";
+  contactsBody.classList.toggle("hidden", !contactsOpen);
+  if (!contactsOpen) return;
+
+  contactsIntro.textContent = "Save up to five numbers you cannot keep in your regular contacts. Add a code word or distress message — one tap sends it."
+    + (contacts.length > 0 ? "" : " Tap below to add someone.");
+  contactsList.replaceChildren();
+  contacts.forEach((c, idx) => {
+    if (editingIndex === idx) return;
+    const card = el("div", "contact-card");
+    card.appendChild(el("div", "contact-name", c.name || "Safe contact"));
+    if (c.phone) card.appendChild(el("div", "contact-phone", c.phone));
+    if (c.message) card.appendChild(el("div", "contact-msg", "Message: \u201C" + c.message + "\u201D"));
+
+    const actions = el("div", "btn-row");
+    const cleanPhone = sanitizeTel(c.phone);
+    if (cleanPhone) {
+      const sms = el("a", "btn btn-sms", "Send text");
+      sms.href = "sms:" + cleanPhone + (c.message ? "?body=" + encodeURIComponent(c.message) : "");
+      actions.appendChild(sms);
+
+      const call = el("a", "btn btn-call", "Call");
+      call.href = "tel:" + cleanPhone;
+      actions.appendChild(call);
+    }
+    const edit = el("button", "btn btn-edit", "Edit");
+    edit.type = "button";
+    edit.onclick = () => startContactEdit(idx);
+    actions.appendChild(edit);
+    card.appendChild(actions);
+    contactsList.appendChild(card);
+  });
+
+  const showForm = editingIndex !== -1;
+  contactForm.classList.toggle("hidden", !showForm);
+  addContactBtn.classList.toggle("hidden", showForm || contacts.length >= 5);
+  contactsMaxNote.classList.toggle("hidden", showForm || contacts.length < 5);
+  const showWipe = !showForm && contacts.length > 0;
+  wipeAllZone.classList.toggle("hidden", !showWipe);
+  if (!showWipe) {
+    wipeAllConfirm.classList.add("hidden");
+    wipeAllAskBtn.classList.remove("hidden");
+  }
+}
+
+function startContactEdit(idx) {
+  editingIndex = idx;
+  setFieldError(contactErrorEl, "");
+  const target = idx === "new" ? { name: "", phone: "", message: "" } : contacts[idx];
+  $("contactName").value = target.name || "";
+  $("contactPhone").value = target.phone || "";
+  $("contactMessage").value = target.message || "";
+  const isExisting = typeof idx === "number" && idx >= 0;
+  deleteZone.classList.toggle("hidden", !isExisting);
+  deleteAskBtn.classList.remove("hidden");
+  deleteConfirmBox.classList.add("hidden");
+  renderContactsAccordion();
+  $("contactName").focus();
+}
+
+function zoeReplyFor(raw) {
+  const t = String(raw || "").toLowerCase();
+  if (/hurt me|hit|choke|weapon|gun|knife|kill|bleed|beat|immediate danger|trapped|locked/.test(t)) {
+    return {
+      text: "You deserve to be safe right now. If someone is hurting or threatening you, get behind a locked door or to a neighbor if you can, and reach help with one tap:",
+      links: [
+        { text: "Call 911", href: "tel:911" },
+        { text: "Call 1-800-799-7233", href: "tel:18007997233" },
+        { text: "Text START to 88788", href: "sms:88788?body=START" }
+      ]
+    };
+  }
+  if (/end my life|kill myself|suicide|die|self[- ]harm|don't want to live|dont want to live|can't go on|cant go on/.test(t)) {
+    return {
+      text: "I'm glad you told me instead of holding that alone. Please talk to someone trained who cares right now — free, confidential, 24/7:",
+      links: [
+        { text: "Call 988", href: "tel:988" },
+        { text: "Text 988", href: "sms:988" },
+        { text: "Text HOME to 741741", href: "sms:741741?body=HOME" }
+      ]
+    };
+  }
+  if (/yell|scream|threat|verbally|verbal|insult|name[- ]call|gaslight|blame|cursing|curse|humiliat|throw|broke/.test(t)) {
+    return {
+      text: "Being yelled at, threatened, or torn down is not okay and it is NOT your fault. If it's safe right now, you can record audio below or save their exact words with a UTC timestamp in your private Safety Log for proof.",
+      links: []
+    };
+  }
+  if (/kid|child|son|daughter|baby|school/.test(t)) {
+    return {
+      text: "Protecting children takes huge courage. Shelters help parents with children (and often pets), and you don't have to figure out everything alone.",
+      links: [
+        { text: "Call Childhelp: 1-800-422-4453", href: "tel:18004224453" }
+      ]
+    };
+  }
+  if (/sad|cry|lonely|alone|tired|exhaust|broken|hurt|miss|hopeless|overwhelm/.test(t)) {
+    return {
+      text: "I'm right here with you. You don't have to fix everything tonight — let's just take one slow breath together. Try Breathe (4-4-6) above, or write whatever you feel. Would it help to log what happened today or just talk it out?",
+      links: []
+    };
+  }
+  if (/scared|afraid|panic|shake|shaking|heart|anxious|nervous|calm|breathe/.test(t)) {
+    return {
+      text: "Take one slow breath with me: in for 4 seconds, hold for 4, out slowly for 6. Feel your feet on the floor. You survived every hardest minute up to now — tap Breathe (4-4-6) or 5-4-3-2-1 Calm above whenever you want steady guidance.",
+      links: []
+    };
+  }
+  return {
+    text: "I hear you. Thank you for trusting this space with that. If you want to keep a dated record for safety, tap '+ Save to Safety Log' under your message, or press Record audio/video below. Otherwise it disappears cleanly as soon as you press EXIT.",
+    links: []
+  };
+}
+
+function appendZoeChatExchange(userText) {
+  const clean = String(userText || "").trim();
+  if (!clean) return;
+
+  const userCard = el("div", "chat-bubble chat-user");
+  userCard.appendChild(el("div", null, clean));
+  const saveBtn = el("button", "chat-save-btn", "+ Save to Safety Log");
+  saveBtn.type = "button";
+  saveBtn.onclick = () => {
+    if (addTextNoteToVault(clean)) {
+      saveBtn.textContent = "Saved with UTC timestamp & SHA-256 ✓";
+      saveBtn.disabled = true;
+      vaultStatus.textContent = vaultIsUnlocked()
+        ? "Saved chat note to private Safety Log."
+        : "Saved privately into your locked Safety Log.";
+    }
+  };
+  userCard.appendChild(saveBtn);
+  zoeChat.appendChild(userCard);
+
+  const reply = zoeReplyFor(clean);
+  const zoeCard = el("div", "chat-bubble chat-zoe");
+  zoeCard.appendChild(el("div", "chat-role", "Zoe · Private Offline Companion"));
+  zoeCard.appendChild(el("div", null, reply.text));
+  reply.links.forEach(item => {
+    const link = el("a", "item-phone");
+    link.href = item.href;
+    link.style.background = "#FDF0EE";
+    link.style.borderColor = "#F0C4BF";
+    const strong = el("strong", null, item.text);
+    strong.style.color = "#C44D3F";
+    link.appendChild(strong);
+    zoeCard.appendChild(link);
+  });
+  zoeChat.appendChild(zoeCard);
+}
+
+function updateBreathStep() {
+  const cycle = breathTick % 14;
+  if (cycle < 4) {
+    breathOrb.textContent = "IN · " + (4 - cycle);
+    breathOrb.style.transform = "scale(1.14)";
+    breathOrb.style.background = "#2E7D6B";
+    breathPhase.textContent = "Breathe in gently…";
+  } else if (cycle < 8) {
+    breathOrb.textContent = "HOLD · " + (8 - cycle);
+    breathOrb.style.transform = "scale(1.14)";
+    breathOrb.style.background = "#5B6B3D";
+    breathPhase.textContent = "Hold steady…";
+  } else {
+    breathOrb.textContent = "OUT · " + (14 - cycle);
+    breathOrb.style.transform = "scale(0.92)";
+    breathOrb.style.background = "#6B4677";
+    breathPhase.textContent = "Breathe out slowly…";
+  }
+  breathTick += 1;
+}
+
+function toggleBreathGuide() {
+  if (breathTimer !== null) {
+    stopBreathingGuide();
+    return;
+  }
+  breathTick = 0;
+  breathBox.classList.remove("hidden");
+  breathBtn.textContent = "Stop breathing";
+  updateBreathStep();
+  breathTimer = setInterval(updateBreathStep, 1000);
+}
+
+function renderZoeAccordion() {
+  const locked = vaultHasPasscode() && !vaultIsUnlocked();
+  zoeTitle.textContent = locked
+    ? "Talk to Zoe & Safety Log (Locked)"
+    : evidence.length > 0
+      ? "Talk to Zoe & Safety Log (" + evidence.length + ")"
+      : "Talk to Zoe & Safety Log";
+  zoeToggle.setAttribute("aria-expanded", zoeOpen ? "true" : "false");
+  zoeToggle.classList.toggle("open", zoeOpen);
+  zoeToggle.style.background = zoeOpen ? "#F8F3FA" : "#FFFFFF";
+  zoeToggle.style.borderColor = zoeOpen ? "#D6C3E0" : "#E8E3DE";
+  zoeToggle.style.color = "#6B4677";
+  zoeBody.style.borderColor = "#D6C3E0";
+  zoeBody.classList.toggle("hidden", !zoeOpen);
+  if (!zoeOpen) return;
+
+  mediaRecRow.classList.toggle("hidden", !hasMediaVault());
+  vaultLockGate.classList.toggle("hidden", !locked);
+  evidenceList.classList.toggle("hidden", locked);
+
+  if (locked) {
+    shareAllLogBtn.classList.add("hidden");
+    shareAllConfirm.classList.add("hidden");
+    wipeLogZone.classList.add("hidden");
+    vaultPassSection.classList.add("hidden");
+    return;
+  }
+
+  evidenceList.replaceChildren();
+  evidence.forEach(item => {
+    const card = el("div", "ev-card");
+    const top = el("div", "ev-top");
+    const badge = el("span", "ev-badge " + (item.type || "text"), (item.type || "text").toUpperCase());
+    top.appendChild(badge);
+    top.appendChild(el("span", "ev-time", item.timestampUtc || ""));
+    card.appendChild(top);
+
+    if (item.note) card.appendChild(el("div", "ev-note", item.note));
+    if (item.fileName) {
+      card.appendChild(el("div", "ev-time",
+        item.fileName + " · " + (item.durationSec || 0) + "s · " + (item.sizeBytes || 0) + " bytes"));
+    }
+    if (item.sha256) {
+      card.appendChild(el("div", "ev-hash", "SHA-256: " + item.sha256.slice(0, 20) + "…"));
+    }
+
+    const row = el("div", "btn-row");
+    if (item.type === "audio" && hasMediaVault()) {
+      const isPlaying = playingAudioId === item.id;
+      const playBtn = el("button", "btn btn-zoe", isPlaying ? "■ Stop" : "▶ Play");
+      playBtn.type = "button";
+      playBtn.onclick = () => {
+        try { window.SafeStore.togglePlayAudio(item.id); } catch (ignored) {}
+      };
+      row.appendChild(playBtn);
+    } else if (item.type === "video" && hasMediaVault()) {
+      const watchBtn = el("button", "btn btn-vid", "▶ Watch");
+      watchBtn.type = "button";
+      watchBtn.onclick = () => {
+        try { window.SafeStore.openVideo(item.id); } catch (ignored) {}
+      };
+      row.appendChild(watchBtn);
+    }
+
+    if (hasMediaVault()) {
+      const shareBtn = el("button", "btn btn-edit", "Share");
+      shareBtn.type = "button";
+      shareBtn.onclick = () => {
+        pendingShareEvId = pendingShareEvId === item.id ? "" : item.id;
+        pendingDeleteEvId = "";
+        renderZoeAccordion();
+      };
+      row.appendChild(shareBtn);
+    }
+
+    if (pendingDeleteEvId === item.id) {
+      const yesBtn = el("button", "btn btn-yes", "Confirm delete");
+      yesBtn.type = "button";
+      yesBtn.onclick = () => deleteEvidenceById(item.id);
+      row.appendChild(yesBtn);
+
+      const noBtn = el("button", "btn btn-cancel", "No");
+      noBtn.type = "button";
+      noBtn.onclick = () => {
+        pendingDeleteEvId = "";
+        renderZoeAccordion();
+      };
+      row.appendChild(noBtn);
+    } else {
+      const delBtn = el("button", "btn btn-cancel", "Delete");
+      delBtn.type = "button";
+      delBtn.onclick = () => {
+        pendingDeleteEvId = item.id;
+        pendingShareEvId = "";
+        renderZoeAccordion();
+      };
+      row.appendChild(delBtn);
+    }
+    card.appendChild(row);
+
+    if (pendingShareEvId === item.id && hasMediaVault()) {
+      const perm = el("div", "perm-box");
+      perm.appendChild(el("div", null, "Grant permission to share this private proof outside Zoe?"));
+      const permRow = el("div", "btn-row");
+      const grantBtn = el("button", "btn btn-zoe", "Grant permission & share");
+      grantBtn.type = "button";
+      grantBtn.onclick = () => {
+        pendingShareEvId = "";
+        renderZoeAccordion();
+        try { window.SafeStore.shareEvidence(item.id); } catch (ignored) {}
+      };
+      const keepBtn = el("button", "btn btn-cancel", "Keep private");
+      keepBtn.type = "button";
+      keepBtn.onclick = () => {
+        pendingShareEvId = "";
+        renderZoeAccordion();
+      };
+      permRow.appendChild(grantBtn);
+      permRow.appendChild(keepBtn);
+      perm.appendChild(permRow);
+      card.appendChild(perm);
+    }
+    evidenceList.appendChild(card);
+  });
+
+  const canExportAll = hasMediaVault() && evidence.length > 0;
+  shareAllLogBtn.classList.toggle("hidden", !canExportAll);
+  if (!canExportAll) shareAllConfirm.classList.add("hidden");
+  wipeLogZone.classList.toggle("hidden", evidence.length === 0);
+  if (evidence.length === 0) {
+    wipeLogConfirm.classList.add("hidden");
+    wipeLogAskBtn.classList.remove("hidden");
+  }
+
+  vaultPassSection.classList.toggle("hidden", !hasPasscodeLockBridge());
+  if (hasPasscodeLockBridge()) {
+    const hasPass = vaultHasPasscode();
+    vaultPassToggle.textContent = hasPass ? "Remove passcode" : "Set private passcode";
+    vaultLockNowBtn.classList.toggle("hidden", !hasPass);
+    vaultPassDesc.textContent = hasPass
+      ? "Enter your current passcode to remove the private vault lock."
+      : "Optional extra lock: locks your saved proof automatically whenever you leave.";
+    vaultPassSaveBtn.textContent = hasPass ? "Remove passcode" : "Save passcode";
+    vaultPassPanel.classList.toggle("hidden", !passPanelOpen);
+  }
+}
+
+function renderHelpSections() {
+  const container = $("helpSections");
+  container.replaceChildren();
+  HELP.forEach((section, idx) => {
+    const wrap = el("div", "acc");
+    const isOpen = openSection === idx;
+    const btn = el("button", "acc-btn" + (isOpen ? " open" : ""));
+    btn.type = "button";
+    btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    btn.style.color = section.color;
+    btn.style.background = isOpen ? section.bg : "#FFFFFF";
+    btn.style.borderColor = isOpen ? section.border : "#E8E3DE";
+    btn.appendChild(el("span", null, section.label));
+    btn.appendChild(el("span", "acc-plus", "+"));
+    btn.onclick = () => {
+      openSection = openSection === idx ? -1 : idx;
+      renderHelpSections();
+    };
+    wrap.appendChild(btn);
+
+    if (isOpen) {
+      const body = el("div", "acc-body");
+      body.style.borderColor = section.border;
+      section.content.forEach(item => {
+        if (item.type === "phone") {
+          const link = el("a", "item-phone");
+          link.href = item.href;
+          link.style.background = section.bg;
+          link.style.borderColor = section.border;
+          const strong = el("strong", null, item.text);
+          strong.style.color = section.color;
+          link.appendChild(strong);
+          if (item.sub) link.appendChild(el("small", null, item.sub));
+          body.appendChild(link);
+        } else if (item.type === "bigtext") {
+          const big = el("div", "item-big", item.text);
+          big.style.color = section.color;
+          body.appendChild(big);
+        } else if (item.type === "step") {
+          const row = el("div", "item-step");
+          const num = el("span", "step-num", item.num);
+          num.style.background = section.color;
+          row.appendChild(num);
+          row.appendChild(el("span", "step-txt", item.text));
+          body.appendChild(row);
+        } else {
+          body.appendChild(el("div", "item-note", item.text));
+        }
+      });
+      wrap.appendChild(body);
+    }
+    container.appendChild(wrap);
+  });
+}
+
+function formatTimer(sec) {
+  const m = String(Math.floor(sec / 60)).padStart(2, "0");
+  const s = String(sec % 60).padStart(2, "0");
+  return m + ":" + s;
+}
+
+window.onSafeMediaEvent = (eventType, statusText) => {
+  if (statusText) vaultStatus.textContent = statusText;
+  if (eventType === "audio_started") {
+    recordingAudio = true;
+    recSeconds = 0;
+    recAudioBtn.classList.add("active");
+    recAudioBtn.textContent = "■ Stop & save audio";
+    recAudioTimer.textContent = "Recording audio · 00:00";
+    recAudioTimer.classList.remove("hidden");
+    if (recTimerHandle !== null) clearInterval(recTimerHandle);
+    recTimerHandle = setInterval(() => {
+      recSeconds += 1;
+      recAudioTimer.textContent = "Recording audio · " + formatTimer(recSeconds);
+    }, 1000);
+    return;
+  }
+  if (eventType === "audio_error" || eventType === "video_error" || eventType === "video_cancelled") {
+    if (eventType === "audio_error") stopRecTimer();
+    return;
+  }
+  if (eventType === "vault_updated") {
+    stopRecTimer();
+    loadEvidence();
+    renderZoeAccordion();
+    return;
+  }
+  if (eventType && eventType.startsWith("playback_started:")) {
+    playingAudioId = eventType.slice("playback_started:".length);
+    renderZoeAccordion();
+    return;
+  }
+  if (eventType === "playback_stopped") {
+    playingAudioId = "";
+    renderZoeAccordion();
+  }
+};
+
+catSelect.onchange = onCategoryChanged;
+fromSelect.onchange = convert;
+toSelect.onchange = convert;
+valueInput.oninput = convert;
+$("swap").onclick = () => {
+  const prev = fromSelect.value;
+  fromSelect.value = toSelect.value;
+  toSelect.value = prev;
+  convert();
+};
+exitBtn.onclick = exitHelp;
+$("topBar").onclick = () => {
+  if (!helpEl.classList.contains("hidden")) exitHelp();
+};
+document.addEventListener("keydown", ev => {
+  if (ev.key === "Escape" && !helpEl.classList.contains("hidden")) exitHelp();
+});
+["pointerdown", "touchstart", "keydown", "scroll"].forEach(ev => {
+  document.addEventListener(ev, resetIdleTimer, { passive: true });
+});
+
+contactsToggle.onclick = () => {
+  contactsOpen = !contactsOpen;
+  editingIndex = -1;
+  setFieldError(contactErrorEl, "");
+  renderContactsAccordion();
+};
+addContactBtn.onclick = () => startContactEdit("new");
+$("cancelContact").onclick = () => {
+  editingIndex = -1;
+  setFieldError(contactErrorEl, "");
+  renderContactsAccordion();
+};
+Array.from(document.querySelectorAll(".chip")).forEach(chip => {
+  chip.onclick = () => {
+    $("contactMessage").value = chip.dataset.msg || chip.textContent || "";
+    setFieldError(contactErrorEl, "");
+  };
+});
+deleteAskBtn.onclick = () => {
+  deleteAskBtn.classList.add("hidden");
+  deleteConfirmBox.classList.remove("hidden");
+};
+$("deleteNo").onclick = () => {
+  deleteConfirmBox.classList.add("hidden");
+  deleteAskBtn.classList.remove("hidden");
+};
+$("deleteYes").onclick = () => {
+  if (typeof editingIndex === "number" && editingIndex >= 0 && editingIndex < contacts.length) {
+    contacts.splice(editingIndex, 1);
+    saveContacts();
+  }
+  editingIndex = -1;
+  setFieldError(contactErrorEl, "");
+  renderContactsAccordion();
+};
+wipeAllAskBtn.onclick = () => {
+  wipeAllAskBtn.classList.add("hidden");
+  wipeAllConfirm.classList.remove("hidden");
+};
+$("wipeAllNo").onclick = () => {
+  wipeAllConfirm.classList.add("hidden");
+  wipeAllAskBtn.classList.remove("hidden");
+};
+$("wipeAllYes").onclick = () => {
+  contacts = [];
+  saveContacts();
+  wipeAllConfirm.classList.add("hidden");
+  wipeAllAskBtn.classList.remove("hidden");
+  editingIndex = -1;
+  setFieldError(contactErrorEl, "");
+  renderContactsAccordion();
+};
+contactForm.onsubmit = ev => {
+  ev.preventDefault();
+  const entry = {
+    name: $("contactName").value.trim().slice(0, 30),
+    phone: $("contactPhone").value.replace(/[^0-9+\-() ]/g, "").trim().slice(0, 20),
+    message: $("contactMessage").value.trim().slice(0, 100)
+  };
+  if (!entry.name && !entry.phone) {
+    setFieldError(contactErrorEl, "Enter a name or phone number first.");
+    return;
+  }
+  if (entry.phone && sanitizeTel(entry.phone).length < 3) {
+    setFieldError(contactErrorEl, "Enter a valid phone number with digits.");
+    return;
+  }
+  setFieldError(contactErrorEl, "");
+  if (editingIndex === "new") {
+    if (contacts.length >= 5) return;
+    contacts.push(entry);
+  } else if (typeof editingIndex === "number" && editingIndex >= 0 && editingIndex < contacts.length) {
+    contacts[editingIndex] = entry;
+  }
+  saveContacts();
+  editingIndex = -1;
+  renderContactsAccordion();
+};
+
+zoeToggle.onclick = () => {
+  zoeOpen = !zoeOpen;
+  if (zoeOpen) loadEvidence();
+  renderZoeAccordion();
+};
+breathBtn.onclick = toggleBreathGuide;
+groundBtn.onclick = () => groundBox.classList.toggle("hidden");
+Array.from(document.querySelectorAll(".zoe-chip")).forEach(chip => {
+  chip.onclick = () => appendZoeChatExchange(chip.textContent || "");
+});
+zoeForm.onsubmit = ev => {
+  ev.preventDefault();
+  const msg = zoeInput.value.trim();
+  if (!msg) return;
+  zoeInput.value = "";
+  appendZoeChatExchange(msg);
+};
+recAudioBtn.onclick = () => {
+  if (!hasMediaVault()) return;
+  if (isAudioRecordingActive()) {
+    window.SafeStore.stopAudioRecording();
+  } else {
+    window.SafeStore.startAudioRecording();
+  }
+};
+recVideoBtn.onclick = () => {
+  if (hasMediaVault()) {
+    window.SafeStore.startVideoRecording();
+  }
+};
+logSaveBtn.onclick = () => {
+  const note = logInput.value.trim();
+  if (!note) {
+    setFieldError(logError, "Write a note before saving to your Safety Log.");
+    return;
+  }
+  setFieldError(logError, "");
+  if (addTextNoteToVault(note)) {
+    logInput.value = "";
+    vaultStatus.textContent = vaultIsUnlocked()
+      ? "Saved timestamped text note with SHA-256 verification."
+      : "Saved privately into your locked Safety Log (SHA-256 verified).";
+  }
+};
+vaultUnlockBtn.onclick = () => {
+  if (!hasPasscodeLockBridge()) return;
+  const code = vaultUnlockInput.value;
+  if (window.SafeStore.unlockVault(code)) {
+    vaultUnlockInput.value = "";
+    setFieldError(vaultLockError, "");
+    loadEvidence();
+    renderZoeAccordion();
+  } else {
+    setFieldError(vaultLockError, "Incorrect passcode. Emergency hotlines remain open below.");
+  }
+};
+vaultPassToggle.onclick = () => {
+  passPanelOpen = !passPanelOpen;
+  vaultPassInput.value = "";
+  setFieldError(vaultPassError, "");
+  renderZoeAccordion();
+};
+vaultLockNowBtn.onclick = () => {
+  if (hasPasscodeLockBridge()) {
+    window.SafeStore.lockVaultNow();
+    passPanelOpen = false;
+    evidence = [];
+    renderZoeAccordion();
+  }
+};
+vaultPassCancelBtn.onclick = () => {
+  passPanelOpen = false;
+  vaultPassInput.value = "";
+  setFieldError(vaultPassError, "");
+  renderZoeAccordion();
+};
+vaultPassSaveBtn.onclick = () => {
+  if (!hasPasscodeLockBridge()) return;
+  const code = vaultPassInput.value;
+  if (vaultHasPasscode()) {
+    if (window.SafeStore.removeVaultPasscode(code)) {
+      vaultPassInput.value = "";
+      passPanelOpen = false;
+      setFieldError(vaultPassError, "");
+      vaultStatus.textContent = "Vault passcode removed.";
+      loadEvidence();
+      renderZoeAccordion();
+    } else {
+      setFieldError(vaultPassError, "Current passcode did not match.");
+    }
+  } else {
+    if (window.SafeStore.setVaultPasscode(code)) {
+      vaultPassInput.value = "";
+      passPanelOpen = false;
+      setFieldError(vaultPassError, "");
+      vaultStatus.textContent = "Private Safety Log passcode enabled. It locks automatically when you exit.";
+      renderZoeAccordion();
+    } else {
+      setFieldError(vaultPassError, "Enter a passcode between 4 and 32 characters.");
+    }
+  }
+};
+
+shareAllLogBtn.onclick = () => {
+  shareAllConfirm.classList.toggle("hidden");
+};
+$("shareAllNo").onclick = () => shareAllConfirm.classList.add("hidden");
+$("shareAllYes").onclick = () => {
+  shareAllConfirm.classList.add("hidden");
+  if (hasMediaVault() && vaultIsUnlocked()) {
+    try { window.SafeStore.shareAllEvidence(); } catch (ignored) {}
+  }
+};
+wipeLogAskBtn.onclick = () => {
+  wipeLogAskBtn.classList.add("hidden");
+  wipeLogConfirm.classList.remove("hidden");
+};
+$("wipeLogNo").onclick = () => {
+  wipeLogConfirm.classList.add("hidden");
+  wipeLogAskBtn.classList.remove("hidden");
+};
+$("wipeLogYes").onclick = () => {
+  clearAllEvidenceVault();
+  wipeLogConfirm.classList.add("hidden");
+  wipeLogAskBtn.classList.remove("hidden");
+  vaultStatus.textContent = "Safety Log erased from this device.";
+};
+
+buildTabs();
+fillUnits();
+loadContacts();
+loadEvidence();
+window.exitHelp = exitHelp;
+
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
 </script>
 </body>
 </html>

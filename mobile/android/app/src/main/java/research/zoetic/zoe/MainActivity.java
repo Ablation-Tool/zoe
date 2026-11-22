@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,13 +13,17 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.view.Gravity;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
+import androidx.activity.OnBackPressedCallback;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -32,11 +38,14 @@ public final class MainActivity extends ComponentActivity {
     private FrameLayout content;
     private HomeView homeView;
     private View homeButton;
+    private TextView homeBarTitle;
+    private View geminiBottomBar;
     private GuidedVisionView visionView;
     private VolumeView volumeView;
     private DeviceView deviceView;
     private TextToSpeech textToSpeech;
     private SpeechRecognizer speechRecognizer;
+    private Runnable pendingInspect;
     private boolean listening;
     private boolean speechStopRequested;
     private boolean inspectAfterPermission;
@@ -50,22 +59,56 @@ public final class MainActivity extends ComponentActivity {
         homeView = new HomeView(this);
         root.addView(homeView, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
-        homeButton = Ui.button(this, "‹ Zoe home", view -> showHome());
+
+        // Clean borderless Google-style back bar for embedded views (Vision / Volume / Device)
+        LinearLayout backBar = new LinearLayout(this);
+        backBar.setOrientation(LinearLayout.HORIZONTAL);
+        backBar.setGravity(Gravity.CENTER_VERTICAL);
+        backBar.setBackgroundColor(Color.TRANSPARENT);
+        backBar.setPadding(Ui.dp(this, 12), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 4));
+
+        android.widget.Button backBtn = Ui.tonalIconButton(this, "←", "Back to Zoe home", view -> showHome());
+        LinearLayout.LayoutParams backParams = new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48));
+        backParams.setMargins(0, 0, Ui.dp(this, 10), 0);
+        backBar.addView(backBtn, backParams);
+
+        homeBarTitle = Ui.text(this, "", 20f, Ui.TEXT);
+        homeBarTitle.setTypeface(Ui.SANS_MEDIUM);
+        homeBarTitle.setLetterSpacing(-0.015f);
+        homeBarTitle.setPadding(0, 0, 0, 0);
+        backBar.addView(homeBarTitle, new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+
+        ImageView gemHome = Ui.gemHomeButton(this, 30, this::showHome);
+        gemHome.setId(R.id.zoe_gem_home);
+        LinearLayout.LayoutParams gemHomeLp = new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48));
+        gemHomeLp.setMargins(Ui.dp(this, 8), 0, 0, 0);
+        backBar.addView(gemHome, gemHomeLp);
+
+        homeButton = backBar;
         homeButton.setVisibility(View.GONE);
         root.addView(homeButton);
+
         content = new FrameLayout(this);
         content.setVisibility(View.GONE);
         root.addView(content, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
-        root.addView(Ui.text(this,
-                "Offline-first. Optional model services and external apps may use network under their own permissions.",
-                12, Ui.MUTED));
-        setContentView(root);
+
+        // Signature Google Gemini Floating Action Capsule (thumb-reachable ergonomics!)
+        geminiBottomBar = buildGeminiCapsule();
+        root.addView(geminiBottomBar, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        setContentView(Ui.wrapWithBackdrop(this, root, true));
+        Ui.configureEdgeToEdge(this, root);
 
         visionView = new GuidedVisionView(this);
         volumeView = new VolumeView(this);
         deviceView = new DeviceView(this);
         textToSpeech = new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS && textToSpeech != null) {
+                textToSpeech.setSpeechRate(comfortMode ? 0.90f : 1.0f);
+            }
         });
         setComfortMode(getPreferences(MODE_PRIVATE).getBoolean("comfort", false));
         if (savedInstanceState != null) {
@@ -77,13 +120,134 @@ public final class MainActivity extends ComponentActivity {
             case "device" -> showDevice();
             default -> showHome();
         }
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (!"home".equals(visible)) {
+                    showHome();
+                } else {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        showHome();
+    }
+
+    /**
+     * Floating Google Gemini-style bottom action capsule:
+     *   [+] Quick actions | "Ask Zoe" (tap to talk/type) | [Eye] Look | [Live wave] Talk now
+     * Built with huge >= 48dp targets right in the ergonomic bottom thumb zone.
+     */
+    private View buildGeminiCapsule() {
+        FrameLayout wrapper = new FrameLayout(this);
+        wrapper.setBackgroundColor(Color.TRANSPARENT);
+        wrapper.setPadding(Ui.dp(this, 16), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 14));
+
+        boolean dark = Ui.isDark(this);
+        LinearLayout capsule = new LinearLayout(this);
+        capsule.setOrientation(LinearLayout.HORIZONTAL);
+        capsule.setGravity(Gravity.CENTER_VERTICAL);
+        capsule.setMinimumHeight(Ui.dp(this, 64));
+        capsule.setPadding(Ui.dp(this, 8), Ui.dp(this, 6), Ui.dp(this, 8), Ui.dp(this, 6));
+
+        GradientDrawable pillBg = new GradientDrawable();
+        pillBg.setColor(Ui.panelColor(this));
+        pillBg.setCornerRadius(Ui.dp(this, 32));
+        pillBg.setStroke(Ui.strokePx(this, 0.8f), Ui.withAlpha(Ui.dividerColor(this), dark ? 140 : 210));
+        capsule.setBackground(pillBg);
+
+        // [+] Quick Actions button (SafeConvert, Field kit, Arrange, Google Gemini, Comfort mode)
+        ImageView plusBtn = Ui.iconActionButton(
+                this,
+                R.drawable.ic_zoe_plus,
+                Ui.textColor(this),
+                Color.TRANSPARENT,
+                "More tools and quick actions",
+                v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                    homeView.showQuickSheet();
+                });
+        capsule.addView(plusBtn, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
+
+        // Center "Ask Zoe" tap zone -> opens Talk with Zoe (voice or typed calm chat)
+        TextView prompt = Ui.text(this, "Ask Zoe", 17.5f, Ui.MUTED);
+        prompt.setGravity(Gravity.CENTER_VERTICAL);
+        prompt.setMinimumHeight(Ui.dp(this, 48));
+        prompt.setPadding(Ui.dp(this, 10), 0, Ui.dp(this, 8), 0);
+        prompt.setClickable(true);
+        prompt.setFocusable(true);
+        prompt.setContentDescription("Ask or talk with Zoe");
+        prompt.setOnClickListener(v -> {
+            v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+            startActivity(new Intent(this, ConversationActivity.class));
+        });
+        capsule.addView(prompt, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+
+        // Camera / Look icon -> opens Guided vision in one tap
+        ImageView lookBtn = Ui.iconActionButton(
+                this,
+                R.drawable.ic_zoe_vision,
+                Ui.textColor(this),
+                Color.TRANSPARENT,
+                "Open camera to look and read",
+                v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                    showVision();
+                });
+        LinearLayout.LayoutParams lookP = new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48));
+        lookP.setMargins(0, 0, Ui.dp(this, 4), 0);
+        capsule.addView(lookBtn, lookP);
+
+        // Signature Glowing DeepMind Blue Live Waveform Circle -> Talk with Zoe immediately
+        int liveFill = dark ? Color.rgb(30, 58, 122) : Color.rgb(26, 115, 232);
+        int liveGlyph = dark ? Color.rgb(210, 227, 252) : Color.WHITE;
+        ImageView liveBtn = Ui.iconActionButton(
+                this,
+                R.drawable.ic_zoe_live,
+                liveGlyph,
+                liveFill,
+                "Start talking with Zoe",
+                v -> {
+                    v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                    startActivity(new Intent(this, ConversationActivity.class));
+                });
+        capsule.addView(liveBtn, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
+
+        wrapper.addView(capsule, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        return wrapper;
+    }
+
+    String currentVisible() {
+        return visible;
+    }
+
+    private void cancelPendingInspect() {
+        if (pendingInspect != null) {
+            content.removeCallbacks(pendingInspect);
+            pendingInspect = null;
+        }
     }
 
     private void show(FrameLayout frame, View view, String identifier) {
+        cancelPendingInspect();
         if (!"vision".equals(identifier) && "vision".equals(visible)) {
             visionView.pauseCamera();
         }
         visible = identifier;
+        if (homeBarTitle != null) {
+            homeBarTitle.setText("vision".equals(identifier) ? "Guided vision" : "");
+        }
+        if (geminiBottomBar != null) {
+            geminiBottomBar.setVisibility(View.GONE);
+        }
         homeView.setVisibility(View.GONE);
         homeButton.setVisibility(View.VISIBLE);
         content.setVisibility(View.VISIBLE);
@@ -92,6 +256,7 @@ public final class MainActivity extends ComponentActivity {
     }
 
     final void showHome() {
+        cancelPendingInspect();
         if ("vision".equals(visible)) {
             visionView.pauseCamera();
         }
@@ -100,6 +265,10 @@ public final class MainActivity extends ComponentActivity {
         content.setVisibility(View.GONE);
         homeButton.setVisibility(View.GONE);
         homeView.setVisibility(View.VISIBLE);
+        if (geminiBottomBar != null) {
+            geminiBottomBar.setVisibility(View.VISIBLE);
+        }
+        homeView.refreshDynamic();
     }
 
     final void showVision() {
@@ -115,15 +284,6 @@ public final class MainActivity extends ComponentActivity {
         deviceView.refresh();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (!"home".equals(visible)) {
-            showHome();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     boolean isComfortMode() {
         return comfortMode;
     }
@@ -132,12 +292,31 @@ public final class MainActivity extends ComponentActivity {
         comfortMode = enabled;
         getWindow().setWindowAnimations(enabled ? 0 : android.R.style.Animation_Activity);
         if (textToSpeech != null) {
-            textToSpeech.setSpeechRate(enabled ? 0.92f : 1.0f);
+            textToSpeech.setSpeechRate(enabled ? 0.90f : 1.0f);
         }
         getPreferences(MODE_PRIVATE).edit().putBoolean("comfort", enabled).apply();
         if (deviceView != null) {
             deviceView.refresh();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if ("home".equals(visible) && homeView != null) {
+            homeView.refreshDynamic();
+        } else if ("device".equals(visible) && deviceView != null) {
+            deviceView.refresh();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        cancelPendingInspect();
+        if ("vision".equals(visible)) {
+            visionView.pauseCamera();
+        }
+        super.onPause();
     }
 
     @Override
@@ -163,7 +342,14 @@ public final class MainActivity extends ComponentActivity {
         }
         showVision();
         startCamera();
-        content.postDelayed(() -> visionView.requestInspection(), 1200);
+        cancelPendingInspect();
+        pendingInspect = () -> {
+            pendingInspect = null;
+            if ("vision".equals(visible)) {
+                visionView.requestInspection();
+            }
+        };
+        content.postDelayed(pendingInspect, 1200);
     }
 
     void startListening() {
@@ -189,33 +375,17 @@ public final class MainActivity extends ComponentActivity {
             visionView.setStatus("Offline speech preferred; service behavior controls actual processing. Listening once…");
         }
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle params) {
-                listening = true;
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-            }
-
-            @Override
-            public void onRmsChanged(float rmsdB) {
-            }
-
-            @Override
-            public void onBufferReceived(byte[] buffer) {
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-                listening = false;
-            }
+            @Override public void onReadyForSpeech(Bundle params) { listening = true; }
+            @Override public void onBeginningOfSpeech() { }
+            @Override public void onRmsChanged(float rmsdB) { }
+            @Override public void onBufferReceived(byte[] buffer) { }
+            @Override public void onEndOfSpeech() { listening = false; }
 
             @Override
             public void onError(int error) {
                 listening = false;
                 if (!speechStopRequested) {
-                    visionView.setStatus("Speech recognition ended with code " + error + ". No command was executed.");
+                    visionView.setStatus(ConversationActivity.speechErrorLabel(error));
                 }
             }
 
@@ -236,13 +406,8 @@ public final class MainActivity extends ComponentActivity {
                 handleVoiceCommand(command);
             }
 
-            @Override
-            public void onPartialResults(Bundle partialResults) {
-            }
-
-            @Override
-            public void onEvent(int eventType, Bundle params) {
-            }
+            @Override public void onPartialResults(Bundle partialResults) { }
+            @Override public void onEvent(int eventType, Bundle params) { }
         });
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                 .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -317,7 +482,11 @@ public final class MainActivity extends ComponentActivity {
                 .setType("text/plain")
                 .putExtra(Intent.EXTRA_TEXT, text)
                 .putExtra(Intent.EXTRA_SUBJECT, "Zoe observation");
-        startActivity(Intent.createChooser(share, "Share Zoe observation"));
+        try {
+            startActivity(Intent.createChooser(share, "Share Zoe observation"));
+        } catch (ActivityNotFoundException error) {
+            visionView.setStatus("No sharing app is available.");
+        }
     }
 
     void openGemini() {
@@ -364,6 +533,7 @@ public final class MainActivity extends ComponentActivity {
 
     @Override
     protected void onDestroy() {
+        cancelPendingInspect();
         destroySpeechRecognizer();
         if (textToSpeech != null) {
             textToSpeech.stop();

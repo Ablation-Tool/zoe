@@ -5,6 +5,7 @@ import android.accessibilityservice.GestureDescription;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Path;
+import android.hardware.HardwareBuffer;
 import android.os.Build;
 import android.view.accessibility.AccessibilityEvent;
 
@@ -42,8 +43,8 @@ public final class ZoeAccessibilityService extends AccessibilityService {
             return false;
         }
         Path path = new Path();
-        path.moveTo(startX, startY);
-        path.lineTo(endX, endY);
+        path.moveTo(Math.max(0f, startX), Math.max(0f, startY));
+        path.lineTo(Math.max(0f, endX), Math.max(0f, endY));
         GestureDescription.StrokeDescription stroke = new GestureDescription.StrokeDescription(path, 0, Math.max(50, durationMs));
         return instance.dispatchGesture(new GestureDescription.Builder().addStroke(stroke).build(),
                 new GestureResultCallback() {
@@ -78,11 +79,25 @@ public final class ZoeAccessibilityService extends AccessibilityService {
                 new AccessibilityService.TakeScreenshotCallback() {
                     @Override
                     public void onSuccess(ScreenshotResult result) {
-                        android.hardware.HardwareBuffer buffer = result.getHardwareBuffer();
-                        Bitmap bitmap = Bitmap.wrapHardwareBuffer(buffer, result.getColorSpace());
-                        buffer.close();
+                        HardwareBuffer buffer = result.getHardwareBuffer();
+                        if (buffer == null) {
+                            if (listener != null) {
+                                listener.onGesture(false);
+                            }
+                            return;
+                        }
+                        Bitmap wrapped = null;
+                        try {
+                            wrapped = Bitmap.wrapHardwareBuffer(buffer, result.getColorSpace());
+                        } finally {
+                            buffer.close();
+                        }
                         if (listener != null) {
-                            listener.onCapture(bitmap);
+                            if (wrapped != null) {
+                                listener.onCapture(wrapped);
+                            } else {
+                                listener.onGesture(false);
+                            }
                         }
                     }
 

@@ -1,12 +1,15 @@
 package research.zoetic.zoe;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
@@ -18,6 +21,7 @@ import android.os.Vibrator;
 import android.os.VibratorManager;
 import android.speech.tts.TextToSpeech;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -35,6 +39,8 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
     private static final int MICROPHONE_PERMISSION = 91;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final AtomicBoolean running = new AtomicBoolean(false);
+    private final Object audioLock = new Object();
+    private final Object motionLock = new Object();
     private TextView status;
     private TextView report;
     private AudioRecord recorder;
@@ -50,37 +56,44 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ScrollView scroll = new ScrollView(this);
-        android.widget.LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 24));
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        LinearLayout content = Ui.vertical(this);
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 24));
         scroll.addView(content);
-        setContentView(scroll);
-        content.addView(Ui.heading(this, "Acoustic Ranging Lab"));
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
+
+        content.addView(Ui.topBar(this, "Acoustic Ranging Lab", "One-shot chirp · uncalibrated echo candidates"));
         content.addView(Ui.text(this,
                 "One gentle 2 kHz, 20 ms chirp per tap. Sound-level, motion, and echo candidates remain separate from verified distance.",
-                15, Ui.MUTED));
-        status = Ui.text(this, "Microphone, speaker, and motion telemetry are idle.", 16, Ui.YELLOW);
+                14.5f, Ui.MUTED));
+        status = Ui.text(this, "Microphone, speaker, and motion telemetry are idle.", 15, Ui.YELLOW);
         status.setId(R.id.range_status);
         content.addView(status);
-        Button ping = Ui.button(this, "Ping once", view -> ping());
+        Button ping = Ui.button(this, "Ping once", Ui.CYAN, view -> ping());
         ping.setId(R.id.range_ping);
-        Button stop = Ui.button(this, "Stop", view -> stopRanging());
+        Button stop = Ui.button(this, "Stop", Ui.RUBY, view -> stopRanging());
         stop.setId(R.id.range_stop);
         content.addView(Ui.buttonRow(this, ping, stop));
         content.addView(Ui.buttonRow(this,
-                Ui.button(this, "Speak result", view -> {
+                Ui.button(this, "Speak result", Ui.GREEN, view -> {
                     if (speaker != null) {
                         speaker.speak(spoken, TextToSpeech.QUEUE_FLUSH, null, "zoe-range");
                     }
                 }),
-                Ui.button(this, "Share result", view -> {
-                    android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
-                            .setType("text/plain")
-                            .putExtra(android.content.Intent.EXTRA_TEXT, report.getText().toString());
-                    startActivity(android.content.Intent.createChooser(share, "Share acoustic observation"));
+                Ui.button(this, "Share result", Ui.PINK, view -> {
+                    try {
+                        Intent share = new Intent(Intent.ACTION_SEND)
+                                .setType("text/plain")
+                                .putExtra(Intent.EXTRA_TEXT, report.getText().toString());
+                        startActivity(Intent.createChooser(share, "Share acoustic observation"));
+                    } catch (ActivityNotFoundException ignored) {
+                    }
                 })));
         report = Ui.text(this,
                 "No acoustic observation yet. Results include raw timing, a candidate distance if a second correlation peak appears, and an explicit uncalibrated boundary.",
-                17, Ui.TEXT);
+                16, Ui.TEXT);
         report.setId(R.id.range_report);
         report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
@@ -88,7 +101,7 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
         content.addView(report);
         content.addView(Ui.text(this,
                 "dBFS is not calibrated sound-pressure level. Motion RMS is not displacement. Echo candidates are not certified obstacle detection or a blindness-safety system. Text, optional speech, and vibration provide alternative feedback.",
-                13, Ui.MUTED));
+                12.5f, Ui.MUTED));
         sensors = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensors == null ? null : sensors.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         speaker = new TextToSpeech(this, result -> { });
@@ -104,9 +117,11 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
             return;
         }
         status.setText("Recording one second and playing one gentle chirp…");
-        motionSquared = 0;
-        motionSamples = 0;
-        if (accelerometer != null) {
+        synchronized (motionLock) {
+            motionSquared = 0;
+            motionSamples = 0;
+        }
+        if (sensors != null && accelerometer != null) {
             sensors.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
         }
         executor.execute(this::capture);
@@ -123,34 +138,75 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
         short[] recorded = new short[SAMPLE_RATE];
         try {
             int minimum = AudioRecord.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-            recorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
+            AudioRecord localRecorder = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE,
                     AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, Math.max(minimum * 4, 8192));
-            recorder.startRecording();
-            track = new AudioTrack(android.media.AudioManager.STREAM_MUSIC, SAMPLE_RATE,
-                    AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
-                    reference.length, AudioTrack.MODE_STATIC);
-            track.write(reference, 0, reference.length);
-            track.play();
+            if (localRecorder.getState() != AudioRecord.STATE_INITIALIZED) {
+                localRecorder.release();
+                throw new IllegalStateException("AudioRecord could not initialize");
+            }
+            AudioTrack localTrack = new AudioTrack.Builder()
+                    .setAudioAttributes(new AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                            .build())
+                    .setAudioFormat(new AudioFormat.Builder()
+                            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                            .setSampleRate(SAMPLE_RATE)
+                            .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                            .build())
+                    .setTransferMode(AudioTrack.MODE_STATIC)
+                    .setBufferSizeInBytes(reference.length * 2)
+                    .build();
+            synchronized (audioLock) {
+                if (!running.get()) {
+                    localRecorder.release();
+                    localTrack.release();
+                    return;
+                }
+                recorder = localRecorder;
+                track = localTrack;
+            }
+            localRecorder.startRecording();
+            localTrack.write(reference, 0, reference.length);
+            localTrack.play();
+
             int offset = 0;
             while (running.get() && offset < recorded.length) {
-                int count = recorder.read(recorded, offset, recorded.length - offset);
+                int count = localRecorder.read(recorded, offset, recorded.length - offset);
                 if (count < 0) {
+                    if (!running.get()) {
+                        break;
+                    }
                     throw new IllegalStateException("AudioRecord error " + count);
                 }
                 offset += count;
             }
+            if (!running.get() || offset < reference.length) {
+                return;
+            }
             AcousticRanging.Measurement measurement = AcousticRanging.analyze(recorded, reference, SAMPLE_RATE);
-            double motionRms = motionSamples == 0 ? 0 : Math.sqrt(motionSquared / motionSamples);
-            runOnUiThread(() -> publish(measurement, motionRms));
+            double motionRms;
+            synchronized (motionLock) {
+                motionRms = motionSamples == 0 ? 0 : Math.sqrt(motionSquared / motionSamples);
+            }
+            runOnUiThread(() -> {
+                if (running.get() && !isFinishing() && !isDestroyed()) {
+                    publish(measurement, motionRms);
+                }
+            });
         } catch (SecurityException error) {
             runOnUiThread(() -> {
-                status.setText("Microphone permission was revoked. No audio is being captured.");
-                running.set(false);
+                if (!isFinishing() && !isDestroyed()) {
+                    status.setText("Microphone permission was revoked. No audio is being captured.");
+                    running.set(false);
+                }
             });
         } catch (Exception error) {
             runOnUiThread(() -> {
-                status.setText("Acoustic capture failed: " + error.getMessage());
-                running.set(false);
+                if (running.get() && !isFinishing() && !isDestroyed()) {
+                    status.setText("Acoustic capture failed: " + error.getMessage());
+                    running.set(false);
+                }
             });
         } finally {
             releaseAudio();
@@ -198,18 +254,27 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
     }
 
     private void releaseAudio() {
-        if (recorder != null) {
-            try {
-                recorder.stop();
-            } catch (IllegalStateException ignored) {
+        synchronized (audioLock) {
+            if (recorder != null) {
+                try {
+                    if (recorder.getRecordingState() == AudioRecord.RECORDSTATE_RECORDING) {
+                        recorder.stop();
+                    }
+                } catch (IllegalStateException ignored) {
+                }
+                recorder.release();
+                recorder = null;
             }
-            recorder.release();
-            recorder = null;
-        }
-        if (track != null) {
-            track.stop();
-            track.release();
-            track = null;
+            if (track != null) {
+                try {
+                    if (track.getPlayState() == AudioTrack.PLAYSTATE_PLAYING) {
+                        track.stop();
+                    }
+                } catch (IllegalStateException ignored) {
+                }
+                track.release();
+                track = null;
+            }
         }
         if (sensors != null) {
             sensors.unregisterListener(this);
@@ -231,8 +296,10 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
         for (float value : event.values) {
             magnitudeSquared += value * value;
         }
-        motionSquared += Math.max(0, magnitudeSquared - SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
-        motionSamples++;
+        synchronized (motionLock) {
+            motionSquared += Math.max(0, magnitudeSquared - SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
+            motionSamples++;
+        }
     }
 
     @Override

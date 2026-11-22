@@ -49,6 +49,8 @@ SESSION_*.md
 AUDIT.md
 PLAN.md
 test/
+!mobile/android/app/src/test/
+!mobile/android/app/src/test/**
 models/
 *.bff
 

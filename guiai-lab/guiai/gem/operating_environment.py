@@ -63,6 +63,10 @@ EXTENDED_LAYERS = {
     "openworld": ("autonomy", "Zoe · L5 Phase 2 Open-World Generalization, Code Repair & Neural Science"),
     "l5-phase3": ("autonomy", "Zoe · L5 Phase 3 Live Agentic Synthesis & Eliza-GEM Glass-Box Bench"),
     "live-agent": ("autonomy", "Zoe · L5 Phase 3 Live Agentic Synthesis & Eliza-GEM Glass-Box Bench"),
+    "l5-phase4": ("autonomy", "Zoe · L5 Phase 4 Blind Eval, Stem-Layering & Embodied Mobile Mind"),
+    "embodied-mind": ("autonomy", "Zoe · L5 Phase 4 Blind Eval, Stem-Layering & Embodied Mobile Mind"),
+    "l5-phase5": ("autonomy", "Zoe · L5 Phase 5 ARC Induction, Real Science & 4-Gen Frontier Mind"),
+    "frontier-mind": ("autonomy", "Zoe · L5 Phase 5 ARC Induction, Real Science & 4-Gen Frontier Mind"),
     "eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
     "zoe-eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
 }

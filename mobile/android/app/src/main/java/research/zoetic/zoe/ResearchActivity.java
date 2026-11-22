@@ -19,27 +19,31 @@ public final class ResearchActivity extends ComponentActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ScrollView scroll = new ScrollView(this);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 18), Ui.dp(this, 12), Ui.dp(this, 18), Ui.dp(this, 28));
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 28));
         scroll.addView(content);
-        setContentView(scroll);
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.button(this, "‹ Zoe home", view -> finish()));
-        content.addView(Ui.heading(this, "Researcher guide"));
-        content.addView(Ui.text(this, "PLAY · LEARN · ADAPT · CREATE · EXPLORE · SHARE", 12, Ui.PINK));
-        TextView version = Ui.text(this, "Zoe " + versionName() + " · research preview", 15, Ui.GREEN);
+        content.addView(Ui.topBar(this, "Researcher guide", "Build, verify & understand boundaries"));
+        TextView version = Ui.text(this, "Zoe " + versionName() + " · research preview", 14.5f, Ui.GREEN);
         version.setId(R.id.research_version);
         content.addView(version);
 
         content.addView(Ui.section(this, "YOUR FIRST FIVE MINUTES"));
-        content.addView(Ui.text(this,
+        TextView firstFive = Ui.text(this,
                 "1. Open Accessible volume and measure the worked distribution.\n\n"
                         + "2. Open Tiny Zoe. Read the simulated card, measure once, then inspect the raw request and response.\n\n"
                         + "3. Try tau = 0.20 with the default distribution. Equality is excluded, so A = 1 of 4.\n\n"
                         + "4. Replay the last command. The bytes and result stay identical.\n\n"
                         + "5. Choose Share session only when you want to export the retained transactions.",
-                16, Ui.TEXT));
-        Button openCell = Ui.button(this, "Open Tiny Zoe", view ->
+                14.5f, Ui.TEXT);
+        firstFive.setBackground(Ui.cardBackground(this, 20));
+        firstFive.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        content.addView(firstFive);
+        Button openCell = Ui.primaryButton(this, "Open Tiny Zoe", Ui.RUBY, view ->
                 startActivity(new Intent(this, CellActivity.class)));
         openCell.setId(R.id.research_open_cell);
         content.addView(openCell);
@@ -52,8 +56,8 @@ public final class ResearchActivity extends ComponentActivity {
 
         content.addView(Ui.section(this, "PRIVATE BY DEFAULT"));
         content.addView(Ui.text(this,
-                "The home screen starts no sensors. Camera, microphone, location, Bluetooth, accessibility, and network features are separate and explicit. OCR and image labels are bundled. Optional model services and external apps follow their own permissions and behavior.\n\n"
-                        + "Tiny Zoe uses no hardware, SIM, storage, or network. Sharing opens Android's chooser; Zoe does not upload the export or write it to a file.",
+                "The home screen starts no sensors. Camera, microphone, location, Bluetooth, accessibility, and network features are separate and explicit. OCR, image labels, and the measured color meter are bundled offline. Optional model services, Cloud Vision, and external apps follow your explicit tap and link permissions.\n\n"
+                        + "Tiny Zoe uses no hardware, SIM, storage, or network. Sharing opens Android's chooser. Trip Journal saves entries and compact thumbnails locally ONLY when you choose Save, and Eliza-GEM Studio pairs offline Chladni / Bronze Rose resonance with optional workstation relay sync.",
                 15, Ui.TEXT));
 
         content.addView(Ui.section(this, "BUILD & VERIFY"));

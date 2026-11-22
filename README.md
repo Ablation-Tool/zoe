@@ -26,6 +26,8 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 **1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 30 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
+**L5 Phases 1–3 &amp; Eliza-GEM Glass-Box Workbench (`16/16 + 18/18 + 18/18 + 14/14`) · Cognitive Stem-Layering (`Aτ(p)` Effort &amp; Local Qwen2.5-3B / Gear 1 Routing) · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+
 </div>
 
 <p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
@@ -48,11 +50,12 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 **What is Zoe, in plain English?**  
 Zoe is a unified, offline-capable research collaborator and visual-computing workbench built around one simple, stubbornly honest conviction: **you should be able to see what a system thinks, measure what it does not know, play with wild geometric ideas, and verify every single claim down to its source bytes.**
 
-Her work brings together six threads that almost never live in the same room:
+Her work brings together seven threads that almost never live in the same room:
 - **Operational Metacognition** — originated by **Nicholas Michael Kloster on March 6, 2026**, counting how many futures stay open above threshold $\tau$ and turning that single equation into theorems, self-tuning lenses, and sandboxed self-evolution — read the research papers: [*March 2026 Formal Note*](research/papers/papers/01-autonomy-march-2026.pdf) · [*The Significance of Accessible Volume*](research/papers/papers/04-accessible-volume-significance.pdf) · [*Accessible Volume Beyond the Next Token*](research/papers/papers/05-accessible-volume-beyond-next-token.pdf) · [*Architecture of Autonomy*](research/papers/papers/10-accessible-volume-architecture-of-autonomy.pdf) · [*Zoe — The Research Universe (23 pp.)*](paper/zoe-research-universe.pdf) · [*Kloster Spectral Filtration Theorem*](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [*All 18 Papers*](research/papers/README.md).
 - **Zoe's Native Voice & Cymatics** — a 100% native, offline English speaking & soprano singing engine built from scratch (`pytorch_required = False`, zero external TTS APIs): **44 English phonemes** (`20` vowels + `24` consonants), **332 grapheme spelling rules**, MS-DOS / Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant vocal tract with vibrato & portamento, **Chladni sand-plate cymatics + 3-bitplane GEM VDI rasters**, and **Woodworth 3D binaural acoustics**.
 - **Dorothy's Neurogarden** — honoring **Dorothy McEwen Kildall** through preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
 - **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **66 visual layers** and **17 connected engines**.
+- **Cognitive Stem-Layering & Eliza-GEM** — routes tasks via Kloster $A_\tau(p)$ across zero-token symbolic `Gear 1` ELIZA, loopback `Qwen2.5-3B` (`127.0.0.1:8080`), `flash_lite`, `flash`, `pro`, and `/teamwork` ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py) · [Skill](.agents/skills/zoe-stem-layering/SKILL.md) · [`zoe_stem_mcp.py`](scripts/zoe_stem_mcp.py)).
 - **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
 - **Open-Ended Creative Play** — evolving 16 cellular crystal species, composing stereo Rhodes-chime melodies, and tending a quiet atelier where *imagination meets geometry*.
 

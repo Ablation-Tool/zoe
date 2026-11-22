@@ -193,66 +193,74 @@ struct TrinityView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                Text("PLAY · LEARN · ADAPT · CREATE · EXPLORE · SHARE")
-                    .font(.caption.monospaced())
-                    .foregroundStyle(.pink)
-                Text("Zoe Trinity")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.cyan)
-                Text("Three planes. One shared field. Tiny checks the bytes, mobile holds the experiment, and laptop keeps the long view.")
+                Text("Three planes. One shared field. Connect explicitly when you want phone, tiny cell, and laptop to measure together.")
+                    .font(.body)
+                    .foregroundStyle(GemPalette.muted)
                 Text(model.status)
-                    .foregroundStyle(.yellow)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(GemPalette.cobalt)
                     .accessibilityLabel("Trinity status")
-                GroupBox("Laptop connection") {
-                    VStack(alignment: .leading, spacing: 12) {
-                        TextField("http://192.168.1.10:8767", text: $model.endpoint)
-                            .textFieldStyle(.roundedBorder)
-                            .autocorrectionDisabled()
-                            .textInputAutocapitalization(.never)
-                            .keyboardType(.URL)
-                        SecureField("Pair code for trusted Wi-Fi", text: $model.pairCode)
-                            .textFieldStyle(.roundedBorder)
-                            .autocorrectionDisabled()
-                            .textInputAutocapitalization(.never)
-                        Text("Loopback is for simulator/local development. On iPhone, start the laptop with --lan PRIVATE_IP and ZOE_TRINITY_PAIR. Pairing is not encryption; use a trusted network. Codes are not persisted.")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                    .padding(.top, 8)
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Laptop connection")
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(GemPalette.muted)
+                    TextField("http://192.168.1.10:8767", text: $model.endpoint)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(GemPalette.surfaceHigh))
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .keyboardType(.URL)
+                    SecureField("Pair code for trusted Wi-Fi", text: $model.pairCode)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(GemPalette.surfaceHigh))
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                    Text("Start the laptop with --lan PRIVATE_IP and ZOE_TRINITY_PAIR. Pairing codes stay in memory only.")
+                        .font(.footnote)
+                        .foregroundStyle(GemPalette.muted)
                 }
-                GroupBox("The shared experiment") {
-                    VStack(alignment: .leading, spacing: 12) {
-                        TextField("Probabilities", text: $model.probabilities, axis: .vertical)
-                            .textFieldStyle(.roundedBorder)
-                            .lineLimit(2...5)
-                            .autocorrectionDisabled()
-                            .textInputAutocapitalization(.never)
-                        TextField("Threshold τ", text: $model.tau)
-                            .textFieldStyle(.roundedBorder)
-                            .keyboardType(.decimalPad)
-                    }
-                    .padding(.top, 8)
+                .padding(18)
+                .gemCard(radius: 22)
+
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Shared measurement")
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(GemPalette.muted)
+                    TextField("Probabilities", text: $model.probabilities, axis: .vertical)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(GemPalette.surfaceHigh))
+                        .lineLimit(2...5)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                    TextField("Threshold τ", text: $model.tau)
+                        .padding(14)
+                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(GemPalette.surfaceHigh))
+                        .keyboardType(.decimalPad)
                 }
-                HStack {
+                .padding(18)
+                .gemCard(radius: 22)
+
+                HStack(spacing: 10) {
                     Button(model.connected ? "Disconnect" : "Connect laptop", action: model.connect)
+                        .buttonStyle(GemPrimaryButtonStyle())
                     Button("Measure together", action: model.measure)
+                        .buttonStyle(GemKeycapButtonStyle())
                         .disabled(!model.connected || model.busy)
                 }
-                .buttonStyle(.borderedProminent)
                 Button("Fresh shared view") { confirmReset = true }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GemKeycapButtonStyle())
                     .disabled(!model.connected || model.busy)
-                plane("01 · Tiny Zoe / cell plane", text: model.tinyReport, color: .yellow)
-                plane("02 · Zoe mobile / native plane", text: model.mobileReport, color: .cyan)
-                plane("03 · Laptop Zoe / field plane", text: model.laptopReport, color: .pink)
-                plane("Field notes", text: model.history, color: .green)
+                plane("01 · Tiny Zoe", text: model.tinyReport, color: GemPalette.ochre)
+                plane("02 · Zoe mobile", text: model.mobileReport, color: GemPalette.cobalt)
+                plane("03 · Laptop Zoe", text: model.laptopReport, color: GemPalette.mulberry)
+                plane("Field notes", text: model.history, color: GemPalette.emerald)
                 Text("Observation ≠ evidence ≠ belief update ≠ action. Nicholas Michael Kloster alone created the original equation on March 6, 2026.")
                     .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(GemPalette.muted)
             }
-            .padding()
+            .padding(18)
         }
-        .background(Color(red: 8 / 255, green: 13 / 255, blue: 24 / 255))
+        .gemScreen()
         .onDisappear(perform: model.stop)
         .confirmationDialog("Start a fresh shared view?", isPresented: $confirmReset) {
             Button("Fresh view", role: .destructive, action: model.reset)
@@ -263,14 +271,12 @@ struct TrinityView: View {
     }
 
     private func plane(_ title: String, text: String, color: Color) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title).font(.headline.monospaced()).foregroundStyle(color)
-            Text(text).font(.callout.monospaced()).textSelection(.enabled)
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(color)
+            Text(text).font(.callout).foregroundStyle(GemPalette.ink).textSelection(.enabled)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(Color(red: 16 / 255, green: 27 / 255, blue: 43 / 255))
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(color, lineWidth: 1))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .padding(18)
+        .gemCard(radius: 22)
     }
 }

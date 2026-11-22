@@ -2,7 +2,10 @@ package research.zoetic.zoe;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,6 +25,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.Arrays;
+
 public final class MultiVisionActivity extends ComponentActivity {
     private static final int CAMERA_PERMISSION = 81;
     private PreviewView backPreview;
@@ -32,26 +37,30 @@ public final class MultiVisionActivity extends ComponentActivity {
     private TextView status;
     private ProcessCameraProvider cameraProvider;
     private LaptopStreamClient laptopClient;
-    private boolean started;
+    private volatile boolean started;
 
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         ScrollView scroll = new ScrollView(this);
+        scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
-        content.setPadding(Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 24));
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        content.setPadding(Ui.dp(this, 12), Ui.dp(this, 12), Ui.dp(this, 12), Ui.dp(this, 24));
         scroll.addView(content);
-        setContentView(scroll);
-        content.addView(Ui.heading(this, "Multi-view"));
+        setContentView(Ui.wrapWithBackdrop(this, scroll));
+        Ui.configureEdgeToEdge(this, content);
+
+        content.addView(Ui.topBar(this, "Multi-view", "Phone back · phone front · laptop bridge"));
         content.addView(Ui.text(this,
                 "Phone back + phone front + laptop over ADB localhost. Every source is independent; nothing is recorded by Zoe.",
-                15, Ui.MUTED));
-        status = Ui.text(this, "Multi-view is off. Start all sources when ready.", 16, Ui.YELLOW);
+                14.5f, Ui.MUTED));
+        status = Ui.text(this, "Multi-view is off. Start all sources when ready.", 15, Ui.YELLOW);
         status.setId(R.id.multi_status);
         content.addView(status);
-        Button start = Ui.button(this, "Start all sources", view -> startSources());
+        Button start = Ui.button(this, "Start all sources", Ui.CYAN, view -> startSources());
         start.setId(R.id.multi_start);
-        Button stop = Ui.button(this, "Stop all", view -> stopSources());
+        Button stop = Ui.button(this, "Stop all", Ui.RUBY, view -> stopSources());
         stop.setId(R.id.multi_stop);
         content.addView(Ui.buttonRow(this, start, stop));
         LinearLayout feeds = new LinearLayout(this);
@@ -65,31 +74,34 @@ public final class MultiVisionActivity extends ComponentActivity {
         feeds.addView(feed(frontPreview, frontStatus), feedParams());
         ImageView laptop = new ImageView(this);
         laptop.setId(R.id.laptop_view);
-        laptop.setBackgroundColor(Ui.BACKGROUND);
+        laptop.setBackgroundColor(android.graphics.Color.rgb(9, 17, 23));
         laptop.setScaleType(ImageView.ScaleType.FIT_CENTER);
         laptop.setContentDescription("Laptop camera feed over ADB localhost");
         feeds.addView(feed(laptop, laptopStatus), feedParams());
         int feedHeightDp = getResources().getConfiguration().orientation
-                == android.content.res.Configuration.ORIENTATION_LANDSCAPE ? 190 : 300;
+                == Configuration.ORIENTATION_LANDSCAPE ? 190 : 300;
         content.addView(feeds, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, feedHeightDp)));
         content.addView(Ui.text(this,
                 "Concurrent camera hardware is checked at runtime. If a source fails, its label says so while the others continue. Laptop streaming requires the local bridge on port 8766 and adb reverse.",
-                13, Ui.MUTED));
+                12.5f, Ui.MUTED));
     }
 
     private TextView feedLabel(String value) {
-        return Ui.text(this, value, 12, Ui.CYAN);
+        return Ui.text(this, value, 12, android.graphics.Color.rgb(160, 235, 228));
     }
 
-    private FrameLayout feed(android.view.View view, TextView label) {
+    private FrameLayout feed(View view, TextView label) {
         FrameLayout frame = new FrameLayout(this);
+        frame.setBackground(Ui.panelBackground(this, android.graphics.Color.rgb(9, 17, 23), Ui.BORDER, 16));
+        frame.setClipToOutline(true);
         frame.addView(view, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        label.setBackgroundColor(Ui.BACKGROUND);
+        label.setBackgroundColor(android.graphics.Color.argb(210, 9, 17, 23));
+        label.setGravity(Gravity.CENTER_HORIZONTAL);
         frame.addView(label, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT,
-                android.view.Gravity.BOTTOM | android.view.Gravity.CENTER_HORIZONTAL));
+                Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL));
         return frame;
     }
 
@@ -112,6 +124,9 @@ public final class MultiVisionActivity extends ComponentActivity {
         status.setText("Starting phone back, phone front, and laptop independently…");
         final ListenableFuture<ProcessCameraProvider> future = ProcessCameraProvider.getInstance(this);
         future.addListener(() -> {
+            if (!started || isFinishing() || isDestroyed()) {
+                return;
+            }
             try {
                 cameraProvider = future.get();
             } catch (Exception error) {
@@ -126,7 +141,7 @@ public final class MultiVisionActivity extends ComponentActivity {
             try {
                 UseCaseGroup backGroup = new UseCaseGroup.Builder().addUseCase(back).build();
                 UseCaseGroup frontGroup = new UseCaseGroup.Builder().addUseCase(front).build();
-                cameraProvider.bindToLifecycle(java.util.Arrays.asList(
+                cameraProvider.bindToLifecycle(Arrays.asList(
                         new ConcurrentCamera.SingleCameraConfig(CameraSelector.DEFAULT_BACK_CAMERA, backGroup, this),
                         new ConcurrentCamera.SingleCameraConfig(CameraSelector.DEFAULT_FRONT_CAMERA, frontGroup, this)));
                 backStatus.setText("Phone back · live");
@@ -184,8 +199,10 @@ public final class MultiVisionActivity extends ComponentActivity {
 
     @Override
     protected void onDestroy() {
+        started = false;
         if (laptopClient != null) {
             laptopClient.close();
+            laptopClient = null;
         }
         super.onDestroy();
     }

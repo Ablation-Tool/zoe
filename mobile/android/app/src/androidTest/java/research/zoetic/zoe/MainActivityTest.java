@@ -6,14 +6,17 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertEquals;
 
 import android.Manifest;
 
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.GrantPermissionRule;
@@ -73,5 +76,27 @@ public class MainActivityTest {
         onView(withText("Device field")).perform(scrollTo(), click());
         onView(withText("Speaker check")).perform(click());
         onView(withText(containsString("Battery:"))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void zappsCanBeReorderedAndReset() {
+        try {
+            onView(withId(R.id.home_arrange_zapps)).perform(scrollTo(), click());
+            onView(withId(R.id.home_reset_zapps)).perform(scrollTo(), click());
+            onView(withContentDescription("Pin SafeConvert to top")).perform(scrollTo(), click());
+            assertEquals("safeconvert", ZappLayoutStore.loadOrder(ApplicationProvider.getApplicationContext()).get(0));
+            onView(withId(R.id.home_reset_zapps)).perform(scrollTo(), click());
+            assertEquals("vision", ZappLayoutStore.loadOrder(ApplicationProvider.getApplicationContext()).get(0));
+            onView(withId(R.id.home_arrange_zapps)).perform(scrollTo(), click());
+        } finally {
+            ZappLayoutStore.resetOrder(ApplicationProvider.getApplicationContext());
+        }
+    }
+
+    @Test
+    public void tappingGemLogoReturnsToZoeHome() {
+        onView(withText("Guided vision")).perform(click());
+        onView(withId(R.id.zoe_gem_home)).perform(click());
+        onView(withText("Follow your curiosity.")).check(matches(isDisplayed()));
     }
 }

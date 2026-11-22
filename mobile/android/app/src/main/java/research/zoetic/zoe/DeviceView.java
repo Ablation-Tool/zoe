@@ -20,31 +20,29 @@ final class DeviceView extends ScrollView {
         super(activity);
         this.activity = activity;
         setFillViewport(true);
+        setBackgroundColor(android.graphics.Color.TRANSPARENT);
         android.widget.LinearLayout content = Ui.vertical(activity);
+        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         content.setPadding(Ui.dp(activity, 16), Ui.dp(activity, 8), Ui.dp(activity, 16), Ui.dp(activity, 24));
         addView(content);
         content.addView(Ui.heading(activity, "Device field"));
-        content.addView(Ui.text(activity, "NuClide Research = Zoe + Nick · stable and unstable in balance", 14, Ui.PINK));
         content.addView(Ui.text(activity,
-                "Local capability and battery observations. No Zoe-authored telemetry or image upload.",
-                16, Ui.MUTED));
-        report = Ui.text(activity, "", 16, Ui.TEXT);
+                "Local battery, speech & hardware telemetry.",
+                14, Ui.MUTED));
+        report = Ui.text(activity, "", 15.5f, Ui.TEXT);
         report.setBackground(Ui.panelBackground(activity, Ui.CYAN, 16));
         report.setPadding(Ui.dp(activity, 16), Ui.dp(activity, 16), Ui.dp(activity, 16), Ui.dp(activity, 16));
         content.addView(report);
         content.addView(Ui.buttonRow(activity,
-                Ui.button(activity, "Refresh", view -> refresh()),
-                Ui.button(activity, "Speaker check", view -> activity.speak(
+                Ui.primaryButton(activity, "Refresh", Ui.CYAN, view -> refresh()),
+                Ui.button(activity, "Speaker check", Ui.GREEN, view -> activity.speak(
                         "Zoe speaker check. Measurement, evidence, belief, and action remain distinct."))));
-        content.addView(Ui.button(activity, "Open Gemini", view -> activity.openGemini()));
-        content.addView(Ui.button(activity, "Toggle comfort mode", view -> {
-            activity.setComfortMode(!activity.isComfortMode());
-            refresh();
-        }));
-        content.addView(Ui.text(activity, "Nicholas + Cat · USA · PLACES = Play. Learn. Adapt. Create. Explore. Share.", 14, Ui.PINK));
-        content.addView(Ui.text(activity,
-                "Speaker output occurs only after the button is pressed. Sensor inventory does not activate motion, location, camera, or microphone streams.",
-                14, Ui.MUTED));
+        content.addView(Ui.buttonRow(activity,
+                Ui.button(activity, "Open Gemini", Ui.GOLD, view -> activity.openGemini()),
+                Ui.button(activity, "Toggle comfort mode", Ui.PINK, view -> {
+                    activity.setComfortMode(!activity.isComfortMode());
+                    refresh();
+                })));
     }
 
     void refresh() {
@@ -80,6 +78,8 @@ final class DeviceView extends ScrollView {
                 + "Microphone hardware: " + context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE) + "\n"
                 + "Speech service: " + SpeechRecognizer.isRecognitionAvailable(context) + "\n"
                 + "On-device speech available: " + onDeviceSpeech + "\n"
+                + "On-device Gemini Nano (AICore): " + DeviceAiController.runtimeDiagnostic(context) + "\n"
+                + "Network link: " + Ui.networkStatusLabel(context) + "\n"
                 + "Gemini app: " + gemini + "\n\n"
                 + "Comfort mode: " + (activity.isComfortMode() ? "on · relaxed speech + no activity animations" : "off") + "\n\n"
                 + "Capability is not correctness or authorization. Model and sensor availability must be checked at runtime.";

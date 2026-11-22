@@ -293,7 +293,7 @@
 
       <!-- Subtle wave labels with generous separation -->
       <text x="478" y="408" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" fill="#9cafc4" letter-spacing="0.8">SPECTRUM: Aτ(p) · M₂ · M₄^(1/4) · k*(κ)</text>
-      <text x="1144" y="408" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" fill="#86efac" letter-spacing="0.8">17 ENGINES · 62 GEM LAYERS · 456 VISUALS</text>
+      <text x="1144" y="408" text-anchor="end" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" fill="#86efac" letter-spacing="0.8">17 ENGINES · 66 GEM LAYERS · 456 VISUALS</text>
     </g>
   </g>
 
