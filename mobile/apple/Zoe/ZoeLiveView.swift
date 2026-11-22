@@ -1,6 +1,8 @@
+import ARKit
+import SceneKit
 import SwiftUI
 
-/// Zoe Explore — Gemini-Live-Style Simultaneous Live Camera & Continuous Voice Orb for Apple (v0.6.2-beta).
+/// Zoe Explore — Simultaneous Live Camera, Native ARKit 3D Space Companion & Continuous Voice for Apple (v0.7.0-beta).
 struct ZoeLiveView: View {
     @StateObject private var speech = SpeechController()
     @StateObject private var speaker = Speaker()
@@ -11,15 +13,22 @@ struct ZoeLiveView: View {
     @State private var active = false
     @State private var hiZoeMode = false
     @State private var cameraOn = false
+    @State private var arModeOn = false
+    @State private var arRoamOn = true
+    @State private var arStatus = "● ARKit 6DoF · Scanning surfaces…"
     @State private var pulse = false
     @State private var useNativeVoice = false
-    @State private var caption = "Hi, I'm Zoe. Tap the orb to talk hands-free, or tap Live + Cam to show me your world and talk all at once."
+    @State private var caption = "Hi, I'm Zoe. Tap the orb to talk hands-free, Live + Cam for sight + voice, or ✦ AR Space to let Zoe float and explore your room!"
     @State private var stateLabel = "TAP ORB TO GO LIVE · MIC & CAMERA START OFF"
 
     var body: some View {
         VStack(spacing: 14) {
             HStack(spacing: 6) {
-                Button(cameraOn ? "Camera: on" : "Camera: off") {
+                Button(arModeOn ? "Camera: AR" : (cameraOn ? "Camera: on" : "Camera: off")) {
+                    if arModeOn {
+                        arModeOn = false
+                        return
+                    }
                     cameraOn.toggle()
                     if cameraOn {
                         camera.start()
@@ -27,7 +36,7 @@ struct ZoeLiveView: View {
                         camera.stop()
                     }
                 }
-                .buttonStyle(GemKeycapButtonStyle(accent: cameraOn ? GemPalette.emerald : GemPalette.muted))
+                .buttonStyle(GemKeycapButtonStyle(accent: (cameraOn || arModeOn) ? GemPalette.emerald : GemPalette.muted))
 
                 Button(hiZoeMode ? "Hi Zoe: on" : "Hi Zoe: off") {
                     hiZoeMode.toggle()
@@ -49,7 +58,36 @@ struct ZoeLiveView: View {
             }
             .padding(.horizontal, 16)
 
-            if cameraOn {
+            if arModeOn {
+                ZStack(alignment: .topLeading) {
+                    ZoeArKitSpaceView(roamEnabled: $arRoamOn, statusText: $arStatus) { spotted in
+                        let q = ArExploreCore.buildCuriousQuestion(for: spotted)
+                        caption = q
+                        speakClean(q)
+                    }
+                    .frame(height: 320)
+                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+
+                    HStack {
+                        Text(arStatus)
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(.ultraThinMaterial, in: Capsule())
+                        Spacer()
+                        Button(arRoamOn ? "Roam: on" : "Roam: off") {
+                            arRoamOn.toggle()
+                        }
+                        .font(.caption2.weight(.semibold))
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial, in: Capsule())
+                    }
+                    .padding(10)
+                }
+                .padding(.horizontal, 16)
+            } else if cameraOn {
                 ZStack(alignment: .topTrailing) {
                     CameraPreview(session: camera.session)
                         .frame(height: 210)
@@ -69,33 +107,34 @@ struct ZoeLiveView: View {
                 .padding(.horizontal, 16)
             }
 
-            Spacer(minLength: 4)
+            if !arModeOn {
+                Spacer(minLength: 4)
+                Button(action: onOrbTap) {
+                    ZStack {
+                        Circle()
+                            .fill(RadialGradient(
+                                colors: [
+                                    (active ? GemPalette.emerald : GemPalette.cobalt).opacity(0.65),
+                                    GemPalette.seafoam.opacity(0.18),
+                                    Color.clear,
+                                ],
+                                center: .center,
+                                startRadius: 20,
+                                endRadius: cameraOn ? 78 : 112
+                            ))
+                            .frame(width: cameraOn ? 148 : 212, height: cameraOn ? 148 : 212)
+                            .scaleEffect(pulse ? 1.07 : 0.94)
+                            .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: pulse)
 
-            Button(action: onOrbTap) {
-                ZStack {
-                    Circle()
-                        .fill(RadialGradient(
-                            colors: [
-                                (active ? GemPalette.emerald : GemPalette.cobalt).opacity(0.65),
-                                GemPalette.seafoam.opacity(0.18),
-                                Color.clear,
-                            ],
-                            center: .center,
-                            startRadius: 20,
-                            endRadius: cameraOn ? 78 : 112
-                        ))
-                        .frame(width: cameraOn ? 148 : 212, height: cameraOn ? 148 : 212)
-                        .scaleEffect(pulse ? 1.07 : 0.94)
-                        .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: pulse)
-
-                    Image("RubySprout")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: cameraOn ? 46 : 64, height: cameraOn ? 46 : 64)
+                        Image("RubySprout")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: cameraOn ? 46 : 64, height: cameraOn ? 46 : 64)
+                    }
                 }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Zoe Explore orb. Tap to speak or interrupt.")
             }
-            .buttonStyle(.plain)
-            .accessibilityLabel("Zoe Explore orb. Tap to speak or interrupt.")
 
             Text(stateLabel)
                 .font(.caption.weight(.semibold))
@@ -110,12 +149,35 @@ struct ZoeLiveView: View {
                 .gemCard(radius: 22)
                 .padding(.horizontal, 16)
 
+            HStack(spacing: 8) {
+                Button(arModeOn ? "✦ AR: On" : "✦ AR Space") {
+                    if arModeOn {
+                        arModeOn = false
+                    } else {
+                        cameraOn = false
+                        camera.stop()
+                        arModeOn = true
+                        onOrbTap()
+                    }
+                }
+                .buttonStyle(GemKeycapButtonStyle(accent: arModeOn ? GemPalette.cobalt : GemPalette.muted))
+
+                Button("Sing Zoe") {
+                    stateLabel = "SINGING ZOE (44.1 kHz OFFLINE)"
+                    caption = "Singing Zoe's native soprano melody offline…"
+                    nativeVoice.singZoe()
+                }
+                .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.ruby))
+            }
+            .padding(.horizontal, 16)
+
             Spacer(minLength: 4)
 
             HStack(spacing: 8) {
                 Button(active ? "Listening…" : "Talk Now", action: onOrbTap)
                     .buttonStyle(GemPrimaryButtonStyle())
-                Button(cameraOn && active ? "Cam Live" : "Live + Cam") {
+                Button(arModeOn ? "AR Live" : (cameraOn && active ? "Cam Live" : "Live + Cam")) {
+                    arModeOn = false
                     if !cameraOn {
                         cameraOn = true
                         camera.start()
@@ -205,7 +267,7 @@ struct ZoeLiveView: View {
         speaker.stop()
         nativeVoice.stop()
         active = true
-        stateLabel = cameraOn ? "LIVE VOICE + SIGHT · SPEAK NATURALLY" : "LIVE · LISTENING NATURALLY"
+        stateLabel = arModeOn ? "AR SPACE LIVE · EXPLORE & TALK" : (cameraOn ? "LIVE VOICE + SIGHT · SPEAK NATURALLY" : "LIVE · LISTENING NATURALLY")
         speech.start()
     }
 
@@ -213,10 +275,101 @@ struct ZoeLiveView: View {
         active = false
         hiZoeMode = false
         cameraOn = false
+        arModeOn = false
         speech.stop()
         speaker.stop()
         nativeVoice.stop()
         camera.stop()
         stateLabel = "EXPLORE PAUSED · MIC & CAMERA OFF"
+    }
+}
+
+/// Native Apple ARKit 6DoF + SceneKit Floating 3D GEM Companion View.
+struct ZoeArKitSpaceView: UIViewRepresentable {
+    @Binding var roamEnabled: Bool
+    @Binding var statusText: String
+    var onSpotTapped: (ArExploreCore.SpatialDiscovery) -> Void
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    func makeUIView(context: Context) -> ARSCNView {
+        let view = ARSCNView(frame: .zero)
+        view.delegate = context.coordinator
+        view.automaticallyUpdatesLighting = true
+
+        // Build Zoe's glowing 3D GEM Prism + Halo Ring node
+        let pyramidTop = SCNPyramid(width: 0.12, height: 0.12, length: 0.12)
+        pyramidTop.firstMaterial?.diffuse.contents = UIColor(red: 0.38, green: 0.68, blue: 1.0, alpha: 0.88)
+        pyramidTop.firstMaterial?.emission.contents = UIColor(red: 0.22, green: 0.52, blue: 0.96, alpha: 0.45)
+        let topNode = SCNNode(geometry: pyramidTop)
+
+        let ring = SCNTorus(ringRadius: 0.14, pipeRadius: 0.004)
+        ring.firstMaterial?.diffuse.contents = UIColor(red: 0.42, green: 0.90, blue: 0.80, alpha: 0.85)
+        let ringNode = SCNNode(geometry: ring)
+        ringNode.eulerAngles.x = .pi / 5
+
+        let zoeRoot = SCNNode()
+        zoeRoot.position = SCNVector3(0, -0.05, -1.1)
+        zoeRoot.addChildNode(topNode)
+        zoeRoot.addChildNode(ringNode)
+        zoeRoot.runAction(.repeatForever(.rotateBy(x: 0, y: .pi * 2, z: 0, duration: 9.0)))
+        view.scene.rootNode.addChildNode(zoeRoot)
+        context.coordinator.zoeNode = zoeRoot
+
+        let tap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
+        view.addGestureRecognizer(tap)
+
+        let cfg = ARWorldTrackingConfiguration()
+        cfg.planeDetection = [.horizontal, .vertical]
+        view.session.run(cfg)
+        return view
+    }
+
+    func updateUIView(_ uiView: ARSCNView, context: Context) {
+        context.coordinator.parent = self
+    }
+
+    static func dismantleUIView(_ uiView: ARSCNView, coordinator: Coordinator) {
+        uiView.session.pause()
+    }
+
+    final class Coordinator: NSObject, ARSCNViewDelegate {
+        var parent: ZoeArKitSpaceView
+        weak var zoeNode: SCNNode?
+        private var planeCount = 0
+
+        init(parent: ZoeArKitSpaceView) {
+            self.parent = parent
+        }
+
+        func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+            guard anchor is ARPlaneAnchor else { return }
+            planeCount += 1
+            let count = planeCount
+            DispatchQueue.main.async {
+                self.parent.statusText = "● ARKit 6DoF · \(count) surfaces"
+            }
+        }
+
+        @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+            guard let view = gesture.view as? ARSCNView else { return }
+            let pt = gesture.location(in: view)
+            guard let query = view.raycastQuery(from: pt, allowing: .estimatedPlane, alignment: .any),
+                  let hit = view.session.raycast(query).first,
+                  let zoeNode else { return }
+            let t = hit.worldTransform.columns.3
+            let dest = SCNVector3(t.x, t.y + ArExploreCore.hoverClearanceM, t.z)
+            zoeNode.runAction(SCNAction.move(to: dest, duration: 0.85))
+            let dist = sqrt(t.x * t.x + t.y * t.y + t.z * t.z)
+            let disc = ArExploreCore.SpatialDiscovery(
+                primaryLabel: "surface",
+                ocrSnippet: "",
+                position: ArExploreCore.Vec3(x: t.x, y: t.y, z: t.z),
+                distanceMeters: dist
+            )
+            parent.onSpotTapped(disc)
+        }
     }
 }

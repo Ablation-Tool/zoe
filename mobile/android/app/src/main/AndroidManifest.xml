@@ -4,6 +4,7 @@
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
     <uses-feature android:name="android.hardware.nfc" android:required="false" />
+    <uses-feature android:glEsVersion="0x00020000" android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -32,6 +33,7 @@
         <package android:name="com.google.android.apps.safetyhub" />
         <package android:name="com.android.emergency" />
         <package android:name="com.google.android.aicore" />
+        <package android:name="com.google.ar.core" />
         <intent>
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="claude" />
@@ -79,6 +81,9 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.Zoe">
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="optional" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,6 +1,6 @@
 # Zoe (beta) — Complete Zapps Guide
 
-Welcome to **Zoe (beta)** (`v0.6.2-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.7.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
 
 > **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
 
@@ -24,7 +24,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 |:-:|:---|:---|:---|:---|
 | **1** | **Guided Vision** | Look around with your camera & read text/labels aloud on demand | Android · Apple | Offline OCR & labels (camera stays OFF until **Start camera**; analyzes 1 frame only when you tap **Inspect once**) |
 | **2** | **Talk** | Hybrid bubble chat with **Smart `⚡ Auto` Router**, **Zoe Local**, **Opt-In Live Web Grounding**, **`+ Attach` Photo & Video**, Native Voice & **Multi-AI Streaming** | Android · Apple | **Offline-first by default** (`Web: off` until tapped); attaches photos & 3-frame video analysis offline, runs MediaPipe LiteRT `.task` models locally, fetches zero-key HTTPS DuckDuckGo + Wikipedia citations on demand, & streams multi-turn BYOK (**Gemini, Claude, ChatGPT, Grok, Local OpenAI**) |
-| **3** | **Zoe Explore** | Calm 60fps breathing **Voice Orb**, opt-in **`"Hi Zoe"`** hangout wake-word, & optional **Live Camera Sight** | Android · Apple | Mic, camera & `"Hi Zoe"` start **strictly OFF** until tapped; tap orb to speak/interrupt, toggle **Camera: on** to **Look & Discuss** live, plus Pixel `ACTION_ASSIST` & launcher shortcut |
+| **3** | **Zoe Explore** | Calm 60fps breathing **Voice Orb**, 1-tap **`✦ AR Space`** (ARCore / ARKit 6DoF floating 3D Zoe prism that roams your room & asks curious questions!), **`Live + Cam`** simultaneous sight + voice, & opt-in **`"Hi Zoe"`** wake-word | Android · Apple | Mic, camera, ARCore/ARKit & `"Hi Zoe"` start **strictly OFF** until tapped; tap anywhere in AR space to call Zoe over, toggle `Roam: on/off`, plus Pixel `ACTION_ASSIST` & launcher shortcut |
 | **4** | **Creative Studio** | **Image Lab** (plain-English & filter photo editor) + native offline **H.264 MP4 Video Maker** | Android · Apple | **100% offline editing & MP4 encoding** (film filters, rotate, crop, privacy blur, captions, Chladni Wave / Photo Story Reel / Starlight videos, zero watermarks); optional BYOK online AI image gen |
 | **5** | **Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe**, **Kloster Signal**, & **20 Questions** | Android · Apple | **100% offline, zero ads, zero tracking** — musical harmonic chimes, Kid Mode & Unbeatable Minimax AI, strict $A_\tau(p)$ puzzle, & mystery trivia |
 | **6** | **Privacy Vault** | Signal-grade **AES-256-GCM** encrypted chat vault, **ECDH/HKDF E2EE**, & **60-digit Safety Number** | Android · Apple | Hardware AndroidKeyStore / Apple CryptoKit P-256 ECDH + HKDF-SHA256 + Symmetric Chain Ratchet + AES-256-GCM at-rest encryption & 1-tap share via Signal |

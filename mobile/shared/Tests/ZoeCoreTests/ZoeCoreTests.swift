@@ -276,6 +276,35 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(fpAB.filter { $0.isNumber }.count, 60)
     }
 
+    func testArExploreSpatialPhysicsPlanningAndCuriousQuestions() {
+        let cur = ArExploreCore.Vec3(x: 0, y: 0, z: -1)
+        let tgt = ArExploreCore.Vec3(x: 1, y: 0.4, z: -2)
+        let stepped = ArExploreCore.stepGlide(current: cur, target: tgt, dtSec: 0.05, speed: 3.0)
+        XCTAssertTrue(stepped.distance(to: tgt) < cur.distance(to: tgt))
+
+        let cam = ArExploreCore.Vec3(x: 0, y: 0, z: 0)
+        let planes = [
+            ArExploreCore.PlaneTarget(id: "desk", center: ArExploreCore.Vec3(x: 0.2, y: -0.3, z: -1.3), extentX: 1.5, extentZ: 1.0, vertical: false),
+            ArExploreCore.PlaneTarget(id: "wall", center: ArExploreCore.Vec3(x: -0.7, y: 0.1, z: -1.8), extentX: 0.9, extentZ: 0.7, vertical: true),
+        ]
+        let first = ArExploreCore.chooseNextExploreTarget(cameraPos: cam, planes: planes, visitedIds: [])
+        XCTAssertEqual(first?.id, "desk")
+        let second = ArExploreCore.chooseNextExploreTarget(cameraPos: cam, planes: planes, visitedIds: ["desk"])
+        XCTAssertEqual(second?.id, "wall")
+
+        let d1 = ArExploreCore.SpatialDiscovery(
+            primaryLabel: "Guitar",
+            ocrSnippet: "FENDER",
+            position: ArExploreCore.Vec3(x: 0.4, y: -0.1, z: -1.4),
+            distanceMeters: 1.45
+        )
+        XCTAssertTrue(ArExploreCore.isDuplicateDiscovery(candidate: d1, existing: [d1]))
+        let q = ArExploreCore.buildCuriousQuestion(for: d1)
+        XCTAssertTrue(q.contains("guitar"))
+        XCTAssertTrue(q.contains("FENDER"))
+        XCTAssertTrue(q.hasSuffix("?"))
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,
