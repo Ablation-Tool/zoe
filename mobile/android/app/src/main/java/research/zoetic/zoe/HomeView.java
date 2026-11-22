@@ -588,7 +588,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.6.1-beta · Explore, Vault, Studio, Arcade & Hybrid · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.6.2-beta · Explore Live, Vault, Studio, Arcade & Hybrid · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

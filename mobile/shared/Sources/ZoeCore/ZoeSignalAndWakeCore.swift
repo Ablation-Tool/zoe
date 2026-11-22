@@ -6,11 +6,15 @@ public enum ZoeSignalAndWakeCore {
     private static let wakeTriggers = [
         "hi zoe", "hey zoe", "hello zoe", "hang out zoe", "hangout zoe",
         "ok zoe", "okay zoe", "yo zoe", "hi zoey", "hey zoey",
+        "hello zoey", "hi zo", "hey zo",
     ]
 
     public static func isHiZoeTrigger(_ transcript: String) -> Bool {
         let norm = normalize(transcript)
         guard !norm.isEmpty else { return false }
+        if norm == "zoe" || norm == "zoey" {
+            return true
+        }
         for t in wakeTriggers {
             if norm == t || norm.hasPrefix(t + " ") || norm.contains(" " + t) {
                 return true
@@ -21,7 +25,9 @@ public enum ZoeSignalAndWakeCore {
 
     public static func stripWakePrefix(_ transcript: String) -> String {
         let trimmed = transcript.trimmingCharacters(in: .whitespacesAndNewlines)
-        let lower = trimmed.lowercased()
+        let lower = trimmed.replacingOccurrences(of: "ë", with: "e")
+            .replacingOccurrences(of: "Ë", with: "E")
+            .lowercased()
         for t in wakeTriggers {
             if let range = lower.range(of: t) {
                 let offset = lower.distance(from: lower.startIndex, to: range.upperBound)
@@ -29,7 +35,23 @@ public enum ZoeSignalAndWakeCore {
                     .trimmingCharacters(in: CharacterSet(charactersIn: " ,.:;!?-\t\n"))
             }
         }
+        if lower == "zoe" || lower == "zoey" {
+            return ""
+        }
         return trimmed
+    }
+
+    /// Strips markdown markers and raw URLs so spoken responses sound natural and conversational.
+    public static func sanitizeForSpeech(_ raw: String) -> String {
+        var s = raw
+        for token in ["**", "__", "`", "### ", "## ", "# ", "—", "–"] {
+            s = s.replacingOccurrences(of: token, with: token == "—" || token == "–" ? ", " : " ")
+        }
+        let words = s.split(whereSeparator: { $0.isWhitespace })
+            .filter { !$0.hasPrefix("http://") && !$0.hasPrefix("https://") }
+            .map { $0.trimmingCharacters(in: CharacterSet(charactersIn: "*_~#")) }
+            .filter { !$0.isEmpty }
+        return words.joined(separator: " ")
     }
 
     /// Computes a canonical 60-digit Safety Number fingerprint from two identity key byte arrays
@@ -132,7 +154,11 @@ public enum ZoeSignalAndWakeCore {
     }
 
     private static func normalize(_ s: String) -> String {
-        let lower = s.lowercased()
+        let folded = s.replacingOccurrences(of: "ë", with: "e")
+            .replacingOccurrences(of: "Ë", with: "E")
+            .replacingOccurrences(of: "é", with: "e")
+            .replacingOccurrences(of: "É", with: "E")
+        let lower = folded.lowercased()
         let cleaned = lower.unicodeScalars.map { CharacterSet.alphanumerics.contains($0) ? Character($0) : " " }
         return String(cleaned).split(whereSeparator: { $0.isWhitespace }).joined(separator: " ")
     }

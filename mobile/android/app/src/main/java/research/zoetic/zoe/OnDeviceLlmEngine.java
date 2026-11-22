@@ -316,6 +316,27 @@ final class OnDeviceLlmEngine {
         return dest;
     }
 
+    /** Pre-loads the MediaPipe LiteRT model into memory on a background thread for low-latency live voice. */
+    synchronized void warmUp(File modelFile) {
+        if (modelFile == null || !modelFile.isFile()) {
+            return;
+        }
+        try {
+            String path = modelFile.getAbsolutePath();
+            if (engine == null || !path.equals(loadedPath)) {
+                close();
+                LlmInference.LlmInferenceOptions options = LlmInference.LlmInferenceOptions.builder()
+                        .setModelPath(path)
+                        .setMaxTokens(1024)
+                        .setMaxTopK(40)
+                        .build();
+                engine = LlmInference.createFromOptions(appContext, options);
+                loadedPath = path;
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
     synchronized String generateStreaming(
             File modelFile,
             String prompt,

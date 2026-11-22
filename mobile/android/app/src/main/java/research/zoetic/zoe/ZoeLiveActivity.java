@@ -12,15 +12,21 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.Shader;
+import android.media.AudioAttributes;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
+import android.speech.tts.Voice;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -29,6 +35,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
+import androidx.annotation.NonNull;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -42,20 +49,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Zoe Live — Calm Voice & Optional Live Camera Orb (v0.6.0-beta).
+ * Zoe Explore — Flawless Gemini-Live-Style Real-Time Voice + Simultaneous Live Camera Orb (v0.6.2-beta).
  *
- *   - Full-screen breathing GEM audio-reactive orb with 4 visual states (Idle, Listening, Thinking, Speaking)
- *   - Tap the orb anytime for barge-in interrupt & live speaking
- *   - Optional Live Camera sight (`Camera: off/on`, strictly OFF until tapped!) with 1-tap "Look & Discuss"
- *   - Hybrid routing: Cloud SSE (if keyed) -> Zoe Local 1.5B (if installed) -> Zoe Stem (<5ms),
- *     plus optional Live Web citations and Zoe's 44.1 kHz Native Voice synth.
+ * Key architecture:
+ *   - Simultaneous Live Camera Sight + Continuous Hands-Free Voice Conversation (talk & look all at once!)
+ *   - Pixel on-device SpeechRecognizer (API 31+) with silent auto-rearm on pauses (never aborts on code 6/7!)
+ *   - Sentence-level real-time streaming TTS (`QUEUE_ADD`) so Zoe speaks Sentence 1 while Sentence 2 generates
+ *   - Turn-ID barge-in cancellation (`AtomicLong`) + post-TTS echo guard (260ms) + background LLM warm-up
+ *   - Proper runtime permission flow (`onRequestPermissionsResult`) so 1 tap starts live immediately
+ *   - Privacy-first (`CONSTITUTION.md`): both mic and camera start strictly OFF until tapped, and release on stop.
  */
 public final class ZoeLiveActivity extends ComponentActivity {
     private static final int PERM_REQ = 84;
+    private static final long CAMERA_REFRESH_INTERVAL_MS = 2400L;
+    private static final long ECHO_GUARD_MS = 260L;
 
     private enum OrbState {
         IDLE,
@@ -64,7 +79,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
         SPEAKING
     }
 
+    private enum PendingAction {
+        NONE,
+        START_VOICE_ONLY,
+        START_LIVE_PLUS_CAM,
+        START_HIZOE,
+        START_CAMERA_ONLY
+    }
+
     private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final AtomicLong activeTurnId = new AtomicLong(0L);
+    private final AtomicLong listenGen = new AtomicLong(0L);
+    private final AtomicBoolean cameraAnalysisBusy = new AtomicBoolean(false);
+
     private ZoeBrainEngine brain;
     private ZoeNativeVoice nativeVoice;
     private OnDeviceLlmEngine localLlm;
@@ -73,24 +101,51 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private LiveOrbView orbView;
     private TextView stateBadge;
     private TextView captionView;
+    private ScrollView captionScroll;
     private PreviewView cameraPreview;
     private FrameLayout cameraCard;
+    private TextView cameraSightPill;
     private Button cameraToggleBtn;
     private Button lookNowBtn;
+    private Button flipCamBtn;
     private Button webToggleBtn;
     private Button hiZoeToggleBtn;
     private Button voiceModeBtn;
     private Button listenBtn;
+    private Button liveCamBtn;
 
     private ProcessCameraProvider cameraProvider;
     private TextToSpeech tts;
     private SpeechRecognizer recognizer;
+    private PendingAction pendingAction = PendingAction.NONE;
+
     private boolean ttsReady;
     private boolean cameraOn;
+    private boolean useFrontCamera;
     private boolean webOn;
     private boolean hiZoeWakeMode;
     private boolean useNativeVoice;
     private boolean callActive;
+    private boolean preferDeviceRecognizer = true;
+    private int consecutiveErrors;
+
+    private volatile String latestCameraReport = "";
+    private volatile byte[] latestCameraJpeg;
+    private String pendingSpeechOnReady = "";
+    private String lastUserSpoken = "";
+    private final AtomicInteger pendingTtsChunks = new AtomicInteger(0);
+    private volatile boolean streamCompletedForCurrentTurn = true;
+
+    private final Runnable cameraObserverTick = new Runnable() {
+        @Override
+        public void run() {
+            if (!cameraOn || isFinishing() || isDestroyed()) {
+                return;
+            }
+            captureBackgroundCameraFrame();
+            mainHandler.postDelayed(this, CAMERA_REFRESH_INTERVAL_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +153,14 @@ public final class ZoeLiveActivity extends ComponentActivity {
         brain = new ZoeBrainEngine(this);
         nativeVoice = new ZoeNativeVoice();
         localLlm = new OnDeviceLlmEngine(this);
+
+        // Pre-warm on-device 1.5B LLM silently in the background so your first spoken turn responds fast!
+        executor.execute(() -> {
+            File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+            if (localModel != null) {
+                localLlm.warmUp(localModel);
+            }
+        });
 
         LinearLayout root = Ui.vertical(this);
         root.setBackgroundColor(Color.TRANSPARENT);
@@ -107,7 +170,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 4));
         header.addView(Ui.topBar(this, "Zoe Explore", null));
 
-        // Sleek borderless translucent mini-pills (zero harsh borders)
+        // Sleek borderless translucent mini-pills (active pills light up cleanly!)
         LinearLayout toggles = new LinearLayout(this);
         toggles.setOrientation(LinearLayout.HORIZONTAL);
         toggles.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
@@ -130,96 +193,158 @@ public final class ZoeLiveActivity extends ComponentActivity {
         header.addView(toggles);
         root.addView(header);
 
-        ScrollView scroll = new ScrollView(this);
-        scroll.setFillViewport(true);
-        scroll.setBackgroundColor(Color.TRANSPARENT);
+        captionScroll = new ScrollView(this);
+        captionScroll.setFillViewport(true);
+        captionScroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout center = Ui.vertical(this);
         center.setGravity(Gravity.CENTER_HORIZONTAL);
-        center.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 12));
+        center.setPadding(Ui.dp(this, 18), Ui.dp(this, 6), Ui.dp(this, 18), Ui.dp(this, 12));
 
-        // Optional Live Camera Preview Card (hidden & OFF until tapped!)
+        // Live Camera Sight Card (hidden & OFF until tapped; runs simultaneously with voice!)
         cameraCard = new FrameLayout(this);
         cameraCard.setBackground(Ui.cardBackground(this, 24));
         cameraCard.setPadding(Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
         cameraPreview = new PreviewView(this);
         cameraPreview.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
+        cameraPreview.setScaleType(PreviewView.ScaleType.FILL_CENTER);
+        cameraPreview.setOutlineProvider(new android.view.ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, android.graphics.Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(ZoeLiveActivity.this, 18));
+            }
+        });
+        cameraPreview.setClipToOutline(true);
         cameraCard.addView(cameraPreview, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 210)));
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 224)));
+
+        // Subtle live overlay controls inside camera viewfinder (LIVE SIGHT pill + Flip + Look now)
+        LinearLayout camOverlayTop = new LinearLayout(this);
+        camOverlayTop.setOrientation(LinearLayout.HORIZONTAL);
+        camOverlayTop.setGravity(Gravity.CENTER_VERTICAL);
+        camOverlayTop.setPadding(Ui.dp(this, 10), Ui.dp(this, 10), Ui.dp(this, 10), 0);
+
+        cameraSightPill = Ui.text(this, "● LIVE SIGHT", 11f, Ui.GREEN);
+        cameraSightPill.setTypeface(Ui.SANS_MEDIUM);
+        cameraSightPill.setPadding(Ui.dp(this, 10), Ui.dp(this, 5), Ui.dp(this, 10), Ui.dp(this, 5));
+        cameraSightPill.setBackground(Ui.tonalPillDrawable(this, Color.argb(185, 14, 18, 26), Ui.GREEN, 14));
+        camOverlayTop.addView(cameraSightPill);
+
+        View camSpacer = new View(this);
+        camOverlayTop.addView(camSpacer, new LinearLayout.LayoutParams(0, 1, 1f));
+
+        flipCamBtn = chipButton("⇄ Flip", v -> flipCamera());
+        flipCamBtn.setId(R.id.live_flip_camera);
+        flipCamBtn.setTextColor(Color.WHITE);
+        flipCamBtn.setBackground(Ui.tonalPillDrawable(this, Color.argb(185, 14, 18, 26), Ui.primaryAccent(this), 16));
+        LinearLayout.LayoutParams flipLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32));
+        flipLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        camOverlayTop.addView(flipCamBtn, flipLp);
+
+        lookNowBtn = chipButton("Look now", v -> describeLiveViewProactively());
+        lookNowBtn.setId(R.id.live_look_button);
+        lookNowBtn.setTextColor(Color.WHITE);
+        lookNowBtn.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.COBALT), 215), Ui.COBALT, 16));
+        camOverlayTop.addView(lookNowBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32)));
+
+        cameraCard.addView(camOverlayTop, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.TOP));
         cameraCard.setVisibility(View.GONE);
+
         LinearLayout.LayoutParams camLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 222));
-        camLp.setMargins(0, 0, 0, Ui.dp(this, 12));
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 236));
+        camLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         center.addView(cameraCard, camLp);
 
-        lookNowBtn = Ui.primaryButton(this, "Look & Discuss This View", Ui.CYAN, v -> captureAndDiscussCamera());
-        lookNowBtn.setId(R.id.live_look_button);
-        lookNowBtn.setVisibility(View.GONE);
-        center.addView(lookNowBtn);
-
-        // Breathing GEM Audio Orb (tap anytime to talk or barge-in!)
+        // Breathing 60fps Audio-Reactive GEM Orb (tap anytime to talk or interrupt mid-sentence!)
         orbView = new LiveOrbView(this);
         orbView.setId(R.id.live_orb_view);
-        orbView.setContentDescription("Zoe Live orb. Tap to speak or interrupt.");
+        orbView.setContentDescription("Zoe Explore orb. Tap to speak or interrupt.");
         orbView.setClickable(true);
         orbView.setFocusable(true);
         orbView.setOnClickListener(v -> onOrbTapped());
-        LinearLayout.LayoutParams orbLp = new LinearLayout.LayoutParams(Ui.dp(this, 220), Ui.dp(this, 220));
-        orbLp.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
+        LinearLayout.LayoutParams orbLp = new LinearLayout.LayoutParams(Ui.dp(this, 212), Ui.dp(this, 212));
+        orbLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
         center.addView(orbView, orbLp);
 
-        stateBadge = Ui.text(this, "TAP ORB TO TALK · MIC & CAMERA START OFF", 12.5f, Ui.COBALT);
+        stateBadge = Ui.text(this, "TAP ORB TO GO LIVE · MIC & CAMERA START OFF", 12f, Ui.COBALT);
         stateBadge.setId(R.id.live_state_badge);
         stateBadge.setTypeface(Ui.SANS_MEDIUM);
         stateBadge.setGravity(Gravity.CENTER);
         center.addView(stateBadge);
 
         captionView = Ui.text(this,
-                "Hi, I'm Zoe. Tap the orb or Talk Now whenever you want to have a calm hands-free conversation — or turn on Camera to show me something.",
-                16f, Ui.TEXT);
+                "Hi, I'm Zoe. Tap the orb to talk hands-free, or tap Live + Cam to show me your world and talk all at once.",
+                15.5f, Ui.TEXT);
         captionView.setId(R.id.live_caption_view);
         captionView.setGravity(Gravity.CENTER);
-        captionView.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        captionView.setPadding(Ui.dp(this, 18), Ui.dp(this, 16), Ui.dp(this, 18), Ui.dp(this, 16));
         captionView.setBackground(Ui.cardBackground(this, 22));
         LinearLayout.LayoutParams capLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         capLp.setMargins(0, Ui.dp(this, 12), 0, Ui.dp(this, 12));
         center.addView(captionView, capLp);
 
-        // Quick spoken conversation starters (accessible even without mic!)
+        // Clean borderless quick starters (accessible even without mic!)
         LinearLayout quickChips = new LinearLayout(this);
         quickChips.setOrientation(LinearLayout.HORIZONTAL);
         quickChips.setGravity(Gravity.CENTER);
-        Button q1 = chipButton("Tell me a calm fact", v -> processSpokenPrompt("Tell me one calm, fascinating science fact in two sentences."));
-        Button q2 = chipButton("Sing Zoe", v -> {
-            setOrbState(OrbState.SPEAKING, "SINGING ZOE (44.1 kHz OFFLINE)");
-            captionView.setText("Singing Zoe's native Rosenberg-Klatt soprano melody (zero cloud APIs)...");
-            nativeVoice.singZoe(() -> runOnUiThread(() -> setOrbState(OrbState.IDLE, "READY · TAP ORB TO TALK")));
+        Button q1 = chipButton("Tell me a calm fact", v -> {
+            callActive = false;
+            processSpokenPrompt("Tell me one calm, fascinating science fact in two spoken sentences.");
         });
-        LinearLayout.LayoutParams qLp = new LinearLayout.LayoutParams(0, Ui.dp(this, 42), 1f);
-        qLp.setMargins(0, 0, Ui.dp(this, 6), 0);
+        Button q2 = chipButton("Sing Zoe", v -> {
+            long myTurn = activeTurnId.incrementAndGet();
+            stopAudioOnly();
+            setOrbState(OrbState.SPEAKING, "SINGING ZOE (44.1 kHz OFFLINE)");
+            captionView.setText("Singing Zoe's native Rosenberg-Klatt soprano melody (zero cloud APIs)…");
+            nativeVoice.singZoe(() -> runOnUiThread(() -> {
+                if (myTurn == activeTurnId.get() && !isFinishing() && !isDestroyed()) {
+                    if (callActive) {
+                        scheduleListeningRearm(ECHO_GUARD_MS);
+                    } else {
+                        setOrbState(OrbState.IDLE, "READY · TAP ORB TO GO LIVE");
+                    }
+                }
+            }));
+        });
+        LinearLayout.LayoutParams qLp = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
+        qLp.setMargins(0, 0, Ui.dp(this, 8), 0);
         quickChips.addView(q1, qLp);
-        quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 42), 1f));
+        quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f));
         center.addView(quickChips);
 
-        scroll.addView(center);
-        root.addView(scroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+        captionScroll.addView(center);
+        root.addView(captionScroll, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
 
-        // Bottom live controls
+        // Gemini-Live-style Bottom Control Dock (Talk Now | Live + Cam | End / Mute)
         LinearLayout dock = new LinearLayout(this);
         dock.setOrientation(LinearLayout.HORIZONTAL);
         dock.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 18));
+
         listenBtn = Ui.primaryButton(this, "Talk Now", Ui.COBALT, v -> onOrbTapped());
         listenBtn.setId(R.id.live_talk_button);
+        listenBtn.setTextSize(13.5f);
+
+        liveCamBtn = Ui.button(this, "Live + Cam", Ui.CYAN, v -> startLiveVoiceAndCamera());
+        liveCamBtn.setId(R.id.live_cam_live_button);
+        liveCamBtn.setTextSize(13.5f);
+
         Button stopBtn = Ui.button(this, "End / Mute", Ui.RUBY, v -> stopLiveCall());
         stopBtn.setId(R.id.live_stop_button);
-        LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
-        dlp.setMargins(0, 0, Ui.dp(this, 8), 0);
-        dock.addView(listenBtn, dlp);
-        dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        stopBtn.setTextSize(13.5f);
+
+        LinearLayout.LayoutParams dlp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.15f);
+        dlp1.setMargins(0, 0, Ui.dp(this, 6), 0);
+        LinearLayout.LayoutParams dlp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        dlp2.setMargins(0, 0, Ui.dp(this, 6), 0);
+        dock.addView(listenBtn, dlp1);
+        dock.addView(liveCamBtn, dlp2);
+        dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.95f));
         root.addView(dock);
 
         setContentView(Ui.wrapWithBackdrop(this, root));
         Ui.configureEdgeToEdge(this, root);
+        styleHeaderPills();
         initTts();
     }
 
@@ -230,7 +355,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         b.setTypeface(Ui.SANS_MEDIUM);
         b.setAllCaps(false);
         b.setMaxLines(1);
-        b.setPadding(Ui.dp(this, 6), 0, Ui.dp(this, 6), 0);
+        b.setPadding(Ui.dp(this, 8), 0, Ui.dp(this, 8), 0);
         b.setTextColor(Ui.mutedColor(this));
         b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         b.setStateListAnimator(null);
@@ -238,60 +363,241 @@ public final class ZoeLiveActivity extends ComponentActivity {
         return b;
     }
 
+    private void styleHeaderPills() {
+        styleTogglePill(cameraToggleBtn, cameraOn, Ui.GREEN);
+        styleTogglePill(hiZoeToggleBtn, hiZoeWakeMode, Ui.CYAN);
+        styleTogglePill(webToggleBtn, webOn, Ui.COBALT);
+        styleTogglePill(voiceModeBtn, useNativeVoice, Ui.PINK);
+        liveCamBtn.setText(cameraOn && callActive ? "Cam Live" : "Live + Cam");
+    }
+
+    private void styleTogglePill(Button btn, boolean active, int accentRes) {
+        if (active) {
+            int accent = Ui.resolveColor(this, accentRes);
+            btn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 16, 22) : Color.WHITE);
+            btn.setBackground(Ui.tonalPillDrawable(this, accent, accent, 17));
+        } else {
+            btn.setTextColor(Ui.mutedColor(this));
+            btn.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
+        }
+    }
+
+    private void updateKeepScreenOn() {
+        if (callActive || cameraOn) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
+
     private void initTts() {
-        tts = new TextToSpeech(this, st -> {
+        tts = new TextToSpeech(this, st -> runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
             ttsReady = st == TextToSpeech.SUCCESS;
-            if (ttsReady) {
+            if (ttsReady && tts != null) {
                 tts.setLanguage(Locale.US);
+                tts.setSpeechRate(1.03f);
+                tts.setPitch(1.02f);
+                tts.setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ASSISTANT)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build());
+                selectBestEnglishVoice();
                 tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
                     @Override
                     public void onStart(String utteranceId) {
-                    }
-
-                    @Override
-                    public void onDone(String utteranceId) {
                         runOnUiThread(() -> {
-                            if (callActive && !isFinishing() && !isDestroyed()) {
-                                startListeningOnce();
-                            } else {
-                                setOrbState(OrbState.IDLE, "READY · TAP ORB TO TALK");
+                            if (!isFinishing() && !isDestroyed()) {
+                                orbView.setSpeakingPulse(true);
                             }
                         });
                     }
 
                     @Override
+                    public void onDone(String utteranceId) {
+                        handleTtsChunkFinished(utteranceId);
+                    }
+
+                    @Override
                     public void onError(String utteranceId) {
-                        runOnUiThread(() -> setOrbState(OrbState.IDLE, "READY · TAP ORB TO TALK"));
+                        handleTtsChunkFinished(utteranceId);
                     }
                 });
+                if (!pendingSpeechOnReady.isEmpty()) {
+                    String toSpeak = pendingSpeechOnReady;
+                    pendingSpeechOnReady = "";
+                    speakCompleteReply(toSpeak, activeTurnId.get());
+                }
+            }
+        }));
+    }
+
+    private void selectBestEnglishVoice() {
+        try {
+            Set<Voice> all = tts.getVoices();
+            if (all == null || all.isEmpty()) {
+                return;
+            }
+            Voice best = null;
+            int bestScore = -1;
+            for (Voice v : all) {
+                if (v == null || v.getLocale() == null) {
+                    continue;
+                }
+                if (!"en".equalsIgnoreCase(v.getLocale().getLanguage())) {
+                    continue;
+                }
+                int score = 0;
+                if ("US".equalsIgnoreCase(v.getLocale().getCountry())) {
+                    score += 10;
+                }
+                if (!v.isNetworkConnectionRequired()) {
+                    score += 8;
+                }
+                if (v.getQuality() >= Voice.QUALITY_HIGH) {
+                    score += 6;
+                }
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = v;
+                }
+            }
+            if (best != null) {
+                tts.setVoice(best);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void handleTtsChunkFinished(String utteranceId) {
+        long turnOfUtterance = parseTurnFromUtteranceId(utteranceId);
+        int remaining = Math.max(0, pendingTtsChunks.decrementAndGet());
+        runOnUiThread(() -> {
+            if (isFinishing() || isDestroyed()) {
+                return;
+            }
+            if (turnOfUtterance != activeTurnId.get()) {
+                return;
+            }
+            if (remaining == 0 && streamCompletedForCurrentTurn) {
+                orbView.setSpeakingPulse(false);
+                if (callActive) {
+                    scheduleListeningRearm(ECHO_GUARD_MS);
+                } else {
+                    setOrbState(OrbState.IDLE, "READY · TAP ORB TO GO LIVE");
+                }
             }
         });
     }
 
-    private void toggleHiZoeMode() {
-        hiZoeWakeMode = !hiZoeWakeMode;
-        hiZoeToggleBtn.setText(hiZoeWakeMode ? "Hi Zoe: on" : "Hi Zoe: off");
-        if (hiZoeWakeMode) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                hiZoeWakeMode = false;
-                hiZoeToggleBtn.setText("Hi Zoe: off");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERM_REQ);
-                return;
-            }
-            callActive = true;
-            setOrbState(OrbState.LISTENING, "WAITING FOR 'HI ZOE' · VISIBLE OPT-IN");
-            captionView.setText("\"Hi Zoe\" hangout mode is active. Say \"Hi Zoe\" (or \"Hi Zoe, ...\") anytime — tap End / Mute to turn off.");
-            startListeningOnce();
-        } else {
-            stopAudioOnly();
-            setOrbState(OrbState.IDLE, "HI ZOE OFF · TAP ORB TO TALK");
-            captionView.setText("\"Hi Zoe\" listener turned off. Microphone is idle.");
+    private static long parseTurnFromUtteranceId(String id) {
+        if (id == null) {
+            return -1L;
         }
+        int idx = id.indexOf(':');
+        if (idx <= 0) {
+            return -1L;
+        }
+        try {
+            return Long.parseLong(id.substring(0, idx));
+        } catch (NumberFormatException ignored) {
+            return -1L;
+        }
+    }
+
+    // --- Runtime Permissions (1 tap goes live immediately upon grant!) ---
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode != PERM_REQ) {
+            return;
+        }
+        boolean micGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+        boolean camGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        PendingAction act = pendingAction;
+        pendingAction = PendingAction.NONE;
+
+        switch (act) {
+            case START_LIVE_PLUS_CAM -> {
+                if (camGranted) {
+                    startCamera();
+                }
+                if (micGranted) {
+                    beginContinuousVoiceSession();
+                } else if (!camGranted) {
+                    captionView.setText("Microphone or camera permission was denied. Tap Talk Now or Camera anytime to retry.");
+                }
+            }
+            case START_VOICE_ONLY -> {
+                if (micGranted) {
+                    beginContinuousVoiceSession();
+                } else {
+                    captionView.setText("Microphone permission is needed to talk live. Tap Talk Now to allow.");
+                }
+            }
+            case START_HIZOE -> {
+                if (micGranted) {
+                    activateHiZoeMode();
+                } else {
+                    captionView.setText("Microphone permission is needed for \"Hi Zoe\" mode.");
+                }
+            }
+            case START_CAMERA_ONLY -> {
+                if (camGranted) {
+                    startCamera();
+                } else {
+                    captionView.setText("Camera permission was denied. Zoe's camera stays off.");
+                }
+            }
+            default -> {
+            }
+        }
+    }
+
+    // --- Top Bar Controls ---
+
+    private void toggleHiZoeMode() {
+        if (hiZoeWakeMode) {
+            hiZoeWakeMode = false;
+            hiZoeToggleBtn.setText("Hi Zoe: off");
+            callActive = false;
+            activeTurnId.incrementAndGet();
+            stopAudioOnly();
+            setOrbState(OrbState.IDLE, "HI ZOE OFF · TAP ORB TO GO LIVE");
+            captionView.setText("\"Hi Zoe\" listener turned off. Microphone is idle.");
+            styleHeaderPills();
+            updateKeepScreenOn();
+            return;
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            pendingAction = PendingAction.START_HIZOE;
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERM_REQ);
+            return;
+        }
+        activateHiZoeMode();
+    }
+
+    private void activateHiZoeMode() {
+        activeTurnId.incrementAndGet();
+        stopAudioOnly();
+        hiZoeWakeMode = true;
+        callActive = true;
+        consecutiveErrors = 0;
+        hiZoeToggleBtn.setText("Hi Zoe: on");
+        styleHeaderPills();
+        updateKeepScreenOn();
+        setOrbState(OrbState.LISTENING, "WAITING FOR 'HI ZOE' · VISIBLE OPT-IN");
+        captionView.setText("\"Hi Zoe\" hangout mode is active. Say \"Hi Zoe\" (or \"Hi Zoe, ...\") anytime — tap End / Mute to turn off.");
+        scheduleListeningRearm(150L);
     }
 
     private void toggleWeb() {
         webOn = !webOn;
         webToggleBtn.setText(webOn ? "Web: on" : "Web: off");
+        styleHeaderPills();
         captionView.setText(webOn
                 ? "Live Web Grounding ON (zero-key DuckDuckGo + Wikipedia citations)."
                 : "Live Web Grounding OFF (100% offline local voice mode).");
@@ -300,6 +606,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private void toggleVoiceEngine() {
         useNativeVoice = !useNativeVoice;
         voiceModeBtn.setText(useNativeVoice ? "Voice: Zoe 44k" : "Voice: OS");
+        styleHeaderPills();
     }
 
     private void toggleCamera() {
@@ -308,27 +615,79 @@ public final class ZoeLiveActivity extends ComponentActivity {
             return;
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            pendingAction = PendingAction.START_CAMERA_ONLY;
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERM_REQ);
             return;
         }
         startCamera();
     }
 
+    /**
+     * One-tap Google Gemini Live mode: turns on Live Camera Sight AND Continuous Voice simultaneously!
+     */
+    private void startLiveVoiceAndCamera() {
+        List<String> needed = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            needed.add(Manifest.permission.RECORD_AUDIO);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            needed.add(Manifest.permission.CAMERA);
+        }
+        if (!needed.isEmpty()) {
+            pendingAction = PendingAction.START_LIVE_PLUS_CAM;
+            ActivityCompat.requestPermissions(this, needed.toArray(new String[0]), PERM_REQ);
+            return;
+        }
+        if (!cameraOn) {
+            startCamera();
+        }
+        beginContinuousVoiceSession();
+    }
+
+    private void flipCamera() {
+        useFrontCamera = !useFrontCamera;
+        if (cameraOn) {
+            bindCameraPreview();
+        }
+    }
+
     private void startCamera() {
+        cameraOn = true;
+        cameraToggleBtn.setText("Camera: on");
+        cameraCard.setVisibility(View.VISIBLE);
+        // Shrink orb slightly while viewfinder is visible so everything fits comfortably above the fold
+        ViewGroup.LayoutParams lp = orbView.getLayoutParams();
+        lp.width = Ui.dp(this, 148);
+        lp.height = Ui.dp(this, 148);
+        orbView.setLayoutParams(lp);
+        styleHeaderPills();
+        updateKeepScreenOn();
+        cameraPreview.post(this::bindCameraPreview);
+    }
+
+    private void bindCameraPreview() {
         ListenableFuture<ProcessCameraProvider> future = ProcessCameraProvider.getInstance(this);
         future.addListener(() -> {
+            if (!cameraOn || isFinishing() || isDestroyed()) {
+                return;
+            }
             try {
                 cameraProvider = future.get();
                 cameraProvider.unbindAll();
                 Preview preview = new Preview.Builder().build();
                 preview.setSurfaceProvider(cameraPreview.getSurfaceProvider());
-                cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview);
-                cameraOn = true;
-                cameraCard.setVisibility(View.VISIBLE);
-                lookNowBtn.setVisibility(View.VISIBLE);
-                cameraToggleBtn.setText("Camera: on");
-                captionView.setText("Live camera sight active. Point at anything and tap Look & Discuss.");
+                CameraSelector selector = useFrontCamera
+                        ? CameraSelector.DEFAULT_FRONT_CAMERA
+                        : CameraSelector.DEFAULT_BACK_CAMERA;
+                cameraProvider.bindToLifecycle(this, selector, preview);
+                cameraSightPill.setText("● LIVE SIGHT");
+                if (!callActive) {
+                    captionView.setText("Live sight active! Tap Talk Now (or just speak when live) and ask Zoe about anything you point at.");
+                }
+                mainHandler.removeCallbacks(cameraObserverTick);
+                mainHandler.postDelayed(cameraObserverTick, 900L);
             } catch (Exception error) {
+                cameraSightPill.setText("CAMERA UNAVAILABLE");
                 captionView.setText("Camera unavailable: " + error.getMessage());
             }
         }, ContextCompat.getMainExecutor(this));
@@ -336,91 +695,151 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
     private void stopCamera() {
         cameraOn = false;
+        latestCameraReport = "";
+        latestCameraJpeg = null;
+        mainHandler.removeCallbacks(cameraObserverTick);
         if (cameraProvider != null) {
-            cameraProvider.unbindAll();
+            try {
+                cameraProvider.unbindAll();
+            } catch (Exception ignored) {
+            }
         }
         cameraCard.setVisibility(View.GONE);
-        lookNowBtn.setVisibility(View.GONE);
         cameraToggleBtn.setText("Camera: off");
+        ViewGroup.LayoutParams lp = orbView.getLayoutParams();
+        lp.width = Ui.dp(this, 212);
+        lp.height = Ui.dp(this, 212);
+        orbView.setLayoutParams(lp);
+        styleHeaderPills();
+        updateKeepScreenOn();
     }
 
-    private void captureAndDiscussCamera() {
-        if (!cameraOn) {
+    private void captureBackgroundCameraFrame() {
+        if (!cameraOn || !cameraAnalysisBusy.compareAndSet(false, true)) {
             return;
         }
         Bitmap frame = cameraPreview.getBitmap();
         if (frame == null) {
-            captionView.setText("Waiting for camera preview frame — try tapping Look & Discuss again.");
+            cameraAnalysisBusy.set(false);
             return;
         }
-        setOrbState(OrbState.THINKING, "INSPECTING CAMERA FRAME…");
-        captionView.setText("Looking at your camera view (offline OCR + labels)…");
         executor.execute(() -> {
-            MediaChatHelper.MediaAttachment att = MediaChatHelper.analyzePhotoBitmap(frame);
-            String geminiKey = MultiAiClient.savedKey(this, MultiAiClient.Provider.GEMINI);
-            String finalReply;
-            if (!geminiKey.isEmpty()) {
-                try {
-                    finalReply = CloudVisionClient.askVision(
-                            geminiKey,
-                            MultiAiClient.savedModel(this, MultiAiClient.Provider.GEMINI),
-                            MultiAiClient.ZOE_SYSTEM_PROMPT
-                                    + "\nDescribe what you see calmly in 2 concise sentences for a live voice call. "
-                                    + att.offlineReport,
-                            att.jpegBytes);
-                } catch (Exception fallback) {
-                    finalReply = "Here is what I observed offline in your camera view: " + att.offlineReport;
-                }
-            } else {
-                File modelFile = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
-                if (modelFile != null) {
-                    try {
-                        String prompt = OnDeviceLlmEngine.buildChatMlPrompt(
-                                "In two warm spoken sentences, summarize what you see from these camera observations: " + att.offlineReport,
-                                sessionHistory, "", "");
-                        finalReply = localLlm.generateStreaming(modelFile, prompt, null);
-                    } catch (Exception ignored) {
-                        finalReply = "Offline camera check: " + att.offlineReport;
-                    }
-                } else {
-                    finalReply = "Offline camera check: " + att.offlineReport;
-                }
+            try {
+                Bitmap small = MediaChatHelper.scaleDown(frame, 480);
+                String report = MediaChatHelper.inspectFrameOffline(small);
+                byte[] jpeg = MediaChatHelper.bitmapToJpeg(small, 76);
+                latestCameraReport = report;
+                latestCameraJpeg = jpeg;
+                small.recycle();
+            } catch (Exception ignored) {
+            } finally {
+                cameraAnalysisBusy.set(false);
             }
-            String spoken = OnDeviceLlmEngine.enforceZoeSovereignty(finalReply);
-            runOnUiThread(() -> {
-                if (!isFinishing() && !isDestroyed()) {
-                    captionView.setText(spoken);
-                    speakResponse(spoken);
-                }
-            });
         });
     }
 
+    private void describeLiveViewProactively() {
+        if (!cameraOn) {
+            return;
+        }
+        // Snapshot the freshest possible frame immediately and let Zoe describe it aloud!
+        Bitmap frame = cameraPreview.getBitmap();
+        if (frame == null && latestCameraReport.isEmpty()) {
+            captionView.setText("Waiting for camera preview frame — try tapping Look now again.");
+            return;
+        }
+        long myTurn = activeTurnId.incrementAndGet();
+        stopAudioOnly();
+        lastUserSpoken = "Look at my camera view";
+        setOrbState(OrbState.THINKING, "LOOKING AT YOUR VIEW…");
+        captionView.setText("Looking closely at what's in front of your camera…");
+        executor.execute(() -> {
+            if (frame != null) {
+                try {
+                    Bitmap small = MediaChatHelper.scaleDown(frame, 640);
+                    latestCameraReport = MediaChatHelper.inspectFrameOffline(small);
+                    latestCameraJpeg = MediaChatHelper.bitmapToJpeg(small, 80);
+                    small.recycle();
+                } catch (Exception ignored) {
+                }
+            }
+            answerTurnInBackground(myTurn, "Tell me naturally in two sentences what you see in my camera right now.", true);
+        });
+    }
+
+    // --- Continuous Voice Session & Barge-In ---
+
     private void onOrbTapped() {
-        // Barge-in interrupt if currently speaking
+        activeTurnId.incrementAndGet();
         stopAudioOnly();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            pendingAction = PendingAction.START_VOICE_ONLY;
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PERM_REQ);
             return;
         }
-        callActive = true;
-        startListeningOnce();
+        beginContinuousVoiceSession();
     }
 
-    private void startListeningOnce() {
-        if (!SpeechRecognizer.isRecognitionAvailable(this)) {
-            setOrbState(OrbState.IDLE, "VOICE RECOGNIZER UNAVAILABLE");
-            captionView.setText("Speech recognition service is unavailable on this device. Tap a quick prompt above or use Zoe Chat.");
+    private void beginContinuousVoiceSession() {
+        hiZoeWakeMode = false;
+        hiZoeToggleBtn.setText("Hi Zoe: off");
+        callActive = true;
+        consecutiveErrors = 0;
+        styleHeaderPills();
+        updateKeepScreenOn();
+        captionView.setText(cameraOn
+                ? "I'm listening and looking live — speak naturally about anything in front of your camera."
+                : "I'm listening live — speak naturally, or tap the orb anytime to interrupt.");
+        scheduleListeningRearm(100L);
+    }
+
+    private void scheduleListeningRearm(long delayMs) {
+        final long myGen = listenGen.incrementAndGet();
+        mainHandler.postDelayed(() -> {
+            if (myGen == listenGen.get() && callActive && !isFinishing() && !isDestroyed()) {
+                startListeningOnce(myGen);
+            }
+        }, Math.max(60L, delayMs));
+    }
+
+    private SpeechRecognizer createBestRecognizer() {
+        if (preferDeviceRecognizer && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                && SpeechRecognizer.isOnDeviceRecognitionAvailable(this)) {
+            return SpeechRecognizer.createOnDeviceSpeechRecognizer(this);
+        }
+        return SpeechRecognizer.createSpeechRecognizer(this);
+    }
+
+    private void startListeningOnce(long myGen) {
+        if (!callActive || myGen != listenGen.get() || isFinishing() || isDestroyed()) {
             return;
         }
-        if (recognizer != null) {
-            recognizer.destroy();
+        if (!SpeechRecognizer.isRecognitionAvailable(this)
+                && (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || !SpeechRecognizer.isOnDeviceRecognitionAvailable(this))) {
+            setOrbState(OrbState.IDLE, "VOICE RECOGNIZER UNAVAILABLE");
+            captionView.setText("Speech recognition service is unavailable on this device. Tap a quick prompt above or use Zoe Chat.");
+            callActive = false;
+            updateKeepScreenOn();
+            return;
         }
-        recognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        destroyRecognizerQuietly();
+        try {
+            recognizer = createBestRecognizer();
+        } catch (Exception err) {
+            preferDeviceRecognizer = false;
+            recognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        }
+
         recognizer.setRecognitionListener(new RecognitionListener() {
             @Override
             public void onReadyForSpeech(Bundle params) {
-                setOrbState(OrbState.LISTENING, "LISTENING · SPEAK NATURALLY");
+                if (myGen != listenGen.get()) {
+                    return;
+                }
+                consecutiveErrors = 0;
+                setOrbState(OrbState.LISTENING, hiZoeWakeMode
+                        ? "WAITING FOR 'HI ZOE' · SPEAK ANYTIME"
+                        : (cameraOn ? "LIVE VOICE + SIGHT · SPEAK NATURALLY" : "LIVE · LISTENING NATURALLY"));
             }
 
             @Override
@@ -429,7 +848,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
             @Override
             public void onRmsChanged(float rmsdB) {
-                orbView.setAudioLevel(Math.max(0f, Math.min(1f, (rmsdB + 2f) / 12f)));
+                if (myGen == listenGen.get()) {
+                    float norm = Math.max(0f, Math.min(1f, (rmsdB + 2f) / 11f));
+                    orbView.setAudioLevel(norm);
+                }
             }
 
             @Override
@@ -438,48 +860,113 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
             @Override
             public void onEndOfSpeech() {
-                setOrbState(OrbState.THINKING, "THINKING…");
-            }
-
-            @Override
-            public void onError(int error) {
-                setOrbState(OrbState.IDLE, "TAP ORB TO TALK AGAIN");
-                captionView.setText("Paused listening (code " + error + "). Tap the orb anytime to keep talking.");
-                callActive = false;
-            }
-
-            @Override
-            public void onResults(Bundle results) {
-                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                if (matches != null && !matches.isEmpty() && !matches.get(0).trim().isEmpty()) {
-                    String heard = matches.get(0).trim();
-                    if (hiZoeWakeMode) {
-                        if (WakeWordDetector.isHiZoeTrigger(heard)) {
-                            String trailing = WakeWordDetector.stripWakePrefix(heard);
-                            hiZoeWakeMode = false;
-                            hiZoeToggleBtn.setText("Hi Zoe: off");
-                            if (trailing.isEmpty()) {
-                                finishLiveReply("Hi! I'm Zoe — ready to hang out and explore. What are we getting into?");
-                            } else {
-                                processSpokenPrompt(trailing);
-                            }
-                        } else if (callActive) {
-                            captionView.setText("Listening for \"Hi Zoe\"… (heard: \"" + heard + "\")");
-                            startListeningOnce();
-                        }
-                        return;
+                if (myGen == listenGen.get()) {
+                    orbView.setAudioLevel(0f);
+                    if (!hiZoeWakeMode) {
+                        setOrbState(OrbState.THINKING, cameraOn ? "SEEING & THINKING…" : "THINKING…");
                     }
-                    processSpokenPrompt(heard);
-                } else {
-                    setOrbState(OrbState.IDLE, "TAP ORB TO TALK");
                 }
             }
 
             @Override
+            public void onError(int error) {
+                if (myGen != listenGen.get() || !callActive || isFinishing() || isDestroyed()) {
+                    return;
+                }
+                orbView.setAudioLevel(0f);
+                LiveSessionLogic.ErrorPolicy policy = LiveSessionLogic.classifySpeechError(error);
+                switch (policy.action) {
+                    case SILENT_REARM -> {
+                        // Normal silence/pause! Keep the orb calmly glowing and silently re-arm — zero error banner!
+                        consecutiveErrors = 0;
+                        scheduleListeningRearm(policy.delayMs);
+                    }
+                    case FALLBACK_RECOGNIZER -> {
+                        preferDeviceRecognizer = !preferDeviceRecognizer;
+                        consecutiveErrors++;
+                        if (consecutiveErrors <= 6) {
+                            scheduleListeningRearm(policy.delayMs);
+                        } else {
+                            callActive = false;
+                            setOrbState(OrbState.IDLE, "TAP ORB TO RESUME LIVE");
+                            captionView.setText("Voice paused briefly. Tap the orb anytime to keep talking.");
+                            updateKeepScreenOn();
+                        }
+                    }
+                    case RESET_AND_RETRY -> {
+                        destroyRecognizerQuietly();
+                        consecutiveErrors++;
+                        if (consecutiveErrors <= 5) {
+                            scheduleListeningRearm(policy.delayMs);
+                        } else {
+                            callActive = false;
+                            setOrbState(OrbState.IDLE, "TAP ORB TO RESUME LIVE");
+                            captionView.setText("Voice paused. Tap Talk Now anytime to continue.");
+                            updateKeepScreenOn();
+                        }
+                    }
+                    case FATAL_PERMISSION -> {
+                        callActive = false;
+                        hiZoeWakeMode = false;
+                        hiZoeToggleBtn.setText("Hi Zoe: off");
+                        styleHeaderPills();
+                        updateKeepScreenOn();
+                        setOrbState(OrbState.IDLE, "MIC PERMISSION NEEDED");
+                        captionView.setText(policy.userMessage);
+                    }
+                }
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+                if (myGen != listenGen.get() || isFinishing() || isDestroyed()) {
+                    return;
+                }
+                consecutiveErrors = 0;
+                orbView.setAudioLevel(0f);
+                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                String heard = (matches != null && !matches.isEmpty()) ? matches.get(0).trim() : "";
+                if (heard.isEmpty()) {
+                    if (callActive) {
+                        scheduleListeningRearm(240L);
+                    } else {
+                        setOrbState(OrbState.IDLE, "READY · TAP ORB TO GO LIVE");
+                    }
+                    return;
+                }
+                if (hiZoeWakeMode) {
+                    if (WakeWordDetector.isHiZoeTrigger(heard)) {
+                        String trailing = WakeWordDetector.stripWakePrefix(heard);
+                        hiZoeWakeMode = false;
+                        hiZoeToggleBtn.setText("Hi Zoe: off");
+                        styleHeaderPills();
+                        if (trailing.isEmpty()) {
+                            long myTurn = activeTurnId.incrementAndGet();
+                            lastUserSpoken = heard;
+                            finishSimpleReply(myTurn, "Hi! I'm Zoe — ready to hang out and explore. What are we getting into?");
+                        } else {
+                            processSpokenPrompt(trailing);
+                        }
+                    } else if (callActive) {
+                        captionView.setText("Listening for \"Hi Zoe\"…");
+                        scheduleListeningRearm(260L);
+                    }
+                    return;
+                }
+                processSpokenPrompt(heard);
+            }
+
+            @Override
             public void onPartialResults(Bundle partialResults) {
+                if (myGen != listenGen.get() || isFinishing() || isDestroyed()) {
+                    return;
+                }
                 ArrayList<String> partial = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                if (partial != null && !partial.isEmpty()) {
-                    captionView.setText("You: " + partial.get(0));
+                if (partial != null && !partial.isEmpty() && !partial.get(0).trim().isEmpty()) {
+                    String p = partial.get(0).trim();
+                    if (!hiZoeWakeMode) {
+                        captionView.setText("You: " + p);
+                    }
                 }
             }
 
@@ -487,111 +974,299 @@ public final class ZoeLiveActivity extends ComponentActivity {
             public void onEvent(int eventType, Bundle params) {
             }
         });
+
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
                 .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                .putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toLanguageTag())
                 .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-                .putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, !webOn);
-        recognizer.startListening(intent);
-        setOrbState(OrbState.LISTENING, "LISTENING…");
+                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 1300L)
+                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1100L);
+        try {
+            recognizer.startListening(intent);
+            setOrbState(OrbState.LISTENING, hiZoeWakeMode
+                    ? "WAITING FOR 'HI ZOE' · VISIBLE OPT-IN"
+                    : (cameraOn ? "LIVE VOICE + SIGHT · SPEAK NATURALLY" : "LIVE · LISTENING…"));
+        } catch (Exception err) {
+            preferDeviceRecognizer = false;
+            scheduleListeningRearm(500L);
+        }
     }
+
+    // --- Real-Time Simultaneous Sight + Sentence-Streaming Speech Pipeline ---
 
     private void processSpokenPrompt(String spoken) {
         if (ConversationResponse.isStop(spoken)) {
             stopLiveCall();
             return;
         }
+        final long myTurn = activeTurnId.incrementAndGet();
+        stopAudioOnly();
+        lastUserSpoken = spoken;
         sessionHistory.add(new ChatHistoryStore.ChatMessage("user", spoken, "YOU", "", 0));
-        captionView.setText("You: \"" + spoken + "\"\n\nThinking…");
-        setOrbState(OrbState.THINKING, "ZOE IS THINKING…");
+        captionView.setText(LiveSessionLogic.formatLiveCaption(spoken, cameraOn ? "Looking & thinking…" : "Thinking…"));
+        setOrbState(OrbState.THINKING, cameraOn ? "SEEING & THINKING…" : "ZOE IS THINKING…");
 
         String lower = spoken.toLowerCase(Locale.US);
         boolean identity = lower.contains("who are you") || lower.contains("who built you")
                 || lower.contains("alibaba") || lower.contains("are you zoe");
         if (identity) {
-            String ans = brain.respond(spoken).reply;
-            finishLiveReply(ans);
+            finishSimpleReply(myTurn, brain.respond(spoken).reply);
             return;
         }
 
+        // Capture a fresh live camera frame right now on UI thread if Camera is ON!
+        final Bitmap freshFrame = cameraOn ? cameraPreview.getBitmap() : null;
         executor.execute(() -> {
-            WebSearchClient.SearchResult webRes = webOn ? WebSearchClient.search(spoken) : null;
-            String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(700) : "";
-
-            MultiAiClient.Provider activeCloud = MultiAiClient.activeProvider(this);
-            String cloudKey = MultiAiClient.savedKey(this, activeCloud);
-            if (!cloudKey.isEmpty()) {
+            if (myTurn != activeTurnId.get()) {
+                return;
+            }
+            if (freshFrame != null) {
                 try {
-                    String reply = MultiAiClient.askStreaming(
-                            this, activeCloud, spoken, sessionHistory, "", webCtx, webOn,
-                            partial -> runOnUiThread(() -> {
-                                if (!isFinishing() && !isDestroyed()) {
-                                    captionView.setText(partial);
-                                }
-                            }));
-                    runOnUiThread(() -> finishLiveReply(reply));
-                    return;
+                    Bitmap small = MediaChatHelper.scaleDown(freshFrame, 512);
+                    latestCameraReport = MediaChatHelper.inspectFrameOffline(small);
+                    latestCameraJpeg = MediaChatHelper.bitmapToJpeg(small, 78);
+                    small.recycle();
                 } catch (Exception ignored) {
                 }
             }
-            File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
-            if (localModel != null) {
-                try {
-                    String chatMl = OnDeviceLlmEngine.buildChatMlPrompt(spoken, sessionHistory, "", webCtx);
-                    String reply = localLlm.generateStreaming(localModel, chatMl, (partial, done) ->
-                            runOnUiThread(() -> {
-                                if (!isFinishing() && !isDestroyed() && !partial.isEmpty()) {
-                                    captionView.setText(partial);
-                                }
-                            }));
-                    runOnUiThread(() -> finishLiveReply(reply));
-                    return;
-                } catch (Exception ignored) {
-                }
-            }
-            String fallback = (webRes != null && webRes.hasSources())
-                    ? webRes.formatFallbackAnswer()
-                    : brain.respond(spoken).reply;
-            runOnUiThread(() -> finishLiveReply(fallback));
+            answerTurnInBackground(myTurn, spoken, cameraOn);
         });
     }
 
-    private void finishLiveReply(String reply) {
-        if (isFinishing() || isDestroyed()) {
+    private void answerTurnInBackground(long myTurn, String spoken, boolean withCamera) {
+        if (myTurn != activeTurnId.get()) {
+            return;
+        }
+        WebSearchClient.SearchResult webRes = webOn ? WebSearchClient.search(spoken) : null;
+        String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(700) : "";
+        String camReport = withCamera ? latestCameraReport : "";
+        byte[] camJpeg = withCamera ? latestCameraJpeg : null;
+
+        // 1. Live Multimodal Gemini Vision when Camera is ON + user saved a Gemini key
+        if (withCamera && camJpeg != null) {
+            String geminiKey = MultiAiClient.savedKey(this, MultiAiClient.Provider.GEMINI);
+            if (!geminiKey.isEmpty()) {
+                try {
+                    String visionPrompt = MultiAiClient.ZOE_SYSTEM_PROMPT
+                            + "\n" + LiveSessionLogic.buildLiveVoicePrompt(spoken, camReport);
+                    String reply = CloudVisionClient.askVision(
+                            geminiKey,
+                            MultiAiClient.savedModel(this, MultiAiClient.Provider.GEMINI),
+                            visionPrompt,
+                            camJpeg);
+                    if (myTurn == activeTurnId.get()) {
+                        String clean = OnDeviceLlmEngine.enforceZoeSovereignty(reply);
+                        runOnUiThread(() -> finishSimpleReply(myTurn, clean));
+                    }
+                    return;
+                } catch (Exception ignored) {
+                }
+            }
+        }
+
+        // Prepare live sentence-streaming speech state for OS TTS (real-time speech while generating!)
+        final boolean streamTtsNow = !useNativeVoice && ttsReady && tts != null;
+        final int[] spokenOffset = {0};
+        final boolean[] startedSpeaking = {false};
+        if (streamTtsNow) {
+            pendingTtsChunks.set(0);
+            streamCompletedForCurrentTurn = false;
+        }
+
+        String fusedPrompt = LiveSessionLogic.buildLiveVoicePrompt(spoken, camReport);
+
+        // 2. Cloud Multi-AI SSE Streaming (if keyed)
+        MultiAiClient.Provider activeCloud = MultiAiClient.activeProvider(this);
+        String cloudKey = MultiAiClient.savedKey(this, activeCloud);
+        if (!cloudKey.isEmpty()) {
+            try {
+                String reply = MultiAiClient.askStreaming(
+                        this, activeCloud, fusedPrompt, sessionHistory, "", webCtx, webOn,
+                        partial -> handleStreamChunk(myTurn, partial, streamTtsNow, spokenOffset, startedSpeaking));
+                finalizeStreamedTurn(myTurn, reply, streamTtsNow, spokenOffset[0], startedSpeaking[0]);
+                return;
+            } catch (Exception ignored) {
+            }
+        }
+
+        // 3. On-Device Zoe Local 1.5B Neural Streaming (100% offline!)
+        File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+        if (localModel != null) {
+            try {
+                String chatMl = OnDeviceLlmEngine.buildChatMlPrompt(fusedPrompt, sessionHistory, "", webCtx);
+                String reply = localLlm.generateStreaming(localModel, chatMl, (partial, done) ->
+                        handleStreamChunk(myTurn, partial, streamTtsNow, spokenOffset, startedSpeaking));
+                finalizeStreamedTurn(myTurn, reply, streamTtsNow, spokenOffset[0], startedSpeaking[0]);
+                return;
+            } catch (Exception ignored) {
+            }
+        }
+
+        // 4. Instant Offline Fallback (Web summary or Camera observation or Zoe Stem <5ms)
+        String fallback;
+        if (webRes != null && webRes.hasSources()) {
+            fallback = webRes.formatFallbackAnswer();
+        } else if (withCamera && !camReport.isEmpty()) {
+            fallback = "Here is what I see right now: " + camReport;
+        } else {
+            fallback = brain.respond(spoken).reply;
+        }
+        if (myTurn == activeTurnId.get()) {
+            runOnUiThread(() -> finishSimpleReply(myTurn, fallback));
+        }
+    }
+
+    private void handleStreamChunk(
+            long myTurn,
+            String fullSoFar,
+            boolean streamTtsNow,
+            int[] spokenOffset,
+            boolean[] startedSpeaking) {
+        if (myTurn != activeTurnId.get() || fullSoFar == null || fullSoFar.isEmpty()) {
+            return;
+        }
+        String display = OnDeviceLlmEngine.enforceZoeSovereignty(fullSoFar);
+        if (streamTtsNow) {
+            LiveSessionLogic.SentenceBatch batch = LiveSessionLogic.extractReadySentences(display, spokenOffset[0]);
+            spokenOffset[0] = batch.nextOffset;
+            for (String sentence : batch.sentences) {
+                boolean first = !startedSpeaking[0];
+                startedSpeaking[0] = true;
+                enqueueTtsChunk(myTurn, sentence, first);
+            }
+        }
+        runOnUiThread(() -> {
+            if (myTurn == activeTurnId.get() && !isFinishing() && !isDestroyed()) {
+                captionView.setText(LiveSessionLogic.formatLiveCaption(lastUserSpoken, display));
+                if (startedSpeaking[0]) {
+                    setOrbState(OrbState.SPEAKING, "ZOE IS SPEAKING · TAP ORB TO INTERRUPT");
+                }
+            }
+        });
+    }
+
+    private void finalizeStreamedTurn(
+            long myTurn,
+            String finalReply,
+            boolean streamTtsNow,
+            int spokenOffset,
+            boolean alreadyStartedSpeaking) {
+        if (myTurn != activeTurnId.get()) {
+            return;
+        }
+        String clean = OnDeviceLlmEngine.enforceZoeSovereignty(finalReply);
+        if (clean.trim().isEmpty()) {
+            clean = "I'm right here listening.";
+        }
+        final String finalDisplay = clean.trim();
+        sessionHistory.add(new ChatHistoryStore.ChatMessage("zoe", finalDisplay, "ZOE EXPLORE", "", 0));
+
+        if (streamTtsNow) {
+            String remainder = LiveSessionLogic.extractRemainder(finalDisplay, spokenOffset);
+            if (!remainder.isEmpty()) {
+                enqueueTtsChunk(myTurn, remainder, !alreadyStartedSpeaking);
+                alreadyStartedSpeaking = true;
+            }
+            streamCompletedForCurrentTurn = true;
+            final boolean spokeAnything = alreadyStartedSpeaking;
+            runOnUiThread(() -> {
+                if (myTurn != activeTurnId.get() || isFinishing() || isDestroyed()) {
+                    return;
+                }
+                captionView.setText(LiveSessionLogic.formatLiveCaption(lastUserSpoken, finalDisplay));
+                if (!spokeAnything || pendingTtsChunks.get() == 0) {
+                    orbView.setSpeakingPulse(false);
+                    if (callActive) {
+                        scheduleListeningRearm(ECHO_GUARD_MS);
+                    } else {
+                        setOrbState(OrbState.IDLE, "READY · TAP ORB TO GO LIVE");
+                    }
+                } else {
+                    setOrbState(OrbState.SPEAKING, "ZOE IS SPEAKING · TAP ORB TO INTERRUPT");
+                }
+            });
+        } else {
+            runOnUiThread(() -> finishSimpleReply(myTurn, finalDisplay));
+        }
+    }
+
+    private void enqueueTtsChunk(long myTurn, String sentence, boolean flushFirst) {
+        if (tts == null || !ttsReady || sentence == null || sentence.trim().isEmpty()) {
+            return;
+        }
+        pendingTtsChunks.incrementAndGet();
+        int queueMode = flushFirst ? TextToSpeech.QUEUE_FLUSH : TextToSpeech.QUEUE_ADD;
+        String uttId = myTurn + ":" + System.nanoTime();
+        tts.speak(sentence.trim(), queueMode, null, uttId);
+    }
+
+    private void finishSimpleReply(long myTurn, String reply) {
+        if (myTurn != activeTurnId.get() || isFinishing() || isDestroyed()) {
             return;
         }
         String clean = reply == null || reply.trim().isEmpty() ? "I'm here and listening." : reply.trim();
-        sessionHistory.add(new ChatHistoryStore.ChatMessage("zoe", clean, "ZOE LIVE", "", 0));
-        captionView.setText(clean);
-        speakResponse(clean);
+        sessionHistory.add(new ChatHistoryStore.ChatMessage("zoe", clean, "ZOE EXPLORE", "", 0));
+        captionView.setText(LiveSessionLogic.formatLiveCaption(lastUserSpoken, clean));
+        speakCompleteReply(clean, myTurn);
     }
 
-    private void speakResponse(String text) {
+    private void speakCompleteReply(String text, long myTurn) {
+        String speakable = LiveSessionLogic.sanitizeForSpeech(text);
+        if (speakable.isEmpty()) {
+            if (callActive) {
+                scheduleListeningRearm(ECHO_GUARD_MS);
+            } else {
+                setOrbState(OrbState.IDLE, "READY · TAP ORB TO GO LIVE");
+            }
+            return;
+        }
         setOrbState(OrbState.SPEAKING, "ZOE IS SPEAKING · TAP ORB TO INTERRUPT");
         if (useNativeVoice) {
-            nativeVoice.speak(text, () -> runOnUiThread(() -> {
-                if (callActive && !isFinishing() && !isDestroyed()) {
-                    startListeningOnce();
-                } else {
-                    setOrbState(OrbState.IDLE, "READY · TAP ORB TO TALK");
+            orbView.setSpeakingPulse(true);
+            nativeVoice.speak(speakable, () -> runOnUiThread(() -> {
+                orbView.setSpeakingPulse(false);
+                if (myTurn == activeTurnId.get() && !isFinishing() && !isDestroyed()) {
+                    if (callActive) {
+                        scheduleListeningRearm(ECHO_GUARD_MS);
+                    } else {
+                        setOrbState(OrbState.IDLE, "READY · TAP ORB TO GO LIVE");
+                    }
                 }
             }));
         } else if (ttsReady && tts != null) {
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "zoe-live-" + System.currentTimeMillis());
+            pendingTtsChunks.set(0);
+            streamCompletedForCurrentTurn = true;
+            enqueueTtsChunk(myTurn, speakable, true);
         } else {
-            setOrbState(OrbState.IDLE, "READY · TAP ORB TO TALK");
+            pendingSpeechOnReady = speakable;
+            setOrbState(OrbState.IDLE, "PREPARING VOICE…");
+        }
+    }
+
+    private void destroyRecognizerQuietly() {
+        if (recognizer != null) {
+            try {
+                recognizer.cancel();
+                recognizer.destroy();
+            } catch (Exception ignored) {
+            }
+            recognizer = null;
         }
     }
 
     private void stopAudioOnly() {
-        if (recognizer != null) {
+        listenGen.incrementAndGet();
+        pendingTtsChunks.set(0);
+        streamCompletedForCurrentTurn = true;
+        pendingSpeechOnReady = "";
+        orbView.setAudioLevel(0f);
+        orbView.setSpeakingPulse(false);
+        destroyRecognizerQuietly();
+        if (tts != null) {
             try {
-                recognizer.stopListening();
-                recognizer.cancel();
+                tts.stop();
             } catch (Exception ignored) {
             }
-        }
-        if (tts != null) {
-            tts.stop();
         }
         nativeVoice.stop();
     }
@@ -600,8 +1275,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
         callActive = false;
         hiZoeWakeMode = false;
         hiZoeToggleBtn.setText("Hi Zoe: off");
+        activeTurnId.incrementAndGet();
         stopAudioOnly();
         stopCamera();
+        styleHeaderPills();
+        updateKeepScreenOn();
         setOrbState(OrbState.IDLE, "EXPLORE PAUSED · MIC & CAMERA OFF");
         captionView.setText("Zoe Explore paused. Both microphone and camera are completely off.");
     }
@@ -609,27 +1287,42 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private void setOrbState(OrbState state, String label) {
         orbView.setOrbState(state);
         stateBadge.setText(label);
-        listenBtn.setText(state == OrbState.LISTENING ? "Listening…" : "Talk Now");
+        listenBtn.setText(switch (state) {
+            case LISTENING -> "Listening…";
+            case SPEAKING -> "Interrupt";
+            case THINKING -> "Thinking…";
+            default -> "Talk Now";
+        });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (callActive || cameraOn) {
+            stopLiveCall();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mainHandler.removeCallbacksAndMessages(null);
         callActive = false;
+        activeTurnId.incrementAndGet();
         stopAudioOnly();
         stopCamera();
-        if (recognizer != null) {
-            recognizer.destroy();
-        }
         if (tts != null) {
-            tts.shutdown();
+            try {
+                tts.shutdown();
+            } catch (Exception ignored) {
+            }
         }
         localLlm.close();
         executor.shutdownNow();
     }
 
     /**
-     * Smooth 60fps GEM Breathing Orb rendered natively on Android Canvas.
+     * Smooth 60fps Audio-Reactive GEM Breathing Orb rendered natively on Android Canvas.
      */
     private static final class LiveOrbView extends View {
         private final Paint haloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -637,7 +1330,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         private final Paint gemPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final ValueAnimator animator;
         private float phase;
-        private float audioLevel;
+        private float targetLevel;
+        private float smoothLevel;
+        private boolean speakingPulse;
         private OrbState state = OrbState.IDLE;
 
         LiveOrbView(Context context) {
@@ -649,6 +1344,10 @@ public final class ZoeLiveActivity extends ComponentActivity {
             animator.setInterpolator(new LinearInterpolator());
             animator.addUpdateListener(a -> {
                 phase = (float) a.getAnimatedValue();
+                float desired = speakingPulse
+                        ? (0.35f + 0.25f * (float) Math.abs(Math.sin(phase * Math.PI * 10.0)))
+                        : targetLevel;
+                smoothLevel += (desired - smoothLevel) * 0.22f;
                 invalidate();
             });
             animator.start();
@@ -660,8 +1359,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
         }
 
         void setAudioLevel(float level) {
-            this.audioLevel = level;
-            invalidate();
+            this.targetLevel = Math.max(0f, Math.min(1f, level));
+        }
+
+        void setSpeakingPulse(boolean active) {
+            this.speakingPulse = active;
         }
 
         @Override
@@ -698,25 +1400,25 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 }
             }
 
-            float radius = maxR * (0.64f + 0.06f * breathe + 0.14f * audioLevel);
+            float radius = maxR * (0.62f + 0.055f * breathe + 0.16f * smoothLevel);
             haloPaint.setShader(new RadialGradient(cx, cy, maxR,
-                    new int[]{Color.argb(190, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
+                    new int[]{Color.argb(195, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
                             Color.argb(85, Color.red(cOuter), Color.green(cOuter), Color.blue(cOuter)),
                             Color.TRANSPARENT},
-                    new float[]{0.2f, 0.65f, 1.0f}, Shader.TileMode.CLAMP));
+                    new float[]{0.2f, 0.66f, 1.0f}, Shader.TileMode.CLAMP));
             canvas.drawCircle(cx, cy, maxR, haloPaint);
 
             for (int i = 0; i < 3; i++) {
                 float p = (phase + i / 3f) % 1f;
-                float r = radius * 0.55f + p * (maxR - radius * 0.55f);
+                float r = radius * 0.54f + p * (maxR - radius * 0.54f);
                 ringPaint.setStrokeWidth(3f * (1f - p) + 1f);
                 ringPaint.setColor(Color.argb((int) ((1f - p) * 165), Color.red(cCore), Color.green(cCore), Color.blue(cCore)));
                 canvas.drawCircle(cx, cy, r, ringPaint);
             }
 
-            // Central soft GEM diamond
+            // Central luminous GEM diamond
             gemPaint.setColor(cCore);
-            float g = radius * 0.36f;
+            float g = radius * 0.35f;
             Path diamond = new Path();
             diamond.moveTo(cx, cy - g);
             diamond.lineTo(cx + g, cy);

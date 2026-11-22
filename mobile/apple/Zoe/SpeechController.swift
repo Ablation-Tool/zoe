@@ -6,6 +6,8 @@ final class SpeechController: NSObject, ObservableObject {
     @Published var status = "Voice is idle. Start one command when ready."
     var onCommand: ((VoiceCommand) -> Void)?
     var onTranscript: ((String) -> Void)?
+    var onPartialTranscript: ((String) -> Void)?
+    var onSilenceTimeout: (() -> Void)?
 
     private let recognizer = SFSpeechRecognizer()
     private let engine = AVAudioEngine()
@@ -45,11 +47,11 @@ final class SpeechController: NSObject, ObservableObject {
     private func begin() {
         do {
             let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.record, mode: .measurement, options: .duckOthers)
+            try session.setCategory(.playAndRecord, mode: .voiceChat, options: [.defaultToSpeaker, .allowBluetooth])
             try session.setActive(true, options: .notifyOthersOnDeactivation)
             let request = SFSpeechAudioBufferRecognitionRequest()
             request.requiresOnDeviceRecognition = true
-            request.shouldReportPartialResults = false
+            request.shouldReportPartialResults = true
             self.request = request
             let input = engine.inputNode
             let format = input.outputFormat(forBus: 0)
@@ -59,19 +61,26 @@ final class SpeechController: NSObject, ObservableObject {
             engine.prepare()
             try engine.start()
             listening = true
-            status = "Listening once with on-device speech…"
+            status = "Listening with on-device speech…"
             task = recognizer?.recognitionTask(with: request) { result, error in
-                if let result, result.isFinal {
+                if let result {
                     let heard = result.bestTranscription.formattedString
-                    let command = VoiceCommand.parse(heard)
-                    DispatchQueue.main.async {
-                        self.onTranscript?(heard)
-                        self.onCommand?(command)
-                        self.finish("Heard: \(heard) · command: \(command.rawValue)")
+                    if result.isFinal {
+                        let command = VoiceCommand.parse(heard)
+                        DispatchQueue.main.async {
+                            self.finish("Heard: \(heard) · command: \(command.rawValue)")
+                            self.onTranscript?(heard)
+                            self.onCommand?(command)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.onPartialTranscript?(heard)
+                        }
                     }
                 } else if let error {
                     DispatchQueue.main.async {
-                        self.finish("Speech recognition ended: \(error.localizedDescription). No command was executed.")
+                        self.finish("Speech recognition paused: \(error.localizedDescription)")
+                        self.onSilenceTimeout?()
                     }
                 }
             }

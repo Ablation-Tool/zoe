@@ -13,7 +13,8 @@ import java.util.Locale;
 final class WakeWordDetector {
     private static final String[] TRIGGERS = {
             "hi zoe", "hey zoe", "hello zoe", "hang out zoe", "hangout zoe",
-            "ok zoe", "okay zoe", "yo zoe", "hi zoey", "hey zoey"
+            "ok zoe", "okay zoe", "yo zoe", "hi zoey", "hey zoey",
+            "hello zoey", "hi zo", "hey zo"
     };
 
     private WakeWordDetector() {
@@ -24,6 +25,9 @@ final class WakeWordDetector {
             return false;
         }
         String norm = normalize(transcript);
+        if (norm.equals("zoe") || norm.equals("zoey")) {
+            return true;
+        }
         for (String trigger : TRIGGERS) {
             if (norm.equals(trigger) || norm.startsWith(trigger + " ") || norm.contains(" " + trigger)) {
                 return true;
@@ -37,7 +41,7 @@ final class WakeWordDetector {
             return "";
         }
         String trimmed = transcript.trim();
-        String lower = trimmed.toLowerCase(Locale.US);
+        String lower = foldDiacritics(trimmed).toLowerCase(Locale.US);
         for (String trigger : TRIGGERS) {
             int idx = lower.indexOf(trigger);
             if (idx >= 0) {
@@ -47,11 +51,19 @@ final class WakeWordDetector {
                 return after;
             }
         }
+        if (lower.equals("zoe") || lower.equals("zoey")) {
+            return "";
+        }
         return trimmed;
     }
 
+    private static String foldDiacritics(String s) {
+        return s.replace('ë', 'e').replace('Ë', 'E')
+                .replace('é', 'e').replace('É', 'E');
+    }
+
     private static String normalize(String s) {
-        return s.toLowerCase(Locale.US)
+        return foldDiacritics(s).toLowerCase(Locale.US)
                 .replaceAll("[^a-z0-9\\s]", " ")
                 .replaceAll("\\s+", " ")
                 .trim();

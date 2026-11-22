@@ -256,9 +256,17 @@ final class ZoeCoreTests: XCTestCase {
 
     func testSignalSafetyNumberAndHiZoeWakeWord() {
         XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hi Zoe"))
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hi Zoë, what's on my desk?"))
         XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hey Zoe, let's hang out"))
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Zoe"))
         XCTAssertFalse(ZoeSignalAndWakeCore.isHiZoeTrigger("How do rainbows work?"))
         XCTAssertEqual(ZoeSignalAndWakeCore.stripWakePrefix("Hi Zoe, tell me a story"), "tell me a story")
+        XCTAssertEqual(ZoeSignalAndWakeCore.stripWakePrefix("Hi Zoë, look here"), "look here")
+
+        let clean = ZoeSignalAndWakeCore.sanitizeForSpeech("**Hello** `Zoe` — see https://example.com now!")
+        XCTAssertFalse(clean.contains("**"))
+        XCTAssertFalse(clean.contains("https://"))
+        XCTAssertTrue(clean.contains("Hello Zoe"))
 
         let a: [UInt8] = Array("alice-identity-pub-key-001".utf8)
         let b: [UInt8] = Array("bob-identity-pub-key-002".utf8)
