@@ -7,6 +7,7 @@
     "kloster_m4_coherent_a_tau": 0.99992
   },
   "checks": {
+    "dijet_vs_monojet_kloster_topology_gt_95pct": true,
     "high_luminosity_3x_pileup_stress_verified": true,
     "kloster_auroc_gt_095": true,
     "kloster_beats_classical_peak_auroc": true,
@@ -22,13 +23,18 @@
     "negative_control_preserved": true
   },
   "contract": "zoe-cern-helios-kloster-trigger/v1",
+  "dijet_vs_monojet_topology": {
+    "accuracy": 0.9875,
+    "correct": 79,
+    "total": 80
+  },
   "events_summary": {
     "bg_hotspikes": 80,
     "bg_pileup": 160,
     "channels": 64,
     "signal_jets": 160
   },
-  "evidence_sha256": "4f08f7e583c05a77ce1193c3a82a78f338b14ed030cd4cf2ad6dc36f0e92f567",
+  "evidence_sha256": "02944d2c6299794aa7334be5a249f761e1d6aacaa27654fcae265582818b4a2d",
   "high_luminosity_3x_stress": {
     "classical_peak_auroc": 0.58115,
     "kloster_auroc": 0.98333

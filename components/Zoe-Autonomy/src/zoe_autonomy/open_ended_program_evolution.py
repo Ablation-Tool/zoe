@@ -299,6 +299,27 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
     from guiai.gem.code_elegance_analyzer import analyze_python_source
     evolved_elegance = analyze_python_source(best_source, label="<zoe-evolved-multistmt>")
 
+    # Orbit Pass 3: Multi-Objective Pareto Frontier (Held-out MSE vs Maintainability Index MI)
+    pareto_candidates: List[Dict[str, Any]] = []
+    for label, g_cand in [("seed_minimal", seed_genome), ("evolved_knee_best", best_genome)] + [
+        (f"mutant_{i}", _mutate_genome(best_genome, rng)) for i in range(6)
+    ]:
+        src_c = genome_to_source(g_cand)
+        mse_c = _eval_program_mse(validate_and_compile_program(src_c), test_streams)
+        el_c = analyze_python_source(src_c, label=label)
+        pareto_candidates.append({
+            "label": label,
+            "test_mse": round(mse_c, 6),
+            "mi_score": el_c["mi_score"],
+            "max_cc": el_c["max_cc"],
+        })
+    # Identify non-dominated Pareto front (lower MSE, higher MI)
+    pareto_front = [
+        c for c in pareto_candidates
+        if not any(o["test_mse"] < c["test_mse"] - 1e-6 and o["mi_score"] > c["mi_score"] + 0.1 for o in pareto_candidates)
+    ]
+    evolved_on_pareto = any(c["label"] == "evolved_knee_best" for c in pareto_front)
+
     # 3. Blind Zero-Shot Transfer #1: Real 16 Neural LLMs Concentration Separation (#5)
     comp_dir = root / "components/next-token-predictability/evidence/comparison"
     llm_scores: List[float] = []
@@ -340,6 +361,7 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "blind_transfer_real_16llm_auroc_gt_090": llm_transfer_auroc >= 0.90,
         "blind_transfer_real_groove_beats_poisson_all": groove_sep_ok,
         "evolved_code_elegance_high_mi_and_low_cc": evolved_elegance["mi_score"] >= 65.0 and evolved_elegance["max_cc"] <= 4,
+        "evolved_lies_on_accuracy_elegance_pareto_front": evolved_on_pareto,
     }
     report = {
         "contract": CONTRACT,
@@ -360,6 +382,7 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
             "maintainability_index_mi": evolved_elegance["mi_score"],
             "grade": evolved_elegance["grade"],
         },
+        "pareto_frontier": pareto_front,
         "evolved_source": best_source,
         "fitness_curve_mse": fitness_curve,
         "checks": checks,

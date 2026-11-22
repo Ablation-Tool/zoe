@@ -7,6 +7,7 @@
     "real_qwen25_3b_gguf_v3_verified": true,
     "remote_non_loopback_ssrf_blocked": true,
     "temperature_phase_sweep_monotonic_151936_vocab": true,
+    "theorem5_thermodynamic_criticality_detected": true,
     "zero_prefix_pruning_bound_violations": true
   },
   "constitution": {
@@ -15,7 +16,7 @@
     "loopback_only_enforced": true
   },
   "contract": "zoe-live-qwen-multihorizon-steerer/v1",
-  "evidence_sha256": "aaeea8313309a2bbac8e1044ec31ab83083c6671d9ab7827a5aa5b05c72ccb89",
+  "evidence_sha256": "4e4cca7facba0e1ac1a7b4f7476cffa37178eec5f79aa77a65f193801961e373",
   "gguf_provenance": {
     "gguf_version": 3,
     "header_4mb_sha256": "3b3e72a8b68e68ef3bef21d57a9f66a36e0cfec554854bb707dd6ee58fb75ba7",
@@ -314,6 +315,78 @@
       "temperature": 1.35
     }
   ],
+  "thermodynamic_criticality_qwen": {
+    "peak": {
+      "beta": 0.485,
+      "c_beta": 23.32891
+    },
+    "profile": [
+      {
+        "beta": 0.25,
+        "c_beta": 0.37833
+      },
+      {
+        "beta": 0.295,
+        "c_beta": 1.05817
+      },
+      {
+        "beta": 0.3482,
+        "c_beta": 3.52114
+      },
+      {
+        "beta": 0.4109,
+        "c_beta": 11.73292
+      },
+      {
+        "beta": 0.485,
+        "c_beta": 23.32891
+      },
+      {
+        "beta": 0.5724,
+        "c_beta": 14.46931
+      },
+      {
+        "beta": 0.6755,
+        "c_beta": 3.47238
+      },
+      {
+        "beta": 0.7972,
+        "c_beta": 0.68702
+      },
+      {
+        "beta": 0.9408,
+        "c_beta": 0.35345
+      },
+      {
+        "beta": 1.1103,
+        "c_beta": 0.39894
+      },
+      {
+        "beta": 1.3104,
+        "c_beta": 0.49609
+      },
+      {
+        "beta": 1.5465,
+        "c_beta": 0.61095
+      },
+      {
+        "beta": 1.8251,
+        "c_beta": 0.73808
+      },
+      {
+        "beta": 2.1539,
+        "c_beta": 0.87047
+      },
+      {
+        "beta": 2.542,
+        "c_beta": 0.99564
+      },
+      {
+        "beta": 3.0,
+        "c_beta": 1.09532
+      }
+    ]
+  },
   "total_forward_calls": 42,
   "total_theoretical_max_calls": 214
 }

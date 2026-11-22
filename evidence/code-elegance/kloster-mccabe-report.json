@@ -172,13 +172,13 @@
       "sloc": 351
     },
     {
-      "avg_cc": 8.5,
+      "avg_cc": 10.0,
       "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
       "grade": "B",
-      "h2": 0.3434,
-      "max_cc": 14,
-      "mi": 53.514,
-      "sloc": 221
+      "h2": 0.2944,
+      "max_cc": 17,
+      "mi": 52.719,
+      "sloc": 242
     },
     {
       "avg_cc": 4.8,
@@ -352,13 +352,13 @@
       "sloc": 148
     },
     {
-      "avg_cc": 5.667,
+      "avg_cc": 5.25,
       "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
       "grade": "B",
-      "h2": 0.585,
-      "max_cc": 12,
-      "mi": 56.449,
-      "sloc": 226
+      "h2": 0.7091,
+      "max_cc": 14,
+      "mi": 59.45,
+      "sloc": 251
     },
     {
       "avg_cc": 5.4,
@@ -469,13 +469,13 @@
       "sloc": 173
     },
     {
-      "avg_cc": 11.5,
+      "avg_cc": 12.5,
       "file": "guiai-lab/guiai/gem/groove_forensics.py",
       "grade": "B",
-      "h2": 1.6759,
+      "h2": 1.6692,
       "max_cc": 27,
-      "mi": 53.319,
-      "sloc": 332
+      "mi": 52.725,
+      "sloc": 350
     },
     {
       "avg_cc": 5.167,
@@ -494,6 +494,15 @@
       "max_cc": 25,
       "mi": 62.09,
       "sloc": 563
+    },
+    {
+      "avg_cc": 6.333,
+      "file": "guiai-lab/guiai/gem/kloster_thermodynamics.py",
+      "grade": "B",
+      "h2": 0.6578,
+      "max_cc": 13,
+      "mi": 49.132,
+      "sloc": 177
     },
     {
       "avg_cc": 2.667,
@@ -913,10 +922,10 @@
       "avg_cc": 5.0,
       "file": "guiai-lab/guiai/gem/unified.py",
       "grade": "A",
-      "h2": 2.1559,
+      "h2": 2.2867,
       "max_cc": 21,
-      "mi": 61.389,
-      "sloc": 344
+      "mi": 61.356,
+      "sloc": 367
     },
     {
       "avg_cc": 13.5,
@@ -1135,13 +1144,13 @@
       "sloc": 177
     },
     {
-      "avg_cc": 4.729,
+      "avg_cc": 4.704,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/chat.py",
       "grade": "B",
-      "h2": 3.2192,
-      "max_cc": 47,
-      "mi": 59.093,
-      "sloc": 1229
+      "h2": 3.2149,
+      "max_cc": 48,
+      "mi": 59.02,
+      "sloc": 1248
     },
     {
       "avg_cc": 29.0,
@@ -1261,13 +1270,13 @@
       "sloc": 184
     },
     {
-      "avg_cc": 6.909,
+      "avg_cc": 7.0,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
       "grade": "A",
-      "h2": 1.6992,
+      "h2": 1.715,
       "max_cc": 24,
-      "mi": 64.26,
-      "sloc": 332
+      "mi": 63.949,
+      "sloc": 350
     },
     {
       "avg_cc": 7.926,
@@ -1594,13 +1603,13 @@
       "sloc": 178
     },
     {
-      "avg_cc": 8.0,
+      "avg_cc": 8.125,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
       "grade": "B",
-      "h2": 1.6483,
+      "h2": 1.6456,
       "max_cc": 19,
-      "mi": 56.312,
-      "sloc": 365
+      "mi": 56.473,
+      "sloc": 374
     },
     {
       "avg_cc": 5.368,
@@ -1639,13 +1648,13 @@
       "sloc": 141
     },
     {
-      "avg_cc": 7.333,
+      "avg_cc": 8.111,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
       "grade": "A",
-      "h2": 1.5334,
-      "max_cc": 22,
-      "mi": 60.092,
-      "sloc": 319
+      "h2": 1.4131,
+      "max_cc": 29,
+      "mi": 60.242,
+      "sloc": 339
     },
     {
       "avg_cc": 6.571,
@@ -1657,13 +1666,13 @@
       "sloc": 921
     },
     {
-      "avg_cc": 4.571,
+      "avg_cc": 5.875,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
       "grade": "B",
-      "h2": 1.761,
-      "max_cc": 8,
-      "mi": 54.084,
-      "sloc": 304
+      "h2": 1.7063,
+      "max_cc": 15,
+      "mi": 52.307,
+      "sloc": 385
     },
     {
       "avg_cc": 6.714,
@@ -1736,6 +1745,15 @@
       "max_cc": 80,
       "mi": 66.935,
       "sloc": 287
+    },
+    {
+      "avg_cc": 7.909,
+      "file": "scripts/compose_zoe_observatory_odyssey.py",
+      "grade": "A",
+      "h2": 0.9021,
+      "max_cc": 54,
+      "mi": 63.587,
+      "sloc": 359
     },
     {
       "avg_cc": 9.0,
@@ -1918,6 +1936,15 @@
       "sloc": 196
     },
     {
+      "avg_cc": 12.0,
+      "file": "scripts/verify_kloster_thermodynamics.py",
+      "grade": "B",
+      "h2": 0.5331,
+      "max_cc": 17,
+      "mi": 49.328,
+      "sloc": 139
+    },
+    {
       "avg_cc": 6.714,
       "file": "scripts/verify_l3_research.py",
       "grade": "A",
@@ -2017,13 +2044,13 @@
       "sloc": 204
     },
     {
-      "avg_cc": 26.0,
+      "avg_cc": 4.5,
       "file": "scripts/verify_renaissance_orbit.py",
-      "grade": "C",
-      "h2": -0.0,
-      "max_cc": 26,
-      "mi": 33.855,
-      "sloc": 123
+      "grade": "A",
+      "h2": 1.5612,
+      "max_cc": 8,
+      "mi": 61.83,
+      "sloc": 133
     },
     {
       "avg_cc": 5.5,
@@ -2104,26 +2131,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "cdba51ca6e9740136aae045b099a196dafcfd583d361a50479c570eb3db77dfc",
+  "evidence_sha256": "063e35ad8822310f79cea43660f8be1aaf3edd32567bfd2d0acb9083b85cf8ff",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.659,
-    "files_scanned": 232,
+    "corr_avg_cc_vs_mi": -0.6432,
+    "files_scanned": 235,
     "grade_distribution": {
-      "A": 117,
-      "B": 105,
-      "C": 10,
+      "A": 119,
+      "B": 107,
+      "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.575,
-    "mean_mi": 58.598,
-    "median_mi": 60.11,
-    "orbit_mean_avg_cc": 7.107,
-    "orbit_mean_mi": 57.619,
+    "mean_avg_cc": 7.517,
+    "mean_mi": 58.657,
+    "median_mi": 60.172,
+    "orbit_mean_avg_cc": 7.444,
+    "orbit_mean_mi": 57.606,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2668,
-    "total_sloc": 69889
+    "total_functions": 2694,
+    "total_sloc": 70808
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2179,30 +2206,30 @@
       "total_cc": 30
     },
     {
-      "avg_cc": 8.5,
-      "comment_ratio": 0.0637,
+      "avg_cc": 10.0,
+      "comment_ratio": 0.0653,
       "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
       "functions": 2,
       "grade": "B",
-      "halstead_length": 1066,
-      "halstead_vocab": 255,
-      "halstead_volume": 8521.98,
+      "halstead_length": 1215,
+      "halstead_vocab": 282,
+      "halstead_volume": 9889.55,
       "kloster_cc_a_005": 2,
-      "kloster_cc_m4_root": 0.824,
-      "kloster_cc_renyi_h2": 0.3434,
+      "kloster_cc_m4_root": 0.8502,
+      "kloster_cc_renyi_h2": 0.2944,
       "low_maintainability_flag": false,
-      "max_cc": 14,
-      "mi_file_radon": 30.192,
-      "mi_score": 53.514,
+      "max_cc": 17,
+      "mi_file_radon": 28.61,
+      "mi_score": 52.719,
       "most_complex_function": {
-        "cc": 14,
-        "fn_mi": 30.8,
-        "fn_sloc": 220,
+        "cc": 17,
+        "fn_mi": 29.08,
+        "fn_sloc": 244,
         "lineno": 48,
         "name": "run_cern_kloster_trigger_suite"
       },
-      "sloc": 221,
-      "total_cc": 17
+      "sloc": 242,
+      "total_cc": 20
     },
     {
       "avg_cc": 13.8,
@@ -2231,56 +2258,56 @@
       "total_cc": 69
     },
     {
-      "avg_cc": 5.667,
-      "comment_ratio": 0.0554,
+      "avg_cc": 5.25,
+      "comment_ratio": 0.0567,
       "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
-      "functions": 3,
+      "functions": 4,
       "grade": "B",
-      "halstead_length": 940,
-      "halstead_vocab": 245,
-      "halstead_volume": 7460.44,
+      "halstead_length": 1164,
+      "halstead_vocab": 279,
+      "halstead_volume": 9456.48,
       "kloster_cc_a_005": 3,
-      "kloster_cc_m4_root": 0.7081,
-      "kloster_cc_renyi_h2": 0.585,
+      "kloster_cc_m4_root": 0.6678,
+      "kloster_cc_renyi_h2": 0.7091,
       "low_maintainability_flag": false,
-      "max_cc": 12,
-      "mi_file_radon": 29.667,
-      "mi_score": 56.449,
+      "max_cc": 14,
+      "mi_file_radon": 27.531,
+      "mi_score": 59.45,
       "most_complex_function": {
-        "cc": 12,
-        "fn_mi": 34.35,
-        "fn_sloc": 170,
+        "cc": 14,
+        "fn_mi": 31.69,
+        "fn_sloc": 199,
         "lineno": 102,
         "name": "run_dorothy_neurogarden_3d_suite"
       },
-      "sloc": 226,
-      "total_cc": 17
+      "sloc": 251,
+      "total_cc": 21
     },
     {
-      "avg_cc": 11.5,
+      "avg_cc": 12.5,
       "comment_ratio": 0.0505,
       "file": "guiai-lab/guiai/gem/groove_forensics.py",
       "functions": 8,
       "grade": "B",
-      "halstead_length": 1762,
-      "halstead_vocab": 377,
-      "halstead_volume": 15079.94,
-      "kloster_cc_a_005": 6,
-      "kloster_cc_m4_root": 0.3208,
-      "kloster_cc_renyi_h2": 1.6759,
+      "halstead_length": 1921,
+      "halstead_vocab": 397,
+      "halstead_volume": 16583.98,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.3161,
+      "kloster_cc_renyi_h2": 1.6692,
       "low_maintainability_flag": false,
       "max_cc": 27,
-      "mi_file_radon": 13.348,
-      "mi_score": 53.319,
+      "mi_file_radon": 11.48,
+      "mi_score": 52.725,
       "most_complex_function": {
         "cc": 27,
         "fn_mi": 44.95,
         "fn_sloc": 52,
-        "lineno": 228,
+        "lineno": 232,
         "name": "render_groove_showcase_wav"
       },
-      "sloc": 332,
-      "total_cc": 92
+      "sloc": 350,
+      "total_cc": 100
     },
     {
       "avg_cc": 6.059,
@@ -2361,108 +2388,108 @@
       "total_cc": 11
     },
     {
-      "avg_cc": 6.909,
-      "comment_ratio": 0.0436,
+      "avg_cc": 7.0,
+      "comment_ratio": 0.0462,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
       "functions": 11,
       "grade": "A",
-      "halstead_length": 2429,
-      "halstead_vocab": 382,
-      "halstead_volume": 20834.57,
+      "halstead_length": 2532,
+      "halstead_vocab": 402,
+      "halstead_volume": 21904.46,
       "kloster_cc_a_005": 7,
-      "kloster_cc_m4_root": 0.3338,
-      "kloster_cc_renyi_h2": 1.6992,
+      "kloster_cc_m4_root": 0.3296,
+      "kloster_cc_renyi_h2": 1.715,
       "low_maintainability_flag": false,
       "max_cc": 24,
-      "mi_file_radon": 13.835,
-      "mi_score": 64.26,
+      "mi_file_radon": 13.315,
+      "mi_score": 63.949,
       "most_complex_function": {
         "cc": 24,
-        "fn_mi": 27.1,
+        "fn_mi": 27.37,
         "fn_sloc": 197,
         "lineno": 47,
         "name": "_track_a_arc_public_format"
       },
-      "sloc": 332,
-      "total_cc": 76
+      "sloc": 350,
+      "total_cc": 77
     },
     {
-      "avg_cc": 8.0,
-      "comment_ratio": 0.0195,
+      "avg_cc": 8.125,
+      "comment_ratio": 0.0214,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
       "functions": 8,
       "grade": "B",
-      "halstead_length": 1276,
-      "halstead_vocab": 372,
-      "halstead_volume": 10895.97,
+      "halstead_length": 1322,
+      "halstead_vocab": 387,
+      "halstead_volume": 11364.16,
       "kloster_cc_a_005": 5,
-      "kloster_cc_m4_root": 0.3247,
-      "kloster_cc_renyi_h2": 1.6483,
+      "kloster_cc_m4_root": 0.3239,
+      "kloster_cc_renyi_h2": 1.6456,
       "low_maintainability_flag": false,
       "max_cc": 19,
-      "mi_file_radon": 13.507,
-      "mi_score": 56.312,
+      "mi_file_radon": 13.302,
+      "mi_score": 56.473,
       "most_complex_function": {
         "cc": 19,
-        "fn_mi": 45.92,
+        "fn_mi": 46.21,
         "fn_sloc": 45,
         "lineno": 136,
         "name": "steer_from_multihorizon_trace"
       },
-      "sloc": 365,
-      "total_cc": 64
+      "sloc": 374,
+      "total_cc": 65
     },
     {
-      "avg_cc": 7.333,
-      "comment_ratio": 0.0269,
+      "avg_cc": 8.111,
+      "comment_ratio": 0.0304,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
       "functions": 9,
       "grade": "A",
-      "halstead_length": 1604,
-      "halstead_vocab": 341,
-      "halstead_volume": 13495.46,
+      "halstead_length": 1700,
+      "halstead_vocab": 361,
+      "halstead_volume": 14442.95,
       "kloster_cc_a_005": 4,
-      "kloster_cc_m4_root": 0.3672,
-      "kloster_cc_renyi_h2": 1.5334,
+      "kloster_cc_m4_root": 0.412,
+      "kloster_cc_renyi_h2": 1.4131,
       "low_maintainability_flag": false,
-      "max_cc": 22,
-      "mi_file_radon": 14.933,
-      "mi_score": 60.092,
+      "max_cc": 29,
+      "mi_file_radon": 13.661,
+      "mi_score": 60.242,
       "most_complex_function": {
-        "cc": 22,
-        "fn_mi": 30.68,
-        "fn_sloc": 154,
+        "cc": 29,
+        "fn_mi": 28.41,
+        "fn_sloc": 177,
         "lineno": 219,
         "name": "run_open_ended_evolution_suite"
       },
-      "sloc": 319,
-      "total_cc": 66
+      "sloc": 339,
+      "total_cc": 73
     },
     {
-      "avg_cc": 4.571,
-      "comment_ratio": 0.0497,
+      "avg_cc": 5.875,
+      "comment_ratio": 0.0484,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
-      "functions": 7,
+      "functions": 8,
       "grade": "B",
-      "halstead_length": 970,
-      "halstead_vocab": 322,
-      "halstead_volume": 8080.99,
-      "kloster_cc_a_005": 7,
-      "kloster_cc_m4_root": 0.2882,
-      "kloster_cc_renyi_h2": 1.761,
+      "halstead_length": 1300,
+      "halstead_vocab": 392,
+      "halstead_volume": 11199.12,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.33,
+      "kloster_cc_renyi_h2": 1.7063,
       "low_maintainability_flag": false,
-      "max_cc": 8,
-      "mi_file_radon": 24.076,
-      "mi_score": 54.084,
+      "max_cc": 15,
+      "mi_file_radon": 18.696,
+      "mi_score": 52.307,
       "most_complex_function": {
-        "cc": 8,
-        "fn_mi": 50.3,
-        "fn_sloc": 55,
-        "lineno": 213,
-        "name": "_redteam_zoe_os_and_qwen_steerer"
+        "cc": 15,
+        "fn_mi": 42.05,
+        "fn_sloc": 88,
+        "lineno": 333,
+        "name": "cross_world_parser_fuzzing_audit"
       },
-      "sloc": 304,
-      "total_cc": 32
+      "sloc": 385,
+      "total_cc": 47
     },
     {
       "avg_cc": 3.857,
@@ -2683,32 +2710,6 @@
       "total_cc": 36
     },
     {
-      "avg_cc": 26.0,
-      "comment_ratio": 0.007,
-      "file": "scripts/verify_renaissance_orbit.py",
-      "functions": 1,
-      "grade": "C",
-      "halstead_length": 498,
-      "halstead_vocab": 173,
-      "halstead_volume": 3702.44,
-      "kloster_cc_a_005": 1,
-      "kloster_cc_m4_root": 1.0,
-      "kloster_cc_renyi_h2": -0.0,
-      "low_maintainability_flag": false,
-      "max_cc": 26,
-      "mi_file_radon": 29.705,
-      "mi_score": 33.855,
-      "most_complex_function": {
-        "cc": 26,
-        "fn_mi": 33.86,
-        "fn_sloc": 88,
-        "lineno": 52,
-        "name": "main"
-      },
-      "sloc": 123,
-      "total_cc": 26
-    },
-    {
       "avg_cc": 15.0,
       "comment_ratio": 0.0806,
       "file": "scripts/render_zoe_voice_figure.py",
@@ -2759,6 +2760,32 @@
       },
       "sloc": 385,
       "total_cc": 108
+    },
+    {
+      "avg_cc": 13.5,
+      "comment_ratio": 0.0388,
+      "file": "scripts/verify_kloster_theory.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 1091,
+      "halstead_vocab": 355,
+      "halstead_volume": 9242.6,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.7092,
+      "kloster_cc_renyi_h2": 0.5396,
+      "low_maintainability_flag": false,
+      "max_cc": 19,
+      "mi_file_radon": 27.381,
+      "mi_score": 41.362,
+      "most_complex_function": {
+        "cc": 19,
+        "fn_mi": 31.14,
+        "fn_sloc": 160,
+        "lineno": 28,
+        "name": "render_publication_figure"
+      },
+      "sloc": 196,
+      "total_cc": 27
     }
   ],
   "top_10_most_elegant": [

@@ -196,6 +196,8 @@ def parse_mod_onsets_pure(raw_data: bytes) -> Tuple[List[float], float]:
     if len(raw_data) < 1084 or raw_data[1080:1084] != b"M.K.":
         raise ValueError("Invalid M.K. ProTracker MOD")
     song_len = raw_data[950]
+    if not (1 <= song_len <= 128):
+        raise ValueError(f"Invalid MOD song length: {song_len}")
     orders = list(raw_data[952 : 952 + song_len])
     speed = 6
     bpm = 125
@@ -203,6 +205,8 @@ def parse_mod_onsets_pure(raw_data: bytes) -> Tuple[List[float], float]:
     onsets: List[float] = []
     for pat in orders:
         base = 1084 + pat * 1024
+        if base + 1024 > len(raw_data):
+            raise ValueError(f"Truncated MOD pattern {pat} beyond buffer length {len(raw_data)}")
         for row in range(64):
             row_has_note = False
             for ch in range(4):
@@ -357,6 +361,20 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
             dk_mat[i, j] = d
             dk_mat[j, i] = d
 
+    # Orbit Pass 3: Multi-Ratio Polyrhythmic Stern-Brocot Interference Spectrum (2:1 .. 7:5)
+    stern_brocot_spectrum: List[Dict[str, Any]] = []
+    for m_r, n_r in ((2, 1), (3, 2), (4, 3), (5, 4), (7, 4), (7, 5)):
+        va = [bar * cycle_sec + k * (cycle_sec / m_r) + float(rng.normal(0.0, 0.003)) for bar in range(12) for k in range(m_r)]
+        vb = [bar * cycle_sec + k * (cycle_sec / n_r) + float(rng.normal(0.0, 0.003)) for bar in range(12) for k in range(n_r)]
+        plv_mn = polyrhythmic_plv(va, vb, m_r, n_r, cycle_sec)
+        p_comb = _discretize_ioi_distribution(np.asarray(sorted(va + vb)))
+        stern_brocot_spectrum.append({
+            "ratio": f"{m_r}:{n_r}",
+            "plv": round(plv_mn, 5),
+            "kloster_m4": round(float(spectral_moment_root(p_comb, 4.0)), 5),
+            "kloster_h2": round(kloster_renyi_entropy(p_comb, 2.0), 5),
+        })
+
     wav_showcase = render_groove_showcase_wav(rigid_onsets, dilla_onsets, voice_3, voice_2)
 
     checks = {
@@ -369,11 +387,13 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
         ),
         "negative_control_poisson_low_plv": a_noise["plv"] < 0.35 and a_noise["kloster_renyi_h2"] > a_dilla["kloster_renyi_h2"],
         "playable_groove_showcase_wav_rendered": wav_showcase["bytes"] > 1_000_000,
+        "stern_brocot_6_ratios_locked": all(r["plv"] > 0.95 for r in stern_brocot_spectrum),
     }
 
     report = {
         "contract": CONTRACT,
         "profiles": profiles,
+        "stern_brocot_polyrhythm_spectrum": stern_brocot_spectrum,
         "groove_showcase_wav": wav_showcase,
         "polyrhythm_plv_summary": {
             "3:2_clave": round(plv_3_2, 5),

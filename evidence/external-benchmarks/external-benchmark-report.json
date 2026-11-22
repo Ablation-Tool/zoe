@@ -6,11 +6,19 @@
     "total_wrong_bluffs": 0
   },
   "all_verified": true,
+  "calibration_and_risk_coverage": {
+    "coverage": 0.75,
+    "ece_answered_bin": 0.03,
+    "raw_non_solve_rate": 0.25,
+    "selective_error_rate_when_answered": 0.0,
+    "selective_risk_reduction_pct": 25.0
+  },
   "checks": {
     "arc_honestly_abstains_on_dsl_frontier_limits": true,
-    "arc_solved_at_least_6_and_zero_hallucinated_guesses": true,
+    "arc_solved_at_least_8_and_zero_hallucinated_guesses": true,
     "failure_taxonomy_explicitly_published": true,
     "gpqa_100pct_selective_accuracy_and_honest_abstains": true,
+    "kloster_selective_calibration_zero_bluffs": true,
     "swe_repaired_at_least_5_and_escalated_ambiguous": true
   },
   "constitution": {
@@ -21,7 +29,7 @@
     "zero_curve_fitting": true
   },
   "contract": "zoe-external-uncurated-benchmark/v1",
-  "evidence_sha256": "d25182758392c3d4c937b3a2fc2e6339989c7d44b75711332e91f6fbd6e601e0",
+  "evidence_sha256": "ee1d872b009a08903bb3db11186a50a3364bfea8d1bccb52ef778ce40a5e3f49",
   "tracks": {
     "arc_agi_format": {
       "honest_abstentions": 3,

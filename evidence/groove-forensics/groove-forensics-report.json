@@ -7,14 +7,15 @@
     "playable_groove_showcase_wav_rendered": true,
     "polyrhythms_3_2_4_3_5_4_locked": true,
     "protracker_mod_parsed_cleanly": true,
-    "rigid_zero_jitter_collapse": true
+    "rigid_zero_jitter_collapse": true,
+    "stern_brocot_6_ratios_locked": true
   },
   "constitution": {
     "cloud_tokens_used": 0,
     "negative_control_preserved": true
   },
   "contract": "zoe-groove-forensics-polyrhythm/v1",
-  "evidence_sha256": "cd20ec7309795a99dc0f0c3ba2dec7f386c2837b744e1f98fd1e030a69610167",
+  "evidence_sha256": "e96fcc074c0470c50ddc991d7dec03f907114ea00fe4f2b118b8af15d5f8253f",
   "groove_showcase_wav": {
     "bytes": 2116844,
     "duration_sec": 12.0,
@@ -1620,6 +1621,44 @@
       "residual_std_ms": 35.104,
       "sd1_ms": 32.939,
       "sd2_ms": 37.375
+    }
+  ],
+  "stern_brocot_polyrhythm_spectrum": [
+    {
+      "kloster_h2": 1.03996,
+      "kloster_m4": 0.47354,
+      "plv": 0.99985,
+      "ratio": "2:1"
+    },
+    {
+      "kloster_h2": 1.58279,
+      "kloster_m4": 0.31096,
+      "plv": 0.99974,
+      "ratio": "3:2"
+    },
+    {
+      "kloster_h2": 1.90369,
+      "kloster_m4": 0.24598,
+      "plv": 0.9995,
+      "ratio": "4:3"
+    },
+    {
+      "kloster_h2": 2.18094,
+      "kloster_m4": 0.19691,
+      "plv": 0.99912,
+      "ratio": "5:4"
+    },
+    {
+      "kloster_h2": 1.86319,
+      "kloster_m4": 0.2804,
+      "plv": 0.99846,
+      "ratio": "7:4"
+    },
+    {
+      "kloster_h2": 2.04149,
+      "kloster_m4": 0.22752,
+      "plv": 0.99863,
+      "ratio": "7:5"
     }
   ]
 }

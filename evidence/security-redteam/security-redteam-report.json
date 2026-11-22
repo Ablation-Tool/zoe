@@ -25,6 +25,7 @@
   "all_verified": true,
   "checks": {
     "ablation_entropy_separates_packed_vs_clean": true,
+    "cross_world_parser_fuzzing_100_zero_crashes": true,
     "defensive_fault_hardening_quorum_verified": true,
     "kevlar_present_and_loaded": true,
     "pala_rust_live_carved_png_sha256_exact": true,
@@ -36,6 +37,16 @@
     "read_only_forensics_preserved": true
   },
   "contract": "zoe-security-forensics-redteam/v1",
+  "cross_world_parser_fuzzing": {
+    "mod_clean_parses": 10,
+    "mod_clean_valueerror_rejects": 40,
+    "mod_unhandled_crashes": [],
+    "total_fuzz_payloads": 100,
+    "vcd_clean_parses": 0,
+    "vcd_clean_valueerror_rejects": 50,
+    "vcd_unhandled_crashes": [],
+    "zero_unhandled_crashes": true
+  },
   "cross_world_redteam": {
     "all_cross_world_defenses_passed": true,
     "ledger_intact_before_tamper": true,
@@ -63,7 +74,7 @@
     },
     "trials": 2000
   },
-  "evidence_sha256": "9e4909477ec8be65fa30c214857a726c174eb5c7ae7807932b58ff68d85ce0e4",
+  "evidence_sha256": "4ebd3fd45e96d7e5952692573b6e92a26be1c1f3a003529af06b2ce4a671e4fe",
   "kevlar_audit": {
     "all_probes_caught_by_kevlar": true,
     "kevlar_present": true,

@@ -8,6 +8,7 @@
     "kloster_m4_tracks_phase_coherence": true,
     "kuramoto_phase_transition_sweep_verified": true,
     "lesion_reduces_gamma_coherence": true,
+    "theta_gamma_pac_tort_mi_verified": true,
     "uncoupled_neg_ctrl_desynchronized": true
   },
   "connectome": {
@@ -117,7 +118,7 @@
   },
   "contract": "zoe-dorothy-neurogarden-3d-gamma/v1",
   "dedication": "In honor of Dorothy McEwen Kildall (preclinical computational neuroscience only)",
-  "evidence_sha256": "987875f9150e44b8fac120b27ffd5c53f55594a87253bd6e43ebe3185525fd76",
+  "evidence_sha256": "f9bdc5bc04a2105ded58e93806a06c13cdb9d7d471fc546b353d366ab842fb5f",
   "kuramoto_40hz_gamma": {
     "coupling_phase_transition_sweep": [
       {
@@ -678,6 +679,11 @@
         0.3195
       ],
       "steady_order_r": 0.15429
+    },
+    "theta_gamma_pac_tort_mi": {
+      "healthy": 0.06246,
+      "lesion": 0.00671,
+      "shuffled_surrogate_neg_ctrl": 0.0002
     }
   },
   "regions": [

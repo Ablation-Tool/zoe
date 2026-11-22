@@ -357,23 +357,44 @@ def run_external_benchmark_suite() -> Dict[str, Any]:
     tb = _track_b_swe_bench_style()
     tc = _track_c_gpqa_science_calibrated()
 
+    total_tasks = ta["total"] + tb["total"] + tc["total"]
+    total_solved = ta["solved"] + tb["repaired"] + tc["correct"]
+    total_abstains = ta["honest_abstentions"] + tb["honest_escalations"] + tc["honest_abstentions"]
+    total_bluffs = ta["wrong_guesses"] + tc["wrong"]
+    answered = total_solved + total_bluffs
+    # Orbit Pass 3: Formal Calibration & Selective Risk-Coverage Audit (ECE & Selective Error Rate)
+    coverage = round(answered / max(1, total_tasks), 4)
+    selective_error_rate = round(total_bluffs / max(1, answered), 4)
+    raw_miss_rate = round((total_tasks - total_solved) / max(1, total_tasks), 4)
+    # Confidence = 0.96 when answered (A_tau == 1), 0.15 when abstained -> ECE over 2 bins
+    ece_answered_bin = abs(0.96 - (total_solved / max(1, answered))) * (answered / max(1, total_tasks))
+    calibration = {
+        "coverage": coverage,
+        "raw_non_solve_rate": raw_miss_rate,
+        "selective_error_rate_when_answered": selective_error_rate,
+        "selective_risk_reduction_pct": round((raw_miss_rate - selective_error_rate) * 100.0, 2),
+        "ece_answered_bin": round(ece_answered_bin, 5),
+    }
+
     # Honest reporting requires non-trivial wins AND transparent preserved failures/abstentions!
     checks = {
-        "arc_solved_at_least_6_and_zero_hallucinated_guesses": ta["solved"] >= 6 and ta["wrong_guesses"] == 0,
+        "arc_solved_at_least_8_and_zero_hallucinated_guesses": ta["solved"] >= 8 and ta["wrong_guesses"] == 0,
         "arc_honestly_abstains_on_dsl_frontier_limits": ta["honest_abstentions"] >= 2,
         "swe_repaired_at_least_5_and_escalated_ambiguous": tb["repaired"] >= 5 and tb["honest_escalations"] == 2,
         "gpqa_100pct_selective_accuracy_and_honest_abstains": tc["selective_accuracy_when_answered"] == 1.0 and tc["honest_abstentions"] == 3,
         "failure_taxonomy_explicitly_published": len(ta["honest_failure_taxonomy"]) >= 2 and len(tb["honest_failure_taxonomy"]) >= 2,
+        "kloster_selective_calibration_zero_bluffs": selective_error_rate == 0.0 and ece_answered_bin <= 0.05,
     }
     report = {
         "contract": CONTRACT,
         "tracks": {"arc_agi_format": ta, "swe_bench_style": tb, "gpqa_graduate_science": tc},
         "aggregate": {
-            "total_tasks": ta["total"] + tb["total"] + tc["total"],
-            "total_solved": ta["solved"] + tb["repaired"] + tc["correct"],
-            "total_honest_abstentions_or_escalations": ta["honest_abstentions"] + tb["honest_escalations"] + tc["honest_abstentions"],
-            "total_wrong_bluffs": ta["wrong_guesses"] + tc["wrong"],
+            "total_tasks": total_tasks,
+            "total_solved": total_solved,
+            "total_honest_abstentions_or_escalations": total_abstains,
+            "total_wrong_bluffs": total_bluffs,
         },
+        "calibration_and_risk_coverage": calibration,
         "checks": checks,
         "constitution": {
             "zero_curve_fitting": True,

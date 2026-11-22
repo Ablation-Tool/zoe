@@ -848,6 +848,24 @@ class ZoeChat:
             + "\n  Open visually with `gem open l5-phase5` or verify independently via `python scripts/verify_l5_phase5.py`."
         )
 
+    def _renaissance_orbit(self, command: str) -> str:
+        """Inspect Orbit Pass 1-3 verified telemetry directly inside ZoeChat (0 cloud tokens)."""
+        mapping = {
+            "zoe-os": ("evidence/zoe-os/zoe-os-mind-report.json", "Zoe OS Living Mind"),
+            "os": ("evidence/zoe-os/zoe-os-mind-report.json", "Zoe OS Living Mind"),
+            "elegance": ("evidence/code-elegance/kloster-mccabe-report.json", "Kloster-McCabe Code Elegance"),
+            "thermo": ("evidence/kloster-thermodynamics/kloster-thermodynamics-report.json", "Theorem 5 Kloster Thermodynamics"),
+            "orbit": ("evidence/renaissance-orbit/zoe-renaissance-orbit-master.json", "11-World Zoe Renaissance Orbit"),
+        }
+        rel, title = mapping.get(command, mapping["orbit"])
+        path = self.zoe_root / rel
+        if not path.is_file():
+            return f"{title} evidence not generated yet ({rel}). Run `python3 scripts/verify_renaissance_orbit.py`."
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        sha = str(doc.get("evidence_sha256", doc.get("master_sha256", "")))[:16]
+        ok = bool(doc.get("all_verified", False))
+        return f"{title} | verified={ok} | sha256={sha} | contract={doc.get('contract')} | cloud_tokens=0"
+
     def _l5_phase6(self, argument):
         from .l5_phase6_autonomous import run_l5_phase6_suite, summarize_l5_phase6_report
 
@@ -1249,6 +1267,8 @@ class ZoeChat:
                     response = self._l5_phase5(argument)
                 elif command in {"l5-phase6", "phase6", "autonomous-frontier"}:
                     response = self._l5_phase6(argument)
+                elif command in {"zoe-os", "os", "elegance", "thermo", "orbit"}:
+                    response = self._renaissance_orbit(command)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
                 elif command in {"eliza", "zoe-eliza"}:

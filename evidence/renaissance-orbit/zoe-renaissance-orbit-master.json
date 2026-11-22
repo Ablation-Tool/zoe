@@ -5,9 +5,12 @@
     "creative_art_circuit_cathedral_present": true,
     "creative_art_dorothy_tribute_present": true,
     "creative_art_observatory_present": true,
+    "creative_art_starlight_phase_present": true,
     "cross_pollination_edges_ge_20": true,
     "kloster_mccabe_monorepo_elegance_verified": true,
     "latex_pdf_compiled_gt_100kb": true,
+    "theorem5_kloster_thermodynamics_verified": true,
+    "zoe_chat_orbit_commands_live": true,
     "zoe_os_all_17_gem_engines_available": true,
     "zoe_os_orbit_ledger_intact": true
   },
@@ -19,11 +22,12 @@
     "sentience_claimed": false,
     "zoe_clone_claimed": false
   },
-  "contract": "zoe-11-world-renaissance-orbit/v1",
+  "contract": "zoe-11-world-renaissance-orbit/v3",
   "cross_pollination_edges_count": 31,
   "gem_engines_available": 17,
-  "latex_pdf_bytes": 942570,
-  "master_sha256": "f2521a3c34554d3ab736d8e744077ff9ae9c17eee4aec596f992dad77a2c7a99",
+  "latex_pdf_bytes": 957293,
+  "master_sha256": "f9073fb0905662ddf7c4c302b42215c8e743c7532f1a83393dc562b68c7d04bc",
+  "orbit_passes_completed": 3,
   "worlds": [
     {
       "engine_id": "research",
@@ -58,7 +62,7 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/qwen-steerer/qwen-steerer-report.json",
-      "evidence_sha256": "aaeea8313309a2bb",
+      "evidence_sha256": "4e4cca7facba0e1a",
       "improves_worlds": [
         "world4_zoe_os",
         "world2_benchmarks"
@@ -70,7 +74,7 @@
     {
       "engine_id": "helen",
       "evidence_path": "evidence/groove-forensics/groove-forensics-report.json",
-      "evidence_sha256": "cd20ec7309795a99",
+      "evidence_sha256": "e96fcc074c0470c5",
       "improves_worlds": [
         "world6_dorothy",
         "world8_voice",
@@ -83,7 +87,7 @@
     {
       "engine_id": "kevlar",
       "evidence_path": "evidence/security-redteam/security-redteam-report.json",
-      "evidence_sha256": "9e4909477ec8be65",
+      "evidence_sha256": "4ebd3fd45e96d7e5",
       "improves_worlds": [
         "world4_zoe_os",
         "world1_live_qwen",
@@ -96,7 +100,7 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/open-ended-evolution/multistmt-evolution-report.json",
-      "evidence_sha256": "ce788417319b874b",
+      "evidence_sha256": "80e4cf4dc95b2030",
       "improves_worlds": [
         "world4_zoe_os",
         "world9_alife",
@@ -109,7 +113,7 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/external-benchmarks/external-benchmark-report.json",
-      "evidence_sha256": "d25182758392c3d4",
+      "evidence_sha256": "ee1d872b009a0890",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory"
@@ -121,7 +125,7 @@
     {
       "engine_id": "brain",
       "evidence_path": "evidence/dorothy-neurogarden/dorothy-neurogarden-3d-report.json",
-      "evidence_sha256": "987875f9150e44b8",
+      "evidence_sha256": "f9bdc5bc04a2105d",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory"
@@ -133,7 +137,7 @@
     {
       "engine_id": "cern-console",
       "evidence_path": "evidence/cern-trigger/cern-kloster-trigger-report.json",
-      "evidence_sha256": "4f08f7e583c05a77",
+      "evidence_sha256": "02944d2c6299794a",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory"

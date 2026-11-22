@@ -330,6 +330,96 @@ def defensive_fault_injection_hardening_benchmark(trials: int = 2000) -> Dict[st
     }
 
 
+def cross_world_parser_fuzzing_audit(zoe_root: Path, trials_per_parser: int = 50) -> Dict[str, Any]:
+    """Orbit Pass 3: Cross-world differential fuzzing of #11 ProTracker .MOD & #7 IEEE 1364 VCD parsers.
+
+    Feeds 100 mutated/truncated/malformed adversarial binary & text payloads directly into
+    `guiai.gem.groove_forensics.parse_mod_onsets_pure` and `guiai.gem.waveform.WaveformReplay.from_vcd_text`.
+    Passes ONLY if 0 unhandled exceptions (IndexError/struct.error/ZeroDivisionError) escape!
+    """
+    _ensure_guiai_path(zoe_root)
+    from guiai.gem.groove_forensics import build_valid_protracker_mod_bytes, parse_mod_onsets_pure
+    from guiai.gem.waveform import WaveformReplay
+
+    rng = np.random.default_rng(20261033)
+    valid_mod = build_valid_protracker_mod_bytes()
+    mod_crashes: List[str] = []
+    mod_clean_rejects = 0
+    mod_clean_parses = 0
+
+    for i in range(trials_per_parser):
+        mode = i % 5
+        if mode == 0:
+            # Truncated header or truncated pattern body
+            cut = int(rng.integers(0, min(len(valid_mod), 1800)))
+            payload = valid_mod[:cut]
+        elif mode == 1:
+            # Corrupt song length byte (index 950) & order indices (952..1079) -> out-of-bounds pattern probe!
+            arr = bytearray(valid_mod)
+            arr[950] = int(rng.integers(1, 255))
+            for k in range(952, 965):
+                arr[k] = int(rng.integers(0, 255))
+            payload = bytes(arr)
+        elif mode == 2:
+            # Corrupt BPM/Speed bytes (zeros / extremes)
+            arr = bytearray(valid_mod)
+            for k in range(1084, len(arr), 17):
+                arr[k] = int(rng.integers(0, 256))
+            payload = bytes(arr)
+        elif mode == 3:
+            # Random garbage with valid M.K. magic injected at 1080
+            arr = bytearray(rng.integers(0, 256, size=1400, dtype=np.uint8).tolist())
+            arr[1080:1084] = b"M.K."
+            payload = bytes(arr)
+        else:
+            payload = bytes(rng.integers(0, 256, size=int(rng.integers(0, 500)), dtype=np.uint8).tolist())
+
+        try:
+            parse_mod_onsets_pure(payload)
+            mod_clean_parses += 1
+        except ValueError:
+            mod_clean_rejects += 1
+        except Exception as exc:
+            mod_crashes.append(f"mod_trial_{i}:{type(exc).__name__}:{str(exc)[:60]}")
+
+    vcd_crashes: List[str] = []
+    vcd_clean_rejects = 0
+    vcd_clean_parses = 0
+    vcd_mutations = [
+        "",
+        "$timescale 0ns $end\n#0\n0!",
+        "$timescale 1ns $end\n$var wire 999999 ! x $end\n$enddefinitions $end\n#0\n0!",
+        "$timescale 1ns $end\n$var wire 1 ! clk $end\n$enddefinitions $end\n#10\n0!\n#5\n1!",
+        "$timescale 1ns $end\n$var wire 1 ! clk $end\n$enddefinitions $end\n#0\n0UNKNOWN_SIG",
+        "$timescale 1ns $end\n$var wire 1 ! clk $end\n$enddefinitions $end\n#-99\n1!",
+    ]
+    for i in range(trials_per_parser):
+        if i < len(vcd_mutations):
+            txt = vcd_mutations[i]
+        else:
+            toks = ["$timescale 1ns $end", "$var wire 1 ! s $end", "$enddefinitions $end", "#0", "#-1", "b1010 !", "0?", "$scope", "$upscope"]
+            txt = "\n".join(str(toks[int(rng.integers(0, len(toks)))]) for _ in range(int(rng.integers(1, 10))))
+        try:
+            WaveformReplay.from_vcd_text(txt)
+            vcd_clean_parses += 1
+        except ValueError:
+            vcd_clean_rejects += 1
+        except Exception as exc:
+            vcd_crashes.append(f"vcd_trial_{i}:{type(exc).__name__}:{str(exc)[:60]}")
+
+    total_crashes = len(mod_crashes) + len(vcd_crashes)
+    return {
+        "total_fuzz_payloads": 2 * trials_per_parser,
+        "mod_clean_parses": mod_clean_parses,
+        "mod_clean_valueerror_rejects": mod_clean_rejects,
+        "mod_unhandled_crashes": mod_crashes[:5],
+        "vcd_clean_parses": vcd_clean_parses,
+        "vcd_clean_valueerror_rejects": vcd_clean_rejects,
+        "vcd_unhandled_crashes": vcd_crashes[:5],
+        "zero_unhandled_crashes": total_crashes == 0,
+    }
+
+
 def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
     root = Path(zoe_root).expanduser().resolve()
     kev = _probe_kevlar_firewall(root)
@@ -337,6 +427,7 @@ def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
     pala = _probe_pala_live_carving(root)
     cross = _redteam_zoe_os_and_qwen_steerer(root)
     fault_hardening = defensive_fault_injection_hardening_benchmark(trials=2000)
+    fuzzing = cross_world_parser_fuzzing_audit(root, trials_per_parser=50)
 
     checks = {
         "kevlar_present_and_loaded": kev["kevlar_present"],
@@ -344,6 +435,7 @@ def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "pala_rust_live_carved_png_sha256_exact": bool(pala.get("exact_sha256_recovery") and pala.get("source_image_read_only_unmodified")),
         "zoe_os_and_qwen_redteam_100pct_blocked": cross["all_cross_world_defenses_passed"],
         "defensive_fault_hardening_quorum_verified": fault_hardening["hardening_verified"],
+        "cross_world_parser_fuzzing_100_zero_crashes": fuzzing["zero_unhandled_crashes"],
     }
     report = {
         "contract": CONTRACT,
@@ -352,6 +444,7 @@ def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "pala_live_carving": pala,
         "cross_world_redteam": cross,
         "defensive_fault_hardening": fault_hardening,
+        "cross_world_parser_fuzzing": fuzzing,
         "checks": checks,
         "constitution": {"cloud_tokens_used": 0, "read_only_forensics_preserved": True, "defensive_security_only": True},
         "all_verified": all(checks.values()),

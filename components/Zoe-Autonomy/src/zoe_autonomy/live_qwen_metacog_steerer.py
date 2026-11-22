@@ -374,6 +374,15 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         and temp_sweep[-1]["renyi_h2"] > temp_sweep[0]["renyi_h2"] + 0.50
     )
 
+    # Orbit Pass 3: Cross-pollinate Theorem 5 Kloster Thermodynamic Heat-Capacity Criticality C(beta) onto Qwen2.5!
+    from guiai.gem.kloster_thermodynamics import kloster_thermodynamic_state
+    c_profile = [
+        {"beta": round(float(b), 4), "c_beta": round(kloster_thermodynamic_state(qwen_p, float(b))["heat_capacity_c"], 5)}
+        for b in np.geomspace(0.25, 3.0, 16)
+    ]
+    c_peak = max(c_profile, key=lambda r: r["c_beta"])
+    thermo_critical_ok = c_peak["c_beta"] > 0.50
+
     checks = {
         "real_qwen25_3b_gguf_v3_verified": bool(gguf.get("valid_gguf_v3", False)),
         "remote_non_loopback_ssrf_blocked": ssrf_blocked,
@@ -382,6 +391,7 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         "real_151936_vocab_tested": any(r["vocab_size"] == 151_936 for r in results),
         "honest_server_status_reported": isinstance(probe["online"], bool),
         "temperature_phase_sweep_monotonic_151936_vocab": temp_shifts_phase,
+        "theorem5_thermodynamic_criticality_detected": thermo_critical_ok,
     }
 
     report = {
@@ -391,6 +401,7 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         "live_server_turn": live_turn,
         "scenarios": results,
         "temperature_phase_sweep_qwen": temp_sweep,
+        "thermodynamic_criticality_qwen": {"peak": c_peak, "profile": c_profile},
         "total_forward_calls": total_calls,
         "total_theoretical_max_calls": total_max_calls,
         "checks": checks,

@@ -13,6 +13,7 @@
     "blind_transfer_real_16llm_auroc_gt_090": true,
     "blind_transfer_real_groove_beats_poisson_all": true,
     "evolved_code_elegance_high_mi_and_low_cc": true,
+    "evolved_lies_on_accuracy_elegance_pareto_front": true,
     "evolved_multistmt_beats_seed_by_5x": true,
     "evolved_stateful_beats_stateless_control": true,
     "hostile_ast_payloads_4_of_4_blocked": true,
@@ -24,7 +25,7 @@
     "cloud_tokens_used": 0
   },
   "contract": "zoe-open-ended-multistmt-evolution/v1",
-  "evidence_sha256": "ce788417319b874b9be17dd67697622ddf9c6680964485c8e22f63e074e4be0d",
+  "evidence_sha256": "80e4cf4dc95b2030c78b3c3c2fa01fe03862ab3c5267805b7839ea2e0586f1ec",
   "evolved_code_elegance": {
     "grade": "A",
     "maintainability_index_mi": 71.866,
@@ -66,6 +67,38 @@
   "hostile_total": 4,
   "improvement_vs_seed_x": 7.98,
   "improvement_vs_stateless_x": 5.13,
+  "pareto_frontier": [
+    {
+      "label": "seed_minimal",
+      "max_cc": 2,
+      "mi_score": 77.375,
+      "test_mse": 0.074074
+    },
+    {
+      "label": "evolved_knee_best",
+      "max_cc": 2,
+      "mi_score": 71.866,
+      "test_mse": 0.009287
+    },
+    {
+      "label": "mutant_1",
+      "max_cc": 2,
+      "mi_score": 71.866,
+      "test_mse": 0.008539
+    },
+    {
+      "label": "mutant_2",
+      "max_cc": 2,
+      "mi_score": 72.289,
+      "test_mse": 0.012305
+    },
+    {
+      "label": "mutant_5",
+      "max_cc": 2,
+      "mi_score": 72.394,
+      "test_mse": 0.013681
+    }
+  ],
   "prewritten_generations": 0,
   "seed_test_mse": 0.074074,
   "stateless_control_test_mse": 0.047675

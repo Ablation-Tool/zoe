@@ -56,6 +56,32 @@ COMPONENTS = (
 )
 
 
+def _path_on_noexec_mount(path: Path) -> bool:
+    """Detect Linux ST_NOEXEC mount flag so native tools (PALA/Cerotto) stage safely in /tmp."""
+    try:
+        st = os.statvfs(str(path if path.exists() else path.parent))
+        noexec_flag = getattr(os, "ST_NOEXEC", 0x08)
+        return bool(st.f_flag & noexec_flag)
+    except (OSError, AttributeError):
+        return False
+
+
+def _stage_executable_if_noexec(binary: Path, name: str) -> Path:
+    """If `binary` is not directly executable (e.g. NTFS/FUSE or noexec mount), mirror into 0700 exec cache."""
+    if not binary.is_file():
+        return binary
+    if os.access(str(binary), os.X_OK) and not _path_on_noexec_mount(binary):
+        return binary
+    import tempfile
+    cache_dir = Path(tempfile.gettempdir()) / f"zoe-exec-cache-{os.getuid()}"
+    cache_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
+    staged = cache_dir / name
+    if not staged.is_file() or staged.stat().st_size != binary.stat().st_size or not os.access(str(staged), os.X_OK):
+        shutil.copy2(binary, staged)
+        staged.chmod(0o700)
+    return staged
+
+
 def _python():
     return os.environ.get("ZOE_PYTHON") or sys.executable
 
@@ -161,7 +187,10 @@ class ComponentRegistry:
         if research.is_dir():
             environment["MASTER_GEM_RESEARCH_ROOT"] = str(research)
         if identifier == "cerotto":
-            environment.setdefault("CEROTTO_BIN", str(source["path"] / "build" / "cerotto"))
+            cerotto_bin = _stage_executable_if_noexec(source["path"] / "build" / "cerotto", "cerotto")
+            environment.setdefault("CEROTTO_BIN", str(cerotto_bin))
+        if identifier == "pala" and _path_on_noexec_mount(source["path"]):
+            environment.setdefault("CARGO_TARGET_DIR", "/tmp/pala_target")
         return environment
 
     def command(self, identifier, arguments=None):
