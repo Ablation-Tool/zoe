@@ -1,103 +1,136 @@
-# Zoe (beta) — Complete Zapps Guide
+# Zoe (beta) — Complete Zapps & Capabilities Guide (`v0.9.3-beta`)
 
-Welcome to **Zoe (beta)** (`v0.9.3-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.9.3-beta`) — a free, offline-first, privacy-respecting mobile companion for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`), containing **15 Core Home Zapps** plus **8 Specialized Field Kit Instruments** (**23 built-in tools** total).
 
-> **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
+> **Constitutional Promise — No Deception (`CONSTITUTION.md`):**
+> - **Explicit Opt-In Only:** Nothing listens, watches, saves, transmits, or executes an external action until you explicitly tap. Every camera, microphone, GPS, AR, BLE, and network lane starts strictly **OFF**.
+> - **Private by Default:** App-private storage uses `android:allowBackup="false"` and `android:fullBackupContent="false"` with zero ads, zero analytics, and zero tracking SDKs.
+> - **Strict Epistemic Boundaries:** `measurement ≠ evidence ≠ belief update ≠ action`. Zoe is transparent open-source software — not conscious, not sentient, not a clinical/medical/legal authority, and not AGI (`sentience_claimed = False`, `zoe_clone_claimed = False`, `l5_agi_qualified = False`, `clinical_action_authorized = False`).
 
 ---
 
 ## Everyday Navigation & Accessibility
 
-Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engineered for effortless scanning and motor comfort for both adults and children with disabilities:
+Zoe uses a calm, symmetrical **Google Gemini Material 3 Expressive** interface (`16dp` outer rails, `8dp` gutters, `20dp` concentric cards) designed for effortless scanning and motor comfort for adults and children, including people with disabilities:
 
-- **Zoe GEM-Ellipsis Home Button:** Tap the **GEM-Ellipsis logo** in the top bar (or inside a Zapp) from **any screen** to jump straight back to the Zoe Home screen. On Home, tapping the GEM logo exits Arrange mode and smoothly scrolls back to the top.
-- **Focused Top 3 + `More Zapps`:** Home surfaces your **Top 3 favorite Zapps** as spacious `74dp` / `74pt` pill cards above the fold, keeping cognitive load calm and clear, with all other Zapps tucked cleanly inside **More Zapps**.
-- **`Explore | Arrange` Toggle:** Tap **Arrange** right on the Home screen to pin (`★`) any Zapp to `#1`, move Zapps up (`↑`) or down (`↓`), or tap **Reset** anytime.
-- **Floating Bottom Action Capsule (`+ | Ask Zoe | 👁 | Live Talk`):** Always sits in the ergonomic lower thumb zone for one-tap access to Quick Menu, Talk with Zoe, Guided Vision, or Voice.
-- **Appearance & Comfort:** Follows your phone's **Dark / Light** theme automatically (with a 1-tap Sun/Moon override in the top bar), uses `>= 48dp` / `48pt` touch targets, full TalkBack / VoiceOver labels, and an optional **Comfort Mode** (slower speech rate & gentler motion) inside the `=` / `+` Quick Menu.
+- **Zoe GEM-Ellipsis Home Button:** Tap the **GEM-Ellipsis emblem** in the top bar from **any screen** to return straight to the Home screen. On Home, tapping it exits Arrange mode and scrolls smoothly back to the top.
+- **Focused Top 3 + `Explore more`:** Home surfaces your **Top 3 favorite Zapps** as spacious pill cards above the fold so cognitive load stays calm, with the rest organized cleanly under **Explore more**.
+- **`Arrange` Toggle:** Tap **Arrange** on Home to pin (`★`) any Zapp to `#1`, reorder Zapps up (`↑`) or down (`↓`), or **Reset** anytime.
+- **Floating Bottom Action Capsule (`+ | Ask Zoe | 👁 | Voice`):** Anchored in the ergonomic lower thumb zone for one-tap access to Quick Menu, Talk, Guided Vision, or Voice.
+- **Appearance, Rotation & Comfort:** Follows system **Dark / Light** theme automatically (plus a 1-tap Sun/Moon toggle), handles Portrait↔Landscape rotation seamlessly without restarting active sessions across core activities, provides `>= 48dp/pt` touch targets with TalkBack / VoiceOver labels, and includes an optional **Comfort Mode** (slower speech rate and calmer motion).
 
 ---
 
-## Home Zapps (15 Core Zapps)
+## 15 Core Home Zapps — Overview Table
 
-| # | Zapp | Plain-English Purpose | Platforms | Network & Sensors |
+| # | Zapp | Plain-English Purpose | Platform Status *(Honest Scope)* | Sensors, Storage & Network |
 |:-:|:---|:---|:---|:---|
-| **1** | **Guided Vision** | Look around with your camera, read text/labels aloud, &amp; **teach Zoe unfamiliar objects** via offline contour memory + silent CPC-filtered patent structural priors | Android · Apple | Offline OCR, labels &amp; on-device Sobel contour memory (`VisionPriorStore`); camera stays OFF until **Start camera**; opt-in **Patent prior** filters to physical CPC classes (`A47/B25/F16/G01/G02/H01`) &amp; improves recognition silently in both Guided Vision &amp; Zoe Explore |
-| **2** | **Talk** | Hybrid bubble chat with **Smart `⚡ Auto` Router**, **Zoe Local**, **Opt-In Live Web Grounding**, **`+ Attach` Photo & Video**, Native Voice & **Multi-AI Streaming** | Android · Apple | **Offline-first by default** (`Web: off` until tapped); attaches photos & 3-frame video analysis offline, runs MediaPipe LiteRT `.task` models locally, fetches zero-key HTTPS DuckDuckGo + Wikipedia citations on demand, & streams multi-turn BYOK (**Gemini, Claude, ChatGPT, Grok, Local OpenAI**) |
-| **3** | **Zoe Explore** | Clean, uncluttered 60fps breathing **Voice Orb**, **`✦ AR Space`** (ARCore / ARKit 6DoF floating 3D Zoe prism), **`Live + Cam`** simultaneous sight + voice, &amp; opt-in **`"Hi Zoe"`** wake-word | Android · Apple | Mic, camera, ARCore/ARKit &amp; `"Hi Zoe"` start **strictly OFF** until tapped; rotation-resilient, silently enriched by Guided Vision's offline learned visual memory + AR physical scale + exact stamped OCR patent IDs (zero noisy popups) |
-| **4** | **Creative Studio** | **Scientific-Aesthetic Image Lab** (**Ernst Haeckel** *Kunstformen der Natur*, **August Weismann**, **Jean-Baptiste Lamarck**, & **Google Patents** orthographic blueprints + photo editor) + native offline **H.264 MP4 Video Maker** | Android · Apple | **100% offline mathematical plate synthesis, editing & MP4 encoding** ($D_n$ radiolarian phyllotaxis $137.508^\circ$, logarithmic spirals $r=ae^{b\theta}$, mitotic spindles, orthographic blueprints, zero watermarks); optional BYOK AI art automatically grounded by active scientific baseline |
-| **5** | **Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe**, **Kloster Signal**, & **20 Questions** | Android · Apple | **100% offline, zero ads, zero tracking** — musical harmonic chimes, Kid Mode & Unbeatable Minimax AI, strict $A_\tau(p)$ puzzle, & mystery trivia |
-| **6** | **Privacy Vault** | Signal-grade **AES-256-GCM** encrypted chat vault, **ECDH/HKDF E2EE**, & **60-digit Safety Number** | Android · Apple | Hardware AndroidKeyStore / Apple CryptoKit P-256 ECDH + HKDF-SHA256 + Symmetric Chain Ratchet + AES-256-GCM at-rest encryption & 1-tap share via Signal |
-| **7** | **Trip Journal** | Save field sightings, photos, and private travel/research notes | Android *(Apple planned)* | Private on-device storage; optional explicit export or workstation sync |
-| **8** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, **Closed-Loop L5 Digestion (`Feed & Digest into Zoe Lab`)**, and Workstation Lab Bridge | Android · Apple Core (`MobileDigestionCore`) | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge & **Feed & Digest** (`/api/digest/mobile`) connect only on tap (`127.0.0.1:8765` or HTTPS) with strict privacy firewall (`SafeConvert`, `Privacy Vault`, raw photos & chat bodies hard-excluded) |
-| **9** | **Maps & Safety** | Active OS GPS, compass, Google Maps & Apple Maps handoffs, Personal Safety & Flashlight | Android · Apple | Starts **strictly idle**; opt-in one-shot or live OS GPS + compass + Geocoder (stops automatically on exit); native Apple `MapKit` on iOS; zero Maps API keys or tracking SDKs |
-| **10** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | Android · Apple | **100% offline** math — zero permissions |
-| **11** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
-| **12** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
-| **13** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
-| **14** | **SafeConvert** | Clean offline unit converter with an international (8-region, 5-language) discreet safety companion (type variants of `911` — e.g., `911`, `9.11`, `919`, `119`, `999`, `111` — in the converter to open), trauma-informed post-incident care, calming art/math/story studio, Young Child Easy Picture Mode, SHA-256 vault & offline BLE Help Beacon Mesh | Android · Apple | **100% offline zero-network WebView**; opt-in 1-shot GPS locator & offline Bluetooth LE rotating-tag beacon start strictly OFF and stop instantly on `✕ EXIT` — see [Complete SafeConvert Guide](SAFECONVERT.md) |
-| **15** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
+| **1** | **Guided Vision** | Point your camera to read text (OCR), identify objects aloud, & **teach Zoe unfamiliar objects** offline | Android *(Pixel 7 verified)* · Apple *(SwiftUI source + `ZoeCore` tested)* | Camera starts **OFF**; bundled offline ML Kit OCR/labels + 18-archetype clean-room Haeckel/Lamarck/CPC Offline Visual Atlas (`8.4 KB`) + `< 0.1 ms` RAM-cached `VisionPriorStore`; optional AICore Gemini Nano & opt-in CPC physical `Patent prior` (HTTPS only on tap) |
+| **2** | **Talk** | Hybrid chat with **Smart `⚡ Auto` Router**, **Zero-Prefill KV-Clone Local LLM**, **`< 2 ms` Math/Units/Clock**, Opt-In Web Grounding, **`+ Attach` Photo/Video**, & **Multi-AI Streaming** | Android *(Pixel 7 verified)* · Apple *(SwiftUI source + `ZoeCore` tested)* | **100% offline by default** (`Web: off` until tapped); local MediaPipe LiteRT `.task` models (GPU-first + CPU fallback + native `MPImage` vision packs), zero-key DuckDuckGo/Wikipedia citations on tap, optional BYOK streaming (**Gemini, Claude, ChatGPT, Grok, Local OpenAI**), encrypted on-device threads (`AES-256-GCM`) |
+| **3** | **Zoe Explore** | Clean, uncluttered 60fps breathing **Voice Orb**, **`✦ AR Space`** (ARCore / ARKit 6DoF floating 3D Zoe prism), **`Live + Cam`**, & opt-in **`"Hi Zoe"`** wake-word | Android *(Pixel 7 verified)* · Apple *(SwiftUI / ARKit source + `ArExploreCore` tested)* | Mic, camera, ARCore/ARKit & `"Hi Zoe"` start **strictly OFF**; silently enriched by Guided Vision's learned offline prototypes, AR physical scale, & exact stamped OCR patent IDs (zero noisy popups) |
+| **4** | **Creative Studio** | **Scientific-Aesthetic Image Lab** (**Ernst Haeckel**, **August Weismann**, **Jean-Baptiste Lamarck**, & **Orthographic Patent Blueprints** + photo editor) + native offline **H.264 MP4 Video Maker** | Android *(Pixel 7 verified)* · Apple *(SwiftUI Canvas + `CreativeAndArcadeCore` tested)* | **100% offline** procedural scientific plate rendering, photo editing & H.264 MP4 synthesis (zero watermarks); saves/exports ONLY when you tap; optional BYOK AI generation grounded by active baseline |
+| **5** | **Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe**, **Kloster Signal**, & **20 Questions** | Android *(Pixel 7 verified)* · Apple *(SwiftUI + `CreativeAndArcadeCore` tested)* | **100% offline, zero ads, zero tracking** — musical harmonic chimes, Kid Mode & Minimax AI, strict $A_\tau(p)$ puzzle, & mystery trivia |
+| **6** | **Privacy Vault** | Signal-inspired **AES-256-GCM** encrypted storage, **P-256 ECDH / HKDF-SHA256** E2EE envelopes, & **60-digit Safety Number** | Android *(Pixel 7 verified)* · Apple *(CryptoKit SwiftUI + `ZoeSignalAndWakeCore` tested)* | Hardware `AndroidKeyStore` / Apple CryptoKit keys; never uploads keys or envelopes automatically; **hard-excluded** from workstation digestion |
+| **7** | **Trip Journal** | Save field sightings, OCR snippets, color palettes, compact thumbnails & private research notes | Android *(Pixel 7 verified)* · Apple *(planned)* | App-private storage (`allowBackup="false"`); saves thumbnails ONLY when you explicitly tap Save; raw photos are never uploaded during workstation digestion |
+| **8** | **Eliza-GEM Studio** | Offline **Chladni Cymatics** resonance pad, **Sing Zoe**, **Closed-Loop L5 Digestion (`Feed & Digest Lab`)**, & Workstation Bridge | Android *(Pixel 7 verified)* · Apple Core (`MobileDigestionCore` tested) | Chladni & **Sing Zoe** (`44.1 kHz`) run **100% offline**; Lab Bridge & **`Feed & Digest Lab`** (`/api/digest/mobile`) connect ONLY on explicit tap (`127.0.0.1:8765` or HTTPS) with strict privacy firewall |
+| **9** | **Maps & Safety** | Active OS GPS, compass, Geocoder, Google/Apple Maps handoffs, Personal Safety / Medical ID & Flashlight | Android *(Pixel 7 verified)* · Apple *(SwiftUI + `MapKit` + `OsToolsBridge` tested)* | Starts **strictly idle** and stops automatically on exit; zero Maps API keys or tracking SDKs; never auto-dials emergency services |
+| **10** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$ | Android *(Pixel 7 verified)* · Apple *(SwiftUI + `ZoeCore` tested)* | **100% offline** math — zero permissions; equality is strictly excluded (`p(x) > τ`) |
+| **11** | **Trinity** | Synchronize **Phone + Laptop + Tiny Zoe** in one hash-verified three-plane measurement deck | Android *(Pixel 7 verified)* · Apple *(SwiftUI source + `TrinityModels` tested)* | Explicit user-initiated loopback (`127.0.0.1:8767`) or private-LAN pairing; zero cloud, camera, or mic |
+| **12** | **Field Kit** | Houses **8 specialized camera, audio, radio, GPS, accessibility & protocol instruments** | Android *(Pixel 7 verified)* | Every instrument inside starts **strictly idle** until its explicit action button is tapped |
+| **13** | **Device Field** | Check real local battery, thermal state, sensor counts, speech engine availability & speaker check | Android *(Pixel 7 verified)* · Apple *(SwiftUI source)* | Public OS APIs only — zero network; never invents unavailable OS metrics |
+| **14** | **SafeConvert** | Clean offline Unit Converter whose hidden **international safety companion** opens by typing **variants of `911`** (`911`, `9.11`, `919`, `119`, `999`, `111`), with 8 regions, 5 languages, calming studio, SHA-256 proof vault & Offline BLE Help Beacon Mesh | Android *(Pixel 7 verified)* · Apple *(WKWebView + `SafeBeaconMeshCore` tested)* | **100% offline zero-network WebView**; opt-in 1-shot GPS & BLE beacon (`~30–80 m`, 30-min auto-expiry) start OFF & shut off immediately on `✕ EXIT`; **hard-excluded** from workstation digestion — see [SAFECONVERT.md](SAFECONVERT.md) |
+| **15** | **Researcher Guide** | Built-in offline walkthrough of Zoe's architecture, build/verification steps & epistemic limits | Android *(Pixel 7 verified)* | **100% offline** reference inside the app |
 
 ---
 
-### Detailed Breakdown of Every Home Zapp
+## Detailed Breakdown of All 15 Home Zapps
 
-#### 1. Guided Vision (`Look around & read aloud`)
-- **What it does:** Helps you read signs, pages, medicine labels, or identify everyday surroundings calmly.
-- **How it works:** The camera starts **off**. Tap **Start camera**, point at what you want to check, and tap **Inspect once** to capture a single frame. On Android it runs bundled offline ML Kit OCR + image labeling + color palette extraction (plus optional on-device Gemini Nano if supported); on Apple it uses Apple's native Vision framework (`VNRecognizeTextRequest` + `VNClassifyImageRequest`).
-- **Boundaries:** Keeps OCR text, labels, and optional descriptions separate. Never auto-uploads photos and never claims safety/medical/object-identity certainty.
-
-#### 2. Talk (`Hybrid Chat, Local LLM, Web & Council`)
-- **What it does:** A calm, transparent hybrid chat-first bubble interface blending **offline privacy** with **opt-in online capability**:
-  - **Top Live Brain Switcher & Smart `⚡ Auto` Router:** Switch in one tap between **`⚡ Auto`** (routes memory/device actions to `<5 ms` `Zoe Stem`, uses your configured online frontier model if keyed, or streams locally via `Zoe Local 1.5B` with automatic offline fallback), **`Zoe Local`** (Android MediaPipe GenAI running open-weight 0.5B / 1.5B / 135M LiteRT `.task` packs offline with fresh-session sampling & live streaming), **`Web: off/on`** (opt-in zero-key HTTPS DuckDuckGo + Wikipedia grounding with clickable `🔗 Source ↗` chips right on the reply card), **`Zoe Stem`**, **`Lab Brain`**, and **`Cloud AI`** (multi-turn SSE streaming for optional **Google Gemini, Anthropic Claude, OpenAI ChatGPT, xAI Grok**, or any local OpenAI-compatible server).
-  - **Collapsible Glass-Box Telemetry:** Every Zoe reply card includes an expandable `✦ Glass-Box Telemetry` readout showing live stem tier, Kloster $A_{0.08}(p)$, latency, citation, and constitutional honesty flags (`sentience_claimed=false`, `clone_claimed=false`).
-  - **Approval-Gated Multi-Step Action Plans:** Ask compound phone commands like *"Navigate to nearest hospital and set a 5 minute timer"* — Zoe splits them into numbered tap-to-approve steps (`Step 1`, `Step 2`, ...) and **never auto-executes** anything without your tap.
-  - **Zero-Key Native AI Handoffs & Multi-AI Council:** Tap **`Ask AI ↗`** to send your prompt straight into installed **Claude** (`claude://` prefill), **Grok**, **ChatGPT**, **Gemini**, or **Share Sheet (Meta Muse)** — or run **In-App Multi-AI Council** to compare replies side-by-side with a lexical agreement score.
-  - **Private Multi-Thread History & Native Voice:** Persistent private chat threads (`allowBackup="false"`), `remember` / `relay` / `recall` SHA-256 memory, **Caption mode**, installed OS voices or **Zoe Synth** (44.1 kHz Rosenberg-Klatt), and **`Sing Zoe`**.
-
-#### 3. Trip Journal (`Your saved notes & photos`)
-- **What it does:** Private on-device notebook for saving Guided Vision inspections, color palettes, field observations, and timestamped trip entries.
-- **Privacy:** Stored strictly in app-private storage (`allowBackup="false"`). Nothing leaves the device unless you tap **Export** or explicitly sync with your workstation.
-
-#### 4. Eliza-GEM Studio (`Sound shapes & local lab`)
-- **What it does:** Combines two offline creative sound instruments with your live workstation research bridge:
-  - **Chladni Cymatics Resonance Pad (100% offline):** Touch and drag across either the **Square Atelier** plate or the **Languidou Bronze Rose Disc** to sweep physical nodal eigenmodes visually and tap **Play Chladni Chord** to hear the live harmonic chord synthesized on-device.
-  - **Sing Zoe (Native Voice) (100% offline):** Sings Zoe's warm soprano theme directly via the 44.1 kHz Rosenberg-Klatt synthesizer.
-  - **Eliza-GEM Workstation Bridge & Closed-Loop L5 Digestion (explicit connect):** Connects over loopback USB (`http://127.0.0.1:8765` via `adb reverse`) or remote HTTPS to chat with workstation Gear 1 ELIZA / Gear 2 Local Qwen2.5-3B, pin lab relays, **Feed & Digest into Zoe Lab** (`/api/digest/mobile` — sends privacy-firewalled learned visual prototypes, Brain notes, textual Trip sightings, and aggregated Kloster $A_\tau(p)$ telemetry while hard-excluding SafeConvert, Privacy Vault, raw photos, and private chat transcripts, consolidates & enriches prototypes against the Haeckel/Lamarck/CPC atlas, evaluates empirical gain vs. control with zero forgetting, and syncs refined priors back to the phone while preserving `l5_agi_qualified=false`), and inspect or live-run the **L5 Phase 5 Frontier**, **L5 Phase 4 Embodied**, and **L5 Phase 3 Agentic** scorecards.
-  - **Cloud AI Key drawer:** Optional, locally stored Gemini API key and model selector (never backed up to cloud; HTTPS only when you tap).
-
-#### 5. Maps & Safety (`Live GPS, Google & Apple Maps, Personal Safety`)
-- **What it does:** Harnesses your phone's built-in GPS, compass, geocoder, Maps apps, Personal Safety / Medical ID, and hardware flashlight with **zero Maps API keys and zero tracking SDKs**.
+### 1. Guided Vision (`Look around & read aloud`)
+- **What it does:** Helps you read signs, pages, labels, or identify unfamiliar physical objects calmly, and lets Zoe genuinely learn new objects offline over time.
 - **How it works:**
-  - Starts **strictly idle** until you tap **Locate once** or toggle **Live location: on** (automatically pauses GPS & compass the moment you leave the screen).
-  - Displays live coordinates, accuracy, altitude, speed (km/h & mph), compass heading (`N/NE/E/...`), OS street address (via Android `Geocoder` / Apple `CLGeocoder`, never fabricated offline), and Point 1 → Point 2 straight-line distance. On Apple, also renders a live native **`MapKit`** pin map right inside Zoe.
-  - **Dual Maps Handoff:** One-tap **Navigate**, **Search Maps**, **Open Pin / Directions**, and **Share Live Pin** (sends a universal message containing both Google Maps and Apple Maps pin links).
-  - **Built-In Phone Safety & Tools:** Launches Pixel's **Personal Safety** (`com.google.android.apps.safetyhub` / Android Emergency Info) on Android or **Health / Medical ID** + Emergency SOS guidance on Apple, alongside one-tap **SafeConvert**, hardware **Flashlight**, and **Emergency Dialer** (`tel:911`, never auto-dials).
+  - Camera starts **OFF** until you tap **Start camera** (bounded 720p CameraX analysis on Android; `AVCaptureSession` on Apple).
+  - Tapping **Inspect once** runs bundled offline OCR + image labeling + zero-GC primitive color palette extraction (`FramePalette`) + optional quiet public AICore Gemini Nano description (with 5-second atomic timeout guard; transparently reports unavailable status like `601-BINDING_FAILURE` rather than fabricating a description).
+  - **Self-Improving Structural Visual Memory (`VisionPriorStore`):** Extracts an illumination-invariant Sobel contour signature (HoG-16, Radial-8, dHash-64, aspect ratio, bilateral symmetry) and checks user-taught prototypes first (`< 0.1 ms` RAM-cached offline), then falls back at a stricter threshold to the bundled **18-archetype clean-room Haeckel/Lamarck/CPC Offline Visual Atlas (`zoe_visual_atlas.json`, `8.4 KB`)**.
+  - **Teach Zoe & Opt-In CPC Patent Prior:** Tap **Teach Zoe** to label an object offline (repeated confirmations refine the prototype via L2-normalized running mean), or enable optional **Patent prior** (explicit HTTPS lookup filtered to physical CPC classes `A47/B25/F16/G01/G02/H01`) to reinforce structural recognition silently across both Guided Vision and Zoe Explore.
+- **Honest Boundaries:** Keeps OCR text, labels, visual contour matches, and AI descriptions strictly separate. Never auto-uploads photos and never claims safety, medical, or object-identity certainty.
 
-#### 6. Accessible Volume (`Count open choices clearly`)
-- **What it does:** Interactive calculator for **Operational Metacognition** ($A_\tau(p) = |\{x : p(x) > \tau\}|$), originated by **Nicholas Michael Kloster on March 6, 2026**.
-- **Why it matters:** Measures *how many alternatives remain open* strictly above threshold $\tau$ (equality is excluded) — explicitly separating forecast breadth from correctness or action authorization.
+### 2. Talk (`Hybrid Chat, Zero-Prefill Local LLM, Web & Council`)
+- **What it does:** A transparent, bubble-based hybrid chat blending **offline privacy** with **opt-in online capabilities**:
+  - **Smart `⚡ Auto` Router & Live Brain Switcher:** Switch in one tap between **`⚡ Auto`**, **`Zoe Stem`** (`< 5 ms` offline glass-box brain with `< 2 ms` deterministic recursive-descent Math, Exact Unit Conversion, and Real-Time Device Clock), **`Zoe Local`** (Android MediaPipe `tasks-genai:0.10.35` running user-imported `.task` models offline with **GPU-first + automatic CPU fallback**, **zero-prefill KV-cache `cloneSession()`**, instant `cancelGenerateResponseAsync()` barge-in, and native **`addImage(MPImage)`** vision-language support when a multimodal pack is loaded), **`Web: off/on`** (opt-in zero-key HTTPS DuckDuckGo + Wikipedia citations rendered as clickable `🔗 Source ↗` chips), **`Lab Brain`** (workstation Eliza-GEM bridge), and **`Cloud AI`** (multi-turn SSE streaming for optional user-supplied BYOK **Gemini, Claude, ChatGPT, Grok**, or local OpenAI-compatible servers).
+  - **Multimodal `+ Attach` Photo & Video:** Runs parallel offline ML Kit OCR + image labeling (plus 3-frame video sampling) and passes live frames directly into multimodal local or user-approved cloud models.
+  - **Collapsible Glass-Box Telemetry:** Every reply includes an expandable telemetry badge showing active stem tier, Kloster $A_{0.08}(p)$ option breadth, latency, citation, and constitutional honesty flags (`sentience_claimed=false`, `clone_claimed=false`).
+  - **Approval-Gated Action Plans:** Compound device requests (e.g., *"Navigate to the pharmacy and set a 5 minute timer"*) produce numbered tap-to-approve buttons (`Step 1`, `Step 2`, ...) and **never auto-execute**.
+  - **Encrypted Private History & Voice:** Multi-thread chat history encrypted at rest (`AndroidKeyStore AES-256-GCM`), SHA-256 `remember`/`relay`/`recall` memory, **Caption mode**, OS voices or **Zoe Native Synth** (`44.1 kHz` Rosenberg-Klatt), and **`Sing Zoe`**.
 
-#### 7. Trinity (`Link phone & computer`)
-- **What it does:** Synchronizes three measurement planes — **Tiny Zoe** (quantized Q0.15 APDU witness), **Phone** (floating-point native UI), and **Laptop** (observation deck + optional hash-verified journal) — verifying identical accessible volume and revision hashes across all three. See [TRINITY.md](TRINITY.md).
+### 3. Zoe Explore (`Live Voice Orb, ✦ AR Space & Live + Cam`)
+- **What it does:** Clean, uncluttered real-time multimodal exploration combining a 60fps breathing **Voice Orb**, simultaneous **`Live + Cam`** sight + voice, optional **`"Hi Zoe"`** wake-word listening, and **`✦ AR Space`**.
+- **How it works:**
+  - Mic, camera, ARCore/ARKit, and `"Hi Zoe"` start **strictly OFF** until tapped.
+  - **ARCore (Android) / ARKit (Apple) 6DoF Space:** Tracks real physical planes, floats a luminous 3D Zoe GEM prism that glides to tapped surfaces (60fps zero-GC `FloatBuffer` pipeline), remembers discovered room locations, and asks curious spoken questions aloud with abbreviation-safe sentence streaming and instant voice barge-in.
+  - **Silent Guided Vision Transfer:** Automatically queries `VisionPriorStore` + Offline Visual Atlas silently (`< 0.1 ms`) and pairs real AR physical scale + stamped OCR patent IDs without cluttering the screen with raw patent popups.
+  - Survives Portrait↔Landscape rotation seamlessly without dropping active voice/camera state.
 
-#### 8. Field Kit (`Cameras, GPS & sensor tools`)
-- **What it does:** Cleanly organizes **8 specialized hardware, radio, and protocol lab tools** out of the first-run home screen so beginners never feel overwhelmed. See the full **Field Kit Instruments** table below.
+### 4. Creative Studio (`Scientific-Aesthetic Image Lab & Offline MP4 Video Maker`)
+- **What it does:** 100% offline mathematical art synthesis, photo editing, and native H.264 MP4 video rendering — grounded in factual geometry and natural history.
+- **How it works:**
+  - **Scientific-Aesthetic Baseline Plates (`ScientificVisualSubstrate`):** Renders deterministic high-resolution mathematical plates inspired by **Ernst Haeckel** (*Kunstformen der Natur* $D_n$ radiolarian symmetry & $137.508^\circ$ phyllotaxis), **August Weismann** (cellular mitotic spindles), **Jean-Baptiste Lamarck** (logarithmic spirals $r = a e^{b\theta}$ & botanical rosettes), and **Orthographic Patent Blueprints** with exact dimensional callouts.
+  - **Photo Editor & Native H.264 MP4 Video Maker:** Edit imported photos or generated plates with plain-English commands (crop, warmth, contrast, vignette, grayscale, annotations) and render smooth offline H.264 `.mp4` videos directly on-device via Android `MediaCodec` / `MediaMuxer` with zero watermarks.
+  - Optional BYOK AI image generation automatically anchors prompts with the active scientific baseline only when you tap.
 
-#### 9. Device Field (`Battery & speaker check`)
-- **What it does:** Displays real, unfabricated local device observations (battery percentage/charging state, thermal status, sensor counts, on-device speech availability) plus an explicit **Speaker check** button. Never invents unavailable OS metrics.
+### 5. Zoe Arcade (`4 Ad-Free Offline Games`)
+- **What it does:** Calm, playful, completely offline games built for adults and kids with zero ads, zero loot boxes, and zero tracking:
+  1. **GEM Memory:** Harmonic musical pattern recall with gentle chimes.
+  2. **Tic-Tac-Toe:** Switchable **Kid Mode** and **Unbeatable Minimax AI**.
+  3. **Kloster Signal:** Interactive puzzle teaching strict threshold filtering $A_\tau(p)$.
+  4. **20 Questions:** Offline mystery deduction game.
 
-#### 10. SafeConvert (`Units & private safety helper`)
-- **What it does:** Presents a calm, fast, ad-free **Unit Converter** (Length, Weight, Temperature, Volume) styled to match Zoe seamlessly — while containing a completely offline, panic-exit-protected **private safety companion & SHA-256 proof vault** for adults and children who may be in danger or have a monitored phone.
-- **How to open the hidden safety companion:** Type any **variant of `911`** into the unit converter input (`911`, `991`, `919`, `199`, `119`, `191`, `999`, or `111` — decimals and leading zeros like `9.11` or `0.911` also work). Tap **`✕ EXIT`** or press Back anytime to snap instantly back to the converter.
-- **Read the full guide:** **[`mobile/SAFECONVERT.md`](SAFECONVERT.md)** — documents every single feature, privacy shield, calming tool, hotline directory, proof vault lock, and honest safety boundary in detail.
+### 6. Privacy Vault (`Signal-Inspired E2EE & Encrypted Storage`)
+- **What it does:** Provides hardware-backed local encryption and peer-to-peer sealed message envelopes with verifiable Safety Numbers.
+- **How it works:**
+  - Generates hardware-backed keys (`AndroidKeyStore` on Android; Apple `CryptoKit` on iOS), performs **P-256 ECDH + HKDF-SHA256 + Symmetric Chain Ratchet + AES-256-GCM** sealing/unsealing, computes a **60-digit Safety Number** for out-of-band key verification, and offers 1-tap sharing via Signal or Android/iOS Share Sheet.
+- **Honest Boundary:** **Hard-excluded** from workstation L5 digestion. While built on standard cryptographic primitives, it has **not** undergone an independent third-party cryptographic security audit and is not a substitute for audited Signal messaging in high-risk adversarial environments.
 
-#### 11. Researcher Guide (`How Zoe works & limits`)
-- **What it does:** Built-in offline walkthrough of Zoe's architecture, build & test commands, privacy guarantees, and epistemic boundaries (`measurement ≠ evidence ≠ belief update ≠ action`).
+### 7. Trip Journal (`Private Field Sightings & Notes`)
+- **What it does:** Private on-device notebook for saving Guided Vision inspections, OCR text, object labels, color palettes, compact thumbnails, and timestamped field notes.
+- **Privacy:** Stored strictly in app-private storage (`allowBackup="false"`). Thumbnails are saved ONLY when you tap **Save**, and **never uploaded** during workstation digestion (only user-consented textual metadata is included if you run `Feed & Digest Lab`).
+
+### 8. Eliza-GEM Studio (`Offline Chladni, Sing Zoe & Closed-Loop L5 Digestion`)
+- **What it does:** Pairs offline acoustic instruments with your explicit workstation research & continual self-improvement bridge:
+  - **Chladni Cymatics Pad (100% offline):** Touch and drag the **Square Atelier** or **Languidou Bronze Rose Disc** to sweep physical nodal eigenmodes visually and play real synthesized harmonic chords.
+  - **Sing Zoe (100% offline):** Sings Zoe's soprano theme using the native `44.1 kHz` Rosenberg-Klatt synthesizer.
+  - **Closed-Loop Mobile ↔ Workstation L5 Digestion (`Feed & Digest Lab`, explicit tap):** Connects over USB loopback (`http://127.0.0.1:8765` via `adb reverse`) or user-configured HTTPS to `POST /api/digest/mobile`:
+    - **Strict Double-Sided Privacy Firewall:** Both phone (`MobileDigestionBundle` / Swift `MobileDigestionCore`) and workstation (`validate_privacy_firewall`, returning HTTP 400 on violation) hard-exclude **SafeConvert**, **Privacy Vault**, **raw photos/thumbnails**, and **private chat message bodies**.
+    - **Real Consolidation & Bidirectional Feedback:** Merges mobile-learned `VisionPriorStore` prototypes with the 18-archetype Haeckel/Lamarck/CPC atlas, digests Brain notes & textual Trip sightings into SHA-256 `ZoeUnifiedMemory` for immediate workstation recall, calibrates Kloster $\tau^*$ from aggregated routing metrics, verifies empirical gain vs. an undigested control with `100%` zero-forgetting atlas retention, and **syncs refined visual prototypes back to the phone** without downgrading stronger local user-confirmed entries.
+    - **Honest AGI Telemetry:** Always reports `l5_agi_qualified = false`, `zoe_clone = false`, and explicit remaining AGI gaps.
+  - **Workstation L5 Scorecards & Cloud AI Key Drawer:** Inspect or live-run L5 Phases 3, 4 & 5 on your workstation, pin Lab Relays, or optionally store a local Gemini API key (`allowBackup="false"`).
+
+### 9. Maps & Safety (`Live OS GPS, Dual Maps & Personal Safety`)
+- **What it does:** Uses built-in OS GPS, compass, Geocoder, native Google/Apple Maps handoffs, Personal Safety / Medical ID, and hardware Flashlight with **zero Maps API keys and zero tracking SDKs**.
+- **Boundaries:** Starts strictly idle, pauses automatically when you leave the screen, never fabricates street addresses offline, and never auto-dials emergency numbers (`tel:911` opens the dialer for your deliberate tap).
+
+### 10. Accessible Volume (`Operational Metacognition Calculator`)
+- **What it does:** Interactive calculator for **Nicholas Michael Kloster's** strict threshold equation $A_\tau(p) = |\{x \in X : p(x) > \tau\}|$ (originated March 6, 2026). Equality is strictly excluded (`p(x) > τ`), explicitly separating forecast option breadth from correctness or authorization.
+
+### 11. Trinity (`Three-Plane Phone + Laptop + Tiny Zoe Deck`)
+- **What it does:** Synchronizes **Tiny Zoe** (quantized Q0.15 APDU witness), **Phone** (floating-point native UI), and **Laptop** (local observation deck + optional hash-verified journal), verifying identical accessible volume and revision hashes across all three. See [TRINITY.md](TRINITY.md).
+
+### 12. Field Kit (`8 Specialized Hardware & Protocol Lab Tools`)
+- Cleanly keeps 8 advanced instruments out of the everyday Home view so first-time users never feel overwhelmed. See the **Field Kit Instruments** table below.
+
+### 13. Device Field (`Real Local Device Observations`)
+- Displays unfabricated public OS observations (battery %, charging state, thermal status, sensor counts, on-device speech availability) plus an explicit **Speaker check** button.
+
+### 14. SafeConvert (`Unit Converter & Hidden International Safety Companion`)
+- **What it does:** Presents a fast, ad-free **Unit Converter** (Length, Weight, Temperature, Volume) matching Zoe's theme — while containing a 100% offline, panic-exit-protected **international safety companion, trauma-informed medical/forensic care guide, calming & young-child studio, SHA-256 private proof vault, and offline Bluetooth LE Help Beacon Mesh**.
+- **How to open the hidden safety companion:** Type any **variant of `911`** into the unit converter input (`911`, `991`, `919`, `199`, `119`, `191`, `999`, or `111` — decimals and leading zeros like `9.11`, `91.1`, or `0.911` also work). Tap **`✕ EXIT`**, tap the top bar, press **Back / `ESC`**, or switch apps anytime to immediately cut voice/BLE, wipe ephemeral canvas/chat, lock any passcode vault, and return to the converter.
+- **Read the complete guide:** **[`mobile/SAFECONVERT.md`](SAFECONVERT.md)**.
+
+### 15. Researcher Guide (`Built-In Offline Architecture & Limits`)
+- Offline reference inside Zoe explaining the first-five-minutes walkthrough, build/verification commands, privacy rules, and honest production-readiness limits.
 
 ---
 
-## Field Kit Instruments (8 Specialized Android Lab Tools)
+## 8 Specialized Field Kit Instruments (Android Lab Tools)
 
 Every tool inside **Field Kit** starts strictly **idle** and activates only when you press its explicit action button:
 
@@ -108,7 +141,7 @@ Every tool inside **Field Kit** starts strictly **idle** and activates only when
 | **Tiny Zoe** | Native Android behavioral simulator for the **Zoe Cell** Java Card APDU protocol (`8002...` → `0003...9000`). | Bounded behavioral model — no SIM, NFC card, or carrier modification. |
 | **Radio Field** | Reads bonded Bluetooth LE device metadata / one-tap GATT RSSI and NFC tag presence/ID. | RSSI is signal strength, not certified position; never reads or writes NFC tag payload contents. |
 | **Location Field** | One-shot GPS/network fix with accuracy/age readout and optional straight-line haversine distance between 2 in-memory points. | 15-second timeout; Stop or leaving cancels and clears coordinates; **zero background tracking**. |
-| **Connectivity** | Reports active transport/bandwidth estimate with an optional one-shot 1 MiB HTTPS speed sample (`speed.hetzner.de`). | Network check only on tap; never guarantees coverage or emergency service availability. |
+| **Connectivity** | Reports active transport/bandwidth estimate with an optional one-shot 1 MiB HTTPS download measurement from `speed.hetzner.de`. | Network check only on tap; never guarantees coverage or emergency service availability. |
 | **Screen Space** | Opt-in AccessibilityService tool for explicit user-triggered screen captures and mapped gesture coordinates. | Requires manual Android Accessibility opt-in; never passively reads screen text, monitors events, or bypasses lock screens. |
 | **App Observatory** | Lists launcher-visible installed app metadata using public launcher intents. | Read-only; never reads private app data, modifies Play Protect, or force-stops/uninstalls apps. |
 
@@ -116,7 +149,8 @@ Every tool inside **Field Kit** starts strictly **idle** and activates only when
 
 ## Further Reading
 
-- **[Complete SafeConvert Documentation (`mobile/SAFECONVERT.md`)](SAFECONVERT.md)** — Deep dive into SafeConvert's cover converter, safe contacts, Talk to Zoe calming tools, SHA-256 proof vault, passcode lock, and privacy shields.
-- **[Mobile Build & Architecture Guide (`mobile/README.md`)](README.md)** — Android Gradle, Apple Xcode, Swift `ZoeCore`, and conformance tests.
+- **[Complete SafeConvert Documentation (`mobile/SAFECONVERT.md`)](SAFECONVERT.md)** — Unit Converter cover, `911` variant access, 8 international regions, 5 languages, calming studio, SHA-256 proof vault, passcode lock, Offline BLE Help Beacon Mesh, and honest safety limits.
+- **[Mobile Build, Architecture & Verification Ledger (`mobile/README.md`)](README.md)** — Android Gradle, Pixel 7 live hardware results, Apple Xcode & Swift 6.1.3 `ZoeCore`, Trinity, and honest remaining gaps.
+- **[Mobile Security Model (`mobile/SECURITY.md`)](SECURITY.md)** — Threat model, privacy firewalls, cartridge rules, and production blockers.
 - **[Store Compliance Checklist (`mobile/STORE_COMPLIANCE.md`)](STORE_COMPLIANCE.md)** — Google Play & Apple App Store privacy, accessibility, and foldable guidelines.
 - **[Zoe Constitution (`CONSTITUTION.md`)](../CONSTITUTION.md)** — Non-negotiable dignity, honesty, and epistemic boundaries.

@@ -1,66 +1,82 @@
-# Zoe Mobile security model
+# Zoe Mobile Security Model (`v0.9.3-beta`)
 
-## Rule
+## Core Rule
 
-Use **signed cartridges, not SIM exploitation**. SIM/eUICC/baseband access is not a plugin sandbox and is not part of this implementation. A future Zoe cartridge can be a signed package with an identifier, semantic version, artifact hash, author/publisher key, and a small declared capability set. It must not grant itself hardware, network, accessibility, location, contacts, firmware, or lock-screen privileges.
+Use **documented public OS APIs and signed/verifiable boundaries — never unauthorized reverse engineering, root exploits, or SIM exploitation**. SIM/eUICC/baseband access is not a plugin sandbox and is not part of this implementation.
 
-No system is guaranteed secure. This document records current attack surfaces and the controls required before treating a build as production-ready.
+No software system is guaranteed secure. This document records Zoe's actual attack surfaces, implemented controls, and honest blockers that remain before treating any build as a hardened production release.
 
-## Current security boundaries
+---
 
-- **Boot:** the audited Pixel reports verified boot green and a locked bootloader. Do not unlock, flash, root, or use DSU/GSI experiments on the primary phone.
-- **Screen Space:** disabled until the user enables the AccessibilityService. Captures and gestures require explicit actions. No passive accessibility-event feed or background gestures are implemented. It is not a sandbox against a malicious user-enabled service.
-- **SafeConvert:** no React/CDN, analytics, tracking, or embedded network loads. Local JavaScript is required for conversion and the hidden workflow; file-to-network and universal file access are blocked. The crisis panel uses both a CSS hidden class and the native HTML `hidden` property; normal use presents only the converter. Hotline/SMS/safe-link actions require a tap. Safe contacts are local to the app, limited to five, and not uploaded by Zoe. Backup and device-transfer rules exclude app data. Local storage is not encrypted storage or protection from a rooted/physical-device attacker, screenshots, or an observant person.
-- **Camera and microphone:** no capture on startup. Inspection and conversation require explicit actions. Frames and raw audio are not written by Zoe. Device AI, speech engines, and other apps retain their own trust and network behavior.
-- **Models:** OCR/labels/descriptions/forecasts are outputs to inspect, not truth, identity, consciousness, correctness, or authorization. A prompt or image can be adversarial. Do not let model output trigger hardware, firmware, accessibility, or external actions automatically.
-- **Network:** the app has user-authorized Internet access, but no Zoe-authored telemetry or image-upload path. Third-party model services, speech services, HTTPS endpoints, and Gemini have separate data boundaries. No trust-all certificates, open camera server, or cloud relay is used.
-- **Bluetooth/NFC/location/package visibility:** bounded, user-initiated observations. RSSI and acoustic candidates are not positions or identity. App Observatory is limited to launcher-visible apps rather than `QUERY_ALL_PACKAGES`; public metadata is not private app data and cannot control Play Protect.
-- **Memory chains:** canonical JSON SHA-256 chains provide tamper evidence, not authentication or proof of authorship.
-- **Builds:** debug signatures are development identities, not production trust anchors. A release pipeline, release keys, signing provenance, and revocation process are still required.
+## Current Implemented Security & Privacy Boundaries
 
-## Tiny Zoe simulator boundaries
+- **Boot Integrity:** The audited Google Pixel 7 reports verified boot green and a locked bootloader. Zoe relies strictly on documented public Android/iOS APIs and never requires unlocking, rooting, or bypassing OS protections.
+- **Explicit Opt-In Sensors & Storage:** No camera, microphone, GPS, ARCore/ARKit, BLE, or Accessibility capture starts automatically on app launch. No photos, videos, or audio are written automatically; compact **Trip Journal** thumbnails, **Creative Studio** exports/MP4s, and **SafeConvert** Private Safety Log audio/video recordings are stored **only when the user explicitly taps Save/Record/Export**, inside app-private storage excluded from cloud backups (`android:allowBackup="false"`, `android:fullBackupContent="false"`).
+- **SafeConvert Discreet Safety Sandbox (`mobile/SAFECONVERT.md`):**
+  - Zero-network local WebView (`setBlockNetworkLoads(true)`, `setAllowContentAccess(false)`, `setAllowFileAccessFromFileURLs(false)`, `setAllowUniversalAccessFromFileURLs(false)`, `MIXED_CONTENT_NEVER_ALLOW`), zero external scripts/CDNs/analytics.
+  - Hidden safety companion opens on typing **variants of `911`** (`911`, `991`, `919`, `199`, `119`, `191`, `999`, `111`, including decimals/leading zeros like `9.11` or `0.911`).
+  - Sets `WindowManager.LayoutParams.FLAG_SECURE` on Android while revealed (blocking screenshots/Recents previews) and covers the view with a `UIVisualEffectView` blur shield on iOS `willResignActive`.
+  - Optional 4–32 character `PBKDF2` passcode lock (`SafeVaultLock.java`) auto-locks on exit; 6 panic-exit triggers (`✕ EXIT`, top bar tap, `ESC`, Back, 90-second idle, app switch/lock) immediately cut voice TTS (`< 10 ms`), halt BLE beacons/scans, wipe Calm Art & ephemeral chat, and snap back to the Unit Converter cover.
+  - **Offline BLE Help Beacon Guardrails:** Starts strictly OFF, rotates 15-minute SHA-256 ephemeral tags, enforces a hard **30-minute auto-expiry timer**, supports 1-tap key revocation/rotation, and discloses honest `~30–80 m` peer-to-peer BLE range.
+  - **Honest Local Threat Limit:** App-private storage and screen shields cannot protect against a rooted/compromised OS, physical coercion, or someone actively watching over your shoulder.
+- **Privacy Vault (`ZoeSignalCrypto.java` / `ZoeSignalAndWakeCore.swift`):**
+  - Uses `AndroidKeyStore AES-256-GCM` for chat/vault at-rest encryption and `P-256 ECDH + HKDF-SHA256 + Symmetric Chain Ratchet + AES-256-GCM` with a 60-digit Safety Number for peer-to-peer sealed envelopes.
+  - **Honest Audit Limit:** Built on standard platform crypto APIs, but has **not** undergone an independent third-party cryptographic security audit.
+- **Closed-Loop Mobile ↔ Workstation L5 Digestion Privacy Firewall (`MobileDigestionBundle.java` / `MobileDigestionCore.swift` / `l5_mobile_digestion.py`):**
+  - Runs **only** on explicit user tap (`Feed & Digest Lab`) over USB loopback (`http://127.0.0.1:8765`) or a user-configured HTTPS endpoint (cleartext to remote non-loopback hosts is strictly rejected).
+  - Enforces a **double-sided client + server privacy firewall** (server returns HTTP 400 `PrivacyFirewallError` on violation) that hard-excludes **SafeConvert** (notes, vault, contacts, BLE keys), **Privacy Vault** (E2EE keys, envelopes), **raw photos/thumbnails**, and **private chat message bodies** (only aggregated non-sensitive routing metrics and user-explicit `remember`/`relay` notes, textual Trip metadata, and compact Sobel/HoG-16/Radial-8 vectors are included).
+- **Opt-In Network Boundaries:**
+  - Cleartext HTTP is blocked everywhere except loopback (`127.0.0.1` / `localhost`) via `network_security_config.xml` and `ElizaGemClient.validateEndpoint()`.
+  - All external network lanes are **off by default and explicit tap only**: optional DuckDuckGo/Wikipedia live web citations (`Web: off` default), optional CPC Google Patents structural lookup, optional user-supplied BYOK AI APIs (Gemini/Claude/ChatGPT/Grok), optional 1 MiB Connectivity speed test, and optional user-configured HTTPS lab bridge. Zero Zoe telemetry or analytics exist.
+- **Screen Space (`ZoeAccessibilityService`):** Disabled until manually enabled in Android Settings; `canRetrieveWindowContent="false"`; captures and gestures execute only on explicit button tap with zero passive event monitoring.
+- **Models & Epistemic Firewall:** OCR, image labels, visual contour matches, local LLM outputs, and cloud replies are untrusted observations — never ground truth, identity proof, or authorization to execute hardware/external actions automatically. Compound device actions require explicit step-by-step user taps.
+- **Memory Chains:** Canonical JSON SHA-256 hash chains provide local tamper evidence, not cryptographic authorship authentication.
+- **Debug Builds:** Published beta APKs are development-signed debug builds, not production trust anchors.
 
-The native Zoe Cell simulator is a local behavioral protocol model, not a secure element or an authentication system. Its activity is not exported and adds no hardware, SIM, NFC, Bluetooth, network, storage, or accessibility capability. It does not load code, hold keys, access secrets, or claim a secure chip, trusted clock, or cryptographic identity.
+---
 
-- APDU commands are limited to 135 bytes and probability vectors to 64 entries. Raw hexadecimal input is bounded before normalization; probability and threshold text have separate size limits.
-- The last twelve transaction summaries remain in memory only. Request/response arrays are defensively copied, and reset clears history, replay state, and displayed results.
-- Replay repeats only a local simulated request. It cannot execute an external action or convert a measurement into evidence, belief, or authorization.
-- Malformed commands and unsupported instructions return bounded status responses. Invalid text is rejected before a transaction is created.
-- Host tests exercise every APDU length from 0–135 bytes, deterministic replay, mutation attempts, hostile strings, and oversized input. Device tests cover raw errors, identical replay bytes, reset, and UI rejection.
+## Tiny Zoe Simulator Boundaries
 
-Passing these tests is not proof of perfect safety, absence of exploits, physical-card security, or production readiness. Any future physical transport requires a separate threat model, authorization checks, and hardware verification.
+The native **Zoe Cell** simulator (`CellActivity`) is a local behavioral protocol model, not a secure element or authentication system. Its activity is `exported="false"` and uses no hardware, SIM, NFC, Bluetooth, network, storage, or accessibility permissions.
 
-## Cartridge requirements for future modules
+- APDU commands are bounded to 135 bytes and probability vectors to 64 entries.
+- At most 12 transaction summaries remain in memory only, with defensive array copies and full reset clearing.
+- Malformed commands and hostile strings fail closed with bounded status responses.
 
-1. **Signed manifest:** schema version, cartridge ID, semantic version, source/revision, artifact hash, publisher key fingerprint, and requested capabilities.
-2. **Verified activation:** verify signature, artifact bytes, trusted key, and revocation status before loading. Do not execute a package merely because it has a valid-looking signature or filename.
-3. **Least privilege:** empty default capability set. Separate read/write, network, camera, microphone, location, accessibility, and external-launch permissions. Ask for each independently at activation and retain a denial path.
-4. **No arbitrary execution:** no `eval`, shell strings, hidden download, dynamic native loader, or code fetched at launch. Prefer reviewed Java/Swift implementations and static manifests.
-5. **Isolation:** per-cartridge storage, process, resource limits, cancellation, and no implicit evidence or permission transfer between cartridges. A shared source graph is context, not authority.
-6. **Update safety:** reproducible builds, dependency lockfiles, SBOM/provenance, A/B or rollback support, expiry/revocation, downgrade protection, and no silent updates.
-7. **Accessible failure:** unsupported, revoked, corrupt, or unavailable modules fail closed with a readable explanation and a working offline path.
+---
 
-## Red-team review checklist
+## Cartridge Requirements for Future Modules
 
-- Malformed or oversized manifests, probability arrays, images, audio, MJPEG frames, VCD files, NFC payloads, and location values.
-- Replay/downgrade attacks, revoked keys, stale certificates, duplicate package IDs, dependency confusion, and manifest substitution.
-- Prompt injection, image-based instruction injection, misleading labels, model overconfidence, and attempts to turn forecasts into commands.
-- WebView navigation escape, cleartext/network bypass, malicious safe-contact input, localStorage theft, URL injection, and unvalidated hotline links.
-- Accessibility gesture replay, coordinate confusion, overlay/tapjacking, screenshot disclosure, password/payment capture, and lock-screen attempts.
-- Camera/microphone/location/battery/Bluetooth/NFC privacy leakage, RF side channels, unsafe haptics/audio volume, and denial of service.
-- ADB exposure, stale IPs, unauthorized pairing, open hotspot misuse, port binding mistakes, and unbounded stream clients.
-- State restoration after cancellation, rotation, process death, permission denial, revoked service, network loss, and low memory.
+1. **Signed Manifest:** Schema version, cartridge ID, semantic version, artifact hash, publisher key fingerprint, and minimal declared capability set.
+2. **Verified Activation:** Verify signature, artifact bytes, trusted key, and revocation status before loading.
+3. **Least Privilege:** Empty default capability set; independent runtime opt-in per sensor/network lane with graceful denial.
+4. **No Arbitrary Dynamic Execution:** No `eval`, shell injection, hidden downloads, or unverified dynamic code loading.
+5. **Isolation:** Per-module storage, bounded memory/timeouts, and no implicit permission transfer.
+6. **Update Safety:** Reproducible builds, dependency lockfiles, SBOM/provenance, and downgrade protection.
+7. **Accessible Failure:** Unsupported, corrupt, or offline modules fail closed with clear plain-language explanations.
 
-Every finding needs a reproduction, affected boundary, evidence, mitigation, and regression test. Passing tests alone do not prove security.
+---
 
-## Current production blockers
+## Red-Team Review Checklist
 
-- No production signing/revocation pipeline or cartridge sandbox is implemented.
-- Zoe Cell has no CAP conversion, physical-card memory measurement, reader integration, or physical installation. Host class size is not on-card usage; do not target a CAC or carrier eSIM.
-- Accessibility and package/location permissions are high-impact and must remain optional and reviewable.
-- Local SafeConvert contacts and transcripts are not protected against a rooted/physical attacker or someone watching the screen.
-- Third-party model/speech/Gemini behavior and network paths are not fully audited.
-- Wireless ADB is not established. Do not leave TCP ADB or hotspot access enabled after testing.
-- iOS build/signing/device verification has not run; Android host/device tests are not a security certification.
+- Malformed/oversized manifests, probability arrays, images, audio, MJPEG frames, NFC payloads, and digestion bundles.
+- Privacy-firewall bypass attempts (nested `safeconvert`/`privacy_vault`/base64 image/PEM private key injection into `/api/digest/mobile` — verified blocked `5/5` + HTTP 400 in `scripts/verify_mobile_digestion.py`).
+- Prompt injection, image-based instruction injection, and attempts to turn model output into unapproved OS actions.
+- WebView navigation escape, cleartext/network bypass, malicious safe-contact input, and unvalidated hotline/URI links.
+- Accessibility gesture replay, coordinate confusion, overlay/tapjacking, and screenshot/Recents leakage.
+- BLE side-channel tracking risk, stale ephemeral tags, unsafe audio volume in quiet rooms, and lock-screen exposure.
+- Lifecycle state preservation across rotation, process death, permission revocation, and network loss.
 
-Blue-team rule: make the boundary explicit. Red-team rule: try to cross it. Do not confuse a creative feature with a security guarantee.
+---
+
+## Honest Remaining Production Blockers
+
+- **No production release signing / key-rotation pipeline** (current beta APKs are debug-signed).
+- **No independent third-party security or cryptographic audit** of Privacy Vault, SafeConvert, or the Digestion bridge.
+- **Apple iOS build, signing, simulator, and physical-device verification** remain unexecuted on this Linux host (only the shared `ZoeCore` Swift package passes `20/20` tests on Linux Swift 6.1.3).
+- **Zoe Cell** has no CAP conversion, physical smart-card memory measurement, or reader installation claim.
+- **Accessibility, BLE, and Location permissions** are high-impact and require full Play Store / App Store review justification.
+- **Local SafeConvert data** cannot defend against a rooted/compromised device or physical coercion.
+- **Third-party model/speech/BYOK cloud services** retain their own privacy policies and network boundaries whenever explicitly enabled by the user.
+
+*Blue-team rule: make every boundary explicit. Red-team rule: try to cross it. Never confuse passing tests or creative features with a security guarantee.*
