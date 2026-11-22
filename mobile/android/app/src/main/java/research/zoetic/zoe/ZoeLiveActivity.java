@@ -202,6 +202,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private boolean preferDeviceRecognizer = true;
     private int consecutiveErrors;
     private long lastSoundAlertHapticMs;
+    private volatile String latestPartialHeard = "";
+    private volatile long latestPartialAtMs;
+    private LiveViewErgonomics.Posture currentPosture = LiveViewErgonomics.Posture.ACTIVE_AR;
+    private float activeGuideBearingDeg = Float.NaN;
+    private String activeGuideLabel = "";
+    private boolean lastGuideWasCentered;
     private volatile OrbState currentOrbState = OrbState.IDLE;
 
     private volatile String latestCameraReport = "";
@@ -651,15 +657,19 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout geoRow = new LinearLayout(this);
         geoRow.setOrientation(LinearLayout.HORIZONTAL);
-        Button echoBtn = sheetPill("Echo Depth Ping", v -> {
+        Button echoBtn = sheetPill("Echo Ping", v -> {
             setToolsSheetOpen(false);
             triggerAcousticEchoPing();
         });
-        Button earthBtn = sheetPill("Open Google Earth", v -> {
+        Button mapsWalkBtn = sheetPill("Maps Live Walk", v -> {
+            setToolsSheetOpen(false);
+            openGoogleMapsWalkingLiveView("");
+        });
+        Button earthBtn = sheetPill("Google Earth", v -> {
             setToolsSheetOpen(false);
             openGoogleEarthOrHint();
         });
-        addEvenRow(geoRow, echoBtn, earthBtn);
+        addEvenRow(geoRow, echoBtn, mapsWalkBtn, earthBtn);
         inner.addView(geoRow);
 
         telemetryHudLine = Ui.text(this, "Spatial Field idle · Local-only, zero PII (CERN Aτ/M₄ · RF · ENU)", 11.5f, Ui.TEXT);
@@ -1502,16 +1512,53 @@ public final class ZoeLiveActivity extends ComponentActivity {
         if (!spatialFieldOn || snap == null || isFinishing() || isDestroyed()) {
             return;
         }
+        // Live-View Ergonomic Posture (Tilt-Down Safety Rest / Tilt-Up Instant AR!)
+        LiveViewErgonomics.Posture nextP = LiveViewErgonomics.nextPosture(
+                currentPosture, spatialTelemetry.getPitchDegrees());
+        if (nextP != currentPosture) {
+            currentPosture = nextP;
+            if (spatialOverlayView != null) {
+                spatialOverlayView.setPosture(currentPosture);
+            }
+            if (a11y.hapticCues) {
+                ExploreAccessibility.pulseHaptic(this, ExploreAccessibility.HapticCue.DIRECTION_LOCK, true);
+            }
+        }
         if (spatialOverlayView != null) {
             spatialTelemetry.updateImuStability(spatialOverlayView.getImuStability());
             spatialOverlayView.setLightField(snap.lightField);
             spatialOverlayView.setSpatialCoherence(snap.spatialCoherence);
             spatialOverlayView.setPreferredHoverDepth(snap.suggestedDepthMeters);
+            spatialOverlayView.updateCurrentTrueHeading(spatialTelemetry.getCompassDegrees());
+            if (Float.isFinite(activeGuideBearingDeg) && Float.isFinite(spatialTelemetry.getCompassDegrees())) {
+                float d = LiveViewErgonomics.signedBearingDeltaDeg(spatialTelemetry.getCompassDegrees(), activeGuideBearingDeg);
+                boolean centered = Math.abs(d) <= 12f;
+                if (centered && !lastGuideWasCentered) {
+                    ExploreAccessibility.pulseHaptic(this, ExploreAccessibility.HapticCue.DIRECTION_LOCK, a11y.hapticCues);
+                    if (a11y.spatialAudioBeacon) {
+                        ExploreAccessibility.playStereoSpatialChimeAsync(0f, 0.8f);
+                    }
+                }
+                lastGuideWasCentered = centered;
+            }
         }
-        latestSpatialContext = snap.voiceContextLine;
+        String place = spatialTelemetry.getLocalPlaceLabel();
+        int steps = spatialTelemetry.getStepCount();
+        StringBuilder enrichedCtx = new StringBuilder(snap.voiceContextLine);
+        if (place != null && !place.isEmpty()) {
+            enrichedCtx.append(" Near ").append(place).append(".");
+        }
+        if (steps > 0) {
+            enrichedCtx.append(" Walked ").append(steps).append(" steps.");
+        }
+        latestSpatialContext = enrichedCtx.toString().trim();
         runOnUiThread(() -> {
             if (spatialFieldOn && telemetryHudLine != null && !isFinishing() && !isDestroyed()) {
-                telemetryHudLine.setText(snap.compactHudLine);
+                String hud = snap.compactHudLine;
+                if (place != null && !place.isEmpty()) {
+                    hud = place + " · " + hud;
+                }
+                telemetryHudLine.setText(hud);
             }
         });
     }
@@ -1579,6 +1626,33 @@ public final class ZoeLiveActivity extends ComponentActivity {
         ExploreAccessibility.pulseHaptic(this, ExploreAccessibility.HapticCue.DIRECTION_LOCK, a11y.hapticCues);
     }
 
+    private void openGoogleMapsWalkingLiveView(String destination) {
+        String target = destination == null ? "" : destination.trim();
+        if (target.isEmpty()) {
+            Location loc = spatialTelemetry != null ? spatialTelemetry.getLatestLocation() : null;
+            if (loc != null) {
+                try {
+                    String geo = String.format(Locale.US, "geo:%.6f,%.6f?z=19", loc.getLatitude(), loc.getLongitude());
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(geo)));
+                    return;
+                } catch (Exception ignored) {
+                }
+            }
+            showCaption("Say \"Walk to <place>\" (e.g. \"Walk to coffee shop\") to open Google Maps Walking / Live View!", true);
+            return;
+        }
+        try {
+            String navUri = LiveViewErgonomics.buildGoogleMapsWalkingUri(target);
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(navUri)));
+        } catch (Exception ignored) {
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=" + Uri.encode(target))));
+            } catch (Exception ignored2) {
+            }
+        }
+    }
+
     private void openGoogleEarthOrHint() {
         Location loc = spatialTelemetry != null ? spatialTelemetry.getLatestLocation() : null;
         if (loc == null) {
@@ -1612,6 +1686,14 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 spatialTelemetry.getLastSnapshot(),
                 spatialTelemetry.getCompassDegrees(),
                 a11y.kidFriendly);
+        String place = spatialTelemetry.getLocalPlaceLabel();
+        if (place != null && !place.isEmpty()) {
+            summary = "Near " + place + ". " + summary;
+        }
+        int steps = spatialTelemetry.getStepCount();
+        if (steps > 0) {
+            summary = summary + " " + steps + (steps == 1 ? " step walked." : " steps walked.");
+        }
         showCaption(summary, true);
         if (!a11y.muteSpokenTts) {
             long turn = activeTurnId.incrementAndGet();
@@ -2009,7 +2091,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
     }
 
     private void captureBackgroundCameraFrame() {
-        if (!cameraOn || !cameraAnalysisBusy.compareAndSet(false, true)) {
+        // Ergonomic Live-View battery save: skip heavy vision inference while phone is lowered in SAFETY_REST!
+        if (!cameraOn || currentPosture == LiveViewErgonomics.Posture.SAFETY_REST
+                || !cameraAnalysisBusy.compareAndSet(false, true)) {
             return;
         }
         Bitmap frame = getLatestCameraFrameCopy();
@@ -2150,6 +2234,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             public void onReadyForSpeech(Bundle params) {
                 if (myGen != listenGen.get()) return;
                 consecutiveErrors = 0;
+                latestPartialHeard = "";
                 setOrbState(OrbState.LISTENING, hiZoeWakeMode ? "WAITING FOR 'HI ZOE'" : "LISTENING…");
             }
 
@@ -2200,6 +2285,15 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 switch (policy.action) {
                     case SILENT_REARM -> {
                         consecutiveErrors = 0;
+                        // Rescue dropped partial transcript so Zoe NEVER ignores a question on Pixel timeout/no-match!
+                        String rescued = latestPartialHeard;
+                        long partialTs = latestPartialAtMs;
+                        latestPartialHeard = "";
+                        if (!hiZoeWakeMode && LiveViewErgonomics.shouldRescuePartialTranscript(
+                                rescued, partialTs, System.currentTimeMillis())) {
+                            processSpokenPrompt(rescued);
+                            return;
+                        }
                         scheduleListeningRearm(policy.delayMs);
                     }
                     case FALLBACK_RECOGNIZER -> {
@@ -2242,6 +2336,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 orbView.setAudioLevel(0f);
                 ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 String heard = (matches != null && !matches.isEmpty()) ? matches.get(0).trim() : "";
+                if (heard.isEmpty() && LiveViewErgonomics.shouldRescuePartialTranscript(
+                        latestPartialHeard, latestPartialAtMs, System.currentTimeMillis())) {
+                    heard = latestPartialHeard.trim();
+                }
+                latestPartialHeard = "";
                 if (heard.isEmpty() || isLikelyRoomNoiseBlip(heard)) {
                     if (callActive) {
                         scheduleListeningRearm(260L);
@@ -2274,8 +2373,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
             public void onPartialResults(Bundle partialResults) {
                 if (myGen != listenGen.get() || isFinishing() || isDestroyed()) return;
                 ArrayList<String> partial = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                if (partial != null && !partial.isEmpty() && !partial.get(0).trim().isEmpty() && !hiZoeWakeMode) {
-                    showCaption("You: " + partial.get(0).trim(), true);
+                if (partial != null && !partial.isEmpty() && !partial.get(0).trim().isEmpty()) {
+                    String p = partial.get(0).trim();
+                    latestPartialHeard = p;
+                    latestPartialAtMs = System.currentTimeMillis();
+                    if (!hiZoeWakeMode) {
+                        showCaption("You: " + p, true);
+                    }
                 }
             }
 
@@ -2308,6 +2412,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private void processSpokenPrompt(String spoken) {
         if (ConversationResponse.isStop(spoken)) {
             stopLiveCall();
+            return;
+        }
+        // Direct Explore Voice-Action Router: Zoe immediately obeys camera, navigation, bearing & accessibility requests!
+        LiveViewErgonomics.ParsedVoiceAction parsed = LiveViewErgonomics.parseExploreVoiceAction(spoken);
+        if (parsed.action != LiveViewErgonomics.ExploreVoiceAction.NONE) {
+            handleExploreVoiceAction(parsed, spoken);
             return;
         }
         final long myTurn = activeTurnId.incrementAndGet();
@@ -2496,11 +2606,115 @@ public final class ZoeLiveActivity extends ComponentActivity {
         });
     }
 
+    private void handleExploreVoiceAction(LiveViewErgonomics.ParsedVoiceAction parsed, String rawSpoken) {
+        final long myTurn = activeTurnId.incrementAndGet();
+        stopAudioOnly();
+        lastUserSpoken = rawSpoken;
+        switch (parsed.action) {
+            case FLIP_CAMERA -> {
+                if (!cameraOn && !arModeOn) startCamera();
+                flipCamera();
+                finishSimpleReply(myTurn, useFrontCamera ? "Switched to the front camera." : "Switched to the rear camera.");
+            }
+            case RECENTER_ZOE -> {
+                if (spatialOverlayView != null) spatialOverlayView.recenterInFrontOfUser();
+                finishSimpleReply(myTurn, "Right here in front of you.");
+            }
+            case TOGGLE_ROAM_OFF -> {
+                arRoamEnabled = false;
+                if (spatialOverlayView != null) spatialOverlayView.setAutonomousRoam(false);
+                if (arSurfaceView != null) arSurfaceView.setAutonomousRoam(false);
+                styleDrawerButtons();
+                finishSimpleReply(myTurn, "Got it, I'll stay right here.");
+            }
+            case TOGGLE_ROAM_ON -> {
+                arRoamEnabled = true;
+                if (spatialOverlayView != null) spatialOverlayView.setAutonomousRoam(true);
+                if (arSurfaceView != null) arSurfaceView.setAutonomousRoam(true);
+                styleDrawerButtons();
+                finishSimpleReply(myTurn, "Gliding around your view again.");
+            }
+            case ENABLE_DEAF_MODE -> {
+                selectAccessibilityProfile(ExploreAccessibility.Profile.DEAF_HOH);
+            }
+            case ENABLE_BLIND_MODE -> {
+                selectAccessibilityProfile(ExploreAccessibility.Profile.BLIND_LOW_VISION);
+            }
+            case ENABLE_KID_MODE -> {
+                a11y = a11y.withKidFriendly(true);
+                ExploreAccessibility.save(this, a11y);
+                applyAccessibilitySettings(true);
+            }
+            case ENABLE_STANDARD_MODE -> {
+                selectAccessibilityProfile(ExploreAccessibility.Profile.STANDARD);
+            }
+            case ENABLE_FIELD -> {
+                if (!spatialFieldOn) toggleSpatialField();
+                finishSimpleReply(myTurn, "Spatial telemetry field is on.");
+            }
+            case DISABLE_FIELD -> {
+                stopSpatialTelemetry();
+                finishSimpleReply(myTurn, "Spatial telemetry field is off.");
+            }
+            case DUAL_CAM_SWEEP -> {
+                runDualCamAmbientSweep();
+                finishSimpleReply(myTurn, "Checking the lighting behind you now.");
+            }
+            case ECHO_PING -> {
+                triggerAcousticEchoPing();
+            }
+            case ANNOUNCE_ORIENTATION -> {
+                announceOrientationSummary();
+            }
+            case OPEN_GOOGLE_EARTH -> {
+                openGoogleEarthOrHint();
+            }
+            case OPEN_GOOGLE_MAPS_WALK -> {
+                finishSimpleReply(myTurn, "Opening walking directions to " + parsed.targetQuery + " in Google Maps.");
+                openGoogleMapsWalkingLiveView(parsed.targetQuery);
+            }
+            case GUIDE_BEARING -> {
+                activeGuideBearingDeg = parsed.targetBearingDeg;
+                activeGuideLabel = parsed.targetQuery;
+                lastGuideWasCentered = false;
+                if (!spatialFieldOn) activateSpatialFieldNow();
+                if (spatialOverlayView != null) {
+                    spatialOverlayView.setGuidanceBearing(activeGuideBearingDeg, activeGuideLabel);
+                }
+                finishSimpleReply(myTurn, "Guiding you " + activeGuideLabel + ". Follow the floating arrows or feel the tick when locked straight ahead.");
+            }
+            case CLEAR_GUIDE -> {
+                activeGuideBearingDeg = Float.NaN;
+                activeGuideLabel = "";
+                if (spatialOverlayView != null) spatialOverlayView.clearGuidanceBearing();
+                finishSimpleReply(myTurn, "Cleared the direction guide.");
+            }
+            case OPEN_TOOLS -> {
+                setToolsSheetOpen(true);
+                finishSimpleReply(myTurn, "Opened Tools and Accessibility.");
+            }
+            default -> {
+            }
+        }
+    }
+
     private void finalizeStreamedTurn(long myTurn, String finalReply, boolean streamTtsNow,
                                       int spokenOffset, boolean alreadyStartedSpeaking) {
         if (myTurn != activeTurnId.get()) return;
         String clean = OnDeviceLlmEngine.enforceZoeSovereignty(finalReply);
         if (clean.trim().isEmpty()) clean = "I'm right here with you.";
+        // Anti-blindness guard: if compact local model falsely claims "I cannot see" while camera is ON,
+        // replace immediately with real grounded camera + color + OCR + compass reading!
+        if (LiveViewErgonomics.isBlindOrGenericHallucination(clean, lastUserSpoken, cameraOn || arModeOn)) {
+            clean = LiveViewErgonomics.buildGroundedVisualAnswer(
+                    latestCameraReport, latestArDistanceMeters,
+                    spatialTelemetry != null ? spatialTelemetry.getCompassDegrees() : Float.NaN,
+                    a11y.kidFriendly);
+            // Force fresh clean reply so the corrected grounded text is spoken/displayed cleanly
+            final String corrected = clean;
+            runOnUiThread(() -> finishSimpleReply(myTurn, corrected));
+            return;
+        }
         final String finalDisplay = clean.trim();
         sessionHistory.add(new ChatHistoryStore.ChatMessage("zoe", finalDisplay, "ZOE EXPLORE", "", 0));
 
@@ -2639,6 +2853,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
         if (arModeOn) {
             stopArSpace();
         }
+        activeGuideBearingDeg = Float.NaN;
+        activeGuideLabel = "";
+        currentPosture = LiveViewErgonomics.Posture.ACTIVE_AR;
+        if (spatialOverlayView != null) {
+            spatialOverlayView.clearGuidanceBearing();
+            spatialOverlayView.setPosture(LiveViewErgonomics.Posture.ACTIVE_AR);
+        }
         stopCamera();
         styleDrawerButtons();
         updateKeepScreenOn();
@@ -2694,6 +2915,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
         stopAudioOnly();
         if (arModeOn) {
             stopArSpace();
+        }
+        activeGuideBearingDeg = Float.NaN;
+        activeGuideLabel = "";
+        currentPosture = LiveViewErgonomics.Posture.ACTIVE_AR;
+        if (spatialOverlayView != null) {
+            spatialOverlayView.clearGuidanceBearing();
+            spatialOverlayView.setPosture(LiveViewErgonomics.Posture.ACTIVE_AR);
         }
         stopCamera();
         if (tts != null) {

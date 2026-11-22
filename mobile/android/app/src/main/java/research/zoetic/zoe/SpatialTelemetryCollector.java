@@ -7,12 +7,15 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -59,13 +62,18 @@ final class SpatialTelemetryCollector implements SensorEventListener {
     private final Sensor compassSensor;
     private final Sensor baroSensor;
     private final Sensor lightSensor;
+    private final Sensor stepSensor;
 
     private SpatialTelemetryFusion.CameraOptics cameraOptics;
     private SpatialTelemetryFusion.LightFieldState lightField = SpatialTelemetryFusion.LightFieldState.neutral();
     private SpatialTelemetryFusion.FusedFieldSnapshot lastSnapshot;
+    private LiveViewErgonomics.PdrState pdrState = new LiveViewErgonomics.PdrState(0.0, 0.0, 0);
 
     private boolean active;
+    private float magneticHeadingDeg = Float.NaN;
+    private float geomagneticDeclinationDeg;
     private float compassDegrees = Float.NaN;
+    private float pitchDegrees = 0f;
     private float baselinePressureHpa = Float.NaN;
     private float baroDeltaMeters;
     private float ambientLux;
@@ -77,6 +85,8 @@ final class SpatialTelemetryCollector implements SensorEventListener {
     private float frontLuma = 0.45f;
     private float frontWarmth;
     private boolean dualCamCalibrated;
+    private volatile String localPlaceLabel = "";
+    private long lastGeocodeAttemptMs;
 
     private Location originLocation;
     private Location latestLocation;
@@ -96,6 +106,17 @@ final class SpatialTelemetryCollector implements SensorEventListener {
                 originLocation = location;
             }
             latestLocation = location;
+            updateDeclinationAndPlace(location);
+            if (originLocation != null) {
+                SpatialTelemetryFusion.EnuGridCoord gpsEnu = SpatialTelemetryFusion.toLocalEnuGrid(
+                        originLocation.getLatitude(), originLocation.getLongitude(),
+                        originLocation.hasAltitude() ? originLocation.getAltitude() : 0.0,
+                        location.getLatitude(), location.getLongitude(),
+                        location.hasAltitude() ? location.getAltitude() : 0.0);
+                pdrState = LiveViewErgonomics.blendWithGpsEnu(
+                        pdrState, gpsEnu.eastMeters, gpsEnu.northMeters,
+                        location.hasAccuracy() ? location.getAccuracy() : 20f);
+            }
         }
     };
 
@@ -117,8 +138,25 @@ final class SpatialTelemetryCollector implements SensorEventListener {
         this.compassSensor = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) : null;
         this.baroSensor = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE) : null;
         this.lightSensor = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) : null;
+        this.stepSensor = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR) : null;
         this.locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
         this.cameraOptics = readDualCameraOptics(appContext, true);
+    }
+
+    float getPitchDegrees() {
+        return pitchDegrees;
+    }
+
+    int getStepCount() {
+        return pdrState.stepCount;
+    }
+
+    String getLocalPlaceLabel() {
+        return localPlaceLabel;
+    }
+
+    LiveViewErgonomics.PdrState getPdrState() {
+        return pdrState;
     }
 
     SpatialTelemetryFusion.CameraOptics getCameraOptics(boolean portrait) {
@@ -158,6 +196,13 @@ final class SpatialTelemetryCollector implements SensorEventListener {
             }
             if (lightSensor != null) {
                 sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            }
+            if (stepSensor != null) {
+                // Hardware Sensor Hub step detector (zero CPU wake!) for indoor/outdoor Pedestrian Dead-Reckoning
+                try {
+                    sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_NORMAL);
+                } catch (RuntimeException ignored) {
+                }
             }
         }
         attachLocationIfPermitted();
@@ -281,6 +326,7 @@ final class SpatialTelemetryCollector implements SensorEventListener {
                         originLocation = cached;
                     }
                     latestLocation = cached;
+                    updateDeclinationAndPlace(cached);
                 }
                 locationManager.requestLocationUpdates(provider, 5_000L, 1.5f, locationListener, Looper.getMainLooper());
                 locationUpdatesRegistered = true;
@@ -298,8 +344,15 @@ final class SpatialTelemetryCollector implements SensorEventListener {
         if (type == Sensor.TYPE_ROTATION_VECTOR) {
             SensorManager.getRotationMatrixFromVector(rotMat, event.values);
             SensorManager.getOrientation(rotMat, orientAngles);
-            float deg = (float) Math.toDegrees(orientAngles[0]);
-            compassDegrees = (float) SpatialTelemetryFusion.normalizeHeading(deg);
+            magneticHeadingDeg = (float) SpatialTelemetryFusion.normalizeHeading(Math.toDegrees(orientAngles[0]));
+            compassDegrees = LiveViewErgonomics.magneticToTrueNorth(magneticHeadingDeg, geomagneticDeclinationDeg);
+            // Pitch in upright handheld coordinates: ~0° level ahead, -90° pointing flat at ground
+            float rawPitch = (float) Math.toDegrees(orientAngles[1]);
+            pitchDegrees = -rawPitch - 90f;
+            if (pitchDegrees < -90f) pitchDegrees = -180f - pitchDegrees;
+            if (pitchDegrees > 90f) pitchDegrees = 180f - pitchDegrees;
+        } else if (type == Sensor.TYPE_STEP_DETECTOR) {
+            pdrState = LiveViewErgonomics.advanceStep(pdrState, compassDegrees, LiveViewErgonomics.DEFAULT_STRIDE_METERS);
         } else if (type == Sensor.TYPE_PRESSURE && event.values.length > 0) {
             float hpa = event.values[0];
             if (Float.isNaN(baselinePressureHpa)) {
@@ -329,6 +382,13 @@ final class SpatialTelemetryCollector implements SensorEventListener {
                     originLocation.hasAltitude() ? originLocation.getAltitude() : 0.0,
                     latestLocation.getLatitude(), latestLocation.getLongitude(),
                     latestLocation.hasAltitude() ? latestLocation.getAltitude() : 0.0);
+        } else if (pdrState.stepCount > 0) {
+            // Pure indoor Pedestrian Dead-Reckoning ENU grid even with zero GPS fix!
+            double d = Math.hypot(pdrState.eastMeters, pdrState.northMeters);
+            int cE = (int) Math.floor(pdrState.eastMeters / 5.0);
+            int cN = (int) Math.floor(pdrState.northMeters / 5.0);
+            String code = String.format(java.util.Locale.US, "PDR[%+dE,%+dN·%dst]", cE, cN, pdrState.stepCount);
+            grid = new SpatialTelemetryFusion.EnuGridCoord(pdrState.eastMeters, pdrState.northMeters, baroDeltaMeters, d, code);
         }
 
         SpatialTelemetryFusion.TelemetryInput input = new SpatialTelemetryFusion.TelemetryInput(
@@ -348,6 +408,55 @@ final class SpatialTelemetryCollector implements SensorEventListener {
         if (listener != null) {
             listener.onFieldUpdated(lastSnapshot);
         }
+    }
+
+    /**
+     * Uses Android's built-in GeomagneticField (zero network) for exact True-North declination
+     * and platform Geocoder (async, throttled) for nearby street/neighborhood context.
+     */
+    private void updateDeclinationAndPlace(Location loc) {
+        if (loc == null) return;
+        try {
+            GeomagneticField gmf = new GeomagneticField(
+                    (float) loc.getLatitude(),
+                    (float) loc.getLongitude(),
+                    loc.hasAltitude() ? (float) loc.getAltitude() : 0f,
+                    System.currentTimeMillis());
+            geomagneticDeclinationDeg = gmf.getDeclination();
+            if (Float.isFinite(magneticHeadingDeg)) {
+                compassDegrees = LiveViewErgonomics.magneticToTrueNorth(magneticHeadingDeg, geomagneticDeclinationDeg);
+            }
+        } catch (Throwable ignored) {
+        }
+        long now = System.currentTimeMillis();
+        if (now - lastGeocodeAttemptMs < 30_000L || !Geocoder.isPresent()) {
+            return;
+        }
+        lastGeocodeAttemptMs = now;
+        final double lat = loc.getLatitude();
+        final double lon = loc.getLongitude();
+        Thread t = new Thread(() -> {
+            try {
+                Geocoder geocoder = new Geocoder(appContext, java.util.Locale.getDefault());
+                @SuppressWarnings("deprecation")
+                List<Address> list = geocoder.getFromLocation(lat, lon, 1);
+                if (list != null && !list.isEmpty()) {
+                    Address a = list.get(0);
+                    String street = a.getThoroughfare();
+                    String locality = a.getLocality();
+                    if (street != null && !street.isEmpty() && locality != null && !locality.isEmpty()) {
+                        localPlaceLabel = street + ", " + locality;
+                    } else if (street != null && !street.isEmpty()) {
+                        localPlaceLabel = street;
+                    } else if (locality != null && !locality.isEmpty()) {
+                        localPlaceLabel = locality;
+                    }
+                }
+            } catch (Throwable ignored) {
+            }
+        }, "zoe-geocoder");
+        t.setDaemon(true);
+        t.start();
     }
 
     private int[] readWifiRssiAndFreq() {

@@ -67,6 +67,11 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
     private boolean frontCameraMirrored;
     private boolean visualSoundRadarEnabled;
     private boolean blindGestureMode;
+    private LiveViewErgonomics.Posture posture = LiveViewErgonomics.Posture.ACTIVE_AR;
+    private float guideTargetBearingDeg = Float.NaN;
+    private float currentTrueHeadingDeg = Float.NaN;
+    private String guideLabel = "";
+    private boolean guideLockedCentered;
     private float verticalFovRad = ArExploreBrain.DEFAULT_SPATIAL_FOV_RAD;
     private float preferredHoverDepthM = 1.22f;
     private float imuStability = 0.88f;
@@ -111,9 +116,13 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
     private final Paint ripplePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint arrowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint radarPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint restPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint chevronPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint guideTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path gemPath = new Path();
     private final Path facetPath = new Path();
     private final Path arrowPath = new Path();
+    private final Path chevronPath = new Path();
     private final RectF oval = new RectF();
     private int cachedHaloColor = -1;
     private float cachedHaloRadius = -1f;
@@ -135,6 +144,12 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         ripplePaint.setStyle(Paint.Style.STROKE);
         arrowPaint.setStyle(Paint.Style.FILL);
         radarPaint.setStyle(Paint.Style.STROKE);
+        restPaint.setStyle(Paint.Style.FILL);
+        chevronPaint.setStyle(Paint.Style.STROKE);
+        chevronPaint.setStrokeCap(Paint.Cap.ROUND);
+        chevronPaint.setStrokeJoin(Paint.Join.ROUND);
+        guideTextPaint.setColor(Color.WHITE);
+        guideTextPaint.setTextAlign(Paint.Align.CENTER);
         setWillNotDraw(false);
 
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -213,6 +228,30 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
 
     void setBlindGestureMode(boolean enabled) {
         this.blindGestureMode = enabled;
+    }
+
+    void setPosture(LiveViewErgonomics.Posture next) {
+        this.posture = next == null ? LiveViewErgonomics.Posture.ACTIVE_AR : next;
+    }
+
+    void setGuidanceBearing(float targetBearingDeg, String label) {
+        this.guideTargetBearingDeg = targetBearingDeg;
+        this.guideLabel = label == null ? "" : label;
+        this.guideLockedCentered = false;
+    }
+
+    void clearGuidanceBearing() {
+        this.guideTargetBearingDeg = Float.NaN;
+        this.guideLabel = "";
+        this.guideLockedCentered = false;
+    }
+
+    void updateCurrentTrueHeading(float trueHeadingDeg) {
+        this.currentTrueHeadingDeg = trueHeadingDeg;
+    }
+
+    boolean isGuidanceBearingLocked() {
+        return guideLockedCentered;
     }
 
     void setVerticalFovRad(float fovRad) {
@@ -438,7 +477,56 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         }
         float d = getResources().getDisplayMetrics().density;
 
-        // 0. Deaf / Hard-of-Hearing Visual Ambient Sound Radar Ring (pure visual cue, zero button clutter!)
+        // 0. Live-View Style Ergonomic Tilt-Down Safety Rest (phone pointed at ground -> calm dim "Eyes Up" veil!)
+        if (posture == LiveViewErgonomics.Posture.SAFETY_REST) {
+            restPaint.setColor(Color.argb(132, 6, 10, 18));
+            canvas.drawRect(0f, 0f, w, h, restPaint);
+            guideTextPaint.setTextSize(15f * d);
+            guideTextPaint.setColor(Color.argb(220, 210, 232, 255));
+            canvas.drawText("Eyes up · Tilt phone up to resume AR", w * 0.5f, h * 0.48f, guideTextPaint);
+            return;
+        }
+
+        // 0b. Floating Live-View Style Aurora Bearing Chevrons when guiding toward a compass heading!
+        if (Float.isFinite(guideTargetBearingDeg) && Float.isFinite(currentTrueHeadingDeg)) {
+            float delta = LiveViewErgonomics.signedBearingDeltaDeg(currentTrueHeadingDeg, guideTargetBearingDeg);
+            guideLockedCentered = Math.abs(delta) <= 12f;
+            float normX = Math.max(-0.82f, Math.min(0.82f, delta / 45f));
+            float gx = w * 0.5f + normX * (w * 0.42f);
+            float gy = h * 0.27f;
+            int chevColor = guideLockedCentered ? Color.rgb(72, 236, 178) : Color.rgb(112, 198, 255);
+            chevronPaint.setStrokeWidth(3.2f * d);
+            for (int c = 0; c < 3; c++) {
+                float pulseWave = (float) Math.sin(elapsedSec * 4.5 - c * 0.85) * 0.35f + 0.65f;
+                int a = (int) (pulseWave * 215f);
+                chevronPaint.setColor(Color.argb(a, Color.red(chevColor), Color.green(chevColor), Color.blue(chevColor)));
+                float sz = (12f + c * 4f) * d;
+                float cy = gy - c * 11f * d;
+                chevronPath.reset();
+                if (guideLockedCentered) {
+                    // Forward-pointing upward chevron stack (right on bearing!)
+                    chevronPath.moveTo(gx - sz, cy + sz * 0.55f);
+                    chevronPath.lineTo(gx, cy - sz * 0.35f);
+                    chevronPath.lineTo(gx + sz, cy + sz * 0.55f);
+                } else {
+                    float dirSign = delta > 0 ? 1f : -1f;
+                    float ox = gx + dirSign * c * 10f * d;
+                    chevronPath.moveTo(ox - dirSign * sz * 0.4f, gy - sz * 0.7f);
+                    chevronPath.lineTo(ox + dirSign * sz * 0.45f, gy);
+                    chevronPath.lineTo(ox - dirSign * sz * 0.4f, gy + sz * 0.7f);
+                }
+                canvas.drawPath(chevronPath, chevronPaint);
+            }
+            guideTextPaint.setTextSize(12.5f * d);
+            guideTextPaint.setColor(chevColor);
+            String label = guideLockedCentered
+                    ? ("● STRAIGHT AHEAD · " + guideLabel)
+                    : String.format(java.util.Locale.US, "%s %s · %.0f°",
+                            delta > 0 ? "Turn right →" : "← Turn left", guideLabel, Math.abs(delta));
+            canvas.drawText(label, w * 0.5f, gy + 32f * d, guideTextPaint);
+        }
+
+        // 0c. Deaf / Hard-of-Hearing Visual Ambient Sound Radar Ring (pure visual cue, zero button clutter!)
         if (visualSoundRadarEnabled && smoothAmbientSoundLevel > 0.08f) {
             float rNorm = Math.min(1f, smoothAmbientSoundLevel);
             int alpha = (int) (rNorm * 145f);

@@ -234,6 +234,33 @@ public enum ArExploreCore {
         return out
     }
 
+    public enum LivePosture: Equatable, Sendable {
+        case activeAr
+        case safetyRest
+    }
+
+    public static func magneticToTrueNorth(magneticHeadingDeg: Float, declinationDeg: Float) -> Float {
+        guard magneticHeadingDeg.isFinite else { return .nan }
+        let d = declinationDeg.isFinite ? declinationDeg : 0
+        let m = (Double(magneticHeadingDeg + d).truncatingRemainder(dividingBy: 360.0) + 360.0)
+            .truncatingRemainder(dividingBy: 360.0)
+        return Float(m)
+    }
+
+    public static func nextPosture(current: LivePosture, pitchDegrees: Float) -> LivePosture {
+        guard pitchDegrees.isFinite else { return current }
+        if current == .activeAr && pitchDegrees < -58 { return .safetyRest }
+        if current == .safetyRest && pitchDegrees > -44 { return .activeAr }
+        return current
+    }
+
+    public static func signedBearingDeltaDeg(currentHeadingDeg: Float, targetBearingDeg: Float) -> Float {
+        guard currentHeadingDeg.isFinite && targetBearingDeg.isFinite else { return 0 }
+        let diff = ((Double(targetBearingDeg - currentHeadingDeg).truncatingRemainder(dividingBy: 360.0)) + 540.0)
+            .truncatingRemainder(dividingBy: 360.0) - 180.0
+        return Float(diff)
+    }
+
     public static func stepGlide(current: Vec3, target: Vec3, dtSec: Float, speed: Float = 2.8) -> Vec3 {
         let dt = max(0.001, min(0.15, dtSec))
         let alpha = 1.0 - exp(-max(0.5, speed) * dt)

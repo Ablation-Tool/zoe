@@ -250,7 +250,7 @@ final class MediaChatHelper {
             if (labelTask.isSuccessful() && labelTask.getResult() != null) {
                 Set<String> unique = new LinkedHashSet<>();
                 for (ImageLabel l : labelTask.getResult()) {
-                    if (l.getConfidence() < 0.55f) {
+                    if (l.getConfidence() < 0.42f) {
                         continue;
                     }
                     if (unique.size() >= 5) {
@@ -263,7 +263,21 @@ final class MediaChatHelper {
         } catch (Exception ignored) {
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("Labels: ").append(labels.isEmpty() ? "none above 55%" : String.join(", ", labels)).append(".");
+        sb.append("Labels: ").append(labels.isEmpty() ? "low-confidence scene" : String.join(", ", labels)).append(".");
+        // Always include real dominant color & lighting tone so Zoe NEVER feels visually blind in dim or close-up shots!
+        try {
+            FramePalette.Analysis pal = FramePalette.analyzeBitmap(bmp);
+            if (pal != null && pal.names != null && pal.names.length > 0) {
+                StringBuilder c = new StringBuilder();
+                c.append(pal.tone).append(" (").append(pal.brightnessPercent).append("%), ");
+                for (int i = 0; i < Math.min(2, pal.names.length); i++) {
+                    if (i > 0) c.append(" & ");
+                    c.append(pal.names[i]);
+                }
+                sb.append(" Colors: ").append(c).append(".");
+            }
+        } catch (Throwable ignored) {
+        }
         if (!ocrText.isEmpty()) {
             sb.append(" Visible text: \"").append(ocrText).append("\".");
         }

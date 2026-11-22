@@ -194,7 +194,11 @@ final class LiveSessionLogic {
                 .append("plain speech only with no markdown, lists, or asterisks.");
         if (liveCameraObs != null && !liveCameraObs.trim().isEmpty()) {
             sb.append("\nLive camera currently sees: ").append(liveCameraObs.trim());
-            sb.append("\nIf relevant to what the user says, naturally weave in what you see.");
+            if (isLikelyCameraQuestion(cleanUser)) {
+                sb.append("\nThe user is asking about what the camera sees right now. Answer directly using the live camera observations above. NEVER claim you cannot see or have no camera.");
+            } else {
+                sb.append("\nIf relevant to what the user says, naturally weave in what you see.");
+            }
         }
         sb.append("\nUser said: ").append(cleanUser);
         return sb.toString();
