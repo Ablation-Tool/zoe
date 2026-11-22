@@ -291,6 +291,14 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
     best_fn = validate_and_compile_program(best_source)
     evolved_test_mse = _eval_program_mse(best_fn, test_streams)
 
+    # Cross-pollinate Orbit Pass 2 Kloster-McCabe Code Elegance Audit directly onto the evolved program!
+    import sys as _sys
+    guiai_dir = str(root / "guiai-lab")
+    if guiai_dir not in _sys.path:
+        _sys.path.insert(0, guiai_dir)
+    from guiai.gem.code_elegance_analyzer import analyze_python_source
+    evolved_elegance = analyze_python_source(best_source, label="<zoe-evolved-multistmt>")
+
     # 3. Blind Zero-Shot Transfer #1: Real 16 Neural LLMs Concentration Separation (#5)
     comp_dir = root / "components/next-token-predictability/evidence/comparison"
     llm_scores: List[float] = []
@@ -331,6 +339,7 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "uses_helper_conditional_and_memory": ("def helper_signal" in best_source and "if " in best_source and "mem_next" in best_source),
         "blind_transfer_real_16llm_auroc_gt_090": llm_transfer_auroc >= 0.90,
         "blind_transfer_real_groove_beats_poisson_all": groove_sep_ok,
+        "evolved_code_elegance_high_mi_and_low_cc": evolved_elegance["mi_score"] >= 65.0 and evolved_elegance["max_cc"] <= 4,
     }
     report = {
         "contract": CONTRACT,
@@ -345,6 +354,12 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "improvement_vs_stateless_x": round(stateless_test_mse / max(1e-9, evolved_test_mse), 2),
         "blind_transfer_16llm_auroc": llm_transfer_auroc,
         "blind_transfer_groove_scores": groove_scores,
+        "evolved_code_elegance": {
+            "mccabe_max_cc": evolved_elegance["max_cc"],
+            "mccabe_avg_cc": evolved_elegance["avg_cc"],
+            "maintainability_index_mi": evolved_elegance["mi_score"],
+            "grade": evolved_elegance["grade"],
+        },
         "evolved_source": best_source,
         "fitness_curve_mse": fitness_curve,
         "checks": checks,

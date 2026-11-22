@@ -1032,6 +1032,43 @@ def create_server(
                 self.end_headers()
                 self.wfile.write(svg)
                 return
+            if path == "/api/os/mind":
+                rep_file = resolved_root / "evidence" / "zoe-os" / "zoe-os-mind-report.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False})
+                return
+            if path == "/api/os/mind/gem.svg":
+                from .zoe_os import zoe_os_scene
+                from .render import scene_to_svg
+                rep_file = resolved_root / "evidence" / "zoe-os" / "zoe-os-mind-report.json"
+                if rep_file.is_file():
+                    scene = zoe_os_scene(json.loads(rep_file.read_text(encoding="utf-8")))
+                    svg = scene_to_svg(scene).encode("utf-8")
+                    self.send_response(200)
+                    self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                    self.send_header("Content-Length", str(len(svg)))
+                    self.send_header("Cache-Control", "no-store")
+                    self.end_headers()
+                    self.wfile.write(svg)
+                else:
+                    self._send_json(404, {"error": "zoe-os report not built yet"})
+                return
+            if path == "/api/kloster/elegance":
+                rep_file = resolved_root / "evidence" / "code-elegance" / "kloster-mccabe-report.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False})
+                return
+            if path == "/api/orbit/master":
+                rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False})
+                return
             if path == "/api/digest/latest":
                 rep_file = resolved_root / "evidence" / "l5-mobile-digestion" / "digestion-report.json"
                 if rep_file.is_file():

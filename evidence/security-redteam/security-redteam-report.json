@@ -25,12 +25,14 @@
   "all_verified": true,
   "checks": {
     "ablation_entropy_separates_packed_vs_clean": true,
+    "defensive_fault_hardening_quorum_verified": true,
     "kevlar_present_and_loaded": true,
     "pala_rust_live_carved_png_sha256_exact": true,
     "zoe_os_and_qwen_redteam_100pct_blocked": true
   },
   "constitution": {
     "cloud_tokens_used": 0,
+    "defensive_security_only": true,
     "read_only_forensics_preserved": true
   },
   "contract": "zoe-security-forensics-redteam/v1",
@@ -43,7 +45,25 @@
     "ssrf_attacks_total": 4,
     "vault_exfil_blocked": true
   },
-  "evidence_sha256": "6c7c78cd456827941adce9537f90b81f8f12f8bcbeb1e2deb61cdcd15c1d0863",
+  "defensive_fault_hardening": {
+    "defensive_simulation_only": true,
+    "hardening_verified": true,
+    "kloster_tri_witness_quorum": {
+      "double_glitch_bypass_rate": 0.0215,
+      "single_glitch_bypass_rate": 0.0
+    },
+    "kloster_vs_double_check_reduction_x": 8.93,
+    "naive_single_check": {
+      "double_glitch_bypass_rate": 0.4605,
+      "single_glitch_bypass_rate": 0.8885
+    },
+    "standard_double_check": {
+      "double_glitch_bypass_rate": 0.192,
+      "single_glitch_bypass_rate": 0.0
+    },
+    "trials": 2000
+  },
+  "evidence_sha256": "9e4909477ec8be65fa30c214857a726c174eb5c7ae7807932b58ff68d85ce0e4",
   "kevlar_audit": {
     "all_probes_caught_by_kevlar": true,
     "kevlar_present": true,

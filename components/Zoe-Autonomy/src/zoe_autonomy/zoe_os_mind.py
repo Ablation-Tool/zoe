@@ -370,6 +370,29 @@ class ZoeOSMind:
             "ledger_sha256": digest,
         }
 
+    def audit_self_code_elegance(self) -> Dict[str, Any]:
+        """Cross-pollinate Orbit Pass 2 Kloster-McCabe Elegance Audit directly into Zoe OS self-introspection."""
+        from guiai.gem.code_elegance_analyzer import audit_zoe_monorepo_elegance
+        aud = audit_zoe_monorepo_elegance(self.zoe_root)
+        s = aud["monorepo_summary"]
+        top_hot = aud["top_10_hotspots"][0] if aud["top_10_hotspots"] else None
+        payload = {
+            "files_scanned": s["files_scanned"],
+            "total_functions": s["total_functions"],
+            "mean_mi": s["mean_mi"],
+            "orbit_mean_mi": s["orbit_mean_mi"],
+            "top_hotspot": top_hot["file"] if top_hot else None,
+            "top_hotspot_max_cc": top_hot["max_cc"] if top_hot else 0,
+        }
+        self.register_world_telemetry(
+            world_id="world5_kloster_mccabe_elegance",
+            engine_id="research",
+            verified=bool(aud["all_verified"]),
+            metrics=payload,
+            improves_worlds=["world4_zoe_os", "world3_evolution", "world10_security"],
+        )
+        return payload
+
     def snapshot(self) -> Dict[str, Any]:
         """Return full verified workstation snapshot across all 17 engines, goals, and ledger."""
         engines_audit = self.audit_17_engines()

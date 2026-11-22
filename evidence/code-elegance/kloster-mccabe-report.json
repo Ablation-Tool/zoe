@@ -1,0 +1,3026 @@
+{
+  "all_modules_compact": [
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/__init__.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 73.676,
+      "sloc": 5
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/__main__.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 87.683,
+      "sloc": 2
+    },
+    {
+      "avg_cc": 11.125,
+      "file": "guiai-lab/guiai/gem/acceptance.py",
+      "grade": "B",
+      "h2": 1.3415,
+      "max_cc": 37,
+      "mi": 58.861,
+      "sloc": 186
+    },
+    {
+      "avg_cc": 7.857,
+      "file": "guiai-lab/guiai/gem/agent.py",
+      "grade": "B",
+      "h2": 1.5149,
+      "max_cc": 20,
+      "mi": 57.096,
+      "sloc": 198
+    },
+    {
+      "avg_cc": 4.273,
+      "file": "guiai-lab/guiai/gem/agent_bridge.py",
+      "grade": "A",
+      "h2": 1.8684,
+      "max_cc": 12,
+      "mi": 61.413,
+      "sloc": 172
+    },
+    {
+      "avg_cc": 4.583,
+      "file": "guiai-lab/guiai/gem/agent_terminal.py",
+      "grade": "A",
+      "h2": 2.1258,
+      "max_cc": 12,
+      "mi": 63.859,
+      "sloc": 184
+    },
+    {
+      "avg_cc": 7.5,
+      "file": "guiai-lab/guiai/gem/alife_ecosystem.py",
+      "grade": "B",
+      "h2": 0.8835,
+      "max_cc": 18,
+      "mi": 49.206,
+      "sloc": 252
+    },
+    {
+      "avg_cc": 6.468,
+      "file": "guiai-lab/guiai/gem/artline.py",
+      "grade": "A",
+      "h2": 2.903,
+      "max_cc": 46,
+      "mi": 60.872,
+      "sloc": 667
+    },
+    {
+      "avg_cc": 3.085,
+      "file": "guiai-lab/guiai/gem/artline_view.py",
+      "grade": "A",
+      "h2": 3.1259,
+      "max_cc": 19,
+      "mi": 70.428,
+      "sloc": 654
+    },
+    {
+      "avg_cc": 9.333,
+      "file": "guiai-lab/guiai/gem/atlas.py",
+      "grade": "B",
+      "h2": 1.7875,
+      "max_cc": 60,
+      "mi": 54.804,
+      "sloc": 553
+    },
+    {
+      "avg_cc": 3.314,
+      "file": "guiai-lab/guiai/gem/atlas_view.py",
+      "grade": "A",
+      "h2": 3.2876,
+      "max_cc": 57,
+      "mi": 68.037,
+      "sloc": 1503
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/autonomy.py",
+      "grade": "B",
+      "h2": 0.2809,
+      "max_cc": 6,
+      "mi": 54.559,
+      "sloc": 80
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/autonomy_view.py",
+      "grade": "B",
+      "h2": 0.7783,
+      "max_cc": 16,
+      "mi": 58.554,
+      "sloc": 88
+    },
+    {
+      "avg_cc": 5.417,
+      "file": "guiai-lab/guiai/gem/brain.py",
+      "grade": "B",
+      "h2": 2.1939,
+      "max_cc": 10,
+      "mi": 56.47,
+      "sloc": 207
+    },
+    {
+      "avg_cc": 6.091,
+      "file": "guiai-lab/guiai/gem/brain_life.py",
+      "grade": "A",
+      "h2": 1.9464,
+      "max_cc": 14,
+      "mi": 61.713,
+      "sloc": 174
+    },
+    {
+      "avg_cc": 1.722,
+      "file": "guiai-lab/guiai/gem/brain_life_view.py",
+      "grade": "A",
+      "h2": 2.5775,
+      "max_cc": 4,
+      "mi": 69.862,
+      "sloc": 162
+    },
+    {
+      "avg_cc": 5.5,
+      "file": "guiai-lab/guiai/gem/capsule.py",
+      "grade": "A",
+      "h2": 1.5926,
+      "max_cc": 26,
+      "mi": 61.804,
+      "sloc": 163
+    },
+    {
+      "avg_cc": 7.167,
+      "file": "guiai-lab/guiai/gem/cern_cli.py",
+      "grade": "B",
+      "h2": 1.0439,
+      "max_cc": 22,
+      "mi": 55.135,
+      "sloc": 165
+    },
+    {
+      "avg_cc": 6.643,
+      "file": "guiai-lab/guiai/gem/cern_corpus.py",
+      "grade": "B",
+      "h2": 1.9208,
+      "max_cc": 26,
+      "mi": 58.154,
+      "sloc": 351
+    },
+    {
+      "avg_cc": 8.5,
+      "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
+      "grade": "B",
+      "h2": 0.3434,
+      "max_cc": 14,
+      "mi": 53.514,
+      "sloc": 221
+    },
+    {
+      "avg_cc": 4.8,
+      "file": "guiai-lab/guiai/gem/cern_layout.py",
+      "grade": "A",
+      "h2": 1.4886,
+      "max_cc": 7,
+      "mi": 60.67,
+      "sloc": 75
+    },
+    {
+      "avg_cc": 5.727,
+      "file": "guiai-lab/guiai/gem/cern_repair.py",
+      "grade": "B",
+      "h2": 1.6891,
+      "max_cc": 22,
+      "mi": 58.93,
+      "sloc": 272
+    },
+    {
+      "avg_cc": 2.75,
+      "file": "guiai-lab/guiai/gem/cern_wupper.py",
+      "grade": "A",
+      "h2": 1.1849,
+      "max_cc": 5,
+      "mi": 64.492,
+      "sloc": 91
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/chat_view.py",
+      "grade": "B",
+      "h2": 0.1423,
+      "max_cc": 13,
+      "mi": 53.545,
+      "sloc": 52
+    },
+    {
+      "avg_cc": 3.7,
+      "file": "guiai-lab/guiai/gem/chiasm.py",
+      "grade": "B",
+      "h2": 1.3668,
+      "max_cc": 15,
+      "mi": 59.787,
+      "sloc": 344
+    },
+    {
+      "avg_cc": 5.889,
+      "file": "guiai-lab/guiai/gem/cicada.py",
+      "grade": "A",
+      "h2": 1.8493,
+      "max_cc": 34,
+      "mi": 61.782,
+      "sloc": 345
+    },
+    {
+      "avg_cc": 2.44,
+      "file": "guiai-lab/guiai/gem/cicada_view.py",
+      "grade": "A",
+      "h2": 2.8419,
+      "max_cc": 7,
+      "mi": 66.569,
+      "sloc": 333
+    },
+    {
+      "avg_cc": 36.0,
+      "file": "guiai-lab/guiai/gem/cli.py",
+      "grade": "C",
+      "h2": 0.0559,
+      "max_cc": 105,
+      "mi": 39.545,
+      "sloc": 385
+    },
+    {
+      "avg_cc": 13.8,
+      "file": "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+      "grade": "B",
+      "h2": 1.3462,
+      "max_cc": 28,
+      "mi": 49.216,
+      "sloc": 267
+    },
+    {
+      "avg_cc": 6.947,
+      "file": "guiai-lab/guiai/gem/cog.py",
+      "grade": "A",
+      "h2": 2.0398,
+      "max_cc": 33,
+      "mi": 64.708,
+      "sloc": 243
+    },
+    {
+      "avg_cc": 5.231,
+      "file": "guiai-lab/guiai/gem/cognitive.py",
+      "grade": "A",
+      "h2": 2.5377,
+      "max_cc": 24,
+      "mi": 60.128,
+      "sloc": 471
+    },
+    {
+      "avg_cc": 4.571,
+      "file": "guiai-lab/guiai/gem/creative_playroom.py",
+      "grade": "A",
+      "h2": 1.2685,
+      "max_cc": 14,
+      "mi": 65.584,
+      "sloc": 228
+    },
+    {
+      "avg_cc": 5.75,
+      "file": "guiai-lab/guiai/gem/creative_symphony.py",
+      "grade": "A",
+      "h2": 1.3047,
+      "max_cc": 21,
+      "mi": 64.923,
+      "sloc": 274
+    },
+    {
+      "avg_cc": 3.6,
+      "file": "guiai-lab/guiai/gem/desktop.py",
+      "grade": "A",
+      "h2": 1.2374,
+      "max_cc": 8,
+      "mi": 67.506,
+      "sloc": 62
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/desktop_theme.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 69.676,
+      "sloc": 96
+    },
+    {
+      "avg_cc": 5.368,
+      "file": "guiai-lab/guiai/gem/desktop_view.py",
+      "grade": "A",
+      "h2": 1.7895,
+      "max_cc": 37,
+      "mi": 60.203,
+      "sloc": 426
+    },
+    {
+      "avg_cc": 5.833,
+      "file": "guiai-lab/guiai/gem/dorothy.py",
+      "grade": "A",
+      "h2": 0.4324,
+      "max_cc": 28,
+      "mi": 64.486,
+      "sloc": 191
+    },
+    {
+      "avg_cc": 5.375,
+      "file": "guiai-lab/guiai/gem/dorothy_data.py",
+      "grade": "A",
+      "h2": 2.2468,
+      "max_cc": 16,
+      "mi": 61.268,
+      "sloc": 236
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "guiai-lab/guiai/gem/dorothy_jenga.py",
+      "grade": "B",
+      "h2": 0.9017,
+      "max_cc": 20,
+      "mi": 49.591,
+      "sloc": 148
+    },
+    {
+      "avg_cc": 5.667,
+      "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
+      "grade": "B",
+      "h2": 0.585,
+      "max_cc": 12,
+      "mi": 56.449,
+      "sloc": 226
+    },
+    {
+      "avg_cc": 5.4,
+      "file": "guiai-lab/guiai/gem/dorothy_rings.py",
+      "grade": "B",
+      "h2": 1.2398,
+      "max_cc": 11,
+      "mi": 55.383,
+      "sloc": 151
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "guiai-lab/guiai/gem/dorothy_stack.py",
+      "grade": "B",
+      "h2": 0.5731,
+      "max_cc": 19,
+      "mi": 54.444,
+      "sloc": 100
+    },
+    {
+      "avg_cc": 14.143,
+      "file": "guiai-lab/guiai/gem/eliza_view.py",
+      "grade": "B",
+      "h2": 1.4895,
+      "max_cc": 76,
+      "mi": 53.7,
+      "sloc": 1313
+    },
+    {
+      "avg_cc": 6.64,
+      "file": "guiai-lab/guiai/gem/evidence.py",
+      "grade": "B",
+      "h2": 2.3252,
+      "max_cc": 30,
+      "mi": 59.84,
+      "sloc": 434
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/evidence_view.py",
+      "grade": "A",
+      "h2": 0.3966,
+      "max_cc": 40,
+      "mi": 62.833,
+      "sloc": 214
+    },
+    {
+      "avg_cc": 5.094,
+      "file": "guiai-lab/guiai/gem/felix.py",
+      "grade": "A",
+      "h2": 2.6279,
+      "max_cc": 33,
+      "mi": 60.928,
+      "sloc": 590
+    },
+    {
+      "avg_cc": 5.2,
+      "file": "guiai-lab/guiai/gem/felix_audio.py",
+      "grade": "B",
+      "h2": 1.0695,
+      "max_cc": 13,
+      "mi": 57.896,
+      "sloc": 130
+    },
+    {
+      "avg_cc": 14.0,
+      "file": "guiai-lab/guiai/gem/felix_hdl.py",
+      "grade": "B",
+      "h2": 0.2124,
+      "max_cc": 25,
+      "mi": 52.165,
+      "sloc": 98
+    },
+    {
+      "avg_cc": 8.6,
+      "file": "guiai-lab/guiai/gem/felix_sources.py",
+      "grade": "B",
+      "h2": 0.6628,
+      "max_cc": 30,
+      "mi": 56.977,
+      "sloc": 196
+    },
+    {
+      "avg_cc": 4.312,
+      "file": "guiai-lab/guiai/gem/field.py",
+      "grade": "A",
+      "h2": 3.1561,
+      "max_cc": 23,
+      "mi": 62.174,
+      "sloc": 665
+    },
+    {
+      "avg_cc": 2.5,
+      "file": "guiai-lab/guiai/gem/genesis.py",
+      "grade": "A",
+      "h2": 0.7621,
+      "max_cc": 10,
+      "mi": 65.888,
+      "sloc": 194
+    },
+    {
+      "avg_cc": 3.778,
+      "file": "guiai-lab/guiai/gem/geometry.py",
+      "grade": "A",
+      "h2": 2.0589,
+      "max_cc": 20,
+      "mi": 71.381,
+      "sloc": 173
+    },
+    {
+      "avg_cc": 11.5,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "grade": "B",
+      "h2": 1.6759,
+      "max_cc": 27,
+      "mi": 53.319,
+      "sloc": 332
+    },
+    {
+      "avg_cc": 5.167,
+      "file": "guiai-lab/guiai/gem/helen_onset.py",
+      "grade": "A",
+      "h2": 1.545,
+      "max_cc": 9,
+      "mi": 63.392,
+      "sloc": 82
+    },
+    {
+      "avg_cc": 6.059,
+      "file": "guiai-lab/guiai/gem/kloster_info_geometry.py",
+      "grade": "A",
+      "h2": 1.8799,
+      "max_cc": 25,
+      "mi": 62.09,
+      "sloc": 563
+    },
+    {
+      "avg_cc": 2.667,
+      "file": "guiai-lab/guiai/gem/knowledge.py",
+      "grade": "A",
+      "h2": 1.7724,
+      "max_cc": 11,
+      "mi": 64.681,
+      "sloc": 140
+    },
+    {
+      "avg_cc": 2.75,
+      "file": "guiai-lab/guiai/gem/l3_research.py",
+      "grade": "B",
+      "h2": 0.9456,
+      "max_cc": 6,
+      "mi": 59.119,
+      "sloc": 145
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "guiai-lab/guiai/gem/l4_evolution.py",
+      "grade": "A",
+      "h2": 0.5878,
+      "max_cc": 13,
+      "mi": 60.832,
+      "sloc": 192
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/l4_multimodule.py",
+      "grade": "A",
+      "h2": 0.4372,
+      "max_cc": 19,
+      "mi": 60.905,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 3.25,
+      "file": "guiai-lab/guiai/gem/l5_core.py",
+      "grade": "A",
+      "h2": 0.8124,
+      "max_cc": 8,
+      "mi": 61.657,
+      "sloc": 175
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/l5_phase2.py",
+      "grade": "A",
+      "h2": 0.7563,
+      "max_cc": 9,
+      "mi": 61.709,
+      "sloc": 172
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/l5_phase3.py",
+      "grade": "A",
+      "h2": 0.7563,
+      "max_cc": 9,
+      "mi": 61.555,
+      "sloc": 178
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/l5_phase4.py",
+      "grade": "A",
+      "h2": 0.7563,
+      "max_cc": 9,
+      "mi": 61.528,
+      "sloc": 178
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/l5_phase5.py",
+      "grade": "A",
+      "h2": 0.7563,
+      "max_cc": 9,
+      "mi": 61.369,
+      "sloc": 182
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "guiai-lab/guiai/gem/l5_phase6.py",
+      "grade": "A",
+      "h2": 0.5878,
+      "max_cc": 13,
+      "mi": 60.505,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 5.875,
+      "file": "guiai-lab/guiai/gem/leadership.py",
+      "grade": "B",
+      "h2": 1.5583,
+      "max_cc": 16,
+      "mi": 59.854,
+      "sloc": 203
+    },
+    {
+      "avg_cc": 3.6,
+      "file": "guiai-lab/guiai/gem/leadership_view.py",
+      "grade": "B",
+      "h2": 0.8681,
+      "max_cc": 11,
+      "mi": 59.185,
+      "sloc": 116
+    },
+    {
+      "avg_cc": 5.667,
+      "file": "guiai-lab/guiai/gem/life.py",
+      "grade": "A",
+      "h2": 1.9347,
+      "max_cc": 16,
+      "mi": 62.689,
+      "sloc": 191
+    },
+    {
+      "avg_cc": 14.0,
+      "file": "guiai-lab/guiai/gem/life_text.py",
+      "grade": "B",
+      "h2": -0.0,
+      "max_cc": 14,
+      "mi": 48.581,
+      "sloc": 66
+    },
+    {
+      "avg_cc": 2.55,
+      "file": "guiai-lab/guiai/gem/life_view.py",
+      "grade": "A",
+      "h2": 2.4041,
+      "max_cc": 10,
+      "mi": 66.023,
+      "sloc": 240
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "guiai-lab/guiai/gem/maison.py",
+      "grade": "A",
+      "h2": 1.2263,
+      "max_cc": 9,
+      "mi": 60.646,
+      "sloc": 137
+    },
+    {
+      "avg_cc": 3.8,
+      "file": "guiai-lab/guiai/gem/maison_view.py",
+      "grade": "A",
+      "h2": 0.82,
+      "max_cc": 12,
+      "mi": 62.351,
+      "sloc": 80
+    },
+    {
+      "avg_cc": 2.429,
+      "file": "guiai-lab/guiai/gem/mars_adaptive.py",
+      "grade": "A",
+      "h2": 1.1125,
+      "max_cc": 9,
+      "mi": 71.7,
+      "sloc": 207
+    },
+    {
+      "avg_cc": 7.208,
+      "file": "guiai-lab/guiai/gem/model.py",
+      "grade": "A",
+      "h2": 2.0747,
+      "max_cc": 39,
+      "mi": 67.54,
+      "sloc": 405
+    },
+    {
+      "avg_cc": 4.062,
+      "file": "guiai-lab/guiai/gem/onset.py",
+      "grade": "A",
+      "h2": 2.0892,
+      "max_cc": 14,
+      "mi": 63.618,
+      "sloc": 219
+    },
+    {
+      "avg_cc": 5.273,
+      "file": "guiai-lab/guiai/gem/operating_environment.py",
+      "grade": "B",
+      "h2": 1.8632,
+      "max_cc": 17,
+      "mi": 57.802,
+      "sloc": 269
+    },
+    {
+      "avg_cc": 7.333,
+      "file": "guiai-lab/guiai/gem/operational_autonomy.py",
+      "grade": "B",
+      "h2": 2.6839,
+      "max_cc": 15,
+      "mi": 52.145,
+      "sloc": 505
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/pala_view.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 6,
+      "mi": 61.065,
+      "sloc": 15
+    },
+    {
+      "avg_cc": 8.296,
+      "file": "guiai-lab/guiai/gem/patchbay.py",
+      "grade": "B",
+      "h2": 2.648,
+      "max_cc": 30,
+      "mi": 55.011,
+      "sloc": 648
+    },
+    {
+      "avg_cc": 7.2,
+      "file": "guiai-lab/guiai/gem/patchbay_view.py",
+      "grade": "B",
+      "h2": 0.4774,
+      "max_cc": 28,
+      "mi": 56.36,
+      "sloc": 160
+    },
+    {
+      "avg_cc": 6.455,
+      "file": "guiai-lab/guiai/gem/pentacube.py",
+      "grade": "A",
+      "h2": 2.4775,
+      "max_cc": 46,
+      "mi": 62.912,
+      "sloc": 481
+    },
+    {
+      "avg_cc": 6.25,
+      "file": "guiai-lab/guiai/gem/pentacube_reference.py",
+      "grade": "A",
+      "h2": 1.6756,
+      "max_cc": 15,
+      "mi": 60.429,
+      "sloc": 154
+    },
+    {
+      "avg_cc": 2.929,
+      "file": "guiai-lab/guiai/gem/pentacube_view.py",
+      "grade": "A",
+      "h2": 2.5368,
+      "max_cc": 16,
+      "mi": 66.872,
+      "sloc": 361
+    },
+    {
+      "avg_cc": 7.314,
+      "file": "guiai-lab/guiai/gem/pentomino.py",
+      "grade": "A",
+      "h2": 2.576,
+      "max_cc": 52,
+      "mi": 64.536,
+      "sloc": 497
+    },
+    {
+      "avg_cc": 3.083,
+      "file": "guiai-lab/guiai/gem/pentomino_view.py",
+      "grade": "A",
+      "h2": 2.6575,
+      "max_cc": 13,
+      "mi": 64.2,
+      "sloc": 319
+    },
+    {
+      "avg_cc": 5.667,
+      "file": "guiai-lab/guiai/gem/pilot.py",
+      "grade": "B",
+      "h2": 2.1437,
+      "max_cc": 12,
+      "mi": 53.611,
+      "sloc": 234
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/pilot_view.py",
+      "grade": "A",
+      "h2": 0.6809,
+      "max_cc": 6,
+      "mi": 60.944,
+      "sloc": 41
+    },
+    {
+      "avg_cc": 6.429,
+      "file": "guiai-lab/guiai/gem/practice.py",
+      "grade": "A",
+      "h2": 1.5923,
+      "max_cc": 36,
+      "mi": 60.629,
+      "sloc": 227
+    },
+    {
+      "avg_cc": 5.733,
+      "file": "guiai-lab/guiai/gem/presence.py",
+      "grade": "A",
+      "h2": 1.2079,
+      "max_cc": 45,
+      "mi": 60.222,
+      "sloc": 245
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/presence_view.py",
+      "grade": "B",
+      "h2": 0.4122,
+      "max_cc": 12,
+      "mi": 55.834,
+      "sloc": 58
+    },
+    {
+      "avg_cc": 6.929,
+      "file": "guiai-lab/guiai/gem/protocol_lab.py",
+      "grade": "A",
+      "h2": 2.324,
+      "max_cc": 17,
+      "mi": 60.434,
+      "sloc": 194
+    },
+    {
+      "avg_cc": 2.0,
+      "file": "guiai-lab/guiai/gem/protocol_view.py",
+      "grade": "A",
+      "h2": 0.47,
+      "max_cc": 3,
+      "mi": 61.885,
+      "sloc": 28
+    },
+    {
+      "avg_cc": 5.091,
+      "file": "guiai-lab/guiai/gem/qualia.py",
+      "grade": "A",
+      "h2": 2.4321,
+      "max_cc": 16,
+      "mi": 65.143,
+      "sloc": 290
+    },
+    {
+      "avg_cc": 6.5,
+      "file": "guiai-lab/guiai/gem/render.py",
+      "grade": "A",
+      "h2": 1.162,
+      "max_cc": 22,
+      "mi": 60.907,
+      "sloc": 212
+    },
+    {
+      "avg_cc": 4.7,
+      "file": "guiai-lab/guiai/gem/research.py",
+      "grade": "A",
+      "h2": 1.7367,
+      "max_cc": 15,
+      "mi": 61.317,
+      "sloc": 162
+    },
+    {
+      "avg_cc": 9.167,
+      "file": "guiai-lab/guiai/gem/resilience.py",
+      "grade": "B",
+      "h2": 1.561,
+      "max_cc": 17,
+      "mi": 52.408,
+      "sloc": 245
+    },
+    {
+      "avg_cc": 2.0,
+      "file": "guiai-lab/guiai/gem/resilience_view.py",
+      "grade": "A",
+      "h2": 0.47,
+      "max_cc": 3,
+      "mi": 60.72,
+      "sloc": 29
+    },
+    {
+      "avg_cc": 3.8,
+      "file": "guiai-lab/guiai/gem/runner.py",
+      "grade": "A",
+      "h2": 2.2961,
+      "max_cc": 11,
+      "mi": 65.326,
+      "sloc": 213
+    },
+    {
+      "avg_cc": 7.105,
+      "file": "guiai-lab/guiai/gem/spatial3d.py",
+      "grade": "A",
+      "h2": 2.1699,
+      "max_cc": 27,
+      "mi": 62.949,
+      "sloc": 286
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/spectral_filtration.py",
+      "grade": "A",
+      "h2": 1.5234,
+      "max_cc": 13,
+      "mi": 63.261,
+      "sloc": 307
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/twin.py",
+      "grade": "A",
+      "h2": 1.4771,
+      "max_cc": 18,
+      "mi": 62.26,
+      "sloc": 167
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/unified.py",
+      "grade": "A",
+      "h2": 2.1559,
+      "max_cc": 21,
+      "mi": 61.389,
+      "sloc": 344
+    },
+    {
+      "avg_cc": 13.5,
+      "file": "guiai-lab/guiai/gem/unified_cli.py",
+      "grade": "B",
+      "h2": 0.2201,
+      "max_cc": 24,
+      "mi": 42.257,
+      "sloc": 87
+    },
+    {
+      "avg_cc": 7.706,
+      "file": "guiai-lab/guiai/gem/vdi.py",
+      "grade": "A",
+      "h2": 1.6298,
+      "max_cc": 51,
+      "mi": 60.877,
+      "sloc": 325
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/video_library.py",
+      "grade": "B",
+      "h2": 2.4241,
+      "max_cc": 33,
+      "mi": 59.891,
+      "sloc": 570
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/view.py",
+      "grade": "A",
+      "h2": 2.0721,
+      "max_cc": 11,
+      "mi": 70.055,
+      "sloc": 147
+    },
+    {
+      "avg_cc": 5.111,
+      "file": "guiai-lab/guiai/gem/visual_language.py",
+      "grade": "B",
+      "h2": 1.7767,
+      "max_cc": 12,
+      "mi": 56.85,
+      "sloc": 175
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/voice_view.py",
+      "grade": "B",
+      "h2": 0.6539,
+      "max_cc": 10,
+      "mi": 48.971,
+      "sloc": 120
+    },
+    {
+      "avg_cc": 3.909,
+      "file": "guiai-lab/guiai/gem/volume.py",
+      "grade": "A",
+      "h2": 1.9502,
+      "max_cc": 10,
+      "mi": 63.938,
+      "sloc": 153
+    },
+    {
+      "avg_cc": 12.632,
+      "file": "guiai-lab/guiai/gem/waveform.py",
+      "grade": "B",
+      "h2": 2.1264,
+      "max_cc": 57,
+      "mi": 55.099,
+      "sloc": 489
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/waveform_view.py",
+      "grade": "B",
+      "h2": 0.6809,
+      "max_cc": 6,
+      "mi": 59.898,
+      "sloc": 44
+    },
+    {
+      "avg_cc": 6.5,
+      "file": "guiai-lab/guiai/gem/zoe_choral_composer.py",
+      "grade": "B",
+      "h2": 0.9252,
+      "max_cc": 14,
+      "mi": 53.965,
+      "sloc": 229
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "guiai-lab/guiai/gem/zoe_cymatics.py",
+      "grade": "B",
+      "h2": 1.6146,
+      "max_cc": 8,
+      "mi": 53.093,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 2.75,
+      "file": "guiai-lab/guiai/gem/zoe_eliza_gem.py",
+      "grade": "A",
+      "h2": 0.9456,
+      "max_cc": 6,
+      "mi": 62.504,
+      "sloc": 142
+    },
+    {
+      "avg_cc": 2.2,
+      "file": "guiai-lab/guiai/gem/zoe_os.py",
+      "grade": "A",
+      "h2": 0.8255,
+      "max_cc": 7,
+      "mi": 74.781,
+      "sloc": 72
+    },
+    {
+      "avg_cc": 10.111,
+      "file": "guiai-lab/guiai/gem/zoe_phonetics.py",
+      "grade": "B",
+      "h2": 1.5792,
+      "max_cc": 31,
+      "mi": 51.77,
+      "sloc": 977
+    },
+    {
+      "avg_cc": 6.103,
+      "file": "guiai-lab/guiai/gem/zoe_voice.py",
+      "grade": "A",
+      "h2": 2.4458,
+      "max_cc": 30,
+      "mi": 60.172,
+      "sloc": 1153
+    },
+    {
+      "avg_cc": 4.083,
+      "file": "guiai-lab/guiai/gem/zoe_workbench.py",
+      "grade": "A",
+      "h2": 2.1242,
+      "max_cc": 10,
+      "mi": 60.443,
+      "sloc": 202
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/zoe_workbench_cli.py",
+      "grade": "B",
+      "h2": 0.1985,
+      "max_cc": 9,
+      "mi": 55.67,
+      "sloc": 44
+    },
+    {
+      "avg_cc": 2.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/__init__.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 2,
+      "mi": 74.461,
+      "sloc": 28
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/actuation.py",
+      "grade": "B",
+      "h2": 2.1937,
+      "max_cc": 23,
+      "mi": 59.716,
+      "sloc": 362
+    },
+    {
+      "avg_cc": 7.143,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/agents.py",
+      "grade": "B",
+      "h2": 2.2443,
+      "max_cc": 18,
+      "mi": 55.293,
+      "sloc": 308
+    },
+    {
+      "avg_cc": 9.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/agi_discovery.py",
+      "grade": "B",
+      "h2": 1.2984,
+      "max_cc": 17,
+      "mi": 57.968,
+      "sloc": 249
+    },
+    {
+      "avg_cc": 7.182,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/autonomous.py",
+      "grade": "B",
+      "h2": 2.6131,
+      "max_cc": 18,
+      "mi": 57.086,
+      "sloc": 566
+    },
+    {
+      "avg_cc": 3.259,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/capabilities.py",
+      "grade": "A",
+      "h2": 3.363,
+      "max_cc": 17,
+      "mi": 68.71,
+      "sloc": 582
+    },
+    {
+      "avg_cc": 17.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/capabilities_cli.py",
+      "grade": "B",
+      "h2": 0.0571,
+      "max_cc": 34,
+      "mi": 50.007,
+      "sloc": 177
+    },
+    {
+      "avg_cc": 4.729,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/chat.py",
+      "grade": "B",
+      "h2": 3.2192,
+      "max_cc": 47,
+      "mi": 59.093,
+      "sloc": 1229
+    },
+    {
+      "avg_cc": 29.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/cli.py",
+      "grade": "C",
+      "h2": 0.0345,
+      "max_cc": 57,
+      "mi": 29.007,
+      "sloc": 207
+    },
+    {
+      "avg_cc": 7.125,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/collaboration.py",
+      "grade": "B",
+      "h2": 1.6908,
+      "max_cc": 16,
+      "mi": 53.19,
+      "sloc": 225
+    },
+    {
+      "avg_cc": 7.143,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py",
+      "grade": "A",
+      "h2": 1.4784,
+      "max_cc": 17,
+      "mi": 63.846,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 7.846,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/evaluation.py",
+      "grade": "B",
+      "h2": 1.7195,
+      "max_cc": 37,
+      "mi": 54.829,
+      "sloc": 397
+    },
+    {
+      "avg_cc": 2.933,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_autonomy.py",
+      "grade": "A",
+      "h2": 1.7693,
+      "max_cc": 16,
+      "mi": 65.865,
+      "sloc": 246
+    },
+    {
+      "avg_cc": 8.263,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_core.py",
+      "grade": "B",
+      "h2": 2.1571,
+      "max_cc": 36,
+      "mi": 59.951,
+      "sloc": 340
+    },
+    {
+      "avg_cc": 6.375,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_evaluation.py",
+      "grade": "B",
+      "h2": 2.22,
+      "max_cc": 26,
+      "mi": 53.056,
+      "sloc": 380
+    },
+    {
+      "avg_cc": 5.444,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_memory.py",
+      "grade": "A",
+      "h2": 2.5687,
+      "max_cc": 12,
+      "mi": 64.117,
+      "sloc": 191
+    },
+    {
+      "avg_cc": 3.833,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_plasticity.py",
+      "grade": "A",
+      "h2": 1.1062,
+      "max_cc": 12,
+      "mi": 63.671,
+      "sloc": 99
+    },
+    {
+      "avg_cc": 9.769,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py",
+      "grade": "B",
+      "h2": 1.8964,
+      "max_cc": 33,
+      "mi": 57.066,
+      "sloc": 340
+    },
+    {
+      "avg_cc": 5.25,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_uncertainty.py",
+      "grade": "B",
+      "h2": 0.9243,
+      "max_cc": 11,
+      "mi": 57.273,
+      "sloc": 81
+    },
+    {
+      "avg_cc": 5.706,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/experiment.py",
+      "grade": "B",
+      "h2": 2.3548,
+      "max_cc": 17,
+      "mi": 54.088,
+      "sloc": 513
+    },
+    {
+      "avg_cc": 6.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/explore.py",
+      "grade": "A",
+      "h2": 1.4613,
+      "max_cc": 27,
+      "mi": 61.94,
+      "sloc": 184
+    },
+    {
+      "avg_cc": 6.909,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
+      "grade": "A",
+      "h2": 1.6992,
+      "max_cc": 24,
+      "mi": 64.26,
+      "sloc": 332
+    },
+    {
+      "avg_cc": 7.926,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py",
+      "grade": "B",
+      "h2": 3.312,
+      "max_cc": 29,
+      "mi": 57.648,
+      "sloc": 1761
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py",
+      "grade": "A",
+      "h2": 2.6346,
+      "max_cc": 32,
+      "mi": 62.052,
+      "sloc": 1122
+    },
+    {
+      "avg_cc": 10.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_code_surgeon.py",
+      "grade": "B",
+      "h2": 1.8079,
+      "max_cc": 28,
+      "mi": 52.461,
+      "sloc": 522
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_cognitive_core.py",
+      "grade": "A",
+      "h2": 1.0784,
+      "max_cc": 18,
+      "mi": 61.164,
+      "sloc": 243
+    },
+    {
+      "avg_cc": 10.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_domains.py",
+      "grade": "B",
+      "h2": 2.6191,
+      "max_cc": 41,
+      "mi": 59.816,
+      "sloc": 968
+    },
+    {
+      "avg_cc": 5.588,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_long_horizon_memory.py",
+      "grade": "A",
+      "h2": 1.7833,
+      "max_cc": 34,
+      "mi": 64.883,
+      "sloc": 410
+    },
+    {
+      "avg_cc": 5.211,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_memory.py",
+      "grade": "A",
+      "h2": 2.618,
+      "max_cc": 14,
+      "mi": 67.49,
+      "sloc": 296
+    },
+    {
+      "avg_cc": 13.267,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_mobile_digestion.py",
+      "grade": "B",
+      "h2": 1.724,
+      "max_cc": 72,
+      "mi": 55.279,
+      "sloc": 716
+    },
+    {
+      "avg_cc": 8.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_neural_science.py",
+      "grade": "B",
+      "h2": 0.3051,
+      "max_cc": 29,
+      "mi": 59.868,
+      "sloc": 160
+    },
+    {
+      "avg_cc": 12.167,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_open_corpus.py",
+      "grade": "B",
+      "h2": 1.4735,
+      "max_cc": 23,
+      "mi": 55.32,
+      "sloc": 269
+    },
+    {
+      "avg_cc": 4.333,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase2_openworld.py",
+      "grade": "A",
+      "h2": 0.9868,
+      "max_cc": 15,
+      "mi": 64.203,
+      "sloc": 142
+    },
+    {
+      "avg_cc": 12.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_epistemic_gear.py",
+      "grade": "B",
+      "h2": 0.5007,
+      "max_cc": 46,
+      "mi": 59.796,
+      "sloc": 209
+    },
+    {
+      "avg_cc": 14.25,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_external_repos.py",
+      "grade": "B",
+      "h2": 1.4587,
+      "max_cc": 35,
+      "mi": 52.545,
+      "sloc": 568
+    },
+    {
+      "avg_cc": 5.727,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_interactive_tools.py",
+      "grade": "A",
+      "h2": 2.0777,
+      "max_cc": 13,
+      "mi": 67.064,
+      "sloc": 263
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live.py",
+      "grade": "A",
+      "h2": 0.9625,
+      "max_cc": 14,
+      "mi": 64.098,
+      "sloc": 150
+    },
+    {
+      "avg_cc": 15.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live_stream.py",
+      "grade": "B",
+      "h2": 0.5447,
+      "max_cc": 57,
+      "mi": 54.188,
+      "sloc": 322
+    },
+    {
+      "avg_cc": 9.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_self_critique.py",
+      "grade": "B",
+      "h2": 0.6837,
+      "max_cc": 32,
+      "mi": 53.942,
+      "sloc": 334
+    },
+    {
+      "avg_cc": 6.75,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_blind_bench.py",
+      "grade": "B",
+      "h2": 0.3094,
+      "max_cc": 23,
+      "mi": 59.486,
+      "sloc": 316
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_embodied.py",
+      "grade": "A",
+      "h2": 0.9625,
+      "max_cc": 14,
+      "mi": 64.098,
+      "sloc": 148
+    },
+    {
+      "avg_cc": 6.857,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_embodied_loop.py",
+      "grade": "A",
+      "h2": 0.7974,
+      "max_cc": 31,
+      "mi": 60.442,
+      "sloc": 230
+    },
+    {
+      "avg_cc": 8.75,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_self_improvement.py",
+      "grade": "B",
+      "h2": 1.1268,
+      "max_cc": 17,
+      "mi": 55.575,
+      "sloc": 214
+    },
+    {
+      "avg_cc": 36.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_stem_routing.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 36,
+      "mi": 32.908,
+      "sloc": 192
+    },
+    {
+      "avg_cc": 11.667,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_unified_memory.py",
+      "grade": "B",
+      "h2": 1.1758,
+      "max_cc": 31,
+      "mi": 56.409,
+      "sloc": 291
+    },
+    {
+      "avg_cc": 6.815,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_arc_induction.py",
+      "grade": "A",
+      "h2": 2.4235,
+      "max_cc": 37,
+      "mi": 73.952,
+      "sloc": 444
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_external_code_audit.py",
+      "grade": "B",
+      "h2": 0.7213,
+      "max_cc": 22,
+      "mi": 52.642,
+      "sloc": 329
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_frontier.py",
+      "grade": "A",
+      "h2": 0.9625,
+      "max_cc": 14,
+      "mi": 64.098,
+      "sloc": 149
+    },
+    {
+      "avg_cc": 12.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_longitudinal_memory.py",
+      "grade": "B",
+      "h2": 0.9108,
+      "max_cc": 34,
+      "mi": 54.602,
+      "sloc": 239
+    },
+    {
+      "avg_cc": 12.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_meta_evolution.py",
+      "grade": "B",
+      "h2": 1.1828,
+      "max_cc": 19,
+      "mi": 49.847,
+      "sloc": 275
+    },
+    {
+      "avg_cc": 6.333,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_scientific_discovery.py",
+      "grade": "B",
+      "h2": 1.2787,
+      "max_cc": 16,
+      "mi": 54.588,
+      "sloc": 249
+    },
+    {
+      "avg_cc": 7.825,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_arc_object_synthesis.py",
+      "grade": "A",
+      "h2": 2.8263,
+      "max_cc": 48,
+      "mi": 70.114,
+      "sloc": 604
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_autonomous.py",
+      "grade": "A",
+      "h2": 0.9625,
+      "max_cc": 14,
+      "mi": 64.098,
+      "sloc": 164
+    },
+    {
+      "avg_cc": 5.588,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_blind_evolution.py",
+      "grade": "A",
+      "h2": 2.2336,
+      "max_cc": 18,
+      "mi": 67.893,
+      "sloc": 434
+    },
+    {
+      "avg_cc": 8.2,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_multihorizon_metacognition.py",
+      "grade": "B",
+      "h2": 2.0426,
+      "max_cc": 16,
+      "mi": 58.224,
+      "sloc": 305
+    },
+    {
+      "avg_cc": 6.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_repo_agent.py",
+      "grade": "B",
+      "h2": 1.4055,
+      "max_cc": 13,
+      "mi": 55.404,
+      "sloc": 290
+    },
+    {
+      "avg_cc": 5.833,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_scientific_synthesis.py",
+      "grade": "B",
+      "h2": 1.2614,
+      "max_cc": 16,
+      "mi": 56.175,
+      "sloc": 249
+    },
+    {
+      "avg_cc": 6.25,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_real_vision.py",
+      "grade": "B",
+      "h2": 0.5108,
+      "max_cc": 19,
+      "mi": 53.527,
+      "sloc": 178
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
+      "grade": "B",
+      "h2": 1.6483,
+      "max_cc": 19,
+      "mi": 56.312,
+      "sloc": 365
+    },
+    {
+      "avg_cc": 5.368,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/loop.py",
+      "grade": "A",
+      "h2": 2.2433,
+      "max_cc": 22,
+      "mi": 64.823,
+      "sloc": 275
+    },
+    {
+      "avg_cc": 3.741,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py",
+      "grade": "A",
+      "h2": 2.51,
+      "max_cc": 15,
+      "mi": 69.686,
+      "sloc": 294
+    },
+    {
+      "avg_cc": 6.7,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/metrics.py",
+      "grade": "B",
+      "h2": 2.1848,
+      "max_cc": 10,
+      "mi": 58.961,
+      "sloc": 154
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py",
+      "grade": "B",
+      "h2": 0.4212,
+      "max_cc": 19,
+      "mi": 59.248,
+      "sloc": 141
+    },
+    {
+      "avg_cc": 7.333,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+      "grade": "A",
+      "h2": 1.5334,
+      "max_cc": 22,
+      "mi": 60.092,
+      "sloc": 319
+    },
+    {
+      "avg_cc": 6.571,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py",
+      "grade": "A",
+      "h2": 2.2667,
+      "max_cc": 21,
+      "mi": 61.721,
+      "sloc": 921
+    },
+    {
+      "avg_cc": 4.571,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
+      "grade": "B",
+      "h2": 1.761,
+      "max_cc": 8,
+      "mi": 54.084,
+      "sloc": 304
+    },
+    {
+      "avg_cc": 6.714,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_evolution.py",
+      "grade": "B",
+      "h2": 2.0116,
+      "max_cc": 24,
+      "mi": 57.166,
+      "sloc": 545
+    },
+    {
+      "avg_cc": 7.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py",
+      "grade": "B",
+      "h2": 2.1726,
+      "max_cc": 26,
+      "mi": 55.978,
+      "sloc": 397
+    },
+    {
+      "avg_cc": 3.7,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_stewardship.py",
+      "grade": "A",
+      "h2": 1.3725,
+      "max_cc": 17,
+      "mi": 61.748,
+      "sloc": 292
+    },
+    {
+      "avg_cc": 8.3,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py",
+      "grade": "B",
+      "h2": 1.7468,
+      "max_cc": 27,
+      "mi": 51.757,
+      "sloc": 313
+    },
+    {
+      "avg_cc": 10.375,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py",
+      "grade": "B",
+      "h2": 0.8014,
+      "max_cc": 54,
+      "mi": 58.961,
+      "sloc": 453
+    },
+    {
+      "avg_cc": 7.581,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py",
+      "grade": "B",
+      "h2": 2.1349,
+      "max_cc": 68,
+      "mi": 58.941,
+      "sloc": 1233
+    },
+    {
+      "avg_cc": 3.857,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
+      "grade": "A",
+      "h2": 2.103,
+      "max_cc": 12,
+      "mi": 61.76,
+      "sloc": 438
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/build_zoe_visual_atlas.py",
+      "grade": "A",
+      "h2": 1.7869,
+      "max_cc": 80,
+      "mi": 66.935,
+      "sloc": 287
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/eval_external_benchmarks.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 9,
+      "mi": 62.909,
+      "sloc": 23
+    },
+    {
+      "avg_cc": 7.55,
+      "file": "scripts/export_session_transcript.py",
+      "grade": "A",
+      "h2": 2.1243,
+      "max_cc": 38,
+      "mi": 61.951,
+      "sloc": 919
+    },
+    {
+      "avg_cc": 1.5,
+      "file": "scripts/render_autonomy_visuals.py",
+      "grade": "A",
+      "h2": 0.5878,
+      "max_cc": 2,
+      "mi": 62.58,
+      "sloc": 41
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "scripts/render_component_visuals.py",
+      "grade": "B",
+      "h2": 0.2809,
+      "max_cc": 6,
+      "mi": 56.252,
+      "sloc": 71
+    },
+    {
+      "avg_cc": 18.0,
+      "file": "scripts/render_l3_research_figure.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 18,
+      "mi": 29.332,
+      "sloc": 219
+    },
+    {
+      "avg_cc": 23.0,
+      "file": "scripts/render_l4_improvement_figure.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 23,
+      "mi": 26.756,
+      "sloc": 252
+    },
+    {
+      "avg_cc": 14.5,
+      "file": "scripts/render_l4_multimodule_figure.py",
+      "grade": "B",
+      "h2": 0.2052,
+      "max_cc": 26,
+      "mi": 52.341,
+      "sloc": 213
+    },
+    {
+      "avg_cc": 20.0,
+      "file": "scripts/render_l5_core_figure.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 20,
+      "mi": 28.475,
+      "sloc": 227
+    },
+    {
+      "avg_cc": 19.0,
+      "file": "scripts/render_l5_phase2_figure.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 19,
+      "mi": 30.546,
+      "sloc": 201
+    },
+    {
+      "avg_cc": 16.0,
+      "file": "scripts/render_l5_phase6_figure.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 16,
+      "mi": 28.894,
+      "sloc": 189
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "scripts/render_visual_system.py",
+      "grade": "B",
+      "h2": -0.0,
+      "max_cc": 4,
+      "mi": 55.119,
+      "sloc": 104
+    },
+    {
+      "avg_cc": 2.417,
+      "file": "scripts/render_zoe_readme_art.py",
+      "grade": "B",
+      "h2": 2.1599,
+      "max_cc": 5,
+      "mi": 47.649,
+      "sloc": 813
+    },
+    {
+      "avg_cc": 15.0,
+      "file": "scripts/render_zoe_voice_figure.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 15,
+      "mi": 35.885,
+      "sloc": 151
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/verify-metacognition-collaboration.py",
+      "grade": "A",
+      "h2": 0.1109,
+      "max_cc": 17,
+      "mi": 61.692,
+      "sloc": 53
+    },
+    {
+      "avg_cc": 11.6,
+      "file": "scripts/verify-one-system.py",
+      "grade": "B",
+      "h2": 1.1701,
+      "max_cc": 24,
+      "mi": 45.53,
+      "sloc": 341
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "scripts/verify_alife_ecosystem.py",
+      "grade": "B",
+      "h2": 0.6776,
+      "max_cc": 9,
+      "mi": 49.804,
+      "sloc": 137
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "scripts/verify_cern_trigger.py",
+      "grade": "B",
+      "h2": 0.6657,
+      "max_cc": 7,
+      "mi": 51.047,
+      "sloc": 128
+    },
+    {
+      "avg_cc": 10.0,
+      "file": "scripts/verify_dorothy_neurogarden.py",
+      "grade": "B",
+      "h2": 0.607,
+      "max_cc": 13,
+      "mi": 48.047,
+      "sloc": 129
+    },
+    {
+      "avg_cc": 9.5,
+      "file": "scripts/verify_groove_forensics.py",
+      "grade": "B",
+      "h2": 0.6262,
+      "max_cc": 12,
+      "mi": 48.764,
+      "sloc": 131
+    },
+    {
+      "avg_cc": 13.5,
+      "file": "scripts/verify_kloster_theory.py",
+      "grade": "B",
+      "h2": 0.5396,
+      "max_cc": 19,
+      "mi": 41.362,
+      "sloc": 196
+    },
+    {
+      "avg_cc": 6.714,
+      "file": "scripts/verify_l3_research.py",
+      "grade": "A",
+      "h2": 2.1112,
+      "max_cc": 19,
+      "mi": 61.021,
+      "sloc": 383
+    },
+    {
+      "avg_cc": 12.281,
+      "file": "scripts/verify_l4_multimodule.py",
+      "grade": "A",
+      "h2": 2.0283,
+      "max_cc": 119,
+      "mi": 63.311,
+      "sloc": 847
+    },
+    {
+      "avg_cc": 9.625,
+      "file": "scripts/verify_l4_self_improvement.py",
+      "grade": "A",
+      "h2": 1.456,
+      "max_cc": 67,
+      "mi": 65.55,
+      "sloc": 487
+    },
+    {
+      "avg_cc": 18.333,
+      "file": "scripts/verify_l5_core.py",
+      "grade": "A",
+      "h2": 0.3262,
+      "max_cc": 93,
+      "mi": 65.075,
+      "sloc": 305
+    },
+    {
+      "avg_cc": 15.833,
+      "file": "scripts/verify_l5_phase2.py",
+      "grade": "A",
+      "h2": 0.3808,
+      "max_cc": 78,
+      "mi": 67.506,
+      "sloc": 270
+    },
+    {
+      "avg_cc": 18.167,
+      "file": "scripts/verify_l5_phase3.py",
+      "grade": "A",
+      "h2": 0.3294,
+      "max_cc": 92,
+      "mi": 66.324,
+      "sloc": 316
+    },
+    {
+      "avg_cc": 17.5,
+      "file": "scripts/verify_l5_phase4.py",
+      "grade": "A",
+      "h2": 0.3426,
+      "max_cc": 88,
+      "mi": 66.066,
+      "sloc": 336
+    },
+    {
+      "avg_cc": 17.0,
+      "file": "scripts/verify_l5_phase5.py",
+      "grade": "A",
+      "h2": 0.3532,
+      "max_cc": 85,
+      "mi": 66.6,
+      "sloc": 311
+    },
+    {
+      "avg_cc": 13.333,
+      "file": "scripts/verify_l5_phase6.py",
+      "grade": "A",
+      "h2": 0.4289,
+      "max_cc": 64,
+      "mi": 68.46,
+      "sloc": 286
+    },
+    {
+      "avg_cc": 16.667,
+      "file": "scripts/verify_mobile_digestion.py",
+      "grade": "B",
+      "h2": 0.2882,
+      "max_cc": 43,
+      "mi": 50.609,
+      "sloc": 291
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "scripts/verify_pass2_visuals.py",
+      "grade": "B",
+      "h2": 0.9716,
+      "max_cc": 12,
+      "mi": 47.812,
+      "sloc": 204
+    },
+    {
+      "avg_cc": 26.0,
+      "file": "scripts/verify_renaissance_orbit.py",
+      "grade": "C",
+      "h2": -0.0,
+      "max_cc": 26,
+      "mi": 33.855,
+      "sloc": 123
+    },
+    {
+      "avg_cc": 5.5,
+      "file": "scripts/verify_voice_choral.py",
+      "grade": "B",
+      "h2": 0.6214,
+      "max_cc": 7,
+      "mi": 50.909,
+      "sloc": 113
+    },
+    {
+      "avg_cc": 6.714,
+      "file": "scripts/verify_zoe_eliza.py",
+      "grade": "A",
+      "h2": 0.6061,
+      "max_cc": 34,
+      "mi": 73.866,
+      "sloc": 231
+    },
+    {
+      "avg_cc": 11.0,
+      "file": "scripts/verify_zoe_os.py",
+      "grade": "B",
+      "h2": 0.6214,
+      "max_cc": 14,
+      "mi": 45.708,
+      "sloc": 149
+    },
+    {
+      "avg_cc": 9.143,
+      "file": "scripts/verify_zoe_voice.py",
+      "grade": "A",
+      "h2": 0.4355,
+      "max_cc": 51,
+      "mi": 69.552,
+      "sloc": 279
+    },
+    {
+      "avg_cc": 16.0,
+      "file": "scripts/zoe_code_quality_audit.py",
+      "grade": "B",
+      "h2": 0.47,
+      "max_cc": 24,
+      "mi": 46.455,
+      "sloc": 149
+    },
+    {
+      "avg_cc": 8.688,
+      "file": "scripts/zoe_groove_forensics.py",
+      "grade": "B",
+      "h2": 2.0477,
+      "max_cc": 29,
+      "mi": 58.999,
+      "sloc": 847
+    },
+    {
+      "avg_cc": 5.333,
+      "file": "scripts/zoe_stem_mcp.py",
+      "grade": "B",
+      "h2": 1.7262,
+      "max_cc": 13,
+      "mi": 59.49,
+      "sloc": 329
+    }
+  ],
+  "all_verified": true,
+  "checks": {
+    "negative_cc_mi_correlation_physical": true,
+    "negative_control_spaghetti_flagged_complex": true,
+    "orbit_modules_high_maintainability": true,
+    "scanned_over_100_live_zoe_modules": true,
+    "theorem4_kloster_mccabe_sympy_verified": true
+  },
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "external_radon_required": false,
+    "negative_control_preserved": true
+  },
+  "contract": "zoe-kloster-mccabe-elegance/v1",
+  "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
+  "evidence_sha256": "cdba51ca6e9740136aae045b099a196dafcfd583d361a50479c570eb3db77dfc",
+  "monorepo_summary": {
+    "corr_avg_cc_vs_mi": -0.659,
+    "files_scanned": 232,
+    "grade_distribution": {
+      "A": 117,
+      "B": 105,
+      "C": 10,
+      "D": 0
+    },
+    "max_function_cc": 119,
+    "mean_avg_cc": 7.575,
+    "mean_mi": 58.598,
+    "median_mi": 60.11,
+    "orbit_mean_avg_cc": 7.107,
+    "orbit_mean_mi": 57.619,
+    "orbit_modules_count": 13,
+    "parse_errors": 0,
+    "total_functions": 2668,
+    "total_sloc": 69889
+  },
+  "negative_control_spaghetti": {
+    "avg_cc": 113.0,
+    "comment_ratio": 0.0,
+    "file": "<negative_control_spaghetti>",
+    "functions": 1,
+    "grade": "C",
+    "halstead_length": 761,
+    "halstead_vocab": 51,
+    "halstead_volume": 4316.72,
+    "kloster_cc_a_005": 1,
+    "kloster_cc_m4_root": 1.0,
+    "kloster_cc_renyi_h2": -0.0,
+    "low_maintainability_flag": false,
+    "max_cc": 113,
+    "mi_file_radon": 20.718,
+    "mi_score": 20.718,
+    "most_complex_function": {
+      "cc": 113,
+      "fn_mi": 20.72,
+      "fn_sloc": 59,
+      "lineno": 1,
+      "name": "spaghetti_trap"
+    },
+    "sloc": 59,
+    "total_cc": 113
+  },
+  "orbit_modules": [
+    {
+      "avg_cc": 7.5,
+      "comment_ratio": 0.053,
+      "file": "guiai-lab/guiai/gem/alife_ecosystem.py",
+      "functions": 4,
+      "grade": "B",
+      "halstead_length": 1416,
+      "halstead_vocab": 296,
+      "halstead_volume": 11624.59,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.6011,
+      "kloster_cc_renyi_h2": 0.8835,
+      "low_maintainability_flag": false,
+      "max_cc": 18,
+      "mi_file_radon": 25.322,
+      "mi_score": 49.206,
+      "most_complex_function": {
+        "cc": 18,
+        "fn_mi": 33.94,
+        "fn_sloc": 150,
+        "lineno": 38,
+        "name": "_simulate_ecosystem"
+      },
+      "sloc": 252,
+      "total_cc": 30
+    },
+    {
+      "avg_cc": 8.5,
+      "comment_ratio": 0.0637,
+      "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 1066,
+      "halstead_vocab": 255,
+      "halstead_volume": 8521.98,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.824,
+      "kloster_cc_renyi_h2": 0.3434,
+      "low_maintainability_flag": false,
+      "max_cc": 14,
+      "mi_file_radon": 30.192,
+      "mi_score": 53.514,
+      "most_complex_function": {
+        "cc": 14,
+        "fn_mi": 30.8,
+        "fn_sloc": 220,
+        "lineno": 48,
+        "name": "run_cern_kloster_trigger_suite"
+      },
+      "sloc": 221,
+      "total_cc": 17
+    },
+    {
+      "avg_cc": 13.8,
+      "comment_ratio": 0.0317,
+      "file": "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+      "functions": 5,
+      "grade": "B",
+      "halstead_length": 1291,
+      "halstead_vocab": 293,
+      "halstead_volume": 10579.43,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.4168,
+      "kloster_cc_renyi_h2": 1.3462,
+      "low_maintainability_flag": false,
+      "max_cc": 28,
+      "mi_file_radon": 17.577,
+      "mi_score": 49.216,
+      "most_complex_function": {
+        "cc": 28,
+        "fn_mi": 35.16,
+        "fn_sloc": 109,
+        "lineno": 207,
+        "name": "audit_zoe_monorepo_elegance"
+      },
+      "sloc": 267,
+      "total_cc": 69
+    },
+    {
+      "avg_cc": 5.667,
+      "comment_ratio": 0.0554,
+      "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
+      "functions": 3,
+      "grade": "B",
+      "halstead_length": 940,
+      "halstead_vocab": 245,
+      "halstead_volume": 7460.44,
+      "kloster_cc_a_005": 3,
+      "kloster_cc_m4_root": 0.7081,
+      "kloster_cc_renyi_h2": 0.585,
+      "low_maintainability_flag": false,
+      "max_cc": 12,
+      "mi_file_radon": 29.667,
+      "mi_score": 56.449,
+      "most_complex_function": {
+        "cc": 12,
+        "fn_mi": 34.35,
+        "fn_sloc": 170,
+        "lineno": 102,
+        "name": "run_dorothy_neurogarden_3d_suite"
+      },
+      "sloc": 226,
+      "total_cc": 17
+    },
+    {
+      "avg_cc": 11.5,
+      "comment_ratio": 0.0505,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "functions": 8,
+      "grade": "B",
+      "halstead_length": 1762,
+      "halstead_vocab": 377,
+      "halstead_volume": 15079.94,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.3208,
+      "kloster_cc_renyi_h2": 1.6759,
+      "low_maintainability_flag": false,
+      "max_cc": 27,
+      "mi_file_radon": 13.348,
+      "mi_score": 53.319,
+      "most_complex_function": {
+        "cc": 27,
+        "fn_mi": 44.95,
+        "fn_sloc": 52,
+        "lineno": 228,
+        "name": "render_groove_showcase_wav"
+      },
+      "sloc": 332,
+      "total_cc": 92
+    },
+    {
+      "avg_cc": 6.059,
+      "comment_ratio": 0.0383,
+      "file": "guiai-lab/guiai/gem/kloster_info_geometry.py",
+      "functions": 17,
+      "grade": "A",
+      "halstead_length": 2782,
+      "halstead_vocab": 545,
+      "halstead_volume": 25288.69,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2926,
+      "kloster_cc_renyi_h2": 1.8799,
+      "low_maintainability_flag": false,
+      "max_cc": 25,
+      "mi_file_radon": 4.052,
+      "mi_score": 62.09,
+      "most_complex_function": {
+        "cc": 25,
+        "fn_mi": 32.12,
+        "fn_sloc": 147,
+        "lineno": 196,
+        "name": "verify_theorem1_kloster_pinsker_and_16llms"
+      },
+      "sloc": 563,
+      "total_cc": 103
+    },
+    {
+      "avg_cc": 6.5,
+      "comment_ratio": 0.0697,
+      "file": "guiai-lab/guiai/gem/zoe_choral_composer.py",
+      "functions": 4,
+      "grade": "B",
+      "halstead_length": 1423,
+      "halstead_vocab": 383,
+      "halstead_volume": 12211.05,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.5524,
+      "kloster_cc_renyi_h2": 0.9252,
+      "low_maintainability_flag": false,
+      "max_cc": 14,
+      "mi_file_radon": 28.037,
+      "mi_score": 53.965,
+      "most_complex_function": {
+        "cc": 14,
+        "fn_mi": 37.71,
+        "fn_sloc": 124,
+        "lineno": 164,
+        "name": "compose_kloster_choral_nocturne"
+      },
+      "sloc": 229,
+      "total_cc": 26
+    },
+    {
+      "avg_cc": 2.2,
+      "comment_ratio": 0.0108,
+      "file": "guiai-lab/guiai/gem/zoe_os.py",
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 501,
+      "halstead_vocab": 193,
+      "halstead_volume": 3803.82,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.6366,
+      "kloster_cc_renyi_h2": 0.8255,
+      "low_maintainability_flag": false,
+      "max_cc": 7,
+      "mi_file_radon": 37.613,
+      "mi_score": 74.781,
+      "most_complex_function": {
+        "cc": 7,
+        "fn_mi": 41.16,
+        "fn_sloc": 58,
+        "lineno": 36,
+        "name": "zoe_os_scene"
+      },
+      "sloc": 72,
+      "total_cc": 11
+    },
+    {
+      "avg_cc": 6.909,
+      "comment_ratio": 0.0436,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
+      "functions": 11,
+      "grade": "A",
+      "halstead_length": 2429,
+      "halstead_vocab": 382,
+      "halstead_volume": 20834.57,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.3338,
+      "kloster_cc_renyi_h2": 1.6992,
+      "low_maintainability_flag": false,
+      "max_cc": 24,
+      "mi_file_radon": 13.835,
+      "mi_score": 64.26,
+      "most_complex_function": {
+        "cc": 24,
+        "fn_mi": 27.1,
+        "fn_sloc": 197,
+        "lineno": 47,
+        "name": "_track_a_arc_public_format"
+      },
+      "sloc": 332,
+      "total_cc": 76
+    },
+    {
+      "avg_cc": 8.0,
+      "comment_ratio": 0.0195,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
+      "functions": 8,
+      "grade": "B",
+      "halstead_length": 1276,
+      "halstead_vocab": 372,
+      "halstead_volume": 10895.97,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.3247,
+      "kloster_cc_renyi_h2": 1.6483,
+      "low_maintainability_flag": false,
+      "max_cc": 19,
+      "mi_file_radon": 13.507,
+      "mi_score": 56.312,
+      "most_complex_function": {
+        "cc": 19,
+        "fn_mi": 45.92,
+        "fn_sloc": 45,
+        "lineno": 136,
+        "name": "steer_from_multihorizon_trace"
+      },
+      "sloc": 365,
+      "total_cc": 64
+    },
+    {
+      "avg_cc": 7.333,
+      "comment_ratio": 0.0269,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+      "functions": 9,
+      "grade": "A",
+      "halstead_length": 1604,
+      "halstead_vocab": 341,
+      "halstead_volume": 13495.46,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.3672,
+      "kloster_cc_renyi_h2": 1.5334,
+      "low_maintainability_flag": false,
+      "max_cc": 22,
+      "mi_file_radon": 14.933,
+      "mi_score": 60.092,
+      "most_complex_function": {
+        "cc": 22,
+        "fn_mi": 30.68,
+        "fn_sloc": 154,
+        "lineno": 219,
+        "name": "run_open_ended_evolution_suite"
+      },
+      "sloc": 319,
+      "total_cc": 66
+    },
+    {
+      "avg_cc": 4.571,
+      "comment_ratio": 0.0497,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
+      "functions": 7,
+      "grade": "B",
+      "halstead_length": 970,
+      "halstead_vocab": 322,
+      "halstead_volume": 8080.99,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.2882,
+      "kloster_cc_renyi_h2": 1.761,
+      "low_maintainability_flag": false,
+      "max_cc": 8,
+      "mi_file_radon": 24.076,
+      "mi_score": 54.084,
+      "most_complex_function": {
+        "cc": 8,
+        "fn_mi": 50.3,
+        "fn_sloc": 55,
+        "lineno": 213,
+        "name": "_redteam_zoe_os_and_qwen_steerer"
+      },
+      "sloc": 304,
+      "total_cc": 32
+    },
+    {
+      "avg_cc": 3.857,
+      "comment_ratio": 0.0342,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
+      "functions": 14,
+      "grade": "A",
+      "halstead_length": 1416,
+      "halstead_vocab": 467,
+      "halstead_volume": 12556.07,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.2449,
+      "kloster_cc_renyi_h2": 2.103,
+      "low_maintainability_flag": false,
+      "max_cc": 12,
+      "mi_file_radon": 14.679,
+      "mi_score": 61.76,
+      "most_complex_function": {
+        "cc": 12,
+        "fn_mi": 42.19,
+        "fn_sloc": 82,
+        "lineno": 416,
+        "name": "run_zoe_os_verification_suite"
+      },
+      "sloc": 438,
+      "total_cc": 54
+    }
+  ],
+  "theorem4_kloster_mccabe": {
+    "kloster_mccabe_path_cap_holds": 250,
+    "renyi_ln_vg_upper_bound_holds": 250,
+    "sympy_version": "1.14.0",
+    "trials": 250,
+    "uniform_renyi_equals_ln_vg_symbolic": true,
+    "verified": true
+  },
+  "top_10_hotspots": [
+    {
+      "avg_cc": 23.0,
+      "comment_ratio": 0.0556,
+      "file": "scripts/render_l4_improvement_figure.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 1124,
+      "halstead_vocab": 371,
+      "halstead_volume": 9593.65,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 23,
+      "mi_file_radon": 27.082,
+      "mi_score": 26.756,
+      "most_complex_function": {
+        "cc": 23,
+        "fn_mi": 26.76,
+        "fn_sloc": 266,
+        "lineno": 37,
+        "name": "render_figure"
+      },
+      "sloc": 252,
+      "total_cc": 23
+    },
+    {
+      "avg_cc": 20.0,
+      "comment_ratio": 0.0491,
+      "file": "scripts/render_l5_core_figure.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 1050,
+      "halstead_vocab": 361,
+      "halstead_volume": 8920.65,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 20,
+      "mi_file_radon": 28.092,
+      "mi_score": 28.475,
+      "most_complex_function": {
+        "cc": 20,
+        "fn_mi": 28.48,
+        "fn_sloc": 223,
+        "lineno": 39,
+        "name": "render_figure"
+      },
+      "sloc": 227,
+      "total_cc": 20
+    },
+    {
+      "avg_cc": 16.0,
+      "comment_ratio": 0.0324,
+      "file": "scripts/render_l5_phase6_figure.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 946,
+      "halstead_vocab": 328,
+      "halstead_volume": 7906.24,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 16,
+      "mi_file_radon": 28.945,
+      "mi_score": 28.894,
+      "most_complex_function": {
+        "cc": 16,
+        "fn_mi": 28.89,
+        "fn_sloc": 192,
+        "lineno": 19,
+        "name": "render_phase6_figure"
+      },
+      "sloc": 189,
+      "total_cc": 16
+    },
+    {
+      "avg_cc": 29.0,
+      "comment_ratio": 0.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/cli.py",
+      "functions": 2,
+      "grade": "C",
+      "halstead_length": 847,
+      "halstead_vocab": 198,
+      "halstead_volume": 6462.07,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 0.9828,
+      "kloster_cc_renyi_h2": 0.0345,
+      "low_maintainability_flag": false,
+      "max_cc": 57,
+      "mi_file_radon": 14.998,
+      "mi_score": 29.007,
+      "most_complex_function": {
+        "cc": 57,
+        "fn_mi": 20.81,
+        "fn_sloc": 137,
+        "lineno": 77,
+        "name": "main"
+      },
+      "sloc": 207,
+      "total_cc": 58
+    },
+    {
+      "avg_cc": 18.0,
+      "comment_ratio": 0.056,
+      "file": "scripts/render_l3_research_figure.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 993,
+      "halstead_vocab": 365,
+      "halstead_volume": 8452.17,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 18,
+      "mi_file_radon": 29.506,
+      "mi_score": 29.332,
+      "most_complex_function": {
+        "cc": 18,
+        "fn_mi": 29.33,
+        "fn_sloc": 228,
+        "lineno": 37,
+        "name": "render_figure"
+      },
+      "sloc": 219,
+      "total_cc": 18
+    },
+    {
+      "avg_cc": 19.0,
+      "comment_ratio": 0.0546,
+      "file": "scripts/render_l5_phase2_figure.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 978,
+      "halstead_vocab": 354,
+      "halstead_volume": 8281.32,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 19,
+      "mi_file_radon": 30.125,
+      "mi_score": 30.546,
+      "most_complex_function": {
+        "cc": 19,
+        "fn_mi": 30.55,
+        "fn_sloc": 197,
+        "lineno": 38,
+        "name": "render_figure"
+      },
+      "sloc": 201,
+      "total_cc": 19
+    },
+    {
+      "avg_cc": 36.0,
+      "comment_ratio": 0.0452,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_stem_routing.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 766,
+      "halstead_vocab": 180,
+      "halstead_volume": 5738.76,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 36,
+      "mi_file_radon": 28.493,
+      "mi_score": 32.908,
+      "most_complex_function": {
+        "cc": 36,
+        "fn_mi": 32.91,
+        "fn_sloc": 146,
+        "lineno": 73,
+        "name": "eval_pillar_02_live_stem_routing"
+      },
+      "sloc": 192,
+      "total_cc": 36
+    },
+    {
+      "avg_cc": 26.0,
+      "comment_ratio": 0.007,
+      "file": "scripts/verify_renaissance_orbit.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 498,
+      "halstead_vocab": 173,
+      "halstead_volume": 3702.44,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 26,
+      "mi_file_radon": 29.705,
+      "mi_score": 33.855,
+      "most_complex_function": {
+        "cc": 26,
+        "fn_mi": 33.86,
+        "fn_sloc": 88,
+        "lineno": 52,
+        "name": "main"
+      },
+      "sloc": 123,
+      "total_cc": 26
+    },
+    {
+      "avg_cc": 15.0,
+      "comment_ratio": 0.0806,
+      "file": "scripts/render_zoe_voice_figure.py",
+      "functions": 1,
+      "grade": "C",
+      "halstead_length": 841,
+      "halstead_vocab": 302,
+      "halstead_volume": 6928.5,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 1.0,
+      "kloster_cc_renyi_h2": -0.0,
+      "low_maintainability_flag": false,
+      "max_cc": 15,
+      "mi_file_radon": 36.011,
+      "mi_score": 35.885,
+      "most_complex_function": {
+        "cc": 15,
+        "fn_mi": 35.89,
+        "fn_sloc": 156,
+        "lineno": 27,
+        "name": "main"
+      },
+      "sloc": 151,
+      "total_cc": 15
+    },
+    {
+      "avg_cc": 36.0,
+      "comment_ratio": 0.0,
+      "file": "guiai-lab/guiai/gem/cli.py",
+      "functions": 3,
+      "grade": "C",
+      "halstead_length": 1885,
+      "halstead_vocab": 472,
+      "halstead_volume": 16743.78,
+      "kloster_cc_a_005": 1,
+      "kloster_cc_m4_root": 0.9722,
+      "kloster_cc_renyi_h2": 0.0559,
+      "low_maintainability_flag": false,
+      "max_cc": 105,
+      "mi_file_radon": 0.0,
+      "mi_score": 39.545,
+      "most_complex_function": {
+        "cc": 105,
+        "fn_mi": 4.57,
+        "fn_sloc": 273,
+        "lineno": 127,
+        "name": "main"
+      },
+      "sloc": 385,
+      "total_cc": 108
+    }
+  ],
+  "top_10_most_elegant": [
+    {
+      "avg_cc": 2.2,
+      "comment_ratio": 0.0108,
+      "file": "guiai-lab/guiai/gem/zoe_os.py",
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 501,
+      "halstead_vocab": 193,
+      "halstead_volume": 3803.82,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.6366,
+      "kloster_cc_renyi_h2": 0.8255,
+      "low_maintainability_flag": false,
+      "max_cc": 7,
+      "mi_file_radon": 37.613,
+      "mi_score": 74.781,
+      "most_complex_function": {
+        "cc": 7,
+        "fn_mi": 41.16,
+        "fn_sloc": 58,
+        "lineno": 36,
+        "name": "zoe_os_scene"
+      },
+      "sloc": 72,
+      "total_cc": 11
+    },
+    {
+      "avg_cc": 6.815,
+      "comment_ratio": 0.0394,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_arc_induction.py",
+      "functions": 27,
+      "grade": "A",
+      "halstead_length": 2588,
+      "halstead_vocab": 328,
+      "halstead_volume": 21629.34,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2136,
+      "kloster_cc_renyi_h2": 2.4235,
+      "low_maintainability_flag": false,
+      "max_cc": 37,
+      "mi_file_radon": 0.0,
+      "mi_score": 73.952,
+      "most_complex_function": {
+        "cc": 37,
+        "fn_mi": 35.28,
+        "fn_sloc": 113,
+        "lineno": 269,
+        "name": "induce"
+      },
+      "sloc": 444,
+      "total_cc": 184
+    },
+    {
+      "avg_cc": 6.714,
+      "comment_ratio": 0.0532,
+      "file": "scripts/verify_zoe_eliza.py",
+      "functions": 7,
+      "grade": "A",
+      "halstead_length": 910,
+      "halstead_vocab": 295,
+      "halstead_volume": 7466.16,
+      "kloster_cc_a_005": 3,
+      "kloster_cc_m4_root": 0.7236,
+      "kloster_cc_renyi_h2": 0.6061,
+      "low_maintainability_flag": false,
+      "max_cc": 34,
+      "mi_file_radon": 25.225,
+      "mi_score": 73.866,
+      "most_complex_function": {
+        "cc": 34,
+        "fn_mi": 27.35,
+        "fn_sloc": 233,
+        "lineno": 29,
+        "name": "run_verification"
+      },
+      "sloc": 231,
+      "total_cc": 47
+    },
+    {
+      "avg_cc": 2.429,
+      "comment_ratio": 0.0321,
+      "file": "guiai-lab/guiai/gem/mars_adaptive.py",
+      "functions": 7,
+      "grade": "A",
+      "halstead_length": 1187,
+      "halstead_vocab": 348,
+      "halstead_volume": 10021.77,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.5311,
+      "kloster_cc_renyi_h2": 1.1125,
+      "low_maintainability_flag": false,
+      "max_cc": 9,
+      "mi_file_radon": 27.194,
+      "mi_score": 71.7,
+      "most_complex_function": {
+        "cc": 9,
+        "fn_mi": 36.34,
+        "fn_sloc": 110,
+        "lineno": 55,
+        "name": "run_mars_real_benchmark"
+      },
+      "sloc": 207,
+      "total_cc": 17
+    },
+    {
+      "avg_cc": 3.778,
+      "comment_ratio": 0.0,
+      "file": "guiai-lab/guiai/gem/geometry.py",
+      "functions": 18,
+      "grade": "A",
+      "halstead_length": 918,
+      "halstead_vocab": 189,
+      "halstead_volume": 6942.14,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.2963,
+      "kloster_cc_renyi_h2": 2.0589,
+      "low_maintainability_flag": false,
+      "max_cc": 20,
+      "mi_file_radon": 15.135,
+      "mi_score": 71.381,
+      "most_complex_function": {
+        "cc": 20,
+        "fn_mi": 34.53,
+        "fn_sloc": 58,
+        "lineno": 106,
+        "name": "evaluate_constraint"
+      },
+      "sloc": 173,
+      "total_cc": 68
+    },
+    {
+      "avg_cc": 3.085,
+      "comment_ratio": 0.0,
+      "file": "guiai-lab/guiai/gem/artline_view.py",
+      "functions": 59,
+      "grade": "A",
+      "halstead_length": 2569,
+      "halstead_vocab": 334,
+      "halstead_volume": 21537.74,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.1311,
+      "kloster_cc_renyi_h2": 3.1259,
+      "low_maintainability_flag": false,
+      "max_cc": 19,
+      "mi_file_radon": 0.0,
+      "mi_score": 70.428,
+      "most_complex_function": {
+        "cc": 19,
+        "fn_mi": 42.09,
+        "fn_sloc": 42,
+        "lineno": 282,
+        "name": "on_key"
+      },
+      "sloc": 654,
+      "total_cc": 182
+    },
+    {
+      "avg_cc": 7.825,
+      "comment_ratio": 0.0329,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_arc_object_synthesis.py",
+      "functions": 40,
+      "grade": "A",
+      "halstead_length": 3642,
+      "halstead_vocab": 391,
+      "halstead_volume": 31361.35,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.1645,
+      "kloster_cc_renyi_h2": 2.8263,
+      "low_maintainability_flag": false,
+      "max_cc": 48,
+      "mi_file_radon": 0.0,
+      "mi_score": 70.114,
+      "most_complex_function": {
+        "cc": 48,
+        "fn_mi": 27.31,
+        "fn_sloc": 139,
+        "lineno": 529,
+        "name": "_build_24_object_arc_tasks"
+      },
+      "sloc": 604,
+      "total_cc": 313
+    },
+    {
+      "avg_cc": 3.0,
+      "comment_ratio": 0.0,
+      "file": "guiai-lab/guiai/gem/view.py",
+      "functions": 15,
+      "grade": "A",
+      "halstead_length": 508,
+      "halstead_vocab": 104,
+      "halstead_volume": 3403.82,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2602,
+      "kloster_cc_renyi_h2": 2.0721,
+      "low_maintainability_flag": false,
+      "max_cc": 11,
+      "mi_file_radon": 21.939,
+      "mi_score": 70.055,
+      "most_complex_function": {
+        "cc": 11,
+        "fn_mi": 51.93,
+        "fn_sloc": 19,
+        "lineno": 103,
+        "name": "update_tooltip"
+      },
+      "sloc": 147,
+      "total_cc": 45
+    },
+    {
+      "avg_cc": 1.722,
+      "comment_ratio": 0.0,
+      "file": "guiai-lab/guiai/gem/brain_life_view.py",
+      "functions": 18,
+      "grade": "A",
+      "halstead_length": 559,
+      "halstead_vocab": 151,
+      "halstead_volume": 4046.27,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.1678,
+      "kloster_cc_renyi_h2": 2.5775,
+      "low_maintainability_flag": false,
+      "max_cc": 4,
+      "mi_file_radon": 22.375,
+      "mi_score": 69.862,
+      "most_complex_function": {
+        "cc": 4,
+        "fn_mi": 53.16,
+        "fn_sloc": 19,
+        "lineno": 168,
+        "name": "main"
+      },
+      "sloc": 162,
+      "total_cc": 31
+    },
+    {
+      "avg_cc": 3.741,
+      "comment_ratio": 0.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py",
+      "functions": 27,
+      "grade": "A",
+      "halstead_length": 1040,
+      "halstead_vocab": 232,
+      "halstead_volume": 8172.3,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.1828,
+      "kloster_cc_renyi_h2": 2.51,
+      "low_maintainability_flag": false,
+      "max_cc": 15,
+      "mi_file_radon": 5.176,
+      "mi_score": 69.686,
+      "most_complex_function": {
+        "cc": 15,
+        "fn_mi": 51.21,
+        "fn_sloc": 17,
+        "lineno": 281,
+        "name": "count"
+      },
+      "sloc": 294,
+      "total_cc": 101
+    }
+  ]
+}

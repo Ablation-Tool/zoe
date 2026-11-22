@@ -87,15 +87,20 @@ def main() -> int:
     pdf_path = ROOT / "research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf"
     art1 = ROOT / "components/agent-logging-system/docs/images/zoe-renaissance-observatory-art.png"
     art2 = ROOT / "components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-tribute-art.png"
+    art3 = ROOT / "components/agent-logging-system/docs/images/zoe-living-circuit-cathedral-art.png"
+    eleg_path = ROOT / "evidence/code-elegance/kloster-mccabe-report.json"
+    eleg_ok = eleg_path.is_file() and bool(json.loads(eleg_path.read_text(encoding="utf-8")).get("all_verified", False))
 
     extra_checks = {
         "all_11_worlds_verified": all_ok and len(worlds_summary) == 11,
         "zoe_os_all_17_gem_engines_available": snap["engines_audit"]["available_engines"] == 17,
         "zoe_os_orbit_ledger_intact": snap["ledger_integrity"]["intact"] and snap["ledger_integrity"]["entries"] == 11,
         "cross_pollination_edges_ge_20": len(snap["cross_pollinations"]) >= 20,
+        "kloster_mccabe_monorepo_elegance_verified": eleg_ok,
         "latex_pdf_compiled_gt_100kb": pdf_path.is_file() and pdf_path.stat().st_size > 100_000,
         "creative_art_observatory_present": art1.is_file() and art1.stat().st_size > 100_000,
         "creative_art_dorothy_tribute_present": art2.is_file() and art2.stat().st_size > 100_000,
+        "creative_art_circuit_cathedral_present": art3.is_file() and art3.stat().st_size > 100_000,
     }
 
     master = {

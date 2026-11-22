@@ -226,10 +226,37 @@ def _render_ecosystem_soundscape(agents: Sequence[Sequence[float]], out_wav: Pat
     return {"path": str(out_wav), "bytes": len(raw), "duration_sec": duration_sec, "sha256": hashlib.sha256(raw).hexdigest()[:16]}
 
 
+def _simulate_trophic_predator_prey(steps: int = 160, seed: int = 20260999) -> Dict[str, Any]:
+    """Orbit Pass 2: Coupled 2-guild Lotka-Volterra Geometric Predator-Prey Ecological Coexistence."""
+    rng = np.random.default_rng(seed)
+    prey = 60.0
+    pred = 14.0
+    prey_trace: List[float] = []
+    pred_trace: List[float] = []
+    dt = 0.08
+    for _ in range(steps):
+        prey_trace.append(round(prey, 2))
+        pred_trace.append(round(pred, 2))
+        # Logistic carrying capacity + Lotka-Volterra predation + subtle environmental pulse
+        dp = (0.48 * prey * (1.0 - prey / 160.0) - 0.022 * prey * pred) * dt
+        dq = (0.011 * prey * pred - 0.32 * pred) * dt
+        prey = max(4.0, prey + dp + float(rng.normal(0.0, 0.15)))
+        pred = max(2.0, pred + dq + float(rng.normal(0.0, 0.08)))
+    coexisted = bool(prey_trace[-1] > 10.0 and pred_trace[-1] > 4.0 and (max(prey_trace) - min(prey_trace) > 15.0))
+    return {
+        "final_prey": prey_trace[-1],
+        "final_predators": pred_trace[-1],
+        "prey_oscillation_span": round(max(prey_trace) - min(prey_trace), 2),
+        "predator_oscillation_span": round(max(pred_trace) - min(pred_trace), 2),
+        "trophic_coexistence_verified": coexisted,
+    }
+
+
 def run_alife_ecosystem_suite(soundscape_wav: Path | None = None) -> Dict[str, Any]:
     """Run evolving Artificial Life ecology vs non-replicating negative control + ecosystem soundscape."""
     living = _simulate_ecosystem(allow_replication=True, steps=160, seed=20260909)
     static_ctrl = _simulate_ecosystem(allow_replication=False, steps=160, seed=20260909)
+    trophic = _simulate_trophic_predator_prey(steps=160, seed=20260999)
 
     wav_path = soundscape_wav or Path("/tmp/zoe_alife_soundscape.wav")
     wav_info = _render_ecosystem_soundscape(living["_final_agents"], wav_path)
@@ -241,6 +268,7 @@ def run_alife_ecosystem_suite(soundscape_wav: Path | None = None) -> Dict[str, A
         "emergent_morphological_diversity_nonzero": living["morphological_renyi_h2"] > 0.45,
         "negative_control_zero_births": static_ctrl["births"] == 0 and static_ctrl["max_generation"] == 0,
         "ecosystem_soundscape_wav_rendered": wav_info["bytes"] > 200_000,
+        "trophic_predator_prey_coexistence": trophic["trophic_coexistence_verified"],
     }
 
     # Separate visualization arrays from JSON report
@@ -257,6 +285,7 @@ def run_alife_ecosystem_suite(soundscape_wav: Path | None = None) -> Dict[str, A
         "contract": CONTRACT,
         "evolving_ecosystem": living,
         "negative_control_no_replication": static_ctrl,
+        "trophic_predator_prey": trophic,
         "soundscape_wav": wav_info,
         "checks": checks,
         "constitution": {

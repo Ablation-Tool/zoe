@@ -6,6 +6,7 @@
     "real_151936_vocab_tested": true,
     "real_qwen25_3b_gguf_v3_verified": true,
     "remote_non_loopback_ssrf_blocked": true,
+    "temperature_phase_sweep_monotonic_151936_vocab": true,
     "zero_prefix_pruning_bound_violations": true
   },
   "constitution": {
@@ -14,7 +15,7 @@
     "loopback_only_enforced": true
   },
   "contract": "zoe-live-qwen-multihorizon-steerer/v1",
-  "evidence_sha256": "35ef8a37671c7a9c4a7783057a6019f56a9f698b514359c26a74dcb630164a7b",
+  "evidence_sha256": "aaeea8313309a2bbac8e1044ec31ab83083c6671d9ab7827a5aa5b05c72ccb89",
   "gguf_provenance": {
     "gguf_version": 3,
     "header_4mb_sha256": "3b3e72a8b68e68ef3bef21d57a9f66a36e0cfec554854bb707dd6ee58fb75ba7",
@@ -137,6 +138,180 @@
       "tau": 0.12,
       "theoretical_max_calls": 17,
       "vocab_size": 151936
+    }
+  ],
+  "temperature_phase_sweep_qwen": [
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "CLARIFY",
+          "calls": 20,
+          "counts": [
+            7,
+            12,
+            10
+          ]
+        },
+        "0.05": {
+          "action": "CLARIFY",
+          "calls": 10,
+          "counts": [
+            5,
+            4,
+            1
+          ]
+        },
+        "0.08": {
+          "action": "CLARIFY",
+          "calls": 8,
+          "counts": [
+            4,
+            3,
+            1
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 4,
+          "counts": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.44372,
+      "renyi_h2": 1.30524,
+      "temperature": 0.45
+    },
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "CLARIFY",
+          "calls": 24,
+          "counts": [
+            9,
+            14,
+            1
+          ]
+        },
+        "0.05": {
+          "action": "ABSTAIN",
+          "calls": 11,
+          "counts": [
+            7,
+            3,
+            0
+          ]
+        },
+        "0.08": {
+          "action": "ABSTAIN",
+          "calls": 7,
+          "counts": [
+            5,
+            1,
+            0
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 3,
+          "counts": [
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.29525,
+      "renyi_h2": 1.77249,
+      "temperature": 0.75
+    },
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "CLARIFY",
+          "calls": 24,
+          "counts": [
+            9,
+            14,
+            0
+          ]
+        },
+        "0.05": {
+          "action": "ABSTAIN",
+          "calls": 10,
+          "counts": [
+            8,
+            1,
+            0
+          ]
+        },
+        "0.08": {
+          "action": "ABSTAIN",
+          "calls": 6,
+          "counts": [
+            5,
+            0,
+            0
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 3,
+          "counts": [
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.24025,
+      "renyi_h2": 1.95399,
+      "temperature": 1.0
+    },
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "ABSTAIN",
+          "calls": 19,
+          "counts": [
+            10,
+            8,
+            0
+          ]
+        },
+        "0.05": {
+          "action": "ABSTAIN",
+          "calls": 9,
+          "counts": [
+            8,
+            0,
+            0
+          ]
+        },
+        "0.08": {
+          "action": "ABSTAIN",
+          "calls": 7,
+          "counts": [
+            6,
+            0,
+            0
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 3,
+          "counts": [
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.19831,
+      "renyi_h2": 2.09704,
+      "temperature": 1.35
     }
   ],
   "total_forward_calls": 42,

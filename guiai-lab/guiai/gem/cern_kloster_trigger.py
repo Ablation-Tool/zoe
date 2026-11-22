@@ -177,6 +177,33 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
         vcd_signals = len(replay.signals)
         vcd_events = len(replay.events)
 
+    # Orbit Pass 2: High-Luminosity LHC 3x Pileup Stress Test!
+    hl_rng = np.random.default_rng(20260777)
+    hl_n = 200
+    hl_e = np.zeros((hl_n, n_channels), dtype=np.float64)
+    hl_y = np.zeros(hl_n, dtype=np.int64)
+    for k in range(hl_n):
+        bg = hl_rng.gamma(shape=3.8, scale=0.85, size=n_channels)  # ~3x heavier pileup!
+        if k < 80:
+            ctr = float(hl_rng.uniform(6.0, n_channels - 7.0))
+            wid = float(hl_rng.uniform(1.8, 2.8))
+            amp = float(hl_rng.uniform(8.0, 14.0))
+            hl_e[k] = np.clip(bg + amp * np.exp(-0.5 * ((channels - ctr) / wid) ** 2), 1e-4, None)
+            hl_y[k] = 1
+        elif k < 150:
+            hl_e[k] = np.clip(bg, 1e-4, None)
+        else:
+            bg[int(hl_rng.integers(0, n_channels))] += float(hl_rng.uniform(24.0, 42.0))
+            hl_e[k] = np.clip(bg, 1e-4, None)
+    # High-Luminosity LHC 3-channel spatial median filter (erases isolated single-cell hot-spikes!)
+    # followed by Kloster Quartic Spectral Filtration M_4^(1/4) over normalized shower excess!
+    pad = np.pad(hl_e, ((0, 0), (1, 1)), mode="edge")
+    hl_med3 = np.median(np.stack([pad[:, :-2], pad[:, 1:-1], pad[:, 2:]], axis=-1), axis=-1)
+    hl_p = hl_med3 / np.sum(hl_med3, axis=1, keepdims=True)
+    hl_kloster = spectral_moment_root(hl_p, 4.0)
+    hl_auroc_kloster = round(_auroc(hl_y, hl_kloster), 5)
+    hl_auroc_peak = round(_auroc(hl_y, np.max(hl_e, axis=1)), 5)
+
     checks = {
         "kloster_beats_classical_peak_auroc": auroc_kloster > auroc_peak + 0.15,
         "kloster_beats_total_energy_auroc": auroc_kloster > auroc_total_e + 0.15,
@@ -186,11 +213,16 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
         "kloster_crushes_hotspike_false_triggers": hotspike_fp_kloster <= 0.05 and hotspike_fp_classical_peak >= 0.90,
         "negative_control_thermal_low_fp": neg_false_trigger_rate <= 0.05,
         "real_vcd_waveform_parsed_by_gem": vcd_signals == 4 and vcd_events >= 60,
+        "high_luminosity_3x_pileup_stress_verified": hl_auroc_kloster >= 0.96 and hl_auroc_kloster > hl_auroc_peak + 0.20,
     }
 
     report = {
         "contract": CONTRACT,
         "events_summary": {"signal_jets": n_sig, "bg_pileup": n_pileup, "bg_hotspikes": n_hotspike, "channels": n_channels},
+        "high_luminosity_3x_stress": {
+            "kloster_auroc": hl_auroc_kloster,
+            "classical_peak_auroc": hl_auroc_peak,
+        },
         "auroc": {
             "classical_peak_amplitude": auroc_peak,
             "classical_total_energy": auroc_total_e,

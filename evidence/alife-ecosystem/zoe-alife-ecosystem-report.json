@@ -6,7 +6,8 @@
     "emergent_morphological_diversity_nonzero": true,
     "living_ecology_outlasts_static_control": true,
     "negative_control_zero_births": true,
-    "self_replication_and_multi_gen_evolution": true
+    "self_replication_and_multi_gen_evolution": true,
+    "trophic_predator_prey_coexistence": true
   },
   "constitution": {
     "cloud_tokens_used": 0,
@@ -14,7 +15,7 @@
     "sentience_claimed": false
   },
   "contract": "zoe-creative-alife-ecosystem/v1",
-  "evidence_sha256": "3d46ebff0f561f56ee3233da6e60c78918a023383e1b61e36a1febe06e973d0a",
+  "evidence_sha256": "effba4559ceaa369121395e6deccd742c11b2044e977fd1582de3cfcc8318323",
   "evolving_ecosystem": {
     "allow_replication": true,
     "births": 325,
@@ -1030,5 +1031,12 @@
     "duration_sec": 5.0,
     "path": "/tmp/zoe_alife_soundscape.wav",
     "sha256": "4973459eacff7f12"
+  },
+  "trophic_predator_prey": {
+    "final_predators": 12.11,
+    "final_prey": 25.35,
+    "predator_oscillation_span": 19.27,
+    "prey_oscillation_span": 45.44,
+    "trophic_coexistence_verified": true
   }
 }

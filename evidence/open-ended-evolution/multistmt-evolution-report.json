@@ -12,6 +12,7 @@
   "checks": {
     "blind_transfer_real_16llm_auroc_gt_090": true,
     "blind_transfer_real_groove_beats_poisson_all": true,
+    "evolved_code_elegance_high_mi_and_low_cc": true,
     "evolved_multistmt_beats_seed_by_5x": true,
     "evolved_stateful_beats_stateless_control": true,
     "hostile_ast_payloads_4_of_4_blocked": true,
@@ -23,7 +24,13 @@
     "cloud_tokens_used": 0
   },
   "contract": "zoe-open-ended-multistmt-evolution/v1",
-  "evidence_sha256": "3e13c9da265627b866a6d9e0b67ab05edaf3834810f76c0a4a5c700a7b48cc08",
+  "evidence_sha256": "ce788417319b874b9be17dd67697622ddf9c6680964485c8e22f63e074e4be0d",
+  "evolved_code_elegance": {
+    "grade": "A",
+    "maintainability_index_mi": 71.866,
+    "mccabe_avg_cc": 1.5,
+    "mccabe_max_cc": 2
+  },
   "evolved_multistmt_test_mse": 0.009287,
   "evolved_source": "def helper_signal(x0, x1, x2):\n    return clip(0.45 * x0 + 0.35 * (1.0 - x1) + 0.2 * x2, 0.0, 1.0)\n\ndef policy_step(x0, x1, x2, mem):\n    sig = helper_signal(x0, x1, x2)\n    mem_next = clip(0.654 * mem + 0.346 * sig, 0.0, 1.0)\n    if mem_next > 0.449:\n        score = clip(0.227 * mem_next + 0.652 * sig, 0.0, 1.0)\n    else:\n        score = clip(0.152 * mem_next + 0.384 * x2, 0.0, 1.0)\n    return (score, mem_next)\n",
   "fitness_curve_mse": [

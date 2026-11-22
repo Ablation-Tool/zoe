@@ -2,9 +2,11 @@
   "all_verified": true,
   "checks": {
     "all_11_worlds_verified": true,
+    "creative_art_circuit_cathedral_present": true,
     "creative_art_dorothy_tribute_present": true,
     "creative_art_observatory_present": true,
     "cross_pollination_edges_ge_20": true,
+    "kloster_mccabe_monorepo_elegance_verified": true,
     "latex_pdf_compiled_gt_100kb": true,
     "zoe_os_all_17_gem_engines_available": true,
     "zoe_os_orbit_ledger_intact": true
@@ -20,8 +22,8 @@
   "contract": "zoe-11-world-renaissance-orbit/v1",
   "cross_pollination_edges_count": 31,
   "gem_engines_available": 17,
-  "latex_pdf_bytes": 934610,
-  "master_sha256": "8807c57fda30d2113450307caa877a0777916595a8624e4f8fd754a7bace5122",
+  "latex_pdf_bytes": 942570,
+  "master_sha256": "f2521a3c34554d3ab736d8e744077ff9ae9c17eee4aec596f992dad77a2c7a99",
   "worlds": [
     {
       "engine_id": "research",
@@ -56,7 +58,7 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/qwen-steerer/qwen-steerer-report.json",
-      "evidence_sha256": "35ef8a37671c7a9c",
+      "evidence_sha256": "aaeea8313309a2bb",
       "improves_worlds": [
         "world4_zoe_os",
         "world2_benchmarks"
@@ -68,7 +70,7 @@
     {
       "engine_id": "helen",
       "evidence_path": "evidence/groove-forensics/groove-forensics-report.json",
-      "evidence_sha256": "5e93b15fbb3110f6",
+      "evidence_sha256": "cd20ec7309795a99",
       "improves_worlds": [
         "world6_dorothy",
         "world8_voice",
@@ -81,7 +83,7 @@
     {
       "engine_id": "kevlar",
       "evidence_path": "evidence/security-redteam/security-redteam-report.json",
-      "evidence_sha256": "6c7c78cd45682794",
+      "evidence_sha256": "9e4909477ec8be65",
       "improves_worlds": [
         "world4_zoe_os",
         "world1_live_qwen",
@@ -94,7 +96,7 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/open-ended-evolution/multistmt-evolution-report.json",
-      "evidence_sha256": "3e13c9da265627b8",
+      "evidence_sha256": "ce788417319b874b",
       "improves_worlds": [
         "world4_zoe_os",
         "world9_alife",
@@ -107,7 +109,7 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/external-benchmarks/external-benchmark-report.json",
-      "evidence_sha256": "2c7c57d5671b3ef5",
+      "evidence_sha256": "d25182758392c3d4",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory"
@@ -119,7 +121,7 @@
     {
       "engine_id": "brain",
       "evidence_path": "evidence/dorothy-neurogarden/dorothy-neurogarden-3d-report.json",
-      "evidence_sha256": "524b0227ca836b6d",
+      "evidence_sha256": "987875f9150e44b8",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory"
@@ -131,7 +133,7 @@
     {
       "engine_id": "cern-console",
       "evidence_path": "evidence/cern-trigger/cern-kloster-trigger-report.json",
-      "evidence_sha256": "06e0b77f79049832",
+      "evidence_sha256": "4f08f7e583c05a77",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory"
@@ -143,7 +145,7 @@
     {
       "engine_id": "zoe",
       "evidence_path": "evidence/voice-choral/zoe-choral-composer-report.json",
-      "evidence_sha256": "95fa2c865cf91230",
+      "evidence_sha256": "5aaea8bbc9340f76",
       "improves_worlds": [
         "world4_zoe_os",
         "world9_alife"
@@ -155,7 +157,7 @@
     {
       "engine_id": "life",
       "evidence_path": "evidence/alife-ecosystem/zoe-alife-ecosystem-report.json",
-      "evidence_sha256": "3d46ebff0f561f56",
+      "evidence_sha256": "effba4559ceaa369",
       "improves_worlds": [
         "world4_zoe_os",
         "world8_voice"

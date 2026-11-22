@@ -225,6 +225,60 @@ def parse_mod_onsets_pure(raw_data: bytes) -> Tuple[List[float], float]:
     return onsets, row_sec
 
 
+def render_groove_showcase_wav(
+    rigid: Sequence[float],
+    dilla: Sequence[float],
+    poly_a: Sequence[float],
+    poly_b: Sequence[float],
+    out_wav: Path = Path("/tmp/zoe_groove_showcase.wav"),
+) -> Dict[str, Any]:
+    """Orbit Pass 2: Synthesize a playable 44.1 kHz stereo Groove Comparison WAV (Rigid -> J-Dilla -> 3:2 Clave)."""
+    import wave as _wave
+    sr = 44100
+    seg_sec = 4.0
+    total_n = int(3 * seg_sec * sr)
+    stereo = np.zeros((total_n, 2), dtype=np.float64)
+
+    def _add_hit(start_s: float, freq_hz: float, decay: float, amp: float, pan: float, click: bool = False) -> None:
+        i0 = int(start_s * sr)
+        dur = int(0.18 * sr)
+        if i0 < 0 or i0 >= total_n:
+            return
+        n = min(dur, total_n - i0)
+        t = np.arange(n, dtype=np.float64) / sr
+        env = np.exp(-decay * t)
+        sig = amp * np.sin(2.0 * math.pi * freq_hz * np.exp(-3.0 * t if freq_hz < 140 else 0.0) * t) * env
+        if click:
+            sig += amp * 0.35 * np.sin(2.0 * math.pi * 2400.0 * t) * np.exp(-45.0 * t)
+        stereo[i0 : i0 + n, 0] += (1.0 - pan) * sig
+        stereo[i0 : i0 + n, 1] += pan * sig
+
+    # Segment 1 (0..4s): Rigid Quantized 120 BPM
+    for idx, t0 in enumerate([t for t in rigid if t < seg_sec]):
+        _add_hit(t0, 88.0 if idx % 4 == 0 else (260.0 if idx % 4 == 2 else 920.0), 18.0 if idx % 4 == 0 else 36.0, 0.55 if idx % 2 == 0 else 0.25, 0.5, click=(idx % 4 == 2))
+    # Segment 2 (4..8s): Human J-Dilla Pocket Swing
+    for idx, t0 in enumerate([t for t in dilla if t < seg_sec]):
+        _add_hit(seg_sec + t0, 82.0 if idx % 4 == 0 else (240.0 if idx % 4 == 2 else 880.0), 16.0 if idx % 4 == 0 else 32.0, 0.58 if idx % 2 == 0 else 0.28, 0.42 if idx % 2 == 0 else 0.58, click=(idx % 4 == 2))
+    # Segment 3 (8..12s): Afro-Cuban 3:2 Polyrhythm (voice 3 left, voice 2 right!)
+    for t0 in [t for t in poly_a if t < seg_sec]:
+        _add_hit(2 * seg_sec + t0, 520.0, 26.0, 0.48, 0.25, click=True)
+    for t0 in [t for t in poly_b if t < seg_sec]:
+        _add_hit(2 * seg_sec + t0, 110.0, 14.0, 0.60, 0.75, click=False)
+
+    peak = float(np.max(np.abs(stereo)))
+    if peak > 1e-6:
+        stereo = 0.88 * stereo / peak
+    pcm = np.clip(stereo * 32767.0, -32767, 32767).astype(np.int16)
+    out_wav.parent.mkdir(parents=True, exist_ok=True)
+    with _wave.open(str(out_wav), "wb") as wf:
+        wf.setnchannels(2)
+        wf.setsampwidth(2)
+        wf.setframerate(sr)
+        wf.writeframes(pcm.tobytes())
+    raw = out_wav.read_bytes()
+    return {"path": str(out_wav), "bytes": len(raw), "duration_sec": 12.0, "sha256": hashlib.sha256(raw).hexdigest()[:16]}
+
+
 def run_groove_forensics_suite() -> Dict[str, Any]:
     """Run full 5-archetype Groove Forensics & Polyrhythm benchmark + Kloster Spectral Distance matrix."""
     rng = np.random.default_rng(20261111)
@@ -303,6 +357,8 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
             dk_mat[i, j] = d
             dk_mat[j, i] = d
 
+    wav_showcase = render_groove_showcase_wav(rigid_onsets, dilla_onsets, voice_3, voice_2)
+
     checks = {
         "rigid_zero_jitter_collapse": a_rigid["residual_std_ms"] < 0.01 and a_rigid["kloster_m4_root"] > 0.99,
         "human_swing_has_poincare_pocket": a_dilla["residual_std_ms"] > 8.0 and a_dilla["sd1_ms"] > 5.0,
@@ -312,11 +368,13 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
             a_rigid["kloster_m4_root"] > a_dilla["kloster_m4_root"] > a_noise["kloster_m4_root"]
         ),
         "negative_control_poisson_low_plv": a_noise["plv"] < 0.35 and a_noise["kloster_renyi_h2"] > a_dilla["kloster_renyi_h2"],
+        "playable_groove_showcase_wav_rendered": wav_showcase["bytes"] > 1_000_000,
     }
 
     report = {
         "contract": CONTRACT,
         "profiles": profiles,
+        "groove_showcase_wav": wav_showcase,
         "polyrhythm_plv_summary": {
             "3:2_clave": round(plv_3_2, 5),
             "4:3_cross": round(plv_4_3, 5),

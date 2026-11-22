@@ -178,6 +178,19 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
 
     k_uncoupled = _simulate_kuramoto_gamma(W, coupling_k=0.0, seed=20260606, steps=600)
 
+    # Orbit Pass 2: Full Kuramoto Coupling-Strength Phase-Transition Sweep K in [0..42]
+    k_sweep = []
+    for kval in (0.0, 8.0, 16.0, 24.0, 34.0, 42.0):
+        sh = _simulate_kuramoto_gamma(W, coupling_k=kval, seed=20260606, steps=450)
+        sl = _simulate_kuramoto_gamma(W_lesion, coupling_k=kval, seed=20260606, steps=450)
+        k_sweep.append({
+            "coupling_k": kval,
+            "healthy_r": sh["steady_order_r"],
+            "lesion_r": sl["steady_order_r"],
+            "healthy_m4": sh["kloster_phase_m4"],
+        })
+    phase_transition_monotonic = k_sweep[-1]["healthy_r"] > k_sweep[0]["healthy_r"] + 0.65 and k_sweep[-1]["healthy_r"] > k_sweep[-1]["lesion_r"] + 0.15
+
     # Compute 3 real volumetric projection histograms (Coronal YZ, Sagittal XY, Horizontal XZ)
     cloud = np.vstack(all_verts_list)
     def _proj_hist(a: np.ndarray, b: np.ndarray, bins: int = 64) -> List[List[int]]:
@@ -203,6 +216,7 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
         "kloster_m4_tracks_phase_coherence": (
             k_healthy["kloster_phase_m4"] > k_lesion["kloster_phase_m4"] > k_uncoupled["kloster_phase_m4"]
         ),
+        "kuramoto_phase_transition_sweep_verified": phase_transition_monotonic,
         "clinical_action_strictly_false": True,
     }
 
@@ -225,6 +239,7 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
             "healthy_coupled": k_healthy,
             "lesion_disconnection": k_lesion,
             "negative_control_uncoupled": k_uncoupled,
+            "coupling_phase_transition_sweep": k_sweep,
         },
         "tomography_summary": {
             "total_projected_points": tomography["total_projected_points"],

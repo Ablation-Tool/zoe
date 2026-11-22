@@ -4,6 +4,7 @@
     "human_swing_has_poincare_pocket": true,
     "kloster_m4_separates_groove_from_noise": true,
     "negative_control_poisson_low_plv": true,
+    "playable_groove_showcase_wav_rendered": true,
     "polyrhythms_3_2_4_3_5_4_locked": true,
     "protracker_mod_parsed_cleanly": true,
     "rigid_zero_jitter_collapse": true
@@ -13,7 +14,13 @@
     "negative_control_preserved": true
   },
   "contract": "zoe-groove-forensics-polyrhythm/v1",
-  "evidence_sha256": "5e93b15fbb3110f65823ff8e38353063f3ee5686bf54159ff89cde3ec69545ee",
+  "evidence_sha256": "cd20ec7309795a99dc0f0c3ba2dec7f386c2837b744e1f98fd1e030a69610167",
+  "groove_showcase_wav": {
+    "bytes": 2116844,
+    "duration_sec": 12.0,
+    "path": "/tmp/zoe_groove_showcase.wav",
+    "sha256": "9f1959cafdd022d2"
+  },
   "kloster_dk_matrix": [
     [
       0.0,

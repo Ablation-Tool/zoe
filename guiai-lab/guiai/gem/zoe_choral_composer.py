@@ -206,12 +206,14 @@ def compose_kloster_choral_nocturne(out_wav: Path) -> Dict[str, Any]:
         v_sop = synthesize_expressive_voice_note(sop, chord_dur + 0.18, vow, tract_scale=0.96, vibrato_hz=5.4, vibrato_depth_cents=vib_depth, breath_amount=breath_amt, consonant_onset=cons, rng=rng)
         v_alt = synthesize_expressive_voice_note(alt, chord_dur + 0.18, vow, tract_scale=1.12, vibrato_hz=5.0, vibrato_depth_cents=vib_depth * 0.85, breath_amount=breath_amt * 0.9, consonant_onset=None, rng=rng)
         v_ten = synthesize_expressive_voice_note(ten, chord_dur + 0.18, vow, tract_scale=1.28, vibrato_hz=4.7, vibrato_depth_cents=vib_depth * 0.75, breath_amount=breath_amt * 0.8, consonant_onset=None, rng=rng)
+        # Orbit Pass 2: Full 4-Part SATB Choir — add deep resonant Bass voice (1.44x vocal tract, octave below Tenor!)
+        v_bas = synthesize_expressive_voice_note(ten - 12, chord_dur + 0.18, vow, tract_scale=1.44, vibrato_hz=4.3, vibrato_depth_cents=vib_depth * 0.60, breath_amount=breath_amt * 0.65, consonant_onset=None, rng=rng)
 
         end_samp = min(n_total, start_samp + len(v_sop))
         seg = end_samp - start_samp
-        # Stereo binaural choir staging: Soprano center-left, Alto center-right, Tenor warm center
-        stereo[start_samp:end_samp, 0] += 0.46 * v_sop[:seg] + 0.24 * v_alt[:seg] + 0.30 * v_ten[:seg]
-        stereo[start_samp:end_samp, 1] += 0.30 * v_sop[:seg] + 0.44 * v_alt[:seg] + 0.30 * v_ten[:seg]
+        # Stereo binaural SATB choir staging: Soprano left-center, Alto right-center, Tenor & Bass warm center
+        stereo[start_samp:end_samp, 0] += 0.38 * v_sop[:seg] + 0.20 * v_alt[:seg] + 0.24 * v_ten[:seg] + 0.22 * v_bas[:seg]
+        stereo[start_samp:end_samp, 1] += 0.24 * v_sop[:seg] + 0.36 * v_alt[:seg] + 0.24 * v_ten[:seg] + 0.22 * v_bas[:seg]
 
         # 3:2 Polyrhythmic crystalline glass-chime pulse (#11 cross-pollination!)
         for pulse in range(3):
@@ -263,13 +265,13 @@ def compose_kloster_choral_nocturne(out_wav: Path) -> Dict[str, Any]:
 
     report = {
         "contract": CONTRACT,
-        "composition_title": "Observatory Nocturne in D Lydian (3-Part Choral x Kloster Tension x 3:2 Swing)",
+        "composition_title": "Observatory Nocturne in D Lydian (4-Part SATB Choir x Kloster Tension x 3:2 Swing)",
         "wav": wav_meta,
         "acoustics": {
             "rms_left": round(rms_l, 5),
             "rms_right": round(rms_r, 5),
             "stereo_correlation": round(stereo_corr, 5),
-            "voices": ["Soprano (0.96x)", "Alto (1.12x)", "Tenor (1.28x)", "3:2 Polyrhythmic Chimes"],
+            "voices": ["Soprano (0.96x)", "Alto (1.12x)", "Tenor (1.28x)", "Bass (1.44x)", "3:2 Polyrhythmic Chimes"],
         },
         "kloster_tension_h2_arc": tension_h2,
         "kloster_a010_arc": tension_a010,

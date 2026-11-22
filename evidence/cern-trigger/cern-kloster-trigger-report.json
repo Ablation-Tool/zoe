@@ -7,6 +7,7 @@
     "kloster_m4_coherent_a_tau": 0.99992
   },
   "checks": {
+    "high_luminosity_3x_pileup_stress_verified": true,
     "kloster_auroc_gt_095": true,
     "kloster_beats_classical_peak_auroc": true,
     "kloster_beats_shannon_auroc": true,
@@ -27,7 +28,11 @@
     "channels": 64,
     "signal_jets": 160
   },
-  "evidence_sha256": "06e0b77f79049832bdef8d5b7c2e2d941d0e5f70ad726cb87191924be6c26a87",
+  "evidence_sha256": "4f08f7e583c05a77ce1193c3a82a78f338b14ed030cd4cf2ad6dc36f0e92f567",
+  "high_luminosity_3x_stress": {
+    "classical_peak_auroc": 0.58115,
+    "kloster_auroc": 0.98333
+  },
   "hotspike_false_trigger_rate": {
     "classical_peak_amplitude": 1.0,
     "kloster_m4_coherent_a_tau": 0.0

@@ -6,6 +6,7 @@
     "connectome_graph_connected": true,
     "healthy_40hz_gamma_synchronized": true,
     "kloster_m4_tracks_phase_coherence": true,
+    "kuramoto_phase_transition_sweep_verified": true,
     "lesion_reduces_gamma_coherence": true,
     "uncoupled_neg_ctrl_desynchronized": true
   },
@@ -116,8 +117,46 @@
   },
   "contract": "zoe-dorothy-neurogarden-3d-gamma/v1",
   "dedication": "In honor of Dorothy McEwen Kildall (preclinical computational neuroscience only)",
-  "evidence_sha256": "524b0227ca836b6db9ad9adb723892e18db23adf37d20997d5ac5f7f48e9ef74",
+  "evidence_sha256": "987875f9150e44b8fac120b27ffd5c53f55594a87253bd6e43ebe3185525fd76",
   "kuramoto_40hz_gamma": {
+    "coupling_phase_transition_sweep": [
+      {
+        "coupling_k": 0.0,
+        "healthy_m4": 0.11254,
+        "healthy_r": 0.13394,
+        "lesion_r": 0.13394
+      },
+      {
+        "coupling_k": 8.0,
+        "healthy_m4": 0.1111,
+        "healthy_r": 0.28933,
+        "lesion_r": 0.20193
+      },
+      {
+        "coupling_k": 16.0,
+        "healthy_m4": 0.15924,
+        "healthy_r": 0.50931,
+        "lesion_r": 0.46683
+      },
+      {
+        "coupling_k": 24.0,
+        "healthy_m4": 0.27466,
+        "healthy_r": 0.88813,
+        "lesion_r": 0.61058
+      },
+      {
+        "coupling_k": 34.0,
+        "healthy_m4": 0.37725,
+        "healthy_r": 0.95381,
+        "lesion_r": 0.54737
+      },
+      {
+        "coupling_k": 42.0,
+        "healthy_m4": 0.40246,
+        "healthy_r": 0.97114,
+        "lesion_r": 0.63385
+      }
+    ],
     "healthy_coupled": {
       "coupling_k": 34.0,
       "final_order_r": 0.95382,

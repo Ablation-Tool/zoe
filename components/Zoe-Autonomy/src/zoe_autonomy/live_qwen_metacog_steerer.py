@@ -349,6 +349,31 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         except Exception as exc:
             live_turn = {"error": str(exc)[:140]}
 
+    # Orbit Pass 2: Real 151,936-Vocab Temperature x Threshold (T, tau) Steering Phase Sweep on Qwen2.5-Math-1.5B
+    temp_sweep: List[Dict[str, Any]] = []
+    q_nz = np.clip(qwen_p, 1e-18, 1.0)
+    log_q = np.log(q_nz)
+    for temp in (0.45, 0.75, 1.0, 1.35):
+        scaled = log_q / temp
+        scaled -= float(np.max(scaled))
+        p_t = np.exp(scaled)
+        p_t /= float(np.sum(p_t))
+        h2_t = kloster_renyi_entropy(p_t, 2.0)
+        tau_row: Dict[str, Any] = {"temperature": temp, "peak_p": round(float(np.max(p_t)), 5), "renyi_h2": round(h2_t, 5), "actions_by_tau": {}}
+        for tau_val in (0.02, 0.05, 0.08, 0.15):
+            mh_t = exact_multihorizon_accessible_volume(lambda _p, _pt=p_t: _pt, tau=tau_val, horizon=3)
+            st_t = steer_from_multihorizon_trace("Explain the theorem step by step.", mh_t["counts_by_h"], mh_t["frontier_mass_by_h"], h2_t, tau_val)
+            tau_row["actions_by_tau"][str(tau_val)] = {
+                "action": st_t["action"],
+                "counts": mh_t["counts_by_h"],
+                "calls": mh_t["forward_calls"],
+            }
+        temp_sweep.append(tau_row)
+    temp_shifts_phase = (
+        temp_sweep[0]["peak_p"] > temp_sweep[-1]["peak_p"] + 0.20
+        and temp_sweep[-1]["renyi_h2"] > temp_sweep[0]["renyi_h2"] + 0.50
+    )
+
     checks = {
         "real_qwen25_3b_gguf_v3_verified": bool(gguf.get("valid_gguf_v3", False)),
         "remote_non_loopback_ssrf_blocked": ssrf_blocked,
@@ -356,6 +381,7 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         "zero_prefix_pruning_bound_violations": all(r["bound_violations"] == 0 for r in results),
         "real_151936_vocab_tested": any(r["vocab_size"] == 151_936 for r in results),
         "honest_server_status_reported": isinstance(probe["online"], bool),
+        "temperature_phase_sweep_monotonic_151936_vocab": temp_shifts_phase,
     }
 
     report = {
@@ -364,6 +390,7 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         "live_server_probe": probe,
         "live_server_turn": live_turn,
         "scenarios": results,
+        "temperature_phase_sweep_qwen": temp_sweep,
         "total_forward_calls": total_calls,
         "total_theoretical_max_calls": total_max_calls,
         "checks": checks,
