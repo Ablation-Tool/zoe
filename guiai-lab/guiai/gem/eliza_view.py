@@ -1090,6 +1090,10 @@ def create_server(
                 rep_file = resolved_root / "evidence" / "kloster-unification" / "kloster-unification-report.json"
                 self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
                 return
+            if path == "/api/kloster/referee-proofs":
+                rep_file = resolved_root / "evidence" / "kloster-referee-proofs" / "kloster-referee-proofs-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
             if path == "/api/orbit/master":
                 rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
                 if rep_file.is_file():

@@ -36,7 +36,7 @@
   "contract": "zoe-11-world-renaissance-orbit/v11",
   "cross_pollination_edges_count": 52,
   "gem_engines_available": 17,
-  "latex_pdf_bytes": 2715320,
+  "latex_pdf_bytes": 3305108,
   "master_sha256": "0deadb29a0163b129888016eaa91df7821595b95dbf77c408a2a096974194a14",
   "orbit_passes_completed": 11,
   "theorems_proved_sympy": 11,
