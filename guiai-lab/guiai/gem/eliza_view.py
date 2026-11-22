@@ -1106,6 +1106,14 @@ def create_server(
                 rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "nsa-research-puzzle-pack-report.json"
                 self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
                 return
+            if path == "/api/kloster/bio-crypto-circle":
+                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "bio-crypto-circle-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
+            if path == "/api/kloster/cnsa2-ring2":
+                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "cnsa2-scrna-ring2-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
             if path == "/api/orbit/master":
                 rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
                 if rep_file.is_file():
@@ -1128,7 +1136,7 @@ def create_server(
                     f"<h1>Zoe :: 11-World Renaissance Observatory (All {doc.get('orbit_passes_completed', 11)} Orbital Passes Complete)</h1>"
                     f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
                     f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
-                    f"<span class='pill'>Theorems 1-12 SymPy Proved</span><span class='pill'>29/29 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
+                    f"<span class='pill'>Theorems 1-12 SymPy Proved</span><span class='pill'>33/33 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
                     f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
                     "<p style='margin-top:20px;color:#9db2d1;line-height:1.8'>Live Observatory APIs: "
                     "<a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "
@@ -1145,6 +1153,8 @@ def create_server(
                     "<a style='color:#7ce8ff' href='/api/self-improving'>/api/self-improving</a> · "
                     "<a style='color:#7ce8ff' href='/api/kloster/cryptanalysis'>/api/kloster/cryptanalysis</a> · "
                     "<a style='color:#7ce8ff' href='/api/kloster/nsa-pack'>/api/kloster/nsa-pack</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/bio-crypto-circle'>/api/kloster/bio-crypto-circle</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/cnsa2-ring2'>/api/kloster/cnsa2-ring2</a> · "
                     "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
                 ).encode("utf-8")
                 self.send_response(200)
