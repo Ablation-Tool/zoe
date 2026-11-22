@@ -1,11 +1,14 @@
 # SafeConvert — Documentation, Privacy Architecture & Safety Boundaries
 
-**SafeConvert** is a built-in Zapp inside **Zoe (beta)** (`v0.8.0-beta`, available on both **Android** and **Apple** iOS/iPadOS/iPhone Duo Fold) designed for two simultaneous goals:
+**SafeConvert** is a built-in Zapp inside **Zoe (beta)** (`v0.9.3-beta`, available on both **Android** and **Apple** iOS/iPadOS/iPhone Duo Fold) designed for two simultaneous goals:
 
 1. **On the surface:** A fast, genuinely useful, zero-ad, 100% offline **Unit Converter** styled seamlessly in Zoe's calm Google Gemini Material 3 Expressive Dark/Light theme.
 2. **Beneath the surface:** A discreet, completely offline **international personal safety companion, trauma-informed post-incident guide, calming & children's studio, SHA-256 private proof vault, and offline Bluetooth LE Help Beacon & Blind Encrypted Relay Mesh** built to help adults and children worldwide — including people whose phones may be checked or monitored.
 
-> **Important Public Safety Note:** To protect people who rely on SafeConvert in unsafe households, the exact discreet activation sequence is **intentionally omitted from public deployment guides and social posts**. Developers auditing the repository can inspect the exact mechanism directly in [`mobile/shared/safeconvert/index.html`](shared/safeconvert/index.html), and users see a quiet reminder inside SafeConvert's private safety layer once opened.
+> **How to Access the Hidden Safety Companion:** Open **SafeConvert** and type any **variant of `911`** into the unit converter number field:
+> - **Accepted 3-digit `9`/`1` variants:** `911`, `991`, `919`, `199`, `119`, `191`, `999`, or `111`
+> - **Decimals & leading zeros work too:** e.g., `9.11`, `91.1`, `0.911`, `1.19`, or `9.99` (helpful if you want it to look like an ordinary measurement while typing)
+> - **Instant Return to Cover:** Tap **`✕ EXIT`**, tap the top bar, press **Back / `ESC`**, switch apps, or leave it idle for 90 seconds to clear ephemeral state and snap immediately back to the Unit Converter.
 
 ---
 

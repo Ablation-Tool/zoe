@@ -35,7 +35,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 | **11** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
 | **12** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
 | **13** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
-| **14** | **SafeConvert** | Clean offline unit converter with an international (8-region, 5-language) discreet safety companion, trauma-informed post-incident care, calming art/math/story studio, Young Child Easy Picture Mode, SHA-256 vault & offline BLE Help Beacon Mesh | Android · Apple | **100% offline zero-network WebView**; opt-in 1-shot GPS locator & offline Bluetooth LE rotating-tag beacon start strictly OFF and stop instantly on `✕ EXIT` — see [Complete SafeConvert Guide](SAFECONVERT.md) |
+| **14** | **SafeConvert** | Clean offline unit converter with an international (8-region, 5-language) discreet safety companion (type variants of `911` — e.g., `911`, `9.11`, `919`, `119`, `999`, `111` — in the converter to open), trauma-informed post-incident care, calming art/math/story studio, Young Child Easy Picture Mode, SHA-256 vault & offline BLE Help Beacon Mesh | Android · Apple | **100% offline zero-network WebView**; opt-in 1-shot GPS locator & offline Bluetooth LE rotating-tag beacon start strictly OFF and stop instantly on `✕ EXIT` — see [Complete SafeConvert Guide](SAFECONVERT.md) |
 | **15** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
 
 ---
@@ -89,6 +89,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 
 #### 10. SafeConvert (`Units & private safety helper`)
 - **What it does:** Presents a calm, fast, ad-free **Unit Converter** (Length, Weight, Temperature, Volume) styled to match Zoe seamlessly — while containing a completely offline, panic-exit-protected **private safety companion & SHA-256 proof vault** for adults and children who may be in danger or have a monitored phone.
+- **How to open the hidden safety companion:** Type any **variant of `911`** into the unit converter input (`911`, `991`, `919`, `199`, `119`, `191`, `999`, or `111` — decimals and leading zeros like `9.11` or `0.911` also work). Tap **`✕ EXIT`** or press Back anytime to snap instantly back to the converter.
 - **Read the full guide:** **[`mobile/SAFECONVERT.md`](SAFECONVERT.md)** — documents every single feature, privacy shield, calming tool, hotline directory, proof vault lock, and honest safety boundary in detail.
 
 #### 11. Researcher Guide (`How Zoe works & limits`)
