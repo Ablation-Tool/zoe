@@ -133,6 +133,51 @@ def _morph_histogram(agents: Sequence[Sequence[float]]) -> np.ndarray:
     return counts / total if total > 0.0 else np.full(6, 1.0 / 6.0, dtype=np.float64)
 
 
+def _advance_population_step(
+    agents: List[List[float]],
+    nutrients: np.ndarray,
+    grid_n: int,
+    allow_replication: bool,
+    step: int,
+    trajectories: List[List[Tuple[float, float]]],
+    rng: np.random.Generator,
+) -> Tuple[List[List[float]], int, int, int]:
+    """Advance all organisms by one timestep and return (next_agents, births, deaths, max_gen)."""
+    next_agents: List[List[float]] = []
+    births, deaths, max_gen = 0, 0, 0
+    for idx, ag in enumerate(agents):
+        if idx < 12 and step % 2 == 0:
+            trajectories[idx].append((round(ag[0], 2), round(ag[1], 2)))
+        updated, _ = _step_single_organism(ag, nutrients, grid_n, rng)
+        if updated is None:
+            deaths += 1
+            continue
+        if allow_replication and updated[3] >= 2.25 and len(next_agents) < 160:
+            daughter = _spawn_mutated_daughter(updated, grid_n, rng)
+            births += 1
+            max_gen = max(max_gen, int(daughter[8]))
+            next_agents.append(daughter)
+        next_agents.append(updated)
+    return next_agents, births, deaths, max_gen
+
+
+def _record_step_stats(
+    agents: List[List[float]],
+    pop_trace: List[int],
+    eff_trace: List[float],
+    cur_trace: List[float],
+) -> None:
+    """Append population size and mean heritable traits for the current timestep."""
+    pop_trace.append(len(agents))
+    if not agents:
+        eff_trace.append(0.0)
+        cur_trace.append(0.0)
+        return
+    arr = np.asarray(agents, dtype=np.float64)
+    eff_trace.append(round(float(np.mean(arr[:, 6])), 4))
+    cur_trace.append(round(float(np.mean(arr[:, 5])), 4))
+
+
 def _simulate_ecosystem(
     *,
     allow_replication: bool,
@@ -141,8 +186,7 @@ def _simulate_ecosystem(
 ) -> Dict[str, Any]:
     """Run toroidal Artificial Life simulation with Theorem 7 Optimal Transport speciation telemetry."""
     rng = np.random.default_rng(seed)
-    grid_n = 48
-    n_init = 36
+    grid_n, n_init = 48, 36
     bloom_base = _build_nutrient_bloom(grid_n)
     nutrients = bloom_base.copy()
     agents = _init_organisms(n_init, grid_n, rng)
@@ -151,46 +195,25 @@ def _simulate_ecosystem(
     mean_eff_trace: List[float] = []
     mean_cur_trace: List[float] = []
     gini_trace: List[float] = []
-    births = 0
-    deaths = 0
-    max_gen = 0
+    births, deaths, max_gen = 0, 0, 0
     trajectories: List[List[Tuple[float, float]]] = [[] for _ in range(12)]
     prev_morph_p = _morph_histogram(agents)
     cumulative_w1_speciation = 0.0
 
     for step in range(steps):
         nutrients = _step_nutrients(nutrients, bloom_base)
-        next_agents: List[List[float]] = []
-        for idx, ag in enumerate(agents):
-            if idx < 12 and step % 2 == 0:
-                trajectories[idx].append((round(ag[0], 2), round(ag[1], 2)))
-            updated, _ = _step_single_organism(ag, nutrients, grid_n, rng)
-            if updated is None:
-                deaths += 1
-                continue
-            if allow_replication and updated[3] >= 2.25 and len(next_agents) < 160:
-                daughter = _spawn_mutated_daughter(updated, grid_n, rng)
-                births += 1
-                max_gen = max(max_gen, int(daughter[8]))
-                next_agents.append(daughter)
-            next_agents.append(updated)
+        agents, b_s, d_s, g_s = _advance_population_step(
+            agents, nutrients, grid_n, allow_replication, step, trajectories, rng
+        )
+        births += b_s
+        deaths += d_s
+        max_gen = max(max_gen, g_s)
+        _record_step_stats(agents, pop_trace, mean_eff_trace, mean_cur_trace)
 
-        agents = next_agents
-        pop_trace.append(len(agents))
-        if agents:
-            arr = np.asarray(agents, dtype=np.float64)
-            mean_eff_trace.append(round(float(np.mean(arr[:, 6])), 4))
-            mean_cur_trace.append(round(float(np.mean(arr[:, 5])), 4))
-        else:
-            mean_eff_trace.append(0.0)
-            mean_cur_trace.append(0.0)
-
-        # Theorem 7 telemetry every 10 steps: Kloster-Gini & Wasserstein-1 speciation velocity!
         if step % 10 == 0 and agents:
             cur_morph_p = _morph_histogram(agents)
             cumulative_w1_speciation += kloster_wasserstein1(prev_morph_p, cur_morph_p)
-            _, g_now = kloster_l2_persistence_integral(cur_morph_p)
-            gini_trace.append(round(g_now, 5))
+            gini_trace.append(round(kloster_l2_persistence_integral(cur_morph_p)[1], 5))
             prev_morph_p = cur_morph_p
 
     morph_p = _morph_histogram(agents)

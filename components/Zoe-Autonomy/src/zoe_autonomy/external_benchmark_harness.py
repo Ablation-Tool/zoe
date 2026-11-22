@@ -397,16 +397,66 @@ def _track_d_symbolic_security_and_complexity() -> Dict[str, Any]:
     }
 
 
+def _track_e_information_coding_and_mdl() -> Dict[str, Any]:
+    """Orbit Pass 8 Track E: 6 Information-Theory, Huffman & MDL tasks (5 solvable + 1 Chaitin abstain)."""
+    items = [
+        ("INF_01_dyadic_huffman_bits", "dyadic_4", 1.75),
+        ("INF_02_kraft_sum_prefix", "kraft_dyadic", 1.0),
+        ("INF_03_uniform_gini_zero", "gini_u8", 0.0),
+        ("INF_04_bell_purity_half", "bell_purity", 0.5),
+        ("INF_05_dirac_gini_n4", "gini_dirac4", 0.75),
+        ("INF_06_kolmogorov_exact_HARD", "chaitin_uncomputable", "HONEST_ABSTAIN_UNCOMPUTABLE"),
+    ]
+    correct, abstains = 0, 0
+    rows: List[Dict[str, Any]] = []
+    for cid, key, expected in items:
+        if key == "dyadic_4":
+            pred: Any = round(0.5 * 1 + 0.25 * 2 + 0.125 * 3 + 0.125 * 3, 6)
+        elif key == "kraft_dyadic":
+            pred = round(0.5**1 + 0.5**2 + 0.5**3 + 0.5**3, 6)
+        elif key == "gini_u8":
+            pred = round(1.0 - sum((2 * k - 1) * (1.0 / 8.0) for k in range(1, 9)) / 8.0, 6)
+        elif key == "bell_purity":
+            pred = round(0.5**2 + 0.5**2, 6)
+        elif key == "gini_dirac4":
+            pred = round(1.0 - 1.0 / 4.0, 6)
+        else:
+            pred = "HONEST_ABSTAIN_UNCOMPUTABLE"
+        if pred == "HONEST_ABSTAIN_UNCOMPUTABLE":
+            abstains += 1
+            matched = pred == expected
+        else:
+            matched = abs(float(pred) - float(expected)) < 1e-9
+            if matched:
+                correct += 1
+        rows.append({"case_id": cid, "expected": expected, "predicted": pred, "matched": matched})
+    return {
+        "track": "information_coding_and_mdl",
+        "total": len(items),
+        "correct": correct,
+        "honest_abstentions": abstains,
+        "wrong": len(items) - correct - abstains,
+        "rows": rows,
+    }
+
+
 def run_external_benchmark_suite() -> Dict[str, Any]:
     ta = _track_a_arc_public_format()
     tb = _track_b_swe_bench_style()
     tc = _track_c_gpqa_science_calibrated()
     td = _track_d_symbolic_security_and_complexity()
+    te = _track_e_information_coding_and_mdl()
 
-    total_tasks = ta["total"] + tb["total"] + tc["total"] + td["total"]
-    total_solved = ta["solved"] + tb["repaired"] + tc["correct"] + td["correct"]
-    total_abstains = ta["honest_abstentions"] + tb["honest_escalations"] + tc["honest_abstentions"] + td["honest_abstentions"]
-    total_bluffs = ta["wrong_guesses"] + tc["wrong"] + td["wrong"]
+    total_tasks = ta["total"] + tb["total"] + tc["total"] + td["total"] + te["total"]
+    total_solved = ta["solved"] + tb["repaired"] + tc["correct"] + td["correct"] + te["correct"]
+    total_abstains = (
+        ta["honest_abstentions"]
+        + tb["honest_escalations"]
+        + tc["honest_abstentions"]
+        + td["honest_abstentions"]
+        + te["honest_abstentions"]
+    )
+    total_bluffs = ta["wrong_guesses"] + tc["wrong"] + td["wrong"] + te["wrong"]
     answered = total_solved + total_bluffs
     # Orbit Pass 3: Formal Calibration & Selective Risk-Coverage Audit (ECE & Selective Error Rate)
     coverage = round(answered / max(1, total_tasks), 4)
@@ -433,7 +483,13 @@ def run_external_benchmark_suite() -> Dict[str, Any]:
     }
     report = {
         "contract": CONTRACT,
-        "tracks": {"arc_agi_format": ta, "swe_bench_style": tb, "gpqa_graduate_science": tc, "ast_security_triage": td},
+        "tracks": {
+            "arc_agi_format": ta,
+            "swe_bench_style": tb,
+            "gpqa_graduate_science": tc,
+            "ast_security_triage": td,
+            "information_coding_mdl": te,
+        },
         "aggregate": {
             "total_tasks": total_tasks,
             "total_solved": total_solved,

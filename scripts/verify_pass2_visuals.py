@@ -190,6 +190,10 @@ def verify_live_http_endpoints() -> Dict[str, bool]:
                 ("/api/kloster/thermo", "json"),
                 ("/api/kloster/riemannian", "json"),
                 ("/api/kloster/transport", "json"),
+                ("/api/kloster/majorization", "json"),
+                ("/api/kloster/quantum", "json"),
+                ("/api/kloster/mdl", "json"),
+                ("/api/kloster/unification", "json"),
                 ("/api/orbit/master", "json"),
                 ("/orbit", "html"),
             ):
@@ -234,6 +238,10 @@ def main() -> int:
         ("live_http_api_kloster_thermo", http_ok.get("/api/kloster/thermo", False)),
         ("live_http_api_kloster_riemannian", http_ok.get("/api/kloster/riemannian", False)),
         ("live_http_api_kloster_transport", http_ok.get("/api/kloster/transport", False)),
+        ("live_http_api_kloster_majorization", http_ok.get("/api/kloster/majorization", False)),
+        ("live_http_api_kloster_quantum", http_ok.get("/api/kloster/quantum", False)),
+        ("live_http_api_kloster_mdl", http_ok.get("/api/kloster/mdl", False)),
+        ("live_http_api_kloster_unification", http_ok.get("/api/kloster/unification", False)),
         ("live_http_api_orbit_master", http_ok.get("/api/orbit/master", False)),
         ("live_http_html_orbit_dashboard", http_ok.get("/orbit", False)),
     ]

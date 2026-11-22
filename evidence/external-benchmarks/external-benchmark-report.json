@@ -1,17 +1,17 @@
 {
   "aggregate": {
-    "total_honest_abstentions_or_escalations": 9,
-    "total_solved": 29,
-    "total_tasks": 38,
+    "total_honest_abstentions_or_escalations": 10,
+    "total_solved": 34,
+    "total_tasks": 44,
     "total_wrong_bluffs": 0
   },
   "all_verified": true,
   "calibration_and_risk_coverage": {
-    "coverage": 0.7632,
-    "ece_answered_bin": 0.03053,
-    "raw_non_solve_rate": 0.2368,
+    "coverage": 0.7727,
+    "ece_answered_bin": 0.03091,
+    "raw_non_solve_rate": 0.2273,
     "selective_error_rate_when_answered": 0.0,
-    "selective_risk_reduction_pct": 23.68
+    "selective_risk_reduction_pct": 22.73
   },
   "checks": {
     "arc_honestly_abstains_on_dsl_frontier_limits": true,
@@ -29,7 +29,7 @@
     "zero_curve_fitting": true
   },
   "contract": "zoe-external-uncurated-benchmark/v1",
-  "evidence_sha256": "8e1234a7c66b98992780b382bd8b23df68ba8c17b1806aac6f55089b16805006",
+  "evidence_sha256": "0a2175888a8d7f3d62830e3d1099ec7692081f142eaf06bb314d674346781b9d",
   "tracks": {
     "arc_agi_format": {
       "honest_abstentions": 3,
@@ -267,6 +267,51 @@
       "selective_accuracy_when_answered": 1.0,
       "total": 12,
       "track": "GPQA_style_graduate_science",
+      "wrong": 0
+    },
+    "information_coding_mdl": {
+      "correct": 5,
+      "honest_abstentions": 1,
+      "rows": [
+        {
+          "case_id": "INF_01_dyadic_huffman_bits",
+          "expected": 1.75,
+          "matched": true,
+          "predicted": 1.75
+        },
+        {
+          "case_id": "INF_02_kraft_sum_prefix",
+          "expected": 1.0,
+          "matched": true,
+          "predicted": 1.0
+        },
+        {
+          "case_id": "INF_03_uniform_gini_zero",
+          "expected": 0.0,
+          "matched": true,
+          "predicted": 0.0
+        },
+        {
+          "case_id": "INF_04_bell_purity_half",
+          "expected": 0.5,
+          "matched": true,
+          "predicted": 0.5
+        },
+        {
+          "case_id": "INF_05_dirac_gini_n4",
+          "expected": 0.75,
+          "matched": true,
+          "predicted": 0.75
+        },
+        {
+          "case_id": "INF_06_kolmogorov_exact_HARD",
+          "expected": "HONEST_ABSTAIN_UNCOMPUTABLE",
+          "matched": true,
+          "predicted": "HONEST_ABSTAIN_UNCOMPUTABLE"
+        }
+      ],
+      "total": 6,
+      "track": "information_coding_and_mdl",
       "wrong": 0
     },
     "swe_bench_style": {

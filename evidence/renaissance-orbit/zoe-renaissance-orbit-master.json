@@ -4,17 +4,23 @@
     "all_11_worlds_verified": true,
     "creative_art_circuit_cathedral_present": true,
     "creative_art_dorothy_tribute_present": true,
+    "creative_art_eleven_world_orrery_present": true,
     "creative_art_observatory_present": true,
     "creative_art_optimal_transport_symphony_present": true,
+    "creative_art_quantum_prism_present": true,
     "creative_art_rosetta_hypersphere_present": true,
     "creative_art_starlight_phase_present": true,
     "cross_pollination_edges_ge_20": true,
     "kloster_mccabe_monorepo_elegance_verified": true,
     "latex_pdf_compiled_gt_100kb": true,
     "supply_chain_sha256_manifest_present": true,
+    "theorem10_kloster_coding_mdl_verified": true,
+    "theorem11_master_unification_11_worlds_verified": true,
     "theorem5_kloster_thermodynamics_verified": true,
     "theorem6_riemannian_rosetta_stone_verified": true,
     "theorem7_kloster_optimal_transport_verified": true,
+    "theorem8_kloster_majorization_mixing_verified": true,
+    "theorem9_kloster_quantum_duality_verified": true,
     "zoe_chat_orbit_commands_live": true,
     "zoe_os_all_17_gem_engines_available": true,
     "zoe_os_orbit_ledger_intact": true
@@ -27,12 +33,13 @@
     "sentience_claimed": false,
     "zoe_clone_claimed": false
   },
-  "contract": "zoe-11-world-renaissance-orbit/v5",
-  "cross_pollination_edges_count": 31,
+  "contract": "zoe-11-world-renaissance-orbit/v11",
+  "cross_pollination_edges_count": 52,
   "gem_engines_available": 17,
-  "latex_pdf_bytes": 1532382,
-  "master_sha256": "4f24c0f88421bb5157e1bf03d64f2bcee569eb888cfa60185b7800fdecf432b8",
-  "orbit_passes_completed": 5,
+  "latex_pdf_bytes": 2715320,
+  "master_sha256": "0deadb29a0163b129888016eaa91df7821595b95dbf77c408a2a096974194a14",
+  "orbit_passes_completed": 11,
+  "theorems_proved_sympy": 11,
   "worlds": [
     {
       "engine_id": "research",
@@ -42,6 +49,9 @@
         "world4_zoe_os",
         "world1_live_qwen",
         "world11_groove",
+        "world10_security",
+        "world3_evolution",
+        "world2_benchmarks",
         "world6_dorothy",
         "world7_cern",
         "world8_voice",
@@ -58,7 +68,9 @@
       "improves_worlds": [
         "world1_live_qwen",
         "world10_security",
-        "world3_evolution"
+        "world3_evolution",
+        "world2_benchmarks",
+        "world5_kloster_theory"
       ],
       "plate_path": "components/agent-logging-system/docs/images/zoe-os-living-constellation.png",
       "verified": true,
@@ -70,7 +82,9 @@
       "evidence_sha256": "6b1330fe5c596ca1",
       "improves_worlds": [
         "world4_zoe_os",
-        "world2_benchmarks"
+        "world2_benchmarks",
+        "world5_kloster_theory",
+        "world10_security"
       ],
       "plate_path": null,
       "verified": true,
@@ -83,7 +97,8 @@
       "improves_worlds": [
         "world6_dorothy",
         "world8_voice",
-        "world3_evolution"
+        "world3_evolution",
+        "world7_cern"
       ],
       "plate_path": "components/agent-logging-system/docs/images/zoe-groove-forensics-poincare.png",
       "verified": true,
@@ -96,7 +111,9 @@
       "improves_worlds": [
         "world4_zoe_os",
         "world1_live_qwen",
-        "world3_evolution"
+        "world3_evolution",
+        "world11_groove",
+        "world7_cern"
       ],
       "plate_path": null,
       "verified": true,
@@ -105,11 +122,12 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/open-ended-evolution/multistmt-evolution-report.json",
-      "evidence_sha256": "0f043338c2da7613",
+      "evidence_sha256": "8d86735ae4f30c4b",
       "improves_worlds": [
         "world4_zoe_os",
         "world9_alife",
-        "world2_benchmarks"
+        "world2_benchmarks",
+        "world11_groove"
       ],
       "plate_path": null,
       "verified": true,
@@ -118,10 +136,12 @@
     {
       "engine_id": "autonomy",
       "evidence_path": "evidence/external-benchmarks/external-benchmark-report.json",
-      "evidence_sha256": "8e1234a7c66b9899",
+      "evidence_sha256": "0a2175888a8d7f3d",
       "improves_worlds": [
         "world4_zoe_os",
-        "world5_kloster_theory"
+        "world5_kloster_theory",
+        "world3_evolution",
+        "world10_security"
       ],
       "plate_path": null,
       "verified": true,
@@ -133,7 +153,9 @@
       "evidence_sha256": "a24c539448ccb340",
       "improves_worlds": [
         "world4_zoe_os",
-        "world5_kloster_theory"
+        "world5_kloster_theory",
+        "world11_groove",
+        "world9_alife"
       ],
       "plate_path": "components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png",
       "verified": true,
@@ -145,7 +167,9 @@
       "evidence_sha256": "8d722e08a9c1d9e5",
       "improves_worlds": [
         "world4_zoe_os",
-        "world5_kloster_theory"
+        "world5_kloster_theory",
+        "world10_security",
+        "world11_groove"
       ],
       "plate_path": "components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png",
       "verified": true,
@@ -157,7 +181,9 @@
       "evidence_sha256": "fb685fc0d60766e7",
       "improves_worlds": [
         "world4_zoe_os",
-        "world9_alife"
+        "world9_alife",
+        "world11_groove",
+        "world5_kloster_theory"
       ],
       "plate_path": "components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png",
       "verified": true,
@@ -169,7 +195,9 @@
       "evidence_sha256": "6e53f478b3084546",
       "improves_worlds": [
         "world4_zoe_os",
-        "world8_voice"
+        "world8_voice",
+        "world3_evolution",
+        "world5_kloster_theory"
       ],
       "plate_path": "components/agent-logging-system/docs/images/zoe-creative-alife-ecosystem.png",
       "verified": true,

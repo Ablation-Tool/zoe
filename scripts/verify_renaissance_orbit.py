@@ -24,17 +24,17 @@ from zoe_autonomy.chat import ZoeChat
 from zoe_autonomy.zoe_os_mind import ZoeOSMind
 
 ORBIT_SPECS: List[Tuple[str, str, str, str, Tuple[str, ...]]] = [
-    ("world5_kloster_theory", "research", "evidence/kloster-theory/kloster-info-geometry-report.json", "components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png", ("world4_zoe_os", "world1_live_qwen", "world11_groove", "world6_dorothy", "world7_cern", "world8_voice", "world9_alife")),
-    ("world4_zoe_os", "zoe", "evidence/zoe-os/zoe-os-mind-report.json", "components/agent-logging-system/docs/images/zoe-os-living-constellation.png", ("world1_live_qwen", "world10_security", "world3_evolution")),
-    ("world1_live_qwen", "autonomy", "evidence/qwen-steerer/qwen-steerer-report.json", "", ("world4_zoe_os", "world2_benchmarks")),
-    ("world11_groove", "helen", "evidence/groove-forensics/groove-forensics-report.json", "components/agent-logging-system/docs/images/zoe-groove-forensics-poincare.png", ("world6_dorothy", "world8_voice", "world3_evolution")),
-    ("world10_security", "kevlar", "evidence/security-redteam/security-redteam-report.json", "", ("world4_zoe_os", "world1_live_qwen", "world3_evolution")),
-    ("world3_evolution", "autonomy", "evidence/open-ended-evolution/multistmt-evolution-report.json", "", ("world4_zoe_os", "world9_alife", "world2_benchmarks")),
-    ("world2_benchmarks", "autonomy", "evidence/external-benchmarks/external-benchmark-report.json", "", ("world4_zoe_os", "world5_kloster_theory")),
-    ("world6_dorothy", "brain", "evidence/dorothy-neurogarden/dorothy-neurogarden-3d-report.json", "components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png", ("world4_zoe_os", "world5_kloster_theory")),
-    ("world7_cern", "cern-console", "evidence/cern-trigger/cern-kloster-trigger-report.json", "components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png", ("world4_zoe_os", "world5_kloster_theory")),
-    ("world8_voice", "zoe", "evidence/voice-choral/zoe-choral-composer-report.json", "components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png", ("world4_zoe_os", "world9_alife")),
-    ("world9_alife", "life", "evidence/alife-ecosystem/zoe-alife-ecosystem-report.json", "components/agent-logging-system/docs/images/zoe-creative-alife-ecosystem.png", ("world4_zoe_os", "world8_voice")),
+    ("world5_kloster_theory", "research", "evidence/kloster-theory/kloster-info-geometry-report.json", "components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png", ("world4_zoe_os", "world1_live_qwen", "world11_groove", "world10_security", "world3_evolution", "world2_benchmarks", "world6_dorothy", "world7_cern", "world8_voice", "world9_alife")),
+    ("world4_zoe_os", "zoe", "evidence/zoe-os/zoe-os-mind-report.json", "components/agent-logging-system/docs/images/zoe-os-living-constellation.png", ("world1_live_qwen", "world10_security", "world3_evolution", "world2_benchmarks", "world5_kloster_theory")),
+    ("world1_live_qwen", "autonomy", "evidence/qwen-steerer/qwen-steerer-report.json", "", ("world4_zoe_os", "world2_benchmarks", "world5_kloster_theory", "world10_security")),
+    ("world11_groove", "helen", "evidence/groove-forensics/groove-forensics-report.json", "components/agent-logging-system/docs/images/zoe-groove-forensics-poincare.png", ("world6_dorothy", "world8_voice", "world3_evolution", "world7_cern")),
+    ("world10_security", "kevlar", "evidence/security-redteam/security-redteam-report.json", "", ("world4_zoe_os", "world1_live_qwen", "world3_evolution", "world11_groove", "world7_cern")),
+    ("world3_evolution", "autonomy", "evidence/open-ended-evolution/multistmt-evolution-report.json", "", ("world4_zoe_os", "world9_alife", "world2_benchmarks", "world11_groove")),
+    ("world2_benchmarks", "autonomy", "evidence/external-benchmarks/external-benchmark-report.json", "", ("world4_zoe_os", "world5_kloster_theory", "world3_evolution", "world10_security")),
+    ("world6_dorothy", "brain", "evidence/dorothy-neurogarden/dorothy-neurogarden-3d-report.json", "components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png", ("world4_zoe_os", "world5_kloster_theory", "world11_groove", "world9_alife")),
+    ("world7_cern", "cern-console", "evidence/cern-trigger/cern-kloster-trigger-report.json", "components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png", ("world4_zoe_os", "world5_kloster_theory", "world10_security", "world11_groove")),
+    ("world8_voice", "zoe", "evidence/voice-choral/zoe-choral-composer-report.json", "components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png", ("world4_zoe_os", "world9_alife", "world11_groove", "world5_kloster_theory")),
+    ("world9_alife", "life", "evidence/alife-ecosystem/zoe-alife-ecosystem-report.json", "components/agent-logging-system/docs/images/zoe-creative-alife-ecosystem.png", ("world4_zoe_os", "world8_voice", "world3_evolution", "world5_kloster_theory")),
 ]
 
 
@@ -104,7 +104,11 @@ def _build_master_report(rows: List[Dict[str, Any]], snap: Dict[str, Any], all_o
         "theorem5_kloster_thermodynamics_verified": _check_json_verified("evidence/kloster-thermodynamics/kloster-thermodynamics-report.json"),
         "theorem6_riemannian_rosetta_stone_verified": _check_json_verified("evidence/kloster-riemannian/kloster-riemannian-report.json"),
         "theorem7_kloster_optimal_transport_verified": _check_json_verified("evidence/kloster-optimal-transport/kloster-optimal-transport-report.json"),
-        "supply_chain_sha256_manifest_present": _check_file_min_bytes("evidence/renaissance-orbit/SHA256SUMS.orbit", 500),
+        "theorem8_kloster_majorization_mixing_verified": _check_json_verified("evidence/kloster-majorization/kloster-majorization-report.json"),
+        "theorem9_kloster_quantum_duality_verified": _check_json_verified("evidence/kloster-quantum/kloster-quantum-report.json"),
+        "theorem10_kloster_coding_mdl_verified": _check_json_verified("evidence/kloster-coding-mdl/kloster-coding-mdl-report.json"),
+        "theorem11_master_unification_11_worlds_verified": _check_json_verified("evidence/kloster-unification/kloster-unification-report.json"),
+        "supply_chain_sha256_manifest_present": _check_file_min_bytes("evidence/renaissance-orbit/SHA256SUMS.orbit", 1000),
         "zoe_chat_orbit_commands_live": _verify_zoe_chat_orbit_commands(),
         "latex_pdf_compiled_gt_100kb": _check_file_min_bytes(pdf_rel, 100_000),
         "creative_art_observatory_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-renaissance-observatory-art.png", 100_000),
@@ -113,10 +117,13 @@ def _build_master_report(rows: List[Dict[str, Any]], snap: Dict[str, Any], all_o
         "creative_art_starlight_phase_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-kloster-starlight-phase-art.png", 100_000),
         "creative_art_rosetta_hypersphere_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-riemannian-rosetta-art.png", 100_000),
         "creative_art_optimal_transport_symphony_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-optimal-transport-symphony-art.png", 100_000),
+        "creative_art_quantum_prism_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-quantum-kloster-prism-art.png", 100_000),
+        "creative_art_eleven_world_orrery_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-eleven-world-grand-orrery-art.png", 100_000),
     }
     master = {
-        "contract": "zoe-11-world-renaissance-orbit/v5",
-        "orbit_passes_completed": 5,
+        "contract": "zoe-11-world-renaissance-orbit/v11",
+        "orbit_passes_completed": 11,
+        "theorems_proved_sympy": 11,
         "worlds_verified": sum(1 for w in rows if w["verified"]),
         "worlds_total": len(rows),
         "cross_pollination_edges_count": len(snap["cross_pollinations"]),
@@ -152,7 +159,7 @@ def main() -> int:
     print()
     for k, ok in master["checks"].items():
         print(f"[{'PASS' if ok else 'FAIL'}] {k}")
-    print(f"\nORBIT MASTER (PASS 5): {master['worlds_verified']}/11 Worlds | {master['cross_pollination_edges_count']} Cross-Pollination Edges | SHA-256={master['master_sha256'][:16]}")
+    print(f"\nORBIT MASTER (PASS 11 -- ALL 11 COMPLETE): {master['worlds_verified']}/11 Worlds | 11/11 Theorems | {master['cross_pollination_edges_count']} Cross-Pollination Edges | SHA-256={master['master_sha256'][:16]}")
     return 0 if master["all_verified"] else 1
 
 

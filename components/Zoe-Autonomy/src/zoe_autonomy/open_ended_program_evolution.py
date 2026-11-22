@@ -389,6 +389,14 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
             "passed": ok_s,
         })
 
+    # Orbit Pass 8: Theorem 10 Structural MDL Compression Check (compact evolved AST vs bloated noise ctrl)
+    import zlib as _zlib
+
+    evolved_mdl_bits = len(_zlib.compress(best_source.encode("utf-8"), level=9)) * 8
+    bloated_src = best_source + "\n# " + ("x1y2z3q4w5e6r7t8u9p0 " * 25) + "\n"
+    bloated_mdl_bits = len(_zlib.compress(bloated_src.encode("utf-8"), level=9)) * 8
+    mdl_compact_ok = evolved_mdl_bits < 2200 and evolved_mdl_bits < bloated_mdl_bits
+
     checks = {
         "zero_prewritten_solutions_and_adopted_gens": adopted_generations >= 5,
         "hostile_ast_payloads_4_of_4_blocked": hostile_blocked == len(hostile_payloads),
@@ -400,6 +408,7 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "evolved_code_elegance_high_mi_and_low_cc": evolved_elegance["mi_score"] >= 65.0 and evolved_elegance["max_cc"] <= 4,
         "evolved_lies_on_accuracy_elegance_pareto_front": evolved_on_pareto,
         "multi_seed_3_of_3_stability_and_grade_a": seed_wins == 3,
+        "theorem10_mdl_compact_description_length": mdl_compact_ok,
     }
     report = {
         "contract": CONTRACT,

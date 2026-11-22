@@ -18,6 +18,7 @@
     "evolved_stateful_beats_stateless_control": true,
     "hostile_ast_payloads_4_of_4_blocked": true,
     "multi_seed_3_of_3_stability_and_grade_a": true,
+    "theorem10_mdl_compact_description_length": true,
     "uses_helper_conditional_and_memory": true,
     "zero_prewritten_solutions_and_adopted_gens": true
   },
@@ -26,7 +27,7 @@
     "cloud_tokens_used": 0
   },
   "contract": "zoe-open-ended-multistmt-evolution/v1",
-  "evidence_sha256": "0f043338c2da7613c1cb2682f29f7de91766f436eb7cfcb0be8b295c4f2b89c6",
+  "evidence_sha256": "8d86735ae4f30c4b32fe8b75a7419a2f44bd56b37b37257e87c70918cf3b7c66",
   "evolved_code_elegance": {
     "grade": "A",
     "maintainability_index_mi": 71.866,
