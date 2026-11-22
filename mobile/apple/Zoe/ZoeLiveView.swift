@@ -111,20 +111,52 @@ struct ZoeLiveView: View {
                 Spacer(minLength: 4)
                 Button(action: onOrbTap) {
                     ZStack {
+                        // Iridescent fluid aurora rings matching Android LiveOrbView (v0.9.5-beta)
                         Circle()
                             .fill(RadialGradient(
                                 colors: [
-                                    (active ? GemPalette.emerald : GemPalette.cobalt).opacity(0.65),
-                                    GemPalette.seafoam.opacity(0.18),
+                                    (active ? GemPalette.emerald : GemPalette.cobalt).opacity(0.68),
+                                    GemPalette.seafoam.opacity(0.24),
+                                    GemPalette.ruby.opacity(0.08),
                                     Color.clear,
                                 ],
                                 center: .center,
-                                startRadius: 20,
-                                endRadius: cameraOn ? 78 : 112
+                                startRadius: 16,
+                                endRadius: cameraOn ? 82 : 116
                             ))
-                            .frame(width: cameraOn ? 148 : 212, height: cameraOn ? 148 : 212)
+                            .frame(width: cameraOn ? 156 : 224, height: cameraOn ? 156 : 224)
                             .scaleEffect(pulse ? 1.07 : 0.94)
                             .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: true), value: pulse)
+
+                        Ellipse()
+                            .stroke(
+                                LinearGradient(
+                                    colors: [GemPalette.cobalt.opacity(0.75), GemPalette.seafoam.opacity(0.55), GemPalette.ruby.opacity(0.45)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 2.4
+                            )
+                            .frame(width: cameraOn ? 116 : 166, height: cameraOn ? 84 : 118)
+                            .rotationEffect(.degrees(pulse ? 26 : -14))
+                            .animation(.easeInOut(duration: 3.4).repeatForever(autoreverses: true), value: pulse)
+
+                        Ellipse()
+                            .stroke(
+                                LinearGradient(
+                                    colors: [GemPalette.seafoam.opacity(0.65), GemPalette.ochre.opacity(0.42), GemPalette.cobalt.opacity(0.60)],
+                                    startPoint: .bottomLeading,
+                                    endPoint: .topTrailing
+                                ),
+                                lineWidth: 1.8
+                            )
+                            .frame(width: cameraOn ? 92 : 132, height: cameraOn ? 124 : 172)
+                            .rotationEffect(.degrees(pulse ? -24 : 18))
+                            .animation(.easeInOut(duration: 2.9).repeatForever(autoreverses: true), value: pulse)
+
+                        Circle()
+                            .stroke(Color.white.opacity(0.28), lineWidth: 1.2)
+                            .frame(width: cameraOn ? 94 : 132, height: cameraOn ? 94 : 132)
 
                         Image("RubySprout")
                             .resizable()

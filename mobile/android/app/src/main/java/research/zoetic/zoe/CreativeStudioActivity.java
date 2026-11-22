@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,9 +14,11 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
@@ -74,6 +77,11 @@ public final class CreativeStudioActivity extends ComponentActivity {
     private boolean videoPreviewPlaying = false;
     private float videoPreviewT = 0.35f;
     private boolean syncingSliders = false;
+    private boolean drawMode = false;
+    private int activeInkColor = Color.rgb(255, 214, 102);
+    private float activeBrushWidthNorm = 0.013f;
+    private ImageLabEngine.BrushStroke activeStroke;
+    private final Matrix inverseImageMatrix = new Matrix();
 
     private Button tabImageBtn;
     private Button tabVideoBtn;
@@ -91,7 +99,20 @@ public final class CreativeStudioActivity extends ComponentActivity {
     private Button cropBtn;
     private Button flipBtn;
     private Button adjustToggleBtn;
+    private Button drawToggleBtn;
     private LinearLayout adjustDrawer;
+    private LinearLayout drawDrawer;
+    private final java.util.List<Button> inkColorBtns = new java.util.ArrayList<>();
+    private final java.util.List<Button> brushSizeBtns = new java.util.ArrayList<>();
+    private final int[] inkPaletteColors = {
+            Color.rgb(255, 214, 102), // Luminous Gold
+            Color.rgb(72, 229, 240),  // Coastal Cyan
+            Color.rgb(244, 63, 94),   // Living Ruby
+            Color.rgb(110, 231, 168), // Botanical Emerald
+            Color.rgb(250, 250, 252), // Chalk White
+            Color.rgb(18, 22, 32)     // Archival Ink
+    };
+    private final float[] brushWidths = {0.007f, 0.013f, 0.024f};
     private SeekBar brightBar;
     private SeekBar contrastBar;
     private SeekBar warmthBar;
@@ -205,6 +226,44 @@ public final class CreativeStudioActivity extends ComponentActivity {
         imagePreview.setBackground(Ui.cardBackground(this, 20));
         imagePreview.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
         imagePreview.setOnTouchListener((v, ev) -> {
+            if (drawMode && editedBitmap != null) {
+                int action = ev.getActionMasked();
+                float vx = ev.getX() - imagePreview.getPaddingLeft();
+                float vy = ev.getY() - imagePreview.getPaddingTop();
+                float[] pts = {vx, vy};
+                if (imagePreview.getImageMatrix().invert(inverseImageMatrix)) {
+                    inverseImageMatrix.mapPoints(pts);
+                }
+                float nx = Math.max(0f, Math.min(1f, pts[0] / Math.max(1f, editedBitmap.getWidth())));
+                float ny = Math.max(0f, Math.min(1f, pts[1] / Math.max(1f, editedBitmap.getHeight())));
+                if (action == MotionEvent.ACTION_DOWN) {
+                    if (v.getParent() != null) {
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                    }
+                    pushUndo();
+                    activeStroke = new ImageLabEngine.BrushStroke(activeInkColor, activeBrushWidthNorm);
+                    activeStroke.points.add(new float[]{nx, ny});
+                    editSpec.strokes.add(activeStroke);
+                    refreshImagePreview();
+                    return true;
+                } else if (action == MotionEvent.ACTION_MOVE && activeStroke != null) {
+                    float[] last = activeStroke.points.get(activeStroke.points.size() - 1);
+                    if (Math.hypot(nx - last[0], ny - last[1]) >= 0.006) {
+                        activeStroke.points.add(new float[]{nx, ny});
+                        refreshImagePreview();
+                    }
+                    return true;
+                } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+                    if (v.getParent() != null) {
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                    }
+                    activeStroke = null;
+                    status.setText("Ink layer updated (" + editSpec.strokes.size()
+                            + (editSpec.strokes.size() == 1 ? " stroke)." : " strokes)."));
+                    return true;
+                }
+                return true;
+            }
             if (ev.getAction() == MotionEvent.ACTION_DOWN && sourceBitmap != null) {
                 imagePreview.setImageBitmap(sourceBitmap);
                 editSummary.setText("Comparing: Original (release to return)");
@@ -237,7 +296,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         baselineMeta.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 6));
         panel.addView(baselineMeta);
 
-        // 8 HD Scientific-Aesthetic Procedural Baselines (active chip highlighted!)
+        // 10 HD Scientific-Aesthetic Procedural Baselines (active chip highlighted!)
         HorizontalScrollView baseScroll = new HorizontalScrollView(this);
         baseScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout baseRow = new LinearLayout(this);
@@ -252,6 +311,10 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 pb.setId(R.id.studio_baseline_chladni);
             } else if (plate == ScientificVisualSubstrate.BaselinePlate.FIBONACCI_PHYLLOTAXIS) {
                 pb.setId(R.id.studio_baseline_phyllotaxis);
+            } else if (plate == ScientificVisualSubstrate.BaselinePlate.VORONOI_CRYSTAL) {
+                pb.setId(R.id.studio_baseline_voronoi);
+            } else if (plate == ScientificVisualSubstrate.BaselinePlate.LISSAJOUS_ORBIT) {
+                pb.setId(R.id.studio_baseline_lissajous);
             }
             baselineChips.put(plate, pb);
             LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(
@@ -273,13 +336,14 @@ public final class CreativeStudioActivity extends ComponentActivity {
         cmdRow.setPadding(Ui.dp(this, 12), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
         commandInput = new EditText(this);
         commandInput.setId(R.id.studio_command_input);
-        commandInput.setHint("Try warm, chladni, blur, caption…");
+        commandInput.setHint("Try warm, voronoi, lissajous, blur…");
         commandInput.setSingleLine(true);
+        commandInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         commandInput.setTextColor(Ui.textColor(this));
         commandInput.setHintTextColor(Ui.mutedColor(this));
         commandInput.setBackground(null);
         commandInput.setTextSize(14f);
-        Button applyCmdBtn = Ui.primaryButton(this, "Apply", Ui.COBALT, v -> {
+        Runnable runCommand = () -> {
             String cmd = commandInput.getText() == null ? "" : commandInput.getText().toString().trim();
             if (!cmd.isEmpty()) {
                 ScientificVisualSubstrate.BaselinePlate detectedPlate =
@@ -295,7 +359,16 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 refreshImagePreview();
                 status.setText("Applied edit: " + editSpec.summary());
             }
+        };
+        commandInput.setOnEditorActionListener((v, actionId, ev) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                    || (ev != null && ev.getKeyCode() == KeyEvent.KEYCODE_ENTER && ev.getAction() == KeyEvent.ACTION_DOWN)) {
+                runCommand.run();
+                return true;
+            }
+            return false;
         });
+        Button applyCmdBtn = Ui.primaryButton(this, "Apply", Ui.COBALT, v -> runCommand.run());
         applyCmdBtn.setId(R.id.studio_apply_cmd);
         applyCmdBtn.setTextSize(13.5f);
         applyCmdBtn.setMinHeight(Ui.dp(this, 38));
@@ -307,7 +380,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         cmdLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(cmdRow, cmdLp);
 
-        // 9 Film & Archival Filter Presets (active chip highlighted!)
+        // 12 Film & Archival Filter Presets (active chip highlighted!)
         HorizontalScrollView filterScroll = new HorizontalScrollView(this);
         filterScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout filterRow = new LinearLayout(this);
@@ -331,7 +404,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         fsLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(filterScroll, fsLp);
 
-        // Precision Studio Tool Strip (Undo · Rotate · Flip · Crop · Blur · Sliders · Reset)
+        // Precision Studio Tool Strip (Undo · Tune · ✎ Draw · Rotate · Crop · Flip · Blur · Reset)
         HorizontalScrollView toolScroll = new HorizontalScrollView(this);
         toolScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout toolRow = new LinearLayout(this);
@@ -369,13 +442,24 @@ public final class CreativeStudioActivity extends ComponentActivity {
         });
         adjustToggleBtn.setId(R.id.studio_adjust_toggle);
 
+        drawToggleBtn = pillChip("✎ Draw", v -> {
+            drawMode = !drawMode;
+            drawDrawer.setVisibility(drawMode ? View.VISIBLE : View.GONE);
+            drawToggleBtn.setText(drawMode ? "✎ Drawing" : "✎ Draw");
+            styleChip(drawToggleBtn, drawMode);
+            status.setText(drawMode
+                    ? "Draw mode ON — sketch directly on canvas with your finger."
+                    : "Draw mode OFF — hold preview to compare original.");
+        });
+        drawToggleBtn.setId(R.id.studio_draw_toggle);
+
         Button resetBtn = pillChip("Reset", v -> {
             pushUndo();
             editSpec = new ImageLabEngine.EditSpec();
             refreshImagePreview();
             status.setText("Reset edits to clean plate.");
         });
-        for (Button tb : new Button[]{undoBtn, adjustToggleBtn, rotateBtn, cropBtn, flipBtn, blurBtn, resetBtn}) {
+        for (Button tb : new Button[]{undoBtn, adjustToggleBtn, drawToggleBtn, rotateBtn, cropBtn, flipBtn, blurBtn, resetBtn}) {
             LinearLayout.LayoutParams tlp2 = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 36));
             tlp2.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -386,6 +470,74 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tsLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(toolScroll, tsLp);
+
+        // Collapsible Live Vector Ink Bar (6 Ink Swatches · S/M/L Nib · Clear Ink)
+        drawDrawer = Ui.vertical(this);
+        drawDrawer.setBackground(Ui.cardBackground(this, 20));
+        drawDrawer.setPadding(Ui.dp(this, 12), Ui.dp(this, 10), Ui.dp(this, 12), Ui.dp(this, 10));
+        drawDrawer.setVisibility(View.GONE);
+
+        LinearLayout colorRow = new LinearLayout(this);
+        colorRow.setOrientation(LinearLayout.HORIZONTAL);
+        colorRow.setGravity(Gravity.CENTER_VERTICAL);
+        String[] colorNames = {"Gold", "Cyan", "Ruby", "Emerald", "White", "Ink"};
+        for (int i = 0; i < inkPaletteColors.length; i++) {
+            final int col = inkPaletteColors[i];
+            Button sw = new Button(this);
+            sw.setContentDescription("Ink color " + colorNames[i]);
+            sw.setStateListAnimator(null);
+            sw.setOnClickListener(Ui.withHaptic(v -> {
+                activeInkColor = col;
+                refreshDrawPaletteStates();
+            }));
+            Ui.attachPressSpring(sw);
+            inkColorBtns.add(sw);
+            LinearLayout.LayoutParams swLp = new LinearLayout.LayoutParams(Ui.dp(this, 32), Ui.dp(this, 32));
+            swLp.setMargins(0, 0, Ui.dp(this, 8), 0);
+            colorRow.addView(sw, swLp);
+        }
+        drawDrawer.addView(colorRow);
+
+        LinearLayout nibRow = new LinearLayout(this);
+        nibRow.setOrientation(LinearLayout.HORIZONTAL);
+        nibRow.setGravity(Gravity.CENTER_VERTICAL);
+        nibRow.setPadding(0, Ui.dp(this, 8), 0, 0);
+        String[] sizeLabels = {"S", "M", "L"};
+        for (int i = 0; i < brushWidths.length; i++) {
+            final float wNorm = brushWidths[i];
+            Button sb = pillChip(sizeLabels[i], v -> {
+                activeBrushWidthNorm = wNorm;
+                refreshDrawPaletteStates();
+            });
+            sb.setMinWidth(Ui.dp(this, 44));
+            sb.setMinimumWidth(Ui.dp(this, 44));
+            sb.setPadding(Ui.dp(this, 12), 0, Ui.dp(this, 12), 0);
+            brushSizeBtns.add(sb);
+            LinearLayout.LayoutParams sbLp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32));
+            sbLp.setMargins(0, 0, Ui.dp(this, 8), 0);
+            nibRow.addView(sb, sbLp);
+        }
+        Button clearInkBtn = pillChip("Clear Ink", v -> {
+            if (!editSpec.strokes.isEmpty()) {
+                pushUndo();
+                editSpec.strokes.clear();
+                refreshImagePreview();
+                status.setText("Cleared hand-drawn ink layer.");
+            }
+        });
+        clearInkBtn.setMinWidth(0);
+        clearInkBtn.setMinimumWidth(0);
+        clearInkBtn.setBackground(Ui.tonalPillDrawable(this, Ui.tonalWellColor(this), Ui.primaryAccent(this), 16));
+        nibRow.addView(clearInkBtn, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 32)));
+        drawDrawer.addView(nibRow);
+        refreshDrawPaletteStates();
+
+        LinearLayout.LayoutParams ddLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ddLp.setMargins(0, 0, 0, Ui.dp(this, 10));
+        panel.addView(drawDrawer, ddLp);
 
         // Collapsible Precision Tune Sliders Card (Brightness · Contrast · Warmth · Saturation · Vignette)
         adjustDrawer = Ui.vertical(this);
@@ -450,10 +602,13 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         videoPreview = new ImageView(this);
         videoPreview.setId(R.id.studio_video_preview);
-        videoPreview.setContentDescription("Live animated video preview");
+        videoPreview.setContentDescription("Live animated video preview. Tap to play or pause.");
         videoPreview.setScaleType(ImageView.ScaleType.FIT_CENTER);
         videoPreview.setBackground(Ui.cardBackground(this, 20));
         videoPreview.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
+        videoPreview.setClickable(true);
+        videoPreview.setFocusable(true);
+        videoPreview.setOnClickListener(Ui.withHaptic(v -> toggleVideoPreviewPlayback()));
         LinearLayout.LayoutParams vpLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 250));
         vpLp.setMargins(0, 0, 0, Ui.dp(this, 8));
@@ -637,7 +792,37 @@ public final class CreativeStudioActivity extends ComponentActivity {
         b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 18));
         b.setStateListAnimator(null);
         b.setOnClickListener(Ui.withHaptic(listener));
+        Ui.attachPressSpring(b);
         return b;
+    }
+
+    private void refreshDrawPaletteStates() {
+        int ring = Ui.primaryAccent(this);
+        for (int i = 0; i < inkColorBtns.size() && i < inkPaletteColors.length; i++) {
+            int col = inkPaletteColors[i];
+            boolean sel = col == activeInkColor;
+            Button b = inkColorBtns.get(i);
+            if (sel) {
+                b.setBackground(Ui.outlinedPillDrawable(this, col, ring, ring, 99));
+                b.setScaleX(1.12f);
+                b.setScaleY(1.12f);
+            } else {
+                b.setBackground(Ui.outlinedPillDrawable(this, col, Ui.dividerColor(this), ring, 99));
+                b.setScaleX(1.0f);
+                b.setScaleY(1.0f);
+            }
+        }
+        for (int i = 0; i < brushSizeBtns.size() && i < brushWidths.length; i++) {
+            Button btn = brushSizeBtns.get(i);
+            boolean sel = Math.abs(brushWidths[i] - activeBrushWidthNorm) < 0.002f;
+            if (sel) {
+                btn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 15, 18) : Color.WHITE);
+                btn.setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 16));
+            } else {
+                btn.setTextColor(Ui.textColor(this));
+                btn.setBackground(Ui.tonalPillDrawable(this, Ui.tonalWellColor(this), Ui.primaryAccent(this), 16));
+            }
+        }
     }
 
     private void styleChip(Button btn, boolean selected) {

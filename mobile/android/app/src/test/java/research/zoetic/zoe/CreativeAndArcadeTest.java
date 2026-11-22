@@ -48,7 +48,31 @@ public class CreativeAndArcadeTest {
                 ScientificVisualSubstrate.detectPlateFromCommand("chladni standing wave"));
         assertEquals(ScientificVisualSubstrate.BaselinePlate.FIBONACCI_PHYLLOTAXIS,
                 ScientificVisualSubstrate.detectPlateFromCommand("fibonacci phyllotaxis rosette"));
+        assertEquals(ScientificVisualSubstrate.BaselinePlate.VORONOI_CRYSTAL,
+                ScientificVisualSubstrate.detectPlateFromCommand("voronoi crystal tessellation"));
+        assertEquals(ScientificVisualSubstrate.BaselinePlate.LISSAJOUS_ORBIT,
+                ScientificVisualSubstrate.detectPlateFromCommand("lissajous harmonic orbit"));
         assertEquals(2, ScientificVisualSubstrate.chladniModesForSeed(42).length);
+        assertEquals(2, ScientificVisualSubstrate.lissajousRatiosForSeed(42).length);
+
+        // v0.9.5 filters, vector ink strokes deep-copy & 6th video style
+        assertEquals(ImageLabEngine.FilterPreset.GOLDEN_HOUR,
+                ImageLabEngine.parseEditCommand("golden hour", new ImageLabEngine.EditSpec()).filter);
+        assertEquals(ImageLabEngine.FilterPreset.CYBER_NEON,
+                ImageLabEngine.parseEditCommand("cyber neon", new ImageLabEngine.EditSpec()).filter);
+        assertEquals(ImageLabEngine.FilterPreset.MATTE_FILM,
+                ImageLabEngine.parseEditCommand("matte film", new ImageLabEngine.EditSpec()).filter);
+        ImageLabEngine.EditSpec inked = new ImageLabEngine.EditSpec();
+        ImageLabEngine.BrushStroke st = new ImageLabEngine.BrushStroke(0xFFFFD666, 0.012f);
+        st.points.add(new float[]{0.2f, 0.3f});
+        st.points.add(new float[]{0.8f, 0.7f});
+        inked.strokes.add(st);
+        ImageLabEngine.EditSpec inkedCopy = inked.copy();
+        inkedCopy.strokes.clear();
+        assertEquals(1, inked.strokes.size());
+        assertTrue(inked.summary().contains("1 stroke"));
+        assertEquals(6, VideoMakerEngine.Style.values().length);
+        assertEquals("Lissajous Orbit", VideoMakerEngine.Style.LISSAJOUS_ORBIT.label);
 
         assertEquals(0L, VideoMakerEngine.framePresentationTimeUs(0, 30));
         assertEquals(1_000_000L, VideoMakerEngine.framePresentationTimeUs(30, 30));
@@ -75,6 +99,10 @@ public class CreativeAndArcadeTest {
 
         int[] xWins = {1, 1, 1, 2, 2, 0, 0, 0, 0};
         assertEquals(1, ArcadeEngine.checkWinner(xWins));
+        int[] line = ArcadeEngine.winningLine(xWins);
+        assertEquals(0, line[0]);
+        assertEquals(1, line[1]);
+        assertEquals(2, line[2]);
 
         // Strict Kloster A_tau(p) puzzle (equality excluded!)
         ArcadeEngine.SignalPuzzle puz = new ArcadeEngine.SignalPuzzle(new double[]{0.40, 0.25, 0.20, 0.10, 0.05}, 2);

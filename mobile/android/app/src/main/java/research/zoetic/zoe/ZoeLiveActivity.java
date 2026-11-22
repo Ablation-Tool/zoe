@@ -1778,12 +1778,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
     }
 
     /**
-     * Smooth 60fps Audio-Reactive GEM Breathing Orb rendered natively on Android Canvas.
+     * Smooth 60fps Audio-Reactive Iridescent GEM Aurora Orb (Apple Intelligence / Gemini Live craft).
+     * Zero-allocation per-frame drawing (pre-allocated Paint, Path, and RectF buffers).
      */
     private static final class LiveOrbView extends View {
         private final Paint haloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint auroraPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final Paint ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint glassRimPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final Paint gemPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint gemFacetPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint motePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Path diamondPath = new Path();
+        private final Path facetPath = new Path();
+        private final android.graphics.RectF oval = new android.graphics.RectF();
         private final ValueAnimator animator;
         private float phase;
         private float targetLevel;
@@ -1794,14 +1802,17 @@ public final class ZoeLiveActivity extends ComponentActivity {
         LiveOrbView(Context context) {
             super(context);
             ringPaint.setStyle(Paint.Style.STROKE);
+            auroraPaint.setStyle(Paint.Style.STROKE);
+            auroraPaint.setStrokeCap(Paint.Cap.ROUND);
+            glassRimPaint.setStyle(Paint.Style.STROKE);
             animator = ValueAnimator.ofFloat(0f, 1f);
-            animator.setDuration(4200L);
+            animator.setDuration(4800L);
             animator.setRepeatCount(ValueAnimator.INFINITE);
             animator.setInterpolator(new LinearInterpolator());
             animator.addUpdateListener(a -> {
                 phase = (float) a.getAnimatedValue();
                 float desired = speakingPulse
-                        ? (0.35f + 0.25f * (float) Math.abs(Math.sin(phase * Math.PI * 10.0)))
+                        ? (0.38f + 0.28f * (float) Math.abs(Math.sin(phase * Math.PI * 10.0)))
                         : targetLevel;
                 smoothLevel += (desired - smoothLevel) * 0.22f;
                 invalidate();
@@ -1833,55 +1844,112 @@ public final class ZoeLiveActivity extends ComponentActivity {
             float cx = getWidth() / 2f;
             float cy = getHeight() / 2f;
             float maxR = Math.min(cx, cy) * 0.92f;
+            if (maxR <= 0f) {
+                return;
+            }
+            float d = getResources().getDisplayMetrics().density;
             float breathe = (float) Math.sin(phase * Math.PI * 2.0);
+            float deg = phase * 360f;
 
             int cCore;
+            int cMid;
             int cOuter;
             switch (state) {
                 case LISTENING -> {
-                    cCore = Color.rgb(66, 214, 164);
-                    cOuter = Color.rgb(74, 144, 255);
+                    cCore = Color.rgb(66, 224, 174);
+                    cMid = Color.rgb(72, 184, 255);
+                    cOuter = Color.rgb(120, 112, 255);
                 }
                 case THINKING -> {
-                    cCore = Color.rgb(245, 188, 92);
-                    cOuter = Color.rgb(174, 118, 255);
+                    cCore = Color.rgb(252, 202, 102);
+                    cMid = Color.rgb(186, 128, 255);
+                    cOuter = Color.rgb(88, 166, 255);
                 }
                 case SPEAKING -> {
-                    cCore = Color.rgb(245, 114, 148);
-                    cOuter = Color.rgb(92, 162, 255);
+                    cCore = Color.rgb(248, 104, 146);
+                    cMid = Color.rgb(176, 122, 255);
+                    cOuter = Color.rgb(86, 166, 255);
                 }
                 default -> {
-                    cCore = Color.rgb(98, 162, 255);
-                    cOuter = Color.rgb(62, 198, 182);
+                    cCore = Color.rgb(104, 168, 255);
+                    cMid = Color.rgb(178, 126, 252);
+                    cOuter = Color.rgb(66, 208, 186);
                 }
             }
 
-            float radius = maxR * (0.62f + 0.055f * breathe + 0.16f * smoothLevel);
+            float radius = maxR * (0.60f + 0.05f * breathe + 0.16f * smoothLevel);
+
+            // 1. Deep multi-stop atmospheric aura glow
             haloPaint.setShader(new RadialGradient(cx, cy, maxR,
-                    new int[]{Color.argb(195, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
-                            Color.argb(85, Color.red(cOuter), Color.green(cOuter), Color.blue(cOuter)),
+                    new int[]{
+                            Color.argb(210, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
+                            Color.argb(105, Color.red(cMid), Color.green(cMid), Color.blue(cMid)),
+                            Color.argb(52, Color.red(cOuter), Color.green(cOuter), Color.blue(cOuter)),
                             Color.TRANSPARENT},
-                    new float[]{0.2f, 0.66f, 1.0f}, Shader.TileMode.CLAMP));
+                    new float[]{0.14f, 0.44f, 0.72f, 1.0f}, Shader.TileMode.CLAMP));
             canvas.drawCircle(cx, cy, maxR, haloPaint);
 
+            // 2. Iridescent counter-rotating fluid aurora ribbons
+            int[] ribbonCols = {cCore, cMid, cOuter};
+            for (int i = 0; i < 3; i++) {
+                canvas.save();
+                float rot = (i % 2 == 0 ? deg : -deg * 0.75f) + i * 58f;
+                canvas.rotate(rot, cx, cy);
+                float rx = radius * (0.86f + 0.07f * (float) Math.sin((phase + i * 0.33) * Math.PI * 2.0));
+                float ry = radius * (0.62f + 0.06f * (float) Math.cos((phase + i * 0.33) * Math.PI * 2.0));
+                oval.set(cx - rx, cy - ry, cx + rx, cy + ry);
+                int col = ribbonCols[i];
+                auroraPaint.setColor(Color.argb(115 + (int) (smoothLevel * 80), Color.red(col), Color.green(col), Color.blue(col)));
+                auroraPaint.setStrokeWidth((2.4f + smoothLevel * 1.8f) * d);
+                canvas.drawOval(oval, auroraPaint);
+                canvas.restore();
+            }
+
+            // 3. Expanding harmonic pulse ripples
             for (int i = 0; i < 3; i++) {
                 float p = (phase + i / 3f) % 1f;
-                float r = radius * 0.54f + p * (maxR - radius * 0.54f);
-                ringPaint.setStrokeWidth(3f * (1f - p) + 1f);
-                ringPaint.setColor(Color.argb((int) ((1f - p) * 165), Color.red(cCore), Color.green(cCore), Color.blue(cCore)));
+                float r = radius * 0.56f + p * (maxR * 0.96f - radius * 0.56f);
+                ringPaint.setStrokeWidth((2.2f * (1f - p) + 0.8f) * d);
+                ringPaint.setColor(Color.argb((int) ((1f - p) * 135), Color.red(cCore), Color.green(cCore), Color.blue(cCore)));
                 canvas.drawCircle(cx, cy, r, ringPaint);
             }
 
-            // Central luminous GEM diamond
+            // 4. Translucent glass lens rim
+            glassRimPaint.setStrokeWidth(1.2f * d);
+            glassRimPaint.setColor(Color.argb(110, 240, 246, 255));
+            canvas.drawCircle(cx, cy, radius * 0.68f, glassRimPaint);
+
+            // 5. Orbiting starlight motes
+            for (int i = 0; i < 6; i++) {
+                double a = (phase * Math.PI * 2.0) * (i % 2 == 0 ? 1.0 : -0.65) + i * (Math.PI / 3.0);
+                float dist = radius * (0.76f + 0.14f * (float) Math.sin(phase * Math.PI * 4.0 + i));
+                float mx = cx + (float) Math.cos(a) * dist;
+                float my = cy + (float) Math.sin(a) * dist;
+                int mCol = ribbonCols[i % 3];
+                motePaint.setColor(Color.argb(175, Color.red(mCol), Color.green(mCol), Color.blue(mCol)));
+                canvas.drawCircle(mx, my, (1.8f + (i % 2) * 0.9f) * d, motePaint);
+            }
+
+            // 6. Faceted luminous Zoe GEM diamond core
+            float g = radius * 0.34f;
+            diamondPath.reset();
+            diamondPath.moveTo(cx, cy - g);
+            diamondPath.lineTo(cx + g * 0.86f, cy);
+            diamondPath.lineTo(cx, cy + g);
+            diamondPath.lineTo(cx - g * 0.86f, cy);
+            diamondPath.close();
             gemPaint.setColor(cCore);
-            float g = radius * 0.35f;
-            Path diamond = new Path();
-            diamond.moveTo(cx, cy - g);
-            diamond.lineTo(cx + g, cy);
-            diamond.lineTo(cx, cy + g);
-            diamond.lineTo(cx - g, cy);
-            diamond.close();
-            canvas.drawPath(diamond, gemPaint);
+            canvas.drawPath(diamondPath, gemPaint);
+
+            // Bright top-left prism facet highlight
+            facetPath.reset();
+            facetPath.moveTo(cx, cy - g);
+            facetPath.lineTo(cx + g * 0.86f, cy);
+            facetPath.lineTo(cx, cy - g * 0.10f);
+            facetPath.lineTo(cx - g * 0.86f, cy);
+            facetPath.close();
+            gemFacetPaint.setColor(Color.argb(135, 255, 255, 255));
+            canvas.drawPath(facetPath, gemFacetPaint);
         }
     }
 }

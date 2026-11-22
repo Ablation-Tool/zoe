@@ -358,6 +358,81 @@ final class Ui {
         return container;
     }
 
+    private static volatile boolean comfortMotionReduced;
+
+    static void setComfortMotionReduced(boolean reduced) {
+        comfortMotionReduced = reduced;
+    }
+
+    static boolean isComfortMotionReduced() {
+        return comfortMotionReduced;
+    }
+
+    /** Subtle Apple/Pixel press-scale spring physics (respects Comfort Mode). */
+    static void attachPressSpring(View view) {
+        if (view == null) {
+            return;
+        }
+        view.setOnTouchListener((v, ev) -> {
+            if (comfortMotionReduced || !v.isEnabled()) {
+                return false;
+            }
+            int action = ev.getActionMasked();
+            if (action == android.view.MotionEvent.ACTION_DOWN) {
+                v.animate().cancel();
+                v.animate().scaleX(0.968f).scaleY(0.968f).setDuration(75L).start();
+            } else if (action == android.view.MotionEvent.ACTION_UP
+                    || action == android.view.MotionEvent.ACTION_CANCEL) {
+                v.animate().cancel();
+                v.animate().scaleX(1f).scaleY(1f)
+                        .setDuration(165L)
+                        .setInterpolator(new android.view.animation.OvershootInterpolator(1.35f))
+                        .start();
+            }
+            return false;
+        });
+    }
+
+    /** Renders inline **bold** and `code` cleanly in chat bubbles (zero external markdown libraries). */
+    static CharSequence formatRichText(Context context, String raw) {
+        if (raw == null || raw.isEmpty() || (!raw.contains("**") && !raw.contains("`"))) {
+            return raw == null ? "" : raw;
+        }
+        android.text.SpannableStringBuilder sb = new android.text.SpannableStringBuilder();
+        int i = 0;
+        int len = raw.length();
+        int codeTint = resolveColor(context, CYAN);
+        while (i < len) {
+            if (i + 1 < len && raw.charAt(i) == '*' && raw.charAt(i + 1) == '*') {
+                int end = raw.indexOf("**", i + 2);
+                if (end > i + 2) {
+                    int start = sb.length();
+                    sb.append(raw, i + 2, end);
+                    sb.setSpan(new android.text.style.StyleSpan(Typeface.BOLD),
+                            start, sb.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    i = end + 2;
+                    continue;
+                }
+            }
+            if (raw.charAt(i) == '`') {
+                int end = raw.indexOf('`', i + 1);
+                if (end > i + 1) {
+                    int start = sb.length();
+                    sb.append(raw, i + 1, end);
+                    sb.setSpan(new android.text.style.TypefaceSpan("monospace"),
+                            start, sb.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    sb.setSpan(new android.text.style.ForegroundColorSpan(codeTint),
+                            start, sb.length(), android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    i = end + 1;
+                    continue;
+                }
+            }
+            sb.append(raw.charAt(i));
+            i++;
+        }
+        return sb;
+    }
+
     /** Wrap any click listener with crisp, subtle tactile haptic confirmation (Google/Apple feel). */
     static View.OnClickListener withHaptic(View.OnClickListener listener) {
         if (listener == null) {
@@ -515,6 +590,7 @@ final class Ui {
         button.setOnClickListener(withHaptic(listener));
         button.setContentDescription(label);
         button.setStateListAnimator(null);
+        attachPressSpring(button);
         return button;
     }
 
@@ -537,6 +613,7 @@ final class Ui {
         button.setOnClickListener(withHaptic(listener));
         button.setContentDescription(label);
         button.setStateListAnimator(null);
+        attachPressSpring(button);
         return button;
     }
 

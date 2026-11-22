@@ -434,6 +434,7 @@ final class HomeView extends ScrollView {
             showQuickMoveDialog(spec);
             return true;
         });
+        Ui.attachPressSpring(row);
         return row;
     }
 
@@ -591,7 +592,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.9.4-beta · Offline-first & free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.9.5-beta · Offline-first & free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

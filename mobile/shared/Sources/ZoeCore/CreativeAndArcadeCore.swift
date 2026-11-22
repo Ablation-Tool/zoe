@@ -6,9 +6,12 @@ public enum CreativeAndArcadeCore {
     public enum FilterPreset: String, CaseIterable, Identifiable, Sendable {
         case original = "Original"
         case warmAtelier = "Atelier Warm"
+        case goldenHour = "Golden Hour"
         case cobaltNight = "Cobalt Night"
         case noirBW = "Noir B&W"
+        case matteFilm = "Matte Film"
         case emeraldFilm = "Emerald Film"
+        case cyberNeon = "Cyber Neon"
         case vividPop = "Vivid Pop"
         case sepia = "Sepia"
         case archivalVellum = "Vellum"
@@ -50,6 +53,12 @@ public enum CreativeAndArcadeCore {
         var next = current
         if lower.contains("black and white") || lower.contains("b&w") || lower.contains("noir") || lower.contains("grayscale") {
             next.filter = .noirBW
+        } else if lower.contains("golden") || lower.contains("hour") {
+            next.filter = .goldenHour
+        } else if lower.contains("cyber") || lower.contains("neon") {
+            next.filter = .cyberNeon
+        } else if lower.contains("matte") || lower.contains("cinematic") {
+            next.filter = .matteFilm
         } else if lower.contains("vellum") || lower.contains("parchment") || lower.contains("archival") {
             next.filter = .archivalVellum
         } else if lower.contains("cyanotype") || lower.contains("prussian") {
@@ -125,13 +134,18 @@ public enum CreativeAndArcadeCore {
         [0, 4, 8], [2, 4, 6],
     ]
 
-    public static func checkWinner(_ board: [Int]) -> Int {
-        guard board.count == 9 else { return 0 }
+    public static func winningLine(_ board: [Int]) -> [Int]? {
+        guard board.count == 9 else { return nil }
         for line in winLines {
             let a = board[line[0]]
-            if a != 0 && a == board[line[1]] && a == board[line[2]] { return a }
+            if a != 0 && a == board[line[1]] && a == board[line[2]] { return line }
         }
-        return 0
+        return nil
+    }
+
+    public static func checkWinner(_ board: [Int]) -> Int {
+        guard let line = winningLine(board) else { return 0 }
+        return board[line[0]]
     }
 
     public static func chooseZoeMove(_ board: [Int], unbeatable: Bool = true) -> Int {

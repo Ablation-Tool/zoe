@@ -1,14 +1,14 @@
-# Zoe (beta) · Store Compliance Checklist (Google Play + Apple App Store · `v0.9.4-beta`)
+# Zoe (beta) · Store Compliance Checklist (Google Play + Apple App Store · `v0.9.5-beta`)
 
 Zoe is **free ($0.00)**, has **no ads, no analytics, no tracking SDKs, no accounts, and no in-app purchases**.
 Core functionality runs offline on-device. Every network lane is **explicitly user-initiated and off by default** (opt-in Eliza-GEM / Closed-Loop L5 Digestion bridge, Trinity laptop bridge, opt-in DuckDuckGo/Wikipedia web citations, opt-in CPC Google Patents lookup, optional user-supplied BYOK AI keys, and optional Connectivity speed check).
 
-## Already Implemented in This Repository (`v0.9.4-beta`)
+## Already Implemented in This Repository (`v0.9.5-beta`)
 
 | Area | Android (`mobile/android`) | Apple (`mobile/apple` + `mobile/shared`) |
 |:---|:---|:---|
 | Target / SDK | `targetSdk 36` (`compileSdk 36`, `minSdk 26`, Java 17) | iOS 17+ deployment target, Swift 6 (`ZoeCore` verified on Swift 6.1.3) |
-| Version | `0.9.4` (`versionCode 15`) | `0.9.4` (`CURRENT_PROJECT_VERSION 15`) |
+| Version | `0.9.5` (`versionCode 16`) | `0.9.5` (`CURRENT_PROJECT_VERSION 16`) |
 | Backup & Data Safety | `allowBackup="false"`, `fullBackupContent="false"`, `data_extraction_rules.xml` excludes all app data | App-private container only; `PrivacyInfo.xcprivacy` declares no tracking & no collected data |
 | Privacy Firewall | Client + server firewall hard-excludes `SafeConvert`, `Privacy Vault`, raw photos & private chat bodies from `/api/digest/mobile` | Mirrors identical `MobileDigestionCore.assertOutgoingFirewall()` guarantees in Swift 6 |
 | Permissions | Camera, mic, GPS, BLE, and ARCore are runtime and explicit tap only; legacy `BLUETOOTH*` capped at `maxSdkVersion=30` | Specific, honest `Info.plist` usage strings for camera, mic, speech, location, BLE & local network |

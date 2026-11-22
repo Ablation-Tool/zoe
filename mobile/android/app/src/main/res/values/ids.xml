@@ -98,10 +98,13 @@
     <item name="studio_baseline_patent" type="id" />
     <item name="studio_baseline_chladni" type="id" />
     <item name="studio_baseline_phyllotaxis" type="id" />
+    <item name="studio_baseline_voronoi" type="id" />
+    <item name="studio_baseline_lissajous" type="id" />
     <item name="studio_command_input" type="id" />
     <item name="studio_apply_cmd" type="id" />
     <item name="studio_undo_btn" type="id" />
     <item name="studio_adjust_toggle" type="id" />
+    <item name="studio_draw_toggle" type="id" />
     <item name="studio_save_gallery" type="id" />
     <item name="studio_video_preview" type="id" />
     <item name="studio_video_play_toggle" type="id" />

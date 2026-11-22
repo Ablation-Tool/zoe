@@ -47,7 +47,9 @@ final class ScientificVisualSubstrate {
         LAMARCK_MORPHOSPACE("🌿 Lamarck", "Jean-Baptiste Lamarck · Philosophie Zoologique (1809)", "Comparative anatomy · Continuous morphospace"),
         PATENT_BLUEPRINT("📐 Patent", "Orthographic Patent Schematic (patents.google.com)", "Involute gear + prism optics · Orthographic callouts"),
         CHLADNI_PLATE("✨ Chladni", "Ernst Chladni · Acoustic Nodal Plate (1787)", "Standing wave cos(mπx)cos(nπy) − cos(nπx)cos(mπy) = 0"),
-        FIBONACCI_PHYLLOTAXIS("🌸 Phyllotaxis", "Botanical Vogel Spiral · Fibonacci (13, 21)", "Golden divergence 137.508° · Counter-rotating parastichies");
+        FIBONACCI_PHYLLOTAXIS("🌸 Phyllotaxis", "Botanical Vogel Spiral · Fibonacci (13, 21)", "Golden divergence 137.508° · Counter-rotating parastichies"),
+        VORONOI_CRYSTAL("💎 Voronoi", "Georgy Voronoi · Cellular Tessellation (1908)", "Natural crystal cleavage · Nearest-site Dirichlet domains"),
+        LISSAJOUS_ORBIT("🌊 Lissajous", "Jules Lissajous · Harmonic Phase Curves (1857)", "Parametric resonance x = sin(at + δ), y = sin(bt)");
 
         final String chipLabel;
         final String lineage;
@@ -121,6 +123,11 @@ final class ScientificVisualSubstrate {
         return pairs[Math.abs(seed) % pairs.length];
     }
 
+    static int[] lissajousRatiosForSeed(int seed) {
+        int[][] pairs = {{3, 4}, {3, 5}, {4, 5}, {5, 7}, {5, 6}, {2, 3}};
+        return pairs[Math.abs(seed) % pairs.length];
+    }
+
     static BaselinePlate detectPlateFromCommand(String raw) {
         if (raw == null || raw.trim().isEmpty()) {
             return null;
@@ -146,6 +153,12 @@ final class ScientificVisualSubstrate {
         }
         if (lower.contains("phyllotaxis") || lower.contains("fibonacci") || lower.contains("sunflower") || lower.contains("rosette")) {
             return BaselinePlate.FIBONACCI_PHYLLOTAXIS;
+        }
+        if (lower.contains("voronoi") || lower.contains("crystal") || lower.contains("stained glass") || lower.contains("mosaic") || lower.contains("tessell")) {
+            return BaselinePlate.VORONOI_CRYSTAL;
+        }
+        if (lower.contains("lissajous") || lower.contains("harmonic") || lower.contains("oscilloscope") || lower.contains("orbit")) {
+            return BaselinePlate.LISSAJOUS_ORBIT;
         }
         return null;
     }
@@ -179,6 +192,10 @@ final class ScientificVisualSubstrate {
             case FIBONACCI_PHYLLOTAXIS -> subject + ". Grounded in botanical Vogel golden-angle phyllotaxis (137.508°): "
                     + "crisp counter-rotating (13, 21) Fibonacci parastichy spirals, archival botanical watercolor and ink stippling, "
                     + "exact mathematical floret packing.";
+            case VORONOI_CRYSTAL -> subject + ". Grounded in Georgy Voronoi's 1908 Dirichlet cellular tessellation: "
+                    + "faceted crystalline mineral polygons, luminous emerald, sapphire, and warm gold facets with fine metallic leading.";
+            case LISSAJOUS_ORBIT -> subject + ". Grounded in Jules Lissajous's 1857 harmonic phase-portrait interferometry: "
+                    + "luminous parametric sine-ratio filaments glowing over deep archival obsidian paper, exact harmonic symmetry.";
             case ATELIER -> subject + ". Clean factual proportions, crisp lighting, balanced geometric harmony, museum-grade clarity.";
         };
     }
@@ -227,6 +244,8 @@ final class ScientificVisualSubstrate {
             case PATENT_BLUEPRINT -> drawPatentBlueprint(c, w, h, seed, label);
             case CHLADNI_PLATE -> drawChladniPlate(c, w, h, seed, label);
             case FIBONACCI_PHYLLOTAXIS -> drawFibonacciPhyllotaxis(c, w, h, seed, label);
+            case VORONOI_CRYSTAL -> drawVoronoiCrystal(c, w, h, seed, label);
+            case LISSAJOUS_ORBIT -> drawLissajousOrbit(c, w, h, seed, label);
             default -> {
             }
         }
@@ -759,6 +778,163 @@ final class ScientificVisualSubstrate {
             dot.setStrokeWidth(0.75f * s);
             dot.setColor(Color.argb(145, 34, 42, 36));
             c.drawCircle(cx + (float) pt[0], cy + (float) pt[1], r, dot);
+        }
+    }
+
+    private static void drawVoronoiCrystal(Canvas c, int w, int h, int seed, String label) {
+        int bg = Color.rgb(12, 16, 26);
+        int gold = Color.rgb(236, 206, 138);
+        String top = "VORONOI TESSELLATION · DIRICHLET CRYSTAL DOMAINS (1908)";
+        String bot = label.isEmpty()
+                ? "Nearest-Site Metric Partition · Mineral Cleavage Geometry"
+                : "Crystal Study: " + label + " · Cellular Lattice";
+        drawArchivalFrame(c, w, h, bg, gold, top, bot);
+
+        float padX = w * 0.10f;
+        float padY = h * 0.14f;
+        float boxW = w - padX * 2f;
+        float boxH = h - padY * 2f;
+
+        // Deterministic golden-angle + jittered crystal nuclei
+        int sites = 28;
+        float[] sx = new float[sites];
+        float[] sy = new float[sites];
+        int[] palette = {
+                Color.rgb(34, 86, 158),
+                Color.rgb(42, 132, 142),
+                Color.rgb(54, 152, 118),
+                Color.rgb(168, 126, 58),
+                Color.rgb(138, 66, 146),
+                Color.rgb(184, 62, 92)
+        };
+        int[] siteColor = new int[sites];
+        int state = seed ^ 0x5A3C91;
+        for (int i = 0; i < sites; i++) {
+            state = state * 1664525 + 1013904223;
+            float rx = ((state >>> 8) & 0xFFFF) / 65535f;
+            state = state * 1664525 + 1013904223;
+            float ry = ((state >>> 8) & 0xFFFF) / 65535f;
+            // Stratified distribution for balanced stained-glass facets
+            int col = i % 7;
+            int row = i / 7;
+            sx[i] = padX + ((col + 0.18f + rx * 0.64f) / 7f) * boxW;
+            sy[i] = padY + ((row + 0.18f + ry * 0.64f) / 4f) * boxH;
+            siteColor[i] = palette[(i + Math.abs(seed)) % palette.length];
+        }
+
+        // Fast quantized Voronoi raster + crisp luminous facet boundaries
+        int gw = 160;
+        int gh = 112;
+        float cw = boxW / gw;
+        float ch = boxH / gh;
+        Paint cellPaint = new Paint();
+        for (int gy = 0; gy < gh; gy++) {
+            float py = padY + (gy + 0.5f) * ch;
+            for (int gx = 0; gx < gw; gx++) {
+                float px = padX + (gx + 0.5f) * cw;
+                int best = 0;
+                float d1 = Float.MAX_VALUE;
+                float d2 = Float.MAX_VALUE;
+                for (int i = 0; i < sites; i++) {
+                    float dx = px - sx[i];
+                    float dy = py - sy[i];
+                    float distSq = dx * dx + dy * dy;
+                    if (distSq < d1) {
+                        d2 = d1;
+                        d1 = distSq;
+                        best = i;
+                    } else if (distSq < d2) {
+                        d2 = distSq;
+                    }
+                }
+                float edgeGap = (float) (Math.sqrt(d2) - Math.sqrt(d1));
+                if (edgeGap < Math.max(cw, ch) * 1.15f) {
+                    cellPaint.setColor(Color.rgb(240, 218, 162));
+                } else {
+                    float shade = 0.72f + 0.34f * Math.max(0f, 1f - (float) Math.sqrt(d1) / (boxW * 0.22f));
+                    int base = siteColor[best];
+                    cellPaint.setColor(Color.rgb(
+                            Math.min(255, (int) (Color.red(base) * shade)),
+                            Math.min(255, (int) (Color.green(base) * shade)),
+                            Math.min(255, (int) (Color.blue(base) * shade))));
+                }
+                c.drawRect(padX + gx * cw, padY + gy * ch,
+                        padX + (gx + 1) * cw + 0.6f, padY + (gy + 1) * ch + 0.6f, cellPaint);
+            }
+        }
+
+        Paint dot = new Paint(Paint.ANTI_ALIAS_FLAG);
+        dot.setColor(Color.argb(190, 252, 238, 198));
+        float dotR = Math.max(2.5f, Math.min(w, h) * 0.0045f);
+        for (int i = 0; i < sites; i++) {
+            c.drawCircle(sx[i], sy[i], dotR, dot);
+        }
+        Paint frameRim = new Paint(Paint.ANTI_ALIAS_FLAG);
+        frameRim.setStyle(Paint.Style.STROKE);
+        frameRim.setColor(Color.argb(170, 240, 218, 162));
+        frameRim.setStrokeWidth(Math.max(1.8f, h * 0.003f));
+        c.drawRect(padX, padY, padX + boxW, padY + boxH, frameRim);
+    }
+
+    private static void drawLissajousOrbit(Canvas c, int w, int h, int seed, String label) {
+        int bg = Color.rgb(10, 14, 24);
+        int cyan = Color.rgb(132, 224, 248);
+        int[] ratio = lissajousRatiosForSeed(seed);
+        int a = ratio[0];
+        int b = ratio[1];
+        String top = "LISSAJOUS HARMONIC INTERFEROMETRY · RATIO (" + a + ":" + b + ")";
+        String bot = label.isEmpty()
+                ? "Parametric Phase Orbit · x(t) = sin(" + a + "t + δ), y(t) = sin(" + b + "t)"
+                : "Harmonic Study: " + label + " · Ratio (" + a + ":" + b + ")";
+        drawArchivalFrame(c, w, h, bg, cyan, top, bot);
+
+        float cx = w * 0.5f;
+        float cy = h * 0.505f;
+        float rx = w * 0.34f;
+        float ry = h * 0.32f;
+        float s = Math.min(w, h) / 540f;
+
+        Paint glowBg = new Paint(Paint.ANTI_ALIAS_FLAG);
+        glowBg.setShader(new RadialGradient(cx, cy, Math.max(rx, ry) * 1.15f,
+                Color.argb(75, 42, 92, 186), Color.TRANSPARENT, Shader.TileMode.CLAMP));
+        c.drawCircle(cx, cy, Math.max(rx, ry) * 1.15f, glowBg);
+
+        // Subtle polar calibration circles & crosshairs
+        Paint axis = new Paint(Paint.ANTI_ALIAS_FLAG);
+        axis.setStyle(Paint.Style.STROKE);
+        axis.setColor(Color.argb(46, 132, 224, 248));
+        axis.setStrokeWidth(1.0f * s);
+        c.drawLine(cx - rx * 1.08f, cy, cx + rx * 1.08f, cy, axis);
+        c.drawLine(cx, cy - ry * 1.08f, cx, cy + ry * 1.08f, axis);
+        c.drawCircle(cx, cy, Math.min(rx, ry) * 0.68f, axis);
+
+        // Layered harmonic ribbon phases (copper gold -> sapphire -> living ruby)
+        Paint ribbon = new Paint(Paint.ANTI_ALIAS_FLAG);
+        ribbon.setStyle(Paint.Style.STROKE);
+        ribbon.setStrokeCap(Paint.Cap.ROUND);
+        ribbon.setStrokeJoin(Paint.Join.ROUND);
+
+        int[] ribbonColors = {
+                Color.argb(120, 244, 114, 146),
+                Color.argb(150, 248, 206, 118),
+                Color.argb(215, 112, 226, 250),
+                Color.argb(240, 232, 244, 255)
+        };
+        for (int layer = 0; layer < ribbonColors.length; layer++) {
+            double delta = Math.PI / 2.0 + layer * 0.14;
+            float scaleF = 1.0f - layer * 0.045f;
+            Path path = new Path();
+            int steps = 540;
+            for (int i = 0; i <= steps; i++) {
+                double t = (2.0 * Math.PI * i) / steps;
+                float px = cx + (float) Math.sin(a * t + delta) * rx * scaleF;
+                float py = cy + (float) Math.sin(b * t) * ry * scaleF;
+                if (i == 0) path.moveTo(px, py);
+                else path.lineTo(px, py);
+            }
+            ribbon.setColor(ribbonColors[layer]);
+            ribbon.setStrokeWidth((layer == 3 ? 2.6f : 1.7f) * s);
+            c.drawPath(path, ribbon);
         }
     }
 

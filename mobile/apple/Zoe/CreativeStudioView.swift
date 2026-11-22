@@ -8,7 +8,7 @@ struct CreativeStudioView: View {
     @State private var undoStack: [CreativeAndArcadeCore.ImageEditSpec] = []
     @State private var baseline: ScientificVisualAndPatentCore.BaselinePlate = .atelier
     @State private var commandText = ""
-    @State private var statusText = "Hold preview to compare original · 8 HD plates offline."
+    @State private var statusText = "Hold preview to compare original · 10 HD plates offline."
     @State private var pickedItem: PhotosPickerItem?
     @State private var loadedImage: UIImage?
     @State private var showTuneSliders = false
@@ -107,6 +107,14 @@ struct CreativeStudioView: View {
                             loadedImage = nil
                             baseline = .fibonacciPhyllotaxis
                             statusText = "Rendered golden-angle Fibonacci phyllotaxis plate."
+                        } else if lower.contains("voronoi") || lower.contains("crystal") || lower.contains("mosaic") {
+                            loadedImage = nil
+                            baseline = .voronoiCrystal
+                            statusText = "Rendered Georgy Voronoi cellular crystal tessellation plate."
+                        } else if lower.contains("lissajous") || lower.contains("harmonic") || lower.contains("orbit") {
+                            loadedImage = nil
+                            baseline = .lissajousOrbit
+                            statusText = "Rendered Jules Lissajous harmonic phase curve plate."
                         } else {
                             undoStack.append(spec)
                             spec = CreativeAndArcadeCore.parseImageEditCommand(commandText, current: spec)
@@ -210,6 +218,9 @@ struct CreativeStudioView: View {
         switch spec.filter {
         case .noirBW: return 0.0
         case .sepia: return 0.45
+        case .matteFilm: return 0.78
+        case .goldenHour: return 1.24
+        case .cyberNeon: return 1.65
         case .vividPop: return 1.55
         default: return 1.0
         }
@@ -358,6 +369,64 @@ private struct ScientificPlateCanvasView: View {
                     let r = 2.2 + frac * 3.2
                     let rect = CGRect(x: cx + pt.x - r, y: cy + pt.y - r, width: r * 2, height: r * 2)
                     ctx.fill(Path(ellipseIn: rect), with: .color(Color(red: 0.22 + 0.62 * frac, green: 0.48 + 0.18 * frac, blue: 0.34 - 0.10 * frac)))
+                }
+            }
+        case .voronoiCrystal:
+            Canvas { ctx, size in
+                ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.05, green: 0.07, blue: 0.12)))
+                let sites: [(Double, Double, Color)] = (0..<14).map { i in
+                    let h1 = Double((seed &* 31 &+ i &* 97) % 1000) / 1000.0
+                    let h2 = Double((seed &* 53 &+ i &* 131) % 1000) / 1000.0
+                    let palette: [Color] = [
+                        Color(red: 0.14, green: 0.34, blue: 0.56),
+                        Color(red: 0.12, green: 0.46, blue: 0.44),
+                        Color(red: 0.42, green: 0.24, blue: 0.48),
+                        Color(red: 0.58, green: 0.42, blue: 0.18),
+                    ]
+                    return (0.1 + h1 * 0.8, 0.1 + h2 * 0.8, palette[i % palette.count])
+                }
+                let cols = 38
+                let rows = 26
+                let cw = size.width / Double(cols)
+                let ch = size.height / Double(rows)
+                for gy in 0..<rows {
+                    let ny = (Double(gy) + 0.5) / Double(rows)
+                    for gx in 0..<cols {
+                        let nx = (Double(gx) + 0.5) / Double(cols)
+                        var d1 = Double.greatestFiniteMagnitude
+                        var d2 = Double.greatestFiniteMagnitude
+                        var best = 0
+                        for (idx, s) in sites.enumerated() {
+                            let d = hypot(nx - s.0, ny - s.1)
+                            if d < d1 { d2 = d1; d1 = d; best = idx }
+                            else if d < d2 { d2 = d }
+                        }
+                        let edge = (d2 - d1) < 0.022
+                        let rect = CGRect(x: Double(gx) * cw, y: Double(gy) * ch, width: cw + 0.8, height: ch + 0.8)
+                        ctx.fill(Path(rect), with: .color(edge ? Color(red: 0.94, green: 0.80, blue: 0.46) : sites[best].2.opacity(0.88)))
+                    }
+                }
+            }
+        case .lissajousOrbit:
+            Canvas { ctx, size in
+                ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.04, green: 0.05, blue: 0.09)))
+                let ratios = ScientificVisualAndPatentCore.lissajousRatios(forSeed: seed)
+                let cx = size.width / 2
+                let cy = size.height / 2
+                let rx = size.width * 0.40
+                let ry = size.height * 0.38
+                for layer in 0..<3 {
+                    let phase = Double(layer) * 0.42 + .pi / 4.0
+                    var curve = Path()
+                    for i in 0...320 {
+                        let t = Double(i) / 320.0 * 2.0 * .pi
+                        let pt = CGPoint(x: cx + rx * sin(Double(ratios.a) * t + phase),
+                                         y: cy + ry * sin(Double(ratios.b) * t))
+                        if i == 0 { curve.move(to: pt) } else { curve.addLine(to: pt) }
+                    }
+                    let col = layer == 0 ? Color(red: 0.34, green: 0.82, blue: 0.94)
+                        : (layer == 1 ? Color(red: 0.94, green: 0.76, blue: 0.44) : Color(red: 0.86, green: 0.44, blue: 0.62))
+                    ctx.stroke(curve, with: .color(col.opacity(0.85)), lineWidth: 2.0 - Double(layer) * 0.3)
                 }
             }
         }

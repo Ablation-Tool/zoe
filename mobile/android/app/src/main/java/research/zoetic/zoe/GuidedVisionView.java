@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ final class GuidedVisionView extends ScrollView {
     private final TextView status;
     private final LinearLayout paletteRow;
     private final TextView paletteText;
+    private final ImageView lastFrameThumb;
     private final TextView resultView;
     private final Button inspectButton;
     private final Button flipButton;
@@ -192,6 +194,17 @@ final class GuidedVisionView extends ScrollView {
         paletteCard.addView(paletteText);
         content.addView(paletteCard, Ui.margins(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, activity, 4));
+
+        lastFrameThumb = new ImageView(activity);
+        lastFrameThumb.setContentDescription("Last inspected frame preview");
+        lastFrameThumb.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        lastFrameThumb.setBackground(Ui.cardBackground(activity, 18));
+        lastFrameThumb.setClipToOutline(true);
+        lastFrameThumb.setVisibility(GONE);
+        LinearLayout.LayoutParams thumbLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(activity, 148));
+        thumbLp.setMargins(Ui.dp(activity, 4), Ui.dp(activity, 4), Ui.dp(activity, 4), Ui.dp(activity, 4));
+        content.addView(lastFrameThumb, thumbLp);
 
         resultView = Ui.text(activity,
                 "OCR and image labels will appear here after inspection.",
@@ -470,6 +483,15 @@ final class GuidedVisionView extends ScrollView {
         lastStructuralNote = "";
         lastCloud = "";
         boolean hasFrame = jpegBytes != null && jpegBytes.length > 0;
+        if (hasFrame) {
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inSampleSize = 2;
+            Bitmap thumb = BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.length, opts);
+            if (thumb != null) {
+                lastFrameThumb.setImageBitmap(thumb);
+                lastFrameThumb.setVisibility(VISIBLE);
+            }
+        }
         saveJournalButton.setEnabled(hasFrame);
         sharePhotoButton.setEnabled(hasFrame);
         cloudAskButton.setEnabled(hasFrame);

@@ -105,17 +105,22 @@ final class ArcadeEngine {
 
     // --- 2. Tic-Tac-Toe (0=empty, 1=player X, 2=Zoe O) ---
 
-    static int checkWinner(int[] board) {
+    static int[] winningLine(int[] board) {
         if (board == null || board.length != 9) {
-            return 0;
+            return null;
         }
         for (int[] line : WIN_LINES) {
             int a = board[line[0]];
             if (a != 0 && a == board[line[1]] && a == board[line[2]]) {
-                return a;
+                return new int[]{line[0], line[1], line[2]};
             }
         }
-        return 0;
+        return null;
+    }
+
+    static int checkWinner(int[] board) {
+        int[] line = winningLine(board);
+        return line == null ? 0 : board[line[0]];
     }
 
     static boolean isBoardFull(int[] board) {

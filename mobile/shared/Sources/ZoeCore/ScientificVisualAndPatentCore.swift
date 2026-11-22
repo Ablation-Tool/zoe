@@ -16,6 +16,8 @@ public enum ScientificVisualAndPatentCore {
         case patentBlueprint = "📐 Patent"
         case chladniPlate = "✨ Chladni"
         case fibonacciPhyllotaxis = "🌸 Phyllotaxis"
+        case voronoiCrystal = "💎 Voronoi"
+        case lissajousOrbit = "🌊 Lissajous"
 
         public var id: String { rawValue }
 
@@ -29,6 +31,8 @@ public enum ScientificVisualAndPatentCore {
             case .patentBlueprint: return "Orthographic Patent Schematic (patents.google.com)"
             case .chladniPlate: return "Ernst Chladni · Acoustic Nodal Plate (1787)"
             case .fibonacciPhyllotaxis: return "Botanical Vogel Spiral · Fibonacci (13, 21)"
+            case .voronoiCrystal: return "Georgy Voronoi · Cellular Tessellation (1908)"
+            case .lissajousOrbit: return "Jules Lissajous · Harmonic Phase Curves (1857)"
             }
         }
 
@@ -42,6 +46,8 @@ public enum ScientificVisualAndPatentCore {
             case .patentBlueprint: return "Involute gear + prism optics · Orthographic callouts"
             case .chladniPlate: return "Standing wave cos(mπx)cos(nπy) − cos(nπx)cos(mπy) = 0"
             case .fibonacciPhyllotaxis: return "Golden divergence 137.508° · Counter-rotating parastichies"
+            case .voronoiCrystal: return "Natural crystal cleavage · Nearest-site Dirichlet domains"
+            case .lissajousOrbit: return "Parametric resonance x = sin(at + δ), y = sin(bt)"
             }
         }
     }
@@ -111,6 +117,10 @@ public enum ScientificVisualAndPatentCore {
             return "\(subject). Grounded in Ernst Chladni's 1787 acoustic standing-wave cymatic plate geometry: symmetric nodal curves, luminous gold and cyan sand lines on obsidian slate."
         case .fibonacciPhyllotaxis:
             return "\(subject). Grounded in botanical Vogel golden-angle phyllotaxis (137.508°): counter-rotating (13, 21) Fibonacci parastichy spirals, archival watercolor and ink stippling."
+        case .voronoiCrystal:
+            return "\(subject). Grounded in Georgy Voronoi's 1908 cellular tessellation geometry: luminous crystalline facets, nearest-site Dirichlet boundaries, subtle gilt edge lines."
+        case .lissajousOrbit:
+            return "\(subject). Grounded in Jules Lissajous's 1857 harmonic phase interferometry: crisp parametric resonance ribbons x = sin(at + δ), y = sin(bt) on obsidian archival slate."
         case .atelier:
             return "\(subject). Clean factual proportions, crisp lighting, balanced geometric harmony."
         }
@@ -118,6 +128,12 @@ public enum ScientificVisualAndPatentCore {
 
     public static func chladniModes(forSeed seed: Int) -> (m: Int, n: Int) {
         let pairs: [(Int, Int)] = [(2, 5), (3, 5), (3, 7), (4, 7), (2, 7), (5, 8)]
+        let pick = pairs[abs(seed) % pairs.count]
+        return (pick.0, pick.1)
+    }
+
+    public static func lissajousRatios(forSeed seed: Int) -> (a: Int, b: Int) {
+        let pairs: [(Int, Int)] = [(3, 4), (5, 7), (3, 5), (4, 5), (5, 6), (2, 3)]
         let pick = pairs[abs(seed) % pairs.count]
         return (pick.0, pick.1)
     }

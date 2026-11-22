@@ -52,7 +52,8 @@ final class VideoMakerEngine {
         PHOTO_STORY_REEL("Photo Story Reel"),
         STARLIGHT_PULSE("Starlight GEM"),
         HAECKEL_LIVING("Haeckel Living"),
-        PATENT_KINETIC("Patent Kinetic");
+        PATENT_KINETIC("Patent Kinetic"),
+        LISSAJOUS_ORBIT("Lissajous Orbit");
 
         final String label;
 
@@ -230,6 +231,40 @@ final class VideoMakerEngine {
             ray.setStrokeWidth(2.6f * scale);
             float sweepY = h * (0.28f + 0.32f * (0.5f + 0.5f * (float) Math.sin(t * Math.PI * 2.0)));
             canvas.drawLine(w * 0.08f, sweepY, w * 0.92f, h * 0.88f - sweepY, ray);
+        } else if (s.style == Style.LISSAJOUS_ORBIT) {
+            // Animated luminous Lissajous harmonic phase ribbons
+            float cx = w * 0.5f;
+            float cy = h * 0.45f;
+            float rx = w * 0.36f;
+            float ry = h * 0.30f;
+            Paint curve = new Paint(Paint.ANTI_ALIAS_FLAG);
+            curve.setStyle(Paint.Style.STROKE);
+            curve.setStrokeCap(Paint.Cap.ROUND);
+            curve.setStrokeJoin(Paint.Join.ROUND);
+            double phaseShift = t * Math.PI * 2.0;
+            for (int layer = 0; layer < 4; layer++) {
+                double delta = phaseShift + layer * 0.24;
+                float sf = 1.0f - layer * 0.07f;
+                Path path = new Path();
+                int steps = 260;
+                for (int i = 0; i <= steps; i++) {
+                    double u = (2.0 * Math.PI * i) / steps;
+                    float px = cx + (float) Math.sin(3.0 * u + delta) * rx * sf;
+                    float py = cy + (float) Math.sin(4.0 * u) * ry * sf;
+                    if (i == 0) path.moveTo(px, py);
+                    else path.lineTo(px, py);
+                }
+                curve.setColor(blendColor(s.palette.primary, s.palette.secondary, layer / 3f, 155 + layer * 30));
+                curve.setStrokeWidth((layer == 3 ? 3.2f : 1.9f) * scale);
+                canvas.drawPath(path, curve);
+            }
+            // Luminous harmonic phase tracer orb gliding along curve
+            double leadU = t * Math.PI * 2.0;
+            float lx = cx + (float) Math.sin(3.0 * leadU + phaseShift) * rx;
+            float ly = cy + (float) Math.sin(4.0 * leadU) * ry;
+            Paint glow = new Paint(Paint.ANTI_ALIAS_FLAG);
+            glow.setColor(Color.WHITE);
+            canvas.drawCircle(lx, ly, 5.5f * scale, glow);
         } else {
             // Starlight GEM expanding harmonic waves
             float cx = w * 0.5f;

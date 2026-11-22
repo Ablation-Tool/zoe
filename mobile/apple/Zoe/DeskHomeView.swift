@@ -403,7 +403,7 @@ struct DeskHomeView: View {
             .accessibilityLabel("Open camera to look and read")
 
             Button {
-                onOpen(.talk)
+                onOpen(.live)
             } label: {
                 Image(systemName: "waveform")
                     .font(.system(size: 20, weight: .semibold))
@@ -412,7 +412,7 @@ struct DeskHomeView: View {
                     .background(Circle().fill(GemPalette.liveButtonFill))
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("Start talking with Zoe")
+            .accessibilityLabel("Open Zoe Explore live voice orb")
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
@@ -519,7 +519,7 @@ struct AboutZoeSheet: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.9.4-beta · Offline-first & free")
+                    Text("v0.9.5-beta · Offline-first & free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }

@@ -415,6 +415,17 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(proSpec.vignette, 48)
         XCTAssertTrue(proSpec.flipHorizontal)
         XCTAssertEqual(proSpec.crop, .portrait4x5)
+
+        // v0.9.5 Liquid Craft additions: Voronoi & Lissajous plates, Golden Hour/Cyber Neon/Matte Film filters, TTT winningLine
+        let ratios = ScientificVisualAndPatentCore.lissajousRatios(forSeed: 99)
+        XCTAssertTrue(ratios.a >= 2 && ratios.b > ratios.a)
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("gem", plate: .voronoiCrystal).contains("Voronoi"))
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("wave", plate: .lissajousOrbit).contains("Lissajous"))
+        XCTAssertEqual(CreativeAndArcadeCore.parseImageEditCommand("golden hour").filter, .goldenHour)
+        XCTAssertEqual(CreativeAndArcadeCore.parseImageEditCommand("cyber neon").filter, .cyberNeon)
+        XCTAssertEqual(CreativeAndArcadeCore.parseImageEditCommand("matte film").filter, .matteFilm)
+        XCTAssertEqual(CreativeAndArcadeCore.winningLine([1, 0, 0, 0, 1, 0, 0, 0, 1]), [0, 4, 8])
+        XCTAssertNil(CreativeAndArcadeCore.winningLine([1, 2, 1, 2, 1, 2, 2, 1, 2]))
     }
 
     func testMobileDigestionPrivacyFirewallAndPrototypeMerge() throws {

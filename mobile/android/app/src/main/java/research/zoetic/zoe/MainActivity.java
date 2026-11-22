@@ -205,7 +205,7 @@ public final class MainActivity extends ComponentActivity {
         lookP.setMargins(0, 0, Ui.dp(this, 4), 0);
         capsule.addView(lookBtn, lookP);
 
-        // Signature Glowing DeepMind Blue Live Waveform Circle -> Talk with Zoe immediately
+        // Signature Glowing DeepMind Blue Live Waveform Circle -> Open Zoe Explore Live Voice Orb in 1 tap!
         int liveFill = dark ? Color.rgb(30, 58, 122) : Color.rgb(26, 115, 232);
         int liveGlyph = dark ? Color.rgb(210, 227, 252) : Color.WHITE;
         ImageView liveBtn = Ui.iconActionButton(
@@ -213,11 +213,12 @@ public final class MainActivity extends ComponentActivity {
                 R.drawable.ic_zoe_live,
                 liveGlyph,
                 liveFill,
-                "Start talking with Zoe",
+                "Open Zoe Explore live voice orb",
                 v -> {
                     v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                    startActivity(new Intent(this, ConversationActivity.class));
+                    startActivity(new Intent(this, ZoeLiveActivity.class));
                 });
+        Ui.attachPressSpring(liveBtn);
         capsule.addView(liveBtn, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
 
         wrapper.addView(capsule, new FrameLayout.LayoutParams(
@@ -259,6 +260,12 @@ public final class MainActivity extends ComponentActivity {
         content.setVisibility(View.VISIBLE);
         content.removeAllViews();
         content.addView(view);
+        if (!comfortMode) {
+            view.setAlpha(0f);
+            view.setTranslationY(Ui.dp(this, 10));
+            view.animate().alpha(1f).translationY(0f).setDuration(180L)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator()).start();
+        }
     }
 
     final void showHome() {
@@ -271,6 +278,10 @@ public final class MainActivity extends ComponentActivity {
         content.setVisibility(View.GONE);
         homeButton.setVisibility(View.GONE);
         homeView.setVisibility(View.VISIBLE);
+        if (!comfortMode) {
+            homeView.setAlpha(0f);
+            homeView.animate().alpha(1f).setDuration(160L).start();
+        }
         if (geminiBottomBar != null) {
             geminiBottomBar.setVisibility(View.VISIBLE);
         }
@@ -296,6 +307,7 @@ public final class MainActivity extends ComponentActivity {
 
     void setComfortMode(boolean enabled) {
         comfortMode = enabled;
+        Ui.setComfortMotionReduced(enabled);
         getWindow().setWindowAnimations(enabled ? 0 : android.R.style.Animation_Activity);
         if (textToSpeech != null) {
             textToSpeech.setSpeechRate(enabled ? 0.90f : 1.0f);

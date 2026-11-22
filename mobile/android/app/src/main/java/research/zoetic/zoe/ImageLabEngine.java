@@ -49,9 +49,12 @@ final class ImageLabEngine {
     enum FilterPreset {
         ORIGINAL("Original"),
         WARM_ATELIER("Atelier Warm"),
+        GOLDEN_HOUR("Golden Hour"),
         COBALT_NIGHT("Cobalt Night"),
         NOIR_BW("Noir B&W"),
+        MATTE_FILM("Matte Film"),
         EMERALD_FILM("Emerald Film"),
+        CYBER_NEON("Cyber Neon"),
         VIVID_POP("Vivid Pop"),
         SEPIA_VINTAGE("Sepia"),
         ARCHIVAL_VELLUM("Vellum"),
@@ -61,6 +64,26 @@ final class ImageLabEngine {
 
         FilterPreset(String label) {
             this.label = label;
+        }
+    }
+
+    /** Resolution-independent hand-drawn brush stroke (normalized 0..1 coordinates). */
+    static final class BrushStroke {
+        final java.util.List<float[]> points = new java.util.ArrayList<>();
+        final int color;
+        final float widthNorm; // fraction of min(w, h)
+
+        BrushStroke(int color, float widthNorm) {
+            this.color = color;
+            this.widthNorm = widthNorm;
+        }
+
+        BrushStroke copy() {
+            BrushStroke c = new BrushStroke(color, widthNorm);
+            for (float[] pt : points) {
+                c.points.add(new float[]{pt[0], pt[1]});
+            }
+            return c;
         }
     }
 
@@ -89,6 +112,7 @@ final class ImageLabEngine {
         CropMode crop = CropMode.ORIGINAL;
         boolean privacyBlur;
         String caption = "";
+        java.util.List<BrushStroke> strokes = new java.util.ArrayList<>();
 
         EditSpec copy() {
             EditSpec c = new EditSpec();
@@ -103,6 +127,9 @@ final class ImageLabEngine {
             c.crop = this.crop;
             c.privacyBlur = this.privacyBlur;
             c.caption = this.caption;
+            for (BrushStroke st : this.strokes) {
+                c.strokes.add(st.copy());
+            }
             return c;
         }
 
@@ -134,6 +161,9 @@ final class ImageLabEngine {
             }
             if (privacyBlur) {
                 sb.append(" · privacy blur");
+            }
+            if (!strokes.isEmpty()) {
+                sb.append(" · ").append(strokes.size()).append(strokes.size() == 1 ? " stroke" : " strokes");
             }
             if (!caption.isEmpty()) {
                 sb.append(" · \"").append(caption).append("\"");
@@ -167,6 +197,12 @@ final class ImageLabEngine {
             next.filter = FilterPreset.PRUSSIAN_BLUE;
         } else if (lower.contains("sepia") || lower.contains("vintage") || lower.contains("retro")) {
             next.filter = FilterPreset.SEPIA_VINTAGE;
+        } else if (lower.contains("golden hour") || lower.contains("honey") || lower.contains("sunlit")) {
+            next.filter = FilterPreset.GOLDEN_HOUR;
+        } else if (lower.contains("cyber") || lower.contains("neon") || lower.contains("synth")) {
+            next.filter = FilterPreset.CYBER_NEON;
+        } else if (lower.contains("matte") || lower.contains("portra") || lower.contains("faded")) {
+            next.filter = FilterPreset.MATTE_FILM;
         } else if (lower.contains("warm") || lower.contains("sunset") || lower.contains("golden")) {
             next.filter = FilterPreset.WARM_ATELIER;
         } else if (lower.contains("cool") || lower.contains("cobalt") || lower.contains("night") || lower.contains("blue")) {
@@ -410,6 +446,40 @@ final class ImageLabEngine {
             strip.recycle();
         }
 
+        // 5b. Hand-drawn vector ink strokes (anti-aliased quadratic Bezier smoothing)
+        if (s.strokes != null && !s.strokes.isEmpty()) {
+            Paint ink = new Paint(Paint.ANTI_ALIAS_FLAG);
+            ink.setStyle(Paint.Style.STROKE);
+            ink.setStrokeCap(Paint.Cap.ROUND);
+            ink.setStrokeJoin(Paint.Join.ROUND);
+            float baseDim = Math.min(cw, ch);
+            for (BrushStroke stroke : s.strokes) {
+                if (stroke.points.isEmpty()) {
+                    continue;
+                }
+                ink.setColor(stroke.color);
+                ink.setStrokeWidth(Math.max(3f, stroke.widthNorm * baseDim));
+                if (stroke.points.size() == 1) {
+                    float[] pt = stroke.points.get(0);
+                    canvas.drawPoint(pt[0] * cw, pt[1] * ch, ink);
+                } else {
+                    android.graphics.Path path = new android.graphics.Path();
+                    float[] first = stroke.points.get(0);
+                    path.moveTo(first[0] * cw, first[1] * ch);
+                    for (int i = 1; i < stroke.points.size(); i++) {
+                        float[] prev = stroke.points.get(i - 1);
+                        float[] curr = stroke.points.get(i);
+                        float midX = ((prev[0] + curr[0]) * 0.5f) * cw;
+                        float midY = ((prev[1] + curr[1]) * 0.5f) * ch;
+                        path.quadTo(prev[0] * cw, prev[1] * ch, midX, midY);
+                    }
+                    float[] last = stroke.points.get(stroke.points.size() - 1);
+                    path.lineTo(last[0] * cw, last[1] * ch);
+                    canvas.drawPath(path, ink);
+                }
+            }
+        }
+
         // 6. Optional crisp caption overlay
         if (s.caption != null && !s.caption.trim().isEmpty()) {
             String cap = s.caption.trim();
@@ -482,6 +552,27 @@ final class ImageLabEngine {
                     0.18f, 0.22f, 0.08f, 0, -10,
                     0.14f, 0.56f, 0.24f, 0, 6,
                     0.22f, 0.44f, 0.78f, 0, 32,
+                    0, 0, 0, 1, 0
+            });
+        } else if (preset == FilterPreset.GOLDEN_HOUR) {
+            cm.set(new float[]{
+                    1.22f, 0.08f, 0, 0, 16,
+                    0.02f, 1.08f, 0.02f, 0, 8,
+                    0, 0, 0.78f, 0, -12,
+                    0, 0, 0, 1, 0
+            });
+        } else if (preset == FilterPreset.CYBER_NEON) {
+            cm.set(new float[]{
+                    1.18f, 0, 0.14f, 0, 6,
+                    0, 0.94f, 0.12f, 0, -4,
+                    0.12f, 0.06f, 1.30f, 0, 18,
+                    0, 0, 0, 1, 0
+            });
+        } else if (preset == FilterPreset.MATTE_FILM) {
+            cm.set(new float[]{
+                    0.94f, 0.04f, 0.02f, 0, 16,
+                    0.02f, 0.93f, 0.02f, 0, 15,
+                    0.02f, 0.02f, 0.90f, 0, 18,
                     0, 0, 0, 1, 0
             });
         }

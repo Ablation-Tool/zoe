@@ -47,6 +47,13 @@ public class CreativeLiveArcadeActivityTest {
             onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("Chladni"))));
             onView(withId(R.id.studio_baseline_phyllotaxis)).perform(scrollTo(), click());
             onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("137.508"))));
+            onView(withId(R.id.studio_baseline_voronoi)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("Voronoi"))));
+            onView(withId(R.id.studio_baseline_lissajous)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("Lissajous"))));
+            onView(withId(R.id.studio_draw_toggle)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_draw_toggle)).check(matches(withText(containsString("Drawing"))));
+            onView(withId(R.id.studio_draw_toggle)).perform(click());
 
             onView(withId(R.id.studio_command_input))
                     .perform(scrollTo(), replaceText("warm, rotate, blur, vignette, caption Pixel Test"), closeSoftKeyboard());

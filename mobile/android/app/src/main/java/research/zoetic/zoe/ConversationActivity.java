@@ -24,8 +24,10 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -315,6 +317,17 @@ public final class ConversationActivity extends ComponentActivity {
         typedInput.setId(R.id.conversation_input);
         typedInput.setBackgroundColor(Color.TRANSPARENT);
         typedInput.setPadding(Ui.dp(this, 8), Ui.dp(this, 10), Ui.dp(this, 8), Ui.dp(this, 10));
+        typedInput.setMaxLines(4);
+        typedInput.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        typedInput.setOnEditorActionListener((v, actionId, ev) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND
+                    || (ev != null && ev.getKeyCode() == KeyEvent.KEYCODE_ENTER
+                    && ev.getAction() == KeyEvent.ACTION_DOWN && !ev.isShiftPressed())) {
+                sendTypedMessage();
+                return true;
+            }
+            return false;
+        });
         composer.addView(typedInput, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
 
         Button send = Ui.primaryButton(this, "Send", Ui.CYAN, view -> sendTypedMessage());
@@ -588,7 +601,8 @@ public final class ConversationActivity extends ComponentActivity {
         hdr.addView(hdrTxt);
         card.addView(hdr);
 
-        TextView body = Ui.text(this, msg.text, 15.5f, Ui.TEXT);
+        TextView body = Ui.text(this, "", 15.5f, Ui.TEXT);
+        body.setText(Ui.formatRichText(this, msg.text));
         body.setTextIsSelectable(true);
         body.setPadding(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
         card.addView(body);

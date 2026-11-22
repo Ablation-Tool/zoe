@@ -9,8 +9,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
+import android.view.HapticFeedbackConstants;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -66,6 +69,7 @@ public final class ZoeArcadeActivity extends ComponentActivity {
     // 3. Kloster Signal Puzzle state
     private ArcadeEngine.SignalPuzzle currentPuzzle;
     private double puzzleTau = 0.20;
+    private int lastSignalOpenCount = -1;
     private int puzzleStreak;
     private SignalBarView puzzleBarsView;
     private TextView puzzlePromptView;
@@ -324,6 +328,7 @@ public final class ZoeArcadeActivity extends ComponentActivity {
                 cell.setBackground(Ui.cardBackground(this, 18));
                 cell.setStateListAnimator(null);
                 cell.setOnClickListener(Ui.withHaptic(v -> onTttCellTap(idx)));
+                Ui.attachPressSpring(cell);
                 if (idx == 0) {
                     cell.setId(R.id.arcade_ttt_cell0);
                 }
@@ -403,9 +408,20 @@ public final class ZoeArcadeActivity extends ComponentActivity {
         int xColor = Ui.resolveColor(this, Ui.COBALT);
         int oColor = Ui.resolveColor(this, Ui.RUBY);
         int emptyColor = Ui.textColor(this);
+        int[] winLine = ArcadeEngine.winningLine(tttBoard);
+        int winner = winLine == null ? 0 : tttBoard[winLine[0]];
+        int winFill = Ui.withAlpha(Ui.resolveColor(this, winner == 1 ? Ui.GREEN : Ui.RUBY),
+                Ui.isDark(this) ? 72 : 42);
+        int winStroke = Ui.resolveColor(this, winner == 1 ? Ui.GREEN : Ui.RUBY);
         for (int i = 0; i < 9; i++) {
             tttCells[i].setText(tttBoard[i] == 1 ? "X" : tttBoard[i] == 2 ? "O" : "");
             tttCells[i].setTextColor(tttBoard[i] == 1 ? xColor : tttBoard[i] == 2 ? oColor : emptyColor);
+            boolean isWinCell = winLine != null && (i == winLine[0] || i == winLine[1] || i == winLine[2]);
+            if (isWinCell) {
+                tttCells[i].setBackground(Ui.outlinedPillDrawable(this, winFill, winStroke, winStroke, 18));
+            } else {
+                tttCells[i].setBackground(Ui.cardBackground(this, 18));
+            }
         }
     }
 
@@ -446,6 +462,11 @@ public final class ZoeArcadeActivity extends ComponentActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 puzzleTau = progress / 100.0;
+                int openNow = currentPuzzle == null ? -1 : currentPuzzle.evaluateCount(puzzleTau);
+                if (fromUser && lastSignalOpenCount != -1 && openNow != lastSignalOpenCount) {
+                    seekBar.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
+                }
+                lastSignalOpenCount = openNow;
                 refreshPuzzleReadout();
             }
 
@@ -475,6 +496,7 @@ public final class ZoeArcadeActivity extends ComponentActivity {
 
     private void loadNewSignalPuzzle() {
         currentPuzzle = ArcadeEngine.generateSignalPuzzle(rng);
+        lastSignalOpenCount = currentPuzzle.evaluateCount(puzzleTau);
         refreshPuzzleReadout();
     }
 
@@ -600,16 +622,27 @@ public final class ZoeArcadeActivity extends ComponentActivity {
         inputRow.setPadding(Ui.dp(this, 12), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
         q20Input = new EditText(this);
         q20Input.setHint("Ask a question or guess (e.g. Sea Otter)…");
+        q20Input.setSingleLine(true);
+        q20Input.setImeOptions(EditorInfo.IME_ACTION_SEND);
         q20Input.setTextColor(Ui.textColor(this));
         q20Input.setHintTextColor(Ui.mutedColor(this));
         q20Input.setBackground(null);
-        Button askBtn = Ui.primaryButton(this, "Ask", Ui.COBALT, v -> {
+        Runnable submit20Q = () -> {
             String q = q20Input.getText() == null ? "" : q20Input.getText().toString().trim();
             if (!q.isEmpty()) {
                 q20Input.setText("");
                 ask20Q(q);
             }
+        };
+        q20Input.setOnEditorActionListener((v, actionId, ev) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND
+                    || (ev != null && ev.getKeyCode() == KeyEvent.KEYCODE_ENTER && ev.getAction() == KeyEvent.ACTION_DOWN)) {
+                submit20Q.run();
+                return true;
+            }
+            return false;
         });
+        Button askBtn = Ui.primaryButton(this, "Ask", Ui.COBALT, v -> submit20Q.run());
         inputRow.addView(q20Input, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         inputRow.addView(askBtn);
         LinearLayout.LayoutParams irLp = new LinearLayout.LayoutParams(
