@@ -94,7 +94,7 @@ Her work brings together seven threads that almost never live in the same room:
 
 <br/>
 
-**[⬇ Download Zoe Bulb (beta) for Android (`v0.2.0-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Mobile Guide](mobile/README.md)**
+**[⬇ Download Zoe Bulb (beta) for Android (`v0.2.0-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Every Zapp Explained (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md)**
 
 </div>
 
@@ -103,6 +103,26 @@ Her work brings together seven threads that almost never live in the same room:
 | Home *(GEM-Ellipsis)* | Talk *(Offline Brain & Voice)* | Eliza-GEM *(Chladni & L5)* | SafeConvert *(Matching UI)* |
 |:---:|:---:|:---:|:---:|
 | <img src="assets/readme/zoe-bulb-home.png" alt="Zoe Bulb Home screen on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Talk with Zoe offline brain and voice on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-studio.png" alt="Eliza-GEM Chladni cymatics and Sing Zoe on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-safeconvert.png" alt="SafeConvert matching Material 3 Expressive converter on Pixel 7" width="190" /> |
+
+<br/>
+
+<details>
+<summary><strong>✦ What Every Zapp in Zoe Bulb (beta) Does</strong> — All 10 Home Zapps + 8 Field Kit Instruments + SafeConvert Deep Dive</summary>
+
+| Zapp | What It Does | Key Privacy &amp; Offline Notes |
+|:---|:---|:---|
+| **Guided Vision** | Point your camera to read text (OCR) &amp; labels aloud calmly | Camera stays OFF until tapped; offline bundled OCR/labels; 1 frame only on **Inspect once** |
+| **Talk** | Speak or type with Zoe's on-device Glass-Box Brain &amp; Native 44.1 kHz Voice | **100% offline by default** (`0` cloud tokens), Kloster $A_{0.08}$ telemetry, SHA-256 `remember`/`recall`, **Sing Zoe**, Caption Mode, optional Lab/Cloud |
+| **Trip Journal** | Save field sightings, palettes &amp; private travel notes | Stored strictly in app-private storage (`allowBackup="false"`) |
+| **Eliza-GEM Studio** | Interactive Chladni cymatics pad, **Sing Zoe**, &amp; Workstation Lab Bridge | Chladni &amp; Voice run offline; explicit connect fetches live L5 Phases 3–5 scorecards &amp; memory sync |
+| **Accessible Volume** | Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | 100% offline math — measures forecast breadth separately from correctness |
+| **Trinity** | Links Phone + Laptop + Tiny Zoe in one verified three-plane deck | Explicit loopback / private-LAN pairing only ([`TRINITY.md`](mobile/TRINITY.md)) |
+| **SafeConvert** | Clean offline Unit Converter with a discreet, private offline safety &amp; crisis companion | Zero ads, zero network loads, **My Safe People** (up to 5 private contacts), ephemeral **Talk to Zoe** + 4-4-6 breathing &amp; 5-4-3-2-1 grounding, **SHA-256 Private Safety Log** (notes + private audio/video vault never saved to Gallery), optional **Passcode Lock**, instant **Panic Exit**, and Android `FLAG_SECURE` / iOS blur shield — **[Read full SafeConvert Guide →](mobile/SAFECONVERT.md)** |
+| **Device Field** | Real local battery, thermal state, sensor counts &amp; speaker check | Public OS APIs only; never invents unavailable telemetry |
+| **Field Kit** *(8 Tools)* | Groups **Multi-view**, **Acoustic Ranging**, **Tiny Zoe**, **Radio Field**, **Location Field**, **Connectivity**, **Screen Space**, &amp; **App Observatory** | Every tool starts strictly idle until tapped — **[Read full 18-Zapp Field Guide →](mobile/ZAPPS.md)** |
+| **Researcher Guide** | Offline architecture, verification steps &amp; epistemic boundaries | 100% offline reference inside the app |
+
+</details>
 
 <br/>
 
