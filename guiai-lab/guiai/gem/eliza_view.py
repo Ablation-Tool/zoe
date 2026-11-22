@@ -1098,6 +1098,10 @@ def create_server(
                 rep_file = resolved_root / "evidence" / "self-improving-engine" / "zoe-self-improving-engine-report.json"
                 self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
                 return
+            if path == "/api/kloster/cryptanalysis":
+                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "kloster-cryptanalysis-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
             if path == "/api/orbit/master":
                 rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
                 if rep_file.is_file():
@@ -1135,6 +1139,7 @@ def create_server(
                     "<a style='color:#7ce8ff' href='/api/kloster/unification'>/api/kloster/unification</a> · "
                     "<a style='color:#7ce8ff' href='/api/kloster/referee-proofs'>/api/kloster/referee-proofs</a> · "
                     "<a style='color:#7ce8ff' href='/api/self-improving'>/api/self-improving</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/cryptanalysis'>/api/kloster/cryptanalysis</a> · "
                     "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
                 ).encode("utf-8")
                 self.send_response(200)

@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 17.286,
+      "avg_cc": 17.571,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.3979,
-      "max_cc": 98,
-      "mi": 52.7,
-      "sloc": 1387
+      "h2": 1.3895,
+      "max_cc": 100,
+      "mi": 52.627,
+      "sloc": 1392
     },
     {
       "avg_cc": 6.64,
@@ -494,6 +494,24 @@
       "max_cc": 6,
       "mi": 59.346,
       "sloc": 179
+    },
+    {
+      "avg_cc": 7.7,
+      "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_classical.py",
+      "grade": "A",
+      "h2": 1.7669,
+      "max_cc": 19,
+      "mi": 63.389,
+      "sloc": 271
+    },
+    {
+      "avg_cc": 4.8,
+      "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_modern.py",
+      "grade": "A",
+      "h2": 2.3811,
+      "max_cc": 15,
+      "mi": 69.05,
+      "sloc": 388
     },
     {
       "avg_cc": 6.059,
@@ -1734,8 +1752,8 @@
       "grade": "B",
       "h2": 1.848,
       "max_cc": 15,
-      "mi": 51.977,
-      "sloc": 435
+      "mi": 51.912,
+      "sloc": 437
     },
     {
       "avg_cc": 6.714,
@@ -2008,6 +2026,15 @@
       "sloc": 131
     },
     {
+      "avg_cc": 7.333,
+      "file": "scripts/verify_kloster_cryptanalysis_gauntlet.py",
+      "grade": "B",
+      "h2": 0.6768,
+      "max_cc": 14,
+      "mi": 55.361,
+      "sloc": 153
+    },
+    {
       "avg_cc": 3.556,
       "file": "scripts/verify_kloster_optimal_transport.py",
       "grade": "B",
@@ -2257,26 +2284,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "0b12415fb9239ade41ddde1cb7e8eaa395784337d5dad60c69080af3b3056007",
+  "evidence_sha256": "ccc6b38b78c1f52127b59ddcf8bb5b097bedc436196d737021a8297b73359553",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6386,
-    "files_scanned": 249,
+    "corr_avg_cc_vs_mi": -0.6381,
+    "files_scanned": 252,
     "grade_distribution": {
-      "A": 125,
-      "B": 115,
+      "A": 127,
+      "B": 116,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.438,
-    "mean_mi": 58.64,
-    "median_mi": 60.071,
+    "mean_avg_cc": 7.43,
+    "mean_mi": 58.687,
+    "median_mi": 60.099,
     "orbit_mean_avg_cc": 7.415,
-    "orbit_mean_mi": 57.716,
+    "orbit_mean_mi": 57.711,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2803,
-    "total_sloc": 74509
+    "total_functions": 2836,
+    "total_sloc": 75328
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2593,28 +2620,28 @@
     },
     {
       "avg_cc": 5.778,
-      "comment_ratio": 0.047,
+      "comment_ratio": 0.0468,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
       "functions": 9,
       "grade": "B",
-      "halstead_length": 1438,
-      "halstead_vocab": 428,
-      "halstead_volume": 12570.23,
+      "halstead_length": 1440,
+      "halstead_vocab": 429,
+      "halstead_volume": 12592.56,
       "kloster_cc_a_005": 7,
       "kloster_cc_m4_root": 0.2991,
       "kloster_cc_renyi_h2": 1.848,
       "low_maintainability_flag": false,
       "max_cc": 15,
-      "mi_file_radon": 16.38,
-      "mi_score": 51.977,
+      "mi_file_radon": 16.313,
+      "mi_score": 51.912,
       "most_complex_function": {
         "cc": 15,
-        "fn_mi": 41.92,
+        "fn_mi": 41.9,
         "fn_sloc": 88,
         "lineno": 333,
         "name": "cross_world_parser_fuzzing_audit"
       },
-      "sloc": 435,
+      "sloc": 437,
       "total_cc": 52
     },
     {
