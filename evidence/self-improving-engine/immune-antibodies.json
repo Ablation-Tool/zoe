@@ -1,0 +1,34 @@
+{
+  "antibodies": [
+    {
+      "antibody_sha256": "f9195c3de918273f",
+      "bug_class": "zero_division_zero_mass",
+      "fault_confirmed_before_patch": true,
+      "immune_and_clean_after_patch": true
+    },
+    {
+      "antibody_sha256": "86dcc37c7e528467",
+      "bug_class": "nan_poisoning_spectrum",
+      "fault_confirmed_before_patch": true,
+      "immune_and_clean_after_patch": true
+    },
+    {
+      "antibody_sha256": "fea4bb594b4103d2",
+      "bug_class": "truncated_binary_header_oob",
+      "fault_confirmed_before_patch": true,
+      "immune_and_clean_after_patch": true
+    },
+    {
+      "antibody_sha256": "3210b4ce56356568",
+      "bug_class": "negative_variance_domain_err",
+      "fault_confirmed_before_patch": true,
+      "immune_and_clean_after_patch": true
+    },
+    {
+      "antibody_sha256": "d094682b5c2d14e4",
+      "bug_class": "zero_tau_overflow_bound",
+      "fault_confirmed_before_patch": true,
+      "immune_and_clean_after_patch": true
+    }
+  ]
+}

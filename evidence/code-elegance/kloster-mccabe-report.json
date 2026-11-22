@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 16.714,
+      "avg_cc": 17.286,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.4148,
-      "max_cc": 94,
-      "mi": 52.847,
-      "sloc": 1377
+      "h2": 1.3979,
+      "max_cc": 98,
+      "mi": 52.7,
+      "sloc": 1387
     },
     {
       "avg_cc": 6.64,
@@ -530,6 +530,15 @@
       "max_cc": 8,
       "mi": 65.565,
       "sloc": 231
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py",
+      "grade": "B",
+      "h2": 1.5993,
+      "max_cc": 25,
+      "mi": 53.006,
+      "sloc": 412
     },
     {
       "avg_cc": 2.222,
@@ -1725,8 +1734,8 @@
       "grade": "B",
       "h2": 1.848,
       "max_cc": 15,
-      "mi": 52.077,
-      "sloc": 432
+      "mi": 51.977,
+      "sloc": 435
     },
     {
       "avg_cc": 6.714,
@@ -1736,6 +1745,24 @@
       "max_cc": 24,
       "mi": 57.166,
       "sloc": 545
+    },
+    {
+      "avg_cc": 7.417,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py",
+      "grade": "A",
+      "h2": 1.9861,
+      "max_cc": 22,
+      "mi": 64.675,
+      "sloc": 357
+    },
+    {
+      "avg_cc": 7.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_b.py",
+      "grade": "A",
+      "h2": 1.7477,
+      "max_cc": 20,
+      "mi": 60.071,
+      "sloc": 351
     },
     {
       "avg_cc": 7.6,
@@ -1995,8 +2022,17 @@
       "grade": "B",
       "h2": 1.1065,
       "max_cc": 15,
-      "mi": 47.901,
+      "mi": 47.902,
       "sloc": 311
+    },
+    {
+      "avg_cc": 8.333,
+      "file": "scripts/verify_kloster_referee_proofs.py",
+      "grade": "B",
+      "h2": 0.6118,
+      "max_cc": 17,
+      "mi": 55.991,
+      "sloc": 149
     },
     {
       "avg_cc": 9.0,
@@ -2134,6 +2170,15 @@
       "sloc": 145
     },
     {
+      "avg_cc": 6.333,
+      "file": "scripts/verify_self_improving_engine.py",
+      "grade": "B",
+      "h2": 0.7472,
+      "max_cc": 11,
+      "mi": 56.669,
+      "sloc": 156
+    },
+    {
       "avg_cc": 5.5,
       "file": "scripts/verify_voice_choral.py",
       "grade": "B",
@@ -2212,26 +2257,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "2edec79e546055a3161e9649bb920b4330a20627faccb6044743d17a03ecf6e8",
+  "evidence_sha256": "0b12415fb9239ade41ddde1cb7e8eaa395784337d5dad60c69080af3b3056007",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6407,
-    "files_scanned": 244,
+    "corr_avg_cc_vs_mi": -0.6386,
+    "files_scanned": 249,
     "grade_distribution": {
-      "A": 123,
-      "B": 112,
+      "A": 125,
+      "B": 115,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
     "mean_avg_cc": 7.438,
-    "mean_mi": 58.652,
-    "median_mi": 60.15,
+    "mean_mi": 58.64,
+    "median_mi": 60.071,
     "orbit_mean_avg_cc": 7.415,
-    "orbit_mean_mi": 57.724,
+    "orbit_mean_mi": 57.716,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2765,
-    "total_sloc": 73071
+    "total_functions": 2803,
+    "total_sloc": 74509
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2548,28 +2593,28 @@
     },
     {
       "avg_cc": 5.778,
-      "comment_ratio": 0.0472,
+      "comment_ratio": 0.047,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
       "functions": 9,
       "grade": "B",
-      "halstead_length": 1435,
+      "halstead_length": 1438,
       "halstead_vocab": 428,
-      "halstead_volume": 12544.01,
+      "halstead_volume": 12570.23,
       "kloster_cc_a_005": 7,
       "kloster_cc_m4_root": 0.2991,
       "kloster_cc_renyi_h2": 1.848,
       "low_maintainability_flag": false,
       "max_cc": 15,
-      "mi_file_radon": 16.479,
-      "mi_score": 52.077,
+      "mi_file_radon": 16.38,
+      "mi_score": 51.977,
       "most_complex_function": {
         "cc": 15,
-        "fn_mi": 41.94,
+        "fn_mi": 41.92,
         "fn_sloc": 88,
         "lineno": 333,
         "name": "cross_world_parser_fuzzing_audit"
       },
-      "sloc": 432,
+      "sloc": 435,
       "total_cc": 52
     },
     {

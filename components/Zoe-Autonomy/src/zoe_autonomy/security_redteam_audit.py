@@ -443,6 +443,8 @@ def supply_chain_sha256_attestation_audit(zoe_root: Path) -> Dict[str, Any]:
         "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
         "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
         "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_b.py",
         "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
         "research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf",
     ]
