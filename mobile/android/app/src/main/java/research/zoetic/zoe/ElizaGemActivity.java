@@ -62,17 +62,17 @@ public final class ElizaGemActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Eliza-GEM Studio", "Offline Chladni · Lab bridge · Cloud"));
+        content.addView(Ui.topBar(this, "Eliza-GEM Studio", "Chladni pad · Lab bridge"));
 
-        status = Ui.text(this, "Studio idle. Play Chladni offline or connect to Eliza-GEM explicitly.", 14, Ui.YELLOW);
+        status = Ui.statusBanner(this, "Studio idle. Play Chladni offline or connect to Lab.", Ui.COBALT);
         status.setId(R.id.eliza_status);
         content.addView(status);
 
         // 1. Offline Chladni Resonance Pad (works anywhere with zero network)
-        content.addView(Ui.section(this, "CHLADNI CYMATICS · OFFLINE"));
+        content.addView(Ui.section(this, "Chladni Resonance"));
         LinearLayout cymCard = Ui.vertical(this);
-        cymCard.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.GOLD, 120), 20));
-        cymCard.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
+        cymCard.setBackground(Ui.cardBackground(this, 22));
+        cymCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
 
         LinearLayout cymHeader = new LinearLayout(this);
         cymHeader.setOrientation(LinearLayout.HORIZONTAL);
@@ -117,8 +117,8 @@ public final class ElizaGemActivity extends ComponentActivity {
         updateChladniLabels();
 
         // 2. Workstation Eliza-GEM Bridge (loopback ADB or remote HTTPS)
-        content.addView(Ui.section(this, "ELIZA-GEM WORKSTATION BRIDGE"));
-        content.addView(Ui.text(this, "Loopback USB (8765) or HTTPS bridge", 13, Ui.MUTED));
+        content.addView(Ui.section(this, "Workstation Bridge"));
+        content.addView(Ui.text(this, "USB loopback (8765) or HTTPS", 13.5f, Ui.MUTED));
 
         endpointInput = Ui.input(this, ElizaGemClient.savedEndpoint(this), "http://127.0.0.1:8765 or https://...");
         endpointInput.setId(R.id.eliza_endpoint);
@@ -159,13 +159,13 @@ public final class ElizaGemActivity extends ComponentActivity {
         labRelayDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         labRelayDrawer.setVisibility(View.GONE);
 
-        labRelayDrawer.addView(Ui.section(this, "ZOE CLOSED-LOOP DIGESTION · L5"));
+        labRelayDrawer.addView(Ui.section(this, "Closed-Loop Digestion"));
         digestView = Ui.text(this,
-                "Privacy Firewall active: SafeConvert, Privacy Vault, raw photos & private chat bodies are hard-excluded.\n"
-                        + "Tap Feed & Digest to send learned visual priors, Brain notes, Trip sightings & Kloster routing telemetry to Zoe Lab and apply refined priors back to this phone.",
+                "Privacy Firewall active — SafeConvert, Privacy Vault, raw photos & private chats stay on this phone.\n"
+                        + "Tap Feed & Digest Lab to share learned patterns and pull refined priors back.",
                 14, Ui.TEXT);
         digestView.setId(R.id.eliza_digest_card);
-        digestView.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.RUBY, 130), 20));
+        digestView.setBackground(Ui.cardBackground(this, 20));
         digestView.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         digestView.setTextIsSelectable(true);
         labRelayDrawer.addView(digestView);
@@ -176,7 +176,7 @@ public final class ElizaGemActivity extends ComponentActivity {
         syncMem.setId(R.id.eliza_sync_memory);
         labRelayDrawer.addView(Ui.buttonRow(this, digestBtn, syncMem));
 
-        labRelayDrawer.addView(Ui.section(this, "SHARED LAB RELAY (UNIFIED MEMORY)"));
+        labRelayDrawer.addView(Ui.section(this, "Shared Lab Relay"));
         LinearLayout relayRow = new LinearLayout(this);
         relayRow.setOrientation(LinearLayout.HORIZONTAL);
         relayInput = Ui.input(this, "", "Pin a note for Zoe...");
@@ -188,33 +188,33 @@ public final class ElizaGemActivity extends ComponentActivity {
         labRelayDrawer.addView(relayRow, Ui.margins(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, this, 4));
 
-        labRelayDrawer.addView(Ui.section(this, "L5 PHASE 5 FRONTIER SCORECARD"));
-        phase5View = Ui.text(this, "Connect Eliza-GEM to inspect or re-run the 5 live L5 Phase 5 pillars (ARC Induction · 15-Fault & Java/Swift/Python Audit · Real Science & Falsification · 30-Day 8-Domain EWC · 4-Gen Meta-Evolution & Red-Team).", 14, Ui.TEXT);
+        labRelayDrawer.addView(Ui.section(this, "L5 Phase 5 Scorecard"));
+        phase5View = Ui.text(this, "Connect to inspect or run the 5 live L5 Phase 5 pillars.", 14, Ui.TEXT);
         phase5View.setId(R.id.eliza_phase5);
-        phase5View.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.GOLD, 120), 16));
-        phase5View.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
+        phase5View.setBackground(Ui.cardBackground(this, 18));
+        phase5View.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         phase5View.setTextIsSelectable(true);
         labRelayDrawer.addView(phase5View);
         Button runP5 = Ui.button(this, "Run Live Phase 5", Ui.COBALT, view -> runPhase5());
         runP5.setId(R.id.eliza_phase5_run);
         labRelayDrawer.addView(runP5);
 
-        labRelayDrawer.addView(Ui.section(this, "L5 PHASE 4 EMBODIED SCORECARD"));
-        phase4View = Ui.text(this, "Connect Eliza-GEM to inspect or re-run the 5 live L5 Phase 4 pillars (Blind Bench · 5-Tier Stem Routing · 12-Day Unified Memory · Embodied Voice/Vision · 3-Gen Self-Improvement).", 14, Ui.TEXT);
+        labRelayDrawer.addView(Ui.section(this, "L5 Phase 4 Scorecard"));
+        phase4View = Ui.text(this, "Connect to inspect or run the 5 live L5 Phase 4 pillars.", 14, Ui.TEXT);
         phase4View.setId(R.id.eliza_phase4);
-        phase4View.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.GREEN, 110), 16));
-        phase4View.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
+        phase4View.setBackground(Ui.cardBackground(this, 18));
+        phase4View.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         phase4View.setTextIsSelectable(true);
         labRelayDrawer.addView(phase4View);
         Button runP4 = Ui.button(this, "Run Live Phase 4", Ui.GREEN, view -> runPhase4());
         runP4.setId(R.id.eliza_phase4_run);
         labRelayDrawer.addView(runP4);
 
-        labRelayDrawer.addView(Ui.section(this, "L5 PHASE 3 SCORECARD"));
-        phase3View = Ui.text(this, "Connect Eliza-GEM to inspect or re-run the 5 live agentic synthesis pillars.", 14, Ui.TEXT);
+        labRelayDrawer.addView(Ui.section(this, "L5 Phase 3 Scorecard"));
+        phase3View = Ui.text(this, "Connect to inspect or run the 5 live L5 Phase 3 pillars.", 14, Ui.TEXT);
         phase3View.setId(R.id.eliza_phase3);
-        phase3View.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.CYAN, 110), 16));
-        phase3View.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
+        phase3View.setBackground(Ui.cardBackground(this, 18));
+        phase3View.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         phase3View.setTextIsSelectable(true);
         labRelayDrawer.addView(phase3View);
         Button runP3 = Ui.button(this, "Run Live Phase 3", Ui.GOLD, view -> runPhase3());

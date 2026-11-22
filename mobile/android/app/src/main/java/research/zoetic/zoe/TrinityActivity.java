@@ -55,11 +55,8 @@ public final class TrinityActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Zoe Trinity", "Tiny + mobile + laptop · one shared experiment"));
-        content.addView(Ui.text(this,
-                "Three planes, one shared field. Start the laptop companion, then connect explicitly.",
-                14.5f, Ui.MUTED));
-        status = Ui.text(this, "Trinity is off. Start the laptop companion, then connect explicitly.", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Zoe Trinity", "Tiny · Mobile · Laptop"));
+        status = Ui.statusBanner(this, "Trinity is off. Start the laptop companion, then connect.", Ui.COBALT);
         status.setId(R.id.trinity_status);
         content.addView(status);
 
@@ -83,12 +80,12 @@ public final class TrinityActivity extends ComponentActivity {
         content.addView(setupToggle);
         content.addView(setupDrawer);
 
-        content.addView(Ui.section(this, "THE SHARED EXPERIMENT"));
-        content.addView(Ui.text(this, "Probability distribution · 1 to 64 values", 14, Ui.TEXT));
+        content.addView(Ui.section(this, "Shared Experiment"));
+        content.addView(Ui.text(this, "Probability distribution · 1 to 64 values", 14, Ui.MUTED));
         probabilities = input("0.70, 0.20, 0.08, 0.02");
         probabilities.setId(R.id.trinity_probabilities);
         content.addView(probabilities);
-        content.addView(Ui.text(this, "Threshold τ", 14, Ui.TEXT));
+        content.addView(Ui.text(this, "Threshold τ", 14, Ui.MUTED));
         threshold = input("0.05");
         threshold.setId(R.id.trinity_threshold);
         content.addView(threshold);
@@ -97,23 +94,23 @@ public final class TrinityActivity extends ComponentActivity {
         Button measure = Ui.button(this, "Measure together", view -> measure());
         measure.setId(R.id.trinity_measure);
         content.addView(Ui.buttonRow(this, connect, measure));
-        Button reset = Ui.button(this, "Fresh shared view", view -> confirmReset());
+        Button reset = Ui.disclosureButton(this, "Fresh shared view", view -> confirmReset());
         reset.setId(R.id.trinity_reset);
         content.addView(reset);
 
-        content.addView(Ui.section(this, "01 · TINY ZOE / CELL PLANE"));
+        content.addView(Ui.section(this, "01 · Tiny Zoe"));
         tinyReport = plane("Quantized Q0.15 witness appears after connection.", Ui.YELLOW);
         tinyReport.setId(R.id.trinity_tiny);
         content.addView(tinyReport);
-        content.addView(Ui.section(this, "02 · ZOE MOBILE / NATIVE PLANE"));
+        content.addView(Ui.section(this, "02 · Mobile Zoe"));
         mobileReport = plane("Strict floating-point measurement appears after connection.", Ui.CYAN);
         mobileReport.setId(R.id.trinity_mobile);
         content.addView(mobileReport);
-        content.addView(Ui.section(this, "03 · LAPTOP ZOE / FIELD PLANE"));
-        laptopReport = plane("Revision, history, and optional long-term memory appear after connection.", Ui.PINK);
+        content.addView(Ui.section(this, "03 · Laptop Zoe"));
+        laptopReport = plane("Revision, history, and optional journal appear after connection.", Ui.PINK);
         laptopReport.setId(R.id.trinity_laptop);
         content.addView(laptopReport);
-        content.addView(Ui.section(this, "FIELD NOTES"));
+        content.addView(Ui.section(this, "Field Notes"));
         history = Ui.text(this, "No shared observations loaded.", 14, Ui.TEXT);
         history.setId(R.id.trinity_history);
         history.setTextIsSelectable(true);

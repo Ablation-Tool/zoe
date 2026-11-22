@@ -125,12 +125,14 @@ final class GuidedVisionView extends ScrollView {
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         cameraFrame.addView(new ViewfinderReticleView(activity), new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        content.addView(cameraFrame, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(activity, 240)));
+        LinearLayout.LayoutParams camLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(activity, 240));
+        camLp.setMargins(0, 0, 0, Ui.dp(activity, 6));
+        content.addView(cameraFrame, camLp);
 
-        status = Ui.text(activity,
+        status = Ui.statusBanner(activity,
                 "Camera and microphone are idle.",
-                14, Ui.YELLOW);
+                Ui.COBALT);
         status.setId(R.id.vision_status);
         content.addView(status);
         textRecognizer = MediaChatHelper.getSharedTextRecognizer();
@@ -186,7 +188,7 @@ final class GuidedVisionView extends ScrollView {
         paletteRow = new LinearLayout(activity);
         paletteRow.setOrientation(LinearLayout.HORIZONTAL);
         paletteCard.addView(paletteRow);
-        paletteText = Ui.text(activity, "Color palette & light meter appear after Inspect once.", 13, Ui.GOLD);
+        paletteText = Ui.text(activity, "Color palette & light meter appear after Inspect once.", 13.5f, Ui.MUTED);
         paletteCard.addView(paletteText);
         content.addView(paletteCard, Ui.margins(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, activity, 4));
@@ -231,20 +233,20 @@ final class GuidedVisionView extends ScrollView {
         saveShareDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         saveShareDrawer.setVisibility(GONE);
 
-        saveJournalButton = Ui.button(activity, "Save to Trip Journal", Ui.GREEN, view -> promptSaveToJournal());
+        saveJournalButton = Ui.button(activity, "Save to Journal", Ui.GREEN, view -> promptSaveToJournal());
         saveJournalButton.setId(R.id.vision_save_journal);
         saveJournalButton.setEnabled(false);
-        sharePhotoButton = Ui.button(activity, "Show Photo to Gemini", Ui.GOLD, view -> sharePhotoWithApps());
+        sharePhotoButton = Ui.button(activity, "Share Photo", Ui.GOLD, view -> sharePhotoWithApps());
         sharePhotoButton.setId(R.id.vision_share_photo);
         sharePhotoButton.setEnabled(false);
         saveShareDrawer.addView(Ui.buttonRow(activity, saveJournalButton, sharePhotoButton));
 
-        cloudAskButton = Ui.button(activity, "Ask Cloud Vision", Ui.CYAN, view -> askCloudVision());
+        cloudAskButton = Ui.button(activity, "Cloud Vision", Ui.CYAN, view -> askCloudVision());
         cloudAskButton.setId(R.id.vision_cloud_ask);
         cloudAskButton.setEnabled(false);
-        Button share = Ui.button(activity, "Share result", Ui.PINK, view -> activity.shareCurrent());
+        Button share = Ui.button(activity, "Share Text", Ui.PINK, view -> activity.shareCurrent());
         share.setId(R.id.share_button);
-        Button gemini = Ui.button(activity, "Open Gemini", Ui.GOLD, view -> activity.openGemini());
+        Button gemini = Ui.button(activity, "Gemini", Ui.GOLD, view -> activity.openGemini());
         gemini.setId(R.id.gemini_button);
         saveShareDrawer.addView(Ui.buttonRow(activity, cloudAskButton, share, gemini));
 
@@ -549,43 +551,43 @@ final class GuidedVisionView extends ScrollView {
     private StringBuilder buildDisplayReport(Exception textError, Exception labelsError, List<ImageLabel> ordered) {
         StringBuilder display = new StringBuilder();
         if (!lastCloud.isEmpty()) {
-            display.append("ONLINE CLOUD · GEMINI\n").append(lastCloud).append("\n\n");
+            display.append("Cloud Vision\n").append(lastCloud).append("\n\n");
         }
         if (lastPriorMatch != null || !lastStructuralNote.isEmpty() || lastVisualSignature != null) {
-            display.append("STRUCTURAL RECOGNITION (OFFLINE MEMORY)\n");
+            display.append("Visual Memory\n");
             if (lastPriorMatch != null) {
-                display.append("Recognized: ").append(lastPriorMatch.formatGuidedSummary()).append("\n");
+                display.append("Match: ").append(lastPriorMatch.formatGuidedSummary()).append("\n");
             }
             if (!lastStructuralNote.isEmpty()) {
                 display.append(lastStructuralNote).append("\n");
             }
             if (lastVisualSignature != null && !lastVisualSignature.shapeSummary.isEmpty()) {
-                display.append("Geometry: ").append(lastVisualSignature.shapeSummary);
+                display.append("Shape: ").append(lastVisualSignature.shapeSummary);
                 if (lastHardToIdentify && lastPriorMatch == null) {
-                    display.append(" · Unfamiliar object (tap Teach Zoe object or Patent prior to learn)");
+                    display.append(" · Tap Teach Zoe to learn");
                 }
             }
             display.append("\n\n");
         }
         if (!lastDeviceAi.isEmpty()) {
-            display.append("DEVICE AI DESCRIPTION\n").append(lastDeviceAi).append("\n\n");
+            display.append("On-Device AI\n").append(lastDeviceAi).append("\n\n");
         }
-        display.append("TEXT\n").append(lastOcr.isEmpty() ? "No text recognized." : lastOcr);
-        display.append("\n\nIMAGE LABELS\n");
-        display.append(lastLabels.isEmpty() ? "No labels at or above 50% confidence." : lastLabels);
+        display.append("Text\n").append(lastOcr.isEmpty() ? "No text found." : lastOcr);
+        display.append("\n\nLabels\n");
+        display.append(lastLabels.isEmpty() ? "No strong labels found." : lastLabels);
         if (!lastPaletteSummary.isEmpty()) {
-            display.append("\n\nOFFLINE PIXEL MATH\n").append(lastPaletteSummary);
+            display.append("\n\nLight & Color\n").append(lastPaletteSummary);
         }
         if (textError != null || labelsError != null) {
-            display.append("\n\nA model reported an error. Results may be incomplete; no failure was converted into success.");
+            display.append("\n\nA vision model reported an error; results may be incomplete.");
         }
         if (ordered != null) {
             boolean catSpotted = ordered.stream().anyMatch(label -> "cat".equalsIgnoreCase(label.getText()));
             if (catSpotted) {
-                display.append("\n\nCOMPANION\nCat in the field. Identity and tail status remain unmeasured.");
+                display.append("\n\nCompanion\nCat spotted nearby.");
             }
         }
-        display.append("\n\nModel outputs and structural matches remain candidate observations, not proof of identity. Nothing is saved unless you tap Save or Teach.");
+        display.append("\n\nObservations only — nothing is saved until you tap Save or Teach.");
         return display;
     }
 
@@ -729,6 +731,7 @@ final class GuidedVisionView extends ScrollView {
             params.setMargins(0, 0, i < palette.colors.length - 1 ? Ui.dp(activity, 6) : 0, 0);
             paletteRow.addView(swatch, params);
         }
+        paletteText.setTextColor(Ui.textColor(activity));
         paletteText.setText(palette.summary());
     }
 

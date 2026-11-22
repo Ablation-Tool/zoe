@@ -11,12 +11,15 @@ public enum CreativeAndArcadeCore {
         case emeraldFilm = "Emerald Film"
         case vividPop = "Vivid Pop"
         case sepia = "Sepia"
+        case archivalVellum = "Vellum"
+        case prussianBlue = "Blueprint"
         public var id: String { rawValue }
     }
 
     public enum CropMode: String, CaseIterable, Identifiable, Sendable {
         case original = "Original"
         case square = "1:1 Square"
+        case portrait4x5 = "4:5 Portrait"
         case wide16x9 = "16:9 Wide"
         public var id: String { rawValue }
     }
@@ -25,7 +28,11 @@ public enum CreativeAndArcadeCore {
         public var filter: FilterPreset = .original
         public var brightness: Int = 0
         public var contrast: Double = 1.0
+        public var warmth: Int = 0
+        public var saturation: Double = 1.0
+        public var vignette: Int = 0
         public var rotationDeg: Int = 0
+        public var flipHorizontal: Bool = false
         public var crop: CropMode = .original
         public var privacyBlur: Bool = false
         public var caption: String = ""
@@ -43,6 +50,10 @@ public enum CreativeAndArcadeCore {
         var next = current
         if lower.contains("black and white") || lower.contains("b&w") || lower.contains("noir") || lower.contains("grayscale") {
             next.filter = .noirBW
+        } else if lower.contains("vellum") || lower.contains("parchment") || lower.contains("archival") {
+            next.filter = .archivalVellum
+        } else if lower.contains("cyanotype") || lower.contains("prussian") {
+            next.filter = .prussianBlue
         } else if lower.contains("sepia") || lower.contains("vintage") {
             next.filter = .sepia
         } else if lower.contains("warm") || lower.contains("sunset") {
@@ -61,7 +72,18 @@ public enum CreativeAndArcadeCore {
             next.brightness = max(-60, next.brightness - 24)
         }
         if lower.contains("more contrast") || lower.contains("punchy") {
-            next.contrast = min(1.6, next.contrast + 0.25)
+            next.contrast = min(1.8, next.contrast + 0.25)
+        }
+        if lower.contains("warmer") {
+            next.warmth = min(40, next.warmth + 16)
+        } else if lower.contains("cooler") {
+            next.warmth = max(-40, next.warmth - 16)
+        }
+        if lower.contains("vignette") {
+            next.vignette = (lower.contains("no vignette") || lower.contains("remove vignette")) ? 0 : 48
+        }
+        if lower.contains("mirror") || lower.contains("flip horizontal") || lower == "flip" {
+            next.flipHorizontal.toggle()
         }
         if lower.contains("rotate left") || lower.contains("270") {
             next.rotationDeg = (next.rotationDeg + 270) % 360
@@ -72,6 +94,8 @@ public enum CreativeAndArcadeCore {
         }
         if lower.contains("square") || lower.contains("1:1") {
             next.crop = .square
+        } else if lower.contains("4:5") || lower.contains("portrait") {
+            next.crop = .portrait4x5
         } else if lower.contains("16:9") || lower.contains("wide") {
             next.crop = .wide16x9
         }

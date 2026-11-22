@@ -14,6 +14,8 @@ public enum ScientificVisualAndPatentCore {
         case weismannGermplasm = "🧬 Weismann"
         case lamarckMorphospace = "🌿 Lamarck"
         case patentBlueprint = "📐 Patent"
+        case chladniPlate = "✨ Chladni"
+        case fibonacciPhyllotaxis = "🌸 Phyllotaxis"
 
         public var id: String { rawValue }
 
@@ -25,6 +27,8 @@ public enum ScientificVisualAndPatentCore {
             case .weismannGermplasm: return "August Weismann · Das Keimplasma (1892)"
             case .lamarckMorphospace: return "Jean-Baptiste Lamarck · Philosophie Zoologique (1809)"
             case .patentBlueprint: return "Orthographic Patent Schematic (patents.google.com)"
+            case .chladniPlate: return "Ernst Chladni · Acoustic Nodal Plate (1787)"
+            case .fibonacciPhyllotaxis: return "Botanical Vogel Spiral · Fibonacci (13, 21)"
             }
         }
 
@@ -36,6 +40,8 @@ public enum ScientificVisualAndPatentCore {
             case .weismannGermplasm: return "Germ-line symmetry · Mitotic spindle field"
             case .lamarckMorphospace: return "Comparative anatomy · Continuous morphospace"
             case .patentBlueprint: return "Involute gear + prism optics · Orthographic callouts"
+            case .chladniPlate: return "Standing wave cos(mπx)cos(nπy) − cos(nπx)cos(mπy) = 0"
+            case .fibonacciPhyllotaxis: return "Golden divergence 137.508° · Counter-rotating parastichies"
             }
         }
     }
@@ -101,9 +107,19 @@ public enum ScientificVisualAndPatentCore {
             return "\(subject). Grounded in Jean-Baptiste Lamarck's 1809 natural history comparative anatomy plate: ordered morphological progression, fine zoological etching on archival parchment."
         case .patentBlueprint:
             return "\(subject). Grounded in classic USPTO / Google Patents orthographic engineering schematic style: crisp isometric & orthographic line drawing, dashed centerlines, numbered reference callouts (10, 12, 14), exact mechanical proportions."
+        case .chladniPlate:
+            return "\(subject). Grounded in Ernst Chladni's 1787 acoustic standing-wave cymatic plate geometry: symmetric nodal curves, luminous gold and cyan sand lines on obsidian slate."
+        case .fibonacciPhyllotaxis:
+            return "\(subject). Grounded in botanical Vogel golden-angle phyllotaxis (137.508°): counter-rotating (13, 21) Fibonacci parastichy spirals, archival watercolor and ink stippling."
         case .atelier:
             return "\(subject). Clean factual proportions, crisp lighting, balanced geometric harmony."
         }
+    }
+
+    public static func chladniModes(forSeed seed: Int) -> (m: Int, n: Int) {
+        let pairs: [(Int, Int)] = [(2, 5), (3, 5), (3, 7), (4, 7), (2, 7), (5, 8)]
+        let pick = pairs[abs(seed) % pairs.count]
+        return (pick.0, pick.1)
     }
 
     public static func extractPatentNumber(from text: String) -> String {

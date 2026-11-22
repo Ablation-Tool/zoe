@@ -35,42 +35,42 @@ public final class ScreenSpaceActivity extends ComponentActivity implements ZoeA
         scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
         content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        content.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 24));
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 24));
         scroll.addView(content);
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Screen space", "Explicit captures · mapped gestures"));
-        content.addView(Ui.text(this,
-                "Your scaled screen, your action timeline. Enable the service, capture explicitly, then tap or swipe. No passive screen reading or background gestures.",
-                14, Ui.MUTED));
-        status = Ui.text(this, "Screen service is off. Enable it before capture or gestures.", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Screen Space", "On-demand capture & gestures"));
+        status = Ui.statusBanner(this, "Screen service is off. Enable it to capture or gesture.", Ui.COBALT);
         status.setId(R.id.space_status);
         content.addView(status);
-        content.addView(Ui.button(this, "Open accessibility settings", Ui.GOLD, view ->
-                showAccessibilityDisclosure()));
-        Button capture = Ui.button(this, "Capture screen once", Ui.CYAN, view -> capture());
+        Button capture = Ui.primaryButton(this, "Capture once", Ui.CYAN, view -> capture());
         capture.setId(R.id.space_capture);
+        Button enableBtn = Ui.button(this, "Accessibility", Ui.GOLD, view -> showAccessibilityDisclosure());
+        content.addView(Ui.buttonRow(this, capture, enableBtn));
         Button back = Ui.button(this, "Back", Ui.PINK, view -> global(AccessibilityService.GLOBAL_ACTION_BACK, "Back"));
-        content.addView(Ui.buttonRow(this, capture, back));
-        content.addView(Ui.buttonRow(this,
-                Ui.button(this, "Home", Ui.GREEN, view -> global(AccessibilityService.GLOBAL_ACTION_HOME, "Home")),
-                Ui.button(this, "Recents", Ui.CYAN, view -> global(AccessibilityService.GLOBAL_ACTION_RECENTS, "Recents"))));
+        Button home = Ui.button(this, "Home", Ui.GREEN, view -> global(AccessibilityService.GLOBAL_ACTION_HOME, "Home"));
+        Button recents = Ui.button(this, "Recents", Ui.CYAN, view -> global(AccessibilityService.GLOBAL_ACTION_RECENTS, "Recents"));
+        content.addView(Ui.buttonRow(this, back, home, recents));
         captureView = new ImageView(this);
-        captureView.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.BORDER, 12));
+        captureView.setBackground(Ui.cardBackground(this, 18));
         captureView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         captureView.setContentDescription("Captured screen. Tap or swipe to perform an explicit gesture.");
         captureView.setClickable(true);
         captureView.setOnTouchListener(this::gesture);
-        content.addView(captureView, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 420)));
-        timelineView = Ui.text(this, "No actions recorded. Event ordinals are not wall-clock timestamps.", 14, Ui.TEXT);
-        timelineView.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
+        LinearLayout.LayoutParams capLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 360));
+        capLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
+        content.addView(captureView, capLp);
+        timelineView = Ui.text(this, "Action log appears here. Captures stay in memory only.", 14, Ui.TEXT);
+        timelineView.setBackground(Ui.cardBackground(this, 18));
         timelineView.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
         content.addView(timelineView);
-        content.addView(Ui.text(this,
-                "Do not capture lock screens, passwords, payment screens, or private content. Captures stay in memory and are not written to disk by Zoe.",
-                12, Ui.MUTED));
+        TextView note = Ui.text(this,
+                "Avoid passwords or banking screens. Nothing is saved to disk.",
+                12.5f, Ui.MUTED);
+        note.setGravity(android.view.Gravity.CENTER);
+        content.addView(note);
     }
 
     /** Google Play prominent disclosure + affirmative consent before the system settings open. */

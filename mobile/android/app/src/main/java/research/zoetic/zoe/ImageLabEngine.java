@@ -1,5 +1,7 @@
 package research.zoetic.zoe;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,14 +12,20 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -28,12 +36,14 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Zoe Image Lab Engine (v0.6.0-beta):
- *   - 100% offline native photo editing (film filters, brightness/contrast, rotate, aspect crops,
- *     privacy pixelation blur band, and caption stamping)
- *   - Plain-English natural-language edit command parser ("warm, rotate 90, black and white, caption Sunset")
- *   - Built-in procedural "Zoe Atelier" starter artwork so editing works immediately offline
- *   - Optional online BYOK AI image generation (OpenAI Images API) when user has a key configured.
+ * Zoe Image Lab Engine (v0.9.4-beta):
+ *   - 100% offline native HD photo & scientific plate editing: 9 film/archival filters, brightness,
+ *     contrast, warmth, saturation, radial vignette, 90° rotation, horizontal flip, 1:1 / 4:5 / 16:9
+ *     aspect crops, privacy pixelation blur band, and caption stamping
+ *   - Plain-English natural-language edit command parser ("warm, rotate 90, flip, vignette, noir")
+ *   - Direct Save to Android Photos Gallery (MediaStore.Images, zero storage permission on Android 10+)
+ *   - Optional online BYOK AI image generation supporting BOTH Google Gemini Imagen 3 and OpenAI
+ *     using whichever API key the user already saved (explicit tap only).
  */
 final class ImageLabEngine {
     enum FilterPreset {
@@ -43,7 +53,9 @@ final class ImageLabEngine {
         NOIR_BW("Noir B&W"),
         EMERALD_FILM("Emerald Film"),
         VIVID_POP("Vivid Pop"),
-        SEPIA_VINTAGE("Sepia");
+        SEPIA_VINTAGE("Sepia"),
+        ARCHIVAL_VELLUM("Vellum"),
+        PRUSSIAN_BLUE("Blueprint");
 
         final String label;
 
@@ -55,6 +67,7 @@ final class ImageLabEngine {
     enum CropMode {
         ORIGINAL("Original"),
         SQUARE("1:1 Square"),
+        PORTRAIT_4_5("4:5 Portrait"),
         WIDE_16_9("16:9 Wide");
 
         final String label;
@@ -66,9 +79,13 @@ final class ImageLabEngine {
 
     static final class EditSpec {
         FilterPreset filter = FilterPreset.ORIGINAL;
-        int brightness;       // -60 .. +60
-        float contrast = 1.0f; // 0.6 .. 1.6
-        int rotationDeg;      // 0, 90, 180, 270
+        int brightness;         // -60 .. +60
+        float contrast = 1.0f;  // 0.5 .. 1.8
+        int warmth;             // -40 .. +40
+        float saturation = 1.0f; // 0.0 .. 2.0
+        int vignette;           // 0 .. 100
+        int rotationDeg;        // 0, 90, 180, 270
+        boolean flipHorizontal;
         CropMode crop = CropMode.ORIGINAL;
         boolean privacyBlur;
         String caption = "";
@@ -78,7 +95,11 @@ final class ImageLabEngine {
             c.filter = this.filter;
             c.brightness = this.brightness;
             c.contrast = this.contrast;
+            c.warmth = this.warmth;
+            c.saturation = this.saturation;
+            c.vignette = this.vignette;
             c.rotationDeg = this.rotationDeg;
+            c.flipHorizontal = this.flipHorizontal;
             c.crop = this.crop;
             c.privacyBlur = this.privacyBlur;
             c.caption = this.caption;
@@ -93,8 +114,20 @@ final class ImageLabEngine {
             if (Math.abs(contrast - 1.0f) > 0.04f) {
                 sb.append(String.format(Locale.US, " · contrast %.1fx", contrast));
             }
+            if (warmth != 0) {
+                sb.append(" · warmth ").append(warmth > 0 ? "+" : "").append(warmth);
+            }
+            if (Math.abs(saturation - 1.0f) > 0.05f) {
+                sb.append(String.format(Locale.US, " · sat %d%%", Math.round(saturation * 100f)));
+            }
+            if (vignette > 0) {
+                sb.append(" · vignette ").append(vignette).append("%");
+            }
             if (rotationDeg != 0) {
                 sb.append(" · rot ").append(rotationDeg).append("°");
+            }
+            if (flipHorizontal) {
+                sb.append(" · mirror");
             }
             if (crop != CropMode.ORIGINAL) {
                 sb.append(" · ").append(crop.label);
@@ -128,6 +161,10 @@ final class ImageLabEngine {
         }
         if (lower.contains("black and white") || lower.contains("b&w") || lower.contains("noir") || lower.contains("grayscale") || lower.contains("monochrome")) {
             next.filter = FilterPreset.NOIR_BW;
+        } else if (lower.contains("vellum") || lower.contains("parchment") || lower.contains("archival")) {
+            next.filter = FilterPreset.ARCHIVAL_VELLUM;
+        } else if (lower.contains("cyanotype") || lower.contains("prussian")) {
+            next.filter = FilterPreset.PRUSSIAN_BLUE;
         } else if (lower.contains("sepia") || lower.contains("vintage") || lower.contains("retro")) {
             next.filter = FilterPreset.SEPIA_VINTAGE;
         } else if (lower.contains("warm") || lower.contains("sunset") || lower.contains("golden")) {
@@ -146,9 +183,20 @@ final class ImageLabEngine {
             next.brightness = Math.max(-60, next.brightness - 24);
         }
         if (lower.contains("more contrast") || lower.contains("punchy") || lower.contains("sharper") || lower.contains("crisp")) {
-            next.contrast = Math.min(1.6f, next.contrast + 0.25f);
+            next.contrast = Math.min(1.8f, next.contrast + 0.25f);
         } else if (lower.contains("soft") || lower.contains("less contrast")) {
-            next.contrast = Math.max(0.6f, next.contrast - 0.2f);
+            next.contrast = Math.max(0.5f, next.contrast - 0.2f);
+        }
+        if (lower.contains("warmer")) {
+            next.warmth = Math.min(40, next.warmth + 16);
+        } else if (lower.contains("cooler")) {
+            next.warmth = Math.max(-40, next.warmth - 16);
+        }
+        if (lower.contains("vignette")) {
+            next.vignette = lower.contains("no vignette") || lower.contains("remove vignette") ? 0 : 48;
+        }
+        if (lower.contains("mirror") || lower.contains("flip horizontal") || lower.equals("flip")) {
+            next.flipHorizontal = !next.flipHorizontal;
         }
 
         if (lower.contains("rotate left") || lower.contains("270")) {
@@ -161,6 +209,8 @@ final class ImageLabEngine {
 
         if (lower.contains("square") || lower.contains("1:1")) {
             next.crop = CropMode.SQUARE;
+        } else if (lower.contains("4:5") || lower.contains("portrait")) {
+            next.crop = CropMode.PORTRAIT_4_5;
         } else if (lower.contains("16:9") || lower.contains("widescreen") || lower.contains("wide")) {
             next.crop = CropMode.WIDE_16_9;
         }
@@ -191,7 +241,7 @@ final class ImageLabEngine {
     }
 
     /**
-     * Generates a calm procedural Monterey-Atelier starter canvas so users can test every edit offline.
+     * Generates a luminous procedural Monterey-Atelier starter canvas with starfield & Chladni rings.
      */
     static Bitmap createAtelierStarterBitmap(int w, int h) {
         Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
@@ -199,24 +249,52 @@ final class ImageLabEngine {
 
         Paint sky = new Paint(Paint.ANTI_ALIAS_FLAG);
         sky.setShader(new LinearGradient(0, 0, 0, h,
-                new int[]{Color.rgb(18, 28, 58), Color.rgb(34, 72, 128), Color.rgb(218, 124, 96), Color.rgb(245, 198, 134)},
-                new float[]{0f, 0.45f, 0.78f, 1f}, Shader.TileMode.CLAMP));
+                new int[]{Color.rgb(14, 22, 48), Color.rgb(30, 66, 122), Color.rgb(218, 124, 96), Color.rgb(246, 202, 138)},
+                new float[]{0f, 0.44f, 0.76f, 1f}, Shader.TileMode.CLAMP));
         c.drawRect(0, 0, w, h, sky);
 
-        // Glowing sun disc
+        // Crisp twilight stars in upper sky
+        Paint star = new Paint(Paint.ANTI_ALIAS_FLAG);
+        for (int i = 0; i < 36; i++) {
+            float sx = ((i * 197 + 41) % 997) / 997f * w;
+            float sy = ((i * 113 + 19) % 491) / 491f * (h * 0.42f);
+            float sr = (i % 4 == 0) ? Math.max(1.8f, w * 0.0024f) : Math.max(1.0f, w * 0.0014f);
+            star.setColor(Color.argb(120 + (i * 29) % 120, 232, 242, 255));
+            c.drawCircle(sx, sy, sr, star);
+        }
+
+        // Solar halo + glowing sun disc
+        float sunX = w * 0.68f;
+        float sunY = h * 0.47f;
+        Paint halo = new Paint(Paint.ANTI_ALIAS_FLAG);
+        halo.setShader(new RadialGradient(sunX, sunY, w * 0.34f,
+                Color.argb(110, 255, 224, 158), Color.argb(0, 255, 210, 140), Shader.TileMode.CLAMP));
+        c.drawCircle(sunX, sunY, w * 0.34f, halo);
+
         Paint sun = new Paint(Paint.ANTI_ALIAS_FLAG);
-        sun.setColor(Color.argb(215, 255, 232, 178));
-        c.drawCircle(w * 0.68f, h * 0.48f, w * 0.13f, sun);
+        sun.setColor(Color.argb(232, 255, 236, 188));
+        c.drawCircle(sunX, sunY, w * 0.125f, sun);
 
         // Calm ocean horizon
         Paint sea = new Paint(Paint.ANTI_ALIAS_FLAG);
         sea.setShader(new LinearGradient(0, h * 0.56f, 0, h,
-                Color.rgb(26, 62, 102), Color.rgb(12, 24, 46), Shader.TileMode.CLAMP));
+                Color.rgb(26, 62, 102), Color.rgb(10, 20, 42), Shader.TileMode.CLAMP));
         c.drawRect(0, h * 0.56f, w, h, sea);
 
         // Layered coastal silhouettes
+        Paint ridgeFar = new Paint(Paint.ANTI_ALIAS_FLAG);
+        ridgeFar.setColor(Color.argb(175, 36, 54, 88));
+        android.graphics.Path farPath = new android.graphics.Path();
+        farPath.moveTo(0, h * 0.59f);
+        farPath.quadTo(w * 0.30f, h * 0.40f, w * 0.56f, h * 0.56f);
+        farPath.quadTo(w * 0.80f, h * 0.62f, w, h * 0.50f);
+        farPath.lineTo(w, h * 0.66f);
+        farPath.lineTo(0, h * 0.66f);
+        farPath.close();
+        c.drawPath(farPath, ridgeFar);
+
         Paint ridge = new Paint(Paint.ANTI_ALIAS_FLAG);
-        ridge.setColor(Color.rgb(20, 32, 54));
+        ridge.setColor(Color.rgb(18, 29, 50));
         android.graphics.Path path = new android.graphics.Path();
         path.moveTo(0, h * 0.62f);
         path.quadTo(w * 0.22f, h * 0.44f, w * 0.48f, h * 0.59f);
@@ -229,19 +307,20 @@ final class ImageLabEngine {
         // Subtle Chladni starlight rings
         Paint ring = new Paint(Paint.ANTI_ALIAS_FLAG);
         ring.setStyle(Paint.Style.STROKE);
-        ring.setStrokeWidth(2.5f);
-        ring.setColor(Color.argb(90, 166, 214, 255));
+        ring.setStrokeWidth(Math.max(2.0f, w * 0.0032f));
+        ring.setColor(Color.argb(95, 166, 214, 255));
         for (int i = 1; i <= 4; i++) {
-            c.drawCircle(w * 0.68f, h * 0.48f, w * (0.14f + i * 0.06f), ring);
+            c.drawCircle(sunX, sunY, w * (0.14f + i * 0.06f), ring);
         }
 
         // Shimmering water reflections
         Paint shimmer = new Paint(Paint.ANTI_ALIAS_FLAG);
-        shimmer.setColor(Color.argb(120, 255, 224, 168));
+        shimmer.setColor(Color.argb(130, 255, 224, 168));
+        float barH = Math.max(4f, h * 0.008f);
         for (int i = 0; i < 8; i++) {
             float ry = h * (0.64f + i * 0.04f);
             float rw = w * (0.16f - i * 0.012f);
-            c.drawRoundRect(new RectF(w * 0.68f - rw, ry, w * 0.68f + rw, ry + 5f), 4f, 4f, shimmer);
+            c.drawRoundRect(new RectF(sunX - rw, ry, sunX + rw, ry + barH), barH, barH, shimmer);
         }
         return bmp;
     }
@@ -252,11 +331,16 @@ final class ImageLabEngine {
         }
         EditSpec s = spec == null ? new EditSpec() : spec;
 
-        // 1. Rotation
+        // 1. Rotation & optional horizontal mirror
         Bitmap working = src;
-        if (s.rotationDeg % 360 != 0) {
+        if (s.rotationDeg % 360 != 0 || s.flipHorizontal) {
             Matrix m = new Matrix();
-            m.postRotate(s.rotationDeg % 360);
+            if (s.flipHorizontal) {
+                m.postScale(-1f, 1f, src.getWidth() / 2f, src.getHeight() / 2f);
+            }
+            if (s.rotationDeg % 360 != 0) {
+                m.postRotate(s.rotationDeg % 360);
+            }
             working = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), m, true);
         }
 
@@ -273,6 +357,13 @@ final class ImageLabEngine {
             cy = (h - side) / 2;
             cw = side;
             ch = side;
+        } else if (s.crop == CropMode.PORTRAIT_4_5) {
+            int targetW = Math.min(w, Math.max(16, (h * 4) / 5));
+            int targetH = Math.min(h, Math.max(16, (targetW * 5) / 4));
+            cx = (w - targetW) / 2;
+            cy = (h - targetH) / 2;
+            cw = targetW;
+            ch = targetH;
         } else if (s.crop == CropMode.WIDE_16_9) {
             int targetH = Math.min(h, Math.max(16, (w * 9) / 16));
             int targetW = Math.min(w, Math.max(16, (targetH * 16) / 9));
@@ -285,8 +376,8 @@ final class ImageLabEngine {
         Bitmap out = Bitmap.createBitmap(cw, ch, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(out);
 
-        // 3. ColorMatrix filter + brightness + contrast
-        ColorMatrix cm = buildColorMatrix(s.filter, s.brightness, s.contrast);
+        // 3. ColorMatrix filter + warmth + saturation + brightness + contrast
+        ColorMatrix cm = buildColorMatrix(s.filter, s.brightness, s.contrast, s.warmth, s.saturation);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
         paint.setColorFilter(new ColorMatrixColorFilter(cm));
         canvas.drawBitmap(working, new Rect(cx, cy, cx + cw, cy + ch), new Rect(0, 0, cw, ch), paint);
@@ -294,7 +385,19 @@ final class ImageLabEngine {
             working.recycle();
         }
 
-        // 4. Optional offline privacy pixelation band (center horizontal strip for faces/plates)
+        // 4. Optional radial optical vignette
+        if (s.vignette > 0) {
+            float strength = Math.min(1f, s.vignette / 100f);
+            float radius = Math.max(cw, ch) * 0.72f;
+            Paint vig = new Paint(Paint.ANTI_ALIAS_FLAG);
+            vig.setShader(new RadialGradient(
+                    cw * 0.5f, ch * 0.5f, radius,
+                    new int[]{Color.TRANSPARENT, Color.TRANSPARENT, Color.argb((int) (strength * 195), 8, 10, 16)},
+                    new float[]{0f, 0.52f, 1f}, Shader.TileMode.CLAMP));
+            canvas.drawRect(0, 0, cw, ch, vig);
+        }
+
+        // 5. Optional offline privacy pixelation band (center horizontal strip for faces/plates)
         if (s.privacyBlur && cw >= 32 && ch >= 32) {
             int bandTop = (int) (ch * 0.30f);
             int bandH = Math.max(16, (int) (ch * 0.28f));
@@ -307,19 +410,19 @@ final class ImageLabEngine {
             strip.recycle();
         }
 
-        // 5. Optional crisp caption overlay
+        // 6. Optional crisp caption overlay
         if (s.caption != null && !s.caption.trim().isEmpty()) {
             String cap = s.caption.trim();
             Paint bar = new Paint(Paint.ANTI_ALIAS_FLAG);
-            bar.setColor(Color.argb(175, 14, 17, 26));
-            float barH = Math.max(44f, ch * 0.12f);
+            bar.setColor(Color.argb(182, 14, 17, 26));
+            float barH = Math.max(44f, ch * 0.11f);
             canvas.drawRect(0, ch - barH, cw, ch, bar);
 
             Paint txt = new Paint(Paint.ANTI_ALIAS_FLAG);
             txt.setColor(Color.rgb(244, 246, 250));
             txt.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             txt.setTextAlign(Paint.Align.CENTER);
-            txt.setTextSize(Math.max(18f, Math.min(34f, ch * 0.052f)));
+            txt.setTextSize(Math.max(18f, Math.min(44f, ch * 0.048f)));
             Paint.FontMetrics fm = txt.getFontMetrics();
             float textY = ch - (barH / 2f) - (fm.ascent + fm.descent) / 2f;
             canvas.drawText(cap, cw / 2f, textY, txt);
@@ -329,6 +432,11 @@ final class ImageLabEngine {
     }
 
     static ColorMatrix buildColorMatrix(FilterPreset preset, int brightness, float contrast) {
+        return buildColorMatrix(preset, brightness, contrast, 0, 1.0f);
+    }
+
+    static ColorMatrix buildColorMatrix(FilterPreset preset, int brightness, float contrast,
+                                        int warmth, float saturation) {
         ColorMatrix cm = new ColorMatrix();
         if (preset == FilterPreset.NOIR_BW) {
             cm.setSaturation(0f);
@@ -362,6 +470,37 @@ final class ImageLabEngine {
             });
         } else if (preset == FilterPreset.VIVID_POP) {
             cm.setSaturation(1.45f);
+        } else if (preset == FilterPreset.ARCHIVAL_VELLUM) {
+            cm.set(new float[]{
+                    1.06f, 0.08f, 0.02f, 0, 14,
+                    0.02f, 1.02f, 0.02f, 0, 10,
+                    0, 0.02f, 0.84f, 0, 4,
+                    0, 0, 0, 1, 0
+            });
+        } else if (preset == FilterPreset.PRUSSIAN_BLUE) {
+            cm.set(new float[]{
+                    0.18f, 0.22f, 0.08f, 0, -10,
+                    0.14f, 0.56f, 0.24f, 0, 6,
+                    0.22f, 0.44f, 0.78f, 0, 32,
+                    0, 0, 0, 1, 0
+            });
+        }
+
+        if (Math.abs(saturation - 1.0f) > 0.02f && preset != FilterPreset.NOIR_BW) {
+            ColorMatrix satM = new ColorMatrix();
+            satM.setSaturation(Math.max(0f, Math.min(2.0f, saturation)));
+            cm.postConcat(satM);
+        }
+
+        if (warmth != 0) {
+            float w = Math.max(-40f, Math.min(40f, warmth));
+            ColorMatrix wm = new ColorMatrix(new float[]{
+                    1f + w * 0.004f, 0, 0, 0, w * 0.45f,
+                    0, 1f + w * 0.001f, 0, 0, w * 0.12f,
+                    0, 0, 1f - w * 0.004f, 0, -w * 0.45f,
+                    0, 0, 0, 1, 0
+            });
+            cm.postConcat(wm);
         }
 
         float c = Math.max(0.5f, Math.min(1.8f, contrast));
@@ -377,13 +516,109 @@ final class ImageLabEngine {
     }
 
     /**
-     * Optional online AI image generator (uses user's own OpenAI API key saved in Brain settings).
+     * Saves edited PNG directly into the user's Android Photos gallery (`Pictures/Zoe Studio`)
+     * using scoped MediaStore storage (zero storage permissions needed on Android 10+).
+     */
+    static Uri saveToGallery(Context ctx, Bitmap bitmap, String displayName) throws IOException {
+        if (ctx == null || bitmap == null) {
+            throw new IOException("No image ready to save");
+        }
+        ContentResolver resolver = ctx.getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, displayName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/Zoe Studio");
+            values.put(MediaStore.Images.Media.IS_PENDING, 1);
+        }
+        Uri uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        if (uri == null) {
+            throw new IOException("Could not create gallery entry");
+        }
+        try (OutputStream out = resolver.openOutputStream(uri)) {
+            if (out == null || !bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+                throw new IOException("PNG write failed");
+            }
+        } catch (IOException err) {
+            resolver.delete(uri, null, null);
+            throw err;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ContentValues done = new ContentValues();
+            done.put(MediaStore.Images.Media.IS_PENDING, 0);
+            resolver.update(uri, done, null, null);
+        }
+        return uri;
+    }
+
+    /** Pure JVM-testable provider selector choosing Gemini Imagen or OpenAI based on saved keys. */
+    static String selectOnlineImageProvider(String geminiKey, String openAiKey) {
+        if (geminiKey != null && !geminiKey.trim().isEmpty()) {
+            return "gemini";
+        }
+        if (openAiKey != null && !openAiKey.trim().isEmpty()) {
+            return "openai";
+        }
+        return "none";
+    }
+
+    /**
+     * Optional online AI image generator supporting BOTH Google Gemini Imagen 3 AND OpenAI
+     * using whichever API key the user already saved (explicit tap only).
      */
     static Bitmap generateOnlineImage(Context ctx, String prompt) throws IOException {
-        String key = MultiAiClient.savedKey(ctx, MultiAiClient.Provider.CHATGPT);
-        if (key.isEmpty()) {
-            throw new IOException("Save an OpenAI ChatGPT API key in Zoe Chat → ⚙ Brain to generate online AI images.");
+        String geminiKey = CloudVisionClient.savedApiKey(ctx);
+        if (geminiKey.isEmpty()) {
+            geminiKey = MultiAiClient.savedKey(ctx, MultiAiClient.Provider.GEMINI);
         }
+        String openAiKey = MultiAiClient.savedKey(ctx, MultiAiClient.Provider.CHATGPT);
+        String provider = selectOnlineImageProvider(geminiKey, openAiKey);
+        if ("gemini".equals(provider)) {
+            return generateWithGeminiImagen(geminiKey, prompt);
+        }
+        if ("openai".equals(provider)) {
+            return generateWithOpenAi(openAiKey, prompt);
+        }
+        throw new IOException("Save a Gemini key (Eliza-GEM Studio / Talk ⚙) or OpenAI key (Talk ⚙) to generate online AI art.");
+    }
+
+    private static Bitmap generateWithGeminiImagen(String key, String prompt) throws IOException {
+        Map<String, Object> instance = new LinkedHashMap<>();
+        instance.put("prompt", prompt.trim());
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("sampleCount", 1);
+        params.put("aspectRatio", "4:3");
+        Map<String, Object> req = new LinkedHashMap<>();
+        req.put("instances", List.of(instance));
+        req.put("parameters", params);
+        String body = MiniJson.stringify(req);
+
+        URL url = new URL("https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(15_000);
+        conn.setReadTimeout(60_000);
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        conn.setRequestProperty("x-goog-api-key", key);
+        conn.getOutputStream().write(body.getBytes(StandardCharsets.UTF_8));
+        conn.getOutputStream().flush();
+
+        String resp = readHttpText(conn, "Gemini Imagen");
+        Map<String, Object> root = MiniJson.parseObject(resp);
+        List<Object> preds = MiniJson.asArray(root.get("predictions"));
+        if (preds == null || preds.isEmpty()) {
+            throw new IOException("Gemini Imagen returned no image");
+        }
+        Map<String, Object> first = MiniJson.asObject(preds.get(0));
+        String b64 = MiniJson.asString(first, "bytesBase64Encoded", "");
+        if (b64.isEmpty()) {
+            throw new IOException("Empty base64 image from Gemini Imagen");
+        }
+        return decodeBase64Bitmap(b64);
+    }
+
+    private static Bitmap generateWithOpenAi(String key, String prompt) throws IOException {
         Map<String, Object> req = new LinkedHashMap<>();
         req.put("model", "dall-e-3");
         req.put("prompt", prompt.trim());
@@ -402,21 +637,7 @@ final class ImageLabEngine {
         conn.getOutputStream().write(body.getBytes(StandardCharsets.UTF_8));
         conn.getOutputStream().flush();
 
-        int code = conn.getResponseCode();
-        InputStream in = code >= 200 && code < 300 ? conn.getInputStream() : conn.getErrorStream();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        if (in != null) {
-            byte[] buf = new byte[8192];
-            int n;
-            while ((n = in.read(buf)) != -1) {
-                out.write(buf, 0, n);
-            }
-        }
-        conn.disconnect();
-        String resp = out.toString("UTF-8");
-        if (code < 200 || code >= 300) {
-            throw new IOException("Image API HTTP " + code);
-        }
+        String resp = readHttpText(conn, "OpenAI Images");
         Map<String, Object> root = MiniJson.parseObject(resp);
         List<Object> data = MiniJson.asArray(root.get("data"));
         if (data == null || data.isEmpty()) {
@@ -427,6 +648,32 @@ final class ImageLabEngine {
         if (b64.isEmpty()) {
             throw new IOException("Empty base64 image");
         }
+        return decodeBase64Bitmap(b64);
+    }
+
+    private static String readHttpText(HttpURLConnection conn, String label) throws IOException {
+        try {
+            int code = conn.getResponseCode();
+            InputStream in = code >= 200 && code < 300 ? conn.getInputStream() : conn.getErrorStream();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            if (in != null) {
+                byte[] buf = new byte[8192];
+                int n;
+                while ((n = in.read(buf)) != -1) {
+                    out.write(buf, 0, n);
+                }
+            }
+            String resp = out.toString(StandardCharsets.UTF_8.name());
+            if (code < 200 || code >= 300) {
+                throw new IOException(label + " HTTP " + code);
+            }
+            return resp;
+        } finally {
+            conn.disconnect();
+        }
+    }
+
+    private static Bitmap decodeBase64Bitmap(String b64) throws IOException {
         byte[] bytes = Base64.getDecoder().decode(b64);
         Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         if (bmp == null) {

@@ -43,15 +43,24 @@ public class CreativeLiveArcadeActivityTest {
             onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("Kunstformen der Natur"))));
             onView(withId(R.id.studio_baseline_patent)).perform(scrollTo(), click());
             onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("patents.google.com"))));
+            onView(withId(R.id.studio_baseline_chladni)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("Chladni"))));
+            onView(withId(R.id.studio_baseline_phyllotaxis)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("137.508"))));
 
             onView(withId(R.id.studio_command_input))
-                    .perform(scrollTo(), replaceText("warm, rotate, blur, caption Pixel Test"), closeSoftKeyboard());
+                    .perform(scrollTo(), replaceText("warm, rotate, blur, vignette, caption Pixel Test"), closeSoftKeyboard());
             onView(withId(R.id.studio_apply_cmd)).perform(scrollTo(), click());
             onView(withId(R.id.studio_edit_summary)).check(matches(withText(containsString("Atelier Warm"))));
             onView(withId(R.id.studio_edit_summary)).check(matches(withText(containsString("Pixel Test"))));
+            onView(withId(R.id.studio_undo_btn)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_edit_summary)).check(matches(withText("Original")));
 
             onView(withId(R.id.studio_tab_video)).perform(click());
             onView(withId(R.id.studio_video_preview)).check(matches(isDisplayed()));
+            onView(withId(R.id.studio_video_play_toggle)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_video_play_toggle)).check(matches(withText(containsString("Pause"))));
+            onView(withId(R.id.studio_video_play_toggle)).perform(click());
             onView(withId(R.id.studio_render_mp4)).perform(scrollTo());
             onView(withId(R.id.studio_render_mp4)).check(matches(isDisplayed()));
         }

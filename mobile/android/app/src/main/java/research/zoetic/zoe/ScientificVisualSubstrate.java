@@ -15,10 +15,10 @@ import android.graphics.Typeface;
 import java.util.Locale;
 
 /**
- * Zoe Scientific-Aesthetic Visual Substrate (v0.9.0-beta).
+ * Zoe Scientific-Aesthetic Visual Substrate (v0.9.4-beta).
  *
  * Grounds Zoe's image generation & visual reasoning on factual, mathematically structured,
- * public-domain scientific artistry and engineering schematics:
+ * public-domain scientific artistry, wave physics, phyllotaxis, and engineering schematics:
  *   - Ernst Haeckel (1834–1919), Kunstformen der Natur (1899–1904):
  *       dihedral D_n radiolarian lattices, golden-angle phyllotaxis (137.507764°),
  *       and logarithmic ammonite spirals r(θ) = a·e^(bθ).
@@ -29,8 +29,9 @@ import java.util.Locale;
  *   - Google Patents Public Catalog (patents.google.com):
  *       orthographic schematics, involute gear & optical prism ray-tracing blueprints,
  *       dimensional callouts, and real-world physical scale reference comparisons.
+ *   - Ernst Chladni (1787) Standing-Wave Nodal Eigenmodes & Vogel Fibonacci Phyllotaxis (13, 21).
  *
- * 100% deterministic and offline for procedural plate generation; also augments optional online
+ * 100% deterministic and offline for procedural HD plate generation; also augments optional online
  * AI image prompts with factual geometry, symmetry, and historical plate lineage.
  */
 final class ScientificVisualSubstrate {
@@ -44,7 +45,9 @@ final class ScientificVisualSubstrate {
         HAECKEL_AMMONITE("🌀 Ammonite", "Ernst Haeckel · Cephalopoda Spiral (1899)", "Logarithmic spiral r = a·e^(bθ) · φ = 1.618"),
         WEISMANN_GERMPLASM("🧬 Weismann", "August Weismann · Das Keimplasma (1892)", "Germ-line symmetry · Mitotic spindle field"),
         LAMARCK_MORPHOSPACE("🌿 Lamarck", "Jean-Baptiste Lamarck · Philosophie Zoologique (1809)", "Comparative anatomy · Continuous morphospace"),
-        PATENT_BLUEPRINT("📐 Patent", "Orthographic Patent Schematic (patents.google.com)", "Involute gear + prism optics · Orthographic callouts");
+        PATENT_BLUEPRINT("📐 Patent", "Orthographic Patent Schematic (patents.google.com)", "Involute gear + prism optics · Orthographic callouts"),
+        CHLADNI_PLATE("✨ Chladni", "Ernst Chladni · Acoustic Nodal Plate (1787)", "Standing wave cos(mπx)cos(nπy) − cos(nπx)cos(mπy) = 0"),
+        FIBONACCI_PHYLLOTAXIS("🌸 Phyllotaxis", "Botanical Vogel Spiral · Fibonacci (13, 21)", "Golden divergence 137.508° · Counter-rotating parastichies");
 
         final String chipLabel;
         final String lineage;
@@ -113,6 +116,11 @@ final class ScientificVisualSubstrate {
         return new double[]{r * Math.cos(thetaRad), r * Math.sin(thetaRad)};
     }
 
+    static int[] chladniModesForSeed(int seed) {
+        int[][] pairs = {{2, 5}, {3, 5}, {3, 7}, {4, 7}, {2, 7}, {5, 8}};
+        return pairs[Math.abs(seed) % pairs.length];
+    }
+
     static BaselinePlate detectPlateFromCommand(String raw) {
         if (raw == null || raw.trim().isEmpty()) {
             return null;
@@ -132,6 +140,12 @@ final class ScientificVisualSubstrate {
         }
         if (lower.contains("patent") || lower.contains("blueprint") || lower.contains("schematic") || lower.contains("orthographic")) {
             return BaselinePlate.PATENT_BLUEPRINT;
+        }
+        if (lower.contains("chladni") || lower.contains("cymatic") || lower.contains("nodal") || lower.contains("standing wave")) {
+            return BaselinePlate.CHLADNI_PLATE;
+        }
+        if (lower.contains("phyllotaxis") || lower.contains("fibonacci") || lower.contains("sunflower") || lower.contains("rosette")) {
+            return BaselinePlate.FIBONACCI_PHYLLOTAXIS;
         }
         return null;
     }
@@ -159,6 +173,12 @@ final class ScientificVisualSubstrate {
             case PATENT_BLUEPRINT -> subject + ". Grounded in classic USPTO / Google Patents orthographic engineering schematic style: "
                     + "crisp isometric and orthographic technical line drawing, dashed centerlines, exact mechanical proportions, "
                     + "clean numbered reference callouts (10, 12, 14), dimensional ticks, zero blurry artifacts.";
+            case CHLADNI_PLATE -> subject + ". Grounded in Ernst Chladni's 1787 acoustic standing-wave cymatic plate geometry: "
+                    + "symmetric nodal interference curves cos(m*pi*x)*cos(n*pi*y) - cos(n*pi*x)*cos(m*pi*y) = 0, luminous gold and cyan "
+                    + "acoustic sand lines on obsidian slate, exact mirror symmetry.";
+            case FIBONACCI_PHYLLOTAXIS -> subject + ". Grounded in botanical Vogel golden-angle phyllotaxis (137.508°): "
+                    + "crisp counter-rotating (13, 21) Fibonacci parastichy spirals, archival botanical watercolor and ink stippling, "
+                    + "exact mathematical floret packing.";
             case ATELIER -> subject + ". Clean factual proportions, crisp lighting, balanced geometric harmony, museum-grade clarity.";
         };
     }
@@ -188,7 +208,7 @@ final class ScientificVisualSubstrate {
                 observedMeters, observedMeters / nearest.meters, nearest.name);
     }
 
-    // --- 100% Offline Procedural Scientific-Aesthetic Plate Renderer ---
+    // --- 100% Offline Procedural HD Scientific-Aesthetic Plate Renderer ---
 
     static Bitmap renderScientificPlate(BaselinePlate plate, String concept, int w, int h) {
         BaselinePlate p = plate == null ? BaselinePlate.ATELIER : plate;
@@ -205,6 +225,8 @@ final class ScientificVisualSubstrate {
             case WEISMANN_GERMPLASM -> drawWeismannGermPlasm(c, w, h, seed, label);
             case LAMARCK_MORPHOSPACE -> drawLamarckMorphospace(c, w, h, seed, label);
             case PATENT_BLUEPRINT -> drawPatentBlueprint(c, w, h, seed, label);
+            case CHLADNI_PLATE -> drawChladniPlate(c, w, h, seed, label);
+            case FIBONACCI_PHYLLOTAXIS -> drawFibonacciPhyllotaxis(c, w, h, seed, label);
             default -> {
             }
         }
@@ -213,23 +235,27 @@ final class ScientificVisualSubstrate {
 
     private static void drawArchivalFrame(Canvas c, int w, int h, int bgColor, int inkColor,
                                           String headerText, String footerText) {
-        c.drawColor(bgColor);
+        if (bgColor != Color.TRANSPARENT) {
+            c.drawColor(bgColor);
+        }
+        float padOuter = Math.max(18f, Math.min(w, h) * 0.032f);
+        float padInner = padOuter + Math.max(6f, Math.min(w, h) * 0.011f);
         Paint border = new Paint(Paint.ANTI_ALIAS_FLAG);
         border.setStyle(Paint.Style.STROKE);
-        border.setColor(Color.argb(145, Color.red(inkColor), Color.green(inkColor), Color.blue(inkColor)));
-        border.setStrokeWidth(2.4f);
-        c.drawRect(18, 18, w - 18, h - 18, border);
-        border.setStrokeWidth(1.0f);
-        c.drawRect(25, 25, w - 25, h - 25, border);
+        border.setColor(Color.argb(150, Color.red(inkColor), Color.green(inkColor), Color.blue(inkColor)));
+        border.setStrokeWidth(Math.max(2.0f, h * 0.0036f));
+        c.drawRect(padOuter, padOuter, w - padOuter, h - padOuter, border);
+        border.setStrokeWidth(Math.max(1.0f, h * 0.0017f));
+        c.drawRect(padInner, padInner, w - padInner, h - padInner, border);
 
         Paint txt = new Paint(Paint.ANTI_ALIAS_FLAG);
-        txt.setColor(Color.argb(195, Color.red(inkColor), Color.green(inkColor), Color.blue(inkColor)));
+        txt.setColor(Color.argb(205, Color.red(inkColor), Color.green(inkColor), Color.blue(inkColor)));
         txt.setTypeface(Typeface.create(Typeface.SERIF, Typeface.NORMAL));
         txt.setTextAlign(Paint.Align.CENTER);
-        txt.setTextSize(Math.max(12f, h * 0.026f));
-        c.drawText(headerText, w / 2f, 44f, txt);
-        txt.setTextSize(Math.max(11f, h * 0.023f));
-        c.drawText(footerText, w / 2f, h - 32f, txt);
+        txt.setTextSize(Math.max(13f, h * 0.025f));
+        c.drawText(headerText, w / 2f, padInner + Math.max(20f, h * 0.034f), txt);
+        txt.setTextSize(Math.max(11.5f, h * 0.022f));
+        c.drawText(footerText, w / 2f, h - padInner - Math.max(10f, h * 0.016f), txt);
     }
 
     private static void drawHaeckelRadiolaria(Canvas c, int w, int h, int seed, String label) {
@@ -243,16 +269,15 @@ final class ScientificVisualSubstrate {
         drawArchivalFrame(c, w, h, vellum, ink, top, bot);
 
         float cx = w / 2f;
-        float cy = h / 2f + 4f;
+        float cy = h / 2f + h * 0.006f;
         float maxR = Math.min(w, h) * 0.35f;
+        float s = Math.min(w, h) / 540f;
 
-        // Soft warm sepia lithograph halo
         Paint glow = new Paint(Paint.ANTI_ALIAS_FLAG);
-        glow.setShader(new RadialGradient(cx, cy, maxR * 1.15f,
-                Color.argb(65, 29, 91, 107), Color.argb(0, 245, 239, 224), Shader.TileMode.CLAMP));
-        c.drawCircle(cx, cy, maxR * 1.15f, glow);
+        glow.setShader(new RadialGradient(cx, cy, maxR * 1.18f,
+                Color.argb(72, 29, 91, 107), Color.argb(0, 245, 239, 224), Shader.TileMode.CLAMP));
+        c.drawCircle(cx, cy, maxR * 1.18f, glow);
 
-        // Radial calcite spines & petal fins
         Paint spine = new Paint(Paint.ANTI_ALIAS_FLAG);
         spine.setStrokeCap(Paint.Cap.ROUND);
         int teal = Color.rgb(29, 91, 107);
@@ -264,7 +289,6 @@ final class ScientificVisualSubstrate {
             float cos = (float) Math.cos(ang);
             float sin = (float) Math.sin(ang);
 
-            // Delicate botanical petal lobe
             double angL = ang - Math.PI / (order * 1.7);
             double angR = ang + Math.PI / (order * 1.7);
             Path petal = new Path();
@@ -280,28 +304,26 @@ final class ScientificVisualSubstrate {
                     cx + cos * maxR * 0.24f,
                     cy + sin * maxR * 0.24f);
             Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
-            fill.setColor(i % 2 == 0 ? Color.argb(68, 29, 91, 107) : Color.argb(62, 184, 74, 57));
+            fill.setColor(i % 2 == 0 ? Color.argb(74, 29, 91, 107) : Color.argb(66, 184, 74, 57));
             c.drawPath(petal, fill);
 
             spine.setStyle(Paint.Style.STROKE);
             spine.setColor(ink);
-            spine.setStrokeWidth(1.5f);
+            spine.setStrokeWidth(1.5f * s);
             c.drawPath(petal, spine);
 
-            // Outer silica spike
             spine.setColor(i % 2 == 0 ? teal : coral);
-            spine.setStrokeWidth(2.6f);
+            spine.setStrokeWidth(2.6f * s);
             c.drawLine(cx + cos * maxR * 0.35f, cy + sin * maxR * 0.35f,
-                    cx + cos * maxR * 1.04f, cy + sin * maxR * 1.04f, spine);
+                    cx + cos * maxR * 1.05f, cy + sin * maxR * 1.05f, spine);
         }
 
-        // Golden-ratio concentric lattice rings & geodesic chords
         Paint ring = new Paint(Paint.ANTI_ALIAS_FLAG);
         ring.setStyle(Paint.Style.STROKE);
         ring.setColor(ink);
         float[] radii = {maxR * 0.22f, maxR * 0.36f, maxR * 0.58f, maxR * 0.82f};
         for (int rIdx = 0; rIdx < radii.length; rIdx++) {
-            ring.setStrokeWidth(rIdx == 2 ? 2.2f : 1.3f);
+            ring.setStrokeWidth((rIdx == 2 ? 2.2f : 1.3f) * s);
             c.drawCircle(cx, cy, radii[rIdx], ring);
             Path poly = new Path();
             for (int i = 0; i <= order; i++) {
@@ -311,21 +333,20 @@ final class ScientificVisualSubstrate {
                 if (i == 0) poly.moveTo(px, py);
                 else poly.lineTo(px, py);
             }
-            ring.setColor(rIdx % 2 == 0 ? Color.argb(150, 29, 91, 107) : Color.argb(145, 198, 152, 58));
+            ring.setColor(rIdx % 2 == 0 ? Color.argb(155, 29, 91, 107) : Color.argb(150, 198, 152, 58));
             c.drawPath(poly, ring);
             ring.setColor(ink);
         }
 
-        // Golden-angle phyllotaxis core (137.508° Fibonacci florets)
         Paint dot = new Paint(Paint.ANTI_ALIAS_FLAG);
         double scale = maxR * 0.044;
-        for (int k = 1; k <= 88; k++) {
+        for (int k = 1; k <= 96; k++) {
             double[] pt = phyllotaxisPoint(k, scale);
-            float r = (float) (2.1 + (k / 88.0) * 3.1);
+            float r = (float) ((2.1 + (k / 96.0) * 3.1) * s);
             dot.setColor(k % 3 == 0 ? ochre : (k % 2 == 0 ? coral : teal));
             c.drawCircle(cx + (float) pt[0], cy + (float) pt[1], r, dot);
             dot.setStyle(Paint.Style.STROKE);
-            dot.setStrokeWidth(0.8f);
+            dot.setStrokeWidth(0.8f * s);
             dot.setColor(ink);
             c.drawCircle(cx + (float) pt[0], cy + (float) pt[1], r, dot);
             dot.setStyle(Paint.Style.FILL);
@@ -333,8 +354,8 @@ final class ScientificVisualSubstrate {
     }
 
     private static void drawHaeckelAmmonite(Canvas c, int w, int h, int seed, String label) {
-        int bg = Color.rgb(16, 24, 34);
-        int ivory = Color.rgb(236, 226, 202);
+        int bg = Color.rgb(14, 21, 32);
+        int ivory = Color.rgb(238, 228, 204);
         String top = "CEPHALOPODA · LOGARITHMIC SPIRAL r(θ) = a·e^(bθ)";
         String bot = label.isEmpty()
                 ? "Haeckel Dark-Ground Marine Plate · Growth Factor φ = 1.618"
@@ -343,20 +364,20 @@ final class ScientificVisualSubstrate {
 
         float cx = w * 0.48f;
         float cy = h * 0.52f;
+        float s = Math.min(w, h) / 540f;
         double b = 0.175 + ((seed % 5) * 0.008);
         double a = Math.min(w, h) * 0.011;
 
         Paint glow = new Paint(Paint.ANTI_ALIAS_FLAG);
-        glow.setShader(new RadialGradient(cx, cy, Math.min(w, h) * 0.42f,
-                Color.argb(95, 76, 178, 172), Color.argb(0, 16, 24, 34), Shader.TileMode.CLAMP));
-        c.drawCircle(cx, cy, Math.min(w, h) * 0.42f, glow);
+        glow.setShader(new RadialGradient(cx, cy, Math.min(w, h) * 0.44f,
+                Color.argb(108, 76, 178, 172), Color.argb(0, 14, 21, 32), Shader.TileMode.CLAMP));
+        c.drawCircle(cx, cy, Math.min(w, h) * 0.44f, glow);
 
-        // Chambered logarithmic spiral + curved septa
         Path outer = new Path();
         Path inner = new Path();
         Paint rib = new Paint(Paint.ANTI_ALIAS_FLAG);
         rib.setStyle(Paint.Style.STROKE);
-        int steps = 210;
+        int steps = 240;
         double maxTheta = 5.4 * Math.PI;
         for (int i = 0; i <= steps; i++) {
             double theta = (maxTheta * i) / steps;
@@ -373,9 +394,9 @@ final class ScientificVisualSubstrate {
                 outer.lineTo(ox, oy);
                 inner.lineTo(ix, iy);
             }
-            if (i > 22 && i % 6 == 0) {
-                rib.setColor(i % 12 == 0 ? Color.argb(190, 232, 186, 114) : Color.argb(120, 118, 212, 206));
-                rib.setStrokeWidth(i % 12 == 0 ? 1.8f : 1.0f);
+            if (i > 24 && i % 6 == 0) {
+                rib.setColor(i % 12 == 0 ? Color.argb(205, 236, 190, 118) : Color.argb(130, 118, 216, 210));
+                rib.setStrokeWidth((i % 12 == 0 ? 1.9f : 1.0f) * s);
                 Path sept = new Path();
                 sept.moveTo(ix, iy);
                 float mx = (ix + ox) * 0.5f - (oy - iy) * 0.18f;
@@ -387,10 +408,10 @@ final class ScientificVisualSubstrate {
         Paint spiralStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
         spiralStroke.setStyle(Paint.Style.STROKE);
         spiralStroke.setColor(ivory);
-        spiralStroke.setStrokeWidth(3.0f);
+        spiralStroke.setStrokeWidth(3.0f * s);
         c.drawPath(outer, spiralStroke);
         spiralStroke.setColor(Color.rgb(122, 214, 206));
-        spiralStroke.setStrokeWidth(1.6f);
+        spiralStroke.setStrokeWidth(1.6f * s);
         c.drawPath(inner, spiralStroke);
     }
 
@@ -404,31 +425,29 @@ final class ScientificVisualSubstrate {
         drawArchivalFrame(c, w, h, bg, ink, top, bot);
 
         float cx = w / 2f;
-        float cy = h / 2f + 4f;
+        float cy = h / 2f + h * 0.008f;
         float rx = w * 0.34f;
         float ry = h * 0.27f;
+        float s = Math.min(w, h) / 540f;
 
-        // Cell membrane double contour
         Paint stroke = new Paint(Paint.ANTI_ALIAS_FLAG);
-        stroke.setStyle(Paint.Style.STROKE);
-        stroke.setColor(Color.argb(42, 108, 72, 148));
+        stroke.setColor(Color.argb(46, 108, 72, 148));
         stroke.setStyle(Paint.Style.FILL);
         c.drawOval(new RectF(cx - rx, cy - ry, cx + rx, cy + ry), stroke);
 
         stroke.setStyle(Paint.Style.STROKE);
         stroke.setColor(ink);
-        stroke.setStrokeWidth(2.6f);
+        stroke.setStrokeWidth(2.6f * s);
         c.drawOval(new RectF(cx - rx, cy - ry, cx + rx, cy + ry), stroke);
-        stroke.setStrokeWidth(1.1f);
-        c.drawOval(new RectF(cx - rx + 8, cy - ry + 8, cx + rx - 8, cy + ry - 8), stroke);
+        stroke.setStrokeWidth(1.1f * s);
+        c.drawOval(new RectF(cx - rx + 8f * s, cy - ry + 8f * s, cx + rx - 8f * s, cy + ry - 8f * s), stroke);
 
-        // Two centrosome poles + hyperbolic mitotic spindle arcs
         float poleL = cx - rx * 0.68f;
         float poleR = cx + rx * 0.68f;
         Paint spindle = new Paint(Paint.ANTI_ALIAS_FLAG);
         spindle.setStyle(Paint.Style.STROKE);
-        spindle.setColor(Color.argb(140, 44, 92, 138));
-        spindle.setStrokeWidth(1.3f);
+        spindle.setColor(Color.argb(145, 44, 92, 138));
+        spindle.setStrokeWidth(1.3f * s);
         for (int i = -6; i <= 6; i++) {
             Path arc = new Path();
             arc.moveTo(poleL, cy);
@@ -436,34 +455,32 @@ final class ScientificVisualSubstrate {
             c.drawPath(arc, spindle);
         }
 
-        // Symmetrical chromatid dyads aligned at equatorial metaphase plate
         Paint dyad = new Paint(Paint.ANTI_ALIAS_FLAG);
         dyad.setStyle(Paint.Style.STROKE);
         dyad.setStrokeCap(Paint.Cap.ROUND);
-        dyad.setStrokeWidth(5.5f);
+        dyad.setStrokeWidth(5.5f * s);
         int pairs = 5 + (seed % 3);
         for (int i = 0; i < pairs; i++) {
             float y = cy - ry * 0.52f + (i * (ry * 1.04f) / Math.max(1, pairs - 1));
             dyad.setColor(i % 2 == 0 ? Color.rgb(168, 56, 76) : Color.rgb(42, 106, 134));
-            c.drawLine(cx - 18, y - 9, cx - 4, y, dyad);
-            c.drawLine(cx - 18, y + 9, cx - 4, y, dyad);
-            c.drawLine(cx + 18, y - 9, cx + 4, y, dyad);
-            c.drawLine(cx + 18, y + 9, cx + 4, y, dyad);
+            c.drawLine(cx - 18f * s, y - 9f * s, cx - 4f * s, y, dyad);
+            c.drawLine(cx - 18f * s, y + 9f * s, cx - 4f * s, y, dyad);
+            c.drawLine(cx + 18f * s, y - 9f * s, cx + 4f * s, y, dyad);
+            c.drawLine(cx + 18f * s, y + 9f * s, cx + 4f * s, y, dyad);
         }
 
-        // Pole asters & annotation labels
         Paint polePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         polePaint.setColor(Color.rgb(186, 134, 42));
-        c.drawCircle(poleL, cy, 9f, polePaint);
-        c.drawCircle(poleR, cy, 9f, polePaint);
+        c.drawCircle(poleL, cy, 9f * s, polePaint);
+        c.drawCircle(poleR, cy, 9f * s, polePaint);
 
         Paint lbl = new Paint(Paint.ANTI_ALIAS_FLAG);
         lbl.setColor(ink);
         lbl.setTypeface(Typeface.create(Typeface.SERIF, Typeface.ITALIC));
-        lbl.setTextSize(14f);
-        c.drawText("Centrosome A", poleL - 36, cy - 18, lbl);
-        c.drawText("Centrosome B", poleR - 36, cy - 18, lbl);
-        c.drawText("Equatorial Germ-Plasm Plate (Id)", cx - 96, cy + ry + 20, lbl);
+        lbl.setTextSize(14f * s);
+        c.drawText("Centrosome A", poleL - 36f * s, cy - 18f * s, lbl);
+        c.drawText("Centrosome B", poleR - 36f * s, cy - 18f * s, lbl);
+        c.drawText("Equatorial Germ-Plasm Plate (Id)", cx - 96f * s, cy + ry + 22f * s, lbl);
     }
 
     private static void drawLamarckMorphospace(Canvas c, int w, int h, int seed, String label) {
@@ -475,6 +492,7 @@ final class ScientificVisualSubstrate {
                 : "Morphospace: " + label + " · Continuous Adaptation Series";
         drawArchivalFrame(c, w, h, bg, ink, top, bot);
 
+        float s = Math.min(w, h) / 540f;
         Paint stem = new Paint(Paint.ANTI_ALIAS_FLAG);
         stem.setStyle(Paint.Style.STROKE);
         stem.setStrokeCap(Paint.Cap.ROUND);
@@ -499,16 +517,15 @@ final class ScientificVisualSubstrate {
             curve.moveTo(baseX, baseY);
             curve.cubicTo(baseX, h * 0.62f, baseX + t * w * 0.22f, h * 0.50f, tipX, tipY);
             stem.setColor(ink);
-            stem.setStrokeWidth(2.6f);
+            stem.setStrokeWidth(2.6f * s);
             c.drawPath(curve, stem);
 
-            // Progressive morphological specimen medallion at each branch tip
             float r = Math.min(w, h) * 0.068f;
             Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
-            fill.setColor(Color.argb(65, Color.red(palette[i]), Color.green(palette[i]), Color.blue(palette[i])));
+            fill.setColor(Color.argb(72, Color.red(palette[i]), Color.green(palette[i]), Color.blue(palette[i])));
             c.drawCircle(tipX, tipY, r, fill);
             stem.setColor(palette[i]);
-            stem.setStrokeWidth(2.0f);
+            stem.setStrokeWidth(2.0f * s);
             c.drawCircle(tipX, tipY, r, stem);
 
             int lobes = 3 + i + (seed % 2);
@@ -517,34 +534,33 @@ final class ScientificVisualSubstrate {
                 c.drawLine(tipX, tipY, tipX + (float) Math.cos(a) * r * 0.82f, tipY + (float) Math.sin(a) * r * 0.82f, stem);
             }
         }
-        // Horizontal morphological strata dashed guides
         Paint dash = new Paint(Paint.ANTI_ALIAS_FLAG);
         dash.setStyle(Paint.Style.STROKE);
-        dash.setColor(Color.argb(80, 42, 38, 30));
-        dash.setPathEffect(new DashPathEffect(new float[]{6f, 6f}, 0f));
+        dash.setColor(Color.argb(85, 42, 38, 30));
+        dash.setStrokeWidth(1.2f * s);
+        dash.setPathEffect(new DashPathEffect(new float[]{6f * s, 6f * s}, 0f));
         for (int row = 1; row <= 3; row++) {
             float gy = h * (0.24f + row * 0.16f);
-            c.drawLine(46, gy, w - 46, gy, dash);
+            c.drawLine(w * 0.08f, gy, w * 0.92f, gy, dash);
         }
     }
 
     private static void drawPatentBlueprint(Canvas c, int w, int h, int seed, String label) {
-        // Authentic Prussian technical blueprint with crisp white orthographic drafting lines
+        float s = Math.min(w, h) / 540f;
         Paint bgPaint = new Paint();
         bgPaint.setShader(new LinearGradient(0, 0, w, h,
-                Color.rgb(16, 46, 92), Color.rgb(10, 32, 68), Shader.TileMode.CLAMP));
+                Color.rgb(14, 44, 88), Color.rgb(9, 28, 62), Shader.TileMode.CLAMP));
         c.drawRect(0, 0, w, h, bgPaint);
 
-        // Engineering millimeter grid
         Paint grid = new Paint(Paint.ANTI_ALIAS_FLAG);
         grid.setColor(Color.argb(38, 178, 214, 255));
-        grid.setStrokeWidth(1f);
+        grid.setStrokeWidth(1f * s);
         int step = Math.max(20, w / 28);
-        for (int x = 28; x < w - 28; x += step) {
-            c.drawLine(x, 28, x, h - 28, grid);
+        for (int x = (int) (28 * s); x < w - 28 * s; x += step) {
+            c.drawLine(x, 28 * s, x, h - 28 * s, grid);
         }
-        for (int y = 28; y < h - 28; y += step) {
-            c.drawLine(28, y, w - 28, y, grid);
+        for (int y = (int) (28 * s); y < h - 28 * s; y += step) {
+            c.drawLine(28 * s, y, w - 28 * s, y, grid);
         }
 
         int white = Color.rgb(236, 245, 255);
@@ -558,15 +574,14 @@ final class ScientificVisualSubstrate {
         Paint line = new Paint(Paint.ANTI_ALIAS_FLAG);
         line.setStyle(Paint.Style.STROKE);
         line.setColor(white);
-        line.setStrokeWidth(2.2f);
+        line.setStrokeWidth(2.2f * s);
 
         Paint dash = new Paint(Paint.ANTI_ALIAS_FLAG);
         dash.setStyle(Paint.Style.STROKE);
         dash.setColor(cyan);
-        dash.setStrokeWidth(1.2f);
-        dash.setPathEffect(new DashPathEffect(new float[]{12f, 5f, 3f, 5f}, 0f));
+        dash.setStrokeWidth(1.2f * s);
+        dash.setPathEffect(new DashPathEffect(new float[]{12f * s, 5f * s, 3f * s, 5f * s}, 0f));
 
-        // Left mechanism: precision involute gear assembly (10)
         float gx = w * 0.34f;
         float gy = h * 0.52f;
         float gr = Math.min(w, h) * 0.19f;
@@ -587,7 +602,6 @@ final class ScientificVisualSubstrate {
         c.drawLine(gx - gr * 1.35f, gy, gx + gr * 1.35f, gy, dash);
         c.drawLine(gx, gy - gr * 1.35f, gx, gy + gr * 1.35f, dash);
 
-        // Right mechanism: optical prism & refracted beam ray-trace (14)
         float px = w * 0.69f;
         float py = h * 0.52f;
         float pr = Math.min(w, h) * 0.19f;
@@ -598,31 +612,154 @@ final class ScientificVisualSubstrate {
         prism.close();
         c.drawPath(prism, line);
 
-        // Incident & refracted optical rays
         Paint ray = new Paint(Paint.ANTI_ALIAS_FLAG);
         ray.setColor(Color.rgb(255, 220, 128));
-        ray.setStrokeWidth(2.0f);
+        ray.setStrokeWidth(2.2f * s);
         c.drawLine(px - pr * 1.35f, py + pr * 0.18f, px - pr * 0.44f, py - pr * 0.06f, ray);
         c.drawLine(px - pr * 0.44f, py - pr * 0.06f, px + pr * 0.46f, py - pr * 0.02f, ray);
         c.drawLine(px + pr * 0.46f, py - pr * 0.02f, px + pr * 1.32f, py + pr * 0.34f, ray);
 
-        // Numbered patent callout leaders (10, 12, 14, 16) + dimensional bar
         Paint callTxt = new Paint(Paint.ANTI_ALIAS_FLAG);
         callTxt.setColor(white);
         callTxt.setTypeface(Typeface.MONOSPACE);
-        callTxt.setTextSize(15f);
+        callTxt.setTextSize(15f * s);
         drawCallout(c, gx + gr * 0.75f, gy - gr * 0.75f, gx + gr * 1.15f, gy - gr * 1.15f, "10", line, callTxt);
         drawCallout(c, gx, gy + gr * 0.52f, gx - gr * 0.95f, gy + gr * 1.05f, "12", line, callTxt);
         drawCallout(c, px, py - pr * 0.55f, px + pr * 0.85f, py - pr * 1.05f, "14", line, callTxt);
         drawCallout(c, px + pr * 0.95f, py + pr * 0.25f, px + pr * 1.25f, py + pr * 0.78f, "16", line, callTxt);
 
-        // Dimension bracket under gear
         float dimY = gy + gr * 1.38f;
         c.drawLine(gx - gr, dimY, gx + gr, dimY, dash);
-        c.drawLine(gx - gr, dimY - 6, gx - gr, dimY + 6, line);
-        c.drawLine(gx + gr, dimY - 6, gx + gr, dimY + 6, line);
-        callTxt.setTextSize(12.5f);
-        c.drawText("Ø 84.0 mm", gx - 34, dimY - 6, callTxt);
+        c.drawLine(gx - gr, dimY - 6f * s, gx - gr, dimY + 6f * s, line);
+        c.drawLine(gx + gr, dimY - 6f * s, gx + gr, dimY + 6f * s, line);
+        callTxt.setTextSize(12.5f * s);
+        c.drawText("Ø 84.0 mm", gx - 34f * s, dimY - 6f * s, callTxt);
+    }
+
+    private static void drawChladniPlate(Canvas c, int w, int h, int seed, String label) {
+        int bg = Color.rgb(12, 16, 26);
+        int gold = Color.rgb(242, 198, 114);
+        int[] modes = chladniModesForSeed(seed);
+        int m = modes[0];
+        int n = modes[1];
+        String top = "CHLADNI CYMATICS · EIGENMODES (m=" + m + ", n=" + n + ")";
+        String bot = label.isEmpty()
+                ? "Standing Wave Nodal Field · cos(mπx)cos(nπy) − cos(nπx)cos(mπy) = 0"
+                : "Acoustic Study: " + label + " · Mode (" + m + ", " + n + ")";
+        drawArchivalFrame(c, w, h, bg, gold, top, bot);
+
+        float side = Math.min(w, h) * 0.66f;
+        float left = (w - side) * 0.5f;
+        float topY = (h - side) * 0.5f + h * 0.008f;
+
+        Paint plateBg = new Paint(Paint.ANTI_ALIAS_FLAG);
+        plateBg.setShader(new RadialGradient(w * 0.5f, h * 0.5f, side * 0.75f,
+                Color.rgb(22, 32, 52), Color.rgb(10, 14, 24), Shader.TileMode.CLAMP));
+        c.drawRect(left, topY, left + side, topY + side, plateBg);
+
+        int grid = 96;
+        float cell = side / grid;
+        Paint dot = new Paint(Paint.ANTI_ALIAS_FLAG);
+        for (int gy = 0; gy < grid; gy++) {
+            double ny = (gy + 0.5) / grid;
+            double cmY = Math.cos(m * Math.PI * ny);
+            double cnY = Math.cos(n * Math.PI * ny);
+            for (int gx = 0; gx < grid; gx++) {
+                double nx = (gx + 0.5) / grid;
+                double val = Math.cos(m * Math.PI * nx) * cnY - Math.cos(n * Math.PI * nx) * cmY;
+                double nodal = Math.max(0.0, 1.0 - Math.abs(val) * 4.2);
+                if (nodal > 0.14) {
+                    float mix = (float) ((nx + ny) * 0.5);
+                    int r = (int) (242 * (1f - mix) + 114 * mix);
+                    int g = (int) (198 * (1f - mix) + 224 * mix);
+                    int b = (int) (114 * (1f - mix) + 255 * mix);
+                    dot.setColor(Color.argb((int) Math.min(255, nodal * 245), r, g, b));
+                    c.drawCircle(left + (gx + 0.5f) * cell, topY + (gy + 0.5f) * cell,
+                            (float) (cell * (0.34 + nodal * 0.36)), dot);
+                }
+            }
+        }
+        Paint rim = new Paint(Paint.ANTI_ALIAS_FLAG);
+        rim.setStyle(Paint.Style.STROKE);
+        rim.setColor(Color.argb(140, 242, 198, 114));
+        rim.setStrokeWidth(Math.max(1.5f, side * 0.004f));
+        c.drawRect(left, topY, left + side, topY + side, rim);
+    }
+
+    private static void drawFibonacciPhyllotaxis(Canvas c, int w, int h, int seed, String label) {
+        int bg = Color.rgb(248, 244, 232);
+        int ink = Color.rgb(34, 42, 36);
+        String top = "BOTANICAL PHYLLOTAXIS · GOLDEN ANGLE 137.508° · FIBONACCI (13, 21)";
+        String bot = label.isEmpty()
+                ? "Vogel Spiral r = c·√n · Counter-Rotating Parastichy Lattice"
+                : "Botanical Study: " + label + " · φ = 1.618";
+        drawArchivalFrame(c, w, h, bg, ink, top, bot);
+
+        float cx = w * 0.5f;
+        float cy = h * 0.5f + h * 0.008f;
+        float maxR = Math.min(w, h) * 0.36f;
+        int count = 210;
+        double scale = maxR / Math.sqrt(count);
+        float s = Math.min(w, h) / 540f;
+
+        // Draw subtle counter-rotating Fibonacci 13-arm & 21-arm parastichy curves
+        Paint curve = new Paint(Paint.ANTI_ALIAS_FLAG);
+        curve.setStyle(Paint.Style.STROKE);
+        curve.setStrokeWidth(1.1f * s);
+        for (int arm = 0; arm < 13; arm++) {
+            Path p13 = new Path();
+            boolean started = false;
+            for (int k = arm + 1; k <= count; k += 13) {
+                double[] pt = phyllotaxisPoint(k, scale);
+                if (!started) {
+                    p13.moveTo(cx + (float) pt[0], cy + (float) pt[1]);
+                    started = true;
+                } else {
+                    p13.lineTo(cx + (float) pt[0], cy + (float) pt[1]);
+                }
+            }
+            curve.setColor(Color.argb(65, 44, 112, 92));
+            c.drawPath(p13, curve);
+        }
+        for (int arm = 0; arm < 21; arm++) {
+            Path p21 = new Path();
+            boolean started = false;
+            for (int k = arm + 1; k <= count; k += 21) {
+                double[] pt = phyllotaxisPoint(k, scale);
+                if (!started) {
+                    p21.moveTo(cx + (float) pt[0], cy + (float) pt[1]);
+                    started = true;
+                } else {
+                    p21.lineTo(cx + (float) pt[0], cy + (float) pt[1]);
+                }
+            }
+            curve.setColor(Color.argb(55, 192, 128, 52));
+            c.drawPath(p21, curve);
+        }
+
+        // Draw botanical seed florets with golden radial color gradient
+        Paint dot = new Paint(Paint.ANTI_ALIAS_FLAG);
+        int hueShift = Math.abs(seed) % 3;
+        for (int k = 1; k <= count; k++) {
+            double[] pt = phyllotaxisPoint(k, scale);
+            float frac = (float) k / count;
+            float r = (2.4f + frac * 4.4f) * s;
+            int col;
+            if (hueShift == 1) {
+                col = Color.rgb((int) (46 + 150 * frac), (int) (110 + 70 * (1f - frac)), (int) (132 - 42 * frac));
+            } else if (hueShift == 2) {
+                col = Color.rgb((int) (164 + 62 * frac), (int) (68 + 112 * frac), (int) (96 - 30 * frac));
+            } else {
+                col = Color.rgb((int) (54 + 168 * frac), (int) (122 + 52 * frac), (int) (82 - 28 * frac));
+            }
+            dot.setStyle(Paint.Style.FILL);
+            dot.setColor(col);
+            c.drawCircle(cx + (float) pt[0], cy + (float) pt[1], r, dot);
+            dot.setStyle(Paint.Style.STROKE);
+            dot.setStrokeWidth(0.75f * s);
+            dot.setColor(Color.argb(145, 34, 42, 36));
+            c.drawCircle(cx + (float) pt[0], cy + (float) pt[1], r, dot);
+        }
     }
 
     private static void drawCallout(Canvas c, float x0, float y0, float x1, float y1,

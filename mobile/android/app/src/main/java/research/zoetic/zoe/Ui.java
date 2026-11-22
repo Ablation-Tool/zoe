@@ -358,7 +358,18 @@ final class Ui {
         return container;
     }
 
-    /** Ergonomic 48dp circular icon button (zero clutter, crisp ripple). */
+    /** Wrap any click listener with crisp, subtle tactile haptic confirmation (Google/Apple feel). */
+    static View.OnClickListener withHaptic(View.OnClickListener listener) {
+        if (listener == null) {
+            return null;
+        }
+        return view -> {
+            view.performHapticFeedback(android.view.HapticFeedbackConstants.CLOCK_TICK);
+            listener.onClick(view);
+        };
+    }
+
+    /** Ergonomic 48dp circular icon button (zero clutter, crisp ripple & haptic). */
     static Button tonalIconButton(Context context, String glyph, String contentDesc, View.OnClickListener listener) {
         Button b = new Button(context);
         b.setText(glyph);
@@ -374,7 +385,7 @@ final class Ui {
         b.setBackground(tonalPillDrawable(context, Color.TRANSPARENT, primaryAccent(context), 99));
         b.setPadding(0, 0, 0, 0);
         b.setContentDescription(contentDesc);
-        b.setOnClickListener(listener);
+        b.setOnClickListener(withHaptic(listener));
         b.setStateListAnimator(null);
         return b;
     }
@@ -393,15 +404,56 @@ final class Ui {
         iv.setClickable(true);
         iv.setFocusable(true);
         iv.setContentDescription(contentDesc);
-        iv.setOnClickListener(listener);
+        iv.setOnClickListener(withHaptic(listener));
         return iv;
     }
 
     static LinearLayout vertical(Context context) {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setBackgroundColor(bgColor(context));
+        layout.setBackgroundColor(Color.TRANSPARENT);
         return layout;
+    }
+
+    /** Calm Google/Apple status pill banner (tinted surface, crisp single-glance readability). */
+    static TextView statusBanner(Context context, String value, int accent) {
+        int resolved = resolveColor(context, accent);
+        boolean dark = isDark(context);
+        TextView view = text(context, value, 13.5f, accent);
+        view.setTypeface(SANS_MEDIUM);
+        view.setBackground(tonalPillDrawable(context, withAlpha(resolved, dark ? 34 : 20), resolved, 16));
+        view.setPadding(dp(context, 14), dp(context, 10), dp(context, 14), dp(context, 10));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, dp(context, 4), 0, dp(context, 8));
+        view.setLayoutParams(lp);
+        return view;
+    }
+
+    /** Clean Apple/Google Settings key-value row for grouped cards (never crushes label). */
+    static LinearLayout settingRow(Context context, String label, String value) {
+        LinearLayout row = new LinearLayout(context);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setMinimumHeight(dp(context, 42));
+        row.setPadding(dp(context, 16), dp(context, 8), dp(context, 16), dp(context, 8));
+
+        TextView k = text(context, label, 15f, TEXT);
+        k.setMaxLines(1);
+        k.setEllipsize(TextUtils.TruncateAt.END);
+        k.setPadding(0, 0, dp(context, 12), 0);
+        row.addView(k, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
+
+        TextView v = text(context, value, 14f, MUTED);
+        v.setTypeface(SANS_MEDIUM);
+        v.setGravity(Gravity.END);
+        v.setMaxLines(1);
+        v.setEllipsize(TextUtils.TruncateAt.END);
+        v.setMaxWidth(dp(context, 185));
+        v.setPadding(0, 0, 0, 0);
+        row.addView(v, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        return row;
     }
 
     static TextView text(Context context, String value, float size, int color) {
@@ -460,7 +512,7 @@ final class Ui {
         button.setMinimumHeight(dp(context, 48));
         button.setBackground(statePillDrawable(context, fill, tonalWellColor(context), ink, 24));
         button.setPadding(dp(context, 16), dp(context, 8), dp(context, 16), dp(context, 8));
-        button.setOnClickListener(listener);
+        button.setOnClickListener(withHaptic(listener));
         button.setContentDescription(label);
         button.setStateListAnimator(null);
         return button;
@@ -482,7 +534,7 @@ final class Ui {
         button.setMinimumHeight(dp(context, 46));
         button.setBackground(statePillDrawable(context, fill, withAlpha(fill, 110), primaryAccent(context), 23));
         button.setPadding(dp(context, 14), dp(context, 8), dp(context, 14), dp(context, 8));
-        button.setOnClickListener(listener);
+        button.setOnClickListener(withHaptic(listener));
         button.setContentDescription(label);
         button.setStateListAnimator(null);
         return button;
@@ -684,7 +736,7 @@ final class Ui {
         row.setClickable(true);
         row.setFocusable(true);
         row.setContentDescription(title + ". " + helper);
-        row.setOnClickListener(listener);
+        row.setOnClickListener(withHaptic(listener));
 
         row.addView(iconCircle(context, iconRes, accent, 42));
 
@@ -726,7 +778,7 @@ final class Ui {
         return row;
     }
 
-    /** Inset hairline separator inside a grouped card. */
+    /** Inset hairline separator inside an icon-row grouped card. */
     static View insetDivider(Context context) {
         View line = new View(context);
         line.setBackgroundColor(dividerColor(context));
@@ -734,6 +786,18 @@ final class Ui {
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, strokePx(context, 0.7f));
         p.setMargins(dp(context, 72), 0, dp(context, 16), 0);
+        line.setLayoutParams(p);
+        return line;
+    }
+
+    /** Clean hairline separator inside a text-row Settings card (16dp rails). */
+    static View cardDivider(Context context) {
+        View line = new View(context);
+        line.setBackgroundColor(dividerColor(context));
+        line.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, strokePx(context, 0.7f));
+        p.setMargins(dp(context, 16), 0, dp(context, 16), 0);
         line.setLayoutParams(p);
         return line;
     }
@@ -778,9 +842,18 @@ final class Ui {
         LinearLayout row = new LinearLayout(context);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER);
+        boolean compact = buttons.length >= 3;
+        int hPad = dp(context, compact ? 10 : 14);
+        int margin = dp(context, compact ? 4 : 5);
         for (Button button : buttons) {
+            if (compact) {
+                button.setPadding(hPad, dp(context, 8), hPad, dp(context, 8));
+                if (button.getTextSize() > dp(context, 13)) {
+                    button.setTextSize(13f);
+                }
+            }
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
-            params.setMargins(dp(context, 5), dp(context, 5), dp(context, 5), dp(context, 5));
+            params.setMargins(margin, dp(context, 5), margin, dp(context, 5));
             row.addView(button, params);
         }
         return row;

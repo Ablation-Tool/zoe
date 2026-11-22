@@ -403,6 +403,18 @@ final class ZoeCoreTests: XCTestCase {
         let atlas = [ScientificVisualAndPatentCore.VisionPrototype(label: "Atlas Ring", source: "atlas_baseline", signature: sA)]
         XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: [], atlas: atlas, query: sA)?.prototype.label, "Atlas Ring")
         XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: mem, atlas: atlas, query: sA)?.prototype.label, "Optical Ring")
+
+        // v0.9.4 Pro Studio additions: Chladni & Phyllotaxis plates + vellum/flip/vignette/4:5 portrait
+        let modes = ScientificVisualAndPatentCore.chladniModes(forSeed: 42)
+        XCTAssertTrue(modes.m >= 2 && modes.n > modes.m)
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("resonator", plate: .chladniPlate).contains("Chladni"))
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("rosette", plate: .fibonacciPhyllotaxis).contains("137.508"))
+        let proSpec = CreativeAndArcadeCore.parseImageEditCommand("vellum, warmer, vignette, mirror, 4:5 portrait")
+        XCTAssertEqual(proSpec.filter, .archivalVellum)
+        XCTAssertEqual(proSpec.warmth, 16)
+        XCTAssertEqual(proSpec.vignette, 48)
+        XCTAssertTrue(proSpec.flipHorizontal)
+        XCTAssertEqual(proSpec.crop, .portrait4x5)
     }
 
     func testMobileDigestionPrivacyFirewallAndPrototypeMerge() throws {

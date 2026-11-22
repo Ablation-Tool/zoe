@@ -37,93 +37,89 @@ public final class CellActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Tiny Zoe", "Zoe Cell · a tiny protocol lab with big ideas"));
+        content.addView(Ui.topBar(this, "Tiny Zoe", "Offline protocol simulator"));
+        status = Ui.statusBanner(this, "Simulator idle. No hardware, SIM, or network access.", Ui.COBALT);
+        status.setId(R.id.cell_status);
+        content.addView(status);
+
+        LinearLayout heroCard = Ui.vertical(this);
+        heroCard.setBackground(Ui.cardBackground(this, 20));
+        heroCard.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
         android.widget.ImageView geometry = new android.widget.ImageView(this);
         geometry.setImageResource(R.drawable.cell_hourglass);
         geometry.setAdjustViewBounds(true);
-        geometry.setContentDescription("Divine Zoe: concentric chalice and hourglass layers, one geometry with complementary views");
-        content.addView(geometry, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 112)));
-        addLayer(content, "ZOE · full-quality interface", Ui.PINK);
-        addLayer(content, "HOST · bounded probability codec", Ui.GREEN);
-        addLayer(content, "PROTOCOL · two short commands", Ui.YELLOW);
-        addLayer(content, "CORE · strict p > τ · no authority", Ui.CYAN);
-
+        geometry.setContentDescription("Divine Zoe: concentric chalice and hourglass layers");
+        heroCard.addView(geometry, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 96)));
         TextView budget = Ui.text(this,
-                "Companion budget: under 1,900,000 bytes\nReference Java simulation class: 2,735 bytes\nThat reference is not this APK, a CAP file, or physical-card usage.",
-                14, Ui.TEXT);
+                "Budget: under 1,900,000 bytes · Reference model: 2,735 bytes (local behavioral simulator only).",
+                13, Ui.MUTED);
         budget.setId(R.id.cell_budget);
-        content.addView(budget);
-        status = Ui.text(this, "Simulator idle. No hardware, SIM, or network access.", 16, Ui.YELLOW);
-        status.setId(R.id.cell_status);
-        content.addView(status);
-        content.addView(Ui.text(this,
-                "This is a behavioral protocol model. It does not emulate a specific chip, secure storage, radio firmware, or authentication.",
-                13, Ui.MUTED));
+        budget.setGravity(android.view.Gravity.CENTER);
+        heroCard.addView(budget);
+        content.addView(heroCard);
 
-        content.addView(Ui.section(this, "TRY THE WORKED EXAMPLE"));
-        content.addView(Ui.text(this, "Probability distribution", 14, Ui.TEXT));
+        LinearLayout.LayoutParams inLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        inLp.setMargins(0, Ui.dp(this, 2), 0, Ui.dp(this, 8));
+        content.addView(Ui.section(this, "Worked Example"));
+        content.addView(Ui.text(this, "Probability distribution", 13.5f, Ui.MUTED));
         probabilities = input("0.70, 0.20, 0.08, 0.02");
         probabilities.setId(R.id.cell_probabilities);
         probabilities.setContentDescription("Probabilities separated by commas or spaces");
-        content.addView(probabilities);
-        content.addView(Ui.text(this, "Threshold τ", 14, Ui.TEXT));
+        content.addView(probabilities, inLp);
+        content.addView(Ui.text(this, "Threshold τ", 13.5f, Ui.MUTED));
         threshold = input("0.05");
         threshold.setId(R.id.cell_threshold);
         threshold.setContentDescription("Threshold tau between zero and one");
-        content.addView(threshold);
+        LinearLayout.LayoutParams inLp2 = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        inLp2.setMargins(0, Ui.dp(this, 2), 0, Ui.dp(this, 8));
+        content.addView(threshold, inLp2);
 
-        Button info = Ui.button(this, "Read simulated card", view -> readInfo());
+        Button info = Ui.button(this, "Read card", view -> readInfo());
         info.setId(R.id.cell_info);
-        Button measure = Ui.primaryButton(this, "Measure on simulated card", Ui.RUBY, view -> measure());
+        Button measure = Ui.primaryButton(this, "Measure", Ui.RUBY, view -> measure());
         measure.setId(R.id.cell_measure);
         content.addView(Ui.buttonRow(this, info, measure));
-        Button reset = Ui.button(this, "Reset simulation", view -> reset());
+        Button reset = Ui.button(this, "Reset", view -> reset());
         reset.setId(R.id.cell_reset);
-        Button share = Ui.button(this, "Share session", view -> shareSession());
+        Button share = Ui.button(this, "Share", view -> shareSession());
         share.setId(R.id.cell_share);
         content.addView(Ui.buttonRow(this, reset, share));
 
         report = Ui.text(this,
-                "No command sent. Choose Read simulated card or Measure on simulated card.",
-                16, Ui.TEXT);
+                "Tap Read card or Measure to test the offline simulator.",
+                14.5f, Ui.TEXT);
         report.setId(R.id.cell_report);
-        report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
-        report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
+        report.setBackground(Ui.cardBackground(this, 20));
+        report.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         report.setTextIsSelectable(true);
-        content.addView(report);
+        LinearLayout.LayoutParams repLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        repLp.setMargins(0, Ui.dp(this, 6), 0, Ui.dp(this, 6));
+        content.addView(report, repLp);
 
-        content.addView(Ui.heading(this, "Protocol console"));
-        content.addView(Ui.text(this,
-                "Local simulation only. Test data is bounded to 135 bytes; nothing is sent to a card, SIM, NFC, Bluetooth, or network.",
-                13, Ui.MUTED));
+        content.addView(Ui.section(this, "Protocol Console"));
         rawCommand = input("80010000");
         rawCommand.setId(R.id.cell_raw);
         rawCommand.setContentDescription("Hexadecimal APDU command for the local simulator");
         content.addView(rawCommand);
-        Button send = Ui.button(this, "Send raw APDU", view -> sendRaw());
+        Button send = Ui.button(this, "Send APDU", view -> sendRaw());
         send.setId(R.id.cell_send);
         Button replay = Ui.button(this, "Replay last", view -> replay());
         replay.setId(R.id.cell_replay);
         content.addView(Ui.buttonRow(this, send, replay));
-        historyView = Ui.text(this, "No transactions in this session.", 14, Ui.TEXT);
+        historyView = Ui.text(this, "No transactions in this session.", 13.5f, Ui.TEXT);
         historyView.setId(R.id.cell_history);
-        historyView.setBackground(Ui.panelBackground(this, Ui.MUTED, 12));
-        historyView.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
-        content.addView(historyView);
-        content.addView(Ui.text(this,
-                "Nicholas Michael Kloster alone created the original accessible-volume equation on March 6, 2026. The simulated measurement remains an observation, not evidence or authorization.",
-                13, Ui.MUTED));
-    }
-
-    private void addLayer(LinearLayout content, String label, int color) {
-        TextView layer = Ui.text(this, label, 13, color);
-        layer.setGravity(android.view.Gravity.CENTER);
-        layer.setBackground(Ui.panelBackground(this, color, 10));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 38));
-        params.setMargins(Ui.dp(this, 10), 2, Ui.dp(this, 10), 2);
-        content.addView(layer, params);
+        historyView.setBackground(Ui.cardBackground(this, 18));
+        historyView.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
+        content.addView(historyView, repLp);
+        TextView credit = Ui.text(this,
+                "Local simulation only · Nicholas Michael Kloster, March 6, 2026.",
+                12.5f, Ui.MUTED);
+        credit.setGravity(android.view.Gravity.CENTER);
+        content.addView(credit);
     }
 
     private EditText input(String value) {

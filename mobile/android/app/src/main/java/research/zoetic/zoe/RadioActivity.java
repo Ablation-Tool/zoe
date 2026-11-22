@@ -54,11 +54,8 @@ public final class RadioActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Radio Field Lab", "Bonded BLE RSSI · NFC tag presence"));
-        content.addView(Ui.text(this,
-                "Bonded BLE device inventory, one RSSI reading per tap, optional 1 m calibration, and NFC tag presence. No arbitrary RF transmission or tag writing.",
-                14.5f, Ui.MUTED));
-        status = Ui.text(this, "Radio telemetry is idle. Bluetooth and NFC remain under your control.", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Radio Field", "Bluetooth RSSI & NFC"));
+        status = Ui.statusBanner(this, "Radio telemetry is idle.", Ui.COBALT);
         status.setId(R.id.radio_status);
         content.addView(status);
         BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -66,32 +63,37 @@ public final class RadioActivity extends ComponentActivity {
         nfc = NfcAdapter.getDefaultAdapter(this);
         devicePicker = new Spinner(this);
         devicePicker.setId(R.id.radio_devices);
-        devicePicker.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.CYAN, 110), 14));
+        devicePicker.setBackground(Ui.cardBackground(this, 16));
         LinearLayout.LayoutParams pickerParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        pickerParams.setMargins(0, Ui.dp(this, 4), 0, Ui.dp(this, 6));
+        pickerParams.setMargins(0, Ui.dp(this, 4), 0, Ui.dp(this, 8));
         content.addView(devicePicker, pickerParams);
-        Button rssi = Ui.button(this, "Read BLE RSSI once", Ui.CYAN, view -> readRssi());
+        Button rssi = Ui.primaryButton(this, "Read BLE RSSI", Ui.CYAN, view -> readRssi());
         rssi.setId(R.id.radio_rssi);
-        Button calibrate = Ui.button(this, "Calibrate last RSSI at 1 m", Ui.GOLD, view -> calibrate());
+        Button calibrate = Ui.button(this, "Calibrate 1 m", Ui.GOLD, view -> calibrate());
         calibrate.setId(R.id.radio_calibrate);
         content.addView(Ui.buttonRow(this, rssi, calibrate));
-        Button nfcButton = Ui.button(this, "Listen for NFC tag", Ui.GREEN, view -> toggleNfc());
+        Button nfcButton = Ui.button(this, "Listen NFC", Ui.GREEN, view -> toggleNfc());
         nfcButton.setId(R.id.radio_nfc);
-        Button stop = Ui.button(this, "Stop radio lab", Ui.RUBY, view -> stopRadio());
+        Button stop = Ui.button(this, "Stop", Ui.RUBY, view -> stopRadio());
         stop.setId(R.id.radio_stop);
         content.addView(Ui.buttonRow(this, nfcButton, stop));
         report = Ui.text(this,
-                "No radio observation yet. RSSI is signal strength, not distance. NFC presence is not ranging. Calibrated path-loss values are models, not verified position.",
-                16, Ui.TEXT);
+                "Select a paired device and tap Read BLE RSSI, or tap Listen NFC to detect a nearby tag.",
+                14.5f, Ui.TEXT);
         report.setId(R.id.radio_report);
-        report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
+        report.setBackground(Ui.cardBackground(this, 20));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         report.setTextIsSelectable(true);
-        content.addView(report);
-        content.addView(Ui.text(this,
-                "Bluetooth Classic-only devices may not support GATT RSSI. Device names stay on this screen. No remote control, pairing bypass, hidden scan, or firmware change is performed.",
-                12.5f, Ui.MUTED));
+        LinearLayout.LayoutParams repLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        repLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
+        content.addView(report, repLp);
+        TextView note = Ui.text(this,
+                "RSSI is signal strength, not verified distance. No tag writing or hidden scanning.",
+                12.5f, Ui.MUTED);
+        note.setGravity(android.view.Gravity.CENTER);
+        content.addView(note);
         if (Build.VERSION.SDK_INT >= 31 && ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, BLUETOOTH_PERMISSION);

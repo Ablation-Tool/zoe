@@ -99,26 +99,26 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity android:name=".CellActivity" android:exported="false" />
-        <activity android:name=".FieldKitActivity" android:exported="false" />
-        <activity android:name=".ResearchActivity" android:exported="false" />
-        <activity android:name=".TrinityActivity" android:exported="false" />
+        <activity android:name=".CellActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".FieldKitActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".ResearchActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".TrinityActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
             android:name=".ConversationActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".MultiVisionActivity" android:exported="false" />
-        <activity android:name=".RangingActivity" android:exported="false" />
-        <activity android:name=".RadioActivity" android:exported="false" />
-        <activity android:name=".ScreenSpaceActivity" android:exported="false" />
-        <activity android:name=".LocationActivity" android:exported="false" />
-        <activity android:name=".AppObservatoryActivity" android:exported="false" />
-        <activity android:name=".ConnectivityActivity" android:exported="false" />
+        <activity android:name=".MultiVisionActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".RangingActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".RadioActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".ScreenSpaceActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".LocationActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".AppObservatoryActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity android:name=".ConnectivityActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
             android:name=".SafeConvertActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".TripJournalActivity" android:exported="false" />
+        <activity android:name=".TripJournalActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
             android:name=".ElizaGemActivity"
             android:exported="false"
@@ -137,7 +137,7 @@
             android:name=".CreativeStudioActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".ZoeArcadeActivity" android:exported="false" />
+        <activity android:name=".ZoeArcadeActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
             android:name=".PrivacyVaultActivity"
             android:exported="false"

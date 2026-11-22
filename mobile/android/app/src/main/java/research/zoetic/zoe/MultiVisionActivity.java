@@ -46,19 +46,16 @@ public final class MultiVisionActivity extends ComponentActivity {
         scroll.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         LinearLayout content = Ui.vertical(this);
         content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        content.setPadding(Ui.dp(this, 12), Ui.dp(this, 12), Ui.dp(this, 12), Ui.dp(this, 24));
+        content.setPadding(Ui.dp(this, 16), Ui.dp(this, 12), Ui.dp(this, 16), Ui.dp(this, 24));
         scroll.addView(content);
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Multi-view", "Phone back · phone front · laptop bridge"));
-        content.addView(Ui.text(this,
-                "Phone back + phone front + laptop over ADB localhost. Every source is independent; nothing is recorded by Zoe.",
-                14.5f, Ui.MUTED));
-        status = Ui.text(this, "Multi-view is off. Start all sources when ready.", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Multi-view", "Back · Front · Laptop"));
+        status = Ui.statusBanner(this, "Multi-view is off. Start all sources when ready.", Ui.COBALT);
         status.setId(R.id.multi_status);
         content.addView(status);
-        Button start = Ui.button(this, "Start all sources", Ui.CYAN, view -> startSources());
+        Button start = Ui.primaryButton(this, "Start all", Ui.CYAN, view -> startSources());
         start.setId(R.id.multi_start);
         Button stop = Ui.button(this, "Stop all", Ui.RUBY, view -> stopSources());
         stop.setId(R.id.multi_stop);
@@ -67,8 +64,8 @@ public final class MultiVisionActivity extends ComponentActivity {
         feeds.setOrientation(LinearLayout.HORIZONTAL);
         backPreview = new PreviewView(this);
         frontPreview = new PreviewView(this);
-        backStatus = feedLabel("Phone back · idle");
-        frontStatus = feedLabel("Phone front · idle");
+        backStatus = feedLabel("Back · idle");
+        frontStatus = feedLabel("Front · idle");
         laptopStatus = feedLabel("Laptop · idle");
         feeds.addView(feed(backPreview, backStatus), feedParams());
         feeds.addView(feed(frontPreview, frontStatus), feedParams());
@@ -80,11 +77,15 @@ public final class MultiVisionActivity extends ComponentActivity {
         feeds.addView(feed(laptop, laptopStatus), feedParams());
         int feedHeightDp = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE ? 190 : 300;
-        content.addView(feeds, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, feedHeightDp)));
-        content.addView(Ui.text(this,
-                "Concurrent camera hardware is checked at runtime. If a source fails, its label says so while the others continue. Laptop streaming requires the local bridge on port 8766 and adb reverse.",
-                12.5f, Ui.MUTED));
+        LinearLayout.LayoutParams feedsLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, feedHeightDp));
+        feedsLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
+        content.addView(feeds, feedsLp);
+        TextView note = Ui.text(this,
+                "Nothing is recorded. Laptop feed uses local ADB port 8766.",
+                12.5f, Ui.MUTED);
+        note.setGravity(Gravity.CENTER);
+        content.addView(note);
     }
 
     private TextView feedLabel(String value) {

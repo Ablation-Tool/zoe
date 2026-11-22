@@ -67,7 +67,7 @@ public final class ZoeArcadeActivity extends ComponentActivity {
     private ArcadeEngine.SignalPuzzle currentPuzzle;
     private double puzzleTau = 0.20;
     private int puzzleStreak;
-    private TextView puzzleBarsView;
+    private SignalBarView puzzleBarsView;
     private TextView puzzlePromptView;
     private TextView puzzleTauLabel;
 
@@ -148,7 +148,7 @@ public final class ZoeArcadeActivity extends ComponentActivity {
         b.setMaxLines(1);
         b.setPadding(Ui.dp(this, 6), 0, Ui.dp(this, 6), 0);
         b.setStateListAnimator(null);
-        b.setOnClickListener(listener);
+        b.setOnClickListener(Ui.withHaptic(listener));
         return b;
     }
 
@@ -181,15 +181,17 @@ public final class ZoeArcadeActivity extends ComponentActivity {
             r.setOrientation(LinearLayout.HORIZONTAL);
             for (int col = 0; col < 2; col++) {
                 final int idx = row * 2 + col;
+                int resolved = Ui.resolveColor(this, accents[idx]);
                 Button b = new Button(this);
                 b.setText(ArcadeEngine.PETAL_NAMES[idx]);
                 b.setTextSize(16f);
                 b.setTypeface(Ui.SANS_MEDIUM);
                 b.setAllCaps(false);
-                b.setTextColor(Color.WHITE);
-                b.setBackground(Ui.tonalPillDrawable(this, accents[idx], accents[idx], 26));
-                b.setAlpha(0.75f);
-                b.setOnClickListener(v -> onPetalTapped(idx));
+                b.setTextColor(Ui.isDark(this) && idx == 2 ? Color.rgb(16, 18, 22) : Color.WHITE);
+                b.setBackground(Ui.tonalPillDrawable(this, resolved, resolved, 26));
+                b.setAlpha(0.80f);
+                b.setStateListAnimator(null);
+                b.setOnClickListener(Ui.withHaptic(v -> onPetalTapped(idx)));
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, Ui.dp(this, 118), 1f);
                 lp.setMargins(Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6), Ui.dp(this, 6));
                 r.addView(b, lp);
@@ -320,7 +322,8 @@ public final class ZoeArcadeActivity extends ComponentActivity {
                 cell.setTypeface(Ui.SANS_MEDIUM);
                 cell.setTextColor(Ui.textColor(this));
                 cell.setBackground(Ui.cardBackground(this, 18));
-                cell.setOnClickListener(v -> onTttCellTap(idx));
+                cell.setStateListAnimator(null);
+                cell.setOnClickListener(Ui.withHaptic(v -> onTttCellTap(idx)));
                 if (idx == 0) {
                     cell.setId(R.id.arcade_ttt_cell0);
                 }
@@ -397,9 +400,12 @@ public final class ZoeArcadeActivity extends ComponentActivity {
     }
 
     private void renderTttBoard() {
+        int xColor = Ui.resolveColor(this, Ui.COBALT);
+        int oColor = Ui.resolveColor(this, Ui.RUBY);
+        int emptyColor = Ui.textColor(this);
         for (int i = 0; i < 9; i++) {
             tttCells[i].setText(tttBoard[i] == 1 ? "X" : tttBoard[i] == 2 ? "O" : "");
-            tttCells[i].setTextColor(tttBoard[i] == 1 ? Ui.COBALT : tttBoard[i] == 2 ? Ui.RUBY : Ui.textColor(this));
+            tttCells[i].setTextColor(tttBoard[i] == 1 ? xColor : tttBoard[i] == 2 ? oColor : emptyColor);
         }
     }
 
@@ -413,18 +419,25 @@ public final class ZoeArcadeActivity extends ComponentActivity {
         LinearLayout panel = Ui.vertical(this);
         puzzlePromptView = Ui.text(this, "", 16f, Ui.TEXT);
         puzzlePromptView.setTypeface(Ui.SANS_MEDIUM);
-        puzzlePromptView.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
+        puzzlePromptView.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         puzzlePromptView.setBackground(Ui.cardBackground(this, 20));
         panel.addView(puzzlePromptView);
 
-        puzzleBarsView = Ui.text(this, "", 14.5f, Ui.CYAN);
-        puzzleBarsView.setTypeface(android.graphics.Typeface.MONOSPACE);
-        puzzleBarsView.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
-        panel.addView(puzzleBarsView);
+        LinearLayout chartCard = Ui.vertical(this);
+        chartCard.setBackground(Ui.cardBackground(this, 20));
+        chartCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        LinearLayout.LayoutParams ccLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        ccLp.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
+
+        puzzleBarsView = new SignalBarView(this);
+        chartCard.addView(puzzleBarsView, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 152)));
 
         puzzleTauLabel = Ui.text(this, "Threshold τ = 0.20", 14.5f, Ui.GOLD);
-        puzzleTauLabel.setPadding(Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
-        panel.addView(puzzleTauLabel);
+        puzzleTauLabel.setTypeface(Ui.SANS_MEDIUM);
+        puzzleTauLabel.setPadding(0, Ui.dp(this, 10), 0, Ui.dp(this, 4));
+        chartCard.addView(puzzleTauLabel);
 
         SeekBar slider = new SeekBar(this);
         slider.setMax(60);
@@ -436,28 +449,24 @@ public final class ZoeArcadeActivity extends ComponentActivity {
                 refreshPuzzleReadout();
             }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
+            @Override public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        panel.addView(slider);
+        chartCard.addView(slider);
+        panel.addView(chartCard, ccLp);
 
         Button checkBtn = Ui.primaryButton(this, "Check Signal Lock", Ui.GREEN, v -> {
             int got = currentPuzzle.evaluateCount(puzzleTau);
             if (got == currentPuzzle.targetCount) {
                 puzzleStreak++;
-                status.setText("Bullseye! Strict A_tau(p) = " + got + " of 5 · Streak: " + puzzleStreak + "!");
+                status.setText("Bullseye! A_τ(p) = " + got + " of 5 · Streak: " + puzzleStreak + "!");
                 loadNewSignalPuzzle();
             } else {
                 puzzleStreak = 0;
-                status.setText("Currently A_tau(p) = " + got + " (target is " + currentPuzzle.targetCount + "). Remember strict inequality p > τ!");
+                status.setText("Currently " + got + " open (goal is " + currentPuzzle.targetCount + "). Needs strictly p > τ.");
             }
         });
-        Button skipBtn = Ui.button(this, "New Distribution", Ui.COBALT, v -> loadNewSignalPuzzle());
+        Button skipBtn = Ui.button(this, "New Puzzle", Ui.COBALT, v -> loadNewSignalPuzzle());
         panel.addView(Ui.buttonRow(this, checkBtn, skipBtn));
 
         loadNewSignalPuzzle();
@@ -473,21 +482,93 @@ public final class ZoeArcadeActivity extends ComponentActivity {
         if (currentPuzzle == null) {
             return;
         }
-        puzzlePromptView.setText("Goal: Tune τ so strictly A_τ(p) = " + currentPuzzle.targetCount
-                + " of 5 signals pass (Streak: " + puzzleStreak + ")");
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < currentPuzzle.probs.length; i++) {
-            double p = currentPuzzle.probs[i];
-            boolean pass = p > puzzleTau;
-            int bars = Math.max(1, (int) Math.round(p * 24));
-            StringBuilder barStr = new StringBuilder();
-            for (int k = 0; k < bars; k++) {
-                barStr.append(pass ? '█' : '░');
-            }
-            sb.append(String.format(Locale.US, "x%d  %.2f  %s %s\n", i + 1, p, barStr, pass ? "OPEN" : "cut"));
-        }
-        puzzleBarsView.setText(sb.toString().trim());
+        puzzlePromptView.setText("Goal: Tune τ so " + currentPuzzle.targetCount
+                + " of 5 signals pass  ·  Streak: " + puzzleStreak);
+        puzzleBarsView.update(currentPuzzle.probs, puzzleTau);
         puzzleTauLabel.setText(String.format(Locale.US, "Threshold τ = %.2f  (strictly p > τ)", puzzleTau));
+    }
+
+    /** Crisp Material 3 graphical bar chart with gliding Ruby τ line for the Signal Puzzle. */
+    private static final class SignalBarView extends View {
+        private final android.graphics.Paint barPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
+        private final android.graphics.Paint gridPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
+        private final android.graphics.Paint tauPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
+        private final android.graphics.Paint textPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
+        private final android.graphics.RectF rect = new android.graphics.RectF();
+        private double[] probs = new double[0];
+        private double tau = 0.20;
+
+        SignalBarView(android.content.Context ctx) {
+            super(ctx);
+            float d = ctx.getResources().getDisplayMetrics().density;
+            gridPaint.setStrokeWidth(Math.max(1f, 0.8f * d));
+            tauPaint.setStrokeWidth(Math.max(1.5f, 2f * d));
+            textPaint.setTextSize(11.5f * d);
+            textPaint.setTypeface(Ui.SANS_MEDIUM);
+            textPaint.setTextAlign(android.graphics.Paint.Align.CENTER);
+        }
+
+        void update(double[] nextProbs, double nextTau) {
+            this.probs = nextProbs == null ? new double[0] : nextProbs;
+            this.tau = nextTau;
+            invalidate();
+        }
+
+        @Override
+        protected void onDraw(android.graphics.Canvas canvas) {
+            super.onDraw(canvas);
+            float w = getWidth();
+            float h = getHeight();
+            if (w <= 0f || h <= 0f || probs.length == 0) {
+                return;
+            }
+            android.content.Context ctx = getContext();
+            float d = getResources().getDisplayMetrics().density;
+            float padTop = 20f * d;
+            float padBottom = 22f * d;
+            float padLeft = 8f * d;
+            float padRight = 24f * d;
+            float chartW = Math.max(20f, w - padLeft - padRight);
+            float chartH = Math.max(20f, h - padTop - padBottom);
+            float baseY = padTop + chartH;
+
+            gridPaint.setColor(Ui.dividerColor(ctx));
+            for (int step = 0; step <= 3; step++) {
+                float y = baseY - (chartH * step / 3f);
+                canvas.drawLine(padLeft, y, padLeft + chartW, y, gridPaint);
+            }
+
+            // Draw the gliding Ruby τ line cleanly behind the bars so digits never collide
+            float maxScale = 0.65f;
+            float tauFrac = (float) Math.min(1.0, Math.max(0.0, tau / maxScale));
+            float tauY = baseY - chartH * tauFrac;
+            int ruby = Ui.heroAccent(ctx);
+            tauPaint.setColor(ruby);
+            canvas.drawLine(padLeft, tauY, padLeft + chartW, tauY, tauPaint);
+            textPaint.setColor(ruby);
+            canvas.drawText("τ", padLeft + chartW + 12f * d, tauY + 4f * d, textPaint);
+
+            float slotW = chartW / probs.length;
+            float barW = Math.min(42f * d, Math.max(12f * d, slotW * 0.56f));
+            int openCol = Ui.resolveColor(ctx, Ui.GREEN);
+            int cutCol = Ui.tonalWellColor(ctx);
+            int mutedCol = Ui.mutedColor(ctx);
+
+            for (int i = 0; i < probs.length; i++) {
+                double p = probs[i];
+                boolean pass = p > tau;
+                float cx = padLeft + slotW * (i + 0.5f);
+                float frac = (float) Math.min(1.0, p / maxScale);
+                float barH = Math.max(6f * d, chartH * frac);
+                rect.set(cx - barW * 0.5f, baseY - barH, cx + barW * 0.5f, baseY);
+                barPaint.setColor(pass ? openCol : cutCol);
+                canvas.drawRoundRect(rect, 7f * d, 7f * d, barPaint);
+                // Aligned top value row + crisp bottom status row -> zero collision at any τ
+                textPaint.setColor(pass ? openCol : mutedCol);
+                canvas.drawText(String.format(Locale.US, "%.2f", p), cx, 13f * d, textPaint);
+                canvas.drawText(pass ? "OPEN" : "cut", cx, baseY + 15f * d, textPaint);
+            }
+        }
     }
 
     // --- 4. 20 Questions & Interactive Story Adventure ---

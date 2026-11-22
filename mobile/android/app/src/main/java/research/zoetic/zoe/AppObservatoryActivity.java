@@ -42,30 +42,30 @@ public final class AppObservatoryActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "App Observatory", "Read-only launcher metadata"));
-        content.addView(Ui.text(this,
-                "Read-only package, version, installer, and enabled-state inspection. Public launchers only—no private app data, force stop, uninstall, or Play Protect control.",
-                14, Ui.MUTED));
-        status = Ui.text(this, "Loading the package inventory…", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "App Observatory", "Read-only app info"));
+        status = Ui.statusBanner(this, "Loading installed apps…", Ui.COBALT);
         status.setId(R.id.apps_status);
         content.addView(status);
         picker = new Spinner(this);
         picker.setId(R.id.apps_picker);
-        picker.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.GREEN, 110), 14));
+        picker.setBackground(Ui.cardBackground(this, 16));
         LinearLayout.LayoutParams pickerParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        pickerParams.setMargins(0, Ui.dp(this, 4), 0, Ui.dp(this, 6));
+        pickerParams.setMargins(0, Ui.dp(this, 4), 0, Ui.dp(this, 8));
         content.addView(picker, pickerParams);
         content.addView(Ui.buttonRow(this,
-                Ui.button(this, "Inspect selected", Ui.CYAN, view -> inspect()),
-                Ui.button(this, "Open public launcher", Ui.GREEN, view -> launch())));
-        content.addView(Ui.button(this, "Show Google / Play services", Ui.GOLD, view -> filterGoogle()));
-        report = Ui.text(this, "No package selected.", 15, Ui.TEXT);
+                Ui.primaryButton(this, "Inspect", Ui.CYAN, view -> inspect()),
+                Ui.button(this, "Open app", Ui.GREEN, view -> launch())));
+        content.addView(Ui.disclosureButton(this, "Filter Google / Play apps", view -> filterGoogle()));
+        report = Ui.text(this, "No package selected.", 14.5f, Ui.TEXT);
         report.setId(R.id.apps_report);
-        report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
-        report.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
+        report.setBackground(Ui.cardBackground(this, 20));
+        report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         report.setTextIsSelectable(true);
-        content.addView(report);
+        LinearLayout.LayoutParams repLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        repLp.setMargins(0, Ui.dp(this, 6), 0, 0);
+        content.addView(report, repLp);
         loadPackages();
     }
 

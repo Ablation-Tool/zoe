@@ -202,7 +202,7 @@ public final class ConversationActivity extends ComponentActivity {
         headerWrap.addView(modeStrip);
 
         // Whisper-quiet status + slim hairline caption/voice bar (gives +40% breathing room to the chat feed!)
-        status = Ui.text(this, "⚡ Auto hybrid ready · tap Web: off for live citations.", 12.5f, Ui.MUTED);
+        status = Ui.text(this, "⚡ Auto ready · offline-first", 12.5f, Ui.MUTED);
         status.setId(R.id.conversation_status);
         status.setPadding(Ui.dp(this, 4), Ui.dp(this, 2), Ui.dp(this, 4), Ui.dp(this, 2));
         headerWrap.addView(status);
@@ -253,7 +253,7 @@ public final class ConversationActivity extends ComponentActivity {
         osActionBar.setBackground(Ui.cardBackground(this, 22));
         osActionBar.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
         osActionBar.setVisibility(View.GONE);
-        osActionBar.addView(Ui.text(this, "APPROVAL-GATED PHONE ACTION PLAN · TAP TO RUN", 11.5f, Ui.CYAN));
+        osActionBar.addView(Ui.text(this, "Suggested action · tap to run", 12.5f, Ui.COBALT));
         osActionBtn = Ui.primaryButton(this, "Open tool", Ui.COBALT, view -> {
             if (!pendingPlan.isEmpty()) {
                 executeAction(pendingPlan.get(0));
@@ -401,7 +401,7 @@ public final class ConversationActivity extends ComponentActivity {
         b.setTextColor(Ui.mutedColor(this));
         b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         b.setStateListAnimator(null);
-        b.setOnClickListener(listener);
+        b.setOnClickListener(Ui.withHaptic(listener));
         return b;
     }
 
@@ -518,16 +518,16 @@ public final class ConversationActivity extends ComponentActivity {
         card.addView(hi);
 
         TextView sub = Ui.text(this,
-                "Offline Glass-Box Brain · Zoe Local Neural Engine · Multi-AI Council (Claude, Grok, ChatGPT, Gemini)",
-                13.5f, Ui.MUTED);
+                "Private on-device chat · Optional web & AI",
+                14f, Ui.MUTED);
         sub.setGravity(Gravity.CENTER);
-        sub.setPadding(0, 0, 0, Ui.dp(this, 14));
+        sub.setPadding(0, 0, 0, Ui.dp(this, 16));
         card.addView(sub);
 
         String[] starters = {
-                "Who are you and how do you keep chats private?",
-                "Explain Kloster's A_tau(p) equation simply",
-                "Navigate to nearest hospital and set a 5 minute timer",
+                "How do you keep chats private?",
+                "Explain Kloster's A_tau(p) simply",
+                "Directions to nearest hospital",
                 "Tell me about L5 Phase 5"
         };
         for (String starter : starters) {
@@ -659,7 +659,7 @@ public final class ConversationActivity extends ComponentActivity {
         tools.setPadding(0, Ui.dp(this, 6), 0, 0);
         tools.addView(microChip("Speak", v -> speakReply(msg.text, "zoe-repeat")));
         tools.addView(microChip("Copy", v -> copyToClipboard(msg.text)));
-        tools.addView(microChip("Ask Claude/Grok ↗", v -> showAskOtherAiDialog(lastUserPrompt())));
+        tools.addView(microChip("Ask AI ↗", v -> showAskOtherAiDialog(lastUserPrompt())));
         card.addView(tools);
         return card;
     }
@@ -730,16 +730,16 @@ public final class ConversationActivity extends ComponentActivity {
 
     private void showAttachAndCreateSheet() {
         String[] choices = {
-                "Attach Photo (Offline OCR/Labels + Vision)",
-                "Attach Video (3-Frame Timeline Analysis)",
-                "Open Zoe Explore ('Hi Zoe' Orb & Camera)",
-                "Open Creative Studio (Edit Photo · Make MP4 Video)",
-                "Open Zoe Arcade (Play Games Offline)",
-                "Open Privacy Vault (Signal-Grade E2EE)",
-                "Open Maps & Safety"
+                "Attach Photo",
+                "Attach Video",
+                "Zoe Explore",
+                "Creative Studio",
+                "Zoe Arcade",
+                "Privacy Vault",
+                "Maps & Safety"
         };
         new AlertDialog.Builder(this)
-                .setTitle("Share Media & Create with Zoe")
+                .setTitle("Add or Open")
                 .setItems(choices, (d, which) -> {
                     switch (which) {
                         case 0 -> pickPhotoLauncher.launch(new String[]{"image/*"});
@@ -1437,12 +1437,12 @@ public final class ConversationActivity extends ComponentActivity {
         box.setBackground(Ui.cardBackground(this, 26));
         box.setPadding(Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18));
 
-        TextView heading = Ui.text(this, "Zoe Brain, Local LLM & AI Council", 19f, Ui.TEXT);
+        TextView heading = Ui.text(this, "Brain & AI Settings", 20f, Ui.TEXT);
         heading.setTypeface(Ui.SANS_MEDIUM);
         box.addView(heading);
 
         // Section A: On-Device Offline Neural LLM (MediaPipe GenAI)
-        box.addView(Ui.text(this, "1. ON-DEVICE OFFLINE NEURAL LLM (0 CLOUD TOKENS)", 12f, Ui.GREEN));
+        box.addView(Ui.section(this, "On-device models (offline)"));
         TextView llmStatus = Ui.text(this, localLlmStatusSummary(), 13.5f, Ui.MUTED);
         box.addView(llmStatus);
 
@@ -1486,7 +1486,7 @@ public final class ConversationActivity extends ComponentActivity {
         }
 
         // Section B: Optional Multi-Provider Cloud BYOK Keys (Gemini / Claude / ChatGPT / Grok / Local OpenAI)
-        box.addView(Ui.text(this, "\n2. CLOUD AI & WORKSTATION KEYS (OPTIONAL BYOK)", 12f, Ui.COBALT));
+        box.addView(Ui.section(this, "Cloud AI keys (optional)"));
         Spinner providerSpinner = new Spinner(this);
         MultiAiClient.Provider[] allProviders = MultiAiClient.Provider.values();
         String[] providerNames = new String[allProviders.length];
@@ -1532,7 +1532,7 @@ public final class ConversationActivity extends ComponentActivity {
         box.addView(saveProviderBtn);
 
         // Section C: Zoe Voice, Sing Zoe & Memory Sync
-        box.addView(Ui.text(this, "\n3. ZOE NATIVE VOICE & LAB MEMORY", 12f, Ui.RUBY));
+        box.addView(Ui.section(this, "Voice & Lab Sync"));
         Button voiceToggle = Ui.button(this, useNativeVoice ? "Voice: Zoe Synth (44.1 kHz)" : "Voice: OS TTS", Ui.COBALT, v -> {
             useNativeVoice = !useNativeVoice;
             ((Button) v).setText(useNativeVoice ? "Voice: Zoe Synth (44.1 kHz)" : "Voice: OS TTS");
@@ -1604,17 +1604,29 @@ public final class ConversationActivity extends ComponentActivity {
                 }
             }
         }
-        voices.sort(Comparator.comparing(Voice::getName));
+        voices.sort((a, b) -> {
+            boolean aUs = "US".equalsIgnoreCase(a.getLocale().getCountry());
+            boolean bUs = "US".equalsIgnoreCase(b.getLocale().getCountry());
+            if (aUs != bUs) {
+                return aUs ? -1 : 1;
+            }
+            int q = Integer.compare(b.getQuality(), a.getQuality());
+            return q != 0 ? q : a.getName().compareTo(b.getName());
+        });
         List<String> names = new ArrayList<>();
         if (voices.isEmpty()) {
-            names.add("System default voice");
+            names.add("Default voice");
         } else {
+            java.util.Map<String, Integer> regionCounts = new java.util.HashMap<>();
             for (Voice v : voices) {
-                names.add(v.getLocale().toLanguageTag() + " · " + v.getName());
+                String country = v.getLocale().getCountry();
+                String region = country == null || country.isEmpty() ? "English" : "English (" + country.toUpperCase(Locale.US) + ")";
+                int idx = regionCounts.getOrDefault(region, 0) + 1;
+                regionCounts.put(region, idx);
+                names.add(idx == 1 ? "Voice: " + region : "Voice: " + region + " #" + idx);
             }
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names);
-        voicePicker.setAdapter(adapter);
+        voicePicker.setAdapter(Ui.spinnerAdapter(this, names));
         voicePicker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

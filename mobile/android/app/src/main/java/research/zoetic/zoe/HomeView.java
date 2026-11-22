@@ -247,19 +247,19 @@ final class HomeView extends ScrollView {
                 "Look around & read aloud",
                 R.drawable.ic_zoe_vision, Ui.COBALT, activity::showVision));
         addSpec(new ZappSpec("talk", "Talk",
-                "Hybrid Chat, Local LLM, Web & Council",
+                "Chat, voice & AI",
                 R.drawable.ic_zoe_talk, Ui.RUBY, () -> open(ConversationActivity.class)));
         addSpec(new ZappSpec("live", "Zoe Explore",
-                "Say 'Hi Zoe' · Voice orb & live camera",
+                "Voice orb & live camera",
                 R.drawable.ic_zoe_live, Ui.COBALT, () -> open(ZoeLiveActivity.class)));
         addSpec(new ZappSpec("creative", "Creative Studio",
-                "Edit photos & make MP4 videos",
+                "Photos, art & videos",
                 R.drawable.ic_zoe_studio, Ui.GOLD, () -> open(CreativeStudioActivity.class)));
         addSpec(new ZappSpec("arcade", "Zoe Arcade",
-                "Play offline games with Zoe",
+                "Offline mini-games",
                 R.drawable.ic_zoe_arcade, Ui.GREEN, () -> open(ZoeArcadeActivity.class)));
         addSpec(new ZappSpec("vault", "Privacy Vault",
-                "Signal-grade E2EE & Safety Number",
+                "Encrypted notes & keys",
                 R.drawable.ic_zoe_convert, Ui.CYAN, () -> open(PrivacyVaultActivity.class)));
         addSpec(new ZappSpec("journal", "Trip journal",
                 "Your saved notes & photos",
@@ -268,7 +268,7 @@ final class HomeView extends ScrollView {
                 "Sound shapes & local lab",
                 R.drawable.ic_zoe_gem, Ui.PINK, () -> open(ElizaGemActivity.class)));
         addSpec(new ZappSpec("maps", "Maps & Safety",
-                "Live GPS, Google Maps & Safety app",
+                "GPS, maps & safety",
                 R.drawable.ic_zoe_location, Ui.CYAN, () -> open(LocationActivity.class)));
         addSpec(new ZappSpec("volume", "Accessible volume",
                 "Count open choices clearly",
@@ -277,13 +277,13 @@ final class HomeView extends ScrollView {
                 "Link phone & computer",
                 R.drawable.ic_zoe_trinity, Ui.COBALT, () -> open(TrinityActivity.class)));
         addSpec(new ZappSpec("kit", "Field kit",
-                "Cameras, GPS & sensor tools",
+                "Cameras, GPS & sensors",
                 R.drawable.ic_zoe_kit, Ui.CYAN, () -> open(FieldKitActivity.class)));
         addSpec(new ZappSpec("device", "Device field",
                 "Battery & speaker check",
                 R.drawable.ic_zoe_device, Ui.GREEN, activity::showDevice));
         addSpec(new ZappSpec("safeconvert", "SafeConvert",
-                "Units & private safety helper",
+                "Units & private safety",
                 R.drawable.ic_zoe_convert, Ui.RUBY, () -> open(SafeConvertActivity.class)));
         addSpec(new ZappSpec("guide", "Researcher guide",
                 "How Zoe works & limits",
@@ -486,48 +486,51 @@ final class HomeView extends ScrollView {
         return b;
     }
 
-    /** Clean big-button Quick Menu Sheet (opened from Top '=' or Bottom '+' capsule). */
+    /** Clean scrollable Quick Menu Sheet (opened from Top '=' or Bottom '+' capsule). */
     void showQuickSheet() {
         Context ctx = getContext();
+        ScrollView sheetScroll = new ScrollView(ctx);
+        sheetScroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout box = new LinearLayout(ctx);
         box.setOrientation(LinearLayout.VERTICAL);
         box.setBackground(Ui.cardBackground(ctx, 28));
         box.setPadding(Ui.dp(ctx, 18), Ui.dp(ctx, 20), Ui.dp(ctx, 18), Ui.dp(ctx, 18));
+        sheetScroll.addView(box);
 
         TextView heading = Ui.text(ctx, "Quick actions", 20f, Ui.TEXT);
         heading.setTypeface(Ui.SANS_MEDIUM);
-        heading.setPadding(Ui.dp(ctx, 10), 0, Ui.dp(ctx, 10), Ui.dp(ctx, 10));
+        heading.setPadding(Ui.dp(ctx, 10), 0, Ui.dp(ctx, 10), Ui.dp(ctx, 8));
         ViewCompat.setAccessibilityHeading(heading, true);
         box.addView(heading);
 
-        final AlertDialog dialog = new AlertDialog.Builder(ctx).setView(box).create();
+        final AlertDialog dialog = new AlertDialog.Builder(ctx).setView(sheetScroll).create();
 
-        box.addView(Ui.geminiActionRow(ctx, "Zoe Explore ('Hi Zoe')", "Voice orb & optional live camera",
+        box.addView(Ui.geminiActionRow(ctx, "Zoe Explore", "Voice orb & live camera",
                 R.drawable.ic_zoe_live, Ui.COBALT, v -> {
                     dialog.dismiss();
                     open(ZoeLiveActivity.class);
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Privacy Vault (Signal E2EE)", "AES-256-GCM vault & 60-digit Safety Number",
-                R.drawable.ic_zoe_convert, Ui.CYAN, v -> {
-                    dialog.dismiss();
-                    open(PrivacyVaultActivity.class);
-                }));
-        box.addView(Ui.geminiActionRow(ctx, "Creative Studio", "Edit photos & make MP4 videos",
+        box.addView(Ui.geminiActionRow(ctx, "Creative Studio", "Photos, art & videos",
                 R.drawable.ic_zoe_studio, Ui.GOLD, v -> {
                     dialog.dismiss();
                     open(CreativeStudioActivity.class);
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Zoe Arcade", "Play offline games with Zoe",
+        box.addView(Ui.geminiActionRow(ctx, "Privacy Vault", "Encrypted notes & keys",
+                R.drawable.ic_zoe_convert, Ui.CYAN, v -> {
+                    dialog.dismiss();
+                    open(PrivacyVaultActivity.class);
+                }));
+        box.addView(Ui.geminiActionRow(ctx, "Zoe Arcade", "Offline mini-games",
                 R.drawable.ic_zoe_arcade, Ui.GREEN, v -> {
                     dialog.dismiss();
                     open(ZoeArcadeActivity.class);
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Maps & Safety", "Live GPS, Google Maps & Safety app",
+        box.addView(Ui.geminiActionRow(ctx, "Maps & Safety", "GPS, maps & safety",
                 R.drawable.ic_zoe_location, Ui.CYAN, v -> {
                     dialog.dismiss();
                     open(LocationActivity.class);
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "SafeConvert", "Units & private safety helper",
+        box.addView(Ui.geminiActionRow(ctx, "SafeConvert", "Units & private safety",
                 R.drawable.ic_zoe_convert, Ui.RUBY, v -> {
                     dialog.dismiss();
                     open(SafeConvertActivity.class);
@@ -543,7 +546,7 @@ final class HomeView extends ScrollView {
                     dialog.dismiss();
                     toggleArrangeMode();
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Open Google Gemini", "Jump to Gemini when you choose",
+        box.addView(Ui.geminiActionRow(ctx, "Google Gemini", "Open Gemini when you choose",
                 R.drawable.ic_zoe_gem, Ui.COBALT, v -> {
                     dialog.dismiss();
                     host.openGemini();
@@ -588,7 +591,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.9.3-beta · Closed-Loop L5 Digestion, KV-Clone AI & Offline Atlas · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.9.4-beta · Offline-first & free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

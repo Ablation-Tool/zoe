@@ -100,16 +100,16 @@ enum ZappID: String, CaseIterable, Identifiable {
     var simpleHelper: String {
         switch self {
         case .vision: return "Look around & read aloud"
-        case .talk: return "Hybrid Chat, Web & Multi-AI"
-        case .live: return "Say 'Hi Zoe' · Voice orb"
-        case .creative: return "Edit photos & create stories"
-        case .arcade: return "Play offline games with Zoe"
-        case .vault: return "Signal-grade E2EE & Safety Number"
-        case .maps: return "Live GPS, Apple & Google Maps"
+        case .talk: return "Chat, voice & AI"
+        case .live: return "Voice orb & live camera"
+        case .creative: return "Photos, art & stories"
+        case .arcade: return "Offline mini-games"
+        case .vault: return "Encrypted notes & keys"
+        case .maps: return "GPS, maps & safety"
         case .volume: return "Count open choices clearly"
         case .trinity: return "Link phone & computer"
         case .device: return "Battery & speaker check"
-        case .safeconvert: return "Units & private safety helper"
+        case .safeconvert: return "Units & private safety"
         }
     }
 

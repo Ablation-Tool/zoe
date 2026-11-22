@@ -32,6 +32,30 @@ public class CreativeAndArcadeTest {
         assertEquals(ImageLabEngine.FilterPreset.ORIGINAL, reset.filter);
         assertEquals(0, reset.rotationDeg);
         assertEquals("", reset.caption);
+
+        // v0.9.4 Pro Studio additions: vellum/blueprint filters, flip, portrait 4:5, vignette, warmth, CFR video timestamps & AI provider selection
+        ImageLabEngine.EditSpec pro = ImageLabEngine.parseEditCommand(
+                "vellum, warmer, vignette, mirror, 4:5 portrait", new ImageLabEngine.EditSpec());
+        assertEquals(ImageLabEngine.FilterPreset.ARCHIVAL_VELLUM, pro.filter);
+        assertEquals(16, pro.warmth);
+        assertEquals(48, pro.vignette);
+        assertTrue(pro.flipHorizontal);
+        assertEquals(ImageLabEngine.CropMode.PORTRAIT_4_5, pro.crop);
+        assertTrue(pro.summary().contains("vignette 48%"));
+        assertTrue(pro.summary().contains("mirror"));
+
+        assertEquals(ScientificVisualSubstrate.BaselinePlate.CHLADNI_PLATE,
+                ScientificVisualSubstrate.detectPlateFromCommand("chladni standing wave"));
+        assertEquals(ScientificVisualSubstrate.BaselinePlate.FIBONACCI_PHYLLOTAXIS,
+                ScientificVisualSubstrate.detectPlateFromCommand("fibonacci phyllotaxis rosette"));
+        assertEquals(2, ScientificVisualSubstrate.chladniModesForSeed(42).length);
+
+        assertEquals(0L, VideoMakerEngine.framePresentationTimeUs(0, 30));
+        assertEquals(1_000_000L, VideoMakerEngine.framePresentationTimeUs(30, 30));
+        assertEquals(4_000_000L, VideoMakerEngine.framePresentationTimeUs(120, 30));
+        assertEquals("gemini", ImageLabEngine.selectOnlineImageProvider("gem-key", "oa-key"));
+        assertEquals("openai", ImageLabEngine.selectOnlineImageProvider("", "oa-key"));
+        assertEquals("none", ImageLabEngine.selectOnlineImageProvider("", ""));
     }
 
     @Test

@@ -243,7 +243,13 @@ public final class MainActivity extends ComponentActivity {
         }
         visible = identifier;
         if (homeBarTitle != null) {
-            homeBarTitle.setText("vision".equals(identifier) ? "Guided vision" : "");
+            String title = switch (identifier) {
+                case "vision" -> "Guided vision";
+                case "volume" -> "Accessible volume";
+                case "device" -> "Device field";
+                default -> "";
+            };
+            homeBarTitle.setText(title);
         }
         if (geminiBottomBar != null) {
             geminiBottomBar.setVisibility(View.GONE);

@@ -26,7 +26,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 **1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 30 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
-**L5 Phases 1–5 &amp; Closed-Loop Mobile ↔ Lab Digestion (`16/16 + 18/18 + 18/18 + 20/20 + 22/22 + 16/16`) · Zoe (beta) `v0.9.3-beta` (Android &amp; Apple) · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+**L5 Phases 1–5 &amp; Closed-Loop Mobile ↔ Lab Digestion (`16/16 + 18/18 + 18/18 + 20/20 + 22/22 + 16/16`) · Zoe (beta) `v0.9.4-beta` (Android &amp; Apple) · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
 
 </div>
 
@@ -84,17 +84,17 @@ Her work brings together seven threads that almost never live in the same room:
 
 <a id="zoe-app-beta"></a>
 
-## Zoe (beta) `v0.9.3-beta` — Mobile App Availability *(Free · Offline-First · Android & Apple)*
+## Zoe (beta) `v0.9.4-beta` — Mobile App Availability *(Free · Offline-First · Android & Apple)*
 
-> **Beta Notice (`v0.9.3-beta`):** **Zoe (beta)** is our active work-in-progress mobile companion for **Android** (development-signed debug APK verified live on Pixel 7) and **Apple** (`iPhone`, `iPad` & `iPhone Duo Fold` SwiftUI source + `20/20` Swift 6.1.3 `ZoeCore` tests; iOS Xcode build/signing requires macOS) — free, private, ad-free, and zero-tracking.
+> **Beta Notice (`v0.9.4-beta`):** **Zoe (beta)** is our active work-in-progress mobile companion for **Android** (development-signed debug APK verified live on Pixel 7 across all 50 instrumentation tests &amp; 20 rotation-safe Activities) and **Apple** (`iPhone`, `iPad` &amp; `iPhone Duo Fold` SwiftUI source + `20/20` Swift 6.1.3 `ZoeCore` tests; iOS Xcode build/signing requires macOS) — free, private, ad-free, and zero-tracking.
 
 <div align="center">
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.3-beta"><img src="assets/readme/zoe-beta-v0.9.3-showcase.png" alt="Zoe (beta) v0.9.3-beta live screenshots on Pixel 7 — Home, Eliza-GEM Bridge Connected, and Live Closed-Loop Mobile to Workstation L5 Digestion Scorecard" width="100%" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.4-beta"><img src="assets/readme/zoe-beta-v0.9.4-showcase.png" alt="Zoe (beta) v0.9.4-beta live screenshots on Pixel 7 — Home, Creative Studio Pro with 8 HD Scientific Plates and Tune Sliders, 720p 30fps HD MP4 Video Maker, and Graphical Arcade Signal Puzzle" width="100%" /></a>
 
 <br/>
 
-**[⬇ Download Zoe (beta) for Android (`v0.9.3-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.3-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Complete 23-Tool Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md)**
+**[⬇ Download Zoe (beta) for Android (`v0.9.4-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.4-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Complete 23-Tool Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md)**
 
 </div>
 
@@ -114,8 +114,8 @@ Her work brings together seven threads that almost never live in the same room:
 | **1. Guided Vision** | Point your camera to read text (OCR), identify objects &amp; **teach Zoe unfamiliar objects** offline | Camera stays OFF until tapped; bundled OCR/labels + 18-archetype clean-room Haeckel/Lamarck/CPC Offline Visual Atlas + `< 0.1 ms` `VisionPriorStore` contour memory &amp; opt-in CPC physical patent priors (shared silently with Zoe Explore) |
 | **2. Talk** | Hybrid chat with **Smart `⚡ Auto`**, **Zero-Prefill KV-Clone Local LLM**, **`< 2 ms` Math/Units/Clock**, Web Grounding &amp; Multi-AI Streaming | **100% offline by default** (`Web: off`), Kloster $A_{0.08}$ telemetry, AES-256-GCM encrypted history, SHA-256 `remember`/`recall`, native `MPImage` vision packs, **Sing Zoe**, approval-gated action plans (never auto-runs) |
 | **3. Zoe Explore** | Uncluttered 60fps breathing **Voice Orb**, **`✦ AR Space`** (ARCore / ARKit 6DoF 3D Zoe prism), **`Live + Cam`** &amp; opt-in **`"Hi Zoe"`** | Mic, camera, AR &amp; wake-word start **strictly OFF**; silently enriched by Guided Vision's learned offline priors + AR physical scale + stamped OCR patent IDs |
-| **4. Creative Studio** | **Scientific-Aesthetic Image Lab** (**Haeckel**, **Weismann**, **Lamarck** &amp; **Orthographic Patent Blueprints** + photo editor) &amp; native **H.264 MP4 Video Maker** | **100% offline** procedural scientific plates, editing &amp; MP4 rendering (zero watermarks); saves/exports ONLY on explicit tap |
-| **5. Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe** (Kid &amp; Minimax), **Kloster Signal**, &amp; **20 Questions** | **100% offline, zero ads, zero tracking** |
+| **4. Creative Studio** | **Creative Studio Pro** — **8 HD (`1280×960`) Scientific Plates** (Atelier, Haeckel, Ammonite, Weismann, Lamarck, Patent Blueprint, **Chladni**, **Fibonacci Phyllotaxis**), 9 archival filters, live **Tune sliders** (Brightness/Contrast/Warmth/Saturation/Vignette), 16-step Undo, hold-to-compare, Gallery save &amp; exact-CFR **720×720 30fps HD MP4 Video Maker** (5 styles) | **100% offline** HD plates, editing &amp; 30fps H.264 MP4 rendering (zero watermarks); saves to Photos/Movies ONLY on explicit tap; optional BYOK Gemini Imagen / OpenAI AI Art |
+| **5. Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe** (Kid &amp; Minimax), **Kloster Signal** (live graphical bar visualizer), &amp; **20 Questions** | **100% offline, zero ads, zero tracking**; full Light/Dark theme parity &amp; tactile haptics |
 | **6. Privacy Vault** | Signal-inspired **AES-256-GCM** encrypted storage, **P-256 ECDH / HKDF-SHA256** E2EE envelopes &amp; **60-digit Safety Number** | Hardware `AndroidKeyStore` / Apple CryptoKit keys; **hard-excluded** from workstation digestion *(not independently crypto-audited)* |
 | **7. Trip Journal** | Save field sightings, OCR snippets, color palettes, compact thumbnails &amp; private notes | App-private storage (`allowBackup="false"`); saves ONLY on tap; raw photos excluded from workstation digestion |
 | **8. Eliza-GEM Studio** | Offline **Chladni Cymatics** pad, **Sing Zoe**, **Closed-Loop L5 Digestion (`Feed & Digest Lab`)**, &amp; Workstation Lab Bridge | Chladni &amp; Voice run offline; explicit tap runs privacy-firewalled `/api/digest/mobile` (SafeConvert, Privacy Vault, raw photos &amp; chat bodies hard-excluded), consolidates visual priors &amp; memory, calibrates Kloster $\tau^*$, &amp; syncs refined priors back to phone (`l5_agi_qualified=false`) |
@@ -133,7 +133,7 @@ Her work brings together seven threads that almost never live in the same room:
 
 | Platform | Availability | What's Inside **Zoe (beta)** |
 |:---|:---|:---|
-| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct Beta APK:** [Download `Zoe (beta)` (`v0.9.3-beta`) from GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.3-beta) · Or build from [`mobile/android/`](mobile/android/) | **Closed-Loop Mobile ↔ Workstation L5 Digestion, KV-Clone AI &amp; Clean-Room Offline Atlas (`v0.9.3-beta`)** (**Eliza-GEM Studio** adds 1-tap **`Feed & Digest Lab`** (`MobileDigestionBundle` → `/api/digest/mobile` → `l5_mobile_digestion.py`), strictly firewalled under `CONSTITUTION.md` (`SafeConvert`, `Privacy Vault`, raw photos &amp; private chat bodies hard-excluded), consolidating learned `VisionPriorStore` Sobel/HoG-16/Radial-8 prototypes with the **18-archetype clean-room Haeckel/Lamarck/CPC Offline Visual Atlas**, digesting Brain notes &amp; textual Trip sightings into SHA-256 `ZoeUnifiedMemory` for immediate workstation recall, calibrating Kloster $A_\tau(p)$ ($\tau^*$), verifying empirical gain vs. control with zero forgetting, and syncing refined visual priors back to the phone while keeping `l5_agi_qualified=false`; plus zero-prefill KV-clone `OnDeviceLlmEngine`, native multimodal `MPImage`, 720p CameraX, quiet AICore auto-prepare, and full-app rotation resilience &amp; `16dp` symmetry). **`90/90`** unit tests, `0` lint errors, **`50/50`** Pixel 7 hardware Espresso tests, &amp; **`16/16`** workstation digestion verifier passing. |
+| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct Beta APK:** [Download `Zoe (beta)` (`v0.9.4-beta`) from GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.4-beta) · Or build from [`mobile/android/`](mobile/android/) | **Creative Studio Pro &amp; Enterprise UX Polish (`v0.9.4-beta`)** — **8 HD (`1280×960`) mathematical plates** (adding **Chladni** &amp; **Fibonacci Phyllotaxis** $137.508^\circ$), 9 filters, live **Tune sliders**, 16-step Undo, hold-to-compare, Gallery save (`Pictures/Zoe Studio` &amp; `Movies/Zoe Studio`), exact-CFR **`720×720 30fps` offline H.264 MP4 Video Maker**, plus a two-pass Google Material 3 / Apple HIG polish across all **15 Home Zapps + 8 Field Kit tools**: **20/20 Activities `configChanges` rotation safety**, tactile haptics, grouped Settings rows (`Device Field`), graphical `SignalBarView` in **Zoe Arcade**, human voice labels in **Zoe Chat**, alongside Closed-Loop L5 Digestion (`Feed &amp; Digest Lab`), KV-Clone Local LLM, 18-archetype Offline Visual Atlas, ARCore 6DoF, Privacy Vault &amp; SafeConvert. **`90/90`** JUnit, `0` lint, **`50/50`** Pixel 7 Espresso &amp; **`16/16`** digestion verifier passing. |
 | **Apple** *(iOS 17+ · iPhone, iPad & iPhone Duo Fold)* | **Full Native SwiftUI Source:** Open [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) in Xcode to run on simulator/device or archive for TestFlight / App Store (`ZoeCore` Swift package in [`mobile/shared/`](mobile/shared/)) | Adaptive zero-hinge-overlap `NavigationSplitView` / `NavigationStack`, **Closed-Loop L5 Digestion Core (`MobileDigestionCore`)** (strict privacy firewall &amp; workstation prototype merge parity), **Self-Improving Guided Vision + Scientific-Aesthetic Studio (`ScientificVisualAndPatentCore`)** (procedural SwiftUI `Canvas` Haeckel / Ammonite / Weismann / Lamarck / Patent Blueprint plates &amp; offline contour learning), **International SafeConvert + `SafeBeaconMeshCore`**, **ARKit 6DoF Space**, **Privacy Vault** (CryptoKit E2EE), **Zoe Arcade**, hybrid **Zoe Chat**, **`ZoeCore`** (`20/20` Swift 6.1.3 tests passing, `0` warnings), **`ZoeNativeVoice`**, &amp; **`Maps &amp; Safety`** (`MapKit`). *(iOS signing requires Xcode on macOS.)* |
 
 - **Privacy & Safety First:** `allowBackup="false"`, zero analytics or telemetry SDKs, camera/microphone stay strictly off until tapped, and **SafeConvert** provides a clean matching Unit Converter cover with private offline safety tools and passcode-lockable proof vault. See [Mobile Guide](mobile/README.md) & [Store Compliance Checklist](mobile/STORE_COMPLIANCE.md).
@@ -191,7 +191,7 @@ python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
 
 | If you are curious about… | Start right here | One-line peek |
 |:---|:---|:---|
-| **Zoe (beta) Mobile App (Android & Apple)** | [Zoe (beta) App Availability](#zoe-app-beta) · [GitHub Pre-Release `v0.9.3-beta`](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.3-beta) | [Mobile Guide](mobile/README.md) · [23-Tool Zapps Guide](mobile/ZAPPS.md) · [`mobile/`](mobile/) |
+| **Zoe (beta) Mobile App (Android & Apple)** | [Zoe (beta) App Availability](#zoe-app-beta) · [GitHub Pre-Release `v0.9.4-beta`](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.4-beta) | [Mobile Guide](mobile/README.md) · [23-Tool Zapps Guide](mobile/ZAPPS.md) · [`mobile/`](mobile/) |
 | **Zoe's Native Speaking & Singing Voice** | [Zoe's Native Voice (`44 Phonemes + Chladni`)](#zoes-native-voice) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | `zoe voice sing daisy --output /tmp/daisy.wav` |
 | **Zero-Token Glass-Box Atelier & L5 Phases 3–5** | [Eliza-GEM Workbench & L5 Phases 1–5](#world-01--metacognition-theorems--self-evolution) · [AGI Roadmap](AGI-ROADMAP.md) | `zoe eliza serve` · `zoe chat --cli --command "l5-phase5"` |
 | **Theorems, Mars Lens & Self-Evolution** | [World 01 · Mind & Metacognition](#world-01--metacognition-theorems--self-evolution) · [Rolodex `[ 01 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "mars"` |
@@ -384,7 +384,7 @@ Beauty without honesty is just theater. Every engine in Zoe obeys one architectu
 
 | Platform / Protocol | Capabilities | Source | Documentation |
 |:---|:---|:---|:---|
-| **Zoe (beta) `v0.9.3-beta` Mobile App** | Android &amp; Apple (`15` Home Zapps + `8` Field Kit tools): Closed-Loop L5 Digestion, KV-Clone AI, Offline Visual Atlas, ARCore/ARKit &amp; SafeConvert (`911` variants + BLE Mesh) | [`mobile/`](mobile/) | [Mobile README](mobile/README.md) · [23-Tool Zapps Guide](mobile/ZAPPS.md) |
+| **Zoe (beta) `v0.9.4-beta` Mobile App** | Android &amp; Apple (`15` Home Zapps + `8` Field Kit tools): Creative Studio Pro (`8` HD plates + `30fps` MP4), full-app M3/HIG polish (`20/20` rotation-safe), Closed-Loop L5 Digestion, KV-Clone AI, ARCore/ARKit &amp; SafeConvert (`911` variants + BLE Mesh) | [`mobile/`](mobile/) | [Mobile README](mobile/README.md) · [23-Tool Zapps Guide](mobile/ZAPPS.md) |
 | **Zoe Trinity** | Coordinated Tiny Zoe + Mobile + Laptop deck with shared evidence verification | [`zoe_trinity.py`](mobile/tools/zoe_trinity.py) | [TRINITY.md](mobile/TRINITY.md) |
 | **Native Windows Core** | Native C++17 Trinity companion &amp; unit test suite | [`mobile/windows/native/`](mobile/windows/native/) | [Windows README](mobile/windows/README.md) |
 | **Tiny Zoe / Zoe Cell** | Quantized witness protocol &amp; Android card simulator | [`mobile/card/`](mobile/card/) · [`CellActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/CellActivity.java) | [Zoe Cell README](mobile/card/README.md) |
@@ -443,7 +443,7 @@ zoe/
 │   └── arxiv/                    # arXiv source packages & metadata
 ├── paper/                        # 23-page illustrated monograph (PDF + LaTeX source)
 ├── evidence/                     # Cryptographically hashed verification records across all subsystems
-├── mobile/                       # Zoe (beta) v0.9.3-beta (Android, Apple SwiftUI/ZoeCore, Windows C++17, Tiny Zoe)
+├── mobile/                       # Zoe (beta) v0.9.4-beta (Android, Apple SwiftUI/ZoeCore, Windows C++17, Tiny Zoe)
 └── scripts/                      # `verify-one-system.py`, `verify_l3..l5_*.py`, `zoe_groove_forensics.py`, `export_session_transcript.py`, `render_zoe_readme_art.py`
 ```
 

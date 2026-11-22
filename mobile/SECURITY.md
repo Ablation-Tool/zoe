@@ -1,4 +1,4 @@
-# Zoe Mobile Security Model (`v0.9.3-beta`)
+# Zoe Mobile Security Model (`v0.9.4-beta`)
 
 ## Core Rule
 

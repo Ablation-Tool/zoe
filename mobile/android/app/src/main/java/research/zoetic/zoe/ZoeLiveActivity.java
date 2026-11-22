@@ -344,19 +344,19 @@ public final class ZoeLiveActivity extends ComponentActivity {
         orbView.setContentDescription("Zoe Explore orb. Tap to speak or interrupt.");
         orbView.setClickable(true);
         orbView.setFocusable(true);
-        orbView.setOnClickListener(v -> onOrbTapped());
+        orbView.setOnClickListener(Ui.withHaptic(v -> onOrbTapped()));
         LinearLayout.LayoutParams orbLp = new LinearLayout.LayoutParams(Ui.dp(this, 212), Ui.dp(this, 212));
         orbLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
         center.addView(orbView, orbLp);
 
-        stateBadge = Ui.text(this, "TAP ORB TO GO LIVE · MIC & CAMERA START OFF", 12f, Ui.COBALT);
+        stateBadge = Ui.text(this, "TAP ORB TO TALK · MIC & CAMERA OFF", 12f, Ui.COBALT);
         stateBadge.setId(R.id.live_state_badge);
         stateBadge.setTypeface(Ui.SANS_MEDIUM);
         stateBadge.setGravity(Gravity.CENTER);
         center.addView(stateBadge);
 
         captionView = Ui.text(this,
-                "Hi, I'm Zoe. Tap the orb to talk hands-free, or tap Live + Cam to show me your world and talk all at once.",
+                "Hi, I'm Zoe. Tap the orb to talk, or tap Live + Cam to show me around.",
                 15.5f, Ui.TEXT);
         captionView.setId(R.id.live_caption_view);
         captionView.setGravity(Gravity.CENTER);
@@ -471,7 +471,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         b.setTextColor(Ui.mutedColor(this));
         b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 17));
         b.setStateListAnimator(null);
-        b.setOnClickListener(listener);
+        b.setOnClickListener(Ui.withHaptic(listener));
         return b;
     }
 

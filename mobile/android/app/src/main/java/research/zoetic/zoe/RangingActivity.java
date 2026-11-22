@@ -64,25 +64,22 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Acoustic Ranging Lab", "One-shot chirp · uncalibrated echo candidates"));
-        content.addView(Ui.text(this,
-                "One gentle 2 kHz, 20 ms chirp per tap. Sound-level, motion, and echo candidates remain separate from verified distance.",
-                14.5f, Ui.MUTED));
-        status = Ui.text(this, "Microphone, speaker, and motion telemetry are idle.", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Acoustic Ranging", "One-shot 2 kHz chirp & echo"));
+        status = Ui.statusBanner(this, "Microphone, speaker, and motion telemetry are idle.", Ui.COBALT);
         status.setId(R.id.range_status);
         content.addView(status);
-        Button ping = Ui.button(this, "Ping once", Ui.CYAN, view -> ping());
+        Button ping = Ui.primaryButton(this, "Ping once", Ui.CYAN, view -> ping());
         ping.setId(R.id.range_ping);
         Button stop = Ui.button(this, "Stop", Ui.RUBY, view -> stopRanging());
         stop.setId(R.id.range_stop);
         content.addView(Ui.buttonRow(this, ping, stop));
         content.addView(Ui.buttonRow(this,
-                Ui.button(this, "Speak result", Ui.GREEN, view -> {
+                Ui.button(this, "Speak", Ui.GREEN, view -> {
                     if (speaker != null) {
                         speaker.speak(spoken, TextToSpeech.QUEUE_FLUSH, null, "zoe-range");
                     }
                 }),
-                Ui.button(this, "Share result", Ui.PINK, view -> {
+                Ui.button(this, "Share", Ui.PINK, view -> {
                     try {
                         Intent share = new Intent(Intent.ACTION_SEND)
                                 .setType("text/plain")
@@ -92,16 +89,21 @@ public final class RangingActivity extends ComponentActivity implements SensorEv
                     }
                 })));
         report = Ui.text(this,
-                "No acoustic observation yet. Results include raw timing, a candidate distance if a second correlation peak appears, and an explicit uncalibrated boundary.",
-                16, Ui.TEXT);
+                "Tap Ping once for a gentle 20 ms chirp. Raw timing and echo candidates appear here.",
+                14.5f, Ui.TEXT);
         report.setId(R.id.range_report);
-        report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
+        report.setBackground(Ui.cardBackground(this, 20));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         report.setTextIsSelectable(true);
-        content.addView(report);
-        content.addView(Ui.text(this,
-                "dBFS is not calibrated sound-pressure level. Motion RMS is not displacement. Echo candidates are not certified obstacle detection or a blindness-safety system. Text, optional speech, and vibration provide alternative feedback.",
-                12.5f, Ui.MUTED));
+        LinearLayout.LayoutParams repLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        repLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
+        content.addView(report, repLp);
+        TextView note = Ui.text(this,
+                "Uncalibrated timing experiment — not a safety or obstacle-detection system. No audio is saved.",
+                12.5f, Ui.MUTED);
+        note.setGravity(android.view.Gravity.CENTER);
+        content.addView(note);
         sensors = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensors == null ? null : sensors.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         speaker = new TextToSpeech(this, result -> { });

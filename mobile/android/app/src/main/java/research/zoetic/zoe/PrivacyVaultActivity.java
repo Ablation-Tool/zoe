@@ -59,64 +59,68 @@ public final class PrivacyVaultActivity extends ComponentActivity {
         body.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 32));
 
         boolean hw = ZoeSignalCrypto.isHardwareKeystoreActive();
-        status = Ui.text(this,
-                hw ? "🔒 Hardware AES-256-GCM · Chats encrypted on disk"
-                        : "🔒 AES-256-GCM Vault · Chats encrypted on disk",
-                12.5f, Ui.GREEN);
+        status = Ui.statusBanner(this,
+                hw ? "🔒 Hardware-backed encryption active"
+                        : "🔒 On-device AES-256 encryption active",
+                Ui.GREEN);
         status.setId(R.id.vault_status);
-        status.setTypeface(Ui.SANS_MEDIUM);
-        status.setPadding(Ui.dp(this, 14), Ui.dp(this, 10), Ui.dp(this, 14), Ui.dp(this, 10));
-        status.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.GREEN), 28), Ui.GREEN, 16));
         body.addView(status);
 
-        // 1. Spacious 60-Digit Safety Number Card (20dp symmetric card radius)
+        // 1. Clean 60-Digit Safety Number Card
         LinearLayout fpCard = Ui.vertical(this);
         fpCard.setBackground(Ui.cardBackground(this, 20));
         fpCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, Ui.dp(this, 12), 0, Ui.dp(this, 12));
+        cardLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 12));
 
-        fpCard.addView(Ui.text(this, "60-DIGIT SAFETY NUMBER", 11.5f, Ui.COBALT));
-        safetyNumberView = Ui.text(this, "Generating identity key…", 16.5f, Ui.TEXT);
+        TextView fpTitle = Ui.text(this, "Safety Number", 15f, Ui.TEXT);
+        fpTitle.setTypeface(Ui.SANS_MEDIUM);
+        fpCard.addView(fpTitle);
+        safetyNumberView = Ui.text(this, "Generating key…", 16.5f, Ui.TEXT);
         safetyNumberView.setId(R.id.vault_safety_number);
         safetyNumberView.setTypeface(android.graphics.Typeface.MONOSPACE);
         safetyNumberView.setLetterSpacing(0.05f);
         safetyNumberView.setTextIsSelectable(true);
-        safetyNumberView.setPadding(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
+        safetyNumberView.setPadding(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
         fpCard.addView(safetyNumberView);
 
-        pubKeyView = Ui.text(this, "", 11.5f, Ui.MUTED);
+        pubKeyView = Ui.text(this, "", 12f, Ui.MUTED);
         pubKeyView.setTextIsSelectable(true);
         pubKeyView.setPadding(0, 0, 0, Ui.dp(this, 10));
         fpCard.addView(pubKeyView);
 
         Button copyKeyBtn = Ui.button(this, "Copy Key", Ui.COBALT, v -> copyText("Zoe Public Key", myPubB64));
-        Button shareKeySignalBtn = Ui.button(this, "Share via Signal ↗", Ui.CYAN, v -> shareViaSignalOrSheet("My Zoe E2EE Public Key:\n" + myPubB64));
+        Button shareKeySignalBtn = Ui.button(this, "Share Key ↗", Ui.CYAN, v -> shareViaSignalOrSheet("My Zoe Public Key:\n" + myPubB64));
         fpCard.addView(Ui.buttonRow(this, copyKeyBtn, shareKeySignalBtn));
         body.addView(fpCard, cardLp);
 
-        // 2. Clean E2EE Note Seal Card (20dp symmetric card radius)
+        // 2. Clean Encrypt / Decrypt Note Card
         LinearLayout e2eeCard = Ui.vertical(this);
         e2eeCard.setBackground(Ui.cardBackground(this, 20));
         e2eeCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
-        e2eeCard.addView(Ui.text(this, "END-TO-END NOTE SEAL · ECDH + AES-256-GCM", 11.5f, Ui.GOLD));
+        TextView sealTitle = Ui.text(this, "Encrypt a Note", 15f, Ui.TEXT);
+        sealTitle.setTypeface(Ui.SANS_MEDIUM);
+        e2eeCard.addView(sealTitle);
+        TextView sealSub = Ui.text(this, "ECDH + AES-256-GCM · stays on your device", 12f, Ui.MUTED);
+        sealSub.setPadding(0, 0, 0, Ui.dp(this, 6));
+        e2eeCard.addView(sealSub);
 
-        peerKeyInput = styledInput("Peer Zoe Public Key (blank = self)");
+        peerKeyInput = styledInput("Recipient public key (blank for yourself)");
         peerKeyInput.setId(R.id.vault_peer_key);
         e2eeCard.addView(peerKeyInput);
 
-        messageInput = styledInput("Note to seal — or paste ZOE-SIGNAL-V1:…");
+        messageInput = styledInput("Write a note — or paste ZOE-SIGNAL-V1:…");
         messageInput.setId(R.id.vault_message_input);
         e2eeCard.addView(messageInput);
 
-        Button sealBtn = Ui.primaryButton(this, "🔒 Seal Note", Ui.COBALT, v -> doSeal());
+        Button sealBtn = Ui.primaryButton(this, "🔒 Lock Note", Ui.COBALT, v -> doSeal());
         sealBtn.setId(R.id.vault_seal_btn);
-        Button openBtn = Ui.button(this, "🔓 Unseal", Ui.GREEN, v -> doUnseal());
+        Button openBtn = Ui.button(this, "🔓 Unlock", Ui.GREEN, v -> doUnseal());
         openBtn.setId(R.id.vault_unseal_btn);
         e2eeCard.addView(Ui.buttonRow(this, sealBtn, openBtn));
 
-        outputBox = Ui.text(this, "Encrypted or decrypted output appears here.", 12.5f, Ui.MUTED);
+        outputBox = Ui.text(this, "Locked or unlocked note appears here.", 13f, Ui.MUTED);
         outputBox.setId(R.id.vault_output);
         outputBox.setTextIsSelectable(true);
         outputBox.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
@@ -126,8 +130,8 @@ public final class PrivacyVaultActivity extends ComponentActivity {
         outLp.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
         e2eeCard.addView(outputBox, outLp);
 
-        Button copyOutBtn = Ui.button(this, "Copy Output", Ui.MUTED, v -> copyText("Zoe E2EE Output", outputBox.getText().toString()));
-        Button sendSignalBtn = Ui.primaryButton(this, "Send via Signal ↗", Ui.CYAN, v -> shareViaSignalOrSheet(outputBox.getText().toString()));
+        Button copyOutBtn = Ui.button(this, "Copy", Ui.MUTED, v -> copyText("Zoe Vault Note", outputBox.getText().toString()));
+        Button sendSignalBtn = Ui.primaryButton(this, "Share ↗", Ui.CYAN, v -> shareViaSignalOrSheet(outputBox.getText().toString()));
         e2eeCard.addView(Ui.buttonRow(this, copyOutBtn, sendSignalBtn));
         body.addView(e2eeCard, cardLp);
 
@@ -183,9 +187,9 @@ public final class PrivacyVaultActivity extends ComponentActivity {
                 safetyNumberView.setText(ZoeSignalCrypto.computeSafetyNumber(
                         deviceIdentity.getPublic().getEncoded(), target.getEncoded()));
             }
-            status.setText("Sealed with ephemeral ECDH + HKDF-SHA256 + AES-256-GCM (" + sealed.length() + " chars).");
+            status.setText("Locked cleanly (" + sealed.length() + " chars · AES-256-GCM).");
         } catch (Exception err) {
-            status.setText("Seal failed: " + err.getMessage());
+            status.setText("Could not lock note: " + err.getMessage());
         }
     }
 
@@ -197,9 +201,9 @@ public final class PrivacyVaultActivity extends ComponentActivity {
         try {
             String plain = ZoeSignalCrypto.openFromPeer(deviceIdentity.getPrivate(), raw);
             outputBox.setText(plain);
-            status.setText("Verified GCM authentication tag & decrypted cleanly on-device!");
+            status.setText("Verified & unlocked on-device.");
         } catch (Exception err) {
-            status.setText("Unseal failed (wrong key or tampered ciphertext): " + err.getMessage());
+            status.setText("Could not unlock (wrong key or altered text).");
         }
     }
 

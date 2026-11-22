@@ -108,28 +108,25 @@ public final class LocationActivity extends ComponentActivity implements SensorE
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Maps & Safety", "Live OS GPS · Google Maps · Personal Safety"));
-        content.addView(Ui.text(this,
-                "Uses your phone's built-in GPS, compass, Google Maps, and Personal Safety app. Starts strictly idle — stops automatically whenever you leave.",
-                14f, Ui.MUTED));
+        content.addView(Ui.topBar(this, "Maps & Safety", "GPS · Google Maps · Safety"));
 
-        status = Ui.text(this, "Location is idle. No location request is active.", 15, Ui.YELLOW);
+        status = Ui.statusBanner(this, "Location is idle. No location request is active.", Ui.COBALT);
         status.setId(R.id.location_status);
         content.addView(status);
 
         // 1. On-Device GPS & Live Telemetry Controls
         Button locate = Ui.primaryButton(this, "Locate once", Ui.CYAN, view -> locateOnce());
         locate.setId(R.id.location_once);
-        liveToggle = Ui.button(this, "Live location: off", Ui.GREEN, view -> toggleLiveLocation());
+        liveToggle = Ui.button(this, "Live GPS: off", Ui.GREEN, view -> toggleLiveLocation());
         liveToggle.setId(R.id.location_live_toggle);
         content.addView(Ui.buttonRow(this, locate, liveToggle));
 
-        Button markFirst = Ui.button(this, "Mark first point", Ui.GREEN, view -> {
+        Button markFirst = Ui.button(this, "Mark point", Ui.GREEN, view -> {
             if (latest == null) {
                 status.setText("Locate once before marking a point.");
             } else {
                 first = latest;
-                status.setText("First point marked in memory. Move, then locate again.");
+                status.setText("First point marked. Move, then locate again.");
                 refreshReportText();
             }
         });
@@ -137,36 +134,41 @@ public final class LocationActivity extends ComponentActivity implements SensorE
         content.addView(Ui.buttonRow(this, markFirst, stopBtn));
 
         report = Ui.text(this,
-                "No location observation yet. Coordinates, compass bearing, speed, street address, and point-to-point distance appear only after you request them.",
-                15f, Ui.TEXT);
+                "Coordinates, compass, address, and distance appear here after you tap Locate once.",
+                14.5f, Ui.TEXT);
         report.setId(R.id.location_report);
-        report.setBackground(Ui.cardBackground(this, 22));
+        report.setBackground(Ui.cardBackground(this, 20));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         report.setTextIsSelectable(true);
         LinearLayout.LayoutParams repLp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        repLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 10));
+        repLp.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 12));
         content.addView(report, repLp);
 
         // 2. Google Maps Integration Card
         LinearLayout mapsCard = Ui.vertical(this);
-        mapsCard.setBackground(Ui.cardBackground(this, 24));
+        mapsCard.setBackground(Ui.cardBackground(this, 22));
         mapsCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
-        mapsCard.addView(Ui.text(this, "GOOGLE MAPS HANDOFF", 12.5f, Ui.COBALT));
+        TextView mapsTitle = Ui.text(this, "Google Maps", 15f, Ui.TEXT);
+        mapsTitle.setTypeface(Ui.SANS_MEDIUM);
+        mapsCard.addView(mapsTitle);
 
         mapsQuery = Ui.input(this, "", "Destination or place (e.g. hospital nearby)…");
         mapsQuery.setId(R.id.maps_query_input);
-        mapsCard.addView(mapsQuery);
+        LinearLayout.LayoutParams mqLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mqLp.setMargins(0, Ui.dp(this, 6), 0, Ui.dp(this, 8));
+        mapsCard.addView(mapsQuery, mqLp);
 
-        Button navBtn = Ui.primaryButton(this, "Navigate (Maps)", Ui.COBALT, view -> launchNavigation());
+        Button navBtn = Ui.primaryButton(this, "Navigate", Ui.COBALT, view -> launchNavigation());
         navBtn.setId(R.id.maps_navigate_btn);
         Button searchBtn = Ui.button(this, "Search Maps", Ui.CYAN, view -> launchMapSearch());
         searchBtn.setId(R.id.maps_search_btn);
         mapsCard.addView(Ui.buttonRow(this, navBtn, searchBtn));
 
-        Button openPinBtn = Ui.button(this, "Open Pin / Route", Ui.GREEN, view -> openPinOrDirections());
+        Button openPinBtn = Ui.button(this, "Open Pin", Ui.GREEN, view -> openPinOrDirections());
         openPinBtn.setId(R.id.maps_open_pin_btn);
-        Button sharePinBtn = Ui.button(this, "Share Live Pin", Ui.GOLD, view -> shareLivePin());
+        Button sharePinBtn = Ui.button(this, "Share Pin", Ui.GOLD, view -> shareLivePin());
         sharePinBtn.setId(R.id.maps_share_pin_btn);
         mapsCard.addView(Ui.buttonRow(this, openPinBtn, sharePinBtn));
 
@@ -177,11 +179,13 @@ public final class LocationActivity extends ComponentActivity implements SensorE
 
         // 3. Built-In Phone Safety & Hardware Tools Card
         LinearLayout safetyCard = Ui.vertical(this);
-        safetyCard.setBackground(Ui.cardBackground(this, 24));
+        safetyCard.setBackground(Ui.cardBackground(this, 22));
         safetyCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
-        safetyCard.addView(Ui.text(this, "BUILT-IN PHONE SAFETY & TOOLS", 12.5f, Ui.RUBY));
+        TextView safetyTitle = Ui.text(this, "Safety & Tools", 15f, Ui.TEXT);
+        safetyTitle.setTypeface(Ui.SANS_MEDIUM);
+        safetyCard.addView(safetyTitle);
 
-        Button personalSafetyBtn = Ui.primaryButton(this, "Personal Safety app", Ui.RUBY, view -> openPersonalSafety());
+        Button personalSafetyBtn = Ui.primaryButton(this, "Personal Safety", Ui.RUBY, view -> openPersonalSafety());
         personalSafetyBtn.setId(R.id.safety_open_app_btn);
         Button safeConvertBtn = Ui.button(this, "SafeConvert", Ui.PINK, view ->
                 startActivity(new Intent(this, SafeConvertActivity.class)));
@@ -192,15 +196,18 @@ public final class LocationActivity extends ComponentActivity implements SensorE
         Button dialerBtn = Ui.button(this, "Emergency dialer", Ui.RUBY, view -> openEmergencyDialer());
         safetyCard.addView(Ui.buttonRow(this, torchButton, dialerBtn));
 
-        Button settings = Ui.button(this, "Location settings", Ui.MUTED, view ->
+        Button settings = Ui.disclosureButton(this, "Location settings", view ->
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
         safetyCard.addView(settings);
 
         content.addView(safetyCard);
 
-        content.addView(Ui.text(this,
-                "Straight-line distance ignores terrain, roads, elevation, and obstacles. Live GPS and compass stop automatically whenever you leave this screen. Nothing shares your location or dials without your explicit tap.",
-                12.5f, Ui.MUTED));
+        TextView footer = Ui.text(this,
+                "GPS stops automatically when you leave. Nothing shares or dials without your tap.",
+                12.5f, Ui.MUTED);
+        footer.setGravity(android.view.Gravity.CENTER);
+        footer.setPadding(Ui.dp(this, 8), Ui.dp(this, 12), Ui.dp(this, 8), 0);
+        content.addView(footer);
 
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -302,7 +309,7 @@ public final class LocationActivity extends ComponentActivity implements SensorE
         }
         try {
             liveActive = true;
-            liveToggle.setText("Live location: on");
+            liveToggle.setText("Live GPS: on");
             manager.requestLocationUpdates(provider, 3_000L, 2.0f, liveListener, Looper.getMainLooper());
             if (sensorManager != null && rotationSensor != null) {
                 sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_UI);
@@ -325,7 +332,7 @@ public final class LocationActivity extends ComponentActivity implements SensorE
         if (liveActive) {
             liveActive = false;
             if (liveToggle != null) {
-                liveToggle.setText("Live location: off");
+                liveToggle.setText("Live GPS: off");
             }
         }
         if (manager != null) {

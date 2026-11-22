@@ -455,11 +455,11 @@ struct QuickActionsSheet: View {
                 .padding(.bottom, 4)
                 .accessibilityAddTraits(.isHeader)
 
-            quickRow("Maps & Safety", helper: "Live GPS, Apple & Google Maps", icon: "map", accent: GemPalette.seafoam) {
+            quickRow("Maps & Safety", helper: "GPS, Apple & Google Maps", icon: "map", accent: GemPalette.seafoam) {
                 dismiss()
                 onOpenMapsSafety()
             }
-            quickRow("SafeConvert", helper: "Units & private safety helper", icon: "arrow.left.arrow.right", accent: GemPalette.ruby) {
+            quickRow("SafeConvert", helper: "Units & private safety", icon: "arrow.left.arrow.right", accent: GemPalette.ruby) {
                 dismiss()
                 onOpenSafeConvert()
             }
@@ -467,7 +467,7 @@ struct QuickActionsSheet: View {
                 arranging.toggle()
                 dismiss()
             }
-            quickRow("Open Google Gemini", helper: "Jump to Gemini when you choose", icon: "sparkles", accent: GemPalette.cobalt) {
+            quickRow("Google Gemini", helper: "Open Gemini when you choose", icon: "sparkles", accent: GemPalette.cobalt) {
                 dismiss()
                 onOpenGemini()
             }
@@ -519,7 +519,7 @@ struct AboutZoeSheet: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.9.3-beta · Closed-Loop L5 Digestion, KV-Clone AI & Offline Atlas · Free")
+                    Text("v0.9.4-beta · Offline-first & free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }

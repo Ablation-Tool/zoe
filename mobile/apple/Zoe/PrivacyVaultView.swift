@@ -5,8 +5,8 @@ import SwiftUI
 struct PrivacyVaultView: View {
     @State private var privateKey = P256.KeyAgreement.PrivateKey()
     @State private var noteText = ""
-    @State private var outputText = "Encrypted or decrypted output appears here. Zero bytes leave your device unless you tap Share."
-    @State private var statusText = "Apple CryptoKit P-256 ECDH + HKDF-SHA256 + AES-256-GCM active on-device."
+    @State private var outputText = "Locked or unlocked note appears here."
+    @State private var statusText = "🔒 On-device AES-256 encryption active."
 
     private var safetyNumber: String {
         let raw = Array(privateKey.publicKey.rawRepresentation)
@@ -24,9 +24,9 @@ struct PrivacyVaultView: View {
                     .gemCard(radius: 18)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("YOUR 60-DIGIT SAFETY NUMBER (SIGNAL-STYLE FINGERPRINT)")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(GemPalette.cobalt)
+                    Text("Safety Number")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(GemPalette.ink)
                     Text(safetyNumber)
                         .font(.body.monospaced())
                         .foregroundStyle(GemPalette.ink)
@@ -37,17 +37,20 @@ struct PrivacyVaultView: View {
                 .gemCard(radius: 22)
 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("END-TO-END ENCRYPTED NOTE SEAL (AES-256-GCM)")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(GemPalette.ochre)
-                    TextField("Type a private note to seal…", text: $noteText)
+                    Text("Encrypt a Note")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(GemPalette.ink)
+                    Text("ECDH + AES-256-GCM · stays on your device")
+                        .font(.caption)
+                        .foregroundStyle(GemPalette.muted)
+                    TextField("Write a note to lock…", text: $noteText)
                         .textFieldStyle(.plain)
                         .padding(12)
                         .background(RoundedRectangle(cornerRadius: 14).fill(GemPalette.surfaceHigh))
                     HStack(spacing: 8) {
-                        Button("🔒 Seal E2EE") { sealSelf() }
+                        Button("🔒 Lock Note") { sealSelf() }
                             .buttonStyle(GemPrimaryButtonStyle())
-                        Button("🔓 Unseal") { unsealSelf() }
+                        Button("🔓 Unlock") { unsealSelf() }
                             .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.emerald))
                     }
                     Text(outputText)

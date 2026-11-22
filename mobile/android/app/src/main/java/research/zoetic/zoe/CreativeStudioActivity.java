@@ -7,8 +7,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +22,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
@@ -24,28 +30,50 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
 import java.io.File;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Zoe Creative Studio — Offline Image Lab & Native MP4 Video Maker (v0.6.0-beta).
+ * Zoe Creative Studio Pro — Offline HD Scientific-Aesthetic Image Lab & 30fps MP4 Video Maker (v0.9.4-beta).
  *
- *   - Image Lab: instant offline film/tone filters, brightness/contrast, 90° rotation, 1:1 / 16:9 crop,
- *     privacy pixelation blur, caption stamping, plain-English command bar ("warm, rotate 90, noir"),
- *     optional online BYOK AI image generation, and PNG export/share.
- *   - Video Maker: renders genuine H.264 `.mp4` videos 100% offline via Android MediaCodec + MediaMuxer
- *     (Chladni Wave, Photo Story Reel with Ken Burns motion, or Starlight GEM), plus live camera capture.
+ *   - Image Lab: 8 HD (1280×960) mathematical scientific-aesthetic plates (Atelier, Haeckel Radiolaria,
+ *     Ammonite, Weismann, Lamarck, Patent Blueprint, Chladni Cymatics, Fibonacci Phyllotaxis), 9 film/archival
+ *     filters with live active-chip highlighting, collapsible precision SeekBar sliders (Brightness, Contrast,
+ *     Warmth, Saturation, Vignette), 16-step Undo stack, Hold-to-Compare Before/After preview, 90° rotate,
+ *     horizontal flip, 1:1 / 4:5 / 16:9 crops, privacy blur, plain-English command bar, direct Save to Photos
+ *     Gallery (MediaStore), PNG Share, and optional BYOK Gemini Imagen / OpenAI AI Art grounded by active plate.
+ *   - Video Maker: live 20fps animated preview with Play/Pause + live title/subtitle updates, 5 animated offline
+ *     styles (Chladni Wave, Photo Story Reel, Starlight GEM, Haeckel Living, Patent Kinetic), selectable 4s/6s/8s
+ *     duration, exact CFR 30fps 720×720 HD H.264 MP4 encoding via MediaCodec + MediaMuxer, direct Save to Movies
+ *     Gallery, and MP4 Share.
  */
 public final class CreativeStudioActivity extends ComponentActivity {
+    private static final int PLATE_W = 1280;
+    private static final int PLATE_H = 960;
+    private static final int MAX_UNDO = 16;
+
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final ZoeNativeVoice nativeVoice = new ZoeNativeVoice();
+    private final Handler previewHandler = new Handler(Looper.getMainLooper());
+    private final Deque<ImageLabEngine.EditSpec> undoStack = new ArrayDeque<>();
 
     private Bitmap sourceBitmap;
     private Bitmap editedBitmap;
+    private Bitmap videoPreviewBitmap;
     private ScientificVisualSubstrate.BaselinePlate activeBaseline = ScientificVisualSubstrate.BaselinePlate.ATELIER;
     private ImageLabEngine.EditSpec editSpec = new ImageLabEngine.EditSpec();
     private final VideoMakerEngine.Spec videoSpec = new VideoMakerEngine.Spec();
     private File lastExportedVideo;
+
+    private boolean isImageTab = true;
+    private boolean videoPreviewPlaying = false;
+    private float videoPreviewT = 0.35f;
+    private boolean syncingSliders = false;
 
     private Button tabImageBtn;
     private Button tabVideoBtn;
@@ -53,20 +81,53 @@ public final class CreativeStudioActivity extends ComponentActivity {
     private LinearLayout videoPanel;
     private TextView status;
 
-    // Image Lab widgets
+    // Image Lab widgets & active chip registries
     private ImageView imagePreview;
     private TextView editSummary;
     private TextView baselineMeta;
     private EditText commandInput;
+    private Button undoBtn;
     private Button blurBtn;
     private Button cropBtn;
+    private Button flipBtn;
+    private Button adjustToggleBtn;
+    private LinearLayout adjustDrawer;
+    private SeekBar brightBar;
+    private SeekBar contrastBar;
+    private SeekBar warmthBar;
+    private SeekBar satBar;
+    private SeekBar vigBar;
+    private TextView brightVal;
+    private TextView contrastVal;
+    private TextView warmthVal;
+    private TextView satVal;
+    private TextView vigVal;
+    private final Map<ScientificVisualSubstrate.BaselinePlate, Button> baselineChips = new LinkedHashMap<>();
+    private final Map<ImageLabEngine.FilterPreset, Button> filterChips = new LinkedHashMap<>();
 
-    // Video Maker widgets
+    // Video Maker widgets & active chip registries
     private ImageView videoPreview;
+    private Button videoPlayToggleBtn;
     private EditText videoTitleInput;
     private EditText videoSubInput;
     private TextView videoStatus;
+    private Button saveVideoGalleryBtn;
     private Button shareVideoBtn;
+    private final Map<VideoMakerEngine.Style, Button> styleChips = new LinkedHashMap<>();
+    private final Map<VideoMakerEngine.Palette, Button> paletteChips = new LinkedHashMap<>();
+    private final Map<Integer, Button> durationChips = new LinkedHashMap<>();
+
+    private final Runnable videoPreviewTick = new Runnable() {
+        @Override
+        public void run() {
+            if (!videoPreviewPlaying || isImageTab || isFinishing() || isDestroyed()) {
+                return;
+            }
+            videoPreviewT = (videoPreviewT + 0.022f) % 1.0f;
+            renderVideoPreviewFrame();
+            previewHandler.postDelayed(this, 50L);
+        }
+    };
 
     private final ActivityResultLauncher<String[]> pickPhotoLauncher =
             registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
@@ -78,7 +139,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sourceBitmap = ImageLabEngine.createAtelierStarterBitmap(720, 540);
+        sourceBitmap = ImageLabEngine.createAtelierStarterBitmap(PLATE_W, PLATE_H);
 
         LinearLayout root = Ui.vertical(this);
         root.setBackgroundColor(Color.TRANSPARENT);
@@ -86,9 +147,9 @@ public final class CreativeStudioActivity extends ComponentActivity {
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
         header.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 4));
-        header.addView(Ui.topBar(this, "Creative Studio", null));
+        header.addView(Ui.topBar(this, "Creative Studio", "Photos · Art · 30fps Video"));
 
-        // Clean segmented pill bar (strict 20dp concentric geometry)
+        // Clean segmented pill bar (20dp concentric geometry)
         LinearLayout tabRow = new LinearLayout(this);
         tabRow.setOrientation(LinearLayout.HORIZONTAL);
         tabRow.setBackground(Ui.cardBackground(this, 20));
@@ -103,9 +164,11 @@ public final class CreativeStudioActivity extends ComponentActivity {
         tabRow.addView(tabVideoBtn, new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f));
         header.addView(tabRow);
 
-        status = Ui.text(this, "Offline studio ready — edit Zoe's Atelier canvas or pick any photo.", 12.5f, Ui.MUTED);
+        status = Ui.text(this, "Hold preview to compare original.", 12.5f, Ui.MUTED);
         status.setId(R.id.studio_status);
-        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 8), Ui.dp(this, 4), Ui.dp(this, 2));
+        status.setMaxLines(1);
+        status.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        status.setPadding(Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 2));
         header.addView(status);
         root.addView(header);
 
@@ -137,11 +200,26 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         imagePreview = new ImageView(this);
         imagePreview.setId(R.id.studio_image_preview);
+        imagePreview.setContentDescription("Creative Studio image preview. Press and hold to compare original.");
         imagePreview.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imagePreview.setBackground(Ui.cardBackground(this, 20));
         imagePreview.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
+        imagePreview.setOnTouchListener((v, ev) -> {
+            if (ev.getAction() == MotionEvent.ACTION_DOWN && sourceBitmap != null) {
+                imagePreview.setImageBitmap(sourceBitmap);
+                editSummary.setText("Comparing: Original (release to return)");
+                return true;
+            } else if (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_CANCEL) {
+                if (editedBitmap != null) {
+                    imagePreview.setImageBitmap(editedBitmap);
+                }
+                editSummary.setText(editSpec.summary());
+                return true;
+            }
+            return false;
+        });
         LinearLayout.LayoutParams imgLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 250));
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 260));
         imgLp.setMargins(0, 0, 0, Ui.dp(this, 8));
         panel.addView(imagePreview, imgLp);
 
@@ -152,12 +230,14 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         baselineMeta = Ui.text(this,
                 "Baseline: " + activeBaseline.lineage + " · " + activeBaseline.mathSummary,
-                11.5f, Ui.COBALT);
+                11f, Ui.MUTED);
         baselineMeta.setId(R.id.studio_baseline_meta);
-        baselineMeta.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 8));
+        baselineMeta.setMaxLines(2);
+        baselineMeta.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        baselineMeta.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 6));
         panel.addView(baselineMeta);
 
-        // Scientific-Aesthetic Procedural Baseline Strip (Haeckel · Weismann · Lamarck · Google Patents)
+        // 8 HD Scientific-Aesthetic Procedural Baselines (active chip highlighted!)
         HorizontalScrollView baseScroll = new HorizontalScrollView(this);
         baseScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout baseRow = new LinearLayout(this);
@@ -168,7 +248,12 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 pb.setId(R.id.studio_baseline_haeckel);
             } else if (plate == ScientificVisualSubstrate.BaselinePlate.PATENT_BLUEPRINT) {
                 pb.setId(R.id.studio_baseline_patent);
+            } else if (plate == ScientificVisualSubstrate.BaselinePlate.CHLADNI_PLATE) {
+                pb.setId(R.id.studio_baseline_chladni);
+            } else if (plate == ScientificVisualSubstrate.BaselinePlate.FIBONACCI_PHYLLOTAXIS) {
+                pb.setId(R.id.studio_baseline_phyllotaxis);
             }
+            baselineChips.put(plate, pb);
             LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             blp.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -185,10 +270,11 @@ public final class CreativeStudioActivity extends ComponentActivity {
         cmdRow.setOrientation(LinearLayout.HORIZONTAL);
         cmdRow.setGravity(Gravity.CENTER_VERTICAL);
         cmdRow.setBackground(Ui.cardBackground(this, 22));
-        cmdRow.setPadding(Ui.dp(this, 10), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
+        cmdRow.setPadding(Ui.dp(this, 12), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
         commandInput = new EditText(this);
         commandInput.setId(R.id.studio_command_input);
-        commandInput.setHint("e.g. haeckel, patent, warm, rotate, blur, caption Sunset…");
+        commandInput.setHint("Try warm, chladni, blur, caption…");
+        commandInput.setSingleLine(true);
         commandInput.setTextColor(Ui.textColor(this));
         commandInput.setHintTextColor(Ui.mutedColor(this));
         commandInput.setBackground(null);
@@ -203,6 +289,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
                     commandInput.setText("");
                     return;
                 }
+                pushUndo();
                 editSpec = ImageLabEngine.parseEditCommand(cmd, editSpec);
                 commandInput.setText("");
                 refreshImagePreview();
@@ -220,17 +307,19 @@ public final class CreativeStudioActivity extends ComponentActivity {
         cmdLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(cmdRow, cmdLp);
 
-        // Filter preset horizontal filmstrip (sleek 34dp pills)
+        // 9 Film & Archival Filter Presets (active chip highlighted!)
         HorizontalScrollView filterScroll = new HorizontalScrollView(this);
         filterScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout filterRow = new LinearLayout(this);
         filterRow.setOrientation(LinearLayout.HORIZONTAL);
         for (ImageLabEngine.FilterPreset preset : ImageLabEngine.FilterPreset.values()) {
             Button fb = pillChip(preset.label, v -> {
+                pushUndo();
                 editSpec.filter = preset;
                 refreshImagePreview();
                 status.setText("Filter: " + preset.label);
             });
+            filterChips.put(preset, fb);
             LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             flp.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -242,34 +331,51 @@ public final class CreativeStudioActivity extends ComponentActivity {
         fsLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(filterScroll, fsLp);
 
-        // Single clean horizontal tool strip (replaces 6 clunky stacked buttons!)
+        // Precision Studio Tool Strip (Undo · Rotate · Flip · Crop · Blur · Sliders · Reset)
         HorizontalScrollView toolScroll = new HorizontalScrollView(this);
         toolScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout toolRow = new LinearLayout(this);
         toolRow.setOrientation(LinearLayout.HORIZONTAL);
+
+        undoBtn = pillChip("Undo", v -> popUndo());
+        undoBtn.setId(R.id.studio_undo_btn);
+
         Button rotateBtn = pillChip("Rotate 90°", v -> {
+            pushUndo();
             editSpec.rotationDeg = (editSpec.rotationDeg + 90) % 360;
             refreshImagePreview();
         });
+        flipBtn = pillChip("Flip ↔", v -> {
+            pushUndo();
+            editSpec.flipHorizontal = !editSpec.flipHorizontal;
+            refreshImagePreview();
+        });
         cropBtn = pillChip("Crop: Orig", v -> {
+            pushUndo();
             ImageLabEngine.CropMode[] modes = ImageLabEngine.CropMode.values();
             editSpec.crop = modes[(editSpec.crop.ordinal() + 1) % modes.length];
             refreshImagePreview();
         });
         blurBtn = pillChip("Blur: off", v -> {
+            pushUndo();
             editSpec.privacyBlur = !editSpec.privacyBlur;
             refreshImagePreview();
         });
-        Button brightBtn = pillChip("Light +", v -> {
-            editSpec.brightness = editSpec.brightness >= 48 ? -24 : editSpec.brightness + 24;
-            refreshImagePreview();
+        adjustToggleBtn = pillChip("Tune ▾", v -> {
+            boolean open = adjustDrawer.getVisibility() != View.VISIBLE;
+            adjustDrawer.setVisibility(open ? View.VISIBLE : View.GONE);
+            adjustToggleBtn.setText(open ? "Tune ▴" : "Tune ▾");
+            styleChip(adjustToggleBtn, open);
         });
+        adjustToggleBtn.setId(R.id.studio_adjust_toggle);
+
         Button resetBtn = pillChip("Reset", v -> {
+            pushUndo();
             editSpec = new ImageLabEngine.EditSpec();
             refreshImagePreview();
-            status.setText("Reset to original image.");
+            status.setText("Reset edits to clean plate.");
         });
-        for (Button tb : new Button[]{rotateBtn, cropBtn, blurBtn, brightBtn, resetBtn}) {
+        for (Button tb : new Button[]{undoBtn, adjustToggleBtn, rotateBtn, cropBtn, flipBtn, blurBtn, resetBtn}) {
             LinearLayout.LayoutParams tlp2 = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 36));
             tlp2.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -278,23 +384,62 @@ public final class CreativeStudioActivity extends ComponentActivity {
         toolScroll.addView(toolRow);
         LinearLayout.LayoutParams tsLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tsLp.setMargins(0, 0, 0, Ui.dp(this, 14));
+        tsLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         panel.addView(toolScroll, tsLp);
 
-        // Clean 2-button primary footer
-        Button pickBtn = Ui.button(this, "Pick Photo", Ui.COBALT, v -> pickPhotoLauncher.launch(new String[]{"image/*"}));
-        Button sharePngBtn = Ui.primaryButton(this, "Save & Share", Ui.GREEN, v -> shareEditedImage());
-        panel.addView(Ui.buttonRow(this, pickBtn, sharePngBtn));
+        // Collapsible Precision Tune Sliders Card (Brightness · Contrast · Warmth · Saturation · Vignette)
+        adjustDrawer = Ui.vertical(this);
+        adjustDrawer.setBackground(Ui.cardBackground(this, 20));
+        adjustDrawer.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
+        adjustDrawer.setVisibility(View.GONE);
 
-        // Quiet secondary disclosure actions (zero bulky box clutter!)
-        Button toVideoBtn = Ui.disclosureButton(this, "Turn into Video Reel →", v -> {
+        brightVal = Ui.text(this, "0", 12f, Ui.COBALT);
+        brightBar = addSliderRow(adjustDrawer, "Brightness", 120, 60, brightVal, p -> {
+            editSpec.brightness = p - 60;
+            refreshImagePreview();
+        });
+        contrastVal = Ui.text(this, "1.0x", 12f, Ui.COBALT);
+        contrastBar = addSliderRow(adjustDrawer, "Contrast", 130, 50, contrastVal, p -> {
+            editSpec.contrast = 0.5f + (p / 100f);
+            refreshImagePreview();
+        });
+        warmthVal = Ui.text(this, "0", 12f, Ui.COBALT);
+        warmthBar = addSliderRow(adjustDrawer, "Warmth", 80, 40, warmthVal, p -> {
+            editSpec.warmth = p - 40;
+            refreshImagePreview();
+        });
+        satVal = Ui.text(this, "100%", 12f, Ui.COBALT);
+        satBar = addSliderRow(adjustDrawer, "Saturation", 200, 100, satVal, p -> {
+            editSpec.saturation = p / 100f;
+            refreshImagePreview();
+        });
+        vigVal = Ui.text(this, "0%", 12f, Ui.COBALT);
+        vigBar = addSliderRow(adjustDrawer, "Vignette", 100, 0, vigVal, p -> {
+            editSpec.vignette = p;
+            refreshImagePreview();
+        });
+        LinearLayout.LayoutParams adjLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        adjLp.setMargins(0, 0, 0, Ui.dp(this, 12));
+        panel.addView(adjustDrawer, adjLp);
+
+        // Symmetrical Primary Action Row (Pick Photo | Save to Photos) + Secondary Row (Share PNG | Turn into Reel | AI Art)
+        Button pickBtn = Ui.button(this, "Pick Photo", Ui.COBALT, v -> pickPhotoLauncher.launch(new String[]{"image/*"}));
+        Button saveGalleryBtn = Ui.primaryButton(this, "Save to Photos", Ui.GREEN, v -> saveImageToGallery());
+        saveGalleryBtn.setId(R.id.studio_save_gallery);
+        panel.addView(Ui.buttonRow(this, pickBtn, saveGalleryBtn));
+
+        Button sharePngBtn = Ui.disclosureButton(this, "Share PNG", v -> shareEditedImage());
+        Button toVideoBtn = Ui.disclosureButton(this, "Photo Reel →", v -> {
             videoSpec.style = VideoMakerEngine.Style.PHOTO_STORY_REEL;
             showTab(false);
             refreshVideoPreview();
-            status.setText("Loaded your edited image into Photo Story Reel!");
+            status.setText("Loaded edited artwork into 30fps Photo Story Reel!");
         });
-        Button aiGenBtn = Ui.disclosureButton(this, "✨ AI Art (OpenAI Key)", v -> generateOnlineAiImage());
-        panel.addView(Ui.buttonRow(this, toVideoBtn, aiGenBtn));
+        panel.addView(Ui.buttonRow(this, sharePngBtn, toVideoBtn));
+
+        Button aiGenBtn = Ui.disclosureButton(this, "✨ AI Art (Gemini / OpenAI Key)", v -> generateOnlineAiImage());
+        panel.addView(aiGenBtn);
 
         return panel;
     }
@@ -305,15 +450,45 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         videoPreview = new ImageView(this);
         videoPreview.setId(R.id.studio_video_preview);
+        videoPreview.setContentDescription("Live animated video preview");
         videoPreview.setScaleType(ImageView.ScaleType.FIT_CENTER);
         videoPreview.setBackground(Ui.cardBackground(this, 20));
         videoPreview.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
         LinearLayout.LayoutParams vpLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 230));
-        vpLp.setMargins(0, 0, 0, Ui.dp(this, 10));
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 250));
+        vpLp.setMargins(0, 0, 0, Ui.dp(this, 8));
         panel.addView(videoPreview, vpLp);
 
-        // Style pills
+        // Play / Pause Live Preview + Duration Selector Row (4s · 6s · 8s)
+        LinearLayout playRow = new LinearLayout(this);
+        playRow.setOrientation(LinearLayout.HORIZONTAL);
+        playRow.setGravity(Gravity.CENTER_VERTICAL);
+        videoPlayToggleBtn = pillChip("▶ Preview", v -> toggleVideoPreviewPlayback());
+        videoPlayToggleBtn.setId(R.id.studio_video_play_toggle);
+        LinearLayout.LayoutParams plBtnLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
+        plBtnLp.setMargins(0, 0, Ui.dp(this, 10), 0);
+        playRow.addView(videoPlayToggleBtn, plBtnLp);
+
+        for (int sec : new int[]{4, 6, 8}) {
+            Button db = pillChip(sec + "s HD", v -> {
+                videoSpec.durationSec = sec;
+                refreshVideoChipStates();
+                videoStatus.setText("Ready: " + VideoMakerEngine.WIDTH + "×" + VideoMakerEngine.HEIGHT
+                        + " @ " + VideoMakerEngine.FPS + "fps CFR (" + sec + "s H.264 offline).");
+            });
+            durationChips.put(sec, db);
+            LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
+            dlp.setMargins(0, 0, Ui.dp(this, 6), 0);
+            playRow.addView(db, dlp);
+        }
+        LinearLayout.LayoutParams prLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        prLp.setMargins(0, 0, 0, Ui.dp(this, 8));
+        panel.addView(playRow, prLp);
+
+        // 5 Offline Animated Video Styles (active chip highlighted!)
         HorizontalScrollView styleScroll = new HorizontalScrollView(this);
         styleScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout styleRow = new LinearLayout(this);
@@ -324,6 +499,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 refreshVideoPreview();
                 status.setText("Video style: " + st.label);
             });
+            styleChips.put(st, sb);
             LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             slp.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -332,7 +508,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         styleScroll.addView(styleRow);
         panel.addView(styleScroll);
 
-        // Palette pills
+        // 4 Color Palettes (active chip highlighted!)
         HorizontalScrollView palScroll = new HorizontalScrollView(this);
         palScroll.setHorizontalScrollBarEnabled(false);
         LinearLayout palRow = new LinearLayout(this);
@@ -343,6 +519,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 videoSpec.palette = pal;
                 refreshVideoPreview();
             });
+            paletteChips.put(pal, pb);
             LinearLayout.LayoutParams plp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
             plp.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -351,47 +528,96 @@ public final class CreativeStudioActivity extends ComponentActivity {
         palScroll.addView(palRow);
         panel.addView(palScroll);
 
+        TextWatcher liveTitleWatcher = new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
+                refreshVideoPreview();
+            }
+        };
         videoTitleInput = styledInput("Video title (e.g. Made with Zoe)", videoSpec.title);
         videoSubInput = styledInput("Caption / subtitle", videoSpec.subtitle);
+        videoTitleInput.addTextChangedListener(liveTitleWatcher);
+        videoSubInput.addTextChangedListener(liveTitleWatcher);
         panel.addView(videoTitleInput);
         panel.addView(videoSubInput);
 
-        videoStatus = Ui.text(this, "Encodes a real H.264 .mp4 100% offline using your phone's hardware encoder.", 12.5f, Ui.MUTED);
+        videoStatus = Ui.text(this,
+                "Encodes 720×720 HD @ 30fps exact-CFR H.264 .mp4 100% offline.", 12.5f, Ui.MUTED);
         videoStatus.setId(R.id.studio_video_status);
         videoStatus.setPadding(Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 10));
         panel.addView(videoStatus);
 
-        Button renderBtn = Ui.primaryButton(this, "🎬 Create MP4", Ui.COBALT, v -> exportOfflineMp4());
+        Button renderBtn = Ui.primaryButton(this, "🎬 Create HD MP4", Ui.COBALT, v -> exportOfflineMp4());
         renderBtn.setId(R.id.studio_render_mp4);
-        shareVideoBtn = Ui.button(this, "Share MP4", Ui.GREEN, v -> shareExportedVideo());
-        shareVideoBtn.setEnabled(false);
-        panel.addView(Ui.buttonRow(this, renderBtn, shareVideoBtn));
+        saveVideoGalleryBtn = Ui.button(this, "Save to Movies", Ui.GREEN, v -> saveVideoToGallery());
+        saveVideoGalleryBtn.setId(R.id.studio_video_save_gallery);
+        saveVideoGalleryBtn.setEnabled(false);
+        panel.addView(Ui.buttonRow(this, renderBtn, saveVideoGalleryBtn));
 
-        Button recordBtn = Ui.disclosureButton(this, "Record Live Clip", v -> {
+        shareVideoBtn = Ui.disclosureButton(this, "Share MP4", v -> shareExportedVideo());
+        shareVideoBtn.setEnabled(false);
+        Button soundBtn = Ui.disclosureButton(this, "Preview Zoe Sound", v -> {
+            status.setText("Playing Zoe's 44.1 kHz native soprano theme…");
+            nativeVoice.singZoe(null);
+        });
+        panel.addView(Ui.buttonRow(this, shareVideoBtn, soundBtn));
+
+        Button recordBtn = Ui.disclosureButton(this, "Record Live Camera Clip", v -> {
             try {
                 startActivity(new Intent(MediaStore.ACTION_VIDEO_CAPTURE));
             } catch (ActivityNotFoundException ignored) {
                 status.setText("No built-in video recorder available.");
             }
         });
-        Button soundBtn = Ui.disclosureButton(this, "Preview Zoe Sound", v -> {
-            status.setText("Playing Zoe's 44.1 kHz native soprano theme…");
-            nativeVoice.singZoe(null);
-        });
-        panel.addView(Ui.buttonRow(this, recordBtn, soundBtn));
+        panel.addView(recordBtn);
 
         return panel;
     }
 
+    private interface IntConsumer {
+        void accept(int value);
+    }
+
+    private SeekBar addSliderRow(LinearLayout parent, String label, int max, int initial,
+                                 TextView valView, IntConsumer onChange) {
+        LinearLayout header = new LinearLayout(this);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        TextView lbl = Ui.text(this, label, 12.5f, Ui.TEXT);
+        header.addView(lbl, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        header.addView(valView);
+        parent.addView(header);
+
+        SeekBar bar = new SeekBar(this);
+        bar.setMax(max);
+        bar.setProgress(initial);
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser && !syncingSliders) {
+                    onChange.accept(progress);
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                pushUndo();
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 0, 0, Ui.dp(this, 6));
+        parent.addView(bar, lp);
+        return bar;
+    }
+
     private EditText styledInput(String hint, String initial) {
-        EditText et = new EditText(this);
-        et.setHint(hint);
-        et.setText(initial);
-        et.setTextColor(Ui.textColor(this));
-        et.setHintTextColor(Ui.mutedColor(this));
+        EditText et = Ui.input(this, initial, hint);
+        et.setSingleLine(true);
+        et.setMinHeight(Ui.dp(this, 46));
+        et.setMinimumHeight(Ui.dp(this, 46));
         et.setTextSize(14.5f);
-        et.setBackground(Ui.cardBackground(this, 16));
-        et.setPadding(Ui.dp(this, 14), Ui.dp(this, 10), Ui.dp(this, 14), Ui.dp(this, 10));
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
@@ -410,15 +636,34 @@ public final class CreativeStudioActivity extends ComponentActivity {
         b.setTextColor(Ui.textColor(this));
         b.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 18));
         b.setStateListAnimator(null);
-        b.setOnClickListener(listener);
+        b.setOnClickListener(Ui.withHaptic(listener));
         return b;
     }
 
+    private void styleChip(Button btn, boolean selected) {
+        if (btn == null) {
+            return;
+        }
+        if (selected) {
+            btn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 15, 18) : Color.WHITE);
+            btn.setBackground(Ui.tonalPillDrawable(this, Ui.primaryAccent(this), Ui.primaryAccent(this), 18));
+        } else {
+            btn.setTextColor(Ui.textColor(this));
+            btn.setBackground(Ui.tonalPillDrawable(this, Ui.panelColor(this), Ui.primaryAccent(this), 18));
+        }
+    }
+
     private void showTab(boolean imageTab) {
+        this.isImageTab = imageTab;
         imagePanel.setVisibility(imageTab ? View.VISIBLE : View.GONE);
         videoPanel.setVisibility(imageTab ? View.GONE : View.VISIBLE);
         styleTab(tabImageBtn, imageTab);
         styleTab(tabVideoBtn, !imageTab);
+        if (imageTab) {
+            stopVideoPreviewPlayback();
+        } else {
+            refreshVideoPreview();
+        }
     }
 
     private void styleTab(Button btn, boolean selected) {
@@ -431,14 +676,42 @@ public final class CreativeStudioActivity extends ComponentActivity {
         }
     }
 
+    private void pushUndo() {
+        undoStack.push(editSpec.copy());
+        while (undoStack.size() > MAX_UNDO) {
+            undoStack.removeLast();
+        }
+        updateUndoButton();
+    }
+
+    private void popUndo() {
+        if (undoStack.isEmpty()) {
+            status.setText("Nothing to undo.");
+            return;
+        }
+        editSpec = undoStack.pop();
+        refreshImagePreview();
+        status.setText("Undid last edit (" + undoStack.size() + " left).");
+    }
+
+    private void updateUndoButton() {
+        if (undoBtn != null) {
+            boolean hasUndo = !undoStack.isEmpty();
+            undoBtn.setEnabled(hasUndo);
+            undoBtn.setAlpha(hasUndo ? 1.0f : 0.45f);
+            undoBtn.setText(hasUndo ? "Undo (" + undoStack.size() + ")" : "Undo");
+        }
+    }
+
     private void loadPickedPhoto(Uri uri) {
         status.setText("Loading photo…");
         executor.execute(() -> {
             try {
-                Bitmap bmp = MediaChatHelper.decodeScaledBitmap(this, uri, 1280);
+                Bitmap bmp = MediaChatHelper.decodeScaledBitmap(this, uri, 1600);
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         sourceBitmap = bmp;
+                        undoStack.clear();
                         editSpec = new ImageLabEngine.EditSpec();
                         refreshImagePreview();
                         refreshVideoPreview();
@@ -456,16 +729,122 @@ public final class CreativeStudioActivity extends ComponentActivity {
         imagePreview.setImageBitmap(editedBitmap);
         editSummary.setText(editSpec.summary());
         blurBtn.setText(editSpec.privacyBlur ? "Blur: on" : "Blur: off");
+        styleChip(blurBtn, editSpec.privacyBlur);
+        flipBtn.setText(editSpec.flipHorizontal ? "Flip: on" : "Flip ↔");
+        styleChip(flipBtn, editSpec.flipHorizontal);
         cropBtn.setText("Crop: " + editSpec.crop.label);
+        styleChip(cropBtn, editSpec.crop != ImageLabEngine.CropMode.ORIGINAL);
+        updateUndoButton();
+
+        for (Map.Entry<ScientificVisualSubstrate.BaselinePlate, Button> e : baselineChips.entrySet()) {
+            styleChip(e.getValue(), e.getKey() == activeBaseline);
+        }
+        for (Map.Entry<ImageLabEngine.FilterPreset, Button> e : filterChips.entrySet()) {
+            styleChip(e.getValue(), e.getKey() == editSpec.filter);
+        }
+
+        syncingSliders = true;
+        if (brightBar != null) {
+            brightBar.setProgress(Math.max(0, Math.min(120, editSpec.brightness + 60)));
+            brightVal.setText((editSpec.brightness > 0 ? "+" : "") + editSpec.brightness);
+        }
+        if (contrastBar != null) {
+            contrastBar.setProgress(Math.max(0, Math.min(130, Math.round((editSpec.contrast - 0.5f) * 100f))));
+            contrastVal.setText(String.format(Locale.US, "%.1fx", editSpec.contrast));
+        }
+        if (warmthBar != null) {
+            warmthBar.setProgress(Math.max(0, Math.min(80, editSpec.warmth + 40)));
+            warmthVal.setText((editSpec.warmth > 0 ? "+" : "") + editSpec.warmth);
+        }
+        if (satBar != null) {
+            satBar.setProgress(Math.max(0, Math.min(200, Math.round(editSpec.saturation * 100f))));
+            satVal.setText(Math.round(editSpec.saturation * 100f) + "%");
+        }
+        if (vigBar != null) {
+            vigBar.setProgress(Math.max(0, Math.min(100, editSpec.vignette)));
+            vigVal.setText(editSpec.vignette + "%");
+        }
+        syncingSliders = false;
+    }
+
+    private void refreshVideoChipStates() {
+        for (Map.Entry<VideoMakerEngine.Style, Button> e : styleChips.entrySet()) {
+            styleChip(e.getValue(), e.getKey() == videoSpec.style);
+        }
+        for (Map.Entry<VideoMakerEngine.Palette, Button> e : paletteChips.entrySet()) {
+            styleChip(e.getValue(), e.getKey() == videoSpec.palette);
+        }
+        for (Map.Entry<Integer, Button> e : durationChips.entrySet()) {
+            styleChip(e.getValue(), e.getKey() == videoSpec.durationSec);
+        }
     }
 
     private void refreshVideoPreview() {
         videoSpec.title = videoTitleInput == null ? videoSpec.title : videoTitleInput.getText().toString();
         videoSpec.subtitle = videoSubInput == null ? videoSpec.subtitle : videoSubInput.getText().toString();
-        Bitmap prev = Bitmap.createBitmap(VideoMakerEngine.WIDTH, VideoMakerEngine.HEIGHT, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(prev);
-        VideoMakerEngine.renderFrame(c, VideoMakerEngine.WIDTH, VideoMakerEngine.HEIGHT, editedBitmap, videoSpec, 0.35f);
-        videoPreview.setImageBitmap(prev);
+        refreshVideoChipStates();
+        renderVideoPreviewFrame();
+    }
+
+    private void renderVideoPreviewFrame() {
+        if (videoPreview == null) {
+            return;
+        }
+        if (videoPreviewBitmap == null || videoPreviewBitmap.isRecycled()) {
+            videoPreviewBitmap = Bitmap.createBitmap(480, 480, Bitmap.Config.ARGB_8888);
+        }
+        Canvas c = new Canvas(videoPreviewBitmap);
+        VideoMakerEngine.renderFrame(c, 480, 480, editedBitmap, videoSpec, videoPreviewT);
+        videoPreview.setImageBitmap(videoPreviewBitmap);
+        videoPreview.invalidate();
+    }
+
+    private void toggleVideoPreviewPlayback() {
+        if (videoPreviewPlaying) {
+            stopVideoPreviewPlayback();
+        } else {
+            videoPreviewPlaying = true;
+            if (videoPlayToggleBtn != null) {
+                videoPlayToggleBtn.setText("⏸ Pause");
+                styleChip(videoPlayToggleBtn, true);
+            }
+            previewHandler.removeCallbacks(videoPreviewTick);
+            previewHandler.post(videoPreviewTick);
+        }
+    }
+
+    private void stopVideoPreviewPlayback() {
+        videoPreviewPlaying = false;
+        previewHandler.removeCallbacks(videoPreviewTick);
+        if (videoPlayToggleBtn != null) {
+            videoPlayToggleBtn.setText("▶ Preview");
+            styleChip(videoPlayToggleBtn, false);
+        }
+    }
+
+    private void saveImageToGallery() {
+        if (editedBitmap == null) {
+            return;
+        }
+        Bitmap snap = editedBitmap;
+        String name = "zoe_studio_" + System.currentTimeMillis() + ".png";
+        status.setText("Saving HD PNG to Photos/Zoe Studio…");
+        executor.execute(() -> {
+            try {
+                ImageLabEngine.saveToGallery(this, snap, name);
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        status.setText("Saved to Photos → Pictures/Zoe Studio (" + snap.getWidth() + "×" + snap.getHeight() + " PNG).");
+                    }
+                });
+            } catch (Exception err) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        status.setText("Gallery save failed: " + err.getMessage());
+                    }
+                });
+            }
+        });
     }
 
     private void shareEditedImage() {
@@ -478,8 +857,8 @@ public final class CreativeStudioActivity extends ComponentActivity {
                     .setType("image/png")
                     .putExtra(Intent.EXTRA_STREAM, uri)
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(share, "Save or share Zoe image"));
-            status.setText("Exported edited PNG ready to share or save.");
+            startActivity(Intent.createChooser(share, "Share Zoe image"));
+            status.setText("Exported HD PNG ready to share.");
         } catch (Exception err) {
             status.setText("Export failed: " + err.getMessage());
         }
@@ -493,14 +872,15 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
     private void applyScientificBaseline(ScientificVisualSubstrate.BaselinePlate plate, String concept) {
         activeBaseline = plate;
-        sourceBitmap = ScientificVisualSubstrate.renderScientificPlate(plate, concept, 720, 540);
+        sourceBitmap = ScientificVisualSubstrate.renderScientificPlate(plate, concept, PLATE_W, PLATE_H);
+        undoStack.clear();
         editSpec = new ImageLabEngine.EditSpec();
         refreshImagePreview();
         refreshVideoPreview();
         if (baselineMeta != null) {
             baselineMeta.setText("Baseline: " + plate.lineage + " · " + plate.mathSummary);
         }
-        status.setText("Rendered factual baseline: " + plate.lineage + " (100% offline math).");
+        status.setText(plate.chipLabel + " HD plate ready · hold preview to compare.");
     }
 
     private void generateOnlineAiImage() {
@@ -510,13 +890,14 @@ public final class CreativeStudioActivity extends ComponentActivity {
             return;
         }
         String groundedPrompt = ScientificVisualSubstrate.augmentPromptWithBaseline(prompt, activeBaseline);
-        status.setText("Generating AI artwork grounded in " + activeBaseline.lineage + "…");
+        status.setText("Generating online AI artwork grounded in " + activeBaseline.lineage + "…");
         executor.execute(() -> {
             try {
                 Bitmap bmp = ImageLabEngine.generateOnlineImage(this, groundedPrompt);
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         sourceBitmap = bmp;
+                        undoStack.clear();
                         editSpec = new ImageLabEngine.EditSpec();
                         refreshImagePreview();
                         status.setText("Generated AI artwork grounded by " + activeBaseline.chipLabel + "!");
@@ -529,10 +910,13 @@ public final class CreativeStudioActivity extends ComponentActivity {
     }
 
     private void exportOfflineMp4() {
+        stopVideoPreviewPlayback();
         videoSpec.title = videoTitleInput.getText().toString().trim();
         videoSpec.subtitle = videoSubInput.getText().toString().trim();
         refreshVideoPreview();
-        videoStatus.setText("Encoding H.264 MP4 offline on your phone…");
+        videoStatus.setText("Encoding " + VideoMakerEngine.WIDTH + "×" + VideoMakerEngine.HEIGHT
+                + " @ " + VideoMakerEngine.FPS + "fps H.264 MP4 offline…");
+        saveVideoGalleryBtn.setEnabled(false);
         shareVideoBtn.setEnabled(false);
 
         File outFile = new File(new File(getCacheDir(), "creative_studio"), "zoe_video_" + System.currentTimeMillis() + ".mp4");
@@ -540,10 +924,10 @@ public final class CreativeStudioActivity extends ComponentActivity {
         executor.execute(() -> {
             try {
                 File mp4 = VideoMakerEngine.exportMp4(outFile, photoSnap, videoSpec, (idx, total) -> {
-                    if (idx % 10 == 0 || idx == total) {
+                    if (idx % 12 == 0 || idx == total) {
                         runOnUiThread(() -> {
                             if (!isFinishing() && !isDestroyed()) {
-                                videoStatus.setText("Encoding frame " + idx + " / " + total + " (100% offline)…");
+                                videoStatus.setText("Encoding HD frame " + idx + " / " + total + " (30fps CFR offline)…");
                             }
                         });
                     }
@@ -552,15 +936,42 @@ public final class CreativeStudioActivity extends ComponentActivity {
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         lastExportedVideo = mp4;
+                        saveVideoGalleryBtn.setEnabled(true);
                         shareVideoBtn.setEnabled(true);
-                        videoStatus.setText("Created offline MP4 (" + kb + " KB · " + videoSpec.durationSec + "s H.264)! Tap Share MP4.");
-                        status.setText("Video ready (" + kb + " KB MP4).");
+                        videoStatus.setText("Created " + videoSpec.durationSec + "s HD MP4 (" + kb + " KB · 720×720 30fps)! Save or Share.");
+                        status.setText("HD Video ready (" + kb + " KB MP4).");
                     }
                 });
             } catch (Exception err) {
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         videoStatus.setText("MP4 encoding error: " + err.getMessage());
+                    }
+                });
+            }
+        });
+    }
+
+    private void saveVideoToGallery() {
+        if (lastExportedVideo == null || !lastExportedVideo.isFile()) {
+            return;
+        }
+        File snap = lastExportedVideo;
+        String name = "zoe_reel_" + System.currentTimeMillis() + ".mp4";
+        videoStatus.setText("Saving MP4 to Movies/Zoe Studio…");
+        executor.execute(() -> {
+            try {
+                VideoMakerEngine.saveVideoToGallery(this, snap, name);
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        videoStatus.setText("Saved MP4 to Gallery → Movies/Zoe Studio!");
+                        status.setText("Saved MP4 to Movies/Zoe Studio.");
+                    }
+                });
+            } catch (Exception err) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        videoStatus.setText("Save MP4 failed: " + err.getMessage());
                     }
                 });
             }
@@ -577,14 +988,21 @@ public final class CreativeStudioActivity extends ComponentActivity {
                     .setType("video/mp4")
                     .putExtra(Intent.EXTRA_STREAM, uri)
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(share, "Share Zoe MP4 Video"));
+            startActivity(Intent.createChooser(share, "Share Zoe HD MP4 Video"));
         } catch (Exception err) {
             status.setText("Share failed: " + err.getMessage());
         }
     }
 
     @Override
+    protected void onPause() {
+        stopVideoPreviewPlayback();
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
+        stopVideoPreviewPlayback();
         super.onDestroy();
         nativeVoice.stop();
         executor.shutdownNow();

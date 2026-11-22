@@ -27,18 +27,17 @@ public final class ResearchActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Researcher guide", "Build, verify & understand boundaries"));
-        TextView version = Ui.text(this, "Zoe " + versionName() + " · research preview", 14.5f, Ui.GREEN);
+        content.addView(Ui.topBar(this, "Researcher guide", "How Zoe works & limits"));
+        TextView version = Ui.statusBanner(this, "Zoe " + versionName() + " · research preview", Ui.GREEN);
         version.setId(R.id.research_version);
         content.addView(version);
 
         content.addView(Ui.section(this, "YOUR FIRST FIVE MINUTES"));
         TextView firstFive = Ui.text(this,
                 "1. Open Accessible volume and measure the worked distribution.\n\n"
-                        + "2. Open Tiny Zoe. Read the simulated card, measure once, then inspect the raw request and response.\n\n"
-                        + "3. Try tau = 0.20 with the default distribution. Equality is excluded, so A = 1 of 4.\n\n"
-                        + "4. Replay the last command. The bytes and result stay identical.\n\n"
-                        + "5. Choose Share session only when you want to export the retained transactions.",
+                        + "2. Open Tiny Zoe. Read the simulated card, measure once, then inspect the raw bytes.\n\n"
+                        + "3. Try τ = 0.20 with the default distribution. Equality is excluded, so A = 1 of 4.\n\n"
+                        + "4. Replay the last command — the bytes and result stay identical.",
                 14.5f, Ui.TEXT);
         firstFive.setBackground(Ui.cardBackground(this, 20));
         firstFive.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
@@ -46,35 +45,47 @@ public final class ResearchActivity extends ComponentActivity {
         Button openCell = Ui.primaryButton(this, "Open Tiny Zoe", Ui.RUBY, view ->
                 startActivity(new Intent(this, CellActivity.class)));
         openCell.setId(R.id.research_open_cell);
-        content.addView(openCell);
+        LinearLayout.LayoutParams ocLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ocLp.setMargins(0, Ui.dp(this, 10), 0, 0);
+        content.addView(openCell, ocLp);
 
-        content.addView(Ui.section(this, "WHAT THE RESULT MEANS"));
-        content.addView(Ui.text(this,
-                "Accessible volume counts probabilities strictly greater than tau. Tiny Zoe quantizes inputs to unsigned Q0.15 before measurement; quantization is an explicit representation change. A result is an observation, not correctness, belief, or permission to act.\n\n"
+        content.addView(Ui.section(this, "What the result means"));
+        TextView meaningCard = Ui.text(this,
+                "Accessible volume counts probabilities strictly greater than τ. Tiny Zoe quantizes inputs to Q0.15 before measurement. A result is an observation, not proof or permission to act.\n\n"
                         + "Nicholas Michael Kloster alone created the original equation on March 6, 2026.",
-                15, Ui.TEXT));
+                14.5f, Ui.TEXT);
+        meaningCard.setBackground(Ui.cardBackground(this, 20));
+        meaningCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        content.addView(meaningCard);
 
-        content.addView(Ui.section(this, "PRIVATE BY DEFAULT"));
-        content.addView(Ui.text(this,
-                "The home screen starts no sensors. Camera, microphone, location, Bluetooth, accessibility, and network features are separate and explicit. OCR, image labels, and the measured color meter are bundled offline. Optional model services, Cloud Vision, and external apps follow your explicit tap and link permissions.\n\n"
-                        + "Tiny Zoe uses no hardware, SIM, storage, or network. Sharing opens Android's chooser. Trip Journal saves entries and compact thumbnails locally ONLY when you choose Save, and Eliza-GEM Studio pairs offline Chladni / Bronze Rose resonance with optional workstation relay sync.",
-                15, Ui.TEXT));
+        content.addView(Ui.section(this, "Private by default"));
+        TextView privacyCard = Ui.text(this,
+                "Home starts no sensors. Camera, mic, GPS, Bluetooth, and network features only run when you tap. OCR, labels, and color analysis run offline.",
+                14.5f, Ui.TEXT);
+        privacyCard.setBackground(Ui.cardBackground(this, 20));
+        privacyCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        content.addView(privacyCard);
 
-        content.addView(Ui.section(this, "BUILD & VERIFY"));
-        content.addView(Ui.text(this,
-                "Android 8.0 or later · Java 17 · Android SDK 36\n"
-                        + "Run host tests, lint, debug builds, and on-device instrumentation before release. Hardware-dependent observations and iOS source tests are not substitutes for device verification.",
-                15, Ui.TEXT));
-        Button source = Ui.button(this, "View source & full mobile guide", view -> openGuide());
+        content.addView(Ui.section(this, "Build & Release Checklist"));
+        TextView releaseCard = Ui.text(this,
+                "Android 8.0+ · Java 17 · Android SDK 36.\n\n"
+                        + "Before any public release: use production signing, verify on real hardware across large text & screen readers, and complete an independent security and accessibility review.",
+                14f, Ui.MUTED);
+        releaseCard.setBackground(Ui.cardBackground(this, 20));
+        releaseCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        content.addView(releaseCard);
+
+        Button source = Ui.button(this, "View source & mobile guide", view -> openGuide());
         source.setId(R.id.research_source);
-        content.addView(source);
+        LinearLayout.LayoutParams srcLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        srcLp.setMargins(0, Ui.dp(this, 10), 0, 0);
+        content.addView(source, srcLp);
 
-        content.addView(Ui.section(this, "BEFORE A PUBLIC RELEASE"));
-        content.addView(Ui.text(this,
-                "Use production signing and a documented update path. Test supported devices, large text, screen readers, interrupted permissions, offline behavior, and lifecycle changes. Review third-party services and complete an independent security and accessibility review. Passing the included tests is necessary evidence, not a guarantee.",
-                15, Ui.YELLOW));
         status = Ui.text(this, "Source opens only when you choose it.", 13, Ui.MUTED);
         status.setId(R.id.research_status);
+        status.setGravity(android.view.Gravity.CENTER);
         content.addView(status);
     }
 

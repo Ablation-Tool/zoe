@@ -46,30 +46,32 @@ public final class ConnectivityActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Connectivity Field", "Transport changes · live rate probe"));
-        content.addView(Ui.text(this,
-                "Transport changes (Wi-Fi or mobile data), Android's downstream estimate, and an optional one-shot download rate. Offline workflows remain available on every network.",
-                14.5f, Ui.MUTED));
-        status = Ui.text(this, "Network observation is idle. No callback or download is active.", 15, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Connectivity", "Network link & speed test"));
+        status = Ui.statusBanner(this, "Network observation is idle. No callback or download is active.", Ui.COBALT);
         status.setId(R.id.network_status);
         content.addView(status);
-        Button watch = Ui.button(this, "Watch network changes", Ui.CYAN, view -> watch());
+        Button watch = Ui.primaryButton(this, "Watch link", Ui.CYAN, view -> watch());
         watch.setId(R.id.network_watch);
-        Button download = Ui.button(this, "Measure 1 MiB once", Ui.GREEN, view -> download());
+        Button download = Ui.button(this, "Test 1 MiB", Ui.GREEN, view -> download());
         download.setId(R.id.network_download);
         content.addView(Ui.buttonRow(this, watch, download));
-        content.addView(Ui.button(this, "Stop observation", Ui.RUBY, view -> stopConnectivity()));
+        content.addView(Ui.disclosureButton(this, "Stop observation", view -> stopConnectivity()));
         report = Ui.text(this,
-                "No network observation yet. Transport, validation, and rate are different measurements. Carrier band and emergency priority are not inferred.",
-                16, Ui.TEXT);
+                "Tap Watch link to monitor Wi-Fi/cellular changes, or Test 1 MiB for a single HTTPS speed probe.",
+                14.5f, Ui.TEXT);
         report.setId(R.id.network_report);
-        report.setBackground(Ui.panelBackground(this, Ui.CYAN, 16));
+        report.setBackground(Ui.cardBackground(this, 20));
         report.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         report.setTextIsSelectable(true);
-        content.addView(report);
-        content.addView(Ui.text(this,
-                "Low-bandwidth path: use offline OCR and labels, defer optional model downloads, and run the laptop bridge at 320×240 / 2 fps. Band 14, FirstNet, WPS, carrier priority, and emergency coverage are not controlled or guaranteed by this app.",
-                12.5f, Ui.MUTED));
+        LinearLayout.LayoutParams repLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        repLp.setMargins(0, Ui.dp(this, 6), 0, Ui.dp(this, 8));
+        content.addView(report, repLp);
+        TextView note = Ui.text(this,
+                "Offline workflows stay available on every network. Carrier bands and emergency priority are not inferred.",
+                12.5f, Ui.MUTED);
+        note.setGravity(android.view.Gravity.CENTER);
+        content.addView(note);
         manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 

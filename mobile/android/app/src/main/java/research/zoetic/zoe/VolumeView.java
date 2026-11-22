@@ -36,10 +36,11 @@ final class VolumeView extends ScrollView {
         content.setPadding(Ui.dp(activity, 16), Ui.dp(activity, 4), Ui.dp(activity, 16), Ui.dp(activity, 24));
         addView(content);
 
-        content.addView(Ui.heading(activity, "Accessible volume"));
-        content.addView(Ui.text(activity,
-                "Count alternatives strictly above τ. Breadth is not correctness or permission.",
-                14.5f, Ui.MUTED));
+        TextView subtitle = Ui.text(activity,
+                "Count alternatives strictly above τ. Breadth is not correctness.",
+                14.5f, Ui.MUTED);
+        subtitle.setPadding(Ui.dp(activity, 4), 0, Ui.dp(activity, 4), Ui.dp(activity, 6));
+        content.addView(subtitle);
 
         // Clean borderless input + slider + live chart card
         LinearLayout controlCard = Ui.vertical(activity);
@@ -140,7 +141,7 @@ final class VolumeView extends ScrollView {
                     && previous.vocabularySize == next.vocabularySize
                     && Double.compare(previous.tau, next.tau) == 0
                     ? String.format(Locale.US, "\nMomentum = %+d", next.accessible - previous.accessible)
-                    : "\nMomentum = not available for the first, altered-τ, or differently sized distribution";
+                    : "\nMomentum = — (measure again at same τ)";
             previous = next;
             current = next;
             resultView.setText(next.summary() + momentum

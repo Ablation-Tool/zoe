@@ -45,18 +45,20 @@ public final class TripJournalActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, scroll));
         Ui.configureEdgeToEdge(this, content);
 
-        content.addView(Ui.topBar(this, "Trip journal", "Saved field sightings · private on device"));
-        status = Ui.text(this, "Trip journal ready. Offline-first.", 14, Ui.YELLOW);
+        content.addView(Ui.topBar(this, "Trip journal", "Private on-device sightings"));
+        status = Ui.statusBanner(this, "Trip journal ready.", Ui.COBALT);
         status.setId(R.id.journal_status);
         content.addView(status);
 
-        Button sync = Ui.primaryButton(this, "Sync to Lab Relay", Ui.RUBY, view -> syncUnsynced());
+        Button sync = Ui.primaryButton(this, "Sync to Lab", Ui.COBALT, view -> syncUnsynced());
         sync.setId(R.id.journal_sync);
-        Button export = Ui.button(this, "Share log", Ui.GREEN, view -> shareExport());
+        Button export = Ui.button(this, "Share Log", Ui.GREEN, view -> shareExport());
         export.setId(R.id.journal_export);
-        Button clear = Ui.button(this, "Clear all", Ui.RUBY, view -> confirmClear());
+        content.addView(Ui.buttonRow(this, sync, export));
+
+        Button clear = Ui.disclosureButton(this, "Clear all sightings", view -> confirmClear());
         clear.setId(R.id.journal_clear);
-        content.addView(Ui.buttonRow(this, sync, export, clear));
+        content.addView(clear);
 
         listContainer = new LinearLayout(this);
         listContainer.setOrientation(LinearLayout.VERTICAL);
@@ -76,13 +78,22 @@ public final class TripJournalActivity extends ComponentActivity {
         listContainer.removeAllViews();
         List<TripJournalStore.Entry> entries = TripJournalStore.load(this);
         if (entries.isEmpty()) {
-            status.setText("No saved trip sightings yet. Open Guided Vision, inspect one frame, and tap Save to Trip Journal.");
-            TextView empty = Ui.text(this,
-                    "Your saved trip sightings, notes, OCR reads, light measurements, and optional cloud answers will appear right here.",
-                    15, Ui.MUTED);
-            empty.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.BORDER, 16));
-            empty.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
-            listContainer.addView(empty);
+            status.setText("No saved trip sightings yet.");
+            LinearLayout emptyCard = Ui.vertical(this);
+            emptyCard.setBackground(Ui.cardBackground(this, 22));
+            emptyCard.setPadding(Ui.dp(this, 20), Ui.dp(this, 20), Ui.dp(this, 20), Ui.dp(this, 20));
+            TextView title = Ui.text(this, "Your field notes live here", 17f, Ui.TEXT);
+            title.setTypeface(Ui.SANS_MEDIUM);
+            emptyCard.addView(title);
+            TextView sub = Ui.text(this,
+                    "Inspect any photo in Guided Vision and tap Save to Journal to store notes, colors, and text privately on this phone.",
+                    14f, Ui.MUTED);
+            sub.setPadding(0, Ui.dp(this, 4), 0, 0);
+            emptyCard.addView(sub);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, Ui.dp(this, 8), 0, 0);
+            listContainer.addView(emptyCard, lp);
             return;
         }
         int unsynced = 0;
@@ -92,15 +103,14 @@ public final class TripJournalActivity extends ComponentActivity {
             }
             listContainer.addView(buildCard(entry));
         }
-        status.setText(entries.size() + " saved sighting(s) · " + unsynced + " pending workstation relay sync.");
+        status.setText(entries.size() + " saved sighting(s)" + (unsynced > 0 ? " · " + unsynced + " ready to sync" : " · All synced"));
     }
 
     private LinearLayout buildCard(TripJournalStore.Entry entry) {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
-        card.setBackground(Ui.panelBackground(this, Ui.PANEL,
-                Ui.withAlpha(entry.syncedToRelay ? Ui.GREEN : Ui.CYAN, 130), 18));
-        card.setPadding(Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14), Ui.dp(this, 14));
+        card.setBackground(Ui.cardBackground(this, 20));
+        card.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 4));
@@ -108,11 +118,12 @@ public final class TripJournalActivity extends ComponentActivity {
 
         LinearLayout hdr = new LinearLayout(this);
         hdr.setOrientation(LinearLayout.HORIZONTAL);
-        TextView stamp = Ui.text(this, entry.timestampIso, 12.5f, Ui.GOLD);
+        hdr.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        TextView stamp = Ui.text(this, entry.timestampIso, 12.5f, Ui.MUTED);
         hdr.addView(stamp, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
         hdr.addView(Ui.badge(this,
-                entry.syncedToRelay ? "SYNCED TO ZOE" : "ON DEVICE",
-                entry.syncedToRelay ? Ui.GREEN : Ui.CYAN));
+                entry.syncedToRelay ? "Synced" : "On Device",
+                entry.syncedToRelay ? Ui.GREEN : Ui.COBALT));
         card.addView(hdr);
 
         File thumbFile = TripJournalStore.thumbnailFile(this, entry);
@@ -123,39 +134,46 @@ public final class TripJournalActivity extends ComponentActivity {
                 img.setImageBitmap(bmp);
                 img.setAdjustViewBounds(true);
                 img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                img.setOutlineProvider(new android.view.ViewOutlineProvider() {
+                    @Override
+                    public void getOutline(android.view.View view, android.graphics.Outline outline) {
+                        outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), Ui.dp(TripJournalActivity.this, 14));
+                    }
+                });
+                img.setClipToOutline(true);
                 img.setContentDescription("Trip sighting thumbnail from " + entry.timestampIso);
                 LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 165));
-                imgParams.setMargins(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
+                        LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(this, 170));
+                imgParams.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 10));
                 card.addView(img, imgParams);
             }
         }
 
         StringBuilder body = new StringBuilder();
         if (!entry.note.isEmpty()) {
-            body.append("NOTE: ").append(entry.note).append("\n\n");
-        }
-        if (!entry.paletteSummary.isEmpty()) {
-            body.append("OFFLINE PIXEL MATH\n").append(entry.paletteSummary).append("\n\n");
+            body.append("Note: ").append(entry.note).append("\n\n");
         }
         if (!entry.labels.isEmpty()) {
-            body.append("OFFLINE IMAGE LABELS\n").append(entry.labels).append("\n\n");
+            body.append("Labels: ").append(entry.labels).append("\n\n");
         }
         if (!entry.ocrText.isEmpty()) {
-            body.append("OFFLINE OCR\n").append(entry.ocrText).append("\n\n");
+            body.append("Text: ").append(entry.ocrText).append("\n\n");
+        }
+        if (!entry.paletteSummary.isEmpty()) {
+            body.append("Light & Color: ").append(entry.paletteSummary).append("\n\n");
         }
         if (!entry.deviceAiDescription.isEmpty()) {
-            body.append("ON-DEVICE GEMINI NANO\n").append(entry.deviceAiDescription).append("\n\n");
+            body.append("On-Device AI: ").append(entry.deviceAiDescription).append("\n\n");
         }
         if (!entry.cloudDescription.isEmpty()) {
-            body.append("ONLINE CLOUD · GEMINI\n").append(entry.cloudDescription).append('\n');
+            body.append("Cloud Vision: ").append(entry.cloudDescription).append('\n');
         }
-        TextView details = Ui.text(this, body.toString().trim(), 13.5f, Ui.TEXT);
+        TextView details = Ui.text(this, body.toString().trim(), 14f, Ui.TEXT);
         details.setTextIsSelectable(true);
         card.addView(details);
 
-        Button editNote = Ui.button(this, "Edit note", Ui.PINK, view -> promptEditNote(entry));
-        Button sharePhoto = Ui.button(this, thumbFile != null ? "Share / Gemini" : "Share note", Ui.CYAN,
+        Button editNote = Ui.button(this, "Edit Note", Ui.PINK, view -> promptEditNote(entry));
+        Button sharePhoto = Ui.button(this, "Share", Ui.CYAN,
                 view -> shareEntry(entry, thumbFile));
         card.addView(Ui.buttonRow(this, editNote, sharePhoto));
         return card;

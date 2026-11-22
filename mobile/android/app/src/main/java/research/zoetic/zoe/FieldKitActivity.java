@@ -31,20 +31,20 @@ public final class FieldKitActivity extends ComponentActivity {
 
         content.addView(Ui.section(this, "Look & listen"));
         addGroup(content,
-                row("Multi-view", "Back, front & laptop cameras", R.drawable.ic_zoe_vision, Ui.COBALT, MultiVisionActivity.class),
+                row("Multi-view", "Back, front & laptop", R.drawable.ic_zoe_vision, Ui.COBALT, MultiVisionActivity.class),
                 row("Acoustic ranging", "One-shot chirp & echo", R.drawable.ic_zoe_talk, Ui.RUBY, RangingActivity.class));
 
         content.addView(Ui.section(this, "Measure"));
         addGroup(content,
-                row("Tiny Zoe", "Cell simulator & APDU console", R.drawable.ic_zoe_gem, Ui.GOLD, CellActivity.class),
-                row("Radio field", "Bluetooth RSSI & NFC", R.drawable.ic_zoe_radio, Ui.GREEN, RadioActivity.class),
-                row("Location field", "One-shot GPS position", R.drawable.ic_zoe_location, Ui.GOLD, LocationActivity.class),
-                row("Connectivity", "Link state & HTTPS rate", R.drawable.ic_zoe_trinity, Ui.CYAN, ConnectivityActivity.class));
+                row("Tiny Zoe", "Protocol simulator", R.drawable.ic_zoe_gem, Ui.GOLD, CellActivity.class),
+                row("Radio field", "Bluetooth & NFC", R.drawable.ic_zoe_radio, Ui.GREEN, RadioActivity.class),
+                row("Location field", "One-shot GPS", R.drawable.ic_zoe_location, Ui.GOLD, LocationActivity.class),
+                row("Connectivity", "Link & speed test", R.drawable.ic_zoe_trinity, Ui.CYAN, ConnectivityActivity.class));
 
         content.addView(Ui.section(this, "Device tools"));
         addGroup(content,
-                row("Screen Space", "Explicit capture & mapped gestures", R.drawable.ic_zoe_screen, Ui.PINK, ScreenSpaceActivity.class),
-                row("App Observatory", "Installed launcher apps", R.drawable.ic_zoe_apps, Ui.GREEN, AppObservatoryActivity.class));
+                row("Screen Space", "Capture & gestures", R.drawable.ic_zoe_screen, Ui.PINK, ScreenSpaceActivity.class),
+                row("App Observatory", "Installed apps", R.drawable.ic_zoe_apps, Ui.GREEN, AppObservatoryActivity.class));
 
         TextView note = Ui.text(this, "Observations are not proof.", 12.5f, Ui.MUTED);
         note.setAlpha(0.75f);

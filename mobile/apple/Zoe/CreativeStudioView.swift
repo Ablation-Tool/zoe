@@ -5,11 +5,14 @@ import SwiftUI
 /// Grounds visual synthesis on Ernst Haeckel, August Weismann, Jean-Baptiste Lamarck & Google Patents schematics.
 struct CreativeStudioView: View {
     @State private var spec = CreativeAndArcadeCore.ImageEditSpec()
+    @State private var undoStack: [CreativeAndArcadeCore.ImageEditSpec] = []
     @State private var baseline: ScientificVisualAndPatentCore.BaselinePlate = .atelier
     @State private var commandText = ""
-    @State private var statusText = "Edit Zoe's Atelier canvas, generate a scientific plate, or pick any photo — 100% offline."
+    @State private var statusText = "Hold preview to compare original · 8 HD plates offline."
     @State private var pickedItem: PhotosPickerItem?
     @State private var loadedImage: UIImage?
+    @State private var showTuneSliders = false
+    @State private var comparingOriginal = false
 
     var body: some View {
         ScrollView {
@@ -27,11 +30,12 @@ struct CreativeStudioView: View {
                     .frame(height: 240)
                     .frame(maxWidth: .infinity)
                     .clipped()
-                    .saturation(saturationValue)
-                    .contrast(spec.contrast)
-                    .brightness(Double(spec.brightness) / 220.0)
-                    .rotationEffect(.degrees(Double(spec.rotationDeg)))
-                    .blur(radius: spec.privacyBlur ? 10 : 0)
+                    .saturation(comparingOriginal ? 1.0 : (saturationValue * spec.saturation))
+                    .contrast(comparingOriginal ? 1.0 : spec.contrast)
+                    .brightness(comparingOriginal ? 0.0 : (Double(spec.brightness) / 220.0))
+                    .scaleEffect(x: (!comparingOriginal && spec.flipHorizontal) ? -1.0 : 1.0, y: 1.0)
+                    .rotationEffect(.degrees(comparingOriginal ? 0.0 : Double(spec.rotationDeg)))
+                    .blur(radius: (!comparingOriginal && spec.privacyBlur) ? 10 : 0)
 
                     if !spec.caption.isEmpty {
                         Text(spec.caption)
@@ -70,7 +74,7 @@ struct CreativeStudioView: View {
                 }
 
                 HStack(spacing: 8) {
-                    TextField("e.g. haeckel, patent, warm, rotate, blur, caption Sunset…", text: $commandText)
+                    TextField("Try warm, chladni, blur, caption…", text: $commandText)
                         .textFieldStyle(.plain)
                         .padding(10)
                     Button("Apply") {
@@ -95,7 +99,16 @@ struct CreativeStudioView: View {
                             loadedImage = nil
                             baseline = .patentBlueprint
                             statusText = "Rendered orthographic patent schematic plate."
+                        } else if lower.contains("chladni") || lower.contains("cymatic") || lower.contains("nodal") {
+                            loadedImage = nil
+                            baseline = .chladniPlate
+                            statusText = "Rendered Ernst Chladni standing-wave nodal plate."
+                        } else if lower.contains("phyllotaxis") || lower.contains("fibonacci") || lower.contains("sunflower") {
+                            loadedImage = nil
+                            baseline = .fibonacciPhyllotaxis
+                            statusText = "Rendered golden-angle Fibonacci phyllotaxis plate."
                         } else {
+                            undoStack.append(spec)
                             spec = CreativeAndArcadeCore.parseImageEditCommand(commandText, current: spec)
                             statusText = "Applied: \(spec.filter.rawValue) · rot \(spec.rotationDeg)°"
                         }
@@ -120,11 +133,47 @@ struct CreativeStudioView: View {
                 }
 
                 HStack(spacing: 8) {
-                    Button("Rotate 90°") { spec.rotationDeg = (spec.rotationDeg + 90) % 360 }
-                        .buttonStyle(GemKeycapButtonStyle())
-                    Button(spec.privacyBlur ? "Privacy blur: on" : "Privacy blur: off") { spec.privacyBlur.toggle() }
-                        .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.ochre))
+                    Button(undoStack.isEmpty ? "Undo" : "Undo (\(undoStack.count))") {
+                        if let prev = undoStack.popLast() { spec = prev }
+                    }
+                    .disabled(undoStack.isEmpty)
+                    .buttonStyle(GemKeycapButtonStyle())
+                    Button("Rotate 90°") {
+                        undoStack.append(spec)
+                        spec.rotationDeg = (spec.rotationDeg + 90) % 360
+                    }
+                    .buttonStyle(GemKeycapButtonStyle())
+                    Button(spec.flipHorizontal ? "Flip: on" : "Flip ↔") {
+                        undoStack.append(spec)
+                        spec.flipHorizontal.toggle()
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: spec.flipHorizontal ? GemPalette.cobalt : GemPalette.muted))
+                    Button(spec.privacyBlur ? "Blur: on" : "Blur: off") {
+                        undoStack.append(spec)
+                        spec.privacyBlur.toggle()
+                    }
+                    .buttonStyle(GemKeycapButtonStyle(accent: spec.privacyBlur ? GemPalette.ochre : GemPalette.muted))
                 }
+
+                DisclosureGroup("Tune Sliders (Brightness · Contrast · Saturation)", isExpanded: $showTuneSliders) {
+                    VStack(spacing: 8) {
+                        HStack {
+                            Text("Brightness \(spec.brightness)").font(.caption)
+                            Slider(value: Binding(get: { Double(spec.brightness) }, set: { spec.brightness = Int($0) }), in: -60...60)
+                        }
+                        HStack {
+                            Text(String(format: "Contrast %.1fx", spec.contrast)).font(.caption)
+                            Slider(value: $spec.contrast, in: 0.5...1.8)
+                        }
+                        HStack {
+                            Text("Saturation \(Int(spec.saturation * 100))%").font(.caption)
+                            Slider(value: $spec.saturation, in: 0.0...2.0)
+                        }
+                    }
+                    .padding(.top, 6)
+                }
+                .padding(12)
+                .gemCard(radius: 18)
 
                 HStack(spacing: 8) {
                     PhotosPicker(selection: $pickedItem, matching: .images) {
@@ -271,6 +320,45 @@ private struct ScientificPlateCanvasView: View {
                 prism.addLine(to: CGPoint(x: px - gr * 0.9, y: gy + gr * 0.7))
                 prism.closeSubpath()
                 ctx.stroke(prism, with: .color(.white), lineWidth: 2)
+            }
+        case .chladniPlate:
+            Canvas { ctx, size in
+                ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.05, green: 0.06, blue: 0.10)))
+                let modes = ScientificVisualAndPatentCore.chladniModes(forSeed: seed)
+                let grid = 48
+                let side = min(size.width, size.height) * 0.78
+                let ox = (size.width - side) / 2
+                let oy = (size.height - side) / 2
+                let cell = side / Double(grid)
+                for gy in 0..<grid {
+                    let ny = (Double(gy) + 0.5) / Double(grid)
+                    for gx in 0..<grid {
+                        let nx = (Double(gx) + 0.5) / Double(grid)
+                        let val = cos(Double(modes.m) * .pi * nx) * cos(Double(modes.n) * .pi * ny)
+                            - cos(Double(modes.n) * .pi * nx) * cos(Double(modes.m) * .pi * ny)
+                        let nodal = max(0.0, 1.0 - abs(val) * 4.0)
+                        if nodal > 0.18 {
+                            let r = cell * (0.32 + nodal * 0.32)
+                            let rect = CGRect(x: ox + (Double(gx) + 0.5) * cell - r, y: oy + (Double(gy) + 0.5) * cell - r, width: r * 2, height: r * 2)
+                            ctx.fill(Path(ellipseIn: rect), with: .color(Color(red: 0.95, green: 0.78, blue: 0.45).opacity(nodal)))
+                        }
+                    }
+                }
+            }
+        case .fibonacciPhyllotaxis:
+            Canvas { ctx, size in
+                ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.97, green: 0.95, blue: 0.91)))
+                let cx = size.width / 2
+                let cy = size.height / 2
+                let maxR = min(size.width, size.height) * 0.40
+                let scale = maxR / sqrt(140.0)
+                for k in 1...140 {
+                    let pt = ScientificVisualAndPatentCore.phyllotaxisPoint(index: k, scale: scale)
+                    let frac = Double(k) / 140.0
+                    let r = 2.2 + frac * 3.2
+                    let rect = CGRect(x: cx + pt.x - r, y: cy + pt.y - r, width: r * 2, height: r * 2)
+                    ctx.fill(Path(ellipseIn: rect), with: .color(Color(red: 0.22 + 0.62 * frac, green: 0.48 + 0.18 * frac, blue: 0.34 - 0.10 * frac)))
+                }
             }
         }
     }

@@ -3,55 +3,53 @@ import UIKit
 
 struct DeviceView: View {
     @StateObject private var speaker = Speaker()
-    @State private var report = "Refresh to inspect local device state."
+    @State private var modelName = UIDevice.current.model
+    @State private var osLabel = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
+    @State private var batteryLabel = "Checking…"
+    @State private var thermalLabel = "Nominal"
     @Environment(\.openURL) private var openURL
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Local battery, thermal state, and speaker check. Everything stays on your device.")
-                    .font(.body)
+            VStack(alignment: .leading, spacing: 14) {
+                Text("Battery, thermal state & speaker check.")
+                    .font(.subheadline)
                     .foregroundStyle(GemPalette.muted)
+                    .padding(.horizontal, 4)
 
-                Text(report)
-                    .font(.body)
-                    .foregroundStyle(GemPalette.ink)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(18)
-                    .gemCard(radius: 22)
+                VStack(spacing: 0) {
+                    settingRow("Model", value: modelName)
+                    Divider().overlay(GemPalette.hairline).padding(.horizontal, 16)
+                    settingRow("System", value: osLabel)
+                    Divider().overlay(GemPalette.hairline).padding(.horizontal, 16)
+                    settingRow("Battery", value: batteryLabel)
+                    Divider().overlay(GemPalette.hairline).padding(.horizontal, 16)
+                    settingRow("Thermal", value: thermalLabel)
+                }
+                .padding(.vertical, 4)
+                .gemCard(radius: 22)
 
                 HStack(spacing: 10) {
                     Button("Refresh", action: refresh)
                         .buttonStyle(GemPrimaryButtonStyle())
                     Button("Speaker check") {
-                        speaker.speak("Zoe speaker check. Measurement, evidence, belief, and action remain distinct.")
+                        speaker.speak("Zoe speaker check. Audio is working clearly.")
                     }
                     .buttonStyle(GemKeycapButtonStyle())
                 }
 
-                Button("Open Google Gemini") {
+                Button("Open Gemini") {
                     if let url = URL(string: "https://gemini.google.com") { openURL(url) }
                 }
                 .buttonStyle(GemKeycapButtonStyle())
 
-                HStack(spacing: 14) {
-                    Image("NuclideBrain")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 72)
-                        .accessibilityLabel("NuClide Research dual-brain emblem")
-                    Text("NuClide Research = Zoe + Nick + Cat · USA\nPlay. Learn. Adapt. Create. Explore. Share.")
-                        .font(.footnote)
-                        .foregroundStyle(GemPalette.muted)
-                }
-                .padding(14)
-                .gemCard(radius: 20)
-
-                Text("Private sensor streams are not exposed by public iOS APIs. No unavailable measurement is invented.")
+                Text("Checked locally on your device. Capability is not proof or permission.")
                     .font(.footnote)
                     .foregroundStyle(GemPalette.muted)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 4)
             }
-            .padding(18)
+            .padding(16)
         }
         .gemScreen()
         .onAppear {
@@ -64,24 +62,39 @@ struct DeviceView: View {
         }
     }
 
+    private func settingRow(_ label: String, value: String) -> some View {
+        HStack {
+            Text(label)
+                .font(.body)
+                .foregroundStyle(GemPalette.ink)
+            Spacer()
+            Text(value)
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(GemPalette.muted)
+        }
+        .padding(.horizontal, 16)
+        .frame(minHeight: 46)
+    }
+
     private func refresh() {
         let device = UIDevice.current
-        let level = device.batteryLevel >= 0 ? String(format: "%.0f%%", device.batteryLevel * 100) : "unavailable"
+        modelName = device.model
+        osLabel = "\(device.systemName) \(device.systemVersion)"
+        let level = device.batteryLevel >= 0 ? String(format: "%.0f%%", device.batteryLevel * 100) : "Unavailable"
         let state: String
         switch device.batteryState {
-        case .charging: state = "charging"
-        case .full: state = "full"
-        case .unplugged: state = "unplugged"
-        default: state = "unknown"
+        case .charging: state = "Charging"
+        case .full: state = "Full"
+        case .unplugged: state = "Battery"
+        default: state = "Unknown"
         }
-        let thermal: String
+        batteryLabel = "\(level) · \(state)"
         switch ProcessInfo.processInfo.thermalState {
-        case .nominal: thermal = "nominal"
-        case .fair: thermal = "fair"
-        case .serious: thermal = "serious"
-        case .critical: thermal = "critical"
-        @unknown default: thermal = "unknown"
+        case .nominal: thermalLabel = "Nominal"
+        case .fair: thermalLabel = "Fair"
+        case .serious: thermalLabel = "Warm"
+        case .critical: thermalLabel = "Hot"
+        @unknown default: thermalLabel = "Unknown"
         }
-        report = "Device: \(device.model)\nSystem: \(device.systemName) \(device.systemVersion)\nBattery: \(level) · \(state)\nThermal state: \(thermal)\n\nCapability is not correctness or authorization. Public API observations remain on device."
     }
 }
