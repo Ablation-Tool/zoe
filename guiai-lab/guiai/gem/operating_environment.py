@@ -67,6 +67,8 @@ EXTENDED_LAYERS = {
     "embodied-mind": ("autonomy", "Zoe · L5 Phase 4 Blind Eval, Stem-Layering & Embodied Mobile Mind"),
     "l5-phase5": ("autonomy", "Zoe · L5 Phase 5 ARC Induction, Real Science & 4-Gen Frontier Mind"),
     "frontier-mind": ("autonomy", "Zoe · L5 Phase 5 ARC Induction, Real Science & 4-Gen Frontier Mind"),
+    "l5-phase6": ("autonomy", "Zoe · L5 Phase 6 Multi-Horizon A_tau^(h), Object ARC & Blind Scratch Evolution"),
+    "autonomous-frontier": ("autonomy", "Zoe · L5 Phase 6 Multi-Horizon A_tau^(h), Object ARC & Blind Scratch Evolution"),
     "eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
     "zoe-eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
 }

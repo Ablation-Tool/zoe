@@ -848,6 +848,25 @@ class ZoeChat:
             + "\n  Open visually with `gem open l5-phase5` or verify independently via `python scripts/verify_l5_phase5.py`."
         )
 
+    def _l5_phase6(self, argument):
+        from .l5_phase6_autonomous import run_l5_phase6_suite, summarize_l5_phase6_report
+
+        arg = (argument or "").strip().lower()
+        cached = self.zoe_root / "evidence/l5-phase6/l5-phase6-report.json"
+        wav_path = (self.store.root / "voice" / "zoe-l5-phase6.wav") if arg == "speak" else None
+        if arg not in {"run", "speak"} and cached.is_file():
+            rep = json.loads(cached.read_text(encoding="utf-8"))
+        else:
+            rep = run_l5_phase6_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
+        extra = ""
+        if wav_path is not None and wav_path.is_file():
+            extra = f"\n  Saved spoken Phase 6 summary WAV: {wav_path}"
+        return (
+            summarize_l5_phase6_report(rep)
+            + extra
+            + "\n  Open visually with `gem open l5-phase6` or verify independently via `python scripts/verify_l5_phase6.py`."
+        )
+
     def _steward(self, argument):
         from .self_stewardship import GenomeLedger
         ledger = GenomeLedger(self.store.root / "evolution")
@@ -1228,6 +1247,8 @@ class ZoeChat:
                     response = self._l5_phase4(argument)
                 elif command in {"l5-phase5", "phase5", "frontier-mind"}:
                     response = self._l5_phase5(argument)
+                elif command in {"l5-phase6", "phase6", "autonomous-frontier"}:
+                    response = self._l5_phase6(argument)
                 elif command in {"steward", "handover"}:
                     response = self._steward(argument)
                 elif command in {"eliza", "zoe-eliza"}:

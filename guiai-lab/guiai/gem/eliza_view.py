@@ -1012,6 +1012,26 @@ def create_server(
                 self.end_headers()
                 self.wfile.write(svg)
                 return
+            if path == "/api/l5/phase6":
+                rep_file = resolved_root / "evidence" / "l5-phase6" / "l5-phase6-report.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
+                return
+            if path == "/api/l5/phase6/gem.svg":
+                from .l5_phase6 import l5_phase6_scene
+                from .render import scene_to_svg
+
+                scene, _ = l5_phase6_scene(resolved_root)
+                svg = scene_to_svg(scene).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
+                self.send_header("Content-Length", str(len(svg)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(svg)
+                return
             if path == "/api/digest/latest":
                 rep_file = resolved_root / "evidence" / "l5-mobile-digestion" / "digestion-report.json"
                 if rep_file.is_file():
@@ -1135,6 +1155,25 @@ def create_server(
                             self._send_json(200, chosen)
                         else:
                             rep = run_l5_phase5_suite(resolved_root)
+                            self._send_json(200, rep)
+                    return
+                if path == "/api/l5/phase6/run":
+                    from zoe_autonomy.l5_phase6_autonomous import ALL_PHASE6_PILLARS, run_l5_phase6_suite
+
+                    pillar_id = body.get("pillar_id")
+                    with lock:
+                        if pillar_id:
+                            chosen = None
+                            for fn in ALL_PHASE6_PILLARS:
+                                res = fn(resolved_root)
+                                if res["pillar_id"] == str(pillar_id):
+                                    chosen = res
+                                    break
+                            if chosen is None:
+                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
+                            self._send_json(200, chosen)
+                        else:
+                            rep = run_l5_phase6_suite(resolved_root)
                             self._send_json(200, rep)
                     return
                 if path == "/api/l5/phase4/run":

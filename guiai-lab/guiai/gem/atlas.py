@@ -564,6 +564,9 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"l5-phase5", "frontier-mind"}:
         from .l5_phase5 import l5_phase5_scene
         return l5_phase5_scene()
+    if module in {"l5-phase6", "autonomous-frontier"}:
+        from .l5_phase6 import l5_phase6_scene
+        return l5_phase6_scene()
     if module in {"eliza", "zoe-eliza"}:
         from .zoe_eliza_gem import eliza_scene
         return eliza_scene()
