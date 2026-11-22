@@ -38,6 +38,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -97,6 +99,24 @@ public final class ConversationActivity extends ComponentActivity {
     private LinearLayout osActionBar;
     private Button osActionBtn;
     private LinearLayout extraPlanSteps;
+    private LinearLayout attachmentBanner;
+    private ImageView attachmentThumb;
+    private TextView attachmentLabel;
+    private MediaChatHelper.MediaAttachment pendingAttachment;
+
+    private final ActivityResultLauncher<String[]> pickPhotoLauncher =
+            registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
+                if (uri != null) {
+                    attachMediaUri(uri, false);
+                }
+            });
+
+    private final ActivityResultLauncher<String[]> pickVideoLauncher =
+            registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
+                if (uri != null) {
+                    attachMediaUri(uri, true);
+                }
+            });
 
     private TextToSpeech textToSpeech;
     private SpeechRecognizer recognizer;
@@ -155,6 +175,8 @@ public final class ConversationActivity extends ComponentActivity {
         modeCloudBtn.setId(R.id.conversation_mode_cloud);
         modeLabBtn = modeChip("Lab Brain", v -> selectBrainMode(BrainMode.LAB_QWEN));
         modeLabBtn.setId(R.id.conversation_mode_lab);
+        Button liveBtn = modeChip("Explore", v -> startActivity(new Intent(this, ZoeLiveActivity.class)));
+        liveBtn.setId(R.id.conversation_live_btn);
         Button brainSettingsBtn = modeChip("⚙ Brain", v -> showBrainCouncilSheet());
         brainSettingsBtn.setId(R.id.conversation_brain_settings);
         Button threadsBtn = modeChip("Threads", v -> showThreadsSheet());
@@ -162,7 +184,7 @@ public final class ConversationActivity extends ComponentActivity {
         Button newChatBtn = modeChip("+ New", v -> startNewThread());
         newChatBtn.setId(R.id.conversation_new_chat_btn);
 
-        for (Button b : new Button[]{modeAutoBtn, modeLocalLlmBtn, webToggleBtn, modeStemBtn,
+        for (Button b : new Button[]{modeAutoBtn, modeLocalLlmBtn, webToggleBtn, liveBtn, modeStemBtn,
                 modeCloudBtn, modeLabBtn, brainSettingsBtn, threadsBtn, newChatBtn}) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 40));
@@ -241,21 +263,42 @@ public final class ConversationActivity extends ComponentActivity {
         root.addView(chatScroll, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
 
-        // 3. Thumb-Zone Next-Gen Composer Dock (Inline Look / Maps / Ask AI / Talk / Send)
+        // 3. Thumb-Zone Next-Gen Composer Dock (+ Attach Photo/Video, Input, Send, Talk, Ask AI)
         LinearLayout bottomDock = Ui.vertical(this);
         bottomDock.setBackgroundColor(Color.TRANSPARENT);
         bottomDock.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 10));
+
+        // Dismissible Photo / Video Attachment Preview Banner
+        attachmentBanner = new LinearLayout(this);
+        attachmentBanner.setOrientation(LinearLayout.HORIZONTAL);
+        attachmentBanner.setGravity(Gravity.CENTER_VERTICAL);
+        attachmentBanner.setBackground(Ui.cardBackground(this, 18));
+        attachmentBanner.setPadding(Ui.dp(this, 10), Ui.dp(this, 6), Ui.dp(this, 10), Ui.dp(this, 6));
+        attachmentBanner.setVisibility(View.GONE);
+        attachmentThumb = new ImageView(this);
+        attachmentThumb.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        attachmentBanner.addView(attachmentThumb, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 44)));
+        attachmentLabel = Ui.text(this, "", 12.5f, Ui.TEXT);
+        attachmentLabel.setPadding(Ui.dp(this, 10), 0, Ui.dp(this, 8), 0);
+        attachmentBanner.addView(attachmentLabel, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+        Button clearAttBtn = Ui.button(this, "✕", Ui.MUTED, v -> clearAttachment());
+        attachmentBanner.addView(clearAttBtn, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 40)));
+        LinearLayout.LayoutParams attLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        attLp.setMargins(0, 0, 0, Ui.dp(this, 6));
+        bottomDock.addView(attachmentBanner, attLp);
 
         LinearLayout composer = new LinearLayout(this);
         composer.setOrientation(LinearLayout.HORIZONTAL);
         composer.setGravity(Gravity.CENTER_VERTICAL);
         composer.setBackground(Ui.cardBackground(this, 28));
-        composer.setPadding(Ui.dp(this, 8), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
+        composer.setPadding(Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
 
-        ImageView mapsBtn = Ui.iconActionButton(this, R.drawable.ic_zoe_location, Ui.textColor(this),
-                Color.TRANSPARENT, "Open Maps and Safety",
-                v -> startActivity(new Intent(this, LocationActivity.class)));
-        composer.addView(mapsBtn, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 44)));
+        ImageView attachBtn = Ui.iconActionButton(this, R.drawable.ic_zoe_plus, Ui.textColor(this),
+                Color.TRANSPARENT, "Attach photo, video, Live Orb, Studio or Arcade",
+                v -> showAttachAndCreateSheet());
+        attachBtn.setId(R.id.conversation_attach_btn);
+        composer.addView(attachBtn, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 44)));
 
         typedInput = Ui.input(this, "", "Ask Zoe anything…");
         typedInput.setId(R.id.conversation_input);
@@ -661,17 +704,84 @@ public final class ConversationActivity extends ComponentActivity {
         status.setText("Started a fresh private conversation.");
     }
 
+    private void showAttachAndCreateSheet() {
+        String[] choices = {
+                "Attach Photo (Offline OCR/Labels + Vision)",
+                "Attach Video (3-Frame Timeline Analysis)",
+                "Open Zoe Explore ('Hi Zoe' Orb & Camera)",
+                "Open Creative Studio (Edit Photo · Make MP4 Video)",
+                "Open Zoe Arcade (Play Games Offline)",
+                "Open Privacy Vault (Signal-Grade E2EE)",
+                "Open Maps & Safety"
+        };
+        new AlertDialog.Builder(this)
+                .setTitle("Share Media & Create with Zoe")
+                .setItems(choices, (d, which) -> {
+                    switch (which) {
+                        case 0 -> pickPhotoLauncher.launch(new String[]{"image/*"});
+                        case 1 -> pickVideoLauncher.launch(new String[]{"video/*"});
+                        case 2 -> startActivity(new Intent(this, ZoeLiveActivity.class));
+                        case 3 -> startActivity(new Intent(this, CreativeStudioActivity.class));
+                        case 4 -> startActivity(new Intent(this, ZoeArcadeActivity.class));
+                        case 5 -> startActivity(new Intent(this, PrivacyVaultActivity.class));
+                        default -> startActivity(new Intent(this, LocationActivity.class));
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    private void attachMediaUri(Uri uri, boolean isVideo) {
+        status.setText(isVideo ? "Inspecting video keyframes offline…" : "Inspecting photo offline (OCR + labels)…");
+        executor.execute(() -> {
+            try {
+                MediaChatHelper.MediaAttachment att = isVideo
+                        ? MediaChatHelper.analyzeVideoUri(this, uri)
+                        : MediaChatHelper.analyzePhotoUri(this, uri);
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        pendingAttachment = att;
+                        attachmentThumb.setImageBitmap(att.thumbnail);
+                        attachmentLabel.setText(att.label + " attached · ask Zoe anything about it!");
+                        attachmentBanner.setVisibility(View.VISIBLE);
+                        status.setText("Attached " + att.label + " — type a question or tap Send.");
+                    }
+                });
+            } catch (Exception err) {
+                runOnUiThread(() -> status.setText("Could not inspect media: " + err.getMessage()));
+            }
+        });
+    }
+
+    private void clearAttachment() {
+        pendingAttachment = null;
+        attachmentBanner.setVisibility(View.GONE);
+    }
+
     private void sendTypedMessage() {
         String text = typedInput.getText() == null ? "" : typedInput.getText().toString().trim();
-        if (text.isEmpty()) {
+        if (text.isEmpty() && pendingAttachment == null) {
             return;
+        }
+        if (text.isEmpty()) {
+            text = "video".equals(pendingAttachment.kind)
+                    ? "What is happening in this video?"
+                    : "What do you see in this photo?";
         }
         typedInput.setText("");
         processUserPrompt(text, false);
     }
 
     private void processUserPrompt(String text, boolean voiceTurn) {
-        appendMessage(new ChatHistoryStore.ChatMessage("user", text, "YOU", "", 0));
+        MediaChatHelper.MediaAttachment attached = pendingAttachment;
+        clearAttachment();
+
+        String displayPrompt = attached == null ? text : ("[" + attached.label + "] " + text);
+        appendMessage(new ChatHistoryStore.ChatMessage("user", displayPrompt, "YOU", "", 0));
+        if (attached != null) {
+            handleAttachedMediaPrompt(attached, text, voiceTurn);
+            return;
+        }
         updatePendingActionPlan(text);
 
         // Explicit memory commands, sovereign identity questions & stop always answer directly via Zoe's Glass-Box Stem
@@ -775,6 +885,78 @@ public final class ConversationActivity extends ComponentActivity {
             return;
         }
         runCloudStreaming(provider, text, autoRouted, webSearchEnabled, voiceTurn);
+    }
+
+    private void handleAttachedMediaPrompt(
+            MediaChatHelper.MediaAttachment attached,
+            String userPrompt,
+            boolean voiceTurn) {
+        status.setText("Analyzing " + attached.label + "…");
+        long t0 = System.currentTimeMillis();
+        String geminiKey = MultiAiClient.savedKey(this, MultiAiClient.Provider.GEMINI);
+        File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+
+        executor.execute(() -> {
+            if (!geminiKey.isEmpty() && attached.jpegBytes != null && attached.jpegBytes.length > 0) {
+                try {
+                    String visionReply = CloudVisionClient.askVision(
+                            geminiKey,
+                            MultiAiClient.savedModel(this, MultiAiClient.Provider.GEMINI),
+                            MultiAiClient.ZOE_SYSTEM_PROMPT + "\nUser asked: " + userPrompt
+                                    + "\nAdditional offline analysis:\n" + attached.offlineReport,
+                            attached.jpegBytes);
+                    long dt = System.currentTimeMillis() - t0;
+                    runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            deliverAssistantReply(
+                                    OnDeviceLlmEngine.enforceZoeSovereignty(visionReply),
+                                    "GEMINI VISION · " + attached.kind.toUpperCase(Locale.US),
+                                    "Multimodal Cloud Vision + Offline ML Kit · " + attached.label + " · " + dt + " ms",
+                                    dt,
+                                    "Analyzed " + attached.label + " with Vision.",
+                                    voiceTurn,
+                                    null);
+                        }
+                    });
+                    return;
+                } catch (Exception ignored) {
+                }
+            }
+            if (localModel != null) {
+                try {
+                    String label = OnDeviceLlmEngine.modelLabelForFile(localModel);
+                    String prompt = OnDeviceLlmEngine.buildChatMlPrompt(
+                            userPrompt + "\n\nVisual observations from the user's " + attached.kind + ":\n" + attached.offlineReport,
+                            currentThread.messages, buildMemorySummary(), "");
+                    String reply = localLlm.generateStreaming(localModel, prompt, null);
+                    long dt = System.currentTimeMillis() - t0;
+                    runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            deliverAssistantReply(
+                                    reply,
+                                    label + " · " + attached.kind.toUpperCase(Locale.US),
+                                    "100% Offline ML Kit + " + label + " · " + attached.label + " · " + dt + " ms",
+                                    dt,
+                                    "Analyzed " + attached.label + " 100% offline.",
+                                    voiceTurn,
+                                    null);
+                        }
+                    });
+                    return;
+                } catch (Exception ignored) {
+                }
+            }
+            long dt = System.currentTimeMillis() - t0;
+            String stemReply = "Offline " + attached.label + " inspection:\n\n" + attached.offlineReport
+                    + "\n\n(Add a Gemini API key in ⚙ Brain or install Zoe Local 1.5B for deeper visual Q&A.)";
+            runOnUiThread(() -> {
+                if (!isFinishing() && !isDestroyed()) {
+                    deliverAssistantReply(stemReply, "ZOE VISION · OFFLINE",
+                            "Bundled ML Kit OCR + Labels · " + attached.label, dt,
+                            "Inspected " + attached.label + " offline.", voiceTurn, null);
+                }
+            });
+        });
     }
 
     private void runWebOnlyStem(String prompt, boolean autoRouted, boolean voiceTurn) {

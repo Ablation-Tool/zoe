@@ -67,6 +67,42 @@
     <item name="conversation_brain_settings" type="id" />
     <item name="conversation_threads_btn" type="id" />
     <item name="conversation_new_chat_btn" type="id" />
+    <item name="conversation_attach_btn" type="id" />
+    <item name="conversation_live_btn" type="id" />
+    <item name="live_orb_view" type="id" />
+    <item name="live_state_badge" type="id" />
+    <item name="live_caption_view" type="id" />
+    <item name="live_camera_toggle" type="id" />
+    <item name="live_hizoe_toggle" type="id" />
+    <item name="live_web_toggle" type="id" />
+    <item name="live_voice_toggle" type="id" />
+    <item name="live_look_button" type="id" />
+    <item name="live_talk_button" type="id" />
+    <item name="live_stop_button" type="id" />
+    <item name="studio_tab_image" type="id" />
+    <item name="studio_tab_video" type="id" />
+    <item name="studio_status" type="id" />
+    <item name="studio_image_preview" type="id" />
+    <item name="studio_edit_summary" type="id" />
+    <item name="studio_command_input" type="id" />
+    <item name="studio_apply_cmd" type="id" />
+    <item name="studio_video_preview" type="id" />
+    <item name="studio_video_status" type="id" />
+    <item name="studio_render_mp4" type="id" />
+    <item name="arcade_status" type="id" />
+    <item name="arcade_tab_memory" type="id" />
+    <item name="arcade_tab_ttt" type="id" />
+    <item name="arcade_tab_signal" type="id" />
+    <item name="arcade_tab_20q" type="id" />
+    <item name="arcade_memory_start" type="id" />
+    <item name="arcade_ttt_cell0" type="id" />
+    <item name="vault_status" type="id" />
+    <item name="vault_safety_number" type="id" />
+    <item name="vault_peer_key" type="id" />
+    <item name="vault_message_input" type="id" />
+    <item name="vault_seal_btn" type="id" />
+    <item name="vault_unseal_btn" type="id" />
+    <item name="vault_output" type="id" />
     <item name="apps_status" type="id" />
     <item name="apps_picker" type="id" />
     <item name="apps_report" type="id" />

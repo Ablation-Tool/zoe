@@ -77,7 +77,7 @@ enum GemPalette {
 // MARK: - Zapps
 
 enum ZappID: String, CaseIterable, Identifiable {
-    case vision, talk, maps, volume, trinity, device, safeconvert
+    case vision, talk, live, creative, arcade, vault, maps, volume, trinity, device, safeconvert
 
     var id: String { rawValue }
 
@@ -85,6 +85,10 @@ enum ZappID: String, CaseIterable, Identifiable {
         switch self {
         case .vision: return "Guided vision"
         case .talk: return "Talk"
+        case .live: return "Zoe Explore"
+        case .creative: return "Creative Studio"
+        case .arcade: return "Zoe Arcade"
+        case .vault: return "Privacy Vault"
         case .maps: return "Maps & Safety"
         case .volume: return "Accessible volume"
         case .trinity: return "Trinity"
@@ -96,7 +100,11 @@ enum ZappID: String, CaseIterable, Identifiable {
     var simpleHelper: String {
         switch self {
         case .vision: return "Look around & read aloud"
-        case .talk: return "Speak or type calmly with Zoe"
+        case .talk: return "Hybrid Chat, Web & Multi-AI"
+        case .live: return "Say 'Hi Zoe' · Voice orb"
+        case .creative: return "Edit photos & create stories"
+        case .arcade: return "Play offline games with Zoe"
+        case .vault: return "Signal-grade E2EE & Safety Number"
         case .maps: return "Live GPS, Apple & Google Maps"
         case .volume: return "Count open choices clearly"
         case .trinity: return "Link phone & computer"
@@ -108,7 +116,11 @@ enum ZappID: String, CaseIterable, Identifiable {
     var systemImage: String {
         switch self {
         case .vision: return "eye"
-        case .talk: return "waveform"
+        case .talk: return "bubble.left.and.bubble.right"
+        case .live: return "waveform.circle"
+        case .creative: return "photo.artframe"
+        case .arcade: return "gamecontroller"
+        case .vault: return "lock.shield"
         case .maps: return "map"
         case .volume: return "chart.bar"
         case .trinity: return "triangle"
@@ -119,10 +131,11 @@ enum ZappID: String, CaseIterable, Identifiable {
 
     var accent: Color {
         switch self {
-        case .vision, .trinity: return GemPalette.cobalt
+        case .vision, .live, .trinity: return GemPalette.cobalt
         case .talk, .safeconvert: return GemPalette.ruby
-        case .maps: return GemPalette.seafoam
-        case .volume, .device: return GemPalette.emerald
+        case .creative: return GemPalette.ochre
+        case .arcade, .volume, .device: return GemPalette.emerald
+        case .vault, .maps: return GemPalette.seafoam
         }
     }
 }

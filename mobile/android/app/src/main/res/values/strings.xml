@@ -5,4 +5,6 @@
     <string name="volume_tab">Accessible volume</string>
     <string name="app_subtitle">Partner + Nicholas · research = fun = discovery</string>
     <string name="accessibility_description">Zoe Screen Space performs screenshots and gestures only when you explicitly request them. It does not passively read screen content, monitor accessibility events, bypass lock screens, or execute background gestures.</string>
+    <string name="shortcut_hi_zoe_short">Hi Zoe</string>
+    <string name="shortcut_hi_zoe_long">Hi Zoe — Hang out in Zoe Explore</string>
 </resources>

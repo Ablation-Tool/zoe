@@ -519,7 +519,7 @@ struct AboutZoeSheet: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.5.0-beta · Hybrid Offline + Online · Free")
+                    Text("v0.6.0-beta · Live, Studio, Arcade & Hybrid · Free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }

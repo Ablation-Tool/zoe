@@ -205,6 +205,10 @@ struct ZappScreen: View {
         switch zapp {
         case .vision: GuidedVisionView(selection: $selection)
         case .talk: ConversationView(onGoHome: onGoHome, onOpenMapsSafety: { onOpenZapp(.maps) })
+        case .live: ZoeLiveView()
+        case .creative: CreativeStudioView()
+        case .arcade: ZoeArcadeView()
+        case .vault: PrivacyVaultView()
         case .maps: MapsSafetyView(onOpenSafeConvert: { onOpenZapp(.safeconvert) })
         case .volume: VolumeView()
         case .trinity: TrinityView()

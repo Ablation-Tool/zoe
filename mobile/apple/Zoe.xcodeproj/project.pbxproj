@@ -76,6 +76,10 @@
 				A10000000000000000000054,
 				A10000000000000000000056,
 				A1000000000000000000005A,
+				A10000000000000000000064,
+				A10000000000000000000066,
+				A10000000000000000000068,
+				A1000000000000000000006C,
 			);
 			path = Zoe;
 			sourceTree = "<group>";
@@ -91,6 +95,8 @@
 				A1000000000000000000005C,
 				A1000000000000000000005E,
 				A10000000000000000000060,
+				A10000000000000000000062,
+				A1000000000000000000006A,
 			);
 			name = ZoeCore;
 			path = ../shared/Sources/ZoeCore;
@@ -130,6 +136,12 @@
 				A1000000000000000000005D,
 				A1000000000000000000005F,
 				A10000000000000000000061,
+				A10000000000000000000063,
+				A10000000000000000000065,
+				A10000000000000000000067,
+				A10000000000000000000069,
+				A1000000000000000000006B,
+				A1000000000000000000006D,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +306,18 @@
 		A1000000000000000000005F = {isa = PBXBuildFile; fileRef = A1000000000000000000005E; };
 		A10000000000000000000060 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSearchClient.swift; sourceTree = "<group>"; };
 		A10000000000000000000061 = {isa = PBXBuildFile; fileRef = A10000000000000000000060; };
+		A10000000000000000000062 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeAndArcadeCore.swift; sourceTree = "<group>"; };
+		A10000000000000000000063 = {isa = PBXBuildFile; fileRef = A10000000000000000000062; };
+		A10000000000000000000064 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoeLiveView.swift; sourceTree = "<group>"; };
+		A10000000000000000000065 = {isa = PBXBuildFile; fileRef = A10000000000000000000064; };
+		A10000000000000000000066 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreativeStudioView.swift; sourceTree = "<group>"; };
+		A10000000000000000000067 = {isa = PBXBuildFile; fileRef = A10000000000000000000066; };
+		A10000000000000000000068 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoeArcadeView.swift; sourceTree = "<group>"; };
+		A10000000000000000000069 = {isa = PBXBuildFile; fileRef = A10000000000000000000068; };
+		A1000000000000000000006A = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoeSignalAndWakeCore.swift; sourceTree = "<group>"; };
+		A1000000000000000000006B = {isa = PBXBuildFile; fileRef = A1000000000000000000006A; };
+		A1000000000000000000006C = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyVaultView.swift; sourceTree = "<group>"; };
+		A1000000000000000000006D = {isa = PBXBuildFile; fileRef = A1000000000000000000006C; };
 	};
 	rootObject = A10000000000000000000001;
 }

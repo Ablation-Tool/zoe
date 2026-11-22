@@ -27,6 +27,7 @@
         <package android:name="com.anthropic.claude" />
         <package android:name="ai.x.grok" />
         <package android:name="com.openai.chatgpt" />
+        <package android:name="org.thoughtcrime.securesms" />
         <package android:name="com.google.android.apps.maps" />
         <package android:name="com.google.android.apps.safetyhub" />
         <package android:name="com.android.emergency" />
@@ -86,6 +87,9 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity android:name=".CellActivity" android:exported="false" />
         <activity android:name=".FieldKitActivity" android:exported="false" />
@@ -102,6 +106,18 @@
         <activity android:name=".SafeConvertActivity" android:exported="false" />
         <activity android:name=".TripJournalActivity" android:exported="false" />
         <activity android:name=".ElizaGemActivity" android:exported="false" />
+        <activity
+            android:name=".ZoeLiveActivity"
+            android:exported="true"
+            android:label="Zoe Explore">
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CreativeStudioActivity" android:exported="false" />
+        <activity android:name=".ZoeArcadeActivity" android:exported="false" />
+        <activity android:name=".PrivacyVaultActivity" android:exported="false" />
         <service
             android:name=".ZoeAccessibilityService"
             android:exported="true"

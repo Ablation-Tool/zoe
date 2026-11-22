@@ -185,7 +185,9 @@ final class ChatHistoryStore {
             while ((read = in.read(buf)) != -1) {
                 out.write(buf, 0, read);
             }
-            return fromJson(new String(out.toByteArray(), StandardCharsets.UTF_8));
+            String raw = new String(out.toByteArray(), StandardCharsets.UTF_8);
+            String plainJson = ZoeSignalCrypto.decryptFromVault(ctx, raw);
+            return fromJson(plainJson);
         } catch (Exception ignored) {
             return new ArrayList<>();
         }
@@ -197,7 +199,8 @@ final class ChatHistoryStore {
         }
         File file = new File(ctx.getFilesDir(), FILE_NAME);
         try (FileOutputStream out = new FileOutputStream(file)) {
-            out.write(toJson(threads).getBytes(StandardCharsets.UTF_8));
+            String encrypted = ZoeSignalCrypto.encryptForVault(ctx, toJson(threads));
+            out.write(encrypted.getBytes(StandardCharsets.UTF_8));
             out.flush();
         } catch (Exception ignored) {
         }

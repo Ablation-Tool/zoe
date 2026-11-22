@@ -13,6 +13,10 @@ final class ZappLayoutStore {
     static final List<String> DEFAULT_ORDER = Collections.unmodifiableList(Arrays.asList(
             "vision",
             "talk",
+            "live",
+            "creative",
+            "arcade",
+            "vault",
             "journal",
             "studio",
             "maps",

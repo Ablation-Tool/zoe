@@ -235,6 +235,39 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(MultiAiClient.parseClaudeSseDelta(#"{"type":"content_block_delta","delta":{"text":"Zoe"}}"#), "Zoe")
     }
 
+    func testCreativeImageCommandParserAndArcadeMinimax() {
+        let spec = CreativeAndArcadeCore.parseImageEditCommand("warm, brighter, rotate, square, blur, caption Monterey")
+        XCTAssertEqual(spec.filter, .warmAtelier)
+        XCTAssertEqual(spec.brightness, 24)
+        XCTAssertEqual(spec.rotationDeg, 90)
+        XCTAssertEqual(spec.crop, .square)
+        XCTAssertTrue(spec.privacyBlur)
+        XCTAssertEqual(spec.caption, "Monterey")
+
+        let reset = CreativeAndArcadeCore.parseImageEditCommand("reset", current: spec)
+        XCTAssertEqual(reset.filter, .original)
+        XCTAssertEqual(reset.caption, "")
+
+        // Minimax blocks immediate X win & wins when available
+        XCTAssertEqual(CreativeAndArcadeCore.chooseZoeMove([1, 1, 0, 0, 2, 0, 0, 0, 0], unbeatable: true), 2)
+        XCTAssertEqual(CreativeAndArcadeCore.chooseZoeMove([1, 0, 1, 2, 2, 0, 0, 0, 1], unbeatable: true), 5)
+        XCTAssertEqual(CreativeAndArcadeCore.evaluateSignalPuzzle(probs: [0.40, 0.25, 0.20, 0.10, 0.05], tau: 0.20), 2)
+    }
+
+    func testSignalSafetyNumberAndHiZoeWakeWord() {
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hi Zoe"))
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hey Zoe, let's hang out"))
+        XCTAssertFalse(ZoeSignalAndWakeCore.isHiZoeTrigger("How do rainbows work?"))
+        XCTAssertEqual(ZoeSignalAndWakeCore.stripWakePrefix("Hi Zoe, tell me a story"), "tell me a story")
+
+        let a: [UInt8] = Array("alice-identity-pub-key-001".utf8)
+        let b: [UInt8] = Array("bob-identity-pub-key-002".utf8)
+        let fpAB = ZoeSignalAndWakeCore.computeSafetyNumber(keyA: a, keyB: b)
+        let fpBA = ZoeSignalAndWakeCore.computeSafetyNumber(keyA: b, keyB: a)
+        XCTAssertEqual(fpAB, fpBA)
+        XCTAssertEqual(fpAB.filter { $0.isNumber }.count, 60)
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,
