@@ -73,6 +73,7 @@ public final class SafeConvertActivity extends ComponentActivity {
 
         webView = new WebView(this);
         webView.setId(R.id.safe_web);
+        webView.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         webView.setContentDescription("Offline unit converter and safety resources");
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -123,7 +124,8 @@ public final class SafeConvertActivity extends ComponentActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
         setContentView(Ui.wrapWithBackdrop(this, content));
         Ui.configureEdgeToEdge(this, content);
-        webView.loadUrl(ASSET_PREFIX + "index.html");
+        String themeParam = Ui.isDark(this) ? "dark" : "light";
+        webView.loadUrl(ASSET_PREFIX + "index.html?theme=" + themeParam);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override

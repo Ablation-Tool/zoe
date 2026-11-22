@@ -76,11 +76,11 @@ struct DeskHomeView: View {
                 showInfo = true
             } label: {
                 HStack(spacing: 6) {
-                    Text("Zoe")
+                    Text("Zoe Bulb")
                         .font(.system(size: 21, weight: .regular))
                         .foregroundStyle(GemPalette.ink)
-                    Text("Offline")
-                        .font(.system(size: 17, weight: .regular))
+                    Text("beta")
+                        .font(.system(size: 16, weight: .regular))
                         .foregroundStyle(GemPalette.muted)
                     Circle()
                         .fill(GemPalette.cobalt)
@@ -509,11 +509,11 @@ struct AboutZoeSheet: View {
                     .frame(width: 44, height: 44)
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Zoe")
+                    Text("Zoe Bulb (beta)")
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.2.0 · Offline-first · Free")
+                    Text("v0.2.0-beta · Offline-first · Free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }

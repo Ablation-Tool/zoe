@@ -101,13 +101,13 @@ final class HomeView extends ScrollView {
         brandTap.setContentDescription("About Zoe");
         brandTap.setOnClickListener(v -> showAboutSheet());
 
-        TextView brandTitle = Ui.text(activity, "Zoe", 21f, Ui.TEXT);
+        TextView brandTitle = Ui.text(activity, "Zoe Bulb", 21f, Ui.TEXT);
         brandTitle.setTypeface(Ui.SANS_REGULAR);
         brandTitle.setPadding(0, 0, Ui.dp(activity, 6), 0);
         ViewCompat.setAccessibilityHeading(brandTitle, true);
         brandTap.addView(brandTitle);
 
-        modePillLabel = Ui.text(activity, "Offline", 17f, Ui.MUTED);
+        modePillLabel = Ui.text(activity, "beta", 16f, Ui.MUTED);
         modePillLabel.setPadding(0, 0, Ui.dp(activity, 6), 0);
         brandTap.addView(modePillLabel);
 
@@ -328,7 +328,7 @@ final class HomeView extends ScrollView {
     void refreshDynamic() {
         savedSightingsCount = TripJournalStore.load(getContext()).size();
         String net = Ui.networkStatusLabel(getContext());
-        modePillLabel.setText("Offline".equals(net) ? "Offline" : "Private");
+        modePillLabel.setText("Offline".equals(net) ? "beta · offline" : "beta");
         renderZapps();
     }
 
@@ -545,12 +545,12 @@ final class HomeView extends ScrollView {
         LinearLayout titleCol = new LinearLayout(ctx);
         titleCol.setOrientation(LinearLayout.VERTICAL);
         titleCol.setPadding(Ui.dp(ctx, 14), 0, 0, 0);
-        TextView title = Ui.text(ctx, "Zoe", 22f, Ui.TEXT);
+        TextView title = Ui.text(ctx, "Zoe Bulb (beta)", 22f, Ui.TEXT);
         title.setTypeface(Ui.SANS_MEDIUM);
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.2.0 · Offline-first · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.2.0-beta · Offline-first · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

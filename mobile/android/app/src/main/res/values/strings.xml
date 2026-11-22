@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Zoe</string>
+    <string name="app_name">Zoe Bulb</string>
     <string name="vision_tab">Guided vision</string>
     <string name="volume_tab">Accessible volume</string>
     <string name="app_subtitle">Partner + Nicholas · research = fun = discovery</string>

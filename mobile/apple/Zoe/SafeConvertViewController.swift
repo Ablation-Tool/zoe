@@ -12,6 +12,9 @@ final class SafeConvertViewController: UIViewController, WKNavigationDelegate, W
         configuration.allowsInlineMediaPlayback = true
         configuration.websiteDataStore = .default()
         webView = WKWebView(frame: view.bounds, configuration: configuration)
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        webView.scrollView.backgroundColor = .clear
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.navigationDelegate = self
         webView.uiDelegate = self

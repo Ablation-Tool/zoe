@@ -1,6 +1,8 @@
-# Zoe Mobile
+# Zoe Bulb (beta) — Mobile Companion
 
-Original native Android and Apple interfaces for **Zoe · NuClide Research**. The mobile work keeps three capabilities separate:
+> **Status:** **Zoe Bulb (beta)** (`v0.2.0-beta`) is a free, offline-first, privacy-respecting work-in-progress mobile app for **Android** (verified on Pixel 7, direct beta APK on [GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)) and **Apple** (`iPhone`, `iPad`, & `iPhone Duo Fold` native SwiftUI + shared `ZoeCore` package).
+
+Original native Android and Apple interfaces for **Zoe · NuClide Research**, designed in a calm, high-contrast **Google Gemini Material 3 Expressive** layout anchored by the **Zoe GEM-Ellipsis** emblem (tap any GEM logo to return straight to the Home screen), with matching redesigned **SafeConvert**, offline **`ZoeBrainEngine`** (Kloster $A_{0.08}$ metacognition + SHA-256 hash-chained memory), native **44.1 kHz Rosenberg-Klatt Voice & `Sing Zoe`**, and **Eliza-GEM Studio** (offline Chladni cymatics + live L5 Phases 3, 4 & 5 scorecards). The mobile work keeps three capabilities separate:
 
 1. **Deterministic Zoe:** strict accessible-volume measurement, local voice-command parsing, bounded protocol experiments, and review-required observations.
 2. **Optional on-device AI:** Gemini Nano image descriptions through the public ML Kit GenAI API when Android and the installed model support it. Apple uses its native Vision framework instead.
