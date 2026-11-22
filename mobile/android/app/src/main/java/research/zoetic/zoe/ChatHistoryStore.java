@@ -27,16 +27,22 @@ final class ChatHistoryStore {
     static final class ChatMessage {
         final String role;       // "user" or "zoe"
         final String text;
-        final String provider;   // e.g. "ZOE STEM", "LOCAL QWEN 1.5B", "CLAUDE"
+        final String provider;   // e.g. "ZOE STEM", "ZOE LOCAL · 1.5B", "CLAUDE"
         final String glassBox;   // Kloster A_tau(p) & epistemic telemetry
         final long latencyMs;
+        final List<String> sources; // Optional "Label|https://..." clickable citations
 
         ChatMessage(String role, String text, String provider, String glassBox, long latencyMs) {
+            this(role, text, provider, glassBox, latencyMs, null);
+        }
+
+        ChatMessage(String role, String text, String provider, String glassBox, long latencyMs, List<String> sources) {
             this.role = role == null ? "zoe" : role;
             this.text = text == null ? "" : text;
             this.provider = provider == null ? "" : provider;
             this.glassBox = glassBox == null ? "" : glassBox;
             this.latencyMs = Math.max(0L, latencyMs);
+            this.sources = sources == null ? new ArrayList<>() : new ArrayList<>(sources);
         }
     }
 
@@ -93,6 +99,9 @@ final class ChatHistoryStore {
                     mm.put("provider", m.provider);
                     mm.put("glassBox", m.glassBox);
                     mm.put("latencyMs", m.latencyMs);
+                    if (!m.sources.isEmpty()) {
+                        mm.put("sources", new ArrayList<Object>(m.sources));
+                    }
                     msgs.add(mm);
                 }
                 tm.put("messages", msgs);
@@ -136,12 +145,22 @@ final class ChatHistoryStore {
                         if (latObj instanceof Number) {
                             lat = ((Number) latObj).longValue();
                         }
+                        List<String> parsedSources = new ArrayList<>();
+                        List<Object> rawSources = MiniJson.asArray(mm.get("sources"));
+                        if (rawSources != null) {
+                            for (Object sObj : rawSources) {
+                                if (sObj instanceof String && !((String) sObj).trim().isEmpty()) {
+                                    parsedSources.add(((String) sObj).trim());
+                                }
+                            }
+                        }
                         msgs.add(new ChatMessage(
                                 MiniJson.asString(mm, "role", "zoe"),
                                 MiniJson.asString(mm, "text", ""),
                                 MiniJson.asString(mm, "provider", ""),
                                 MiniJson.asString(mm, "glassBox", ""),
-                                lat));
+                                lat,
+                                parsedSources));
                     }
                 }
                 out.add(new ChatThread(id, title, updated, msgs));

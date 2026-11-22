@@ -180,17 +180,30 @@ final class OnDeviceLlmEngine {
     }
 
     /**
-     * Builds a compact ChatML prompt grounded in Zoe's Constitution and recent private notes.
+     * Builds a compact ChatML prompt grounded in Zoe's Constitution, recent private notes,
+     * and optional opt-in live web citations.
      */
     static String buildChatMlPrompt(
             String userPrompt,
             List<ChatHistoryStore.ChatMessage> recentHistory,
             String memorySummary) {
+        return buildChatMlPrompt(userPrompt, recentHistory, memorySummary, "");
+    }
+
+    static String buildChatMlPrompt(
+            String userPrompt,
+            List<ChatHistoryStore.ChatMessage> recentHistory,
+            String memorySummary,
+            String webContext) {
         StringBuilder sb = new StringBuilder();
         sb.append("<|im_start|>system\n");
         sb.append(MultiAiClient.ZOE_SYSTEM_PROMPT);
         if (memorySummary != null && !memorySummary.trim().isEmpty()) {
             sb.append("\nPrivate on-device memory:\n").append(memorySummary.trim());
+        }
+        if (webContext != null && !webContext.trim().isEmpty()) {
+            sb.append("\nLive verified web facts (ground your answer in these concisely):\n")
+                    .append(webContext.trim());
         }
         sb.append("<|im_end|>\n");
         // Identity few-shot anchor so local base weights never leak third-party corporate personas
@@ -351,6 +364,7 @@ final class OnDeviceLlmEngine {
         }
         String cleaned = raw.replace("<|im_end|>", "")
                 .replace("<|endoftext|>", "")
+                .replace("\\n", "\n")
                 .trim();
         return enforceZoeSovereignty(cleaned);
     }

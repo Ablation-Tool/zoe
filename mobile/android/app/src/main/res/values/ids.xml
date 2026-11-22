@@ -58,10 +58,12 @@
     <item name="conversation_action_bar" type="id" />
     <item name="conversation_action_btn" type="id" />
     <item name="conversation_chat_feed" type="id" />
+    <item name="conversation_mode_auto" type="id" />
     <item name="conversation_mode_stem" type="id" />
     <item name="conversation_mode_local_llm" type="id" />
     <item name="conversation_mode_lab" type="id" />
     <item name="conversation_mode_cloud" type="id" />
+    <item name="conversation_web_toggle" type="id" />
     <item name="conversation_brain_settings" type="id" />
     <item name="conversation_threads_btn" type="id" />
     <item name="conversation_new_chat_btn" type="id" />

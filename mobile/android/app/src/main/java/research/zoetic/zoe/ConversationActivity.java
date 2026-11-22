@@ -64,6 +64,7 @@ public final class ConversationActivity extends ComponentActivity {
     private static final int MICROPHONE_PERMISSION = 73;
 
     private enum BrainMode {
+        AUTO,
         STEM,
         LOCAL_LLM,
         LAB_QWEN,
@@ -79,15 +80,18 @@ public final class ConversationActivity extends ComponentActivity {
     private final List<ChatHistoryStore.ChatThread> threads = new ArrayList<>();
     private ChatHistoryStore.ChatThread currentThread;
 
-    private BrainMode brainMode = BrainMode.STEM;
+    private BrainMode brainMode = BrainMode.AUTO;
+    private boolean webSearchEnabled;
     private TextView status;
     private ScrollView chatScroll;
     private LinearLayout chatFeed;
     private EditText typedInput;
+    private Button modeAutoBtn;
     private Button modeStemBtn;
     private Button modeLocalLlmBtn;
     private Button modeLabBtn;
     private Button modeCloudBtn;
+    private Button webToggleBtn;
     private Button captionToggle;
     private Spinner voicePicker;
     private LinearLayout osActionBar;
@@ -129,9 +133,9 @@ public final class ConversationActivity extends ComponentActivity {
         LinearLayout headerWrap = Ui.vertical(this);
         headerWrap.setBackgroundColor(Color.TRANSPARENT);
         headerWrap.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 4));
-        headerWrap.addView(Ui.topBar(this, "Zoe Chat", "Glass-Box · Offline · Multi-AI"));
+        headerWrap.addView(Ui.topBar(this, "Zoe Chat", "Hybrid · Local LLM · Live Web · Multi-AI"));
 
-        // Top Live Brain Mode Switcher (Grok-fast pill strip!)
+        // Top Live Brain Mode Switcher (Hybrid Auto + Offline + Online + Web Grounding)
         HorizontalScrollView modeStrip = new HorizontalScrollView(this);
         modeStrip.setHorizontalScrollBarEnabled(false);
         LinearLayout modeRow = new LinearLayout(this);
@@ -139,14 +143,18 @@ public final class ConversationActivity extends ComponentActivity {
         modeRow.setGravity(Gravity.CENTER_VERTICAL);
         modeRow.setPadding(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
 
-        modeStemBtn = modeChip("Zoe Stem", v -> selectBrainMode(BrainMode.STEM));
-        modeStemBtn.setId(R.id.conversation_mode_stem);
+        modeAutoBtn = modeChip("⚡ Auto", v -> selectBrainMode(BrainMode.AUTO));
+        modeAutoBtn.setId(R.id.conversation_mode_auto);
         modeLocalLlmBtn = modeChip("Zoe Local", v -> selectBrainMode(BrainMode.LOCAL_LLM));
         modeLocalLlmBtn.setId(R.id.conversation_mode_local_llm);
-        modeLabBtn = modeChip("Lab Brain", v -> selectBrainMode(BrainMode.LAB_QWEN));
-        modeLabBtn.setId(R.id.conversation_mode_lab);
+        webToggleBtn = modeChip("Web: off", v -> toggleWebSearch());
+        webToggleBtn.setId(R.id.conversation_web_toggle);
+        modeStemBtn = modeChip("Zoe Stem", v -> selectBrainMode(BrainMode.STEM));
+        modeStemBtn.setId(R.id.conversation_mode_stem);
         modeCloudBtn = modeChip("Cloud AI", v -> selectBrainMode(BrainMode.CLOUD_AI));
         modeCloudBtn.setId(R.id.conversation_mode_cloud);
+        modeLabBtn = modeChip("Lab Brain", v -> selectBrainMode(BrainMode.LAB_QWEN));
+        modeLabBtn.setId(R.id.conversation_mode_lab);
         Button brainSettingsBtn = modeChip("⚙ Brain", v -> showBrainCouncilSheet());
         brainSettingsBtn.setId(R.id.conversation_brain_settings);
         Button threadsBtn = modeChip("Threads", v -> showThreadsSheet());
@@ -154,8 +162,8 @@ public final class ConversationActivity extends ComponentActivity {
         Button newChatBtn = modeChip("+ New", v -> startNewThread());
         newChatBtn.setId(R.id.conversation_new_chat_btn);
 
-        for (Button b : new Button[]{modeStemBtn, modeLocalLlmBtn, modeLabBtn, modeCloudBtn,
-                brainSettingsBtn, threadsBtn, newChatBtn}) {
+        for (Button b : new Button[]{modeAutoBtn, modeLocalLlmBtn, webToggleBtn, modeStemBtn,
+                modeCloudBtn, modeLabBtn, brainSettingsBtn, threadsBtn, newChatBtn}) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 40));
             lp.setMargins(0, 0, Ui.dp(this, 6), 0);
@@ -165,7 +173,7 @@ public final class ConversationActivity extends ComponentActivity {
         headerWrap.addView(modeStrip);
 
         // Status + compact Caption / Voice row (keeps all Espresso IDs immediately accessible!)
-        status = Ui.text(this, "Zoe Stem ready (offline · 0 cloud tokens). Tap Brain for Local LLM or Cloud Council.", 13.5f, Ui.COBALT);
+        status = Ui.text(this, "⚡ Auto hybrid ready (offline-first · tap Web: off to enable live citations).", 13.5f, Ui.COBALT);
         status.setId(R.id.conversation_status);
         status.setPadding(Ui.dp(this, 4), Ui.dp(this, 2), Ui.dp(this, 4), Ui.dp(this, 4));
         headerWrap.addView(status);
@@ -331,15 +339,39 @@ public final class ConversationActivity extends ComponentActivity {
         return b;
     }
 
+    private void toggleWebSearch() {
+        webSearchEnabled = !webSearchEnabled;
+        styleBrainModeStrip();
+        status.setText(webSearchEnabled
+                ? "Live Web Grounding ON (zero-key DuckDuckGo + Wikipedia citations · HTTPS-only)."
+                : "Live Web Grounding OFF (100% offline local mode).");
+    }
+
     private void selectBrainMode(BrainMode next) {
         brainMode = next;
         styleBrainModeStrip();
         switch (next) {
-            case STEM -> status.setText("Zoe Stem active (instant <5ms · 100% offline · Kloster A_0.08 + memory).");
+            case AUTO -> {
+                MultiAiClient.Provider p = MultiAiClient.activeProvider(this);
+                boolean hasCloudKey = !MultiAiClient.savedKey(this, p).isEmpty();
+                File model = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+                if (hasCloudKey) {
+                    status.setText("⚡ Auto hybrid: Stem tools + live " + p.displayName + " streaming"
+                            + (webSearchEnabled ? " + Web." : "."));
+                } else if (model != null) {
+                    status.setText("⚡ Auto hybrid: Stem tools + " + OnDeviceLlmEngine.modelLabelForFile(model)
+                            + (webSearchEnabled ? " + Live Web." : " (offline)."));
+                } else {
+                    status.setText("⚡ Auto hybrid: Zoe Stem" + (webSearchEnabled ? " + Live Web." : " offline."));
+                }
+            }
+            case STEM -> status.setText("Zoe Stem active (instant <5ms · Kloster A_0.08 + memory"
+                    + (webSearchEnabled ? " + Live Web)." : " · 100% offline)."));
             case LOCAL_LLM -> {
                 File model = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
                 if (model != null) {
-                    status.setText("On-Device Local LLM ready (" + OnDeviceLlmEngine.modelLabelForFile(model) + " · 100% offline).");
+                    status.setText("On-Device Local LLM ready (" + OnDeviceLlmEngine.modelLabelForFile(model)
+                            + (webSearchEnabled ? " + Live Web)." : " · 100% offline)."));
                 } else {
                     status.setText("No Zoe Local model downloaded yet. Tap ⚙ Brain to download an offline neural pack (0.5B or 1.5B).");
                     showBrainCouncilSheet();
@@ -352,7 +384,8 @@ public final class ConversationActivity extends ComponentActivity {
                 if (p != MultiAiClient.Provider.LOCAL_OPENAI && key.isEmpty()) {
                     status.setText("No " + p.displayName + " API key saved yet. Tap ⚙ Brain to add a key or switch provider.");
                 } else {
-                    status.setText("Cloud AI ready (" + p.displayName + " · " + MultiAiClient.savedModel(this, p) + ").");
+                    status.setText("Online Streaming ready (" + p.displayName + " · " + MultiAiClient.savedModel(this, p)
+                            + (webSearchEnabled ? " + Live Web)." : ")."));
                 }
             }
         }
@@ -361,10 +394,13 @@ public final class ConversationActivity extends ComponentActivity {
     private void styleBrainModeStrip() {
         MultiAiClient.Provider activeCloud = MultiAiClient.activeProvider(this);
         modeCloudBtn.setText(activeCloud == MultiAiClient.Provider.LOCAL_OPENAI ? "Local API" : shortProviderName(activeCloud));
+        webToggleBtn.setText(webSearchEnabled ? "Web: on" : "Web: off");
+        styleChip(modeAutoBtn, brainMode == BrainMode.AUTO);
         styleChip(modeStemBtn, brainMode == BrainMode.STEM);
         styleChip(modeLocalLlmBtn, brainMode == BrainMode.LOCAL_LLM);
         styleChip(modeLabBtn, brainMode == BrainMode.LAB_QWEN);
         styleChip(modeCloudBtn, brainMode == BrainMode.CLOUD_AI);
+        styleChip(webToggleBtn, webSearchEnabled);
     }
 
     private static String shortProviderName(MultiAiClient.Provider p) {
@@ -489,6 +525,46 @@ public final class ConversationActivity extends ComponentActivity {
         body.setTextIsSelectable(true);
         body.setPadding(0, Ui.dp(this, 8), 0, Ui.dp(this, 8));
         card.addView(body);
+
+        // Clickable Verified Web Source Chips (when Live Web Grounding was used)
+        if (!msg.sources.isEmpty()) {
+            HorizontalScrollView srcScroll = new HorizontalScrollView(this);
+            srcScroll.setHorizontalScrollBarEnabled(false);
+            LinearLayout srcRow = new LinearLayout(this);
+            srcRow.setOrientation(LinearLayout.HORIZONTAL);
+            srcRow.setPadding(0, Ui.dp(this, 2), 0, Ui.dp(this, 6));
+            for (String entry : msg.sources) {
+                int bar = entry.indexOf('|');
+                if (bar <= 0 || bar >= entry.length() - 1) {
+                    continue;
+                }
+                String label = entry.substring(0, bar);
+                String url = entry.substring(bar + 1);
+                if (!WebSearchClient.isSafeWebUrl(url)) {
+                    continue;
+                }
+                TextView srcChip = Ui.text(this, "🔗 " + label + " ↗", 12f, Ui.CYAN);
+                srcChip.setPadding(Ui.dp(this, 10), Ui.dp(this, 6), Ui.dp(this, 10), Ui.dp(this, 6));
+                srcChip.setBackground(Ui.tonalPillDrawable(this, Ui.tonalWellColor(this), Ui.CYAN, 14));
+                srcChip.setClickable(true);
+                srcChip.setFocusable(true);
+                srcChip.setOnClickListener(v -> {
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    } catch (ActivityNotFoundException ignored) {
+                        status.setText("No browser found to open " + url);
+                    }
+                });
+                LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                slp.setMargins(0, 0, Ui.dp(this, 6), 0);
+                srcRow.addView(srcChip, slp);
+            }
+            if (srcRow.getChildCount() > 0) {
+                srcScroll.addView(srcRow);
+                card.addView(srcScroll);
+            }
+        }
 
         // Collapsible Glass-Box Telemetry Drawer (Claude thinking x Kloster A_tau!)
         if (!msg.glassBox.isEmpty()) {
@@ -616,22 +692,53 @@ public final class ConversationActivity extends ComponentActivity {
             active = false;
             return;
         }
-        if (isMemoryCmd || isIdentityQuery || brainMode == BrainMode.STEM) {
+        boolean isActionCmd = !pendingPlan.isEmpty();
+        if (isMemoryCmd || isIdentityQuery || isActionCmd) {
             deliverLocalStem(text, "Zoe replied offline (0 cloud tokens · local stem).", voiceTurn);
             return;
         }
 
-        if (brainMode == BrainMode.LOCAL_LLM) {
-            File modelFile = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
-            if (modelFile == null) {
-                deliverLocalStem(text, "No Local LLM file installed yet — replied via Zoe Stem (tap ⚙ Brain to download).", voiceTurn);
-                return;
+        // Smart Hybrid Auto-Router: picks Cloud (if key configured) -> Zoe Local (if installed) -> Web -> Stem
+        BrainMode effectiveMode = brainMode;
+        boolean autoRouted = false;
+        if (brainMode == BrainMode.AUTO) {
+            autoRouted = true;
+            MultiAiClient.Provider activeCloud = MultiAiClient.activeProvider(this);
+            boolean hasCloudKey = !MultiAiClient.savedKey(this, activeCloud).isEmpty();
+            File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+            if (hasCloudKey) {
+                effectiveMode = BrainMode.CLOUD_AI;
+            } else if (localModel != null) {
+                effectiveMode = BrainMode.LOCAL_LLM;
+            } else {
+                effectiveMode = BrainMode.STEM;
             }
-            runOnDeviceLlm(modelFile, text, voiceTurn);
+        }
+
+        if (effectiveMode == BrainMode.STEM) {
+            if (webSearchEnabled) {
+                runWebOnlyStem(text, autoRouted, voiceTurn);
+            } else {
+                deliverLocalStem(text, "Zoe replied offline (0 cloud tokens · local stem).", voiceTurn);
+            }
             return;
         }
 
-        if (brainMode == BrainMode.LAB_QWEN) {
+        if (effectiveMode == BrainMode.LOCAL_LLM) {
+            File modelFile = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+            if (modelFile == null) {
+                if (webSearchEnabled) {
+                    runWebOnlyStem(text, autoRouted, voiceTurn);
+                } else {
+                    deliverLocalStem(text, "No Local LLM file installed yet — replied via Zoe Stem (tap ⚙ Brain to download).", voiceTurn);
+                }
+                return;
+            }
+            runOnDeviceLlm(modelFile, text, autoRouted, webSearchEnabled, voiceTurn);
+            return;
+        }
+
+        if (effectiveMode == BrainMode.LAB_QWEN) {
             String endpoint = ElizaGemClient.savedEndpoint(this);
             status.setText("Asking Workstation Lab (" + endpoint + ")…");
             long t0 = System.currentTimeMillis();
@@ -647,7 +754,7 @@ public final class ConversationActivity extends ComponentActivity {
                         String glass = "Eliza-GEM Lab · gear=" + res.gearUsed + " · mode=" + res.mode
                                 + " · A_tau=" + res.aTau + "/" + res.candidateCount;
                         deliverAssistantReply(safeLabReply, "LAB · " + res.gearUsed.toUpperCase(Locale.US), glass, dt,
-                                "Lab Brain replied (" + res.gearUsed + ").", voiceTurn);
+                                "Lab Brain replied (" + res.gearUsed + ").", voiceTurn, null);
                     });
                 } catch (Exception fallback) {
                     runOnUiThread(() -> {
@@ -660,60 +767,137 @@ public final class ConversationActivity extends ComponentActivity {
             return;
         }
 
-        // CLOUD_AI mode (Gemini / Claude / ChatGPT / Grok / Local OpenAI-Compatible Server)
+        // CLOUD_AI mode (Multi-Turn Online SSE Streaming: Gemini / Claude / ChatGPT / Grok / Local API)
         MultiAiClient.Provider provider = MultiAiClient.activeProvider(this);
         String key = MultiAiClient.savedKey(this, provider);
         if (provider != MultiAiClient.Provider.LOCAL_OPENAI && key.isEmpty()) {
             deliverLocalStem(text, "No " + provider.displayName + " key saved — replied offline via Zoe Stem.", voiceTurn);
             return;
         }
-        String model = MultiAiClient.savedModel(this, provider);
-        status.setText("Asking " + provider.displayName + " (" + model + ")…");
+        runCloudStreaming(provider, text, autoRouted, webSearchEnabled, voiceTurn);
+    }
+
+    private void runWebOnlyStem(String prompt, boolean autoRouted, boolean voiceTurn) {
+        status.setText("Searching live public web sources (HTTPS · zero trackers)…");
         long t0 = System.currentTimeMillis();
-        String memCtx = buildMemorySummary();
         executor.execute(() -> {
-            try {
-                String reply = MultiAiClient.ask(this, provider, text, memCtx);
-                long dt = System.currentTimeMillis() - t0;
-                runOnUiThread(() -> {
-                    if (!isFinishing() && !isDestroyed()) {
-                        String glass = "Provider: " + provider.displayName + " · Model: " + model
-                                + " · Grounded in Zoe Constitution";
-                        deliverAssistantReply(reply, shortProviderName(provider).toUpperCase(Locale.US) + " · " + model,
-                                glass, dt, provider.displayName + " replied.", voiceTurn);
-                    }
-                });
-            } catch (Exception error) {
-                runOnUiThread(() -> {
-                    if (!isFinishing() && !isDestroyed()) {
-                        deliverLocalStem(text, provider.displayName + " unavailable (" + error.getMessage() + ") — offline fallback.", voiceTurn);
-                    }
-                });
-            }
+            WebSearchClient.SearchResult sr = WebSearchClient.search(prompt);
+            long dt = System.currentTimeMillis() - t0;
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (sr.hasSources()) {
+                    String routeTag = autoRouted ? "⚡ AUTO → LIVE WEB" : "ZOE LIVE WEB";
+                    String glass = (autoRouted ? "Auto-Router → " : "") + "DuckDuckGo + Wikipedia · "
+                            + sr.sources.size() + " verified HTTPS sources · " + dt + " ms";
+                    deliverAssistantReply(sr.formatFallbackAnswer(), routeTag, glass, dt,
+                            "Live Web grounded (" + sr.sources.size() + " sources).", voiceTurn, sr.toSourceBadges());
+                } else {
+                    deliverLocalStem(prompt, "No direct web summary found — replied offline via Zoe Stem.", voiceTurn);
+                }
+            });
         });
     }
 
-    private void runOnDeviceLlm(File modelFile, String prompt, boolean voiceTurn) {
-        String label = OnDeviceLlmEngine.modelLabelForFile(modelFile);
-        status.setText("Running " + label + " offline on this phone…");
+    private void runCloudStreaming(
+            MultiAiClient.Provider provider,
+            String prompt,
+            boolean autoRouted,
+            boolean useWeb,
+            boolean voiceTurn) {
+        String model = MultiAiClient.savedModel(this, provider);
+        String providerBadge = shortProviderName(provider).toUpperCase(Locale.US) + " · " + model;
+        status.setText((useWeb ? "Searching live web + streaming " : "Streaming ") + provider.displayName + " (" + model + ")…");
 
-        // Render live streaming placeholder card right in the feed!
         LinearLayout streamCard = Ui.vertical(this);
         streamCard.setBackground(Ui.cardBackground(this, 22));
         streamCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, Ui.dp(this, 4), Ui.dp(this, 12), Ui.dp(this, 8));
-        streamCard.addView(Ui.text(this, "✦ " + label + " · STREAMING OFFLINE…", 12f, Ui.GREEN));
-        TextView streamBody = Ui.text(this, "Thinking locally…", 15.5f, Ui.TEXT);
+        streamCard.addView(Ui.text(this, "✦ " + providerBadge + " · STREAMING ONLINE…", 12f, Ui.COBALT));
+        TextView streamBody = Ui.text(this, useWeb ? "Gathering live citations & thinking…" : "Streaming live…", 15.5f, Ui.TEXT);
         streamBody.setPadding(0, Ui.dp(this, 8), 0, 0);
         streamCard.addView(streamBody);
         chatFeed.addView(streamCard, lp);
         scrollChatToBottom();
 
-        String formatted = OnDeviceLlmEngine.buildChatMlPrompt(prompt, currentThread.messages, buildMemorySummary());
+        List<ChatHistoryStore.ChatMessage> historySnapshot = new ArrayList<>(currentThread.messages);
+        String memCtx = buildMemorySummary();
         long t0 = System.currentTimeMillis();
         executor.execute(() -> {
+            WebSearchClient.SearchResult webRes = useWeb ? WebSearchClient.search(prompt) : null;
+            String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(1200) : "";
+            List<String> badges = (webRes != null && webRes.hasSources()) ? webRes.toSourceBadges() : null;
+            try {
+                String reply = MultiAiClient.askStreaming(
+                        this, provider, prompt, historySnapshot, memCtx, webCtx, useWeb,
+                        partial -> runOnUiThread(() -> {
+                            if (!isFinishing() && !isDestroyed() && !partial.isEmpty()) {
+                                streamBody.setText(partial);
+                                scrollChatToBottom();
+                            }
+                        }));
+                long dt = System.currentTimeMillis() - t0;
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        String glass = (autoRouted ? "Auto-Router → " : "")
+                                + "Provider: " + provider.displayName + " · Model: " + model
+                                + " · Multi-turn SSE"
+                                + (webRes != null && webRes.hasSources() ? " · Live Web (" + webRes.sources.size() + " sources)" : "");
+                        deliverAssistantReply(reply, providerBadge + (useWeb ? " · WEB" : ""), glass, dt,
+                                provider.displayName + " finished streaming" + (useWeb ? " (web-grounded)." : "."),
+                                voiceTurn, badges);
+                    }
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        File localFallback = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+                        if (autoRouted && localFallback != null) {
+                            runOnDeviceLlm(localFallback, prompt, true, false, voiceTurn);
+                        } else {
+                            deliverLocalStem(prompt, provider.displayName + " unavailable (" + error.getMessage() + ") — offline fallback.", voiceTurn);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    private void runOnDeviceLlm(
+            File modelFile,
+            String prompt,
+            boolean autoRouted,
+            boolean useWeb,
+            boolean voiceTurn) {
+        String label = OnDeviceLlmEngine.modelLabelForFile(modelFile);
+        status.setText(useWeb
+                ? "Searching live web + running " + label + " on-device…"
+                : "Running " + label + " offline on this phone…");
+
+        LinearLayout streamCard = Ui.vertical(this);
+        streamCard.setBackground(Ui.cardBackground(this, 22));
+        streamCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, Ui.dp(this, 4), Ui.dp(this, 12), Ui.dp(this, 8));
+        streamCard.addView(Ui.text(this, "✦ " + label + (useWeb ? " · WEB-GROUNDED…" : " · STREAMING OFFLINE…"), 12f, Ui.GREEN));
+        TextView streamBody = Ui.text(this, useWeb ? "Fetching live public sources & thinking locally…" : "Thinking locally…", 15.5f, Ui.TEXT);
+        streamBody.setPadding(0, Ui.dp(this, 8), 0, 0);
+        streamCard.addView(streamBody);
+        chatFeed.addView(streamCard, lp);
+        scrollChatToBottom();
+
+        List<ChatHistoryStore.ChatMessage> historySnapshot = new ArrayList<>(currentThread.messages);
+        String memCtx = buildMemorySummary();
+        long t0 = System.currentTimeMillis();
+        executor.execute(() -> {
+            WebSearchClient.SearchResult webRes = useWeb ? WebSearchClient.search(prompt) : null;
+            String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(700) : "";
+            List<String> badges = (webRes != null && webRes.hasSources()) ? webRes.toSourceBadges() : null;
+            String formatted = OnDeviceLlmEngine.buildChatMlPrompt(prompt, historySnapshot, memCtx, webCtx);
             try {
                 String finalReply = localLlm.generateStreaming(modelFile, formatted, (partial, done) ->
                         runOnUiThread(() -> {
@@ -726,8 +910,16 @@ public final class ConversationActivity extends ComponentActivity {
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         String clean = finalReply.isEmpty() ? "(No output generated.)" : finalReply;
-                        String glass = label + " · 100% On-Device MediaPipe GenAI · 0 cloud tokens · " + dt + " ms";
-                        deliverAssistantReply(clean, label, glass, dt, label + " finished offline (0 cloud tokens).", voiceTurn);
+                        boolean grounded = webRes != null && webRes.hasSources();
+                        String cardTitle = grounded ? (label + " · WEB") : label;
+                        String glass = (autoRouted ? "Auto-Router → " : "") + label
+                                + " · On-Device MediaPipe GenAI · 0 cloud AI tokens"
+                                + (grounded ? " · Live Web (" + webRes.sources.size() + " sources)" : "")
+                                + " · " + dt + " ms";
+                        deliverAssistantReply(clean, cardTitle, glass, dt,
+                                grounded ? (label + " finished with " + webRes.sources.size() + " live web sources.")
+                                        : (label + " finished offline (0 cloud tokens)."),
+                                voiceTurn, badges);
                     }
                 });
             } catch (Exception error) {
@@ -744,7 +936,7 @@ public final class ConversationActivity extends ComponentActivity {
         long t0 = System.currentTimeMillis();
         ZoeBrainEngine.BrainReply res = brain.respond(input);
         long dt = Math.max(1L, System.currentTimeMillis() - t0);
-        deliverAssistantReply(res.reply, "ZOE STEM · OFFLINE", res.telemetryBadge() + " · " + res.citation, dt, statusNote, voiceTurn);
+        deliverAssistantReply(res.reply, "ZOE STEM · OFFLINE", res.telemetryBadge() + " · " + res.citation, dt, statusNote, voiceTurn, null);
     }
 
     private void deliverAssistantReply(
@@ -754,8 +946,19 @@ public final class ConversationActivity extends ComponentActivity {
             long latencyMs,
             String statusNote,
             boolean voiceTurn) {
+        deliverAssistantReply(reply, providerBadge, glassBox, latencyMs, statusNote, voiceTurn, null);
+    }
+
+    private void deliverAssistantReply(
+            String reply,
+            String providerBadge,
+            String glassBox,
+            long latencyMs,
+            String statusNote,
+            boolean voiceTurn,
+            List<String> sources) {
         lastResponse = reply;
-        appendMessage(new ChatHistoryStore.ChatMessage("zoe", reply, providerBadge, glassBox, latencyMs));
+        appendMessage(new ChatHistoryStore.ChatMessage("zoe", reply, providerBadge, glassBox, latencyMs, sources));
         status.setText(statusNote);
         if (!captionMode) {
             if (voiceTurn && active) {

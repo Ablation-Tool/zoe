@@ -9,6 +9,7 @@ import UIKit
 ///     and zero-key 1-tap handoff to Claude, Grok, ChatGPT & Gemini.
 struct ConversationView: View {
     enum BrainMode: String, CaseIterable {
+        case auto = "⚡ Auto"
         case stem = "Zoe Stem"
         case cloud = "Cloud AI"
     }
@@ -21,7 +22,8 @@ struct ConversationView: View {
     @StateObject private var nativeVoice = ZoeNativeVoice()
     @State private var brain = ZoeBrainEngine(defaults: .standard)
 
-    @State private var brainMode: BrainMode = .stem
+    @State private var brainMode: BrainMode = .auto
+    @State private var webSearchEnabled = false
     @State private var activeProvider: MultiAiClient.Provider = .claude
     @State private var threads: [MultiAiClient.ChatThread] = []
     @State private var currentThreadIndex = 0
@@ -32,7 +34,7 @@ struct ConversationView: View {
     @State private var useNativeVoice = false
     @State private var torchOn = false
     @State private var typedMessage = ""
-    @State private var status = "Zoe Stem ready (offline · 0 cloud tokens)."
+    @State private var status = "⚡ Auto hybrid ready (offline-first · tap Web: off for live citations)."
     @State private var lastResponse = "Hi, I'm Zoe. What would you like to explore?"
     @State private var showBrainSheet = false
     @State private var showThreadsSheet = false
@@ -50,6 +52,16 @@ struct ConversationView: View {
             // Top Live Brain Mode Switcher Strip
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
+                    modeChip("⚡ Auto", selected: brainMode == .auto) {
+                        brainMode = .auto
+                        status = "⚡ Auto hybrid active (offline-first + optional Cloud & Web)."
+                    }
+                    modeChip(webSearchEnabled ? "Web: on" : "Web: off", selected: webSearchEnabled) {
+                        webSearchEnabled.toggle()
+                        status = webSearchEnabled
+                            ? "Live Web Grounding ON (zero-key DuckDuckGo + Wikipedia citations)."
+                            : "Live Web Grounding OFF (100% offline local mode)."
+                    }
                     modeChip("Zoe Stem", selected: brainMode == .stem) {
                         brainMode = .stem
                         status = "Zoe Stem active (offline · Kloster A_0.08 + SHA-256 memory)."
@@ -257,6 +269,23 @@ struct ConversationView: View {
                     .font(.body)
                     .foregroundStyle(GemPalette.ink)
                     .textSelection(.enabled)
+                if !msg.sources.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 6) {
+                            ForEach(msg.sources, id: \.self) { entry in
+                                let parts = entry.split(separator: "|", maxSplits: 1).map(String.init)
+                                if parts.count == 2, WebSearchClient.isSafeWebUrl(parts[1]), let linkUrl = URL(string: parts[1]) {
+                                    Link("🔗 \(parts[0]) ↗", destination: linkUrl)
+                                        .font(.caption.weight(.medium))
+                                        .foregroundStyle(GemPalette.seafoam)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .background(Capsule().fill(GemPalette.surfaceHigh))
+                                }
+                            }
+                        }
+                    }
+                }
                 if !msg.glassBox.isEmpty {
                     let isOpen = expandedGlassIds.contains(msg.id)
                     Button(isOpen ? "✦ Glass-Box Telemetry ▾" : "✦ Glass-Box Telemetry ▸") {
@@ -353,12 +382,16 @@ struct ConversationView: View {
             || lower.contains("what is your name") || lower.contains("what's your name")
             || lower.contains("alibaba") || lower.contains("are you qwen")
 
-        if brainMode == .cloud && !isIdentityQuery {
-            let key = UserDefaults.standard.string(forKey: "zoe_ai_key_\(activeProvider.rawValue)") ?? ""
-            if activeProvider == .localOpenAI || !key.isEmpty {
-                askCloudAsync(provider: activeProvider, apiKey: key, prompt: msg, resumeVoice: resumeVoice)
-                return
-            }
+        let key = UserDefaults.standard.string(forKey: "zoe_ai_key_\(activeProvider.rawValue)") ?? ""
+        let canUseCloud = activeProvider == .localOpenAI || !key.isEmpty
+        let shouldRouteCloud = (brainMode == .cloud || (brainMode == .auto && canUseCloud)) && !isIdentityQuery && plan.isEmpty
+        if shouldRouteCloud && canUseCloud {
+            askCloudAsync(provider: activeProvider, apiKey: key, prompt: msg, useWeb: webSearchEnabled, resumeVoice: resumeVoice)
+            return
+        }
+        if webSearchEnabled && !isIdentityQuery && plan.isEmpty {
+            askLiveWebAsync(prompt: msg, resumeVoice: resumeVoice)
+            return
         }
 
         let res = brain.respond(msg)
@@ -373,19 +406,83 @@ struct ConversationView: View {
         speakReply(res.reply, resumeListening: resumeVoice)
     }
 
-    private func askCloudAsync(provider: MultiAiClient.Provider, apiKey: String, prompt: String, resumeVoice: Bool) {
-        status = "Asking \(provider.displayName)…"
-        let model = UserDefaults.standard.string(forKey: "zoe_ai_model_\(provider.rawValue)") ?? provider.defaultModel
+    private func fetchLiveWeb(_ query: String) async -> WebSearchClient.SearchResult {
+        let cleaned = WebSearchClient.cleanSearchQuery(query)
+        guard !cleaned.isEmpty,
+              let enc = cleaned.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return WebSearchClient.SearchResult(query: cleaned, sources: [])
+        }
+        var combined: [WebSearchClient.Source] = []
+        var seen = Set<String>()
+        if let ddgUrl = URL(string: "https://api.duckduckgo.com/?q=\(enc)&format=json&no_html=1&skip_disambig=1"),
+           let (data, _) = try? await URLSession.shared.data(from: ddgUrl) {
+            for s in WebSearchClient.parseDuckDuckGoJson(data) where seen.insert(s.url.lowercased()).inserted {
+                combined.append(s)
+            }
+        }
+        if let wikiUrl = URL(string: "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=\(enc)&srlimit=3&utf8=1&format=json"),
+           let (data, _) = try? await URLSession.shared.data(from: wikiUrl) {
+            for s in WebSearchClient.parseWikipediaSearchJson(data) where combined.count < 4 && seen.insert(s.url.lowercased()).inserted {
+                combined.append(s)
+            }
+        }
+        return WebSearchClient.SearchResult(query: cleaned, sources: combined)
+    }
+
+    private func askLiveWebAsync(prompt: String, resumeVoice: Bool) {
+        status = "Searching live public web sources (HTTPS)…"
         Task {
+            let sr = await fetchLiveWeb(prompt)
+            await MainActor.run {
+                if sr.hasSources {
+                    let answer = sr.formatFallbackAnswer()
+                    lastResponse = answer
+                    appendMessage(MultiAiClient.ChatMessage(
+                        role: "zoe",
+                        text: answer,
+                        provider: "ZOE LIVE WEB",
+                        glassBox: "DuckDuckGo + Wikipedia · \(sr.sources.count) verified HTTPS sources",
+                        sources: sr.sourceBadges
+                    ))
+                    status = "Live Web grounded (\(sr.sources.count) sources)."
+                    speakReply(answer, resumeListening: resumeVoice)
+                } else {
+                    let res = brain.respond(prompt)
+                    lastResponse = res.reply
+                    appendMessage(MultiAiClient.ChatMessage(role: "zoe", text: res.reply, provider: "ZOE STEM · OFFLINE", glassBox: res.telemetryBadge))
+                    status = "No direct web summary — offline Zoe Stem replied."
+                    speakReply(res.reply, resumeListening: resumeVoice)
+                }
+            }
+        }
+    }
+
+    private func askCloudAsync(provider: MultiAiClient.Provider, apiKey: String, prompt: String, useWeb: Bool, resumeVoice: Bool) {
+        status = useWeb ? "Searching live web + asking \(provider.displayName)…" : "Asking \(provider.displayName)…"
+        let model = UserDefaults.standard.string(forKey: "zoe_ai_model_\(provider.rawValue)") ?? provider.defaultModel
+        let historySnapshot = currentMessages
+        Task {
+            let webRes = useWeb ? await fetchLiveWeb(prompt) : nil
+            let webCtx = (webRes?.hasSources == true) ? (webRes?.formatContextForPrompt(maxChars: 1200) ?? "") : ""
+            let badges = webRes?.sourceBadges ?? []
             do {
-                let text = try await performCloudRequest(provider: provider, apiKey: apiKey, model: model, prompt: prompt)
+                let text = try await performCloudRequest(
+                    provider: provider,
+                    apiKey: apiKey,
+                    model: model,
+                    history: historySnapshot,
+                    prompt: prompt,
+                    webContext: webCtx,
+                    enableSearch: useWeb
+                )
                 await MainActor.run {
                     lastResponse = text
                     appendMessage(MultiAiClient.ChatMessage(
                         role: "zoe",
                         text: text,
-                        provider: "\(provider.displayName.uppercased()) · \(model)",
-                        glassBox: "Provider: \(provider.displayName) · Grounded in Zoe Constitution"
+                        provider: "\(provider.displayName.uppercased()) · \(model)\(useWeb ? " · WEB" : "")",
+                        glassBox: "Provider: \(provider.displayName) · Multi-turn\(webRes?.hasSources == true ? " · Live Web (\(webRes!.sources.count) sources)" : "")",
+                        sources: badges
                     ))
                     status = "\(provider.displayName) replied."
                     speakReply(text, resumeListening: resumeVoice)
@@ -407,14 +504,29 @@ struct ConversationView: View {
         }
     }
 
-    private func performCloudRequest(provider: MultiAiClient.Provider, apiKey: String, model: String, prompt: String) async throws -> String {
+    private func performCloudRequest(
+        provider: MultiAiClient.Provider,
+        apiKey: String,
+        model: String,
+        history: [MultiAiClient.ChatMessage],
+        prompt: String,
+        webContext: String,
+        enableSearch: Bool
+    ) async throws -> String {
+        let sysPrompt = webContext.isEmpty
+            ? MultiAiClient.zoeSystemPrompt
+            : MultiAiClient.zoeSystemPrompt + "\n\nLive verified public web search context:\n" + webContext
         if provider == .gemini {
             let urlStr = "https://generativelanguage.googleapis.com/v1beta/models/\(model):generateContent?key=\(apiKey)"
             var req = URLRequest(url: URL(string: urlStr)!)
             req.httpMethod = "POST"
             req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let body: [String: Any] = ["contents": [["parts": [["text": MultiAiClient.zoeSystemPrompt + "\n\nUser: " + prompt]]]]]
-            req.httpBody = try JSONSerialization.data(withJSONObject: body)
+            req.httpBody = try MultiAiClient.buildGeminiGenerateBody(
+                systemPrompt: sysPrompt,
+                history: history,
+                userPrompt: prompt,
+                enableGoogleSearch: enableSearch
+            )
             let (data, _) = try await URLSession.shared.data(for: req)
             return try MultiAiClient.parseGeminiReply(data)
         }
@@ -424,7 +536,7 @@ struct ConversationView: View {
             req.setValue("application/json", forHTTPHeaderField: "Content-Type")
             req.setValue(apiKey, forHTTPHeaderField: "x-api-key")
             req.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
-            req.httpBody = try MultiAiClient.buildClaudeMessagesBody(model: model, userPrompt: prompt)
+            req.httpBody = try MultiAiClient.buildClaudeMessagesBody(model: model, systemPrompt: sysPrompt, history: history, userPrompt: prompt)
             let (data, _) = try await URLSession.shared.data(for: req)
             return try MultiAiClient.parseClaudeMessagesReply(data)
         }
@@ -435,7 +547,7 @@ struct ConversationView: View {
         if !apiKey.isEmpty {
             req.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         }
-        req.httpBody = try MultiAiClient.buildOpenAiChatBody(model: model, userPrompt: prompt)
+        req.httpBody = try MultiAiClient.buildOpenAiChatBody(model: model, systemPrompt: sysPrompt, history: history, userPrompt: prompt)
         let (data, _) = try await URLSession.shared.data(for: req)
         return try MultiAiClient.parseOpenAiChatReply(data)
     }

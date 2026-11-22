@@ -202,6 +202,39 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertFalse(who.reply.lowercased().contains("alibaba"))
     }
 
+    func testWebSearchClientAndMultiTurnStreamingPayloads() throws {
+        XCTAssertEqual(WebSearchClient.cleanSearchQuery("Tell me about James Webb Space Telescope?"), "James Webb Space Telescope")
+        XCTAssertTrue(WebSearchClient.isSafeWebUrl("https://en.wikipedia.org/wiki/Rainbow"))
+        XCTAssertFalse(WebSearchClient.isSafeWebUrl("http://insecure.example.com"))
+
+        let ddgData = Data(#"{"Heading":"Rainbow","AbstractText":"A <b>rainbow</b> is optical.","AbstractURL":"https://en.wikipedia.org/wiki/Rainbow"}"#.utf8)
+        let ddg = WebSearchClient.parseDuckDuckGoJson(ddgData)
+        XCTAssertEqual(ddg.count, 1)
+        XCTAssertEqual(ddg[0].domain, "Wikipedia")
+        XCTAssertFalse(ddg[0].snippet.contains("<b>"))
+
+        let wikiData = Data(#"{"query":{"search":[{"title":"James Webb Space Telescope","snippet":"The <span>JWST</span> observes infrared."}]}}"#.utf8)
+        let wiki = WebSearchClient.parseWikipediaSearchJson(wikiData)
+        XCTAssertEqual(wiki.count, 1)
+        XCTAssertEqual(wiki[0].url, "https://en.wikipedia.org/wiki/James_Webb_Space_Telescope")
+
+        let history = [
+            MultiAiClient.ChatMessage(role: "user", text: "What is JWST?"),
+            MultiAiClient.ChatMessage(role: "zoe", text: "An infrared space telescope.", sources: wiki.map(\.badgeEntry)),
+            MultiAiClient.ChatMessage(role: "user", text: "more+"),
+        ]
+        let oaBody = String(data: try MultiAiClient.buildOpenAiChatBody(model: "gpt-4o-mini", history: history, userPrompt: "more+", stream: true), encoding: .utf8) ?? ""
+        XCTAssertTrue(oaBody.contains("What is JWST?"))
+        XCTAssertTrue(oaBody.contains("\"stream\":true"))
+
+        let gemBody = String(data: try MultiAiClient.buildGeminiGenerateBody(history: history, userPrompt: "more+", enableGoogleSearch: true), encoding: .utf8) ?? ""
+        XCTAssertTrue(gemBody.contains("google_search"))
+        XCTAssertTrue(gemBody.contains("model"))
+
+        XCTAssertEqual(MultiAiClient.parseOpenAiSseDelta(#"{"choices":[{"delta":{"content":"Hi "}}]}"#), "Hi ")
+        XCTAssertEqual(MultiAiClient.parseClaudeSseDelta(#"{"type":"content_block_delta","delta":{"text":"Zoe"}}"#), "Zoe")
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,

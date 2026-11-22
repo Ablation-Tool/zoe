@@ -55,6 +55,12 @@ public class ConversationActivityTest {
         onView(withId(R.id.conversation_send)).perform(click());
         onView(withId(R.id.conversation_action_bar)).check(matches(isDisplayed()));
         onView(withId(R.id.conversation_action_btn)).check(matches(withText(containsString("Central Park"))));
+        onView(withId(R.id.conversation_mode_auto)).check(matches(isDisplayed()));
         onView(withId(R.id.conversation_mode_local_llm)).check(matches(isDisplayed()));
+        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("Web: off")));
+        onView(withId(R.id.conversation_web_toggle)).perform(click());
+        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("Web: on")));
+        onView(withId(R.id.conversation_web_toggle)).perform(click());
+        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("Web: off")));
     }
 }

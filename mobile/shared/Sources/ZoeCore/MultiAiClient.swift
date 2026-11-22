@@ -57,6 +57,7 @@ public enum MultiAiClient {
         public let provider: String
         public let glassBox: String
         public let latencyMs: Int
+        public let sources: [String]
 
         public init(
             id: String = UUID().uuidString,
@@ -64,7 +65,8 @@ public enum MultiAiClient {
             text: String,
             provider: String = "",
             glassBox: String = "",
-            latencyMs: Int = 0
+            latencyMs: Int = 0,
+            sources: [String] = []
         ) {
             self.id = id
             self.role = role
@@ -72,6 +74,22 @@ public enum MultiAiClient {
             self.provider = provider
             self.glassBox = glassBox
             self.latencyMs = max(0, latencyMs)
+            self.sources = sources
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case id, role, text, provider, glassBox, latencyMs, sources
+        }
+
+        public init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            self.id = try c.decodeIfPresent(String.self, forKey: .id) ?? UUID().uuidString
+            self.role = try c.decodeIfPresent(String.self, forKey: .role) ?? "zoe"
+            self.text = try c.decodeIfPresent(String.self, forKey: .text) ?? ""
+            self.provider = try c.decodeIfPresent(String.self, forKey: .provider) ?? ""
+            self.glassBox = try c.decodeIfPresent(String.self, forKey: .glassBox) ?? ""
+            self.latencyMs = max(0, try c.decodeIfPresent(Int.self, forKey: .latencyMs) ?? 0)
+            self.sources = try c.decodeIfPresent([String].self, forKey: .sources) ?? []
         }
     }
 
@@ -105,29 +123,120 @@ public enum MultiAiClient {
         throw NSError(domain: "MultiAiClient", code: 2, userInfo: [NSLocalizedDescriptionKey: "Only HTTPS or localhost loopback endpoints are permitted"])
     }
 
-    public static func buildOpenAiChatBody(model: String, systemPrompt: String = zoeSystemPrompt, userPrompt: String) throws -> Data {
-        let payload: [String: Any] = [
+    public static func buildOpenAiChatBody(
+        model: String,
+        systemPrompt: String = zoeSystemPrompt,
+        history: [ChatMessage] = [],
+        userPrompt: String,
+        stream: Bool = false
+    ) throws -> Data {
+        let trimmed = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        var messages: [[String: String]] = [["role": "system", "content": systemPrompt]]
+        messages.append(contentsOf: multiTurnHistory(history, currentUserPrompt: trimmed, strictAlternation: false))
+        messages.append(["role": "user", "content": trimmed])
+        var payload: [String: Any] = [
             "model": model,
-            "temperature": 0.5,
-            "max_tokens": 768,
-            "messages": [
-                ["role": "system", "content": systemPrompt],
-                ["role": "user", "content": userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)],
-            ],
+            "temperature": 0.6,
+            "max_tokens": 1024,
+            "messages": messages,
         ]
+        if stream { payload["stream"] = true }
         return try JSONSerialization.data(withJSONObject: payload, options: [])
     }
 
-    public static func buildClaudeMessagesBody(model: String, systemPrompt: String = zoeSystemPrompt, userPrompt: String) throws -> Data {
-        let payload: [String: Any] = [
+    public static func buildClaudeMessagesBody(
+        model: String,
+        systemPrompt: String = zoeSystemPrompt,
+        history: [ChatMessage] = [],
+        userPrompt: String,
+        stream: Bool = false
+    ) throws -> Data {
+        let trimmed = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        var messages = multiTurnHistory(history, currentUserPrompt: trimmed, strictAlternation: true)
+        messages.append(["role": "user", "content": trimmed])
+        var payload: [String: Any] = [
             "model": model,
-            "max_tokens": 768,
+            "max_tokens": 1024,
             "system": systemPrompt,
-            "messages": [
-                ["role": "user", "content": userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)],
-            ],
+            "messages": messages,
         ]
+        if stream { payload["stream"] = true }
         return try JSONSerialization.data(withJSONObject: payload, options: [])
+    }
+
+    public static func buildGeminiGenerateBody(
+        systemPrompt: String = zoeSystemPrompt,
+        history: [ChatMessage] = [],
+        userPrompt: String,
+        enableGoogleSearch: Bool = false
+    ) throws -> Data {
+        let trimmed = userPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        var contents: [[String: Any]] = []
+        let trimmedHistory = multiTurnHistory(history, currentUserPrompt: trimmed, strictAlternation: false)
+        for item in trimmedHistory {
+            let role = item["role"] == "user" ? "user" : "model"
+            contents.append(["role": role, "parts": [["text": item["content"] ?? ""]]])
+        }
+        contents.append(["role": "user", "parts": [["text": trimmed]]])
+        var payload: [String: Any] = [
+            "systemInstruction": ["parts": [["text": systemPrompt]]],
+            "contents": contents,
+        ]
+        if enableGoogleSearch {
+            payload["tools"] = [["google_search": [String: Any]()]]
+        }
+        return try JSONSerialization.data(withJSONObject: payload, options: [])
+    }
+
+    public static func parseOpenAiSseDelta(_ dataLine: String) -> String {
+        let clean = dataLine.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !clean.isEmpty && clean != "[DONE]",
+              let data = clean.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let choices = obj["choices"] as? [[String: Any]],
+              let delta = choices.first?["delta"] as? [String: Any],
+              let content = delta["content"] as? String else { return "" }
+        return content
+    }
+
+    public static func parseClaudeSseDelta(_ dataLine: String) -> String {
+        guard let data = dataLine.data(using: .utf8),
+              let obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              obj["type"] as? String == "content_block_delta",
+              let delta = obj["delta"] as? [String: Any],
+              let text = delta["text"] as? String else { return "" }
+        return text
+    }
+
+    private static func multiTurnHistory(
+        _ history: [ChatMessage],
+        currentUserPrompt: String,
+        strictAlternation: Bool
+    ) -> [[String: String]] {
+        var slice = history
+        if let last = slice.last, last.role == "user",
+           last.text.trimmingCharacters(in: .whitespacesAndNewlines) == currentUserPrompt {
+            slice.removeLast()
+        }
+        let recent = slice.suffix(10)
+        var out: [[String: String]] = []
+        var lastRole = ""
+        for m in recent {
+            let txt = m.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !txt.isEmpty else { continue }
+            let role = m.role == "user" ? "user" : "assistant"
+            if strictAlternation {
+                if out.isEmpty && role != "user" { continue }
+                if role == lastRole { continue }
+            }
+            let snippet = txt.count > 1200 ? String(txt.prefix(1200)) + "…" : txt
+            out.append(["role": role, "content": snippet])
+            lastRole = role
+        }
+        if strictAlternation && lastRole == "user" && !out.isEmpty {
+            out.removeLast()
+        }
+        return out
     }
 
     public static func parseOpenAiChatReply(_ data: Data) throws -> String {

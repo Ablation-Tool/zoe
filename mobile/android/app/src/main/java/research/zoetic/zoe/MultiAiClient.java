@@ -3,11 +3,14 @@ package research.zoetic.zoe;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -214,40 +217,229 @@ final class MultiAiClient {
         throw new IllegalArgumentException("Only HTTPS or localhost loopback endpoints are permitted");
     }
 
+    interface StreamCallback {
+        void onToken(String fullSoFar);
+    }
+
     static String buildOpenAiChatJson(String model, String systemPrompt, String userPrompt) {
+        return buildOpenAiChatJson(model, systemPrompt, null, userPrompt, false);
+    }
+
+    static String buildOpenAiChatJson(
+            String model,
+            String systemPrompt,
+            List<ChatHistoryStore.ChatMessage> history,
+            String userPrompt,
+            boolean stream) {
+        String trimmed = userPrompt == null ? "" : userPrompt.trim();
         Map<String, Object> sys = new LinkedHashMap<>();
         sys.put("role", "system");
         sys.put("content", systemPrompt == null ? ZOE_SYSTEM_PROMPT : systemPrompt);
 
-        Map<String, Object> usr = new LinkedHashMap<>();
-        usr.put("role", "user");
-        usr.put("content", userPrompt == null ? "" : userPrompt.trim());
-
         List<Object> messages = new ArrayList<>();
         messages.add(sys);
+        appendMultiTurnHistory(messages, history, trimmed, false);
+
+        Map<String, Object> usr = new LinkedHashMap<>();
+        usr.put("role", "user");
+        usr.put("content", trimmed);
         messages.add(usr);
 
         Map<String, Object> root = new LinkedHashMap<>();
         root.put("model", model);
         root.put("messages", messages);
-        root.put("temperature", 0.5);
-        root.put("max_tokens", 768);
+        root.put("temperature", 0.6);
+        root.put("max_tokens", 1024);
+        if (stream) {
+            root.put("stream", true);
+        }
         return MiniJson.stringify(root);
     }
 
     static String buildClaudeMessagesJson(String model, String systemPrompt, String userPrompt) {
+        return buildClaudeMessagesJson(model, systemPrompt, null, userPrompt, false);
+    }
+
+    static String buildClaudeMessagesJson(
+            String model,
+            String systemPrompt,
+            List<ChatHistoryStore.ChatMessage> history,
+            String userPrompt,
+            boolean stream) {
+        String trimmed = userPrompt == null ? "" : userPrompt.trim();
+        List<Object> messages = new ArrayList<>();
+        appendMultiTurnHistory(messages, history, trimmed, true);
+
         Map<String, Object> usr = new LinkedHashMap<>();
         usr.put("role", "user");
-        usr.put("content", userPrompt == null ? "" : userPrompt.trim());
-        List<Object> messages = new ArrayList<>();
+        usr.put("content", trimmed);
         messages.add(usr);
 
         Map<String, Object> root = new LinkedHashMap<>();
         root.put("model", model);
-        root.put("max_tokens", 768);
+        root.put("max_tokens", 1024);
         root.put("system", systemPrompt == null ? ZOE_SYSTEM_PROMPT : systemPrompt);
         root.put("messages", messages);
+        if (stream) {
+            root.put("stream", true);
+        }
         return MiniJson.stringify(root);
+    }
+
+    static String buildGeminiGenerateJson(
+            String systemPrompt,
+            List<ChatHistoryStore.ChatMessage> history,
+            String userPrompt,
+            boolean enableGoogleSearch) {
+        String trimmed = userPrompt == null ? "" : userPrompt.trim();
+        Map<String, Object> sysPart = new LinkedHashMap<>();
+        sysPart.put("text", systemPrompt == null ? ZOE_SYSTEM_PROMPT : systemPrompt);
+        Map<String, Object> sysInst = new LinkedHashMap<>();
+        sysInst.put("parts", java.util.Collections.singletonList(sysPart));
+
+        List<Object> contents = new ArrayList<>();
+        if (history != null && !history.isEmpty()) {
+            int end = history.size();
+            ChatHistoryStore.ChatMessage tail = history.get(end - 1);
+            if ("user".equals(tail.role) && tail.text != null && tail.text.trim().equals(trimmed)) {
+                end--;
+            }
+            int start = Math.max(0, end - 10);
+            for (int i = start; i < end; i++) {
+                ChatHistoryStore.ChatMessage m = history.get(i);
+                if (m == null || m.text == null || m.text.trim().isEmpty()) {
+                    continue;
+                }
+                Map<String, Object> part = new LinkedHashMap<>();
+                part.put("text", trimTurn(m.text));
+                Map<String, Object> turn = new LinkedHashMap<>();
+                turn.put("role", "user".equals(m.role) ? "user" : "model");
+                turn.put("parts", java.util.Collections.singletonList(part));
+                contents.add(turn);
+            }
+        }
+        Map<String, Object> usrPart = new LinkedHashMap<>();
+        usrPart.put("text", trimmed);
+        Map<String, Object> usrTurn = new LinkedHashMap<>();
+        usrTurn.put("role", "user");
+        usrTurn.put("parts", java.util.Collections.singletonList(usrPart));
+        contents.add(usrTurn);
+
+        Map<String, Object> root = new LinkedHashMap<>();
+        root.put("systemInstruction", sysInst);
+        root.put("contents", contents);
+        if (enableGoogleSearch) {
+            Map<String, Object> gs = new LinkedHashMap<>();
+            gs.put("google_search", new LinkedHashMap<String, Object>());
+            root.put("tools", java.util.Collections.singletonList(gs));
+        }
+        return MiniJson.stringify(root);
+    }
+
+    private static void appendMultiTurnHistory(
+            List<Object> out,
+            List<ChatHistoryStore.ChatMessage> history,
+            String currentUserPrompt,
+            boolean strictAlternation) {
+        if (history == null || history.isEmpty()) {
+            return;
+        }
+        int end = history.size();
+        ChatHistoryStore.ChatMessage tail = history.get(end - 1);
+        if ("user".equals(tail.role) && tail.text != null && tail.text.trim().equals(currentUserPrompt)) {
+            end--;
+        }
+        int start = Math.max(0, end - 10);
+        String lastRole = "";
+        for (int i = start; i < end; i++) {
+            ChatHistoryStore.ChatMessage m = history.get(i);
+            if (m == null || m.text == null || m.text.trim().isEmpty()) {
+                continue;
+            }
+            String role = "user".equals(m.role) ? "user" : "assistant";
+            if (strictAlternation) {
+                if (out.isEmpty() && !"user".equals(role)) {
+                    continue;
+                }
+                if (role.equals(lastRole)) {
+                    continue;
+                }
+            }
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("role", role);
+            item.put("content", trimTurn(m.text));
+            out.add(item);
+            lastRole = role;
+        }
+        if (strictAlternation && !out.isEmpty() && "user".equals(lastRole)) {
+            out.remove(out.size() - 1);
+        }
+    }
+
+    private static String trimTurn(String raw) {
+        String clean = raw.trim();
+        return clean.length() > 1200 ? clean.substring(0, 1200) + "…" : clean;
+    }
+
+    static String parseOpenAiSseDelta(String dataJson) {
+        if (dataJson == null || dataJson.trim().isEmpty() || "[DONE]".equals(dataJson.trim())) {
+            return "";
+        }
+        try {
+            Map<String, Object> root = MiniJson.parseObject(dataJson);
+            List<Object> choices = MiniJson.asArray(root.get("choices"));
+            if (choices == null || choices.isEmpty()) {
+                return "";
+            }
+            Map<String, Object> first = MiniJson.asObject(choices.get(0));
+            Map<String, Object> delta = MiniJson.asObject(first == null ? null : first.get("delta"));
+            return MiniJson.asString(delta, "content", "");
+        } catch (Exception ignored) {
+            return "";
+        }
+    }
+
+    static String parseClaudeSseDelta(String dataJson) {
+        if (dataJson == null || dataJson.trim().isEmpty()) {
+            return "";
+        }
+        try {
+            Map<String, Object> root = MiniJson.parseObject(dataJson);
+            if (!"content_block_delta".equals(MiniJson.asString(root, "type", ""))) {
+                return "";
+            }
+            Map<String, Object> delta = MiniJson.asObject(root.get("delta"));
+            return MiniJson.asString(delta, "text", "");
+        } catch (Exception ignored) {
+            return "";
+        }
+    }
+
+    static String parseGeminiSseDelta(String dataJson) {
+        if (dataJson == null || dataJson.trim().isEmpty()) {
+            return "";
+        }
+        try {
+            Map<String, Object> root = MiniJson.parseObject(dataJson);
+            List<Object> candidates = MiniJson.asArray(root.get("candidates"));
+            if (candidates == null || candidates.isEmpty()) {
+                return "";
+            }
+            Map<String, Object> first = MiniJson.asObject(candidates.get(0));
+            Map<String, Object> content = MiniJson.asObject(first == null ? null : first.get("content"));
+            List<Object> parts = MiniJson.asArray(content == null ? null : content.get("parts"));
+            if (parts == null) {
+                return "";
+            }
+            StringBuilder out = new StringBuilder();
+            for (Object p : parts) {
+                Map<String, Object> pm = MiniJson.asObject(p);
+                out.append(MiniJson.asString(pm, "text", ""));
+            }
+            return out.toString();
+        } catch (Exception ignored) {
+            return "";
+        }
     }
 
     static String parseOpenAiChatReply(String responseJson) {
@@ -335,32 +527,68 @@ final class MultiAiClient {
     }
 
     static String ask(Context ctx, Provider provider, String prompt, String memoryContext) throws IOException {
+        return askStreaming(ctx, provider, prompt, null, memoryContext, "", false, null);
+    }
+
+    static String askStreaming(
+            Context ctx,
+            Provider provider,
+            String prompt,
+            List<ChatHistoryStore.ChatMessage> history,
+            String memoryContext,
+            String webContext,
+            boolean enableGeminiSearch,
+            StreamCallback callback) throws IOException {
         if (prompt == null || prompt.trim().isEmpty()) {
             throw new IllegalArgumentException("Prompt is required");
         }
         String model = savedModel(ctx, provider);
         String key = savedKey(ctx, provider);
-        String systemPrompt = (memoryContext == null || memoryContext.trim().isEmpty())
-                ? ZOE_SYSTEM_PROMPT
-                : ZOE_SYSTEM_PROMPT + "\n\nPrivate user notes on this phone:\n" + memoryContext.trim();
+        StringBuilder sys = new StringBuilder(ZOE_SYSTEM_PROMPT);
+        if (memoryContext != null && !memoryContext.trim().isEmpty()) {
+            sys.append("\n\nPrivate user notes on this phone:\n").append(memoryContext.trim());
+        }
+        if (webContext != null && !webContext.trim().isEmpty()) {
+            sys.append("\n\nLive verified public web search context (cite facts clearly):\n").append(webContext.trim());
+        }
+        String systemPrompt = sys.toString();
 
         if (provider == Provider.GEMINI) {
             if (key.isEmpty()) {
                 throw new IOException("No Google Gemini API key saved. Add one in Brain settings.");
             }
-            String fullPrompt = systemPrompt + "\n\nUser: " + prompt.trim();
-            return CloudVisionClient.askText(key, model, fullPrompt);
+            String encModel = URLEncoder.encode(model, "UTF-8");
+            String encKey = URLEncoder.encode(key, "UTF-8");
+            String body = buildGeminiGenerateJson(systemPrompt, history, prompt, enableGeminiSearch);
+            if (callback != null) {
+                String sseUrl = Provider.GEMINI.endpoint + "/models/" + encModel
+                        + ":streamGenerateContent?alt=sse&key=" + encKey;
+                String streamed = postSseStream(sseUrl, body, null, Provider.GEMINI, callback);
+                if (!streamed.isEmpty()) {
+                    return OnDeviceLlmEngine.enforceZoeSovereignty(streamed);
+                }
+            }
+            String url = Provider.GEMINI.endpoint + "/models/" + encModel + ":generateContent?key=" + encKey;
+            String raw = postJson(url, body, null);
+            return OnDeviceLlmEngine.enforceZoeSovereignty(parseGeminiSseDelta(raw));
         }
         if (provider == Provider.CLAUDE) {
             if (key.isEmpty()) {
                 throw new IOException("No Anthropic Claude API key saved. Add one in Brain settings.");
             }
-            String body = buildClaudeMessagesJson(model, systemPrompt, prompt);
             Map<String, String> headers = new LinkedHashMap<>();
             headers.put("x-api-key", key);
             headers.put("anthropic-version", "2023-06-01");
+            if (callback != null) {
+                String body = buildClaudeMessagesJson(model, systemPrompt, history, prompt, true);
+                String streamed = postSseStream(Provider.CLAUDE.endpoint, body, headers, Provider.CLAUDE, callback);
+                if (!streamed.isEmpty()) {
+                    return OnDeviceLlmEngine.enforceZoeSovereignty(streamed);
+                }
+            }
+            String body = buildClaudeMessagesJson(model, systemPrompt, history, prompt, false);
             String raw = postJson(Provider.CLAUDE.endpoint, body, headers);
-            return parseClaudeMessagesReply(raw);
+            return OnDeviceLlmEngine.enforceZoeSovereignty(parseClaudeMessagesReply(raw));
         }
         // OpenAI ChatGPT, xAI Grok, or Local OpenAI-Compatible Server
         String endpoint = provider == Provider.LOCAL_OPENAI
@@ -369,13 +597,82 @@ final class MultiAiClient {
         if (provider != Provider.LOCAL_OPENAI && key.isEmpty()) {
             throw new IOException("No " + provider.displayName + " API key saved. Add one in Brain settings.");
         }
-        String body = buildOpenAiChatJson(model, systemPrompt, prompt);
         Map<String, String> headers = new LinkedHashMap<>();
         if (!key.isEmpty()) {
             headers.put("Authorization", "Bearer " + key);
         }
+        if (callback != null) {
+            String body = buildOpenAiChatJson(model, systemPrompt, history, prompt, true);
+            String streamed = postSseStream(endpoint, body, headers, provider, callback);
+            if (!streamed.isEmpty()) {
+                return OnDeviceLlmEngine.enforceZoeSovereignty(streamed);
+            }
+        }
+        String body = buildOpenAiChatJson(model, systemPrompt, history, prompt, false);
         String raw = postJson(endpoint, body, headers);
-        return parseOpenAiChatReply(raw);
+        return OnDeviceLlmEngine.enforceZoeSovereignty(parseOpenAiChatReply(raw));
+    }
+
+    private static String postSseStream(
+            String endpointUrl,
+            String jsonBody,
+            Map<String, String> extraHeaders,
+            Provider provider,
+            StreamCallback callback) throws IOException {
+        validateEndpoint(endpointUrl);
+        HttpURLConnection conn = (HttpURLConnection) new URL(endpointUrl).openConnection();
+        conn.setConnectTimeout(15_000);
+        conn.setReadTimeout(60_000);
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        conn.setRequestProperty("Accept", "text/event-stream");
+        if (extraHeaders != null) {
+            for (Map.Entry<String, String> entry : extraHeaders.entrySet()) {
+                conn.setRequestProperty(entry.getKey(), entry.getValue());
+            }
+        }
+        byte[] payload = jsonBody.getBytes(StandardCharsets.UTF_8);
+        conn.getOutputStream().write(payload);
+        conn.getOutputStream().flush();
+
+        int code = conn.getResponseCode();
+        if (code < 200 || code >= 300) {
+            String err = readBounded(conn.getErrorStream());
+            conn.disconnect();
+            throw new IOException("HTTP " + code + ": " + trimError(err));
+        }
+        StringBuilder full = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String trimmed = line.trim();
+                if (!trimmed.startsWith("data:")) {
+                    continue;
+                }
+                String data = trimmed.substring(5).trim();
+                if (data.isEmpty() || "[DONE]".equals(data)) {
+                    continue;
+                }
+                String delta;
+                if (provider == Provider.GEMINI) {
+                    delta = parseGeminiSseDelta(data);
+                } else if (provider == Provider.CLAUDE) {
+                    delta = parseClaudeSseDelta(data);
+                } else {
+                    delta = parseOpenAiSseDelta(data);
+                }
+                if (delta != null && !delta.isEmpty()) {
+                    full.append(delta);
+                    if (callback != null) {
+                        callback.onToken(OnDeviceLlmEngine.enforceZoeSovereignty(full.toString()));
+                    }
+                }
+            }
+        } finally {
+            conn.disconnect();
+        }
+        return full.toString().trim();
     }
 
     private static String postJson(String endpointUrl, String jsonBody, Map<String, String> extraHeaders) throws IOException {

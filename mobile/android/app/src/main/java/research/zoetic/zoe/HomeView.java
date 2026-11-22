@@ -245,7 +245,7 @@ final class HomeView extends ScrollView {
                 "Look around & read aloud",
                 R.drawable.ic_zoe_vision, Ui.COBALT, activity::showVision));
         addSpec(new ZappSpec("talk", "Talk",
-                "Chat, Local LLM, Voice & AI Council",
+                "Hybrid Chat, Local LLM, Web & Council",
                 R.drawable.ic_zoe_talk, Ui.RUBY, () -> open(ConversationActivity.class)));
         addSpec(new ZappSpec("journal", "Trip journal",
                 "Your saved notes & photos",
@@ -558,7 +558,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.4.0-beta · Offline-first · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.5.0-beta · Hybrid Offline + Online · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

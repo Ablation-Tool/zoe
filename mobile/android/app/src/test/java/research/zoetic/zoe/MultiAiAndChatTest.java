@@ -78,6 +78,7 @@ public class MultiAiAndChatTest {
         assertTrue(chatMl.contains("Remember Newton"));
         assertTrue(chatMl.contains("Explain gravity"));
         assertEquals("Hello world", OnDeviceLlmEngine.cleanResponse("Hello world<|im_end|>"));
+        assertEquals("Line 1\n\nLine 2", OnDeviceLlmEngine.cleanResponse("Line 1\\n\\nLine 2<|im_end|>"));
 
         // Verify duplicate trailing user message is deduplicated and "more+" expands cleanly
         List<ChatHistoryStore.ChatMessage> withTrailingMore = Arrays.asList(
@@ -99,5 +100,60 @@ public class MultiAiAndChatTest {
         assertEquals("sovereign_identity", who.mode);
         assertTrue(who.reply.contains("Nicholas Michael Kloster"));
         assertFalse(who.reply.toLowerCase().contains("alibaba"));
+    }
+
+    @Test
+    public void parsesLiveWebSourcesMultiTurnStreamingPayloadsAndSseDeltas() {
+        assertEquals("James Webb Space Telescope", WebSearchClient.cleanSearchQuery("Tell me about James Webb Space Telescope?"));
+        assertTrue(WebSearchClient.isSafeWebUrl("https://en.wikipedia.org/wiki/Rainbow"));
+        assertFalse(WebSearchClient.isSafeWebUrl("http://insecure.example.com/"));
+        assertFalse(WebSearchClient.isSafeWebUrl("javascript:alert(1)"));
+
+        String ddgJson = "{\"Heading\":\"Rainbow\",\"AbstractText\":\"A <b>rainbow</b> is an optical phenomenon.\",\"AbstractURL\":\"https://en.wikipedia.org/wiki/Rainbow\"}";
+        List<WebSearchClient.Source> ddg = WebSearchClient.parseDuckDuckGoJson(ddgJson);
+        assertEquals(1, ddg.size());
+        assertEquals("Wikipedia", ddg.get(0).domain);
+        assertFalse(ddg.get(0).snippet.contains("<b>"));
+
+        String wikiJson = "{\"query\":{\"search\":[{\"title\":\"James Webb Space Telescope\",\"snippet\":\"The <span class=\\\"searchmatch\\\">JWST</span> is a space telescope.\"}]}}";
+        List<WebSearchClient.Source> wiki = WebSearchClient.parseWikipediaSearchJson(wikiJson);
+        assertEquals(1, wiki.size());
+        assertEquals("https://en.wikipedia.org/wiki/James_Webb_Space_Telescope", wiki.get(0).url);
+        assertTrue(wiki.get(0).snippet.contains("JWST"));
+
+        WebSearchClient.SearchResult sr = new WebSearchClient.SearchResult("JWST", wiki, 120);
+        assertTrue(sr.formatContextForPrompt(400).contains("James Webb Space Telescope"));
+        assertEquals(1, sr.toSourceBadges().size());
+
+        List<ChatHistoryStore.ChatMessage> history = Arrays.asList(
+                new ChatHistoryStore.ChatMessage("user", "What is JWST?", "YOU", "", 0),
+                new ChatHistoryStore.ChatMessage("zoe", "An infrared space telescope.", "ZOE LOCAL", "", 40, sr.toSourceBadges()),
+                new ChatHistoryStore.ChatMessage("user", "more+", "YOU", "", 0));
+
+        // ChatHistoryStore round-trips clickable source badges
+        String threadJson = ChatHistoryStore.toJson(Collections.singletonList(
+                new ChatHistoryStore.ChatThread("t2", "JWST", "2026-11-22", history)));
+        List<ChatHistoryStore.ChatThread> rt = ChatHistoryStore.fromJson(threadJson);
+        assertEquals(1, rt.get(0).messages.get(1).sources.size());
+
+        // Multi-turn streaming JSON for OpenAI, Claude & Gemini
+        String oaStream = MultiAiClient.buildOpenAiChatJson("gpt-4o-mini", MultiAiClient.ZOE_SYSTEM_PROMPT, history, "more+", true);
+        assertTrue(oaStream.contains("\"stream\":true"));
+        assertTrue(oaStream.contains("What is JWST?"));
+        String clStream = MultiAiClient.buildClaudeMessagesJson("claude-sonnet-4-5", MultiAiClient.ZOE_SYSTEM_PROMPT, history, "more+", true);
+        assertTrue(clStream.contains("\"stream\":true"));
+        String gemBody = MultiAiClient.buildGeminiGenerateJson(MultiAiClient.ZOE_SYSTEM_PROMPT, history, "more+", true);
+        assertTrue(gemBody.contains("google_search"));
+        assertTrue(gemBody.contains("\"role\":\"model\""));
+
+        // SSE token delta parsers
+        assertEquals("Hello ", MultiAiClient.parseOpenAiSseDelta("{\"choices\":[{\"delta\":{\"content\":\"Hello \"}}]}"));
+        assertEquals("world!", MultiAiClient.parseClaudeSseDelta("{\"type\":\"content_block_delta\",\"delta\":{\"type\":\"text_delta\",\"text\":\"world!\"}}"));
+        assertEquals("Gemini token", MultiAiClient.parseGeminiSseDelta("{\"candidates\":[{\"content\":{\"parts\":[{\"text\":\"Gemini token\"}]}}]}"));
+
+        // Local ChatML prompt includes verified live web facts when provided
+        String groundedChatMl = OnDeviceLlmEngine.buildChatMlPrompt("What is JWST?", history, "", sr.formatContextForPrompt(400));
+        assertTrue(groundedChatMl.contains("Live verified web facts"));
+        assertTrue(groundedChatMl.contains("James Webb Space Telescope"));
     }
 }
