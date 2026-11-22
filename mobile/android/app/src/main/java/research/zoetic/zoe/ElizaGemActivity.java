@@ -35,6 +35,7 @@ public final class ElizaGemActivity extends ComponentActivity {
     private EditText chatInput;
     private TextView messagesView;
     private EditText relayInput;
+    private TextView digestView;
     private TextView phase3View;
     private TextView phase4View;
     private TextView phase5View;
@@ -158,6 +159,23 @@ public final class ElizaGemActivity extends ComponentActivity {
         labRelayDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
         labRelayDrawer.setVisibility(View.GONE);
 
+        labRelayDrawer.addView(Ui.section(this, "ZOE CLOSED-LOOP DIGESTION · L5"));
+        digestView = Ui.text(this,
+                "Privacy Firewall active: SafeConvert, Privacy Vault, raw photos & private chat bodies are hard-excluded.\n"
+                        + "Tap Feed & Digest to send learned visual priors, Brain notes, Trip sightings & Kloster routing telemetry to Zoe Lab and apply refined priors back to this phone.",
+                14, Ui.TEXT);
+        digestView.setId(R.id.eliza_digest_card);
+        digestView.setBackground(Ui.panelBackground(this, Ui.PANEL, Ui.withAlpha(Ui.RUBY, 130), 20));
+        digestView.setPadding(Ui.dp(this, 16), Ui.dp(this, 14), Ui.dp(this, 16), Ui.dp(this, 14));
+        digestView.setTextIsSelectable(true);
+        labRelayDrawer.addView(digestView);
+
+        Button digestBtn = Ui.primaryButton(this, "Feed & Digest Lab", Ui.RUBY, view -> digestMobileToLab());
+        digestBtn.setId(R.id.eliza_digest_mobile);
+        Button syncMem = Ui.button(this, "Sync notes only", Ui.GOLD, view -> syncPhoneMemory());
+        syncMem.setId(R.id.eliza_sync_memory);
+        labRelayDrawer.addView(Ui.buttonRow(this, digestBtn, syncMem));
+
         labRelayDrawer.addView(Ui.section(this, "SHARED LAB RELAY (UNIFIED MEMORY)"));
         LinearLayout relayRow = new LinearLayout(this);
         relayRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -169,9 +187,6 @@ public final class ElizaGemActivity extends ComponentActivity {
         relayRow.addView(relaySend, sendParams);
         labRelayDrawer.addView(relayRow, Ui.margins(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, this, 4));
-        Button syncMem = Ui.button(this, "Sync phone memory to Lab", Ui.GOLD, view -> syncPhoneMemory());
-        syncMem.setId(R.id.eliza_sync_memory);
-        labRelayDrawer.addView(syncMem);
 
         labRelayDrawer.addView(Ui.section(this, "L5 PHASE 5 FRONTIER SCORECARD"));
         phase5View = Ui.text(this, "Connect Eliza-GEM to inspect or re-run the 5 live L5 Phase 5 pillars (ARC Induction · 15-Fault & Java/Swift/Python Audit · Real Science & Falsification · 30-Day 8-Domain EWC · 4-Gen Meta-Evolution & Red-Team).", 14, Ui.TEXT);
@@ -335,8 +350,14 @@ public final class ElizaGemActivity extends ComponentActivity {
                     p5 = client.fetchPhase5(endpoint);
                 } catch (Exception ignored) {
                 }
+                ElizaGemClient.DigestResult latestDigest = null;
+                try {
+                    latestDigest = client.fetchLatestDigest(endpoint);
+                } catch (Exception ignored) {
+                }
                 final ElizaGemClient.Phase4Summary p4Final = p4;
                 final ElizaGemClient.Phase4Summary p5Final = p5;
+                final ElizaGemClient.DigestResult digestFinal = latestDigest;
                 runOnUiThread(() -> {
                     if (isFinishing() || isDestroyed()) {
                         return;
@@ -346,6 +367,9 @@ public final class ElizaGemActivity extends ComponentActivity {
                             st.ruleCount, st.indexedSources,
                             st.localLlmReady ? st.localLlmLabel : "offline (Gear 1)",
                             st.relayNotesCount, st.activeNotesCount));
+                    if (digestFinal != null) {
+                        renderDigest(digestFinal, 0);
+                    }
                     renderPhase3(p3);
                     if (p4Final != null) {
                         renderPhase4(p4Final);
@@ -543,6 +567,84 @@ public final class ElizaGemActivity extends ComponentActivity {
             out.append(line).append('\n');
         }
         phase4View.setText(out.toString().trim());
+    }
+
+    private void digestMobileToLab() {
+        String endpoint;
+        try {
+            endpoint = persistEndpoint();
+        } catch (IllegalArgumentException error) {
+            status.setText(error.getMessage());
+            return;
+        }
+        status.setText("Collecting privacy-firewalled mobile signals for Zoe Lab digestion…");
+        executor.execute(() -> {
+            try {
+                MobileDigestionBundle.Summary bundle = MobileDigestionBundle.collect(this, brain);
+                ElizaGemClient.DigestResult res = client.digestMobileBundle(endpoint, bundle.bundleJson);
+                int localTotalAfter = 0;
+                if (!res.refinedPrototypes.isEmpty()) {
+                    localTotalAfter = VisionPriorStore.mergeRefinedFromWorkstation(this, res.refinedPrototypes);
+                }
+                final int localProtosFinal = localTotalAfter;
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        renderDigest(res, localProtosFinal);
+                        if (labRelayDrawer != null) {
+                            labRelayDrawer.setVisibility(View.VISIBLE);
+                            labRelayToggle.setText("Lab Relay & L5 ▴");
+                        }
+                        status.setText(String.format(Locale.US,
+                                "Digestion cycle #%d complete · Zoe %.3f vs ctrl %.3f (+%.3f) · %d refined priors synced back.",
+                                res.cycleNumber, res.digestedZoeScore, res.controlScore,
+                                res.improvementDelta, res.refinedPrototypes.size()));
+                    }
+                });
+            } catch (Exception error) {
+                runOnUiThread(() -> {
+                    if (!isFinishing() && !isDestroyed()) {
+                        status.setText("Mobile digestion failed: " + error.getMessage());
+                    }
+                });
+            }
+        });
+    }
+
+    private void renderDigest(ElizaGemClient.DigestResult res, int localAppliedCount) {
+        if (digestView == null) {
+            return;
+        }
+        if (!res.available) {
+            digestView.setText("No workstation digestion cycle recorded yet.\n"
+                    + "Privacy Firewall active: SafeConvert, Privacy Vault, raw photos & private chat bodies are hard-excluded.\n"
+                    + "Tap Feed & Digest into Zoe Lab to run your first closed-loop learning cycle.");
+            return;
+        }
+        StringBuilder out = new StringBuilder();
+        out.append(String.format(Locale.US,
+                "Cycle #%d · Digested Zoe %.4f vs Control %.4f (Δ +%.4f)\n",
+                res.cycleNumber, res.digestedZoeScore, res.controlScore, res.improvementDelta));
+        out.append(String.format(Locale.US,
+                "Ingested: +%d notes · +%d sightings · +%d visual priors (%d reinforced, %d CPC/Haeckel enriched)\n",
+                res.brainNotesAdded, res.tripSightingsAdded, res.visionAdded,
+                res.visionReinforced, res.visionAtlasEnriched));
+        out.append(String.format(Locale.US,
+                "Visual Gain: %.1f%% vs %.1f%% ctrl · Atlas Retention %.0f%% · Lab Library: %d priors · Facts: %d\n",
+                res.visualAccuracy * 100.0, res.controlVisualAccuracy * 100.0,
+                res.atlasRetention * 100.0, res.workstationVisionTotal, res.digestedFactsTotal));
+        out.append(String.format(Locale.US,
+                "Kloster τ* = %.3f · Chain: %s · Firewall=%s",
+                res.recommendedTau, shorten(res.chainHead), res.firewallVerified ? "VERIFIED" : "CHECK"));
+        if (localAppliedCount > 0) {
+            out.append(" · Phone priors now: ").append(localAppliedCount);
+        }
+        out.append(String.format(Locale.US,
+                "\nHonest Boundary: l5_agi_qualified=%s · zoe_clone=%s",
+                res.l5AgiQualified, res.zoeCloneClaimed));
+        if (!res.calibrationRationale.isEmpty()) {
+            out.append("\n").append(res.calibrationRationale);
+        }
+        digestView.setText(out.toString());
     }
 
     private void syncPhoneMemory() {

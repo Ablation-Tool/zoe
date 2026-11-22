@@ -519,7 +519,7 @@ struct AboutZoeSheet: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.9.2-beta · KV-Clone AI, Offline Visual Atlas & 16dp Symmetry · Free")
+                    Text("v0.9.3-beta · Closed-Loop L5 Digestion, KV-Clone AI & Offline Atlas · Free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }

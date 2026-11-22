@@ -162,6 +162,63 @@ final class ElizaGemClient {
         }
     }
 
+    static final class DigestResult {
+        final boolean available;
+        final int cycleNumber;
+        final int brainNotesAdded;
+        final int tripSightingsAdded;
+        final int visionAdded;
+        final int visionReinforced;
+        final int visionAtlasEnriched;
+        final int workstationVisionTotal;
+        final int digestedFactsTotal;
+        final double digestedZoeScore;
+        final double controlScore;
+        final double improvementDelta;
+        final double visualAccuracy;
+        final double controlVisualAccuracy;
+        final double atlasRetention;
+        final double recommendedTau;
+        final String calibrationRationale;
+        final String chainHead;
+        final boolean firewallVerified;
+        final boolean l5AgiQualified;
+        final boolean zoeCloneClaimed;
+        final List<VisionPriorStore.Prototype> refinedPrototypes;
+
+        DigestResult(boolean available, int cycleNumber, int brainNotesAdded, int tripSightingsAdded,
+                     int visionAdded, int visionReinforced, int visionAtlasEnriched,
+                     int workstationVisionTotal, int digestedFactsTotal,
+                     double digestedZoeScore, double controlScore, double improvementDelta,
+                     double visualAccuracy, double controlVisualAccuracy, double atlasRetention,
+                     double recommendedTau, String calibrationRationale, String chainHead,
+                     boolean firewallVerified, boolean l5AgiQualified, boolean zoeCloneClaimed,
+                     List<VisionPriorStore.Prototype> refinedPrototypes) {
+            this.available = available;
+            this.cycleNumber = cycleNumber;
+            this.brainNotesAdded = brainNotesAdded;
+            this.tripSightingsAdded = tripSightingsAdded;
+            this.visionAdded = visionAdded;
+            this.visionReinforced = visionReinforced;
+            this.visionAtlasEnriched = visionAtlasEnriched;
+            this.workstationVisionTotal = workstationVisionTotal;
+            this.digestedFactsTotal = digestedFactsTotal;
+            this.digestedZoeScore = digestedZoeScore;
+            this.controlScore = controlScore;
+            this.improvementDelta = improvementDelta;
+            this.visualAccuracy = visualAccuracy;
+            this.controlVisualAccuracy = controlVisualAccuracy;
+            this.atlasRetention = atlasRetention;
+            this.recommendedTau = recommendedTau;
+            this.calibrationRationale = calibrationRationale;
+            this.chainHead = chainHead;
+            this.firewallVerified = firewallVerified;
+            this.l5AgiQualified = l5AgiQualified;
+            this.zoeCloneClaimed = zoeCloneClaimed;
+            this.refinedPrototypes = refinedPrototypes == null ? new ArrayList<>() : refinedPrototypes;
+        }
+    }
+
     static String savedEndpoint(Context context) {
         String raw = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
                 .getString(KEY_ENDPOINT, DEFAULT_ENDPOINT);
@@ -291,6 +348,17 @@ final class ElizaGemClient {
                 MiniJson.asInt(root, "accepted", 0),
                 MiniJson.asInt(root, "deduplicated", 0),
                 MiniJson.asString(mem, "chain_head", "GENESIS"));
+    }
+
+    DigestResult digestMobileBundle(String baseUrl, String bundleJson) throws IOException {
+        MobileDigestionBundle.assertOutgoingFirewall(bundleJson);
+        String resp = request(validateEndpoint(baseUrl), "POST", "/api/digest/mobile", bundleJson, 20_000);
+        return parseDigestResult(resp);
+    }
+
+    DigestResult fetchLatestDigest(String baseUrl) throws IOException {
+        String resp = request(validateEndpoint(baseUrl), "GET", "/api/digest/latest", null, 6000);
+        return parseDigestResult(resp);
     }
 
     byte[] fetchSpeakWav(String baseUrl, String text, String action) throws IOException {
@@ -437,6 +505,51 @@ final class ElizaGemClient {
                 MiniJson.asBoolean(root, "l5_agi_qualified", false),
                 MiniJson.asBoolean(ep, "zoe_clone_claimed", false),
                 lines);
+    }
+
+    static DigestResult parseDigestResult(String json) {
+        Map<String, Object> root = MiniJson.parseObject(json);
+        boolean available = MiniJson.asBoolean(root, "available", false);
+        Map<String, Object> ing = MiniJson.asObject(root.get("ingested"));
+        Map<String, Object> imp = MiniJson.asObject(root.get("self_improvement"));
+        Map<String, Object> vis = MiniJson.asObject(root.get("visual_improvement"));
+        Map<String, Object> cal = MiniJson.asObject(root.get("kloster_calibration"));
+        Map<String, Object> mem = MiniJson.asObject(root.get("memory_snapshot"));
+        Map<String, Object> fw = MiniJson.asObject(root.get("privacy_firewall"));
+        Map<String, Object> ep = MiniJson.asObject(root.get("epistemic_boundaries"));
+
+        List<VisionPriorStore.Prototype> refined = new ArrayList<>();
+        List<Object> rawProtos = MiniJson.asArray(root.get("refined_prototypes"));
+        if (rawProtos != null && !rawProtos.isEmpty()) {
+            Map<String, Object> wrap = new LinkedHashMap<>();
+            wrap.put("version", 1);
+            wrap.put("prototypes", rawProtos);
+            refined = VisionPriorStore.deserializeJson(MiniJson.stringify(wrap));
+        }
+
+        return new DigestResult(
+                available,
+                MiniJson.asInt(root, "cycle_number", 0),
+                MiniJson.asInt(ing, "brain_notes_added", 0),
+                MiniJson.asInt(ing, "trip_sightings_added", 0),
+                MiniJson.asInt(ing, "vision_prototypes_added", 0),
+                MiniJson.asInt(ing, "vision_prototypes_reinforced", 0),
+                MiniJson.asInt(ing, "vision_atlas_enriched", 0),
+                MiniJson.asInt(ing, "workstation_vision_library_total", 0),
+                MiniJson.asInt(ing, "digested_knowledge_facts_total", 0),
+                MiniJson.asDouble(imp, "digested_zoe_score", 0.0),
+                MiniJson.asDouble(imp, "undigested_control_score", 0.0),
+                MiniJson.asDouble(imp, "improvement_delta", 0.0),
+                MiniJson.asDouble(vis, "digested_visual_accuracy", 0.0),
+                MiniJson.asDouble(vis, "control_visual_accuracy", 0.0),
+                MiniJson.asDouble(vis, "atlas_zero_forgetting_retention", 1.0),
+                MiniJson.asDouble(cal, "recommended_tau", 0.08),
+                MiniJson.asString(cal, "calibration_rationale", ""),
+                MiniJson.asString(mem, "chain_head", "GENESIS"),
+                MiniJson.asBoolean(fw, "firewall_verified", false),
+                MiniJson.asBoolean(ep, "l5_agi_qualified", false),
+                MiniJson.asBoolean(ep, "zoe_clone_claimed", false),
+                refined);
     }
 
     private byte[] requestBytes(String endpoint, String path, String body, int readTimeoutMs) throws IOException {

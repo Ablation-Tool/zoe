@@ -907,6 +907,7 @@ class ZoeElizaEngine:
 
     def _search_user_notes(self, query: str, limit: int = 3, *, include_relay: bool = False) -> List[Dict[str, Any]]:
         notes = list(self.memory.query_facts(subject="user_note", active_only=True))
+        notes.extend(self.memory.query_facts(subject="mobile_digested_knowledge", active_only=True))
         if include_relay:
             notes.extend(self.memory.query_facts(subject="lab_relay_for_zoe", active_only=True))
         q_toks = set(re.findall(r"[a-z0-9_]+", query.lower())) - {

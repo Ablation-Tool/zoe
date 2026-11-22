@@ -119,7 +119,10 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity android:name=".TripJournalActivity" android:exported="false" />
-        <activity android:name=".ElizaGemActivity" android:exported="false" />
+        <activity
+            android:name=".ElizaGemActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
             android:name=".ZoeLiveActivity"
             android:exported="true"

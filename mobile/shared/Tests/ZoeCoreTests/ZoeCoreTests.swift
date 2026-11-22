@@ -405,6 +405,38 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: mem, atlas: atlas, query: sA)?.prototype.label, "Optical Ring")
     }
 
+    func testMobileDigestionPrivacyFirewallAndPrototypeMerge() throws {
+        var ring = Array(repeating: 0.0, count: 32 * 32)
+        for y in 0..<32 {
+            for x in 0..<32 {
+                let d = hypot(Double(x) - 15.5, Double(y) - 15.5)
+                if d >= 7.0 && d <= 10.5 { ring[y * 32 + x] = 1.0 }
+            }
+        }
+        let sig = ScientificVisualAndPatentCore.extractVisualSignature(gray32: ring)!
+        let proto = ScientificVisualAndPatentCore.VisionPrototype(label: "Optical Ring", source: "user_confirmed", signature: sig, confirmCount: 2)
+        let bundle = try MobileDigestionCore.buildBundleJson(
+            device: "iPhone 16 Pro",
+            appVersion: "0.9.3",
+            prototypes: [proto],
+            notes: [MobileDigestionCore.DigestedNote(clientId: "n1", kind: "note", text: "Bench aligned")],
+            sightings: [MobileDigestionCore.DigestedSighting(id: "t1", timestampIso: "2026-11-22", note: "Ring", labels: "Lens", ocrText: "OPTIC", paletteSummary: "Obsidian")],
+            chatTelemetry: MobileDigestionCore.ChatTelemetrySummary(threadCount: 2, messageCount: 8, avgLatencyMs: 24.5, avgATau: 2.2, providerCounts: ["ZOE STEM": 8], topicKeywords: ["haeckel", "kloster"])
+        )
+        XCTAssertTrue(bundle.contains("\"safeconvert_excluded\":true"))
+        XCTAssertTrue(bundle.contains("\"privacy_vault_excluded\":true"))
+        XCTAssertTrue(bundle.contains("Optical Ring"))
+
+        XCTAssertThrowsError(try MobileDigestionCore.assertOutgoingFirewall("{\"safeconvert_notes\":[\"x\"]}"))
+        XCTAssertThrowsError(try MobileDigestionCore.assertOutgoingFirewall("{\"e2ee_private_key\":\"secret\"}"))
+
+        let strongerWorkstation = ScientificVisualAndPatentCore.VisionPrototype(label: "Optical Ring", source: "user_confirmed", signature: sig, confirmCount: 5)
+        let merged = MobileDigestionCore.mergeRefinedPrototypes(local: [proto], refined: [strongerWorkstation])
+        XCTAssertEqual(merged.count, 1)
+        XCTAssertEqual(merged[0].confirmCount, 5)
+        XCTAssertEqual(merged[0].source, "user_confirmed")
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,

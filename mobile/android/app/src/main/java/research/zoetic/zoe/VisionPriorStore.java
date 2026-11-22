@@ -433,6 +433,56 @@ final class VisionPriorStore {
         return next;
     }
 
+    /**
+     * Pure JVM-testable merge of workstation-refined visual prototypes back into local offline memory.
+     * Never downgrades a stronger local user_confirmed prototype while adopting Haeckel/CPC enrichments
+     * and newly consolidated prototypes from Zoe's workstation L5 digestion loop.
+     */
+    static List<Prototype> mergeRefined(List<Prototype> local, List<Prototype> refined) {
+        List<Prototype> merged = local == null ? new ArrayList<>() : new ArrayList<>(local);
+        if (refined == null || refined.isEmpty()) {
+            return merged;
+        }
+        for (Prototype incoming : refined) {
+            if (incoming == null || incoming.signature == null || incoming.label.isEmpty()) {
+                continue;
+            }
+            int idx = -1;
+            for (int i = 0; i < merged.size(); i++) {
+                if (merged.get(i).label.equalsIgnoreCase(incoming.label)) {
+                    idx = i;
+                    break;
+                }
+            }
+            if (idx >= 0) {
+                Prototype cur = merged.get(idx);
+                String bestSource = "user_confirmed".equals(cur.source) || "user_confirmed".equals(incoming.source)
+                        ? "user_confirmed" : incoming.source;
+                String bestPat = !cur.patentRef.isEmpty() ? cur.patentRef : incoming.patentRef;
+                String bestDims = !cur.dimensionsNote.isEmpty() ? cur.dimensionsNote : incoming.dimensionsNote;
+                boolean adoptIncomingSig = incoming.confirmCount > cur.confirmCount
+                        || (!"user_confirmed".equals(cur.source) && incoming.updatedAtMs >= cur.updatedAtMs);
+                PatentReverseImageEngine.VisualSignature bestSig = adoptIncomingSig ? incoming.signature : cur.signature;
+                int bestCount = Math.max(cur.confirmCount, incoming.confirmCount);
+                long bestUpdated = Math.max(cur.updatedAtMs, incoming.updatedAtMs);
+                merged.set(idx, new Prototype(cur.label, bestSource, bestPat, bestDims, bestSig, bestCount, bestUpdated));
+            } else if (merged.size() < MAX_PROTOTYPES) {
+                merged.add(incoming);
+            }
+        }
+        return merged;
+    }
+
+    static synchronized int mergeRefinedFromWorkstation(Context context, List<Prototype> refined) {
+        if (context == null || refined == null || refined.isEmpty()) {
+            return 0;
+        }
+        List<Prototype> current = loadAll(context);
+        List<Prototype> next = mergeRefined(current, refined);
+        saveAll(context, next);
+        return next.size();
+    }
+
     static MatchResult matchSignature(Context context,
                                       PatentReverseImageEngine.VisualSignature sig,
                                       float minScore) {

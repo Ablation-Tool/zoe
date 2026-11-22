@@ -915,7 +915,7 @@ def create_server(
 
         def _read_json(self) -> Dict[str, Any]:
             length = int(self.headers.get("Content-Length", "0") or "0")
-            if length > 262_144:
+            if length > 524_288:
                 raise ValueError("request body too large")
             raw = self.rfile.read(length) if length > 0 else b"{}"
             doc = json.loads(raw.decode("utf-8"))
@@ -1012,6 +1012,13 @@ def create_server(
                 self.end_headers()
                 self.wfile.write(svg)
                 return
+            if path == "/api/digest/latest":
+                rep_file = resolved_root / "evidence" / "l5-mobile-digestion" / "digestion-report.json"
+                if rep_file.is_file():
+                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
+                else:
+                    self._send_json(200, {"available": False, "epistemic_boundaries": {"l5_agi_qualified": False}})
+                return
             if path == "/api/export":
                 with lock:
                     raw = json.dumps(engine.export_session(), ensure_ascii=False, indent=2, sort_keys=True).encode("utf-8")
@@ -1088,6 +1095,13 @@ def create_server(
 
                     with lock:
                         res = merge_mobile_sync_batch(engine, body)
+                    self._send_json(200, res)
+                    return
+                if path == "/api/digest/mobile":
+                    from zoe_autonomy.l5_mobile_digestion import digest_mobile_bundle
+
+                    with lock:
+                        res = digest_mobile_bundle(engine, body, zoe_root=resolved_root)
                     self._send_json(200, res)
                     return
                 if path == "/api/stem/route":

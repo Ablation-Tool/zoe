@@ -170,6 +170,8 @@
     <item name="eliza_phase5_run" type="id" />
     <item name="eliza_sing_zoe" type="id" />
     <item name="eliza_sync_memory" type="id" />
+    <item name="eliza_digest_card" type="id" />
+    <item name="eliza_digest_mobile" type="id" />
     <item name="eliza_chladni_pad" type="id" />
     <item name="eliza_chladni_mode" type="id" />
     <item name="eliza_chladni_play" type="id" />

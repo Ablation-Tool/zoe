@@ -1,6 +1,6 @@
 # Zoe (beta) — Complete Zapps Guide
 
-Welcome to **Zoe (beta)** (`v0.9.2-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.9.3-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
 
 > **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
 
@@ -29,7 +29,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 | **5** | **Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe**, **Kloster Signal**, & **20 Questions** | Android · Apple | **100% offline, zero ads, zero tracking** — musical harmonic chimes, Kid Mode & Unbeatable Minimax AI, strict $A_\tau(p)$ puzzle, & mystery trivia |
 | **6** | **Privacy Vault** | Signal-grade **AES-256-GCM** encrypted chat vault, **ECDH/HKDF E2EE**, & **60-digit Safety Number** | Android · Apple | Hardware AndroidKeyStore / Apple CryptoKit P-256 ECDH + HKDF-SHA256 + Symmetric Chain Ratchet + AES-256-GCM at-rest encryption & 1-tap share via Signal |
 | **7** | **Trip Journal** | Save field sightings, photos, and private travel/research notes | Android *(Apple planned)* | Private on-device storage; optional explicit export or workstation sync |
-| **8** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, and Workstation Lab Bridge | Android *(Apple planned)* | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge connects only on tap (`127.0.0.1:8765` or HTTPS) |
+| **8** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, **Closed-Loop L5 Digestion (`Feed & Digest into Zoe Lab`)**, and Workstation Lab Bridge | Android · Apple Core (`MobileDigestionCore`) | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge & **Feed & Digest** (`/api/digest/mobile`) connect only on tap (`127.0.0.1:8765` or HTTPS) with strict privacy firewall (`SafeConvert`, `Privacy Vault`, raw photos & chat bodies hard-excluded) |
 | **9** | **Maps & Safety** | Active OS GPS, compass, Google Maps & Apple Maps handoffs, Personal Safety & Flashlight | Android · Apple | Starts **strictly idle**; opt-in one-shot or live OS GPS + compass + Geocoder (stops automatically on exit); native Apple `MapKit` on iOS; zero Maps API keys or tracking SDKs |
 | **10** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | Android · Apple | **100% offline** math — zero permissions |
 | **11** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
@@ -63,7 +63,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 - **What it does:** Combines two offline creative sound instruments with your live workstation research bridge:
   - **Chladni Cymatics Resonance Pad (100% offline):** Touch and drag across either the **Square Atelier** plate or the **Languidou Bronze Rose Disc** to sweep physical nodal eigenmodes visually and tap **Play Chladni Chord** to hear the live harmonic chord synthesized on-device.
   - **Sing Zoe (Native Voice) (100% offline):** Sings Zoe's warm soprano theme directly via the 44.1 kHz Rosenberg-Klatt synthesizer.
-  - **Eliza-GEM Workstation Bridge (explicit connect):** Connects over loopback USB (`http://127.0.0.1:8765` via `adb reverse`) or remote HTTPS to chat with workstation Gear 1 ELIZA / Gear 2 Local Qwen2.5-3B, pin lab relays, **Sync phone memory to Lab** (`/api/memory/sync`), and inspect or live-run the **L5 Phase 5 Frontier**, **L5 Phase 4 Embodied**, and **L5 Phase 3 Agentic** scorecards.
+  - **Eliza-GEM Workstation Bridge & Closed-Loop L5 Digestion (explicit connect):** Connects over loopback USB (`http://127.0.0.1:8765` via `adb reverse`) or remote HTTPS to chat with workstation Gear 1 ELIZA / Gear 2 Local Qwen2.5-3B, pin lab relays, **Feed & Digest into Zoe Lab** (`/api/digest/mobile` — sends privacy-firewalled learned visual prototypes, Brain notes, textual Trip sightings, and aggregated Kloster $A_\tau(p)$ telemetry while hard-excluding SafeConvert, Privacy Vault, raw photos, and private chat transcripts, consolidates & enriches prototypes against the Haeckel/Lamarck/CPC atlas, evaluates empirical gain vs. control with zero forgetting, and syncs refined priors back to the phone while preserving `l5_agi_qualified=false`), and inspect or live-run the **L5 Phase 5 Frontier**, **L5 Phase 4 Embodied**, and **L5 Phase 3 Agentic** scorecards.
   - **Cloud AI Key drawer:** Optional, locally stored Gemini API key and model selector (never backed up to cloud; HTTPS only when you tap).
 
 #### 5. Maps & Safety (`Live GPS, Google & Apple Maps, Personal Safety`)
