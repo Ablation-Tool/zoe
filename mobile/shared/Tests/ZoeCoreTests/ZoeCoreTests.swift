@@ -332,6 +332,34 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertNil(SafeBeaconMeshCore.parseBeaconPayload(tampered, rssi: -68))
     }
 
+    func testScientificVisualSubstrateAndGooglePatentsCatalogCore() {
+        let s1 = ScientificVisualAndPatentCore.deterministicSeed("radiolaria prism")
+        let s2 = ScientificVisualAndPatentCore.deterministicSeed("radiolaria prism")
+        XCTAssertEqual(s1, s2)
+        let order = ScientificVisualAndPatentCore.symmetryOrder(forSeed: s1)
+        XCTAssertTrue(order >= 6 && order <= 16 && order % 2 == 0)
+
+        let p9 = ScientificVisualAndPatentCore.phyllotaxisPoint(index: 9, scale: 10.0)
+        XCTAssertEqual(hypot(p9.x, p9.y), 30.0, accuracy: 1e-6)
+
+        let grounded = ScientificVisualAndPatentCore.augmentPrompt("crystal lantern", plate: .haeckelRadiolaria)
+        XCTAssertTrue(grounded.contains("Kunstformen der Natur"))
+
+        XCTAssertEqual(ScientificVisualAndPatentCore.extractPatentNumber(from: "PAT. NO. 6,123,456"), "US6123456")
+        XCTAssertEqual(ScientificVisualAndPatentCore.extractPatentNumber(from: "Stamped US10234567B2"), "US10234567B2")
+
+        let sample = """
+        {"results":{"cluster":[{"result":[{"patent":{"publication_number":"US9876543B2","title":"Optical prism gear","snippet":"A 42.5 mm optical element","assignee":"Optics Lab"}}]}]}}
+        """
+        let matches = ScientificVisualAndPatentCore.parseGooglePatentsJson(sample, maxResults: 2)
+        XCTAssertEqual(matches.count, 1)
+        XCTAssertEqual(matches[0].patentUrl, "https://patents.google.com/patent/US9876543B2/en")
+        XCTAssertTrue(matches[0].dimensionsNote.contains("42.5 mm"))
+
+        let scale = ScientificVisualAndPatentCore.describeRelativeScale(meters: 0.155)
+        XCTAssertTrue(scale.contains("smartphone"))
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,

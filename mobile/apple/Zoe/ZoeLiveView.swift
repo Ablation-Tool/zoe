@@ -18,8 +18,10 @@ struct ZoeLiveView: View {
     @State private var arStatus = "● ARKit 6DoF · Scanning surfaces…"
     @State private var pulse = false
     @State private var useNativeVoice = false
-    @State private var caption = "Hi, I'm Zoe. Tap the orb to talk hands-free, Live + Cam for sight + voice, or ✦ AR Space to let Zoe float and explore your room!"
+    @State private var caption = "Hi, I'm Zoe. Tap the orb to talk hands-free, Live + Cam for sight + voice, 📐 Patent for structural schematics, or ✦ AR Space to explore your room!"
     @State private var stateLabel = "TAP ORB TO GO LIVE · MIC & CAMERA START OFF"
+    @State private var patentLinkUrl: URL?
+    @State private var patentBadgeTitle = ""
 
     var body: some View {
         VStack(spacing: 14) {
@@ -149,6 +151,16 @@ struct ZoeLiveView: View {
                 .gemCard(radius: 22)
                 .padding(.horizontal, 16)
 
+            if let patentUrl = patentLinkUrl, !patentBadgeTitle.isEmpty {
+                Link("📐 \(patentBadgeTitle) ↗", destination: patentUrl)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(GemPalette.cobalt, in: Capsule())
+                    .padding(.horizontal, 16)
+            }
+
             HStack(spacing: 8) {
                 Button(arModeOn ? "✦ AR: On" : "✦ AR Space") {
                     if arModeOn {
@@ -161,6 +173,11 @@ struct ZoeLiveView: View {
                     }
                 }
                 .buttonStyle(GemKeycapButtonStyle(accent: arModeOn ? GemPalette.cobalt : GemPalette.muted))
+
+                Button("📐 Patent") {
+                    runPatentLookup()
+                }
+                .buttonStyle(GemKeycapButtonStyle(accent: GemPalette.cobalt))
 
                 Button("Sing Zoe") {
                     stateLabel = "SINGING ZOE (44.1 kHz OFFLINE)"
@@ -260,6 +277,42 @@ struct ZoeLiveView: View {
             }
         } else {
             speaker.speak(clean)
+        }
+    }
+
+    private func runPatentLookup() {
+        let queryText = cameraOn && !camera.narration.isEmpty ? camera.narration : "optical prism gear mechanism"
+        let detected = ScientificVisualAndPatentCore.extractPatentNumber(from: queryText)
+        let q = detected.isEmpty ? String(queryText.prefix(80)) : detected
+        stateLabel = "SEARCHING GOOGLE PATENTS CATALOG…"
+        caption = "Checking patents.google.com for \(q)…"
+        let inner = "q=\(q.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "prism")&num=3"
+        let encoded = inner.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? inner
+        guard let url = URL(string: "https://patents.google.com/xhr/query?url=\(encoded)") else { return }
+        Task {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let raw = String(data: data, encoding: .utf8) ?? ""
+                let matches = ScientificVisualAndPatentCore.parseGooglePatentsJson(raw, maxResults: 3)
+                await MainActor.run {
+                    if let top = matches.first {
+                        patentLinkUrl = URL(string: top.patentUrl)
+                        patentBadgeTitle = "\(top.publicationNumber) · \(String(top.title.prefix(38)))"
+                        let dims = top.dimensionsNote.isEmpty ? "" : " Referenced dimensions: \(top.dimensionsNote)."
+                        let summary = "Closest Google Patents candidate is \(top.publicationNumber): \(top.title).\(dims)"
+                        caption = summary
+                        speakClean(summary)
+                    } else {
+                        caption = "No direct Google Patents candidate returned for \"\(q)\". Try aiming closer at a model or patent number."
+                        stateLabel = "READY · TAP ORB TO GO LIVE"
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    caption = "Google Patents lookup offline or unreachable right now."
+                    stateLabel = "READY · TAP ORB TO GO LIVE"
+                }
+            }
         }
     }
 

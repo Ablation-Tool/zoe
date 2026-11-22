@@ -82,6 +82,8 @@
     <item name="live_ar_toggle" type="id" />
     <item name="live_ar_roam_toggle" type="id" />
     <item name="live_ar_ask_button" type="id" />
+    <item name="live_patent_button" type="id" />
+    <item name="live_patent_badge" type="id" />
     <item name="live_talk_button" type="id" />
     <item name="live_stop_button" type="id" />
     <item name="studio_tab_image" type="id" />
@@ -89,6 +91,9 @@
     <item name="studio_status" type="id" />
     <item name="studio_image_preview" type="id" />
     <item name="studio_edit_summary" type="id" />
+    <item name="studio_baseline_meta" type="id" />
+    <item name="studio_baseline_haeckel" type="id" />
+    <item name="studio_baseline_patent" type="id" />
     <item name="studio_command_input" type="id" />
     <item name="studio_apply_cmd" type="id" />
     <item name="studio_video_preview" type="id" />

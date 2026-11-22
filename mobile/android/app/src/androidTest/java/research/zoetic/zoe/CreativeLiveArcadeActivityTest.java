@@ -24,6 +24,7 @@ public class CreativeLiveArcadeActivityTest {
         try (ActivityScenario<ZoeLiveActivity> scenario = ActivityScenario.launch(ZoeLiveActivity.class)) {
             onView(withId(R.id.live_orb_view)).check(matches(isDisplayed()));
             onView(withId(R.id.live_ar_toggle)).check(matches(isDisplayed()));
+            onView(withId(R.id.live_patent_button)).check(matches(isDisplayed()));
             onView(withId(R.id.live_cam_live_button)).check(matches(isDisplayed()));
             onView(withId(R.id.live_camera_toggle)).check(matches(withText("Camera: off")));
             onView(withId(R.id.live_hizoe_toggle)).check(matches(withText("Hi Zoe: off")));
@@ -39,6 +40,11 @@ public class CreativeLiveArcadeActivityTest {
     public void creativeStudioAppliesNaturalLanguageImageEditsAndOpensVideoMaker() {
         try (ActivityScenario<CreativeStudioActivity> scenario = ActivityScenario.launch(CreativeStudioActivity.class)) {
             onView(withId(R.id.studio_image_preview)).check(matches(isDisplayed()));
+            onView(withId(R.id.studio_baseline_haeckel)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("Kunstformen der Natur"))));
+            onView(withId(R.id.studio_baseline_patent)).perform(scrollTo(), click());
+            onView(withId(R.id.studio_baseline_meta)).check(matches(withText(containsString("patents.google.com"))));
+
             onView(withId(R.id.studio_command_input))
                     .perform(scrollTo(), replaceText("warm, rotate, blur, caption Pixel Test"), closeSoftKeyboard());
             onView(withId(R.id.studio_apply_cmd)).perform(scrollTo(), click());

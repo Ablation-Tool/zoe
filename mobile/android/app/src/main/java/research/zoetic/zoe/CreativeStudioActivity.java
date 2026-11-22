@@ -42,6 +42,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
     private Bitmap sourceBitmap;
     private Bitmap editedBitmap;
+    private ScientificVisualSubstrate.BaselinePlate activeBaseline = ScientificVisualSubstrate.BaselinePlate.ATELIER;
     private ImageLabEngine.EditSpec editSpec = new ImageLabEngine.EditSpec();
     private final VideoMakerEngine.Spec videoSpec = new VideoMakerEngine.Spec();
     private File lastExportedVideo;
@@ -55,6 +56,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
     // Image Lab widgets
     private ImageView imagePreview;
     private TextView editSummary;
+    private TextView baselineMeta;
     private EditText commandInput;
     private Button blurBtn;
     private Button cropBtn;
@@ -142,8 +144,38 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         editSummary = Ui.text(this, "Original", 12.5f, Ui.MUTED);
         editSummary.setId(R.id.studio_edit_summary);
-        editSummary.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 8));
+        editSummary.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 2));
         panel.addView(editSummary);
+
+        baselineMeta = Ui.text(this,
+                "Baseline: " + activeBaseline.lineage + " · " + activeBaseline.mathSummary,
+                11.5f, Ui.COBALT);
+        baselineMeta.setId(R.id.studio_baseline_meta);
+        baselineMeta.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 8));
+        panel.addView(baselineMeta);
+
+        // Scientific-Aesthetic Procedural Baseline Strip (Haeckel · Weismann · Lamarck · Google Patents)
+        HorizontalScrollView baseScroll = new HorizontalScrollView(this);
+        baseScroll.setHorizontalScrollBarEnabled(false);
+        LinearLayout baseRow = new LinearLayout(this);
+        baseRow.setOrientation(LinearLayout.HORIZONTAL);
+        for (ScientificVisualSubstrate.BaselinePlate plate : ScientificVisualSubstrate.BaselinePlate.values()) {
+            Button pb = pillChip(plate.chipLabel, v -> applyScientificBaseline(plate));
+            if (plate == ScientificVisualSubstrate.BaselinePlate.HAECKEL_RADIOLARIA) {
+                pb.setId(R.id.studio_baseline_haeckel);
+            } else if (plate == ScientificVisualSubstrate.BaselinePlate.PATENT_BLUEPRINT) {
+                pb.setId(R.id.studio_baseline_patent);
+            }
+            LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34));
+            blp.setMargins(0, 0, Ui.dp(this, 6), 0);
+            baseRow.addView(pb, blp);
+        }
+        baseScroll.addView(baseRow);
+        LinearLayout.LayoutParams bsLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        bsLp.setMargins(0, 0, 0, Ui.dp(this, 10));
+        panel.addView(baseScroll, bsLp);
 
         // Plain-English command bar
         LinearLayout cmdRow = new LinearLayout(this);
@@ -153,7 +185,7 @@ public final class CreativeStudioActivity extends ComponentActivity {
         cmdRow.setPadding(Ui.dp(this, 10), Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4));
         commandInput = new EditText(this);
         commandInput.setId(R.id.studio_command_input);
-        commandInput.setHint("e.g. warm, noir, rotate, blur, caption Sunset…");
+        commandInput.setHint("e.g. haeckel, patent, warm, rotate, blur, caption Sunset…");
         commandInput.setTextColor(Ui.textColor(this));
         commandInput.setHintTextColor(Ui.mutedColor(this));
         commandInput.setBackground(null);
@@ -161,6 +193,13 @@ public final class CreativeStudioActivity extends ComponentActivity {
         Button applyCmdBtn = Ui.primaryButton(this, "Apply", Ui.COBALT, v -> {
             String cmd = commandInput.getText() == null ? "" : commandInput.getText().toString().trim();
             if (!cmd.isEmpty()) {
+                ScientificVisualSubstrate.BaselinePlate detectedPlate =
+                        ScientificVisualSubstrate.detectPlateFromCommand(cmd);
+                if (detectedPlate != null) {
+                    applyScientificBaseline(detectedPlate, cmd);
+                    commandInput.setText("");
+                    return;
+                }
                 editSpec = ImageLabEngine.parseEditCommand(cmd, editSpec);
                 commandInput.setText("");
                 refreshImagePreview();
@@ -442,22 +481,41 @@ public final class CreativeStudioActivity extends ComponentActivity {
         }
     }
 
+    private void applyScientificBaseline(ScientificVisualSubstrate.BaselinePlate plate) {
+        String concept = commandInput == null || commandInput.getText() == null
+                ? "" : commandInput.getText().toString().trim();
+        applyScientificBaseline(plate, concept);
+    }
+
+    private void applyScientificBaseline(ScientificVisualSubstrate.BaselinePlate plate, String concept) {
+        activeBaseline = plate;
+        sourceBitmap = ScientificVisualSubstrate.renderScientificPlate(plate, concept, 720, 540);
+        editSpec = new ImageLabEngine.EditSpec();
+        refreshImagePreview();
+        refreshVideoPreview();
+        if (baselineMeta != null) {
+            baselineMeta.setText("Baseline: " + plate.lineage + " · " + plate.mathSummary);
+        }
+        status.setText("Rendered factual baseline: " + plate.lineage + " (100% offline math).");
+    }
+
     private void generateOnlineAiImage() {
         String prompt = commandInput.getText() == null ? "" : commandInput.getText().toString().trim();
         if (prompt.isEmpty()) {
-            status.setText("Type an image idea in the command box above first, then tap Generate AI Image.");
+            status.setText("Type an image idea in the command box above first, then tap AI Art (grounded by " + activeBaseline.chipLabel + ").");
             return;
         }
-        status.setText("Generating online AI artwork…");
+        String groundedPrompt = ScientificVisualSubstrate.augmentPromptWithBaseline(prompt, activeBaseline);
+        status.setText("Generating AI artwork grounded in " + activeBaseline.lineage + "…");
         executor.execute(() -> {
             try {
-                Bitmap bmp = ImageLabEngine.generateOnlineImage(this, prompt);
+                Bitmap bmp = ImageLabEngine.generateOnlineImage(this, groundedPrompt);
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         sourceBitmap = bmp;
                         editSpec = new ImageLabEngine.EditSpec();
                         refreshImagePreview();
-                        status.setText("Generated AI artwork! Edit or export below.");
+                        status.setText("Generated AI artwork grounded by " + activeBaseline.chipLabel + "!");
                     }
                 });
             } catch (Exception err) {

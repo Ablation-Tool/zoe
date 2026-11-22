@@ -114,6 +114,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private Button arToggleBtn;
     private Button arRoamBtn;
     private Button arAskBtn;
+    private Button patentBtn;
+    private Button patentBadgeBtn;
     private Button cameraToggleBtn;
     private Button lookNowBtn;
     private Button flipCamBtn;
@@ -143,6 +145,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
     private volatile String latestCameraReport = "";
     private volatile byte[] latestCameraJpeg;
+    private volatile float latestArDistanceMeters = 0f;
+    private volatile String latestPatentUrl = "";
     private String pendingSpeechOnReady = "";
     private String lastUserSpoken = "";
     private final AtomicInteger pendingTtsChunks = new AtomicInteger(0);
@@ -361,16 +365,33 @@ public final class ZoeLiveActivity extends ComponentActivity {
         capLp.setMargins(0, Ui.dp(this, 12), 0, Ui.dp(this, 12));
         center.addView(captionView, capLp);
 
-        // Clean borderless quick actions (✦ AR Space + accessible voice starters!)
+        // Clickable Patent Catalog citation badge (hidden until a Google Patents lookup returns a candidate!)
+        patentBadgeBtn = chipButton("📐 Open Patent Schematic ↗", v -> {
+            String url = latestPatentUrl;
+            if (WebSearchClient.isSafeWebUrl(url)) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)));
+                } catch (Exception ignored) {
+                }
+            }
+        });
+        patentBadgeBtn.setId(R.id.live_patent_badge);
+        patentBadgeBtn.setTextColor(Ui.isDark(this) ? Color.rgb(14, 16, 22) : Color.WHITE);
+        patentBadgeBtn.setBackground(Ui.tonalPillDrawable(this, Ui.resolveColor(this, Ui.COBALT), Ui.COBALT, 18));
+        patentBadgeBtn.setVisibility(View.GONE);
+        LinearLayout.LayoutParams pbLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 38));
+        pbLp.setMargins(0, 0, 0, Ui.dp(this, 10));
+        center.addView(patentBadgeBtn, pbLp);
+
+        // Clean borderless quick actions (✦ AR Space · 📐 Patent · Sing Zoe)
         LinearLayout quickChips = new LinearLayout(this);
         quickChips.setOrientation(LinearLayout.HORIZONTAL);
         quickChips.setGravity(Gravity.CENTER);
         arToggleBtn = chipButton("✦ AR Space", v -> toggleArSpace());
         arToggleBtn.setId(R.id.live_ar_toggle);
-        Button q1 = chipButton("Calm fact", v -> {
-            callActive = false;
-            processSpokenPrompt("Tell me one calm, fascinating science fact in two spoken sentences.");
-        });
+        patentBtn = chipButton("📐 Patent", v -> runGooglePatentsLookup());
+        patentBtn.setId(R.id.live_patent_button);
         Button q2 = chipButton("Sing Zoe", v -> {
             long myTurn = activeTurnId.incrementAndGet();
             stopAudioOnly();
@@ -386,12 +407,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 }
             }));
         });
-        LinearLayout.LayoutParams qLp1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1.15f);
+        LinearLayout.LayoutParams qLp1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1.1f);
         qLp1.setMargins(0, 0, Ui.dp(this, 6), 0);
-        LinearLayout.LayoutParams qLp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1f);
+        LinearLayout.LayoutParams qLp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 1.0f);
         qLp2.setMargins(0, 0, Ui.dp(this, 6), 0);
         quickChips.addView(arToggleBtn, qLp1);
-        quickChips.addView(q1, qLp2);
+        quickChips.addView(patentBtn, qLp2);
         quickChips.addView(q2, new LinearLayout.LayoutParams(0, Ui.dp(this, 40), 0.95f));
         center.addView(quickChips);
 
@@ -755,6 +776,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             arSurfaceView = new ZoeArSurfaceView(this, arBrain, new ZoeArSurfaceView.Listener() {
                 @Override
                 public void onArTrackingUpdate(int planeCount, float zoeDistMeters, String statusHint) {
+                    latestArDistanceMeters = zoeDistMeters;
                     if (arModeOn && !isFinishing() && !isDestroyed()) {
                         arHudPill.setText(statusHint);
                     }
@@ -763,6 +785,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 @Override
                 public void onZoeArrivedAtSpot(Bitmap uprightFrame, ArExploreBrain.Vec3 worldPos,
                                                float distanceMeters, boolean userTapped) {
+                    latestArDistanceMeters = distanceMeters;
                     handleArSpotInspection(uprightFrame, worldPos, distanceMeters, userTapped);
                 }
 
@@ -1350,12 +1373,95 @@ public final class ZoeLiveActivity extends ComponentActivity {
         });
     }
 
+    /**
+     * Opt-in 1-tap Google Patents Catalog lookup from Zoe Explore's live view, ARCore 3D distance,
+     * OCR patent/model text, or recent spoken question (zero API keys, HTTPS patents.google.com).
+     */
+    private void runGooglePatentsLookup() {
+        final long myTurn = activeTurnId.incrementAndGet();
+        stopAudioOnly();
+        lastUserSpoken = "Patent & Schematic Catalog Lookup";
+        setOrbState(OrbState.THINKING, "SEARCHING GOOGLE PATENTS CATALOG…");
+        captionView.setText("Checking optical/mechanical features & stamped patent text against patents.google.com…");
+        patentBadgeBtn.setVisibility(View.GONE);
+
+        final Bitmap freshFrame = cameraOn ? cameraPreview.getBitmap() : null;
+        final String hint = sessionHistory.isEmpty() ? "" : sessionHistory.get(sessionHistory.size() - 1).text;
+        final float distM = arModeOn ? latestArDistanceMeters : 0f;
+
+        executor.execute(() -> {
+            if (myTurn != activeTurnId.get()) {
+                return;
+            }
+            if (freshFrame != null) {
+                try {
+                    Bitmap small = MediaChatHelper.scaleDown(freshFrame, 640);
+                    latestCameraReport = MediaChatHelper.inspectFrameOffline(small);
+                    latestCameraJpeg = MediaChatHelper.bitmapToJpeg(small, 80);
+                    small.recycle();
+                } catch (Exception ignored) {
+                }
+            }
+            GooglePatentsClient.LookupResult res = GooglePatentsClient.searchPatents(
+                    latestCameraReport, hint, distM, 3);
+            String spokenSummary = res.formatSpokenSummary();
+            GooglePatentsClient.PatentMatch top = res.topMatch();
+
+            runOnUiThread(() -> {
+                if (myTurn != activeTurnId.get() || isFinishing() || isDestroyed()) {
+                    return;
+                }
+                if (top != null && WebSearchClient.isSafeWebUrl(top.patentUrl)) {
+                    latestPatentUrl = top.patentUrl;
+                    String label = "📐 " + top.publicationNumber + " · " + top.title;
+                    if (label.length() > 54) {
+                        label = label.substring(0, 53) + "…";
+                    }
+                    patentBadgeBtn.setText(label + " ↗");
+                    patentBadgeBtn.setVisibility(View.VISIBLE);
+                } else {
+                    latestPatentUrl = "";
+                    patentBadgeBtn.setVisibility(View.GONE);
+                }
+                finishSimpleReply(myTurn, spokenSummary);
+            });
+        });
+    }
+
     private void answerTurnInBackground(long myTurn, String spoken, boolean withCamera) {
         if (myTurn != activeTurnId.get()) {
             return;
         }
         WebSearchClient.SearchResult webRes = webOn ? WebSearchClient.search(spoken) : null;
         String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(700) : "";
+
+        // When Web: on and user asks about an unfamiliar object/mechanism or patent, enrich via patents.google.com!
+        String lowerSpoken = spoken == null ? "" : spoken.toLowerCase(Locale.US);
+        boolean wantsPatent = webOn && (lowerSpoken.contains("patent")
+                || lowerSpoken.contains("schematic")
+                || lowerSpoken.contains("blueprint")
+                || lowerSpoken.contains("mechanism")
+                || (withCamera && (lowerSpoken.contains("what is this") || lowerSpoken.contains("what's this") || lowerSpoken.contains("identify"))));
+        if (wantsPatent) {
+            GooglePatentsClient.LookupResult patRes = GooglePatentsClient.searchPatents(
+                    latestCameraReport, spoken, arModeOn ? latestArDistanceMeters : 0f, 2);
+            if (patRes.hasMatches()) {
+                String patCtx = patRes.formatPromptContext(560);
+                webCtx = webCtx.isEmpty() ? patCtx : (webCtx + "\n" + patCtx);
+                GooglePatentsClient.PatentMatch top = patRes.topMatch();
+                if (top != null && WebSearchClient.isSafeWebUrl(top.patentUrl)) {
+                    latestPatentUrl = top.patentUrl;
+                    String badgeLabel = "📐 " + top.publicationNumber + " · " + top.title;
+                    String finalLabel = (badgeLabel.length() > 54 ? badgeLabel.substring(0, 53) + "…" : badgeLabel) + " ↗";
+                    runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) {
+                            patentBadgeBtn.setText(finalLabel);
+                            patentBadgeBtn.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        }
         String roomMem = arModeOn ? arBrain.summarizeRoomMemory() : "";
         String camReport = withCamera
                 ? (roomMem.isEmpty() ? latestCameraReport : (latestCameraReport + " " + roomMem).trim())
