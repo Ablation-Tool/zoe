@@ -1,9 +1,9 @@
 # SafeConvert — Documentation, Privacy Architecture & Safety Boundaries
 
-**SafeConvert** is a built-in Zapp inside **Zoe (beta)** (available on both **Android** and **Apple** iOS/iPadOS/iPhone Duo Fold) designed for two simultaneous goals:
+**SafeConvert** is a built-in Zapp inside **Zoe (beta)** (`v0.8.0-beta`, available on both **Android** and **Apple** iOS/iPadOS/iPhone Duo Fold) designed for two simultaneous goals:
 
 1. **On the surface:** A fast, genuinely useful, zero-ad, 100% offline **Unit Converter** styled seamlessly in Zoe's calm Google Gemini Material 3 Expressive Dark/Light theme.
-2. **Beneath the surface:** A discreet, completely offline **personal safety companion, calming aid, crisis resource directory, and SHA-256 private proof vault** built to help adults and children who may be experiencing abuse, coercion, or crisis — including people whose phones may be checked or monitored.
+2. **Beneath the surface:** A discreet, completely offline **international personal safety companion, trauma-informed post-incident guide, calming & children's studio, SHA-256 private proof vault, and offline Bluetooth LE Help Beacon & Blind Encrypted Relay Mesh** built to help adults and children worldwide — including people whose phones may be checked or monitored.
 
 > **Important Public Safety Note:** To protect people who rely on SafeConvert in unsafe households, the exact discreet activation sequence is **intentionally omitted from public deployment guides and social posts**. Developers auditing the repository can inspect the exact mechanism directly in [`mobile/shared/safeconvert/index.html`](shared/safeconvert/index.html), and users see a quiet reminder inside SafeConvert's private safety layer once opened.
 
@@ -18,7 +18,7 @@ When you open **SafeConvert**, it looks and functions strictly like a clean, mod
   - **Weight:** Ounces, Pounds, Grams, Kilograms
   - **Temperature:** Fahrenheit, Celsius
   - **Volume:** Cups, Pints, Quarts, Gallons, Liters
-- **Ergonomic Design Matching Zoe:** Automatically matches Zoe's Obsidian Velvet Dark Mode or pure Light Mode (synced live with Zoe's in-app appearance toggle on Android and system Dark/Light appearance on Apple), with rounded pill category tabs, generous `>= 48dp/pt` inputs, instant `↕ Swap`, and a tappable top-right **Zoe GEM-Ellipsis** Home logo.
+- **Ergonomic Design Matching Zoe:** Automatically matches Zoe's Obsidian Velvet Dark Mode or pure Light Mode, with rounded pill category tabs, generous `>= 48dp/pt` inputs, instant `↕ Swap`, and a tappable top-right **Zoe GEM-Ellipsis** Home logo.
 - **Zero False Triggers:** Everyday numbers and decimals (`0`, `0.00`, `0.5`, `112`, etc.) convert normally and never accidentally reveal the safety layer.
 - **Zero Network & Zero Tracking:** Runs 100% from local bundled assets with zero external scripts, zero CDNs, zero ads, and zero analytics.
 
@@ -26,81 +26,79 @@ When you open **SafeConvert**, it looks and functions strictly like a clean, mod
 
 ## 2. Layer Two — Discreet Offline Safety Companion (What's Inside)
 
-Once opened, SafeConvert reveals a calm, high-contrast, easy-to-read offline safety workspace with four core pillars:
+Once opened, SafeConvert reveals a calm, high-contrast, easy-to-read offline safety workspace with five major pillars:
 
-### A. My Safe People *(Private Trusted Contacts)*
+### A. International Regions & Languages *(8 Regional Packs · 5 Languages)*
+- **Offline Auto-Detection + Instant Manual Override:** Detects your region offline via SIM/network/locale (or via an opt-in 1-shot **📍 Detect** GPS check) and lets you switch anytime across **8 verified regional packs**:
+  - **US (`911`)**, **EU / Europe (`112`, Pan-EU Child Helpline `116 111`, Victim Support Europe `116 006`, DE `116 016`, FR `3919`, ES `016`)**, **UK (`999` / `112` + Silent Solution `55`, Refuge `0808 2000 247`, Childline `0800 1111`, clarifying NHS non-emergency `111`)**, **Canada (`911`, `988`, Kids Help Phone, ShelterSafe)**, **Australia (`000`, `1800RESPECT`, Kids Helpline)**, **México / LATAM (`911`, Red Nacional de Refugios, Línea de la Vida)**, **India (`112`, `181`, Childline `1098`)**, and **Global (`112` / `911`, `findahelpline.com`, `hotpeachpages.net`)**.
+- **Localized School Helpers & Legal Protections:** Adapts school-adult terminology to local systems (e.g., EU teacher/class tutor/school nurse/social worker; UK Designated Safeguarding Lead; US school counselor) AND updates legal guidance to local orders (**US Restraining/Protection Orders**, **EU European Protection Order**, **UK Non-Molestation & Occupation Orders**, **CA Peace Bond / EPO**, **AU AVO/DVO**, **MX Órdenes de Protección**, **IN PWDVA 2005 / NALSA**).
+- **5 Interface Languages:** Instant offline switching across **English (`EN`)**, **Español (`ES`)**, **Français (`FR`)**, **Deutsch (`DE`)**, and **Português (`PT`)**.
+
+### B. My Safe People *(Private Trusted Contacts)*
 - Store up to **5 trusted contacts** (name, phone number, and a custom distress message or code word like *"Call me now"*, *"I need help, come now"*, or *"Blue sky"*).
 - Stored strictly in **app-private storage** (never added to your phone's main Contacts app and excluded from cloud backup via `allowBackup="false"`).
 - **One-tap actions:** Tap **Send text** to pre-fill your distress message in your SMS app, or **Call** to open the phone dialer (nothing sends or dials without your deliberate tap).
-- Edit, delete any single contact, or **Erase all saved contacts** with a clean two-step confirmation.
 
-### B. Talk to Zoe & Calming Tools *(100% Offline · Ephemeral)*
-Designed for moments of panic, fear, verbal abuse, or overwhelm:
-- **`PRIVATE · USER + ZOE ONLY` Boundary:** Chat messages run **100% offline** via deterministic supportive responses (zero cloud servers, zero AI logs) and **clear automatically** the moment you exit unless you explicitly tap **+ Save to Safety Log** on a specific note.
-- **Breathe (4-4-6):** Interactive guided visual breathing orb (`IN · 4s` → `HOLD · 4s` → `OUT · 6s`) to steady breathing at your own pace.
-- **5-4-3-2-1 Calm:** Simple sensory grounding card for acute anxiety or panic.
-- **Quick One-Tap Distress Chips:** Plain-language prompts (*"I'm feeling really sad"*, *"I'm scared right now"*, *"They yelled at me"*, *"I just need to calm down"*) so someone shaking or too overwhelmed to type can get immediate calm guidance and crisis buttons.
+### C. Talk to Zoe, Calming Studio & Private SHA-256 Proof Vault
+- **`PRIVATE · USER + ZOE ONLY` Boundary:** Chat messages run **100% offline** with localized crisis buttons and **clear automatically** when you exit unless you explicitly save a note.
+- **Expanded Calming Studio (100% Offline · Auto-Clears on Exit):**
+  - **Breathe (4-4-6):** Visual breathing orb (`IN · 4s` → `HOLD · 4s` → `OUT · 6s`).
+  - **5-4-3-2-1 Calm:** Sensory grounding card for acute panic.
+  - **🎨 Calm Art Pad:** Interactive multi-color finger drawing canvas that auto-erases completely when you tap **✕ EXIT**.
+  - **🧩 Easy Math & Patterns:** Zero-timer, zero-stress gentle grounding puzzles to interrupt panic spirals.
+  - **📖 Stories Read by Zoe:** 3 original soothing offline stories (*The Quiet Lighthouse*, *Little Moss and the Slow Cloud*, *The Lantern Garden*). Opens **silent by default**; tapping **🔊 Have Zoe read aloud** requires explicit quiet-room/headphones confirmation before speaking softly, and **✕ EXIT** cuts voice immediately in `<10 ms`.
+- **Private Safety Log & Proof Vault (UTC Timestamped · SHA-256 Verified):**
+  - Timestamped text notes, explicit **● Record audio** (`.m4a`) & **● Record video** (`.mp4`) saved strictly in app-private storage (never in the public phone Gallery), optional 4–32 character `PBKDF2` passcode lock (`SafeVaultLock.java`) that auto-locks on exit, and a two-step **Grant permission & share** gate before anything ever leaves the vault.
 
-### C. Private Safety Log & Proof Vault *(UTC Timestamped · SHA-256 Verified)*
-Helps document incidents safely and privately when someone needs an intact record for advocates, shelters, or legal protection orders:
-- **Timestamped Text Notes:** Write dates, exact threats or words spoken, witnesses, or injuries — automatically stamped with UTC time and a cryptographic **SHA-256 digest**.
-- **Explicit Audio & Video Recording (Android Native Vault):**
-  - Tap **● Record audio** (AAC `.m4a`, 44.1 kHz) or **● Record video** (`.mp4`) to capture private evidence.
-  - Recording starts **ONLY when you press Record** — never passively in the background. If you tap **✕ EXIT** while recording audio, active audio stops and saves cleanly.
-  - Files are saved strictly in **app-private storage** — they **never appear in your phone's public Photos / Gallery app**.
-- **Optional Private Vault Passcode Lock:**
-  - Set an optional 4–32 character passcode (`PBKDF2` / salted hash via [`SafeVaultLock.java`](android/app/src/main/java/research/zoetic/zoe/SafeVaultLock.java)).
-  - **Auto-locks automatically every time you exit or leave the screen** — and you can still add new notes/recordings even while the vault is locked so prior entries stay hidden.
-- **Explicit Permission Gate Before Sharing:**
-  - Nothing in the Safety Log ever leaves the vault automatically.
-  - Tapping **Share** or **Share full Safety Log** opens a second explicit confirmation banner (**Grant permission & share** vs **Keep private**) before invoking the OS share sheet.
-  - Includes one-item delete and **Erase entire Safety Log** with explicit confirmation.
+### D. Trauma-Informed Medical Care, Closest Help Spots, Kids Mode & Moderated Support
+- **After an Assault or Incident (Medical & Care):** Zero-shame post-incident checklist covering forensic evidence preservation (before showering/changing if possible, separate **paper bags** — never plastic — if clothing was changed, SANE/SARC/ER forensic exams without requiring an immediate police report, and 1-tap jump to Nearest ER or Private SHA-256 Safety Log).
+- **Closest Help Spots & Safe Locator:** One-tap native Maps links (`geo:` / Apple Maps) for **Nearest Hospital / ER**, **Police Station**, **24-Hour Pharmacy**, and **Public Library**. **Confidential DV shelters are never plotted on public maps** to protect survivor safety — instead, SafeConvert connects you to regional 24/7 confidential intake lines. Includes an opt-in **one-shot GPS Locator** that reads coordinates once, stops immediately, and prepares a dual Google + Apple Maps SMS pin to your Safe People.
+- **I'm a Kid and I'm Scared + 🌟 Easy Picture Mode (Young Kids):** Big-icon, 4–6 word early-reader cards (*"You are NOT in trouble"*, *"This is NOT your fault"*, regional trusted school grown-ups), a full-width **"Show this screen to a safe adult"** card, quiet-room-gated gentle read-aloud, and 1-tap jump to Calm Art & Stories.
+- **Safe Support Groups & Moderated Chats:** Explains honestly why SafeConvert intentionally does **not** run unvetted anonymous peer chat rooms (preserving the zero-network sandbox and preventing abuser/predator infiltration) and links to verified, human-moderated regional survivor chats & forums.
 
-### D. Six Crisis, Child, Safety-Plan & Legal Help Sections
-Every section opens calmly as a clear accordion with large readable text and one-tap `tel:` / `sms:` / `mailto:` / `https:` links (never auto-triggered):
-1. **I need help right now:** National Domestic Violence Hotline (`1-800-799-7233`), Text `START` to `88788`, Crisis Text Line (`HOME` to `741741`), `988` Suicide & Crisis Lifeline (call or text), and `911`.
-2. **I'm a kid and I'm scared:** Childhelp National Hotline (`1-800-422-4453`), clear reassuring messages (*"You are not in trouble."* / *"This is not your fault."*), and guidance on reaching a trusted teacher, counselor, neighbor, or `911`.
-3. **I need to make a plan to leave:** 5 clear step-by-step safety planning actions (trusted person, code word, essential documents, knowing exits, shelter essentials for children & pets).
-4. **I think my phone is being watched:** Practical checklist for safer devices, private browsing, unrecognized disguised apps, Google Location Sharing / Android Unknown Tracker Alerts, physical trackers (AirTags/Tiles), and safe password changes.
-5. **Can I get legal help?:** Plain-English guidance on free protection / restraining orders, courthouse victim advocates, evidence preservation, legal protection regardless of immigration status, and an explicit tap-only link to `lawhelp.org`.
-6. **More numbers to call or text:** DV Hotline, Childhelp, Love Is Respect (`1-866-331-9474` / Text `LOVEIS` to `22522`), RAINN Sexual Assault Hotline (`1-800-656-4673`), Deaf / Hard of Hearing Video Phone (`1-855-812-1001`), confidential hotline email, and `911`.
+### E. Offline Help Beacon & Blind Encrypted Relay Mesh *(Bluetooth LE · AirTag Style)*
+Built in [`SafeBeaconMesh.java`](android/app/src/main/java/research/zoetic/zoe/SafeBeaconMesh.java) and mirrored in [`SafeBeaconMeshCore.swift`](shared/Sources/ZoeCore/SafeBeaconMeshCore.swift) for moments with **zero cell signal or Wi-Fi**:
+- **Mode 1 — Blind E2EE Relay Beacon (AirTag / Find My Style):** Broadcasts a 22-byte signed BLE packet containing a **15-minute rotating SHA-256 ephemeral tag** (`SHA-256(secret || epoch)`). Nearby Zoe phones cannot identify who you are.
+- **Mode 2 — Local SOS Mesh Alert:** Opt-in short-range (`~30–80 m`) signed BLE emergency ping that alerts nearby actively-scanning Zoe phones with approximate RSSI distance (`~X.X m`) and local emergency guidance.
+- **Strict Anti-Stalkerware Guardrails (`CONSTITUTION.md`):**
+  - Starts **strictly OFF** — never advertises or scans silently in the background.
+  - **Hard 30-minute auto-expiry timer** prevents covert persistent tracking.
+  - **Instant radio shutoff** on **✕ EXIT**, app switch, or lock screen.
+  - **1-tap Rotate / Revoke All Keys** immediately replaces the 32-byte device secret and permanently invalidates all previous beacon tags.
+  - **Honest Scope:** Clearly discloses Bluetooth LE peer-to-peer range (`~30–80 m` between Zoe devices — not Apple's global iPhone Find My network).
 
 ---
 
 ## 3. Built-In Privacy, Anti-Surveillance & Panic-Exit Architecture
 
-SafeConvert enforces multiple defense-in-depth protections automatically:
-
 | Protection | How It Works |
 |:---|:---|
-| **Instant Panic Exit (6 Triggers)** | Tap **`✕ EXIT`**, tap the **top bar**, press **`ESC`**, press **Android Back**, wait **90 seconds idle**, or **switch apps / lock screen** (`onUserLeaveHint` / `onStop`) — SafeConvert immediately clears ephemeral chat, locks any passcode-protected vault, clears inputs, and snaps straight back to the Unit Converter cover. |
-| **Screenshot & App-Switcher Shield** | On Android, revealing the safety layer dynamically sets `WindowManager.LayoutParams.FLAG_SECURE` (blocking screenshots, screen recorders, and Android Recents previews) and clears it cleanly on exit. On Apple, `SafeConvertViewController` covers the view with a thick `UIVisualEffectView` blur shield on `willResignActiveNotification`. |
-| **Zero-Network WebView Sandbox** | Android `WebView` sets `setBlockNetworkLoads(true)`, `setAllowContentAccess(false)`, `setAllowFileAccessFromFileURLs(false)`, `setAllowUniversalAccessFromFileURLs(false)`, `MIXED_CONTENT_NEVER_ALLOW`, and intercepts every request outside `file:///android_asset/safeconvert/`. Apple `WKWebView` allows only local `file://` loads and explicit user-tapped `tel:`, `sms:`, `mailto:`, and `https:` links. |
-| **Zero Cloud Backup** | Android sets `android:allowBackup="false"` and `android:fullBackupContent="false"` so private contacts, passcode hashes, and Safety Log evidence are excluded from automatic cloud backups or device transfers. |
+| **Instant Panic Exit (6 Triggers)** | Tap **`✕ EXIT`**, tap the **top bar**, press **`ESC`**, press **Android Back**, wait **90 seconds idle**, or **switch apps / lock screen** (`onUserLeaveHint` / `onStop`) — SafeConvert immediately cuts calm voice TTS (`<10 ms`), stops BLE beacons/scans, clears the Calm Art canvas, clears ephemeral chat & GPS display, locks any passcode-protected vault, and snaps straight back to the Unit Converter cover. |
+| **Screenshot & App-Switcher Shield** | On Android, revealing the safety layer dynamically sets `WindowManager.LayoutParams.FLAG_SECURE` (blocking screenshots, screen recorders, and Android Recents previews) and clears it cleanly on exit. On Apple, `SafeConvertViewController` cuts speech, calls `exitHelp()`, and covers the view with a thick `UIVisualEffectView` blur shield on `willResignActiveNotification`. |
+| **Zero-Network WebView Sandbox** | Android `WebView` sets `setBlockNetworkLoads(true)`, `setAllowContentAccess(false)`, `setAllowFileAccessFromFileURLs(false)`, `setAllowUniversalAccessFromFileURLs(false)`, `MIXED_CONTENT_NEVER_ALLOW`, and intercepts every request outside `file:///android_asset/safeconvert/`. External handoffs allow ONLY user-tapped `tel:`, `sms:`, `mailto:`, `geo:`, and `https:` schemes. |
+| **Zero Cloud Backup** | Android sets `android:allowBackup="false"` and `android:fullBackupContent="false"` so private contacts, beacon keys, passcode hashes, and Safety Log evidence are excluded from automatic cloud backups or device transfers. |
 
 ---
 
 ## 4. Verification & Source Files
 
-SafeConvert is continuously verified by automated unit tests and real hardware instrumentation tests on Pixel 7:
-
 - **Shared Vanilla HTML/CSS/JS (mirrored byte-identical across platforms):**
   - [`mobile/shared/safeconvert/index.html`](shared/safeconvert/index.html)
   - [`mobile/android/app/src/main/assets/safeconvert/index.html`](android/app/src/main/assets/safeconvert/index.html)
   - [`mobile/apple/Zoe/Resources/safeconvert/index.html`](apple/Zoe/Resources/safeconvert/index.html)
-- **Android Native Host & Vault:**
-  - [`SafeConvertActivity.java`](android/app/src/main/java/research/zoetic/zoe/SafeConvertActivity.java) · [`SafeEvidenceStore.java`](android/app/src/main/java/research/zoetic/zoe/SafeEvidenceStore.java) · [`SafeVaultLock.java`](android/app/src/main/java/research/zoetic/zoe/SafeVaultLock.java)
-- **Apple Native Host:**
-  - [`SafeConvertViewController.swift`](apple/Zoe/SafeConvertViewController.swift)
+- **Android Native Host, Proof Vault & Offline BLE Mesh:**
+  - [`SafeConvertActivity.java`](android/app/src/main/java/research/zoetic/zoe/SafeConvertActivity.java) · [`SafeBeaconMesh.java`](android/app/src/main/java/research/zoetic/zoe/SafeBeaconMesh.java) · [`SafeEvidenceStore.java`](android/app/src/main/java/research/zoetic/zoe/SafeEvidenceStore.java) · [`SafeVaultLock.java`](android/app/src/main/java/research/zoetic/zoe/SafeVaultLock.java)
+- **Apple Native Host & Cross-Platform BLE Core:**
+  - [`SafeConvertViewController.swift`](apple/Zoe/SafeConvertViewController.swift) · [`SafeBeaconMeshCore.swift`](shared/Sources/ZoeCore/SafeBeaconMeshCore.swift)
 - **Automated Tests:**
-  - **9/9 Pixel 7 Hardware Espresso Tests:** [`SafeConvertActivityTest.java`](android/app/src/androidTest/java/research/zoetic/zoe/SafeConvertActivityTest.java) (local no-CDN load, unit conversion accuracy across all 4 categories + Swap, zero false-trigger checks on normal decimals, emergency-code reveal & legal section, safe-contact persistence + `FLAG_SECURE` toggle, Talk to Zoe calming + SHA-256 timestamped proof persistence, passcode auto-lock on exit + explicit share permission gate, and clean cover-only exit).
-  - **Android Host Unit Tests:** [`SafeConvertIntentTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeConvertIntentTest.java) · [`SafeEvidenceStoreTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeEvidenceStoreTest.java) · [`SafeVaultLockTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeVaultLockTest.java).
+  - **Pixel 7 Hardware Espresso Tests:** [`SafeConvertActivityTest.java`](android/app/src/androidTest/java/research/zoetic/zoe/SafeConvertActivityTest.java) (all cover conversions, zero false triggers, international region switching US→EU `112`/`116 111`→UK `999`/`0808 2000 247`, Spanish/English UI switch, post-incident forensic care, Closest Help Spots `geo:` links & confidential shelter notice, Young Child Easy Picture Mode, Calm Art/Math/Zoe Stories + mandatory sound-safety gate, SHA-256 vault + passcode lock, and Offline BLE Help Beacon key rotation).
+  - **Android & Swift Unit Tests:** [`SafeConvertIntentTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeConvertIntentTest.java) · [`SafeBeaconMeshTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeBeaconMeshTest.java) · [`SafeEvidenceStoreTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeEvidenceStoreTest.java) · [`SafeVaultLockTest.java`](android/app/src/test/java/research/zoetic/zoe/SafeVaultLockTest.java) · [`ZoeCoreTests.swift`](shared/Tests/ZoeCoreTests/ZoeCoreTests.swift).
 
 ---
 
 ## 5. Honest Safety Boundaries & Credits
 
-- **Not Counseling, Legal Advice, or an Emergency Guarantee:** SafeConvert is an offline information, calming, and documentation tool — not professional therapy, legal representation, or a guarantee of physical safety. Emergency calls and texts still depend on your device, carrier, signal, and local emergency services.
+- **Not Counseling, Legal Advice, or an Emergency Guarantee:** SafeConvert is an offline information, calming, documentation, and short-range BLE signaling tool — not professional therapy, legal representation, or a guarantee of physical safety. Emergency calls and texts still depend on your device, carrier, signal, and local emergency services.
+- **BLE Range Boundaries:** Offline Bluetooth LE beacons typically reach `~30–80 m` between active Zoe phones depending on walls and terrain; they do not use Apple's proprietary global Find My network.
 - **Recording Laws:** One-party vs. two-party audio/video recording consent laws vary by state and country. Use recording tools only when safe and lawful for your situation.
-- **Device Hygiene:** If you suspect your phone is compromised or actively monitored, use a safer device (such as a library computer or a trusted friend's phone) whenever possible, and avoid storing passwords or banking details inside notes.
-- **Credit:** The original SafeConvert concept is credited to **ExileKingdom / Nuclide**. This independent zero-dependency vanilla implementation adds native Android `WebView` / Apple `WKWebView` containers, `FLAG_SECURE` / iOS blur shields, SHA-256 private vault storage, optional passcode lock, offline calming tools, and Zoe's accessible Material 3 Expressive design.
+- **Credit:** The original SafeConvert concept is credited to **ExileKingdom / Nuclide**. This independent zero-dependency implementation adds native Android `WebView` / Apple `WKWebView` containers, `FLAG_SECURE` / iOS blur shields, 8-region / 5-language international support, trauma-informed post-incident medical care, Closest Help Spots & opt-in GPS locator, Calm Art/Math/Zoe Story Studio, Young Child Easy Picture Mode, SHA-256 private vault storage, optional passcode lock, and the offline rotating-tag BLE Help Beacon & Mesh.

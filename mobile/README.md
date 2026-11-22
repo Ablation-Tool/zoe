@@ -1,12 +1,12 @@
 # Zoe (beta) — Mobile Companion
 
-> **Status:** **Zoe (beta)** (`v0.7.0-beta`) is a free, hybrid offline-first + online-on-demand, privacy-respecting work-in-progress mobile app for **Android** (verified on Pixel 7, direct beta APK on [GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.7.0-beta)) and **Apple** (`iPhone`, `iPad`, & `iPhone Duo Fold` native SwiftUI + shared `ZoeCore` package).
+> **Status:** **Zoe (beta)** (`v0.8.0-beta`) is a free, hybrid offline-first + online-on-demand, privacy-respecting work-in-progress mobile app for **Android** (verified on Pixel 7, direct beta APK on [GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.8.0-beta)) and **Apple** (`iPhone`, `iPad`, & `iPhone Duo Fold` native SwiftUI + shared `ZoeCore` package).
 
 <div align="center">
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.7.0-beta"><img src="../assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe (beta) live Pixel 7 screenshots" width="100%" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.8.0-beta"><img src="../assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe (beta) live Pixel 7 screenshots" width="100%" /></a>
 
-**[⬇ Download Zoe (beta) Android APK (`v0.7.0-beta`)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.7.0-beta)** &nbsp;·&nbsp; **[Complete Guide to Every Zapp (`ZAPPS.md`)](ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Documentation (`SAFECONVERT.md`)](SAFECONVERT.md)**
+**[⬇ Download Zoe (beta) Android APK (`v0.8.0-beta`)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.8.0-beta)** &nbsp;·&nbsp; **[Complete Guide to Every Zapp (`ZAPPS.md`)](ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Documentation (`SAFECONVERT.md`)](SAFECONVERT.md)**
 
 </div>
 

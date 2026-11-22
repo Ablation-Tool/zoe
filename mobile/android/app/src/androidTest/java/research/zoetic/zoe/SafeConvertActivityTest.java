@@ -268,6 +268,81 @@ public class SafeConvertActivityTest {
         assertFalse(evaluate("document.body.innerText").contains("You are not alone"));
     }
 
+    @Test
+    public void internationalRegionsMedicalCareKidsModeCalmingStudioAndBleBeaconWork() throws Exception {
+        try {
+            evaluate("localStorage.removeItem('uc_region_v1');localStorage.removeItem('uc_lang_v1');"
+                    + "document.getElementById('value').value='911';document.getElementById('value').dispatchEvent(new Event('input'));''");
+            assertFalse(evaluate("getComputedStyle(document.getElementById('help')).display").contains("none"));
+
+            // Switch US -> EU: verifies 112 (NOT 111!), 116 111 child helpline, European Protection Order
+            evaluate("document.getElementById('regionSelect').value='EU';document.getElementById('regionSelect').dispatchEvent(new Event('change'));''");
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='now').click();''");
+            String euNow = evaluate("document.getElementById('helpSections').innerText");
+            assertTrue(euNow.contains("112"));
+            assertTrue(euNow.contains("116 111"));
+
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='legal').click();''");
+            String euLegal = evaluate("document.getElementById('helpSections').innerText");
+            assertTrue(euLegal.contains("European Protection Order"));
+
+            // Switch EU -> UK: verifies 999, Refuge 0808 2000 247, Non-Molestation Order
+            evaluate("document.getElementById('regionSelect').value='UK';document.getElementById('regionSelect').dispatchEvent(new Event('change'));''");
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='now').click();''");
+            String ukNow = evaluate("document.getElementById('helpSections').innerText");
+            assertTrue(ukNow.contains("999"));
+            assertTrue(ukNow.contains("0808 2000 247"));
+
+            // Switch language to Spanish and back to English
+            evaluate("document.getElementById('langSelect').value='es';document.getElementById('langSelect').dispatchEvent(new Event('change'));''");
+            assertTrue(evaluate("document.getElementById('helpHeading').innerText").contains("No estás solo"));
+            evaluate("document.getElementById('langSelect').value='en';document.getElementById('langSelect').dispatchEvent(new Event('change'));"
+                    + "document.getElementById('regionSelect').value='US';document.getElementById('regionSelect').dispatchEvent(new Event('change'));''");
+
+            // Post-incident medical & forensic care
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='medical').click();''");
+            String medText = evaluate("document.getElementById('helpSections').innerText");
+            assertTrue(medText.contains("PAPER bag"));
+            assertTrue(medText.contains("rape kit"));
+
+            // Closest help spots & safe locator (hospitals/police/libraries mapped; confidential shelters NOT plotted)
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='locator').click();''");
+            String locHtml = evaluate("document.getElementById('helpSections').innerHTML");
+            assertTrue(locHtml.contains("geo:0,0?q=emergency+room+hospital"));
+            assertTrue(locHtml.contains("geo:0,0?q=police+station"));
+            assertTrue(evaluate("document.getElementById('helpSections').innerText").contains("addresses secret"));
+
+            // Young child easy picture mode
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='kid').click();''");
+            evaluate("document.getElementById('kidEasyToggle').click();document.getElementById('kidShowAdultBtn').click();''");
+            assertTrue(evaluate("document.getElementById('kidAdultCard').innerText").contains("safe grown-up"));
+
+            // Calming Studio: Calm Art + Easy Math + Zoe Story with mandatory sound-safety gate
+            evaluate("document.getElementById('zoeToggle').click();document.getElementById('artBtn').click();"
+                    + "document.getElementById('mathBtn').click();document.getElementById('storyBtn').click();"
+                    + "document.getElementById('storyReadBtn').click();''");
+            assertFalse(evaluate("getComputedStyle(document.getElementById('artBox')).display").contains("none"));
+            assertFalse(evaluate("getComputedStyle(document.getElementById('mathBox')).display").contains("none"));
+            assertFalse(evaluate("getComputedStyle(document.getElementById('storySoundGate')).display").contains("none"));
+            evaluate("document.getElementById('storySpeakNo').click();''");
+            assertTrue(evaluate("getComputedStyle(document.getElementById('storySoundGate')).display").contains("none"));
+
+            // Offline BLE Help Beacon & Mesh UI + Key rotation
+            evaluate("Array.from(document.querySelectorAll('.acc-btn')).find(b=>b.dataset.sectionId==='beacon').click();''");
+            assertTrue(evaluate("window.SafeStore.supportsBeaconMesh()").contains("true"));
+            String tagBefore = evaluate("document.getElementById('beaconTag').innerText");
+            assertTrue(tagBefore.contains("15-min Rotating Tag:"));
+            evaluate("document.getElementById('beaconRotateBtn').click();''");
+            String tagAfter = evaluate("document.getElementById('beaconTag').innerText");
+            assertFalse("Rotating keys must generate a fresh tag", tagBefore.equals(tagAfter));
+
+            evaluate("exitHelp();''");
+            assertTrue(evaluate("getComputedStyle(document.getElementById('help')).display").contains("none"));
+        } finally {
+            evaluate("localStorage.removeItem('uc_region_v1');localStorage.removeItem('uc_lang_v1');exitHelp();''");
+        }
+    }
+
     private boolean hasFlagSecure() {
         AtomicBoolean secured = new AtomicBoolean(false);
         activity.getScenario().onActivity(act -> secured.set(

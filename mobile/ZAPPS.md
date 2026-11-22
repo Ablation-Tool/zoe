@@ -1,6 +1,6 @@
 # Zoe (beta) — Complete Zapps Guide
 
-Welcome to **Zoe (beta)** (`v0.7.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.8.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
 
 > **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
 
@@ -35,7 +35,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 | **11** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
 | **12** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
 | **13** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
-| **14** | **SafeConvert** | Clean offline unit converter with a discreet private safety & crisis layer | Android · Apple | **100% offline, zero network loads** — see [Complete SafeConvert Guide](SAFECONVERT.md) |
+| **14** | **SafeConvert** | Clean offline unit converter with an international (8-region, 5-language) discreet safety companion, trauma-informed post-incident care, calming art/math/story studio, Young Child Easy Picture Mode, SHA-256 vault & offline BLE Help Beacon Mesh | Android · Apple | **100% offline zero-network WebView**; opt-in 1-shot GPS locator & offline Bluetooth LE rotating-tag beacon start strictly OFF and stop instantly on `✕ EXIT` — see [Complete SafeConvert Guide](SAFECONVERT.md) |
 | **15** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
 
 ---

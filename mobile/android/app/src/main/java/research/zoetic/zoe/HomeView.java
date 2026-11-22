@@ -588,7 +588,7 @@ final class HomeView extends ScrollView {
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.7.0-beta · AR Space, Live Explore, Vault, Studio & Arcade · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.8.0-beta · Global SafeConvert, BLE Mesh, AR Space & Live · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

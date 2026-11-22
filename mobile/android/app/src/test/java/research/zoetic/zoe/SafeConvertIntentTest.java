@@ -15,6 +15,7 @@ public class SafeConvertIntentTest {
         assertTrue(SafeConvertActivity.isAllowedExternalScheme("sms:88788?body=START"));
         assertTrue(SafeConvertActivity.isAllowedExternalScheme("mailto:hotline@thehotline.org"));
         assertTrue(SafeConvertActivity.isAllowedExternalScheme("https://lawhelp.org"));
+        assertTrue(SafeConvertActivity.isAllowedExternalScheme("geo:0,0?q=emergency+room+hospital"));
 
         assertFalse(SafeConvertActivity.isAllowedExternalScheme("http://example.com"));
         assertFalse(SafeConvertActivity.isAllowedExternalScheme("javascript:alert(1)"));
@@ -22,6 +23,28 @@ public class SafeConvertIntentTest {
         assertFalse(SafeConvertActivity.isAllowedExternalScheme("intent://foo"));
         assertFalse(SafeConvertActivity.isAllowedExternalScheme(null));
         assertFalse(SafeConvertActivity.isAllowedExternalScheme(""));
+    }
+
+    @Test
+    public void mapsIsoCountriesAndLanguagesToSafeConvertPacks() {
+        assertEquals("US", SafeConvertActivity.mapIsoCountryToRegion("US"));
+        assertEquals("US", SafeConvertActivity.mapIsoCountryToRegion(""));
+        assertEquals("UK", SafeConvertActivity.mapIsoCountryToRegion("gb"));
+        assertEquals("EU", SafeConvertActivity.mapIsoCountryToRegion("DE"));
+        assertEquals("EU", SafeConvertActivity.mapIsoCountryToRegion("FR"));
+        assertEquals("EU", SafeConvertActivity.mapIsoCountryToRegion("ES"));
+        assertEquals("CA", SafeConvertActivity.mapIsoCountryToRegion("CA"));
+        assertEquals("AU", SafeConvertActivity.mapIsoCountryToRegion("AU"));
+        assertEquals("MX", SafeConvertActivity.mapIsoCountryToRegion("MX"));
+        assertEquals("IN", SafeConvertActivity.mapIsoCountryToRegion("IN"));
+        assertEquals("GLOBAL", SafeConvertActivity.mapIsoCountryToRegion("JP"));
+
+        assertEquals("en", SafeConvertActivity.normalizeLangCode("en-US"));
+        assertEquals("es", SafeConvertActivity.normalizeLangCode("es-MX"));
+        assertEquals("fr", SafeConvertActivity.normalizeLangCode("fr-FR"));
+        assertEquals("de", SafeConvertActivity.normalizeLangCode("de-DE"));
+        assertEquals("pt", SafeConvertActivity.normalizeLangCode("pt-BR"));
+        assertEquals("en", SafeConvertActivity.normalizeLangCode("ja"));
     }
 
     @Test

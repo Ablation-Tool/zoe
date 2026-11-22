@@ -2,16 +2,24 @@ package research.zoetic.zoe;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CancellationSignal;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
+import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
@@ -36,8 +44,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public final class SafeConvertActivity extends ComponentActivity {
     private static final String ASSET_PREFIX = "file:///android_asset/safeconvert/";
@@ -45,6 +61,24 @@ public final class SafeConvertActivity extends ComponentActivity {
     private static final String PREFS_KEY = "uc_pref_v1";
     private static final int MAX_CONTACTS_JSON_LEN = 4096;
     private static final int AUDIO_PERMISSION = 141;
+    private static final int BLE_PERMISSION = 142;
+    private static final int LOCATION_PERMISSION = 143;
+
+    private static final int BLE_ACTION_NONE = 0;
+    private static final int BLE_ACTION_BLIND_RELAY = 1;
+    private static final int BLE_ACTION_LOCAL_SOS = 2;
+    private static final int BLE_ACTION_SCAN = 3;
+
+    private static final Set<String> EU_EEA_CODES = new HashSet<>(Arrays.asList(
+            "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR",
+            "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK",
+            "SI", "ES", "SE", "NO", "IS", "LI", "CH"
+    ));
+
+    private static final Set<String> LATAM_CODES = new HashSet<>(Arrays.asList(
+            "MX", "AR", "CO", "CL", "PE", "BR", "UY", "EC", "GT", "CR", "PA",
+            "DO", "HN", "SV", "NI", "BO", "PY", "VE"
+    ));
 
     private WebView webView;
     private MediaRecorder audioRecorder;
@@ -59,12 +93,49 @@ public final class SafeConvertActivity extends ComponentActivity {
     private volatile boolean vaultUnlocked;
     private ActivityResultLauncher<Intent> videoCaptureLauncher;
 
+    private SafeBeaconMesh beaconMesh;
+    private int pendingBleAction = BLE_ACTION_NONE;
+    private boolean pendingLocationRequest;
+    private CancellationSignal locationCancelSignal;
+    private final ExecutorService ioExecutor = Executors.newSingleThreadExecutor();
+
+    private TextToSpeech calmTts;
+    private boolean calmTtsReady;
+    private String pendingSpeechText;
+    private String pendingSpeechLang = "en";
+
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         videoCaptureLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> handleVideoCaptureResult());
+
+        beaconMesh = new SafeBeaconMesh(this);
+        beaconMesh.setListener(new SafeBeaconMesh.MeshListener() {
+            @Override
+            public void onBeaconStatusChanged(boolean advertising, byte mode, String tagPreview, String message) {
+                notifyJsEvent("beacon_status", buildBeaconStateJson(message));
+            }
+
+            @Override
+            public void onNearbySighting(List<SafeBeaconMesh.ParsedBeacon> sightings) {
+                List<Map<String, Object>> rows = new ArrayList<>();
+                for (SafeBeaconMesh.ParsedBeacon b : sightings) {
+                    Map<String, Object> row = new LinkedHashMap<>();
+                    row.put("mode", b.isLocalSos() ? "sos" : "blind");
+                    row.put("isSos", b.isLocalSos());
+                    row.put("tag", b.rotatingTagHex.length() > 12
+                            ? b.rotatingTagHex.substring(0, 12).toUpperCase(Locale.US)
+                            : b.rotatingTagHex.toUpperCase(Locale.US));
+                    row.put("rssi", b.rssi);
+                    row.put("approxMeters", b.approxMeters);
+                    row.put("seenAtMs", b.seenAtMs);
+                    rows.add(row);
+                }
+                notifyJsEvent("beacon_sightings", MiniJson.stringify(rows));
+            }
+        });
 
         LinearLayout content = Ui.vertical(this);
         content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
@@ -113,7 +184,7 @@ public final class SafeConvertActivity extends ComponentActivity {
                     } catch (ActivityNotFoundException | IllegalArgumentException error) {
                         Toast.makeText(
                                 SafeConvertActivity.this,
-                                "No phone, messaging, or browser app is available for that action.",
+                                "No phone, messaging, maps, or browser app is available for that action.",
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -125,7 +196,10 @@ public final class SafeConvertActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, content));
         Ui.configureEdgeToEdge(this, content);
         String themeParam = Ui.isDark(this) ? "dark" : "light";
-        webView.loadUrl(ASSET_PREFIX + "index.html?theme=" + themeParam);
+        String regionParam = detectDeviceRegion();
+        String langParam = detectDeviceLanguage();
+        webView.loadUrl(ASSET_PREFIX + "index.html?theme=" + themeParam
+                + "&region=" + regionParam + "&lang=" + langParam);
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -145,6 +219,72 @@ public final class SafeConvertActivity extends ComponentActivity {
                         });
             }
         });
+    }
+
+    static String mapIsoCountryToRegion(String isoCountry) {
+        if (isoCountry == null) {
+            return "US";
+        }
+        String code = isoCountry.trim().toUpperCase(Locale.US);
+        if (code.isEmpty()) {
+            return "US";
+        }
+        if ("US".equals(code) || "PR".equals(code) || "VI".equals(code) || "GU".equals(code)) {
+            return "US";
+        }
+        if ("GB".equals(code) || "UK".equals(code)) {
+            return "UK";
+        }
+        if ("CA".equals(code)) {
+            return "CA";
+        }
+        if ("AU".equals(code) || "NZ".equals(code)) {
+            return "AU";
+        }
+        if ("IN".equals(code)) {
+            return "IN";
+        }
+        if (EU_EEA_CODES.contains(code)) {
+            return "EU";
+        }
+        if (LATAM_CODES.contains(code)) {
+            return "MX";
+        }
+        return "GLOBAL";
+    }
+
+    static String normalizeLangCode(String rawLang) {
+        if (rawLang == null) {
+            return "en";
+        }
+        String lang = rawLang.trim().toLowerCase(Locale.US);
+        if (lang.startsWith("es")) return "es";
+        if (lang.startsWith("fr")) return "fr";
+        if (lang.startsWith("de")) return "de";
+        if (lang.startsWith("pt")) return "pt";
+        return "en";
+    }
+
+    private String detectDeviceRegion() {
+        try {
+            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            if (tm != null) {
+                String net = tm.getNetworkCountryIso();
+                if (net != null && !net.trim().isEmpty()) {
+                    return mapIsoCountryToRegion(net);
+                }
+                String sim = tm.getSimCountryIso();
+                if (sim != null && !sim.trim().isEmpty()) {
+                    return mapIsoCountryToRegion(sim);
+                }
+            }
+        } catch (RuntimeException ignored) {
+        }
+        return mapIsoCountryToRegion(Locale.getDefault().getCountry());
+    }
+
+    private String detectDeviceLanguage() {
+        return normalizeLangCode(Locale.getDefault().getLanguage());
     }
 
     private File vaultDir() {
@@ -177,7 +317,8 @@ public final class SafeConvertActivity extends ComponentActivity {
         return lower.startsWith("tel:")
                 || lower.startsWith("sms:")
                 || lower.startsWith("mailto:")
-                || lower.startsWith("https:");
+                || lower.startsWith("https:")
+                || lower.startsWith("geo:");
     }
 
     static String[] parseSmsTargetAndBody(String url) {
@@ -230,6 +371,273 @@ public final class SafeConvertActivity extends ComponentActivity {
         return new Intent(Intent.ACTION_VIEW, Uri.parse(trimmed));
     }
 
+    // --- Calm Story & Young Child Read-Aloud TTS (Silent by default, instant <10ms panic kill) ---
+
+    private static Locale localeForLang(String langCode) {
+        String norm = normalizeLangCode(langCode);
+        if ("es".equals(norm)) return new Locale("es");
+        if ("fr".equals(norm)) return Locale.FRENCH;
+        if ("de".equals(norm)) return Locale.GERMAN;
+        if ("pt".equals(norm)) return new Locale("pt");
+        return Locale.US;
+    }
+
+    private void speakCalmText(String text, String langCode) {
+        if (text == null || text.trim().isEmpty()) {
+            return;
+        }
+        String clean = text.trim();
+        if (clean.length() > 2800) {
+            clean = clean.substring(0, 2800);
+        }
+        pendingSpeechText = clean;
+        pendingSpeechLang = normalizeLangCode(langCode);
+        if (calmTts == null) {
+            calmTts = new TextToSpeech(getApplicationContext(), status -> {
+                if (status == TextToSpeech.SUCCESS) {
+                    calmTtsReady = true;
+                    runOnUiThread(() -> {
+                        if (pendingSpeechText != null && !isFinishing() && !isDestroyed()) {
+                            speakWithReadyTts(pendingSpeechText, pendingSpeechLang);
+                        }
+                    });
+                } else {
+                    calmTtsReady = false;
+                    notifyJsEvent("tts_error", "Offline speech voice is unavailable on this device.");
+                }
+            });
+            return;
+        }
+        if (calmTtsReady) {
+            speakWithReadyTts(clean, pendingSpeechLang);
+        }
+    }
+
+    private void speakWithReadyTts(String text, String langCode) {
+        TextToSpeech tts = calmTts;
+        if (tts == null || !calmTtsReady) {
+            return;
+        }
+        try {
+            tts.setLanguage(localeForLang(langCode));
+            tts.setSpeechRate(0.88f);
+            tts.setPitch(1.0f);
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "zoe_calm_story");
+            notifyJsEvent("tts_started", "Zoe is reading softly… Tap Stop or ✕ EXIT anytime.");
+        } catch (RuntimeException err) {
+            notifyJsEvent("tts_error", "Could not start calm voice reading.");
+        }
+    }
+
+    private void stopCalmSpeech(boolean notifyJs) {
+        pendingSpeechText = null;
+        TextToSpeech tts = calmTts;
+        if (tts != null) {
+            try {
+                tts.stop();
+            } catch (RuntimeException ignored) {
+            }
+        }
+        if (notifyJs) {
+            notifyJsEvent("tts_stopped", "");
+        }
+    }
+
+    // --- Opt-in One-Shot GPS Locator (Stops immediately after 1 fix) ---
+
+    private boolean hasLocationPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void cancelPendingLocation() {
+        CancellationSignal sig = locationCancelSignal;
+        locationCancelSignal = null;
+        if (sig != null) {
+            try {
+                sig.cancel();
+            } catch (RuntimeException ignored) {
+            }
+        }
+    }
+
+    @SuppressWarnings("MissingPermission")
+    private void requestOneShotLocation() {
+        if (!hasLocationPermission()) {
+            pendingLocationRequest = true;
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    LOCATION_PERMISSION);
+            return;
+        }
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (lm == null) {
+            notifyJsEvent("location_error", "Location service is unavailable on this device.");
+            return;
+        }
+        cancelPendingLocation();
+        String provider = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                ? LocationManager.GPS_PROVIDER
+                : (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+                ? LocationManager.NETWORK_PROVIDER
+                : null);
+
+        if (provider == null) {
+            Location last = bestLastKnownLocation(lm);
+            if (last != null) {
+                deliverLocationFix(last);
+            } else {
+                notifyJsEvent("location_error", "Location is turned off. Enable GPS or pick your region manually.");
+            }
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            CancellationSignal sig = new CancellationSignal();
+            locationCancelSignal = sig;
+            try {
+                lm.getCurrentLocation(provider, sig, getMainExecutor(), location -> {
+                    locationCancelSignal = null;
+                    if (location != null) {
+                        deliverLocationFix(location);
+                    } else {
+                        Location fallback = bestLastKnownLocation(lm);
+                        if (fallback != null) {
+                            deliverLocationFix(fallback);
+                        } else {
+                            notifyJsEvent("location_error", "Could not get a GPS fix right now. Try near a window or pick your region.");
+                        }
+                    }
+                });
+            } catch (RuntimeException err) {
+                locationCancelSignal = null;
+                notifyJsEvent("location_error", "Location request could not start.");
+            }
+        } else {
+            Location fallback = bestLastKnownLocation(lm);
+            if (fallback != null) {
+                deliverLocationFix(fallback);
+            } else {
+                notifyJsEvent("location_error", "No recent GPS fix found. Open Maps to locate yourself.");
+            }
+        }
+    }
+
+    @SuppressWarnings("MissingPermission")
+    private Location bestLastKnownLocation(LocationManager lm) {
+        Location best = null;
+        for (String p : Arrays.asList(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER, LocationManager.PASSIVE_PROVIDER)) {
+            try {
+                Location candidate = lm.getLastKnownLocation(p);
+                if (candidate != null && (best == null || candidate.getTime() > best.getTime())) {
+                    best = candidate;
+                }
+            } catch (RuntimeException ignored) {
+            }
+        }
+        return best;
+    }
+
+    private void deliverLocationFix(Location loc) {
+        double lat = loc.getLatitude();
+        double lon = loc.getLongitude();
+        int accM = Math.max(1, Math.round(loc.getAccuracy()));
+        String latStr = String.format(Locale.US, "%.5f", lat);
+        String lonStr = String.format(Locale.US, "%.5f", lon);
+        String mapsUrl = "https://maps.google.com/?q=" + latStr + "," + lonStr;
+        String appleMapsUrl = "https://maps.apple.com/?ll=" + latStr + "," + lonStr;
+        String fallbackRegion = detectDeviceRegion();
+
+        ioExecutor.execute(() -> {
+            String resolvedRegion = fallbackRegion;
+            String label = latStr + ", " + lonStr;
+            if (Geocoder.isPresent()) {
+                try {
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    @SuppressWarnings("deprecation")
+                    List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
+                    if (addresses != null && !addresses.isEmpty()) {
+                        Address addr = addresses.get(0);
+                        if (addr.getCountryCode() != null && !addr.getCountryCode().isEmpty()) {
+                            resolvedRegion = mapIsoCountryToRegion(addr.getCountryCode());
+                        }
+                        String line = addr.getAddressLine(0);
+                        if (line != null && !line.trim().isEmpty()) {
+                            label = line.trim();
+                        }
+                    }
+                } catch (IOException | RuntimeException ignored) {
+                    // 100% graceful offline fallback — raw GPS coordinates still work offline!
+                }
+            }
+            Map<String, Object> payload = new LinkedHashMap<>();
+            payload.put("lat", latStr);
+            payload.put("lon", lonStr);
+            payload.put("accuracyM", accM);
+            payload.put("label", label);
+            payload.put("region", resolvedRegion);
+            payload.put("mapsUrl", mapsUrl);
+            payload.put("appleMapsUrl", appleMapsUrl);
+            notifyJsEvent("location_ready", MiniJson.stringify(payload));
+        });
+    }
+
+    // --- Offline BLE Help Beacon & Blind Relay Mesh ---
+
+    private String buildBeaconStateJson(String message) {
+        Map<String, Object> state = new LinkedHashMap<>();
+        state.put("advertising", beaconMesh != null && beaconMesh.isAdvertising());
+        state.put("scanning", beaconMesh != null && beaconMesh.isScanning());
+        state.put("remainingSec", beaconMesh != null ? beaconMesh.remainingSeconds() : 0L);
+        state.put("tag", beaconMesh != null ? beaconMesh.currentTagPreview() : "");
+        state.put("fingerprint", beaconMesh != null ? beaconMesh.verificationKeyFingerprint() : "");
+        if (message != null) {
+            state.put("message", message);
+        }
+        return MiniJson.stringify(state);
+    }
+
+    private void executeBleAction(int action) {
+        if (beaconMesh == null) {
+            return;
+        }
+        if (!beaconMesh.hasBlePermissions()) {
+            pendingBleAction = action;
+            ActivityCompat.requestPermissions(this, SafeBeaconMesh.requiredBlePermissions(), BLE_PERMISSION);
+            return;
+        }
+        if (action == BLE_ACTION_BLIND_RELAY) {
+            beaconMesh.startBeacon(SafeBeaconMesh.MODE_BLIND_RELAY);
+        } else if (action == BLE_ACTION_LOCAL_SOS) {
+            beaconMesh.startBeacon(SafeBeaconMesh.MODE_LOCAL_SOS);
+        } else if (action == BLE_ACTION_SCAN) {
+            beaconMesh.startMeshScan();
+        }
+    }
+
+    private void shareBeaconVerificationKey() {
+        if (beaconMesh == null) {
+            return;
+        }
+        String fp = beaconMesh.verificationKeyFingerprint();
+        String tag = beaconMesh.currentTagPreview();
+        String body = "Zoe SafeConvert Offline BLE Beacon Verification Key\n"
+                + "Safety Fingerprint: " + fp + "\n"
+                + "Current 15-min Rotating Tag: " + tag + "\n"
+                + "Keep this private with your trusted Safe People. Rotate anytime inside SafeConvert to revoke old keys.";
+        Intent share = new Intent(Intent.ACTION_SEND)
+                .setType("text/plain")
+                .putExtra(Intent.EXTRA_SUBJECT, "Zoe Offline Beacon Key")
+                .putExtra(Intent.EXTRA_TEXT, body);
+        try {
+            startActivity(Intent.createChooser(share, "Share Beacon Verification Key"));
+        } catch (ActivityNotFoundException error) {
+            notifyJsEvent("beacon_status", buildBeaconStateJson("No sharing app available."));
+        }
+    }
+
     @SuppressWarnings("deprecation")
     private static MediaRecorder createLegacyRecorder() {
         return new MediaRecorder();
@@ -247,6 +655,7 @@ public final class SafeConvertActivity extends ComponentActivity {
             return;
         }
         stopAudioPlayback();
+        stopCalmSpeech(false);
         File dir = vaultDir();
         if (!dir.exists() && !dir.mkdirs()) {
             notifyJsEvent("audio_error", "Could not create private vault folder.");
@@ -330,6 +739,7 @@ public final class SafeConvertActivity extends ComponentActivity {
     private void startVideoCapture() {
         stopAudioRecording(true);
         stopAudioPlayback();
+        stopCalmSpeech(false);
         File dir = vaultDir();
         if (!dir.exists() && !dir.mkdirs()) {
             notifyJsEvent("video_error", "Could not create private vault folder.");
@@ -408,6 +818,7 @@ public final class SafeConvertActivity extends ComponentActivity {
             return;
         }
         stopAudioPlayback();
+        stopCalmSpeech(false);
         SafeEvidenceStore.Entry entry = SafeEvidenceStore.findById(vaultDir(), entryId);
         File file = SafeEvidenceStore.resolveMediaFile(vaultDir(), entry);
         if (file == null) {
@@ -550,13 +961,22 @@ public final class SafeConvertActivity extends ComponentActivity {
         }
     }
 
+    private void stopSensitiveSensorsImmediate() {
+        stopAudioPlayback();
+        stopCalmSpeech(false);
+        cancelPendingLocation();
+        if (beaconMesh != null) {
+            beaconMesh.stopAll();
+        }
+    }
+
     private void snapToCover() {
         if (awaitingVideoCapture) {
             return;
         }
         vaultUnlocked = false;
         stopAudioRecording(false);
-        stopAudioPlayback();
+        stopSensitiveSensorsImmediate();
         applyHelpWindowShield(false);
         if (webView != null) {
             webView.evaluateJavascript("if (typeof exitHelp === 'function') { exitHelp(); }", null);
@@ -575,6 +995,24 @@ public final class SafeConvertActivity extends ComponentActivity {
                 pendingAudioStart = false;
                 notifyJsEvent("audio_error",
                         "Microphone permission was not granted. Audio recording did not start (notes and video still work).");
+            }
+        } else if (requestCode == BLE_PERMISSION) {
+            int action = pendingBleAction;
+            pendingBleAction = BLE_ACTION_NONE;
+            if (beaconMesh != null && beaconMesh.hasBlePermissions() && action != BLE_ACTION_NONE) {
+                executeBleAction(action);
+            } else {
+                notifyJsEvent("beacon_status", buildBeaconStateJson(
+                        "Bluetooth permission was not granted. Offline BLE beacon did not start."));
+            }
+        } else if (requestCode == LOCATION_PERMISSION) {
+            boolean wantLoc = pendingLocationRequest;
+            pendingLocationRequest = false;
+            if (wantLoc && hasLocationPermission()) {
+                requestOneShotLocation();
+            } else {
+                notifyJsEvent("location_error",
+                        "Location permission was not granted. You can still pick your region manually anytime.");
             }
         }
     }
@@ -595,7 +1033,15 @@ public final class SafeConvertActivity extends ComponentActivity {
     protected void onDestroy() {
         vaultUnlocked = false;
         stopAudioRecording(false);
-        stopAudioPlayback();
+        stopSensitiveSensorsImmediate();
+        if (calmTts != null) {
+            try {
+                calmTts.shutdown();
+            } catch (RuntimeException ignored) {
+            }
+            calmTts = null;
+        }
+        ioExecutor.shutdownNow();
         applyHelpWindowShield(false);
         if (webView != null) {
             webView.destroy();
@@ -626,6 +1072,9 @@ public final class SafeConvertActivity extends ComponentActivity {
             runOnUiThread(() -> {
                 if (!isFinishing() && !isDestroyed()) {
                     applyHelpWindowShield(visible);
+                    if (!visible) {
+                        stopSensitiveSensorsImmediate();
+                    }
                 }
             });
         }
@@ -633,6 +1082,91 @@ public final class SafeConvertActivity extends ComponentActivity {
         @JavascriptInterface
         public boolean supportsMediaVault() {
             return true;
+        }
+
+        @JavascriptInterface
+        public boolean supportsBeaconMesh() {
+            return true;
+        }
+
+        @JavascriptInterface
+        public String getDetectedRegion() {
+            return detectDeviceRegion();
+        }
+
+        @JavascriptInterface
+        public String getDetectedLang() {
+            return detectDeviceLanguage();
+        }
+
+        @JavascriptInterface
+        public void requestLocationFix() {
+            runOnUiThread(SafeConvertActivity.this::requestOneShotLocation);
+        }
+
+        @JavascriptInterface
+        public void speakCalmText(String text, String langCode) {
+            runOnUiThread(() -> SafeConvertActivity.this.speakCalmText(text, langCode));
+        }
+
+        @JavascriptInterface
+        public void stopCalmSpeech() {
+            runOnUiThread(() -> SafeConvertActivity.this.stopCalmSpeech(true));
+        }
+
+        @JavascriptInterface
+        public String getBeaconStateJson() {
+            return buildBeaconStateJson(null);
+        }
+
+        @JavascriptInterface
+        public void startBlindRelayBeacon() {
+            runOnUiThread(() -> executeBleAction(BLE_ACTION_BLIND_RELAY));
+        }
+
+        @JavascriptInterface
+        public void startLocalSosBeacon() {
+            runOnUiThread(() -> executeBleAction(BLE_ACTION_LOCAL_SOS));
+        }
+
+        @JavascriptInterface
+        public void stopBeacon() {
+            runOnUiThread(() -> {
+                if (beaconMesh != null) {
+                    beaconMesh.stopAdvertising("Offline Help Beacon stopped.");
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void startMeshScan() {
+            runOnUiThread(() -> executeBleAction(BLE_ACTION_SCAN));
+        }
+
+        @JavascriptInterface
+        public void stopMeshScan() {
+            runOnUiThread(() -> {
+                if (beaconMesh != null) {
+                    beaconMesh.stopMeshScan();
+                    notifyJsEvent("beacon_status", buildBeaconStateJson("Nearby beacon scan stopped."));
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public String rotateBeaconKeys() {
+            if (beaconMesh != null) {
+                beaconMesh.stopAdvertising(null);
+                beaconMesh.rotateSecret();
+            }
+            String json = buildBeaconStateJson("Keys rotated! All previous offline beacon tags are permanently revoked.");
+            notifyJsEvent("beacon_status", json);
+            return json;
+        }
+
+        @JavascriptInterface
+        public void shareBeaconKey() {
+            runOnUiThread(SafeConvertActivity.this::shareBeaconVerificationKey);
         }
 
         @JavascriptInterface

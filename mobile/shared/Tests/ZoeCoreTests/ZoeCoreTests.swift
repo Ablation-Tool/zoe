@@ -305,6 +305,33 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertTrue(q.hasSuffix("?"))
     }
 
+    func testSafeBeaconMeshRotatingPacketsAndTamperRejection() {
+        let secret = Array("zoe-beacon-test-secret-key-00001".utf8)
+        let t0: Int64 = 1_760_000_000_000
+        let blind = SafeBeaconMeshCore.buildBeaconPayload(secret: secret, mode: SafeBeaconMeshCore.modeBlindRelay, nowMs: t0)
+        XCTAssertEqual(blind.count, SafeBeaconMeshCore.packetLength)
+        let parsedBlind = SafeBeaconMeshCore.parseBeaconPayload(blind, rssi: -68)
+        XCTAssertNotNil(parsedBlind)
+        XCTAssertEqual(parsedBlind?.isLocalSos, false)
+
+        let sos = SafeBeaconMeshCore.buildBeaconPayload(secret: secret, mode: SafeBeaconMeshCore.modeLocalSos, nowMs: t0)
+        let parsedSos = SafeBeaconMeshCore.parseBeaconPayload(sos, rssi: -59)
+        XCTAssertEqual(parsedSos?.isLocalSos, true)
+        XCTAssertEqual(parsedSos?.approxMeters ?? 0, 1.0, accuracy: 0.2)
+
+        let nextWindow = SafeBeaconMeshCore.buildBeaconPayload(
+            secret: secret,
+            mode: SafeBeaconMeshCore.modeBlindRelay,
+            nowMs: t0 + SafeBeaconMeshCore.rotationWindowMs
+        )
+        let parsedNext = SafeBeaconMeshCore.parseBeaconPayload(nextWindow, rssi: -70)
+        XCTAssertNotEqual(parsedBlind?.rotatingTagHex, parsedNext?.rotatingTagHex)
+
+        var tampered = blind
+        tampered[8] ^= 0xFF
+        XCTAssertNil(SafeBeaconMeshCore.parseBeaconPayload(tampered, rssi: -68))
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,

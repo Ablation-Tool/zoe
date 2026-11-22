@@ -69,7 +69,7 @@ button,input,select,textarea{font:inherit;color:inherit}
   font:600 13px/1 sans-serif;color:var(--danger);background:var(--danger-soft);
   border:1px solid var(--danger-border);border-radius:999px;padding:9px 16px;min-height:40px;cursor:pointer;
 }
-.wrap{max-width:500px;margin:0 auto;padding:18px 16px 76px}
+.wrap{max-width:520px;margin:0 auto;padding:18px 16px 76px}
 .hidden{display:none!important}
 .sr-only{
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;
@@ -111,13 +111,34 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 .quiet{margin-top:34px;text-align:center;font:12.5px/1.4 sans-serif;color:var(--muted)}
 
 /* Hidden help layer — calm Zoe Material 3 Expressive cards */
-.help-head{text-align:left;padding:6px 6px 18px}
+.help-head{text-align:left;padding:6px 6px 12px}
 .help-head h1{
   margin:0 0 6px;font:600 28px/1.25 sans-serif;letter-spacing:-0.02em;
   background:linear-gradient(90deg, var(--accent), var(--zoe));
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .help-head p{margin:0;font:15px/1.5 sans-serif;color:var(--muted)}
+.region-bar{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px;
+  padding:10px 12px;border-radius:20px;background:var(--card);border:1px solid var(--line);
+}
+.region-select{
+  flex:1 1 160px;min-height:42px;padding:8px 12px;border-radius:14px;
+  border:1px solid var(--line);background:var(--card-hi);color:var(--ink);font:600 13.5px/1.2 sans-serif;
+}
+.lang-select{
+  flex:0 0 auto;min-height:42px;padding:8px 10px;border-radius:14px;
+  border:1px solid var(--line);background:var(--card-hi);color:var(--ink);font:600 13.5px/1.2 sans-serif;
+}
+.region-detect-btn{
+  flex:0 0 auto;min-height:42px;padding:8px 12px;border-radius:999px;
+  border:1px solid var(--accent-border);background:var(--accent-soft);color:var(--accent);
+  font:600 12.5px/1.2 sans-serif;cursor:pointer;
+}
+.region-badge{
+  width:100%;font-size:12.5px;color:var(--muted);line-height:1.4;padding:2px 2px 0;
+}
+
 .acc{margin-bottom:10px}
 .acc-btn{
   width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;
@@ -164,7 +185,7 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 .item-phone.tone-4{background:var(--amber-soft);border-color:var(--amber-border)}.item-phone.tone-4 strong{color:var(--amber)}
 .item-phone.tone-5{background:var(--slate-soft);border-color:var(--slate-border)}.item-phone.tone-5 strong{color:var(--ink)}
 .item-big{padding:10px 12px;font:600 19px/1.35 sans-serif;color:var(--accent)}
-.item-big.tone-1{color:var(--calm)}.item-big.tone-4{color:var(--amber)}
+.item-big.tone-0{color:var(--danger)}.item-big.tone-1{color:var(--calm)}.item-big.tone-4{color:var(--amber)}
 .item-step{display:flex;gap:12px;align-items:flex-start;padding:11px 6px;border-bottom:1px solid var(--line)}
 .item-step:last-of-type{border-bottom:0}
 .step-num{
@@ -174,6 +195,13 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 .item-step span.step-txt{font-size:15.5px;color:var(--ink);line-height:1.55}
 .item-note{padding:10px 12px;font-size:15px;color:var(--ink);line-height:1.6;border-bottom:1px solid var(--line)}
 .item-note:last-child{border-bottom:0}
+.callout-card{
+  margin:10px 0;padding:14px 15px;border-radius:18px;
+  background:var(--card-hi);border:1px solid var(--line);font-size:14px;line-height:1.55;color:var(--ink);
+}
+.callout-card.warn{background:var(--amber-soft);border-color:var(--amber-border)}
+.callout-card.calm{background:var(--calm-soft);border-color:var(--calm-border)}
+.callout-card.zoe{background:var(--zoe-soft);border-color:var(--zoe-border)}
 
 /* Contacts */
 .contacts-intro{font-size:14px;color:var(--muted);line-height:1.55;padding:4px 4px 12px;border-bottom:1px solid var(--line);margin-bottom:8px}
@@ -191,7 +219,7 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
   margin-top:8px;padding:10px 12px;border-radius:14px;background:var(--danger-soft);
   border:1px solid var(--danger-border);color:var(--danger);font-size:13.5px;font-weight:600;
 }
-.btn-row{display:flex;gap:8px;margin-top:10px}
+.btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .btn{
   flex:1;display:block;text-align:center;text-decoration:none;padding:12px 12px;min-height:48px;
   border:0;border-radius:999px;font:600 14.5px/1.3 sans-serif;cursor:pointer;
@@ -216,7 +244,7 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 .del-confirm span{display:block;font-size:13.5px;color:var(--danger);margin-bottom:8px;font-weight:600}
 .btn-yes{background:var(--danger);color:var(--danger-ink)}
 
-/* Talk to Zoe & Constitutional Private Vault */
+/* Talk to Zoe, Calming Studio & Constitutional Private Vault */
 .priv-banner{
   margin-bottom:12px;padding:14px 15px;border-radius:18px;
   background:var(--zoe-soft);border:1px solid var(--zoe-border);
@@ -238,9 +266,55 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
   font:700 13px/1.2 sans-serif;transition:transform 1.2s ease, background 0.4s ease;
 }
 .breath-phase{font:600 18px/1.3 sans-serif;color:var(--calm);margin-bottom:4px}
-.ground-card{
+.ground-card,.studio-card{
   margin:10px 0;padding:14px 16px;border-radius:18px;background:var(--accent-soft);border:1px solid var(--accent-border);font-size:14.5px;color:var(--ink);line-height:1.65;
 }
+.studio-card{background:var(--card-hi);border-color:var(--line)}
+.art-canvas{
+  width:100%;height:220px;display:block;border-radius:16px;background:#0F172A;
+  border:1px solid var(--line);touch-action:none;cursor:crosshair;
+}
+.swatch-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 6px}
+.swatch{
+  width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+}
+.swatch.active{border-color:var(--ink);transform:scale(1.12)}
+.math-prompt{font:700 24px/1.3 sans-serif;color:var(--accent);text-align:center;margin:10px 0}
+.math-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.math-opt{
+  min-height:48px;border-radius:16px;border:1px solid var(--line);background:var(--card);
+  color:var(--ink);font:600 17px/1.2 sans-serif;cursor:pointer;padding:10px;
+}
+.math-opt.good{background:var(--calm-soft);border-color:var(--calm-border);color:var(--calm)}
+.story-text{
+  margin:10px 0;padding:14px;border-radius:16px;background:var(--card);border:1px solid var(--line);
+  font-size:15px;line-height:1.7;color:var(--ink);white-space:pre-line;
+}
+
+/* Young Child Easy Picture Mode */
+.kid-card-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:10px 0}
+.kid-pic-card{
+  display:flex;align-items:center;gap:14px;padding:16px;border-radius:20px;
+  background:var(--calm-soft);border:1px solid var(--calm-border);
+}
+.kid-pic-icon{font-size:32px;line-height:1;flex-shrink:0}
+.kid-pic-text strong{display:block;font:700 18px/1.25 sans-serif;color:var(--ink);margin-bottom:2px}
+.kid-pic-text span{display:block;font-size:14.5px;color:var(--muted);line-height:1.45}
+.show-adult-card{
+  margin:10px 0;padding:20px;border-radius:22px;background:var(--accent-soft);border:2px solid var(--accent);
+  text-align:center;font:700 21px/1.4 sans-serif;color:var(--ink);
+}
+
+/* BLE Beacon & Mesh */
+.beacon-card{
+  padding:14px 15px;border-radius:18px;background:var(--zoe-soft);border:1px solid var(--zoe-border);margin:8px 0 10px;
+}
+.beacon-tag{font:700 13px/1.4 monospace;color:var(--zoe);word-break:break-all;margin-top:4px}
+.sighting-row{
+  margin:8px 0;padding:12px 14px;border-radius:16px;background:var(--card-hi);border:1px solid var(--line);
+}
+.sighting-row.sos{background:var(--danger-soft);border-color:var(--danger-border)}
+
 .chat-feed{margin:10px 0;display:flex;flex-direction:column;gap:8px}
 .chat-bubble{padding:12px 15px;border-radius:18px;font-size:14.5px;line-height:1.55}
 .chat-user{background:var(--card-hi);border:1px solid var(--line);color:var(--ink);align-self:flex-end;max-width:92%}
@@ -320,8 +394,30 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 
   <section id="help" class="hidden" hidden aria-label="Help and safety resources">
     <div class="help-head">
-      <h1>You are not alone.</h1>
-      <p>Pick what you need. Press ESC or tap EXIT anytime.</p>
+      <h1 id="helpHeading">You are not alone.</h1>
+      <p id="helpSubheading">Pick what you need. Press ESC or tap EXIT anytime.</p>
+    </div>
+
+    <div id="regionBar" class="region-bar" aria-label="Region and language">
+      <select id="regionSelect" class="region-select" aria-label="Region">
+        <option value="US">🇺🇸 United States (911)</option>
+        <option value="EU">🇪🇺 Europe / EU (112)</option>
+        <option value="UK">🇬🇧 United Kingdom (999 / 112)</option>
+        <option value="CA">🇨🇦 Canada (911)</option>
+        <option value="AU">🇦🇺 Australia (000)</option>
+        <option value="MX">🇲🇽 México / LATAM (911)</option>
+        <option value="IN">🇮🇳 India (112)</option>
+        <option value="GLOBAL">🌍 International (112 / Global)</option>
+      </select>
+      <select id="langSelect" class="lang-select" aria-label="Language">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="fr">FR</option>
+        <option value="de">DE</option>
+        <option value="pt">PT</option>
+      </select>
+      <button id="detectRegionBtn" class="region-detect-btn" type="button">📍 Detect</button>
+      <div id="regionBadge" class="region-badge"></div>
     </div>
 
     <div class="acc">
@@ -383,12 +479,18 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
       <div id="zoeBody" class="acc-body hidden">
         <div id="privacyBanner" class="priv-banner">
           <span class="priv-pill">PRIVATE · USER + ZOE ONLY</span>
-          <p>Privacy &amp; Dignity: Only you and Zoe have access here. Your chat clears when you leave unless you save it, and nothing in your Safety Log ever leaves this private vault until you explicitly grant permission.</p>
+          <p id="privacyDesc">Privacy &amp; Dignity: Only you and Zoe have access here. Your chat clears when you leave unless you save it, and nothing in your Safety Log ever leaves this private vault until you explicitly grant permission.</p>
         </div>
 
+        <div class="zoe-subhead" id="calmStudioHead">Calming Studio (100% offline · clears on exit)</div>
         <div class="btn-row">
           <button id="breathBtn" class="btn btn-zoe-soft" type="button">Breathe (4-4-6)</button>
           <button id="groundBtn" class="btn btn-zoe-soft" type="button">5-4-3-2-1 Calm</button>
+        </div>
+        <div class="btn-row">
+          <button id="artBtn" class="btn btn-zoe-soft" type="button">🎨 Calm Art</button>
+          <button id="mathBtn" class="btn btn-zoe-soft" type="button">🧩 Easy Math</button>
+          <button id="storyBtn" class="btn btn-zoe-soft" type="button">📖 Zoe Stories</button>
         </div>
 
         <div id="breathBox" class="breath-card hidden" aria-live="polite">
@@ -403,6 +505,49 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
           <strong>3 things</strong> you can hear<br>
           <strong>2 things</strong> you can smell<br>
           <strong>1 slow breath</strong> — you do not have to carry everything in this second.
+        </div>
+
+        <div id="artBox" class="studio-card hidden">
+          <strong id="artTitle">Calm Drawing Pad</strong>
+          <div class="vault-status" style="margin:2px 0 8px">Draw slow waves, stars, or doodles. Auto-erases cleanly when you tap EXIT.</div>
+          <canvas id="calmCanvas" class="art-canvas" width="440" height="220"></canvas>
+          <div class="swatch-row" id="artSwatches">
+            <button class="swatch active" type="button" data-color="#7DD3FC" style="background:#7DD3FC" aria-label="Sky blue"></button>
+            <button class="swatch" type="button" data-color="#D8B4FE" style="background:#D8B4FE" aria-label="Lavender"></button>
+            <button class="swatch" type="button" data-color="#86EFAC" style="background:#86EFAC" aria-label="Sage green"></button>
+            <button class="swatch" type="button" data-color="#FDE68A" style="background:#FDE68A" aria-label="Warm gold"></button>
+            <button class="swatch" type="button" data-color="#FDA4AF" style="background:#FDA4AF" aria-label="Soft rose"></button>
+            <button id="artBrushBtn" class="chip" type="button">Brush: Soft</button>
+            <button id="artClearBtn" class="chip" type="button">Clear</button>
+          </div>
+        </div>
+
+        <div id="mathBox" class="studio-card hidden">
+          <strong id="mathTitle">Gentle Brain Reset (No timer, no stress)</strong>
+          <div id="mathPrompt" class="math-prompt">4 + 3 = ?</div>
+          <div id="mathOpts" class="math-opts"></div>
+          <div id="mathFeedback" class="vault-status" style="text-align:center;font-weight:600"></div>
+          <button id="mathNextBtn" class="btn btn-zoe-soft" type="button" style="margin-top:8px">Next gentle puzzle</button>
+        </div>
+
+        <div id="storyBox" class="studio-card hidden">
+          <strong id="storyHeading">Calm Stories by Zoe (Silent by default)</strong>
+          <div class="chip-row" id="storyChips"></div>
+          <div id="storyTitle" style="font-weight:700;font-size:17px;margin-top:8px;color:var(--zoe)"></div>
+          <div id="storyBody" class="story-text"></div>
+          <div id="storySoundGate" class="lock-box hidden">
+            <strong>Sound safety check</strong>
+            <div class="vault-status" style="margin:4px 0 8px">Are you in a safe place or wearing headphones so Zoe can read aloud softly?</div>
+            <div class="btn-row">
+              <button id="storySpeakYes" class="btn btn-zoe" type="button">Yes, read softly</button>
+              <button id="storySpeakNo" class="btn btn-cancel" type="button">Keep silent</button>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button id="storyReadBtn" class="btn btn-zoe" type="button">🔊 Have Zoe read aloud</button>
+            <button id="storyStopBtn" class="btn btn-cancel hidden" type="button">■ Stop voice</button>
+          </div>
+          <div id="storyTtsStatus" class="vault-status"></div>
         </div>
 
         <div class="zoe-subhead">Talk with Zoe (100% offline · ephemeral)</div>
@@ -421,9 +566,9 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
           </div>
         </form>
 
-        <div class="zoe-subhead" style="margin-top:18px">Private Safety Log &amp; Proof Vault</div>
+        <div id="vaultAnchor" class="zoe-subhead" style="margin-top:18px">Private Safety Log &amp; Proof Vault</div>
         <div class="vault-status">
-          Stored strictly in app-private storage (never in your phone Gallery) with UTC timestamps and SHA-256 verification. Recording starts ONLY when you press Record; exit saves active audio cleanly. Recording laws vary by state.
+          Stored strictly in app-private storage (never in your phone Gallery) with UTC timestamps and SHA-256 verification. Recording starts ONLY when you press Record; exit saves active audio cleanly. Recording laws vary by region.
         </div>
 
         <div id="mediaRecRow" class="btn-row hidden">
@@ -492,7 +637,7 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 
     <div id="helpSections"></div>
 
-    <div class="reminder">
+    <div class="reminder" id="footerReminder">
       <strong>Before you close this page:</strong><br>
       Clear your browser history for this visit, or use a private window next time.<br>
       To return here, type <span class="code-pill">911</span> in the converter. Any order works. Any decimal works.<br>
@@ -505,132 +650,537 @@ textarea.field-input{min-height:96px;resize:vertical;line-height:1.5;border-radi
 "use strict";
 const SKEY = "uc_pref_v1";
 const LOG_KEY = "uc_log_v1";
+const REGION_KEY = "uc_region_v1";
+const LANG_KEY = "uc_lang_v1";
 const CODES = ["911", "991", "919", "199", "119", "191", "999", "111"];
 const IDLE_TIMEOUT_MS = 90000;
 const CATS = {
   Length: {
     units: ["Inches", "Feet", "Yards", "Miles", "Centimeters", "Meters", "Kilometers"],
     factors: {
-      Inches: 1,
-      Feet: 12,
-      Yards: 36,
-      Miles: 63360,
-      Centimeters: 1 / 2.54,
-      Meters: 100 / 2.54,
-      Kilometers: 100000 / 2.54
+      Inches: 1, Feet: 12, Yards: 36, Miles: 63360,
+      Centimeters: 1 / 2.54, Meters: 100 / 2.54, Kilometers: 100000 / 2.54
     }
   },
   Weight: {
     units: ["Ounces", "Pounds", "Grams", "Kilograms"],
     factors: {
-      Ounces: 1,
-      Pounds: 16,
-      Grams: 1 / 28.349523125,
-      Kilograms: 1000 / 28.349523125
+      Ounces: 1, Pounds: 16, Grams: 1 / 28.349523125, Kilograms: 1000 / 28.349523125
     }
   },
-  Temperature: {
-    units: ["Fahrenheit", "Celsius"],
-    factors: null
-  },
+  Temperature: { units: ["Fahrenheit", "Celsius"], factors: null },
   Volume: {
     units: ["Cups", "Pints", "Quarts", "Gallons", "Liters"],
-    factors: {
-      Cups: 1,
-      Pints: 2,
-      Quarts: 4,
-      Gallons: 16,
-      Liters: 1000 / 236.5882365
-    }
+    factors: { Cups: 1, Pints: 2, Quarts: 4, Gallons: 16, Liters: 1000 / 236.5882365 }
   }
 };
 
-const HELP = [
-  {
-    label: "I need help right now",
-    color: "#C44D3F",
-    bg: "#FDF0EE",
-    border: "#F0C4BF",
-    content: [
-      { type: "phone", text: "Call 1-800-799-7233", sub: "Free. 24 hours. You don't have to give your name.", href: "tel:18007997233" },
-      { type: "phone", text: "Text START to 88788", sub: "If you can't talk out loud right now.", href: "sms:88788?body=START" },
-      { type: "phone", text: "Text HOME to 741741", sub: "For any crisis. Any age.", href: "sms:741741?body=HOME" },
-      { type: "phone", text: "Call 988", sub: "Suicide & Crisis Lifeline. Free. 24/7.", href: "tel:988" },
-      { type: "phone", text: "Text 988", sub: "Confidential crisis text support, 24/7.", href: "sms:988" },
-      { type: "phone", text: "Call 911", sub: "If you or your children are in immediate danger.", href: "tel:911" },
-      { type: "note", text: "You can hang up anytime. They will not judge you. They are there for you." }
+const I18N = {
+  en: {
+    heading: "You are not alone.",
+    sub: "Pick what you need. Press ESC or tap EXIT anytime.",
+    detectBtn: "📍 Detect",
+    safePeople: "My safe people",
+    talkZoe: "Talk to Zoe & Safety Log",
+    secNow: "I need help right now",
+    secMedical: "After an assault or incident (Medical & Care)",
+    secLocator: "Closest help spots & Safe Locator",
+    secKid: "I'm a kid and I'm scared",
+    secPlan: "I need to make a plan to leave",
+    secPhone: "I think my phone is being watched",
+    secLegal: "Can I get legal help?",
+    secGroups: "Safe support groups & moderated chats",
+    secBeacon: "Offline Help Beacon & Mesh (Bluetooth · AirTag Style)",
+    secMore: "More numbers to call or text",
+    notInTrouble: "You are not in trouble.",
+    notYourFault: "This is not your fault.",
+    kidEasyOn: "🌟 Easy Picture Mode (Young Kids)",
+    kidEasyOff: "Hide Easy Picture Mode",
+    showAdultCard: "I need a safe grown-up right now. Please help me.",
+    yesWord: "Yes."
+  },
+  es: {
+    heading: "No estás solo ni sola.",
+    sub: "Elige lo que necesites. Pulsa ESC o EXIT en cualquier momento.",
+    detectBtn: "📍 Detectar",
+    safePeople: "Mis personas de confianza",
+    talkZoe: "Hablar con Zoe y Registro Seguro",
+    secNow: "Necesito ayuda ahora mismo",
+    secMedical: "Después de una agresión (Atención médica y pruebas)",
+    secLocator: "Lugares de ayuda cercanos y Ubicación",
+    secKid: "Soy niño o niña y tengo miedo",
+    secPlan: "Necesito un plan para salir con seguridad",
+    secPhone: "Creo que vigilan mi teléfono",
+    secLegal: "¿Puedo recibir ayuda legal?",
+    secGroups: "Grupos de apoyo seguros y chats moderados",
+    secBeacon: "Baliza de Ayuda Sin Conexión (Bluetooth · Estilo AirTag)",
+    secMore: "Más números para llamar o enviar mensaje",
+    notInTrouble: "No estás en problemas.",
+    notYourFault: "No es tu culpa.",
+    kidEasyOn: "🌟 Modo Fácil con Dibujos (Niños pequeños)",
+    kidEasyOff: "Ocultar Modo Fácil",
+    showAdultCard: "Necesito a un adulto seguro ahora mismo. Por favor ayúdame.",
+    yesWord: "Sí."
+  },
+  fr: {
+    heading: "Vous n'êtes pas seul(e).",
+    sub: "Choisissez ce dont vous avez besoin. Appuyez sur EXIT à tout moment.",
+    detectBtn: "📍 Détecter",
+    safePeople: "Mes personnes de confiance",
+    talkZoe: "Parler à Zoe et Journal Sécurisé",
+    secNow: "J'ai besoin d'aide tout de suite",
+    secMedical: "Après une agression (Soins médicaux et preuves)",
+    secLocator: "Lieux d'aide proches et Localisation",
+    secKid: "Je suis un enfant et j'ai peur",
+    secPlan: "Préparer un plan pour partir",
+    secPhone: "Je pense que mon téléphone est surveillé",
+    secLegal: "Puis-je obtenir une aide juridique ?",
+    secGroups: "Groupes de soutien sûrs et chats modérés",
+    secBeacon: "Balise d'Aide Hors Ligne (Bluetooth · Style AirTag)",
+    secMore: "Autres numéros d'appel ou SMS",
+    notInTrouble: "Tu n'es pas en difficulté ni puni(e).",
+    notYourFault: "Ce n'est pas ta faute.",
+    kidEasyOn: "🌟 Mode Images Facile (Jeunes enfants)",
+    kidEasyOff: "Masquer le Mode Facile",
+    showAdultCard: "J'ai besoin d'un adulte de confiance maintenant. Aidez-moi s'il vous plaît.",
+    yesWord: "Oui."
+  },
+  de: {
+    heading: "Du bist nicht allein.",
+    sub: "Wähle, was du brauchst. Tippe jederzeit auf EXIT.",
+    detectBtn: "📍 Erkennen",
+    safePeople: "Meine Vertrauenspersonen",
+    talkZoe: "Mit Zoe sprechen & Sicherheitslog",
+    secNow: "Ich brauche sofort Hilfe",
+    secMedical: "Nach einem Übergriff (Medizinische Hilfe & Spurensicherung)",
+    secLocator: "Hilfsorte in der Nähe & Standort",
+    secKid: "Ich bin ein Kind und habe Angst",
+    secPlan: "Einen Plan zum Gehen machen",
+    secPhone: "Ich glaube, mein Handy wird überwacht",
+    secLegal: "Bekomme ich rechtliche Hilfe?",
+    secGroups: "Sichere Hilfegruppen & moderierte Chats",
+    secBeacon: "Offline-Hilfesignal & Mesh (Bluetooth · AirTag-Stil)",
+    secMore: "Weitere Telefon- & SMS-Nummern",
+    notInTrouble: "Du bekommst keinen Ärger.",
+    notYourFault: "Es ist nicht deine Schuld.",
+    kidEasyOn: "🌟 Einfacher Bild-Modus (Für kleine Kinder)",
+    kidEasyOff: "Bild-Modus ausblenden",
+    showAdultCard: "Ich brauche jetzt eine sichere erwachsene Person. Bitte hilf mir.",
+    yesWord: "Ja."
+  },
+  pt: {
+    heading: "Você não está sozinho(a).",
+    sub: "Escolha o que precisar. Toque em EXIT a qualquer momento.",
+    detectBtn: "📍 Detectar",
+    safePeople: "Minhas pessoas seguras",
+    talkZoe: "Falar com a Zoe e Registro Seguro",
+    secNow: "Preciso de ajuda agora mesmo",
+    secMedical: "Após uma agressão (Cuidado médico e provas)",
+    secLocator: "Locais de ajuda próximos e Localizador",
+    secKid: "Sou criança e estou com medo",
+    secPlan: "Preciso de um plano para sair",
+    secPhone: "Acho que meu celular está vigiado",
+    secLegal: "Posso conseguir ajuda jurídica?",
+    secGroups: "Grupos de apoio seguros e chats moderados",
+    secBeacon: "Sinalizador de Ajuda Offline (Bluetooth · Estilo AirTag)",
+    secMore: "Mais números para ligar ou mandar mensagem",
+    notInTrouble: "Você não está em apuros.",
+    notYourFault: "A culpa não é sua.",
+    kidEasyOn: "🌟 Modo Fácil com Figuras (Crianças pequenas)",
+    kidEasyOff: "Ocultar Modo Fácil",
+    showAdultCard: "Preciso de um adulto seguro agora mesmo. Por favor me ajude.",
+    yesWord: "Sim."
+  }
+};
+
+const REGIONS = {
+  US: {
+    name: "United States",
+    emergencyNum: "911",
+    emergencyHref: "tel:911",
+    dvCallText: "Call 1-800-799-7233",
+    dvCallHref: "tel:18007997233",
+    dvTextText: "Text START to 88788",
+    dvTextHref: "sms:88788?body=START",
+    childCallText: "Call 1-800-422-4453",
+    childCallSub: "Childhelp National Hotline. Free, private, 24/7. Grown-ups answer who want to help you.",
+    childCallHref: "tel:18004224453",
+    assaultCallText: "Call RAINN: 1-800-656-4673",
+    assaultCallSub: "Free, confidential 24/7 sexual assault hotline & local SANE nurse referrals.",
+    assaultCallHref: "tel:18006564673",
+    crisisRightNow: [
+      { text: "Call 1-800-799-7233", sub: "Free. 24 hours. You don't have to give your name.", href: "tel:18007997233" },
+      { text: "Text START to 88788", sub: "If you can't talk out loud right now.", href: "sms:88788?body=START" },
+      { text: "Text HOME to 741741", sub: "For any crisis. Any age.", href: "sms:741741?body=HOME" },
+      { text: "Call 988", sub: "Suicide & Crisis Lifeline. Free. 24/7.", href: "tel:988" },
+      { text: "Text 988", sub: "Confidential crisis text support, 24/7.", href: "sms:988" },
+      { text: "Call 911", sub: "If you or your children are in immediate danger.", href: "tel:911" }
+    ],
+    schoolAdults: "You can tell a teacher, school counselor, school nurse, coach, or any grown-up you trust. They will NOT get you in trouble — their job is to keep you safe.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a neighbor or call 911.",
+    medicalNote: "Under U.S. law (VAWA), you can ask an emergency room for a free forensic medical exam (SANE nurse / rape kit) and safe evidence storage WITHOUT having to file a police report right away.",
+    shelterLinkText: "Confidential Shelter Finder (DomesticShelters.org)",
+    shelterLinkHref: "https://www.domesticshelters.org",
+    legalNotes: [
+      "You can ask for a protection order (restraining order) for free. You do not need to hire a lawyer first.",
+      "Visit your local courthouse clerk or victim advocate — there are staff whose job is to help with forms.",
+      "When safe, save evidence: dated notes, screenshots, photos, and call logs somewhere they cannot reach.",
+      "Your immigration status does not matter. You are protected by law."
+    ],
+    legalLinkText: "Read legal-help information from LawHelp",
+    legalLinkSub: "Opens lawhelp.org externally — open only if this is a safe time and device.",
+    legalLinkHref: "https://lawhelp.org",
+    supportGroups: [
+      { text: "The Hotline Live Chat (Moderated)", sub: "1-on-1 trained advocates online · Opens externally in browser.", href: "https://www.thehotline.org" },
+      { text: "RAINN Online Sexual Assault Hotline", sub: "Free, confidential, trained staff · Opens externally.", href: "https://online.rainn.org" },
+      { text: "Love Is Respect (Ages 12–24)", sub: "Moderated youth relationship support · Opens externally.", href: "https://www.loveisrespect.org" }
+    ],
+    moreNumbers: [
+      { text: "DV Hotline: 1-800-799-7233", sub: "24/7. Free and confidential.", href: "tel:18007997233" },
+      { text: "Childhelp: 1-800-422-4453", sub: "For kids or anyone worried about a child.", href: "tel:18004224453" },
+      { text: "Love Is Respect: 1-866-331-9474", sub: "Support for young people ages 12–24.", href: "tel:18663319474" },
+      { text: "Text LOVEIS to 22522", sub: "Confidential text support for young people.", href: "sms:22522?body=LOVEIS" },
+      { text: "Sexual Assault: 1-800-656-4673", sub: "RAINN National Hotline. 24/7.", href: "tel:18006564673" },
+      { text: "Deaf / Hard of Hearing: 1-855-812-1001", sub: "Video phone line, 24/7.", href: "tel:18558121001" },
+      { text: "Email: hotline@thehotline.org", sub: "Opens email app only when tapped.", href: "mailto:hotline@thehotline.org" },
+      { text: "Emergency: 911", sub: "If anyone is in immediate danger.", href: "tel:911" }
     ]
   },
-  {
-    label: "I'm a kid and I'm scared",
-    color: "#2E7D6B",
-    bg: "#EDF7F4",
-    border: "#B8DDD3",
-    content: [
-      { type: "phone", text: "Call 1-800-422-4453", sub: "Childhelp National Hotline. Free, private, 24/7. Grown-ups answer who want to help you.", href: "tel:18004224453" },
-      { type: "bigtext", text: "You are not in trouble." },
-      { type: "bigtext", text: "This is not your fault." },
-      { type: "note", text: "You can tell a teacher, school counselor, coach, or any grown-up you trust. They can help." },
-      { type: "note", text: "If someone is hurting you right now, go to a neighbor or call 911." }
+  EU: {
+    name: "Europe (EU · 112)",
+    emergencyNum: "112",
+    emergencyHref: "tel:112",
+    dvCallText: "Call 116 006 (Victim Support EU)",
+    dvCallHref: "tel:116006",
+    dvTextText: "Call 112 (Europe-wide Emergency)",
+    dvTextHref: "tel:112",
+    childCallText: "Call 116 111 (EU Child Helpline)",
+    childCallSub: "Free pan-European helpline for children and young people across EU countries.",
+    childCallHref: "tel:116111",
+    assaultCallText: "Call 112 or 116 006 (Medical & Victim Support)",
+    assaultCallSub: "Ask for emergency medical care or a confidential forensic assault clinic.",
+    assaultCallHref: "tel:116006",
+    crisisRightNow: [
+      { text: "Call 112 (EU Emergency)", sub: "Free police, ambulance & fire across all 27 EU countries (works even without SIM).", href: "tel:112" },
+      { text: "Call 116 006 (Victim Support Europe)", sub: "Pan-European helpline for victims of crime and violence.", href: "tel:116006" },
+      { text: "Call 116 111 (Child & Youth Helpline)", sub: "Free, confidential support for children & teens across Europe.", href: "tel:116111" },
+      { text: "Germany: 116 016 (Hilfetelefon)", sub: "24/7 multilingual violence against women helpline (18+ languages).", href: "tel:116016" },
+      { text: "France: 3919 (Violences Femmes Info)", sub: "Free, anonymous national domestic violence helpline.", href: "tel:3919" },
+      { text: "Spain: 016 (Atención a Víctimas)", sub: "24/7 free helpline — does not appear on phone bills (clear call log).", href: "tel:016" }
+    ],
+    schoolAdults: "Many European schools do not have dedicated school counselors. You can tell a teacher, class tutor, school nurse, school social worker, youth worker, or family doctor — you will NOT get in trouble for asking for help.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a trusted neighbor or dial 112 (works across all of Europe).",
+    medicalNote: "Go to a hospital emergency department or Sexual Assault Care Centre (e.g., Centrum Seksueel Geweld / ZSG / Rechtsmedizin). Many EU hospitals offer free confidential forensic evidence preservation ('anonymous trace securing') even if you have not decided about police yet.",
+    shelterLinkText: "WAVE Network — Confidential European Shelters",
+    shelterLinkHref: "https://wave-network.org",
+    legalNotes: [
+      "Across the EU, you can apply for a national protection order AND a European Protection Order (EPO — Directive 2011/99/EU & Regulation 606/2013) that stays valid if you move between EU Member States.",
+      "Under the EU Victims' Rights Directive, you have the right to free victim support, interpretation, and protection regardless of residence status.",
+      "Contact your national Victim Support office (116 006) or municipal social services for free legal aid forms.",
+      "When safe, keep dated notes, photos, and messages in your private Safety Log above."
+    ],
+    legalLinkText: "Victim Support Europe — Legal & Rights Directory",
+    legalLinkSub: "Opens victim-support.eu externally — use private browsing if unsafe.",
+    legalLinkHref: "https://victim-support.eu",
+    supportGroups: [
+      { text: "Victim Support Europe Directory", sub: "Verified national victim support organizations across Europe.", href: "https://victim-support.eu" },
+      { text: "WAVE Network (Women Against Violence Europe)", sub: "Verified feminist & survivor-led support services across 46 countries.", href: "https://wave-network.org" },
+      { text: "Find A Helpline — Europe Chats", sub: "Verified local phone & text crisis chats by country.", href: "https://findahelpline.com" }
+    ],
+    moreNumbers: [
+      { text: "EU Emergency: 112", sub: "Police, fire, ambulance anywhere in Europe.", href: "tel:112" },
+      { text: "EU Child Helpline: 116 111", sub: "Free, confidential support for kids & teens.", href: "tel:116111" },
+      { text: "Victim Support Europe: 116 006", sub: "Free support for crime & abuse survivors.", href: "tel:116006" },
+      { text: "Germany Hilfetelefon: 116 016", sub: "24/7 multilingual support.", href: "tel:116016" },
+      { text: "France: 3919 · SMS 114 (deaf/silent)", sub: "National helpline & silent emergency SMS.", href: "tel:3919" },
+      { text: "Spain: 016", sub: "24/7 confidential violence helpline.", href: "tel:016" },
+      { text: "Ireland Women's Aid: 1800 341 900", sub: "24/7 free national helpline.", href: "tel:1800341900" }
     ]
   },
-  {
-    label: "I need to make a plan to leave",
-    color: "#5B6B3D",
-    bg: "#F3F5ED",
-    border: "#CDD5B8",
-    content: [
-      { type: "step", num: "1", text: "Pick one person you trust. Tell them what is happening." },
-      { type: "step", num: "2", text: "Choose a code word with that person that means \"call for help.\"" },
-      { type: "step", num: "3", text: "If you can, put copies of your ID, keys, and cash somewhere safe outside your home." },
-      { type: "step", num: "4", text: "Know your exits. Think about which rooms have locks, solid doors, or windows." },
-      { type: "step", num: "5", text: "You can leave with nothing. Shelters help with essentials, children, and pets too." },
-      { type: "phone", text: "Call 1-800-799-7233", sub: "Advocates help you make a safety plan step by step.", href: "tel:18007997233" }
+  UK: {
+    name: "United Kingdom (999 / 112)",
+    emergencyNum: "999",
+    emergencyHref: "tel:999",
+    dvCallText: "Call Refuge: 0808 2000 247",
+    dvCallHref: "tel:08082000247",
+    dvTextText: "Text SHOUT to 85258",
+    dvTextHref: "sms:85258?body=SHOUT",
+    childCallText: "Call Childline: 0800 1111",
+    childCallSub: "Free, private 24/7 support for children and young people up to age 19.",
+    childCallHref: "tel:08001111",
+    assaultCallText: "Call Rape Crisis: 0808 500 2222",
+    assaultCallSub: "Free 24/7 support across England & Wales; ask about local NHS SARC centres.",
+    assaultCallHref: "tel:08085002222",
+    crisisRightNow: [
+      { text: "Call 999 (or 112) — UK Emergency", sub: "Immediate danger. Silent Solution: dial 999, stay quiet, then press 55 when prompted. (Note: 111 is NHS non-emergency medical advice only.)", href: "tel:999" },
+      { text: "Call Refuge: 0808 2000 247", sub: "National Domestic Abuse Helpline. Free, confidential, 24/7.", href: "tel:08082000247" },
+      { text: "Text SHOUT to 85258", sub: "Free, 24/7 confidential crisis text support across the UK.", href: "sms:85258?body=SHOUT" },
+      { text: "Call Childline: 0800 1111", sub: "Free, confidential helpline for kids and teens.", href: "tel:08001111" },
+      { text: "Call Samaritans: 116 123", sub: "Free 24/7 listening support from any phone.", href: "tel:116123" }
+    ],
+    schoolAdults: "Every UK school has a Designated Safeguarding Lead (DSL). You can tell any teacher, pastoral staff member, school nurse, or headteacher — you will NOT get in trouble.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a trusted neighbor or call 999 (or 0800 1111 for Childline).",
+    medicalNote: "You can self-refer directly to an NHS SARC (Sexual Assault Referral Centre) or A&E for free medical care and confidential forensic evidence collection & storage without reporting to police.",
+    shelterLinkText: "Women's Aid — Confidential Refuge & Support",
+    shelterLinkHref: "https://www.womensaid.org.uk",
+    legalNotes: [
+      "Under the Family Law Act 1996, you can apply for a Non-Molestation Order or Occupation Order through the Family Court (often eligible for Legal Aid).",
+      "Police can also issue Domestic Abuse Protection Notices/Orders (DAPN / DAPO) for immediate protection.",
+      "Citizens Advice, Rights of Women, and local IDVAs (Independent Domestic Violence Advisors) can help you with court forms for free.",
+      "Keep dated evidence safely in your private Safety Log above."
+    ],
+    legalLinkText: "Citizens Advice — UK Domestic Abuse Legal Help",
+    legalLinkSub: "Opens citizensadvice.org.uk externally — use private browsing if unsafe.",
+    legalLinkHref: "https://www.citizensadvice.org.uk",
+    supportGroups: [
+      { text: "Women's Aid Live Chat & Survivors' Forum", sub: "Moderated UK survivor community & live support · Opens externally.", href: "https://chat.womensaid.org.uk" },
+      { text: "Childline 1-2-1 Counsellor Chat", sub: "Safe, moderated chat for under-19s · Opens externally.", href: "https://www.childline.org.uk" },
+      { text: "Refuge National Helpline Online", sub: "Trained domestic abuse advocates · Opens externally.", href: "https://www.nationaldahelpline.org.uk" }
+    ],
+    moreNumbers: [
+      { text: "Emergency: 999 (Silent Solution: press 55)", sub: "Police, ambulance, fire. 112 also works.", href: "tel:999" },
+      { text: "Refuge Helpline: 0808 2000 247", sub: "24/7 National Domestic Abuse Helpline.", href: "tel:08082000247" },
+      { text: "Childline: 0800 1111", sub: "24/7 free help for children & teens.", href: "tel:08001111" },
+      { text: "Rape Crisis: 0808 500 2222", sub: "24/7 sexual violence support.", href: "tel:08085002222" },
+      { text: "Men's Advice Line: 0808 801 0327", sub: "Support for male survivors of domestic abuse.", href: "tel:08088010327" },
+      { text: "NHS Non-Emergency Medical: 111", sub: "Medical advice when not life-threatening.", href: "tel:111" }
     ]
   },
-  {
-    label: "I think my phone is being watched",
-    color: "#6B5B8D",
-    bg: "#F2F0F7",
-    border: "#CFC8DF",
-    content: [
-      { type: "note", text: "If you can, use a different device — a library computer, a friend's phone, or a phone at work." },
-      { type: "note", text: "Use private browsing (incognito mode) for anything related to safety or leaving." },
-      { type: "note", text: "Look for apps on your phone you do not recognize. Tracking tools can disguise themselves as battery or system apps." },
-      { type: "note", text: "Check Google Location Sharing, shared Google accounts, and Android Settings → Safety & emergency → Unknown tracker alerts when safe." },
-      { type: "note", text: "Physical trackers like AirTags or Tiles can be hidden in bags, coats, or cars." },
-      { type: "note", text: "Only change passwords from a safe device they have never had access to." }
+  CA: {
+    name: "Canada (911)",
+    emergencyNum: "911",
+    emergencyHref: "tel:911",
+    dvCallText: "Call 988 (Crisis Helpline)",
+    dvCallHref: "tel:988",
+    dvTextText: "Text CONNECT to 686868",
+    dvTextHref: "sms:686868?body=CONNECT",
+    childCallText: "Call Kids Help Phone: 1-800-668-6868",
+    childCallSub: "Free, confidential 24/7 support across Canada in English & French.",
+    childCallHref: "tel:18006686868",
+    assaultCallText: "Find Provincial Crisis Line (ShelterSafe)",
+    assaultCallSub: "24/7 confidential Canadian shelter & assault lines.",
+    assaultCallHref: "https://sheltersafe.ca",
+    crisisRightNow: [
+      { text: "Call 911", sub: "Immediate police, ambulance, or fire danger anywhere in Canada.", href: "tel:911" },
+      { text: "Call or Text 988", sub: "Canada Suicide Crisis Helpline — free, 24/7, English & French.", href: "tel:988" },
+      { text: "Call Kids Help Phone: 1-800-668-6868", sub: "24/7 youth support · Or text CONNECT to 686868.", href: "tel:18006686868" },
+      { text: "Hope for Wellness: 1-855-242-3310", sub: "24/7 support for Indigenous peoples across Canada.", href: "tel:18552423310" },
+      { text: "ShelterSafe.ca (Local 24/7 Shelters)", sub: "Find your nearest provincial domestic violence line.", href: "https://sheltersafe.ca" }
+    ],
+    schoolAdults: "You can tell a teacher, guidance counselor, school nurse, principal, or trusted adult. You are NOT in trouble.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a neighbor or call 911.",
+    medicalNote: "Hospital emergency rooms and Sexual Assault Nurse Examiner (SANE) clinics across Canada provide free medical care and optional forensic evidence storage without requiring a police report first.",
+    shelterLinkText: "ShelterSafe.ca — Confidential Canadian Shelters",
+    shelterLinkHref: "https://sheltersafe.ca",
+    legalNotes: [
+      "You can apply for a Criminal Code Section 810 Peace Bond or a provincial Emergency Protection Order (EPO) / Restraining Order.",
+      "Provincial Legal Aid offices and courthouse Victim Services offer free help with safety applications.",
+      "Save dated proof in your private Safety Log above when safe."
+    ],
+    legalLinkText: "Department of Justice Canada — Family Violence Help",
+    legalLinkSub: "Opens justice.gc.ca externally — open only when safe.",
+    legalLinkHref: "https://www.justice.gc.ca",
+    supportGroups: [
+      { text: "ShelterSafe Canada Directory", sub: "Verified confidential transition houses & crisis chats.", href: "https://sheltersafe.ca" },
+      { text: "Kids Help Phone Live Chat", sub: "Trained responders for youth across Canada.", href: "https://kidshelpphone.ca" }
+    ],
+    moreNumbers: [
+      { text: "Emergency: 911", sub: "Immediate danger.", href: "tel:911" },
+      { text: "Crisis Line: 988", sub: "Call or text 24/7.", href: "tel:988" },
+      { text: "Kids Help Phone: 1-800-668-6868", sub: "Text CONNECT to 686868.", href: "tel:18006686868" },
+      { text: "Hope for Wellness: 1-855-242-3310", sub: "Indigenous crisis & counselling support.", href: "tel:18552423310" }
     ]
   },
-  {
-    label: "Can I get legal help?",
-    color: "#7B6840",
-    bg: "#F7F3EC",
-    border: "#DDD2B8",
-    content: [
-      { type: "bigtext", text: "Yes." },
-      { type: "note", text: "You can ask for a protection order (restraining order) for free. You do not need to hire a lawyer first." },
-      { type: "note", text: "Visit your local courthouse clerk or victim advocate — there are staff whose job is to help with forms." },
-      { type: "note", text: "When safe, save evidence: dated notes, screenshots, photos, and call logs somewhere they cannot reach." },
-      { type: "note", text: "Your immigration status does not matter. You are protected by law." },
-      { type: "phone", text: "Read legal-help information from LawHelp", sub: "Opens lawhelp.org externally — open only if this is a safe time and device.", href: "https://lawhelp.org" }
+  AU: {
+    name: "Australia (000)",
+    emergencyNum: "000",
+    emergencyHref: "tel:000",
+    dvCallText: "Call 1800RESPECT (1800 737 732)",
+    dvCallHref: "tel:1800737732",
+    dvTextText: "Text 1800RESPECT: 0458 737 732",
+    dvTextHref: "sms:0458737732",
+    childCallText: "Call Kids Helpline: 1800 55 1800",
+    childCallSub: "Free, private 24/7 counselling for ages 5–25 across Australia.",
+    childCallHref: "tel:1800551800",
+    assaultCallText: "Call 1800RESPECT: 1800 737 732",
+    assaultCallSub: "24/7 national domestic, family & sexual violence counselling.",
+    assaultCallHref: "tel:1800737732",
+    crisisRightNow: [
+      { text: "Call 000 (Triple Zero Emergency)", sub: "Police, Ambulance, Fire anywhere in Australia (112 from mobile).", href: "tel:000" },
+      { text: "Call 1800RESPECT: 1800 737 732", sub: "Free 24/7 domestic, family & sexual violence support.", href: "tel:1800737732" },
+      { text: "Call Kids Helpline: 1800 55 1800", sub: "Free 24/7 support for young people ages 5–25.", href: "tel:1800551800" },
+      { text: "Call Lifeline: 13 11 14", sub: "24/7 crisis support and suicide prevention.", href: "tel:131114" },
+      { text: "Call 13YARN: 13 92 76", sub: "24/7 support for Aboriginal & Torres Strait Islander peoples.", href: "tel:139276" }
+    ],
+    schoolAdults: "You can tell a teacher, school wellbeing officer, school counselor, nurse, or principal. You are NOT in trouble.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a trusted neighbor or call 000.",
+    medicalNote: "Go to a public hospital Emergency Department or state Sexual Assault Service (e.g., CASA / NSW Health SAS) for free medical care and optional forensic exam without immediate police reporting.",
+    shelterLinkText: "1800RESPECT — Confidential Refuge & Planning",
+    shelterLinkHref: "https://www.1800respect.org.au",
+    legalNotes: [
+      "You can apply for a free state violence protection order (AVO in NSW, IVO in VIC, DVO in QLD, FVO/VRO in other states).",
+      "National Legal Aid, Women's Legal Services, and Community Legal Centres offer free confidential legal advice.",
+      "Save dated evidence safely in your private Safety Log above."
+    ],
+    legalLinkText: "National Legal Aid Australia",
+    legalLinkSub: "Opens nationallegalaid.org externally — open only when safe.",
+    legalLinkHref: "https://www.nationallegalaid.org",
+    supportGroups: [
+      { text: "1800RESPECT Online Chat", sub: "24/7 trained counsellors · Opens externally.", href: "https://www.1800respect.org.au" },
+      { text: "Kids Helpline WebChat", sub: "Moderated safe chat for young people · Opens externally.", href: "https://kidshelpline.com.au" }
+    ],
+    moreNumbers: [
+      { text: "Emergency: 000", sub: "Immediate danger (112 from mobile).", href: "tel:000" },
+      { text: "1800RESPECT: 1800 737 732", sub: "24/7 domestic & sexual violence support.", href: "tel:1800737732" },
+      { text: "Kids Helpline: 1800 55 1800", sub: "24/7 for ages 5–25.", href: "tel:1800551800" },
+      { text: "Lifeline: 13 11 14", sub: "24/7 crisis line.", href: "tel:131114" }
     ]
   },
-  {
-    label: "More numbers to call or text",
-    color: "#5A7B9A",
-    bg: "#EEF3F7",
-    border: "#BCCFDD",
-    content: [
-      { type: "phone", text: "DV Hotline: 1-800-799-7233", sub: "24/7. Free and confidential.", href: "tel:18007997233" },
-      { type: "phone", text: "Childhelp: 1-800-422-4453", sub: "For kids or anyone worried about a child.", href: "tel:18004224453" },
-      { type: "phone", text: "Love Is Respect: 1-866-331-9474", sub: "Support for young people ages 12–24.", href: "tel:18663319474" },
-      { type: "phone", text: "Text LOVEIS to 22522", sub: "Confidential text support for young people.", href: "sms:22522?body=LOVEIS" },
-      { type: "phone", text: "Sexual Assault: 1-800-656-4673", sub: "RAINN National Hotline. 24/7.", href: "tel:18006564673" },
-      { type: "phone", text: "Deaf / Hard of Hearing: 1-855-812-1001", sub: "Video phone line, 24/7.", href: "tel:18558121001" },
-      { type: "phone", text: "Email: hotline@thehotline.org", sub: "Opens email app only when tapped.", href: "mailto:hotline@thehotline.org" },
-      { type: "phone", text: "Emergency: 911", sub: "If anyone is in immediate danger.", href: "tel:911" }
+  MX: {
+    name: "México / LATAM (911)",
+    emergencyNum: "911",
+    emergencyHref: "tel:911",
+    dvCallText: "Llamar Red de Refugios: 800 822 4460",
+    dvCallHref: "tel:8008224460",
+    dvTextText: "Llamar Línea de la Vida: 800 911 2000",
+    dvTextHref: "tel:8009112000",
+    childCallText: "Llamar SAPTEL / Niñez: 55 5259 8121",
+    childCallSub: "Apoyo confidencial 24 horas. También puedes marcar 911.",
+    childCallHref: "tel:5552598121",
+    assaultCallText: "Llamar 911 o 800 822 4460",
+    assaultCallSub: "Atención médica urgente y asesoría confidencial 24/7.",
+    assaultCallHref: "tel:8008224460",
+    crisisRightNow: [
+      { text: "Llamar 911 (Emergencias)", sub: "Policía, ambulancia y protección inmediata 24/7.", href: "tel:911" },
+      { text: "Red Nacional de Refugios: 800 822 4460", sub: "Orientación gratuita y confidencial para mujeres y sus hijos.", href: "tel:8008224460" },
+      { text: "Línea de la Vida: 800 911 2000", sub: "Apoyo emocional y crisis 24/7, gratuito.", href: "tel:8009112000" },
+      { text: "SAPTEL: 55 5259 8121", sub: "Apoyo psicológico telefónico gratuito 24 horas.", href: "tel:5552598121" }
+    ],
+    schoolAdults: "Puedes hablar con un maestro o maestra, orientador escolar, trabajador social, médico o un adulto de confianza. NO te meterás en problemas.",
+    kidEmergencyLine: "Si alguien te lastima ahora mismo, busca a un vecino de confianza o llama al 911.",
+    medicalNote: "En México (NOM-046), tienes derecho a atención médica de urgencia gratuita y confidencial tras violencia familiar o sexual en cualquier hospital público.",
+    shelterLinkText: "Red Nacional de Refugios (Confidencial)",
+    shelterLinkHref: "https://rednacionalderefugios.org.mx",
+    legalNotes: [
+      "Puedes solicitar Órdenes de Protección de emergencia (Ley General de Acceso de las Mujeres a una Vida Libre de Violencia) sin costo.",
+      "Los Centros de Justicia para las Mujeres y fiscalías especializadas brindan asesoría legal gratuita.",
+      "Guarda pruebas con fecha en tu Registro Seguro privado arriba."
+    ],
+    legalLinkText: "INMUJERES — Orientación Legal y Centros de Justicia",
+    legalLinkSub: "Abre gob.mx/inmujeres externamente — solo si es seguro.",
+    legalLinkHref: "https://www.gob.mx/inmujeres",
+    supportGroups: [
+      { text: "Red Nacional de Refugios", sub: "Acompañamiento profesional y seguro · Abre externamente.", href: "https://rednacionalderefugios.org.mx" },
+      { text: "Find A Helpline — Latinoamérica", sub: "Líneas y chats verificados por país.", href: "https://findahelpline.com" }
+    ],
+    moreNumbers: [
+      { text: "Emergencias: 911", sub: "Peligro inmediato.", href: "tel:911" },
+      { text: "Red Nacional de Refugios: 800 822 4460", sub: "24/7 gratuito y confidencial.", href: "tel:8008224460" },
+      { text: "Línea de la Vida: 800 911 2000", sub: "Crisis emocional 24/7.", href: "tel:8009112000" },
+      { text: "SAPTEL: 55 5259 8121", sub: "Apoyo 24 horas.", href: "tel:5552598121" }
     ]
+  },
+  IN: {
+    name: "India (112)",
+    emergencyNum: "112",
+    emergencyHref: "tel:112",
+    dvCallText: "Call Women Helpline: 181",
+    dvCallHref: "tel:181",
+    dvTextText: "Call Emergency: 112",
+    dvTextHref: "tel:112",
+    childCallText: "Call Childline: 1098",
+    childCallSub: "24/7 free emergency helpline for children across India.",
+    childCallHref: "tel:1098",
+    assaultCallText: "Call 181 or 112 (Sakhi One Stop Centre)",
+    assaultCallSub: "Medical, legal, shelter & counselling support under one roof.",
+    assaultCallHref: "tel:181",
+    crisisRightNow: [
+      { text: "Call 112 (All-India Emergency)", sub: "Immediate police, ambulance & women's safety dispatch.", href: "tel:112" },
+      { text: "Call 181 (Women Helpline)", sub: "24/7 helpline connecting to Sakhi One Stop Centres.", href: "tel:181" },
+      { text: "Call 1098 (Childline India)", sub: "24/7 free emergency service for children in distress.", href: "tel:1098" },
+      { text: "Call 14416 (Tele-MANAS)", sub: "Free 24/7 mental health support in 20+ Indian languages.", href: "tel:14416" }
+    ],
+    schoolAdults: "You can tell a teacher, school counselor, principal, doctor, or trusted family adult. You will NOT get in trouble.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a trusted neighbor or call 1098 or 112.",
+    medicalNote: "All public and private hospitals in India are legally required to provide immediate free first-aid and medical care to assault survivors, and Sakhi One Stop Centres coordinate confidential medical and legal help.",
+    shelterLinkText: "Find A Helpline — India Verified Services",
+    shelterLinkHref: "https://findahelpline.com",
+    legalNotes: [
+      "Under the Protection of Women from Domestic Violence Act (PWDVA 2005), you can request a Protection Order and Residence Order through a Protection Officer or Magistrate.",
+      "NALSA (National Legal Services Authority) provides free legal aid to all women and children across India.",
+      "Save dated notes and evidence safely in your private Safety Log above."
+    ],
+    legalLinkText: "NALSA — Free Legal Aid India",
+    legalLinkSub: "Opens nalsa.gov.in externally — open only when safe.",
+    legalLinkHref: "https://nalsa.gov.in",
+    supportGroups: [
+      { text: "Find A Helpline — Verified India Chats", sub: "Confidential crisis & survivor services · Opens externally.", href: "https://findahelpline.com" },
+      { text: "NALSA Legal Aid Portal", sub: "Free legal assistance directory · Opens externally.", href: "https://nalsa.gov.in" }
+    ],
+    moreNumbers: [
+      { text: "Emergency: 112", sub: "Police, fire, ambulance.", href: "tel:112" },
+      { text: "Women Helpline: 181", sub: "24/7 support & One Stop Centres.", href: "tel:181" },
+      { text: "Childline: 1098", sub: "24/7 help for children.", href: "tel:1098" },
+      { text: "Tele-MANAS: 14416", sub: "24/7 mental health support.", href: "tel:14416" }
+    ]
+  },
+  GLOBAL: {
+    name: "International (112 / Global)",
+    emergencyNum: "112",
+    emergencyHref: "tel:112",
+    dvCallText: "Find Local Helpline (FindAHelpline.com)",
+    dvCallHref: "https://findahelpline.com",
+    dvTextText: "Call 112 (GSM Global Emergency)",
+    dvTextHref: "tel:112",
+    childCallText: "Child Helpline International Directory",
+    childCallSub: "Verified free child helplines in 140+ countries.",
+    childCallHref: "https://childhelplineinternational.org",
+    assaultCallText: "Hot Peach Pages — 100+ Languages",
+    assaultCallSub: "Global directory of domestic & sexual violence agencies.",
+    assaultCallHref: "https://www.hotpeachpages.net",
+    crisisRightNow: [
+      { text: "Call 112 (Global Mobile Emergency)", sub: "Works on GSM mobile networks in most countries worldwide (or 911 in the Americas).", href: "tel:112" },
+      { text: "Call 911 (Americas Emergency)", sub: "Emergency dispatch in the US, Canada, Mexico & many parts of Latin America.", href: "tel:911" },
+      { text: "FindAHelpline.com (130+ Countries)", sub: "Free, confidential local crisis lines & chats worldwide · Opens externally.", href: "https://findahelpline.com" },
+      { text: "Hot Peach Pages (Global DV Directory)", sub: "Local domestic violence shelters & agencies in 100+ languages.", href: "https://www.hotpeachpages.net" }
+    ],
+    schoolAdults: "You can tell a teacher, school nurse, social worker, doctor, coach, or any safe adult you trust. You are NOT in trouble.",
+    kidEmergencyLine: "If someone is hurting you right now, go to a trusted neighbor or call your local emergency number (112 or 911).",
+    medicalNote: "Go to the nearest hospital emergency department or medical clinic as soon as you can. Ask for private medical care and confidential injury/forensic documentation.",
+    shelterLinkText: "Hot Peach Pages — Confidential International Shelters",
+    shelterLinkHref: "https://www.hotpeachpages.net",
+    legalNotes: [
+      "Most countries provide civil protection orders or restraining orders through local family courts, magistrates, or police victim units.",
+      "Local legal aid societies, bar associations, and women's advocacy groups offer free confidential legal guidance.",
+      "Keep dated evidence safely in your private Safety Log above."
+    ],
+    legalLinkText: "Hot Peach Pages & Global Legal Resources",
+    legalLinkSub: "Opens externally — use private browsing if unsafe.",
+    legalLinkHref: "https://www.hotpeachpages.net",
+    supportGroups: [
+      { text: "FindAHelpline.com (Moderated Local Chats)", sub: "Verified free confidential support in 130+ countries.", href: "https://findahelpline.com" },
+      { text: "Child Helpline International", sub: "Verified child & youth support services worldwide.", href: "https://childhelplineinternational.org" }
+    ],
+    moreNumbers: [
+      { text: "Global GSM Emergency: 112", sub: "Connects to local emergency services on most mobile networks.", href: "tel:112" },
+      { text: "Americas Emergency: 911", sub: "US, Canada, Mexico & parts of LATAM.", href: "tel:911" },
+      { text: "FindAHelpline.com", sub: "Verified helplines in 130+ countries.", href: "https://findahelpline.com" }
+    ]
+  }
+};
+
+const CALM_STORIES = [
+  {
+    title: "The Quiet Lighthouse",
+    text: "Far out on a smooth gray stone, there stood a small white lighthouse with a warm amber lamp.\n\nWhenever the wind got loud or the waves splashed too high, the lighthouse did not try to argue with the storm. It simply breathed in… counted to four… and shone one steady golden circle across the dark water.\n\nLittle boats saw the warm light and knew where the calm harbor was. Even when the night felt long, the lighthouse stayed solid, warm, and safe until the morning sun painted the sky soft peach and silver.\n\nRight now, you are allowed to rest in the harbor too. Take one gentle breath. You are safe in this moment."
+  },
+  {
+    title: "Little Moss and the Slow Cloud",
+    text: "In a quiet pine forest, a tiny patch of soft green moss lived on top of a sun-warmed rock. Above the trees, a big fluffy cloud drifted across the blue sky — never hurrying, never rushing.\n\n\"How do you stay so peaceful?\" asked Little Moss.\n\n\"I just let heavy things drift past,\" whispered the cloud. \"I hold onto the light, and let the wind carry the rest away.\"\n\nLittle Moss felt the warm sunlight on its leaves and listened to the gentle hush of the pine needles. Nothing needed to be solved right that second. Just warm sun, soft green moss, and slow, quiet breaths."
+  },
+  {
+    title: "The Lantern Garden",
+    text: "Behind a tall wooden gate grew a secret garden filled with paper lanterns the color of lavender, mint, and honey.\n\nEach evening, fireflies floated between the flowers like tiny floating stars. Whenever someone felt tired or scared, they could sit on the mossy bench, watch five soft lanterns glow, feel four smooth stones in their palm, and listen to three crickets singing a gentle lullaby.\n\nThe garden never asked anyone to be brave all by themselves. It simply kept the lanterns glowing warm and bright for as long as they needed to rest."
   }
 ];
 
@@ -645,6 +1195,13 @@ const fromSelect = $("from");
 const toSelect = $("to");
 const resultEl = $("result");
 const resultUnitEl = $("resultUnit");
+
+const helpHeading = $("helpHeading");
+const helpSubheading = $("helpSubheading");
+const regionSelect = $("regionSelect");
+const langSelect = $("langSelect");
+const detectRegionBtn = $("detectRegionBtn");
+const regionBadge = $("regionBadge");
 
 const contactsToggle = $("contactsToggle");
 const contactsTitle = $("contactsTitle");
@@ -671,6 +1228,27 @@ const breathOrb = $("breathOrb");
 const breathPhase = $("breathPhase");
 const groundBtn = $("groundBtn");
 const groundBox = $("groundBox");
+const artBtn = $("artBtn");
+const artBox = $("artBox");
+const calmCanvas = $("calmCanvas");
+const artBrushBtn = $("artBrushBtn");
+const artClearBtn = $("artClearBtn");
+const mathBtn = $("mathBtn");
+const mathBox = $("mathBox");
+const mathPrompt = $("mathPrompt");
+const mathOpts = $("mathOpts");
+const mathFeedback = $("mathFeedback");
+const mathNextBtn = $("mathNextBtn");
+const storyBtn = $("storyBtn");
+const storyBox = $("storyBox");
+const storyChips = $("storyChips");
+const storyTitle = $("storyTitle");
+const storyBody = $("storyBody");
+const storySoundGate = $("storySoundGate");
+const storyReadBtn = $("storyReadBtn");
+const storyStopBtn = $("storyStopBtn");
+const storyTtsStatus = $("storyTtsStatus");
+
 const zoeChat = $("zoeChat");
 const zoeForm = $("zoeForm");
 const zoeInput = $("zoeInput");
@@ -702,6 +1280,8 @@ const vaultPassError = $("vaultPassError");
 const vaultPassSaveBtn = $("vaultPassSaveBtn");
 const vaultPassCancelBtn = $("vaultPassCancelBtn");
 
+let currentRegion = "US";
+let currentLang = "en";
 let contacts = [];
 let editingIndex = -1;
 let contactsOpen = false;
@@ -720,11 +1300,86 @@ let pendingDeleteEvId = "";
 let pendingShareEvId = "";
 let passPanelOpen = false;
 
+let artColor = "#7DD3FC";
+let artWide = false;
+let artDrawing = false;
+let artLastPt = null;
+let activeStoryIdx = 0;
+let pendingSpeechPayload = "";
+let speakingCalm = false;
+let kidEasyMode = false;
+let showAdultCardOpen = false;
+let lastLocationFix = null;
+let locationStatusMsg = "";
+
+let beaconState = { advertising: false, scanning: false, remainingSec: 0, tag: "", fingerprint: "", message: "" };
+let beaconSightings = [];
+let beaconTickHandle = null;
+
 function el(tag, className, textValue) {
   const node = document.createElement(tag);
   if (className) node.className = className;
   if (textValue !== undefined) node.textContent = textValue;
   return node;
+}
+
+function tr(key) {
+  const dict = I18N[currentLang] || I18N.en;
+  return dict[key] || I18N.en[key] || "";
+}
+
+function activeRegionPack() {
+  return REGIONS[currentRegion] || REGIONS.US;
+}
+
+function initRegionAndLang() {
+  let qRegion = "";
+  let qLang = "";
+  try {
+    const params = new URLSearchParams(window.location.search);
+    qRegion = (params.get("region") || "").toUpperCase();
+    qLang = (params.get("lang") || "").toLowerCase();
+  } catch (ignored) {}
+  let savedRegion = "";
+  let savedLang = "";
+  try {
+    savedRegion = localStorage.getItem(REGION_KEY) || "";
+    savedLang = localStorage.getItem(LANG_KEY) || "";
+  } catch (ignored) {}
+  if (savedRegion && REGIONS[savedRegion]) {
+    currentRegion = savedRegion;
+  } else if (qRegion && REGIONS[qRegion]) {
+    currentRegion = qRegion;
+  } else if (window.SafeStore && typeof window.SafeStore.getDetectedRegion === "function") {
+    try {
+      const det = window.SafeStore.getDetectedRegion();
+      if (det && REGIONS[det]) currentRegion = det;
+    } catch (ignored) {}
+  }
+  if (savedLang && I18N[savedLang]) {
+    currentLang = savedLang;
+  } else if (qLang && I18N[qLang]) {
+    currentLang = qLang;
+  } else if (window.SafeStore && typeof window.SafeStore.getDetectedLang === "function") {
+    try {
+      const detL = window.SafeStore.getDetectedLang();
+      if (detL && I18N[detL]) currentLang = detL;
+    } catch (ignored) {}
+  }
+  regionSelect.value = currentRegion;
+  langSelect.value = currentLang;
+}
+
+function applyLocaleChrome() {
+  const pack = activeRegionPack();
+  helpHeading.textContent = tr("heading");
+  helpSubheading.textContent = tr("sub");
+  detectRegionBtn.textContent = tr("detectBtn");
+  regionBadge.textContent = "Active region: " + pack.name + " · Emergency: " + pack.emergencyNum
+    + " (100% offline database)";
+  renderContactsAccordion();
+  renderZoeAccordion();
+  renderHelpSections();
 }
 
 function isCode(raw) {
@@ -743,6 +1398,12 @@ function hasMediaVault() {
   return !!(window.SafeStore
     && typeof window.SafeStore.supportsMediaVault === "function"
     && window.SafeStore.supportsMediaVault());
+}
+
+function hasBeaconBridge() {
+  return !!(window.SafeStore
+    && typeof window.SafeStore.supportsBeaconMesh === "function"
+    && window.SafeStore.supportsBeaconMesh());
 }
 
 function hasPasscodeLockBridge() {
@@ -898,7 +1559,7 @@ function resetIdleTimer() {
   }
   if (!helpEl.classList.contains("hidden")) {
     idleTimer = setTimeout(() => {
-      if (isAudioRecordingActive()) {
+      if (isAudioRecordingActive() || beaconState.advertising) {
         resetIdleTimer();
       } else {
         exitHelp();
@@ -924,6 +1585,7 @@ function setFieldError(target, msg) {
   }
 }
 
+/* --- Cover Converter --- */
 function buildTabs() {
   catTabs.replaceChildren();
   Object.keys(CATS).forEach(cat => {
@@ -1000,6 +1662,225 @@ function convert() {
   resultUnitEl.textContent = toSelect.value;
 }
 
+/* --- Calm Art Pad, Easy Math & Zoe Story Voice --- */
+function clearCalmCanvas() {
+  const ctx = calmCanvas.getContext("2d");
+  if (!ctx) return;
+  ctx.fillStyle = "#0F172A";
+  ctx.fillRect(0, 0, calmCanvas.width, calmCanvas.height);
+}
+
+function initCalmCanvas() {
+  clearCalmCanvas();
+  const ptFor = ev => {
+    const r = calmCanvas.getBoundingClientRect();
+    const x = ((ev.clientX - r.left) / Math.max(1, r.width)) * calmCanvas.width;
+    const y = ((ev.clientY - r.top) / Math.max(1, r.height)) * calmCanvas.height;
+    return { x, y };
+  };
+  calmCanvas.addEventListener("pointerdown", ev => {
+    artDrawing = true;
+    artLastPt = ptFor(ev);
+    try { calmCanvas.setPointerCapture(ev.pointerId); } catch (ignored) {}
+  });
+  calmCanvas.addEventListener("pointermove", ev => {
+    if (!artDrawing || !artLastPt) return;
+    const next = ptFor(ev);
+    const ctx = calmCanvas.getContext("2d");
+    if (ctx) {
+      ctx.strokeStyle = artColor;
+      ctx.lineWidth = artWide ? 10 : 4;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      ctx.moveTo(artLastPt.x, artLastPt.y);
+      ctx.lineTo(next.x, next.y);
+      ctx.stroke();
+    }
+    artLastPt = next;
+  });
+  const stopDraw = () => { artDrawing = false; artLastPt = null; };
+  calmCanvas.addEventListener("pointerup", stopDraw);
+  calmCanvas.addEventListener("pointercancel", stopDraw);
+}
+
+function nextCalmMathPuzzle() {
+  const mode = Math.floor(Math.random() * 3);
+  let prompt = "";
+  let answer = 0;
+  let choices = [];
+  if (mode === 0) {
+    const a = 2 + Math.floor(Math.random() * 11);
+    const b = 2 + Math.floor(Math.random() * 10);
+    answer = a + b;
+    prompt = a + " + " + b + " = ?";
+  } else if (mode === 1) {
+    const b = 2 + Math.floor(Math.random() * 8);
+    const answerVal = 2 + Math.floor(Math.random() * 10);
+    const a = b + answerVal;
+    answer = answerVal;
+    prompt = a + " − " + b + " = ?";
+  } else {
+    const step = 2 + Math.floor(Math.random() * 3);
+    const start = 1 + Math.floor(Math.random() * 6);
+    answer = start + step * 3;
+    prompt = start + ", " + (start + step) + ", " + (start + step * 2) + ", ?";
+  }
+  const set = new Set([answer]);
+  while (set.size < 4) {
+    const delta = Math.floor(Math.random() * 7) - 3;
+    if (delta !== 0 && answer + delta > 0) set.add(answer + delta);
+  }
+  choices = Array.from(set).sort(() => Math.random() - 0.5);
+  mathPrompt.textContent = prompt;
+  mathFeedback.textContent = "Take your time. Tap any answer to settle your mind.";
+  mathOpts.replaceChildren();
+  choices.forEach(num => {
+    const b = el("button", "math-opt", String(num));
+    b.type = "button";
+    b.onclick = () => {
+      if (num === answer) {
+        b.classList.add("good");
+        mathFeedback.textContent = "Nice and steady ✓ (" + answer + "). Take one calm breath.";
+      } else {
+        mathFeedback.textContent = "Good try — take your time and try another number.";
+      }
+    };
+    mathOpts.appendChild(b);
+  });
+}
+
+function stopCalmVoice() {
+  speakingCalm = false;
+  pendingSpeechPayload = "";
+  storySoundGate.classList.add("hidden");
+  storyStopBtn.classList.add("hidden");
+  storyTtsStatus.textContent = "";
+  if (window.SafeStore && typeof window.SafeStore.stopCalmSpeech === "function") {
+    try { window.SafeStore.stopCalmSpeech(); } catch (ignored) {}
+  }
+  if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.zoeSafeSpeech) {
+    try { window.webkit.messageHandlers.zoeSafeSpeech.postMessage({ action: "stop" }); } catch (ignored) {}
+  }
+  if ("speechSynthesis" in window) {
+    try { window.speechSynthesis.cancel(); } catch (ignored) {}
+  }
+}
+
+function speakApprovedCalmText(text) {
+  if (!text) return;
+  speakingCalm = true;
+  storySoundGate.classList.add("hidden");
+  storyStopBtn.classList.remove("hidden");
+  storyTtsStatus.textContent = "Zoe is reading softly… Tap Stop or ✕ EXIT anytime.";
+  if (window.SafeStore && typeof window.SafeStore.speakCalmText === "function") {
+    try { window.SafeStore.speakCalmText(text, currentLang); return; } catch (ignored) {}
+  }
+  if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.zoeSafeSpeech) {
+    try {
+      window.webkit.messageHandlers.zoeSafeSpeech.postMessage({ action: "speak", text, lang: currentLang });
+      return;
+    } catch (ignored) {}
+  }
+  if ("speechSynthesis" in window) {
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.88;
+      u.onend = () => { speakingCalm = false; storyStopBtn.classList.add("hidden"); storyTtsStatus.textContent = ""; };
+      window.speechSynthesis.speak(u);
+    } catch (ignored) {}
+  }
+}
+
+function renderStoryChipsAndText() {
+  storyChips.replaceChildren();
+  CALM_STORIES.forEach((st, idx) => {
+    const c = el("button", "zoe-chip", st.title);
+    c.type = "button";
+    c.onclick = () => {
+      stopCalmVoice();
+      activeStoryIdx = idx;
+      renderStoryChipsAndText();
+    };
+    storyChips.appendChild(c);
+  });
+  const current = CALM_STORIES[activeStoryIdx] || CALM_STORIES[0];
+  storyTitle.textContent = current.title;
+  storyBody.textContent = current.text;
+}
+
+/* --- BLE Help Beacon & Mesh --- */
+function syncBeaconStateFromBridge() {
+  if (!hasBeaconBridge()) return;
+  try {
+    const parsed = JSON.parse(window.SafeStore.getBeaconStateJson() || "{}");
+    beaconState = Object.assign(beaconState, parsed);
+  } catch (ignored) {}
+}
+
+function startBeaconCountdownTimer() {
+  if (beaconTickHandle !== null) clearInterval(beaconTickHandle);
+  beaconTickHandle = setInterval(() => {
+    if (beaconState.advertising && beaconState.remainingSec > 0) {
+      beaconState.remainingSec -= 1;
+      const timerNode = $("beaconCountdown");
+      if (timerNode) timerNode.textContent = "Auto-off safety timer: " + formatTimer(beaconState.remainingSec);
+    } else if (beaconTickHandle !== null) {
+      clearInterval(beaconTickHandle);
+      beaconTickHandle = null;
+    }
+  }, 1000);
+}
+
+function stopBeaconLocalUi() {
+  if (beaconTickHandle !== null) {
+    clearInterval(beaconTickHandle);
+    beaconTickHandle = null;
+  }
+  beaconState.advertising = false;
+  beaconState.scanning = false;
+  beaconState.remainingSec = 0;
+  beaconSightings = [];
+}
+
+function requestSafeLocationFix(updateRegionOnFix) {
+  locationStatusMsg = "Checking device GPS once (opt-in · stops after 1 fix)…";
+  renderHelpSections();
+  if (window.SafeStore && typeof window.SafeStore.requestLocationFix === "function") {
+    try {
+      window._autoSwitchRegionOnFix = !!updateRegionOnFix;
+      window.SafeStore.requestLocationFix();
+      return;
+    } catch (ignored) {}
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        const lat = pos.coords.latitude.toFixed(5);
+        const lon = pos.coords.longitude.toFixed(5);
+        lastLocationFix = {
+          lat, lon, accuracyM: Math.round(pos.coords.accuracy || 25),
+          label: lat + ", " + lon, region: currentRegion,
+          mapsUrl: "https://maps.google.com/?q=" + lat + "," + lon,
+          appleMapsUrl: "https://maps.apple.com/?ll=" + lat + "," + lon
+        };
+        locationStatusMsg = "Location ready (1-shot GPS stopped).";
+        renderHelpSections();
+      },
+      () => {
+        locationStatusMsg = "Location unavailable. You can still pick your region above or open Maps.";
+        renderHelpSections();
+      },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  } else {
+    locationStatusMsg = "GPS unavailable in this browser. Pick your region manually above.";
+    renderHelpSections();
+  }
+}
+
+/* --- Show / Exit Layer 2 --- */
 function showHelp() {
   valueInput.value = "";
   resultEl.textContent = "—";
@@ -1011,18 +1892,19 @@ function showHelp() {
   notifyHelpVisibility(true);
   loadContacts();
   loadEvidence();
+  syncBeaconStateFromBridge();
   contactsOpen = contacts.length > 0;
   zoeOpen = false;
   passPanelOpen = false;
   openSection = -1;
   editingIndex = -1;
+  kidEasyMode = false;
+  showAdultCardOpen = false;
   setFieldError(contactErrorEl, "");
   setFieldError(logError, "");
   setFieldError(vaultLockError, "");
   setFieldError(vaultPassError, "");
-  renderContactsAccordion();
-  renderZoeAccordion();
-  renderHelpSections();
+  applyLocaleChrome();
   resetIdleTimer();
   window.scrollTo(0, 0);
 }
@@ -1052,10 +1934,17 @@ function exitHelp() {
   clearIdleTimer();
   stopBreathingGuide();
   stopRecTimer();
+  stopCalmVoice();
+  clearCalmCanvas();
+  stopBeaconLocalUi();
   playingAudioId = "";
   pendingDeleteEvId = "";
   pendingShareEvId = "";
   passPanelOpen = false;
+  kidEasyMode = false;
+  showAdultCardOpen = false;
+  lastLocationFix = null;
+  locationStatusMsg = "";
   if (window.SafeStore && typeof window.SafeStore.lockVaultNow === "function") {
     try { window.SafeStore.lockVaultNow(); } catch (ignored) {}
   }
@@ -1075,6 +1964,9 @@ function exitHelp() {
   vaultPassInput.value = "";
   vaultStatus.textContent = "";
   groundBox.classList.add("hidden");
+  artBox.classList.add("hidden");
+  mathBox.classList.add("hidden");
+  storyBox.classList.add("hidden");
   setFieldError(contactErrorEl, "");
   setFieldError(logError, "");
   setFieldError(vaultLockError, "");
@@ -1098,7 +1990,8 @@ function sanitizeTel(phone) {
 }
 
 function renderContactsAccordion() {
-  contactsTitle.textContent = contacts.length > 0 ? "My safe people (" + contacts.length + ")" : "My safe people";
+  const baseTitle = tr("safePeople");
+  contactsTitle.textContent = contacts.length > 0 ? baseTitle + " (" + contacts.length + ")" : baseTitle;
   contactsToggle.setAttribute("aria-expanded", contactsOpen ? "true" : "false");
   contactsToggle.classList.add("tone-contacts");
   contactsToggle.classList.toggle("open", contactsOpen);
@@ -1164,24 +2057,22 @@ function startContactEdit(idx) {
 
 function zoeReplyFor(raw) {
   const t = String(raw || "").toLowerCase();
-  if (/hurt me|hit|choke|weapon|gun|knife|kill|bleed|beat|immediate danger|trapped|locked/.test(t)) {
+  const pack = activeRegionPack();
+  if (/hurt me|hit|choke|weapon|gun|knife|kill|bleed|beat|immediate danger|trapped|locked|assault|rape/.test(t)) {
     return {
-      text: "You deserve to be safe right now. If someone is hurting or threatening you, get behind a locked door or to a neighbor if you can, and reach help with one tap:",
+      text: "You deserve to be safe right now. If someone is hurting or threatening you, get behind a locked door or to a neighbor if you can, and reach help for " + pack.name + " with one tap:",
       links: [
-        { text: "Call 911", href: "tel:911" },
-        { text: "Call 1-800-799-7233", href: "tel:18007997233" },
-        { text: "Text START to 88788", href: "sms:88788?body=START" }
+        { text: "Call " + pack.emergencyNum, href: pack.emergencyHref },
+        { text: pack.dvCallText, href: pack.dvCallHref },
+        { text: pack.dvTextText, href: pack.dvTextHref }
       ]
     };
   }
   if (/end my life|kill myself|suicide|die|self[- ]harm|don't want to live|dont want to live|can't go on|cant go on/.test(t)) {
+    const crisis = pack.crisisRightNow.slice(0, 3).map(c => ({ text: c.text, href: c.href }));
     return {
       text: "I'm glad you told me instead of holding that alone. Please talk to someone trained who cares right now — free, confidential, 24/7:",
-      links: [
-        { text: "Call 988", href: "tel:988" },
-        { text: "Text 988", href: "sms:988" },
-        { text: "Text HOME to 741741", href: "sms:741741?body=HOME" }
-      ]
+      links: crisis
     };
   }
   if (/yell|scream|threat|verbally|verbal|insult|name[- ]call|gaslight|blame|cursing|curse|humiliat|throw|broke/.test(t)) {
@@ -1193,20 +2084,18 @@ function zoeReplyFor(raw) {
   if (/kid|child|son|daughter|baby|school/.test(t)) {
     return {
       text: "Protecting children takes huge courage. Shelters help parents with children (and often pets), and you don't have to figure out everything alone.",
-      links: [
-        { text: "Call Childhelp: 1-800-422-4453", href: "tel:18004224453" }
-      ]
+      links: [{ text: pack.childCallText, href: pack.childCallHref }]
     };
   }
   if (/sad|cry|lonely|alone|tired|exhaust|broken|hurt|miss|hopeless|overwhelm/.test(t)) {
     return {
-      text: "I'm right here with you. You don't have to fix everything tonight — let's just take one slow breath together. Try Breathe (4-4-6) above, or write whatever you feel. Would it help to log what happened today or just talk it out?",
+      text: "I'm right here with you. You don't have to fix everything tonight — let's just take one slow breath together. Try Breathe (4-4-6), Calm Art, or a Zoe Story above, or write whatever you feel.",
       links: []
     };
   }
   if (/scared|afraid|panic|shake|shaking|heart|anxious|nervous|calm|breathe/.test(t)) {
     return {
-      text: "Take one slow breath with me: in for 4 seconds, hold for 4, out slowly for 6. Feel your feet on the floor. You survived every hardest minute up to now — tap Breathe (4-4-6) or 5-4-3-2-1 Calm above whenever you want steady guidance.",
+      text: "Take one slow breath with me: in for 4 seconds, hold for 4, out slowly for 6. Feel your feet on the floor. Tap Breathe (4-4-6), Easy Math, or Zoe Stories above whenever you want gentle grounding.",
       links: []
     };
   }
@@ -1243,8 +2132,7 @@ function appendZoeChatExchange(userText) {
   reply.links.forEach(item => {
     const link = el("a", "item-phone tone-0");
     link.href = item.href;
-    const strong = el("strong", null, item.text);
-    link.appendChild(strong);
+    link.appendChild(el("strong", null, item.text));
     zoeCard.appendChild(link);
   });
   zoeChat.appendChild(zoeCard);
@@ -1285,11 +2173,12 @@ function toggleBreathGuide() {
 
 function renderZoeAccordion() {
   const locked = vaultHasPasscode() && !vaultIsUnlocked();
+  const baseZoe = tr("talkZoe");
   zoeTitle.textContent = locked
-    ? "Talk to Zoe & Safety Log (Locked)"
+    ? baseZoe + " (Locked)"
     : evidence.length > 0
-      ? "Talk to Zoe & Safety Log (" + evidence.length + ")"
-      : "Talk to Zoe & Safety Log";
+      ? baseZoe + " (" + evidence.length + ")"
+      : baseZoe;
   zoeToggle.setAttribute("aria-expanded", zoeOpen ? "true" : "false");
   zoeToggle.classList.add("tone-zoe");
   zoeToggle.classList.toggle("open", zoeOpen);
@@ -1428,15 +2317,396 @@ function renderZoeAccordion() {
   }
 }
 
+/* --- Dynamic Regional & Trauma-Informed Help Sections --- */
+function appendPhoneLink(body, tone, text, sub, href) {
+  const link = el("a", "item-phone " + tone);
+  link.href = href;
+  link.appendChild(el("strong", null, text));
+  if (sub) link.appendChild(el("small", null, sub));
+  body.appendChild(link);
+}
+
+function appendStep(body, num, text) {
+  const row = el("div", "item-step");
+  row.appendChild(el("span", "step-num", String(num)));
+  row.appendChild(el("span", "step-txt", text));
+  body.appendChild(row);
+}
+
+function jumpToCalmingTool(tool) {
+  zoeOpen = true;
+  loadEvidence();
+  renderZoeAccordion();
+  if (tool === "art") artBox.classList.remove("hidden");
+  if (tool === "story") {
+    renderStoryChipsAndText();
+    storyBox.classList.remove("hidden");
+  }
+  if (tool === "vault") {
+    const anchor = $("vaultAnchor");
+    if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  zoeToggle.scrollIntoView({ behavior: "smooth" });
+}
+
+function buildHelpSectionsModel() {
+  const pack = activeRegionPack();
+  return [
+    {
+      id: "now",
+      label: tr("secNow"),
+      tone: "tone-0",
+      render: body => {
+        pack.crisisRightNow.forEach(item => appendPhoneLink(body, "tone-0", item.text, item.sub, item.href));
+        body.appendChild(el("div", "item-note", "You can hang up anytime. They will not judge you. They are there for you."));
+      }
+    },
+    {
+      id: "medical",
+      label: tr("secMedical"),
+      tone: "tone-0",
+      render: body => {
+        body.appendChild(el("div", "item-big tone-0", "You are safe here. What happened is not your fault."));
+        appendStep(body, 1, "Get to a safe place first (a trusted person, hospital emergency room, clinic, or police station).");
+        appendStep(body, 2, "If you can, before showering, bathing, brushing teeth, washing hands, or changing clothes: medical staff can collect forensic evidence (a rape kit / SANE / SARC exam).");
+        appendStep(body, 3, "If you already showered or changed clothes — that is completely okay. Put each item of clothing in a separate clean PAPER bag (not plastic, which traps moisture).");
+        appendStep(body, 4, pack.medicalNote);
+        appendStep(body, 5, "When safe, take photos of injuries, torn clothes, or threats — or write dated notes in your private SHA-256 Safety Log above.");
+        appendPhoneLink(body, "tone-0", pack.assaultCallText, pack.assaultCallSub, pack.assaultCallHref);
+        appendPhoneLink(body, "tone-2", "🏥 Open Nearest Hospital / Emergency Room", "Opens Maps externally for emergency medical care.", "geo:0,0?q=emergency+room+hospital");
+        const jumpBtn = el("button", "btn btn-zoe-soft", "🔒 Open Private Safety Log (SHA-256 Proof)");
+        jumpBtn.type = "button";
+        jumpBtn.style.marginTop = "8px";
+        jumpBtn.onclick = () => jumpToCalmingTool("vault");
+        body.appendChild(jumpBtn);
+      }
+    },
+    {
+      id: "locator",
+      label: tr("secLocator"),
+      tone: "tone-2",
+      render: body => {
+        appendPhoneLink(body, "tone-2", "🏥 Nearest Hospital / Emergency Room", "Opens your device Maps app with nearest emergency rooms.", "geo:0,0?q=emergency+room+hospital");
+        appendPhoneLink(body, "tone-2", "🚓 Nearest Police Station", "Opens Maps for nearest police precinct or gendarmerie.", "geo:0,0?q=police+station");
+        appendPhoneLink(body, "tone-2", "💊 Nearest 24-Hour Pharmacy", "Bright, public place with staff and medical supplies.", "geo:0,0?q=pharmacy");
+        appendPhoneLink(body, "tone-2", "📚 Nearest Public Library", "Safe public space with computers you can use privately.", "geo:0,0?q=public+library");
+
+        const shelterBox = el("div", "callout-card warn");
+        shelterBox.appendChild(el("strong", null, "🏠 Confidential Shelters & Safe Houses"));
+        shelterBox.appendChild(el("div", null, "For survivor safety, real domestic violence shelters keep their street addresses secret and are never plotted on public maps. Call the 24/7 confidential intake line to get safe shelter placement:"));
+        body.appendChild(shelterBox);
+        appendPhoneLink(body, "tone-1", pack.dvCallText, "24/7 confidential shelter & safe-house intake.", pack.dvCallHref);
+        appendPhoneLink(body, "tone-2", pack.shelterLinkText, "Opens externally — use private browsing if unsafe.", pack.shelterLinkHref);
+
+        const locCard = el("div", "callout-card");
+        locCard.appendChild(el("strong", null, "📍 Safe One-Shot GPS Locator"));
+        locCard.appendChild(el("div", null, "Reads your GPS ONCE only when you tap below — never tracks you in the background."));
+        const locBtn = el("button", "btn btn-call", "Get my exact location once");
+        locBtn.id = "locateMeBtn";
+        locBtn.type = "button";
+        locBtn.style.marginTop = "8px";
+        locBtn.onclick = () => requestSafeLocationFix(true);
+        locCard.appendChild(locBtn);
+
+        if (locationStatusMsg) {
+          locCard.appendChild(el("div", "vault-status", locationStatusMsg));
+        }
+        if (lastLocationFix) {
+          const coords = el("div", "beacon-tag", lastLocationFix.label + " (±" + lastLocationFix.accuracyM + "m)");
+          locCard.appendChild(coords);
+          const shareMsg = "I need help. My location: " + lastLocationFix.mapsUrl + " (Apple Maps: " + lastLocationFix.appleMapsUrl + ")";
+          const firstSafe = contacts.find(c => sanitizeTel(c.phone));
+          const smsTarget = firstSafe ? sanitizeTel(firstSafe.phone) : "";
+          const smsLink = el("a", "btn btn-sms", firstSafe ? "Text location to " + (firstSafe.name || "Safe Person") : "Text my location via SMS");
+          smsLink.style.marginTop = "8px";
+          smsLink.href = "sms:" + smsTarget + "?body=" + encodeURIComponent(shareMsg);
+          locCard.appendChild(smsLink);
+        }
+        body.appendChild(locCard);
+      }
+    },
+    {
+      id: "kid",
+      label: tr("secKid"),
+      tone: "tone-1",
+      render: body => {
+        const easyToggle = el("button", "btn btn-zoe", kidEasyMode ? tr("kidEasyOff") : tr("kidEasyOn"));
+        easyToggle.id = "kidEasyToggle";
+        easyToggle.type = "button";
+        easyToggle.style.marginBottom = "10px";
+        easyToggle.onclick = () => {
+          kidEasyMode = !kidEasyMode;
+          showAdultCardOpen = false;
+          renderHelpSections();
+        };
+        body.appendChild(easyToggle);
+
+        if (kidEasyMode) {
+          const grid = el("div", "kid-card-grid");
+          const cards = [
+            { icon: "🛡️", title: tr("notInTrouble"), sub: "Telling a safe grown-up is ALWAYS okay." },
+            { icon: "💙", title: tr("notYourFault"), sub: "Grown-ups are responsible for keeping kids safe." },
+            { icon: "🏫", title: "Tell a safe grown-up", sub: pack.schoolAdults }
+          ];
+          cards.forEach(c => {
+            const card = el("div", "kid-pic-card");
+            card.appendChild(el("div", "kid-pic-icon", c.icon));
+            const txt = el("div", "kid-pic-text");
+            txt.appendChild(el("strong", null, c.title));
+            txt.appendChild(el("span", null, c.sub));
+            card.appendChild(txt);
+            grid.appendChild(card);
+          });
+          body.appendChild(grid);
+
+          const adultBtn = el("button", "btn btn-call", "📱 Show this screen to a safe adult");
+          adultBtn.id = "kidShowAdultBtn";
+          adultBtn.type = "button";
+          adultBtn.onclick = () => {
+            showAdultCardOpen = !showAdultCardOpen;
+            renderHelpSections();
+          };
+          body.appendChild(adultBtn);
+
+          if (showAdultCardOpen) {
+            const bigCard = el("div", "show-adult-card", tr("showAdultCard"));
+            bigCard.id = "kidAdultCard";
+            body.appendChild(bigCard);
+          }
+
+          const calmRow = el("div", "btn-row");
+          const drawJump = el("button", "btn btn-zoe-soft", "🎨 Draw or hear a story");
+          drawJump.type = "button";
+          drawJump.onclick = () => jumpToCalmingTool("story");
+          const hearBtn = el("button", "btn btn-zoe-soft", "🔊 Listen softly");
+          hearBtn.type = "button";
+          hearBtn.onclick = () => {
+            pendingSpeechPayload = tr("notInTrouble") + " " + tr("notYourFault") + " " + pack.schoolAdults;
+            jumpToCalmingTool("story");
+            storySoundGate.classList.remove("hidden");
+          };
+          calmRow.appendChild(drawJump);
+          calmRow.appendChild(hearBtn);
+          body.appendChild(calmRow);
+        }
+
+        appendPhoneLink(body, "tone-1", pack.childCallText, pack.childCallSub, pack.childCallHref);
+        body.appendChild(el("div", "item-big tone-1", tr("notInTrouble")));
+        body.appendChild(el("div", "item-big tone-1", tr("notYourFault")));
+        body.appendChild(el("div", "item-note", pack.schoolAdults));
+        body.appendChild(el("div", "item-note", pack.kidEmergencyLine));
+      }
+    },
+    {
+      id: "plan",
+      label: tr("secPlan"),
+      tone: "tone-2",
+      render: body => {
+        appendStep(body, 1, "Pick one person you trust. Tell them what is happening.");
+        appendStep(body, 2, "Choose a code word with that person that means \"call for help.\"");
+        appendStep(body, 3, "If you can, put copies of your ID, keys, and cash somewhere safe outside your home.");
+        appendStep(body, 4, "Know your exits. Think about which rooms have locks, solid doors, or windows.");
+        appendStep(body, 5, "You can leave with nothing. Shelters help with essentials, children, and pets too.");
+        appendPhoneLink(body, "tone-2", pack.dvCallText, "Advocates help you make a safety plan step by step.", pack.dvCallHref);
+      }
+    },
+    {
+      id: "phone",
+      label: tr("secPhone"),
+      tone: "tone-3",
+      render: body => {
+        const notes = [
+          "If you can, use a different device — a library computer, a friend's phone, or a phone at work.",
+          "Use private browsing (incognito mode) for anything related to safety or leaving.",
+          "Look for apps on your phone you do not recognize. Tracking tools can disguise themselves as battery or system apps.",
+          "Check Google Location Sharing, shared accounts, and Settings → Safety & emergency → Unknown tracker alerts when safe.",
+          "Physical trackers like AirTags or Tiles can be hidden in bags, coats, or cars.",
+          "Only change passwords from a safe device they have never had access to."
+        ];
+        notes.forEach(n => body.appendChild(el("div", "item-note", n)));
+      }
+    },
+    {
+      id: "legal",
+      label: tr("secLegal"),
+      tone: "tone-4",
+      render: body => {
+        body.appendChild(el("div", "item-big tone-4", tr("yesWord")));
+        pack.legalNotes.forEach(n => body.appendChild(el("div", "item-note", n)));
+        appendPhoneLink(body, "tone-4", pack.legalLinkText, pack.legalLinkSub, pack.legalLinkHref);
+      }
+    },
+    {
+      id: "groups",
+      label: tr("secGroups"),
+      tone: "tone-1",
+      render: body => {
+        const safeNote = el("div", "callout-card calm");
+        safeNote.appendChild(el("strong", null, "Why SafeConvert links to human-moderated support instead of anonymous group chat"));
+        safeNote.appendChild(el("div", null, "Unvetted public chat rooms can be infiltrated by abusers or unsafe strangers, and SafeConvert keeps zero background internet access to protect your privacy. Below are verified, professionally moderated chats & survivor forums for " + pack.name + " (open only in private browsing when safe):"));
+        body.appendChild(safeNote);
+        pack.supportGroups.forEach(g => appendPhoneLink(body, "tone-1", g.text, g.sub, g.href));
+      }
+    },
+    {
+      id: "beacon",
+      label: tr("secBeacon"),
+      tone: "tone-3",
+      render: body => {
+        syncBeaconStateFromBridge();
+        const card = el("div", "beacon-card");
+        card.id = "beaconStatusCard";
+        const statusTitle = beaconState.advertising
+          ? "● OFFLINE BLE BEACON ACTIVE"
+          : (beaconState.scanning ? "● SCANNING NEARBY BLE BEACONS" : "○ Beacon OFF (Starts strictly off)");
+        card.appendChild(el("strong", null, statusTitle));
+        if (beaconState.advertising && beaconState.remainingSec > 0) {
+          const cd = el("div", "vault-status", "Auto-off safety timer: " + formatTimer(beaconState.remainingSec));
+          cd.id = "beaconCountdown";
+          card.appendChild(cd);
+        }
+        if (beaconState.tag) {
+          const tg = el("div", "beacon-tag", "15-min Rotating Tag: " + beaconState.tag);
+          tg.id = "beaconTag";
+          card.appendChild(tg);
+        }
+        if (beaconState.fingerprint) {
+          const fp = el("div", "ev-hash", "Key Safety Fingerprint: " + beaconState.fingerprint);
+          fp.id = "beaconFp";
+          card.appendChild(fp);
+        }
+        if (beaconState.message) {
+          card.appendChild(el("div", "vault-status", beaconState.message));
+        }
+        body.appendChild(card);
+
+        const scopeNote = el("div", "callout-card warn");
+        scopeNote.appendChild(el("strong", null, "Honest offline scope & anti-stalkerware protection"));
+        scopeNote.appendChild(el("div", null, "Uses Bluetooth Low Energy (~30–80 m between Zoe phones, zero cell signal or Wi-Fi required — not Apple's global Find My satellite/iPhone network). Never runs silently in the background: auto-stops after 30 minutes OR instantly when you tap ✕ EXIT."));
+        body.appendChild(scopeNote);
+
+        const modeRow = el("div", "btn-row");
+        const blindBtn = el("button", "btn btn-zoe", "📡 Blind E2EE Relay (AirTag Style)");
+        blindBtn.id = "beaconBlindBtn";
+        blindBtn.type = "button";
+        blindBtn.onclick = () => {
+          if (hasBeaconBridge()) {
+            window.SafeStore.startBlindRelayBeacon();
+          } else {
+            beaconState.message = "Offline BLE hardware advertising runs inside the native Zoe mobile app.";
+            renderHelpSections();
+          }
+        };
+        const sosBtn = el("button", "btn btn-rec", "🆘 Local SOS Mesh Alert");
+        sosBtn.id = "beaconSosBtn";
+        sosBtn.type = "button";
+        sosBtn.onclick = () => {
+          if (hasBeaconBridge()) {
+            window.SafeStore.startLocalSosBeacon();
+          } else {
+            beaconState.message = "Offline BLE Local SOS advertising runs inside the native Zoe mobile app.";
+            renderHelpSections();
+          }
+        };
+        modeRow.appendChild(blindBtn);
+        modeRow.appendChild(sosBtn);
+        body.appendChild(modeRow);
+
+        if (beaconState.advertising) {
+          const stopBtn = el("button", "btn btn-cancel", "■ Stop Help Beacon Now");
+          stopBtn.id = "beaconStopBtn";
+          stopBtn.type = "button";
+          stopBtn.style.marginTop = "8px";
+          stopBtn.onclick = () => {
+            if (hasBeaconBridge()) window.SafeStore.stopBeacon();
+          };
+          body.appendChild(stopBtn);
+        }
+
+        const scanRow = el("div", "btn-row");
+        const scanBtn = el("button", "btn btn-vid", beaconState.scanning ? "■ Stop Scanning Nearby" : "🔍 Scan Nearby Zoe Beacons");
+        scanBtn.id = "beaconScanBtn";
+        scanBtn.type = "button";
+        scanBtn.onclick = () => {
+          if (!hasBeaconBridge()) {
+            beaconState.message = "Offline BLE scanning runs inside the native Zoe mobile app.";
+            renderHelpSections();
+            return;
+          }
+          if (beaconState.scanning) {
+            window.SafeStore.stopMeshScan();
+          } else {
+            window.SafeStore.startMeshScan();
+          }
+        };
+        scanRow.appendChild(scanBtn);
+        body.appendChild(scanRow);
+
+        const sightingsWrap = el("div", null);
+        sightingsWrap.id = "beaconSightings";
+        if (beaconSightings.length > 0) {
+          beaconSightings.forEach(s => {
+            const row = el("div", "sighting-row" + (s.isSos ? " sos" : ""));
+            row.appendChild(el("strong", null, s.isSos ? "🆘 NEARBY LOCAL SOS ALERT" : "📡 Blind Encrypted Zoe Beacon"));
+            const dist = s.approxMeters > 0 ? "~" + s.approxMeters + " m" : "nearby";
+            row.appendChild(el("div", "ev-hash", "Tag: " + s.tag + " · " + dist + " (" + s.rssi + " dBm)"));
+            if (s.isSos) {
+              row.appendChild(el("div", "vault-status", "Someone nearby with Zoe requested help. Only assist if safe — call " + pack.emergencyNum + " if needed."));
+            }
+            sightingsWrap.appendChild(row);
+          });
+        } else if (beaconState.scanning) {
+          sightingsWrap.appendChild(el("div", "vault-status", "Listening offline over Bluetooth LE… No nearby Zoe beacons detected yet."));
+        }
+        body.appendChild(sightingsWrap);
+
+        const keyRow = el("div", "btn-row");
+        const shareKeyBtn = el("button", "btn btn-zoe-soft", "🔑 Share Verification Key");
+        shareKeyBtn.id = "beaconShareKeyBtn";
+        shareKeyBtn.type = "button";
+        shareKeyBtn.onclick = () => {
+          if (hasBeaconBridge()) window.SafeStore.shareBeaconKey();
+        };
+        const rotateBtn = el("button", "btn btn-edit", "🔄 Rotate / Revoke Keys");
+        rotateBtn.id = "beaconRotateBtn";
+        rotateBtn.type = "button";
+        rotateBtn.onclick = () => {
+          if (hasBeaconBridge()) {
+            try {
+              const updated = JSON.parse(window.SafeStore.rotateBeaconKeys() || "{}");
+              beaconState = Object.assign(beaconState, updated);
+              renderHelpSections();
+            } catch (ignored) {}
+          }
+        };
+        keyRow.appendChild(shareKeyBtn);
+        keyRow.appendChild(rotateBtn);
+        body.appendChild(keyRow);
+      }
+    },
+    {
+      id: "more",
+      label: tr("secMore"),
+      tone: "tone-5",
+      render: body => {
+        pack.moreNumbers.forEach(item => appendPhoneLink(body, "tone-5", item.text, item.sub, item.href));
+      }
+    }
+  ];
+}
+
 function renderHelpSections() {
   const container = $("helpSections");
   container.replaceChildren();
-  HELP.forEach((section, idx) => {
-    const tone = "tone-" + idx;
+  const sections = buildHelpSectionsModel();
+  sections.forEach((section, idx) => {
+    const tone = section.tone;
     const wrap = el("div", "acc");
     const isOpen = openSection === idx;
     const btn = el("button", "acc-btn " + tone + (isOpen ? " open" : ""));
     btn.type = "button";
+    btn.dataset.sectionId = section.id;
     btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     btn.appendChild(el("span", null, section.label));
     btn.appendChild(el("span", "acc-plus", "+"));
@@ -1448,25 +2718,7 @@ function renderHelpSections() {
 
     if (isOpen) {
       const body = el("div", "acc-body " + tone);
-      section.content.forEach(item => {
-        if (item.type === "phone") {
-          const link = el("a", "item-phone " + tone);
-          link.href = item.href;
-          const strong = el("strong", null, item.text);
-          link.appendChild(strong);
-          if (item.sub) link.appendChild(el("small", null, item.sub));
-          body.appendChild(link);
-        } else if (item.type === "bigtext") {
-          body.appendChild(el("div", "item-big " + tone, item.text));
-        } else if (item.type === "step") {
-          const row = el("div", "item-step");
-          row.appendChild(el("span", "step-num", item.num));
-          row.appendChild(el("span", "step-txt", item.text));
-          body.appendChild(row);
-        } else {
-          body.appendChild(el("div", "item-note", item.text));
-        }
-      });
+      section.render(body);
       wrap.appendChild(body);
     }
     container.appendChild(wrap);
@@ -1480,6 +2732,62 @@ function formatTimer(sec) {
 }
 
 window.onSafeMediaEvent = (eventType, statusText) => {
+  if (eventType === "tts_started") {
+    speakingCalm = true;
+    storyStopBtn.classList.remove("hidden");
+    storyTtsStatus.textContent = statusText || "Zoe is reading softly…";
+    return;
+  }
+  if (eventType === "tts_stopped" || eventType === "tts_error") {
+    speakingCalm = false;
+    storyStopBtn.classList.add("hidden");
+    storyTtsStatus.textContent = statusText || "";
+    return;
+  }
+  if (eventType === "location_ready") {
+    try {
+      const loc = JSON.parse(statusText || "{}");
+      lastLocationFix = loc;
+      locationStatusMsg = "Location ready (1-shot GPS stopped).";
+      if (window._autoSwitchRegionOnFix && loc.region && REGIONS[loc.region]) {
+        currentRegion = loc.region;
+        regionSelect.value = currentRegion;
+        try { localStorage.setItem(REGION_KEY, currentRegion); } catch (ignored) {}
+        applyLocaleChrome();
+        return;
+      }
+    } catch (ignored) {}
+    renderHelpSections();
+    return;
+  }
+  if (eventType === "location_error") {
+    locationStatusMsg = statusText || "Could not get GPS location.";
+    renderHelpSections();
+    return;
+  }
+  if (eventType === "beacon_status") {
+    try {
+      const st = JSON.parse(statusText || "{}");
+      beaconState = Object.assign(beaconState, st);
+      if (beaconState.advertising && beaconState.remainingSec > 0) {
+        startBeaconCountdownTimer();
+      } else if (beaconTickHandle !== null) {
+        clearInterval(beaconTickHandle);
+        beaconTickHandle = null;
+      }
+    } catch (ignored) {}
+    renderHelpSections();
+    return;
+  }
+  if (eventType === "beacon_sightings") {
+    try {
+      const arr = JSON.parse(statusText || "[]");
+      if (Array.isArray(arr)) beaconSightings = arr;
+    } catch (ignored) {}
+    renderHelpSections();
+    return;
+  }
+
   if (statusText) vaultStatus.textContent = statusText;
   if (eventType === "audio_started") {
     recordingAudio = true;
@@ -1516,6 +2824,7 @@ window.onSafeMediaEvent = (eventType, statusText) => {
   }
 };
 
+/* --- Event Bindings --- */
 catSelect.onchange = onCategoryChanged;
 fromSelect.onchange = convert;
 toSelect.onchange = convert;
@@ -1537,6 +2846,22 @@ document.addEventListener("keydown", ev => {
   document.addEventListener(ev, resetIdleTimer, { passive: true });
 });
 
+regionSelect.onchange = () => {
+  if (REGIONS[regionSelect.value]) {
+    currentRegion = regionSelect.value;
+    try { localStorage.setItem(REGION_KEY, currentRegion); } catch (ignored) {}
+    applyLocaleChrome();
+  }
+};
+langSelect.onchange = () => {
+  if (I18N[langSelect.value]) {
+    currentLang = langSelect.value;
+    try { localStorage.setItem(LANG_KEY, currentLang); } catch (ignored) {}
+    applyLocaleChrome();
+  }
+};
+detectRegionBtn.onclick = () => requestSafeLocationFix(true);
+
 contactsToggle.onclick = () => {
   contactsOpen = !contactsOpen;
   editingIndex = -1;
@@ -1550,10 +2875,12 @@ $("cancelContact").onclick = () => {
   renderContactsAccordion();
 };
 Array.from(document.querySelectorAll(".chip")).forEach(chip => {
-  chip.onclick = () => {
-    $("contactMessage").value = chip.dataset.msg || chip.textContent || "";
-    setFieldError(contactErrorEl, "");
-  };
+  if (chip.dataset.msg) {
+    chip.onclick = () => {
+      $("contactMessage").value = chip.dataset.msg || chip.textContent || "";
+      setFieldError(contactErrorEl, "");
+    };
+  }
 });
 deleteAskBtn.onclick = () => {
   deleteAskBtn.classList.add("hidden");
@@ -1623,7 +2950,41 @@ zoeToggle.onclick = () => {
 };
 breathBtn.onclick = toggleBreathGuide;
 groundBtn.onclick = () => groundBox.classList.toggle("hidden");
-Array.from(document.querySelectorAll(".zoe-chip")).forEach(chip => {
+artBtn.onclick = () => artBox.classList.toggle("hidden");
+Array.from(document.querySelectorAll(".swatch")).forEach(sw => {
+  sw.onclick = () => {
+    artColor = sw.dataset.color || "#7DD3FC";
+    Array.from(document.querySelectorAll(".swatch")).forEach(s => s.classList.remove("active"));
+    sw.classList.add("active");
+  };
+});
+artBrushBtn.onclick = () => {
+  artWide = !artWide;
+  artBrushBtn.textContent = artWide ? "Brush: Wide" : "Brush: Soft";
+};
+artClearBtn.onclick = clearCalmCanvas;
+mathBtn.onclick = () => {
+  const show = mathBox.classList.toggle("hidden");
+  if (!show) nextCalmMathPuzzle();
+};
+mathNextBtn.onclick = nextCalmMathPuzzle;
+storyBtn.onclick = () => {
+  const hidden = storyBox.classList.toggle("hidden");
+  if (!hidden) renderStoryChipsAndText();
+};
+storyReadBtn.onclick = () => {
+  const st = CALM_STORIES[activeStoryIdx] || CALM_STORIES[0];
+  pendingSpeechPayload = st.title + ". " + st.text;
+  storySoundGate.classList.remove("hidden");
+};
+$("storySpeakYes").onclick = () => speakApprovedCalmText(pendingSpeechPayload);
+$("storySpeakNo").onclick = () => {
+  pendingSpeechPayload = "";
+  storySoundGate.classList.add("hidden");
+};
+storyStopBtn.onclick = stopCalmVoice;
+
+Array.from(document.querySelectorAll("#zoeChips .zoe-chip")).forEach(chip => {
   chip.onclick = () => appendZoeChatExchange(chip.textContent || "");
 });
 zoeForm.onsubmit = ev => {
@@ -1746,6 +3107,8 @@ $("wipeLogYes").onclick = () => {
 
 buildTabs();
 fillUnits();
+initCalmCanvas();
+initRegionAndLang();
 loadContacts();
 loadEvidence();
 window.exitHelp = exitHelp;
