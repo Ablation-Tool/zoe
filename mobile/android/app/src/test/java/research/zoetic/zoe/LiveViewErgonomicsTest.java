@@ -85,10 +85,16 @@ public class LiveViewErgonomicsTest {
                 "Labels: Desk (78%), Wood (62%). Colors: warm light (59%), amber and dark slate. Visible text: \"ZOE\".",
                 1.2f, 90f, false);
         assertTrue(grounded.contains("desk"));
+        assertFalse(grounded.contains(" or wood")); // High-confidence (>=65%) commits to ONE clear label!
         assertTrue(grounded.contains("warm light, amber and dark slate"));
         assertFalse(grounded.contains("59%"));
         assertTrue(grounded.contains("ZOE"));
         assertTrue(grounded.contains("Facing E") || grounded.contains("facing E"));
+
+        String hedged = LiveViewErgonomics.buildGroundedVisualAnswer(
+                "Labels: Mug (56%), Bowl (54%). Colors: cool light, slate.",
+                1.0f, Float.NaN, false);
+        assertTrue(hedged.contains("mug or bowl")); // Moderate confidence (<65%) honestly mentions runner-up
     }
 
     @Test

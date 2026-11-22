@@ -316,7 +316,10 @@ final class MediaChatHelper {
         if (text == null) return true;
         String l = text.trim().toLowerCase(Locale.US);
         return l.equals("pattern") || l.equals("material property") || l.equals("symmetry")
-                || l.equals("rectangle") || l.equals("circle") || l.equals("line") || l.equals("font");
+                || l.equals("rectangle") || l.equals("circle") || l.equals("line") || l.equals("font")
+                || l.equals("room") || l.equals("space") || l.equals("event") || l.equals("standing")
+                || l.equals("sitting") || l.equals("screenshot") || l.equals("interior design")
+                || l.equals("product") || l.equals("material");
     }
 
     /**

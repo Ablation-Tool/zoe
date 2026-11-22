@@ -139,6 +139,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private View bottomScrim;
 
     private TextView liveHudPill;
+    private Button recenterBtn;
     private Button flipCamBtn;
     private Button toolsBtn;
     private ScrollView idleCenterHost;
@@ -153,9 +154,15 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private Button listenBtn;
     private Button stopBtn;
 
-    // 1-Tap Slide-Up Tools & Accessibility Drawer (keeps main screen 100% calm & focused!)
+    // 1-Tap Symmetrical Tools & Accessibility Drawer (3 calm 2x2 grids + collapsible More/Advanced!)
     private FrameLayout toolsBackdrop;
     private ScrollView toolsSheet;
+    private LinearLayout moreAidsGroup;
+    private LinearLayout advancedToolsGroup;
+    private Button moreAidsToggleBtn;
+    private Button advancedToggleBtn;
+    private boolean moreAidsExpanded;
+    private boolean advancedToolsExpanded;
     private TextView a11ySummaryView;
     private Button a11yStandardBtn;
     private Button a11yDeafBtn;
@@ -189,7 +196,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private boolean cameraOn;
     private boolean arModeOn;
     private boolean useHeavyArCore6Dof;
-    private boolean arRoamEnabled = true;
+    private boolean arRoamEnabled = false; // Calm & steady by default so Zoe stays right where you look!
     private boolean useFrontCamera;
     private boolean spatialFieldOn;
     private boolean toolsOpen;
@@ -370,7 +377,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
         LinearLayout root = Ui.vertical(this);
         root.setBackgroundColor(Color.TRANSPARENT);
 
-        // Single clean Top Row: [←]  [● Status Pill]   <spacer>   [⇄]  [⚙]
+        // Symmetrical Top Row:
+        //   Idle:    [←]         [ Zoe Explore ]         [⚙]   (1 — center — 1)
+        //   Live AR: [←] [◎]     [ ● AR · 1.2m ]     [⇄] [⚙]   (2 — center — 2)
         LinearLayout topRow = new LinearLayout(this);
         topRow.setOrientation(LinearLayout.HORIZONTAL);
         topRow.setGravity(Gravity.CENTER_VERTICAL);
@@ -378,13 +387,26 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         Button backBtn = compactGlassButton("←", v -> finish());
         backBtn.setContentDescription("Go back");
-        LinearLayout.LayoutParams backLp = new LinearLayout.LayoutParams(Ui.dp(this, 42), Ui.dp(this, 42));
-        backLp.setMargins(0, 0, Ui.dp(this, 8), 0);
-        topRow.addView(backBtn, backLp);
+        topRow.addView(backBtn, new LinearLayout.LayoutParams(Ui.dp(this, 42), Ui.dp(this, 42)));
+
+        recenterBtn = compactGlassButton("◎", v -> {
+            if (spatialOverlayView != null) {
+                spatialOverlayView.recenterInFrontOfUser();
+                showCaption("Centered right in front of you.", false);
+            }
+        });
+        recenterBtn.setContentDescription("Recenter Zoe in front of you");
+        recenterBtn.setVisibility(View.GONE);
+        LinearLayout.LayoutParams recLp = new LinearLayout.LayoutParams(Ui.dp(this, 42), Ui.dp(this, 42));
+        recLp.setMargins(Ui.dp(this, 8), 0, 0, 0);
+        topRow.addView(recenterBtn, recLp);
+
+        topRow.addView(new View(this), new LinearLayout.LayoutParams(0, 1, 1f));
 
         liveHudPill = Ui.text(this, "Zoe Explore", 13.5f, Ui.TEXT);
         liveHudPill.setTypeface(Ui.SANS_MEDIUM);
-        liveHudPill.setPadding(Ui.dp(this, 12), Ui.dp(this, 7), Ui.dp(this, 12), Ui.dp(this, 7));
+        liveHudPill.setGravity(Gravity.CENTER);
+        liveHudPill.setPadding(Ui.dp(this, 14), Ui.dp(this, 7), Ui.dp(this, 14), Ui.dp(this, 7));
         liveHudPill.setBackground(Ui.tonalPillDrawable(this, Color.argb(155, 12, 16, 26), Ui.primaryAccent(this), 18));
         liveHudPill.setTextColor(Color.WHITE);
         liveHudPill.setClickable(true);
@@ -499,7 +521,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         tbLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         bottomStack.addView(typeBar, tbLp);
 
-        // Clean 3-Button Bottom Dock: [✦ AR]  [Talk / Look]  [End]
+        // Symmetrical 1:1:1 Bottom Dock: [✦ AR]  [Talk / Look]  [End]
         LinearLayout dock = new LinearLayout(this);
         dock.setOrientation(LinearLayout.HORIZONTAL);
         dock.setGravity(Gravity.CENTER_VERTICAL);
@@ -517,12 +539,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
         stopBtn.setContentDescription("Stop camera, microphone, and all sensors");
 
         LinearLayout.LayoutParams dlp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
-        dlp1.setMargins(0, 0, Ui.dp(this, 8), 0);
-        LinearLayout.LayoutParams dlp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.25f);
-        dlp2.setMargins(0, 0, Ui.dp(this, 8), 0);
+        dlp1.setMargins(0, 0, Ui.dp(this, 10), 0);
+        LinearLayout.LayoutParams dlp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        dlp2.setMargins(0, 0, Ui.dp(this, 10), 0);
         dock.addView(arToggleBtn, dlp1);
         dock.addView(listenBtn, dlp2);
-        dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.9f));
+        dock.addView(stopBtn, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
         bottomStack.addView(dock);
 
         root.addView(bottomStack);
@@ -570,9 +592,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
         sheetHdr.addView(doneBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 34)));
         inner.addView(sheetHdr);
 
-        // --- SECTION 1: Accessibility & Guided Navigation ---
-        TextView a11yHdr = sheetSectionLabel("Accessibility & Navigation Mode");
-        inner.addView(a11yHdr);
+        // --- SECTION 1: Accessibility (Symmetrical 2x2 Grid) ---
+        inner.addView(sheetSectionLabel("Accessibility"));
 
         LinearLayout profRow1 = new LinearLayout(this);
         profRow1.setOrientation(LinearLayout.HORIZONTAL);
@@ -596,14 +617,76 @@ public final class ZoeLiveActivity extends ComponentActivity {
         addEvenRow(profRow2, a11yBlindBtn, a11yKidBtn);
         inner.addView(profRow2);
 
-        a11ySummaryView = Ui.text(this, "", 12.5f, Ui.TEXT);
+        a11ySummaryView = Ui.text(this, "", 12f, Ui.TEXT);
         a11ySummaryView.setTextColor(Color.rgb(198, 224, 248));
-        a11ySummaryView.setPadding(Ui.dp(this, 4), Ui.dp(this, 6), Ui.dp(this, 4), Ui.dp(this, 8));
+        a11ySummaryView.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4));
         inner.addView(a11ySummaryView);
 
-        // Fine-grained mix & match accessibility aids (supports Deaf-Blind, low-vision, sensory needs!)
-        LinearLayout optRow1 = new LinearLayout(this);
-        optRow1.setOrientation(LinearLayout.HORIZONTAL);
+        // --- SECTION 2: Explore (Symmetrical 2x2 Grid) ---
+        inner.addView(sheetSectionLabel("Explore"));
+
+        LinearLayout expRow1 = new LinearLayout(this);
+        expRow1.setOrientation(LinearLayout.HORIZONTAL);
+        cameraToggleBtn = sheetPill("Camera: off", v -> {
+            setToolsSheetOpen(false);
+            toggleCamera();
+        });
+        cameraToggleBtn.setId(R.id.live_camera_toggle);
+        fieldToggleBtn = sheetPill("Field: off", v -> toggleSpatialField());
+        fieldToggleBtn.setId(R.id.live_field_toggle);
+        addEvenRow(expRow1, cameraToggleBtn, fieldToggleBtn);
+        inner.addView(expRow1);
+
+        LinearLayout expRow2 = new LinearLayout(this);
+        expRow2.setOrientation(LinearLayout.HORIZONTAL);
+        lookNowBtn = sheetPill("Look Now", v -> {
+            setToolsSheetOpen(false);
+            describeLiveViewProactively();
+        });
+        lookNowBtn.setId(R.id.live_look_button);
+        arRoamBtn = sheetPill("Glide: off", v -> toggleArRoam());
+        arRoamBtn.setId(R.id.live_ar_roam_toggle);
+        addEvenRow(expRow2, lookNowBtn, arRoamBtn);
+        inner.addView(expRow2);
+
+        // --- SECTION 3: Controls (Symmetrical 2x2 Grid) ---
+        inner.addView(sheetSectionLabel("Controls"));
+
+        LinearLayout ctrlRow1 = new LinearLayout(this);
+        ctrlRow1.setOrientation(LinearLayout.HORIZONTAL);
+        hiZoeToggleBtn = sheetPill("Hi Zoe: off", v -> {
+            setToolsSheetOpen(false);
+            toggleHiZoeMode();
+        });
+        hiZoeToggleBtn.setId(R.id.live_hizoe_toggle);
+        webToggleBtn = sheetPill("Web: off", v -> toggleWeb());
+        webToggleBtn.setId(R.id.live_web_toggle);
+        addEvenRow(ctrlRow1, hiZoeToggleBtn, webToggleBtn);
+        inner.addView(ctrlRow1);
+
+        LinearLayout ctrlRow2 = new LinearLayout(this);
+        ctrlRow2.setOrientation(LinearLayout.HORIZONTAL);
+        moreAidsToggleBtn = sheetPill("More Aids ▾", v -> {
+            moreAidsExpanded = !moreAidsExpanded;
+            if (moreAidsGroup != null) moreAidsGroup.setVisibility(moreAidsExpanded ? View.VISIBLE : View.GONE);
+            moreAidsToggleBtn.setText(moreAidsExpanded ? "More Aids ▴" : "More Aids ▾");
+        });
+        advancedToggleBtn = sheetPill("Advanced ▾", v -> {
+            advancedToolsExpanded = !advancedToolsExpanded;
+            if (advancedToolsGroup != null) advancedToolsGroup.setVisibility(advancedToolsExpanded ? View.VISIBLE : View.GONE);
+            advancedToggleBtn.setText(advancedToolsExpanded ? "Advanced ▴" : "Advanced ▾");
+        });
+        addEvenRow(ctrlRow2, moreAidsToggleBtn, advancedToggleBtn);
+        inner.addView(ctrlRow2);
+
+        // Collapsible Fine-Grained Accessibility Aids (Symmetrical 2-column grid — hidden until tapped!)
+        moreAidsGroup = Ui.vertical(this);
+        moreAidsGroup.setBackgroundColor(Color.TRANSPARENT);
+        moreAidsGroup.setVisibility(View.GONE);
+        moreAidsGroup.addView(sheetSectionLabel("Accessibility Aids"));
+
+        LinearLayout aidRow1 = new LinearLayout(this);
+        aidRow1.setOrientation(LinearLayout.HORIZONTAL);
         optBigCaptionsBtn = sheetPill("Big Captions", v -> {
             a11y = a11y.withLargeCaptions(!a11y.largeCaptions);
             ExploreAccessibility.save(this, a11y);
@@ -615,65 +698,59 @@ public final class ZoeLiveActivity extends ComponentActivity {
             applyAccessibilitySettings(false);
             ExploreAccessibility.pulseHaptic(this, ExploreAccessibility.HapticCue.ZOE_SPOTTED, a11y.hapticCues);
         });
+        addEvenRow(aidRow1, optBigCaptionsBtn, optHapticsBtn);
+        moreAidsGroup.addView(aidRow1);
+
+        LinearLayout aidRow2 = new LinearLayout(this);
+        aidRow2.setOrientation(LinearLayout.HORIZONTAL);
         optSoundRadarBtn = sheetPill("Sound Radar", v -> {
             a11y = a11y.withVisualSoundRadar(!a11y.visualSoundRadar);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(false);
         });
-        addEvenRow(optRow1, optBigCaptionsBtn, optHapticsBtn, optSoundRadarBtn);
-        inner.addView(optRow1);
-
-        LinearLayout optRow2 = new LinearLayout(this);
-        optRow2.setOrientation(LinearLayout.HORIZONTAL);
         optAudioSonarBtn = sheetPill("Audio Sonar", v -> {
             a11y = a11y.withAudioFirstNarration(!a11y.audioFirstNarration);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(true);
         });
+        addEvenRow(aidRow2, optSoundRadarBtn, optAudioSonarBtn);
+        moreAidsGroup.addView(aidRow2);
+
+        LinearLayout aidRow3 = new LinearLayout(this);
+        aidRow3.setOrientation(LinearLayout.HORIZONTAL);
         optTypeBarBtn = sheetPill("Type Bar", v -> {
             a11y = a11y.withTypeBar(!a11y.showTypeBar);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(false);
         });
-        addEvenRow(optRow2, optAudioSonarBtn, optTypeBarBtn);
-        inner.addView(optRow2);
-
-        // --- SECTION 2: Camera, Spatial AR & Multi-Sensor Telemetry ---
-        inner.addView(sheetSectionLabel("Camera, Spatial AR & Sensors (Opt-In)"));
-
-        LinearLayout camRow = new LinearLayout(this);
-        camRow.setOrientation(LinearLayout.HORIZONTAL);
-        cameraToggleBtn = sheetPill("Camera: off", v -> {
+        Button recenterSheetBtn = sheetPill("Recenter Zoe", v -> {
             setToolsSheetOpen(false);
-            toggleCamera();
+            if (spatialOverlayView != null) spatialOverlayView.recenterInFrontOfUser();
         });
-        cameraToggleBtn.setId(R.id.live_camera_toggle);
+        addEvenRow(aidRow3, optTypeBarBtn, recenterSheetBtn);
+        moreAidsGroup.addView(aidRow3);
+        inner.addView(moreAidsGroup);
+
+        // Collapsible Advanced Sensors & Extras (Symmetrical 2-column grid — hidden until tapped!)
+        advancedToolsGroup = Ui.vertical(this);
+        advancedToolsGroup.setBackgroundColor(Color.TRANSPARENT);
+        advancedToolsGroup.setVisibility(View.GONE);
+        advancedToolsGroup.addView(sheetSectionLabel("Advanced Sensors & Extras"));
+
+        LinearLayout advRow1 = new LinearLayout(this);
+        advRow1.setOrientation(LinearLayout.HORIZONTAL);
         arModeBtn = sheetPill("Engine: Gyro 60", v -> toggleArTrackingMode());
         arModeBtn.setId(R.id.live_ar_mode_toggle);
-        arRoamBtn = sheetPill("Glide: on", v -> toggleArRoam());
-        arRoamBtn.setId(R.id.live_ar_roam_toggle);
-        addEvenRow(camRow, cameraToggleBtn, arModeBtn, arRoamBtn);
-        inner.addView(camRow);
-
-        LinearLayout sensorRow = new LinearLayout(this);
-        sensorRow.setOrientation(LinearLayout.HORIZONTAL);
-        fieldToggleBtn = sheetPill("Field: off", v -> toggleSpatialField());
-        fieldToggleBtn.setId(R.id.live_field_toggle);
         dualCamBtn = sheetPill("Dual-Cam Sweep", v -> {
             setToolsSheetOpen(false);
             runDualCamAmbientSweep();
         });
         dualCamBtn.setId(R.id.live_dual_cam_btn);
-        lookNowBtn = sheetPill("Look Now", v -> {
-            setToolsSheetOpen(false);
-            describeLiveViewProactively();
-        });
-        lookNowBtn.setId(R.id.live_look_button);
-        addEvenRow(sensorRow, fieldToggleBtn, dualCamBtn, lookNowBtn);
-        inner.addView(sensorRow);
+        addEvenRow(advRow1, arModeBtn, dualCamBtn);
+        advancedToolsGroup.addView(advRow1);
 
-        LinearLayout geoRow = new LinearLayout(this);
-        geoRow.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout advRow2 = new LinearLayout(this);
+        advRow2.setOrientation(LinearLayout.HORIZONTAL);
         Button echoBtn = sheetPill("Echo Ping", v -> {
             setToolsSheetOpen(false);
             triggerAcousticEchoPing();
@@ -682,42 +759,22 @@ public final class ZoeLiveActivity extends ComponentActivity {
             setToolsSheetOpen(false);
             openGoogleMapsWalkingLiveView("");
         });
+        addEvenRow(advRow2, echoBtn, mapsWalkBtn);
+        advancedToolsGroup.addView(advRow2);
+
+        LinearLayout advRow3 = new LinearLayout(this);
+        advRow3.setOrientation(LinearLayout.HORIZONTAL);
         Button earthBtn = sheetPill("Google Earth", v -> {
             setToolsSheetOpen(false);
             openGoogleEarthOrHint();
         });
-        addEvenRow(geoRow, echoBtn, mapsWalkBtn, earthBtn);
-        inner.addView(geoRow);
-
-        telemetryHudLine = Ui.text(this, "Spatial Field idle · Local-only, zero PII (CERN Aτ/M₄ · RF · ENU)", 11.5f, Ui.TEXT);
-        telemetryHudLine.setId(R.id.live_telemetry_hud);
-        telemetryHudLine.setTextColor(Color.rgb(168, 224, 248));
-        telemetryHudLine.setPadding(Ui.dp(this, 10), Ui.dp(this, 8), Ui.dp(this, 10), Ui.dp(this, 8));
-        telemetryHudLine.setBackground(Ui.tonalPillDrawable(this, Color.argb(140, 8, 12, 22), Ui.CYAN, 14));
-        LinearLayout.LayoutParams telLp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        telLp.setMargins(0, Ui.dp(this, 6), 0, Ui.dp(this, 4));
-        inner.addView(telemetryHudLine, telLp);
-
-        // --- SECTION 3: Voice & Extras ---
-        inner.addView(sheetSectionLabel("Voice, Grounding & Fun"));
-
-        LinearLayout voiceRow = new LinearLayout(this);
-        voiceRow.setOrientation(LinearLayout.HORIZONTAL);
-        hiZoeToggleBtn = sheetPill("Hi Zoe: off", v -> {
-            setToolsSheetOpen(false);
-            toggleHiZoeMode();
-        });
-        hiZoeToggleBtn.setId(R.id.live_hizoe_toggle);
-        webToggleBtn = sheetPill("Web: off", v -> toggleWeb());
-        webToggleBtn.setId(R.id.live_web_toggle);
         voiceModeBtn = sheetPill("Voice: OS", v -> toggleVoiceEngine());
         voiceModeBtn.setId(R.id.live_voice_toggle);
-        addEvenRow(voiceRow, hiZoeToggleBtn, webToggleBtn, voiceModeBtn);
-        inner.addView(voiceRow);
+        addEvenRow(advRow3, earthBtn, voiceModeBtn);
+        advancedToolsGroup.addView(advRow3);
 
-        LinearLayout funRow = new LinearLayout(this);
-        funRow.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout advRow4 = new LinearLayout(this);
+        advRow4.setOrientation(LinearLayout.HORIZONTAL);
         Button factBtn = sheetPill("Calm Fact", v -> {
             setToolsSheetOpen(false);
             processSpokenPrompt("Tell me a short calming science fact about nature.");
@@ -726,8 +783,19 @@ public final class ZoeLiveActivity extends ComponentActivity {
             setToolsSheetOpen(false);
             singZoeOffline();
         });
-        addEvenRow(funRow, factBtn, singBtn);
-        inner.addView(funRow);
+        addEvenRow(advRow4, factBtn, singBtn);
+        advancedToolsGroup.addView(advRow4);
+
+        telemetryHudLine = Ui.text(this, "Spatial Field idle · Local-only, zero PII", 11.5f, Ui.TEXT);
+        telemetryHudLine.setId(R.id.live_telemetry_hud);
+        telemetryHudLine.setTextColor(Color.rgb(168, 224, 248));
+        telemetryHudLine.setPadding(Ui.dp(this, 10), Ui.dp(this, 8), Ui.dp(this, 10), Ui.dp(this, 8));
+        telemetryHudLine.setBackground(Ui.tonalPillDrawable(this, Color.argb(140, 8, 12, 22), Ui.CYAN, 14));
+        LinearLayout.LayoutParams telLp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        telLp.setMargins(0, Ui.dp(this, 4), 0, Ui.dp(this, 4));
+        advancedToolsGroup.addView(telemetryHudLine, telLp);
+        inner.addView(advancedToolsGroup);
 
         toolsSheet.addView(inner);
 
@@ -843,12 +911,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
         }
         if (a11ySummaryView != null) {
             String desc = switch (a11y.profile) {
-                case DEAF_HOH -> "Deaf / Hard-of-Hearing: Big high-contrast captions, visual ambient Sound Radar ring, haptic vibration cues, silent Type-to-Zoe bar, speaker muted by default.";
-                case BLIND_LOW_VISION -> "Blind / Low-Vision: Tap screen to hear what's ahead (clock-face + distance + text), double-tap to talk, long-press for compass & lighting, stereo directional chimes + haptics.";
-                default -> "Standard: Clean full-screen camera + floating Zoe with minimal controls. Turn on Kid Mode or any aid below anytime.";
+                case DEAF_HOH -> "Big captions, visual sound ring, haptics, and silent typing.";
+                case BLIND_LOW_VISION -> "Tap to hear ahead (clock-face + text), double-tap to talk.";
+                default -> "Clean full-screen camera + centered Zoe. Tap anywhere to inspect.";
             };
             if (a11y.kidFriendly) {
-                desc += " Kid Mode ON: friendly simple words and extra-large buttons.";
+                desc += " Kid Mode ON.";
             }
             a11ySummaryView.setText(desc);
         }
@@ -955,7 +1023,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
             orbView.setAnimationRunning(!fullScreen);
         }
         if (flipCamBtn != null) {
-            flipCamBtn.setVisibility((cameraOn || (arModeOn && !useHeavyArCore6Dof)) ? View.VISIBLE : View.GONE);
+            boolean showCamControls = cameraOn || (arModeOn && !useHeavyArCore6Dof);
+            flipCamBtn.setVisibility(showCamControls ? View.VISIBLE : View.GONE);
+            if (recenterBtn != null) {
+                recenterBtn.setVisibility(showCamControls ? View.VISIBLE : View.GONE);
+            }
         }
         if (liveHudPill != null) {
             if (!fullScreen) {
@@ -1212,8 +1284,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
         switch (act) {
             case START_AR_SPACE -> {
                 if (camGranted) {
-                    // Only start voice automatically if NOT in Deaf silent mode
-                    startArSpaceAndVoice(micGranted && !a11y.muteSpokenTts);
+                    // Keep mic cleanly OFF until user taps Talk (prevents continuous voice churn fighting taps!)
+                    startArSpaceAndVoice(false);
                 } else {
                     showCaption("Camera permission is needed for full-screen AR.", true);
                 }
@@ -1332,21 +1404,13 @@ public final class ZoeLiveActivity extends ComponentActivity {
             showCaption("AR paused. Tap ✦ AR anytime.", false);
             return;
         }
-        List<String> needed = new ArrayList<>();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            needed.add(Manifest.permission.CAMERA);
-        }
-        if (!a11y.muteSpokenTts
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            needed.add(Manifest.permission.RECORD_AUDIO);
-        }
-        if (!needed.isEmpty()) {
             pendingAction = PendingAction.START_AR_SPACE;
-            ActivityCompat.requestPermissions(this, needed.toArray(new String[0]), PERM_REQ);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERM_REQ);
             return;
         }
-        boolean hasMic = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
-        startArSpaceAndVoice(hasMic && !a11y.muteSpokenTts);
+        // Single-focus AR: open full-screen camera + calm centered Zoe. Tap anywhere to inspect, or tap Talk when ready!
+        startArSpaceAndVoice(false);
     }
 
     private void toggleArTrackingMode() {
@@ -1993,8 +2057,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
                     dualCamWarmupFrames.set(0);
                     dualCamCaptureArmed = true;
                 }
-                mainHandler.removeCallbacks(cameraObserverTick);
-                mainHandler.postDelayed(cameraObserverTick, 1800L);
+        // On-demand single-focus sight: do NOT poll ML Kit every 3s in the background!
+        // Every tap or voice question runs cleanly on a fresh <180ms frame with zero competing loops.
+        mainHandler.removeCallbacks(cameraObserverTick);
             } catch (Exception error) {
                 showCaption("Camera unavailable: " + error.getMessage(), true);
             }
@@ -2542,19 +2607,19 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 webCtx = webCtx.isEmpty() ? patCtx : (webCtx + "\n" + patCtx);
             }
         }
-        String roomMem = arModeOn ? arBrain.summarizeRoomMemory() : "";
-        String fieldCtx = spatialFieldOn ? latestSpatialContext : "";
+        // Streamlined single-focus context: pass ONLY the current frame's fresh sight report
+        // (add compass/location context only when the user actually asks about direction/location!)
+        boolean wantsLocationCtx = lowerSpoken.contains("where") || lowerSpoken.contains("compass")
+                || lowerSpoken.contains("direction") || lowerSpoken.contains("north")
+                || lowerSpoken.contains("south") || lowerSpoken.contains("east") || lowerSpoken.contains("west")
+                || lowerSpoken.contains("step") || lowerSpoken.contains("sensor");
         StringBuilder camCtx = new StringBuilder();
-        if (withCamera) {
-            if (latestCameraReport != null && !latestCameraReport.isEmpty()) camCtx.append(latestCameraReport);
-            if (!roomMem.isEmpty()) {
-                if (camCtx.length() > 0) camCtx.append(" ");
-                camCtx.append(roomMem);
-            }
-            if (!fieldCtx.isEmpty()) {
-                if (camCtx.length() > 0) camCtx.append(" ");
-                camCtx.append(fieldCtx);
-            }
+        if (withCamera && latestCameraReport != null && !latestCameraReport.isEmpty()) {
+            camCtx.append(latestCameraReport);
+        }
+        if (wantsLocationCtx && spatialFieldOn && latestSpatialContext != null && !latestSpatialContext.isEmpty()) {
+            if (camCtx.length() > 0) camCtx.append(" ");
+            camCtx.append(latestSpatialContext);
         }
         String camReport = camCtx.toString().trim();
         byte[] camJpeg = withCamera ? latestCameraJpeg : null;
