@@ -333,6 +333,13 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertTrue(fused.klosterATau >= 3 && fused.klosterATau <= 6)
         XCTAssertTrue(fused.klosterM4Root >= 0.26 && fused.klosterM4Root <= 1.0)
         XCTAssertEqual(fused.suggestedDepthMeters, 1.8 * 0.68, accuracy: 0.05)
+
+        XCTAssertTrue(ArExploreCore.clockFaceDirection(normalizedX: -0.8).contains("10 o'clock"))
+        XCTAssertTrue(ArExploreCore.clockFaceDirection(normalizedX: 0.0).contains("12 o'clock"))
+        let blindCue = ArExploreCore.formatGuidedSceneCue(primaryLabel: "Door", ocrSnippet: "EXIT", normalizedX: 0.35, distanceMeters: 1.4, kidFriendly: false)
+        XCTAssertTrue(blindCue.contains("1 o'clock") && blindCue.contains("EXIT"))
+        let kidCue = ArExploreCore.formatGuidedSceneCue(primaryLabel: "Dog", ocrSnippet: "", normalizedX: 0.0, distanceMeters: 2.0, kidFriendly: true)
+        XCTAssertTrue(kidCue.contains("big steps"))
     }
 
     func testSafeBeaconMeshRotatingPacketsAndTamperRejection() {

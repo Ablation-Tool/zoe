@@ -195,6 +195,45 @@ public enum ArExploreCore {
         return FusedFieldSnapshot(klosterATau: aTau, klosterM4Root: m4Root, spatialCoherence: coherence, suggestedDepthMeters: depth)
     }
 
+    public enum AccessibilityProfile: String, Equatable, Sendable {
+        case standard
+        case deafHoH
+        case blindLowVision
+    }
+
+    public static func clockFaceDirection(normalizedX: Float) -> String {
+        if !normalizedX.isFinite { return "straight ahead at 12 o'clock" }
+        if normalizedX < -0.58 { return "to your left around 10 o'clock" }
+        if normalizedX < -0.22 { return "slightly left at 11 o'clock" }
+        if normalizedX > 0.58 { return "to your right around 2 o'clock" }
+        if normalizedX > 0.22 { return "slightly right at 1 o'clock" }
+        return "straight ahead at 12 o'clock"
+    }
+
+    public static func formatGuidedSceneCue(
+        primaryLabel: String,
+        ocrSnippet: String,
+        normalizedX: Float,
+        distanceMeters: Float,
+        kidFriendly: Bool
+    ) -> String {
+        let dir = clockFaceDirection(normalizedX: normalizedX)
+        let dist = distanceMeters > 0.25
+            ? (kidFriendly
+                ? String(format: "about %.0f big steps away", max(1, distanceMeters * 1.4))
+                : String(format: "about %.1f meters away", distanceMeters))
+            : "right in front of you"
+        var out = primaryLabel.isEmpty
+            ? "Scanning \(dir)."
+            : (kidFriendly
+                ? "I see what looks like a \(primaryLabel.lowercased()) \(dir), \(dist)."
+                : "\(dir.prefix(1).uppercased() + dir.dropFirst()), \(dist): looks like \(primaryLabel.lowercased()).")
+        if !ocrSnippet.isEmpty {
+            out += " Text reads: \"\(ocrSnippet)\"."
+        }
+        return out
+    }
+
     public static func stepGlide(current: Vec3, target: Vec3, dtSec: Float, speed: Float = 2.8) -> Vec3 {
         let dt = max(0.001, min(0.15, dtSec))
         let alpha = 1.0 - exp(-max(0.5, speed) * dt)

@@ -96,7 +96,7 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
     private Anchor activeAnchor;
     private final List<Anchor> discoveryAnchors = new ArrayList<>();
     private final List<ArExploreBrain.PlaneTarget> trackedPlanesScratch = new ArrayList<>(12);
-    private final java.util.concurrent.ExecutorService snapshotExecutor =
+    private volatile java.util.concurrent.ExecutorService snapshotExecutor =
             java.util.concurrent.Executors.newSingleThreadExecutor();
     private long lastFrameNs;
     private float elapsedSec;
@@ -249,6 +249,9 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
                     cfg.setDepthMode(Config.DepthMode.DISABLED);
                     arSession.configure(cfg);
                     cameraTextureBound = false;
+                }
+                if (snapshotExecutor == null || snapshotExecutor.isShutdown()) {
+                    snapshotExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
                 }
                 arSession.resume();
                 sessionResumed = true;
@@ -776,7 +779,12 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
             return;
         }
 
-        snapshotExecutor.execute(() -> {
+        java.util.concurrent.ExecutorService exec = snapshotExecutor;
+        if (exec == null || exec.isShutdown()) {
+            return;
+        }
+        try {
+            exec.execute(() -> {
             try {
                 int[] pixels = new int[outW * outH];
                 for (int i = 0; i < pixels.length; i++) {
@@ -811,6 +819,8 @@ final class ZoeArSurfaceView extends GLSurfaceView implements GLSurfaceView.Rend
             } catch (Throwable ignored) {
             }
         });
+        } catch (java.util.concurrent.RejectedExecutionException ignored) {
+        }
     }
 
     private void notifyUnavailable(String msg) {

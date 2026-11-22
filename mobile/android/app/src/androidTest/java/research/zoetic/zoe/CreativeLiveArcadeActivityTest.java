@@ -21,19 +21,36 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class CreativeLiveArcadeActivityTest {
     @Test
-    public void zoeLiveStartsIdleWithCameraAndWebOff() {
+    public void zoeLiveStartsIdleWithMinimalChromeAndAccessibleModes() {
         try (ActivityScenario<ZoeLiveActivity> scenario = ActivityScenario.launch(ZoeLiveActivity.class)) {
+            // Minimal clean initial stage: Orb + AR + Talk + End + Tools gear; drawer starts closed!
             onView(withId(R.id.live_orb_view)).check(matches(isDisplayed()));
             onView(withId(R.id.live_ar_toggle)).check(matches(isDisplayed()));
-            onView(withId(R.id.live_cam_live_button)).check(matches(isDisplayed()));
-            onView(withId(R.id.live_camera_toggle)).check(matches(withText("Camera: off")));
-            onView(withId(R.id.live_hizoe_toggle)).check(matches(withText("Hi Zoe: off")));
-            onView(withId(R.id.live_web_toggle)).check(matches(withText("Web: off")));
-            onView(withId(R.id.live_field_toggle)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.live_field_toggle)).check(matches(withText("Field: off")));
-            onView(withId(R.id.live_ar_mode_toggle)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.live_talk_button)).check(matches(isDisplayed()));
+            onView(withId(R.id.live_tools_button)).check(matches(isDisplayed()));
+            onView(withId(R.id.live_tools_sheet)).check(matches(not(isDisplayed())));
+
+            // Open Tools & Accessibility sheet and verify Deaf / HoH, Blind / Audio, Kid Mode, Web & Field defaults
+            onView(withId(R.id.live_tools_button)).perform(click());
+            onView(withId(R.id.live_tools_sheet)).check(matches(isDisplayed()));
+            onView(withId(R.id.live_camera_toggle)).perform(scrollTo()).check(matches(withText("Camera: off")));
+            onView(withId(R.id.live_field_toggle)).perform(scrollTo()).check(matches(withText("Field: off")));
+            onView(withId(R.id.live_hizoe_toggle)).perform(scrollTo()).check(matches(withText("Hi Zoe: off")));
+            onView(withId(R.id.live_web_toggle)).perform(scrollTo()).check(matches(withText("Web: off")));
             onView(withId(R.id.live_web_toggle)).perform(click());
             onView(withId(R.id.live_web_toggle)).check(matches(withText("Web: on")));
+
+            // Verify Deaf / HoH + Blind / Audio + Kid Mode accessibility toggles work cleanly
+            onView(withId(R.id.live_a11y_deaf)).perform(scrollTo(), click());
+            onView(withId(R.id.live_a11y_kid)).perform(scrollTo(), click());
+            onView(withId(R.id.live_a11y_kid)).check(matches(withText("Kid Mode: on")));
+            onView(withId(R.id.live_a11y_blind)).perform(scrollTo(), click());
+            // Reset cleanly back to Standard (Kid off) before closing drawer
+            onView(withId(R.id.live_a11y_kid)).perform(scrollTo(), click());
+            onView(withId(R.id.live_a11y_standard)).perform(scrollTo(), click());
+
+            // Close drawer and verify End kill-switch reports MIC & CAMERA OFF
+            onView(withText("Done")).perform(scrollTo(), click());
             onView(withId(R.id.live_stop_button)).perform(click());
             onView(withId(R.id.live_state_badge)).check(matches(withText(containsString("MIC & CAMERA OFF"))));
         }
