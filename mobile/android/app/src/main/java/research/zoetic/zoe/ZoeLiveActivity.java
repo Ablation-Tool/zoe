@@ -179,6 +179,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private Button voiceModeBtn;
 
     private ProcessCameraProvider cameraProvider;
+    private Preview activeCameraPreviewUseCase;
+    private ImageAnalysis activeImageAnalysis;
     private TextToSpeech tts;
     private SpeechRecognizer recognizer;
     private PendingAction pendingAction = PendingAction.NONE;
@@ -220,13 +222,30 @@ public final class ZoeLiveActivity extends ComponentActivity {
     private volatile boolean streamCompletedForCurrentTurn = true;
 
     private final Runnable hideIdleCaptionTask = () -> {
-        if ((cameraOn || arModeOn) && !a11y.largeCaptions && currentOrbState == OrbState.IDLE && captionView != null) {
+        if ((cameraOn || arModeOn) && !a11y.largeCaptions
+                && (currentOrbState == OrbState.IDLE || currentOrbState == OrbState.LISTENING)
+                && captionView != null) {
             captionView.animate().alpha(0f).setDuration(260L).withEndAction(() -> {
-                if ((cameraOn || arModeOn) && !a11y.largeCaptions && currentOrbState == OrbState.IDLE) {
+                if ((cameraOn || arModeOn) && !a11y.largeCaptions
+                        && (currentOrbState == OrbState.IDLE || currentOrbState == OrbState.LISTENING)) {
                     captionView.setVisibility(View.GONE);
                     captionView.setAlpha(1f);
                 }
             }).start();
+        }
+    };
+
+    // Watchdog so Zoe NEVER stays stuck in "ZOE IS SPEAKING" if Android TTS drops an onDone callback
+    private final Runnable speakingWatchdog = () -> {
+        if (currentOrbState == OrbState.SPEAKING && !isFinishing() && !isDestroyed()) {
+            pendingTtsChunks.set(0);
+            streamCompletedForCurrentTurn = true;
+            orbView.setSpeakingPulse(false);
+            if (callActive) {
+                scheduleListeningRearm(ECHO_GUARD_MS);
+            } else {
+                setOrbState(OrbState.IDLE, "READY");
+            }
         }
     };
 
@@ -250,15 +269,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
         a11y = ExploreAccessibility.load(this);
         spatialTelemetry = new SpatialTelemetryCollector(this, this::onSpatialTelemetryUpdated);
 
-        // Pre-warm offline vision + local LLM in background (zero UI thread work)
+        // Pre-warm ONLY ultra-light offline ML Kit & learned visual memory (<20 MB RAM).
+        // Do NOT eagerly load the 1.5 GB LiteRT GPU LLM on launch — avoids Pixel lmkd memory pressure & GPU thermal throttling during live AR!
         executor.execute(() -> {
             MediaChatHelper.warmUp();
             VisionPriorStore.loadAll(this);
             VisionPriorStore.loadBaselineAtlas(this);
-            File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
-            if (localModel != null) {
-                localLlm.warmUp(localModel);
-            }
         });
 
         FrameLayout stageRoot = new FrameLayout(this);
@@ -291,19 +307,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
             @Override
             public void onSpatialArrived(ArExploreBrain.Vec3 worldPos, float distanceMeters,
-                                         float normalizedX, boolean userTapped) {
+                                         float tapU, float tapV, boolean userTapped) {
                 latestArDistanceMeters = distanceMeters;
                 if (!arModeOn || useHeavyArCore6Dof || isFinishing() || isDestroyed()) {
                     return;
                 }
+                float normX = (tapU * 2f) - 1f;
                 ExploreAccessibility.pulseHaptic(ZoeLiveActivity.this,
                         ExploreAccessibility.HapticCue.ZOE_SPOTTED, a11y.hapticCues);
                 if (a11y.spatialAudioBeacon) {
-                    ExploreAccessibility.playStereoSpatialChimeAsync(normalizedX, distanceMeters);
+                    ExploreAccessibility.playStereoSpatialChimeAsync(normX, distanceMeters);
                 }
                 Bitmap snap = getLatestCameraFrameCopy();
                 if (snap != null) {
-                    handleArSpotInspection(snap, worldPos, distanceMeters, normalizedX, userTapped);
+                    handleArSpotInspection(snap, worldPos, distanceMeters, tapU, tapV, userTapped);
                 }
             }
 
@@ -875,6 +892,30 @@ public final class ZoeLiveActivity extends ComponentActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         applyResponsiveGeometry(newConfig);
+        int rot = getCurrentDisplayRotation();
+        if (activeImageAnalysis != null) {
+            activeImageAnalysis.setTargetRotation(rot);
+        }
+        if (activeCameraPreviewUseCase != null) {
+            activeCameraPreviewUseCase.setTargetRotation(rot);
+        }
+    }
+
+    private int getCurrentDisplayRotation() {
+        try {
+            if (cameraPreview != null && cameraPreview.getDisplay() != null) {
+                return cameraPreview.getDisplay().getRotation();
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && getDisplay() != null) {
+                return getDisplay().getRotation();
+            }
+            android.view.WindowManager wm = (android.view.WindowManager) getSystemService(WINDOW_SERVICE);
+            if (wm != null && wm.getDefaultDisplay() != null) {
+                return wm.getDefaultDisplay().getRotation();
+            }
+        } catch (Throwable ignored) {
+        }
+        return android.view.Surface.ROTATION_0;
     }
 
     private void applyResponsiveGeometry(Configuration cfg) {
@@ -1133,6 +1174,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 return;
             }
             if (remaining == 0 && streamCompletedForCurrentTurn) {
+                mainHandler.removeCallbacks(speakingWatchdog);
                 orbView.setSpeakingPulse(false);
                 if (callActive) {
                     scheduleListeningRearm(ECHO_GUARD_MS);
@@ -1337,12 +1379,17 @@ public final class ZoeLiveActivity extends ComponentActivity {
         if (a11y.profile == ExploreAccessibility.Profile.BLIND_LOW_VISION && !spatialFieldOn) {
             activateSpatialFieldNow();
         }
+        // Clear any stale "AR paused..." caption immediately so live camera starts 100% clean!
+        if (!a11y.largeCaptions && captionView != null) {
+            mainHandler.removeCallbacks(hideIdleCaptionTask);
+            captionView.setVisibility(View.GONE);
+        }
         if (withVoice) {
             beginContinuousVoiceSession();
         } else {
             String hint = a11y.profile == ExploreAccessibility.Profile.DEAF_HOH
-                    ? "Tap anywhere to glide Zoe over, or type below."
-                    : "Tap anywhere in view to glide Zoe over.";
+                    ? "Tap anything on screen to identify it, or type below."
+                    : "Tap anything on screen to identify it.";
             showCaption(hint, false);
         }
     }
@@ -1399,7 +1446,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                                                float distanceMeters, boolean userTapped) {
                     latestArDistanceMeters = distanceMeters;
                     if (userTapped || a11y.audioFirstNarration) {
-                        handleArSpotInspection(uprightFrame, worldPos, distanceMeters, 0f, userTapped);
+                        handleArSpotInspection(uprightFrame, worldPos, distanceMeters, 0.5f, 0.5f, userTapped);
                     } else if (uprightFrame != null && !uprightFrame.isRecycled()) {
                         uprightFrame.recycle();
                     }
@@ -1783,7 +1830,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
     }
 
     private void handleArSpotInspection(Bitmap uprightFrame, ArExploreBrain.Vec3 worldPos,
-                                        float distanceMeters, float normalizedX, boolean userTapped) {
+                                        float distanceMeters, float tapU, float tapV, boolean userTapped) {
         if (!arModeOn || uprightFrame == null || isFinishing() || isDestroyed()) {
             return;
         }
@@ -1791,79 +1838,74 @@ public final class ZoeLiveActivity extends ComponentActivity {
             uprightFrame.recycle();
             return;
         }
+        final long myTurn = activeTurnId.incrementAndGet();
+        stopAudioOnly();
+        lastUserSpoken = "";
+        setOrbState(OrbState.THINKING, "LOOKING…");
+        showCaption("Looking closely right there…", true);
+        final float normX = (tapU * 2f) - 1f;
+        final int previewW = cameraPreview != null ? cameraPreview.getWidth() : 0;
+        final int previewH = cameraPreview != null ? cameraPreview.getHeight() : 0;
+        final boolean mirroredFront = useFrontCamera;
+
         executor.execute(() -> {
-            String report;
-            byte[] jpeg;
+            Bitmap tapCrop = null;
+            String cropReport = "";
+            String fullReport = "";
+            byte[] jpeg = null;
             String learnedHint = "";
             try {
-                report = MediaChatHelper.inspectFrameOffline(uprightFrame);
-                jpeg = MediaChatHelper.bitmapToJpeg(uprightFrame, 78);
-                learnedHint = VisionPriorStore.buildSilentExploreContext(this, uprightFrame);
+                // 1. Zoom right onto the EXACT tapped object (compensating for FILL_CENTER aspect-ratio crop!)
+                tapCrop = MediaChatHelper.cropTapRegion(
+                        uprightFrame, tapU, tapV, previewW, previewH, mirroredFront, 0.45f);
+                if (tapCrop != null) {
+                    cropReport = MediaChatHelper.inspectFrameOffline(tapCrop);
+                    learnedHint = VisionPriorStore.buildSilentExploreContext(this, tapCrop);
+                    jpeg = MediaChatHelper.bitmapToJpeg(tapCrop, 82);
+                }
+                // Fall back to full frame only if zoomed crop had no confident object/text
+                String cropLabel = ArExploreBrain.extractPrimaryLabel(cropReport);
+                String cropOcr = ArExploreBrain.extractOcrSnippet(cropReport);
+                if (cropLabel.isEmpty() && cropOcr.isEmpty()) {
+                    fullReport = MediaChatHelper.inspectFrameOffline(uprightFrame);
+                    if (learnedHint.isEmpty()) {
+                        learnedHint = VisionPriorStore.buildSilentExploreContext(this, uprightFrame);
+                    }
+                    if (jpeg == null) {
+                        jpeg = MediaChatHelper.bitmapToJpeg(uprightFrame, 78);
+                    }
+                }
             } catch (Throwable err) {
+                if (tapCrop != null && !tapCrop.isRecycled()) tapCrop.recycle();
                 uprightFrame.recycle();
                 return;
             }
+            if (tapCrop != null && !tapCrop.isRecycled()) tapCrop.recycle();
             uprightFrame.recycle();
-            String scaleNote = ScientificVisualSubstrate.describeRelativeScale(distanceMeters);
-            StringBuilder enriched = new StringBuilder(report);
+
+            String bestReport = (!ArExploreBrain.extractPrimaryLabel(cropReport).isEmpty()
+                    || !ArExploreBrain.extractOcrSnippet(cropReport).isEmpty())
+                    ? cropReport
+                    : (!fullReport.isEmpty() ? fullReport : cropReport);
+            StringBuilder enriched = new StringBuilder(bestReport);
             if (!learnedHint.isEmpty()) enriched.append(" ").append(learnedHint);
-            if (!scaleNote.isEmpty()) enriched.append(" ").append(scaleNote);
             latestCameraReport = enriched.toString().trim();
             latestCameraJpeg = jpeg;
 
-            String label = ArExploreBrain.extractPrimaryLabel(report);
-            String ocr = ArExploreBrain.extractOcrSnippet(report);
+            String label = ArExploreBrain.extractPrimaryLabel(bestReport);
+            String ocr = ArExploreBrain.extractOcrSnippet(bestReport);
+            arBrain.recordDiscoveryIfNew(bestReport, worldPos, distanceMeters, System.currentTimeMillis());
 
-            // In Blind / Low-Vision or Kid-Friendly mode, speak a fast, crystal-clear directional cue right away!
-            if (a11y.audioFirstNarration || a11y.profile == ExploreAccessibility.Profile.BLIND_LOW_VISION) {
-                String guided = ExploreAccessibility.formatGuidedSceneCue(
-                        label, ocr, normalizedX, distanceMeters,
-                        spatialTelemetry.getCompassDegrees(),
-                        spatialTelemetry.getLightField(),
-                        a11y.kidFriendly);
-                long myTurn = activeTurnId.incrementAndGet();
-                runOnUiThread(() -> finishSimpleReply(myTurn, guided));
-                return;
-            }
-
-            ArExploreBrain.SpatialDiscovery discovery = arBrain.recordDiscoveryIfNew(
-                    report, worldPos, distanceMeters, System.currentTimeMillis());
-            final ArExploreBrain.SpatialDiscovery targetDisc = discovery != null
-                    ? discovery
-                    : new ArExploreBrain.SpatialDiscovery(
-                            label, ocr, latestCameraReport, worldPos, distanceMeters, System.currentTimeMillis());
-            runOnUiThread(() -> {
-                if (!arModeOn || isFinishing() || isDestroyed()) return;
-                askCuriousArQuestion(targetDisc);
-            });
-        });
-    }
-
-    private void askCuriousArQuestion(ArExploreBrain.SpatialDiscovery discovery) {
-        final long myTurn = activeTurnId.incrementAndGet();
-        stopAudioOnly();
-        lastUserSpoken = "Look here";
-        setOrbState(OrbState.THINKING, "LOOKING…");
-        showCaption("Looking…", false);
-
-        String roomMemory = arBrain.summarizeRoomMemory();
-        String curiosityPrompt = ArExploreBrain.buildCuriosityQuestionPrompt(discovery, roomMemory);
-        if (a11y.kidFriendly) {
-            curiosityPrompt += " Use very warm, simple kid-friendly words (1 short sentence).";
-        }
-
-        String finalPrompt = curiosityPrompt;
-        executor.execute(() -> {
             if (myTurn != activeTurnId.get()) return;
-            byte[] jpeg = latestCameraJpeg;
+
+            // Optional Gemini Vision cloud look ONLY if user saved a Gemini API key
             String geminiKey = MultiAiClient.savedKey(this, MultiAiClient.Provider.GEMINI);
             if (jpeg != null && !geminiKey.isEmpty()) {
                 try {
+                    String prompt = "In 1 short friendly sentence, name the specific object or text centered in this zoomed camera crop. Be concrete and honest.";
                     String reply = CloudVisionClient.askVision(
-                            geminiKey,
-                            MultiAiClient.savedModel(this, MultiAiClient.Provider.GEMINI),
-                            MultiAiClient.ZOE_SYSTEM_PROMPT + "\n" + finalPrompt,
-                            jpeg);
+                            geminiKey, MultiAiClient.savedModel(this, MultiAiClient.Provider.GEMINI),
+                            MultiAiClient.ZOE_SYSTEM_PROMPT + "\n" + prompt, jpeg);
                     if (myTurn == activeTurnId.get()) {
                         String clean = OnDeviceLlmEngine.enforceZoeSovereignty(reply);
                         runOnUiThread(() -> finishSimpleReply(myTurn, clean));
@@ -1872,28 +1914,26 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 } catch (Exception ignored) {
                 }
             }
-            final boolean streamTtsNow = !a11y.muteSpokenTts && !useNativeVoice && ttsReady && tts != null;
-            final int[] spokenOffset = {0};
-            final boolean[] startedSpeaking = {false};
-            if (streamTtsNow) {
-                pendingTtsChunks.set(0);
-                streamCompletedForCurrentTurn = false;
-            }
-            File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
-            if (localModel != null) {
-                try {
-                    String chatMl = OnDeviceLlmEngine.buildChatMlPrompt(finalPrompt, sessionHistory, "", "");
-                    String reply = localLlm.generateStreaming(localModel, chatMl, (partial, done) ->
-                            handleStreamChunk(myTurn, partial, streamTtsNow, spokenOffset, startedSpeaking));
-                    finalizeStreamedTurn(myTurn, reply, streamTtsNow, spokenOffset[0], startedSpeaking[0]);
-                    return;
-                } catch (Exception ignored) {
+
+            // Ultra-fast (<200ms!), zero-thermal-throttle grounded identification (NEVER hangs GPU on tap!)
+            String reply;
+            if (a11y.audioFirstNarration || a11y.profile == ExploreAccessibility.Profile.BLIND_LOW_VISION) {
+                reply = ExploreAccessibility.formatGuidedSceneCue(
+                        label, ocr, normX, distanceMeters,
+                        spatialTelemetry.getCompassDegrees(),
+                        spatialTelemetry.getLightField(),
+                        a11y.kidFriendly);
+            } else {
+                reply = LiveViewErgonomics.buildGroundedVisualAnswer(
+                        bestReport, distanceMeters,
+                        spatialFieldOn ? spatialTelemetry.getCompassDegrees() : Float.NaN,
+                        a11y.kidFriendly);
+                if (!learnedHint.isEmpty()) {
+                    reply = reply + " " + learnedHint;
                 }
             }
-            String offlineQ = ArExploreBrain.buildOfflineCuriousQuestion(discovery);
-            if (myTurn == activeTurnId.get()) {
-                runOnUiThread(() -> finishSimpleReply(myTurn, offlineQ));
-            }
+            final String finalReply = reply.trim();
+            runOnUiThread(() -> finishSimpleReply(myTurn, finalReply));
         });
     }
 
@@ -1928,14 +1968,20 @@ public final class ZoeLiveActivity extends ComponentActivity {
             try {
                 cameraProvider = future.get();
                 cameraProvider.unbindAll();
-                Preview preview = new Preview.Builder().build();
+                int displayRot = getCurrentDisplayRotation();
+                Preview preview = new Preview.Builder()
+                        .setTargetRotation(displayRot)
+                        .build();
                 preview.setSurfaceProvider(cameraPreview.getSurfaceProvider());
+                activeCameraPreviewUseCase = preview;
 
                 ImageAnalysis analysis = new ImageAnalysis.Builder()
-                        .setTargetResolution(new Size(480, 360))
+                        .setTargetResolution(new Size(640, 480))
+                        .setTargetRotation(displayRot)
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .build();
                 analysis.setAnalyzer(cameraAnalysisExecutor, this::cacheLatestImageProxy);
+                activeImageAnalysis = analysis;
 
                 CameraSelector selector = useFrontCamera
                         ? CameraSelector.DEFAULT_FRONT_CAMERA
@@ -1976,7 +2022,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 }
                 return;
             }
-            if (now - lastCameraBitmapMs < 550L) {
+            if (now - lastCameraBitmapMs < 180L) {
                 return;
             }
             Bitmap upright = imageProxyToCompactBitmap(proxy);
@@ -2017,7 +2063,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         }
         int w = proxy.getWidth();
         int h = proxy.getHeight();
-        int step = Math.max(1, Math.max(w, h) / 360);
+        int step = Math.max(1, Math.max(w, h) / 480);
         int outW = Math.max(1, w / step);
         int outH = Math.max(1, h / step);
         ImageProxy.PlaneProxy[] planes = proxy.getPlanes();
@@ -2065,6 +2111,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
     private void unbindCameraPreviewOnly() {
         cameraOn = false;
+        activeImageAnalysis = null;
+        activeCameraPreviewUseCase = null;
         mainHandler.removeCallbacks(cameraObserverTick);
         if (cameraProvider != null) {
             try {
@@ -2391,8 +2439,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
                 .putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().toLanguageTag())
                 .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 1300L)
-                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1100L);
+                // Pixel AiAi & GoogleTTS expect Integer (int), NOT Long — passing Long throws ClassCastException -> 0ms timeout!
+                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 1800)
+                .putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 1400);
         try {
             recognizer.startListening(intent);
             setOrbState(OrbState.LISTENING, hiZoeWakeMode ? "WAITING FOR 'HI ZOE'" : "LISTENING…");
@@ -2554,6 +2603,19 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 return;
             } catch (Exception ignored) {
             }
+        }
+
+        // Instant <200ms grounded camera sight path: when asking directly what the camera sees (and no cloud key),
+        // answer IMMEDIATELY from zoomed ML Kit + OCR + Palette + learned priors with zero 1.5 GB LLM memory spike!
+        if (withCamera && LiveSessionLogic.isLikelyCameraQuestion(spoken)) {
+            String grounded = LiveViewErgonomics.buildGroundedVisualAnswer(
+                    latestCameraReport, latestArDistanceMeters,
+                    spatialFieldOn ? spatialTelemetry.getCompassDegrees() : Float.NaN,
+                    a11y.kidFriendly);
+            if (myTurn == activeTurnId.get()) {
+                runOnUiThread(() -> finishSimpleReply(myTurn, grounded));
+            }
+            return;
         }
 
         File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
@@ -2800,6 +2862,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
             return;
         }
         setOrbState(OrbState.SPEAKING, "ZOE IS SPEAKING");
+        mainHandler.removeCallbacks(speakingWatchdog);
+        mainHandler.postDelayed(speakingWatchdog, 11_000L);
         if (useNativeVoice) {
             orbView.setSpeakingPulse(true);
             nativeVoice.speak(speakable, () -> runOnUiThread(() -> {
@@ -2830,6 +2894,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
     }
 
     private void stopAudioOnly() {
+        mainHandler.removeCallbacks(speakingWatchdog);
         listenGen.incrementAndGet();
         pendingTtsChunks.set(0);
         streamCompletedForCurrentTurn = true;

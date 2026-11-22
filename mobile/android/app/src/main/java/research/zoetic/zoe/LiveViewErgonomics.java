@@ -296,29 +296,50 @@ final class LiveViewErgonomics {
      */
     static String buildGroundedVisualAnswer(String cameraReport, float distanceMeters,
                                             float compassDeg, boolean kidFriendly) {
-        String label = ArExploreBrain.extractPrimaryLabel(cameraReport);
+        String primary = ArExploreBrain.extractPrimaryLabel(cameraReport);
+        String secondary = extractSecondaryLabel(cameraReport);
         String ocr = ArExploreBrain.extractOcrSnippet(cameraReport);
         String colors = extractColorsClause(cameraReport);
         StringBuilder sb = new StringBuilder();
-        if (!label.isEmpty()) {
-            sb.append(kidFriendly ? "I see what looks like " : "Right in front of us looks like ")
-                    .append(label.toLowerCase(Locale.US));
+        if (!primary.isEmpty()) {
+            sb.append(kidFriendly ? "Right there looks like " : "That looks like ")
+                    .append(primary.toLowerCase(Locale.US));
+            if (!secondary.isEmpty() && !secondary.equalsIgnoreCase(primary)) {
+                sb.append(" or ").append(secondary.toLowerCase(Locale.US));
+            }
             if (!colors.isEmpty()) {
-                sb.append(" with ").append(colors);
+                sb.append(" in ").append(colors);
             }
             sb.append(".");
+        } else if (!ocr.isEmpty()) {
+            sb.append("I can read \"").append(ocr).append("\" right there.");
         } else if (!colors.isEmpty()) {
-            sb.append("I'm looking at a view with ").append(colors).append(".");
+            sb.append("I see ").append(colors).append(" right there — move a bit closer so I can spot the exact object.");
         } else {
-            sb.append("I'm looking through your camera right now — move a tiny bit closer or give it a little more light so I can spot more detail.");
+            sb.append("Move a little closer or give it a bit more light so I can identify what's right there.");
         }
-        if (!ocr.isEmpty()) {
-            sb.append(" I can also read the text \"").append(ocr).append("\".");
+        if (!ocr.isEmpty() && !primary.isEmpty()) {
+            sb.append(" Text reads: \"").append(ocr).append("\".");
         }
         if (Float.isFinite(compassDeg)) {
-            sb.append(String.format(Locale.US, " We're facing %s.", SpatialTelemetryFusion.compassCardinal(compassDeg)));
+            sb.append(String.format(Locale.US, " Facing %s.", SpatialTelemetryFusion.compassCardinal(compassDeg)));
         }
         return sb.toString().trim();
+    }
+
+    private static String extractSecondaryLabel(String report) {
+        if (report == null) return "";
+        int idx = report.indexOf("Labels:");
+        if (idx < 0) return "";
+        int end = report.indexOf('.', idx);
+        String body = (end > idx ? report.substring(idx + 7, end) : report.substring(idx + 7)).trim();
+        String[] parts = body.split(",");
+        if (parts.length < 2) return "";
+        String second = parts[1].replaceAll("\\s*\\([^)]*\\)", "").trim();
+        if (second.equalsIgnoreCase("none above 55%") || second.equalsIgnoreCase("low-confidence scene")) {
+            return "";
+        }
+        return second;
     }
 
     private static String extractColorsClause(String report) {
@@ -327,6 +348,8 @@ final class LiveViewErgonomics {
         if (idx < 0) return "";
         int end = report.indexOf('.', idx);
         String raw = (end > idx ? report.substring(idx + 7, end) : report.substring(idx + 7)).trim();
+        // Strip technical brightness percentages like "(59%)" so TTS & captions read naturally
+        raw = raw.replaceAll("\\s*\\([^)]*%\\)", "").replaceAll("\\s+", " ").trim();
         return raw.toLowerCase(Locale.US);
     }
 

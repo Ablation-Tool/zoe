@@ -346,6 +346,12 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(ArExploreCore.nextPosture(current: .safetyRest, pitchDegrees: -50), .safetyRest)
         XCTAssertEqual(ArExploreCore.nextPosture(current: .safetyRest, pitchDegrees: -30), .activeAr)
         XCTAssertEqual(ArExploreCore.signedBearingDeltaDeg(currentHeadingDeg: 350, targetBearingDeg: 10), 20, accuracy: 0.01)
+
+        let leftTap = ArExploreCore.mapFillCenterTapToFrame(tapU: 0, tapV: 0.5, viewW: 1080, viewH: 2400, frameW: 480, frameH: 640)
+        XCTAssertEqual(leftTap.sensorU, 0.20, accuracy: 0.01)
+        XCTAssertEqual(leftTap.visibleFracX, 0.60, accuracy: 0.01)
+        XCTAssertEqual(ArExploreCore.formatDistinctColorNames(["Amber", "amber", "Slate"]), "Amber and Slate")
+        XCTAssertEqual(ArExploreCore.formatDistinctColorNames(["Amber", "AMBER"]), "Amber")
     }
 
     func testSafeBeaconMeshRotatingPacketsAndTamperRejection() {

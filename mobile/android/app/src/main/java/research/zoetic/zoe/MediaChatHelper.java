@@ -78,7 +78,7 @@ final class MediaChatHelper {
         synchronized (MLKIT_LOCK) {
             if (sharedImageLabeler == null) {
                 sharedImageLabeler = ImageLabeling.getClient(new ImageLabelerOptions.Builder()
-                        .setConfidenceThreshold(0.50f).build());
+                        .setConfidenceThreshold(0.52f).build());
             }
             return sharedImageLabeler;
         }
@@ -228,6 +228,98 @@ final class MediaChatHelper {
     }
 
     /**
+     * Pure-Java aspect-ratio mapping from full-screen PreviewView (ScaleType.FILL_CENTER)
+     * normalized tap coordinates (tapU, tapV in 0..1) into the underlying CameraX ImageAnalysis
+     * upright bitmap coordinates + visible sensor fraction [sensorU, sensorV, visFracX, visFracY].
+     *
+     * Without this mapping, a 4:3 sensor (480x640) displayed on a tall 9:20 phone screen (1080x2400)
+     * crops 20% off each horizontal side, offsetting off-center taps away from the tapped object!
+     */
+    static float[] mapFillCenterTapToFrame(float tapU, float tapV, int viewW, int viewH,
+                                           int frameW, int frameH, boolean mirroredFront) {
+        float u = Float.isFinite(tapU) ? Math.max(0f, Math.min(1f, tapU)) : 0.5f;
+        float v = Float.isFinite(tapV) ? Math.max(0f, Math.min(1f, tapV)) : 0.5f;
+        if (mirroredFront) {
+            u = 1f - u;
+        }
+        float visFracX = 1f;
+        float visFracY = 1f;
+        if (viewW > 0 && viewH > 0 && frameW > 0 && frameH > 0) {
+            float viewAspect = (float) viewW / (float) viewH;
+            float frameAspect = (float) frameW / (float) frameH;
+            if (frameAspect > viewAspect * 1.01f) {
+                // Sensor is wider than screen -> FILL_CENTER crops left & right edges
+                visFracX = Math.max(0.25f, Math.min(1f, viewAspect / frameAspect));
+            } else if (viewAspect > frameAspect * 1.01f) {
+                // Screen is wider than sensor -> FILL_CENTER crops top & bottom edges
+                visFracY = Math.max(0.25f, Math.min(1f, frameAspect / viewAspect));
+            }
+        }
+        float sensorU = (1f - visFracX) * 0.5f + u * visFracX;
+        float sensorV = (1f - visFracY) * 0.5f + v * visFracY;
+        return new float[]{sensorU, sensorV, visFracX, visFracY};
+    }
+
+    /**
+     * Crops a zoomed Region-of-Interest centered around the exact PreviewView tap point (tapU, tapV in 0..1),
+     * compensating for CameraX FILL_CENTER aspect-ratio cropping and front-camera mirroring!
+     */
+    static Bitmap cropTapRegion(Bitmap fullFrame, float tapU, float tapV,
+                                int viewW, int viewH, boolean mirroredFront, float visibleCropFraction) {
+        if (fullFrame == null || fullFrame.isRecycled()) {
+            return null;
+        }
+        int w = fullFrame.getWidth();
+        int h = fullFrame.getHeight();
+        if (w < 64 || h < 64) {
+            return fullFrame.copy(Bitmap.Config.ARGB_8888, false);
+        }
+        float[] mapped = mapFillCenterTapToFrame(tapU, tapV, viewW, viewH, w, h, mirroredFront);
+        float frac = Math.max(0.32f, Math.min(0.85f, visibleCropFraction));
+        // Keep crop reasonably square and >= 160px on each side so ML Kit & OCR have crisp detail!
+        int cw = Math.max(Math.min(w, 160), Math.round(w * mapped[2] * frac));
+        int ch = Math.max(Math.min(h, 160), Math.round(h * mapped[3] * frac));
+        cw = Math.min(w, cw);
+        ch = Math.min(h, ch);
+        int left = Math.max(0, Math.min(w - cw, Math.round(mapped[0] * w - cw * 0.5f)));
+        int top = Math.max(0, Math.min(h - ch, Math.round(mapped[1] * h - ch * 0.5f)));
+        return Bitmap.createBitmap(fullFrame, left, top, cw, ch);
+    }
+
+    /**
+     * Deduplicates color names from FramePalette buckets so Zoe never says "amber & amber".
+     */
+    static String formatDistinctColorNames(String[] names) {
+        if (names == null || names.length == 0) {
+            return "";
+        }
+        List<String> distinct = new ArrayList<>();
+        Set<String> seenLower = new LinkedHashSet<>();
+        for (String raw : names) {
+            if (raw == null) continue;
+            String trimmed = raw.trim();
+            if (trimmed.isEmpty()) continue;
+            String key = trimmed.toLowerCase(Locale.US);
+            if (seenLower.add(key)) {
+                distinct.add(trimmed);
+                if (distinct.size() >= 2) {
+                    break;
+                }
+            }
+        }
+        if (distinct.isEmpty()) return "";
+        if (distinct.size() == 1) return distinct.get(0);
+        return distinct.get(0) + " and " + distinct.get(1);
+    }
+
+    private static boolean isGenericTextureLabel(String text) {
+        if (text == null) return true;
+        String l = text.trim().toLowerCase(Locale.US);
+        return l.equals("pattern") || l.equals("material property") || l.equals("symmetry")
+                || l.equals("rectangle") || l.equals("circle") || l.equals("line") || l.equals("font");
+    }
+
+    /**
      * Production parallel ML Kit OCR + Image Labeling (~2x faster than sequential execution).
      */
     static String inspectFrameOffline(Bitmap bmp) {
@@ -248,17 +340,32 @@ final class MediaChatHelper {
                 }
             }
             if (labelTask.isSuccessful() && labelTask.getResult() != null) {
-                Set<String> unique = new LinkedHashSet<>();
+                List<String> concrete = new ArrayList<>();
+                List<String> generic = new ArrayList<>();
+                Set<String> seen = new LinkedHashSet<>();
                 for (ImageLabel l : labelTask.getResult()) {
-                    if (l.getConfidence() < 0.42f) {
+                    if (l.getConfidence() < 0.52f) {
                         continue;
                     }
-                    if (unique.size() >= 5) {
-                        break;
+                    String name = l.getText() == null ? "" : l.getText().trim();
+                    if (name.isEmpty() || !seen.add(name.toLowerCase(Locale.US))) {
+                        continue;
                     }
-                    unique.add(l.getText() + " (" + Math.round(l.getConfidence() * 100f) + "%)");
+                    String formatted = name + " (" + Math.round(l.getConfidence() * 100f) + "%)";
+                    if (isGenericTextureLabel(name)) {
+                        generic.add(formatted);
+                    } else {
+                        concrete.add(formatted);
+                    }
                 }
-                labels.addAll(unique);
+                for (String c : concrete) {
+                    if (labels.size() >= 5) break;
+                    labels.add(c);
+                }
+                for (String g : generic) {
+                    if (labels.size() >= 5) break;
+                    labels.add(g);
+                }
             }
         } catch (Exception ignored) {
         }
@@ -268,13 +375,12 @@ final class MediaChatHelper {
         try {
             FramePalette.Analysis pal = FramePalette.analyzeBitmap(bmp);
             if (pal != null && pal.names != null && pal.names.length > 0) {
-                StringBuilder c = new StringBuilder();
-                c.append(pal.tone).append(" (").append(pal.brightnessPercent).append("%), ");
-                for (int i = 0; i < Math.min(2, pal.names.length); i++) {
-                    if (i > 0) c.append(" & ");
-                    c.append(pal.names[i]);
+                String colorNames = formatDistinctColorNames(pal.names);
+                if (!colorNames.isEmpty()) {
+                    sb.append(" Colors: ").append(pal.tone).append(", ").append(colorNames).append(".");
+                } else {
+                    sb.append(" Colors: ").append(pal.tone).append(".");
                 }
-                sb.append(" Colors: ").append(c).append(".");
             }
         } catch (Throwable ignored) {
         }

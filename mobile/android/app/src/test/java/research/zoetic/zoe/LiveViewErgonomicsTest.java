@@ -82,11 +82,35 @@ public class LiveViewErgonomicsTest {
                 "That looks like a bright wooden desk with a notebook.", "what do you see?", true));
 
         String grounded = LiveViewErgonomics.buildGroundedVisualAnswer(
-                "Labels: Desk (78%), Wood (62%). Colors: warm amber & dark slate. Visible text: \"ZOE\".",
+                "Labels: Desk (78%), Wood (62%). Colors: warm light (59%), amber and dark slate. Visible text: \"ZOE\".",
                 1.2f, 90f, false);
         assertTrue(grounded.contains("desk"));
-        assertTrue(grounded.contains("warm amber"));
+        assertTrue(grounded.contains("warm light, amber and dark slate"));
+        assertFalse(grounded.contains("59%"));
         assertTrue(grounded.contains("ZOE"));
         assertTrue(grounded.contains("Facing E") || grounded.contains("facing E"));
+    }
+
+    @Test
+    public void fillCenterTapMappingAndColorDeduplicationAreExact() {
+        // Pixel 7 portrait screen (1080x2400, aspect 0.45) over 4:3 upright frame (480x640, aspect 0.75)
+        // Visible horizontal slice = 0.45 / 0.75 = 0.60 -> sensorU spans [0.20, 0.80]
+        float[] leftEdge = MediaChatHelper.mapFillCenterTapToFrame(0f, 0.5f, 1080, 2400, 480, 640, false);
+        assertEquals(0.20f, leftEdge[0], 0.01f);
+        assertEquals(0.50f, leftEdge[1], 0.01f);
+        assertEquals(0.60f, leftEdge[2], 0.01f);
+        assertEquals(1.00f, leftEdge[3], 0.01f);
+
+        float[] rightEdge = MediaChatHelper.mapFillCenterTapToFrame(1f, 0.25f, 1080, 2400, 480, 640, false);
+        assertEquals(0.80f, rightEdge[0], 0.01f);
+        assertEquals(0.25f, rightEdge[1], 0.01f);
+
+        // Mirrored front camera flips left/right cleanly
+        float[] mirrored = MediaChatHelper.mapFillCenterTapToFrame(0f, 0.5f, 1080, 2400, 480, 640, true);
+        assertEquals(0.80f, mirrored[0], 0.01f);
+
+        // Never duplicates color names ("Amber & Amber" -> "Amber" or "Amber and Slate")
+        assertEquals("Amber", MediaChatHelper.formatDistinctColorNames(new String[]{"Amber", "amber", "AMBER"}));
+        assertEquals("Amber and Slate", MediaChatHelper.formatDistinctColorNames(new String[]{"Amber", "amber", "Slate"}));
     }
 }

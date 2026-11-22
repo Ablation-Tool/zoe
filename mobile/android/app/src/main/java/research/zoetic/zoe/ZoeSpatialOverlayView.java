@@ -38,7 +38,8 @@ import java.util.List;
 final class ZoeSpatialOverlayView extends View implements SensorEventListener, Choreographer.FrameCallback {
     interface Listener {
         void onSpatialHudUpdate(float distanceMeters, String statusHint);
-        void onSpatialArrived(ArExploreBrain.Vec3 worldPos, float distanceMeters, float normalizedX, boolean userTapped);
+        void onSpatialArrived(ArExploreBrain.Vec3 worldPos, float distanceMeters,
+                              float tapU, float tapV, boolean userTapped);
         void onSpatialDoubleTap();
         void onSpatialLongPress();
     }
@@ -101,7 +102,8 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
     private int roamStep;
     private boolean userPinnedTarget;
     private boolean pendingTapInspection;
-    private float lastTapNormX;
+    private float lastTapU = 0.5f;
+    private float lastTapV = 0.5f;
     private float tapRippleX;
     private float tapRippleY;
     private float tapRippleAge = 99f;
@@ -385,7 +387,10 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
             return;
         }
         float tx = frontCameraMirrored ? (getWidth() - rawX) : rawX;
-        lastTapNormX = ((rawX / Math.max(1f, (float) getWidth())) * 2f) - 1f;
+        // Keep lastTapU in screen-normalized coordinates (0=left, 1=right) so Blind Mode clock-face
+        // matches what the user sees AND MediaChatHelper applies front-camera mirroring cleanly once!
+        lastTapU = Math.max(0.05f, Math.min(0.95f, rawX / Math.max(1f, (float) getWidth())));
+        lastTapV = Math.max(0.05f, Math.min(0.95f, rawY / Math.max(1f, (float) getHeight())));
         zoeTarget = ArExploreBrain.unprojectTapToWorld(
                 tx, rawY, getWidth(), getHeight(),
                 verticalFovRad, activeRotMat, preferredHoverDepthM);
@@ -398,14 +403,13 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         tapRippleAge = 0f;
         lastRoamMs = System.currentTimeMillis();
         userPinnedTarget = true;
-        pendingTapInspection = true;
+        pendingTapInspection = false;
         performHapticFeedback(android.view.HapticFeedbackConstants.CLOCK_TICK);
         performClick();
-        // In Blind / Low-Vision mode, fire instant inspection immediately without waiting for flight!
-        if (blindGestureMode && listener != null) {
-            pendingTapInspection = false;
+        // Inspect the tapped spot IMMEDIATELY while Zoe glides smoothly over (feels instant & snappy!)
+        if (listener != null) {
             float dist = Math.max(0.35f, zoeTarget.distanceTo(new ArExploreBrain.Vec3(0f, 0f, 0f)));
-            listener.onSpatialArrived(zoeTarget, dist, lastTapNormX, true);
+            listener.onSpatialArrived(zoeTarget, dist, lastTapU, lastTapV, true);
         }
     }
 
@@ -451,7 +455,7 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         if (pendingTapInspection && zoePos.distanceTo(zoeTarget) < 0.12f) {
             pendingTapInspection = false;
             if (listener != null) {
-                listener.onSpatialArrived(zoePos, dist, lastTapNormX, true);
+                listener.onSpatialArrived(zoePos, dist, lastTapU, lastTapV, true);
             }
         }
 

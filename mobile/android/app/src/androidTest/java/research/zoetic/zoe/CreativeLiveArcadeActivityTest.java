@@ -85,7 +85,7 @@ public class CreativeLiveArcadeActivityTest {
             onView(withId(R.id.studio_edit_summary)).check(matches(withText("Original")));
 
             onView(withId(R.id.studio_tab_video)).perform(click());
-            onView(withId(R.id.studio_video_preview)).check(matches(isDisplayed()));
+            onView(withId(R.id.studio_video_preview)).perform(scrollTo()).check(matches(isDisplayed()));
             onView(withId(R.id.studio_video_play_toggle)).perform(scrollTo(), click());
             onView(withId(R.id.studio_video_play_toggle)).check(matches(withText(containsString("Pause"))));
             onView(withId(R.id.studio_video_play_toggle)).perform(click());
@@ -97,14 +97,14 @@ public class CreativeLiveArcadeActivityTest {
     @Test
     public void zoeArcadePlaysTicTacToeAndOpensAllFourOfflineGames() {
         try (ActivityScenario<ZoeArcadeActivity> scenario = ActivityScenario.launch(ZoeArcadeActivity.class)) {
-            onView(withId(R.id.arcade_memory_start)).check(matches(isDisplayed()));
+            onView(withId(R.id.arcade_memory_start)).perform(scrollTo()).check(matches(isDisplayed()));
             onView(withId(R.id.arcade_tab_ttt)).perform(click());
-            onView(withId(R.id.arcade_ttt_cell0)).perform(click());
+            onView(withId(R.id.arcade_ttt_cell0)).perform(scrollTo(), click());
             onView(withId(R.id.arcade_ttt_cell0)).check(matches(withText("X")));
             onView(withId(R.id.arcade_tab_signal)).perform(click());
-            onView(withText(containsString("Check Signal Lock"))).check(matches(isDisplayed()));
+            onView(withText(containsString("Check Signal Lock"))).perform(scrollTo()).check(matches(isDisplayed()));
             onView(withId(R.id.arcade_tab_20q)).perform(click());
-            onView(withText("Is it alive?")).perform(click());
+            onView(withText("Is it alive?")).perform(scrollTo(), click());
             onView(withId(R.id.arcade_status)).check(matches(withText(containsString("Question 1"))));
         }
     }

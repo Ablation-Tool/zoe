@@ -261,6 +261,60 @@ public enum ArExploreCore {
         return Float(diff)
     }
 
+    public struct MappedTapRegion: Equatable, Sendable {
+        public let sensorU: Float
+        public let sensorV: Float
+        public let visibleFracX: Float
+        public let visibleFracY: Float
+    }
+
+    public static func mapFillCenterTapToFrame(
+        tapU: Float,
+        tapV: Float,
+        viewW: Int,
+        viewH: Int,
+        frameW: Int,
+        frameH: Int,
+        mirroredFront: Bool = false
+    ) -> MappedTapRegion {
+        var u = tapU.isFinite ? max(0, min(1, tapU)) : 0.5
+        let v = tapV.isFinite ? max(0, min(1, tapV)) : 0.5
+        if mirroredFront { u = 1.0 - u }
+        var visX: Float = 1.0
+        var visY: Float = 1.0
+        if viewW > 0 && viewH > 0 && frameW > 0 && frameH > 0 {
+            let viewAspect = Float(viewW) / Float(viewH)
+            let frameAspect = Float(frameW) / Float(frameH)
+            if frameAspect > viewAspect * 1.01 {
+                visX = max(0.25, min(1.0, viewAspect / frameAspect))
+            } else if viewAspect > frameAspect * 1.01 {
+                visY = max(0.25, min(1.0, frameAspect / viewAspect))
+            }
+        }
+        return MappedTapRegion(
+            sensorU: (1.0 - visX) * 0.5 + u * visX,
+            sensorV: (1.0 - visY) * 0.5 + v * visY,
+            visibleFracX: visX,
+            visibleFracY: visY
+        )
+    }
+
+    public static func formatDistinctColorNames(_ names: [String]) -> String {
+        var distinct: [String] = []
+        var seen = Set<String>()
+        for raw in names {
+            let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty else { continue }
+            if seen.insert(trimmed.lowercased()).inserted {
+                distinct.append(trimmed)
+                if distinct.count >= 2 { break }
+            }
+        }
+        if distinct.isEmpty { return "" }
+        if distinct.count == 1 { return distinct[0] }
+        return "\(distinct[0]) and \(distinct[1])"
+    }
+
     public static func stepGlide(current: Vec3, target: Vec3, dtSec: Float, speed: Float = 2.8) -> Vec3 {
         let dt = max(0.001, min(0.15, dtSec))
         let alpha = 1.0 - exp(-max(0.5, speed) * dt)
