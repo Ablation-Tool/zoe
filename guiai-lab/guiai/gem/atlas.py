@@ -570,4 +570,24 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     if module in {"eliza", "zoe-eliza"}:
         from .zoe_eliza_gem import eliza_scene
         return eliza_scene()
+    if module in {"kloster-info", "info-geometry"}:
+        from .kloster_info_geometry import build_kloster_geometry_scene, run_kloster_info_geometry_suite
+        rep = run_kloster_info_geometry_suite()
+        return build_kloster_geometry_scene(rep), rep
+    if module in {"zoe-os", "living-mind"}:
+        import json as _json
+        from pathlib import Path as _Path
+        from .zoe_os import zoe_os_scene
+        rep_path = _Path(__file__).resolve().parents[3] / "evidence/zoe-os/zoe-os-mind-report.json"
+        if rep_path.is_file():
+            rep = _json.loads(rep_path.read_text(encoding="utf-8"))
+        else:
+            import tempfile as _tf
+            import sys as _sys
+            root = _Path(__file__).resolve().parents[3]
+            _sys.path.insert(0, str(root / "components/Zoe-Autonomy/src"))
+            from zoe_autonomy.zoe_os_mind import run_zoe_os_verification_suite
+            with _tf.TemporaryDirectory(prefix="zoe_os_atlas_") as _td:
+                rep = run_zoe_os_verification_suite(root, _Path(_td) / "state")
+        return zoe_os_scene(rep), rep
     raise ValueError(f"unknown atlas module: {module}")

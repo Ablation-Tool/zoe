@@ -1,0 +1,58 @@
+{
+  "acoustics": {
+    "rms_left": 0.19499,
+    "rms_right": 0.2182,
+    "stereo_correlation": 0.90887,
+    "voices": [
+      "Soprano (0.96x)",
+      "Alto (1.12x)",
+      "Tenor (1.28x)",
+      "3:2 Polyrhythmic Chimes"
+    ]
+  },
+  "all_verified": true,
+  "checks": {
+    "chladni_cymatics_coupled_3_plates": true,
+    "choral_3part_non_clipping_rms": true,
+    "kloster_tension_arc_peaks_and_resolves": true,
+    "pure_dsp_44100hz_stereo_rendered": true,
+    "true_stereo_binaural_separation": true,
+    "zero_pytorch_and_zero_cloud_tokens": true
+  },
+  "composition_title": "Observatory Nocturne in D Lydian (3-Part Choral x Kloster Tension x 3:2 Swing)",
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "pytorch_required": false,
+    "sentience_claimed": false
+  },
+  "contract": "zoe-native-voice-choral-kloster/v1",
+  "evidence_sha256": "95fa2c865cf9123086147d580f3f42ec8c629cad28599ba764510d72310f75ea",
+  "kloster_a010_arc": [
+    3,
+    3,
+    5,
+    5,
+    4,
+    3,
+    3,
+    3
+  ],
+  "kloster_tension_h2_arc": [
+    1.09064,
+    1.36258,
+    1.57697,
+    1.59751,
+    1.39756,
+    1.29026,
+    1.19073,
+    0.89062
+  ],
+  "wav": {
+    "bytes": 2257964,
+    "channels": 2,
+    "duration_sec": 12.8,
+    "path": "/tmp/zoe_kloster_choral_nocturne.wav",
+    "sample_rate_hz": 44100,
+    "sha256": "2bd977aeb808ef67"
+  }
+}

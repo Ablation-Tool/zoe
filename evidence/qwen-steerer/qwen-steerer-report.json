@@ -1,0 +1,144 @@
+{
+  "all_verified": true,
+  "checks": {
+    "all_4_steering_regimes_verified": true,
+    "honest_server_status_reported": true,
+    "real_151936_vocab_tested": true,
+    "real_qwen25_3b_gguf_v3_verified": true,
+    "remote_non_loopback_ssrf_blocked": true,
+    "zero_prefix_pruning_bound_violations": true
+  },
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "honest_offline_fallback": true,
+    "loopback_only_enforced": true
+  },
+  "contract": "zoe-live-qwen-multihorizon-steerer/v1",
+  "evidence_sha256": "35ef8a37671c7a9c4a7783057a6019f56a9f698b514359c26a74dcb630164a7b",
+  "gguf_provenance": {
+    "gguf_version": 3,
+    "header_4mb_sha256": "3b3e72a8b68e68ef3bef21d57a9f66a36e0cfec554854bb707dd6ee58fb75ba7",
+    "magic": "GGUF",
+    "metadata_kv_count": 26,
+    "path": "/media/cowboy/research/zoe-local-llm/models/qwen2.5-3b-instruct-q4_k_m.gguf",
+    "present": true,
+    "size_bytes": 2104932768,
+    "size_gb": 1.96,
+    "tensor_count": 435,
+    "valid_gguf_v3": true
+  },
+  "live_server_probe": {
+    "online": false,
+    "reason": "<urlopen error [Errno 111] Connection refused>",
+    "url": "http://127.0.0.1:8080"
+  },
+  "live_server_turn": null,
+  "scenarios": [
+    {
+      "action": "ANSWER",
+      "bound_violations": 0,
+      "counts_by_h": [
+        1,
+        1,
+        1
+      ],
+      "expected_action": "ANSWER",
+      "forward_calls": 3,
+      "frontier_mass_by_h": [
+        0.95828,
+        0.9183,
+        0.87999
+      ],
+      "matched": true,
+      "needs_tool_hint": false,
+      "rationale": "Stable concentrated trajectory (counts=[1, 1, 1], Phi=0.8800, H_2=0.084).",
+      "root_renyi2": 0.08382,
+      "scenario_id": "S1_concentrated_answer",
+      "steered_action": "ANSWER",
+      "supercritical_fork_detected": false,
+      "tau": 0.05,
+      "theoretical_max_calls": 39,
+      "vocab_size": 28996
+    },
+    {
+      "action": "CLARIFY",
+      "bound_violations": 0,
+      "counts_by_h": [
+        1,
+        1,
+        1
+      ],
+      "expected_action": "CLARIFY",
+      "forward_calls": 3,
+      "frontier_mass_by_h": [
+        0.5225,
+        0.27301,
+        0.13093
+      ],
+      "matched": true,
+      "needs_tool_hint": false,
+      "rationale": "Persistent multi-option ambiguity (counts=[1, 1, 1], H_2=1.284).",
+      "root_renyi2": 1.28363,
+      "scenario_id": "S2_delayed_fork_clarify",
+      "steered_action": "CLARIFY",
+      "supercritical_fork_detected": false,
+      "tau": 0.08,
+      "theoretical_max_calls": 25,
+      "vocab_size": 50257
+    },
+    {
+      "action": "CALL_TOOL",
+      "bound_violations": 0,
+      "counts_by_h": [
+        10,
+        21,
+        0
+      ],
+      "expected_action": "CALL_TOOL",
+      "forward_calls": 32,
+      "frontier_mass_by_h": [
+        0.99993,
+        0.53964,
+        0.0
+      ],
+      "matched": true,
+      "needs_tool_hint": true,
+      "rationale": "Supercritical hidden branch fork detected across h=1..3 ([10, 21, 0]); grounding via deterministic tool.",
+      "root_renyi2": 1.95399,
+      "scenario_id": "S3_tool_grounded_fork",
+      "steered_action": "CALL_TOOL",
+      "supercritical_fork_detected": true,
+      "tau": 0.015,
+      "theoretical_max_calls": 133,
+      "vocab_size": 151936
+    },
+    {
+      "action": "ABSTAIN",
+      "bound_violations": 0,
+      "counts_by_h": [
+        3,
+        0,
+        0
+      ],
+      "expected_action": "ABSTAIN",
+      "forward_calls": 4,
+      "frontier_mass_by_h": [
+        0.54236,
+        0.0,
+        0.0
+      ],
+      "matched": true,
+      "needs_tool_hint": false,
+      "rationale": "Subcritical horizon extinction (A_tau^(h)=0, Phi=0.0000 < tau=0.12); refuse unsupported claim.",
+      "root_renyi2": 1.95399,
+      "scenario_id": "S4_subcritical_abstain",
+      "steered_action": "ABSTAIN",
+      "supercritical_fork_detected": false,
+      "tau": 0.12,
+      "theoretical_max_calls": 17,
+      "vocab_size": 151936
+    }
+  ],
+  "total_forward_calls": 42,
+  "total_theoretical_max_calls": 214
+}

@@ -1,0 +1,170 @@
+{
+  "all_verified": true,
+  "checks": {
+    "all_11_worlds_verified": true,
+    "creative_art_dorothy_tribute_present": true,
+    "creative_art_observatory_present": true,
+    "cross_pollination_edges_ge_20": true,
+    "latex_pdf_compiled_gt_100kb": true,
+    "zoe_os_all_17_gem_engines_available": true,
+    "zoe_os_orbit_ledger_intact": true
+  },
+  "constitution": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "creative_art_explicitly_labeled": true,
+    "l5_agi_qualified": false,
+    "sentience_claimed": false,
+    "zoe_clone_claimed": false
+  },
+  "contract": "zoe-11-world-renaissance-orbit/v1",
+  "cross_pollination_edges_count": 31,
+  "gem_engines_available": 17,
+  "latex_pdf_bytes": 934610,
+  "master_sha256": "8807c57fda30d2113450307caa877a0777916595a8624e4f8fd754a7bace5122",
+  "worlds": [
+    {
+      "engine_id": "research",
+      "evidence_path": "evidence/kloster-theory/kloster-info-geometry-report.json",
+      "evidence_sha256": "8939bf7422acbe59",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world1_live_qwen",
+        "world11_groove",
+        "world6_dorothy",
+        "world7_cern",
+        "world8_voice",
+        "world9_alife"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png",
+      "verified": true,
+      "world_id": "world5_kloster_theory"
+    },
+    {
+      "engine_id": "zoe",
+      "evidence_path": "evidence/zoe-os/zoe-os-mind-report.json",
+      "evidence_sha256": "59a279f088771846",
+      "improves_worlds": [
+        "world1_live_qwen",
+        "world10_security",
+        "world3_evolution"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-os-living-constellation.png",
+      "verified": true,
+      "world_id": "world4_zoe_os"
+    },
+    {
+      "engine_id": "autonomy",
+      "evidence_path": "evidence/qwen-steerer/qwen-steerer-report.json",
+      "evidence_sha256": "35ef8a37671c7a9c",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world2_benchmarks"
+      ],
+      "plate_path": null,
+      "verified": true,
+      "world_id": "world1_live_qwen"
+    },
+    {
+      "engine_id": "helen",
+      "evidence_path": "evidence/groove-forensics/groove-forensics-report.json",
+      "evidence_sha256": "5e93b15fbb3110f6",
+      "improves_worlds": [
+        "world6_dorothy",
+        "world8_voice",
+        "world3_evolution"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-groove-forensics-poincare.png",
+      "verified": true,
+      "world_id": "world11_groove"
+    },
+    {
+      "engine_id": "kevlar",
+      "evidence_path": "evidence/security-redteam/security-redteam-report.json",
+      "evidence_sha256": "6c7c78cd45682794",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world1_live_qwen",
+        "world3_evolution"
+      ],
+      "plate_path": null,
+      "verified": true,
+      "world_id": "world10_security"
+    },
+    {
+      "engine_id": "autonomy",
+      "evidence_path": "evidence/open-ended-evolution/multistmt-evolution-report.json",
+      "evidence_sha256": "3e13c9da265627b8",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world9_alife",
+        "world2_benchmarks"
+      ],
+      "plate_path": null,
+      "verified": true,
+      "world_id": "world3_evolution"
+    },
+    {
+      "engine_id": "autonomy",
+      "evidence_path": "evidence/external-benchmarks/external-benchmark-report.json",
+      "evidence_sha256": "2c7c57d5671b3ef5",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world5_kloster_theory"
+      ],
+      "plate_path": null,
+      "verified": true,
+      "world_id": "world2_benchmarks"
+    },
+    {
+      "engine_id": "brain",
+      "evidence_path": "evidence/dorothy-neurogarden/dorothy-neurogarden-3d-report.json",
+      "evidence_sha256": "524b0227ca836b6d",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world5_kloster_theory"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png",
+      "verified": true,
+      "world_id": "world6_dorothy"
+    },
+    {
+      "engine_id": "cern-console",
+      "evidence_path": "evidence/cern-trigger/cern-kloster-trigger-report.json",
+      "evidence_sha256": "06e0b77f79049832",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world5_kloster_theory"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png",
+      "verified": true,
+      "world_id": "world7_cern"
+    },
+    {
+      "engine_id": "zoe",
+      "evidence_path": "evidence/voice-choral/zoe-choral-composer-report.json",
+      "evidence_sha256": "95fa2c865cf91230",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world9_alife"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png",
+      "verified": true,
+      "world_id": "world8_voice"
+    },
+    {
+      "engine_id": "life",
+      "evidence_path": "evidence/alife-ecosystem/zoe-alife-ecosystem-report.json",
+      "evidence_sha256": "3d46ebff0f561f56",
+      "improves_worlds": [
+        "world4_zoe_os",
+        "world8_voice"
+      ],
+      "plate_path": "components/agent-logging-system/docs/images/zoe-creative-alife-ecosystem.png",
+      "verified": true,
+      "world_id": "world9_alife"
+    }
+  ],
+  "worlds_total": 11,
+  "worlds_verified": 11
+}

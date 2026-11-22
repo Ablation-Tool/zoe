@@ -71,6 +71,10 @@ EXTENDED_LAYERS = {
     "autonomous-frontier": ("autonomy", "Zoe · L5 Phase 6 Multi-Horizon A_tau^(h), Object ARC & Blind Scratch Evolution"),
     "eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
     "zoe-eliza": ("autonomy", "Zoe-ELIZA x GEM · Two-Gear Zero-Token Glass-Box Conversational Atelier"),
+    "kloster-info": ("research", "Kloster Information Geometry, Multi-Horizon Phase Transitions & Causal Identifiability"),
+    "info-geometry": ("research", "Kloster Information Geometry, Multi-Horizon Phase Transitions & Causal Identifiability"),
+    "zoe-os": ("zoe", "Zoe OS · Unified Persistent Living Workstation Mind (All 17 GEM Engines)"),
+    "living-mind": ("zoe", "Zoe OS · Unified Persistent Living Workstation Mind (All 17 GEM Engines)"),
 }
 
 
