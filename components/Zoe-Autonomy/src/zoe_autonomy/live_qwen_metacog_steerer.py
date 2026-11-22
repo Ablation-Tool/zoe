@@ -383,6 +383,16 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
     c_peak = max(c_profile, key=lambda r: r["c_beta"])
     thermo_critical_ok = c_peak["c_beta"] > 0.50
 
+    # Orbit Pass 4: Theorem 6 Adaptive Fisher-Rao Cutoff Controller tau*(p) across heterogeneous vocabularies!
+    from guiai.gem.kloster_riemannian_manifold import kloster_fisher_rao_to_uniform
+    adaptive_taus: Dict[str, Any] = {}
+    for m_label, dist in (("bert_29k", bert_p), ("distilgpt2_50k", d_base), ("qwen_151k", qwen_p)):
+        fr = kloster_fisher_rao_to_uniform(dist)
+        # Higher Fisher-Rao concentration -> tighter tau*; more diffuse -> lower floor to capture competing forks!
+        tau_star = round(float(np.clip(0.015 + 0.08 * (1.0 - fr["fisher_rao_normalized"]), 0.015, 0.10)), 5)
+        adaptive_taus[m_label] = {"vocab": int(dist.size), "fisher_rao_norm": round(fr["fisher_rao_normalized"], 5), "adaptive_tau_star": tau_star, "a_tau_star": int(np.sum(dist > tau_star))}
+    adaptive_tau_valid = all(v["a_tau_star"] >= 1 for v in adaptive_taus.values())
+
     checks = {
         "real_qwen25_3b_gguf_v3_verified": bool(gguf.get("valid_gguf_v3", False)),
         "remote_non_loopback_ssrf_blocked": ssrf_blocked,
@@ -392,6 +402,7 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         "honest_server_status_reported": isinstance(probe["online"], bool),
         "temperature_phase_sweep_monotonic_151936_vocab": temp_shifts_phase,
         "theorem5_thermodynamic_criticality_detected": thermo_critical_ok,
+        "theorem6_adaptive_fisher_rao_tau_valid": adaptive_tau_valid,
     }
 
     report = {
@@ -402,6 +413,7 @@ def run_qwen_steerer_suite(zoe_root: str | Path, server_url: str = DEFAULT_SERVE
         "scenarios": results,
         "temperature_phase_sweep_qwen": temp_sweep,
         "thermodynamic_criticality_qwen": {"peak": c_peak, "profile": c_profile},
+        "adaptive_fisher_rao_taus": adaptive_taus,
         "total_forward_calls": total_calls,
         "total_theoretical_max_calls": total_max_calls,
         "checks": checks,

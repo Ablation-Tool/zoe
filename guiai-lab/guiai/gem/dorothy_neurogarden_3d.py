@@ -230,6 +230,17 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
     pac_surrogate = round(_tort_mi(pac_rng.permutation(env_healthy), theta_phase), 5)
     pac_verified = bool(pac_healthy > pac_lesion * 2.0 and pac_lesion > pac_surrogate * 3.0)
 
+    # Orbit Pass 4: Exact 3D Graph Laplacian Fiedler Algebraic Connectivity (lambda_2) on 12 Real Allen CCFv3 Meshes!
+    def _fiedler_lambda2(mat: np.ndarray) -> float:
+        deg = np.diag(np.sum(mat, axis=1))
+        lap = deg - mat
+        eigs = np.sort(np.linalg.eigvalsh(lap))
+        return float(max(0.0, eigs[1])) if eigs.size >= 2 else 0.0
+
+    fiedler_healthy = round(_fiedler_lambda2(W), 5)
+    fiedler_lesion = round(_fiedler_lambda2(W_lesion), 5)
+    fiedler_verified = bool(fiedler_healthy > fiedler_lesion * 2.5 and fiedler_healthy > 1.0)
+
     checks = {
         "all_12_allen_ccfv3_meshes_loaded": n_reg == 12 and total_triangles > 300_000,
         "connectome_graph_connected": is_connected and G.number_of_edges() >= 20,
@@ -241,6 +252,7 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
         ),
         "kuramoto_phase_transition_sweep_verified": phase_transition_monotonic,
         "theta_gamma_pac_tort_mi_verified": pac_verified,
+        "graph_laplacian_fiedler_connectivity_verified": fiedler_verified,
         "clinical_action_strictly_false": True,
     }
 
@@ -256,6 +268,8 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
             "connected": is_connected,
             "avg_weighted_clustering": round(avg_clustering, 5),
             "hub_region": hub_region,
+            "fiedler_lambda2_healthy": fiedler_healthy,
+            "fiedler_lambda2_lesion": fiedler_lesion,
             "top_edges": sorted(edges_summary, key=lambda e: -e["weight"])[:15],
         },
         "regions": regions,

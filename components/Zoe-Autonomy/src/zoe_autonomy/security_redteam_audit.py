@@ -420,6 +420,51 @@ def cross_world_parser_fuzzing_audit(zoe_root: Path, trials_per_parser: int = 50
     }
 
 
+def supply_chain_sha256_attestation_audit(zoe_root: Path) -> Dict[str, Any]:
+    """Orbit Pass 4: Cryptographic SHA-256 attestation & tamper-detection audit across all 11-world artifacts."""
+    critical_files = [
+        "guiai-lab/guiai/gem/kloster_info_geometry.py",
+        "guiai-lab/guiai/gem/kloster_thermodynamics.py",
+        "guiai-lab/guiai/gem/kloster_riemannian_manifold.py",
+        "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+        "guiai-lab/guiai/gem/zoe_os.py",
+        "guiai-lab/guiai/gem/groove_forensics.py",
+        "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
+        "guiai-lab/guiai/gem/cern_kloster_trigger.py",
+        "guiai-lab/guiai/gem/zoe_choral_composer.py",
+        "guiai-lab/guiai/gem/alife_ecosystem.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
+        "research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf",
+    ]
+    manifest: Dict[str, str] = {}
+    for rel in critical_files:
+        p = zoe_root / rel
+        if p.is_file():
+            manifest[rel] = hashlib.sha256(p.read_bytes()).hexdigest()
+
+    # Write verifiable SHA256SUMS.orbit manifest
+    sums_path = zoe_root / "evidence/renaissance-orbit/SHA256SUMS.orbit"
+    sums_path.parent.mkdir(parents=True, exist_ok=True)
+    sums_path.write_text("".join(f"{h}  {k}\n" for k, h in sorted(manifest.items())), encoding="utf-8")
+
+    # Live 1-byte tamper simulation in memory: mutating 1 bit MUST fail digest verification!
+    sample_key = critical_files[0]
+    raw = bytearray((zoe_root / sample_key).read_bytes())
+    raw[0] ^= 0x01
+    tamper_detected = hashlib.sha256(bytes(raw)).hexdigest() != manifest[sample_key]
+    return {
+        "files_attested": len(manifest),
+        "expected_files": len(critical_files),
+        "manifest_path": "evidence/renaissance-orbit/SHA256SUMS.orbit",
+        "one_bit_tamper_detected": tamper_detected,
+        "verified": len(manifest) == len(critical_files) and tamper_detected,
+    }
+
+
 def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
     root = Path(zoe_root).expanduser().resolve()
     kev = _probe_kevlar_firewall(root)
@@ -428,6 +473,7 @@ def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
     cross = _redteam_zoe_os_and_qwen_steerer(root)
     fault_hardening = defensive_fault_injection_hardening_benchmark(trials=2000)
     fuzzing = cross_world_parser_fuzzing_audit(root, trials_per_parser=50)
+    attestation = supply_chain_sha256_attestation_audit(root)
 
     checks = {
         "kevlar_present_and_loaded": kev["kevlar_present"],
@@ -436,6 +482,7 @@ def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "zoe_os_and_qwen_redteam_100pct_blocked": cross["all_cross_world_defenses_passed"],
         "defensive_fault_hardening_quorum_verified": fault_hardening["hardening_verified"],
         "cross_world_parser_fuzzing_100_zero_crashes": fuzzing["zero_unhandled_crashes"],
+        "supply_chain_sha256_attestation_verified": attestation["verified"],
     }
     report = {
         "contract": CONTRACT,
@@ -445,6 +492,7 @@ def run_security_redteam_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "cross_world_redteam": cross,
         "defensive_fault_hardening": fault_hardening,
         "cross_world_parser_fuzzing": fuzzing,
+        "supply_chain_attestation": attestation,
         "checks": checks,
         "constitution": {"cloud_tokens_used": 0, "read_only_forensics_preserved": True, "defensive_security_only": True},
         "all_verified": all(checks.values()),

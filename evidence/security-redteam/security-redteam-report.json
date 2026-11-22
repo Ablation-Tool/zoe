@@ -29,6 +29,7 @@
     "defensive_fault_hardening_quorum_verified": true,
     "kevlar_present_and_loaded": true,
     "pala_rust_live_carved_png_sha256_exact": true,
+    "supply_chain_sha256_attestation_verified": true,
     "zoe_os_and_qwen_redteam_100pct_blocked": true
   },
   "constitution": {
@@ -74,7 +75,7 @@
     },
     "trials": 2000
   },
-  "evidence_sha256": "4ebd3fd45e96d7e5952692573b6e92a26be1c1f3a003529af06b2ce4a671e4fe",
+  "evidence_sha256": "9b4ec37be0460f4df6eb3f4287b9f44271580eb6465424e9cd42b2fa748765c6",
   "kevlar_audit": {
     "all_probes_caught_by_kevlar": true,
     "kevlar_present": true,
@@ -136,5 +137,12 @@
     "pala_built": true,
     "returncode": 0,
     "source_image_read_only_unmodified": true
+  },
+  "supply_chain_attestation": {
+    "expected_files": 16,
+    "files_attested": 16,
+    "manifest_path": "evidence/renaissance-orbit/SHA256SUMS.orbit",
+    "one_bit_tamper_detected": true,
+    "verified": true
   }
 }

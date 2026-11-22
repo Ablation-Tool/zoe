@@ -1,4 +1,24 @@
 {
+  "adaptive_fisher_rao_taus": {
+    "bert_29k": {
+      "a_tau_star": 2,
+      "adaptive_tau_star": 0.01544,
+      "fisher_rao_norm": 0.99447,
+      "vocab": 28996
+    },
+    "distilgpt2_50k": {
+      "a_tau_star": 3,
+      "adaptive_tau_star": 0.02212,
+      "fisher_rao_norm": 0.91105,
+      "vocab": 50257
+    },
+    "qwen_151k": {
+      "a_tau_star": 10,
+      "adaptive_tau_star": 0.0155,
+      "fisher_rao_norm": 0.99371,
+      "vocab": 151936
+    }
+  },
   "all_verified": true,
   "checks": {
     "all_4_steering_regimes_verified": true,
@@ -8,6 +28,7 @@
     "remote_non_loopback_ssrf_blocked": true,
     "temperature_phase_sweep_monotonic_151936_vocab": true,
     "theorem5_thermodynamic_criticality_detected": true,
+    "theorem6_adaptive_fisher_rao_tau_valid": true,
     "zero_prefix_pruning_bound_violations": true
   },
   "constitution": {
@@ -16,7 +37,7 @@
     "loopback_only_enforced": true
   },
   "contract": "zoe-live-qwen-multihorizon-steerer/v1",
-  "evidence_sha256": "4e4cca7facba0e1ac1a7b4f7476cffa37178eec5f79aa77a65f193801961e373",
+  "evidence_sha256": "6b1330fe5c596ca1b2dd1da2e214dd38e3487d26ca06d5ea805971ecebc7cafb",
   "gguf_provenance": {
     "gguf_version": 3,
     "header_4mb_sha256": "3b3e72a8b68e68ef3bef21d57a9f66a36e0cfec554854bb707dd6ee58fb75ba7",

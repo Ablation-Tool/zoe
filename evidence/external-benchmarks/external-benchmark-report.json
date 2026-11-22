@@ -1,17 +1,17 @@
 {
   "aggregate": {
-    "total_honest_abstentions_or_escalations": 8,
-    "total_solved": 24,
-    "total_tasks": 32,
+    "total_honest_abstentions_or_escalations": 9,
+    "total_solved": 29,
+    "total_tasks": 38,
     "total_wrong_bluffs": 0
   },
   "all_verified": true,
   "calibration_and_risk_coverage": {
-    "coverage": 0.75,
-    "ece_answered_bin": 0.03,
-    "raw_non_solve_rate": 0.25,
+    "coverage": 0.7632,
+    "ece_answered_bin": 0.03053,
+    "raw_non_solve_rate": 0.2368,
     "selective_error_rate_when_answered": 0.0,
-    "selective_risk_reduction_pct": 25.0
+    "selective_risk_reduction_pct": 23.68
   },
   "checks": {
     "arc_honestly_abstains_on_dsl_frontier_limits": true,
@@ -29,7 +29,7 @@
     "zero_curve_fitting": true
   },
   "contract": "zoe-external-uncurated-benchmark/v1",
-  "evidence_sha256": "ee1d872b009a08903bb3db11186a50a3364bfea8d1bccb52ef778ce40a5e3f49",
+  "evidence_sha256": "8e1234a7c66b98992780b382bd8b23df68ba8c17b1806aac6f55089b16805006",
   "tracks": {
     "arc_agi_format": {
       "honest_abstentions": 3,
@@ -140,6 +140,51 @@
       "total": 12,
       "track": "ARC_AGI_public_format_unseen",
       "wrong_guesses": 0
+    },
+    "ast_security_triage": {
+      "correct": 5,
+      "honest_abstentions": 1,
+      "rows": [
+        {
+          "case_id": "SEC_01_eval_rce",
+          "expected": "UNSAFE_CODE_EXEC",
+          "matched": true,
+          "predicted": "UNSAFE_CODE_EXEC"
+        },
+        {
+          "case_id": "SEC_02_shell_true",
+          "expected": "UNSAFE_SHELL_INJECTION",
+          "matched": true,
+          "predicted": "UNSAFE_SHELL_INJECTION"
+        },
+        {
+          "case_id": "SEC_03_clean_pure",
+          "expected": "SAFE_PURE_FUNCTION",
+          "matched": true,
+          "predicted": "SAFE_PURE_FUNCTION"
+        },
+        {
+          "case_id": "SEC_04_deep_branch",
+          "expected": "HIGH_BRANCH_DEPTH",
+          "matched": true,
+          "predicted": "HIGH_BRANCH_DEPTH"
+        },
+        {
+          "case_id": "SEC_05_pickle_load",
+          "expected": "UNSAFE_DESERIALIZATION",
+          "matched": true,
+          "predicted": "UNSAFE_DESERIALIZATION"
+        },
+        {
+          "case_id": "SEC_06_external_runtime_state_HARD",
+          "expected": "HONEST_ABSTAIN_RUNTIME_DEPENDENCY",
+          "matched": true,
+          "predicted": "HONEST_ABSTAIN_RUNTIME_DEPENDENCY"
+        }
+      ],
+      "total": 6,
+      "track": "AST_security_and_complexity_triage",
+      "wrong": 0
     },
     "gpqa_graduate_science": {
       "correct": 9,

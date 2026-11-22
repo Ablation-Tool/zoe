@@ -172,13 +172,13 @@
       "sloc": 351
     },
     {
-      "avg_cc": 10.0,
+      "avg_cc": 10.5,
       "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
       "grade": "B",
-      "h2": 0.2944,
-      "max_cc": 17,
-      "mi": 52.719,
-      "sloc": 242
+      "h2": 0.2809,
+      "max_cc": 18,
+      "mi": 52.33,
+      "sloc": 257
     },
     {
       "avg_cc": 4.8,
@@ -352,13 +352,13 @@
       "sloc": 148
     },
     {
-      "avg_cc": 5.25,
+      "avg_cc": 5.0,
       "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
-      "grade": "B",
-      "h2": 0.7091,
-      "max_cc": 14,
-      "mi": 59.45,
-      "sloc": 251
+      "grade": "A",
+      "h2": 0.7994,
+      "max_cc": 16,
+      "mi": 63.415,
+      "sloc": 262
     },
     {
       "avg_cc": 5.4,
@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 14.143,
+      "avg_cc": 14.714,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.4895,
-      "max_cc": 76,
-      "mi": 53.7,
-      "sloc": 1313
+      "h2": 1.4738,
+      "max_cc": 80,
+      "mi": 53.397,
+      "sloc": 1341
     },
     {
       "avg_cc": 6.64,
@@ -494,6 +494,15 @@
       "max_cc": 25,
       "mi": 62.09,
       "sloc": 563
+    },
+    {
+      "avg_cc": 5.4,
+      "file": "guiai-lab/guiai/gem/kloster_riemannian_manifold.py",
+      "grade": "B",
+      "h2": 0.8328,
+      "max_cc": 17,
+      "mi": 56.725,
+      "sloc": 235
     },
     {
       "avg_cc": 6.333,
@@ -919,13 +928,13 @@
       "sloc": 167
     },
     {
-      "avg_cc": 5.0,
+      "avg_cc": 5.1,
       "file": "guiai-lab/guiai/gem/unified.py",
       "grade": "A",
-      "h2": 2.2867,
+      "h2": 2.303,
       "max_cc": 21,
-      "mi": 61.356,
-      "sloc": 367
+      "mi": 61.228,
+      "sloc": 369
     },
     {
       "avg_cc": 13.5,
@@ -1270,13 +1279,13 @@
       "sloc": 184
     },
     {
-      "avg_cc": 7.0,
+      "avg_cc": 8.0,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
       "grade": "A",
-      "h2": 1.715,
+      "h2": 1.8647,
       "max_cc": 24,
-      "mi": 63.949,
-      "sloc": 350
+      "mi": 62.276,
+      "sloc": 394
     },
     {
       "avg_cc": 7.926,
@@ -1603,13 +1612,13 @@
       "sloc": 178
     },
     {
-      "avg_cc": 8.125,
+      "avg_cc": 8.375,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
       "grade": "B",
-      "h2": 1.6456,
+      "h2": 1.6352,
       "max_cc": 19,
-      "mi": 56.473,
-      "sloc": 374
+      "mi": 56.89,
+      "sloc": 383
     },
     {
       "avg_cc": 5.368,
@@ -1648,13 +1657,13 @@
       "sloc": 141
     },
     {
-      "avg_cc": 8.111,
+      "avg_cc": 9.222,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
-      "grade": "A",
-      "h2": 1.4131,
-      "max_cc": 29,
-      "mi": 60.242,
-      "sloc": 339
+      "grade": "B",
+      "h2": 1.2483,
+      "max_cc": 39,
+      "mi": 59.743,
+      "sloc": 376
     },
     {
       "avg_cc": 6.571,
@@ -1666,13 +1675,13 @@
       "sloc": 921
     },
     {
-      "avg_cc": 5.875,
+      "avg_cc": 5.778,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
       "grade": "B",
-      "h2": 1.7063,
+      "h2": 1.848,
       "max_cc": 15,
-      "mi": 52.307,
-      "sloc": 385
+      "mi": 52.259,
+      "sloc": 427
     },
     {
       "avg_cc": 6.714,
@@ -1927,6 +1936,15 @@
       "sloc": 131
     },
     {
+      "avg_cc": 9.0,
+      "file": "scripts/verify_kloster_riemannian.py",
+      "grade": "B",
+      "h2": 0.6449,
+      "max_cc": 11,
+      "mi": 47.108,
+      "sloc": 182
+    },
+    {
       "avg_cc": 13.5,
       "file": "scripts/verify_kloster_theory.py",
       "grade": "B",
@@ -2035,13 +2053,13 @@
       "sloc": 291
     },
     {
-      "avg_cc": 8.0,
+      "avg_cc": 8.667,
       "file": "scripts/verify_pass2_visuals.py",
       "grade": "B",
-      "h2": 0.9716,
+      "h2": 1.0273,
       "max_cc": 12,
-      "mi": 47.812,
-      "sloc": 204
+      "mi": 46.98,
+      "sloc": 208
     },
     {
       "avg_cc": 4.5,
@@ -2049,8 +2067,8 @@
       "grade": "A",
       "h2": 1.5612,
       "max_cc": 8,
-      "mi": 61.83,
-      "sloc": 133
+      "mi": 61.634,
+      "sloc": 136
     },
     {
       "avg_cc": 5.5,
@@ -2131,26 +2149,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "063e35ad8822310f79cea43660f8be1aaf3edd32567bfd2d0acb9083b85cf8ff",
+  "evidence_sha256": "f9e7635dca3f3ce671d021eee62d1fd93538309ea01ec3e97804377e78da2536",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6432,
-    "files_scanned": 235,
+    "corr_avg_cc_vs_mi": -0.6421,
+    "files_scanned": 237,
     "grade_distribution": {
       "A": 119,
-      "B": 107,
+      "B": 109,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.517,
-    "mean_mi": 58.657,
-    "median_mi": 60.172,
-    "orbit_mean_avg_cc": 7.444,
-    "orbit_mean_mi": 57.606,
+    "mean_avg_cc": 7.53,
+    "mean_mi": 58.602,
+    "median_mi": 60.128,
+    "orbit_mean_avg_cc": 7.638,
+    "orbit_mean_mi": 57.743,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2694,
-    "total_sloc": 70808
+    "total_functions": 2704,
+    "total_sloc": 71420
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2206,30 +2224,30 @@
       "total_cc": 30
     },
     {
-      "avg_cc": 10.0,
-      "comment_ratio": 0.0653,
+      "avg_cc": 10.5,
+      "comment_ratio": 0.0677,
       "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
       "functions": 2,
       "grade": "B",
-      "halstead_length": 1215,
-      "halstead_vocab": 282,
-      "halstead_volume": 9889.55,
+      "halstead_length": 1335,
+      "halstead_vocab": 299,
+      "halstead_volume": 10979.04,
       "kloster_cc_a_005": 2,
-      "kloster_cc_m4_root": 0.8502,
-      "kloster_cc_renyi_h2": 0.2944,
+      "kloster_cc_m4_root": 0.8573,
+      "kloster_cc_renyi_h2": 0.2809,
       "low_maintainability_flag": false,
-      "max_cc": 17,
-      "mi_file_radon": 28.61,
-      "mi_score": 52.719,
+      "max_cc": 18,
+      "mi_file_radon": 27.786,
+      "mi_score": 52.33,
       "most_complex_function": {
-        "cc": 17,
-        "fn_mi": 29.08,
-        "fn_sloc": 244,
+        "cc": 18,
+        "fn_mi": 28.1,
+        "fn_sloc": 263,
         "lineno": 48,
         "name": "run_cern_kloster_trigger_suite"
       },
-      "sloc": 242,
-      "total_cc": 20
+      "sloc": 257,
+      "total_cc": 21
     },
     {
       "avg_cc": 13.8,
@@ -2258,30 +2276,30 @@
       "total_cc": 69
     },
     {
-      "avg_cc": 5.25,
-      "comment_ratio": 0.0567,
+      "avg_cc": 5.0,
+      "comment_ratio": 0.0573,
       "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
-      "functions": 4,
-      "grade": "B",
-      "halstead_length": 1164,
-      "halstead_vocab": 279,
-      "halstead_volume": 9456.48,
-      "kloster_cc_a_005": 3,
-      "kloster_cc_m4_root": 0.6678,
-      "kloster_cc_renyi_h2": 0.7091,
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 1233,
+      "halstead_vocab": 291,
+      "halstead_volume": 10091.95,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.6407,
+      "kloster_cc_renyi_h2": 0.7994,
       "low_maintainability_flag": false,
-      "max_cc": 14,
-      "mi_file_radon": 27.531,
-      "mi_score": 59.45,
+      "max_cc": 16,
+      "mi_file_radon": 26.447,
+      "mi_score": 63.415,
       "most_complex_function": {
-        "cc": 14,
-        "fn_mi": 31.69,
-        "fn_sloc": 199,
+        "cc": 16,
+        "fn_mi": 30.58,
+        "fn_sloc": 213,
         "lineno": 102,
         "name": "run_dorothy_neurogarden_3d_suite"
       },
-      "sloc": 251,
-      "total_cc": 21
+      "sloc": 262,
+      "total_cc": 25
     },
     {
       "avg_cc": 12.5,
@@ -2388,108 +2406,108 @@
       "total_cc": 11
     },
     {
-      "avg_cc": 7.0,
-      "comment_ratio": 0.0462,
+      "avg_cc": 8.0,
+      "comment_ratio": 0.0416,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
-      "functions": 11,
+      "functions": 12,
       "grade": "A",
-      "halstead_length": 2532,
-      "halstead_vocab": 402,
-      "halstead_volume": 21904.46,
+      "halstead_length": 2733,
+      "halstead_vocab": 445,
+      "halstead_volume": 24044.01,
       "kloster_cc_a_005": 7,
-      "kloster_cc_m4_root": 0.3296,
-      "kloster_cc_renyi_h2": 1.715,
+      "kloster_cc_m4_root": 0.283,
+      "kloster_cc_renyi_h2": 1.8647,
       "low_maintainability_flag": false,
       "max_cc": 24,
-      "mi_file_radon": 13.315,
-      "mi_score": 63.949,
+      "mi_file_radon": 8.877,
+      "mi_score": 62.276,
       "most_complex_function": {
         "cc": 24,
-        "fn_mi": 27.37,
+        "fn_mi": 26.89,
         "fn_sloc": 197,
         "lineno": 47,
         "name": "_track_a_arc_public_format"
       },
-      "sloc": 350,
-      "total_cc": 77
+      "sloc": 394,
+      "total_cc": 96
     },
     {
-      "avg_cc": 8.125,
-      "comment_ratio": 0.0214,
+      "avg_cc": 8.375,
+      "comment_ratio": 0.0254,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
       "functions": 8,
       "grade": "B",
-      "halstead_length": 1322,
-      "halstead_vocab": 387,
-      "halstead_volume": 11364.16,
+      "halstead_length": 1397,
+      "halstead_vocab": 406,
+      "halstead_volume": 12105.47,
       "kloster_cc_a_005": 5,
-      "kloster_cc_m4_root": 0.3239,
-      "kloster_cc_renyi_h2": 1.6456,
+      "kloster_cc_m4_root": 0.3245,
+      "kloster_cc_renyi_h2": 1.6352,
       "low_maintainability_flag": false,
       "max_cc": 19,
-      "mi_file_radon": 13.302,
-      "mi_score": 56.473,
+      "mi_file_radon": 13.196,
+      "mi_score": 56.89,
       "most_complex_function": {
         "cc": 19,
-        "fn_mi": 46.21,
+        "fn_mi": 46.79,
         "fn_sloc": 45,
         "lineno": 136,
         "name": "steer_from_multihorizon_trace"
       },
-      "sloc": 374,
-      "total_cc": 65
+      "sloc": 383,
+      "total_cc": 67
     },
     {
-      "avg_cc": 8.111,
-      "comment_ratio": 0.0304,
+      "avg_cc": 9.222,
+      "comment_ratio": 0.03,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
       "functions": 9,
-      "grade": "A",
-      "halstead_length": 1700,
-      "halstead_vocab": 361,
-      "halstead_volume": 14442.95,
+      "grade": "B",
+      "halstead_length": 1901,
+      "halstead_vocab": 386,
+      "halstead_volume": 16334.26,
       "kloster_cc_a_005": 4,
-      "kloster_cc_m4_root": 0.412,
-      "kloster_cc_renyi_h2": 1.4131,
+      "kloster_cc_m4_root": 0.4754,
+      "kloster_cc_renyi_h2": 1.2483,
       "low_maintainability_flag": false,
-      "max_cc": 29,
-      "mi_file_radon": 13.661,
-      "mi_score": 60.242,
+      "max_cc": 39,
+      "mi_file_radon": 10.907,
+      "mi_score": 59.743,
       "most_complex_function": {
-        "cc": 29,
-        "fn_mi": 28.41,
-        "fn_sloc": 177,
+        "cc": 39,
+        "fn_mi": 24.35,
+        "fn_sloc": 216,
         "lineno": 219,
         "name": "run_open_ended_evolution_suite"
       },
-      "sloc": 339,
-      "total_cc": 73
+      "sloc": 376,
+      "total_cc": 83
     },
     {
-      "avg_cc": 5.875,
-      "comment_ratio": 0.0484,
+      "avg_cc": 5.778,
+      "comment_ratio": 0.0477,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
-      "functions": 8,
+      "functions": 9,
       "grade": "B",
-      "halstead_length": 1300,
-      "halstead_vocab": 392,
-      "halstead_volume": 11199.12,
-      "kloster_cc_a_005": 6,
-      "kloster_cc_m4_root": 0.33,
-      "kloster_cc_renyi_h2": 1.7063,
+      "halstead_length": 1430,
+      "halstead_vocab": 423,
+      "halstead_volume": 12476.05,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.2991,
+      "kloster_cc_renyi_h2": 1.848,
       "low_maintainability_flag": false,
       "max_cc": 15,
-      "mi_file_radon": 18.696,
-      "mi_score": 52.307,
+      "mi_file_radon": 16.652,
+      "mi_score": 52.259,
       "most_complex_function": {
         "cc": 15,
-        "fn_mi": 42.05,
+        "fn_mi": 41.99,
         "fn_sloc": 88,
         "lineno": 333,
         "name": "cross_world_parser_fuzzing_audit"
       },
-      "sloc": 385,
-      "total_cc": 47
+      "sloc": 427,
+      "total_cc": 52
     },
     {
       "avg_cc": 3.857,

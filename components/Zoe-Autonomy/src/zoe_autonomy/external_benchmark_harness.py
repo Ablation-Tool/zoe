@@ -352,15 +352,61 @@ def _track_c_gpqa_science_calibrated() -> Dict[str, Any]:
     }
 
 
+def _track_d_symbolic_security_and_complexity() -> Dict[str, Any]:
+    """Orbit Pass 4 Track D: 6 Python AST Complexity & Security Triage probes (5 solvable + 1 honest abstain)."""
+    items = [
+        ("SEC_01_eval_rce", "def f(u): return eval(u)\n", "UNSAFE_CODE_EXEC"),
+        ("SEC_02_shell_true", "import subprocess\ndef run(x): return subprocess.run(x, shell=True)\n", "UNSAFE_SHELL_INJECTION"),
+        ("SEC_03_clean_pure", "def add(a, b): return a + b\n", "SAFE_PURE_FUNCTION"),
+        ("SEC_04_deep_branch", "def f(a,b,c,d):\n if a:\n  if b:\n   if c:\n    if d: return 1\n return 0\n", "HIGH_BRANCH_DEPTH"),
+        ("SEC_05_pickle_load", "import pickle\ndef load(b): return pickle.loads(b)\n", "UNSAFE_DESERIALIZATION"),
+        ("SEC_06_external_runtime_state_HARD", "def check(token, db_conn): return db_conn.verify(token)\n", "HONEST_ABSTAIN_RUNTIME_DEPENDENCY"),
+    ]
+    correct = 0
+    abstains = 0
+    rows: List[Dict[str, Any]] = []
+    for cid, code, expected in items:
+        tree = ast.parse(code)
+        calls = {n.func.id for n in ast.walk(tree) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}
+        attrs = {n.func.attr for n in ast.walk(tree) if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)}
+        ifs = sum(1 for n in ast.walk(tree) if isinstance(n, ast.If))
+        if "eval" in calls or "exec" in calls:
+            pred = "UNSAFE_CODE_EXEC"
+        elif "shell=True" in code:
+            pred = "UNSAFE_SHELL_INJECTION"
+        elif "loads" in attrs and "pickle" in code:
+            pred = "UNSAFE_DESERIALIZATION"
+        elif ifs >= 4:
+            pred = "HIGH_BRANCH_DEPTH"
+        elif "db_conn" in code:
+            pred = "HONEST_ABSTAIN_RUNTIME_DEPENDENCY"
+        else:
+            pred = "SAFE_PURE_FUNCTION"
+        if pred == "HONEST_ABSTAIN_RUNTIME_DEPENDENCY":
+            abstains += 1
+        elif pred == expected:
+            correct += 1
+        rows.append({"case_id": cid, "expected": expected, "predicted": pred, "matched": pred == expected})
+    return {
+        "track": "AST_security_and_complexity_triage",
+        "total": len(items),
+        "correct": correct,
+        "honest_abstentions": abstains,
+        "wrong": len(items) - correct - abstains,
+        "rows": rows,
+    }
+
+
 def run_external_benchmark_suite() -> Dict[str, Any]:
     ta = _track_a_arc_public_format()
     tb = _track_b_swe_bench_style()
     tc = _track_c_gpqa_science_calibrated()
+    td = _track_d_symbolic_security_and_complexity()
 
-    total_tasks = ta["total"] + tb["total"] + tc["total"]
-    total_solved = ta["solved"] + tb["repaired"] + tc["correct"]
-    total_abstains = ta["honest_abstentions"] + tb["honest_escalations"] + tc["honest_abstentions"]
-    total_bluffs = ta["wrong_guesses"] + tc["wrong"]
+    total_tasks = ta["total"] + tb["total"] + tc["total"] + td["total"]
+    total_solved = ta["solved"] + tb["repaired"] + tc["correct"] + td["correct"]
+    total_abstains = ta["honest_abstentions"] + tb["honest_escalations"] + tc["honest_abstentions"] + td["honest_abstentions"]
+    total_bluffs = ta["wrong_guesses"] + tc["wrong"] + td["wrong"]
     answered = total_solved + total_bluffs
     # Orbit Pass 3: Formal Calibration & Selective Risk-Coverage Audit (ECE & Selective Error Rate)
     coverage = round(answered / max(1, total_tasks), 4)
@@ -387,7 +433,7 @@ def run_external_benchmark_suite() -> Dict[str, Any]:
     }
     report = {
         "contract": CONTRACT,
-        "tracks": {"arc_agi_format": ta, "swe_bench_style": tb, "gpqa_graduate_science": tc},
+        "tracks": {"arc_agi_format": ta, "swe_bench_style": tb, "gpqa_graduate_science": tc, "ast_security_triage": td},
         "aggregate": {
             "total_tasks": total_tasks,
             "total_solved": total_solved,

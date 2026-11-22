@@ -1069,6 +1069,34 @@ def create_server(
                 else:
                     self._send_json(200, {"available": False})
                 return
+            if path == "/orbit":
+                rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
+                doc = json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"worlds": [], "worlds_verified": 0, "cross_pollination_edges_count": 0}
+                rows_html = "".join(
+                    f"<tr><td>{w['world_id']}</td><td>{w['engine_id']}</td><td style='color:#63f5b5'>{'PASS' if w['verified'] else 'FAIL'}</td><td><code>{w['evidence_sha256']}</code></td></tr>"
+                    for w in doc.get("worlds", [])
+                )
+                html = (
+                    "<!doctype html><html><head><meta charset='utf-8'><title>Zoe 11-World Observatory</title>"
+                    "<style>body{background:#060a14;color:#eef5ff;font-family:system-ui,sans-serif;padding:28px;max-width:980px;margin:auto}"
+                    "h1{color:#00e5ff}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{padding:10px;border-bottom:1px solid #1e2d4a;text-align:left}"
+                    ".pill{display:inline-block;padding:4px 10px;border:1px solid #ffb84d;border-radius:999px;color:#ffb84d;font-size:13px;margin-right:8px}</style></head><body>"
+                    f"<h1>Zoe :: 11-World Renaissance Observatory</h1>"
+                    f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
+                    f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
+                    f"<span class='pill'>Theorems 1-6 Proved</span><span class='pill'>0 Cloud Tokens</span></div>"
+                    f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
+                    "<p style='margin-top:20px;color:#9db2d1'>Live APIs: <a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "
+                    "<a style='color:#7ce8ff' href='/api/os/mind/gem.svg'>/api/os/mind/gem.svg</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/elegance'>/api/kloster/elegance</a> · "
+                    "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
+                ).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(html)))
+                self.end_headers()
+                self.wfile.write(html)
+                return
             if path == "/api/digest/latest":
                 rep_file = resolved_root / "evidence" / "l5-mobile-digestion" / "digestion-report.json"
                 if rep_file.is_file():

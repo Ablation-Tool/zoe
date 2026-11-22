@@ -183,16 +183,19 @@ def verify_live_http_endpoints() -> Dict[str, bool]:
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
         try:
-            for ep, expect_svg in (
-                ("/api/os/mind", False),
-                ("/api/os/mind/gem.svg", True),
-                ("/api/kloster/elegance", False),
-                ("/api/orbit/master", False),
+            for ep, mode in (
+                ("/api/os/mind", "json"),
+                ("/api/os/mind/gem.svg", "svg"),
+                ("/api/kloster/elegance", "json"),
+                ("/api/orbit/master", "json"),
+                ("/orbit", "html"),
             ):
                 with urlrequest.urlopen(f"http://127.0.0.1:{port}{ep}", timeout=5) as resp:
                     body = resp.read().decode("utf-8")
-                    if expect_svg:
+                    if mode == "svg":
                         results[ep] = resp.status == 200 and "<svg" in body
+                    elif mode == "html":
+                        results[ep] = resp.status == 200 and "11-World Renaissance Observatory" in body
                     else:
                         doc = json.loads(body)
                         results[ep] = resp.status == 200 and bool(doc.get("all_verified", False))
@@ -226,6 +229,7 @@ def main() -> int:
         ("live_http_api_os_mind_svg", http_ok.get("/api/os/mind/gem.svg", False)),
         ("live_http_api_kloster_elegance", http_ok.get("/api/kloster/elegance", False)),
         ("live_http_api_orbit_master", http_ok.get("/api/orbit/master", False)),
+        ("live_http_html_orbit_dashboard", http_ok.get("/orbit", False)),
     ]
     passed = sum(1 for _, ok in checks if ok)
     for k, ok in checks:

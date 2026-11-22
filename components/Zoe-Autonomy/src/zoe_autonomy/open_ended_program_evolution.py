@@ -352,6 +352,43 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
         real_grooves = [v for k, v in groove_scores.items() if k != "negative_control_poisson_noise"]
         groove_sep_ok = bool(real_grooves and all(g > noise_sc for g in real_grooves))
 
+    # Orbit Pass 4: Multi-Seed Evolutionary Stability Check across 3 independent seeds (same 24-pop x 26-gen search!)
+    seed_wins = 0
+    multi_seed_results: List[Dict[str, Any]] = []
+    for s_id in (20260303, 20260404, 20260505):
+        s_rng = np.random.default_rng(s_id)
+        pop_s = [copy.deepcopy(seed_genome)] + [_mutate_genome(seed_genome, s_rng) for _ in range(23)]
+        best_s = copy.deepcopy(seed_genome)
+        best_s_mse = seed_train_mse
+        for _g in range(26):
+            sc_s = sorted(
+                ((_eval_program_mse(validate_and_compile_program(genome_to_source(gc)), train_streams), gc) for gc in pop_s),
+                key=lambda x: x[0],
+            )
+            if sc_s[0][0] < best_s_mse - 1e-5:
+                best_s_mse, best_s = sc_s[0][0], copy.deepcopy(sc_s[0][1])
+            el = [copy.deepcopy(it[1]) for it in sc_s[:6]]
+            pop_s = list(el)
+            while len(pop_s) < 24:
+                child = _mutate_genome(el[int(s_rng.integers(0, len(el)))], s_rng)
+                if s_rng.random() < 0.35:
+                    child = _mutate_genome(child, s_rng)
+                pop_s.append(child)
+        t_mse_s = _eval_program_mse(validate_and_compile_program(genome_to_source(best_s)), test_streams)
+        el_s = analyze_python_source(genome_to_source(best_s), label=f"seed_{s_id}")
+        imp_x = round(stateless_test_mse / max(1e-9, t_mse_s), 2)
+        ok_s = t_mse_s < stateless_test_mse / 3.0 and el_s["mi_score"] >= 65.0
+        if ok_s:
+            seed_wins += 1
+        multi_seed_results.append({
+            "seed": s_id,
+            "test_mse": round(t_mse_s, 6),
+            "improvement_vs_stateless_x": imp_x,
+            "mi_score": el_s["mi_score"],
+            "grade": el_s["grade"],
+            "passed": ok_s,
+        })
+
     checks = {
         "zero_prewritten_solutions_and_adopted_gens": adopted_generations >= 5,
         "hostile_ast_payloads_4_of_4_blocked": hostile_blocked == len(hostile_payloads),
@@ -362,6 +399,7 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
         "blind_transfer_real_groove_beats_poisson_all": groove_sep_ok,
         "evolved_code_elegance_high_mi_and_low_cc": evolved_elegance["mi_score"] >= 65.0 and evolved_elegance["max_cc"] <= 4,
         "evolved_lies_on_accuracy_elegance_pareto_front": evolved_on_pareto,
+        "multi_seed_3_of_3_stability_and_grade_a": seed_wins == 3,
     }
     report = {
         "contract": CONTRACT,
@@ -383,6 +421,7 @@ def run_open_ended_evolution_suite(zoe_root: str | Path) -> Dict[str, Any]:
             "grade": evolved_elegance["grade"],
         },
         "pareto_frontier": pareto_front,
+        "multi_seed_stability": multi_seed_results,
         "evolved_source": best_source,
         "fitness_curve_mse": fitness_curve,
         "checks": checks,

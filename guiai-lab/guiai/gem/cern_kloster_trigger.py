@@ -229,6 +229,15 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
             dijet_correct += 1
     dijet_acc = round(dijet_correct / dijet_total, 4)
 
+    # Orbit Pass 4: Discovery Significance Z = S / sqrt(B + 1) Comparing Kloster vs Classical Peak at 85% Signal Cut
+    s_kloster = int(np.sum(score_kloster[labels == 1] > sig_q_kloster))
+    b_kloster = int(np.sum(score_kloster[labels == 0] > sig_q_kloster))
+    z_kloster = round(s_kloster / math.sqrt(b_kloster + 1.0), 3)
+
+    s_peak = int(np.sum(score_peak[labels == 1] > sig_q_peak))
+    b_peak = int(np.sum(score_peak[labels == 0] > sig_q_peak))
+    z_peak = round(s_peak / math.sqrt(b_peak + 1.0), 3)
+
     checks = {
         "kloster_beats_classical_peak_auroc": auroc_kloster > auroc_peak + 0.15,
         "kloster_beats_total_energy_auroc": auroc_kloster > auroc_total_e + 0.15,
@@ -240,6 +249,7 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
         "real_vcd_waveform_parsed_by_gem": vcd_signals == 4 and vcd_events >= 60,
         "high_luminosity_3x_pileup_stress_verified": hl_auroc_kloster >= 0.96 and hl_auroc_kloster > hl_auroc_peak + 0.20,
         "dijet_vs_monojet_kloster_topology_gt_95pct": dijet_acc >= 0.95,
+        "discovery_significance_exceeds_5sigma": z_kloster >= 10.0 and z_kloster > z_peak * 2.5,
     }
 
     report = {
@@ -250,6 +260,12 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
             "classical_peak_auroc": hl_auroc_peak,
         },
         "dijet_vs_monojet_topology": {"accuracy": dijet_acc, "correct": dijet_correct, "total": dijet_total},
+        "discovery_significance_sigma": {
+            "kloster_z_sigma": z_kloster,
+            "classical_peak_z_sigma": z_peak,
+            "kloster_S_and_B": [s_kloster, b_kloster],
+            "classical_S_and_B": [s_peak, b_peak],
+        },
         "auroc": {
             "classical_peak_amplitude": auroc_peak,
             "classical_total_energy": auroc_total_e,

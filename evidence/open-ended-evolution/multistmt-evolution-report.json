@@ -17,6 +17,7 @@
     "evolved_multistmt_beats_seed_by_5x": true,
     "evolved_stateful_beats_stateless_control": true,
     "hostile_ast_payloads_4_of_4_blocked": true,
+    "multi_seed_3_of_3_stability_and_grade_a": true,
     "uses_helper_conditional_and_memory": true,
     "zero_prewritten_solutions_and_adopted_gens": true
   },
@@ -25,7 +26,7 @@
     "cloud_tokens_used": 0
   },
   "contract": "zoe-open-ended-multistmt-evolution/v1",
-  "evidence_sha256": "80e4cf4dc95b2030c78b3c3c2fa01fe03862ab3c5267805b7839ea2e0586f1ec",
+  "evidence_sha256": "0f043338c2da7613c1cb2682f29f7de91766f436eb7cfcb0be8b295c4f2b89c6",
   "evolved_code_elegance": {
     "grade": "A",
     "maintainability_index_mi": 71.866,
@@ -67,6 +68,32 @@
   "hostile_total": 4,
   "improvement_vs_seed_x": 7.98,
   "improvement_vs_stateless_x": 5.13,
+  "multi_seed_stability": [
+    {
+      "grade": "A",
+      "improvement_vs_stateless_x": 5.13,
+      "mi_score": 71.866,
+      "passed": true,
+      "seed": 20260303,
+      "test_mse": 0.009287
+    },
+    {
+      "grade": "A",
+      "improvement_vs_stateless_x": 6.1,
+      "mi_score": 71.885,
+      "passed": true,
+      "seed": 20260404,
+      "test_mse": 0.007817
+    },
+    {
+      "grade": "A",
+      "improvement_vs_stateless_x": 4.83,
+      "mi_score": 72.34,
+      "passed": true,
+      "seed": 20260505,
+      "test_mse": 0.00988
+    }
+  ],
   "pareto_frontier": [
     {
       "label": "seed_minimal",
