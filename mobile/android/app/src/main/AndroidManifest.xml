@@ -103,7 +103,10 @@
         <activity android:name=".FieldKitActivity" android:exported="false" />
         <activity android:name=".ResearchActivity" android:exported="false" />
         <activity android:name=".TrinityActivity" android:exported="false" />
-        <activity android:name=".ConversationActivity" android:exported="false" />
+        <activity
+            android:name=".ConversationActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity android:name=".MultiVisionActivity" android:exported="false" />
         <activity android:name=".RangingActivity" android:exported="false" />
         <activity android:name=".RadioActivity" android:exported="false" />
@@ -111,7 +114,10 @@
         <activity android:name=".LocationActivity" android:exported="false" />
         <activity android:name=".AppObservatoryActivity" android:exported="false" />
         <activity android:name=".ConnectivityActivity" android:exported="false" />
-        <activity android:name=".SafeConvertActivity" android:exported="false" />
+        <activity
+            android:name=".SafeConvertActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity android:name=".TripJournalActivity" android:exported="false" />
         <activity android:name=".ElizaGemActivity" android:exported="false" />
         <activity
@@ -124,9 +130,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreativeStudioActivity" android:exported="false" />
+        <activity
+            android:name=".CreativeStudioActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity android:name=".ZoeArcadeActivity" android:exported="false" />
-        <activity android:name=".PrivacyVaultActivity" android:exported="false" />
+        <activity
+            android:name=".PrivacyVaultActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <service
             android:name=".ZoeAccessibilityService"
             android:exported="true"

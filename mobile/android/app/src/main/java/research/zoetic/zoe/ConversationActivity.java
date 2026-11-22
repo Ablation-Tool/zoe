@@ -137,6 +137,13 @@ public final class ConversationActivity extends ComponentActivity {
         brain = new ZoeBrainEngine(this);
         nativeVoice = new ZoeNativeVoice();
         localLlm = new OnDeviceLlmEngine(this);
+        executor.execute(() -> {
+            MediaChatHelper.warmUp();
+            File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
+            if (localModel != null) {
+                localLlm.warmUp(localModel);
+            }
+        });
 
         threads.addAll(ChatHistoryStore.load(this));
         if (threads.isEmpty()) {
@@ -233,7 +240,7 @@ public final class ConversationActivity extends ComponentActivity {
         chatScroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout scrollContent = Ui.vertical(this);
         scrollContent.setBackgroundColor(Color.TRANSPARENT);
-        scrollContent.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 12));
+        scrollContent.setPadding(Ui.dp(this, 16), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 12));
 
         chatFeed = Ui.vertical(this);
         chatFeed.setId(R.id.conversation_chat_feed);
@@ -267,10 +274,10 @@ public final class ConversationActivity extends ComponentActivity {
         root.addView(chatScroll, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
 
-        // 3. Thumb-Zone Next-Gen Composer Dock (+ Attach Photo/Video, Input, Send, Talk, Ask AI)
+        // 3. Thumb-Zone Next-Gen Composer Dock (strict 16dp horizontal rails matching Home, Explore & Vision!)
         LinearLayout bottomDock = Ui.vertical(this);
         bottomDock.setBackgroundColor(Color.TRANSPARENT);
-        bottomDock.setPadding(Ui.dp(this, 14), Ui.dp(this, 6), Ui.dp(this, 14), Ui.dp(this, 10));
+        bottomDock.setPadding(Ui.dp(this, 16), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 12));
 
         // Dismissible Photo / Video Attachment Preview Banner
         attachmentBanner = new LinearLayout(this);
@@ -496,8 +503,9 @@ public final class ConversationActivity extends ComponentActivity {
 
     private View buildWelcomeCanvas() {
         LinearLayout card = Ui.vertical(this);
+        card.setBackgroundColor(Color.TRANSPARENT);
         card.setGravity(Gravity.CENTER_HORIZONTAL);
-        card.setPadding(Ui.dp(this, 16), Ui.dp(this, 22), Ui.dp(this, 16), Ui.dp(this, 18));
+        card.setPadding(Ui.dp(this, 12), Ui.dp(this, 20), Ui.dp(this, 12), Ui.dp(this, 16));
 
         ImageView gem = Ui.gemHomeButton(this, 50, () -> Ui.goHome(this));
         card.addView(gem, new LinearLayout.LayoutParams(Ui.dp(this, 58), Ui.dp(this, 58)));
@@ -1090,14 +1098,20 @@ public final class ConversationActivity extends ComponentActivity {
 
         List<ChatHistoryStore.ChatMessage> historySnapshot = new ArrayList<>(currentThread.messages);
         String memCtx = buildMemorySummary();
+        final byte[] attachedPhotoBytes = (pendingAttachment != null && pendingAttachment.jpegBytes != null && pendingAttachment.jpegBytes.length > 0)
+                ? pendingAttachment.jpegBytes : null;
         long t0 = System.currentTimeMillis();
         executor.execute(() -> {
             WebSearchClient.SearchResult webRes = useWeb ? WebSearchClient.search(prompt) : null;
             String webCtx = (webRes != null && webRes.hasSources()) ? webRes.formatContextForPrompt(700) : "";
             List<String> badges = (webRes != null && webRes.hasSources()) ? webRes.toSourceBadges() : null;
             String formatted = OnDeviceLlmEngine.buildChatMlPrompt(prompt, historySnapshot, memCtx, webCtx);
+            android.graphics.Bitmap optBmp = null;
+            if (attachedPhotoBytes != null && OnDeviceLlmEngine.supportsNativeVision(modelFile)) {
+                optBmp = android.graphics.BitmapFactory.decodeByteArray(attachedPhotoBytes, 0, attachedPhotoBytes.length);
+            }
             try {
-                String finalReply = localLlm.generateStreaming(modelFile, formatted, (partial, done) ->
+                String finalReply = localLlm.generateStreamingWithOptionalImage(modelFile, formatted, optBmp, (partial, done) ->
                         runOnUiThread(() -> {
                             if (!isFinishing() && !isDestroyed() && !partial.isEmpty()) {
                                 streamBody.setText(partial);
@@ -1105,18 +1119,19 @@ public final class ConversationActivity extends ComponentActivity {
                             }
                         }));
                 long dt = System.currentTimeMillis() - t0;
+                String rtLabel = OnDeviceLlmEngine.runtimeTelemetryLabel();
                 runOnUiThread(() -> {
                     if (!isFinishing() && !isDestroyed()) {
                         String clean = finalReply.isEmpty() ? "(No output generated.)" : finalReply;
                         boolean grounded = webRes != null && webRes.hasSources();
                         String cardTitle = grounded ? (label + " · WEB") : label;
                         String glass = (autoRouted ? "Auto-Router → " : "") + label
-                                + " · On-Device MediaPipe GenAI · 0 cloud AI tokens"
+                                + " (" + rtLabel + ") · On-Device MediaPipe GenAI · 0 cloud AI tokens"
                                 + (grounded ? " · Live Web (" + webRes.sources.size() + " sources)" : "")
                                 + " · " + dt + " ms";
                         deliverAssistantReply(clean, cardTitle, glass, dt,
                                 grounded ? (label + " finished with " + webRes.sources.size() + " live web sources.")
-                                        : (label + " finished offline (0 cloud tokens)."),
+                                        : (label + " finished offline (" + rtLabel + " · 0 cloud tokens)."),
                                 voiceTurn, badges);
                     }
                 });
@@ -1126,6 +1141,10 @@ public final class ConversationActivity extends ComponentActivity {
                         deliverLocalStem(prompt, "Local LLM error (" + error.getMessage() + ") — offline Zoe Stem fallback.", voiceTurn);
                     }
                 });
+            } finally {
+                if (optBmp != null && !optBmp.isRecycled()) {
+                    optBmp.recycle();
+                }
             }
         });
     }

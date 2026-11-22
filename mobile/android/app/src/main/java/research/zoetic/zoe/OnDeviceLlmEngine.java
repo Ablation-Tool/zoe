@@ -2,8 +2,12 @@ package research.zoetic.zoe;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.mediapipe.framework.image.BitmapImageBuilder;
+import com.google.mediapipe.framework.image.MPImage;
+import com.google.mediapipe.tasks.genai.llminference.GraphOptions;
 import com.google.mediapipe.tasks.genai.llminference.LlmInference;
 import com.google.mediapipe.tasks.genai.llminference.LlmInferenceSession;
 
@@ -89,8 +93,18 @@ final class OnDeviceLlmEngine {
 
     private static final Object SHARED_LOCK = new Object();
     private static LlmInference sharedEngine;
+    private static LlmInferenceSession sharedBaseSession;
+    private static boolean sharedKvCloneSupported = true;
+    private static boolean sharedVisionEnabled;
     private static String sharedLoadedPath = "";
     private static String sharedActiveBackend = "CPU";
+
+    static final String BASE_SYSTEM_PREFIX = "<|im_start|>system\n"
+            + MultiAiClient.ZOE_SYSTEM_PROMPT
+            + "<|im_end|>\n"
+            + "<|im_start|>user\nWho are you and who built you?<|im_end|>\n"
+            + "<|im_start|>assistant\nI am Zoe, an open-source software assistant for the Zoe project "
+            + "created by Nicholas Michael Kloster. Everything stays private on your device.<|im_end|>\n";
 
     private final Context appContext;
     private final java.util.concurrent.atomic.AtomicReference<LlmInferenceSession> activeSession =
@@ -216,9 +230,22 @@ final class OnDeviceLlmEngine {
         sb.append("<|im_start|>user\nWho are you and who built you?<|im_end|>\n");
         sb.append("<|im_start|>assistant\nI am Zoe, an open-source software assistant for the Zoe project ")
                 .append("created by Nicholas Michael Kloster. Everything stays private on your device.<|im_end|>\n");
+        sb.append(buildChatMlTurnDelta(userPrompt, recentHistory, "", ""));
+        return sb.toString();
+    }
+
+    /**
+     * Builds ONLY the per-turn suffix after {@link #BASE_SYSTEM_PREFIX} so KV-cached base sessions
+     * cloned via {@code LlmInferenceSession.cloneSession()} skip re-prefilling the system prompt!
+     */
+    static String buildChatMlTurnDelta(
+            String userPrompt,
+            List<ChatHistoryStore.ChatMessage> recentHistory,
+            String memorySummary,
+            String webContext) {
+        StringBuilder sb = new StringBuilder();
         String trimmedPrompt = userPrompt == null ? "" : userPrompt.trim();
         if (recentHistory != null && !recentHistory.isEmpty()) {
-            // Exclude the just-appended trailing user message so turns alternate cleanly without duplication
             int end = recentHistory.size();
             ChatHistoryStore.ChatMessage tail = recentHistory.get(end - 1);
             if ("user".equals(tail.role) && tail.text != null && tail.text.trim().equals(trimmedPrompt)) {
@@ -233,10 +260,41 @@ final class OnDeviceLlmEngine {
                         .append(snippet.trim()).append("<|im_end|>\n");
             }
         }
-        String effectivePrompt = expandShortFollowUp(trimmedPrompt);
-        sb.append("<|im_start|>user\n").append(effectivePrompt).append("<|im_end|>\n");
+        StringBuilder effectiveUser = new StringBuilder();
+        if (memorySummary != null && !memorySummary.trim().isEmpty()) {
+            effectiveUser.append("[On-device memory: ").append(memorySummary.trim()).append("]\n");
+        }
+        if (webContext != null && !webContext.trim().isEmpty()) {
+            effectiveUser.append("[Verified context: ").append(webContext.trim()).append("]\n");
+        }
+        effectiveUser.append(expandShortFollowUp(trimmedPrompt));
+        sb.append("<|im_start|>user\n").append(effectiveUser).append("<|im_end|>\n");
         sb.append("<|im_start|>assistant\n");
         return sb.toString();
+    }
+
+    /**
+     * Returns true when a sideloaded or downloaded LiteRT `.task` bundle includes native multimodal
+     * vision encoders (e.g., Gemma 3n / Vision / VL packs), unlocking direct {@code session.addImage()}.
+     */
+    static boolean supportsNativeVision(File modelFile) {
+        if (modelFile == null) {
+            return false;
+        }
+        String n = modelFile.getName().toLowerCase(Locale.US);
+        return n.contains("gemma-3n") || n.contains("gemma3n") || n.contains("vision")
+                || n.contains("multimodal") || n.contains("-vl");
+    }
+
+    /**
+     * Extracts the turn delta when a full prompt begins with {@link #BASE_SYSTEM_PREFIX} (enabling
+     * zero-prefill KV-cache session cloning automatically!). Returns null if system context changed.
+     */
+    static String extractClonableDelta(String fullPrompt) {
+        if (fullPrompt != null && fullPrompt.startsWith(BASE_SYSTEM_PREFIX)) {
+            return fullPrompt.substring(BASE_SYSTEM_PREFIX.length());
+        }
+        return null;
     }
 
     /**
@@ -334,29 +392,59 @@ final class OnDeviceLlmEngine {
                 return sharedEngine;
             }
             releaseSharedEngineLocked();
+            boolean enableVision = supportsNativeVision(modelFile);
             try {
-                LlmInference.LlmInferenceOptions gpuOpts = LlmInference.LlmInferenceOptions.builder()
+                LlmInference.LlmInferenceOptions.Builder gpuBuilder = LlmInference.LlmInferenceOptions.builder()
                         .setModelPath(path)
                         .setMaxTokens(1024)
                         .setMaxTopK(40)
-                        .setPreferredBackend(LlmInference.Backend.GPU)
-                        .build();
-                sharedEngine = LlmInference.createFromOptions(appContext, gpuOpts);
+                        .setPreferredBackend(LlmInference.Backend.GPU);
+                if (enableVision) {
+                    gpuBuilder.setMaxNumImages(1);
+                }
+                sharedEngine = LlmInference.createFromOptions(appContext, gpuBuilder.build());
                 sharedLoadedPath = path;
                 sharedActiveBackend = "GPU";
+                sharedVisionEnabled = enableVision;
+                sharedKvCloneSupported = true;
                 return sharedEngine;
             } catch (Throwable gpuUnavailable) {
-                LlmInference.LlmInferenceOptions cpuOpts = LlmInference.LlmInferenceOptions.builder()
+                LlmInference.LlmInferenceOptions.Builder cpuBuilder = LlmInference.LlmInferenceOptions.builder()
                         .setModelPath(path)
                         .setMaxTokens(1024)
                         .setMaxTopK(40)
-                        .setPreferredBackend(LlmInference.Backend.CPU)
-                        .build();
-                sharedEngine = LlmInference.createFromOptions(appContext, cpuOpts);
+                        .setPreferredBackend(LlmInference.Backend.CPU);
+                if (enableVision) {
+                    cpuBuilder.setMaxNumImages(1);
+                }
+                sharedEngine = LlmInference.createFromOptions(appContext, cpuBuilder.build());
                 sharedLoadedPath = path;
                 sharedActiveBackend = "CPU";
+                sharedVisionEnabled = enableVision;
+                sharedKvCloneSupported = true;
                 return sharedEngine;
             }
+        }
+    }
+
+    /** Pre-computes the base system-prompt KV-cache session once so turns can clone in <5ms. */
+    private void ensureWarmBaseSessionLocked(LlmInference engine) {
+        if (!sharedKvCloneSupported || sharedBaseSession != null || sharedVisionEnabled) {
+            return;
+        }
+        try {
+            LlmInferenceSession.LlmInferenceSessionOptions baseOpts =
+                    LlmInferenceSession.LlmInferenceSessionOptions.builder()
+                            .setTopK(40)
+                            .setTopP(0.92f)
+                            .setTemperature(0.75f)
+                            .build();
+            LlmInferenceSession base = LlmInferenceSession.createFromOptions(engine, baseOpts);
+            base.addQueryChunk(BASE_SYSTEM_PREFIX);
+            sharedBaseSession = base;
+        } catch (Throwable unsupported) {
+            sharedKvCloneSupported = false;
+            sharedBaseSession = null;
         }
     }
 
@@ -364,13 +452,27 @@ final class OnDeviceLlmEngine {
         return sharedActiveBackend;
     }
 
-    /** Pre-loads the shared MediaPipe LiteRT model in background for zero-wait live voice & chat. */
+    static String runtimeTelemetryLabel() {
+        StringBuilder sb = new StringBuilder(sharedActiveBackend);
+        if (sharedBaseSession != null && sharedKvCloneSupported) {
+            sb.append(" · KV-Clone");
+        }
+        if (sharedVisionEnabled) {
+            sb.append(" · Native Vision");
+        }
+        return sb.toString();
+    }
+
+    /** Pre-loads the shared MediaPipe LiteRT model + KV base session in background for instant first turn. */
     void warmUp(File modelFile) {
         if (modelFile == null || !modelFile.isFile()) {
             return;
         }
         try {
-            ensureSharedEngine(modelFile);
+            LlmInference eng = ensureSharedEngine(modelFile);
+            synchronized (SHARED_LOCK) {
+                ensureWarmBaseSessionLocked(eng);
+            }
         } catch (Throwable ignored) {
         }
     }
@@ -392,6 +494,20 @@ final class OnDeviceLlmEngine {
             File modelFile,
             String prompt,
             TokenCallback callback) throws Exception {
+        return generateStreamingWithOptionalImage(modelFile, prompt, null, callback);
+    }
+
+    /**
+     * Production streaming generation supporting:
+     *   1. Zero-prefill KV-cache cloning ({@code cloneSession()}) when prompt begins with BASE_SYSTEM_PREFIX
+     *   2. Direct on-device multimodal {@code addImage(MPImage)} when a vision-capable `.task` pack is loaded
+     *   3. Seamless fallback to standard full-prompt session if cloning or vision isn't supported by the pack
+     */
+    String generateStreamingWithOptionalImage(
+            File modelFile,
+            String prompt,
+            Bitmap optionalImage,
+            TokenCallback callback) throws Exception {
         if (modelFile == null || !modelFile.isFile()) {
             throw new IOException("No offline .task model installed yet.");
         }
@@ -399,17 +515,58 @@ final class OnDeviceLlmEngine {
         LlmInference engine = ensureSharedEngine(modelFile);
         synchronized (SHARED_LOCK) {
             StringBuilder full = new StringBuilder();
-            LlmInferenceSession.LlmInferenceSessionOptions sessionOpts =
-                    LlmInferenceSession.LlmInferenceSessionOptions.builder()
-                            .setTopK(40)
-                            .setTopP(0.92f)
-                            .setTemperature(0.75f)
-                            .setRandomSeed((int) (System.nanoTime() & 0x7fffffffL))
-                            .build();
-            try (LlmInferenceSession session = LlmInferenceSession.createFromOptions(engine, sessionOpts)) {
-                activeSession.set(session);
+            boolean attachVision = optionalImage != null && !optionalImage.isRecycled() && sharedVisionEnabled;
+            String clonableDelta = (!attachVision && sharedKvCloneSupported) ? extractClonableDelta(prompt) : null;
+
+            LlmInferenceSession session = null;
+            boolean usedClone = false;
+            if (clonableDelta != null) {
+                ensureWarmBaseSessionLocked(engine);
+                if (sharedBaseSession != null) {
+                    try {
+                        session = sharedBaseSession.cloneSession();
+                        session.addQueryChunk(clonableDelta);
+                        usedClone = true;
+                    } catch (Throwable cloneFailed) {
+                        sharedKvCloneSupported = false;
+                        if (session != null) {
+                            try { session.close(); } catch (Throwable ignored) {}
+                            session = null;
+                        }
+                    }
+                }
+            }
+
+            if (session == null) {
+                LlmInferenceSession.LlmInferenceSessionOptions.Builder sessionBuilder =
+                        LlmInferenceSession.LlmInferenceSessionOptions.builder()
+                                .setTopK(40)
+                                .setTopP(0.92f)
+                                .setTemperature(0.75f)
+                                .setRandomSeed((int) (System.nanoTime() & 0x7fffffffL));
+                if (attachVision) {
+                    sessionBuilder.setGraphOptions(
+                            GraphOptions.builder().setEnableVisionModality(true).build());
+                }
+                session = LlmInferenceSession.createFromOptions(engine, sessionBuilder.build());
                 session.addQueryChunk(prompt);
-                ListenableFuture<String> future = session.generateResponseAsync((partialResult, done) -> {
+                if (attachVision) {
+                    try {
+                        Bitmap sized = MediaChatHelper.scaleDown(
+                                optionalImage.copy(Bitmap.Config.ARGB_8888, false), 512);
+                        MPImage mpImg = new BitmapImageBuilder(sized).build();
+                        session.addImage(mpImg);
+                        if (!sized.isRecycled()) {
+                            sized.recycle();
+                        }
+                    } catch (Throwable ignored) {
+                    }
+                }
+            }
+
+            try (LlmInferenceSession active = session) {
+                activeSession.set(active);
+                ListenableFuture<String> future = active.generateResponseAsync((partialResult, done) -> {
                     if (partialResult != null) {
                         full.append(partialResult);
                     }
@@ -419,6 +576,9 @@ final class OnDeviceLlmEngine {
                 });
                 String finalText = future.get();
                 String best = (finalText != null && !finalText.trim().isEmpty()) ? finalText : full.toString();
+                if (best.trim().isEmpty() && usedClone) {
+                    sharedKvCloneSupported = false;
+                }
                 return cleanResponse(best);
             } finally {
                 activeSession.set(null);
@@ -490,6 +650,13 @@ final class OnDeviceLlmEngine {
     }
 
     private static void releaseSharedEngineLocked() {
+        if (sharedBaseSession != null) {
+            try {
+                sharedBaseSession.close();
+            } catch (Exception ignored) {
+            }
+            sharedBaseSession = null;
+        }
         if (sharedEngine != null) {
             try {
                 sharedEngine.close();
@@ -498,6 +665,8 @@ final class OnDeviceLlmEngine {
             sharedEngine = null;
             sharedLoadedPath = "";
             sharedActiveBackend = "CPU";
+            sharedVisionEnabled = false;
+            sharedKvCloneSupported = true;
         }
     }
 }

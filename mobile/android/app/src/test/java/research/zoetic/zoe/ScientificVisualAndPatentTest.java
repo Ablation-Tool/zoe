@@ -183,4 +183,46 @@ public class ScientificVisualAndPatentTest {
         float illumSim = PatentReverseImageEngine.compareSignatures(sRing1, sDimRing);
         assertTrue("Expected illumination-invariant contour match >= 0.90, got " + illumSim, illumSim >= 0.90f);
     }
+
+    @Test
+    public void cleanRoomVisualAtlasLoadsAll18ArchetypesAndKvCloneDeltaWorks() throws Exception {
+        // Verify generated clean-room offline visual atlas (Haeckel + Physical CPC geometry)
+        java.nio.file.Path atlasPath = java.nio.file.Paths.get("src/main/assets/zoe_visual_atlas.json");
+        assertTrue("Expected zoe_visual_atlas.json to exist", java.nio.file.Files.isRegularFile(atlasPath));
+        String json = new String(java.nio.file.Files.readAllBytes(atlasPath), java.nio.charset.StandardCharsets.UTF_8);
+        List<VisionPriorStore.Prototype> atlas = VisionPriorStore.deserializeJson(json);
+        assertEquals(18, atlas.size());
+
+        // Synthetic optical ring matches clean-room atlas offline; user-taught prototype wins priority!
+        float[] ring = new float[32 * 32];
+        for (int y = 0; y < 32; y++) {
+            for (int x = 0; x < 32; x++) {
+                double nx = ((x + 0.5) / 32.0) * 2.0 - 1.0;
+                double ny = ((y + 0.5) / 32.0) * 2.0 - 1.0;
+                double r = Math.hypot(nx, ny);
+                ring[y * 32 + x] = (r >= 0.48 && r <= 0.76) ? 1f : 0f;
+            }
+        }
+        PatentReverseImageEngine.VisualSignature ringSig = PatentReverseImageEngine.extractFromGray32(ring);
+        VisionPriorStore.MatchResult atlasHit = VisionPriorStore.findBestMatchWithAtlas(
+                java.util.Collections.emptyList(), atlas, ringSig,
+                VisionPriorStore.DEFAULT_MIN_SCORE, VisionPriorStore.ATLAS_MIN_SCORE);
+        assertTrue("Expected atlas baseline match on optical lens ring",
+                atlasHit != null && atlasHit.prototype.label.contains("Lens Ring"));
+
+        List<VisionPriorStore.Prototype> userStore = VisionPriorStore.teachOrReinforce(
+                java.util.Collections.emptyList(), "My Camera Filter Ring", ringSig, "user_confirmed", "", "58 mm", 5000L);
+        VisionPriorStore.MatchResult userPriority = VisionPriorStore.findBestMatchWithAtlas(
+                userStore, atlas, ringSig,
+                VisionPriorStore.DEFAULT_MIN_SCORE, VisionPriorStore.ATLAS_MIN_SCORE);
+        assertEquals("My Camera Filter Ring", userPriority.prototype.label);
+
+        // Verify OnDeviceLlmEngine KV-cache clone prefix split & multimodal pack detection
+        String fullPrompt = OnDeviceLlmEngine.buildChatMlPrompt("Hello Zoe", java.util.Collections.emptyList(), "", "");
+        String delta = OnDeviceLlmEngine.extractClonableDelta(fullPrompt);
+        assertTrue(delta != null && delta.contains("Hello Zoe") && !delta.contains("<|im_start|>system"));
+
+        assertTrue(OnDeviceLlmEngine.supportsNativeVision(new java.io.File("gemma-3n-E2B-it-int4-vision.task")));
+        assertFalse(OnDeviceLlmEngine.supportsNativeVision(new java.io.File("Qwen2.5-1.5B-Instruct.task")));
+    }
 }

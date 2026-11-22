@@ -85,20 +85,20 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 4));
+        header.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 4));
         header.addView(Ui.topBar(this, "Creative Studio", null));
 
-        // Clean segmented pill bar (Apple Photos style)
+        // Clean segmented pill bar (strict 20dp concentric geometry)
         LinearLayout tabRow = new LinearLayout(this);
         tabRow.setOrientation(LinearLayout.HORIZONTAL);
-        tabRow.setBackground(Ui.cardBackground(this, 22));
+        tabRow.setBackground(Ui.cardBackground(this, 20));
         tabRow.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4));
         tabImageBtn = pillChip("Image Lab", v -> showTab(true));
         tabImageBtn.setId(R.id.studio_tab_image);
         tabVideoBtn = pillChip("Video Maker", v -> showTab(false));
         tabVideoBtn.setId(R.id.studio_tab_video);
         LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f);
-        tlp.setMargins(0, 0, Ui.dp(this, 4), 0);
+        tlp.setMargins(0, 0, Ui.dp(this, 6), 0);
         tabRow.addView(tabImageBtn, tlp);
         tabRow.addView(tabVideoBtn, new LinearLayout.LayoutParams(0, Ui.dp(this, 38), 1f));
         header.addView(tabRow);
@@ -111,8 +111,10 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
+        scroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout body = Ui.vertical(this);
-        body.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 36));
+        body.setBackgroundColor(Color.TRANSPARENT);
+        body.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 32));
 
         imagePanel = buildImageLabPanel();
         videoPanel = buildVideoMakerPanel();
@@ -131,11 +133,12 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
     private LinearLayout buildImageLabPanel() {
         LinearLayout panel = Ui.vertical(this);
+        panel.setBackgroundColor(Color.TRANSPARENT);
 
         imagePreview = new ImageView(this);
         imagePreview.setId(R.id.studio_image_preview);
         imagePreview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imagePreview.setBackground(Ui.cardBackground(this, 22));
+        imagePreview.setBackground(Ui.cardBackground(this, 20));
         imagePreview.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
         LinearLayout.LayoutParams imgLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 250));
@@ -298,11 +301,12 @@ public final class CreativeStudioActivity extends ComponentActivity {
 
     private LinearLayout buildVideoMakerPanel() {
         LinearLayout panel = Ui.vertical(this);
+        panel.setBackgroundColor(Color.TRANSPARENT);
 
         videoPreview = new ImageView(this);
         videoPreview.setId(R.id.studio_video_preview);
         videoPreview.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        videoPreview.setBackground(Ui.cardBackground(this, 22));
+        videoPreview.setBackground(Ui.cardBackground(this, 20));
         videoPreview.setPadding(Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
         LinearLayout.LayoutParams vpLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 230));

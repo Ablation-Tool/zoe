@@ -290,22 +290,57 @@ final class DeviceAiController {
         });
     }
 
+    /**
+     * Silently checks whether the device's public AICore service already has Gemini Nano AVAILABLE
+     * (never triggers an unrequested download!) so supported devices get instant on-device descriptions.
+     */
+    void autoPrepareQuietly() {
+        if (closed || !aiCorePresent || describer == null || ready) {
+            return;
+        }
+        Futures.addCallback(describer.checkFeatureStatus(), new FutureCallback<Integer>() {
+            @Override
+            public void onSuccess(Integer status) {
+                if (!closed && status != null && status == FeatureStatus.AVAILABLE) {
+                    ready = true;
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable ignored) {
+            }
+        }, executor);
+    }
+
     void describe(Bitmap bitmap, Consumer<String> completion) {
-        if (!ready || closed || !aiCorePresent || describer == null) {
+        if (!ready || closed || !aiCorePresent || describer == null || bitmap == null || bitmap.isRecycled()) {
             executor.execute(() -> completion.accept(null));
             return;
         }
+        final java.util.concurrent.atomic.AtomicBoolean finished = new java.util.concurrent.atomic.AtomicBoolean(false);
+        final Runnable guard = () -> {
+            if (finished.compareAndSet(false, true)) {
+                completion.accept(null);
+            }
+        };
+        handler.postDelayed(guard, 5_000L);
         ImageDescriptionRequest request = ImageDescriptionRequest.builder(bitmap).build();
         Futures.addCallback(describer.runInference(request), new FutureCallback<ImageDescriptionResult>() {
             @Override
             public void onSuccess(ImageDescriptionResult result) {
-                completion.accept(closed ? null : result.getDescription());
+                handler.removeCallbacks(guard);
+                if (finished.compareAndSet(false, true)) {
+                    completion.accept(closed || result == null ? null : result.getDescription());
+                }
             }
 
             @Override
             public void onFailure(Throwable error) {
-                reportError("Device AI inference failed: " + error.getMessage());
-                completion.accept(null);
+                handler.removeCallbacks(guard);
+                if (finished.compareAndSet(false, true)) {
+                    reportError("Device AI inference failed: " + (error == null ? "unknown" : error.getMessage()));
+                    completion.accept(null);
+                }
             }
         }, executor);
     }

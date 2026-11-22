@@ -29,8 +29,10 @@ import java.util.Map;
  */
 final class VisionPriorStore {
     static final float DEFAULT_MIN_SCORE = 0.78f;
+    static final float ATLAS_MIN_SCORE = 0.84f;
     static final int MAX_PROTOTYPES = 120;
     private static final String FILE_NAME = "zoe_vision_priors.json";
+    private static final String ATLAS_ASSET = "zoe_visual_atlas.json";
 
     static final class Prototype {
         final String label;
@@ -74,6 +76,8 @@ final class VisionPriorStore {
                     .append("% contour match · ");
             if ("patent_cpc".equals(prototype.source)) {
                 sb.append("patent structural prior");
+            } else if ("atlas_baseline".equals(prototype.source)) {
+                sb.append("Haeckel/CPC offline atlas");
             } else {
                 sb.append("learned offline");
             }
@@ -316,9 +320,48 @@ final class VisionPriorStore {
         return out;
     }
 
+    /**
+     * Checks user-taught & CPC-learned prototypes first at {@code userMinScore}, then falls back
+     * to the clean-room offline Haeckel/CPC structural atlas ONLY at a stricter {@code atlasMinScore}.
+     */
+    static MatchResult findBestMatchWithAtlas(List<Prototype> userStore,
+                                              List<Prototype> atlas,
+                                              PatentReverseImageEngine.VisualSignature query,
+                                              float userMinScore,
+                                              float atlasMinScore) {
+        MatchResult userHit = findBestMatch(userStore, query, userMinScore);
+        if (userHit != null) {
+            return userHit;
+        }
+        return findBestMatch(atlas, query, atlasMinScore);
+    }
+
     // --- Android App-Private Storage Helpers (RAM-cached for <0.1ms zero-disk-I/O live lookups) ---
 
     private static List<Prototype> ramCache;
+    private static List<Prototype> atlasCache;
+
+    static synchronized List<Prototype> loadBaselineAtlas(Context context) {
+        if (atlasCache != null) {
+            return atlasCache;
+        }
+        if (context == null) {
+            return Collections.emptyList();
+        }
+        try (java.io.InputStream in = context.getAssets().open(ATLAS_ASSET);
+             java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream()) {
+            byte[] buf = new byte[4096];
+            int n;
+            while ((n = in.read(buf)) != -1) {
+                out.write(buf, 0, n);
+            }
+            atlasCache = deserializeJson(new String(out.toByteArray(), StandardCharsets.UTF_8));
+            return atlasCache;
+        } catch (Exception ignored) {
+            atlasCache = Collections.emptyList();
+            return atlasCache;
+        }
+    }
 
     static synchronized List<Prototype> loadAll(Context context) {
         if (context == null) {
@@ -396,24 +439,25 @@ final class VisionPriorStore {
         if (context == null || sig == null) {
             return null;
         }
-        return findBestMatch(loadAll(context), sig, minScore);
+        return findBestMatchWithAtlas(loadAll(context), loadBaselineAtlas(context), sig, minScore, ATLAS_MIN_SCORE);
     }
 
     /**
-     * Silent helper for Zoe Explore: checks learned on-device structural memory in <2ms offline
-     * and returns a brief context line for Zoe's brain (never displays UI popups!).
+     * Silent helper for Zoe Explore: checks user learned memory + clean-room offline structural atlas
+     * in <0.1ms RAM-cached lookup and returns a brief context line for Zoe's brain (never UI popups!).
      */
     static String buildSilentExploreContext(Context context, Bitmap liveFrame) {
         if (context == null || liveFrame == null || liveFrame.isRecycled()) {
             return "";
         }
         List<Prototype> stored = loadAll(context);
-        if (stored.isEmpty()) {
+        List<Prototype> atlas = loadBaselineAtlas(context);
+        if (stored.isEmpty() && atlas.isEmpty()) {
             return "";
         }
         PatentReverseImageEngine.VisualSignature sig =
                 PatentReverseImageEngine.extractFromBitmap(liveFrame, true);
-        MatchResult match = findBestMatch(stored, sig, DEFAULT_MIN_SCORE);
+        MatchResult match = findBestMatchWithAtlas(stored, atlas, sig, DEFAULT_MIN_SCORE, ATLAS_MIN_SCORE);
         return match == null ? "" : match.formatSilentPromptHint();
     }
 

@@ -453,4 +453,17 @@ public enum ScientificVisualAndPatentCore {
         }
         return best.map { ($0, bestRaw) }
     }
+
+    public static func findBestMatchWithAtlas(
+        userStore: [VisionPrototype],
+        atlas: [VisionPrototype],
+        query: VisualSignature,
+        userMinScore: Double = 0.78,
+        atlasMinScore: Double = 0.84
+    ) -> (prototype: VisionPrototype, score: Double)? {
+        if let userHit = findBestMatch(store: userStore, query: query, minScore: userMinScore) {
+            return userHit
+        }
+        return findBestMatch(store: atlas, query: query, minScore: atlasMinScore)
+    }
 }

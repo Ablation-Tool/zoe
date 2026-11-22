@@ -21,6 +21,8 @@ import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
+import androidx.camera.core.resolutionselector.ResolutionSelector;
+import androidx.camera.core.resolutionselector.ResolutionStrategy;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
@@ -134,7 +136,13 @@ final class GuidedVisionView extends ScrollView {
         textRecognizer = MediaChatHelper.getSharedTextRecognizer();
         imageLabeler = MediaChatHelper.getSharedImageLabeler();
         analysisExecutor = Executors.newSingleThreadExecutor();
-        analysisExecutor.execute(() -> VisionPriorStore.loadAll(activity));
+        analysisExecutor.execute(() -> {
+            VisionPriorStore.loadAll(activity);
+            VisionPriorStore.loadBaselineAtlas(activity);
+        });
+        if (DeviceAiController.hasRealAiCoreService(activity)) {
+            ensureDeviceAi().autoPrepareQuietly();
+        }
 
         Button start = Ui.primaryButton(activity, "Start camera", Ui.CYAN, view -> activity.startCamera());
         start.setId(R.id.start_camera);
@@ -283,7 +291,13 @@ final class GuidedVisionView extends ScrollView {
         }
         Preview preview = new Preview.Builder().build();
         preview.setSurfaceProvider(previewView.getSurfaceProvider());
+        ResolutionSelector fastAnalysisResolution = new ResolutionSelector.Builder()
+                .setResolutionStrategy(new ResolutionStrategy(
+                        new android.util.Size(1280, 720),
+                        ResolutionStrategy.FALLBACK_RULE_CLOSEST_HIGHER_THEN_LOWER))
+                .build();
         ImageAnalysis analysis = new ImageAnalysis.Builder()
+                .setResolutionSelector(fastAnalysisResolution)
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build();
         analysis.setAnalyzer(analysisExecutor, this::analyze);

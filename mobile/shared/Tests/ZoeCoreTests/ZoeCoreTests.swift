@@ -400,6 +400,9 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(mem[0].confirmCount, 2)
         XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sB)?.prototype.label, "Optical Ring")
         XCTAssertNil(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sBar))
+        let atlas = [ScientificVisualAndPatentCore.VisionPrototype(label: "Atlas Ring", source: "atlas_baseline", signature: sA)]
+        XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: [], atlas: atlas, query: sA)?.prototype.label, "Atlas Ring")
+        XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: mem, atlas: atlas, query: sA)?.prototype.label, "Optical Ring")
     }
 
     private let trinityFixture = """

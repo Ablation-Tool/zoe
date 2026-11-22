@@ -47,14 +47,16 @@ public final class PrivacyVaultActivity extends ComponentActivity {
 
         LinearLayout header = Ui.vertical(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setPadding(Ui.dp(this, 18), Ui.dp(this, 4), Ui.dp(this, 18), Ui.dp(this, 2));
+        header.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 2));
         header.addView(Ui.topBar(this, "Privacy Vault", null));
         root.addView(header);
 
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
+        scroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout body = Ui.vertical(this);
-        body.setPadding(Ui.dp(this, 18), Ui.dp(this, 8), Ui.dp(this, 18), Ui.dp(this, 36));
+        body.setBackgroundColor(Color.TRANSPARENT);
+        body.setPadding(Ui.dp(this, 16), Ui.dp(this, 8), Ui.dp(this, 16), Ui.dp(this, 32));
 
         boolean hw = ZoeSignalCrypto.isHardwareKeystoreActive();
         status = Ui.text(this,
@@ -67,13 +69,13 @@ public final class PrivacyVaultActivity extends ComponentActivity {
         status.setBackground(Ui.tonalPillDrawable(this, Ui.withAlpha(Ui.resolveColor(this, Ui.GREEN), 28), Ui.GREEN, 16));
         body.addView(status);
 
-        // 1. Spacious 60-Digit Safety Number Card
+        // 1. Spacious 60-Digit Safety Number Card (20dp symmetric card radius)
         LinearLayout fpCard = Ui.vertical(this);
-        fpCard.setBackground(Ui.cardBackground(this, 24));
-        fpCard.setPadding(Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 16));
+        fpCard.setBackground(Ui.cardBackground(this, 20));
+        fpCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         LinearLayout.LayoutParams cardLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        cardLp.setMargins(0, Ui.dp(this, 14), 0, Ui.dp(this, 14));
+        cardLp.setMargins(0, Ui.dp(this, 12), 0, Ui.dp(this, 12));
 
         fpCard.addView(Ui.text(this, "60-DIGIT SAFETY NUMBER", 11.5f, Ui.COBALT));
         safetyNumberView = Ui.text(this, "Generating identity key…", 16.5f, Ui.TEXT);
@@ -94,10 +96,10 @@ public final class PrivacyVaultActivity extends ComponentActivity {
         fpCard.addView(Ui.buttonRow(this, copyKeyBtn, shareKeySignalBtn));
         body.addView(fpCard, cardLp);
 
-        // 2. Clean E2EE Note Seal Card
+        // 2. Clean E2EE Note Seal Card (20dp symmetric card radius)
         LinearLayout e2eeCard = Ui.vertical(this);
-        e2eeCard.setBackground(Ui.cardBackground(this, 24));
-        e2eeCard.setPadding(Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18));
+        e2eeCard.setBackground(Ui.cardBackground(this, 20));
+        e2eeCard.setPadding(Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16), Ui.dp(this, 16));
         e2eeCard.addView(Ui.text(this, "END-TO-END NOTE SEAL · ECDH + AES-256-GCM", 11.5f, Ui.GOLD));
 
         peerKeyInput = styledInput("Peer Zoe Public Key (blank = self)");

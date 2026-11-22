@@ -168,10 +168,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
         nativeVoice = new ZoeNativeVoice();
         localLlm = new OnDeviceLlmEngine(this);
 
-        // Pre-warm on-device ML Kit singletons & shared LiteRT LLM in background so your first turn is instant!
+        // Pre-warm on-device ML Kit singletons, clean-room visual atlas & shared LiteRT LLM + KV-cache in background!
         executor.execute(() -> {
             MediaChatHelper.warmUp();
             VisionPriorStore.loadAll(this);
+            VisionPriorStore.loadBaselineAtlas(this);
             File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
             if (localModel != null) {
                 localLlm.warmUp(localModel);
@@ -1520,12 +1521,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
         }
 
-        // 3. On-Device Zoe Local 1.5B Neural Streaming (100% offline!)
+        // 3. On-Device Zoe Local Neural Streaming (GPU-first + KV-Clone + Native Multimodal Vision if pack supports it!)
         File localModel = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
         if (localModel != null) {
             try {
                 String chatMl = OnDeviceLlmEngine.buildChatMlPrompt(fusedPrompt, sessionHistory, "", webCtx);
-                String reply = localLlm.generateStreaming(localModel, chatMl, (partial, done) ->
+                String reply = localLlm.generateStreamingWithOptionalImage(localModel, chatMl, liveFrame, (partial, done) ->
                         handleStreamChunk(myTurn, partial, streamTtsNow, spokenOffset, startedSpeaking));
                 finalizeStreamedTurn(myTurn, reply, streamTtsNow, spokenOffset[0], startedSpeaking[0]);
                 return;
