@@ -187,6 +187,9 @@ def verify_live_http_endpoints() -> Dict[str, bool]:
                 ("/api/os/mind", "json"),
                 ("/api/os/mind/gem.svg", "svg"),
                 ("/api/kloster/elegance", "json"),
+                ("/api/kloster/thermo", "json"),
+                ("/api/kloster/riemannian", "json"),
+                ("/api/kloster/transport", "json"),
                 ("/api/orbit/master", "json"),
                 ("/orbit", "html"),
             ):
@@ -228,6 +231,9 @@ def main() -> int:
         ("live_http_api_os_mind", http_ok.get("/api/os/mind", False)),
         ("live_http_api_os_mind_svg", http_ok.get("/api/os/mind/gem.svg", False)),
         ("live_http_api_kloster_elegance", http_ok.get("/api/kloster/elegance", False)),
+        ("live_http_api_kloster_thermo", http_ok.get("/api/kloster/thermo", False)),
+        ("live_http_api_kloster_riemannian", http_ok.get("/api/kloster/riemannian", False)),
+        ("live_http_api_kloster_transport", http_ok.get("/api/kloster/transport", False)),
         ("live_http_api_orbit_master", http_ok.get("/api/orbit/master", False)),
         ("live_http_html_orbit_dashboard", http_ok.get("/orbit", False)),
     ]

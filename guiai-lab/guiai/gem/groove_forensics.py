@@ -349,9 +349,18 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
 
     profiles = [a_rigid, a_dilla, a_poly, a_mod, a_noise]
 
-    # Cross-pollinated #5 Kloster Spectral Distance D_K between all 5 groove IOI spectra
+    # Cross-pollinated #5 Kloster Spectral Distance D_K & Theorem 7 Wasserstein-1 Swing Work
+    from .kloster_optimal_transport import kloster_l2_persistence_integral, kloster_wasserstein1
+
     n_p = len(profiles)
     dk_mat = np.zeros((n_p, n_p), dtype=np.float64)
+    p_rigid = np.asarray(profiles[0]["ioi_probs"], dtype=np.float64)
+    groove_w1_from_rigid: Dict[str, float] = {}
+    groove_gini: Dict[str, float] = {}
+    for prof in profiles:
+        arr_p = np.asarray(prof["ioi_probs"], dtype=np.float64)
+        groove_w1_from_rigid[prof["name"]] = round(kloster_wasserstein1(arr_p, p_rigid), 6)
+        groove_gini[prof["name"]] = round(kloster_l2_persistence_integral(arr_p)[1], 6)
     for i in range(n_p):
         for j in range(i + 1, n_p):
             d = kloster_spectral_distance(
@@ -388,6 +397,12 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
         "negative_control_poisson_low_plv": a_noise["plv"] < 0.35 and a_noise["kloster_renyi_h2"] > a_dilla["kloster_renyi_h2"],
         "playable_groove_showcase_wav_rendered": wav_showcase["bytes"] > 1_000_000,
         "stern_brocot_6_ratios_locked": all(r["plv"] > 0.95 for r in stern_brocot_spectrum),
+        "theorem7_groove_w1_orders_rigid_dilla_poisson": (
+            groove_w1_from_rigid["rigid_quantized_120bpm"] == 0.0
+            and groove_w1_from_rigid["rigid_quantized_120bpm"]
+            < groove_w1_from_rigid["human_dilla_pocket_swing"]
+            < groove_w1_from_rigid["negative_control_poisson_noise"]
+        ),
     }
 
     report = {
@@ -395,6 +410,10 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
         "profiles": profiles,
         "stern_brocot_polyrhythm_spectrum": stern_brocot_spectrum,
         "groove_showcase_wav": wav_showcase,
+        "theorem7_groove_transport": {
+            "w1_from_rigid_metronome": groove_w1_from_rigid,
+            "kloster_gini_by_profile": groove_gini,
+        },
         "polyrhythm_plv_summary": {
             "3:2_clave": round(plv_3_2, 5),
             "4:3_cross": round(plv_4_3, 5),

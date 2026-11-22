@@ -55,13 +55,13 @@
       "sloc": 184
     },
     {
-      "avg_cc": 7.5,
+      "avg_cc": 4.1,
       "file": "guiai-lab/guiai/gem/alife_ecosystem.py",
       "grade": "B",
-      "h2": 0.8835,
-      "max_cc": 18,
-      "mi": 49.206,
-      "sloc": 252
+      "h2": 1.5109,
+      "max_cc": 17,
+      "mi": 53.385,
+      "sloc": 290
     },
     {
       "avg_cc": 6.468,
@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 14.714,
+      "avg_cc": 15.571,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.4738,
-      "max_cc": 80,
-      "mi": 53.397,
-      "sloc": 1341
+      "h2": 1.4489,
+      "max_cc": 86,
+      "mi": 53.156,
+      "sloc": 1356
     },
     {
       "avg_cc": 6.64,
@@ -469,13 +469,13 @@
       "sloc": 173
     },
     {
-      "avg_cc": 12.5,
+      "avg_cc": 12.75,
       "file": "guiai-lab/guiai/gem/groove_forensics.py",
       "grade": "B",
-      "h2": 1.6692,
+      "h2": 1.6571,
       "max_cc": 27,
-      "mi": 52.725,
-      "sloc": 350
+      "mi": 52.278,
+      "sloc": 368
     },
     {
       "avg_cc": 5.167,
@@ -494,6 +494,15 @@
       "max_cc": 25,
       "mi": 62.09,
       "sloc": 563
+    },
+    {
+      "avg_cc": 2.7,
+      "file": "guiai-lab/guiai/gem/kloster_optimal_transport.py",
+      "grade": "A",
+      "h2": 1.8126,
+      "max_cc": 8,
+      "mi": 65.565,
+      "sloc": 231
     },
     {
       "avg_cc": 5.4,
@@ -1018,13 +1027,13 @@
       "sloc": 44
     },
     {
-      "avg_cc": 6.5,
+      "avg_cc": 7.0,
       "file": "guiai-lab/guiai/gem/zoe_choral_composer.py",
       "grade": "B",
-      "h2": 0.9252,
-      "max_cc": 14,
-      "mi": 53.965,
-      "sloc": 229
+      "h2": 0.8714,
+      "max_cc": 16,
+      "mi": 53.332,
+      "sloc": 250
     },
     {
       "avg_cc": 4.0,
@@ -1680,8 +1689,8 @@
       "grade": "B",
       "h2": 1.848,
       "max_cc": 15,
-      "mi": 52.259,
-      "sloc": 427
+      "mi": 52.222,
+      "sloc": 428
     },
     {
       "avg_cc": 6.714,
@@ -1936,6 +1945,15 @@
       "sloc": 131
     },
     {
+      "avg_cc": 3.556,
+      "file": "scripts/verify_kloster_optimal_transport.py",
+      "grade": "B",
+      "h2": 1.7497,
+      "max_cc": 9,
+      "mi": 58.216,
+      "sloc": 173
+    },
+    {
       "avg_cc": 9.0,
       "file": "scripts/verify_kloster_riemannian.py",
       "grade": "B",
@@ -2058,8 +2076,8 @@
       "grade": "B",
       "h2": 1.0273,
       "max_cc": 12,
-      "mi": 46.98,
-      "sloc": 208
+      "mi": 46.101,
+      "sloc": 214
     },
     {
       "avg_cc": 4.5,
@@ -2067,8 +2085,8 @@
       "grade": "A",
       "h2": 1.5612,
       "max_cc": 8,
-      "mi": 61.634,
-      "sloc": 136
+      "mi": 61.512,
+      "sloc": 138
     },
     {
       "avg_cc": 5.5,
@@ -2149,26 +2167,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "f9e7635dca3f3ce671d021eee62d1fd93538309ea01ec3e97804377e78da2536",
+  "evidence_sha256": "226553fc8ec25c57d353f157ae9407ca42b8d55e83b187ddbc67f44c9f81ac25",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6421,
-    "files_scanned": 237,
+    "corr_avg_cc_vs_mi": -0.6408,
+    "files_scanned": 239,
     "grade_distribution": {
-      "A": 119,
-      "B": 109,
+      "A": 120,
+      "B": 110,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.53,
-    "mean_mi": 58.602,
+    "mean_avg_cc": 7.486,
+    "mean_mi": 58.637,
     "median_mi": 60.128,
-    "orbit_mean_avg_cc": 7.638,
-    "orbit_mean_mi": 57.743,
+    "orbit_mean_avg_cc": 7.434,
+    "orbit_mean_mi": 57.978,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2704,
-    "total_sloc": 71420
+    "total_functions": 2729,
+    "total_sloc": 71925
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2198,30 +2216,30 @@
   },
   "orbit_modules": [
     {
-      "avg_cc": 7.5,
-      "comment_ratio": 0.053,
+      "avg_cc": 4.1,
+      "comment_ratio": 0.003,
       "file": "guiai-lab/guiai/gem/alife_ecosystem.py",
-      "functions": 4,
+      "functions": 10,
       "grade": "B",
-      "halstead_length": 1416,
-      "halstead_vocab": 296,
-      "halstead_volume": 11624.59,
-      "kloster_cc_a_005": 4,
-      "kloster_cc_m4_root": 0.6011,
-      "kloster_cc_renyi_h2": 0.8835,
+      "halstead_length": 1585,
+      "halstead_vocab": 323,
+      "halstead_volume": 13211.59,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.4163,
+      "kloster_cc_renyi_h2": 1.5109,
       "low_maintainability_flag": false,
-      "max_cc": 18,
-      "mi_file_radon": 25.322,
-      "mi_score": 49.206,
+      "max_cc": 17,
+      "mi_file_radon": 14.403,
+      "mi_score": 53.385,
       "most_complex_function": {
-        "cc": 18,
-        "fn_mi": 33.94,
-        "fn_sloc": 150,
-        "lineno": 38,
+        "cc": 17,
+        "fn_mi": 34.34,
+        "fn_sloc": 86,
+        "lineno": 136,
         "name": "_simulate_ecosystem"
       },
-      "sloc": 252,
-      "total_cc": 30
+      "sloc": 290,
+      "total_cc": 41
     },
     {
       "avg_cc": 10.5,
@@ -2302,30 +2320,30 @@
       "total_cc": 25
     },
     {
-      "avg_cc": 12.5,
-      "comment_ratio": 0.0505,
+      "avg_cc": 12.75,
+      "comment_ratio": 0.0483,
       "file": "guiai-lab/guiai/gem/groove_forensics.py",
       "functions": 8,
       "grade": "B",
-      "halstead_length": 1921,
-      "halstead_vocab": 397,
-      "halstead_volume": 16583.98,
+      "halstead_length": 1988,
+      "halstead_vocab": 408,
+      "halstead_volume": 17240.78,
       "kloster_cc_a_005": 5,
-      "kloster_cc_m4_root": 0.3161,
-      "kloster_cc_renyi_h2": 1.6692,
+      "kloster_cc_m4_root": 0.3192,
+      "kloster_cc_renyi_h2": 1.6571,
       "low_maintainability_flag": false,
       "max_cc": 27,
-      "mi_file_radon": 11.48,
-      "mi_score": 52.725,
+      "mi_file_radon": 10.407,
+      "mi_score": 52.278,
       "most_complex_function": {
         "cc": 27,
-        "fn_mi": 44.95,
+        "fn_mi": 44.74,
         "fn_sloc": 52,
         "lineno": 232,
         "name": "render_groove_showcase_wav"
       },
-      "sloc": 350,
-      "total_cc": 100
+      "sloc": 368,
+      "total_cc": 102
     },
     {
       "avg_cc": 6.059,
@@ -2354,30 +2372,30 @@
       "total_cc": 103
     },
     {
-      "avg_cc": 6.5,
-      "comment_ratio": 0.0697,
+      "avg_cc": 7.0,
+      "comment_ratio": 0.0703,
       "file": "guiai-lab/guiai/gem/zoe_choral_composer.py",
       "functions": 4,
       "grade": "B",
-      "halstead_length": 1423,
-      "halstead_vocab": 383,
-      "halstead_volume": 12211.05,
+      "halstead_length": 1599,
+      "halstead_vocab": 411,
+      "halstead_volume": 13884.11,
       "kloster_cc_a_005": 4,
-      "kloster_cc_m4_root": 0.5524,
-      "kloster_cc_renyi_h2": 0.9252,
+      "kloster_cc_m4_root": 0.5802,
+      "kloster_cc_renyi_h2": 0.8714,
       "low_maintainability_flag": false,
-      "max_cc": 14,
-      "mi_file_radon": 28.037,
-      "mi_score": 53.965,
+      "max_cc": 16,
+      "mi_file_radon": 26.594,
+      "mi_score": 53.332,
       "most_complex_function": {
-        "cc": 14,
-        "fn_mi": 37.71,
-        "fn_sloc": 124,
-        "lineno": 164,
+        "cc": 16,
+        "fn_mi": 35.03,
+        "fn_sloc": 149,
+        "lineno": 165,
         "name": "compose_kloster_choral_nocturne"
       },
-      "sloc": 229,
-      "total_cc": 26
+      "sloc": 250,
+      "total_cc": 28
     },
     {
       "avg_cc": 2.2,
@@ -2485,28 +2503,28 @@
     },
     {
       "avg_cc": 5.778,
-      "comment_ratio": 0.0477,
+      "comment_ratio": 0.0476,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
       "functions": 9,
       "grade": "B",
-      "halstead_length": 1430,
-      "halstead_vocab": 423,
-      "halstead_volume": 12476.05,
+      "halstead_length": 1431,
+      "halstead_vocab": 424,
+      "halstead_volume": 12489.65,
       "kloster_cc_a_005": 7,
       "kloster_cc_m4_root": 0.2991,
       "kloster_cc_renyi_h2": 1.848,
       "low_maintainability_flag": false,
       "max_cc": 15,
-      "mi_file_radon": 16.652,
-      "mi_score": 52.259,
+      "mi_file_radon": 16.617,
+      "mi_score": 52.222,
       "most_complex_function": {
         "cc": 15,
-        "fn_mi": 41.99,
+        "fn_mi": 41.98,
         "fn_sloc": 88,
         "lineno": 333,
         "name": "cross_world_parser_fuzzing_audit"
       },
-      "sloc": 427,
+      "sloc": 428,
       "total_cc": 52
     },
     {

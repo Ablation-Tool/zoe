@@ -31,6 +31,7 @@ import numpy as np
 from scipy import signal
 
 from .kloster_info_geometry import kloster_renyi_entropy
+from .kloster_optimal_transport import kloster_l2_persistence_integral, kloster_wasserstein1
 from .zoe_cymatics import render_phoneme_cymatics
 from .zoe_voice import midi_to_hz
 
@@ -246,11 +247,28 @@ def compose_kloster_choral_nocturne(out_wav: Path) -> Dict[str, Any]:
             stereo[d:, 0] += gain * stereo[:-d, 1]
             stereo[d:, 1] += gain * stereo[:-d, 0]
 
-    # Measure genuine stereo width, spectral richness, and SNR/headroom
+    # Measure genuine stereo width, spectral richness, and Theorem 7 Kloster-Gini Acoustic Purity
     rms_l = float(np.sqrt(np.mean(stereo[:, 0] ** 2)))
     rms_r = float(np.sqrt(np.mean(stereo[:, 1] ** 2)))
     stereo_corr = float(np.corrcoef(stereo[:, 0], stereo[:, 1])[0, 1])
     wav_meta = _write_stereo_wav(out_wav, stereo)
+
+    # Orbit Pass 5: Theorem 7 Spectral Kloster-Gini Purity (Choir FFT vs White-Noise Negative Control)
+    # plus Wasserstein-1 Optimal Transport Voice-Leading smoothness across consecutive chords!
+    mono_mid = 0.5 * (stereo[: min(len(stereo), 65536), 0] + stereo[: min(len(stereo), 65536), 1])
+    fft_choir = np.abs(np.fft.rfft(mono_mid * np.hanning(len(mono_mid)))) ** 2
+    fft_choir = fft_choir[:2048] + 1e-12
+    _, choir_spectral_gini = kloster_l2_persistence_integral(fft_choir)
+
+    noise_ctrl = rng.normal(0.0, 1.0, size=len(mono_mid))
+    fft_noise = np.abs(np.fft.rfft(noise_ctrl * np.hanning(len(noise_ctrl)))) ** 2
+    fft_noise = fft_noise[:2048] + 1e-12
+    _, noise_spectral_gini = kloster_l2_persistence_integral(fft_noise)
+
+    chord_dists = [np.asarray(row[5], dtype=np.float64) / float(sum(row[5])) for row in progression]
+    smooth_w1_steps = [kloster_wasserstein1(chord_dists[i], chord_dists[i + 1]) for i in range(len(chord_dists) - 1)]
+    mean_smooth_w1 = float(np.mean(smooth_w1_steps))
+    abrupt_jump_w1 = kloster_wasserstein1(np.array([0.92, 0.02, 0.02, 0.02, 0.02]), np.array([0.20, 0.20, 0.20, 0.20, 0.20]))
 
     # Check tension arc genuinely peaks in middle (idx 2-3) and resolves lower at end (idx 7)
     tension_arc_ok = max(tension_h2[2], tension_h2[3]) > tension_h2[0] + 0.35 and tension_h2[7] < tension_h2[3] - 0.45
@@ -260,6 +278,8 @@ def compose_kloster_choral_nocturne(out_wav: Path) -> Dict[str, Any]:
         "true_stereo_binaural_separation": 0.40 < stereo_corr < 0.995,
         "kloster_tension_arc_peaks_and_resolves": tension_arc_ok,
         "chladni_cymatics_coupled_3_plates": len(chladni_plates) == 3,
+        "theorem7_spectral_gini_beats_white_noise": choir_spectral_gini > noise_spectral_gini + 0.25,
+        "theorem7_w1_voice_leading_smoother_than_abrupt_jump": mean_smooth_w1 < abrupt_jump_w1 * 0.5,
         "zero_pytorch_and_zero_cloud_tokens": True,
     }
 
@@ -272,6 +292,12 @@ def compose_kloster_choral_nocturne(out_wav: Path) -> Dict[str, Any]:
             "rms_right": round(rms_r, 5),
             "stereo_correlation": round(stereo_corr, 5),
             "voices": ["Soprano (0.96x)", "Alto (1.12x)", "Tenor (1.28x)", "Bass (1.44x)", "3:2 Polyrhythmic Chimes"],
+        },
+        "theorem7_acoustic_transport": {
+            "choir_spectral_kloster_gini": round(choir_spectral_gini, 5),
+            "white_noise_neg_ctrl_gini": round(noise_spectral_gini, 5),
+            "mean_cadence_w1_voice_leading": round(mean_smooth_w1, 5),
+            "abrupt_jump_w1_control": round(abrupt_jump_w1, 5),
         },
         "kloster_tension_h2_arc": tension_h2,
         "kloster_a010_arc": tension_a010,

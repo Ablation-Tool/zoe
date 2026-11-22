@@ -1062,6 +1062,18 @@ def create_server(
                 else:
                     self._send_json(200, {"available": False})
                 return
+            if path == "/api/kloster/thermo":
+                rep_file = resolved_root / "evidence" / "kloster-thermodynamics" / "kloster-thermodynamics-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
+            if path == "/api/kloster/riemannian":
+                rep_file = resolved_root / "evidence" / "kloster-riemannian" / "kloster-riemannian-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
+            if path == "/api/kloster/transport":
+                rep_file = resolved_root / "evidence" / "kloster-optimal-transport" / "kloster-optimal-transport-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
             if path == "/api/orbit/master":
                 rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
                 if rep_file.is_file():
@@ -1078,17 +1090,20 @@ def create_server(
                 )
                 html = (
                     "<!doctype html><html><head><meta charset='utf-8'><title>Zoe 11-World Observatory</title>"
-                    "<style>body{background:#060a14;color:#eef5ff;font-family:system-ui,sans-serif;padding:28px;max-width:980px;margin:auto}"
+                    "<style>body{background:#060a14;color:#eef5ff;font-family:system-ui,sans-serif;padding:28px;max-width:1020px;margin:auto}"
                     "h1{color:#00e5ff}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{padding:10px;border-bottom:1px solid #1e2d4a;text-align:left}"
-                    ".pill{display:inline-block;padding:4px 10px;border:1px solid #ffb84d;border-radius:999px;color:#ffb84d;font-size:13px;margin-right:8px}</style></head><body>"
-                    f"<h1>Zoe :: 11-World Renaissance Observatory</h1>"
+                    ".pill{display:inline-block;padding:4px 10px;border:1px solid #ffb84d;border-radius:999px;color:#ffb84d;font-size:13px;margin:4px 8px 4px 0}</style></head><body>"
+                    f"<h1>Zoe :: 11-World Renaissance Observatory (Orbit Pass {doc.get('orbit_passes_completed', 5)})</h1>"
                     f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
                     f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
-                    f"<span class='pill'>Theorems 1-6 Proved</span><span class='pill'>0 Cloud Tokens</span></div>"
+                    f"<span class='pill'>Theorems 1-7 SymPy Proved</span><span class='pill'>SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
                     f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
                     "<p style='margin-top:20px;color:#9db2d1'>Live APIs: <a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "
                     "<a style='color:#7ce8ff' href='/api/os/mind/gem.svg'>/api/os/mind/gem.svg</a> · "
                     "<a style='color:#7ce8ff' href='/api/kloster/elegance'>/api/kloster/elegance</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/thermo'>/api/kloster/thermo</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/riemannian'>/api/kloster/riemannian</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/transport'>/api/kloster/transport</a> · "
                     "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
                 ).encode("utf-8")
                 self.send_response(200)

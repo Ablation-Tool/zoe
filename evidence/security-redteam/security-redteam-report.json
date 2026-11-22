@@ -139,8 +139,8 @@
     "source_image_read_only_unmodified": true
   },
   "supply_chain_attestation": {
-    "expected_files": 16,
-    "files_attested": 16,
+    "expected_files": 17,
+    "files_attested": 17,
     "manifest_path": "evidence/renaissance-orbit/SHA256SUMS.orbit",
     "one_bit_tamper_detected": true,
     "verified": true

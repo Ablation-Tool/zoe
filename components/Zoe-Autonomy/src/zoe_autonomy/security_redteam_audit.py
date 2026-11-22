@@ -426,6 +426,7 @@ def supply_chain_sha256_attestation_audit(zoe_root: Path) -> Dict[str, Any]:
         "guiai-lab/guiai/gem/kloster_info_geometry.py",
         "guiai-lab/guiai/gem/kloster_thermodynamics.py",
         "guiai-lab/guiai/gem/kloster_riemannian_manifold.py",
+        "guiai-lab/guiai/gem/kloster_optimal_transport.py",
         "guiai-lab/guiai/gem/code_elegance_analyzer.py",
         "guiai-lab/guiai/gem/zoe_os.py",
         "guiai-lab/guiai/gem/groove_forensics.py",

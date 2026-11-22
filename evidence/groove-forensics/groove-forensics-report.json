@@ -8,14 +8,15 @@
     "polyrhythms_3_2_4_3_5_4_locked": true,
     "protracker_mod_parsed_cleanly": true,
     "rigid_zero_jitter_collapse": true,
-    "stern_brocot_6_ratios_locked": true
+    "stern_brocot_6_ratios_locked": true,
+    "theorem7_groove_w1_orders_rigid_dilla_poisson": true
   },
   "constitution": {
     "cloud_tokens_used": 0,
     "negative_control_preserved": true
   },
   "contract": "zoe-groove-forensics-polyrhythm/v1",
-  "evidence_sha256": "e96fcc074c0470c50ddc991d7dec03f907114ea00fe4f2b118b8af15d5f8253f",
+  "evidence_sha256": "e6f5930a341124522f5e04e212548dd0db060ca1700a5587765612858fd51751",
   "groove_showcase_wav": {
     "bytes": 2116844,
     "duration_sec": 12.0,
@@ -1660,5 +1661,21 @@
       "plv": 0.99863,
       "ratio": "7:5"
     }
-  ]
+  ],
+  "theorem7_groove_transport": {
+    "kloster_gini_by_profile": {
+      "human_dilla_pocket_swing": 0.903106,
+      "negative_control_poisson_noise": 0.646383,
+      "polyrhythm_3_2_clave": 0.887006,
+      "protracker_amiga_mod_mk": 0.918416,
+      "rigid_quantized_120bpm": 0.972222
+    },
+    "w1_from_rigid_metronome": {
+      "human_dilla_pocket_swing": 0.038058,
+      "negative_control_poisson_noise": 0.047178,
+      "polyrhythm_3_2_clave": 0.038136,
+      "protracker_amiga_mod_mk": 0.036308,
+      "rigid_quantized_120bpm": 0.0
+    }
+  }
 }

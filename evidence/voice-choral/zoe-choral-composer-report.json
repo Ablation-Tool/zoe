@@ -17,6 +17,8 @@
     "choral_3part_non_clipping_rms": true,
     "kloster_tension_arc_peaks_and_resolves": true,
     "pure_dsp_44100hz_stereo_rendered": true,
+    "theorem7_spectral_gini_beats_white_noise": true,
+    "theorem7_w1_voice_leading_smoother_than_abrupt_jump": true,
     "true_stereo_binaural_separation": true,
     "zero_pytorch_and_zero_cloud_tokens": true
   },
@@ -27,7 +29,7 @@
     "sentience_claimed": false
   },
   "contract": "zoe-native-voice-choral-kloster/v1",
-  "evidence_sha256": "5aaea8bbc9340f76d0075ef47176d044a49ff3caf28391144cc571e08a4d1d99",
+  "evidence_sha256": "fb685fc0d60766e76b1795bf62cd5c81aff4aaeea080e87a1081945594c9bad3",
   "kloster_a010_arc": [
     3,
     3,
@@ -48,6 +50,12 @@
     1.19073,
     0.89062
   ],
+  "theorem7_acoustic_transport": {
+    "abrupt_jump_w1_control": 0.288,
+    "choir_spectral_kloster_gini": 0.99111,
+    "mean_cadence_w1_voice_leading": 0.04571,
+    "white_noise_neg_ctrl_gini": 0.49475
+  },
   "wav": {
     "bytes": 2257964,
     "channels": 2,

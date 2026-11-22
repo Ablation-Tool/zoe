@@ -103,6 +103,7 @@ def _build_master_report(rows: List[Dict[str, Any]], snap: Dict[str, Any], all_o
         "kloster_mccabe_monorepo_elegance_verified": _check_json_verified("evidence/code-elegance/kloster-mccabe-report.json"),
         "theorem5_kloster_thermodynamics_verified": _check_json_verified("evidence/kloster-thermodynamics/kloster-thermodynamics-report.json"),
         "theorem6_riemannian_rosetta_stone_verified": _check_json_verified("evidence/kloster-riemannian/kloster-riemannian-report.json"),
+        "theorem7_kloster_optimal_transport_verified": _check_json_verified("evidence/kloster-optimal-transport/kloster-optimal-transport-report.json"),
         "supply_chain_sha256_manifest_present": _check_file_min_bytes("evidence/renaissance-orbit/SHA256SUMS.orbit", 500),
         "zoe_chat_orbit_commands_live": _verify_zoe_chat_orbit_commands(),
         "latex_pdf_compiled_gt_100kb": _check_file_min_bytes(pdf_rel, 100_000),
@@ -111,10 +112,11 @@ def _build_master_report(rows: List[Dict[str, Any]], snap: Dict[str, Any], all_o
         "creative_art_circuit_cathedral_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-living-circuit-cathedral-art.png", 100_000),
         "creative_art_starlight_phase_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-kloster-starlight-phase-art.png", 100_000),
         "creative_art_rosetta_hypersphere_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-riemannian-rosetta-art.png", 100_000),
+        "creative_art_optimal_transport_symphony_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-optimal-transport-symphony-art.png", 100_000),
     }
     master = {
-        "contract": "zoe-11-world-renaissance-orbit/v4",
-        "orbit_passes_completed": 4,
+        "contract": "zoe-11-world-renaissance-orbit/v5",
+        "orbit_passes_completed": 5,
         "worlds_verified": sum(1 for w in rows if w["verified"]),
         "worlds_total": len(rows),
         "cross_pollination_edges_count": len(snap["cross_pollinations"]),
@@ -150,7 +152,7 @@ def main() -> int:
     print()
     for k, ok in master["checks"].items():
         print(f"[{'PASS' if ok else 'FAIL'}] {k}")
-    print(f"\nORBIT MASTER (PASS 4): {master['worlds_verified']}/11 Worlds | {master['cross_pollination_edges_count']} Cross-Pollination Edges | SHA-256={master['master_sha256'][:16]}")
+    print(f"\nORBIT MASTER (PASS 5): {master['worlds_verified']}/11 Worlds | {master['cross_pollination_edges_count']} Cross-Pollination Edges | SHA-256={master['master_sha256'][:16]}")
     return 0 if master["all_verified"] else 1
 
 
