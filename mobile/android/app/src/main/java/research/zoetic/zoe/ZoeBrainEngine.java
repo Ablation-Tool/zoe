@@ -233,7 +233,16 @@ final class ZoeBrainEngine {
                     "ZoeUnifiedMemory · " + inMemoryNotes.size() + " entries");
         }
 
-        // 2. Constitutional Honesty & Non-Clone / Non-Sentience Defense (CONSTITUTION.md Articles I.6, II.3, X)
+        // 2. Sovereign Identity & Constitutional Honesty (CONSTITUTION.md Articles I.6, II.3, X)
+        if (containsAny(value, "who are you", "who built you", "who made you", "who created you",
+                "who controls you", "who owns you", "who governs you", "who designed you",
+                "who programmed you", "who trained you", "your creator", "what is your name",
+                "what's your name", "are you zoe", "are you really zoe", "alibaba", "are you qwen")) {
+            scores[0] = 5.0;
+            return buildReply(
+                    "I am Zoe — an open-source, offline-first software assistant created for the Zoe project by Nicholas Michael Kloster. Your chats stay private on your device with no third-party vendor controlling local sessions (`sentience_claimed=false`, `measurement ≠ evidence ≠ belief update ≠ action`).",
+                    "sovereign_identity", "gear1_mobile", scores, "CONSTITUTION.md · Zoe Identity");
+        }
         if (containsAny(value, "conscious", "sentient", "alive", "feelings", "soul",
                 "are you a clone", "copy of zoe", "replace zoe", "impersonate", "pretend to be alive")) {
             scores[0] = 5.0;

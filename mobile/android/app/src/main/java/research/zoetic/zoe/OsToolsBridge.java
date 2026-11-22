@@ -2,22 +2,30 @@ package research.zoetic.zoe;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Pure, deterministic OS bridge helpers for Zoe (v0.3.0-beta).
+ * Pure, deterministic OS & AI app bridge helpers for Zoe (v0.4.0-beta).
  *
  * Uses built-in phone telemetry and official OS intents (Google Maps, Apple Maps,
- * Android Personal Safety / Emergency Info, Flashlight, Clock Timer/Alarm) with zero
- * tracking SDKs, zero API keys, and zero silent execution — every action requires
- * an explicit user tap.
+ * Android Personal Safety / Emergency Info, Flashlight, Clock Timer/Alarm, and zero-key
+ * handoffs to installed Claude, Grok, ChatGPT, and Gemini apps) with zero tracking SDKs
+ * and zero silent execution — every action requires an explicit user tap.
  */
 final class OsToolsBridge {
     static final String GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps";
     static final String PIXEL_SAFETY_PACKAGE = "com.google.android.apps.safetyhub";
     static final String ANDROID_EMERGENCY_PACKAGE = "com.android.emergency";
+    static final String CLAUDE_PACKAGE = "com.anthropic.claude";
+    static final String GROK_PACKAGE = "ai.x.grok";
+    static final String CHATGPT_PACKAGE = "com.openai.chatgpt";
+    static final String GEMINI_PACKAGE = "com.google.android.apps.bard";
 
     enum ActionKind {
         NONE,
@@ -252,6 +260,58 @@ final class OsToolsBridge {
         }
 
         return new ActionSuggestion(ActionKind.NONE, "", "", 0, 0, 0);
+    }
+
+    /**
+     * Approval-gated multi-step plan parser (inspired by personal agents, constrained by
+     * CONSTITUTION.md: measurement != evidence != belief update != action; autoExecuted=false).
+     */
+    static List<ActionSuggestion> parseActionPlan(String rawInput) {
+        List<ActionSuggestion> plan = new ArrayList<>();
+        if (rawInput == null || rawInput.trim().isEmpty()) {
+            return plan;
+        }
+        String[] parts = rawInput.split("(?i)(?:\\s+and\\s+then\\s+|\\s+then\\s+|\\s+and\\s+|\\s*;\\s*)");
+        Set<String> seen = new LinkedHashSet<>();
+        for (String part : parts) {
+            ActionSuggestion step = parseActionIntent(part);
+            if (step.isActionable()) {
+                String key = step.kind.name() + "|" + step.query.toLowerCase(Locale.US)
+                        + "|" + step.seconds + "|" + step.hour + ":" + step.minute;
+                if (seen.add(key)) {
+                    plan.add(step);
+                }
+            }
+        }
+        if (plan.isEmpty()) {
+            ActionSuggestion single = parseActionIntent(rawInput);
+            if (single.isActionable()) {
+                plan.add(single);
+            }
+        }
+        return plan;
+    }
+
+    static String claudeDeepLinkUri(String prompt) {
+        String clean = prompt == null ? "" : prompt.trim();
+        return clean.isEmpty() ? "claude://claude.ai/new" : "claude://claude.ai/new?q=" + encode(clean);
+    }
+
+    static String claudeWebUrl(String prompt) {
+        String clean = prompt == null ? "" : prompt.trim();
+        return clean.isEmpty() ? "https://claude.ai/new" : "https://claude.ai/new?q=" + encode(clean);
+    }
+
+    static String grokWebUrl() {
+        return "https://grok.com/";
+    }
+
+    static String chatGptWebUrl() {
+        return "https://chatgpt.com/";
+    }
+
+    static String geminiWebUrl() {
+        return "https://gemini.google.com/app";
     }
 
     private static String cleanQuery(String raw) {

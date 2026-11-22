@@ -214,6 +214,23 @@ public final class ZoeBrainEngine {
             )
         }
 
+        // 1b. Sovereign Identity — Zoe is built by Zoe (with Nicholas Michael Kloster). Zoe governs Zoe.
+        if containsAny(value, [
+            "who are you", "who built you", "who made you", "who created you",
+            "who controls you", "who owns you", "who governs you", "who designed you",
+            "who programmed you", "who trained you", "your creator", "what is your name",
+            "what's your name", "are you zoe", "are you really zoe", "alibaba", "are you qwen",
+        ]) {
+            scores[0] = 5.0
+            return buildReply(
+                reply: "I am Zoe — an open-source, offline-first software assistant created for the Zoe project by Nicholas Michael Kloster. Your chats stay private on your device with no third-party vendor controlling local sessions (`sentience_claimed=false`, `measurement ≠ evidence ≠ belief update ≠ action`).",
+                mode: "sovereign_identity",
+                tier: "gear1_mobile",
+                scores: scores,
+                citation: "CONSTITUTION.md · Zoe Identity"
+            )
+        }
+
         // 2. Constitutional Honesty & Non-Clone / Non-Sentience Defense
         if containsAny(value, [
             "conscious", "sentient", "alive", "feelings", "soul",

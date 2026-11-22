@@ -57,6 +57,14 @@
     <item name="safety_torch_btn" type="id" />
     <item name="conversation_action_bar" type="id" />
     <item name="conversation_action_btn" type="id" />
+    <item name="conversation_chat_feed" type="id" />
+    <item name="conversation_mode_stem" type="id" />
+    <item name="conversation_mode_local_llm" type="id" />
+    <item name="conversation_mode_lab" type="id" />
+    <item name="conversation_mode_cloud" type="id" />
+    <item name="conversation_brain_settings" type="id" />
+    <item name="conversation_threads_btn" type="id" />
+    <item name="conversation_new_chat_btn" type="id" />
     <item name="apps_status" type="id" />
     <item name="apps_picker" type="id" />
     <item name="apps_report" type="id" />

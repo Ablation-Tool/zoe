@@ -201,6 +201,57 @@ public enum OsToolsBridge {
         return ActionSuggestion(kind: .none, label: "")
     }
 
+    /// Approval-gated multi-step plan parser (`autoExecuted == false` on every step).
+    public static func parseActionPlan(_ rawInput: String) -> [ActionSuggestion] {
+        let trimmed = rawInput.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return [] }
+        let pattern = #"(?i)(?:\s+and\s+then\s+|\s+then\s+|\s+and\s+|\s*;\s*)"#
+        var parts: [String] = [trimmed]
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+            let ns = trimmed as NSString
+            let matches = regex.matches(in: trimmed, options: [], range: NSRange(location: 0, length: ns.length))
+            if !matches.isEmpty {
+                parts = []
+                var start = 0
+                for m in matches {
+                    parts.append(ns.substring(with: NSRange(location: start, length: m.range.location - start)))
+                    start = m.range.location + m.range.length
+                }
+                parts.append(ns.substring(from: start))
+            }
+        }
+        var plan: [ActionSuggestion] = []
+        var seen = Set<String>()
+        for part in parts {
+            let step = parseActionIntent(part)
+            if step.isActionable {
+                let key = "\(step.kind.rawValue)|\(step.query.lowercased())|\(step.seconds)|\(step.hour):\(step.minute)"
+                if seen.insert(key).inserted {
+                    plan.append(step)
+                }
+            }
+        }
+        if plan.isEmpty {
+            let single = parseActionIntent(trimmed)
+            if single.isActionable { plan.append(single) }
+        }
+        return plan
+    }
+
+    public static func claudeDeepLinkUrl(_ prompt: String) -> String {
+        let clean = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        return clean.isEmpty ? "claude://claude.ai/new" : "claude://claude.ai/new?q=" + encode(clean)
+    }
+
+    public static func claudeWebUrl(_ prompt: String) -> String {
+        let clean = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        return clean.isEmpty ? "https://claude.ai/new" : "https://claude.ai/new?q=" + encode(clean)
+    }
+
+    public static func grokWebUrl() -> String { "https://grok.com/" }
+    public static func chatGptWebUrl() -> String { "https://chatgpt.com/" }
+    public static func geminiWebUrl() -> String { "https://gemini.google.com/app" }
+
     private static func cleanQuery(_ raw: String) -> String {
         raw.trimmingCharacters(in: .whitespacesAndNewlines)
             .trimmingCharacters(in: CharacterSet(charactersIn: ".?!"))

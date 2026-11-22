@@ -51,9 +51,10 @@ public class ConversationActivityTest {
 
     @Test
     public void typingMapsCommandShowsOneTapActionButtonWithoutAutoLaunching() {
-        onView(withId(R.id.conversation_input)).perform(replaceText("navigate to Central Park"), closeSoftKeyboard());
+        onView(withId(R.id.conversation_input)).perform(replaceText("navigate to Central Park and set a 5 minute timer"), closeSoftKeyboard());
         onView(withId(R.id.conversation_send)).perform(click());
         onView(withId(R.id.conversation_action_bar)).check(matches(isDisplayed()));
         onView(withId(R.id.conversation_action_btn)).check(matches(withText(containsString("Central Park"))));
+        onView(withId(R.id.conversation_mode_local_llm)).check(matches(isDisplayed()));
     }
 }

@@ -160,6 +160,46 @@ final class ZoeCoreTests: XCTestCase {
         let reply = brain.respond("directions to Monterey Bay Aquarium")
         XCTAssertEqual(reply.mode, "device_tool_route")
         XCTAssertTrue(reply.reply.contains("Nothing opens"))
+
+        let plan = OsToolsBridge.parseActionPlan("Navigate to Memorial Hospital and set a 5 minute timer then turn on flashlight")
+        XCTAssertEqual(plan.count, 3)
+        XCTAssertEqual(plan[0].kind, .navigate)
+        XCTAssertEqual(plan[1].kind, .setTimer)
+        XCTAssertEqual(plan[2].kind, .toggleTorch)
+        XCTAssertEqual(OsToolsBridge.claudeDeepLinkUrl("Hello Claude"), "claude://claude.ai/new?q=Hello%20Claude")
+    }
+
+    func testMultiAiClientPayloadsFirewallAndAgreement() throws {
+        let openAiJson = Data(#"{"choices":[{"message":{"content":"Verified offline council answer."}}]}"#.utf8)
+        XCTAssertEqual(try MultiAiClient.parseOpenAiChatReply(openAiJson), "Verified offline council answer.")
+
+        let claudeJson = Data(#"{"content":[{"type":"text","text":"Structured Claude response."}]}"#.utf8)
+        XCTAssertEqual(try MultiAiClient.parseClaudeMessagesReply(claudeJson), "Structured Claude response.")
+
+        let geminiJson = Data(#"{"candidates":[{"content":{"parts":[{"text":"Gemini response."}]}}]}"#.utf8)
+        XCTAssertEqual(try MultiAiClient.parseGeminiReply(geminiJson), "Gemini response.")
+
+        XCTAssertEqual(try MultiAiClient.validateEndpoint("https://api.x.ai/v1/chat/completions"),
+                       "https://api.x.ai/v1/chat/completions")
+        XCTAssertEqual(try MultiAiClient.validateEndpoint("http://127.0.0.1:8080/v1/chat/completions"),
+                       "http://127.0.0.1:8080/v1/chat/completions")
+        XCTAssertThrowsError(try MultiAiClient.validateEndpoint("http://insecure.example.com/v1/chat"))
+
+        let high = MultiAiClient.computeAgreementScore([
+            "Zoe measures accessible volume cleanly offline.",
+            "Zoe measures accessible volume cleanly offline on device.",
+        ])
+        let low = MultiAiClient.computeAgreementScore([
+            "Quantum acoustics cymatics bronze plate resonance.",
+            "Blueberry waffle breakfast syrup recipe.",
+        ])
+        XCTAssertTrue(high > low)
+
+        let brain = ZoeBrainEngine()
+        let who = brain.respond("Who built you?")
+        XCTAssertEqual(who.mode, "sovereign_identity")
+        XCTAssertTrue(who.reply.contains("Nicholas Michael Kloster"))
+        XCTAssertFalse(who.reply.lowercased().contains("alibaba"))
     }
 
     private let trinityFixture = """

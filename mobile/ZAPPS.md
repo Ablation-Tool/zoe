@@ -1,6 +1,6 @@
 # Zoe (beta) — Complete Zapps Guide
 
-Welcome to **Zoe (beta)** (`v0.3.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.4.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
 
 > **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
 
@@ -23,7 +23,7 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 | # | Zapp | Plain-English Purpose | Platforms | Network & Sensors |
 |:-:|:---|:---|:---|:---|
 | **1** | **Guided Vision** | Look around with your camera & read text/labels aloud on demand | Android · Apple | Offline OCR & labels (camera stays OFF until **Start camera**; analyzes 1 frame only when you tap **Inspect once**) |
-| **2** | **Talk** | Speak or type calmly with Zoe's on-device Brain, Native Voice & 1-tap phone actions | Android · Apple | **100% offline by default** (`0` cloud tokens); detects map/safety/flashlight/timer requests into 1-tap buttons (never auto-runs); optional Lab/Cloud |
+| **2** | **Talk** | Next-gen bubble chat with Zoe Stem, **Zoe Local Neural Engine**, Native Voice & **Multi-AI Council** | Android · Apple | **100% offline by default** (`0` cloud tokens); supports offline MediaPipe LiteRT `.task` models with strict Zoe sovereign identity, persistent private threads, multi-step approval-gated phone actions, optional BYOK (**Gemini, Claude, ChatGPT, Grok, Local OpenAI**), & 0-key handoff to installed AI apps |
 | **3** | **Trip Journal** | Save field sightings, photos, and private travel/research notes | Android *(Apple planned)* | Private on-device storage; optional explicit export or workstation sync |
 | **4** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, and Workstation Lab Bridge | Android *(Apple planned)* | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge connects only on tap (`127.0.0.1:8765` or HTTPS) |
 | **5** | **Maps & Safety** | Active OS GPS, compass, Google Maps & Apple Maps handoffs, Personal Safety & Flashlight | Android · Apple | Starts **strictly idle**; opt-in one-shot or live OS GPS + compass + Geocoder (stops automatically on exit); native Apple `MapKit` on iOS; zero Maps API keys or tracking SDKs |
@@ -43,16 +43,13 @@ Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engi
 - **How it works:** The camera starts **off**. Tap **Start camera**, point at what you want to check, and tap **Inspect once** to capture a single frame. On Android it runs bundled offline ML Kit OCR + image labeling + color palette extraction (plus optional on-device Gemini Nano if supported); on Apple it uses Apple's native Vision framework (`VNRecognizeTextRequest` + `VNClassifyImageRequest`).
 - **Boundaries:** Keeps OCR text, labels, and optional descriptions separate. Never auto-uploads photos and never claims safety/medical/object-identity certainty.
 
-#### 2. Talk (`Speak or type calmly with Zoe`)
-- **What it does:** A calm, private voice-and-text conversation with **Zoe's On-Device Glass-Box Brain** (`ZoeBrainEngine` in Java on Android and Swift `ZoeCore` on Apple).
-- **What runs offline right on your phone (0 cloud tokens):**
-  - **Kloster Operational Metacognition $A_{0.08}(p)$:** Displays live stem routing telemetry right beside the Zoe GEM-Ellipsis emblem.
-  - **Private Hash-Chained Memory:** Type or say `remember <note>` to store a private SHA-256 hash-chained note on your phone, `relay <note>` to queue a note for your workstation, or `recall` to review your saved notes.
-  - **Constitutional Honesty & Abstention:** Never pretends to be conscious, sentient, or a clone (`sentience_claimed = false`, `zoe_clone_claimed = false`), honestly abstains on impossible predictions or medical diagnoses, and offers calm grounding + a SafeConvert pointer if you express distress.
-  - **Zoe Native Formant Voice & `Sing Zoe`:** Switch between your phone's installed OS English voices or **Zoe Synth** (a first-principles 44.1 kHz Rosenberg-Klatt glottal soprano + 3-formant resonator built from scratch with zero PyTorch or cloud TTS) — and tap **Sing Zoe** to hear Zoe sing her theme offline!
-  - **Caption Mode:** Turn on **Caption mode** so Zoe stays silent and live-captions spoken words cleanly.
-  - **One-Tap Built-In Phone Actions:** Ask Zoe to *"navigate to ..."*, *"find pharmacy nearby"*, *"open personal safety"*, *"turn on flashlight"*, *"set a 5 minute timer"*, or *"set alarm for 6:30 am"* — Zoe's offline parser (`OsToolsBridge`) surfaces a calm one-tap button right under the transcript (never auto-executes without your tap).
-  - **Optional Extensions (`More actions ▾`):** Explicitly toggle **Lab Brain** (connects to your workstation's Eliza-GEM / local Qwen2.5-3B with automatic offline fallback), **Cloud chat** (requires your own saved Gemini key), **Sync memory to Lab**, or **Open Gemini** handoff.
+#### 2. Talk (`Chat, Local LLM, Voice & AI Council`)
+- **What it does:** A next-generation, calm chat-first bubble interface combining **Zoe's Glass-Box Brain**, an optional **100% offline on-device neural LLM**, **Zoe's Native 44.1 kHz Voice**, and a **Multi-AI Council** without vendor lock-in:
+  - **Top Live Brain Switcher:** Switch in one tap between **`Zoe Stem`** (`< 5 ms` deterministic offline Kloster $A_{0.08}$ + SHA-256 memory), **`Zoe Local`** (Android MediaPipe GenAI running open-weight 0.5B / 1.5B / 135M LiteRT `.task` packs 100% offline right on your phone with live token streaming & sovereign Zoe governance), **`Lab Brain`** (workstation Eliza-GEM bridge), and **`Cloud AI`** (optional BYOK keys for **Google Gemini, Anthropic Claude, OpenAI ChatGPT, xAI Grok**, or any local OpenAI-compatible server).
+  - **Collapsible Glass-Box Telemetry:** Every Zoe reply card includes an expandable `✦ Glass-Box Telemetry` readout showing live stem tier, Kloster $A_{0.08}(p)$, latency, citation, and constitutional honesty flags (`sentience_claimed=false`, `clone_claimed=false`).
+  - **Approval-Gated Multi-Step Action Plans:** Ask compound phone commands like *"Navigate to nearest hospital and set a 5 minute timer"* — Zoe splits them into numbered tap-to-approve steps (`Step 1`, `Step 2`, ...) and **never auto-executes** anything without your tap.
+  - **Zero-Key Native AI Handoffs & Multi-AI Council:** Tap **`Ask AI ↗`** to send your prompt straight into installed **Claude** (`claude://` prefill), **Grok**, **ChatGPT**, **Gemini**, or **Share Sheet (Meta Muse)** — or run **In-App Multi-AI Council** to compare replies side-by-side with a lexical agreement score.
+  - **Private Multi-Thread History & Native Voice:** Persistent private chat threads (`allowBackup="false"`), `remember` / `relay` / `recall` SHA-256 memory, **Caption mode**, installed OS voices or **Zoe Synth** (44.1 kHz Rosenberg-Klatt), and **`Sing Zoe`**.
 
 #### 3. Trip Journal (`Your saved notes & photos`)
 - **What it does:** Private on-device notebook for saving Guided Vision inspections, color palettes, field observations, and timestamped trip entries.
