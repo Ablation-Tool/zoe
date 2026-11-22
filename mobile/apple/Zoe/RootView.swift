@@ -48,6 +48,13 @@ struct RootView: View {
         path.removeAll()
     }
 
+    private func openZapp(_ zapp: ZappID) {
+        selectedRaw = zapp.rawValue
+        if sizeClass != .regular {
+            path = [zapp]
+        }
+    }
+
     // MARK: Compact (iPhone & folded iPhone Duo)
 
     private var stackLayout: some View {
@@ -57,7 +64,7 @@ struct RootView: View {
                 path = [zapp]
             }
             .navigationDestination(for: ZappID.self) { zapp in
-                ZappScreen(zapp: zapp, selection: selectionBinding, onGoHome: goHome)
+                ZappScreen(zapp: zapp, selection: selectionBinding, onGoHome: goHome, onOpenZapp: openZapp)
                     .navigationTitle(zapp.title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -135,7 +142,7 @@ struct RootView: View {
             .navigationTitle("Zoe")
         } detail: {
             if let zapp = selected {
-                ZappScreen(zapp: zapp, selection: selectionBinding, onGoHome: goHome)
+                ZappScreen(zapp: zapp, selection: selectionBinding, onGoHome: goHome, onOpenZapp: openZapp)
                     .navigationTitle(zapp.title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -185,6 +192,7 @@ struct ZappScreen: View {
     let zapp: ZappID
     @Binding var selection: Int
     var onGoHome: () -> Void = {}
+    var onOpenZapp: (ZappID) -> Void = { _ in }
 
     var body: some View {
         content
@@ -196,7 +204,8 @@ struct ZappScreen: View {
     private var content: some View {
         switch zapp {
         case .vision: GuidedVisionView(selection: $selection)
-        case .talk: ConversationView(onGoHome: onGoHome)
+        case .talk: ConversationView(onGoHome: onGoHome, onOpenMapsSafety: { onOpenZapp(.maps) })
+        case .maps: MapsSafetyView(onOpenSafeConvert: { onOpenZapp(.safeconvert) })
         case .volume: VolumeView()
         case .trinity: TrinityView()
         case .device: DeviceView()

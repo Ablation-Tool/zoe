@@ -118,6 +118,50 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertEqual(ZoeBrainEngine.sha256Hex("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
     }
 
+    func testOsToolsBridgeDualMapsUrlsCompassAndActionParser() {
+        XCTAssertEqual(
+            OsToolsBridge.googleMapsPinUrl(lat: 36.6177, lon: -121.9166),
+            "https://www.google.com/maps/search/?api=1&query=36.617700,-121.916600"
+        )
+        XCTAssertEqual(
+            OsToolsBridge.appleMapsPinUrl(lat: 36.6177, lon: -121.9166, label: "Pacific Grove"),
+            "https://maps.apple.com/?ll=36.617700,-121.916600&q=Pacific%20Grove"
+        )
+        XCTAssertEqual(
+            OsToolsBridge.googleMapsAppNavigationUrl(destination: "Central Park"),
+            "comgooglemaps://?daddr=Central%20Park&directionsmode=driving"
+        )
+        XCTAssertEqual(OsToolsBridge.compassCardinal(0), "N")
+        XCTAssertEqual(OsToolsBridge.compassCardinal(90), "E")
+        XCTAssertEqual(OsToolsBridge.compassCardinal(225), "SW")
+        XCTAssertEqual(OsToolsBridge.compassCardinal(-45), "NW")
+
+        let share = OsToolsBridge.formatShareLocationMessage(
+            lat: 36.6177, lon: -121.9166, accuracyMeters: 8.0, address: "Pacific Grove, CA"
+        )
+        XCTAssertTrue(share.contains("Apple Maps:"))
+        XCTAssertTrue(share.contains("Google Maps:"))
+        XCTAssertTrue(share.contains("Pacific Grove, CA"))
+
+        let nav = OsToolsBridge.parseActionIntent("navigate to nearest pharmacy?")
+        XCTAssertEqual(nav.kind, .navigate)
+        XCTAssertEqual(nav.query, "nearest pharmacy")
+        XCTAssertFalse(nav.autoExecuted)
+
+        let safety = OsToolsBridge.parseActionIntent("open personal safety app")
+        XCTAssertEqual(safety.kind, .openSafety)
+        XCTAssertFalse(safety.autoExecuted)
+
+        let timer = OsToolsBridge.parseActionIntent("set a 5 minute timer")
+        XCTAssertEqual(timer.kind, .setTimer)
+        XCTAssertEqual(timer.seconds, 300)
+
+        let brain = ZoeBrainEngine()
+        let reply = brain.respond("directions to Monterey Bay Aquarium")
+        XCTAssertEqual(reply.mode, "device_tool_route")
+        XCTAssertTrue(reply.reply.contains("Nothing opens"))
+    }
+
     private let trinityFixture = """
     {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
     "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,

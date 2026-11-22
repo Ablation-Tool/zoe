@@ -46,6 +46,7 @@ struct DeskHomeView: View {
         .sheet(isPresented: $showQuickSheet) {
             QuickActionsSheet(
                 arranging: $arranging,
+                onOpenMapsSafety: { onOpen(.maps) },
                 onOpenSafeConvert: { onOpen(.safeconvert) },
                 onOpenGemini: {
                     if let url = URL(string: "https://gemini.google.com") {
@@ -76,7 +77,7 @@ struct DeskHomeView: View {
                 showInfo = true
             } label: {
                 HStack(spacing: 6) {
-                    Text("Zoe Bulb")
+                    Text("Zoe")
                         .font(.system(size: 21, weight: .regular))
                         .foregroundStyle(GemPalette.ink)
                     Text("beta")
@@ -441,6 +442,7 @@ struct DeskHomeView: View {
 /// Clean Quick Actions sheet (opened from top '=' or bottom '+').
 struct QuickActionsSheet: View {
     @Binding var arranging: Bool
+    var onOpenMapsSafety: () -> Void
     var onOpenSafeConvert: () -> Void
     var onOpenGemini: () -> Void
     @Environment(\.dismiss) private var dismiss
@@ -453,6 +455,10 @@ struct QuickActionsSheet: View {
                 .padding(.bottom, 4)
                 .accessibilityAddTraits(.isHeader)
 
+            quickRow("Maps & Safety", helper: "Live GPS, Apple & Google Maps", icon: "map", accent: GemPalette.seafoam) {
+                dismiss()
+                onOpenMapsSafety()
+            }
             quickRow("SafeConvert", helper: "Units & private safety helper", icon: "arrow.left.arrow.right", accent: GemPalette.ruby) {
                 dismiss()
                 onOpenSafeConvert()
@@ -509,11 +515,11 @@ struct AboutZoeSheet: View {
                     .frame(width: 44, height: 44)
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Zoe Bulb (beta)")
+                    Text("Zoe (beta)")
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.2.0-beta · Offline-first · Free")
+                    Text("v0.3.0-beta · Offline-first · Free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }

@@ -101,7 +101,7 @@ final class HomeView extends ScrollView {
         brandTap.setContentDescription("About Zoe");
         brandTap.setOnClickListener(v -> showAboutSheet());
 
-        TextView brandTitle = Ui.text(activity, "Zoe Bulb", 21f, Ui.TEXT);
+        TextView brandTitle = Ui.text(activity, "Zoe", 21f, Ui.TEXT);
         brandTitle.setTypeface(Ui.SANS_REGULAR);
         brandTitle.setPadding(0, 0, Ui.dp(activity, 6), 0);
         ViewCompat.setAccessibilityHeading(brandTitle, true);
@@ -253,6 +253,9 @@ final class HomeView extends ScrollView {
         addSpec(new ZappSpec("studio", "Eliza-GEM Studio",
                 "Sound shapes & local lab",
                 R.drawable.ic_zoe_gem, Ui.PINK, () -> open(ElizaGemActivity.class)));
+        addSpec(new ZappSpec("maps", "Maps & Safety",
+                "Live GPS, Google Maps & Safety app",
+                R.drawable.ic_zoe_location, Ui.CYAN, () -> open(LocationActivity.class)));
         addSpec(new ZappSpec("volume", "Accessible volume",
                 "Count open choices clearly",
                 R.drawable.ic_zoe_volume, Ui.GREEN, activity::showVolume));
@@ -489,6 +492,11 @@ final class HomeView extends ScrollView {
 
         final AlertDialog dialog = new AlertDialog.Builder(ctx).setView(box).create();
 
+        box.addView(Ui.geminiActionRow(ctx, "Maps & Safety", "Live GPS, Google Maps & Safety app",
+                R.drawable.ic_zoe_location, Ui.CYAN, v -> {
+                    dialog.dismiss();
+                    open(LocationActivity.class);
+                }));
         box.addView(Ui.geminiActionRow(ctx, "SafeConvert", "Units & private safety helper",
                 R.drawable.ic_zoe_convert, Ui.RUBY, v -> {
                     dialog.dismiss();
@@ -545,12 +553,12 @@ final class HomeView extends ScrollView {
         LinearLayout titleCol = new LinearLayout(ctx);
         titleCol.setOrientation(LinearLayout.VERTICAL);
         titleCol.setPadding(Ui.dp(ctx, 14), 0, 0, 0);
-        TextView title = Ui.text(ctx, "Zoe Bulb (beta)", 22f, Ui.TEXT);
+        TextView title = Ui.text(ctx, "Zoe (beta)", 22f, Ui.TEXT);
         title.setTypeface(Ui.SANS_MEDIUM);
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.2.0-beta · Offline-first · Free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.3.0-beta · Offline-first · Free", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);

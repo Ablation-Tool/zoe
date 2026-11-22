@@ -184,6 +184,16 @@ final class ZoeBrainEngine {
                     "device_stop", "gear1_mobile", scores, "CONSTITUTION.md Article I.3");
         }
 
+        // 0. Built-In OS Tool Action Suggestion (Maps, Personal Safety, Flashlight, Timer, Alarm)
+        OsToolsBridge.ActionSuggestion toolAction = OsToolsBridge.parseActionIntent(cleaned);
+        if (toolAction.isActionable()) {
+            scores[3] = 4.4;
+            return buildReply(
+                    "I prepared a one-tap button below: \"" + toolAction.label
+                            + "\". Nothing opens, tracks, or runs until you explicitly tap it.",
+                    "device_tool_route", "gear1_mobile", scores, "OsToolsBridge · explicit user tap");
+        }
+
         // 1. Explicit Memory Commands (`remember ...`, `relay ...`, `recall`)
         Matcher rem = REMEMBER_RE.matcher(cleaned);
         if (rem.matches()) {

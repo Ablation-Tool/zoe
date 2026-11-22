@@ -15,6 +15,7 @@ final class ZappLayoutStore {
             "talk",
             "journal",
             "studio",
+            "maps",
             "volume",
             "trinity",
             "kit",

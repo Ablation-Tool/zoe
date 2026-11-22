@@ -26,7 +26,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 **1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 30 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
-**L5 Phases 1–5 &amp; Eliza-GEM Glass-Box Workbench (`16/16 + 18/18 + 18/18 + 20/20 + 22/22`) · Zoe Bulb (beta) Mobile App (Android &amp; Apple) · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+**L5 Phases 1–5 &amp; Eliza-GEM Glass-Box Workbench (`16/16 + 18/18 + 18/18 + 20/20 + 22/22`) · Zoe (beta) Mobile App (Android &amp; Apple) · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
 
 </div>
 
@@ -82,39 +82,40 @@ Her work brings together seven threads that almost never live in the same room:
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
-<a id="zoe-bulb-beta"></a>
+<a id="zoe-app-beta"></a>
 
-## Zoe Bulb (beta) — Mobile App Availability *(Free · Offline-First · Android & Apple)*
+## Zoe (beta) — Mobile App Availability *(Free · Offline-First · Android & Apple)*
 
-> **Beta Notice:** **Zoe Bulb (beta)** is our active work-in-progress mobile companion for **Android** and **Apple (iPhone, iPad & iPhone Duo Fold)** — free, private, ad-free, and zero-tracking. Features, voice, and lab bridges continue to evolve openly in this repository.
+> **Beta Notice:** **Zoe (beta)** is our active work-in-progress mobile companion for **Android** and **Apple (iPhone, iPad & iPhone Duo Fold)** — free, private, ad-free, and zero-tracking. Features, voice, and lab bridges continue to evolve openly in this repository.
 
 <div align="center">
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta"><img src="assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe Bulb (beta) live screenshots on Pixel 7 — Home, Talk with Zoe offline Brain & Voice, Eliza-GEM Chladni Studio, and matching SafeConvert" width="100%" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.3.0-beta"><img src="assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe (beta) live screenshots on Pixel 7 — Home, Talk with Zoe offline Brain & Voice, Maps & Safety, and matching SafeConvert" width="100%" /></a>
 
 <br/>
 
-**[⬇ Download Zoe Bulb (beta) for Android (`v0.2.0-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Every Zapp Explained (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md)**
+**[⬇ Download Zoe (beta) for Android (`v0.3.0-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.3.0-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Every Zapp Explained (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md)**
 
 </div>
 
 <br/>
 
-| Home *(GEM-Ellipsis)* | Talk *(Offline Brain & Voice)* | Eliza-GEM *(Chladni & L5)* | SafeConvert *(Matching UI)* |
+| Home *(GEM-Ellipsis)* | Talk *(Offline Brain & Voice)* | Maps & Safety *(GPS & OS Tools)* | SafeConvert *(Matching UI)* |
 |:---:|:---:|:---:|:---:|
-| <img src="assets/readme/zoe-bulb-home.png" alt="Zoe Bulb Home screen on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Talk with Zoe offline brain and voice on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-studio.png" alt="Eliza-GEM Chladni cymatics and Sing Zoe on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-safeconvert.png" alt="SafeConvert matching Material 3 Expressive converter on Pixel 7" width="190" /> |
+| <img src="assets/readme/zoe-bulb-home.png" alt="Zoe Home screen on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Talk with Zoe offline brain and voice on Pixel 7" width="190" /> | <img src="assets/readme/zoe-maps-safety.png" alt="Maps and Safety with live GPS, Google Maps, Personal Safety and Flashlight on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-safeconvert.png" alt="SafeConvert matching Material 3 Expressive converter on Pixel 7" width="190" /> |
 
 <br/>
 
 <details>
-<summary><strong>✦ What Every Zapp in Zoe Bulb (beta) Does</strong> — All 10 Home Zapps + 8 Field Kit Instruments + SafeConvert Deep Dive</summary>
+<summary><strong>✦ What Every Zapp in Zoe (beta) Does</strong> — All 11 Home Zapps + Field Kit Instruments + Maps &amp; Safety + SafeConvert Deep Dive</summary>
 
 | Zapp | What It Does | Key Privacy &amp; Offline Notes |
 |:---|:---|:---|
 | **Guided Vision** | Point your camera to read text (OCR) &amp; labels aloud calmly | Camera stays OFF until tapped; offline bundled OCR/labels; 1 frame only on **Inspect once** |
-| **Talk** | Speak or type with Zoe's on-device Glass-Box Brain &amp; Native 44.1 kHz Voice | **100% offline by default** (`0` cloud tokens), Kloster $A_{0.08}$ telemetry, SHA-256 `remember`/`recall`, **Sing Zoe**, Caption Mode, optional Lab/Cloud |
+| **Talk** | Speak or type with Zoe's on-device Glass-Box Brain, Native 44.1 kHz Voice &amp; 1-tap phone actions | **100% offline by default** (`0` cloud tokens), Kloster $A_{0.08}$ telemetry, SHA-256 `remember`/`recall`, **Sing Zoe**, 1-tap Maps/Safety/Flashlight/Timer buttons (never auto-runs), optional Lab/Cloud |
 | **Trip Journal** | Save field sightings, palettes &amp; private travel notes | Stored strictly in app-private storage (`allowBackup="false"`) |
 | **Eliza-GEM Studio** | Interactive Chladni cymatics pad, **Sing Zoe**, &amp; Workstation Lab Bridge | Chladni &amp; Voice run offline; explicit connect fetches live L5 Phases 3–5 scorecards &amp; memory sync |
+| **Maps &amp; Safety** | Active OS GPS/compass/Geocoder, Google &amp; Apple Maps handoffs, Personal Safety app &amp; Flashlight | Starts strictly idle (stops automatically on exit); zero Maps API keys or tracking SDKs; native Apple `MapKit` on iOS; direct bridge to Android Personal Safety (`safetyhub`) / Apple Health Medical ID |
 | **Accessible Volume** | Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | 100% offline math — measures forecast breadth separately from correctness |
 | **Trinity** | Links Phone + Laptop + Tiny Zoe in one verified three-plane deck | Explicit loopback / private-LAN pairing only ([`TRINITY.md`](mobile/TRINITY.md)) |
 | **SafeConvert** | Clean offline Unit Converter with a discreet, private offline safety &amp; crisis companion | Zero ads, zero network loads, **My Safe People** (up to 5 private contacts), ephemeral **Talk to Zoe** + 4-4-6 breathing &amp; 5-4-3-2-1 grounding, **SHA-256 Private Safety Log** (notes + private audio/video vault never saved to Gallery), optional **Passcode Lock**, instant **Panic Exit**, and Android `FLAG_SECURE` / iOS blur shield — **[Read full SafeConvert Guide →](mobile/SAFECONVERT.md)** |
@@ -126,10 +127,10 @@ Her work brings together seven threads that almost never live in the same room:
 
 <br/>
 
-| Platform | Availability | What's Inside **Zoe Bulb (beta)** |
+| Platform | Availability | What's Inside **Zoe (beta)** |
 |:---|:---|:---|
-| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct Beta APK:** [Download `Zoe Bulb (beta)` (`v0.2.0-beta`) from GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta) · Or build from [`mobile/android/`](mobile/android/) | **Google Gemini Material 3 Expressive** calm Dark/Light UI + **Zoe GEM-Ellipsis** emblem (tap any GEM logo to return Home); full offline **`ZoeBrainEngine`** (Kloster $A_{0.08}$ metacognition + SHA-256 hash-chained memory); native **44.1 kHz Rosenberg-Klatt Voice & `Sing Zoe`**; **Guided Vision** (offline OCR + labels); redesigned **`SafeConvert`** matching Zoe's aesthetic; **Trip Journal**; **Accessible Volume**; **Eliza-GEM Studio** (offline Chladni cymatics + live L5 Phases 3, 4 & 5 scorecards + memory sync). `60/60` unit tests, `0` lint errors, hardware Espresso verified on Pixel 7. |
-| **Apple** *(iOS 17+ · iPhone, iPad & iPhone Duo Fold)* | **Full Native SwiftUI Source:** Open [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) in Xcode to run on simulator/device or archive for TestFlight / App Store (`ZoeCore` Swift package in [`mobile/shared/`](mobile/shared/)) | Adaptive zero-hinge-overlap `NavigationSplitView` / `NavigationStack` (iPhone, iPad & foldable layouts), matching **Zoe GEM-Ellipsis** app icon set (18 opaque RGB icons) & tappable GEM Home navigation, Swift **`ZoeBrainEngine`** (`11/11` Swift 6.1.3 tests passing), **`ZoeNativeVoice`** (44.1 kHz Rosenberg-Klatt `AVAudioPlayer`), redesigned **`SafeConvert`**, **`PrivacyInfo.xcprivacy`**, and VoiceOver accessibility. *(iOS binary signing & App Store upload require Xcode on macOS.)* |
+| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct Beta APK:** [Download `Zoe (beta)` (`v0.3.0-beta`) from GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.3.0-beta) · Or build from [`mobile/android/`](mobile/android/) | **Google Gemini Material 3 Expressive** calm Dark/Light UI + **Zoe GEM-Ellipsis** emblem (tap any GEM logo to return Home); full offline **`ZoeBrainEngine`** (Kloster $A_{0.08}$ metacognition + SHA-256 hash-chained memory + 1-tap built-in phone actions for Maps, Personal Safety, Flashlight & Clock timers/alarms); native **44.1 kHz Rosenberg-Klatt Voice & `Sing Zoe`**; **Maps & Safety** (active OS GPS/compass/Geocoder, Google Maps handoffs, Pixel Personal Safety & Flashlight); **Guided Vision** (offline OCR + labels); redesigned **`SafeConvert`** matching Zoe's aesthetic; **Trip Journal**; **Accessible Volume**; **Eliza-GEM Studio** (offline Chladni cymatics + live L5 Phases 3, 4 & 5 scorecards + memory sync). `62/62` unit tests, `0` lint errors, **`45/45`** hardware Espresso tests verified on Pixel 7. |
+| **Apple** *(iOS 17+ · iPhone, iPad & iPhone Duo Fold)* | **Full Native SwiftUI Source:** Open [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) in Xcode to run on simulator/device or archive for TestFlight / App Store (`ZoeCore` Swift package in [`mobile/shared/`](mobile/shared/)) | Adaptive zero-hinge-overlap `NavigationSplitView` / `NavigationStack` (iPhone, iPad & foldable layouts), matching **Zoe GEM-Ellipsis** app icon set (18 opaque RGB icons) & tappable GEM Home navigation, Swift **`ZoeBrainEngine`** + **`OsToolsBridge`** (`12/12` Swift 6.1.3 tests passing), **`ZoeNativeVoice`** (44.1 kHz Rosenberg-Klatt `AVAudioPlayer`), **`Maps & Safety`** (native Apple `MapKit` + `CoreLocation` + `CLGeocoder` + dual Apple Maps & Google Maps handoffs + Flashlight + Medical ID), redesigned **`SafeConvert`**, **`PrivacyInfo.xcprivacy`**, and VoiceOver accessibility. *(iOS binary signing & App Store upload require Xcode on macOS.)* |
 
 - **Privacy & Safety First:** `allowBackup="false"`, zero analytics or telemetry SDKs, camera/microphone stay strictly off until tapped, and **SafeConvert** provides a clean matching Unit Converter cover with private offline safety tools and passcode-lockable proof vault. See [Mobile Guide](mobile/README.md) & [Store Compliance Checklist](mobile/STORE_COMPLIANCE.md).
 
@@ -186,7 +187,7 @@ python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
 
 | If you are curious about… | Start right here | One-line peek |
 |:---|:---|:---|
-| **Zoe Bulb (beta) Mobile App (Android & Apple)** | [Zoe Bulb (beta) App Availability](#zoe-bulb-beta) · [GitHub Pre-Release `v0.2.0-beta`](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta) | [Mobile Guide](mobile/README.md) · [`mobile/`](mobile/) |
+| **Zoe (beta) Mobile App (Android & Apple)** | [Zoe (beta) App Availability](#zoe-app-beta) · [GitHub Pre-Release `v0.2.0-beta`](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta) | [Mobile Guide](mobile/README.md) · [`mobile/`](mobile/) |
 | **Zoe's Native Speaking & Singing Voice** | [Zoe's Native Voice (`44 Phonemes + Chladni`)](#zoes-native-voice) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | `zoe voice sing daisy --output /tmp/daisy.wav` |
 | **Zero-Token Glass-Box Atelier & L5 Phases 3–5** | [Eliza-GEM Workbench & L5 Phases 1–5](#world-01--metacognition-theorems--self-evolution) · [AGI Roadmap](AGI-ROADMAP.md) | `zoe eliza serve` · `zoe chat --cli --command "l5-phase5"` |
 | **Theorems, Mars Lens & Self-Evolution** | [World 01 · Mind & Metacognition](#world-01--metacognition-theorems--self-evolution) · [Rolodex `[ 01 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "mars"` |

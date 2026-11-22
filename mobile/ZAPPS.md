@@ -1,6 +1,6 @@
-# Zoe Bulb (beta) — Complete Zapps Guide
+# Zoe (beta) — Complete Zapps Guide
 
-Welcome to **Zoe Bulb (beta)** (`v0.2.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
+Welcome to **Zoe (beta)** (`v0.3.0-beta`) — a free, offline-first, privacy-respecting companion app for **Android** and **Apple** (`iPhone`, `iPad`, and `iPhone Duo Fold`).
 
 > **Core Promise (`CONSTITUTION.md`):** Nothing listens, watches, saves, or uploads until you explicitly tap. Every sensor starts idle, all app data stays private on your device (`allowBackup="false"`), and there are zero ads or tracking SDKs.
 
@@ -8,7 +8,7 @@ Welcome to **Zoe Bulb (beta)** (`v0.2.0-beta`) — a free, offline-first, privac
 
 ## Everyday Navigation & Accessibility
 
-Zoe Bulb uses a calm, spacious **Google Gemini Material 3 Expressive** interface engineered for effortless scanning and motor comfort for both adults and children with disabilities:
+Zoe uses a calm, spacious **Google Gemini Material 3 Expressive** interface engineered for effortless scanning and motor comfort for both adults and children with disabilities:
 
 - **Zoe GEM-Ellipsis Home Button:** Tap the **GEM-Ellipsis logo** in the top bar (or inside a Zapp) from **any screen** to jump straight back to the Zoe Home screen. On Home, tapping the GEM logo exits Arrange mode and smoothly scrolls back to the top.
 - **Focused Top 3 + `More Zapps`:** Home surfaces your **Top 3 favorite Zapps** as spacious `74dp` / `74pt` pill cards above the fold, keeping cognitive load calm and clear, with all other Zapps tucked cleanly inside **More Zapps**.
@@ -18,20 +18,21 @@ Zoe Bulb uses a calm, spacious **Google Gemini Material 3 Expressive** interface
 
 ---
 
-## Home Zapps (10 Core Zapps)
+## Home Zapps (11 Core Zapps)
 
 | # | Zapp | Plain-English Purpose | Platforms | Network & Sensors |
 |:-:|:---|:---|:---|:---|
 | **1** | **Guided Vision** | Look around with your camera & read text/labels aloud on demand | Android · Apple | Offline OCR & labels (camera stays OFF until **Start camera**; analyzes 1 frame only when you tap **Inspect once**) |
-| **2** | **Talk** | Speak or type calmly with Zoe's on-device Brain & Native Voice | Android · Apple | **100% offline by default** (`0` cloud tokens); optional opt-in Workstation Lab Bridge or Cloud Gemini |
+| **2** | **Talk** | Speak or type calmly with Zoe's on-device Brain, Native Voice & 1-tap phone actions | Android · Apple | **100% offline by default** (`0` cloud tokens); detects map/safety/flashlight/timer requests into 1-tap buttons (never auto-runs); optional Lab/Cloud |
 | **3** | **Trip Journal** | Save field sightings, photos, and private travel/research notes | Android *(Apple planned)* | Private on-device storage; optional explicit export or workstation sync |
 | **4** | **Eliza-GEM Studio** | Interactive Chladni sound-shape synth, **Sing Zoe**, and Workstation Lab Bridge | Android *(Apple planned)* | Chladni & **Sing Zoe** are **100% offline**; Lab Bridge connects only on tap (`127.0.0.1:8765` or HTTPS) |
-| **5** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | Android · Apple | **100% offline** math — zero permissions |
-| **6** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
-| **7** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
-| **8** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
-| **9** | **SafeConvert** | Clean offline unit converter with a discreet private safety & crisis layer | Android · Apple | **100% offline, zero network loads** — see [Complete SafeConvert Guide](SAFECONVERT.md) |
-| **10** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
+| **5** | **Maps & Safety** | Active OS GPS, compass, Google Maps & Apple Maps handoffs, Personal Safety & Flashlight | Android · Apple | Starts **strictly idle**; opt-in one-shot or live OS GPS + compass + Geocoder (stops automatically on exit); native Apple `MapKit` on iOS; zero Maps API keys or tracking SDKs |
+| **6** | **Accessible Volume** | Calculate Nicholas Michael Kloster's strict threshold equation $A_\tau(p)$ | Android · Apple | **100% offline** math — zero permissions |
+| **7** | **Trinity** | Synchronize Phone + Laptop + Tiny Zoe in one shared measurement deck | Android · Apple | Explicit user-initiated local bridge (`127.0.0.1:8767` / private LAN pairing) |
+| **8** | **Field Kit** | Houses 8 specialized camera, audio, radio, GPS, and protocol instruments | Android | Every instrument inside starts **strictly idle** |
+| **9** | **Device Field** | Check real battery, thermal state, sensor counts, speech engine & speaker | Android · Apple | Local public OS APIs only — zero network |
+| **10** | **SafeConvert** | Clean offline unit converter with a discreet private safety & crisis layer | Android · Apple | **100% offline, zero network loads** — see [Complete SafeConvert Guide](SAFECONVERT.md) |
+| **11** | **Researcher Guide** | Built-in offline guide explaining Zoe's architecture, verification & boundaries | Android | **100% offline** documentation |
 
 ---
 
@@ -50,6 +51,7 @@ Zoe Bulb uses a calm, spacious **Google Gemini Material 3 Expressive** interface
   - **Constitutional Honesty & Abstention:** Never pretends to be conscious, sentient, or a clone (`sentience_claimed = false`, `zoe_clone_claimed = false`), honestly abstains on impossible predictions or medical diagnoses, and offers calm grounding + a SafeConvert pointer if you express distress.
   - **Zoe Native Formant Voice & `Sing Zoe`:** Switch between your phone's installed OS English voices or **Zoe Synth** (a first-principles 44.1 kHz Rosenberg-Klatt glottal soprano + 3-formant resonator built from scratch with zero PyTorch or cloud TTS) — and tap **Sing Zoe** to hear Zoe sing her theme offline!
   - **Caption Mode:** Turn on **Caption mode** so Zoe stays silent and live-captions spoken words cleanly.
+  - **One-Tap Built-In Phone Actions:** Ask Zoe to *"navigate to ..."*, *"find pharmacy nearby"*, *"open personal safety"*, *"turn on flashlight"*, *"set a 5 minute timer"*, or *"set alarm for 6:30 am"* — Zoe's offline parser (`OsToolsBridge`) surfaces a calm one-tap button right under the transcript (never auto-executes without your tap).
   - **Optional Extensions (`More actions ▾`):** Explicitly toggle **Lab Brain** (connects to your workstation's Eliza-GEM / local Qwen2.5-3B with automatic offline fallback), **Cloud chat** (requires your own saved Gemini key), **Sync memory to Lab**, or **Open Gemini** handoff.
 
 #### 3. Trip Journal (`Your saved notes & photos`)
@@ -63,24 +65,32 @@ Zoe Bulb uses a calm, spacious **Google Gemini Material 3 Expressive** interface
   - **Eliza-GEM Workstation Bridge (explicit connect):** Connects over loopback USB (`http://127.0.0.1:8765` via `adb reverse`) or remote HTTPS to chat with workstation Gear 1 ELIZA / Gear 2 Local Qwen2.5-3B, pin lab relays, **Sync phone memory to Lab** (`/api/memory/sync`), and inspect or live-run the **L5 Phase 5 Frontier**, **L5 Phase 4 Embodied**, and **L5 Phase 3 Agentic** scorecards.
   - **Cloud AI Key drawer:** Optional, locally stored Gemini API key and model selector (never backed up to cloud; HTTPS only when you tap).
 
-#### 5. Accessible Volume (`Count open choices clearly`)
+#### 5. Maps & Safety (`Live GPS, Google & Apple Maps, Personal Safety`)
+- **What it does:** Harnesses your phone's built-in GPS, compass, geocoder, Maps apps, Personal Safety / Medical ID, and hardware flashlight with **zero Maps API keys and zero tracking SDKs**.
+- **How it works:**
+  - Starts **strictly idle** until you tap **Locate once** or toggle **Live location: on** (automatically pauses GPS & compass the moment you leave the screen).
+  - Displays live coordinates, accuracy, altitude, speed (km/h & mph), compass heading (`N/NE/E/...`), OS street address (via Android `Geocoder` / Apple `CLGeocoder`, never fabricated offline), and Point 1 → Point 2 straight-line distance. On Apple, also renders a live native **`MapKit`** pin map right inside Zoe.
+  - **Dual Maps Handoff:** One-tap **Navigate**, **Search Maps**, **Open Pin / Directions**, and **Share Live Pin** (sends a universal message containing both Google Maps and Apple Maps pin links).
+  - **Built-In Phone Safety & Tools:** Launches Pixel's **Personal Safety** (`com.google.android.apps.safetyhub` / Android Emergency Info) on Android or **Health / Medical ID** + Emergency SOS guidance on Apple, alongside one-tap **SafeConvert**, hardware **Flashlight**, and **Emergency Dialer** (`tel:911`, never auto-dials).
+
+#### 6. Accessible Volume (`Count open choices clearly`)
 - **What it does:** Interactive calculator for **Operational Metacognition** ($A_\tau(p) = |\{x : p(x) > \tau\}|$), originated by **Nicholas Michael Kloster on March 6, 2026**.
 - **Why it matters:** Measures *how many alternatives remain open* strictly above threshold $\tau$ (equality is excluded) — explicitly separating forecast breadth from correctness or action authorization.
 
-#### 6. Trinity (`Link phone & computer`)
+#### 7. Trinity (`Link phone & computer`)
 - **What it does:** Synchronizes three measurement planes — **Tiny Zoe** (quantized Q0.15 APDU witness), **Phone** (floating-point native UI), and **Laptop** (observation deck + optional hash-verified journal) — verifying identical accessible volume and revision hashes across all three. See [TRINITY.md](TRINITY.md).
 
-#### 7. Field Kit (`Cameras, GPS & sensor tools`)
+#### 8. Field Kit (`Cameras, GPS & sensor tools`)
 - **What it does:** Cleanly organizes **8 specialized hardware, radio, and protocol lab tools** out of the first-run home screen so beginners never feel overwhelmed. See the full **Field Kit Instruments** table below.
 
-#### 8. Device Field (`Battery & speaker check`)
+#### 9. Device Field (`Battery & speaker check`)
 - **What it does:** Displays real, unfabricated local device observations (battery percentage/charging state, thermal status, sensor counts, on-device speech availability) plus an explicit **Speaker check** button. Never invents unavailable OS metrics.
 
-#### 9. SafeConvert (`Units & private safety helper`)
-- **What it does:** Presents a calm, fast, ad-free **Unit Converter** (Length, Weight, Temperature, Volume) styled to match Zoe Bulb seamlessly — while containing a completely offline, panic-exit-protected **private safety companion & SHA-256 proof vault** for adults and children who may be in danger or have a monitored phone.
+#### 10. SafeConvert (`Units & private safety helper`)
+- **What it does:** Presents a calm, fast, ad-free **Unit Converter** (Length, Weight, Temperature, Volume) styled to match Zoe seamlessly — while containing a completely offline, panic-exit-protected **private safety companion & SHA-256 proof vault** for adults and children who may be in danger or have a monitored phone.
 - **Read the full guide:** **[`mobile/SAFECONVERT.md`](SAFECONVERT.md)** — documents every single feature, privacy shield, calming tool, hotline directory, proof vault lock, and honest safety boundary in detail.
 
-#### 10. Researcher Guide (`How Zoe works & limits`)
+#### 11. Researcher Guide (`How Zoe works & limits`)
 - **What it does:** Built-in offline walkthrough of Zoe's architecture, build & test commands, privacy guarantees, and epistemic boundaries (`measurement ≠ evidence ≠ belief update ≠ action`).
 
 ---

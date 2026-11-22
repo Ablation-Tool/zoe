@@ -77,7 +77,7 @@ enum GemPalette {
 // MARK: - Zapps
 
 enum ZappID: String, CaseIterable, Identifiable {
-    case vision, talk, volume, trinity, device, safeconvert
+    case vision, talk, maps, volume, trinity, device, safeconvert
 
     var id: String { rawValue }
 
@@ -85,6 +85,7 @@ enum ZappID: String, CaseIterable, Identifiable {
         switch self {
         case .vision: return "Guided vision"
         case .talk: return "Talk"
+        case .maps: return "Maps & Safety"
         case .volume: return "Accessible volume"
         case .trinity: return "Trinity"
         case .device: return "Device field"
@@ -96,6 +97,7 @@ enum ZappID: String, CaseIterable, Identifiable {
         switch self {
         case .vision: return "Look around & read aloud"
         case .talk: return "Speak or type calmly with Zoe"
+        case .maps: return "Live GPS, Apple & Google Maps"
         case .volume: return "Count open choices clearly"
         case .trinity: return "Link phone & computer"
         case .device: return "Battery & speaker check"
@@ -107,6 +109,7 @@ enum ZappID: String, CaseIterable, Identifiable {
         switch self {
         case .vision: return "eye"
         case .talk: return "waveform"
+        case .maps: return "map"
         case .volume: return "chart.bar"
         case .trinity: return "triangle"
         case .device: return "battery.100"
@@ -118,6 +121,7 @@ enum ZappID: String, CaseIterable, Identifiable {
         switch self {
         case .vision, .trinity: return GemPalette.cobalt
         case .talk, .safeconvert: return GemPalette.ruby
+        case .maps: return GemPalette.seafoam
         case .volume, .device: return GemPalette.emerald
         }
     }

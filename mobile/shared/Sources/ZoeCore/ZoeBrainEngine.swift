@@ -157,6 +157,19 @@ public final class ZoeBrainEngine {
             )
         }
 
+        // 0. Built-In OS Tool Action Suggestion (Apple Maps, Google Maps, Safety, Flashlight, Timer, Alarm)
+        let toolAction = OsToolsBridge.parseActionIntent(cleaned)
+        if toolAction.isActionable {
+            scores[3] = 4.4
+            return buildReply(
+                reply: "I prepared a one-tap button below: \"\(toolAction.label)\". Nothing opens, tracks, or runs until you explicitly tap it.",
+                mode: "device_tool_route",
+                tier: "gear1_mobile",
+                scores: scores,
+                citation: "OsToolsBridge · explicit user tap"
+            )
+        }
+
         // 1. Explicit Memory Commands (`remember ...`, `relay ...`, `recall`)
         if let noteText = matchPrefix(cleaned, prefixes: ["please remember ", "remember ", "please save note ", "save note ", "note "]) {
             let saved = appendMemory(kind: "note", text: noteText)

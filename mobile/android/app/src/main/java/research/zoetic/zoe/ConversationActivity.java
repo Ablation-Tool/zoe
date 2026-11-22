@@ -2,11 +2,16 @@ package research.zoetic.zoe;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.AlarmClock;
+import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -46,6 +51,10 @@ public final class ConversationActivity extends ComponentActivity {
     private Button cloudToggle;
     private Button nativeVoiceToggle;
     private Button labBridgeToggle;
+    private LinearLayout osActionBar;
+    private Button osActionBtn;
+    private OsToolsBridge.ActionSuggestion pendingOsAction;
+    private boolean talkTorchOn;
     private TextToSpeech textToSpeech;
     private SpeechRecognizer recognizer;
     private Spinner voicePicker;
@@ -126,11 +135,26 @@ public final class ConversationActivity extends ComponentActivity {
         welcomeRow.addView(brainBadge);
         feed.addView(welcomeRow);
 
-        transcript = Ui.text(this, "No turns yet. Try typing `remember ...`, asking about L5 Phase 4, or tapping Start talking.", 16f, Ui.TEXT);
+        transcript = Ui.text(this, "No turns yet. Try typing `remember ...`, `navigate to ...`, `set a 5 minute timer`, or tapping Start talking.", 16f, Ui.TEXT);
         transcript.setBackground(Ui.cardBackground(this, 24));
         transcript.setPadding(Ui.dp(this, 20), Ui.dp(this, 18), Ui.dp(this, 20), Ui.dp(this, 18));
         transcript.setTextIsSelectable(true);
         feed.addView(transcript);
+
+        osActionBar = Ui.vertical(this);
+        osActionBar.setId(R.id.conversation_action_bar);
+        osActionBar.setBackground(Ui.cardBackground(this, 20));
+        osActionBar.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
+        osActionBar.setVisibility(android.view.View.GONE);
+        osActionBar.addView(Ui.text(this, "BUILT-IN PHONE ACTION · TAP TO RUN", 11.5f, Ui.CYAN));
+        osActionBtn = Ui.primaryButton(this, "Open tool", Ui.COBALT, view -> executePendingOsAction());
+        osActionBtn.setId(R.id.conversation_action_btn);
+        Button dismissActionBtn = Ui.button(this, "Dismiss", Ui.MUTED, view -> clearPendingOsAction());
+        osActionBar.addView(Ui.buttonRow(this, osActionBtn, dismissActionBtn));
+        LinearLayout.LayoutParams actLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        actLp.setMargins(0, Ui.dp(this, 10), 0, Ui.dp(this, 2));
+        feed.addView(osActionBar, actLp);
 
         LinearLayout moreDrawer = Ui.vertical(this);
         moreDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
@@ -381,6 +405,7 @@ public final class ConversationActivity extends ComponentActivity {
     }
 
     private void deliverLocalBrainReply(String input, String statusNote) {
+        updatePendingOsAction(input);
         ZoeBrainEngine.BrainReply res = brain.respond(input);
         lastResponse = res.reply;
         brainBadge.setText(res.telemetryBadge());
@@ -388,6 +413,108 @@ public final class ConversationActivity extends ComponentActivity {
         status.setText(statusNote);
         if (!captionMode) {
             speakReply(res.reply, "zoe-typed");
+        }
+    }
+
+    private void updatePendingOsAction(String input) {
+        OsToolsBridge.ActionSuggestion suggestion = OsToolsBridge.parseActionIntent(input);
+        if (suggestion.isActionable()) {
+            pendingOsAction = suggestion;
+            osActionBtn.setText(suggestion.label);
+            osActionBar.setVisibility(android.view.View.VISIBLE);
+        }
+    }
+
+    private void clearPendingOsAction() {
+        pendingOsAction = null;
+        osActionBar.setVisibility(android.view.View.GONE);
+    }
+
+    private void executePendingOsAction() {
+        OsToolsBridge.ActionSuggestion act = pendingOsAction;
+        if (act == null || !act.isActionable()) {
+            return;
+        }
+        try {
+            switch (act.kind) {
+                case NAVIGATE -> {
+                    Intent nav = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(OsToolsBridge.androidNavigationUri(act.query)));
+                    nav.setPackage(OsToolsBridge.GOOGLE_MAPS_PACKAGE);
+                    try {
+                        startActivity(nav);
+                    } catch (ActivityNotFoundException fallback) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(OsToolsBridge.googleMapsSearchUrl(act.query))));
+                    }
+                    status.setText("Opened Google Maps navigation for " + act.query + ".");
+                }
+                case MAP_SEARCH -> {
+                    Intent search = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(OsToolsBridge.androidGeoSearchUri(act.query, 0, 0, false)));
+                    try {
+                        startActivity(search);
+                    } catch (ActivityNotFoundException fallback) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(OsToolsBridge.googleMapsSearchUrl(act.query))));
+                    }
+                    status.setText("Opened Maps search for " + act.query + ".");
+                }
+                case OPEN_LOCATION -> {
+                    startActivity(new Intent(this, LocationActivity.class));
+                    status.setText("Opened Maps & Safety.");
+                }
+                case OPEN_SAFETY -> {
+                    PackageManager pm = getPackageManager();
+                    Intent hub = pm.getLaunchIntentForPackage(OsToolsBridge.PIXEL_SAFETY_PACKAGE);
+                    if (hub == null) {
+                        hub = pm.getLaunchIntentForPackage(OsToolsBridge.ANDROID_EMERGENCY_PACKAGE);
+                    }
+                    startActivity(hub != null ? hub : new Intent(this, LocationActivity.class));
+                    status.setText("Opened Personal Safety.");
+                }
+                case TOGGLE_TORCH -> toggleTalkFlashlight();
+                case SET_TIMER -> {
+                    Intent timer = new Intent(AlarmClock.ACTION_SET_TIMER)
+                            .putExtra(AlarmClock.EXTRA_LENGTH, act.seconds)
+                            .putExtra(AlarmClock.EXTRA_MESSAGE, "Zoe timer");
+                    startActivity(timer);
+                    status.setText("Opened Clock to start your timer.");
+                }
+                case SET_ALARM -> {
+                    Intent alarm = new Intent(AlarmClock.ACTION_SET_ALARM)
+                            .putExtra(AlarmClock.EXTRA_HOUR, act.hour)
+                            .putExtra(AlarmClock.EXTRA_MINUTES, act.minute)
+                            .putExtra(AlarmClock.EXTRA_MESSAGE, "Zoe alarm");
+                    startActivity(alarm);
+                    status.setText("Opened Clock to set your alarm.");
+                }
+                default -> { }
+            }
+        } catch (ActivityNotFoundException error) {
+            status.setText("No built-in app was available for that action on this device.");
+        }
+    }
+
+    private void toggleTalkFlashlight() {
+        CameraManager cm = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        if (cm == null) {
+            status.setText("Flashlight is unavailable on this device.");
+            return;
+        }
+        try {
+            for (String id : cm.getCameraIdList()) {
+                CameraCharacteristics chars = cm.getCameraCharacteristics(id);
+                if (Boolean.TRUE.equals(chars.get(CameraCharacteristics.FLASH_INFO_AVAILABLE))) {
+                    talkTorchOn = !talkTorchOn;
+                    cm.setTorchMode(id, talkTorchOn);
+                    status.setText(talkTorchOn ? "Flashlight turned on." : "Flashlight turned off.");
+                    return;
+                }
+            }
+            status.setText("No flashlight hardware found on this device.");
+        } catch (Exception error) {
+            status.setText("Could not toggle flashlight: " + error.getMessage());
         }
     }
 
@@ -594,6 +721,7 @@ public final class ConversationActivity extends ComponentActivity {
                         return;
                     }
                 }
+                updatePendingOsAction(heard);
                 ZoeBrainEngine.BrainReply local = brain.respond(heard);
                 brainBadge.setText(local.telemetryBadge());
                 addExchange("ZOE", local.reply);

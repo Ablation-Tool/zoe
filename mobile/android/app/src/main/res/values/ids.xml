@@ -46,7 +46,17 @@
     <item name="space_capture" type="id" />
     <item name="location_status" type="id" />
     <item name="location_once" type="id" />
+    <item name="location_live_toggle" type="id" />
     <item name="location_report" type="id" />
+    <item name="maps_query_input" type="id" />
+    <item name="maps_navigate_btn" type="id" />
+    <item name="maps_search_btn" type="id" />
+    <item name="maps_open_pin_btn" type="id" />
+    <item name="maps_share_pin_btn" type="id" />
+    <item name="safety_open_app_btn" type="id" />
+    <item name="safety_torch_btn" type="id" />
+    <item name="conversation_action_bar" type="id" />
+    <item name="conversation_action_btn" type="id" />
     <item name="apps_status" type="id" />
     <item name="apps_picker" type="id" />
     <item name="apps_report" type="id" />

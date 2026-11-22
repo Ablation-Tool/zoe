@@ -1,8 +1,8 @@
 # SafeConvert — Documentation, Privacy Architecture & Safety Boundaries
 
-**SafeConvert** is a built-in Zapp inside **Zoe Bulb (beta)** (available on both **Android** and **Apple** iOS/iPadOS/iPhone Duo Fold) designed for two simultaneous goals:
+**SafeConvert** is a built-in Zapp inside **Zoe (beta)** (available on both **Android** and **Apple** iOS/iPadOS/iPhone Duo Fold) designed for two simultaneous goals:
 
-1. **On the surface:** A fast, genuinely useful, zero-ad, 100% offline **Unit Converter** styled seamlessly in Zoe Bulb's calm Google Gemini Material 3 Expressive Dark/Light theme.
+1. **On the surface:** A fast, genuinely useful, zero-ad, 100% offline **Unit Converter** styled seamlessly in Zoe's calm Google Gemini Material 3 Expressive Dark/Light theme.
 2. **Beneath the surface:** A discreet, completely offline **personal safety companion, calming aid, crisis resource directory, and SHA-256 private proof vault** built to help adults and children who may be experiencing abuse, coercion, or crisis — including people whose phones may be checked or monitored.
 
 > **Important Public Safety Note:** To protect people who rely on SafeConvert in unsafe households, the exact discreet activation sequence is **intentionally omitted from public deployment guides and social posts**. Developers auditing the repository can inspect the exact mechanism directly in [`mobile/shared/safeconvert/index.html`](shared/safeconvert/index.html), and users see a quiet reminder inside SafeConvert's private safety layer once opened.
@@ -18,7 +18,7 @@ When you open **SafeConvert**, it looks and functions strictly like a clean, mod
   - **Weight:** Ounces, Pounds, Grams, Kilograms
   - **Temperature:** Fahrenheit, Celsius
   - **Volume:** Cups, Pints, Quarts, Gallons, Liters
-- **Ergonomic Design Matching Zoe Bulb:** Automatically matches Zoe Bulb's Obsidian Velvet Dark Mode or pure Light Mode (synced live with Zoe's in-app appearance toggle on Android and system Dark/Light appearance on Apple), with rounded pill category tabs, generous `>= 48dp/pt` inputs, instant `↕ Swap`, and a tappable top-right **Zoe GEM-Ellipsis** Home logo.
+- **Ergonomic Design Matching Zoe:** Automatically matches Zoe's Obsidian Velvet Dark Mode or pure Light Mode (synced live with Zoe's in-app appearance toggle on Android and system Dark/Light appearance on Apple), with rounded pill category tabs, generous `>= 48dp/pt` inputs, instant `↕ Swap`, and a tappable top-right **Zoe GEM-Ellipsis** Home logo.
 - **Zero False Triggers:** Everyday numbers and decimals (`0`, `0.00`, `0.5`, `112`, etc.) convert normally and never accidentally reveal the safety layer.
 - **Zero Network & Zero Tracking:** Runs 100% from local bundled assets with zero external scripts, zero CDNs, zero ads, and zero analytics.
 
@@ -103,4 +103,4 @@ SafeConvert is continuously verified by automated unit tests and real hardware i
 - **Not Counseling, Legal Advice, or an Emergency Guarantee:** SafeConvert is an offline information, calming, and documentation tool — not professional therapy, legal representation, or a guarantee of physical safety. Emergency calls and texts still depend on your device, carrier, signal, and local emergency services.
 - **Recording Laws:** One-party vs. two-party audio/video recording consent laws vary by state and country. Use recording tools only when safe and lawful for your situation.
 - **Device Hygiene:** If you suspect your phone is compromised or actively monitored, use a safer device (such as a library computer or a trusted friend's phone) whenever possible, and avoid storing passwords or banking details inside notes.
-- **Credit:** The original SafeConvert concept is credited to **ExileKingdom / Nuclide**. This independent zero-dependency vanilla implementation adds native Android `WebView` / Apple `WKWebView` containers, `FLAG_SECURE` / iOS blur shields, SHA-256 private vault storage, optional passcode lock, offline calming tools, and Zoe Bulb's accessible Material 3 Expressive design.
+- **Credit:** The original SafeConvert concept is credited to **ExileKingdom / Nuclide**. This independent zero-dependency vanilla implementation adds native Android `WebView` / Apple `WKWebView` containers, `FLAG_SECURE` / iOS blur shields, SHA-256 private vault storage, optional passcode lock, offline calming tools, and Zoe's accessible Material 3 Expressive design.

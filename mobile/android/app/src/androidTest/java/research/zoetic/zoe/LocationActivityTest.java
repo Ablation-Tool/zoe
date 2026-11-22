@@ -2,9 +2,12 @@ package research.zoetic.zoe;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNull;
 
 import android.Manifest;
@@ -38,5 +41,17 @@ public class LocationActivityTest {
         activity.getScenario().onActivity(activity -> assertNull(activity.pendingLocation));
         onView(withId(R.id.location_status)).check(matches(withText(
                 "Location stopped. No points are retained and no location request is active.")));
+    }
+
+    @Test
+    public void mapsAndPersonalSafetyControlsRenderAndLiveToggleStopsCleanly() {
+        onView(withId(R.id.maps_navigate_btn)).perform(scrollTo()).check(matches(isDisplayed()));
+        onView(withId(R.id.maps_search_btn)).perform(scrollTo()).check(matches(isDisplayed()));
+        onView(withId(R.id.safety_open_app_btn)).perform(scrollTo()).check(matches(isDisplayed()));
+        onView(withId(R.id.safety_torch_btn)).perform(scrollTo()).check(matches(isDisplayed()));
+
+        onView(withId(R.id.location_live_toggle)).perform(scrollTo(), click());
+        onView(withText("Stop and clear points")).perform(scrollTo(), click());
+        onView(withId(R.id.location_status)).check(matches(withText(containsString("Location stopped."))));
     }
 }

@@ -1,12 +1,12 @@
-# Zoe Bulb (beta) — Mobile Companion
+# Zoe (beta) — Mobile Companion
 
-> **Status:** **Zoe Bulb (beta)** (`v0.2.0-beta`) is a free, offline-first, privacy-respecting work-in-progress mobile app for **Android** (verified on Pixel 7, direct beta APK on [GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)) and **Apple** (`iPhone`, `iPad`, & `iPhone Duo Fold` native SwiftUI + shared `ZoeCore` package).
+> **Status:** **Zoe (beta)** (`v0.3.0-beta`) is a free, offline-first, privacy-respecting work-in-progress mobile app for **Android** (verified on Pixel 7, direct beta APK on [GitHub Releases](https://github.com/Ablation-Tool/zoe/releases)) and **Apple** (`iPhone`, `iPad`, & `iPhone Duo Fold` native SwiftUI + shared `ZoeCore` package).
 
 <div align="center">
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta"><img src="../assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe Bulb (beta) live Pixel 7 screenshots" width="100%" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.3.0-beta"><img src="../assets/readme/zoe-bulb-beta-showcase.png" alt="Zoe (beta) live Pixel 7 screenshots" width="100%" /></a>
 
-**[⬇ Download Zoe Bulb (beta) Android APK (`v0.2.0-beta`)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.2.0-beta)** &nbsp;·&nbsp; **[Complete Guide to Every Zapp (`ZAPPS.md`)](ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Documentation (`SAFECONVERT.md`)](SAFECONVERT.md)**
+**[⬇ Download Zoe (beta) Android APK (`v0.3.0-beta`)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.3.0-beta)** &nbsp;·&nbsp; **[Complete Guide to Every Zapp (`ZAPPS.md`)](ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Documentation (`SAFECONVERT.md`)](SAFECONVERT.md)**
 
 </div>
 
@@ -152,7 +152,7 @@ On the audited Pixel, Gemini Nano's feature check returned `601-BINDING_FAILURE`
 
 > **Complete Documentation:** Read **[`mobile/SAFECONVERT.md`](SAFECONVERT.md)** for the full guide covering the Unit Converter cover, **My Safe People** private contacts, ephemeral **Talk to Zoe** calming & 4-4-6 breathing tools, **SHA-256 Private Safety Log** (notes + private audio/video vault), optional **Passcode Lock**, instant **Panic Exit**, `FLAG_SECURE` / iOS blur shields, and honest safety boundaries.
 
-SafeConvert integrates an original offline unit converter and safety resource styled identically to Zoe Bulb's calm Material 3 Expressive Dark/Light theme. It provides length, weight, temperature, and volume conversions, crisis-readable hotline/resource links, a child-friendly section, safety planning, up to five locally stored safe contacts, ephemeral Talk to Zoe calming support, and a passcode-lockable SHA-256 proof vault. Phone, SMS, and external safe-link actions require a deliberate tap. Escape, back, app-switch, 90-second idle, or the EXIT control returns straight to the converter.
+SafeConvert integrates an original offline unit converter and safety resource styled identically to Zoe's calm Material 3 Expressive Dark/Light theme. It provides length, weight, temperature, and volume conversions, crisis-readable hotline/resource links, a child-friendly section, safety planning, up to five locally stored safe contacts, ephemeral Talk to Zoe calming support, and a passcode-lockable SHA-256 proof vault. Phone, SMS, and external safe-link actions require a deliberate tap. Escape, back, app-switch, 90-second idle, or the EXIT control returns straight to the converter.
 
 The original SafeConvert concept is credited to ExileKingdom / Nuclide. This independent vanilla implementation adds native Android `WebView` and Apple `WKWebView` containers, no React or CDN, no analytics, no tracking, no external code, and no embedded network loads. Local contact storage is bounded and never uploaded by Zoe. The activation pattern is intentionally not repeated in this public guide; do not publish it alongside a deployment URL.
 
