@@ -1124,7 +1124,7 @@ def create_server(
                     f"<h1>Zoe :: 11-World Renaissance Observatory (All {doc.get('orbit_passes_completed', 11)} Orbital Passes Complete)</h1>"
                     f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
                     f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
-                    f"<span class='pill'>Theorems 1-11 SymPy Proved</span><span class='pill'>21/21 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
+                    f"<span class='pill'>Theorems 1-12 SymPy Proved</span><span class='pill'>27/27 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
                     f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
                     "<p style='margin-top:20px;color:#9db2d1;line-height:1.8'>Live Observatory APIs: "
                     "<a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "

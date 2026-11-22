@@ -496,13 +496,22 @@
       "sloc": 179
     },
     {
-      "avg_cc": 7.7,
+      "avg_cc": 7.647,
+      "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_boss_rush.py",
+      "grade": "A",
+      "h2": 2.3865,
+      "max_cc": 21,
+      "mi": 60.554,
+      "sloc": 407
+    },
+    {
+      "avg_cc": 8.056,
       "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_classical.py",
       "grade": "A",
-      "h2": 1.7669,
-      "max_cc": 19,
-      "mi": 63.389,
-      "sloc": 271
+      "h2": 2.5251,
+      "max_cc": 17,
+      "mi": 60.582,
+      "sloc": 453
     },
     {
       "avg_cc": 4.8,
@@ -510,8 +519,8 @@
       "grade": "A",
       "h2": 2.3811,
       "max_cc": 15,
-      "mi": 69.05,
-      "sloc": 388
+      "mi": 68.565,
+      "sloc": 414
     },
     {
       "avg_cc": 6.059,
@@ -2026,13 +2035,13 @@
       "sloc": 131
     },
     {
-      "avg_cc": 7.333,
+      "avg_cc": 9.5,
       "file": "scripts/verify_kloster_cryptanalysis_gauntlet.py",
       "grade": "B",
-      "h2": 0.6768,
-      "max_cc": 14,
-      "mi": 55.361,
-      "sloc": 153
+      "h2": 0.7156,
+      "max_cc": 25,
+      "mi": 49.089,
+      "sloc": 299
     },
     {
       "avg_cc": 3.556,
@@ -2284,26 +2293,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "ccc6b38b78c1f52127b59ddcf8bb5b097bedc436196d737021a8297b73359553",
+  "evidence_sha256": "114145564ce6e2e7d78287c360ae62383789c6b241036104e8bc4bca97690cfd",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6381,
-    "files_scanned": 252,
+    "corr_avg_cc_vs_mi": -0.6386,
+    "files_scanned": 253,
     "grade_distribution": {
-      "A": 127,
+      "A": 128,
       "B": 116,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.43,
-    "mean_mi": 58.687,
-    "median_mi": 60.099,
+    "mean_avg_cc": 7.441,
+    "mean_mi": 58.656,
+    "median_mi": 60.128,
     "orbit_mean_avg_cc": 7.415,
     "orbit_mean_mi": 57.711,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2836,
-    "total_sloc": 75328
+    "total_functions": 2862,
+    "total_sloc": 76089
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,

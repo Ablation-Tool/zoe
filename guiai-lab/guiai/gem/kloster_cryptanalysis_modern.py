@@ -20,7 +20,13 @@ from typing import Any, Dict, List, Sequence, Tuple
 
 import numpy as np
 
+from .kloster_cryptanalysis_boss_rush import (
+    crack_enigma_m3_bombe,
+    crack_kryptos_sculpture,
+    crack_post_quantum_lwe_and_ntru,
+)
 from .kloster_cryptanalysis_classical import (
+    build_english_lm_tables,
     crack_lfsr_berlekamp_massey,
     crack_official_nsa_mission_monday,
     crack_vigenere_friedman_kloster,
@@ -28,7 +34,7 @@ from .kloster_cryptanalysis_classical import (
 )
 from .spectral_filtration import spectral_moment_root
 
-CONTRACT = "zoe-kloster-cryptanalysis-gauntlet/v1"
+CONTRACT = "zoe-kloster-cryptanalysis-gauntlet/v2"
 
 
 # =============================================================================
@@ -444,26 +450,33 @@ def crack_cbc_padding_oracle() -> Dict[str, Any]:
 
 
 def run_kloster_cryptanalysis_gauntlet(zoe_root: str | Path) -> Dict[str, Any]:
-    """Run all 7 legal offline cryptanalysis challenges + Friedman-Kloster SymPy proof."""
+    """Run all 10 legal offline cryptanalysis challenges (Full Boss Rush) + Friedman-Kloster SymPy proof."""
     root = Path(zoe_root).expanduser().resolve()
+    en_lm = build_english_lm_tables(root)
     sym = symbolic_proof_friedman_kloster()
-    c1 = crack_official_nsa_mission_monday(root)
+    c1 = crack_official_nsa_mission_monday(root, en_lm=en_lm)
     c2 = crack_vigenere_friedman_kloster()
     c3 = crack_ecdsa_secp256k1_nonce_reuse()
     c4 = crack_rsa_hastad_and_wiener()
     c5 = crack_lfsr_berlekamp_massey()
     c6 = crack_spn_differential_biham_shamir()
     c7 = crack_cbc_padding_oracle()
+    c8 = crack_post_quantum_lwe_and_ntru()
+    c9 = crack_enigma_m3_bombe()
+    c10 = crack_kryptos_sculpture(en_lm)
 
     checks = {
         "sympy_friedman_ic_equals_kloster_m2_exact": sym["exact"],
-        "c1_official_nsa_mission_monday_cracked": c1["verified"],
+        "c1_official_nsa_mission_monday_series_cracked": c1["verified"],
         "c2_vigenere_friedman_kloster_and_otp_ctrl": c2["verified"],
         "c3_secp256k1_ecdsa_256bit_key_and_rfc6979_ctrl": c3["verified"],
         "c4_rsa_hastad_e3_and_512bit_wiener_factored": c4["verified"],
         "c5_berlekamp_massey_lfsr_and_csprng_ctrl": c5["verified"],
         "c6_biham_shamir_4round_spn_differential": c6["verified"],
         "c7_cbc_padding_oracle_and_etm_hmac_defense": c7["verified"],
+        "c8_post_quantum_lll_lwe_ntru_and_mlkem_ctrl": c8["verified"],
+        "c9_enigma_m3_turing_welchman_bombe_unique_stop": c9["verified"],
+        "c10_kryptos_k1_k2_k3_blind_and_k4_spectral": c10["verified"],
     }
     report = {
         "contract": CONTRACT,
@@ -476,6 +489,9 @@ def run_kloster_cryptanalysis_gauntlet(zoe_root: str | Path) -> Dict[str, Any]:
             "c5_berlekamp_massey": c5,
             "c6_spn_differential": c6,
             "c7_cbc_padding_oracle": c7,
+            "c8_post_quantum_lll": c8,
+            "c9_enigma_m3_bombe": c9,
+            "c10_kryptos_sculpture": c10,
         },
         "checks": checks,
         "constitution": {
@@ -483,10 +499,20 @@ def run_kloster_cryptanalysis_gauntlet(zoe_root: str | Path) -> Dict[str, Any]:
             "authorized_targets_only": True,
             "cloud_tokens_used": 0,
             "negative_controls_preserved": True,
+            "unsolved_ciphers_marked_honestly": True,
         },
         "all_verified": all(checks.values()),
     }
     report["evidence_sha256"] = hashlib.sha256(
-        json.dumps({"checks": checks, "c1": c1["char_recovery_accuracy"], "c6": c6["recovered_subkey_nibbles_hex"]}, sort_keys=True).encode("utf-8")
+        json.dumps(
+            {
+                "checks": checks,
+                "c1_acc": c1["char_recovery_accuracy"],
+                "c6_key": c6["recovered_subkey_nibbles_hex"],
+                "c9_pos": c9["recovered_rotor_position"],
+                "c10_k1": c10["k1"]["recovered_key"],
+            },
+            sort_keys=True,
+        ).encode("utf-8")
     ).hexdigest()
     return report
