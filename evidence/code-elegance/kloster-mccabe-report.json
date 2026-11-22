@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 17.571,
+      "avg_cc": 17.857,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.3895,
-      "max_cc": 100,
-      "mi": 52.627,
-      "sloc": 1392
+      "h2": 1.3813,
+      "max_cc": 102,
+      "mi": 52.555,
+      "sloc": 1397
     },
     {
       "avg_cc": 6.64,
@@ -548,6 +548,24 @@
       "max_cc": 12,
       "mi": 62.992,
       "sloc": 181
+    },
+    {
+      "avg_cc": 5.263,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_cnsa2_and_advanced.py",
+      "grade": "A",
+      "h2": 2.1054,
+      "max_cc": 26,
+      "mi": 70.031,
+      "sloc": 344
+    },
+    {
+      "avg_cc": 7.773,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_puzzles.py",
+      "grade": "A",
+      "h2": 2.5615,
+      "max_cc": 21,
+      "mi": 62.727,
+      "sloc": 433
     },
     {
       "avg_cc": 2.7,
@@ -2188,6 +2206,15 @@
       "sloc": 291
     },
     {
+      "avg_cc": 5.25,
+      "file": "scripts/verify_nsa_research_puzzle_pack.py",
+      "grade": "B",
+      "h2": 1.1123,
+      "max_cc": 8,
+      "mi": 50.392,
+      "sloc": 252
+    },
+    {
       "avg_cc": 8.667,
       "file": "scripts/verify_pass2_visuals.py",
       "grade": "B",
@@ -2293,26 +2320,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "114145564ce6e2e7d78287c360ae62383789c6b241036104e8bc4bca97690cfd",
+  "evidence_sha256": "05c5b53207365b8e987cfadcdee7f69364f38402e8790d2f01142ac81cc6afdc",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6386,
-    "files_scanned": 253,
+    "corr_avg_cc_vs_mi": -0.6346,
+    "files_scanned": 256,
     "grade_distribution": {
-      "A": 128,
-      "B": 116,
+      "A": 130,
+      "B": 117,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.441,
-    "mean_mi": 58.656,
-    "median_mi": 60.128,
+    "mean_avg_cc": 7.426,
+    "mean_mi": 58.684,
+    "median_mi": 60.15,
     "orbit_mean_avg_cc": 7.415,
     "orbit_mean_mi": 57.711,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2862,
-    "total_sloc": 76089
+    "total_functions": 2907,
+    "total_sloc": 77123
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -3186,30 +3213,30 @@
       "total_cc": 45
     },
     {
-      "avg_cc": 1.722,
-      "comment_ratio": 0.0,
-      "file": "guiai-lab/guiai/gem/brain_life_view.py",
-      "functions": 18,
+      "avg_cc": 5.263,
+      "comment_ratio": 0.0402,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_cnsa2_and_advanced.py",
+      "functions": 19,
       "grade": "A",
-      "halstead_length": 559,
-      "halstead_vocab": 151,
-      "halstead_volume": 4046.27,
-      "kloster_cc_a_005": 7,
-      "kloster_cc_m4_root": 0.1678,
-      "kloster_cc_renyi_h2": 2.5775,
+      "halstead_length": 1758,
+      "halstead_vocab": 367,
+      "halstead_volume": 14977.52,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.2681,
+      "kloster_cc_renyi_h2": 2.1054,
       "low_maintainability_flag": false,
-      "max_cc": 4,
-      "mi_file_radon": 22.375,
-      "mi_score": 69.862,
+      "max_cc": 26,
+      "mi_file_radon": 10.917,
+      "mi_score": 70.031,
       "most_complex_function": {
-        "cc": 4,
-        "fn_mi": 53.16,
-        "fn_sloc": 19,
-        "lineno": 168,
-        "name": "main"
+        "cc": 26,
+        "fn_mi": 40.08,
+        "fn_sloc": 80,
+        "lineno": 82,
+        "name": "lab_cnsa2_lms_wots_forgery_and_guard"
       },
-      "sloc": 162,
-      "total_cc": 31
+      "sloc": 344,
+      "total_cc": 100
     }
   ]
 }
