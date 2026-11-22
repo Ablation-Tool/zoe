@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 18.429,
+      "avg_cc": 18.714,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.365,
-      "max_cc": 106,
-      "mi": 52.442,
-      "sloc": 1407
+      "h2": 1.357,
+      "max_cc": 108,
+      "mi": 52.402,
+      "sloc": 1412
     },
     {
       "avg_cc": 6.64,
@@ -638,6 +638,15 @@
       "max_cc": 6,
       "mi": 49.507,
       "sloc": 159
+    },
+    {
+      "avg_cc": 4.417,
+      "file": "guiai-lab/guiai/gem/kloster_stopping_law.py",
+      "grade": "A",
+      "h2": 2.0462,
+      "max_cc": 12,
+      "mi": 62.081,
+      "sloc": 319
     },
     {
       "avg_cc": 6.333,
@@ -1747,13 +1756,13 @@
       "sloc": 178
     },
     {
-      "avg_cc": 8.375,
+      "avg_cc": 7.889,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
       "grade": "B",
-      "h2": 1.6352,
+      "h2": 1.733,
       "max_cc": 19,
-      "mi": 56.89,
-      "sloc": 383
+      "mi": 56.163,
+      "sloc": 417
     },
     {
       "avg_cc": 5.368,
@@ -2152,6 +2161,15 @@
       "sloc": 182
     },
     {
+      "avg_cc": 6.0,
+      "file": "scripts/verify_kloster_theorem13.py",
+      "grade": "B",
+      "h2": 0.7701,
+      "max_cc": 10,
+      "mi": 53.181,
+      "sloc": 167
+    },
+    {
       "avg_cc": 13.5,
       "file": "scripts/verify_kloster_theory.py",
       "grade": "B",
@@ -2374,26 +2392,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "0daa6ad510851db3f18260aafdb2af697be5a6e578c253bd32d54e735158bc1c",
+  "evidence_sha256": "1d45591d00545726532b75586e7b8c47b194038341c04249438e890da55b5159",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6304,
-    "files_scanned": 262,
+    "corr_avg_cc_vs_mi": -0.6292,
+    "files_scanned": 264,
     "grade_distribution": {
-      "A": 133,
-      "B": 120,
+      "A": 134,
+      "B": 121,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.366,
-    "mean_mi": 58.703,
+    "mean_avg_cc": 7.349,
+    "mean_mi": 58.692,
     "median_mi": 60.15,
-    "orbit_mean_avg_cc": 7.415,
-    "orbit_mean_mi": 57.711,
+    "orbit_mean_avg_cc": 7.377,
+    "orbit_mean_mi": 57.655,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2957,
-    "total_sloc": 78352
+    "total_functions": 2973,
+    "total_sloc": 78877
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2657,30 +2675,30 @@
       "total_cc": 106
     },
     {
-      "avg_cc": 8.375,
-      "comment_ratio": 0.0254,
+      "avg_cc": 7.889,
+      "comment_ratio": 0.0233,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
-      "functions": 8,
+      "functions": 9,
       "grade": "B",
-      "halstead_length": 1397,
-      "halstead_vocab": 406,
-      "halstead_volume": 12105.47,
-      "kloster_cc_a_005": 5,
-      "kloster_cc_m4_root": 0.3245,
-      "kloster_cc_renyi_h2": 1.6352,
+      "halstead_length": 1494,
+      "halstead_vocab": 423,
+      "halstead_volume": 13034.42,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.3063,
+      "kloster_cc_renyi_h2": 1.733,
       "low_maintainability_flag": false,
       "max_cc": 19,
-      "mi_file_radon": 13.196,
-      "mi_score": 56.89,
+      "mi_file_radon": 11.325,
+      "mi_score": 56.163,
       "most_complex_function": {
         "cc": 19,
-        "fn_mi": 46.79,
+        "fn_mi": 46.48,
         "fn_sloc": 45,
         "lineno": 136,
         "name": "steer_from_multihorizon_trace"
       },
-      "sloc": 383,
-      "total_cc": 67
+      "sloc": 417,
+      "total_cc": 71
     },
     {
       "avg_cc": 9.333,

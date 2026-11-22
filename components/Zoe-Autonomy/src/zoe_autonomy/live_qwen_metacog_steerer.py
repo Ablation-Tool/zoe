@@ -180,6 +180,46 @@ def steer_from_multihorizon_trace(
     }
 
 
+def steer_with_theorem13_stopping(
+    prompt: str,
+    counts_by_h: Sequence[int],
+    mass_by_h: Sequence[float],
+    root_renyi2: float,
+    tau: float,
+    evidence_histogram: Sequence[int],
+    *,
+    delta: float = 0.005,
+    max_samples: int = 256,
+) -> Dict[str, Any]:
+    """Upgrade Zoe's steering policy with Theorem 13 finite-sample Kloster stopping guard.
+
+    Prevents premature `ANSWER` on undersampled/uniform streams by returning `GATHER_MORE`
+    while budget remains, or `ABSTAIN` if evidence stays indistinguishable from uniform u_N.
+    """
+    _ensure_guiai_path(Path(__file__).resolve().parents[4])
+    from guiai.gem.kloster_stopping_law import KlosterSequentialStoppingController
+
+    base = steer_from_multihorizon_trace(prompt, counts_by_h, mass_by_h, root_renyi2, tau)
+    hist = np.asarray(evidence_histogram, dtype=np.int64)
+    ctrl = KlosterSequentialStoppingController(n_bins=max(2, int(hist.size)), delta=delta, max_samples=max_samples)
+    ctrl.counts = hist.copy()
+    verdict = ctrl.observe_batch(np.empty(0, dtype=np.int64))
+
+    gated_action = base["action"]
+    if base["action"] == "ANSWER":
+        if verdict["action"] == "GATHER_MORE":
+            gated_action = "GATHER_MORE"
+        elif verdict["action"] == "ABSTAIN_INSUFFICIENT_EVIDENCE":
+            gated_action = "ABSTAIN"
+
+    return {
+        **base,
+        "action": gated_action,
+        "base_action": base["action"],
+        "theorem13_stopping": verdict,
+    }
+
+
 def live_qwen_multihorizon_steer(
     prompt: str,
     *,
