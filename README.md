@@ -24,9 +24,7 @@ $$
 A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]
 $$
 
-*A unified, offline-capable research observatory and mobile app where Operational Metacognition, 3D human neuroanatomy, formal mathematical proofs, native voice synthesis, and reproducible engineering share one honest roof.*
-
-**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 40 Extended GEM Layers · `16/16` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `289` Live Zoe Modules (`0` Grade-C/D) · `61` Live HTTP Routes · `47/47` `SHA256SUMS.orbit` Sealed · `v0.9.6-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+*A unified research observatory and app where Operational Metacognition, 3D human neuroanatomy, formal mathematical proofs, native voice synthesis, and reproducible engineering share one honest roof.*
 
 <br/>
 
