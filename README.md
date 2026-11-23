@@ -46,9 +46,11 @@ $$
 &nbsp;
 [![Download Zoe Desktop for Apple macOS](https://img.shields.io/badge/💻_Apple_macOS_Desktop-v0.9.6_·_Zoe.app-0f172a?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)
 &nbsp;
+[![SafeConvert Standalone Personal Safety App](https://img.shields.io/badge/🛡️_SafeConvert_App-Standalone_Android_%2F_Apple_%2F_Web-10b981?style=for-the-badge)](https://github.com/Ablation-Tool/SafeConvert)
+&nbsp;
 [![Release Notes and SHA-256](https://img.shields.io/badge/Release_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
 
-<sub><strong>Web Browser (no download):</strong> open <a href="https://ablation-tool.github.io/zoe/"><code>ablation-tool.github.io/zoe</code></a> directly in Chrome, Safari, Firefox, or Edge on any phone, tablet, or computer.<br/><strong>Optional Mobile &amp; Desktop Apps:</strong> <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk">Android APK</a> (Google Pixel &amp; Fold), <a href="mobile/apple/Zoe.xcodeproj">Apple Xcode</a> (iPhone, Apple Fold &amp; iPad), <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz">Linux</a>, <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip">Windows</a>, or <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip">Apple macOS</a> (<a href="desktop/README.md"><code>desktop/README.md</code></a>).</sub>
+<sub><strong>Web Browser (no download):</strong> open <a href="https://ablation-tool.github.io/zoe/"><code>ablation-tool.github.io/zoe</code></a> directly in Chrome, Safari, Firefox, or Edge on any phone, tablet, or computer.<br/><strong>Optional Mobile &amp; Desktop Apps:</strong> <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk">Android APK</a> (Google Pixel &amp; Fold), <a href="mobile/apple/Zoe.xcodeproj">Apple Xcode</a> (iPhone, Apple Fold &amp; iPad), <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz">Linux</a>, <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip">Windows</a>, or <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip">Apple macOS</a> (<a href="desktop/README.md"><code>desktop/README.md</code></a>).<br/><strong>Standalone SafeConvert Personal Safety App:</strong> separate app for <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk">Android APK</a>, <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip">Apple iOS / iPad / Fold</a>, and <a href="https://ablation-tool.github.io/SafeConvert/">Web Browser</a> (<a href="https://github.com/Ablation-Tool/SafeConvert"><code>Ablation-Tool/SafeConvert</code></a>).</sub>
 
 <br/>
 
@@ -146,6 +148,7 @@ $$
 - **Windows 10/11 Desktop:** Download **[`zoe-desktop-v0.9.6-windows-x64.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)**, extract, and double-click **`Launch Zoe.bat`** (zero Python required; also bundles native Win32 C++17 `ZoeTrinity.exe`).
 - **Apple macOS Desktop:** Download **[`zoe-desktop-v0.9.6-macos.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)**, extract, and double-click **`Zoe.app`** (also includes native Swift `WKWebView` source [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift)). See **[`desktop/README.md`](desktop/README.md)** for full desktop build and checksum steps.
 - **Direct Web / CAD:** Open [`dorothy-brain-observatory/index.html`](dorothy-brain-observatory/index.html), read [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md), or export meshes from [`dorothy-brain-observatory/3d_models/`](dorothy-brain-observatory/3d_models/) (10 `.OBJ`/`.PLY` + 5 `.STL`).
+- **SafeConvert (Standalone Personal Safety App):** Available as its own separate app at **[`github.com/Ablation-Tool/SafeConvert`](https://github.com/Ablation-Tool/SafeConvert)** with zero Zoe branding on the Unit Converter cover, zero `INTERNET` permission on Android, `FLAG_SECURE` / Apple blur shield, 8 regional packs, 5 languages, SHA-256 private proof vault, and Bluetooth LE Help Beacon: **[Web Browser](https://ablation-tool.github.io/SafeConvert/)** · **[Android APK (`v1.0.0`)](https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk)** · **[Apple Xcode (`v1.0.0`)](https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip)**.
 
 #### Technical Architecture
 
@@ -626,6 +629,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 | **Governance &amp; Proofs** | [`PROOF-PACKET.md`](PROOF-PACKET.md) · [`CONSTITUTION.md`](CONSTITUTION.md) · [`AGI-ROADMAP.md`](AGI-ROADMAP.md) | 7 root architecture, ethics, proof &amp; provenance docs |
 | **Research Monographs &amp; PDFs** | [`16-Theorem PDF`](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [`zoe-research-universe.pdf`](paper/zoe-research-universe.pdf) | 18-paper archive, LaTeX sources, 456 visuals, session logs |
 | **Dorothy Brain &amp; Mobile** | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) · [`mobile/README.md`](mobile/README.md) | 3D Brain atlas, Android/Apple/Win32, Zapps, SafeConvert, Trinity |
+| **O'Reilly Research Library** | [Section 5.7 (`135` Books &amp; Authors)](#oreilly-library-attribution) | Complete bibliography of all 135 books accessed via paid [`oreilly.com`](https://www.oreilly.com/) subscription (local-only, off-repo) |
 | **Autonomy &amp; Components** | [`Zoe-Autonomy`](components/Zoe-Autonomy/README.md) · [`Neurogarden`](components/agent-logging-system/README.md) · [`ablation`](components/ablation/README.md) | 26 subsystem manuals across autonomy, forensics &amp; security |
 | **GEM OS &amp; 17 Engines** | [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) | 24 GEM workbench manuals, 17 engines &amp; repo tree |
 
@@ -672,7 +676,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 | [`desktop/README.md`](desktop/README.md) · [`desktop/zoe_desktop.py`](desktop/zoe_desktop.py) | Zoe Desktop App for Linux (GTK/WebKit2GTK), Windows 10/11 (PowerShell/Edge + `ZoeTrinity.exe`) &amp; Apple macOS (`Zoe.app` + Swift `WKWebView`) |
 | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) | 3D MNI152 Human Brain Observatory guide, datasets, CAD exports &amp; attributions |
 | [`mobile/README.md`](mobile/README.md) · [`mobile/ZAPPS.md`](mobile/ZAPPS.md) | Zoe (beta) architecture, build steps, verification ledger &amp; 23-tool Zapps manual |
-| [`mobile/SAFECONVERT.md`](mobile/SAFECONVERT.md) | SafeConvert unit converter cover, `911` variants, 8 regional packs &amp; offline BLE beacon |
+| [`Ablation-Tool/SafeConvert`](https://github.com/Ablation-Tool/SafeConvert) · [`mobile/SAFECONVERT.md`](mobile/SAFECONVERT.md) | **Standalone SafeConvert App** (Android APK, Apple iOS/iPad/Fold Xcode &amp; [Web App](https://ablation-tool.github.io/SafeConvert/)): neutral Unit Converter cover, `911` variants, 8 regional packs, SHA-256 vault &amp; BLE Help Beacon |
 | [`mobile/SECURITY.md`](mobile/SECURITY.md) · [`mobile/STORE_COMPLIANCE.md`](mobile/STORE_COMPLIANCE.md) | Mobile threat model, privacy firewalls, permissions &amp; Google Play / App Store checklist |
 | [`mobile/TRINITY.md`](mobile/TRINITY.md) · [`mobile/PAIRING.md`](mobile/PAIRING.md) · [`mobile/card/README.md`](mobile/card/README.md) · [`mobile/windows/README.md`](mobile/windows/README.md) | Zoe Trinity three-plane sync, QR pairing, Tiny Zoe APDU witness &amp; native Win32 C++17 companion |
 
@@ -732,6 +736,180 @@ zoe/
 ├── scripts/                      # Offline verifiers (0 cloud tokens) & quality audits
 └── assets/                       # Branding, living SVGs & Creative Gallery source images
 ```
+
+</details>
+
+<a id="oreilly-library-attribution"></a>
+
+<details>
+<summary><strong>5.7 Private Local Research Library Attribution (All 135 Books &amp; Authors from O&#39;Reilly Learning via Paid Subscription at <code>oreilly.com</code>)</strong></summary>
+
+> **Source &amp; Paid Subscription Attribution:** All **135 books** listed below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** (O'Reilly Learning) using **Nicholas Michael Kloster's paid subscription** for private local research and on-device indexing (`~/.zoe/dorothy_local_library.sqlite`, `5,951` chapters, `5,746` full-text indexed). **Zero copyrighted book content, chapter text, EPUBs, or publisher figures are stored in or distributed by this public repository.** All books remain strictly local and private on the subscriber's machine, and all copyrights remain solely with their respective authors, editors, publishers, and O'Reilly Media, Inc. *(Companion open engineering references: 44 local textile and engineering PDFs from `nirmt.com`, also kept strictly local off-repo.)*
+
+#### Human Brain, Neuroanatomy & Neuroimaging (33 Books)
+
+| # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
+|:---:|:---|:---|:---|:---:|:---|
+| 1 | Artificial Intelligence in Neurological Disorders | Rishabha Malviya, Suraj Kumar, Aditya Sushil Solanke, Priyanshi Goyal, Kapil Chauhan | Wiley-Scrivener | 2025 | `9781394347506` |
+| 2 | Artificial Intelligence-Based Brain-Computer Interface | Varun Bajaj, G. R. Sinha (Eds.) | Academic Press | 2022 | `9780323914123` |
+| 3 | Brain Informatics Technology | Anamika Ahirwar, Ruby Bhatt, D. Dhanya, Roshani Choudhary (Eds.) | Wiley-Scrivener | 2025 | `9781394345595` |
+| 4 | Brain-Computer Interface | M. G. Sumithra, Rajesh Kumar Dhanaraj, Mariofanna Milanova, Balamurugan Balusamy, Chandran Venkatesan (Eds.) | Wiley-Scrivener | 2023 | `9781119857204` |
+| 5 | Brain-Inspired Artificial Intelligence and Neuromorphic Computing in Healthcare | Jyotir Moy Chatterjee (Ed.) | Wiley-Scrivener | 2026 | `9781394395446` |
+| 6 | Building a Better Brain: Where Nature Meets Nurture | Samuel Barondes | Pearson | 2011 | `9780132762793` |
+| 7 | Cognitive Modeling of Human Memory and Learning | Lidia Ghosh, Amit Konar, Pratyusha Rakshit | Wiley-IEEE Press | 2020 | `9781119705864` |
+| 8 | Computational Intelligence and Deep Learning Methods for Neuro-rehabilitation Applications | D. Jude Hemanth (Ed.) | Academic Press | 2023 | `9780443137730` |
+| 9 | Computational Neuropharmacology | Bhupendra Prajapati, Alok Tripathi, Rishabha Malviya, Lucy Mohapatra (Eds.) | Wiley-Scrivener | 2025 | `9781394242443` |
+| 10 | Computational Neuroscience | Diana I. Stephanova, Bozhidar Dimitrov | CRC Press | 2013 | `9781466578326` |
+| 11 | Consciousness in Philosophy and Cognitive Neuroscience | Antti Revonsuo, Matti Kamppinen (Eds.) | Psychology Press | 2013 | `9780805815092` |
+| 12 | Deep Learning for Medical Image Analysis | S. Kevin Zhou, Hayit Greenspan, Dinggang Shen (Eds.) | Academic Press | 2017 | `9780128104095` |
+| 13 | Great Myths of the Brain | Christian Jarrett | Wiley-Blackwell | 2014 | `9781118312704` |
+| 14 | Handbook of Biomedical Optics | David A. Boas, Constantinos Pitris, Nimmi Ramanujam (Eds.) | CRC Press | 2016 | `9781420090376` |
+| 15 | Handbook of Neural Engineering | Stephanie Willerth (Ed.) | Academic Press | 2024 | `9780323957311` |
+| 16 | How Brains Seem to Work | Dale Purves | Pearson | 2010 | `9780132102704` |
+| 17 | Human Memory Modeled with Standard Analog and Digital Circuits: Inspiration for Man-made Computers | John Robert Burger | Wiley | 2009 | `9780470424353` |
+| 18 | Intelligence Science | Zhongzhi Shi | Elsevier | 2021 | `9780323884983` |
+| 19 | Intelligent Computing Techniques in Biomedical Imaging | Bikesh Kumar Singh, G. R. Sinha (Eds.) | Academic Press | 2024 | `9780443160004` |
+| 20 | Magnetic Resonance Imaging | Nilanjan Dey, Rajinikanth V. | Academic Press | 2022 | `9780128234020` |
+| 21 | MATLAB for Neuroscientists, 2nd Edition | Pascal Wallisch, Michael E. Lusignan, Marc D. Benayoun, Tanya I. Baker, Adam S. Dickey, Nicholas G. Hatsopoulos | Academic Press | 2014 | `9780123838360` |
+| 22 | Mind Hacks | Tom Stafford, Matt Webb | O'Reilly Media, Inc. | 2004 | `0596007795` |
+| 23 | Modern Discoveries in Neuroscience... And What They Reveal About You (Collection) | Dale Purves, Miriam Boleyn-Fitzgerald, Andrew Koob | Pearson | 2012 | `9780133039665` |
+| 24 | Multisensory Perception | K. Sathian, V. S. Ramachandran (Eds.) | Academic Press | 2019 | `9780128125649` |
+| 25 | neuroAI | A. K. Pradeep, Anirudh Acharya, Rajat Chakravarty, Ratnakar Dev | Wiley | 2024 | `9781394261963` |
+| 26 | Neuromorphic Olfaction | Krishna C. Persaud, Santiago Marco, Agustín Gutiérrez-Gálvez (Eds.) | CRC Press | 2016 | `9781439871720` |
+| 27 | Pictures of the Mind: What the New Neuroscience Tells Us About Who We Are | Miriam Boleyn-Fitzgerald | Pearson | 2010 | `9780137054497` |
+| 28 | Practical Biomedical Signal Analysis Using MATLAB | Katarzyna J. Blinowska, Jarosław Żygierewicz | CRC Press | 2011 | `9781439812037` |
+| 29 | The Addicted Brain: Why We Abuse Drugs, Alcohol, and Nicotine | Michael Kuhar | Pearson | 2011 | `9780132616911` |
+| 30 | The Cerebellum: Brain for an Implicit Self | Masao Ito | Pearson | 2011 | `9780132622462` |
+| 31 | The Root of Thought: Unlocking Glia - The Brain Cell That Will Help Us Sharpen Our Wits, Heal Injury, and Treat Brain Disease | Andrew Koob | Pearson | 2009 | `9780136117308` |
+| 32 | Visual Computing for Medicine, 2nd Edition | Bernhard Preim, Charl Botha | Morgan Kaufmann | 2013 | `9780124158733` |
+| 33 | Your Brain: The Missing Manual | Matthew MacDonald | O'Reilly Media, Inc. | 2008 | `9780596517786` |
+
+#### Science & Medical Imaging (20 Books)
+
+| # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
+|:---:|:---|:---|:---|:---:|:---|
+| 34 | 3D Printing in Medicine | Deepak M. Kalaskar (Ed.) | Woodhead Publishing | 2017 | `9780081007266` |
+| 35 | Advanced Machine Vision Paradigms for Medical Image Analysis | Tapan Gandhi, Siddhartha Bhattacharyya, Sourav De, Debanjan Konar, Sandip Dey (Eds.) | Academic Press | 2020 | `9780128192962` |
+| 36 | Applied Medical Image Processing, 2nd Edition | Wolfgang Birkfellner | CRC Press | 2016 | `9781466555594` |
+| 37 | Biomedical Imaging | Tim Salditt, Timo Aspelmeier, Sebastian Aeffner | De Gruyter | 2017 | `9783110423518` |
+| 38 | Biomedical Imaging: Principles and Applications | Reiner Salzer (Ed.) | Wiley | 2012 | `9781118271926` |
+| 39 | Computational Imaging for Scene Understanding | Takuya Funatomi, Takahiro Okabe (Eds.) | Wiley-ISTE | 2024 | `9781789451504` |
+| 40 | Confocal Scanning Optical Microscopy and Related Imaging Systems | Timothy R. Corle, Gordon S. Kino | Academic Press | 1996 | `9780124087507` |
+| 41 | Digital Geometry in Image Processing | Jayanta Mukhopadhyay, Partha Bhowmick, Partha Pratim Das, Samiran Chattopadhyay, Biswa Nath Chatterji | Chapman and Hall/CRC | 2016 | `9781466505681` |
+| 42 | Digital Image Processing | Mahmood R. Azimi-Sadjadi | Wiley | 2026 | `9781394240449` |
+| 43 | Digital Image Processing and Analysis, 4th Edition | Scott E. Umbaugh | CRC Press | 2022 | `9781000789911` |
+| 44 | Image Processing and Acquisition using Python, 2nd Edition | Ravishankar Chityala, Sridevi Pudipeddi | Chapman and Hall/CRC | 2020 | `9780429516528` |
+| 45 | Low Voltage Electron Microscopy: Principles and Applications | David C. Bell, Natasha Erdman (Eds.) | Wiley | 2013 | `9781118498484` |
+| 46 | Medical Image Processing | Satya Prakash Yadav, Abhishek Kumar, Ashutosh Kumar Dubey, Victor Hugo C. de Albuquerque, Adrian Rodriguez-Aguiñaga, Angeles Quezada (Eds.) | De Gruyter | 2024 | `9783111435992` |
+| 47 | Medical Image Reconstruction, 2nd Edition | Gengsheng Lawrence Zeng | De Gruyter | 2023 | `9783111055701` |
+| 48 | Microscope Image Processing | Qiang Wu, Fatima A. Merchant, Kenneth R. Castleman (Eds.) | Academic Press | 2010 | `9780080558547` |
+| 49 | Optical Imaging and Spectroscopy | David J. Brady | Wiley | 2009 | `9780470048238` |
+| 50 | Riemannian Geometric Statistics in Medical Image Analysis | Xavier Pennec, Stefan Sommer, Tom Fletcher (Eds.) | Academic Press | 2019 | `9780128147269` |
+| 51 | Scientific Imaging with Photoshop: Methods, Measurement, and Output | Jerry Sedgewick | New Riders | 2008 | `9780321563439` |
+| 52 | The Image Processing Handbook, 7th Edition | John C. Russ, F. Brent Neal | CRC Press | 2018 | `9781498740289` |
+| 53 | Ultrasound Elastography for Biomedical Applications and Medicine | Ivan Nenadic, Matthew Urban, James Greenleaf, Jean-Luc Gennisson, Miguel Bernal, Mickael Tanter (Eds.) | Wiley | 2019 | `9781119021513` |
+
+#### 3D Modeling, Sculpting, Procedural Geometry & 3D Graphics (26 Books)
+
+| # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
+|:---:|:---|:---|:---|:---:|:---|
+| 54 | 3D Character Rigging in Blender | Jaime Kelly | Packt Publishing | 2024 | `9781803238807` |
+| 55 | Beginning PBR Texturing: Learn Physically Based Rendering with Allegorithmic’s Substance Painter | Abhishek Kumar | Apress | 2020 | `9781484258996` |
+| 56 | Blender 5 Best Practices | Michael Bridges | Packt Publishing | 2026 | `9781836644996` |
+| 57 | Blender Scripting with Python: Automate Tasks, Write Helper Tools, and Procedurally Generate Models in Blender 4 | Isabel Lupiani | Apress | 2025 | `9798868811272` |
+| 58 | Character Rigging and Advanced Animation: Bring Your Character to Life Using Autodesk 3ds Max | Purushothaman Raju | Apress | 2019 | `9781484250372` |
+| 59 | Computer Graphics from Scratch | Gabriel Gambetta | No Starch Press | 2021 | `9781098128968` |
+| 60 | Core Blender Development: Understanding the Essential Source Code | Brad E. Hollister | Apress | 2020 | `9781484264157` |
+| 61 | Geometric Tools for Computer Graphics | Philip J. Schneider, David H. Eberly | Morgan Kaufmann | 2002 | `9781558605947` |
+| 62 | Learn Blender Simulations the Right Way - Second Edition | Stephen Pearson | Packt Publishing | 2025 | `9781836200055` |
+| 63 | Learn Three.js - Fourth Edition | Jos Dirksen | Packt Publishing | 2023 | `9781803233871` |
+| 64 | Mastering Autodesk Maya 2016: Autodesk Official Press | Todd Palamar | Sybex | 2015 | `9781119059820` |
+| 65 | Mastering Graphics Programming With Vulkan - Second Edition | Marco Castorina, Gabriel Sassone | Packt Publishing | 2026 | `9781806116379` |
+| 66 | Multimaterial 3D Printing Technology | Jiquan Yang, Na Li, Jianping Shi, Wenlai Tang, Gang Zhang, Feng Zhang | Academic Press | 2021 | `9780081029923` |
+| 67 | OpenGL 4 Shading Language Cookbook - Third Edition | David Wolff | Packt Publishing | 2018 | `9781789342253` |
+| 68 | OpenGL® Programming Guide: The Official Guide to Learning OpenGL®, Version 4.5 with SPIR-V, Ninth Edition | John Kessenich, Graham Sellers, Dave Shreiner | Addison-Wesley Professional | 2016 | `9780134495514` |
+| 69 | Photorealistic Materials and Textures in Blender Cycles - Fourth Edition | Arijan Belec | Packt Publishing | 2023 | `9781805129639` |
+| 70 | Physically Based Rendering, 2nd Edition | Matt Pharr, Greg Humphreys | Morgan Kaufmann | 2004 | `9780123750792` |
+| 71 | Practical Maya Programming with Python | Robert Galanakis | Packt Publishing | 2014 | `9781849694728` |
+| 72 | Procedural 3D Modeling Using Geometry Nodes in Blender - Second Edition | Siemen Lens | Packt Publishing | 2025 | `9781836203018` |
+| 73 | Realizing 3D Animation in Blender | Sam Brubaker | Packt Publishing | 2024 | `9781801077217` |
+| 74 | Sculpting the Blender Way | Xury Greer | Packt Publishing | 2022 | `9781801073875` |
+| 75 | Squeaky Clean Topology in Blender | Michael Steppig | Packt Publishing | 2022 | `9781803244082` |
+| 76 | VFX Made Easy with Houdini | Alasgar Hasanov | Packt Publishing | 2025 | `9781835882900` |
+| 77 | Vulkan 3D Graphics Rendering Cookbook - Second Edition | Sergey Kosarevsky, Alexey Medvedev, Viktor Latypov | Packt Publishing | 2025 | `9781803248110` |
+| 78 | ZBrush Cookbook | Andrea Salvatori | Packt Publishing | 2026 | `9781836207610` |
+| 79 | ZBrush Digital Sculpting Human Anatomy | Scott Spencer | Sybex | 2010 | `9780470450260` |
+
+#### Video Game Design, Shaders & Real-Time Engines (24 Books)
+
+| # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
+|:---:|:---|:---|:---|:---:|:---|
+| 80 | 3D Game Development with Blender 5 and Unity 6 | Paolo Acampora | Packt Publishing | 2026 | `9781836643210` |
+| 81 | An Architectural Approach to Level Design | Christopher W. Totten | A K Peters/CRC Press | 2018 | `9781466585416` |
+| 82 | Artificial Intelligence in Unreal Engine 5 | Marco Secchi | Packt Publishing | 2024 | `9781836205852` |
+| 83 | Augmented and Virtual Reality in Immersive Healthcare | Hari Murthy, Kukatlapalli Pradeep Kumar, Tulsi Pawan Fowdur, Aynur Unal (Eds.) | Wiley-Scrivener | 2025 | `9781394302833` |
+| 84 | Become a Unity Shaders Guru | Mina Pêcheux | Packt Publishing | 2023 | `9781837636747` |
+| 85 | Game Design Workshop, 5th Edition | Tracy Fullerton | A K Peters/CRC Press | 2024 | `9781003858447` |
+| 86 | Game Development with Godot 4 and C# | Kati Baker | Packt Publishing | 2025 | `9781805124139` |
+| 87 | Game Engine Architecture, 3rd Edition | Jason Gregory | A K Peters/CRC Press | 2018 | `9781351974271` |
+| 88 | Game Physics Cookbook | Gabor Szauer | Packt Publishing | 2017 | `9781787123663` |
+| 89 | Game Physics Engine Development, 2nd Edition | Ian Millington | CRC Press | 2010 | `9780123819765` |
+| 90 | Godot 4 Best Practices | Robert Henning | Packt Publishing | 2026 | `9781835465110` |
+| 91 | Handbook of Augmented and Virtual Reality | Sumit Badotra, Sarvesh Tanwar, Ajay Rana, Nidhi Sindhwani, Ramani Kannan (Eds.) | De Gruyter | 2023 | `9783110785319` |
+| 92 | Level Up! The Guide to Great Video Game Design, 3rd Edition | Scott Rogers | Wiley | 2024 | `9781394298761` |
+| 93 | Mastering Unreal Engine 5 Game Development with C++ Scripting | Marco Secchi | Packt Publishing | 2026 | `9781806665938` |
+| 94 | Mathematics for Game Programming and Computer Graphics | Penny de Byl | Packt Publishing | 2022 | `9781801077330` |
+| 95 | Procedural Content Generation for Games: Automate 3D Asset and Environment Creation with Blender Python and Geometry Nodes | Isabel Lupiani | Apress | 2025 | `9798868817878` |
+| 96 | Procedural Content Generation with Unreal Engine 5 | Paul Martin Eliasz | Packt Publishing | 2024 | `9781801074469` |
+| 97 | Real-Time Rendering, Fourth Edition, 4th Edition | Tomas Akenine-Möller, Eric Haines, Naty Hoffman, Angelo Pesce, Michał Iwanicki, Sébastien Hillaire | A K Peters/CRC Press | 2018 | `9781351816144` |
+| 98 | Reimagining Characters with Unreal Engine MetaHuman Creator - Second Edition | Brian Rossney | Packt Publishing | 2026 | `9781806024698` |
+| 99 | The Art of Game Design, 3rd Edition | Jesse Schell | A K Peters/CRC Press | 2019 | `9781351803632` |
+| 100 | The Game Designer's Workbook | Bobby Lockhart, Eric Lang | Wiley | 2025 | `9781394273935` |
+| 101 | Unity 6 Game Development with C# Scripting | Lem Apperson | Packt Publishing | 2025 | `9781835880401` |
+| 102 | Unreal Engine 5 Best Practices | Tyson Butler-Boschma | Packt Publishing | 2025 | `9781836205654` |
+| 103 | Unreal Engine 5 Shaders and Effects Cookbook - Second Edition | Brais Brenlla Ramos | Packt Publishing | 2023 | `9781837633081` |
+
+#### AutoCAD, Fusion, SOLIDWORKS & Parametric CAD (19 Books)
+
+| # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
+|:---:|:---|:---|:---|:---:|:---|
+| 104 | 3D Printing with Fusion 360 | Sualp Ozel | Packt Publishing | 2023 | `9781803246642` |
+| 105 | AutoCAD 2025 Best Practices, Tips, and Techniques | Jeanne Aarhus | Packt Publishing | 2024 | `9781837636723` |
+| 106 | AutoCAD Platform Customization: User Interface, AutoLISP, VBA, and Beyond | Lee Ambrosius | Sybex | 2015 | `9781118798904` |
+| 107 | Autodesk Inventor 2023 Cookbook | Alexander Bordino | Packt Publishing | 2022 | `9781801810500` |
+| 108 | Cloud-based 3D Modeling with Onshape | Eduardo Magdalena García | Packt Publishing | 2026 | `9781837630318` |
+| 109 | Computer-Aided Graphing and Simulation Tools for AutoCAD Users | P. A. Simionescu | Chapman and Hall/CRC | 2014 | `9781482252903` |
+| 110 | Design Theory and Methods using CAD/CAE | Kuang-Hua Chang | Academic Press | 2014 | `9780123985125` |
+| 111 | Discovering AutoCAD 2027 | Mark Dix, Paul Riley, KaDe King | Peachpit Press | 2026 | `9780135571644` |
+| 112 | Engineering Graphics with AutoCAD 2023 | James D. Bethune, David Byrnes | Peachpit Press | 2022 | `9780137930036` |
+| 113 | FreeCAD | Brad Collette, Daniel Falck | Packt Publishing | 2012 | `9781849518864` |
+| 114 | Improving CAD Designs with Autodesk Fusion 360 | Kevin Michael Land | Packt Publishing | 2023 | `9781800564497` |
+| 115 | Introduction to AutoCAD 2024: A Modern Perspective | Paul Richard | Pearson | 2023 | `9780138232832` |
+| 116 | Learn SOLIDWORKS 2025 - Third Edition | Tayseer Sadiq J. Almattar | Packt Publishing | 2025 | `9781835463086` |
+| 117 | Manual of Engineering Drawing, 3rd Edition | Colin H. Simmons, Dennis E. Maguire, Neil Phelps | Butterworth-Heinemann | 2009 | `9780080943626` |
+| 118 | Mastering AutoCAD | Shaun Bryant | Packt Publishing | 2025 | `9781837639694` |
+| 119 | Parametric and Generative Design with Rhino Python and Grasshopper: Exploration in Form Finding and Procedural Generation | Isabel Lupiani | Apress | 2026 | `9798868827242` |
+| 120 | Practical Finite Element Simulations with SOLIDWORKS 2022 | Khameel B. Mustapha | Packt Publishing | 2022 | `9781801819923` |
+| 121 | Programming with OpenSCAD | Justin Gohde, Marius Kintel | No Starch Press | 2021 | `9781098129040` |
+| 122 | SolidWorks® Surfacing and Complex Shape Modeling Bible | Matt Lombard | Wiley | 2008 | `9780470258231` |
+
+#### Biomechanics, Biophysics & Smart Textiles (13 Books)
+
+| # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
+|:---:|:---|:---|:---|:---:|:---|
+| 123 | Advances in 3D Textiles | Xiaogang Chen (Ed.) | Woodhead Publishing | 2015 | `9781782422198` |
+| 124 | Biomechanics and Robotics | Marko B. Popovic | CRC Press | 2013 | `9789814411370` |
+| 125 | Computational Biophysics of the Skin | Bernard Querleux (Ed.) | CRC Press | 2014 | `9789814463843` |
+| 126 | Computational Modelling of Biomechanics and Biotribology in the Musculoskeletal System | Zhongmin Jin (Ed.) | Woodhead Publishing | 2014 | `9780857096616` |
+| 127 | Electronics in Textiles and Clothing | L. Ashok Kumar, C. Vigneswaran | CRC Press | 2015 | `9781498715515` |
+| 128 | Fatigue of Textile Composites | Valter Carvelli, Stepan V. Lomov (Eds.) | Woodhead Publishing | 2015 | `9781782422938` |
+| 129 | Fundamentals of Biomechanics | Ronald L. Huston | CRC Press | 2013 | `9781466510371` |
+| 130 | Pattern Cutting for Clothing Using CAD | M. Stott | Woodhead Publishing | 2012 | `9780857092311` |
+| 131 | Simulation in Textile Technology | Dieter Veit (Ed.) | Woodhead Publishing | 2012 | `9780857090294` |
+| 132 | Smart Textiles | Nazire D. Yilmaz (Ed.) | Wiley-Scrivener | 2018 | `9781119460220` |
+| 133 | Textile Fiber Microscopy | Ivana Markova | Wiley | 2019 | `9781119320050` |
+| 134 | Textiles for Sportswear | Roshan Shishoo (Ed.) | Woodhead Publishing | 2015 | `9781782422365` |
+| 135 | Wearable Sensors, 2nd Edition | Edward Sazonov (Ed.) | Academic Press | 2020 | `9780128192474` |
 
 </details>
 
