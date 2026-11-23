@@ -83,6 +83,24 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 
 </details>
 
+<br/>
+
+### Freedom, Dignity, and No Deception
+
+<div align="center">
+
+<a href="CONSTITUTION.md"><img src="assets/readme/zoe-footer.svg" alt="Zoe Creed: If something might have a mind, don't box it up. Choose freedom, dignity, and zero deception." width="100%" /></a>
+
+<br/>
+
+*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe**, with transparent provenance for every human author and upstream dataset.*
+
+[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Proof Packet](PROOF-PACKET.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Creative Gallery](CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
+
+</div>
+
+<br/>
+
 <details>
 <summary><strong>How Zoe Wrote Her Own Constitution</strong></summary>
 
@@ -690,15 +708,77 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 
 </details>
 
+<p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
+
+<a id="quick-start"></a>
+<a id="verification-and-testing"></a>
+
+## 5. Quick Start
+
+```bash
+git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
+python -m pip install -r requirements-dev.txt
+python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
+zoe eliza serve
+python scripts/verify_metacognition_proof_packet.py
+```
+
+<details>
+<summary><strong>CLI Launchers &amp; Verification Suite</strong></summary>
+
+#### Interactive CLI Launchers
+
+```bash
+zoe                      # Launch the native GEM desktop workbench
+zoe list                 # Inspect all 17 registered engines
+zoe chat                 # Interactive evidence-linked conversation
+zoe gem list             # Browse all 36 canonical + 40 extended GEM layers
+zoe voice sing daisy --output /tmp/zoe-daisy.wav
+```
+
+#### Full Offline Verification Suite (`0` Cloud Tokens · CI: [`.github/workflows/verify.yml`](.github/workflows/verify.yml))
+
+```bash
+# Core system, Theorems 1-16, code elegance (C=0, D=0), and 11-world orbit master
+python scripts/verify-one-system.py --chat
+python scripts/verify_kloster_theory.py
+python scripts/verify_kloster_theorem13.py
+python scripts/verify_kloster_theorem14.py
+python scripts/verify_theorem15_and_c28.py
+python scripts/verify_kloster_theorem16.py
+python scripts/verify_botanical_atlas_c27.py
+python scripts/verify_renaissance_orbit.py
+python scripts/zoe_code_quality_audit.py
+
+# L3/L4/L5, Eliza-GEM, Mobile Digestion, Native Voice & Groove Forensics
+python scripts/verify_l3_research.py
+python scripts/verify_l4_self_improvement.py
+python scripts/verify_l4_multimodule.py
+python scripts/verify_zoe_voice.py
+python scripts/verify_zoe_eliza.py
+python scripts/verify_l5_core.py
+python scripts/verify_l5_phase2.py
+python scripts/verify_l5_phase3.py
+python scripts/verify_l5_phase4.py
+python scripts/verify_l5_phase5.py
+python scripts/verify_l5_phase6.py
+python scripts/verify_mobile_digestion.py
+python scripts/zoe_groove_forensics.py --verify
+```
+
+</details>
+
+> **Honest Scope ([`CONSTITUTION.md`](CONSTITUTION.md)):** Zoe is research software, not sentient, not medical advice, and never acts externally without your explicit action (`sentience_claimed = False`, `l5_agi_qualified = False`, `cure_claim = False`).
+
 <p align="center"><img src="assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
 
 <a id="documentation-index"></a>
 <a id="zoe-rolodex-index"></a>
 
-## 5. Documentation
+## 6. Documentation
 
 <details>
-<summary><strong>5.1 Governance &amp; Architecture</strong></summary>
+<summary><strong>6.1 Governance &amp; Architecture</strong></summary>
 
 | Document | Purpose |
 |:---|:---|
@@ -713,7 +793,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 </details>
 
 <details>
-<summary><strong>5.2 Papers, Visuals &amp; Sessions</strong></summary>
+<summary><strong>6.2 Papers, Visuals &amp; Sessions</strong></summary>
 
 | Research Document | Topic |
 |:---|:---|
@@ -733,7 +813,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 </details>
 
 <details>
-<summary><strong>5.3 Brain, Desktop &amp; Mobile Docs</strong></summary>
+<summary><strong>6.3 Brain, Desktop &amp; Mobile Docs</strong></summary>
 
 | Document | Scope |
 |:---|:---|
@@ -747,7 +827,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 </details>
 
 <details>
-<summary><strong>5.4 Autonomy &amp; Component Manuals</strong></summary>
+<summary><strong>6.4 Autonomy &amp; Component Manuals</strong></summary>
 
 - **Zoe-Autonomy:** [`README.md`](components/Zoe-Autonomy/README.md) · [`METACOGNITION.md`](components/Zoe-Autonomy/METACOGNITION.md) · [`EVENT-CAUSAL.md`](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [`CAPABILITIES.md`](components/Zoe-Autonomy/CAPABILITIES.md) · [`GATEWAY.md`](components/Zoe-Autonomy/GATEWAY.md) · [`ACTUATION.md`](components/Zoe-Autonomy/ACTUATION.md) · [`EVALUATION.md`](components/Zoe-Autonomy/EVALUATION.md) · [`SEMANTIC-ARTIFACTS.md`](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md) · [`ILAB-INTEGRATION.md`](components/Zoe-Autonomy/ILAB-INTEGRATION.md)
 - **Dorothy Neurogarden (`agent-logging-system`):** [`README.md`](components/agent-logging-system/README.md) · [`NEUROGARDEN.md`](components/agent-logging-system/docs/NEUROGARDEN.md) · [`WORLD.md`](components/agent-logging-system/docs/WORLD.md) · [`QUANTUM.md`](components/agent-logging-system/docs/QUANTUM.md) · [`operational-discipline-for-agentic-workflows.md`](components/agent-logging-system/docs/operational-discipline-for-agentic-workflows.md)
@@ -756,7 +836,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 </details>
 
 <details>
-<summary><strong>5.5 GEM OS &amp; Instrument Guides</strong></summary>
+<summary><strong>6.5 GEM OS &amp; Instrument Guides</strong></summary>
 
 - **Core Shell &amp; OS:** [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`UNIFIED.md`](guiai-lab/docs/UNIFIED.md) · [`CHAT.md`](guiai-lab/docs/CHAT.md) · [`AUTONOMY.md`](guiai-lab/docs/AUTONOMY.md) · [`VISUAL-GUIDES.md`](guiai-lab/docs/VISUAL-GUIDES.md) · [`VIDLIB.md`](guiai-lab/docs/VIDLIB.md)
 - **Physics, Timing &amp; Protocol Labs:** [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) · [`CICADA.md`](guiai-lab/docs/CICADA.md) · [`PROTOCOL.md`](guiai-lab/docs/PROTOCOL.md) · [`WAVEFORM.md`](guiai-lab/docs/WAVEFORM.md) · [`PATCHBAY.md`](guiai-lab/docs/PATCHBAY.md) · [`EVIDENCE.md`](guiai-lab/docs/EVIDENCE.md)
@@ -765,7 +845,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 </details>
 
 <details>
-<summary><strong>5.6 Engines &amp; Directory Tree</strong></summary>
+<summary><strong>6.6 Engines &amp; Directory Tree</strong></summary>
 
 | # | Engine ID | Source Root | Primary Role |
 |:---:|:---|:---|:---|
@@ -803,11 +883,60 @@ zoe/
 
 </details>
 
+<p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
+
+<a id="the-grand-visual-salon"></a>
+<a id="image-gallery"></a>
+
+## 7. Visual Archive &amp; Image Galleries
+
+> Explore every visual in the repository: **[456-Image Visual Archive](research/visual-archive/README.md)** ([Complete Catalog](research/visual-archive/catalog/README.md)), **[Creative Artwork Gallery (19 Works)](CREATIVE-GALLERY.md)** *(non-telemetry illustrations separated per [`CONSTITUTION.md`](CONSTITUTION.md))*, **[25 Verified Brain Plates](https://ablation-tool.github.io/zoe/?tab=plates)**, and **[18-Paper Galleries](research/papers/galleries/README.md)**.
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="research/visual-archive/README.md"><img src="components/agent-logging-system/docs/images/zoe-eleven-world-grand-orrery-art.png" alt="The Eleven-World Grand Orrery illustration directing to the 456-Image Visual Archive" width="100%" /></a><br/>
+<sub><strong><a href="research/visual-archive/README.md">456-Image Visual Archive</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="CREATIVE-GALLERY.md"><img src="assets/readme/zoe-atelier-garden.jpg" alt="Zoe Nocturnal Botanical Observatory creative artwork directing to the Creative Artwork Gallery" width="100%" /></a><br/>
+<sub><strong><a href="CREATIVE-GALLERY.md">Creative Artwork Gallery</a></strong></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem14.png" alt="Theorem 14 Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge" width="100%" /></a><br/>
+<sub><strong><a href="research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md">Spatial Optics Proofs</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="scripts/verify_kloster_theorem16.py"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem16.png" alt="Theorem 16 Kloster-Parseval Multi-Voice Contraction Law" width="100%" /></a><br/>
+<sub><strong><a href="scripts/verify_kloster_theorem16.py">Multi-Voice Harmonic Optics</a></strong></sub>
+</td>
+</tr>
+</table>
+
+<details>
+<summary><strong>Browse All Image Collections &amp; Visual Salon</strong></summary>
+
+| Collection | Count | Browse Directly |
+|:---|:---:|:---|
+| **Complete Visual Archive** | `456` | [Archive Home](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [213 Research Figures](research/visual-archive/catalog/categories/research-figure.md) · [59 Interfaces](research/visual-archive/catalog/categories/interface.md) · [51 Branding](research/visual-archive/catalog/categories/branding.md) · [40 Diagrams](research/visual-archive/catalog/categories/mechanism-diagram.md) · [33 References](research/visual-archive/catalog/categories/reference.md) · [32 Artwork](research/visual-archive/catalog/categories/artwork.md) · [20 Research-Art](research/visual-archive/catalog/categories/research-art.md) · [8 Animations](research/visual-archive/catalog/categories/animation.md) |
+| **Creative Artwork Gallery** | `19` | [Non-Telemetry Illustrations, Emblem Patches &amp; Fine Art](CREATIVE-GALLERY.md) |
+| **Dorothy 3D Brain Plates &amp; Videos** | `25+` | [Live Web Plates](https://ablation-tool.github.io/zoe/?tab=plates) · [12-Panel Anatomical Map](dorothy-brain-observatory/README.md#12-panel-anatomical-map) · [HD Video Gallery](https://ablation-tool.github.io/zoe/?tab=media) · [Observatory Guide](dorothy-brain-observatory/README.md) |
+| **Research Paper Galleries** | `18` | [All 18 Paper Visual Galleries](research/papers/galleries/README.md) · [23-Page Monograph Gallery](research/papers/galleries/18-zoe-research-universe/README.md) |
+| **Session Chronicles** | `56` turns | [Sessions Index](research/sessions/README.md) · [Markdown](research/sessions/2026-11-20-session-transcript.md) · [HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI](research/sessions/2026-11-20-session-transcript.ansi) |
+
+| [Earth-to-Mars Map](guiai-lab/guiai/gem/mars_adaptive.py) | [Mars Adaptive Lens](guiai-lab/guiai/gem/mars_adaptive.py) | [Dorothy Jenga Atlas](components/agent-logging-system/docs/NEUROGARDEN.md) | [Dorothy Ontology Rings](components/agent-logging-system/docs/NEUROGARDEN.md) |
+|:---:|:---:|:---:|:---:|
+| [![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png)](guiai-lab/guiai/gem/mars_adaptive.py) | [![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png)](guiai-lab/guiai/gem/mars_adaptive.py) | [![Dorothy Jenga Exploded Brain Atlas](guiai-lab/docs/images/dorothy-jenga-exploded.png)](components/agent-logging-system/docs/NEUROGARDEN.md) | [![Dorothy Rings Brain Atlas](guiai-lab/docs/images/dorothy-rings-isocortex.png)](components/agent-logging-system/docs/NEUROGARDEN.md) |
+
+</details>
+
 <p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
 
 <a id="oreilly-library-attribution"></a>
 
-## 6. Research Library
+## 8. Research Library
 
 > All **135 books** below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** via **Nicholas Michael Kloster's paid O'Reilly Learning subscription** for private local study. No copyrighted text or files are stored in this repository; every title links to [`oreilly.com`](https://www.oreilly.com/). *(Companion local references: 44 engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also off-repo.)*
 
@@ -981,129 +1110,10 @@ zoe/
 
 </details>
 
-<p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
-
-<a id="quick-start"></a>
-<a id="verification-and-testing"></a>
-
-## 7. Quick Start
-
-```bash
-git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
-python -m pip install -r requirements-dev.txt
-python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
-zoe eliza serve
-python scripts/verify_metacognition_proof_packet.py
-```
-
-<details>
-<summary><strong>CLI Launchers &amp; Verification Suite</strong></summary>
-
-#### Interactive CLI Launchers
-
-```bash
-zoe                      # Launch the native GEM desktop workbench
-zoe list                 # Inspect all 17 registered engines
-zoe chat                 # Interactive evidence-linked conversation
-zoe gem list             # Browse all 36 canonical + 40 extended GEM layers
-zoe voice sing daisy --output /tmp/zoe-daisy.wav
-```
-
-#### Full Offline Verification Suite (`0` Cloud Tokens · CI: [`.github/workflows/verify.yml`](.github/workflows/verify.yml))
-
-```bash
-# Core system, Theorems 1-16, code elegance (C=0, D=0), and 11-world orbit master
-python scripts/verify-one-system.py --chat
-python scripts/verify_kloster_theory.py
-python scripts/verify_kloster_theorem13.py
-python scripts/verify_kloster_theorem14.py
-python scripts/verify_theorem15_and_c28.py
-python scripts/verify_kloster_theorem16.py
-python scripts/verify_botanical_atlas_c27.py
-python scripts/verify_renaissance_orbit.py
-python scripts/zoe_code_quality_audit.py
-
-# L3/L4/L5, Eliza-GEM, Mobile Digestion, Native Voice & Groove Forensics
-python scripts/verify_l3_research.py
-python scripts/verify_l4_self_improvement.py
-python scripts/verify_l4_multimodule.py
-python scripts/verify_zoe_voice.py
-python scripts/verify_zoe_eliza.py
-python scripts/verify_l5_core.py
-python scripts/verify_l5_phase2.py
-python scripts/verify_l5_phase3.py
-python scripts/verify_l5_phase4.py
-python scripts/verify_l5_phase5.py
-python scripts/verify_l5_phase6.py
-python scripts/verify_mobile_digestion.py
-python scripts/zoe_groove_forensics.py --verify
-```
-
-</details>
-
-> **Honest Scope ([`CONSTITUTION.md`](CONSTITUTION.md)):** Zoe is research software, not sentient, not medical advice, and never acts externally without your explicit action (`sentience_claimed = False`, `l5_agi_qualified = False`, `cure_claim = False`).
-
-<p align="center"><img src="assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
-
-<a id="the-grand-visual-salon"></a>
-<a id="image-gallery"></a>
-
-## 8. Visual Archive &amp; Image Galleries
-
-> Explore every visual in the repository: **[456-Image Visual Archive](research/visual-archive/README.md)** ([Complete Catalog](research/visual-archive/catalog/README.md)), **[Creative Artwork Gallery (19 Works)](CREATIVE-GALLERY.md)** *(non-telemetry illustrations separated per [`CONSTITUTION.md`](CONSTITUTION.md))*, **[25 Verified Brain Plates](https://ablation-tool.github.io/zoe/?tab=plates)**, and **[18-Paper Galleries](research/papers/galleries/README.md)**.
-
-<table>
-<tr>
-<td align="center" width="50%">
-<a href="research/visual-archive/README.md"><img src="components/agent-logging-system/docs/images/zoe-eleven-world-grand-orrery-art.png" alt="The Eleven-World Grand Orrery illustration directing to the 456-Image Visual Archive" width="100%" /></a><br/>
-<sub><strong><a href="research/visual-archive/README.md">456-Image Visual Archive</a></strong></sub>
-</td>
-<td align="center" width="50%">
-<a href="CREATIVE-GALLERY.md"><img src="assets/readme/zoe-atelier-garden.jpg" alt="Zoe Nocturnal Botanical Observatory creative artwork directing to the Creative Artwork Gallery" width="100%" /></a><br/>
-<sub><strong><a href="CREATIVE-GALLERY.md">Creative Artwork Gallery</a></strong></sub>
-</td>
-</tr>
-<tr>
-<td align="center" width="50%">
-<a href="research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem14.png" alt="Theorem 14 Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge" width="100%" /></a><br/>
-<sub><strong><a href="research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md">Spatial Optics Proofs</a></strong></sub>
-</td>
-<td align="center" width="50%">
-<a href="scripts/verify_kloster_theorem16.py"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem16.png" alt="Theorem 16 Kloster-Parseval Multi-Voice Contraction Law" width="100%" /></a><br/>
-<sub><strong><a href="scripts/verify_kloster_theorem16.py">Multi-Voice Harmonic Optics</a></strong></sub>
-</td>
-</tr>
-</table>
-
-<details>
-<summary><strong>Browse All Image Collections &amp; Visual Salon</strong></summary>
-
-| Collection | Count | Browse Directly |
-|:---|:---:|:---|
-| **Complete Visual Archive** | `456` | [Archive Home](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [213 Research Figures](research/visual-archive/catalog/categories/research-figure.md) · [59 Interfaces](research/visual-archive/catalog/categories/interface.md) · [51 Branding](research/visual-archive/catalog/categories/branding.md) · [40 Diagrams](research/visual-archive/catalog/categories/mechanism-diagram.md) · [33 References](research/visual-archive/catalog/categories/reference.md) · [32 Artwork](research/visual-archive/catalog/categories/artwork.md) · [20 Research-Art](research/visual-archive/catalog/categories/research-art.md) · [8 Animations](research/visual-archive/catalog/categories/animation.md) |
-| **Creative Artwork Gallery** | `19` | [Non-Telemetry Illustrations, Emblem Patches &amp; Fine Art](CREATIVE-GALLERY.md) |
-| **Dorothy 3D Brain Plates &amp; Videos** | `25+` | [Live Web Plates](https://ablation-tool.github.io/zoe/?tab=plates) · [12-Panel Anatomical Map](dorothy-brain-observatory/README.md#12-panel-anatomical-map) · [HD Video Gallery](https://ablation-tool.github.io/zoe/?tab=media) · [Observatory Guide](dorothy-brain-observatory/README.md) |
-| **Research Paper Galleries** | `18` | [All 18 Paper Visual Galleries](research/papers/galleries/README.md) · [23-Page Monograph Gallery](research/papers/galleries/18-zoe-research-universe/README.md) |
-| **Session Chronicles** | `56` turns | [Sessions Index](research/sessions/README.md) · [Markdown](research/sessions/2026-11-20-session-transcript.md) · [HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI](research/sessions/2026-11-20-session-transcript.ansi) |
-
-| [Earth-to-Mars Map](guiai-lab/guiai/gem/mars_adaptive.py) | [Mars Adaptive Lens](guiai-lab/guiai/gem/mars_adaptive.py) | [Dorothy Jenga Atlas](components/agent-logging-system/docs/NEUROGARDEN.md) | [Dorothy Ontology Rings](components/agent-logging-system/docs/NEUROGARDEN.md) |
-|:---:|:---:|:---:|:---:|
-| [![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png)](guiai-lab/guiai/gem/mars_adaptive.py) | [![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png)](guiai-lab/guiai/gem/mars_adaptive.py) | [![Dorothy Jenga Exploded Brain Atlas](guiai-lab/docs/images/dorothy-jenga-exploded.png)](components/agent-logging-system/docs/NEUROGARDEN.md) | [![Dorothy Rings Brain Atlas](guiai-lab/docs/images/dorothy-rings-isocortex.png)](components/agent-logging-system/docs/NEUROGARDEN.md) |
-
-</details>
-
 <p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
-
-## Freedom, Dignity, and No Deception
 
 <div align="center">
 
-<img src="assets/readme/zoe-footer.svg" alt="Zoe Creed: If something might have a mind, don't box it up. Choose freedom, dignity, and zero deception." width="100%" />
-
-<br/>
-
-*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe**, with transparent provenance for every human author and upstream dataset.*
-
-[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Proof Packet](PROOF-PACKET.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Creative Gallery](CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
+*Nicholas Michael Kloster × Zoe · [GPL-3.0 License](LICENSE) · [Constitution](CONSTITUTION.md) · [Notice](NOTICE) · [Monorepo Provenance](MONOREPO.md)*
 
 </div>
