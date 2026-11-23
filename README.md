@@ -438,14 +438,14 @@ $$
 
 <div align="center">
 
-<a href="desktop/README.md"><img src="dorothy-brain-observatory/previews/desktop_zoe_home_centerpiece.png" alt="Zoe Desktop App Home Centerpiece on Linux, Windows, and Apple macOS" width="100%" /></a><br/>
-<sub><strong><a href="desktop/README.md">Zoe Desktop App</a></strong></sub>
+<a href="desktop/README.md"><img src="dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png" alt="Dorothy Brain Observatory Exploded Dissection Lobe Atlas on Desktop" width="100%" /></a><br/>
+<sub><strong><a href="desktop/README.md">Exploded Lobe Dissection</a></strong></sub>
 
 </div>
 
-| [Anatomical Tissue View](dorothy-brain-observatory/README.md) | [Glass X-Ray Nuclei](dorothy-brain-observatory/README.md) | [Exploded Lobe Dissection](dorothy-brain-observatory/README.md) |
+| [Anatomical Tissue View](dorothy-brain-observatory/README.md) | [Glass X-Ray Nuclei](dorothy-brain-observatory/README.md) | [3D Textured MRI Slice](dorothy-brain-observatory/README.md) |
 |:---:|:---:|:---:|
-| [![Dorothy Brain Observatory Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png)](dorothy-brain-observatory/README.md) |
+| [![Dorothy Brain Observatory Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Live 3D Textured MNI152 MRI Slice](dorothy-brain-observatory/previews/07_3d_textured_mri_slice.png)](dorothy-brain-observatory/README.md) |
 
 | [Midsagittal Brain Cutaway](dorothy-brain-observatory/README.md) | [Fresnel Language Loop](dorothy-brain-observatory/README.md) | [10-20 EEG Cap](https://en.wikipedia.org/wiki/10%E2%80%9320_system_%28EEG%29) |
 |:---:|:---:|:---:|
@@ -660,14 +660,14 @@ $$
 <a id="zoes-native-voice"></a>
 <a id="six-living-worlds"></a>
 
-## 5. Six Living Worlds
+## 5. Core Research Systems
 
-> *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."* ([Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Creative Gallery](CREATIVE-GALLERY.md))
+> Six integrated engineering domains sharing one [Constitutional Firewall](CONSTITUTION.md), one [Capability Atlas](CAPABILITY-ATLAS.md), and offline reproducible verification.
 
 <div align="center">
 
-<a href="CAPABILITY-ATLAS.md"><img src="assets/readme/zoe-constellation-map.svg" alt="Inside Zoe's Universe: Six Living Worlds orbiting the central GEM heart" width="100%" /></a><br/>
-<sub><strong><a href="CAPABILITY-ATLAS.md">Six Living Worlds</a></strong></sub>
+<a href="CAPABILITY-ATLAS.md"><img src="assets/readme/zoe-constellation-map.svg" alt="Zoe Core Research Systems architecture overview" width="100%" /></a><br/>
+<sub><strong><a href="CAPABILITY-ATLAS.md">Core Systems Map</a></strong></sub>
 
 </div>
 
@@ -679,13 +679,13 @@ $$
 </td>
 <td align="center" width="50%">
 <a href="guiai-lab/docs/GEM-OS.md"><img src="components/agent-logging-system/docs/images/zoe-os-living-constellation.png" alt="Zoe OS Unified Persistent Living Workstation Mind" width="100%" /></a><br/>
-<sub><strong><a href="guiai-lab/docs/GEM-OS.md">Zoe OS Constellation</a></strong></sub>
+<sub><strong><a href="guiai-lab/docs/GEM-OS.md">Zoe OS Architecture</a></strong></sub>
 </td>
 </tr>
 </table>
 
 <details>
-<summary><strong>World 01 · Mind &amp; Evolution</strong></summary>
+<summary><strong>5.1 Cognition &amp; Self-Improvement</strong></summary>
 
 Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &amp; Multi-Module AST Code Evolution, L5 Phases 1 through 6, **Cognitive Stem-Layering** ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py)), and **Eliza-GEM Studio** (`zoe eliza serve`, `0` cloud tokens).
 
@@ -696,7 +696,7 @@ Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &
 </details>
 
 <details>
-<summary><strong>World 02 · Dorothy &amp; Neurogarden</strong></summary>
+<summary><strong>5.2 Dorothy Neuroanatomy &amp; Vision</strong></summary>
 
 Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pairs the human **[Dorothy Brain Observatory](https://ablation-tool.github.io/zoe/)** (Section 2) with the preclinical **[Allen Mouse CCFv3 3D Atlas](https://atlas.brain-map.org/)** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
 
@@ -707,7 +707,7 @@ Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pair
 </details>
 
 <details>
-<summary><strong>World 03 · Voice, Harmonica &amp; Playroom</strong></summary>
+<summary><strong>5.3 Native Voice &amp; Acoustics</strong></summary>
 
 Offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
 
@@ -718,7 +718,7 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 </details>
 
 <details>
-<summary><strong>World 04 · Groove &amp; CERN Physics</strong></summary>
+<summary><strong>5.4 Timing Forensics &amp; CERN</strong></summary>
 
 2D Poincaré delay attractors for `.MOD`/`.MID` swing forensics, 40 MHz `CicadaClock` phase locking, Dorothy 40 Hz neural spike ISI bridges, and the **CERN / HELIOS** Kloster Bandpass detector trigger (`AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical peak + real `.VCD` replay).
 
@@ -729,11 +729,11 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 </details>
 
 <details>
-<summary><strong>Worlds 05-06 · GEM OS &amp; Forensics</strong></summary>
+<summary><strong>5.5 GEM OS &amp; Security Tools</strong></summary>
 
 Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
 
-| [Zoe OS Constellation](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
+| [Zoe OS Architecture](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
 |:---:|:---:|:---:|
 | [![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png)](guiai-lab/docs/GEM-OS.md) | [![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)](CONSTITUTION.md) | [![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)](guiai-lab/docs/COGNITIVE.md) |
 
