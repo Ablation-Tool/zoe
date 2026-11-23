@@ -24,7 +24,7 @@ $$
 A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]
 $$
 
-*A unified research observatory and app where [Operational Metacognition](#mathematics-and-theorems), [3D human neuroanatomy](https://ablation-tool.github.io/zoe/), [formal mathematical proofs](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf), [native voice synthesis](#zoes-native-voice), and [reproducible engineering](#quick-start) share one honest roof.*
+*Open-source [metacognition](#proof-of-metacognition), [3D brain app](https://ablation-tool.github.io/zoe/), [math proofs](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf), [native voice](#zoes-native-voice), and [reproducible tools](#quick-start).*
 
 </div>
 
@@ -744,9 +744,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 <a id="documentation-index"></a>
 <a id="zoe-rolodex-index"></a>
 
-## 6. Documentation Index
-
-*Expand any dropdown below to jump straight to papers, mobile and desktop guides, [SafeConvert](https://github.com/Ablation-Tool/SafeConvert), and engine manuals.*
+## 6. Documentation
 
 <details>
 <summary><strong>6.1 Governance &amp; Architecture</strong></summary>
@@ -860,7 +858,7 @@ zoe/
 
 ## 7. Research Library
 
-> All **135 books** below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** via **Nicholas Michael Kloster's paid O'Reilly Learning subscription** for private local study. No copyrighted text or files are stored in this repository; click any title inside the dropdown to view it on [`oreilly.com`](https://www.oreilly.com/). *(Companion local references: 44 engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also off-repo.)*
+> All **135 books** below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** via **Nicholas Michael Kloster's paid O'Reilly Learning subscription** for private local study. No copyrighted text or files are stored in this repository; every title links to [`oreilly.com`](https://www.oreilly.com/). *(Companion local references: 44 engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also off-repo.)*
 
 <details>
 <summary><strong>All 135 O'Reilly Books &amp; Authors</strong></summary>
