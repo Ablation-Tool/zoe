@@ -30,15 +30,19 @@ $$
 
 <br/>
 
-[![Download Zoe Android App v0.9.6-beta APK](https://img.shields.io/badge/⬇_Download_Zoe_App_(Android_APK)-v0.9.6--beta_·_Includes_3D_Brain-e11d48?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)
+[![Download Zoe Android App v0.9.6-beta APK](https://img.shields.io/badge/⬇_Android_APK-v0.9.6--beta_·_Pixel_%26_Fold-e11d48?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)
 &nbsp;
-[![Install Dorothy 3D Brain on iPhone and iPad](https://img.shields.io/badge/🍎_iPhone_%2F_iPad_App_(Safari_1--Tap_Install)-Offline_PWA_·_Live_Today-0284c7?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
+[![Install Dorothy 3D Brain on iPhone and iPad](https://img.shields.io/badge/🍎_iOS_%2F_iPad_%2F_Apple_Fold-Safari_PWA_%2B_Xcode-0284c7?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
 &nbsp;
-[![Native Apple Xcode SwiftUI Project](https://img.shields.io/badge/Xcode_iOS_App_(SwiftUI)-v0.9.6--beta_·_3D_Brain_Bundled-0f172a?style=for-the-badge)](mobile/apple/Zoe.xcodeproj)
+[![Download Zoe Desktop for Linux](https://img.shields.io/badge/🐧_Linux_Desktop-v0.9.6_·_GTK_WebGL2-059669?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)
 &nbsp;
-[![Release Notes and SHA-256](https://img.shields.io/badge/Release_Notes_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
+[![Download Zoe Desktop for Windows](https://img.shields.io/badge/🪟_Windows_Desktop-v0.9.6_·_Win10%2F11_x64-2563eb?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)
+&nbsp;
+[![Download Zoe Desktop for Apple macOS](https://img.shields.io/badge/💻_Apple_macOS_Desktop-v0.9.6_·_Zoe.app-0f172a?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)
+&nbsp;
+[![Release Notes and SHA-256](https://img.shields.io/badge/Release_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
 
-<sub><strong>Android (1-click APK):</strong> tap the red button above, install <code>zoe-beta-v0.9.6-android.apk</code>, and open the <strong><code>Dorothy 3D Brain</code></strong> centerpiece right on Home.<br/><strong>iPhone, Apple Fold &amp; iPad:</strong> open the blue button in <strong>Safari</strong> &rarr; tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong> for the full-screen 60fps Dorothy 3D Brain app (or build the native SwiftUI Xcode project in <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a>).</sub>
+<sub><strong>Mobile:</strong> install <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><code>zoe-beta-v0.9.6-android.apk</code></a> (Google Pixel &amp; Android) or open <a href="https://ablation-tool.github.io/zoe/">Safari PWA</a> / <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a> (iPhone, Apple Fold &amp; iPad).<br/><strong>Desktop:</strong> download <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz">Linux</a> (<code>./zoe-desktop</code>), <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip">Windows</a> (<code>Launch Zoe.bat</code> + <code>ZoeTrinity.exe</code>), or <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip">Apple macOS</a> (<code>Zoe.app</code>) &middot; see <a href="desktop/README.md"><code>desktop/README.md</code></a>.</sub>
 
 <br/>
 
@@ -50,9 +54,9 @@ $$
 
 <a id="dorothy-brain-observatory"></a>
 
-## 1. Zoe App &amp; Dorothy 3D Brain Centerpiece *(Research Partner · Google Pixel, Apple iOS, Apple Fold &amp; iPad)*
+## 1. Zoe App &amp; Dorothy 3D Brain Centerpiece *(Research Partner · Mobile &amp; Desktop: Pixel, iOS, Fold, iPad, Linux, Windows &amp; macOS)*
 
-> **Zoe is a Research Partner.** Built around the **Dorothy 3D Brain Observatory** (honoring **Dorothy McEwen Kildall**): **`240,376` real stereotaxic anatomical triangles**, **live synchronized `0.74 mm` MNI152 T1-MRI** slices, **5 functional neural circuits**, **4 cerebrovascular stroke territory simulators**, **19-electrode 10-20 EEG cap**, **25 audited anatomical plates**, **HD walkthrough videos**, and integrated **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain`. Optimized for **Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad**. *(Standard population templates for research &amp; education only, not diagnostic or surgical guidance.)*
+> **Zoe is a Research Partner.** Built around the **Dorothy 3D Brain Observatory** (honoring **Dorothy McEwen Kildall**): **`240,376` real stereotaxic anatomical triangles**, **live synchronized `0.74 mm` MNI152 T1-MRI** slices, **5 functional neural circuits**, **4 cerebrovascular stroke territory simulators**, **19-electrode 10-20 EEG cap**, **25 audited anatomical plates**, **HD walkthrough videos**, and integrated **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain`. Available on **Google Pixel, Apple iOS (iPhone), Apple Fold, iPad, Linux, Windows, and Apple macOS**. *(Standard population templates for research &amp; education only, not diagnostic or surgical guidance.)*
 
 <div align="center">
 
@@ -75,7 +79,7 @@ $$
 
 <br/>
 
-**[⬇ Android APK (`v0.9.6-beta`)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🍎 iPhone / iPad / Apple Fold PWA](https://ablation-tool.github.io/zoe/)** · **[📱 Apple Xcode App](mobile/apple/Zoe.xcodeproj)** · **[🎬 App Walkthrough Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[🗺️ 4800 × 3200 Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
+**[⬇ Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🍎 iPhone / iPad / Apple Fold PWA](https://ablation-tool.github.io/zoe/)** · **[🐧 Linux Desktop](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[🪟 Windows Desktop](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[💻 Apple macOS Desktop](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[🎬 App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
 
 </div>
 
@@ -84,7 +88,7 @@ $$
 | **3D Stereotaxic Geometry** | `240,376` triangles (`5.58 MB` Int16 bundle, `< 1s` load): ICBM152 cortex, AAL-116 lobes &amp; cerebellum, 32 Pauli CIT168 deep nuclei, Circle of Willis, 12 cranial nerves, DTI tracts |
 | **Shaders, Circuits &amp; Live MRI** | 7 real-time GPU shaders (SSS Tissue, Lobe Atlas, AAL-116, GLSL Fresnel Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy $A_\tau(p)$), 5 functional neural circuits, 4 cerebrovascular stroke territory simulators, 19-electrode 10-20 EEG cap + wave scope, 3D caliper &amp; synchronized `0.74 mm` MNI152 T1-MRI |
 | **Ask Zoe, Videos &amp; Navigation** | Centerpiece of the Zoe mobile app (**Research Partner**): built-in **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain` + voice synthesis, bundled MP4 brain tour &amp; 8-mode reel + HD gallery, 6-stop Guided Tour, 52 Brodmann + 12 CN atlas, 25 audited plates |
-| **Multi-Device Optimization** | Native Android [`HomeView.java`](mobile/android/app/src/main/java/research/zoetic/zoe/HomeView.java) &amp; [`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java) (**Google Pixel** &amp; Fold/Tablet), Apple [`DeskHomeView.swift`](mobile/apple/Zoe/DeskHomeView.swift), [`RootView.swift`](mobile/apple/Zoe/RootView.swift) &amp; [`DorothyBrainObservatoryView.swift`](mobile/apple/Zoe/DorothyBrainObservatoryView.swift) (**iPhone, Apple Fold &amp; iPad**), Safari PWA &amp; Desktop WebGL2 (`0` tracking, `0` ads) |
+| **Mobile &amp; Desktop Apps** | **Mobile:** Android [`HomeView.java`](mobile/android/app/src/main/java/research/zoetic/zoe/HomeView.java) (**Google Pixel &amp; Fold**), Apple [`DeskHomeView.swift`](mobile/apple/Zoe/DeskHomeView.swift) &amp; [`RootView.swift`](mobile/apple/Zoe/RootView.swift) (**iPhone, Apple Fold &amp; iPad**) · **Desktop:** [`desktop/zoe_desktop.py`](desktop/zoe_desktop.py) (**Linux** GTK/WebKit2GTK), [`desktop/windows/ZoeDesktop.ps1`](desktop/windows/ZoeDesktop.ps1) + `ZoeTrinity.exe` (**Windows 10/11**), [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift) + `Zoe.app` (**Apple macOS**) |
 
 <details>
 <summary><strong>Live Mobile App Screenshots</strong> (12 Live Google Pixel 7 Captures: Research Partner Centerpiece, Ask Zoe, Videos, Chat &amp; All 3D Shaders)</summary>
@@ -104,7 +108,15 @@ $$
 </details>
 
 <details>
-<summary><strong>Desktop &amp; Web Observatory Views</strong> (6 High-Res Captures: Tissue, X-Ray, Exploded, Cutaway, Fresnel &amp; EEG Cap)</summary>
+<summary><strong>Desktop App &amp; Observatory Views</strong> (Zoe Desktop Centerpiece + 6 High-Res Views: Tissue, X-Ray, Exploded, Cutaway, Fresnel &amp; EEG Cap)</summary>
+
+<div align="center">
+
+![Zoe Desktop App Home Centerpiece on Linux, Windows, and Apple macOS](dorothy-brain-observatory/previews/desktop_zoe_home_centerpiece.png)
+
+<sub><strong>Zoe Desktop App (Linux · Windows · Apple macOS):</strong> Identical Dorothy 3D Brain Centerpiece, Ask Zoe brain topics, Videos &amp; Gallery, and Plates &amp; Atlas running in a standalone desktop window.</sub>
+
+</div>
 
 | Anatomical Tissue *(ICBM152 Cortex + Live MNI152 MRI)* | Glass X-Ray *(CIT168 Nuclei, Ventricles, Circle of Willis &amp; DTI)* | Exploded Dissection *(Lobe Atlas Mode)* |
 |:---:|:---:|:---:|
@@ -122,8 +134,11 @@ $$
 #### Install &amp; Launch
 
 - **Android (8.0+ / Google Pixel &amp; Fold):** Download **[`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** (SHA-256 on [v0.9.6-beta Release](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)), install, and tap **`Explore Dorothy 3D Brain`** on Home.
-- **iPhone &amp; iPad (iOS 17+):** Open **[`ablation-tool.github.io/zoe`](https://ablation-tool.github.io/zoe/)** in **Safari** -> **Share** -> **Add to Home Screen** (offline Service Worker PWA), or build the native SwiftUI Xcode project at [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj).
-- **Desktop / CAD:** Open [`dorothy-brain-observatory/index.html`](dorothy-brain-observatory/index.html), read the full dataset attribution guide in [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md), or export meshes from [`dorothy-brain-observatory/3d_models/`](dorothy-brain-observatory/3d_models/) (10 `.OBJ`/`.PLY` + 5 `.STL`).
+- **iPhone, Apple Fold &amp; iPad (iOS 17+):** Open **[`ablation-tool.github.io/zoe`](https://ablation-tool.github.io/zoe/)** in **Safari** -> **Share** -> **Add to Home Screen**, or build the native SwiftUI Xcode project at [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj).
+- **Linux Desktop:** Download **[`zoe-desktop-v0.9.6-linux.tar.gz`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)**, extract, and run `./zoe-desktop` (native GTK 3 + WebKit2GTK window) or `./install-desktop-shortcut.sh` (or `python3 desktop/zoe_desktop.py` from source).
+- **Windows 10/11 Desktop:** Download **[`zoe-desktop-v0.9.6-windows-x64.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)**, extract, and double-click **`Launch Zoe.bat`** (zero Python required; also bundles native Win32 C++17 `ZoeTrinity.exe`).
+- **Apple macOS Desktop:** Download **[`zoe-desktop-v0.9.6-macos.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)**, extract, and double-click **`Zoe.app`** (also includes native Swift `WKWebView` source [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift)). See **[`desktop/README.md`](desktop/README.md)** for full desktop build and checksum steps.
+- **Direct Web / CAD:** Open [`dorothy-brain-observatory/index.html`](dorothy-brain-observatory/index.html), read [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md), or export meshes from [`dorothy-brain-observatory/3d_models/`](dorothy-brain-observatory/3d_models/) (10 `.OBJ`/`.PLY` + 5 `.STL`).
 
 #### Technical Architecture
 
@@ -647,7 +662,8 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 
 | Document | Scope |
 |:---|:---|
-| [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) | Offline 3D MNI152 Human Brain Observatory guide, datasets, CAD exports &amp; attributions |
+| [`desktop/README.md`](desktop/README.md) · [`desktop/zoe_desktop.py`](desktop/zoe_desktop.py) | Zoe Desktop App for Linux (GTK/WebKit2GTK), Windows 10/11 (PowerShell/Edge + `ZoeTrinity.exe`) &amp; Apple macOS (`Zoe.app` + Swift `WKWebView`) |
+| [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) | 3D MNI152 Human Brain Observatory guide, datasets, CAD exports &amp; attributions |
 | [`mobile/README.md`](mobile/README.md) · [`mobile/ZAPPS.md`](mobile/ZAPPS.md) | Zoe (beta) architecture, build steps, verification ledger &amp; 23-tool Zapps manual |
 | [`mobile/SAFECONVERT.md`](mobile/SAFECONVERT.md) | SafeConvert unit converter cover, `911` variants, 8 regional packs &amp; offline BLE beacon |
 | [`mobile/SECURITY.md`](mobile/SECURITY.md) · [`mobile/STORE_COMPLIANCE.md`](mobile/STORE_COMPLIANCE.md) | Mobile threat model, privacy firewalls, permissions &amp; Google Play / App Store checklist |
@@ -698,7 +714,8 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 
 ```text
 zoe/
-├── dorothy-brain-observatory/    # Offline WebGL2 3D Human Brain, live T1-MRI, 25 plates, CAD meshes & iOS PWA
+├── desktop/                      # Zoe Desktop App: Linux (GTK/WebKit2GTK), Windows 10/11 & Apple macOS (Zoe.app + Swift)
+├── dorothy-brain-observatory/    # WebGL2 3D Human Brain, live T1-MRI, Ask Zoe, videos, 25 plates, CAD meshes & iOS PWA
 ├── mobile/                       # Zoe (beta) v0.9.6-beta: Android APK, Apple SwiftUI/ZoeCore, Win32 C++17, Tiny Zoe
 ├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 40 extended layers, 61 live HTTP routes, Theorems 1-16)
 ├── components/                   # Zoe-Autonomy, agent-logging-system, ablation, PALA, cerotto, kevlar, ntp, etc.

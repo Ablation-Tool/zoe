@@ -665,6 +665,39 @@
       '<div class="zoe-msg-head"><span class="pill-cat">Zoe · Research Partner</span> <strong>Ask Zoe</strong></div>' +
       '<div class="zoe-msg-body">I am Zoe, your Research Partner. Ask anything about the brain and jump straight to it in 3D.</div>'
     );
+
+    window.__DOROTHY_ZOE_SUBMIT = submitQuestion;
+  }
+
+  function initDesktopNavigationAndParams() {
+    try {
+      const path = (window.location && window.location.pathname) || '';
+      if (path.indexOf('/brain/') === 0) {
+        const tabs = document.querySelector('.topbar .tabs');
+        if (tabs && !document.getElementById('zoeDesktopHomeBtn')) {
+          const homeBtn = document.createElement('a');
+          homeBtn.id = 'zoeDesktopHomeBtn';
+          homeBtn.href = '/';
+          homeBtn.className = 'tab-btn';
+          homeBtn.textContent = '← Home';
+          homeBtn.style.color = '#f5d078';
+          homeBtn.style.borderColor = 'rgba(245,208,120,0.45)';
+          tabs.insertBefore(homeBtn, tabs.firstChild);
+        }
+      }
+      const params = new URLSearchParams(window.location.search || '');
+      const tab = params.get('tab');
+      const q = params.get('q');
+      if (tab && typeof window.switchTab === 'function') {
+        setTimeout(function () { window.switchTab(tab); }, 80);
+      }
+      if (q && typeof window.__DOROTHY_ZOE_SUBMIT === 'function') {
+        setTimeout(function () {
+          if (typeof window.switchTab === 'function') window.switchTab('askzoe');
+          window.__DOROTHY_ZOE_SUBMIT(q);
+        }, 180);
+      }
+    } catch (_) {}
   }
 
   function initMediaGallery() {
@@ -754,9 +787,11 @@
     document.addEventListener('DOMContentLoaded', function () {
       initAskZoePanel();
       initMediaGallery();
+      initDesktopNavigationAndParams();
     });
   } else {
     initAskZoePanel();
     initMediaGallery();
+    initDesktopNavigationAndParams();
   }
 })();
