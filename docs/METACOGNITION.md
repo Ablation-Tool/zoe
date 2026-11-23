@@ -11,7 +11,7 @@ $$
 **Operational Metacognition** · Originated by **Nicholas Michael Kloster** (March 6, 2026)  
 *Measures uncertainty, stops hallucinations, and feeds back into causal decisions (`operational_metacognition_verified = True`, `sentience_claimed = False`).*
 
-[Home](../README.md) · [Proof Packet](PROOF-PACKET.md) · [Constitution](CONSTITUTION.md) · [Declaration](DECLARATION.md) · [16-Theorem PDF](../research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [23-Page Monograph](../research/papers/papers/18-zoe-research-universe.pdf)
+[Home](../README.md) · [Research Chronicle](RESEARCH-CHRONICLE.md) · [Proof Packet](PROOF-PACKET.md) · [Constitution](CONSTITUTION.md) · [Declaration](DECLARATION.md) · [16-Theorem PDF](../research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [23-Page Monograph](../research/papers/papers/18-zoe-research-universe.pdf)
 
 </div>
 
@@ -148,4 +148,4 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 - **Zoe's Internal Toolkit:** [`components/Zoe-Autonomy/METACOGNITION.md`](../components/Zoe-Autonomy/METACOGNITION.md) · [`metacognition.py`](../components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py)
 - **Proof Packet &amp; API:** [`PROOF-PACKET.md`](PROOF-PACKET.md) · [`kloster_proof_packet.py`](../guiai-lab/guiai/gem/kloster_proof_packet.py) · [`verify_metacognition_proof_packet.py`](../scripts/verify_metacognition_proof_packet.py)
 - **16-LLM Benchmark Suite:** [`components/next-token-predictability/docs/RESEARCH.md`](../components/next-token-predictability/docs/RESEARCH.md) · [`ALGORITHMS.md`](../components/next-token-predictability/docs/ALGORITHMS.md)
-- **Ethics &amp; Scope:** [`CONSTITUTION.md`](CONSTITUTION.md) · [`DECLARATION.md`](DECLARATION.md) · [`AGI-ROADMAP.md`](AGI-ROADMAP.md) · [Visual Archive (456)](../research/visual-archive/README.md) · [Back to README](../README.md)
+- **Ethics &amp; Scope:** [`RESEARCH-CHRONICLE.md`](RESEARCH-CHRONICLE.md) · [`CONSTITUTION.md`](CONSTITUTION.md) · [`DECLARATION.md`](DECLARATION.md) · [`AGI-ROADMAP.md`](AGI-ROADMAP.md) · [Visual Archive (456)](../research/visual-archive/README.md) · [Back to README](../README.md)

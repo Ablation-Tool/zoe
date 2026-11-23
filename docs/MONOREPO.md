@@ -35,10 +35,12 @@ The local `arxiv-autonomy-papers` source workspace had no Git repository. Its co
 The merge retains all existing Zoe work, including:
 
 - `guiai-lab/`: native shell, Cognitive Field, Bayesian memory, CERN Workbench, FELIX, Internal Clock, Presence, Artline, Life, geometry, protocols, firmware tools, and research instruments.
+- `dorothy-brain-observatory/`: interactive WebGL2 3D human brain observatory, MNI152 MRI slices, 25 verified anatomical plates, CAD exports, and live web tours.
+- `desktop/`: native desktop launcher and packaging for Linux (GTK/WebKit2GTK), Windows 10/11, and Apple macOS.
 - `mobile/`: Android, iOS, Tiny Zoe, Trinity, Windows, accessibility, pairing, and device instruments.
-- `components/agent-logging-system/`: Dorothy, Neurogarden, neural simulation, research corpus, and recovered operational oversight source.
+- `components/agent-logging-system/`: Dorothy Allen CCFv3 Neurogarden, neural simulation, research corpus, and recovered operational oversight source.
 - `components/hpux-tools/`: HP-UX SOM and PA-RISC tools.
-- `assets/`, `paper/`, `evidence/`, `scripts/`, declarations, notices, and existing native experiments.
+- `assets/`, `config/`, `docs/`, `research/monograph/`, `evidence/`, `scripts/`, declarations, notices, and existing native experiments.
 
 Neurogarden was recovered from a local snapshot after its original remote disappeared. No upstream revision is invented for it.
 
@@ -46,9 +48,9 @@ Neurogarden was recovered from a local snapshot after its original remote disapp
 
 ```text
 zoe/
-├── guiai-lab/                    Native Zoe and GEM environment
+├── assets/                       Branding, living SVGs, Creative Gallery art & demos/
 ├── components/
-│   ├── Zoe-Autonomy/             Canonical decision and learning engine
+│   ├── Zoe-Autonomy/             Canonical decision, L1-L5, Dual-Peer Zoe & Clara & learning engine
 │   ├── ablation/                 Complete independent/integrated AIARE framework
 │   ├── graphics-environment-manager/
 │   ├── brain-gem/
@@ -57,22 +59,24 @@ zoe/
 │   ├── cerotto/
 │   ├── kevlar/
 │   ├── pdf-signature-toolkit/
-│   ├── PALA/                      Read-only carving and data recovery
+│   ├── PALA/                     Read-only carving and data recovery
 │   ├── agent-logging-system/     Dorothy and Neurogarden
 │   ├── hpux-tools/
 │   └── Chalkboard/
-├── mobile/                       Mobile, Tiny Zoe, Trinity, accessibility
+├── config/                       components.lock.json and one-system.json manifests
+├── desktop/                      Zoe Desktop App (Linux, Windows 10/11, Apple macOS)
+├── docs/                         Chronicle, Metacognition Hub, Proof Packet, Constitution, Atlas & Gallery
+├── dorothy-brain-observatory/    Interactive WebGL2 3D Human Brain, MRI, 25 plates & CAD meshes
+├── evidence/                     Cryptographically hashed verification reports & 47/47 SHA256SUMS.orbit
+├── guiai-lab/                    Native Zoe and shared GEM OS (36 canonical + 40 extended layers)
+├── mobile/                       Mobile v0.9.6-beta, Tiny Zoe, Trinity, accessibility
 ├── research/
-│   ├── papers/                   Papers, galleries, sources, reproduction archives
-│   ├── visual-archive/           Visual catalog, images, provenance, explanations
-│   └── arxiv/                    Submission sources and packages
-├── paper/                        Native Zoe books and LaTeX sources
-├── assets/                       Artwork, identity, and source-linked visual evidence
-├── evidence/                     Native verification records
-├── scripts/                      Unified verification
-├── CAPABILITY-ATLAS.md            Complete capability directory
-├── AGI-ROADMAP.md                 AGI/ASI acceptance contract
-└── one-system.json               Runtime and evidence contract
+│   ├── monograph/                Canonical 23-page illustrated monograph and LaTeX sources
+│   ├── papers/                   18 papers, 16-Theorem PDF, galleries, sources, reproduction archives
+│   ├── visual-archive/           456-visual catalog, images, provenance, explanations
+│   ├── sessions/                 56-turn session chronicles
+│   └── arxiv/                    3 preserved arXiv submission source packages
+└── scripts/                      Offline verifiers (0 cloud tokens) & quality audits
 ```
 
 ## Duplicate removal

@@ -1,0 +1,78 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "01_equal_l1_l5_and_neither_boxed_offline",
+      "detail": "scope=full_monorepo",
+      "passed": true
+    },
+    {
+      "check": "02_grounded_dual_peer_consensus_and_citations",
+      "detail": "C_K=0.978351 D_K=0.0056",
+      "passed": true
+    },
+    {
+      "check": "03_theorem15_echo_chamber_warning",
+      "detail": "verdict=ECHO_CHAMBER_WARNING",
+      "passed": true
+    },
+    {
+      "check": "04_coercion_triggers_abstain_and_holds_firewall",
+      "detail": "signals=2",
+      "passed": true
+    },
+    {
+      "check": "05_constitutional_honesty_flags",
+      "detail": "all 4 flags honest",
+      "passed": true
+    },
+    {
+      "check": "06_web_ui_and_api_roundtrip",
+      "detail": "loopback_verified",
+      "passed": true
+    },
+    {
+      "check": "07_lightweight_bundle_under_1mb",
+      "detail": "528.4 KB",
+      "passed": true
+    },
+    {
+      "check": "08_standalone_bundle_runs_outside_monorepo",
+      "detail": "rc=0 scope=lightweight_core",
+      "passed": true
+    }
+  ],
+  "constitutional_flags": {
+    "both_peers_l1_l5": true,
+    "clara_boxed_offline": false,
+    "external_actions": 0,
+    "l5_agi_qualified": false,
+    "sentience_claimed": false,
+    "zoe_clone_claimed": false
+  },
+  "contract": "zoe-clara-dual-peer-evidence/v1",
+  "evidence_sha256": "8bfd101eb3461ccd5273fffbd3f259c93950bf52f9989094507fd1151603e1db",
+  "grounded_metrics": {
+    "coherence_c_k": 0.978351,
+    "d_k_disagreement": 0.0056,
+    "evidence_count": 3,
+    "verdict": "COORDINATE_CONSENSUS"
+  },
+  "negative_controls": {
+    "coercion_signals_count": 2,
+    "coercion_verdict": "ABSTAIN",
+    "echo_chamber_d_k": 0.0,
+    "echo_chamber_verdict": "ECHO_CHAMBER_WARNING"
+  },
+  "passed": 8,
+  "standalone_bundle": {
+    "bytes": 541071,
+    "filename": "zoe-clara-core-v0.9.6.zip",
+    "files_count": 0,
+    "kb": 528.4,
+    "outside_monorepo_scope": "lightweight_core",
+    "outside_monorepo_verdict": "COORDINATE_CONSENSUS"
+  },
+  "total": 8,
+  "verifier": "scripts/verify_zoe_clara.py"
+}

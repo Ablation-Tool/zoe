@@ -1,0 +1,124 @@
+{
+  "all_pass": true,
+  "checks": [
+    {
+      "check": "01_dorothy_human_brain_core_assets",
+      "detail": "9 core assets",
+      "passed": true
+    },
+    {
+      "check": "02_plates_mri_cad_and_tours",
+      "detail": "plates=25 mri=3 cad=15",
+      "passed": true
+    },
+    {
+      "check": "03_desktop_loopback_and_http206_stream",
+      "detail": "loopback_200_and_206_verified",
+      "passed": true
+    },
+    {
+      "check": "04_cross_platform_packaging_manifests",
+      "detail": "6/6 present",
+      "passed": true
+    },
+    {
+      "check": "05_sha256sums_orbit_seal",
+      "detail": "47/47 OK",
+      "passed": true
+    },
+    {
+      "check": "06_docs_links_and_evidence_json_integrity",
+      "detail": "docs=11 links=1356 broken=0 jsons=126",
+      "passed": true
+    }
+  ],
+  "constitutional_flags": {
+    "clinical_action_authorized": false,
+    "cure_claim": false,
+    "external_actions": 0,
+    "l5_agi_qualified": false,
+    "sentience_claimed": false,
+    "zoe_clone_claimed": false
+  },
+  "contract": "zoe-observatory-and-packages-evidence/v1",
+  "cross_platform_sources": {
+    "android_project": true,
+    "apple_xcode_project": true,
+    "desktop_builder": true,
+    "desktop_macos_swift": true,
+    "safeconvert_doc": true,
+    "windows_native_cpp": true
+  },
+  "documentation_and_evidence_audit": {
+    "broken_links_count": 0,
+    "broken_links_sample": [],
+    "evidence_json_files_valid": 126,
+    "invalid_json_files": [],
+    "local_links_checked": 1356,
+    "markdown_docs_checked": 11
+  },
+  "evidence_sha256": "3a6a2a6c8e80d3f38cf40ae0186bba65bf37965b84d57468aec70ba88200b017",
+  "observatory_core": {
+    "assets/observatory.js": {
+      "bytes": 132545,
+      "exists": true,
+      "sha256_16": "21c3c6a452165e1f"
+    },
+    "assets/three.min.js": {
+      "bytes": 603445,
+      "exists": true,
+      "sha256_16": "9274bbcec8d96168"
+    },
+    "assets/zoe_neuro_qa.js": {
+      "bytes": 41593,
+      "exists": true,
+      "sha256_16": "3e587d6635a05d71"
+    },
+    "data/atlas_encyclopedia.js": {
+      "bytes": 52819,
+      "exists": true,
+      "sha256_16": "43acf66aa7c54491"
+    },
+    "data/brain_meshes.js": {
+      "bytes": 2230997,
+      "exists": true,
+      "sha256_16": "7ba436affa6b73e6"
+    },
+    "data/library_vault.js": {
+      "bytes": 41177,
+      "exists": true,
+      "sha256_16": "e062cfaa8ea2f508"
+    },
+    "index.html": {
+      "bytes": 49202,
+      "exists": true,
+      "sha256_16": "4e2dd22019770265"
+    },
+    "manifest.webmanifest": {
+      "bytes": 779,
+      "exists": true,
+      "sha256_16": "ed374050e676f2fa"
+    },
+    "sw.js": {
+      "bytes": 1701,
+      "exists": true,
+      "sha256_16": "764243c8186768d8"
+    }
+  },
+  "orbit_seal": {
+    "mismatched": [],
+    "total": 47,
+    "verified": 47
+  },
+  "passed": 6,
+  "plates_and_cad": {
+    "blender_importer_exists": true,
+    "cad_meshes_count": 15,
+    "mri_sheets_count": 3,
+    "plates_count": 25,
+    "poster_exists": true,
+    "tour_media_verified": true
+  },
+  "total": 6,
+  "verifier": "scripts/verify_observatory_and_packages.py"
+}

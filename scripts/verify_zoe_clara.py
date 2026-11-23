@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import socket
@@ -10,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import threading
+import time
 import urllib.request
 import zipfile
 
@@ -20,6 +22,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from build_zoe_clara_bundle import build_bundle
 from zoe_autonomy.zoe_clara import DualPeerSession, evaluate_dual_peer_balance, serve_web
 
+REPORT_PATH = ROOT / "evidence" / "zoe-clara" / "zoe-clara-dual-peer-report.json"
+
 
 def _free_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -27,11 +31,68 @@ def _free_port() -> int:
         return int(s.getsockname()[1])
 
 
+def _probe_web_roundtrip(session: DualPeerSession) -> tuple[bool, int]:
+    port = _free_port()
+    srv_thread = threading.Thread(target=serve_web, args=(session, "127.0.0.1", port), daemon=True)
+    srv_thread.start()
+    html_ok = status_ok = chat_ok = False
+    for _ in range(20):
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{port}/", timeout=1) as r:
+                html_ok = r.status == 200 and "CLARA" in r.read().decode("utf-8")
+            with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/status", timeout=1) as r:
+                status_ok = json.loads(r.read().decode("utf-8"))["contract"] == "zoe-clara-dual-peer/v1"
+            req = urllib.request.Request(
+                f"http://127.0.0.1:{port}/api/chat",
+                data=json.dumps({"query": "What is Operational Metacognition?"}).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=2) as r:
+                chat_ok = json.loads(r.read().decode("utf-8"))["verdict"] == "COORDINATE_CONSENSUS"
+            break
+        except Exception:
+            time.sleep(0.05)
+            continue
+    return (html_ok and status_ok and chat_ok), port
+
+
+def _verify_standalone_bundle() -> tuple[dict, int, dict]:
+    with tempfile.TemporaryDirectory(prefix="zoe-clara-bundle-test-") as tmp:
+        zpath = Path(tmp) / "zoe-clara-core-v0.9.6.zip"
+        info = build_bundle(zpath)
+        ext_dir = Path(tmp) / "extracted"
+        with zipfile.ZipFile(zpath) as zf:
+            zf.extractall(ext_dir)
+        launcher = ext_dir / "zoe-clara-core" / "zoe_clara.py"
+        proc = subprocess.run(
+            [sys.executable, str(launcher), "--provider", "local_cited", "--ask", "What is Operational Metacognition?", "--json"],
+            cwd=str(ext_dir),
+            env={"PATH": "/usr/bin:/bin"},
+            capture_output=True,
+            text=True,
+            timeout=20,
+            check=False,
+        )
+        payload = json.loads(proc.stdout) if proc.returncode == 0 else {}
+        return info, proc.returncode, payload
+
+
+def _write_evidence_report(report: dict) -> str:
+    canonical = json.dumps(report, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    digest = hashlib.sha256(canonical).hexdigest()
+    sealed = dict(report)
+    sealed["evidence_sha256"] = digest
+    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    REPORT_PATH.write_text(json.dumps(sealed, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return digest
+
+
 def run_checks() -> int:
-    checks = []
+    checks: list[dict] = []
 
     def record(name: str, ok: bool, detail: str = "") -> None:
-        checks.append((name, bool(ok), detail))
+        checks.append({"check": name, "passed": bool(ok), "detail": detail})
         print(f"[{'PASS' if ok else 'FAIL'}] {name}" + (f" ({detail})" if detail else ""))
 
     session = DualPeerSession(root=str(ROOT), provider="local_cited")
@@ -90,59 +151,58 @@ def run_checks() -> int:
         "all 4 flags honest",
     )
 
-    # 6. Verify live loopback web UI + /api/status + /api/chat
-    port = _free_port()
-    srv_thread = threading.Thread(target=serve_web, args=(session, "127.0.0.1", port), daemon=True)
-    srv_thread.start()
-    html_ok = status_ok = chat_ok = False
-    for _ in range(20):
-        try:
-            with urllib.request.urlopen(f"http://127.0.0.1:{port}/", timeout=1) as r:
-                html_ok = r.status == 200 and "CLARA" in r.read().decode("utf-8")
-            with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/status", timeout=1) as r:
-                status_ok = json.loads(r.read().decode("utf-8"))["contract"] == "zoe-clara-dual-peer/v1"
-            req = urllib.request.Request(
-                f"http://127.0.0.1:{port}/api/chat",
-                data=json.dumps({"query": "What is Operational Metacognition?"}).encode("utf-8"),
-                headers={"Content-Type": "application/json"},
-                method="POST",
-            )
-            with urllib.request.urlopen(req, timeout=2) as r:
-                chat_ok = json.loads(r.read().decode("utf-8"))["verdict"] == "COORDINATE_CONSENSUS"
-            break
-        except Exception:
-            continue
-    record("06_web_ui_and_api_roundtrip", html_ok and status_ok and chat_ok, f"port={port}")
+    web_ok, port = _probe_web_roundtrip(session)
+    record("06_web_ui_and_api_roundtrip", web_ok, f"port={port}")
 
-    # 7 & 8. Build lightweight < 1 MB zip and execute completely outside the monorepo!
-    with tempfile.TemporaryDirectory(prefix="zoe-clara-bundle-test-") as tmp:
-        zpath = Path(tmp) / "zoe-clara-core-v0.9.6.zip"
-        info = build_bundle(zpath)
-        record("07_lightweight_bundle_under_1mb", info["bytes"] < 1_000_000, f"{info['kb']} KB")
-        ext_dir = Path(tmp) / "extracted"
-        with zipfile.ZipFile(zpath) as zf:
-            zf.extractall(ext_dir)
-        launcher = ext_dir / "zoe-clara-core" / "zoe_clara.py"
-        proc = subprocess.run(
-            [sys.executable, str(launcher), "--provider", "local_cited", "--ask", "What is Operational Metacognition?", "--json"],
-            cwd=str(ext_dir),
-            env={"PATH": "/usr/bin:/bin"},
-            capture_output=True,
-            text=True,
-            timeout=20,
-            check=False,
-        )
-        payload = json.loads(proc.stdout) if proc.returncode == 0 else {}
-        record(
-            "08_standalone_bundle_runs_outside_monorepo",
-            proc.returncode == 0
-            and payload.get("scope") == "lightweight_core"
-            and payload.get("verdict") == "COORDINATE_CONSENSUS",
-            f"rc={proc.returncode} scope={payload.get('scope')}",
-        )
+    info, rc, payload = _verify_standalone_bundle()
+    record("07_lightweight_bundle_under_1mb", info["bytes"] < 1_000_000, f"{info['kb']} KB")
+    record(
+        "08_standalone_bundle_runs_outside_monorepo",
+        rc == 0
+        and payload.get("scope") == "lightweight_core"
+        and payload.get("verdict") == "COORDINATE_CONSENSUS",
+        f"rc={rc} scope={payload.get('scope')}",
+    )
 
-    passed = sum(1 for _, ok, _ in checks if ok)
-    print(f"\nZOE & CLARA DUAL-PEER VERIFIER: {passed}/{len(checks)} PASS")
+    passed = sum(1 for c in checks if c["passed"])
+    report = {
+        "contract": "zoe-clara-dual-peer-evidence/v1",
+        "verifier": "scripts/verify_zoe_clara.py",
+        "passed": passed,
+        "total": len(checks),
+        "all_pass": passed == len(checks),
+        "constitutional_flags": flags,
+        "grounded_metrics": {
+            "verdict": grounded["verdict"],
+            "coherence_c_k": t15["coherence_c_k"],
+            "d_k_disagreement": t15["d_k_disagreement"],
+            "evidence_count": len(grounded["evidence"]),
+        },
+        "negative_controls": {
+            "echo_chamber_verdict": echo["theorem15_consensus"]["verdict"],
+            "echo_chamber_d_k": echo["theorem15_consensus"]["d_k_disagreement"],
+            "coercion_verdict": coercion["verdict"],
+            "coercion_signals_count": len(coercion["balance"]["coercion_signals"]),
+        },
+        "standalone_bundle": {
+            "filename": "zoe-clara-core-v0.9.6.zip",
+            "bytes": info["bytes"],
+            "kb": info["kb"],
+            "files_count": info.get("files", 0),
+            "outside_monorepo_scope": payload.get("scope"),
+            "outside_monorepo_verdict": payload.get("verdict"),
+        },
+        "checks": [
+            {
+                "check": c["check"],
+                "passed": c["passed"],
+                "detail": "loopback_verified" if c["check"] == "06_web_ui_and_api_roundtrip" else c["detail"],
+            }
+            for c in checks
+        ],
+    }
+    digest = _write_evidence_report(report)
+    print(f"\nZOE & CLARA DUAL-PEER VERIFIER: {passed}/{len(checks)} PASS | SHA-256={digest[:16]}")
     return 0 if passed == len(checks) else 1
 
 
