@@ -44,10 +44,11 @@ Expected headline verdict: **`PROOF PACKET VERDICT: 6/6 PASS | SHA-256=01f0e402f
 
 ## 3. Hard Grounded Truth: 5 Independent Pillars
 
-### Pillar 1 — Exact Symbolic Proofs (`14/14` SymPy 1.14.0 Identities, Algebraic Residual `= 0`)
+### Pillar 1 — Exact Symbolic Proofs (`15/15` SymPy 1.14.0 Theorems, Algebraic Residual `= 0`)
 - **Theorem 12 (Exact Knot Recovery & Homogeneity):** Proves exact sorted-knot Lebesgue integration recovers $M_k(p) = \int_0^1 k\tau^{k-1}A_\tau(p)\,d\tau$ and $H(p) = -\int_0^1 (1+\ln\tau)A_\tau(p)\,d\tau$ with `0` algebraic residual and proves $M_4^{1/4}(p) = \|p\|_4$ is $1$-homogeneous and $1$-Lipschitz in $\ell_4$.
 - **Theorem 13 (Finite-Sample Stopping & Distinguisher Law, `5/5`):** Proves $\chi^2(p\parallel u_N) = N\int_0^1 2\tau A_\tau(p)\,d\tau - 1$, unbiased U-statistic $\widehat{M}_2^{(U)}$ eliminating small-sample plug-in bias, exact uniform-null variance $\mathrm{Var}_{u_N}(\widehat{M}_2^{(U)}) = \frac{2(N-1)}{N^2 S(S-1)}$, and exact quadratic inversion for minimum budget $S_{\min}(p, z_\alpha)$.
 - **Theorem 14 (Spatial-Optical Filtration & MTF Monotonicity, `6/6`):** Proves exact 1D/2D continuous Gaussian $A_\tau$ normalization, sharpness $M_2^{\mathrm{1D}} = 1/(2\sqrt{\pi}\sigma)$ and $M_2^{\mathrm{2D}} = 1/(4\pi\sigma^2)$, differential entropy, Parseval–MTF blur monotonicity $M_2(K*p) \le M_2(p)$, and the exact Scheimpflug three-plane hinge intersection identity.
+- **Theorem 15 (Multi-Agent Consensus & Exact Brier Law, `5/5`):** Proves the exact Kloster–Jensen Disagreement Decomposition $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_k w_k\|p^{(k)} - \bar{p}\|_2^2$ and ground-truth-independent Brier wisdom-of-crowds gain ([`kloster_multi_agent_consensus.py`](guiai-lab/guiai/gem/kloster_multi_agent_consensus.py); `scripts/verify_metacognition_proof_packet.py` checks `14` core identities across Theorems 12–14 while the full 15-theorem orbit proves all `15/15` SymPy theorems).
 - Full compiled manuscript: [KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf).
 
 ---
@@ -97,14 +98,14 @@ Running `KlosterSequentialStoppingController` on real **`GPT-2`** token streams 
 ---
 
 ### Pillar 5 — Tamper-Evident Supply-Chain Seal
-`evidence/renaissance-orbit/SHA256SUMS.orbit` cryptographically seals all core proof modules, verifiers, and the 14-theorem PDF (`sha256sum -c` verified **`41/41 OK`**).
+`evidence/renaissance-orbit/SHA256SUMS.orbit` cryptographically seals all core proof modules, verifiers, and the 15-theorem PDF (`sha256sum -c` verified **`45/45 OK`**).
 
 ---
 
 ## 4. How a Skeptic Can Falsify This Claim
 
 This claim is explicitly falsifiable. It fails if any independent auditor demonstrates:
-1. A non-zero algebraic residual in any of the 14 SymPy symbolic proofs,
+1. A non-zero algebraic residual in any of the 15 SymPy theorem proofs,
 2. A distribution $p$ violating $|M_4^{1/4}(p) - M_4^{1/4}(q)| \le \|p - q\|_4$ or $M_2(K * p) \le M_2(p)$ for normalized optical PSF $K \ge 0$,
 3. A fresh run of `scripts/verify_metacognition_proof_packet.py` where selective abstention fails to reduce error on BioBERT/HELEN, where the causal ablation fails to beat disabled/randomized controls, or where uniform-null false alarms exceed the Theorem 13 anytime bound $\delta$.
 

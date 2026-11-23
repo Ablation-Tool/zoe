@@ -81,11 +81,11 @@ final class DeviceAiController {
         }
         if (isStubVersionName(info.versionName)) {
             return "stub only (" + info.versionName + ") on " + Build.MODEL
-                    + " — bundled offline OCR, labels & color math are active instead";
+                    + ". bundled offline ocr, labels & color math are active instead";
         }
         if (!hasAnyAiCoreService(pm)) {
             return "AICore service not shipped on " + Build.MODEL
-                    + " — bundled offline OCR, labels & color math are active instead";
+                    + ". bundled offline ocr, labels & color math are active instead";
         }
         String version = info.versionName == null ? "installed" : info.versionName;
         return "AICore service detected (" + version + ")";

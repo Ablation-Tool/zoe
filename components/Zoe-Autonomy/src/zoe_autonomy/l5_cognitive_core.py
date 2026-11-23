@@ -23,7 +23,6 @@ Honest Epistemic Boundary (CONSTITUTION.md Article II & X):
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 import sys
@@ -32,6 +31,7 @@ from typing import Any, Dict, List, Tuple
 
 import numpy as np
 
+from ._utils import sha256_json_utf8 as _sha256_obj
 from .event_autonomy import EventCausalEngine
 from .event_core import observation_window, synthetic_sequence
 from .l4_multi_module import EVENT_POLICY_ARGS, GuardedFunctionASTSandbox
@@ -46,12 +46,6 @@ HONEST_REMAINING_L5_GAPS: Tuple[str, ...] = (
     "Scale persistent memory and continual learning cleanly across thousands of multi-session hours and external knowledge corpora without manual scaffolding.",
     "Achieve autonomous multi-file software & scientific discovery transfers validated by independent external benchmark suites prior to awarding AGI-QUALIFIED.",
 )
-
-
-def _sha256_obj(payload: object) -> str:
-    return hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 class ZoeUnifiedMind:

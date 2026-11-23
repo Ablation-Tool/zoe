@@ -17,11 +17,11 @@ Honest Epistemic Boundaries (`CONSTITUTION.md` & `AGI-ROADMAP.md`):
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
+from ._utils import sha256_json_utf8 as _sha256_obj
 from .experiment import _zoe_root
 from .l5_domains import _ensure_guiai_path
 from .l5_phase4_blind_bench import eval_pillar_01_blind_procedural_bench
@@ -46,12 +46,6 @@ ALL_PHASE4_PILLARS = (
     eval_pillar_04_embodied_sensor_loop,
     eval_pillar_05_three_gen_self_improvement,
 )
-
-
-def _sha256_obj(payload: object) -> str:
-    return hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 class ZoeEmbodiedMind:

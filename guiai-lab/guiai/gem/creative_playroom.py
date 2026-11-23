@@ -18,11 +18,12 @@ from __future__ import annotations
 import hashlib
 import json
 import math
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
 import numpy as np
 
 from .chiasm import hud_stamp_objects
+from .kloster_spatial_optical_law import _quadrat_zk, kloster_mtf_blur_loss
 from .model import Scene
 from .qualia import BACKGROUND, CYAN, GOLD, MUTED, PANEL, RED, TEXT
 from .spectral_filtration import spectral_moment_root
@@ -64,30 +65,114 @@ def _evolve_ca_grid(seed_quadrant: np.ndarray, born: Tuple[int, ...], survive: T
     return grid
 
 
-def _measure_artifact_descriptors(grid: np.ndarray) -> Dict[str, float]:
+def _grid_to_unit_points(grid: np.ndarray) -> np.ndarray:
+    """Convert live 2D grid cells into [0, 1)^2 cell-center coordinates for _quadrat_zk."""
+    h, w = int(grid.shape[0]), int(grid.shape[1])
+    ys, xs = np.nonzero(grid)
+    if ys.size == 0:
+        return np.zeros((0, 2), dtype=np.float64)
+    return np.column_stack([(xs + 0.5) / float(w), (ys + 0.5) / float(h)])
+
+
+def _classify_spatial_regime(z_k: float) -> str:
+    """Map Theorem 14 two-sided Z_K into clustered vs crystal vs CSR noise regime."""
+    if z_k >= 2.5:
+        return "clustered"
+    if z_k <= -2.5:
+        return "crystal"
+    return "csr_noise"
+
+
+def _falling_factorial(val: int, order: int) -> float:
+    """Compute exact falling factorial val*(val-1)*...*(val-order+1)."""
+    res = 1.0
+    for idx in range(order):
+        res *= float(val - idx)
+    return res
+
+
+def _lattice_quadrat_zk(grid: np.ndarray, grid_n: int = 8) -> float:
+    """Compute exact finite-lattice hypergeometric Z_K correcting 1-bit-per-pixel exclusion."""
+    h, w = int(grid.shape[0]), int(grid.shape[1])
+    n_cells = h * w
+    m_quad = grid_n * grid_n
+    if h % grid_n != 0 or w % grid_n != 0 or n_cells <= 1:
+        return float(_quadrat_zk(_grid_to_unit_points(grid), grid_n=grid_n)["z_kloster"])
+    cap = n_cells // m_quad
+    s_tot = int(np.sum(grid != 0))
+    if s_tot < 2 or cap < 2:
+        return 0.0
+    # Sum within-quadrat ordered pairs y_obs = sum_q c_q * (c_q - 1)
+    counts = (grid != 0).astype(np.int64).reshape(grid_n, h // grid_n, grid_n, w // grid_n).sum(axis=(1, 3)).ravel()
+    y_obs = float(np.sum(counts * (counts - 1)))
+    # Exact multivariate hypergeometric mean and variance without replacement
+    e_y = m_quad * _falling_factorial(s_tot, 2) * _falling_factorial(cap, 2) / _falling_factorial(n_cells, 2)
+    e_c2_sq = (
+        _falling_factorial(s_tot, 4) * _falling_factorial(cap, 4) / _falling_factorial(n_cells, 4)
+        + 4.0 * _falling_factorial(s_tot, 3) * _falling_factorial(cap, 3) / _falling_factorial(n_cells, 3)
+        + 2.0 * _falling_factorial(s_tot, 2) * _falling_factorial(cap, 2) / _falling_factorial(n_cells, 2)
+    )
+    e_cross = (
+        _falling_factorial(s_tot, 4) * (_falling_factorial(cap, 2) ** 2) / _falling_factorial(n_cells, 4)
+        if s_tot >= 4
+        else 0.0
+    )
+    e_y2 = m_quad * e_c2_sq + m_quad * (m_quad - 1) * e_cross
+    var_y = max(0.0, e_y2 - e_y * e_y)
+    if var_y <= 1e-18:
+        return 0.0
+    return (y_obs - e_y) / math.sqrt(var_y)
+
+
+def _measure_artifact_descriptors(grid: np.ndarray) -> Dict[str, Any]:
     """
     Computes genuine mathematical aesthetic & complexity descriptors for a 2D pattern:
       1. density: fraction of live cells (penalizes empty or solid-block triviality)
       2. diagonal_symmetry: invariance under transpose (4-fold vs 8-fold dihedral symmetry)
       3. edge_richness: boundary-to-area complexity
-      4. kloster_spectral_curiosity: spectral complexity over 2x2 motif distribution
+      4. kloster_spectral_curiosity: motif diversity + Theorem 14 MTF sharpness & Z_K duality
     """
-    density = float(grid.mean())
-    if density <= 0.02 or density >= 0.96:
-        return {"density": density, "symmetry": 0.0, "spectral_complexity": 0.0, "curiosity_fitness": 0.0}
+    arr = np.asarray(grid)
+    # Guard empty, non-2D, or non-finite grids before computing density, transpose, or 2x2 motifs
+    if arr.ndim != 2 or arr.size == 0 or arr.shape[0] < 2 or arr.shape[1] < 2 or not bool(np.all(np.isfinite(arr))):
+        density = 0.0
+        trivial = True
+    else:
+        # Guard extreme float64 grid sums that overflow arr.mean() to inf/-inf
+        with np.errstate(over="ignore", invalid="ignore"):
+            density = float(arr.mean())
+        if not math.isfinite(density):
+            density = 0.0
+            trivial = True
+        else:
+            trivial = density <= 0.02 or density >= 0.96
+    if trivial:
+        return {
+            "density": density,
+            "symmetry": 0.0,
+            "spectral_complexity": 0.0,
+            "curiosity_fitness": 0.0,
+            "kappa": 0.0,
+            "spatial_m2": 0.0,
+            "mtf_blur_loss": 0.0,
+            "mtf_sharpness": 0.0,
+            "quadrat_zk": 0.0,
+            "spatial_regime": "trivial",
+        }
 
-    diag_sym = float(np.mean(grid == grid.T))
+    bits = (arr > 0).astype(np.uint8)
+    diag_sym = float(np.mean(bits == bits.T)) if bits.shape[0] == bits.shape[1] else 0.0
     # Boundary edge transitions
-    edges_h = np.abs(grid[:, 1:].astype(int) - grid[:, :-1].astype(int)).mean()
-    edges_v = np.abs(grid[1:, :].astype(int) - grid[:-1, :].astype(int)).mean()
+    edges_h = np.abs(bits[:, 1:].astype(int) - bits[:, :-1].astype(int)).mean()
+    edges_v = np.abs(bits[1:, :].astype(int) - bits[:-1, :].astype(int)).mean()
     edge_richness = float(0.5 * (edges_h + edges_v))
 
     # Build 16-state 2x2 local motif probability distribution
     motifs = (
-        (grid[:-1, :-1] << 3)
-        | (grid[:-1, 1:] << 2)
-        | (grid[1:, :-1] << 1)
-        | grid[1:, 1:]
+        (bits[:-1, :-1] << 3)
+        | (bits[:-1, 1:] << 2)
+        | (bits[1:, :-1] << 1)
+        | bits[1:, 1:]
     )
     counts = np.bincount(motifs.ravel(), minlength=16).astype(np.float64)
     probs = counts / (counts.sum() + 1e-12)
@@ -97,15 +182,28 @@ def _measure_artifact_descriptors(grid: np.ndarray) -> Dict[str, float]:
     spectral_complexity = float(np.clip(1.0 - m4, 0.0, 1.0))
     kappa = m2 / (m4 + 1e-12)
 
-    # Curiosity fitness peaks at balanced density (~0.35), rich edges, and non-trivial motif diversity
+    # Bridge 2B: Theorem 14 Parseval MTF blur-loss + finite-lattice quadrat Z_K crystal-vs-noise gate
+    mtf = kloster_mtf_blur_loss(bits, psf_sigma=1.1)
+    z_k = _lattice_quadrat_zk(bits, grid_n=8)
+    regime = _classify_spatial_regime(z_k)
+
+    # Reward ordered crystal/clustered patterns & dihedral symmetry while suppressing CSR white noise
     density_bell = math.exp(-((density - 0.38) ** 2) / 0.06)
-    curiosity = float(density_bell * (0.45 * edge_richness + 0.55 * spectral_complexity) * min(kappa, 1.5))
+    order_factor = 0.55 + 0.45 * math.tanh(max(0.0, abs(z_k) - 2.0) / 2.0)
+    sym_gate = 0.45 + 0.55 * diag_sym
+    richness = 0.35 * edge_richness + 0.45 * spectral_complexity + 0.20 * mtf["mtf_sharpness"]
+    curiosity = float(density_bell * richness * min(kappa, 1.5) * order_factor * sym_gate)
     return {
         "density": round(density, 4),
         "symmetry": round(diag_sym, 4),
         "spectral_complexity": round(spectral_complexity, 4),
         "curiosity_fitness": round(curiosity, 5),
         "kappa": round(kappa, 4),
+        "spatial_m2": round(mtf["m2_sharp"], 6),
+        "mtf_blur_loss": round(mtf["delta_opt"], 6),
+        "mtf_sharpness": round(mtf["mtf_sharpness"], 4),
+        "quadrat_zk": round(z_k, 4),
+        "spatial_regime": regime,
     }
 
 
@@ -179,6 +277,15 @@ def run_creative_playroom(
 
     elites = [archive[k] for k in sorted(archive.keys())]
     mean_curiosity = round(float(np.mean([e["descriptors"]["curiosity_fitness"] for e in elites])), 5) if elites else 0.0
+    regime_counts: Dict[str, int] = {"clustered": 0, "crystal": 0, "csr_noise": 0}
+    for elite in elites:
+        reg = str(elite["descriptors"].get("spatial_regime", "csr_noise"))
+        regime_counts[reg] = regime_counts.get(reg, 0) + 1
+    optics_summary = {
+        "mean_mtf_blur_loss": round(float(np.mean([e["descriptors"]["mtf_blur_loss"] for e in elites])), 6) if elites else 0.0,
+        "mean_mtf_sharpness": round(float(np.mean([e["descriptors"]["mtf_sharpness"] for e in elites])), 4) if elites else 0.0,
+        "spatial_regime_counts": regime_counts,
+    }
 
     report = {
         "contract": CONTRACT,
@@ -189,6 +296,7 @@ def run_creative_playroom(
         "total_niches": archive_bins * archive_bins,
         "coverage_fraction": round(len(elites) / (archive_bins * archive_bins), 4),
         "mean_curiosity_fitness": mean_curiosity,
+        "theorem14_optics_summary": optics_summary,
         "elites": elites,
         "sentience_claimed": False,
         "external_actions": 0,

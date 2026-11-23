@@ -24,13 +24,21 @@ import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Zoe Main Entry Activity — engineered for instant cold-start on Pixel 7 and all Android phones:
+ *   - Home mounts immediately with zero eager camera/ML/TTS instantiation.
+ *   - GuidedVisionView and TextToSpeech initialize lazily on first use.
+ */
 public final class MainActivity extends ComponentActivity {
+    static final String EXTRA_START_VIEW = "zoe_start_view";
     private static final int CAMERA_PERMISSION = 41;
     private static final int MICROPHONE_PERMISSION = 42;
     private static final String GEMINI_PACKAGE = "com.google.android.apps.bard";
@@ -41,9 +49,9 @@ public final class MainActivity extends ComponentActivity {
     private TextView homeBarTitle;
     private View geminiBottomBar;
     private GuidedVisionView visionView;
-    private VolumeView volumeView;
-    private DeviceView deviceView;
     private TextToSpeech textToSpeech;
+    private boolean ttsReady;
+    private String pendingSpeech;
     private SpeechRecognizer speechRecognizer;
     private Runnable pendingInspect;
     private boolean listening;
@@ -51,6 +59,103 @@ public final class MainActivity extends ComponentActivity {
     private boolean inspectAfterPermission;
     private boolean comfortMode;
     private String visible = "home";
+
+    private final ActivityResultLauncher<Uri> pickLearnFolderLauncher =
+            registerForActivityResult(new ActivityResultContracts.OpenDocumentTree(), uri -> {
+                if (uri != null) {
+                    try {
+                        getContentResolver().takePersistableUriPermission(
+                                uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    } catch (SecurityException ignored) {
+                    }
+                    ZoeLearnQueue.saveDriveTreeUri(this, uri);
+                    ZoeLearnQueue.saveDestination(this, ZoeLearnQueue.Destination.GOOGLE_DRIVE);
+                    if (visionView != null) {
+                        visionView.onLearnFolderPicked(uri);
+                    }
+                }
+            });
+
+    private Uri pendingSystemCaptureUri;
+
+    private final ActivityResultLauncher<Uri> systemTakePhotoLauncher =
+            registerForActivityResult(new ActivityResultContracts.TakePicture(), saved -> {
+                Uri uri = pendingSystemCaptureUri;
+                pendingSystemCaptureUri = null;
+                if (Boolean.TRUE.equals(saved) && uri != null) {
+                    ensureVisionView().inspectPickedMedia(uri, false);
+                }
+            });
+
+    private final ActivityResultLauncher<Uri> systemTakeVideoLauncher =
+            registerForActivityResult(new ActivityResultContracts.CaptureVideo(), saved -> {
+                Uri uri = pendingSystemCaptureUri;
+                pendingSystemCaptureUri = null;
+                if (Boolean.TRUE.equals(saved) && uri != null) {
+                    ensureVisionView().inspectPickedMedia(uri, true);
+                }
+            });
+
+    private GuidedVisionView ensureVisionView() {
+        if (visionView == null) {
+            visionView = new GuidedVisionView(this);
+        }
+        return visionView;
+    }
+
+    void launchSystemCameraPhoto() {
+        try {
+            pendingSystemCaptureUri = ZoeLearnQueue.createTempCaptureUri(this, "zoe_cam", "jpg");
+            systemTakePhotoLauncher.launch(pendingSystemCaptureUri);
+        } catch (Exception error) {
+            ensureVisionView().setStatus("camera app unavailable: " + error.getMessage());
+        }
+    }
+
+    void launchSystemCameraVideo() {
+        try {
+            pendingSystemCaptureUri = ZoeLearnQueue.createTempCaptureUri(this, "zoe_vid", "mp4");
+            systemTakeVideoLauncher.launch(pendingSystemCaptureUri);
+        } catch (Exception error) {
+            ensureVisionView().setStatus("video camera unavailable: " + error.getMessage());
+        }
+    }
+
+    private final ActivityResultLauncher<String[]> pickVisionMediaLauncher =
+            registerForActivityResult(new ActivityResultContracts.OpenDocument(), uri -> {
+                if (uri != null) {
+                    String mime = getContentResolver().getType(uri);
+                    boolean isVideo = mime != null && mime.startsWith("video/");
+                    ensureVisionView().inspectPickedMedia(uri, isVideo);
+                }
+            });
+
+    void pickVisionMedia() {
+        try {
+            pickVisionMediaLauncher.launch(new String[]{"image/*", "video/*"});
+        } catch (ActivityNotFoundException error) {
+            ensureVisionView().setStatus("no gallery picker available on this device");
+        }
+    }
+
+    void openLiveExplore() {
+        Intent intent = new Intent(this, ZoeLiveActivity.class)
+                .putExtra(ZoeLiveActivity.EXTRA_AUTO_START_LIVE, true);
+        startActivity(intent);
+        if (!comfortMode) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
+
+    void pickZoeLearnDriveFolder() {
+        try {
+            pickLearnFolderLauncher.launch(ZoeLearnQueue.savedDriveTreeUri(this));
+        } catch (ActivityNotFoundException error) {
+            if (visionView != null) {
+                visionView.setStatus("no folder picker available. use save to device instead");
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +165,7 @@ public final class MainActivity extends ComponentActivity {
         root.addView(homeView, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, 0, 1.0f));
 
-        // Clean borderless Google-style back bar for embedded views (Vision / Volume / Device)
+        // Clean borderless Google-style back bar for Guided Vision
         LinearLayout backBar = new LinearLayout(this);
         backBar.setOrientation(LinearLayout.HORIZONTAL);
         backBar.setGravity(Gravity.CENTER_VERTICAL);
@@ -102,23 +207,19 @@ public final class MainActivity extends ComponentActivity {
         setContentView(Ui.wrapWithBackdrop(this, root, true));
         Ui.configureEdgeToEdge(this, root);
 
-        visionView = new GuidedVisionView(this);
-        volumeView = new VolumeView(this);
-        deviceView = new DeviceView(this);
-        textToSpeech = new TextToSpeech(this, status -> {
-            if (status == TextToSpeech.SUCCESS && textToSpeech != null) {
-                textToSpeech.setSpeechRate(comfortMode ? 0.90f : 1.0f);
-            }
-        });
         setComfortMode(getPreferences(MODE_PRIVATE).getBoolean("comfort", false));
         if (savedInstanceState != null) {
             visible = savedInstanceState.getString("visible", "home");
+        } else if (getIntent() != null && getIntent().hasExtra(EXTRA_START_VIEW)) {
+            String requested = getIntent().getStringExtra(EXTRA_START_VIEW);
+            if (requested != null && !requested.isEmpty()) {
+                visible = requested;
+            }
         }
-        switch (visible) {
-            case "vision" -> showVision();
-            case "volume" -> showVolume();
-            case "device" -> showDevice();
-            default -> showHome();
+        if ("vision".equals(visible)) {
+            showVision();
+        } else {
+            showHome();
         }
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -137,13 +238,17 @@ public final class MainActivity extends ComponentActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        showHome();
+        String requested = intent == null ? null : intent.getStringExtra(EXTRA_START_VIEW);
+        if ("vision".equals(requested)) {
+            showVision();
+        } else {
+            showHome();
+        }
     }
 
     /**
      * Floating Google Gemini-style bottom action capsule:
-     *   [+] Quick actions | "Ask Zoe" (tap to talk/type) | [Eye] Look | [Live wave] Talk now
-     * Built with huge >= 48dp targets right in the ergonomic bottom thumb zone.
+     *   [+] Quick menu | "Ask Zoe" (Chat) | [Eye] Guided Vision | [Wave] Zoe Explore
      */
     private View buildGeminiCapsule() {
         FrameLayout wrapper = new FrameLayout(this);
@@ -162,8 +267,8 @@ public final class MainActivity extends ComponentActivity {
         pillBg.setCornerRadius(Ui.dp(this, 32));
         pillBg.setStroke(Ui.strokePx(this, 0.8f), Ui.withAlpha(Ui.dividerColor(this), dark ? 140 : 210));
         capsule.setBackground(pillBg);
+        capsule.setElevation(Ui.dp(this, 6));
 
-        // [+] Quick Actions button (SafeConvert, Field kit, Arrange, Google Gemini, Comfort mode)
         ImageView plusBtn = Ui.iconActionButton(
                 this,
                 R.drawable.ic_zoe_plus,
@@ -176,8 +281,7 @@ public final class MainActivity extends ComponentActivity {
                 });
         capsule.addView(plusBtn, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
 
-        // Center "Ask Zoe" tap zone -> opens Talk with Zoe (voice or typed calm chat)
-        TextView prompt = Ui.text(this, "Ask Zoe", 17.5f, Ui.MUTED);
+        TextView prompt = Ui.text(this, "ask zoe", 17.5f, Ui.MUTED);
         prompt.setGravity(Gravity.CENTER_VERTICAL);
         prompt.setMinimumHeight(Ui.dp(this, 48));
         prompt.setPadding(Ui.dp(this, 10), 0, Ui.dp(this, 8), 0);
@@ -187,10 +291,12 @@ public final class MainActivity extends ComponentActivity {
         prompt.setOnClickListener(v -> {
             v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
             startActivity(new Intent(this, ConversationActivity.class));
+            if (!comfortMode) {
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
         });
         capsule.addView(prompt, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
 
-        // Camera / Look icon -> opens Guided vision in one tap
         ImageView lookBtn = Ui.iconActionButton(
                 this,
                 R.drawable.ic_zoe_vision,
@@ -205,7 +311,6 @@ public final class MainActivity extends ComponentActivity {
         lookP.setMargins(0, 0, Ui.dp(this, 4), 0);
         capsule.addView(lookBtn, lookP);
 
-        // Signature Glowing DeepMind Blue Live Waveform Circle -> Open Zoe Explore Live Voice Orb in 1 tap!
         int liveFill = dark ? Color.rgb(30, 58, 122) : Color.rgb(26, 115, 232);
         int liveGlyph = dark ? Color.rgb(210, 227, 252) : Color.WHITE;
         ImageView liveBtn = Ui.iconActionButton(
@@ -213,10 +318,10 @@ public final class MainActivity extends ComponentActivity {
                 R.drawable.ic_zoe_live,
                 liveGlyph,
                 liveFill,
-                "Open Zoe Explore live voice orb",
+                "Open Zoe Explore live camera and voice",
                 v -> {
                     v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                    startActivity(new Intent(this, ZoeLiveActivity.class));
+                    openLiveExplore();
                 });
         Ui.attachPressSpring(liveBtn);
         capsule.addView(liveBtn, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
@@ -237,40 +342,9 @@ public final class MainActivity extends ComponentActivity {
         }
     }
 
-    private void show(FrameLayout frame, View view, String identifier) {
-        cancelPendingInspect();
-        if (!"vision".equals(identifier) && "vision".equals(visible)) {
-            visionView.pauseCamera();
-        }
-        visible = identifier;
-        if (homeBarTitle != null) {
-            String title = switch (identifier) {
-                case "vision" -> "Guided vision";
-                case "volume" -> "Accessible volume";
-                case "device" -> "Device field";
-                default -> "";
-            };
-            homeBarTitle.setText(title);
-        }
-        if (geminiBottomBar != null) {
-            geminiBottomBar.setVisibility(View.GONE);
-        }
-        homeView.setVisibility(View.GONE);
-        homeButton.setVisibility(View.VISIBLE);
-        content.setVisibility(View.VISIBLE);
-        content.removeAllViews();
-        content.addView(view);
-        if (!comfortMode) {
-            view.setAlpha(0f);
-            view.setTranslationY(Ui.dp(this, 10));
-            view.animate().alpha(1f).translationY(0f).setDuration(180L)
-                    .setInterpolator(new android.view.animation.DecelerateInterpolator()).start();
-        }
-    }
-
     final void showHome() {
         cancelPendingInspect();
-        if ("vision".equals(visible)) {
+        if ("vision".equals(visible) && visionView != null) {
             visionView.pauseCamera();
         }
         visible = "home";
@@ -280,7 +354,7 @@ public final class MainActivity extends ComponentActivity {
         homeView.setVisibility(View.VISIBLE);
         if (!comfortMode) {
             homeView.setAlpha(0f);
-            homeView.animate().alpha(1f).setDuration(160L).start();
+            homeView.animate().alpha(1f).setDuration(140L).start();
         }
         if (geminiBottomBar != null) {
             geminiBottomBar.setVisibility(View.VISIBLE);
@@ -289,16 +363,26 @@ public final class MainActivity extends ComponentActivity {
     }
 
     final void showVision() {
-        show(content, visionView, "vision");
-    }
-
-    final void showVolume() {
-        show(content, volumeView, "volume");
-    }
-
-    final void showDevice() {
-        show(content, deviceView, "device");
-        deviceView.refresh();
+        cancelPendingInspect();
+        GuidedVisionView gv = ensureVisionView();
+        visible = "vision";
+        if (homeBarTitle != null) {
+            homeBarTitle.setText("guided vision");
+        }
+        if (geminiBottomBar != null) {
+            geminiBottomBar.setVisibility(View.GONE);
+        }
+        homeView.setVisibility(View.GONE);
+        homeButton.setVisibility(View.VISIBLE);
+        content.setVisibility(View.VISIBLE);
+        content.removeAllViews();
+        content.addView(gv);
+        if (!comfortMode) {
+            gv.setAlpha(0f);
+            gv.setTranslationY(Ui.dp(this, 10));
+            gv.animate().alpha(1f).translationY(0f).setDuration(160L)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator()).start();
+        }
     }
 
     boolean isComfortMode() {
@@ -313,9 +397,6 @@ public final class MainActivity extends ComponentActivity {
             textToSpeech.setSpeechRate(enabled ? 0.90f : 1.0f);
         }
         getPreferences(MODE_PRIVATE).edit().putBoolean("comfort", enabled).apply();
-        if (deviceView != null) {
-            deviceView.refresh();
-        }
     }
 
     @Override
@@ -323,15 +404,13 @@ public final class MainActivity extends ComponentActivity {
         super.onResume();
         if ("home".equals(visible) && homeView != null) {
             homeView.refreshDynamic();
-        } else if ("device".equals(visible) && deviceView != null) {
-            deviceView.refresh();
         }
     }
 
     @Override
     protected void onPause() {
         cancelPendingInspect();
-        if ("vision".equals(visible)) {
+        if ("vision".equals(visible) && visionView != null) {
             visionView.pauseCamera();
         }
         super.onPause();
@@ -346,7 +425,7 @@ public final class MainActivity extends ComponentActivity {
     void startCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             showVision();
-            visionView.startCamera();
+            ensureVisionView().startCamera();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
         }
@@ -363,7 +442,7 @@ public final class MainActivity extends ComponentActivity {
         cancelPendingInspect();
         pendingInspect = () -> {
             pendingInspect = null;
-            if ("vision".equals(visible)) {
+            if ("vision".equals(visible) && visionView != null) {
                 visionView.requestInspection();
             }
         };
@@ -379,18 +458,19 @@ public final class MainActivity extends ComponentActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, MICROPHONE_PERMISSION);
             return;
         }
+        GuidedVisionView gv = ensureVisionView();
         if (!SpeechRecognizer.isRecognitionAvailable(this)) {
-            visionView.setStatus("No speech-recognition service is available.");
+            gv.setStatus("no speech-recognition service is available");
             return;
         }
         speechStopRequested = false;
         destroySpeechRecognizer();
         if (Build.VERSION.SDK_INT >= 31 && SpeechRecognizer.isOnDeviceRecognitionAvailable(this)) {
             speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(this);
-            visionView.setStatus("On-device speech selected. Listening once…");
+            gv.setStatus("on-device speech selected · listening once…");
         } else {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-            visionView.setStatus("Offline speech preferred; service behavior controls actual processing. Listening once…");
+            gv.setStatus("offline speech preferred · listening once…");
         }
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override public void onReadyForSpeech(Bundle params) { listening = true; }
@@ -402,7 +482,7 @@ public final class MainActivity extends ComponentActivity {
             @Override
             public void onError(int error) {
                 listening = false;
-                if (!speechStopRequested) {
+                if (!speechStopRequested && visionView != null) {
                     visionView.setStatus(ConversationActivity.speechErrorLabel(error));
                 }
             }
@@ -415,12 +495,12 @@ public final class MainActivity extends ComponentActivity {
                 }
                 ArrayList<String> alternatives = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 if (alternatives == null || alternatives.isEmpty()) {
-                    visionView.setStatus("No speech recognized. No command was executed.");
+                    ensureVisionView().setStatus("No speech recognized. No command was executed.");
                     return;
                 }
                 String heard = alternatives.get(0);
                 VoiceCommand command = VoiceCommand.parse(heard);
-                visionView.setStatus("Heard: " + heard + " · command: " + command.name());
+                ensureVisionView().setStatus("Heard: " + heard + " · command: " + command.name());
                 handleVoiceCommand(command);
             }
 
@@ -437,7 +517,7 @@ public final class MainActivity extends ComponentActivity {
             speechRecognizer.startListening(intent);
         } catch (RuntimeException error) {
             listening = false;
-            visionView.setStatus("Speech recognition could not start: " + error.getMessage());
+            gv.setStatus("Speech recognition could not start: " + error.getMessage());
         }
     }
 
@@ -446,31 +526,49 @@ public final class MainActivity extends ComponentActivity {
             case INSPECT -> inspectVision();
             case REPEAT -> repeatCurrent();
             case STOP -> stopAllOutput();
-            case MEASURE -> {
-                showVolume();
-                volumeView.measure();
+            case MEASURE, VOLUME -> {
+                AccessibleVolume.Result r = AccessibleVolume.measure(new double[]{0.55, 0.25, 0.15, 0.05}, 0.08);
+                ensureVisionView().setStatus(r.summary() + " · No action was authorized.");
+                speak(r.summary());
             }
             case VISION -> showVision();
-            case VOLUME -> showVolume();
-            case DEVICE -> showDevice();
+            case DEVICE -> {
+                showVision();
+                ensureVisionView().setStatus("Device: " + Build.MODEL + " · ready.");
+            }
             case GEMINI -> openGemini();
-            case UNKNOWN -> visionView.setStatus("No supported command found. Try inspect, repeat, measure, battery, Gemini, or stop.");
+            case UNKNOWN -> ensureVisionView().setStatus("No supported command found. Try inspect, repeat, measure, battery, Gemini, or stop.");
         }
     }
 
     void repeatCurrent() {
-        switch (visible) {
-            case "volume" -> speak(volumeView.spokenSummary());
-            case "device" -> speak("Device field refreshed. " + Build.MODEL + ". Battery and capability details are on screen.");
-            default -> speak(visionView.spokenSummary());
-        }
+        speak(ensureVisionView().spokenSummary());
     }
 
     void speak(String text) {
-        if (textToSpeech == null || text == null || text.isBlank()) {
+        if (text == null || text.isBlank()) {
             return;
         }
-        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "zoe-speech");
+        if (textToSpeech == null) {
+            pendingSpeech = text;
+            textToSpeech = new TextToSpeech(this, status -> {
+                if (status == TextToSpeech.SUCCESS && textToSpeech != null) {
+                    ttsReady = true;
+                    textToSpeech.setSpeechRate(comfortMode ? 0.90f : 1.0f);
+                    if (pendingSpeech != null) {
+                        String toSpeak = pendingSpeech;
+                        pendingSpeech = null;
+                        textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null, "zoe-speech");
+                    }
+                }
+            });
+            return;
+        }
+        if (ttsReady) {
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "zoe-speech");
+        } else {
+            pendingSpeech = text;
+        }
     }
 
     void stopListening() {
@@ -479,11 +577,14 @@ public final class MainActivity extends ComponentActivity {
             speechRecognizer.cancel();
         }
         listening = false;
-        visionView.setStatus("Listening cancelled. No command was executed.");
+        if (visionView != null) {
+            visionView.setStatus("listening cancelled · no command was executed");
+        }
     }
 
     void stopAllOutput() {
         speechStopRequested = true;
+        pendingSpeech = null;
         if (textToSpeech != null) {
             textToSpeech.stop();
         }
@@ -491,11 +592,13 @@ public final class MainActivity extends ComponentActivity {
             speechRecognizer.cancel();
         }
         listening = false;
-        visionView.setStatus("Speech and listening stopped.");
+        if (visionView != null) {
+            visionView.setStatus("speech and listening stopped");
+        }
     }
 
     void shareCurrent() {
-        String text = "volume".equals(visible) ? volumeView.shareText() : visionView.shareText();
+        String text = ensureVisionView().shareText();
         Intent share = new Intent(Intent.ACTION_SEND)
                 .setType("text/plain")
                 .putExtra(Intent.EXTRA_TEXT, text)
@@ -503,7 +606,7 @@ public final class MainActivity extends ComponentActivity {
         try {
             startActivity(Intent.createChooser(share, "Share Zoe observation"));
         } catch (ActivityNotFoundException error) {
-            visionView.setStatus("No sharing app is available.");
+            ensureVisionView().setStatus("No sharing app is available.");
         }
     }
 
@@ -515,7 +618,9 @@ public final class MainActivity extends ComponentActivity {
             }
             startActivity(launch);
         } catch (ActivityNotFoundException error) {
-            visionView.setStatus("No Gemini app or web browser is available.");
+            if (visionView != null) {
+                visionView.setStatus("No Gemini app or web browser is available.");
+            }
         }
     }
 
@@ -538,13 +643,13 @@ public final class MainActivity extends ComponentActivity {
                 startCamera();
             } else {
                 inspectAfterPermission = false;
-                visionView.setStatus("Camera permission was not granted. No camera was opened.");
+                ensureVisionView().setStatus("Camera permission was not granted. No camera was opened.");
             }
         } else if (requestCode == MICROPHONE_PERMISSION) {
             if (granted) {
                 startListening();
             } else {
-                visionView.setStatus("Microphone permission was not granted. No audio was captured.");
+                ensureVisionView().setStatus("Microphone permission was not granted. No audio was captured.");
             }
         }
     }

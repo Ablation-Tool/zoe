@@ -32,6 +32,7 @@ from typing import Any, Dict, List, Sequence, Tuple
 
 import numpy as np
 
+from ._metrics import auroc_tie_aware as _auroc
 from .event_autonomy import EventCausalEngine
 from .event_core import synthetic_sequence
 from .l4_multi_module import (
@@ -48,18 +49,6 @@ def _ensure_guiai_path(zoe_root: Path) -> None:
     g = str(Path(zoe_root).expanduser().resolve() / "guiai-lab")
     if g not in sys.path:
         sys.path.insert(0, g)
-
-
-def _auroc(y_true: Sequence[int], scores: Sequence[float]) -> float:
-    y = np.asarray(y_true, dtype=np.int64)
-    s = np.asarray(scores, dtype=np.float64)
-    pos = s[y == 1]
-    neg = s[y == 0]
-    if len(pos) == 0 or len(neg) == 0:
-        return 0.5
-    diff = pos[:, None] - neg[None, :]
-    wins = float(np.sum(diff > 0.0) + 0.5 * np.sum(diff == 0.0))
-    return wins / float(len(pos) * len(neg))
 
 
 # ---------------------------------------------------------------------------

@@ -1,7 +1,338 @@
 {
   "all_verified": true,
+  "c27_c28_filbin_sparing_overlay": {
+    "c27_c28_compound_gate": {
+      "blocked_controls_count": 29,
+      "blocked_controls_sample": [
+        "curcumin",
+        "berberine",
+        "crocin",
+        "paclitaxel"
+      ],
+      "compact_cns_selective_candidates": [
+        "dordaviprone",
+        "galanthamine",
+        "safranal",
+        "crocetin",
+        "artemisinin",
+        "parthenolide",
+        "honokiol"
+      ],
+      "molecules_evaluated": 36,
+      "spotlight": {
+        "artemisinin": {
+          "id": "artemisinin",
+          "pains_flagged": false,
+          "passes_c27_medchem_gate": true,
+          "passes_c28_3d_bbb_gate": true,
+          "permanent_cation_flagged": false,
+          "polar_density": 0.1913,
+          "r_gyr_angstrom": 5.083
+        },
+        "berberine": {
+          "id": "berberine",
+          "pains_flagged": false,
+          "passes_c27_medchem_gate": false,
+          "passes_c28_3d_bbb_gate": false,
+          "permanent_cation_flagged": true,
+          "polar_density": 0.1213,
+          "r_gyr_angstrom": 5.367
+        },
+        "crocin": {
+          "id": "crocin",
+          "pains_flagged": false,
+          "passes_c27_medchem_gate": false,
+          "passes_c28_3d_bbb_gate": false,
+          "permanent_cation_flagged": false,
+          "polar_density": 0.4002,
+          "r_gyr_angstrom": 7.504
+        },
+        "curcumin": {
+          "id": "curcumin",
+          "pains_flagged": true,
+          "passes_c27_medchem_gate": false,
+          "passes_c28_3d_bbb_gate": false,
+          "permanent_cation_flagged": false,
+          "polar_density": 0.2527,
+          "r_gyr_angstrom": 5.521
+        },
+        "dordaviprone": {
+          "id": "dordaviprone",
+          "pains_flagged": false,
+          "passes_c27_medchem_gate": true,
+          "passes_c28_3d_bbb_gate": true,
+          "permanent_cation_flagged": false,
+          "polar_density": 0.1014,
+          "r_gyr_angstrom": 5.605
+        },
+        "galanthamine": {
+          "id": "galanthamine",
+          "pains_flagged": false,
+          "passes_c27_medchem_gate": true,
+          "passes_c28_3d_bbb_gate": true,
+          "permanent_cation_flagged": false,
+          "polar_density": 0.1458,
+          "r_gyr_angstrom": 5.111
+        },
+        "paclitaxel": {
+          "id": "paclitaxel",
+          "pains_flagged": false,
+          "passes_c27_medchem_gate": false,
+          "passes_c28_3d_bbb_gate": false,
+          "permanent_cation_flagged": false,
+          "polar_density": 0.2588,
+          "r_gyr_angstrom": 7.191
+        }
+      }
+    },
+    "constitution": {
+      "clinical_action_authorized": false,
+      "cloud_tokens_used": 0,
+      "cure_claim": false,
+      "patient_specific_recommendation": false,
+      "synthetic_expression_counts_zero_phi": true,
+      "wet_lab_and_clinical_validation_required": true
+    },
+    "gene_modules": [
+      "OPC_STEM",
+      "MMP14_GATE",
+      "BBB_EFFLUX",
+      "NSC_GUARD",
+      "NEURON_GUARD",
+      "GLIA_GUARD"
+    ],
+    "regions_overlay": [
+      {
+        "acronym": "PAL",
+        "bbb_efflux_burden": 0.54,
+        "healthy_guard_load": 0.6733,
+        "modules": {
+          "BBB_EFFLUX": 0.54,
+          "GLIA_GUARD": 0.8,
+          "MMP14_GATE": 0.14,
+          "NEURON_GUARD": 0.84,
+          "NSC_GUARD": 0.38,
+          "OPC_STEM": 0.12
+        },
+        "must_spare": true,
+        "name": "Pallidum",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 5.2194,
+        "tumor_target_score": 0.129
+      },
+      {
+        "acronym": "OLF",
+        "bbb_efflux_burden": 0.42,
+        "healthy_guard_load": 0.8,
+        "modules": {
+          "BBB_EFFLUX": 0.42,
+          "GLIA_GUARD": 0.72,
+          "MMP14_GATE": 0.1,
+          "NEURON_GUARD": 0.8,
+          "NSC_GUARD": 0.88,
+          "OPC_STEM": 0.09
+        },
+        "must_spare": true,
+        "name": "Olfactory areas",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 8.4656,
+        "tumor_target_score": 0.0945
+      },
+      {
+        "acronym": "Isocortex",
+        "bbb_efflux_burden": 0.45,
+        "healthy_guard_load": 0.7233,
+        "modules": {
+          "BBB_EFFLUX": 0.45,
+          "GLIA_GUARD": 0.88,
+          "MMP14_GATE": 0.1,
+          "NEURON_GUARD": 0.94,
+          "NSC_GUARD": 0.35,
+          "OPC_STEM": 0.08
+        },
+        "must_spare": true,
+        "name": "Isocortex",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 8.127,
+        "tumor_target_score": 0.089
+      },
+      {
+        "acronym": "CB",
+        "bbb_efflux_burden": 0.5,
+        "healthy_guard_load": 0.73,
+        "modules": {
+          "BBB_EFFLUX": 0.5,
+          "GLIA_GUARD": 0.86,
+          "MMP14_GATE": 0.08,
+          "NEURON_GUARD": 0.91,
+          "NSC_GUARD": 0.42,
+          "OPC_STEM": 0.07
+        },
+        "must_spare": true,
+        "name": "Cerebellum",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 9.7987,
+        "tumor_target_score": 0.0745
+      },
+      {
+        "acronym": "HY",
+        "bbb_efflux_burden": 0.7,
+        "healthy_guard_load": 0.34,
+        "modules": {
+          "BBB_EFFLUX": 0.7,
+          "GLIA_GUARD": 0.36,
+          "MMP14_GATE": 0.65,
+          "NEURON_GUARD": 0.38,
+          "NSC_GUARD": 0.28,
+          "OPC_STEM": 0.7
+        },
+        "must_spare": false,
+        "name": "Hypothalamus",
+        "role": "midline_tumor_niche",
+        "sparing_priority": 0.5018,
+        "tumor_target_score": 0.6775
+      },
+      {
+        "acronym": "MB",
+        "bbb_efflux_burden": 0.74,
+        "healthy_guard_load": 0.3,
+        "modules": {
+          "BBB_EFFLUX": 0.74,
+          "GLIA_GUARD": 0.34,
+          "MMP14_GATE": 0.74,
+          "NEURON_GUARD": 0.34,
+          "NSC_GUARD": 0.22,
+          "OPC_STEM": 0.78
+        },
+        "must_spare": false,
+        "name": "Midbrain",
+        "role": "midline_tumor_niche",
+        "sparing_priority": 0.3937,
+        "tumor_target_score": 0.762
+      },
+      {
+        "acronym": "TH",
+        "bbb_efflux_burden": 0.76,
+        "healthy_guard_load": 0.2733,
+        "modules": {
+          "BBB_EFFLUX": 0.76,
+          "GLIA_GUARD": 0.3,
+          "MMP14_GATE": 0.8,
+          "NEURON_GUARD": 0.32,
+          "NSC_GUARD": 0.2,
+          "OPC_STEM": 0.86
+        },
+        "must_spare": false,
+        "name": "Thalamus",
+        "role": "midline_tumor_niche",
+        "sparing_priority": 0.3281,
+        "tumor_target_score": 0.833
+      },
+      {
+        "acronym": "CTXsp",
+        "bbb_efflux_burden": 0.46,
+        "healthy_guard_load": 0.7067,
+        "modules": {
+          "BBB_EFFLUX": 0.46,
+          "GLIA_GUARD": 0.84,
+          "MMP14_GATE": 0.1,
+          "NEURON_GUARD": 0.88,
+          "NSC_GUARD": 0.4,
+          "OPC_STEM": 0.09
+        },
+        "must_spare": true,
+        "name": "Cortical subplate",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 7.4783,
+        "tumor_target_score": 0.0945
+      },
+      {
+        "acronym": "P",
+        "bbb_efflux_burden": 0.82,
+        "healthy_guard_load": 0.2267,
+        "modules": {
+          "BBB_EFFLUX": 0.82,
+          "GLIA_GUARD": 0.28,
+          "MMP14_GATE": 0.88,
+          "NEURON_GUARD": 0.22,
+          "NSC_GUARD": 0.18,
+          "OPC_STEM": 0.95
+        },
+        "must_spare": false,
+        "name": "Pons",
+        "role": "midline_tumor_niche",
+        "sparing_priority": 0.2468,
+        "tumor_target_score": 0.9185
+      },
+      {
+        "acronym": "MY",
+        "bbb_efflux_burden": 0.78,
+        "healthy_guard_load": 0.2733,
+        "modules": {
+          "BBB_EFFLUX": 0.78,
+          "GLIA_GUARD": 0.32,
+          "MMP14_GATE": 0.76,
+          "NEURON_GUARD": 0.3,
+          "NSC_GUARD": 0.2,
+          "OPC_STEM": 0.82
+        },
+        "must_spare": false,
+        "name": "Medulla",
+        "role": "midline_tumor_niche",
+        "sparing_priority": 0.3446,
+        "tumor_target_score": 0.793
+      },
+      {
+        "acronym": "STR",
+        "bbb_efflux_burden": 0.52,
+        "healthy_guard_load": 0.72,
+        "modules": {
+          "BBB_EFFLUX": 0.52,
+          "GLIA_GUARD": 0.82,
+          "MMP14_GATE": 0.12,
+          "NEURON_GUARD": 0.86,
+          "NSC_GUARD": 0.48,
+          "OPC_STEM": 0.11
+        },
+        "must_spare": true,
+        "name": "Striatum",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 6.2882,
+        "tumor_target_score": 0.1145
+      },
+      {
+        "acronym": "HPF",
+        "bbb_efflux_burden": 0.48,
+        "healthy_guard_load": 0.8667,
+        "modules": {
+          "BBB_EFFLUX": 0.48,
+          "GLIA_GUARD": 0.78,
+          "MMP14_GATE": 0.12,
+          "NEURON_GUARD": 0.9,
+          "NSC_GUARD": 0.92,
+          "OPC_STEM": 0.1
+        },
+        "must_spare": true,
+        "name": "Hippocampal formation",
+        "role": "healthy_sparing_guardrail",
+        "sparing_priority": 7.9514,
+        "tumor_target_score": 0.109
+      }
+    ],
+    "summary": {
+      "healthy_guardrail_count": 7,
+      "kloster_m2_tumor_concentration": 0.14914,
+      "mean_healthy_guard_load": 0.7457,
+      "mean_healthy_tumor_score": 0.1007,
+      "mean_midline_guard_load": 0.2827,
+      "mean_midline_tumor_score": 0.7968,
+      "midline_target_count": 5
+    },
+    "verified": true
+  },
   "checks": {
     "all_12_allen_ccfv3_meshes_loaded": true,
+    "c27_c28_filbin_12region_sparing_overlay_verified": true,
     "clinical_action_strictly_false": true,
     "connectome_graph_connected": true,
     "graph_laplacian_fiedler_connectivity_verified": true,
@@ -9,6 +340,7 @@
     "kloster_m4_tracks_phase_coherence": true,
     "kuramoto_phase_transition_sweep_verified": true,
     "lesion_reduces_gamma_coherence": true,
+    "theorem14_3plane_mtf_and_quadrat_zk_verified": true,
     "theta_gamma_pac_tort_mi_verified": true,
     "uncoupled_neg_ctrl_desynchronized": true
   },
@@ -116,12 +448,16 @@
   "constitution": {
     "clinical_action_authorized": false,
     "cloud_tokens_used": 0,
+    "cure_claim": false,
     "negative_control_preserved": true,
-    "preclinical_research_only": true
+    "patient_specific_recommendation": false,
+    "preclinical_research_only": true,
+    "synthetic_expression_counts_zero_phi": true,
+    "wet_lab_and_clinical_validation_required": true
   },
   "contract": "zoe-dorothy-neurogarden-3d-gamma/v1",
   "dedication": "In honor of Dorothy McEwen Kildall (preclinical computational neuroscience only)",
-  "evidence_sha256": "a24c539448ccb340e93e896775db2430a6c97833a6807f7b84ee0172daf2451b",
+  "evidence_sha256": "8f96b7c01241959d5a90ca41ad940192f38b87406b45aadb6e553d197622dcbf",
   "kuramoto_40hz_gamma": {
     "coupling_phase_transition_sweep": [
       {
@@ -896,6 +1232,51 @@
     }
   ],
   "structures_count": 12,
+  "theorem14_volumetric_optics": {
+    "csr_negative_control": {
+      "besag_l_minus_r": 0.0005,
+      "n_quadrats": 64,
+      "points": 384,
+      "vmr": 1.1164,
+      "z_kloster": 0.6542
+    },
+    "planes": {
+      "coronal_yz": {
+        "besag_l_minus_r": 0.02678,
+        "delta_opt": 9.623e-05,
+        "m2_blurred": 0.00046115,
+        "m2_spatial": 0.00055738,
+        "parseval_error": 3.7947076036992655e-19,
+        "retention_ratio": 0.82735,
+        "subsampled_points": 384,
+        "vmr": 5.2963,
+        "z_kloster": 24.1444
+      },
+      "horizontal_xz": {
+        "besag_l_minus_r": 0.0254,
+        "delta_opt": 0.00014851,
+        "m2_blurred": 0.00045872,
+        "m2_spatial": 0.00060723,
+        "parseval_error": 2.168404344971009e-19,
+        "retention_ratio": 0.75543,
+        "subsampled_points": 384,
+        "vmr": 5.3122,
+        "z_kloster": 24.2336
+      },
+      "sagittal_xy": {
+        "besag_l_minus_r": 0.03545,
+        "delta_opt": 0.00019462,
+        "m2_blurred": 0.0005258,
+        "m2_spatial": 0.00072042,
+        "parseval_error": 2.168404344971009e-19,
+        "retention_ratio": 0.72985,
+        "subsampled_points": 384,
+        "vmr": 6.9048,
+        "z_kloster": 33.1836
+      }
+    },
+    "verified": true
+  },
   "tomography_summary": {
     "planes": [
       "coronal_yz",

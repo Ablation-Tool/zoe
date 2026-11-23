@@ -155,5 +155,15 @@ public class MultiAiAndChatTest {
         String groundedChatMl = OnDeviceLlmEngine.buildChatMlPrompt("What is JWST?", history, "", sr.formatContextForPrompt(400));
         assertTrue(groundedChatMl.contains("Live verified web facts"));
         assertTrue(groundedChatMl.contains("James Webb Space Telescope"));
+
+        // Frontier-first best-model defaults across providers + clean Zoe identity without em dashes
+        assertEquals("gemini-2.5-pro", MultiAiClient.Provider.GEMINI.defaultModel);
+        assertEquals("claude-opus-4-1", MultiAiClient.Provider.CLAUDE.defaultModel);
+        assertEquals("gpt-4o", MultiAiClient.Provider.CHATGPT.defaultModel);
+        assertEquals("grok-3", MultiAiClient.Provider.GROK.defaultModel);
+        assertTrue(MultiAiClient.ZOE_SYSTEM_PROMPT.contains("Zoe Observatory"));
+        assertTrue(MultiAiClient.ZOE_SYSTEM_PROMPT.contains("Never use em dashes"));
+        assertFalse(MultiAiClient.ZOE_SYSTEM_PROMPT.contains("—"));
+        assertEquals("Hello, world", OnDeviceLlmEngine.enforceZoeSovereignty("Hello — world"));
     }
 }

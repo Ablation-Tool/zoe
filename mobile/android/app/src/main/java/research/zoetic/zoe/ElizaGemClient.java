@@ -30,9 +30,18 @@ final class ElizaGemClient {
         final int relayNotesCount;
         final int activeNotesCount;
         final String chainHead;
+        final boolean frontierReady;
+        final String frontierModel;
 
         Status(String defaultGear, int ruleCount, int indexedSources, boolean localLlmReady,
                String localLlmLabel, int relayNotesCount, int activeNotesCount, String chainHead) {
+            this(defaultGear, ruleCount, indexedSources, localLlmReady, localLlmLabel,
+                    relayNotesCount, activeNotesCount, chainHead, false, "");
+        }
+
+        Status(String defaultGear, int ruleCount, int indexedSources, boolean localLlmReady,
+               String localLlmLabel, int relayNotesCount, int activeNotesCount, String chainHead,
+               boolean frontierReady, String frontierModel) {
             this.defaultGear = defaultGear;
             this.ruleCount = ruleCount;
             this.indexedSources = indexedSources;
@@ -41,6 +50,8 @@ final class ElizaGemClient {
             this.relayNotesCount = relayNotesCount;
             this.activeNotesCount = activeNotesCount;
             this.chainHead = chainHead;
+            this.frontierReady = frontierReady;
+            this.frontierModel = frontierModel == null ? "" : frontierModel;
         }
     }
 
@@ -269,11 +280,16 @@ final class ElizaGemClient {
         return parseStatus(request(validateEndpoint(baseUrl), "GET", "/api/status", null, 5000));
     }
 
+    /** Fast non-blocking-feel status probe (600 ms budget) for seamless Auto-Router discovery. */
+    Status fetchStatusQuick(String baseUrl) throws IOException {
+        return parseStatus(requestWithConnectTimeout(validateEndpoint(baseUrl), "GET", "/api/status", null, 450, 600));
+    }
+
     ChatReply chat(String baseUrl, String message, String gear) throws IOException {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("message", message == null ? "" : message);
-        body.put("gear", gear == null || gear.isEmpty() ? "gear1" : gear);
-        return parseChatReply(request(validateEndpoint(baseUrl), "POST", "/api/chat", MiniJson.stringify(body), 15_000));
+        body.put("gear", gear == null || gear.isEmpty() ? "auto" : gear);
+        return parseChatReply(request(validateEndpoint(baseUrl), "POST", "/api/chat", MiniJson.stringify(body), 30_000));
     }
 
     RelayResult relay(String baseUrl, String text, String topic) throws IOException {
@@ -375,6 +391,9 @@ final class ElizaGemClient {
         boolean llama = MiniJson.asBoolean(probe, "llama_server_available", false);
         List<Object> models = MiniJson.asArray(probe == null ? null : probe.get("available_models"));
         String label = (models != null && !models.isEmpty()) ? String.valueOf(models.get(0)) : "offline";
+        Map<String, Object> frontier = MiniJson.asObject(root.get("frontier_probe"));
+        boolean frontierReady = MiniJson.asBoolean(frontier, "available", false);
+        String frontierModel = MiniJson.asString(frontier, "model", "");
         Map<String, Object> mem = MiniJson.asObject(root.get("memory_snapshot"));
         return new Status(
                 MiniJson.asString(root, "default_gear", "gear1"),
@@ -384,7 +403,9 @@ final class ElizaGemClient {
                 label,
                 MiniJson.asInt(mem, "relay_notes_count", 0),
                 MiniJson.asInt(mem, "active_notes_count", 0),
-                MiniJson.asString(mem, "chain_head", "GENESIS"));
+                MiniJson.asString(mem, "chain_head", "GENESIS"),
+                frontierReady,
+                frontierModel);
     }
 
     static ChatReply parseChatReply(String json) {
@@ -589,10 +610,16 @@ final class ElizaGemClient {
 
     private String request(String endpoint, String method, String path, String body, int readTimeoutMs)
             throws IOException {
+        return requestWithConnectTimeout(endpoint, method, path, body, 4500, readTimeoutMs);
+    }
+
+    private String requestWithConnectTimeout(String endpoint, String method, String path, String body,
+                                             int connectTimeoutMs, int readTimeoutMs)
+            throws IOException {
         HttpURLConnection connection = (HttpURLConnection) new URL(endpoint + path).openConnection();
         try {
             connection.setRequestMethod(method);
-            connection.setConnectTimeout(4500);
+            connection.setConnectTimeout(connectTimeoutMs);
             connection.setReadTimeout(readTimeoutMs);
             connection.setUseCaches(false);
             connection.setInstanceFollowRedirects(false);

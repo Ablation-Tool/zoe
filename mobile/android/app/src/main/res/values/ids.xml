@@ -71,8 +71,10 @@
     <item name="conversation_brain_settings" type="id" />
     <item name="conversation_threads_btn" type="id" />
     <item name="conversation_new_chat_btn" type="id" />
+    <item name="conversation_clear_btn" type="id" />
     <item name="conversation_attach_btn" type="id" />
     <item name="conversation_live_btn" type="id" />
+    <item name="vision_gallery_button" type="id" />
     <item name="live_orb_view" type="id" />
     <item name="live_state_badge" type="id" />
     <item name="live_caption_view" type="id" />

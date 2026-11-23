@@ -47,7 +47,7 @@ final class ConversationResponse {
             return "For an open-ended question, I can open Gemini with your permission. I will not present its response as my own.";
         }
         if (isGreeting(value) || value.contains("who are you") || value.contains("zoe")) {
-            return "Hi — I'm Zoe's offline deterministic stem inside Zoetic Atelier. Ask me about Chladni, Trip Journal, Guided Vision, Accessible Volume, or toggle Cloud chat / open Gemini anytime.";
+            return "Hi, I'm Zoe's offline deterministic stem inside Zoetic Atelier. Ask me about Chladni, Guided Vision, Accessible Volume, or toggle cloud chat anytime.";
         }
         String spoken = value.length() > 240 ? value.substring(0, 240) + "…" : value;
         return "I heard you say, " + spoken + ". I can inspect, measure, check the device, open Chladni, or open Gemini. What would you like to try?";

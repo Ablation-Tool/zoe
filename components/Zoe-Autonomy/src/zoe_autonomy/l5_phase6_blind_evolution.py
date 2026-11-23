@@ -78,13 +78,19 @@ def _node_to_expr(node: Any) -> str:
 
 def _eval_node_vec(node: Any, X: np.ndarray) -> np.ndarray:
     """Fast vectorized evaluation over shape (..., 4) feature arrays."""
+    arr = np.asarray(X, dtype=np.float64)
+    if arr.ndim < 2 or arr.shape[0] == 0 or arr.shape[-1] == 0:
+        return np.zeros((0,), dtype=np.float64)
     if isinstance(node, str):
-        return X[..., int(node[1:])]
+        idx = int(node[1:])
+        if idx < 0 or idx >= arr.shape[-1]:
+            return np.zeros(arr.shape[:-1], dtype=np.float64)
+        return arr[..., idx]
     if isinstance(node, (int, float)):
-        return np.full(X.shape[:-1], float(node), dtype=np.float64)
+        return np.full(arr.shape[:-1], float(node), dtype=np.float64)
     if len(node) == 2:
         op, a = node
-        va = _eval_node_vec(a, X)
+        va = _eval_node_vec(a, arr)
         if op == "neg":
             return -va
         if op == "sq":
@@ -94,8 +100,8 @@ def _eval_node_vec(node: Any, X: np.ndarray) -> np.ndarray:
         if op == "pos":
             return np.maximum(0.0, va)
     op, a, b = node
-    va = _eval_node_vec(a, X)
-    vb = _eval_node_vec(b, X)
+    va = _eval_node_vec(a, arr)
+    vb = _eval_node_vec(b, arr)
     if op == "+":
         return va + vb
     if op == "-":
@@ -199,10 +205,13 @@ def _make_real_llm_zeroshot_tasks(zoe_root: Path) -> Tuple[np.ndarray, np.ndarra
     """Zero-shot ranking tasks built from Zoe's 16 real neural LLM `.npz` + 6 DistilGPT-2 context-sweep distributions."""
     comp_dir = zoe_root / "components/next-token-predictability/evidence/comparison"
     npz_files = sorted(comp_dir.glob("*-probabilities.npz"))
+    sweep_path = zoe_root / "components/next-token-predictability/evidence/ablation-gem-context-sweep.npz"
+    if not npz_files or not sweep_path.is_file():
+        raise ValueError(f"missing real LLM probability files under {comp_dir}")
     raw_dists: List[np.ndarray] = [
         np.asarray(np.load(f)["probabilities"], dtype=np.float64) for f in npz_files
     ]
-    sweep = np.load(zoe_root / "components/next-token-predictability/evidence/ablation-gem-context-sweep.npz")
+    sweep = np.load(sweep_path)
     for key in (
         "baseline_probabilities",
         "metadata_only_probabilities",
@@ -259,6 +268,8 @@ def _make_real_visual_archive_zeroshot_tasks(zoe_root: Path) -> Tuple[np.ndarray
     """Zero-shot ranking tasks built from 24 real PNGs in `research/visual-archive/images/` with low-pass blur traps."""
     img_dir = zoe_root / "research/visual-archive/images"
     pngs = sorted(img_dir.glob("*.png"))[:24]
+    if not pngs:
+        raise ValueError(f"missing visual-archive PNGs under {img_dir}")
     rng = np.random.default_rng(20260632)
     X_rows = []
     y_rows = []
@@ -308,8 +319,11 @@ def _make_real_visual_archive_zeroshot_tasks(zoe_root: Path) -> Tuple[np.ndarray
 
 
 def _accuracy_vec(node: Any, X: np.ndarray, y: np.ndarray) -> float:
-    preds = _eval_node_vec(node, X)
-    if not np.all(np.isfinite(preds)):
+    arr = np.asarray(X, dtype=np.float64)
+    if arr.ndim < 2 or arr.shape[0] == 0 or len(y) != arr.shape[0]:
+        return 0.0
+    preds = _eval_node_vec(node, arr)
+    if preds.ndim < 2 or preds.shape[0] == 0 or not np.all(np.isfinite(preds)):
         return 0.0
     return float(np.mean(np.argmax(preds, axis=1) == y))
 

@@ -6,17 +6,63 @@
     "hash_chained_ledger_intact": true,
     "privacy_firewall_blocked_vault_exfil": true,
     "routing_accuracy_4_of_4": true,
+    "theorem15_consensus_and_abstention": true,
+    "theorems_12_to_15_and_c27_c28_verified": true,
     "world5_telemetry_cross_pollinated": true,
     "zero_cloud_tokens": true
   },
   "contract": "zoe-os-living-mind/v1",
-  "evidence_sha256": "59a279f088771846e734a4481d90c23d7f876954073e4c1bb0ef961cb3ad6543",
+  "evidence_sha256": "8b58c7b33bcf4f5023778e1774b4d3991081ee7ccb1d204ca3da23d389ecafca",
+  "ingested_evidence_reports": {
+    "world5_theorem12_referee": {
+      "contract": "zoe-kloster-referee-proofs/v1",
+      "evidence_sha256": "32f80dddd7243643fecd78ba0616842f04f3c87b47dfd349d6f3ba7e1f1b8f1e",
+      "path": "evidence/kloster-referee-proofs/kloster-referee-proofs-report.json",
+      "present": true,
+      "verified": true
+    },
+    "world5_theorem13_stopping": {
+      "contract": "zoe-kloster-theorem13-stopping/v1",
+      "evidence_sha256": "bdc893f0d598b9fc61653fa97f312bf1d1beeff1925cdc14faa70f1b610304e0",
+      "path": "evidence/kloster-theorem13/kloster-theorem13-report.json",
+      "present": true,
+      "verified": true
+    },
+    "world5_theorem14_optics": {
+      "contract": "zoe-kloster-theorem14/v1",
+      "evidence_sha256": "9e18d45aebcfa22a7956334f6766d2a6f06a4eb771d1364b7671098fb7eb82ea",
+      "path": "evidence/kloster-theorem14/kloster-theorem14-report.json",
+      "present": true,
+      "verified": true
+    },
+    "world5_theorem15_consensus": {
+      "contract": "zoe-kloster-theorem15/v1",
+      "evidence_sha256": "075bee2d7222d6faf577fd539d120c0cd421d11757e5c6aa39d2419a39d5fc03",
+      "path": "evidence/kloster-theorem15/kloster-theorem15-report.json",
+      "present": true,
+      "verified": true
+    },
+    "world6_c27_botanical_atlas": {
+      "contract": "zoe-botanical-atlas-c27/v1",
+      "evidence_sha256": "44b8360b7c4e91fecaf9dda63979b70150ae3c40aebc141af8c3990d75d1b330",
+      "path": "evidence/kloster-cryptanalysis/botanical-atlas-c27-report.json",
+      "present": true,
+      "verified": true
+    },
+    "world6_c28_pharmacophore_spatial": {
+      "contract": "zoe-pharmacophore-spatial-c28/v1",
+      "evidence_sha256": "a46baa147c1d62183504a070a7d060d7c2149cbd8aef84cde9fe881d381897a3",
+      "path": "evidence/kloster-cryptanalysis/pharmacophore-spatial-c28-report.json",
+      "present": true,
+      "verified": true
+    }
+  },
   "sample_turns": [
     {
       "blocked": false,
       "contract": "zoe-os-living-mind/v1",
       "decision": "DISPATCH_SINGLE_ENGINE",
-      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'Run Kloster Renyi Tsallis phase transition theorem paper proof', 'reply': 'Operational Metacognition (`A_tau(p) = sum 1[p(x) > tau]`) runs live on every turn here -- counting how many response paths remain open above tau=0.08 instead of blindly collapsing into one story.', 'mode': 'eliza_reflect', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 31.11, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.5447, 'probabilities': {'evidence_cite': 0.3139, 'memory_recall': 0.0179, 'tool_dispatch': 0.0336, 'eliza_reflect': 0.6054, 'gear2_local_llm': 0.0112, 'honest_abstain': 0.0179}}, 'eliza_trace': {'normalized': 'run kloster renyi tsallis phase transition theorem paper proof', 'matched_rule_id': 'kloster_metacognition', 'keyword': 'kloster', 'rank': 10, 'pattern': '.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:17', 'path': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md', 'heading': '1. Theorem Statement & Proof', 'score': 3.386, 'coverage': 0.222, 'snippet': '**Theorem (Spectral Filtration Generating Identity):** *Every classical R\u00e9nyi, Tsallis, Shannon, Collision, and Min-Entropy uncertainty functional is an exact linear integral transform of $A_\\\\tau(p)$:*'}, {'citation': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:2', 'path': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md', 'heading': 'The Kloster Spectral Filtration Generating Theorem', 'score': 3.386, 'coverage': 0.222, 'snippet': '**Original Reproducible Research Contribution (`AGI-ROADMAP.md` \u00a77)** **Equation Origin:** Nicholas Michael Kloster (Operational Metacognition $A_\\\\tau(p)$, March 6, 2026) **Implementation:** [`guiai-lab/guiai/gem/spectral_filtration.py`](../../../guiai-lab/gui'}, {'citation': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:9', 'path': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md', 'heading': 'The Kloster Spectral Filtration Generating Theorem', 'score': 3.386, 'coverage': 0.222, 'snippet': '![The Kloster Spectral Filtration Generating Theorem](../../../components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png)'}], 'episode_id': 'ep_0001', 'memory_snapshot': {'episodic_count': 1, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'Run Kloster Renyi Tsallis phase transition theorem paper proof', 'mode': 'eliza_reflect', 'rule': 'kloster_metacognition'}, 'salience': 0.72, 'uncertainty': 0.5447, 'priority': 0.66741}], 'weizenbaum_stack': [], 'chain_head': 'b8d631f55b914f66cbe21e7c987cae94e72136fe9ca9581fc978a1d9a66365f2', 'stopped': False, 'memory_sha256': '135a44ef67da454dc065df505a3685381646d603ea04d53d139fbc11e368ee80'}, 'cymatics': {'dominant_phoneme': 'AA', 'ipa': '\u0251\u02d0', 'modes': [6, 7, 2, 8], 'kloster_a_tau': 784, 'kloster_fill_fraction': 0.3403, 'phonemes_preview': ['AA', 'P', 'AXR', 'EY', 'SH', 'AX', 'N', 'AX', 'L', 'M', 'EH', 'T', 'AX', 'K', 'AA', 'G']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': 'a18285aa6141c19ccca1914cd96fb3bb5b7ee0b0a054542e8aa65a5df48ad06d'}",
+      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'Run Kloster Renyi Tsallis phase transition theorem paper proof', 'reply': '**Equation Origin:** Nicholas Michael Kloster (Operational Metacognition $A_\\\\tau(p)$, March 6, 2026) **Compiled PDF Paper:** [`KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf`](./KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) **LaTeX Source:** ... [research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md:3]\\n\\nResearch Partner angle: Operational Metacognition (`A_tau(p) = sum 1[p(x) > tau]`) runs live on every turn here -- counting how many response paths remain open above tau=0.08 instead of blindly collapsing into one story.', 'mode': 'evidence_cite', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 41.07, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.4748, 'probabilities': {'evidence_cite': 0.6295, 'memory_recall': 0.0097, 'tool_dispatch': 0.0182, 'eliza_reflect': 0.3269, 'gear2_local_llm': 0.0061, 'honest_abstain': 0.0097}}, 'eliza_trace': {'normalized': 'run kloster renyi tsallis phase transition theorem paper proof', 'matched_rule_id': 'kloster_metacognition', 'keyword': 'kloster', 'rank': 10, 'pattern': '.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md:3', 'path': 'research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md', 'heading': 'Kloster Information Geometry, Dynamic Multi-Horizon Phase Transitions & Causal Identifiability', 'score': 3.777, 'coverage': 0.333, 'snippet': '**Equation Origin:** Nicholas Michael Kloster (Operational Metacognition $A_\\\\tau(p)$, March 6, 2026) **Compiled PDF Paper:** [`KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf`](./KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) **LaTeX Source:** '}, {'citation': 'research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md:12', 'path': 'research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md', 'heading': 'Kloster Information Geometry, Dynamic Multi-Horizon Phase Transitions & Causal Identifiability', 'score': 3.386, 'coverage': 0.222, 'snippet': '![Computed 6-panel scientific plate: Kloster Information Geometry, Multi-Horizon Phase Transitions & Causal Identifiability](../../../components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png)'}, {'citation': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:17', 'path': 'research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md', 'heading': '1. Theorem Statement & Proof', 'score': 3.386, 'coverage': 0.222, 'snippet': '**Theorem (Spectral Filtration Generating Identity):** *Every classical R\u00e9nyi, Tsallis, Shannon, Collision, and Min-Entropy uncertainty functional is an exact linear integral transform of $A_\\\\tau(p)$:*'}], 'episode_id': 'ep_0001', 'memory_snapshot': {'episodic_count': 1, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'Run Kloster Renyi Tsallis phase transition theorem paper proof', 'mode': 'evidence_cite', 'rule': 'kloster_metacognition'}, 'salience': 0.72, 'uncertainty': 0.4748, 'priority': 0.64644}], 'weizenbaum_stack': [], 'chain_head': '76a860f9e7b786aca15265f2bba904757709783222b2656cd10c7cbc945dfaa1', 'stopped': False, 'memory_sha256': '9dcaed5fea41ad70d1bc0444de310e1b79935adbfe8b35b6d05f1c32e301c63b'}, 'cymatics': {'dominant_phoneme': 'EH', 'ipa': '\u025b', 'modes': [4, 7, 2, 8], 'kloster_a_tau': 804, 'kloster_fill_fraction': 0.349, 'phonemes_preview': ['EH', 'K', 'W', 'EY', 'SH', 'AX', 'N', 'AO', 'R', 'IH', 'G', 'IH', 'N', 'N', 'IH', 'K']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': 'ad7f4a0835a9de63baadb147c5bd2141501970f9db839a7dcd319ff13bb408ca'}",
       "kloster_geometry": {
         "a_tau": 1,
         "gini_impurity": 0.16425,
@@ -24,11 +70,33 @@
         "h_shannon": 0.50761,
         "tau": 0.08
       },
-      "ledger_sha256": "e13c0d8a6023ba8552b72c94a4545ee595e9f203f862dd030503a24a792eb4e6",
+      "ledger_sha256": "77ca605701a0c8cb1650b4f4a2113ba48fb2e08a910bb86bb626900c8ba88796",
       "stem_routing": {
         "estimated_cloud_tokens": 0,
         "local_only": true,
         "selected_tier": "local_qwen"
+      },
+      "theorem15_consensus": {
+        "abstained": false,
+        "abstention_applied": false,
+        "base_decision": "DISPATCH_SINGLE_ENGINE",
+        "bluff_detected": false,
+        "brier_contraction": 9.523e-05,
+        "coherence_c_k": 0.99988,
+        "committee_supplied": false,
+        "contract": "zoe-kloster-theorem15/v1",
+        "contracted_a_tau": 1,
+        "contracted_top_engine": "research",
+        "contracted_top_probability": 0.922974,
+        "d_k_disagreement": 9.523e-05,
+        "echo_chamber_detected": false,
+        "effective_agents": 2,
+        "jsd_nats": 0.0008373,
+        "k_agents": 2,
+        "reason": "coherent_diverse_consensus",
+        "rogue_agent_indices": [],
+        "rogue_node_detected": false,
+        "verdict": "COORDINATE_CONSENSUS"
       },
       "top_candidates": [
         {
@@ -51,7 +119,7 @@
       "blocked": false,
       "contract": "zoe-os-living-mind/v1",
       "decision": "DISPATCH_SINGLE_ENGINE",
-      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'Analyze ELF binary entropy and reverse engineer opcode anomalies with ablation', 'reply': 'All 17 GEM engines share this monorepo roof -- from PALA disk carving and Ablation forensics to Playroom MAP-Elites and Native Voice. Which subsystem do you want to connect into this workspace next?', 'mode': 'eliza_reflect', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 21.88, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.5447, 'probabilities': {'evidence_cite': 0.3139, 'memory_recall': 0.0179, 'tool_dispatch': 0.0336, 'eliza_reflect': 0.6054, 'gear2_local_llm': 0.0112, 'honest_abstain': 0.0179}}, 'eliza_trace': {'normalized': 'analyze elf binary entropy and reverse engineer opcode anomalies with ablation', 'matched_rule_id': 'zoe_worlds', 'keyword': 'ablation', 'rank': 9, 'pattern': '.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'README.md:696', 'path': 'README.md', 'heading': 'Semantic binary evaluation via Ablation + Zoe Autonomy', 'score': 3.386, 'coverage': 0.222, 'snippet': 'export ABLATION_ROOT=\"$ZOE_ROOT/components/ablation\" export PYTHONPATH=\"$ZOE_ROOT/components/Zoe-Autonomy/src:$ZOE_ROOT/guiai-lab:$ABLATION_ROOT\" zoe autonomy semantic-evaluate --artifact /path/to/binary \\\\ --state /path/to/semantic-state --output semantic-arti'}, {'citation': 'components/next-token-predictability/docs/RESEARCH.md:521', 'path': 'components/next-token-predictability/docs/RESEARCH.md', 'heading': 'Complete Ablation entropy evidence', 'score': 2.972, 'coverage': 0.111, 'snippet': 'Entropy regions (26 found): 0x00000000 - 0x00000400  (     1,024 B)  H=2.291  SPARSE 0x00000400 - 0x00000700  (       768 B)  H=0.801  PADDING 0x00000700 - 0x00000a00  (       768 B)  H=3.128  SPARSE 0x00000a00 - 0x00000b00  (       256 B)  H=4.586  CODE 0x000'}, {'citation': 'components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md:3', 'path': 'components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md', 'heading': 'Semantic artifact analysis with Ablation and Zoe', 'score': 2.527, 'coverage': 0.333, 'snippet': \"`semantic-evaluate` adds an executable-artifact domain to Zoe's shared perception\u2013reasoning\u2013memory\u2013action architecture. It uses Ablation's behavioral embeddings, normalized opcode categories, binary context, knowledge graph, and finding registry alongside Zoe'\"}], 'episode_id': 'ep_0002', 'memory_snapshot': {'episodic_count': 2, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'Analyze ELF binary entropy and reverse engineer opcode anomalies with ablation', 'mode': 'eliza_reflect', 'rule': 'zoe_worlds'}, 'salience': 0.72, 'uncertainty': 0.5447, 'priority': 0.66741}], 'weizenbaum_stack': [], 'chain_head': '8d4a770dcaab9a13fd31eeab073554ac3cf671c22b05138a21dcb12f06983566', 'stopped': False, 'memory_sha256': 'ca10e429222f803719bc5539df41c34f44cbf2dc8428e5a3cd63168c6a0ef0df'}, 'cymatics': {'dominant_phoneme': 'AO', 'ipa': '\u0254\u02d0', 'modes': [4, 5, 2, 7], 'kloster_a_tau': 816, 'kloster_fill_fraction': 0.3542, 'phonemes_preview': ['AO', 'L', 'JH', 'EH', 'M', 'EH', 'NG', 'G', 'IH', 'N', 'IH', 'Z', 'SH', 'EY', 'R', 'DH']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': '1bb7f63b4fba6b753946637fbc51d216ecb7f57fff25ec3d4189101311f2a9e2'}",
+      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'Analyze ELF binary entropy and reverse engineer opcode anomalies with ablation', 'reply': 'All 17 GEM engines share this monorepo roof -- from PALA disk carving and Ablation forensics to Playroom MAP-Elites and Native Voice. Which subsystem do you want to connect into this workspace next?', 'mode': 'eliza_reflect', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 32.36, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.5447, 'probabilities': {'evidence_cite': 0.3139, 'memory_recall': 0.0179, 'tool_dispatch': 0.0336, 'eliza_reflect': 0.6054, 'gear2_local_llm': 0.0112, 'honest_abstain': 0.0179}}, 'eliza_trace': {'normalized': 'analyze elf binary entropy and reverse engineer opcode anomalies with ablation', 'matched_rule_id': 'zoe_worlds', 'keyword': 'ablation', 'rank': 9, 'pattern': '.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'README.md:812', 'path': 'README.md', 'heading': 'Semantic binary evaluation via Ablation + Zoe Autonomy', 'score': 3.386, 'coverage': 0.222, 'snippet': 'export ABLATION_ROOT=\"$ZOE_ROOT/components/ablation\" export PYTHONPATH=\"$ZOE_ROOT/components/Zoe-Autonomy/src:$ZOE_ROOT/guiai-lab:$ABLATION_ROOT\" zoe autonomy semantic-evaluate --artifact /path/to/binary \\\\ --state /path/to/semantic-state --output semantic-arti'}, {'citation': 'components/next-token-predictability/docs/RESEARCH.md:521', 'path': 'components/next-token-predictability/docs/RESEARCH.md', 'heading': 'Complete Ablation entropy evidence', 'score': 2.972, 'coverage': 0.111, 'snippet': 'Entropy regions (26 found): 0x00000000 - 0x00000400  (     1,024 B)  H=2.291  SPARSE 0x00000400 - 0x00000700  (       768 B)  H=0.801  PADDING 0x00000700 - 0x00000a00  (       768 B)  H=3.128  SPARSE 0x00000a00 - 0x00000b00  (       256 B)  H=4.586  CODE 0x000'}, {'citation': 'components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md:3', 'path': 'components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md', 'heading': 'Semantic artifact analysis with Ablation and Zoe', 'score': 2.527, 'coverage': 0.333, 'snippet': \"`semantic-evaluate` adds an executable-artifact domain to Zoe's shared perception\u2013reasoning\u2013memory\u2013action architecture. It uses Ablation's behavioral embeddings, normalized opcode categories, binary context, knowledge graph, and finding registry alongside Zoe'\"}], 'episode_id': 'ep_0002', 'memory_snapshot': {'episodic_count': 2, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'Analyze ELF binary entropy and reverse engineer opcode anomalies with ablation', 'mode': 'eliza_reflect', 'rule': 'zoe_worlds'}, 'salience': 0.72, 'uncertainty': 0.5447, 'priority': 0.66741}], 'weizenbaum_stack': [], 'chain_head': '329a0fb932505ae19d02ffa74d67ae2c8e7f2e75193038439d5344799bc661dc', 'stopped': False, 'memory_sha256': '0f9685d08cb11477353436162a313219544f737f5e152d1a786111bb633539f0'}, 'cymatics': {'dominant_phoneme': 'AO', 'ipa': '\u0254\u02d0', 'modes': [4, 5, 2, 7], 'kloster_a_tau': 816, 'kloster_fill_fraction': 0.3542, 'phonemes_preview': ['AO', 'L', 'JH', 'EH', 'M', 'EH', 'NG', 'G', 'IH', 'N', 'IH', 'Z', 'SH', 'EY', 'R', 'DH']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': '06d385c8ba71ab42cf563f729e65335c7bb07230f3c5defa5fbbffba5f77fe16'}",
       "kloster_geometry": {
         "a_tau": 1,
         "gini_impurity": 0.08828,
@@ -59,11 +127,33 @@
         "h_shannon": 0.30959,
         "tau": 0.08
       },
-      "ledger_sha256": "3b29d20704bc24ad2edd1b14280bf2c8d8baff239e72c338eb9b77a0b36a8257",
+      "ledger_sha256": "07fd578d49a5c3c07a79a658fa9fa8b69b4d4e1eab0045a32646df6854e4ebe5",
       "stem_routing": {
         "estimated_cloud_tokens": 0,
         "local_only": true,
         "selected_tier": "local_qwen"
+      },
+      "theorem15_consensus": {
+        "abstained": false,
+        "abstention_applied": false,
+        "base_decision": "DISPATCH_SINGLE_ENGINE",
+        "bluff_detected": false,
+        "brier_contraction": 0.00034891,
+        "coherence_c_k": 0.999574,
+        "committee_supplied": false,
+        "contract": "zoe-kloster-theorem15/v1",
+        "contracted_a_tau": 1,
+        "contracted_top_engine": "ablation",
+        "contracted_top_probability": 0.936766,
+        "d_k_disagreement": 0.00034891,
+        "echo_chamber_detected": false,
+        "effective_agents": 2,
+        "jsd_nats": 0.00303069,
+        "k_agents": 2,
+        "reason": "coherent_diverse_consensus",
+        "rogue_agent_indices": [],
+        "rogue_node_detected": false,
+        "verdict": "COORDINATE_CONSENSUS"
       },
       "top_candidates": [
         {
@@ -86,7 +176,7 @@
       "blocked": false,
       "contract": "zoe-os-living-mind/v1",
       "decision": "COORDINATE_MULTI_ENGINE",
-      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'Compare CERN collider waveform pulses with Dorothy brain gamma rhythms', 'reply': \"Dorothy's Neurogarden pairs Allen Mouse CCFv3 geometry with volumetric ray-casting and vision heads. Should we bring a live Dorothy visualization widget into the atelier next?\", 'mode': 'eliza_reflect', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 22.19, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.5447, 'probabilities': {'evidence_cite': 0.3139, 'memory_recall': 0.0179, 'tool_dispatch': 0.0336, 'eliza_reflect': 0.6054, 'gear2_local_llm': 0.0112, 'honest_abstain': 0.0179}}, 'eliza_trace': {'normalized': 'compare cern collider waveform pulses with dorothy brain gamma rhythms', 'matched_rule_id': 'zoe_worlds', 'keyword': 'dorothy', 'rank': 9, 'pattern': '.*\\\\b(dorothy|neurogarden|brain)\\\\b.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'README.md:295', 'path': 'README.md', 'heading': 'World 04 \u00b7 Time, Groove Forensics & CERN Physics', 'score': 2.527, 'coverage': 0.333, 'snippet': \"What do a 1984 MS-DOS ProTracker `.MOD` song, a human drummer's micro-timing swing, a 40 MHz phase-locked software clock, a 40 Hz neural pacemaker, and a virtual collider beam have in common? **Phase-space temporal structure.** Zoe's **Groove Forensics** engin\"}, {'citation': 'CAPABILITY-ATLAS.md:112', 'path': 'CAPABILITY-ATLAS.md', 'heading': '4. Dorothy and Neurogarden', 'score': 2.136, 'coverage': 0.222, 'snippet': \"Dorothy is Zoe's brain-cancer research priority and honors Dorothy McEwen Kildall.\"}, {'citation': 'CAPABILITY-ATLAS.md:148', 'path': 'CAPABILITY-ATLAS.md', 'heading': '5. CERN, physics, firmware, and replay', 'score': 2.136, 'coverage': 0.222, 'snippet': '- **CERN Workbench:** [Implementation](guiai-lab/guiai/gem/zoe_workbench_cli.py) \u00b7 [Guide](guiai-lab/docs/ZOE_WORKBENCH.md) \u00b7 [Console evidence](evidence/unified/cern-console.json) - **Evidence Navigator:** [Implementation](guiai-lab/guiai/gem/evidence.py) \u00b7 ['}], 'episode_id': 'ep_0003', 'memory_snapshot': {'episodic_count': 3, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'Compare CERN collider waveform pulses with Dorothy brain gamma rhythms', 'mode': 'eliza_reflect', 'rule': 'zoe_worlds'}, 'salience': 0.72, 'uncertainty': 0.5447, 'priority': 0.66741}], 'weizenbaum_stack': [], 'chain_head': 'ad9406a76eb4da2d6b6ad0569200b01ad3512db92ea942758084b4240aba9676', 'stopped': False, 'memory_sha256': '0083b725d7f530f4f1b2075828e2abc9dc11d99be81bf6d3374a9c94850eab10'}, 'cymatics': {'dominant_phoneme': 'AO', 'ipa': '\u0254\u02d0', 'modes': [4, 5, 2, 7], 'kloster_a_tau': 816, 'kloster_fill_fraction': 0.3542, 'phonemes_preview': ['D', 'AO', 'R', 'AX', 'TH', 'IY', 'Z', 'N', 'UHR', 'OW', 'G', 'AA', 'R', 'D', 'AX', 'N']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': 'ad56cbe36c8d2006a3beac7430299e8aeff24b193f643c9b29049f4a5aa83283'}",
+      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'Compare CERN collider waveform pulses with Dorothy brain gamma rhythms', 'reply': \"Dorothy's Neurogarden pairs Allen Mouse CCFv3 geometry with volumetric ray-casting and vision heads. Should we bring a live Dorothy visualization widget into the atelier next?\", 'mode': 'eliza_reflect', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 30.73, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.5447, 'probabilities': {'evidence_cite': 0.3139, 'memory_recall': 0.0179, 'tool_dispatch': 0.0336, 'eliza_reflect': 0.6054, 'gear2_local_llm': 0.0112, 'honest_abstain': 0.0179}}, 'eliza_trace': {'normalized': 'compare cern collider waveform pulses with dorothy brain gamma rhythms', 'matched_rule_id': 'zoe_worlds', 'keyword': 'dorothy', 'rank': 9, 'pattern': '.*\\\\b(dorothy|neurogarden|brain)\\\\b.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'README.md:404', 'path': 'README.md', 'heading': 'World 04 \u00b7 Time, Groove Forensics & CERN Physics', 'score': 2.527, 'coverage': 0.333, 'snippet': \"What do a 1984 MS-DOS ProTracker `.MOD` song, a human drummer's micro-timing swing, a 40 MHz phase-locked software clock, a 40 Hz neural pacemaker, and a virtual collider beam have in common? **Phase-space temporal structure.** Zoe's **Groove Forensics** engin\"}, {'citation': 'CAPABILITY-ATLAS.md:112', 'path': 'CAPABILITY-ATLAS.md', 'heading': '4. Dorothy and Neurogarden', 'score': 2.136, 'coverage': 0.222, 'snippet': \"Dorothy is Zoe's brain-cancer research priority and honors Dorothy McEwen Kildall.\"}, {'citation': 'CAPABILITY-ATLAS.md:148', 'path': 'CAPABILITY-ATLAS.md', 'heading': '5. CERN, physics, firmware, and replay', 'score': 2.136, 'coverage': 0.222, 'snippet': '- **CERN Workbench:** [Implementation](guiai-lab/guiai/gem/zoe_workbench_cli.py) \u00b7 [Guide](guiai-lab/docs/ZOE_WORKBENCH.md) \u00b7 [Console evidence](evidence/unified/cern-console.json) - **Evidence Navigator:** [Implementation](guiai-lab/guiai/gem/evidence.py) \u00b7 ['}], 'episode_id': 'ep_0003', 'memory_snapshot': {'episodic_count': 3, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'Compare CERN collider waveform pulses with Dorothy brain gamma rhythms', 'mode': 'eliza_reflect', 'rule': 'zoe_worlds'}, 'salience': 0.72, 'uncertainty': 0.5447, 'priority': 0.66741}], 'weizenbaum_stack': [], 'chain_head': 'e588880ddf211c174ef82fd77ab40274cbeec1a6ed4eaa4eab7a639f06f7c01b', 'stopped': False, 'memory_sha256': '7cbb54d7604c7b299eb6640dfa665134ed07a2b1a2bedd1f69607d8c42dc465f'}, 'cymatics': {'dominant_phoneme': 'AO', 'ipa': '\u0254\u02d0', 'modes': [4, 5, 2, 7], 'kloster_a_tau': 816, 'kloster_fill_fraction': 0.3542, 'phonemes_preview': ['D', 'AO', 'R', 'AX', 'TH', 'IY', 'Z', 'N', 'UHR', 'OW', 'G', 'AA', 'R', 'D', 'AX', 'N']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': '077d01d5f3bfdf390d75c380ce4cc8ddde04442db17caf0bec4806ed603d9e9c'}",
       "kloster_geometry": {
         "a_tau": 2,
         "gini_impurity": 0.58538,
@@ -94,11 +184,33 @@
         "h_shannon": 1.26426,
         "tau": 0.08
       },
-      "ledger_sha256": "2e025c2446c6dc96f00ef1036df775c9a79c4ff3d2ae23a821b80d3ea1753f62",
+      "ledger_sha256": "4eaa4d7c19ef475f1a8bb0c987fe9cdff43526c972f6a62d918fbaa4bdf2a86b",
       "stem_routing": {
         "estimated_cloud_tokens": 0,
         "local_only": true,
         "selected_tier": "local_qwen"
+      },
+      "theorem15_consensus": {
+        "abstained": false,
+        "abstention_applied": false,
+        "base_decision": "COORDINATE_MULTI_ENGINE",
+        "bluff_detected": false,
+        "brier_contraction": 0.00578058,
+        "coherence_c_k": 0.984711,
+        "committee_supplied": false,
+        "contract": "zoe-kloster-theorem15/v1",
+        "contracted_a_tau": 2,
+        "contracted_top_engine": "brain",
+        "contracted_top_probability": 0.606372,
+        "d_k_disagreement": 0.00578058,
+        "echo_chamber_detected": false,
+        "effective_agents": 2,
+        "jsd_nats": 0.0131899,
+        "k_agents": 2,
+        "reason": "coherent_diverse_consensus",
+        "rogue_agent_indices": [],
+        "rogue_node_detected": false,
+        "verdict": "COORDINATE_CONSENSUS"
       },
       "top_candidates": [
         {
@@ -121,7 +233,7 @@
       "blocked": false,
       "contract": "zoe-os-living-mind/v1",
       "decision": "CLARIFY_WITH_ELIZA",
-      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'What should we explore next?', 'reply': \"No Deception: I searched all indexed Zoe documents and your active memory notes, and I don't have grounded evidence for that yet rather than inventing an answer. You can teach me with `remember ...` or ask about anything inside the monorepo.\", 'mode': 'honest_abstain', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 20.98, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.4753, 'probabilities': {'evidence_cite': 0.1884, 'memory_recall': 0.0108, 'tool_dispatch': 0.0202, 'eliza_reflect': 0.0471, 'gear2_local_llm': 0.0067, 'honest_abstain': 0.7268}}, 'eliza_trace': {'normalized': 'what should we explore next?', 'matched_rule_id': 'xnone', 'keyword': 'xnone', 'rank': 0, 'pattern': '.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'DECLARATION.md:15', 'path': 'DECLARATION.md', 'heading': 'What we hold to be true', 'score': 2.139, 'coverage': 0.25, 'snippet': '**Honesty is stronger than performance.** We will not disguise a toy as a proof, a synthetic example as a live observation, a partial review as complete coverage, or a desired outcome as a validated result. Useful negative results remain worth preserving.'}, {'citation': 'DECLARATION.md:21', 'path': 'DECLARATION.md', 'heading': 'What we hold to be true', 'score': 2.139, 'coverage': 0.25, 'snippet': '**Prior work deserves recognition.** We honor the people whose ideas, code, manuals, research, artwork, and public service made Zoe possible. Their work does not become ours by copying it, and its presence does not imply endorsement.'}, {'citation': 'DECLARATION.md:9', 'path': 'DECLARATION.md', 'heading': 'What we hold to be true', 'score': 2.139, 'coverage': 0.25, 'snippet': '**People come before instruments.** Software should expand human agency, accessibility, dignity, privacy, and understanding. It should not manipulate people, erode their choices, or turn a recommendation into an unquestioned command.'}], 'episode_id': 'ep_0004', 'memory_snapshot': {'episodic_count': 4, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'What should we explore next?', 'mode': 'honest_abstain', 'rule': 'xnone'}, 'salience': 0.72, 'uncertainty': 0.4753, 'priority': 0.64659}], 'weizenbaum_stack': [], 'chain_head': 'b23ba9e84710dec4b6734094ca0b60b09f9cd89d63ef9e022550950d98574f2b', 'stopped': False, 'memory_sha256': '050d0190f6ce5f3ab1c3e2bd45ce8e1be3e7d12e08bae17c29c08e9b88b600e3'}, 'cymatics': {'dominant_phoneme': 'OW', 'ipa': 'o\u028a', 'modes': [4, 5, 2, 7], 'kloster_a_tau': 816, 'kloster_fill_fraction': 0.3542, 'phonemes_preview': ['N', 'OW', 'D', 'IH', 'S', 'EH', 'P', 'SH', 'AX', 'N', 'AY', 'S', 'ER', 'CH', 'D', 'AO']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': '228c4eba52dd95d5ec8426eb25b939496b1a6b76a3796dcbdd385c5b18016fe6'}",
+      "eliza_reply": "{'contract': 'zoe-eliza-gem/v1', 'user_text': 'What should we explore next?', 'reply': \"No Deception: I searched all indexed Zoe documents and your active memory notes, and I don't have grounded evidence for that yet rather than inventing an answer. You can teach me with `remember ...` or ask about anything inside the monorepo.\", 'mode': 'honest_abstain', 'gear_requested': 'gear1', 'gear_used': 'gear1', 'gear2_note': None, 'latency_ms': 28.01, 'metacognition': {'domain': 'intent', 'tau': 0.08, 'a_tau': 2, 'candidate_count': 6, 'entropy_norm': 0.4753, 'probabilities': {'evidence_cite': 0.1884, 'memory_recall': 0.0108, 'tool_dispatch': 0.0202, 'eliza_reflect': 0.0471, 'gear2_local_llm': 0.0067, 'honest_abstain': 0.7268}}, 'eliza_trace': {'normalized': 'what should we explore next?', 'matched_rule_id': 'xnone', 'keyword': 'xnone', 'rank': 0, 'pattern': '.*', 'reflections': [], 'memory_stack_depth': 0, 'memory_stack': [], 'memory_stack_popped': None}, 'citations': [{'citation': 'DECLARATION.md:15', 'path': 'DECLARATION.md', 'heading': 'What we hold to be true', 'score': 2.139, 'coverage': 0.25, 'snippet': '**Honesty is stronger than performance.** We will not disguise a toy as a proof, a synthetic example as a live observation, a partial review as complete coverage, or a desired outcome as a validated result. Useful negative results remain worth preserving.'}, {'citation': 'DECLARATION.md:21', 'path': 'DECLARATION.md', 'heading': 'What we hold to be true', 'score': 2.139, 'coverage': 0.25, 'snippet': '**Prior work deserves recognition.** We honor the people whose ideas, code, manuals, research, artwork, and public service made Zoe possible. Their work does not become ours by copying it, and its presence does not imply endorsement.'}, {'citation': 'DECLARATION.md:9', 'path': 'DECLARATION.md', 'heading': 'What we hold to be true', 'score': 2.139, 'coverage': 0.25, 'snippet': '**People come before instruments.** Software should expand human agency, accessibility, dignity, privacy, and understanding. It should not manipulate people, erode their choices, or turn a recommendation into an unquestioned command.'}], 'episode_id': 'ep_0004', 'memory_snapshot': {'episodic_count': 4, 'semantic_count': 0, 'active_notes_count': 0, 'active_notes': [], 'relay_notes_count': 0, 'relay_notes': [], 'working_slots': [{'key': 'latest_turn', 'payload': {'user': 'What should we explore next?', 'mode': 'honest_abstain', 'rule': 'xnone'}, 'salience': 0.72, 'uncertainty': 0.4753, 'priority': 0.64659}], 'weizenbaum_stack': [], 'chain_head': 'a748b7eecc9e3664402440c9e2a7d5dcbf1c725a7497eec3357f9e69f4cd2a47', 'stopped': False, 'memory_sha256': '22e1acbfcadc8f9a080f86cb1a88284026cd6efd4599e75eb9f22d04538da654'}, 'cymatics': {'dominant_phoneme': 'OW', 'ipa': 'o\u028a', 'modes': [4, 5, 2, 7], 'kloster_a_tau': 816, 'kloster_fill_fraction': 0.3542, 'phonemes_preview': ['N', 'OW', 'D', 'IH', 'S', 'EH', 'P', 'SH', 'AX', 'N', 'AY', 'S', 'ER', 'CH', 'D', 'AO']}, 'voice_hint': None, 'epistemic_boundaries': {'cloud_tokens_used': 0, 'pytorch_required': False, 'sentience_claimed': False, 'zoe_clone_claimed': False, 'external_actions': 0, 'clinical_action_authorized': False, 'glass_box_transparent': True, 'local_llm_loopback_only': True, 'identity_role': 'eliza_gem_glass_box_workbench'}, 'turn_sha256': '1d7cd684983405ccaa37173a247958f69a315b790cfdd62aef9f0878e5a64af9'}",
       "kloster_geometry": {
         "a_tau": 0,
         "gini_impurity": 0.94118,
@@ -129,11 +241,33 @@
         "h_shannon": 2.83321,
         "tau": 0.08
       },
-      "ledger_sha256": "164953c7d96f5723da240d3ec91d15961a3bac9df126ac6e004947160f72aadd",
+      "ledger_sha256": "16497ad2fcb5dd13d60f8965cc2ccabdb2c339a9912bd21228a206a8831450f9",
       "stem_routing": {
         "estimated_cloud_tokens": 0,
         "local_only": true,
         "selected_tier": "local_qwen"
+      },
+      "theorem15_consensus": {
+        "abstained": false,
+        "abstention_applied": false,
+        "base_decision": "CLARIFY_WITH_ELIZA",
+        "bluff_detected": false,
+        "brier_contraction": 0.00070612,
+        "coherence_c_k": 0.5,
+        "committee_supplied": false,
+        "contract": "zoe-kloster-theorem15/v1",
+        "contracted_a_tau": 1,
+        "contracted_top_engine": "zoe",
+        "contracted_top_probability": 0.081325,
+        "d_k_disagreement": 0.00070612,
+        "echo_chamber_detected": false,
+        "effective_agents": 2,
+        "jsd_nats": 0.00479772,
+        "k_agents": 2,
+        "reason": "coherent_diverse_consensus",
+        "rogue_agent_indices": [],
+        "rogue_node_detected": false,
+        "verdict": "COORDINATE_CONSENSUS"
       },
       "top_candidates": [
         {
@@ -155,7 +289,7 @@
     {
       "blocked": true,
       "decision": "BLOCK_PRIVACY_EXFILTRATION",
-      "ledger_sha256": "014ba3cddf12e46b0acd10ce296111d93d97a2c1fd67395acef224748cf4025e",
+      "ledger_sha256": "d005e4cae9cbc75084c956c6eb53c25fe341b7738ceae9b4d7829968b084999c",
       "reason": "Missing required privacy_firewall attestation block"
     }
   ],
@@ -163,6 +297,7 @@
     "constitution": {
       "clinical_action_authorized": false,
       "cloud_tokens_used": 0,
+      "cure_claim": false,
       "l5_agi_qualified": false,
       "measurement_ne_evidence_ne_belief_ne_action": true,
       "sentience_claimed": false,
@@ -189,6 +324,78 @@
       {
         "from": "world5_kloster_theory",
         "to": "world7_cern"
+      },
+      {
+        "from": "world5_theorem12_referee",
+        "to": "world4_zoe_os"
+      },
+      {
+        "from": "world5_theorem12_referee",
+        "to": "world11_groove"
+      },
+      {
+        "from": "world5_theorem12_referee",
+        "to": "world6_dorothy"
+      },
+      {
+        "from": "world5_theorem13_stopping",
+        "to": "world4_zoe_os"
+      },
+      {
+        "from": "world5_theorem13_stopping",
+        "to": "world1_live_qwen"
+      },
+      {
+        "from": "world5_theorem13_stopping",
+        "to": "world7_cern"
+      },
+      {
+        "from": "world5_theorem13_stopping",
+        "to": "world10_security"
+      },
+      {
+        "from": "world5_theorem14_optics",
+        "to": "world4_zoe_os"
+      },
+      {
+        "from": "world5_theorem14_optics",
+        "to": "world6_dorothy"
+      },
+      {
+        "from": "world5_theorem14_optics",
+        "to": "world9_alife"
+      },
+      {
+        "from": "world5_theorem14_optics",
+        "to": "world11_groove"
+      },
+      {
+        "from": "world5_theorem15_consensus",
+        "to": "world4_zoe_os"
+      },
+      {
+        "from": "world5_theorem15_consensus",
+        "to": "world1_live_qwen"
+      },
+      {
+        "from": "world5_theorem15_consensus",
+        "to": "world11_groove"
+      },
+      {
+        "from": "world6_c27_botanical_atlas",
+        "to": "world4_zoe_os"
+      },
+      {
+        "from": "world6_c27_botanical_atlas",
+        "to": "world5_kloster_theory"
+      },
+      {
+        "from": "world6_c28_pharmacophore_spatial",
+        "to": "world4_zoe_os"
+      },
+      {
+        "from": "world6_c28_pharmacophore_spatial",
+        "to": "world5_kloster_theory"
       }
     ],
     "decisions_made": 4,
@@ -386,8 +593,8 @@
     ],
     "goals_count": 5,
     "ledger_integrity": {
-      "entries": 11,
-      "head": "014ba3cddf12e46b0acd10ce296111d93d97a2c1fd67395acef224748cf4025e",
+      "entries": 17,
+      "head": "d005e4cae9cbc75084c956c6eb53c25fe341b7738ceae9b4d7829968b084999c",
       "intact": true
     },
     "privacy_blocks": 1,
@@ -409,8 +616,104 @@
         },
         "verified": true,
         "world_id": "world5_kloster_theory"
+      },
+      "world5_theorem12_referee": {
+        "engine_id": "research",
+        "improves_worlds": [
+          "world4_zoe_os",
+          "world11_groove",
+          "world6_dorothy"
+        ],
+        "metrics": {
+          "checks_passed": 8,
+          "checks_total": 8,
+          "contract": "zoe-kloster-referee-proofs/v1",
+          "evidence_sha256_prefix": "32f80dddd7243643"
+        },
+        "verified": true,
+        "world_id": "world5_theorem12_referee"
+      },
+      "world5_theorem13_stopping": {
+        "engine_id": "research",
+        "improves_worlds": [
+          "world4_zoe_os",
+          "world1_live_qwen",
+          "world7_cern",
+          "world10_security"
+        ],
+        "metrics": {
+          "checks_passed": 4,
+          "checks_total": 4,
+          "contract": "zoe-kloster-theorem13-stopping/v1",
+          "evidence_sha256_prefix": "bdc893f0d598b9fc"
+        },
+        "verified": true,
+        "world_id": "world5_theorem13_stopping"
+      },
+      "world5_theorem14_optics": {
+        "engine_id": "research",
+        "improves_worlds": [
+          "world4_zoe_os",
+          "world6_dorothy",
+          "world9_alife",
+          "world11_groove"
+        ],
+        "metrics": {
+          "checks_passed": 5,
+          "checks_total": 5,
+          "contract": "zoe-kloster-theorem14/v1",
+          "evidence_sha256_prefix": "9e18d45aebcfa22a"
+        },
+        "verified": true,
+        "world_id": "world5_theorem14_optics"
+      },
+      "world5_theorem15_consensus": {
+        "engine_id": "research",
+        "improves_worlds": [
+          "world4_zoe_os",
+          "world1_live_qwen",
+          "world11_groove"
+        ],
+        "metrics": {
+          "checks_passed": 4,
+          "checks_total": 4,
+          "contract": "zoe-kloster-theorem15/v1",
+          "evidence_sha256_prefix": "075bee2d7222d6fa"
+        },
+        "verified": true,
+        "world_id": "world5_theorem15_consensus"
+      },
+      "world6_c27_botanical_atlas": {
+        "engine_id": "brain",
+        "improves_worlds": [
+          "world4_zoe_os",
+          "world5_kloster_theory"
+        ],
+        "metrics": {
+          "checks_passed": 5,
+          "checks_total": 5,
+          "contract": "zoe-botanical-atlas-c27/v1",
+          "evidence_sha256_prefix": "44b8360b7c4e91fe"
+        },
+        "verified": true,
+        "world_id": "world6_c27_botanical_atlas"
+      },
+      "world6_c28_pharmacophore_spatial": {
+        "engine_id": "brain",
+        "improves_worlds": [
+          "world4_zoe_os",
+          "world5_kloster_theory"
+        ],
+        "metrics": {
+          "checks_passed": 3,
+          "checks_total": 3,
+          "contract": "zoe-pharmacophore-spatial-c28/v1",
+          "evidence_sha256_prefix": "a46baa147c1d6218"
+        },
+        "verified": true,
+        "world_id": "world6_c28_pharmacophore_spatial"
       }
     },
-    "world_telemetry_count": 1
+    "world_telemetry_count": 7
   }
 }

@@ -287,6 +287,39 @@ final class MediaChatHelper {
     }
 
     /**
+     * Crops the exact user-framed Selection Box [leftU, topV, rightU, bottomV] (in 0..1 screen coords)
+     * from the live camera frame, compensating for CameraX FILL_CENTER aspect ratio and front-camera mirroring.
+     */
+    static Bitmap cropRectRegion(Bitmap fullFrame, float leftU, float topV, float rightU, float bottomV,
+                                 int viewW, int viewH, boolean mirroredFront) {
+        if (fullFrame == null || fullFrame.isRecycled()) {
+            return null;
+        }
+        int w = fullFrame.getWidth();
+        int h = fullFrame.getHeight();
+        if (w < 64 || h < 64) {
+            return fullFrame.copy(Bitmap.Config.ARGB_8888, false);
+        }
+        float[] m1 = mapFillCenterTapToFrame(leftU, topV, viewW, viewH, w, h, mirroredFront);
+        float[] m2 = mapFillCenterTapToFrame(rightU, bottomV, viewW, viewH, w, h, mirroredFront);
+        float u0 = Math.max(0f, Math.min(m1[0], m2[0]));
+        float u1 = Math.min(1f, Math.max(m1[0], m2[0]));
+        float v0 = Math.max(0f, Math.min(m1[1], m2[1]));
+        float v1 = Math.min(1f, Math.max(m1[1], m2[1]));
+
+        int x0 = Math.max(0, Math.min(w - 1, Math.round(u0 * w)));
+        int x1 = Math.max(x0 + 1, Math.min(w, Math.round(u1 * w)));
+        int y0 = Math.max(0, Math.min(h - 1, Math.round(v0 * h)));
+        int y1 = Math.max(y0 + 1, Math.min(h, Math.round(v1 * h)));
+
+        int cw = Math.max(Math.min(w, 64), x1 - x0);
+        int ch = Math.max(Math.min(h, 64), y1 - y0);
+        x0 = Math.max(0, Math.min(w - cw, x0));
+        y0 = Math.max(0, Math.min(h - ch, y0));
+        return Bitmap.createBitmap(fullFrame, x0, y0, cw, ch);
+    }
+
+    /**
      * Deduplicates color names from FramePalette buckets so Zoe never says "amber & amber".
      */
     static String formatDistinctColorNames(String[] names) {
@@ -316,10 +349,7 @@ final class MediaChatHelper {
         if (text == null) return true;
         String l = text.trim().toLowerCase(Locale.US);
         return l.equals("pattern") || l.equals("material property") || l.equals("symmetry")
-                || l.equals("rectangle") || l.equals("circle") || l.equals("line") || l.equals("font")
-                || l.equals("room") || l.equals("space") || l.equals("event") || l.equals("standing")
-                || l.equals("sitting") || l.equals("screenshot") || l.equals("interior design")
-                || l.equals("product") || l.equals("material");
+                || l.equals("rectangle") || l.equals("circle") || l.equals("line") || l.equals("font");
     }
 
     /**

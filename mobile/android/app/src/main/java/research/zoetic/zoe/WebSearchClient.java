@@ -99,7 +99,7 @@ final class WebSearchClient {
                     .append(query).append("\":\n\n");
             for (int i = 0; i < sources.size(); i++) {
                 Source s = sources.get(i);
-                sb.append(i + 1).append(". ").append(s.title).append(" — ").append(s.snippet).append("\n\n");
+                sb.append(i + 1).append(". ").append(s.title).append(": ").append(s.snippet).append("\n\n");
             }
             sb.append("Tap any source chip below to read the original page directly.");
             return sb.toString().trim();

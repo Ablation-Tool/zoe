@@ -75,23 +75,55 @@ def prove_theorem14_sympy() -> Dict[str, Any]:
 def kloster_spatial_m2(field: np.ndarray) -> float:
     """Compute exact Kloster second spectral moment M2(p) = int 2*tau*A_tau(p) d_tau = sum p^2."""
     p = np.asarray(field, dtype=np.float64).ravel()
-    total = float(np.sum(p))
-    if total <= 0.0:
+    if p.size == 0 or not bool(np.all(np.isfinite(p))):
         return 0.0
-    p = p / total
-    return float(np.sum(p * p))
+    # Guard cancellation totals where |p| >> total causes p*p to overflow float64
+    with np.errstate(over="ignore", invalid="ignore"):
+        total = float(np.sum(p))
+        if not math.isfinite(total) or total <= 0.0:
+            return 0.0
+        p = p / total
+        m2 = float(np.sum(p * p))
+    return m2 if math.isfinite(m2) else 0.0
 
 
 def _quadrat_zk(pts: np.ndarray, grid_n: int = 8) -> Dict[str, float]:
     """Compute two-sided Kloster U-statistic Z_K (reusing Theorem 13) and Ripley's L(r)-r on [0,1]^2."""
-    hist, _, _ = np.histogram2d(pts[:, 0], pts[:, 1], bins=grid_n, range=[[0.0, 1.0], [0.0, 1.0]])
+    pts_arr = np.asarray(pts, dtype=np.float64)
+    # Guard against empty, 1D, non-finite, or single-point clouds to prevent zero-division in Ripley K
+    if pts_arr.ndim != 2 or pts_arr.shape[1] != 2:
+        return {
+            "points": int(pts_arr.shape[0]) if pts_arr.ndim == 2 else 0,
+            "n_quadrats": int(grid_n * grid_n),
+            "z_kloster": 0.0,
+            "vmr": 0.0,
+            "besag_l_minus_r": 0.0,
+        }
+    pts_arr = pts_arr[np.all(np.isfinite(pts_arr), axis=1)]
+    if pts_arr.shape[0] < 2:
+        return {
+            "points": int(pts_arr.shape[0]),
+            "n_quadrats": int(grid_n * grid_n),
+            "z_kloster": 0.0,
+            "vmr": 0.0,
+            "besag_l_minus_r": 0.0,
+        }
+    hist, _, _ = np.histogram2d(pts_arr[:, 0], pts_arr[:, 1], bins=grid_n, range=[[0.0, 1.0], [0.0, 1.0]])
     c = hist.ravel()
     s_tot, n_bins = float(np.sum(c)), int(c.size)
+    if s_tot < 2.0:
+        return {
+            "points": int(s_tot),
+            "n_quadrats": n_bins,
+            "z_kloster": 0.0,
+            "vmr": 0.0,
+            "besag_l_minus_r": 0.0,
+        }
     # Reuse Theorem 13's exact single-source-of-truth unbiased U-statistic Z_K
     z_k = float(kloster_unbiased_chi2_stats(c)["z_kloster"])
     vmr = float(np.var(c, ddof=1) / max(np.mean(c), 1e-12))
     # Pairwise Ripley K(r) -> Besag L(r) - r at r = 0.08 (toroidal distance removes edge bias)
-    diff = np.abs(pts[:, None, :] - pts[None, :, :])
+    diff = np.abs(pts_arr[:, None, :] - pts_arr[None, :, :])
     diff = np.minimum(diff, 1.0 - diff)
     dist = np.sqrt(np.sum(diff * diff, axis=2))
     r_eval = 0.08
@@ -126,13 +158,80 @@ def verify_spatial_point_patterns() -> Dict[str, Any]:
     return {"clustered_thomas": m_clust, "csr_poisson_null": m_csr, "inhibited_regular": m_inhib, "csr_120trial_zk_std": round(csr_std, 4), "verified": bool(ok)}
 
 
-def _gaussian_psf_2d(size: int, sigma: float) -> np.ndarray:
+def _gaussian_psf_2d(size: int | Tuple[int, int], sigma: float) -> np.ndarray:
     """Normalized periodic 2D Gaussian optical PSF centered at (0, 0)."""
+    # Accept square int or (height, width) tuple for rectangular optical fields
+    n_h, n_w = (int(size), int(size)) if isinstance(size, (int, np.integer)) else (int(size[0]), int(size[1]))
+    sig = max(float(sigma), 1e-6)
     # Periodic FFT grid guarantees exact circular convolution with zero boundary leakage
-    ax = np.fft.fftfreq(size) * size
-    xx, yy = np.meshgrid(ax, ax)
-    k = np.exp(-(xx * xx + yy * yy) / (2.0 * sigma * sigma))
+    ax_y = np.fft.fftfreq(n_h) * n_h
+    ax_x = np.fft.fftfreq(n_w) * n_w
+    xx, yy = np.meshgrid(ax_x, ax_y)
+    k = np.exp(-(xx * xx + yy * yy) / (2.0 * sig * sig))
     return k / float(np.sum(k))
+
+
+def kloster_mtf_blur_loss(
+    field: np.ndarray,
+    psf_sigma: float = 1.5,
+    psf: np.ndarray | None = None,
+) -> Dict[str, float]:
+    """Compute Theorem 14(e) Parseval MTF contrast loss Delta_opt = M2(p) - M2(K * p) >= 0."""
+    raw = np.asarray(field, dtype=np.float64)
+    valid = raw.ndim == 2 and raw.size > 0 and bool(np.all(np.isfinite(raw)))
+    arr = np.maximum(raw, 0.0) if valid else np.zeros((0, 0), dtype=np.float64)
+    with np.errstate(over="ignore", invalid="ignore"):
+        total = float(np.sum(arr)) if valid else 0.0
+    # Return safe zeroed telemetry for degenerate, non-finite, overflowing, or zero-energy fields
+    if not valid or not math.isfinite(total) or total <= 0.0:
+        return {
+            "delta_opt": 0.0,
+            "m2_sharp": 0.0,
+            "m2_blurred": 0.0,
+            "m2_parseval": 0.0,
+            "parseval_error": 0.0,
+            "retention_ratio": 0.0,
+            "mtf_sharpness": 0.0,
+            "psf_sigma": float(psf_sigma) if math.isfinite(float(psf_sigma)) else 0.0,
+        }
+    p0 = arr / total
+    if psf is None:
+        if not math.isfinite(float(psf_sigma)) or float(psf_sigma) <= 0.0:
+            raise ValueError("psf_sigma must be finite and positive")
+        ker = _gaussian_psf_2d(p0.shape, psf_sigma)
+    else:
+        ker_arr = np.asarray(psf, dtype=np.float64)
+        if ker_arr.shape != p0.shape or not bool(np.all(np.isfinite(ker_arr))):
+            raise ValueError("Custom PSF must match field shape and contain only finite values")
+        ker_raw = np.maximum(ker_arr, 0.0)
+        # Scale by max before summing so extreme finite PSFs (e.g. 1e308) normalize without overflow
+        ker_max = float(np.max(ker_raw))
+        if ker_max <= 0.0:
+            raise ValueError("Custom PSF must match field shape and have positive sum")
+        ker_scaled = ker_raw / ker_max
+        ker = ker_scaled / float(np.sum(ker_scaled))
+    # Exact 2D FFT Parseval decomposition: M2(K*p) == (1/N) sum MTF(k)^2 |p_hat(k)|^2
+    p0_hat = np.fft.fft2(p0)
+    psf_hat = np.fft.fft2(ker)
+    mtf = np.abs(psf_hat)
+    q = np.maximum(np.real(np.fft.ifft2(p0_hat * psf_hat)), 0.0)
+    q /= float(np.sum(q))
+    m2_sharp = kloster_spatial_m2(p0)
+    m2_blurred = kloster_spatial_m2(q)
+    m2_parseval = float(np.sum((mtf * mtf) * (np.abs(p0_hat) ** 2))) / float(p0.size)
+    delta_opt = float(max(0.0, m2_sharp - m2_parseval))
+    retention_ratio = float(m2_parseval / max(m2_sharp, 1e-15))
+    mtf_sharpness = float(np.clip(1.0 - retention_ratio, 0.0, 1.0))
+    return {
+        "delta_opt": delta_opt,
+        "m2_sharp": m2_sharp,
+        "m2_blurred": m2_blurred,
+        "m2_parseval": m2_parseval,
+        "parseval_error": abs(m2_blurred - m2_parseval),
+        "retention_ratio": retention_ratio,
+        "mtf_sharpness": mtf_sharpness,
+        "psf_sigma": float(psf_sigma) if math.isfinite(float(psf_sigma)) else 0.0,
+    }
 
 
 def verify_optical_mtf_resolution() -> Dict[str, Any]:
@@ -146,31 +245,26 @@ def verify_optical_mtf_resolution() -> Dict[str, Any]:
         + 0.45 * (np.sin(2 * np.pi * xx / 8.0) ** 2) * (np.cos(2 * np.pi * yy / 8.0) ** 2)
     )
     p0 = raw / float(np.sum(raw))
-    p0_hat, m2_orig = np.fft.fft2(p0), kloster_spatial_m2(p0)
+    m2_orig = kloster_spatial_m2(p0)
     # Sweep PSF width sigma_psf and cross-check spatial M2(K*p) vs Parseval (1/N) sum MTF^2 |p_hat|^2
     curve, max_err = [], 0.0
     for sig in (0.6, 1.0, 1.6, 2.4, 3.6, 5.0):
-        psf = _gaussian_psf_2d(n_side, sig)
-        mtf = np.abs(np.fft.fft2(psf))
-        q = np.maximum(np.real(np.fft.ifft2(p0_hat * np.fft.fft2(psf))), 0.0)
-        q /= float(np.sum(q))
-        m2_sp = kloster_spatial_m2(q)
-        m2_pv = float(np.sum((mtf * mtf) * (np.abs(p0_hat) ** 2))) / float(p0.size)
-        err = abs(m2_sp - m2_pv)
-        max_err = max(max_err, err)
+        res = kloster_mtf_blur_loss(p0, psf_sigma=sig)
+        max_err = max(max_err, res["parseval_error"])
         # Equivalent Abbe numerical aperture NA = 0.61 * lambda / FWHM (lambda = 550 nm)
         curve.append({
             "psf_sigma_px": sig, "na_equiv": round(0.61 * 0.55 / max(2.355 * sig * 0.10, 0.05), 3),
-            "m2_spatial": round(m2_sp, 8), "m2_parseval": round(m2_pv, 8),
-            "parseval_err": err, "retention_ratio": round(m2_sp / m2_orig, 4),
+            "m2_spatial": round(res["m2_blurred"], 8), "m2_parseval": round(res["m2_parseval"], 8),
+            "parseval_err": res["parseval_error"], "retention_ratio": round(res["retention_ratio"], 4),
+            "delta_opt": round(res["delta_opt"], 8),
         })
     # Stress-test strict resolution monotonicity across 200 random positive 2D images & PSFs
     mono_ok = 0
     for _ in range(200):
         img = rng.exponential(scale=1.0, size=(16, 16))
         img /= float(np.sum(img))
-        ker = _gaussian_psf_2d(16, float(rng.uniform(0.5, 3.0)))
-        if kloster_spatial_m2(np.maximum(np.real(np.fft.ifft2(np.fft.fft2(img) * np.fft.fft2(ker))), 0.0)) <= kloster_spatial_m2(img) + 1e-14:
+        res = kloster_mtf_blur_loss(img, psf_sigma=float(rng.uniform(0.5, 3.0)))
+        if res["m2_blurred"] <= res["m2_sharp"] + 1e-14:
             mono_ok += 1
     ratios = [c["retention_ratio"] for c in curve]
     dec = all(ratios[i] > ratios[i + 1] for i in range(len(ratios) - 1))

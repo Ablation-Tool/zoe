@@ -27,6 +27,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent>
         <package android:name="com.google.android.apps.bard" />
+        <package android:name="com.google.android.apps.docs" />
         <package android:name="com.anthropic.claude" />
         <package android:name="ai.x.grok" />
         <package android:name="com.openai.chatgpt" />
@@ -68,6 +69,9 @@
             <data android:scheme="mailto" />
         </intent>
         <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
             <action android:name="android.media.action.VIDEO_CAPTURE" />
         </intent>
     </queries>
@@ -89,8 +93,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
-            android:screenOrientation="unspecified">
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -99,28 +102,8 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity android:name=".CellActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".FieldKitActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".ResearchActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".TrinityActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
             android:name=".ConversationActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".MultiVisionActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".RangingActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".RadioActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".ScreenSpaceActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".LocationActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".AppObservatoryActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".ConnectivityActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity
-            android:name=".SafeConvertActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".TripJournalActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity
-            android:name=".ElizaGemActivity"
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
@@ -133,26 +116,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CreativeStudioActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity android:name=".ZoeArcadeActivity" android:exported="false" android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <activity
-            android:name=".PrivacyVaultActivity"
-            android:exported="false"
-            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
-        <service
-            android:name=".ZoeAccessibilityService"
-            android:exported="true"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" />
-        </service>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

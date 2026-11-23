@@ -7,19 +7,21 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
-import re
 import subprocess
 import sys
 import tempfile
 import threading
-from typing import Any, Dict, Tuple
+from typing import Any, Callable, Dict, Tuple
 from urllib.parse import urlparse
 
+from ._eliza_routes import _ServerContext, dispatch_get, dispatch_post
 from .autonomy_view import configure_autonomy
 
+# Allowed loopback bind hosts enforced by CONSTITUTION.md
 ALLOWED_BIND_HOSTS = {"127.0.0.1", "localhost", "::1"}
 
 
+# Ensure Zoe-Autonomy src is importable on sys.path
 def _ensure_autonomy() -> Path:
     root = configure_autonomy()
     src_dir = str(root / "components" / "Zoe-Autonomy" / "src")
@@ -28,17 +30,19 @@ def _ensure_autonomy() -> Path:
     return root
 
 
+# Resolve optional avatar asset path from local profile or repo branding
 def _resolve_avatar_path(zoe_root: Path) -> Path | None:
     candidates = [
         Path.home() / "Pictures" / "zoe-avatars" / "04-badass-obsidian-crimson-cyan.png",
         zoe_root / "assets" / "branding" / "zoe-gem.png",
     ]
-    for c in candidates:
-        if c.is_file():
-            return c
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate
     return None
 
 
+# Synthesize offline 44.1 kHz WAV bytes via Zoe's native phoneme voice engine
 def synthesize_wav_bytes(text: str, action: str = "speak") -> bytes:
     """Synthesize stereo 44.1 kHz WAV bytes offline via Zoe's native 44-phoneme voice engine."""
     from .zoe_voice import BUILT_IN_SONGS, sing_song, speak_text
@@ -879,6 +883,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
 """
 
 
+# Enforce CONSTITUTION.md loopback-only binding for the local studio server
 def _assert_loopback_host(host: str) -> str:
     clean = str(host or "127.0.0.1").strip()
     if clean not in ALLOWED_BIND_HOSTS:
@@ -886,6 +891,77 @@ def _assert_loopback_host(host: str) -> str:
     return clean
 
 
+# ThreadingHTTPServer carrying immutable server context for module-level ElizaHandler
+class _ElizaHTTPServer(ThreadingHTTPServer):
+    def __init__(
+        self,
+        server_address: Tuple[str, int],
+        handler_cls: type[BaseHTTPRequestHandler],
+        context: _ServerContext,
+    ) -> None:
+        # Attach shared context before socket binding begins
+        self.context = context
+        super().__init__(server_address, handler_cls)
+
+
+# Module-level HTTP request handler delegating routes to _eliza_routes
+class ElizaHandler(BaseHTTPRequestHandler):
+    server: _ElizaHTTPServer
+
+    # Suppress default stderr HTTP access logging during interactive/test runs
+    def log_message(self, format: str, *args: object) -> None:
+        return
+
+    # Send raw bytes with Content-Type, Content-Length, and optional headers
+    def send_bytes(
+        self,
+        code: int,
+        content_type: str,
+        payload: bytes,
+        *,
+        no_store: bool = True,
+        extra_headers: Dict[str, str] | None = None,
+    ) -> None:
+        self.send_response(code)
+        self.send_header("Content-Type", content_type)
+        # Emit optional route-specific headers such as Content-Disposition or X-Zoe-*
+        if extra_headers:
+            for key, val in extra_headers.items():
+                self.send_header(key, val)
+        self.send_header("Content-Length", str(len(payload)))
+        # Disable caching for dynamic JSON, SVG, and interactive workbench pages
+        if no_store:
+            self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(payload)
+
+    # Serialize payload as strict UTF-8 JSON without NaN/Infinity
+    def send_json(self, code: int, payload: Dict[str, Any]) -> None:
+        raw = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8")
+        self.send_bytes(code, "application/json; charset=utf-8", raw, no_store=True)
+
+    # Parse bounded JSON object request body (max 512 KiB)
+    def read_json(self) -> Dict[str, Any]:
+        length = int(self.headers.get("Content-Length", "0") or "0")
+        # Enforce strict 512 KiB request payload limit
+        if length > 524_288:
+            raise ValueError("request body too large")
+        raw = self.rfile.read(length) if length > 0 else b"{}"
+        doc = json.loads(raw.decode("utf-8"))
+        if not isinstance(doc, dict):
+            raise ValueError("JSON body must be an object")
+        return doc
+
+    # Dispatch GET requests through declarative _eliza_routes tables
+    def do_GET(self) -> None:
+        dispatch_get(self, self.server.context, urlparse(self.path).path)
+
+    # Dispatch POST requests through declarative _eliza_routes tables
+    def do_POST(self) -> None:
+        dispatch_post(self, self.server.context, urlparse(self.path).path)
+
+
+# Build the loopback ThreadingHTTPServer bound to a single ZoeElizaEngine instance
 def create_server(
     zoe_root: str | Path | None = None,
     state_dir: str | Path | None = None,
@@ -899,547 +975,25 @@ def create_server(
     resolved_root = Path(zoe_root or root).expanduser().resolve()
     from zoe_autonomy.zoe_eliza import ZoeElizaEngine
 
+    # Validate loopback binding before instantiating engine or socket
     bind_host = _assert_loopback_host(host)
     engine = ZoeElizaEngine(resolved_root, state_dir=state_dir, default_gear=default_gear)
     lock = threading.RLock()
     avatar_path = _resolve_avatar_path(resolved_root)
-
-    class ElizaHandler(BaseHTTPRequestHandler):
-        def log_message(self, format: str, *args: object) -> None:
-            return
-
-        def _send_json(self, code: int, payload: Dict[str, Any]) -> None:
-            raw = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode("utf-8")
-            self.send_response(code)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.send_header("Content-Length", str(len(raw)))
-            self.send_header("Cache-Control", "no-store")
-            self.end_headers()
-            self.wfile.write(raw)
-
-        def _read_json(self) -> Dict[str, Any]:
-            length = int(self.headers.get("Content-Length", "0") or "0")
-            if length > 524_288:
-                raise ValueError("request body too large")
-            raw = self.rfile.read(length) if length > 0 else b"{}"
-            doc = json.loads(raw.decode("utf-8"))
-            if not isinstance(doc, dict):
-                raise ValueError("JSON body must be an object")
-            return doc
-
-        def do_GET(self) -> None:
-            path = urlparse(self.path).path
-            if path in {"/", "/index.html"}:
-                raw = INDEX_HTML.encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(raw)))
-                self.end_headers()
-                self.wfile.write(raw)
-                return
-            if path == "/avatar.png":
-                if avatar_path and avatar_path.is_file():
-                    raw = avatar_path.read_bytes()
-                    self.send_response(200)
-                    self.send_header("Content-Type", "image/png")
-                    self.send_header("Content-Length", str(len(raw)))
-                    self.end_headers()
-                    self.wfile.write(raw)
-                else:
-                    self.send_error(404, "avatar not found")
-                return
-            if path == "/api/status":
-                with lock:
-                    self._send_json(200, engine.status())
-                return
-            if path == "/api/memory":
-                with lock:
-                    self._send_json(200, engine.memory_snapshot())
-                return
-            if path == "/api/l5/phase3":
-                rep_file = resolved_root / "evidence" / "l5-phase3" / "l5-phase3-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
-                return
-            if path == "/api/l5/phase3/gem.svg":
-                from .l5_phase3 import l5_phase3_scene
-                from .render import scene_to_svg
-
-                scene, _ = l5_phase3_scene(resolved_root)
-                svg = scene_to_svg(scene).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
-                self.send_header("Content-Length", str(len(svg)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(svg)
-                return
-            if path == "/api/l5/phase4":
-                rep_file = resolved_root / "evidence" / "l5-phase4" / "l5-phase4-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
-                return
-            if path == "/api/l5/phase4/gem.svg":
-                from .l5_phase4 import l5_phase4_scene
-                from .render import scene_to_svg
-
-                scene, _ = l5_phase4_scene(resolved_root)
-                svg = scene_to_svg(scene).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
-                self.send_header("Content-Length", str(len(svg)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(svg)
-                return
-            if path == "/api/l5/phase5":
-                rep_file = resolved_root / "evidence" / "l5-phase5" / "l5-phase5-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
-                return
-            if path == "/api/l5/phase5/gem.svg":
-                from .l5_phase5 import l5_phase5_scene
-                from .render import scene_to_svg
-
-                scene, _ = l5_phase5_scene(resolved_root)
-                svg = scene_to_svg(scene).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
-                self.send_header("Content-Length", str(len(svg)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(svg)
-                return
-            if path == "/api/l5/phase6":
-                rep_file = resolved_root / "evidence" / "l5-phase6" / "l5-phase6-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False, "l5_agi_qualified": False})
-                return
-            if path == "/api/l5/phase6/gem.svg":
-                from .l5_phase6 import l5_phase6_scene
-                from .render import scene_to_svg
-
-                scene, _ = l5_phase6_scene(resolved_root)
-                svg = scene_to_svg(scene).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
-                self.send_header("Content-Length", str(len(svg)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(svg)
-                return
-            if path == "/api/os/mind":
-                rep_file = resolved_root / "evidence" / "zoe-os" / "zoe-os-mind-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False})
-                return
-            if path == "/api/os/mind/gem.svg":
-                from .zoe_os import zoe_os_scene
-                from .render import scene_to_svg
-                rep_file = resolved_root / "evidence" / "zoe-os" / "zoe-os-mind-report.json"
-                if rep_file.is_file():
-                    scene = zoe_os_scene(json.loads(rep_file.read_text(encoding="utf-8")))
-                    svg = scene_to_svg(scene).encode("utf-8")
-                    self.send_response(200)
-                    self.send_header("Content-Type", "image/svg+xml; charset=utf-8")
-                    self.send_header("Content-Length", str(len(svg)))
-                    self.send_header("Cache-Control", "no-store")
-                    self.end_headers()
-                    self.wfile.write(svg)
-                else:
-                    self._send_json(404, {"error": "zoe-os report not built yet"})
-                return
-            if path == "/api/kloster/elegance":
-                rep_file = resolved_root / "evidence" / "code-elegance" / "kloster-mccabe-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False})
-                return
-            if path == "/api/kloster/thermo":
-                rep_file = resolved_root / "evidence" / "kloster-thermodynamics" / "kloster-thermodynamics-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/riemannian":
-                rep_file = resolved_root / "evidence" / "kloster-riemannian" / "kloster-riemannian-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/transport":
-                rep_file = resolved_root / "evidence" / "kloster-optimal-transport" / "kloster-optimal-transport-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/majorization":
-                rep_file = resolved_root / "evidence" / "kloster-majorization" / "kloster-majorization-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/quantum":
-                rep_file = resolved_root / "evidence" / "kloster-quantum" / "kloster-quantum-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/mdl":
-                rep_file = resolved_root / "evidence" / "kloster-coding-mdl" / "kloster-coding-mdl-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/unification":
-                rep_file = resolved_root / "evidence" / "kloster-unification" / "kloster-unification-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/referee-proofs":
-                rep_file = resolved_root / "evidence" / "kloster-referee-proofs" / "kloster-referee-proofs-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/self-improving":
-                rep_file = resolved_root / "evidence" / "self-improving-engine" / "zoe-self-improving-engine-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/cryptanalysis":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "kloster-cryptanalysis-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/nsa-pack":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "nsa-research-puzzle-pack-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/bio-crypto-circle":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "bio-crypto-circle-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/cnsa2-ring2":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "cnsa2-scrna-ring2-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/theorem13":
-                rep_file = resolved_root / "evidence" / "kloster-theorem13" / "kloster-theorem13-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/nsa-ring3":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "nsa-ring3-deep-crypto-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/botanical-atlas":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "botanical-atlas-c27-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/theorem14":
-                rep_file = resolved_root / "evidence" / "kloster-theorem14" / "kloster-theorem14-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/proof-packet":
-                rep_file = resolved_root / "evidence" / "proof-packet" / "kloster-proof-packet-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/theorem15":
-                rep_file = resolved_root / "evidence" / "kloster-theorem15" / "kloster-theorem15-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/pharmacophore-c28":
-                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "pharmacophore-spatial-c28-report.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/api/kloster/live-qwen-shootout":
-                rep_file = resolved_root / "evidence" / "live-llm-hallucination" / "qwen25-hallucination-shootout.json"
-                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
-                return
-            if path == "/proof":
-                from .proof_packet_arena import render_proof_arena_html
-                html_bytes = render_proof_arena_html()
-                self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(html_bytes)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(html_bytes)
-                return
-            if path == "/botanical":
-                from .botanical_atlas_explorer import render_botanical_explorer_html
-                html_bytes = render_botanical_explorer_html()
-                self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(html_bytes)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(html_bytes)
-                return
-            if path == "/optics":
-                from .spatial_optical_workbench import render_optics_workbench_html
-                html_bytes = render_optics_workbench_html()
-                self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(html_bytes)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(html_bytes)
-                return
-            if path == "/api/orbit/master":
-                rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False})
-                return
-            if path == "/orbit":
-                rep_file = resolved_root / "evidence" / "renaissance-orbit" / "zoe-renaissance-orbit-master.json"
-                doc = json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"worlds": [], "worlds_verified": 0, "cross_pollination_edges_count": 0}
-                rows_html = "".join(
-                    f"<tr><td>{w['world_id']}</td><td>{w['engine_id']}</td><td style='color:#63f5b5'>{'PASS' if w['verified'] else 'FAIL'}</td><td><code>{w['evidence_sha256']}</code></td></tr>"
-                    for w in doc.get("worlds", [])
-                )
-                html = (
-                    "<!doctype html><html><head><meta charset='utf-8'><title>Zoe 11-World Observatory</title>"
-                    "<style>body{background:#060a14;color:#eef5ff;font-family:system-ui,sans-serif;padding:28px;max-width:1060px;margin:auto}"
-                    "h1{color:#00e5ff}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{padding:10px;border-bottom:1px solid #1e2d4a;text-align:left}"
-                    ".pill{display:inline-block;padding:4px 10px;border:1px solid #ffb84d;border-radius:999px;color:#ffb84d;font-size:13px;margin:4px 8px 4px 0}</style></head><body>"
-                    f"<h1>Zoe :: 11-World Renaissance Observatory (All {doc.get('orbit_passes_completed', 11)} Orbital Passes Complete)</h1>"
-                    f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
-                    f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
-                    f"<span class='pill'>Theorems 1-15 SymPy Proved</span><span class='pill'>45/45 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
-                    f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
-                    "<p style='margin-top:20px;color:#9db2d1;line-height:1.8'>Live Observatory APIs: "
-                    "<a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "
-                    "<a style='color:#7ce8ff' href='/api/os/mind/gem.svg'>/api/os/mind/gem.svg</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/elegance'>/api/kloster/elegance</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/thermo'>/api/kloster/thermo</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/riemannian'>/api/kloster/riemannian</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/transport'>/api/kloster/transport</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/majorization'>/api/kloster/majorization</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/quantum'>/api/kloster/quantum</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/mdl'>/api/kloster/mdl</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/unification'>/api/kloster/unification</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/referee-proofs'>/api/kloster/referee-proofs</a> · "
-                    "<a style='color:#7ce8ff' href='/api/self-improving'>/api/self-improving</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/cryptanalysis'>/api/kloster/cryptanalysis</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/nsa-pack'>/api/kloster/nsa-pack</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/bio-crypto-circle'>/api/kloster/bio-crypto-circle</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/cnsa2-ring2'>/api/kloster/cnsa2-ring2</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/theorem13'>/api/kloster/theorem13</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/nsa-ring3'>/api/kloster/nsa-ring3</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/botanical-atlas'>/api/kloster/botanical-atlas</a> · "
-                    "<a style='color:#63f5b5' href='/botanical'>/botanical (Interactive C27 Explorer)</a> · "
-                    "<a style='color:#f0a3df' href='/optics'>/optics (Interactive Theorem 14 Optical &amp; Spatial Lab)</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/theorem14'>/api/kloster/theorem14</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/theorem15'>/api/kloster/theorem15</a> · "
-                    "<a style='color:#7ce8ff' href='/api/kloster/pharmacophore-c28'>/api/kloster/pharmacophore-c28</a> · "
-                    "<a style='color:#ffb84d' href='/proof'>/proof (Interactive Referee Arena)</a> · "
-                    "<a style='color:#ffb84d' href='/api/kloster/proof-packet'>/api/kloster/proof-packet</a> · "
-                    "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
-                ).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(html)))
-                self.end_headers()
-                self.wfile.write(html)
-                return
-            if path == "/api/digest/latest":
-                rep_file = resolved_root / "evidence" / "l5-mobile-digestion" / "digestion-report.json"
-                if rep_file.is_file():
-                    self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")))
-                else:
-                    self._send_json(200, {"available": False, "epistemic_boundaries": {"l5_agi_qualified": False}})
-                return
-            if path == "/api/export":
-                with lock:
-                    raw = json.dumps(engine.export_session(), ensure_ascii=False, indent=2, sort_keys=True).encode("utf-8")
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json; charset=utf-8")
-                self.send_header("Content-Disposition", 'attachment; filename="zoe-eliza-session.json"')
-                self.send_header("Content-Length", str(len(raw)))
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-                self.wfile.write(raw)
-                return
-            self.send_error(404, "not found")
-
-        def do_POST(self) -> None:
-            path = urlparse(self.path).path
-            try:
-                body = self._read_json()
-                if path == "/api/chat":
-                    msg = str(body.get("message") or "").strip()
-                    gear = body.get("gear")
-                    model = body.get("model")
-                    with lock:
-                        res = engine.respond(msg, gear=gear, model=model)
-                    self._send_json(200, res)
-                    return
-                if path == "/api/speak":
-                    text = str(body.get("text") or "").strip()
-                    action = str(body.get("action") or "speak")
-                    wav_bytes = synthesize_wav_bytes(text, action=action)
-                    self.send_response(200)
-                    self.send_header("Content-Type", "audio/wav")
-                    self.send_header("Content-Length", str(len(wav_bytes)))
-                    self.end_headers()
-                    self.wfile.write(wav_bytes)
-                    return
-                if path == "/api/playroom/jam":
-                    from .creative_symphony import run_creative_symphony, synthesize_symphony_wav
-
-                    seed = int(body.get("seed") or 2026)
-                    sym_rep = run_creative_symphony(seed=seed, iterations=180, archive_bins=4)
-                    champ = sym_rep["champion"]
-                    with tempfile.TemporaryDirectory(prefix="zoe_eliza_jam_") as jtmp:
-                        wav_p = Path(jtmp) / "jam.wav"
-                        synthesize_symphony_wav(champ, wav_p)
-                        wav_bytes = wav_p.read_bytes()
-                    desc = champ["descriptors"]
-                    self.send_response(200)
-                    self.send_header("Content-Type", "audio/wav")
-                    self.send_header("Content-Length", str(len(wav_bytes)))
-                    self.send_header("X-Zoe-Seed", str(seed))
-                    self.send_header("X-Zoe-Groove", str(round(float(desc["groove_density"]), 3)))
-                    self.send_header("X-Zoe-Curiosity", str(round(float(desc["curiosity_fitness"]), 4)))
-                    self.end_headers()
-                    self.wfile.write(wav_bytes)
-                    return
-                if path == "/api/memory/remember":
-                    note = str(body.get("text") or "").strip()
-                    topic = str(body.get("topic") or "atelier")
-                    with lock:
-                        saved = engine.remember(note, topic=topic)
-                        snap = engine.memory_snapshot()
-                    self._send_json(200, {"saved": saved, "memory_snapshot": snap})
-                    return
-                if path == "/api/memory/relay":
-                    note = str(body.get("text") or "").strip()
-                    topic = str(body.get("topic") or "lab_relay")
-                    with lock:
-                        saved = engine.relay_for_zoe(note, topic=topic)
-                        snap = engine.memory_snapshot()
-                    self._send_json(200, {"saved": saved, "memory_snapshot": snap})
-                    return
-                if path == "/api/memory/sync":
-                    from zoe_autonomy.l5_phase4_unified_memory import merge_mobile_sync_batch
-
-                    with lock:
-                        res = merge_mobile_sync_batch(engine, body)
-                    self._send_json(200, res)
-                    return
-                if path == "/api/digest/mobile":
-                    from zoe_autonomy.l5_mobile_digestion import digest_mobile_bundle
-
-                    with lock:
-                        res = digest_mobile_bundle(engine, body, zoe_root=resolved_root)
-                    self._send_json(200, res)
-                    return
-                if path == "/api/stem/route":
-                    from zoe_autonomy.stem_layering import route_stem
-
-                    prompt = str(body.get("prompt") or "").strip()
-                    dec = route_stem(
-                        prompt,
-                        offline_only=bool(body.get("offline_only", False)),
-                        privacy_sensitive=bool(body.get("privacy_sensitive", False)),
-                        files_count=int(body.get("files_count", 1)),
-                        multi_file=bool(body.get("multi_file", False)),
-                        probe_local=bool(body.get("probe_local", False)),
-                    )
-                    self._send_json(200, dec.to_dict())
-                    return
-                if path == "/api/l5/phase5/run":
-                    from zoe_autonomy.l5_phase5_frontier import ALL_PHASE5_PILLARS, run_l5_phase5_suite
-
-                    pillar_id = body.get("pillar_id")
-                    with lock:
-                        if pillar_id:
-                            chosen = None
-                            for fn in ALL_PHASE5_PILLARS:
-                                res = fn(resolved_root)
-                                if res["pillar_id"] == str(pillar_id):
-                                    chosen = res
-                                    break
-                            if chosen is None:
-                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
-                            self._send_json(200, chosen)
-                        else:
-                            rep = run_l5_phase5_suite(resolved_root)
-                            self._send_json(200, rep)
-                    return
-                if path == "/api/l5/phase6/run":
-                    from zoe_autonomy.l5_phase6_autonomous import ALL_PHASE6_PILLARS, run_l5_phase6_suite
-
-                    pillar_id = body.get("pillar_id")
-                    with lock:
-                        if pillar_id:
-                            chosen = None
-                            for fn in ALL_PHASE6_PILLARS:
-                                res = fn(resolved_root)
-                                if res["pillar_id"] == str(pillar_id):
-                                    chosen = res
-                                    break
-                            if chosen is None:
-                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
-                            self._send_json(200, chosen)
-                        else:
-                            rep = run_l5_phase6_suite(resolved_root)
-                            self._send_json(200, rep)
-                    return
-                if path == "/api/l5/phase4/run":
-                    from zoe_autonomy.l5_phase4_embodied import ALL_PHASE4_PILLARS, run_l5_phase4_suite
-
-                    pillar_id = body.get("pillar_id")
-                    with lock:
-                        if pillar_id:
-                            chosen = None
-                            for fn in ALL_PHASE4_PILLARS:
-                                res = fn(resolved_root)
-                                if res["pillar_id"] == str(pillar_id):
-                                    chosen = res
-                                    break
-                            if chosen is None:
-                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
-                            self._send_json(200, chosen)
-                        else:
-                            rep = run_l5_phase4_suite(resolved_root)
-                            self._send_json(200, rep)
-                    return
-                if path == "/api/l5/phase3/run":
-                    from zoe_autonomy.l5_phase3_live import ALL_PHASE3_PILLARS, run_l5_phase3_suite
-
-                    pillar_id = body.get("pillar_id")
-                    with lock:
-                        if pillar_id:
-                            chosen = None
-                            for fn in ALL_PHASE3_PILLARS:
-                                res = fn(resolved_root)
-                                if res["pillar_id"] == str(pillar_id):
-                                    chosen = res
-                                    break
-                            if chosen is None:
-                                raise ValueError(f"unknown pillar_id: {pillar_id!r}")
-                            self._send_json(200, chosen)
-                        else:
-                            rep = run_l5_phase3_suite(resolved_root)
-                            self._send_json(200, rep)
-                    return
-                if path == "/api/gear":
-                    gear = str(body.get("gear") or "gear1")
-                    with lock:
-                        st = engine.set_gear(gear)
-                    self._send_json(200, st)
-                    return
-                if path == "/api/stop":
-                    with lock:
-                        st = engine.stop()
-                    self._send_json(200, st)
-                    return
-                self.send_error(404, "not found")
-            except (ValueError, RuntimeError, json.JSONDecodeError) as err:
-                self._send_json(400, {"error": str(err)})
-
-    server = ThreadingHTTPServer((bind_host, int(port)), ElizaHandler)
+    # Package dependencies into an immutable context passed to _ElizaHTTPServer
+    ctx = _ServerContext(
+        zoe_root=resolved_root,
+        engine=engine,
+        lock=lock,
+        avatar_path=avatar_path,
+        index_html=INDEX_HTML,
+        synthesize_wav_fn=synthesize_wav_bytes,
+    )
+    server = _ElizaHTTPServer((bind_host, int(port)), ElizaHandler, ctx)
     return server, engine, lock
 
 
+# Attempt to launch local browser tab without blocking server startup
 def _maybe_open_browser(url: str) -> None:
     for cmd in (["/snap/bin/brave", url], ["xdg-open", url]):
         if Path(cmd[0]).exists() or subprocess.run(["which", cmd[0]], capture_output=True).returncode == 0:
@@ -1450,6 +1004,7 @@ def _maybe_open_browser(url: str) -> None:
                 continue
 
 
+# Play synthesized WAV reply over the first available local ALSA/Pulse/PipeWire player
 def _speak_local(text: str, action: str = "speak") -> None:
     wav_bytes = synthesize_wav_bytes(text, action=action)
     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tf:
@@ -1461,32 +1016,37 @@ def _speak_local(text: str, action: str = "speak") -> None:
                 subprocess.run([player, wav_path], check=False)
                 break
     finally:
+        # Always remove temporary WAV artifact after playback
         Path(wav_path).unlink(missing_ok=True)
 
 
+# Configure subcommand-specific CLI options on an argparse subparser
+def _configure_subparser(name: str, sp: argparse.ArgumentParser) -> None:
+    sp.add_argument("--zoe-root", help="Zoe monorepo root; default ZOE_ROOT")
+    sp.add_argument("--state", help="Persistent state directory; default ~/.zoe/eliza")
+    if name == "serve":
+        sp.add_argument("--host", default="127.0.0.1")
+        sp.add_argument("--port", type=int, default=8765)
+        sp.add_argument("--gear", choices=("gear1", "gear2"), default=None)
+        sp.add_argument("--no-open", action="store_true")
+    elif name == "cli":
+        sp.add_argument("--gear", choices=("gear1", "gear2"), default="gear1")
+        sp.add_argument("--speak", action="store_true")
+    elif name == "ask":
+        sp.add_argument("prompt", nargs="+")
+        sp.add_argument("--gear", choices=("gear1", "gear2"), default="gear1")
+        sp.add_argument("--json", action="store_true")
+
+
+# Build CLI argument parser supporting serve, cli, ask, and status subcommands
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="zoe eliza",
         description="Zoe-ELIZA x GEM: Two-Gear Zero-Token Glass-Box Conversational Atelier",
     )
     sub = p.add_subparsers(dest="subcommand")
-
     for name in ("serve", "cli", "ask", "status"):
-        sp = sub.add_parser(name)
-        sp.add_argument("--zoe-root", help="Zoe monorepo root; default ZOE_ROOT")
-        sp.add_argument("--state", help="Persistent state directory; default ~/.zoe/eliza")
-        if name == "serve":
-            sp.add_argument("--host", default="127.0.0.1")
-            sp.add_argument("--port", type=int, default=8765)
-            sp.add_argument("--gear", choices=("gear1", "gear2"), default=None)
-            sp.add_argument("--no-open", action="store_true")
-        elif name == "cli":
-            sp.add_argument("--gear", choices=("gear1", "gear2"), default="gear1")
-            sp.add_argument("--speak", action="store_true")
-        elif name == "ask":
-            sp.add_argument("prompt", nargs="+")
-            sp.add_argument("--gear", choices=("gear1", "gear2"), default="gear1")
-            sp.add_argument("--json", action="store_true")
+        _configure_subparser(name, sub.add_parser(name))
 
     # Root-level flags so bare `zoe eliza` launches serve cleanly
     p.add_argument("--zoe-root", help=argparse.SUPPRESS)
@@ -1498,56 +1058,67 @@ def build_parser() -> argparse.ArgumentParser:
     return p
 
 
-def main(argv=None) -> int:
-    root = _ensure_autonomy()
+# Execute the `status` CLI subcommand
+def _cmd_status(args: argparse.Namespace, zoe_root: Path) -> int:
     from zoe_autonomy.zoe_eliza import ZoeElizaEngine
 
-    args = build_parser().parse_args(argv)
-    zoe_root = Path(args.zoe_root or os.environ.get("ZOE_ROOT") or root).expanduser().resolve()
-    cmd = args.subcommand or "serve"
+    engine = ZoeElizaEngine(zoe_root, state_dir=args.state)
+    print(json.dumps(engine.status(), indent=2, sort_keys=True))
+    return 0
 
-    if cmd == "status":
-        engine = ZoeElizaEngine(zoe_root, state_dir=args.state)
-        print(json.dumps(engine.status(), indent=2, sort_keys=True))
+
+# Execute the `ask` CLI subcommand for a single prompt
+def _cmd_ask(args: argparse.Namespace, zoe_root: Path) -> int:
+    from zoe_autonomy.zoe_eliza import ZoeElizaEngine
+
+    engine = ZoeElizaEngine(zoe_root, state_dir=args.state, default_gear=args.gear)
+    res = engine.respond(" ".join(args.prompt), gear=args.gear)
+    if args.json:
+        print(json.dumps(res, indent=2, ensure_ascii=False))
         return 0
+    tr = res["eliza_trace"]
+    mc = res["metacognition"]
+    print(f"Zoe [{res['gear_used']} · {res['mode']} · rule={tr['matched_rule_id']} · A_tau={mc['a_tau']} · 0 tokens]:")
+    print(res["reply"])
+    return 0
 
-    if cmd == "ask":
-        engine = ZoeElizaEngine(zoe_root, state_dir=args.state, default_gear=args.gear)
-        res = engine.respond(" ".join(args.prompt), gear=args.gear)
-        if args.json:
-            print(json.dumps(res, indent=2, ensure_ascii=False))
-        else:
-            tr = res["eliza_trace"]
-            mc = res["metacognition"]
-            print(f"Zoe [{res['gear_used']} · {res['mode']} · rule={tr['matched_rule_id']} · A_tau={mc['a_tau']} · 0 tokens]:")
-            print(res["reply"])
-        return 0
 
-    if cmd == "cli":
-        engine = ZoeElizaEngine(zoe_root, state_dir=args.state, default_gear=args.gear)
-        print("Zoe-ELIZA x GEM (0 cloud tokens · Glass-Box mode). Type 'quit' to exit.")
-        while True:
-            try:
-                line = input("you> ").strip()
-            except (EOFError, KeyboardInterrupt):
-                print()
-                break
-            if not line:
-                continue
-            if line.lower() in {"quit", "exit", "bye"}:
-                print("Zoe: Session saved cleanly to SHA-256 memory. See you soon, Research Partner.")
-                break
-            res = engine.respond(line, gear=args.gear)
-            tr = res["eliza_trace"]
-            mc = res["metacognition"]
-            cym = res["cymatics"]
-            print(f"Zoe [{res['mode']} | rule={tr['matched_rule_id']} | A_0.08={mc['a_tau']} | /{cym['dominant_phoneme']}/{tuple(cym['modes'])}]:")
-            print(res["reply"])
-            if args.speak:
-                hint = res.get("voice_hint") or {"action": "speak", "text": res["reply"]}
-                _speak_local(hint.get("text", res["reply"]), action=hint.get("action", "speak"))
-        return 0
+# Run and display one interactive REPL turn with optional voice playback
+def _print_cli_turn(engine: Any, line: str, *, gear: str | None, speak: bool) -> None:
+    res = engine.respond(line, gear=gear)
+    tr = res["eliza_trace"]
+    mc = res["metacognition"]
+    cym = res["cymatics"]
+    print(f"Zoe [{res['mode']} | rule={tr['matched_rule_id']} | A_0.08={mc['a_tau']} | /{cym['dominant_phoneme']}/{tuple(cym['modes'])}]:")
+    print(res["reply"])
+    if speak:
+        hint = res.get("voice_hint") or {"action": "speak", "text": res["reply"]}
+        _speak_local(hint.get("text", res["reply"]), action=hint.get("action", "speak"))
 
+
+# Execute the interactive `cli` REPL subcommand
+def _cmd_cli(args: argparse.Namespace, zoe_root: Path) -> int:
+    from zoe_autonomy.zoe_eliza import ZoeElizaEngine
+
+    engine = ZoeElizaEngine(zoe_root, state_dir=args.state, default_gear=args.gear)
+    print("Zoe-ELIZA x GEM (0 cloud tokens · Glass-Box mode). Type 'quit' to exit.")
+    while True:
+        try:
+            line = input("you> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            break
+        if not line:
+            continue
+        if line.lower() in {"quit", "exit", "bye"}:
+            print("Zoe: Session saved cleanly to SHA-256 memory. See you soon, Research Partner.")
+            break
+        _print_cli_turn(engine, line, gear=args.gear, speak=bool(args.speak))
+    return 0
+
+
+# Execute the `serve` HTTP atelier subcommand
+def _cmd_serve(args: argparse.Namespace, zoe_root: Path) -> int:
     server, _engine, _lock = create_server(
         zoe_root,
         state_dir=args.state,
@@ -1567,6 +1138,25 @@ def main(argv=None) -> int:
     finally:
         server.server_close()
     return 0
+
+
+# Declarative CLI subcommand dispatch table
+_CLI_HANDLERS: Dict[str, Callable[[argparse.Namespace, Path], int]] = {
+    "status": _cmd_status,
+    "ask": _cmd_ask,
+    "cli": _cmd_cli,
+    "serve": _cmd_serve,
+}
+
+
+# CLI entrypoint dispatching serve, cli, ask, or status
+def main(argv=None) -> int:
+    root = _ensure_autonomy()
+    args = build_parser().parse_args(argv)
+    zoe_root = Path(args.zoe_root or os.environ.get("ZOE_ROOT") or root).expanduser().resolve()
+    cmd = args.subcommand or "serve"
+    handler_fn = _CLI_HANDLERS.get(cmd, _cmd_serve)
+    return handler_fn(args, zoe_root)
 
 
 if __name__ == "__main__":

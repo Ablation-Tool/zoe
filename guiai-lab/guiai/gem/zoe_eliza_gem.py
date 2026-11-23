@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-import os
 from pathlib import Path
 import sys
 from typing import Dict, List, Tuple
 
+from ._root import resolve_zoe_root as _resolve_root
 from .chiasm import hud_stamp_objects
 from .model import Scene
 from .qualia import BACKGROUND, CYAN, GOLD, MUTED, PANEL, RED, TEXT
@@ -40,15 +40,6 @@ def _text(identifier: str, position: List[int], value: object, size: int = 12, c
         "fill": "none",
         "width": 0,
     }
-
-
-def _resolve_root(zoe_root: str | Path | None = None) -> Path:
-    if zoe_root is not None:
-        return Path(zoe_root).expanduser().resolve()
-    env_root = os.environ.get("ZOE_ROOT")
-    if env_root:
-        return Path(env_root).expanduser().resolve()
-    return Path(__file__).resolve().parents[3]
 
 
 def eliza_scene(zoe_root: str | Path | None = None) -> Tuple[Scene, Dict[str, object]]:

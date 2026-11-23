@@ -31,6 +31,8 @@ from typing import Any, Callable, Dict, List, Sequence, Tuple
 
 import numpy as np
 
+from ._metrics import auroc_argsort as _auroc
+
 CONTRACT = "zoe-open-ended-multistmt-evolution/v1"
 
 ALLOWED_FUNCS: Dict[str, Callable[..., float]] = {
@@ -183,17 +185,6 @@ def _eval_program_mse(fn: Callable[[float, float, float, float], Tuple[float, fl
             pred, mem = fn(float(xs[t, 0]), float(xs[t, 1]), float(xs[t, 2]), mem)
             errs.append((pred - float(ys[t])) ** 2)
     return float(np.mean(errs))
-
-
-def _auroc(y_true: np.ndarray, scores: np.ndarray) -> float:
-    order = np.argsort(scores)
-    ys = y_true[order]
-    n1 = int(np.sum(ys == 1))
-    n0 = int(len(ys) - n1)
-    if n1 == 0 or n0 == 0:
-        return 0.5
-    ranks = np.arange(1, len(ys) + 1, dtype=np.float64)
-    return float((np.sum(ranks[ys == 1]) - n1 * (n1 + 1) / 2.0) / (n1 * n0))
 
 
 def _mutate_genome(g: Dict[str, Any], rng: np.random.Generator) -> Dict[str, Any]:

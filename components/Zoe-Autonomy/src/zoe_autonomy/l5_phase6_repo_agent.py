@@ -216,13 +216,26 @@ def _live_12point_monorepo_contract_audit(zoe_root: Path) -> Dict[str, Any]:
         "components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py",
         "ALLOWED_LOOPBACK_HOSTS", "127.0.0.1",
     )
+    def has_android_version_at_least(rel: str, min_code: int, min_ver: Tuple[int, int, int]) -> bool:
+        p = zoe_root / rel
+        if not p.is_file():
+            return False
+        txt = p.read_text(encoding="utf-8", errors="replace")
+        m_code = re.search(r"\bversionCode\s+(\d+)", txt)
+        m_name = re.search(r"\bversionName\s+['\"](\d+)\.(\d+)\.(\d+)['\"]", txt)
+        if not m_code or not m_name:
+            return False
+        ver_tuple = tuple(int(g) for g in m_name.groups())
+        return int(m_code.group(1)) >= min_code and ver_tuple >= min_ver
+
     checks["android_manifest_no_backup"] = has(
         "mobile/android/app/src/main/AndroidManifest.xml",
         'android:allowBackup="false"',
     )
-    checks["android_v095_version"] = has(
+    checks["android_v095_version"] = has_android_version_at_least(
         "mobile/android/app/build.gradle",
-        "versionCode 16", "0.9.5",
+        16,
+        (0, 9, 5),
     )
     checks["android_strict_accessible_volume"] = has(
         "mobile/android/app/src/main/java/research/zoetic/zoe/AccessibleVolume.java",

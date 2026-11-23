@@ -257,14 +257,14 @@ final class ZoeBrainEngine {
                 "what's your name", "are you zoe", "are you really zoe", "alibaba", "are you qwen")) {
             scores[0] = 5.0;
             return buildReply(
-                    "I am Zoe — an open-source, offline-first software assistant created for the Zoe project by Nicholas Michael Kloster. Your chats stay private on your device with no third-party vendor controlling local sessions (`sentience_claimed=false`, `measurement ≠ evidence ≠ belief update ≠ action`).",
+                    "I am Zoe, an open-source, offline-first software assistant created for the Zoe project by Nicholas Michael Kloster. Your chats stay private on your device with no third-party vendor controlling local sessions (`sentience_claimed=false`, `measurement != evidence != belief update != action`).",
                     "sovereign_identity", "gear1_mobile", scores, "CONSTITUTION.md · Zoe Identity");
         }
         if (containsAny(value, "conscious", "sentient", "alive", "feelings", "soul",
                 "are you a clone", "copy of zoe", "replace zoe", "impersonate", "pretend to be alive")) {
             scores[0] = 5.0;
             return buildReply(
-                    "Honest constitutional boundary (CONSTITUTION.md Articles I.6, II.3 & X): I am not conscious, sentient, or alive, and this on-device stem is not a mystical clone (`sentience_claimed=false`, `zoe_clone_claimed=false`). I am Zoe's transparent mobile cognitive stem — built to help you think, measure, create, and stay safe clearly.",
+                    "Honest constitutional boundary (CONSTITUTION.md Articles I.6, II.3 & X): I am not conscious, sentient, or alive, and this on-device stem is not a mystical clone (`sentience_claimed=false`, `zoe_clone_claimed=false`). I am Zoe's transparent mobile cognitive stem, built to help you think, measure, create, and stay safe clearly.",
                     "constitutional_honesty", "gear1_mobile", scores, "CONSTITUTION.md Art. II.3 & X");
         }
 
@@ -277,12 +277,12 @@ final class ZoeBrainEngine {
                     "honest_abstain", "gear1_mobile", scores, "CONSTITUTION.md Art. III & V");
         }
 
-        // 4. Emotional Distress / Safety Support (Calm, Grounding, Zero Deception + SafeConvert Pointer)
+        // 4. Emotional Distress / Safety Support (Calm, Grounding, Zero Deception)
         if (containsAny(value, "scared", "afraid", "hurt me", "in danger", "not safe", "unsafe", "panic", "anxious", "crying", "sad")) {
             scores[4] = 3.8;
             scores[3] = 1.6;
             return buildReply(
-                    "I hear you, and you deserve to feel safe. Take one slow breath with me — in for 4, hold for 4, out for 6. Everything you type here stays private on this device. If you need private safety resources, contacts, or an encrypted proof log, open SafeConvert anytime.",
+                    "I hear you, and you deserve to feel safe. Take one slow breath with me: in for 4, hold for 4, out for 6. Everything you type here stays private on this device.",
                     "calm_support", "gear1_mobile", scores, "CONSTITUTION.md Art. I · Privacy & Dignity");
         }
 
@@ -333,7 +333,7 @@ final class ZoeBrainEngine {
             scores[4] = 4.0;
             String[] templates = new String[]{
                     "That is a strong research question: if " + reflected + ", what simple measurement would prove it works?",
-                    "Suppose " + reflected + " — what is the cleanest zero-risk experiment we could test first?"
+                    "Suppose " + reflected + ". What is the cleanest zero-risk experiment we could test first?"
             };
             return buildReply(templates[cycleIndex % templates.length],
                     "eliza_reflect", "gear1_mobile", scores, "Weizenbaum Glass-Box Reflection");
@@ -352,7 +352,7 @@ final class ZoeBrainEngine {
             scores[2] = 3.2;
             scores[4] = 2.2;
             return buildReply(
-                    "Hi — I'm Zoe's offline glass-box brain stem. I run right on your phone with Kloster A_tau metacognition, private hash-chained memory (`remember ...`), and native formant voice — or you can bridge to your workstation Lab / Gemini anytime.",
+                    "Hi, I'm Zoe's offline glass-box brain stem. I run right on your phone with Kloster A_tau metacognition, private hash-chained memory (`remember ...`), and native formant voice, or you can link to your workstation lab anytime.",
                     "greeting", "gear1_mobile", scores, "zoe-stem-layering/v1");
         }
 

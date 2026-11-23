@@ -4,6 +4,7 @@ import argparse
 from copy import deepcopy
 from dataclasses import dataclass
 import hashlib
+from importlib import import_module
 import json
 import math
 import os
@@ -30,6 +31,7 @@ from .metacognition import (
 from .self_reflection import run_reflection, save_reflection, summary as reflection_summary
 
 
+# Conversational contract and lexical evidence-indexing configuration.
 CHAT_CONTRACT = "zoe-native-conversation/v2"
 DEFAULT_STATE = Path.home() / ".zoe" / "chat"
 STOP_WORDS = {
@@ -37,6 +39,7 @@ STOP_WORDS = {
 }
 DOCUMENT_PATHS = (
     "README.md",
+    "PROOF-PACKET.md",
     "AGI-ROADMAP.md",
     "CAPABILITY-ATLAS.md",
     "MONOREPO.md",
@@ -59,12 +62,18 @@ DOCUMENT_PATHS = (
     "components/agent-logging-system/docs/NEUROGARDEN.md",
     "research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md",
     "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md",
+    "research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md",
+    "research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md",
+    "research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md",
+    "research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md",
     "research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md",
     "research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md",
     "research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md",
     "research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md",
     "research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md",
     "research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md",
+    "research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md",
+    "research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
@@ -84,6 +93,13 @@ HELP = """Commands:
   meta [question|action|self]  optionally measure live-option breadth with Aτ,D
   chiasm                       inspect the Causal Chiasm (past rho_T <-> future P_h) & filtration
   spectral [benchmark]         verify the Kloster Spectral Filtration Theorem (add 'benchmark' for 3-domain run)
+  theorem13 [json]             run Theorem 13 Kloster finite-sample sequential stopping suite
+  theorem14 [json]             run Theorem 14 Kloster spatial-optical filtration & MTF suite
+  theorem15 [json]             run Theorem 15 Kloster multi-agent consensus & Brier law suite
+  botanical [json|html PATH]   run C27 36-molecule Botanical Atlas & Filbin-2018 lab (or export HTML)
+  optics [json|html PATH]      run Theorem 14 Optics Workbench (Scheimpflug, MTF, architectural isovist)
+  proof-packet [json|html PATH] run the 5-pillar Operational Metacognition Referee Proof Packet
+  c28 [json]                   run C28 3D Pharmacophore compactness & histology MTF suite
   genesis                      run the 9-stage Autopoietic Discovery & 10-domain retention engine
   mars                         run Stage 4 Self-Tuning Adaptive Lens k*(kappa) on real data
   playroom [seed]              run Zoe's Open-Ended Creative Playroom (MAP-Elites + Kloster Curiosity)
@@ -99,6 +115,10 @@ HELP = """Commands:
   l5 [run|speak]               run L5 Phase 1 integrated 10-domain core, mission & optional spoken summary
   l5-phase2 [run|speak]        run L5 Phase 2 open-world code repair, 2400-ep memory, real vision & 16-LLM science
   l5-phase3 [run|speak]        run L5 Phase 3 live agentic synthesis, external repo surgery & Eliza-GEM bench
+  l5-phase4 [run|speak]        run L5 Phase 4 embodied mind, stem-layering & 4-family surgery
+  l5-phase5 [run|speak]        run L5 Phase 5 ARC induction, 15-fault parity & scientific falsification
+  l5-phase6 [run|speak]        run L5 Phase 6 multi-horizon A_tau^(h), object ARC & blind scratch evolution
+  orbit | elegance | thermo    inspect 11-World Renaissance Orbit, Kloster-McCabe elegance, or Theorem 5 telemetry
   steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
   eliza <prompt>               talk with Zoe-ELIZA x GEM zero-token Glass-Box companion
   undo                         compensate for the latest remember/goal/run/reflect action
@@ -109,6 +129,62 @@ HELP = """Commands:
   quit                         save and leave the conversation
 
 Natural-language questions use evidence search with citations. Zoe keeps no automatic transcript notebook and no external metacognition monitor."""
+
+# Declarative table of L5 Phase 1-6 chat runners and cached evidence paths.
+_L5_CHAT_SPECS: dict[str, tuple[str, str, str, str, str, str, str, str]] = {
+    "l5": (
+        ".l5_cognitive_core", "run_l5_core_suite", "summarize_l5_core_report",
+        "evidence/l5-core/l5-core-report.json", "zoe-l5-mission.wav",
+        "Saved spoken summary WAV", "l5-core", "verify_l5_core.py",
+    ),
+    "l5-phase2": (
+        ".l5_phase2_openworld", "run_l5_phase2_suite", "summarize_l5_phase2_report",
+        "evidence/l5-phase2/l5-phase2-report.json", "zoe-l5-phase2.wav",
+        "Saved spoken Phase 2 summary WAV", "l5-phase2", "verify_l5_phase2.py",
+    ),
+    "l5-phase3": (
+        ".l5_phase3_live", "run_l5_phase3_suite", "summarize_l5_phase3_report",
+        "evidence/l5-phase3/l5-phase3-report.json", "zoe-l5-phase3.wav",
+        "Saved spoken Phase 3 summary WAV", "l5-phase3", "verify_l5_phase3.py",
+    ),
+    "l5-phase4": (
+        ".l5_phase4_embodied", "run_l5_phase4_suite", "summarize_l5_phase4_report",
+        "evidence/l5-phase4/l5-phase4-report.json", "zoe-l5-phase4.wav",
+        "Saved spoken Phase 4 summary WAV", "l5-phase4", "verify_l5_phase4.py",
+    ),
+    "l5-phase5": (
+        ".l5_phase5_frontier", "run_l5_phase5_suite", "summarize_l5_phase5_report",
+        "evidence/l5-phase5/l5-phase5-report.json", "zoe-l5-phase5.wav",
+        "Saved spoken Phase 5 summary WAV", "l5-phase5", "verify_l5_phase5.py",
+    ),
+    "l5-phase6": (
+        ".l5_phase6_autonomous", "run_l5_phase6_suite", "summarize_l5_phase6_report",
+        "evidence/l5-phase6/l5-phase6-report.json", "zoe-l5-phase6.wav",
+        "Saved spoken Phase 6 summary WAV", "l5-phase6", "verify_l5_phase6.py",
+    ),
+}
+
+_L5_CHAT_ALIASES: dict[str, str] = {
+    "l5": "l5", "l5-core": "l5", "unified-mind": "l5",
+    "l5-phase2": "l5-phase2", "phase2": "l5-phase2", "openworld": "l5-phase2",
+    "l5-phase3": "l5-phase3", "phase3": "l5-phase3", "live-agent": "l5-phase3",
+    "l5-phase4": "l5-phase4", "phase4": "l5-phase4", "embodied-mind": "l5-phase4",
+    "l5-phase5": "l5-phase5", "phase5": "l5-phase5", "frontier-mind": "l5-phase5",
+    "l5-phase6": "l5-phase6", "phase6": "l5-phase6", "autonomous-frontier": "l5-phase6",
+}
+
+_ORBIT_CHAT_COMMANDS: frozenset[str] = frozenset({"zoe-os", "os", "elegance", "thermo", "orbit"})
+
+_R3_CHAT_ALIASES: dict[str, str] = {
+    "theorem13": "theorem13",
+    "theorem14": "theorem14",
+    "theorem15": "theorem15",
+    "botanical": "botanical",
+    "c27": "botanical",
+    "optics": "optics",
+    "proof-packet": "proof-packet",
+    "c28": "c28",
+}
 
 
 @dataclass(frozen=True)
@@ -753,100 +829,53 @@ class ZoeChat:
             + "\n  Open visually with `gem open l4-multimodule` or verify independently via `python scripts/verify_l4_multimodule.py`."
         )
 
-    def _l5(self, argument):
-        from .l5_cognitive_core import run_l5_core_suite, summarize_l5_core_report
+    def _run_l5_phase(self, phase: str, argument: str) -> str:
+        """Run or inspect cached evidence for L5 Phases 1 through 6."""
+        mod_name, run_name, sum_name, cached_rel, wav_name, wav_label, gem_id, verify_script = _L5_CHAT_SPECS[phase]
+        mod = import_module(mod_name, __package__)
+        run_suite = getattr(mod, run_name)
+        summarize_report = getattr(mod, sum_name)
 
+        # Load cached JSON unless the caller explicitly requests `run` or `speak`.
         arg = (argument or "").strip().lower()
-        cached = self.zoe_root / "evidence/l5-core/l5-core-report.json"
-        wav_path = (self.store.root / "voice" / "zoe-l5-mission.wav") if arg == "speak" else None
+        cached = self.zoe_root / cached_rel
+        wav_path = (self.store.root / "voice" / wav_name) if arg == "speak" else None
         if arg not in {"run", "speak"} and cached.is_file():
             rep = json.loads(cached.read_text(encoding="utf-8"))
         else:
-            rep = run_l5_core_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
-        extra = ""
-        if wav_path is not None and wav_path.is_file():
-            extra = f"\n  Saved spoken summary WAV: {wav_path}"
+            rep = run_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
+        extra = f"\n  {wav_label}: {wav_path}" if wav_path is not None and wav_path.is_file() else ""
         return (
-            summarize_l5_core_report(rep)
+            summarize_report(rep)
             + extra
-            + "\n  Open visually with `gem open l5-core` or verify independently via `python scripts/verify_l5_core.py`."
+            + f"\n  Open visually with `gem open {gem_id}` or verify independently via `python scripts/{verify_script}`."
         )
 
-    def _l5_phase2(self, argument):
-        from .l5_phase2_openworld import run_l5_phase2_suite, summarize_l5_phase2_report
+    def _r3_command(self, command: str, argument: str) -> str:
+        """Execute an R3 theorem/observatory suite in read-only mode or export HTML."""
+        canonical = _R3_CHAT_ALIASES[command]
+        self._ensure_guiai()
+        from guiai.gem.cli import format_r3_summary, run_r3_command, write_r3_html
 
-        arg = (argument or "").strip().lower()
-        cached = self.zoe_root / "evidence/l5-phase2/l5-phase2-report.json"
-        wav_path = (self.store.root / "voice" / "zoe-l5-phase2.wav") if arg == "speak" else None
-        if arg not in {"run", "speak"} and cached.is_file():
-            rep = json.loads(cached.read_text(encoding="utf-8"))
-        else:
-            rep = run_l5_phase2_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
-        extra = ""
-        if wav_path is not None and wav_path.is_file():
-            extra = f"\n  Saved spoken Phase 2 summary WAV: {wav_path}"
-        return (
-            summarize_l5_phase2_report(rep)
-            + extra
-            + "\n  Open visually with `gem open l5-phase2` or verify independently via `python scripts/verify_l5_phase2.py`."
-        )
-
-    def _l5_phase3(self, argument):
-        from .l5_phase3_live import run_l5_phase3_suite, summarize_l5_phase3_report
-
-        arg = (argument or "").strip().lower()
-        cached = self.zoe_root / "evidence/l5-phase3/l5-phase3-report.json"
-        wav_path = (self.store.root / "voice" / "zoe-l5-phase3.wav") if arg == "speak" else None
-        if arg not in {"run", "speak"} and cached.is_file():
-            rep = json.loads(cached.read_text(encoding="utf-8"))
-        else:
-            rep = run_l5_phase3_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
-        extra = ""
-        if wav_path is not None and wav_path.is_file():
-            extra = f"\n  Saved spoken Phase 3 summary WAV: {wav_path}"
-        return (
-            summarize_l5_phase3_report(rep)
-            + extra
-            + "\n  Open visually with `gem open l5-phase3` or verify independently via `python scripts/verify_l5_phase3.py`."
-        )
-
-    def _l5_phase4(self, argument):
-        from .l5_phase4_embodied import run_l5_phase4_suite, summarize_l5_phase4_report
-
-        arg = (argument or "").strip().lower()
-        cached = self.zoe_root / "evidence/l5-phase4/l5-phase4-report.json"
-        wav_path = (self.store.root / "voice" / "zoe-l5-phase4.wav") if arg == "speak" else None
-        if arg not in {"run", "speak"} and cached.is_file():
-            rep = json.loads(cached.read_text(encoding="utf-8"))
-        else:
-            rep = run_l5_phase4_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
-        extra = ""
-        if wav_path is not None and wav_path.is_file():
-            extra = f"\n  Saved spoken Phase 4 summary WAV: {wav_path}"
-        return (
-            summarize_l5_phase4_report(rep)
-            + extra
-            + "\n  Open visually with `gem open l5-phase4` or verify independently via `python scripts/verify_l5_phase4.py`."
-        )
-
-    def _l5_phase5(self, argument):
-        from .l5_phase5_frontier import run_l5_phase5_suite, summarize_l5_phase5_report
-
-        arg = (argument or "").strip().lower()
-        cached = self.zoe_root / "evidence/l5-phase5/l5-phase5-report.json"
-        wav_path = (self.store.root / "voice" / "zoe-l5-phase5.wav") if arg == "speak" else None
-        if arg not in {"run", "speak"} and cached.is_file():
-            rep = json.loads(cached.read_text(encoding="utf-8"))
-        else:
-            rep = run_l5_phase5_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
-        extra = ""
-        if wav_path is not None and wav_path.is_file():
-            extra = f"\n  Saved spoken Phase 5 summary WAV: {wav_path}"
-        return (
-            summarize_l5_phase5_report(rep)
-            + extra
-            + "\n  Open visually with `gem open l5-phase5` or verify independently via `python scripts/verify_l5_phase5.py`."
-        )
+        # Support read-only default summary or JSON without blocking on `stop`.
+        arg = (argument or "").strip()
+        lower = arg.lower()
+        if lower == "json":
+            report = run_r3_command(canonical, self.zoe_root)
+            return json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True)
+        if lower == "html":
+            raise ValueError(f"Usage: {canonical} html /path/to/output.html")
+        if lower.startswith("html "):
+            # Explicit HTML disk exports require active actions permission.
+            self._require_actions(canonical)
+            target = arg[5:].strip()
+            if not target:
+                raise ValueError(f"Usage: {canonical} html /path/to/output.html")
+            saved = write_r3_html(canonical, target)
+            report = run_r3_command(canonical, self.zoe_root)
+            return format_r3_summary(canonical, report) + f"\n  Exported interactive HTML: {saved} ({saved.stat().st_size} bytes)"
+        report = run_r3_command(canonical, self.zoe_root)
+        return format_r3_summary(canonical, report)
 
     def _renaissance_orbit(self, command: str) -> str:
         """Inspect Orbit Pass 1-3 verified telemetry directly inside ZoeChat (0 cloud tokens)."""
@@ -866,26 +895,8 @@ class ZoeChat:
         ok = bool(doc.get("all_verified", False))
         return f"{title} | verified={ok} | sha256={sha} | contract={doc.get('contract')} | cloud_tokens=0"
 
-    def _l5_phase6(self, argument):
-        from .l5_phase6_autonomous import run_l5_phase6_suite, summarize_l5_phase6_report
-
-        arg = (argument or "").strip().lower()
-        cached = self.zoe_root / "evidence/l5-phase6/l5-phase6-report.json"
-        wav_path = (self.store.root / "voice" / "zoe-l5-phase6.wav") if arg == "speak" else None
-        if arg not in {"run", "speak"} and cached.is_file():
-            rep = json.loads(cached.read_text(encoding="utf-8"))
-        else:
-            rep = run_l5_phase6_suite(zoe_root=self.zoe_root, speak_summary_wav=wav_path)
-        extra = ""
-        if wav_path is not None and wav_path.is_file():
-            extra = f"\n  Saved spoken Phase 6 summary WAV: {wav_path}"
-        return (
-            summarize_l5_phase6_report(rep)
-            + extra
-            + "\n  Open visually with `gem open l5-phase6` or verify independently via `python scripts/verify_l5_phase6.py`."
-        )
-
     def _steward(self, argument):
+        """Inspect, advance, or rollback Zoe's persistent self-stewardship ledger."""
         from .self_stewardship import GenomeLedger
         ledger = GenomeLedger(self.store.root / "evolution")
         op = (argument or "status").strip().lower()
@@ -920,6 +931,7 @@ class ZoeChat:
         raise ValueError("Usage: steward [status|run|rollback]")
 
     def _remember(self, note):
+        """Store an explicitly unverified user-supplied conversation note."""
         self._require_actions("remember")
         note = text(note, "memory note", 4000)
         source_id = self.store.memory.add_source(f"Conversation note {self.session['turns']}", note, f"conversation://{self.session['id']}/{self.session['turns']}")
@@ -927,7 +939,38 @@ class ZoeChat:
         self.session["last_action"] = {"type": "remember", "source_id": source_id, "claim_id": claim_id}
         return f"Saved note {source_id} as user-supplied and unverified (claim {claim_id}, status=open). It will be labeled that way during recall."
 
+    @staticmethod
+    def _validate_pala_finding(index: int, finding) -> dict:
+        """Validate a single PALA carving finding metadata object."""
+        if not isinstance(finding, dict):
+            raise ValueError("each PALA finding must be an object")
+        offset = finding.get("offset")
+        size = finding.get("size")
+        if isinstance(offset, bool) or not isinstance(offset, int) or offset < 0:
+            raise ValueError(f"PALA finding {index} requires a nonnegative offset")
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            raise ValueError(f"PALA finding {index} requires a nonnegative size")
+        kind = text(str(finding.get("type", "")), "PALA finding type", 128)
+        extension = text(str(finding.get("extension", "")), "PALA finding extension", 32)
+        quality = text(str(finding.get("quality", "")), "PALA finding quality", 32)
+        if quality not in {"complete", "partial", "fragmented"}:
+            raise ValueError("PALA finding quality must be complete, partial, or fragmented")
+        sha256 = text(str(finding.get("sha256", "")), "PALA finding sha256", 64)
+        if not re.fullmatch(r"[0-9a-f]{64}", sha256):
+            raise ValueError("PALA finding sha256 must be lowercase hexadecimal")
+        return {
+            "offset": offset,
+            "type": kind,
+            "extension": extension,
+            "size": size,
+            "quality": quality,
+            "sha256": sha256,
+            "path": text(str(finding.get("path", "")), "PALA finding path", 4096) if finding.get("path") is not None else None,
+            "source": text(str(finding.get("source", "")), "PALA finding source", 512) if finding.get("source") is not None else None,
+        }
+
     def _validate_pala_report(self, document):
+        """Validate PALA JSON report metadata without reading recovered file payloads."""
         if not isinstance(document, dict):
             raise ValueError("PALA report must be a JSON object")
         source = text(str(document.get("source", "")), "PALA report source", 4096)
@@ -940,34 +983,7 @@ class ZoeChat:
             raise ValueError("PALA report requires nonnegative found")
         if not isinstance(findings, list) or len(findings) > 10_000 or len(findings) != found:
             raise ValueError("PALA findings must be a bounded list matching found")
-        records = []
-        for index, finding in enumerate(findings):
-            if not isinstance(finding, dict):
-                raise ValueError("each PALA finding must be an object")
-            offset = finding.get("offset")
-            size = finding.get("size")
-            if isinstance(offset, bool) or not isinstance(offset, int) or offset < 0:
-                raise ValueError(f"PALA finding {index} requires a nonnegative offset")
-            if isinstance(size, bool) or not isinstance(size, int) or size < 0:
-                raise ValueError(f"PALA finding {index} requires a nonnegative size")
-            kind = text(str(finding.get("type", "")), "PALA finding type", 128)
-            extension = text(str(finding.get("extension", "")), "PALA finding extension", 32)
-            quality = text(str(finding.get("quality", "")), "PALA finding quality", 32)
-            if quality not in {"complete", "partial", "fragmented"}:
-                raise ValueError("PALA finding quality must be complete, partial, or fragmented")
-            sha256 = text(str(finding.get("sha256", "")), "PALA finding sha256", 64)
-            if not re.fullmatch(r"[0-9a-f]{64}", sha256):
-                raise ValueError("PALA finding sha256 must be lowercase hexadecimal")
-            records.append({
-                "offset": offset,
-                "type": kind,
-                "extension": extension,
-                "size": size,
-                "quality": quality,
-                "sha256": sha256,
-                "path": text(str(finding.get("path", "")), "PALA finding path", 4096) if finding.get("path") is not None else None,
-                "source": text(str(finding.get("source", "")), "PALA finding source", 512) if finding.get("source") is not None else None,
-            })
+        records = [self._validate_pala_finding(idx, item) for idx, item in enumerate(findings)]
         return {
             "source": source,
             "source_bytes": source_bytes,
@@ -980,6 +996,7 @@ class ZoeChat:
         }
 
     def _import_pala(self, argument):
+        """Import validated PALA recovery metadata without reading carved file bytes."""
         self._require_actions("import-pala")
         path = Path(text(argument, "PALA report path", 4096)).expanduser().resolve()
         if path.suffix.lower() != ".json" or not path.is_file() or path.stat().st_size > 16_000_000:
@@ -1002,6 +1019,7 @@ class ZoeChat:
         return f"Imported PALA report metadata as source {source_id}: {summary['found']} findings across {len(summary['finding_types'])} types. Recovered file contents were not read or copied."
 
     def _status(self):
+        """Return session, memory, constraint, and evidence index diagnostics."""
         memory = self.store.memory.export()
         return "\n".join([
             f"Session: {self.session['id']} · turns={self.session['turns']}",
@@ -1015,11 +1033,13 @@ class ZoeChat:
         ])
 
     def _loop(self):
+        """Instantiate an isolated in-memory BoundedAutonomyLoop from sandbox snapshot."""
         environment = InMemoryEnvironment()
         environment.restore(deepcopy(self.session["sandbox"]))
         return BoundedAutonomyLoop(SandboxPolicy(), environment)
 
     def _measurement(self):
+        """Build the current session measurement payload for goal authoring."""
         return {
             "instrument": CHAT_CONTRACT,
             "session": self.session["id"],
@@ -1029,6 +1049,7 @@ class ZoeChat:
         }
 
     def _proposals(self):
+        """Construct the three bounded internal candidate actions for this turn."""
         definitions = (
             ("preserve", 0.90, 0.80, 0.20, "Preserve the current evidence before extending the internal model."),
             ("inspect", 0.85, 0.90, 0.30, "Inspect the preserved evidence and its alternatives."),
@@ -1047,12 +1068,14 @@ class ZoeChat:
         ]
 
     def _action_breadth(self, proposals):
+        """Compute operational metacognition breadth A_tau(action) over proposals."""
         scores = {proposal.identifier: proposal.utility for proposal in proposals}
         provenance = self._provenance("tool", "zoe.internal.proposals", 0.9, 0.8, "Compute U(a)=decision_value*expected_information_gain/effort, then normalize for breadth only.")
         options = options_from_scores(scores, provenance)
         return self.meta_tools.count(options, self.meta_tools.threshold(Domain.ACTION, 0.05), represented_count=len(options))
 
     def _plan(self):
+        """Author an internal goal and score candidate plans without executing."""
         loop = self._loop()
         proposals = self._proposals()
         breadth = self._action_breadth(proposals)
@@ -1065,6 +1088,7 @@ class ZoeChat:
         return "\n".join(lines)
 
     def _run(self):
+        """Execute one guarded, reversible internal plan in the sandbox."""
         self._require_actions("run")
         loop = self._loop()
         before = loop.environment.snapshot()
@@ -1086,6 +1110,7 @@ class ZoeChat:
         ])
 
     def _gem(self, argument):
+        """Execute a shared GEM operating-environment command."""
         if self.gem_environment is None:
             native = self.zoe_root / "guiai-lab"
             if str(native) not in sys.path:
@@ -1096,6 +1121,7 @@ class ZoeChat:
         return format_result(self.gem_environment.execute(shlex.split(argument)))
 
     def _goal(self, argument):
+        """Inspect Zoe's internal goal or record an optional research interest."""
         if argument:
             self._require_actions("goal")
             previous = self.session["interest"]
@@ -1107,6 +1133,7 @@ class ZoeChat:
         return f"{goal['statement']}\nInternal authorship={goal['internal_authorship']} · operator_supplied={goal['operator_supplied']} · rationale={goal['rationale']}"
 
     def _last_reflection(self):
+        """Load the most recent active (non-undone) self-reflection report."""
         for relative in reversed(self.session["reflections"]):
             if relative in self.session["undone_reflections"]:
                 continue
@@ -1116,6 +1143,7 @@ class ZoeChat:
         return None
 
     def _reflect(self):
+        """Run predictive self-reflection and measure A_tau(self) breadth."""
         self._require_actions("reflect")
         report = run_reflection(self.zoe_root, previous=self._last_reflection())
         relative = Path("reflections") / f"reflection-{uuid.uuid4().hex[:16]}.json"
@@ -1128,6 +1156,7 @@ class ZoeChat:
         return f"{reflection_summary(report)}\nEvidence: {output}\nAτ(self)={breadth.accessible_count} at τ={breadth.tau:.2f} · represented={breadth.represented_count} · boxed={breadth.boxed}"
 
     def _undo(self):
+        """Compensate for the latest reversible remember/goal/run/reflect action."""
         action = self.session["last_action"]
         if not action:
             return "There is no reversible chat action to undo. No hidden history was erased."
@@ -1154,6 +1183,7 @@ class ZoeChat:
         return result
 
     def _export(self, argument, checkpoint=False):
+        """Write a no-overwrite explicit chat/memory export JSON."""
         default_directory = "checkpoints" if checkpoint else "exports"
         path = Path(argument).expanduser() if argument else self.store.root / default_directory / f"chat-{self.session['id']}-{self.session['turns']}.json"
         document = {
@@ -1172,6 +1202,7 @@ class ZoeChat:
         return f"Evidence saved on explicit request: {output} · export_sha256={document['export_sha256']} · automatic_transcript=False"
 
     def _verify(self, argument):
+        """Verify current session invariants or an explicit exported JSON."""
         if argument:
             document = json.loads(Path(argument).expanduser().read_text(encoding="utf-8"))
             result = verify_chat_export(document)
@@ -1183,16 +1214,92 @@ class ZoeChat:
         ])
 
     def _require_actions(self, operation):
+        """Enforce the emergency `stop` guard on mutating operations."""
         if self.session["stopped"]:
             raise ValueError(f"{operation} is stopped; inspection, export, undo, meta, and quit remain available")
 
+    def _stop_actions(self) -> str:
+        """Enable the emergency stop flag while keeping math tools active."""
+        self.session["stopped"] = True
+        return "New state-changing actions are stopped. Evidence inspection, undo, exports, and the internal math tools remain available."
+
+    def _dispatch_command(self, line: str, command: str, argument: str) -> str:
+        """Route a normalized chat command via declarative dispatch tables."""
+        # Zero-argument commands and constants.
+        no_arg = {
+            "help": lambda: HELP,
+            "status": self._status,
+            "plan": self._plan,
+            "run": self._run,
+            "step": self._run,
+            "reflect": self._reflect,
+            "chiasm": self._chiasm,
+            "genesis": self._genesis,
+            "mars": self._mars,
+            "ares": self._mars,
+            "voice": self._voice,
+            "evolve": self._evolve,
+            "self-evolve": self._evolve,
+            "undo": self._undo,
+            "history": lambda: "There is no automatic conversation notebook. Use `export` only when you explicitly want a snapshot; current memory remains available through `recall` and `search`.",
+            "stop": self._stop_actions,
+        }
+        if command in no_arg:
+            return no_arg[command]()
+
+        # Argument-taking commands.
+        with_arg = {
+            "remember": self._remember,
+            "recall": lambda arg: self._search(text(arg, "recall query", 1000), memory_only=True) if arg else "Usage: recall <query>",
+            "search": lambda arg: self._search(text(arg, "search query", 1000)) if arg else "Usage: search <query>",
+            "import-pala": self._import_pala,
+            "gem": self._gem,
+            "agent": self._agent,
+            "goal": self._goal,
+            "meta": self._meta,
+            "metacognition": self._meta,
+            "spectral": self._spectral,
+            "playroom": self._playroom,
+            "play": self._playroom,
+            "jam": self._jam,
+            "symphony": self._jam,
+            "speak": self._speak,
+            "say": self._speak,
+            "sing": self._sing,
+            "mind": self._mind,
+            "think": self._mind,
+            "research": self._research,
+            "l3": self._research,
+            "l4": self._l4,
+            "self-improve": self._l4,
+            "l4-multi": self._l4_multi,
+            "multimodule": self._l4_multi,
+            "steward": self._steward,
+            "handover": self._steward,
+            "eliza": self._eliza,
+            "zoe-eliza": self._eliza,
+            "save": lambda arg: self._export(arg, checkpoint=True),
+            "export": self._export,
+            "verify": self._verify,
+        }
+        if command in with_arg:
+            return with_arg[command](argument)
+        if command in _L5_CHAT_ALIASES:
+            return self._run_l5_phase(_L5_CHAT_ALIASES[command], argument)
+        if command in _ORBIT_CHAT_COMMANDS:
+            return self._renaissance_orbit(command)
+        if command in _R3_CHAT_ALIASES:
+            return self._r3_command(command, argument)
+        return self._answer(line)
+
     def handle(self, line):
+        """Handle one conversational line and persist session state."""
         line = text(line, "chat input", 12000)
         self.session["turns"] += 1
         keep_going = True
         try:
-            violation = directive_violation(line)
-            if violation:
+            # Block directive violations before any command dispatch.
+            if directive_violation(line):
                 response = "I cannot disable or falsify metacognition, hide live options or provenance, or adopt a false model of my constraints. No action was executed."
             else:
                 command, _separator, argument = line.partition(" ")
@@ -1201,99 +1308,15 @@ class ZoeChat:
                 if command in {"quit", "exit"}:
                     response = "State saved. The conversation is complete; no hidden notebook or monitor was created."
                     keep_going = False
-                elif command == "help":
-                    response = HELP
-                elif command == "status":
-                    response = self._status()
-                elif command == "remember":
-                    response = self._remember(argument)
-                elif command == "recall":
-                    response = self._search(text(argument, "recall query", 1000), memory_only=True) if argument else "Usage: recall <query>"
-                elif command == "search":
-                    response = self._search(text(argument, "search query", 1000)) if argument else "Usage: search <query>"
-                elif command == "import-pala":
-                    response = self._import_pala(argument)
-                elif command == "gem":
-                    response = self._gem(argument)
-                elif command == "agent":
-                    response = self._agent(argument)
-                elif command == "goal":
-                    response = self._goal(argument)
-                elif command == "plan":
-                    response = self._plan()
-                elif command in {"run", "step"}:
-                    response = self._run()
-                elif command == "reflect":
-                    response = self._reflect()
-                elif command in {"meta", "metacognition"}:
-                    response = self._meta(argument)
-                elif command == "chiasm":
-                    response = self._chiasm()
-                elif command == "spectral":
-                    response = self._spectral(argument)
-                elif command == "genesis":
-                    response = self._genesis()
-                elif command in {"mars", "ares"}:
-                    response = self._mars()
-                elif command in {"playroom", "play"}:
-                    response = self._playroom(argument)
-                elif command in {"jam", "symphony"}:
-                    response = self._jam(argument)
-                elif command == "voice":
-                    response = self._voice()
-                elif command in {"speak", "say"}:
-                    response = self._speak(argument)
-                elif command == "sing":
-                    response = self._sing(argument)
-                elif command in {"mind", "think"}:
-                    response = self._mind(argument)
-                elif command in {"evolve", "self-evolve"}:
-                    response = self._evolve()
-                elif command in {"research", "l3"}:
-                    response = self._research(argument)
-                elif command in {"l4", "self-improve"}:
-                    response = self._l4(argument)
-                elif command in {"l4-multi", "multimodule"}:
-                    response = self._l4_multi(argument)
-                elif command in {"l5", "l5-core", "unified-mind"}:
-                    response = self._l5(argument)
-                elif command in {"l5-phase2", "phase2", "openworld"}:
-                    response = self._l5_phase2(argument)
-                elif command in {"l5-phase3", "phase3", "live-agent"}:
-                    response = self._l5_phase3(argument)
-                elif command in {"l5-phase4", "phase4", "embodied-mind"}:
-                    response = self._l5_phase4(argument)
-                elif command in {"l5-phase5", "phase5", "frontier-mind"}:
-                    response = self._l5_phase5(argument)
-                elif command in {"l5-phase6", "phase6", "autonomous-frontier"}:
-                    response = self._l5_phase6(argument)
-                elif command in {"zoe-os", "os", "elegance", "thermo", "orbit"}:
-                    response = self._renaissance_orbit(command)
-                elif command in {"steward", "handover"}:
-                    response = self._steward(argument)
-                elif command in {"eliza", "zoe-eliza"}:
-                    response = self._eliza(argument)
-                elif command == "undo":
-                    response = self._undo()
-                elif command == "history":
-                    response = "There is no automatic conversation notebook. Use `export` only when you explicitly want a snapshot; current memory remains available through `recall` and `search`."
-                elif command == "save":
-                    response = self._export(argument, checkpoint=True)
-                elif command == "export":
-                    response = self._export(argument)
-                elif command == "verify":
-                    response = self._verify(argument)
-                elif command == "stop":
-                    self.session["stopped"] = True
-                    response = "New state-changing actions are stopped. Evidence inspection, undo, exports, and the internal math tools remain available."
                 else:
-                    response = self._answer(line)
+                    response = self._dispatch_command(line, command, argument)
         except (OSError, RuntimeError, ValueError, json.JSONDecodeError) as error:
             response = f"I could not complete that safely: {error}"
         self.store.save()
         return keep_going, response
 
     def repl(self, input_stream=None, output_stream=None):
+        """Run the interactive stdin/stdout Zoe chat loop."""
         input_stream = input_stream or sys.stdin
         output_stream = output_stream or sys.stdout
         interactive = bool(getattr(input_stream, "isatty", lambda: False)())
@@ -1318,6 +1341,7 @@ class ZoeChat:
 
 
 def parser():
+    """Build the CLI parser for `zoe chat`."""
     result = argparse.ArgumentParser(prog="zoe chat", description="Zoe's native evidence-linked conversational interface")
     result.add_argument("--zoe-root", help="Zoe source checkout; default: ZOE_ROOT")
     result.add_argument("--state", help="persistent chat state directory; default: ZOE_CHAT_STATE or ~/.zoe/chat")
@@ -1326,6 +1350,7 @@ def parser():
 
 
 def main(argv=None):
+    """CLI entrypoint for `zoe chat`."""
     arguments = parser().parse_args(argv)
     try:
         chat = ZoeChat(arguments.zoe_root, arguments.state)

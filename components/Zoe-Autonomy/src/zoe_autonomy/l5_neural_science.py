@@ -24,17 +24,7 @@ from typing import Any, Dict, List, Sequence
 
 import numpy as np
 
-
-def _auroc(y_true: Sequence[int], scores: Sequence[float]) -> float:
-    y = np.asarray(y_true, dtype=np.int64)
-    s = np.asarray(scores, dtype=np.float64)
-    pos = s[y == 1]
-    neg = s[y == 0]
-    if len(pos) == 0 or len(neg) == 0:
-        return 0.5
-    diff = pos[:, None] - neg[None, :]
-    wins = float(np.sum(diff > 0.0) + 0.5 * np.sum(diff == 0.0))
-    return wins / float(len(pos) * len(neg))
+from ._metrics import auroc_tie_aware as _auroc
 
 
 def _exact_lebesgue_a_tau_integral(p: np.ndarray) -> float:

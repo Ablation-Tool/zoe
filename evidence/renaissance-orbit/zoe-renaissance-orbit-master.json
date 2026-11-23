@@ -46,7 +46,7 @@
   "cross_pollination_edges_count": 52,
   "gem_engines_available": 17,
   "latex_pdf_bytes": 4503251,
-  "master_sha256": "affe96a3ffbd2d4e98d4e0a4ff84ce593a29d9aa383e830ed98eeacc897bccdb",
+  "master_sha256": "7fcd604e88e2af80b8da76e57c683917cd7f9364b9ea83796dbbd0c08938eb0c",
   "orbit_passes_completed": 11,
   "theorems_proved_sympy": 15,
   "worlds": [
@@ -73,7 +73,7 @@
     {
       "engine_id": "zoe",
       "evidence_path": "evidence/zoe-os/zoe-os-mind-report.json",
-      "evidence_sha256": "59a279f088771846",
+      "evidence_sha256": "8b58c7b33bcf4f50",
       "improves_worlds": [
         "world1_live_qwen",
         "world10_security",
@@ -102,7 +102,7 @@
     {
       "engine_id": "helen",
       "evidence_path": "evidence/groove-forensics/groove-forensics-report.json",
-      "evidence_sha256": "e6f5930a34112452",
+      "evidence_sha256": "edb6c331bf602078",
       "improves_worlds": [
         "world6_dorothy",
         "world8_voice",
@@ -159,7 +159,7 @@
     {
       "engine_id": "brain",
       "evidence_path": "evidence/dorothy-neurogarden/dorothy-neurogarden-3d-report.json",
-      "evidence_sha256": "a24c539448ccb340",
+      "evidence_sha256": "8f96b7c01241959d",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory",
@@ -173,7 +173,7 @@
     {
       "engine_id": "cern-console",
       "evidence_path": "evidence/cern-trigger/cern-kloster-trigger-report.json",
-      "evidence_sha256": "8d722e08a9c1d9e5",
+      "evidence_sha256": "fe8a958ee05494dc",
       "improves_worlds": [
         "world4_zoe_os",
         "world5_kloster_theory",

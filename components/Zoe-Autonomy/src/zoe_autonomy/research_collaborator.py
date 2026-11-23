@@ -23,7 +23,6 @@ Epistemic & safety bounds (CONSTITUTION.md Articles II, III, V, VIII, X):
 from __future__ import annotations
 
 from fractions import Fraction
-import hashlib
 from itertools import combinations
 import json
 import math
@@ -34,6 +33,13 @@ import sys
 from typing import Dict, Iterable, List, Sequence, Tuple
 
 import numpy as np
+
+from ._metrics import auroc_tie_aware as _auroc
+from ._utils import (
+    sha256_bytes as _sha256_bytes,
+    sha256_file as _sha256_file,
+    sha256_json_ascii as _sha256_obj,
+)
 
 
 CONTRACT = "zoe-l3-research-collaborator/v1"
@@ -59,23 +65,6 @@ STOPWORDS = frozenset({
 })
 
 
-def _sha256_bytes(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
-
-
-def _sha256_obj(payload: object) -> str:
-    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return _sha256_bytes(encoded)
-
-
-def _sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
 def _default_zoe_root(zoe_root: str | Path | None = None) -> Path:
     if zoe_root is not None:
         return Path(zoe_root).expanduser().resolve()
@@ -91,28 +80,6 @@ def _ensure_guiai(root: Path) -> None:
 def _tokenize(text: str) -> List[str]:
     tokens = re.findall(r"[a-z0-9_]+", text.lower())
     return [tok for tok in tokens if len(tok) >= 3 and tok not in STOPWORDS]
-
-
-def _auroc(labels: np.ndarray, scores: np.ndarray) -> float:
-    y = np.asarray(labels, dtype=np.int64)
-    s = np.asarray(scores, dtype=np.float64)
-    n_pos = int(np.sum(y == 1))
-    n_neg = int(np.sum(y == 0))
-    if n_pos == 0 or n_neg == 0:
-        return 0.5
-    order = np.argsort(s, kind="mergesort")
-    sorted_s = s[order]
-    ranks = np.empty(len(s), dtype=np.float64)
-    i = 0
-    while i < len(sorted_s):
-        j = i
-        while j + 1 < len(sorted_s) and sorted_s[j + 1] == sorted_s[i]:
-            j += 1
-        avg_rank = 0.5 * (i + j) + 1.0
-        ranks[order[i : j + 1]] = avg_rank
-        i = j + 1
-    rank_sum_pos = float(np.sum(ranks[y == 1]))
-    return float((rank_sum_pos - n_pos * (n_pos + 1) / 2.0) / (n_pos * n_neg))
 
 
 def _spectral_moment_root(probs: np.ndarray, k: float) -> np.ndarray:

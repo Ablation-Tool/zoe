@@ -27,7 +27,7 @@
     "sympy_version": "1.14.0"
   },
   "world1_6llm_vs_echo": {
-    "brier_gain_vs_dk_err": 2.570117368927427e-09,
+    "brier_gain_vs_dk_err": 2.5701174799497295e-09,
     "diverse_6llm": {
       "coherence_c_k": 0.673603,
       "d_k_disagreement": 0.12755983,
@@ -41,7 +41,7 @@
     "echo_chamber_6clone": {
       "coherence_c_k": 1.0,
       "d_k_disagreement": 0.0,
-      "decomposition_err": 3.705158193791851e-34,
+      "decomposition_err": 1.410593220986745e-34,
       "jsd_nats": 0.0,
       "k_agents": 6,
       "m2_mean": 0.01411813,

@@ -1,6 +1,7 @@
 package research.zoetic.zoe;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,7 @@ import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -19,39 +21,38 @@ import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.core.content.ContextCompat;
 
 /**
- * Ultra-Light 60/90fps Gyro-Spatial 3D Companion & Accessibility Canvas for Zoe Explore (v0.9.7-beta).
+ * Clean, Calm 60/90fps Spatial AR Companion for Zoe Explore.
  *
- * Key upgrades & bug fixes:
- *   - Hardware `TYPE_GAME_ROTATION_VECTOR` + real Camera2 hardware vertical FOV projection
- *   - Clean `onSizeChanged` re-centering so Zoe NEVER spawns off-screen before layout completes
- *   - Gentle off-screen leash: when roaming freely, Zoe glides back into your view if you pan away;
- *     when you tap a spot, she glides straight there with a ripple & beacon
- *   - Silent playful roaming by default (no jarring 9-second auto-chatter interrupting your voice!)
- *   - Built-in Deaf / Hard-of-Hearing Visual Ambient Sound Radar ring (zero UI clutter!)
- *   - Built-in Blind / Low-Vision full-screen GestureDetector (Tap = Look, Double-Tap = Talk, Long-Press = Compass/Orientation!)
- *   - Strictly zero per-frame allocations inside `onDraw` and zero CPU when inactive!
+ * Renders Zoe herself (her smiling faceted crimson gem, with zero spinning rings or visual clutter)
+ * floating smoothly in 3D camera space:
+ *   - Autonomous curiosity navigation: glides to visually intriguing objects in the camera frame
+ *     and notifies ZoeLiveActivity on arrival so SHE asks YOU "What's this?"
+ *   - Direct interaction: tap Zoe herself to talk/interrupt, or tap any object in view to show her
+ *   - Full accessibility preserved: Deaf/HoH visual Sound Radar, Blind/Low-Vision full-screen
+ *     gestures (Tap = Look, Double-Tap = Talk, Long-Press = Orientation), Tilt-Down Safety Rest,
+ *     and Compass Bearing Chevrons
+ *   - Strictly zero per-frame allocations inside `onDraw` and zero CPU when inactive
  */
 final class ZoeSpatialOverlayView extends View implements SensorEventListener, Choreographer.FrameCallback {
     interface Listener {
         void onSpatialHudUpdate(float distanceMeters, String statusHint);
         void onSpatialArrived(ArExploreBrain.Vec3 worldPos, float distanceMeters,
                               float tapU, float tapV, boolean userTapped);
+        void onZoeGemTapped();
         void onSpatialDoubleTap();
         void onSpatialLongPress();
     }
 
-    private static final int TRAIL_CAPACITY = 14;
-    private static final long ROAM_INTERVAL_MS = 10_500L;
-    private static final long HUD_THROTTLE_MS = 500L;
+    private static final long HUD_THROTTLE_MS = 650L;
 
     private final SensorManager sensorManager;
     private final Sensor rotationSensor;
     private final Listener listener;
     private final GestureDetector gestureDetector;
+    private final Bitmap zoeGemBitmap;
 
     // Sensor fusion 3x3 world rotation matrix (zero-allocation scratch buffers)
     private final float[] rawRotMat = new float[9];
@@ -74,7 +75,7 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
     private String guideLabel = "";
     private boolean guideLockedCentered;
     private float verticalFovRad = ArExploreBrain.DEFAULT_SPATIAL_FOV_RAD;
-    private float preferredHoverDepthM = 1.22f;
+    private float preferredHoverDepthM = 1.18f;
     private float imuStability = 0.88f;
     private SpatialTelemetryFusion.LightFieldState lightField = SpatialTelemetryFusion.LightFieldState.neutral();
     private float spatialCoherence = 0.72f;
@@ -85,47 +86,41 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
     private float smoothAmbientSoundLevel;
 
     // 3D world-space companion state
-    private ArExploreBrain.Vec3 zoePos = new ArExploreBrain.Vec3(0f, 0.04f, -1.22f);
-    private ArExploreBrain.Vec3 zoeTarget = new ArExploreBrain.Vec3(0f, 0.04f, -1.22f);
-    private final List<ArExploreBrain.Vec3> discoveryBeacons = new ArrayList<>();
-    private final float[] trailX = new float[TRAIL_CAPACITY];
-    private final float[] trailY = new float[TRAIL_CAPACITY];
-    private int trailHead;
-    private int trailCount;
+    private ArExploreBrain.Vec3 zoePos = new ArExploreBrain.Vec3(0f, 0.04f, -1.18f);
+    private ArExploreBrain.Vec3 zoeTarget = new ArExploreBrain.Vec3(0f, 0.04f, -1.18f);
+    private float lastScreenX = -1000f;
+    private float lastScreenY = -1000f;
+    private float prevScreenX = -1000f;
+    private float smoothLeanDeg;
+    private boolean zoeCurrentlyOnScreen;
 
-    // Timing & touch state
+    // Timing, autonomous arrival & focus ripple state
     private long lastFrameNs;
     private float elapsedSec;
     private float offscreenSec;
-    private long lastRoamMs;
     private long lastHudMs;
-    private int roamStep;
     private boolean userPinnedTarget;
-    private boolean pendingTapInspection;
-    private float lastTapU = 0.5f;
-    private float lastTapV = 0.5f;
-    private float tapRippleX;
-    private float tapRippleY;
-    private float tapRippleAge = 99f;
+    private boolean pendingAutoInspection;
+    private float autoFlightElapsedSec;
+    private float autoSpotU = 0.5f;
+    private float autoSpotV = 0.45f;
+    private float focusRippleX;
+    private float focusRippleY;
+    private float focusRippleAge = 99f;
 
     // Pre-allocated drawing objects (zero per-frame GC churn!)
     private final Paint haloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint ringPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint gemPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint facetPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint trailPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint beaconPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint gemBitmapPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
     private final Paint ripplePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint arrowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint radarPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint restPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint chevronPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint guideTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Path gemPath = new Path();
-    private final Path facetPath = new Path();
     private final Path arrowPath = new Path();
     private final Path chevronPath = new Path();
     private final RectF oval = new RectF();
+    private final RectF gemDstRect = new RectF();
     private int cachedHaloColor = -1;
     private float cachedHaloRadius = -1f;
     private float cachedHaloX = -1f;
@@ -134,15 +129,13 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
     ZoeSpatialOverlayView(Context context, Listener listener) {
         super(context);
         this.listener = listener;
+        this.zoeGemBitmap = renderZoeGemBitmap(context, 256);
         this.sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         Sensor gameRot = sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR) : null;
         this.rotationSensor = gameRot != null
                 ? gameRot
                 : (sensorManager != null ? sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) : null);
 
-        ringPaint.setStyle(Paint.Style.STROKE);
-        ringPaint.setStrokeCap(Paint.Cap.ROUND);
-        trailPaint.setStyle(Paint.Style.FILL);
         ripplePaint.setStyle(Paint.Style.STROKE);
         arrowPaint.setStyle(Paint.Style.FILL);
         radarPaint.setStyle(Paint.Style.STROKE);
@@ -183,6 +176,19 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         });
     }
 
+    /** Rasterizes Zoe's crisp smiling crimson gem vector drawable once for zero-allocation 60/90fps drawing. */
+    static Bitmap renderZoeGemBitmap(Context context, int sizePx) {
+        int s = Math.max(64, sizePx);
+        Bitmap bmp = Bitmap.createBitmap(s, s, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmp);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.zoe_emblem);
+        if (drawable != null) {
+            drawable.setBounds(0, 0, s, s);
+            drawable.draw(c);
+        }
+        return bmp;
+    }
+
     void setActive(boolean enabled) {
         if (this.active == enabled) {
             return;
@@ -192,14 +198,12 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
             hasOrientation = false;
             needsInitialPlacement = true;
             userPinnedTarget = false;
-            pendingTapInspection = false;
-            trailCount = 0;
-            trailHead = 0;
-            discoveryBeacons.clear();
+            pendingAutoInspection = false;
+            autoFlightElapsedSec = 0f;
             elapsedSec = 0f;
             offscreenSec = 0f;
+            smoothLeanDeg = 0f;
             lastFrameNs = 0L;
-            lastRoamMs = System.currentTimeMillis();
             zoePos = new ArExploreBrain.Vec3(0f, 0.04f, -preferredHoverDepthM);
             zoeTarget = zoePos;
             if (sensorManager != null && rotationSensor != null) {
@@ -218,6 +222,9 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
 
     void setAutonomousRoam(boolean enabled) {
         this.autonomousRoam = enabled;
+        if (!enabled) {
+            pendingAutoInspection = false;
+        }
     }
 
     void setFrontCameraMirrored(boolean mirrored) {
@@ -302,11 +309,36 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
             return;
         }
         userPinnedTarget = false;
+        pendingAutoInspection = false;
         zoeTarget = ArExploreBrain.unprojectTapToWorld(
                 getWidth() * 0.5f, getHeight() * 0.44f,
                 getWidth(), getHeight(),
                 verticalFovRad, activeRotMat, preferredHoverDepthM);
-        lastRoamMs = System.currentTimeMillis();
+    }
+
+    /**
+     * Autonomous AR navigation: glides Zoe smoothly in 3D space over to a visually interesting spot
+     * in the live camera view, and triggers arrival inspection so she can ask the user "What's this?"
+     */
+    void glideToAutonomousSpot(float screenU, float screenV, float distanceMeters) {
+        if (!active || getWidth() <= 1 || getHeight() <= 1) {
+            return;
+        }
+        float clampedU = Math.max(0.18f, Math.min(0.82f, screenU));
+        float clampedV = Math.max(0.22f, Math.min(0.70f, screenV));
+        float rawX = clampedU * getWidth();
+        float rawY = clampedV * getHeight();
+        float tx = frontCameraMirrored ? (getWidth() - rawX) : rawX;
+        float dist = Math.max(0.85f, Math.min(1.65f, distanceMeters));
+
+        zoeTarget = ArExploreBrain.unprojectTapToWorld(
+                tx, rawY, getWidth(), getHeight(),
+                verticalFovRad, activeRotMat, dist);
+        autoSpotU = clampedU;
+        autoSpotV = clampedV;
+        userPinnedTarget = false;
+        pendingAutoInspection = true;
+        autoFlightElapsedSec = 0f;
     }
 
     ArExploreBrain.Vec3 getCurrentWorldPos() {
@@ -386,30 +418,35 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         if (!active || getWidth() <= 1 || getHeight() <= 1) {
             return;
         }
+        float d = getResources().getDisplayMetrics().density;
+        float hitRadius = 56f * d;
+        // Tapping directly on Zoe herself talks / interrupts cleanly (except in Blind mode where any tap describes ahead)
+        if (!blindGestureMode && zoeCurrentlyOnScreen
+                && Math.hypot(rawX - lastScreenX, rawY - lastScreenY) <= hitRadius) {
+            performHapticFeedback(android.view.HapticFeedbackConstants.CLOCK_TICK);
+            performClick();
+            if (listener != null) {
+                listener.onZoeGemTapped();
+            }
+            return;
+        }
+
         float tx = frontCameraMirrored ? (getWidth() - rawX) : rawX;
-        // Keep lastTapU in screen-normalized coordinates (0=left, 1=right) so Blind Mode clock-face
-        // matches what the user sees AND MediaChatHelper applies front-camera mirroring cleanly once!
-        lastTapU = Math.max(0.05f, Math.min(0.95f, rawX / Math.max(1f, (float) getWidth())));
-        lastTapV = Math.max(0.05f, Math.min(0.95f, rawY / Math.max(1f, (float) getHeight())));
+        float tapU = Math.max(0.05f, Math.min(0.95f, rawX / Math.max(1f, (float) getWidth())));
+        float tapV = Math.max(0.05f, Math.min(0.95f, rawY / Math.max(1f, (float) getHeight())));
         zoeTarget = ArExploreBrain.unprojectTapToWorld(
                 tx, rawY, getWidth(), getHeight(),
                 verticalFovRad, activeRotMat, preferredHoverDepthM);
-        if (discoveryBeacons.size() >= 8) {
-            discoveryBeacons.remove(0);
-        }
-        discoveryBeacons.add(zoeTarget);
-        tapRippleX = rawX;
-        tapRippleY = rawY;
-        tapRippleAge = 0f;
-        lastRoamMs = System.currentTimeMillis();
+        focusRippleX = rawX;
+        focusRippleY = rawY;
+        focusRippleAge = 0f;
         userPinnedTarget = true;
-        pendingTapInspection = false;
+        pendingAutoInspection = false;
         performHapticFeedback(android.view.HapticFeedbackConstants.CLOCK_TICK);
         performClick();
-        // Inspect the tapped spot IMMEDIATELY while Zoe glides smoothly over (feels instant & snappy!)
         if (listener != null) {
             float dist = Math.max(0.35f, zoeTarget.distanceTo(new ArExploreBrain.Vec3(0f, 0f, 0f)));
-            listener.onSpatialArrived(zoeTarget, dist, lastTapU, lastTapV, true);
+            listener.onSpatialArrived(zoeTarget, dist, tapU, tapV, true);
         }
     }
 
@@ -434,35 +471,34 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         float dt = lastFrameNs == 0L ? 0.016f : Math.max(0.001f, Math.min(0.08f, (frameTimeNanos - lastFrameNs) / 1_000_000_000f));
         lastFrameNs = frameTimeNanos;
         elapsedSec += dt;
-        tapRippleAge += dt;
+        focusRippleAge += dt;
         smoothVoiceLevel += (targetVoiceLevel - smoothVoiceLevel) * Math.min(1f, dt * 14f);
         smoothAmbientSoundLevel += (targetAmbientSoundLevel - smoothAmbientSoundLevel) * Math.min(1f, dt * 10f);
         targetAmbientSoundLevel = Math.max(0f, targetAmbientSoundLevel - dt * 0.45f);
 
-        long nowMs = System.currentTimeMillis();
-        // Gentle playful roam around the user's current view (strictly silent unless user taps!)
-        if (autonomousRoam && !pendingTapInspection && (nowMs - lastRoamMs) > ROAM_INTERVAL_MS) {
-            roamStep++;
-            userPinnedTarget = false;
-            zoeTarget = ArExploreBrain.chooseSpatialRoamWaypoint(activeRotMat, roamStep);
-            lastRoamMs = nowMs;
-        }
-
         // Smooth 60/90fps critically-damped 3D spring flight
-        zoePos = ArExploreBrain.stepGlide(zoePos, zoeTarget, dt, 3.6f);
+        zoePos = ArExploreBrain.stepGlide(zoePos, zoeTarget, dt, 3.4f);
         float dist = Math.max(0.35f, zoePos.distanceTo(new ArExploreBrain.Vec3(0f, 0f, 0f)));
 
-        if (pendingTapInspection && zoePos.distanceTo(zoeTarget) < 0.12f) {
-            pendingTapInspection = false;
-            if (listener != null) {
-                listener.onSpatialArrived(zoePos, dist, lastTapU, lastTapV, true);
+        if (pendingAutoInspection) {
+            autoFlightElapsedSec += dt;
+            if (zoePos.distanceTo(zoeTarget) < 0.14f || autoFlightElapsedSec > 0.95f) {
+                pendingAutoInspection = false;
+                if (getWidth() > 1 && getHeight() > 1) {
+                    focusRippleX = autoSpotU * getWidth();
+                    focusRippleY = autoSpotV * getHeight();
+                    focusRippleAge = 0f;
+                }
+                if (listener != null) {
+                    listener.onSpatialArrived(zoePos, dist, autoSpotU, autoSpotV, false);
+                }
             }
         }
 
+        long nowMs = System.currentTimeMillis();
         if (listener != null && (nowMs - lastHudMs) > HUD_THROTTLE_MS) {
             lastHudMs = nowMs;
-            String hud = String.format(java.util.Locale.US, "● AR · %.1fm", dist);
-            listener.onSpatialHudUpdate(dist, hud);
+            listener.onSpatialHudUpdate(dist, "● zoe explore");
         }
 
         invalidate();
@@ -481,17 +517,17 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
         }
         float d = getResources().getDisplayMetrics().density;
 
-        // 0. Live-View Style Ergonomic Tilt-Down Safety Rest (phone pointed at ground -> calm dim "Eyes Up" veil!)
+        // 0. Ergonomic Tilt-Down Safety Rest (phone pointed at ground -> calm dim "Eyes Up" veil)
         if (posture == LiveViewErgonomics.Posture.SAFETY_REST) {
             restPaint.setColor(Color.argb(132, 6, 10, 18));
             canvas.drawRect(0f, 0f, w, h, restPaint);
             guideTextPaint.setTextSize(15f * d);
             guideTextPaint.setColor(Color.argb(220, 210, 232, 255));
-            canvas.drawText("Eyes up · Tilt phone up to resume AR", w * 0.5f, h * 0.48f, guideTextPaint);
+            canvas.drawText("Eyes up · Tilt phone up to resume", w * 0.5f, h * 0.48f, guideTextPaint);
             return;
         }
 
-        // 0b. Floating Live-View Style Aurora Bearing Chevrons when guiding toward a compass heading!
+        // 0b. Compass Bearing Chevrons (when user asks Zoe to guide toward a heading)
         if (Float.isFinite(guideTargetBearingDeg) && Float.isFinite(currentTrueHeadingDeg)) {
             float delta = LiveViewErgonomics.signedBearingDeltaDeg(currentTrueHeadingDeg, guideTargetBearingDeg);
             guideLockedCentered = Math.abs(delta) <= 12f;
@@ -508,7 +544,6 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
                 float cy = gy - c * 11f * d;
                 chevronPath.reset();
                 if (guideLockedCentered) {
-                    // Forward-pointing upward chevron stack (right on bearing!)
                     chevronPath.moveTo(gx - sz, cy + sz * 0.55f);
                     chevronPath.lineTo(gx, cy - sz * 0.35f);
                     chevronPath.lineTo(gx + sz, cy + sz * 0.55f);
@@ -530,7 +565,7 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
             canvas.drawText(label, w * 0.5f, gy + 32f * d, guideTextPaint);
         }
 
-        // 0c. Deaf / Hard-of-Hearing Visual Ambient Sound Radar Ring (pure visual cue, zero button clutter!)
+        // 0c. Deaf / Hard-of-Hearing Visual Ambient Sound Radar border pulse
         if (visualSoundRadarEnabled && smoothAmbientSoundLevel > 0.08f) {
             float rNorm = Math.min(1f, smoothAmbientSoundLevel);
             int alpha = (int) (rNorm * 145f);
@@ -543,162 +578,80 @@ final class ZoeSpatialOverlayView extends View implements SensorEventListener, C
             canvas.drawRoundRect(oval, 34f * d, 34f * d, radarPaint);
         }
 
-        // 1. Subtle world-locked discovery beacons
-        for (int i = 0; i < discoveryBeacons.size(); i++) {
-            ArExploreBrain.ScreenProjection bp = ArExploreBrain.projectWorldToScreen(
-                    discoveryBeacons.get(i), activeRotMat, w, h, verticalFovRad);
-            if (!bp.onScreen) {
-                continue;
-            }
-            float bx = frontCameraMirrored ? (w - bp.screenX) : bp.screenX;
-            float br = (4.0f * bp.perspectiveScale) * d;
-            beaconPaint.setColor(Color.argb(135, 96, 232, 198));
-            canvas.drawCircle(bx, bp.screenY, br, beaconPaint);
-            ripplePaint.setStrokeWidth(1.3f * d);
-            ripplePaint.setColor(Color.argb(80, 120, 220, 255));
-            canvas.drawCircle(bx, bp.screenY, br * 2.0f, ripplePaint);
+        // 1. One gentle, brief focus ripple when Zoe lands on an object or user taps a spot
+        if (focusRippleAge < 0.85f) {
+            float p = focusRippleAge / 0.85f;
+            ripplePaint.setStrokeWidth((2.2f * (1f - p) + 0.8f) * d);
+            ripplePaint.setColor(Color.argb((int) ((1f - p) * 190), 255, 186, 200));
+            canvas.drawCircle(focusRippleX, focusRippleY, (14f + p * 40f) * d, ripplePaint);
         }
 
-        // 2. Tap summon ripple ring
-        if (tapRippleAge < 0.72f) {
-            float p = tapRippleAge / 0.72f;
-            ripplePaint.setStrokeWidth((2.4f * (1f - p) + 0.8f) * d);
-            ripplePaint.setColor(Color.argb((int) ((1f - p) * 200), 120, 224, 255));
-            canvas.drawCircle(tapRippleX, tapRippleY, (12f + p * 42f) * d, ripplePaint);
-        }
-
-        // 3. Project Zoe's 3D world position + gentle floating bob onto the full-screen camera
-        float bobY = (float) Math.sin(elapsedSec * 2.4) * 0.024f;
-        ArExploreBrain.Vec3 drawPos = new ArExploreBrain.Vec3(zoePos.x, zoePos.y + bobY, zoePos.z);
+        // 2. Project Zoe's 3D world position + gentle calm hover bob onto live camera
+        float bobY = (float) Math.sin(elapsedSec * 2.2) * 0.022f;
         ArExploreBrain.ScreenProjection proj = ArExploreBrain.projectWorldToScreen(
-                drawPos, activeRotMat, w, h, verticalFovRad);
+                zoePos.x, zoePos.y + bobY, zoePos.z, activeRotMat, w, h, verticalFovRad);
         float sx = frontCameraMirrored ? (w - proj.screenX) : proj.screenX;
         float sy = proj.screenY;
 
-        int cCore;
-        int cAccent;
+        int glowColor;
         switch (mood) {
-            case LISTENING -> {
-                cCore = Color.rgb(72, 232, 178);
-                cAccent = Color.rgb(92, 196, 255);
-            }
-            case THINKING -> {
-                cCore = Color.rgb(252, 202, 102);
-                cAccent = Color.rgb(186, 134, 255);
-            }
-            case SPEAKING -> {
-                cCore = Color.rgb(248, 108, 148);
-                cAccent = Color.rgb(122, 186, 255);
-            }
-            default -> {
-                cCore = Color.rgb(106, 176, 255);
-                cAccent = Color.rgb(96, 228, 206);
-            }
+            case LISTENING -> glowColor = Color.rgb(92, 232, 186);
+            case THINKING -> glowColor = Color.rgb(252, 206, 112);
+            case SPEAKING -> glowColor = Color.rgb(248, 96, 134);
+            default -> glowColor = Color.rgb(238, 86, 122);
         }
 
         if (!proj.onScreen) {
+            zoeCurrentlyOnScreen = false;
             offscreenSec += 0.016f;
-            // Gentle leash: if Zoe isn't pinned and has been off-screen > 1.4s, glide smoothly back in front!
-            if (!userPinnedTarget && offscreenSec > 1.4f) {
+            if (!userPinnedTarget && offscreenSec > 1.2f) {
                 offscreenSec = 0f;
                 recenterInFrontOfUser();
             }
-            drawOffscreenPointer(canvas, sx, sy, w, h, d, cCore);
+            drawOffscreenPointer(canvas, sx, sy, w, h, d, glowColor);
             return;
         }
+        zoeCurrentlyOnScreen = true;
         offscreenSec = 0f;
 
-        // Update luminous flight trail ring buffer
-        trailX[trailHead] = sx;
-        trailY[trailHead] = sy;
-        trailHead = (trailHead + 1) % TRAIL_CAPACITY;
-        if (trailCount < TRAIL_CAPACITY) {
-            trailCount++;
-        }
+        // Playful subtle velocity tilt as Zoe glides left/right toward something interesting
+        float vx = prevScreenX > -500f ? (sx - prevScreenX) : 0f;
+        prevScreenX = sx;
+        lastScreenX = sx;
+        lastScreenY = sy;
+        float targetLean = Math.max(-9f, Math.min(9f, vx * 0.42f));
+        smoothLeanDeg += (targetLean - smoothLeanDeg) * 0.16f;
 
-        // 4. Draw subtle luminous stardust trail
-        for (int i = 0; i < trailCount; i++) {
-            int idx = (trailHead - 1 - i + TRAIL_CAPACITY) % TRAIL_CAPACITY;
-            float frac = 1f - (i / (float) TRAIL_CAPACITY);
-            int alpha = (int) (frac * frac * 88f);
-            trailPaint.setColor(Color.argb(alpha, Color.red(cAccent), Color.green(cAccent), Color.blue(cAccent)));
-            canvas.drawCircle(trailX[idx], trailY[idx], (1.8f + frac * 5.2f) * proj.perspectiveScale * d, trailPaint);
-        }
+        float breathe = 1f + 0.035f * (float) Math.sin(elapsedSec * 2.8) + 0.16f * smoothVoiceLevel;
+        float gemHalfSize = 44f * proj.perspectiveScale * breathe * d;
 
-        float pulse = 1f + 0.055f * (float) Math.sin(elapsedSec * 3.2) + 0.22f * smoothVoiceLevel;
-        float baseR = 44f * proj.perspectiveScale * pulse * d;
-
-        // 5. Atmospheric radial aura glow (modulated by Front/Back Light-Field contrast & spatial coherence!)
-        float haloR = baseR * (1.68f + 0.26f * lightField.contrastBoost);
-        int haloAlphaCore = Math.min(230, (int) (155f * lightField.contrastBoost));
-        int haloAlphaMid = Math.min(140, (int) (64f * (0.7f + 0.5f * spatialCoherence)));
-        if (cachedHaloColor != cCore
+        // 3. Soft calm ambient glow behind Zoe (ZERO spinning rings!)
+        float haloR = gemHalfSize * (1.72f + 0.18f * lightField.contrastBoost);
+        int haloAlphaCore = Math.min(185, (int) ((115f + 55f * smoothVoiceLevel) * lightField.contrastBoost));
+        if (cachedHaloColor != glowColor
                 || Math.abs(cachedHaloRadius - haloR) > 2f
                 || Math.abs(cachedHaloX - sx) > 1.5f
                 || Math.abs(cachedHaloY - sy) > 1.5f) {
-            cachedHaloColor = cCore;
+            cachedHaloColor = glowColor;
             cachedHaloRadius = haloR;
             cachedHaloX = sx;
             cachedHaloY = sy;
             haloPaint.setShader(new RadialGradient(
                     sx, sy, Math.max(4f, cachedHaloRadius),
                     new int[]{
-                            Color.argb(haloAlphaCore, Color.red(cCore), Color.green(cCore), Color.blue(cCore)),
-                            Color.argb(haloAlphaMid, Color.red(cAccent), Color.green(cAccent), Color.blue(cAccent)),
+                            Color.argb(haloAlphaCore, Color.red(glowColor), Color.green(glowColor), Color.blue(glowColor)),
+                            Color.argb(haloAlphaCore / 3, Color.red(glowColor), Color.green(glowColor), Color.blue(glowColor)),
                             Color.TRANSPARENT},
-                    new float[]{0.12f, 0.52f, 1f}, Shader.TileMode.CLAMP));
+                    new float[]{0.18f, 0.56f, 1f}, Shader.TileMode.CLAMP));
         }
         canvas.drawCircle(sx, sy, cachedHaloRadius, haloPaint);
 
-        // 6. Dual 3D counter-rotating orbital halo rings
-        float deg = elapsedSec * (44f + 20f * spatialCoherence);
-        ringPaint.setStrokeWidth((2.1f + smoothVoiceLevel * 1.4f) * d);
-        ringPaint.setColor(Color.argb(180, Color.red(cCore), Color.green(cCore), Color.blue(cCore)));
+        // 4. Draw ZOE HERSELF — her exact faceted smiling crimson gem!
         canvas.save();
-        canvas.rotate(deg, sx, sy);
-        oval.set(sx - baseR * 1.12f, sy - baseR * 0.42f, sx + baseR * 1.12f, sy + baseR * 0.42f);
-        canvas.drawOval(oval, ringPaint);
+        canvas.rotate(smoothLeanDeg, sx, sy);
+        gemDstRect.set(sx - gemHalfSize, sy - gemHalfSize, sx + gemHalfSize, sy + gemHalfSize);
+        canvas.drawBitmap(zoeGemBitmap, null, gemDstRect, gemBitmapPaint);
         canvas.restore();
-
-        ringPaint.setStrokeWidth(1.5f * d);
-        ringPaint.setColor(Color.argb(145, Color.red(cAccent), Color.green(cAccent), Color.blue(cAccent)));
-        canvas.save();
-        canvas.rotate(-deg * 0.72f + 54f, sx, sy);
-        oval.set(sx - baseR * 1.28f, sy - baseR * 0.54f, sx + baseR * 1.28f, sy + baseR * 0.54f);
-        canvas.drawOval(oval, ringPaint);
-        canvas.restore();
-
-        // 7. Faceted 3D luminous Zoe GEM prism core with Dual-Camera Backlight Rim Reflection
-        float gH = baseR * 0.60f;
-        float gW = baseR * 0.46f;
-        float shimmer = (float) Math.sin(elapsedSec * 2.1) * gW * 0.14f;
-        gemPath.reset();
-        gemPath.moveTo(sx, sy - gH);
-        gemPath.lineTo(sx + gW, sy);
-        gemPath.lineTo(sx, sy + gH);
-        gemPath.lineTo(sx - gW, sy);
-        gemPath.close();
-        gemPaint.setColor(Color.argb(232, Color.red(cCore), Color.green(cCore), Color.blue(cCore)));
-        canvas.drawPath(gemPath, gemPaint);
-
-        int rimR = lightField.frontWarmth >= 0f ? 255 : (int) (255 + lightField.frontWarmth * 40f);
-        int rimG = 248;
-        int rimB = lightField.frontWarmth <= 0f ? 255 : (int) (255 - lightField.frontWarmth * 55f);
-        int rimAlpha = Math.max(95, Math.min(230, (int) (95f + 135f * lightField.rimIntensity)));
-        facetPath.reset();
-        facetPath.moveTo(sx, sy - gH);
-        facetPath.lineTo(sx + gW, sy);
-        facetPath.lineTo(sx + shimmer, sy - gH * 0.06f);
-        facetPath.lineTo(sx - gW, sy);
-        facetPath.close();
-        facetPaint.setColor(Color.argb(rimAlpha, rimR, rimG, rimB));
-        canvas.drawPath(facetPath, facetPaint);
-
-        if (lightField.calibrated && lightField.rimIntensity > 0.35f) {
-            ringPaint.setStrokeWidth((1.2f + lightField.rimIntensity * 1.4f) * d);
-            ringPaint.setColor(Color.argb((int) (lightField.rimIntensity * 195f), rimR, rimG, rimB));
-            canvas.drawPath(gemPath, ringPaint);
-        }
     }
 
     private void drawOffscreenPointer(Canvas canvas, float sx, float sy, float w, float h, float d, int color) {

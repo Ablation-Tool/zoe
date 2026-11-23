@@ -107,4 +107,78 @@ public class ArExploreBrainTest {
         assertTrue(d >= 0.9f && d <= 1.8f);
         assertTrue(roam.z < 0f);
     }
+
+    @Test
+    public void visualCuriositySpotPicksHighContrastObjectAndNaturalQuestionsAndAnswersWork() {
+        int w = 96;
+        int h = 72;
+        int[] pixels = new int[w * h];
+        // Uniform dark gray room except a bright colorful striped object on the right side (u ~ 0.72, v ~ 0.45)
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                boolean onObject = x >= 60 && x <= 78 && y >= 24 && y <= 44;
+                pixels[y * w + x] = onObject
+                        ? ((x + y) % 2 == 0 ? 0xFFFF3366 : 0xFF22EECC)
+                        : 0xFF222226;
+            }
+        }
+        ArExploreBrain.CuriositySpot spot = ArExploreBrain.pickVisualCuriositySpot(pixels, w, h, 0.2f, 0.2f, 0);
+        assertTrue("Expected right-side salient object, got u=" + spot.u, spot.u > 0.55f);
+        assertTrue(spot.saliencyScore > 20f);
+
+        String openQ = ArExploreBrain.buildNaturalCuriousQuestion("Labels: Room (90%).", "", 1.1f, 0, false);
+        assertTrue(openQ.toLowerCase().contains("what's this"));
+
+        String mugQ = ArExploreBrain.buildNaturalCuriousQuestion("Labels: Coffee Mug (92%).", "", 1.1f, 0, false);
+        assertTrue(mugQ.toLowerCase().contains("mug"));
+
+        String learnedQ = ArExploreBrain.buildNaturalCuriousQuestion("", "red sketchbook", 1.1f, 0, false);
+        assertTrue(learnedQ.toLowerCase().contains("red sketchbook"));
+
+        assertEquals("coffee mug", ArExploreBrain.extractUserAnswerObjectName("That's my coffee mug."));
+        assertEquals("raspberry pi", ArExploreBrain.extractUserAnswerObjectName("it's a raspberry pi"));
+        assertEquals("acoustic guitar", ArExploreBrain.extractUserAnswerObjectName("this is my acoustic guitar!"));
+        assertEquals("", ArExploreBrain.extractUserAnswerObjectName("yes I like it a lot"));
+        assertEquals("", ArExploreBrain.extractUserAnswerObjectName("what color is it?"));
+
+        assertTrue(ArExploreBrain.isDontKnowReply("I don't know"));
+        assertTrue(ArExploreBrain.isDontKnowReply("honestly no idea"));
+        assertTrue(ArExploreBrain.isDontKnowReply("not sure, you tell me"));
+        assertFalse(ArExploreBrain.isDontKnowReply("that's my coffee mug"));
+
+        String collab = ArExploreBrain.buildLetsFigureItOutReply(
+                "Labels: Ceramic (81%). Visible text: \"1984\".",
+                "curved contour",
+                "warm amber and ivory",
+                false);
+        assertTrue(collab.startsWith("let's figure it out together!"));
+        assertTrue(collab.contains("1984"));
+        assertTrue(collab.contains("warm amber"));
+        assertFalse(collab.contains("—"));
+    }
+
+    @Test
+    public void boundingBoxAnalysisFindsLocalSubjectAndPlacesZoeInOpenInteriorCorner() {
+        int w = 72;
+        int h = 72;
+        int[] pixels = new int[w * h];
+        // Dark blackboard background with bright chalk writing strictly in upper-left quadrant
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                boolean onChalk = x >= 8 && x <= 30 && y >= 8 && y <= 28 && ((x + y) % 2 == 0);
+                pixels[y * w + x] = onChalk ? 0xFFF4F6EE : 0xFF181C1A;
+            }
+        }
+        ArExploreBrain.BoxArAnalysis analysis = ArExploreBrain.analyzeBoundingBoxPixels(pixels, w, h);
+        assertTrue("Expected non-zero detail score", analysis.detailScore > 0.25f);
+        assertTrue("Expected focal spot in upper-left, got (" + analysis.focusU + "," + analysis.focusV + ")",
+                analysis.focusU < 0.5f && analysis.focusV < 0.5f);
+        // Zoe must stay strictly inside the box walls and avoid covering the upper-left chalk!
+        assertTrue(analysis.zoePerchU >= 0.20f && analysis.zoePerchU <= 0.80f);
+        assertTrue(analysis.zoePerchV >= 0.20f && analysis.zoePerchV <= 0.80f);
+        assertTrue("Expected Zoe to perch away from chalk cluster",
+                Math.hypot(analysis.zoePerchU - analysis.focusU, analysis.zoePerchV - analysis.focusV) > 0.35f);
+        assertTrue(analysis.anchorUs.length > 0 && analysis.anchorUs.length <= 3);
+        assertTrue(analysis.subLeftU < analysis.subRightU && analysis.subTopV < analysis.subBottomV);
+    }
 }

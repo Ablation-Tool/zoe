@@ -36,6 +36,8 @@ from typing import Callable, Dict, List, Sequence, Tuple
 
 import numpy as np
 
+from ._metrics import auroc_tie_aware as _auroc
+
 CONTRACT = "zoe-l4-sandboxed-self-evolution/v1"
 
 ALLOWED_VARS = frozenset({
@@ -185,28 +187,6 @@ def extract_spectral_features(probabilities: np.ndarray) -> Dict[str, np.ndarray
         "margin": margin,
         "kappa": kappa,
     }
-
-
-def _auroc(labels: np.ndarray, scores: np.ndarray) -> float:
-    y = np.asarray(labels, dtype=np.int64)
-    s = np.asarray(scores, dtype=np.float64)
-    n_pos = int(np.sum(y == 1))
-    n_neg = int(np.sum(y == 0))
-    if n_pos == 0 or n_neg == 0:
-        return 0.5
-    order = np.argsort(s, kind="mergesort")
-    sorted_s = s[order]
-    ranks = np.empty(len(s), dtype=np.float64)
-    i = 0
-    while i < len(s):
-        j = i
-        while j + 1 < len(s) and sorted_s[j + 1] == sorted_s[i]:
-            j += 1
-        avg_rank = 0.5 * (i + j) + 1.0
-        ranks[order[i:j + 1]] = avg_rank
-        i = j + 1
-    sum_pos = float(np.sum(ranks[y == 1]))
-    return float((sum_pos - n_pos * (n_pos + 1) / 2.0) / (n_pos * n_neg))
 
 
 def _ensure_guiai(root: Path) -> None:

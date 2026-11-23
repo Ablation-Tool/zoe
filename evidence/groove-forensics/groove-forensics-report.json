@@ -9,6 +9,8 @@
     "protracker_mod_parsed_cleanly": true,
     "rigid_zero_jitter_collapse": true,
     "stern_brocot_6_ratios_locked": true,
+    "theorem13_groove_stopping_separates_pocket_from_poisson": true,
+    "theorem14_poincare_quadrat_separates_swing_grid_poisson": true,
     "theorem7_groove_w1_orders_rigid_dilla_poisson": true
   },
   "constitution": {
@@ -16,7 +18,7 @@
     "negative_control_preserved": true
   },
   "contract": "zoe-groove-forensics-polyrhythm/v1",
-  "evidence_sha256": "e6f5930a341124522f5e04e212548dd0db060ca1700a5587765612858fd51751",
+  "evidence_sha256": "edb6c331bf6020787a4ac88420fcb040cb7441880ef79055f702150b1a830bb2",
   "groove_showcase_wav": {
     "bytes": 2116844,
     "duration_sec": 12.0,
@@ -118,11 +120,32 @@
       "kloster_a_005": 1,
       "kloster_a_010": 1,
       "kloster_m4_root": 1.0,
+      "kloster_phase_s_min": 2,
       "kloster_renyi_h2": -0.0,
       "kloster_shannon_h": -0.0,
+      "kloster_stopping": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0938,
+        "estimated_s_min": 3,
+        "excess_chi2": 23.0,
+        "m4_root": 1.0,
+        "samples": 12,
+        "z_kloster": 38.9615,
+        "z_threshold": 4.9913
+      },
       "lag1_autocorr": 0.0,
       "name": "rigid_quantized_120bpm",
       "plv": 1.0,
+      "poincare_quadrat_zk": {
+        "besag_l_minus_r": -0.08,
+        "collapsed_to_grid": true,
+        "n_quadrats": 64,
+        "poincare_regime": "RIGID_GRID_QUANTIZED",
+        "poincare_span_ms": 0.0,
+        "points": 127,
+        "vmr": 127.0,
+        "z_kloster": 709.9739
+      },
       "poincare_sd2_sd1_ratio": 0.0,
       "poincare_x_ms": [
         0.0,
@@ -430,11 +453,32 @@
       "kloster_a_005": 4,
       "kloster_a_010": 4,
       "kloster_m4_root": 0.38208,
+      "kloster_phase_s_min": 8,
       "kloster_renyi_h2": 1.32783,
       "kloster_shannon_h": 1.35582,
+      "kloster_stopping": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0938,
+        "estimated_s_min": 7,
+        "excess_chi2": 4.090909,
+        "m4_root": 0.432268,
+        "samples": 12,
+        "z_kloster": 6.9299,
+        "z_threshold": 4.9913
+      },
       "lag1_autocorr": -0.9083,
       "name": "human_dilla_pocket_swing",
       "plv": 0.81288,
+      "poincare_quadrat_zk": {
+        "besag_l_minus_r": 0.12426,
+        "collapsed_to_grid": false,
+        "n_quadrats": 64,
+        "poincare_regime": "CLUSTERED_GROOVE_POCKET",
+        "poincare_span_ms": 36.0396,
+        "points": 127,
+        "vmr": 11.6064,
+        "z_kloster": 59.7642
+      },
       "poincare_sd2_sd1_ratio": 0.219,
       "poincare_x_ms": [
         -1.817,
@@ -742,14 +786,35 @@
       "kloster_a_005": 5,
       "kloster_a_010": 4,
       "kloster_m4_root": 0.34751,
+      "kloster_phase_s_min": 3,
       "kloster_renyi_h2": 1.48621,
       "kloster_shannon_h": 1.53939,
+      "kloster_stopping": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.1,
+        "estimated_s_min": 4,
+        "excess_chi2": 9.909091,
+        "m4_root": 0.594604,
+        "samples": 12,
+        "z_kloster": 16.7858,
+        "z_threshold": 4.9913
+      },
       "lag1_autocorr": -0.0308,
       "name": "polyrhythm_3_2_clave",
       "plv": 0.77419,
       "plv_3_2": 0.99949,
       "plv_4_3": 0.99902,
       "plv_5_4": 0.99845,
+      "poincare_quadrat_zk": {
+        "besag_l_minus_r": 0.03279,
+        "collapsed_to_grid": false,
+        "n_quadrats": 64,
+        "poincare_regime": "CLUSTERED_GROOVE_POCKET",
+        "poincare_span_ms": 20.8082,
+        "points": 119,
+        "vmr": 3.088,
+        "z_kloster": 11.7686
+      },
       "poincare_sd2_sd1_ratio": 0.97,
       "poincare_x_ms": [
         -0.004,
@@ -1041,13 +1106,34 @@
       "kloster_a_005": 3,
       "kloster_a_010": 3,
       "kloster_m4_root": 0.43973,
+      "kloster_phase_s_min": 3,
       "kloster_renyi_h2": 1.097,
       "kloster_shannon_h": 1.0978,
+      "kloster_stopping": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0938,
+        "estimated_s_min": 3,
+        "excess_chi2": 23.0,
+        "m4_root": 1.0,
+        "samples": 12,
+        "z_kloster": 38.9615,
+        "z_threshold": 4.9913
+      },
       "lag1_autocorr": 0.0,
       "mod_bytes_len": 5180,
       "mod_sha256": "6a28fc7d0d106a02",
       "name": "protracker_amiga_mod_mk",
       "plv": 1.0,
+      "poincare_quadrat_zk": {
+        "besag_l_minus_r": -0.08,
+        "collapsed_to_grid": true,
+        "n_quadrats": 64,
+        "poincare_regime": "RIGID_GRID_QUANTIZED",
+        "poincare_span_ms": 0.0,
+        "points": 127,
+        "vmr": 127.0,
+        "z_kloster": 709.9739
+      },
       "poincare_sd2_sd1_ratio": 0.0,
       "poincare_x_ms": [
         0.0,
@@ -1355,11 +1441,32 @@
       "kloster_a_005": 6,
       "kloster_a_010": 2,
       "kloster_m4_root": 0.17168,
+      "kloster_phase_s_min": 142,
       "kloster_renyi_h2": 2.59254,
       "kloster_shannon_h": 2.80044,
+      "kloster_stopping": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 215,
+        "excess_chi2": 0.012795,
+        "m4_root": 0.116438,
+        "samples": 128,
+        "z_kloster": 0.2405,
+        "z_threshold": 6.0843
+      },
       "lag1_autocorr": 0.1257,
       "name": "negative_control_poisson_noise",
       "plv": 0.10936,
+      "poincare_quadrat_zk": {
+        "besag_l_minus_r": 0.00021,
+        "collapsed_to_grid": false,
+        "n_quadrats": 64,
+        "poincare_regime": "POISSON_CSR_JITTER",
+        "poincare_span_ms": 123.2426,
+        "points": 127,
+        "vmr": 0.7118,
+        "z_kloster": -1.624
+      },
       "poincare_sd2_sd1_ratio": 1.135,
       "poincare_x_ms": [
         -13.721,
@@ -1662,6 +1769,43 @@
       "ratio": "7:5"
     }
   ],
+  "theorem13_14_groove_bridge": {
+    "human_dilla_pocket_swing": {
+      "poincare_regime": "CLUSTERED_GROOVE_POCKET",
+      "poincare_z_kloster": 59.7642,
+      "s_min": 8,
+      "stopping_action": "DECIDE_SIGNAL",
+      "stopping_samples": 12
+    },
+    "negative_control_poisson_noise": {
+      "poincare_regime": "POISSON_CSR_JITTER",
+      "poincare_z_kloster": -1.624,
+      "s_min": 142,
+      "stopping_action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+      "stopping_samples": 128
+    },
+    "polyrhythm_3_2_clave": {
+      "poincare_regime": "CLUSTERED_GROOVE_POCKET",
+      "poincare_z_kloster": 11.7686,
+      "s_min": 3,
+      "stopping_action": "DECIDE_SIGNAL",
+      "stopping_samples": 12
+    },
+    "protracker_amiga_mod_mk": {
+      "poincare_regime": "RIGID_GRID_QUANTIZED",
+      "poincare_z_kloster": 709.9739,
+      "s_min": 3,
+      "stopping_action": "DECIDE_SIGNAL",
+      "stopping_samples": 12
+    },
+    "rigid_quantized_120bpm": {
+      "poincare_regime": "RIGID_GRID_QUANTIZED",
+      "poincare_z_kloster": 709.9739,
+      "s_min": 2,
+      "stopping_action": "DECIDE_SIGNAL",
+      "stopping_samples": 12
+    }
+  },
   "theorem7_groove_transport": {
     "kloster_gini_by_profile": {
       "human_dilla_pocket_swing": 0.903106,

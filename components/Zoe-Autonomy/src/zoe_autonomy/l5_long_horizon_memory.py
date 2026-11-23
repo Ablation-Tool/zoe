@@ -16,7 +16,6 @@ Scales Zoe's Phase 1 persistent memory (`ZoeUnifiedMemory`) cleanly to:
 from __future__ import annotations
 
 from copy import deepcopy
-import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -25,14 +24,10 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
+from ._utils import sha256_json_utf8 as _sha256_obj
+
 
 L5_LONG_MEMORY_CONTRACT = "zoe-l5-long-horizon-memory/v1"
-
-
-def _sha256_obj(payload: object) -> str:
-    return hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 class ZoeLongHorizonMemory:

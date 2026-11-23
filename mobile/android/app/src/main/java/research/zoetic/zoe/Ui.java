@@ -214,10 +214,10 @@ final class Ui {
         view.setTextColor(textColor(view.getContext()));
     }
 
-    /** Pure borderless Zoe Living Spark emblem (no harsh ring, clean floating icon). */
+    /** Pure borderless Zoe Harmonic Aperture emblem (clean vector scaling at every DPI). */
     static ImageView zoeSparkIcon(Context context, int sizeDp) {
         ImageView image = new ImageView(context);
-        image.setImageResource(R.drawable.zoe_ruby_sprout);
+        image.setImageResource(R.drawable.zoe_emblem);
         image.setScaleType(ImageView.ScaleType.FIT_CENTER);
         image.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         image.setLayoutParams(new LinearLayout.LayoutParams(dp(context, sizeDp), dp(context, sizeDp)));

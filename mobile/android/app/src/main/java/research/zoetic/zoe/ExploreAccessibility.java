@@ -245,8 +245,8 @@ final class ExploreAccessibility {
             }
         } else {
             sb.append(kidFriendly
-                    ? "Looking " + dir + " — move slowly and I'll tell you what I spot."
-                    : "Scanning " + dir + " — no high-confidence object yet.");
+                    ? "Looking " + dir + ". Move slowly and I'll tell you what I spot."
+                    : "Scanning " + dir + ". No high-confidence object yet.");
         }
         if (ocrSnippet != null && !ocrSnippet.isEmpty()) {
             sb.append(" Text reads: \"").append(ocrSnippet).append("\".");

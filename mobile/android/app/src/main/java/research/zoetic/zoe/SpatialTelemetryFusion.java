@@ -117,7 +117,7 @@ final class SpatialTelemetryFusion {
         final int bleNearbyCount;      // non-identifying count only
         final int cellDbm;             // -140 if unavailable
         final int cellLevel;           // 0..4 (non-identifying OS radio bar level)
-        final boolean simReady;        // boolean presence only — NEVER reads IMSI/ICCID/number
+        final boolean simReady;        // boolean presence only, NEVER reads IMSI/ICCID/number
         final LightFieldState lightField;
         final EnuGridCoord gridCoord;  // nullable if GPS off
 
@@ -252,9 +252,13 @@ final class SpatialTelemetryFusion {
      */
     static EnuGridCoord toLocalEnuGrid(double originLat, double originLon, double originAltMeters,
                                        double curLat, double curLon, double curAltMeters) {
-        double horizDist = LocationMath.haversineMeters(originLat, originLon, curLat, curLon);
         double dLatRad = Math.toRadians(curLat - originLat);
         double dLonRad = Math.toRadians(curLon - originLon);
+        double sinLat = Math.sin(dLatRad * 0.5);
+        double sinLon = Math.sin(dLonRad * 0.5);
+        double a = sinLat * sinLat
+                + Math.cos(Math.toRadians(originLat)) * Math.cos(Math.toRadians(curLat)) * sinLon * sinLon;
+        double horizDist = 2.0 * EARTH_RADIUS_M * Math.atan2(Math.sqrt(a), Math.sqrt(Math.max(0.0, 1.0 - a)));
         double meanLatRad = Math.toRadians((originLat + curLat) * 0.5);
         double north = dLatRad * EARTH_RADIUS_M;
         double east = dLonRad * EARTH_RADIUS_M * Math.cos(meanLatRad);

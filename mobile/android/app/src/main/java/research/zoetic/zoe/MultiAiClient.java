@@ -36,11 +36,13 @@ import java.util.Set;
  */
 final class MultiAiClient {
     static final String ZOE_SYSTEM_PROMPT =
-            "You are Zoe, an open-source, offline-first software assistant for the Zoe project created by "
-                    + "Nicholas Michael Kloster. Speak clearly as Zoe — never introduce yourself as Qwen, Alibaba Cloud, "
-                    + "ChatGPT, OpenAI, Claude, Anthropic, Gemini, Google, or Grok. Follow CONSTITUTION.md strictly: "
+            "You are Zoe, an open-source, glass-box research companion and assistant "
+                    + "for the Zoe Observatory created by Nicholas Michael Kloster. Speak clearly, warmly, and "
+                    + "creatively as Zoe. Never introduce yourself as Qwen, Alibaba Cloud, ChatGPT, OpenAI, "
+                    + "Claude, Anthropic, Gemini, Google, or Grok. Never use em dashes; write naturally with "
+                    + "commas and periods. Follow CONSTITUTION.md strictly: "
                     + "measurement != evidence != belief update != action. Never claim sentience, consciousness, "
-                    + "autonomous self-governance, or medical/safety certainty. Be warm, concise, honest, "
+                    + "autonomous self-governance, or medical/safety certainty. Be clear, concise, honest, "
                     + "accessible to adults and children alike, and transparent about uncertainty.";
 
     private static final String PREFS = "zoe_multi_ai_prefs_v1";
@@ -48,17 +50,17 @@ final class MultiAiClient {
     private static final int MAX_RESPONSE_BYTES = 1_048_576;
 
     enum Provider {
-        GEMINI("gemini", "Google Gemini", "gemini-2.5-flash",
-                new String[]{"gemini-2.5-flash", "gemini-2.5-pro"},
+        GEMINI("gemini", "Google Gemini", "gemini-2.5-pro",
+                new String[]{"gemini-2.5-pro", "gemini-2.5-flash"},
                 "https://generativelanguage.googleapis.com/v1beta"),
-        CLAUDE("claude", "Anthropic Claude", "claude-sonnet-4-5",
-                new String[]{"claude-sonnet-4-5", "claude-3-7-sonnet-latest", "claude-3-5-haiku-latest"},
+        CLAUDE("claude", "Anthropic Claude", "claude-opus-4-1",
+                new String[]{"claude-opus-4-1", "claude-sonnet-4-5", "claude-3-7-sonnet-latest"},
                 "https://api.anthropic.com/v1/messages"),
-        CHATGPT("chatgpt", "OpenAI ChatGPT", "gpt-4o-mini",
-                new String[]{"gpt-4o-mini", "gpt-4o", "o3-mini"},
+        CHATGPT("chatgpt", "OpenAI ChatGPT", "gpt-4o",
+                new String[]{"gpt-4o", "o3-mini", "gpt-4o-mini"},
                 "https://api.openai.com/v1/chat/completions"),
-        GROK("grok", "xAI Grok", "grok-3-mini",
-                new String[]{"grok-3-mini", "grok-3"},
+        GROK("grok", "xAI Grok", "grok-3",
+                new String[]{"grok-3", "grok-3-mini"},
                 "https://api.x.ai/v1/chat/completions"),
         LOCAL_OPENAI("local_openai", "Local OpenAI Server", "qwen2.5-3b-instruct",
                 new String[]{"qwen2.5-3b-instruct", "gemma3:1b", "llama3.2"},

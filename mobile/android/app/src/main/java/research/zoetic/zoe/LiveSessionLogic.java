@@ -106,8 +106,8 @@ final class LiveSessionLogic {
                 .replaceAll("https?://\\S+", "")
                 .replaceAll("(?m)^\\s*#{1,6}\\s*", "")
                 .replaceAll("(?m)^\\s*[-•*+]\\s+", "")
-                .replace("—", ", ")
-                .replace("–", ", ")
+                .replace("\u2014", ", ")
+                .replace("\u2013", ", ")
                 .replaceAll("[*_~#<>|\\[\\]]", " ")
                 .replaceAll("\\s+", " ")
                 .trim();

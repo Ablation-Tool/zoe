@@ -30,6 +30,10 @@ from typing import Any, Dict, List, Tuple
 import numpy as np
 
 from .kloster_info_geometry import kloster_renyi_entropy
+from .kloster_stopping_law import (
+    KlosterSequentialStoppingController,
+    kloster_unbiased_chi2_stats,
+)
 from .spectral_filtration import _auroc, spectral_moment_root
 from .waveform import WaveformReplay
 
@@ -43,6 +47,154 @@ def _tpr_at_fpr(labels: np.ndarray, scores: np.ndarray, target_fpr: float = 0.05
         return 0.0
     thresh = float(np.quantile(bg_scores, 1.0 - target_fpr))
     return float(np.mean(sig_scores > thresh))
+
+
+def _median3_probs(ev: np.ndarray) -> np.ndarray:
+    """Apply azimuthal 3-channel Hampel + median filter to erase isolated hot-spikes and normalize."""
+    arr = np.asarray(ev, dtype=np.float64)
+    arr = np.where(np.isfinite(arr), arr, 0.0)
+    if arr.size == 0:
+        return arr
+    if arr.size < 3:
+        clipped = np.clip(arr, 1e-12, None)
+        with np.errstate(over="ignore"):
+            total = float(np.sum(clipped))
+        if math.isfinite(total) and total > 0.0:
+            return clipped / total
+        c_max = float(np.max(clipped))
+        if c_max <= 0.0 or not math.isfinite(c_max):
+            return np.full(clipped.size, 1.0 / float(clipped.size), dtype=np.float64)
+        scaled = clipped / c_max
+        return scaled / float(np.sum(scaled))
+    # Wrap padding models the periodic azimuthal calorimeter ring (no boundary spike duplication)
+    pad = np.pad(arr, (1, 1), mode="wrap")
+    left, ctr, right = pad[:-2], pad[1:-1], pad[2:]
+    # Divide ctr by 2.5 and halve neighbors so extreme finite values (e.g. 1e308) cannot overflow
+    despiked = np.where(ctr / 2.5 > np.maximum(left, right), 0.5 * left + 0.5 * right, ctr)
+    pad_clean = np.pad(despiked, (1, 1), mode="wrap")
+    med = np.median(np.stack([pad_clean[:-2], pad_clean[1:-1], pad_clean[2:]], axis=-1), axis=-1)
+    med = np.clip(med, 1e-12, None)
+    with np.errstate(over="ignore"):
+        med_sum = float(np.sum(med))
+    if math.isfinite(med_sum) and med_sum > 0.0:
+        return med / med_sum
+    # Scale by max entry when direct sum overflows float64, falling back to uniform 1/N if <= 0
+    med_max = float(np.max(med))
+    if med_max <= 0.0 or not math.isfinite(med_max):
+        return np.full(med.size, 1.0 / float(med.size), dtype=np.float64)
+    med_scaled = med / med_max
+    return med_scaled / float(np.sum(med_scaled))
+
+
+def _sample_bunch_energy(
+    rng: np.random.Generator,
+    regime: str,
+    channels: np.ndarray,
+) -> np.ndarray:
+    """Generate one LHC bunch crossing calorimeter profile for Theorem 13 sequential stopping."""
+    n_ch = int(channels.size)
+    if regime in ("signal_jet_shower", "signal_undersampled_1bunch"):
+        # Coherent multi-tower particle jet centered at tower 28 plus modest pileup
+        base = rng.gamma(shape=1.6, scale=0.45, size=n_ch)
+        shower = 6.0 * np.exp(-0.5 * ((channels - 28.0) / 2.2) ** 2)
+        return np.clip(base + shower, 1e-4, None)
+    if regime == "bg_single_hotspike":
+        # Random isolated 1-channel electronic glitch (no multi-tower shower)
+        base = rng.gamma(shape=1.4, scale=0.40, size=n_ch)
+        base[int(rng.integers(0, n_ch))] += 22.0
+        return np.clip(base, 1e-4, None)
+    if regime == "bg_sticky_hotspike":
+        # Persistent hot channel 20 glitch across every bunch crossing
+        base = rng.gamma(shape=1.4, scale=0.40, size=n_ch)
+        base[20] += 22.0
+        return np.clip(base, 1e-4, None)
+    # Diffuse minimum-bias pileup + thermal background
+    return np.clip(rng.gamma(shape=2.4, scale=0.65, size=n_ch), 1e-4, None)
+
+
+def _run_multibunch_stopping_stream(
+    regime: str,
+    n_channels: int = 64,
+    n_bunches: int = 16,
+    quanta_per_bunch: int = 32,
+    seed: int = 20260713,
+) -> Dict[str, Any]:
+    """Run Theorem 13 anytime-valid sequential stopping over multi-bunch calorimeter quanta."""
+    rng = np.random.default_rng(seed)
+    channels = np.arange(n_channels, dtype=np.float64)
+    ctrl = KlosterSequentialStoppingController(n_bins=n_channels, delta=0.005, max_samples=512)
+    verdict: Dict[str, Any] = {}
+    history: List[Dict[str, Any]] = []
+    for b_idx in range(n_bunches):
+        # Median filter erases isolated hot-spikes before sampling discrete energy quanta
+        p_bunch = _median3_probs(_sample_bunch_energy(rng, regime, channels))
+        hits = rng.choice(n_channels, size=quanta_per_bunch, p=p_bunch)
+        verdict = ctrl.observe_batch(hits)
+        history.append({"bunch": b_idx + 1, "action": verdict["action"], "z_kloster": verdict["z_kloster"]})
+        if verdict["action"] != "GATHER_MORE":
+            break
+    return {**verdict, "regime": regime, "bunches_observed": len(history), "history": history}
+
+
+def _emit_thm13_vcd_trace(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Emit and parse an IEEE 1364 VCD waveform encoding multi-bunch Theorem 13 decisions."""
+    lines = [
+        "$timescale 1ns $end",
+        "$scope module helios_thm13_stopping $end",
+        "$var wire 1 ! bunch_clk $end",
+        "$var wire 1 # decide_signal $end",
+        "$var wire 1 $ gather_more $end",
+        "$var wire 1 % abstain $end",
+        "$upscope $end",
+        "$enddefinitions $end",
+        "#0",
+        "0!", "0#", "0$", "0%",
+    ]
+    t_ns = 0
+    for step in steps:
+        t_ns += 25
+        act = step["action"]
+        sig_bit = 1 if act == "DECIDE_SIGNAL" else 0
+        gath_bit = 1 if act == "GATHER_MORE" else 0
+        abst_bit = 1 if act == "ABSTAIN_INSUFFICIENT_EVIDENCE" else 0
+        lines.extend([f"#{t_ns}", "1!", f"{sig_bit}#", f"{gath_bit}$", f"{abst_bit}%"])
+        t_ns += 12
+        lines.extend([f"#{t_ns}", "0!"])
+    replay = WaveformReplay.from_vcd_text("\n".join(lines) + "\n")
+    return {"signals": len(replay.signals), "events": len(replay.events)}
+
+
+def _evaluate_theorem13_vcd_stopping(
+    sample_profiles: Dict[str, List[float]],
+    n_channels: int = 64,
+) -> Dict[str, Any]:
+    """Bridge 1A: Evaluate Theorem 13 unbiased chi2 stats & multi-bunch VCD stopping regimes."""
+    # Single-event unbiased chi^2 stats after 3-channel median denoising
+    single_stats = {}
+    for key in ("signal_jet", "bg_pileup", "bg_hotspike"):
+        p_den = _median3_probs(np.asarray(sample_profiles[key], dtype=np.float64))
+        counts = np.round(p_den * 256.0).astype(np.int64)
+        single_stats[key] = kloster_unbiased_chi2_stats(counts)
+
+    streams = {
+        "signal_jet_shower": _run_multibunch_stopping_stream("signal_jet_shower", n_channels, 16, 32, 20260713),
+        "signal_undersampled_1bunch": _run_multibunch_stopping_stream("signal_undersampled_1bunch", n_channels, 1, 32, 20260713),
+        "bg_diffuse_pileup": _run_multibunch_stopping_stream("bg_diffuse_pileup", n_channels, 16, 32, 20260715),
+        "bg_single_hotspike": _run_multibunch_stopping_stream("bg_single_hotspike", n_channels, 16, 32, 20260716),
+        "bg_sticky_hotspike": _run_multibunch_stopping_stream("bg_sticky_hotspike", n_channels, 16, 32, 20260717),
+    }
+    trace_steps = (
+        streams["signal_jet_shower"]["history"]
+        + streams["bg_diffuse_pileup"]["history"][:4]
+        + [streams["bg_diffuse_pileup"]["history"][-1]]
+    )
+    vcd_trace = _emit_thm13_vcd_trace(trace_steps)
+    return {
+        "single_event_unbiased_chi2": single_stats,
+        "streams": streams,
+        "vcd_stopping_signals": vcd_trace["signals"],
+        "vcd_stopping_events": vcd_trace["events"],
+    }
 
 
 def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
@@ -252,6 +404,23 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
         "discovery_significance_exceeds_5sigma": z_kloster >= 10.0 and z_kloster > z_peak * 2.5,
     }
 
+    sample_profiles = {
+        "signal_jet": np.round(events_energy[0], 3).tolist(),
+        "bg_pileup": np.round(events_energy[n_sig], 3).tolist(),
+        "bg_hotspike": np.round(events_energy[n_sig + n_pileup], 3).tolist(),
+    }
+    thm13_stopping = _evaluate_theorem13_vcd_stopping(sample_profiles, n_channels)
+    checks["theorem13_multibunch_stopping_signal_vs_pileup_hotspike"] = (
+        thm13_stopping["streams"]["signal_jet_shower"]["action"] == "DECIDE_SIGNAL"
+        and thm13_stopping["streams"]["signal_jet_shower"]["budget_fraction_used"] <= 0.50
+        and thm13_stopping["streams"]["signal_undersampled_1bunch"]["action"] == "GATHER_MORE"
+        and thm13_stopping["streams"]["bg_diffuse_pileup"]["action"] == "ABSTAIN_INSUFFICIENT_EVIDENCE"
+        and thm13_stopping["streams"]["bg_single_hotspike"]["action"] == "ABSTAIN_INSUFFICIENT_EVIDENCE"
+        and thm13_stopping["streams"]["bg_sticky_hotspike"]["action"] == "ABSTAIN_INSUFFICIENT_EVIDENCE"
+        and thm13_stopping["vcd_stopping_signals"] == 4
+        and thm13_stopping["vcd_stopping_events"] >= 16
+    )
+
     report = {
         "contract": CONTRACT,
         "events_summary": {"signal_jets": n_sig, "bg_pileup": n_pileup, "bg_hotspikes": n_hotspike, "channels": n_channels},
@@ -286,12 +455,14 @@ def run_cern_kloster_trigger_suite() -> Dict[str, Any]:
             "false_trigger_rate": neg_false_trigger_rate,
             "events_tested": 100,
         },
-        "vcd_forensics": {"signals": vcd_signals, "events": vcd_events, "bunch_spacing_ns": 25},
-        "sample_profiles": {
-            "signal_jet": np.round(events_energy[0], 3).tolist(),
-            "bg_pileup": np.round(events_energy[n_sig], 3).tolist(),
-            "bg_hotspike": np.round(events_energy[n_sig + n_pileup], 3).tolist(),
+        "vcd_forensics": {
+            "signals": vcd_signals,
+            "events": vcd_events,
+            "bunch_spacing_ns": 25,
+            "theorem13_stopping": thm13_stopping,
         },
+        "theorem13_multibunch_stopping": thm13_stopping,
+        "sample_profiles": sample_profiles,
         "scatter_telemetry": {
             "labels": labels.tolist(),
             "event_types": event_types,

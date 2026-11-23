@@ -291,14 +291,13 @@ final class LiveViewErgonomics {
     }
 
     /**
-     * Builds a single, calm, decisive spoken description straight from live camera telemetry.
-     * Commits to ONE clear label when confidence >= 65% (avoiding muddy "X or Y" hedging!).
+     * Builds a clean, warm, honest spoken description straight from live camera telemetry
+     * whenever the compact local LLM hedges or refuses vision.
      */
     static String buildGroundedVisualAnswer(String cameraReport, float distanceMeters,
                                             float compassDeg, boolean kidFriendly) {
         String primary = ArExploreBrain.extractPrimaryLabel(cameraReport);
-        int primaryConf = extractPrimaryConfidencePct(cameraReport);
-        String secondary = primaryConf >= 65 ? "" : extractSecondaryLabel(cameraReport);
+        String secondary = extractSecondaryLabel(cameraReport);
         String ocr = ArExploreBrain.extractOcrSnippet(cameraReport);
         String colors = extractColorsClause(cameraReport);
         StringBuilder sb = new StringBuilder();
@@ -315,9 +314,9 @@ final class LiveViewErgonomics {
         } else if (!ocr.isEmpty()) {
             sb.append("I can read \"").append(ocr).append("\" right there.");
         } else if (!colors.isEmpty()) {
-            sb.append("I see ").append(colors).append(" — move a bit closer so I can spot the exact object.");
+            sb.append("I see ").append(colors).append(" right there. Move a bit closer so I can spot the exact object.");
         } else {
-            sb.append("Move a little closer or give it a bit more light so I can spot what's there.");
+            sb.append("Move a little closer or give it a bit more light so I can identify what's right there.");
         }
         if (!ocr.isEmpty() && !primary.isEmpty()) {
             sb.append(" Text reads: \"").append(ocr).append("\".");
@@ -326,25 +325,6 @@ final class LiveViewErgonomics {
             sb.append(String.format(Locale.US, " Facing %s.", SpatialTelemetryFusion.compassCardinal(compassDeg)));
         }
         return sb.toString().trim();
-    }
-
-    private static int extractPrimaryConfidencePct(String report) {
-        if (report == null) return 0;
-        int idx = report.indexOf("Labels:");
-        if (idx < 0) return 0;
-        int end = report.indexOf('.', idx);
-        String body = (end > idx ? report.substring(idx + 7, end) : report.substring(idx + 7)).trim();
-        int comma = body.indexOf(',');
-        String first = (comma >= 0 ? body.substring(0, comma) : body).trim();
-        int lp = first.lastIndexOf('(');
-        int pct = first.lastIndexOf('%');
-        if (lp >= 0 && pct > lp) {
-            try {
-                return Integer.parseInt(first.substring(lp + 1, pct).trim());
-            } catch (NumberFormatException ignored) {
-            }
-        }
-        return 0;
     }
 
     private static String extractSecondaryLabel(String report) {

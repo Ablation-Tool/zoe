@@ -166,7 +166,7 @@ final class GooglePatentsClient {
             for (int i = 0; i < matches.size(); i++) {
                 PatentMatch m = matches.get(i);
                 String simStr = m.visualMatchPercent() >= 0 ? (" [" + m.visualMatchPercent() + "% visual contour match]") : "";
-                String line = "[" + (i + 1) + "] " + m.publicationNumber + " — " + m.title + simStr
+                String line = "[" + (i + 1) + "] " + m.publicationNumber + ": " + m.title + simStr
                         + (m.assignee.isEmpty() ? "" : " (" + m.assignee + ")")
                         + ": " + m.snippet
                         + (m.dimensionsNote.isEmpty() ? "" : " [Dimensions: " + m.dimensionsNote + "]")
@@ -535,7 +535,7 @@ final class GooglePatentsClient {
         if (s == null) return "";
         return s.replace("&hellip;", "…")
                 .replace("&ndash;", "–")
-                .replace("&mdash;", "—")
+                .replace("&mdash;", ", ")
                 .replace("&#39;", "'")
                 .replace("&nbsp;", " ")
                 .replaceAll("\\s+", " ")

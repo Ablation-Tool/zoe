@@ -38,7 +38,6 @@ from __future__ import annotations
 import argparse
 import ast
 import gzip
-import hashlib
 import json
 import math
 import operator
@@ -53,6 +52,13 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 
+from ._metrics import auroc_tie_aware as _auroc
+from ._utils import (
+    atomic_write_json as _atomic_write_json,
+    sha256_bytes as _sha256_bytes,
+    sha256_file as _sha256_file,
+    sha256_json_ascii as _sha256_obj,
+)
 from .actuation import timestamp
 
 
@@ -109,23 +115,6 @@ _EVAL_DOMAIN_META: Tuple[Tuple[str, str, str, str], ...] = (
 
 class UnsafeFunctionalASTError(ValueError):
     """Raised when a synthesized candidate functional AST violates sandbox safety or budgets."""
-
-
-def _sha256_bytes(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
-
-
-def _sha256_obj(payload: object) -> str:
-    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return _sha256_bytes(encoded)
-
-
-def _sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as fh:
-        for chunk in iter(lambda: fh.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
 
 
 def _default_zoe_root(zoe_root: str | Path | None = None) -> Path:
@@ -245,29 +234,6 @@ class L4SafeFunctionalAST:
         if scores.shape != (P.shape[0],) or not np.all(np.isfinite(scores)):
             raise UnsafeFunctionalASTError("evaluated scores contain non-finite values or bad shape")
         return scores
-
-
-def _auroc(labels: np.ndarray, scores: np.ndarray) -> float:
-    y = np.asarray(labels, dtype=np.int64)
-    s = np.asarray(scores, dtype=np.float64)
-    n_pos = int(np.sum(y == 1))
-    n_neg = int(np.sum(y == 0))
-    if n_pos == 0 or n_neg == 0:
-        return 0.5
-    order = np.argsort(s, kind="mergesort")
-    sorted_s = s[order]
-    n = len(s)
-    ranks = np.empty(n, dtype=np.float64)
-    i = 0
-    while i < n:
-        j = i
-        while j + 1 < n and sorted_s[j + 1] == sorted_s[i]:
-            j += 1
-        avg_rank = 0.5 * (i + j) + 1.0
-        ranks[order[i : j + 1]] = avg_rank
-        i = j + 1
-    rank_sum_pos = float(np.sum(ranks[y == 1]))
-    return float((rank_sum_pos - n_pos * (n_pos + 1) / 2.0) / (n_pos * n_neg))
 
 
 def _norm_probs(P: np.ndarray) -> np.ndarray:
@@ -795,18 +761,6 @@ def run_permutation_null_control(
         "per_domain": per_domain,
         "passed_no_leakage": all_passed,
     }
-
-
-def _atomic_write_json(path: Path, document: Dict[str, object]) -> Path:
-    path = Path(path).expanduser().resolve()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    with tmp.open("w", encoding="utf-8") as stream:
-        json.dump(document, stream, ensure_ascii=False, allow_nan=False, indent=2, sort_keys=True)
-        stream.write("\n")
-    os.chmod(tmp, 0o600)
-    os.replace(tmp, path)
-    return path
 
 
 class L4EvolutionLedger:

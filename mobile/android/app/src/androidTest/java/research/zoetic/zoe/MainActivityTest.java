@@ -11,12 +11,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertEquals;
 
 import android.Manifest;
 
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.GrantPermissionRule;
@@ -35,68 +32,32 @@ public class MainActivityTest {
             Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO);
 
     @Test
-    public void startupDoesNotOpenCameraOrMicrophone() {
-        onView(withText("Guided vision")).check(matches(isDisplayed()));
-        onView(withText("Follow your curiosity.")).check(matches(isDisplayed()));
-        onView(withText("Guided vision")).perform(click());
-        onView(withId(R.id.start_camera)).check(matches(isDisplayed()));
-        onView(withId(R.id.inspect_button)).check(matches(not(isEnabled())));
-        onView(withId(R.id.listen_button)).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void accessibleVolumeUsesStrictThreshold() {
-        onView(withText("Accessible volume")).perform(scrollTo(), click());
-        onView(withId(R.id.measure_button)).perform(click());
-        onView(withId(R.id.volume_result)).check(matches(withText(containsString("A = 3 of 4"))));
-        onView(withId(R.id.volume_result)).check(matches(withText(containsString("No action was authorized"))));
-    }
-
-    @Test
-    public void deviceFieldReadsLocalBatteryAndCapabilities() {
-        onView(withText("Device field")).perform(scrollTo(), click());
-        onView(withText(containsString("Battery:"))).check(matches(isDisplayed()));
-        onView(withText(containsString("On-device speech available:"))).check(matches(isDisplayed()));
+    public void startupShowsPureLowercaseCanvasAndSeamlessNativeCameraVision() {
+        onView(withText("hi, i'm zoe")).check(matches(isDisplayed()));
+        onView(withText("ask zoe")).check(matches(isDisplayed()));
+        onView(withContentDescription("Open camera to look and read")).perform(click());
+        onView(withId(R.id.start_camera)).perform(scrollTo()).check(matches(withText("take photo")));
+        onView(withId(R.id.inspect_button)).perform(scrollTo()).check(matches(isEnabled()));
+        onView(withId(R.id.vision_gallery_button)).perform(scrollTo()).check(matches(withText("gallery")));
+        onView(withId(R.id.listen_button)).perform(scrollTo()).check(matches(withText("voice")));
     }
 
     @Test
     public void microphoneStartsAndStopsOneShotListening() {
-        onView(withText("Guided vision")).perform(click());
-        onView(withId(R.id.listen_button)).perform(click());
-        onView(withId(R.id.vision_status)).check(matches(anyOf(
-                withText(containsString("On-device speech selected")),
-                withText(containsString("Offline speech preferred")),
+        onView(withContentDescription("Open camera to look and read")).perform(click());
+        onView(withId(R.id.listen_button)).perform(scrollTo(), click());
+        onView(withId(R.id.vision_status)).perform(scrollTo()).check(matches(anyOf(
+                withText(containsString("on-device speech selected")),
+                withText(containsString("offline speech preferred")),
                 withText(containsString("code 7")))));
-        onView(withId(R.id.stop_button)).perform(click());
-        onView(withId(R.id.vision_status)).check(matches(withText("Speech and listening stopped.")));
-    }
-
-    @Test
-    public void speakerCheckInvokesSpeechWithoutOpeningSensors() {
-        onView(withText("Device field")).perform(scrollTo(), click());
-        onView(withText("Speaker check")).perform(click());
-        onView(withText(containsString("Battery:"))).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void zappsCanBeReorderedAndReset() {
-        try {
-            onView(withId(R.id.home_arrange_zapps)).perform(scrollTo(), click());
-            onView(withId(R.id.home_reset_zapps)).perform(scrollTo(), click());
-            onView(withContentDescription("Pin SafeConvert to top")).perform(scrollTo(), click());
-            assertEquals("safeconvert", ZappLayoutStore.loadOrder(ApplicationProvider.getApplicationContext()).get(0));
-            onView(withId(R.id.home_reset_zapps)).perform(scrollTo(), click());
-            assertEquals("vision", ZappLayoutStore.loadOrder(ApplicationProvider.getApplicationContext()).get(0));
-            onView(withId(R.id.home_arrange_zapps)).perform(scrollTo(), click());
-        } finally {
-            ZappLayoutStore.resetOrder(ApplicationProvider.getApplicationContext());
-        }
+        onView(withId(R.id.stop_button)).perform(scrollTo(), click());
+        onView(withId(R.id.vision_status)).perform(scrollTo()).check(matches(withText("speech and listening stopped")));
     }
 
     @Test
     public void tappingGemLogoReturnsToZoeHome() {
-        onView(withText("Guided vision")).perform(click());
+        onView(withContentDescription("Open camera to look and read")).perform(click());
         onView(withId(R.id.zoe_gem_home)).perform(click());
-        onView(withText("Follow your curiosity.")).check(matches(isDisplayed()));
+        onView(withText("hi, i'm zoe")).check(matches(isDisplayed()));
     }
 }

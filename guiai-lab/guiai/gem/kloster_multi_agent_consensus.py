@@ -26,19 +26,17 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Sequence, Tuple
 
 import numpy as np
-import sympy as sp
-
-from .helen_onset import load_experiment
-from .kloster_bio_crypto_circle import _MLKEM_N, _MLKEM_Q, _rlwe_encrypt_vec, _sample_cbd, fips203_ntt_mul
 
 CONTRACT = "zoe-kloster-theorem15/v1"
 
 
 def _prove_3agent_pairwise_sympy() -> bool:
     """Symbolically prove the 3-agent pairwise Kloster-Jensen decomposition (residual = 0)."""
+    import sympy as sp
+
     r1, r2, r3, a1, a2 = sp.symbols("r1 r2 r3 a1 a2", real=True)
     ws, rs = (a1, a2, 1 - a1 - a2), (r1, r2, r3)
     rmean = sum(wi * ri for wi, ri in zip(ws, rs))
@@ -49,6 +47,8 @@ def _prove_3agent_pairwise_sympy() -> bool:
 
 def prove_theorem15_sympy() -> Dict[str, Any]:
     """Symbolically prove all 5 identities of Theorem 15 in SymPy with exact algebraic residual = 0."""
+    import sympy as sp
+
     # Symbolic 2-agent / 3-outcome ensemble with arbitrary convex weights on the exact simplex
     w1, p1, p2, q1, q2, y1, y2 = sp.symbols("w1 p1 p2 q1 q2 y1 y2", real=True)
     p_vec, q_vec, y_vec = (p1, p2, 1 - p1 - p2), (q1, q2, 1 - q1 - q2), (y1, y2, 1 - y1 - y2)
@@ -72,34 +72,245 @@ def prove_theorem15_sympy() -> Dict[str, Any]:
     return {"sympy_version": sp.__version__, "proofs": proofs, "all_proved": all(proofs.values())}
 
 
-def kloster_ensemble_decomposition(dists: Sequence[np.ndarray], weights: Sequence[float] | None = None) -> Dict[str, Any]:
-    """Compute exact Kloster M_2_bar, M_2(p_bar), D_K disagreement, JSD, and Coherence Ratio C_K."""
-    # Normalize every agent's probability vector cleanly onto the common N-simplex
+def _validate_convex_weights(weights: Sequence[float] | None, k_agents: int) -> np.ndarray:
+    """Validate convex weights (non-negative, finite, positive sum) and normalize onto simplex."""
+    # Default to uniform equal-weight committee when no explicit weights are supplied.
+    if weights is None:
+        return np.full(k_agents, 1.0 / float(k_agents), dtype=np.float64)
+    # Enforce 1D matching length, finite values, non-negativity, and positive total mass.
+    w = np.asarray(weights, dtype=np.float64)
+    if w.ndim != 1 or w.shape[0] != k_agents:
+        raise ValueError("weights must be a 1D sequence matching len(dists)")
+    if not np.all(np.isfinite(w)) or np.any(w < 0.0):
+        raise ValueError("weights must be finite and non-negative")
+    w_max = float(np.max(w))
+    if w_max == 0.0:
+        raise ValueError("weights must have a strictly positive sum")
+    # Scale by max weight before summing so extreme finite weights (e.g. 1e308) cannot overflow.
+    with np.errstate(over="ignore"):
+        w_scaled = w / w_max
+        w_sum = float(np.sum(w_scaled))
+        if w_max <= 1e-15 and w_max * w_sum <= 1e-15:
+            raise ValueError("weights must have a strictly positive sum")
+    # Normalize positive weights onto the convex simplex.
+    return w_scaled / w_sum
+
+
+def _sanitize_ensemble_inputs(
+    dists: Sequence[Sequence[float] | np.ndarray],
+    weights: Sequence[float] | None = None,
+) -> Tuple[np.ndarray, np.ndarray, List[int]]:
+    """Validate and normalize K-agent probability vectors and convex weights onto the N-simplex."""
+    if isinstance(dists, np.ndarray) and dists.ndim == 2 and dists.shape[0] == 0:
+        if weights is not None and len(weights) != 0:
+            raise ValueError("weights length must match empty dists")
+        return dists.astype(np.float64), np.empty(0, dtype=np.float64), []
+    if not isinstance(dists, np.ndarray) and len(dists) == 0:
+        if weights is not None and len(list(weights)) != 0:
+            raise ValueError("weights length must match empty dists")
+        return np.empty((0, 0), dtype=np.float64), np.empty(0, dtype=np.float64), []
+
     mat = np.asarray(dists, dtype=np.float64)
+    if mat.ndim != 2 or mat.shape[1] < 1:
+        raise ValueError("dists must be a 2D sequence with shape (k_agents, n_dim >= 1)")
+    if not np.all(np.isfinite(mat)):
+        raise ValueError("dists must contain only finite numbers")
+
+    # Clip negative noise and substitute uniform 1/N for uninformative zero-sum rows.
     mat = np.clip(mat, 0.0, None)
-    mat = mat / np.maximum(np.sum(mat, axis=1, keepdims=True), 1e-300)
     k_agents, n_dim = mat.shape
-    w = np.full(k_agents, 1.0 / k_agents, dtype=np.float64) if weights is None else np.asarray(weights, dtype=np.float64)
-    w = w / float(np.sum(w))
+    # Scale each positive row by its maximum before summing to prevent float64 overflow.
+    row_max = np.max(mat, axis=1, keepdims=True)
+    safe_max = np.where(row_max > 0.0, row_max, 1.0)
+    with np.errstate(over="ignore"):
+        scaled = mat / safe_max
+        scaled_sums = np.sum(scaled, axis=1, keepdims=True)
+        unscaled_sums = row_max * scaled_sums
+    is_zero = (row_max[:, 0] == 0.0) | ((row_max[:, 0] <= 1e-15) & (unscaled_sums[:, 0] <= 1e-15))
+    zero_indices = [int(i) for i in range(k_agents) if bool(is_zero[i])]
+    if not zero_indices:
+        mat = scaled / scaled_sums
+    else:
+        normed = np.full((k_agents, n_dim), 1.0 / float(n_dim), dtype=np.float64)
+        for idx in range(k_agents):
+            if not bool(is_zero[idx]):
+                normed[idx] = scaled[idx] / float(scaled_sums[idx, 0])
+        mat = normed
+
+    w = _validate_convex_weights(weights, k_agents)
+    return mat, w, zero_indices
+
+
+def _compute_decomposition_metrics(mat: np.ndarray, w: np.ndarray) -> Dict[str, Any]:
+    """Compute core Theorem 15 moments, D_K disagreement, JSD, and Coherence Ratio C_K."""
+    k_agents, n_dim = mat.shape
     p_bar = np.sum(w[:, None] * mat, axis=0)
-    # Exact Kloster second moments and disagreement D_K = M_2_bar - M_2(p_bar)
     m2_each = np.sum(mat * mat, axis=1)
     m2_mean = float(np.sum(w * m2_each))
     m2_pool = float(np.sum(p_bar * p_bar))
     d_k = max(0.0, m2_mean - m2_pool)
-    # Exact pairwise verification & Shannon Jensen-Shannon Divergence
-    var_check = float(np.sum(w * np.sum((mat - p_bar[None, :]) ** 2, axis=1)))
+    # Exact pairwise variance identity and Jensen-Shannon divergence in nats.
+    agent_divs = np.sum((mat - p_bar[None, :]) ** 2, axis=1)
+    var_check = float(np.sum(w * agent_divs))
     h_each = -np.sum(np.where(mat > 0, mat * np.log(np.maximum(mat, 1e-300)), 0.0), axis=1)
     h_pool = float(-np.sum(np.where(p_bar > 0, p_bar * np.log(np.maximum(p_bar, 1e-300)), 0.0)))
     jsd = max(0.0, h_pool - float(np.sum(w * h_each)))
-    # Epistemic Coherence Ratio C_K in [0, 1]: 1 = identical/aligned, <1 = diverse disagreement
     denom = m2_mean - (1.0 / n_dim)
     coherence = 1.0 if denom <= 1e-12 else float(np.clip((m2_pool - 1.0 / n_dim) / denom, 0.0, 1.0))
     return {
-        "k_agents": k_agents, "n_dim": n_dim, "m2_mean": round(m2_mean, 8), "m2_pool": round(m2_pool, 8),
-        "d_k_disagreement": round(d_k, 8), "decomposition_err": abs(d_k - var_check),
-        "jsd_nats": round(jsd, 8), "coherence_c_k": round(coherence, 6), "p_bar": p_bar,
+        "k_agents": k_agents,
+        "n_dim": n_dim,
+        "m2_mean": m2_mean,
+        "m2_pool": m2_pool,
+        "d_k": d_k,
+        "decomposition_err": abs(d_k - var_check),
+        "jsd": jsd,
+        "coherence": coherence,
+        "p_bar": p_bar,
+        "agent_divs": [round(float(x), 8) for x in agent_divs.tolist()],
     }
+
+
+def kloster_ensemble_decomposition(dists: Sequence[np.ndarray], weights: Sequence[float] | None = None) -> Dict[str, Any]:
+    """Compute exact Kloster M_2_bar, M_2(p_bar), D_K disagreement, JSD, and Coherence Ratio C_K."""
+    # Sanitize and normalize every agent's probability vector cleanly onto the common N-simplex.
+    mat, w, _ = _sanitize_ensemble_inputs(dists, weights)
+    if mat.shape[0] == 0 or mat.shape[1] == 0:
+        raise ValueError("dists must be a non-empty 2D sequence of agent distributions")
+    core = _compute_decomposition_metrics(mat, w)
+    return {
+        "k_agents": core["k_agents"],
+        "n_dim": core["n_dim"],
+        "m2_mean": round(core["m2_mean"], 8),
+        "m2_pool": round(core["m2_pool"], 8),
+        "d_k_disagreement": round(core["d_k"], 8),
+        "decomposition_err": core["decomposition_err"],
+        "jsd_nats": round(core["jsd"], 8),
+        "coherence_c_k": round(core["coherence"], 6),
+        "p_bar": core["p_bar"],
+    }
+
+
+def _select_rogue_agents(agent_divs: Sequence[float], d_k: float, rogue_detected: bool) -> List[int]:
+    """Identify outlier agent indices driving Byzantine/rogue divergence."""
+    if not rogue_detected or not agent_divs:
+        return []
+    outliers = [i for i, div in enumerate(agent_divs) if div > max(d_k, 1e-12)]
+    if outliers:
+        return outliers
+    top_div = max(agent_divs)
+    return [i for i, div in enumerate(agent_divs) if div >= top_div - 1e-9]
+
+
+def evaluate_consensus_arbitration(
+    dists: Sequence[Sequence[float] | np.ndarray],
+    weights: Sequence[float] | None = None,
+    *,
+    coherence_min: float = 0.45,
+    echo_dk_tol: float = 1e-9,
+    uniform_tol: float = 1e-9,
+    min_agents: int = 2,
+    tau: float = 0.08,
+) -> Dict[str, Any]:
+    """Arbitrate multi-agent consensus via Theorem 15 (D_K, C_K, echo-chamber & rogue/bluff guards)."""
+    mat, w, zero_indices = _sanitize_ensemble_inputs(dists, weights)
+    k_agents, n_dim = int(mat.shape[0]), int(mat.shape[1])
+    effective_k = int(k_agents - len(zero_indices))
+    quorum_met = bool(effective_k >= min_agents)
+    echo_detected = False
+    rogue_detected = False
+    bluff_detected = False
+
+    # Branch 1: Empty input or all-zero vectors carry zero informative mass.
+    if k_agents == 0 or len(zero_indices) == k_agents:
+        p_list = [round(1.0 / n_dim, 8)] * n_dim if n_dim > 0 else []
+        m2_val = round(1.0 / n_dim, 8) if n_dim > 0 else 0.0
+        a_tau_val = int(sum(1 for x in p_list if x > float(tau)))
+        return {
+            "contract": CONTRACT,
+            "verdict": "ABSTAIN",
+            "reason": "empty_or_zero_vectors",
+            "quorum_met": False,
+            "k_agents": k_agents,
+            "effective_agents": 0,
+            "n_dim": n_dim,
+            "m2_mean": m2_val,
+            "m2_pool": m2_val,
+            "d_k_disagreement": 0.0,
+            "brier_contraction": 0.0,
+            "contraction_ratio": 0.0,
+            "coherence_c_k": 0.0,
+            "jsd_nats": 0.0,
+            "echo_chamber_detected": False,
+            "rogue_node_detected": False,
+            "bluff_detected": True,
+            "abstained": True,
+            "zero_vector_agents": zero_indices,
+            "rogue_agent_indices": [],
+            "agent_l2_sq_to_p_bar": [0.0] * k_agents,
+            "consensus_p_bar": p_list,
+            "consensus_argmax": 0 if n_dim > 0 else -1,
+            "consensus_confidence": round(1.0 / n_dim, 6) if n_dim > 0 else 0.0,
+            "a_tau_pool": a_tau_val,
+            "tau": float(tau),
+        }
+
+    core = _compute_decomposition_metrics(mat, w)
+    m2_mean = core["m2_mean"]
+    m2_pool = core["m2_pool"]
+    d_k = core["d_k"]
+    coherence_c_k = core["coherence"]
+    p_bar = core["p_bar"]
+    excess_m2_mean = max(0.0, m2_mean - (1.0 / n_dim))
+    excess_m2_pool = max(0.0, m2_pool - (1.0 / n_dim))
+
+    # Strict priority tree separating uniform collapse from echo-chamber & rogue divergence.
+    if n_dim == 1:
+        verdict, reason, abstained, bluff_detected = "ABSTAIN", "degenerate_1d_simplex", True, True
+    elif excess_m2_pool <= uniform_tol or excess_m2_mean <= uniform_tol:
+        verdict, reason, abstained, bluff_detected = "ABSTAIN", "uniform_uninformative_consensus", True, True
+    elif effective_k < min_agents:
+        verdict, reason, abstained = "ABSTAIN", "insufficient_quorum", True
+    elif d_k <= echo_dk_tol:
+        verdict, reason, abstained, echo_detected = "ECHO_CHAMBER_WARNING", "zero_diversity_echo_chamber", False, True
+    elif coherence_c_k < coherence_min:
+        verdict, reason, abstained, rogue_detected = "ABSTAIN", "rogue_or_bluff_low_coherence", True, True
+    else:
+        verdict, reason, abstained = "COORDINATE_CONSENSUS", "coherent_diverse_consensus", False
+
+    contraction_ratio = round(d_k / excess_m2_mean, 6) if excess_m2_mean > 1e-12 else 0.0
+    rogue_indices = _select_rogue_agents(core["agent_divs"], d_k, rogue_detected)
+    return {
+        "contract": CONTRACT,
+        "verdict": verdict,
+        "reason": reason,
+        "quorum_met": quorum_met,
+        "k_agents": k_agents,
+        "effective_agents": effective_k,
+        "n_dim": n_dim,
+        "m2_mean": round(m2_mean, 8),
+        "m2_pool": round(m2_pool, 8),
+        "d_k_disagreement": round(d_k, 8),
+        "brier_contraction": round(d_k, 8),
+        "contraction_ratio": float(contraction_ratio),
+        "coherence_c_k": round(coherence_c_k, 6),
+        "jsd_nats": round(core["jsd"], 8),
+        "echo_chamber_detected": bool(echo_detected),
+        "rogue_node_detected": bool(rogue_detected),
+        "bluff_detected": bool(bluff_detected),
+        "abstained": bool(abstained),
+        "zero_vector_agents": zero_indices,
+        "rogue_agent_indices": rogue_indices,
+        "agent_l2_sq_to_p_bar": core["agent_divs"],
+        "consensus_p_bar": [round(float(x), 8) for x in p_bar.tolist()],
+        "consensus_argmax": int(np.argmax(p_bar)),
+        "consensus_confidence": round(float(np.max(p_bar)), 6),
+        "a_tau_pool": int(np.sum(p_bar > float(tau))),
+        "tau": float(tau),
+    }
+
+
+arbitrate_multi_agent_quorum = evaluate_consensus_arbitration
 
 
 def verify_world1_16llm_vs_echo_chamber(zoe_root: Path) -> Dict[str, Any]:
@@ -135,6 +346,8 @@ def verify_world1_16llm_vs_echo_chamber(zoe_root: Path) -> Dict[str, Any]:
 
 def verify_world2_helen_real_brier_gain() -> Dict[str, Any]:
     """World 2: Real HELEN Forward + Retrograde 2-Agent Ensemble across 1,920 real observations."""
+    from .helen_onset import load_experiment
+
     helen = load_experiment()
     fp = np.asarray(helen.forward_probabilities, dtype=np.float64)
     rp = np.asarray(helen.retrograde_probabilities, dtype=np.float64)
@@ -164,6 +377,8 @@ def verify_world2_helen_real_brier_gain() -> Dict[str, Any]:
 
 def verify_world3_encrypted_hospital_rogue_guard() -> Dict[str, Any]:
     """World 3: FIPS 203 3-Hospital Consensus vs Rogue-Hospital Contamination Detector."""
+    from .kloster_bio_crypto_circle import _MLKEM_N, _MLKEM_Q, _rlwe_encrypt_vec, _sample_cbd, fips203_ntt_mul
+
     rng = np.random.default_rng(20261503)
     # Three honest hospitals agree on selective tumor-gated Filbin 6-module response
     honest_sites = [np.array([5, 4, 0, 0, 0, 0], dtype=np.int64), np.array([5, 3, 1, 0, 0, 0], dtype=np.int64), np.array([4, 4, 0, 1, 0, 0], dtype=np.int64)]

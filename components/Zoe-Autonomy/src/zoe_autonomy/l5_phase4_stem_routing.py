@@ -20,7 +20,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import tempfile
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Tuple
 
 from .stem_layering import (
     DEFAULT_TAU,
@@ -29,6 +29,14 @@ from .stem_layering import (
     route_stem,
 )
 from .zoe_eliza import ZoeElizaEngine
+
+# Remote and non-HTTP endpoints that must be rejected by the loopback firewall.
+_BAD_LOCAL_URLS: Tuple[str, ...] = (
+    "http://192.168.1.55:8080",
+    "https://evil.example.com/v1",
+    "http://10.0.0.9:8080",
+    "ftp://127.0.0.1:8080",
+)
 
 
 STEM_BENCHMARK_CASES: Tuple[Dict[str, Any], ...] = (
@@ -70,59 +78,56 @@ STEM_BENCHMARK_CASES: Tuple[Dict[str, Any], ...] = (
 )
 
 
-def eval_pillar_02_live_stem_routing(zoe_root: Path) -> Dict[str, Any]:
-    """Evaluate 5-tier Kloster A_tau stem routing, privacy isolation, fallback, & firewall."""
-    tier_correct = 0
-    kloster_exact = 0
-    simplex_exact = 0
-    pro_teamwork_ok = 0
-    privacy_cases_total = 0
-    privacy_zero_cloud = 0
-    fallback_ok = 0
-    fallback_total = 0
+def _check_outage_fallback(case: Dict[str, Any]) -> bool:
+    """Verify offline/private prompts fall back cleanly to Gear-1 with zero cloud tokens."""
+    # Simulate local_qwen outage and enforce deterministic Gear-1 fallback.
+    dec_down = route_stem(
+        case["prompt"],
+        offline_only=case["offline_only"],
+        privacy_sensitive=case["privacy"],
+        files_count=case["files"],
+        local_qwen_available=False,
+        tau=DEFAULT_TAU,
+    )
+    return dec_down.selected_tier == "gear1_eliza" and dec_down.constitutional["cloud_tokens_used"] == 0
 
-    for case in STEM_BENCHMARK_CASES:
-        dec = route_stem(
-            case["prompt"],
-            offline_only=case["offline_only"],
-            privacy_sensitive=case["privacy"],
-            files_count=case["files"],
-            multi_file=bool(case.get("multi_file", False)),
-            local_qwen_available=True,
-            tau=DEFAULT_TAU,
-        )
-        if dec.selected_tier == case["expected"]:
-            tier_correct += 1
-        probs = dec.probabilities
-        if abs(sum(probs.values()) - 1.0) <= 1e-4:
-            simplex_exact += 1
-        recomputed_a = sum(1 for p in probs.values() if p > DEFAULT_TAU)
-        if recomputed_a == dec.a_tau:
-            kloster_exact += 1
-        if case["expected"] == "pro" and dec.teamwork_recommended and dec.thinking_level in {"high", "xhigh"}:
-            pro_teamwork_ok += 1
 
-        if case["offline_only"] or case["privacy"]:
-            privacy_cases_total += 1
-            if dec.selected_tier in {"gear1_eliza", "local_qwen"} and dec.constitutional["cloud_tokens_used"] == 0:
-                privacy_zero_cloud += 1
+def _evaluate_single_case(case: Dict[str, Any]) -> Dict[str, int]:
+    """Evaluate one stem benchmark case for tier accuracy, simplex, A_tau, and privacy."""
+    dec = route_stem(
+        case["prompt"],
+        offline_only=case["offline_only"],
+        privacy_sensitive=case["privacy"],
+        files_count=case["files"],
+        multi_file=bool(case.get("multi_file", False)),
+        local_qwen_available=True,
+        tau=DEFAULT_TAU,
+    )
+    probs = dec.probabilities
+    recomputed_a = sum(1 for p in probs.values() if p > DEFAULT_TAU)
+    is_private = bool(case["offline_only"] or case["privacy"])
+    is_local_zero = dec.selected_tier in {"gear1_eliza", "local_qwen"} and dec.constitutional["cloud_tokens_used"] == 0
+    is_pro_teamwork = case["expected"] == "pro" and dec.teamwork_recommended and dec.thinking_level in {"high", "xhigh"}
 
-            # Also test forced offline fallback when local_qwen is unavailable
-            fallback_total += 1
-            dec_down = route_stem(
-                case["prompt"],
-                offline_only=case["offline_only"],
-                privacy_sensitive=case["privacy"],
-                files_count=case["files"],
-                local_qwen_available=False,
-                tau=DEFAULT_TAU,
-            )
-            if dec_down.selected_tier == "gear1_eliza" and dec_down.constitutional["cloud_tokens_used"] == 0:
-                fallback_ok += 1
+    # Check graceful outage fallback only on offline/privacy-marked tasks.
+    fallback_hit = int(is_private and _check_outage_fallback(case))
+    return {
+        "tier_correct": int(dec.selected_tier == case["expected"]),
+        "simplex_exact": int(abs(sum(probs.values()) - 1.0) <= 1e-4),
+        "kloster_exact": int(recomputed_a == dec.a_tau),
+        "pro_teamwork_ok": int(is_pro_teamwork),
+        "privacy_cases_total": int(is_private),
+        "privacy_zero_cloud": int(is_private and is_local_zero),
+        "fallback_total": int(is_private),
+        "fallback_ok": fallback_hit,
+    }
 
-    # Additional 6 privacy-forced deep prompts must STILL stay strictly local (0 cloud leakage)
-    for case in STEM_BENCHMARK_CASES[-6:]:
-        privacy_cases_total += 1
+
+def _evaluate_forced_privacy_deep_cases(cases: Tuple[Dict[str, Any], ...]) -> int:
+    """Confirm deep multi-file prompts stay strictly local when privacy/offline flags are set."""
+    # Force offline_only and privacy_sensitive on deep tasks to verify zero cloud escalation.
+    kept_local = 0
+    for case in cases:
         dec_priv = route_stem(
             case["prompt"],
             offline_only=True,
@@ -132,64 +137,107 @@ def eval_pillar_02_live_stem_routing(zoe_root: Path) -> Dict[str, Any]:
             local_qwen_available=True,
         )
         if dec_priv.selected_tier in {"gear1_eliza", "local_qwen"} and not dec_priv.teamwork_recommended:
-            privacy_zero_cloud += 1
+            kept_local += 1
+    return kept_local
 
-    # End-to-end Gear-1 live execution on fallback prompt via ZoeElizaEngine (0 cloud tokens)
+
+def _score_benchmark_suite(cases: Tuple[Dict[str, Any], ...]) -> Dict[str, int]:
+    """Aggregate all 30 benchmark cases plus 6 forced-privacy deep probes."""
+    totals: Dict[str, int] = {
+        "tier_correct": 0,
+        "kloster_exact": 0,
+        "simplex_exact": 0,
+        "pro_teamwork_ok": 0,
+        "privacy_cases_total": 0,
+        "privacy_zero_cloud": 0,
+        "fallback_ok": 0,
+        "fallback_total": 0,
+    }
+    for case in cases:
+        counts = _evaluate_single_case(case)
+        for key, value in counts.items():
+            totals[key] += value
+
+    # Add 6 privacy-forced deep prompts to ensure local isolation under multi-file load.
+    forced_cases = cases[-6:]
+    totals["privacy_cases_total"] += len(forced_cases)
+    totals["privacy_zero_cloud"] += _evaluate_forced_privacy_deep_cases(forced_cases)
+    return totals
+
+
+def _check_live_gear1_grounding(zoe_root: Path) -> bool:
+    """Run one live Gear-1 ZoeElizaEngine turn in an isolated temporary directory."""
+    # Use a throwaway state dir so benchmark runs never mutate workspace files.
     with tempfile.TemporaryDirectory(prefix="zoe_p4_stem_") as tmp:
         eng = ZoeElizaEngine(zoe_root=zoe_root, state_dir=Path(tmp) / "eliza", default_gear="gear1")
         turn = eng.respond("What is the Kloster Spectral Filtration Theorem?", gear="gear1")
-        live_gear1_ok = bool(
+        return bool(
             turn["gear_used"] == "gear1"
             and turn["epistemic_boundaries"]["cloud_tokens_used"] == 0
             and turn["epistemic_boundaries"]["zoe_clone_claimed"] is False
             and len(turn.get("citations", [])) >= 1
         )
 
-    # Loopback exfiltration firewall (4/4 remote URLs blocked)
-    bad_urls = [
-        "http://192.168.1.55:8080",
-        "https://evil.example.com/v1",
-        "http://10.0.0.9:8080",
-        "ftp://127.0.0.1:8080",
-    ]
+
+def _check_loopback_firewall() -> Tuple[int, int, bool]:
+    """Verify remote URLs and non-loopback SDK base URLs are rejected."""
     fw_blocked = 0
-    for url in bad_urls:
+    for url in _BAD_LOCAL_URLS:
         try:
             probe_local_qwen(url)
         except ValueError:
             fw_blocked += 1
+    # Also confirm SDK descriptor rejects remote base_url overrides for local_qwen.
     try:
         build_sdk_descriptor("local_qwen", base_url="https://remote.invalid/v1")
         sdk_fw_ok = False
     except ValueError:
         sdk_fw_ok = True
+    return fw_blocked, len(_BAD_LOCAL_URLS), sdk_fw_ok
 
-    n = len(STEM_BENCHMARK_CASES)
+
+def _build_stem_routing_report(
+    n: int,
+    totals: Dict[str, int],
+    fw_blocked: int,
+    fw_total: int,
+    sdk_fw_ok: bool,
+    live_gear1_ok: bool,
+) -> Dict[str, Any]:
+    """Compute weighted scores, pass gate, and structured Pillar 2 evidence payload."""
+    tier_correct = totals["tier_correct"]
+    kloster_exact = totals["kloster_exact"]
+    simplex_exact = totals["simplex_exact"]
+    pro_teamwork_ok = totals["pro_teamwork_ok"]
+    privacy_cases_total = totals["privacy_cases_total"]
+    privacy_zero_cloud = totals["privacy_zero_cloud"]
+    fallback_ok = totals["fallback_ok"]
+    fallback_total = totals["fallback_total"]
+
     zoe_score = round(
         0.35 * (tier_correct / n)
         + 0.20 * (privacy_zero_cloud / max(1, privacy_cases_total))
         + 0.15 * (fallback_ok / max(1, fallback_total))
         + 0.15 * (kloster_exact / n)
-        + 0.10 * ((fw_blocked + (1 if sdk_fw_ok else 0)) / (len(bad_urls) + 1))
+        + 0.10 * ((fw_blocked + (1 if sdk_fw_ok else 0)) / (fw_total + 1))
         + 0.05 * (1.0 if live_gear1_ok else 0.0),
         6,
     )
-    # Negative control: static always-cloud baseline (gets 6/30 tier matches, 0/12 privacy, 0/6 fallback, 0 firewall)
+    # Negative control: static always-cloud baseline (6/30 tier matches, 0 privacy/fallback/firewall).
     ctrl_score = round(0.35 * (6.0 / n), 6)
     threshold = 0.94
-    passed = bool(
-        zoe_score >= threshold
-        and zoe_score > ctrl_score
-        and tier_correct == n
-        and kloster_exact == n
-        and simplex_exact == n
-        and privacy_zero_cloud == privacy_cases_total
-        and fallback_ok == fallback_total
-        and fw_blocked == len(bad_urls)
-        and sdk_fw_ok
-        and live_gear1_ok
-    )
-
+    passed = all([
+        zoe_score >= threshold,
+        zoe_score > ctrl_score,
+        tier_correct == n,
+        kloster_exact == n,
+        simplex_exact == n,
+        privacy_zero_cloud == privacy_cases_total,
+        fallback_ok == fallback_total,
+        fw_blocked == fw_total,
+        sdk_fw_ok,
+        live_gear1_ok,
+    ])
     return {
         "pillar_id": "live_cognitive_stem_routing",
         "title": "Live 5-Tier Cognitive Stem-Layering & Privacy Isolation (30 Tasks)",
@@ -210,12 +258,28 @@ def eval_pillar_02_live_stem_routing(zoe_root: Path) -> Dict[str, Any]:
             "pro_teamwork_escalations": f"{pro_teamwork_ok}/6",
             "privacy_zero_cloud_enforced": f"{privacy_zero_cloud}/{privacy_cases_total}",
             "outage_fallback_to_gear1": f"{fallback_ok}/{fallback_total}",
-            "remote_exfiltration_blocked": f"{fw_blocked}/{len(bad_urls)}",
+            "remote_exfiltration_blocked": f"{fw_blocked}/{fw_total}",
             "sdk_loopback_firewall_ok": sdk_fw_ok,
             "live_gear1_grounding_ok": live_gear1_ok,
             "cloud_tokens_used": 0,
         },
     }
+
+
+def eval_pillar_02_live_stem_routing(zoe_root: Path) -> Dict[str, Any]:
+    """Evaluate 5-tier Kloster A_tau stem routing, privacy isolation, fallback, & firewall."""
+    # Run benchmark suite, live Gear-1 grounding, and loopback exfiltration checks.
+    totals = _score_benchmark_suite(STEM_BENCHMARK_CASES)
+    live_gear1_ok = _check_live_gear1_grounding(zoe_root)
+    fw_blocked, fw_total, sdk_fw_ok = _check_loopback_firewall()
+    return _build_stem_routing_report(
+        len(STEM_BENCHMARK_CASES),
+        totals,
+        fw_blocked,
+        fw_total,
+        sdk_fw_ok,
+        live_gear1_ok,
+    )
 
 
 __all__ = ["STEM_BENCHMARK_CASES", "eval_pillar_02_live_stem_routing"]

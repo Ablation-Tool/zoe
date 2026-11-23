@@ -28,7 +28,6 @@ Constitutional & Epistemic Boundaries (`CONSTITUTION.md`):
 from __future__ import annotations
 
 from dataclasses import dataclass
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -39,6 +38,7 @@ from typing import Any, Dict, List, Mapping, Sequence, Tuple
 from urllib import error as urlerror, request as urlrequest
 from urllib.parse import urlparse
 
+from ._utils import sha256_json_utf8 as _sha256_obj
 from .chat import EvidenceIndex
 from .experiment import _zoe_root
 from .l5_memory import ZoeUnifiedMemory
@@ -498,12 +498,6 @@ RULE_TABLE: Tuple[ElizaRule, ...] = (
         ),
     ),
 )
-
-
-def _sha256_obj(payload: object) -> str:
-    return hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 def _assert_loopback_url(url: str) -> str:

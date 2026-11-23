@@ -15,11 +15,10 @@ Implements AGI-ROADMAP.md Sections 1–9:
 
 from __future__ import annotations
 
-import hashlib
-import json
 import math
 from typing import Dict, List, Sequence, Tuple
 
+from ._utils import sha256_json_ascii as _sha256_obj
 from .cross_domain_transfer import (
     THRESHOLDS,
     gen0_single_slice_operator,
@@ -42,11 +41,6 @@ AGI_TEN_DOMAINS: Tuple[str, ...] = (
     "collaborative_interaction",
     "metacognition_calibration",
 )
-
-
-def _sha256_obj(payload: object) -> str:
-    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return hashlib.sha256(encoded).hexdigest()
 
 
 # -------------------------------------------------------------------------

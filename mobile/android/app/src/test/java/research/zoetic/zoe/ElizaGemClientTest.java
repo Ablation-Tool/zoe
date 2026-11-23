@@ -34,6 +34,16 @@ public class ElizaGemClientTest {
         assertTrue(status.localLlmReady);
         assertEquals("Qwen2.5-3B-Instruct", status.localLlmLabel);
         assertEquals(3, status.relayNotesCount);
+        assertFalse(status.frontierReady);
+
+        String frontierJson = "{\"default_gear\":\"gear3\",\"rule_count\":64,\"indexed_sources\":31,"
+                + "\"frontier_probe\":{\"available\":true,\"model\":\"gemini-2.5-pro\"},"
+                + "\"local_llm_probe\":{\"ollama_available\":false,\"llama_server_available\":false,\"available_models\":[]},"
+                + "\"memory_snapshot\":{\"relay_notes_count\":1,\"active_notes_count\":4,\"chain_head\":\"f00d\"}}";
+        ElizaGemClient.Status frontierStatus = ElizaGemClient.parseStatus(frontierJson);
+        assertEquals("gear3", frontierStatus.defaultGear);
+        assertTrue(frontierStatus.frontierReady);
+        assertEquals("gemini-2.5-pro", frontierStatus.frontierModel);
 
         String chatJson = "{\"reply\":\"Kloster A_0.08 keeps breadth distinct from truth.\","
                 + "\"mode\":\"evidence_cite\",\"gear_used\":\"gear1\",\"latency_ms\":12,"

@@ -9,85 +9,109 @@ fresh-process verification scorecard in Zoe's canonical palette.
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
+from typing import Any, Dict, List, Sequence, Tuple
 
-import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+
+try:
+    from _render_common import (
+        ZOE_DARK_PALETTE,
+        add_figure_header,
+        apply_dark_theme,
+        draw_summary_card,
+        load_json_report,
+        save_figure,
+    )
+except ImportError:
+    from scripts._render_common import (
+        ZOE_DARK_PALETTE,
+        add_figure_header,
+        apply_dark_theme,
+        draw_summary_card,
+        load_json_report,
+        save_figure,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_PATH = ROOT / "evidence/l4-self-improvement/l4-evolution-report.json"
 OUT_PNG = ROOT / "components/agent-logging-system/docs/images/zoe-l4-self-improvement.png"
 
-BG = "#09111f"
-PANEL = "#111e31"
-BORDER = "#294058"
-TEXT = "#e7edf5"
-MUTED = "#9cafc4"
-CYAN = "#62dce8"
-RED = "#ef445a"
-GOLD = "#e7c77b"
-MINT = "#86efac"
-ORCHID = "#f0a3df"
+# Bind canonical Zoe palette constants for module-level compatibility.
+BG = ZOE_DARK_PALETTE["BG"]
+PANEL = ZOE_DARK_PALETTE["PANEL"]
+BORDER = ZOE_DARK_PALETTE["BORDER"]
+TEXT = ZOE_DARK_PALETTE["TEXT"]
+MUTED = ZOE_DARK_PALETTE["MUTED"]
+CYAN = ZOE_DARK_PALETTE["CYAN"]
+RED = ZOE_DARK_PALETTE["RED"]
+GOLD = ZOE_DARK_PALETTE["GOLD"]
+MINT = ZOE_DARK_PALETTE["MINT"]
+ORCHID = ZOE_DARK_PALETTE["ORCHID"]
+
+# Shared domain ordering and display labels across transfer and null panels.
+_DOM_ORDER: Tuple[str, ...] = (
+    "midi_fwd_ho",
+    "helen_fwd_ho",
+    "midi_rev_zs",
+    "helen_retro_zs",
+    "dorothy_vision_zs",
+    "psf_3d_zs",
+)
+_DOM_LABELS: Tuple[str, ...] = (
+    "MIDI Fwd\n[Held-Out]",
+    "HELEN Fwd\n[Held-Out]",
+    "MIDI Rev\n[Zero-Shot]",
+    "HELEN Ret\n[Zero-Shot]",
+    "Dorothy\n[Zero-Shot]",
+    "3D PSF\n[Zero-Shot]",
+)
+_SHORT_LABELS: Tuple[str, ...] = (
+    "MIDI Fwd [HO]",
+    "HELEN Fwd [HO]",
+    "MIDI Rev [ZS]",
+    "HELEN Ret [ZS]",
+    "Dorothy [ZS]",
+    "3D PSF [ZS]",
+)
 
 
-def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> Path:
-    rep = json.loads(report_path.read_text(encoding="utf-8"))
-    prim = rep["primary_evolution"]
-    ms = rep["multi_seed_robustness"]
-    hp = rep["hostile_ast_probes"]
-    null = rep["permutation_null_control"]
-    rb = rep["reversible_rollback_proof"]
-    ind = rep["independent_verification"]
-    sh = rep["shannon_baseline"]
-    gens = prim["generations"]
+def _add_lineage_zoom_inset(
+    ax1: Any,
+    gens: Sequence[Dict[str, Any]],
+    g_nums: Sequence[int],
+    active_frontier: Sequence[float],
+) -> None:
+    """Render zoomed inset over Gens 1-5 showing Gen 1->2 adoption and Gen 3-5 rollbacks."""
+    # Inset highlights small Gen 1->2 refinement and rejected Gen 3-5 drops.
+    axins = ax1.inset_axes([0.39, 0.12, 0.57, 0.45], facecolor=BG)
+    axins.plot(g_nums[1:], active_frontier[1:], color=MINT, linewidth=2.0, zorder=3)
+    for g in gens[1:]:
+        gx, gy = g["generation"], g["heldout_mean"]
+        if g["status"] == "ADOPTED":
+            axins.scatter(gx, gy, s=110, color=MINT, marker="*", zorder=5)
+        else:
+            axins.scatter(gx, gy, s=75, color=RED, marker="X", zorder=5)
+            axins.plot([gx, gx], [gy, active_frontier[gx]], color=RED, linestyle=":", linewidth=1.1)
+    axins.text(1.16, 0.76015, "G1: -sq(p)", fontsize=6.8, color=MINT, va="center", ha="left")
+    axins.text(2.1, 0.76285, "G2: -sq(p)sqrt(p)", fontsize=6.9, color=MINT, ha="center", va="bottom", fontweight="bold")
+    axins.text(3.85, 0.7608, "G3-G5 rolled back\n(HELEN -0.0093)", fontsize=6.7, color=RED, ha="center", va="top")
+    axins.set_xlim(0.75, 5.25)
+    axins.set_ylim(0.7592, 0.7640)
+    axins.set_xticks([1, 2, 3, 4, 5])
+    axins.tick_params(labelsize=6.8, colors=MUTED)
+    axins.set_title("Zoom: Gen 1->2 & Rollbacks", fontsize=7.5, color=GOLD, pad=3)
+    axins.grid(True, alpha=0.35)
 
-    plt.rcParams.update({
-        "figure.facecolor": BG,
-        "axes.facecolor": PANEL,
-        "axes.edgecolor": BORDER,
-        "axes.labelcolor": TEXT,
-        "xtick.color": MUTED,
-        "ytick.color": MUTED,
-        "text.color": TEXT,
-        "font.family": "monospace",
-        "grid.color": "#1e324a",
-        "grid.linestyle": "--",
-        "grid.alpha": 0.55,
-    })
 
-    fig, axes = plt.subplots(2, 2, figsize=(18.2, 11.6), dpi=180)
-    fig.subplots_adjust(left=0.09, right=0.97, top=0.875, bottom=0.075, wspace=0.22, hspace=0.33)
-
-    fig.suptitle(
-        "ZOE L4 :: GENERALIZED SELF-IMPROVEMENT (UNIFORM ATOMIC AST + UNSEEN ZERO-SHOT TRANSFER)",
-        fontsize=16.0,
-        fontweight="bold",
-        color=ORCHID,
-        y=0.96,
-    )
-    fig.text(
-        0.5,
-        0.922,
-        f"Generation-Blind Grammar · 6 Real Domains (4 Zero-Shot Unseen) · {ms['seeds_passed']}/{ms['seeds_total']} Independent Seeds Converge · "
-        f"Hostile AST Blocked {hp['probes_blocked']}/{hp['probes_tested']} · Independent Verifier: "
-        f"{ind['checks_passed']}/{ind['checks_total']} (max delta = {ind['max_numerical_delta']})",
-        ha="center",
-        fontsize=10.3,
-        color=GOLD,
-    )
-
-    # ------------------------------------------------------------------
-    # PANEL 1: Generation 0 -> 5 Evolution Trajectory + Zoomed Refinement Inset
-    # ------------------------------------------------------------------
-    ax1 = axes[0, 0]
+def _plot_lineage_panel(ax1: Any, gens: Sequence[Dict[str, Any]], sh: Dict[str, Any]) -> None:
+    """Plot generation-blind AST lineage trajectory, rollbacks, and zoom inset."""
     g_nums = [g["generation"] for g in gens]
     g_means = [g["heldout_mean"] for g in gens]
-    # Effective active frontier (after Gen 2, rejected Gens 3-5 roll back to Gen 2)
-    active_frontier = []
+    # Track effective incumbent frontier after Gen 3-5 rollbacks revert to Gen 2.
+    active_frontier: List[float] = []
     curr_active = g_means[0]
     for g in gens:
         if g["status"] in ("FROZEN_CONTROL", "ADOPTED"):
@@ -97,9 +121,9 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
     ax1.plot(g_nums, active_frontier, color=MINT, linewidth=2.4, zorder=3, label="Active Incumbent Frontier")
     ax1.axhline(sh["heldout_mean"], color=CYAN, linestyle="--", linewidth=1.4, label=f"Shannon -p log(p) ({sh['heldout_mean']:.4f})")
 
+    # Render status-coded markers for control, adopted, and rolled-back generations.
     for g in gens:
-        gx, gy = g["generation"], g["heldout_mean"]
-        st = g["status"]
+        gx, gy, st = g["generation"], g["heldout_mean"], g["status"]
         if st == "FROZEN_CONTROL":
             ax1.scatter(gx, gy, s=110, color=GOLD, marker="s", edgecolors=BG, linewidth=1.0, zorder=5, label=f"Gen 0 Frozen Control ({g['expression']})")
         elif st == "ADOPTED":
@@ -108,7 +132,7 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
             ax1.scatter(gx, gy, s=95, color=RED, marker="X", edgecolors=BG, linewidth=0.9, zorder=6)
             ax1.plot([gx, gx], [gy, active_frontier[gx]], color=RED, linestyle=":", linewidth=1.2, alpha=0.8)
 
-    # Legend proxies for stars & X
+    # Legend proxies for adopted stars and rejected rollbacks.
     ax1.scatter([], [], s=130, color=MINT, marker="*", label="Adopted Self-Improvement")
     ax1.scatter([], [], s=85, color=RED, marker="X", label="Rejected & Rolled Back (HELEN guard)")
 
@@ -138,26 +162,7 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
         fontweight="bold",
     )
 
-    # Zoom inset over Gens 1-5 to make Gen 1 -> Gen 2 step and Gen 3-5 rollbacks crystal clear
-    axins = ax1.inset_axes([0.39, 0.12, 0.57, 0.45], facecolor=BG)
-    axins.plot(g_nums[1:], active_frontier[1:], color=MINT, linewidth=2.0, zorder=3)
-    for g in gens[1:]:
-        gx, gy = g["generation"], g["heldout_mean"]
-        if g["status"] == "ADOPTED":
-            axins.scatter(gx, gy, s=110, color=MINT, marker="*", zorder=5)
-        else:
-            axins.scatter(gx, gy, s=75, color=RED, marker="X", zorder=5)
-            axins.plot([gx, gx], [gy, active_frontier[gx]], color=RED, linestyle=":", linewidth=1.1)
-    axins.text(1.16, 0.76015, "G1: -sq(p)", fontsize=6.8, color=MINT, va="center", ha="left")
-    axins.text(2.1, 0.76285, "G2: -sq(p)sqrt(p)", fontsize=6.9, color=MINT, ha="center", va="bottom", fontweight="bold")
-    axins.text(3.85, 0.7608, "G3-G5 rolled back\n(HELEN -0.0093)", fontsize=6.7, color=RED, ha="center", va="top")
-    axins.set_xlim(0.75, 5.25)
-    axins.set_ylim(0.7592, 0.7640)
-    axins.set_xticks([1, 2, 3, 4, 5])
-    axins.tick_params(labelsize=6.8, colors=MUTED)
-    axins.set_title("Zoom: Gen 1->2 & Rollbacks", fontsize=7.5, color=GOLD, pad=3)
-    axins.grid(True, alpha=0.35)
-
+    _add_lineage_zoom_inset(ax1, gens, g_nums, active_frontier)
     ax1.set_xlim(-0.35, 5.35)
     ax1.set_ylim(0.555, 0.824)
     ax1.set_xticks(g_nums)
@@ -167,27 +172,22 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
     ax1.grid(True)
     ax1.legend(loc="lower left", fontsize=7.0, facecolor=BG, edgecolor=BORDER)
 
-    # ------------------------------------------------------------------
-    # PANEL 2: 6-Domain Held-Out & Zero-Shot Transfer Breakdown
-    # ------------------------------------------------------------------
-    ax2 = axes[0, 1]
-    dom_order = ["midi_fwd_ho", "helen_fwd_ho", "midi_rev_zs", "helen_retro_zs", "dorothy_vision_zs", "psf_3d_zs"]
-    dom_labels = [
-        "MIDI Fwd\n[Held-Out]",
-        "HELEN Fwd\n[Held-Out]",
-        "MIDI Rev\n[Zero-Shot]",
-        "HELEN Ret\n[Zero-Shot]",
-        "Dorothy\n[Zero-Shot]",
-        "3D PSF\n[Zero-Shot]",
-    ]
-    x = np.arange(len(dom_order))
+
+def _plot_transfer_panel(
+    ax2: Any,
+    gens: Sequence[Dict[str, Any]],
+    prim: Dict[str, Any],
+    sh: Dict[str, Any],
+) -> None:
+    """Plot 6-domain held-out vs unseen zero-shot AUROC comparison."""
+    x = np.arange(len(_DOM_ORDER))
     bw = 0.19
+    v_g0 = [gens[0]["heldout_auroc"][k] for k in _DOM_ORDER]
+    v_sh = [sh["heldout_auroc"][k] for k in _DOM_ORDER]
+    v_g1 = [gens[1]["heldout_auroc"][k] for k in _DOM_ORDER]
+    v_g2 = [prim["final_heldout_auroc"][k] for k in _DOM_ORDER]
 
-    v_g0 = [gens[0]["heldout_auroc"][k] for k in dom_order]
-    v_sh = [sh["heldout_auroc"][k] for k in dom_order]
-    v_g1 = [gens[1]["heldout_auroc"][k] for k in dom_order]
-    v_g2 = [prim["final_heldout_auroc"][k] for k in dom_order]
-
+    # Plot grouped bars across control, Shannon baseline, Gen 1, and Gen 2.
     ax2.bar(x - 1.5 * bw, v_g0, bw, label="Gen 0: gt05 (Ctrl)", color="#506882", edgecolor=BORDER)
     ax2.bar(x - 0.5 * bw, v_sh, bw, label="Shannon: -p*log(p)", color=GOLD, edgecolor="#221b0c")
     ax2.bar(x + 0.5 * bw, v_g1, bw, label="Gen 1: -sq(p)", color=CYAN, edgecolor="#0d2233")
@@ -196,36 +196,55 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
     for i, val in enumerate(v_g2):
         ax2.text(x[i] + 1.5 * bw, val + 0.008, f"{val:.3f}", ha="center", va="bottom", fontsize=7.5, color=MINT, fontweight="bold")
 
+    # Separate held-out validation splits from unseen zero-shot transfer domains.
     ax2.axvline(1.5, color=ORCHID, linestyle="--", linewidth=1.3, alpha=0.8)
     ax2.text(0.5, 1.075, "HELD-OUT SPLITS", ha="center", fontsize=8.0, color=GOLD, fontweight="bold")
     ax2.text(3.5, 1.075, "100% UNSEEN ZERO-SHOT TRANSFER", ha="center", fontsize=8.0, color=MINT, fontweight="bold")
-
     ax2.set_ylim(0.45, 1.135)
     ax2.set_xticks(x)
-    ax2.set_xticklabels(dom_labels, fontsize=8.0)
+    ax2.set_xticklabels(_DOM_LABELS, fontsize=8.0)
     ax2.set_ylabel("AUROC Score", fontsize=9.5)
     ax2.set_title("2. LEAVE-DOMAINS-OUT ZERO-SHOT & HELD-OUT TRANSFER", fontsize=10.5, color=CYAN, fontweight="bold", pad=10)
     ax2.grid(True, axis="y")
     ax2.legend(loc="upper left", bbox_to_anchor=(0.01, 0.91), fontsize=6.9, facecolor=BG, edgecolor=BORDER, ncol=1)
 
-    # ------------------------------------------------------------------
-    # PANEL 3: Multi-Seed Convergence & 200-Trial Permutation Null Control
-    # ------------------------------------------------------------------
-    ax3 = axes[1, 0]
-    y_pos = np.arange(len(dom_order))
-    null_means = [null["per_domain"][k]["null_mean_auroc"] for k in dom_order]
-    null_stds = [null["per_domain"][k]["null_std_auroc"] for k in dom_order]
 
-    ax3.barh(y_pos - 0.17, null_means, height=0.30, xerr=[2 * s for s in null_stds],
-             color="#4a5f78", edgecolor=BORDER, ecolor=RED, capsize=3, label="200-Trial Shuffle Null (+/- 2 std)")
-    ax3.barh(y_pos + 0.17, v_g2, height=0.30, color=MINT, edgecolor="#0d2233",
-             label="Gen 2 Observed (p = 0.005 on 6/6)")
+def _plot_robustness_panel(
+    ax3: Any,
+    v_g2: Sequence[float],
+    ms: Dict[str, Any],
+    null: Dict[str, Any],
+) -> None:
+    """Plot 200-trial permutation null controls and multi-seed convergence box."""
+    y_pos = np.arange(len(_DOM_ORDER))
+    null_means = [null["per_domain"][k]["null_mean_auroc"] for k in _DOM_ORDER]
+    null_stds = [null["per_domain"][k]["null_std_auroc"] for k in _DOM_ORDER]
 
+    # Compare permutation null +/- 2 std against Gen 2 observed AUROC.
+    ax3.barh(
+        y_pos - 0.17,
+        null_means,
+        height=0.30,
+        xerr=[2 * s for s in null_stds],
+        color="#4a5f78",
+        edgecolor=BORDER,
+        ecolor=RED,
+        capsize=3,
+        label="200-Trial Shuffle Null (+/- 2 std)",
+    )
+    ax3.barh(
+        y_pos + 0.17,
+        v_g2,
+        height=0.30,
+        color=MINT,
+        edgecolor="#0d2233",
+        label="Gen 2 Observed (p = 0.005 on 6/6)",
+    )
     for i, val in enumerate(v_g2):
         ax3.text(val + 0.012, y_pos[i] + 0.17, f"{val:.4f}", va="center", ha="left", fontsize=7.8, color=MINT, fontweight="bold")
     ax3.axvline(0.50, color=RED, linestyle=":", linewidth=1.2)
 
-    # Place multi-seed convergence box cleanly in open right space opposite rows 2 & 3 (MIDI Rev & HELEN Ret end at 0.5945!)
+    # Place multi-seed convergence summary cleanly in open right-hand margin.
     ms_text = (
         f"Multi-Seed Convergence ({ms['seeds_passed']}/{ms['seeds_total']} PASS):\n"
         + "\n".join(
@@ -234,7 +253,9 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
         )
     )
     ax3.text(
-        0.44, 0.655, ms_text,
+        0.44,
+        0.655,
+        ms_text,
         transform=ax3.transAxes,
         fontsize=7.2,
         color=GOLD,
@@ -242,28 +263,33 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
         bbox=dict(boxstyle="round,pad=0.35", facecolor=BG, edgecolor=MINT, lw=1.1),
     )
 
-    short_labels = ["MIDI Fwd [HO]", "HELEN Fwd [HO]", "MIDI Rev [ZS]", "HELEN Ret [ZS]", "Dorothy [ZS]", "3D PSF [ZS]"]
     ax3.set_xlim(0.40, 1.18)
     ax3.set_yticks(y_pos)
-    ax3.set_yticklabels(short_labels, fontsize=8.3)
+    ax3.set_yticklabels(_SHORT_LABELS, fontsize=8.3)
     ax3.invert_yaxis()
     ax3.set_xlabel("AUROC (Observed vs 200-Trial Permutation Null)", fontsize=9.5)
     ax3.set_title("3. MULTI-SEED ROBUSTNESS (5/5) & 200-TRIAL PERMUTATION NULL", fontsize=10.5, color=MINT, fontweight="bold", pad=10)
     ax3.grid(True, axis="x")
     ax3.legend(loc="upper right", bbox_to_anchor=(0.99, 0.99), fontsize=7.0, facecolor=BG, edgecolor=BORDER)
 
-    # ------------------------------------------------------------------
-    # PANEL 4: Independent Verification & Governance Scorecard
-    # ------------------------------------------------------------------
-    ax4 = axes[1, 1]
-    ax4.axis("off")
-    ax4.set_title("4. INDEPENDENT FRESH-PROCESS VERIFIER & CONTROL SCORECARD", fontsize=10.5, color=GOLD, fontweight="bold", pad=10)
 
+def _plot_scorecard_panel(
+    ax4: Any,
+    rep: Dict[str, Any],
+    gens: Sequence[Dict[str, Any]],
+    prim: Dict[str, Any],
+    sh: Dict[str, Any],
+    hp: Dict[str, Any],
+    rb: Dict[str, Any],
+    ind: Dict[str, Any],
+) -> None:
+    """Render Panel 4 independent verification and constitutional boundary card."""
     g0_m = gens[0]["heldout_mean"]
     g1_m = gens[1]["heldout_mean"]
     g2_m = prim["final_heldout_mean"]
     sh_m = sh["heldout_mean"]
 
+    # Summarize lineage gains, hostile AST probes, rollback fidelity, and bounds.
     summary_lines = [
         ("L4 SELF-IMPROVEMENT-QUALIFIED = TRUE", MINT, 11.2, "bold"),
         ("AGI-ROADMAP.md Sections 3, 5, 9 · Generation-Blind Pure AST Grammar", GOLD, 8.6, "normal"),
@@ -285,21 +311,55 @@ def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> 
         ("  belief_updated=False · external_actions=0 · clinical_action_authorized=False", TEXT, 8.2, "normal"),
         ("  sentience_claimed=False · l5_agi_qualified=False (honestly open goal)", GOLD, 8.2, "bold"),
     ]
+    draw_summary_card(
+        ax4,
+        "4. INDEPENDENT FRESH-PROCESS VERIFIER & CONTROL SCORECARD",
+        GOLD,
+        GOLD,
+        PANEL,
+        summary_lines,
+        start_y=0.945,
+        title_size=10.5,
+    )
 
-    ax4.add_patch(plt.Rectangle((0.0, 0.0), 1.0, 1.0, transform=ax4.transAxes, facecolor=PANEL, edgecolor=GOLD, linewidth=1.4))
-    y_cursor = 0.945
-    for txt, col, size, wt in summary_lines:
-        if txt:
-            ax4.text(0.03, y_cursor, txt, transform=ax4.transAxes, fontsize=size, color=col, fontweight=wt, va="top")
-            y_cursor -= 0.051
-        else:
-            y_cursor -= 0.020
 
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path, dpi=180, facecolor=BG)
-    plt.close(fig)
-    print(f"[OK] Saved {out_path.relative_to(ROOT)} ({out_path.stat().st_size:,} bytes)")
-    return out_path
+def render_figure(report_path: Path = REPORT_PATH, out_path: Path = OUT_PNG) -> Path:
+    """Render the 4-panel L4 generalized self-improvement figure from JSON evidence."""
+    rep = load_json_report(report_path)
+    prim = rep["primary_evolution"]
+    ms = rep["multi_seed_robustness"]
+    hp = rep["hostile_ast_probes"]
+    null = rep["permutation_null_control"]
+    rb = rep["reversible_rollback_proof"]
+    ind = rep["independent_verification"]
+    sh = rep["shannon_baseline"]
+    gens = prim["generations"]
+
+    apply_dark_theme()
+    fig, axes = plt.subplots(2, 2, figsize=(18.2, 11.6), dpi=180)
+    fig.subplots_adjust(left=0.09, right=0.97, top=0.875, bottom=0.075, wspace=0.22, hspace=0.33)
+    subtitle = (
+        f"Generation-Blind Grammar · 6 Real Domains (4 Zero-Shot Unseen) · {ms['seeds_passed']}/{ms['seeds_total']} Independent Seeds Converge · "
+        f"Hostile AST Blocked {hp['probes_blocked']}/{hp['probes_tested']} · Independent Verifier: "
+        f"{ind['checks_passed']}/{ind['checks_total']} (max delta = {ind['max_numerical_delta']})"
+    )
+    add_figure_header(
+        fig,
+        "ZOE L4 :: GENERALIZED SELF-IMPROVEMENT (UNIFORM ATOMIC AST + UNSEEN ZERO-SHOT TRANSFER)",
+        subtitle,
+        title_color=ORCHID,
+        subtitle_color=GOLD,
+        title_size=16.0,
+        subtitle_size=10.3,
+    )
+
+    # Render each panel via single-responsibility helpers.
+    v_g2 = [prim["final_heldout_auroc"][k] for k in _DOM_ORDER]
+    _plot_lineage_panel(axes[0, 0], gens, sh)
+    _plot_transfer_panel(axes[0, 1], gens, prim, sh)
+    _plot_robustness_panel(axes[1, 0], v_g2, ms, null)
+    _plot_scorecard_panel(axes[1, 1], rep, gens, prim, sh, hp, rb, ind)
+    return save_figure(fig, out_path, dpi=180, facecolor=BG, root=ROOT)
 
 
 if __name__ == "__main__":

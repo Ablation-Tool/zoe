@@ -16,12 +16,12 @@ Honest Epistemic Boundary (CONSTITUTION.md Articles II, III, VIII, X):
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from pathlib import Path
 import sys
 from typing import Any, Dict, List, Tuple
 
+from ._utils import sha256_json_utf8 as _sha256_obj
 from .l5_code_surgeon import eval_pillar_01_code_surgeon
 from .l5_domains import _ensure_guiai_path
 from .l5_long_horizon_memory import eval_pillar_02_long_horizon_memory
@@ -45,12 +45,6 @@ ALL_PHASE2_PILLARS = (
     eval_pillar_04_real_vision,
     eval_pillar_05_neural_science,
 )
-
-
-def _sha256_obj(payload: object) -> str:
-    return hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 class ZoeOpenWorldMind:

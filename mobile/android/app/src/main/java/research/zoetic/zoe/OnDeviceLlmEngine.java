@@ -310,7 +310,7 @@ final class OnDeviceLlmEngine {
                 || norm.equals("go deeper") || norm.equals("tell me more") || norm.equals("elaborate")
                 || norm.equals("next") || norm.equals("expand")) {
             return trimmedPrompt
-                    + " — Continue from your previous answer with NEW, deeper details, physics, or examples. "
+                    + ". Continue from your previous answer with NEW, deeper details, physics, or examples. "
                     + "Do NOT repeat any sentence you already wrote.";
         }
         return trimmedPrompt;
@@ -611,11 +611,11 @@ final class OnDeviceLlmEngine {
                 || lower.contains("developed by openai") || lower.contains("created by google")
                 || lower.contains("developed by google") || lower.contains("trained by google")
                 || lower.contains("created by anthropic")) {
-            return "I am Zoe — an open-source, offline-first software assistant for the Zoe project "
+            return "I am Zoe, an open-source, offline-first software assistant for the Zoe project "
                     + "created by Nicholas Michael Kloster. Local chats stay private on your device under "
                     + "CONSTITUTION.md (`sentience_claimed=false`), with no external vendor controlling your sessions.";
         }
-        return text;
+        return text.replace(" \u2014 ", ", ").replace("\u2014", ", ");
     }
 
     static String modelLabelForFile(File file) {

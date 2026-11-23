@@ -10,9 +10,13 @@ android {
         applicationId 'research.zoetic.zoe'
         minSdk 26
         targetSdk 36
-        versionCode 16
-        versionName '0.9.5'
+        versionCode 17
+        versionName '0.9.6'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        ndk {
+            // Strip ~145 MB of x86/x86_64 emulator native libraries so Pixel 7 & all ARM phones stay fast & lean.
+            abiFilters 'arm64-v8a', 'armeabi-v7a'
+        }
     }
 
     buildTypes {

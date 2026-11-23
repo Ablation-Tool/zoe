@@ -230,7 +230,15 @@ final class ScientificVisualSubstrate {
     static Bitmap renderScientificPlate(BaselinePlate plate, String concept, int w, int h) {
         BaselinePlate p = plate == null ? BaselinePlate.ATELIER : plate;
         if (p == BaselinePlate.ATELIER) {
-            return ImageLabEngine.createAtelierStarterBitmap(w, h);
+            Bitmap starter = Bitmap.createBitmap(Math.max(1, w), Math.max(1, h), Bitmap.Config.ARGB_8888);
+            Canvas sc = new Canvas(starter);
+            Paint bg = new Paint(Paint.ANTI_ALIAS_FLAG);
+            bg.setShader(new android.graphics.LinearGradient(
+                    0f, 0f, w, h,
+                    Color.rgb(18, 22, 36), Color.rgb(34, 24, 52),
+                    android.graphics.Shader.TileMode.CLAMP));
+            sc.drawRect(0f, 0f, w, h, bg);
+            return starter;
         }
         int seed = deterministicSeed(concept);
         String label = (concept == null || concept.trim().isEmpty()) ? "" : concept.trim();

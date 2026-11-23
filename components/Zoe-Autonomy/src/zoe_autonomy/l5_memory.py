@@ -23,16 +23,11 @@ import math
 from pathlib import Path
 from typing import Any, Dict, List, Sequence
 
+from ._utils import sha256_json_utf8 as _sha256_obj
 from .l4_multi_module import GuardedFunctionASTSandbox, UnsafeFunctionASTError
 
 
 L5_MEMORY_CONTRACT = "zoe-l5-unified-memory/v1"
-
-
-def _sha256_obj(payload: object) -> str:
-    return hashlib.sha256(
-        json.dumps(payload, sort_keys=True, ensure_ascii=False, allow_nan=False, separators=(",", ":")).encode("utf-8")
-    ).hexdigest()
 
 
 def _cosine_sim(a: Sequence[float], b: Sequence[float]) -> float:

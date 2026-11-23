@@ -30,6 +30,11 @@ from .kloster_info_geometry import (
     kloster_renyi_entropy,
     kloster_spectral_distance,
 )
+from .kloster_spatial_optical_law import _quadrat_zk
+from .kloster_stopping_law import (
+    KlosterSequentialStoppingController,
+    predict_kloster_min_samples,
+)
 from .spectral_filtration import spectral_moment_root
 
 CONTRACT = "zoe-groove-forensics-polyrhythm/v1"
@@ -50,30 +55,183 @@ def polyrhythmic_plv(
     """
     a = np.asarray(onsets_a, dtype=np.float64)
     b = np.asarray(onsets_b, dtype=np.float64)
-    if a.size < 4 or b.size < 4 or cycle_sec <= 0:
+    a = a[np.isfinite(a)]
+    b = b[np.isfinite(b)]
+    if a.size < 4 or b.size < 4 or not math.isfinite(cycle_sec) or cycle_sec <= 0:
         return 0.0
     # Evaluate phase of voice A at voice A's m-fold cycle harmonic & voice B at n-fold harmonic
     # and measure joint synchronization around their rational beat grid
-    phi_a = 2.0 * math.pi * (a / cycle_sec) * ratio_m
-    phi_b = 2.0 * math.pi * (b / cycle_sec) * ratio_n
+    with np.errstate(over="ignore", invalid="ignore"):
+        ratio_a = a / cycle_sec
+        ratio_b = b / cycle_sec
+        if not (bool(np.all(np.isfinite(ratio_a))) and bool(np.all(np.isfinite(ratio_b)))):
+            return 0.0
+        # Wrap phase modulo 1.0 before multiplying by 2*pi*ratio so extreme timestamps never overflow exp(i*phi)
+        phi_a = 2.0 * math.pi * np.mod(ratio_a, 1.0) * ratio_m
+        phi_b = 2.0 * math.pi * np.mod(ratio_b, 1.0) * ratio_n
+    if not (bool(np.all(np.isfinite(phi_a))) and bool(np.all(np.isfinite(phi_b)))):
+        return 0.0
     z_a = np.mean(np.exp(1j * phi_a))
     z_b = np.mean(np.exp(1j * phi_b))
     # Cross-voice coupled order parameter (geometric mean of harmonic locking magnitudes)
-    return float(math.sqrt(abs(z_a) * abs(z_b)))
+    val = float(math.sqrt(abs(z_a) * abs(z_b)))
+    return val if math.isfinite(val) else 0.0
 
 
 def _discretize_ioi_distribution(onsets: np.ndarray, n_bins: int = 36) -> np.ndarray:
     """Convert inter-onset intervals (IOIs) into a normalized discrete distribution for Kloster A_tau(p)."""
-    ioi = np.diff(np.sort(onsets))
-    ioi = ioi[ioi > 1e-4]
+    with np.errstate(over="ignore", invalid="ignore"):
+        ioi = np.diff(np.sort(onsets))
+    ioi = ioi[np.isfinite(ioi) & (ioi > 1e-4)]
     if ioi.size == 0:
         return np.array([1.0], dtype=np.float64)
-    lo, hi = 0.0, max(0.60, float(np.percentile(ioi, 99)) * 1.05)
-    hist, _ = np.histogram(ioi, bins=n_bins, range=(lo, hi))
+    # Scale IOIs by max_ioi if percentile*1.05 overflows float64 (probabilities are scale-invariant)
+    with np.errstate(over="ignore", invalid="ignore"):
+        hi = max(0.60, float(np.percentile(ioi, 99)) * 1.05)
+        if not math.isfinite(hi):
+            max_ioi = float(np.max(ioi))
+            if not math.isfinite(max_ioi) or max_ioi <= 0.0:
+                return np.array([1.0], dtype=np.float64)
+            ioi = ioi / max_ioi
+            hi = max(0.60, float(np.percentile(ioi, 99)) * 1.05)
+    if not math.isfinite(hi) or hi <= 0.0:
+        return np.array([1.0], dtype=np.float64)
+    hist, _ = np.histogram(ioi, bins=n_bins, range=(0.0, hi))
     total = float(np.sum(hist))
     if total <= 0:
         return np.array([1.0], dtype=np.float64)
     return hist.astype(np.float64) / total
+
+
+def _analyze_kloster_groove_metrics(
+    t: np.ndarray,
+    r_prev: np.ndarray,
+    r_curr: np.ndarray,
+    grid_step_sec: float,
+) -> Dict[str, Any]:
+    """Bridge 4: Apply Theorem 13 wrapped-phase stopping & Theorem 14 Poincare quadrat Z_K."""
+    if t.size < 4 or r_prev.size < 2 or not math.isfinite(grid_step_sec) or grid_step_sec <= 0.0:
+        return {
+            "kloster_phase_s_min": 10 ** 9,
+            "kloster_stopping": {
+                "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+                "samples": int(t.size),
+                "z_kloster": 0.0,
+                "z_threshold": 4.6116,
+                "excess_chi2": 0.0,
+                "m4_root": 0.0,
+                "estimated_s_min": 10 ** 9,
+                "budget_fraction_used": 1.0,
+            },
+            "poincare_quadrat_zk": {
+                "points": int(r_prev.size),
+                "n_quadrats": 64,
+                "z_kloster": 0.0,
+                "vmr": 0.0,
+                "besag_l_minus_r": 0.0,
+                "collapsed_to_grid": True,
+                "poincare_span_ms": 0.0,
+                "poincare_regime": "RIGID_GRID_QUANTIZED",
+            },
+        }
+
+    # Theorem 13 over 24-bin wrapped beat phase (Poisson arrivals are uniform mod grid_step_sec)
+    n_phase_bins = 24
+    with np.errstate(over="ignore", invalid="ignore"):
+        phases = np.mod(t / grid_step_sec, 1.0)
+    if not bool(np.all(np.isfinite(phases))):
+        return _analyze_kloster_groove_metrics(t, np.empty(0, dtype=np.float64), np.empty(0, dtype=np.float64), 0.0)
+    bins = np.clip(np.floor(phases * n_phase_bins).astype(np.int64), 0, n_phase_bins - 1)
+    p_phase = np.bincount(bins, minlength=n_phase_bins).astype(np.float64)
+    p_phase /= max(1.0, float(np.sum(p_phase)))
+    s_min = predict_kloster_min_samples(p_phase, z_threshold=4.0)
+
+    max_samples = max(24, int(t.size))
+    ctrl = KlosterSequentialStoppingController(n_bins=n_phase_bins, delta=0.005, max_samples=max_samples)
+    stopping: Dict[str, Any] = {}
+    for off in range(0, int(bins.size), 6):
+        stopping = ctrl.observe_batch(bins[off : off + 6])
+        if stopping["action"] != "GATHER_MORE":
+            break
+
+    # Theorem 14 2D Poincare quadrat Z_K on normalized (r_{t-1}, r_t) return coordinates
+    pts = np.column_stack([r_prev, r_curr])
+    with np.errstate(over="ignore", invalid="ignore"):
+        ptp = np.ptp(pts, axis=0)
+        span_ms = float(np.max(ptp))
+    if not (bool(np.all(np.isfinite(ptp))) and math.isfinite(span_ms)):
+        ptp = np.zeros(2, dtype=np.float64)
+        span_ms = 0.0
+    # Explicit zero-span guard separates exact grid quantization from clustered human pocket
+    if bool(np.all(ptp < 1e-6)):
+        collapsed = True
+        pts_norm = np.full_like(pts, 0.5)
+    else:
+        collapsed = False
+        lo = np.min(pts, axis=0)
+        pts_norm = np.clip((pts - lo) / np.maximum(ptp, 1e-9), 0.0, 1.0 - 1e-9)
+    qk = _quadrat_zk(pts_norm, grid_n=8)
+    if collapsed:
+        regime = "RIGID_GRID_QUANTIZED"
+    elif qk["z_kloster"] > 5.0 and qk["besag_l_minus_r"] > 0.01:
+        regime = "CLUSTERED_GROOVE_POCKET"
+    else:
+        regime = "POISSON_CSR_JITTER"
+
+    return {
+        "kloster_phase_s_min": int(s_min),
+        "kloster_stopping": stopping,
+        "poincare_quadrat_zk": {
+            **qk,
+            "collapsed_to_grid": collapsed,
+            "poincare_span_ms": round(span_ms, 4),
+            "poincare_regime": regime,
+        },
+    }
+
+
+def _degenerate_onset_stream_report(
+    name: str,
+    t: np.ndarray,
+    grid_step_sec: float,
+    secondary_onsets: Sequence[float] | None,
+    poly_ratio: Tuple[int, int],
+    cycle_sec: float,
+) -> Dict[str, Any]:
+    """Return finite, warning-free telemetry when onsets < 2 or grid_step_sec is invalid."""
+    empty_r = np.empty(0, dtype=np.float64)
+    bridge_metrics = _analyze_kloster_groove_metrics(t, empty_r, empty_r, 0.0)
+    p_ioi = _discretize_ioi_distribution(t) if t.size >= 2 else np.array([1.0], dtype=np.float64)
+    plv = (
+        polyrhythmic_plv(t, secondary_onsets, poly_ratio[0], poly_ratio[1], cycle_sec)
+        if secondary_onsets is not None
+        else 0.0
+    )
+    with np.errstate(over="ignore", invalid="ignore"):
+        step_ms = float(grid_step_sec) * 1000.0 if math.isfinite(grid_step_sec) and grid_step_sec > 0.0 else 0.0
+    safe_step_ms = round(step_ms, 3) if math.isfinite(step_ms) else 0.0
+    return {
+        "name": name,
+        "event_count": int(t.size),
+        "grid_step_ms": safe_step_ms,
+        "residual_std_ms": 0.0,
+        "sd1_ms": 0.0,
+        "sd2_ms": 0.0,
+        "poincare_sd2_sd1_ratio": 0.0,
+        "lag1_autocorr": 0.0,
+        "plv": round(plv, 5),
+        "kloster_a_005": int(np.sum(p_ioi > 0.05)),
+        "kloster_a_010": int(np.sum(p_ioi > 0.10)),
+        "kloster_shannon_h": round(kloster_renyi_entropy(p_ioi, 1.0), 5),
+        "kloster_renyi_h2": round(kloster_renyi_entropy(p_ioi, 2.0), 5),
+        "kloster_m4_root": round(float(spectral_moment_root(p_ioi, 4.0)), 5),
+        "kloster_phase_s_min": bridge_metrics["kloster_phase_s_min"],
+        "kloster_stopping": bridge_metrics["kloster_stopping"],
+        "poincare_quadrat_zk": bridge_metrics["poincare_quadrat_zk"],
+        "poincare_x_ms": [],
+        "poincare_y_ms": [],
+        "ioi_probs": np.round(p_ioi, 6).tolist(),
+    }
 
 
 def analyze_onset_stream(
@@ -85,24 +243,48 @@ def analyze_onset_stream(
     cycle_sec: float = 2.0,
 ) -> Dict[str, Any]:
     """Extract micro-timing residuals, 2D Poincare attractor stats, PLV, and Kloster spectral metrics."""
-    t = np.sort(np.asarray(onsets, dtype=np.float64))
-    # Nearest-grid micro-timing residual in milliseconds (signed push/pull pocket!)
-    nearest = np.round(t / grid_step_sec) * grid_step_sec
-    residuals_ms = (t - nearest) * 1000.0
+    raw = np.asarray(onsets, dtype=np.float64)
+    # Filter non-finite onset timestamps before sorting and grid division.
+    t = np.sort(raw[np.isfinite(raw)])
+    if t.size < 2 or not math.isfinite(grid_step_sec) or grid_step_sec <= 0.0:
+        return _degenerate_onset_stream_report(
+            name, t, grid_step_sec, secondary_onsets, poly_ratio, cycle_sec
+        )
+    # Guard t / grid_step_sec and ms-scale residual arithmetic without emitting RuntimeWarnings.
+    with np.errstate(over="ignore", invalid="ignore"):
+        grid_ratio = t / grid_step_sec
+        grid_step_ms = float(grid_step_sec) * 1000.0
+        nearest = np.round(grid_ratio) * grid_step_sec
+        residuals_ms = (t - nearest) * 1000.0
+        r_prev = residuals_ms[:-1]
+        r_curr = residuals_ms[1:]
+        diff_r = (r_curr - r_prev) / math.sqrt(2.0)
+        sum_r = (r_curr + r_prev) / math.sqrt(2.0)
+        sd1_ms = float(np.std(diff_r))
+        sd2_ms = float(np.std(sum_r))
+        res_std_ms = float(np.std(residuals_ms))
+    if not (
+        bool(np.all(np.isfinite(grid_ratio)))
+        and math.isfinite(grid_step_ms)
+        and bool(np.all(np.isfinite(residuals_ms)))
+        and math.isfinite(sd1_ms)
+        and math.isfinite(sd2_ms)
+        and math.isfinite(res_std_ms)
+    ):
+        return _degenerate_onset_stream_report(
+            name, t, grid_step_sec, secondary_onsets, poly_ratio, cycle_sec
+        )
 
     # 2D Poincare return coordinates (r_{t-1}, r_t)
-    r_prev = residuals_ms[:-1]
-    r_curr = residuals_ms[1:]
     if r_prev.size >= 3 and np.std(r_prev) > 1e-6 and np.std(r_curr) > 1e-6:
-        lag1_corr = float(np.corrcoef(r_prev, r_curr)[0, 1])
+        with np.errstate(over="ignore", invalid="ignore"):
+            lag1_corr = float(np.corrcoef(r_prev, r_curr)[0, 1])
+        if not math.isfinite(lag1_corr):
+            lag1_corr = 0.0
     else:
         lag1_corr = 0.0
 
     # Poincare ellipse SD1 (short-term beat-to-beat jitter) & SD2 (long-term groove pocket drift)
-    diff_r = (r_curr - r_prev) / math.sqrt(2.0)
-    sum_r = (r_curr + r_prev) / math.sqrt(2.0)
-    sd1_ms = float(np.std(diff_r))
-    sd2_ms = float(np.std(sum_r))
     poincare_ratio = float(sd2_ms / max(1e-6, sd1_ms)) if sd1_ms > 1e-4 else 0.0
 
     # Kloster Operational Metacognition & #5 Information Geometry over IOI distribution
@@ -113,17 +295,19 @@ def analyze_onset_stream(
     h_renyi2 = kloster_renyi_entropy(p_ioi, 2.0)
     m4_root = float(spectral_moment_root(p_ioi, 4.0))
 
+    # Wrap grid_ratio modulo 1.0 so exp(1j * 2*pi * phi) never overflows on extreme timestamps
     plv = (
         polyrhythmic_plv(t, secondary_onsets, poly_ratio[0], poly_ratio[1], cycle_sec)
         if secondary_onsets is not None
-        else float(abs(np.mean(np.exp(1j * 2.0 * math.pi * (t / grid_step_sec)))))
+        else float(abs(np.mean(np.exp(1j * 2.0 * math.pi * np.mod(grid_ratio, 1.0)))))
     )
+    bridge_metrics = _analyze_kloster_groove_metrics(t, r_prev, r_curr, grid_step_sec)
 
     return {
         "name": name,
         "event_count": int(t.size),
-        "grid_step_ms": round(grid_step_sec * 1000.0, 3),
-        "residual_std_ms": round(float(np.std(residuals_ms)), 3),
+        "grid_step_ms": round(grid_step_ms, 3),
+        "residual_std_ms": round(res_std_ms, 3),
         "sd1_ms": round(sd1_ms, 3),
         "sd2_ms": round(sd2_ms, 3),
         "poincare_sd2_sd1_ratio": round(poincare_ratio, 3),
@@ -134,6 +318,9 @@ def analyze_onset_stream(
         "kloster_shannon_h": round(h_shannon, 5),
         "kloster_renyi_h2": round(h_renyi2, 5),
         "kloster_m4_root": round(m4_root, 5),
+        "kloster_phase_s_min": bridge_metrics["kloster_phase_s_min"],
+        "kloster_stopping": bridge_metrics["kloster_stopping"],
+        "poincare_quadrat_zk": bridge_metrics["poincare_quadrat_zk"],
         "poincare_x_ms": np.round(r_prev[:160], 3).tolist(),
         "poincare_y_ms": np.round(r_curr[:160], 3).tolist(),
         "ioi_probs": np.round(p_ioi, 6).tolist(),
@@ -386,6 +573,17 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
 
     wav_showcase = render_groove_showcase_wav(rigid_onsets, dilla_onsets, voice_3, voice_2)
 
+    bridge_summary = {
+        p["name"]: {
+            "s_min": p["kloster_phase_s_min"],
+            "stopping_action": p["kloster_stopping"]["action"],
+            "stopping_samples": p["kloster_stopping"]["samples"],
+            "poincare_z_kloster": p["poincare_quadrat_zk"]["z_kloster"],
+            "poincare_regime": p["poincare_quadrat_zk"]["poincare_regime"],
+        }
+        for p in profiles
+    }
+
     checks = {
         "rigid_zero_jitter_collapse": a_rigid["residual_std_ms"] < 0.01 and a_rigid["kloster_m4_root"] > 0.99,
         "human_swing_has_poincare_pocket": a_dilla["residual_std_ms"] > 8.0 and a_dilla["sd1_ms"] > 5.0,
@@ -403,11 +601,27 @@ def run_groove_forensics_suite() -> Dict[str, Any]:
             < groove_w1_from_rigid["human_dilla_pocket_swing"]
             < groove_w1_from_rigid["negative_control_poisson_noise"]
         ),
+        "theorem13_groove_stopping_separates_pocket_from_poisson": (
+            a_dilla["kloster_stopping"]["action"] == "DECIDE_SIGNAL"
+            and a_dilla["kloster_stopping"]["samples"] <= 24
+            and a_rigid["kloster_stopping"]["action"] == "DECIDE_SIGNAL"
+            and a_noise["kloster_stopping"]["action"] == "ABSTAIN_INSUFFICIENT_EVIDENCE"
+            and a_noise["kloster_phase_s_min"] > a_noise["event_count"]
+        ),
+        "theorem14_poincare_quadrat_separates_swing_grid_poisson": (
+            a_rigid["poincare_quadrat_zk"]["poincare_regime"] == "RIGID_GRID_QUANTIZED"
+            and a_rigid["poincare_quadrat_zk"]["collapsed_to_grid"] is True
+            and a_dilla["poincare_quadrat_zk"]["poincare_regime"] == "CLUSTERED_GROOVE_POCKET"
+            and a_dilla["poincare_quadrat_zk"]["z_kloster"] > 10.0
+            and a_noise["poincare_quadrat_zk"]["poincare_regime"] == "POISSON_CSR_JITTER"
+            and abs(a_noise["poincare_quadrat_zk"]["z_kloster"]) < 3.0
+        ),
     }
 
     report = {
         "contract": CONTRACT,
         "profiles": profiles,
+        "theorem13_14_groove_bridge": bridge_summary,
         "stern_brocot_polyrhythm_spectrum": stern_brocot_spectrum,
         "groove_showcase_wav": wav_showcase,
         "theorem7_groove_transport": {

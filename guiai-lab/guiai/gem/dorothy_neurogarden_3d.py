@@ -31,11 +31,39 @@ import networkx as nx
 import numpy as np
 
 from .dorothy_data import load_structures
+from .kloster_botanical_atlas_36 import (
+    PUBLISHED_GENE_MODULES,
+    _load_atlas_36,
+    _score_atlas_compound,
+)
 from .kloster_info_geometry import kloster_renyi_entropy
+from .kloster_pharmacophore_spatial_c28 import _pharmacophore_3d_metrics
+from .kloster_spatial_optical_law import (
+    _quadrat_zk,
+    kloster_mtf_blur_loss,
+    kloster_spatial_m2,
+)
 from .spatial3d import parse_ply
 from .spectral_filtration import spectral_moment_root
 
 CONTRACT = "zoe-dorothy-neurogarden-3d-gamma/v1"
+
+# Synthetic (zero-PHI) Filbin-2018 6-module anatomical overlay across all 12 Allen CCFv3 regions:
+# (role, OPC_STEM, MMP14_GATE, BBB_EFFLUX, NSC_GUARD, NEURON_GUARD, GLIA_GUARD)
+_REGION_FILBIN_PROFILES: Dict[str, Tuple[str, float, float, float, float, float, float]] = {
+    "P": ("midline_tumor_niche", 0.95, 0.88, 0.82, 0.18, 0.22, 0.28),
+    "MY": ("midline_tumor_niche", 0.82, 0.76, 0.78, 0.20, 0.30, 0.32),
+    "MB": ("midline_tumor_niche", 0.78, 0.74, 0.74, 0.22, 0.34, 0.34),
+    "TH": ("midline_tumor_niche", 0.86, 0.80, 0.76, 0.20, 0.32, 0.30),
+    "HY": ("midline_tumor_niche", 0.70, 0.65, 0.70, 0.28, 0.38, 0.36),
+    "Isocortex": ("healthy_sparing_guardrail", 0.08, 0.10, 0.45, 0.35, 0.94, 0.88),
+    "HPF": ("healthy_sparing_guardrail", 0.10, 0.12, 0.48, 0.92, 0.90, 0.78),
+    "OLF": ("healthy_sparing_guardrail", 0.09, 0.10, 0.42, 0.88, 0.80, 0.72),
+    "CB": ("healthy_sparing_guardrail", 0.07, 0.08, 0.50, 0.42, 0.91, 0.86),
+    "STR": ("healthy_sparing_guardrail", 0.11, 0.12, 0.52, 0.48, 0.86, 0.82),
+    "PAL": ("healthy_sparing_guardrail", 0.12, 0.14, 0.54, 0.38, 0.84, 0.80),
+    "CTXsp": ("healthy_sparing_guardrail", 0.09, 0.10, 0.46, 0.40, 0.88, 0.84),
+}
 
 
 def _simulate_kuramoto_gamma(
@@ -96,6 +124,177 @@ def _simulate_kuramoto_gamma(
         "kloster_phase_a_005": a005,
         "r_trace": np.round(r_arr[::4], 4).tolist(),
         "final_phases_rad": np.round(theta, 4).tolist(),
+    }
+
+
+def _analyze_tomography_theorem14(
+    cloud: np.ndarray,
+    tomography: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Bridge 2A: Apply Theorem 14 M2, Parseval MTF blur-loss, and _quadrat_zk to 3-plane tomography."""
+    # Deterministic subsample across all 12 structures avoids O(N^2) 5 GB memory spike in _quadrat_zk
+    n_sub = min(384, int(cloud.shape[0]))
+    sub_idx = np.linspace(0, cloud.shape[0] - 1, n_sub, dtype=int)
+    plane_axes = (
+        ("coronal_yz", (1, 2)),
+        ("sagittal_xy", (0, 1)),
+        ("horizontal_xz", (0, 2)),
+    )
+    planes: Dict[str, Dict[str, Any]] = {}
+    for plane_key, (c0, c1) in plane_axes:
+        hist = np.asarray(tomography[plane_key], dtype=np.float64)
+        m2_field = kloster_spatial_m2(hist)
+        mtf = kloster_mtf_blur_loss(hist, psf_sigma=1.5)
+        # Normalize 2D vertex coordinates cleanly into [0, 1)^2 for quadrat & Ripley L(r)-r
+        ab_full = cloud[:, [c0, c1]]
+        lo = ab_full.min(axis=0)
+        span = np.maximum(ab_full.max(axis=0) - lo, 1e-9)
+        pts_norm = np.clip((cloud[sub_idx][:, [c0, c1]] - lo) / span, 1e-6, 1.0 - 1e-6)
+        zk = _quadrat_zk(pts_norm, grid_n=8)
+        planes[plane_key] = {
+            "m2_spatial": round(m2_field, 8),
+            "m2_blurred": round(mtf["m2_blurred"], 8),
+            "delta_opt": round(mtf["delta_opt"], 8),
+            "retention_ratio": round(mtf["retention_ratio"], 5),
+            "parseval_error": mtf["parseval_error"],
+            "z_kloster": zk["z_kloster"],
+            "vmr": zk["vmr"],
+            "besag_l_minus_r": zk["besag_l_minus_r"],
+            "subsampled_points": n_sub,
+        }
+    # Preserved CSR uniform 2D negative control for Theorem 14 quadrat calibration
+    csr_pts = np.random.default_rng(20260614).uniform(1e-6, 1.0 - 1e-6, size=(n_sub, 2))
+    csr_zk = _quadrat_zk(csr_pts, grid_n=8)
+    planes_ok = all(
+        p["m2_blurred"] < p["m2_spatial"]
+        and p["delta_opt"] > 0.0
+        and p["parseval_error"] < 1e-12
+        and p["z_kloster"] > 10.0
+        for p in planes.values()
+    )
+    return {
+        "planes": planes,
+        "csr_negative_control": csr_zk,
+        "verified": bool(planes_ok and abs(csr_zk["z_kloster"]) < 2.5),
+    }
+
+
+def _score_c27_c28_compounds_for_overlay() -> Dict[str, Any]:
+    """Evaluate all 36 PubChem C27/C28 compounds for preclinical sparing selectivity."""
+    scored = [_score_atlas_compound(row) for row in _load_atlas_36()]
+    evaluated: List[Dict[str, Any]] = []
+    compact_winners: List[str] = []
+    blocked_controls: List[str] = []
+    for mol in scored:
+        ph = _pharmacophore_3d_metrics(mol)
+        if ph["passes_3d_bbb_compactness_gate"]:
+            compact_winners.append(mol["id"])
+        else:
+            blocked_controls.append(mol["id"])
+        evaluated.append({
+            "id": mol["id"],
+            "passes_c27_medchem_gate": mol["passes_clean_cns_medchem_gate"],
+            "passes_c28_3d_bbb_gate": ph["passes_3d_bbb_compactness_gate"],
+            "pains_flagged": mol["pains_flagged"],
+            "permanent_cation_flagged": mol["permanent_cation_flagged"],
+            "r_gyr_angstrom": ph["r_gyr_angstrom"],
+            "polar_density": ph["polar_density"],
+        })
+    return {
+        "molecules_evaluated": len(evaluated),
+        "compact_cns_selective_candidates": compact_winners,
+        "blocked_controls_count": len(blocked_controls),
+        "blocked_controls_sample": [c for c in ("curcumin", "berberine", "crocin", "paclitaxel") if c in blocked_controls],
+        "spotlight": {r["id"]: r for r in evaluated if r["id"] in ("dordaviprone", "artemisinin", "galanthamine", "curcumin", "berberine", "crocin", "paclitaxel")},
+    }
+
+
+def _build_c27_c28_filbin_sparing_overlay(regions: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Bridge 3: Map C27/C28 Filbin-2018 gene-module guardrails onto Dorothy's 12 CCFv3 regions."""
+    module_names = [m[0] for m in PUBLISHED_GENE_MODULES]
+    region_rows: List[Dict[str, Any]] = []
+    midline_targets: List[float] = []
+    midline_guards: List[float] = []
+    healthy_targets: List[float] = []
+    healthy_guards: List[float] = []
+    tumor_vec: List[float] = []
+
+    for reg in regions:
+        acr = str(reg["acronym"])
+        role, opc, mmp14, bbb, nsc, neu, glia = _REGION_FILBIN_PROFILES[acr]
+        tumor_score = round(0.55 * opc + 0.45 * mmp14, 4)
+        guard_load = round((nsc + neu + glia) / 3.0, 4)
+        must_spare = role == "healthy_sparing_guardrail"
+        tumor_vec.append(tumor_score)
+        if must_spare:
+            healthy_targets.append(tumor_score)
+            healthy_guards.append(guard_load)
+        else:
+            midline_targets.append(tumor_score)
+            midline_guards.append(guard_load)
+        region_rows.append({
+            "acronym": acr,
+            "name": reg["name"],
+            "role": role,
+            "must_spare": must_spare,
+            "modules": {
+                "OPC_STEM": opc,
+                "MMP14_GATE": mmp14,
+                "BBB_EFFLUX": bbb,
+                "NSC_GUARD": nsc,
+                "NEURON_GUARD": neu,
+                "GLIA_GUARD": glia,
+            },
+            "tumor_target_score": tumor_score,
+            "healthy_guard_load": guard_load,
+            "bbb_efflux_burden": round(bbb, 4),
+            "sparing_priority": round(guard_load / max(tumor_score, 0.05), 4),
+        })
+
+    # Focal localization check via Kloster M2 (> 1/12 uniform dispersion)
+    m2_tumor = kloster_spatial_m2(np.asarray(tumor_vec, dtype=np.float64))
+    mean_mid_t = float(np.mean(midline_targets))
+    mean_hlt_t = float(np.mean(healthy_targets))
+    mean_mid_g = float(np.mean(midline_guards))
+    mean_hlt_g = float(np.mean(healthy_guards))
+    c27_c28 = _score_c27_c28_compounds_for_overlay()
+
+    constitution = {
+        "clinical_action_authorized": False,
+        "cure_claim": False,
+        "patient_specific_recommendation": False,
+        "synthetic_expression_counts_zero_phi": True,
+        "wet_lab_and_clinical_validation_required": True,
+        "cloud_tokens_used": 0,
+    }
+    verified = bool(
+        len(region_rows) == 12
+        and len(midline_targets) == 5
+        and len(healthy_targets) == 7
+        and mean_mid_t > 4.0 * mean_hlt_t
+        and mean_hlt_g > 2.0 * mean_mid_g
+        and m2_tumor > (1.0 / 12.0)
+        and "artemisinin" in c27_c28["compact_cns_selective_candidates"]
+        and "dordaviprone" in c27_c28["compact_cns_selective_candidates"]
+        and set(c27_c28["blocked_controls_sample"]) == {"curcumin", "berberine", "crocin", "paclitaxel"}
+        and constitution["clinical_action_authorized"] is False
+        and constitution["cure_claim"] is False
+    )
+    return {
+        "gene_modules": module_names,
+        "regions_overlay": region_rows,
+        "summary": {
+            "midline_target_count": len(midline_targets),
+            "healthy_guardrail_count": len(healthy_targets),
+            "mean_midline_tumor_score": round(mean_mid_t, 4),
+            "mean_healthy_tumor_score": round(mean_hlt_t, 4),
+            "mean_healthy_guard_load": round(mean_hlt_g, 4),
+            "mean_midline_guard_load": round(mean_mid_g, 4),
+            "kloster_m2_tumor_concentration": round(m2_tumor, 5),
+        },
+        "c27_c28_compound_gate": c27_c28,
+        "constitution": constitution,
+        "verified": verified,
     }
 
 
@@ -241,6 +440,10 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
     fiedler_lesion = round(_fiedler_lambda2(W_lesion), 5)
     fiedler_verified = bool(fiedler_healthy > fiedler_lesion * 2.5 and fiedler_healthy > 1.0)
 
+    # Bridges 2A & 3: Theorem 14 3-plane tomography optics + C27/C28 Filbin-2018 12-region sparing overlay
+    thm14_tomo = _analyze_tomography_theorem14(cloud, tomography)
+    c27_c28_overlay = _build_c27_c28_filbin_sparing_overlay(regions)
+
     checks = {
         "all_12_allen_ccfv3_meshes_loaded": n_reg == 12 and total_triangles > 300_000,
         "connectome_graph_connected": is_connected and G.number_of_edges() >= 20,
@@ -254,6 +457,8 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
         "theta_gamma_pac_tort_mi_verified": pac_verified,
         "graph_laplacian_fiedler_connectivity_verified": fiedler_verified,
         "clinical_action_strictly_false": True,
+        "theorem14_3plane_mtf_and_quadrat_zk_verified": thm14_tomo["verified"],
+        "c27_c28_filbin_12region_sparing_overlay_verified": c27_c28_overlay["verified"],
     }
 
     report = {
@@ -288,10 +493,16 @@ def run_dorothy_neurogarden_3d_suite() -> Dict[str, Any]:
             "total_projected_points": tomography["total_projected_points"],
             "planes": ["coronal_yz", "sagittal_xy", "horizontal_xz"],
         },
+        "theorem14_volumetric_optics": thm14_tomo,
+        "c27_c28_filbin_sparing_overlay": c27_c28_overlay,
         "checks": checks,
         "constitution": {
             "clinical_action_authorized": False,
+            "cure_claim": False,
+            "patient_specific_recommendation": False,
             "preclinical_research_only": True,
+            "synthetic_expression_counts_zero_phi": True,
+            "wet_lab_and_clinical_validation_required": True,
             "cloud_tokens_used": 0,
             "negative_control_preserved": True,
         },

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
-import android.text.TextUtils;
+import android.net.Uri;
 import android.view.Gravity;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -17,52 +17,30 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.content.FileProvider;
 import androidx.core.view.ViewCompat;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
- * Google DeepMind x Zoe Home Screen — engineered for effortless human & child-with-disabilities ergonomics:
- *   - Borderless Google Gemini top bar (= menu, "Zoe Private •", theme toggle, Zoe GEM-Ellipsis emblem)
- *   - Spacious breathing greeting with Zoe GEM-Ellipsis anchor
- *   - Focused Top 3 spacious 72dp rounded pill cards (reduces Hick's Law cognitive load immediately!)
- *   - Gemini-style Explore | Arrange pill toggle visible right above the fold
- *   - Calm grouped "More Zapps" card tucked cleanly below gentle breathing space
+ * Zoe Home Screen — Pure Gemini-Level Calm Minimalism:
+ *   - Quiet borderless top bar (= menu · zoe ready • · theme toggle)
+ *   - Vast breathing canvas with Zoe's original Red Smiling Gem centered over "hi, im zoe"
+ *   - Zero redundant cards or ad-like boxes; Chat, Guided Vision & Zoe Explore live cleanly
+ *     in the ergonomic bottom capsule under your thumb.
  */
 final class HomeView extends ScrollView {
-    private static final class ZappSpec {
-        final String id;
-        final String title;
-        final String simpleHelper;
-        final int iconRes;
-        final int accent;
-        final Runnable action;
-
-        ZappSpec(String id, String title, String simpleHelper,
-                 int iconRes, int accent, Runnable action) {
-            this.id = id;
-            this.title = title;
-            this.simpleHelper = simpleHelper;
-            this.iconRes = iconRes;
-            this.accent = accent;
-            this.action = action;
-        }
-    }
-
     private final MainActivity host;
+    private final ExecutorService probeExecutor = Executors.newSingleThreadExecutor();
+    private final ElizaGemClient studioClient = new ElizaGemClient();
     private final TextView modePillLabel;
-    private final Button explorePill;
-    private final Button arrangeButton;
-    private final Button resetButton;
-    private final TextView zappsHint;
-    private final LinearLayout primaryContainer;
-    private final LinearLayout moreContainer;
-    private final Map<String, ZappSpec> zappMap = new LinkedHashMap<>();
-    private boolean arrangeMode;
-    private int savedSightingsCount;
+    private final View statusDot;
+    private volatile int savedSightingsCount;
+    private volatile int learnedObjectsCount;
 
     HomeView(MainActivity activity) {
         super(activity);
@@ -72,15 +50,15 @@ final class HomeView extends ScrollView {
 
         LinearLayout content = Ui.vertical(activity);
         content.setBackgroundColor(Color.TRANSPARENT);
-        content.setPadding(0, Ui.dp(activity, 4), 0, Ui.dp(activity, 20));
+        content.setPadding(0, Ui.dp(activity, 4), 0, Ui.dp(activity, 16));
         addView(content);
 
-        // 1. Ultra-clean Google Gemini Borderless Top Bar
+        // 1. Quiet Borderless Top Bar (= menu · zoe ready • · theme toggle)
         LinearLayout topBar = new LinearLayout(activity);
         topBar.setOrientation(LinearLayout.HORIZONTAL);
         topBar.setGravity(Gravity.CENTER_VERTICAL);
         topBar.setBackgroundColor(Color.TRANSPARENT);
-        topBar.setPadding(Ui.dp(activity, 12), Ui.dp(activity, 6), Ui.dp(activity, 12), Ui.dp(activity, 4));
+        topBar.setPadding(Ui.dp(activity, 12), Ui.dp(activity, 6), Ui.dp(activity, 12), Ui.dp(activity, 2));
 
         ImageView menuBtn = Ui.iconActionButton(
                 activity,
@@ -101,26 +79,25 @@ final class HomeView extends ScrollView {
         brandTap.setContentDescription("About Zoe");
         brandTap.setOnClickListener(v -> showAboutSheet());
 
-        TextView brandTitle = Ui.text(activity, "Zoe", 21f, Ui.TEXT);
+        TextView brandTitle = Ui.text(activity, "zoe", 20f, Ui.TEXT);
         brandTitle.setTypeface(Ui.SANS_REGULAR);
         brandTitle.setPadding(0, 0, Ui.dp(activity, 6), 0);
         ViewCompat.setAccessibilityHeading(brandTitle, true);
         brandTap.addView(brandTitle);
 
-        modePillLabel = Ui.text(activity, "beta", 16f, Ui.MUTED);
+        modePillLabel = Ui.text(activity, "ready", 14f, Ui.MUTED);
         modePillLabel.setPadding(0, 0, Ui.dp(activity, 6), 0);
         brandTap.addView(modePillLabel);
 
-        View dot = new View(activity);
+        statusDot = new View(activity);
         GradientDrawable dotBg = new GradientDrawable();
         dotBg.setShape(GradientDrawable.OVAL);
         dotBg.setColor(Ui.primaryAccent(activity));
-        dot.setBackground(dotBg);
-        dot.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+        statusDot.setBackground(dotBg);
+        statusDot.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
         LinearLayout.LayoutParams dotParams = new LinearLayout.LayoutParams(Ui.dp(activity, 7), Ui.dp(activity, 7));
-        dotParams.setMargins(0, 0, 0, Ui.dp(activity, 8));
-        brandTap.addView(dot, dotParams);
-
+        dotParams.setMargins(0, 0, 0, Ui.dp(activity, 6));
+        brandTap.addView(statusDot, dotParams);
         topBar.addView(brandTap);
 
         View spacer = new View(activity);
@@ -139,355 +116,107 @@ final class HomeView extends ScrollView {
                 });
         themeButton.setId(R.id.home_theme_toggle);
         topBar.addView(themeButton, new LinearLayout.LayoutParams(Ui.dp(activity, 48), Ui.dp(activity, 48)));
-
-        ImageView gemAvatar = Ui.gemHomeButton(activity, 32, this::returnToHomeTop);
-        topBar.addView(gemAvatar, new LinearLayout.LayoutParams(Ui.dp(activity, 48), Ui.dp(activity, 48)));
         content.addView(topBar);
 
-        // 2. Spacious, Calm Breathing Hero with Zoe GEM-Ellipsis Anchor
+        // 2. Vast Serene Centerpiece: Original Crown-Smile Red Gem + "hi, im zoe"
         LinearLayout hero = new LinearLayout(activity);
         hero.setOrientation(LinearLayout.VERTICAL);
+        hero.setGravity(Gravity.CENTER);
         hero.setBackgroundColor(Color.TRANSPARENT);
-        hero.setPadding(Ui.dp(activity, 24), Ui.dp(activity, 28), Ui.dp(activity, 24), Ui.dp(activity, 24));
+        hero.setPadding(Ui.dp(activity, 24), 0, Ui.dp(activity, 24), Ui.dp(activity, 40));
 
-        ImageView heroGem = Ui.zoeSparkIcon(activity, 46);
+        ImageView heroGem = Ui.zoeSparkIcon(activity, 94);
         heroGem.setClickable(true);
         heroGem.setFocusable(true);
         heroGem.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
-        heroGem.setContentDescription("Zoe home");
-        heroGem.setBackground(Ui.tonalPillDrawable(activity, Color.TRANSPARENT, Ui.primaryAccent(activity), 16));
-        heroGem.setOnClickListener(v -> {
-            v.performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-            returnToHomeTop();
-        });
-        LinearLayout.LayoutParams gemLp = new LinearLayout.LayoutParams(Ui.dp(activity, 48), Ui.dp(activity, 48));
-        gemLp.setMargins(0, 0, 0, Ui.dp(activity, 12));
+        heroGem.setContentDescription("Zoe");
+        Ui.attachPressSpring(heroGem);
+        heroGem.setOnClickListener(Ui.withHaptic(v -> open(ConversationActivity.class)));
+        LinearLayout.LayoutParams gemLp = new LinearLayout.LayoutParams(Ui.dp(activity, 98), Ui.dp(activity, 98));
+        gemLp.setMargins(0, 0, 0, Ui.dp(activity, 18));
         hero.addView(heroGem, gemLp);
 
-        TextView greeting = Ui.text(activity, "Hi, I'm Zoe", 32f, Ui.TEXT);
+        TextView greeting = Ui.text(activity, "hi, i'm zoe", 34f, Ui.TEXT);
+        greeting.setGravity(Gravity.CENTER);
         greeting.setTypeface(Ui.SANS_MEDIUM);
         greeting.setLetterSpacing(-0.025f);
-        greeting.setPadding(0, 0, 0, Ui.dp(activity, 4));
+        greeting.setPadding(0, 0, 0, 0);
+        greeting.setContentDescription("Hi, I'm Zoe");
         Ui.applyGeminiGreetingShader(greeting);
         hero.addView(greeting);
 
-        TextView tagline = Ui.text(activity, "Follow your curiosity.", 17f, Ui.MUTED);
-        tagline.setPadding(0, 0, 0, 0);
-        hero.addView(tagline);
-        content.addView(hero);
+        content.addView(hero, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0, 1.0f));
 
-        registerSpecs(activity);
-
-        // 3. Focused Primary Stage (Top 3 Airy Hero Cards aligned on strict 16dp grid)
-        primaryContainer = Ui.vertical(activity);
-        primaryContainer.setId(R.id.home_zapps_list);
-        primaryContainer.setBackgroundColor(Color.TRANSPARENT);
-        primaryContainer.setPadding(Ui.dp(activity, 16), 0, Ui.dp(activity, 16), 0);
-        content.addView(primaryContainer);
-
-        // 4. Clean inline section header with subtle Arrange / Reset controls (zero floating clutter island!)
-        zappsHint = Ui.text(activity, "Tap ★ to pin #1, or ↑ ↓ to move any Zapp.", 13f, Ui.MUTED);
-        zappsHint.setGravity(Gravity.CENTER);
-        zappsHint.setPadding(Ui.dp(activity, 24), Ui.dp(activity, 10), Ui.dp(activity, 24), Ui.dp(activity, 2));
-        zappsHint.setVisibility(GONE);
-        content.addView(zappsHint);
-
-        LinearLayout pillRow = new LinearLayout(activity);
-        pillRow.setOrientation(LinearLayout.HORIZONTAL);
-        pillRow.setGravity(Gravity.CENTER_VERTICAL);
-        pillRow.setBackgroundColor(Color.TRANSPARENT);
-        pillRow.setPadding(Ui.dp(activity, 22), Ui.dp(activity, 22), Ui.dp(activity, 18), Ui.dp(activity, 6));
-
-        TextView moreHeading = Ui.text(activity, "Explore more", 13.5f, Ui.MUTED);
-        moreHeading.setTypeface(Ui.SANS_MEDIUM);
-        moreHeading.setPadding(0, 0, 0, 0);
-        pillRow.addView(moreHeading, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-
-        explorePill = modeTogglePill("Explore", v -> {
-            if (arrangeMode) {
-                toggleArrangeMode();
-            }
-        });
-        explorePill.setVisibility(GONE);
-        pillRow.addView(explorePill);
-
-        resetButton = modeTogglePill("Reset", v -> {
-            performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-            ZappLayoutStore.resetOrder(getContext());
-            renderZapps();
-        });
-        resetButton.setId(R.id.home_reset_zapps);
-        resetButton.setTextColor(Ui.heroAccent(activity));
-        resetButton.setVisibility(GONE);
-        LinearLayout.LayoutParams rp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 36));
-        rp.setMargins(0, 0, Ui.dp(activity, 6), 0);
-        pillRow.addView(resetButton, rp);
-
-        arrangeButton = modeTogglePill("Arrange", v -> toggleArrangeMode());
-        arrangeButton.setId(R.id.home_arrange_zapps);
-        arrangeButton.setContentDescription("Arrange Zapps");
-        LinearLayout.LayoutParams ap = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(activity, 36));
-        pillRow.addView(arrangeButton, ap);
-        content.addView(pillRow);
-
-        // 5. Calm Grouped "More Zapps" card gently tucked below
-        moreContainer = Ui.vertical(activity);
-        moreContainer.setBackgroundColor(Color.TRANSPARENT);
-        moreContainer.setPadding(0, Ui.dp(activity, 4), 0, Ui.dp(activity, 20));
-        content.addView(moreContainer);
-
-        styleModePills();
         refreshDynamic();
     }
 
-    private void registerSpecs(MainActivity activity) {
-        addSpec(new ZappSpec("vision", "Guided vision",
-                "Look around & read aloud",
-                R.drawable.ic_zoe_vision, Ui.COBALT, activity::showVision));
-        addSpec(new ZappSpec("talk", "Talk",
-                "Chat, voice & AI",
-                R.drawable.ic_zoe_talk, Ui.RUBY, () -> open(ConversationActivity.class)));
-        addSpec(new ZappSpec("live", "Zoe Explore",
-                "Voice orb & live camera",
-                R.drawable.ic_zoe_live, Ui.COBALT, () -> open(ZoeLiveActivity.class)));
-        addSpec(new ZappSpec("creative", "Creative Studio",
-                "Photos, art & videos",
-                R.drawable.ic_zoe_studio, Ui.GOLD, () -> open(CreativeStudioActivity.class)));
-        addSpec(new ZappSpec("arcade", "Zoe Arcade",
-                "Offline mini-games",
-                R.drawable.ic_zoe_arcade, Ui.GREEN, () -> open(ZoeArcadeActivity.class)));
-        addSpec(new ZappSpec("vault", "Privacy Vault",
-                "Encrypted notes & keys",
-                R.drawable.ic_zoe_convert, Ui.CYAN, () -> open(PrivacyVaultActivity.class)));
-        addSpec(new ZappSpec("journal", "Trip journal",
-                "Your saved notes & photos",
-                R.drawable.ic_zoe_trip, Ui.GREEN, () -> open(TripJournalActivity.class)));
-        addSpec(new ZappSpec("studio", "Eliza-GEM Studio",
-                "Sound shapes & local lab",
-                R.drawable.ic_zoe_gem, Ui.PINK, () -> open(ElizaGemActivity.class)));
-        addSpec(new ZappSpec("maps", "Maps & Safety",
-                "GPS, maps & safety",
-                R.drawable.ic_zoe_location, Ui.CYAN, () -> open(LocationActivity.class)));
-        addSpec(new ZappSpec("volume", "Accessible volume",
-                "Count open choices clearly",
-                R.drawable.ic_zoe_volume, Ui.GREEN, activity::showVolume));
-        addSpec(new ZappSpec("trinity", "Trinity",
-                "Link phone & computer",
-                R.drawable.ic_zoe_trinity, Ui.COBALT, () -> open(TrinityActivity.class)));
-        addSpec(new ZappSpec("kit", "Field kit",
-                "Cameras, GPS & sensors",
-                R.drawable.ic_zoe_kit, Ui.CYAN, () -> open(FieldKitActivity.class)));
-        addSpec(new ZappSpec("device", "Device field",
-                "Battery & speaker check",
-                R.drawable.ic_zoe_device, Ui.GREEN, activity::showDevice));
-        addSpec(new ZappSpec("safeconvert", "SafeConvert",
-                "Units & private safety",
-                R.drawable.ic_zoe_convert, Ui.RUBY, () -> open(SafeConvertActivity.class)));
-        addSpec(new ZappSpec("guide", "Researcher guide",
-                "How Zoe works & limits",
-                R.drawable.ic_zoe_guide, Ui.GOLD, () -> open(ResearchActivity.class)));
-    }
-
-    private void addSpec(ZappSpec spec) {
-        zappMap.put(spec.id, spec);
-    }
-
-    private Button modeTogglePill(String label, OnClickListener listener) {
-        Button b = new Button(getContext());
-        b.setText(label);
-        b.setTextSize(13f);
-        b.setTypeface(Ui.SANS_MEDIUM);
-        b.setAllCaps(false);
-        b.setMaxLines(1);
-        b.setMinHeight(Ui.dp(getContext(), 36));
-        b.setMinimumHeight(Ui.dp(getContext(), 36));
-        b.setPadding(Ui.dp(getContext(), 14), 0, Ui.dp(getContext(), 14), 0);
-        b.setStateListAnimator(null);
-        b.setOnClickListener(listener);
-        return b;
-    }
-
-    private void styleModePills() {
+    private void shareKnowledgeSeed() {
         Context ctx = getContext();
-        int activeFill = Ui.panelColor(ctx);
-        int activeBorder = Ui.dividerColor(ctx);
-        int ink = Ui.textColor(ctx);
-        int muted = Ui.mutedColor(ctx);
-
-        if (arrangeMode) {
-            explorePill.setTextColor(muted);
-            explorePill.setBackground(Ui.tonalPillDrawable(ctx, Color.TRANSPARENT, Ui.primaryAccent(ctx), 22));
-            arrangeButton.setText("Done");
-            arrangeButton.setContentDescription("Done arranging Zapps");
-            arrangeButton.setTextColor(ink);
-            arrangeButton.setBackground(Ui.outlinedPillDrawable(ctx, activeFill, activeBorder, Ui.primaryAccent(ctx), 22));
-            resetButton.setVisibility(VISIBLE);
-            zappsHint.setVisibility(VISIBLE);
-        } else {
-            explorePill.setTextColor(ink);
-            explorePill.setBackground(Ui.outlinedPillDrawable(ctx, activeFill, activeBorder, Ui.primaryAccent(ctx), 22));
-            arrangeButton.setText("Arrange");
-            arrangeButton.setContentDescription("Arrange Zapps");
-            arrangeButton.setTextColor(muted);
-            arrangeButton.setBackground(Ui.tonalPillDrawable(ctx, Color.TRANSPARENT, Ui.primaryAccent(ctx), 22));
-            resetButton.setVisibility(GONE);
-            zappsHint.setVisibility(GONE);
-        }
-    }
-
-    void toggleArrangeMode() {
-        arrangeMode = !arrangeMode;
-        styleModePills();
-        renderZapps();
-    }
-
-    void refreshDynamic() {
-        savedSightingsCount = TripJournalStore.load(getContext()).size();
-        String net = Ui.networkStatusLabel(getContext());
-        modePillLabel.setText("Offline".equals(net) ? "beta · offline" : "beta");
-        renderZapps();
-    }
-
-    private void renderZapps() {
-        primaryContainer.removeAllViews();
-        moreContainer.removeAllViews();
-        List<String> order = ZappLayoutStore.loadOrder(getContext());
-        List<ZappSpec> orderedSpecs = new ArrayList<>();
-        for (String id : order) {
-            ZappSpec spec = zappMap.get(id);
-            if (spec != null) {
-                orderedSpecs.add(spec);
-            }
-        }
-
-        if (arrangeMode) {
-            for (int i = 0; i < orderedSpecs.size(); i++) {
-                View row = buildArrangeRow(orderedSpecs.get(i), i, orderedSpecs.size(), order);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(0, Ui.dp(getContext(), 4), 0, Ui.dp(getContext(), 4));
-                primaryContainer.addView(row, lp);
-            }
-            return;
-        }
-
-        // Focused Top 3 Ergonomic Hero Cards (72dp tall, generous spacing — effortless for children & adults!)
-        int primaryCount = Math.min(3, orderedSpecs.size());
-        for (int i = 0; i < primaryCount; i++) {
-            ZappSpec spec = orderedSpecs.get(i);
-            String helper = "journal".equals(spec.id) && savedSightingsCount > 0
-                    ? savedSightingsCount + " saved notes"
-                    : spec.simpleHelper;
-            LinearLayout card = buildHeroActionCard(spec, helper);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, Ui.dp(getContext(), 5), 0, Ui.dp(getContext(), 5));
-            primaryContainer.addView(card, lp);
-        }
-
-        // Remaining Zapps inside ONE calm grouped Material 3 container below
-        if (orderedSpecs.size() > primaryCount) {
-            LinearLayout groupCard = Ui.groupedCard(getContext());
-            for (int i = primaryCount; i < orderedSpecs.size(); i++) {
-                if (i > primaryCount) {
-                    groupCard.addView(Ui.insetDivider(getContext()));
+        Context appCtx = ctx.getApplicationContext();
+        probeExecutor.execute(() -> {
+            try {
+                ZoeBrainEngine brain = new ZoeBrainEngine(appCtx);
+                MobileDigestionBundle.Summary summary = MobileDigestionBundle.collect(appCtx, brain);
+                MobileDigestionBundle.assertOutgoingFirewall(summary.bundleJson);
+                File dir = new File(appCtx.getCacheDir(), "zoe_learn");
+                if (!dir.exists()) dir.mkdirs();
+                File out = new File(dir, "zoe-knowledge-seed.json");
+                try (FileOutputStream fos = new FileOutputStream(out)) {
+                    fos.write(summary.bundleJson.getBytes(StandardCharsets.UTF_8));
                 }
-                ZappSpec spec = orderedSpecs.get(i);
-                String helper = "journal".equals(spec.id) && savedSightingsCount > 0
-                        ? savedSightingsCount + " saved notes"
-                        : spec.simpleHelper;
-                LinearLayout row = Ui.groupedRow(getContext(), spec.title, helper, spec.iconRes, spec.accent, v -> {
-                    performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-                    spec.action.run();
+                Uri uri = FileProvider.getUriForFile(appCtx, appCtx.getPackageName() + ".fileprovider", out);
+                post(() -> {
+                    Intent share = new Intent(Intent.ACTION_SEND)
+                            .setType("application/json")
+                            .putExtra(Intent.EXTRA_STREAM, uri)
+                            .putExtra(Intent.EXTRA_SUBJECT, "Zoe Knowledge Seed")
+                            .putExtra(Intent.EXTRA_TEXT, "Privacy-firewalled Zoe Knowledge Seed ("
+                                    + summary.visionPrototypesCount + " prototypes, "
+                                    + summary.brainNotesCount + " notes)")
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    ctx.startActivity(Intent.createChooser(share, "Share Knowledge Seed"));
                 });
-                row.setOnLongClickListener(v -> {
-                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                    showQuickMoveDialog(spec);
-                    return true;
-                });
-                groupCard.addView(row);
+            } catch (Exception ignored) {
             }
-            LinearLayout.LayoutParams gp = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            gp.setMargins(Ui.dp(getContext(), 16), 0, Ui.dp(getContext(), 16), 0);
-            moreContainer.addView(groupCard, gp);
-        }
-    }
-
-    /** Large 72dp soft tonal card for the Top 3 pinned Zapps (clear single-glance target). */
-    private LinearLayout buildHeroActionCard(ZappSpec spec, String helper) {
-        Context ctx = getContext();
-        LinearLayout row = Ui.groupedRow(ctx, spec.title, helper, spec.iconRes, spec.accent, v -> {
-            performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-            spec.action.run();
         });
-        row.setMinimumHeight(Ui.dp(ctx, 74));
-        row.setPadding(Ui.dp(ctx, 18), Ui.dp(ctx, 14), Ui.dp(ctx, 18), Ui.dp(ctx, 14));
-        boolean dark = Ui.isDark(ctx);
-        int fill = dark ? Color.argb(215, 28, 30, 36) : Color.rgb(242, 245, 250);
-        int stroke = dark ? Color.argb(95, 76, 86, 112) : Color.argb(140, 214, 222, 235);
-        row.setBackground(Ui.outlinedPillDrawable(ctx, fill, stroke, spec.accent, 24));
-        row.setOnLongClickListener(v -> {
-            performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-            showQuickMoveDialog(spec);
-            return true;
+    }
+
+    /** Zero main-thread disk I/O: refreshes telemetry counts and Workstation badge asynchronously. */
+    void refreshDynamic() {
+        String net = Ui.networkStatusLabel(getContext());
+        modePillLabel.setText("Offline".equals(net) ? "offline" : "ready");
+        setStatusDotColor(Ui.primaryAccent(getContext()));
+        Context appCtx = getContext().getApplicationContext();
+        String endpoint = ElizaGemClient.savedEndpoint(appCtx);
+        probeExecutor.execute(() -> {
+            savedSightingsCount = TripJournalStore.load(appCtx).size();
+            learnedObjectsCount = VisionPriorStore.loadAll(appCtx).size();
+            try {
+                ElizaGemClient.Status st = studioClient.fetchStatusQuick(endpoint);
+                post(() -> {
+                    if (host.isFinishing() || host.isDestroyed()) return;
+                    if (st.frontierReady) {
+                        modePillLabel.setText("pro · linked");
+                        setStatusDotColor(Ui.resolveColor(getContext(), Ui.GREEN));
+                    } else {
+                        modePillLabel.setText("lab · linked");
+                        setStatusDotColor(Ui.resolveColor(getContext(), Ui.CYAN));
+                    }
+                });
+            } catch (Exception ignored) {
+            }
         });
-        Ui.attachPressSpring(row);
-        return row;
     }
 
-    private View buildArrangeRow(ZappSpec spec, int index, int total, List<String> order) {
-        LinearLayout row = new LinearLayout(getContext());
-        row.setGravity(Gravity.CENTER_VERTICAL);
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setMinimumHeight(Ui.dp(getContext(), 62));
-        row.setBackground(Ui.cardBackground(getContext(), 22));
-        row.setPadding(Ui.dp(getContext(), 14), Ui.dp(getContext(), 8),
-                Ui.dp(getContext(), 10), Ui.dp(getContext(), 8));
-
-        row.addView(Ui.iconCircle(getContext(), spec.iconRes, spec.accent, 38));
-
-        TextView titleView = Ui.text(getContext(), spec.title, 16f, Ui.TEXT);
-        titleView.setTypeface(Ui.SANS_MEDIUM);
-        titleView.setPadding(Ui.dp(getContext(), 12), 0, Ui.dp(getContext(), 6), 0);
-        titleView.setMaxLines(1);
-        titleView.setEllipsize(TextUtils.TruncateAt.END);
-        row.addView(titleView, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
-
-        row.addView(moveChip("★", "Pin " + spec.title + " to top", index > 0, () -> {
-            ZappLayoutStore.saveOrder(getContext(), ZappLayoutStore.moveToTop(order, spec.id));
-            renderZapps();
-        }));
-        row.addView(moveChip("↑", "Move " + spec.title + " up", index > 0, () -> {
-            ZappLayoutStore.saveOrder(getContext(), ZappLayoutStore.moveUp(order, spec.id));
-            renderZapps();
-        }));
-        row.addView(moveChip("↓", "Move " + spec.title + " down", index < total - 1, () -> {
-            ZappLayoutStore.saveOrder(getContext(), ZappLayoutStore.moveDown(order, spec.id));
-            renderZapps();
-        }));
-        return row;
+    private void setStatusDotColor(int color) {
+        GradientDrawable bg = new GradientDrawable();
+        bg.setShape(GradientDrawable.OVAL);
+        bg.setColor(color);
+        statusDot.setBackground(bg);
     }
 
-    private Button moveChip(String label, String desc, boolean enabled, Runnable onMove) {
-        Button b = Ui.tonalIconButton(getContext(), label, desc, view -> {
-            performHapticFeedback(HapticFeedbackConstants.CLOCK_TICK);
-            onMove.run();
-        });
-        b.setTextSize(15f);
-        b.setEnabled(enabled);
-        b.setAlpha(enabled ? 1.0f : 0.28f);
-        b.setBackground(Ui.tonalPillDrawable(getContext(), Ui.tonalWellColor(getContext()), Ui.primaryAccent(getContext()), 99));
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                Ui.dp(getContext(), 48), Ui.dp(getContext(), 48));
-        p.setMargins(Ui.dp(getContext(), 4), 0, 0, 0);
-        b.setLayoutParams(p);
-        return b;
-    }
-
-    /** Clean scrollable Quick Menu Sheet (opened from Top '=' or Bottom '+' capsule). */
+    /** Clean Quick Menu Sheet (opened from Top '=' or Bottom '+' capsule). */
     void showQuickSheet() {
         Context ctx = getContext();
         ScrollView sheetScroll = new ScrollView(ctx);
@@ -498,7 +227,7 @@ final class HomeView extends ScrollView {
         box.setPadding(Ui.dp(ctx, 18), Ui.dp(ctx, 20), Ui.dp(ctx, 18), Ui.dp(ctx, 18));
         sheetScroll.addView(box);
 
-        TextView heading = Ui.text(ctx, "Quick actions", 20f, Ui.TEXT);
+        TextView heading = Ui.text(ctx, "zoe", 20f, Ui.TEXT);
         heading.setTypeface(Ui.SANS_MEDIUM);
         heading.setPadding(Ui.dp(ctx, 10), 0, Ui.dp(ctx, 10), Ui.dp(ctx, 8));
         ViewCompat.setAccessibilityHeading(heading, true);
@@ -506,62 +235,36 @@ final class HomeView extends ScrollView {
 
         final AlertDialog dialog = new AlertDialog.Builder(ctx).setView(sheetScroll).create();
 
-        box.addView(Ui.geminiActionRow(ctx, "Zoe Explore", "Voice orb & live camera",
-                R.drawable.ic_zoe_live, Ui.COBALT, v -> {
+        box.addView(Ui.geminiActionRow(ctx, "chat", "talk, question & teach zoe",
+                R.drawable.ic_zoe_talk, Ui.RUBY, v -> {
                     dialog.dismiss();
-                    open(ZoeLiveActivity.class);
+                    open(ConversationActivity.class);
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Creative Studio", "Photos, art & videos",
-                R.drawable.ic_zoe_studio, Ui.GOLD, v -> {
+        box.addView(Ui.geminiActionRow(ctx, "guided vision", "show zoe photos, videos & camera",
+                R.drawable.ic_zoe_vision, Ui.COBALT, v -> {
                     dialog.dismiss();
-                    open(CreativeStudioActivity.class);
+                    host.showVision();
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Privacy Vault", "Encrypted notes & keys",
-                R.drawable.ic_zoe_convert, Ui.CYAN, v -> {
+        box.addView(Ui.geminiActionRow(ctx, "zoe explore", "live camera, voice & ar sight",
+                R.drawable.ic_zoe_live, Ui.CYAN, v -> {
                     dialog.dismiss();
-                    open(PrivacyVaultActivity.class);
+                    host.openLiveExplore();
                 }));
-        box.addView(Ui.geminiActionRow(ctx, "Zoe Arcade", "Offline mini-games",
-                R.drawable.ic_zoe_arcade, Ui.GREEN, v -> {
+        box.addView(Ui.geminiActionRow(ctx, "share knowledge seed", "export learned contours & notes",
+                R.drawable.ic_zoe_gem, Ui.GREEN, v -> {
                     dialog.dismiss();
-                    open(ZoeArcadeActivity.class);
-                }));
-        box.addView(Ui.geminiActionRow(ctx, "Maps & Safety", "GPS, maps & safety",
-                R.drawable.ic_zoe_location, Ui.CYAN, v -> {
-                    dialog.dismiss();
-                    open(LocationActivity.class);
-                }));
-        box.addView(Ui.geminiActionRow(ctx, "SafeConvert", "Units & private safety",
-                R.drawable.ic_zoe_convert, Ui.RUBY, v -> {
-                    dialog.dismiss();
-                    open(SafeConvertActivity.class);
-                }));
-        box.addView(Ui.geminiActionRow(ctx, "Field kit", "Cameras, GPS & sensors",
-                R.drawable.ic_zoe_kit, Ui.CYAN, v -> {
-                    dialog.dismiss();
-                    open(FieldKitActivity.class);
-                }));
-        box.addView(Ui.geminiActionRow(ctx, arrangeMode ? "Done arranging" : "Arrange Zapps",
-                "Put your favorites at the top",
-                R.drawable.ic_zoe_apps, Ui.GOLD, v -> {
-                    dialog.dismiss();
-                    toggleArrangeMode();
-                }));
-        box.addView(Ui.geminiActionRow(ctx, "Google Gemini", "Open Gemini when you choose",
-                R.drawable.ic_zoe_gem, Ui.COBALT, v -> {
-                    dialog.dismiss();
-                    host.openGemini();
+                    shareKnowledgeSeed();
                 }));
         boolean comfort = host.isComfortMode();
         box.addView(Ui.geminiActionRow(ctx,
-                comfort ? "Comfort mode: On" : "Comfort mode: Off",
-                "Slower voice & gentle motion",
-                R.drawable.ic_zoe_talk, Ui.GREEN, v -> {
+                comfort ? "comfort mode: on" : "comfort mode: off",
+                "slower voice & gentle motion",
+                R.drawable.ic_zoe_talk, Ui.GOLD, v -> {
                     host.setComfortMode(!comfort);
                     dialog.dismiss();
                 }));
 
-        Button close = Ui.button(ctx, "Close", Ui.MUTED, v -> dialog.dismiss());
+        Button close = Ui.button(ctx, "close", Ui.MUTED, v -> dialog.dismiss());
         LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         cp.setMargins(Ui.dp(ctx, 6), Ui.dp(ctx, 12), Ui.dp(ctx, 6), 0);
@@ -583,36 +286,38 @@ final class HomeView extends ScrollView {
         LinearLayout top = new LinearLayout(ctx);
         top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(Gravity.CENTER_VERTICAL);
-        top.addView(Ui.zoeSparkIcon(ctx, 48));
+        top.addView(Ui.zoeSparkIcon(ctx, 50));
         LinearLayout titleCol = new LinearLayout(ctx);
         titleCol.setOrientation(LinearLayout.VERTICAL);
         titleCol.setPadding(Ui.dp(ctx, 14), 0, 0, 0);
-        TextView title = Ui.text(ctx, "Zoe (beta)", 22f, Ui.TEXT);
+        TextView title = Ui.text(ctx, "zoe", 22f, Ui.TEXT);
         title.setTypeface(Ui.SANS_MEDIUM);
         title.setPadding(0, 0, 0, 0);
         ViewCompat.setAccessibilityHeading(title, true);
         titleCol.addView(title);
-        TextView ver = Ui.text(ctx, "v0.9.5-beta · Offline-first & free", 13.5f, Ui.MUTED);
+        TextView ver = Ui.text(ctx, "v0.9.6 · collaborative open research", 13.5f, Ui.MUTED);
         ver.setPadding(0, 0, 0, 0);
         titleCol.addView(ver);
         top.addView(titleCol);
         box.addView(top);
 
         TextView oath = Ui.text(ctx,
-                "Privacy and dignity by design. Nothing listens, watches, saves, or uploads until you tap.",
+                "privacy and dignity by design. nothing listens, watches, saves, or uploads until you choose",
                 15.5f, Ui.TEXT);
         oath.setPadding(0, Ui.dp(ctx, 16), 0, Ui.dp(ctx, 8));
         box.addView(oath);
 
         TextView credit = Ui.text(ctx,
-                "Built for everyone — calm, clear, and accessible.\nAppearance: "
-                        + Ui.themeLabel(ctx) + " · Saved notes: " + savedSightingsCount,
-                13.5f, Ui.MUTED);
+                "created by nicholas michael kloster · theme: "
+                        + Ui.themeLabel(ctx).toLowerCase(java.util.Locale.US) + " · learned objects: " + learnedObjectsCount
+                        + "\nsaved sightings: " + savedSightingsCount
+                        + " · sentience_claimed=false",
+                13f, Ui.MUTED);
         credit.setPadding(0, 0, 0, Ui.dp(ctx, 16));
         box.addView(credit);
 
         final AlertDialog dialog = new AlertDialog.Builder(ctx).setView(box).create();
-        Button ok = Ui.primaryButton(ctx, "Done", Ui.COBALT, v -> dialog.dismiss());
+        Button ok = Ui.primaryButton(ctx, "done", Ui.COBALT, v -> dialog.dismiss());
         box.addView(ok);
         dialog.show();
         if (dialog.getWindow() != null) {
@@ -620,48 +325,10 @@ final class HomeView extends ScrollView {
         }
     }
 
-    private void showQuickMoveDialog(ZappSpec spec) {
-        List<String> current = ZappLayoutStore.loadOrder(getContext());
-        String[] options = new String[]{
-                "Pin to top (#1)",
-                "Move up",
-                "Move down",
-                "Open Arrange mode"
-        };
-        new AlertDialog.Builder(getContext())
-                .setTitle("Arrange: " + spec.title)
-                .setItems(options, (dialog, which) -> {
-                    switch (which) {
-                        case 0 -> {
-                            ZappLayoutStore.saveOrder(getContext(), ZappLayoutStore.moveToTop(current, spec.id));
-                            renderZapps();
-                        }
-                        case 1 -> {
-                            ZappLayoutStore.saveOrder(getContext(), ZappLayoutStore.moveUp(current, spec.id));
-                            renderZapps();
-                        }
-                        case 2 -> {
-                            ZappLayoutStore.saveOrder(getContext(), ZappLayoutStore.moveDown(current, spec.id));
-                            renderZapps();
-                        }
-                        default -> {
-                            if (!arrangeMode) {
-                                toggleArrangeMode();
-                            }
-                        }
-                    }
-                })
-                .show();
-    }
-
-    private void returnToHomeTop() {
-        if (arrangeMode) {
-            toggleArrangeMode();
-        }
-        smoothScrollTo(0, 0);
-    }
-
     private void open(Class<?> activityClass) {
         getContext().startActivity(new Intent(getContext(), activityClass));
+        if (!host.isComfortMode()) {
+            host.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
     }
 }

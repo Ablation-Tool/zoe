@@ -5,10 +5,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.Image;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -17,130 +19,96 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.ImageAnalysis;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.core.resolutionselector.ResolutionSelector;
-import androidx.camera.core.resolutionselector.ResolutionStrategy;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.label.ImageLabel;
-import com.google.mlkit.vision.label.ImageLabeler;
-import com.google.mlkit.vision.text.Text;
-import com.google.mlkit.vision.text.TextRecognizer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Zoe Guided Vision: seamless native phone camera integration with symmetrical color-coded cards.
+ *
+ * Launches the phone's own built-in Camera app (TakePicture / CaptureVideo) or Gallery directly
+ * so all pre-configured zoom, macro, HDR+, flash, and night sight settings stay intact, then
+ * organizes Zoe's observations into a balanced 2x2 color-coded grid.
+ */
 final class GuidedVisionView extends ScrollView {
+    private static final int ACCENT_MEMORY = Color.rgb(244, 114, 146); // ruby rose
+    private static final int ACCENT_TEXT = Color.rgb(124, 180, 255);   // cobalt blue
+    private static final int ACCENT_LABELS = Color.rgb(94, 234, 212);  // emerald mint
+    private static final int ACCENT_LIGHT = Color.rgb(247, 201, 110);  // amber gold
+    private static final int ACCENT_DEEP = Color.rgb(92, 225, 230);    // bright cyan
+
     private final MainActivity activity;
-    private final PreviewView previewView;
-    private final TextView placeholder;
+    private final ElizaGemClient studioClient = new ElizaGemClient();
+    private final ImageView mediaPreview;
+    private final LinearLayout emptyCameraPrompt;
     private final TextView status;
-    private final LinearLayout paletteRow;
-    private final TextView paletteText;
-    private final ImageView lastFrameThumb;
-    private final TextView resultView;
-    private final Button inspectButton;
-    private final Button flipButton;
-    private final Button torchButton;
+
+    private final TextView emptyHintView;
+    private final LinearLayout deepInspectCard;
+    private final TextView deepInspectBody;
+    private final LinearLayout observationGrid;
+    private final TextView memoryCardBody;
+    private final TextView textCardBody;
+    private final TextView labelsCardBody;
+    private final TextView lightCardBody;
+    private final LinearLayout lightSwatchRow;
+    private final TextView privacyFootNote;
+
+    private final Button askZoeButton;
+    private final LinearLayout learnBar;
+    private final Button digestZoeButton;
+    private final Button saveLearnDeviceButton;
+    private final Button saveLearnDriveButton;
     private final Button autoSpeakButton;
-    private final Button saveJournalButton;
-    private final Button sharePhotoButton;
-    private final Button cloudAskButton;
+    private final Button autoLearnButton;
+    private final Button pickDriveFolderButton;
     private final Button teachObjectButton;
     private final Button patentPriorButton;
     private final Button memoryBadgeButton;
-    private final LinearLayout improveDrawer;
-    private final Button improveToggle;
-    private final LinearLayout saveShareDrawer;
-    private final Button saveShareToggle;
-    private final TextRecognizer textRecognizer;
-    private final ImageLabeler imageLabeler;
+    private final Button saveJournalButton;
+    private final Button sharePhotoButton;
+    private final Button cloudAskButton;
+    private final LinearLayout moreOptionsDrawer;
+    private final Button moreOptionsToggle;
     private final ExecutorService analysisExecutor;
-    private final AtomicBoolean captureRequested = new AtomicBoolean(false);
-    private ProcessCameraProvider cameraProvider;
-    private Camera activeCamera;
+
     private DeviceAiController deviceAi;
-    private volatile boolean cameraStarted;
-    private volatile boolean cameraStartRequested;
-    private boolean useFrontCamera;
-    private boolean torchEnabled;
     private boolean autoSpeak;
     private String lastOcr = "";
     private String lastLabels = "";
     private String lastJudgeReport = "";
     private String lastPaletteSummary = "";
+    private FramePalette.Analysis lastPaletteAnalysis;
     private String lastDeviceAi = "";
     private String lastCloud = "";
     private String lastStructuralNote = "";
-    private boolean lastHardToIdentify;
     private PatentReverseImageEngine.VisualSignature lastVisualSignature;
     private VisionPriorStore.MatchResult lastPriorMatch;
     private byte[] lastFrameJpeg;
-    private String spoken = "No observation yet. Start the camera, then inspect one frame.";
+    private String spoken = "no photo yet. tap take photo, record video, or gallery";
     private String shared = spoken;
 
     GuidedVisionView(MainActivity activity) {
         super(activity);
         this.activity = activity;
         setFillViewport(true);
-        setBackgroundColor(android.graphics.Color.TRANSPARENT);
+        setBackgroundColor(Color.TRANSPARENT);
+
         LinearLayout content = Ui.vertical(activity);
-        content.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        content.setPadding(Ui.dp(activity, 16), Ui.dp(activity, 8), Ui.dp(activity, 16), Ui.dp(activity, 20));
+        content.setBackgroundColor(Color.TRANSPARENT);
+        content.setPadding(Ui.dp(activity, 16), Ui.dp(activity, 8), Ui.dp(activity, 16), Ui.dp(activity, 24));
         addView(content);
 
-        FrameLayout cameraFrame = new FrameLayout(activity);
-        cameraFrame.setBackground(Ui.panelBackground(activity, android.graphics.Color.rgb(9, 17, 23), Ui.BORDER, 20));
-        cameraFrame.setClipToOutline(true);
-        previewView = new PreviewView(activity);
-        previewView.setImplementationMode(PreviewView.ImplementationMode.COMPATIBLE);
-        previewView.setContentDescription("Camera preview. No frame is analyzed until Inspect is pressed.");
-        cameraFrame.addView(previewView, new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        placeholder = Ui.text(activity,
-                "Camera off · ready when you are.",
-                14.5f, android.graphics.Color.rgb(216, 224, 232));
-        placeholder.setGravity(android.view.Gravity.BOTTOM | android.view.Gravity.CENTER_HORIZONTAL);
-        placeholder.setPadding(Ui.dp(activity, 12), 0, Ui.dp(activity, 12), Ui.dp(activity, 24));
-        cameraFrame.addView(placeholder, new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        cameraFrame.addView(new ViewfinderReticleView(activity), new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        LinearLayout.LayoutParams camLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(activity, 240));
-        camLp.setMargins(0, 0, 0, Ui.dp(activity, 6));
-        content.addView(cameraFrame, camLp);
-
-        status = Ui.statusBanner(activity,
-                "Camera and microphone are idle.",
-                Ui.COBALT);
-        status.setId(R.id.vision_status);
-        content.addView(status);
-        textRecognizer = MediaChatHelper.getSharedTextRecognizer();
-        imageLabeler = MediaChatHelper.getSharedImageLabeler();
         analysisExecutor = Executors.newSingleThreadExecutor();
         analysisExecutor.execute(() -> {
+            MediaChatHelper.warmUp();
             VisionPriorStore.loadAll(activity);
             VisionPriorStore.loadBaselineAtlas(activity);
         });
@@ -148,229 +116,319 @@ final class GuidedVisionView extends ScrollView {
             ensureDeviceAi().autoPrepareQuietly();
         }
 
-        Button start = Ui.primaryButton(activity, "Start camera", Ui.CYAN, view -> activity.startCamera());
-        start.setId(R.id.start_camera);
-        inspectButton = Ui.primaryButton(activity, "Inspect once", Ui.GREEN, view -> requestInspection());
-        inspectButton.setId(R.id.inspect_button);
-        inspectButton.setEnabled(false);
-        content.addView(Ui.buttonRow(activity, start, inspectButton));
+        // 1. Clean Seamless Camera Preview Card (1 tap launches your phone's perfected built-in Camera)
+        FrameLayout previewFrame = new FrameLayout(activity);
+        previewFrame.setBackground(Ui.cardBackground(activity, 24));
+        previewFrame.setClipToOutline(true);
+        previewFrame.setClickable(true);
+        previewFrame.setFocusable(true);
+        previewFrame.setContentDescription("Open your phone's camera to take a photo for Zoe");
+        previewFrame.setOnClickListener(Ui.withHaptic(v -> activity.launchSystemCameraPhoto()));
 
-        Button listen = Ui.button(activity, "Voice", Ui.CYAN, view -> activity.startListening());
+        mediaPreview = new ImageView(activity);
+        mediaPreview.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        mediaPreview.setVisibility(GONE);
+        mediaPreview.setContentDescription("Captured photo preview");
+        previewFrame.addView(mediaPreview, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+
+        emptyCameraPrompt = Ui.vertical(activity);
+        emptyCameraPrompt.setBackgroundColor(Color.TRANSPARENT);
+        emptyCameraPrompt.setGravity(Gravity.CENTER);
+        emptyCameraPrompt.setPadding(Ui.dp(activity, 24), Ui.dp(activity, 20), Ui.dp(activity, 24), Ui.dp(activity, 20));
+        ImageView gemIcon = Ui.zoeSparkIcon(activity, 56);
+        LinearLayout.LayoutParams gemLp = new LinearLayout.LayoutParams(Ui.dp(activity, 58), Ui.dp(activity, 58));
+        gemLp.setMargins(0, 0, 0, Ui.dp(activity, 12));
+        emptyCameraPrompt.addView(gemIcon, gemLp);
+
+        TextView heroPrompt = Ui.text(activity, "tap to open your camera", 17f, Ui.TEXT);
+        heroPrompt.setTypeface(Ui.SANS_MEDIUM);
+        heroPrompt.setGravity(Gravity.CENTER);
+        emptyCameraPrompt.addView(heroPrompt);
+
+        TextView heroHint = Ui.text(activity,
+                "uses your phone's built-in camera with all your zoom, macro & hdr settings",
+                13f, Ui.MUTED);
+        heroHint.setGravity(Gravity.CENTER);
+        heroHint.setPadding(0, Ui.dp(activity, 6), 0, 0);
+        emptyCameraPrompt.addView(heroHint);
+
+        previewFrame.addView(emptyCameraPrompt, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+
+        LinearLayout.LayoutParams camLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(activity, 232));
+        camLp.setMargins(0, 0, 0, Ui.dp(activity, 10));
+        content.addView(previewFrame, camLp);
+
+        // 2. Direct 1-Tap Native Camera & Gallery Actions (zero popup menus)
+        Button takePhotoBtn = Ui.primaryButton(activity, "take photo", Ui.COBALT,
+                v -> activity.launchSystemCameraPhoto());
+        takePhotoBtn.setId(R.id.start_camera);
+        takePhotoBtn.setContentDescription("Take a photo using your phone's built-in camera");
+
+        Button recordVideoBtn = Ui.button(activity, "record video", Ui.CYAN,
+                v -> activity.launchSystemCameraVideo());
+        recordVideoBtn.setId(R.id.inspect_button);
+        recordVideoBtn.setContentDescription("Record a video using your phone's built-in camera");
+
+        Button galleryBtn = Ui.button(activity, "gallery", Ui.GOLD,
+                v -> activity.pickVisionMedia());
+        galleryBtn.setId(R.id.vision_gallery_button);
+        galleryBtn.setContentDescription("Pick a photo or video from your gallery");
+
+        content.addView(Ui.buttonRow(activity, takePhotoBtn, recordVideoBtn, galleryBtn));
+
+        // 3. Clean Voice & Accessibility Row
+        Button listen = Ui.button(activity, "voice", Ui.CYAN, view -> activity.startListening());
         listen.setId(R.id.listen_button);
-        Button speak = Ui.button(activity, "Speak", Ui.PINK, view -> activity.repeatCurrent());
+        Button speak = Ui.button(activity, "speak", Ui.PINK, view -> activity.repeatCurrent());
         speak.setId(R.id.speak_button);
-        Button stop = Ui.button(activity, "Stop", Ui.RUBY, view -> activity.stopAllOutput());
+        Button stop = Ui.button(activity, "stop", Ui.RUBY, view -> activity.stopAllOutput());
         stop.setId(R.id.stop_button);
         content.addView(Ui.buttonRow(activity, listen, speak, stop));
 
-        LinearLayout optionsDrawer = Ui.vertical(activity);
-        optionsDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        optionsDrawer.setVisibility(GONE);
-        flipButton = Ui.button(activity, "Lens: back", Ui.GOLD, view -> flipCamera());
-        flipButton.setId(R.id.vision_flip_camera);
-        torchButton = Ui.button(activity, "Flash: off", Ui.GOLD, view -> toggleTorch());
-        torchButton.setId(R.id.vision_torch);
-        autoSpeakButton = Ui.button(activity, "Auto-speak: off", Ui.PINK, view -> toggleAutoSpeak());
-        autoSpeakButton.setId(R.id.vision_autospeak);
-        optionsDrawer.addView(Ui.buttonRow(activity, flipButton, torchButton, autoSpeakButton));
+        status = Ui.statusBanner(activity, "ready · tap take photo, record video, or gallery", Ui.COBALT);
+        status.setId(R.id.vision_status);
+        content.addView(status);
 
-        Button optionsToggle = Ui.disclosureButton(activity, "Camera options ▾", null);
-        optionsToggle.setOnClickListener(view -> {
-            boolean open = optionsDrawer.getVisibility() != VISIBLE;
-            optionsDrawer.setVisibility(open ? VISIBLE : GONE);
-            optionsToggle.setText(open ? "Camera options ▴" : "Camera options ▾");
-        });
-        content.addView(optionsToggle);
-        content.addView(optionsDrawer);
+        // 4. Calm Empty State Hint (replaced by symmetrical 2x2 color-coded grid once media is inspected)
+        emptyHintView = Ui.text(activity,
+                "take a photo, record a video, or pick from gallery to see memory, text, labels, and light organized clearly",
+                13.5f, Ui.MUTED);
+        emptyHintView.setGravity(Gravity.CENTER);
+        emptyHintView.setPadding(Ui.dp(activity, 14), Ui.dp(activity, 12), Ui.dp(activity, 14), Ui.dp(activity, 12));
+        content.addView(emptyHintView);
 
-        LinearLayout paletteCard = Ui.vertical(activity);
-        paletteCard.setId(R.id.vision_palette);
-        paletteCard.setBackground(Ui.panelBackground(activity, Ui.PANEL, Ui.withAlpha(Ui.GOLD, 120), 16));
-        paletteCard.setPadding(Ui.dp(activity, 12), Ui.dp(activity, 10), Ui.dp(activity, 12), Ui.dp(activity, 10));
-        paletteRow = new LinearLayout(activity);
-        paletteRow.setOrientation(LinearLayout.HORIZONTAL);
-        paletteCard.addView(paletteRow);
-        paletteText = Ui.text(activity, "Color palette & light meter appear after Inspect once.", 13.5f, Ui.MUTED);
-        paletteCard.addView(paletteText);
-        content.addView(paletteCard, Ui.margins(
+        // Optional Full-Width Deep Inspect Card (cyan accent)
+        deepInspectCard = buildCategoryCard("deep inspect", ACCENT_DEEP);
+        deepInspectBody = buildCategoryBody("");
+        deepInspectCard.addView(deepInspectBody);
+        deepInspectCard.setVisibility(GONE);
+        LinearLayout.LayoutParams deepLp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        deepLp.setMargins(0, Ui.dp(activity, 6), 0, Ui.dp(activity, 8));
+        content.addView(deepInspectCard, deepLp);
+
+        // 5. Symmetrical 2x2 Color-Coded Category Grid (distinct visual anchor for every category)
+        observationGrid = Ui.vertical(activity);
+        observationGrid.setId(R.id.vision_palette);
+        observationGrid.setBackgroundColor(Color.TRANSPARENT);
+        observationGrid.setVisibility(GONE);
+
+        int gap = Ui.dp(activity, 8);
+
+        // Top Row: [ visual memory (rose) ]  |  [ text (blue) ]
+        LinearLayout row1 = new LinearLayout(activity);
+        row1.setOrientation(LinearLayout.HORIZONTAL);
+        row1.setBaselineAligned(false);
+
+        LinearLayout memoryCard = buildCategoryCard("visual memory", ACCENT_MEMORY);
+        memoryCardBody = buildCategoryBody("no match yet");
+        memoryCard.addView(memoryCardBody);
+
+        LinearLayout textCard = buildCategoryCard("text", ACCENT_TEXT);
+        textCardBody = buildCategoryBody("none found");
+        textCard.addView(textCardBody);
+
+        LinearLayout.LayoutParams leftLp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+        leftLp1.setMargins(0, 0, gap / 2, 0);
+        LinearLayout.LayoutParams rightLp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+        rightLp1.setMargins(gap / 2, 0, 0, 0);
+        row1.addView(memoryCard, leftLp1);
+        row1.addView(textCard, rightLp1);
+        LinearLayout.LayoutParams row1Lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        row1Lp.setMargins(0, Ui.dp(activity, 6), 0, gap);
+        observationGrid.addView(row1, row1Lp);
+
+        // Bottom Row: [ labels (mint) ]  |  [ light & color (gold) ]
+        LinearLayout row2 = new LinearLayout(activity);
+        row2.setOrientation(LinearLayout.HORIZONTAL);
+        row2.setBaselineAligned(false);
+
+        LinearLayout labelsCard = buildCategoryCard("labels", ACCENT_LABELS);
+        labelsCardBody = buildCategoryBody("none found");
+        labelsCard.addView(labelsCardBody);
+
+        LinearLayout lightCard = buildCategoryCard("light & color", ACCENT_LIGHT);
+        lightCardBody = buildCategoryBody("");
+        lightCard.addView(lightCardBody);
+        lightSwatchRow = new LinearLayout(activity);
+        lightSwatchRow.setOrientation(LinearLayout.HORIZONTAL);
+        lightSwatchRow.setPadding(0, Ui.dp(activity, 8), 0, 0);
+        lightCard.addView(lightSwatchRow);
+
+        LinearLayout.LayoutParams leftLp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+        leftLp2.setMargins(0, 0, gap / 2, 0);
+        LinearLayout.LayoutParams rightLp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
+        rightLp2.setMargins(gap / 2, 0, 0, 0);
+        row2.addView(labelsCard, leftLp2);
+        row2.addView(lightCard, rightLp2);
+        observationGrid.addView(row2, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        privacyFootNote = Ui.text(activity, "observations only. nothing is saved until you choose", 12f, Ui.MUTED);
+        privacyFootNote.setGravity(Gravity.CENTER);
+        privacyFootNote.setPadding(0, Ui.dp(activity, 8), 0, Ui.dp(activity, 4));
+        observationGrid.addView(privacyFootNote);
+
+        content.addView(observationGrid);
+
+        askZoeButton = Ui.primaryButton(activity, "ask zoe about this", Ui.COBALT, view -> openChatWithObservation());
+        askZoeButton.setVisibility(GONE);
+        content.addView(askZoeButton, Ui.margins(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, activity, 4));
 
-        lastFrameThumb = new ImageView(activity);
-        lastFrameThumb.setContentDescription("Last inspected frame preview");
-        lastFrameThumb.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        lastFrameThumb.setBackground(Ui.cardBackground(activity, 18));
-        lastFrameThumb.setClipToOutline(true);
-        lastFrameThumb.setVisibility(GONE);
-        LinearLayout.LayoutParams thumbLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, Ui.dp(activity, 148));
-        thumbLp.setMargins(Ui.dp(activity, 4), Ui.dp(activity, 4), Ui.dp(activity, 4), Ui.dp(activity, 4));
-        content.addView(lastFrameThumb, thumbLp);
+        // 6. Streamlined "Zoe Learn" Destination Bar (appears after capture)
+        learnBar = Ui.vertical(activity);
+        learnBar.setBackgroundColor(Color.TRANSPARENT);
+        learnBar.setVisibility(GONE);
+        digestZoeButton = Ui.button(activity, "digest to zoe", Ui.GREEN, view -> digestCurrentFrameToZoe(false));
+        saveLearnDeviceButton = Ui.button(activity, "save to device", Ui.CYAN, view -> saveCurrentFrameToDeviceLearn(false));
+        saveLearnDriveButton = Ui.button(activity, "google drive", Ui.GOLD, view -> saveCurrentFrameToDriveLearn(false));
+        learnBar.addView(Ui.buttonRow(activity, digestZoeButton, saveLearnDeviceButton, saveLearnDriveButton));
+        content.addView(learnBar);
 
-        resultView = Ui.text(activity,
-                "OCR and image labels will appear here after inspection.",
-                15f, Ui.TEXT);
-        resultView.setBackground(Ui.panelBackground(activity, Ui.GREEN, 16));
-        resultView.setPadding(Ui.dp(activity, 14), Ui.dp(activity, 14), Ui.dp(activity, 14), Ui.dp(activity, 14));
-        resultView.setTextIsSelectable(true);
-        content.addView(resultView, Ui.margins(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, activity, 4));
+        // 7. Single Collapsible "more options" Drawer (zero main-screen clutter)
+        moreOptionsDrawer = Ui.vertical(activity);
+        moreOptionsDrawer.setBackgroundColor(Color.TRANSPARENT);
+        moreOptionsDrawer.setVisibility(GONE);
 
-        // Self-Improving Recognition Drawer (offline contour memory + silent CPC-filtered patent structural priors)
-        improveDrawer = Ui.vertical(activity);
-        improveDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        improveDrawer.setVisibility(GONE);
-
-        teachObjectButton = Ui.button(activity, "Teach Zoe", Ui.GREEN, view -> promptTeachObject());
+        teachObjectButton = Ui.button(activity, "teach zoe", Ui.GREEN, view -> promptTeachObject());
         teachObjectButton.setId(R.id.vision_teach_button);
         teachObjectButton.setEnabled(false);
 
-        patentPriorButton = Ui.button(activity, "Patent prior", Ui.COBALT, view -> runSilentPatentPrior());
+        patentPriorButton = Ui.button(activity, "patent prior", Ui.COBALT, view -> runSilentPatentPrior());
         patentPriorButton.setId(R.id.vision_patent_prior_button);
         patentPriorButton.setEnabled(false);
 
-        memoryBadgeButton = Ui.button(activity, "Memory: " + VisionPriorStore.learnedCount(activity), Ui.GOLD, view -> showLearnedMemoryDialog());
+        memoryBadgeButton = Ui.button(activity, "memory: " + VisionPriorStore.learnedCount(activity),
+                Ui.GOLD, view -> showLearnedMemoryDialog());
         memoryBadgeButton.setId(R.id.vision_memory_badge);
-        improveDrawer.addView(Ui.buttonRow(activity, teachObjectButton, patentPriorButton, memoryBadgeButton));
+        moreOptionsDrawer.addView(Ui.buttonRow(activity, teachObjectButton, patentPriorButton, memoryBadgeButton));
 
-        improveToggle = Ui.disclosureButton(activity, "Improve recognition ▾", null);
-        improveToggle.setId(R.id.vision_improve_toggle);
-        improveToggle.setOnClickListener(view -> {
-            boolean open = improveDrawer.getVisibility() != VISIBLE;
-            improveDrawer.setVisibility(open ? VISIBLE : GONE);
-            improveToggle.setText(open ? "Improve recognition ▴" : "Improve recognition ▾");
-        });
-        content.addView(improveToggle);
-        content.addView(improveDrawer);
+        autoSpeakButton = Ui.button(activity, "auto-speak: off", Ui.PINK, view -> toggleAutoSpeak());
+        autoSpeakButton.setId(R.id.vision_autospeak);
+        autoLearnButton = Ui.button(activity,
+                ZoeLearnQueue.savedDestination(activity).shortLabel.toLowerCase(Locale.US),
+                Ui.GREEN, view -> cycleAutoLearn());
+        pickDriveFolderButton = Ui.button(activity,
+                ZoeLearnQueue.savedDriveTreeUri(activity) != null ? "drive: linked" : "pick drive folder",
+                Ui.COBALT, view -> activity.pickZoeLearnDriveFolder());
+        moreOptionsDrawer.addView(Ui.buttonRow(activity, autoSpeakButton, autoLearnButton, pickDriveFolderButton));
 
-        saveShareDrawer = Ui.vertical(activity);
-        saveShareDrawer.setBackgroundColor(android.graphics.Color.TRANSPARENT);
-        saveShareDrawer.setVisibility(GONE);
-
-        saveJournalButton = Ui.button(activity, "Save to Journal", Ui.GREEN, view -> promptSaveToJournal());
+        saveJournalButton = Ui.button(activity, "save journal", Ui.GREEN, view -> promptSaveToJournal());
         saveJournalButton.setId(R.id.vision_save_journal);
         saveJournalButton.setEnabled(false);
-        sharePhotoButton = Ui.button(activity, "Share Photo", Ui.GOLD, view -> sharePhotoWithApps());
+        sharePhotoButton = Ui.button(activity, "share photo", Ui.GOLD, view -> sharePhotoWithApps());
         sharePhotoButton.setId(R.id.vision_share_photo);
         sharePhotoButton.setEnabled(false);
-        saveShareDrawer.addView(Ui.buttonRow(activity, saveJournalButton, sharePhotoButton));
-
-        cloudAskButton = Ui.button(activity, "Cloud Vision", Ui.CYAN, view -> askCloudVision());
+        cloudAskButton = Ui.button(activity, "deep inspect", Ui.CYAN, view -> askCloudVision());
         cloudAskButton.setId(R.id.vision_cloud_ask);
         cloudAskButton.setEnabled(false);
-        Button share = Ui.button(activity, "Share Text", Ui.PINK, view -> activity.shareCurrent());
-        share.setId(R.id.share_button);
-        Button gemini = Ui.button(activity, "Gemini", Ui.GOLD, view -> activity.openGemini());
-        gemini.setId(R.id.gemini_button);
-        saveShareDrawer.addView(Ui.buttonRow(activity, cloudAskButton, share, gemini));
+        moreOptionsDrawer.addView(Ui.buttonRow(activity, saveJournalButton, sharePhotoButton, cloudAskButton));
+
+        Button shareTextBtn = Ui.button(activity, "share text", Ui.PINK, view -> activity.shareCurrent());
+        shareTextBtn.setId(R.id.share_button);
+        Button liveExploreBtn = Ui.button(activity, "zoe explore", Ui.CYAN, view -> activity.openLiveExplore());
+        moreOptionsDrawer.addView(Ui.buttonRow(activity, shareTextBtn, liveExploreBtn));
 
         if (DeviceAiController.hasRealAiCoreService(activity)) {
-            saveShareDrawer.addView(Ui.buttonRow(activity,
-                    Ui.button(activity, "Check device AI", Ui.CYAN, view -> ensureDeviceAi().check()),
-                    Ui.button(activity, "Enable AI model", Ui.CYAN, view -> ensureDeviceAi().enable())));
+            moreOptionsDrawer.addView(Ui.buttonRow(activity,
+                    Ui.button(activity, "check device ai", Ui.CYAN, view -> ensureDeviceAi().check()),
+                    Ui.button(activity, "enable ai model", Ui.CYAN, view -> ensureDeviceAi().enable())));
         }
 
-        saveShareToggle = Ui.disclosureButton(activity, "Save & share ▾", null);
-        saveShareToggle.setOnClickListener(view -> {
-            boolean open = saveShareDrawer.getVisibility() != VISIBLE;
-            saveShareDrawer.setVisibility(open ? VISIBLE : GONE);
-            saveShareToggle.setText(open ? "Save & share ▴" : "Save & share ▾");
+        moreOptionsToggle = Ui.disclosureButton(activity, "more options ▾", null);
+        moreOptionsToggle.setId(R.id.vision_improve_toggle);
+        moreOptionsToggle.setOnClickListener(view -> {
+            boolean open = moreOptionsDrawer.getVisibility() != VISIBLE;
+            moreOptionsDrawer.setVisibility(open ? VISIBLE : GONE);
+            moreOptionsToggle.setText(open ? "more options ▴" : "more options ▾");
         });
-        content.addView(saveShareToggle);
-        content.addView(saveShareDrawer);
+        content.addView(moreOptionsToggle);
+        content.addView(moreOptionsDrawer);
     }
 
+    /** Creates one cleanly color-coded, rounded category card with a crisp colored badge dot + title. */
+    private LinearLayout buildCategoryCard(String title, int accentColor) {
+        boolean dark = Ui.isDark(activity);
+        int fillColor = dark
+                ? Color.argb(235,
+                        Math.min(255, 20 + Color.red(accentColor) / 14),
+                        Math.min(255, 22 + Color.green(accentColor) / 14),
+                        Math.min(255, 28 + Color.blue(accentColor) / 14))
+                : Color.argb(245,
+                        Math.max(0, 248 - (255 - Color.red(accentColor)) / 18),
+                        Math.max(0, 249 - (255 - Color.green(accentColor)) / 18),
+                        Math.max(0, 252 - (255 - Color.blue(accentColor)) / 18));
+        int strokeColor = Ui.withAlpha(accentColor, dark ? 105 : 145);
+
+        GradientDrawable cardBg = new GradientDrawable();
+        cardBg.setColor(fillColor);
+        cardBg.setCornerRadius(Ui.dp(activity, 18));
+        cardBg.setStroke(Ui.strokePx(activity, 1.1f), strokeColor);
+
+        LinearLayout card = Ui.vertical(activity);
+        card.setBackground(cardBg);
+        card.setPadding(Ui.dp(activity, 13), Ui.dp(activity, 12), Ui.dp(activity, 13), Ui.dp(activity, 12));
+
+        LinearLayout header = new LinearLayout(activity);
+        header.setOrientation(LinearLayout.HORIZONTAL);
+        header.setGravity(Gravity.CENTER_VERTICAL);
+        header.setPadding(0, 0, 0, Ui.dp(activity, 6));
+
+        View dot = new View(activity);
+        GradientDrawable dotBg = new GradientDrawable();
+        dotBg.setShape(GradientDrawable.OVAL);
+        dotBg.setColor(accentColor);
+        dot.setBackground(dotBg);
+        dot.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+        LinearLayout.LayoutParams dotLp = new LinearLayout.LayoutParams(Ui.dp(activity, 8), Ui.dp(activity, 8));
+        dotLp.setMargins(0, 0, Ui.dp(activity, 7), 0);
+        header.addView(dot, dotLp);
+
+        int labelColor = dark ? accentColor : darkenForLightMode(accentColor);
+        TextView titleView = Ui.text(activity, title, 12.5f, labelColor);
+        titleView.setTextColor(labelColor);
+        titleView.setTypeface(Ui.SANS_MEDIUM);
+        titleView.setLetterSpacing(0.02f);
+        titleView.setPadding(0, 0, 0, 0);
+        header.addView(titleView);
+
+        card.addView(header);
+        return card;
+    }
+
+    private static int darkenForLightMode(int color) {
+        return Color.rgb(
+                Math.max(0, (int) (Color.red(color) * 0.62f)),
+                Math.max(0, (int) (Color.green(color) * 0.62f)),
+                Math.max(0, (int) (Color.blue(color) * 0.62f)));
+    }
+
+    private TextView buildCategoryBody(String initialText) {
+        TextView tv = Ui.text(activity, initialText, 13.5f, Ui.TEXT);
+        tv.setLineSpacing(0f, 1.28f);
+        tv.setTextIsSelectable(true);
+        tv.setPadding(0, 0, 0, 0);
+        return tv;
+    }
+
+    /** Launches the phone's built-in Camera app directly (preserving user's zoom/HDR/macro settings). */
     void startCamera() {
-        if (cameraStarted) {
-            setStatus("Camera is already active. Choose Inspect once when ready.");
-            return;
-        }
-        cameraStartRequested = true;
-        final ListenableFuture<ProcessCameraProvider> future = ProcessCameraProvider.getInstance(activity);
-        future.addListener(() -> {
-            if (!cameraStartRequested || activity.isFinishing() || activity.isDestroyed()
-                    || !"vision".equals(activity.currentVisible())) {
-                return;
-            }
-            try {
-                cameraProvider = future.get();
-                bindCameraUseCases();
-            } catch (Exception error) {
-                setStatus("Camera could not start: " + error.getMessage());
-            }
-        }, ContextCompat.getMainExecutor(activity));
+        activity.launchSystemCameraPhoto();
     }
 
-    private void bindCameraUseCases() {
-        if (cameraProvider == null) {
-            return;
-        }
-        Preview preview = new Preview.Builder().build();
-        preview.setSurfaceProvider(previewView.getSurfaceProvider());
-        ResolutionSelector fastAnalysisResolution = new ResolutionSelector.Builder()
-                .setResolutionStrategy(new ResolutionStrategy(
-                        new android.util.Size(1280, 720),
-                        ResolutionStrategy.FALLBACK_RULE_CLOSEST_HIGHER_THEN_LOWER))
-                .build();
-        ImageAnalysis analysis = new ImageAnalysis.Builder()
-                .setResolutionSelector(fastAnalysisResolution)
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build();
-        analysis.setAnalyzer(analysisExecutor, this::analyze);
-        CameraSelector selector = useFrontCamera
-                ? CameraSelector.DEFAULT_FRONT_CAMERA
-                : CameraSelector.DEFAULT_BACK_CAMERA;
-        cameraProvider.unbindAll();
-        activeCamera = cameraProvider.bindToLifecycle(activity, selector, preview, analysis);
-        torchEnabled = false;
-        torchButton.setText("Flash: off");
-        torchButton.setEnabled(!useFrontCamera && activeCamera.getCameraInfo().hasFlashUnit());
-        cameraStarted = true;
-        placeholder.setVisibility(GONE);
-        inspectButton.setEnabled(true);
-        setStatus((useFrontCamera ? "Front" : "Back") + " camera active. No continuous analysis. Choose Inspect once.");
-    }
-
-    private void flipCamera() {
-        useFrontCamera = !useFrontCamera;
-        flipButton.setText(useFrontCamera ? "Lens: front" : "Lens: back");
-        if (cameraStarted && cameraProvider != null) {
-            try {
-                bindCameraUseCases();
-            } catch (Exception error) {
-                setStatus("Could not switch lens: " + error.getMessage());
-            }
-        } else {
-            setStatus("Selected " + (useFrontCamera ? "front" : "back") + " camera for next start.");
-        }
-    }
-
-    private void toggleTorch() {
-        if (!cameraStarted || activeCamera == null || !activeCamera.getCameraInfo().hasFlashUnit()) {
-            setStatus("Flash/torch is unavailable on the active camera.");
-            return;
-        }
-        torchEnabled = !torchEnabled;
-        activeCamera.getCameraControl().enableTorch(torchEnabled);
-        torchButton.setText(torchEnabled ? "Flash: on" : "Flash: off");
-        setStatus(torchEnabled ? "Flashlight turned on." : "Flashlight turned off.");
+    void requestInspection() {
+        activity.launchSystemCameraPhoto();
     }
 
     private void toggleAutoSpeak() {
         autoSpeak = !autoSpeak;
-        autoSpeakButton.setText(autoSpeak ? "Auto-speak: on" : "Auto-speak: off");
-        setStatus(autoSpeak ? "Auto-speak enabled for inspections." : "Auto-speak turned off.");
-    }
-
-    void requestInspection() {
-        if (!cameraStarted) {
-            setStatus("Start the camera before inspecting a frame.");
-            return;
-        }
-        if (!captureRequested.compareAndSet(false, true)) {
-            return;
-        }
-        inspectButton.setEnabled(false);
-        setStatus("Inspecting one frame with on-device OCR, labels, and light meter…");
+        autoSpeakButton.setText(autoSpeak ? "auto-speak: on" : "auto-speak: off");
+        setStatus(autoSpeak ? "auto-speak enabled for inspections" : "auto-speak turned off");
     }
 
     private DeviceAiController ensureDeviceAi() {
@@ -378,75 +436,6 @@ final class GuidedVisionView extends ScrollView {
             deviceAi = new DeviceAiController(activity, this::setStatus);
         }
         return deviceAi;
-    }
-
-    private Bitmap orientedBitmap(ImageProxy imageProxy) {
-        Bitmap bitmap = imageProxy.toBitmap();
-        int rotation = imageProxy.getImageInfo().getRotationDegrees() % 360;
-        if (rotation == 0) {
-            return bitmap;
-        }
-        Matrix matrix = new Matrix();
-        matrix.postRotate(rotation);
-        Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        bitmap.recycle();
-        return rotated;
-    }
-
-    @androidx.annotation.OptIn(markerClass = androidx.camera.core.ExperimentalGetImage.class)
-    private void analyze(ImageProxy imageProxy) {
-        if (!captureRequested.getAndSet(false)) {
-            imageProxy.close();
-            return;
-        }
-        try {
-            Image mediaImage = imageProxy.getImage();
-            if (mediaImage == null) {
-                imageProxy.close();
-                post(() -> {
-                    inspectButton.setEnabled(cameraStarted);
-                    setStatus("The selected frame had no readable image.");
-                });
-                return;
-            }
-            Bitmap bitmap = orientedBitmap(imageProxy);
-            FramePalette.Analysis palette = FramePalette.analyzeBitmap(bitmap);
-            PatentReverseImageEngine.VisualSignature visualSig =
-                    PatentReverseImageEngine.extractFromBitmap(bitmap, true);
-            VisionPriorStore.MatchResult priorMatch =
-                    VisionPriorStore.matchSignature(activity, visualSig, VisionPriorStore.DEFAULT_MIN_SCORE);
-            byte[] jpegBytes = compressBoundedJpeg(bitmap);
-            boolean aiReady = deviceAi != null && deviceAi.isReady();
-
-            InputImage input = InputImage.fromMediaImage(mediaImage, imageProxy.getImageInfo().getRotationDegrees());
-            Task<Text> textTask = textRecognizer.process(input);
-            Task<List<ImageLabel>> labelsTask = imageLabeler.process(input);
-            Tasks.whenAllComplete(Arrays.asList(textTask, labelsTask)).addOnCompleteListener(analysisExecutor, completed -> {
-                try {
-                    String recognized = textTask.isSuccessful() ? textTask.getResult().getText() : "";
-                    List<ImageLabel> labels = labelsTask.isSuccessful() ? labelsTask.getResult() : Collections.emptyList();
-                    if (aiReady && deviceAi != null) {
-                        deviceAi.describe(bitmap, description -> {
-                            bitmap.recycle();
-                            post(() -> publish(recognized, labels, textTask.getException(), labelsTask.getException(),
-                                    palette, visualSig, priorMatch, jpegBytes, description));
-                        });
-                    } else {
-                        bitmap.recycle();
-                        post(() -> publish(recognized, labels, textTask.getException(), labelsTask.getException(),
-                                palette, visualSig, priorMatch, jpegBytes, null));
-                    }
-                } finally {
-                    imageProxy.close();
-                }
-            });
-        } catch (RuntimeException error) {
-            imageProxy.close();
-            post(() -> {
-                inspectButton.setEnabled(cameraStarted);
-                setStatus("Inspection failed: " + error.getMessage());
-            });
-        }
     }
 
     private static byte[] compressBoundedJpeg(Bitmap bitmap) {
@@ -471,195 +460,265 @@ final class GuidedVisionView extends ScrollView {
         }
     }
 
-    private void publish(String recognized, List<ImageLabel> labels, Exception textError, Exception labelsError,
-                         FramePalette.Analysis palette,
-                         PatentReverseImageEngine.VisualSignature visualSig,
-                         VisionPriorStore.MatchResult priorMatch,
-                         byte[] jpegBytes, String aiDescription) {
-        inspectButton.setEnabled(cameraStarted);
-        lastFrameJpeg = jpegBytes;
-        lastVisualSignature = visualSig;
-        lastPriorMatch = priorMatch;
-        lastStructuralNote = "";
-        lastCloud = "";
-        boolean hasFrame = jpegBytes != null && jpegBytes.length > 0;
-        if (hasFrame) {
-            BitmapFactory.Options opts = new BitmapFactory.Options();
-            opts.inSampleSize = 2;
-            Bitmap thumb = BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.length, opts);
-            if (thumb != null) {
-                lastFrameThumb.setImageBitmap(thumb);
-                lastFrameThumb.setVisibility(VISIBLE);
+    /** Extracts clean multiline labels from MediaChatHelper's offline report string. */
+    private static String extractFormattedLabels(String judgeReport) {
+        if (judgeReport == null || judgeReport.isEmpty()) {
+            return "";
+        }
+        int idx = judgeReport.indexOf("Labels:");
+        if (idx < 0) {
+            return "";
+        }
+        String after = judgeReport.substring(idx + "Labels:".length()).trim();
+        int period = after.indexOf('.');
+        if (period > 0) {
+            after = after.substring(0, period).trim();
+        }
+        if (after.toLowerCase(Locale.US).startsWith("none")) {
+            return "";
+        }
+        String[] parts = after.split(",");
+        StringBuilder out = new StringBuilder();
+        int count = 0;
+        for (String raw : parts) {
+            String clean = raw.trim().replace("(", "").replace(")", "").toLowerCase(Locale.US);
+            if (!clean.isEmpty() && count < 4) {
+                if (out.length() > 0) {
+                    out.append("\n");
+                }
+                out.append(clean);
+                count++;
             }
         }
-        saveJournalButton.setEnabled(hasFrame);
-        sharePhotoButton.setEnabled(hasFrame);
-        cloudAskButton.setEnabled(hasFrame);
-        teachObjectButton.setEnabled(visualSig != null);
-        patentPriorButton.setEnabled(hasFrame && visualSig != null);
-        refreshMemoryBadge();
-        if (hasFrame) {
-            saveShareDrawer.setVisibility(VISIBLE);
-            saveShareToggle.setText("Save & share ▴");
-        }
+        return out.toString();
+    }
 
-        if (palette != null) {
-            lastPaletteSummary = palette.summary();
-            renderPaletteSwatches(palette);
+    /** Inspect & learn seamlessly from any native Camera photo/video or Gallery item. */
+    void inspectPickedMedia(Uri uri, boolean isVideo) {
+        if (uri == null) {
+            return;
         }
+        setStatus(isVideo ? "analyzing video keyframes offline…" : "analyzing photo offline…");
+        analysisExecutor.execute(() -> {
+            try {
+                MediaChatHelper.MediaAttachment att = isVideo
+                        ? MediaChatHelper.analyzeVideoUri(activity, uri)
+                        : MediaChatHelper.analyzePhotoUri(activity, uri);
+                Bitmap bmp = (att.jpegBytes != null && att.jpegBytes.length > 0)
+                        ? BitmapFactory.decodeByteArray(att.jpegBytes, 0, att.jpegBytes.length)
+                        : att.thumbnail;
+                FramePalette.Analysis palette = bmp != null ? FramePalette.analyzeBitmap(bmp) : null;
+                PatentReverseImageEngine.VisualSignature sig = bmp != null
+                        ? PatentReverseImageEngine.extractFromBitmap(bmp, true)
+                        : null;
+                VisionPriorStore.MatchResult priorMatch = sig != null
+                        ? VisionPriorStore.matchSignature(activity, sig, VisionPriorStore.DEFAULT_MIN_SCORE)
+                        : null;
+                byte[] jpegBytes = (att.jpegBytes != null && att.jpegBytes.length > 0)
+                        ? att.jpegBytes
+                        : (bmp != null ? compressBoundedJpeg(bmp) : new byte[0]);
+                if (bmp != null && bmp != att.thumbnail && !bmp.isRecycled()) {
+                    bmp.recycle();
+                }
+                post(() -> {
+                    lastFrameJpeg = jpegBytes;
+                    lastVisualSignature = sig;
+                    lastPriorMatch = priorMatch;
+                    lastPaletteAnalysis = palette;
+                    lastStructuralNote = "";
+                    lastCloud = "";
+                    lastDeviceAi = "";
+                    lastJudgeReport = att.offlineReport == null ? "" : att.offlineReport;
+                    lastOcr = ArExploreBrain.extractOcrSnippet(lastJudgeReport);
+                    lastLabels = extractFormattedLabels(lastJudgeReport);
+                    lastPaletteSummary = palette != null ? palette.summary().toLowerCase(Locale.US) : "";
 
-        String cleanText = recognized == null ? "" : recognized.trim();
-        if (cleanText.length() > 4000) {
-            cleanText = cleanText.substring(0, 4000) + "…";
-        }
-        lastOcr = cleanText;
-        lastDeviceAi = aiDescription == null ? "" : aiDescription.trim();
+                    if (jpegBytes != null && jpegBytes.length > 0) {
+                        BitmapFactory.Options opts = new BitmapFactory.Options();
+                        opts.inSampleSize = 2;
+                        Bitmap previewBmp = BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.length, opts);
+                        if (previewBmp != null) {
+                            mediaPreview.setImageBitmap(previewBmp);
+                            mediaPreview.setVisibility(VISIBLE);
+                            emptyCameraPrompt.setVisibility(GONE);
+                        }
+                    } else if (att.thumbnail != null) {
+                        mediaPreview.setImageBitmap(att.thumbnail);
+                        mediaPreview.setVisibility(VISIBLE);
+                        emptyCameraPrompt.setVisibility(GONE);
+                    }
 
-        List<ImageLabel> ordered = new ArrayList<>(labels);
-        ordered.sort((first, second) -> Float.compare(second.getConfidence(), first.getConfidence()));
-        List<String> labelText = new ArrayList<>();
-        List<String> judgeLabels = new ArrayList<>();
-        for (ImageLabel label : ordered) {
-            if (label.getConfidence() >= 0.5f && labelText.size() < 5) {
-                int pct = Math.round(label.getConfidence() * 100);
-                labelText.add(String.format(Locale.US, "%s %d%%", label.getText(), pct));
-                judgeLabels.add(String.format(Locale.US, "%s (%d%%)", label.getText(), pct));
+                    boolean hasFrame = jpegBytes != null && jpegBytes.length > 0;
+                    saveJournalButton.setEnabled(hasFrame);
+                    sharePhotoButton.setEnabled(hasFrame);
+                    cloudAskButton.setEnabled(hasFrame);
+                    teachObjectButton.setEnabled(sig != null);
+                    patentPriorButton.setEnabled(hasFrame && sig != null);
+                    askZoeButton.setVisibility(VISIBLE);
+                    learnBar.setVisibility(VISIBLE);
+                    refreshMemoryBadge();
+
+                    renderStructuredObservationCards();
+                    shared = buildPlainShareSummary();
+                    spoken = lastJudgeReport.length() > 1100 ? lastJudgeReport.substring(0, 1100) : lastJudgeReport;
+                    setStatus(priorMatch != null
+                            ? "recognized \"" + priorMatch.prototype.label.toLowerCase(Locale.US) + "\" from visual memory"
+                            : "inspection complete · tap ask zoe, digest to zoe, or take another photo");
+                    observationGrid.announceForAccessibility("Inspection complete");
+                    if (autoSpeak && !spoken.isEmpty()) {
+                        activity.speak(spoken);
+                    }
+                    if (hasFrame) {
+                        ZoeLearnQueue.Destination dest = ZoeLearnQueue.savedDestination(activity);
+                        if (dest == ZoeLearnQueue.Destination.INSTANT_DIGEST) {
+                            digestCurrentFrameToZoe(true);
+                        } else if (dest == ZoeLearnQueue.Destination.DEVICE_FOLDER) {
+                            saveCurrentFrameToDeviceLearn(true);
+                        } else if (dest == ZoeLearnQueue.Destination.GOOGLE_DRIVE) {
+                            saveCurrentFrameToDriveLearn(true);
+                        }
+                    }
+                });
+            } catch (Exception err) {
+                post(() -> setStatus("could not inspect media: " + err.getMessage()));
             }
-        }
-        lastLabels = String.join(" · ", labelText);
-        StringBuilder judgeSb = new StringBuilder("Labels: ");
-        judgeSb.append(judgeLabels.isEmpty() ? "none above 50%" : String.join(", ", judgeLabels)).append(".");
-        if (!lastOcr.isEmpty()) {
-            judgeSb.append(" Visible text: \"").append(lastOcr.length() > 80 ? lastOcr.substring(0, 80) : lastOcr).append("\".");
-        }
-        lastJudgeReport = judgeSb.toString();
-        lastHardToIdentify = PatentReverseImageEngine.isHardToIdentify(lastJudgeReport);
+        });
+    }
 
-        if (lastHardToIdentify && visualSig != null) {
-            improveDrawer.setVisibility(VISIBLE);
-            improveToggle.setText("Improve recognition ▴");
+    /** Updates all 4 symmetrical color-coded cards cleanly with crisp visual hierarchy. */
+    private void renderStructuredObservationCards() {
+        emptyHintView.setVisibility(GONE);
+        observationGrid.setVisibility(VISIBLE);
+
+        // Optional Deep Inspect Card
+        if (!lastCloud.isEmpty()) {
+            deepInspectBody.setText(lastCloud.toLowerCase(Locale.US));
+            deepInspectCard.setVisibility(VISIBLE);
+        } else {
+            deepInspectCard.setVisibility(GONE);
         }
 
-        StringBuilder display = buildDisplayReport(textError, labelsError, ordered);
-        resultView.setText(display.toString());
-
-        StringBuilder narration = new StringBuilder();
+        // Card 1: Visual Memory (Ruby-Rose)
+        StringBuilder mem = new StringBuilder();
         if (lastPriorMatch != null) {
-            narration.append("Learned structural match: ").append(lastPriorMatch.prototype.label).append(". ");
+            mem.append(lastPriorMatch.formatGuidedSummary().toLowerCase(Locale.US));
         }
-        if (!lastDeviceAi.isEmpty()) {
-            narration.append("Device AI description. ").append(lastDeviceAi).append(". ");
+        if (!lastStructuralNote.isEmpty()) {
+            if (mem.length() > 0) mem.append("\n");
+            mem.append(lastStructuralNote.toLowerCase(Locale.US));
         }
-        if (!lastOcr.isEmpty()) {
-            narration.append("Text found. ").append(lastOcr);
-        } else if (lastDeviceAi.isEmpty() && !labelText.isEmpty()) {
-            narration.append("Image labels. ").append(String.join(", ", labelText));
-        } else if (lastDeviceAi.isEmpty() && lastPriorMatch == null) {
-            narration.append("No text or confident image labels were found. Open Improve recognition to teach Zoe or run silent patent prior matching.");
+        if (lastVisualSignature != null && !lastVisualSignature.shapeSummary.isEmpty()) {
+            if (mem.length() > 0) mem.append("\n");
+            mem.append(lastVisualSignature.shapeSummary.toLowerCase(Locale.US));
         }
-        spoken = narration.length() > 1200 ? narration.substring(0, 1200) : narration.toString();
-        shared = display.toString();
-        setStatus(lastPriorMatch != null
-                ? "Recognized \"" + lastPriorMatch.prototype.label + "\" from Zoe's offline visual memory."
-                : (lastHardToIdentify
-                        ? "Unfamiliar shape — tap Teach Zoe object or Patent prior below to improve recognition."
-                        : "Inspection complete. Speak, teach Zoe, save to Trip Journal, or inspect another frame."));
-        resultView.announceForAccessibility("Inspection complete");
-        if (autoSpeak) {
-            activity.speak(spoken);
+        if (mem.length() == 0) {
+            memoryCardBody.setText("none yet");
+            memoryCardBody.setTextColor(Ui.mutedColor(activity));
+        } else {
+            memoryCardBody.setText(mem.toString());
+            memoryCardBody.setTextColor(Ui.textColor(activity));
+        }
+
+        // Card 2: Text / OCR (Cobalt-Blue)
+        if (lastOcr.isEmpty()) {
+            textCardBody.setText("no text found");
+            textCardBody.setTextColor(Ui.mutedColor(activity));
+        } else {
+            textCardBody.setText(lastOcr.toLowerCase(Locale.US));
+            textCardBody.setTextColor(Ui.textColor(activity));
+        }
+
+        // Card 3: Labels (Emerald-Mint)
+        if (lastLabels.isEmpty()) {
+            labelsCardBody.setText("none above 50%");
+            labelsCardBody.setTextColor(Ui.mutedColor(activity));
+        } else {
+            labelsCardBody.setText(lastLabels);
+            labelsCardBody.setTextColor(Ui.textColor(activity));
+        }
+
+        // Card 4: Light & Color (Amber-Gold + inline live swatch pills)
+        if (lastPaletteAnalysis != null) {
+            String summary = lastPaletteAnalysis.summary().toLowerCase(Locale.US);
+            int palIdx = summary.indexOf("palette:");
+            String lightPart = palIdx > 0 ? summary.substring(0, palIdx).trim() : summary;
+            lightPart = lightPart.replace(" · ", "\n");
+            lightCardBody.setText(lightPart);
+            lightCardBody.setTextColor(Ui.textColor(activity));
+            renderPaletteSwatches(lastPaletteAnalysis);
+        } else {
+            lightCardBody.setText("not measured");
+            lightCardBody.setTextColor(Ui.mutedColor(activity));
+            lightSwatchRow.removeAllViews();
         }
     }
 
-    private StringBuilder buildDisplayReport(Exception textError, Exception labelsError, List<ImageLabel> ordered) {
-        StringBuilder display = new StringBuilder();
+    private String buildPlainShareSummary() {
+        StringBuilder sb = new StringBuilder();
         if (!lastCloud.isEmpty()) {
-            display.append("Cloud Vision\n").append(lastCloud).append("\n\n");
+            sb.append("deep inspect: ").append(lastCloud.toLowerCase(Locale.US)).append("\n");
         }
-        if (lastPriorMatch != null || !lastStructuralNote.isEmpty() || lastVisualSignature != null) {
-            display.append("Visual Memory\n");
-            if (lastPriorMatch != null) {
-                display.append("Match: ").append(lastPriorMatch.formatGuidedSummary()).append("\n");
-            }
-            if (!lastStructuralNote.isEmpty()) {
-                display.append(lastStructuralNote).append("\n");
-            }
-            if (lastVisualSignature != null && !lastVisualSignature.shapeSummary.isEmpty()) {
-                display.append("Shape: ").append(lastVisualSignature.shapeSummary);
-                if (lastHardToIdentify && lastPriorMatch == null) {
-                    display.append(" · Tap Teach Zoe to learn");
-                }
-            }
-            display.append("\n\n");
+        if (lastPriorMatch != null) {
+            sb.append("visual memory: ").append(lastPriorMatch.formatGuidedSummary().toLowerCase(Locale.US)).append("\n");
         }
-        if (!lastDeviceAi.isEmpty()) {
-            display.append("On-Device AI\n").append(lastDeviceAi).append("\n\n");
+        if (!lastOcr.isEmpty()) {
+            sb.append("text: ").append(lastOcr.toLowerCase(Locale.US)).append("\n");
         }
-        display.append("Text\n").append(lastOcr.isEmpty() ? "No text found." : lastOcr);
-        display.append("\n\nLabels\n");
-        display.append(lastLabels.isEmpty() ? "No strong labels found." : lastLabels);
+        if (!lastLabels.isEmpty()) {
+            sb.append("labels: ").append(lastLabels.replace("\n", ", ")).append("\n");
+        }
         if (!lastPaletteSummary.isEmpty()) {
-            display.append("\n\nLight & Color\n").append(lastPaletteSummary);
+            sb.append("light & color: ").append(lastPaletteSummary).append("\n");
         }
-        if (textError != null || labelsError != null) {
-            display.append("\n\nA vision model reported an error; results may be incomplete.");
-        }
-        if (ordered != null) {
-            boolean catSpotted = ordered.stream().anyMatch(label -> "cat".equalsIgnoreCase(label.getText()));
-            if (catSpotted) {
-                display.append("\n\nCompanion\nCat spotted nearby.");
-            }
-        }
-        display.append("\n\nObservations only — nothing is saved until you tap Save or Teach.");
-        return display;
+        return sb.toString().trim();
     }
 
     private void refreshMemoryBadge() {
-        memoryBadgeButton.setText("Memory: " + VisionPriorStore.learnedCount(activity));
+        memoryBadgeButton.setText("memory: " + VisionPriorStore.learnedCount(activity));
     }
 
     private void promptTeachObject() {
         if (lastVisualSignature == null) {
-            setStatus("Inspect a frame first before teaching Zoe.");
+            setStatus("take or pick a photo first before teaching zoe");
             return;
         }
         String defaultGuess = lastPriorMatch != null
                 ? lastPriorMatch.prototype.label
                 : ArExploreBrain.extractPrimaryLabel(lastJudgeReport);
-        EditText input = Ui.input(activity, defaultGuess, "Object name (e.g. Precision Caliper, Prism Lens)");
+        EditText input = Ui.input(activity, defaultGuess.toLowerCase(Locale.US), "object name");
         new AlertDialog.Builder(activity)
-                .setTitle("Teach Zoe this object")
-                .setMessage("Saves only the compact edge-contour geometry locally on-device (no photo saved). Improves future recognition in both Guided Vision and Zoe Explore.")
+                .setTitle("teach zoe this object")
+                .setMessage("saves only compact contour geometry locally on-device (no photo uploaded) so zoe recognizes it offline")
                 .setView(input)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Learn offline", (dialog, which) -> {
-                    String name = VisionPriorStore.cleanLabel(input.getText().toString());
+                .setNegativeButton("cancel", null)
+                .setPositiveButton("learn offline", (dialog, which) -> {
+                    String name = VisionPriorStore.cleanLabel(input.getText().toString()).toLowerCase(Locale.US);
                     if (name.isEmpty()) {
-                        setStatus("Enter a short object name so Zoe can learn its contour.");
+                        setStatus("enter a short object name so zoe can learn its shape");
                         return;
                     }
                     PatentReverseImageEngine.VisualSignature sig = lastVisualSignature;
                     VisionPriorStore.teach(activity, name, sig, "user_confirmed", "", "");
                     lastPriorMatch = VisionPriorStore.matchSignature(activity, sig, 0.5f);
-                    lastStructuralNote = "Saved \"" + name + "\" into on-device structural memory (shared silently with Zoe Explore).";
+                    lastStructuralNote = "saved \"" + name + "\"";
                     refreshMemoryBadge();
-                    StringBuilder updated = buildDisplayReport(null, null, Collections.emptyList());
-                    resultView.setText(updated.toString());
-                    shared = updated.toString();
-                    setStatus("Learned \"" + name + "\" offline — Zoe's recognition just got sharper.");
+                    renderStructuredObservationCards();
+                    shared = buildPlainShareSummary();
+                    setStatus("learned \"" + name + "\" offline");
                 })
                 .show();
     }
 
     private void runSilentPatentPrior() {
         if (lastFrameJpeg == null || lastFrameJpeg.length == 0 || lastVisualSignature == null) {
-            setStatus("Inspect a frame first before running silent patent structural matching.");
+            setStatus("take or pick a photo first");
             return;
         }
         final byte[] snapshot = lastFrameJpeg;
         final String judge = lastJudgeReport;
         final PatentReverseImageEngine.VisualSignature sig = lastVisualSignature;
         patentPriorButton.setEnabled(false);
-        setStatus("Comparing contours silently against physical Google Patents classes (A47/B25/F16/G01/G02/H01)…");
+        setStatus("checking physical patent contour priors…");
         analysisExecutor.execute(() -> {
             Bitmap bmp = BitmapFactory.decodeByteArray(snapshot, 0, snapshot.length);
             GooglePatentsClient.LookupResult res = GooglePatentsClient.silentResolveForVision(bmp, judge, "", 0f);
@@ -670,37 +729,20 @@ final class GuidedVisionView extends ScrollView {
                 patentPriorButton.setEnabled(lastFrameJpeg != null && lastFrameJpeg.length > 0);
                 GooglePatentsClient.PatentMatch top = res.topMatch();
                 if (top != null) {
-                    String concept = GooglePatentsClient.cleanPhysicalConcept(top.title);
+                    String concept = GooglePatentsClient.cleanPhysicalConcept(top.title).toLowerCase(Locale.US);
                     VisionPriorStore.teach(activity, concept, sig, "patent_cpc", top.publicationNumber, top.dimensionsNote);
                     lastPriorMatch = VisionPriorStore.matchSignature(activity, sig, 0.5f);
-                    StringBuilder note = new StringBuilder();
-                    note.append("Refined via physical patent catalog (").append(res.drawingsCompared).append(" drawings compared): ")
-                            .append(concept);
-                    if (top.visualMatchPercent() >= 0) {
-                        note.append(" · ").append(top.visualMatchPercent()).append("% contour match");
-                    }
-                    if (!top.dimensionsNote.isEmpty()) {
-                        note.append(" · Reference scale: ").append(top.dimensionsNote);
-                    }
-                    note.append(" — learned into offline memory.");
-                    lastStructuralNote = note.toString();
+                    lastStructuralNote = "patent prior: " + concept;
                     refreshMemoryBadge();
-                    StringBuilder updated = buildDisplayReport(null, null, Collections.emptyList());
-                    resultView.setText(updated.toString());
-                    shared = updated.toString();
-                    spoken = "Structural prior identified " + concept + " and saved it to Zoe's offline visual memory.";
-                    setStatus("Refined recognition: \"" + concept + "\" learned into offline memory.");
+                    renderStructuredObservationCards();
+                    shared = buildPlainShareSummary();
+                    spoken = "structural prior identified " + concept;
+                    setStatus("learned \"" + concept + "\" into offline memory");
                     if (autoSpeak) {
                         activity.speak(spoken);
                     }
                 } else {
-                    lastStructuralNote = !res.errorNote.isEmpty()
-                            ? res.errorNote
-                            : "No high-confidence physical patent contour match (rejected noisy candidates). Tap Teach Zoe object to train directly.";
-                    StringBuilder updated = buildDisplayReport(null, null, Collections.emptyList());
-                    resultView.setText(updated.toString());
-                    shared = updated.toString();
-                    setStatus("No high-confidence structural patent match — tap Teach Zoe object to train Zoe directly.");
+                    setStatus("no high-confidence patent contour match · tap teach zoe to train directly");
                 }
             });
         });
@@ -710,115 +752,60 @@ final class GuidedVisionView extends ScrollView {
         List<VisionPriorStore.Prototype> list = VisionPriorStore.loadAll(activity);
         if (list.isEmpty()) {
             new AlertDialog.Builder(activity)
-                    .setTitle("Zoe's Offline Visual Memory")
-                    .setMessage("No objects learned yet.\n\nInspect an unfamiliar object and tap \"Teach Zoe object\" or \"Patent prior\" — Zoe stores compact Sobel contour signatures locally (never uploaded) to recognize objects faster offline in both Guided Vision and Zoe Explore.")
-                    .setPositiveButton("Got it", null)
+                    .setTitle("visual memory")
+                    .setMessage("no objects learned yet. take a photo and tap teach zoe or digest to zoe")
+                    .setPositiveButton("done", null)
                     .show();
             return;
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < Math.min(20, list.size()); i++) {
             VisionPriorStore.Prototype p = list.get(i);
-            sb.append("• ").append(p.label)
-                    .append(" (seen ").append(p.confirmCount).append("×")
-                    .append("patent_cpc".equals(p.source) ? ", patent prior" : ", taught")
-                    .append(")\n");
-        }
-        if (list.size() > 20) {
-            sb.append("… and ").append(list.size() - 20).append(" more.\n");
+            sb.append("• ").append(p.label.toLowerCase(Locale.US))
+                    .append(" (seen ").append(p.confirmCount).append("×)\n");
         }
         new AlertDialog.Builder(activity)
-                .setTitle("Zoe's Offline Visual Memory (" + list.size() + ")")
+                .setTitle("visual memory (" + list.size() + ")")
                 .setMessage(sb.toString().trim())
-                .setNegativeButton("Close", null)
-                .setNeutralButton("Clear all", (d, w) -> {
+                .setNegativeButton("close", null)
+                .setNeutralButton("clear all", (d, w) -> {
                     VisionPriorStore.clearAll(activity);
                     lastPriorMatch = null;
                     refreshMemoryBadge();
-                    setStatus("Cleared Zoe's local visual recognition memory.");
+                    renderStructuredObservationCards();
+                    setStatus("cleared local visual memory");
                 })
                 .show();
     }
 
     private void renderPaletteSwatches(FramePalette.Analysis palette) {
-        paletteRow.removeAllViews();
+        lightSwatchRow.removeAllViews();
         for (int i = 0; i < palette.colors.length; i++) {
-            TextView swatch = Ui.text(activity, palette.hexCodes[i], 10f, android.graphics.Color.WHITE);
-            swatch.setTypeface(android.graphics.Typeface.MONOSPACE);
-            swatch.setGravity(android.view.Gravity.CENTER);
-            swatch.setShadowLayer(4f, 0f, 1f, android.graphics.Color.BLACK);
-            swatch.setBackground(Ui.panelBackground(activity, palette.colors[i], Ui.withAlpha(Ui.GOLD, 130), 10));
+            View swatch = new View(activity);
+            GradientDrawable bg = new GradientDrawable();
+            bg.setColor(palette.colors[i]);
+            bg.setCornerRadius(Ui.dp(activity, 8));
+            bg.setStroke(Ui.strokePx(activity, 0.8f), Ui.withAlpha(Color.WHITE, 90));
+            swatch.setBackground(bg);
             swatch.setContentDescription(palette.names[i] + " " + palette.hexCodes[i]);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, Ui.dp(activity, 28), 1.0f);
-            params.setMargins(0, 0, i < palette.colors.length - 1 ? Ui.dp(activity, 6) : 0, 0);
-            paletteRow.addView(swatch, params);
-        }
-        paletteText.setTextColor(Ui.textColor(activity));
-        paletteText.setText(palette.summary());
-    }
-
-    private static final class ViewfinderReticleView extends View {
-        private final android.graphics.Paint cornerPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
-        private final android.graphics.Paint crossPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
-
-        ViewfinderReticleView(MainActivity context) {
-            super(context);
-            setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
-            float d = context.getResources().getDisplayMetrics().density;
-            cornerPaint.setColor(Ui.withAlpha(Ui.CYAN, 200));
-            cornerPaint.setStyle(android.graphics.Paint.Style.STROKE);
-            cornerPaint.setStrokeWidth(2.0f * d);
-            cornerPaint.setStrokeCap(android.graphics.Paint.Cap.ROUND);
-
-            crossPaint.setColor(Ui.withAlpha(Ui.GOLD, 120));
-            crossPaint.setStyle(android.graphics.Paint.Style.STROKE);
-            crossPaint.setStrokeWidth(1.1f * d);
-        }
-
-        @Override
-        protected void onDraw(android.graphics.Canvas canvas) {
-            super.onDraw(canvas);
-            float w = getWidth();
-            float h = getHeight();
-            if (w <= 0 || h <= 0) {
-                return;
-            }
-            float m = Ui.dp(getContext(), 14);
-            float len = Ui.dp(getContext(), 22);
-            // Four optical L-brackets
-            canvas.drawLine(m, m, m + len, m, cornerPaint);
-            canvas.drawLine(m, m, m, m + len, cornerPaint);
-            canvas.drawLine(w - m, m, w - m - len, m, cornerPaint);
-            canvas.drawLine(w - m, m, w - m, m + len, cornerPaint);
-            canvas.drawLine(m, h - m, m + len, h - m, cornerPaint);
-            canvas.drawLine(m, h - m, m, h - m - len, cornerPaint);
-            canvas.drawLine(w - m, h - m, w - m - len, h - m, cornerPaint);
-            canvas.drawLine(w - m, h - m, w - m, h - m - len, cornerPaint);
-
-            // Center calibration reticle
-            float cx = w * 0.5f;
-            float cy = h * 0.5f;
-            float r = Ui.dp(getContext(), 14);
-            canvas.drawCircle(cx, cy, r, crossPaint);
-            canvas.drawLine(cx - r * 1.4f, cy, cx - r * 0.45f, cy, crossPaint);
-            canvas.drawLine(cx + r * 0.45f, cy, cx + r * 1.4f, cy, crossPaint);
-            canvas.drawLine(cx, cy - r * 1.4f, cx, cy - r * 0.45f, crossPaint);
-            canvas.drawLine(cx, cy + r * 0.45f, cx, cy + r * 1.4f, crossPaint);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, Ui.dp(activity, 20), 1.0f);
+            params.setMargins(0, 0, i < palette.colors.length - 1 ? Ui.dp(activity, 5) : 0, 0);
+            lightSwatchRow.addView(swatch, params);
         }
     }
 
     private void promptSaveToJournal() {
         if (lastFrameJpeg == null || lastFrameJpeg.length == 0) {
-            setStatus("Inspect a frame before saving to Trip Journal.");
+            setStatus("take or pick a photo first");
             return;
         }
-        EditText noteInput = Ui.input(activity, "", "Optional trip note (e.g., where we are)");
+        EditText noteInput = Ui.input(activity, "", "optional note");
         new AlertDialog.Builder(activity)
-                .setTitle("Save to Trip Journal?")
-                .setMessage("Saves this single sighting and a compact thumbnail locally on your phone (never uploaded unless you sync).")
+                .setTitle("save to journal")
+                .setMessage("saves this sighting locally on your phone")
                 .setView(noteInput)
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Save", (dialog, which) -> {
+                .setNegativeButton("cancel", null)
+                .setPositiveButton("save", (dialog, which) -> {
                     byte[] copy = lastFrameJpeg;
                     Bitmap thumb = copy == null ? null : BitmapFactory.decodeByteArray(copy, 0, copy.length);
                     TripJournalStore.Entry entry = new TripJournalStore.Entry(
@@ -836,14 +823,14 @@ final class GuidedVisionView extends ScrollView {
                     if (thumb != null) {
                         thumb.recycle();
                     }
-                    setStatus("Saved explicitly to Trip Journal. View anytime offline or sync back home.");
+                    setStatus("saved locally to journal");
                 })
                 .show();
     }
 
     private void sharePhotoWithApps() {
         if (lastFrameJpeg == null || lastFrameJpeg.length == 0) {
-            setStatus("Inspect a frame before sharing a photo.");
+            setStatus("take or pick a photo first");
             return;
         }
         try {
@@ -859,43 +846,231 @@ final class GuidedVisionView extends ScrollView {
             Intent share = new Intent(Intent.ACTION_SEND)
                     .setType("image/jpeg")
                     .putExtra(Intent.EXTRA_STREAM, uri)
-                    .putExtra(Intent.EXTRA_SUBJECT, "Zoe trip sighting")
-                    .putExtra(Intent.EXTRA_TEXT, "Showing Zoe & Gemini what I found:\n\n" + shared)
+                    .putExtra(Intent.EXTRA_SUBJECT, "zoe sighting")
+                    .putExtra(Intent.EXTRA_TEXT, shared)
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            activity.startActivity(Intent.createChooser(share, "Show photo to Gemini or share"));
-            setStatus("Opened photo share sheet (choose Gemini to ask about this image).");
+            activity.startActivity(Intent.createChooser(share, "share photo"));
+            setStatus("opened photo share sheet");
         } catch (IOException | ActivityNotFoundException error) {
-            setStatus("Could not share photo: " + error.getMessage());
+            setStatus("could not share photo: " + error.getMessage());
+        }
+    }
+
+    private void cycleAutoLearn() {
+        ZoeLearnQueue.Destination next = ZoeLearnQueue.savedDestination(activity).next();
+        ZoeLearnQueue.saveDestination(activity, next);
+        autoLearnButton.setText(next.shortLabel.toLowerCase(Locale.US));
+        if (next == ZoeLearnQueue.Destination.GOOGLE_DRIVE && ZoeLearnQueue.savedDriveTreeUri(activity) == null) {
+            setStatus("auto-learn set to google drive · tap pick drive folder to link");
+        } else {
+            setStatus(next.shortLabel.toLowerCase(Locale.US) + " (" + next.helper.toLowerCase(Locale.US) + ")");
+        }
+    }
+
+    void onLearnFolderPicked(Uri uri) {
+        pickDriveFolderButton.setText("drive: linked");
+        autoLearnButton.setText(ZoeLearnQueue.savedDestination(activity).shortLabel.toLowerCase(Locale.US));
+        setStatus("linked google drive folder for zoe learn");
+        if (lastFrameJpeg != null && lastFrameJpeg.length > 0) {
+            saveCurrentFrameToDriveLearn(false);
+        }
+    }
+
+    private String bestGuessLabel() {
+        if (lastPriorMatch != null && !lastPriorMatch.prototype.label.isEmpty()) {
+            return lastPriorMatch.prototype.label;
+        }
+        String primary = ArExploreBrain.extractPrimaryLabel(lastJudgeReport);
+        if (primary != null && !primary.isEmpty()) {
+            return primary;
+        }
+        if (!lastOcr.isEmpty()) {
+            return lastOcr.length() > 24 ? lastOcr.substring(0, 24) : lastOcr;
+        }
+        return "zoe_observation";
+    }
+
+    private void digestCurrentFrameToZoe(boolean autoTriggered) {
+        if (lastVisualSignature == null) {
+            setStatus("take or pick a photo first");
+            return;
+        }
+        final String label = VisionPriorStore.cleanLabel(bestGuessLabel()).toLowerCase(Locale.US);
+        final PatentReverseImageEngine.VisualSignature sig = lastVisualSignature;
+        digestZoeButton.setEnabled(false);
+        setStatus((autoTriggered ? "auto-learn: digesting " : "digesting ") + "\"" + label + "\" into zoe…");
+        analysisExecutor.execute(() -> {
+            VisionPriorStore.teach(activity, label, sig, "guided_learn", "", "");
+            int totalDigested = ZoeLearnQueue.incrementDigestedCount(activity);
+            String endpoint = ElizaGemClient.savedEndpoint(activity);
+            boolean syncedWorkstation = false;
+            int cycleNum = 0;
+            try {
+                MobileDigestionBundle.Summary bundle = MobileDigestionBundle.collect(activity, new ZoeBrainEngine(activity));
+                ElizaGemClient.DigestResult res = studioClient.digestMobileBundle(endpoint, bundle.bundleJson);
+                syncedWorkstation = res != null && res.available;
+                cycleNum = res != null ? res.cycleNumber : 0;
+            } catch (Exception ignored) {
+            }
+            final boolean synced = syncedWorkstation;
+            final int cycle = cycleNum;
+            post(() -> {
+                digestZoeButton.setEnabled(true);
+                refreshMemoryBadge();
+                if (synced) {
+                    setStatus("zoe digested \"" + label + "\" live (workstation cycle #" + cycle + " · " + totalDigested + " total)");
+                } else {
+                    setStatus("zoe learned \"" + label + "\" offline (" + totalDigested + " total)");
+                }
+            });
+        });
+    }
+
+    private void saveCurrentFrameToDeviceLearn(boolean autoTriggered) {
+        if (lastFrameJpeg == null || lastFrameJpeg.length == 0) {
+            setStatus("take or pick a photo first");
+            return;
+        }
+        final byte[] bytes = lastFrameJpeg;
+        final String label = bestGuessLabel();
+        saveLearnDeviceButton.setEnabled(false);
+        analysisExecutor.execute(() -> {
+            try {
+                String path = ZoeLearnQueue.saveToDeviceZoeLearn(activity, bytes, label);
+                int qCount = ZoeLearnQueue.queuedCount(activity);
+                post(() -> {
+                    saveLearnDeviceButton.setEnabled(true);
+                    setStatus((autoTriggered ? "auto-saved to " : "saved to ") + path.toLowerCase(Locale.US) + " (" + qCount + " saved)");
+                });
+            } catch (IOException err) {
+                post(() -> {
+                    saveLearnDeviceButton.setEnabled(true);
+                    setStatus("could not save to device: " + err.getMessage());
+                });
+            }
+        });
+    }
+
+    private void saveCurrentFrameToDriveLearn(boolean autoTriggered) {
+        if (lastFrameJpeg == null || lastFrameJpeg.length == 0) {
+            setStatus("take or pick a photo first");
+            return;
+        }
+        Uri treeUri = ZoeLearnQueue.savedDriveTreeUri(activity);
+        if (treeUri == null) {
+            if (autoTriggered) {
+                saveCurrentFrameToDeviceLearn(true);
+            } else {
+                new AlertDialog.Builder(activity)
+                        .setTitle("google drive · zoe learn")
+                        .setMessage("link your google drive folder once for 1-tap saving, or send this photo directly now")
+                        .setPositiveButton("link folder", (d, w) -> activity.pickZoeLearnDriveFolder())
+                        .setNeutralButton("send now", (d, w) -> {
+                            boolean ok = ZoeLearnQueue.shareToGoogleDrive(activity, lastFrameJpeg, bestGuessLabel(), shared);
+                            setStatus(ok ? "opened google drive" : "could not open google drive");
+                        })
+                        .setNegativeButton("cancel", null)
+                        .show();
+            }
+            return;
+        }
+        final byte[] bytes = lastFrameJpeg;
+        final String label = bestGuessLabel();
+        saveLearnDriveButton.setEnabled(false);
+        analysisExecutor.execute(() -> {
+            try {
+                String fileName = ZoeLearnQueue.saveToPickedTreeFolder(activity, treeUri, bytes, label);
+                post(() -> {
+                    saveLearnDriveButton.setEnabled(true);
+                    setStatus((autoTriggered ? "auto-saved to drive: " : "saved to drive: ") + fileName.toLowerCase(Locale.US));
+                });
+            } catch (IOException err) {
+                post(() -> {
+                    saveLearnDriveButton.setEnabled(true);
+                    ZoeLearnQueue.shareToGoogleDrive(activity, bytes, label, shared);
+                    setStatus("opened google drive share sheet");
+                });
+            }
+        });
+    }
+
+    private void openChatWithObservation() {
+        StringBuilder q = new StringBuilder("guided vision inspected a frame.\n");
+        if (!lastOcr.isEmpty()) {
+            q.append("visible text: ").append(lastOcr).append("\n");
+        }
+        if (!lastLabels.isEmpty()) {
+            q.append("labels: ").append(lastLabels.replace("\n", ", ")).append("\n");
+        }
+        if (lastPriorMatch != null) {
+            q.append("learned match: ").append(lastPriorMatch.prototype.label).append("\n");
+        }
+        if (!lastPaletteSummary.isEmpty()) {
+            q.append("light & color: ").append(lastPaletteSummary).append("\n");
+        }
+        q.append("help me understand what i'm looking at");
+        Intent chat = new Intent(activity, ConversationActivity.class)
+                .putExtra(ConversationActivity.EXTRA_INITIAL_PROMPT, q.toString().trim());
+        activity.startActivity(chat);
+        if (!activity.isComfortMode()) {
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 
     private void askCloudVision() {
         if (lastFrameJpeg == null || lastFrameJpeg.length == 0) {
-            setStatus("Inspect a frame first before asking Cloud Vision.");
+            setStatus("take or pick a photo first");
             return;
         }
         String key = CloudVisionClient.savedApiKey(activity);
         if (key.isEmpty()) {
-            setStatus("No Gemini API key set yet. Tap Show Photo to Gemini (works now) or add a key in Eliza-GEM Studio.");
+            String endpoint = ElizaGemClient.savedEndpoint(activity);
+            String prompt = "Guided Vision frame observation. " + lastJudgeReport
+                    + (lastPaletteSummary.isEmpty() ? "" : " Light & color: " + lastPaletteSummary)
+                    + " Summarize what this likely is concisely without em dashes.";
+            cloudAskButton.setEnabled(false);
+            setStatus("asking workstation zoe…");
+            analysisExecutor.execute(() -> {
+                try {
+                    ElizaGemClient.ChatReply reply = studioClient.chat(endpoint, prompt, "gear3");
+                    String answer = OnDeviceLlmEngine.enforceZoeSovereignty(reply.reply);
+                    post(() -> {
+                        cloudAskButton.setEnabled(true);
+                        lastCloud = answer;
+                        renderStructuredObservationCards();
+                        shared = buildPlainShareSummary();
+                        spoken = answer.length() > 1100 ? answer.substring(0, 1100) : answer;
+                        setStatus("workstation zoe replied");
+                        if (autoSpeak) {
+                            activity.speak(spoken);
+                        }
+                    });
+                } catch (Exception err) {
+                    post(() -> {
+                        cloudAskButton.setEnabled(true);
+                        setStatus("no cloud key & workstation offline · tap ask zoe about this");
+                    });
+                }
+            });
             return;
         }
         String model = CloudVisionClient.savedModel(activity);
         byte[] snapshot = lastFrameJpeg;
         cloudAskButton.setEnabled(false);
-        setStatus("Asking Online Cloud (" + model + ") via " + Ui.networkStatusLabel(activity) + "…");
-        String prompt = "You are helping Nicholas and Zoe explore on a trip. Describe clearly and honestly what is in this image. "
+        setStatus("inspecting with " + model.toLowerCase(Locale.US) + "…");
+        String prompt = "Describe clearly and honestly what is in this image without em dashes. "
                 + (lastOcr.isEmpty() ? "" : "On-device OCR read: " + lastOcr + ". ");
         analysisExecutor.execute(() -> {
             try {
-                String answer = CloudVisionClient.askVision(key, model, prompt, snapshot);
+                String answer = OnDeviceLlmEngine.enforceZoeSovereignty(
+                        CloudVisionClient.askVision(key, model, prompt, snapshot));
                 post(() -> {
                     cloudAskButton.setEnabled(true);
                     lastCloud = answer;
-                    StringBuilder updated = buildDisplayReport(null, null, Collections.emptyList());
-                    resultView.setText(updated.toString());
-                    shared = updated.toString();
-                    spoken = "Online Cloud Gemini says. " + (answer.length() > 1100 ? answer.substring(0, 1100) : answer);
-                    setStatus("Online Cloud Vision replied (kept separate from offline measurements).");
+                    renderStructuredObservationCards();
+                    shared = buildPlainShareSummary();
+                    spoken = answer.length() > 1100 ? answer.substring(0, 1100) : answer;
+                    setStatus("deep inspect complete");
                     if (autoSpeak) {
                         activity.speak(spoken);
                     }
@@ -903,14 +1078,14 @@ final class GuidedVisionView extends ScrollView {
             } catch (Exception error) {
                 post(() -> {
                     cloudAskButton.setEnabled(true);
-                    setStatus("Cloud Vision failed: " + error.getMessage());
+                    setStatus("deep inspect failed: " + error.getMessage());
                 });
             }
         });
     }
 
     void setStatus(String value) {
-        status.setText(value);
+        status.setText(value == null ? "" : value.toLowerCase(Locale.US));
     }
 
     String spokenSummary() {
@@ -922,44 +1097,11 @@ final class GuidedVisionView extends ScrollView {
     }
 
     void pauseCamera() {
-        cameraStartRequested = false;
-        captureRequested.set(false);
-        cameraStarted = false;
-        if (activeCamera != null && torchEnabled) {
-            try {
-                activeCamera.getCameraControl().enableTorch(false);
-            } catch (RuntimeException ignored) {
-            }
-        }
-        activeCamera = null;
-        torchEnabled = false;
-        torchButton.setText("Flash: off");
-        if (cameraProvider != null) {
-            cameraProvider.unbindAll();
-        }
-        lastFrameJpeg = null;
-        lastVisualSignature = null;
-        lastPriorMatch = null;
-        lastStructuralNote = "";
-        inspectButton.setEnabled(false);
-        saveJournalButton.setEnabled(false);
-        sharePhotoButton.setEnabled(false);
-        cloudAskButton.setEnabled(false);
-        teachObjectButton.setEnabled(false);
-        patentPriorButton.setEnabled(false);
-        placeholder.setVisibility(VISIBLE);
-        placeholder.bringToFront();
-        setStatus("Camera is off. Nothing is saved by Zoe.");
+        // Native Camera app manages its own lifecycle cleanly.
     }
 
     void close() {
-        cameraStartRequested = false;
-        captureRequested.set(false);
         lastFrameJpeg = null;
-        if (cameraProvider != null) {
-            cameraProvider.unbindAll();
-        }
-        // Keep shared MediaChatHelper ML Kit singletons warm across screens; only close local DeviceAI & executor.
         if (deviceAi != null) {
             deviceAi.close();
         }
