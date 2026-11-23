@@ -457,7 +457,7 @@ struct QuickActionsSheet: View {
                 .padding(.bottom, 4)
                 .accessibilityAddTraits(.isHeader)
 
-            quickRow("dorothy 3d brain", helper: "interactive mni152 3d brain, live mri & atlas", icon: "brain.head.profile", accent: GemPalette.ochre) {
+            quickRow("Dorothy 3d brain", helper: "interactive mni152 3d brain, live mri & atlas", icon: "brain.head.profile", accent: GemPalette.ochre) {
                 dismiss()
                 onOpenBrain()
             }

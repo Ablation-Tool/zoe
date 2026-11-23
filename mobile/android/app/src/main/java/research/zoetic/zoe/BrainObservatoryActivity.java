@@ -53,7 +53,7 @@ public final class BrainObservatoryActivity extends ComponentActivity {
         LinearLayout root = Ui.vertical(this);
         root.setBackgroundColor(Color.rgb(7, 11, 18));
 
-        // Clean borderless Zoe top bar: [←] dorothy 3d brain  [↺] [gem]
+        // Clean borderless Zoe top bar: [←] Dorothy 3d brain  [↺] [gem]
         LinearLayout topBar = new LinearLayout(this);
         topBar.setOrientation(LinearLayout.HORIZONTAL);
         topBar.setGravity(Gravity.CENTER_VERTICAL);
@@ -65,7 +65,7 @@ public final class BrainObservatoryActivity extends ComponentActivity {
         backLp.setMargins(0, 0, Ui.dp(this, 10), 0);
         topBar.addView(backBtn, backLp);
 
-        TextView title = Ui.text(this, "dorothy 3d brain", 18.5f, Ui.TEXT);
+        TextView title = Ui.text(this, "Dorothy 3d brain", 18.5f, Ui.TEXT);
         title.setTextColor(Color.rgb(245, 208, 120));
         title.setTypeface(Ui.SANS_MEDIUM);
         title.setPadding(0, 0, 0, 0);

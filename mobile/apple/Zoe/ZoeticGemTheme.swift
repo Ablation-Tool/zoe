@@ -83,7 +83,7 @@ enum ZappID: String, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .brain: return "dorothy 3d brain"
+        case .brain: return "Dorothy 3d brain"
         case .vision: return "Guided vision"
         case .talk: return "Talk"
         case .live: return "Zoe Explore"

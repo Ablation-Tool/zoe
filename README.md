@@ -38,7 +38,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 &nbsp;
 [![Release Notes and SHA-256](https://img.shields.io/badge/Release_Notes_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
 
-<sub><strong>Android (1-click APK):</strong> tap the red button above, install <code>zoe-beta-v0.9.6-android.apk</code>, and open <code>=</code> or <code>+</code> &rarr; <strong><code>dorothy 3d brain</code></strong>.<br/><strong>iPhone &amp; iPad (instant today, zero App Store needed):</strong> open the blue button in <strong>Safari</strong> &rarr; tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong> for the full-screen 60fps offline Dorothy 3D Brain app (or build the complete native SwiftUI Zoe iOS app in <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a>).</sub>
+<sub><strong>Android (1-click APK):</strong> tap the red button above, install <code>zoe-beta-v0.9.6-android.apk</code>, and open <code>=</code> or <code>+</code> &rarr; <strong><code>Dorothy 3d brain</code></strong>.<br/><strong>iPhone &amp; iPad (instant today, zero App Store needed):</strong> open the blue button in <strong>Safari</strong> &rarr; tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong> for the full-screen 60fps offline Dorothy 3D Brain app (or build the complete native SwiftUI Zoe iOS app in <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a>).</sub>
 
 </div>
 
@@ -58,7 +58,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 </div>
 
-> **Android (8.0+):** (1) Tap **[Android Direct APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)**, (2) install `zoe-beta-v0.9.6-android.apk`, and (3) open **`=`** or **`+`** -> **`dorothy 3d brain`** ([`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java)).  
+> **Android (8.0+):** (1) Tap **[Android Direct APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)**, (2) install `zoe-beta-v0.9.6-android.apk`, and (3) open **`=`** or **`+`** -> **`Dorothy 3d brain`** ([`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java)).  
 > **iPhone &amp; iPad (iOS 17+):** (1) Open **[ablation-tool.github.io/zoe](https://ablation-tool.github.io/zoe/)** in **Safari**, (2) tap **Share** -> **Add to Home Screen** (installs full-screen with offline Service Worker caching, 1-finger 360° orbit, and 2-finger pinch-zoom today), or open [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) in Xcode on macOS to run the complete native SwiftUI Zoe iOS app with bundled offline [`DorothyBrainObservatoryView.swift`](mobile/apple/Zoe/DorothyBrainObservatoryView.swift).
 
 <div align="center">
@@ -66,7 +66,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 <img src="dorothy-brain-observatory/previews/zoe_android_dorothy_brain_tour.gif" alt="Full live Pixel 7 screen recording walking through every feature of Dorothy 3D Brain Observatory inside the Zoe mobile app: quick menu launch, 360-degree touch orbit, synchronized MNI152 axial/coronal/sagittal MRI taps, all 7 GPU shaders, floating 3D callout labels, complete 6-stop guided brain tour with Glass X-Ray deep nuclei, exploded anatomical dissection, and live midsagittal 3D MRI cutaway, 25 verified offline plates with fullscreen zoom lightbox, and global search fly-to-3D on Broca's area BA 44" width="310" />
 
 <br/>
-<sub><strong>Live Full-Feature Mobile Walkthrough (recorded directly on Pixel 7, 100% offline):</strong> Zoe Quick Menu &rarr; <code>dorothy 3d brain</code> &rarr; 360° touch orbit &rarr; live MNI152 MRI slice crosshairs &rarr; all 7 real-time GPU shaders (Tissue, Lobe Atlas, AAL-116, Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy Continuum <code>A_tau(p)</code>) &rarr; floating 3D callout labels &rarr; 6-stop Guided Tour (Glass X-Ray deep nuclei, Exploded Dissection, Midsagittal 3D MRI Cutaway) &rarr; 25 Verified Offline Plates + fullscreen zoom lightbox &rarr; global search <code>"broca"</code> 1-tap Fly-to-3D (<code>BA 44</code>).</sub>
+<sub><strong>Live Full-Feature Mobile Walkthrough (recorded directly on Pixel 7, 100% offline):</strong> Zoe Quick Menu &rarr; <code>Dorothy 3d brain</code> &rarr; 360° touch orbit &rarr; live MNI152 MRI slice crosshairs &rarr; all 7 real-time GPU shaders (Tissue, Lobe Atlas, AAL-116, Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy Continuum <code>A_tau(p)</code>) &rarr; floating 3D callout labels &rarr; 6-stop Guided Tour (Glass X-Ray deep nuclei, Exploded Dissection, Midsagittal 3D MRI Cutaway) &rarr; 25 Verified Offline Plates + fullscreen zoom lightbox &rarr; global search <code>"broca"</code> 1-tap Fly-to-3D (<code>BA 44</code>).</sub>
 
 </div>
 

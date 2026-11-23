@@ -99,7 +99,7 @@ final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegat
             webView = WKWebView(frame: view.bounds, configuration: configuration)
             configureWebView()
             webView.loadHTMLString(
-                "<html><body style='background:#070b12;color:#e6edf7;font-family:-apple-system;padding:24px;'><h3>dorothy 3d brain</h3><p>offline brain observatory assets were not found in this bundle.</p></body></html>",
+                "<html><body style='background:#070b12;color:#e6edf7;font-family:-apple-system;padding:24px;'><h3>Dorothy 3d brain</h3><p>offline brain observatory assets were not found in this bundle.</p></body></html>",
                 baseURL: nil
             )
         }

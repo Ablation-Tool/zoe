@@ -52,7 +52,7 @@ public class CreativeLiveArcadeActivityTest {
     @Test
     public void dorothyBrainObservatoryLaunchesOfflineWebGlCleanly() {
         try (ActivityScenario<BrainObservatoryActivity> scenario = ActivityScenario.launch(BrainObservatoryActivity.class)) {
-            onView(withText("dorothy 3d brain")).check(matches(isDisplayed()));
+            onView(withText("Dorothy 3d brain")).check(matches(isDisplayed()));
         }
     }
 }
