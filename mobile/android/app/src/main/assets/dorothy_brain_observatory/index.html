@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>dorothy 3d brain observatory</title>
+<style>
+  :root {
+    --bg: #070b12;
+    --panel: #0e1420;
+    --panel-2: #141c2c;
+    --border: #223049;
+    --text: #e6edf7;
+    --muted: #93a4be;
+    --gold: #f5d078;
+    --cyan: #38bdf8;
+    --emerald: #34d399;
+    --rose: #fb7185;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100%; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; line-height: 1.42;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+  .topbar {
+    background: rgba(14, 20, 32, 0.96); border-bottom: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px;
+    position: sticky; top: 0; z-index: 500;
+  }
+  .tabs { display: flex; gap: 6px; }
+  .tab-btn {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    padding: 6px 11px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    text-transform: lowercase;
+  }
+  .tab-btn.active { color: var(--gold); background: var(--panel-2); border-color: var(--cyan); }
+
+  .gsearch-wrap { flex: 1; min-width: 165px; position: relative; }
+  .gsearch-wrap input {
+    width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 999px; padding: 6px 12px; font-size: 0.82rem;
+  }
+  .gdrop {
+    display: none; position: absolute; right: 0; left: 0; top: 36px; max-height: 280px; overflow-y: auto;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 14px 36px rgba(0,0,0,0.72); z-index: 900;
+  }
+  .g-item { display: block; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid #1b263b; color: var(--text); padding: 9px 12px; cursor: pointer; }
+  .g-item strong { display: block; font-size: 0.83rem; color: var(--gold); }
+  .g-item span { font-size: 0.73rem; color: var(--muted); }
+  .g-empty { padding: 12px; font-size: 0.82rem; color: var(--muted); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  #panel-brain3d.active { display: grid; grid-template-columns: 270px 1fr 310px; min-height: calc(100vh - 54px); }
+
+  .dock { background: var(--panel); border-right: 1px solid var(--border); overflow-y: auto; padding: 12px; font-size: 0.82rem; }
+  .dock-right { border-right: 0; border-left: 1px solid var(--border); }
+  .sec-title { font-size: 0.72rem; letter-spacing: 0.05em; color: var(--gold); font-weight: 700; margin: 14px 0 8px; text-transform: lowercase; }
+  .sec-title:first-child { margin-top: 2px; }
+
+  .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .btn-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .ctl-btn {
+    background: var(--panel-2); color: var(--text); border: 1px solid var(--border); border-radius: 9px;
+    padding: 7px 8px; font-size: 0.76rem; font-weight: 600; cursor: pointer; text-align: center;
+    text-transform: lowercase;
+  }
+  .ctl-btn.active { background: #1a3352; border-color: var(--cyan); color: var(--gold); }
+
+  .slider-row { margin: 8px 0; }
+  .slider-row label { display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--muted); margin-bottom: 3px; }
+  .slider-row label b { color: var(--text); }
+  .slider-row input[type=range] { width: 100%; accent-color: var(--cyan); }
+
+  .tau-box { display: none; background: #101d31; border: 1px solid #244572; border-radius: 9px; padding: 8px 10px; margin-top: 8px; }
+  .tau-readout { font-size: 0.74rem; color: var(--emerald); font-family: ui-monospace, monospace; margin-top: 4px; }
+
+  .chk-list { display: grid; grid-template-columns: 1fr; gap: 4px; }
+  .chk-list label { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: var(--text); padding: 3px 4px; border-radius: 5px; }
+  .chk-list input[type=checkbox] { accent-color: var(--cyan); width: 16px; height: 16px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+  .stage-wrap { position: relative; display: flex; flex-direction: column; background: radial-gradient(ellipse at 50% 45%, #111d32 0%, #090f1b 52%, #05080f 100%); overflow: hidden; }
+  #viewport3d { flex: 1; position: relative; min-height: 360px; overflow: hidden; touch-action: none; }
+  #viewport3d canvas:not(#compass3d) { display: block; width: 100% !important; height: 100% !important; touch-action: none; }
+  #compass3d { display: block; width: 68px; height: 68px; }
+
+  #calloutLayer { position: absolute; inset: 0; pointer-events: none; z-index: 15; display: none; overflow: hidden; }
+  .callout-pill {
+    position: absolute; top: 0; left: 0; pointer-events: auto; cursor: pointer;
+    background: rgba(10, 17, 30, 0.88); color: #f5d078; border: 1px solid rgba(56, 189, 248, 0.65);
+    border-radius: 999px; padding: 3px 9px; font-size: 0.7rem; font-weight: 700; white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+  }
+  .legend-box {
+    display: none; position: absolute; bottom: 32px; right: 10px; z-index: 20; pointer-events: none;
+    background: rgba(7, 11, 18, 0.84); border: 1px solid var(--border);
+    border-radius: 9px; padding: 6px 9px; font-size: 0.68rem; color: var(--muted); min-width: 165px;
+  }
+  .leg-t { color: var(--gold); font-weight: 700; margin-bottom: 3px; font-size: 0.7rem; }
+  .leg-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-top: 2px; }
+  .leg-bar { height: 6px; border-radius: 4px; background: linear-gradient(90deg, #252b3b 0%, #0cc7fa 38%, #f2d433 72%, #ff1f61 100%); margin: 3px 0; }
+  .tour-banner {
+    display: none; position: absolute; top: 58px; left: 50%; transform: translateX(-50%); z-index: 25;
+    background: rgba(14, 23, 38, 0.94); border: 1px solid var(--gold); border-radius: 10px;
+    padding: 7px 10px; align-items: center; gap: 8px; box-shadow: 0 10px 28px rgba(0,0,0,0.65); max-width: 94%;
+  }
+  .tour-banner strong { display: block; color: var(--gold); font-size: 0.78rem; }
+  .tour-banner span { display: block; color: var(--text); font-size: 0.72rem; }
+
+  .hud-tl {
+    position: absolute; top: 8px; left: 8px; pointer-events: none; z-index: 20;
+    background: rgba(7, 11, 18, 0.76); border: 1px solid var(--border);
+    border-radius: 10px; padding: 5px 9px; font-size: 0.72rem; max-width: calc(100% - 16px);
+  }
+  .hud-mni { font-family: ui-monospace, monospace; font-weight: 700; color: var(--gold); font-size: 0.78rem; }
+  .hud-meta { color: var(--muted); font-size: 0.68rem; margin-top: 1px; }
+
+  .stage-bar {
+    display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;
+    background: rgba(10, 16, 28, 0.94); border-top: 1px solid var(--border);
+    padding: 7px 10px;
+  }
+  .stage-bar .ctl-btn { padding: 6px 11px; font-size: 0.75rem; border-radius: 999px; }
+  .hud-hint {
+    position: absolute; bottom: 8px; left: 10px; right: 10px; pointer-events: none; z-index: 20;
+    background: rgba(7,11,18,0.68); color: var(--muted); font-size: 0.7rem; padding: 4px 8px; border-radius: 8px;
+    text-align: center;
+  }
+  #hoverTip {
+    display: none; position: absolute; pointer-events: none; z-index: 30;
+    background: rgba(14, 20, 32, 0.94); color: var(--gold); border: 1px solid var(--cyan);
+    padding: 5px 9px; border-radius: 7px; font-size: 0.74rem; font-weight: 600; white-space: nowrap;
+  }
+
+  .mri-strip {
+    background: #05080f; border-top: 1px solid var(--border); padding: 8px 10px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: center;
+  }
+  .mri-strip.collapsed { display: none; }
+  .mri-cell { text-align: center; }
+  .mri-cell canvas {
+    width: 100%; max-width: 148px; aspect-ratio: 1 / 1; height: auto;
+    border: 1px solid #263652; border-radius: 8px; cursor: crosshair; background: #000; display: block; margin: 0 auto;
+  }
+  .mri-cell small { display: block; margin-top: 3px; font-size: 0.68rem; color: var(--muted); font-family: ui-monospace, monospace; }
+
+  .qselect { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 9px; font-size: 0.8rem; margin-bottom: 8px; }
+  .quick-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+  .qpill {
+    background: var(--panel-2); color: var(--muted); border: 1px solid var(--border); border-radius: 999px;
+    padding: 4px 9px; font-size: 0.73rem; cursor: pointer;
+  }
+  .qpill:hover, .qpill:active { color: var(--gold); border-color: var(--gold); }
+
+  .insp-badge { display: inline-block; background: #142842; color: var(--cyan); border: 1px solid #224470; border-radius: 999px; padding: 2px 9px; font-size: 0.72rem; font-weight: 700; margin-bottom: 6px; }
+  .insp-title { margin: 0 0 6px; font-size: 1rem; color: var(--gold); }
+  .insp-mni { font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+  .insp-mni code { color: var(--emerald); background: #0a1424; padding: 2px 6px; border-radius: 4px; }
+  .insp-desc { font-size: 0.83rem; color: #d5dfec; margin: 0 0 10px; }
+  .insp-kv { font-size: 0.79rem; color: var(--muted); margin-bottom: 8px; }
+  .insp-kv strong { color: var(--text); }
+  .insp-block { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .insp-block h4 { margin: 0 0 8px; font-size: 0.75rem; color: var(--gold); text-transform: lowercase; }
+  .mini-plates { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .mini-plate {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 5px;
+    color: var(--text); text-align: left; cursor: pointer;
+  }
+  .mini-plate img { width: 100%; height: 74px; object-fit: contain; background: #fff; border-radius: 4px; display: block; margin-bottom: 4px; }
+  .mini-plate span { display: block; font-size: 0.69rem; color: var(--muted); line-height: 1.25; }
+
+  .page-wrap { max-width: 1200px; margin: 0 auto; padding: 16px 14px 48px; }
+  .page-head { border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px; }
+  .page-head h2 { margin: 0 0 6px; color: var(--gold); font-size: 1.2rem; text-transform: lowercase; }
+  .page-head p { margin: 0; color: var(--muted); font-size: 0.84rem; }
+
+  .plates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .plate-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .plate-img-wrap { background: #fff; padding: 8px; height: 196px; display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
+  .plate-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .plate-meta { padding: 11px 12px; flex: 1; display: flex; flex-direction: column; }
+  .pill-cat { align-self: flex-start; background: #142842; color: var(--cyan); font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+  .plate-meta h3 { margin: 0 0 5px; font-size: 0.92rem; color: var(--text); }
+  .plate-meta p { margin: 0 0 7px; font-size: 0.8rem; color: var(--muted); flex: 1; }
+  .credit { font-size: 0.7rem; color: #7c90ad; }
+
+  .enc-sec { margin-bottom: 26px; }
+  .enc-sec h3 { color: var(--gold); margin: 0 0 8px; font-size: 1.02rem; text-transform: lowercase; }
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--panel); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th, td { text-align: left; padding: 8px 9px; border-bottom: 1px solid #1a2538; vertical-align: top; }
+  thead th { background: var(--panel-2); color: var(--gold); font-weight: 700; }
+  .btn-sm { background: #163050; color: var(--gold); border: 1px solid #2b5485; border-radius: 7px; padding: 5px 9px; font-size: 0.74rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+  .honesty-box { background: #121c2d; border-left: 4px solid var(--gold); border-radius: 8px; padding: 12px 14px; margin: 14px 0 20px; font-size: 0.82rem; color: #d5dfec; }
+
+  #lightbox {
+    display: none; position: fixed; inset: 0; background: rgba(4, 7, 12, 0.94); z-index: 3000;
+    flex-direction: column; align-items: center; justify-content: center; padding: 18px;
+  }
+  #lightbox.open { display: flex; }
+  #lb-close { position: absolute; top: 14px; right: 16px; background: var(--gold); color: #070b12; border: 0; border-radius: 999px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
+  #lb-img { max-width: 94vw; max-height: 70vh; background: #fff; border-radius: 8px; padding: 5px; object-fit: contain; }
+  #lb-caption { max-width: 92vw; text-align: center; margin-top: 10px; }
+
+  .mobile-only { display: none; }
+
+  @media (max-width: 960px) {
+    .mobile-only { display: inline-block; }
+    #panel-brain3d.active { display: flex; flex-direction: column; height: auto; }
+    .stage-wrap { order: 1; }
+    #viewport3d { height: 50vh; min-height: 320px; max-height: 460px; flex: none; }
+    .dock-controls { order: 2; border-right: 0; border-top: 1px solid var(--border); display: none; }
+    .dock-controls.open { display: block; }
+    .dock-right { order: 3; border-left: 0; border-top: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+<div id="srLive" class="sr-only" role="status" aria-live="polite"></div>
+
+<header class="topbar">
+  <nav class="tabs" role="tablist" aria-label="observatory workspaces">
+    <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="brain3d">3d brain</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="plates">plates</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="encyclopedia">atlas</button>
+  </nav>
+  <div class="gsearch-wrap">
+    <label for="globalSearch" class="sr-only">search brain structures, brodmann areas, or cranial nerves</label>
+    <input id="globalSearch" type="search" placeholder="jump to ba 44, thalamus, cn x..." autocomplete="off"/>
+    <div id="globalResults" class="gdrop" role="listbox" aria-label="quick jump search results"></div>
+  </div>
+</header>
+
+<main id="mainContent">
+  <section id="panel-brain3d" class="tab-panel active" role="tabpanel" aria-label="interactive 3d navigable human brain">
+    <aside id="controlsDock" class="dock dock-controls" aria-label="3d brain rendering and dissection controls">
+      <div class="sec-title">rendering mode</div>
+      <div class="btn-grid">
+        <button type="button" class="ctl-btn active" data-mode="tissue">tissue</button>
+        <button type="button" class="ctl-btn" data-mode="lobe">lobe atlas</button>
+        <button type="button" class="ctl-btn" data-mode="aal">aal-116</button>
+        <button type="button" class="ctl-btn" data-mode="xray">glass x-ray</button>
+        <button type="button" class="ctl-btn" data-mode="connectome">connectome</button>
+        <button type="button" class="ctl-btn" data-mode="continuum">dorothy a_tau</button>
+        <button type="button" class="ctl-btn" data-mode="cad" style="grid-column:1/-1;">cad wireframe</button>
+      </div>
+
+      <div id="tauBox" class="tau-box">
+        <div class="slider-row" style="margin:0;">
+          <label for="sliderTau"><span>metacognition threshold (tau)</span><b id="lblTau">0.62</b></label>
+          <input id="sliderTau" type="range" min="10" max="95" value="62"/>
+        </div>
+        <div id="tauReadout" class="tau-readout">a_tau(p) computing...</div>
+      </div>
+
+      <div class="sec-title">camera views</div>
+      <div class="btn-grid btn-grid-3">
+        <button type="button" class="ctl-btn" data-preset="hero">3/4 hero</button>
+        <button type="button" class="ctl-btn" data-preset="left">left lat</button>
+        <button type="button" class="ctl-btn" data-preset="right">right lat</button>
+        <button type="button" class="ctl-btn" data-preset="sagittal">sagittal</button>
+        <button type="button" class="ctl-btn" data-preset="dorsal">dorsal</button>
+        <button type="button" class="ctl-btn" data-preset="ventral">ventral</button>
+        <button type="button" class="ctl-btn" data-preset="posterior">posterior</button>
+        <button type="button" class="ctl-btn" data-preset="deep">deep nuclei</button>
+        <button type="button" class="ctl-btn" id="btnAutoOrbit">auto-orbit</button>
+      </div>
+
+      <div class="sec-title">dissection &amp; opacity</div>
+      <div class="slider-row">
+        <label for="sliderOpacity"><span>cortex opacity</span><b id="lblOpacity">100%</b></label>
+        <input id="sliderOpacity" type="range" min="0" max="100" value="100"/>
+      </div>
+      <div class="slider-row">
+        <label for="sliderExplode"><span>exploded dissection</span><b id="lblExplode">0%</b></label>
+        <input id="sliderExplode" type="range" min="0" max="100" value="0"/>
+      </div>
+
+      <div class="sec-title">3d slice planes (synced to mri)</div>
+      <div class="btn-grid" style="margin-bottom:6px;">
+        <button type="button" class="ctl-btn" data-slice="sag">mid-sagittal</button>
+        <button type="button" class="ctl-btn" data-slice="cor">mid-coronal</button>
+        <button type="button" class="ctl-btn" data-slice="ax">mid-axial</button>
+        <button type="button" class="ctl-btn" data-slice="reset">reset slices</button>
+      </div>
+      <div class="chk-list" style="margin-bottom:6px;">
+        <label><input type="checkbox" id="chkClip"/> enable live 3d mri clipping</label>
+      </div>
+      <div class="slider-row">
+        <label for="clipX"><span>sagittal x</span><b id="lbl-clipX">-72 mm</b></label>
+        <input id="clipX" type="range" min="-72" max="72" value="-72"/>
+      </div>
+      <div class="slider-row">
+        <label for="clipY"><span>coronal y</span><b id="lbl-clipY">72 mm</b></label>
+        <input id="clipY" type="range" min="-104" max="72" value="72"/>
+      </div>
+      <div class="slider-row">
+        <label for="clipZ"><span>axial z</span><b id="lbl-clipZ">82 mm</b></label>
+        <input id="clipZ" type="range" min="-64" max="82" value="82"/>
+      </div>
+
+      <div class="sec-title">anatomical layers</div>
+      <div class="chk-list">
+        <label><input type="checkbox" id="chk-cortexL" checked/><span class="dot" style="background:#deb8ae"></span> left cortex (icbm152)</label>
+        <label><input type="checkbox" id="chk-cortexR" checked/><span class="dot" style="background:#deb8ae"></span> right cortex (icbm152)</label>
+        <label><input type="checkbox" id="chk-cerebellum" checked/><span class="dot" style="background:#c49080"></span> cerebellum &amp; vermis</label>
+        <label><input type="checkbox" id="chk-brainstem" checked/><span class="dot" style="background:#d9c2b2"></span> brainstem</label>
+        <label><input type="checkbox" id="chk-callosum" checked/><span class="dot" style="background:#f4ece1"></span> corpus callosum</label>
+        <label><input type="checkbox" id="chk-ventricles" checked/><span class="dot" style="background:#38bdf8"></span> ventricular system (csf)</label>
+        <label><input type="checkbox" id="chk-thalamus" checked/><span class="dot" style="background:#f2b83d"></span> thalamus</label>
+        <label><input type="checkbox" id="chk-limbic" checked/><span class="dot" style="background:#34d399"></span> hippocampus &amp; amygdala</label>
+        <label><input type="checkbox" id="chk-cit168" checked/><span class="dot" style="background:#6366f1"></span> cit168 deep nuclei (32)</label>
+        <label><input type="checkbox" id="chk-vascular" checked/><span class="dot" style="background:#ef4444"></span> circle of willis</label>
+        <label><input type="checkbox" id="chk-cranial" checked/><span class="dot" style="background:#fde047"></span> cranial nerves (cn i-xii)</label>
+        <label><input type="checkbox" id="chk-tracts" checked/><span class="dot" style="background:#22c55e"></span> dti white-matter tracts</label>
+        <label><input type="checkbox" id="chkPulses" checked/><span class="dot" style="background:#ffffff"></span> neural pulses</label>
+        <label><input type="checkbox" id="chk-pins"/><span class="dot" style="background:#f5d078"></span> brodmann landmark pins (52)</label>
+      </div>
+    </aside>
+
+    <div class="stage-wrap">
+      <div id="viewport3d" aria-label="interactive 3d webgl human brain canvas">
+        <div class="hud-tl">
+          <div id="hudMni" class="hud-mni">mni (0, -14, 6) mm</div>
+          <div id="hudMeta" class="hud-meta">loading mni152/icbm152 meshes...</div>
+        </div>
+        <div id="calloutLayer" aria-label="floating 3d anatomical callouts"></div>
+        <div id="tourBanner" class="tour-banner" role="region" aria-label="guided brain tour narration">
+          <div><strong id="tourTitle"></strong><span id="tourNote"></span></div>
+          <button type="button" class="btn-sm" id="btnTourNext">next</button>
+          <button type="button" class="ctl-btn" id="btnTourStop">stop</button>
+        </div>
+        <div id="legendBox" class="legend-box" aria-hidden="true"></div>
+        <canvas id="compass3d" width="68" height="68" aria-hidden="true" style="position:absolute;bottom:30px;left:10px;z-index:20;pointer-events:none;"></canvas>
+        <div class="hud-hint">drag to orbit · pinch to zoom · tap any structure to inspect</div>
+        <div id="hoverTip"></div>
+      </div>
+
+      <div class="stage-bar" role="toolbar" aria-label="3d viewport quick tools">
+        <button type="button" class="ctl-btn" id="btnTour">guided tour</button>
+        <button type="button" class="ctl-btn" id="btnLabels3D">3d labels</button>
+        <button type="button" class="ctl-btn mobile-only" id="btnToggleControls">controls</button>
+        <button type="button" class="ctl-btn" id="btnToggleMri">hide mri</button>
+      </div>
+
+      <section id="mriStrip" class="mri-strip" aria-label="synchronized real mni152 t1 mri slices">
+        <div class="mri-cell">
+          <canvas id="mriAxial" width="160" height="160" title="tap axial mni152 slice"></canvas>
+          <small>axial</small>
+        </div>
+        <div class="mri-cell">
+          <canvas id="mriCoronal" width="160" height="160" title="tap coronal mni152 slice"></canvas>
+          <small>coronal</small>
+        </div>
+        <div class="mri-cell">
+          <canvas id="mriSagittal" width="160" height="160" title="tap sagittal mni152 slice"></canvas>
+          <small>sagittal</small>
+        </div>
+      </section>
+    </div>
+
+    <aside class="dock dock-right" aria-label="selected structure details">
+      <div class="sec-title">quick navigation</div>
+      <label for="baQuickSelect" class="sr-only">jump to brodmann area</label>
+      <select id="baQuickSelect" class="qselect"></select>
+      <div id="quickPills" class="quick-pills"></div>
+      <div id="inspectorBody"></div>
+    </aside>
+  </section>
+
+  <section id="panel-plates" class="tab-panel" role="tabpanel" aria-label="verified anatomical plates">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>verified anatomical plates</h2>
+        <p>public-domain, cc-by medical illustrations, and audited custom vector diagrams. tap any plate to zoom full-screen.</p>
+      </div>
+      <div id="platesGrid" class="plates-grid"></div>
+    </div>
+  </section>
+
+  <section id="panel-encyclopedia" class="tab-panel" role="tabpanel" aria-label="neuroanatomy reference tables">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>verified human neuroanatomy reference</h2>
+        <p>tap <strong>fly to 3d</strong> on any brodmann area or cranial nerve to glide directly to its exact mni152 coordinate.</p>
+      </div>
+
+      <div class="honesty-box">
+        <strong>scientific scope note:</strong> this observatory unites real human stereotaxic mri templates (icbm152, aal-116, pauli cit168 subcortical atlas, mni152 t1 volume) with classical macroanatomy and cytoarchitecture. educational research reference only, not for clinical diagnosis.
+      </div>
+
+      <div class="enc-sec">
+        <h3>all 52 brodmann cytoarchitectonic areas (mni152)</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>area</th><th>lobe</th><th>region</th><th>mni</th><th>function</th><th>3d</th></tr></thead>
+          <tbody id="tblBrodmann"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>all 12 cranial nerves (cn i-xii)</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>nerve</th><th>name</th><th>modality</th><th>origin</th><th>foramen</th><th>function</th><th>3d</th></tr></thead>
+          <tbody id="tblCranial"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>major white-matter dti pathways</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>tract</th><th>class</th><th>connections</th><th>function</th></tr></thead>
+          <tbody id="tblTracts"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>cerebrovascular arterial territories</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>vessel</th><th>circulation</th><th>territory</th><th>clinical localization</th></tr></thead>
+          <tbody id="tblVascular"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>six-layer neocortical cytoarchitecture</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>layer</th><th>name</th><th>cells</th><th>input / output</th></tr></thead>
+          <tbody id="tblLayers"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>major neuromodulatory systems</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>neurotransmitter</th><th>origins</th><th>pathways &amp; role</th></tr></thead>
+          <tbody id="tblModulators"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lb-title">
+  <button id="lb-close" type="button" onclick="window.closeLightbox()" aria-label="close enlarged figure">close</button>
+  <img id="lb-img" alt=""/>
+  <div id="lb-caption">
+    <h3 id="lb-title" style="margin:0 0 6px;color:#f5d078;"></h3>
+    <p id="lb-desc" style="margin:0;color:#d1d5db;font-size:0.86rem;"></p>
+  </div>
+</div>
+
+<script src="assets/three.min.js"></script>
+<script src="data/brain_meshes.js"></script>
+<script src="data/atlas_encyclopedia.js"></script>
+<script src="data/library_vault.js"></script>
+<script src="assets/observatory.js"></script>
+<script>
+  (function () {
+    const btn = document.getElementById('btnToggleControls');
+    const dock = document.getElementById('controlsDock');
+    if (btn && dock) {
+      btn.addEventListener('click', function () {
+        const open = dock.classList.toggle('open');
+        btn.classList.toggle('active', open);
+        btn.textContent = open ? 'hide controls' : 'controls';
+      });
+    }
+  })();
+</script>
+</body>
+</html>

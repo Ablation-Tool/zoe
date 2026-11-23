@@ -107,6 +107,11 @@
             android:exported="false"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
         <activity
+            android:name=".BrainObservatoryActivity"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize" />
+        <activity
             android:name=".ZoeLiveActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"

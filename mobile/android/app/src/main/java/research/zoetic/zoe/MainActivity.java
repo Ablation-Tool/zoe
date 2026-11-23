@@ -147,6 +147,13 @@ public final class MainActivity extends ComponentActivity {
         }
     }
 
+    void openBrainObservatory() {
+        startActivity(new Intent(this, BrainObservatoryActivity.class));
+        if (!comfortMode) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
+
     void pickZoeLearnDriveFolder() {
         try {
             pickLearnFolderLauncher.launch(ZoeLearnQueue.savedDriveTreeUri(this));
@@ -218,6 +225,9 @@ public final class MainActivity extends ComponentActivity {
         }
         if ("vision".equals(visible)) {
             showVision();
+        } else if ("brain".equals(visible)) {
+            showHome();
+            openBrainObservatory();
         } else {
             showHome();
         }

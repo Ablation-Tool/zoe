@@ -250,6 +250,11 @@ final class HomeView extends ScrollView {
                     dialog.dismiss();
                     host.openLiveExplore();
                 }));
+        box.addView(Ui.geminiActionRow(ctx, "dorothy 3d brain", "interactive mni152 3d brain, live mri & atlas",
+                R.drawable.ic_zoe_gem, Ui.GOLD, v -> {
+                    dialog.dismiss();
+                    host.openBrainObservatory();
+                }));
         box.addView(Ui.geminiActionRow(ctx, "share knowledge seed", "export learned contours & notes",
                 R.drawable.ic_zoe_gem, Ui.GREEN, v -> {
                     dialog.dismiss();

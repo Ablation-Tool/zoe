@@ -48,4 +48,11 @@ public class CreativeLiveArcadeActivityTest {
             onView(withId(R.id.live_state_badge)).check(matches(withText(containsString("mic & camera off"))));
         }
     }
+
+    @Test
+    public void dorothyBrainObservatoryLaunchesOfflineWebGlCleanly() {
+        try (ActivityScenario<BrainObservatoryActivity> scenario = ActivityScenario.launch(BrainObservatoryActivity.class)) {
+            onView(withText("dorothy 3d brain")).check(matches(isDisplayed()));
+        }
+    }
 }
