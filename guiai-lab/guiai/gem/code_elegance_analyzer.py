@@ -253,6 +253,8 @@ def audit_zoe_monorepo_elegance(zoe_root: str | Path) -> Dict[str, Any]:
         "guiai-lab/guiai/gem/zoe_choral_composer.py",
         "guiai-lab/guiai/gem/alife_ecosystem.py",
         "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+        "guiai-lab/guiai/gem/kloster_harmonic_optics.py",
+        "guiai-lab/guiai/gem/glass_harmonica_workbench.py",
         "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
         "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
         "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
@@ -274,6 +276,8 @@ def audit_zoe_monorepo_elegance(zoe_root: str | Path) -> Dict[str, Any]:
         "theorem4_kloster_mccabe_sympy_verified": thm4["verified"],
         "scanned_over_100_live_zoe_modules": len(rows) >= 100 and len(parse_errors) == 0,
         "orbit_modules_high_maintainability": orbit_mean_mi >= 40.0 and all(r["mi_score"] >= 20.0 for r in orbit_rows),
+        "no_grade_c_or_d_modules": grade_counts["C"] == 0 and grade_counts["D"] == 0,
+        "orbit_max_cc_bounded": all(r["max_cc"] < 50 for r in orbit_rows),
         "negative_control_spaghetti_flagged_complex": neg_spaghetti["max_cc"] >= 50 and neg_spaghetti["mi_score"] < 55.0,
         "negative_cc_mi_correlation_physical": corr_cc_mi < 0.0,
     }

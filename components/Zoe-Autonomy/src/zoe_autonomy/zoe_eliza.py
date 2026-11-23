@@ -28,10 +28,12 @@ Constitutional & Epistemic Boundaries (`CONSTITUTION.md`):
 from __future__ import annotations
 
 from dataclasses import dataclass
+import importlib.metadata as importlib_metadata
 import json
 import math
 from pathlib import Path
 import re
+import shutil
 import sys
 import time
 from typing import Any, Dict, List, Mapping, Sequence, Tuple
@@ -1298,6 +1300,23 @@ class ZoeElizaEngine:
             "memory_sha256": str(doc.get("memory_sha256", "")),
         }
 
+    def _probe_frontier_sdk(self) -> Dict[str, Any]:
+        """Zero-token local capability check for Gear 3 Frontier-Pro SDK & CLI."""
+        try:
+            sdk_version = importlib_metadata.version("google-antigravity")
+        except importlib_metadata.PackageNotFoundError:
+            sdk_version = ""
+        cli_path = shutil.which("agy") or ""
+        ready = bool(sdk_version and cli_path)
+        return {
+            "available": ready,
+            "sdk_installed": bool(sdk_version),
+            "sdk_version": sdk_version,
+            "cli_available": bool(cli_path),
+            "model": "gemini-3.1-pro-high" if ready else "",
+            "cloud_tokens_used": 0,
+        }
+
     def status(self) -> Dict[str, Any]:
         return {
             "contract": ELIZA_CONTRACT,
@@ -1308,6 +1327,7 @@ class ZoeElizaEngine:
             "indexed_sources": len(self.index.sources),
             "indexed_chunks": len(self.index.chunks),
             "local_llm_probe": self.llm_bridge.probe(),
+            "frontier_probe": self._probe_frontier_sdk(),
             "memory_snapshot": self.memory_snapshot(),
             "epistemic_boundaries": dict(EPISTEMIC_BOUNDARIES),
         }

@@ -74,6 +74,10 @@ DOCUMENT_PATHS = (
     "research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md",
     "research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md",
     "research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md",
+    "dorothy-brain-observatory/README.md",
+    "mobile/README.md",
+    "mobile/ZAPPS.md",
+    "evidence/kloster-theorem16/kloster-theorem16-report.json",
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )

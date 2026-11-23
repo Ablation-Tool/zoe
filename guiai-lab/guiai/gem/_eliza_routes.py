@@ -135,6 +135,7 @@ _REPORT_GET_ROUTES: Dict[str, Tuple[str, Dict[str, Any]]] = {
     "/api/kloster/theorem14": ("evidence/kloster-theorem14/kloster-theorem14-report.json", _STANDARD_FALLBACK),
     "/api/kloster/proof-packet": ("evidence/proof-packet/kloster-proof-packet-report.json", _STANDARD_FALLBACK),
     "/api/kloster/theorem15": ("evidence/kloster-theorem15/kloster-theorem15-report.json", _STANDARD_FALLBACK),
+    "/api/kloster/theorem16": ("evidence/kloster-theorem16/kloster-theorem16-report.json", _STANDARD_FALLBACK),
     "/api/kloster/pharmacophore-c28": ("evidence/kloster-cryptanalysis/pharmacophore-spatial-c28-report.json", _STANDARD_FALLBACK),
     "/api/kloster/live-qwen-shootout": ("evidence/live-llm-hallucination/qwen25-hallucination-shootout.json", _STANDARD_FALLBACK),
     "/api/orbit/master": ("evidence/renaissance-orbit/zoe-renaissance-orbit-master.json", _STANDARD_FALLBACK),
@@ -146,6 +147,7 @@ _HTML_GET_ROUTES: Dict[str, Tuple[str, str]] = {
     "/proof": ("guiai.gem.proof_packet_arena", "render_proof_arena_html"),
     "/botanical": ("guiai.gem.botanical_atlas_explorer", "render_botanical_explorer_html"),
     "/optics": ("guiai.gem.spatial_optical_workbench", "render_optics_workbench_html"),
+    "/harmonica": ("guiai.gem.glass_harmonica_workbench", "render_harmonica_workbench_html"),
 }
 
 # Footer API & observatory links preserved on /orbit
@@ -173,6 +175,8 @@ _ORBIT_API_LINKS: Tuple[Tuple[str, str, str], ...] = (
     ("/optics", "/optics (Interactive Theorem 14 Optical &amp; Spatial Lab)", "#f0a3df"),
     ("/api/kloster/theorem14", "/api/kloster/theorem14", "#7ce8ff"),
     ("/api/kloster/theorem15", "/api/kloster/theorem15", "#7ce8ff"),
+    ("/api/kloster/theorem16", "/api/kloster/theorem16", "#7ce8ff"),
+    ("/harmonica", "/harmonica (Interactive Theorem 16 Glass Harmonica &amp; Chladni Orrery)", "#5ce1e6"),
     ("/api/kloster/pharmacophore-c28", "/api/kloster/pharmacophore-c28", "#7ce8ff"),
     ("/proof", "/proof (Interactive Referee Arena)", "#ffb84d"),
     ("/api/kloster/proof-packet", "/api/kloster/proof-packet", "#ffb84d"),
@@ -395,6 +399,15 @@ def _post_speak(handler: Any, ctx: _ServerContext, body: Dict[str, Any]) -> None
     handler.send_bytes(200, "audio/wav", wav_bytes, no_store=False)
 
 
+# Handle POST /api/harmonica/wav returning 44.1 kHz stereo choral WAV bytes
+def _post_harmonica_wav(handler: Any, _ctx: _ServerContext, body: Dict[str, Any]) -> None:
+    from .glass_harmonica_workbench import CONTRACT as HARMONICA_CONTRACT, render_harmonica_wav_bytes
+
+    wav_bytes = render_harmonica_wav_bytes(body)
+    extra = {"X-Zoe-Contract": HARMONICA_CONTRACT}
+    handler.send_bytes(200, "audio/wav", wav_bytes, no_store=False, extra_headers=extra)
+
+
 # Handle POST /api/playroom/jam with telemetry headers
 def _post_playroom_jam(handler: Any, _ctx: _ServerContext, body: Dict[str, Any]) -> None:
     from .creative_symphony import run_creative_symphony, synthesize_symphony_wav
@@ -526,6 +539,7 @@ def _build_post_routes() -> Dict[str, Callable[[Any, _ServerContext, Dict[str, A
     routes: Dict[str, Callable[[Any, _ServerContext, Dict[str, Any]], None]] = {
         "/api/chat": _post_chat,
         "/api/speak": _post_speak,
+        "/api/harmonica/wav": _post_harmonica_wav,
         "/api/playroom/jam": _post_playroom_jam,
         "/api/memory/remember": _post_memory_remember,
         "/api/memory/relay": _post_memory_relay,
