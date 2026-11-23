@@ -88,11 +88,10 @@
     {
       id: 'dorothy_mobile_platform',
       title: 'Dorothy 3D Brain Observatory (Pixel, iOS, Apple Fold & iPad)',
-      badge: 'Dorothy 3D Brain · Multi-Device Offline App',
-      focus: 'hero',
-      triggers: ['google pixel', 'apple fold', 'ipad', 'iphone', 'mobile app', 'observatory features', 'dorothy 3d brain', 'what can dorothy do'],
-      tags: ['dorothy', 'pixel', 'apple', 'ios', 'fold', 'ipad', 'iphone', '3d', 'observatory', 'videos', 'plates', 'shaders', 'mobile', 'offline'],
-      answer: 'Dorothy 3D Brain Observatory is the centerpiece of the Zoe Research Partner app, optimized for Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad. It includes 240,376 MNI152/ICBM152/AAL-116/CIT168 triangles, 7 real-time GPU shaders, 5 Functional Neural Circuits, 4 Cerebrovascular Stroke Territory Simulators, a 19-electrode 10-20 EEG Cap, 3D Textured MRI Slicing, a 3D Millimeter Caliper, 52 Brodmann Areas, 12 Cranial Nerves, 25 audited plates, HD walkthrough videos, and Ask Zoe neuroscience Q&A.'
+      badge: 'Dorothy 3D Brain · Multi-Device App',
+      keywords: ['google pixel', 'apple fold', 'ipad', 'iphone', 'mobile app', 'observatory features', 'dorothy 3d brain', 'what can dorothy do', 'dorothy', 'pixel', 'apple', 'ios', 'fold', '3d', 'observatory', 'videos', 'plates', 'shaders', 'mobile'],
+      answer: 'Dorothy 3D Brain Observatory is the centerpiece of the Zoe Research Partner app, optimized for Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad. It includes 240,376 MNI152/ICBM152/AAL-116/CIT168 triangles, 7 real-time GPU shaders, 5 Functional Neural Circuits, 4 Cerebrovascular Stroke Territory Simulators, a 19-electrode 10-20 EEG Cap, 3D Textured MRI Slicing, a 3D Millimeter Caliper, 52 Brodmann Areas, 12 Cranial Nerves, 25 audited plates, HD walkthrough videos, and Ask Zoe neuroscience Q&A.',
+      action: { type: 'tour', value: true, label: 'Start 6-Stop Guided 3D Brain Tour' }
     },
     {
       id: 'milestone1_neuro_oncology',
@@ -318,7 +317,7 @@
         id: 'gen:' + g.id,
         title: g.title,
         badge: g.badge,
-        text: [g.title, g.keywords.join(' '), g.answer].join(' '),
+        text: [g.title, ((g.keywords || g.triggers || []).concat(g.tags || [])).join(' '), g.answer].join(' '),
         answer: g.answer,
         plates: [],
         action: g.action

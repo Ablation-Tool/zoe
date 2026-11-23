@@ -88,11 +88,10 @@
     {
       id: 'dorothy_mobile_platform',
       title: 'Dorothy 3D Brain Observatory (Pixel, iOS, Apple Fold & iPad)',
-      badge: 'Dorothy 3D Brain · Multi-Device Offline App',
-      focus: 'hero',
-      triggers: ['google pixel', 'apple fold', 'ipad', 'iphone', 'mobile app', 'observatory features', 'dorothy 3d brain', 'what can dorothy do'],
-      tags: ['dorothy', 'pixel', 'apple', 'ios', 'fold', 'ipad', 'iphone', '3d', 'observatory', 'videos', 'plates', 'shaders', 'mobile', 'offline'],
-      answer: 'Dorothy 3D Brain Observatory is the centerpiece of the Zoe Research Partner app, optimized for Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad. It includes 240,376 MNI152/ICBM152/AAL-116/CIT168 triangles, 7 real-time GPU shaders, 5 Functional Neural Circuits, 4 Cerebrovascular Stroke Territory Simulators, a 19-electrode 10-20 EEG Cap, 3D Textured MRI Slicing, a 3D Millimeter Caliper, 52 Brodmann Areas, 12 Cranial Nerves, 25 audited plates, HD walkthrough videos, and Ask Zoe neuroscience Q&A.'
+      badge: 'Dorothy 3D Brain · Multi-Device App',
+      keywords: ['google pixel', 'apple fold', 'ipad', 'iphone', 'mobile app', 'observatory features', 'dorothy 3d brain', 'what can dorothy do', 'dorothy', 'pixel', 'apple', 'ios', 'fold', '3d', 'observatory', 'videos', 'plates', 'shaders', 'mobile'],
+      answer: 'Dorothy 3D Brain Observatory is the centerpiece of the Zoe Research Partner app, optimized for Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad. It includes 240,376 MNI152/ICBM152/AAL-116/CIT168 triangles, 7 real-time GPU shaders, 5 Functional Neural Circuits, 4 Cerebrovascular Stroke Territory Simulators, a 19-electrode 10-20 EEG Cap, 3D Textured MRI Slicing, a 3D Millimeter Caliper, 52 Brodmann Areas, 12 Cranial Nerves, 25 audited plates, HD walkthrough videos, and Ask Zoe neuroscience Q&A.',
+      action: { type: 'tour', value: true, label: 'Start 6-Stop Guided 3D Brain Tour' }
     },
     {
       id: 'milestone1_neuro_oncology',
@@ -318,7 +317,7 @@
         id: 'gen:' + g.id,
         title: g.title,
         badge: g.badge,
-        text: [g.title, g.keywords.join(' '), g.answer].join(' '),
+        text: [g.title, ((g.keywords || g.triggers || []).concat(g.tags || [])).join(' '), g.answer].join(' '),
         answer: g.answer,
         plates: [],
         action: g.action
@@ -665,6 +664,39 @@
       '<div class="zoe-msg-head"><span class="pill-cat">Zoe · Research Partner</span> <strong>Ask Zoe</strong></div>' +
       '<div class="zoe-msg-body">I am Zoe, your Research Partner. Ask anything about the brain and jump straight to it in 3D.</div>'
     );
+
+    window.__DOROTHY_ZOE_SUBMIT = submitQuestion;
+  }
+
+  function initDesktopNavigationAndParams() {
+    try {
+      const path = (window.location && window.location.pathname) || '';
+      if (path.indexOf('/brain/') === 0) {
+        const tabs = document.querySelector('.topbar .tabs');
+        if (tabs && !document.getElementById('zoeDesktopHomeBtn')) {
+          const homeBtn = document.createElement('a');
+          homeBtn.id = 'zoeDesktopHomeBtn';
+          homeBtn.href = '/';
+          homeBtn.className = 'tab-btn';
+          homeBtn.textContent = '← Home';
+          homeBtn.style.color = '#f5d078';
+          homeBtn.style.borderColor = 'rgba(245,208,120,0.45)';
+          tabs.insertBefore(homeBtn, tabs.firstChild);
+        }
+      }
+      const params = new URLSearchParams(window.location.search || '');
+      const tab = params.get('tab');
+      const q = params.get('q');
+      if (tab && typeof window.switchTab === 'function') {
+        setTimeout(function () { window.switchTab(tab); }, 80);
+      }
+      if (q && typeof window.__DOROTHY_ZOE_SUBMIT === 'function') {
+        setTimeout(function () {
+          if (typeof window.switchTab === 'function') window.switchTab('askzoe');
+          window.__DOROTHY_ZOE_SUBMIT(q);
+        }, 180);
+      }
+    } catch (_) {}
   }
 
   function initMediaGallery() {
@@ -754,9 +786,11 @@
     document.addEventListener('DOMContentLoaded', function () {
       initAskZoePanel();
       initMediaGallery();
+      initDesktopNavigationAndParams();
     });
   } else {
     initAskZoePanel();
     initMediaGallery();
+    initDesktopNavigationAndParams();
   }
 })();

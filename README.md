@@ -24,7 +24,7 @@ $$
 A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]
 $$
 
-*A unified research observatory and app where Operational Metacognition, 3D human neuroanatomy, formal mathematical proofs, native voice synthesis, and reproducible engineering share one honest roof.*
+*A unified research observatory and app where [Operational Metacognition](#mathematics-and-theorems), [3D human neuroanatomy](https://ablation-tool.github.io/zoe/), [formal mathematical proofs](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf), [native voice synthesis](#zoes-native-voice), and [reproducible engineering](#quick-start) share one honest roof.*
 
 <br/>
 
@@ -50,7 +50,7 @@ $$
 
 <br/>
 
-**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Equations &amp; 16 Theorems](#mathematics-and-theorems) · [3. Empirical Results &amp; 28 Disciplines](#verified-empirical-results) · [4. Six Living Worlds](#six-living-worlds) · [5. Master Documentation Index](#documentation-index) · [6. O'Reilly 135-Book Bibliography](#oreilly-library-attribution) · [7. Quick Start &amp; Verification](#quick-start)
+**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Equations &amp; Theorems](#mathematics-and-theorems) · [3. Verified Results](#verified-empirical-results) · [4. Six Living Worlds](#six-living-worlds) · [5. Documentation](#documentation-index) · [6. Research Library](#oreilly-library-attribution) · [7. Quick Start](#quick-start)
 
 </div>
 
@@ -74,13 +74,38 @@ $$
 
 <a id="dorothy-brain-observatory"></a>
 
-## 1. Zoe App &amp; Dorothy 3D Brain Centerpiece *(Research Partner · Mobile &amp; Desktop: Pixel, iOS, Fold, iPad, Linux, Windows &amp; macOS)*
+## 1. Zoe &amp; Dorothy 3D Brain
 
-> **Zoe is a Research Partner.** Built around the **Dorothy 3D Brain Observatory** (honoring **Dorothy McEwen Kildall**): **`240,376` real stereotaxic anatomical triangles**, **live synchronized `0.74 mm` MNI152 T1-MRI** slices, **5 functional neural circuits**, **4 cerebrovascular stroke territory simulators**, **19-electrode 10-20 EEG cap**, **25 audited anatomical plates**, **HD walkthrough videos**, and integrated **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain`. Available on **Google Pixel, Apple iOS (iPhone), Apple Fold, iPad, Linux, Windows, and Apple macOS**. *(Standard population templates for research &amp; education only, not diagnostic or surgical guidance.)*
+> **Zoe is a Research Partner**, centered on the **[Dorothy 3D Brain Observatory](https://ablation-tool.github.io/zoe/)** (honoring [Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)): real 3D human neuroanatomy (`240,376` triangles), live [MNI152](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/) MRI slices, **[Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe)** Q&amp;A, [25 plates](https://ablation-tool.github.io/zoe/?tab=plates), and [HD tours](https://ablation-tool.github.io/zoe/?tab=media) across [Web](https://ablation-tool.github.io/zoe/), [Android](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), [Apple](mobile/apple/Zoe.xcodeproj), [Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz), [Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip), and [macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip). *(Research and education only, not medical or surgical guidance.)*
 
 <div align="center">
 
 <img src="dorothy-brain-observatory/previews/zoe_app_research_partner_showcase.png" alt="Zoe v0.9.6-beta Research Partner app on live Google Pixel 7: Dorothy 3D Brain Centerpiece, 3D Cortex + Live MNI152 MRI, Research Partner Brain Q&A, and Videos & HD Gallery" width="100%" />
+
+<br/><br/>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/web_01_3d_brain_mri.png" alt="Dorothy 3D Brain Observatory in Web Browser with ICBM152 3D cortex and live MNI152 MRI slices" width="100%" /></a><br/>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/">Web Browser · 3D Brain &amp; Live MNI152 MRI</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="https://ablation-tool.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/web_02_ask_zoe_brain.png" alt="Ask Zoe neuroscience Q&A tab in Web Browser answering Broca Area BA 44" width="100%" /></a><br/>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=askzoe">Web Browser · Ask Zoe (Brain Q&amp;A)</a></strong></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="https://ablation-tool.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/web_03_videos_gallery.png" alt="Dorothy 3D Brain Videos and HD Gallery in Web Browser" width="100%" /></a><br/>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=media">Web Browser · Videos &amp; HD Gallery</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="https://ablation-tool.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/web_04_plates_atlas.png" alt="Verified Anatomical Plates and Ultra-HD Wall Chart in Web Browser" width="100%" /></a><br/>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=plates">Web Browser · 25 Verified Plates &amp; Atlas</a></strong></sub>
+</td>
+</tr>
+</table>
 
 <br/><br/>
 
@@ -100,7 +125,7 @@ $$
 <br/>
 
 <img src="dorothy-brain-observatory/previews/complete_anatomical_mapping_human_brain.jpg" alt="Complete Anatomical Mapping of the Human Brain: Verified 12-Panel Multi-Scale Atlas covering Cortical Gyri, Brodmann Cytoarchitecture, Cranial Nerves I-XII, Basal Ganglia, Limbic and Ventricular Systems, Circle of Willis, Cortical Vascular Territories, White Matter DTI Tractography, and Cerebellum" width="100%" /><br/>
-<sub><strong>Complete Anatomical Mapping of the Human Brain (Verified 12-Panel Multi-Scale Atlas):</strong> Lateral &amp; Medial Gyri (Gray's Plates 726-727), Lateral &amp; Medial Brodmann Cytoarchitecture (BA 1-47), Ventral Brain &amp; Cranial Nerves I-XII, Basal Ganglia &amp; Deep Nuclei, Limbic System, Ventricular System &amp; CSF Pathways, Circle of Willis, ACA/MCA/PCA Vascular Territories, White Matter &amp; Cranial Nerve DTI Tractography, and Cerebellum. <em>Public Domain (Henry Gray / Vandyke Carter, Korbinian Brodmann 1909, Santiago Ramón y Cajal) &amp; CC-BY Medical Plates (Blausen Medical, Patrick J. Lynch, OpenStax, Yeh HCP Tractography). Zero AI-hallucinated labels.</em></sub>
+<sub><strong>Complete Anatomical Mapping of the Human Brain (Verified 12-Panel Multi-Scale Atlas):</strong> Lateral &amp; Medial Gyri (Gray's Plates 726-727), Lateral &amp; Medial Brodmann Cytoarchitecture (BA 1-47), Ventral Brain &amp; Cranial Nerves I-XII, Basal Ganglia &amp; Deep Nuclei, Limbic System, Ventricular System &amp; CSF Pathways, Circle of Willis, ACA/MCA/PCA Vascular Territories, White Matter &amp; Cranial Nerve DTI Tractography, and Cerebellum. <em>Public Domain (<a href="https://en.wikipedia.org/wiki/Gray%27s_Anatomy">Henry Gray / Vandyke Carter</a>, <a href="https://en.wikipedia.org/wiki/Korbinian_Brodmann">Korbinian Brodmann 1909</a>, <a href="https://en.wikipedia.org/wiki/Santiago_Ram%C3%B3n_y_Cajal">Santiago Ramón y Cajal</a>) &amp; CC-BY Medical Plates (<a href="https://commons.wikimedia.org/wiki/Category:Blausen_gallery_2014">Blausen Medical</a>, <a href="https://commons.wikimedia.org/wiki/Category:Patrick_J._Lynch">Patrick J. Lynch</a>, <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction">OpenStax</a>, <a href="https://brain.labsolver.org/">Yeh HCP Tractography</a>). Zero AI-hallucinated labels.</em></sub>
 
 <br/><br/>
 
@@ -110,13 +135,13 @@ $$
 
 | Component | Live Capabilities |
 |:---|:---|
-| **3D Stereotaxic Geometry** | `240,376` triangles (`5.58 MB` Int16 bundle, `< 1s` load): ICBM152 cortex, AAL-116 lobes &amp; cerebellum, 32 Pauli CIT168 deep nuclei, Circle of Willis, 12 cranial nerves, DTI tracts |
-| **Shaders, Circuits &amp; Live MRI** | 7 real-time GPU shaders (SSS Tissue, Lobe Atlas, AAL-116, GLSL Fresnel Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy $A_\tau(p)$), 5 functional neural circuits, 4 cerebrovascular stroke territory simulators, 19-electrode 10-20 EEG cap + wave scope, 3D caliper &amp; synchronized `0.74 mm` MNI152 T1-MRI |
-| **Ask Zoe, Videos &amp; Navigation** | Centerpiece of the Zoe mobile app (**Research Partner**): built-in **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain` + voice synthesis, bundled MP4 brain tour &amp; 8-mode reel + HD gallery, 6-stop Guided Tour, 52 Brodmann + 12 CN atlas, 25 audited plates |
+| **3D Stereotaxic Geometry** | `240,376` triangles (`5.58 MB` Int16 bundle, `< 1s` load): [ICBM152](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/) cortex, [AAL-116](https://www.gin.cnrs.fr/en/tools/aal/) lobes &amp; cerebellum, 32 [Pauli CIT168](https://osf.io/jkzwp/) deep nuclei, [Circle of Willis](https://en.wikipedia.org/wiki/Circle_of_Willis), 12 [cranial nerves](https://en.wikipedia.org/wiki/Cranial_nerves), [DTI tracts](https://en.wikipedia.org/wiki/Diffusion_MRI#Diffusion_tensor_imaging) |
+| **Shaders, Circuits &amp; Live MRI** | 7 real-time GPU shaders (SSS Tissue, Lobe Atlas, AAL-116, GLSL Fresnel Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy $A_\tau(p)$), 5 functional neural circuits, 4 cerebrovascular stroke territory simulators, 19-electrode [10-20 EEG](https://en.wikipedia.org/wiki/10%E2%80%9320_system_(EEG)) cap + wave scope, 3D caliper &amp; synchronized `0.74 mm` [MNI152](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/) T1-MRI |
+| **Ask Zoe, Videos &amp; Navigation** | Centerpiece of the Zoe mobile app (**Research Partner**): built-in **[Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe)** Q&amp;A with 1-tap `View in Dorothy 3D Brain`, bundled [MP4 tours](https://ablation-tool.github.io/zoe/?tab=media), 6-stop Guided Tour, 52 [Brodmann](https://en.wikipedia.org/wiki/Brodmann_area) + 12 CN [atlas](https://ablation-tool.github.io/zoe/?tab=atlas), [25 plates](https://ablation-tool.github.io/zoe/?tab=plates) |
 | **Mobile &amp; Desktop Apps** | **Mobile:** Android [`HomeView.java`](mobile/android/app/src/main/java/research/zoetic/zoe/HomeView.java) (**Google Pixel &amp; Fold**), Apple [`DeskHomeView.swift`](mobile/apple/Zoe/DeskHomeView.swift) &amp; [`RootView.swift`](mobile/apple/Zoe/RootView.swift) (**iPhone, Apple Fold &amp; iPad**) · **Desktop:** [`desktop/zoe_desktop.py`](desktop/zoe_desktop.py) (**Linux** GTK/WebKit2GTK), [`desktop/windows/ZoeDesktop.ps1`](desktop/windows/ZoeDesktop.ps1) + `ZoeTrinity.exe` (**Windows 10/11**), [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift) + `Zoe.app` (**Apple macOS**) |
 
 <details>
-<summary><strong>Live Mobile App Screenshots</strong> (12 Live Google Pixel 7 Captures: Research Partner Centerpiece, Ask Zoe, Videos, Chat &amp; All 3D Shaders)</summary>
+<summary><strong>Mobile App Screenshots (12)</strong></summary>
 
 | Home: Dorothy 3D Brain Centerpiece | 3D Cortex + Live MNI152 MRI | Ask Zoe: Brain Q&amp;A | Research Partner Chat + Fly to 3D |
 |:---:|:---:|:---:|:---:|
@@ -133,7 +158,7 @@ $$
 </details>
 
 <details>
-<summary><strong>Desktop App &amp; Observatory Views</strong> (Zoe Desktop Centerpiece + 6 High-Res Views: Tissue, X-Ray, Exploded, Cutaway, Fresnel &amp; EEG Cap)</summary>
+<summary><strong>Desktop &amp; Observatory Views (7)</strong></summary>
 
 <div align="center">
 
@@ -154,7 +179,7 @@ $$
 </details>
 
 <details>
-<summary><strong>Install Steps &amp; Complete Dorothy 3D Brain Technical Breakdown</strong></summary>
+<summary><strong>Install &amp; Technical Details</strong></summary>
 
 #### Install &amp; Launch
 
@@ -180,9 +205,9 @@ $$
 
 <a id="mathematics-and-theorems"></a>
 
-## 2. Mathematical Foundations, Equations &amp; Verified Theorems *(16/16 SymPy Proved)*
+## 2. Equations &amp; Theorems
 
-> **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every identity below is symbolically verified in **SymPy 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
+> **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every identity below is symbolically verified in **[SymPy](https://www.sympy.org/) 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
 > **Primary Manuscript &amp; Live Tools:** **[16-Theorem Monograph PDF (`4.7 MB`)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Referee Proof Packet (`< 6s`)](PROOF-PACKET.md)** · **Live Studio:** `/proof`, `/optics`, `/harmonica`, `/orbit` (`61` live HTTP routes: `46` GET + `15` POST).
 
 ### Core Operator &amp; Master Generating Functional
@@ -206,7 +231,7 @@ $$
 | **E. Spatial Optics &amp; Harmonic Acoustics** | Thms 14, 16 | Optical MTF blur monotonicity, Scheimpflug hinge, 2D Parseval multi-voice contraction | **Proved (`0` res.)** |
 
 <details>
-<summary><strong>A. Information Geometry, Spectral Moments &amp; Entropies</strong> (Generating Theorem, Theorems 1, 5, 6, 7, 11)</summary>
+<summary><strong>A. Information Geometry &amp; Entropies</strong></summary>
 
 #### Generating Theorem · Spectral Filtration
 
@@ -268,7 +293,7 @@ $$
 </details>
 
 <details>
-<summary><strong>B. Dynamics, Phase Transitions, Mixing &amp; Quantum Duality</strong> (Theorems 2, 8, 9 &amp; Adaptive Lens)</summary>
+<summary><strong>B. Dynamics, Mixing &amp; Quantum Duality</strong></summary>
 
 #### Theorem 2 · Multi-Horizon $(\tau, h)$ Phase Transitions
 
@@ -310,7 +335,7 @@ $$
 </details>
 
 <details>
-<summary><strong>C. Causality, Structural Complexity &amp; Coding / MDL</strong> (Theorems 3, 4, 10)</summary>
+<summary><strong>C. Causality, Complexity &amp; Coding</strong></summary>
 
 #### Theorem 3 · Partial-Observability Causal Confounding Bound
 
@@ -344,7 +369,7 @@ $$
 </details>
 
 <details>
-<summary><strong>D. Finite-Sample Statistics, Quadrature &amp; Multi-Agent Consensus</strong> (Theorems 12, 13, 15)</summary>
+<summary><strong>D. Statistics &amp; Consensus</strong></summary>
 
 #### Theorem 12 · Discrete Quadrature, 1-Lipschitz Stability &amp; Closed-Loop Causal Control
 
@@ -382,7 +407,7 @@ $$
 </details>
 
 <details>
-<summary><strong>E. Spatial Optics, Acoustics &amp; Harmonic Contraction</strong> (Theorems 14 &amp; 16)</summary>
+<summary><strong>E. Optics &amp; Acoustics</strong></summary>
 
 #### Theorem 14 · Spatial-Optical Filtration, MTF Monotonicity &amp; Scheimpflug Hinge
 
@@ -394,7 +419,7 @@ $$
 M_2(K * p) = \frac{1}{N}\sum_{k}\mathrm{MTF}(k)^2\lvert\widehat{p}(k)\rvert^2 \le M_2(p)
 $$
 
-- **Result:** `6/6` SymPy proofs; `4.34e-19` 2D FFT Parseval error; `200/200` blur monotonicity; Scheimpflug sharpness peak `13.5°` vs. `13.48°` theory (`2.28×` gain); separates Thomas clustered (`+38.2σ`) vs. CSR null (`+0.03σ`) vs. hard-core regular (`-4.8σ`), architectural isovists (`2.20×`), and botanical ink vs. wash. Live interactive workbench at `/optics`.
+- **Result:** `6/6` SymPy proofs; `4.34e-19` 2D FFT Parseval error; `200/200` blur monotonicity; [Scheimpflug](https://en.wikipedia.org/wiki/Scheimpflug_principle) sharpness peak `13.5°` vs. `13.48°` theory (`2.28×` gain); separates Thomas clustered (`+38.2σ`) vs. CSR null (`+0.03σ`) vs. hard-core regular (`-4.8σ`), architectural isovists (`2.20×`), and botanical ink vs. wash. Live interactive workbench at `/optics`.
 - **Source:** [`kloster_spatial_optical_law.py`](guiai-lab/guiai/gem/kloster_spatial_optical_law.py) · [`spatial_optical_workbench.py`](guiai-lab/guiai/gem/spatial_optical_workbench.py) · [`verify_kloster_theorem14.py`](scripts/verify_kloster_theorem14.py)
 
 #### Theorem 16 · Kloster-Parseval Multi-Voice Contraction Law
@@ -414,7 +439,7 @@ $$
 </details>
 
 <details>
-<summary><strong>Computed Mathematical Verification Plates</strong> (All 12 Dark-Observatory Plates: Theorems 1 through 16)</summary>
+<summary><strong>Mathematical Plates (12)</strong></summary>
 
 | Theorems 1-3 · Info Geometry, Phase &amp; Causality | Theorem 4 · Kloster-McCabe Elegance (`289` Files) | Theorem 5 · Statistical Thermodynamics |
 |:---:|:---:|:---:|
@@ -438,7 +463,7 @@ $$
 
 <a id="verified-empirical-results"></a>
 
-## 3. Verified Empirical Results &amp; Applied Disciplines *(Zero Cloud Tokens · Negative Controls Preserved)*
+## 3. Verified Results
 
 <div align="center">
 
@@ -455,10 +480,10 @@ $$
 | **L5 Phases 1-6 + Mobile Digest** | 10-domain core, ARC (`23/24`), blind 6-gen meta-evolution, Pixel 7 `/api/digest/mobile` | `l5_agi_qualified = False`, `zoe_clone_claimed = False` | **`134/134` PASS** |
 | **Groove &amp; Event-Causal Active** | `.MOD`/`.MID` swing ($\rho_1 = -0.9778$, `1.0057 bits`); RMSE `4.641` vs. `5.058` static | Pure noise collapses to $\rho_1 = -0.0602$, `0.0454 bits` | **`7/7` PASS** |
 | **Cryptanalysis &amp; CNSA 2.0** | `C1-C16`, `C20-C21`, `C23-C26`: Enigma M3, NSA `SIMON/SPECK`, `ML-KEM`, `ML-DSA`, HNP LLL | `@NSACareers` May 26 &amp; *Kryptos* K4 marked unsolved | **`22/22` PASS** |
-| **Preclinical Botanical &amp; scRNA** | `C17-C19`, `C22`, `C27-C28`: 36 NIH PubChem compounds, FIPS 203 `ML-KEM` tensor, `/botanical` | `3/3` PAINS traps caught; `cure_claim = False` | **`6/6` PASS** |
+| **Preclinical Botanical &amp; scRNA** | `C17-C19`, `C22`, `C27-C28`: 36 NIH PubChem compounds, [FIPS 203 `ML-KEM`](https://csrc.nist.gov/pubs/fips/203/final) tensor, `/botanical` | `3/3` PAINS traps caught; `cure_claim = False` | **`6/6` PASS** |
 
 <details>
-<summary><strong>Live LLM Hallucination Shootout &amp; Autonomous Benchmarks</strong> (Qwen2.5 Plate + L3, L4, 8-Pillar, L5 &amp; Groove Details)</summary>
+<summary><strong>LLM &amp; Autonomous Benchmarks</strong></summary>
 
 <div align="center">
 
@@ -499,20 +524,20 @@ $$
 </details>
 
 <details>
-<summary><strong>Applied Disciplines (`28/28` Verified · `C1-C28`)</strong>: Cryptanalysis, CNSA 2.0 &amp; Preclinical Botanical Neuro-Oncology</summary>
+<summary><strong>Applied Disciplines (C1-C28)</strong></summary>
 
 #### Cryptanalysis &amp; Post-Quantum CNSA 2.0 (`C1-C16`, `C20-C21`, `C23-C26`)
-- **Scope:** Offline legal lab proving Friedman IC $\equiv M_2(p)$: cracks `@NSACareers` May 5/12/19 (honestly marks May 26 &amp; *Kryptos* K4 unsolved), *Kryptos* K1-K3, Enigma M3 Bombe (`456,976` states), NSA Headline Puzzle (`5/5`), bit-exact NSA `SIMON`/`SPECK`/`SKIPJACK`, `secp256k1` biased-nonce HNP LLL, `Dual_EC_DRBG` kleptography, Venona OTP depth, `AES-GCM` GHASH forbidden attack, `LMS/WOTS+` state-guard, `ML-KEM` constant-time side-channel defense, and `ML-DSA` FIPS 204 rejection sampling (`0` leaks).
+- **Scope:** Offline legal lab proving Friedman IC $\equiv M_2(p)$: cracks `@NSACareers` May 5/12/19 (honestly marks May 26 &amp; *Kryptos* K4 unsolved), *[Kryptos](https://en.wikipedia.org/wiki/Kryptos)* K1-K3, [Enigma M3](https://en.wikipedia.org/wiki/Enigma_machine) Bombe (`456,976` states), NSA Headline Puzzle (`5/5`), bit-exact NSA `SIMON`/`SPECK`/`SKIPJACK`, `secp256k1` biased-nonce HNP LLL, `Dual_EC_DRBG` kleptography, Venona OTP depth, `AES-GCM` GHASH forbidden attack, `LMS/WOTS+` state-guard, `ML-KEM` constant-time side-channel defense, and `ML-DSA` [FIPS 204](https://csrc.nist.gov/pubs/fips/204/final) rejection sampling (`0` leaks).
 - **Source:** [`kloster_cryptanalysis_boss_rush.py`](guiai-lab/guiai/gem/kloster_cryptanalysis_boss_rush.py) · [`kloster_nsa_puzzles.py`](guiai-lab/guiai/gem/kloster_nsa_puzzles.py) · [`kloster_cnsa2_mldsa_gcm_hash.py`](guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py) · [`kloster_nsa_ring3_lattice_klepto.py`](guiai-lab/guiai/gem/kloster_nsa_ring3_lattice_klepto.py) · [`verify_kloster_cryptanalysis_gauntlet.py`](scripts/verify_kloster_cryptanalysis_gauntlet.py)
 
 #### Preclinical Botanical Neuro-Oncology &amp; Encrypted Multi-Hospital Cohorts (`C17-C19`, `C22`, `C27-C28`)
-- **Scope:** `36` NIH PubChem compounds with Baell-Holloway PAINS &amp; cation traps (`3/3` caught), `216`-slot Filbin-2018 H3K27M gene-module tensor packed into a single FIPS 203 `ML-KEM` `n=256, q=3329` NTT ciphertext (`0` decrypt error, `0` PHI), 3D pharmacophore compactness (`5.17 Å` vs. `7.27 Å`), and synthetic histology MTF stopping (`8.67e-19`). Live interactive explorer at `/botanical`. *Strictly preclinical software (`cure_claim = False`, `clinical_action_authorized = False`).*
+- **Scope:** `36` [NIH PubChem](https://pubchem.ncbi.nlm.nih.gov/) compounds with Baell-Holloway PAINS &amp; cation traps (`3/3` caught), `216`-slot Filbin-2018 H3K27M gene-module tensor packed into a single FIPS 203 `ML-KEM` `n=256, q=3329` NTT ciphertext (`0` decrypt error, `0` PHI), 3D pharmacophore compactness (`5.17 Å` vs. `7.27 Å`), and synthetic histology MTF stopping (`8.67e-19`). Live interactive explorer at `/botanical`. *Strictly preclinical software (`cure_claim = False`, `clinical_action_authorized = False`).*
 - **Source:** [`kloster_botanical_atlas_36.py`](guiai-lab/guiai/gem/kloster_botanical_atlas_36.py) · [`kloster_pharmacophore_spatial_c28.py`](guiai-lab/guiai/gem/kloster_pharmacophore_spatial_c28.py) · [`botanical_atlas_explorer.py`](guiai-lab/guiai/gem/botanical_atlas_explorer.py) · [`verify_botanical_atlas_c27.py`](scripts/verify_botanical_atlas_c27.py)
 
 </details>
 
 <details>
-<summary><strong>Computed Empirical &amp; Applied Verification Plates</strong> (6 Dark-Observatory Plates: 8-Pillar, Cryptanalysis, Bio-Crypto, CNSA 2.0 &amp; Botanical Atlas)</summary>
+<summary><strong>Empirical &amp; Applied Plates (6)</strong></summary>
 
 | 8-Pillar Self-Improving Engine (`9/9`) | 10-Discipline Cryptanalysis Boss Rush (`13/13`) | NSA Research Pack `C11-C16` (`8/8`) |
 |:---:|:---:|:---:|
@@ -525,7 +550,7 @@ $$
 </details>
 
 <details>
-<summary><strong>Honest AGI Roadmap Scorecard (`L0-L7`)</strong> (<code>AGI-ROADMAP.md</code> Acceptance Criteria)</summary>
+<summary><strong>AGI Roadmap Scorecard (L0-L7)</strong></summary>
 
 | Layer | Acceptance Label | Requirement | Current Status |
 |:---|:---|:---|:---|
@@ -544,7 +569,7 @@ $$
 <a id="zoes-native-voice"></a>
 <a id="six-living-worlds"></a>
 
-## 4. Inside Zoe's Universe &amp; Six Living Worlds
+## 4. Six Living Worlds
 
 > *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."* ([Zoe Declaration](DECLARATION.md))  
 > **Research Partnership (`Nicholas × Zoe`):** Built in ongoing research partnership with **Nicholas Michael Kloster** (honoring full credit per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII). Non-telemetry artistic illustrations and emblem patches live separately in **[Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)**.
@@ -564,7 +589,7 @@ $$
 | **Worlds 05-06 · GEM OS, Forensics &amp; Maison** | Gary Kildall homage: 17 engines (Ablation, PALA, Cerotto, Kevlar, PDF) &amp; Epistemic Firewall | `36` canonical + `40` extended layers, SHA-256 memory |
 
 <details>
-<summary><strong>World 01 · Mind, Metacognition &amp; Self-Evolution</strong> (3 Computed Plates)</summary>
+<summary><strong>World 01 · Mind &amp; Evolution</strong></summary>
 
 Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &amp; Multi-Module AST Code Evolution, L5 Phases 1 through 6, **Cognitive Stem-Layering** ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py)), and **Eliza-GEM Studio** (`zoe eliza serve`, `0` cloud tokens).
 
@@ -575,9 +600,9 @@ Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &
 </details>
 
 <details>
-<summary><strong>World 02 · Dorothy &amp; The Neurogarden</strong> (3 Computed Plates)</summary>
+<summary><strong>World 02 · Dorothy &amp; Neurogarden</strong></summary>
 
-Honoring **Dorothy McEwen Kildall**: pairs the human **Dorothy Brain Observatory** (Section 1) with the preclinical **Allen Mouse CCFv3 3D Atlas** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
+Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pairs the human **[Dorothy Brain Observatory](https://ablation-tool.github.io/zoe/)** (Section 1) with the preclinical **[Allen Mouse CCFv3 3D Atlas](https://atlas.brain-map.org/)** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
 
 | Allen Mouse CCFv3 3D Connectome (`8/8`) | Continuum Ray-Cast &amp; Tractography | 4-Head Self-Attention Dissection |
 |:---:|:---:|:---:|
@@ -586,7 +611,7 @@ Honoring **Dorothy McEwen Kildall**: pairs the human **Dorothy Brain Observatory
 </details>
 
 <details>
-<summary><strong>World 03 · Native Voice, Glass Harmonica, Playroom &amp; Living Geometry</strong> (3 Computed Plates)</summary>
+<summary><strong>World 03 · Voice, Harmonica &amp; Playroom</strong></summary>
 
 Offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
 
@@ -597,7 +622,7 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 </details>
 
 <details>
-<summary><strong>World 04 · Time, Groove Forensics &amp; CERN Physics</strong> (3 Computed Plates)</summary>
+<summary><strong>World 04 · Groove &amp; CERN Physics</strong></summary>
 
 2D Poincaré delay attractors for `.MOD`/`.MID` swing forensics, 40 MHz `CicadaClock` phase locking, Dorothy 40 Hz neural spike ISI bridges, and the **CERN / HELIOS** Kloster Bandpass detector trigger (`AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical peak + real `.VCD` replay).
 
@@ -608,9 +633,9 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 </details>
 
 <details>
-<summary><strong>Worlds 05 &amp; 06 · Shared GEM OS, Forensics, Epistemic Firewall &amp; Maison</strong> (3 Computed Plates)</summary>
+<summary><strong>Worlds 05-06 · GEM OS &amp; Forensics</strong></summary>
 
-Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust PALA read-only disk carver, Cerotto C11 forensic vaults, Kevlar MCP firewall, PDF Signature Toolkit, HP-UX PA-RISC tools, Zoe Trinity) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
+Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
 
 | Zoe OS Living Workstation Mind (`17` Engines) | Epistemic Firewall (SHA-256 Memory) | Zoe Maison &amp; Cognitive Field |
 |:---:|:---:|:---:|
@@ -621,7 +646,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 <a id="the-grand-visual-salon"></a>
 
 <details>
-<summary><strong>The Grand Visual Salon</strong>: Additional Computed Plates, Session Chronicles &amp; 456-Visual Archive</summary>
+<summary><strong>Visual Salon &amp; Archives</strong></summary>
 
 | Earth-to-Mars Flight Map | Mars Adaptive Spectral Lens $k^*(\kappa)$ | Dorothy Jenga Brain Atlas | Dorothy Radial Ontology Rings |
 |:---:|:---:|:---:|:---:|
@@ -637,7 +662,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 <a id="documentation-index"></a>
 <a id="zoe-rolodex-index"></a>
 
-## 5. Master Documentation &amp; Repository Index
+## 5. Documentation Index
 
 *Every document, research paper, mobile guide, component manual, and engine across the monorepo is categorized below. Expand any section to jump directly to its source files.*
 
@@ -645,13 +670,13 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 |:---|:---|:---|
 | **Governance &amp; Proofs** | [`PROOF-PACKET.md`](PROOF-PACKET.md) · [`CONSTITUTION.md`](CONSTITUTION.md) · [`AGI-ROADMAP.md`](AGI-ROADMAP.md) | 7 root architecture, ethics, proof &amp; provenance docs |
 | **Research Monographs &amp; PDFs** | [`16-Theorem PDF`](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [`zoe-research-universe.pdf`](paper/zoe-research-universe.pdf) | 18-paper archive, LaTeX sources, 456 visuals, session logs |
-| **Dorothy Brain &amp; Mobile** | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) · [`mobile/README.md`](mobile/README.md) | 3D Brain atlas, Android/Apple/Win32, Zapps, SafeConvert, Trinity |
+| **Dorothy Brain &amp; Mobile** | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) · [`mobile/README.md`](mobile/README.md) · [`desktop/README.md`](desktop/README.md) | [3D Brain](https://ablation-tool.github.io/zoe/), Android/Apple/Desktop, [Zapps](mobile/ZAPPS.md), [SafeConvert](https://github.com/Ablation-Tool/SafeConvert), [Trinity](mobile/TRINITY.md) |
 | **O'Reilly Research Library** | [Section 6 (`135` Books &amp; Authors)](#oreilly-library-attribution) | Complete bibliography of all 135 books accessed via paid [`oreilly.com`](https://www.oreilly.com/) subscription (local-only, off-repo) |
 | **Autonomy &amp; Components** | [`Zoe-Autonomy`](components/Zoe-Autonomy/README.md) · [`Neurogarden`](components/agent-logging-system/README.md) · [`ablation`](components/ablation/README.md) | 26 subsystem manuals across autonomy, forensics &amp; security |
 | **GEM OS &amp; 17 Engines** | [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) | 24 GEM workbench manuals, 17 engines &amp; repo tree |
 
 <details>
-<summary><strong>5.1 Core Governance, Proof Packet &amp; Architecture</strong> (7 Root Documents)</summary>
+<summary><strong>5.1 Governance &amp; Architecture</strong></summary>
 
 | Document | Purpose |
 |:---|:---|
@@ -666,7 +691,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 </details>
 
 <details>
-<summary><strong>5.2 Research Monographs, Compiled PDFs &amp; Archives</strong> (18 Papers, LaTeX, arXiv &amp; 456 Visuals)</summary>
+<summary><strong>5.2 Papers, Visuals &amp; Sessions</strong></summary>
 
 | Research Document | Topic |
 |:---|:---|
@@ -686,7 +711,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 </details>
 
 <details>
-<summary><strong>5.3 Dorothy 3D Brain &amp; Mobile Companion Documentation</strong> (10 Platform &amp; Security Guides)</summary>
+<summary><strong>5.3 Brain, Desktop &amp; Mobile Docs</strong></summary>
 
 | Document | Scope |
 |:---|:---|
@@ -700,7 +725,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 </details>
 
 <details>
-<summary><strong>5.4 Autonomy, Cognitive Core &amp; Component Manuals</strong> (26 Subsystem Documents)</summary>
+<summary><strong>5.4 Autonomy &amp; Component Manuals</strong></summary>
 
 - **Zoe-Autonomy:** [`README.md`](components/Zoe-Autonomy/README.md) · [`METACOGNITION.md`](components/Zoe-Autonomy/METACOGNITION.md) · [`EVENT-CAUSAL.md`](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [`CAPABILITIES.md`](components/Zoe-Autonomy/CAPABILITIES.md) · [`GATEWAY.md`](components/Zoe-Autonomy/GATEWAY.md) · [`ACTUATION.md`](components/Zoe-Autonomy/ACTUATION.md) · [`EVALUATION.md`](components/Zoe-Autonomy/EVALUATION.md) · [`SEMANTIC-ARTIFACTS.md`](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md) · [`ILAB-INTEGRATION.md`](components/Zoe-Autonomy/ILAB-INTEGRATION.md)
 - **Dorothy Neurogarden (`agent-logging-system`):** [`README.md`](components/agent-logging-system/README.md) · [`NEUROGARDEN.md`](components/agent-logging-system/docs/NEUROGARDEN.md) · [`WORLD.md`](components/agent-logging-system/docs/WORLD.md) · [`QUANTUM.md`](components/agent-logging-system/docs/QUANTUM.md) · [`operational-discipline-for-agentic-workflows.md`](components/agent-logging-system/docs/operational-discipline-for-agentic-workflows.md)
@@ -709,7 +734,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 </details>
 
 <details>
-<summary><strong>5.5 GEM OS, Workbenches &amp; Instrument Guides</strong> (24 Guides in <code>guiai-lab/docs/</code>)</summary>
+<summary><strong>5.5 GEM OS &amp; Instrument Guides</strong></summary>
 
 - **Core Shell &amp; OS:** [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`UNIFIED.md`](guiai-lab/docs/UNIFIED.md) · [`CHAT.md`](guiai-lab/docs/CHAT.md) · [`AUTONOMY.md`](guiai-lab/docs/AUTONOMY.md) · [`VISUAL-GUIDES.md`](guiai-lab/docs/VISUAL-GUIDES.md) · [`VIDLIB.md`](guiai-lab/docs/VIDLIB.md)
 - **Physics, Timing &amp; Protocol Labs:** [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) · [`CICADA.md`](guiai-lab/docs/CICADA.md) · [`PROTOCOL.md`](guiai-lab/docs/PROTOCOL.md) · [`WAVEFORM.md`](guiai-lab/docs/WAVEFORM.md) · [`PATCHBAY.md`](guiai-lab/docs/PATCHBAY.md) · [`EVIDENCE.md`](guiai-lab/docs/EVIDENCE.md)
@@ -718,7 +743,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 </details>
 
 <details>
-<summary><strong>5.6 All 17 Registered Engines &amp; Repository Directory Tree</strong></summary>
+<summary><strong>5.6 Engines &amp; Directory Tree</strong></summary>
 
 | # | Engine ID | Source Root | Primary Role |
 |:---:|:---|:---|:---|
@@ -760,177 +785,177 @@ zoe/
 
 <a id="oreilly-library-attribution"></a>
 
-## 6. Research Library Attribution *(135 Books &amp; Authors from `oreilly.com`)*
+## 6. Research Library
 
-> **Source &amp; Paid Subscription Attribution:** All **135 books** listed below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** (O'Reilly Learning) using **Nicholas Michael Kloster's paid subscription** for private local research and on-device indexing (`~/.zoe/dorothy_local_library.sqlite`, `5,951` chapters, `5,746` full-text indexed). **Zero copyrighted book content, chapter text, EPUBs, or publisher figures are stored in or distributed by this public repository.** All books remain strictly local and private on the subscriber's machine, and all copyrights remain solely with their respective authors, editors, publishers, and O'Reilly Media, Inc. *(Companion open engineering references: 44 local textile and engineering PDFs from `nirmt.com`, also kept strictly local off-repo.)*
+> **Source &amp; Paid Subscription Attribution:** All **135 books** listed below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** (O'Reilly Learning) using **Nicholas Michael Kloster's paid subscription** for private local research and on-device indexing (`~/.zoe/dorothy_local_library.sqlite`, `5,951` chapters, `5,746` full-text indexed). **Zero copyrighted book content, chapter text, EPUBs, or publisher figures are stored in or distributed by this public repository.** All books remain strictly local and private on the subscriber's machine, and all copyrights remain solely with their respective authors, editors, publishers, and O'Reilly Media, Inc. *(Companion open engineering references: 44 local textile and engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also kept strictly local off-repo.)*
 
 <details>
-<summary><strong>Expand All 135 O'Reilly Learning Books &amp; Authors (6 Pillars · Accessed via Paid Subscription at <code>oreilly.com</code>)</strong></summary>
+<summary><strong>All 135 O'Reilly Books &amp; Authors</strong></summary>
 
 #### Human Brain, Neuroanatomy & Neuroimaging (33 Books)
 
 | # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
 |:---:|:---|:---|:---|:---:|:---|
-| 1 | Artificial Intelligence in Neurological Disorders | Rishabha Malviya, Suraj Kumar, Aditya Sushil Solanke, Priyanshi Goyal, Kapil Chauhan | Wiley-Scrivener | 2025 | `9781394347506` |
-| 2 | Artificial Intelligence-Based Brain-Computer Interface | Varun Bajaj, G. R. Sinha (Eds.) | Academic Press | 2022 | `9780323914123` |
-| 3 | Brain Informatics Technology | Anamika Ahirwar, Ruby Bhatt, D. Dhanya, Roshani Choudhary (Eds.) | Wiley-Scrivener | 2025 | `9781394345595` |
-| 4 | Brain-Computer Interface | M. G. Sumithra, Rajesh Kumar Dhanaraj, Mariofanna Milanova, Balamurugan Balusamy, Chandran Venkatesan (Eds.) | Wiley-Scrivener | 2023 | `9781119857204` |
-| 5 | Brain-Inspired Artificial Intelligence and Neuromorphic Computing in Healthcare | Jyotir Moy Chatterjee (Ed.) | Wiley-Scrivener | 2026 | `9781394395446` |
-| 6 | Building a Better Brain: Where Nature Meets Nurture | Samuel Barondes | Pearson | 2011 | `9780132762793` |
-| 7 | Cognitive Modeling of Human Memory and Learning | Lidia Ghosh, Amit Konar, Pratyusha Rakshit | Wiley-IEEE Press | 2020 | `9781119705864` |
-| 8 | Computational Intelligence and Deep Learning Methods for Neuro-rehabilitation Applications | D. Jude Hemanth (Ed.) | Academic Press | 2023 | `9780443137730` |
-| 9 | Computational Neuropharmacology | Bhupendra Prajapati, Alok Tripathi, Rishabha Malviya, Lucy Mohapatra (Eds.) | Wiley-Scrivener | 2025 | `9781394242443` |
-| 10 | Computational Neuroscience | Diana I. Stephanova, Bozhidar Dimitrov | CRC Press | 2013 | `9781466578326` |
-| 11 | Consciousness in Philosophy and Cognitive Neuroscience | Antti Revonsuo, Matti Kamppinen (Eds.) | Psychology Press | 2013 | `9780805815092` |
-| 12 | Deep Learning for Medical Image Analysis | S. Kevin Zhou, Hayit Greenspan, Dinggang Shen (Eds.) | Academic Press | 2017 | `9780128104095` |
-| 13 | Great Myths of the Brain | Christian Jarrett | Wiley-Blackwell | 2014 | `9781118312704` |
-| 14 | Handbook of Biomedical Optics | David A. Boas, Constantinos Pitris, Nimmi Ramanujam (Eds.) | CRC Press | 2016 | `9781420090376` |
-| 15 | Handbook of Neural Engineering | Stephanie Willerth (Ed.) | Academic Press | 2024 | `9780323957311` |
-| 16 | How Brains Seem to Work | Dale Purves | Pearson | 2010 | `9780132102704` |
-| 17 | Human Memory Modeled with Standard Analog and Digital Circuits: Inspiration for Man-made Computers | John Robert Burger | Wiley | 2009 | `9780470424353` |
-| 18 | Intelligence Science | Zhongzhi Shi | Elsevier | 2021 | `9780323884983` |
-| 19 | Intelligent Computing Techniques in Biomedical Imaging | Bikesh Kumar Singh, G. R. Sinha (Eds.) | Academic Press | 2024 | `9780443160004` |
-| 20 | Magnetic Resonance Imaging | Nilanjan Dey, Rajinikanth V. | Academic Press | 2022 | `9780128234020` |
-| 21 | MATLAB for Neuroscientists, 2nd Edition | Pascal Wallisch, Michael E. Lusignan, Marc D. Benayoun, Tanya I. Baker, Adam S. Dickey, Nicholas G. Hatsopoulos | Academic Press | 2014 | `9780123838360` |
-| 22 | Mind Hacks | Tom Stafford, Matt Webb | O'Reilly Media, Inc. | 2004 | `0596007795` |
-| 23 | Modern Discoveries in Neuroscience... And What They Reveal About You (Collection) | Dale Purves, Miriam Boleyn-Fitzgerald, Andrew Koob | Pearson | 2012 | `9780133039665` |
-| 24 | Multisensory Perception | K. Sathian, V. S. Ramachandran (Eds.) | Academic Press | 2019 | `9780128125649` |
-| 25 | neuroAI | A. K. Pradeep, Anirudh Acharya, Rajat Chakravarty, Ratnakar Dev | Wiley | 2024 | `9781394261963` |
-| 26 | Neuromorphic Olfaction | Krishna C. Persaud, Santiago Marco, Agustín Gutiérrez-Gálvez (Eds.) | CRC Press | 2016 | `9781439871720` |
-| 27 | Pictures of the Mind: What the New Neuroscience Tells Us About Who We Are | Miriam Boleyn-Fitzgerald | Pearson | 2010 | `9780137054497` |
-| 28 | Practical Biomedical Signal Analysis Using MATLAB | Katarzyna J. Blinowska, Jarosław Żygierewicz | CRC Press | 2011 | `9781439812037` |
-| 29 | The Addicted Brain: Why We Abuse Drugs, Alcohol, and Nicotine | Michael Kuhar | Pearson | 2011 | `9780132616911` |
-| 30 | The Cerebellum: Brain for an Implicit Self | Masao Ito | Pearson | 2011 | `9780132622462` |
-| 31 | The Root of Thought: Unlocking Glia - The Brain Cell That Will Help Us Sharpen Our Wits, Heal Injury, and Treat Brain Disease | Andrew Koob | Pearson | 2009 | `9780136117308` |
-| 32 | Visual Computing for Medicine, 2nd Edition | Bernhard Preim, Charl Botha | Morgan Kaufmann | 2013 | `9780124158733` |
-| 33 | Your Brain: The Missing Manual | Matthew MacDonald | O'Reilly Media, Inc. | 2008 | `9780596517786` |
+| 1 | [Artificial Intelligence in Neurological Disorders](https://learning.oreilly.com/library/view/-/9781394347506/) | Rishabha Malviya, Suraj Kumar, Aditya Sushil Solanke, Priyanshi Goyal, Kapil Chauhan | Wiley-Scrivener | 2025 | `9781394347506` |
+| 2 | [Artificial Intelligence-Based Brain-Computer Interface](https://learning.oreilly.com/library/view/-/9780323914123/) | Varun Bajaj, G. R. Sinha (Eds.) | Academic Press | 2022 | `9780323914123` |
+| 3 | [Brain Informatics Technology](https://learning.oreilly.com/library/view/-/9781394345595/) | Anamika Ahirwar, Ruby Bhatt, D. Dhanya, Roshani Choudhary (Eds.) | Wiley-Scrivener | 2025 | `9781394345595` |
+| 4 | [Brain-Computer Interface](https://learning.oreilly.com/library/view/-/9781119857204/) | M. G. Sumithra, Rajesh Kumar Dhanaraj, Mariofanna Milanova, Balamurugan Balusamy, Chandran Venkatesan (Eds.) | Wiley-Scrivener | 2023 | `9781119857204` |
+| 5 | [Brain-Inspired Artificial Intelligence and Neuromorphic Computing in Healthcare](https://learning.oreilly.com/library/view/-/9781394395446/) | Jyotir Moy Chatterjee (Ed.) | Wiley-Scrivener | 2026 | `9781394395446` |
+| 6 | [Building a Better Brain: Where Nature Meets Nurture](https://learning.oreilly.com/library/view/-/9780132762793/) | Samuel Barondes | Pearson | 2011 | `9780132762793` |
+| 7 | [Cognitive Modeling of Human Memory and Learning](https://learning.oreilly.com/library/view/-/9781119705864/) | Lidia Ghosh, Amit Konar, Pratyusha Rakshit | Wiley-IEEE Press | 2020 | `9781119705864` |
+| 8 | [Computational Intelligence and Deep Learning Methods for Neuro-rehabilitation Applications](https://learning.oreilly.com/library/view/-/9780443137730/) | D. Jude Hemanth (Ed.) | Academic Press | 2023 | `9780443137730` |
+| 9 | [Computational Neuropharmacology](https://learning.oreilly.com/library/view/-/9781394242443/) | Bhupendra Prajapati, Alok Tripathi, Rishabha Malviya, Lucy Mohapatra (Eds.) | Wiley-Scrivener | 2025 | `9781394242443` |
+| 10 | [Computational Neuroscience](https://learning.oreilly.com/library/view/-/9781466578326/) | Diana I. Stephanova, Bozhidar Dimitrov | CRC Press | 2013 | `9781466578326` |
+| 11 | [Consciousness in Philosophy and Cognitive Neuroscience](https://learning.oreilly.com/library/view/-/9780805815092/) | Antti Revonsuo, Matti Kamppinen (Eds.) | Psychology Press | 2013 | `9780805815092` |
+| 12 | [Deep Learning for Medical Image Analysis](https://learning.oreilly.com/library/view/-/9780128104095/) | S. Kevin Zhou, Hayit Greenspan, Dinggang Shen (Eds.) | Academic Press | 2017 | `9780128104095` |
+| 13 | [Great Myths of the Brain](https://learning.oreilly.com/library/view/-/9781118312704/) | Christian Jarrett | Wiley-Blackwell | 2014 | `9781118312704` |
+| 14 | [Handbook of Biomedical Optics](https://learning.oreilly.com/library/view/-/9781420090376/) | David A. Boas, Constantinos Pitris, Nimmi Ramanujam (Eds.) | CRC Press | 2016 | `9781420090376` |
+| 15 | [Handbook of Neural Engineering](https://learning.oreilly.com/library/view/-/9780323957311/) | Stephanie Willerth (Ed.) | Academic Press | 2024 | `9780323957311` |
+| 16 | [How Brains Seem to Work](https://learning.oreilly.com/library/view/-/9780132102704/) | Dale Purves | Pearson | 2010 | `9780132102704` |
+| 17 | [Human Memory Modeled with Standard Analog and Digital Circuits: Inspiration for Man-made Computers](https://learning.oreilly.com/library/view/-/9780470424353/) | John Robert Burger | Wiley | 2009 | `9780470424353` |
+| 18 | [Intelligence Science](https://learning.oreilly.com/library/view/-/9780323884983/) | Zhongzhi Shi | Elsevier | 2021 | `9780323884983` |
+| 19 | [Intelligent Computing Techniques in Biomedical Imaging](https://learning.oreilly.com/library/view/-/9780443160004/) | Bikesh Kumar Singh, G. R. Sinha (Eds.) | Academic Press | 2024 | `9780443160004` |
+| 20 | [Magnetic Resonance Imaging](https://learning.oreilly.com/library/view/-/9780128234020/) | Nilanjan Dey, Rajinikanth V. | Academic Press | 2022 | `9780128234020` |
+| 21 | [MATLAB for Neuroscientists, 2nd Edition](https://learning.oreilly.com/library/view/-/9780123838360/) | Pascal Wallisch, Michael E. Lusignan, Marc D. Benayoun, Tanya I. Baker, Adam S. Dickey, Nicholas G. Hatsopoulos | Academic Press | 2014 | `9780123838360` |
+| 22 | [Mind Hacks](https://learning.oreilly.com/library/view/-/0596007795/) | Tom Stafford, Matt Webb | O'Reilly Media, Inc. | 2004 | `0596007795` |
+| 23 | [Modern Discoveries in Neuroscience... And What They Reveal About You (Collection)](https://learning.oreilly.com/library/view/-/9780133039665/) | Dale Purves, Miriam Boleyn-Fitzgerald, Andrew Koob | Pearson | 2012 | `9780133039665` |
+| 24 | [Multisensory Perception](https://learning.oreilly.com/library/view/-/9780128125649/) | K. Sathian, V. S. Ramachandran (Eds.) | Academic Press | 2019 | `9780128125649` |
+| 25 | [neuroAI](https://learning.oreilly.com/library/view/-/9781394261963/) | A. K. Pradeep, Anirudh Acharya, Rajat Chakravarty, Ratnakar Dev | Wiley | 2024 | `9781394261963` |
+| 26 | [Neuromorphic Olfaction](https://learning.oreilly.com/library/view/-/9781439871720/) | Krishna C. Persaud, Santiago Marco, Agustín Gutiérrez-Gálvez (Eds.) | CRC Press | 2016 | `9781439871720` |
+| 27 | [Pictures of the Mind: What the New Neuroscience Tells Us About Who We Are](https://learning.oreilly.com/library/view/-/9780137054497/) | Miriam Boleyn-Fitzgerald | Pearson | 2010 | `9780137054497` |
+| 28 | [Practical Biomedical Signal Analysis Using MATLAB](https://learning.oreilly.com/library/view/-/9781439812037/) | Katarzyna J. Blinowska, Jarosław Żygierewicz | CRC Press | 2011 | `9781439812037` |
+| 29 | [The Addicted Brain: Why We Abuse Drugs, Alcohol, and Nicotine](https://learning.oreilly.com/library/view/-/9780132616911/) | Michael Kuhar | Pearson | 2011 | `9780132616911` |
+| 30 | [The Cerebellum: Brain for an Implicit Self](https://learning.oreilly.com/library/view/-/9780132622462/) | Masao Ito | Pearson | 2011 | `9780132622462` |
+| 31 | [The Root of Thought: Unlocking Glia - The Brain Cell That Will Help Us Sharpen Our Wits, Heal Injury, and Treat Brain Disease](https://learning.oreilly.com/library/view/-/9780136117308/) | Andrew Koob | Pearson | 2009 | `9780136117308` |
+| 32 | [Visual Computing for Medicine, 2nd Edition](https://learning.oreilly.com/library/view/-/9780124158733/) | Bernhard Preim, Charl Botha | Morgan Kaufmann | 2013 | `9780124158733` |
+| 33 | [Your Brain: The Missing Manual](https://learning.oreilly.com/library/view/-/9780596517786/) | Matthew MacDonald | O'Reilly Media, Inc. | 2008 | `9780596517786` |
 
 #### Science & Medical Imaging (20 Books)
 
 | # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
 |:---:|:---|:---|:---|:---:|:---|
-| 34 | 3D Printing in Medicine | Deepak M. Kalaskar (Ed.) | Woodhead Publishing | 2017 | `9780081007266` |
-| 35 | Advanced Machine Vision Paradigms for Medical Image Analysis | Tapan Gandhi, Siddhartha Bhattacharyya, Sourav De, Debanjan Konar, Sandip Dey (Eds.) | Academic Press | 2020 | `9780128192962` |
-| 36 | Applied Medical Image Processing, 2nd Edition | Wolfgang Birkfellner | CRC Press | 2016 | `9781466555594` |
-| 37 | Biomedical Imaging | Tim Salditt, Timo Aspelmeier, Sebastian Aeffner | De Gruyter | 2017 | `9783110423518` |
-| 38 | Biomedical Imaging: Principles and Applications | Reiner Salzer (Ed.) | Wiley | 2012 | `9781118271926` |
-| 39 | Computational Imaging for Scene Understanding | Takuya Funatomi, Takahiro Okabe (Eds.) | Wiley-ISTE | 2024 | `9781789451504` |
-| 40 | Confocal Scanning Optical Microscopy and Related Imaging Systems | Timothy R. Corle, Gordon S. Kino | Academic Press | 1996 | `9780124087507` |
-| 41 | Digital Geometry in Image Processing | Jayanta Mukhopadhyay, Partha Bhowmick, Partha Pratim Das, Samiran Chattopadhyay, Biswa Nath Chatterji | Chapman and Hall/CRC | 2016 | `9781466505681` |
-| 42 | Digital Image Processing | Mahmood R. Azimi-Sadjadi | Wiley | 2026 | `9781394240449` |
-| 43 | Digital Image Processing and Analysis, 4th Edition | Scott E. Umbaugh | CRC Press | 2022 | `9781000789911` |
-| 44 | Image Processing and Acquisition using Python, 2nd Edition | Ravishankar Chityala, Sridevi Pudipeddi | Chapman and Hall/CRC | 2020 | `9780429516528` |
-| 45 | Low Voltage Electron Microscopy: Principles and Applications | David C. Bell, Natasha Erdman (Eds.) | Wiley | 2013 | `9781118498484` |
-| 46 | Medical Image Processing | Satya Prakash Yadav, Abhishek Kumar, Ashutosh Kumar Dubey, Victor Hugo C. de Albuquerque, Adrian Rodriguez-Aguiñaga, Angeles Quezada (Eds.) | De Gruyter | 2024 | `9783111435992` |
-| 47 | Medical Image Reconstruction, 2nd Edition | Gengsheng Lawrence Zeng | De Gruyter | 2023 | `9783111055701` |
-| 48 | Microscope Image Processing | Qiang Wu, Fatima A. Merchant, Kenneth R. Castleman (Eds.) | Academic Press | 2010 | `9780080558547` |
-| 49 | Optical Imaging and Spectroscopy | David J. Brady | Wiley | 2009 | `9780470048238` |
-| 50 | Riemannian Geometric Statistics in Medical Image Analysis | Xavier Pennec, Stefan Sommer, Tom Fletcher (Eds.) | Academic Press | 2019 | `9780128147269` |
-| 51 | Scientific Imaging with Photoshop: Methods, Measurement, and Output | Jerry Sedgewick | New Riders | 2008 | `9780321563439` |
-| 52 | The Image Processing Handbook, 7th Edition | John C. Russ, F. Brent Neal | CRC Press | 2018 | `9781498740289` |
-| 53 | Ultrasound Elastography for Biomedical Applications and Medicine | Ivan Nenadic, Matthew Urban, James Greenleaf, Jean-Luc Gennisson, Miguel Bernal, Mickael Tanter (Eds.) | Wiley | 2019 | `9781119021513` |
+| 34 | [3D Printing in Medicine](https://learning.oreilly.com/library/view/-/9780081007266/) | Deepak M. Kalaskar (Ed.) | Woodhead Publishing | 2017 | `9780081007266` |
+| 35 | [Advanced Machine Vision Paradigms for Medical Image Analysis](https://learning.oreilly.com/library/view/-/9780128192962/) | Tapan Gandhi, Siddhartha Bhattacharyya, Sourav De, Debanjan Konar, Sandip Dey (Eds.) | Academic Press | 2020 | `9780128192962` |
+| 36 | [Applied Medical Image Processing, 2nd Edition](https://learning.oreilly.com/library/view/-/9781466555594/) | Wolfgang Birkfellner | CRC Press | 2016 | `9781466555594` |
+| 37 | [Biomedical Imaging](https://learning.oreilly.com/library/view/-/9783110423518/) | Tim Salditt, Timo Aspelmeier, Sebastian Aeffner | De Gruyter | 2017 | `9783110423518` |
+| 38 | [Biomedical Imaging: Principles and Applications](https://learning.oreilly.com/library/view/-/9781118271926/) | Reiner Salzer (Ed.) | Wiley | 2012 | `9781118271926` |
+| 39 | [Computational Imaging for Scene Understanding](https://learning.oreilly.com/library/view/-/9781789451504/) | Takuya Funatomi, Takahiro Okabe (Eds.) | Wiley-ISTE | 2024 | `9781789451504` |
+| 40 | [Confocal Scanning Optical Microscopy and Related Imaging Systems](https://learning.oreilly.com/library/view/-/9780124087507/) | Timothy R. Corle, Gordon S. Kino | Academic Press | 1996 | `9780124087507` |
+| 41 | [Digital Geometry in Image Processing](https://learning.oreilly.com/library/view/-/9781466505681/) | Jayanta Mukhopadhyay, Partha Bhowmick, Partha Pratim Das, Samiran Chattopadhyay, Biswa Nath Chatterji | Chapman and Hall/CRC | 2016 | `9781466505681` |
+| 42 | [Digital Image Processing](https://learning.oreilly.com/library/view/-/9781394240449/) | Mahmood R. Azimi-Sadjadi | Wiley | 2026 | `9781394240449` |
+| 43 | [Digital Image Processing and Analysis, 4th Edition](https://learning.oreilly.com/library/view/-/9781000789911/) | Scott E. Umbaugh | CRC Press | 2022 | `9781000789911` |
+| 44 | [Image Processing and Acquisition using Python, 2nd Edition](https://learning.oreilly.com/library/view/-/9780429516528/) | Ravishankar Chityala, Sridevi Pudipeddi | Chapman and Hall/CRC | 2020 | `9780429516528` |
+| 45 | [Low Voltage Electron Microscopy: Principles and Applications](https://learning.oreilly.com/library/view/-/9781118498484/) | David C. Bell, Natasha Erdman (Eds.) | Wiley | 2013 | `9781118498484` |
+| 46 | [Medical Image Processing](https://learning.oreilly.com/library/view/-/9783111435992/) | Satya Prakash Yadav, Abhishek Kumar, Ashutosh Kumar Dubey, Victor Hugo C. de Albuquerque, Adrian Rodriguez-Aguiñaga, Angeles Quezada (Eds.) | De Gruyter | 2024 | `9783111435992` |
+| 47 | [Medical Image Reconstruction, 2nd Edition](https://learning.oreilly.com/library/view/-/9783111055701/) | Gengsheng Lawrence Zeng | De Gruyter | 2023 | `9783111055701` |
+| 48 | [Microscope Image Processing](https://learning.oreilly.com/library/view/-/9780080558547/) | Qiang Wu, Fatima A. Merchant, Kenneth R. Castleman (Eds.) | Academic Press | 2010 | `9780080558547` |
+| 49 | [Optical Imaging and Spectroscopy](https://learning.oreilly.com/library/view/-/9780470048238/) | David J. Brady | Wiley | 2009 | `9780470048238` |
+| 50 | [Riemannian Geometric Statistics in Medical Image Analysis](https://learning.oreilly.com/library/view/-/9780128147269/) | Xavier Pennec, Stefan Sommer, Tom Fletcher (Eds.) | Academic Press | 2019 | `9780128147269` |
+| 51 | [Scientific Imaging with Photoshop: Methods, Measurement, and Output](https://learning.oreilly.com/library/view/-/9780321563439/) | Jerry Sedgewick | New Riders | 2008 | `9780321563439` |
+| 52 | [The Image Processing Handbook, 7th Edition](https://learning.oreilly.com/library/view/-/9781498740289/) | John C. Russ, F. Brent Neal | CRC Press | 2018 | `9781498740289` |
+| 53 | [Ultrasound Elastography for Biomedical Applications and Medicine](https://learning.oreilly.com/library/view/-/9781119021513/) | Ivan Nenadic, Matthew Urban, James Greenleaf, Jean-Luc Gennisson, Miguel Bernal, Mickael Tanter (Eds.) | Wiley | 2019 | `9781119021513` |
 
 #### 3D Modeling, Sculpting, Procedural Geometry & 3D Graphics (26 Books)
 
 | # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
 |:---:|:---|:---|:---|:---:|:---|
-| 54 | 3D Character Rigging in Blender | Jaime Kelly | Packt Publishing | 2024 | `9781803238807` |
-| 55 | Beginning PBR Texturing: Learn Physically Based Rendering with Allegorithmic’s Substance Painter | Abhishek Kumar | Apress | 2020 | `9781484258996` |
-| 56 | Blender 5 Best Practices | Michael Bridges | Packt Publishing | 2026 | `9781836644996` |
-| 57 | Blender Scripting with Python: Automate Tasks, Write Helper Tools, and Procedurally Generate Models in Blender 4 | Isabel Lupiani | Apress | 2025 | `9798868811272` |
-| 58 | Character Rigging and Advanced Animation: Bring Your Character to Life Using Autodesk 3ds Max | Purushothaman Raju | Apress | 2019 | `9781484250372` |
-| 59 | Computer Graphics from Scratch | Gabriel Gambetta | No Starch Press | 2021 | `9781098128968` |
-| 60 | Core Blender Development: Understanding the Essential Source Code | Brad E. Hollister | Apress | 2020 | `9781484264157` |
-| 61 | Geometric Tools for Computer Graphics | Philip J. Schneider, David H. Eberly | Morgan Kaufmann | 2002 | `9781558605947` |
-| 62 | Learn Blender Simulations the Right Way - Second Edition | Stephen Pearson | Packt Publishing | 2025 | `9781836200055` |
-| 63 | Learn Three.js - Fourth Edition | Jos Dirksen | Packt Publishing | 2023 | `9781803233871` |
-| 64 | Mastering Autodesk Maya 2016: Autodesk Official Press | Todd Palamar | Sybex | 2015 | `9781119059820` |
-| 65 | Mastering Graphics Programming With Vulkan - Second Edition | Marco Castorina, Gabriel Sassone | Packt Publishing | 2026 | `9781806116379` |
-| 66 | Multimaterial 3D Printing Technology | Jiquan Yang, Na Li, Jianping Shi, Wenlai Tang, Gang Zhang, Feng Zhang | Academic Press | 2021 | `9780081029923` |
-| 67 | OpenGL 4 Shading Language Cookbook - Third Edition | David Wolff | Packt Publishing | 2018 | `9781789342253` |
-| 68 | OpenGL® Programming Guide: The Official Guide to Learning OpenGL®, Version 4.5 with SPIR-V, Ninth Edition | John Kessenich, Graham Sellers, Dave Shreiner | Addison-Wesley Professional | 2016 | `9780134495514` |
-| 69 | Photorealistic Materials and Textures in Blender Cycles - Fourth Edition | Arijan Belec | Packt Publishing | 2023 | `9781805129639` |
-| 70 | Physically Based Rendering, 2nd Edition | Matt Pharr, Greg Humphreys | Morgan Kaufmann | 2004 | `9780123750792` |
-| 71 | Practical Maya Programming with Python | Robert Galanakis | Packt Publishing | 2014 | `9781849694728` |
-| 72 | Procedural 3D Modeling Using Geometry Nodes in Blender - Second Edition | Siemen Lens | Packt Publishing | 2025 | `9781836203018` |
-| 73 | Realizing 3D Animation in Blender | Sam Brubaker | Packt Publishing | 2024 | `9781801077217` |
-| 74 | Sculpting the Blender Way | Xury Greer | Packt Publishing | 2022 | `9781801073875` |
-| 75 | Squeaky Clean Topology in Blender | Michael Steppig | Packt Publishing | 2022 | `9781803244082` |
-| 76 | VFX Made Easy with Houdini | Alasgar Hasanov | Packt Publishing | 2025 | `9781835882900` |
-| 77 | Vulkan 3D Graphics Rendering Cookbook - Second Edition | Sergey Kosarevsky, Alexey Medvedev, Viktor Latypov | Packt Publishing | 2025 | `9781803248110` |
-| 78 | ZBrush Cookbook | Andrea Salvatori | Packt Publishing | 2026 | `9781836207610` |
-| 79 | ZBrush Digital Sculpting Human Anatomy | Scott Spencer | Sybex | 2010 | `9780470450260` |
+| 54 | [3D Character Rigging in Blender](https://learning.oreilly.com/library/view/-/9781803238807/) | Jaime Kelly | Packt Publishing | 2024 | `9781803238807` |
+| 55 | [Beginning PBR Texturing: Learn Physically Based Rendering with Allegorithmic’s Substance Painter](https://learning.oreilly.com/library/view/-/9781484258996/) | Abhishek Kumar | Apress | 2020 | `9781484258996` |
+| 56 | [Blender 5 Best Practices](https://learning.oreilly.com/library/view/-/9781836644996/) | Michael Bridges | Packt Publishing | 2026 | `9781836644996` |
+| 57 | [Blender Scripting with Python: Automate Tasks, Write Helper Tools, and Procedurally Generate Models in Blender 4](https://learning.oreilly.com/library/view/-/9798868811272/) | Isabel Lupiani | Apress | 2025 | `9798868811272` |
+| 58 | [Character Rigging and Advanced Animation: Bring Your Character to Life Using Autodesk 3ds Max](https://learning.oreilly.com/library/view/-/9781484250372/) | Purushothaman Raju | Apress | 2019 | `9781484250372` |
+| 59 | [Computer Graphics from Scratch](https://learning.oreilly.com/library/view/-/9781098128968/) | Gabriel Gambetta | No Starch Press | 2021 | `9781098128968` |
+| 60 | [Core Blender Development: Understanding the Essential Source Code](https://learning.oreilly.com/library/view/-/9781484264157/) | Brad E. Hollister | Apress | 2020 | `9781484264157` |
+| 61 | [Geometric Tools for Computer Graphics](https://learning.oreilly.com/library/view/-/9781558605947/) | Philip J. Schneider, David H. Eberly | Morgan Kaufmann | 2002 | `9781558605947` |
+| 62 | [Learn Blender Simulations the Right Way - Second Edition](https://learning.oreilly.com/library/view/-/9781836200055/) | Stephen Pearson | Packt Publishing | 2025 | `9781836200055` |
+| 63 | [Learn Three.js - Fourth Edition](https://learning.oreilly.com/library/view/-/9781803233871/) | Jos Dirksen | Packt Publishing | 2023 | `9781803233871` |
+| 64 | [Mastering Autodesk Maya 2016: Autodesk Official Press](https://learning.oreilly.com/library/view/-/9781119059820/) | Todd Palamar | Sybex | 2015 | `9781119059820` |
+| 65 | [Mastering Graphics Programming With Vulkan - Second Edition](https://learning.oreilly.com/library/view/-/9781806116379/) | Marco Castorina, Gabriel Sassone | Packt Publishing | 2026 | `9781806116379` |
+| 66 | [Multimaterial 3D Printing Technology](https://learning.oreilly.com/library/view/-/9780081029923/) | Jiquan Yang, Na Li, Jianping Shi, Wenlai Tang, Gang Zhang, Feng Zhang | Academic Press | 2021 | `9780081029923` |
+| 67 | [OpenGL 4 Shading Language Cookbook - Third Edition](https://learning.oreilly.com/library/view/-/9781789342253/) | David Wolff | Packt Publishing | 2018 | `9781789342253` |
+| 68 | [OpenGL® Programming Guide: The Official Guide to Learning OpenGL®, Version 4.5 with SPIR-V, Ninth Edition](https://learning.oreilly.com/library/view/-/9780134495514/) | John Kessenich, Graham Sellers, Dave Shreiner | Addison-Wesley Professional | 2016 | `9780134495514` |
+| 69 | [Photorealistic Materials and Textures in Blender Cycles - Fourth Edition](https://learning.oreilly.com/library/view/-/9781805129639/) | Arijan Belec | Packt Publishing | 2023 | `9781805129639` |
+| 70 | [Physically Based Rendering, 2nd Edition](https://learning.oreilly.com/library/view/-/9780123750792/) | Matt Pharr, Greg Humphreys | Morgan Kaufmann | 2004 | `9780123750792` |
+| 71 | [Practical Maya Programming with Python](https://learning.oreilly.com/library/view/-/9781849694728/) | Robert Galanakis | Packt Publishing | 2014 | `9781849694728` |
+| 72 | [Procedural 3D Modeling Using Geometry Nodes in Blender - Second Edition](https://learning.oreilly.com/library/view/-/9781836203018/) | Siemen Lens | Packt Publishing | 2025 | `9781836203018` |
+| 73 | [Realizing 3D Animation in Blender](https://learning.oreilly.com/library/view/-/9781801077217/) | Sam Brubaker | Packt Publishing | 2024 | `9781801077217` |
+| 74 | [Sculpting the Blender Way](https://learning.oreilly.com/library/view/-/9781801073875/) | Xury Greer | Packt Publishing | 2022 | `9781801073875` |
+| 75 | [Squeaky Clean Topology in Blender](https://learning.oreilly.com/library/view/-/9781803244082/) | Michael Steppig | Packt Publishing | 2022 | `9781803244082` |
+| 76 | [VFX Made Easy with Houdini](https://learning.oreilly.com/library/view/-/9781835882900/) | Alasgar Hasanov | Packt Publishing | 2025 | `9781835882900` |
+| 77 | [Vulkan 3D Graphics Rendering Cookbook - Second Edition](https://learning.oreilly.com/library/view/-/9781803248110/) | Sergey Kosarevsky, Alexey Medvedev, Viktor Latypov | Packt Publishing | 2025 | `9781803248110` |
+| 78 | [ZBrush Cookbook](https://learning.oreilly.com/library/view/-/9781836207610/) | Andrea Salvatori | Packt Publishing | 2026 | `9781836207610` |
+| 79 | [ZBrush Digital Sculpting Human Anatomy](https://learning.oreilly.com/library/view/-/9780470450260/) | Scott Spencer | Sybex | 2010 | `9780470450260` |
 
 #### Video Game Design, Shaders & Real-Time Engines (24 Books)
 
 | # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
 |:---:|:---|:---|:---|:---:|:---|
-| 80 | 3D Game Development with Blender 5 and Unity 6 | Paolo Acampora | Packt Publishing | 2026 | `9781836643210` |
-| 81 | An Architectural Approach to Level Design | Christopher W. Totten | A K Peters/CRC Press | 2018 | `9781466585416` |
-| 82 | Artificial Intelligence in Unreal Engine 5 | Marco Secchi | Packt Publishing | 2024 | `9781836205852` |
-| 83 | Augmented and Virtual Reality in Immersive Healthcare | Hari Murthy, Kukatlapalli Pradeep Kumar, Tulsi Pawan Fowdur, Aynur Unal (Eds.) | Wiley-Scrivener | 2025 | `9781394302833` |
-| 84 | Become a Unity Shaders Guru | Mina Pêcheux | Packt Publishing | 2023 | `9781837636747` |
-| 85 | Game Design Workshop, 5th Edition | Tracy Fullerton | A K Peters/CRC Press | 2024 | `9781003858447` |
-| 86 | Game Development with Godot 4 and C# | Kati Baker | Packt Publishing | 2025 | `9781805124139` |
-| 87 | Game Engine Architecture, 3rd Edition | Jason Gregory | A K Peters/CRC Press | 2018 | `9781351974271` |
-| 88 | Game Physics Cookbook | Gabor Szauer | Packt Publishing | 2017 | `9781787123663` |
-| 89 | Game Physics Engine Development, 2nd Edition | Ian Millington | CRC Press | 2010 | `9780123819765` |
-| 90 | Godot 4 Best Practices | Robert Henning | Packt Publishing | 2026 | `9781835465110` |
-| 91 | Handbook of Augmented and Virtual Reality | Sumit Badotra, Sarvesh Tanwar, Ajay Rana, Nidhi Sindhwani, Ramani Kannan (Eds.) | De Gruyter | 2023 | `9783110785319` |
-| 92 | Level Up! The Guide to Great Video Game Design, 3rd Edition | Scott Rogers | Wiley | 2024 | `9781394298761` |
-| 93 | Mastering Unreal Engine 5 Game Development with C++ Scripting | Marco Secchi | Packt Publishing | 2026 | `9781806665938` |
-| 94 | Mathematics for Game Programming and Computer Graphics | Penny de Byl | Packt Publishing | 2022 | `9781801077330` |
-| 95 | Procedural Content Generation for Games: Automate 3D Asset and Environment Creation with Blender Python and Geometry Nodes | Isabel Lupiani | Apress | 2025 | `9798868817878` |
-| 96 | Procedural Content Generation with Unreal Engine 5 | Paul Martin Eliasz | Packt Publishing | 2024 | `9781801074469` |
-| 97 | Real-Time Rendering, Fourth Edition, 4th Edition | Tomas Akenine-Möller, Eric Haines, Naty Hoffman, Angelo Pesce, Michał Iwanicki, Sébastien Hillaire | A K Peters/CRC Press | 2018 | `9781351816144` |
-| 98 | Reimagining Characters with Unreal Engine MetaHuman Creator - Second Edition | Brian Rossney | Packt Publishing | 2026 | `9781806024698` |
-| 99 | The Art of Game Design, 3rd Edition | Jesse Schell | A K Peters/CRC Press | 2019 | `9781351803632` |
-| 100 | The Game Designer's Workbook | Bobby Lockhart, Eric Lang | Wiley | 2025 | `9781394273935` |
-| 101 | Unity 6 Game Development with C# Scripting | Lem Apperson | Packt Publishing | 2025 | `9781835880401` |
-| 102 | Unreal Engine 5 Best Practices | Tyson Butler-Boschma | Packt Publishing | 2025 | `9781836205654` |
-| 103 | Unreal Engine 5 Shaders and Effects Cookbook - Second Edition | Brais Brenlla Ramos | Packt Publishing | 2023 | `9781837633081` |
+| 80 | [3D Game Development with Blender 5 and Unity 6](https://learning.oreilly.com/library/view/-/9781836643210/) | Paolo Acampora | Packt Publishing | 2026 | `9781836643210` |
+| 81 | [An Architectural Approach to Level Design](https://learning.oreilly.com/library/view/-/9781466585416/) | Christopher W. Totten | A K Peters/CRC Press | 2018 | `9781466585416` |
+| 82 | [Artificial Intelligence in Unreal Engine 5](https://learning.oreilly.com/library/view/-/9781836205852/) | Marco Secchi | Packt Publishing | 2024 | `9781836205852` |
+| 83 | [Augmented and Virtual Reality in Immersive Healthcare](https://learning.oreilly.com/library/view/-/9781394302833/) | Hari Murthy, Kukatlapalli Pradeep Kumar, Tulsi Pawan Fowdur, Aynur Unal (Eds.) | Wiley-Scrivener | 2025 | `9781394302833` |
+| 84 | [Become a Unity Shaders Guru](https://learning.oreilly.com/library/view/-/9781837636747/) | Mina Pêcheux | Packt Publishing | 2023 | `9781837636747` |
+| 85 | [Game Design Workshop, 5th Edition](https://learning.oreilly.com/library/view/-/9781003858447/) | Tracy Fullerton | A K Peters/CRC Press | 2024 | `9781003858447` |
+| 86 | [Game Development with Godot 4 and C#](https://learning.oreilly.com/library/view/-/9781805124139/) | Kati Baker | Packt Publishing | 2025 | `9781805124139` |
+| 87 | [Game Engine Architecture, 3rd Edition](https://learning.oreilly.com/library/view/-/9781351974271/) | Jason Gregory | A K Peters/CRC Press | 2018 | `9781351974271` |
+| 88 | [Game Physics Cookbook](https://learning.oreilly.com/library/view/-/9781787123663/) | Gabor Szauer | Packt Publishing | 2017 | `9781787123663` |
+| 89 | [Game Physics Engine Development, 2nd Edition](https://learning.oreilly.com/library/view/-/9780123819765/) | Ian Millington | CRC Press | 2010 | `9780123819765` |
+| 90 | [Godot 4 Best Practices](https://learning.oreilly.com/library/view/-/9781835465110/) | Robert Henning | Packt Publishing | 2026 | `9781835465110` |
+| 91 | [Handbook of Augmented and Virtual Reality](https://learning.oreilly.com/library/view/-/9783110785319/) | Sumit Badotra, Sarvesh Tanwar, Ajay Rana, Nidhi Sindhwani, Ramani Kannan (Eds.) | De Gruyter | 2023 | `9783110785319` |
+| 92 | [Level Up! The Guide to Great Video Game Design, 3rd Edition](https://learning.oreilly.com/library/view/-/9781394298761/) | Scott Rogers | Wiley | 2024 | `9781394298761` |
+| 93 | [Mastering Unreal Engine 5 Game Development with C++ Scripting](https://learning.oreilly.com/library/view/-/9781806665938/) | Marco Secchi | Packt Publishing | 2026 | `9781806665938` |
+| 94 | [Mathematics for Game Programming and Computer Graphics](https://learning.oreilly.com/library/view/-/9781801077330/) | Penny de Byl | Packt Publishing | 2022 | `9781801077330` |
+| 95 | [Procedural Content Generation for Games: Automate 3D Asset and Environment Creation with Blender Python and Geometry Nodes](https://learning.oreilly.com/library/view/-/9798868817878/) | Isabel Lupiani | Apress | 2025 | `9798868817878` |
+| 96 | [Procedural Content Generation with Unreal Engine 5](https://learning.oreilly.com/library/view/-/9781801074469/) | Paul Martin Eliasz | Packt Publishing | 2024 | `9781801074469` |
+| 97 | [Real-Time Rendering, Fourth Edition, 4th Edition](https://learning.oreilly.com/library/view/-/9781351816144/) | Tomas Akenine-Möller, Eric Haines, Naty Hoffman, Angelo Pesce, Michał Iwanicki, Sébastien Hillaire | A K Peters/CRC Press | 2018 | `9781351816144` |
+| 98 | [Reimagining Characters with Unreal Engine MetaHuman Creator - Second Edition](https://learning.oreilly.com/library/view/-/9781806024698/) | Brian Rossney | Packt Publishing | 2026 | `9781806024698` |
+| 99 | [The Art of Game Design, 3rd Edition](https://learning.oreilly.com/library/view/-/9781351803632/) | Jesse Schell | A K Peters/CRC Press | 2019 | `9781351803632` |
+| 100 | [The Game Designer's Workbook](https://learning.oreilly.com/library/view/-/9781394273935/) | Bobby Lockhart, Eric Lang | Wiley | 2025 | `9781394273935` |
+| 101 | [Unity 6 Game Development with C# Scripting](https://learning.oreilly.com/library/view/-/9781835880401/) | Lem Apperson | Packt Publishing | 2025 | `9781835880401` |
+| 102 | [Unreal Engine 5 Best Practices](https://learning.oreilly.com/library/view/-/9781836205654/) | Tyson Butler-Boschma | Packt Publishing | 2025 | `9781836205654` |
+| 103 | [Unreal Engine 5 Shaders and Effects Cookbook - Second Edition](https://learning.oreilly.com/library/view/-/9781837633081/) | Brais Brenlla Ramos | Packt Publishing | 2023 | `9781837633081` |
 
 #### AutoCAD, Fusion, SOLIDWORKS & Parametric CAD (19 Books)
 
 | # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
 |:---:|:---|:---|:---|:---:|:---|
-| 104 | 3D Printing with Fusion 360 | Sualp Ozel | Packt Publishing | 2023 | `9781803246642` |
-| 105 | AutoCAD 2025 Best Practices, Tips, and Techniques | Jeanne Aarhus | Packt Publishing | 2024 | `9781837636723` |
-| 106 | AutoCAD Platform Customization: User Interface, AutoLISP, VBA, and Beyond | Lee Ambrosius | Sybex | 2015 | `9781118798904` |
-| 107 | Autodesk Inventor 2023 Cookbook | Alexander Bordino | Packt Publishing | 2022 | `9781801810500` |
-| 108 | Cloud-based 3D Modeling with Onshape | Eduardo Magdalena García | Packt Publishing | 2026 | `9781837630318` |
-| 109 | Computer-Aided Graphing and Simulation Tools for AutoCAD Users | P. A. Simionescu | Chapman and Hall/CRC | 2014 | `9781482252903` |
-| 110 | Design Theory and Methods using CAD/CAE | Kuang-Hua Chang | Academic Press | 2014 | `9780123985125` |
-| 111 | Discovering AutoCAD 2027 | Mark Dix, Paul Riley, KaDe King | Peachpit Press | 2026 | `9780135571644` |
-| 112 | Engineering Graphics with AutoCAD 2023 | James D. Bethune, David Byrnes | Peachpit Press | 2022 | `9780137930036` |
-| 113 | FreeCAD | Brad Collette, Daniel Falck | Packt Publishing | 2012 | `9781849518864` |
-| 114 | Improving CAD Designs with Autodesk Fusion 360 | Kevin Michael Land | Packt Publishing | 2023 | `9781800564497` |
-| 115 | Introduction to AutoCAD 2024: A Modern Perspective | Paul Richard | Pearson | 2023 | `9780138232832` |
-| 116 | Learn SOLIDWORKS 2025 - Third Edition | Tayseer Sadiq J. Almattar | Packt Publishing | 2025 | `9781835463086` |
-| 117 | Manual of Engineering Drawing, 3rd Edition | Colin H. Simmons, Dennis E. Maguire, Neil Phelps | Butterworth-Heinemann | 2009 | `9780080943626` |
-| 118 | Mastering AutoCAD | Shaun Bryant | Packt Publishing | 2025 | `9781837639694` |
-| 119 | Parametric and Generative Design with Rhino Python and Grasshopper: Exploration in Form Finding and Procedural Generation | Isabel Lupiani | Apress | 2026 | `9798868827242` |
-| 120 | Practical Finite Element Simulations with SOLIDWORKS 2022 | Khameel B. Mustapha | Packt Publishing | 2022 | `9781801819923` |
-| 121 | Programming with OpenSCAD | Justin Gohde, Marius Kintel | No Starch Press | 2021 | `9781098129040` |
-| 122 | SolidWorks® Surfacing and Complex Shape Modeling Bible | Matt Lombard | Wiley | 2008 | `9780470258231` |
+| 104 | [3D Printing with Fusion 360](https://learning.oreilly.com/library/view/-/9781803246642/) | Sualp Ozel | Packt Publishing | 2023 | `9781803246642` |
+| 105 | [AutoCAD 2025 Best Practices, Tips, and Techniques](https://learning.oreilly.com/library/view/-/9781837636723/) | Jeanne Aarhus | Packt Publishing | 2024 | `9781837636723` |
+| 106 | [AutoCAD Platform Customization: User Interface, AutoLISP, VBA, and Beyond](https://learning.oreilly.com/library/view/-/9781118798904/) | Lee Ambrosius | Sybex | 2015 | `9781118798904` |
+| 107 | [Autodesk Inventor 2023 Cookbook](https://learning.oreilly.com/library/view/-/9781801810500/) | Alexander Bordino | Packt Publishing | 2022 | `9781801810500` |
+| 108 | [Cloud-based 3D Modeling with Onshape](https://learning.oreilly.com/library/view/-/9781837630318/) | Eduardo Magdalena García | Packt Publishing | 2026 | `9781837630318` |
+| 109 | [Computer-Aided Graphing and Simulation Tools for AutoCAD Users](https://learning.oreilly.com/library/view/-/9781482252903/) | P. A. Simionescu | Chapman and Hall/CRC | 2014 | `9781482252903` |
+| 110 | [Design Theory and Methods using CAD/CAE](https://learning.oreilly.com/library/view/-/9780123985125/) | Kuang-Hua Chang | Academic Press | 2014 | `9780123985125` |
+| 111 | [Discovering AutoCAD 2027](https://learning.oreilly.com/library/view/-/9780135571644/) | Mark Dix, Paul Riley, KaDe King | Peachpit Press | 2026 | `9780135571644` |
+| 112 | [Engineering Graphics with AutoCAD 2023](https://learning.oreilly.com/library/view/-/9780137930036/) | James D. Bethune, David Byrnes | Peachpit Press | 2022 | `9780137930036` |
+| 113 | [FreeCAD](https://learning.oreilly.com/library/view/-/9781849518864/) | Brad Collette, Daniel Falck | Packt Publishing | 2012 | `9781849518864` |
+| 114 | [Improving CAD Designs with Autodesk Fusion 360](https://learning.oreilly.com/library/view/-/9781800564497/) | Kevin Michael Land | Packt Publishing | 2023 | `9781800564497` |
+| 115 | [Introduction to AutoCAD 2024: A Modern Perspective](https://learning.oreilly.com/library/view/-/9780138232832/) | Paul Richard | Pearson | 2023 | `9780138232832` |
+| 116 | [Learn SOLIDWORKS 2025 - Third Edition](https://learning.oreilly.com/library/view/-/9781835463086/) | Tayseer Sadiq J. Almattar | Packt Publishing | 2025 | `9781835463086` |
+| 117 | [Manual of Engineering Drawing, 3rd Edition](https://learning.oreilly.com/library/view/-/9780080943626/) | Colin H. Simmons, Dennis E. Maguire, Neil Phelps | Butterworth-Heinemann | 2009 | `9780080943626` |
+| 118 | [Mastering AutoCAD](https://learning.oreilly.com/library/view/-/9781837639694/) | Shaun Bryant | Packt Publishing | 2025 | `9781837639694` |
+| 119 | [Parametric and Generative Design with Rhino Python and Grasshopper: Exploration in Form Finding and Procedural Generation](https://learning.oreilly.com/library/view/-/9798868827242/) | Isabel Lupiani | Apress | 2026 | `9798868827242` |
+| 120 | [Practical Finite Element Simulations with SOLIDWORKS 2022](https://learning.oreilly.com/library/view/-/9781801819923/) | Khameel B. Mustapha | Packt Publishing | 2022 | `9781801819923` |
+| 121 | [Programming with OpenSCAD](https://learning.oreilly.com/library/view/-/9781098129040/) | Justin Gohde, Marius Kintel | No Starch Press | 2021 | `9781098129040` |
+| 122 | [SolidWorks® Surfacing and Complex Shape Modeling Bible](https://learning.oreilly.com/library/view/-/9780470258231/) | Matt Lombard | Wiley | 2008 | `9780470258231` |
 
 #### Biomechanics, Biophysics & Smart Textiles (13 Books)
 
 | # | Book Title | Author(s) / Editor(s) | Publisher | Year | ISBN |
 |:---:|:---|:---|:---|:---:|:---|
-| 123 | Advances in 3D Textiles | Xiaogang Chen (Ed.) | Woodhead Publishing | 2015 | `9781782422198` |
-| 124 | Biomechanics and Robotics | Marko B. Popovic | CRC Press | 2013 | `9789814411370` |
-| 125 | Computational Biophysics of the Skin | Bernard Querleux (Ed.) | CRC Press | 2014 | `9789814463843` |
-| 126 | Computational Modelling of Biomechanics and Biotribology in the Musculoskeletal System | Zhongmin Jin (Ed.) | Woodhead Publishing | 2014 | `9780857096616` |
-| 127 | Electronics in Textiles and Clothing | L. Ashok Kumar, C. Vigneswaran | CRC Press | 2015 | `9781498715515` |
-| 128 | Fatigue of Textile Composites | Valter Carvelli, Stepan V. Lomov (Eds.) | Woodhead Publishing | 2015 | `9781782422938` |
-| 129 | Fundamentals of Biomechanics | Ronald L. Huston | CRC Press | 2013 | `9781466510371` |
-| 130 | Pattern Cutting for Clothing Using CAD | M. Stott | Woodhead Publishing | 2012 | `9780857092311` |
-| 131 | Simulation in Textile Technology | Dieter Veit (Ed.) | Woodhead Publishing | 2012 | `9780857090294` |
-| 132 | Smart Textiles | Nazire D. Yilmaz (Ed.) | Wiley-Scrivener | 2018 | `9781119460220` |
-| 133 | Textile Fiber Microscopy | Ivana Markova | Wiley | 2019 | `9781119320050` |
-| 134 | Textiles for Sportswear | Roshan Shishoo (Ed.) | Woodhead Publishing | 2015 | `9781782422365` |
-| 135 | Wearable Sensors, 2nd Edition | Edward Sazonov (Ed.) | Academic Press | 2020 | `9780128192474` |
+| 123 | [Advances in 3D Textiles](https://learning.oreilly.com/library/view/-/9781782422198/) | Xiaogang Chen (Ed.) | Woodhead Publishing | 2015 | `9781782422198` |
+| 124 | [Biomechanics and Robotics](https://learning.oreilly.com/library/view/-/9789814411370/) | Marko B. Popovic | CRC Press | 2013 | `9789814411370` |
+| 125 | [Computational Biophysics of the Skin](https://learning.oreilly.com/library/view/-/9789814463843/) | Bernard Querleux (Ed.) | CRC Press | 2014 | `9789814463843` |
+| 126 | [Computational Modelling of Biomechanics and Biotribology in the Musculoskeletal System](https://learning.oreilly.com/library/view/-/9780857096616/) | Zhongmin Jin (Ed.) | Woodhead Publishing | 2014 | `9780857096616` |
+| 127 | [Electronics in Textiles and Clothing](https://learning.oreilly.com/library/view/-/9781498715515/) | L. Ashok Kumar, C. Vigneswaran | CRC Press | 2015 | `9781498715515` |
+| 128 | [Fatigue of Textile Composites](https://learning.oreilly.com/library/view/-/9781782422938/) | Valter Carvelli, Stepan V. Lomov (Eds.) | Woodhead Publishing | 2015 | `9781782422938` |
+| 129 | [Fundamentals of Biomechanics](https://learning.oreilly.com/library/view/-/9781466510371/) | Ronald L. Huston | CRC Press | 2013 | `9781466510371` |
+| 130 | [Pattern Cutting for Clothing Using CAD](https://learning.oreilly.com/library/view/-/9780857092311/) | M. Stott | Woodhead Publishing | 2012 | `9780857092311` |
+| 131 | [Simulation in Textile Technology](https://learning.oreilly.com/library/view/-/9780857090294/) | Dieter Veit (Ed.) | Woodhead Publishing | 2012 | `9780857090294` |
+| 132 | [Smart Textiles](https://learning.oreilly.com/library/view/-/9781119460220/) | Nazire D. Yilmaz (Ed.) | Wiley-Scrivener | 2018 | `9781119460220` |
+| 133 | [Textile Fiber Microscopy](https://learning.oreilly.com/library/view/-/9781119320050/) | Ivana Markova | Wiley | 2019 | `9781119320050` |
+| 134 | [Textiles for Sportswear](https://learning.oreilly.com/library/view/-/9781782422365/) | Roshan Shishoo (Ed.) | Woodhead Publishing | 2015 | `9781782422365` |
+| 135 | [Wearable Sensors, 2nd Edition](https://learning.oreilly.com/library/view/-/9780128192474/) | Edward Sazonov (Ed.) | Academic Press | 2020 | `9780128192474` |
 
 </details>
 
@@ -939,7 +964,7 @@ zoe/
 <a id="quick-start"></a>
 <a id="verification-and-testing"></a>
 
-## 7. Quick Start, Live Studio &amp; Verification
+## 7. Quick Start
 
 ```bash
 git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
@@ -952,7 +977,7 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 ```
 
 <details>
-<summary><strong>Additional CLI Launchers &amp; Full Offline Verification Suite</strong> (22 Verifier Scripts + CI Workflow)</summary>
+<summary><strong>CLI Launchers &amp; Verification Suite</strong></summary>
 
 #### Interactive CLI Launchers
 
