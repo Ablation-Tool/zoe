@@ -1133,6 +1133,10 @@ def create_server(
                 rep_file = resolved_root / "evidence" / "kloster-theorem14" / "kloster-theorem14-report.json"
                 self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
                 return
+            if path == "/api/kloster/proof-packet":
+                rep_file = resolved_root / "evidence" / "proof-packet" / "kloster-proof-packet-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
             if path == "/botanical":
                 from .botanical_atlas_explorer import render_botanical_explorer_html
                 html_bytes = render_botanical_explorer_html()
@@ -1175,7 +1179,7 @@ def create_server(
                     f"<h1>Zoe :: 11-World Renaissance Observatory (All {doc.get('orbit_passes_completed', 11)} Orbital Passes Complete)</h1>"
                     f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
                     f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
-                    f"<span class='pill'>Theorems 1-14 SymPy Proved</span><span class='pill'>40/40 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
+                    f"<span class='pill'>Theorems 1-14 SymPy Proved</span><span class='pill'>41/41 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
                     f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
                     "<p style='margin-top:20px;color:#9db2d1;line-height:1.8'>Live Observatory APIs: "
                     "<a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "
@@ -1200,6 +1204,7 @@ def create_server(
                     "<a style='color:#63f5b5' href='/botanical'>/botanical (Interactive C27 Explorer)</a> · "
                     "<a style='color:#f0a3df' href='/optics'>/optics (Interactive Theorem 14 Optical &amp; Spatial Lab)</a> · "
                     "<a style='color:#7ce8ff' href='/api/kloster/theorem14'>/api/kloster/theorem14</a> · "
+                    "<a style='color:#ffb84d' href='/api/kloster/proof-packet'>/api/kloster/proof-packet</a> · "
                     "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
                 ).encode("utf-8")
                 self.send_response(200)
