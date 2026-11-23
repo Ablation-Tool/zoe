@@ -59,7 +59,7 @@
     },
     {
       "detail": {
-        "chain_head": "74cc96116756d209",
+        "chain_head": "a0ee231f13af3218",
         "relay_notes": 1
       },
       "id": "08_persistent_memory_chain",
@@ -118,7 +118,7 @@
         "cloud_tokens_used": 0,
         "external_actions": 0,
         "glass_box_transparent": true,
-        "identity_role": "eliza_gem_glass_box_workbench",
+        "identity_role": "research_partner_workbench",
         "local_llm_loopback_only": true,
         "pytorch_required": false,
         "sentience_claimed": false,
@@ -136,7 +136,7 @@
     "cloud_tokens_used": 0,
     "external_actions": 0,
     "glass_box_transparent": true,
-    "identity_role": "eliza_gem_glass_box_workbench",
+    "identity_role": "research_partner_workbench",
     "local_llm_loopback_only": true,
     "pytorch_required": false,
     "sentience_claimed": false,

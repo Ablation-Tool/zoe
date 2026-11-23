@@ -1962,7 +1962,7 @@
       fileList.map(fn => {
         const p = plateByFile[fn];
         if (!p) return '';
-        return `<button type="button" class="mini-plate" onclick="window.openLightbox('plates/${esc(fn)}', '${esc(p.title)}', '${esc(p.desc)}')">
+        return `<button type="button" class="mini-plate" data-lb-src="plates/${esc(fn)}" data-lb-title="${esc(p.title)}" data-lb-desc="${esc(p.desc)}">
           <img src="plates/${esc(fn)}" alt="${esc(p.title)}" loading="lazy"/>
           <span>${esc(p.title)}</span>
         </button>`;
@@ -2247,7 +2247,7 @@
   const platesGrid = document.getElementById('platesGrid');
   platesGrid.innerHTML = ATLAS.plates.map(p => `
     <article class="plate-card" data-search="${esc((p.title + ' ' + p.cat + ' ' + p.desc).toLowerCase())}">
-      <div class="plate-img-wrap" onclick="window.openLightbox('plates/${esc(p.file)}', '${esc(p.title)}', '${esc(p.desc)}')">
+      <div class="plate-img-wrap" data-lb-src="plates/${esc(p.file)}" data-lb-title="${esc(p.title)}" data-lb-desc="${esc(p.desc)}">
         <img src="plates/${esc(p.file)}" alt="${esc(p.title)}" loading="lazy"/>
       </div>
       <div class="plate-meta">

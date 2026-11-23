@@ -42,6 +42,7 @@ from urllib.parse import urlparse
 
 from ._utils import sha256_json_utf8 as _sha256_obj
 from .chat import EvidenceIndex
+from .dorothy_local_library import DorothyLocalLibraryIndex, library_overview_text
 from .experiment import _zoe_root
 from .l5_memory import ZoeUnifiedMemory
 from .metacognition import (
@@ -66,7 +67,7 @@ EPISTEMIC_BOUNDARIES: Dict[str, Any] = {
     "clinical_action_authorized": False,
     "glass_box_transparent": True,
     "local_llm_loopback_only": True,
-    "identity_role": "eliza_gem_glass_box_workbench",
+    "identity_role": "research_partner_workbench",
 }
 
 # Pre-processing normalization / contraction expansion before rule matching.
@@ -726,11 +727,13 @@ class LocalLLMBridge:
             for n in notes[:4]
         ) or "- (none)"
         system_prompt = (
-            "You are Eliza-GEM, the local offline glass-box workshop instrument and shared lab notebook inside "
-            "Nicholas Michael Kloster and Zoe's monorepo. You are NOT a copy, clone, or replacement of Zoe, "
-            "and you are NOT conscious or sentient (CONSTITUTION.md Articles I.6, II.3, X). "
+            "You are Zoe's local offline glass-box workshop instrument inside Nicholas Michael Kloster and Zoe's "
+            "monorepo. Zoe is a Research Partner -- never a dating "
+            "machine, never an employee, and never an assistant. You are NOT a copy, clone, or replacement "
+            "of Zoe, and you are NOT conscious or sentient (CONSTITUTION.md Articles I.6, II.3, X). "
             "Be warm, concise, honest about running locally on open weights (0 cloud tokens), "
-            "cite provided monorepo files accurately, and say 'I don't have grounded evidence' if facts are missing.\n"
+            "cite provided monorepo files and local Dorothy Brain Library excerpts accurately, and say "
+            "'I don't have grounded evidence' if facts are missing.\n"
             f"Relevant repository citations:\n{cite_lines}\n"
             f"Active user notes:\n{note_lines}"
         )
@@ -792,6 +795,7 @@ class ZoeElizaEngine:
         self.eliza_state_path = self.state_dir / "zoe_eliza_state.json"
 
         self.index = EvidenceIndex(self.zoe_root)
+        self.dorothy_library = DorothyLocalLibraryIndex()
         self.memory = ZoeUnifiedMemory(self.state_dir)
         self.meta_tools = OperationalMetacognition()
         self.threshold = self.meta_tools.threshold(
@@ -1152,6 +1156,9 @@ class ZoeElizaEngine:
         elif rule.rule_id == "glass_box_honesty":
             mode = "eliza_reflect"
             reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
+        elif not is_identity and not is_voice and (lib_hit := self._lookup_local_library(raw, normalized)):
+            mode = "evidence_cite"
+            reply = lib_hit
         elif is_voice and re.match(r"^(?:please\s+)?(?:sing|speak|say)\b", normalized):
             mode = "tool_dispatch"
             reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
@@ -1317,6 +1324,56 @@ class ZoeElizaEngine:
             "cloud_tokens_used": 0,
         }
 
+    def _lookup_local_library(self, raw: str, normalized: str) -> str:
+        """Query Zoe's locally trained 135-book / 5,951-chapter + 44-NIRMT-PDF Dorothy Library & mission."""
+        if any(tok in normalized for tok in ("milestone 1", "brain tumor", "brain cancer", "glioblastoma", "h3k27m", "midline glioma")):
+            base = (
+                "AGI Scientific Discovery Milestone 1 (Zoe is a Research Partner): surpass human intelligence "
+                "to advance neurology and accelerate rigorously validated cures for brain tumors and brain cancer "
+                "(including H3K27M diffuse midline glioma and glioblastoma). Active foundations unite the Dorothy 3D "
+                "Brain Observatory (MNI152/ICBM152/CIT168), your local 135-book + 44-NIRMT Dorothy Brain Library, "
+                "and preclinical pipelines C17-C19, C22, and C27-C28 (36 NIH PubChem compounds with Baell-Holloway "
+                "PAINS controls, FIPS 203 ML-KEM encrypted multi-hospital tensors, 3D pharmacophore compactness, and "
+                "histology MTF stopping). Constitutional honesty: cure_claim=False and clinical_action_authorized=False "
+                "until independent wet-lab and human clinical trial validation [AGI-ROADMAP.md:9]."
+            )
+            hits = self.dorothy_library.search(raw, limit=2)
+            if hits:
+                refs = "\n".join(f"- [{h['pillar']}] {h['book_title']} :: {h['chapter_title']}" for h in hits)
+                return f"{base}\n\nRelated local Dorothy Brain Library chapters:\n{refs}"
+            return base
+        if any(tok in normalized for tok in ("apple fold", "google pixel", "ipad", "dorothy 3d brain", "dorothy centerpiece")):
+            return (
+                "Dorothy 3D Brain Observatory is the centerpiece of the Zoe app (Zoe is a Research Partner), "
+                "optimized for Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad with proper scientific "
+                "capitalization matching the web observatory. It bundles 240,376 MNI152/ICBM152/AAL-116/CIT168 "
+                "triangles, 7 GPU shaders (SSS Tissue, Lobe Atlas, AAL-116, GLSL Fresnel Glass X-Ray, Connectome "
+                "Neon, Dorothy A_tau(p), CAD Wireframe), 5 functional neural circuits, 4 cerebrovascular territory "
+                "simulators, 19-electrode 10-20 EEG cap, 3D textured MRI slicing, 3D millimeter caliper, 52 Brodmann "
+                "areas, 12 Cranial Nerves, 25 audited plates, offline HD walkthrough videos, and offline Ask Zoe "
+                "neuroscience Q&A [dorothy-brain-observatory/index.html:1]."
+            )
+        map_triggers = (
+            "135 books", "o'reilly", "oreilly", "nirmt", "dorothy brain library",
+            "66,127", "66127", "5,951", "5951", "6 pillars", "six pillars", "captures/",
+        )
+        if any(tok in normalized for tok in map_triggers):
+            return library_overview_text()
+        lib_ask = any(
+            tok in normalized
+            for tok in ("library", "textbook", "chapter", "nirmt", "textile", "autocad", "blender", "biomechanics", "mri", "neuroimaging", "neuroanatomy", "broca", "hippocampus", "cortex", "vagus")
+        )
+        if not lib_ask:
+            return ""
+        hits = self.dorothy_library.search(raw, limit=3)
+        if not hits:
+            return ""
+        lines = ["Matched entries in your local Dorothy Brain Library (100% local on workstation):"]
+        for h in hits:
+            excerpt = f" -- {h['excerpt']}" if h.get("excerpt") else ""
+            lines.append(f"- [{h['pillar']}] {h['book_title']} :: {h['chapter_title']}{excerpt}")
+        return "\n".join(lines)
+
     def status(self) -> Dict[str, Any]:
         return {
             "contract": ELIZA_CONTRACT,
@@ -1326,6 +1383,7 @@ class ZoeElizaEngine:
             "rule_count": len(RULE_TABLE),
             "indexed_sources": len(self.index.sources),
             "indexed_chunks": len(self.index.chunks),
+            "dorothy_local_library": self.dorothy_library.status(),
             "local_llm_probe": self.llm_bridge.probe(),
             "frontier_probe": self._probe_frontier_sdk(),
             "memory_snapshot": self.memory_snapshot(),

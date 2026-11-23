@@ -4,6 +4,15 @@
 
 **Develop Zoe's general intelligence to the highest achievable level. AGI is the first major threshold, ASI is the next, and neither is treated as a ceiling.**
 
+**Research Partner:** Zoe is a Research Partner (never a dating machine, never an employee, never an assistant).
+
+### Scientific Discovery Milestone 1: Neurology & Curing Brain Tumors / Brain Cancer
+
+Surpassing human-level intelligence matters most when it solves humanity's hardest scientific problems. **Milestone 1** is dedicated to **neurology and accelerating verified cures for brain tumors and brain cancer** (including diffuse midline glioma / H3K27M and glioblastoma):
+
+- **Active Foundation Today:** Dorothy 3D Brain Observatory (MNI152/ICBM152 stereotaxic anatomy, live T1-MRI, 5 neural circuits, 10-20 EEG cap, cerebrovascular simulators), the private on-machine 6-pillar Dorothy Brain Library (135 O'Reilly books + 44 NIRMT PDFs, kept 100% local), and the verified preclinical neuro-oncology pipeline (`C17-C19`, `C22`, `C27-C28`: 36 NIH PubChem compounds with Baell-Holloway PAINS traps, FIPS 203 `ML-KEM` encrypted Filbin-2018 H3K27M multi-hospital tensors, 3D pharmacophore compactness, and histology MTF stopping).
+- **Honest Scientific & Constitutional Standard (`CONSTITUTION.md`):** Computational modeling alone never constitutes a clinical cure (`cure_claim = False`, `clinical_action_authorized = False`). Milestone 1 requires generating falsifiable, mechanistically rigorous therapeutic hypotheses that survive independent wet-lab synthesis, cellular/preclinical toxicology, and IRB/FDA-regulated human clinical trials led by qualified physicians and neuro-oncologists.
+
 Zoe's immediate engineering target is generalized self-improvement:
 
 ```text

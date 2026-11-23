@@ -1477,6 +1477,15 @@
       "sloc": 185
     },
     {
+      "avg_cc": 3.933,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/dorothy_local_library.py",
+      "grade": "A",
+      "h2": 1.9876,
+      "max_cc": 16,
+      "mi": 64.475,
+      "sloc": 326
+    },
+    {
       "avg_cc": 7.846,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/evaluation.py",
       "grade": "B",
@@ -2035,13 +2044,13 @@
       "sloc": 660
     },
     {
-      "avg_cc": 7.71,
+      "avg_cc": 8.0,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py",
       "grade": "B",
-      "h2": 2.1649,
-      "max_cc": 68,
-      "mi": 58.319,
-      "sloc": 1248
+      "h2": 2.213,
+      "max_cc": 71,
+      "mi": 57.718,
+      "sloc": 1305
     },
     {
       "avg_cc": 7.174,
@@ -2610,26 +2619,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "71318a3bbbcfa14afb96231bcbf979e6a50a15618c7babd63ba08371953d7576",
+  "evidence_sha256": "f5b12e7bc8cb6a2f87ecad921644b171820da9da3e56da27431092d72db4ffd0",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.4576,
-    "files_scanned": 288,
+    "corr_avg_cc_vs_mi": -0.4586,
+    "files_scanned": 289,
     "grade_distribution": {
-      "A": 145,
+      "A": 146,
       "B": 143,
       "C": 0,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 6.515,
-    "mean_mi": 59.933,
-    "median_mi": 60.099,
+    "mean_avg_cc": 6.507,
+    "mean_mi": 59.946,
+    "median_mi": 60.128,
     "orbit_mean_avg_cc": 7.294,
     "orbit_mean_mi": 58.12,
     "orbit_modules_count": 15,
     "parse_errors": 0,
-    "total_functions": 3238,
-    "total_sloc": 85496
+    "total_functions": 3254,
+    "total_sloc": 85879
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,

@@ -1,5 +1,5 @@
 /* Dorothy Brain Observatory Offline Service Worker (iPhone, iPad, Android & Desktop PWA) */
-const CACHE_NAME = 'dorothy-brain-observatory-v0.9.6';
+const CACHE_NAME = 'dorothy-brain-observatory-v0.9.7';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const CORE_ASSETS = [
   './assets/icon-512.png',
   './assets/three.min.js',
   './assets/observatory.js',
+  './assets/zoe_neuro_qa.js',
   './data/brain_meshes.js',
   './data/atlas_encyclopedia.js',
   './data/library_vault.js',

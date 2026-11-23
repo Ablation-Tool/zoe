@@ -276,8 +276,38 @@
   .mobile-only { display: none; }
   .mobile-hint { display: none; }
 
+  /* Ask Zoe Neuroscience Q&A + Videos & Gallery */
+  .zoe-qa-shell { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .zoe-feed { display: flex; flex-direction: column; gap: 10px; max-height: 54vh; overflow-y: auto; padding: 4px 2px; }
+  .zoe-msg { border-radius: 14px; padding: 12px 14px; border: 1px solid var(--border); background: var(--panel); }
+  .zoe-msg-user { align-self: flex-end; max-width: 84%; background: #162b4a; border-color: #2c5282; color: #f8fafc; }
+  .zoe-msg-zoe { align-self: flex-start; width: 100%; }
+  .zoe-msg-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .zoe-msg-head strong { color: var(--gold); font-size: 0.96rem; }
+  .zoe-mni { font-size: 0.76rem; color: var(--muted); margin-bottom: 6px; }
+  .zoe-mni code { color: var(--emerald); background: #0a1424; padding: 2px 6px; border-radius: 4px; }
+  .zoe-msg-body { font-size: 0.86rem; color: #dbe5f3; line-height: 1.5; }
+  .zoe-msg-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .zoe-rel { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; font-size: 0.75rem; color: var(--muted); }
+  .zoe-scope { font-size: 0.69rem; color: #7c90ad; margin-top: 8px; }
+  .zoe-form { display: flex; gap: 8px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 8px; }
+  .zoe-form input { flex: 1; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 0.88rem; }
+  .zoe-form button { background: #1d4ed8; color: #fff; border: 0; border-radius: 8px; padding: 9px 16px; font-weight: 700; cursor: pointer; }
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .video-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .video-card video { width: 100%; max-height: 360px; background: #04070d; display: block; }
+  .video-card .plate-meta { padding: 12px 14px; }
+
+  @media (horizontal-viewport-segments: 2) {
+    #panel-brain3d.active {
+      display: grid;
+      grid-template-columns: env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);
+      column-gap: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0));
+    }
+  }
+
   @media (max-width: 1120px) {
-    #panel-brain3d.active { grid-template-columns: 240px 1fr; height: auto; min-height: calc(100vh - 54px); }
+    #panel-brain3d.active { grid-template-columns: 240px 1fr; height: auto; min-height: calc(100dvh - 54px); }
     .dock-right { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--border); }
   }
 
@@ -329,10 +359,12 @@
     </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="Observatory workspaces">
-    <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="brain3d">3D Navigable Brain</button>
-    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="plates">Verified Plates &amp; Poster</button>
-    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="encyclopedia">Neuroanatomy Atlas</button>
-    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="vault">Dorothy Library &amp; Vault</button>
+    <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="brain3d">3D Brain</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="askzoe">Ask Zoe</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="media">Videos &amp; Gallery</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="plates">Verified Plates</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="encyclopedia">Atlas</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="vault">Library &amp; CAD</button>
   </nav>
   <div class="gsearch-wrap">
     <label for="globalSearch" class="sr-only">Search brain structures, Brodmann areas, cranial nerves, or textbooks</label>
@@ -501,7 +533,59 @@
     </aside>
   </section>
 
-  <!-- ═══════════════════ TAB 2: VERIFIED PLATES & POSTER ═══════════════════ -->
+  <!-- ═══════════════════ TAB 2: ASK ZOE NEUROSCIENCE Q&A ═══════════════════ -->
+  <section id="panel-askzoe" class="tab-panel" role="tabpanel" aria-label="Ask Zoe Brain and Neuroscience Questions">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>Ask Zoe About the Brain &amp; Neuroscience</h2>
+        <p>100% offline neuroanatomy assistant grounded directly in the Dorothy MNI152/ICBM152 atlas. Every answer includes stereotaxic MNI coordinates and a 1-tap button to fly the 3D brain straight to that structure or circuit.</p>
+      </div>
+      <div class="zoe-qa-shell">
+        <div id="zoeNeuroChips" class="quick-pills"></div>
+        <div id="zoeNeuroFeed" class="zoe-feed" aria-live="polite"></div>
+        <form id="zoeNeuroForm" class="zoe-form">
+          <label for="zoeNeuroInput" class="sr-only">Ask Zoe a brain or neuroscience question</label>
+          <input id="zoeNeuroInput" type="text" placeholder="Ask about Broca's area, hippocampus, CN X, MCA stroke, EEG waves, dopamine..." autocomplete="off"/>
+          <button type="submit">Ask Zoe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TAB 3: VIDEOS & HD OBSERVATORY GALLERY ═══════════════════ -->
+  <section id="panel-media" class="tab-panel" role="tabpanel" aria-label="Dorothy Brain Videos and High-Resolution Gallery">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>Dorothy Brain Videos &amp; High-Resolution Gallery</h2>
+        <p>Offline feature walkthrough videos, live 3D shader reels, and high-resolution observatory captures. Tap any image to zoom full-screen.</p>
+      </div>
+      <div class="video-grid">
+        <article class="video-card">
+          <video controls playsinline preload="metadata" poster="previews/01_hero_tissue.jpg">
+            <source src="previews/dorothy_observatory_reel.mp4" type="video/mp4"/>
+          </video>
+          <div class="plate-meta">
+            <span class="pill-cat">HD Feature Reel · 18s</span>
+            <h3>Dorothy 3D Brain Observatory 8-Mode Showcase</h3>
+            <p>Tours subsurface-scattering ICBM152 cortex, Fresnel Glass X-Ray deep CIT168 nuclei, exploded AAL-116 lobes, Dorothy Continuum A_tau(p), Language Loop circuit, 10-20 EEG cap, 3D textured MRI slicing, and cerebrovascular territory simulation.</p>
+          </div>
+        </article>
+        <article class="video-card">
+          <video controls playsinline preload="metadata" poster="previews/02_xray_deep_nuclei.jpg">
+            <source src="previews/dorothy_brain_tour.mp4" type="video/mp4"/>
+          </video>
+          <div class="plate-meta">
+            <span class="pill-cat">Live Pixel 7 Walkthrough · 28s</span>
+            <h3>Full-Feature Mobile 3D Brain Walkthrough</h3>
+            <p>Real screen recording on Pixel 7 demonstrating 360-degree touch orbit, live MNI152 MRI slice crosshairs, all 7 GPU shaders, 3D callout pills, 6-stop Guided Tour, 25 verified plates, and Broca BA 44 fly-to-3D search.</p>
+          </div>
+        </article>
+      </div>
+      <div id="mediaPreviewGrid" class="plates-grid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TAB 4: VERIFIED PLATES & POSTER ═══════════════════ -->
   <section id="panel-plates" class="tab-panel" role="tabpanel" aria-label="Verified Anatomical Plates and Wall Poster">
     <div class="page-wrap">
       <div class="page-head">
@@ -655,6 +739,7 @@
 <script src="data/atlas_encyclopedia.js"></script>
 <script src="data/library_vault.js"></script>
 <script src="assets/observatory.js"></script>
+<script src="assets/zoe_neuro_qa.js"></script>
 <script>
   (function () {
     const btn = document.getElementById('btnMobileControls');

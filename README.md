@@ -26,7 +26,7 @@ $$
 
 *A unified, offline-capable research observatory and mobile app where Operational Metacognition, 3D human neuroanatomy, formal mathematical proofs, native voice synthesis, and reproducible engineering share one honest roof.*
 
-**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 40 Extended GEM Layers · `16/16` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `288` Live Zoe Modules (`0` Grade-C/D) · `61` Live HTTP Routes · `47/47` `SHA256SUMS.orbit` Sealed · `v0.9.6-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 40 Extended GEM Layers · `16/16` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `289` Live Zoe Modules (`0` Grade-C/D) · `61` Live HTTP Routes · `47/47` `SHA256SUMS.orbit` Sealed · `v0.9.6-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
 
 <br/>
 
@@ -38,7 +38,7 @@ $$
 &nbsp;
 [![Release Notes and SHA-256](https://img.shields.io/badge/Release_Notes_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
 
-<sub><strong>Android (1-click APK):</strong> tap the red button above, install <code>zoe-beta-v0.9.6-android.apk</code>, and open <code>=</code> or <code>+</code> &rarr; <strong><code>Dorothy 3d brain</code></strong>.<br/><strong>iPhone &amp; iPad (instant today, zero App Store needed):</strong> open the blue button in <strong>Safari</strong> &rarr; tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong> for the full-screen 60fps offline Dorothy 3D Brain app (or build the complete native SwiftUI Zoe iOS app in <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a>).</sub>
+<sub><strong>Android (1-click APK):</strong> tap the red button above, install <code>zoe-beta-v0.9.6-android.apk</code>, and open the <strong><code>Dorothy 3D Brain</code></strong> centerpiece right on Home.<br/><strong>iPhone, Apple Fold &amp; iPad:</strong> open the blue button in <strong>Safari</strong> &rarr; tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong> for the full-screen 60fps Dorothy 3D Brain app (or build the native SwiftUI Xcode project in <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a>).</sub>
 
 <br/>
 
@@ -50,40 +50,56 @@ $$
 
 <a id="dorothy-brain-observatory"></a>
 
-## 1. Dorothy Brain Observatory *(Interactive 3D MNI152 Human Brain · Android, iPhone/iPad &amp; Web)*
+## 1. Zoe App &amp; Dorothy 3D Brain Centerpiece *(Research Partner · Google Pixel, Apple iOS, Apple Fold &amp; iPad)*
 
-> **Honoring Dorothy McEwen Kildall:** A 100% offline WebGL2 **3D Navigable Human Brain Observatory** combining **`240,376` real stereotaxic anatomical triangles**, **live synchronized `0.74 mm` MNI152 T1-MRI** slices, **25 audited anatomical plates**, a **`4800 × 3200` wall-chart poster**, **15 CAD meshes**, and live **Dorothy Continuum $A_\tau(p)$** cortical visualization. *(Standard population templates for research &amp; education only, not diagnostic or surgical guidance.)*
+> **Zoe is a Research Partner.** Built around the **Dorothy 3D Brain Observatory** (honoring **Dorothy McEwen Kildall**): **`240,376` real stereotaxic anatomical triangles**, **live synchronized `0.74 mm` MNI152 T1-MRI** slices, **5 functional neural circuits**, **4 cerebrovascular stroke territory simulators**, **19-electrode 10-20 EEG cap**, **25 audited anatomical plates**, **HD walkthrough videos**, and integrated **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain`. Optimized for **Google Pixel, Apple iOS (iPhone), Apple Fold, and iPad**. *(Standard population templates for research &amp; education only, not diagnostic or surgical guidance.)*
 
 <div align="center">
 
-<img src="dorothy-brain-observatory/previews/zoe_android_dorothy_brain_tour.gif" alt="Full live Pixel 7 screen recording walking through every feature of Dorothy 3D Brain Observatory inside the Zoe mobile app" width="310" />
-
-<br/>
-<sub><strong>Live Pixel 7 Walkthrough (100% offline):</strong> Quick Menu &rarr; <code>Dorothy 3d brain</code> &rarr; 360° touch orbit &rarr; live MNI152 MRI slices &rarr; all 7 GPU shaders &rarr; 3D callout labels &rarr; 6-stop Guided Tour (Glass X-Ray, Exploded Dissection, Midsagittal MRI Cutaway) &rarr; 25 Verified Plates + zoom lightbox &rarr; search <code>"broca"</code> Fly-to-3D (<code>BA 44</code>).</sub>
+<img src="dorothy-brain-observatory/previews/zoe_app_research_partner_showcase.png" alt="Zoe v0.9.6-beta Research Partner app on live Google Pixel 7: Dorothy 3D Brain Centerpiece, 3D Cortex + Live MNI152 MRI, Research Partner Brain Q&A, and Videos & HD Gallery" width="100%" />
 
 <br/><br/>
 
-**[⬇ Android APK (`v0.9.6-beta`)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🍎 iPhone / iPad 1-Tap Safari PWA](https://ablation-tool.github.io/zoe/)** · **[📱 Apple Xcode App](mobile/apple/Zoe.xcodeproj)** · **[📂 Local Offline HTML](dorothy-brain-observatory/index.html)** · **[🗺️ 4800 × 3200 Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
+<table>
+<tr>
+<td align="center" width="50%">
+<img src="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.gif" alt="Live Google Pixel 7 video walkthrough of the updated Zoe Research Partner app and Dorothy 3D Brain Centerpiece" width="275" /><br/>
+<sub><strong>Live Pixel 7 App Walkthrough:</strong> Dorothy 3D Brain Centerpiece &rarr; 3D touch orbit + live MRI &rarr; Ask Zoe Brain Q&amp;A &rarr; Videos &amp; Gallery &rarr; Research Partner Chat + <code>View in Dorothy 3D Brain</code> (<a href="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4">Watch HD MP4</a>).</sub>
+</td>
+<td align="center" width="50%">
+<img src="dorothy-brain-observatory/previews/zoe_android_dorothy_brain_tour.gif" alt="Live Google Pixel 7 deep tour of all 7 GPU shaders, 3D callouts, 6-stop Guided Tour, 25 plates, and BA 44 Fly-to-3D" width="275" /><br/>
+<sub><strong>Deep 3D Brain Shader &amp; Atlas Tour:</strong> all 7 GPU shaders, 3D callouts, 6-stop Guided Tour, 25 plates + lightbox, and BA 44 Fly-to-3D (<a href="dorothy-brain-observatory/previews/dorothy_brain_tour.mp4">Mobile MP4</a> · <a href="dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4">8-Mode HD Reel MP4</a>).</sub>
+</td>
+</tr>
+</table>
+
+<br/>
+
+**[⬇ Android APK (`v0.9.6-beta`)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🍎 iPhone / iPad / Apple Fold PWA](https://ablation-tool.github.io/zoe/)** · **[📱 Apple Xcode App](mobile/apple/Zoe.xcodeproj)** · **[🎬 App Walkthrough Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[🗺️ 4800 × 3200 Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
 
 </div>
 
 | Component | Live Capabilities |
 |:---|:---|
 | **3D Stereotaxic Geometry** | `240,376` triangles (`5.58 MB` Int16 bundle, `< 1s` load): ICBM152 cortex, AAL-116 lobes &amp; cerebellum, 32 Pauli CIT168 deep nuclei, Circle of Willis, 12 cranial nerves, DTI tracts |
-| **Shaders &amp; Live MRI** | 7 real-time GPU shaders (Tissue, Lobe Atlas, AAL-116, Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy $A_\tau(p)$) + synchronized `0.74 mm` Axial/Coronal/Sagittal MNI152 T1-MRI |
-| **Interactive Navigation** | 1-finger 360° orbit, 2-finger pinch-zoom/pan, 6-stop Guided Tour, 52 Brodmann + 12 CN search with 1-tap `Fly to 3D`, 3D MRI clipping planes, 25 audited offline plates |
-| **Offline Platforms &amp; Privacy** | Android [`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java), iPhone/iPad Safari PWA + native [`DorothyBrainObservatoryView.swift`](mobile/apple/Zoe/DorothyBrainObservatoryView.swift), Desktop WebGL2 (`0` tracking, `0` ads) |
+| **Shaders, Circuits &amp; Live MRI** | 7 real-time GPU shaders (SSS Tissue, Lobe Atlas, AAL-116, GLSL Fresnel Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy $A_\tau(p)$), 5 functional neural circuits, 4 cerebrovascular stroke territory simulators, 19-electrode 10-20 EEG cap + wave scope, 3D caliper &amp; synchronized `0.74 mm` MNI152 T1-MRI |
+| **Ask Zoe, Videos &amp; Navigation** | Centerpiece of the Zoe mobile app (**Research Partner**): built-in **Ask Zoe** neuroscience Q&amp;A with 1-tap `View in Dorothy 3D Brain` + voice synthesis, bundled MP4 brain tour &amp; 8-mode reel + HD gallery, 6-stop Guided Tour, 52 Brodmann + 12 CN atlas, 25 audited plates |
+| **Multi-Device Optimization** | Native Android [`HomeView.java`](mobile/android/app/src/main/java/research/zoetic/zoe/HomeView.java) &amp; [`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java) (**Google Pixel** &amp; Fold/Tablet), Apple [`DeskHomeView.swift`](mobile/apple/Zoe/DeskHomeView.swift), [`RootView.swift`](mobile/apple/Zoe/RootView.swift) &amp; [`DorothyBrainObservatoryView.swift`](mobile/apple/Zoe/DorothyBrainObservatoryView.swift) (**iPhone, Apple Fold &amp; iPad**), Safari PWA &amp; Desktop WebGL2 (`0` tracking, `0` ads) |
 
 <details>
-<summary><strong>Live Mobile Screenshots</strong> (8 Pixel 7 Captures: MRI, Glass X-Ray, Dorothy Continuum, AAL-116, Labels, Connectome, Plates &amp; Atlas)</summary>
+<summary><strong>Live Mobile App Screenshots</strong> (12 Live Google Pixel 7 Captures: Research Partner Centerpiece, Ask Zoe, Videos, Chat &amp; All 3D Shaders)</summary>
 
-| Wet-Pia 3D Cortex + Live MRI | Glass X-Ray Deep Nuclei &amp; DTI | Dorothy Continuum $A_\tau(p)$ | AAL-116 Cortical Parcels |
+| Home: Dorothy 3D Brain Centerpiece | 3D Cortex + Live MNI152 MRI | Ask Zoe: Brain Q&amp;A | Research Partner Chat + Fly to 3D |
 |:---:|:---:|:---:|:---:|
-| <img src="dorothy-brain-observatory/previews/mobile_01_brain_3d_mri.png" alt="Wet-Pia Tissue mode with synchronized MNI152 MRI slices on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="All 116 AAL cortical and cerebellar anatomical parcels in 3D relief on Pixel 7" width="210" /> |
+| <img src="dorothy-brain-observatory/previews/mobile_zoe_01_home_centerpiece.png" alt="Zoe Home screen with Dorothy 3D Brain centerpiece and stacked neuroscience topics on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_zoe_02_brain_3d_mri.png" alt="Interactive Dorothy 3D Brain with synchronized MNI152 Axial, Coronal, and Sagittal MRI slices on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_zoe_03_ask_zoe_brain.png" alt="Ask Zoe Research Partner neuroscience tab inside Dorothy 3D Brain on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="210" /> |
 
-| Lobe Atlas + 3D Callout Labels | Connectome Neon + Neural Pulses | 25 Verified Offline Plates | 52 Brodmann &amp; 12 CN Atlas |
+| Videos &amp; HD Gallery | Glass X-Ray Deep Nuclei &amp; DTI | Dorothy Continuum $A_\tau(p)$ | AAL-116 Cortical Parcels |
 |:---:|:---:|:---:|:---:|
-| <img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe legend on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="25 verified public-domain, CC-BY, and custom SVG anatomical plates offline on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D on Pixel 7" width="210" /> |
+| <img src="dorothy-brain-observatory/previews/mobile_zoe_04_videos_gallery.png" alt="Dorothy 3D Brain bundled MP4 videos and HD gallery on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="All 116 AAL cortical and cerebellar anatomical parcels in 3D relief on Pixel 7" width="210" /> |
+
+| Lobe Atlas + 3D Callout Labels | Connectome Neon + Neural Pulses | 25 Verified Plates | 52 Brodmann &amp; 12 CN Atlas |
+|:---:|:---:|:---:|:---:|
+| <img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe legend on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="25 verified public-domain, CC-BY, and custom SVG anatomical plates on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D on Pixel 7" width="210" /> |
 
 </details>
 
@@ -105,7 +121,7 @@ $$
 
 #### Install &amp; Launch
 
-- **Android (8.0+):** Download **[`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** (SHA-256 on [v0.9.6-beta Release](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)), install, and open **`=`** or **`+`** -> **`Dorothy 3d brain`**.
+- **Android (8.0+ / Google Pixel &amp; Fold):** Download **[`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** (SHA-256 on [v0.9.6-beta Release](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)), install, and tap **`Explore Dorothy 3D Brain`** on Home.
 - **iPhone &amp; iPad (iOS 17+):** Open **[`ablation-tool.github.io/zoe`](https://ablation-tool.github.io/zoe/)** in **Safari** -> **Share** -> **Add to Home Screen** (offline Service Worker PWA), or build the native SwiftUI Xcode project at [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj).
 - **Desktop / CAD:** Open [`dorothy-brain-observatory/index.html`](dorothy-brain-observatory/index.html), read the full dataset attribution guide in [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md), or export meshes from [`dorothy-brain-observatory/3d_models/`](dorothy-brain-observatory/3d_models/) (10 `.OBJ`/`.PLY` + 5 `.STL`).
 
@@ -143,7 +159,7 @@ $$
 |:---|:---|:---|:---:|
 | **A. Information Geometry &amp; Entropies** | Gen. Thm, Thms 1, 5, 6, 7, 11 | Spectral moments, Rényi/Tsallis, thermodynamics, Fisher-Rao, Wasserstein $W_1$, unification | **Proved (`0` res.)** |
 | **B. Dynamics, Mixing &amp; Quantum Duality** | Thms 2, 8, 9, Adaptive Lens | Multi-horizon $(\tau, h)$ phases, Birkhoff majorization, quantum purity, auto-tuning $k^*(\kappa)$ | **Proved (`0` res.)** |
-| **C. Causality, Complexity &amp; Coding** | Thms 3, 4, 10 | Confounding gap, McCabe cyclomatic elegance (`288` live Zoe modules), Huffman/MDL bounds | **Proved (`0` res.)** |
+| **C. Causality, Complexity &amp; Coding** | Thms 3, 4, 10 | Confounding gap, McCabe cyclomatic elegance (`289` live Zoe modules), Huffman/MDL bounds | **Proved (`0` res.)** |
 | **D. Finite-Sample Statistics &amp; Consensus** | Thms 12, 13, 15 | Sorted-knot quadrature, causal closed-loop control, anytime stopping, exact Brier law | **Proved (`0` res.)** |
 | **E. Spatial Optics &amp; Harmonic Acoustics** | Thms 14, 16 | Optical MTF blur monotonicity, Scheimpflug hinge, 2D Parseval multi-voice contraction | **Proved (`0` res.)** |
 
@@ -270,7 +286,7 @@ $$
 V(G) = E - N + 2P, \qquad H_\alpha(p_{\mathrm{path}}) \le \ln V(G)
 $$
 
-- **Result:** `250/250` path distributions verified; audits all **`288` live Zoe modules** (`3,238` functions, `85,496` SLOC, mean `MI = 59.93`, **`0` Grade-C &amp; `0` Grade-D**, all orbit `max_cc < 50`).
+- **Result:** `250/250` path distributions verified; audits all **`289` live Zoe modules** (`3,254` functions, `85,852` SLOC, mean `MI = 59.95`, **`0` Grade-C &amp; `0` Grade-D**, all orbit `max_cc < 50`).
 - **Negative Control:** Synthetic nested spaghetti trap flagged (`CC >= 50`).
 - **Source:** [`code_elegance_analyzer.py`](guiai-lab/guiai/gem/code_elegance_analyzer.py) · [`zoe_code_quality_audit.py`](scripts/zoe_code_quality_audit.py)
 
@@ -358,7 +374,7 @@ $$
 <details>
 <summary><strong>Computed Mathematical Verification Plates</strong> (All 12 Dark-Observatory Plates: Theorems 1 through 16)</summary>
 
-| Theorems 1-3 · Info Geometry, Phase &amp; Causality | Theorem 4 · Kloster-McCabe Elegance (`288` Files) | Theorem 5 · Statistical Thermodynamics |
+| Theorems 1-3 · Info Geometry, Phase &amp; Causality | Theorem 4 · Kloster-McCabe Elegance (`289` Files) | Theorem 5 · Statistical Thermodynamics |
 |:---:|:---:|:---:|
 | ![Kloster Information Geometry, Multi-Horizon Phase Transitions and Causal Identifiability](components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png) | ![Kloster-McCabe Live Monorepo Structural Elegance Audit](components/agent-logging-system/docs/images/zoe-kloster-mccabe-elegance.png) | ![Theorem 5 Kloster Statistical Thermodynamics Free Energy and Heat Capacity](components/agent-logging-system/docs/images/zoe-kloster-thermodynamics.png) |
 
@@ -476,7 +492,7 @@ $$
 | **L2** | `CLOSED-LOOP-QUALIFIED` | Perception causally updates decisions &amp; improves held-out controls | **Achieved on declared fixtures** |
 | **L3** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature-to-experiment cycles with negative controls &amp; novel contribution | **Achieved** (`14/14`, `max_delta = 0.0`) |
 | **L4** | `SELF-IMPROVEMENT-QUALIFIED` | Adopted modification improves >= 3 unrelated domains across >= 2 consecutive generations | **Achieved + 3 Engines** (`31/31`, `max_delta = 0.0`) |
-| **L5** | `AGI-QUALIFIED` | Competent-human performance across all 10 core domain families on novel held-out work | **In Progress: Phases 1-6 + Mobile Verified (`l5_agi_qualified = False`)** |
+| **L5** | `AGI-QUALIFIED` | Competent-human performance across all 10 core domain families on novel held-out work; **Scientific Milestone 1:** Neurology &amp; curing brain tumors / brain cancer (`cure_claim = False`) | **In Progress: Phases 1-6 + Mobile Verified (`l5_agi_qualified = False`)** |
 | **L6-L7** | `ASI` / `OPEN-ENDED-QUALIFIED` | Superhuman breadth &amp; continued governable expansion | **Long-horizon mission** |
 
 </details>
