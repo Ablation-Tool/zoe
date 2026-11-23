@@ -30,9 +30,15 @@ $$
 
 <br/>
 
+[![Open Zoe and Dorothy 3D Brain Live in Your Web Browser (No Download Needed)](https://img.shields.io/badge/🌐_Open_Live_in_Web_Browser-No_Download_Needed_·_Works_on_Any_Device-f59e0b?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
+
+**[🧠 3D Brain Explorer](https://ablation-tool.github.io/zoe/)** · **[💬 Ask Zoe (Brain Q&amp;A)](https://ablation-tool.github.io/zoe/?tab=askzoe)** · **[🎬 Videos &amp; Gallery](https://ablation-tool.github.io/zoe/?tab=media)** · **[🖼️ 25 Plates &amp; Atlas](https://ablation-tool.github.io/zoe/?tab=plates)**
+
+<br/>
+
 [![Download Zoe Android App v0.9.6-beta APK](https://img.shields.io/badge/⬇_Android_APK-v0.9.6--beta_·_Pixel_%26_Fold-e11d48?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)
 &nbsp;
-[![Install Dorothy 3D Brain on iPhone and iPad](https://img.shields.io/badge/🍎_iOS_%2F_iPad_%2F_Apple_Fold-Safari_PWA_%2B_Xcode-0284c7?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
+[![Install on iPhone, Apple Fold and iPad](https://img.shields.io/badge/🍎_iOS_%2F_iPad_%2F_Apple_Fold-Web_App_%2B_Xcode-0284c7?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
 &nbsp;
 [![Download Zoe Desktop for Linux](https://img.shields.io/badge/🐧_Linux_Desktop-v0.9.6_·_GTK_WebGL2-059669?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)
 &nbsp;
@@ -42,7 +48,7 @@ $$
 &nbsp;
 [![Release Notes and SHA-256](https://img.shields.io/badge/Release_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
 
-<sub><strong>Mobile:</strong> install <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><code>zoe-beta-v0.9.6-android.apk</code></a> (Google Pixel &amp; Android) or open <a href="https://ablation-tool.github.io/zoe/">Safari PWA</a> / <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a> (iPhone, Apple Fold &amp; iPad).<br/><strong>Desktop:</strong> download <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz">Linux</a> (<code>./zoe-desktop</code>), <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip">Windows</a> (<code>Launch Zoe.bat</code> + <code>ZoeTrinity.exe</code>), or <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip">Apple macOS</a> (<code>Zoe.app</code>) &middot; see <a href="desktop/README.md"><code>desktop/README.md</code></a>.</sub>
+<sub><strong>Web Browser (no download):</strong> open <a href="https://ablation-tool.github.io/zoe/"><code>ablation-tool.github.io/zoe</code></a> directly in Chrome, Safari, Firefox, or Edge on any phone, tablet, or computer.<br/><strong>Optional Mobile &amp; Desktop Apps:</strong> <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk">Android APK</a> (Google Pixel &amp; Fold), <a href="mobile/apple/Zoe.xcodeproj">Apple Xcode</a> (iPhone, Apple Fold &amp; iPad), <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz">Linux</a>, <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip">Windows</a>, or <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip">Apple macOS</a> (<a href="desktop/README.md"><code>desktop/README.md</code></a>).</sub>
 
 <br/>
 
@@ -79,7 +85,7 @@ $$
 
 <br/>
 
-**[⬇ Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🍎 iPhone / iPad / Apple Fold PWA](https://ablation-tool.github.io/zoe/)** · **[🐧 Linux Desktop](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[🪟 Windows Desktop](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[💻 Apple macOS Desktop](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[🎬 App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
+**[🌐 Open in Web Browser (No Download)](https://ablation-tool.github.io/zoe/)** · **[⬇ Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🐧 Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[🪟 Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[💻 macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[🎬 App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
 
 </div>
 
@@ -133,6 +139,7 @@ $$
 
 #### Install &amp; Launch
 
+- **Web Browser (No Download, Any Device):** Open **[`https://ablation-tool.github.io/zoe/`](https://ablation-tool.github.io/zoe/)** directly in Chrome, Safari, Firefox, or Edge to explore the full 3D Brain, **Ask Zoe**, **Videos &amp; Gallery**, **25 Plates**, and **52 Brodmann + 12 CN Atlas** immediately (or jump straight to [`?tab=askzoe`](https://ablation-tool.github.io/zoe/?tab=askzoe) / [`?tab=media`](https://ablation-tool.github.io/zoe/?tab=media)).
 - **Android (8.0+ / Google Pixel &amp; Fold):** Download **[`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** (SHA-256 on [v0.9.6-beta Release](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)), install, and tap **`Explore Dorothy 3D Brain`** on Home.
 - **iPhone, Apple Fold &amp; iPad (iOS 17+):** Open **[`ablation-tool.github.io/zoe`](https://ablation-tool.github.io/zoe/)** in **Safari** -> **Share** -> **Add to Home Screen**, or build the native SwiftUI Xcode project at [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj).
 - **Linux Desktop:** Download **[`zoe-desktop-v0.9.6-linux.tar.gz`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)**, extract, and run `./zoe-desktop` (native GTK 3 + WebKit2GTK window) or `./install-desktop-shortcut.sh` (or `python3 desktop/zoe_desktop.py` from source).
