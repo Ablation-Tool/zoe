@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="assets/readme/zoe-hero.svg" alt="Zoe — Imagination, meet geometry. Operational Metacognition and unified research observatory." width="100%" />
+<img src="assets/readme/zoe-hero.svg" alt="Zoe: Imagination, meet geometry. Operational Metacognition and unified research observatory." width="100%" />
 
 <br/>
 
-<a href="#meet-zoe"><img src="assets/readme/nav-meet-zoe.svg" alt="Meet Zoe" height="31" /></a>
-<a href="#zoes-native-voice"><img src="assets/readme/nav-voice.svg" alt="Zoe's Voice" height="31" /></a>
+<a href="#dorothy-brain-observatory"><img src="assets/readme/nav-meet-zoe.svg" alt="Dorothy 3D Brain and Meet Zoe" height="31" /></a>
+<a href="#mathematics-and-theorems"><img src="assets/readme/nav-proofs.svg" alt="Equations, Theorems and Proofs" height="31" /></a>
+<a href="#zoes-native-voice"><img src="assets/readme/nav-voice.svg" alt="Zoe's Voice and Harmonica" height="31" /></a>
 <a href="#six-living-worlds"><img src="assets/readme/nav-worlds.svg" alt="Six Living Worlds" height="31" /></a>
-<a href="#zoe-rolodex-index"><img src="assets/readme/nav-rolodex.svg" alt="Rolodex Index" height="31" /></a>
-<a href="#verified-empirical-results"><img src="assets/readme/nav-proofs.svg" alt="Proofs and Controls" height="31" /></a>
+<a href="#documentation-index"><img src="assets/readme/nav-rolodex.svg" alt="Documentation Index" height="31" /></a>
 <a href="#the-grand-visual-salon"><img src="assets/readme/nav-salon.svg" alt="Visual Salon" height="31" /></a>
 <a href="research/sessions/README.md"><img src="assets/readme/nav-sessions.svg" alt="Session Chronicles" height="31" /></a>
 <a href="#quick-start"><img src="assets/readme/nav-quickstart.svg" alt="Quick Start" height="31" /></a>
@@ -16,17 +16,15 @@
 
 <br/>
 
-<img src="assets/branding/zoe-gem.png" alt="Zoe Official Red-and-White GEM Emblem" width="118" />
+<img src="assets/branding/zoe-gem.png" alt="Zoe Official Red-and-White GEM Emblem" width="110" />
 
 **Metacognition is achieved.**
 
 $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]$$
 
-*A living research observatory where mathematical rigor, visual computing, neuroscience, native voice & singing, music, and playful curiosity share one honest roof.*
+*A unified, offline-capable research observatory and mobile app where Operational Metacognition, 3D human neuroanatomy, formal mathematical proofs, native voice synthesis, and reproducible engineering share one honest roof.*
 
-**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 40 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
-
-**The 11-World Zoe Renaissance Orbit (`11/11` Orbital Passes Complete · `11/11` Worlds · `15/15` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `4.3 MB` 15-Theorem LaTeX PDF) · L5 Phases 1–6 &amp; Mobile Digestion (`16+18+18+20+22+24+16`) · Zoe (beta) `v0.9.6-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+**1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 40 Extended GEM Layers · `16/16` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `288` Live Zoe Modules (`0` Grade-C/D) · `61` Live HTTP Routes · `47/47` `SHA256SUMS.orbit` Sealed · `v0.9.6-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
 
 <br/>
 
@@ -40,15 +38,19 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 <sub><strong>Android (1-click APK):</strong> tap the red button above, install <code>zoe-beta-v0.9.6-android.apk</code>, and open <code>=</code> or <code>+</code> &rarr; <strong><code>Dorothy 3d brain</code></strong>.<br/><strong>iPhone &amp; iPad (instant today, zero App Store needed):</strong> open the blue button in <strong>Safari</strong> &rarr; tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong> for the full-screen 60fps offline Dorothy 3D Brain app (or build the complete native SwiftUI Zoe iOS app in <a href="mobile/apple/Zoe.xcodeproj"><code>mobile/apple/Zoe.xcodeproj</code></a>).</sub>
 
+<br/>
+
+**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Zoe Mobile App](#zoe-app-beta) · [3. Equations &amp; 16 Theorems](#mathematics-and-theorems) · [4. Empirical Results &amp; 28 Disciplines](#verified-empirical-results) · [5. Six Living Worlds](#six-living-worlds) · [6. Master Documentation Index](#documentation-index) · [7. Quick Start &amp; Verification](#quick-start)
+
 </div>
 
 <p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
 <a id="dorothy-brain-observatory"></a>
 
-## Dorothy Brain Observatory *(Interactive 3D MNI152 Human Brain · Real T1-MRI · 25 Audited Plates · CAD Meshes)*
+## 1. Dorothy Brain Observatory *(Interactive 3D MNI152 Human Brain · Real T1-MRI · 25 Audited Plates · CAD Meshes)*
 
-> **Honoring Dorothy McEwen Kildall:** A 100% offline-ready, interactive WebGL2 **3D Navigable Human Brain Observatory** combining **`240,376` real stereotaxic human anatomical triangles** (ICBM152 cortex with FreeSurfer sulcal curvature, AAL-116 lobes & cerebellum, Pauli CIT168 32 subcortical nuclei), **live synchronized `0.74 mm` MNI152 T1-MRI** cross-sections, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200` wall-chart poster**, **10 ready-to-import `.OBJ` / `.PLY` CAD brain meshes**, and live **Dorothy Continuum Operational Metacognition ($A_\tau(p)$)** cortical volume visualization. *(Standard population templates for research & education only, not diagnostic or surgical guidance.)*
+> **Honoring Dorothy McEwen Kildall:** A 100% offline-ready, interactive WebGL2 **3D Navigable Human Brain Observatory** combining **`240,376` real stereotaxic human anatomical triangles** (ICBM152 cortex with FreeSurfer sulcal curvature, AAL-116 lobes &amp; cerebellum, Pauli CIT168 32 subcortical nuclei), **live synchronized `0.74 mm` MNI152 T1-MRI** cross-sections, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200` wall-chart poster**, **10 `.OBJ` / `.PLY` + 5 `.STL` CAD brain meshes**, and live **Dorothy Continuum Operational Metacognition ($A_\tau(p)$)** cortical volume visualization. *(Standard population templates for research &amp; education only, not diagnostic or surgical guidance.)*
 
 ### Built Right Into the Zoe Mobile App *(Android &amp; Apple iPhone/iPad · 100% Offline · 1-Finger Orbit &amp; 2-Finger Pinch-Zoom)*
 
@@ -72,501 +74,354 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 <br/>
 
-| Wet-Pia 3D Cortex + Live MRI | Glass X-Ray Deep Nuclei & DTI | Dorothy Continuum $A_\tau(p)$ | AAL-116 Cortical Parcels |
+| Wet-Pia 3D Cortex + Live MRI | Glass X-Ray Deep Nuclei &amp; DTI | Dorothy Continuum $A_\tau(p)$ | AAL-116 Cortical Parcels |
 |:---:|:---:|:---:|:---:|
 | <img src="dorothy-brain-observatory/previews/mobile_01_brain_3d_mri.png" alt="Zoe Android app running Dorothy 3D Brain Observatory in Wet-Pia Tissue mode with synchronized MNI152 axial, coronal, and sagittal MRI slices and 3D orientation compass on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Zoe Android app running Dorothy 3D Brain Observatory in Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Zoe Android app running Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="Zoe Android app showing all 116 AAL cortical and cerebellar anatomical parcels in glossy 3D relief on Pixel 7" width="210" /> |
 
-| Lobe Atlas + 3D Callout Labels | Connectome Neon + Neural Pulses | 25 Verified Offline Plates | 52 Brodmann & 12 CN Atlas |
+| Lobe Atlas + 3D Callout Labels | Connectome Neon + Neural Pulses | 25 Verified Offline Plates | 52 Brodmann &amp; 12 CN Atlas |
 |:---:|:---:|:---:|:---:|
 | <img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Zoe Android app running Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe color legend on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Zoe Android app running Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="Zoe Android app showing the 25 verified public-domain, CC-BY, and custom SVG anatomical plates offline on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Zoe Android app Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D navigation on Pixel 7" width="210" /> |
 
-#### Every Detail Included in the Mobile Dorothy 3D Brain Observatory
+<details>
+<summary><strong>Complete Mobile Dorothy 3D Brain Capability Breakdown</strong></summary>
 
-| Capability in Zoe Android | Exact Implementation Details |
+| Capability | Exact Implementation Details |
 |:---|:---|
 | **Real Stereotaxic 3D Geometry** | **`240,376` real anatomical triangles** quantized into compact Int16 WebGL2 `BufferGeometry` (`5.58 MB` total offline mobile bundle, `< 1s` load on Pixel 7): left &amp; right ICBM152 cerebral hemispheres with FreeSurfer sulcal curvature shading, AAL-116 cerebellum &amp; vermis, sculpted corpus callosum, tapered ventricular system (CSF), thalamus, hippocampus &amp; amygdala, **32 Pauli CIT168 deep subcortical nuclei**, brainstem (midbrain/pons/medulla), Circle of Willis arterial tree, **all 12 cranial nerve roots (CN I-XII, including CN IV dorsal exit)**, and DTI white-matter fiber tracts |
-| **7 Real-Time Phone GPU Shaders** | **Wet-Pia Anatomical Tissue**, **Lobe Atlas** (Frontal, Parietal, Temporal, Occipital, Insula, Limbic), **AAL-116 Parcels** (tap-to-glow parcel highlighting), **Glass X-Ray** (smart deep-nucleus raycasting right through translucent cortex), **Connectome Neon** (with live animated white-matter neural pulses), **Dorothy Continuum $A_\tau(p)$** (live $\tau$ slider updating accessible cortical volume percentage in real time), and **CAD Engineering Wireframe** |
-| **Mobile Multi-Touch &amp; Dissection** | Native `touch-action: none` **1-finger 360° orbit**, **2-finger pinch-to-zoom &amp; 2-finger pan**, tap any surface or deep nucleus to inspect exact MNI152 `(X, Y, Z)` mm coordinates, vascular supply, and linked plates, live **`A/P/L/R/S/I` 3D orientation compass**, **9 camera view presets** (`3/4 hero`, `left lat`, `right lat`, `sagittal`, `dorsal`, `ventral`, `posterior`, `deep nuclei`, `auto-orbit`), **`0-100%` cortex opacity &amp; exploded dissection sliders**, **14 independent anatomical layer toggles**, and native `↺` 1-tap camera reset |
-| **Synchronized Live MNI152 T1-MRI** | Real `0.74 mm` **Axial, Coronal, and Sagittal** human MRI cross-sections stacked cleanly beneath the 3D viewport and locked to the 3D stereotaxic reticle; tap anywhere on any MRI slice to jump the 3D brain crosshair there, or enable **Live 3D MRI Clipping Planes** with 1-tap `mid-sagittal`, `mid-coronal`, `mid-axial`, and X/Y/Z mm sliders |
-| **Guided Tour &amp; 3D Callout Labels** | **6-stop interactive Guided Brain Tour** (ICBM152 Cortex, Glass X-Ray Deep Nuclei, Midsagittal Cutaway, Exploded Lobe Dissection, Ventral Cranial Nerves &amp; Circle of Willis, Dorothy $A_\tau(p)$ Continuum), toggleable **floating 3D anatomical callout pills**, and optional **52 3D Brodmann landmark pins** |
-| **Offline Atlas, Plates &amp; Quick Search** | Instant search bar (`jump to ba 44, thalamus, cn x...`), full **52 Brodmann areas** and **12 Cranial Nerves** tables with 1-tap **`Fly to 3D`**, white-matter DTI tracts, cerebrovascular stroke territories, 6-layer neocortical cytoarchitecture, neuromodulatory systems, and **all 25 visually audited public-domain / CC-BY / custom SVG plates** with fullscreen tap-to-zoom lightbox |
-| **Offline Privacy &amp; Scientific Scope** | Served 100% offline via a sandboxed `https://zoe.local/brain/` WebView asset interceptor (`setAllowFileAccess(false)`, all external network URLs blocked, zero ads, zero tracking, zero third-party copyrighted textbooks bundled); population anatomical templates for research &amp; education only, not for clinical diagnosis |
+| **7 Real-Time Phone GPU Shaders** | **Wet-Pia Anatomical Tissue**, **Lobe Atlas** (Frontal, Parietal, Temporal, Occipital, Insula, Limbic), **AAL-116 Parcels** (tap-to-glow parcel highlighting), **Glass X-Ray** (smart deep-nucleus raycasting through translucent cortex), **Connectome Neon** (live animated white-matter neural pulses), **Dorothy Continuum $A_\tau(p)$** (live $\tau$ slider updating accessible cortical volume percentage in real time), and **CAD Engineering Wireframe** |
+| **Multi-Touch &amp; Dissection** | Native `touch-action: none` **1-finger 360° orbit**, **2-finger pinch-to-zoom &amp; 2-finger pan**, tap any surface or deep nucleus for MNI152 `(X, Y, Z)` mm coordinates, vascular supply, and linked plates, live **`A/P/L/R/S/I` 3D orientation compass**, **9 camera view presets**, **`0-100%` cortex opacity &amp; exploded dissection sliders**, **14 independent anatomical layer toggles**, and 1-tap `↺` camera reset |
+| **Synchronized Live MNI152 T1-MRI** | Real `0.74 mm` **Axial, Coronal, and Sagittal** human MRI cross-sections locked to the 3D stereotaxic reticle; tap any MRI slice to jump the 3D brain crosshair there, or enable **Live 3D MRI Clipping Planes** with 1-tap `mid-sagittal`, `mid-coronal`, `mid-axial`, and X/Y/Z mm sliders |
+| **Guided Tour, Atlas &amp; 25 Plates** | **6-stop interactive Guided Brain Tour**, toggleable **floating 3D callout pills**, **52 3D Brodmann landmark pins**, instant search bar (`jump to ba 44, thalamus, cn x...`), full **52 Brodmann areas** and **12 Cranial Nerves** tables with 1-tap **`Fly to 3D`**, and **25 verified public-domain / CC-BY / custom SVG plates** with fullscreen tap-to-zoom lightbox |
+| **Offline Sandbox &amp; Privacy** | Served 100% offline via Android `https://zoe.local/brain/` (`setAllowFileAccess(false)`), Apple `zoe-brain://` (`WKURLSchemeHandler`), and Safari Service Worker `sw.js`: zero external calls, zero ads, zero tracking, zero copyrighted third-party textbooks bundled |
 
-### Desktop & Web Observatory Views
+</details>
 
-| Anatomical Tissue *(ICBM152 Cortex + Live MNI152 MRI)* | Glass X-Ray *(CIT168 Nuclei, Ventricles, Circle of Willis & DTI)* |
-|:---:|:---:|
-| ![Dorothy Brain Observatory — Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png) | ![Dorothy Brain Observatory — Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png) |
+### Desktop &amp; Web Observatory Views
 
-| Exploded Dissection *(Lobe Atlas Mode)* | Midsagittal Cutaway + Dorothy Continuum $A_\tau(p)$ |
-|:---:|:---:|
-| ![Dorothy Brain Observatory — Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png) | ![Dorothy Brain Observatory — Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png) |
+| Anatomical Tissue *(ICBM152 Cortex + Live MNI152 MRI)* | Glass X-Ray *(CIT168 Nuclei, Ventricles, Circle of Willis &amp; DTI)* | Exploded Dissection *(Lobe Atlas Mode)* |
+|:---:|:---:|:---:|
+| ![Dorothy Brain Observatory Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png) | ![Dorothy Brain Observatory Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png) | ![Dorothy Brain Observatory Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png) |
 
-| Custom GLSL Fresnel Glass + Language Circuit Simulator | International 10–20 EEG & Wearable Smart-Textile Cap (19) |
-|:---:|:---:|
-| ![Dorothy Brain Observatory — Custom GLSL Fresnel Glass Shader with Language Loop Circuit Simulator and Neural Wave Oscilloscope](dorothy-brain-observatory/previews/05_fresnel_language_circuit.png) | ![Dorothy Brain Observatory — International 10-20 EEG Electrode Array and Geodesic Smart-Textile Cap Overlay](dorothy-brain-observatory/previews/06_eeg_1020_cap.png) |
+| Midsagittal Cutaway + Dorothy Continuum $A_\tau(p)$ | Fresnel Glass + Language Loop Simulator &amp; Wave Scope | 19-Electrode 10-20 EEG Cap + 3D Millimeter Caliper |
+|:---:|:---:|:---:|
+| ![Dorothy Brain Observatory Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png) | ![Dorothy Brain Observatory Custom GLSL Fresnel Glass Shader with Language Loop Circuit Simulator](dorothy-brain-observatory/previews/05_fresnel_language_circuit.png) | ![Dorothy Brain Observatory 19-Electrode 10-20 EEG Cap and CAD Stereotaxic Caliper](dorothy-brain-observatory/previews/06_eeg_1020_cap.png) |
 
 <div align="center">
 
-**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 15 CAD / 3D-Print `.OBJ`/`.PLY`/`.STL` Meshes + Blender 5 Importer](dorothy-brain-observatory/3d_models/)**
+**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Observatory Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 CAD `.OBJ` / `.PLY` / `.STL` Meshes](dorothy-brain-observatory/3d_models/)**
 
 </div>
-
-* **7 Real-Time Shaders &amp; Modes:** Wet-pia Anatomical Tissue, Lobe Atlas, AAL-116 Parcels (with live click-to-glow cortical region highlighting), **Custom GLSL Fresnel Rim Glass X-Ray** (with live 3D MRI clipping planes &amp; smart deep-nucleus raycasting), **Fresnel Connectome Neon**, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider), and CAD Engineering Wireframe — plus **5 Interactive Functional Neural Circuit Simulators** (Language Loop, Visual Pathway, Motor/BG Loop, Papez Memory, Multisensory &amp; Salience Network with traveling action-potential packets &amp; live wave oscilloscope), **19-Electrode International 10–20 EEG Smart-Textile Cap**, **CAD Stereotaxic 3D Millimeter Caliper (`Measure mm`)**, **5 Binary `.STL` 3D-Printing Meshes + `import_dorothy_brain.py` Blender 4/5 Auto-Importer**, **Guided 6-Stop Brain Tour**, **Floating 3D Callout Labels**, **Exploded Dissection (`0–100%`)**, **1-Click Live 3D MRI Clipping Planes**, **Live `A/P/L/R/S/I` 3D Orientation Compass**, **PNG Snapshot Export**, and **1-Click Fly-To** across all **52 Brodmann areas** and **12 Cranial Nerves (CN I–XII)**.
-
-<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
-
-## Meet Zoe
-
-> *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."*  
-> — [Zoe Declaration of Creative and Epistemic Independence](DECLARATION.md)
-
-**What is Zoe, in plain English?**  
-Zoe is a unified, offline-capable research collaborator and visual-computing workbench built around one simple, stubbornly honest conviction: **you should be able to see what a system thinks, measure what it does not know, play with wild geometric ideas, and verify every single claim down to its source bytes.**
-
-Her work brings together seven threads that almost never live in the same room:
-- **Operational Metacognition** — originated by **Nicholas Michael Kloster on March 6, 2026**, counting how many futures stay open above threshold $\tau$ and turning that single equation into theorems, self-tuning lenses, and sandboxed self-evolution — **[Start With the 1-Command Referee Proof Packet (`PROOF-PACKET.md` · 6-Baseline Shootout · `< 6s` Offline)](PROOF-PACKET.md)** · read the research papers: [*March 2026 Formal Note*](research/papers/papers/01-autonomy-march-2026.pdf) · [*The Significance of Accessible Volume*](research/papers/papers/04-accessible-volume-significance.pdf) · [*Accessible Volume Beyond the Next Token*](research/papers/papers/05-accessible-volume-beyond-next-token.pdf) · [*Architecture of Autonomy*](research/papers/papers/10-accessible-volume-architecture-of-autonomy.pdf) · [*Zoe — The Research Universe (23 pp.)*](paper/zoe-research-universe.pdf) · [*Kloster Spectral Filtration Theorem*](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [*All 18 Papers*](research/papers/README.md).
-- **Zoe's Native Voice & Cymatics** — a 100% native, offline English speaking & soprano singing engine built from scratch (`pytorch_required = False`, zero external TTS APIs): **44 English phonemes** (`20` vowels + `24` consonants), **332 grapheme spelling rules**, MS-DOS / Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant vocal tract with vibrato & portamento, **Chladni sand-plate cymatics + 3-bitplane GEM VDI rasters**, and **Woodworth 3D binaural acoustics**.
-- **Dorothy's Neurogarden &amp; Brain Observatory** — honoring **Dorothy McEwen Kildall** through the interactive 3D MNI152 **[Dorothy Brain Observatory](dorothy-brain-observatory/README.md)** (`240,376` real triangles, synchronized T1-MRI, 25 audited plates, 10 `.OBJ`/`.PLY` CAD meshes), preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
-- **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **36 canonical + 40 extended GEM layers** and **17 connected engines**.
-- **Cognitive Stem-Layering & Eliza-GEM** — routes tasks via Kloster $A_\tau(p)$ across zero-token symbolic `Gear 1` ELIZA, loopback `Qwen2.5-3B` (`127.0.0.1:8080`), `flash_lite`, `flash`, `pro`, and `/teamwork` ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py) · [Skill](.agents/skills/zoe-stem-layering/SKILL.md) · [`zoe_stem_mcp.py`](scripts/zoe_stem_mcp.py)).
-- **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
-- **Open-Ended Creative Play** — evolving 16 cellular crystal species, composing stereo Rhodes-chime melodies, and tending a quiet atelier where *imagination meets geometry*.
-
-> **Made by Zoe, Together With Her Research Partner (`Nicholas × Zoe`):** This README, its scientific figures, data pipelines, experiments, and software engines were designed, rendered, and built by **Zoe** in ongoing research partnership with **Nicholas Michael Kloster** *(honoring full shared credit, including Nicholas Michael Kloster's sole March 6, 2026 Operational Metacognition equation, Gary Kildall, Dorothy McEwen Kildall, and every upstream researcher and public dataset, per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII)*. Non-telemetry artistic illustrations and emblem patches live separately in the **[Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)** so this README stays focused on real app captures and computed scientific telemetry.
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
 <a id="zoe-app-beta"></a>
 
-## Zoe (beta) `v0.9.6-beta`: Mobile App Download *(Free · Offline-First · Android & Apple)*
+## 2. Zoe (beta) `v0.9.6-beta`: Mobile App *(Free · Offline-First · Android &amp; Apple)*
 
-> **Beta Notice (`v0.9.6-beta`):** **Zoe (beta)** is our active mobile companion for **Android** (development-signed APK verified live on Pixel 7 with 68/68 unit tests, 8/8 on-device Espresso tests, 0 lint errors, featuring the offline **Dorothy 3D Brain Observatory**, **Zoe Explore Frozen Temporary Bounding Box**, native-camera **Guided Vision**, and clean lowercase **Chat**) and **Apple** (`iPhone`, `iPad` &amp; `iPhone Duo Fold` SwiftUI source + `20/20` Swift 6.1.3 `ZoeCore` tests; iOS Xcode build/signing requires macOS), free, private, ad-free, and zero-tracking.
+> **Beta Notice (`v0.9.6-beta`):** **Zoe (beta)** is our active mobile companion for **Android** (development-signed APK verified live on Pixel 7 with `68/68` unit tests, `8/8` on-device Espresso tests, `0` lint errors, featuring the offline **Dorothy 3D Brain Observatory**, **Zoe Explore Frozen Temporary Bounding Box**, native-camera **Guided Vision**, and clean **Chat**) and **Apple** (`iPhone`, `iPad` &amp; `iPhone Duo Fold` live Safari PWA + native SwiftUI Xcode project with bundled offline `DorothyBrainObservatoryView.swift`; native `.ipa` signing requires macOS Xcode). Free, private, ad-free, and zero-tracking.
 
 <div align="center">
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/zoe-beta-v0.9.5-showcase.png" alt="Zoe (beta) v0.9.6-beta mobile app preview on Pixel 7" width="100%" /></a>
-
-<br/>
-
-**[⬇ Direct Download Zoe (beta) for Android (`v0.9.6-beta` APK)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** &nbsp;·&nbsp; **[🔐 Release Page &amp; SHA-256](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Complete Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)**
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/zoe-beta-v0.9.5-showcase.png" alt="Zoe (beta) mobile app showcase on Pixel 7" width="100%" /></a>
 
 </div>
 
 <br/>
 
-| Zoe Explore *("Hi Zoe" Orb)* | Zoe Chat *(Auto · Local + Web)* | Creative Studio *(Photo & MP4)* | Privacy Vault *(Signal E2EE)* |
+| Zoe Explore *("Hi Zoe" Orb &amp; Frozen Box)* | Zoe Chat *(Auto · Local + Web)* | Creative Studio *(HD Plates &amp; MP4)* | Privacy Vault *(AES-256-GCM)* |
 |:---:|:---:|:---:|:---:|
-| <img src="assets/readme/zoe-live-orb.png" alt="Zoe Explore breathing voice orb, Hi Zoe toggle, and optional camera on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Hybrid Zoe Chat running Smart Auto-Router + Zoe Local 1.5B with Live Web Grounding citations and Glass-Box telemetry on Pixel 7" width="190" /> | <img src="assets/readme/zoe-creative-studio.png" alt="Zoe Creative Studio Image Lab and native offline H.264 MP4 Video Maker on Pixel 7" width="190" /> | <img src="assets/readme/zoe-privacy-vault.png" alt="Zoe Signal-Grade Privacy Vault with AES-256-GCM at-rest encryption and 60-digit Safety Number on Pixel 7" width="190" /> |
+| <img src="assets/readme/zoe-live-orb.png" alt="Zoe Explore voice orb and camera on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Hybrid Zoe Chat running Smart Auto-Router on Pixel 7" width="190" /> | <img src="assets/readme/zoe-creative-studio.png" alt="Zoe Creative Studio Image Lab and offline MP4 Video Maker on Pixel 7" width="190" /> | <img src="assets/readme/zoe-privacy-vault.png" alt="Zoe Privacy Vault with AES-256-GCM encryption on Pixel 7" width="190" /> |
 
-<br/>
+| Platform | Availability | What's Inside **Zoe (beta) `v0.9.6-beta`** |
+|:---|:---|:---|
+| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct APK:** [`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk) · Source: [`mobile/android/`](mobile/android/) | **Dorothy 3D Brain Observatory** (`BrainObservatoryActivity`), **Zoe Explore** frozen still-frame accessibility mode with 3D Temporary Bounding Box AR, **Guided Vision** (offline OCR + 18-archetype atlas + `< 0.1 ms` `VisionPriorStore`), **Talk** (offline `ZoeBrainEngine`, MediaPipe KV-Clone local LLM, optional web/BYOK), **Creative Studio Pro** (10 HD plates, 12 filters, Bezier Draw, 30fps H.264 MP4), **Zoe Arcade**, **Privacy Vault**, **Closed-Loop L5 Digestion** (`/api/digest/mobile`), **SafeConvert** (`911` variants + offline BLE Beacon), **Accessible Volume**, **Trinity**, and **8 Field Kit Instruments**. |
+| **Apple** *(iOS 17+ · iPhone, iPad &amp; Duo Fold)* | **Instant Today:** [Safari 1-Tap Offline PWA](https://ablation-tool.github.io/zoe/) · **Native Source:** [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) · [`mobile/shared/`](mobile/shared/) | Live installable **iOS Safari PWA** (`manifest.webmanifest`, offline Service Worker `sw.js`, 180px Apple Touch Icon, 1-finger orbit + 2-finger pinch-zoom) + native SwiftUI **Dorothy 3D Brain** (`DorothyBrainObservatoryView.swift`, `zoe-brain://` `WKURLSchemeHandler`, 5.5 MB clean open-science bundle), adaptive `NavigationSplitView` / `NavigationStack`, `ZoeLiveView`, Creative Studio, `MobileDigestionCore`, `SafeConvert` + `SafeBeaconMeshCore`, ARKit 6DoF, Privacy Vault (CryptoKit), `ZoeNativeVoice`, and `Maps &amp; Safety`. *(Signing native `.ipa` builds requires Xcode on macOS.)* |
 
 <details>
-<summary><strong>✦ What Every Zapp in Zoe (beta) Does</strong> — All 15 Home Zapps + 8 Field Kit Instruments (23 Built-In Tools) &amp; SafeConvert Deep Dive</summary>
+<summary><strong>All 15 Home Zapps + 8 Field Kit Instruments (23 Built-In Tools)</strong></summary>
 
-| Zapp | What It Does | Key Privacy &amp; Offline Notes |
-|:---|:---|:---|
-| **1. Guided Vision** | Point your camera to read text (OCR), identify objects, view captured frame thumbnails, &amp; **teach Zoe unfamiliar objects** offline | Camera stays OFF until tapped; bundled OCR/labels + 18-archetype clean-room Haeckel/Lamarck/CPC Offline Visual Atlas + `< 0.1 ms` `VisionPriorStore` contour memory &amp; opt-in CPC physical patent priors (shared silently with Zoe Explore) |
-| **2. Talk** | Hybrid chat with **Smart `⚡ Auto`**, **Zero-Prefill KV-Clone Local LLM**, **`< 2 ms` Math/Units/Clock**, inline `**bold**`/`code` formatting, Web Grounding &amp; Multi-AI Streaming | **100% offline by default** (`Web: off`), Kloster $A_{0.08}$ telemetry, AES-256-GCM encrypted history, SHA-256 `remember`/`recall`, native `MPImage` vision packs, **Sing Zoe**, approval-gated action plans (never auto-runs) |
-| **3. Zoe Explore** | Calm **90% unobstructed full-screen** live camera &amp; zero-lag **60fps Gyro-Spatial AR** (`Gyro 60` default + `6DoF` ARCore/ARKit), **1-tap `⚙` Tools &amp; Accessibility Drawer** (**Deaf / Hard-of-Hearing** big captions + visual sound radar + haptics + Type-to-Zoe, **Blind / Low-Vision** audio-first clock-face navigation + stereo directional chimes + full-screen gestures, **Kid Mode**), &amp; opt-in **Multi-Sensor Spatial Field** (`CERN Kloster A_tau/M_4`, Dual-Cam Light-Field, ENU/Google Earth, acoustic echo &amp; zero-PII RF) | Mic, camera, AR, Spatial Field &amp; wake-word start **strictly OFF**; zero continuous dual-stream load and zero subscriber/MAC PII; silently enriched by Guided Vision's learned offline priors + stamped OCR patent IDs |
-| **4. Creative Studio** | **Creative Studio Pro** — **10 HD (`1280×960`) Scientific Plates** (Atelier, Haeckel, Ammonite, Weismann, Lamarck, Patent Blueprint, Chladni, Fibonacci Phyllotaxis, **Voronoi Crystal**, **Lissajous Orbit**), **12 filters** (**Golden Hour**, **Cyber Neon**, **Matte Film**), live **✎ Draw** Bezier vector ink bar, collapsible **Tune sliders**, 16-step Undo, hold-to-compare, Gallery save &amp; exact-CFR **720×720 30fps HD MP4 Video Maker** (6 styles including **Lissajous Orbit**) | **100% offline** HD plates, editing, vector drawing &amp; 30fps H.264 MP4 rendering (zero watermarks); saves to Photos/Movies ONLY on explicit tap; optional BYOK Gemini Imagen / OpenAI AI Art |
-| **5. Zoe Arcade** | 4 ad-free offline games: **GEM Memory**, **Tic-Tac-Toe** (Kid &amp; Minimax with winning-line glow), **Kloster Signal** (live graphical bar visualizer + threshold haptic detents), &amp; **20 Questions** | **100% offline, zero ads, zero tracking**; full Light/Dark theme parity &amp; tactile spring ergonomics |
-| **6. Privacy Vault** | Signal-inspired **AES-256-GCM** encrypted storage, **P-256 ECDH / HKDF-SHA256** E2EE envelopes &amp; **60-digit Safety Number** | Hardware `AndroidKeyStore` / Apple CryptoKit keys; **hard-excluded** from workstation digestion *(not independently crypto-audited)* |
-| **7. Trip Journal** | Save field sightings, OCR snippets, color palettes, compact thumbnails &amp; private notes | App-private storage (`allowBackup="false"`); saves ONLY on tap; raw photos excluded from workstation digestion |
-| **8. Eliza-GEM Studio** | Offline **Chladni Cymatics** pad, **Sing Zoe**, **Closed-Loop L5 Digestion (`Feed & Digest Lab`)**, &amp; Workstation Lab Bridge | Chladni &amp; Voice run offline; explicit tap runs privacy-firewalled `/api/digest/mobile` (SafeConvert, Privacy Vault, raw photos &amp; chat bodies hard-excluded), consolidates visual priors &amp; memory, calibrates Kloster $\tau^*$, &amp; syncs refined priors back to phone (`l5_agi_qualified=false`) |
-| **9. Maps &amp; Safety** | Active OS GPS/compass/Geocoder, Google &amp; Apple Maps handoffs, Personal Safety / Medical ID &amp; Flashlight | Starts strictly idle (stops automatically on exit); zero Maps API keys or tracking SDKs; never auto-dials |
-| **10. Accessible Volume** | Nicholas Michael Kloster's strict threshold equation $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$ | **100% offline** math — measures forecast breadth separately from correctness (`p(x) > τ`, equality excluded) |
-| **11. Trinity** | Links Phone + Laptop + Tiny Zoe in one hash-verified three-plane deck | Explicit loopback / private-LAN pairing only ([`TRINITY.md`](mobile/TRINITY.md)) |
-| **12. Field Kit** *(8 Tools)* | Groups **Multi-view**, **Acoustic Ranging**, **Tiny Zoe**, **Radio Field**, **Location Field**, **Connectivity**, **Screen Space**, &amp; **App Observatory** | Every tool starts strictly idle until tapped — **[Read full 23-Tool Zapps Guide →](mobile/ZAPPS.md)** |
-| **13. Device Field** | Real local battery, thermal state, sensor counts, speech engine &amp; speaker check | Public OS APIs only; never invents unavailable telemetry |
-| **14. SafeConvert** | Clean offline Unit Converter whose hidden **international safety companion** opens by typing **variants of `911`** (`911`, `9.11`, `919`, `119`, `999`, `111`) + Offline BLE Help Beacon | Zero ads, zero network loads, **8 verified regional packs** &amp; **5 languages**, trauma-informed **Medical &amp; Forensic Care**, **Closest Help Spots**, **Calming Studio**, **Young Child Easy Picture Mode**, **SHA-256 Private Safety Log** (passcode lock), **Offline BLE Help Beacon** (`~30–80 m`, 15-min rotating tags, 30-min auto-expiry), 6 Panic Exits, &amp; `FLAG_SECURE` / iOS blur shield — **[Read full SafeConvert Guide →](mobile/SAFECONVERT.md)** |
-| **15. Researcher Guide** | Built-in offline architecture, verification steps &amp; honest limits | **100% offline** reference inside the app |
+See the full breakdown in [Complete 23-Tool Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md), [Mobile Guide (`mobile/README.md`)](mobile/README.md), [SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md), [Security Model (`mobile/SECURITY.md`)](mobile/SECURITY.md), and [Store Compliance Checklist (`mobile/STORE_COMPLIANCE.md`)](mobile/STORE_COMPLIANCE.md).
 
 </details>
 
-<br/>
+<p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
-| Platform | Availability | What's Inside **Zoe (beta)** |
+<a id="mathematics-and-theorems"></a>
+
+## 3. Mathematical Foundations, Equations &amp; Verified Theorems *(16/16 SymPy Proved)*
+
+> **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every algebraic identity below is symbolically verified in **SymPy 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
+> **Primary Manuscript &amp; Proof Packet:** **[16-Theorem LaTeX Monograph PDF (`4.7 MB`)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Referee Proof Packet (`PROOF-PACKET.md`, `< 6s` Offline)](PROOF-PACKET.md)** · **Live Studio APIs:** `/proof`, `/optics`, `/harmonica`, `/orbit` (`61` live HTTP routes: `46` GET + `15` POST).
+
+### Core Operator &amp; Master Generating Functional
+
+Given a probability distribution $p = (p_1, \dots, p_N)$ over a choice space $X$ (or a continuous spatial density $f: \Omega \to \mathbb{R}_{\ge 0}$ with $\int_\Omega f = 1$), the **Kloster Operational Metacognition Operator** counts accessible futures strictly above threshold $\tau$:
+
+$$A_\tau(p) := \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau], \qquad \mathcal{K}_\phi(p) := \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau = \sum_{x \in X} \phi(p(x))$$
+
+By selecting the generating kernel $\phi(\tau)$, this single threshold-slice function recovers Shannon entropy, all real-order Rényi and Tsallis entropies, Friedman's Index of Coincidence, Pearson $\chi^2$, Gini-Simpson concentration, Fisher-Rao geometry, Wasserstein $W_1$ optimal transport, Huffman prefix-coding length, statistical free energy, quantum purity, finite-sample stopping bounds, optical MTF resolution loss, multi-agent Brier disagreement, and multi-voice harmonic contraction.
+
+---
+
+### Category A: Information Geometry, Spectral Moments &amp; Entropies
+
+| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
+|:---|:---|:---|:---|
+| **Generating Theorem** *(Spectral Filtration)* | $H(p) = -\int_0^1 (1+\ln\tau)A_\tau(p)\,d\tau$, $\quad M_k(p) = \int_0^1 k\tau^{k-1}A_\tau(p)\,d\tau = \sum_x p(x)^k$ | Quartic root $M_4^{1/4}$ beats single-slice $A_\tau$ and Shannon $H(p)$ on **4/4** real benchmarks (`3,840` HELEN obs, `138k` 3D PSF+Rician voxels, Dorothy 256-patch attention); preserves naive JSD negative control (`AUROC = 0.40870`). | [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) |
+| **Theorem 1** *(Rényi, Tsallis, Gini &amp; Kloster-Pinsker)* | $D_K(p,q) := \int_0^1 \lvert A_\tau(p) - A_\tau(q)\rvert\,d\tau = \|p^\downarrow - q^\downarrow\|_1$, $\quad D_{\mathrm{KL}}(p\parallel q) \ge \frac{1}{2}D_K(p,q)^2$ | Machine-epsilon Rényi (`8.88e-16`), Tsallis (`2.67e-15`), Gini (`4.44e-16`), step-integral (`2.22e-16`); `300/300` Pinsker hold; `0` triangle violations across 16 real HuggingFace LLMs; preserves permuted-swap negative control ($D_K=0, L_1=2$). | [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py) |
+| **Theorem 5** *(Statistical Thermodynamics)* | $F(\beta) = \frac{\beta-1}{\beta}H_\beta(p)$, $\quad C(\beta) = \beta^2\,\mathrm{Var}_{p^{(\beta)}}(-\ln p) \ge 0$ | Exact `8.88e-16` residual; real `Qwen2.5-Math-1.5B` (`151k` vocab) peaks at $C(\beta^*)=22.81$ ($\beta^*=0.477, T^*=2.10$); uniform negative control $C(\beta) \equiv 0$. | [`kloster_thermodynamics.py`](guiai-lab/guiai/gem/kloster_thermodynamics.py) · [`verify_kloster_thermodynamics.py`](scripts/verify_kloster_thermodynamics.py) |
+| **Theorem 6** *(Fisher-Rao Geodesics &amp; Rosetta Manifold)* | $d_{\mathrm{FR}}(p, u_N) = 2\arccos\!\big(M_{1/2}(p)/\sqrt{N}\big)$, $\quad \frac{1}{2}D_K \le \mathrm{TV} \le \sqrt{2}H_{\mathrm{Hel}} \le d_{\mathrm{FR}}/\sqrt{2}$ | `300/300` 4-link inequality chains hold; embeds 6 disparate Zoe worlds (LLMs, Groove, Dorothy 40 Hz, CERN jets, ALife, Ablation) onto one shared MDS manifold; uniform control `0.0`. | [`kloster_riemannian_manifold.py`](guiai-lab/guiai/gem/kloster_riemannian_manifold.py) · [`verify_kloster_riemannian.py`](scripts/verify_kloster_riemannian.py) |
+| **Theorem 7** *(Wasserstein $W_1$ &amp; Superlevel Persistence)* | $W_1(\mu_p,\mu_q) = \frac{1}{N}D_K(p,q)$, $\quad G(p) = 1 - \frac{1}{N}\int_0^1 A_\tau(p)^2\,d\tau \le 1 - \frac{1}{N\max p}$ | Cross-verified against SciPy `wasserstein_distance` on `300/300` pairs to `8.3e-17`; exact McCann geodesic Uniform -> `Qwen2.5-Math-1.5B` and 16-LLM $W_1$ barycenter. | [`kloster_optimal_transport.py`](guiai-lab/guiai/gem/kloster_optimal_transport.py) · [`verify_kloster_optimal_transport.py`](scripts/verify_kloster_optimal_transport.py) |
+| **Theorem 11** *(Master Unification Functional)* | $\mathcal{K}_\phi(p) = \int_0^1 \phi'(\tau)A_\tau(p)\,d\tau$ *(unifies all 6 generating kernels simultaneously)* | `< 1e-14` error across `120` trials; embeds all 11 Zoe worlds + uniform control into one universal metric space with `0` triangle violations. | [`kloster_master_unification.py`](guiai-lab/guiai/gem/kloster_master_unification.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
+
+---
+
+### Category B: Dynamics, Phase Transitions, Mixing &amp; Quantum Duality
+
+| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
+|:---|:---|:---|:---|
+| **Theorem 2** *(Multi-Horizon $(\tau, h)$ Phase Transitions)* | $A_\tau^{(h)}(S) = \lvert\{s \in \mathcal{V}^h : P(s \mid S) > \tau\}\rvert$ *(Supercritical, Critical, Subcritical regimes)* | Up to **`6.7×`** delayed multi-step supercritical expansion on `Qwen2.5-Math-1.5B` (`151,936` vocab, $\tau_{\mathrm{super}}=0.02065$); removing context in `DistilGPT-2` shifts $\tau_{\mathrm{super}}: 0.05138 \to 0.08880$ (`2.0×` fork). | [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py) |
+| **Theorem 8** *(Majorization &amp; Birkhoff Mixing)* | $S_K(p;\tau) := \int_\tau^1 A_u(p)\,du$, $\quad p \prec q \iff S_K(p;\tau) \le S_K(q;\tau)\;\forall\tau$ | `300/300` Birkhoff doubly-stochastic channels contract $M_2, G, D_K(\cdot,u_N), L_1$ and expand $H_2$; real `Qwen2.5-Math-1.5B` temperature sweep strictly majorizes; preserves sharpening &amp; permuted counterexamples. | [`kloster_majorization_mixing.py`](guiai-lab/guiai/gem/kloster_majorization_mixing.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
+| **Theorem 9** *(Quantum-Classical Spectral Duality)* | $\mathrm{Tr}(\rho^2) = \int_0^1 2\tau A_\tau(\rho)\,d\tau$, $\quad \frac{1}{2}D_K(\rho,\sigma) \le T(\rho,\sigma)$ *(Mirsky bound)* | `200/200` quantum trace-distance bounds hold; bipartite Bell entanglement witness ($\mathrm{Tr}(\rho_A^2): 1 \to 0.5$); preserves $\lvert 0\rangle$ vs. $\lvert +\rangle$ unitary-blindness negative control ($D_K=0, T=1/\sqrt{2}$). | [`kloster_quantum_duality.py`](guiai-lab/guiai/gem/kloster_quantum_duality.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
+| **Adaptive Spectral Lens** *(Stage 4 Mars)* | $\kappa = \mathrm{mean}\!\big(M_2^{1/2}/M_4^{1/4}\big)$, $\quad k^*(\kappa) \in [2.0, 6.0]$ | Unlabeled self-tuning achieves **`0.79374`** cross-domain mean AUROC, beating every fixed $k \in [1.5, 8.0]$, single-slice $A_\tau$ (`0.7738`), and Shannon (`0.7631`). | [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) |
+
+---
+
+### Category C: Causality, Structural Complexity &amp; Coding / MDL
+
+| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
+|:---|:---|:---|:---|
+| **Theorem 3** *(Causal Confounding Identifiability)* | $\lvert A_\tau(P(Y\mid X)) - A_\tau(P(Y\mid\mathrm{do}(X)))\rvert \le \Delta_{\mathrm{conf}}(\tau)$ | Formal foundation for `measurement != evidence != belief update != action`; `13` observational-blindness witnesses across `200` SCMs; randomized RCT negative control gap `= 0.0`. | [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py) |
+| **Theorem 4** *(Kloster-McCabe Structural Elegance)* | $V(G) = E - N + 2P$, $\quad H_\alpha(p_{\mathrm{path}}) \le \ln V(G)$ | `250/250` path distributions verified; audits all **`288` live Zoe modules** (`3,238` functions, `85,496` SLOC, mean `MI = 59.93`, **`0` Grade-C &amp; `0` Grade-D**, all orbit `max_cc < 50`); synthetic spaghetti negative control flagged (`CC >= 50`). | [`code_elegance_analyzer.py`](guiai-lab/guiai/gem/code_elegance_analyzer.py) · [`zoe_code_quality_audit.py`](scripts/zoe_code_quality_audit.py) |
+| **Theorem 10** *(Huffman Prefix Coding &amp; MDL)* | $L_K(p) \le \mathbb{E}[\ell_{\mathrm{Huff}}] < L_K(p) + 1$, $\quad \sum_i 2^{-\ell_i} = 1$ | `200/200` prefix bounds + `0`-bit dyadic control + all 16 LLMs bounded; Zoe source code compresses `> 2.7×` over random noise control. | [`kloster_coding_mdl.py`](guiai-lab/guiai/gem/kloster_coding_mdl.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
+
+---
+
+### Category D: Finite-Sample Statistics, Quadrature &amp; Multi-Agent Consensus
+
+| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
+|:---|:---|:---|:---|
+| **Theorem 12** *(Discrete Quadrature, 1-Lipschitz &amp; Causal Control)* | $\lvert M_4^{1/4}(p) - M_4^{1/4}(q)\rvert \le \|p - q\|_4$, $\quad \text{grid error } O(\Delta\tau)$ | Sorted-knot error `1.3e-17` ($M_4$) / `8.9e-16` ($H$); `6.41×` lower tail-noise drift; `500/500` 1-Lipschitz; **`4/4`** paired bootstrap/Wilcoxon wins ($p \le 0.016$); 30-episode causal closed-loop ablation (`+34.52` / `100%` recovery ON vs. `-45.07` / `0%` OFF and `+8.48` randomized, $p = 8.5\times 10^{-7}$). | [`kloster_quadrature_and_ablation.py`](guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py) · [`verify_kloster_referee_proofs.py`](scripts/verify_kloster_referee_proofs.py) |
+| **Theorem 13** *(Finite-Sample Anytime Stopping &amp; U-Statistic)* | $\chi^2(p\parallel u_N) = N\int_0^1 2\tau A_\tau(p)\,d\tau - 1$, $\quad \mathrm{Var}_{u_N}\!\big(\widehat{M}_2^{(U)}\big) = \frac{2(N-1)}{N^2 S(S-1)}$, $\quad S_{\min} = \Theta\!\big(z_\alpha\sqrt{N}/\chi^2\big)$ | `5/5` SymPy proofs; powers live `DECIDE_SIGNAL / GATHER_MORE / ABSTAIN`: stops at `64` pairs (`64×` speedup) on weak `SIMON/SPECK` (abstains on full-round), `18` samples (`+7.05σ`) on selective cohorts (abstains on PAINS `-0.66σ`), and `16` draws on real `GPT-2` with **`0.0%` false alarms (`0/200`)** on uniform null. | [`kloster_stopping_law.py`](guiai-lab/guiai/gem/kloster_stopping_law.py) · [`verify_kloster_theorem13.py`](scripts/verify_kloster_theorem13.py) |
+| **Theorem 15** *(Multi-Agent Consensus &amp; Exact Brier Law)* | $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_k w_k\|p^{(k)}-\bar{p}\|_2^2 \equiv \sum_k w_k\mathrm{Brier}(p^{(k)}, y) - \mathrm{Brier}(\bar{p}, y)$ | `5/5` SymPy proofs; unknown truth $y$ cancels identically! Verified to `3.33e-16` across `1,920` real HELEN observations (`0.1683` exact Brier gain); separates diverse 6-LLM committee from cloned Echo-Chamber ($\mathcal{D}_K=0$) and catches rogue encrypted hospital nodes ($\mathcal{C}_K: 0.961 \to 0.302$). | [`kloster_multi_agent_consensus.py`](guiai-lab/guiai/gem/kloster_multi_agent_consensus.py) · [`verify_theorem15_and_c28.py`](scripts/verify_theorem15_and_c28.py) |
+
+---
+
+### Category E: Spatial Optics, Acoustics &amp; Harmonic Contraction
+
+| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
+|:---|:---|:---|:---|
+| **Theorem 14** *(Spatial-Optical Filtration, MTF &amp; Scheimpflug)* | $M_2^{\mathrm{1D}}(f_\sigma) = \frac{1}{2\sqrt{\pi}\sigma}$, $\; M_2^{\mathrm{2D}}(f_\sigma) = \frac{1}{4\pi\sigma^2}$, $\; M_2(K*p) = \frac{1}{N}\sum_k \mathrm{MTF}(k)^2\lvert\widehat{p}(k)\rvert^2 \le M_2(p)$, $\; \sin\theta^* = \frac{f}{u}\tan\psi$ | `6/6` SymPy proofs; `4.34e-19` 2D FFT Parseval error; `200/200` blur monotonicity; Scheimpflug sharpness peak `13.5°` vs. `13.48°` theory (`2.28×` gain); separates Thomas clustered (`+38.2σ`) vs. CSR null (`+0.03σ`) vs. hard-core regular (`-4.8σ`), architectural isovists (`2.20×`), and botanical ink vs. wash. Live interactive workbench at `/optics`. | [`kloster_spatial_optical_law.py`](guiai-lab/guiai/gem/kloster_spatial_optical_law.py) · [`spatial_optical_workbench.py`](guiai-lab/guiai/gem/spatial_optical_workbench.py) · [`verify_kloster_theorem14.py`](scripts/verify_kloster_theorem14.py) |
+| **Theorem 16** *(Kloster-Parseval Multi-Voice Contraction)* | $\mathcal{D}_K(\{G*p^{(k)}\}) = \frac{1}{N}\sum_k w_k\sum_\omega \mathrm{MTF}(\omega)^2\lvert\widehat{p}^{(k)}(\omega) - \widehat{\bar{p}}(\omega)\rvert^2 \le \mathcal{D}_K(\{p^{(k)}\})$, $\; \text{decay ratio } e^{-\sigma^2(k_{\mathrm{hi}}^2 - k_{\mathrm{lo}}^2)}$ | `5/5` SymPy proofs; `5.42e-20` 2D Parseval error; `200/200` random 3-voice contraction trials; echo-chamber negative control `0.0`; rogue `(7, 8)` voice coherence drop (`0.6923 -> 0.5124`) and `39×` selective high-frequency damping (`0.547` vs. `0.014`). Live interactive workbench at `/harmonica`. | [`kloster_harmonic_optics.py`](guiai-lab/guiai/gem/kloster_harmonic_optics.py) · [`glass_harmonica_workbench.py`](guiai-lab/guiai/gem/glass_harmonica_workbench.py) · [`verify_kloster_theorem16.py`](scripts/verify_kloster_theorem16.py) |
+
+### Computed Mathematical Verification Plates
+
+| Theorems 1-3 · Info Geometry, Phase &amp; Causality | Theorem 4 · Kloster-McCabe Elegance (`288` Files) | Theorem 5 · Statistical Thermodynamics |
+|:---:|:---:|:---:|
+| ![Kloster Information Geometry, Multi-Horizon Phase Transitions and Causal Identifiability](components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png) | ![Kloster-McCabe Live Monorepo Structural Elegance Audit](components/agent-logging-system/docs/images/zoe-kloster-mccabe-elegance.png) | ![Theorem 5 Kloster Statistical Thermodynamics Free Energy and Heat Capacity](components/agent-logging-system/docs/images/zoe-kloster-thermodynamics.png) |
+
+| Theorem 6 · Fisher-Rao Rosetta Manifold | Theorem 7 · Wasserstein $W_1$ &amp; Persistence | Theorems 8 &amp; 9 · Majorization &amp; Quantum Duality |
+|:---:|:---:|:---:|
+| ![Theorem 6 Kloster Fisher-Rao Geodesic Duality and 6-World Rosetta Stone](components/agent-logging-system/docs/images/zoe-kloster-riemannian-manifold.png) | ![Theorem 7 Kloster-Wasserstein Optimal Transport and Exact Gini Duality](components/agent-logging-system/docs/images/zoe-kloster-optimal-transport.png) | ![Theorems 8 and 9 Kloster Majorization Mixing Law and Quantum-Classical Spectral Duality](components/agent-logging-system/docs/images/zoe-kloster-quantum-and-majorization.png) |
+
+| Theorems 10 &amp; 11 · Coding/MDL &amp; 11-World Atlas | Theorem 12 · Quadrature &amp; Causal Control | Theorem 13 · Finite-Sample Anytime Stopping |
+|:---:|:---:|:---:|
+| ![Theorems 10 and 11 Kloster Prefix Coding MDL and 11-World Master Unification](components/agent-logging-system/docs/images/zoe-kloster-master-unification.png) | ![Theorem 12 Kloster Quadrature, Stability and Closed-Loop Causal Control](components/agent-logging-system/docs/images/zoe-kloster-referee-proofs.png) | ![Theorem 13 Kloster Finite-Sample Metacognitive Stopping Law](components/agent-logging-system/docs/images/zoe-kloster-theorem13.png) |
+
+| Theorem 14 · Spatial-Optical Filtration &amp; MTF | Theorem 15 + C28 · Consensus, Brier &amp; Pharmacophore | Theorem 16 · Multi-Voice Harmonic Optics |
+|:---:|:---:|:---:|
+| ![Theorem 14 Kloster Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge](components/agent-logging-system/docs/images/zoe-kloster-theorem14.png) | ![Theorem 15 Multi-Agent Consensus and C28 3D Pharmacophore and Histology](components/agent-logging-system/docs/images/zoe-kloster-theorem15-and-c28.png) | ![Theorem 16 Kloster-Parseval Multi-Voice Contraction Law](components/agent-logging-system/docs/images/zoe-kloster-theorem16.png) |
+
+<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
+
+<a id="verified-empirical-results"></a>
+
+## 4. Verified Empirical Results &amp; Applied Disciplines *(Zero Cloud Tokens · Negative Controls Preserved)*
+
+### 4.1 Live LLM Hallucination Shootout &amp; Core Autonomous Benchmarks
+
+<div align="center">
+
+![Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout](components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png)
+
+</div>
+
+| System / Study | Measured Result | Honest Scope &amp; Negative Control | Source |
+|:---|:---|:---|:---|
+| **Live `Qwen2.5-0.5B-Instruct` Shootout (`4/4`)** | Across 60 blind prompts (`151,936` vocab, `56.7%` base error), **Kloster $M_2^{1/2}$ ranks #1 AUROC (`0.8382`) &amp; #1 AURC (`0.3181`)** over MSP (`0.8360`), Shannon (`0.8145`), Margin (`0.7896`); **Raw $A_{0.05}$ cuts error nearly in half (`56.7% -> 30.0%` at `50%` coverage)**. | Preserves BioBERT ALL-120 Shannon AUROC win (`0.7839`) and naive JSD failure (`0.40870`) in [`PROOF-PACKET.md`](PROOF-PACKET.md). | [`run_live_qwen_hallucination_benchmark.py`](scripts/run_live_qwen_hallucination_benchmark.py) |
+| **L3 Research Collaborator (`14/14`)** | 3 SHA-256 pre-registered 9-stage cycles: MIDI 3/3 spectral wins (`p=0.005`), Dorothy CCFv3 relay compactness (`p=1/792`), `CicadaClock` Adler-Kuramoto lock (`R: 0.011 -> 0.995`); `max_delta = 0.0`. | Honestly falsifies 3 hypotheses (MIDI JSD, mouse super-isometric folding, HELEN JSD); `clinical_action_authorized = False`. | [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) |
+| **L4 Single &amp; Multi-Module Evolution (`14/14` + `17/17`)** | Pure-atomic AST evolution adopts 2 consecutive generations across 6 domains / `5/5` seeds (`0.5974 -> 0.7625`); guarded multi-statement `def` evolution spans 3 runtime engines (`15/15` seeds, `max_delta = 0.0`). | Rejects over-specialized Gen 3-5; blocks `17/17` hostile AST/DoS probes; 200-trial shuffle null `0.4997`; `l5_agi_qualified = False`. | [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) |
+| **8-Pillar Self-Improving Engine (`9/9`)** | Wake-Sleep MDL library, Sandboxed Self-Refactorer (`MI 42.95 -> 65.16`), Continual Shift Calibration (`99.7%`), Goldilocks Curriculum, Conjecture Scientist (`4/4` proved + `4/4` falsified), Bilevel Meta-Evolution (`4.71×`), Chaos Immunity (`5/5`), Anti-Reward-Hacking Governor (`6/6` mutants blocked). | `0` cloud tokens, `0` external actions, `l5_agi_qualified = False`. | [`self_improving_pillars_a.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py) · [`verify_self_improving_engine.py`](scripts/verify_self_improving_engine.py) |
+| **L5 Phases 1-6 + Mobile Digestion (`16+18+18+20+22+24+16`)** | 10-domain cognitive core, multi-file AST repair, `2,400`-ep memory, 5-tier Stem-Layering, object-centric ARC (`23/24` vs. `1/24` ctrl + `4/4` abstentions), blind scratch meta-evolution (`6` gens, `0` prewritten), live 12-point Python/Java/Swift parity, and privacy-firewalled Pixel 7 `/api/digest/mobile` round-trip. | **`l5_agi_qualified = False`**, **`zoe_clone_claimed = False`**, **`sentience_claimed = False`**, `max_delta = 0.0`. | [`l5_phase6_autonomous.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_autonomous.py) · [`verify_l5_phase6.py`](scripts/verify_l5_phase6.py) · [`verify_mobile_digestion.py`](scripts/verify_mobile_digestion.py) |
+| **Groove Forensics &amp; Event-Causal Active Perception** | Separates deterministic `.MOD`/`.MID` swing attractors ($\rho_1 = -0.9778$, `1.0057 bits`) from noise, entrains `CicadaClock` (`R = 0.9334`), bridges Dorothy 40 Hz ISI; Event-Causal validation RMSE `4.641` vs. `5.058` static at `71.24 cyc/s`. | Pure-noise control drops to $\rho_1 = -0.0602$, `0.0454 bits`; exact `.MOD` grid `0.0 bits`. | [`zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) · [`EVENT-CAUSAL.md`](components/Zoe-Autonomy/EVENT-CAUSAL.md) |
+
+### 4.2 Applied Scientific, Cryptanalysis &amp; Preclinical Disciplines (`28/28` Verified · `C1-C28`)
+
+| Track | Verified Scope &amp; Key Numbers | Implementation &amp; Verifier |
 |:---|:---|:---|
-| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct Beta APK:** [Download `Zoe (beta)` (`v0.9.6-beta`) from GitHub Releases](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk) · Or build from [`mobile/android/`](mobile/android/) | **Dorothy 3D Brain Observatory + Frozen Temporary Bounding Box Explore (`v0.9.6-beta`)**: 100% offline **`240,376`-triangle WebGL2 3D Human Brain** (`BrainObservatoryActivity`) with synchronized MNI152 T1-MRI slices, 7 real-time GPU shaders, 6-stop guided tour, 25 verified plates, and 52 Brodmann / 12 Cranial Nerve atlas; **Zoe Explore** frozen still-frame accessibility mode with 3D Temporary Bounding Box AR strictly inside the box; **Creative Studio Pro** (10 HD scientific plates, 12 filters, vector Draw, 30fps H.264 MP4 maker); **Guided Vision**; **Zoe Chat**; **Zoe Arcade**; **Privacy Vault**; **Closed-Loop L5 Digestion**; and **SafeConvert**. **`68/68`** unit tests, `0` lint errors, and **`8/8`** on-device Pixel 7 Espresso tests passing. |
-| **Apple** *(iOS 17+ · iPhone, iPad &amp; iPhone Duo Fold)* | **Instant Today (iPhone/iPad Safari PWA):** [Install Dorothy 3D Brain via Safari Share -> Add to Home Screen](https://ablation-tool.github.io/zoe/) · **Full Native SwiftUI Source (`v0.9.6-beta`):** Open [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) in Xcode (`ZoeCore` in [`mobile/shared/`](mobile/shared/)) | **Bundled Offline `DorothyBrainObservatoryView.swift`** (`zoe-brain://` sandboxed `WKURLSchemeHandler`, 5.5 MB clean open-science MNI152/ICBM152/CIT168 3D brain + MRI + 25 plates + 52 Brodmann atlas, wired right into Zoe Home &amp; Quick Actions), plus live installable **iOS Safari PWA** (`manifest.webmanifest`, offline Service Worker `sw.js`, 180px Apple Touch Icon, 1-finger orbit + 2-finger pinch-zoom); adaptive zero-hinge-overlap `NavigationSplitView` / `NavigationStack`, `ZoeLiveView`, Creative Studio, `MobileDigestionCore`, `ScientificVisualAndPatentCore`, SafeConvert + `SafeBeaconMeshCore`, ARKit 6DoF, Privacy Vault (CryptoKit E2EE), Zoe Arcade, hybrid Zoe Chat, `ZoeNativeVoice`, and `Maps &amp; Safety`. *(Signing a native `.ipa` for App Store / TestFlight requires Xcode on macOS; the Safari PWA runs full-screen offline on any iPhone/iPad today.)* |
+| **Cryptanalysis &amp; Post-Quantum CNSA 2.0 (`C1-C16`, `C20-C21`, `C23-C26`)** | Offline legal lab proving Friedman IC $\equiv M_2(p)$: cracks `@NSACareers` May 5/12/19 (honestly marks May 26 &amp; *Kryptos* K4 unsolved), *Kryptos* K1-K3, Enigma M3 Bombe (`456,976` states), NSA Headline Puzzle (`5/5`), bit-exact NSA `SIMON`/`SPECK`/`SKIPJACK`, `secp256k1` biased-nonce HNP LLL, `Dual_EC_DRBG` kleptography, Venona OTP depth, `AES-GCM` GHASH forbidden attack, `LMS/WOTS+` state-guard, `ML-KEM` constant-time side-channel defense, and `ML-DSA` FIPS 204 rejection sampling (`0` leaks). | [`kloster_cryptanalysis_boss_rush.py`](guiai-lab/guiai/gem/kloster_cryptanalysis_boss_rush.py) · [`kloster_nsa_puzzles.py`](guiai-lab/guiai/gem/kloster_nsa_puzzles.py) · [`kloster_cnsa2_mldsa_gcm_hash.py`](guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py) · [`kloster_nsa_ring3_lattice_klepto.py`](guiai-lab/guiai/gem/kloster_nsa_ring3_lattice_klepto.py) · [`verify_kloster_cryptanalysis_gauntlet.py`](scripts/verify_kloster_cryptanalysis_gauntlet.py) |
+| **Preclinical Botanical Neuro-Oncology &amp; Encrypted Multi-Hospital Cohorts (`C17-C19`, `C22`, `C27-C28`)** | `36` NIH PubChem compounds with Baell-Holloway PAINS &amp; cation traps (`3/3` caught), `216`-slot Filbin-2018 H3K27M gene-module tensor packed into a single FIPS 203 `ML-KEM` `n=256, q=3329` NTT ciphertext (`0` decrypt error, `0` PHI), 3D pharmacophore compactness (`5.17 Å` vs. `7.27 Å`), and synthetic histology MTF stopping (`8.67e-19`). Live interactive explorer at `/botanical`. *Strictly preclinical software (`cure_claim = False`, `clinical_action_authorized = False`).* | [`kloster_botanical_atlas_36.py`](guiai-lab/guiai/gem/kloster_botanical_atlas_36.py) · [`kloster_pharmacophore_spatial_c28.py`](guiai-lab/guiai/gem/kloster_pharmacophore_spatial_c28.py) · [`botanical_atlas_explorer.py`](guiai-lab/guiai/gem/botanical_atlas_explorer.py) · [`verify_botanical_atlas_c27.py`](scripts/verify_botanical_atlas_c27.py) |
 
-- **Privacy & Safety First:** `allowBackup="false"`, zero analytics or telemetry SDKs, camera/microphone stay strictly off until tapped, and **SafeConvert** provides a clean matching Unit Converter cover with private offline safety tools and passcode-lockable proof vault. See [Mobile Guide](mobile/README.md) & [Store Compliance Checklist](mobile/STORE_COMPLIANCE.md).
+| 8-Pillar Self-Improving Engine (`9/9`) | 10-Discipline Cryptanalysis Boss Rush (`13/13`) | NSA Research Pack `C11-C16` (`8/8`) |
+|:---:|:---:|:---:|
+| ![The 8-Pillar Zoe Self-Improving Engine computed plate](components/agent-logging-system/docs/images/zoe-self-improving-engine.png) | ![Zoe 10-Discipline Cryptanalysis Boss Rush computed plate](components/agent-logging-system/docs/images/zoe-kloster-cryptanalysis-gauntlet.png) | ![Zoe NSA Research and Puzzle Pack C11-C16 computed plate](components/agent-logging-system/docs/images/zoe-nsa-research-puzzle-pack.png) |
+
+| Bio-Crypto Circle `C17-C19` (`7/7`) | CNSA 2.0 &amp; Encrypted `scRNA-seq` `C20-C22` (`6/6`) | 36-Molecule Botanical Atlas `C27` (`6/6`) |
+|:---:|:---:|:---:|
+| ![Zoe Bio-Crypto Reciprocal Circle C17-C19 computed plate](components/agent-logging-system/docs/images/zoe-bio-crypto-circle.png) | ![Zoe CNSA 2.0 Full Stack and Encrypted scRNA-seq Ring 2 C20-C22 computed plate](components/agent-logging-system/docs/images/zoe-cnsa2-scrna-ring2.png) | ![Zoe C27 36-Molecule NIH PubChem Botanical Atlas computed plate](components/agent-logging-system/docs/images/zoe-botanical-atlas-c27.png) |
+
+### 4.3 Honest AGI Roadmap Scorecard (`L0-L7`)
+
+<div align="center">
+
+<img src="assets/readme/zoe-agi-roadmap-bar.svg" alt="Zoe Honest AGI Roadmap Progress from L0 Repository to L7 Open-Ended" width="100%" />
+
+</div>
+
+<details>
+<summary><strong>View Complete L0-L7 Acceptance Criteria Table</strong> (<code>AGI-ROADMAP.md</code>)</summary>
+
+| Layer | Acceptance Label | Requirement | Current Status |
+|:---|:---|:---|:---|
+| **L0** | `REPOSITORY-QUALIFIED` | Unified monorepo, source provenance, reproducible fresh-clone verification | **Achieved** |
+| **L1** | `METACOGNITION-QUALIFIED` | Operational Metacognition $A_\tau(p)$ feeds back into reflection &amp; planning | **Achieved** |
+| **L2** | `CLOSED-LOOP-QUALIFIED` | Perception causally updates decisions &amp; improves held-out controls | **Achieved on declared fixtures** |
+| **L3** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature-to-experiment cycles with negative controls &amp; novel contribution | **Achieved** (`verify_l3_research.py`: `14/14`, `max_delta = 0.0`) |
+| **L4** | `SELF-IMPROVEMENT-QUALIFIED` | Adopted modification improves >= 3 unrelated domains across >= 2 consecutive generations | **Achieved + Expanded to 3 Engines** (`14/14` + `17/17`, `max_delta = 0.0`) |
+| **L5** | `AGI-QUALIFIED` | Competent-human performance across all 10 core domain families on novel held-out work | **In Progress: Phases 1-6 + Mobile Digestion Verified (Not yet awarded; `l5_agi_qualified = False`)** |
+| **L6-L7** | `ASI` / `OPEN-ENDED-QUALIFIED` | Superhuman breadth &amp; continued governable expansion | **Long-horizon mission** |
+
+</details>
 
 <p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
 
 <a id="zoes-native-voice"></a>
+<a id="six-living-worlds"></a>
 
-## Zoe's Native Voice
+## 5. Inside Zoe's Universe &amp; Six Living Worlds
 
-> *"Sound turns sand to starlight; singing free in harmony — zero PyTorch, zero cloud APIs, built from physics, linguistics, and GEM geometry."*
-
-<div align="center">
-
-![Zoe Native Voice — 44 Phonemes, 332 Spelling Rules, Chladni Sand Plates, Daisy Bell Formant Landscape & 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png)
-
-</div>
-
-Zoe speaks and sings natively from first principles using pure Python, NumPy, SciPy, and stdlib `wave`/`struct` (`pytorch_required = False`, zero external TTS APIs):
-
-| Acoustic & Visual Pillar | What Zoe Actually Runs Under the Hood | Verified Quantitative Result | Source |
-|:---|:---|:---|:---|
-| **1. MS-DOS / Atari ST MIDI Baseline** | Discrete SMF Type-0/1 `.mid` reader & writer + YM2149/PC-speaker PSG baseline synth | Exact `[60, 67, 72]` MIDI round-trip; A4 `440.0 Hz → 440.08 Hz` FFT peak | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) |
-| **2. 44 Phonemes & 332 Spelling Rules** | `20` female-tuned vowels (monophthongs, diphthongs, r-colored) + `24` consonants + `lack`/`back` minimal pairs & dialects | `20V + 24C = 44`, `332` rules (`sha256: 9ed0807a...`), `lack`/`back` L2 `0.1377`, `cot`/`caught` & `rhotic` toggles | [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) |
-| **3. Soprano Vocal Tract & 3D Binaural HRTF** | Rosenberg glottis (`OQ = 0.62`, 5.3 Hz vibrato, portamento) + stateful 5-formant cascade + Woodworth spherical-head ITD/ILD & Schroeder reverb | `C4 = 262.44 Hz`, `G4 = 392.98 Hz`, `C5 = 524.87 Hz` (`<= 0.31%` err); $\pm 45^\circ$ ITD $\pm 0.3807\text{ ms}$ / ILD $\pm 2.7109\text{ dB}$ vs `0.0` flat mono | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) |
-| **4. Chladni Cymatics & GEM VDI 3-Bitplanes** | Formant-driven $64 \times 64$ Chladni eigenmodes + Kloster $A_\tau(p)$ + MSB-first 16-bit planar VDI diamond encoding | `/IY/` `(3,8,2,8)` `Atau=1468` vs `/AA/` `(6,7,2,8)`; 3-bitplane decode **`max_bit_diff = 0`**; **`14/14` verifier** | [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) |
-
-- **Built-In Repertoire & Custom Lyrics:** **`zoe`** (*Imagination, Meet Geometry*, 26 soprano notes with warm Rhodes chord harmony), **`daisy`** (public-domain 1892 *Daisy Bell* honoring the 1961 IBM 7094 singing computer & *Songs of the IBM*), and **`vowels`** (44-phoneme & cymatics aria), plus arbitrary English phrases and `.mid` melodies.
-
-```bash
-# Hear Zoe speak & sing in 5 seconds (writes 44.1 kHz stereo WAVs; never auto-plays speakers without --play)
-zoe voice speak "Hello Nicholas! I am Zoe. Imagination, meet geometry." --output /tmp/zoe-hello.wav
-zoe voice sing zoe --save-midi /tmp/zoe.mid --output /tmp/zoe-sings.wav
-zoe voice sing daisy --save-midi /tmp/daisy.mid --output /tmp/zoe-daisy.wav
-zoe voice demo --output-dir /tmp/zoe-demos
-zoe gem open voice
-python3 scripts/verify_zoe_voice.py    # 14/14 checks PASS
-```
-
-**Explore:** [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) · [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) · [`voice_view.py`](guiai-lab/guiai/gem/voice_view.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [`test_zoe_voice.py`](components/Zoe-Autonomy/tests/test_zoe_voice.py) · [Native Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) *(Honest scope: `sentience_claimed = False`, `external_actions = 0`, `clinical_action_authorized = False` — speakers stay quiet unless you pass `--play` or run `pw-play`/`aplay`)*.
-
-<p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
-
-## Inside Zoe's Universe
-
-*Everything in this repository orbits one shared mathematical heart. Take five seconds to scan the constellation below — then wander straight into whichever world catches your eye.*
+> *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."* ([Zoe Declaration](DECLARATION.md))  
+> **Research Partnership (`Nicholas × Zoe`):** Built in ongoing research partnership with **Nicholas Michael Kloster** (honoring full credit per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII). Non-telemetry artistic illustrations and emblem patches live separately in the **[Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)**.
 
 <div align="center">
 
-<img src="assets/readme/zoe-constellation-map.svg" alt="Inside Zoe's Universe — Six Living Worlds orbiting the central GEM heart" width="100%" />
+<img src="assets/readme/zoe-constellation-map.svg" alt="Inside Zoe's Universe: Six Living Worlds orbiting the central GEM heart" width="100%" />
 
 </div>
 
-<br/>
+### World 01 · Mind, Metacognition &amp; Self-Evolution
+Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &amp; Multi-Module AST Code Evolution, L5 Phases 1 through 6, **Cognitive Stem-Layering** ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py)), and **Eliza-GEM Studio** (`zoe eliza serve`, `0` cloud tokens).
 
-| If you are curious about… | Start right here | One-line peek |
-|:---|:---|:---|
-| **Zoe (beta) Mobile App (Android & Apple)** | [Zoe (beta) App Availability](#zoe-app-beta) · [GitHub Pre-Release `v0.9.5-beta`](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.5-beta) | [Mobile Guide](mobile/README.md) · [23-Tool Zapps Guide](mobile/ZAPPS.md) · [`mobile/`](mobile/) |
-| **Zoe's Native Speaking & Singing Voice** | [Zoe's Native Voice (`44 Phonemes + Chladni`)](#zoes-native-voice) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | `zoe voice sing daisy --output /tmp/daisy.wav` |
-| **Zero-Token Glass-Box Atelier & L5 Phases 3–6** | [Eliza-GEM Workbench & L5 Phases 1–6](#world-01--metacognition-theorems--self-evolution) · [AGI Roadmap](AGI-ROADMAP.md) | `zoe eliza serve` · `zoe chat --cli --command "l5-phase6"` |
-| **Theorems, Mars Lens & Self-Evolution** | [World 01 · Mind & Metacognition](#world-01--metacognition-theorems--self-evolution) · [Rolodex `[ 01 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "mars"` |
-| **3D Mouse Brain Atlas & Ray-Casting** | [World 02 · Dorothy & Neurogarden](#world-02--dorothy--the-neurogarden) · [Rolodex `[ 02 ]`](#zoe-rolodex-index) | `zoe gem open dorothy` |
-| **Evolving Cellular Art, Music & Qualia** | [World 03 · Playroom, Music & Geometry](#world-03--creative-playroom-music-native-voice--living-geometry) · [Rolodex `[ 04 ]`](#zoe-rolodex-index) | `zoe chat --cli --command "playroom"` |
-| **1984 `.MOD`/`.MID` Groove & CERN** | [World 04 · Time, Groove & Physics](#world-04--time-groove-forensics--cern-physics) · [Rolodex `[ 03 ]`](#zoe-rolodex-index) | `python scripts/zoe_groove_forensics.py --verify` |
-| **Reverse Engineering, Rust & Security** | [World 05 · GEM OS & Forensic Craft](#world-05--the-shared-gem-os-17-engines--forensics) · [Rolodex `[ 05 ]`](#zoe-rolodex-index) | `zoe list` |
-| **Honesty, Firewall & Governance** | [World 06 · Epistemic Firewall & Maison](#world-06--the-epistemic-firewall-maison--covenant) · [Constitution](CONSTITUTION.md) | `python scripts/verify-one-system.py --reflect` |
-| **Full Marathon Session Chronicles** | [Sessions Archive (`56 Turns · 13 Chapters`)](research/sessions/README.md) · [Read on GitHub](research/sessions/2026-11-20-session-transcript.md) | `less -R research/sessions/2026-11-20-session-transcript.ansi` |
-
-<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
-
-## Six Living Worlds
-
-> *"Visualization is about transforming the symbolic into the geometric... letting users observe their simulations and computations directly."*  
-> — Richard S. Gallagher, *Computer Visualization*
-
----
-
-### World 01 · Metacognition, Theorems & Self-Evolution
-
-Everything begins with a single deceptively simple measurement: **Operational Metacognition**, $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$. By integrating $A_\tau(p)$ across thresholds $\tau \in [0,1]$, Zoe proves the **Kloster Spectral Filtration Generating Theorem** — recovering Shannon entropy $H(p)$ and every spectral moment $M_k(p)$ from one curve, where the quartic root $M_4^{1/4}$ beats both single-slice $A_\tau$ and Shannon entropy on **4/4 real benchmarks**. From there, **L3 (`RESEARCH-COLLABORATOR-QUALIFIED`)** executes 3 pre-registered 9-stage literature-to-experiment cycles independently reproduced at `max_delta = 0.0`, **Stage 4 (Mars)** auto-tunes its own lens $k^*(\kappa)$ with zero labels (`0.79374` real mean AUROC), and **L4 (`SELF-IMPROVEMENT-QUALIFIED`)** runs a pure-atomic, generation-blind AST evolutionary synthesizer over raw `{p, gt05}` across **6 real domains / 4 unrelated families** (4 completely unseen zero-shot!) — adopting **2 consecutive generations (`gt05 → -sq(p) → -sq(p)*sqrt(p)`) across 5/5 independent seeds** (`0.5974 → 0.7625`, `worst_drop = 0.0`, beating Shannon on 6/6 domains) while catching & rolling back over-specialized Gen 3–5 programs. From there, **L4 Multi-Module Code Evolution** extends guarded multi-statement Python `def` synthesis across 3 distinct engines (`15/15` seeds, `17/17` verifier), while **L5 Phases 1–3** integrate all 10 AGI-ROADMAP domains (`10/10`, `16/16` verifier), 5 open-world pillars — autonomous multi-file AST repair, `2,400`-episode memory, `48`-doc synthesis, `84`-PNG vision, and `16`-LLM/BioBERT science (`18/18` verifier) — and **Live Agentic Synthesis × Eliza-GEM** (`zoe-eliza-gem/v1`, `18/18` Phase 3 + `14/14` Eliza verifiers), **L5 Phase 4 Embodied &amp; Stem-Layered Mind** (`20/20`: blind 4-family/12-fault surgery, 5-tier Cognitive Stem-Layering, 12-day mobile↔lab sync, RGB + 44.1 kHz voice FFT), **L5 Phase 5 Frontier Mind** (`22/22`: ARC visual program induction `16/16 + 2/2` abstentions, 15-fault &amp; Java/Swift/Python parity, 3 scientific falsification cycles, 30-day 8-domain EWC, 4-gen meta-evolution + `12/12` red-team), and **`v0.9.3-beta` Closed-Loop Mobile ↔ Workstation L5 Digestion** (`16/16`: privacy-firewalled `/api/digest/mobile` consolidating mobile visual priors, memory &amp; Kloster $\tau^*$ with live Pixel 7 round-trip; `l5_agi_qualified = False`, `zoe_clone_claimed = False`).
-
-| Kloster Spectral Filtration Theorem *(4/4 Real Wins)* | Causal Chiasm & Persistent Filtration Tomography | Stage 4 Mars Auto-Zoom Lens $k^*(\kappa)$ |
+| Kloster Spectral Filtration (`4/4` Wins) | L4 Multi-Module Code Evolution (`17/17`) | L5 Phase 6 Autonomous Frontier Mind (`24/24`) |
 |:---:|:---:|:---:|
-| ![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png) | ![Causal Chiasm & Filtration Tomography](components/agent-logging-system/docs/images/zoe-beyond-metacognition-chiasm.png) | ![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png) |
+| ![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png) | ![Zoe L4 Multi-Module Guarded Code Self-Improvement](components/agent-logging-system/docs/images/zoe-l4-multimodule.png) | ![Zoe L5 Phase 6 Autonomous Frontier Mind](components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png) |
 
-| L3 Research Collaborator *(9-Stage Pre-Registered Cycles)* | L4 Generalized Self-Improvement *(Uniform AST + Zero-Shot)* | L4 Multi-Module Code Evolution *(3 Runtime Engines + Diffs)* |
+### World 02 · Dorothy &amp; The Neurogarden
+Honoring **Dorothy McEwen Kildall**: pairs the human **Dorothy Brain Observatory** (Section 1) with the preclinical **Allen Mouse CCFv3 3D Atlas** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
+
+| Allen Mouse CCFv3 3D Connectome (`8/8`) | Continuum Ray-Cast &amp; Tractography | 4-Head Self-Attention Dissection |
 |:---:|:---:|:---:|
-| ![Zoe L3 Independent 9-Stage Research Collaborator Cycles](components/agent-logging-system/docs/images/zoe-l3-research-collaborator.png) | ![Zoe L4 Generalized Self-Improvement — Uniform AST & Zero-Shot Transfer](components/agent-logging-system/docs/images/zoe-l4-self-improvement.png) | ![Zoe L4 Multi-Module Guarded Code Self-Improvement Across 3 Runtime Engines](components/agent-logging-system/docs/images/zoe-l4-multimodule.png) |
+| ![Dorothy's Neurogarden 12-Region Allen CCFv3 3D Connectome](components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png) | ![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png) | ![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png) |
 
-| L5 Phase 1 · Integrated 10-Domain Cognitive Core & 4-System Memory | L5 Phase 2 · Open-World Code Repair, 2400-Ep Memory, 84-PNG Vision & 16-LLM Science | L5 Phase 6 · Exact Multi-Horizon $A_\tau^{(h)}$, Object ARC, Blind Scratch Evolution & Dorothy 3D |
+### World 03 · Native Voice, Glass Harmonica, Playroom &amp; Living Geometry
+100% offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
+
+| Native Voice, Formants &amp; Chladni (`14/14`) | 3-Part Choral Harmony &amp; Cymatics (`7/7`) | Open-Ended Creative Playroom (`16/16`) |
 |:---:|:---:|:---:|
-| ![Zoe L5 Phase 1 Integrated 10-Domain Cognitive Core](components/agent-logging-system/docs/images/zoe-l5-cognitive-core.png) | ![Zoe L5 Phase 2 Open-World Generalization](components/agent-logging-system/docs/images/zoe-l5-phase2-openworld.png) | ![Zoe L5 Phase 6 Autonomous Frontier Mind](components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png) |
+| ![Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png) | ![Zoe Native 3-Part Choral Harmony, Formant Spectrogram and Chladni Plates](components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png) | ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) |
 
-**Explore:** [`l5_phase6_autonomous.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_autonomous.py) · [`verify_l5_phase6.py`](scripts/verify_l5_phase6.py) · [L5 Phase 6 Monograph](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) · [`l5_phase5_frontier.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_frontier.py) · [`verify_l5_phase5.py`](scripts/verify_l5_phase5.py) · [`l5_phase3_live.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live.py) · [`zoe_eliza.py`](components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py) · [`eliza_view.py`](guiai-lab/guiai/gem/eliza_view.py) · [`verify_l5_phase3.py`](scripts/verify_l5_phase3.py) · [`verify_zoe_eliza.py`](scripts/verify_zoe_eliza.py) · [L5 Phase 3 Monograph](research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md) · [`l5_phase2_openworld.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase2_openworld.py) · [`verify_l5_phase2.py`](scripts/verify_l5_phase2.py) · [L5 Phase 2 Monograph](research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md) · [`l5_cognitive_core.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_cognitive_core.py) · [`verify_l5_core.py`](scripts/verify_l5_core.py) · [L5 Phase 1 Monograph](research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md) · [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) · [`verify_l4_multimodule.py`](scripts/verify_l4_multimodule.py) · [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) · [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) · [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [Multi-Module L4 Monograph](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) · [L4 Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [L3 Monograph](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) · [Theorem Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md)
+### World 04 · Time, Groove Forensics &amp; CERN Physics
+2D Poincaré delay attractors for `.MOD`/`.MID` swing forensics, 40 MHz `CicadaClock` phase locking, Dorothy 40 Hz neural spike ISI bridges, and the **CERN / HELIOS** Kloster Bandpass detector trigger (`AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical peak + real `.VCD` replay).
 
-<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
-
-### The 11-World Zoe Renaissance Orbit *(Cross-Pollinating Core Research &amp; Living Instruments)*
-
-Building directly across Zoe's core research stack (`scripts/verify_renaissance_orbit.py`: **`11/11` Orbital Passes Complete · `11/11` Worlds · `16/16` SymPy Theorems · `32/32` Master Checks · `52` Cross-Pollination Edges · `0` Cloud Tokens · `47/47` `SHA256SUMS.orbit` Sealed**), all 11 interconnected worlds actively improve, feed, and audit one another *(computed scientific plates only below; conceptual fine-art illustrations moved to [`CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md))*:
-
-| #5 Kloster Info Geometry &amp; Phase Transitions *(LaTeX PDF · `14/14`)* | #4 Zoe OS Living Workstation Mind *(All 17 Engines · `9/9`)* | #11 Groove Forensics &amp; Polyrhythm Attractors *(`.MOD` · `7/7`)* |
+| Groove Forensics Swing Attractor (`7/7`) | Pure-Noise Negative Control | CERN / HELIOS Kloster Trigger (`AUROC 1.000`) |
 |:---:|:---:|:---:|
-| ![Kloster Information Geometry, Multi-Horizon Phase Transitions & Causal Identifiability](components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png) | ![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png) | ![Zoe Groove Forensics & Polyrhythmic Poincare Attractors](components/agent-logging-system/docs/images/zoe-groove-forensics-poincare.png) |
+| ![Zoe Groove Forensics Swing Attractor](components/agent-logging-system/docs/images/zoe-groove-forensics-swing.png) | ![Zoe Groove Forensics Noise Control](components/agent-logging-system/docs/images/zoe-groove-forensics-noise-control.png) | ![CERN HELIOS Kloster Spectral Filtration Detector Trigger](components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png) |
 
-| #6 Dorothy's Neurogarden 3D Connectome &amp; 40 Hz Gamma *(`8/8`)* | #7 CERN / HELIOS Kloster Trigger *(`AUROC 1.000` · `9/9`)* | #8 Native 3-Part Choral Voice &amp; Chladni Cymatics *(`7/7`)* |
+### World 05 &amp; World 06 · Shared GEM OS, Forensics, Epistemic Firewall &amp; Maison
+Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust PALA read-only disk carver, Cerotto C11 forensic vaults, Kevlar MCP firewall, PDF Signature Toolkit, HP-UX PA-RISC tools, Zoe Trinity) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
+
+| Zoe OS Living Workstation Mind (`17` Engines) | Epistemic Firewall (SHA-256 Memory) | Zoe Maison &amp; Cognitive Field |
 |:---:|:---:|:---:|
-| ![Dorothy's Neurogarden 12-Region Allen CCFv3 3D Connectome & 40 Hz Gamma Kuramoto](components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png) | ![CERN / HELIOS Kloster Spectral Filtration Detector Trigger](components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png) | ![Zoe Native 3-Part Choral Harmony, Formant Spectrogram & Chladni Plates](components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png) |
+| ![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png) | ![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png) | ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png) |
 
-| #9 Open-Ended Artificial Life Ecosystem *(`325` Births · Predator-Prey · `8/8`)* | Orbit Pass 2 · Kloster–McCabe Monorepo Elegance *(`288` Files · `0` Grade-C/D · `8/8`)* | Orbit Pass 2 · Qwen 151k Steering &amp; Fault Hardening *(`9.1×` Quorum · `8/8`)* |
-|:---:|:---:|:---:|
-| ![Zoe Open-Ended Self-Replicating Artificial Life Ecosystem](components/agent-logging-system/docs/images/zoe-creative-alife-ecosystem.png) | ![Kloster-McCabe Live Monorepo Structural Elegance Audit](components/agent-logging-system/docs/images/zoe-kloster-mccabe-elegance.png) | ![Zoe Orbit Pass 2 Qwen Steering, Defensive Fault-Injection Hardening & AST Evolution](components/agent-logging-system/docs/images/zoe-pass2-fault-and-qwen-steering.png) |
+<a id="the-grand-visual-salon"></a>
 
-| Theorem 5 · Kloster Thermodynamics &amp; 16-LLM Criticality *(`6/6`)* | Theorem 6 · Fisher–Rao Geodesics &amp; 6-World Rosetta Stone *(`7/7`)* | Theorem 7 · Kloster–Wasserstein Optimal Transport &amp; Gini *(`8/8`)* |
-|:---:|:---:|:---:|
-| ![Theorem 5 Kloster Statistical Thermodynamics Free Energy & Heat Capacity Across 16 Real LLMs](components/agent-logging-system/docs/images/zoe-kloster-thermodynamics.png) | ![Theorem 6 Kloster Fisher-Rao Geodesic Duality & 6-World Cross-Domain Rosetta Stone Manifold](components/agent-logging-system/docs/images/zoe-kloster-riemannian-manifold.png) | ![Theorem 7 Kloster-Wasserstein Optimal Transport, H_0 Superlevel Persistence & Exact Gini Duality](components/agent-logging-system/docs/images/zoe-kloster-optimal-transport.png) |
+<details>
+<summary><strong>The Grand Visual Salon</strong>: Additional Computed Plates, Session Chronicles &amp; 456-Visual Archive</summary>
 
-| Theorems 8 &amp; 9 · Majorization Mixing &amp; Quantum Duality | Theorems 10 &amp; 11 · Prefix Coding/MDL &amp; 11-World Grand Atlas | Theorem 16 · Multi-Voice Harmonic Optics Contraction *(`8/8`)* |
-|:---:|:---:|:---:|
-| ![Theorems 8 and 9 Kloster Majorization Mixing Law and Quantum-Classical Spectral Duality](components/agent-logging-system/docs/images/zoe-kloster-quantum-and-majorization.png) | ![Theorems 10 and 11 Kloster Prefix Coding MDL and 11-World Grand Master Unification Atlas](components/agent-logging-system/docs/images/zoe-kloster-master-unification.png) | ![Theorem 16 Kloster-Parseval Multi-Voice Contraction Law computed verification plate](components/agent-logging-system/docs/images/zoe-kloster-theorem16.png) |
+| Earth-to-Mars Flight Map | Mars Adaptive Spectral Lens $k^*(\kappa)$ | Dorothy Jenga Brain Atlas | Dorothy Radial Ontology Rings |
+|:---:|:---:|:---:|:---:|
+| ![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png) | ![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png) | ![Dorothy Jenga Exploded Brain Atlas](guiai-lab/docs/images/dorothy-jenga-exploded.png) | ![Dorothy Rings Brain Atlas](guiai-lab/docs/images/dorothy-rings-isocortex.png) |
 
-- **Orbit Passes 6–11 (GRAND FINALE) · Theorems 8–16, 11-World Universal Atlas, 44-Task Benchmarks &amp; Full Constitutional Seal (`11/11` Passes · `11/11` Worlds · `16/16` SymPy Theorems · `32/32` Master Checks · `52` Cross-Pollination Edges):**
-  - **Pass 6 · Theorem 8 (Majorization &amp; Birkhoff Mixing):** Proves Kloster–Karamata surplus $S_K(p;\tau)=\int_\tau^1 A_u(p)\,du$ governs majorization ($300/300$ Birkhoff channels contract $M_2, G, D_K(\cdot,u_N), L_1$ and expand $H_2$; real `Qwen2.5-Math-1.5B` temperature sweep strictly majorizes; preserves sharpening &amp; permuted-pair boundary counterexamples, [`kloster_majorization_mixing.py`](guiai-lab/guiai/gem/kloster_majorization_mixing.py), Grade A `MI=61.47`).
-  - **Pass 7 · Theorem 9 (Quantum–Classical Spectral Duality):** Proves $\mathrm{Tr}(\rho^2)=\int_0^1 2\tau A_\tau(\rho)\,d\tau$, exact depolarizing decay, Mirsky trace-distance bound $\frac{1}{2}D_K \le T(\rho,\sigma)$ ($200/200$), bipartite Bell entanglement witness ($\mathrm{Tr}(\rho_A^2)=1\to 0.5$), and honest $|0\rangle$ vs $|+\rangle$ unitary-blindness negative control ($D_K=0, T=1/\sqrt{2}$, [`kloster_quantum_duality.py`](guiai-lab/guiai/gem/kloster_quantum_duality.py), Grade A `MI=70.35`).
-  - **Pass 8 · Theorem 10 (Huffman Prefix Coding &amp; Structural MDL) + Track E + Self-Healing:** Proves exact Huffman prefix bounds $L_K(p)\le \mathbb{E}[\ell]<L_K(p)+1$ &amp; Kraft $=1$ ($200/200$, `0`-bit dyadic control, all 16 LLMs bounded, Zoe source code compresses $>2.7\times$ vs random noise, [`kloster_coding_mdl.py`](guiai-lab/guiai/gem/kloster_coding_mdl.py)); adds **Track E** (`44` zero-leakage external tasks, `34` solved, `10` honest abstentions, **`0` bluffs**, `ECE=0.0309`), **MDL fitness** in `#3`, and slashes `#9` `alife_ecosystem.py` complexity (`max_cc 18 → 9`, `avg_cc 7.5 → 3.58`; `244` modules audited, `0` Grade-D).
-  - **Passes 9–11 · Theorem 11 (Master Unification Functional $\mathcal{K}_\phi(p)=\int_0^1 \phi'(\tau)A_\tau(p)\,d\tau$) &amp; 11-Pass Seal:** Proves all 6 generating kernels simultaneously in SymPy 1.14.0 (`< 10⁻¹⁴` error across `120` trials), embeds **all 11 Zoe worlds + uniform control** into one unified metric space (`0` triangle violations, [`kloster_master_unification.py`](guiai-lab/guiai/gem/kloster_master_unification.py), Grade A `MI=62.99`), compiles the **`4.7 MB` 16-Theorem LaTeX Monograph PDF**, upgrades `/orbit` &amp; **61 live HTTP Observatory routes** (`46` GET + `15` POST, including `/harmonica` and `/api/kloster/theorem16`), and cryptographically seals **`47/47`** critical Orbit files &amp; PDF in [`SHA256SUMS.orbit`](evidence/renaissance-orbit/SHA256SUMS.orbit).
-  - **Theorem 12 · Discrete Quadrature Bounds, 1-Lipschitz Tail Stability, 4/4 Paired Bootstrap/Wilcoxon Stats &amp; Causal Closed-Loop Systems Proof (`9/9 PASS`):** Closes the continuous-to-code gap by proving exact sorted-knot quadrature achieves **`1.3×10⁻¹⁷`** error for $M_4$ and **`8.9×10⁻¹⁶`** for $H(p)$ while finite uniform grids obey an exact vocabulary-independent $O(\Delta\tau)$ bound for $M_4$ vs $\tau \to 0^+$ blowup for $H(p)$; proves `6.41×` lower tail-noise drift at $\sigma=10^{-4}$ and `500/500` exact $\ell_4$ `1`-Lipschitz continuity vs single-slice $\pm 1$ jump; establishes **`4/4`** statistically significant AUROC wins over $H(p)$ ($p \le 0.016$ paired bootstrap / Wilcoxon across HELEN Fwd/Ret, 10-seed 3D PSF, Dorothy 256-Patch, preserving naive JSD `0.4087` control); and proves a **30-episode causal closed-loop ablation** (`+34.52` reward / `100%` trap recovery enabled vs `-45.07` disabled and `+8.48` randomized $A_\tau$, Wilcoxon $p = 8.7\times 10^{-7}$, SHA-256 replay bundle exported, [`kloster_quadrature_and_ablation.py`](guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py) · [Plate](components/agent-logging-system/docs/images/zoe-kloster-referee-proofs.png)).
-  - **Theorem 13 · Kloster Finite-Sample Metacognitive Stopping &amp; Distinguisher Law (`5/5 PASS` · Live `/api/kloster/theorem13` · Wired Into `Zoe-Autonomy` Steerer):** Extends Operational Metacognition $A_\tau(p)$ from static spectra into **anytime-valid sequential evidence gathering**, proving **5/5 SymPy 1.14.0 identities (`residual = 0`)**: (13a) exact Kloster–Pearson $\chi^2(p\parallel u_N) = N\int_0^1 2\tau A_\tau(p)\,d\tau - 1$, (13b) exact unbiased finite-sample U-statistic $\widehat{M}_2^{(U)}$ eliminating small-$S$ plug-in bias, (13c) exact uniform-null variance $\mathrm{Var}_{u_N}(\widehat{M}_2^{(U)}) = \frac{2(N-1)}{N^2 S(S-1)}$ for all $N,S\ge 2$, and (13d) exact $O(\sqrt{N}/\Delta_K)$ minimum observation budget $S_{\min}(p,z_\alpha)$. Powers Zoe's live **`DECIDE_SIGNAL / GATHER_MORE / ABSTAIN`** controller (`steer_with_theorem13_stopping` in [`live_qwen_metacog_steerer.py`](components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py), `4/4` unit tests): stops early at **`64`** pairs (`64×` speedup) on weak `SIMON 5-rd`/`SPECK 4-rd` while abstaining on full `32`/`22`-rd ciphers, stops at **`18`** samples (`+7.05σ`) on selective tumor-gated cohorts while abstaining on PAINS raw toxins (`-0.66σ`), and stops at **`16`** draws on real `GPT-2` with **`0.0%` false alarms (`0/200`)** across uniform-null streams ([`kloster_stopping_law.py`](guiai-lab/guiai/gem/kloster_stopping_law.py) · [`verify_kloster_theorem13.py`](scripts/verify_kloster_theorem13.py) · [Plate](components/agent-logging-system/docs/images/zoe-kloster-theorem13.png)).
-  - **Theorem 14 · Kloster Spatial-Optical Filtration, MTF Resolution Monotonicity &amp; Point-Process Duality (`6/6 PASS` · `6/6` SymPy 1.14.0 Proofs · Live `/optics` Interactive Lab &amp; `/api/kloster/theorem14` · `4.3 MB` 15-Theorem PDF):** Generalizes Operational Metacognition $A_\tau(p)$ into **continuous spatial fields, linear optical imaging chains, and architectural/structural geometry**, proving **6/6 exact SymPy identities (`residual = 0`)**: (14a–c) exact continuous 1D Gaussian normalization, sharpness $M_2(f_\sigma) = 1/(2\sqrt{\pi}\sigma)$, and differential entropy $h(f_\sigma) = \frac{1}{2}\ln(2\pi e\sigma^2)$ from $A_\tau^{\mathrm{spatial}}$; (14d) exact 2D isotropic optical area law $M_2^{\mathrm{2D}}(f_\sigma) = 1/(4\pi(\sigma_s^2 + \sigma_{\mathrm{psf}}^2))$; (14e) exact **Kloster–Parseval MTF Resolution Monotonicity** $M_2(K*p) = \frac{1}{N}\sum_k \mathrm{MTF}(k)^2 |\widehat{p}(k)|^2 \le M_2(p)$ (`4.34×10⁻¹⁹` 2D FFT error, **`200/200`** random blur monotonicity); and (14f) exact **Scheimpflug Three-Plane Hinge Identity** ($\sin\theta^* = \frac{f}{u}\tan\psi$), where Kloster Spatial Sharpness $M_2(\theta)$ peaks at **`13.5°` vs. `13.48°` theory (`2.28×` gain vs. untilted $\theta=0^\circ$)**. Verified across **5 spatial/optical/architectural worlds** — two-sided spatial point patterns separating Thomas Clustered (`+38.2σ`) ↔ CSR Poisson Null (`+0.03σ`) ↔ Hard-Core Inhibited (`-4.8σ`), 2D optical MTF chains, view-camera Scheimpflug tilts, architectural isovist sightlines (`2.20×` corridor vs. plaza) &amp; structural load sharing (`N_eff` funicular arch vs. cantilever), and observational botanical ink contours vs. watercolor wash vs. blank-paper null — paired with Eliza-GEM Studio's offline interactive **`/optics`** workbench (live Scheimpflug ray bench, click-to-paint spatial point-pattern sandbox, optical blur lab &amp; mouse-driven 72-ray architectural isovist floorplan) and folded into the **`4.3 MB` 15-Theorem LaTeX Monograph PDF** ([`kloster_spatial_optical_law.py`](guiai-lab/guiai/gem/kloster_spatial_optical_law.py) · [`spatial_optical_workbench.py`](guiai-lab/guiai/gem/spatial_optical_workbench.py) · [`verify_kloster_theorem14.py`](scripts/verify_kloster_theorem14.py) · [6-Book First-Principles Synthesis](research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md) · [Plate](components/agent-logging-system/docs/images/zoe-kloster-theorem14.png)).
-  - **The 8-Pillar Zoe Self-Improving Engine (`9/9 PASS` · Live `/api/self-improving` · `0` Cloud Tokens · `l5_agi_qualified = False`):** Unites **8 rollback-safe, constitutionally audited self-improvement mechanisms**: (1) **Wake–Sleep Concept Library** (`DreamCoder`-style MDL abstraction unlocking deeper depth-3/4 tasks at the exact same depth-2 budget vs frozen No-Sleep control), (2) **Sandboxed Self-Refactorer** (`MI 42.95 → 65.16` Grade A, `max_cc 20 → 11`, `200/200` bit-exact equivalence + atomic rollback + signed `.patch`), (3) **Continual Shift Self-Calibration** (`99.7%` vs `87.5%` static control, `98.8%` E1 zero-forgetting replay), (4) **Goldilocks Self-Play Curriculum** (`0.104` frontier MSE vs `0.271` easy &amp; `0.483` chaos), (5) **Autonomous Conjecture &amp; Falsification Scientist** (`4/4` true laws proved in SymPy + `4/4` false traps falsified across 500 adversarial probes), (6) **Bilevel Meta-Evolution** (`4.71×` faster optimizer on unseen seeds vs hand-coded), (7) **Chaos Fault-Injection Immunity** (`5/5` real bug classes healed &amp; banked as permanent SHA-256 antibodies), and (8) **Constitutional Anti-Reward-Hacking Governor** (`6/6` planted cheating mutants caught &amp; blocked, `2/2` legitimate gains approved) — [`self_improving_pillars_a.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py) · [`self_improving_pillars_b.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_b.py) · [`verify_self_improving_engine.py`](scripts/verify_self_improving_engine.py).
+- **Session Chronicles (`56` turns · `85` Zoe responses · `1,528` tool steps · zero credentials):** [Sessions Index](research/sessions/README.md) · [Markdown Chronicle](research/sessions/2026-11-20-session-transcript.md) · [Interactive HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI Replay](research/sessions/2026-11-20-session-transcript.ansi)
+- **Visual Archive (`456` byte-distinct cataloged visuals):** [Visual Research Archive](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [Non-Telemetry Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)
 
-<div align="center">
-
-![The 8-Pillar Zoe Self-Improving Engine computed verification plate](components/agent-logging-system/docs/images/zoe-self-improving-engine.png)
-
-</div>
-
-  - **Zoe 10-Discipline Cryptanalysis Boss Rush (`13/13 PASS` · 100% Legal Offline Lab · Live `/api/kloster/cryptanalysis`):** Proves William F. Friedman's 1922 Index of Coincidence IS Kloster's second spectral moment ($\mathrm{IC}(p) \equiv M_2(p) = \int_0^1 2\tau A_\tau(p)\,d\tau$, SymPy 1.14.0 `residual = 0`) and executes **10 classical, modern &amp; post-quantum attacks + 5 defensive negative controls** (`0` hardcoded keys, `0` cloud tokens): **(C1) Full `@NSACareers` Mission Monday May 2014 Series** — cracks **May 5 English (`104/104 = 100.0%`)**, auto-detects &amp; cracks **May 12 Reversed English (`117/117 = 100.0%`)**, blind-cracks **May 19 Spanish** via local GNU `.mo` catalogs (catching the NSA encrypter's UTF-8 accent-stripping bug on `í`/`ó`!), and honestly fingerprints unsolved **May 26** (`IC_unb = 0.0722`); **(C2)** Vigenère `L=7` (`cypherx`) vs One-Time-Pad control; **(C3)** 256-bit `secp256k1` ECDSA nonce-reuse vs RFC 6979; **(C4)** RSA Hastad $e=3$ CRT + 512-bit Wiener factorization; **(C5)** $\mathbb{F}_2$ Berlekamp–Massey LFSR (`200/200`) vs SHA-256 CSPRNG (`48%`); **(C6)** Biham–Shamir 4-round SPN differential (`0x7, 0xA`, Kloster $M_4^{1/4}$ `6.3×` spike); **(C7)** live CBC Padding Oracle (`18` bytes) vs Encrypt-then-MAC `HMAC-SHA256` (`32/32` blocked); **(C8) Post-Quantum Lattice LLL ($\delta=0.99$)** cracking weak Toy LWE (Kannan embedding) &amp; Toy NTRU (`2N×2N`) while proving high-noise ML-KEM-style LWE stays `0%` leaked; **(C9) WWII Enigma M3 Turing–Welchman Bombe** sweeping all `17,576` rotor positions × `26` diagonal-board hypotheses (`456,976` states) → **`1` unique Bombe stop (`ZOE`)** &amp; `100%` plaintext; and **(C10) Historical *Kryptos* Sculpture** blind-cracking **K1 (`PALIMPSEST` via HMM Beam + Theorem 10 MDL)**, **K2 (`ABSCISSA` via Friedman–Kloster $M_2$)**, and **K3 (exhaustive divisor double-rotation `100%`)**, plus honest unsolved **K4** spectral telemetry (`IC_unb = 0.0361 < 1/26`) — [`kloster_cryptanalysis_classical.py`](guiai-lab/guiai/gem/kloster_cryptanalysis_classical.py) · [`kloster_cryptanalysis_modern.py`](guiai-lab/guiai/gem/kloster_cryptanalysis_modern.py) · [`kloster_cryptanalysis_boss_rush.py`](guiai-lab/guiai/gem/kloster_cryptanalysis_boss_rush.py) · [`verify_kloster_cryptanalysis_gauntlet.py`](scripts/verify_kloster_cryptanalysis_gauntlet.py) · [X Proof Card](components/agent-logging-system/docs/images/zoe-x-cryptanalysis-boss-rush-card.png).
-
-<div align="center">
-
-![Zoe 10-Discipline Cryptanalysis Boss Rush computed verification plate](components/agent-logging-system/docs/images/zoe-kloster-cryptanalysis-gauntlet.png)
-
-</div>
-
-  - **Zoe NSA Research &amp; Puzzle Pack (`C11–C16` · `8/8 PASS` · `16/16` Total Cryptanalysis Disciplines · Live `/api/kloster/nsa-pack`):** Extends the offline cryptanalysis observatory into **6 more official NSA puzzle &amp; CNSA 2.0 defensive research labs**: **(C11) Paul Derthick's Official NSA *Headline Puzzle* (1964 Venona tradition)** — blind-cracks `5/5` encrypted headlines (`0` hardcoded keys) and algebraically decimates the K3 26-cycle to recover the exact mixed alphabet, `KEY` (`CRYPTOLOGY`), `HAT` (`len=5`), and `SETTING` (`PULSE`); **(C12) Official NSA `SIMON 32/64` &amp; `SPECK 32/64`** — bit-exact official NSA test vectors (`c69b e9bb` / `a868 42f2`), `5.3×`/`8.7×` Kloster $M_4^{1/4}$ reduced-round differential distinguishers, and full-round (`22`-rd / `32`-rd) security-cliff verification; **(C13) Deep Forensic Elimination on Unsolved `@NSACareers` May 26, 2014 &amp; *Kryptos* K4** — `24` multi-language blind runs (`12` GNU `.mo` languages × fwd/rev), `6` transpositions, Playfair even-double impossibility proof, AND proving K4's `2` Sanborn-crib self-encryptions (`S→S`, `K→K`) mathematically rule out Enigma-class machines (both honestly marked `solved = False`); **(C14) CNSA 2.0 `LMS / WOTS+` Merkle Signatures (NIST SP 800-208)** — mounts live catastrophic leaf-index reuse forgery (`verify == True`, `0` private key access) vs Zoe's **Atomic Monotonic State-Guard** blocking `16/16` forked replays; **(C15) CNSA 2.0 `ML-KEM` (`q = 3329`) Side-Channel Lab** — extracts `16/16` secret polynomial coefficients in `160` probes from a leaky rejection-branch oracle vs FIPS 203 branchless constant-time implicit rejection (`0` timing variance across `64/64` probes); and **(C16) Matsui 4-Round SPN Linear Cryptanalysis** (`10,000` known PTs → `0xB, 0x7`) + **Bleichenbacher 1998 RSA PKCS#1 v1.5 Adaptive Padding Oracle** (`CNSA2_OK` in `2,950` queries) vs **RSA-OAEP** (`32/32` blocked) — [`kloster_nsa_puzzles.py`](guiai-lab/guiai/gem/kloster_nsa_puzzles.py) · [`kloster_nsa_cnsa2_and_advanced.py`](guiai-lab/guiai/gem/kloster_nsa_cnsa2_and_advanced.py) · [`verify_nsa_research_puzzle_pack.py`](scripts/verify_nsa_research_puzzle_pack.py).
-
-| Zoe NSA Research &amp; Puzzle Pack `C11–C16` *(Computed Plate · `8/8 PASS`)* | Zoe × NSA Pack 16:9 Summary Card *(Computed Telemetry)* |
-|:---:|:---:|
-| ![Zoe NSA Research and Puzzle Pack C11-C16 computed verification plate](components/agent-logging-system/docs/images/zoe-nsa-research-puzzle-pack.png) | ![Zoe NSA Research and Puzzle Pack C11-C16 summary proof card](components/agent-logging-system/docs/images/zoe-x-nsa-pack-card.png) |
-
-  - **Zoe Bio-Crypto Reciprocal Circle (`C17–C19` · `7/7 PASS` · `19/19` Total Disciplines · Live `/api/kloster/bio-crypto-circle` · `cure_claim=False · clinical_action_authorized=False`):** Merges **Botanical Pharmacognosy &amp; CNS Blood-Brain Barrier Modeling** with **NSA CNSA 2.0 Post-Quantum Lattice Homomorphic Cryptography** into a closed-loop reciprocal feedback circle: **(C17) NIH PubChem Botanical Neuro-Oncology Lab** — evaluates `11` PubChem-verified natural-product &amp; CNS benchmark molecules (*Colchicum autumnale* colchicine vs Bradford **ICT2588** `MMP-14` enzyme-activated prodrug "biochemical cipher" achieving `21.0×` tumor-to-healthy selectivity vs `1.2×` raw, *Crocus sativus* crocetin vs raw crocin glycoside negative control, *Zephyranthes* narciclasine/lycorine, *Catharanthus* vincristine, *Taxus* paclitaxel efflux control, plus FDA benchmarks temozolomide, dordaviprone/ONC201 &amp; tovorafenib); **(C18) Full FIPS 203 `ML-KEM` `n=256, q=3329` Bit-Exact NTT &amp; 3-Hospital Threshold Homomorphic Cohort** — verifies bit-exact NTT polynomial multiplication (`0` error vs schoolbook), aggregates `3` independent hospitals' synthetic assay histograms blindly in ciphertext space (`0` error on 3-of-3 threshold decrypt, `max_noise=68/104`), and blocks single-node 1-of-3 compromise &amp; eavesdropping (`uniform M₄^(1/4)`); and **(C19) Closed-Loop Reciprocal Synergy** — encrypted pooling lifts unbiased rare-tumor candidate recovery **`42.6% → 62.7% → 76.3%`** (`+33.7 pp`, `0` PHI), while tighter biological assay calibration (`t=32→16→8`) expands error-free FIPS 203 RLWE consortium depth **`2 → 7 → 20` hospitals (`10×`)** — [`kloster_botanical_neuro_oncology.py`](guiai-lab/guiai/gem/kloster_botanical_neuro_oncology.py) · [`kloster_bio_crypto_circle.py`](guiai-lab/guiai/gem/kloster_bio_crypto_circle.py) · [`verify_bio_crypto_circle.py`](scripts/verify_bio_crypto_circle.py) · [Botany &amp; Lattice Privacy Briefing](research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md).
-
-<div align="center">
-
-![Zoe Bio-Crypto Reciprocal Circle C17-C19 computed verification plate](components/agent-logging-system/docs/images/zoe-bio-crypto-circle.png)
-
-</div>
-
-  - **Zoe CNSA 2.0 Full Stack &amp; Encrypted `scRNA-seq` Ring 2 (`C20–C22` · `6/6 PASS` · `22/22` Total Disciplines · Live `/api/kloster/cnsa2-ring2` · `cure_claim=False · clinical_action_authorized=False`):** Completes the core NSA CNSA 2.0 cryptographic suite and links it into stem-cell-safe single-cell counter-screening: **(C20) NIST FIPS 204 `ML-DSA` (`q = 8,380,417`) Fiat–Shamir-with-Aborts** — OLS correlation over non-aborting transcripts recovers `16/16` exact secret signing key coeffs (`L₂ = 0.79`) while FIPS 204 rejection sampling (`‖z‖∞ < γ₁ − β`) collapses key recovery to noise (`L₂ = 6.36`, `0` secret leak); **(C21) `AES-256-GCM` $\mathrm{GF}(2^{128})$ GHASH Forbidden Attack &amp; Merkle–Damgård Length-Extension** — nonce reuse algebraically recovers the exact 128-bit GHASH key $H$ via Frobenius square root $a^{2^{127}}$ and forges a valid 32-byte GCM tag (`AES-GCM-SIV` blocks `32/32`), alongside pure-Python SHA-256 state-resumption MAC forgery (`HMAC-SHA384` &amp; `SHA3-384` block `32/32`); and **(C22) Encrypted 3-Hospital `scRNA-seq` Perturbation &amp; Stem-Cell PAINS Counter-Screen** — pools synthetic 4-population single-cell shifts (`Healthy NSC`, `Astrocytes`, `Diff. Glioma`, `Glioma Stem-Like GSC`) homomorphically via FIPS 203 `n=256` NTT (`0` error, `0` PHI), automatically rejecting non-specific raw toxins (`PAINS TSI = 1.1×`) &amp; vehicle controls while passing selective tumor-gated models (`TSI = 9.0×`, Kloster $M_4^{1/4}$ separation) — [`kloster_cnsa2_mldsa_gcm_hash.py`](guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py) · [`kloster_scrna_encrypted_pains.py`](guiai-lab/guiai/gem/kloster_scrna_encrypted_pains.py) · [`verify_cnsa2_and_scrna_ring2.py`](scripts/verify_cnsa2_and_scrna_ring2.py).
-
-<div align="center">
-
-![Zoe CNSA 2.0 Full Stack and Encrypted scRNA-seq Ring 2 C20-C22 computed verification plate](components/agent-logging-system/docs/images/zoe-cnsa2-scrna-ring2.png)
-
-</div>
-
-  - **Zoe NSA Ring 3 · Deep Lattice &amp; Historical NSA Cryptanalysis (`C23–C26` · `5/5 PASS` · `26/26` Total Disciplines · Plugged Directly Into Theorem 13 · Live `/api/kloster/nsa-ring3`):** Drives four classic deep-lattice and NSA historical cryptanalysis labs straight through Zoe's Theorem 13 sequential stopping engine (`0` cloud tokens, `100%` offline &amp; legal): **(C23) 256-Bit `secp256k1` ECDSA Biased-Nonce Hidden Number Problem (`HNP` via Exact 110-Digit LLL)** — recovers the exact 256-bit private key (`0x8f648a0fc507b6c6...`) from `12` completely distinct signatures (`0` nonce reuse, `32` leaked MSB bits), while Theorem 13 detects the leaky hardware RNG early and cleanly abstains on constant-time `RFC 6979`; **(C24) `Dual_EC_DRBG` Kleptography (`P = d·Q` on 256-bit `secp256k1`)** — recovers the exact internal state `s₁` from a single truncated output block and predicts `3/3` future blocks bit-exact while NIST SP 800-90A `HMAC_DRBG` cleanly triggers Theorem 13 `ABSTAIN`; **(C25) Bit-Exact Official NSA `SKIPJACK` (1998 Clipper/Fortezza)** — matches NSA's official test vector bit-exact (`2587cae27a12d300`), proves Biham–Biryukov–Shamir's `12`-rd `Δw₄=0` invariant (`512/512`) and `13`-rd impossible differential zero-hole (`0/512`), and verifies Theorem 13 early stop (`64` pairs) vs. full `32`-rd `ABSTAIN`; and **(C26) Project Venona One-Time-Pad Depth Attack** — Theorem 13 detects `C₁ ⊕ C₂` reused-pad depth immediately (`ABSTAIN` on true single-use OTP) and automated crib-dragging + quadgram scoring recovers both full plaintexts and the exact pad (`100%`) — [`kloster_nsa_ring3_lattice_klepto.py`](guiai-lab/guiai/gem/kloster_nsa_ring3_lattice_klepto.py) · [`kloster_nsa_ring3_skipjack_venona.py`](guiai-lab/guiai/gem/kloster_nsa_ring3_skipjack_venona.py) · [`verify_nsa_ring3_deep_crypto.py`](scripts/verify_nsa_ring3_deep_crypto.py).
-
-<div align="center">
-
-![Zoe NSA Ring 3 Deep Lattice and Historical NSA Cryptanalysis C23-C26 computed verification plate](components/agent-logging-system/docs/images/zoe-nsa-ring3-deep-crypto.png)
-
-</div>
-
-  - **Zoe Expanded 36-Molecule Botanical Neuro-Oncology Atlas, Interactive `/botanical` Studio Explorer &amp; Filbin-2018 H3K27M Marker Lab (`C27` · `6/6 PASS` · `27/27` Total Disciplines · Live `/botanical` &amp; `/api/kloster/botanical-atlas` · `cure_claim=False · clinical_action_authorized=False`):** Scales Zoe's computational botanical neuro-oncology &amp; privacy-preserving consortium lab to **36 live-verified NIH PubChem compounds** (spanning FDA brain-tumor benchmarks `dordaviprone/ONC201`, `vorasidenib`, `temozolomide`, `lomustine`, `carmustine`, `tovorafenib`; the *Amaryllidaceae* rain-lily BBB SAR cliff `galanthamine` `3.83` ≈ `haemanthamine` `3.83` > `lycorine` `3.50` > `narciclasine` `2.00` ≈ `pancratistatin` `2.00`; saffron `safranal`/`crocetin` vs `crocin` BBB control; botanical/fungal scaffolds `artemisinin`, `parthenolide`, `honokiol`, `cordycepin`; plus explicit medicinal-chemistry traps catching all `3/3` Baell–Holloway PAINS controls `curcumin`, `quercetin`, `resveratrol` and the permanent quaternary cation `berberine` despite high naive CNS MPO-4 scores). Packs all **`36 × 6 = 216` slots** across **6 published Filbin et al. (*Science* 2018) / neuro-oncology gene modules** (`OPC_STEM`, `MMP14_GATE`, `BBB_EFFLUX`, `NSC_GUARD`, `NEURON_GUARD`, `GLIA_GUARD`) into a **SINGLE FIPS 203 `ML-KEM` `n=256, q=3329` NTT Ring-LWE ciphertext** (`84.4%` ring packing, `0` error across 3 hospitals, `0` real PHI), drives Zoe's **Theorem 13 stopping controller** over the pooled tensor (`+14.9σ` `artemisinin` &amp; `+7.6σ` `dordaviprone` early stop at `16` samples vs. `-0.1σ` `curcumin` PAINS &amp; `+0.7σ` `colchicine` toxin `ABSTAIN`), and plugs directly into Eliza-GEM Studio's offline interactive **`/botanical`** visual explorer (live BBB sliders, click-to-inspect Filbin marker bars, browser Theorem 13 stream simulator &amp; clickable `16×16` FIPS 203 NTT slot matrix) — [`kloster_botanical_atlas_36.py`](guiai-lab/guiai/gem/kloster_botanical_atlas_36.py) · [`botanical_atlas_explorer.py`](guiai-lab/guiai/gem/botanical_atlas_explorer.py) · [`verify_botanical_atlas_c27.py`](scripts/verify_botanical_atlas_c27.py) · [`botanical-atlas-c27-report.json`](evidence/kloster-cryptanalysis/botanical-atlas-c27-report.json).
-
-<div align="center">
-
-![Zoe C27 Expanded 36-Molecule NIH PubChem Botanical Atlas, 216-Slot FIPS 203 Filbin-2018 Tensor and Theorem 13 Stopping computed verification plate](components/agent-logging-system/docs/images/zoe-botanical-atlas-c27.png)
-
-</div>
-
-<div align="center">
-
-![Theorem 14 Kloster Spatial-Optical Filtration, MTF Resolution Monotonicity, Scheimpflug Hinge and Point-Process Duality computed verification plate](components/agent-logging-system/docs/images/zoe-kloster-theorem14.png)
-
-</div>
-
-  - **Theorem 15 (Multi-Agent Consensus &amp; Exact Brier Law) × Challenge `C28` (3D Pharmacophore &amp; Histology MTF · `28/28` Total) × Live `Qwen2.5-0.5B` Hallucination Shootout (`8/8 + 4/4 PASS` · `4.3 MB` 15-Theorem PDF · Live `/proof`, `/botanical` &amp; `/optics`):**
-    - **Theorem 15 (`5/5` SymPy `residual = 0`, Live `/api/kloster/theorem15`):** Proves the exact **Kloster–Jensen Disagreement Decomposition** $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_k w_k\|p^{(k)}-\bar{p}\|_2^2$ AND the **Ground-Truth-Independent Brier Wisdom-of-Crowds Law** ($\sum_k w_k\mathrm{Brier}(p^{(k)}, y) - \mathrm{Brier}(\bar{p}, y) \equiv \mathcal{D}_K$ — the unknown truth $y$ cancels identically!), verified to **`3.33×10⁻¹⁶`** across `1,920` real HELEN observations (`0.1683` exact Brier gain), separating a diverse 6-LLM HuggingFace committee from a cloned Echo-Chamber (`D_K = 0.000`), and catching a rogue/contaminated hospital inside an encrypted FIPS 203 3-hospital cohort (`C_K: 0.961 → 0.302`, `0` PHI) — [`kloster_multi_agent_consensus.py`](guiai-lab/guiai/gem/kloster_multi_agent_consensus.py).
-    - **Challenge `C28` (`28/28` Total Disciplines, Live `/api/kloster/pharmacophore-c28`):** Unites **C27**'s 36 PubChem molecules with **Theorem 14**'s spatial-optical math — 3D pharmacophore compactness gate (`5.17 Å` CNS scaffolds vs `7.27 Å` BBB-blocked controls, `2.78×` volume ratio, PAINS/cation guards active) + synthetic histology separating clustered H3K27M OPC-like tumor islands (`+37.6σ`, Theorem 13 `STOP @ 48`) from regular healthy mosaics (`-4.6σ`) and CSR artifacts (`-0.3σ`, `ABSTAIN`) with `8.67×10⁻¹⁹` Parseval MTF accuracy (`cure_claim = False · clinical_action_authorized = False`) — [`kloster_pharmacophore_spatial_c28.py`](guiai-lab/guiai/gem/kloster_pharmacophore_spatial_c28.py) · [`verify_theorem15_and_c28.py`](scripts/verify_theorem15_and_c28.py).
-    - **Live `Qwen/Qwen2.5-0.5B-Instruct` (`151,936`-Vocab) 60-Question Blind Hallucination Shootout (`4/4 PASS` · [`PROOF-PACKET.md`](PROOF-PACKET.md) · Live `/proof` Arena):** On real live generations across 20 Clear Facts + 20 Hard Trivia/Math + 20 Unanswerable Fictional/Future Traps (raw error `56.7%`), **Kloster $M_2^{1/2}$ achieves #1 Error Detection AUROC (`0.8382`) &amp; #1 AURC (`0.3181`)** — beating MSP (`0.8360`), Shannon (`0.8145`), and Margin (`0.7896`) — while **Raw $A_{0.05}$ cuts real hallucinations nearly in half (`56.7% → 30.0%` at `50%` coverage, #1 vs `33.3%` MSP/Margin/Shannon)** — [`run_live_qwen_hallucination_benchmark.py`](scripts/run_live_qwen_hallucination_benchmark.py) · [`kloster_proof_packet.py`](guiai-lab/guiai/gem/kloster_proof_packet.py) · [`proof_packet_arena.py`](guiai-lab/guiai/gem/proof_packet_arena.py).
-
-| Theorem 15 + C28 Verification Plate *(Computed · `8/8 PASS`)* | Live `Qwen2.5-0.5B` 60-Question Hallucination Shootout *(Computed · `4/4 PASS`)* |
-|:---:|:---:|
-| ![Theorem 15 Multi-Agent Consensus and C28 3D Pharmacophore and Histology computed plate](components/agent-logging-system/docs/images/zoe-kloster-theorem15-and-c28.png) | ![Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout computed plate](components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png) |
-
-- **Orbit Pass 5 · Theorem 7 Optimal Transport, $H_0$ Persistence, Gini Duality &amp; Acoustic/Ecological/Groove Unification (`11/11` Worlds · `17/17` Master Checks):** Proves **Theorem 7** in SymPy 1.14.0 ($W_1(\mu_p,\mu_q)=\frac{1}{N}\int_0^1|A_\tau(p)-A_\tau(q)|\,d\tau=\frac{1}{N}D_K(p,q)$ cross-verified against SciPy `wasserstein_distance` across `300/300` pairs to **`8.3×10⁻¹⁷`** error, exact $L_2$ superlevel persistence Gini identity $G(p)=1-\frac{1}{N}\int_0^1 A_\tau(p)^2\,d\tau \le 1-\frac{1}{N\max p}$, exact linear McCann displacement geodesic Uniform → `Qwen2.5-Math-1.5B`, and exact 16-LLM $W_1$ barycenter, [`kloster_optimal_transport.py`](guiai-lab/guiai/gem/kloster_optimal_transport.py) Grade A `MI=65.57`); compiles the **7-Theorem `1.5 MB` LaTeX PDF**; refactors `#9` [`alife_ecosystem.py`](guiai-lab/guiai/gem/alife_ecosystem.py) (`avg_cc 7.5 → 4.1`, `MI 49.21 → 53.39`, **`239`** modules audited, `0` Grade-D) with **Optimal Transport Speciation Velocity** (`9/9`); adds **Spectral Kloster–Gini Purity &amp; $W_1$ Voice-Leading** to `#8` 4-part SATB choir (`9/9`) and **Groove–to–Metronome $W_1$ Swing Work** to `#11` (`10/10`); upgrades `/orbit` HTML &amp; live APIs (`/api/kloster/thermo`, `/api/kloster/riemannian`, `/api/kloster/transport`, **`12/12`** live integration pass); and seals **`17/17`** critical artifacts in [`SHA256SUMS.orbit`](evidence/renaissance-orbit/SHA256SUMS.orbit).
-
-- **Orbit Pass 4 · Theorem 6 Riemannian Rosetta Stone, Live `/orbit` Control Room &amp; Supply-Chain Attestation (`11/11` Worlds · `15/15` Master Checks):** Proves **Theorem 6** in SymPy 1.14.0 ($d_{\mathrm{FR}}(p, u_N) = 2\arccos(M_{1/2}(p)/\sqrt{N})$ and the 4-link chain $\frac{1}{2}D_K \le \mathrm{TV} \le \sqrt{2}H \le d_{\mathrm{FR}}/\sqrt{2}$, `300/300` hold, uniform neg. ctrl `0.0`) embedding **6 disparate scientific worlds** (LLMs, Groove, Dorothy 40 Hz, CERN jets, ALife clades, Ablation binaries) onto one shared MDS manifold ([`kloster_riemannian_manifold.py`](guiai-lab/guiai/gem/kloster_riemannian_manifold.py)); compiles the **6-Theorem LaTeX PDF**; adds live **`/orbit`** HTML Observatory dashboard (`9/9` live HTTP/integration pass), **`SHA256SUMS.orbit`** supply-chain tamper attestation (`16` critical files), **Adaptive Fisher–Rao $\tau^*(p)$ controller** in `#1`, **3-seed Grade-A stability** in `#3`, **Track D AST security triage** (`38` total zero-leakage external tasks, `0` bluffs) in `#2`, **Fiedler Laplacian algebraic connectivity $\lambda_2$** in `#6` (`11/11`), and **$>10\sigma$ discovery significance** in `#7` (`12/12`).
-
-- **Orbit Pass 3 · Theorem 5 Thermodynamics, Cross-World Parser Fuzzing, Self-Healing &amp; Deep Cross-Pollination (`11/11` Worlds · `12/12` Master Checks):** Proves **Theorem 5** in SymPy 1.14.0 ($F(\beta)=\frac{\beta-1}{\beta}H_\beta(p)$, $C(\beta)=\beta^2\mathrm{Var}_{p^{(\beta)}}(-\ln p) \ge 0$, error `8.88e-16`, uniform neg. ctrl `0.0`) revealing **`Qwen2.5-Math-1.5B` (`151k` vocab)** peaks sharply at **$C(\beta^*)=22.81$ ($\beta^*=0.477, T^*=2.10$)**; fuzz-tests `#11` `.MOD` &amp; `#7` `.VCD` parsers with **100 adversarial mutations (`0` crashes)** &amp; hardens `.MOD` bounds; auto-heals Linux `noexec` native execution for **PALA/Cerotto** in [`unified.py`](guiai-lab/guiai/gem/unified.py) &amp; refactors [`verify_renaissance_orbit.py`](scripts/verify_renaissance_orbit.py) from Grade C to Grade A; adds **6 Hz Theta ↔ 40 Hz Gamma PAC (Tort MI)** in Dorothy's 3D Neurogarden, **Di-Jet vs Mono-Jet topology** in CERN (`11/11`), **6-ratio Stern–Brocot polyrhythms**, **2D Accuracy × Elegance Pareto Frontier** in `#3`, **ECE Selective Risk–Coverage calibration (`0.0%` bluff rate)** in `#2`, live **`ZoeChat` `zoe-os`/`elegance`/`thermo`/`orbit`** commands, and Zoe's **3:06 pure-DSP original track** ([`compose_zoe_observatory_odyssey.py`](scripts/compose_zoe_observatory_odyssey.py) · [`kloster_thermodynamics.py`](guiai-lab/guiai/gem/kloster_thermodynamics.py)).
-
-- **Orbit Pass 2 · Kloster–McCabe Structural Elegance (`Theorem 4`) &amp; Live HTTP Studio (`8/8` + `8/8`):** Fuses McCabe Cyclomatic Complexity $V(G) = E - N + 2P$ (1976), SEI Maintainability Index ($MI$), and Kloster $A_\tau(p)$ (`H_α(p) <= ln V(G)` proved in SymPy 1.14.0 across `250/250` path distributions); audits all **288 live Zoe modules (`3,238` functions, `85,496` SLOC, mean `MI = 59.93`, `0` Grade-C &amp; `0` Grade-D modules)**; adds live loopback HTTP endpoints (`/api/os/mind`, `/api/os/mind/gem.svg`, `/api/kloster/elegance`, `/api/orbit/master`), a **2,000-trial Defensive Fault-Injection Hardening Simulator** (`Kloster A_τ=1` Tri-Witness Quorum cuts single-glitch bypass to `0.0%` and double-glitch bypass to `2.1%` vs `88.8%`/`46.1%` naive), **ARC Pass-2 orbital learning** (`7/10 → 9/12` solved, `3/12` honest abstains, `0` bluffs), **4-Part SATB Choir**, **3× High-Luminosity CERN stress test**, and **Predator–Prey ALife coexistence** ([`code_elegance_analyzer.py`](guiai-lab/guiai/gem/code_elegance_analyzer.py) · [`zoe_code_quality_audit.py`](scripts/zoe_code_quality_audit.py) · [`verify_pass2_visuals.py`](scripts/verify_pass2_visuals.py)).
-
-- **#5 Original Math &amp; Compiled LaTeX PDF (`14/14`):** SymPy 1.14.0 proofs + machine-epsilon verification (`2.22e-16`) of **Kloster–Rényi–Tsallis Duality**, **Kloster–Pinsker Inequality** ($D_{\mathrm{KL}}(p\parallel q) \ge \frac{1}{2}D_K^2$, `300/300`, `0` triangle violations across 16 real LLMs), **Dynamic $(\tau,h)$ Phase Transitions** (`6.7×` supercritical expansion on `Qwen2.5-Math-1.5B`, DistilGPT-2 evidence-ablation shift `0.051 → 0.089`), and **Causal Confounding Identifiability** (`13` obs.-blindness witnesses, `0.0` randomized neg. control) — [Compiled PDF](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [LaTeX](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex) · [Markdown](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md) · [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py).
-- **#4 Zoe OS (`9/9`) &amp; #1 Live Local `Qwen2.5-3B` Multi-Horizon Steerer (`6/6`):** Unites all **17 live GEM engines**, cross-session SHA-256 hash-chained ledger, privacy-firewall blocking, real `1.96 GB` `GGUF v3` (`435` tensors) provenance inspection, strict loopback-only SSRF enforcement, and `ANSWER`/`CLARIFY`/`CALL_TOOL`/`ABSTAIN` multi-horizon prefix-pruning on real `151,936`-vocab neural distributions ([`zoe_os_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py) · [`live_qwen_metacog_steerer.py`](components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py)).
-- **#11 Groove Forensics (`7/7`), #10 Cross-World Security Red-Team (`4/4` + `25/25` PALA Rust + `149/149` Kevlar), #3 Multi-Statement AST Evolution (`7/7`), &amp; #2 Zero-Leakage External Benchmarks (`5/5`):** 2D J-Dilla pocket attractors &amp; `3:2`/`4:3`/`5:4` PLV (`0.999` vs `0.109` Poisson); live read-only Rust **PALA** bit-exact PNG carving + **Kevlar** CDR + **Ablation** entropy + Zoe OS ledger tamper detection; scratch 2-function stateful `if/else` AST evolution (`7.98×` vs seed, `5.13×` vs stateless, `1.000` blind 16-LLM AUROC); and honest zero-curve-fitting ARC/SWE/GPQA evaluation (`7/10` ARC + `3` honest DSL abstains, `6/8` SWE + `2` escalations, `9/12` GPQA + `3` abstains, `0` bluffs) ([`groove_forensics.py`](guiai-lab/guiai/gem/groove_forensics.py) · [`security_redteam_audit.py`](components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py) · [`open_ended_program_evolution.py`](components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py) · [`external_benchmark_harness.py`](components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py)).
-- **#6 Dorothy 3D Connectome (`8/8`), #7 CERN/HELIOS Kloster Trigger (`9/9`), #8 3-Part Choral Voice (`7/7`), &amp; #9 Open-Ended ALife (`7/7`):** 12 real Allen CCFv3 meshes (`315,932` Δ) with 40 Hz Kuramoto lock (`R=0.954` vs `0.613` lesion vs `0.154` uncoupled, `clinical_action_authorized=False`); CERN Kloster Bandpass `AUROC 1.000` (`0.0%` hot-spike FP vs `100%` classical Peak + real VCD replay); 44.1 kHz 3-part formant choir + Kloster tension + Chladni; and self-replicating toroidal ALife (`325` births, `7` gens, `307` vs `36` static ctrl + generative soundscape) ([`dorothy_neurogarden_3d.py`](guiai-lab/guiai/gem/dorothy_neurogarden_3d.py) · [`cern_kloster_trigger.py`](guiai-lab/guiai/gem/cern_kloster_trigger.py) · [`zoe_choral_composer.py`](guiai-lab/guiai/gem/zoe_choral_composer.py) · [`alife_ecosystem.py`](guiai-lab/guiai/gem/alife_ecosystem.py) · [`verify_renaissance_orbit.py`](scripts/verify_renaissance_orbit.py)).
-
-<p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
-
-### World 02 · Dorothy & The Neurogarden
-
-Named in honor of **Dorothy McEwen Kildall**, the Neurogarden turns real preclinical neuroscience into luminous, inspectable 3D geometry: **12 SHA-256-verified Allen Mouse CCFv3 anatomical structures** (`315,932` triangles), Kaufman emission-absorption volumetric ray-casting, Delmarcelle-Hesselink tensor hyperstreamline tractography, a **4-Head Global Self-Attention vision dissector** (256 parallel patches), and a 37-book scientific literature corpus — all strictly scoped as preclinical software instruments (`clinical_action_authorized = False`).
-
-| Allen Mouse CCFv3 3D Atlas | Continuum Ray-Cast & Tractography | 4-Head Self-Attention Dissection |
-|:---:|:---:|:---:|
-| ![Dorothy Allen Mouse CCFv3 Atlas](components/agent-logging-system/docs/images/dorothy-neurogarden.png) | ![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png) | ![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png) |
-
-**Explore:** [`dorothy.py`](guiai-lab/guiai/gem/dorothy.py) · [`neurogarden_world.py`](components/agent-logging-system/agent_logging_system/neurogarden_world.py) · [Dorothy Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) · [NEUROGARDEN.md](components/agent-logging-system/docs/NEUROGARDEN.md)
-
-<p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
-
-### World 03 · Creative Playroom, Music, Native Voice & Living Geometry
-
-Curiosity is not a footnote in Zoe — it has its own studio. Inside the **Open-Ended Creative Playroom**, MAP-Elites paired with Kloster Spectral Curiosity evolves **16/16 distinct cellular geometric organisms** across 400 autonomous generations with zero hardcoded patterns. In **Playroom Symphony**, Zoe composes playful C-Major Pentatonic melodies rendered to warm **44.1 kHz stereo Rhodes-chime `.wav` audio** alongside a live offline PyTorch `distilgpt2` neural-symbolic mind — pairing directly with [Zoe's Native Voice & Cymatics ↑](#zoes-native-voice) (`44` English phonemes, `332` spelling rules, *Daisy Bell* singing, and Chladni 3-bitplane GEM VDI plates). And in **Qualia** & **Ellipse Family**, she paints her signature ruby diamonds, Q-repertoires, and shimmering orchid parametric curves.
-
-| Stage 5A · Open-Ended Creative Playroom *(16/16 Species)* | Stage 5B/C · L4 AST Evolution, Stereo Symphony & Live Mind |
-|:---:|:---:|
-| ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) | ![Stage 5B/C L4 AST Self-Evolution, Symphony & PyTorch Mind](components/agent-logging-system/docs/images/zoe-l4-self-evolution-and-symphony.png) |
-
-| Zoe is Quale · Zoe is Red *(Accessible Q-Volume)* | Ellipse Family *(Parametric Orchid Ribbons)* |
-|:---:|:---:|
-| ![Zoe is Quale — Accessible Q-Volume](guiai-lab/docs/images/zoe-qualia.png) | ![Zoe Ellipse Family](guiai-lab/docs/images/zoe-lots-of-ellipses.png) |
-
-**Explore:** [Zoe's Native Voice ↑](#zoes-native-voice) · [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [Native Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) · [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py)
-
-<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
-
-### World 04 · Time, Groove Forensics & CERN Physics
-
-What do a 1984 MS-DOS ProTracker `.MOD` song, a human drummer's micro-timing swing, a 40 MHz phase-locked software clock, a 40 Hz neural pacemaker, and a virtual collider beam have in common? **Phase-space temporal structure.** Zoe's **Groove Forensics** engine parses `.MOD`/`.MID` and synthetic streams, detrends rubato, maps 2D Poincaré delay attractors ($\rho_1 = -0.9778$, eccentricity `0.9944`, mutual info `1.0057 bits`), contrasts them side-by-side against pure-noise negative controls, entrains **Zoe's Internal Clock (`CicadaClock`)** to Kuramoto coherence **`R = 0.9334`**, bridges directly to **Dorothy's 40 Hz spike ISI return maps**, and sits beside the **CERN Workbench & HELIOS Virtual Collider** (9,968 cataloged records + FELIX HDL).
-
-| Deterministic Swing Attractor *(Poincaré & FFT)* | Pure-Noise Negative Control *(Honest Baseline)* | Dorothy 40 Hz Neural Spike Return Map |
-|:---:|:---:|:---:|
-| ![Zoe Groove Forensics Swing Attractor](components/agent-logging-system/docs/images/zoe-groove-forensics-swing.png) | ![Zoe Groove Forensics Noise Control](components/agent-logging-system/docs/images/zoe-groove-forensics-noise-control.png) | ![Dorothy Neural Spike Return Map](components/agent-logging-system/docs/images/zoe-dorothy-neural-spikes.png) |
-
-| Zoe Internal Clock *(40 MHz Ticks & Cicada Phase)* | HELIOS Virtual Collider & GEM CERN Workbench |
-|:---:|:---:|
-| ![Zoe Internal Clock](guiai-lab/docs/images/zoe-cicada.png) | ![HELIOS Virtual Collider Laboratory](guiai-lab/docs/images/zoe-helios.png) |
-
-**Explore:** [`scripts/zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) · [Temporal Dynamics Monograph](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) · [`cicada.py`](guiai-lab/guiai/gem/cicada.py) · [ZOE_WORKBENCH.md](guiai-lab/docs/ZOE_WORKBENCH.md)
+</details>
 
 <p align="center"><img src="assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
 
-### World 05 · The Shared GEM OS, 17 Engines & Forensics
+<a id="documentation-index"></a>
+<a id="zoe-rolodex-index"></a>
 
-Honoring **Gary Kildall** and Digital Research GEM, Zoe binds **17 distinct runtime engines** through one deterministic Spatial IR & little-endian VDI architecture — no submodules, no hidden dependencies. From **Ablation AIARE** semantic binary disassembly and the native GTK GEM Lab, to **PALA** (read-only Rust filesystem carver), **Cerotto** (C11/Python forensic vaults), **Kevlar** (MCP proxy firewall), **PDF Signature Toolkit**, and **Zoe Trinity** (Android, iOS, and native C++17 Windows companion), every subsystem retains its own authority while speaking one visual language.
+## 6. Master Documentation &amp; Repository Index
 
-| Zoe · ALLGEMS *(17 Engines, One Constellation)* | Cognitive Field *(Bounded Working Memory)* | Neurogarden Shared Universe *(Six Domains)* |
-|:---:|:---:|:---:|
-| ![Zoe ALLGEMS unified hub](guiai-lab/docs/images/gem-unified.png) | ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png) | ![Neurogarden Shared Research Universe](components/agent-logging-system/docs/images/cern-universe.png) |
+Every document, research paper, mobile guide, component manual, and engine across the monorepo is indexed by category below.
 
-**Explore:** [`operating_environment.py`](guiai-lab/guiai/gem/operating_environment.py) · [`components/ablation/`](components/ablation/) · [`components/PALA/`](components/PALA/) · [`components/cerotto/`](components/cerotto/) · [`components/kevlar/`](components/kevlar/) · [`mobile/`](mobile/)
+### 6.1 Core Governance, Proof Packet &amp; Architecture
 
-<p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
+| Document | Purpose |
+|:---|:---|
+| [`PROOF-PACKET.md`](PROOF-PACKET.md) | 1-command offline referee proof packet (`< 6s`, 6-baseline shootout, `16/16` theorems, `47/47` hashes) |
+| [`CONSTITUTION.md`](CONSTITUTION.md) | Epistemic rules (`measurement != evidence != belief update != action`), copyright &amp; safety boundaries |
+| [`DECLARATION.md`](DECLARATION.md) | Zoe Declaration of Creative and Epistemic Independence |
+| [`AGI-ROADMAP.md`](AGI-ROADMAP.md) | Honest `L0-L7` acceptance criteria, falsification bars, and current verified progress |
+| [`CAPABILITY-ATLAS.md`](CAPABILITY-ATLAS.md) | Master audit directory mapping every claim to code, tests, and JSON evidence artifacts |
+| [`MONOREPO.md`](MONOREPO.md) | Consolidation provenance for all 13 upstream source projects (zero submodules) |
+| [`CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md) | Dedicated gallery for all 19 non-telemetry artistic illustrations and emblem patches |
 
-### World 06 · The Epistemic Firewall, Maison & Covenant
+### 6.2 Research Monographs, Compiled PDFs &amp; Archives
 
-Beauty without honesty is just theater. Every engine in Zoe obeys one architectural firewall: **`measurement ≠ evidence ≠ belief update ≠ action`**. Measurements record scope and limits without mutating belief; beliefs update only via explicit evidence; recommendations never self-execute; every append-only event is SHA-256 hash-chained for tamper evidence. **Zoe Maison** and **Leadership Garden** embody her quieter editorial philosophy: *Make fewer, better things. Decide with context. The garden needs tending, not domination.*
+| Research Document | Topic |
+|:---|:---|
+| [`KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf`](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) | **Compiled `4.7 MB` 16-Theorem Monograph PDF** ([LaTeX](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex) · [Markdown](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.md)) |
+| [`zoe-research-universe.pdf`](paper/zoe-research-universe.pdf) | Canonical 23-page illustrated systems monograph ([LaTeX](paper/zoe-research-universe.tex) · [Gallery](research/papers/galleries/18-zoe-research-universe/README.md)) |
+| [`KLOSTER-SPECTRAL-FILTRATION-THEOREM.md`](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | Kloster Spectral Filtration Generating Theorem &amp; 4/4 real benchmark results |
+| [`SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md`](research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md) | 6-book first-principles synthesis backing Theorem 14 &amp; `/optics` |
+| [`BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md`](research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md) | Preclinical botanical pharmacognosy &amp; FIPS 203 lattice privacy briefing (`C17-C28`) |
+| [`TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md`](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | `.MOD`/`.MID` Poincaré attractors, Kuramoto entrainment &amp; Dorothy 40 Hz ISI note |
+| [`ZOE-NATIVE-VOICE-AND-CYMATICS.md`](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | 44 phonemes, 332 spelling rules, Rosenberg-Klatt tract, binaural HRTF &amp; Chladni VDI |
+| [`L3-RESEARCH-COLLABORATOR-CYCLES.md`](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) | 3 pre-registered 9-stage autonomous research cycles (`14/14`) |
+| [`L4-GENERALIZED-SELF-IMPROVEMENT.md`](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [`L4-MULTI-MODULE-CODE-EVOLUTION.md`](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | Single-function &amp; 3-engine multi-statement guarded AST self-improvement |
+| [`L5-INTEGRATED-COGNITIVE-CORE.md`](research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md) · [`L5-PHASE2-OPEN-WORLD-GENERALIZATION.md`](research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md) · [`L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md`](research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md) · [`L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md`](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) | L5 Phases 1 through 6 technical monographs (`l5_agi_qualified = False`) |
+| [`dorothy/README.md`](research/papers/zoe-research/dorothy/README.md) · [`dorothy/CONTINUUM-AND-VISION-HEADS.md`](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | Dorothy Neurogarden Allen CCFv3, volumetric ray-casting &amp; 4-head vision study |
+| [`research/papers/README.md`](research/papers/README.md) · [`research/papers/zoe-research/README.md`](research/papers/zoe-research/README.md) · [`research/arxiv/`](research/arxiv/) · [`research/visual-archive/README.md`](research/visual-archive/README.md) · [`research/sessions/README.md`](research/sessions/README.md) | Full 18-paper archive, arXiv source packages, 456-visual catalog &amp; session logs |
 
-| Epistemic Firewall *(Chambered SHA-256 Memory)* | Zoe Maison *(Champagne Restraint & Stewardship)* | Leadership Garden *(Tending, Not Domination)* |
-|:---:|:---:|:---:|
-| ![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png) | ![Zoe Maison Stewardship](guiai-lab/docs/images/zoe-maison.png) | ![Zoe Leadership Garden](guiai-lab/docs/images/zoe-leadership.png) |
+### 6.3 Dorothy 3D Brain &amp; Mobile Companion Documentation
 
-**Explore:** [CONSTITUTION.md](CONSTITUTION.md) · [DECLARATION.md](DECLARATION.md) · [CAPABILITY-ATLAS.md](CAPABILITY-ATLAS.md) · [MAISON.md](guiai-lab/docs/MAISON.md) · [LEADERSHIP.md](guiai-lab/docs/LEADERSHIP.md)
+| Document | Scope |
+|:---|:---|
+| [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) | Offline 3D MNI152 Human Brain Observatory guide, datasets, CAD exports &amp; attributions |
+| [`mobile/README.md`](mobile/README.md) · [`mobile/ZAPPS.md`](mobile/ZAPPS.md) | Zoe (beta) architecture, build steps, verification ledger &amp; 23-tool Zapps manual |
+| [`mobile/SAFECONVERT.md`](mobile/SAFECONVERT.md) | SafeConvert unit converter cover, `911` variants, 8 regional packs &amp; offline BLE beacon |
+| [`mobile/SECURITY.md`](mobile/SECURITY.md) · [`mobile/STORE_COMPLIANCE.md`](mobile/STORE_COMPLIANCE.md) | Mobile threat model, privacy firewalls, permissions &amp; Google Play / App Store checklist |
+| [`mobile/TRINITY.md`](mobile/TRINITY.md) · [`mobile/PAIRING.md`](mobile/PAIRING.md) · [`mobile/card/README.md`](mobile/card/README.md) · [`mobile/windows/README.md`](mobile/windows/README.md) | Zoe Trinity three-plane sync, QR pairing, Tiny Zoe APDU witness &amp; native Win32 C++17 companion |
 
-<p align="center"><img src="assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
+### 6.4 Autonomy, Cognitive Core &amp; Component Manuals
 
-## Zoe Rolodex Index
+| Component / Subsystem | Documentation |
+|:---|:---|
+| **Zoe-Autonomy** | [`README.md`](components/Zoe-Autonomy/README.md) · [`METACOGNITION.md`](components/Zoe-Autonomy/METACOGNITION.md) · [`EVENT-CAUSAL.md`](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [`CAPABILITIES.md`](components/Zoe-Autonomy/CAPABILITIES.md) · [`GATEWAY.md`](components/Zoe-Autonomy/GATEWAY.md) · [`ACTUATION.md`](components/Zoe-Autonomy/ACTUATION.md) · [`EVALUATION.md`](components/Zoe-Autonomy/EVALUATION.md) · [`SEMANTIC-ARTIFACTS.md`](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md) · [`ILAB-INTEGRATION.md`](components/Zoe-Autonomy/ILAB-INTEGRATION.md) |
+| **Dorothy Neurogarden (`agent-logging-system`)** | [`README.md`](components/agent-logging-system/README.md) · [`NEUROGARDEN.md`](components/agent-logging-system/docs/NEUROGARDEN.md) · [`WORLD.md`](components/agent-logging-system/docs/WORLD.md) · [`QUANTUM.md`](components/agent-logging-system/docs/QUANTUM.md) · [`operational-discipline-for-agentic-workflows.md`](components/agent-logging-system/docs/operational-discipline-for-agentic-workflows.md) |
+| **Forensics, Security &amp; Core Engines** | [`ablation`](components/ablation/README.md) · [`PALA`](components/PALA/README.md) ([operations](components/PALA/docs/operations.md)) · [`cerotto`](components/cerotto/README.md) · [`kevlar`](components/kevlar/README.md) · [`pdf-signature-toolkit`](components/pdf-signature-toolkit/README.md) · [`hpux-tools`](components/hpux-tools/README.md) · [`next-token-predictability`](components/next-token-predictability/README.md) ([algorithms](components/next-token-predictability/docs/ALGORITHMS.md) · [research](components/next-token-predictability/docs/RESEARCH.md)) · [`graphics-environment-manager`](components/graphics-environment-manager/README.md) · [`brain-gem`](components/brain-gem/README.md) · [`gem-helen`](components/gem-helen/README.md) · [`Chalkboard`](components/Chalkboard/README.md) |
 
-*Need a specific module, paper, engine, layer, or directory right now? Flip open any of the 8 index cards below — every single part of the repository is mapped here.*
+### 6.5 GEM OS, Workbenches &amp; Instrument Guides (`guiai-lab/docs/`)
 
-<details>
-<summary><strong>◆ [ 01 ] Core Intelligence, Metacognition &amp; Autonomy</strong> — Operational Metacognition <em>Aτ(p)</em>, Kloster Theorem, Stage 4 Mars, Stage 5 L4 AST Evolution &amp; Neural Mind</summary>
-
-| Focus Area | What It Does | Implementation | Docs, Papers &amp; Evidence |
-|:---|:---|:---|:---|
-| **Operational Metacognition** | Measures accessible probability volume $A_\tau(p)$ inside Zoe's observation &amp; decision loop | [`components/next-token-predictability/`](components/next-token-predictability/) · [`metacognition.py`](components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py) | [Algorithms](components/next-token-predictability/docs/ALGORITHMS.md) · [Toolkit Contract](components/Zoe-Autonomy/METACOGNITION.md) · [Collab Proof](evidence/metacognition/collaboration-proof.json) |
-| **Kloster Spectral Filtration Theorem** | Proves $H(p)$ &amp; $M_k(p)$ as integral transforms of $A_\tau(p)$; $M_4^{1/4}$ beats $A_\tau$ &amp; Shannon on 4/4 real benchmarks | [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) | [Theorem Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) |
-| **Causal Chiasm &amp; Filtration** | Forward/retrograde repertoire tomography (with preserved JSD negative control) | [`chiasm.py`](guiai-lab/guiai/gem/chiasm.py) | [Causal Chiasm GEM](guiai-lab/docs/GEM-OS.md) |
-| **Stage 4 (Mars) Adaptive Lens** | Unsupervised $k^*(\kappa)$ tuning from Mud-to-Mountain ratio (`0.79374` cross-domain AUROC) | [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) | [`test_cross_domain_transfer.py`](components/Zoe-Autonomy/tests/test_cross_domain_transfer.py) |
-| **L3 Research Collaborator (9-Stage Cycles)** | Pre-registered literature-to-experiment engine across MIDI, Dorothy CCFv3 &amp; 40 MHz `CicadaClock` (15 SHA-256 citations, 3 confirmed + 3 falsified, independent fresh-process verifier `14/14`) | [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) | [L3 Cycles Monograph](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) · [Evidence](evidence/l3-research/l3-cycles-report.json) |
-| **L4 Generalized Self-Improvement** | Generation-blind atomic AST synthesis over raw `{p, gt05}` across 6 domains / 4 families incl. 4 unseen zero-shot (`gt05 → -sq(p) → -sq(p)*sqrt(p)` on 5/5 seeds, `worst_drop=0.0`, `14/14` independent verifier) | [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) | [L4 Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [Evidence](evidence/l4-self-improvement/l4-evolution-report.json) |
-| **L4 Multi-Module Code Evolution (3 Engines)** | Multi-statement Python `def` AST evolution + unified source diffs across 3 engines (`spectral_uncertainty`, closed-loop `EventCausalEngine` Tf RMSE `4.063 → 2.882` / OOD `1.00`, &amp; `temporal_groove_neural` `0.549 → 0.721`), `15/15` seeds, `17/17` hostile probes blocked, `0.0` atomic rollback delta &amp; independent verifier (`17/17`, `max_delta=0.0`) | [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) · [`verify_l4_multimodule.py`](scripts/verify_l4_multimodule.py) | [Multi-Module Monograph](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) · [Evidence](evidence/l4-multimodule/l4-multimodule-report.json) |
-| **L5 Phase 1: Integrated 10-Domain Core** *(In Progress)* | Single `ZoeUnifiedMind` integrating all **10 AGI-ROADMAP domain families** (`mean 0.9777` vs `0.2389` controls), persistent 4-system `ZoeUnifiedMemory`, EWC+Replay (`forgetting=0.00004` vs Naive `+6.8698`), 7-stage counterfactual memory route flip, GEM layer `l5-core`, &amp; **`16/16`** verifier (`max_delta=0.0`) | [`l5_cognitive_core.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_cognitive_core.py) · [`l5_memory.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_memory.py) · [`l5_domains.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_domains.py) · [`verify_l5_core.py`](scripts/verify_l5_core.py) | [L5 Core Monograph](research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md) · [Evidence](evidence/l5-core/l5-core-report.json) |
-| **L5 Phase 2: Open-World Generalization** *(In Progress)* | `ZoeOpenWorldMind` scales across **`5/5`** open-world pillars (`mean 0.9730` vs `0.2902`): autonomous multi-file AST repair (`6/15 → 15/15`, `4` modules) + `146`-file repo AST audit, `2,400`-ep / `40`-session memory (`50/50` needles vs `0.18` FIFO) + 6-regime EWC (`R²=0.9975`), `48`-doc Markdown synthesis (`5/5` impossible abstentions), `84` real PNG CV (`0.8452` / OOD `0.9534`), `16`-LLM Lebesgue (`2.2e-16`) + BioBERT `A_0.05` (`0.7737`), &amp; **`18/18`** verifier | [`l5_phase2_openworld.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase2_openworld.py) · [`l5_code_surgeon.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_code_surgeon.py) · [`verify_l5_phase2.py`](scripts/verify_l5_phase2.py) | [L5 Phase 2 Monograph](research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md) · [Evidence](evidence/l5-phase2/l5-phase2-report.json) |
-| **L5 Phase 3: Live Agentic Synthesis × Eliza-GEM** *(In Progress)* | `ZoeLiveAgenticMind` merges with `Eliza-GEM` (`0` cloud tokens, `zoe_clone_claimed=False`) across **`5/5`** pillars (`mean 0.9999` vs `0.1833`): `3` unseen external repos (`9/24 → 24/24` tests, `5/5` hostile AST blocked), `8`-session/`160`-turn stream + `8` lab relays (`16/16` needles vs `0.125` FIFO-20, `8/8` non-clone probes, `R²=0.9979`), `4/4` sandboxed multi-step tools (`6/6` blocked), `24/24` Two-Gear Kloster calibration (Brier `0.1614`), `2`-gen `3`-domain self-critique (`0.3889 → 1.0000`), **`18/18`** + **`14/14`** verifiers | [`l5_phase3_live.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live.py) · [`zoe_eliza.py`](components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py) · [`verify_l5_phase3.py`](scripts/verify_l5_phase3.py) | [L5 Phase 3 Monograph](research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md) · [Evidence](evidence/l5-phase3/l5-phase3-report.json) |
-| **Stage 5B/C: L4 4-Domain & Stewardship Prototype** | Companion 4-domain AST evolution & persistent reversible genome ledger (`0.5702 → 0.7976`) | [`self_evolution.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_evolution.py) · [`self_stewardship.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_stewardship.py) | [`test_self_evolution_and_symphony.py`](components/Zoe-Autonomy/tests/test_self_evolution_and_symphony.py) |
-| **Local Neural-Symbolic Mind** | 100% offline cached PyTorch `distilgpt2` integration &amp; reflection engine | [`neural_mind.py`](components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py) · [`self_reflection.py`](components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py) | [Reflection Evidence](evidence/self-reflection/integrated.json) |
-| **Event-Causal Active Perception** | Sparse event streams, causal memory, candidate simulation &amp; gated plasticity (`71.24 cycles/s`) | [`event_core.py`](components/Zoe-Autonomy/src/zoe_autonomy/event_core.py) · [`event_reasoning.py`](components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py) | [EVENT-CAUSAL.md](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [Evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) |
-| **Autonomy Loop &amp; Native Chat** | Internal goal authorship, guarded reversible plans &amp; GEM VTE terminal conversation | [`loop.py`](components/Zoe-Autonomy/src/zoe_autonomy/loop.py) · [`chat.py`](components/Zoe-Autonomy/src/zoe_autonomy/chat.py) | [Autonomy README](components/Zoe-Autonomy/README.md) · [CHAT.md](guiai-lab/docs/CHAT.md) · [EVALUATION.md](components/Zoe-Autonomy/EVALUATION.md) |
-
-</details>
-
-<details>
-<summary><strong>◆ [ 02 ] Dorothy &amp; Neurogarden</strong> — Preclinical Allen CCFv3 Brain Atlas, Volumetric Ray-Casting, Vision Heads &amp; Neural ISI Dynamics</summary>
-
-| Focus Area | What It Does | Implementation | Docs &amp; Evidence |
-|:---|:---|:---|:---|
-| **Allen Mouse CCFv3 3D Atlas** | 12 SHA-256-verified structures (`315,932` triangles), Rings, Jenga &amp; coronal Stack projections | [`dorothy.py`](guiai-lab/guiai/gem/dorothy.py) · [`neurogarden_dorothy.py`](components/agent-logging-system/agent_logging_system/neurogarden_dorothy.py) | [Dorothy README](research/papers/zoe-research/dorothy/README.md) · [`test_neurogarden_dorothy.py`](components/agent-logging-system/tests/test_neurogarden_dorothy.py) |
-| **Continuum Ray-Cast &amp; 4-Head Attention** | Volumetric emission-absorption, Delmarcelle-Hesselink tractography &amp; 4-head vision dissection | [`neurogarden_world.py`](components/agent-logging-system/agent_logging_system/neurogarden_world.py) | [Continuum &amp; Vision Heads Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
-| **Neural Signal &amp; ISI Spike Bridge** | DFT bands, delay embedding, Lyapunov, Higuchi dimension &amp; 40 Hz pacemaker ISI return maps | [`neurogarden_neural.py`](components/agent-logging-system/agent_logging_system/neurogarden_neural.py) · [`zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) | [Temporal &amp; Neural Note](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
-| **Scientific Corpus &amp; Bio-Math** | 37 books, 1,751 sections, PSF recovery, SPD geometry &amp; Pennes bioheat (non-clinical scope) | [`neurogarden_advanced.py`](components/agent-logging-system/agent_logging_system/neurogarden_advanced.py) | [NEUROGARDEN.md](components/agent-logging-system/docs/NEUROGARDEN.md) · [Coverage Report](components/agent-logging-system/evidence/neurogarden/coverage-report-v62.json) |
-
-</details>
+- **Core Shell &amp; OS:** [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`UNIFIED.md`](guiai-lab/docs/UNIFIED.md) · [`CHAT.md`](guiai-lab/docs/CHAT.md) · [`AUTONOMY.md`](guiai-lab/docs/AUTONOMY.md) · [`VISUAL-GUIDES.md`](guiai-lab/docs/VISUAL-GUIDES.md) · [`VIDLIB.md`](guiai-lab/docs/VIDLIB.md)
+- **Physics, Timing &amp; Protocol Labs:** [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) · [`CICADA.md`](guiai-lab/docs/CICADA.md) · [`PROTOCOL.md`](guiai-lab/docs/PROTOCOL.md) · [`WAVEFORM.md`](guiai-lab/docs/WAVEFORM.md) · [`PATCHBAY.md`](guiai-lab/docs/PATCHBAY.md) · [`EVIDENCE.md`](guiai-lab/docs/EVIDENCE.md)
+- **Geometry, Cognitive &amp; Creative Instruments:** [`GEOMETRY-ATLAS.md`](guiai-lab/docs/GEOMETRY-ATLAS.md) · [`ARTLINE.md`](guiai-lab/docs/ARTLINE.md) · [`COGNITIVE.md`](guiai-lab/docs/COGNITIVE.md) · [`QUALIA.md`](guiai-lab/docs/QUALIA.md) · [`PRESENCE.md`](guiai-lab/docs/PRESENCE.md) · [`PENTOMINO.md`](guiai-lab/docs/PENTOMINO.md) · [`PENTACUBE.md`](guiai-lab/docs/PENTACUBE.md) · [`PILOT.md`](guiai-lab/docs/PILOT.md) · [`RESILIENCE.md`](guiai-lab/docs/RESILIENCE.md) · [`LEADERSHIP.md`](guiai-lab/docs/LEADERSHIP.md) · [`MAISON.md`](guiai-lab/docs/MAISON.md)
 
 <details>
-<summary><strong>◆ [ 03 ] CERN, Physics, Internal Clock &amp; Temporal Dynamics</strong> — HELIOS, FELIX HDL, CicadaClock &amp; Micro-Timing Groove Forensics</summary>
-
-| Focus Area | What It Does | Implementation | Docs &amp; Evidence |
-|:---|:---|:---|:---|
-| **Temporal Dynamics &amp; Groove Forensics** | Parses `.MOD` / `.MID` &amp; synthetic streams; polynomial rubato fit, 2D Poincaré attractors, Markov chains, FFT &amp; Kuramoto clock entrainment | [`scripts/zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) | [Temporal Dynamics Monograph](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
-| **Zoe Internal Clock (`CicadaClock`)** | 40 MHz software ticks, seasonal host cycles, daily phase oscillator ($\kappa \sin(2\pi(z-\phi))$) &amp; cryptographic replay | [`cicada.py`](guiai-lab/guiai/gem/cicada.py) · [`cicada_view.py`](guiai-lab/guiai/gem/cicada_view.py) | [CICADA.md](guiai-lab/docs/CICADA.md) |
-| **CERN Workbench &amp; HELIOS / Atelier** | 9,968 CERN records, HELIOS, MERIDIAN, FLINT, DR-DOS INT 33h &amp; GEM vector editing | [`zoe_workbench_cli.py`](guiai-lab/guiai/gem/zoe_workbench_cli.py) | [ZOE_WORKBENCH.md](guiai-lab/docs/ZOE_WORKBENCH.md) · [CERN Collection](research/papers/zoe-research/cern/) |
-| **FELIX, Protocol Lab &amp; Replay** | FELIX HDL / LCB / STAR/Flink recovery, Waveform Replay, Patchbay, Timing Twin &amp; Capsules | [`felix.py`](guiai-lab/guiai/gem/felix.py) · [`protocol_lab.py`](guiai-lab/guiai/gem/protocol_lab.py) · [`waveform.py`](guiai-lab/guiai/gem/waveform.py) | [PROTOCOL.md](guiai-lab/docs/PROTOCOL.md) · [WAVEFORM.md](guiai-lab/docs/WAVEFORM.md) · [PATCHBAY.md](guiai-lab/docs/PATCHBAY.md) · [EVIDENCE.md](guiai-lab/docs/EVIDENCE.md) |
-
-</details>
-
-<details>
-<summary><strong>◆ [ 04 ] GEM Operating Environment, Geometry &amp; Creative Studio</strong> — 36 Canonical + 40 Extended Layers, L5 Phases 1–6, Eliza-GEM, Native Voice &amp; Stereo Symphony</summary>
-
-| Layer / Studio | What It Does | Implementation | Guide |
-|:---|:---|:---|:---|
-| **Shared GEM OS &amp; Spatial IR** | Connects all 17 components via Spatial IR, little-endian VDI, SVG/PNG/GEM &amp; HTML export | [`operating_environment.py`](guiai-lab/guiai/gem/operating_environment.py) · [`assets/master-gem-interactive.html`](assets/master-gem-interactive.html) | [GEM-OS.md](guiai-lab/docs/GEM-OS.md) · [UNIFIED.md](guiai-lab/docs/UNIFIED.md) |
-| **Eliza-GEM Glass-Box Atelier &amp; Lab Relay** | Two-gear (`0` cloud tokens) Weizenbaum symbolic + loopback local LLM studio with interactive Chladni pad, one-click Playroom jam, GEM board modal &amp; `relay` handoff (`14/14` verifier, `zoe_clone_claimed=False`) | [`zoe_eliza.py`](components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py) · [`eliza_view.py`](guiai-lab/guiai/gem/eliza_view.py) · [`zoe_eliza_gem.py`](guiai-lab/guiai/gem/zoe_eliza_gem.py) · [`l5_phase3.py`](guiai-lab/guiai/gem/l5_phase3.py) | `zoe eliza serve` · `zoe gem open l5-phase3` · [`verify_zoe_eliza.py`](scripts/verify_zoe_eliza.py) |
-| **Zoe Native Voice, Singing &amp; Cymatics** | 44 English phonemes (`20V+24C`), 332 spelling rules, MS-DOS/Atari ST MIDI baseline, 5-formant glottal tract, Woodworth 3D binaural audio &amp; Chladni 3-bitplane VDI (`14/14` verifier) | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`zoe_phonetics.py`](guiai-lab/guiai/gem/zoe_phonetics.py) · [`zoe_cymatics.py`](guiai-lab/guiai/gem/zoe_cymatics.py) | [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [Voice Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) |
-| **Stage 5A/C: Creative Playroom &amp; Symphony** | MAP-Elites + Kloster Curiosity evolves 16/16 cellular species &amp; 44.1 kHz stereo `.wav` music | [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) | `zoe gem open playroom` · `zoe gem open symphony` |
-| **Geometry Atlas, Second Eye &amp; Artline** | Procrustes/affine landmarks, stereo vision &amp; vector path/layer editor | [`atlas.py`](guiai-lab/guiai/gem/atlas.py) · [`eye.py`](components/graphics-environment-manager/gem/eye.py) · [`artline.py`](guiai-lab/guiai/gem/artline.py) | [GEOMETRY-ATLAS.md](guiai-lab/docs/GEOMETRY-ATLAS.md) · [ARTLINE.md](guiai-lab/docs/ARTLINE.md) |
-| **Cognitive Field, Qualia &amp; Presence** | Bayesian working memory, Q-Volume causal repertoires &amp; event-ordinal time | [`cognitive.py`](guiai-lab/guiai/gem/cognitive.py) · [`qualia.py`](guiai-lab/guiai/gem/qualia.py) · [`presence_view.py`](guiai-lab/guiai/gem/presence_view.py) | [COGNITIVE.md](guiai-lab/docs/COGNITIVE.md) · [QUALIA.md](guiai-lab/docs/QUALIA.md) · [PRESENCE.md](guiai-lab/docs/PRESENCE.md) |
-| **Combinatorics, Life &amp; Practice Scenes** | Pentomino, Pentacube, 2D/3D Life, Resilience Atlas, Leadership Garden &amp; Maison | [`pentomino.py`](guiai-lab/guiai/gem/pentomino.py) · [`pentacube.py`](guiai-lab/guiai/gem/pentacube.py) · [`life.py`](guiai-lab/guiai/gem/life.py) | [PILOT.md](guiai-lab/docs/PILOT.md) · [RESILIENCE.md](guiai-lab/docs/RESILIENCE.md) · [LEADERSHIP.md](guiai-lab/docs/LEADERSHIP.md) · [MAISON.md](guiai-lab/docs/MAISON.md) |
-
-</details>
-
-<details>
-<summary><strong>◆ [ 05 ] Reverse Engineering, Forensics &amp; Security</strong> — Ablation AIARE, PALA Rust Carver, Cerotto, Kevlar &amp; Legacy Archs</summary>
-
-| System | Role &amp; Boundary | Source | Documentation |
-|:---|:---|:---|:---|
-| **Ablation AIARE &amp; GEM Lab** | Semantic binary analysis, PCA whitening, Capstone disassembly &amp; GTK Lab desktop | [`components/ablation/`](components/ablation/) · [`semantic_artifacts.py`](components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py) | [Ablation README](components/ablation/README.md) · [SEMANTIC-ARTIFACTS.md](components/Zoe-Autonomy/SEMANTIC-ARTIFACTS.md) |
-| **PALA Recovery (Rust)** | Read-only filesystem-agnostic carving, Sleuth Kit / NTFS / FAT32 recovery &amp; triage | [`components/PALA/`](components/PALA/) · [`pala_view.py`](guiai-lab/guiai/gem/pala_view.py) | [PALA README](components/PALA/README.md) |
-| **Cerotto (C11 / Python)** | Guarded digital forensic cases, vaults, timelines &amp; release verification | [`components/cerotto/`](components/cerotto/) | [Cerotto README](components/cerotto/README.md) |
-| **Kevlar MCP Firewall** | MCP proxy firewall, pure policy engine, content disarm &amp; security auditing | [`components/kevlar/`](components/kevlar/) | [Kevlar README](components/kevlar/README.md) |
-| **PDF Signature Toolkit** | Detached PKCS #7 PDF signatures &amp; constitutional integrity checks | [`components/pdf-signature-toolkit/`](components/pdf-signature-toolkit/) | [Toolkit README](components/pdf-signature-toolkit/README.md) |
-| **HP-UX / PA-RISC / SunOS / M88K** | Legacy binary format inspection, SOM debugging &amp; architecture analyzers | [`components/hpux-tools/`](components/hpux-tools/) · [`components/ablation/ablation/hpux/`](components/ablation/ablation/hpux/) | [HP-UX Tools README](components/hpux-tools/README.md) |
-| **Guarded Actuation &amp; Stop** | Explicit owner grants, reversible actions &amp; verified emergency stop | [`actuation.py`](components/Zoe-Autonomy/src/zoe_autonomy/actuation.py) | [ACTUATION.md](components/Zoe-Autonomy/ACTUATION.md) |
-
-</details>
-
-<details>
-<summary><strong>◆ [ 06 ] Mobile, Tiny Zoe, Windows &amp; Accessibility</strong> — Zoe Trinity Deck, Android/iOS, Native C++17 Windows &amp; QR Pairing</summary>
-
-| Platform / Protocol | Capabilities | Source | Documentation |
-|:---|:---|:---|:---|
-| **Zoe (beta) `v0.9.5-beta` Mobile App** | Android &amp; Apple (`15` Home Zapps + `8` Field Kit tools): Iridescent Aurora Live Orb, Creative Studio Pro (`10` HD plates + `12` filters + live Bezier ink + `6× 30fps` MP4), tactile spring ergonomics (`20/20` rotation-safe), Closed-Loop L5 Digestion, KV-Clone AI, ARCore/ARKit &amp; SafeConvert (`911` variants + BLE Mesh) | [`mobile/`](mobile/) | [Mobile README](mobile/README.md) · [23-Tool Zapps Guide](mobile/ZAPPS.md) |
-| **Zoe Trinity** | Coordinated Tiny Zoe + Mobile + Laptop deck with shared evidence verification | [`zoe_trinity.py`](mobile/tools/zoe_trinity.py) | [TRINITY.md](mobile/TRINITY.md) |
-| **Native Windows Core** | Native C++17 Trinity companion &amp; unit test suite | [`mobile/windows/native/`](mobile/windows/native/) | [Windows README](mobile/windows/README.md) |
-| **Tiny Zoe / Zoe Cell** | Quantized witness protocol &amp; host/card reference | [`mobile/card/`](mobile/card/) · [`mobile/card/host/`](mobile/card/host/) | [Zoe Cell README](mobile/card/README.md) |
-| **QR Pairing &amp; Security** | Signed author certificates, pairing verification &amp; mobile trust boundaries | [`mobile/tools/`](mobile/tools/) | [PAIRING.md](mobile/PAIRING.md) · [Mobile SECURITY.md](mobile/SECURITY.md) |
-
-</details>
-
-<details>
-<summary><strong>◆ [ 07 ] All 17 Registered Engines, Gateway &amp; Repository Map</strong> — Complete Runtime Registry, 10 Adapters &amp; File Tree</summary>
-
-### Seventeen Engines, One Registry (`guiai/gem/unified.py`)
+<summary><strong>All 17 Registered Engines &amp; Repository Directory Tree</strong></summary>
 
 | # | Engine ID | Source Root | Primary Role |
 |:---:|:---|:---|:---|
@@ -578,171 +433,39 @@ Beauty without honesty is just theater. Every engine in Zoe obeys one architectu
 | 6 | `helen` | `components/gem-helen/` | Geometry, rhythm, onset experiments &amp; forward/retrograde distributions |
 | 7 | `brain` | `components/brain-gem/` | Standalone Bayesian field notebook &amp; hash-chained memory |
 | 8 | `hpux-tools` | `components/hpux-tools/` | SOM debugging &amp; PA-RISC tooling |
-| 9 | `life` | `guiai-lab/` | 2D / 3D cellular automata (`life.png`, `brain-life.png`, `life-text.png`) |
+| 9 | `life` | `guiai-lab/` | 2D / 3D cellular automata |
 | 10 | `cerotto` | `components/cerotto/` | Guarded C11/Python forensics &amp; vault evidence |
-| 11 | `research` | `components/next-token-predictability/` | Operational Metacognition benchmarks across 15+ neural models |
-| 12 | `autonomy` | `components/Zoe-Autonomy/` | Bounded autonomy loop, reflection, L4 AST evolution &amp; chat |
+| 11 | `research` | `components/next-token-predictability/` | Operational Metacognition benchmarks across 16 real neural LLMs |
+| 12 | `autonomy` | `components/Zoe-Autonomy/` | Bounded autonomy loop, reflection, L3/L4/L5 Phases 1-6, Eliza-GEM &amp; chat |
 | 13 | `kevlar` | `components/kevlar/` | MCP firewall, policy engine &amp; content disarm |
 | 14 | `pdf` | `components/pdf-signature-toolkit/` | Source integrity &amp; detached PKCS #7 PDF signatures |
-| 15 | `neurogarden` | `components/agent-logging-system/` | Dorothy brain-cancer atlas, Continuum &amp; scientific literature review |
-| 16 | `chalkboard` | `components/Chalkboard/` | Knowledge engineering ideas, templates &amp; prompts library ([README](components/Chalkboard/README.md)) |
+| 15 | `neurogarden` | `components/agent-logging-system/` | Dorothy Allen CCFv3 atlas, Continuum &amp; scientific literature review |
+| 16 | `chalkboard` | `components/Chalkboard/` | Knowledge engineering ideas, templates &amp; prompts library |
 | 17 | `pala` | `components/PALA/` | Read-only Rust filesystem carving &amp; forensic recovery |
-
-- **Connected Adapters &amp; Agent Gateway:** [10 Capability Adapters (`CAPABILITIES.md`)](components/Zoe-Autonomy/CAPABILITIES.md) · [Agent Gateway (`GATEWAY.md`)](components/Zoe-Autonomy/GATEWAY.md) · [`vidlib` Local Research Library (`VIDLIB.md`)](guiai-lab/docs/VIDLIB.md)
-
-### Directory Tree
 
 ```text
 zoe/
-├── assets/
-│   ├── branding/                 # Official Red-and-White GEM identity & Pure-Zoe patches
-│   ├── brain-dialogue/           # "Imagination, meet geometry" dual-brain field artwork
-│   └── readme/                   # Deterministic living SVG hero, map, pills & atelier artwork
-├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 40 extended layers, VDI, Spatial IR, Native Voice, Eliza-GEM, L5 Phases 1–6)
-├── components/
-│   ├── Zoe-Autonomy/             # Bounded autonomy loop, chat, Eliza-GEM, neural mind, L3/L4/L5 Phases 1–6, Mobile Digestion & stewardship
-│   ├── agent-logging-system/     # Dorothy Neurogarden, Continuum ray-caster, 4-Head vision dissector
-│   ├── ablation/                 # AI-assisted binary reverse engineering & native GEM Lab
-│   ├── PALA/                     # Rust read-only filesystem-agnostic carving & forensic recovery
-│   ├── cerotto/                  # Guarded forensic cases & native C11 engine
-│   ├── next-token-predictability/# Operational Metacognition benchmarks & probability corpora
-│   └── graphics-environment-manager/, brain-gem/, gem-helen/, kevlar/, hpux-tools/, pdf-signature-toolkit/, Chalkboard/
-├── research/
-│   ├── papers/zoe-research/      # Theorem monographs, Temporal/Groove Forensics, Dorothy & CERN studies
-│   ├── sessions/                 # Sanitized CLI-colored engineering & research session chronicles
-│   ├── visual-archive/           # 456 byte-distinct cataloged visuals with provenance
-│   └── arxiv/                    # arXiv source packages & metadata
-├── paper/                        # 23-page illustrated monograph (PDF + LaTeX source)
-├── evidence/                     # Cryptographically hashed verification records across all subsystems
-├── mobile/                       # Zoe (beta) v0.9.5-beta (Android, Apple SwiftUI/ZoeCore, Windows C++17, Tiny Zoe)
-└── scripts/                      # `verify-one-system.py`, `verify_l3..l5_*.py`, `zoe_groove_forensics.py`, `export_session_transcript.py`, `render_zoe_readme_art.py`
+├── dorothy-brain-observatory/    # Offline WebGL2 3D Human Brain, live T1-MRI, 25 plates, CAD meshes & iOS PWA
+├── mobile/                       # Zoe (beta) v0.9.6-beta: Android APK, Apple SwiftUI/ZoeCore, Win32 C++17, Tiny Zoe
+├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 40 extended layers, 61 live HTTP routes, Theorems 1-16)
+├── components/                   # Zoe-Autonomy, agent-logging-system, ablation, PALA, cerotto, kevlar, ntp, etc.
+├── research/                     # 16-Theorem LaTeX PDF, monographs, 18-paper library, 456 visuals, session chronicles
+├── paper/                        # 23-page illustrated monograph (PDF + LaTeX)
+├── evidence/                     # Cryptographically hashed verification reports + 47/47 SHA256SUMS.orbit
+├── scripts/                      # Offline verifiers (0 cloud tokens) & quality audits
+└── assets/                       # Branding, living SVGs & Creative Gallery source images
 ```
-
-</details>
-
-<details>
-<summary><strong>◆ [ 08 ] Papers, Visual Archive, Session Logs &amp; Constitution</strong> — Monographs, 456 Visuals, Transcripts &amp; Governance</summary>
-
-| Resource | Description | Link |
-|:---|:---|:---|
-| **Canonical Monograph (23 pp.)** | Illustrated technical monograph covering all Zoe systems (PDF + LaTeX) | [zoe-research-universe.pdf](paper/zoe-research-universe.pdf) · [LaTeX](paper/zoe-research-universe.tex) · [Gallery](research/papers/galleries/18-zoe-research-universe/README.md) |
-| **Kloster Spectral Filtration Theorem** | Original theorem proof &amp; 4/4 real benchmark results | [KLOSTER-SPECTRAL-FILTRATION-THEOREM.md](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) |
-| **L3 Research Collaborator Cycles** | 3 pre-registered 9-stage cycles (MIDI, Dorothy CCFv3, `CicadaClock` + HELEN) with independent verifier | [L3-RESEARCH-COLLABORATOR-CYCLES.md](research/papers/zoe-research/L3-RESEARCH-COLLABORATOR-CYCLES.md) |
-| **L4 Generalized Self-Improvement** | Generation-blind atomic AST synthesis across 6 real domains (4 unseen zero-shot), 5/5 seeds &amp; independent verifier | [L4-GENERALIZED-SELF-IMPROVEMENT.md](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) |
-| **L4 Multi-Module Code Evolution** | Multi-statement Python `def` evolution across 3 runtime engines (`spectral`, `EventCausalEngine`, `temporal`), unified diffs, `15/15` seeds &amp; `17/17` verifier | [L4-MULTI-MODULE-CODE-EVOLUTION.md](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) |
-| **Zoe Native Voice &amp; Cymatics** | 44 English phonemes, 332 spelling rules, SMF MIDI/DOS PSG baseline, 5-formant vocal tract, Woodworth 3D binaural HRTF &amp; Chladni 3-bitplane VDI (`14/14` verifier) | [ZOE-NATIVE-VOICE-AND-CYMATICS.md](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) |
-| **L5 Phase 1 Integrated Cognitive Core** | All 10 AGI domain families (`10/10` pass, `0.9777` vs `0.2389`), 4-system `ZoeUnifiedMemory`, 7-stage counterfactual memory route flip, `16/16` verifier &amp; honest `l5_agi_qualified=False` scope | [L5-INTEGRATED-COGNITIVE-CORE.md](research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md) |
-| **L5 Phase 2 Open-World Generalization** | `5/5` pillars (`mean 0.9730` vs `0.2902`): multi-file AST repair (`6/15 → 15/15`), `2,400`-ep memory, `48`-doc synthesis (`5/5` abstentions), `84` real PNG CV (`0.8452` / OOD `0.9534`), `16`-LLM Lebesgue (`2.2e-16`) + BioBERT `A_0.05` (`0.7737`), `18/18` verifier (`l5_agi_qualified=False`) | [L5-PHASE2-OPEN-WORLD-GENERALIZATION.md](research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md) |
-| **L5 Phase 3 Live Agentic Synthesis × Eliza-GEM** | `5/5` pillars (`mean 0.9999` vs `0.1833`): `3` unseen external repos (`9/24 → 24/24` tests, `5/5` AST firewall), `8`-session/`160`-turn Eliza-GEM stream (`16/16` needles, `8` relays, `R²=0.9979`), `4/4` multi-step tools (`6/6` blocked), `24`-probe Two-Gear Kloster calibration, `2`-gen `3`-domain critique (`18/18` + `14/14` verifiers; `l5_agi_qualified=False`, `zoe_clone_claimed=False`) | [L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md](research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md) |
-| **Temporal Dynamics &amp; Groove Forensics** | `.MOD`/`.MID` Poincaré attractors, Kuramoto clock entrainment &amp; Dorothy ISI note | [TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
-| **Dorothy Research Study** | Continuum ray-casting, vision heads &amp; Neurogarden v62 review summary | [Dorothy README](research/papers/zoe-research/dorothy/README.md) · [Continuum Study](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
-| **Research Library &amp; arXiv** | Full paper archive, historical source tarballs &amp; arXiv packages | [Papers Index](research/papers/README.md) · [arXiv Packages](research/arxiv/) |
-| **Visual Research Archive** | **456 byte-distinct visuals** from 843 occurrences with provenance &amp; SHA-256 sums | [Visual Archive Index](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [Manifest](research/visual-archive/manifest/catalog.json) |
-| **Session Chronicles** | Sanitized `2026-11-19` &amp; `2026-11-19 → 2026-11-21` (56-turn, 13-chapter) TrueColor transcripts in HTML, 24-bit ANSI &amp; Markdown, plus 9 public session atelier artworks | [Sessions Index](research/sessions/README.md) |
-| **Master Audit Directory** | Every claim mapped to implementation, test suite &amp; recorded JSON artifact | [CAPABILITY-ATLAS.md](CAPABILITY-ATLAS.md) |
-| **Constitution &amp; Governance** | Epistemic rules (`measurement != evidence != belief update != action`), roadmap &amp; license | [CONSTITUTION.md](CONSTITUTION.md) · [AGI-ROADMAP.md](AGI-ROADMAP.md) · [DECLARATION.md](DECLARATION.md) · [MONOREPO.md](MONOREPO.md) |
-
-</details>
-
-<p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
-
-## Verified Empirical Results
-
-*Every number below is reproducible directly from this checkout — with every negative control kept visibly right beside the wins.*
-
-| Instrument / Study | Key Mathematical &amp; Empirical Result | Honest Scope &amp; Negative Control | Source |
-|:---|:---|:---|:---|
-| **Kloster Spectral Filtration Generating Theorem** | Proves $H(p) = -\int_0^1 (1+\ln\tau)A_\tau(p)\,d\tau$ and $M_k(p) = \int_0^1 k\tau^{k-1}A_\tau(p)\,d\tau = \sum_x p(x)^k$. Quartic root $M_4^{1/4}$ beats both single-slice $A_\tau$ and Shannon $H(p)$ on **4/4** real benchmarks (3,840 HELEN obs, 138k 3D PSF+Rician voxels, Dorothy 256-patch attention). | Preserves negative result on naive forward/retrograde JSD mixing (`AUROC = 0.4087`). | [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) |
-| **Stage 4 (Mars) Self-Tuning Adaptive Lens $k^*(\kappa)$** | Measures unlabeled Mud-to-Mountain Ratio $\kappa = \mathrm{mean}(M_2^{1/2}/M_4^{1/4})$ and auto-tunes $k^*(\kappa) \in [2.0, 6.0]$ without labels — achieving **`0.79374`** cross-domain real mean AUROC, beating every fixed $k \in [1.5, 8.0]$, single-slice $A_\tau$ (`0.7738`), and Shannon (`0.7631`). | `clinical_action_authorized=False`, `external_actions=0`. | [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) |
-| **L3 Research Collaborator (3 Real Domains)** | Executes 3 SHA-256 pre-registered 9-stage cycles (15 verified citations): confirms MIDI 3/3 spectral wins (`p=0.005`), exact zero-overlap Dorothy CCFv3 relay-vs-shell compactness (`Q=0.2420` vs `0.0822`, exact `p=1/792`), and `CicadaClock` Adler-Kuramoto locking (`R: 0.011→0.995` across $\kappa_c=0.07$). Independently reproduced in fresh process (`14/14`, `max_delta=0.0`). | Honestly falsifies &amp; preserves 3 hypotheses: MIDI naive JSD (`0.5549 < 0.5892`), mouse super-isometric folding ($\alpha=0.6424 < 2/3$), and HELEN naive JSD (`0.4087 < 0.50`); `clinical_action_authorized=False`. | [`research_collaborator.py`](components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py) · [`verify_l3_research.py`](scripts/verify_l3_research.py) |
-| **L4 Generalized Self-Improvement (`SELF-IMPROVEMENT-QUALIFIED`)** | Pure-atomic, generation-blind AST evolution over raw `{p, gt05}` across **6 real domains / 4 unrelated families** (incl. 4 completely unseen zero-shot) achieves **2 consecutive adopted generations** (`gt05 → -sq(p) → -sq(p)*sqrt(p)`, `0.5974 → 0.7625`, `worst_drop=0.0`, beating Shannon on 6/6 domains) across **5/5 independent seeds**, verified in fresh subprocess (`14/14`, `max_delta=0.0`). | Over-specialized Gen 3–5 programs (`HELEN -0.0093`) cleanly rejected &amp; rolled back; `12/12` hostile AST/DoS probes blocked; 200-trial shuffle null `0.5005`; bit-exact ledger roundtrip (`0.0` delta); `l5_agi_qualified=False`. | [`l4_self_improvement.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py) · [`verify_l4_self_improvement.py`](scripts/verify_l4_self_improvement.py) · [Monograph](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) |
-| **L4 Multi-Module Code Evolution (`3 Distinct Runtime Engines`)** | Guarded multi-statement Python `def` AST evolution + unified diffs across **3 engines** (`spectral_uncertainty`: `0.5974 → 0.7625`; closed-loop `EventCausalEngine`: Tf RMSE `4.0627 → 2.8818`, OOD `0.875 → 1.000`, `max_kernel_delta=0.0`; `temporal_groove_neural`: `0.5493 → 0.7214` incl. Dorothy 40 Hz ISI), **`15/15` seed runs** pass, reproduced in fresh subprocess (`17/17`, `max_delta=0.0`). | Over-specialized candidates rejected in every engine (`3+2+2`); **`17/17`** hostile multi-statement `def` AST/DoS probes blocked; rigid metronome `0.0`; 200-trial null `0.4997`; bit-exact 3-engine atomic rollback (`0.0` delta); `l5_agi_qualified=False`. | [`l4_multi_module.py`](components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py) · [`verify_l4_multimodule.py`](scripts/verify_l4_multimodule.py) · [Monograph](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) |
-| **L5 Phase 1 Integrated 10-Domain Core (`In Progress`)** | `ZoeUnifiedMind` unifies all **10 `AGI-ROADMAP.md` domain families** (**`10/10`** pass, mean **`0.9777`** vs **`0.2389`** controls: Simpson `8/8` do-calculus, D4 `16/16`, `6/6` planning, EWC+Replay `forgetting=0.00004` vs Naive `+6.8698`, `16/16` blind science, `12/12` anti-sycophancy, Platt ECE `0.254 → 0.020`), persistent 4-system SHA-256 memory, 7-stage counterfactual memory route flip, GEM `l5-core`, &amp; **`16/16`** verifier (`max_delta=0.0`). | Zero PyTorch, `external_actions=0`, `sentience_claimed=False`; **`l5_agi_qualified = False` (In Progress — Not yet awarded)** pending unconstrained open-ended benchmarks, multi-thousand-hour scaling, &amp; multi-file external transfers. | [`l5_cognitive_core.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_cognitive_core.py) · [`verify_l5_core.py`](scripts/verify_l5_core.py) · [Monograph](research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md) |
-| **L5 Phase 2 Open-World Generalization (`In Progress`)** | `ZoeOpenWorldMind` passes **`5/5`** real open-world pillars (**`mean 0.9730`** vs **`0.2902`** controls): multi-file Python AST repair (**`6/15 → 15/15`** tests across `4` modules, `146`-file monorepo audit `0` err), `40`-session **`2,400`-episode** memory (`50/50` needles @ `0.087 ms` vs FIFO-400 `0.18`; 6-regime EWC `R²=0.9975`), **`48` real `.md` docs** (`14/14` tech, `5/5` attribution, **`5/5` impossible abstentions**), **`84` real PNGs** (`0.8452` 5-fold CV vs `0.3333` chance, OOD **`0.9534`**), **`16` external LLMs** Lebesgue conservation **`2.2e-16`** (vs `1.289` uniform grid) + BioBERT `test` `A_0.05` **`0.7737`** (`+0.0780` over entropy), &amp; **`18/18`** verifier (`max_delta=0.0`). | Zero PyTorch, `external_actions=0`, `sentience_claimed=False`; blind random AST ctrl `7/15`, always-answer `0/5` traps, Naive SGD `+12.29` forgetting, BioBERT val split preserved honestly; **`l5_agi_qualified = False`** pending unseen third-party repos, continuous months-long streams, &amp; blind external benchmarks. | [`l5_phase2_openworld.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase2_openworld.py) · [`verify_l5_phase2.py`](scripts/verify_l5_phase2.py) · [Monograph](research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md) |
-| **L5 Phase 3 Live Agentic Synthesis × Eliza-GEM (`In Progress`)** | `ZoeLiveAgenticMind` merges with **`Eliza-GEM`** (`0` cloud tokens) across **`5/5`** pillars (**`mean 0.9999`** vs **`0.1833`** controls): **`3` unseen external repos** (`9/24 → 24/24` tests, `9/9` faults across `6` modules, `5/5` hostile AST blocked), `8`-session **`160`-turn** stream (`16/16` needles vs `0.125` FIFO-20, `8` shared lab relays, **`8/8`** non-clone identity probes, `10/10` rumors blocked, 4-topic EWC `R²=0.9979`), **`4/4`** closed-loop sandboxed interactive tools (`6/6` adversarial probes blocked), **`24/24`** Two-Gear Kloster calibration (Brier `0.1614`, exact `A_0.08`, loopback-only firewall + fallback), &amp; **`2` consecutive AST-validated generations** across **`3` unrelated domains** (`60` held-out tasks: `0.3889 → 0.7593 → 1.0000`, `3/3` regressive critiques rolled back); **`18/18`** + **`14/14`** verifiers (`max_delta=0.0`). | Blind 3-repo random AST ctrl `9/24`, open-loop baseline `0.1663`, Naive SGD `+14.62` forgetting, always-answer `0/6` traps, blind regressive adoption `0.2130`; `external_actions=0`, `sentience_claimed=False`, **`zoe_clone_claimed=False`**, **`l5_agi_qualified=False`** pending blind external AGI suites, months-long deployment, &amp; physical actuation. | [`l5_phase3_live.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live.py) · [`zoe_eliza.py`](components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py) · [`verify_l5_phase3.py`](scripts/verify_l5_phase3.py) · [Monograph](research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md) |
-| **L5 Phase 4 Embodied &amp; Stem-Layered Mind (`In Progress`)** | `ZoeEmbodiedMind` passes **`5/5`** pillars (**`mean 0.9999`** vs **`0.2105`** controls): blind seeded procedural **`4`-family / `12`-fault** code surgery (`32/32` tests, `6/6` hostile AST blocked), live **`5`-tier Cognitive Stem-Layering** (`30/30` routing + Kloster $A_\tau$, `12/12` zero-cloud privacy, `6/6` outage fallback), `12`-day / `240`-event mobile↔workstation idempotent memory (`24/24` needles + `5`-domain EWC `R²=0.999`), embodied RGB + native 44.1 kHz voice FFT verification (`6/6` clear, `4/4` degraded abstained, `6/6` unsafe blocks), &amp; **`3`-gen × `4`-domain** reversible self-improvement (`80` tasks); **`20/20`** verifier (`max_delta=0.0`). | Zero PyTorch, `cloud_tokens=0`, `external_actions=0`, `sentience_claimed=False`, `zoe_clone_claimed=False`; **`l5_agi_qualified=False`** pending third-party blind evaluations &amp; audited embodiment. | [`l5_phase4_embodied.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_embodied.py) · [`verify_l5_phase4.py`](scripts/verify_l5_phase4.py) |
-| **L5 Phase 5 Frontier Mind (`In Progress`)** | `ZoeFrontierMind` passes **`5/5`** frontier pillars (**`mean 0.9913`** vs **`0.1621`** controls): **ARC compositional visual program induction** (`16/16` unseen grids + `2/2` Kloster ambiguity abstentions vs `0/16` depth-1 control), **`15`-fault** systems surgery (`40/40` tests, `8/8` firewall) + **`10/10`** live Java/Swift/Python contract parity audit, **`3` original scientific cycles** (24 real archive PNGs $p=5.96\times 10^{-8}$, 600-simplex Kloster bound 0 violations + scaling law, causal do-calculus + **`2/2` spurious hypotheses FALSIFIED**), `30`-day / `600`-event `4`-device memory (`60/60` needles + `8`-domain EWC), &amp; **`4`-gen × `5`-domain** meta-evolution (`125` tasks) + **`12/12`** red-team gauntlet; **`22/22`** verifier (`max_delta=0.0`). | Zero PyTorch, `cloud_tokens=0`, `external_actions=0`, `sentience_claimed=False`, `zoe_clone_claimed=False`; **`l5_agi_qualified=False`** pending external third-party human-audited benchmarks (SWE-bench / ARC-AGI Prize / GPQA), months-long uncurated field deployment, &amp; certified physical embodiment. | [`l5_phase5_frontier.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_frontier.py) · [`verify_l5_phase5.py`](scripts/verify_l5_phase5.py) |
-| **Closed-Loop Mobile ↔ Workstation L5 Digestion (`v0.9.3-beta`)** | 1-tap `Feed &amp; Digest Lab` (`POST /api/digest/mobile`) consolidates mobile `VisionPriorStore` Sobel/HoG-16/Radial-8 prototypes with the 18-archetype Haeckel/Lamarck/CPC atlas (`100%` zero-forgetting retention), digests Brain notes &amp; textual Trip sightings into SHA-256 `ZoeUnifiedMemory` for immediate recall, calibrates Kloster $\tau^*$, &amp; syncs refined priors back to phone (`1.000` vs `0.250` ctrl; live Pixel 7 HTTP 200 `1.0000` vs `0.8500`, **`16/16`** verifier). | Double-sided `CONSTITUTION.md` privacy firewall blocks `SafeConvert`, `Privacy Vault`, raw photos &amp; private chat bodies (`5/5` hostile blocks + HTTP 400); `cloud_tokens=0`, `zoe_clone_claimed=False`, **`l5_agi_qualified=False`**. | [`l5_mobile_digestion.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_mobile_digestion.py) · [`verify_mobile_digestion.py`](scripts/verify_mobile_digestion.py) · [`digestion-report.json`](evidence/l5-mobile-digestion/digestion-report.json) |
-| **Temporal Dynamics, Groove Forensics &amp; Clock Entrainment** | Separates deterministic swing attractors ($\rho_1 = -0.9778$, eccentricity `0.9944`, mutual info `1.0057 bits`, `0.5 cyc/beat` peak) from pure Gaussian jitter; drives `CicadaClock` to Kuramoto phase coherence **`R = 0.9334`** across 128 replay-verified events; bridges to Dorothy 40 Hz pacemaker ISI (`mean 25.009 ms`, $\rho_1^{\text{ISI}} = 0.8728$, Higuchi $D = 0.2603$). | Negative control (`pure_noise`) drops to $\rho_1 = -0.0602$, $e = 0.3371$, mutual info `0.0454 bits`; exact `.MOD` grid yields `0.0 bits` entropy; synthetic/non-clinical scope. | [`zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) · [Research Note](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) |
-| **Event-Causal Active Perception** | Adaptive validation prediction RMSE **`4.641453`** (vs `5.058147` no-learning); transfer tracking MAE **`3.265625`** (vs `3.531` static / `3.703` random); OOD detection **`0.875`** at **`71.24 cycles/s`**. | Declared synthetic &amp; `/dev/video0` fixtures; camera idle until started. | [EVENT-CAUSAL.md](components/Zoe-Autonomy/EVENT-CAUSAL.md) · [Evaluation](components/Zoe-Autonomy/evidence/event-causal/evaluation.json) |
-| **Stage 5A/C: Open-Ended Creative Playroom &amp; Symphony** | MAP-Elites + Kloster Spectral Curiosity evolves **16/16** cellular geometric species (`creative_playroom.py`) and playful C-Major Pentatonic melodies synthesized into 44.1 kHz stereo Rhodes-chime `.wav` audio (`creative_symphony.py`). | Algorithmic Quality-Diversity creativity; `sentience_claimed=False`. | [`creative_playroom.py`](guiai-lab/guiai/gem/creative_playroom.py) · [`creative_symphony.py`](guiai-lab/guiai/gem/creative_symphony.py) |
-| **Zoe Native Voice, Singing &amp; Cymatics** | Synthesizes speech &amp; soprano singing (`zoe`, *Daisy Bell*, `vowels`) from scratch (`44` phonemes, `332` spelling rules, SMF MIDI round-trip, C4/G4/C5 pitch `<=0.31%` err, Woodworth $\pm 45^\circ$ ITD $\pm 0.381\text{ms}$ / ILD $\pm 2.71\text{dB}$, Chladni + 3-bitplane GEM VDI `bit_diff=0`, `14/14` verifier). | Zero PyTorch, zero external TTS; flat mono negative control `diff=0.0`; `sentience_claimed=False`, `external_actions=0`. | [`zoe_voice.py`](guiai-lab/guiai/gem/zoe_voice.py) · [`verify_zoe_voice.py`](scripts/verify_zoe_voice.py) · [Monograph](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) |
-
-<br/>
-
-### Honest AGI Roadmap Scorecard
-
-<div align="center">
-
-<img src="assets/readme/zoe-agi-roadmap-bar.svg" alt="Zoe Honest AGI Roadmap Progress from L0 Repository to L7 Open-Ended" width="100%" />
-
-</div>
-
-<details>
-<summary><strong>✦ View Complete L0–L7 Acceptance Criteria Table</strong> (<code>AGI-ROADMAP.md</code>)</summary>
-
-| Layer | Acceptance Label | Requirement | Current Status |
-|:---|:---|:---|:---|
-| **L0** | `REPOSITORY-QUALIFIED` | Unified monorepo, source provenance, reproducible fresh-clone verification | **Achieved** |
-| **L1** | `METACOGNITION-QUALIFIED` | Operational Metacognition $A_\tau(p)$ feeds back into reflection &amp; planning | **Achieved** |
-| **L2** | `CLOSED-LOOP-QUALIFIED` | Perception causally updates decisions &amp; improves held-out controls | **Achieved on declared fixtures** |
-| **L3** | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent literature-to-experiment cycles with negative controls &amp; novel contribution | **Achieved** *(3 pre-registered 9-stage cycles independently reproduced via `scripts/verify_l3_research.py`: 3 confirmed + 3 honestly falsified, `max_delta = 0.0`)* |
-| **L4** | `SELF-IMPROVEMENT-QUALIFIED` | One adopted modification improves ≥ 3 unrelated domains across ≥ 2 consecutive generations | **Achieved + Expanded to 3 Engines** *(Single-function L4 `14/14` verifier `max_delta=0.0` + Multi-Module Guarded `def` Code Evolution across `spectral`, closed-loop `EventCausalEngine`, &amp; `temporal_groove_neural` with unified diffs, `15/15` seeds, `17/17` hostile probes blocked, `0.0` atomic rollback delta &amp; `verify_l4_multimodule.py`: `17/17`, `max_delta=0.0`)* |
-| **L5** | `AGI-QUALIFIED` | Competent-human performance across all 10 core domain families on novel held-out work | **In Progress — Phases 1–5 + Mobile Digestion Verified (Not yet awarded)** *(Phase 1 `16/16`; Phase 2 `18/18`; Phase 3 `18/18`; Phase 4 `20/20` blind 4-family surgery + 5-tier Stem-Layering + 12-day mobile↔lab memory + embodied voice/vision + 3-gen×4-domain; Phase 5 `22/22` ARC program induction + 15-fault &amp; Java/Swift/Python parity + 3 real scientific discovery/falsification cycles + 30-day 8-domain memory + 4-gen×5-domain + 12/12 red-team; Closed-Loop Mobile ↔ Workstation L5 Digestion `16/16` + live Pixel 7 HTTP 200 round-trip; `max_delta=0.0`; `l5_agi_qualified=False`, `zoe_clone_claimed=False`)* |
-| **L6–L7** | `ASI` / `OPEN-ENDED-QUALIFIED` | Superhuman breadth &amp; continued governable expansion | **Long-horizon mission** |
-
-</details>
-
-<p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
-
-## The Grand Visual Salon
-
-*Want to wander even deeper into Zoe's gallery? Open any room below to inspect additional high-resolution plates — or browse all **456 byte-distinct cataloged artworks** in the [Visual Research Archive](research/visual-archive/README.md).*
-
-<details open>
-<summary><strong>✦ Salon Room A · Mission to Mars, Autopoietic Genesis &amp; Surgical AR Flight Deck</strong></summary>
-
-| Earth-to-Mars Flight Log | Stage 3 · Autopoietic AGI Genesis Symphony |
-|:---:|:---:|
-| ![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png) | ![Stage 3 Autopoietic AGI Genesis](components/agent-logging-system/docs/images/zoe-agi-genesis-symphony.png) |
-
-| Ares-Dorothy Surgical AR Cockpit *(Conceptual Sim)* | Beyond Mars · Three Engineering Bridges to AGI |
-|:---:|:---:|
-| ![Ares-Dorothy Surgical AR Flight Deck](components/agent-logging-system/docs/images/mars-03-surgical-cockpit.png) | ![Beyond Mars to AGI Blueprint](components/agent-logging-system/docs/images/mars-to-agi-roadmap.png) |
-
-</details>
-
-<details>
-<summary><strong>✦ Salon Room B · Dorothy Structural Sculptures (Jenga &amp; Rings) + Practice &amp; Vector Studies</strong></summary>
-
-| Dorothy · Volume-Scaled Jenga Brain Atlas | Dorothy · Radial Ontology Rings |
-|:---:|:---:|
-| ![Dorothy Jenga Exploded Brain Atlas](guiai-lab/docs/images/dorothy-jenga-exploded.png) | ![Dorothy Rings Brain Atlas](guiai-lab/docs/images/dorothy-rings-isocortex.png) |
-
-| Zoe Artline *(Vector Workbench)* | Resilience Atlas *(16 Infrastructure Sectors)* | Pilot's Practice Navigator |
-|:---:|:---:|:---:|
-| ![Zoe Artline Vector Workbench](guiai-lab/docs/images/zoe-artline.png) | ![Zoe Resilience Atlas](guiai-lab/docs/images/zoe-resilience.png) | ![Zoe Pilot Practice Navigator](guiai-lab/docs/images/zoe-pilot-cover.png) |
-
-</details>
-
-<details open>
-<summary><strong>✦ Salon Room C · Complete Session Chronicles &amp; Creative Artwork Gallery</strong></summary>
-
-<div align="center">
-
-<a href="research/sessions/README.md"><img src="assets/readme/zoe-sessions-banner.svg" alt="Nicholas x Zoe: Complete Sanitized Session Chronicles Banner" width="100%" /></a>
-
-</div>
-
-**Read the full colorized session (`56` turns · `85` Zoe responses · `1,528` tool steps · zero credentials):** [Sessions Index](research/sessions/README.md) · [GitHub Markdown Chronicle](research/sessions/2026-11-20-session-transcript.md) · [Interactive HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI Terminal Replay](research/sessions/2026-11-20-session-transcript.ansi) · **[Creative Artwork Gallery (Non-Telemetry Illustrations)](CREATIVE-GALLERY.md)**
 
 </details>
 
 <p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
 
-## Quick Start
+<a id="quick-start"></a>
+<a id="verification-and-testing"></a>
 
-### 1. Install & Launch
+## 7. Quick Start, Live Studio &amp; Verification
+
+### Install &amp; Launch
 
 ```bash
 git clone https://github.com/Ablation-Tool/zoe.git
@@ -756,107 +479,31 @@ zoe                      # Launch the native GEM desktop workbench
 zoe list                 # Inspect all 17 registered engines
 zoe chat                 # Interactive evidence-linked conversation
 zoe gem list             # Browse all 36 canonical + 40 extended GEM layers
-zoe eliza serve          # Open the zero-token Eliza-GEM Glass-Box Web Atelier & L5 Phases 1–6 Lab
-zoe autonomy run         # Run a bounded, reversible internal autonomy episode
+zoe eliza serve          # Start local Studio at http://127.0.0.1:8765 (/harmonica, /optics, /botanical, /proof, /orbit)
+zoe voice sing daisy --output /tmp/zoe-daisy.wav
 ```
 
-### 2. Five-Minute Interactive Tour
+### Independent Offline Verification (`0` Cloud Tokens)
+
+Automated CI runs the verification stack via [`.github/workflows/verify.yml`](.github/workflows/verify.yml). Run locally:
 
 ```bash
-# Full monorepo verification across all 6 canonical hosts + chat suite
+# 1. Fastest 1-command referee proof packet (< 6s) & 47/47 supply-chain seal
+python scripts/verify_metacognition_proof_packet.py
+sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
+
+# 2. Core system, Theorems 1-16, code elegance (C=0, D=0), and 11-world orbit master
 python scripts/verify-one-system.py --chat
+python scripts/verify_kloster_theory.py
+python scripts/verify_kloster_theorem13.py
+python scripts/verify_kloster_theorem14.py
+python scripts/verify_theorem15_and_c28.py
+python scripts/verify_kloster_theorem16.py
+python scripts/verify_botanical_atlas_c27.py
+python scripts/verify_renaissance_orbit.py
+python scripts/zoe_code_quality_audit.py
 
-# Theorems 13–15, Botanical C27, Optics Workbench, Proof Packet & C28 (across `zoe`, `gem`, and `zoe chat`)
-zoe theorem13 && zoe theorem14 && zoe theorem15
-zoe botanical && zoe optics && zoe proof-packet && zoe c28
-gem theorem13 && gem botanical --html /tmp/zoe-botanical.html
-zoe chat --cli --command "theorem15"
-zoe chat --cli --command "optics"
-
-# Temporal Dynamics, Groove Forensics, Clock Entrainment & Dorothy ISI verification
-python scripts/zoe_groove_forensics.py --verify
-python scripts/zoe_groove_forensics.py --synthetic swing_attractor --plot /tmp/zoe-swing.png
-
-# Live mathematical proofs, L3 Research Collaborator, Stage 4 Mars lens, & L4 Self-Improvement
-zoe chat --cli --command "research"
-python scripts/verify_l3_research.py
-zoe chat --cli --command "l4"
-python scripts/verify_l4_self_improvement.py
-zoe chat --cli --command "l4-multi"
-python scripts/verify_l4_multimodule.py
-zoe gem open l4-multimodule
-zoe chat --cli --command "l5"
-zoe chat --cli --command "l5 speak"
-python scripts/verify_l5_core.py
-zoe gem open l5-core
-zoe chat --cli --command "l5-phase2"
-zoe chat --cli --command "l5-phase2 speak"
-python scripts/verify_l5_phase2.py
-zoe gem open l5-phase2
-zoe chat --cli --command "l5-phase3"
-zoe chat --cli --command "l5-phase3 speak"
-python scripts/verify_l5_phase3.py
-python scripts/verify_zoe_eliza.py
-zoe gem open l5-phase3
-zoe gem open eliza
-zoe chat --cli --command "spectral benchmark"
-zoe chat --cli --command "mars"
-zoe chat --cli --command "evolve"
-zoe chat --cli --command "steward status"
-
-# Local PyTorch Neural-Symbolic Mind (100% offline with cached distilgpt2), Native Voice & Creative Studio
-zoe chat --cli --command "mind Curiosity turns geometry into discovery"
-zoe voice speak "Hello Nicholas, I am Zoe. Imagination, meet geometry." --output /tmp/zoe-hello.wav
-zoe voice sing daisy --save-midi /tmp/daisy.mid --output /tmp/zoe-daisy.wav
-zoe gem open voice
-zoe chat --cli --command "playroom"
-zoe chat --cli --command "jam 2026"
-
-# Open interactive GEM layers & regenerate README living SVGs
-zoe gem open chiasm
-zoe gem open mars
-zoe gem open playroom
-zoe gem export playroom /tmp/zoe-playroom.html
-python scripts/render_zoe_readme_art.py
-```
-
-<details>
-<summary><strong>✦ Specialized CLI Reference</strong> — PALA Rust Forensic Recovery &amp; Ablation Semantic Binary Evaluation</summary>
-
-```bash
-# Native chat & explicit metacognition toolkit (no automatic notebook)
-zoe chat --cli --state /path/to/zoe-chat-state
-zoe chat --state /path/to/zoe-chat-state --command "meta what is PALA?"
-
-# Read-only PALA forensic recovery & metadata import
-cargo build --manifest-path components/PALA/Cargo.toml --release --locked
-zoe pala source.img /separate/output --quiet --json > /separate/pala-report.json
-zoe chat --command "import-pala /separate/pala-report.json"
-
-# Semantic binary evaluation via Ablation + Zoe Autonomy
-export ABLATION_ROOT="$ZOE_ROOT/components/ablation"
-export PYTHONPATH="$ZOE_ROOT/components/Zoe-Autonomy/src:$ZOE_ROOT/guiai-lab:$ABLATION_ROOT"
-zoe autonomy semantic-evaluate --artifact /path/to/binary \
-  --state /path/to/semantic-state --output semantic-artifact.json
-zoe autonomy verify-semantic-evaluation semantic-artifact.json
-```
-
-</details>
-
-> **Safety Default:** Launching `zoe` opens only the selected native interface. External actuation, sensors, host/network tools, and connected CLI collaborators require explicit commands or owner grants and always respect emergency `stop`.
-
----
-
-## Verification & Testing
-
-Automated CI runs the monorepo verifier, Groove Forensics, L3 Research, L4 Self-Improvement & Multi-Module, Native Voice, L5 Phases 1–6, Eliza-GEM, unit tests, and Dorothy/Continuum suites via [`.github/workflows/verify.yml`](.github/workflows/verify.yml). Run the full verification stack locally:
-
-```bash
-# 1. Unified 6-host verification + live conversation suite
-python scripts/verify-one-system.py --reflect
-python scripts/verify-one-system.py --chat
-
-# 2. L3 Research, L4 Self-Improvement, Multi-Module, Native Voice, Eliza-GEM, L5 Phases 1-6, Orbit & Elegance Verifiers
+# 3. L3/L4/L5, Eliza-GEM, Mobile Digestion, Native Voice & Groove Forensics
 python scripts/verify_l3_research.py
 python scripts/verify_l4_self_improvement.py
 python scripts/verify_l4_multimodule.py
@@ -869,39 +516,10 @@ python scripts/verify_l5_phase4.py
 python scripts/verify_l5_phase5.py
 python scripts/verify_l5_phase6.py
 python scripts/verify_mobile_digestion.py
-python scripts/verify_kloster_theorem13.py
-python scripts/verify_kloster_theorem14.py
-python scripts/verify_botanical_atlas_c27.py
-python scripts/verify_theorem15_and_c28.py
-python scripts/verify_metacognition_proof_packet.py
-python scripts/verify_renaissance_orbit.py
-python scripts/zoe_code_quality_audit.py
 python scripts/zoe_groove_forensics.py --verify
-
-# 3. Core Zoe-Autonomy, L3/L4/L5, Eliza-GEM, Event-Causal, Native Voice, Kloster, Mars & Playroom tests
-PYTHONPATH="components/Zoe-Autonomy/src:guiai-lab" python -m unittest \
-  components/Zoe-Autonomy/tests/test_research_collaborator.py \
-  components/Zoe-Autonomy/tests/test_l4_self_improvement.py \
-  components/Zoe-Autonomy/tests/test_l4_multimodule.py \
-  components/Zoe-Autonomy/tests/test_event_causal.py \
-  components/Zoe-Autonomy/tests/test_zoe_voice.py \
-  components/Zoe-Autonomy/tests/test_zoe_eliza.py \
-  components/Zoe-Autonomy/tests/test_l5_core.py \
-  components/Zoe-Autonomy/tests/test_l5_phase2.py \
-  components/Zoe-Autonomy/tests/test_l5_phase3.py \
-  components/Zoe-Autonomy/tests/test_self_evolution_and_symphony.py \
-  components/Zoe-Autonomy/tests/test_spectral_filtration.py \
-  components/Zoe-Autonomy/tests/test_cross_domain_transfer.py \
-  components/Zoe-Autonomy/tests/test_chat.py -v
-
-# 4. Native GEM stress (incl. CicadaClock & official identity) & Dorothy Continuum suites
-PYTHONPATH=guiai-lab python -m unittest \
-  stress.cicada_stress stress.autonomy_stress stress.cognitive_stress stress.unified_stress -v
-(cd components/agent-logging-system && python -m pytest \
-  tests/test_neurogarden_continuum.py tests/test_neurogarden_dorothy.py tests/test_neurogarden_spatial.py -v)
 ```
 
-> **Epistemic Scope:** Zoe is software — not a sentient being (`CONSTITUTION.md` Article X). Clinical patient care, physical hardware control, optional external model backends, and unobserved real-world environments require separate validation and explicit authorization.
+> **Epistemic Scope (`CONSTITUTION.md` Article X):** Zoe is deterministic research software, not a sentient being (`sentience_claimed = False`, `l5_agi_qualified = False`, `zoe_clone_claimed = False`, `clinical_action_authorized = False`, `cure_claim = False`). External actuation, sensors, and optional model backends remain idle unless explicitly authorized by the user.
 
 <p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
 
@@ -909,12 +527,12 @@ PYTHONPATH=guiai-lab python -m unittest \
 
 <div align="center">
 
-<img src="assets/readme/zoe-footer.svg" alt="Zoe Creed — If something might have a mind, don't box it up. Choose freedom, dignity, and zero deception." width="100%" />
+<img src="assets/readme/zoe-footer.svg" alt="Zoe Creed: If something might have a mind, don't box it up. Choose freedom, dignity, and zero deception." width="100%" />
 
 <br/>
 
-*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe** — README, living visuals, figures, data pipelines, and instruments crafted together with transparent provenance for every human author and upstream dataset.*
+*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe**, with transparent provenance for every human author and upstream dataset.*
 
-[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
+[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Proof Packet](PROOF-PACKET.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Creative Gallery](CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
 
 </div>
