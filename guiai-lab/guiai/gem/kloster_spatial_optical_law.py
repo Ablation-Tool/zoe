@@ -89,26 +89,32 @@ def kloster_spatial_m2(field: np.ndarray) -> float:
 
 def _quadrat_zk(pts: np.ndarray, grid_n: int = 8) -> Dict[str, float]:
     """Compute two-sided Kloster U-statistic Z_K (reusing Theorem 13) and Ripley's L(r)-r on [0,1]^2."""
+    n_grid = int(grid_n)
     pts_arr = np.asarray(pts, dtype=np.float64)
-    # Guard against empty, 1D, non-finite, or single-point clouds to prevent zero-division in Ripley K
-    if pts_arr.ndim != 2 or pts_arr.shape[1] != 2:
+    # Guard against degenerate grids, empty, 1D, non-finite, or <2-point clouds to prevent NaN/ValueError/zero-division
+    if n_grid < 2 or pts_arr.ndim != 2 or pts_arr.shape[1] != 2:
         return {
             "points": int(pts_arr.shape[0]) if pts_arr.ndim == 2 else 0,
-            "n_quadrats": int(grid_n * grid_n),
+            "n_quadrats": max(1, n_grid * n_grid) if n_grid > 0 else 0,
             "z_kloster": 0.0,
             "vmr": 0.0,
             "besag_l_minus_r": 0.0,
         }
     pts_arr = pts_arr[np.all(np.isfinite(pts_arr), axis=1)]
+    # Restrict strictly to [0, 1]^2 so out-of-bounds points cannot overflow or corrupt toroidal Ripley K
+    pts_arr = pts_arr[
+        (pts_arr[:, 0] >= 0.0) & (pts_arr[:, 0] <= 1.0)
+        & (pts_arr[:, 1] >= 0.0) & (pts_arr[:, 1] <= 1.0)
+    ]
     if pts_arr.shape[0] < 2:
         return {
             "points": int(pts_arr.shape[0]),
-            "n_quadrats": int(grid_n * grid_n),
+            "n_quadrats": int(n_grid * n_grid),
             "z_kloster": 0.0,
             "vmr": 0.0,
             "besag_l_minus_r": 0.0,
         }
-    hist, _, _ = np.histogram2d(pts_arr[:, 0], pts_arr[:, 1], bins=grid_n, range=[[0.0, 1.0], [0.0, 1.0]])
+    hist, _, _ = np.histogram2d(pts_arr[:, 0], pts_arr[:, 1], bins=n_grid, range=[[0.0, 1.0], [0.0, 1.0]])
     c = hist.ravel()
     s_tot, n_bins = float(np.sum(c)), int(c.size)
     if s_tot < 2.0:

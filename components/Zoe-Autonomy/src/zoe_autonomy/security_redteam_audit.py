@@ -34,7 +34,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 import numpy as np
 
@@ -420,58 +420,115 @@ def cross_world_parser_fuzzing_audit(zoe_root: Path, trials_per_parser: int = 50
     }
 
 
+_CRITICAL_ORBIT_FILES: Tuple[str, ...] = (
+    "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
+    "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
+    "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+    "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
+    "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py",
+    "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_b.py",
+    "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
+    "evidence/live-llm-hallucination/qwen25-hallucination-shootout.json",
+    "guiai-lab/guiai/gem/alife_ecosystem.py",
+    "guiai-lab/guiai/gem/botanical_atlas_explorer.py",
+    "guiai-lab/guiai/gem/cern_kloster_trigger.py",
+    "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+    "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
+    "guiai-lab/guiai/gem/groove_forensics.py",
+    "guiai-lab/guiai/gem/kloster_bio_crypto_circle.py",
+    "guiai-lab/guiai/gem/kloster_botanical_atlas_36.py",
+    "guiai-lab/guiai/gem/kloster_botanical_neuro_oncology.py",
+    "guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py",
+    "guiai-lab/guiai/gem/kloster_coding_mdl.py",
+    "guiai-lab/guiai/gem/kloster_cryptanalysis_boss_rush.py",
+    "guiai-lab/guiai/gem/kloster_cryptanalysis_classical.py",
+    "guiai-lab/guiai/gem/kloster_cryptanalysis_modern.py",
+    "guiai-lab/guiai/gem/kloster_info_geometry.py",
+    "guiai-lab/guiai/gem/kloster_majorization_mixing.py",
+    "guiai-lab/guiai/gem/kloster_master_unification.py",
+    "guiai-lab/guiai/gem/kloster_multi_agent_consensus.py",
+    "guiai-lab/guiai/gem/kloster_nsa_cnsa2_and_advanced.py",
+    "guiai-lab/guiai/gem/kloster_nsa_puzzles.py",
+    "guiai-lab/guiai/gem/kloster_nsa_ring3_lattice_klepto.py",
+    "guiai-lab/guiai/gem/kloster_nsa_ring3_skipjack_venona.py",
+    "guiai-lab/guiai/gem/kloster_optimal_transport.py",
+    "guiai-lab/guiai/gem/kloster_pharmacophore_spatial_c28.py",
+    "guiai-lab/guiai/gem/kloster_proof_packet.py",
+    "guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py",
+    "guiai-lab/guiai/gem/kloster_quantum_duality.py",
+    "guiai-lab/guiai/gem/kloster_riemannian_manifold.py",
+    "guiai-lab/guiai/gem/kloster_scrna_encrypted_pains.py",
+    "guiai-lab/guiai/gem/kloster_spatial_optical_law.py",
+    "guiai-lab/guiai/gem/kloster_stopping_law.py",
+    "guiai-lab/guiai/gem/kloster_thermodynamics.py",
+    "guiai-lab/guiai/gem/proof_packet_arena.py",
+    "guiai-lab/guiai/gem/spatial_optical_workbench.py",
+    "guiai-lab/guiai/gem/zoe_choral_composer.py",
+    "guiai-lab/guiai/gem/zoe_os.py",
+    "research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf",
+)
+
+
+def _parse_orbit_sums(sums_path: Path) -> Dict[str, str]:
+    """Parse non-empty, non-comment SHA256SUMS.orbit lines into `{rel_path: hex_digest}`."""
+    entries: Dict[str, str] = {}
+    for raw in sums_path.read_text(encoding="utf-8", errors="replace").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split(None, 1)
+        if len(parts) == 2:
+            entries[parts[1].strip()] = parts[0].strip().lower()
+    return entries
+
+
 def supply_chain_sha256_attestation_audit(zoe_root: Path) -> Dict[str, Any]:
     """Orbit Pass 4: Cryptographic SHA-256 attestation & tamper-detection audit across all 11-world artifacts."""
-    critical_files = [
-        "guiai-lab/guiai/gem/kloster_info_geometry.py",
-        "guiai-lab/guiai/gem/kloster_thermodynamics.py",
-        "guiai-lab/guiai/gem/kloster_riemannian_manifold.py",
-        "guiai-lab/guiai/gem/kloster_optimal_transport.py",
-        "guiai-lab/guiai/gem/kloster_majorization_mixing.py",
-        "guiai-lab/guiai/gem/kloster_quantum_duality.py",
-        "guiai-lab/guiai/gem/kloster_coding_mdl.py",
-        "guiai-lab/guiai/gem/kloster_master_unification.py",
-        "guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py",
-        "guiai-lab/guiai/gem/kloster_cryptanalysis_classical.py",
-        "guiai-lab/guiai/gem/kloster_cryptanalysis_modern.py",
-        "guiai-lab/guiai/gem/code_elegance_analyzer.py",
-        "guiai-lab/guiai/gem/zoe_os.py",
-        "guiai-lab/guiai/gem/groove_forensics.py",
-        "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
-        "guiai-lab/guiai/gem/cern_kloster_trigger.py",
-        "guiai-lab/guiai/gem/zoe_choral_composer.py",
-        "guiai-lab/guiai/gem/alife_ecosystem.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_b.py",
-        "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
-        "research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf",
-    ]
     manifest: Dict[str, str] = {}
-    for rel in critical_files:
+    for rel in _CRITICAL_ORBIT_FILES:
         p = zoe_root / rel
         if p.is_file():
             manifest[rel] = hashlib.sha256(p.read_bytes()).hexdigest()
 
-    # Write verifiable SHA256SUMS.orbit manifest
     sums_path = zoe_root / "evidence/renaissance-orbit/SHA256SUMS.orbit"
-    sums_path.parent.mkdir(parents=True, exist_ok=True)
-    sums_path.write_text("".join(f"{h}  {k}\n" for k, h in sorted(manifest.items())), encoding="utf-8")
+    if sums_path.is_file():
+        # Verify existing manifest read-only so sealed entries are never overwritten or truncated.
+        recorded = _parse_orbit_sums(sums_path)
+        disk_ok = all(
+            (zoe_root / rel).is_file()
+            and hashlib.sha256((zoe_root / rel).read_bytes()).hexdigest() == expected
+            for rel, expected in recorded.items()
+        )
+        critical_ok = len(recorded) >= len(_CRITICAL_ORBIT_FILES) and all(
+            rel in manifest and recorded.get(rel) == manifest[rel]
+            for rel in _CRITICAL_ORBIT_FILES
+        )
+        manifest_verified = bool(disk_ok and critical_ok)
+        recorded_entries = len(recorded)
+    else:
+        # Initialize SHA256SUMS.orbit only when missing (e.g., fresh synthetic temp-dir audit).
+        sums_path.parent.mkdir(parents=True, exist_ok=True)
+        sums_path.write_text("".join(f"{h}  {k}\n" for k, h in sorted(manifest.items())), encoding="utf-8")
+        manifest_verified = len(manifest) == len(_CRITICAL_ORBIT_FILES)
+        recorded_entries = len(manifest)
 
     # Live 1-byte tamper simulation in memory: mutating 1 bit MUST fail digest verification!
-    sample_key = critical_files[0]
-    raw = bytearray((zoe_root / sample_key).read_bytes())
-    raw[0] ^= 0x01
-    tamper_detected = hashlib.sha256(bytes(raw)).hexdigest() != manifest[sample_key]
+    sample_key = _CRITICAL_ORBIT_FILES[0]
+    tamper_detected = False
+    if sample_key in manifest and (zoe_root / sample_key).is_file():
+        raw = bytearray((zoe_root / sample_key).read_bytes())
+        if raw:
+            raw[0] ^= 0x01
+        else:
+            raw.append(0x01)
+        tamper_detected = hashlib.sha256(bytes(raw)).hexdigest() != manifest[sample_key]
     return {
         "files_attested": len(manifest),
-        "expected_files": len(critical_files),
+        "expected_files": len(_CRITICAL_ORBIT_FILES),
+        "recorded_entries": recorded_entries,
         "manifest_path": "evidence/renaissance-orbit/SHA256SUMS.orbit",
         "one_bit_tamper_detected": tamper_detected,
-        "verified": len(manifest) == len(critical_files) and tamper_detected,
+        "verified": bool(len(manifest) == len(_CRITICAL_ORBIT_FILES) and manifest_verified and tamper_detected),
     }
 
 

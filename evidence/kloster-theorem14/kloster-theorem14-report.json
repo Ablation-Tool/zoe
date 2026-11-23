@@ -61,33 +61,37 @@
   "world2_optical_mtf_resolution": {
     "blur_monotonicity_200": "200/200",
     "m2_original_sharp": 0.00252411,
-    "max_parseval_error": 4.336808689942018e-19,
+    "max_parseval_error": 8.673617379884035e-19,
     "mtf_curve": [
       {
+        "delta_opt": 0.00059596,
         "m2_parseval": 0.00192815,
         "m2_spatial": 0.00192815,
         "na_equiv": 2.374,
-        "parseval_err": 0.0,
+        "parseval_err": 4.336808689942018e-19,
         "psf_sigma_px": 0.6,
         "retention_ratio": 0.7639
       },
       {
+        "delta_opt": 0.00098883,
         "m2_parseval": 0.00153528,
         "m2_spatial": 0.00153528,
         "na_equiv": 1.425,
-        "parseval_err": 4.336808689942018e-19,
+        "parseval_err": 8.673617379884035e-19,
         "psf_sigma_px": 1.0,
         "retention_ratio": 0.6082
       },
       {
+        "delta_opt": 0.00122511,
         "m2_parseval": 0.00129899,
         "m2_spatial": 0.00129899,
         "na_equiv": 0.89,
-        "parseval_err": 4.336808689942018e-19,
+        "parseval_err": 2.168404344971009e-19,
         "psf_sigma_px": 1.6,
         "retention_ratio": 0.5146
       },
       {
+        "delta_opt": 0.00137319,
         "m2_parseval": 0.00115092,
         "m2_spatial": 0.00115092,
         "na_equiv": 0.594,
@@ -96,6 +100,7 @@
         "retention_ratio": 0.456
       },
       {
+        "delta_opt": 0.0014713,
         "m2_parseval": 0.0010528,
         "m2_spatial": 0.0010528,
         "na_equiv": 0.396,
@@ -104,6 +109,7 @@
         "retention_ratio": 0.4171
       },
       {
+        "delta_opt": 0.00151417,
         "m2_parseval": 0.00100994,
         "m2_spatial": 0.00100994,
         "na_equiv": 0.285,

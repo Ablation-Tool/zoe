@@ -59,7 +59,7 @@
     },
     {
       "detail": {
-        "chain_head": "8d641081189a523b",
+        "chain_head": "b8a3e4bbec93bb79",
         "relay_notes": 1
       },
       "id": "08_persistent_memory_chain",
@@ -97,7 +97,7 @@
     },
     {
       "detail": {
-        "scene_sha256": "6477a0d4ef489242",
+        "scene_sha256": "df658f7ec06a64ac",
         "verified": true
       },
       "id": "12_gem_spatial_ir",

@@ -21,11 +21,13 @@ from __future__ import annotations
 
 import ast
 from pathlib import Path
+import plistlib
 import re
 import subprocess
 import sys
 import tempfile
 from typing import Any, Dict, List, Tuple
+import xml.parsers.expat as expat
 
 from .l5_phase3_external_repos import validate_patch_safety
 
@@ -195,6 +197,26 @@ def _repair_module_source_ast(src: str, test_output: str) -> str:
     return repaired
 
 
+def _has_swift_version_at_least(zoe_root: Path, rel: str, min_build: int, min_ver: Tuple[int, int, int]) -> bool:
+    """Verify Apple Info.plist CFBundleVersion >= min_build and CFBundleShortVersionString >= min_ver."""
+    p = zoe_root / rel
+    if not p.is_file():
+        return False
+    try:
+        plist = plistlib.loads(p.read_bytes())
+    except (plistlib.InvalidFileException, expat.ExpatError, ValueError, OSError):
+        return False
+    if not isinstance(plist, dict):
+        return False
+    ver_raw = str(plist.get("CFBundleShortVersionString", "")).strip()
+    build_raw = str(plist.get("CFBundleVersion", "")).strip()
+    m_ver = re.fullmatch(r"(\d+)\.(\d+)(?:\.(\d+))?", ver_raw)
+    if not m_ver or not re.fullmatch(r"[0-9]+", build_raw):
+        return False
+    ver_tuple = (int(m_ver.group(1)), int(m_ver.group(2)), int(m_ver.group(3) or 0))
+    return int(build_raw) >= min_build and ver_tuple >= min_ver
+
+
 def _live_12point_monorepo_contract_audit(zoe_root: Path) -> Dict[str, Any]:
     """Live static contract verification across Zoe's real Python, Android Java, and Apple Swift files."""
     checks: Dict[str, bool] = {}
@@ -249,9 +271,11 @@ def _live_12point_monorepo_contract_audit(zoe_root: Path) -> Dict[str, Any]:
         "mobile/android/app/src/main/java/research/zoetic/zoe/ScientificVisualSubstrate.java",
         "VORONOI_CRYSTAL", "LISSAJOUS_ORBIT",
     )
-    checks["swift_v095_version"] = has(
+    checks["swift_v095_version"] = _has_swift_version_at_least(
+        zoe_root,
         "mobile/apple/Zoe/Info.plist",
-        "<string>0.9.5</string>", "<string>16</string>",
+        16,
+        (0, 9, 5),
     )
     checks["swift_strict_accessible_volume"] = has(
         "mobile/shared/Sources/ZoeCore/AccessibleVolume.swift",

@@ -153,11 +153,41 @@ def test_t5_gap3_groove_forensics_degenerate_inputs_strict_json_no_warnings(
 
 
 def test_t5_gap4_repo_agent_tolerates_mobile_version_bump_without_touching_mobile() -> None:
-    """12-point monorepo parity must accept Android versionCode >= 16 / 0.9.5+ bumped externally."""
+    """12-point monorepo parity must accept Android and Apple Swift Info.plist >= 0.9.5 / build >= 16."""
     from zoe_autonomy.l5_phase6_repo_agent import _live_12point_monorepo_contract_audit
 
     parity = _live_12point_monorepo_contract_audit(REPO_ROOT)
     assert parity["checks_passed"] == parity["checks_total"] == 12, f"Parity failed: {parity['details']}"
+
+
+def test_t5_gap4_swift_info_plist_version_bounds(tmp_path: Path) -> None:
+    """_has_swift_version_at_least must accept >= (0.9.5, 16) and reject lower bounds or malformed XML."""
+    import plistlib
+    from zoe_autonomy.l5_phase6_repo_agent import _has_swift_version_at_least
+
+    rel = "mobile/apple/Zoe/Info.plist"
+    plist_path = tmp_path / rel
+    plist_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Missing file -> False
+    assert _has_swift_version_at_least(tmp_path, rel, 16, (0, 9, 5)) is False
+
+    # Valid monotonic bounds (exact floor, minor bump, X.Y.Z minor jump, X.Y two-part version)
+    for ver, build in (("0.9.5", "16"), ("0.9.6", "17"), ("0.10.0", "16"), ("1.0", "20")):
+        plist_path.write_bytes(
+            plistlib.dumps({"CFBundleShortVersionString": ver, "CFBundleVersion": build})
+        )
+        assert _has_swift_version_at_least(tmp_path, rel, 16, (0, 9, 5)) is True, (ver, build)
+
+    # Negative controls: version below floor, build below floor, malformed XML
+    for ver, build in (("0.9.4", "17"), ("0.9.6", "15")):
+        plist_path.write_bytes(
+            plistlib.dumps({"CFBundleShortVersionString": ver, "CFBundleVersion": build})
+        )
+        assert _has_swift_version_at_least(tmp_path, rel, 16, (0, 9, 5)) is False, (ver, build)
+
+    plist_path.write_bytes(b"<plist><broken>")
+    assert _has_swift_version_at_least(tmp_path, rel, 16, (0, 9, 5)) is False
 
 
 def test_t5_gap4_test_eliza_routes_http_post_timeout_at_least_120() -> None:
@@ -688,3 +718,49 @@ def test_t5_r4_gap20b_quadrat_zk_nonfinite_points_no_runtime_warning() -> None:
         res = _quadrat_zk(pts)
     assert not [w for w in caught if issubclass(w.category, RuntimeWarning)]
     assert json.dumps(res, allow_nan=False)
+
+
+# ---------------------------------------------------------------------------
+# Gap 21: _quadrat_zk out-of-[0,1]^2 toroidal leak & grid_n < 2 NaN/ValueError
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "oob_pt",
+    [
+        [1e308, -1e308],
+        [1.09, 1.09],
+    ],
+)
+def test_t5_r5_gap21a_quadrat_zk_mixed_inbounds_and_oob_no_overflow_or_corruption(oob_pt: list[float]) -> None:
+    """Out-of-[0,1]^2 points must be excluded before both histogram2d and toroidal Ripley distances."""
+    from guiai.gem.kloster_spatial_optical_law import _quadrat_zk
+
+    baseline = _quadrat_zk(np.array([[0.1, 0.1], [0.2, 0.2]], dtype=np.float64))
+    pts = np.array([[0.1, 0.1], [0.2, 0.2], oob_pt], dtype=np.float64)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always", RuntimeWarning)
+        res = _quadrat_zk(pts)
+    runtime_warns = [w for w in caught if issubclass(w.category, RuntimeWarning)]
+    assert not runtime_warns, f"oob={oob_pt} emitted warnings: {[str(w.message) for w in runtime_warns]}"
+    assert json.dumps(res, allow_nan=False)
+    assert res["points"] == 2
+    assert math.isclose(res["besag_l_minus_r"], baseline["besag_l_minus_r"], abs_tol=1e-9), (
+        f"oob={oob_pt} corrupted besag_l_minus_r: {res['besag_l_minus_r']} vs {baseline['besag_l_minus_r']}"
+    )
+
+
+@pytest.mark.parametrize("grid_n", [1, 0, -2])
+def test_t5_r5_gap21b_quadrat_zk_degenerate_grid_n_returns_finite_json_no_warnings(grid_n: int) -> None:
+    """_quadrat_zk with grid_n < 2 must return strict finite JSON with 0 RuntimeWarnings (no vmr=NaN)."""
+    from guiai.gem.kloster_spatial_optical_law import _quadrat_zk
+
+    pts = np.array([[0.1, 0.1], [0.2, 0.2]], dtype=np.float64)
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always", RuntimeWarning)
+        res = _quadrat_zk(pts, grid_n=grid_n)
+    runtime_warns = [w for w in caught if issubclass(w.category, RuntimeWarning)]
+    assert not runtime_warns, f"grid_n={grid_n} emitted warnings: {[str(w.message) for w in runtime_warns]}"
+    encoded = json.dumps(res, allow_nan=False)
+    assert "NaN" not in encoded and "Infinity" not in encoded
+    assert math.isfinite(res["vmr"])

@@ -1,6 +1,6 @@
 {
   "contract": "zoe-l4-generalized-self-improvement/v1",
-  "core_sha256": "04fe887f7a29fbbc846f573cc93c835fc8f3a2ab846bc115166c17e85ff6026f",
+  "core_sha256": "6119a6aa2bfec8707589f5e583c98c6e4385740ea1e1b6fc2752ae2ffa0dbcc4",
   "dataset_hashes": {
     "components/agent-logging-system/docs/images/dorothy-neurogarden.png": "8ce22fd0208977705bd2d8a716326fbe045a1bd89889f19d8417596847b8b317",
     "components/next-token-predictability/evidence/rhythm-midi/predictions.npz": "61e2be13296cd306cf9552840b1f0f51eb9ba02fe6a7777d0f5b216a8d4c51c1",
@@ -1042,7 +1042,7 @@
     "seed": 42,
     "total_gain_over_gen0": 0.16513
   },
-  "report_sha256": "eb62a2f7fea36f77e29c05a187c9a64c5b101350e49376e3753bb16f01761199",
+  "report_sha256": "75aaabd7e5ebf8f966f821943ca5830afd3bee95c13616ba91c31d928d4cb1ec",
   "reversible_rollback_proof": {
     "ledger_chain_valid": true,
     "ledger_contract": "zoe-l4-evolution-ledger/v1",
@@ -1053,10 +1053,10 @@
     "reverted_expression": "-sq(p)",
     "reverted_to_generation": 1,
     "rollback_restored_bit_exact": true,
-    "sha256_after_g1": "ea56a987181a61455ee4bac1e3260818379c08daa94fe8c75b130001de93d2b3",
-    "sha256_after_g2": "4a09354d2dfded933be8b41c5179c2c149f4c54d89633f15feca7ba85d3f7081",
-    "sha256_after_repromote": "2fee49eadbb035050344fa7cc8cab99cda5b9f7befd0355ebfe5d85b2728cffc",
-    "sha256_after_rollback": "9603b21b96ad02f5403fcbdddbc69bff5993c301846f0784747bb473adc2526b"
+    "sha256_after_g1": "1a4ed50915992ac838754ed187739b5795f92fdc22501161fd37cf6236261abf",
+    "sha256_after_g2": "f2f7c90dfa2dfa36f1f309d8bc7a498a69d9281eba89de70a33fd52a2c52e870",
+    "sha256_after_repromote": "df573560e983b731881d3f683122eab659d78ad7756ceb4dd3b7668a59cc08a2",
+    "sha256_after_rollback": "5d3e7ae765659950797b0b1a8e7bfeef42bc25bf20539a672214b841b79934d0"
   },
   "schema_version": 1,
   "shannon_baseline": {
