@@ -118,71 +118,239 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 ## 2. Mathematical Foundations, Equations &amp; Verified Theorems *(16/16 SymPy Proved)*
 
-> **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every algebraic identity below is symbolically verified in **SymPy 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
-> **Primary Manuscript &amp; Proof Packet:** **[16-Theorem LaTeX Monograph PDF (`4.7 MB`)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Referee Proof Packet (`PROOF-PACKET.md`, `< 6s` Offline)](PROOF-PACKET.md)** · **Live Studio APIs:** `/proof`, `/optics`, `/harmonica`, `/orbit` (`61` live HTTP routes: `46` GET + `15` POST).
+> **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every identity below is symbolically verified in **SymPy 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
+> **Primary Manuscript &amp; Live Tools:** **[16-Theorem Monograph PDF (`4.7 MB`)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Referee Proof Packet (`< 6s`)](PROOF-PACKET.md)** · **Live Studio:** `/proof`, `/optics`, `/harmonica`, `/orbit` (`61` live HTTP routes: `46` GET + `15` POST).
 
 ### Core Operator &amp; Master Generating Functional
 
-Given a probability distribution $p = (p_1, \dots, p_N)$ over a choice space $X$ (or a continuous spatial density $f: \Omega \to \mathbb{R}_{\ge 0}$ with $\int_\Omega f = 1$), the **Kloster Operational Metacognition Operator** counts accessible futures strictly above threshold $\tau$:
+$$
+A_\tau(p) := \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]
+$$
 
-$$A_\tau(p) := \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau], \qquad \mathcal{K}_\phi(p) := \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau = \sum_{x \in X} \phi(p(x))$$
+$$
+\mathcal{K}_\phi(p) := \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau = \sum_{x \in X} \phi(p(x))
+$$
 
-By selecting the generating kernel $\phi(\tau)$, this single threshold-slice function recovers Shannon entropy, all real-order Rényi and Tsallis entropies, Friedman's Index of Coincidence, Pearson $\chi^2$, Gini-Simpson concentration, Fisher-Rao geometry, Wasserstein $W_1$ optimal transport, Huffman prefix-coding length, statistical free energy, quantum purity, finite-sample stopping bounds, optical MTF resolution loss, multi-agent Brier disagreement, and multi-voice harmonic contraction.
+*One threshold-cardinality operator generates all 16 theorems across five mathematical domains. Expand any dropdown below for exact display equations, empirical results, negative controls, and verifier links.*
 
----
+| Domain | Theorems | Mathematical Scope | Status |
+|:---|:---|:---|:---:|
+| **A. Information Geometry &amp; Entropies** | Gen. Thm, Thms 1, 5, 6, 7, 11 | Spectral moments, Rényi/Tsallis, thermodynamics, Fisher-Rao, Wasserstein $W_1$, unification | **Proved (`0` res.)** |
+| **B. Dynamics, Mixing &amp; Quantum Duality** | Thms 2, 8, 9, Adaptive Lens | Multi-horizon $(\tau, h)$ phases, Birkhoff majorization, quantum purity, auto-tuning $k^*(\kappa)$ | **Proved (`0` res.)** |
+| **C. Causality, Complexity &amp; Coding** | Thms 3, 4, 10 | Confounding gap, McCabe cyclomatic elegance (`288` live Zoe modules), Huffman/MDL bounds | **Proved (`0` res.)** |
+| **D. Finite-Sample Statistics &amp; Consensus** | Thms 12, 13, 15 | Sorted-knot quadrature, causal closed-loop control, anytime stopping, exact Brier law | **Proved (`0` res.)** |
+| **E. Spatial Optics &amp; Harmonic Acoustics** | Thms 14, 16 | Optical MTF blur monotonicity, Scheimpflug hinge, 2D Parseval multi-voice contraction | **Proved (`0` res.)** |
 
-### Category A: Information Geometry, Spectral Moments &amp; Entropies
+<details>
+<summary><strong>A. Information Geometry, Spectral Moments &amp; Entropies</strong> (Generating Theorem, Theorems 1, 5, 6, 7, 11)</summary>
 
-| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
-|:---|:---|:---|:---|
-| **Generating Theorem** *(Spectral Filtration)* | $H(p) = -\int_0^1 (1+\ln\tau)A_\tau(p)\,d\tau$, $\quad M_k(p) = \int_0^1 k\tau^{k-1}A_\tau(p)\,d\tau = \sum_x p(x)^k$ | Quartic root $M_4^{1/4}$ beats single-slice $A_\tau$ and Shannon $H(p)$ on **4/4** real benchmarks (`3,840` HELEN obs, `138k` 3D PSF+Rician voxels, Dorothy 256-patch attention); preserves naive JSD negative control (`AUROC = 0.40870`). | [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) |
-| **Theorem 1** *(Rényi, Tsallis, Gini &amp; Kloster-Pinsker)* | $D_K(p,q) := \int_0^1 \lvert A_\tau(p) - A_\tau(q)\rvert\,d\tau = \|p^\downarrow - q^\downarrow\|_1$, $\quad D_{\mathrm{KL}}(p\parallel q) \ge \frac{1}{2}D_K(p,q)^2$ | Machine-epsilon Rényi (`8.88e-16`), Tsallis (`2.67e-15`), Gini (`4.44e-16`), step-integral (`2.22e-16`); `300/300` Pinsker hold; `0` triangle violations across 16 real HuggingFace LLMs; preserves permuted-swap negative control ($D_K=0, L_1=2$). | [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py) |
-| **Theorem 5** *(Statistical Thermodynamics)* | $F(\beta) = \frac{\beta-1}{\beta}H_\beta(p)$, $\quad C(\beta) = \beta^2\,\mathrm{Var}_{p^{(\beta)}}(-\ln p) \ge 0$ | Exact `8.88e-16` residual; real `Qwen2.5-Math-1.5B` (`151k` vocab) peaks at $C(\beta^*)=22.81$ ($\beta^*=0.477, T^*=2.10$); uniform negative control $C(\beta) \equiv 0$. | [`kloster_thermodynamics.py`](guiai-lab/guiai/gem/kloster_thermodynamics.py) · [`verify_kloster_thermodynamics.py`](scripts/verify_kloster_thermodynamics.py) |
-| **Theorem 6** *(Fisher-Rao Geodesics &amp; Rosetta Manifold)* | $d_{\mathrm{FR}}(p, u_N) = 2\arccos\!\big(M_{1/2}(p)/\sqrt{N}\big)$, $\quad \frac{1}{2}D_K \le \mathrm{TV} \le \sqrt{2}H_{\mathrm{Hel}} \le d_{\mathrm{FR}}/\sqrt{2}$ | `300/300` 4-link inequality chains hold; embeds 6 disparate Zoe worlds (LLMs, Groove, Dorothy 40 Hz, CERN jets, ALife, Ablation) onto one shared MDS manifold; uniform control `0.0`. | [`kloster_riemannian_manifold.py`](guiai-lab/guiai/gem/kloster_riemannian_manifold.py) · [`verify_kloster_riemannian.py`](scripts/verify_kloster_riemannian.py) |
-| **Theorem 7** *(Wasserstein $W_1$ &amp; Superlevel Persistence)* | $W_1(\mu_p,\mu_q) = \frac{1}{N}D_K(p,q)$, $\quad G(p) = 1 - \frac{1}{N}\int_0^1 A_\tau(p)^2\,d\tau \le 1 - \frac{1}{N\max p}$ | Cross-verified against SciPy `wasserstein_distance` on `300/300` pairs to `8.3e-17`; exact McCann geodesic Uniform -> `Qwen2.5-Math-1.5B` and 16-LLM $W_1$ barycenter. | [`kloster_optimal_transport.py`](guiai-lab/guiai/gem/kloster_optimal_transport.py) · [`verify_kloster_optimal_transport.py`](scripts/verify_kloster_optimal_transport.py) |
-| **Theorem 11** *(Master Unification Functional)* | $\mathcal{K}_\phi(p) = \int_0^1 \phi'(\tau)A_\tau(p)\,d\tau$ *(unifies all 6 generating kernels simultaneously)* | `< 1e-14` error across `120` trials; embeds all 11 Zoe worlds + uniform control into one universal metric space with `0` triangle violations. | [`kloster_master_unification.py`](guiai-lab/guiai/gem/kloster_master_unification.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
+#### Generating Theorem · Spectral Filtration
 
----
+$$
+H(p) = -\int_0^1 (1+\ln\tau)\,A_\tau(p)\,d\tau, \qquad M_k(p) = \int_0^1 k\tau^{k-1}A_\tau(p)\,d\tau = \sum_{x} p(x)^k
+$$
 
-### Category B: Dynamics, Phase Transitions, Mixing &amp; Quantum Duality
+- **Result:** Quartic root $M_4^{1/4}$ beats single-slice $A_\tau$ and Shannon $H(p)$ on **4/4** real benchmarks (`3,840` HELEN obs, `138k` 3D PSF+Rician voxels, Dorothy 256-patch attention).
+- **Negative Control:** Preserves naive forward/retrograde JSD failure (`AUROC = 0.40870`).
+- **Source:** [`spectral_filtration.py`](guiai-lab/guiai/gem/spectral_filtration.py) · [Monograph](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md)
 
-| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
-|:---|:---|:---|:---|
-| **Theorem 2** *(Multi-Horizon $(\tau, h)$ Phase Transitions)* | $A_\tau^{(h)}(S) = \lvert\{s \in \mathcal{V}^h : P(s \mid S) > \tau\}\rvert$ *(Supercritical, Critical, Subcritical regimes)* | Up to **`6.7×`** delayed multi-step supercritical expansion on `Qwen2.5-Math-1.5B` (`151,936` vocab, $\tau_{\mathrm{super}}=0.02065$); removing context in `DistilGPT-2` shifts $\tau_{\mathrm{super}}: 0.05138 \to 0.08880$ (`2.0×` fork). | [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py) |
-| **Theorem 8** *(Majorization &amp; Birkhoff Mixing)* | $S_K(p;\tau) := \int_\tau^1 A_u(p)\,du$, $\quad p \prec q \iff S_K(p;\tau) \le S_K(q;\tau)\;\forall\tau$ | `300/300` Birkhoff doubly-stochastic channels contract $M_2, G, D_K(\cdot,u_N), L_1$ and expand $H_2$; real `Qwen2.5-Math-1.5B` temperature sweep strictly majorizes; preserves sharpening &amp; permuted counterexamples. | [`kloster_majorization_mixing.py`](guiai-lab/guiai/gem/kloster_majorization_mixing.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
-| **Theorem 9** *(Quantum-Classical Spectral Duality)* | $\mathrm{Tr}(\rho^2) = \int_0^1 2\tau A_\tau(\rho)\,d\tau$, $\quad \frac{1}{2}D_K(\rho,\sigma) \le T(\rho,\sigma)$ *(Mirsky bound)* | `200/200` quantum trace-distance bounds hold; bipartite Bell entanglement witness ($\mathrm{Tr}(\rho_A^2): 1 \to 0.5$); preserves $\lvert 0\rangle$ vs. $\lvert +\rangle$ unitary-blindness negative control ($D_K=0, T=1/\sqrt{2}$). | [`kloster_quantum_duality.py`](guiai-lab/guiai/gem/kloster_quantum_duality.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
-| **Adaptive Spectral Lens** *(Stage 4 Mars)* | $\kappa = \mathrm{mean}\!\big(M_2^{1/2}/M_4^{1/4}\big)$, $\quad k^*(\kappa) \in [2.0, 6.0]$ | Unlabeled self-tuning achieves **`0.79374`** cross-domain mean AUROC, beating every fixed $k \in [1.5, 8.0]$, single-slice $A_\tau$ (`0.7738`), and Shannon (`0.7631`). | [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py) |
+#### Theorem 1 · Rényi, Tsallis, Gini &amp; Kloster-Pinsker Inequality
 
----
+$$
+D_K(p,q) := \int_0^1 \lvert A_\tau(p) - A_\tau(q)\rvert\,d\tau = \|p^\downarrow - q^\downarrow\|_1, \qquad D_{\mathrm{KL}}(p \parallel q) \ge \frac{1}{2}D_K(p,q)^2
+$$
 
-### Category C: Causality, Structural Complexity &amp; Coding / MDL
+- **Result:** Machine-epsilon Rényi (`8.88e-16`), Tsallis (`2.67e-15`), Gini (`4.44e-16`), and step-integral (`2.22e-16`); `300/300` Pinsker bounds hold; `0` triangle violations across 16 real HuggingFace LLMs.
+- **Negative Control:** Permuted-swap distribution yields $D_K = 0$ while $L_1 = 2$.
+- **Source:** [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py)
 
-| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
-|:---|:---|:---|:---|
-| **Theorem 3** *(Causal Confounding Identifiability)* | $\lvert A_\tau(P(Y\mid X)) - A_\tau(P(Y\mid\mathrm{do}(X)))\rvert \le \Delta_{\mathrm{conf}}(\tau)$ | Formal foundation for `measurement != evidence != belief update != action`; `13` observational-blindness witnesses across `200` SCMs; randomized RCT negative control gap `= 0.0`. | [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py) |
-| **Theorem 4** *(Kloster-McCabe Structural Elegance)* | $V(G) = E - N + 2P$, $\quad H_\alpha(p_{\mathrm{path}}) \le \ln V(G)$ | `250/250` path distributions verified; audits all **`288` live Zoe modules** (`3,238` functions, `85,496` SLOC, mean `MI = 59.93`, **`0` Grade-C &amp; `0` Grade-D**, all orbit `max_cc < 50`); synthetic spaghetti negative control flagged (`CC >= 50`). | [`code_elegance_analyzer.py`](guiai-lab/guiai/gem/code_elegance_analyzer.py) · [`zoe_code_quality_audit.py`](scripts/zoe_code_quality_audit.py) |
-| **Theorem 10** *(Huffman Prefix Coding &amp; MDL)* | $L_K(p) \le \mathbb{E}[\ell_{\mathrm{Huff}}] < L_K(p) + 1$, $\quad \sum_i 2^{-\ell_i} = 1$ | `200/200` prefix bounds + `0`-bit dyadic control + all 16 LLMs bounded; Zoe source code compresses `> 2.7×` over random noise control. | [`kloster_coding_mdl.py`](guiai-lab/guiai/gem/kloster_coding_mdl.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py) |
+#### Theorem 5 · Statistical Thermodynamics &amp; Heat Capacity
 
----
+$$
+F(\beta) = \frac{\beta-1}{\beta}H_\beta(p), \qquad C(\beta) = \beta^2\,\mathrm{Var}_{p^{(\beta)}}(-\ln p) \ge 0
+$$
 
-### Category D: Finite-Sample Statistics, Quadrature &amp; Multi-Agent Consensus
+- **Result:** `8.88e-16` residual; `Qwen2.5-Math-1.5B` (`151k` vocab) peaks at $C(\beta^*)=22.81$ ($\beta^*=0.477, T^*=2.10$).
+- **Negative Control:** Uniform distribution yields $C(\beta) \equiv 0$.
+- **Source:** [`kloster_thermodynamics.py`](guiai-lab/guiai/gem/kloster_thermodynamics.py) · [`verify_kloster_thermodynamics.py`](scripts/verify_kloster_thermodynamics.py)
 
-| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
-|:---|:---|:---|:---|
-| **Theorem 12** *(Discrete Quadrature, 1-Lipschitz &amp; Causal Control)* | $\lvert M_4^{1/4}(p) - M_4^{1/4}(q)\rvert \le \|p - q\|_4$, $\quad \text{grid error } O(\Delta\tau)$ | Sorted-knot error `1.3e-17` ($M_4$) / `8.9e-16` ($H$); `6.41×` lower tail-noise drift; `500/500` 1-Lipschitz; **`4/4`** paired bootstrap/Wilcoxon wins ($p \le 0.016$); 30-episode causal closed-loop ablation (`+34.52` / `100%` recovery ON vs. `-45.07` / `0%` OFF and `+8.48` randomized, $p = 8.5\times 10^{-7}$). | [`kloster_quadrature_and_ablation.py`](guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py) · [`verify_kloster_referee_proofs.py`](scripts/verify_kloster_referee_proofs.py) |
-| **Theorem 13** *(Finite-Sample Anytime Stopping &amp; U-Statistic)* | $\chi^2(p\parallel u_N) = N\int_0^1 2\tau A_\tau(p)\,d\tau - 1$, $\quad \mathrm{Var}_{u_N}\!\big(\widehat{M}_2^{(U)}\big) = \frac{2(N-1)}{N^2 S(S-1)}$, $\quad S_{\min} = \Theta\!\big(z_\alpha\sqrt{N}/\chi^2\big)$ | `5/5` SymPy proofs; powers live `DECIDE_SIGNAL / GATHER_MORE / ABSTAIN`: stops at `64` pairs (`64×` speedup) on weak `SIMON/SPECK` (abstains on full-round), `18` samples (`+7.05σ`) on selective cohorts (abstains on PAINS `-0.66σ`), and `16` draws on real `GPT-2` with **`0.0%` false alarms (`0/200`)** on uniform null. | [`kloster_stopping_law.py`](guiai-lab/guiai/gem/kloster_stopping_law.py) · [`verify_kloster_theorem13.py`](scripts/verify_kloster_theorem13.py) |
-| **Theorem 15** *(Multi-Agent Consensus &amp; Exact Brier Law)* | $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_k w_k\|p^{(k)}-\bar{p}\|_2^2 \equiv \sum_k w_k\mathrm{Brier}(p^{(k)}, y) - \mathrm{Brier}(\bar{p}, y)$ | `5/5` SymPy proofs; unknown truth $y$ cancels identically! Verified to `3.33e-16` across `1,920` real HELEN observations (`0.1683` exact Brier gain); separates diverse 6-LLM committee from cloned Echo-Chamber ($\mathcal{D}_K=0$) and catches rogue encrypted hospital nodes ($\mathcal{C}_K: 0.961 \to 0.302$). | [`kloster_multi_agent_consensus.py`](guiai-lab/guiai/gem/kloster_multi_agent_consensus.py) · [`verify_theorem15_and_c28.py`](scripts/verify_theorem15_and_c28.py) |
+#### Theorem 6 · Fisher-Rao Geodesics &amp; 6-World Rosetta Manifold
 
----
+$$
+d_{\mathrm{FR}}(p, u_N) = 2\arccos\!\left(\frac{M_{1/2}(p)}{\sqrt{N}}\right), \qquad \frac{1}{2}D_K \le \mathrm{TV} \le \sqrt{2}\,H_{\mathrm{Hel}} \le \frac{d_{\mathrm{FR}}}{\sqrt{2}}
+$$
 
-### Category E: Spatial Optics, Acoustics &amp; Harmonic Contraction
+- **Result:** `300/300` 4-link inequality chains verified; embeds 6 Zoe domains (LLMs, Groove, Dorothy 40 Hz, CERN jets, ALife, Ablation) on one MDS manifold; uniform control `0.0`.
+- **Source:** [`kloster_riemannian_manifold.py`](guiai-lab/guiai/gem/kloster_riemannian_manifold.py) · [`verify_kloster_riemannian.py`](scripts/verify_kloster_riemannian.py)
 
-| Theorem | Core Equation(s) | Verified Empirical Result &amp; Negative Control | Implementation &amp; Verifier |
-|:---|:---|:---|:---|
-| **Theorem 14** *(Spatial-Optical Filtration, MTF &amp; Scheimpflug)* | $M_2^{\mathrm{1D}}(f_\sigma) = \frac{1}{2\sqrt{\pi}\sigma}$, $\; M_2^{\mathrm{2D}}(f_\sigma) = \frac{1}{4\pi\sigma^2}$, $\; M_2(K*p) = \frac{1}{N}\sum_k \mathrm{MTF}(k)^2\lvert\widehat{p}(k)\rvert^2 \le M_2(p)$, $\; \sin\theta^* = \frac{f}{u}\tan\psi$ | `6/6` SymPy proofs; `4.34e-19` 2D FFT Parseval error; `200/200` blur monotonicity; Scheimpflug sharpness peak `13.5°` vs. `13.48°` theory (`2.28×` gain); separates Thomas clustered (`+38.2σ`) vs. CSR null (`+0.03σ`) vs. hard-core regular (`-4.8σ`), architectural isovists (`2.20×`), and botanical ink vs. wash. Live interactive workbench at `/optics`. | [`kloster_spatial_optical_law.py`](guiai-lab/guiai/gem/kloster_spatial_optical_law.py) · [`spatial_optical_workbench.py`](guiai-lab/guiai/gem/spatial_optical_workbench.py) · [`verify_kloster_theorem14.py`](scripts/verify_kloster_theorem14.py) |
-| **Theorem 16** *(Kloster-Parseval Multi-Voice Contraction)* | $\mathcal{D}_K(\{G*p^{(k)}\}) = \frac{1}{N}\sum_k w_k\sum_\omega \mathrm{MTF}(\omega)^2\lvert\widehat{p}^{(k)}(\omega) - \widehat{\bar{p}}(\omega)\rvert^2 \le \mathcal{D}_K(\{p^{(k)}\})$, $\; \text{decay ratio } e^{-\sigma^2(k_{\mathrm{hi}}^2 - k_{\mathrm{lo}}^2)}$ | `5/5` SymPy proofs; `5.42e-20` 2D Parseval error; `200/200` random 3-voice contraction trials; echo-chamber negative control `0.0`; rogue `(7, 8)` voice coherence drop (`0.6923 -> 0.5124`) and `39×` selective high-frequency damping (`0.547` vs. `0.014`). Live interactive workbench at `/harmonica`. | [`kloster_harmonic_optics.py`](guiai-lab/guiai/gem/kloster_harmonic_optics.py) · [`glass_harmonica_workbench.py`](guiai-lab/guiai/gem/glass_harmonica_workbench.py) · [`verify_kloster_theorem16.py`](scripts/verify_kloster_theorem16.py) |
+#### Theorem 7 · Wasserstein $W_1$ Optimal Transport &amp; Superlevel Persistence
 
-### Computed Mathematical Verification Plates
+$$
+W_1(\mu_p,\mu_q) = \frac{1}{N}D_K(p,q), \qquad G(p) = 1 - \frac{1}{N}\int_0^1 A_\tau(p)^2\,d\tau \le 1 - \frac{1}{N\max p}
+$$
+
+- **Result:** Cross-verified against SciPy `wasserstein_distance` on `300/300` pairs (`8.3e-17` error); exact McCann displacement geodesic and 16-LLM $W_1$ barycenter.
+- **Source:** [`kloster_optimal_transport.py`](guiai-lab/guiai/gem/kloster_optimal_transport.py) · [`verify_kloster_optimal_transport.py`](scripts/verify_kloster_optimal_transport.py)
+
+#### Theorem 11 · Master Unification Functional
+
+$$
+\mathcal{K}_\phi(p) = \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau
+$$
+
+- **Result:** Simultaneously verifies all 6 generating kernels (`< 1e-14` error across `120` trials) and embeds all 11 Zoe worlds + uniform control with `0` triangle violations.
+- **Source:** [`kloster_master_unification.py`](guiai-lab/guiai/gem/kloster_master_unification.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py)
+
+</details>
+
+<details>
+<summary><strong>B. Dynamics, Phase Transitions, Mixing &amp; Quantum Duality</strong> (Theorems 2, 8, 9 &amp; Adaptive Lens)</summary>
+
+#### Theorem 2 · Multi-Horizon $(\tau, h)$ Phase Transitions
+
+$$
+A_\tau^{(h)}(S) = \left|\{s \in \mathcal{V}^h : P(s \mid S) > \tau\}\right|
+$$
+
+- **Result:** Up to **`6.7×`** delayed multi-step supercritical expansion on `Qwen2.5-Math-1.5B` (`151,936` vocab, $\tau_{\mathrm{super}} = 0.02065$); removing context in `DistilGPT-2` shifts $\tau_{\mathrm{super}}: 0.05138 \to 0.08880$ (`2.0×` fork).
+- **Source:** [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py)
+
+#### Theorem 8 · Majorization &amp; Birkhoff Mixing
+
+$$
+S_K(p;\tau) := \int_\tau^1 A_u(p)\,du, \qquad p \prec q \iff S_K(p;\tau) \le S_K(q;\tau)\;\forall\tau
+$$
+
+- **Result:** `300/300` Birkhoff doubly-stochastic channels contract $M_2, G, D_K(\cdot,u_N), L_1$ and expand $H_2$; real `Qwen2.5-Math-1.5B` temperature sweep strictly majorizes; preserves sharpening &amp; permuted counterexamples.
+- **Source:** [`kloster_majorization_mixing.py`](guiai-lab/guiai/gem/kloster_majorization_mixing.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py)
+
+#### Theorem 9 · Quantum-Classical Spectral Duality
+
+$$
+\mathrm{Tr}(\rho^2) = \int_0^1 2\tau\,A_\tau(\rho)\,d\tau, \qquad \frac{1}{2}D_K(\rho,\sigma) \le T(\rho,\sigma)
+$$
+
+- **Result:** `200/200` Mirsky trace-distance bounds verified; bipartite Bell entanglement witness ($\mathrm{Tr}(\rho_A^2): 1 \to 0.5$).
+- **Negative Control:** Preserves $\lvert 0\rangle$ vs. $\lvert +\rangle$ unitary-blindness witness ($D_K = 0, T = 1/\sqrt{2}$).
+- **Source:** [`kloster_quantum_duality.py`](guiai-lab/guiai/gem/kloster_quantum_duality.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py)
+
+#### Stage 4 · Adaptive Spectral Lens ($k^*(\kappa)$)
+
+$$
+\kappa = \mathrm{mean}\!\left(\frac{M_2^{1/2}}{M_4^{1/4}}\right), \qquad k^*(\kappa) \in [2.0, 6.0]
+$$
+
+- **Result:** Zero-label self-tuning achieves **`0.79374`** cross-domain mean AUROC, outperforming every fixed $k \in [1.5, 8.0]$, single-slice $A_\tau$ (`0.7738`), and Shannon (`0.7631`).
+- **Source:** [`mars_adaptive.py`](guiai-lab/guiai/gem/mars_adaptive.py)
+
+</details>
+
+<details>
+<summary><strong>C. Causality, Structural Complexity &amp; Coding / MDL</strong> (Theorems 3, 4, 10)</summary>
+
+#### Theorem 3 · Partial-Observability Causal Confounding Bound
+
+$$
+\left|A_\tau\!\big(P(Y \mid X)\big) - A_\tau\!\big(P(Y \mid \mathrm{do}(X))\big)\right| \le \Delta_{\mathrm{conf}}(\tau)
+$$
+
+- **Result:** Formal foundation for `measurement != evidence != belief update != action`; `13` observational-blindness witnesses across `200` SCMs.
+- **Negative Control:** Randomized controlled trial yields confounding gap `= 0.0`.
+- **Source:** [`kloster_info_geometry.py`](guiai-lab/guiai/gem/kloster_info_geometry.py) · [`verify_kloster_theory.py`](scripts/verify_kloster_theory.py)
+
+#### Theorem 4 · Kloster-McCabe Structural Elegance &amp; Complexity
+
+$$
+V(G) = E - N + 2P, \qquad H_\alpha(p_{\mathrm{path}}) \le \ln V(G)
+$$
+
+- **Result:** `250/250` path distributions verified; audits all **`288` live Zoe modules** (`3,238` functions, `85,496` SLOC, mean `MI = 59.93`, **`0` Grade-C &amp; `0` Grade-D**, all orbit `max_cc < 50`).
+- **Negative Control:** Synthetic nested spaghetti trap flagged (`CC >= 50`).
+- **Source:** [`code_elegance_analyzer.py`](guiai-lab/guiai/gem/code_elegance_analyzer.py) · [`zoe_code_quality_audit.py`](scripts/zoe_code_quality_audit.py)
+
+#### Theorem 10 · Huffman Prefix Coding &amp; Structural MDL
+
+$$
+L_K(p) \le \mathbb{E}[\ell_{\mathrm{Huff}}] < L_K(p) + 1, \qquad \sum_i 2^{-\ell_i} = 1
+$$
+
+- **Result:** `200/200` prefix bounds + `0`-bit dyadic control + all 16 LLMs bounded; Zoe source code compresses `> 2.7×` over random noise.
+- **Source:** [`kloster_coding_mdl.py`](guiai-lab/guiai/gem/kloster_coding_mdl.py) · [`verify_kloster_passes_6_to_11.py`](scripts/verify_kloster_passes_6_to_11.py)
+
+</details>
+
+<details>
+<summary><strong>D. Finite-Sample Statistics, Quadrature &amp; Multi-Agent Consensus</strong> (Theorems 12, 13, 15)</summary>
+
+#### Theorem 12 · Discrete Quadrature, 1-Lipschitz Stability &amp; Closed-Loop Causal Control
+
+$$
+\left|M_4^{1/4}(p) - M_4^{1/4}(q)\right| \le \|p - q\|_4, \qquad \left|\widehat{M}_4^{(\Delta\tau)} - M_4\right| = O(\Delta\tau)
+$$
+
+- **Result:** Sorted-knot error `1.3e-17` ($M_4$) / `8.9e-16` ($H$); `6.41×` lower tail-noise drift; `500/500` 1-Lipschitz; **`4/4`** paired bootstrap/Wilcoxon wins ($p \le 0.016$); 30-episode causal closed-loop ablation (`+34.52` / `100%` recovery ON vs. `-45.07` / `0%` OFF and `+8.48` randomized, $p = 8.5\times 10^{-7}$).
+- **Source:** [`kloster_quadrature_and_ablation.py`](guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py) · [`verify_kloster_referee_proofs.py`](scripts/verify_kloster_referee_proofs.py)
+
+#### Theorem 13 · Finite-Sample Anytime Stopping &amp; U-Statistic Distinguisher
+
+$$
+\chi^2(p \parallel u_N) = N\int_0^1 2\tau\,A_\tau(p)\,d\tau - 1
+$$
+
+$$
+\mathrm{Var}_{u_N}\!\big(\widehat{M}_2^{(U)}\big) = \frac{2(N-1)}{N^2 S(S-1)}, \qquad S_{\min} = \Theta\!\left(\frac{z_\alpha\sqrt{N}}{\chi^2}\right)
+$$
+
+- **Result:** `5/5` SymPy proofs; drives `DECIDE_SIGNAL / GATHER_MORE / ABSTAIN` stopping at `64` pairs (`64×` speedup) on weak `SIMON/SPECK`, `18` samples (`+7.05σ`) on selective cohorts, and `16` draws on real `GPT-2`.
+- **Negative Control:** **`0.0%` false alarms (`0/200`)** on uniform null streams; cleanly abstains on full-round ciphers and raw PAINS toxins (`-0.66σ`).
+- **Source:** [`kloster_stopping_law.py`](guiai-lab/guiai/gem/kloster_stopping_law.py) · [`verify_kloster_theorem13.py`](scripts/verify_kloster_theorem13.py)
+
+#### Theorem 15 · Multi-Agent Consensus &amp; Ground-Truth-Independent Brier Law
+
+$$
+\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_{k=1}^K w_k\|p^{(k)} - \bar{p}\|_2^2 \equiv \sum_{k=1}^K w_k\,\mathrm{Brier}(p^{(k)}, y) - \mathrm{Brier}(\bar{p}, y)
+$$
+
+- **Result:** `5/5` SymPy proofs where unknown truth $y$ cancels identically; verified to `3.33e-16` across `1,920` real HELEN observations (`0.1683` exact Brier gain); catches rogue encrypted hospital nodes ($\mathcal{C}_K: 0.961 \to 0.302$).
+- **Negative Control:** Cloned echo-chamber committee collapses to $\mathcal{D}_K = 0.000$.
+- **Source:** [`kloster_multi_agent_consensus.py`](guiai-lab/guiai/gem/kloster_multi_agent_consensus.py) · [`verify_theorem15_and_c28.py`](scripts/verify_theorem15_and_c28.py)
+
+</details>
+
+<details>
+<summary><strong>E. Spatial Optics, Acoustics &amp; Harmonic Contraction</strong> (Theorems 14 &amp; 16)</summary>
+
+#### Theorem 14 · Spatial-Optical Filtration, MTF Monotonicity &amp; Scheimpflug Hinge
+
+$$
+M_2^{\mathrm{1D}}(f_\sigma) = \frac{1}{2\sqrt{\pi}\,\sigma}, \qquad M_2^{\mathrm{2D}}(f_\sigma) = \frac{1}{4\pi\,\sigma^2}, \qquad \sin\theta^* = \frac{f}{u}\tan\psi
+$$
+
+$$
+M_2(K * p) = \frac{1}{N}\sum_{k}\mathrm{MTF}(k)^2\lvert\widehat{p}(k)\rvert^2 \le M_2(p)
+$$
+
+- **Result:** `6/6` SymPy proofs; `4.34e-19` 2D FFT Parseval error; `200/200` blur monotonicity; Scheimpflug sharpness peak `13.5°` vs. `13.48°` theory (`2.28×` gain); separates Thomas clustered (`+38.2σ`) vs. CSR null (`+0.03σ`) vs. hard-core regular (`-4.8σ`), architectural isovists (`2.20×`), and botanical ink vs. wash. Live interactive workbench at `/optics`.
+- **Source:** [`kloster_spatial_optical_law.py`](guiai-lab/guiai/gem/kloster_spatial_optical_law.py) · [`spatial_optical_workbench.py`](guiai-lab/guiai/gem/spatial_optical_workbench.py) · [`verify_kloster_theorem14.py`](scripts/verify_kloster_theorem14.py)
+
+#### Theorem 16 · Kloster-Parseval Multi-Voice Contraction Law
+
+$$
+\mathcal{D}_K\!\big(\{G * p^{(k)}\}\big) = \frac{1}{N}\sum_{k=1}^K w_k\sum_{\omega}\mathrm{MTF}(\omega)^2\left|\widehat{p}^{(k)}(\omega) - \widehat{\bar{p}}(\omega)\right|^2 \le \mathcal{D}_K\!\big(\{p^{(k)}\}\big)
+$$
+
+$$
+\frac{\mathrm{MTF}(k_{\mathrm{high}})^2}{\mathrm{MTF}(k_{\mathrm{low}})^2} = \exp\!\Big(-\sigma^2\big(k_{\mathrm{high}}^2 - k_{\mathrm{low}}^2\big)\Big)
+$$
+
+- **Result:** `5/5` SymPy proofs; `5.42e-20` 2D Parseval error; `200/200` random 3-voice contraction trials; rogue `(7, 8)` voice coherence drop (`0.6923 -> 0.5124`) and `39×` selective high-frequency damping (`0.547` vs. `0.014`). Live interactive workbench at `/harmonica`.
+- **Negative Control:** Identical 3-voice echo chamber yields $\mathcal{D}_K = 0.0$.
+- **Source:** [`kloster_harmonic_optics.py`](guiai-lab/guiai/gem/kloster_harmonic_optics.py) · [`glass_harmonica_workbench.py`](guiai-lab/guiai/gem/glass_harmonica_workbench.py) · [`verify_kloster_theorem16.py`](scripts/verify_kloster_theorem16.py)
+
+</details>
+
+<details>
+<summary><strong>Computed Mathematical Verification Plates</strong> (All 12 Dark-Observatory Plates: Theorems 1 through 16)</summary>
 
 | Theorems 1-3 · Info Geometry, Phase &amp; Causality | Theorem 4 · Kloster-McCabe Elegance (`288` Files) | Theorem 5 · Statistical Thermodynamics |
 |:---:|:---:|:---:|
@@ -199,6 +367,8 @@ By selecting the generating kernel $\phi(\tau)$, this single threshold-slice fun
 | Theorem 14 · Spatial-Optical Filtration &amp; MTF | Theorem 15 + C28 · Consensus, Brier &amp; Pharmacophore | Theorem 16 · Multi-Voice Harmonic Optics |
 |:---:|:---:|:---:|
 | ![Theorem 14 Kloster Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge](components/agent-logging-system/docs/images/zoe-kloster-theorem14.png) | ![Theorem 15 Multi-Agent Consensus and C28 3D Pharmacophore and Histology](components/agent-logging-system/docs/images/zoe-kloster-theorem15-and-c28.png) | ![Theorem 16 Kloster-Parseval Multi-Voice Contraction Law](components/agent-logging-system/docs/images/zoe-kloster-theorem16.png) |
+
+</details>
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
