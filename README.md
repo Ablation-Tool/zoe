@@ -87,6 +87,11 @@ $$
 
 <br/>
 
+<img src="dorothy-brain-observatory/previews/complete_anatomical_mapping_human_brain.jpg" alt="Complete Anatomical Mapping of the Human Brain: Verified 12-Panel Multi-Scale Atlas covering Cortical Gyri, Brodmann Cytoarchitecture, Cranial Nerves I-XII, Basal Ganglia, Limbic and Ventricular Systems, Circle of Willis, Cortical Vascular Territories, White Matter DTI Tractography, and Cerebellum" width="100%" /><br/>
+<sub><strong>Complete Anatomical Mapping of the Human Brain (Verified 12-Panel Multi-Scale Atlas):</strong> Lateral &amp; Medial Gyri (Gray's Plates 726-727), Lateral &amp; Medial Brodmann Cytoarchitecture (BA 1-47), Ventral Brain &amp; Cranial Nerves I-XII, Basal Ganglia &amp; Deep Nuclei, Limbic System, Ventricular System &amp; CSF Pathways, Circle of Willis, ACA/MCA/PCA Vascular Territories, White Matter &amp; Cranial Nerve DTI Tractography, and Cerebellum. <em>Public Domain (Henry Gray / Vandyke Carter, Korbinian Brodmann 1909, Santiago Ramón y Cajal) &amp; CC-BY Medical Plates (Blausen Medical, Patrick J. Lynch, OpenStax, Yeh HCP Tractography). Zero AI-hallucinated labels.</em></sub>
+
+<br/><br/>
+
 **[🌐 Open in Web Browser (No Download)](https://ablation-tool.github.io/zoe/)** · **[⬇ Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🐧 Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[🪟 Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[💻 macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[🎬 App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
 
 </div>
