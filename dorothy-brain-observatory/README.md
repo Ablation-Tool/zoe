@@ -1,6 +1,6 @@
 # Dorothy Brain Observatory
 
-An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** uniting real stereotaxic **MNI152 / ICBM152 / AAL-116 / CIT168** human neuroimaging meshes (`240,376` real anatomical triangles), synchronized real **MNI152 T1-weighted MRI** tri-planar slices, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200`** wall-chart poster, **10 CAD-ready `.OBJ` / `.PLY` 3D brain models**, and **Dorothy Continuum Operational Metacognition** ($A_\tau(p)$) visualization — honoring **Dorothy McEwen Kildall** and built as part of the **Zoe** research universe.
+An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** uniting real stereotaxic **MNI152 / ICBM152 / AAL-116 / CIT168** human neuroimaging meshes (`240,376` real anatomical triangles), a **custom GLSL Fresnel Rim Glass Shader**, **19-electrode International 10–20 EEG & Smart-Textile Cap overlay**, **5 interactive Functional Neural Circuit Simulators**, a **CAD Stereotaxic 3D Millimeter Caliper**, synchronized real **MNI152 T1-weighted MRI** tri-planar slices, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200`** wall-chart poster, **15 CAD & 3D-print-ready `.OBJ` / `.PLY` / `.STL` brain meshes + 1-click Blender 4/5 auto-importer**, and **Dorothy Continuum Operational Metacognition** ($A_\tau(p)$) visualization — honoring **Dorothy McEwen Kildall** and built as part of the **Zoe** research universe.
 
 > **Epistemic & Clinical Scope Notice:** All 3D meshes and MRI slices derive from standard population neuroimaging templates (ICBM152 / MNI152, AAL-116, Pauli CIT168) for educational, visual-computing, and research exploration only — **not** patient-specific registration, diagnosis, or surgical guidance. A complete single-synapse whole-brain human connectome (~86 billion neurons, ~100 trillion synapses) does not yet exist in neuroscience; nanoscale reconstructions currently cover cubic-millimeter cortical samples.
 
@@ -14,6 +14,10 @@ An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** un
 |:---:|:---:|
 | ![Exploded Lobe Atlas](previews/03_exploded_lobe_atlas.png) | ![Dorothy Continuum Sagittal](previews/04_dorothy_continuum_sagittal.png) |
 
+| Custom GLSL Fresnel Glass + Language Circuit Simulator | International 10–20 EEG & Wearable Smart-Textile Cap (19) |
+|:---:|:---:|
+| ![Fresnel Glass Language Circuit](previews/05_fresnel_language_circuit.png) | ![10-20 EEG Smart-Textile Cap](previews/06_eeg_1020_cap.png) |
+
 ## Quick Start (100% Offline, Zero Dependencies)
 
 1. **Direct Browser Open:** Double-click [`index.html`](index.html) (loads completely offline over `file://` with bundled MIT Three.js — no CDN or internet required).
@@ -26,9 +30,12 @@ An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** un
   * Real AAL-116 Cerebellum & Vermis, Thalamus, Hippocampus, and Amygdala.
   * Real Pauli CIT168 32 bilateral subcortical human nuclei (Putamen, Caudate, Nucleus Accumbens, Extended Amygdala, GPe, GPi, STN, SNc, SNr, Red Nucleus, VTA, PBP, Ventral Pallidum, Habenula, Hypothalamus, Mammillary Bodies).
   * Anatomically MNI-registered Brainstem (Midbrain/Colliculi, Pons, Medulla), Corpus Callosum, CSF Ventricular System, pulsing Circle of Willis & cerebral arteries, all 12 bilateral Cranial Nerves (CN I–XII, with CN IV exiting dorsally from the midbrain), 10 color-coded DTI White-Matter tractography bundles with animated neural impulses, and 52 clickable 3D Brodmann landmarks.
-* **7 Interactive Rendering Modes:** Anatomical Tissue, Lobe Atlas, AAL-116 Parcels, Glass X-Ray, Connectome Neon, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider computing accessible cortical volume), and CAD Engineering Wireframe.
+* **7 Interactive Rendering Modes (incl. Custom GLSL Fresnel Glass Shader):** Anatomical Tissue, Lobe Atlas, AAL-116 Parcels, **Holographic GLSL Fresnel Glass X-Ray** (with live 3D MRI clipping-plane support), **Fresnel Connectome Neon**, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider computing accessible cortical volume), and CAD Engineering Wireframe.
+* **5 Interactive Functional Neural Circuit Simulators:** 1-click simulation of **Language Loop** (`Wernicke → Arcuate → Broca → M1`), **Visual Pathway** (`Retina → LGN → V1 → Dorsal/Ventral`), **Motor / Basal Ganglia Loop**, **Papez Memory Circuit**, and **Multisensory & Salience Network** with glowing synaptic relay tubes, traveling action-potential packets, step-by-step relay cards, and a live neural oscillation oscilloscope.
+* **International 10–20 EEG & Wearable Smart-Textile Cap (19 Electrodes):** Exact Koessler et al. (2009) MNI152 cortical projections connected by geodesic conductive textile straps; click any sensor (`Fp1`–`O2`, `Cz`, etc.) to inspect its underlying Brodmann area and live synthetic EEG waveform.
+* **CAD Stereotaxic 3D Millimeter Caliper (`Measure mm`):** Click any two 3D anatomical landmarks to drop laser pins and read exact Euclidean distance and `(ΔX, ΔY, ΔZ)` millimeter deltas.
 * **Synchronized Real MNI152 T1-MRI Tri-Planar Strip:** Click anywhere on the live Axial, Coronal, or Sagittal `0.74 mm` MRI slices to teleport the 3D stereotaxic reticle and clipping planes to that exact millimeter coordinate.
-* **10 Ready-to-Import 3D CAD Meshes (`3d_models/`):** Standard `.OBJ` and `.PLY` exports in MNI152 millimeters for Blender, ZBrush, AutoCAD, SolidWorks, Unity, Unreal Engine 5, Godot, and Dorothy's Neurogarden.
+* **15 Ready-to-Import 3D CAD & 3D-Print Meshes + Blender 4/5 Auto-Importer (`3d_models/`):** Standard `.OBJ`, `.PLY`, and binary `.STL` (watertight 3D-printing) exports in MNI152 millimeters plus [`import_dorothy_brain.py`](3d_models/import_dorothy_brain.py) for 1-click Blender 4/5 PBR assembly, ZBrush, AutoCAD, SolidWorks, Unity, Unreal Engine 5, Godot, and Dorothy's Neurogarden.
 * **25 Verified Medical Plates & `4800 × 3200` Poster (`plates/`):** Public-domain & CC-BY anatomical illustrations plus 3 audited custom vector SVGs (`08c_thalamic_nuclei_verified.svg`, `08f_cortical_layers_circuitry.svg`, `08g_basal_ganglia_pathways.svg`) with zero AI-hallucinated anatomical labels.
 * **Accessibility-First:** Full keyboard navigation (`WASD` / Arrows / `+/-` / `R`), skip-to-content link, ARIA tablist/dialog/live-region announcements, natural unspaced typography, and descriptive `alt` text.
 

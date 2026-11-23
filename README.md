@@ -102,13 +102,17 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 |:---:|:---:|
 | ![Dorothy Brain Observatory — Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png) | ![Dorothy Brain Observatory — Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png) |
 
+| Custom GLSL Fresnel Glass + Language Circuit Simulator | International 10–20 EEG & Wearable Smart-Textile Cap (19) |
+|:---:|:---:|
+| ![Dorothy Brain Observatory — Custom GLSL Fresnel Glass Shader with Language Loop Circuit Simulator and Neural Wave Oscilloscope](dorothy-brain-observatory/previews/05_fresnel_language_circuit.png) | ![Dorothy Brain Observatory — International 10-20 EEG Electrode Array and Geodesic Smart-Textile Cap Overlay](dorothy-brain-observatory/previews/06_eeg_1020_cap.png) |
+
 <div align="center">
 
-**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 10 CAD `.OBJ` / `.PLY` Meshes](dorothy-brain-observatory/3d_models/)**
+**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 15 CAD / 3D-Print `.OBJ`/`.PLY`/`.STL` Meshes + Blender 5 Importer](dorothy-brain-observatory/3d_models/)**
 
 </div>
 
-* **7 Real-Time Shaders &amp; Modes:** Wet-pia Anatomical Tissue, Lobe Atlas, AAL-116 Parcels (with live click-to-glow cortical region highlighting), Glass X-Ray (with smart deep-nucleus raycasting), Connectome Neon, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider), and CAD Engineering Wireframe — plus **Guided 6-Stop Brain Tour**, **Floating 3D Callout Labels**, **Exploded Dissection (`0–100%`)**, **1-Click Live 3D MRI Clipping Planes**, **Sculpted Corpus Callosum, Tapered Ventricles, Pituitary/Pineal Glands &amp; Cerebellar Peduncles**, **Live `A/P/L/R/S/I` 3D Orientation Compass**, **PNG Snapshot Export**, and **1-Click Fly-To** across all **52 Brodmann areas** and **12 Cranial Nerves (CN I–XII)**.
+* **7 Real-Time Shaders &amp; Modes:** Wet-pia Anatomical Tissue, Lobe Atlas, AAL-116 Parcels (with live click-to-glow cortical region highlighting), **Custom GLSL Fresnel Rim Glass X-Ray** (with live 3D MRI clipping planes &amp; smart deep-nucleus raycasting), **Fresnel Connectome Neon**, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider), and CAD Engineering Wireframe — plus **5 Interactive Functional Neural Circuit Simulators** (Language Loop, Visual Pathway, Motor/BG Loop, Papez Memory, Multisensory &amp; Salience Network with traveling action-potential packets &amp; live wave oscilloscope), **19-Electrode International 10–20 EEG Smart-Textile Cap**, **CAD Stereotaxic 3D Millimeter Caliper (`Measure mm`)**, **5 Binary `.STL` 3D-Printing Meshes + `import_dorothy_brain.py` Blender 4/5 Auto-Importer**, **Guided 6-Stop Brain Tour**, **Floating 3D Callout Labels**, **Exploded Dissection (`0–100%`)**, **1-Click Live 3D MRI Clipping Planes**, **Live `A/P/L/R/S/I` 3D Orientation Compass**, **PNG Snapshot Export**, and **1-Click Fly-To** across all **52 Brodmann areas** and **12 Cranial Nerves (CN I–XII)**.
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
