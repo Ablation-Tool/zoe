@@ -118,6 +118,15 @@
       "sloc": 88
     },
     {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/botanical_atlas_explorer.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 81.121,
+      "sloc": 304
+    },
+    {
       "avg_cc": 5.417,
       "file": "guiai-lab/guiai/gem/brain.py",
       "grade": "B",
@@ -379,13 +388,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 19.286,
+      "avg_cc": 19.714,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.3413,
-      "max_cc": 112,
-      "mi": 52.322,
-      "sloc": 1422
+      "h2": 1.3298,
+      "max_cc": 115,
+      "mi": 52.233,
+      "sloc": 1440
     },
     {
       "avg_cc": 6.64,
@@ -665,6 +674,15 @@
       "max_cc": 6,
       "mi": 49.507,
       "sloc": 159
+    },
+    {
+      "avg_cc": 3.444,
+      "file": "guiai-lab/guiai/gem/kloster_spatial_optical_law.py",
+      "grade": "A",
+      "h2": 1.7381,
+      "max_cc": 8,
+      "mi": 63.481,
+      "sloc": 220
     },
     {
       "avg_cc": 4.417,
@@ -2206,6 +2224,15 @@
       "sloc": 167
     },
     {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_kloster_theorem14.py",
+      "grade": "B",
+      "h2": 0.7,
+      "max_cc": 13,
+      "mi": 55.249,
+      "sloc": 158
+    },
+    {
       "avg_cc": 13.5,
       "file": "scripts/verify_kloster_theory.py",
       "grade": "B",
@@ -2437,26 +2464,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "81af3920d5a92b122fa83378aaf4de7ea2600778ba7db718d53d7bf985ecd30d",
+  "evidence_sha256": "c8ebc89e7afbfe151e7b48ad935c51c205db444c9972350523bcb7595e771d64",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6273,
-    "files_scanned": 269,
+    "corr_avg_cc_vs_mi": -0.63,
+    "files_scanned": 272,
     "grade_distribution": {
-      "A": 137,
-      "B": 123,
+      "A": 139,
+      "B": 124,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.342,
-    "mean_mi": 58.676,
-    "median_mi": 60.172,
+    "mean_avg_cc": 7.305,
+    "mean_mi": 58.763,
+    "median_mi": 60.188,
     "orbit_mean_avg_cc": 7.377,
     "orbit_mean_mi": 57.655,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 3003,
-    "total_sloc": 79921
+    "total_functions": 3016,
+    "total_sloc": 80621
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
