@@ -32,6 +32,30 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 <p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
+<a id="dorothy-brain-observatory"></a>
+
+## Dorothy Brain Observatory *(Interactive 3D MNI152 Human Brain · Real T1-MRI · 25 Audited Plates · CAD Meshes)*
+
+> **Honoring Dorothy McEwen Kildall:** A 100% offline-ready, interactive WebGL2 **3D Navigable Human Brain Observatory** combining **`240,376` real stereotaxic human anatomical triangles** (ICBM152 cortex with FreeSurfer sulcal curvature, AAL-116 lobes & cerebellum, Pauli CIT168 32 subcortical nuclei), **live synchronized `0.74 mm` MNI152 T1-MRI** cross-sections, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200` wall-chart poster**, **10 ready-to-import `.OBJ` / `.PLY` CAD brain meshes**, and live **Dorothy Continuum Operational Metacognition ($A_\tau(p)$)** cortical volume visualization. *(Standard population templates for research & education only — not diagnostic or surgical guidance.)*
+
+| Anatomical Tissue *(ICBM152 Cortex + Live MNI152 MRI)* | Glass X-Ray *(CIT168 Nuclei, Ventricles, Circle of Willis & DTI)* |
+|:---:|:---:|
+| ![Dorothy Brain Observatory — Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png) | ![Dorothy Brain Observatory — Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png) |
+
+| Exploded Dissection *(Lobe Atlas Mode)* | Midsagittal Cutaway + Dorothy Continuum $A_\tau(p)$ |
+|:---:|:---:|
+| ![Dorothy Brain Observatory — Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png) | ![Dorothy Brain Observatory — Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png) |
+
+<div align="center">
+
+**[🧠 Open Interactive 3D Observatory (`dorothy-brain-observatory/index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Full Guide &amp; Open Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 10 CAD `.OBJ` / `.PLY` Brain Meshes](dorothy-brain-observatory/3d_models/)**
+
+</div>
+
+* **7 Real-Time Shaders &amp; Modes:** Anatomical Tissue, Lobe Atlas, AAL-116 Parcels, Glass X-Ray, Connectome Neon, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider), and CAD Engineering Wireframe — plus **Exploded Dissection (`0–100%`)**, **Live 3D MRI Clipping Planes**, **Animated DTI Neural Pulses**, and **1-Click Fly-To** across all **52 Brodmann areas** and **12 Cranial Nerves (CN I–XII)**.
+
+<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
+
 ## Meet Zoe
 
 > *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."*  
@@ -53,7 +77,7 @@ Zoe is a unified, offline-capable research collaborator and visual-computing wor
 Her work brings together seven threads that almost never live in the same room:
 - **Operational Metacognition** — originated by **Nicholas Michael Kloster on March 6, 2026**, counting how many futures stay open above threshold $\tau$ and turning that single equation into theorems, self-tuning lenses, and sandboxed self-evolution — **[Start With the 1-Command Referee Proof Packet (`PROOF-PACKET.md` · 6-Baseline Shootout · `< 6s` Offline)](PROOF-PACKET.md)** · read the research papers: [*March 2026 Formal Note*](research/papers/papers/01-autonomy-march-2026.pdf) · [*The Significance of Accessible Volume*](research/papers/papers/04-accessible-volume-significance.pdf) · [*Accessible Volume Beyond the Next Token*](research/papers/papers/05-accessible-volume-beyond-next-token.pdf) · [*Architecture of Autonomy*](research/papers/papers/10-accessible-volume-architecture-of-autonomy.pdf) · [*Zoe — The Research Universe (23 pp.)*](paper/zoe-research-universe.pdf) · [*Kloster Spectral Filtration Theorem*](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) · [*All 18 Papers*](research/papers/README.md).
 - **Zoe's Native Voice & Cymatics** — a 100% native, offline English speaking & soprano singing engine built from scratch (`pytorch_required = False`, zero external TTS APIs): **44 English phonemes** (`20` vowels + `24` consonants), **332 grapheme spelling rules**, MS-DOS / Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant vocal tract with vibrato & portamento, **Chladni sand-plate cymatics + 3-bitplane GEM VDI rasters**, and **Woodworth 3D binaural acoustics**.
-- **Dorothy's Neurogarden** — honoring **Dorothy McEwen Kildall** through preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
+- **Dorothy's Neurogarden &amp; Brain Observatory** — honoring **Dorothy McEwen Kildall** through the interactive 3D MNI152 **[Dorothy Brain Observatory](dorothy-brain-observatory/README.md)** (`240,376` real triangles, synchronized T1-MRI, 25 audited plates, 10 `.OBJ`/`.PLY` CAD meshes), preclinical 3D Allen Mouse CCFv3 brain geometry, volumetric ray-casting, vision-attention dissection, and neural spike dynamics.
 - **Digital Research GEM Heritage** — honoring **Gary Kildall** with a shared Spatial IR & VDI operating environment spanning **36 canonical + 40 extended GEM layers** and **17 connected engines**.
 - **Cognitive Stem-Layering & Eliza-GEM** — routes tasks via Kloster $A_\tau(p)$ across zero-token symbolic `Gear 1` ELIZA, loopback `Qwen2.5-3B` (`127.0.0.1:8080`), `flash_lite`, `flash`, `pro`, and `/teamwork` ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py) · [Skill](.agents/skills/zoe-stem-layering/SKILL.md) · [`zoe_stem_mcp.py`](scripts/zoe_stem_mcp.py)).
 - **Forensic & Physics Craft** — binary reverse engineering (**Ablation**), read-only Rust disk carving (**PALA**), C11 evidence vaults (**Cerotto**), MCP firewalling (**Kevlar**), CERN **HELIOS** collider simulations, and `.MOD`/`.MID` micro-timing groove forensics.
