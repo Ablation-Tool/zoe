@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Dorothy Brain Observatory — Interactive 3D Human Brain, Real MNI152 MRI, Verified Plates &amp; Research Vault</title>
+<style>
+  :root {
+    --bg: #070b12;
+    --panel: #0e1420;
+    --panel-2: #141c2c;
+    --border: #223049;
+    --text: #e6edf7;
+    --muted: #93a4be;
+    --gold: #f5d078;
+    --cyan: #38bdf8;
+    --emerald: #34d399;
+    --rose: #fb7185;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; line-height: 1.45; }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .skip-link { position: absolute; left: -9999px; top: 8px; background: var(--gold); color: #070b12; padding: 8px 14px; font-weight: 700; border-radius: 6px; z-index: 2000; }
+  .skip-link:focus { left: 10px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+  /* Top Command Bar */
+  .topbar {
+    height: 54px; background: rgba(14, 20, 32, 0.96); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px; padding: 0 16px; position: sticky; top: 0; z-index: 500;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fef08a, #f59e0b 65%, #b45309); box-shadow: 0 0 12px rgba(245, 208, 120, 0.7); }
+  .brand h1 { margin: 0; font-size: 1.02rem; font-weight: 700; color: var(--gold); letter-spacing: 0.01em; }
+  .brand small { display: block; font-size: 0.7rem; color: var(--muted); font-weight: 400; margin-top: -2px; }
+
+  .tabs { display: flex; gap: 6px; margin-left: 8px; }
+  .tab-btn {
+    background: transparent; border: 1px solid transparent; color: var(--muted);
+    padding: 7px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.15s;
+  }
+  .tab-btn:hover { color: var(--text); background: var(--panel-2); }
+  .tab-btn.active { color: var(--gold); background: var(--panel-2); border-color: var(--border); }
+
+  .gsearch-wrap { margin-left: auto; position: relative; width: 290px; }
+  .gsearch-wrap input {
+    width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 7px 11px; font-size: 0.85rem;
+  }
+  .gdrop {
+    display: none; position: absolute; right: 0; top: 38px; width: 340px; max-height: 360px; overflow-y: auto;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 14px 40px rgba(0,0,0,0.65); z-index: 900;
+  }
+  .g-item { display: block; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid #1b263b; color: var(--text); padding: 9px 12px; cursor: pointer; }
+  .g-item:hover { background: var(--panel-2); }
+  .g-item strong { display: block; font-size: 0.85rem; color: var(--gold); }
+  .g-item span { font-size: 0.75rem; color: var(--muted); }
+  .g-empty { padding: 12px; font-size: 0.84rem; color: var(--muted); }
+
+  /* Tab Panels */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  #panel-brain3d.active { display: grid; grid-template-columns: 286px 1fr 336px; height: calc(100vh - 54px); overflow: hidden; }
+
+  /* Left & Right Docks */
+  .dock { background: var(--panel); border-right: 1px solid var(--border); overflow-y: auto; padding: 12px; font-size: 0.84rem; }
+  .dock-right { border-right: 0; border-left: 1px solid var(--border); }
+  .sec-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold); font-weight: 700; margin: 14px 0 8px; }
+  .sec-title:first-child { margin-top: 2px; }
+
+  .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .btn-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .ctl-btn {
+    background: var(--panel-2); color: var(--text); border: 1px solid var(--border); border-radius: 7px;
+    padding: 6px 7px; font-size: 0.76rem; font-weight: 600; cursor: pointer; transition: 0.14s; text-align: center;
+  }
+  .ctl-btn:hover { border-color: var(--cyan); color: #fff; }
+  .ctl-btn.active { background: #1a3352; border-color: var(--cyan); color: var(--gold); }
+
+  .slider-row { margin: 8px 0; }
+  .slider-row label { display: flex; justify-content: space-between; font-size: 0.77rem; color: var(--muted); margin-bottom: 3px; }
+  .slider-row label b { color: var(--text); }
+  .slider-row input[type=range] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
+
+  .tau-box { display: none; background: #101d31; border: 1px solid #244572; border-radius: 8px; padding: 8px 10px; margin-top: 8px; }
+  .tau-readout { font-size: 0.75rem; color: var(--emerald); font-family: ui-monospace, monospace; margin-top: 4px; }
+
+  .chk-list { display: grid; grid-template-columns: 1fr; gap: 4px; }
+  .chk-list label { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: var(--text); cursor: pointer; padding: 2px 4px; border-radius: 4px; }
+  .chk-list label:hover { background: var(--panel-2); }
+  .chk-list input[type=checkbox] { accent-color: var(--cyan); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+  /* Center 3D Viewport + HUD + Real MRI Strip */
+  .stage-wrap { position: relative; display: flex; flex-direction: column; background: var(--bg); overflow: hidden; }
+  #viewport3d { flex: 1; position: relative; min-height: 300px; overflow: hidden; }
+  #viewport3d canvas { display: block; width: 100% !important; height: 100% !important; }
+
+  .hud-tl {
+    position: absolute; top: 12px; left: 12px; pointer-events: none; z-index: 20;
+    background: rgba(7, 11, 18, 0.78); backdrop-filter: blur(6px); border: 1px solid var(--border);
+    border-radius: 9px; padding: 7px 11px; font-size: 0.76rem;
+  }
+  .hud-mni { font-family: ui-monospace, monospace; font-weight: 700; color: var(--gold); font-size: 0.84rem; }
+  .hud-meta { color: var(--muted); font-size: 0.72rem; margin-top: 2px; }
+
+  .hud-tr { position: absolute; top: 12px; right: 12px; z-index: 20; display: flex; gap: 6px; }
+  .hud-hint {
+    position: absolute; bottom: 8px; left: 12px; pointer-events: none; z-index: 20;
+    background: rgba(7,11,18,0.68); color: var(--muted); font-size: 0.71rem; padding: 4px 8px; border-radius: 6px;
+  }
+  #hoverTip {
+    display: none; position: absolute; pointer-events: none; z-index: 30;
+    background: rgba(14, 20, 32, 0.94); color: var(--gold); border: 1px solid var(--cyan);
+    padding: 5px 9px; border-radius: 6px; font-size: 0.76rem; font-weight: 600; white-space: nowrap;
+  }
+
+  /* Synchronized Real MNI152 Tri-Planar MRI Strip */
+  .mri-strip {
+    background: #05080f; border-top: 1px solid var(--border); padding: 8px 12px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .mri-strip.collapsed { display: none; }
+  .mri-strip canvas {
+    width: 148px; height: 148px; border: 1px solid #263652; border-radius: 6px; cursor: crosshair; background: #000;
+  }
+  .mri-info { max-width: 190px; font-size: 0.73rem; color: var(--muted); }
+  .mri-info strong { color: var(--gold); display: block; margin-bottom: 4px; font-size: 0.78rem; }
+
+  /* Right Inspector */
+  .qselect { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 7px; padding: 7px 8px; font-size: 0.79rem; margin-bottom: 8px; }
+  .quick-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px; }
+  .qpill {
+    background: var(--panel-2); color: var(--muted); border: 1px solid var(--border); border-radius: 999px;
+    padding: 3px 8px; font-size: 0.71rem; cursor: pointer;
+  }
+  .qpill:hover { color: var(--gold); border-color: var(--gold); }
+
+  .insp-badge { display: inline-block; background: #142842; color: var(--cyan); border: 1px solid #224470; border-radius: 999px; padding: 2px 9px; font-size: 0.72rem; font-weight: 700; margin-bottom: 6px; }
+  .insp-title { margin: 0 0 6px; font-size: 1.05rem; color: var(--gold); }
+  .insp-mni { font-size: 0.76rem; color: var(--muted); margin-bottom: 8px; }
+  .insp-mni code { color: var(--emerald); background: #0a1424; padding: 2px 6px; border-radius: 4px; }
+  .insp-desc { font-size: 0.83rem; color: #d5dfec; margin: 0 0 10px; }
+  .insp-kv { font-size: 0.79rem; color: var(--muted); margin-bottom: 8px; }
+  .insp-kv strong { color: var(--text); }
+  .insp-block { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .insp-block h4 { margin: 0 0 8px; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold); }
+  .mini-plates { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .mini-plate {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 5px;
+    color: var(--text); text-align: left; cursor: pointer;
+  }
+  .mini-plate:hover { border-color: var(--gold); }
+  .mini-plate img { width: 100%; height: 74px; object-fit: contain; background: #fff; border-radius: 4px; display: block; margin-bottom: 4px; }
+  .mini-plate span { display: block; font-size: 0.69rem; color: var(--muted); line-height: 1.25; }
+  .mini-books { display: flex; flex-direction: column; gap: 6px; }
+  .mini-book { background: var(--panel-2); border: 1px solid var(--border); border-radius: 7px; padding: 7px 9px; font-size: 0.76rem; }
+  .mini-book strong { display: block; color: var(--text); margin-bottom: 2px; }
+  .mini-book .meta { color: var(--muted); font-size: 0.71rem; }
+
+  /* Content Pages (Tabs 2, 3, 4) */
+  .page-wrap { max-width: 1400px; margin: 0 auto; padding: 24px 20px 60px; }
+  .page-head { border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 20px; }
+  .page-head h2 { margin: 0 0 6px; color: var(--gold); font-size: 1.45rem; }
+  .page-head p { margin: 0; color: var(--muted); max-width: 920px; }
+
+  .poster-banner {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 22px;
+  }
+  .poster-banner img { width: 240px; height: 160px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; }
+  .poster-banner h3 { margin: 0 0 6px; color: var(--gold); }
+
+  .plates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
+  .plate-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .plate-img-wrap { background: #fff; padding: 10px; height: 220px; display: flex; align-items: center; justify-content: center; cursor: zoom-in; }
+  .plate-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .plate-meta { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; }
+  .pill-cat { align-self: flex-start; background: #142842; color: var(--cyan); font-size: 0.71rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-bottom: 6px; }
+  .plate-meta h3 { margin: 0 0 6px; font-size: 0.96rem; color: var(--text); }
+  .plate-meta p { margin: 0 0 8px; font-size: 0.82rem; color: var(--muted); flex: 1; }
+  .credit { font-size: 0.72rem; color: #7c90ad; }
+
+  /* Encyclopedia Tables */
+  .enc-sec { margin-bottom: 34px; }
+  .enc-sec h3 { color: var(--gold); margin: 0 0 10px; font-size: 1.15rem; }
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--panel); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  th, td { text-align: left; padding: 9px 11px; border-bottom: 1px solid #1a2538; vertical-align: top; }
+  thead th { background: var(--panel-2); color: var(--gold); font-weight: 700; }
+  .btn-sm { background: #163050; color: var(--gold); border: 1px solid #2b5485; border-radius: 6px; padding: 4px 9px; font-size: 0.76rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .btn-sm:hover { background: #1f4470; }
+  .swatch { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; vertical-align: middle; }
+  .honesty-box { background: #121c2d; border-left: 4px solid var(--gold); border-radius: 8px; padding: 14px 18px; margin: 18px 0 26px; font-size: 0.88rem; color: #d5dfec; }
+
+  /* Vault Tab */
+  .cad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; margin-bottom: 24px; }
+  .cad-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .cad-card strong { display: block; color: var(--gold); font-size: 0.9rem; margin-bottom: 4px; }
+  .cad-card .meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+  .cad-links { display: flex; gap: 10px; font-size: 0.8rem; font-weight: 600; }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .toolbar input, .toolbar select { background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px; font-size: 0.86rem; }
+  .toolbar input { flex: 1; min-width: 220px; }
+
+  .vault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 10px; margin-bottom: 26px; }
+  .fig-tile {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 9px; padding: 6px;
+    text-align: left; cursor: pointer; color: var(--text);
+  }
+  .fig-tile:hover { border-color: var(--gold); }
+  .fig-tile img { width: 100%; height: 132px; object-fit: contain; background: #fff; border-radius: 5px; display: block; margin-bottom: 5px; }
+  .fig-tile span { display: block; font-size: 0.72rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: capitalize; }
+
+  .pdf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 8px; margin-bottom: 28px; }
+  .pdf-chip {
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px; font-size: 0.8rem; color: var(--text);
+  }
+  .pdf-chip:hover { border-color: var(--cyan); text-decoration: none; }
+  .pdf-chip small { color: var(--gold); white-space: nowrap; font-weight: 600; }
+
+  .st { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 0.73rem; font-weight: 700; text-transform: capitalize; }
+  .st-complete { background: #133926; color: #6ee7b7; }
+  .st-partial { background: #47320a; color: #fcd34d; }
+  .st-pending { background: #222c3c; color: #94a3b8; }
+
+  /* Lightbox */
+  #lightbox {
+    display: none; position: fixed; inset: 0; background: rgba(4, 7, 12, 0.92); z-index: 3000;
+    flex-direction: column; align-items: center; justify-content: center; padding: 24px;
+  }
+  #lightbox.open { display: flex; }
+  #lb-close { position: absolute; top: 18px; right: 24px; background: var(--gold); color: #070b12; border: 0; border-radius: 8px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
+  #lb-img { max-width: 92vw; max-height: 76vh; background: #fff; border-radius: 8px; padding: 6px; object-fit: contain; }
+  #lb-caption { max-width: 900px; text-align: center; margin-top: 12px; }
+
+  @media (max-width: 1120px) {
+    #panel-brain3d.active { grid-template-columns: 240px 1fr; height: auto; min-height: calc(100vh - 54px); }
+    .dock-right { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#mainContent">Skip to main content</a>
+<div id="srLive" class="sr-only" role="status" aria-live="polite"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-dot" aria-hidden="true"></span>
+    <div>
+      <h1>Dorothy Brain Observatory</h1>
+      <small>MNI152 3D Brain · Real T1-MRI · 25 Verified Plates · 10 CAD Meshes · Dorothy A_tau(p)</small>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Observatory workspaces">
+    <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="brain3d">3D Navigable Brain</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="plates">Verified Plates &amp; Poster</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="encyclopedia">Neuroanatomy Atlas</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="vault">Dorothy Library &amp; Vault</button>
+  </nav>
+  <div class="gsearch-wrap">
+    <label for="globalSearch" class="sr-only">Search brain structures, Brodmann areas, cranial nerves, or textbooks</label>
+    <input id="globalSearch" type="search" placeholder="Jump to BA 44, Thalamus, CN X, MRI..." autocomplete="off"/>
+    <div id="globalResults" class="gdrop" role="listbox" aria-label="Quick jump search results"></div>
+  </div>
+</header>
+
+<main id="mainContent">
+  <!-- ═══════════════════ TAB 1: 3D NAVIGABLE BRAIN ═══════════════════ -->
+  <section id="panel-brain3d" class="tab-panel active" role="tabpanel" aria-label="Interactive 3D Navigable Human Brain">
+    <aside class="dock" aria-label="3D brain rendering and dissection controls">
+      <div class="sec-title">Rendering Mode</div>
+      <div class="btn-grid">
+        <button type="button" class="ctl-btn active" data-mode="tissue">Anatomical Tissue</button>
+        <button type="button" class="ctl-btn" data-mode="lobe">Lobe Atlas</button>
+        <button type="button" class="ctl-btn" data-mode="aal">AAL-116 Parcels</button>
+        <button type="button" class="ctl-btn" data-mode="xray">Glass X-Ray</button>
+        <button type="button" class="ctl-btn" data-mode="connectome">Connectome Neon</button>
+        <button type="button" class="ctl-btn" data-mode="continuum">Dorothy A_tau(p)</button>
+        <button type="button" class="ctl-btn" data-mode="cad" style="grid-column:1/-1;">CAD Engineering Wireframe</button>
+      </div>
+
+      <div id="tauBox" class="tau-box">
+        <div class="slider-row" style="margin:0;">
+          <label for="sliderTau"><span>Metacognition Threshold (tau)</span><b id="lblTau">0.62</b></label>
+          <input id="sliderTau" type="range" min="10" max="95" value="62"/>
+        </div>
+        <div id="tauReadout" class="tau-readout">A_tau(p) computing...</div>
+      </div>
+
+      <div class="sec-title">Camera Views</div>
+      <div class="btn-grid btn-grid-3">
+        <button type="button" class="ctl-btn" data-preset="hero">3/4 Hero</button>
+        <button type="button" class="ctl-btn" data-preset="left">Left Lat</button>
+        <button type="button" class="ctl-btn" data-preset="right">Right Lat</button>
+        <button type="button" class="ctl-btn" data-preset="sagittal">Sagittal Cut</button>
+        <button type="button" class="ctl-btn" data-preset="dorsal">Dorsal Top</button>
+        <button type="button" class="ctl-btn" data-preset="ventral">Ventral CN</button>
+        <button type="button" class="ctl-btn" data-preset="posterior">Posterior</button>
+        <button type="button" class="ctl-btn" data-preset="deep">Deep Nuclei</button>
+        <button type="button" class="ctl-btn" id="btnAutoOrbit">Auto-Orbit</button>
+      </div>
+
+      <div class="sec-title">Dissection &amp; Opacity</div>
+      <div class="slider-row">
+        <label for="sliderOpacity"><span>Cortex Opacity</span><b id="lblOpacity">100%</b></label>
+        <input id="sliderOpacity" type="range" min="0" max="100" value="100"/>
+      </div>
+      <div class="slider-row">
+        <label for="sliderExplode"><span>Exploded Dissection</span><b id="lblExplode">0%</b></label>
+        <input id="sliderExplode" type="range" min="0" max="100" value="0"/>
+      </div>
+
+      <div class="sec-title">3D Slice Planes (Synced to MRI)</div>
+      <div class="chk-list" style="margin-bottom:6px;">
+        <label><input type="checkbox" id="chkClip"/> Enable Live 3D MRI Clipping</label>
+      </div>
+      <div class="slider-row">
+        <label for="clipX"><span>Sagittal X (L↔R)</span><b id="lbl-clipX">-72 mm</b></label>
+        <input id="clipX" type="range" min="-72" max="72" value="-72"/>
+      </div>
+      <div class="slider-row">
+        <label for="clipY"><span>Coronal Y (P↔A)</span><b id="lbl-clipY">72 mm</b></label>
+        <input id="clipY" type="range" min="-104" max="72" value="72"/>
+      </div>
+      <div class="slider-row">
+        <label for="clipZ"><span>Axial Z (I↔S)</span><b id="lbl-clipZ">82 mm</b></label>
+        <input id="clipZ" type="range" min="-64" max="82" value="82"/>
+      </div>
+
+      <div class="sec-title">Anatomical Layers</div>
+      <div class="chk-list">
+        <label><input type="checkbox" id="chk-cortexL" checked/><span class="dot" style="background:#deb8ae"></span> Left Cerebral Cortex (ICBM152)</label>
+        <label><input type="checkbox" id="chk-cortexR" checked/><span class="dot" style="background:#deb8ae"></span> Right Cerebral Cortex (ICBM152)</label>
+        <label><input type="checkbox" id="chk-cerebellum" checked/><span class="dot" style="background:#c49080"></span> Cerebellum &amp; Vermis (AAL-116)</label>
+        <label><input type="checkbox" id="chk-brainstem" checked/><span class="dot" style="background:#d9c2b2"></span> Brainstem (Midbrain/Pons/Medulla)</label>
+        <label><input type="checkbox" id="chk-callosum" checked/><span class="dot" style="background:#f4ece1"></span> Corpus Callosum</label>
+        <label><input type="checkbox" id="chk-ventricles" checked/><span class="dot" style="background:#38bdf8"></span> Ventricular System (CSF)</label>
+        <label><input type="checkbox" id="chk-thalamus" checked/><span class="dot" style="background:#f2b83d"></span> Thalamus (AAL Real Mesh)</label>
+        <label><input type="checkbox" id="chk-limbic" checked/><span class="dot" style="background:#34d399"></span> Hippocampus, Amygdala &amp; Fornix</label>
+        <label><input type="checkbox" id="chk-cit168" checked/><span class="dot" style="background:#6366f1"></span> CIT168 Subcortical Nuclei (32)</label>
+        <label><input type="checkbox" id="chk-vascular" checked/><span class="dot" style="background:#ef4444"></span> Circle of Willis &amp; Arteries</label>
+        <label><input type="checkbox" id="chk-cranial" checked/><span class="dot" style="background:#fde047"></span> Cranial Nerves (CN I–XII)</label>
+        <label><input type="checkbox" id="chk-tracts" checked/><span class="dot" style="background:#22c55e"></span> DTI White-Matter Tracts</label>
+        <label><input type="checkbox" id="chkPulses" checked/><span class="dot" style="background:#ffffff"></span> Animated Neural Pulses</label>
+        <label><input type="checkbox" id="chk-pins"/><span class="dot" style="background:#f5d078"></span> 3D Brodmann Landmark Pins (52)</label>
+      </div>
+    </aside>
+
+    <div class="stage-wrap">
+      <div id="viewport3d" aria-label="Interactive 3D WebGL human brain canvas">
+        <div class="hud-tl">
+          <div id="hudMni" class="hud-mni">MNI (0, -14, 6) mm</div>
+          <div id="hudMeta" class="hud-meta">Loading real MNI152/ICBM152 meshes...</div>
+        </div>
+        <div class="hud-tr">
+          <button type="button" class="ctl-btn" id="btnToggleMri">Hide MRI Strip</button>
+        </div>
+        <div class="hud-hint">Drag: Orbit · Shift/Right-Drag: Pan · Scroll: Zoom · Click any structure to inspect · WASD/Arrows: Keyboard Orbit · R: Reset</div>
+        <div id="hoverTip"></div>
+      </div>
+
+      <section id="mriStrip" class="mri-strip" aria-label="Synchronized real MNI152 T1 MRI slices">
+        <canvas id="mriAxial" width="160" height="160" title="Click Axial MNI152 T1 MRI slice to move 3D crosshair"></canvas>
+        <canvas id="mriCoronal" width="160" height="160" title="Click Coronal MNI152 T1 MRI slice to move 3D crosshair"></canvas>
+        <canvas id="mriSagittal" width="160" height="160" title="Click Sagittal MNI152 T1 MRI slice to move 3D crosshair"></canvas>
+        <div class="mri-info">
+          <strong>Live MNI152 T1-MRI</strong>
+          Real 0.74 mm human brain MRI volume synchronized with the 3D stereotaxic reticle. Click any slice to jump inside the 3D brain.
+        </div>
+      </section>
+    </div>
+
+    <aside class="dock dock-right" aria-label="Selected structure details and linked library">
+      <div class="sec-title">Quick Navigation</div>
+      <label for="baQuickSelect" class="sr-only">Jump to Brodmann Area</label>
+      <select id="baQuickSelect" class="qselect"></select>
+      <div id="quickPills" class="quick-pills"></div>
+      <div id="inspectorBody"></div>
+    </aside>
+  </section>
+
+  <!-- ═══════════════════ TAB 2: VERIFIED PLATES & POSTER ═══════════════════ -->
+  <section id="panel-plates" class="tab-panel" role="tabpanel" aria-label="Verified Anatomical Plates and Wall Poster">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>Verified Anatomical Plates &amp; Ultra-HD Wall Chart</h2>
+        <p>Every plate below is a peer-reviewed public-domain, CC-BY medical illustration, or audited custom vector diagram from the Human Brain Atlas — zero AI-hallucinated anatomical labels. Click any plate to zoom full-screen.</p>
+      </div>
+
+      <div class="poster-banner">
+        <img src="plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png" alt="Complete Human Brain Map 4800 by 3200 master wall-chart poster" onclick="window.openLightbox('plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png', 'Complete Human Brain Map Poster (4800 x 3200)', '12 verified anatomical plates arranged in a printable ultra-HD 4x3 editorial wall chart.')"/>
+        <div>
+          <h3>Complete Human Brain Map — 4800 × 3200 Ultra-HD Wall Chart</h3>
+          <p style="margin:0 0 10px;color:var(--muted);">Printable 4×3 master wall-chart poster uniting lateral/medial gyri, Brodmann areas, cranial nerves I–XII, basal ganglia, limbic system, ventricles, Circle of Willis, vascular territories, DTI tractography, and cerebellar anatomy.</p>
+          <a class="btn-sm" href="plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png" target="_blank" rel="noopener">Open Full-Resolution Poster (PNG)</a>
+        </div>
+      </div>
+
+      <div id="platesGrid" class="plates-grid"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TAB 3: NEUROANATOMY ENCYCLOPEDIA ═══════════════════ -->
+  <section id="panel-encyclopedia" class="tab-panel" role="tabpanel" aria-label="Complete Neuroanatomy Reference Tables">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>Complete Verified Human Neuroanatomy Reference</h2>
+        <p>I'm maintaining strict scientific accuracy across every entry below: click <strong>Fly to 3D</strong> on any Brodmann area or cranial nerve to glide directly to its exact MNI152 stereotaxic coordinate in the 3D Explorer.</p>
+      </div>
+
+      <div class="honesty-box">
+        <strong>Scientific Scope &amp; Honesty Note:</strong> This observatory unites real human stereotaxic MRI templates (ICBM152, AAL-116, Pauli CIT168 subcortical atlas, MNI152 T1 volume) with verified classical macroanatomy and cytoarchitecture. A complete single-synapse whole-brain human connectome (~86 billion neurons, ~100 trillion synapses) does not yet exist in neuroscience; nanoscale electron-microscopy reconstructions such as the H01 dataset currently cover cubic-millimeter cortical samples. All Brodmann comparative numbering notes (BA 12, 13–16, 48–51) are explicitly preserved.
+      </div>
+
+      <div class="enc-sec">
+        <h3>All 52 Brodmann Cytoarchitectonic Areas (MNI152 Coordinates)</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Area</th><th>Lobe</th><th>Anatomical Region</th><th>MNI (mm)</th><th>Verified Function &amp; Notes</th><th>3D</th></tr></thead>
+          <tbody id="tblBrodmann"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>All 12 Cranial Nerves (CN I–XII)</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Nerve</th><th>Name</th><th>Modality</th><th>Anatomical Origin</th><th>Skull Foramen</th><th>Verified Function</th><th>3D</th></tr></thead>
+          <tbody id="tblCranial"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Major White-Matter DTI Tractography Pathways</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Tract</th><th>Class &amp; DTI Color</th><th>Connections</th><th>Function</th></tr></thead>
+          <tbody id="tblTracts"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Cerebrovascular Arterial Territories &amp; Venous Sinuses</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Vessel</th><th>Circulation</th><th>Anatomical Territory</th><th>Clinical Stroke Localization</th></tr></thead>
+          <tbody id="tblVascular"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Six-Layer Neocortical Cytoarchitecture (Layers I–VI)</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Layer</th><th>Name</th><th>Principal Cell Types</th><th>Primary Input / Output</th></tr></thead>
+          <tbody id="tblLayers"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Major Neuromodulatory &amp; Fast Neurotransmitter Systems</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Neurotransmitter</th><th>Principal Origins</th><th>Pathways &amp; Functional Role</th></tr></thead>
+          <tbody id="tblModulators"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TAB 4: DOROTHY LIBRARY & 13,665-FIGURE VAULT ═══════════════════ -->
+  <section id="panel-vault" class="tab-panel" role="tabpanel" aria-label="Dorothy Research Library, CAD 3D Models and Figure Vault">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>Dorothy Brain Library, CAD 3D Exports &amp; 13,665-Figure Vault</h2>
+        <p>Everything merged from your O'Reilly 6-pillar neuroscience, scientific imaging, 3D modeling, video game engine, AutoCAD, and biomechanics/textiles library — plus all 44 NIRMT Textile Engineering PDFs and standard <code>.OBJ</code> / <code>.PLY</code> MNI152 brain meshes ready for Blender 5, ZBrush, AutoCAD 2027, Unity 6, Unreal Engine 5, Godot 4, and Dorothy's Neurogarden.</p>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Ready-to-Import 3D Brain Meshes (.OBJ &amp; .PLY in MNI152 Millimeters)</h3>
+        <div id="cadGrid" class="cad-grid"></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Research Figure Vault &amp; Bibliographic Catalog</h3>
+        <div class="toolbar">
+          <label for="vaultPillar" class="sr-only">Filter figures by library pillar</label>
+          <select id="vaultPillar"></select>
+          <label for="vaultImgSearch" class="sr-only">Search figures by book slug or filename</label>
+          <input id="vaultImgSearch" type="search" placeholder="Search 13,665 figures by book title (e.g. cerebellum, vulkan, autocad, blender, mri, textile)..."/>
+          <button type="button" class="btn-sm" id="btnVaultPrev">Previous 48</button>
+          <button type="button" class="btn-sm" id="btnVaultNext">Next 48</button>
+          <span id="vaultPageInfo" style="font-size:0.8rem;color:var(--muted);"></span>
+        </div>
+        <div id="vaultGrid" class="vault-grid"></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>O'Reilly 6-Pillar Textbooks (<span id="vaultBookCount"></span>)</h3>
+        <div class="toolbar">
+          <label for="bookSearch" class="sr-only">Search O'Reilly books</label>
+          <input id="bookSearch" type="search" placeholder="Filter O'Reilly textbooks by title, publisher, ISBN, or status..."/>
+          <label for="bookPillar" class="sr-only">Filter books by pillar</label>
+          <select id="bookPillar">
+            <option value="">All 6 Pillars</option>
+            <option value="00-human-brain">00 — Human Brain &amp; Neuroimaging</option>
+            <option value="01-science-imaging">01 — Science &amp; Medical Imaging</option>
+            <option value="02-3d-modeling">02 — 3D Modeling &amp; Graphics</option>
+            <option value="03-video-game-design">03 — Video Game Design &amp; Engines</option>
+            <option value="04-autocad-cad">04 — AutoCAD &amp; Engineering CAD</option>
+            <option value="05-biomechanics-textiles">05 — Biomechanics &amp; Textiles</option>
+          </select>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Pillar</th><th>Title</th><th>Year</th><th>Publisher</th><th>Chapters</th><th>Images</th><th>Status</th><th>Book</th></tr></thead>
+          <tbody id="tblBooks"></tbody>
+        </table></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>NIRMT Textile &amp; Biomechanical Engineering PDFs (<span id="nirmtCount"></span>)</h3>
+        <div id="nirmtGrid" class="pdf-grid"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lb-title">
+  <button id="lb-close" type="button" onclick="window.closeLightbox()" aria-label="Close enlarged figure">Close (Esc)</button>
+  <img id="lb-img" alt=""/>
+  <div id="lb-caption">
+    <h3 id="lb-title" style="margin:0 0 6px;color:#f5d078;"></h3>
+    <p id="lb-desc" style="margin:0;color:#d1d5db;font-size:0.9rem;"></p>
+  </div>
+</div>
+
+<script src="assets/three.min.js"></script>
+<script src="data/brain_meshes.js"></script>
+<script src="data/atlas_encyclopedia.js"></script>
+<script src="data/library_vault.js"></script>
+<script src="assets/observatory.js"></script>
+</body>
+</html>
