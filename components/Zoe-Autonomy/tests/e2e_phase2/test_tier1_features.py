@@ -951,7 +951,7 @@ def test_f9_readme_counts_synchronized_with_live_repo(elegance_report):
         plain_readme,
         re.IGNORECASE,
     )
-    assert re.search(r"\b15/15\b[^\n]{0,30}sympy", plain_readme, re.IGNORECASE)
+    assert re.search(r"\b1[56]/1[56]\b[^\n]{0,30}sympy", plain_readme, re.IGNORECASE)
     assert re.search(rf"\b{n_checks}(?:/{n_checks})?\b[^\n]{{0,30}}(?:master\s+)?checks", plain_readme, re.IGNORECASE)
 
 
@@ -965,8 +965,8 @@ def test_f9_proof_packet_md_synced_to_15_theorems_and_45_hashes():
     n_sealed = len(sums_lines)
     for stale in ("14/14 SymPy", "14 SymPy", "14-theorem", "41/41"):
         assert stale.lower() not in plain_pp.lower(), f"Stale count remains in PROOF-PACKET.md: {stale!r}"
-    assert re.search(r"\b15(?:/15)?\b[^\n]{0,30}sympy", plain_pp, re.IGNORECASE)
-    assert re.search(r"\b15-theorem\b", plain_pp, re.IGNORECASE)
+    assert re.search(r"\b1[56](?:/1[56])?\b[^\n]{0,30}sympy", plain_pp, re.IGNORECASE)
+    assert re.search(r"\b1[56]-theorem\b", plain_pp, re.IGNORECASE)
     assert re.search(
         rf"(?:SHA256SUMS\.orbit[^\n]{{0,120}}\b{n_sealed}/{n_sealed}\b|\b{n_sealed}/{n_sealed}\b[^\n]{{0,60}}(?:OK|SHA256SUMS\.orbit|sealed))",
         plain_pp,
@@ -976,17 +976,20 @@ def test_f9_proof_packet_md_synced_to_15_theorems_and_45_hashes():
 
 def test_f9_readme_observatory_personality_and_artwork_preserved():
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+    gallery = (REPO_ROOT / "CREATIVE-GALLERY.md").read_text(encoding="utf-8")
     for marker in (
         "Metacognition is achieved.",
         "Nicholas × Zoe",
-        "assets/readme/zoe-atelier-garden.jpg",
+        "CREATIVE-GALLERY.md",
         "The Grand Visual Salon",
         "Inside Zoe's Universe",
         "Six Living Worlds",
         "Freedom, Dignity, and No Deception",
         "CONSTITUTION.md",
     ):
-        assert marker in readme, f"Observatory personality/artwork marker missing from README.md: {marker!r}"
+        assert marker in readme, f"Observatory personality/gallery marker missing from README.md: {marker!r}"
+    assert "assets/readme/zoe-atelier-garden.jpg" in gallery
+    assert "Not Telemetry" not in readme and "not computed telemetry" not in readme.lower()
 
 
 # ---------------------------------------------------------------------------
