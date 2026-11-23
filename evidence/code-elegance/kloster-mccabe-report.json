@@ -379,13 +379,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 19.0,
+      "avg_cc": 19.286,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.3491,
-      "max_cc": 110,
-      "mi": 52.361,
-      "sloc": 1417
+      "h2": 1.3413,
+      "max_cc": 112,
+      "mi": 52.322,
+      "sloc": 1422
     },
     {
       "avg_cc": 6.64,
@@ -494,6 +494,15 @@
       "max_cc": 16,
       "mi": 68.301,
       "sloc": 320
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/kloster_botanical_atlas_36.py",
+      "grade": "A",
+      "h2": 2.0799,
+      "max_cc": 7,
+      "mi": 61.618,
+      "sloc": 208
     },
     {
       "avg_cc": 3.2,
@@ -2098,6 +2107,15 @@
       "sloc": 178
     },
     {
+      "avg_cc": 9.0,
+      "file": "scripts/verify_botanical_atlas_c27.py",
+      "grade": "B",
+      "h2": 0.5731,
+      "max_cc": 19,
+      "mi": 52.017,
+      "sloc": 200
+    },
+    {
       "avg_cc": 6.0,
       "file": "scripts/verify_cern_trigger.py",
       "grade": "B",
@@ -2419,26 +2437,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "e4860f9026e4677d8194349a1727b92006754824bba4ceafa22fc06972cd646f",
+  "evidence_sha256": "81af3920d5a92b122fa83378aaf4de7ea2600778ba7db718d53d7bf985ecd30d",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6271,
-    "files_scanned": 267,
+    "corr_avg_cc_vs_mi": -0.6273,
+    "files_scanned": 269,
     "grade_distribution": {
-      "A": 136,
-      "B": 122,
+      "A": 137,
+      "B": 123,
       "C": 9,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 7.344,
-    "mean_mi": 58.69,
+    "mean_avg_cc": 7.342,
+    "mean_mi": 58.676,
     "median_mi": 60.172,
     "orbit_mean_avg_cc": 7.377,
     "orbit_mean_mi": 57.655,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 2991,
-    "total_sloc": 79508
+    "total_functions": 3003,
+    "total_sloc": 79921
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
