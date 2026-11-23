@@ -10,11 +10,14 @@ struct DeskHomeView: View {
     @ObservedObject var store: ZappOrderStore
     @Binding var theme: ZoeticTheme
     var onOpen: (ZappID) -> Void
+    var onOpenBrain: (String, String) -> Void = { _, _ in }
+    var onAskBrainPrompt: (String) -> Void = { _ in }
 
     @State private var arranging = false
     @State private var showInfo = false
     @State private var showQuickSheet = false
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.openURL) private var openURL
 
     var body: some View {
@@ -25,6 +28,8 @@ struct DeskHomeView: View {
                         topBar(scrollProxy: proxy)
                             .id("zoeHomeTop")
                         heroGreeting(scrollProxy: proxy)
+                        dorothyBrainCenterpiece
+                        brainQuickQuestionsStrip
                         if arranging {
                             arrangeList
                             modeToggleRow
@@ -33,6 +38,8 @@ struct DeskHomeView: View {
                         }
                     }
                     .padding(.bottom, 16)
+                    .frame(maxWidth: sizeClass == .regular ? 820 : .infinity)
+                    .frame(maxWidth: .infinity)
                 }
             }
             floatingGeminiCapsule
@@ -81,7 +88,7 @@ struct DeskHomeView: View {
                     Text("Zoe")
                         .font(.system(size: 21, weight: .regular))
                         .foregroundStyle(GemPalette.ink)
-                    Text("beta")
+                    Text("Beta")
                         .font(.system(size: 16, weight: .regular))
                         .foregroundStyle(GemPalette.muted)
                     Circle()
@@ -143,16 +150,162 @@ struct DeskHomeView: View {
             .padding(.bottom, 4)
             .accessibilityLabel("Zoe home")
             Text("Hi, I'm Zoe")
-                .font(.system(size: 32, weight: .medium))
+                .font(.system(size: 30, weight: .medium))
                 .foregroundStyle(GemPalette.greetingGradient)
                 .accessibilityAddTraits(.isHeader)
-            Text("Follow your curiosity.")
-                .font(.system(size: 17))
-                .foregroundStyle(GemPalette.muted)
         }
         .padding(.horizontal, 24)
-        .padding(.top, 24)
-        .padding(.bottom, 20)
+        .padding(.top, 12)
+        .padding(.bottom, 12)
+    }
+
+    // MARK: CENTERPIECE Dorothy 3D Brain Observatory Hero Card
+
+    private var dorothyHeroImage: UIImage? {
+        if let dir = Bundle.main.url(forResource: "dorothy_brain_observatory", withExtension: nil) {
+            if let img = UIImage(contentsOfFile: dir.appendingPathComponent("previews/hero_brain_card.jpg").path) { return img }
+            if let img = UIImage(contentsOfFile: dir.appendingPathComponent("previews/01_hero_tissue.jpg").path) { return img }
+        }
+        if let res = Bundle.main.resourceURL?.appendingPathComponent("dorothy_brain_observatory/previews/hero_brain_card.jpg"),
+           let img = UIImage(contentsOfFile: res.path) {
+            return img
+        }
+        if let res = Bundle.main.resourceURL?.appendingPathComponent("dorothy_brain_observatory/previews/01_hero_tissue.jpg"),
+           let img = UIImage(contentsOfFile: res.path) {
+            return img
+        }
+        return nil
+    }
+
+    private var dorothyBrainCenterpiece: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Button {
+                onOpenBrain("brain3d", "")
+            } label: {
+                let heroHeight: CGFloat = (sizeClass == .regular) ? 248 : 196
+                ZStack(alignment: .bottomLeading) {
+                    if let uiImg = dorothyHeroImage {
+                        Image(uiImage: uiImg)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: heroHeight)
+                            .clipped()
+                    } else {
+                        Color(red: 7 / 255, green: 11 / 255, blue: 18 / 255)
+                            .frame(height: heroHeight)
+                    }
+                    LinearGradient(
+                        colors: [
+                            Color.black.opacity(0.08),
+                            Color(red: 11 / 255, green: 17 / 255, blue: 29 / 255).opacity(0.95)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Dorothy 3D Brain")
+                            .font(.title2.weight(.bold))
+                            .foregroundStyle(Color(red: 245 / 255, green: 208 / 255, blue: 120 / 255))
+                    }
+                    .padding(14)
+                }
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Open Dorothy 3D Brain Observatory")
+
+            VStack(spacing: 8) {
+                Button {
+                    onOpenBrain("brain3d", "")
+                } label: {
+                    Text("Explore Dorothy 3D Brain")
+                        .font(.body.weight(.bold))
+                        .foregroundStyle(Color(red: 7 / 255, green: 11 / 255, blue: 18 / 255))
+                        .frame(maxWidth: .infinity, minHeight: 46)
+                        .background(
+                            Capsule(style: .continuous)
+                                .fill(Color(red: 245 / 255, green: 208 / 255, blue: 120 / 255))
+                        )
+                }
+                .buttonStyle(.plain)
+
+                HStack(spacing: 8) {
+                    Button {
+                        onOpenBrain("askzoe", "")
+                    } label: {
+                        Text("Ask Zoe: Brain")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color(red: 56 / 255, green: 189 / 255, blue: 248 / 255))
+                            .frame(maxWidth: .infinity, minHeight: 42)
+                            .background(
+                                Capsule(style: .continuous)
+                                    .fill(Color(red: 20 / 255, green: 29 / 255, blue: 46 / 255))
+                            )
+                    }
+                    .buttonStyle(.plain)
+
+                    Button {
+                        onOpenBrain("media", "")
+                    } label: {
+                        Text("Videos & Gallery")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Color(red: 52 / 255, green: 211 / 255, blue: 153 / 255))
+                            .frame(maxWidth: .infinity, minHeight: 42)
+                            .background(
+                                Capsule(style: .continuous)
+                                    .fill(Color(red: 20 / 255, green: 29 / 255, blue: 46 / 255))
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(12)
+            .background(Color(red: 11 / 255, green: 17 / 255, blue: 29 / 255))
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .stroke(Color(red: 245 / 255, green: 208 / 255, blue: 120 / 255).opacity(0.55), lineWidth: 1)
+        )
+        .padding(.horizontal, 16)
+        .padding(.bottom, 10)
+    }
+
+    private var brainQuickQuestionsStrip: some View {
+        let items: [(String, String)] = [
+            ("Broca's Area (BA 44)", "What does Broca's Area (BA 44) do?"),
+            ("Hippocampus & Memory", "Where is the Hippocampus and what is its role?"),
+            ("Cranial Nerve X (Vagus)", "Explain Cranial Nerve X (Vagus)"),
+            ("Language Loop Circuit", "Explain the Language Loop neural circuit"),
+            ("Circle of Willis & MCA", "What is the Circle of Willis and MCA territory?"),
+            ("10-20 EEG Brain Waves", "How do 10-20 EEG brain waves work?")
+        ]
+        let columns = [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)]
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("Ask Zoe about the brain")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(GemPalette.muted)
+                .padding(.horizontal, 22)
+            LazyVGrid(columns: columns, spacing: 8) {
+                ForEach(items, id: \.0) { item in
+                    Button {
+                        onAskBrainPrompt(item.1)
+                    } label: {
+                        Text(item.0)
+                            .font(.caption.weight(.medium))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
+                            .foregroundStyle(GemPalette.ink)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .padding(.horizontal, 10)
+                            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(GemPalette.surface))
+                            .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(GemPalette.cobalt.opacity(0.35), lineWidth: 0.9))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 16)
+        }
+        .padding(.bottom, 10)
     }
 
     // MARK: Focused Top 3 Ergonomic Hero Cards + Grouped More Zapps

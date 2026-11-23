@@ -22,37 +22,37 @@ public class CreativeLiveArcadeActivityTest {
     public void zoeLiveStartsCleanLowercaseWithAccessibleModes() {
         try (ActivityScenario<ZoeLiveActivity> scenario = ActivityScenario.launch(ZoeLiveActivity.class)) {
             onView(withId(R.id.live_orb_view)).check(matches(isDisplayed()));
-            onView(withId(R.id.live_ar_toggle)).check(matches(withText("focus")));
-            onView(withId(R.id.live_talk_button)).check(matches(withText("talk")));
+            onView(withId(R.id.live_ar_toggle)).check(matches(withText("Focus")));
+            onView(withId(R.id.live_talk_button)).check(matches(withText("Talk")));
             onView(withId(R.id.live_tools_button)).check(matches(isDisplayed()));
             onView(withId(R.id.live_tools_sheet)).check(matches(not(isDisplayed())));
 
             onView(withId(R.id.live_tools_button)).perform(click());
             onView(withId(R.id.live_tools_sheet)).check(matches(isDisplayed()));
-            onView(withId(R.id.live_camera_toggle)).perform(scrollTo()).check(matches(withText("camera: off")));
-            onView(withId(R.id.live_field_toggle)).perform(scrollTo()).check(matches(withText("field: off")));
-            onView(withId(R.id.live_hizoe_toggle)).perform(scrollTo()).check(matches(withText("hi zoe: off")));
-            onView(withId(R.id.live_web_toggle)).perform(scrollTo()).check(matches(withText("web: off")));
+            onView(withId(R.id.live_camera_toggle)).perform(scrollTo()).check(matches(withText("Camera: Off")));
+            onView(withId(R.id.live_field_toggle)).perform(scrollTo()).check(matches(withText("Field: Off")));
+            onView(withId(R.id.live_hizoe_toggle)).perform(scrollTo()).check(matches(withText("Hi Zoe: Off")));
+            onView(withId(R.id.live_web_toggle)).perform(scrollTo()).check(matches(withText("Web: Off")));
             onView(withId(R.id.live_web_toggle)).perform(click());
-            onView(withId(R.id.live_web_toggle)).check(matches(withText("web: on")));
+            onView(withId(R.id.live_web_toggle)).check(matches(withText("Web: On")));
 
             onView(withId(R.id.live_a11y_deaf)).perform(scrollTo(), click());
             onView(withId(R.id.live_a11y_kid)).perform(scrollTo(), click());
-            onView(withId(R.id.live_a11y_kid)).check(matches(withText("kid mode: on")));
+            onView(withId(R.id.live_a11y_kid)).check(matches(withText("Kid Mode: On")));
             onView(withId(R.id.live_a11y_blind)).perform(scrollTo(), click());
             onView(withId(R.id.live_a11y_kid)).perform(scrollTo(), click());
             onView(withId(R.id.live_a11y_standard)).perform(scrollTo(), click());
 
-            onView(withText("done")).perform(scrollTo(), click());
+            onView(withText("Done")).perform(scrollTo(), click());
             onView(withId(R.id.live_stop_button)).perform(click());
-            onView(withId(R.id.live_state_badge)).check(matches(withText(containsString("mic & camera off"))));
+            onView(withId(R.id.live_state_badge)).check(matches(withText(containsString("Mic & camera off"))));
         }
     }
 
     @Test
     public void dorothyBrainObservatoryLaunchesOfflineWebGlCleanly() {
         try (ActivityScenario<BrainObservatoryActivity> scenario = ActivityScenario.launch(BrainObservatoryActivity.class)) {
-            onView(withText("Dorothy 3d brain")).check(matches(isDisplayed()));
+            onView(withText("Dorothy 3D Brain")).check(matches(isDisplayed()));
         }
     }
 }

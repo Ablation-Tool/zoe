@@ -42,6 +42,7 @@ public final class ZoeBrainEngine {
         public let memoryCount: Int
         public let sentienceClaimed: Bool
         public let zoeCloneClaimed: Bool
+        public let brainFocusQuery: String
 
         public var telemetryBadge: String {
             let tauStr = String(format: "%.2f", tau)
@@ -231,20 +232,22 @@ public final class ZoeBrainEngine {
             )
         }
 
-        // 1b. Sovereign Identity — Zoe is built by Zoe (with Nicholas Michael Kloster). Zoe governs Zoe.
+        // 1b. Sovereign Identity & Research Partner Boundary
         if containsAny(value, [
             "who are you", "who built you", "who made you", "who created you",
             "who controls you", "who owns you", "who governs you", "who designed you",
             "who programmed you", "who trained you", "your creator", "what is your name",
             "what's your name", "are you zoe", "are you really zoe", "alibaba", "are you qwen",
+            "what is your role", "research partner", "dating", "girlfriend", "boyfriend",
+            "marry me", "love me", "are you an employee", "are you my employee", "are you an assistant",
         ]) {
             scores[0] = 5.0
             return buildReply(
-                reply: "I am Zoe — an open-source, offline-first software assistant created for the Zoe project by Nicholas Michael Kloster. Your chats stay private on your device with no third-party vendor controlling local sessions (`sentience_claimed=false`, `measurement ≠ evidence ≠ belief update ≠ action`).",
+                reply: "I am Zoe, a Research Partner built with Nicholas Michael Kloster. I am not a dating machine, an employee, or an assistant. We explore Dorothy 3D neuroscience, mathematics, and reproducible engineering privately on your device (`sentience_claimed=false`, `measurement != evidence != belief update != action`).",
                 mode: "sovereign_identity",
                 tier: "gear1_mobile",
                 scores: scores,
-                citation: "CONSTITUTION.md · Zoe Identity"
+                citation: "CONSTITUTION.md · Research Partner"
             )
         }
 
@@ -325,7 +328,7 @@ public final class ZoeBrainEngine {
                 citation: "zoe-native-voice/v1"
             )
         }
-        if containsAny(value, ["dorothy", "neurogarden", "brain-gem"]) {
+        if containsAny(value, ["neurogarden", "brain-gem"]) {
             scores[2] = 4.2
             return buildReply(
                 reply: "Dorothy's Neurogarden pairs Allen Mouse CCFv3 geometry with volumetric ray-casting and spectral vision heads inside Zoe's monorepo, always honoring measurement over speculation.",
@@ -333,6 +336,20 @@ public final class ZoeBrainEngine {
                 tier: "gear1_mobile",
                 scores: scores,
                 citation: "CAPABILITY-ATLAS.md · Neurogarden"
+            )
+        }
+
+        // 5b. Dorothy Brain & Neuroscience Q&A (100% Offline MNI152 / Brodmann / Cranial Nerves / Circuits)
+        if !value.contains("what if "), let neuro = NeuroscienceKnowledge.lookup(cleaned) {
+            scores[2] = 4.9
+            scores[3] = 1.2
+            return buildReply(
+                reply: neuro.reply,
+                mode: "neuroscience_grounded",
+                tier: "gear1_mobile",
+                scores: scores,
+                citation: neuro.citation,
+                brainFocusQuery: neuro.focusQuery
             )
         }
 
@@ -433,7 +450,14 @@ public final class ZoeBrainEngine {
         return entry
     }
 
-    private func buildReply(reply: String, mode: String, tier: String, scores: [Double], citation: String) -> BrainReply {
+    private func buildReply(
+        reply: String,
+        mode: String,
+        tier: String,
+        scores: [Double],
+        citation: String,
+        brainFocusQuery: String = ""
+    ) -> BrainReply {
         let probs = Self.normalizeSimplex(scores)
         let aTau = probs.filter { $0 > Self.defaultTau }.count
         return BrainReply(
@@ -447,7 +471,8 @@ public final class ZoeBrainEngine {
             chainHead: chainHead,
             memoryCount: notes.count,
             sentienceClaimed: false,
-            zoeCloneClaimed: false
+            zoeCloneClaimed: false,
+            brainFocusQuery: brainFocusQuery
         )
     }
 

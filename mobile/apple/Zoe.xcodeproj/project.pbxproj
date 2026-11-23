@@ -102,6 +102,7 @@
 				A1000000000000000000006E,
 				A10000000000000000000070,
 				A10000000000000000000072,
+				A10000000000000000000078,
 			);
 			name = ZoeCore;
 			path = ../shared/Sources/ZoeCore;
@@ -151,6 +152,7 @@
 				A10000000000000000000071,
 				A10000000000000000000073,
 				A10000000000000000000075,
+				A10000000000000000000079,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +339,8 @@
 		A10000000000000000000075 = {isa = PBXBuildFile; fileRef = A10000000000000000000074; };
 		A10000000000000000000076 = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources/dorothy_brain_observatory; sourceTree = "<group>"; };
 		A10000000000000000000077 = {isa = PBXBuildFile; fileRef = A10000000000000000000076; };
+		A10000000000000000000078 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuroscienceKnowledge.swift; sourceTree = "<group>"; };
+		A10000000000000000000079 = {isa = PBXBuildFile; fileRef = A10000000000000000000078; };
 	};
 	rootObject = A10000000000000000000001;
 }

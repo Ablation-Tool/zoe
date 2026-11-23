@@ -211,5 +211,9 @@
     <item name="home_zapps_list" type="id" />
     <item name="home_view_toggle" type="id" />
     <item name="home_theme_toggle" type="id" />
+    <item name="home_dorothy_centerpiece" type="id" />
+    <item name="home_open_brain_btn" type="id" />
+    <item name="home_ask_brain_btn" type="id" />
+    <item name="home_brain_media_btn" type="id" />
     <item name="zoe_gem_home" type="id" />
 </resources>

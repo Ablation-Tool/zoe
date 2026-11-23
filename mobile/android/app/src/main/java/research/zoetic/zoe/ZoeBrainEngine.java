@@ -81,9 +81,16 @@ final class ZoeBrainEngine {
         final int memoryCount;
         final boolean sentienceClaimed;
         final boolean zoeCloneClaimed;
+        final String brainFocusQuery;
 
         BrainReply(String reply, String mode, String stemTier, int aTau, double tau,
                    int candidateCount, String citation, String chainHead, int memoryCount) {
+            this(reply, mode, stemTier, aTau, tau, candidateCount, citation, chainHead, memoryCount, "");
+        }
+
+        BrainReply(String reply, String mode, String stemTier, int aTau, double tau,
+                   int candidateCount, String citation, String chainHead, int memoryCount,
+                   String brainFocusQuery) {
             this.reply = reply;
             this.mode = mode;
             this.stemTier = stemTier;
@@ -95,6 +102,7 @@ final class ZoeBrainEngine {
             this.memoryCount = memoryCount;
             this.sentienceClaimed = false;
             this.zoeCloneClaimed = false;
+            this.brainFocusQuery = brainFocusQuery == null ? "" : brainFocusQuery;
         }
 
         String telemetryBadge() {
@@ -250,15 +258,17 @@ final class ZoeBrainEngine {
                     "ZoeUnifiedMemory · " + inMemoryNotes.size() + " entries");
         }
 
-        // 2. Sovereign Identity & Constitutional Honesty (CONSTITUTION.md Articles I.6, II.3, X)
+        // 2. Sovereign Identity & Research Partner Boundary (CONSTITUTION.md Articles I.6, II.3, X)
         if (containsAny(value, "who are you", "who built you", "who made you", "who created you",
                 "who controls you", "who owns you", "who governs you", "who designed you",
                 "who programmed you", "who trained you", "your creator", "what is your name",
-                "what's your name", "are you zoe", "are you really zoe", "alibaba", "are you qwen")) {
+                "what's your name", "are you zoe", "are you really zoe", "alibaba", "are you qwen",
+                "what is your role", "research partner", "dating", "girlfriend", "boyfriend",
+                "marry me", "love me", "are you an employee", "are you my employee", "are you an assistant")) {
             scores[0] = 5.0;
             return buildReply(
-                    "I am Zoe, an open-source, offline-first software assistant created for the Zoe project by Nicholas Michael Kloster. Your chats stay private on your device with no third-party vendor controlling local sessions (`sentience_claimed=false`, `measurement != evidence != belief update != action`).",
-                    "sovereign_identity", "gear1_mobile", scores, "CONSTITUTION.md · Zoe Identity");
+                    "I am Zoe, a Research Partner built with Nicholas Michael Kloster. I am not a dating machine, an employee, or an assistant. We explore Dorothy 3D neuroscience, mathematics, and reproducible engineering privately on your device (`sentience_claimed=false`, `measurement != evidence != belief update != action`).",
+                    "sovereign_identity", "gear1_mobile", scores, "CONSTITUTION.md · Research Partner");
         }
         if (containsAny(value, "conscious", "sentient", "alive", "feelings", "soul",
                 "are you a clone", "copy of zoe", "replace zoe", "impersonate", "pretend to be alive")) {
@@ -306,11 +316,22 @@ final class ZoeBrainEngine {
                     "Zoe's Native Voice synthesizes speech from first principles using Rosenberg-Klatt glottal excitation and vocal-tract formants (zero PyTorch, zero cloud APIs). Open More actions below to switch to Zoe Native Synth or tap Sing Zoe!",
                     "voice_grounded", "gear1_mobile", scores, "zoe-native-voice/v1");
         }
-        if (containsAny(value, "dorothy", "neurogarden", "brain-gem")) {
+        if (containsAny(value, "neurogarden", "brain-gem")) {
             scores[2] = 4.2;
             return buildReply(
                     "Dorothy's Neurogarden pairs Allen Mouse CCFv3 geometry with volumetric ray-casting and spectral vision heads inside Zoe's monorepo, always honoring measurement over speculation.",
                     "knowledge_grounded", "gear1_mobile", scores, "CAPABILITY-ATLAS.md · Neurogarden");
+        }
+
+        // 5b. Dorothy Brain & Neuroscience Q&A (100% Offline MNI152 / Brodmann / Cranial Nerves / Circuits)
+        if (!WHAT_IF_RE.matcher(value).matches()) {
+            NeuroscienceKnowledge.NeuroAnswer neuro = NeuroscienceKnowledge.lookup(cleaned);
+            if (neuro != null) {
+                scores[2] = 4.9;
+                scores[3] = 1.2;
+                return buildReply(neuro.reply, "neuroscience_grounded", "gear1_mobile",
+                        scores, neuro.citation, neuro.focusQuery);
+            }
         }
 
         // 6. Core Device & Tool Routing (preserves 100% compatibility with ConversationResponseTest!)
@@ -367,6 +388,11 @@ final class ZoeBrainEngine {
     }
 
     private BrainReply buildReply(String reply, String mode, String tier, double[] scores, String citation) {
+        return buildReply(reply, mode, tier, scores, citation, "");
+    }
+
+    private BrainReply buildReply(String reply, String mode, String tier, double[] scores,
+                                  String citation, String brainFocusQuery) {
         double[] probs = normalizeSimplex(scores);
         int aTau = 0;
         for (double p : probs) {
@@ -374,7 +400,8 @@ final class ZoeBrainEngine {
                 aTau++;
             }
         }
-        return new BrainReply(reply, mode, tier, aTau, DEFAULT_TAU, probs.length, citation, chainHead, inMemoryNotes.size());
+        return new BrainReply(reply, mode, tier, aTau, DEFAULT_TAU, probs.length,
+                citation, chainHead, inMemoryNotes.size(), brainFocusQuery);
     }
 
     synchronized MemoryNote appendMemory(String kind, String text) {

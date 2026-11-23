@@ -10,6 +10,9 @@ struct RootView: View {
     @SceneStorage("zoe.selectedZapp") private var selectedRaw = ""
     @StateObject private var store = ZappOrderStore()
     @State private var path: [ZappID] = []
+    @State private var brainLaunchTab = ""
+    @State private var brainFocusQuery = ""
+    @State private var chatInitialPrompt = ""
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.colorScheme) private var systemScheme
 
@@ -49,9 +52,30 @@ struct RootView: View {
     }
 
     private func openZapp(_ zapp: ZappID) {
+        if zapp != .brain {
+            brainLaunchTab = ""
+            brainFocusQuery = ""
+        }
         selectedRaw = zapp.rawValue
         if sizeClass != .regular {
             path = [zapp]
+        }
+    }
+
+    private func openBrain(tab: String = "", focus: String = "") {
+        brainLaunchTab = tab
+        brainFocusQuery = focus
+        selectedRaw = ZappID.brain.rawValue
+        if sizeClass != .regular {
+            path = [.brain]
+        }
+    }
+
+    private func openChat(prompt: String = "") {
+        chatInitialPrompt = prompt
+        selectedRaw = ZappID.talk.rawValue
+        if sizeClass != .regular {
+            path = [.talk]
         }
     }
 
@@ -59,12 +83,24 @@ struct RootView: View {
 
     private var stackLayout: some View {
         NavigationStack(path: $path) {
-            DeskHomeView(store: store, theme: theme) { zapp in
-                selectedRaw = zapp.rawValue
-                path = [zapp]
-            }
+            DeskHomeView(
+                store: store,
+                theme: theme,
+                onOpen: { zapp in openZapp(zapp) },
+                onOpenBrain: { tab, focus in openBrain(tab: tab, focus: focus) },
+                onAskBrainPrompt: { prompt in openChat(prompt: prompt) }
+            )
             .navigationDestination(for: ZappID.self) { zapp in
-                ZappScreen(zapp: zapp, selection: selectionBinding, onGoHome: goHome, onOpenZapp: openZapp)
+                ZappScreen(
+                    zapp: zapp,
+                    selection: selectionBinding,
+                    brainInitialTab: brainLaunchTab,
+                    brainFocusQuery: brainFocusQuery,
+                    chatInitialPrompt: chatInitialPrompt,
+                    onGoHome: goHome,
+                    onOpenZapp: openZapp,
+                    onOpenBrain: { tab, focus in openBrain(tab: tab, focus: focus) }
+                )
                     .navigationTitle(zapp.title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -142,7 +178,16 @@ struct RootView: View {
             .navigationTitle("Zoe")
         } detail: {
             if let zapp = selected {
-                ZappScreen(zapp: zapp, selection: selectionBinding, onGoHome: goHome, onOpenZapp: openZapp)
+                ZappScreen(
+                    zapp: zapp,
+                    selection: selectionBinding,
+                    brainInitialTab: brainLaunchTab,
+                    brainFocusQuery: brainFocusQuery,
+                    chatInitialPrompt: chatInitialPrompt,
+                    onGoHome: goHome,
+                    onOpenZapp: openZapp,
+                    onOpenBrain: { tab, focus in openBrain(tab: tab, focus: focus) }
+                )
                     .navigationTitle(zapp.title)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -157,9 +202,13 @@ struct RootView: View {
                         }
                     }
             } else {
-                DeskHomeView(store: store, theme: theme) { zapp in
-                    selectedRaw = zapp.rawValue
-                }
+                DeskHomeView(
+                    store: store,
+                    theme: theme,
+                    onOpen: { zapp in openZapp(zapp) },
+                    onOpenBrain: { tab, focus in openBrain(tab: tab, focus: focus) },
+                    onAskBrainPrompt: { prompt in openChat(prompt: prompt) }
+                )
             }
         }
     }
@@ -191,8 +240,12 @@ struct RootView: View {
 struct ZappScreen: View {
     let zapp: ZappID
     @Binding var selection: Int
+    var brainInitialTab: String = ""
+    var brainFocusQuery: String = ""
+    var chatInitialPrompt: String = ""
     var onGoHome: () -> Void = {}
     var onOpenZapp: (ZappID) -> Void = { _ in }
+    var onOpenBrain: (String, String) -> Void = { _, _ in }
 
     var body: some View {
         content
@@ -203,9 +256,15 @@ struct ZappScreen: View {
     @ViewBuilder
     private var content: some View {
         switch zapp {
-        case .brain: DorothyBrainObservatoryView()
+        case .brain: DorothyBrainObservatoryView(initialTab: brainInitialTab, focusQuery: brainFocusQuery)
         case .vision: GuidedVisionView(selection: $selection)
-        case .talk: ConversationView(onGoHome: onGoHome, onOpenMapsSafety: { onOpenZapp(.maps) })
+        case .talk:
+            ConversationView(
+                initialPrompt: chatInitialPrompt,
+                onGoHome: onGoHome,
+                onOpenMapsSafety: { onOpenZapp(.maps) },
+                onOpenBrainFocus: { focus in onOpenBrain("", focus) }
+            )
         case .live: ZoeLiveView()
         case .creative: CreativeStudioView()
         case .arcade: ZoeArcadeView()

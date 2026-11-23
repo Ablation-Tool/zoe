@@ -14,8 +14,11 @@ struct ConversationView: View {
         case cloud = "Cloud AI"
     }
 
+    var initialPrompt: String = ""
     var onGoHome: () -> Void = {}
     var onOpenMapsSafety: () -> Void = {}
+    var onOpenBrainFocus: (String) -> Void = { _ in }
+    @State private var didDispatchInitialPrompt = false
 
     @StateObject private var speech = SpeechController()
     @StateObject private var speaker = Speaker()
@@ -204,6 +207,13 @@ struct ConversationView: View {
             speaker.onFinish = {
                 if self.active { self.speech.start() }
             }
+            if !didDispatchInitialPrompt, !initialPrompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                didDispatchInitialPrompt = true
+                let p = initialPrompt.trimmingCharacters(in: .whitespacesAndNewlines)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                    processUserPrompt(p, resumeVoice: false)
+                }
+            }
         }
         .onDisappear(perform: stop)
     }
@@ -228,10 +238,10 @@ struct ConversationView: View {
                 .multilineTextAlignment(.center)
 
             ForEach([
-                "Explain Kloster's A_tau(p) equation simply",
-                "Navigate to nearest hospital and set a 5 minute timer",
-                "Tell me about L5 Phase 5",
-                "remember Test Zoe on Apple iPhone"
+                "What does Broca's area (BA 44) do?",
+                "Where is the hippocampus and what is its role?",
+                "Explain Cranial Nerve X (Vagus)",
+                "Explain Kloster's A_tau(p) equation simply"
             ], id: \.self) { starter in
                 Button("✦ \(starter)") {
                     typedMessage = starter
@@ -303,6 +313,14 @@ struct ConversationView: View {
                     }
                 }
                 HStack(spacing: 10) {
+                    if let neuro = NeuroscienceKnowledge.lookup(msg.text) {
+                        Button("View in Dorothy 3D Brain") {
+                            stop()
+                            onOpenBrainFocus(neuro.focusQuery)
+                        }
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(GemPalette.ochre)
+                    }
                     Button("Speak") { speakReply(msg.text, resumeListening: false) }
                         .font(.caption.weight(.medium))
                     Button("Copy") { UIPasteboard.general.string = msg.text; status = "Copied reply." }

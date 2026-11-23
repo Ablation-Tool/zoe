@@ -66,7 +66,7 @@ import java.util.concurrent.Executors;
  */
 public final class ConversationActivity extends ComponentActivity {
     static final String EXTRA_INITIAL_PROMPT = "zoe_initial_prompt";
-    static final String ZOE_CREST = "zoe";
+    static final String ZOE_CREST = "Zoe";
     private static final int MICROPHONE_PERMISSION = 73;
 
     private enum BrainMode {
@@ -197,7 +197,7 @@ public final class ConversationActivity extends ComponentActivity {
         Button backBtn = Ui.tonalIconButton(this, "←", "Back to Zoe home", view -> finish());
         topRow.addView(backBtn, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 44)));
 
-        TextView chatTitle = Ui.text(this, "zoe", 20f, Ui.TEXT);
+        TextView chatTitle = Ui.text(this, "Zoe", 20f, Ui.TEXT);
         chatTitle.setTypeface(Ui.SANS_MEDIUM);
         chatTitle.setLetterSpacing(-0.015f);
         chatTitle.setPadding(Ui.dp(this, 8), 0, Ui.dp(this, 4), 0);
@@ -207,7 +207,7 @@ public final class ConversationActivity extends ComponentActivity {
         newChatBtn.setId(R.id.conversation_new_chat_btn);
         topRow.addView(newChatBtn, new LinearLayout.LayoutParams(Ui.dp(this, 40), Ui.dp(this, 40)));
 
-        Button clearBtn = modeChip("clear", v -> clearCurrentOrAllChats());
+        Button clearBtn = modeChip("Clear", v -> clearCurrentOrAllChats());
         clearBtn.setId(R.id.conversation_clear_btn);
         clearBtn.setContentDescription("Clear current chat");
         LinearLayout.LayoutParams clrLp = new LinearLayout.LayoutParams(
@@ -224,20 +224,22 @@ public final class ConversationActivity extends ComponentActivity {
         topRow.addView(brainSettingsBtn, new LinearLayout.LayoutParams(Ui.dp(this, 40), Ui.dp(this, 40)));
         headerWrap.addView(topRow);
 
-        // Whisper-quiet single-line status (zero top selector clutter — all brain/voice/web controls live in ⚙)
-        status = Ui.text(this, "ready", 11.5f, Ui.MUTED);
+        // Whisper-quiet single-line status (zero top selector clutter - all brain/voice/web controls live in settings)
+        status = Ui.text(this, "Ready", 11.5f, Ui.MUTED);
         status.setId(R.id.conversation_status);
         status.setPadding(Ui.dp(this, 12), 0, Ui.dp(this, 12), Ui.dp(this, 2));
         headerWrap.addView(status);
         root.addView(headerWrap);
 
-        // 2. Center Living Chat-Bubble Feed
+        // 2. Center Living Chat-Bubble Feed (responsive side rails for Pixel Fold / Tablet / Desktop)
         chatScroll = new ScrollView(this);
         chatScroll.setFillViewport(true);
         chatScroll.setBackgroundColor(Color.TRANSPARENT);
         LinearLayout scrollContent = Ui.vertical(this);
         scrollContent.setBackgroundColor(Color.TRANSPARENT);
-        scrollContent.setPadding(Ui.dp(this, 16), Ui.dp(this, 6), Ui.dp(this, 16), Ui.dp(this, 12));
+        int swDp = getResources().getConfiguration().screenWidthDp;
+        int hPadDp = swDp >= 720 ? Math.min(108, (swDp - 680) / 2) : (swDp >= 600 ? 32 : 16);
+        scrollContent.setPadding(Ui.dp(this, hPadDp), Ui.dp(this, 6), Ui.dp(this, hPadDp), Ui.dp(this, 12));
 
         chatFeed = Ui.vertical(this);
         chatFeed.setId(R.id.conversation_chat_feed);
@@ -250,14 +252,14 @@ public final class ConversationActivity extends ComponentActivity {
         osActionBar.setBackground(Ui.cardBackground(this, 22));
         osActionBar.setPadding(Ui.dp(this, 14), Ui.dp(this, 12), Ui.dp(this, 14), Ui.dp(this, 12));
         osActionBar.setVisibility(View.GONE);
-        osActionBar.addView(Ui.text(this, "suggested action · tap to run", 12.5f, Ui.COBALT));
-        osActionBtn = Ui.primaryButton(this, "open tool", Ui.COBALT, view -> {
+        osActionBar.addView(Ui.text(this, "Suggested Action · Tap to Run", 12.5f, Ui.COBALT));
+        osActionBtn = Ui.primaryButton(this, "Open Tool", Ui.COBALT, view -> {
             if (!pendingPlan.isEmpty()) {
                 executeAction(pendingPlan.get(0));
             }
         });
         osActionBtn.setId(R.id.conversation_action_btn);
-        Button dismissActionBtn = Ui.button(this, "dismiss", Ui.MUTED, view -> clearPendingPlan());
+        Button dismissActionBtn = Ui.button(this, "Dismiss", Ui.MUTED, view -> clearPendingPlan());
         osActionBar.addView(Ui.buttonRow(this, osActionBtn, dismissActionBtn));
         extraPlanSteps = Ui.vertical(this);
         extraPlanSteps.setBackgroundColor(Color.TRANSPARENT);
@@ -309,7 +311,7 @@ public final class ConversationActivity extends ComponentActivity {
         attachBtn.setId(R.id.conversation_attach_btn);
         composer.addView(attachBtn, new LinearLayout.LayoutParams(Ui.dp(this, 44), Ui.dp(this, 44)));
 
-        typedInput = Ui.input(this, "", "ask zoe…");
+        typedInput = Ui.input(this, "", "Ask Zoe...");
         typedInput.setId(R.id.conversation_input);
         typedInput.setBackgroundColor(Color.TRANSPARENT);
         typedInput.setPadding(Ui.dp(this, 8), Ui.dp(this, 10), Ui.dp(this, 8), Ui.dp(this, 10));
@@ -326,7 +328,7 @@ public final class ConversationActivity extends ComponentActivity {
         });
         composer.addView(typedInput, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f));
 
-        Button send = Ui.primaryButton(this, "send", Ui.CYAN, view -> sendTypedMessage());
+        Button send = Ui.primaryButton(this, "Send", Ui.CYAN, view -> sendTypedMessage());
         send.setId(R.id.conversation_send);
         send.setMinHeight(Ui.dp(this, 44));
         send.setMinimumHeight(Ui.dp(this, 44));
@@ -337,12 +339,12 @@ public final class ConversationActivity extends ComponentActivity {
         compLp.setMargins(0, 0, 0, Ui.dp(this, 6));
         bottomDock.addView(composer, compLp);
 
-        Button start = Ui.primaryButton(this, "talk", Ui.COBALT, view -> startConversation());
+        Button start = Ui.primaryButton(this, "Talk", Ui.COBALT, view -> startConversation());
         start.setId(R.id.conversation_start);
         start.setTextSize(13f);
         start.setMinHeight(Ui.dp(this, 38));
         start.setMinimumHeight(Ui.dp(this, 38));
-        Button stop = Ui.button(this, "stop", Ui.RUBY, view -> stopConversation());
+        Button stop = Ui.button(this, "Stop", Ui.RUBY, view -> stopConversation());
         stop.setId(R.id.conversation_stop);
         stop.setTextSize(13f);
         stop.setMinHeight(Ui.dp(this, 38));
@@ -445,8 +447,8 @@ public final class ConversationActivity extends ComponentActivity {
                     styleBrainModeStrip();
                     if (brainMode == BrainMode.AUTO) {
                         status.setText(workstationFrontierReady
-                                ? "pro linked (" + workstationModelLabel.toLowerCase(Locale.US) + ")"
-                                : "lab linked (" + workstationModelLabel.toLowerCase(Locale.US) + ")");
+                                ? "Pro Linked (" + workstationModelLabel + ")"
+                                : "Lab Linked (" + workstationModelLabel + ")");
                     }
                 });
             } catch (Exception ignored) {
@@ -466,36 +468,36 @@ public final class ConversationActivity extends ComponentActivity {
                 boolean hasCloudKey = !MultiAiClient.savedKey(this, p).isEmpty();
                 File model = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
                 if (hasCloudKey) {
-                    status.setText("auto · " + p.displayName.toLowerCase(Locale.US)
-                            + (webSearchEnabled ? " + web" : ""));
+                    status.setText("Auto · " + p.displayName
+                            + (webSearchEnabled ? " + Web" : ""));
                 } else if (workstationReachable) {
                     status.setText(workstationFrontierReady
-                            ? "auto · pro linked"
-                            : "auto · lab linked");
+                            ? "Auto · Pro Linked"
+                            : "Auto · Lab Linked");
                 } else if (model != null) {
-                    status.setText("auto · " + OnDeviceLlmEngine.modelLabelForFile(model).toLowerCase(Locale.US)
-                            + (webSearchEnabled ? " + web" : " (offline)"));
+                    status.setText("Auto · " + OnDeviceLlmEngine.modelLabelForFile(model)
+                            + (webSearchEnabled ? " + Web" : " (Offline)"));
                 } else {
-                    status.setText("auto · offline" + (webSearchEnabled ? " + web" : ""));
+                    status.setText("Auto · Offline" + (webSearchEnabled ? " + Web" : ""));
                 }
             }
-            case STEM -> status.setText("stem active" + (webSearchEnabled ? " + web" : " · offline"));
+            case STEM -> status.setText("Stem Active" + (webSearchEnabled ? " + Web" : " · Offline"));
             case LOCAL_LLM -> {
                 File model = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
                 if (model != null) {
-                    status.setText("local model ready (" + OnDeviceLlmEngine.modelLabelForFile(model).toLowerCase(Locale.US) + ")");
+                    status.setText("Local Model Ready (" + OnDeviceLlmEngine.modelLabelForFile(model) + ")");
                 } else {
-                    status.setText("no local model downloaded yet · download one below");
+                    status.setText("No local model downloaded yet · Download one in Settings");
                 }
             }
-            case LAB_QWEN -> status.setText("workstation lab mode");
+            case LAB_QWEN -> status.setText("Workstation Lab Mode");
             case CLOUD_AI -> {
                 MultiAiClient.Provider p = MultiAiClient.activeProvider(this);
                 String key = MultiAiClient.savedKey(this, p);
                 if (p != MultiAiClient.Provider.LOCAL_OPENAI && key.isEmpty()) {
-                    status.setText("no " + p.displayName.toLowerCase(Locale.US) + " key saved yet");
+                    status.setText("No " + p.displayName + " key saved yet");
                 } else {
-                    status.setText("online streaming ready (" + p.displayName.toLowerCase(Locale.US) + ")");
+                    status.setText("Online Streaming Ready (" + p.displayName + ")");
                 }
             }
         }
@@ -511,7 +513,7 @@ public final class ConversationActivity extends ComponentActivity {
             modeLabBtn.setText(workstationFrontierReady ? "pro lab" : (workstationReachable ? "lab ●" : "lab"));
         }
         if (webToggleBtn != null) {
-            webToggleBtn.setText(webSearchEnabled ? "web: on" : "web: off");
+            webToggleBtn.setText(webSearchEnabled ? "Web: On" : "Web: Off");
         }
         if (modeAutoBtn != null) styleChip(modeAutoBtn, brainMode == BrainMode.AUTO);
         if (modeStemBtn != null) styleChip(modeStemBtn, brainMode == BrainMode.STEM);
@@ -570,7 +572,7 @@ public final class ConversationActivity extends ComponentActivity {
         gem.setId(R.id.zoe_gem_home);
         card.addView(gem, new LinearLayout.LayoutParams(Ui.dp(this, 62), Ui.dp(this, 62)));
 
-        TextView hi = Ui.text(this, "hi, i'm zoe", 28f, Ui.TEXT);
+        TextView hi = Ui.text(this, "Hi, I'm Zoe", 28f, Ui.TEXT);
         hi.setTypeface(Ui.SANS_MEDIUM);
         hi.setGravity(Gravity.CENTER);
         hi.setContentDescription("Hi, I'm Zoe");
@@ -582,9 +584,10 @@ public final class ConversationActivity extends ComponentActivity {
         int chipFill = dark ? Color.argb(210, 30, 34, 44) : Color.rgb(240, 244, 249);
         int chipStroke = dark ? Color.argb(90, 92, 112, 152) : Color.argb(145, 206, 216, 232);
         String[] starters = {
-                "how do you keep chats private?",
-                "what can we build together today?",
-                "directions to nearest hospital"
+                "What does Broca's Area (BA 44) do?",
+                "Where is the Hippocampus and how does memory work?",
+                "Explain Cranial Nerve X (Vagus)",
+                "How do you keep chats private?"
         };
         for (String starter : starters) {
             Button chip = new Button(this);
@@ -658,7 +661,7 @@ public final class ConversationActivity extends ComponentActivity {
             meta = meta.isEmpty() ? (msg.latencyMs + " ms") : (meta + " · " + msg.latencyMs + " ms");
         }
         if (!meta.isEmpty()) {
-            TextView metaTxt = Ui.text(this, meta.toLowerCase(Locale.US), 11f, Ui.MUTED);
+            TextView metaTxt = Ui.text(this, meta, 11f, Ui.MUTED);
             metaTxt.setGravity(Gravity.END);
             metaTxt.setMaxLines(1);
             metaTxt.setEllipsize(android.text.TextUtils.TruncateAt.END);
@@ -721,7 +724,7 @@ public final class ConversationActivity extends ComponentActivity {
             glassDetails.setBackground(Ui.tonalPillDrawable(this, Ui.tonalWellColor(this), Ui.primaryAccent(this), 14));
             glassDetails.setVisibility(View.GONE);
 
-            TextView glassToggle = Ui.text(this, "glass-box telemetry ▸", 12f, Ui.GOLD);
+            TextView glassToggle = Ui.text(this, "Glass-Box Telemetry ▸", 12f, Ui.GOLD);
             glassToggle.setPadding(0, Ui.dp(this, 2), 0, Ui.dp(this, 6));
             glassToggle.setClickable(true);
             glassToggle.setFocusable(true);
@@ -734,12 +737,22 @@ public final class ConversationActivity extends ComponentActivity {
             card.addView(glassDetails);
         }
 
-        // Clean Micro-Action Row (speak / copy only — zero external AI ads!)
+        // Clean Micro-Action Row (View in Dorothy 3D Brain when neuroscience-relevant + speak + copy)
         LinearLayout tools = new LinearLayout(this);
         tools.setOrientation(LinearLayout.HORIZONTAL);
         tools.setPadding(0, Ui.dp(this, 6), 0, 0);
-        tools.addView(microChip("speak", v -> speakReply(msg.text, "zoe-repeat")));
-        tools.addView(microChip("copy", v -> copyToClipboard(msg.text)));
+        NeuroscienceKnowledge.NeuroAnswer neuroMatch = NeuroscienceKnowledge.lookup(msg.text);
+        if (neuroMatch != null) {
+            TextView brainChip = microChip("View in Dorothy 3D Brain", v -> {
+                Intent openBrain = new Intent(this, BrainObservatoryActivity.class)
+                        .putExtra(BrainObservatoryActivity.EXTRA_FOCUS_QUERY, neuroMatch.focusQuery);
+                startActivity(openBrain);
+            });
+            brainChip.setTextColor(Ui.resolveColor(this, Ui.GOLD));
+            tools.addView(brainChip);
+        }
+        tools.addView(microChip("Speak", v -> speakReply(msg.text, "zoe-repeat")));
+        tools.addView(microChip("Copy", v -> copyToClipboard(msg.text)));
         card.addView(tools);
         return card;
     }
@@ -813,7 +826,7 @@ public final class ConversationActivity extends ComponentActivity {
         threads.add(0, currentThread);
         ChatHistoryStore.save(this, threads);
         renderChatFeed();
-        status.setText("new chat ready");
+        status.setText("New chat ready");
     }
 
     private void clearCurrentOrAllChats() {
@@ -823,7 +836,7 @@ public final class ConversationActivity extends ComponentActivity {
             currentThread.title = "new conversation";
             ChatHistoryStore.save(this, threads);
             renderChatFeed();
-            status.setText("chat cleared");
+            status.setText("Chat cleared");
             return;
         }
         if (threads.size() > 1) {
@@ -834,7 +847,7 @@ public final class ConversationActivity extends ComponentActivity {
                     .setPositiveButton("clear all", (d, w) -> clearAllThreadsNow())
                     .show();
         } else {
-            status.setText("chat is already empty");
+            status.setText("Chat is already empty");
         }
     }
 
@@ -845,11 +858,12 @@ public final class ConversationActivity extends ComponentActivity {
         threads.add(currentThread);
         ChatHistoryStore.save(this, threads);
         renderChatFeed();
-        status.setText("all chats cleared");
+        status.setText("All chats cleared");
     }
 
     private void showAttachAndCreateSheet() {
         String[] choices = {
+                "Dorothy 3D Brain Observatory",
                 "take photo (camera app)",
                 "record video (camera app)",
                 "choose photo from gallery",
@@ -861,11 +875,12 @@ public final class ConversationActivity extends ComponentActivity {
                 .setTitle("add or explore")
                 .setItems(choices, (d, which) -> {
                     switch (which) {
-                        case 0 -> launchSystemChatCapture(false);
-                        case 1 -> launchSystemChatCapture(true);
-                        case 2 -> pickPhotoLauncher.launch(new String[]{"image/*"});
-                        case 3 -> pickVideoLauncher.launch(new String[]{"video/*"});
-                        case 4 -> startActivity(new Intent(this, MainActivity.class)
+                        case 0 -> startActivity(new Intent(this, BrainObservatoryActivity.class));
+                        case 1 -> launchSystemChatCapture(false);
+                        case 2 -> launchSystemChatCapture(true);
+                        case 3 -> pickPhotoLauncher.launch(new String[]{"image/*"});
+                        case 4 -> pickVideoLauncher.launch(new String[]{"video/*"});
+                        case 5 -> startActivity(new Intent(this, MainActivity.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                 .putExtra(MainActivity.EXTRA_START_VIEW, "vision"));
                         default -> startActivity(new Intent(this, ZoeLiveActivity.class)
@@ -903,7 +918,7 @@ public final class ConversationActivity extends ComponentActivity {
                         attachmentThumb.setImageBitmap(att.thumbnail);
                         attachmentLabel.setText(att.label + " attached · ask Zoe anything about it!");
                         attachmentBanner.setVisibility(View.VISIBLE);
-                        status.setText("attached " + att.label.toLowerCase(Locale.US) + ". type a question or tap send");
+                        status.setText("Attached " + att.label + ". Type a question or tap Send.");
                     }
                 });
             } catch (Exception err) {
@@ -962,8 +977,15 @@ public final class ConversationActivity extends ComponentActivity {
             return;
         }
         boolean isActionCmd = !pendingPlan.isEmpty();
-        if (isMemoryCmd || isIdentityQuery || isActionCmd) {
-            deliverLocalStem(text, "Zoe replied offline (0 cloud tokens · local stem).", voiceTurn);
+        boolean isOfflineNeuroQuery = NeuroscienceKnowledge.lookup(text) != null
+                && !lower.contains("what if ")
+                && (brainMode == BrainMode.STEM
+                    || (brainMode == BrainMode.AUTO
+                        && MultiAiClient.savedKey(this, MultiAiClient.activeProvider(this)).isEmpty()));
+        if (isMemoryCmd || isIdentityQuery || isActionCmd || isOfflineNeuroQuery) {
+            deliverLocalStem(text,
+                    isOfflineNeuroQuery ? "Dorothy Neuro-Atlas" : "Zoe",
+                    voiceTurn);
             return;
         }
 
@@ -1059,7 +1081,7 @@ public final class ConversationActivity extends ComponentActivity {
         MultiAiClient.Provider provider = MultiAiClient.activeProvider(this);
         String key = MultiAiClient.savedKey(this, provider);
         if (provider != MultiAiClient.Provider.LOCAL_OPENAI && key.isEmpty()) {
-            deliverLocalStem(text, "no " + provider.displayName.toLowerCase(Locale.US) + " key saved. replied offline", voiceTurn);
+            deliverLocalStem(text, "No " + provider.displayName + " key saved. Replied offline.", voiceTurn);
             return;
         }
         runCloudStreaming(provider, text, autoRouted, webSearchEnabled, voiceTurn);
@@ -1113,9 +1135,9 @@ public final class ConversationActivity extends ComponentActivity {
                             deliverAssistantReply(
                                     reply,
                                     label + " · " + attached.kind.toUpperCase(Locale.US),
-                                    "100% Offline ML Kit + " + label + " · " + attached.label + " · " + dt + " ms",
+                                    "ML Kit + " + label + " · " + attached.label + " · " + dt + " ms",
                                     dt,
-                                    "Analyzed " + attached.label + " 100% offline.",
+                                    "Analyzed " + attached.label + ".",
                                     voiceTurn,
                                     null);
                         }
@@ -1234,7 +1256,7 @@ public final class ConversationActivity extends ComponentActivity {
                         if (autoRouted && localFallback != null) {
                             runOnDeviceLlm(localFallback, prompt, true, false, voiceTurn);
                         } else {
-                            deliverLocalStem(prompt, provider.displayName.toLowerCase(Locale.US) + " unavailable. replied offline", voiceTurn);
+                            deliverLocalStem(prompt, provider.displayName + " unavailable. Replied offline.", voiceTurn);
                         }
                     }
                 });
@@ -1323,8 +1345,11 @@ public final class ConversationActivity extends ComponentActivity {
         long t0 = System.currentTimeMillis();
         ZoeBrainEngine.BrainReply res = brain.respond(input);
         long dt = Math.max(1L, System.currentTimeMillis() - t0);
-        deliverAssistantReply(res.reply, "zoe · offline", res.telemetryBadge() + " · " + res.citation, dt,
-                statusNote == null ? "" : statusNote.toLowerCase(Locale.US), voiceTurn, null);
+        String badge = (res.brainFocusQuery != null && !res.brainFocusQuery.isEmpty())
+                ? "Dorothy Neuro-Atlas"
+                : "Zoe";
+        deliverAssistantReply(res.reply, badge, res.telemetryBadge() + " · " + res.citation, dt,
+                statusNote == null ? "" : statusNote, voiceTurn, null);
     }
 
     private void deliverAssistantReply(
@@ -1347,7 +1372,7 @@ public final class ConversationActivity extends ComponentActivity {
             List<String> sources) {
         lastResponse = reply;
         appendMessage(new ChatHistoryStore.ChatMessage("zoe", reply, providerBadge, glassBox, latencyMs, sources));
-        status.setText(statusNote == null ? "" : statusNote.toLowerCase(Locale.US));
+        status.setText(statusNote == null ? "" : statusNote);
         if (!captionMode) {
             if (voiceTurn && active) {
                 speakThenListen(reply);
@@ -1382,10 +1407,10 @@ public final class ConversationActivity extends ComponentActivity {
         extraPlanSteps.removeAllViews();
 
         OsToolsBridge.ActionSuggestion first = plan.get(0);
-        osActionBtn.setText((plan.size() > 1 ? "step 1: " + first.label : first.label).toLowerCase(Locale.US));
+        osActionBtn.setText(plan.size() > 1 ? "Step 1: " + first.label : first.label);
         for (int i = 1; i < plan.size(); i++) {
             OsToolsBridge.ActionSuggestion step = plan.get(i);
-            Button stepBtn = Ui.button(this, ("step " + (i + 1) + ": " + step.label).toLowerCase(Locale.US),
+            Button stepBtn = Ui.button(this, "Step " + (i + 1) + ": " + step.label,
                     Ui.GREEN, v -> executeAction(step));
             extraPlanSteps.addView(stepBtn);
         }
@@ -1499,28 +1524,28 @@ public final class ConversationActivity extends ComponentActivity {
         box.setBackground(Ui.cardBackground(this, 26));
         box.setPadding(Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18));
 
-        TextView heading = Ui.text(this, "chat settings", 20f, Ui.TEXT);
+        TextView heading = Ui.text(this, "Chat Settings", 20f, Ui.TEXT);
         heading.setTypeface(Ui.SANS_MEDIUM);
         box.addView(heading);
 
         // Section 0: Brain mode, live web & captions (cleanly tucked here instead of cluttering the top bar!)
-        box.addView(Ui.section(this, "mode & web"));
+        box.addView(Ui.section(this, "Mode & Web"));
         HorizontalScrollView modeStrip = new HorizontalScrollView(this);
         modeStrip.setHorizontalScrollBarEnabled(false);
         LinearLayout modeRow = new LinearLayout(this);
         modeRow.setOrientation(LinearLayout.HORIZONTAL);
         modeRow.setGravity(Gravity.CENTER_VERTICAL);
-        modeAutoBtn = modeChip("auto", v -> selectBrainMode(BrainMode.AUTO));
+        modeAutoBtn = modeChip("Auto", v -> selectBrainMode(BrainMode.AUTO));
         modeAutoBtn.setId(R.id.conversation_mode_auto);
-        modeLocalLlmBtn = modeChip("local", v -> selectBrainMode(BrainMode.LOCAL_LLM));
+        modeLocalLlmBtn = modeChip("Local", v -> selectBrainMode(BrainMode.LOCAL_LLM));
         modeLocalLlmBtn.setId(R.id.conversation_mode_local_llm);
-        modeLabBtn = modeChip("lab", v -> selectBrainMode(BrainMode.LAB_QWEN));
+        modeLabBtn = modeChip("Lab", v -> selectBrainMode(BrainMode.LAB_QWEN));
         modeLabBtn.setId(R.id.conversation_mode_lab);
-        modeCloudBtn = modeChip("cloud", v -> selectBrainMode(BrainMode.CLOUD_AI));
+        modeCloudBtn = modeChip("Cloud", v -> selectBrainMode(BrainMode.CLOUD_AI));
         modeCloudBtn.setId(R.id.conversation_mode_cloud);
-        modeStemBtn = modeChip("stem", v -> selectBrainMode(BrainMode.STEM));
+        modeStemBtn = modeChip("Stem", v -> selectBrainMode(BrainMode.STEM));
         modeStemBtn.setId(R.id.conversation_mode_stem);
-        webToggleBtn = modeChip(webSearchEnabled ? "web: on" : "web: off", v -> toggleWebSearch());
+        webToggleBtn = modeChip(webSearchEnabled ? "Web: On" : "Web: Off", v -> toggleWebSearch());
         webToggleBtn.setId(R.id.conversation_web_toggle);
         for (Button b : new Button[]{modeAutoBtn, modeLocalLlmBtn, webToggleBtn, modeLabBtn, modeCloudBtn, modeStemBtn}) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -1533,11 +1558,11 @@ public final class ConversationActivity extends ComponentActivity {
         styleBrainModeStrip();
 
         // Voice & Captions
-        box.addView(Ui.section(this, "voice & captions"));
-        captionToggle = Ui.button(this, captionMode ? "caption mode: on" : "caption mode: off", Ui.COBALT, v -> {
+        box.addView(Ui.section(this, "Voice & Captions"));
+        captionToggle = Ui.button(this, captionMode ? "Caption Mode: On" : "Caption Mode: Off", Ui.COBALT, v -> {
             captionMode = !captionMode;
-            captionToggle.setText(captionMode ? "caption mode: on" : "caption mode: off");
-            status.setText(captionMode ? "caption mode on" : "conversation mode on");
+            captionToggle.setText(captionMode ? "Caption Mode: On" : "Caption Mode: Off");
+            status.setText(captionMode ? "Caption mode on" : "Conversation mode on");
         });
         captionToggle.setId(R.id.conversation_captions);
         box.addView(captionToggle);
@@ -1549,40 +1574,40 @@ public final class ConversationActivity extends ComponentActivity {
         box.addView(voicePicker);
 
         // Section A: On-Device Offline Neural LLM (MediaPipe GenAI)
-        box.addView(Ui.section(this, "on-device models (offline)"));
-        TextView llmStatus = Ui.text(this, localLlmStatusSummary().toLowerCase(Locale.US), 13.5f, Ui.MUTED);
+        box.addView(Ui.section(this, "On-Device Models (Offline)"));
+        TextView llmStatus = Ui.text(this, localLlmStatusSummary(), 13.5f, Ui.MUTED);
         box.addView(llmStatus);
 
         for (OnDeviceLlmEngine.ModelSpec spec : OnDeviceLlmEngine.ModelSpec.values()) {
             boolean installed = OnDeviceLlmEngine.isInstalled(this, spec);
-            String label = (installed ? "use " : "download ") + spec.label.toLowerCase(Locale.US);
+            String label = (installed ? "Use " : "Download ") + spec.label;
             Button mBtn = Ui.button(this, label, installed ? Ui.GREEN : Ui.COBALT, v -> {
                 OnDeviceLlmEngine.saveSelectedModel(this, spec);
                 if (OnDeviceLlmEngine.isInstalled(this, spec)) {
                     brainMode = BrainMode.LOCAL_LLM;
                     styleBrainModeStrip();
-                    llmStatus.setText("selected installed model: " + spec.label.toLowerCase(Locale.US));
-                    status.setText("local model ready (" + spec.label.toLowerCase(Locale.US) + ")");
+                    llmStatus.setText("Selected installed model: " + spec.label);
+                    status.setText("Local model ready (" + spec.label + ")");
                 } else {
-                    llmStatus.setText("downloading " + spec.label.toLowerCase(Locale.US) + "… 0%");
+                    llmStatus.setText("Downloading " + spec.label + "... 0%");
                     v.setEnabled(false);
                     executor.execute(() -> {
                         try {
                             localLlm.downloadModel(spec, (pct, dlMb, totMb) -> runOnUiThread(() ->
-                                    llmStatus.setText("downloading " + spec.id + ": " + pct + "% (" + dlMb + "/" + totMb + " mb)")));
+                                    llmStatus.setText("Downloading " + spec.id + ": " + pct + "% (" + dlMb + "/" + totMb + " MB)")));
                             runOnUiThread(() -> {
                                 if (!isFinishing() && !isDestroyed()) {
                                     brainMode = BrainMode.LOCAL_LLM;
                                     styleBrainModeStrip();
-                                    llmStatus.setText("installed offline: " + spec.label.toLowerCase(Locale.US));
-                                    status.setText("local model installed (" + spec.id + ")");
-                                    ((Button) v).setText("use " + spec.label.toLowerCase(Locale.US));
+                                    llmStatus.setText("Installed offline: " + spec.label);
+                                    status.setText("Local model installed (" + spec.id + ")");
+                                    ((Button) v).setText("Use " + spec.label);
                                     v.setEnabled(true);
                                 }
                             });
                         } catch (Exception err) {
                             runOnUiThread(() -> {
-                                llmStatus.setText("download stopped: " + err.getMessage());
+                                llmStatus.setText("Download stopped: " + err.getMessage());
                                 v.setEnabled(true);
                             });
                         }
@@ -1593,7 +1618,7 @@ public final class ConversationActivity extends ComponentActivity {
         }
 
         // Section B: Optional Cloud BYOK Keys
-        box.addView(Ui.section(this, "cloud keys (optional)"));
+        box.addView(Ui.section(this, "Cloud Keys (Optional)"));
         Spinner providerSpinner = new Spinner(this);
         MultiAiClient.Provider[] allProviders = MultiAiClient.Provider.values();
         String[] providerNames = new String[allProviders.length];
@@ -1601,7 +1626,7 @@ public final class ConversationActivity extends ComponentActivity {
         int selectedIdx = 0;
         for (int i = 0; i < allProviders.length; i++) {
             boolean hasKey = !MultiAiClient.savedKey(this, allProviders[i]).isEmpty();
-            providerNames[i] = allProviders[i].displayName.toLowerCase(Locale.US) + (hasKey ? " ✓" : "");
+            providerNames[i] = allProviders[i].displayName + (hasKey ? " ✓" : "");
             if (allProviders[i] == currentProv) {
                 selectedIdx = i;
             }
@@ -1610,8 +1635,8 @@ public final class ConversationActivity extends ComponentActivity {
         providerSpinner.setSelection(selectedIdx);
         box.addView(providerSpinner);
 
-        EditText keyField = Ui.input(this, MultiAiClient.savedKey(this, currentProv), "optional api key (stays private on device)");
-        EditText modelField = Ui.input(this, MultiAiClient.savedModel(this, currentProv), "model id");
+        EditText keyField = Ui.input(this, MultiAiClient.savedKey(this, currentProv), "Optional API Key (stays private on device)");
+        EditText modelField = Ui.input(this, MultiAiClient.savedModel(this, currentProv), "Model ID");
         box.addView(keyField);
         box.addView(modelField);
 
@@ -1627,33 +1652,33 @@ public final class ConversationActivity extends ComponentActivity {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        Button saveProviderBtn = Ui.primaryButton(this, "save & activate", Ui.COBALT, v -> {
+        Button saveProviderBtn = Ui.primaryButton(this, "Save & Activate", Ui.COBALT, v -> {
             MultiAiClient.Provider chosen = allProviders[providerSpinner.getSelectedItemPosition()];
             MultiAiClient.saveActiveProvider(this, chosen);
             MultiAiClient.saveKey(this, chosen, keyField.getText().toString());
             MultiAiClient.saveModel(this, chosen, modelField.getText().toString());
             brainMode = BrainMode.CLOUD_AI;
             styleBrainModeStrip();
-            status.setText("saved " + chosen.displayName.toLowerCase(Locale.US));
+            status.setText("Saved " + chosen.displayName);
         });
         box.addView(saveProviderBtn);
 
         // Section C: Zoe Voice, Sing & Sync
-        box.addView(Ui.section(this, "voice & lab sync"));
-        Button voiceToggle = Ui.button(this, useNativeVoice ? "voice: zoe synth" : "voice: os tts", Ui.COBALT, v -> {
+        box.addView(Ui.section(this, "Voice & Lab Sync"));
+        Button voiceToggle = Ui.button(this, useNativeVoice ? "Voice: Zoe Synth" : "Voice: OS TTS", Ui.COBALT, v -> {
             useNativeVoice = !useNativeVoice;
-            ((Button) v).setText(useNativeVoice ? "voice: zoe synth" : "voice: os tts");
-            status.setText(useNativeVoice ? "zoe synth voice active" : "os voice active");
+            ((Button) v).setText(useNativeVoice ? "Voice: Zoe Synth" : "Voice: OS TTS");
+            status.setText(useNativeVoice ? "Zoe Synth voice active" : "OS voice active");
         });
-        Button singBtn = Ui.button(this, "sing zoe", Ui.RUBY, v -> playZoeSong());
+        Button singBtn = Ui.button(this, "Sing Zoe", Ui.RUBY, v -> playZoeSong());
         box.addView(Ui.buttonRow(this, voiceToggle, singBtn));
 
-        Button syncMemBtn = Ui.button(this, "sync memory", Ui.GOLD, v -> syncMemoryToLab());
-        Button exportBtn = Ui.button(this, "share transcript", Ui.CYAN, v -> shareTranscript());
+        Button syncMemBtn = Ui.button(this, "Sync Memory", Ui.GOLD, v -> syncMemoryToLab());
+        Button exportBtn = Ui.button(this, "Share Transcript", Ui.CYAN, v -> shareTranscript());
         box.addView(Ui.buttonRow(this, syncMemBtn, exportBtn));
 
         final AlertDialog dialog = new AlertDialog.Builder(this).setView(sv).create();
-        Button closeBtn = Ui.button(this, "done", Ui.MUTED, v -> dialog.dismiss());
+        Button closeBtn = Ui.button(this, "Done", Ui.MUTED, v -> dialog.dismiss());
         box.addView(closeBtn);
         sv.addView(box);
         dialog.show();
@@ -1665,10 +1690,10 @@ public final class ConversationActivity extends ComponentActivity {
     private String localLlmStatusSummary() {
         File installed = OnDeviceLlmEngine.findInstalledModelFile(this, OnDeviceLlmEngine.selectedModel(this));
         if (installed != null) {
-            return "installed offline: " + OnDeviceLlmEngine.modelLabelForFile(installed)
-                    + " (" + (installed.length() / (1024L * 1024L)) + " mb)";
+            return "Installed offline: " + OnDeviceLlmEngine.modelLabelForFile(installed)
+                    + " (" + (installed.length() / (1024L * 1024L)) + " MB)";
         }
-        return "no local model downloaded yet · pick 0.5b fast or 1.5b pro below";
+        return "No local model downloaded yet · Pick 0.5B Fast or 1.5B Pro below";
     }
 
     private void showThreadsSheet() {
@@ -1677,7 +1702,7 @@ public final class ConversationActivity extends ComponentActivity {
         box.setBackground(Ui.cardBackground(this, 26));
         box.setPadding(Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18), Ui.dp(this, 18));
 
-        TextView heading = Ui.text(this, "conversations (" + threads.size() + ")", 19f, Ui.TEXT);
+        TextView heading = Ui.text(this, "Conversations (" + threads.size() + ")", 19f, Ui.TEXT);
         heading.setTypeface(Ui.SANS_MEDIUM);
         heading.setPadding(0, 0, 0, Ui.dp(this, 10));
         box.addView(heading);
@@ -1694,7 +1719,7 @@ public final class ConversationActivity extends ComponentActivity {
             row.setPadding(Ui.dp(this, 12), Ui.dp(this, 8), Ui.dp(this, 8), Ui.dp(this, 8));
 
             TextView titleTv = Ui.text(this,
-                    t.title.toLowerCase(Locale.US) + " (" + t.messages.size() + ")",
+                    t.title + " (" + t.messages.size() + ")",
                     14f, t == currentThread ? Ui.TEXT : Ui.MUTED);
             titleTv.setMaxLines(1);
             titleTv.setEllipsize(android.text.TextUtils.TruncateAt.END);
@@ -1702,7 +1727,7 @@ public final class ConversationActivity extends ComponentActivity {
             titleTv.setOnClickListener(v -> {
                 currentThread = t;
                 renderChatFeed();
-                status.setText("opened " + currentThread.title.toLowerCase(Locale.US));
+                status.setText("Opened " + currentThread.title);
                 dialog.dismiss();
             });
             row.addView(titleTv, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
@@ -1787,7 +1812,7 @@ public final class ConversationActivity extends ComponentActivity {
             java.util.Map<String, Integer> regionCounts = new java.util.HashMap<>();
             for (Voice v : voices) {
                 String country = v.getLocale().getCountry();
-                String region = country == null || country.isEmpty() ? "english" : "english (" + country.toLowerCase(Locale.US) + ")";
+                String region = country == null || country.isEmpty() ? "English" : "English (" + country + ")";
                 int idx = regionCounts.getOrDefault(region, 0) + 1;
                 regionCounts.put(region, idx);
                 names.add(idx == 1 ? "voice: " + region : "voice: " + region + " #" + idx);
@@ -2005,7 +2030,7 @@ public final class ConversationActivity extends ComponentActivity {
         if (nativeVoice != null) {
             nativeVoice.stop();
         }
-        status.setText("conversation stopped · microphone is off");
+        status.setText("Conversation stopped · Microphone is off");
     }
 
     private void destroyRecognizer() {

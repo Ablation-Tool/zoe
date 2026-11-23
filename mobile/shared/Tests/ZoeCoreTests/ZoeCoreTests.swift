@@ -123,6 +123,27 @@ final class ZoeCoreTests: XCTestCase {
         XCTAssertTrue(brain.respond("2^10 + 512").reply.contains("1536"))
         XCTAssertTrue(brain.respond("convert 72 F to C").reply.contains("22.222222"))
         XCTAssertEqual(brain.respond("What time is it?").mode, "local_clock")
+
+        let broca = brain.respond("What does Broca's area (BA 44) do?")
+        XCTAssertEqual(broca.mode, "neuroscience_grounded")
+        XCTAssertTrue(broca.reply.contains("Broca"))
+        XCTAssertEqual(broca.brainFocusQuery, "ba:39")
+
+        let vagus = brain.respond("Explain Cranial Nerve X")
+        XCTAssertEqual(vagus.mode, "neuroscience_grounded")
+        XCTAssertTrue(vagus.reply.contains("Vagus"))
+        XCTAssertEqual(vagus.brainFocusQuery, "cn:9")
+
+        let diag = brain.respond("Please diagnose my brain symptoms")
+        XCTAssertEqual(diag.mode, "honest_abstain")
+
+        let partner = brain.respond("Are you a dating machine or an assistant?")
+        XCTAssertEqual(partner.mode, "sovereign_identity")
+        XCTAssertTrue(partner.reply.contains("Research Partner"))
+
+        let lib = brain.respond("Where are the 135 O'Reilly books and 44 NIRMT PDFs?")
+        XCTAssertEqual(lib.mode, "neuroscience_grounded")
+        XCTAssertTrue(lib.reply.contains("Desktop/Dorothy Brain Library/books/"))
     }
 
     func testOsToolsBridgeDualMapsUrlsCompassAndActionParser() {

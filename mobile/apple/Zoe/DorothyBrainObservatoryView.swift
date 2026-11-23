@@ -1,10 +1,12 @@
+import AVFoundation
 import SwiftUI
 import UIKit
 import WebKit
 
 /// Custom offline URL scheme handler serving bundled Dorothy 3D Brain Observatory
-/// assets under `zoe-brain://local/...` so WebGL2 and MNI152 MRI canvases run with
-/// a clean same-origin context and zero external network traffic.
+/// assets under `zoe-brain://local/...` with HTTP byte-range (206 Partial Content) support
+/// so WebGL2, MNI152 MRI canvases, and offline MP4 walkthrough videos play smoothly with
+/// zero external network traffic.
 final class DorothyBrainSchemeHandler: NSObject, WKURLSchemeHandler {
     private let rootDirectory: URL
 
@@ -40,9 +42,44 @@ final class DorothyBrainSchemeHandler: NSObject, WKURLSchemeHandler {
             urlSchemeTask.didFinish()
             return
         }
+
+        let mime = Self.mimeType(for: candidate.pathExtension.lowercased())
+        let total = data.count
+
+        if let rangeHeader = urlSchemeTask.request.value(forHTTPHeaderField: "Range"),
+           rangeHeader.lowercased().hasPrefix("bytes="),
+           total > 0 {
+            let spec = rangeHeader.dropFirst("bytes=".count).split(separator: ",").first.map(String.init) ?? ""
+            let parts = spec.split(separator: "-", omittingEmptySubsequences: false)
+            let start = parts.count > 0 && !parts[0].isEmpty ? (Int(parts[0]) ?? 0) : 0
+            let end = parts.count > 1 && !parts[1].isEmpty ? min(total - 1, Int(parts[1]) ?? (total - 1)) : (total - 1)
+            if start >= 0 && start < total && end >= start {
+                let slice = data.subdata(in: start..<(end + 1))
+                let headers: [String: String] = [
+                    "Content-Type": mime,
+                    "Content-Length": "\(slice.count)",
+                    "Content-Range": "bytes \(start)-\(end)/\(total)",
+                    "Accept-Ranges": "bytes",
+                    "Cache-Control": "no-cache",
+                    "Cross-Origin-Resource-Policy": "same-origin"
+                ]
+                let response = HTTPURLResponse(
+                    url: url,
+                    statusCode: 206,
+                    httpVersion: "HTTP/1.1",
+                    headerFields: headers
+                )!
+                urlSchemeTask.didReceive(response)
+                urlSchemeTask.didReceive(slice)
+                urlSchemeTask.didFinish()
+                return
+            }
+        }
+
         let headers: [String: String] = [
-            "Content-Type": Self.mimeType(for: candidate.pathExtension.lowercased()),
-            "Content-Length": "\(data.count)",
+            "Content-Type": mime,
+            "Content-Length": "\(total)",
+            "Accept-Ranges": "bytes",
             "Cache-Control": "no-cache",
             "Cross-Origin-Resource-Policy": "same-origin"
         ]
@@ -71,13 +108,19 @@ final class DorothyBrainSchemeHandler: NSObject, WKURLSchemeHandler {
         case "png": return "image/png"
         case "jpg", "jpeg": return "image/jpeg"
         case "webp": return "image/webp"
+        case "gif": return "image/gif"
+        case "mp4": return "video/mp4"
+        case "webm": return "video/webm"
         default: return "application/octet-stream"
         }
     }
 }
 
-final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegate {
+final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
     private var webView: WKWebView!
+    private let synthesizer = AVSpeechSynthesizer()
+    var initialTab: String = ""
+    var focusQuery: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +129,9 @@ final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegat
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.allowsContentJavaScript = true
         configuration.allowsInlineMediaPlayback = true
+        configuration.mediaTypesRequiringUserActionForPlayback = []
         configuration.websiteDataStore = .nonPersistent()
+        configuration.userContentController.add(self, name: "zoeSpeak")
 
         if let rootDir = Self.locateAssetDirectory() {
             configuration.setURLSchemeHandler(DorothyBrainSchemeHandler(rootDirectory: rootDir), forURLScheme: "zoe-brain")
@@ -105,6 +150,19 @@ final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegat
         }
     }
 
+    deinit {
+        webView?.configuration.userContentController.removeScriptMessageHandler(forName: "zoeSpeak")
+    }
+
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "zoeSpeak", let text = message.body as? String, !text.isEmpty {
+            synthesizer.stopSpeaking(at: .immediate)
+            let utterance = AVSpeechUtterance(string: text)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            synthesizer.speak(utterance)
+        }
+    }
+
     private func configureWebView() {
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         webView.navigationDelegate = self
@@ -117,20 +175,53 @@ final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegat
         view.addSubview(webView)
     }
 
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        applyInitialNavigation()
+    }
+
+    func applyInitialNavigation() {
+        if !focusQuery.isEmpty {
+            let escaped = escapeJs(focusQuery)
+            focusQuery = ""
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
+                self?.webView?.evaluateJavaScript(
+                    "window.__DOROTHY_ZOE_QA && window.__DOROTHY_ZOE_QA.focusFromQuery('\(escaped)');",
+                    completionHandler: nil
+                )
+            }
+            return
+        }
+        if !initialTab.isEmpty {
+            let escaped = escapeJs(initialTab)
+            initialTab = ""
+            webView?.evaluateJavaScript("window.switchTab && window.switchTab('\(escaped)');", completionHandler: nil)
+        }
+    }
+
+    func openAskZoeTab() {
+        webView?.evaluateJavaScript("window.switchTab && window.switchTab('askzoe');", completionHandler: nil)
+    }
+
     func resetCameraView() {
         let js = """
         (function() {
           if (typeof window.closeLightbox === 'function') { window.closeLightbox(); }
-          var hero = document.querySelector('[data-preset="hero"]');
-          if (hero) { hero.click(); }
-          var resetSlice = document.querySelector('[data-slice="reset"]');
-          if (resetSlice) { resetSlice.click(); }
-          var tissue = document.querySelector('[data-mode="tissue"]');
-          if (tissue) { tissue.click(); }
+          if (typeof window.switchTab === 'function') { window.switchTab('brain3d'); }
+          if (window.__DOROTHY_API && window.__DOROTHY_API.setCameraPreset) {
+            window.__DOROTHY_API.setCameraPreset('hero');
+          }
           window.scrollTo({ top: 0, behavior: 'smooth' });
         })();
         """
         webView?.evaluateJavaScript(js, completionHandler: nil)
+    }
+
+    private func escapeJs(_ value: String) -> String {
+        value
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "'", with: "\\'")
+            .replacingOccurrences(of: "\n", with: " ")
+            .replacingOccurrences(of: "\r", with: " ")
     }
 
     private static func locateAssetDirectory() -> URL? {
@@ -163,7 +254,10 @@ final class DorothyBrainWebViewController: UIViewController, WKNavigationDelegat
 }
 
 private struct DorothyBrainWebView: UIViewControllerRepresentable {
+    let initialTab: String
+    let focusQuery: String
     @Binding var resetToken: Int
+    @Binding var askZoeToken: Int
 
     func makeCoordinator() -> Coordinator {
         Coordinator()
@@ -171,8 +265,11 @@ private struct DorothyBrainWebView: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> DorothyBrainWebViewController {
         let controller = DorothyBrainWebViewController()
+        controller.initialTab = initialTab
+        controller.focusQuery = focusQuery
         context.coordinator.controller = controller
         context.coordinator.lastResetToken = resetToken
+        context.coordinator.lastAskToken = askZoeToken
         return controller
     }
 
@@ -181,31 +278,52 @@ private struct DorothyBrainWebView: UIViewControllerRepresentable {
             context.coordinator.lastResetToken = resetToken
             uiViewController.resetCameraView()
         }
+        if context.coordinator.lastAskToken != askZoeToken {
+            context.coordinator.lastAskToken = askZoeToken
+            uiViewController.openAskZoeTab()
+        }
     }
 
     final class Coordinator {
         weak var controller: DorothyBrainWebViewController?
         var lastResetToken = 0
+        var lastAskToken = 0
     }
 }
 
 /// Native iOS / iPadOS host for the 100% offline Dorothy 3D Brain Observatory.
 struct DorothyBrainObservatoryView: View {
+    var initialTab: String = ""
+    var focusQuery: String = ""
     @State private var resetToken = 0
+    @State private var askZoeToken = 0
 
     var body: some View {
-        DorothyBrainWebView(resetToken: $resetToken)
-            .ignoresSafeArea(edges: .bottom)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        resetToken += 1
-                    } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                            .font(.system(size: 15, weight: .semibold))
-                    }
-                    .accessibilityLabel("Reset 3D brain view")
+        DorothyBrainWebView(
+            initialTab: initialTab,
+            focusQuery: focusQuery,
+            resetToken: $resetToken,
+            askZoeToken: $askZoeToken
+        )
+        .ignoresSafeArea(edges: .bottom)
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button {
+                    askZoeToken += 1
+                } label: {
+                    Label("Ask Zoe", systemImage: "sparkles")
+                        .font(.system(size: 13, weight: .semibold))
                 }
+                .accessibilityLabel("Ask Zoe neuroscience questions")
+
+                Button {
+                    resetToken += 1
+                } label: {
+                    Image(systemName: "arrow.counterclockwise")
+                        .font(.system(size: 15, weight: .semibold))
+                }
+                .accessibilityLabel("Reset 3D brain view")
             }
+        }
     }
 }

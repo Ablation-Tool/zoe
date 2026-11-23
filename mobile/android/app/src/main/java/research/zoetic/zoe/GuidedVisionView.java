@@ -141,13 +141,13 @@ final class GuidedVisionView extends ScrollView {
         gemLp.setMargins(0, 0, 0, Ui.dp(activity, 12));
         emptyCameraPrompt.addView(gemIcon, gemLp);
 
-        TextView heroPrompt = Ui.text(activity, "tap to open your camera", 17f, Ui.TEXT);
+        TextView heroPrompt = Ui.text(activity, "Tap to Open Your Camera", 17f, Ui.TEXT);
         heroPrompt.setTypeface(Ui.SANS_MEDIUM);
         heroPrompt.setGravity(Gravity.CENTER);
         emptyCameraPrompt.addView(heroPrompt);
 
         TextView heroHint = Ui.text(activity,
-                "uses your phone's built-in camera with all your zoom, macro & hdr settings",
+                "Uses your phone's built-in camera with all your zoom, macro & HDR settings",
                 13f, Ui.MUTED);
         heroHint.setGravity(Gravity.CENTER);
         heroHint.setPadding(0, Ui.dp(activity, 6), 0, 0);
@@ -162,17 +162,17 @@ final class GuidedVisionView extends ScrollView {
         content.addView(previewFrame, camLp);
 
         // 2. Direct 1-Tap Native Camera & Gallery Actions (zero popup menus)
-        Button takePhotoBtn = Ui.primaryButton(activity, "take photo", Ui.COBALT,
+        Button takePhotoBtn = Ui.primaryButton(activity, "Take Photo", Ui.COBALT,
                 v -> activity.launchSystemCameraPhoto());
         takePhotoBtn.setId(R.id.start_camera);
         takePhotoBtn.setContentDescription("Take a photo using your phone's built-in camera");
 
-        Button recordVideoBtn = Ui.button(activity, "record video", Ui.CYAN,
+        Button recordVideoBtn = Ui.button(activity, "Record Video", Ui.CYAN,
                 v -> activity.launchSystemCameraVideo());
         recordVideoBtn.setId(R.id.inspect_button);
         recordVideoBtn.setContentDescription("Record a video using your phone's built-in camera");
 
-        Button galleryBtn = Ui.button(activity, "gallery", Ui.GOLD,
+        Button galleryBtn = Ui.button(activity, "Gallery", Ui.GOLD,
                 v -> activity.pickVisionMedia());
         galleryBtn.setId(R.id.vision_gallery_button);
         galleryBtn.setContentDescription("Pick a photo or video from your gallery");
@@ -180,28 +180,28 @@ final class GuidedVisionView extends ScrollView {
         content.addView(Ui.buttonRow(activity, takePhotoBtn, recordVideoBtn, galleryBtn));
 
         // 3. Clean Voice & Accessibility Row
-        Button listen = Ui.button(activity, "voice", Ui.CYAN, view -> activity.startListening());
+        Button listen = Ui.button(activity, "Voice", Ui.CYAN, view -> activity.startListening());
         listen.setId(R.id.listen_button);
-        Button speak = Ui.button(activity, "speak", Ui.PINK, view -> activity.repeatCurrent());
+        Button speak = Ui.button(activity, "Speak", Ui.PINK, view -> activity.repeatCurrent());
         speak.setId(R.id.speak_button);
-        Button stop = Ui.button(activity, "stop", Ui.RUBY, view -> activity.stopAllOutput());
+        Button stop = Ui.button(activity, "Stop", Ui.RUBY, view -> activity.stopAllOutput());
         stop.setId(R.id.stop_button);
         content.addView(Ui.buttonRow(activity, listen, speak, stop));
 
-        status = Ui.statusBanner(activity, "ready · tap take photo, record video, or gallery", Ui.COBALT);
+        status = Ui.statusBanner(activity, "Ready · Tap Take Photo, Record Video, or Gallery", Ui.COBALT);
         status.setId(R.id.vision_status);
         content.addView(status);
 
         // 4. Calm Empty State Hint (replaced by symmetrical 2x2 color-coded grid once media is inspected)
         emptyHintView = Ui.text(activity,
-                "take a photo, record a video, or pick from gallery to see memory, text, labels, and light organized clearly",
+                "Take a photo, record a video, or pick from Gallery to see memory, text, labels, and light organized clearly",
                 13.5f, Ui.MUTED);
         emptyHintView.setGravity(Gravity.CENTER);
         emptyHintView.setPadding(Ui.dp(activity, 14), Ui.dp(activity, 12), Ui.dp(activity, 14), Ui.dp(activity, 12));
         content.addView(emptyHintView);
 
         // Optional Full-Width Deep Inspect Card (cyan accent)
-        deepInspectCard = buildCategoryCard("deep inspect", ACCENT_DEEP);
+        deepInspectCard = buildCategoryCard("Deep Inspect", ACCENT_DEEP);
         deepInspectBody = buildCategoryBody("");
         deepInspectCard.addView(deepInspectBody);
         deepInspectCard.setVisibility(GONE);
@@ -218,17 +218,17 @@ final class GuidedVisionView extends ScrollView {
 
         int gap = Ui.dp(activity, 8);
 
-        // Top Row: [ visual memory (rose) ]  |  [ text (blue) ]
+        // Top Row: [ Visual Memory (rose) ]  |  [ Text (blue) ]
         LinearLayout row1 = new LinearLayout(activity);
         row1.setOrientation(LinearLayout.HORIZONTAL);
         row1.setBaselineAligned(false);
 
-        LinearLayout memoryCard = buildCategoryCard("visual memory", ACCENT_MEMORY);
-        memoryCardBody = buildCategoryBody("no match yet");
+        LinearLayout memoryCard = buildCategoryCard("Visual Memory", ACCENT_MEMORY);
+        memoryCardBody = buildCategoryBody("No match yet");
         memoryCard.addView(memoryCardBody);
 
-        LinearLayout textCard = buildCategoryCard("text", ACCENT_TEXT);
-        textCardBody = buildCategoryBody("none found");
+        LinearLayout textCard = buildCategoryCard("Text", ACCENT_TEXT);
+        textCardBody = buildCategoryBody("None found");
         textCard.addView(textCardBody);
 
         LinearLayout.LayoutParams leftLp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f);
@@ -242,16 +242,16 @@ final class GuidedVisionView extends ScrollView {
         row1Lp.setMargins(0, Ui.dp(activity, 6), 0, gap);
         observationGrid.addView(row1, row1Lp);
 
-        // Bottom Row: [ labels (mint) ]  |  [ light & color (gold) ]
+        // Bottom Row: [ Labels (mint) ]  |  [ Light & Color (gold) ]
         LinearLayout row2 = new LinearLayout(activity);
         row2.setOrientation(LinearLayout.HORIZONTAL);
         row2.setBaselineAligned(false);
 
-        LinearLayout labelsCard = buildCategoryCard("labels", ACCENT_LABELS);
-        labelsCardBody = buildCategoryBody("none found");
+        LinearLayout labelsCard = buildCategoryCard("Labels", ACCENT_LABELS);
+        labelsCardBody = buildCategoryBody("None found");
         labelsCard.addView(labelsCardBody);
 
-        LinearLayout lightCard = buildCategoryCard("light & color", ACCENT_LIGHT);
+        LinearLayout lightCard = buildCategoryCard("Light & Color", ACCENT_LIGHT);
         lightCardBody = buildCategoryBody("");
         lightCard.addView(lightCardBody);
         lightSwatchRow = new LinearLayout(activity);
@@ -268,14 +268,14 @@ final class GuidedVisionView extends ScrollView {
         observationGrid.addView(row2, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        privacyFootNote = Ui.text(activity, "observations only. nothing is saved until you choose", 12f, Ui.MUTED);
+        privacyFootNote = Ui.text(activity, "Observations only. Nothing is saved until you choose.", 12f, Ui.MUTED);
         privacyFootNote.setGravity(Gravity.CENTER);
         privacyFootNote.setPadding(0, Ui.dp(activity, 8), 0, Ui.dp(activity, 4));
         observationGrid.addView(privacyFootNote);
 
         content.addView(observationGrid);
 
-        askZoeButton = Ui.primaryButton(activity, "ask zoe about this", Ui.COBALT, view -> openChatWithObservation());
+        askZoeButton = Ui.primaryButton(activity, "Ask Zoe About This", Ui.COBALT, view -> openChatWithObservation());
         askZoeButton.setVisibility(GONE);
         content.addView(askZoeButton, Ui.margins(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, activity, 4));
@@ -284,68 +284,68 @@ final class GuidedVisionView extends ScrollView {
         learnBar = Ui.vertical(activity);
         learnBar.setBackgroundColor(Color.TRANSPARENT);
         learnBar.setVisibility(GONE);
-        digestZoeButton = Ui.button(activity, "digest to zoe", Ui.GREEN, view -> digestCurrentFrameToZoe(false));
-        saveLearnDeviceButton = Ui.button(activity, "save to device", Ui.CYAN, view -> saveCurrentFrameToDeviceLearn(false));
-        saveLearnDriveButton = Ui.button(activity, "google drive", Ui.GOLD, view -> saveCurrentFrameToDriveLearn(false));
+        digestZoeButton = Ui.button(activity, "Digest to Zoe", Ui.GREEN, view -> digestCurrentFrameToZoe(false));
+        saveLearnDeviceButton = Ui.button(activity, "Save to Device", Ui.CYAN, view -> saveCurrentFrameToDeviceLearn(false));
+        saveLearnDriveButton = Ui.button(activity, "Google Drive", Ui.GOLD, view -> saveCurrentFrameToDriveLearn(false));
         learnBar.addView(Ui.buttonRow(activity, digestZoeButton, saveLearnDeviceButton, saveLearnDriveButton));
         content.addView(learnBar);
 
-        // 7. Single Collapsible "more options" Drawer (zero main-screen clutter)
+        // 7. Single Collapsible "More Options" Drawer (zero main-screen clutter)
         moreOptionsDrawer = Ui.vertical(activity);
         moreOptionsDrawer.setBackgroundColor(Color.TRANSPARENT);
         moreOptionsDrawer.setVisibility(GONE);
 
-        teachObjectButton = Ui.button(activity, "teach zoe", Ui.GREEN, view -> promptTeachObject());
+        teachObjectButton = Ui.button(activity, "Teach Zoe", Ui.GREEN, view -> promptTeachObject());
         teachObjectButton.setId(R.id.vision_teach_button);
         teachObjectButton.setEnabled(false);
 
-        patentPriorButton = Ui.button(activity, "patent prior", Ui.COBALT, view -> runSilentPatentPrior());
+        patentPriorButton = Ui.button(activity, "Patent Prior", Ui.COBALT, view -> runSilentPatentPrior());
         patentPriorButton.setId(R.id.vision_patent_prior_button);
         patentPriorButton.setEnabled(false);
 
-        memoryBadgeButton = Ui.button(activity, "memory: " + VisionPriorStore.learnedCount(activity),
+        memoryBadgeButton = Ui.button(activity, "Memory: " + VisionPriorStore.learnedCount(activity),
                 Ui.GOLD, view -> showLearnedMemoryDialog());
         memoryBadgeButton.setId(R.id.vision_memory_badge);
         moreOptionsDrawer.addView(Ui.buttonRow(activity, teachObjectButton, patentPriorButton, memoryBadgeButton));
 
-        autoSpeakButton = Ui.button(activity, "auto-speak: off", Ui.PINK, view -> toggleAutoSpeak());
+        autoSpeakButton = Ui.button(activity, "Auto-Speak: Off", Ui.PINK, view -> toggleAutoSpeak());
         autoSpeakButton.setId(R.id.vision_autospeak);
         autoLearnButton = Ui.button(activity,
-                ZoeLearnQueue.savedDestination(activity).shortLabel.toLowerCase(Locale.US),
+                ZoeLearnQueue.savedDestination(activity).shortLabel,
                 Ui.GREEN, view -> cycleAutoLearn());
         pickDriveFolderButton = Ui.button(activity,
-                ZoeLearnQueue.savedDriveTreeUri(activity) != null ? "drive: linked" : "pick drive folder",
+                ZoeLearnQueue.savedDriveTreeUri(activity) != null ? "Drive: Linked" : "Pick Drive Folder",
                 Ui.COBALT, view -> activity.pickZoeLearnDriveFolder());
         moreOptionsDrawer.addView(Ui.buttonRow(activity, autoSpeakButton, autoLearnButton, pickDriveFolderButton));
 
-        saveJournalButton = Ui.button(activity, "save journal", Ui.GREEN, view -> promptSaveToJournal());
+        saveJournalButton = Ui.button(activity, "Save Journal", Ui.GREEN, view -> promptSaveToJournal());
         saveJournalButton.setId(R.id.vision_save_journal);
         saveJournalButton.setEnabled(false);
-        sharePhotoButton = Ui.button(activity, "share photo", Ui.GOLD, view -> sharePhotoWithApps());
+        sharePhotoButton = Ui.button(activity, "Share Photo", Ui.GOLD, view -> sharePhotoWithApps());
         sharePhotoButton.setId(R.id.vision_share_photo);
         sharePhotoButton.setEnabled(false);
-        cloudAskButton = Ui.button(activity, "deep inspect", Ui.CYAN, view -> askCloudVision());
+        cloudAskButton = Ui.button(activity, "Deep Inspect", Ui.CYAN, view -> askCloudVision());
         cloudAskButton.setId(R.id.vision_cloud_ask);
         cloudAskButton.setEnabled(false);
         moreOptionsDrawer.addView(Ui.buttonRow(activity, saveJournalButton, sharePhotoButton, cloudAskButton));
 
-        Button shareTextBtn = Ui.button(activity, "share text", Ui.PINK, view -> activity.shareCurrent());
+        Button shareTextBtn = Ui.button(activity, "Share Text", Ui.PINK, view -> activity.shareCurrent());
         shareTextBtn.setId(R.id.share_button);
-        Button liveExploreBtn = Ui.button(activity, "zoe explore", Ui.CYAN, view -> activity.openLiveExplore());
+        Button liveExploreBtn = Ui.button(activity, "Zoe Explore", Ui.CYAN, view -> activity.openLiveExplore());
         moreOptionsDrawer.addView(Ui.buttonRow(activity, shareTextBtn, liveExploreBtn));
 
         if (DeviceAiController.hasRealAiCoreService(activity)) {
             moreOptionsDrawer.addView(Ui.buttonRow(activity,
-                    Ui.button(activity, "check device ai", Ui.CYAN, view -> ensureDeviceAi().check()),
-                    Ui.button(activity, "enable ai model", Ui.CYAN, view -> ensureDeviceAi().enable())));
+                    Ui.button(activity, "Check Device AI", Ui.CYAN, view -> ensureDeviceAi().check()),
+                    Ui.button(activity, "Enable AI Model", Ui.CYAN, view -> ensureDeviceAi().enable())));
         }
 
-        moreOptionsToggle = Ui.disclosureButton(activity, "more options ▾", null);
+        moreOptionsToggle = Ui.disclosureButton(activity, "More Options ▾", null);
         moreOptionsToggle.setId(R.id.vision_improve_toggle);
         moreOptionsToggle.setOnClickListener(view -> {
             boolean open = moreOptionsDrawer.getVisibility() != VISIBLE;
             moreOptionsDrawer.setVisibility(open ? VISIBLE : GONE);
-            moreOptionsToggle.setText(open ? "more options ▴" : "more options ▾");
+            moreOptionsToggle.setText(open ? "More Options ▴" : "More Options ▾");
         });
         content.addView(moreOptionsToggle);
         content.addView(moreOptionsDrawer);
@@ -592,7 +592,7 @@ final class GuidedVisionView extends ScrollView {
 
         // Optional Deep Inspect Card
         if (!lastCloud.isEmpty()) {
-            deepInspectBody.setText(lastCloud.toLowerCase(Locale.US));
+            deepInspectBody.setText(lastCloud);
             deepInspectCard.setVisibility(VISIBLE);
         } else {
             deepInspectCard.setVisibility(GONE);
@@ -612,7 +612,7 @@ final class GuidedVisionView extends ScrollView {
             mem.append(lastVisualSignature.shapeSummary.toLowerCase(Locale.US));
         }
         if (mem.length() == 0) {
-            memoryCardBody.setText("none yet");
+            memoryCardBody.setText("None yet");
             memoryCardBody.setTextColor(Ui.mutedColor(activity));
         } else {
             memoryCardBody.setText(mem.toString());
@@ -621,16 +621,16 @@ final class GuidedVisionView extends ScrollView {
 
         // Card 2: Text / OCR (Cobalt-Blue)
         if (lastOcr.isEmpty()) {
-            textCardBody.setText("no text found");
+            textCardBody.setText("No text found");
             textCardBody.setTextColor(Ui.mutedColor(activity));
         } else {
-            textCardBody.setText(lastOcr.toLowerCase(Locale.US));
+            textCardBody.setText(lastOcr);
             textCardBody.setTextColor(Ui.textColor(activity));
         }
 
         // Card 3: Labels (Emerald-Mint)
         if (lastLabels.isEmpty()) {
-            labelsCardBody.setText("none above 50%");
+            labelsCardBody.setText("None above 50%");
             labelsCardBody.setTextColor(Ui.mutedColor(activity));
         } else {
             labelsCardBody.setText(lastLabels);
@@ -647,7 +647,7 @@ final class GuidedVisionView extends ScrollView {
             lightCardBody.setTextColor(Ui.textColor(activity));
             renderPaletteSwatches(lastPaletteAnalysis);
         } else {
-            lightCardBody.setText("not measured");
+            lightCardBody.setText("Not measured");
             lightCardBody.setTextColor(Ui.mutedColor(activity));
             lightSwatchRow.removeAllViews();
         }
@@ -674,7 +674,7 @@ final class GuidedVisionView extends ScrollView {
     }
 
     private void refreshMemoryBadge() {
-        memoryBadgeButton.setText("memory: " + VisionPriorStore.learnedCount(activity));
+        memoryBadgeButton.setText("Memory: " + VisionPriorStore.learnedCount(activity));
     }
 
     private void promptTeachObject() {
@@ -868,7 +868,7 @@ final class GuidedVisionView extends ScrollView {
     }
 
     void onLearnFolderPicked(Uri uri) {
-        pickDriveFolderButton.setText("drive: linked");
+        pickDriveFolderButton.setText("Drive: Linked");
         autoLearnButton.setText(ZoeLearnQueue.savedDestination(activity).shortLabel.toLowerCase(Locale.US));
         setStatus("linked google drive folder for zoe learn");
         if (lastFrameJpeg != null && lastFrameJpeg.length > 0) {
@@ -1085,7 +1085,7 @@ final class GuidedVisionView extends ScrollView {
     }
 
     void setStatus(String value) {
-        status.setText(value == null ? "" : value.toLowerCase(Locale.US));
+        status.setText(value == null ? "" : value);
     }
 
     String spokenSummary() {

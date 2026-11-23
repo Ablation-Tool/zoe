@@ -148,7 +148,29 @@ public final class MainActivity extends ComponentActivity {
     }
 
     void openBrainObservatory() {
-        startActivity(new Intent(this, BrainObservatoryActivity.class));
+        openBrainObservatory("", "");
+    }
+
+    void openBrainObservatory(String startTab, String focusQuery) {
+        Intent intent = new Intent(this, BrainObservatoryActivity.class);
+        if (startTab != null && !startTab.isEmpty()) {
+            intent.putExtra(BrainObservatoryActivity.EXTRA_START_TAB, startTab);
+        }
+        if (focusQuery != null && !focusQuery.isEmpty()) {
+            intent.putExtra(BrainObservatoryActivity.EXTRA_FOCUS_QUERY, focusQuery);
+        }
+        startActivity(intent);
+        if (!comfortMode) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
+
+    void openChatWithPrompt(String prompt) {
+        Intent intent = new Intent(this, ConversationActivity.class);
+        if (prompt != null && !prompt.trim().isEmpty()) {
+            intent.putExtra(ConversationActivity.EXTRA_INITIAL_PROMPT, prompt.trim());
+        }
+        startActivity(intent);
         if (!comfortMode) {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
@@ -291,7 +313,7 @@ public final class MainActivity extends ComponentActivity {
                 });
         capsule.addView(plusBtn, new LinearLayout.LayoutParams(Ui.dp(this, 48), Ui.dp(this, 48)));
 
-        TextView prompt = Ui.text(this, "ask zoe", 17.5f, Ui.MUTED);
+        TextView prompt = Ui.text(this, "Ask Zoe", 17.5f, Ui.MUTED);
         prompt.setGravity(Gravity.CENTER_VERTICAL);
         prompt.setMinimumHeight(Ui.dp(this, 48));
         prompt.setPadding(Ui.dp(this, 10), 0, Ui.dp(this, 8), 0);
@@ -377,7 +399,7 @@ public final class MainActivity extends ComponentActivity {
         GuidedVisionView gv = ensureVisionView();
         visible = "vision";
         if (homeBarTitle != null) {
-            homeBarTitle.setText("guided vision");
+            homeBarTitle.setText("Guided Vision");
         }
         if (geminiBottomBar != null) {
             geminiBottomBar.setVisibility(View.GONE);
@@ -477,10 +499,10 @@ public final class MainActivity extends ComponentActivity {
         destroySpeechRecognizer();
         if (Build.VERSION.SDK_INT >= 31 && SpeechRecognizer.isOnDeviceRecognitionAvailable(this)) {
             speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(this);
-            gv.setStatus("on-device speech selected · listening once…");
+            gv.setStatus("On-device speech selected · Listening once...");
         } else {
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-            gv.setStatus("offline speech preferred · listening once…");
+            gv.setStatus("Offline speech preferred · Listening once...");
         }
         speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override public void onReadyForSpeech(Bundle params) { listening = true; }
@@ -603,7 +625,7 @@ public final class MainActivity extends ComponentActivity {
         }
         listening = false;
         if (visionView != null) {
-            visionView.setStatus("speech and listening stopped");
+            visionView.setStatus("Speech and listening stopped");
         }
     }
 

@@ -484,7 +484,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
                 Gravity.START | Gravity.CENTER_VERTICAL));
 
-        liveHudPill = Ui.text(this, "zoe explore", 13.5f, Ui.TEXT);
+        liveHudPill = Ui.text(this, "Zoe Explore", 13.5f, Ui.TEXT);
         liveHudPill.setTypeface(Ui.SANS_MEDIUM);
         liveHudPill.setGravity(Gravity.CENTER);
         liveHudPill.setPadding(Ui.dp(this, 14), Ui.dp(this, 8), Ui.dp(this, 14), Ui.dp(this, 8));
@@ -563,7 +563,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         LinearLayout.LayoutParams orbLp = new LinearLayout.LayoutParams(Ui.dp(this, 176), Ui.dp(this, 176));
         center.addView(orbView, orbLp);
 
-        stateBadge = Ui.text(this, "tap zoe to start live camera & voice", 13f, Ui.MUTED);
+        stateBadge = Ui.text(this, "Tap Zoe to start live camera & voice", 13f, Ui.MUTED);
         stateBadge.setId(R.id.live_state_badge);
         stateBadge.setTypeface(Ui.SANS_MEDIUM);
         stateBadge.setGravity(Gravity.CENTER);
@@ -578,7 +578,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         bottomStack.setBackgroundColor(Color.TRANSPARENT);
         bottomStack.setPadding(Ui.dp(this, 16), Ui.dp(this, 4), Ui.dp(this, 16), Ui.dp(this, 14));
 
-        captionView = Ui.text(this, "hi, i'm zoe. tap talk or zoe explore", 15f, Ui.TEXT);
+        captionView = Ui.text(this, "Hi, I'm Zoe. Tap Talk or Zoe Explore.", 15f, Ui.TEXT);
         captionView.setId(R.id.live_caption_view);
         captionView.setContentDescription("Hi, I'm Zoe. Tap Talk or Zoe Explore.");
         captionView.setGravity(Gravity.CENTER);
@@ -598,7 +598,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         typeBar.setOrientation(LinearLayout.HORIZONTAL);
         typeBar.setGravity(Gravity.CENTER_VERTICAL);
         typeBar.setVisibility(View.GONE);
-        typeInput = Ui.input(this, "", "type to zoe…");
+        typeInput = Ui.input(this, "", "Type to Zoe...");
         typeInput.setId(R.id.live_type_input);
         typeInput.setImeOptions(EditorInfo.IME_ACTION_SEND);
         typeInput.setSingleLine(true);
@@ -609,7 +609,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
             return false;
         });
-        typeSendBtn = Ui.primaryButton(this, "send", Ui.COBALT, v -> submitTypedMessage());
+        typeSendBtn = Ui.primaryButton(this, "Send", Ui.COBALT, v -> submitTypedMessage());
         typeSendBtn.setId(R.id.live_type_send);
         typeSendBtn.setMinWidth(0);
         typeSendBtn.setMinimumWidth(0);
@@ -623,12 +623,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
         tbLp.setMargins(0, 0, 0, Ui.dp(this, 10));
         bottomStack.addView(typeBar, tbLp);
 
-        // Clean Symmetrical Bottom Dock: [ <zoe emblem> focus ]  [ talk ]  [ end ]
+        // Clean Symmetrical Bottom Dock: [ <zoe emblem> Focus ]  [ Talk ]  [ End ]
         LinearLayout dock = new LinearLayout(this);
         dock.setOrientation(LinearLayout.HORIZONTAL);
         dock.setGravity(Gravity.CENTER_VERTICAL);
 
-        arToggleBtn = Ui.button(this, "focus", Ui.RUBY, v -> toggleArSpace());
+        arToggleBtn = Ui.button(this, "Focus", Ui.RUBY, v -> toggleArSpace());
         arToggleBtn.setId(R.id.live_ar_toggle);
         arToggleBtn.setContentDescription("Toggle Zoe quiet observation box");
         android.graphics.drawable.Drawable gemIcon = ContextCompat.getDrawable(this, R.drawable.zoe_emblem);
@@ -639,11 +639,11 @@ public final class ZoeLiveActivity extends ComponentActivity {
             arToggleBtn.setCompoundDrawablePadding(Ui.dp(this, 6));
         }
 
-        listenBtn = Ui.primaryButton(this, "talk", Ui.COBALT, v -> onPrimaryActionTapped());
+        listenBtn = Ui.primaryButton(this, "Talk", Ui.COBALT, v -> onPrimaryActionTapped());
         listenBtn.setId(R.id.live_talk_button);
         listenBtn.setContentDescription("Talk to Zoe or interrupt");
 
-        stopBtn = Ui.button(this, "end", Ui.MUTED, v -> stopLiveCall());
+        stopBtn = Ui.button(this, "End", Ui.MUTED, v -> stopLiveCall());
         stopBtn.setId(R.id.live_stop_button);
         stopBtn.setContentDescription("Stop camera, microphone, and all sensors");
 
@@ -698,32 +698,32 @@ public final class ZoeLiveActivity extends ComponentActivity {
         LinearLayout sheetHdr = new LinearLayout(this);
         sheetHdr.setOrientation(LinearLayout.HORIZONTAL);
         sheetHdr.setGravity(Gravity.CENTER_VERTICAL);
-        TextView sheetTitle = Ui.text(this, "explore & accessibility", 16.5f, Ui.TEXT);
+        TextView sheetTitle = Ui.text(this, "Explore & Accessibility", 16.5f, Ui.TEXT);
         sheetTitle.setTextColor(Color.WHITE);
         sheetTitle.setTypeface(Ui.SANS_MEDIUM);
         sheetHdr.addView(sheetTitle, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-        Button doneBtn = compactGlassButton("done", v -> setToolsSheetOpen(false));
+        Button doneBtn = compactGlassButton("Done", v -> setToolsSheetOpen(false));
         doneBtn.setPadding(Ui.dp(this, 16), 0, Ui.dp(this, 16), 0);
         sheetHdr.addView(doneBtn, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, Ui.dp(this, 36)));
         inner.addView(sheetHdr);
 
-        // --- SECTION 1: Accessibility (Symmetrical 2×2 Grid) ---
-        inner.addView(sheetSectionLabel("accessibility mode"));
+        // --- SECTION 1: Accessibility (Symmetrical 2x2 Grid) ---
+        inner.addView(sheetSectionLabel("Accessibility Mode"));
 
         LinearLayout profRow1 = new LinearLayout(this);
         profRow1.setOrientation(LinearLayout.HORIZONTAL);
-        a11yStandardBtn = sheetPill("standard", v -> selectAccessibilityProfile(ExploreAccessibility.Profile.STANDARD));
+        a11yStandardBtn = sheetPill("Standard", v -> selectAccessibilityProfile(ExploreAccessibility.Profile.STANDARD));
         a11yStandardBtn.setId(R.id.live_a11y_standard);
-        a11yDeafBtn = sheetPill("deaf / hoh", v -> selectAccessibilityProfile(ExploreAccessibility.Profile.DEAF_HOH));
+        a11yDeafBtn = sheetPill("Deaf / HoH", v -> selectAccessibilityProfile(ExploreAccessibility.Profile.DEAF_HOH));
         a11yDeafBtn.setId(R.id.live_a11y_deaf);
         addEvenRow(profRow1, a11yStandardBtn, a11yDeafBtn);
         inner.addView(profRow1);
 
         LinearLayout profRow2 = new LinearLayout(this);
         profRow2.setOrientation(LinearLayout.HORIZONTAL);
-        a11yBlindBtn = sheetPill("blind / audio", v -> selectAccessibilityProfile(ExploreAccessibility.Profile.BLIND_LOW_VISION));
+        a11yBlindBtn = sheetPill("Blind / Audio", v -> selectAccessibilityProfile(ExploreAccessibility.Profile.BLIND_LOW_VISION));
         a11yBlindBtn.setId(R.id.live_a11y_blind);
-        a11yKidBtn = sheetPill("kid mode: off", v -> {
+        a11yKidBtn = sheetPill("Kid Mode: Off", v -> {
             a11y = a11y.withKidFriendly(!a11y.kidFriendly);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(true);
@@ -737,26 +737,26 @@ public final class ZoeLiveActivity extends ComponentActivity {
         a11ySummaryView.setPadding(Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4), Ui.dp(this, 4));
         inner.addView(a11ySummaryView);
 
-        // --- SECTION 2: Explore (Symmetrical 2×2 Grid) ---
-        inner.addView(sheetSectionLabel("camera & ar"));
+        // --- SECTION 2: Explore (Symmetrical 2x2 Grid) ---
+        inner.addView(sheetSectionLabel("Camera & AR"));
 
         LinearLayout expRow1 = new LinearLayout(this);
         expRow1.setOrientation(LinearLayout.HORIZONTAL);
-        cameraToggleBtn = sheetPill("camera: off", v -> {
+        cameraToggleBtn = sheetPill("Camera: Off", v -> {
             setToolsSheetOpen(false);
             toggleCamera();
         });
         cameraToggleBtn.setId(R.id.live_camera_toggle);
-        fieldToggleBtn = sheetPill("field: off", v -> toggleSpatialField());
+        fieldToggleBtn = sheetPill("Field: Off", v -> toggleSpatialField());
         fieldToggleBtn.setId(R.id.live_field_toggle);
         addEvenRow(expRow1, cameraToggleBtn, fieldToggleBtn);
         inner.addView(expRow1);
 
         LinearLayout expRow2 = new LinearLayout(this);
         expRow2.setOrientation(LinearLayout.HORIZONTAL);
-        arRoamBtn = sheetPill("glide: on", v -> toggleArRoam());
+        arRoamBtn = sheetPill("Glide: On", v -> toggleArRoam());
         arRoamBtn.setId(R.id.live_ar_roam_toggle);
-        lookNowBtn = sheetPill("look now", v -> {
+        lookNowBtn = sheetPill("Look Now", v -> {
             setToolsSheetOpen(false);
             describeLiveViewProactively();
         });
@@ -766,51 +766,51 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout expRow3 = new LinearLayout(this);
         expRow3.setOrientation(LinearLayout.HORIZONTAL);
-        Button learnSpotBtn = sheetPill("learn this", v -> {
+        Button learnSpotBtn = sheetPill("Learn This", v -> {
             setToolsSheetOpen(false);
             promptTeachFromLiveView();
         });
-        Button questBtn = sheetPill("quest", v -> {
+        Button questBtn = sheetPill("Quest", v -> {
             setToolsSheetOpen(false);
             triggerCuriosityQuest();
         });
         addEvenRow(expRow3, learnSpotBtn, questBtn);
         inner.addView(expRow3);
 
-        // --- SECTION 3: Voice & Input (Symmetrical 2×2 Grid) ---
-        inner.addView(sheetSectionLabel("voice & input"));
+        // --- SECTION 3: Voice & Input (Symmetrical 2x2 Grid) ---
+        inner.addView(sheetSectionLabel("Voice & Input"));
 
         LinearLayout voiceRow1 = new LinearLayout(this);
         voiceRow1.setOrientation(LinearLayout.HORIZONTAL);
-        hiZoeToggleBtn = sheetPill("hi zoe: off", v -> {
+        hiZoeToggleBtn = sheetPill("Hi Zoe: Off", v -> {
             setToolsSheetOpen(false);
             toggleHiZoeMode();
         });
         hiZoeToggleBtn.setId(R.id.live_hizoe_toggle);
-        webToggleBtn = sheetPill("web: off", v -> toggleWeb());
+        webToggleBtn = sheetPill("Web: Off", v -> toggleWeb());
         webToggleBtn.setId(R.id.live_web_toggle);
         addEvenRow(voiceRow1, hiZoeToggleBtn, webToggleBtn);
         inner.addView(voiceRow1);
 
         LinearLayout voiceRow2 = new LinearLayout(this);
         voiceRow2.setOrientation(LinearLayout.HORIZONTAL);
-        optTypeBarBtn = sheetPill("type bar", v -> {
+        optTypeBarBtn = sheetPill("Type Bar", v -> {
             a11y = a11y.withTypeBar(!a11y.showTypeBar);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(false);
         });
-        voiceModeBtn = sheetPill("voice: os", v -> toggleVoiceEngine());
+        voiceModeBtn = sheetPill("Voice: OS", v -> toggleVoiceEngine());
         voiceModeBtn.setId(R.id.live_voice_toggle);
         addEvenRow(voiceRow2, optTypeBarBtn, voiceModeBtn);
         inner.addView(voiceRow2);
 
         // --- Collapsible More Tools & Sensors (collapsed by default so main sheet stays ultra-calm!) ---
-        moreToolsToggleBtn = sheetPill("more tools & sensors ▾", v -> {
+        moreToolsToggleBtn = sheetPill("More Tools & Sensors ▾", v -> {
             moreToolsExpanded = !moreToolsExpanded;
             if (moreToolsPanel != null) {
                 moreToolsPanel.setVisibility(moreToolsExpanded ? View.VISIBLE : View.GONE);
             }
-            moreToolsToggleBtn.setText(moreToolsExpanded ? "hide extra tools ▴" : "more tools & sensors ▾");
+            moreToolsToggleBtn.setText(moreToolsExpanded ? "Hide Extra Tools ▴" : "More Tools & Sensors ▾");
         });
         LinearLayout.LayoutParams moreBtnLp = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, Ui.dp(this, 40));
@@ -823,12 +823,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout advA11yRow1 = new LinearLayout(this);
         advA11yRow1.setOrientation(LinearLayout.HORIZONTAL);
-        optBigCaptionsBtn = sheetPill("big captions", v -> {
+        optBigCaptionsBtn = sheetPill("Big Captions", v -> {
             a11y = a11y.withLargeCaptions(!a11y.largeCaptions);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(false);
         });
-        optHapticsBtn = sheetPill("haptics", v -> {
+        optHapticsBtn = sheetPill("Haptics", v -> {
             a11y = a11y.withHapticCues(!a11y.hapticCues);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(false);
@@ -839,12 +839,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout advA11yRow2 = new LinearLayout(this);
         advA11yRow2.setOrientation(LinearLayout.HORIZONTAL);
-        optSoundRadarBtn = sheetPill("sound radar", v -> {
+        optSoundRadarBtn = sheetPill("Sound Radar", v -> {
             a11y = a11y.withVisualSoundRadar(!a11y.visualSoundRadar);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(false);
         });
-        optAudioSonarBtn = sheetPill("audio sonar", v -> {
+        optAudioSonarBtn = sheetPill("Audio Sonar", v -> {
             a11y = a11y.withAudioFirstNarration(!a11y.audioFirstNarration);
             ExploreAccessibility.save(this, a11y);
             applyAccessibilitySettings(true);
@@ -854,9 +854,9 @@ public final class ZoeLiveActivity extends ComponentActivity {
 
         LinearLayout advSensorRow1 = new LinearLayout(this);
         advSensorRow1.setOrientation(LinearLayout.HORIZONTAL);
-        arModeBtn = sheetPill("engine: gyro 60", v -> toggleArTrackingMode());
+        arModeBtn = sheetPill("Engine: Gyro 60", v -> toggleArTrackingMode());
         arModeBtn.setId(R.id.live_ar_mode_toggle);
-        dualCamBtn = sheetPill("dual-cam sweep", v -> {
+        dualCamBtn = sheetPill("Dual-Cam Sweep", v -> {
             setToolsSheetOpen(false);
             runDualCamAmbientSweep();
         });
@@ -890,7 +890,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         addEvenRow(advSensorRow3, earthBtn, singBtn);
         moreToolsPanel.addView(advSensorRow3);
 
-        telemetryHudLine = Ui.text(this, "spatial field idle · local-only, zero pii", 11.5f, Ui.TEXT);
+        telemetryHudLine = Ui.text(this, "Spatial field idle · Local-only, zero PII", 11.5f, Ui.TEXT);
         telemetryHudLine.setId(R.id.live_telemetry_hud);
         telemetryHudLine.setTextColor(Color.rgb(168, 224, 248));
         telemetryHudLine.setPadding(Ui.dp(this, 10), Ui.dp(this, 8), Ui.dp(this, 10), Ui.dp(this, 8));
@@ -1056,7 +1056,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         mainHandler.removeCallbacks(hideIdleCaptionTask);
         captionView.animate().cancel();
         captionView.setAlpha(1f);
-        captionView.setText(text == null ? "" : text.toLowerCase(Locale.US));
+        captionView.setText(text == null ? "" : text);
         captionView.setVisibility(View.VISIBLE);
         if ((cameraOn || arModeOn) && !a11y.largeCaptions && !keepVisibleLonger) {
             mainHandler.postDelayed(hideIdleCaptionTask, CAPTION_IDLE_FADE_MS);
@@ -1142,7 +1142,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             if (!fullScreen) {
                 String badge = a11y.profile == ExploreAccessibility.Profile.STANDARD && !a11y.kidFriendly
                         ? "zoe explore"
-                        : "zoe · " + a11y.shortBadge().toLowerCase(Locale.US);
+                        : "Zoe · " + a11y.shortBadge();
                 liveHudPill.setText(badge);
             } else if (arModeOn) {
                 liveHudPill.setText(frozenBoxActive ? "● box · frozen" : "● box");
@@ -1164,7 +1164,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             }
         }
         if (arToggleBtn != null) {
-            arToggleBtn.setText(arModeOn ? "● focus" : "focus");
+            arToggleBtn.setText(arModeOn ? "● Focus" : "Focus");
             if (arModeOn) {
                 int ruby = Ui.resolveColor(this, Ui.RUBY);
                 arToggleBtn.setTextColor(Color.WHITE);
@@ -1178,8 +1178,8 @@ public final class ZoeLiveActivity extends ComponentActivity {
         }
         if (listenBtn != null && currentOrbState == OrbState.IDLE) {
             listenBtn.setText(a11y.profile == ExploreAccessibility.Profile.DEAF_HOH && (cameraOn || arModeOn)
-                    ? "look"
-                    : "talk");
+                    ? "Look"
+                    : "Talk");
         }
     }
 
@@ -1188,7 +1188,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         styleSheetToggle(a11yDeafBtn, a11y.profile == ExploreAccessibility.Profile.DEAF_HOH, Ui.CYAN);
         styleSheetToggle(a11yBlindBtn, a11y.profile == ExploreAccessibility.Profile.BLIND_LOW_VISION, Ui.GOLD);
         if (a11yKidBtn != null) {
-            a11yKidBtn.setText(a11y.kidFriendly ? "kid mode: on" : "kid mode: off");
+            a11yKidBtn.setText(a11y.kidFriendly ? "Kid Mode: On" : "Kid Mode: Off");
             styleSheetToggle(a11yKidBtn, a11y.kidFriendly, Ui.GREEN);
         }
         styleSheetToggle(optBigCaptionsBtn, a11y.largeCaptions, Ui.CYAN);
@@ -1198,31 +1198,31 @@ public final class ZoeLiveActivity extends ComponentActivity {
         styleSheetToggle(optTypeBarBtn, a11y.showTypeBar, Ui.COBALT);
 
         if (cameraToggleBtn != null) {
-            cameraToggleBtn.setText(arModeOn ? "camera: ar" : (cameraOn ? "camera: on" : "camera: off"));
+            cameraToggleBtn.setText(arModeOn ? "Camera: AR" : (cameraOn ? "Camera: On" : "Camera: Off"));
             styleSheetToggle(cameraToggleBtn, cameraOn || arModeOn, Ui.GREEN);
         }
         if (arModeBtn != null) {
-            arModeBtn.setText(useHeavyArCore6Dof ? "engine: 6dof" : "engine: gyro 60");
+            arModeBtn.setText(useHeavyArCore6Dof ? "Engine: 6DoF" : "Engine: Gyro 60");
             styleSheetToggle(arModeBtn, useHeavyArCore6Dof, Ui.COBALT);
         }
         if (arRoamBtn != null) {
-            arRoamBtn.setText(arRoamEnabled ? "glide: on" : "glide: off");
+            arRoamBtn.setText(arRoamEnabled ? "Glide: On" : "Glide: Off");
             styleSheetToggle(arRoamBtn, arRoamEnabled, Ui.GREEN);
         }
         if (fieldToggleBtn != null) {
-            fieldToggleBtn.setText(spatialFieldOn ? "field: on" : "field: off");
+            fieldToggleBtn.setText(spatialFieldOn ? "Field: On" : "Field: Off");
             styleSheetToggle(fieldToggleBtn, spatialFieldOn, Ui.GREEN);
         }
         if (hiZoeToggleBtn != null) {
-            hiZoeToggleBtn.setText(hiZoeWakeMode ? "hi zoe: on" : "hi zoe: off");
+            hiZoeToggleBtn.setText(hiZoeWakeMode ? "Hi Zoe: On" : "Hi Zoe: Off");
             styleSheetToggle(hiZoeToggleBtn, hiZoeWakeMode, Ui.CYAN);
         }
         if (webToggleBtn != null) {
-            webToggleBtn.setText(webOn ? "web: on" : "web: off");
+            webToggleBtn.setText(webOn ? "Web: On" : "Web: Off");
             styleSheetToggle(webToggleBtn, webOn, Ui.COBALT);
         }
         if (voiceModeBtn != null) {
-            voiceModeBtn.setText(useNativeVoice ? "voice: zoe 44k" : "voice: os");
+            voiceModeBtn.setText(useNativeVoice ? "Voice: Zoe 44k" : "Voice: OS");
             styleSheetToggle(voiceModeBtn, useNativeVoice, Ui.PINK);
         }
         if (toolsBtn != null) {
@@ -1808,7 +1808,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
             if (!cameraOn) {
                 cameraOn = true;
                 pendingFreezeOnNextCameraFrame = true;
-                liveHudPill.setText("● box");
+                liveHudPill.setText("● Box");
                 cameraPreview.post(this::bindCameraPreview);
             } else {
                 boolean froze = freezeCurrentFrameForObservationBox();
@@ -3941,7 +3941,7 @@ public final class ZoeLiveActivity extends ComponentActivity {
         styleDrawerButtons();
         updateKeepScreenOn();
         ExploreAccessibility.pulseHaptic(this, ExploreAccessibility.HapticCue.STOPPED, a11y.hapticCues);
-        setOrbState(OrbState.IDLE, "mic & camera off");
+        setOrbState(OrbState.IDLE, "Mic & camera off");
         showCaption("Explore paused. Mic, camera, and sensors are off.", true);
     }
 
@@ -3976,12 +3976,12 @@ public final class ZoeLiveActivity extends ComponentActivity {
                 arSurfaceView.setVoiceLevel(state == OrbState.SPEAKING ? 0.55f : 0f);
             }
         }
-        stateBadge.setText(label == null ? "" : label.toLowerCase(Locale.US));
+        stateBadge.setText(label == null ? "" : label);
         listenBtn.setText(switch (state) {
-            case LISTENING -> "listening…";
-            case SPEAKING -> "interrupt";
-            case THINKING -> "thinking…";
-            default -> (a11y.profile == ExploreAccessibility.Profile.DEAF_HOH && (cameraOn || arModeOn)) ? "look" : "talk";
+            case LISTENING -> "Listening...";
+            case SPEAKING -> "Interrupt";
+            case THINKING -> "Thinking...";
+            default -> (a11y.profile == ExploreAccessibility.Profile.DEAF_HOH && (cameraOn || arModeOn)) ? "Look" : "Talk";
         });
     }
 

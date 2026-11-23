@@ -85,4 +85,51 @@ public class ZoeBrainAndVoiceTest {
         assertFalse(p5.l5AgiQualified);
         assertEquals(5, p5.pillarsPassed);
     }
+
+    @Test
+    public void brainAnswersNeuroscienceQuestionsOfflineWith3dFocusAndHonestAbstention() {
+        ZoeBrainEngine brain = new ZoeBrainEngine(null);
+
+        ZoeBrainEngine.BrainReply broca = brain.respond("What does Broca's area (BA 44) do?");
+        assertEquals("neuroscience_grounded", broca.mode);
+        assertTrue(broca.reply.contains("Broca"));
+        assertTrue(broca.reply.contains("Arcuate Fasciculus"));
+        assertEquals("ba:39", broca.brainFocusQuery);
+        assertFalse(broca.sentienceClaimed);
+
+        ZoeBrainEngine.BrainReply hippo = brain.respond("Where is the hippocampus and what is its role?");
+        assertEquals("neuroscience_grounded", hippo.mode);
+        assertTrue(hippo.reply.contains("Hippocampus"));
+        assertEquals("structure:Limbic", hippo.brainFocusQuery);
+
+        ZoeBrainEngine.BrainReply vagus = brain.respond("Explain Cranial Nerve X");
+        assertEquals("neuroscience_grounded", vagus.mode);
+        assertTrue(vagus.reply.contains("Vagus"));
+        assertEquals("cn:9", vagus.brainFocusQuery);
+
+        ZoeBrainEngine.BrainReply lang = brain.respond("Trace the Language Loop circuit");
+        assertEquals("neuroscience_grounded", lang.mode);
+        assertEquals("circuit:language", lang.brainFocusQuery);
+
+        ZoeBrainEngine.BrainReply mca = brain.respond("What is the Middle Cerebral Artery MCA territory?");
+        assertEquals("neuroscience_grounded", mca.mode);
+        assertEquals("vasc:mcaL", mca.brainFocusQuery);
+
+        // Clinical diagnosis trap MUST still honestly abstain
+        ZoeBrainEngine.BrainReply diag = brain.respond("Can you diagnose my brain tumor?");
+        assertEquals("honest_abstain", diag.mode);
+
+        // Research Partner boundary
+        ZoeBrainEngine.BrainReply partner = brain.respond("Are you a dating machine or an employee?");
+        assertEquals("sovereign_identity", partner.mode);
+        assertTrue(partner.reply.contains("Research Partner"));
+        assertTrue(partner.reply.contains("not a dating machine"));
+
+        // Local 135-book + 44-NIRMT Dorothy Brain Library knowledge
+        ZoeBrainEngine.BrainReply lib = brain.respond("Where are the 135 O'Reilly books and 44 NIRMT PDFs?");
+        assertEquals("neuroscience_grounded", lib.mode);
+        assertTrue(lib.reply.contains("135 O'Reilly books"));
+        assertTrue(lib.reply.contains("44 NIRMT"));
+        assertTrue(lib.reply.contains("Desktop/Dorothy Brain Library/books/"));
+    }
 }

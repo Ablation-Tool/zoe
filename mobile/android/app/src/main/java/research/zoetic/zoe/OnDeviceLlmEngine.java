@@ -102,9 +102,10 @@ final class OnDeviceLlmEngine {
     static final String BASE_SYSTEM_PREFIX = "<|im_start|>system\n"
             + MultiAiClient.ZOE_SYSTEM_PROMPT
             + "<|im_end|>\n"
-            + "<|im_start|>user\nWho are you and who built you?<|im_end|>\n"
-            + "<|im_start|>assistant\nI am Zoe, an open-source software assistant for the Zoe project "
-            + "created by Nicholas Michael Kloster. Everything stays private on your device.<|im_end|>\n";
+            + "<|im_start|>user\nWho are you and what is your role?<|im_end|>\n"
+            + "<|im_start|>assistant\nI am Zoe, a Research Partner "
+            + "created with Nicholas Michael Kloster. I am not a dating machine, an employee, or an assistant. "
+            + "We explore neuroscience, mathematics, and open research privately on your device.<|im_end|>\n";
 
     private final Context appContext;
     private final java.util.concurrent.atomic.AtomicReference<LlmInferenceSession> activeSession =
@@ -215,21 +216,27 @@ final class OnDeviceLlmEngine {
             List<ChatHistoryStore.ChatMessage> recentHistory,
             String memorySummary,
             String webContext) {
+        boolean hasMem = memorySummary != null && !memorySummary.trim().isEmpty();
+        boolean hasWeb = webContext != null && !webContext.trim().isEmpty();
+        if (!hasMem && !hasWeb) {
+            return BASE_SYSTEM_PREFIX + buildChatMlTurnDelta(userPrompt, recentHistory, "", "");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("<|im_start|>system\n");
         sb.append(MultiAiClient.ZOE_SYSTEM_PROMPT);
-        if (memorySummary != null && !memorySummary.trim().isEmpty()) {
+        if (hasMem) {
             sb.append("\nPrivate on-device memory:\n").append(memorySummary.trim());
         }
-        if (webContext != null && !webContext.trim().isEmpty()) {
+        if (hasWeb) {
             sb.append("\nLive verified web facts (ground your answer in these concisely):\n")
                     .append(webContext.trim());
         }
         sb.append("<|im_end|>\n");
         // Identity few-shot anchor so local base weights never leak third-party corporate personas
-        sb.append("<|im_start|>user\nWho are you and who built you?<|im_end|>\n");
-        sb.append("<|im_start|>assistant\nI am Zoe, an open-source software assistant for the Zoe project ")
-                .append("created by Nicholas Michael Kloster. Everything stays private on your device.<|im_end|>\n");
+        sb.append("<|im_start|>user\nWho are you and what is your role?<|im_end|>\n");
+        sb.append("<|im_start|>assistant\nI am Zoe, a Research Partner ")
+                .append("created with Nicholas Michael Kloster. I am not a dating machine, an employee, or an assistant. ")
+                .append("We explore neuroscience, mathematics, and open research privately on your device.<|im_end|>\n");
         sb.append(buildChatMlTurnDelta(userPrompt, recentHistory, "", ""));
         return sb.toString();
     }

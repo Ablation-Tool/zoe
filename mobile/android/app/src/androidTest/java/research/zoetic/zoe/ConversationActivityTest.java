@@ -33,26 +33,26 @@ public class ConversationActivityTest {
     @Test
     public void conversationCanStartAndAlwaysStopsWithCleanChrome() {
         onView(withText("Ask AI ↗")).check(doesNotExist());
-        onView(withId(R.id.conversation_clear_btn)).check(matches(withText("clear")));
+        onView(withId(R.id.conversation_clear_btn)).check(matches(withText("Clear")));
         onView(withId(R.id.conversation_start)).perform(click());
         onView(withId(R.id.conversation_stop)).perform(click());
-        onView(withId(R.id.conversation_status)).check(matches(withText("conversation stopped · microphone is off")));
+        onView(withId(R.id.conversation_status)).check(matches(withText("Conversation stopped · Microphone is off")));
     }
 
     @Test
     public void settingsSheetHoldsModeWebCaptionsAndVoiceCleanly() {
         onView(withId(R.id.conversation_brain_settings)).perform(click());
         onView(withId(R.id.conversation_mode_auto)).check(matches(isDisplayed()));
-        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("web: off")));
+        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("Web: Off")));
         onView(withId(R.id.conversation_web_toggle)).perform(click());
-        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("web: on")));
+        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("Web: On")));
         onView(withId(R.id.conversation_web_toggle)).perform(click());
-        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("web: off")));
-        onView(withId(R.id.conversation_captions)).perform(scrollTo()).check(matches(withText("caption mode: off")));
+        onView(withId(R.id.conversation_web_toggle)).check(matches(withText("Web: Off")));
+        onView(withId(R.id.conversation_captions)).perform(scrollTo()).check(matches(withText("Caption Mode: Off")));
         onView(withId(R.id.conversation_captions)).perform(click());
-        onView(withId(R.id.conversation_captions)).check(matches(withText("caption mode: on")));
+        onView(withId(R.id.conversation_captions)).check(matches(withText("Caption Mode: On")));
         onView(withId(R.id.conversation_voice)).perform(scrollTo()).check(matches(isDisplayed()));
-        onView(withText("done")).perform(scrollTo(), click());
+        onView(withText("Done")).perform(scrollTo(), click());
     }
 
     @Test
@@ -60,9 +60,9 @@ public class ConversationActivityTest {
         onView(withId(R.id.conversation_input)).perform(replaceText("navigate to Central Park and set a 5 minute timer"), closeSoftKeyboard());
         onView(withId(R.id.conversation_send)).perform(click());
         onView(withId(R.id.conversation_action_bar)).check(matches(isDisplayed()));
-        onView(withId(R.id.conversation_action_btn)).check(matches(withText(containsString("central park"))));
+        onView(withId(R.id.conversation_action_btn)).check(matches(withText(containsString("Central Park"))));
         onView(withId(R.id.conversation_clear_btn)).perform(click());
-        onView(withId(R.id.conversation_status)).check(matches(withText("chat cleared")));
-        onView(withText("hi, i'm zoe")).check(matches(isDisplayed()));
+        onView(withId(R.id.conversation_status)).check(matches(withText("Chat cleared")));
+        onView(withText("Hi, I'm Zoe")).check(matches(isDisplayed()));
     }
 }
