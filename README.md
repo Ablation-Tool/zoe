@@ -25,7 +25,7 @@ $$
 
 <br/>
 
-**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256)
+**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))
 
 </div>
 

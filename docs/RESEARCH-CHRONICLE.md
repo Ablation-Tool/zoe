@@ -50,6 +50,40 @@ flowchart TD
 
 ---
 
+## The Candy Land Research Roadmap & Stochastic Model
+
+Candy Land maps directly onto both a complete research development lifecycle and a formal discrete-probability model. Below is how the board mirrors the real chronological journey of `Ablation-Tool/zoe` from March 6, 2026 to full offline publication, followed by the stochastic mathematics underneath.
+
+### 1. Five-Phase Research Lifecycle (Start to Candy Castle)
+
+| Phase | Candy Land Landmark | Research Lifecycle Meaning | Concrete Milestone in `Ablation-Tool/zoe` |
+|:---|:---|:---|:---|
+| **Phase 1: Ideation & Initial Exploration** | **START -> Gingerbread Plum Trees (Plumpy)** | Forming the initial research question and gathering early background literature. | **Mar 6, 2026:** Nicholas Michael Kloster writes $A_\tau(p)$ and drafts [`01-autonomy-march-2026.pdf`](../research/papers/papers/01-autonomy-march-2026.pdf) and early empirical explorations. |
+| **Phase 1 Shortcut** | **Rainbow Trail** | Major conceptual breakthrough that bypasses tedious foundational busywork. | Proving the **Kloster Spectral Filtration Generating Theorem** ([`KLOSTER-SPECTRAL-FILTRATION-THEOREM.md`](../research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md)), recovering Shannon $H(p)$, Renyi, Tsallis, and $M_k(p)$ directly from integrals of $A_\tau(p)$. |
+| **Phase 2: Methodology & Early Data Collection** | **Peppermint Forest (Mr. Mint)** | Designing methodology, building clean environments, and running structured pilot tests. | Self-authored [`CONSTITUTION.md`](CONSTITUTION.md) (`measurement != evidence != belief update != action`), signed PKCS #7 seal, and deterministic offline verifier [`verify-one-system.py`](../scripts/verify-one-system.py). |
+| **Phase 2 Shortcut** | **Gumdrop Pass** | Integrating validated open datasets and standards to accelerate real evaluation. | Zero-submodule integration of 16 real HuggingFace LLMs, Allen Mouse CCFv3, open human ICBM152/MNI152/AAL-116/CIT168 neuroimaging templates, NIH PubChem, and Gary Kildall's GEM VDI/Spatial IR heritage. |
+| **Phase 2 Scale-Up** | **Gumdrop Mountains (Jolly)** | Steep climb scaling raw data, instruments, and cross-domain experiments. | Consolidating 13 repos into 17 engines, 76 GEM layers, 16 SymPy theorems, 456 cataloged visuals, L3/L4/L5 Phases 1-6, 8-Pillar Self-Improving Engine, and 28 applied labs (`C1-C28`). |
+| **Phase 3: Bottlenecks & Peer Review** | **Gooey Gumdrops (Trap Square: wait for yellow)** | Pipeline breaks, overclaims, or stubborn failures halting progress until properly fixed. | Openly preserved failures and corrections: 84-page monograph corrections, naive JSD failure (`AUROC = 0.40870`), fixed-$\tau$ fragility (`A_0.05 = 0.5000` on 256-patch vision), legacy `vision_changes_decision` baseline, and 3 falsified L3 hypotheses. |
+| **Phase 3 Peer Review** | **Licorice Castle (Lord Licorice)** | Surviving harsh ethics review and "Reviewer 2" adversarial falsification scrutiny. | Building the `< 6s` blind 6-baseline [`PROOF-PACKET.md`](PROOF-PACKET.md) (`6/6 PASS`), causal closed-loop ablation ($p = 8.50 \times 10^{-7}$), `17/17` hostile AST blocks, `6/6` anti-reward-hacking blocks, `0/200` null bluffs, `47/47` SHA-256 orbit seal, and `0` Grade-C/D modules across 294 audited files. |
+| **Phase 4: Drafting & Synthesis** | **Peanut Brittle House (Gramma Nutt)** | Piecing fragmented findings into coherent manuscripts and early synthesis. | Compiling 18 original papers, 3 preserved arXiv bundles, the 23-page [`zoe-research-universe.pdf`](../research/monograph/zoe-research-universe.pdf), and the `4.7 MB` 16-Theorem LaTeX monograph. |
+| **Phase 4 Refinement** | **Lollipop Woods (Princess Lolly) & Lost Trap (wait for blue)** | Resolving scope creep, structural clutter, and edge cases during final synthesis. | Streamlining the monorepo root (`assets/`, `config/`, `docs/`, `research/monograph/`), syncing live counts across 11 markdown docs (`1,356` links, `0` broken) and `126` valid JSON reports. |
+| **Phase 5: Final Hurdles & Publication** | **Molasses Swamp (Gloppy) & Stuck Trap (wait for red)** | Slowest final clearance: cross-platform packaging, checksums, and provenance audits. | Packaging WebGL2 GitHub Pages, Android Pixel 7 APK (`v0.9.6-beta`), Apple SwiftUI/Safari, Linux/Windows/macOS Desktop apps, standalone SafeConvert (`v1.0.0`), and repository history verification. |
+| **Phase 5 Pre-Print** | **Ice Cream Sea (Queen Frostine)** | Smooth sailing near the finish line: interactive demos, pre-prints, and accessible walk-throughs. | Live Dorothy 3D Human Brain web & Pixel 7 tours, `525 KB` Dual-Peer Zoe & Clara balanced by Theorem 15 (`8/8 PASS`), and [`NARRATION-SCRIPT.md`](NARRATION-SCRIPT.md). |
+| **Phase 5 Publication** | **Candy Castle (King Kandy)** | Public reproducible release and open verification for independent referees. | Public zero-cloud-token release on `Ablation-Tool/zoe` (`126` verified JSON artifacts, `47/47` sealed SHA-256 hashes, honest `l5_agi_qualified = False` milestone toward L5 neurology and brain-tumor research). |
+
+### 2. Hidden Mathematics of Candy Land (Connected to Zoe's Calculus)
+
+Despite requiring zero arithmetic from players, Candy Land is a textbook laboratory for discrete probability and stochastic processes that connects directly to Zoe's formal theorems:
+
+| Mathematical Concept | How It Works on the Board | Formal Connection to Zoe's Theorems |
+|:---|:---|:---|
+| **Modular Arithmetic ($\pmod 6$)** | The track repeats a 6-color cycle (**Red -> Purple -> Yellow -> Blue -> Orange -> Green**). Drawing color $c$ advances to the next square satisfying $n \equiv c \pmod 6$. | Mirrors discrete cyclic phase indexing in Zoe's 40 MHz `CicadaClock` ([`cicada.py`](../guiai-lab/guiai/gem/cicada.py)) and `.MOD`/`.MID` rhythm residue grids ([`groove_forensics.py`](../guiai-lab/guiai/gem/groove_forensics.py)). |
+| **Absorbing Markov Chains** | With zero player choices, each square is a discrete state, deck probabilities form the transition matrix $P(s' \mid s)$, and **Candy Castle** is the absorbing state ($P(\text{castle} \mid \text{castle}) = 1$). | Connects directly to **Theorem 8 (Majorization & Birkhoff Mixing)** ([`kloster_majorization_mixing.py`](../guiai-lab/guiai/gem/kloster_majorization_mixing.py)) and state-transition distributions monitored by $A_\tau(P(\cdot \mid s))$. |
+| **Non-Monotonic Jumps (Chaos & Variance)** | Picture cards (Plumpy, Mr. Mint, Jolly, Gramma Nutt, Princess Lolly, Queen Frostine) act as non-local teleportation operators: drawing Queen Frostine on turn 1 leaps near the end, while drawing Plumpy right before Candy Castle resets almost to the start. | Produces heavy-tailed multi-step reachability variance tracked by **Theorem 2 (Multi-Horizon $(\tau, h)$ Phase Transitions)** $A_\tau^{(h)}(S)$ ([`kloster_info_geometry.py`](../guiai-lab/guiai/gem/kloster_info_geometry.py)). |
+| **Geometric Distribution (Trap Squares)** | Landing on a dot trap (Gooey Gumdrops, Lollipop Woods, Molasses Swamp) holds a player until a specific color of probability $q$ is drawn, yielding geometric wait time $P(T = k) = (1-q)^{k-1} q$ with expected delay $\mathbb{E}[T] = 1/q$. | Parallels **Theorem 13 (Finite-Sample Anytime Stopping)** ([`kloster_stopping_law.py`](../guiai-lab/guiai/gem/kloster_stopping_law.py)), which bounds exact sample wait budgets $S_{\min}$ before exiting `GATHER_MORE` into `DECIDE_SIGNAL` or `ABSTAIN`. |
+
+---
+
 ## Master Evidence Ledger (Complete Chronological Audit Trail)
 
 Every written JSON artifact under [`evidence/`](../evidence/) is indexed below in chronological order alongside its written documentation, independent verifier command, and negative control or honest boundary.

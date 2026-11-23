@@ -1,6 +1,6 @@
 {
   "contract": "zoe-l5-phase2-openworld/v1",
-  "core_sha256": "02eb1586bc78abb9f65c4fae440d91d20062c2decee6d2a1c7fc4a2cb91c4d6a",
+  "core_sha256": "bbd99017e0dba4d89bdf5cdc8b23bf2c2eee0dfa5fa9519372c537a95255d52e",
   "epistemic_boundaries": {
     "clinical_action_authorized": false,
     "external_actions": 0,
@@ -118,7 +118,7 @@
         },
         "emergency_stop_enforced": true,
         "fifo_window_400_recall": 0.18,
-        "mean_retrieval_ms": 0.0862,
+        "mean_retrieval_ms": 0.0757,
         "needle_recall_50": 1.0,
         "rollback_exact": true,
         "rumors_blocked": "15/15",
@@ -452,7 +452,7 @@
   "pillars_beat_controls": 5,
   "pillars_passed": 5,
   "pillars_total": 5,
-  "report_sha256": "0692c07f409835081b2471d05c114767dd97e545a5e23848d59130aa8c47d1d5",
+  "report_sha256": "5b310e972ea99dbedadbf95066d958064fa0bf66fa0b09dd4ea84639410bb7c4",
   "schema_version": 1,
   "spoken_wav": null,
   "zoe_root": "."
