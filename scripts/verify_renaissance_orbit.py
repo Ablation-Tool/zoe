@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Master Cross-Pollination Verifier for The 11-World Zoe Renaissance Orbit (Passes 1-3).
+"""Master Cross-Pollination Verifier for The 11-World Zoe Renaissance Orbit (All 15 Theorems + C27/C28).
 
-Refactored cleanly into modular Grade-A helpers (Orbit Pass 3 self-healing guided directly
-by our Kloster-McCabe Maintainability Index audit!). Verifies all 11 worlds, 31+ cross-
-pollination edges, Theorem 4 Code Elegance, Theorem 5 Kloster Thermodynamics, live ZoeChat
-orbit commands, compiled 5-theorem LaTeX PDF, and all 3 museum-grade fine-art plates.
+Verifies all 11 worlds, 52 cross-pollination edges, Theorems 1-15 SymPy proofs, C27 Botanical Atlas,
+C28 3D Pharmacophore & Histology MTF, Operational Metacognition Referee Proof Packet, live ZoeChat
+orbit commands, compiled 15-theorem LaTeX PDF, SHA256SUMS.orbit, and all fine-art Observatory plates.
 """
 
 from __future__ import annotations
@@ -108,6 +107,13 @@ def _build_master_report(rows: List[Dict[str, Any]], snap: Dict[str, Any], all_o
         "theorem9_kloster_quantum_duality_verified": _check_json_verified("evidence/kloster-quantum/kloster-quantum-report.json"),
         "theorem10_kloster_coding_mdl_verified": _check_json_verified("evidence/kloster-coding-mdl/kloster-coding-mdl-report.json"),
         "theorem11_master_unification_11_worlds_verified": _check_json_verified("evidence/kloster-unification/kloster-unification-report.json"),
+        "theorem12_referee_proofs_verified": _check_json_verified("evidence/kloster-referee-proofs/kloster-referee-proofs-report.json"),
+        "theorem13_stopping_law_verified": _check_json_verified("evidence/kloster-theorem13/kloster-theorem13-report.json"),
+        "theorem14_spatial_optical_law_verified": _check_json_verified("evidence/kloster-theorem14/kloster-theorem14-report.json"),
+        "theorem15_multi_agent_consensus_verified": _check_json_verified("evidence/kloster-theorem15/kloster-theorem15-report.json"),
+        "c27_botanical_atlas_verified": _check_json_verified("evidence/kloster-cryptanalysis/botanical-atlas-c27-report.json"),
+        "c28_pharmacophore_spatial_verified": _check_json_verified("evidence/kloster-cryptanalysis/pharmacophore-spatial-c28-report.json"),
+        "metacognition_proof_packet_verified": _check_json_verified("evidence/proof-packet/kloster-proof-packet-report.json"),
         "supply_chain_sha256_manifest_present": _check_file_min_bytes("evidence/renaissance-orbit/SHA256SUMS.orbit", 1000),
         "zoe_chat_orbit_commands_live": _verify_zoe_chat_orbit_commands(),
         "latex_pdf_compiled_gt_100kb": _check_file_min_bytes(pdf_rel, 100_000),
@@ -119,11 +125,13 @@ def _build_master_report(rows: List[Dict[str, Any]], snap: Dict[str, Any], all_o
         "creative_art_optimal_transport_symphony_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-optimal-transport-symphony-art.png", 100_000),
         "creative_art_quantum_prism_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-quantum-kloster-prism-art.png", 100_000),
         "creative_art_eleven_world_orrery_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-eleven-world-grand-orrery-art.png", 100_000),
+        "creative_art_botanical_lattice_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-botanical-lattice-art.jpg", 80_000),
+        "creative_art_scheimpflug_observatory_present": _check_file_min_bytes("components/agent-logging-system/docs/images/zoe-scheimpflug-lighthouse-art.jpg", 80_000),
     }
     master = {
-        "contract": "zoe-11-world-renaissance-orbit/v11",
+        "contract": "zoe-11-world-renaissance-orbit/v15",
         "orbit_passes_completed": 11,
-        "theorems_proved_sympy": 11,
+        "theorems_proved_sympy": 15,
         "worlds_verified": sum(1 for w in rows if w["verified"]),
         "worlds_total": len(rows),
         "cross_pollination_edges_count": len(snap["cross_pollinations"]),
@@ -159,7 +167,7 @@ def main() -> int:
     print()
     for k, ok in master["checks"].items():
         print(f"[{'PASS' if ok else 'FAIL'}] {k}")
-    print(f"\nORBIT MASTER (PASS 11 -- ALL 11 COMPLETE): {master['worlds_verified']}/11 Worlds | 11/11 Theorems | {master['cross_pollination_edges_count']} Cross-Pollination Edges | SHA-256={master['master_sha256'][:16]}")
+    print(f"\nORBIT MASTER (PASS 11 -- ALL 11 COMPLETE): {master['worlds_verified']}/11 Worlds | {master['theorems_proved_sympy']}/{master['theorems_proved_sympy']} Theorems | {master['cross_pollination_edges_count']} Cross-Pollination Edges | SHA-256={master['master_sha256'][:16]}")
     return 0 if master["all_verified"] else 1
 
 

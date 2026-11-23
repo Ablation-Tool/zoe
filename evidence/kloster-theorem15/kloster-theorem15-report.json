@@ -1,0 +1,88 @@
+{
+  "all_verified": true,
+  "checks": {
+    "thm15_sympy_5_exact_proofs_residual_zero": true,
+    "thm15_w1_diverse_6llm_vs_echo_chamber_zero_dk": true,
+    "thm15_w2_helen_1920_exact_brier_gain_equals_dk": true,
+    "thm15_w3_fips203_3hospital_consensus_vs_rogue_guard": true
+  },
+  "constitution": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "offline_and_100pct_legal": true,
+    "sentience_claimed": false
+  },
+  "contract": "zoe-kloster-theorem15/v1",
+  "equation_credit": "Operational Metacognition A_tau(p) originated by Nicholas Michael Kloster (March 6, 2026)",
+  "evidence_sha256": "075bee2d7222d6faf577fd539d120c0cd421d11757e5c6aa39d2419a39d5fc03",
+  "sympy_proofs": {
+    "all_proved": true,
+    "proofs": {
+      "15a_kloster_jensen_disagreement_exact": true,
+      "15b_pairwise_disagreement_identity_exact": true,
+      "15c_brier_wisdom_of_crowds_y_cancels_exact": true,
+      "15d_echo_chamber_zero_diversity_exact": true,
+      "15e_3agent_pairwise_decomposition_exact": true
+    },
+    "sympy_version": "1.14.0"
+  },
+  "world1_6llm_vs_echo": {
+    "brier_gain_vs_dk_err": 2.570117368927427e-09,
+    "diverse_6llm": {
+      "coherence_c_k": 0.673603,
+      "d_k_disagreement": 0.12755983,
+      "decomposition_err": 1.942890293094024e-16,
+      "jsd_nats": 0.4180879,
+      "k_agents": 6,
+      "m2_mean": 0.39862432,
+      "m2_pool": 0.27106449,
+      "n_dim": 128
+    },
+    "echo_chamber_6clone": {
+      "coherence_c_k": 1.0,
+      "d_k_disagreement": 0.0,
+      "decomposition_err": 3.705158193791851e-34,
+      "jsd_nats": 0.0,
+      "k_agents": 6,
+      "m2_mean": 0.01411813,
+      "m2_pool": 0.01411813,
+      "n_dim": 128
+    },
+    "verified": true
+  },
+  "world2_helen_real_brier": {
+    "actual_brier_gain": 0.168295,
+    "brier_forward": 0.208727,
+    "brier_mean_single": 0.565519,
+    "brier_pooled_ensemble": 0.397224,
+    "brier_retrograde": 0.922311,
+    "kloster_dk_predicted_gain": 0.168295,
+    "max_per_row_identity_err": 3.3306690738754696e-16,
+    "n_real_obs": 1920,
+    "verified": true
+  },
+  "world3_fips203_consortium": {
+    "fips203_3site_pool_exact": true,
+    "honest_3site": {
+      "coherence_c_k": 0.961071,
+      "d_k_disagreement": 0.01097394,
+      "decomposition_err": 4.163336342344337e-17,
+      "jsd_nats": 0.08757887,
+      "k_agents": 3,
+      "m2_mean": 0.44855967,
+      "m2_pool": 0.43758573,
+      "n_dim": 6
+    },
+    "rogue_contaminated_3site": {
+      "coherence_c_k": 0.3016,
+      "d_k_disagreement": 0.16952784,
+      "decomposition_err": 2.7755575615628914e-17,
+      "jsd_nats": 0.62243752,
+      "k_agents": 3,
+      "m2_mean": 0.40940414,
+      "m2_pool": 0.2398763,
+      "n_dim": 6
+    },
+    "verified": true
+  }
+}

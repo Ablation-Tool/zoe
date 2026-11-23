@@ -306,6 +306,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
       <button class="btn outline" id="btnJam" onclick="playPlayroomJam()" style="border-color:rgba(242,198,94,0.5);color:var(--gold);">🎹 Evolve Jam</button>
       <a class="btn outline" href="/botanical" style="text-decoration:none;border-color:rgba(134,239,172,0.55);color:var(--mint);">🌿 C27 Atlas</a>
       <a class="btn outline" href="/optics" style="text-decoration:none;border-color:rgba(240,163,223,0.55);color:var(--orchid);">🔭 Optics Lab</a>
+      <a class="btn outline" href="/proof" style="text-decoration:none;border-color:rgba(242,198,94,0.55);color:var(--gold);">⚖️ Proof Lab</a>
       <a class="btn outline" href="/orbit" style="text-decoration:none;border-color:rgba(92,225,230,0.45);color:var(--cyan);">✦ Orbit</a>
       <a class="btn outline" href="/api/export" style="text-decoration:none;">Export JSON</a>
       <button class="btn stop-btn" id="btnStop" onclick="emergencyStop()">Emergency Stop</button>
@@ -1137,6 +1138,28 @@ def create_server(
                 rep_file = resolved_root / "evidence" / "proof-packet" / "kloster-proof-packet-report.json"
                 self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
                 return
+            if path == "/api/kloster/theorem15":
+                rep_file = resolved_root / "evidence" / "kloster-theorem15" / "kloster-theorem15-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
+            if path == "/api/kloster/pharmacophore-c28":
+                rep_file = resolved_root / "evidence" / "kloster-cryptanalysis" / "pharmacophore-spatial-c28-report.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
+            if path == "/api/kloster/live-qwen-shootout":
+                rep_file = resolved_root / "evidence" / "live-llm-hallucination" / "qwen25-hallucination-shootout.json"
+                self._send_json(200, json.loads(rep_file.read_text(encoding="utf-8")) if rep_file.is_file() else {"available": False})
+                return
+            if path == "/proof":
+                from .proof_packet_arena import render_proof_arena_html
+                html_bytes = render_proof_arena_html()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(html_bytes)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(html_bytes)
+                return
             if path == "/botanical":
                 from .botanical_atlas_explorer import render_botanical_explorer_html
                 html_bytes = render_botanical_explorer_html()
@@ -1179,7 +1202,7 @@ def create_server(
                     f"<h1>Zoe :: 11-World Renaissance Observatory (All {doc.get('orbit_passes_completed', 11)} Orbital Passes Complete)</h1>"
                     f"<div><span class='pill'>{doc.get('worlds_verified',0)}/11 Worlds Verified</span>"
                     f"<span class='pill'>{doc.get('cross_pollination_edges_count',0)} Cross-Pollination Edges</span>"
-                    f"<span class='pill'>Theorems 1-14 SymPy Proved</span><span class='pill'>41/41 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
+                    f"<span class='pill'>Theorems 1-15 SymPy Proved</span><span class='pill'>45/45 SHA256SUMS.orbit Sealed</span><span class='pill'>0 Cloud Tokens</span></div>"
                     f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
                     "<p style='margin-top:20px;color:#9db2d1;line-height:1.8'>Live Observatory APIs: "
                     "<a style='color:#7ce8ff' href='/api/os/mind'>/api/os/mind</a> · "
@@ -1204,6 +1227,9 @@ def create_server(
                     "<a style='color:#63f5b5' href='/botanical'>/botanical (Interactive C27 Explorer)</a> · "
                     "<a style='color:#f0a3df' href='/optics'>/optics (Interactive Theorem 14 Optical &amp; Spatial Lab)</a> · "
                     "<a style='color:#7ce8ff' href='/api/kloster/theorem14'>/api/kloster/theorem14</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/theorem15'>/api/kloster/theorem15</a> · "
+                    "<a style='color:#7ce8ff' href='/api/kloster/pharmacophore-c28'>/api/kloster/pharmacophore-c28</a> · "
+                    "<a style='color:#ffb84d' href='/proof'>/proof (Interactive Referee Arena)</a> · "
                     "<a style='color:#ffb84d' href='/api/kloster/proof-packet'>/api/kloster/proof-packet</a> · "
                     "<a style='color:#7ce8ff' href='/api/orbit/master'>/api/orbit/master</a></p></body></html>"
                 ).encode("utf-8")

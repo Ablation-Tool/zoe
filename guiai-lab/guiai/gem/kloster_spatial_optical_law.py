@@ -32,6 +32,8 @@ from typing import Any, Dict, List, Tuple
 import numpy as np
 import sympy as sp
 
+from .kloster_stopping_law import kloster_unbiased_chi2_stats
+
 CONTRACT = "zoe-kloster-theorem14/v1"
 
 
@@ -81,13 +83,12 @@ def kloster_spatial_m2(field: np.ndarray) -> float:
 
 
 def _quadrat_zk(pts: np.ndarray, grid_n: int = 8) -> Dict[str, float]:
-    """Compute two-sided Kloster U-statistic Z_K and Ripley's L(r)-r summary on [0,1]^2."""
+    """Compute two-sided Kloster U-statistic Z_K (reusing Theorem 13) and Ripley's L(r)-r on [0,1]^2."""
     hist, _, _ = np.histogram2d(pts[:, 0], pts[:, 1], bins=grid_n, range=[[0.0, 1.0], [0.0, 1.0]])
     c = hist.ravel()
-    s_tot = float(np.sum(c))
-    n_bins = int(c.size)
-    m2_u = float(np.sum(c * (c - 1.0))) / (s_tot * (s_tot - 1.0))
-    z_k = (n_bins * m2_u - 1.0) / math.sqrt(2.0 * (n_bins - 1.0) / (s_tot * (s_tot - 1.0)))
+    s_tot, n_bins = float(np.sum(c)), int(c.size)
+    # Reuse Theorem 13's exact single-source-of-truth unbiased U-statistic Z_K
+    z_k = float(kloster_unbiased_chi2_stats(c)["z_kloster"])
     vmr = float(np.var(c, ddof=1) / max(np.mean(c), 1e-12))
     # Pairwise Ripley K(r) -> Besag L(r) - r at r = 0.08 (toroidal distance removes edge bias)
     diff = np.abs(pts[:, None, :] - pts[None, :, :])

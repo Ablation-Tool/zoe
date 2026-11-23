@@ -124,7 +124,7 @@
       "h2": -0.0,
       "max_cc": 1,
       "mi": 81.121,
-      "sloc": 305
+      "sloc": 306
     },
     {
       "avg_cc": 5.417,
@@ -388,13 +388,13 @@
       "sloc": 100
     },
     {
-      "avg_cc": 20.143,
+      "avg_cc": 21.143,
       "file": "guiai-lab/guiai/gem/eliza_view.py",
       "grade": "B",
-      "h2": 1.3187,
-      "max_cc": 118,
-      "mi": 52.148,
-      "sloc": 1457
+      "h2": 1.2937,
+      "max_cc": 125,
+      "mi": 51.994,
+      "sloc": 1483
     },
     {
       "avg_cc": 6.64,
@@ -595,6 +595,15 @@
       "sloc": 181
     },
     {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/kloster_multi_agent_consensus.py",
+      "grade": "A",
+      "h2": 1.5591,
+      "max_cc": 14,
+      "mi": 60.807,
+      "sloc": 179
+    },
+    {
       "avg_cc": 5.263,
       "file": "guiai-lab/guiai/gem/kloster_nsa_cnsa2_and_advanced.py",
       "grade": "A",
@@ -638,6 +647,15 @@
       "max_cc": 8,
       "mi": 65.565,
       "sloc": 231
+    },
+    {
+      "avg_cc": 6.4,
+      "file": "guiai-lab/guiai/gem/kloster_pharmacophore_spatial_c28.py",
+      "grade": "A",
+      "h2": 1.1144,
+      "max_cc": 14,
+      "mi": 62.273,
+      "sloc": 122
     },
     {
       "avg_cc": 5.0,
@@ -690,8 +708,8 @@
       "grade": "A",
       "h2": 1.7381,
       "max_cc": 8,
-      "mi": 63.481,
-      "sloc": 220
+      "mi": 63.827,
+      "sloc": 219
     },
     {
       "avg_cc": 4.417,
@@ -1027,6 +1045,15 @@
       "sloc": 58
     },
     {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/proof_packet_arena.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 81.121,
+      "sloc": 213
+    },
+    {
       "avg_cc": 6.929,
       "file": "guiai-lab/guiai/gem/protocol_lab.py",
       "grade": "A",
@@ -1114,7 +1141,7 @@
       "h2": -0.0,
       "max_cc": 1,
       "mi": 81.121,
-      "sloc": 454
+      "sloc": 455
     },
     {
       "avg_cc": 3.5,
@@ -2107,6 +2134,15 @@
       "sloc": 151
     },
     {
+      "avg_cc": 8.4,
+      "file": "scripts/run_live_qwen_hallucination_benchmark.py",
+      "grade": "B",
+      "h2": 1.3269,
+      "max_cc": 16,
+      "mi": 49.67,
+      "sloc": 293
+    },
+    {
       "avg_cc": 9.0,
       "file": "scripts/verify-metacognition-collaboration.py",
       "grade": "A",
@@ -2400,8 +2436,8 @@
       "grade": "A",
       "h2": 1.5612,
       "max_cc": 8,
-      "mi": 61.129,
-      "sloc": 145
+      "mi": 60.657,
+      "sloc": 153
     },
     {
       "avg_cc": 6.333,
@@ -2411,6 +2447,15 @@
       "max_cc": 11,
       "mi": 56.669,
       "sloc": 156
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_theorem15_and_c28.py",
+      "grade": "B",
+      "h2": 0.7,
+      "max_cc": 13,
+      "mi": 55.304,
+      "sloc": 150
     },
     {
       "avg_cc": 5.5,
@@ -2491,26 +2536,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "a105faf66f1e7b3e6363424cea48aab94b1741343e78585b0fddeb2770c3edc1",
+  "evidence_sha256": "af8e975f840599401c633dde0ca5443b38684614a70024dad638094fcb36b9bd",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.6318,
-    "files_scanned": 275,
+    "corr_avg_cc_vs_mi": -0.633,
+    "files_scanned": 280,
     "grade_distribution": {
-      "A": 141,
-      "B": 125,
+      "A": 144,
+      "B": 127,
       "C": 9,
       "D": 0
     },
-    "max_function_cc": 119,
-    "mean_avg_cc": 7.273,
-    "mean_mi": 58.833,
-    "median_mi": 60.203,
+    "max_function_cc": 125,
+    "mean_avg_cc": 7.253,
+    "mean_mi": 58.886,
+    "median_mi": 60.213,
     "orbit_mean_avg_cc": 7.377,
     "orbit_mean_mi": 57.655,
     "orbit_modules_count": 13,
     "parse_errors": 0,
-    "total_functions": 3029,
-    "total_sloc": 81522
+    "total_functions": 3050,
+    "total_sloc": 82514
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -2857,15 +2902,15 @@
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
       "functions": 14,
       "grade": "A",
-      "halstead_length": 1416,
-      "halstead_vocab": 467,
-      "halstead_volume": 12556.07,
+      "halstead_length": 1433,
+      "halstead_vocab": 484,
+      "halstead_volume": 12780.73,
       "kloster_cc_a_005": 8,
       "kloster_cc_m4_root": 0.2449,
       "kloster_cc_renyi_h2": 2.103,
       "low_maintainability_flag": false,
       "max_cc": 12,
-      "mi_file_radon": 14.679,
+      "mi_file_radon": 14.625,
       "mi_score": 61.76,
       "most_complex_function": {
         "cc": 12,

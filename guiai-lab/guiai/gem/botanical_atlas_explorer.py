@@ -77,6 +77,7 @@ BOTANICAL_EXPLORER_HTML = r"""<!DOCTYPE html>
       <span class="pill">cure_claim=False · clinical_action_authorized=False · 0 PHI</span>
       <a class="btn" href="/">← Eliza-GEM Studio</a>
       <a class="btn" href="/optics" style="color:var(--orchid);">🔭 Optics Lab</a>
+      <a class="btn" href="/proof" style="color:var(--gold);">⚖️ Proof Lab</a>
       <a class="btn" href="/orbit">Orbit Control Room</a>
       <a class="btn" href="/api/kloster/botanical-atlas">Raw JSON</a>
     </div>

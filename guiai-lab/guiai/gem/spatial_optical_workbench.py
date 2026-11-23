@@ -64,6 +64,7 @@ OPTICS_WORKBENCH_HTML = r"""<!DOCTYPE html>
       <span class="pill" id="thmPill">6/6 SYMPY PROVED · OFFLINE</span>
       <a class="btn" href="/">← Eliza-GEM Studio</a>
       <a class="btn" href="/botanical" style="color:var(--mint);">🌿 C27 Atlas</a>
+      <a class="btn" href="/proof" style="color:var(--gold);">⚖️ Proof Lab</a>
       <a class="btn" href="/orbit">Orbit Control Room</a>
       <a class="btn" href="/api/kloster/theorem14">Raw JSON</a>
     </div>

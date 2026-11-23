@@ -64,6 +64,15 @@ Every estimator is evaluated identically on the exact same saved neural/imaging 
 | **3. HELEN Retrograde** (`1,920` · real obs) | `0.5854` | `0.5689` | `0.5667` | `0.5792` | **`0.5945`** | `0.5854` | **Kloster `M₂^(1/2)` #1 AUROC** (`0.5945`) & #1 non-tied AURC (`0.3611`), beating MSP, Margin & Shannon |
 | **4. 3D PSF+Rician Volumes** (`10` seeds · `138,240` vox) | `0.9952` | `0.8326` | `0.9983` | `0.9841` | **`0.9986`** | **`0.9986`** | **Kloster `M₄^(1/4)` & `M₂^(1/2)` #1 AUROC** across `10/10` independent seeds (Wilcoxon $p < 0.001$ vs Shannon) |
 | **5. Dorothy CCFv3 256-Patch Attention** (`256` · `256`) | `0.9094` | `0.9313` | `0.8732` | `0.5000` *(fail)* | `0.9092` | **`0.9338`** | **Kloster `M₄^(1/4)` #1 AUROC** (`+6.06 pp` vs Shannon); **exposes fixed-$\tau$ fragility of raw $A_{0.05}$** (`1/256 = 0.0039 < 0.05`) and proves why spectral integration solves it! |
+| **6. Live `Qwen2.5-0.5B-Instruct` Hallucinations** (`60` · `151,936`) | `0.8360` | `0.7896` | `0.8145` | `0.7772` | **`0.8382`** | `0.8303` | **Kloster `M₂^(1/2)` #1 AUROC (`0.8382`) & #1 AURC (`0.3181`)** on live 151k-vocab generations; **Raw $A_{0.05}$ #1 Err@50%cov** (`56.7% → 30.0%`, beating MSP/Margin/Shannon `33.3%`!) |
+
+<div align="center">
+
+![Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout](components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png)
+
+</div>
+
+*(Re-verify offline in `< 1s`: `python3 scripts/run_live_qwen_hallucination_benchmark.py --offline-replay` — SHA-256: `8ebc52f6f6a213a0`, `4/4 PASS`.)*
 
 - **Cross-Architecture Verification (`16` Real HuggingFace LLMs):** Exact sorted-knot Lebesgue integration of $A_\tau(p)$ matches $\sum p_i^4$ to **`1.22 × 10⁻¹⁵`** across all 16 models (`GPT-2`, `Qwen2.5-Math-1.5B`, `BERT`, `RoBERTa`, `BioBERT`, `SciBERT`, `CodeBERT`, `ChemBERTa`, `ProtBERT`, `FinBERT`, `Legal-BERT`, `SecureBERT`, `CySecBERT`, `ClinicalBERT`, `ALBERT`, `XLM-RoBERTa`).
 - **Real `DistilGPT-2` (`50,257` vocab) Evidence Ablation:** Removing contextual evidence strictly raises Shannon entropy (`2.9804 → 3.6363`).
