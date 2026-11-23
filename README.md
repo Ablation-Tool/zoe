@@ -26,7 +26,17 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 **1 Repository · 13 Source Projects · 17 Registered Engines · 36 Canonical + 40 Extended GEM Layers · 456 Cataloged Visuals · Zero Submodules**
 
-**The 11-World Zoe Renaissance Orbit (`11/11` Orbital Passes Complete · `11/11` Worlds · `15/15` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `4.3 MB` 15-Theorem LaTeX PDF) · L5 Phases 1–6 &amp; Mobile Digestion (`16+18+18+20+22+24+16`) · Zoe (beta) `v0.9.5-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+**The 11-World Zoe Renaissance Orbit (`11/11` Orbital Passes Complete · `11/11` Worlds · `15/15` SymPy Theorems · `32/32` Master Checks · `28/28` Disciplines · `52` Cross-Pollination Edges · `4.3 MB` 15-Theorem LaTeX PDF) · L5 Phases 1–6 &amp; Mobile Digestion (`16+18+18+20+22+24+16`) · Zoe (beta) `v0.9.6-beta` · `l5_agi_qualified = False` · `zoe_clone_claimed = False`**
+
+<br/>
+
+[![Download Zoe Android App v0.9.6-beta APK](https://img.shields.io/badge/⬇_Download_Zoe_App_(Android_APK)-v0.9.6--beta_·_Includes_3D_Brain-e11d48?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)
+&nbsp;
+[![Launch Interactive 3D Brain Web App](https://img.shields.io/badge/🧠_Open_3D_Brain_in_Browser-GitHub_Pages_Live-0284c7?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
+&nbsp;
+[![Release Notes and SHA-256](https://img.shields.io/badge/Release_Notes_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
+
+<sub><strong>Direct 1-click Android APK download (free, 100% offline, zero ads/tracking):</strong> tap the red button above on your Android phone, install <code>zoe-beta-v0.9.6-android.apk</code>, and open <code>=</code> or <code>+</code> &rarr; <strong><code>dorothy 3d brain</code></strong>.</sub>
 
 </div>
 
@@ -40,7 +50,13 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 ### Built Right Into the Zoe Mobile App *(Live on Pixel 7 · 100% Offline · 1-Finger Orbit & 2-Finger Pinch-Zoom)*
 
-Open Zoe's **`=`** or **`+`** quick menu and tap **`dorothy 3d brain`** ([`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java)) to explore the full **240,376-triangle** WebGL2 brain, synchronized MNI152 T1-MRI strip, live `A/P/L/R/S/I` 3D orientation compass, guided 6-stop tour, 3D callout labels, and all 25 verified plates completely offline inside a sandboxed local asset container (zero external network calls).
+<div align="center">
+
+**[⬇ Direct Download: Zoe Android App (`v0.9.6-beta` APK, Includes Dorothy 3D Brain)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** &nbsp;·&nbsp; **[🔐 SHA-256 &amp; Release Notes](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)** &nbsp;·&nbsp; **[🧠 Try 3D Brain in Your Browser](https://ablation-tool.github.io/zoe/)**
+
+</div>
+
+> **Quick 3-Step Install on Android (8.0+):** (1) Tap **[Direct Download APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** on your phone, (2) open `zoe-beta-v0.9.6-android.apk` to install, and (3) tap **`=`** or **`+`** -> **`dorothy 3d brain`** ([`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java)) to explore all **240,376** WebGL2 triangles, synchronized MNI152 T1-MRI slices, live `A/P/L/R/S/I` 3D orientation compass, guided 6-stop tour, 3D callout labels, and all 25 verified plates 100% offline with zero external network calls.
 
 | Wet-Pia 3D Cortex + Live MRI | Glass X-Ray Deep Nuclei & DTI | Dorothy Continuum $A_\tau(p)$ | Verified Offline Plates & Atlas |
 |:---:|:---:|:---:|:---:|
@@ -118,17 +134,17 @@ Her work brings together seven threads that almost never live in the same room:
 
 <a id="zoe-app-beta"></a>
 
-## Zoe (beta) `v0.9.5-beta` — Mobile App Availability *(Free · Offline-First · Android & Apple)*
+## Zoe (beta) `v0.9.6-beta`: Mobile App Download *(Free · Offline-First · Android & Apple)*
 
-> **Beta Notice (`v0.9.5-beta`):** **Zoe (beta)** is our active work-in-progress mobile companion for **Android** (development-signed debug APK verified live on Pixel 7 across all 50 instrumentation tests &amp; 20 rotation-safe Activities) and **Apple** (`iPhone`, `iPad` &amp; `iPhone Duo Fold` SwiftUI source + `20/20` Swift 6.1.3 `ZoeCore` tests; iOS Xcode build/signing requires macOS) — free, private, ad-free, and zero-tracking.
+> **Beta Notice (`v0.9.6-beta`):** **Zoe (beta)** is our active mobile companion for **Android** (development-signed APK verified live on Pixel 7 with 68/68 unit tests, 8/8 on-device Espresso tests, 0 lint errors, featuring the offline **Dorothy 3D Brain Observatory**, **Zoe Explore Frozen Temporary Bounding Box**, native-camera **Guided Vision**, and clean lowercase **Chat**) and **Apple** (`iPhone`, `iPad` &amp; `iPhone Duo Fold` SwiftUI source + `20/20` Swift 6.1.3 `ZoeCore` tests; iOS Xcode build/signing requires macOS), free, private, ad-free, and zero-tracking.
 
 <div align="center">
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.5-beta"><img src="assets/readme/zoe-beta-v0.9.5-showcase.png" alt="Zoe (beta) v0.9.5-beta live screenshots on Pixel 7 — Iridescent Aurora Live Orb, Creative Studio Pro Voronoi Crystal with Live Vector Ink, Lissajous Orbit HD Plate, and 720p 30fps Lissajous MP4 Video Maker" width="100%" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/zoe-beta-v0.9.5-showcase.png" alt="Zoe (beta) v0.9.6-beta mobile app preview on Pixel 7" width="100%" /></a>
 
 <br/>
 
-**[⬇ Download Zoe (beta) for Android (`v0.9.5-beta` APK + SHA-256)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.5-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Complete 23-Tool Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)** &nbsp;·&nbsp; **[SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md)**
+**[⬇ Direct Download Zoe (beta) for Android (`v0.9.6-beta` APK)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** &nbsp;·&nbsp; **[🔐 Release Page &amp; SHA-256](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)** &nbsp;·&nbsp; **[Apple Xcode Project (`iPhone` / `iPad` / `Duo Fold`)](mobile/apple/Zoe.xcodeproj)** &nbsp;·&nbsp; **[Complete Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md)**
 
 </div>
 
