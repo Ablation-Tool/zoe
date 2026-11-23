@@ -30,27 +30,25 @@ $$
 
 <br/>
 
-[![Open Zoe and Dorothy 3D Brain Live in Your Web Browser (No Download Needed)](https://img.shields.io/badge/🌐_Open_Live_in_Web_Browser-No_Download_Needed_·_Works_on_Any_Device-f59e0b?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
-
-**[🧠 3D Brain Explorer](https://ablation-tool.github.io/zoe/)** · **[💬 Ask Zoe (Brain Q&amp;A)](https://ablation-tool.github.io/zoe/?tab=askzoe)** · **[🎬 Videos &amp; Gallery](https://ablation-tool.github.io/zoe/?tab=media)** · **[🖼️ 25 Plates &amp; Atlas](https://ablation-tool.github.io/zoe/?tab=plates)**
+<a href="https://ablation-tool.github.io/zoe/"><img src="assets/readme/btn-web-browser.svg" alt="Open Live in Web Browser - No Download Needed" height="36" /></a>
 
 <br/>
 
-[![Download Zoe Android App v0.9.6-beta APK](https://img.shields.io/badge/⬇_Android_APK-v0.9.6--beta_·_Pixel_%26_Fold-e11d48?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)
-&nbsp;
-[![Install on iPhone, Apple Fold and iPad](https://img.shields.io/badge/🍎_iOS_%2F_iPad_%2F_Apple_Fold-Web_App_%2B_Xcode-0284c7?style=for-the-badge)](https://ablation-tool.github.io/zoe/)
-&nbsp;
-[![Download Zoe Desktop for Linux](https://img.shields.io/badge/🐧_Linux_Desktop-v0.9.6_·_GTK_WebGL2-059669?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)
-&nbsp;
-[![Download Zoe Desktop for Windows](https://img.shields.io/badge/🪟_Windows_Desktop-v0.9.6_·_Win10%2F11_x64-2563eb?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)
-&nbsp;
-[![Download Zoe Desktop for Apple macOS](https://img.shields.io/badge/💻_Apple_macOS_Desktop-v0.9.6_·_Zoe.app-0f172a?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)
-&nbsp;
-[![SafeConvert Standalone Personal Safety App](https://img.shields.io/badge/🛡️_SafeConvert_App-Standalone_Android_%2F_Apple_%2F_Web-10b981?style=for-the-badge)](https://github.com/Ablation-Tool/SafeConvert)
-&nbsp;
-[![Release Notes and SHA-256](https://img.shields.io/badge/Release_%26_SHA--256-v0.9.6--beta-1e293b?style=for-the-badge)](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)
+**[3D Brain Explorer](https://ablation-tool.github.io/zoe/)** · **[Ask Zoe (Brain Q&amp;A)](https://ablation-tool.github.io/zoe/?tab=askzoe)** · **[Videos &amp; Gallery](https://ablation-tool.github.io/zoe/?tab=media)** · **[25 Plates &amp; Atlas](https://ablation-tool.github.io/zoe/?tab=plates)**
 
-<sub><strong>Web Browser (no download):</strong> open <a href="https://ablation-tool.github.io/zoe/"><code>ablation-tool.github.io/zoe</code></a> directly in Chrome, Safari, Firefox, or Edge on any phone, tablet, or computer.<br/><strong>Optional Mobile &amp; Desktop Apps:</strong> <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk">Android APK</a> (Google Pixel &amp; Fold), <a href="mobile/apple/Zoe.xcodeproj">Apple Xcode</a> (iPhone, Apple Fold &amp; iPad), <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz">Linux</a>, <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip">Windows</a>, or <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip">Apple macOS</a> (<a href="desktop/README.md"><code>desktop/README.md</code></a>).<br/><strong>Standalone SafeConvert Personal Safety App:</strong> separate app for <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk">Android APK</a>, <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip">Apple iOS / iPad / Fold</a>, and <a href="https://ablation-tool.github.io/SafeConvert/">Web Browser</a> (<a href="https://github.com/Ablation-Tool/SafeConvert"><code>Ablation-Tool/SafeConvert</code></a>).</sub>
+<br/>
+
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/btn-android.svg" alt="Download Zoe Android APK v0.9.6-beta" height="31" /></a>
+<a href="https://ablation-tool.github.io/zoe/"><img src="assets/readme/btn-apple-ios.svg" alt="Zoe for iPhone, iPad, and Apple Fold" height="31" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz"><img src="assets/readme/btn-linux.svg" alt="Download Zoe Linux Desktop" height="31" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip"><img src="assets/readme/btn-windows.svg" alt="Download Zoe Windows Desktop" height="31" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip"><img src="assets/readme/btn-macos.svg" alt="Download Zoe Apple macOS Desktop" height="31" /></a>
+<a href="https://github.com/Ablation-Tool/SafeConvert"><img src="assets/readme/btn-safeconvert.svg" alt="SafeConvert Standalone Personal Safety App" height="31" /></a>
+<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta"><img src="assets/readme/btn-release.svg" alt="Release Notes and SHA-256" height="31" /></a>
+
+<br/>
+
+<sub><strong>Web Browser (no download):</strong> <a href="https://ablation-tool.github.io/zoe/"><code>ablation-tool.github.io/zoe</code></a> in Chrome, Safari, Firefox, or Edge on any device · <strong>Desktop &amp; Mobile:</strong> <a href="desktop/README.md"><code>desktop/README.md</code></a> · <a href="mobile/apple/Zoe.xcodeproj">Apple Xcode</a> · <strong>Standalone SafeConvert App:</strong> <a href="https://ablation-tool.github.io/SafeConvert/">Web</a> · <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk">Android APK</a> · <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip">Apple Xcode</a> (<a href="https://github.com/Ablation-Tool/SafeConvert"><code>Ablation-Tool/SafeConvert</code></a>)</sub>
 
 <br/>
 
@@ -92,7 +90,7 @@ $$
 
 <br/><br/>
 
-**[🌐 Open in Web Browser (No Download)](https://ablation-tool.github.io/zoe/)** · **[⬇ Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[🐧 Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[🪟 Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[💻 macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[🎬 App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[🎬 8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[📐 CAD Meshes](dorothy-brain-observatory/3d_models/)**
+**[Open in Web Browser](https://ablation-tool.github.io/zoe/)** · **[Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[Apple macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[CAD Meshes](dorothy-brain-observatory/3d_models/)** · **[SafeConvert App](https://github.com/Ablation-Tool/SafeConvert)**
 
 </div>
 
@@ -576,7 +574,7 @@ Honoring **Dorothy McEwen Kildall**: pairs the human **Dorothy Brain Observatory
 <details>
 <summary><strong>World 03 · Native Voice, Glass Harmonica, Playroom &amp; Living Geometry</strong> (3 Computed Plates)</summary>
 
-100% offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
+Offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
 
 | Native Voice, Formants &amp; Chladni (`14/14`) | 3-Part Choral Harmony &amp; Cymatics (`7/7`) | Open-Ended Creative Playroom (`16/16`) |
 |:---:|:---:|:---:|
@@ -744,16 +742,16 @@ zoe/
 
 </details>
 
-<p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
+<p align="center"><img src="assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
 
 <a id="oreilly-library-attribution"></a>
 
-## 6. Research Library Attribution (All 135 Books &amp; Authors from `oreilly.com`)
+## 6. Research Library Attribution *(135 Books &amp; Authors from `oreilly.com`)*
 
 > **Source &amp; Paid Subscription Attribution:** All **135 books** listed below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** (O'Reilly Learning) using **Nicholas Michael Kloster's paid subscription** for private local research and on-device indexing (`~/.zoe/dorothy_local_library.sqlite`, `5,951` chapters, `5,746` full-text indexed). **Zero copyrighted book content, chapter text, EPUBs, or publisher figures are stored in or distributed by this public repository.** All books remain strictly local and private on the subscriber's machine, and all copyrights remain solely with their respective authors, editors, publishers, and O'Reilly Media, Inc. *(Companion open engineering references: 44 local textile and engineering PDFs from `nirmt.com`, also kept strictly local off-repo.)*
 
-<details open>
-<summary><strong>All 135 O'Reilly Learning Books &amp; Authors (Click to Collapse / Expand)</strong></summary>
+<details>
+<summary><strong>Expand All 135 O'Reilly Learning Books &amp; Authors (6 Pillars · Accessed via Paid Subscription at <code>oreilly.com</code>)</strong></summary>
 
 #### Human Brain, Neuroanatomy & Neuroimaging (33 Books)
 
