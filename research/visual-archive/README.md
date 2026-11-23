@@ -2,7 +2,7 @@
 
 A systematic, fully browsable archive of Zoe’s visual research, generated artwork, mechanism diagrams, interface scenes, identity assets, animations, and source-reference imagery.
 
-This is the canonical visual archive inside the unified [Zoe repository](../../README.md). The catalog contains **456 byte-distinct visuals from 843 source occurrences** at the current unified source state. All original sources, papers, and arXiv figures needed for a refreshed build live in this same repository. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [source-state record](SOURCES.md).
+This is the canonical visual archive inside the unified [Zoe repository](../../README.md). The catalog contains **456 byte-distinct visuals from 843 source occurrences** at the current unified source state. All original sources, papers, and arXiv figures needed for a refreshed build live in this same repository. See the [capability atlas](../../docs/CAPABILITY-ATLAS.md) and [source-state record](SOURCES.md).
 
 ## Browse the archive
 

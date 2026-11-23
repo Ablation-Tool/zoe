@@ -1,6 +1,6 @@
 # Graphics Environment Manager
 
-Canonical GEM is the native mathematical workbench inside the unified [Zoe repository](../../README.md), reusable as a graphical environment for **your project + your AI agent**. It contributes mirrored forecasts, Spatial IR, GEM VDI, geometry, and 17 verified mathematical operations to Zoe's AGI/ASI research mission. See the [capability atlas](../../CAPABILITY-ATLAS.md).
+Canonical GEM is the native mathematical workbench inside the unified [Zoe repository](../../README.md), reusable as a graphical environment for **your project + your AI agent**. It contributes mirrored forecasts, Spatial IR, GEM VDI, geometry, and 17 verified mathematical operations to Zoe's AGI/ASI research mission. See the [capability atlas](../../docs/CAPABILITY-ATLAS.md).
 
 ## Zoe One: shared full autonomy
 
@@ -17,7 +17,7 @@ gem autonomy verify new-profile.json
 python scripts/verify-one-system.py
 ```
 
-Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. Every host uses the same operational profile and `full_autonomy` classification. External actuation requires a separate owner grant. See the [system manifest](../../one-system.json) for source provenance and runtime contracts.
+Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. Every host uses the same operational profile and `full_autonomy` classification. External actuation requires a separate owner grant. See the [system manifest](../../config/one-system.json) for source provenance and runtime contracts.
 
 ## Zoe OS: one mirrored brain, shared instruments
 

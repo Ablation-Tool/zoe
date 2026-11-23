@@ -232,7 +232,7 @@ def main(argv=None):
     if not 1 <= arguments.foci <= 8:
         raise ValueError("foci must be from 1 to 8")
     image = Path(arguments.image).expanduser().resolve(strict=True) if arguments.image else None
-    manifest = json.loads((ROOT / "one-system.json").read_text(encoding="utf-8"))
+    manifest = json.loads((ROOT / "config" / "one-system.json").read_text(encoding="utf-8"))
     if manifest["schema_version"] != 1 or manifest["system"] != "Zoe One":
         raise ValueError("unsupported Zoe One manifest")
     checked_revisions = {

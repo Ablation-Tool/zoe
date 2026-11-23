@@ -44,7 +44,7 @@ except (ImportError, ValueError):
 
 class UnifiedSourceCase(unittest.TestCase):
     def test_all_source_projects_and_full_ablation_are_present(self):
-        lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
+        lock = json.loads((ROOT / "config" / "components.lock.json").read_text(encoding="utf-8"))
         self.assertEqual(lock["identity"], IDENTITY)
         self.assertEqual(len(lock["components"]), 12)
         self.assertEqual(len(COMPONENTS), 17)
@@ -234,7 +234,7 @@ class UnifiedSourceCase(unittest.TestCase):
             self.assertEqual(command[0], "/explicit/python")
 
     def test_manifest_separates_locked_and_actual_checkout_provenance(self):
-        lock = json.loads((ROOT / "components.lock.json").read_text(encoding="utf-8"))
+        lock = json.loads((ROOT / "config" / "components.lock.json").read_text(encoding="utf-8"))
         row = next(item for item in REGISTRY.manifest()["components"] if item["identifier"] == "ablation")
         self.assertEqual(row["revision"], lock["components"]["ablation"]["revision"])
         self.assertEqual(row["source"]["checkout_root"], str(ROOT))

@@ -250,7 +250,7 @@ def test_t3_pair_f9_f2_docs_api_routes_match_live_eliza(eliza_server):
     doc_text = (
         (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         + "\n"
-        + (REPO_ROOT / "PROOF-PACKET.md").read_text(encoding="utf-8")
+        + (REPO_ROOT / "docs" / "PROOF-PACKET.md").read_text(encoding="utf-8")
     )
     documented_get_routes = set(re.findall(r"(?<![a-zA-Z0-9_])(/api/[a-z0-9_.-]+(?:/[a-z0-9_.-]+)*)", doc_text))
     for route in sorted(documented_get_routes):

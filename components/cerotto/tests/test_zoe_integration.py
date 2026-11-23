@@ -52,7 +52,7 @@ class ZoeIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(launch.returncode, 0, launch.stdout + launch.stderr)
         self.assertIn("usage: cerotto-gem", launch.stdout)
-        lock = json.loads((ZOE_ROOT / "components.lock.json").read_text(encoding="utf-8"))
+        lock = json.loads((ZOE_ROOT / "config" / "components.lock.json").read_text(encoding="utf-8"))
         self.assertEqual(lock["repository_count"], 1)
         self.assertEqual(lock["components"]["cerotto"]["path"], "components/cerotto")
         self.assertEqual(lock["components"]["cerotto"]["revision"], "b73d399b638b4de8a0a9829b17c95203c5deaabd")

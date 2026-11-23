@@ -688,7 +688,7 @@ def test_f9_bva_readme_no_broken_image_assets():
 
 
 def test_f9_bva_readme_and_proof_packet_no_home_paths_or_secrets():
-    for doc_name in ("README.md", "PROOF-PACKET.md"):
+    for doc_name in ("README.md", "docs/PROOF-PACKET.md"):
         txt = (REPO_ROOT / doc_name).read_text(encoding="utf-8")
         assert "/home/cowboy" not in txt
         assert "file://" not in txt
@@ -696,7 +696,7 @@ def test_f9_bva_readme_and_proof_packet_no_home_paths_or_secrets():
 
 
 def test_f9_bva_docs_preserve_honest_negative_controls():
-    pp = (REPO_ROOT / "PROOF-PACKET.md").read_text(encoding="utf-8")
+    pp = (REPO_ROOT / "docs" / "PROOF-PACKET.md").read_text(encoding="utf-8")
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     assert "0.40870" in pp
     assert "l5_agi_qualified = False" in pp or "l5_agi_qualified = False" in readme
@@ -712,11 +712,11 @@ def test_f9_bva_readme_anchored_links_resolve_to_existing_files():
 
 
 def test_f9_bva_constitution_md_local_links_valid():
-    const_text = (REPO_ROOT / "CONSTITUTION.md").read_text(encoding="utf-8")
+    const_text = (REPO_ROOT / "docs" / "CONSTITUTION.md").read_text(encoding="utf-8")
     links = re.findall(r"\[[^\]]+\]\(([^)\s]+)\)", const_text)
     local = [ln for ln in links if not ln.startswith(("http://", "https://", "#"))]
     for rel in local:
-        assert (REPO_ROOT / rel).exists(), f"Broken link in CONSTITUTION.md: {rel}"
+        assert ((REPO_ROOT / "docs") / rel).exists(), f"Broken link in docs/CONSTITUTION.md: {rel}"
 
 
 # ---------------------------------------------------------------------------

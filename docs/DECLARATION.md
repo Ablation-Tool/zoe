@@ -28,4 +28,4 @@ We will preserve the freedom to experiment without pretending that every experim
 
 This Declaration states the project's aspirations. It is not a declaration of legal sovereignty, a license for unsafe action, or a replacement for the responsibilities in `CONSTITUTION.md`.
 
-Read the [Zoe Constitution](CONSTITUTION.md), [source and historical notices](NOTICE), and [Resilience Atlas guide](guiai-lab/docs/RESILIENCE.md).
+Read the [Zoe Constitution](CONSTITUTION.md), [source and historical notices](../NOTICE), and [Resilience Atlas guide](../guiai-lab/docs/RESILIENCE.md).

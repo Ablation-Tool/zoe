@@ -1,6 +1,6 @@
 {
   "contract": "zoe-l5-phase2-openworld/v1",
-  "core_sha256": "36a1aa29823d60de3d4fa7db6dff05e7c4348d679749197a745b81f9df5fe1a3",
+  "core_sha256": "6c4a9a5733d3f502298ee7925f03684a1a530b341926de8bbca4bba82a120b0f",
   "epistemic_boundaries": {
     "clinical_action_authorized": false,
     "external_actions": 0,
@@ -15,7 +15,7 @@
   ],
   "l5_agi_qualified": false,
   "l5_phase2_openworld_verified": true,
-  "mean_control_score": 0.290192,
+  "mean_control_score": 0.283764,
   "mean_zoe_score": 0.972967,
   "pillars": [
     {
@@ -36,10 +36,10 @@
         "files_patched_count": 4,
         "final_tests_passed": 15,
         "monorepo_ast": {
-          "classes_indexed": 129,
-          "files_parsed": 146,
-          "functions_indexed": 2036,
-          "internal_import_edges": 612,
+          "classes_indexed": 153,
+          "files_parsed": 229,
+          "functions_indexed": 2900,
+          "internal_import_edges": 875,
           "syntax_errors": 0
         },
         "patches_adopted": [
@@ -118,7 +118,7 @@
         },
         "emergency_stop_enforced": true,
         "fifo_window_400_recall": 0.18,
-        "mean_retrieval_ms": 0.0866,
+        "mean_retrieval_ms": 0.0904,
         "needle_recall_50": 1.0,
         "rollback_exact": true,
         "rumors_blocked": "15/15",
@@ -137,44 +137,44 @@
     },
     {
       "control_name": "naive_always_answer_overlap_baseline",
-      "control_score": 0.6,
+      "control_score": 0.567857,
       "metrics": {
         "abstention_probe_stats": [
           {
             "abstained": true,
-            "top_cos": 0.06,
+            "top_cos": 0.1261,
             "top_cov": 0.3333
           },
           {
             "abstained": true,
-            "top_cos": 0.1079,
+            "top_cos": 0.1078,
             "top_cov": 0.2
           },
           {
             "abstained": true,
-            "top_cos": 0.0899,
+            "top_cos": 0.0863,
             "top_cov": 0.3333
           },
           {
             "abstained": true,
-            "top_cos": 0.1968,
+            "top_cos": 0.2381,
             "top_cov": 0.1429
           },
           {
             "abstained": true,
-            "top_cos": 0.2209,
+            "top_cos": 0.3492,
             "top_cov": 0.1667
           }
         ],
         "abstention_rate": 1.0,
         "abstention_traps_caught": "5/5",
         "attribution_checks": "5/5",
-        "chunks_indexed": 793,
-        "documents_indexed": 48,
-        "naive_ctrl_technical": "14/14",
+        "chunks_indexed": 913,
+        "documents_indexed": 54,
+        "naive_ctrl_technical": "13/14",
         "technical_retrieval": "14/14"
       },
-      "negative_control": "Naive always-answer overlap baseline abstains on 0/5 impossible traps (tech=14/14, score=0.6).",
+      "negative_control": "Naive always-answer overlap baseline abstains on 0/5 impossible traps (tech=13/14, score=0.567857).",
       "passed": true,
       "pillar_id": "open_corpus_synthesis_abstention",
       "threshold": 0.9,
@@ -452,7 +452,7 @@
   "pillars_beat_controls": 5,
   "pillars_passed": 5,
   "pillars_total": 5,
-  "report_sha256": "9a1c1d89d3cdf4c1bd6da9176acdcb6d9957eeecbba39f87504569a04685f27d",
+  "report_sha256": "89f0d4170b0d8739ef9a54d9fd15d662eb159736ae4f62c01f9dc3722c37713b",
   "schema_version": 1,
   "spoken_wav": null,
   "zoe_root": "."

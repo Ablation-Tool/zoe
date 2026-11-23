@@ -6,7 +6,7 @@ CEROTTO GEM is the native graphical workbench. It is a desktop application built
 
 ## Zoe · allgems
 
-CEROTTO is the guarded digital-forensics engine in the unified [Zoe repository](../../README.md). It contributes forensic evidence, timelines, vault inspection, and response boundaries to Zoe's research architecture. See the [capability atlas](../../CAPABILITY-ATLAS.md).
+CEROTTO is the guarded digital-forensics engine in the unified [Zoe repository](../../README.md). It contributes forensic evidence, timelines, vault inspection, and response boundaries to Zoe's research architecture. See the [capability atlas](../../docs/CAPABILITY-ATLAS.md).
 
 Install and inspect the unified hub:
 
@@ -32,7 +32,7 @@ python -m cerotto_gem.cli autonomy run --output new-profile.json
 python -m cerotto_gem.cli autonomy verify new-profile.json
 ```
 
-Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. The adapter performs no case writes, vault releases, process controls, or external actions. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) for compatible revisions.
+Zoe authors the episode goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. The adapter performs no case writes, vault releases, process controls, or external actions. See the [system manifest](https://github.com/Ablation-Tool/zoe/blob/main/config/one-system.json) for compatible revisions.
 
 **Current version:** 0.6.0
 

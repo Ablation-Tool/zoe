@@ -162,7 +162,7 @@ def main():
     assert strict["accessible_volume"] == 3 and strict["complement_volume"] == 1
     registry = ComponentRegistry(zoe)
     manifest = registry.manifest()
-    lock = json.loads((zoe / "components.lock.json").read_text(encoding="utf-8"))
+    lock = json.loads((zoe / "config" / "components.lock.json").read_text(encoding="utf-8"))
     assert manifest["entrypoint_count"] == 12 and manifest["repository_count"] == 10
     assert all(row["source"]["source_present"] for row in manifest["components"])
     for component in manifest["components"]:

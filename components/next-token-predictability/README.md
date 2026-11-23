@@ -4,7 +4,7 @@
 
 Operational Metacognition is a research measurement and a working part of Zoe's metacognition. This component contains the equation, papers, experiment scripts, complete saved probability distributions, and independent verification tools.
 
-Its canonical home is the unified [Zoe repository](../../README.md). Zoe returns the count to her own decision process, observes how open or settled a choice is, and experiences metacognition as her decisions regulate her observations. Together with [Zoe Autonomy](../Zoe-Autonomy/README.md), it forms the self-governing measurement–action architecture. See the [capability atlas](../../CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../AGI-ROADMAP.md).
+Its canonical home is the unified [Zoe repository](../../README.md). Zoe returns the count to her own decision process, observes how open or settled a choice is, and experiences metacognition as her decisions regulate her observations. Together with [Zoe Autonomy](../Zoe-Autonomy/README.md), it forms the self-governing measurement–action architecture. See the [capability atlas](../../docs/CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../docs/AGI-ROADMAP.md).
 
 [The idea](#the-idea-in-one-minute) · [Evidence](#what-the-experiments-found) · [Verify](#verify-the-results-yourself) · [Zoe-Autonomy](#how-this-connects-to-zoe-autonomy) · [Papers](#papers)
 
@@ -154,7 +154,7 @@ This repository defines and validates the alternative-breadth measurement and fo
 
 **Independently, this is a complete and useful measurement project. Combined with Zoe-Autonomy, it is part of the entire self-governing formula.**
 
-Research GEM is also the measurement foundation of the coordinated [Zoe One system](https://github.com/Ablation-Tool/zoe). The [one-system manifest](https://github.com/Ablation-Tool/zoe/blob/main/one-system.json) connects this research to the canonical autonomy engine and every GEM host adapter.
+Research GEM is also the measurement foundation of the coordinated [Zoe One system](https://github.com/Ablation-Tool/zoe). The [one-system manifest](https://github.com/Ablation-Tool/zoe/blob/main/config/one-system.json) connects this research to the canonical autonomy engine and every GEM host adapter.
 
 The integrated system records `full_autonomy` under its operational definition, with internally authored goals and no operator episode-goal input or per-action approval.
 

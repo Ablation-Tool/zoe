@@ -49,7 +49,7 @@ class CorpusChunk:
 def collect_repo_markdown_chunks(zoe_root: Path) -> Tuple[int, List[CorpusChunk]]:
     root = Path(zoe_root).expanduser().resolve()
     md_paths: List[Path] = []
-    for rel in ("CONSTITUTION.md", "AGI-ROADMAP.md", "CAPABILITY-ATLAS.md", "README.md", "DECLARATION.md"):
+    for rel in ("docs/CONSTITUTION.md", "docs/AGI-ROADMAP.md", "docs/CAPABILITY-ATLAS.md", "README.md", "docs/DECLARATION.md"):
         p = root / rel
         if p.is_file():
             md_paths.append(p)

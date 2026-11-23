@@ -11,8 +11,8 @@ The monograph presents Operational Metacognition, autonomy, event-causal percept
 - **Source:** [LaTeX](sources/zoe-research-universe.tex)
 - **Source package:** [zoe-research-universe.tar.gz](archives/zoe-research-universe.tar.gz)
 - **Visual gallery:** [all 23 pages and 10 extracted figures](galleries/18-zoe-research-universe/README.md)
-- **System mission and acceptance labels:** [AGI-ROADMAP.md](../../AGI-ROADMAP.md)
-- **Complete capability directory:** [CAPABILITY-ATLAS.md](../../CAPABILITY-ATLAS.md)
+- **System mission and acceptance labels:** [AGI-ROADMAP.md](../../docs/AGI-ROADMAP.md)
+- **Complete capability directory:** [CAPABILITY-ATLAS.md](../../docs/CAPABILITY-ATLAS.md)
 
 ## Historical archive
 

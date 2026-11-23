@@ -17,7 +17,7 @@ gem autonomy verify new-profile.json
 python scripts/verify-one-system.py
 ```
 
-Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. This does not execute reverse-engineering targets, modify investigation cases, or authorize external actions. See the [system manifest](../../../one-system.json) for source provenance and runtime contracts.
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. This does not execute reverse-engineering targets, modify investigation cases, or authorize external actions. See the [system manifest](../../../config/one-system.json) for source provenance and runtime contracts.
 
 The user’s real interactive CLI supplies labor. The workspace supplies memory and navigation. The human supplies direction and judgment. GEM supports any interactive agent executable through `--agent`, and custom argument lists through `--agent-command`; it provides no model or credentials.
 

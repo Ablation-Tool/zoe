@@ -8,9 +8,9 @@
     "source_project_count": 13,
     "imported_repository_count": 13,
     "submodules_required": false,
-    "atlas": "CAPABILITY-ATLAS.md",
-    "agi_roadmap": "AGI-ROADMAP.md",
-    "monorepo_guide": "MONOREPO.md"
+    "atlas": "docs/CAPABILITY-ATLAS.md",
+    "agi_roadmap": "docs/AGI-ROADMAP.md",
+    "monorepo_guide": "docs/MONOREPO.md"
   },
   "contract": "zoe-autonomy/v1",
   "probity": "Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.",
@@ -54,8 +54,8 @@
     "evidence": "evidence/gem-os/verification.json"
   },
   "capability_prospectus": {
-    "pdf": "paper/zoe-research-universe.pdf",
-    "source": "paper/zoe-research-universe.tex",
+    "pdf": "research/monograph/zoe-research-universe.pdf",
+    "source": "research/monograph/zoe-research-universe.tex",
     "pages": 23,
     "visual_archive": "research/visual-archive",
     "scope": "Complete illustrated capability book with verified, narrow, optional, research, and blocked boundaries"

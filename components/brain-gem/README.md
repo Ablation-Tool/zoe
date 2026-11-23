@@ -1,6 +1,6 @@
 # BRAIN GEM
 
-BRAIN GEM is Zoe's independently runnable Bayesian field notebook and chambered-memory engine. It organizes questions, competing claims, explicit evidence updates, deterministic and stochastic chambers, and next-test decisions in one inspectable, append-only history. Its canonical home is the unified [Zoe repository](../../README.md); see the [capability atlas](../../CAPABILITY-ATLAS.md).
+BRAIN GEM is Zoe's independently runnable Bayesian field notebook and chambered-memory engine. It organizes questions, competing claims, explicit evidence updates, deterministic and stochastic chambers, and next-test decisions in one inspectable, append-only history. Its canonical home is the unified [Zoe repository](../../README.md); see the [capability atlas](../../docs/CAPABILITY-ATLAS.md).
 
 ## Zoe One: shared full autonomy
 
@@ -17,7 +17,7 @@ brain-gem autonomy verify new-profile.json
 python scripts/verify-one-system.py
 ```
 
-Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. External actuation and autonomous posterior updates remain separate capabilities. See the [system manifest](../../one-system.json) for source provenance and runtime contracts.
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. External actuation and autonomous posterior updates remain separate capabilities. See the [system manifest](../../config/one-system.json) for source provenance and runtime contracts.
 
 The core epistemic boundary is:
 

@@ -1,6 +1,6 @@
 # GEM HELEN
 
-GEM HELEN is Zoe's native creative-geometry, rhythm, and forecast-breadth laboratory. It is the right-brain counterpart to investigation-focused GEM workbenches: local, compact, inspectable, and optimized for interactive use. Its canonical home is the unified [Zoe repository](../../README.md); see the [capability atlas](../../CAPABILITY-ATLAS.md).
+GEM HELEN is Zoe's native creative-geometry, rhythm, and forecast-breadth laboratory. It is the right-brain counterpart to investigation-focused GEM workbenches: local, compact, inspectable, and optimized for interactive use. Its canonical home is the unified [Zoe repository](../../README.md); see the [capability atlas](../../docs/CAPABILITY-ATLAS.md).
 
 ## Zoe One: shared full autonomy
 
@@ -17,7 +17,7 @@ gem-helen autonomy verify new-profile.json
 python scripts/verify-one-system.py
 ```
 
-Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. Native HELEN modules still launch no agent or automatic action. External actuation requires a separate owner grant. See the [system manifest](../../one-system.json) for source provenance and runtime contracts.
+Zoe authors her goal, selects by value, and executes an internal transition without operator approval. The classification is `full_autonomy`. Native HELEN modules still launch no agent or automatic action. External actuation requires a separate owner grant. See the [system manifest](../../config/one-system.json) for source provenance and runtime contracts.
 
 ## Launch
 

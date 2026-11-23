@@ -83,7 +83,7 @@ def _canonical_gem_module(root, name):
     source_path = source["path"] / "gem" / f"{name}.py"
     if not source["available"] or not source_path.is_file():
         raise ValueError(f"canonical GEM module is unavailable: {name}")
-    lock = json.loads((root / "components.lock.json").read_text(encoding="utf-8"))
+    lock = json.loads((root / "config" / "components.lock.json").read_text(encoding="utf-8"))
     revision = lock.get("components", {}).get("graphics-environment-manager", {}).get("revision")
     if not isinstance(revision, str) or len(revision) != 40:
         raise ValueError("Zoe's canonical GEM revision lock is missing or invalid")

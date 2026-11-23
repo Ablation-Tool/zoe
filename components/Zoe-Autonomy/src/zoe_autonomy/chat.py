@@ -39,12 +39,13 @@ STOP_WORDS = {
 }
 DOCUMENT_PATHS = (
     "README.md",
-    "PROOF-PACKET.md",
-    "AGI-ROADMAP.md",
-    "CAPABILITY-ATLAS.md",
-    "MONOREPO.md",
-    "CONSTITUTION.md",
-    "DECLARATION.md",
+    "docs/METACOGNITION.md",
+    "docs/PROOF-PACKET.md",
+    "docs/AGI-ROADMAP.md",
+    "docs/CAPABILITY-ATLAS.md",
+    "docs/MONOREPO.md",
+    "docs/CONSTITUTION.md",
+    "docs/DECLARATION.md",
     "guiai-lab/docs/UNIFIED.md",
     "guiai-lab/docs/CHAT.md",
     "guiai-lab/docs/GEM-OS.md",
@@ -81,6 +82,7 @@ DOCUMENT_PATHS = (
     "evidence/pala/verification.json",
     "evidence/agents/collaboration.json",
 )
+_DOC_PRIORITY = {rel: idx for idx, rel in enumerate(DOCUMENT_PATHS)}
 HELP = """Commands:
   help                         show this command guide
   status                       inspect session, memory, constraints, and tool availability
@@ -346,7 +348,7 @@ class EvidenceIndex:
             score, coverage = self.score(query, chunk.content, chunk.heading)
             if score > 0:
                 scored.append((score, coverage, chunk))
-        scored.sort(key=lambda item: (-item[0], item[2].citation))
+        scored.sort(key=lambda item: (-item[0], _DOC_PRIORITY.get(item[2].path, 999), item[2].citation))
         return [{"score": score, "coverage": coverage, "chunk": chunk} for score, coverage, chunk in scored[:limit]]
 
 
@@ -411,7 +413,7 @@ class ZoeChat:
                 })
             if include_memory:
                 candidates.extend(self._memory_candidates(query))
-        candidates.sort(key=lambda candidate: (-candidate["score"], candidate["id"]))
+        candidates.sort(key=lambda candidate: (-candidate["score"], _DOC_PRIORITY.get(candidate["citation"].split(":", 1)[0], 999), candidate["id"]))
         return candidates[:6]
 
     @staticmethod

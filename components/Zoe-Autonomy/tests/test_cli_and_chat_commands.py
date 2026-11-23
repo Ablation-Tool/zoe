@@ -164,7 +164,7 @@ class ZoeChatR3Tests(unittest.TestCase):
         for cmd in R3_COMMANDS:
             self.assertIn(cmd, HELP)
             self.assertIn(cmd, R3_COMMAND_SPECS)
-        self.assertIn("PROOF-PACKET.md", DOCUMENT_PATHS)
+        self.assertIn("docs/PROOF-PACKET.md", DOCUMENT_PATHS)
         for rel in DOCUMENT_PATHS:
             self.assertTrue((REPO_ROOT / rel).is_file(), f"Missing DOCUMENT_PATHS entry: {rel}")
 
@@ -222,8 +222,8 @@ class M5EleganceAndDocsTests(unittest.TestCase):
 
     def test_readme_and_proof_packet_links_and_counts(self):
         readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-        pp = (REPO_ROOT / "PROOF-PACKET.md").read_text(encoding="utf-8")
-        for doc_name, txt in (("README.md", readme), ("PROOF-PACKET.md", pp)):
+        pp = (REPO_ROOT / "docs" / "PROOF-PACKET.md").read_text(encoding="utf-8")
+        for doc_name, txt, base in (("README.md", readme, REPO_ROOT), ("docs/PROOF-PACKET.md", pp, REPO_ROOT / "docs")):
             self.assertNotIn("/home/cowboy", txt, doc_name)
             self.assertNotIn("file://", txt, doc_name)
             self.assertNotIn("sk-ant-", txt, doc_name)
@@ -234,7 +234,7 @@ class M5EleganceAndDocsTests(unittest.TestCase):
                     continue
                 rel = raw.split("#", 1)[0].split("?", 1)[0]
                 if rel:
-                    self.assertTrue((REPO_ROOT / rel).exists(), f"Broken link in {doc_name}: {rel}")
+                    self.assertTrue((base / rel).exists(), f"Broken link in {doc_name}: {rel}")
         self.assertIn(f"{len(EXTENDED_LAYERS)} Extended GEM Layers", readme)
         self.assertIn("15/15", pp)
         self.assertIn("45/45", pp)

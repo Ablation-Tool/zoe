@@ -35,7 +35,7 @@ GUIDES = (
     ("EVIDENCE.md", "Zoe Evidence Navigator", "zoe-evidence-visual.pdf", "images/zoe-evidence.png"),
     ("VIDLIB.md", "Zoe + vidlib: cited transcript memory", "zoe-vidlib-visual.pdf", "images/zoe-vidlib.png"),
     ("../../CONSTITUTION.md", "Zoe Constitution", "zoe-constitution-visual.pdf", "images/gem-unified.png"),
-    ("../../DECLARATION.md", "Zoe Declaration of Creative and Epistemic Independence", "zoe-declaration-visual.pdf", "images/zoe-pilot-cover.png"),
+    ("../../docs/DECLARATION.md", "Zoe Declaration of Creative and Epistemic Independence", "zoe-declaration-visual.pdf", "images/zoe-pilot-cover.png"),
     ("references/cognitive-field/PROVENANCE.md", "Cognitive Field visual provenance", "zoe-cognitive-provenance-visual.pdf", "images/zoe-cognitive-anatomy.png"),
 )
 INDEX_SOURCE = "VISUAL-GUIDES.md"

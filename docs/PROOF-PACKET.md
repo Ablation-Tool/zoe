@@ -36,7 +36,7 @@ Expected headline verdict: **`PROOF PACKET VERDICT: 6/6 PASS | SHA-256=01f0e402f
 
 <div align="center">
 
-![Zoe Operational Metacognition Referee Proof Packet 6-Panel Scorecard](components/agent-logging-system/docs/images/zoe-metacognition-proof-packet.png)
+![Zoe Operational Metacognition Referee Proof Packet 6-Panel Scorecard](../components/agent-logging-system/docs/images/zoe-metacognition-proof-packet.png)
 
 </div>
 
@@ -48,9 +48,9 @@ Expected headline verdict: **`PROOF PACKET VERDICT: 6/6 PASS | SHA-256=01f0e402f
 - **Theorem 12 (Exact Knot Recovery & Homogeneity):** Proves exact sorted-knot Lebesgue integration recovers $M_k(p) = \int_0^1 k\tau^{k-1}A_\tau(p)\,d\tau$ and $H(p) = -\int_0^1 (1+\ln\tau)A_\tau(p)\,d\tau$ with `0` algebraic residual and proves $M_4^{1/4}(p) = \|p\|_4$ is $1$-homogeneous and $1$-Lipschitz in $\ell_4$.
 - **Theorem 13 (Finite-Sample Stopping & Distinguisher Law, `5/5`):** Proves $\chi^2(p\parallel u_N) = N\int_0^1 2\tau A_\tau(p)\,d\tau - 1$, unbiased U-statistic $\widehat{M}_2^{(U)}$ eliminating small-sample plug-in bias, exact uniform-null variance $\mathrm{Var}_{u_N}(\widehat{M}_2^{(U)}) = \frac{2(N-1)}{N^2 S(S-1)}$, and exact quadratic inversion for minimum budget $S_{\min}(p, z_\alpha)$.
 - **Theorem 14 (Spatial-Optical Filtration & MTF Monotonicity, `6/6`):** Proves exact 1D/2D continuous Gaussian $A_\tau$ normalization, sharpness $M_2^{\mathrm{1D}} = 1/(2\sqrt{\pi}\sigma)$ and $M_2^{\mathrm{2D}} = 1/(4\pi\sigma^2)$, differential entropy, Parseval–MTF blur monotonicity $M_2(K*p) \le M_2(p)$, and the exact Scheimpflug three-plane hinge intersection identity.
-- **Theorem 15 (Multi-Agent Consensus & Exact Brier Law, `5/5`):** Proves the exact Kloster–Jensen Disagreement Decomposition $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_k w_k\|p^{(k)} - \bar{p}\|_2^2$ and ground-truth-independent Brier wisdom-of-crowds gain ([`kloster_multi_agent_consensus.py`](guiai-lab/guiai/gem/kloster_multi_agent_consensus.py)).
-- **Theorem 16 (Kloster-Parseval Multi-Voice Contraction Law, `5/5`):** Unifies Theorem 14 optical MTF monotonicity with Theorem 15 ensemble disagreement $\mathcal{D}_K$, proving exact 2D Parseval contraction (`5.42e-20` error, `200/200` random trials) and selective high-frequency dissonance decay ([`kloster_harmonic_optics.py`](guiai-lab/guiai/gem/kloster_harmonic_optics.py); `scripts/verify_metacognition_proof_packet.py` checks `14` core identities across Theorems 12-14 while the full 16-theorem orbit proves all `16/16` SymPy theorems).
-- Full compiled manuscript: [KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf).
+- **Theorem 15 (Multi-Agent Consensus & Exact Brier Law, `5/5`):** Proves the exact Kloster–Jensen Disagreement Decomposition $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p}) = \sum_k w_k\|p^{(k)} - \bar{p}\|_2^2$ and ground-truth-independent Brier wisdom-of-crowds gain ([`kloster_multi_agent_consensus.py`](../guiai-lab/guiai/gem/kloster_multi_agent_consensus.py)).
+- **Theorem 16 (Kloster-Parseval Multi-Voice Contraction Law, `5/5`):** Unifies Theorem 14 optical MTF monotonicity with Theorem 15 ensemble disagreement $\mathcal{D}_K$, proving exact 2D Parseval contraction (`5.42e-20` error, `200/200` random trials) and selective high-frequency dissonance decay ([`kloster_harmonic_optics.py`](../guiai-lab/guiai/gem/kloster_harmonic_optics.py); `scripts/verify_metacognition_proof_packet.py` checks `14` core identities across Theorems 12-14 while the full 16-theorem orbit proves all `16/16` SymPy theorems).
+- Full compiled manuscript: [KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf](../research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf).
 
 ---
 
@@ -70,7 +70,7 @@ Every estimator is evaluated identically on the exact same saved neural/imaging 
 
 <div align="center">
 
-![Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout](components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png)
+![Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout](../components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png)
 
 </div>
 
@@ -110,4 +110,4 @@ This claim is explicitly falsifiable. It fails if any independent auditor demons
 2. A distribution $p$ violating $|M_4^{1/4}(p) - M_4^{1/4}(q)| \le \|p - q\|_4$ or $M_2(K * p) \le M_2(p)$ for normalized optical PSF $K \ge 0$,
 3. A fresh run of `scripts/verify_metacognition_proof_packet.py` where selective abstention fails to reduce error on BioBERT/HELEN, where the causal ablation fails to beat disabled/randomized controls, or where uniform-null false alarms exceed the Theorem 13 anytime bound $\delta$.
 
-**Core Files:** [`kloster_proof_packet.py`](guiai-lab/guiai/gem/kloster_proof_packet.py) · [`verify_metacognition_proof_packet.py`](scripts/verify_metacognition_proof_packet.py) · [`kloster-proof-packet-report.json`](evidence/proof-packet/kloster-proof-packet-report.json) · Live API: `GET /api/kloster/proof-packet`.
+**Core Files:** [`kloster_proof_packet.py`](../guiai-lab/guiai/gem/kloster_proof_packet.py) · [`verify_metacognition_proof_packet.py`](../scripts/verify_metacognition_proof_packet.py) · [`kloster-proof-packet-report.json`](../evidence/proof-packet/kloster-proof-packet-report.json) · Live API: `GET /api/kloster/proof-packet`.

@@ -900,11 +900,11 @@ def test_f9_readme_zero_broken_local_links():
 
 
 def test_f9_proof_packet_md_zero_broken_local_links():
-    pp_text = (REPO_ROOT / "PROOF-PACKET.md").read_text(encoding="utf-8")
+    pp_text = (REPO_ROOT / "docs" / "PROOF-PACKET.md").read_text(encoding="utf-8")
     links = _collect_local_links(pp_text)
     assert len(links) >= 4
-    missing = [rel for rel in links if not (REPO_ROOT / rel).exists()]
-    assert not missing, f"Broken local links in PROOF-PACKET.md: {missing}"
+    missing = [rel for rel in links if not ((REPO_ROOT / "docs") / rel).exists()]
+    assert not missing, f"Broken local links in docs/PROOF-PACKET.md: {missing}"
 
 
 def test_f9_readme_counts_synchronized_with_live_repo(elegance_report):
@@ -956,7 +956,7 @@ def test_f9_readme_counts_synchronized_with_live_repo(elegance_report):
 
 
 def test_f9_proof_packet_md_synced_to_15_theorems_and_45_hashes():
-    pp = (REPO_ROOT / "PROOF-PACKET.md").read_text(encoding="utf-8")
+    pp = (REPO_ROOT / "docs" / "PROOF-PACKET.md").read_text(encoding="utf-8")
     plain_pp = re.sub(r"[`*]", "", pp)
     sums_lines = [
         ln for ln in (REPO_ROOT / "evidence" / "renaissance-orbit" / "SHA256SUMS.orbit").read_text(encoding="utf-8").splitlines()
@@ -976,7 +976,7 @@ def test_f9_proof_packet_md_synced_to_15_theorems_and_45_hashes():
 
 def test_f9_readme_observatory_personality_and_artwork_preserved():
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    gallery = (REPO_ROOT / "CREATIVE-GALLERY.md").read_text(encoding="utf-8")
+    gallery = (REPO_ROOT / "docs" / "CREATIVE-GALLERY.md").read_text(encoding="utf-8")
     for marker in (
         "Metacognition is achieved.",
         "Nicholas × Zoe",
@@ -1055,7 +1055,7 @@ def test_f10_constitutional_flags_across_all_domain_suites(
 
 
 def test_f10_constitution_md_and_credit_preserved():
-    const_text = (REPO_ROOT / "CONSTITUTION.md").read_text(encoding="utf-8")
+    const_text = (REPO_ROOT / "docs" / "CONSTITUTION.md").read_text(encoding="utf-8")
     assert "Nicholas Michael Kloster alone, March 6, 2026" in const_text
     assert "measurement ≠ evidence ≠ belief update ≠ action" in const_text
     assert "Zoe is a native, interactive software environment." in const_text
