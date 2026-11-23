@@ -54,7 +54,7 @@ $$
 
 <br/>
 
-**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Equations &amp; 16 Theorems](#mathematics-and-theorems) · [3. Empirical Results &amp; 28 Disciplines](#verified-empirical-results) · [4. Six Living Worlds](#six-living-worlds) · [5. Master Documentation Index](#documentation-index) · [6. Quick Start &amp; Verification](#quick-start)
+**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Equations &amp; 16 Theorems](#mathematics-and-theorems) · [3. Empirical Results &amp; 28 Disciplines](#verified-empirical-results) · [4. Six Living Worlds](#six-living-worlds) · [5. Master Documentation Index](#documentation-index) · [6. O'Reilly 135-Book Bibliography](#oreilly-library-attribution) · [7. Quick Start &amp; Verification](#quick-start)
 
 </div>
 
@@ -634,7 +634,7 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 | **Governance &amp; Proofs** | [`PROOF-PACKET.md`](PROOF-PACKET.md) · [`CONSTITUTION.md`](CONSTITUTION.md) · [`AGI-ROADMAP.md`](AGI-ROADMAP.md) | 7 root architecture, ethics, proof &amp; provenance docs |
 | **Research Monographs &amp; PDFs** | [`16-Theorem PDF`](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [`zoe-research-universe.pdf`](paper/zoe-research-universe.pdf) | 18-paper archive, LaTeX sources, 456 visuals, session logs |
 | **Dorothy Brain &amp; Mobile** | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) · [`mobile/README.md`](mobile/README.md) | 3D Brain atlas, Android/Apple/Win32, Zapps, SafeConvert, Trinity |
-| **O'Reilly Research Library** | [Section 5.7 (`135` Books &amp; Authors)](#oreilly-library-attribution) | Complete bibliography of all 135 books accessed via paid [`oreilly.com`](https://www.oreilly.com/) subscription (local-only, off-repo) |
+| **O'Reilly Research Library** | [Section 6 (`135` Books &amp; Authors)](#oreilly-library-attribution) | Complete bibliography of all 135 books accessed via paid [`oreilly.com`](https://www.oreilly.com/) subscription (local-only, off-repo) |
 | **Autonomy &amp; Components** | [`Zoe-Autonomy`](components/Zoe-Autonomy/README.md) · [`Neurogarden`](components/agent-logging-system/README.md) · [`ablation`](components/ablation/README.md) | 26 subsystem manuals across autonomy, forensics &amp; security |
 | **GEM OS &amp; 17 Engines** | [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) | 24 GEM workbench manuals, 17 engines &amp; repo tree |
 
@@ -744,12 +744,16 @@ zoe/
 
 </details>
 
+<p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
+
 <a id="oreilly-library-attribution"></a>
 
-<details>
-<summary><strong>5.7 Private Local Research Library Attribution (All 135 Books &amp; Authors from O&#39;Reilly Learning via Paid Subscription at <code>oreilly.com</code>)</strong></summary>
+## 6. Research Library Attribution (All 135 Books &amp; Authors from `oreilly.com`)
 
 > **Source &amp; Paid Subscription Attribution:** All **135 books** listed below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** (O'Reilly Learning) using **Nicholas Michael Kloster's paid subscription** for private local research and on-device indexing (`~/.zoe/dorothy_local_library.sqlite`, `5,951` chapters, `5,746` full-text indexed). **Zero copyrighted book content, chapter text, EPUBs, or publisher figures are stored in or distributed by this public repository.** All books remain strictly local and private on the subscriber's machine, and all copyrights remain solely with their respective authors, editors, publishers, and O'Reilly Media, Inc. *(Companion open engineering references: 44 local textile and engineering PDFs from `nirmt.com`, also kept strictly local off-repo.)*
+
+<details open>
+<summary><strong>All 135 O'Reilly Learning Books &amp; Authors (Click to Collapse / Expand)</strong></summary>
 
 #### Human Brain, Neuroanatomy & Neuroimaging (33 Books)
 
@@ -923,7 +927,7 @@ zoe/
 <a id="quick-start"></a>
 <a id="verification-and-testing"></a>
 
-## 6. Quick Start, Live Studio &amp; Verification
+## 7. Quick Start, Live Studio &amp; Verification
 
 ```bash
 git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
