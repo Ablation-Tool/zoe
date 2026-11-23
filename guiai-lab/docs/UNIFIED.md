@@ -72,7 +72,7 @@ PALA is the native Rust recovery engine. `zoe pala` uses `components/PALA/target
 | Source project or collection | Canonical path | Source state |
 |:---|:---|:---|
 | Zoe native | `guiai-lab/`, `mobile/`, `assets/`, `paper/` | Zoe's own complete history |
-| Ablation | `components/ablation/` | `fa8377ea5fa009967a3bf3b837c342347678409b` plus Zoe-local changes |
+| Ablation | `components/ablation/` | `a75d337e3e5721a83a326863ceb1d8a79bce2c06` plus Zoe-local changes |
 | Canonical GEM | `components/graphics-environment-manager/` | `0ab35bffa0453689f00b321a6a7e972d14bc8ba7` plus Zoe-local changes |
 | GEM HELEN | `components/gem-helen/` | `273c4eeb6fd6044f1ab9068561ddc33290357eed` |
 | BRAIN GEM | `components/brain-gem/` | `7420a8f0d8d2c370a72b76d93defcc7fb585b913` plus Zoe-local changes |
@@ -83,7 +83,7 @@ PALA is the native Rust recovery engine. `zoe pala` uses `components/PALA/target
 | Kevlar | `components/kevlar/` | `8ac3e0181e98572d6c41f964385393aa441a5f2a` |
 | PDF Signature Toolkit | `components/pdf-signature-toolkit/` | `1198165962958c5132130f3854626ff39c333941` |
 | Chalkboard | `components/Chalkboard/` | `63646eb15737d822316073ba1f2114c608571c72` |
-| PALA Recovery | `components/PALA/` | `197e91b88b9c7bad185a21635a68aa6659dcec3b`; complete local Git history; former remote unavailable |
+| PALA Recovery | `components/PALA/` | `5d16e62cf838d8b53b988ecf75b03aa034b42354`; complete local Git history; former remote unavailable |
 | Research papers | `research/papers/` | `c5d0c8c2a8eabbff1b72d2e96d19d6f637906bde` |
 | Visual archive | `research/visual-archive/` | `d9b8c69f631ee68bf527dd49dc2d300d60c056e4` |
 | arXiv sources | `research/arxiv/` | Complete preserved local source workspace |

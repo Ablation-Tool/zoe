@@ -50,4 +50,4 @@ def test_zoe_cli_uses_unified_sources():
     lock = json.loads((ZOE_ROOT / "config" / "components.lock.json").read_text(encoding="utf-8"))
     assert lock["repository_count"] == 1
     assert lock["components"]["ablation"]["path"] == "components/ablation"
-    assert lock["components"]["ablation"]["revision"] == "fa8377ea5fa009967a3bf3b837c342347678409b"
+    assert lock["components"]["ablation"]["revision"] == "a75d337e3e5721a83a326863ceb1d8a79bce2c06"

@@ -15,7 +15,7 @@
     "ablation": {
       "path": "components/ablation",
       "repository": "https://github.com/Ablation-Tool/ablation",
-      "revision": "fa8377ea5fa009967a3bf3b837c342347678409b",
+      "revision": "a75d337e3e5721a83a326863ceb1d8a79bce2c06",
       "includes": "Complete repository: core engine, framework, analyzers, parsers, modules, sweeps, gem-lab, tests, documentation, and assets"
     },
     "graphics-environment-manager": {
@@ -77,7 +77,7 @@
       "path": "components/PALA",
       "repository": "https://github.com/Ablation-Tool/PALA",
       "canonical_repository": "https://github.com/Ablation-Tool/zoe",
-      "revision": "197e91b88b9c7bad185a21635a68aa6659dcec3b",
+      "revision": "5d16e62cf838d8b53b988ecf75b03aa034b42354",
       "includes": "Complete Rust recovery engine, custom corpus support, locked dependencies, synthetic integration suite, operator documentation, CI sources, and dual licenses",
       "provenance": "Complete clean local Git repository with 12 commits; the former standalone remote did not resolve at integration time"
     }

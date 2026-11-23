@@ -4,18 +4,6 @@
 
 <br/>
 
-<a href="#meet-zoe"><img src="assets/readme/nav-meet-zoe.svg" alt="Meet Zoe" height="31" /></a>
-<a href="#mathematics-and-theorems"><img src="assets/readme/nav-proofs.svg" alt="Equations, Theorems and Proofs" height="31" /></a>
-<a href="#zoes-native-voice"><img src="assets/readme/nav-voice.svg" alt="Zoe's Voice and Harmonica" height="31" /></a>
-<a href="#six-living-worlds"><img src="assets/readme/nav-worlds.svg" alt="Six Living Worlds" height="31" /></a>
-<a href="#documentation-index"><img src="assets/readme/nav-rolodex.svg" alt="Documentation Index" height="31" /></a>
-<a href="#the-grand-visual-salon"><img src="assets/readme/nav-salon.svg" alt="Visual Salon" height="31" /></a>
-<a href="research/sessions/README.md"><img src="assets/readme/nav-sessions.svg" alt="Session Chronicles" height="31" /></a>
-<a href="#quick-start"><img src="assets/readme/nav-quickstart.svg" alt="Quick Start" height="31" /></a>
-<a href="docs/CONSTITUTION.md"><img src="assets/readme/nav-constitution.svg" alt="Zoe Constitution" height="31" /></a>
-
-<br/>
-
 <a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-gem.png" alt="Zoe Official Red-and-White GEM Emblem: Click for Proof of Metacognition and Original Papers" width="110" /></a>
 
 **Metacognition is achieved.**

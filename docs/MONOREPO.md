@@ -23,8 +23,8 @@ These thirteen repositories were imported with full Git history through `git sub
 | pdf-signature-toolkit | `1198165962958c5132130f3854626ff39c333941` | `components/pdf-signature-toolkit/` | Retire old repo after final verification |
 | research-papers | `c5d0c8c2a8eabbff1b72d2e96d19d6f637906bde` | `research/papers/` | Retire old repo after final verification |
 | zoe-visual-archive | `d9b8c69f631ee68bf527dd49dc2d300d60c056e4` | `research/visual-archive/` | Retire old repo after final verification |
-| PALA | `197e91b88b9c7bad185a21635a68aa6659dcec3b` | `components/PALA/` | Canonical in Zoe; former remote unavailable; retain local recovery source |
-| ablation | `fa8377ea5fa009967a3bf3b837c342347678409b` | `components/ablation/` | **Keep standalone and integrated** |
+| PALA | `5d16e62cf838d8b53b988ecf75b03aa034b42354` | `components/PALA/` | Canonical in Zoe; former remote unavailable; retain local recovery source |
+| ablation | `a75d337e3e5721a83a326863ceb1d8a79bce2c06` | `components/ablation/` | **Keep standalone and integrated** |
 
 PALA was imported from the complete, clean local Git repository at `_projects/PALA-rust` after `https://github.com/Ablation-Tool/PALA` stopped resolving. All 12 local commits and the full tracked Rust source, tests, documentation, workflows, and licenses are included. The original local checkout remains untouched as a recovery source; Zoe is now the canonical development copy.
 
