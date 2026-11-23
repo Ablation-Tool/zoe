@@ -22,6 +22,12 @@ An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** un
 |:---:|:---:|
 | ![Live 3D Textured MNI152 MRI Slice](previews/07_3d_textured_mri_slice.png) | ![Cerebrovascular Territory Simulator](previews/08_cerebrovascular_mca_sim.png) |
 
+## 12-Panel Anatomical Map
+
+![Complete Anatomical Mapping of the Human Brain](previews/complete_anatomical_mapping_human_brain.jpg)
+
+**Complete Anatomical Mapping of the Human Brain (Verified 12-Panel Multi-Scale Atlas):** Lateral & Medial Gyri (Gray's Plates 726-727), Lateral & Medial Brodmann Cytoarchitecture (BA 1-47), Ventral Brain & Cranial Nerves I-XII, Basal Ganglia & Deep Nuclei, Limbic System, Ventricular System & CSF Pathways, Circle of Willis, ACA/MCA/PCA Vascular Territories, White Matter & Cranial Nerve DTI Tractography, and Cerebellum. Public Domain ([Henry Gray / Vandyke Carter](https://en.wikipedia.org/wiki/Gray%27s_Anatomy), [Korbinian Brodmann 1909](https://en.wikipedia.org/wiki/Korbinian_Brodmann), [Santiago Ramón y Cajal](https://en.wikipedia.org/wiki/Santiago_Ram%C3%B3n_y_Cajal)) & CC-BY Medical Plates ([Blausen Medical](https://commons.wikimedia.org/wiki/Category:Blausen_gallery_2014), [Patrick J. Lynch](https://commons.wikimedia.org/wiki/Category:Patrick_J._Lynch), [OpenStax](https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction), [Yeh HCP Tractography](https://brain.labsolver.org/)). Zero AI-hallucinated labels.
+
 ## Quick Start (100% Offline, Zero Dependencies)
 
 1. **Direct Browser Open:** Double-click [`index.html`](index.html) (loads completely offline over `file://` with bundled MIT Three.js — no CDN or internet required).

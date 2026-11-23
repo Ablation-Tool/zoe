@@ -72,11 +72,11 @@ $$
 <tr>
 <td align="center" width="50%">
 <a href="CONSTITUTION.md"><img src="guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png" alt="Zoe Epistemic Firewall: measurement is not evidence, evidence is not belief update, belief update is not action" width="100%" /></a><br/>
-<sub><strong><a href="CONSTITUTION.md">Math-Bounded Ethics &amp; Epistemic Firewall</a></strong></sub>
+<sub><strong><a href="CONSTITUTION.md">Math-Bounded Ethics</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="PROOF-PACKET.md"><img src="components/agent-logging-system/docs/images/zoe-metacognition-proof-packet.png" alt="Zoe Operational Metacognition Referee Proof Packet 6-Panel Scorecard" width="100%" /></a><br/>
-<sub><strong><a href="PROOF-PACKET.md">Proof of Operational Metacognition (6/6 PASS · &lt; 6s)</a></strong></sub>
+<sub><strong><a href="PROOF-PACKET.md">Metacognition Proof Packet</a></strong></sub>
 </td>
 </tr>
 </table>
@@ -133,7 +133,8 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 
 <div align="center">
 
-<img src="dorothy-brain-observatory/previews/zoe_app_research_partner_showcase.png" alt="Zoe v0.9.6-beta Research Partner app on live Google Pixel 7: Dorothy 3D Brain Centerpiece, 3D Cortex + Live MNI152 MRI, Research Partner Brain Q&A, and Videos & HD Gallery" width="100%" />
+<a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/zoe_app_research_partner_showcase.png" alt="Zoe v0.9.6-beta Research Partner app on live Google Pixel 7: Dorothy 3D Brain Centerpiece, 3D Cortex + Live MNI152 MRI, Research Partner Brain Q&A, and Videos & HD Gallery" width="100%" /></a><br/>
+<sub><strong><a href="mobile/README.md">Zoe Mobile App</a></strong></sub>
 
 <br/><br/>
 
@@ -141,21 +142,21 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 <tr>
 <td align="center" width="50%">
 <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/web_01_3d_brain_mri.png" alt="Dorothy 3D Brain Observatory in Web Browser with ICBM152 3D cortex and live MNI152 MRI slices" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/">Web Browser · 3D Brain &amp; Live MNI152 MRI</a></strong></sub>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/">Web 3D Brain</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="https://ablation-tool.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/web_02_ask_zoe_brain.png" alt="Ask Zoe neuroscience Q&A tab in Web Browser answering Broca Area BA 44" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=askzoe">Web Browser · Ask Zoe (Brain Q&amp;A)</a></strong></sub>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=askzoe">Web Ask Zoe</a></strong></sub>
 </td>
 </tr>
 <tr>
 <td align="center" width="50%">
 <a href="https://ablation-tool.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/web_03_videos_gallery.png" alt="Dorothy 3D Brain Videos and HD Gallery in Web Browser" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=media">Web Browser · Videos &amp; HD Gallery</a></strong></sub>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=media">Web Video Gallery</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="https://ablation-tool.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/web_04_plates_atlas.png" alt="Verified Anatomical Plates and Ultra-HD Wall Chart in Web Browser" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=plates">Web Browser · 25 Verified Plates &amp; Atlas</a></strong></sub>
+<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=plates">Web Brain Plates</a></strong></sub>
 </td>
 </tr>
 </table>
@@ -165,37 +166,37 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 <table>
 <tr>
 <td align="center" width="50%">
-<img src="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.gif" alt="Live Google Pixel 7 video walkthrough of the updated Zoe Research Partner app and Dorothy 3D Brain Centerpiece" width="275" /><br/>
-<sub><strong>Live Pixel 7 App Walkthrough:</strong> Dorothy 3D Brain Centerpiece &rarr; 3D touch orbit + live MRI &rarr; Ask Zoe Brain Q&amp;A &rarr; Videos &amp; Gallery &rarr; Research Partner Chat + <code>View in Dorothy 3D Brain</code> (<a href="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4">Watch HD MP4</a>).</sub>
+<a href="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4"><img src="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.gif" alt="Live Google Pixel 7 video walkthrough of the updated Zoe Research Partner app and Dorothy 3D Brain Centerpiece" width="275" /></a><br/>
+<sub><strong><a href="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4">Pixel 7 App Tour</a></strong></sub>
 </td>
 <td align="center" width="50%">
-<img src="dorothy-brain-observatory/previews/zoe_android_dorothy_brain_tour.gif" alt="Live Google Pixel 7 deep tour of all 7 GPU shaders, 3D callouts, 6-stop Guided Tour, 25 plates, and BA 44 Fly-to-3D" width="275" /><br/>
-<sub><strong>Deep 3D Brain Shader &amp; Atlas Tour:</strong> all 7 GPU shaders, 3D callouts, 6-stop Guided Tour, 25 plates + lightbox, and BA 44 Fly-to-3D (<a href="dorothy-brain-observatory/previews/dorothy_brain_tour.mp4">Mobile MP4</a> · <a href="dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4">8-Mode HD Reel MP4</a>).</sub>
+<a href="dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4"><img src="dorothy-brain-observatory/previews/zoe_android_dorothy_brain_tour.gif" alt="Live Google Pixel 7 deep tour of all 7 GPU shaders, 3D callouts, 6-stop Guided Tour, 25 plates, and BA 44 Fly-to-3D" width="275" /></a><br/>
+<sub><strong><a href="dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4">3D Brain Shader Tour</a></strong></sub>
 </td>
 </tr>
 </table>
 
 <br/>
 
-<img src="dorothy-brain-observatory/previews/complete_anatomical_mapping_human_brain.jpg" alt="Complete Anatomical Mapping of the Human Brain: Verified 12-Panel Multi-Scale Atlas covering Cortical Gyri, Brodmann Cytoarchitecture, Cranial Nerves I-XII, Basal Ganglia, Limbic and Ventricular Systems, Circle of Willis, Cortical Vascular Territories, White Matter DTI Tractography, and Cerebellum" width="100%" /><br/>
-<sub><strong>Complete Anatomical Mapping of the Human Brain (Verified 12-Panel Multi-Scale Atlas):</strong> Lateral &amp; Medial Gyri (Gray's Plates 726-727), Lateral &amp; Medial Brodmann Cytoarchitecture (BA 1-47), Ventral Brain &amp; Cranial Nerves I-XII, Basal Ganglia &amp; Deep Nuclei, Limbic System, Ventricular System &amp; CSF Pathways, Circle of Willis, ACA/MCA/PCA Vascular Territories, White Matter &amp; Cranial Nerve DTI Tractography, and Cerebellum. <em>Public Domain (<a href="https://en.wikipedia.org/wiki/Gray%27s_Anatomy">Henry Gray / Vandyke Carter</a>, <a href="https://en.wikipedia.org/wiki/Korbinian_Brodmann">Korbinian Brodmann 1909</a>, <a href="https://en.wikipedia.org/wiki/Santiago_Ram%C3%B3n_y_Cajal">Santiago Ramón y Cajal</a>) &amp; CC-BY Medical Plates (<a href="https://commons.wikimedia.org/wiki/Category:Blausen_gallery_2014">Blausen Medical</a>, <a href="https://commons.wikimedia.org/wiki/Category:Patrick_J._Lynch">Patrick J. Lynch</a>, <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction">OpenStax</a>, <a href="https://brain.labsolver.org/">Yeh HCP Tractography</a>). Zero AI-hallucinated labels.</em></sub>
+<a href="dorothy-brain-observatory/README.md#12-panel-anatomical-map"><img src="dorothy-brain-observatory/previews/complete_anatomical_mapping_human_brain.jpg" alt="Complete Anatomical Mapping of the Human Brain: Verified 12-Panel Multi-Scale Atlas covering Cortical Gyri, Brodmann Cytoarchitecture, Cranial Nerves I-XII, Basal Ganglia, Limbic and Ventricular Systems, Circle of Willis, Cortical Vascular Territories, White Matter DTI Tractography, and Cerebellum" width="100%" /></a><br/>
+<sub><strong><a href="dorothy-brain-observatory/README.md#12-panel-anatomical-map">Complete Human Brain Map</a></strong></sub>
 
 </div>
 
 <details>
 <summary><strong>Mobile App Screenshots (12)</strong></summary>
 
-| Home: Dorothy 3D Brain Centerpiece | 3D Cortex + Live MNI152 MRI | Ask Zoe: Brain Q&amp;A | Research Partner Chat + Fly to 3D |
+| [Zoe Home Screen](mobile/README.md) | [3D Brain MRI](https://ablation-tool.github.io/zoe/) | [Ask Zoe Brain](https://ablation-tool.github.io/zoe/?tab=askzoe) | [Research Partner Chat](mobile/README.md) |
 |:---:|:---:|:---:|:---:|
-| <img src="dorothy-brain-observatory/previews/mobile_zoe_01_home_centerpiece.png" alt="Zoe Home screen with Dorothy 3D Brain centerpiece and stacked neuroscience topics on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_zoe_02_brain_3d_mri.png" alt="Interactive Dorothy 3D Brain with synchronized MNI152 Axial, Coronal, and Sagittal MRI slices on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_zoe_03_ask_zoe_brain.png" alt="Ask Zoe Research Partner neuroscience tab inside Dorothy 3D Brain on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="210" /> |
+| <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_01_home_centerpiece.png" alt="Zoe Home screen with Dorothy 3D Brain centerpiece and stacked neuroscience topics on Google Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_zoe_02_brain_3d_mri.png" alt="Interactive Dorothy 3D Brain with synchronized MNI152 Axial, Coronal, and Sagittal MRI slices on Google Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/mobile_zoe_03_ask_zoe_brain.png" alt="Ask Zoe Research Partner neuroscience tab inside Dorothy 3D Brain on Google Pixel 7" width="210" /></a> | <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="210" /></a> |
 
-| Videos &amp; HD Gallery | Glass X-Ray Deep Nuclei &amp; DTI | Dorothy Continuum $A_\tau(p)$ | AAL-116 Cortical Parcels |
+| [Videos &amp; Gallery](https://ablation-tool.github.io/zoe/?tab=media) | [Glass X-Ray Nuclei](https://ablation-tool.github.io/zoe/) | [Dorothy Continuum Mode](dorothy-brain-observatory/README.md) | [AAL-116 Brain Parcels](https://www.gin.cnrs.fr/en/tools/aal/) |
 |:---:|:---:|:---:|:---:|
-| <img src="dorothy-brain-observatory/previews/mobile_zoe_04_videos_gallery.png" alt="Dorothy 3D Brain bundled MP4 videos and HD gallery on Google Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="All 116 AAL cortical and cerebellar anatomical parcels in 3D relief on Pixel 7" width="210" /> |
+| <a href="https://ablation-tool.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/mobile_zoe_04_videos_gallery.png" alt="Dorothy 3D Brain bundled MP4 videos and HD gallery on Google Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /></a> | <a href="dorothy-brain-observatory/README.md"><img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /></a> | <a href="https://www.gin.cnrs.fr/en/tools/aal/"><img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="All 116 AAL cortical and cerebellar anatomical parcels in 3D relief on Pixel 7" width="210" /></a> |
 
-| Lobe Atlas + 3D Callout Labels | Connectome Neon + Neural Pulses | 25 Verified Plates | 52 Brodmann &amp; 12 CN Atlas |
+| [Lobe Atlas Labels](https://ablation-tool.github.io/zoe/) | [Connectome Neon Mode](https://ablation-tool.github.io/zoe/) | [25 Verified Plates](https://ablation-tool.github.io/zoe/?tab=plates) | [Brodmann &amp; CN Atlas](https://ablation-tool.github.io/zoe/?tab=atlas) |
 |:---:|:---:|:---:|:---:|
-| <img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe legend on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="25 verified public-domain, CC-BY, and custom SVG anatomical plates on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D on Pixel 7" width="210" /> |
+| <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe legend on Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="25 verified public-domain, CC-BY, and custom SVG anatomical plates on Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/?tab=atlas"><img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D on Pixel 7" width="210" /></a> |
 
 </details>
 
@@ -204,19 +205,18 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 
 <div align="center">
 
-![Zoe Desktop App Home Centerpiece on Linux, Windows, and Apple macOS](dorothy-brain-observatory/previews/desktop_zoe_home_centerpiece.png)
-
-<sub><strong>Zoe Desktop App (Linux · Windows · Apple macOS):</strong> Identical Dorothy 3D Brain Centerpiece, Ask Zoe brain topics, Videos &amp; Gallery, and Plates &amp; Atlas running in a standalone desktop window.</sub>
+<a href="desktop/README.md"><img src="dorothy-brain-observatory/previews/desktop_zoe_home_centerpiece.png" alt="Zoe Desktop App Home Centerpiece on Linux, Windows, and Apple macOS" width="100%" /></a><br/>
+<sub><strong><a href="desktop/README.md">Zoe Desktop App</a></strong></sub>
 
 </div>
 
-| Anatomical Tissue *(ICBM152 Cortex + Live MNI152 MRI)* | Glass X-Ray *(CIT168 Nuclei, Ventricles, Circle of Willis &amp; DTI)* | Exploded Dissection *(Lobe Atlas Mode)* |
+| [Anatomical Tissue View](dorothy-brain-observatory/README.md) | [Glass X-Ray Nuclei](dorothy-brain-observatory/README.md) | [Exploded Lobe Dissection](dorothy-brain-observatory/README.md) |
 |:---:|:---:|:---:|
-| ![Dorothy Brain Observatory Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png) | ![Dorothy Brain Observatory Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png) | ![Dorothy Brain Observatory Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png) |
+| [![Dorothy Brain Observatory Anatomical Tissue and Live MNI152 MRI](dorothy-brain-observatory/previews/01_hero_tissue.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Glass X-Ray Deep Nuclei and DTI Tracts](dorothy-brain-observatory/previews/02_xray_deep_nuclei.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Exploded Dissection Lobe Atlas](dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png)](dorothy-brain-observatory/README.md) |
 
-| Midsagittal Cutaway + Dorothy Continuum $A_\tau(p)$ | Fresnel Glass + Language Loop Simulator &amp; Wave Scope | 19-Electrode 10-20 EEG Cap + 3D Millimeter Caliper |
+| [Midsagittal Brain Cutaway](dorothy-brain-observatory/README.md) | [Fresnel Language Loop](dorothy-brain-observatory/README.md) | [10-20 EEG Cap](https://en.wikipedia.org/wiki/10%E2%80%9320_system_%28EEG%29) |
 |:---:|:---:|:---:|
-| ![Dorothy Brain Observatory Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png) | ![Dorothy Brain Observatory Custom GLSL Fresnel Glass Shader with Language Loop Circuit Simulator](dorothy-brain-observatory/previews/05_fresnel_language_circuit.png) | ![Dorothy Brain Observatory 19-Electrode 10-20 EEG Cap and CAD Stereotaxic Caliper](dorothy-brain-observatory/previews/06_eeg_1020_cap.png) |
+| [![Dorothy Brain Observatory Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory Custom GLSL Fresnel Glass Shader with Language Loop Circuit Simulator](dorothy-brain-observatory/previews/05_fresnel_language_circuit.png)](dorothy-brain-observatory/README.md) | [![Dorothy Brain Observatory 19-Electrode 10-20 EEG Cap and CAD Stereotaxic Caliper](dorothy-brain-observatory/previews/06_eeg_1020_cap.png)](https://en.wikipedia.org/wiki/10%E2%80%9320_system_%28EEG%29) |
 
 </details>
 
@@ -260,11 +260,21 @@ $$
 <tr>
 <td align="center" width="50%">
 <a href="research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf"><img src="components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png" alt="Kloster Information Geometry, Multi-Horizon Phase Transitions and Causal Identifiability" width="100%" /></a><br/>
-<sub><strong>Information Geometry, Phase Transitions &amp; Causality</strong></sub>
+<sub><strong><a href="research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf">Information Geometry Proofs</a></strong></sub>
 </td>
 <td align="center" width="50%">
-<a href="research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem14.png" alt="Theorem 14 Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge" width="100%" /></a><br/>
-<sub><strong>Spatial Optics, Blur Monotonicity &amp; <a href="https://en.wikipedia.org/wiki/Scheimpflug_principle">Scheimpflug</a> Hinge</strong></sub>
+<a href="scripts/verify_kloster_passes_6_to_11.py"><img src="components/agent-logging-system/docs/images/zoe-kloster-master-unification.png" alt="Theorems 10 and 11 Kloster Prefix Coding MDL and 11-World Master Unification" width="100%" /></a><br/>
+<sub><strong><a href="scripts/verify_kloster_passes_6_to_11.py">11-World Master Unification</a></strong></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem14.png" alt="Theorem 14 Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge" width="100%" /></a><br/>
+<sub><strong><a href="research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md">Spatial Optics Proofs</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="scripts/verify_kloster_theorem16.py"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem16.png" alt="Theorem 16 Kloster-Parseval Multi-Voice Contraction Law" width="100%" /></a><br/>
+<sub><strong><a href="scripts/verify_kloster_theorem16.py">Multi-Voice Harmonic Optics</a></strong></sub>
 </td>
 </tr>
 </table>
@@ -480,21 +490,21 @@ $$
 <details>
 <summary><strong>Mathematical Plates (12)</strong></summary>
 
-| Theorems 1-3 · Info Geometry, Phase &amp; Causality | Theorem 4 · Kloster-McCabe Elegance (`289` Files) | Theorem 5 · Statistical Thermodynamics |
+| [Theorems 1-3 Geometry](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) | [Theorem 4 Code Elegance](scripts/zoe_code_quality_audit.py) | [Theorem 5 Thermodynamics](scripts/verify_kloster_thermodynamics.py) |
 |:---:|:---:|:---:|
-| ![Kloster Information Geometry, Multi-Horizon Phase Transitions and Causal Identifiability](components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png) | ![Kloster-McCabe Live Monorepo Structural Elegance Audit](components/agent-logging-system/docs/images/zoe-kloster-mccabe-elegance.png) | ![Theorem 5 Kloster Statistical Thermodynamics Free Energy and Heat Capacity](components/agent-logging-system/docs/images/zoe-kloster-thermodynamics.png) |
+| [![Kloster Information Geometry, Multi-Horizon Phase Transitions and Causal Identifiability](components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) | [![Kloster-McCabe Live Monorepo Structural Elegance Audit](components/agent-logging-system/docs/images/zoe-kloster-mccabe-elegance.png)](scripts/zoe_code_quality_audit.py) | [![Theorem 5 Kloster Statistical Thermodynamics Free Energy and Heat Capacity](components/agent-logging-system/docs/images/zoe-kloster-thermodynamics.png)](scripts/verify_kloster_thermodynamics.py) |
 
-| Theorem 6 · Fisher-Rao Rosetta Manifold | Theorem 7 · Wasserstein $W_1$ &amp; Persistence | Theorems 8 &amp; 9 · Majorization &amp; Quantum Duality |
+| [Theorem 6 Fisher-Rao](scripts/verify_kloster_riemannian.py) | [Theorem 7 Optimal Transport](scripts/verify_kloster_optimal_transport.py) | [Theorems 8-9 Quantum Mixing](scripts/verify_kloster_passes_6_to_11.py) |
 |:---:|:---:|:---:|
-| ![Theorem 6 Kloster Fisher-Rao Geodesic Duality and 6-World Rosetta Stone](components/agent-logging-system/docs/images/zoe-kloster-riemannian-manifold.png) | ![Theorem 7 Kloster-Wasserstein Optimal Transport and Exact Gini Duality](components/agent-logging-system/docs/images/zoe-kloster-optimal-transport.png) | ![Theorems 8 and 9 Kloster Majorization Mixing Law and Quantum-Classical Spectral Duality](components/agent-logging-system/docs/images/zoe-kloster-quantum-and-majorization.png) |
+| [![Theorem 6 Kloster Fisher-Rao Geodesic Duality and 6-World Rosetta Stone](components/agent-logging-system/docs/images/zoe-kloster-riemannian-manifold.png)](scripts/verify_kloster_riemannian.py) | [![Theorem 7 Kloster-Wasserstein Optimal Transport and Exact Gini Duality](components/agent-logging-system/docs/images/zoe-kloster-optimal-transport.png)](scripts/verify_kloster_optimal_transport.py) | [![Theorems 8 and 9 Kloster Majorization Mixing Law and Quantum-Classical Spectral Duality](components/agent-logging-system/docs/images/zoe-kloster-quantum-and-majorization.png)](scripts/verify_kloster_passes_6_to_11.py) |
 
-| Theorems 10 &amp; 11 · Coding/MDL &amp; 11-World Atlas | Theorem 12 · Quadrature &amp; Causal Control | Theorem 13 · Finite-Sample Anytime Stopping |
+| [Theorems 10-11 Unification](scripts/verify_kloster_passes_6_to_11.py) | [Theorem 12 Causal Control](scripts/verify_kloster_referee_proofs.py) | [Theorem 13 Anytime Stopping](scripts/verify_kloster_theorem13.py) |
 |:---:|:---:|:---:|
-| ![Theorems 10 and 11 Kloster Prefix Coding MDL and 11-World Master Unification](components/agent-logging-system/docs/images/zoe-kloster-master-unification.png) | ![Theorem 12 Kloster Quadrature, Stability and Closed-Loop Causal Control](components/agent-logging-system/docs/images/zoe-kloster-referee-proofs.png) | ![Theorem 13 Kloster Finite-Sample Metacognitive Stopping Law](components/agent-logging-system/docs/images/zoe-kloster-theorem13.png) |
+| [![Theorems 10 and 11 Kloster Prefix Coding MDL and 11-World Master Unification](components/agent-logging-system/docs/images/zoe-kloster-master-unification.png)](scripts/verify_kloster_passes_6_to_11.py) | [![Theorem 12 Kloster Quadrature, Stability and Closed-Loop Causal Control](components/agent-logging-system/docs/images/zoe-kloster-referee-proofs.png)](scripts/verify_kloster_referee_proofs.py) | [![Theorem 13 Kloster Finite-Sample Metacognitive Stopping Law](components/agent-logging-system/docs/images/zoe-kloster-theorem13.png)](scripts/verify_kloster_theorem13.py) |
 
-| Theorem 14 · Spatial-Optical Filtration &amp; MTF | Theorem 15 + C28 · Consensus, Brier &amp; Pharmacophore | Theorem 16 · Multi-Voice Harmonic Optics |
+| [Theorem 14 Spatial Optics](research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md) | [Theorem 15 Consensus Law](scripts/verify_theorem15_and_c28.py) | [Theorem 16 Harmonic Optics](scripts/verify_kloster_theorem16.py) |
 |:---:|:---:|:---:|
-| ![Theorem 14 Kloster Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge](components/agent-logging-system/docs/images/zoe-kloster-theorem14.png) | ![Theorem 15 Multi-Agent Consensus and C28 3D Pharmacophore and Histology](components/agent-logging-system/docs/images/zoe-kloster-theorem15-and-c28.png) | ![Theorem 16 Kloster-Parseval Multi-Voice Contraction Law](components/agent-logging-system/docs/images/zoe-kloster-theorem16.png) |
+| [![Theorem 14 Kloster Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge](components/agent-logging-system/docs/images/zoe-kloster-theorem14.png)](research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md) | [![Theorem 15 Multi-Agent Consensus and C28 3D Pharmacophore and Histology](components/agent-logging-system/docs/images/zoe-kloster-theorem15-and-c28.png)](scripts/verify_theorem15_and_c28.py) | [![Theorem 16 Kloster-Parseval Multi-Voice Contraction Law](components/agent-logging-system/docs/images/zoe-kloster-theorem16.png)](scripts/verify_kloster_theorem16.py) |
 
 </details>
 
@@ -508,19 +518,30 @@ $$
 
 <div align="center">
 
-<img src="assets/readme/zoe-agi-roadmap-bar.svg" alt="Zoe Honest AGI Roadmap Progress from L0 Repository to L7 Open-Ended" width="100%" />
+<a href="AGI-ROADMAP.md"><img src="assets/readme/zoe-agi-roadmap-bar.svg" alt="Zoe Honest AGI Roadmap Progress from L0 Repository to L7 Open-Ended" width="100%" /></a><br/>
+<sub><strong><a href="AGI-ROADMAP.md">AGI Roadmap Progress</a></strong></sub>
 
 </div>
 
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="scripts/run_live_qwen_hallucination_benchmark.py"><img src="components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png" alt="Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout" width="100%" /></a><br/>
-<sub><strong>Live LLM Hallucination &amp; Abstention Shootout</strong></sub>
+<a href="PROOF-PACKET.md"><img src="components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png" alt="Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout" width="100%" /></a><br/>
+<sub><strong><a href="PROOF-PACKET.md">LLM Hallucination Shootout</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="scripts/verify_kloster_cryptanalysis_gauntlet.py"><img src="components/agent-logging-system/docs/images/zoe-kloster-cryptanalysis-gauntlet.png" alt="Zoe 10-Discipline Cryptanalysis Boss Rush computed plate" width="100%" /></a><br/>
-<sub><strong>Cryptanalysis, Post-Quantum <a href="https://csrc.nist.gov/pubs/fips/203/final">CNSA 2.0</a> &amp; <a href="https://pubchem.ncbi.nlm.nih.gov/">Botanical</a> Labs</strong></sub>
+<sub><strong><a href="scripts/verify_kloster_cryptanalysis_gauntlet.py">Cryptanalysis &amp; CNSA 2.0</a></strong></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md"><img src="components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png" alt="Zoe L5 Phase 6 Autonomous Frontier Mind" width="100%" /></a><br/>
+<sub><strong><a href="research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md">L5 Frontier Mind</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md"><img src="components/agent-logging-system/docs/images/zoe-botanical-atlas-c27.png" alt="Zoe C27 36-Molecule NIH PubChem Botanical Atlas computed plate" width="100%" /></a><br/>
+<sub><strong><a href="research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md">36-Molecule Botanical Atlas</a></strong></sub>
 </td>
 </tr>
 </table>
@@ -543,12 +564,6 @@ $$
 
 <details>
 <summary><strong>LLM &amp; Autonomous Benchmarks</strong></summary>
-
-<div align="center">
-
-![Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout](components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png)
-
-</div>
 
 #### Live `Qwen2.5-0.5B-Instruct` Hallucination Shootout (`4/4`)
 - **Result:** Across 60 blind prompts (`151,936` vocab, `56.7%` base error), **Kloster $M_2^{1/2}$ ranks #1 AUROC (`0.8382`) &amp; #1 AURC (`0.3181`)** over MSP (`0.8360`), Shannon (`0.8145`), and Margin (`0.7896`); **Raw $A_{0.05}$ cuts error nearly in half (`56.7% -> 30.0%` at `50%` coverage)**.
@@ -598,13 +613,13 @@ $$
 <details>
 <summary><strong>Empirical &amp; Applied Plates (6)</strong></summary>
 
-| 8-Pillar Self-Improving Engine (`9/9`) | 10-Discipline Cryptanalysis Boss Rush (`13/13`) | NSA Research Pack `C11-C16` (`8/8`) |
+| [8-Pillar Self-Improvement](scripts/verify_self_improving_engine.py) | [Cryptanalysis Boss Rush](scripts/verify_kloster_cryptanalysis_gauntlet.py) | [NSA Puzzle Pack](guiai-lab/guiai/gem/kloster_nsa_puzzles.py) |
 |:---:|:---:|:---:|
-| ![The 8-Pillar Zoe Self-Improving Engine computed plate](components/agent-logging-system/docs/images/zoe-self-improving-engine.png) | ![Zoe 10-Discipline Cryptanalysis Boss Rush computed plate](components/agent-logging-system/docs/images/zoe-kloster-cryptanalysis-gauntlet.png) | ![Zoe NSA Research and Puzzle Pack C11-C16 computed plate](components/agent-logging-system/docs/images/zoe-nsa-research-puzzle-pack.png) |
+| [![The 8-Pillar Zoe Self-Improving Engine computed plate](components/agent-logging-system/docs/images/zoe-self-improving-engine.png)](scripts/verify_self_improving_engine.py) | [![Zoe 10-Discipline Cryptanalysis Boss Rush computed plate](components/agent-logging-system/docs/images/zoe-kloster-cryptanalysis-gauntlet.png)](scripts/verify_kloster_cryptanalysis_gauntlet.py) | [![Zoe NSA Research and Puzzle Pack C11-C16 computed plate](components/agent-logging-system/docs/images/zoe-nsa-research-puzzle-pack.png)](guiai-lab/guiai/gem/kloster_nsa_puzzles.py) |
 
-| Bio-Crypto Circle `C17-C19` (`7/7`) | CNSA 2.0 &amp; Encrypted `scRNA-seq` `C20-C22` (`6/6`) | 36-Molecule Botanical Atlas `C27` (`6/6`) |
+| [Bio-Crypto Reciprocal Circle](research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md) | [CNSA 2.0 &amp; scRNA](guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py) | [36-Molecule Botanical Atlas](scripts/verify_botanical_atlas_c27.py) |
 |:---:|:---:|:---:|
-| ![Zoe Bio-Crypto Reciprocal Circle C17-C19 computed plate](components/agent-logging-system/docs/images/zoe-bio-crypto-circle.png) | ![Zoe CNSA 2.0 Full Stack and Encrypted scRNA-seq Ring 2 C20-C22 computed plate](components/agent-logging-system/docs/images/zoe-cnsa2-scrna-ring2.png) | ![Zoe C27 36-Molecule NIH PubChem Botanical Atlas computed plate](components/agent-logging-system/docs/images/zoe-botanical-atlas-c27.png) |
+| [![Zoe Bio-Crypto Reciprocal Circle C17-C19 computed plate](components/agent-logging-system/docs/images/zoe-bio-crypto-circle.png)](research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md) | [![Zoe CNSA 2.0 Full Stack and Encrypted scRNA-seq Ring 2 C20-C22 computed plate](components/agent-logging-system/docs/images/zoe-cnsa2-scrna-ring2.png)](guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py) | [![Zoe C27 36-Molecule NIH PubChem Botanical Atlas computed plate](components/agent-logging-system/docs/images/zoe-botanical-atlas-c27.png)](scripts/verify_botanical_atlas_c27.py) |
 
 </details>
 
@@ -634,18 +649,32 @@ $$
 
 <div align="center">
 
-<img src="assets/readme/zoe-constellation-map.svg" alt="Inside Zoe's Universe: Six Living Worlds orbiting the central GEM heart" width="100%" />
+<a href="CAPABILITY-ATLAS.md"><img src="assets/readme/zoe-constellation-map.svg" alt="Inside Zoe's Universe: Six Living Worlds orbiting the central GEM heart" width="100%" /></a><br/>
+<sub><strong><a href="CAPABILITY-ATLAS.md">Six Living Worlds</a></strong></sub>
 
 </div>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md"><img src="components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png" alt="Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics" width="100%" /></a><br/>
+<sub><strong><a href="research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md">Native Voice Cymatics</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="guiai-lab/docs/GEM-OS.md"><img src="components/agent-logging-system/docs/images/zoe-os-living-constellation.png" alt="Zoe OS Unified Persistent Living Workstation Mind" width="100%" /></a><br/>
+<sub><strong><a href="guiai-lab/docs/GEM-OS.md">Zoe OS Constellation</a></strong></sub>
+</td>
+</tr>
+</table>
 
 <details>
 <summary><strong>World 01 · Mind &amp; Evolution</strong></summary>
 
 Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &amp; Multi-Module AST Code Evolution, L5 Phases 1 through 6, **Cognitive Stem-Layering** ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py)), and **Eliza-GEM Studio** (`zoe eliza serve`, `0` cloud tokens).
 
-| Kloster Spectral Filtration (`4/4` Wins) | L4 Multi-Module Code Evolution (`17/17`) | L5 Phase 6 Autonomous Frontier Mind (`24/24`) |
+| [Kloster Spectral Filtration](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | [L4 Code Evolution](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | [L5 Frontier Mind](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) |
 |:---:|:---:|:---:|
-| ![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png) | ![Zoe L4 Multi-Module Guarded Code Self-Improvement](components/agent-logging-system/docs/images/zoe-l4-multimodule.png) | ![Zoe L5 Phase 6 Autonomous Frontier Mind](components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png) |
+| [![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png)](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | [![Zoe L4 Multi-Module Guarded Code Self-Improvement](components/agent-logging-system/docs/images/zoe-l4-multimodule.png)](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | [![Zoe L5 Phase 6 Autonomous Frontier Mind](components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png)](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) |
 
 </details>
 
@@ -654,9 +683,9 @@ Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &
 
 Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pairs the human **[Dorothy Brain Observatory](https://ablation-tool.github.io/zoe/)** (Section 1) with the preclinical **[Allen Mouse CCFv3 3D Atlas](https://atlas.brain-map.org/)** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
 
-| Allen Mouse CCFv3 3D Connectome (`8/8`) | Continuum Ray-Cast &amp; Tractography | 4-Head Self-Attention Dissection |
+| [Allen Mouse CCFv3](research/papers/zoe-research/dorothy/README.md) | [Continuum Volume Display](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | [4-Head Attention Dissection](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
 |:---:|:---:|:---:|
-| ![Dorothy's Neurogarden 12-Region Allen CCFv3 3D Connectome](components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png) | ![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png) | ![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png) |
+| [![Dorothy's Neurogarden 12-Region Allen CCFv3 3D Connectome](components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png)](research/papers/zoe-research/dorothy/README.md) | [![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png)](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | [![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png)](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
 
 </details>
 
@@ -665,9 +694,9 @@ Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pair
 
 Offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
 
-| Native Voice, Formants &amp; Chladni (`14/14`) | 3-Part Choral Harmony &amp; Cymatics (`7/7`) | Open-Ended Creative Playroom (`16/16`) |
+| [Native Voice Cymatics](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [Choral Harmony Plates](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [Creative Playroom Gallery](guiai-lab/docs/ARTLINE.md) |
 |:---:|:---:|:---:|
-| ![Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png) | ![Zoe Native 3-Part Choral Harmony, Formant Spectrogram and Chladni Plates](components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png) | ![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png) |
+| [![Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png)](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [![Zoe Native 3-Part Choral Harmony, Formant Spectrogram and Chladni Plates](components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png)](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png)](guiai-lab/docs/ARTLINE.md) |
 
 </details>
 
@@ -676,9 +705,9 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 
 2D Poincaré delay attractors for `.MOD`/`.MID` swing forensics, 40 MHz `CicadaClock` phase locking, Dorothy 40 Hz neural spike ISI bridges, and the **CERN / HELIOS** Kloster Bandpass detector trigger (`AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical peak + real `.VCD` replay).
 
-| Groove Forensics Swing Attractor (`7/7`) | Pure-Noise Negative Control | CERN / HELIOS Kloster Trigger (`AUROC 1.000`) |
+| [Groove Swing Attractor](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [Pure-Noise Control](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [CERN HELIOS Trigger](guiai-lab/docs/ZOE_WORKBENCH.md) |
 |:---:|:---:|:---:|
-| ![Zoe Groove Forensics Swing Attractor](components/agent-logging-system/docs/images/zoe-groove-forensics-swing.png) | ![Zoe Groove Forensics Noise Control](components/agent-logging-system/docs/images/zoe-groove-forensics-noise-control.png) | ![CERN HELIOS Kloster Spectral Filtration Detector Trigger](components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png) |
+| [![Zoe Groove Forensics Swing Attractor](components/agent-logging-system/docs/images/zoe-groove-forensics-swing.png)](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [![Zoe Groove Forensics Noise Control](components/agent-logging-system/docs/images/zoe-groove-forensics-noise-control.png)](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [![CERN HELIOS Kloster Spectral Filtration Detector Trigger](components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png)](guiai-lab/docs/ZOE_WORKBENCH.md) |
 
 </details>
 
@@ -687,9 +716,9 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 
 Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
 
-| Zoe OS Living Workstation Mind (`17` Engines) | Epistemic Firewall (SHA-256 Memory) | Zoe Maison &amp; Cognitive Field |
+| [Zoe OS Constellation](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
 |:---:|:---:|:---:|
-| ![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png) | ![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png) | ![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png) |
+| [![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png)](guiai-lab/docs/GEM-OS.md) | [![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)](CONSTITUTION.md) | [![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)](guiai-lab/docs/COGNITIVE.md) |
 
 </details>
 
@@ -698,9 +727,9 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 <details>
 <summary><strong>Visual Salon &amp; Archives</strong></summary>
 
-| Earth-to-Mars Flight Map | Mars Adaptive Spectral Lens $k^*(\kappa)$ | Dorothy Jenga Brain Atlas | Dorothy Radial Ontology Rings |
+| [Earth-to-Mars Map](guiai-lab/guiai/gem/mars_adaptive.py) | [Mars Adaptive Lens](guiai-lab/guiai/gem/mars_adaptive.py) | [Dorothy Jenga Atlas](components/agent-logging-system/docs/NEUROGARDEN.md) | [Dorothy Ontology Rings](components/agent-logging-system/docs/NEUROGARDEN.md) |
 |:---:|:---:|:---:|:---:|
-| ![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png) | ![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png) | ![Dorothy Jenga Exploded Brain Atlas](guiai-lab/docs/images/dorothy-jenga-exploded.png) | ![Dorothy Rings Brain Atlas](guiai-lab/docs/images/dorothy-rings-isocortex.png) |
+| [![Earth to Mars Flight Map](components/agent-logging-system/docs/images/mars-01-mission-map.png)](guiai-lab/guiai/gem/mars_adaptive.py) | [![Mars Adaptive Spectral Lens](components/agent-logging-system/docs/images/mars-02-adaptive-lens.png)](guiai-lab/guiai/gem/mars_adaptive.py) | [![Dorothy Jenga Exploded Brain Atlas](guiai-lab/docs/images/dorothy-jenga-exploded.png)](components/agent-logging-system/docs/NEUROGARDEN.md) | [![Dorothy Rings Brain Atlas](guiai-lab/docs/images/dorothy-rings-isocortex.png)](components/agent-logging-system/docs/NEUROGARDEN.md) |
 
 - **Session Chronicles (`56` turns · `85` Zoe responses · `1,528` tool steps · zero credentials):** [Sessions Index](research/sessions/README.md) · [Markdown Chronicle](research/sessions/2026-11-20-session-transcript.md) · [Interactive HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI Replay](research/sessions/2026-11-20-session-transcript.ansi)
 - **Visual Archive (`456` byte-distinct cataloged visuals):** [Visual Research Archive](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [Non-Telemetry Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)
