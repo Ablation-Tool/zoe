@@ -18,6 +18,10 @@ An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** un
 |:---:|:---:|
 | ![Fresnel Glass Language Circuit](previews/05_fresnel_language_circuit.png) | ![10-20 EEG Smart-Textile Cap](previews/06_eeg_1020_cap.png) |
 
+| Live 3D Textured MNI152 T1-MRI Cutting Plane | Cerebrovascular Territory Simulator (Left MCA) + Kloster $A_\tau(p)$ |
+|:---:|:---:|
+| ![Live 3D Textured MNI152 MRI Slice](previews/07_3d_textured_mri_slice.png) | ![Cerebrovascular Territory Simulator](previews/08_cerebrovascular_mca_sim.png) |
+
 ## Quick Start (100% Offline, Zero Dependencies)
 
 1. **Direct Browser Open:** Double-click [`index.html`](index.html) (loads completely offline over `file://` with bundled MIT Three.js — no CDN or internet required).
@@ -30,8 +34,10 @@ An offline-first, interactive WebGL2 **3D Navigable Human Brain Observatory** un
   * Real AAL-116 Cerebellum & Vermis, Thalamus, Hippocampus, and Amygdala.
   * Real Pauli CIT168 32 bilateral subcortical human nuclei (Putamen, Caudate, Nucleus Accumbens, Extended Amygdala, GPe, GPi, STN, SNc, SNr, Red Nucleus, VTA, PBP, Ventral Pallidum, Habenula, Hypothalamus, Mammillary Bodies).
   * Anatomically MNI-registered Brainstem (Midbrain/Colliculi, Pons, Medulla), Corpus Callosum, CSF Ventricular System, pulsing Circle of Willis & cerebral arteries, all 12 bilateral Cranial Nerves (CN I–XII, with CN IV exiting dorsally from the midbrain), 10 color-coded DTI White-Matter tractography bundles with animated neural impulses, and 52 clickable 3D Brodmann landmarks.
-* **7 Interactive Rendering Modes (incl. Custom GLSL Fresnel Glass Shader):** Anatomical Tissue, Lobe Atlas, AAL-116 Parcels, **Holographic GLSL Fresnel Glass X-Ray** (with live 3D MRI clipping-plane support), **Fresnel Connectome Neon**, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider computing accessible cortical volume), and CAD Engineering Wireframe.
-* **5 Interactive Functional Neural Circuit Simulators:** 1-click simulation of **Language Loop** (`Wernicke → Arcuate → Broca → M1`), **Visual Pathway** (`Retina → LGN → V1 → Dorsal/Ventral`), **Motor / Basal Ganglia Loop**, **Papez Memory Circuit**, and **Multisensory & Salience Network** with glowing synaptic relay tubes, traveling action-potential packets, step-by-step relay cards, and a live neural oscillation oscilloscope.
+* **7 Interactive Rendering Modes (Custom GLSL Subsurface Scattering + Fresnel Glass Shaders):** **Physically Based GLSL Subsurface Scattering (SSS) Wet-Pia Anatomical Tissue**, Lobe Atlas, AAL-116 Parcels, **Holographic GLSL Fresnel Glass X-Ray** (with live 3D MRI clipping-plane support), **Fresnel Connectome Neon**, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider computing accessible cortical volume), and CAD Engineering Wireframe.
+* **Live 3D Textured MNI152 T1-MRI Cutting Planes & Radiology Colormaps:** Slicing axially, coronally, or sagittally projects the real `0.74 mm` human MNI152 MRI cross-section directly onto the 3D cut face inside the brain with live **`T1 Gray`**, **`T2 Invert`**, **`fMRI Hot`**, and **`Viridis`** colormaps.
+* **5 Interactive Functional Neural Circuit Simulators + 3D fMRI BOLD Hotspots:** 1-click simulation of **Language Loop** (`Wernicke → Arcuate → Broca → M1`), **Visual Pathway** (`Retina → LGN → V1 → Dorsal/Ventral`), **Motor / Basal Ganglia Loop**, **Papez Memory Circuit**, and **Multisensory & Salience Network** with glowing synaptic relay tubes, cortical BOLD hotspots, traveling action-potential packets, step-by-step relay cards, and a live neural oscillation oscilloscope.
+* **Cerebrovascular Territory & Neurorehabilitation Simulator *(Educational Template)*:** 1-click visualization of **Left MCA**, **ACA**, **PCA**, and **Vertebrobasilar/Brainstem** vascular territories directly on the real ICBM152 cortex with live affected-cortex percentage, **Kloster $A_\tau(p)$ reserve**, classical deficit profiles, and neurorehabilitation pathways.
 * **International 10–20 EEG & Wearable Smart-Textile Cap (19 Electrodes):** Exact Koessler et al. (2009) MNI152 cortical projections connected by geodesic conductive textile straps; click any sensor (`Fp1`–`O2`, `Cz`, etc.) to inspect its underlying Brodmann area and live synthetic EEG waveform.
 * **CAD Stereotaxic 3D Millimeter Caliper (`Measure mm`):** Click any two 3D anatomical landmarks to drop laser pins and read exact Euclidean distance and `(ΔX, ΔY, ΔZ)` millimeter deltas.
 * **Synchronized Real MNI152 T1-MRI Tri-Planar Strip:** Click anywhere on the live Axial, Coronal, or Sagittal `0.74 mm` MRI slices to teleport the 3D stereotaxic reticle and clipping planes to that exact millimeter coordinate.

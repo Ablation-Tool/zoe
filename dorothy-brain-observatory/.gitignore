@@ -1,3 +1,4 @@
-# Keep private licensed textbooks/figures strictly local
+# Keep private licensed textbooks/figures/chapter indices strictly local
 library_images/
 nirmt_pdfs/
+data/library_chapters.js

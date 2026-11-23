@@ -396,6 +396,14 @@
         <button type="button" class="ctl-btn" data-circuit="salience" style="grid-column:1/-1;">Multisensory &amp; Salience Network</button>
       </div>
 
+      <div class="sec-title">Cerebrovascular Territory Sim</div>
+      <div class="btn-grid">
+        <button type="button" class="ctl-btn" data-vasc="mcaL">Left MCA</button>
+        <button type="button" class="ctl-btn" data-vasc="aca">ACA Frontal</button>
+        <button type="button" class="ctl-btn" data-vasc="pca">PCA Visual</button>
+        <button type="button" class="ctl-btn" data-vasc="basilar">Basilar / Stem</button>
+      </div>
+
       <div class="sec-title">3D Slice Planes (Synced to MRI)</div>
       <div class="btn-grid" style="margin-bottom:6px;">
         <button type="button" class="ctl-btn" data-slice="sag">Mid-Sagittal</button>
@@ -473,7 +481,13 @@
         <canvas id="mriSagittal" width="160" height="160" title="Click Sagittal MNI152 T1 MRI slice to move 3D crosshair"></canvas>
         <div class="mri-info">
           <strong>Live MNI152 T1-MRI</strong>
-          Real 0.74 mm human brain MRI volume synchronized with the 3D stereotaxic reticle. Click any slice to jump inside the 3D brain.
+          Real 0.74 mm human brain MRI volume synchronized with 3D textured cutting planes &amp; stereotaxic reticle.
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">
+            <button type="button" class="ctl-btn active" data-mricmap="t1" style="padding:3px 7px;font-size:0.68rem;">T1 Gray</button>
+            <button type="button" class="ctl-btn" data-mricmap="t2" style="padding:3px 7px;font-size:0.68rem;">T2 Invert</button>
+            <button type="button" class="ctl-btn" data-mricmap="hot" style="padding:3px 7px;font-size:0.68rem;">fMRI Hot</button>
+            <button type="button" class="ctl-btn" data-mricmap="viridis" style="padding:3px 7px;font-size:0.68rem;">Viridis</button>
+          </div>
         </div>
       </section>
     </div>

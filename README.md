@@ -106,9 +106,13 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 |:---:|:---:|:---:|
 | ![Dorothy Brain Observatory Midsagittal Cutaway with Operational Metacognition](dorothy-brain-observatory/previews/04_dorothy_continuum_sagittal.png) | ![Dorothy Brain Observatory Custom GLSL Fresnel Glass Shader with Language Loop Circuit Simulator](dorothy-brain-observatory/previews/05_fresnel_language_circuit.png) | ![Dorothy Brain Observatory 19-Electrode 10-20 EEG Cap and CAD Stereotaxic Caliper](dorothy-brain-observatory/previews/06_eeg_1020_cap.png) |
 
+| Live 3D Textured MNI152 T1-MRI Cutting Plane *(T1 / T2 / Hot / Viridis)* | Cerebrovascular Territory Simulator *(Left MCA + Kloster $A_\tau(p)$ Reserve)* |
+|:---:|:---:|
+| ![Dorothy Brain Observatory Live 3D Textured MNI152 T1-MRI Axial Cutting Plane Inside Subsurface-Scattered Cortex](dorothy-brain-observatory/previews/07_3d_textured_mri_slice.png) | ![Dorothy Brain Observatory Left MCA Cerebrovascular Territory and Neurorehabilitation Simulator](dorothy-brain-observatory/previews/08_cerebrovascular_mca_sim.png) |
+
 <div align="center">
 
-**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Observatory Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 CAD `.OBJ` / `.PLY` / `.STL` Meshes](dorothy-brain-observatory/3d_models/)**
+**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Observatory Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 15 CAD / 3D-Print `.OBJ`/`.PLY`/`.STL` Meshes + Blender 5 Script](dorothy-brain-observatory/3d_models/)**
 
 </div>
 
