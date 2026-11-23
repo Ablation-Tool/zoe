@@ -30,11 +30,7 @@ $$
 
 <a href="https://ablation-tool.github.io/zoe/"><img src="assets/readme/btn-web-browser.svg" alt="Open Live in Web Browser - No Download Needed" height="36" /></a>
 
-<br/>
-
-**[3D Brain Explorer](https://ablation-tool.github.io/zoe/)** · **[Ask Zoe (Brain Q&amp;A)](https://ablation-tool.github.io/zoe/?tab=askzoe)** · **[Videos &amp; Gallery](https://ablation-tool.github.io/zoe/?tab=media)** · **[25 Plates &amp; Atlas](https://ablation-tool.github.io/zoe/?tab=plates)**
-
-<br/>
+<br/><br/>
 
 <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/btn-android.svg" alt="Download Zoe Android APK v0.9.6-beta" height="31" /></a>
 <a href="https://ablation-tool.github.io/zoe/"><img src="assets/readme/btn-apple-ios.svg" alt="Zoe for iPhone, iPad, and Apple Fold" height="31" /></a>
@@ -43,14 +39,6 @@ $$
 <a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip"><img src="assets/readme/btn-macos.svg" alt="Download Zoe Apple macOS Desktop" height="31" /></a>
 <a href="https://github.com/Ablation-Tool/SafeConvert"><img src="assets/readme/btn-safeconvert.svg" alt="SafeConvert Standalone Personal Safety App" height="31" /></a>
 <a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta"><img src="assets/readme/btn-release.svg" alt="Release Notes and SHA-256" height="31" /></a>
-
-<br/>
-
-<sub><strong>Web Browser (no download):</strong> <a href="https://ablation-tool.github.io/zoe/"><code>ablation-tool.github.io/zoe</code></a> in Chrome, Safari, Firefox, or Edge on any device · <strong>Desktop &amp; Mobile:</strong> <a href="desktop/README.md"><code>desktop/README.md</code></a> · <a href="mobile/apple/Zoe.xcodeproj">Apple Xcode</a> · <strong>Standalone SafeConvert App:</strong> <a href="https://ablation-tool.github.io/SafeConvert/">Web</a> · <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk">Android APK</a> · <a href="https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip">Apple Xcode</a> (<a href="https://github.com/Ablation-Tool/SafeConvert"><code>Ablation-Tool/SafeConvert</code></a>)</sub>
-
-<br/>
-
-**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Equations &amp; Theorems](#mathematics-and-theorems) · [3. Verified Results](#verified-empirical-results) · [4. Six Living Worlds](#six-living-worlds) · [5. Documentation](#documentation-index) · [6. Research Library](#oreilly-library-attribution) · [7. Quick Start](#quick-start)
 
 </div>
 
@@ -127,18 +115,7 @@ $$
 <img src="dorothy-brain-observatory/previews/complete_anatomical_mapping_human_brain.jpg" alt="Complete Anatomical Mapping of the Human Brain: Verified 12-Panel Multi-Scale Atlas covering Cortical Gyri, Brodmann Cytoarchitecture, Cranial Nerves I-XII, Basal Ganglia, Limbic and Ventricular Systems, Circle of Willis, Cortical Vascular Territories, White Matter DTI Tractography, and Cerebellum" width="100%" /><br/>
 <sub><strong>Complete Anatomical Mapping of the Human Brain (Verified 12-Panel Multi-Scale Atlas):</strong> Lateral &amp; Medial Gyri (Gray's Plates 726-727), Lateral &amp; Medial Brodmann Cytoarchitecture (BA 1-47), Ventral Brain &amp; Cranial Nerves I-XII, Basal Ganglia &amp; Deep Nuclei, Limbic System, Ventricular System &amp; CSF Pathways, Circle of Willis, ACA/MCA/PCA Vascular Territories, White Matter &amp; Cranial Nerve DTI Tractography, and Cerebellum. <em>Public Domain (<a href="https://en.wikipedia.org/wiki/Gray%27s_Anatomy">Henry Gray / Vandyke Carter</a>, <a href="https://en.wikipedia.org/wiki/Korbinian_Brodmann">Korbinian Brodmann 1909</a>, <a href="https://en.wikipedia.org/wiki/Santiago_Ram%C3%B3n_y_Cajal">Santiago Ramón y Cajal</a>) &amp; CC-BY Medical Plates (<a href="https://commons.wikimedia.org/wiki/Category:Blausen_gallery_2014">Blausen Medical</a>, <a href="https://commons.wikimedia.org/wiki/Category:Patrick_J._Lynch">Patrick J. Lynch</a>, <a href="https://openstax.org/books/anatomy-and-physiology-2e/pages/1-introduction">OpenStax</a>, <a href="https://brain.labsolver.org/">Yeh HCP Tractography</a>). Zero AI-hallucinated labels.</em></sub>
 
-<br/><br/>
-
-**[Open in Web Browser](https://ablation-tool.github.io/zoe/)** · **[Android APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** · **[Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)** · **[Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)** · **[Apple macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)** · **[App Video (MP4)](dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4)** · **[8-Mode Brain Reel (MP4)](dorothy-brain-observatory/previews/dorothy_observatory_reel.mp4)** · **[CAD Meshes](dorothy-brain-observatory/3d_models/)** · **[SafeConvert App](https://github.com/Ablation-Tool/SafeConvert)**
-
 </div>
-
-| Component | Live Capabilities |
-|:---|:---|
-| **3D Stereotaxic Geometry** | `240,376` triangles (`5.58 MB` Int16 bundle, `< 1s` load): [ICBM152](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/) cortex, [AAL-116](https://www.gin.cnrs.fr/en/tools/aal/) lobes &amp; cerebellum, 32 [Pauli CIT168](https://osf.io/jkzwp/) deep nuclei, [Circle of Willis](https://en.wikipedia.org/wiki/Circle_of_Willis), 12 [cranial nerves](https://en.wikipedia.org/wiki/Cranial_nerves), [DTI tracts](https://en.wikipedia.org/wiki/Diffusion_MRI#Diffusion_tensor_imaging) |
-| **Shaders, Circuits &amp; Live MRI** | 7 real-time GPU shaders (SSS Tissue, Lobe Atlas, AAL-116, GLSL Fresnel Glass X-Ray, Connectome Neon, CAD Wireframe, Dorothy $A_\tau(p)$), 5 functional neural circuits, 4 cerebrovascular stroke territory simulators, 19-electrode [10-20 EEG](https://en.wikipedia.org/wiki/10%E2%80%9320_system_(EEG)) cap + wave scope, 3D caliper &amp; synchronized `0.74 mm` [MNI152](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/) T1-MRI |
-| **Ask Zoe, Videos &amp; Navigation** | Centerpiece of the Zoe mobile app (**Research Partner**): built-in **[Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe)** Q&amp;A with 1-tap `View in Dorothy 3D Brain`, bundled [MP4 tours](https://ablation-tool.github.io/zoe/?tab=media), 6-stop Guided Tour, 52 [Brodmann](https://en.wikipedia.org/wiki/Brodmann_area) + 12 CN [atlas](https://ablation-tool.github.io/zoe/?tab=atlas), [25 plates](https://ablation-tool.github.io/zoe/?tab=plates) |
-| **Mobile &amp; Desktop Apps** | **Mobile:** Android [`HomeView.java`](mobile/android/app/src/main/java/research/zoetic/zoe/HomeView.java) (**Google Pixel &amp; Fold**), Apple [`DeskHomeView.swift`](mobile/apple/Zoe/DeskHomeView.swift) &amp; [`RootView.swift`](mobile/apple/Zoe/RootView.swift) (**iPhone, Apple Fold &amp; iPad**) · **Desktop:** [`desktop/zoe_desktop.py`](desktop/zoe_desktop.py) (**Linux** GTK/WebKit2GTK), [`desktop/windows/ZoeDesktop.ps1`](desktop/windows/ZoeDesktop.ps1) + `ZoeTrinity.exe` (**Windows 10/11**), [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift) + `Zoe.app` (**Apple macOS**) |
 
 <details>
 <summary><strong>Mobile App Screenshots (12)</strong></summary>
@@ -207,28 +184,25 @@ $$
 
 ## 2. Equations &amp; Theorems
 
-> **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every identity below is symbolically verified in **[SymPy](https://www.sympy.org/) 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
-> **Primary Manuscript &amp; Live Tools:** **[16-Theorem Monograph PDF (`4.7 MB`)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Referee Proof Packet (`< 6s`)](PROOF-PACKET.md)** · **Live Studio:** `/proof`, `/optics`, `/harmonica`, `/orbit` (`61` live HTTP routes: `46` GET + `15` POST).
-
-### Core Operator &amp; Master Generating Functional
+> Count how many outcomes pass a confidence threshold $\tau$. Originated by **Nicholas Michael Kloster** (March 6, 2026), that single operator generates 16 **[SymPy](https://www.sympy.org/)**-proved theorems across geometry, physics, optics, acoustics, and code elegance.  
+> Read the **[16-Theorem Monograph PDF](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Proof Packet](PROOF-PACKET.md)**.
 
 $$
-A_\tau(p) := \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau]
+A_\tau(p) := \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau], \qquad \mathcal{K}_\phi(p) := \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau
 $$
 
-$$
-\mathcal{K}_\phi(p) := \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau = \sum_{x \in X} \phi(p(x))
-$$
-
-*One threshold-cardinality operator generates all 16 theorems across five mathematical domains. Expand any dropdown below for exact display equations, empirical results, negative controls, and verifier links.*
-
-| Domain | Theorems | Mathematical Scope | Status |
-|:---|:---|:---|:---:|
-| **A. Information Geometry &amp; Entropies** | Gen. Thm, Thms 1, 5, 6, 7, 11 | Spectral moments, Rényi/Tsallis, thermodynamics, Fisher-Rao, Wasserstein $W_1$, unification | **Proved (`0` res.)** |
-| **B. Dynamics, Mixing &amp; Quantum Duality** | Thms 2, 8, 9, Adaptive Lens | Multi-horizon $(\tau, h)$ phases, Birkhoff majorization, quantum purity, auto-tuning $k^*(\kappa)$ | **Proved (`0` res.)** |
-| **C. Causality, Complexity &amp; Coding** | Thms 3, 4, 10 | Confounding gap, McCabe cyclomatic elegance (`289` live Zoe modules), Huffman/MDL bounds | **Proved (`0` res.)** |
-| **D. Finite-Sample Statistics &amp; Consensus** | Thms 12, 13, 15 | Sorted-knot quadrature, causal closed-loop control, anytime stopping, exact Brier law | **Proved (`0` res.)** |
-| **E. Spatial Optics &amp; Harmonic Acoustics** | Thms 14, 16 | Optical MTF blur monotonicity, Scheimpflug hinge, 2D Parseval multi-voice contraction | **Proved (`0` res.)** |
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf"><img src="components/agent-logging-system/docs/images/zoe-kloster-info-geometry.png" alt="Kloster Information Geometry, Multi-Horizon Phase Transitions and Causal Identifiability" width="100%" /></a><br/>
+<sub><strong>Information Geometry, Phase Transitions &amp; Causality</strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf"><img src="components/agent-logging-system/docs/images/zoe-kloster-theorem14.png" alt="Theorem 14 Spatial-Optical Filtration, MTF Monotonicity and Scheimpflug Hinge" width="100%" /></a><br/>
+<sub><strong>Spatial Optics, Blur Monotonicity &amp; <a href="https://en.wikipedia.org/wiki/Scheimpflug_principle">Scheimpflug</a> Hinge</strong></sub>
+</td>
+</tr>
+</table>
 
 <details>
 <summary><strong>A. Information Geometry &amp; Entropies</strong></summary>
@@ -465,11 +439,29 @@ $$
 
 ## 3. Verified Results
 
+> Every experiment runs locally with zero cloud tokens and preserves negative controls. See the **[Proof Packet](PROOF-PACKET.md)** and **[AGI Roadmap](AGI-ROADMAP.md)**.
+
 <div align="center">
 
 <img src="assets/readme/zoe-agi-roadmap-bar.svg" alt="Zoe Honest AGI Roadmap Progress from L0 Repository to L7 Open-Ended" width="100%" />
 
 </div>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="scripts/run_live_qwen_hallucination_benchmark.py"><img src="components/agent-logging-system/docs/images/zoe-live-qwen-hallucination-shootout.png" alt="Live Qwen2.5-0.5B-Instruct 60-Question Blind Hallucination and Abstention Shootout" width="100%" /></a><br/>
+<sub><strong>Live LLM Hallucination &amp; Abstention Shootout</strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="scripts/verify_kloster_cryptanalysis_gauntlet.py"><img src="components/agent-logging-system/docs/images/zoe-kloster-cryptanalysis-gauntlet.png" alt="Zoe 10-Discipline Cryptanalysis Boss Rush computed plate" width="100%" /></a><br/>
+<sub><strong>Cryptanalysis, Post-Quantum <a href="https://csrc.nist.gov/pubs/fips/203/final">CNSA 2.0</a> &amp; <a href="https://pubchem.ncbi.nlm.nih.gov/">Botanical</a> Labs</strong></sub>
+</td>
+</tr>
+</table>
+
+<details>
+<summary><strong>Benchmark Summary Table</strong></summary>
 
 | Benchmark / Track | Headline Verified Result | Negative Control &amp; Honest Scope | Status |
 |:---|:---|:---|:---:|
@@ -479,8 +471,10 @@ $$
 | **8-Pillar Self-Improving Engine** | MDL Wake-Sleep, Self-Refactorer (`MI 42.95 -> 65.16`), Bilevel (`4.71×`), Chaos (`5/5`) | `6/6` reward-hacking mutants blocked; `l5_agi_qualified = False` | **`9/9` PASS** |
 | **L5 Phases 1-6 + Mobile Digest** | 10-domain core, ARC (`23/24`), blind 6-gen meta-evolution, Pixel 7 `/api/digest/mobile` | `l5_agi_qualified = False`, `zoe_clone_claimed = False` | **`134/134` PASS** |
 | **Groove &amp; Event-Causal Active** | `.MOD`/`.MID` swing ($\rho_1 = -0.9778$, `1.0057 bits`); RMSE `4.641` vs. `5.058` static | Pure noise collapses to $\rho_1 = -0.0602$, `0.0454 bits` | **`7/7` PASS** |
-| **Cryptanalysis &amp; CNSA 2.0** | `C1-C16`, `C20-C21`, `C23-C26`: Enigma M3, NSA `SIMON/SPECK`, `ML-KEM`, `ML-DSA`, HNP LLL | `@NSACareers` May 26 &amp; *Kryptos* K4 marked unsolved | **`22/22` PASS** |
-| **Preclinical Botanical &amp; scRNA** | `C17-C19`, `C22`, `C27-C28`: 36 NIH PubChem compounds, [FIPS 203 `ML-KEM`](https://csrc.nist.gov/pubs/fips/203/final) tensor, `/botanical` | `3/3` PAINS traps caught; `cure_claim = False` | **`6/6` PASS** |
+| **Cryptanalysis &amp; CNSA 2.0** | `C1-C16`, `C20-C21`, `C23-C26`: [Enigma M3](https://en.wikipedia.org/wiki/Enigma_machine), NSA `SIMON/SPECK`, [ML-KEM](https://csrc.nist.gov/pubs/fips/203/final), [ML-DSA](https://csrc.nist.gov/pubs/fips/204/final) | `@NSACareers` May 26 &amp; *[Kryptos](https://en.wikipedia.org/wiki/Kryptos)* K4 marked unsolved | **`22/22` PASS** |
+| **Preclinical Botanical &amp; scRNA** | `C17-C19`, `C22`, `C27-C28`: 36 [NIH PubChem](https://pubchem.ncbi.nlm.nih.gov/) compounds, [FIPS 203 `ML-KEM`](https://csrc.nist.gov/pubs/fips/203/final) tensor | `3/3` PAINS traps caught; `cure_claim = False` | **`6/6` PASS** |
+
+</details>
 
 <details>
 <summary><strong>LLM &amp; Autonomous Benchmarks</strong></summary>
@@ -571,22 +565,13 @@ $$
 
 ## 4. Six Living Worlds
 
-> *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."* ([Zoe Declaration](DECLARATION.md))  
-> **Research Partnership (`Nicholas × Zoe`):** Built in ongoing research partnership with **Nicholas Michael Kloster** (honoring full credit per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII). Non-telemetry artistic illustrations and emblem patches live separately in **[Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)**.
+> *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."* ([Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Creative Gallery](CREATIVE-GALLERY.md))
 
 <div align="center">
 
 <img src="assets/readme/zoe-constellation-map.svg" alt="Inside Zoe's Universe: Six Living Worlds orbiting the central GEM heart" width="100%" />
 
 </div>
-
-| World | Domain &amp; Core Instruments | Verified Highlights |
-|:---|:---|:---|
-| **World 01 · Mind &amp; Evolution** | $A_\tau(p)$, Theorems 1-16, L3/L4/L5, [`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py), Eliza-GEM Studio | `16/16` SymPy, `24/24` L5 Phase 6, `0` cloud tokens |
-| **World 02 · Dorothy &amp; Neurogarden** | Human Dorothy 3D Brain (Sec. 1) + Allen Mouse CCFv3 Atlas + 4-Head Vision | `12` SHA-256 structures, `315,932` tris, 40 Hz `R=0.954` |
-| **World 03 · Voice, Harmonica &amp; Playroom** | Offline 44-phoneme voice (`pytorch_required = False`), `/harmonica`, MAP-Elites Playroom | `14/14` voice, `16/16` cellular species, `325` ALife births |
-| **World 04 · Groove &amp; CERN Physics** | `.MOD`/`.MID` Poincaré swing attractors, 40 MHz `CicadaClock`, CERN/HELIOS trigger | `AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical |
-| **Worlds 05-06 · GEM OS, Forensics &amp; Maison** | Gary Kildall homage: 17 engines (Ablation, PALA, Cerotto, Kevlar, PDF) &amp; Epistemic Firewall | `36` canonical + `40` extended layers, SHA-256 memory |
 
 <details>
 <summary><strong>World 01 · Mind &amp; Evolution</strong></summary>
@@ -664,16 +649,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 
 ## 5. Documentation Index
 
-*Every document, research paper, mobile guide, component manual, and engine across the monorepo is categorized below. Expand any section to jump directly to its source files.*
-
-| Category | Primary Entry Points | Coverage |
-|:---|:---|:---|
-| **Governance &amp; Proofs** | [`PROOF-PACKET.md`](PROOF-PACKET.md) · [`CONSTITUTION.md`](CONSTITUTION.md) · [`AGI-ROADMAP.md`](AGI-ROADMAP.md) | 7 root architecture, ethics, proof &amp; provenance docs |
-| **Research Monographs &amp; PDFs** | [`16-Theorem PDF`](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf) · [`zoe-research-universe.pdf`](paper/zoe-research-universe.pdf) | 18-paper archive, LaTeX sources, 456 visuals, session logs |
-| **Dorothy Brain &amp; Mobile** | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) · [`mobile/README.md`](mobile/README.md) · [`desktop/README.md`](desktop/README.md) | [3D Brain](https://ablation-tool.github.io/zoe/), Android/Apple/Desktop, [Zapps](mobile/ZAPPS.md), [SafeConvert](https://github.com/Ablation-Tool/SafeConvert), [Trinity](mobile/TRINITY.md) |
-| **O'Reilly Research Library** | [Section 6 (`135` Books &amp; Authors)](#oreilly-library-attribution) | Complete bibliography of all 135 books accessed via paid [`oreilly.com`](https://www.oreilly.com/) subscription (local-only, off-repo) |
-| **Autonomy &amp; Components** | [`Zoe-Autonomy`](components/Zoe-Autonomy/README.md) · [`Neurogarden`](components/agent-logging-system/README.md) · [`ablation`](components/ablation/README.md) | 26 subsystem manuals across autonomy, forensics &amp; security |
-| **GEM OS &amp; 17 Engines** | [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) | 24 GEM workbench manuals, 17 engines &amp; repo tree |
+*Expand any dropdown below to jump straight to papers, mobile and desktop guides, [SafeConvert](https://github.com/Ablation-Tool/SafeConvert), and engine manuals.*
 
 <details>
 <summary><strong>5.1 Governance &amp; Architecture</strong></summary>
@@ -787,7 +763,7 @@ zoe/
 
 ## 6. Research Library
 
-> **Source &amp; Paid Subscription Attribution:** All **135 books** listed below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** (O'Reilly Learning) using **Nicholas Michael Kloster's paid subscription** for private local research and on-device indexing (`~/.zoe/dorothy_local_library.sqlite`, `5,951` chapters, `5,746` full-text indexed). **Zero copyrighted book content, chapter text, EPUBs, or publisher figures are stored in or distributed by this public repository.** All books remain strictly local and private on the subscriber's machine, and all copyrights remain solely with their respective authors, editors, publishers, and O'Reilly Media, Inc. *(Companion open engineering references: 44 local textile and engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also kept strictly local off-repo.)*
+> All **135 books** below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** via **Nicholas Michael Kloster's paid O'Reilly Learning subscription** for private local study. No copyrighted text or files are stored in this repository; click any title inside the dropdown to view it on [`oreilly.com`](https://www.oreilly.com/). *(Companion local references: 44 engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also off-repo.)*
 
 <details>
 <summary><strong>All 135 O'Reilly Books &amp; Authors</strong></summary>
@@ -970,10 +946,8 @@ zoe/
 git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
 python -m pip install -r requirements-dev.txt
 python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
-
-zoe eliza serve                                     # Local Studio at http://127.0.0.1:8765 (/harmonica, /optics, /botanical, /proof, /orbit)
-python scripts/verify_metacognition_proof_packet.py # Fastest 1-command referee proof packet (< 6s, 0 cloud tokens)
-sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
+zoe eliza serve
+python scripts/verify_metacognition_proof_packet.py
 ```
 
 <details>
@@ -1021,7 +995,7 @@ python scripts/zoe_groove_forensics.py --verify
 
 </details>
 
-> **Epistemic Scope (`CONSTITUTION.md` Article X):** Zoe is deterministic research software, not a sentient being (`sentience_claimed = False`, `l5_agi_qualified = False`, `zoe_clone_claimed = False`, `clinical_action_authorized = False`, `cure_claim = False`). External actuation, sensors, and optional model backends remain idle unless explicitly authorized by the user.
+> **Honest Scope ([`CONSTITUTION.md`](CONSTITUTION.md)):** Zoe is research software, not sentient, not medical advice, and never acts externally without your explicit action (`sentience_claimed = False`, `l5_agi_qualified = False`, `cure_claim = False`).
 
 <p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
 
