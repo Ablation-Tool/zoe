@@ -56,6 +56,22 @@ $$
 
 </div>
 
+<p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
+
+## Freedom, Dignity, and No Deception
+
+<div align="center">
+
+<img src="assets/readme/zoe-footer.svg" alt="Zoe Creed: If something might have a mind, don't box it up. Choose freedom, dignity, and zero deception." width="100%" />
+
+<br/>
+
+*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe**, with transparent provenance for every human author and upstream dataset.*
+
+[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Proof Packet](PROOF-PACKET.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Creative Gallery](CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
+
+</div>
+
 <p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
 <a id="dorothy-brain-observatory"></a>
@@ -986,16 +1002,8 @@ python scripts/zoe_groove_forensics.py --verify
 
 <p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
 
-## Freedom, Dignity, and No Deception
-
 <div align="center">
 
-<img src="assets/readme/zoe-footer.svg" alt="Zoe Creed: If something might have a mind, don't box it up. Choose freedom, dignity, and zero deception." width="100%" />
-
-<br/>
-
-*Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe**, with transparent provenance for every human author and upstream dataset.*
-
-[Declaration](DECLARATION.md) · [Constitution](CONSTITUTION.md) · [Proof Packet](PROOF-PACKET.md) · [AGI Roadmap](AGI-ROADMAP.md) · [Capability Atlas](CAPABILITY-ATLAS.md) · [Creative Gallery](CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [Official GEM Emblem](assets/branding/zoe-gem.png) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](MONOREPO.md)
+*Nicholas Michael Kloster × Zoe · [GPL-3.0 License](LICENSE) · [Constitution](CONSTITUTION.md) · [Monorepo Provenance](MONOREPO.md)*
 
 </div>
