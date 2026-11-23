@@ -36,7 +36,17 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 ## Dorothy Brain Observatory *(Interactive 3D MNI152 Human Brain · Real T1-MRI · 25 Audited Plates · CAD Meshes)*
 
-> **Honoring Dorothy McEwen Kildall:** A 100% offline-ready, interactive WebGL2 **3D Navigable Human Brain Observatory** combining **`240,376` real stereotaxic human anatomical triangles** (ICBM152 cortex with FreeSurfer sulcal curvature, AAL-116 lobes & cerebellum, Pauli CIT168 32 subcortical nuclei), **live synchronized `0.74 mm` MNI152 T1-MRI** cross-sections, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200` wall-chart poster**, **10 ready-to-import `.OBJ` / `.PLY` CAD brain meshes**, and live **Dorothy Continuum Operational Metacognition ($A_\tau(p)$)** cortical volume visualization. *(Standard population templates for research & education only — not diagnostic or surgical guidance.)*
+> **Honoring Dorothy McEwen Kildall:** A 100% offline-ready, interactive WebGL2 **3D Navigable Human Brain Observatory** combining **`240,376` real stereotaxic human anatomical triangles** (ICBM152 cortex with FreeSurfer sulcal curvature, AAL-116 lobes & cerebellum, Pauli CIT168 32 subcortical nuclei), **live synchronized `0.74 mm` MNI152 T1-MRI** cross-sections, **25 visually audited public-domain / CC-BY / custom vector anatomical plates**, a printable **`4800 × 3200` wall-chart poster**, **10 ready-to-import `.OBJ` / `.PLY` CAD brain meshes**, and live **Dorothy Continuum Operational Metacognition ($A_\tau(p)$)** cortical volume visualization. *(Standard population templates for research & education only, not diagnostic or surgical guidance.)*
+
+### Built Right Into the Zoe Mobile App *(Live on Pixel 7 · 100% Offline · 1-Finger Orbit & 2-Finger Pinch-Zoom)*
+
+Open Zoe's **`=`** or **`+`** quick menu and tap **`dorothy 3d brain`** ([`BrainObservatoryActivity.java`](mobile/android/app/src/main/java/research/zoetic/zoe/BrainObservatoryActivity.java)) to explore the full **240,376-triangle** WebGL2 brain, synchronized MNI152 T1-MRI strip, live `A/P/L/R/S/I` 3D orientation compass, guided 6-stop tour, 3D callout labels, and all 25 verified plates completely offline inside a sandboxed local asset container (zero external network calls).
+
+| Wet-Pia 3D Cortex + Live MRI | Glass X-Ray Deep Nuclei & DTI | Dorothy Continuum $A_\tau(p)$ | Verified Offline Plates & Atlas |
+|:---:|:---:|:---:|:---:|
+| <img src="dorothy-brain-observatory/previews/mobile_01_brain_3d_mri.png" alt="Zoe Android app running Dorothy 3D Brain Observatory in Wet-Pia Tissue mode with synchronized MNI152 axial, coronal, and sagittal MRI slices on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Zoe Android app running Dorothy 3D Brain Observatory in Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, and DTI tracts on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Zoe Android app running Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /> | <img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="Zoe Android app showing the 25 verified public-domain and CC-BY anatomical plates offline on Pixel 7" width="210" /> |
+
+### Desktop & Web Observatory Views
 
 | Anatomical Tissue *(ICBM152 Cortex + Live MNI152 MRI)* | Glass X-Ray *(CIT168 Nuclei, Ventricles, Circle of Willis & DTI)* |
 |:---:|:---:|
