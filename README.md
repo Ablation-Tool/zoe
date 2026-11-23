@@ -48,11 +48,11 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 <div align="center">
 
-**[🧠 Open Interactive 3D Observatory (`dorothy-brain-observatory/index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Full Guide &amp; Open Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 10 CAD `.OBJ` / `.PLY` Brain Meshes](dorothy-brain-observatory/3d_models/)**
+**[🧠 Launch Live Interactive 3D Brain (GitHub Pages)](https://ablation-tool.github.io/zoe/)** &nbsp;·&nbsp; **[📂 Local Offline HTML (`index.html`)](dorothy-brain-observatory/index.html)** &nbsp;·&nbsp; **[📖 Guide &amp; Attributions](dorothy-brain-observatory/README.md)** &nbsp;·&nbsp; **[🗺️ 4800 × 3200 Wall-Chart Poster](dorothy-brain-observatory/plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png)** &nbsp;·&nbsp; **[📐 10 CAD `.OBJ` / `.PLY` Meshes](dorothy-brain-observatory/3d_models/)**
 
 </div>
 
-* **7 Real-Time Shaders &amp; Modes:** Anatomical Tissue, Lobe Atlas, AAL-116 Parcels, Glass X-Ray, Connectome Neon, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider), and CAD Engineering Wireframe — plus **Exploded Dissection (`0–100%`)**, **Live 3D MRI Clipping Planes**, **Animated DTI Neural Pulses**, and **1-Click Fly-To** across all **52 Brodmann areas** and **12 Cranial Nerves (CN I–XII)**.
+* **7 Real-Time Shaders &amp; Modes:** Wet-pia Anatomical Tissue, Lobe Atlas, AAL-116 Parcels (with live click-to-glow cortical region highlighting), Glass X-Ray (with smart deep-nucleus raycasting), Connectome Neon, **Dorothy Continuum $A_\tau(p)$** (live $\tau$ threshold slider), and CAD Engineering Wireframe — plus **Guided 6-Stop Brain Tour**, **Floating 3D Callout Labels**, **Exploded Dissection (`0–100%`)**, **1-Click Live 3D MRI Clipping Planes**, **Sculpted Corpus Callosum, Tapered Ventricles, Pituitary/Pineal Glands &amp; Cerebellar Peduncles**, **Live `A/P/L/R/S/I` 3D Orientation Compass**, **PNG Snapshot Export**, and **1-Click Fly-To** across all **52 Brodmann areas** and **12 Cranial Nerves (CN I–XII)**.
 
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 

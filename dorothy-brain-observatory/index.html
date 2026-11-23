@@ -94,9 +94,36 @@
   .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
 
   /* Center 3D Viewport + HUD + Real MRI Strip */
-  .stage-wrap { position: relative; display: flex; flex-direction: column; background: var(--bg); overflow: hidden; }
+  .stage-wrap { position: relative; display: flex; flex-direction: column; background: radial-gradient(ellipse at 50% 45%, #111d32 0%, #090f1b 52%, #05080f 100%); overflow: hidden; }
   #viewport3d { flex: 1; position: relative; min-height: 300px; overflow: hidden; }
-  #viewport3d canvas { display: block; width: 100% !important; height: 100% !important; }
+  #viewport3d canvas:not(#compass3d) { display: block; width: 100% !important; height: 100% !important; }
+  #compass3d { display: block; width: 76px; height: 76px; }
+
+  #calloutLayer { position: absolute; inset: 0; pointer-events: none; z-index: 15; display: none; overflow: hidden; }
+  .callout-pill {
+    position: absolute; top: 0; left: 0; pointer-events: auto; cursor: pointer;
+    background: rgba(10, 17, 30, 0.86); color: #f5d078; border: 1px solid rgba(56, 189, 248, 0.65);
+    border-radius: 999px; padding: 3px 9px; font-size: 0.72rem; font-weight: 700; white-space: nowrap;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55); transition: background 0.15s, border-color 0.15s;
+  }
+  .callout-pill:hover { background: #18345a; border-color: #f5d078; color: #fff; }
+
+  .legend-box {
+    display: none; position: absolute; bottom: 34px; right: 12px; z-index: 20; pointer-events: none;
+    background: rgba(7, 11, 18, 0.82); backdrop-filter: blur(6px); border: 1px solid var(--border);
+    border-radius: 9px; padding: 7px 10px; font-size: 0.71rem; color: var(--muted); min-width: 195px;
+  }
+  .leg-t { color: var(--gold); font-weight: 700; margin-bottom: 4px; font-size: 0.72rem; }
+  .leg-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 2px; }
+  .leg-bar { height: 7px; border-radius: 4px; background: linear-gradient(90deg, #252b3b 0%, #0cc7fa 38%, #f2d433 72%, #ff1f61 100%); margin: 4px 0; }
+
+  .tour-banner {
+    display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); z-index: 25;
+    background: rgba(14, 23, 38, 0.94); border: 1px solid var(--gold); border-radius: 10px;
+    padding: 8px 14px; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.65); max-width: 92%;
+  }
+  .tour-banner strong { display: block; color: var(--gold); font-size: 0.82rem; }
+  .tour-banner span { display: block; color: var(--text); font-size: 0.74rem; }
 
   .hud-tl {
     position: absolute; top: 12px; left: 12px; pointer-events: none; z-index: 20;
@@ -316,6 +343,12 @@
       </div>
 
       <div class="sec-title">3D Slice Planes (Synced to MRI)</div>
+      <div class="btn-grid" style="margin-bottom:6px;">
+        <button type="button" class="ctl-btn" data-slice="sag">Mid-Sagittal</button>
+        <button type="button" class="ctl-btn" data-slice="cor">Mid-Coronal</button>
+        <button type="button" class="ctl-btn" data-slice="ax">Mid-Axial</button>
+        <button type="button" class="ctl-btn" data-slice="reset">Reset Slices</button>
+      </div>
       <div class="chk-list" style="margin-bottom:6px;">
         <label><input type="checkbox" id="chkClip"/> Enable Live 3D MRI Clipping</label>
       </div>
@@ -358,8 +391,19 @@
           <div id="hudMeta" class="hud-meta">Loading real MNI152/ICBM152 meshes...</div>
         </div>
         <div class="hud-tr">
+          <button type="button" class="ctl-btn" id="btnTour">Guided Tour</button>
+          <button type="button" class="ctl-btn" id="btnLabels3D">3D Labels</button>
+          <button type="button" class="ctl-btn" id="btnSnapshot">Save PNG</button>
           <button type="button" class="ctl-btn" id="btnToggleMri">Hide MRI Strip</button>
         </div>
+        <div id="calloutLayer" aria-label="Floating 3D anatomical callouts"></div>
+        <div id="tourBanner" class="tour-banner" role="region" aria-label="Guided brain tour narration">
+          <div><strong id="tourTitle"></strong><span id="tourNote"></span></div>
+          <button type="button" class="btn-sm" id="btnTourNext">Next</button>
+          <button type="button" class="ctl-btn" id="btnTourStop">Stop</button>
+        </div>
+        <div id="legendBox" class="legend-box" aria-hidden="true"></div>
+        <canvas id="compass3d" width="76" height="76" aria-hidden="true" title="3D Anatomical Orientation Compass (A=Anterior, P=Posterior, L=Left, R=Right, S=Superior, I=Inferior)" style="position:absolute;bottom:34px;left:12px;z-index:20;pointer-events:none;"></canvas>
         <div class="hud-hint">Drag: Orbit · Shift/Right-Drag: Pan · Scroll: Zoom · Click any structure to inspect · WASD/Arrows: Keyboard Orbit · R: Reset</div>
         <div id="hoverTip"></div>
       </div>

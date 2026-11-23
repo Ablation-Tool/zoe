@@ -121,40 +121,61 @@
   // ── 3D SCENE INITIALIZATION ───────────────────────────────────────────────
   const container = document.getElementById('viewport3d');
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x070b12);
 
   const camera = new THREE.PerspectiveCamera(40, 1, 1, 1800);
-  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+  renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.localClippingEnabled = true;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.12;
+  renderer.toneMappingExposure = 1.15;
   container.appendChild(renderer.domElement);
 
   // Subtle starfield / spatial reference grid
-  const gridHelper = new THREE.PolarGridHelper(135, 12, 6, 64, 0x1b2a42, 0x111c2d);
+  const gridHelper = new THREE.PolarGridHelper(135, 12, 6, 64, 0x203554, 0x111d30);
   gridHelper.position.y = -76;
   scene.add(gridHelper);
 
-  // Studio Neuroimaging Lighting
-  const hemiLight = new THREE.HemisphereLight(0xdcebff, 0x261d2e, 0.78);
+  // Studio Neuroimaging Lighting (3-point + cool rim for crisp sulcal depth)
+  const hemiLight = new THREE.HemisphereLight(0xe4f0ff, 0x2a1f34, 0.80);
   scene.add(hemiLight);
-  const keyLight = new THREE.DirectionalLight(0xfff5e8, 0.92);
-  keyLight.position.set(170, 210, 190);
+  const keyLight = new THREE.DirectionalLight(0xfff6ea, 0.96);
+  keyLight.position.set(175, 220, 195);
   scene.add(keyLight);
-  const rimLight = new THREE.DirectionalLight(0x52b6ff, 0.58);
-  rimLight.position.set(-190, 90, -180);
+  const rimLight = new THREE.DirectionalLight(0x56beff, 0.68);
+  rimLight.position.set(-195, 95, -185);
   scene.add(rimLight);
-  const underLight = new THREE.DirectionalLight(0xf59e0b, 0.25);
-  underLight.position.set(0, -220, 80);
+  const underLight = new THREE.DirectionalLight(0xf59e0b, 0.28);
+  underLight.position.set(0, -220, 85);
   scene.add(underLight);
 
   // Live Clipping Planes (Sagittal X, Coronal Y, Axial Z in MNI space)
-  // Three.js coords: x_t = -x_mni, y_t = z_mni, z_t = y_mni
-  const clipSag = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1000); // hides left side when active
-  const clipCor = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1000); // hides anterior
-  const clipAx  = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1000); // hides superior
+  const clipSag = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1000);
+  const clipCor = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1000);
+  const clipAx  = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1000);
   const activeClipPlanes = [];
+
+  // Visual glowing slice-plane frames (visible when clipping is active)
+  function makeSliceFrame(w, h, colorHex) {
+    const g = new THREE.Group();
+    const fill = new THREE.Mesh(
+      new THREE.PlaneGeometry(w, h),
+      new THREE.MeshBasicMaterial({ color: colorHex, transparent: true, opacity: 0.06, side: THREE.DoubleSide, depthWrite: false })
+    );
+    const edges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.PlaneGeometry(w, h)),
+      new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.55 })
+    );
+    g.add(fill, edges);
+    g.visible = false;
+    scene.add(g);
+    return g;
+  }
+  const frameSag = makeSliceFrame(200, 165, 0xf5d078);
+  frameSag.rotation.y = Math.PI / 2;
+  const frameCor = makeSliceFrame(160, 165, 0x38bdf8);
+  const frameAx  = makeSliceFrame(160, 200, 0x34d399);
+  frameAx.rotation.x = Math.PI / 2;
 
   // Master Brain Root & Subgroups (each has explode vector!)
   const brainRoot = new THREE.Group();
@@ -194,44 +215,44 @@
   const geoL = decodeMeshBuffers(MESHES.cortexLH, false);
   const geoR = decodeMeshBuffers(MESHES.cortexLH, true);
 
-  function buildCortexColors(geo, aalArr, lobeArr, mode, tau) {
+  function buildCortexColors(geo, aalArr, lobeArr, mode, tau, highlightAal = -1) {
     const nv = curvBytes.length;
     const col = new Float32Array(nv * 3);
     const pos = geo.attributes.position;
     let accessibleCount = 0;
 
     for (let i = 0; i < nv; i++) {
-      // curv: 0..255 -> sulcal darkening factor
-      const c = curvBytes[i] / 255.0; // ~0.2 sulci, ~0.8 gyri
-      const ao = 0.56 + 0.48 * c;
+      // Enhanced S-curve sulcal/gyral curvature for lifelike sculptural depth
+      const rawC = curvBytes[i] / 255.0;
+      const c = rawC * rawC * (3.0 - 2.0 * rawC); // smoothstep contrast
+      const ao = 0.48 + 0.56 * c;
       let r, g, b;
 
       if (mode === 'tissue') {
-        r = 0.87 * ao;
-        g = 0.72 * ao;
-        b = 0.68 * ao;
+        // Organic pial cortex: luminous warm ivory-peach gyri -> deep vascular-rose sulcal valleys
+        r = 0.42 + 0.53 * c;
+        g = 0.27 + 0.52 * c;
+        b = 0.26 + 0.48 * c;
       } else if (mode === 'lobe') {
         const lc = LOBE_COLORS[lobeArr[i]] || [0.7, 0.7, 0.7];
-        r = lc[0] * (0.48 + 0.62 * c);
-        g = lc[1] * (0.48 + 0.62 * c);
-        b = lc[2] * (0.48 + 0.62 * c);
+        r = lc[0] * (0.42 + 0.68 * c);
+        g = lc[1] * (0.42 + 0.68 * c);
+        b = lc[2] * (0.42 + 0.68 * c);
       } else if (mode === 'aal') {
         const aid = aalArr[i];
         const rgb = hslToRgb((aid * 47) % 360, 0.68, 0.56);
-        r = rgb[0] * (0.52 + 0.56 * c);
-        g = rgb[1] * (0.52 + 0.56 * c);
-        b = rgb[2] * (0.52 + 0.56 * c);
+        r = rgb[0] * (0.46 + 0.62 * c);
+        g = rgb[1] * (0.46 + 0.62 * c);
+        b = rgb[2] * (0.46 + 0.62 * c);
       } else if (mode === 'xray') {
-        r = 0.42 + 0.35 * c;
-        g = 0.78 + 0.20 * c;
+        r = 0.36 + 0.42 * c;
+        g = 0.74 + 0.24 * c;
         b = 0.96;
       } else if (mode === 'connectome') {
-        r = 0.08 + 0.14 * c;
-        g = 0.14 + 0.24 * c;
-        b = 0.28 + 0.35 * c;
+        r = 0.06 + 0.16 * c;
+        g = 0.12 + 0.26 * c;
+        b = 0.26 + 0.38 * c;
       } else if (mode === 'continuum') {
-        // Dorothy Operational Metacognition field p(x) across cortex:
-        // Higher functional eloquence around sensorimotor, language, visual & executive hubs
         const vx = pos.getX(i), vy = pos.getY(i), vz = pos.getZ(i);
         const p = Math.min(1, Math.max(0,
           0.32 + 0.30 * c +
@@ -242,7 +263,6 @@
         if (p > tau) {
           accessibleCount++;
           const t = Math.min(1, (p - tau) / Math.max(0.05, 1.0 - tau));
-          // Cobalt cyan -> gold -> fluorescent magenta
           if (t < 0.5) {
             const u = t * 2;
             r = 0.05 + 0.90 * u;
@@ -255,12 +275,18 @@
             b = 0.20 + 0.38 * u;
           }
         } else {
-          r = 0.16 * ao;
-          g = 0.18 * ao;
-          b = 0.25 * ao;
+          r = 0.14 * ao;
+          g = 0.16 * ao;
+          b = 0.23 * ao;
         }
-      } else { // cad wireframe
+      } else {
         r = 0.22; g = 0.88; b = 0.98;
+      }
+      // Live AAL-116 clicked parcel highlight glow!
+      if (highlightAal > 0 && aalArr[i] === highlightAal) {
+        r = Math.min(1, r * 0.45 + 0.98 * 0.65);
+        g = Math.min(1, g * 0.45 + 0.82 * 0.65);
+        b = Math.min(1, b * 0.45 + 0.22 * 0.65);
       }
       col[i * 3] = Math.min(1, r);
       col[i * 3 + 1] = Math.min(1, g);
@@ -270,8 +296,9 @@
     return { accessibleCount, total: nv };
   }
 
+  let selectedAalId = -1;
   const matCortexL = new THREE.MeshStandardMaterial({
-    vertexColors: true, roughness: 0.50, metalness: 0.04,
+    vertexColors: true, roughness: 0.38, metalness: 0.06,
     transparent: false, opacity: 1.0, depthWrite: true,
     side: THREE.FrontSide, clippingPlanes: activeClipPlanes,
   });
@@ -437,52 +464,137 @@
       gBrainstem.add(m);
       clickableMeshes.push(m);
     });
-  }
-
-  // 3B. CORPUS CALLOSUM (Arch connecting L/R hemispheres: Rostrum, Genu, Body, Splenium)
-  {
-    const ccMat = new THREE.MeshStandardMaterial({
-      color: 0xf4ece1, roughness: 0.42, metalness: 0.05, clippingPlanes: activeClipPlanes,
-    });
-    const ccArch = [
-      [0, 14, 4], [0, 26, 10], [0, 27, 20], [0, 14, 28],
-      [0, -4, 30], [0, -24, 26], [0, -38, 18], [0, -40, 12]
-    ];
-    // Multiple lateral ribbon spans across X = -14..+14 mm to form authentic callosal arch
-    for (let xOff = -10; xOff <= 10; xOff += 5) {
-      const pts = ccArch.map(p => [p[0] + xOff, p[1], p[2] + Math.abs(xOff) * 0.12]);
-      addTube(gCallosum, pts, 3.8, 0xf4ece1, { segs: 36, radSegs: 10, mat: { roughness: 0.42 } },
-        { kind: 'structure', key: 'CorpusCallosum', label: 'Corpus Callosum (Rostrum, Genu, Body & Splenium)' });
+    // Bilateral Cerebellar Peduncles (Middle, Superior & Inferior) uniting Brainstem -> Cerebellum!
+    for (const s of [-1, 1]) {
+      const sn = s < 0 ? 'Left ' : 'Right ';
+      addTube(gBrainstem, [[s * 12, -25, -28], [s * 19, -36, -30], [s * 24, -46, -32]], 4.2, 0xe0c4b2, { segs: 16, radSegs: 10 },
+        { kind: 'structure', key: 'Brainstem', label: sn + 'Middle Cerebellar Peduncle (Brachium Pontis)' });
+      addTube(gBrainstem, [[s * 6, -28, -16], [s * 11, -38, -22], [s * 15, -48, -28]], 2.2, 0xdcc0ae, { segs: 14, radSegs: 8 },
+        { kind: 'structure', key: 'Brainstem', label: sn + 'Superior Cerebellar Peduncle' });
     }
+    // Pituitary Gland + Infundibular Stalk & Pineal Gland (iconic sagittal landmarks!)
+    const glandMat = new THREE.MeshStandardMaterial({ color: 0xf472b6, roughness: 0.34, metalness: 0.1, emissive: 0x831843, emissiveIntensity: 0.25, clippingPlanes: activeClipPlanes });
+    const pit = new THREE.Mesh(new THREE.SphereGeometry(4.4, 20, 16), glandMat);
+    pit.position.copy(mniToThree(0, 3, -27));
+    pit.scale.set(1.25, 0.85, 1.0);
+    pit.userData = { kind: 'structure', key: 'Thalamus', label: 'Pituitary Gland (Hypophysis)' };
+    gThalamus.add(pit); clickableMeshes.push(pit);
+    addTube(gThalamus, [[0, -1, -13], [0, 1.5, -20], [0, 3, -26]], 1.15, 0xf9a8d4, { segs: 10, radSegs: 8 },
+      { kind: 'structure', key: 'Thalamus', label: 'Infundibulum (Pituitary Stalk)' });
+    const pin = new THREE.Mesh(new THREE.SphereGeometry(3.1, 16, 12), new THREE.MeshStandardMaterial({ color: 0xfbbf24, roughness: 0.3, emissive: 0x78350f, emissiveIntensity: 0.35, clippingPlanes: activeClipPlanes }));
+    pin.position.copy(mniToThree(0, -28, 3));
+    pin.scale.set(0.9, 0.9, 1.35);
+    pin.userData = { kind: 'structure', key: 'Limbic', label: 'Pineal Gland (Epiphysis — Melatonin / Circadian)' };
+    gLimbic.add(pin); clickableMeshes.push(pin);
   }
 
-  // 3C. VENTRICULAR SYSTEM (Sapphire translucent CSF cavities)
+  // 3B. SCULPTED SINGLE-MESH ORGANIC CORPUS CALLOSUM (Rostrum, Genu, Body, Splenium)
   {
-    const vMat = { color: 0x38bdf8, roughness: 0.16, metalness: 0.18, transparent: true, opacity: 0.68, emissive: 0x0c4a6e, emissiveIntensity: 0.35 };
+    const ccArch = [
+      [0, 13, 3.5], [0, 24, 9], [0, 26, 19], [0, 14, 27],
+      [0, -4, 29], [0, -24, 25], [0, -37, 17], [0, -39, 11]
+    ];
+    const ccThick = [2.6, 5.2, 6.2, 4.4, 3.8, 4.0, 5.8, 4.6];
+    const curve = new THREE.CatmullRomCurve3(ccArch.map(p => mniToThree(p[0], p[1], p[2])));
+    const segs = 44, uSegs = 22;
+    const verts = [], indices = [];
+    const halfSpan = 13.5; // seamless medial-to-lateral callosal bridge
+    for (let i = 0; i <= segs; i++) {
+      const t = i / segs;
+      const p = curve.getPointAt(t);
+      const tang = curve.getTangentAt(t);
+      // Normal in sagittal Y-Z plane (perpendicular to tangent and X-axis)
+      const nSag = new THREE.Vector3(0, tang.z, -tang.y).normalize();
+      const fi = t * (ccThick.length - 1);
+      const i0 = Math.floor(fi), i1 = Math.min(ccThick.length - 1, i0 + 1);
+      const thick = ccThick[i0] * (1 - (fi - i0)) + ccThick[i1] * (fi - i0);
+      for (let j = 0; j <= uSegs; j++) {
+        const ang = (j / uSegs) * Math.PI * 2;
+        // Superellipse cross-section: wide mediolaterally (X), smooth organic thickness along nSag
+        const cx = Math.cos(ang), cy = Math.sin(ang);
+        const sgnX = Math.sign(cx), sgnY = Math.sign(cy);
+        const sx = sgnX * Math.pow(Math.abs(cx), 0.55) * halfSpan;
+        const sy = sgnY * Math.pow(Math.abs(cy), 0.78) * thick;
+        const archLift = (sx * sx) / (halfSpan * halfSpan) * 2.2;
+        verts.push(p.x + sx, p.y + nSag.y * sy + archLift, p.z + nSag.z * sy);
+      }
+    }
+    for (let i = 0; i < segs; i++) {
+      for (let j = 0; j < uSegs; j++) {
+        const a = i * (uSegs + 1) + j;
+        const b = (i + 1) * (uSegs + 1) + j;
+        indices.push(a, b, a + 1, b, b + 1, a + 1);
+      }
+    }
+    const ccGeo = new THREE.BufferGeometry();
+    ccGeo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+    ccGeo.setIndex(indices);
+    ccGeo.computeVertexNormals();
+    const ccMesh = new THREE.Mesh(ccGeo, new THREE.MeshStandardMaterial({
+      color: 0xf6efe6, roughness: 0.36, metalness: 0.05, side: THREE.DoubleSide, clippingPlanes: activeClipPlanes,
+    }));
+    ccMesh.userData = { kind: 'structure', key: 'CorpusCallosum', label: 'Corpus Callosum (Rostrum, Genu, Body & Splenium)' };
+    gCallosum.add(ccMesh);
+    clickableMeshes.push(ccMesh);
+  }
+
+  // 3C. SCULPTED TAPERED VENTRICULAR SYSTEM (Sapphire translucent CSF cavities)
+  {
+    const vMat = new THREE.MeshStandardMaterial({
+      color: 0x38bdf8, roughness: 0.14, metalness: 0.22, transparent: true, opacity: 0.72,
+      emissive: 0x0c4a6e, emissiveIntensity: 0.42, side: THREE.DoubleSide, clippingPlanes: activeClipPlanes,
+    });
+    function addTaperedTube(parent, ptsMni, radii, userData) {
+      const curve = new THREE.CatmullRomCurve3(ptsMni.map(p => mniToThree(p[0], p[1], p[2])));
+      const segs = 34, radSegs = 14;
+      const frames = curve.computeFrenetFrames(segs, false);
+      const verts = [], indices = [];
+      for (let i = 0; i <= segs; i++) {
+        const t = i / segs;
+        const p = curve.getPointAt(t);
+        const fi = t * (radii.length - 1);
+        const i0 = Math.floor(fi), i1 = Math.min(radii.length - 1, i0 + 1);
+        const r = radii[i0] * (1 - (fi - i0)) + radii[i1] * (fi - i0);
+        for (let j = 0; j <= radSegs; j++) {
+          const ang = (j / radSegs) * Math.PI * 2;
+          const nrm = frames.normals[i].clone().multiplyScalar(Math.cos(ang)).add(frames.binormals[i].clone().multiplyScalar(Math.sin(ang)));
+          verts.push(p.x + nrm.x * r, p.y + nrm.y * r, p.z + nrm.z * r);
+        }
+      }
+      for (let i = 0; i < segs; i++) {
+        for (let j = 0; j < radSegs; j++) {
+          const a = i * (radSegs + 1) + j, b = (i + 1) * (radSegs + 1) + j;
+          indices.push(a, b, a + 1, b, b + 1, a + 1);
+        }
+      }
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+      g.setIndex(indices);
+      g.computeVertexNormals();
+      const m = new THREE.Mesh(g, vMat);
+      m.userData = userData;
+      parent.add(m);
+      clickableMeshes.push(m);
+    }
     for (const side of [-1, 1]) {
-      // Lateral Ventricle: Anterior horn -> Body -> Atrium -> Posterior horn
-      addTube(gVentricles, [
-        [side * 10, 24, 10], [side * 7, 12, 16], [side * 9, -6, 20],
-        [side * 16, -28, 16], [side * 22, -46, 10], [side * 20, -64, 6]
-      ], 4.0, 0x38bdf8, { segs: 36, mat: vMat },
+      addTaperedTube(gVentricles,
+        [[side * 10, 26, 9], [side * 7, 13, 16], [side * 9, -6, 20], [side * 16, -28, 16], [side * 22, -48, 10], [side * 19, -66, 6]],
+        [1.4, 4.4, 4.2, 5.0, 3.2, 0.9],
         { kind: 'structure', key: 'Ventricles', label: (side < 0 ? 'Left' : 'Right') + ' Lateral Ventricle (CSF)' });
-      // Temporal (Inferior) Horn curving into medial temporal lobe
-      addTube(gVentricles, [
-        [side * 18, -32, 14], [side * 26, -28, -2], [side * 28, -16, -14], [side * 24, -6, -18]
-      ], 2.7, 0x38bdf8, { segs: 24, mat: vMat },
+      addTaperedTube(gVentricles,
+        [[side * 17, -30, 14], [side * 26, -27, -2], [side * 28, -15, -14], [side * 24, -5, -18]],
+        [3.4, 2.8, 2.1, 0.8],
         { kind: 'structure', key: 'Ventricles', label: (side < 0 ? 'Left' : 'Right') + ' Lateral Ventricle — Temporal Horn' });
-      // Foramen of Monro
-      addTube(gVentricles, [[side * 7, 4, 13], [0, -2, 6]], 1.8, 0x7dd3fc, { segs: 12, mat: vMat },
+      addTaperedTube(gVentricles, [[side * 7, 4, 13], [0, -2, 6]], [1.6, 1.5],
         { kind: 'structure', key: 'Ventricles', label: 'Interventricular Foramen of Monro' });
     }
-    // 3rd Ventricle -> Cerebral Aqueduct -> 4th Ventricle
-    addTube(gVentricles, [[0, 2, 4], [0, -10, 4], [0, -20, 2]], 3.2, 0x0ea5e9, { segs: 16, mat: vMat },
+    addTaperedTube(gVentricles, [[0, 3, 4], [0, -10, 4], [0, -20, 2]], [2.2, 3.5, 1.8],
       { kind: 'structure', key: 'Ventricles', label: 'Third Ventricle (Midline Diencephalon)' });
-    addTube(gVentricles, [[0, -20, 2], [0, -28, -12], [0, -34, -26]], 1.4, 0x7dd3fc, { segs: 18, mat: vMat },
+    addTaperedTube(gVentricles, [[0, -20, 2], [0, -28, -12], [0, -34, -26]], [1.3, 1.1, 1.4],
       { kind: 'structure', key: 'Ventricles', label: 'Cerebral Aqueduct of Sylvius' });
-    const v4 = new THREE.Mesh(new THREE.OctahedronGeometry(6.2, 1), new THREE.MeshStandardMaterial(Object.assign({ clippingPlanes: activeClipPlanes }, vMat)));
+    const v4 = new THREE.Mesh(new THREE.OctahedronGeometry(6.0, 2), vMat);
     v4.position.copy(mniToThree(0, -37, -34));
-    v4.scale.set(1.2, 1.35, 0.75);
+    v4.scale.set(1.15, 1.35, 0.72);
     v4.userData = { kind: 'structure', key: 'Ventricles', label: 'Fourth Ventricle (Pons / Cerebellum)' };
     gVentricles.add(v4);
     clickableMeshes.push(v4);
@@ -518,9 +630,9 @@
       addArt([[s * 12, 0, -34], [s * 11, 2, -24], [s * 10, 4, -15]], 1.8, sn + ' Internal Carotid Artery (ICA)');
       // Anterior Cerebral Artery (ACA -> Pericallosal arch)
       addArt([[s * 10, 4, -15], [s * 4, 14, -13], [s * 3, 30, 4], [s * 3, 24, 24], [s * 3, -4, 34], [s * 3, -34, 32]], 1.25, sn + ' Anterior Cerebral Artery (ACA)');
-      // Middle Cerebral Artery (MCA M1 -> Sylvian M2/M3 branches)
-      addArt([[s * 10, 4, -15], [s * 24, 4, -12], [s * 38, 6, -4], [s * 46, -4, 10], [s * 50, -22, 24]], 1.45, sn + ' Middle Cerebral Artery (MCA)');
-      addArt([[s * 38, 6, -4], [s * 44, 18, 12], [s * 42, 24, 30]], 1.0, sn + ' MCA Superior Division');
+      // Middle Cerebral Artery (MCA M1 -> Sylvian M2/M3 branches tucked cleanly inside Sylvian fissure)
+      addArt([[s * 10, 4, -15], [s * 24, 4, -12], [s * 35, 5, -4], [s * 40, -4, 8], [s * 42, -20, 18]], 1.4, sn + ' Middle Cerebral Artery (MCA)');
+      addArt([[s * 35, 5, -4], [s * 36, 14, 10], [s * 34, 20, 20]], 0.95, sn + ' MCA Superior Division');
       // Posterior Communicating (PCom) & Posterior Cerebral Artery (PCA)
       addArt([[s * 10, 4, -15], [s * 6, -9, -15.5], [s * 4, -20, -16]], 0.9, sn + ' Posterior Communicating Artery (PCom)');
       addArt([[0, -22, -16], [s * 8, -24, -16], [s * 16, -34, -12], [s * 14, -56, -4], [s * 10, -82, 2]], 1.25, sn + ' Posterior Cerebral Artery (PCA)');
@@ -580,17 +692,17 @@
       pulseCurves.push({ curve, color: hex });
     };
 
-    // Corpus Callosum radiations (Red = Left-Right commissural, tucked inside subcortical white matter)
-    for (const [yOff, zArch, zTip, xSpan] of [[22, 19, 23, 30], [6, 28, 38, 34], [-10, 29, 42, 34], [-26, 23, 31, 32], [-38, 15, 11, 28]]) {
-      addTract([[-xSpan, yOff + 2, zTip], [-15, yOff, zArch + 2], [0, yOff, zArch], [15, yOff, zArch + 2], [xSpan, yOff + 2, zTip]], 1.05, 0xef4444, 0, 'Corpus Callosum Forceps / Radiations (L–R)');
+    // Corpus Callosum radiations (Red = Left-Right commissural, tucked cleanly inside subcortical white matter)
+    for (const [yOff, zArch, zTip, xSpan] of [[18, 19, 20, 21], [5, 27, 34, 27], [-10, 28, 38, 28], [-25, 22, 29, 27], [-37, 15, 11, 24]]) {
+      addTract([[-xSpan, yOff + 1, zTip], [-13, yOff, zArch + 2], [0, yOff, zArch], [13, yOff, zArch + 2], [xSpan, yOff + 1, zTip]], 1.0, 0xef4444, 0, 'Corpus Callosum Forceps / Radiations (L–R)');
     }
     for (const s of [-1, 1]) {
       const sn = s < 0 ? 'Left ' : 'Right ';
       // Corticospinal Tract (Blue = Superior-Inferior projection, terminating beneath M1 ribbon)
-      addTract([[s * 28, -18, 48], [s * 23, -16, 28], [s * 17, -14, 6], [s * 10, -20, -16], [s * 6, -26, -34], [s * 3, -34, -54], [s * -3, -37, -65]], 1.3, 0x3b82f6, 1, sn + 'Corticospinal (Pyramidal) Tract (S–I)');
-      addTract([[s * 18, -19, 52], [s * 20, -16, 30], [s * 15, -15, 6], [s * 8, -22, -20], [s * 4, -33, -50]], 0.95, 0x60a5fa, 9, sn + 'Corona Radiata / Internal Capsule (S–I)');
+      addTract([[s * 24, -18, 45], [s * 21, -16, 27], [s * 16, -14, 6], [s * 10, -20, -16], [s * 6, -26, -34], [s * 3, -34, -54], [s * -3, -37, -65]], 1.25, 0x3b82f6, 1, sn + 'Corticospinal (Pyramidal) Tract (S–I)');
+      addTract([[s * 17, -19, 49], [s * 19, -16, 29], [s * 14, -15, 6], [s * 8, -22, -20], [s * 4, -33, -50]], 0.92, 0x60a5fa, 9, sn + 'Corona Radiata / Internal Capsule (S–I)');
       // Arcuate & Superior Longitudinal Fasciculus (Green = A-P association, deep to opercula)
-      addTract([[s * 36, 16, 16], [s * 36, -2, 26], [s * 36, -26, 26], [s * 40, -38, 12], [s * 42, -30, -4]], 1.25, 0x22c55e, 2, sn + 'Arcuate / Superior Longitudinal Fasciculus (A–P)');
+      addTract([[s * 31, 14, 15], [s * 32, -2, 24], [s * 32, -25, 24], [s * 36, -36, 11], [s * 38, -28, -4]], 1.2, 0x22c55e, 2, sn + 'Arcuate / Superior Longitudinal Fasciculus (A–P)');
       // Inferior Longitudinal & Fronto-Occipital Fasciculus (Green)
       addTract([[s * 18, -76, 4], [s * 32, -52, -8], [s * 38, -22, -14], [s * 34, 4, -18]], 1.05, 0x10b981, 3, sn + 'Inferior Longitudinal Fasciculus (A–P)');
       addTract([[s * 16, -74, 8], [s * 28, -38, 0], [s * 28, -2, -4], [s * 22, 34, 6]], 0.95, 0x14b8a6, 3, sn + 'Inferior Fronto-Occipital Fasciculus (A–P)');
@@ -696,6 +808,7 @@
   }
 
   function setCameraPreset(name) {
+    hoverTip.style.display = 'none';
     state.autoOrbit = false;
     document.getElementById('btnAutoOrbit').classList.remove('active');
     const presets = {
@@ -810,6 +923,10 @@
     }
   });
 
+  renderer.domElement.addEventListener('pointerleave', () => {
+    hoverTip.style.display = 'none';
+  });
+
   renderer.domElement.addEventListener('wheel', (e) => {
     e.preventDefault();
     camState.goalDist = Math.max(70, Math.min(480, camState.goalDist * (1 + e.deltaY * 0.001)));
@@ -833,16 +950,21 @@
   function pickStructure() {
     const visibleTargets = clickableMeshes.filter(m => m.visible && m.parent && m.parent.visible);
     raycaster.setFromCamera(pointerNDC, camera);
-    const hits = raycaster.intersectObjects(visibleTargets, false);
-    for (const h of hits) {
-      // Respect active clipping planes
-      if (state.clipEnabled) {
-        let clipped = false;
-        for (const pl of activeClipPlanes) {
-          if (pl.distanceToPoint(h.point) < 0) { clipped = true; break; }
-        }
-        if (clipped) continue;
+    const rawHits = raycaster.intersectObjects(visibleTargets, false);
+    // Filter out clipped hits first
+    const unclipped = rawHits.filter(h => {
+      if (!state.clipEnabled) return true;
+      for (const pl of activeClipPlanes) {
+        if (pl.distanceToPoint(h.point) < 0) return false;
       }
+      return true;
+    });
+    // Smart X-Ray picking: when cortex is translucent (<55%), prioritize deep internal structures over outer cortex!
+    const orderedHits = (matCortexL.opacity < 0.55)
+      ? [...unclipped.filter(h => h.object.userData.kind !== 'cortex'), ...unclipped.filter(h => h.object.userData.kind === 'cortex')]
+      : unclipped;
+
+    for (const h of orderedHits) {
       const u = h.object.userData;
       const mni = threeToMni(h.point);
       if (u.kind === 'cortex') {
@@ -851,7 +973,7 @@
         const lobeId = u.lobeArr[vIdx];
         const lobeName = LOBE_NAMES[lobeId] || 'Frontal';
         const parcel = (MESHES.aalNames[aid] || lobeName).replace(/_/g, ' ');
-        return { kind: 'cortex', key: lobeName, title: `${parcel} (${lobeName} Lobe)`, parcel, mni, point: h.point };
+        return { kind: 'cortex', key: lobeName, aalId: aid, title: `${parcel} (${lobeName} Lobe)`, parcel, mni, point: h.point };
       }
       if (u.kind === 'cit168') {
         const vIdx = h.face ? h.face.a : 0;
@@ -893,6 +1015,15 @@
     beaconGroup.position.copy(hit.point);
     beaconGroup.visible = true;
     setMniCoords(hit.mni[0], hit.mni[1], hit.mni[2]);
+    // Highlight clicked real AAL-116 cortical region directly on the 3D mesh!
+    const nextAal = (hit.kind === 'cortex' && hit.aalId) ? hit.aalId : -1;
+    if (nextAal !== selectedAalId) {
+      selectedAalId = nextAal;
+      buildCortexColors(geoL, aalLBytes, lobeLBytes, state.mode, state.tau, selectedAalId);
+      buildCortexColors(geoR, aalRBytes, lobeRBytes, state.mode, state.tau, selectedAalId);
+      geoL.attributes.color.needsUpdate = true;
+      geoR.attributes.color.needsUpdate = true;
+    }
     if (hit.kind === 'brodmann') {
       renderInspectorBrodmann(hit.baIndex);
     } else if (hit.kind === 'cranial') {
@@ -909,8 +1040,8 @@
   function setRenderMode(mode) {
     state.mode = mode;
     document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
-    const statL = buildCortexColors(geoL, aalLBytes, lobeLBytes, mode, state.tau);
-    const statR = buildCortexColors(geoR, aalRBytes, lobeRBytes, mode, state.tau);
+    const statL = buildCortexColors(geoL, aalLBytes, lobeLBytes, mode, state.tau, selectedAalId);
+    const statR = buildCortexColors(geoR, aalRBytes, lobeRBytes, mode, state.tau, selectedAalId);
     geoL.attributes.color.needsUpdate = true;
     geoR.attributes.color.needsUpdate = true;
 
@@ -926,7 +1057,7 @@
       m.opacity = targetOp;
       m.depthWrite = !isTrans || targetOp > 0.72;
       m.side = isTrans || state.clipEnabled || !state.layers.cortexL || !state.layers.cortexR ? THREE.DoubleSide : THREE.FrontSide;
-      m.roughness = isXray ? 0.18 : (isConn ? 0.25 : 0.50);
+      m.roughness = isXray ? 0.16 : (isConn ? 0.24 : 0.38);
       m.emissive.setHex(isXray ? 0x0b3a58 : (isConn ? 0x050e20 : 0x000000));
       m.emissiveIntensity = isXray ? 0.35 : (isConn ? 0.45 : 0.0);
       m.needsUpdate = true;
@@ -949,12 +1080,45 @@
 
     document.getElementById('sliderOpacity').value = Math.round(targetOp * 100);
     document.getElementById('lblOpacity').textContent = Math.round(targetOp * 100) + '%';
+    updateLegend();
+  }
+
+  function updateLegend() {
+    const box = document.getElementById('legendBox');
+    if (!box) return;
+    if (state.mode === 'lobe') {
+      box.innerHTML = `<div class="leg-t">Cortical Lobes (AAL-116)</div>
+        <div class="leg-row"><span class="dot" style="background:#478ff5"></span>Frontal <span class="dot" style="background:#29c7b8"></span>Parietal <span class="dot" style="background:#f2a638"></span>Temporal</div>
+        <div class="leg-row"><span class="dot" style="background:#e057ad"></span>Occipital <span class="dot" style="background:#a36bf5"></span>Insula <span class="dot" style="background:#3dcc7a"></span>Limbic</div>`;
+      box.style.display = 'block';
+    } else if (state.mode === 'xray' || state.mode === 'connectome') {
+      box.innerHTML = `<div class="leg-t">DTI Tracts &amp; Deep Nuclei</div>
+        <div class="leg-row"><span class="dot" style="background:#ef4444"></span>L–R Callosal / Arteries <span class="dot" style="background:#22c55e"></span>A–P Assoc. <span class="dot" style="background:#3b82f6"></span>S–I Motor</div>
+        <div class="leg-row"><span class="dot" style="background:#38bdf8"></span>Ventricles <span class="dot" style="background:#f2b83d"></span>Thalamus <span class="dot" style="background:#fde047"></span>CN I–XII</div>`;
+      box.style.display = 'block';
+    } else if (state.mode === 'continuum') {
+      box.innerHTML = `<div class="leg-t">Dorothy Continuum A_τ(p)</div>
+        <div class="leg-bar"></div>
+        <div class="leg-row" style="justify-content:space-between"><span>p ≤ τ (quiet)</span><span>p &gt; τ (accessible)</span></div>`;
+      box.style.display = 'block';
+    } else {
+      box.style.display = 'none';
+    }
+  }
+
+  function syncCortexDoubleSide() {
+    const needDouble = matCortexL.transparent || state.clipEnabled || !state.layers.cortexL || !state.layers.cortexR;
+    [matCortexL, matCortexR].forEach(m => {
+      m.side = needDouble ? THREE.DoubleSide : THREE.FrontSide;
+      m.needsUpdate = true;
+    });
   }
 
   function applyLayerVisibility() {
     for (const [k, v] of Object.entries(state.layers)) {
       if (groups[k]) groups[k].visible = v;
     }
+    syncCortexDoubleSide();
   }
 
   function applyExplode(val) {
@@ -968,17 +1132,31 @@
 
   function applyClipping() {
     activeClipPlanes.length = 0;
+    frameSag.visible = false;
+    frameCor.visible = false;
+    frameAx.visible = false;
     if (state.clipEnabled) {
-      // MNI X -> three -X; MNI Y -> three +Z; MNI Z -> three +Y
       const sx = parseFloat(document.getElementById('clipX').value);
       const cy = parseFloat(document.getElementById('clipY').value);
       const az = parseFloat(document.getElementById('clipZ').value);
-      clipSag.constant = -sx; // clips x_t > -sx (i.e., x_mni < sx)
-      clipCor.constant = cy;  // clips z_t > cy  (i.e., y_mni > cy)
-      clipAx.constant  = az;  // clips y_t > az  (i.e., z_mni > az)
-      if (sx > -72) activeClipPlanes.push(clipSag);
-      if (cy < 72) activeClipPlanes.push(clipCor);
-      if (az < 82) activeClipPlanes.push(clipAx);
+      clipSag.constant = -sx;
+      clipCor.constant = cy;
+      clipAx.constant  = az;
+      if (sx > -72) {
+        activeClipPlanes.push(clipSag);
+        frameSag.position.set(-sx, 8, -16);
+        frameSag.visible = true;
+      }
+      if (cy < 72) {
+        activeClipPlanes.push(clipCor);
+        frameCor.position.set(0, 8, cy);
+        frameCor.visible = true;
+      }
+      if (az < 82) {
+        activeClipPlanes.push(clipAx);
+        frameAx.position.set(0, az, -16);
+        frameAx.visible = true;
+      }
       crossGroup.visible = true;
     } else {
       crossGroup.visible = false;
@@ -989,6 +1167,29 @@
         obj.material.needsUpdate = true;
       }
     });
+    syncCortexDoubleSide();
+  }
+
+  // 1-Click MRI Slice Presets
+  function setSlicePreset(which) {
+    const cx = document.getElementById('clipX');
+    const cy = document.getElementById('clipY');
+    const cz = document.getElementById('clipZ');
+    const chk = document.getElementById('chkClip');
+    if (which === 'reset') {
+      cx.value = -72; cy.value = 72; cz.value = 82;
+      chk.checked = false; state.clipEnabled = false;
+    } else {
+      cx.value = which === 'sag' ? 0 : -72;
+      cy.value = which === 'cor' ? -14 : 72;
+      cz.value = which === 'ax' ? 6 : 82;
+      chk.checked = true; state.clipEnabled = true;
+      setMniCoords(which === 'sag' ? 0 : state.mni[0], which === 'cor' ? -14 : state.mni[1], which === 'ax' ? 6 : state.mni[2]);
+    }
+    document.getElementById('lbl-clipX').textContent = `${cx.value} mm`;
+    document.getElementById('lbl-clipY').textContent = `${cy.value} mm`;
+    document.getElementById('lbl-clipZ').textContent = `${cz.value} mm`;
+    applyClipping();
   }
 
   // ── REAL MNI152 TRI-PLANAR T1-MRI SYNCHRONIZED VIEWER ─────────────────────
@@ -1534,8 +1735,10 @@
     if (!gDrop.contains(e.target) && e.target !== gSearch) gDrop.style.display = 'none';
   });
 
-  // ── ACCESSIBLE LIGHTBOX ───────────────────────────────────────────────────
+  // ── ACCESSIBLE LIGHTBOX (with keyboard focus restoration) ─────────────────
+  let lastFocusedEl = null;
   window.openLightbox = (src, title, desc) => {
+    lastFocusedEl = document.activeElement;
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lb-img');
     img.src = src;
@@ -1548,11 +1751,123 @@
   };
   window.closeLightbox = () => {
     const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden', 'true');
     document.getElementById('lb-img').removeAttribute('src');
+    if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
   };
   document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') window.closeLightbox(); });
+
+  // ── FLOATING 3D CALLOUT LABELS + GUIDED TOUR + PNG SNAPSHOT ───────────────
+  const CALLOUT_DEFS = [
+    { key: 'Frontal',        label: 'Frontal Lobe',    group: 'cortexL',    mni: [-44, 42, 32] },
+    { key: 'Parietal',       label: 'Parietal Lobe',   group: 'cortexL',    mni: [-44, -50, 56] },
+    { key: 'Temporal',       label: 'Temporal Lobe',   group: 'cortexL',    mni: [-62, -22, -14] },
+    { key: 'Occipital',      label: 'Occipital Lobe',  group: 'cortexR',    mni: [26, -96, 8] },
+    { key: 'Cerebellum',     label: 'Cerebellum',      group: 'cerebellum', mni: [0, -70, -34] },
+    { key: 'Brainstem',      label: 'Brainstem',       group: 'brainstem',  mni: [0, -26, -46] },
+    { key: 'CorpusCallosum', label: 'Corpus Callosum', group: 'callosum',   mni: [0, 6, 30] },
+    { key: 'Thalamus',       label: 'Thalamus',        group: 'thalamus',   mni: [-14, -20, 8] },
+    { key: 'BasalGanglia',   label: 'Basal Ganglia',   group: 'cit168',     mni: [24, 2, 0] },
+    { key: 'Limbic',         label: 'Hippocampus',     group: 'limbic',     mni: [-28, -24, -14] },
+    { key: 'Ventricles',     label: 'Ventricles',      group: 'ventricles', mni: [14, -10, 22] },
+    { key: 'Vascular',       label: 'Circle of Willis',group: 'vascular',   mni: [0, 4, -18] },
+    { key: 'CranialNerves',  label: 'Cranial Nerves',  group: 'cranial',    mni: [-18, -22, -32] },
+  ];
+  let showCallouts = false;
+  const calloutLayer = document.getElementById('calloutLayer');
+  const calloutNodes = CALLOUT_DEFS.map(def => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'callout-pill';
+    btn.textContent = def.label;
+    btn.addEventListener('click', () => window.flyToStructure(def.key));
+    calloutLayer.appendChild(btn);
+    return { def, el: btn, basePos: mniToThree(def.mni[0], def.mni[1], def.mni[2]), tmp: new THREE.Vector3() };
+  });
+
+  function updateCallouts() {
+    if (!showCallouts || state.activeTab !== 'brain3d') {
+      calloutLayer.style.display = 'none';
+      return;
+    }
+    calloutLayer.style.display = 'block';
+    const w = container.clientWidth || 900;
+    const h = container.clientHeight || 600;
+    for (const c of calloutNodes) {
+      const grp = groups[c.def.group];
+      if (!grp || !grp.visible) { c.el.style.display = 'none'; continue; }
+      c.tmp.copy(c.basePos).add(grp.position);
+      c.tmp.project(camera);
+      if (c.tmp.z > 1.0 || c.tmp.x < -0.96 || c.tmp.x > 0.96 || c.tmp.y < -0.92 || c.tmp.y > 0.92) {
+        c.el.style.display = 'none';
+        continue;
+      }
+      c.el.style.display = 'block';
+      c.el.style.transform = `translate(${((c.tmp.x * 0.5 + 0.5) * w).toFixed(1)}px, ${((-c.tmp.y * 0.5 + 0.5) * h).toFixed(1)}px) translate(-50%, -50%)`;
+    }
+  }
+
+  document.getElementById('btnLabels3D').addEventListener('click', (e) => {
+    showCallouts = !showCallouts;
+    e.currentTarget.classList.toggle('active', showCallouts);
+    updateCallouts();
+  });
+
+  document.querySelectorAll('[data-slice]').forEach(b => b.addEventListener('click', () => setSlicePreset(b.dataset.slice)));
+
+  // 1-Click PNG Snapshot Download
+  document.getElementById('btnSnapshot').addEventListener('click', () => {
+    renderer.render(scene, camera);
+    const a = document.createElement('a');
+    a.download = `dorothy-brain-${state.mode}.png`;
+    a.href = renderer.domElement.toDataURL('image/png');
+    a.click();
+    announce('Saved 3D brain snapshot PNG');
+  });
+
+  // 1-Click Guided 6-Stop Brain Tour
+  const TOUR_STOPS = [
+    { title: '1/6 · ICBM152 Cerebral Cortex', note: 'Real human gyri & sulci with authentic FreeSurfer curvature shading.', run: () => { setSlicePreset('reset'); applyExplode(0); setRenderMode('tissue'); setCameraPreset('hero'); renderInspectorStructure('Frontal'); } },
+    { title: '2/6 · Cortical Lobe Atlas', note: 'AAL-116 functional lobes: Frontal, Parietal, Temporal, Occipital, Insula & Limbic.', run: () => { setRenderMode('lobe'); setCameraPreset('left'); renderInspectorStructure('Parietal'); } },
+    { title: '3/6 · Glass X-Ray Deep Subcortical Nuclei', note: 'Real Pauli CIT168 nuclei, AAL Thalamus, Ventricles, Circle of Willis & streaming DTI tracts.', run: () => { setRenderMode('xray'); setCameraPreset('deep'); renderInspectorStructure('BasalGanglia'); } },
+    { title: '4/6 · Exploded Anatomical Dissection', note: 'All 12 neural subsystems cleanly separated in stereotaxic 3D space.', run: () => { setCameraPreset('hero'); setRenderMode('lobe'); applyExplode(0.65); showCallouts = true; document.getElementById('btnLabels3D').classList.add('active'); renderInspectorStructure('CorpusCallosum'); } },
+    { title: '5/6 · Ventral Cranial Nerves I–XII & Circle of Willis', note: 'All 12 cranial nerve roots (CN IV dorsal exit) and the cerebral arterial ring.', run: () => { applyExplode(0); showCallouts = false; document.getElementById('btnLabels3D').classList.remove('active'); setRenderMode('xray'); setCameraPreset('ventral'); renderInspectorStructure('CranialNerves'); } },
+    { title: '6/6 · Midsagittal Dorothy Continuum A_tau(p)', note: 'Operational Metacognition confidence map over the exposed medial hemisphere, pons, medulla & cerebellum.', run: () => { setRenderMode('continuum'); setCameraPreset('sagittal'); renderInspectorStructure('Cerebellum'); } },
+  ];
+  let tourIdx = -1;
+  let tourTimer = null;
+  const tourBanner = document.getElementById('tourBanner');
+
+  function runTourStep(idx) {
+    tourIdx = idx % TOUR_STOPS.length;
+    const stop = TOUR_STOPS[tourIdx];
+    stop.run();
+    document.getElementById('tourTitle').textContent = stop.title;
+    document.getElementById('tourNote').textContent = stop.note;
+    tourBanner.style.display = 'flex';
+    announce(stop.title + '. ' + stop.note);
+  }
+  function stopTour() {
+    if (tourTimer) { clearInterval(tourTimer); tourTimer = null; }
+    tourIdx = -1;
+    tourBanner.style.display = 'none';
+    document.getElementById('btnTour').classList.remove('active');
+    document.getElementById('btnTour').textContent = 'Guided Tour';
+  }
+  document.getElementById('btnTour').addEventListener('click', (e) => {
+    if (tourTimer) { stopTour(); return; }
+    e.currentTarget.classList.add('active');
+    e.currentTarget.textContent = 'Stop Tour';
+    runTourStep(0);
+    tourTimer = setInterval(() => runTourStep(tourIdx + 1), 5200);
+  });
+  document.getElementById('btnTourNext').addEventListener('click', () => {
+    if (tourTimer) { clearInterval(tourTimer); tourTimer = setInterval(() => runTourStep(tourIdx + 1), 5200); }
+    runTourStep(tourIdx + 1);
+  });
+  document.getElementById('btnTourStop').addEventListener('click', stopTour);
 
   // ── RESIZE & ANIMATION LOOP ───────────────────────────────────────────────
   function resize3D() {
@@ -1592,6 +1907,42 @@
     }
 
     renderer.render(scene, camera);
+    updateCallouts();
+    drawCompass();
+  }
+
+  // Live 3D Anatomical Orientation Compass (A/P/L/R/S/I)
+  const compassCvs = document.getElementById('compass3d');
+  const compassAxes = [
+    { v: new THREE.Vector3(0, 0, 1),  lbl: 'A', col: '#f5d078' },  // Anterior (+Z)
+    { v: new THREE.Vector3(0, 0, -1), lbl: 'P', col: '#94a3b8' },  // Posterior (-Z)
+    { v: new THREE.Vector3(1, 0, 0),  lbl: 'L', col: '#38bdf8' },  // Left (+X)
+    { v: new THREE.Vector3(-1, 0, 0), lbl: 'R', col: '#fb7185' },  // Right (-X)
+    { v: new THREE.Vector3(0, 1, 0),  lbl: 'S', col: '#34d399' },  // Superior (+Y)
+    { v: new THREE.Vector3(0, -1, 0), lbl: 'I', col: '#64748b' },  // Inferior (-Y)
+  ];
+  const invQuat = new THREE.Quaternion();
+  const tmpAxis = new THREE.Vector3();
+  function drawCompass() {
+    if (!compassCvs || state.activeTab !== 'brain3d') return;
+    const ctx = compassCvs.getContext('2d');
+    const W = compassCvs.width, H = compassCvs.height, cx = W / 2, cy = H / 2, R = 24;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(7,11,18,0.72)';
+    ctx.beginPath(); ctx.arc(cx, cy, 34, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(56,189,248,0.28)'; ctx.lineWidth = 1; ctx.stroke();
+    invQuat.copy(camera.quaternion).invert();
+    const pts = compassAxes.map(a => {
+      tmpAxis.copy(a.v).applyQuaternion(invQuat);
+      return { x: cx + tmpAxis.x * R, y: cy - tmpAxis.y * R, z: tmpAxis.z, lbl: a.lbl, col: a.col };
+    }).sort((a, b) => a.z - b.z);
+    for (const p of pts) {
+      ctx.strokeStyle = p.col; ctx.globalAlpha = p.z < 0 ? 0.45 : 0.95; ctx.lineWidth = p.z < 0 ? 1.2 : 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y); ctx.stroke();
+      ctx.fillStyle = p.col; ctx.font = 'bold 10px system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(p.lbl, cx + (p.x - cx) * 1.28, cy + (p.y - cy) * 1.28);
+    }
+    ctx.globalAlpha = 1;
   }
 
   // Initial boot
@@ -1603,5 +1954,5 @@
   animate();
 
   // Expose tiny verification API on window for automated QA
-  window.__DOROTHY_API = { setRenderMode, setCameraPreset, applyExplode, switchTab, updateCameraTransform, flyToBrodmann: window.flyToBrodmann, flyToStructure: window.flyToStructure, state };
+  window.__DOROTHY_API = { setRenderMode, setCameraPreset, applyExplode, setSlicePreset, switchTab, updateCameraTransform, setCallouts: (v) => { showCallouts = !!v; document.getElementById('btnLabels3D').classList.toggle('active', showCallouts); updateCallouts(); }, flyToBrodmann: window.flyToBrodmann, flyToStructure: window.flyToStructure, state };
 })();
