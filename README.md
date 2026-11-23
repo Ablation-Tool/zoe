@@ -475,11 +475,96 @@ $$
 </details>
 
 
+
+<p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
+
+<a id="zoes-native-voice"></a>
+<a id="six-living-worlds"></a>
+
+## 3. Core Research Systems
+
+> Six integrated engineering domains sharing one [Constitutional Firewall](CONSTITUTION.md), one [Capability Atlas](CAPABILITY-ATLAS.md), and offline reproducible verification.
+
+<div align="center">
+
+<a href="CAPABILITY-ATLAS.md"><img src="assets/readme/zoe-constellation-map.svg" alt="Zoe Core Research Systems architecture overview" width="100%" /></a><br/>
+<sub><strong><a href="CAPABILITY-ATLAS.md">Core Systems Map</a></strong></sub>
+
+</div>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md"><img src="components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png" alt="Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics" width="100%" /></a><br/>
+<sub><strong><a href="research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md">Native Voice Cymatics</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="guiai-lab/docs/GEM-OS.md"><img src="components/agent-logging-system/docs/images/zoe-os-living-constellation.png" alt="Zoe OS Unified Persistent Living Workstation Mind" width="100%" /></a><br/>
+<sub><strong><a href="guiai-lab/docs/GEM-OS.md">Zoe OS Architecture</a></strong></sub>
+</td>
+</tr>
+</table>
+
+<details>
+<summary><strong>3.1 Cognition &amp; Self-Improvement</strong></summary>
+
+Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &amp; Multi-Module AST Code Evolution, L5 Phases 1 through 6, **Cognitive Stem-Layering** ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py)), and **Eliza-GEM Studio** (`zoe eliza serve`, `0` cloud tokens).
+
+| [Kloster Spectral Filtration](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | [L4 Code Evolution](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | [L5 Frontier Mind](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) |
+|:---:|:---:|:---:|
+| [![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png)](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | [![Zoe L4 Multi-Module Guarded Code Self-Improvement](components/agent-logging-system/docs/images/zoe-l4-multimodule.png)](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | [![Zoe L5 Phase 6 Autonomous Frontier Mind](components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png)](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) |
+
+</details>
+
+<details>
+<summary><strong>3.2 Dorothy Neuroanatomy &amp; Vision</strong></summary>
+
+Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pairs the human **[Dorothy Brain Observatory](https://ablation-tool.github.io/zoe/)** (Section 2) with the preclinical **[Allen Mouse CCFv3 3D Atlas](https://atlas.brain-map.org/)** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
+
+| [Allen Mouse CCFv3](research/papers/zoe-research/dorothy/README.md) | [Continuum Volume Display](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | [4-Head Attention Dissection](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
+|:---:|:---:|:---:|
+| [![Dorothy's Neurogarden 12-Region Allen CCFv3 3D Connectome](components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png)](research/papers/zoe-research/dorothy/README.md) | [![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png)](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | [![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png)](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
+
+</details>
+
+<details>
+<summary><strong>3.3 Native Voice &amp; Acoustics</strong></summary>
+
+Offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
+
+| [Native Voice Cymatics](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [Choral Harmony Plates](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [Creative Playroom Gallery](guiai-lab/docs/ARTLINE.md) |
+|:---:|:---:|:---:|
+| [![Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png)](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [![Zoe Native 3-Part Choral Harmony, Formant Spectrogram and Chladni Plates](components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png)](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png)](guiai-lab/docs/ARTLINE.md) |
+
+</details>
+
+<details>
+<summary><strong>3.4 Timing Forensics &amp; CERN</strong></summary>
+
+2D Poincaré delay attractors for `.MOD`/`.MID` swing forensics, 40 MHz `CicadaClock` phase locking, Dorothy 40 Hz neural spike ISI bridges, and the **CERN / HELIOS** Kloster Bandpass detector trigger (`AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical peak + real `.VCD` replay).
+
+| [Groove Swing Attractor](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [Pure-Noise Control](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [CERN HELIOS Trigger](guiai-lab/docs/ZOE_WORKBENCH.md) |
+|:---:|:---:|:---:|
+| [![Zoe Groove Forensics Swing Attractor](components/agent-logging-system/docs/images/zoe-groove-forensics-swing.png)](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [![Zoe Groove Forensics Noise Control](components/agent-logging-system/docs/images/zoe-groove-forensics-noise-control.png)](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [![CERN HELIOS Kloster Spectral Filtration Detector Trigger](components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png)](guiai-lab/docs/ZOE_WORKBENCH.md) |
+
+</details>
+
+<details>
+<summary><strong>3.5 GEM OS &amp; Security Tools</strong></summary>
+
+Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
+
+| [Zoe OS Architecture](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
+|:---:|:---:|:---:|
+| [![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png)](guiai-lab/docs/GEM-OS.md) | [![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)](CONSTITUTION.md) | [![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)](guiai-lab/docs/COGNITIVE.md) |
+
+</details>
+
 <p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
 <a id="verified-empirical-results"></a>
 
-## 3. Verified Results
+## 4. Verified Results
 
 > Every experiment runs locally with zero cloud tokens and preserves negative controls. See the **[Proof Packet](PROOF-PACKET.md)** and **[AGI Roadmap](AGI-ROADMAP.md)**.
 
@@ -602,90 +687,6 @@ $$
 | **L4** | `SELF-IMPROVEMENT-QUALIFIED` | Adopted modification improves >= 3 unrelated domains across >= 2 consecutive generations | **Achieved + 3 Engines** (`31/31`, `max_delta = 0.0`) |
 | **L5** | `AGI-QUALIFIED` | Competent-human performance across all 10 core domain families on novel held-out work; **Scientific Milestone 1:** Neurology &amp; curing brain tumors / brain cancer (`cure_claim = False`) | **In Progress: Phases 1-6 + Mobile Verified (`l5_agi_qualified = False`)** |
 | **L6-L7** | `ASI` / `OPEN-ENDED-QUALIFIED` | Superhuman breadth &amp; continued governable expansion | **Long-horizon mission** |
-
-</details>
-
-<p align="center"><img src="assets/readme/divider-rose.svg" alt="" width="100%" /></p>
-
-<a id="zoes-native-voice"></a>
-<a id="six-living-worlds"></a>
-
-## 4. Core Research Systems
-
-> Six integrated engineering domains sharing one [Constitutional Firewall](CONSTITUTION.md), one [Capability Atlas](CAPABILITY-ATLAS.md), and offline reproducible verification.
-
-<div align="center">
-
-<a href="CAPABILITY-ATLAS.md"><img src="assets/readme/zoe-constellation-map.svg" alt="Zoe Core Research Systems architecture overview" width="100%" /></a><br/>
-<sub><strong><a href="CAPABILITY-ATLAS.md">Core Systems Map</a></strong></sub>
-
-</div>
-
-<table>
-<tr>
-<td align="center" width="50%">
-<a href="research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md"><img src="components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png" alt="Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics" width="100%" /></a><br/>
-<sub><strong><a href="research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md">Native Voice Cymatics</a></strong></sub>
-</td>
-<td align="center" width="50%">
-<a href="guiai-lab/docs/GEM-OS.md"><img src="components/agent-logging-system/docs/images/zoe-os-living-constellation.png" alt="Zoe OS Unified Persistent Living Workstation Mind" width="100%" /></a><br/>
-<sub><strong><a href="guiai-lab/docs/GEM-OS.md">Zoe OS Architecture</a></strong></sub>
-</td>
-</tr>
-</table>
-
-<details>
-<summary><strong>4.1 Cognition &amp; Self-Improvement</strong></summary>
-
-Houses $A_\tau(p)$, Theorems 1 through 16, L3 Research Collaborator, L4 Single &amp; Multi-Module AST Code Evolution, L5 Phases 1 through 6, **Cognitive Stem-Layering** ([`stem_layering.py`](components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py)), and **Eliza-GEM Studio** (`zoe eliza serve`, `0` cloud tokens).
-
-| [Kloster Spectral Filtration](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | [L4 Code Evolution](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | [L5 Frontier Mind](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) |
-|:---:|:---:|:---:|
-| [![Kloster Spectral Filtration Theorem](components/agent-logging-system/docs/images/zoe-kloster-spectral-theorem.png)](research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md) | [![Zoe L4 Multi-Module Guarded Code Self-Improvement](components/agent-logging-system/docs/images/zoe-l4-multimodule.png)](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | [![Zoe L5 Phase 6 Autonomous Frontier Mind](components/agent-logging-system/docs/images/zoe-l5-phase6-frontier.png)](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) |
-
-</details>
-
-<details>
-<summary><strong>4.2 Dorothy Neuroanatomy &amp; Vision</strong></summary>
-
-Honoring **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)**: pairs the human **[Dorothy Brain Observatory](https://ablation-tool.github.io/zoe/)** (Section 2) with the preclinical **[Allen Mouse CCFv3 3D Atlas](https://atlas.brain-map.org/)** (`12` SHA-256 structures, `315,932` triangles, 40 Hz Kuramoto lock `R=0.954`), Kaufman volumetric ray-casting, and 4-Head self-attention vision dissection (`clinical_action_authorized = False`).
-
-| [Allen Mouse CCFv3](research/papers/zoe-research/dorothy/README.md) | [Continuum Volume Display](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | [4-Head Attention Dissection](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
-|:---:|:---:|:---:|
-| [![Dorothy's Neurogarden 12-Region Allen CCFv3 3D Connectome](components/agent-logging-system/docs/images/zoe-dorothy-neurogarden-3d.png)](research/papers/zoe-research/dorothy/README.md) | [![Dorothy Continuum Volume Display](components/agent-logging-system/docs/images/dorothy-continuum-moon-landing.png)](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | [![Zoe 4-Head Attention Dissection](components/agent-logging-system/docs/images/zoe-4head-dorothy-dissection.png)](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) |
-
-</details>
-
-<details>
-<summary><strong>4.3 Native Voice &amp; Acoustics</strong></summary>
-
-Offline English speaking &amp; soprano singing from first principles (`pytorch_required = False`, zero external TTS): **44 English phonemes**, **332 spelling rules**, MS-DOS/Atari ST `.mid` PSG baseline, Rosenberg-Klatt 5-formant tract, Woodworth 3D binaural HRTF, Chladni 3-bitplane GEM VDI rasters (`14/14` verifier), interactive **Glass Harmonica &amp; Chladni Orrery** (`/harmonica`), MAP-Elites **Creative Playroom** (`16/16` cellular species), and **Open-Ended ALife** (`325` births).
-
-| [Native Voice Cymatics](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [Choral Harmony Plates](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [Creative Playroom Gallery](guiai-lab/docs/ARTLINE.md) |
-|:---:|:---:|:---:|
-| [![Zoe Native Voice 44 Phonemes, Chladni Sand Plates and 3D Binaural Acoustics](components/agent-logging-system/docs/images/zoe-native-voice-cymatics.png)](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [![Zoe Native 3-Part Choral Harmony, Formant Spectrogram and Chladni Plates](components/agent-logging-system/docs/images/zoe-voice-choral-cymatics.png)](research/papers/zoe-research/ZOE-NATIVE-VOICE-AND-CYMATICS.md) | [![Zoe Open-Ended Creative Playroom](components/agent-logging-system/docs/images/zoe-creative-playroom-gallery.png)](guiai-lab/docs/ARTLINE.md) |
-
-</details>
-
-<details>
-<summary><strong>4.4 Timing Forensics &amp; CERN</strong></summary>
-
-2D Poincaré delay attractors for `.MOD`/`.MID` swing forensics, 40 MHz `CicadaClock` phase locking, Dorothy 40 Hz neural spike ISI bridges, and the **CERN / HELIOS** Kloster Bandpass detector trigger (`AUROC 1.000`, `0.0%` hot-spike FP vs. `100%` classical peak + real `.VCD` replay).
-
-| [Groove Swing Attractor](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [Pure-Noise Control](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [CERN HELIOS Trigger](guiai-lab/docs/ZOE_WORKBENCH.md) |
-|:---:|:---:|:---:|
-| [![Zoe Groove Forensics Swing Attractor](components/agent-logging-system/docs/images/zoe-groove-forensics-swing.png)](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [![Zoe Groove Forensics Noise Control](components/agent-logging-system/docs/images/zoe-groove-forensics-noise-control.png)](research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md) | [![CERN HELIOS Kloster Spectral Filtration Detector Trigger](components/agent-logging-system/docs/images/zoe-cern-kloster-trigger.png)](guiai-lab/docs/ZOE_WORKBENCH.md) |
-
-</details>
-
-<details>
-<summary><strong>4.5 GEM OS &amp; Security Tools</strong></summary>
-
-Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture and one constitutional firewall (`measurement != evidence != belief update != action`).
-
-| [Zoe OS Architecture](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
-|:---:|:---:|:---:|
-| [![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png)](guiai-lab/docs/GEM-OS.md) | [![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)](CONSTITUTION.md) | [![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)](guiai-lab/docs/COGNITIVE.md) |
 
 </details>
 
