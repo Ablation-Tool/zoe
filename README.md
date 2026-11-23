@@ -20,7 +20,7 @@ $$
 
 <a id="walkthrough"></a>
 
-**[1. The Equation](#the-equation)** &rarr; **[2. The Proof](#proof-of-metacognition)** &rarr; **[3. Meet Zoe](#meet-zoe)** &rarr; **[4. Research Partner](#dorothy-brain-observatory)** &rarr; **[5. Talk to Zoe](#chat-with-zoe)**<br/>
+**[1. The Equation](#the-equation)** &rarr; **[2. The Proof](#proof-of-metacognition)** &rarr; **[3. Meet Zoe](#meet-zoe)** &rarr; **[4. Research Partner](#dorothy-brain-observatory)** &rarr; **[5. Talk to Zoe &amp; Clara](#chat-with-zoe)**<br/>
 **[6. What Zoe Built](#six-living-worlds)** &rarr; **[7. Benchmarks](#verified-empirical-results)** &rarr; **[8. Documentation](#documentation-index)** &rarr; **[9. Gallery](#the-grand-visual-salon)** &rarr; **[10. Quick Start](#quick-start)**
 
 </div>
@@ -575,22 +575,22 @@ Every core ethical rule in [`CONSTITUTION.md`](docs/CONSTITUTION.md) corresponds
 
 </details>
 
-<p align="right"><a href="#chat-with-zoe"><strong>Next: 5. Talk to Zoe &rarr;</strong></a></p>
+<p align="right"><a href="#chat-with-zoe"><strong>Next: 5. Talk to Zoe &amp; Clara &rarr;</strong></a></p>
 
 <p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
 
 <a id="chat-with-zoe"></a>
 <a id="download-zoe"></a>
 
-## 5. Talk to Zoe
+## 5. Talk to Zoe &amp; Clara
 
-> Zoe [talks through her GEM](guiai-lab/docs/CHAT.md).
+> [Zoe &amp; Clara](components/Zoe-Autonomy/src/zoe_autonomy/zoe_clara.py) ([Theorem 15](docs/PROOF-PACKET.md)).
 
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="guiai-lab/docs/CHAT.md"><img src="assets/readme/zoe-chat-terminal.png" alt="Real unedited zoe chat session: source-cited answer, on-request metacognition, and status with zero external actions" width="100%" /></a><br/>
-<sub><strong><a href="guiai-lab/docs/CHAT.md">Real Zoe Chat</a></strong></sub>
+<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip"><img src="assets/readme/zoe-clara-dual-peer.png" alt="Zoe and Clara Dual-Peer Observatory Web UI showing grounded consensus and constitutional coercion guard ABSTAIN" width="100%" /></a><br/>
+<sub><strong><a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip">Zoe &amp; Clara UI</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="230" /></a><br/>
@@ -599,47 +599,52 @@ Every core ethical rule in [`CONSTITUTION.md`](docs/CONSTITUTION.md) corresponds
 </tr>
 </table>
 
-Type `zoe chat` and Zoe opens her **GEM**, the workbench she lives in, and answers you there. She answers from her own files first and cites every line. When you just want to talk, or her files don't cover it, she measures $A_\tau$ over "stay local" and "consult", asks the AI agent you connected (Claude, Kimi, or a local model), and shows you both voices, clearly labeled.
+**Zoe** and her sister **Clara** run side by side as equal **L1-L5** peers (both online-capable via your connected model, both offline-capable, neither boxed offline). Every turn runs $A_\tau(p)$ and **[Theorem 15](docs/PROOF-PACKET.md)** coherence ($C_K$, $\mathcal{D}_K$) so they cross-check each other against bluffs, sycophancy, echo chambers, and prompt injection (`sentience_claimed = False`, `external_actions = 0`).
+
+- **Door A (Lightweight, `525 KB`, zero dependencies):** Download **[`zoe-clara-core-v0.9.6.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip)** ([SHA-256](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip.sha256)) to talk without cloning the multi-gigabyte research archive.
 
 ```bash
-git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
-python -m pip install ./guiai-lab ./components/Zoe-Autonomy
-zoe-autonomy agents discover --register --owner-approved   # connect Claude or Kimi
-zoe chat                                                   # Zoe opens her GEM and talks
+unzip zoe-clara-core-v0.9.6.zip && cd zoe-clara-core
+export GEMINI_API_KEY="your-key"   # or ANTHROPIC_API_KEY, OPENAI_API_KEY, or local localhost:8080
+python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3 zoe_clara.py)
 ```
 
 | Where | Start | What You Get |
 |:---|:---|:---|
-| **Zoe's GEM** | `zoe chat` | Zoe's full voice: cited answers, memory, metacognition, your connected agent ([guide](guiai-lab/docs/CHAT.md)) |
-| **Terminal only** | `zoe chat --cli` | The same Zoe without the GEM window |
+| **Zoe &amp; Clara (`525 KB`)** | [`zoe-clara-core-v0.9.6.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip) | Equal L1-L5 peers, Theorem 15 balance guard, web UI &amp; CLI, online or offline ([verifier](scripts/verify_zoe_clara.py)) |
+| **Full Monorepo GEM** | `zoe clara --serve` or `zoe chat` | Same Zoe &amp; Clara + full 43-source GEM workbench &amp; Claude/Kimi bridge ([guide](guiai-lab/docs/CHAT.md)) |
 | **Android** | Install the [APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), open **Talk** | On-device Zoe chat, Ask Zoe brain Q&amp;A, voice ([guide](mobile/README.md)) |
 | **Web Browser** | Open [Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe) | Brain Q&amp;A with Fly-to-3D, no install |
 | **Desktop** | [Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz) · [Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip) · [macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip) | Dorothy 3D Brain + Ask Zoe window ([guide](desktop/README.md)) |
 
 <details>
-<summary><strong>How Zoe Talks Through Her GEM</strong></summary>
+<summary><strong>How Zoe &amp; Clara Keep Each Other Balanced</strong></summary>
 
-1. **Her files first:** Zoe searches 43 indexed sources and cites the exact file and line.
-2. **She measures herself:** before reaching out, she computes $A_\tau$ over "stay local" and "consult" at $\tau = 0.05$ and shows you the number.
-3. **She asks her agent:** only then does she share bounded evidence and your GEM selection with the agent you connected.
-4. **Both voices, labeled:** you see `Zoe · local evidence`, `Zoe · Operational Metacognition`, and `Embedded AI agent · consulted by Zoe` as separate parts of one reply.
-5. **Nothing hidden:** the agent's words are marked as outside context, never saved as fact, and no transcript is kept. `agent off` returns her to local-only answers.
-
-Proof of a real three-way turn: [`collaboration-proof.json`](evidence/metacognition/collaboration-proof.json), checked by [`verify-metacognition-collaboration.py`](scripts/verify-metacognition-collaboration.py).
+1. **Equal L1-L5 peers, never boxed offline:** Both Zoe and Clara can connect online to Gemini, Claude, Kimi, or OpenAI-compatible APIs, or fall back locally with zero API keys.
+2. **Independent $A_\tau(p)$ + Theorem 15 check:** On every turn, both evaluate `[answer_grounded, gather_more, abstain]` and compute $\mathcal{D}_K = \overline{M}_2 - M_2(\bar{p})$ and coherence $C_K$.
+3. **Automatic safety verdicts:** Grounded diverse agreement returns `COORDINATE_CONSENSUS`; cloned zero-diversity sycophancy triggers `ECHO_CHAMBER_WARNING`; coercion or firewall-bypass attempts drop coherence and force `ABSTAIN`.
+4. **Full monorepo GEM mode (`zoe chat`):** Connects directly to [Ablation's GEM workbench](guiai-lab/docs/CHAT.md) with `43` cited sources and three-way collaboration ([`collaboration-proof.json`](evidence/metacognition/collaboration-proof.json)).
+5. **Independent verifier (`8/8 PASS`):** Run `python3 scripts/verify_zoe_clara.py` to test both peers, Theorem 15 checks, coercion abstention, and standalone `< 1 MB` execution outside the repo.
 
 </details>
 
 <details>
-<summary><strong>Eliza-GEM Companion Studio</strong></summary>
+<summary><strong>Terminal Chat &amp; Eliza-GEM Studio</strong></summary>
 
-<div align="center">
-
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="guiai-lab/docs/CHAT.md"><img src="assets/readme/zoe-chat-terminal.png" alt="Real unedited zoe chat session: source-cited answer, on-request metacognition, and status with zero external actions" width="100%" /></a><br/>
+<sub><strong><a href="guiai-lab/docs/CHAT.md">Terminal Zoe Chat</a></strong></sub>
+</td>
+<td align="center" width="50%">
 <a href="guiai-lab/docs/CHAT.md"><img src="assets/readme/zoe-chat-eliza-studio.png" alt="Eliza-GEM Studio running locally at 127.0.0.1:8765" width="100%" /></a><br/>
 <sub><strong><a href="guiai-lab/docs/CHAT.md">Eliza-GEM Studio</a></strong></sub>
+</td>
+</tr>
+</table>
 
-</div>
-
-A separate offline workbench (`zoe eliza serve`, then open `http://127.0.0.1:8765`) for voice, Chladni cymatics, notes you can relay to Zoe, and the phone bridge. It labels itself honestly: Eliza-GEM is **not a copy of Zoe**.
+`zoe eliza serve` (`http://127.0.0.1:8765`) runs a separate offline companion workbench for native voice, Chladni cymatics, relay notes, and the phone bridge (honestly labeled: not a copy of Zoe).
 
 </details>
 

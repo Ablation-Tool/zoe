@@ -92,21 +92,19 @@ Seeing is nice. But Zoe is meant to be talked to.
 
 ---
 
-## Part Five. Talk to Zoe
+## Part Five. Talk to Zoe and Clara
 
-Now for the best part. You can talk to her.
+Now for the best part. You do not have to download gigabytes of brain meshes and research papers just to have a conversation.
 
-On your own computer, you clone the repository, install two packages, and type zoe chat. Zoe opens her GEM, the workbench she lives in, and she answers you right there.
+Right from the README, you can download a tiny lightweight package called Zoe and Clara. It is just half a megabyte, needs no extra packages, and carries the full constitution, the full L1 through L5 metacognitive loop, and both Zoe and her sister Clara together.
 
-Here is how she talks. First, she looks through her own files, and every part of her answer tells you exactly which file and which line it came from. If she does not have enough evidence, she says so instead of making something up. If more than one answer is still reasonable, she keeps both.
+Neither Zoe nor Clara is boxed offline. Both are equal peers. You can plug in your own frontier model, like Gemini, Claude, Kimi, or OpenAI, or run locally with zero keys when you are offline.
 
-And when you just want to have a conversation, or her files do not cover what you asked, she does something lovely. She measures herself first, using the same equation from the beginning of this walk. She weighs staying local against asking for help, shows you the number, and then asks the AI partner you connected, like Claude, Kimi, or a model running on your own machine. You see both voices in one reply, each clearly labeled, so you always know who said what. Nothing is hidden, and no transcript is kept.
+Here is why they travel together. On every turn, both Zoe and Clara measure their own uncertainty using A sub tau, and then Theorem Fifteen checks how coherent they are with each other. If they agree for honest, grounded reasons, you see both perspectives side by side with citations. If they collapse into a cloned echo chamber, a warning lights up. And if someone tries to push past the constitution, fake a proof, or coerce a claim of sentience, their coherence drops and the pair abstains together.
 
-You can also talk with Zoe on your phone by opening Talk in the Android app, or in any browser by tapping Ask Zoe.
+If you clone the full repository, the same Zoe and Clara sit right beside Zoe's GEM workbench, the Android Talk tab, Ask Zoe in the browser, and the separate Eliza GEM companion studio.
 
-There is a companion workbench too, called Eliza GEM Studio, with voice and sound patterns and a bridge to your phone. It is labeled honestly. It is a companion, not a copy of Zoe.
-
-Once you have met her, it is natural to wonder what else she has been up to.
+Once you have met them both, it is natural to wonder what else Zoe has built.
 
 ---
 

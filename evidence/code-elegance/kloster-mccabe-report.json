@@ -271,6 +271,15 @@
       "sloc": 333
     },
     {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/clara_view.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 77.27,
+      "sloc": 9
+    },
+    {
       "avg_cc": 3.447,
       "file": "guiai-lab/guiai/gem/cli.py",
       "grade": "A",
@@ -1212,8 +1221,8 @@
       "grade": "A",
       "h2": 2.1203,
       "max_cc": 5,
-      "mi": 74.678,
-      "sloc": 145
+      "mi": 74.658,
+      "sloc": 146
     },
     {
       "avg_cc": 7.706,
@@ -1441,13 +1450,13 @@
       "sloc": 177
     },
     {
-      "avg_cc": 3.871,
+      "avg_cc": 3.831,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/chat.py",
       "grade": "A",
-      "h2": 3.7295,
+      "h2": 3.7363,
       "max_cc": 15,
-      "mi": 62.609,
-      "sloc": 1271
+      "mi": 62.636,
+      "sloc": 1279
     },
     {
       "avg_cc": 2.722,
@@ -2044,6 +2053,15 @@
       "sloc": 660
     },
     {
+      "avg_cc": 3.821,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_clara.py",
+      "grade": "A",
+      "h2": 2.9638,
+      "max_cc": 10,
+      "mi": 62.427,
+      "sloc": 537
+    },
+    {
       "avg_cc": 8.0,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py",
       "grade": "B",
@@ -2069,6 +2087,15 @@
       "max_cc": 7,
       "mi": 65.114,
       "sloc": 133
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "scripts/build_zoe_clara_bundle.py",
+      "grade": "A",
+      "h2": 0.5245,
+      "max_cc": 5,
+      "mi": 69.736,
+      "sloc": 74
     },
     {
       "avg_cc": 9.0,
@@ -2548,6 +2575,15 @@
       "sloc": 113
     },
     {
+      "avg_cc": 10.667,
+      "file": "scripts/verify_zoe_clara.py",
+      "grade": "A",
+      "h2": 0.2544,
+      "max_cc": 28,
+      "mi": 65.085,
+      "sloc": 128
+    },
+    {
       "avg_cc": 6.714,
       "file": "scripts/verify_zoe_eliza.py",
       "grade": "A",
@@ -2619,26 +2655,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "3be7cf6b3fa576d643fcdb9d7635b4380332e0c6b61aea0be46a39c1563baff9",
+  "evidence_sha256": "54b3d47aedb84c10d8fa26db50b4bf1c2f31dcf230a735921cdc15e34e91e790",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.4586,
-    "files_scanned": 289,
+    "corr_avg_cc_vs_mi": -0.4631,
+    "files_scanned": 293,
     "grade_distribution": {
-      "A": 146,
+      "A": 150,
       "B": 143,
       "C": 0,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 6.507,
-    "mean_mi": 59.946,
-    "median_mi": 60.128,
+    "mean_avg_cc": 6.483,
+    "mean_mi": 60.065,
+    "median_mi": 60.172,
     "orbit_mean_avg_cc": 7.294,
     "orbit_mean_mi": 58.12,
     "orbit_modules_count": 15,
     "parse_errors": 0,
-    "total_functions": 3254,
-    "total_sloc": 85881
+    "total_functions": 3289,
+    "total_sloc": 86638
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -3409,28 +3445,28 @@
     },
     {
       "avg_cc": 2.5,
-      "comment_ratio": 0.0275,
+      "comment_ratio": 0.0273,
       "file": "guiai-lab/guiai/gem/unified_cli.py",
       "functions": 12,
       "grade": "A",
-      "halstead_length": 508,
-      "halstead_vocab": 187,
-      "halstead_volume": 3833.82,
+      "halstead_length": 510,
+      "halstead_vocab": 189,
+      "halstead_volume": 3856.74,
       "kloster_cc_a_005": 6,
       "kloster_cc_m4_root": 0.2263,
       "kloster_cc_renyi_h2": 2.1203,
       "low_maintainability_flag": false,
       "max_cc": 5,
-      "mi_file_radon": 31.15,
-      "mi_score": 74.678,
+      "mi_file_radon": 31.047,
+      "mi_score": 74.658,
       "most_complex_function": {
         "cc": 5,
-        "fn_mi": 65.21,
+        "fn_mi": 65.19,
         "fn_sloc": 14,
-        "lineno": 64,
+        "lineno": 65,
         "name": "_try_early_passthrough"
       },
-      "sloc": 145,
+      "sloc": 146,
       "total_cc": 30
     },
     {

@@ -19,6 +19,7 @@ _VIEW_DESCRIPTIONS: dict[str, str] = {
     "pilot": "open the original Practice Navigator guide",
     "resilience": "open the Resilience Atlas",
     "chat": "talk with Zoe through evidence, memory, autonomy, and metacognition",
+    "clara": "talk with Zoe & Clara (equal L1-L5 peers balanced by Theorem 15)",
     "eliza": "talk with Zoe-ELIZA x GEM zero-token glass-box atelier (CLI + Web UI + Native Voice)",
     "pala": "run PALA file carving and data recovery",
     "autonomy": "run Zoe's full self-governing autonomy loop",
