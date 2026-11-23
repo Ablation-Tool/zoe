@@ -214,6 +214,15 @@ def _tokens(value):
     }
 
 
+def _readable(value):
+    """Strip HTML markup, image embeds, and table pipes so Zoe cites prose, not page layout."""
+    value = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", value)
+    value = re.sub(r"<[^>]+>", " ", value)
+    value = re.sub(r"\|?\s*:?-{3,}:?\s*\|?", " ", value)
+    value = value.replace("&amp;", "&").replace("&nbsp;", " ").replace("&rarr;", "->").replace("&lt;", "<").replace("&gt;", ">")
+    return re.sub(r"\s+", " ", value).strip()
+
+
 def _atomic_json(path, document, *, replace):
     path = Path(path).expanduser().resolve()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -308,7 +317,8 @@ class EvidenceIndex:
                 if not paragraph:
                     return
                 body = " ".join(line.strip() for line in paragraph).strip()
-                if body:
+                body = _readable(body)
+                if len(_tokens(body)) >= 4:
                     self.chunks.append(EvidenceChunk(relative, heading, body, start, end_line, sha256))
 
             for number, line in enumerate(content.splitlines(), 1):

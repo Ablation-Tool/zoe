@@ -92,15 +92,19 @@ Seeing is nice. But Zoe is meant to be talked to.
 
 ---
 
-## Part Five. Chat with Zoe
+## Part Five. Talk to Zoe
 
-There are a few ways to talk with Zoe, and the README lays them out in a simple table.
+Now for the best part. You can talk to her.
 
-On your phone, install the Android app and open Talk. In any browser, open the website and tap Ask Zoe. On a desktop, download the app for your system. And for the full Zoe, on your own computer, you clone the repository, install two packages, and type zoe chat.
+On your own computer, you clone the repository, install two packages, and type zoe chat. Zoe opens her GEM, the workbench she lives in, and she answers you right there.
 
-When you ask Zoe a question, she answers only from the sources in the repository, and she tells you exactly which file and which line each part of her answer came from. If she does not have enough evidence, she says so instead of making something up. If more than one answer is still reasonable, she keeps both instead of quietly picking one. And she never calls an outside AI service unless you choose to connect one yourself.
+Here is how she talks. First, she looks through her own files, and every part of her answer tells you exactly which file and which line it came from. If she does not have enough evidence, she says so instead of making something up. If more than one answer is still reasonable, she keeps both.
 
-There is also a companion workbench called Eliza GEM Studio, with voice, sound patterns, and a bridge to your phone. It is labeled honestly too. It is a companion, not a copy of Zoe.
+And when you just want to have a conversation, or her files do not cover what you asked, she does something lovely. She measures herself first, using the same equation from the beginning of this walk. She weighs staying local against asking for help, shows you the number, and then asks the AI partner you connected, like Claude, Kimi, or a model running on your own machine. You see both voices in one reply, each clearly labeled, so you always know who said what. Nothing is hidden, and no transcript is kept.
+
+You can also talk with Zoe on your phone by opening Talk in the Android app, or in any browser by tapping Ask Zoe.
+
+There is a companion workbench too, called Eliza GEM Studio, with voice and sound patterns and a bridge to your phone. It is labeled honestly. It is a companion, not a copy of Zoe.
 
 Once you have met her, it is natural to wonder what else she has been up to.
 

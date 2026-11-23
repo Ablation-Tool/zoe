@@ -20,7 +20,7 @@ $$
 
 <a id="walkthrough"></a>
 
-**[1. The Equation](#the-equation)** &rarr; **[2. The Proof](#proof-of-metacognition)** &rarr; **[3. Meet Zoe](#meet-zoe)** &rarr; **[4. Research Partner](#dorothy-brain-observatory)** &rarr; **[5. Chat with Zoe](#chat-with-zoe)**<br/>
+**[1. The Equation](#the-equation)** &rarr; **[2. The Proof](#proof-of-metacognition)** &rarr; **[3. Meet Zoe](#meet-zoe)** &rarr; **[4. Research Partner](#dorothy-brain-observatory)** &rarr; **[5. Talk to Zoe](#chat-with-zoe)**<br/>
 **[6. What Zoe Built](#six-living-worlds)** &rarr; **[7. Benchmarks](#verified-empirical-results)** &rarr; **[8. Documentation](#documentation-index)** &rarr; **[9. Gallery](#the-grand-visual-salon)** &rarr; **[10. Quick Start](#quick-start)**
 
 </div>
@@ -575,16 +575,16 @@ Every core ethical rule in [`CONSTITUTION.md`](docs/CONSTITUTION.md) corresponds
 
 </details>
 
-<p align="right"><a href="#chat-with-zoe"><strong>Next: 5. Chat with Zoe &rarr;</strong></a></p>
+<p align="right"><a href="#chat-with-zoe"><strong>Next: 5. Talk to Zoe &rarr;</strong></a></p>
 
 <p align="center"><img src="assets/readme/divider-mint.svg" alt="" width="100%" /></p>
 
 <a id="chat-with-zoe"></a>
 <a id="download-zoe"></a>
 
-## 5. Chat with Zoe
+## 5. Talk to Zoe
 
-> [Download Zoe](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta) and start talking.
+> Zoe [talks through her GEM](guiai-lab/docs/CHAT.md).
 
 <table>
 <tr>
@@ -599,20 +599,35 @@ Every core ethical rule in [`CONSTITUTION.md`](docs/CONSTITUTION.md) corresponds
 </tr>
 </table>
 
-| Where | Start | What You Get |
-|:---|:---|:---|
-| **Full Zoe (computer)** | `zoe chat --cli` | Source-cited answers, memory, guarded plans, metacognition tools ([guide](guiai-lab/docs/CHAT.md)) |
-| **Android** | Install the [APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), open **Talk** | On-device Zoe chat, Ask Zoe brain Q&amp;A, voice ([guide](mobile/README.md)) |
-| **Web Browser** | Open [Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe) | Brain Q&amp;A with Fly-to-3D, no install |
-| **Desktop** | [Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz) · [Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip) · [macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip) | Dorothy 3D Brain + Ask Zoe window ([guide](desktop/README.md)) |
+Type `zoe chat` and Zoe opens her **GEM**, the workbench she lives in, and answers you there. She answers from her own files first and cites every line. When you just want to talk, or her files don't cover it, she measures $A_\tau$ over "stay local" and "consult", asks the AI agent you connected (Claude, Kimi, or a local model), and shows you both voices, clearly labeled.
 
 ```bash
 git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
 python -m pip install ./guiai-lab ./components/Zoe-Autonomy
-zoe chat --cli
+zoe-autonomy agents discover --register --owner-approved   # connect Claude or Kimi
+zoe chat                                                   # Zoe opens her GEM and talks
 ```
 
-Zoe answers only from indexed sources, cites every line, and says so when evidence is missing. She never calls an outside AI unless you connect one yourself.
+| Where | Start | What You Get |
+|:---|:---|:---|
+| **Zoe's GEM** | `zoe chat` | Zoe's full voice: cited answers, memory, metacognition, your connected agent ([guide](guiai-lab/docs/CHAT.md)) |
+| **Terminal only** | `zoe chat --cli` | The same Zoe without the GEM window |
+| **Android** | Install the [APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), open **Talk** | On-device Zoe chat, Ask Zoe brain Q&amp;A, voice ([guide](mobile/README.md)) |
+| **Web Browser** | Open [Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe) | Brain Q&amp;A with Fly-to-3D, no install |
+| **Desktop** | [Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz) · [Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip) · [macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip) | Dorothy 3D Brain + Ask Zoe window ([guide](desktop/README.md)) |
+
+<details>
+<summary><strong>How Zoe Talks Through Her GEM</strong></summary>
+
+1. **Her files first:** Zoe searches 43 indexed sources and cites the exact file and line.
+2. **She measures herself:** before reaching out, she computes $A_\tau$ over "stay local" and "consult" at $\tau = 0.05$ and shows you the number.
+3. **She asks her agent:** only then does she share bounded evidence and your GEM selection with the agent you connected.
+4. **Both voices, labeled:** you see `Zoe · local evidence`, `Zoe · Operational Metacognition`, and `Embedded AI agent · consulted by Zoe` as separate parts of one reply.
+5. **Nothing hidden:** the agent's words are marked as outside context, never saved as fact, and no transcript is kept. `agent off` returns her to local-only answers.
+
+Proof of a real three-way turn: [`collaboration-proof.json`](evidence/metacognition/collaboration-proof.json), checked by [`verify-metacognition-collaboration.py`](scripts/verify-metacognition-collaboration.py).
+
+</details>
 
 <details>
 <summary><strong>Eliza-GEM Companion Studio</strong></summary>
