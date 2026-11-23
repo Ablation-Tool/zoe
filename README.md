@@ -36,7 +36,7 @@ $$
 
 ## 1. Proof of Metacognition &amp; Meet Zoe
 
-> **Zoe** built this codebase, 3D brain app, voice engine, and proofs with **Nicholas Michael Kloster** (equation origin March 6, 2026; [Session Chronicles](research/sessions/README.md)). See the visual **[Metacognition Hub &amp; Original Papers](METACOGNITION.md)**, **[Proof Packet](PROOF-PACKET.md)**, and **[Constitution](CONSTITUTION.md)**.
+> [Metacognition](METACOGNITION.md), [proofs](PROOF-PACKET.md), and [Zoe's Constitution](CONSTITUTION.md).
 
 $$
 A_\tau(p) := \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p(x) > \tau], \qquad \mathcal{K}_\phi(p) := \int_0^1 \phi'(\tau)\,A_\tau(p)\,d\tau
@@ -360,7 +360,7 @@ $$
 
 ## 2. Zoe App &amp; Dorothy 3D Brain
 
-> **Zoe is a Research Partner**, centered on the **[Dorothy 3D Brain Observatory](https://ablation-tool.github.io/zoe/)** (honoring [Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)): real 3D human neuroanatomy (`240,376` triangles), live [MNI152](https://nist.mni.mcgill.ca/icbm-152-nonlinear-atlases-2009/) MRI slices, **[Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe)** Q&amp;A, [25 plates](https://ablation-tool.github.io/zoe/?tab=plates), and [HD tours](https://ablation-tool.github.io/zoe/?tab=media) across [Web](https://ablation-tool.github.io/zoe/), [Android](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), [Apple](mobile/apple/Zoe.xcodeproj), [Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz), [Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip), and [macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip). *(Research and education only, not medical or surgical guidance.)*
+> [3D human brain](https://ablation-tool.github.io/zoe/) [research partner](dorothy-brain-observatory/README.md).
 
 <div align="center">
 
@@ -485,6 +485,8 @@ $$
 
 #### Technical Architecture
 
+*Research and education only (standard population templates), not medical or surgical guidance.*
+
 - **Real Stereotaxic 3D Geometry:** `240,376` real anatomical triangles quantized into Int16 WebGL2 `BufferGeometry` (`5.58 MB` offline mobile bundle, `< 1s` load on Pixel 7): left &amp; right ICBM152 cerebral hemispheres with FreeSurfer sulcal curvature, AAL-116 cerebellum &amp; vermis, corpus callosum, tapered ventricles (CSF), thalamus, hippocampus &amp; amygdala, 32 Pauli CIT168 deep subcortical nuclei, brainstem (midbrain/pons/medulla), Circle of Willis arterial tree, all 12 cranial nerve roots (CN I-XII, including CN IV dorsal exit), and DTI white-matter tracts.
 - **7 Real-Time GPU Shaders:** Wet-Pia Tissue, Lobe Atlas (6 lobes), AAL-116 Parcels (tap-to-glow highlighting), Glass X-Ray (smart deep-nucleus raycasting), Connectome Neon (animated neural pulses), Dorothy Continuum $A_\tau(p)$ (live $\tau$ slider updating accessible cortical volume percentage), and CAD Wireframe.
 - **Multi-Touch, MRI &amp; Dissection:** `touch-action: none` 1-finger 360° orbit, 2-finger pinch-zoom &amp; pan, tap-to-inspect MNI152 `(X, Y, Z)` mm coordinates + vascular supply, live `A/P/L/R/S/I` 3D compass, 9 camera presets, `0-100%` cortex opacity &amp; exploded dissection sliders, 14 independent layer toggles, synchronized `0.74 mm` Axial/Coronal/Sagittal MNI152 T1-MRI slices, and live 3D MRI clipping planes (`mid-sagittal`, `mid-coronal`, `mid-axial`).
@@ -501,7 +503,7 @@ $$
 
 ## 3. Core Research Systems
 
-> Six integrated engineering domains sharing one [Constitutional Firewall](CONSTITUTION.md), one [Capability Atlas](CAPABILITY-ATLAS.md), and offline reproducible verification.
+> [Six systems](CAPABILITY-ATLAS.md), one [constitutional firewall](CONSTITUTION.md).
 
 <div align="center">
 
@@ -584,7 +586,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 
 ## 4. Benchmarks &amp; AGI Roadmap
 
-> **Hard numbers with negative controls:** Live [LLM hallucination reduction](scripts/run_live_qwen_hallucination_benchmark.py), guarded [L3-L5 self-improvement](AGI-ROADMAP.md), [cryptanalysis &amp; CNSA 2.0](scripts/verify_kloster_cryptanalysis_gauntlet.py), and [36-molecule botanical screening](scripts/verify_botanical_atlas_c27.py) (`l5_agi_qualified = False`, `cure_claim = False`).
+> [Live benchmarks](PROOF-PACKET.md) and [AGI roadmap](AGI-ROADMAP.md).
 
 <div align="center">
 
@@ -768,7 +770,7 @@ python scripts/zoe_groove_forensics.py --verify
 
 </details>
 
-> **Honest Scope ([`CONSTITUTION.md`](CONSTITUTION.md)):** Zoe is research software, not sentient, not medical advice, and never acts externally without your explicit action (`sentience_claimed = False`, `l5_agi_qualified = False`, `cure_claim = False`).
+> Research software ([scope](CONSTITUTION.md), [roadmap](AGI-ROADMAP.md)).
 
 <p align="center"><img src="assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
 
@@ -890,7 +892,7 @@ zoe/
 
 ## 7. Visual Archive &amp; Image Galleries
 
-> Explore every visual in the repository: **[456-Image Visual Archive](research/visual-archive/README.md)** ([Complete Catalog](research/visual-archive/catalog/README.md)), **[Creative Artwork Gallery (19 Works)](CREATIVE-GALLERY.md)** *(non-telemetry illustrations separated per [`CONSTITUTION.md`](CONSTITUTION.md))*, **[25 Verified Brain Plates](https://ablation-tool.github.io/zoe/?tab=plates)**, and **[18-Paper Galleries](research/papers/galleries/README.md)**.
+> [456 visuals](research/visual-archive/README.md), [artwork](CREATIVE-GALLERY.md), [brain plates](https://ablation-tool.github.io/zoe/?tab=plates).
 
 <table>
 <tr>
@@ -938,10 +940,12 @@ zoe/
 
 ## 8. Research Library
 
-> All **135 books** below were accessed from **[`oreilly.com`](https://www.oreilly.com/)** via **Nicholas Michael Kloster's paid O'Reilly Learning subscription** for private local study. No copyrighted text or files are stored in this repository; every title links to [`oreilly.com`](https://www.oreilly.com/). *(Companion local references: 44 engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book), also off-repo.)*
+> [135 paid O'Reilly books](https://www.oreilly.com/) (off-repo).
 
 <details>
 <summary><strong>All 135 O'Reilly Books &amp; Authors</strong></summary>
+
+*Accessed via **Nicholas Michael Kloster's paid O'Reilly Learning subscription** ([`oreilly.com`](https://www.oreilly.com/)) for private local study. No copyrighted text or files are stored in this repository; every title links to `oreilly.com`. Companion local off-repo references: 44 engineering PDFs from [`nirmt.com`](https://www.nirmt.com/page/textile-engineering-e-book).*
 
 #### Human Brain, Neuroanatomy & Neuroimaging (33 Books)
 
