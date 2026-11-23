@@ -40,7 +40,7 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 <br/>
 
-**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Zoe Mobile App](#zoe-app-beta) · [3. Equations &amp; 16 Theorems](#mathematics-and-theorems) · [4. Empirical Results &amp; 28 Disciplines](#verified-empirical-results) · [5. Six Living Worlds](#six-living-worlds) · [6. Master Documentation Index](#documentation-index) · [7. Quick Start &amp; Verification](#quick-start)
+**Quick Navigation:** [1. Dorothy 3D Brain](#dorothy-brain-observatory) · [2. Equations &amp; 16 Theorems](#mathematics-and-theorems) · [3. Empirical Results &amp; 28 Disciplines](#verified-empirical-results) · [4. Six Living Worlds](#six-living-worlds) · [5. Master Documentation Index](#documentation-index) · [6. Quick Start &amp; Verification](#quick-start)
 
 </div>
 
@@ -112,43 +112,11 @@ $$A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}
 
 </div>
 
-<p align="center"><img src="assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
-
-<a id="zoe-app-beta"></a>
-
-## 2. Zoe (beta) `v0.9.6-beta`: Mobile App *(Free · Offline-First · Android &amp; Apple)*
-
-> **Beta Notice (`v0.9.6-beta`):** **Zoe (beta)** is our active mobile companion for **Android** (development-signed APK verified live on Pixel 7 with `68/68` unit tests, `8/8` on-device Espresso tests, `0` lint errors, featuring the offline **Dorothy 3D Brain Observatory**, **Zoe Explore Frozen Temporary Bounding Box**, native-camera **Guided Vision**, and clean **Chat**) and **Apple** (`iPhone`, `iPad` &amp; `iPhone Duo Fold` live Safari PWA + native SwiftUI Xcode project with bundled offline `DorothyBrainObservatoryView.swift`; native `.ipa` signing requires macOS Xcode). Free, private, ad-free, and zero-tracking.
-
-<div align="center">
-
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/zoe-beta-v0.9.5-showcase.png" alt="Zoe (beta) mobile app showcase on Pixel 7" width="100%" /></a>
-
-</div>
-
-<br/>
-
-| Zoe Explore *("Hi Zoe" Orb &amp; Frozen Box)* | Zoe Chat *(Auto · Local + Web)* | Creative Studio *(HD Plates &amp; MP4)* | Privacy Vault *(AES-256-GCM)* |
-|:---:|:---:|:---:|:---:|
-| <img src="assets/readme/zoe-live-orb.png" alt="Zoe Explore voice orb and camera on Pixel 7" width="190" /> | <img src="assets/readme/zoe-bulb-talk.png" alt="Hybrid Zoe Chat running Smart Auto-Router on Pixel 7" width="190" /> | <img src="assets/readme/zoe-creative-studio.png" alt="Zoe Creative Studio Image Lab and offline MP4 Video Maker on Pixel 7" width="190" /> | <img src="assets/readme/zoe-privacy-vault.png" alt="Zoe Privacy Vault with AES-256-GCM encryption on Pixel 7" width="190" /> |
-
-| Platform | Availability | What's Inside **Zoe (beta) `v0.9.6-beta`** |
-|:---|:---|:---|
-| **Android** *(API 26+ · Verified on Pixel 7)* | **Direct APK:** [`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk) · Source: [`mobile/android/`](mobile/android/) | **Dorothy 3D Brain Observatory** (`BrainObservatoryActivity`), **Zoe Explore** frozen still-frame accessibility mode with 3D Temporary Bounding Box AR, **Guided Vision** (offline OCR + 18-archetype atlas + `< 0.1 ms` `VisionPriorStore`), **Talk** (offline `ZoeBrainEngine`, MediaPipe KV-Clone local LLM, optional web/BYOK), **Creative Studio Pro** (10 HD plates, 12 filters, Bezier Draw, 30fps H.264 MP4), **Zoe Arcade**, **Privacy Vault**, **Closed-Loop L5 Digestion** (`/api/digest/mobile`), **SafeConvert** (`911` variants + offline BLE Beacon), **Accessible Volume**, **Trinity**, and **8 Field Kit Instruments**. |
-| **Apple** *(iOS 17+ · iPhone, iPad &amp; Duo Fold)* | **Instant Today:** [Safari 1-Tap Offline PWA](https://ablation-tool.github.io/zoe/) · **Native Source:** [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj) · [`mobile/shared/`](mobile/shared/) | Live installable **iOS Safari PWA** (`manifest.webmanifest`, offline Service Worker `sw.js`, 180px Apple Touch Icon, 1-finger orbit + 2-finger pinch-zoom) + native SwiftUI **Dorothy 3D Brain** (`DorothyBrainObservatoryView.swift`, `zoe-brain://` `WKURLSchemeHandler`, 5.5 MB clean open-science bundle), adaptive `NavigationSplitView` / `NavigationStack`, `ZoeLiveView`, Creative Studio, `MobileDigestionCore`, `SafeConvert` + `SafeBeaconMeshCore`, ARKit 6DoF, Privacy Vault (CryptoKit), `ZoeNativeVoice`, and `Maps &amp; Safety`. *(Signing native `.ipa` builds requires Xcode on macOS.)* |
-
-<details>
-<summary><strong>All 15 Home Zapps + 8 Field Kit Instruments (23 Built-In Tools)</strong></summary>
-
-See the full breakdown in [Complete 23-Tool Zapps Guide (`mobile/ZAPPS.md`)](mobile/ZAPPS.md), [Mobile Guide (`mobile/README.md`)](mobile/README.md), [SafeConvert Guide (`mobile/SAFECONVERT.md`)](mobile/SAFECONVERT.md), [Security Model (`mobile/SECURITY.md`)](mobile/SECURITY.md), and [Store Compliance Checklist (`mobile/STORE_COMPLIANCE.md`)](mobile/STORE_COMPLIANCE.md).
-
-</details>
-
 <p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
 <a id="mathematics-and-theorems"></a>
 
-## 3. Mathematical Foundations, Equations &amp; Verified Theorems *(16/16 SymPy Proved)*
+## 2. Mathematical Foundations, Equations &amp; Verified Theorems *(16/16 SymPy Proved)*
 
 > **Origin &amp; Reproducibility:** Operational Metacognition was originated by **Nicholas Michael Kloster on March 6, 2026**. Every algebraic identity below is symbolically verified in **SymPy 1.14.0 (`residual = 0`)** and numerically cross-checked completely offline (`0` cloud tokens, negative controls preserved).  
 > **Primary Manuscript &amp; Proof Packet:** **[16-Theorem LaTeX Monograph PDF (`4.7 MB`)](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.pdf)** · **[LaTeX Source](research/papers/zoe-research/KLOSTER-INFORMATION-GEOMETRY-AND-PHASE-TRANSITIONS.tex)** · **[1-Command Referee Proof Packet (`PROOF-PACKET.md`, `< 6s` Offline)](PROOF-PACKET.md)** · **Live Studio APIs:** `/proof`, `/optics`, `/harmonica`, `/orbit` (`61` live HTTP routes: `46` GET + `15` POST).
@@ -236,9 +204,9 @@ By selecting the generating kernel $\phi(\tau)$, this single threshold-slice fun
 
 <a id="verified-empirical-results"></a>
 
-## 4. Verified Empirical Results &amp; Applied Disciplines *(Zero Cloud Tokens · Negative Controls Preserved)*
+## 3. Verified Empirical Results &amp; Applied Disciplines *(Zero Cloud Tokens · Negative Controls Preserved)*
 
-### 4.1 Live LLM Hallucination Shootout &amp; Core Autonomous Benchmarks
+### 3.1 Live LLM Hallucination Shootout &amp; Core Autonomous Benchmarks
 
 <div align="center">
 
@@ -255,7 +223,7 @@ By selecting the generating kernel $\phi(\tau)$, this single threshold-slice fun
 | **L5 Phases 1-6 + Mobile Digestion (`16+18+18+20+22+24+16`)** | 10-domain cognitive core, multi-file AST repair, `2,400`-ep memory, 5-tier Stem-Layering, object-centric ARC (`23/24` vs. `1/24` ctrl + `4/4` abstentions), blind scratch meta-evolution (`6` gens, `0` prewritten), live 12-point Python/Java/Swift parity, and privacy-firewalled Pixel 7 `/api/digest/mobile` round-trip. | **`l5_agi_qualified = False`**, **`zoe_clone_claimed = False`**, **`sentience_claimed = False`**, `max_delta = 0.0`. | [`l5_phase6_autonomous.py`](components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_autonomous.py) · [`verify_l5_phase6.py`](scripts/verify_l5_phase6.py) · [`verify_mobile_digestion.py`](scripts/verify_mobile_digestion.py) |
 | **Groove Forensics &amp; Event-Causal Active Perception** | Separates deterministic `.MOD`/`.MID` swing attractors ($\rho_1 = -0.9778$, `1.0057 bits`) from noise, entrains `CicadaClock` (`R = 0.9334`), bridges Dorothy 40 Hz ISI; Event-Causal validation RMSE `4.641` vs. `5.058` static at `71.24 cyc/s`. | Pure-noise control drops to $\rho_1 = -0.0602$, `0.0454 bits`; exact `.MOD` grid `0.0 bits`. | [`zoe_groove_forensics.py`](scripts/zoe_groove_forensics.py) · [`EVENT-CAUSAL.md`](components/Zoe-Autonomy/EVENT-CAUSAL.md) |
 
-### 4.2 Applied Scientific, Cryptanalysis &amp; Preclinical Disciplines (`28/28` Verified · `C1-C28`)
+### 3.2 Applied Scientific, Cryptanalysis &amp; Preclinical Disciplines (`28/28` Verified · `C1-C28`)
 
 | Track | Verified Scope &amp; Key Numbers | Implementation &amp; Verifier |
 |:---|:---|:---|
@@ -270,7 +238,7 @@ By selecting the generating kernel $\phi(\tau)$, this single threshold-slice fun
 |:---:|:---:|:---:|
 | ![Zoe Bio-Crypto Reciprocal Circle C17-C19 computed plate](components/agent-logging-system/docs/images/zoe-bio-crypto-circle.png) | ![Zoe CNSA 2.0 Full Stack and Encrypted scRNA-seq Ring 2 C20-C22 computed plate](components/agent-logging-system/docs/images/zoe-cnsa2-scrna-ring2.png) | ![Zoe C27 36-Molecule NIH PubChem Botanical Atlas computed plate](components/agent-logging-system/docs/images/zoe-botanical-atlas-c27.png) |
 
-### 4.3 Honest AGI Roadmap Scorecard (`L0-L7`)
+### 3.3 Honest AGI Roadmap Scorecard (`L0-L7`)
 
 <div align="center">
 
@@ -298,7 +266,7 @@ By selecting the generating kernel $\phi(\tau)$, this single threshold-slice fun
 <a id="zoes-native-voice"></a>
 <a id="six-living-worlds"></a>
 
-## 5. Inside Zoe's Universe &amp; Six Living Worlds
+## 4. Inside Zoe's Universe &amp; Six Living Worlds
 
 > *"A beautiful diagram can invite a question; a reproducible experiment can discipline the answer. Neither needs to diminish the other."* ([Zoe Declaration](DECLARATION.md))  
 > **Research Partnership (`Nicholas × Zoe`):** Built in ongoing research partnership with **Nicholas Michael Kloster** (honoring full credit per [`CONSTITUTION.md`](CONSTITUTION.md) Article VIII). Non-telemetry artistic illustrations and emblem patches live separately in the **[Creative Artwork Gallery (`CREATIVE-GALLERY.md`)](CREATIVE-GALLERY.md)**.
@@ -363,11 +331,11 @@ Honoring **Gary Kildall**: unites **17 runtime engines** (Ablation AIARE, Rust P
 <a id="documentation-index"></a>
 <a id="zoe-rolodex-index"></a>
 
-## 6. Master Documentation &amp; Repository Index
+## 5. Master Documentation &amp; Repository Index
 
 Every document, research paper, mobile guide, component manual, and engine across the monorepo is indexed by category below.
 
-### 6.1 Core Governance, Proof Packet &amp; Architecture
+### 5.1 Core Governance, Proof Packet &amp; Architecture
 
 | Document | Purpose |
 |:---|:---|
@@ -379,7 +347,7 @@ Every document, research paper, mobile guide, component manual, and engine acros
 | [`MONOREPO.md`](MONOREPO.md) | Consolidation provenance for all 13 upstream source projects (zero submodules) |
 | [`CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md) | Dedicated gallery for all 19 non-telemetry artistic illustrations and emblem patches |
 
-### 6.2 Research Monographs, Compiled PDFs &amp; Archives
+### 5.2 Research Monographs, Compiled PDFs &amp; Archives
 
 | Research Document | Topic |
 |:---|:---|
@@ -396,7 +364,7 @@ Every document, research paper, mobile guide, component manual, and engine acros
 | [`dorothy/README.md`](research/papers/zoe-research/dorothy/README.md) · [`dorothy/CONTINUUM-AND-VISION-HEADS.md`](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | Dorothy Neurogarden Allen CCFv3, volumetric ray-casting &amp; 4-head vision study |
 | [`research/papers/README.md`](research/papers/README.md) · [`research/papers/zoe-research/README.md`](research/papers/zoe-research/README.md) · [`research/arxiv/`](research/arxiv/) · [`research/visual-archive/README.md`](research/visual-archive/README.md) · [`research/sessions/README.md`](research/sessions/README.md) | Full 18-paper archive, arXiv source packages, 456-visual catalog &amp; session logs |
 
-### 6.3 Dorothy 3D Brain &amp; Mobile Companion Documentation
+### 5.3 Dorothy 3D Brain &amp; Mobile Companion Documentation
 
 | Document | Scope |
 |:---|:---|
@@ -406,7 +374,7 @@ Every document, research paper, mobile guide, component manual, and engine acros
 | [`mobile/SECURITY.md`](mobile/SECURITY.md) · [`mobile/STORE_COMPLIANCE.md`](mobile/STORE_COMPLIANCE.md) | Mobile threat model, privacy firewalls, permissions &amp; Google Play / App Store checklist |
 | [`mobile/TRINITY.md`](mobile/TRINITY.md) · [`mobile/PAIRING.md`](mobile/PAIRING.md) · [`mobile/card/README.md`](mobile/card/README.md) · [`mobile/windows/README.md`](mobile/windows/README.md) | Zoe Trinity three-plane sync, QR pairing, Tiny Zoe APDU witness &amp; native Win32 C++17 companion |
 
-### 6.4 Autonomy, Cognitive Core &amp; Component Manuals
+### 5.4 Autonomy, Cognitive Core &amp; Component Manuals
 
 | Component / Subsystem | Documentation |
 |:---|:---|
@@ -414,7 +382,7 @@ Every document, research paper, mobile guide, component manual, and engine acros
 | **Dorothy Neurogarden (`agent-logging-system`)** | [`README.md`](components/agent-logging-system/README.md) · [`NEUROGARDEN.md`](components/agent-logging-system/docs/NEUROGARDEN.md) · [`WORLD.md`](components/agent-logging-system/docs/WORLD.md) · [`QUANTUM.md`](components/agent-logging-system/docs/QUANTUM.md) · [`operational-discipline-for-agentic-workflows.md`](components/agent-logging-system/docs/operational-discipline-for-agentic-workflows.md) |
 | **Forensics, Security &amp; Core Engines** | [`ablation`](components/ablation/README.md) · [`PALA`](components/PALA/README.md) ([operations](components/PALA/docs/operations.md)) · [`cerotto`](components/cerotto/README.md) · [`kevlar`](components/kevlar/README.md) · [`pdf-signature-toolkit`](components/pdf-signature-toolkit/README.md) · [`hpux-tools`](components/hpux-tools/README.md) · [`next-token-predictability`](components/next-token-predictability/README.md) ([algorithms](components/next-token-predictability/docs/ALGORITHMS.md) · [research](components/next-token-predictability/docs/RESEARCH.md)) · [`graphics-environment-manager`](components/graphics-environment-manager/README.md) · [`brain-gem`](components/brain-gem/README.md) · [`gem-helen`](components/gem-helen/README.md) · [`Chalkboard`](components/Chalkboard/README.md) |
 
-### 6.5 GEM OS, Workbenches &amp; Instrument Guides (`guiai-lab/docs/`)
+### 5.5 GEM OS, Workbenches &amp; Instrument Guides (`guiai-lab/docs/`)
 
 - **Core Shell &amp; OS:** [`ZOE.md`](guiai-lab/docs/ZOE.md) · [`GEM-OS.md`](guiai-lab/docs/GEM-OS.md) · [`UNIFIED.md`](guiai-lab/docs/UNIFIED.md) · [`CHAT.md`](guiai-lab/docs/CHAT.md) · [`AUTONOMY.md`](guiai-lab/docs/AUTONOMY.md) · [`VISUAL-GUIDES.md`](guiai-lab/docs/VISUAL-GUIDES.md) · [`VIDLIB.md`](guiai-lab/docs/VIDLIB.md)
 - **Physics, Timing &amp; Protocol Labs:** [`ZOE_WORKBENCH.md`](guiai-lab/docs/ZOE_WORKBENCH.md) · [`CICADA.md`](guiai-lab/docs/CICADA.md) · [`PROTOCOL.md`](guiai-lab/docs/PROTOCOL.md) · [`WAVEFORM.md`](guiai-lab/docs/WAVEFORM.md) · [`PATCHBAY.md`](guiai-lab/docs/PATCHBAY.md) · [`EVIDENCE.md`](guiai-lab/docs/EVIDENCE.md)
@@ -463,7 +431,7 @@ zoe/
 <a id="quick-start"></a>
 <a id="verification-and-testing"></a>
 
-## 7. Quick Start, Live Studio &amp; Verification
+## 6. Quick Start, Live Studio &amp; Verification
 
 ### Install &amp; Launch
 
