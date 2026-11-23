@@ -1376,7 +1376,7 @@
       fileList.map(fn => {
         const p = plateByFile[fn];
         if (!p) return '';
-        return `<button type="button" class="mini-plate" onclick="window.openLightbox('plates/${esc(fn)}', '${esc(p.title)}', '${esc(p.desc)}')">
+        return `<button type="button" class="mini-plate" data-lb-src="plates/${esc(fn)}" data-lb-title="${esc(p.title)}" data-lb-desc="${esc(p.desc)}">
           <img src="plates/${esc(fn)}" alt="${esc(p.title)}" loading="lazy"/>
           <span>${esc(p.title)}</span>
         </button>`;
@@ -1597,7 +1597,7 @@
   const platesGrid = document.getElementById('platesGrid');
   platesGrid.innerHTML = ATLAS.plates.map(p => `
     <article class="plate-card" data-search="${esc((p.title + ' ' + p.cat + ' ' + p.desc).toLowerCase())}">
-      <div class="plate-img-wrap" onclick="window.openLightbox('plates/${esc(p.file)}', '${esc(p.title)}', '${esc(p.desc)}')">
+      <div class="plate-img-wrap" data-lb-src="plates/${esc(p.file)}" data-lb-title="${esc(p.title)}" data-lb-desc="${esc(p.desc)}">
         <img src="plates/${esc(p.file)}" alt="${esc(p.title)}" loading="lazy"/>
       </div>
       <div class="plate-meta">
@@ -1745,7 +1745,7 @@
       const orig = rec[2];
       const src = `library_images/${pName}/${slug}__${orig}`;
       const niceBook = slug.replace(/-\d{10,13}$/, '').replace(/-/g, ' ');
-      return `<button type="button" class="fig-tile" onclick="window.openLightbox('${esc(src)}', '${esc(niceBook)}', '${esc(VAULT.pillarLabels[pName])} · ${esc(orig)}')">
+      return `<button type="button" class="fig-tile" data-lb-src="${esc(src)}" data-lb-title="${esc(niceBook)}" data-lb-desc="${esc(VAULT.pillarLabels[pName])} · ${esc(orig)}">
         <img src="${esc(src)}" alt="${esc(niceBook + ' figure ' + orig)}" loading="lazy"/>
         <span>${esc(niceBook)}</span>
       </button>`;
@@ -1822,6 +1822,12 @@
     if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
   };
   document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') window.closeLightbox(); });
+  document.addEventListener('click', (e) => {
+    const el = e.target && e.target.closest ? e.target.closest('[data-lb-src]') : null;
+    if (el) {
+      window.openLightbox(el.dataset.lbSrc, el.dataset.lbTitle || '', el.dataset.lbDesc || '');
+    }
+  });
 
   // ── FLOATING 3D CALLOUT LABELS + GUIDED TOUR + PNG SNAPSHOT ───────────────
   const CALLOUT_DEFS = [

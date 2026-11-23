@@ -203,6 +203,7 @@ struct ZappScreen: View {
     @ViewBuilder
     private var content: some View {
         switch zapp {
+        case .brain: DorothyBrainObservatoryView()
         case .vision: GuidedVisionView(selection: $selection)
         case .talk: ConversationView(onGoHome: onGoHome, onOpenMapsSafety: { onOpenZapp(.maps) })
         case .live: ZoeLiveView()

@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Dorothy 3D Brain"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" content="#070b12"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"/>
 <link rel="icon" type="image/svg+xml" href="assets/dorothy-icon.svg"/>
-<title>Dorothy Brain Observatory — Interactive 3D Human Brain, Real MNI152 MRI, Verified Plates &amp; Research Vault</title>
+<title>Dorothy Brain Observatory: Interactive 3D Human Brain, Real MNI152 MRI, Verified Plates &amp; Research Vault</title>
 <style>
   :root {
     --bg: #070b12;
@@ -96,8 +103,8 @@
 
   /* Center 3D Viewport + HUD + Real MRI Strip */
   .stage-wrap { position: relative; display: flex; flex-direction: column; background: radial-gradient(ellipse at 50% 45%, #111d32 0%, #090f1b 52%, #05080f 100%); overflow: hidden; }
-  #viewport3d { flex: 1; position: relative; min-height: 300px; overflow: hidden; }
-  #viewport3d canvas:not(#compass3d) { display: block; width: 100% !important; height: 100% !important; }
+  #viewport3d { flex: 1; position: relative; min-height: 300px; overflow: hidden; touch-action: none; }
+  #viewport3d canvas:not(#compass3d) { display: block; width: 100% !important; height: 100% !important; touch-action: none; }
   #compass3d { display: block; width: 76px; height: 76px; }
 
   #calloutLayer { position: absolute; inset: 0; pointer-events: none; z-index: 15; display: none; overflow: hidden; }
@@ -266,9 +273,46 @@
   #lb-img { max-width: 92vw; max-height: 76vh; background: #fff; border-radius: 8px; padding: 6px; object-fit: contain; }
   #lb-caption { max-width: 900px; text-align: center; margin-top: 12px; }
 
+  .mobile-only { display: none; }
+  .mobile-hint { display: none; }
+
   @media (max-width: 1120px) {
     #panel-brain3d.active { grid-template-columns: 240px 1fr; height: auto; min-height: calc(100vh - 54px); }
     .dock-right { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--border); }
+  }
+
+  @media (max-width: 960px) {
+    body { padding-bottom: env(safe-area-inset-bottom); -webkit-tap-highlight-color: transparent; }
+    .mobile-only { display: inline-block; }
+    .desktop-hint { display: none; }
+    .mobile-hint { display: inline; }
+    .topbar {
+      height: auto; flex-wrap: wrap; gap: 6px;
+      padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+    }
+    .brand small { display: none; }
+    .brand h1 { font-size: 0.94rem; }
+    .tabs { margin-left: 0; flex-wrap: wrap; gap: 4px; width: 100%; }
+    .tab-btn { padding: 5px 9px; font-size: 0.74rem; white-space: nowrap; border: 1px solid var(--border); border-radius: 999px; }
+    .gsearch-wrap { width: 100%; margin-left: 0; }
+    .gdrop { width: 100%; left: 0; right: 0; }
+    #panel-brain3d.active { display: flex; flex-direction: column; height: auto; overflow: visible; }
+    .stage-wrap { order: 1; }
+    #viewport3d { height: 50vh; min-height: 320px; max-height: 460px; flex: none; }
+    .hud-tl { top: 8px; left: 8px; padding: 5px 9px; max-width: calc(100% - 16px); }
+    .hud-tr {
+      position: static; justify-content: center; flex-wrap: wrap; gap: 6px;
+      background: rgba(10, 16, 28, 0.94); border-top: 1px solid var(--border);
+      padding: 7px 10px;
+    }
+    .hud-tr .ctl-btn { border-radius: 999px; padding: 6px 11px; font-size: 0.75rem; }
+    .hud-hint { left: 10px; right: 10px; text-align: center; font-size: 0.68rem; }
+    .mri-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 8px 10px; }
+    .mri-strip canvas { width: 100%; max-width: 148px; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; display: block; }
+    .mri-info { display: none; }
+    .dock-controls { order: 2; border-right: 0; border-top: 1px solid var(--border); display: none; }
+    .dock-controls.open { display: block; }
+    .dock-right { order: 3; border-left: 0; border-top: 1px solid var(--border); }
   }
 </style>
 </head>
@@ -281,7 +325,7 @@
     <span class="brand-dot" aria-hidden="true"></span>
     <div>
       <h1>Dorothy Brain Observatory</h1>
-      <small>MNI152 3D Brain · Real T1-MRI · 25 Verified Plates · 10 CAD Meshes · Dorothy A_tau(p)</small>
+      <small id="brandSub">MNI152 3D Brain · Real T1-MRI · 10–20 EEG Cap · 5 Circuits · .STL/Blender 5 · Dorothy A_tau(p)</small>
     </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="Observatory workspaces">
@@ -300,7 +344,7 @@
 <main id="mainContent">
   <!-- ═══════════════════ TAB 1: 3D NAVIGABLE BRAIN ═══════════════════ -->
   <section id="panel-brain3d" class="tab-panel active" role="tabpanel" aria-label="Interactive 3D Navigable Human Brain">
-    <aside class="dock" aria-label="3D brain rendering and dissection controls">
+    <aside id="controlsDock" class="dock dock-controls" aria-label="3D brain rendering and dissection controls">
       <div class="sec-title">Rendering Mode</div>
       <div class="btn-grid">
         <button type="button" class="ctl-btn active" data-mode="tissue">Anatomical Tissue</button>
@@ -343,6 +387,15 @@
         <input id="sliderExplode" type="range" min="0" max="100" value="0"/>
       </div>
 
+      <div class="sec-title">Functional Neural Circuits</div>
+      <div class="btn-grid">
+        <button type="button" class="ctl-btn" data-circuit="language">Language Loop</button>
+        <button type="button" class="ctl-btn" data-circuit="visual">Visual Pathway</button>
+        <button type="button" class="ctl-btn" data-circuit="motor">Motor / BG Loop</button>
+        <button type="button" class="ctl-btn" data-circuit="papez">Papez Memory</button>
+        <button type="button" class="ctl-btn" data-circuit="salience" style="grid-column:1/-1;">Multisensory &amp; Salience Network</button>
+      </div>
+
       <div class="sec-title">3D Slice Planes (Synced to MRI)</div>
       <div class="btn-grid" style="margin-bottom:6px;">
         <button type="button" class="ctl-btn" data-slice="sag">Mid-Sagittal</button>
@@ -382,6 +435,7 @@
         <label><input type="checkbox" id="chk-tracts" checked/><span class="dot" style="background:#22c55e"></span> DTI White-Matter Tracts</label>
         <label><input type="checkbox" id="chkPulses" checked/><span class="dot" style="background:#ffffff"></span> Animated Neural Pulses</label>
         <label><input type="checkbox" id="chk-pins"/><span class="dot" style="background:#f5d078"></span> 3D Brodmann Landmark Pins (52)</label>
+        <label><input type="checkbox" id="chk-eegCap"/><span class="dot" style="background:#38bdf8"></span> 10–20 EEG Smart-Textile Cap (19)</label>
       </div>
     </aside>
 
@@ -391,12 +445,7 @@
           <div id="hudMni" class="hud-mni">MNI (0, -14, 6) mm</div>
           <div id="hudMeta" class="hud-meta">Loading real MNI152/ICBM152 meshes...</div>
         </div>
-        <div class="hud-tr">
-          <button type="button" class="ctl-btn" id="btnTour">Guided Tour</button>
-          <button type="button" class="ctl-btn" id="btnLabels3D">3D Labels</button>
-          <button type="button" class="ctl-btn" id="btnSnapshot">Save PNG</button>
-          <button type="button" class="ctl-btn" id="btnToggleMri">Hide MRI Strip</button>
-        </div>
+        <div id="caliperBadge" style="display:none;position:absolute;top:68px;left:12px;z-index:22;background:rgba(10,20,36,0.94);border:1px solid #38bdf8;color:#e6edf7;border-radius:8px;padding:6px 10px;font-size:0.76rem;font-family:ui-monospace,monospace;box-shadow:0 4px 16px rgba(0,0,0,0.45);"></div>
         <div id="calloutLayer" aria-label="Floating 3D anatomical callouts"></div>
         <div id="tourBanner" class="tour-banner" role="region" aria-label="Guided brain tour narration">
           <div><strong id="tourTitle"></strong><span id="tourNote"></span></div>
@@ -405,8 +454,17 @@
         </div>
         <div id="legendBox" class="legend-box" aria-hidden="true"></div>
         <canvas id="compass3d" width="76" height="76" aria-hidden="true" title="3D Anatomical Orientation Compass (A=Anterior, P=Posterior, L=Left, R=Right, S=Superior, I=Inferior)" style="position:absolute;bottom:34px;left:12px;z-index:20;pointer-events:none;"></canvas>
-        <div class="hud-hint">Drag: Orbit · Shift/Right-Drag: Pan · Scroll: Zoom · Click any structure to inspect · WASD/Arrows: Keyboard Orbit · R: Reset</div>
+        <div class="hud-hint"><span class="desktop-hint">Drag: Orbit · Shift/Right-Drag: Pan · Scroll: Zoom · Click any structure to inspect · WASD/Arrows: Keyboard Orbit · R: Reset</span><span class="mobile-hint">Drag to orbit · Pinch to zoom · Tap any structure to inspect</span></div>
         <div id="hoverTip"></div>
+      </div>
+
+      <div class="hud-tr" role="toolbar" aria-label="3D viewport quick tools">
+        <button type="button" class="ctl-btn" id="btnTour">Guided Tour</button>
+        <button type="button" class="ctl-btn" id="btnMeasure">Measure mm</button>
+        <button type="button" class="ctl-btn" id="btnLabels3D">3D Labels</button>
+        <button type="button" class="ctl-btn mobile-only" id="btnMobileControls">Controls</button>
+        <button type="button" class="ctl-btn" id="btnSnapshot">Save PNG</button>
+        <button type="button" class="ctl-btn" id="btnToggleMri">Hide MRI Strip</button>
       </div>
 
       <section id="mriStrip" class="mri-strip" aria-label="Synchronized real MNI152 T1 MRI slices">
@@ -434,13 +492,13 @@
     <div class="page-wrap">
       <div class="page-head">
         <h2>Verified Anatomical Plates &amp; Ultra-HD Wall Chart</h2>
-        <p>Every plate below is a peer-reviewed public-domain, CC-BY medical illustration, or audited custom vector diagram from the Human Brain Atlas — zero AI-hallucinated anatomical labels. Click any plate to zoom full-screen.</p>
+        <p>Every plate below is a peer-reviewed public-domain, CC-BY medical illustration, or audited custom vector diagram from the Human Brain Atlas, with zero AI-hallucinated anatomical labels. Click any plate to zoom full-screen.</p>
       </div>
 
       <div class="poster-banner">
         <img src="plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png" alt="Complete Human Brain Map 4800 by 3200 master wall-chart poster" onclick="window.openLightbox('plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png', 'Complete Human Brain Map Poster (4800 x 3200)', '12 verified anatomical plates arranged in a printable ultra-HD 4x3 editorial wall chart.')"/>
         <div>
-          <h3>Complete Human Brain Map — 4800 × 3200 Ultra-HD Wall Chart</h3>
+          <h3>Complete Human Brain Map: 4800 × 3200 Ultra-HD Wall Chart</h3>
           <p style="margin:0 0 10px;color:var(--muted);">Printable 4×3 master wall-chart poster uniting lateral/medial gyri, Brodmann areas, cranial nerves I–XII, basal ganglia, limbic system, ventricles, Circle of Willis, vascular territories, DTI tractography, and cerebellar anatomy.</p>
           <a class="btn-sm" href="plates/COMPLETE_HUMAN_BRAIN_MAP_POSTER.png" target="_blank" rel="noopener">Open Full-Resolution Poster (PNG)</a>
         </div>
@@ -516,17 +574,17 @@
   <section id="panel-vault" class="tab-panel" role="tabpanel" aria-label="Dorothy Research Library, CAD 3D Models and Figure Vault">
     <div class="page-wrap">
       <div class="page-head">
-        <h2>Dorothy Brain Library, CAD 3D Exports &amp; 13,665-Figure Vault</h2>
-        <p>Everything merged from your O'Reilly 6-pillar neuroscience, scientific imaging, 3D modeling, video game engine, AutoCAD, and biomechanics/textiles library — plus all 44 NIRMT Textile Engineering PDFs and standard <code>.OBJ</code> / <code>.PLY</code> MNI152 brain meshes ready for Blender 5, ZBrush, AutoCAD 2027, Unity 6, Unreal Engine 5, Godot 4, and Dorothy's Neurogarden.</p>
+        <h2 id="vaultTitle">Dorothy Brain Library, CAD / 3D-Print Exports &amp; Open-Source Catalog</h2>
+        <p>Standard <code>.OBJ</code> / <code>.PLY</code> / <code>.STL</code> (3D-printing) MNI152 brain meshes and a 1-click Blender 4/5 Python auto-importer ready for Blender 5, ZBrush, AutoCAD 2027, Unity 6, Unreal Engine 5, Godot 4, and Dorothy's Neurogarden, alongside the 6-pillar O'Reilly and NIRMT research reading list.</p>
       </div>
 
       <div class="enc-sec">
-        <h3>Ready-to-Import 3D Brain Meshes (.OBJ &amp; .PLY in MNI152 Millimeters)</h3>
+        <h3>Ready-to-Import 3D Brain Meshes (.OBJ, .PLY &amp; .STL in MNI152 Millimeters + Blender 5 Script)</h3>
         <div id="cadGrid" class="cad-grid"></div>
       </div>
 
       <div class="enc-sec">
-        <h3>Research Figure Vault &amp; Bibliographic Catalog</h3>
+        <h3 id="vaultFiguresHeading">Research Figure Vault &amp; Bibliographic Catalog</h3>
         <div class="toolbar">
           <label for="vaultPillar" class="sr-only">Filter figures by library pillar</label>
           <select id="vaultPillar"></select>
@@ -547,12 +605,12 @@
           <label for="bookPillar" class="sr-only">Filter books by pillar</label>
           <select id="bookPillar">
             <option value="">All 6 Pillars</option>
-            <option value="00-human-brain">00 — Human Brain &amp; Neuroimaging</option>
-            <option value="01-science-imaging">01 — Science &amp; Medical Imaging</option>
-            <option value="02-3d-modeling">02 — 3D Modeling &amp; Graphics</option>
-            <option value="03-video-game-design">03 — Video Game Design &amp; Engines</option>
-            <option value="04-autocad-cad">04 — AutoCAD &amp; Engineering CAD</option>
-            <option value="05-biomechanics-textiles">05 — Biomechanics &amp; Textiles</option>
+            <option value="00-human-brain">00: Human Brain &amp; Neuroimaging</option>
+            <option value="01-science-imaging">01: Science &amp; Medical Imaging</option>
+            <option value="02-3d-modeling">02: 3D Modeling &amp; Graphics</option>
+            <option value="03-video-game-design">03: Video Game Design &amp; Engines</option>
+            <option value="04-autocad-cad">04: AutoCAD &amp; Engineering CAD</option>
+            <option value="05-biomechanics-textiles">05: Biomechanics &amp; Textiles</option>
           </select>
         </div>
         <div class="tbl-wrap"><table>
@@ -583,5 +641,23 @@
 <script src="data/atlas_encyclopedia.js"></script>
 <script src="data/library_vault.js"></script>
 <script src="assets/observatory.js"></script>
+<script>
+  (function () {
+    const btn = document.getElementById('btnMobileControls');
+    const dock = document.getElementById('controlsDock');
+    if (btn && dock) {
+      btn.addEventListener('click', function () {
+        const open = dock.classList.toggle('open');
+        btn.classList.toggle('active', open);
+        btn.textContent = open ? 'Hide Controls' : 'Controls';
+      });
+    }
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
+      });
+    }
+  })();
+</script>
 </body>
 </html>

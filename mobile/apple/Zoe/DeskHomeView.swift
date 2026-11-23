@@ -46,6 +46,7 @@ struct DeskHomeView: View {
         .sheet(isPresented: $showQuickSheet) {
             QuickActionsSheet(
                 arranging: $arranging,
+                onOpenBrain: { onOpen(.brain) },
                 onOpenMapsSafety: { onOpen(.maps) },
                 onOpenSafeConvert: { onOpen(.safeconvert) },
                 onOpenGemini: {
@@ -442,6 +443,7 @@ struct DeskHomeView: View {
 /// Clean Quick Actions sheet (opened from top '=' or bottom '+').
 struct QuickActionsSheet: View {
     @Binding var arranging: Bool
+    var onOpenBrain: () -> Void
     var onOpenMapsSafety: () -> Void
     var onOpenSafeConvert: () -> Void
     var onOpenGemini: () -> Void
@@ -455,6 +457,10 @@ struct QuickActionsSheet: View {
                 .padding(.bottom, 4)
                 .accessibilityAddTraits(.isHeader)
 
+            quickRow("dorothy 3d brain", helper: "interactive mni152 3d brain, live mri & atlas", icon: "brain.head.profile", accent: GemPalette.ochre) {
+                dismiss()
+                onOpenBrain()
+            }
             quickRow("Maps & Safety", helper: "GPS, Apple & Google Maps", icon: "map", accent: GemPalette.seafoam) {
                 dismiss()
                 onOpenMapsSafety()
@@ -519,7 +525,7 @@ struct AboutZoeSheet: View {
                         .font(.title2.weight(.semibold))
                         .foregroundStyle(GemPalette.ink)
                         .accessibilityAddTraits(.isHeader)
-                    Text("v0.9.5-beta · Offline-first & free")
+                    Text("v0.9.6-beta · Offline-first & free")
                         .font(.footnote)
                         .foregroundStyle(GemPalette.muted)
                 }
@@ -527,7 +533,7 @@ struct AboutZoeSheet: View {
             Text("Privacy and dignity by design. Nothing listens, watches, saves, or uploads until you tap.")
                 .font(.body)
                 .foregroundStyle(GemPalette.ink)
-            Text("Built for everyone — calm, clear, and accessible.\nAppearance: \(theme.label)")
+            Text("Built for everyone: calm, clear, and accessible.\nAppearance: \(theme.label)")
                 .font(.footnote)
                 .foregroundStyle(GemPalette.muted)
             Spacer(minLength: 8)

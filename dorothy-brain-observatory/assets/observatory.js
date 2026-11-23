@@ -113,7 +113,10 @@
       cranial: true,
       tracts: true,
       pins: false,
+      eegCap: false,
     },
+    activeCircuit: '',
+    measureMode: false,
     selectedKey: 'Frontal',
     activeTab: 'brain3d',
   };
@@ -204,6 +207,10 @@
   const gCranial    = makeGroup('cranial',    [  0, -28, 12]);
   const gTracts     = makeGroup('tracts',     [  0,  16, -6]);
   const gPins       = makeGroup('pins',       [  0,   0,  0]);
+  const gEegCap     = makeGroup('eegCap',     [  0,  22,  0]);
+  const gCircuit    = makeGroup('circuit',    [  0,   0,  0]);
+  const gCaliper    = new THREE.Group();
+  scene.add(gCaliper);
 
   // ── 1. REAL ICBM152 CORTEX HEMISPHERES (LEFT & RIGHT) ─────────────────────
   const curvBytes = b64ToBytes(MESHES.cortexLH.curv);
@@ -303,6 +310,62 @@
     side: THREE.FrontSide, clippingPlanes: activeClipPlanes,
   });
   const matCortexR = matCortexL.clone();
+
+  // Custom GLSL Holographic Fresnel Rim Glass Shader (with full Three.js clipping plane support!)
+  function makeFresnelMat(rimHex, coreHex, opVal, rimPow) {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        uRimColor:  { value: new THREE.Color(rimHex) },
+        uCoreColor: { value: new THREE.Color(coreHex) },
+        uOpacity:   { value: opVal },
+        uRimPower:  { value: rimPow },
+      },
+      vertexShader: `
+        #include <common>
+        #include <clipping_planes_pars_vertex>
+        varying vec3 vNormalView;
+        varying vec3 vViewPos;
+        varying vec3 vColor;
+        void main() {
+          vColor = color;
+          vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+          vViewPos = -mvPosition.xyz;
+          vNormalView = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * mvPosition;
+          #include <clipping_planes_vertex>
+        }
+      `,
+      fragmentShader: `
+        #include <common>
+        #include <clipping_planes_pars_fragment>
+        uniform vec3 uRimColor;
+        uniform vec3 uCoreColor;
+        uniform float uOpacity;
+        uniform float uRimPower;
+        varying vec3 vNormalView;
+        varying vec3 vViewPos;
+        varying vec3 vColor;
+        void main() {
+          #include <clipping_planes_fragment>
+          vec3 N = normalize(vNormalView);
+          vec3 V = normalize(vViewPos);
+          float fresnel = pow(1.0 - abs(dot(N, V)), uRimPower);
+          float lum = dot(vColor, vec3(0.333));
+          vec3 col = mix(uCoreColor * (0.55 + 0.65 * lum), uRimColor, clamp(fresnel * 1.25, 0.0, 1.0));
+          float alpha = clamp(uOpacity * (0.24 + 1.55 * fresnel), 0.03, 0.86);
+          gl_FragColor = vec4(col, alpha);
+        }
+      `,
+      vertexColors: true,
+      transparent: true,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      clipping: true,
+      clippingPlanes: activeClipPlanes,
+    });
+  }
+  const matFresnelXray = makeFresnelMat(0x56d8ff, 0x164e63, 0.34, 2.1);
+  const matFresnelConn = makeFresnelMat(0x6366f1, 0x0b1124, 0.30, 2.4);
 
   buildCortexColors(geoL, aalLBytes, lobeLBytes, 'tissue', state.tau);
   buildCortexColors(geoR, aalRBytes, lobeRBytes, 'tissue', state.tau);
@@ -745,6 +808,154 @@
   });
   gPins.visible = state.layers.pins;
 
+  // 3I. INTERNATIONAL 10-20 EEG & WEARABLE SMART-TEXTILE CAP OVERLAY
+  const eegMeshes = [];
+  if (ATLAS.eeg1020 && ATLAS.eeg1020.length) {
+    const eegPts = {};
+    const discGeo = new THREE.CylinderGeometry(3.4, 3.8, 1.8, 20);
+    const ringGeo = new THREE.TorusGeometry(4.1, 0.55, 8, 24);
+    const eegMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.65, roughness: 0.2, metalness: 0.5 });
+    const ringMat = new THREE.MeshStandardMaterial({ color: 0xf5d078, emissive: 0xb45309, emissiveIntensity: 0.45, roughness: 0.25, metalness: 0.7 });
+    ATLAS.eeg1020.forEach((el, idx) => {
+      const p = mniToThree(el.mni[0], el.mni[1], el.mni[2]);
+      eegPts[el.id] = p;
+      const node = new THREE.Group();
+      node.position.copy(p);
+      // Orient flat electrode sensor normal radially outward from brain center
+      const outward = p.clone().normalize();
+      node.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), outward);
+      const disc = new THREE.Mesh(discGeo, eegMat.clone());
+      disc.userData = { kind: 'eeg', eegIndex: idx, key: 'Frontal', label: `EEG ${el.id} · ${el.ba}` };
+      const rim = new THREE.Mesh(ringGeo, ringMat);
+      rim.rotation.x = Math.PI / 2;
+      node.add(disc, rim);
+      gEegCap.add(node);
+      clickableMeshes.push(disc);
+      eegMeshes.push(disc);
+    });
+    // Conductive Smart-Textile Geodesic Straps connecting 10-20 array
+    const weavePairs = [
+      ['Fp1', 'Fp2'], ['Fp1', 'F7'], ['Fp1', 'F3'], ['Fp2', 'F4'], ['Fp2', 'F8'],
+      ['F7', 'F3'], ['F3', 'Fz'], ['Fz', 'F4'], ['F4', 'F8'],
+      ['F7', 'T3'], ['F3', 'C3'], ['Fz', 'Cz'], ['F4', 'C4'], ['F8', 'T4'],
+      ['T3', 'C3'], ['C3', 'Cz'], ['Cz', 'C4'], ['C4', 'T4'],
+      ['T3', 'T5'], ['C3', 'P3'], ['Cz', 'Pz'], ['C4', 'P4'], ['T4', 'T6'],
+      ['T5', 'P3'], ['P3', 'Pz'], ['Pz', 'P4'], ['P4', 'T6'],
+      ['T5', 'O1'], ['P3', 'O1'], ['Pz', 'O1'], ['Pz', 'O2'], ['P4', 'O2'], ['T6', 'O2'], ['O1', 'O2'],
+    ];
+    const weaveMat = new THREE.MeshBasicMaterial({ color: 0xf5d078, transparent: true, opacity: 0.42 });
+    weavePairs.forEach(([a, b]) => {
+      if (!eegPts[a] || !eegPts[b]) return;
+      const mid = eegPts[a].clone().add(eegPts[b]).multiplyScalar(0.5);
+      // Bow gently outward along scalp envelope
+      mid.multiplyScalar(1.045);
+      const c = new THREE.QuadraticBezierCurve3(eegPts[a], mid, eegPts[b]);
+      gEegCap.add(new THREE.Mesh(new THREE.TubeGeometry(c, 12, 0.45, 6, false), weaveMat));
+    });
+  }
+  gEegCap.visible = state.layers.eegCap;
+
+  // 3J. INTERACTIVE FUNCTIONAL NEURAL CIRCUIT SIMULATOR
+  const circuitPulses = [];
+  function setFunctionalCircuit(circuitId) {
+    // Clear existing circuit meshes
+    while (gCircuit.children.length) gCircuit.remove(gCircuit.children[0]);
+    circuitPulses.length = 0;
+    state.activeCircuit = circuitId || '';
+    document.querySelectorAll('[data-circuit]').forEach(b => b.classList.toggle('active', b.dataset.circuit === state.activeCircuit));
+
+    if (!circuitId) {
+      gTracts.visible = state.layers.tracts;
+      return;
+    }
+    const circ = (ATLAS.circuits || []).find(c => c.id === circuitId);
+    if (!circ) return;
+
+    // Switch to Holographic Fresnel Glass X-Ray unless already in X-Ray or Connectome Neon
+    if (state.mode !== 'xray' && state.mode !== 'connectome') setRenderMode('xray');
+    setCameraPreset(circ.cam || 'hero');
+    gTracts.visible = false; // isolate this functional circuit cleanly
+
+    const pts = circ.nodes.map(n => mniToThree(n.mni[0], n.mni[1], n.mni[2]));
+    const curve = new THREE.CatmullRomCurve3(pts);
+    const colHex = parseInt(circ.color.replace('#', ''), 16);
+
+    // Primary glowing synaptic fiber bundle
+    const tubeGeo = new THREE.TubeGeometry(curve, 72, 2.2, 12, false);
+    const tubeMat = new THREE.MeshStandardMaterial({
+      color: colHex, emissive: colHex, emissiveIntensity: 0.85, roughness: 0.2, transparent: true, opacity: 0.92,
+    });
+    gCircuit.add(new THREE.Mesh(tubeGeo, tubeMat));
+
+    // Outer halo sheath
+    const haloGeo = new THREE.TubeGeometry(curve, 72, 3.8, 12, false);
+    const haloMat = new THREE.MeshBasicMaterial({ color: colHex, transparent: true, opacity: 0.18, depthWrite: false });
+    gCircuit.add(new THREE.Mesh(haloGeo, haloMat));
+
+    // Relay station glowing spheres
+    const nodeGeo = new THREE.SphereGeometry(3.8, 18, 14);
+    const nodeMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: colHex, emissiveIntensity: 1.0, roughness: 0.15 });
+    pts.forEach(p => {
+      const sp = new THREE.Mesh(nodeGeo, nodeMat);
+      sp.position.copy(p);
+      gCircuit.add(sp);
+    });
+
+    // 6 bright traveling action-potential packets along the functional circuit
+    const pktGeo = new THREE.SphereGeometry(2.6, 12, 10);
+    const pktMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    for (let k = 0; k < 6; k++) {
+      const m = new THREE.Mesh(pktGeo, pktMat);
+      gCircuit.add(m);
+      circuitPulses.push({ mesh: m, curve, t: k / 6 });
+    }
+
+    renderInspectorCircuit(circ);
+    announce(`Activated functional circuit: ${circ.name}`);
+  }
+
+  // 3K. CAD STEREOTAXIC 3D MILLIMETER CALIPER TOOL
+  let caliperPts = [];
+  function clearCaliper() {
+    while (gCaliper.children.length) gCaliper.remove(gCaliper.children[0]);
+    caliperPts = [];
+    const badge = document.getElementById('caliperBadge');
+    if (badge) badge.style.display = 'none';
+  }
+  function addCaliperPoint(threePt, mniPt, label) {
+    if (caliperPts.length >= 2) clearCaliper();
+    caliperPts.push({ p: threePt.clone(), mni: mniPt, label });
+    const sp = new THREE.Mesh(
+      new THREE.SphereGeometry(2.6, 16, 12),
+      new THREE.MeshBasicMaterial({ color: caliperPts.length === 1 ? 0x38bdf8 : 0xf5d078, depthTest: false, transparent: true, opacity: 0.96 })
+    );
+    sp.renderOrder = 999;
+    sp.position.copy(threePt);
+    gCaliper.add(sp);
+    const badge = document.getElementById('caliperBadge');
+    if (caliperPts.length === 1) {
+      badge.textContent = `CAD Caliper: Point A (${mniPt.map(Math.round).join(', ')} mm) — click Point B to measure`;
+      badge.style.display = 'block';
+    } else {
+      const a = caliperPts[0], b = caliperPts[1];
+      const dx = b.mni[0] - a.mni[0], dy = b.mni[1] - a.mni[1], dz = b.mni[2] - a.mni[2];
+      const dist = Math.hypot(dx, dy, dz);
+      const lineGeo = new THREE.BufferGeometry().setFromPoints([a.p, b.p]);
+      const lineObj = new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: 0x38bdf8, depthTest: false }));
+      lineObj.renderOrder = 998;
+      gCaliper.add(lineObj);
+      const tube = new THREE.Mesh(
+        new THREE.TubeGeometry(new THREE.LineCurve3(a.p, b.p), 4, 0.95, 8, false),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8, depthTest: false, transparent: true, opacity: 0.92 })
+      );
+      tube.renderOrder = 998;
+      gCaliper.add(tube);
+      badge.innerHTML = `<strong>CAD Distance: ${dist.toFixed(1)} mm</strong> &nbsp;|&nbsp; ΔX ${dx.toFixed(1)} · ΔY ${dy.toFixed(1)} · ΔZ ${dz.toFixed(1)} mm &nbsp;(${a.label.split(' (')[0]} → ${b.label.split(' (')[0]})`;
+      badge.style.display = 'block';
+      announce(`Measured stereotaxic distance ${dist.toFixed(1)} millimeters`);
+    }
+  }
+
   // Pulsing Selection Beacon + 3D Stereotaxic Crosshair
   const beaconGroup = new THREE.Group();
   const beaconCore = new THREE.Mesh(
@@ -821,7 +1032,9 @@
       posterior: { yaw: Math.PI, pitch: 0.08, dist: 235, t: [0, 0, -14] },
       deep:      { yaw: 0.55, pitch: 0.18, dist: 145, t: [0, 0, -10], xray: true },
     };
-    const p = presets[name] || presets.hero;
+    const aliases = { iso: 'hero', latL: 'left', latR: 'right', medL: 'sagittal' };
+    const key = aliases[name] || name;
+    const p = presets[key] || presets.hero;
     camState.goalYaw = p.yaw;
     camState.goalPitch = p.pitch;
     camState.goalDist = p.dist;
@@ -832,7 +1045,7 @@
       document.getElementById('chk-cortexL').checked = false;
       document.getElementById('chk-cortexR').checked = true;
       applyLayerVisibility();
-    } else if (name === 'hero' || name === 'left' || name === 'right' || name === 'dorsal') {
+    } else {
       state.layers.cortexL = true;
       state.layers.cortexR = true;
       document.getElementById('chk-cortexL').checked = true;
@@ -856,28 +1069,77 @@
     if (label) announce(`Focused on ${label} at MNI ${Math.round(mni[0])}, ${Math.round(mni[1])}, ${Math.round(mni[2])} millimeters`);
   }
 
-  // Pointer & Wheel interaction
+  // Pointer, Multi-Touch Pinch-Zoom & Wheel interaction
   const raycaster = new THREE.Raycaster();
   const pointerNDC = new THREE.Vector2();
   const hoverTip = document.getElementById('hoverTip');
 
+  renderer.domElement.style.touchAction = 'none';
+  const activePointers = new Map();
+  let prevPinchDist = 0;
+  let prevPinchMidX = 0;
+  let prevPinchMidY = 0;
+
+  function getPinchMetrics() {
+    const pts = Array.from(activePointers.values());
+    const dx = pts[1].x - pts[0].x;
+    const dy = pts[1].y - pts[0].y;
+    return {
+      dist: Math.hypot(dx, dy),
+      midX: (pts[0].x + pts[1].x) * 0.5,
+      midY: (pts[0].y + pts[1].y) * 0.5,
+    };
+  }
+
   renderer.domElement.addEventListener('pointerdown', (e) => {
-    camState.dragging = true;
-    camState.panning = (e.button === 2 || e.shiftKey);
-    camState.lastX = e.clientX;
-    camState.lastY = e.clientY;
-    camState.moved = false;
-    renderer.domElement.setPointerCapture(e.pointerId);
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    try { renderer.domElement.setPointerCapture(e.pointerId); } catch (_) {}
+    if (activePointers.size === 1) {
+      camState.dragging = true;
+      camState.panning = (e.button === 2 || e.shiftKey);
+      camState.lastX = e.clientX;
+      camState.lastY = e.clientY;
+      camState.moved = false;
+    } else if (activePointers.size === 2) {
+      camState.dragging = false;
+      camState.moved = true;
+      const m = getPinchMetrics();
+      prevPinchDist = m.dist;
+      prevPinchMidX = m.midX;
+      prevPinchMidY = m.midY;
+    }
   });
 
   renderer.domElement.addEventListener('contextmenu', e => e.preventDefault());
 
   renderer.domElement.addEventListener('pointermove', (e) => {
+    if (activePointers.has(e.pointerId)) {
+      activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    }
+    if (activePointers.size === 2) {
+      const m = getPinchMetrics();
+      if (prevPinchDist > 4 && m.dist > 4) {
+        const ratio = prevPinchDist / m.dist;
+        camState.goalDist = Math.max(70, Math.min(480, camState.goalDist * ratio));
+      }
+      const mdx = m.midX - prevPinchMidX;
+      const mdy = m.midY - prevPinchMidY;
+      const right = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 0);
+      const up = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 1);
+      const scale = camState.dist * 0.0014;
+      camState.goalTarget.addScaledVector(right, -mdx * scale);
+      camState.goalTarget.addScaledVector(up, mdy * scale);
+      prevPinchDist = m.dist;
+      prevPinchMidX = m.midX;
+      prevPinchMidY = m.midY;
+      hoverTip.style.display = 'none';
+      return;
+    }
     const rect = renderer.domElement.getBoundingClientRect();
     if (camState.dragging) {
       const dx = e.clientX - camState.lastX;
       const dy = e.clientY - camState.lastY;
-      if (Math.abs(dx) + Math.abs(dy) > 3) camState.moved = true;
+      if (Math.abs(dx) + Math.abs(dy) > 4) camState.moved = true;
       camState.lastX = e.clientX;
       camState.lastY = e.clientY;
       if (camState.panning) {
@@ -893,8 +1155,9 @@
       hoverTip.style.display = 'none';
       return;
     }
+    if (e.pointerType === 'touch') return;
 
-    // Hover raycast tooltip
+    // Hover raycast tooltip (mouse/stylus)
     pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
     const hit = pickStructure();
@@ -910,18 +1173,31 @@
     }
   });
 
-  renderer.domElement.addEventListener('pointerup', (e) => {
-    const wasClick = camState.dragging && !camState.moved;
-    camState.dragging = false;
-    camState.panning = false;
-    if (wasClick) {
+  function endPointer(e) {
+    const wasSingleClick = activePointers.size === 1 && camState.dragging && !camState.moved;
+    activePointers.delete(e.pointerId);
+    if (activePointers.size < 2) prevPinchDist = 0;
+    if (activePointers.size === 0) {
+      camState.dragging = false;
+      camState.panning = false;
+    } else if (activePointers.size === 1) {
+      const rem = Array.from(activePointers.values())[0];
+      camState.dragging = true;
+      camState.panning = false;
+      camState.lastX = rem.x;
+      camState.lastY = rem.y;
+      camState.moved = true;
+    }
+    if (wasSingleClick) {
       const rect = renderer.domElement.getBoundingClientRect();
       pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
       const hit = pickStructure();
       if (hit) handleStructureSelection(hit);
     }
-  });
+  }
+  renderer.domElement.addEventListener('pointerup', endPointer);
+  renderer.domElement.addEventListener('pointercancel', endPointer);
 
   renderer.domElement.addEventListener('pointerleave', () => {
     hoverTip.style.display = 'none';
@@ -947,8 +1223,14 @@
     else if (e.key === 'r' || e.key === 'R') setCameraPreset('hero');
   });
 
+  function isObjVisible(o) {
+    let cur = o;
+    while (cur) { if (!cur.visible) return false; cur = cur.parent; }
+    return true;
+  }
+
   function pickStructure() {
-    const visibleTargets = clickableMeshes.filter(m => m.visible && m.parent && m.parent.visible);
+    const visibleTargets = clickableMeshes.filter(isObjVisible);
     raycaster.setFromCamera(pointerNDC, camera);
     const rawHits = raycaster.intersectObjects(visibleTargets, false);
     // Filter out clipped hits first
@@ -960,13 +1242,17 @@
       return true;
     });
     // Smart X-Ray picking: when cortex is translucent (<55%), prioritize deep internal structures over outer cortex!
-    const orderedHits = (matCortexL.opacity < 0.55)
+    const isCortexGlass = (state.mode === 'xray' || state.mode === 'connectome' || matCortexL.opacity < 0.55);
+    const orderedHits = isCortexGlass
       ? [...unclipped.filter(h => h.object.userData.kind !== 'cortex'), ...unclipped.filter(h => h.object.userData.kind === 'cortex')]
-      : unclipped;
+      : [...unclipped.filter(h => h.object.userData.kind === 'eeg' || h.object.userData.kind === 'brodmann'), ...unclipped.filter(h => h.object.userData.kind !== 'eeg' && h.object.userData.kind !== 'brodmann')];
 
     for (const h of orderedHits) {
       const u = h.object.userData;
       const mni = threeToMni(h.point);
+      if (u.kind === 'eeg') {
+        return { kind: 'eeg', eegIndex: u.eegIndex, key: 'Frontal', title: u.label, mni, point: h.point };
+      }
       if (u.kind === 'cortex') {
         const vIdx = h.face ? h.face.a : 0;
         const aid = u.aalArr[vIdx];
@@ -1012,6 +1298,10 @@
   }
 
   function handleStructureSelection(hit) {
+    if (state.measureMode) {
+      addCaliperPoint(hit.point, hit.mni, hit.title);
+      return;
+    }
     beaconGroup.position.copy(hit.point);
     beaconGroup.visible = true;
     setMniCoords(hit.mni[0], hit.mni[1], hit.mni[2]);
@@ -1024,7 +1314,9 @@
       geoL.attributes.color.needsUpdate = true;
       geoR.attributes.color.needsUpdate = true;
     }
-    if (hit.kind === 'brodmann') {
+    if (hit.kind === 'eeg') {
+      renderInspectorEeg(hit.eegIndex);
+    } else if (hit.kind === 'brodmann') {
       renderInspectorBrodmann(hit.baIndex);
     } else if (hit.kind === 'cranial') {
       renderInspectorCranial(hit.cnIndex);
@@ -1048,20 +1340,35 @@
     const isWire = (mode === 'cad');
     const isXray = (mode === 'xray');
     const isConn = (mode === 'connectome');
-    const targetOp = isXray ? 0.24 : (isConn ? 0.22 : (isWire ? 0.42 : 1.0));
+    const targetOp = isXray ? 0.34 : (isConn ? 0.30 : (isWire ? 0.42 : 1.0));
     const isTrans = targetOp < 0.99;
 
-    [matCortexL, matCortexR].forEach(m => {
-      m.wireframe = isWire;
-      m.transparent = isTrans;
-      m.opacity = targetOp;
-      m.depthWrite = !isTrans || targetOp > 0.72;
-      m.side = isTrans || state.clipEnabled || !state.layers.cortexL || !state.layers.cortexR ? THREE.DoubleSide : THREE.FrontSide;
-      m.roughness = isXray ? 0.16 : (isConn ? 0.24 : 0.38);
-      m.emissive.setHex(isXray ? 0x0b3a58 : (isConn ? 0x050e20 : 0x000000));
-      m.emissiveIntensity = isXray ? 0.35 : (isConn ? 0.45 : 0.0);
-      m.needsUpdate = true;
-    });
+    if (isXray) {
+      meshCortexL.material = matFresnelXray;
+      meshCortexR.material = matFresnelXray;
+      matFresnelXray.uniforms.uOpacity.value = targetOp;
+      matFresnelXray.clippingPlanes = activeClipPlanes;
+    } else if (isConn) {
+      meshCortexL.material = matFresnelConn;
+      meshCortexR.material = matFresnelConn;
+      matFresnelConn.uniforms.uOpacity.value = targetOp;
+      matFresnelConn.clippingPlanes = activeClipPlanes;
+    } else {
+      meshCortexL.material = matCortexL;
+      meshCortexR.material = matCortexR;
+      [matCortexL, matCortexR].forEach(m => {
+        m.wireframe = isWire;
+        m.transparent = isTrans;
+        m.opacity = targetOp;
+        m.depthWrite = !isTrans || targetOp > 0.72;
+        m.side = isTrans || state.clipEnabled || !state.layers.cortexL || !state.layers.cortexR ? THREE.DoubleSide : THREE.FrontSide;
+        m.roughness = 0.38;
+        m.emissive.setHex(0x000000);
+        m.emissiveIntensity = 0.0;
+        m.clippingPlanes = activeClipPlanes;
+        m.needsUpdate = true;
+      });
+    }
     meshCerebellum.material.wireframe = isWire;
     meshCIT168.material.wireframe = isWire;
 
@@ -1176,7 +1483,7 @@
     const cy = document.getElementById('clipY');
     const cz = document.getElementById('clipZ');
     const chk = document.getElementById('chkClip');
-    if (which === 'reset') {
+    if (which === 'reset' || which === 'none') {
       cx.value = -72; cy.value = 72; cz.value = 82;
       chk.checked = false; state.clipEnabled = false;
     } else {
@@ -1391,6 +1698,38 @@
     `;
   }
 
+  let oscSeed = 1;
+  function renderInspectorEeg(idx) {
+    const el = ATLAS.eeg1020[idx];
+    if (!el) return;
+    oscSeed = idx + 1;
+    document.getElementById('inspectorBody').innerHTML = `
+      <div class="insp-badge">10–20 EEG &amp; Smart-Textile Sensor Cap</div>
+      <h3 class="insp-title">Electrode ${esc(el.id)} — ${esc(el.ba)}</h3>
+      <div class="insp-mni">Stereotaxic MNI152: <code>X=${el.mni[0]}, Y=${el.mni[1]}, Z=${el.mni[2]} mm</code></div>
+      <div class="insp-kv"><strong>Dominant Rhythm:</strong> ${esc(el.band)}</div>
+      <canvas id="eegOsc" width="290" height="72" style="width:100%;height:72px;background:#060c16;border:1px solid #223049;border-radius:7px;margin:6px 0 10px;"></canvas>
+      <p class="insp-desc">${esc(el.fn)}</p>
+      ${renderLinkedPlates(['03a_brodmann_lateral.png', '03c_brodmann_3d.png'])}
+      ${renderLinkedBooks(['9780323914123', '9781119857204', '9780128192474', '9781119460220'])}
+    `;
+  }
+
+  function renderInspectorCircuit(circ) {
+    oscSeed = 20;
+    const stepsHtml = circ.nodes.map((n, i) => `<li><strong>${i + 1}. ${esc(n.name)}</strong> <code style="color:#34d399;font-size:0.7rem;">(${n.mni.join(', ')})</code></li>`).join('');
+    document.getElementById('inspectorBody').innerHTML = `
+      <div class="insp-badge" style="border-color:${circ.color};color:${circ.color};">Live Functional Circuit Simulator</div>
+      <h3 class="insp-title">${esc(circ.name)}</h3>
+      <div class="insp-kv"><strong>Neural Oscillation Band:</strong> ${esc(circ.band)}</div>
+      <canvas id="eegOsc" width="290" height="72" style="width:100%;height:72px;background:#060c16;border:1px solid #223049;border-radius:7px;margin:6px 0 10px;"></canvas>
+      <p class="insp-desc">${esc(circ.summary)}</p>
+      <div class="insp-block"><h4>Synaptic Relay Sequence</h4><ol style="margin:0;padding-left:18px;font-size:0.78rem;color:#d5dfec;">${stepsHtml}</ol></div>
+      ${renderLinkedPlates(circ.plates)}
+      ${renderLinkedBooks(circ.books)}
+    `;
+  }
+
   // Expose fly-to helpers for tables & search
   window.flyToBrodmann = (idx) => {
     switchTab('brain3d');
@@ -1456,6 +1795,14 @@
     const v = parseInt(e.target.value, 10) / 100;
     state.cortexOpacity = v;
     document.getElementById('lblOpacity').textContent = e.target.value + '%';
+    if (state.mode === 'xray') {
+      matFresnelXray.uniforms.uOpacity.value = Math.max(0.05, v);
+      return;
+    }
+    if (state.mode === 'connectome') {
+      matFresnelConn.uniforms.uOpacity.value = Math.max(0.05, v);
+      return;
+    }
     const isTrans = v < 0.99;
     [matCortexL, matCortexR].forEach(m => {
       m.transparent = isTrans;
@@ -1592,20 +1939,27 @@
 
   function initVaultTab() {
     vaultInitialized = true;
-    // CAD 3D model export cards
+    if (!document.getElementById('cadGrid')) return;
+    // CAD 3D model export cards (.OBJ + .PLY + .STL + Blender 5 Python importer!)
     document.getElementById('cadGrid').innerHTML = ATLAS.cadModels.map(m => `
       <div class="cad-card">
         <strong>${esc(m.name)}</strong>
         <div class="meta">${m.verts.toLocaleString()} vertices · ${m.faces.toLocaleString()} faces (MNI152 mm)</div>
         <div class="cad-links">
-          <a href="${esc(m.file)}" download>Download .OBJ</a>
-          <a href="${esc(m.ply)}" download>Download .PLY</a>
+          <a href="${esc(m.file)}" download>.OBJ</a>
+          <a href="${esc(m.ply)}" download>.PLY</a>
+          ${m.stl ? `<a href="${esc(m.stl)}" download>.STL (3D Print)</a>` : ''}
         </div>
-      </div>`).join('');
+      </div>`).join('') + (ATLAS.blenderScript ? `
+      <div class="cad-card" style="border-color:#f5d078;">
+        <strong>Blender 4 / 5 Auto-Importer Script</strong>
+        <div class="meta">Loads all 5 MNI152 anatomical meshes with PBR materials at true mm scale</div>
+        <div class="cad-links"><a href="${esc(ATLAS.blenderScript)}" download>Download import_dorothy_brain.py</a></div>
+      </div>` : '');
 
     // Books table
     const doneBooks = VAULT.books.filter(b => b.ch > 0);
-    document.getElementById('vaultBookCount').textContent = VAULT.publicEdition ? `${VAULT.books.length} bibliographic references (public catalog)` : `${doneBooks.length} downloaded / ${VAULT.books.length} total`;
+    document.getElementById('vaultBookCount').textContent = `${doneBooks.length} downloaded / ${VAULT.books.length} total`;
     document.getElementById('tblBooks').innerHTML = VAULT.books.map(b => `
       <tr data-pillar="${esc(b.pillar)}" data-search="${esc((b.title + ' ' + b.pub + ' ' + b.isbn + ' ' + b.pillar + ' ' + b.status).toLowerCase())}">
         <td><code>${esc(b.pillar)}</code></td>
@@ -1619,7 +1973,7 @@
       </tr>`).join('');
 
     // NIRMT PDFs list
-    document.getElementById('nirmtCount').textContent = VAULT.publicEdition ? 'Excluded from public repo (third-party PDFs)' : `${VAULT.nirmtPdfs.length} verified PDFs`;
+    document.getElementById('nirmtCount').textContent = `${VAULT.nirmtPdfs.length} verified PDFs`;
     document.getElementById('nirmtGrid').innerHTML = VAULT.nirmtPdfs.map(p => `
       <a class="pdf-chip" href="${encodeURI(p.file)}" target="_blank" rel="noopener">
         <span>${esc(p.label)}</span><small>${p.mb} MB</small>
@@ -1672,7 +2026,7 @@
       `Showing ${vaultFiltered.length ? start + 1 : 0}–${Math.min(start + PAGE_SIZE, vaultFiltered.length)} of ${vaultFiltered.length.toLocaleString()} figures (Page ${vaultPage + 1} / ${totalPages})`;
     if (VAULT.publicEdition && !vaultFiltered.length) {
       document.getElementById('vaultPageInfo').textContent = 'Public repository edition (licensed publisher figures stay local only)';
-      document.getElementById('vaultGrid').innerHTML = '<div style="grid-column:1/-1;background:#101b2d;border:1px solid #223049;border-radius:10px;padding:16px;color:#93a4be;font-size:0.86rem;"><strong style="color:#f5d078;display:block;margin-bottom:4px;">Public Open-Source Edition</strong>Third-party copyrighted O\'Reilly book figures and PDFs are intentionally excluded from this public GitHub repository. All 25 open-license anatomical plates, the 4800×3200 wall-chart poster, real MNI152 T1-MRI slices, and all 10 MNI152/AAL-116/CIT168 .OBJ/.PLY 3D meshes are included directly in this repo, and the bibliographic reading list below links straight to official publisher pages.</div>';
+      document.getElementById('vaultGrid').innerHTML = '<div style="grid-column:1/-1;background:#101b2d;border:1px solid #223049;border-radius:10px;padding:16px;color:#93a4be;font-size:0.86rem;"><strong style="color:#f5d078;display:block;margin-bottom:4px;">Public Open-Source Edition</strong>Third-party copyrighted O\'Reilly book figures and PDFs are intentionally excluded from this public GitHub repository. All 25 open-license anatomical plates, the 4800×3200 wall-chart poster, real MNI152 T1-MRI slices, all 15 MNI152/AAL-116/CIT168 .OBJ/.PLY/.STL 3D-print meshes, and the Blender 4/5 auto-importer script are included directly in this repo, and the bibliographic reading list below links straight to official publisher pages.</div>';
       return;
     }
     document.getElementById('vaultGrid').innerHTML = slice.map(rec => {
@@ -1681,7 +2035,7 @@
       const orig = rec[2];
       const src = `library_images/${pName}/${slug}__${orig}`;
       const niceBook = slug.replace(/-\d{10,13}$/, '').replace(/-/g, ' ');
-      return `<button type="button" class="fig-tile" onclick="window.openLightbox('${esc(src)}', '${esc(niceBook)}', '${esc(VAULT.pillarLabels[pName])} · ${esc(orig)}')">
+      return `<button type="button" class="fig-tile" data-lb-src="${esc(src)}" data-lb-title="${esc(niceBook)}" data-lb-desc="${esc(VAULT.pillarLabels[pName])} · ${esc(orig)}">
         <img src="${esc(src)}" alt="${esc(niceBook + ' figure ' + orig)}" loading="lazy"/>
         <span>${esc(niceBook)}</span>
       </button>`;
@@ -1758,6 +2112,12 @@
     if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') lastFocusedEl.focus();
   };
   document.getElementById('lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') window.closeLightbox(); });
+  document.addEventListener('click', (e) => {
+    const el = e.target && e.target.closest ? e.target.closest('[data-lb-src]') : null;
+    if (el) {
+      window.openLightbox(el.dataset.lbSrc, el.dataset.lbTitle || '', el.dataset.lbDesc || '');
+    }
+  });
 
   // ── FLOATING 3D CALLOUT LABELS + GUIDED TOUR + PNG SNAPSHOT ───────────────
   const CALLOUT_DEFS = [
@@ -1816,9 +2176,27 @@
   });
 
   document.querySelectorAll('[data-slice]').forEach(b => b.addEventListener('click', () => setSlicePreset(b.dataset.slice)));
+  document.querySelectorAll('[data-circuit]').forEach(b => b.addEventListener('click', () => {
+    const cid = b.dataset.circuit;
+    setFunctionalCircuit(state.activeCircuit === cid ? '' : cid);
+  }));
+  const btnMeas = document.getElementById('btnMeasure');
+  if (btnMeas) btnMeas.addEventListener('click', (e) => {
+    state.measureMode = !state.measureMode;
+    e.currentTarget.classList.toggle('active', state.measureMode);
+    if (!state.measureMode) clearCaliper();
+    else {
+      const badge = document.getElementById('caliperBadge');
+      if (badge) {
+        badge.textContent = 'CAD Stereotaxic Caliper ON — click any 2 points on the 3D brain to measure mm';
+        badge.style.display = 'block';
+      }
+    }
+  });
 
   // 1-Click PNG Snapshot Download
-  document.getElementById('btnSnapshot').addEventListener('click', () => {
+  const btnSnap = document.getElementById('btnSnapshot');
+  if (btnSnap) btnSnap.addEventListener('click', () => {
     renderer.render(scene, camera);
     const a = document.createElement('a');
     a.download = `dorothy-brain-${state.mode}.png`;
@@ -1905,6 +2283,29 @@
       const pulse = 0.35 + 0.22 * Math.sin(t * 4.2);
       for (const am of arteryMeshes) am.material.emissiveIntensity = pulse;
     }
+    if (circuitPulses.length) {
+      for (const cp of circuitPulses) {
+        cp.t = (cp.t + dt * 0.22) % 1.0;
+        cp.curve.getPointAt(cp.t, cp.mesh.position);
+      }
+    }
+    // Live synthetic EEG / neural oscillation trace when an EEG sensor or Circuit is inspected
+    const oscCvs = document.getElementById('eegOsc');
+    if (oscCvs) {
+      const octx = oscCvs.getContext('2d');
+      const W = oscCvs.width, H = oscCvs.height;
+      octx.fillStyle = '#060c16'; octx.fillRect(0, 0, W, H);
+      octx.strokeStyle = '#182438'; octx.lineWidth = 1;
+      octx.beginPath(); octx.moveTo(0, H/2); octx.lineTo(W, H/2); octx.stroke();
+      octx.strokeStyle = '#38bdf8'; octx.lineWidth = 1.6;
+      octx.beginPath();
+      for (let x = 0; x < W; x++) {
+        const ph = (x * 0.065) - t * 4.2 + oscSeed;
+        const y = H/2 + Math.sin(ph) * 14 + Math.sin(ph * 2.7 + oscSeed) * 8 + Math.sin(ph * 6.3) * 4;
+        if (x === 0) octx.moveTo(x, y); else octx.lineTo(x, y);
+      }
+      octx.stroke();
+    }
 
     renderer.render(scene, camera);
     updateCallouts();
@@ -1945,6 +2346,33 @@
     ctx.globalAlpha = 1;
   }
 
+  // Live sync dynamic figure counts in header & vault headings
+  {
+    const figCnt = (VAULT.images || []).length;
+    const brandSub = document.getElementById('brandSub');
+    if (brandSub) {
+      brandSub.textContent = VAULT.publicEdition
+        ? 'MNI152 3D Brain · Real T1-MRI · 10–20 EEG Cap · 5 Circuits · .STL/Blender 5 · Dorothy A_tau(p)'
+        : `MNI152 3D Brain · Real T1-MRI · 25 Verified Plates · ${figCnt.toLocaleString()} Research Figures`;
+    }
+    const vaultTitle = document.getElementById('vaultTitle');
+    if (vaultTitle) {
+      vaultTitle.textContent = VAULT.publicEdition
+        ? 'Dorothy Brain Library, CAD / 3D-Print Exports & Open-Source Catalog'
+        : `Dorothy Brain Library, CAD / 3D-Print Exports & ${figCnt.toLocaleString()}-Figure Vault`;
+    }
+    const vaultFigH = document.getElementById('vaultFiguresHeading');
+    if (vaultFigH) {
+      vaultFigH.textContent = VAULT.publicEdition
+        ? 'Research Figure Vault & Bibliographic Catalog'
+        : `Searchable ${figCnt.toLocaleString()}-Figure Research Image Vault`;
+    }
+    const vaultSearch = document.getElementById('vaultImgSearch');
+    if (vaultSearch && !VAULT.publicEdition) {
+      vaultSearch.placeholder = `Search ${figCnt.toLocaleString()} figures by book title (e.g. cerebellum, vulkan, autocad, blender, mri, textile)...`;
+    }
+  }
+
   // Initial boot
   resize3D();
   updateCameraTransform(true);
@@ -1954,5 +2382,5 @@
   animate();
 
   // Expose tiny verification API on window for automated QA
-  window.__DOROTHY_API = { setRenderMode, setCameraPreset, applyExplode, setSlicePreset, switchTab, updateCameraTransform, setCallouts: (v) => { showCallouts = !!v; document.getElementById('btnLabels3D').classList.toggle('active', showCallouts); updateCallouts(); }, flyToBrodmann: window.flyToBrodmann, flyToStructure: window.flyToStructure, state };
+  window.__DOROTHY_API = { setRenderMode, setCameraPreset, applyExplode, setSlicePreset, setFunctionalCircuit, switchTab, updateCameraTransform, setCallouts: (v) => { showCallouts = !!v; document.getElementById('btnLabels3D').classList.toggle('active', showCallouts); updateCallouts(); }, setEegCap: (v) => { state.layers.eegCap = !!v; document.getElementById('chk-eegCap').checked = !!v; applyLayerVisibility(); }, flyToBrodmann: window.flyToBrodmann, flyToStructure: window.flyToStructure, state };
 })();
