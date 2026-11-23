@@ -4,7 +4,7 @@
 
 ABL∀TION is an AI-assisted reverse engineering (AIARE) framework.
 
-Ablation is fully integrated into the unified [Zoe research system](../../README.md), where it supplies executable-artifact semantics to Zoe's perception, reasoning, memory, and guarded action loop. It also remains an independent reverse-engineering project at `https://github.com/Ablation-Tool/ablation`. See Zoe's [capability atlas](../../CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../AGI-ROADMAP.md).
+Ablation is fully integrated into the unified [Zoe research system](../../README.md), where it supplies executable-artifact semantics to Zoe's perception, reasoning, memory, and guarded action loop. It also remains an independent reverse-engineering project at `https://github.com/Ablation-Tool/ablation`. See Zoe's [capability atlas](../../docs/CAPABILITY-ATLAS.md) and [AGI/ASI roadmap](../../docs/AGI-ROADMAP.md).
 
 ---
 
@@ -27,7 +27,7 @@ The Lab and AI Agent share the same workspace. The agent reads `gem state`, begi
 
 | Capability | Code | Description |
 |:---|:---|:---|
-| [**a11y Optimization**](gem-lab/README.md) | [1](gem-lab/gem/app.py)&nbsp;[2](gem-lab/gem/gtk_app.py) | Auto-detects & merges your accessibility settings & tools into the GUI |
+| [**a11y Optimization**](gem-lab/README.md) | [1](gem-lab/gem/accessibility.py)&nbsp;[2](gem-lab/gem/app.py)&nbsp;[3](gem-lab/gem/gtk_app.py) | Auto-detects OS accessibility preferences and persists WCAG AA/AAA palettes, text scaling, line spacing, focus ring, and reduced motion |
 | [**Operational Metacognition**](docs/reference-modules/accessible-volume.md) | [1](gem-lab/gem/accessible_volume.py)&nbsp;[2](gem-lab/gem/cli.py) | Measures and records next-token forecast breadth with a local model |
 | [**Agent Bridge**](gem-lab/README.md) | [1](gem-lab/gem/environment.py)&nbsp;[2](gem-lab/metrix/desktop.py) | Embeds your AI Agent into the GEM |
 | [**Debug Diagnostics**](gem-lab/README.md) | [1](gem-lab/gem/app.py)&nbsp;[2](gem-lab/gem/gtk_app.py) | Shows dependency and terminal diagnostics before requesting troubleshooting permission |
@@ -194,7 +194,7 @@ The Lab and AI Agent share the same workspace. The agent reads `gem state`, begi
 | [**LoongArch/nanoMIPS**](docs/reference-modules/loongarch64-2.md) | [1](ablation/analyzers/loongarch_decoder.py)&nbsp;[2](ablation/analyzers/nanomips_decoder.py)&nbsp;[3](ablation/analyzers/sink_arg_classifier_loongarch64.py) | Decodes and analyzes LoongArch and nanoMIPS |
 | [**PowerPC Calls**](docs/reference-modules/ppc32-got2-resolver.md) | [1](modules/ppc32_got2_resolver.py)&nbsp;[2](ablation/analyzers/ppc32_plt_tracer.py)&nbsp;[3](ablation/analyzers/ppc64_vmx_density.py) | Resolves PowerPC indirect calls and trampolines |
 | [**Runtime Security**](docs/reference-modules/python-pyc-scanning.md) | [1](ablation/analyzers/pyc_bytecode_scanner.py)&nbsp;[2](ablation/analyzers/perl_taint_scanner.py)&nbsp;[3](ablation/analyzers/electron_security_scanner.py) | Audits Python, Perl, and Electron code |
-| [**VPI Bridge**](docs/reference-modules/mixed-hdl-vpi-bridge.md) | [1](/media/cowboy/research/CERN/analysis/mixed-hdl/ablation_vpi_bridge.c)&nbsp;[2](/media/cowboy/research/CERN/analysis/mixed-hdl/run_mixed_bridge.py) | Links VHDL and Verilog simulators |
+| [**VPI Bridge**](docs/reference-modules/mixed-hdl-vpi-bridge.md) | [1](docs/reference-modules/mixed-hdl-vpi-bridge.md)&nbsp;[2](docs/reference-anomalies/mixed-hdl-vpi-bridge.md) | Links VHDL and Verilog simulators |
 | [**Windows Binaries**](docs/reference-modules/windows-pe.md) | [1](sweeps/pe_sweep.py)&nbsp;[2](ablation/analyzers/cfg_bypass_detector.py)&nbsp;[3](ablation/analyzers/seh_chain_analyzer.py)&nbsp;[4](ablation/analyzers/com_attack_surface_mapper.py)&nbsp;[5](ablation/analyzers/etw_provider_extractor.py)&nbsp;[6](ablation/analyzers/rpc_server_analyzer.py) | Detects Windows CFG bypasses and COM hijacks |
 
 </details>
@@ -208,7 +208,7 @@ The Lab and AI Agent share the same workspace. The agent reads `gem state`, begi
 | [**API Security**](docs/reference-modules/unknown-http-api-mapping.md) | [1](modules/api_re.py) | Discovers APIs and tests transport weaknesses |
 | [**CAN Decoding**](docs/reference-modules/calibration-parsers.md) | [1](modules/can_dbc_parser.py) | Maps CAN frames using DBC metadata |
 | [**Nginx Security**](docs/reference-modules/nginx-fingerprinting-and-exposure.md) | [1](modules/nginx_enum.py) | Fingerprints Nginx and probes exposed endpoints |
-| [**SPECS Verifier**](docs/reference-modules/specs-protocol.md) | [1](/media/cowboy/research/CERN/analysis/specs-protocol/run_rtl_boundaries.py)&nbsp;[2](/media/cowboy/research/CERN/analysis/specs-protocol/rtl_boundary_tb.sv) | Verifies all 256 SPECS read counts |
+| [**SPECS Verifier**](docs/reference-modules/specs-protocol.md) | [1](ablation/analyzers/specs_protocol.py)&nbsp;[2](tests/test_specs_protocol.py) | Verifies all 256 SPECS read counts |
 | [**State Machines**](docs/reference-modules/proto-fsm.md) | [1](modules/proto_fsm.py) | Reconstructs ARM64 protocol state machines |
 | [**TLS Analysis**](docs/reference-modules/tls-certificate-and-protocol-probing.md) | [1](ablation/core/tls_analyzer.py)&nbsp;[2](modules/tls_enum.py) | Audits TLS certificates and downgrade paths |
 
