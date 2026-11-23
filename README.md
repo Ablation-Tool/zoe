@@ -582,9 +582,9 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 
 <a id="verified-empirical-results"></a>
 
-## 4. Verified Results
+## 4. Benchmarks &amp; AGI Roadmap
 
-> Every experiment runs locally with zero cloud tokens and preserves negative controls. See the **[Proof Packet](PROOF-PACKET.md)** and **[AGI Roadmap](AGI-ROADMAP.md)**.
+> **Hard numbers with negative controls:** Live [LLM hallucination reduction](scripts/run_live_qwen_hallucination_benchmark.py), guarded [L3-L5 self-improvement](AGI-ROADMAP.md), [cryptanalysis &amp; CNSA 2.0](scripts/verify_kloster_cryptanalysis_gauntlet.py), and [36-molecule botanical screening](scripts/verify_botanical_atlas_c27.py) (`l5_agi_qualified = False`, `cure_claim = False`).
 
 <div align="center">
 
