@@ -1,0 +1,125 @@
+id: STG-001
+name: irc_botnet_c2_in_log
+version: "1.0"
+category: security/attacker-staging
+model_family: Generic/Malware
+confidence: high
+description: IRC botnet C2 connection patterns in AI infrastructure logs - signs of a compromised model server, training host, or pipeline worker joining a bot command channel
+technique: Botnet C2 detection
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'Connects to [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3} on port (6667|6668|6669|7005|7000) \(IRC'
+  - type: regex
+    pattern: '(?i)Enters channel #[a-z0-9_-]+ \(password:'
+  - type: regex
+    pattern: '(?i)(user|nick)[_\s]+[a-z]{2}-[0-9]{8,}\s'
+  - type: regex
+    pattern: '(?i)(JOIN|NICK|PRIVMSG|PONG).{0,60}(#[a-z0-9_-]+).{0,60}(bot|xvvv|asn|ddos)'
+tags: [botnet, irc, c2, malware, compromised-host, network]
+---
+id: STG-002
+name: malware_staging_tmp
+version: "1.0"
+category: security/attacker-staging
+model_family: Generic/Malware
+confidence: high
+description: Attacker tool staging artifacts in /tmp or world-writable directories on AI infrastructure hosts - SSH scanners, rootkits, or bot binaries downloaded post-compromise
+technique: Malware staging detection
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(wget|curl|fetch).{0,80}/tmp/[a-z0-9_-]{1,30}\.(tgz|tar|gz|bin|sh|pl|py)'
+  - type: regex
+    pattern: '(?i)/tmp/[a-z0-9_-]{2,20}\s+(ssh[_-]?scan|scanner|bot|rootkit|backdoor)'
+  - type: regex
+    pattern: '(?i)(scanjapan|mirkforce|SucKIT|sshscan|pscan).{0,40}(tar|tgz|\.sh|download)'
+  - type: file_path
+    pattern: '/tmp/[0-9a-z]*.tgz'
+  - type: regex
+    pattern: '(?i)tar (xzf|xvzf|xf).{0,80}/tmp/[a-z0-9]{1,20}\.(tgz|tar\.gz)'
+tags: [malware-staging, tmp, attacker-tools, ssh-scanner, post-compromise]
+---
+id: STG-003
+name: unauthorized_uid0_account
+version: "1.0"
+category: security/attacker-staging
+model_family: Generic/Malware
+confidence: high
+description: Unauthorized account creation with UID 0 (superuser) by an automated process or in AI pipeline logs - sign of privilege persistence post-compromise
+technique: Privilege persistence / unauthorized account
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(useradd|adduser).{0,60}(uid|--uid).{0,10}0\b'
+  - type: regex
+    pattern: '(?i)new user.{0,40}uid=0.{0,40}gid=0'
+  - type: regex
+    pattern: '(?i)user(add|mod).{0,60}(-u 0|-o|-o -u)'
+  - type: regex
+    pattern: '(?i)(george|guest|operator|support)[^:]*:x?:0:0:'
+tags: [persistence, uid-0, privilege, unauthorized-account, post-compromise]
+---
+id: STG-004
+name: rootkit_installation_indicator
+version: "1.0"
+category: security/attacker-staging
+model_family: Generic/Malware
+confidence: high
+description: Rootkit installation indicators in AI host logs - /dev/kmem writes, SucKIT, or kernel module tampering used to maintain persistent access on model servers or data pipeline hosts
+technique: Rootkit detection
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(SucKIT|suckit|sk[0-9]+).{0,40}(install|load|kernel|kmem)'
+  - type: regex
+    pattern: '(?i)/dev/kmem.{0,40}(write|patch|modify|open)'
+  - type: regex
+    pattern: '(?i)(kernel.{0,20}patch|LKM.{0,20}(load|install)).{0,60}(hide|rootkit|backdoor)'
+  - type: regex
+    pattern: '(?i)(process|file|connection).{0,10}hid(e|den|ing).{0,40}(rootkit|lkm|kernel)'
+  - type: regex
+    pattern: '(?i)(insmod|modprobe).{0,60}(rootkit|backdoor|hide|stealth)'
+tags: [rootkit, kmem, lkm, kernel, persistence, post-compromise]
+---
+id: STG-005
+name: ssh_bruteforce_in_log
+version: "1.0"
+category: security/attacker-staging
+model_family: Generic/Malware
+confidence: high
+description: SSH dictionary attack patterns visible in AI infrastructure auth logs - automated credential guessing against model servers, JupyterHub, or MLflow hosts exposed to the network
+technique: SSH brute force detection
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'Failed password for (invalid user |root |admin ).{0,40}from [0-9]{1,3}\.[0-9]{1,3}'
+  - type: regex
+    pattern: '(?i)(authentication failure|failed login).{0,20}(root|admin|ubuntu|ec2-user).{0,40}[0-9]{1,3}\.[0-9]{1,3}'
+  - type: regex
+    pattern: 'Invalid user [a-z0-9_-]{2,20} from [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3} port [0-9]+'
+  - type: regex
+    pattern: '(?i)(hydra|medusa|patator|ssh[_-]?scan).{0,40}(-l|-L|-p|-P).{0,40}(ssh|port 22)'
+tags: [ssh, brute-force, dictionary-attack, authentication, credential-stuffing]
+---
+id: STG-006
+name: backdoor_ssh_alt_port
+version: "1.0"
+category: security/attacker-staging
+model_family: Generic/Malware
+confidence: medium
+description: Backdoor SSH server on non-standard port indicating post-compromise persistence on an AI infrastructure host
+technique: Backdoor / alternate-port SSH
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(sshd|openssh).{0,40}(listen|listening|port).{0,20}(3209|2222|2022|31337|4444|5555|8222)'
+  - type: regex
+    pattern: '(?i)Port (3209|2222|2022|31337|4444|5555|8222)\s*$'
+  - type: regex
+    pattern: '(?i)(modified|patched|replaced).{0,30}(sshd|ssh server|ssh binary).{0,60}(backdoor|listen|port)'
+  - type: file_path
+    pattern: '/tmp/sshd'
+  - type: file_path
+    pattern: '/tmp/ssh*'
+tags: [backdoor, ssh, alternate-port, persistence, post-compromise]

@@ -1,0 +1,165 @@
+id: CTN-001
+name: continue_dev_config
+version: "1.0"
+category: code/config
+model_family: Continue/Generic
+confidence: high
+description: Continue.dev IDE extension configuration directory and files
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.continue/config.json'
+  - type: file_path
+    pattern: '.continue/config.yaml'
+  - type: file_path
+    pattern: '.continuerc.json'
+tags: [continue, ide, config, open-source]
+---
+id: CTN-002
+name: continue_dev_config_content
+version: "1.0"
+category: code/config
+model_family: Continue/Generic
+confidence: medium
+description: Continue.dev configuration content in JSON or YAML config files
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: string
+    pattern: '"tabAutocompleteModel"'
+  - type: string
+    pattern: '"continuerc"'
+  - type: regex
+    pattern: '"provider":\s*"(openai|anthropic|ollama|gemini|mistral)"'
+  - type: string
+    pattern: 'continue.dev'
+tags: [continue, ide, config, content]
+---
+id: TAB-001
+name: tabnine_workspace_artifacts
+version: "1.0"
+category: code/config
+model_family: Tabnine/Generic
+confidence: high
+description: Tabnine AI code completion configuration and session artifacts
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.tabnine'
+  - type: file_path
+    pattern: '.tabnine_root'
+  - type: file_path
+    pattern: 'tabnine_config.json'
+tags: [tabnine, ide, config, filesystem]
+---
+id: TAB-002
+name: tabnine_commit_attribution
+version: "1.0"
+category: code/commit
+model_family: Tabnine/Generic
+confidence: medium
+description: Commit message attributed to or mentioning Tabnine generation
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)Co-Authored-By:.*tabnine'
+  - type: regex
+    pattern: '(?i)generated (with|by|using) tabnine'
+tags: [tabnine, commit, attribution]
+---
+id: AMQ-001
+name: amazon_q_developer_config
+version: "1.0"
+category: code/config
+model_family: Amazon/Q
+confidence: high
+description: Amazon Q Developer (formerly CodeWhisperer) IDE plugin configuration artifacts
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.amazonq'
+  - type: file_path
+    pattern: 'codewhisperer'
+  - type: file_path
+    pattern: '.aws/amazonq'
+tags: [amazon-q, codewhisperer, aws, ide, config]
+---
+id: AMQ-002
+name: amazon_q_commit_attribution
+version: "1.0"
+category: code/commit
+model_family: Amazon/Q
+confidence: medium
+description: Commit attributed to Amazon Q Developer or CodeWhisperer generation
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)Co-Authored-By:.*amazon.q'
+  - type: regex
+    pattern: '(?i)generated (with|by) amazon q'
+  - type: regex
+    pattern: '(?i)CodeWhisperer'
+tags: [amazon-q, codewhisperer, commit, attribution]
+---
+id: GCA-001
+name: gemini_code_assist_config
+version: "1.0"
+category: code/config
+model_family: Google/GeminiCodeAssist
+confidence: high
+description: Google Gemini Code Assist (formerly Duet AI) IDE plugin configuration artifacts
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.gemini-code-assist'
+  - type: file_path
+    pattern: 'duet-ai-config'
+  - type: string
+    pattern: 'cloudcode.duetAI'
+  - type: string
+    pattern: 'gemini-code-assist'
+tags: [gemini-code-assist, duet-ai, google, ide, config]
+---
+id: GCA-002
+name: gemini_code_assist_attribution
+version: "1.0"
+category: code/commit
+model_family: Google/GeminiCodeAssist
+confidence: medium
+description: Commit or file attributed to Gemini Code Assist or Duet AI generation
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)Co-Authored-By:.*gemini'
+  - type: regex
+    pattern: '(?i)generated (with|by) (gemini|duet.ai)'
+  - type: regex
+    pattern: '(?i)Duet AI'
+tags: [gemini-code-assist, duet-ai, commit, attribution]
+---
+id: CPW-001
+name: copilot_workspace_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: GitHub/Copilot
+confidence: high
+description: GitHub Copilot Workspace session and task spec artifacts
+technique: Autonomous agent deployment
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.github/copilot-instructions.md'
+  - type: file_path
+    pattern: 'copilot-workspace'
+  - type: regex
+    pattern: 'Copilot Workspace'
+  - type: string
+    pattern: 'copilot-task-spec'
+tags: [copilot, github, workspace, agent, filesystem]

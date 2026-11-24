@@ -1,0 +1,151 @@
+id: A21-001
+name: ai21_labs_api_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: AI21/Labs
+confidence: high
+description: AI21 Labs API endpoint and header patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'api.ai21.com'
+  - type: regex
+    pattern: 'j2-(ultra|mid|light|grande)'
+  - type: regex
+    pattern: 'jamba-(instruct|1\.5)'
+  - type: string
+    pattern: 'AI21_API_KEY'
+tags: [ai21, jamba, api, headers, network]
+---
+id: A21-002
+name: ai21_labs_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: AI21/Labs
+confidence: medium
+description: AI21 Labs SDK client patterns in source code or configuration
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from ai21'
+  - type: string
+    pattern: 'import ai21'
+  - type: regex
+    pattern: 'AI21Client\s*\('
+tags: [ai21, jamba, sdk, config]
+---
+id: CBR-001
+name: cerebras_api_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: Cerebras/Generic
+confidence: high
+description: Cerebras Inference API endpoint and header patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'api.cerebras.ai'
+  - type: string
+    pattern: 'CEREBRAS_API_KEY'
+  - type: regex
+    pattern: 'x-cerebras-'
+  - type: regex
+    pattern: 'llama3\.\d-\d+b-instruct'
+tags: [cerebras, api, headers, network, inference]
+---
+id: GHM-001
+name: github_models_endpoint
+version: "1.0"
+category: infrastructure/headers
+model_family: GitHub/Models
+confidence: high
+description: GitHub Models inference endpoint patterns - GitHub-hosted model inference via Azure AI
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'models.inference.ai.azure.com'
+  - type: regex
+    pattern: 'github_pat_[A-Za-z0-9_]+'
+  - type: string
+    pattern: 'GITHUB_TOKEN'
+  - type: string
+    pattern: 'azure-ai-inference'
+tags: [github, models, inference, azure, api, headers]
+---
+id: GHM-002
+name: github_models_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: GitHub/Models
+confidence: medium
+description: GitHub Models SDK client patterns in source code or configuration
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from azure.ai.inference'
+  - type: regex
+    pattern: 'ChatCompletionsClient\s*\('
+  - type: string
+    pattern: 'models.inference.ai.azure.com'
+tags: [github, models, azure-ai-inference, sdk, config]
+---
+id: CFL-001
+name: cloudflare_workers_ai
+version: "1.0"
+category: infrastructure/headers
+model_family: Cloudflare/AI
+confidence: high
+description: Cloudflare Workers AI API endpoint patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'api\.cloudflare\.com/client/v4/accounts/[a-f0-9]+/ai/run'
+  - type: regex
+    pattern: '@cf/(mistral|llama|whisper|text-embeddings)'
+  - type: string
+    pattern: 'CLOUDFLARE_AI_TOKEN'
+tags: [cloudflare, workers-ai, api, headers, network]
+---
+id: SGM-001
+name: aws_sagemaker_endpoint
+version: "1.0"
+category: infrastructure/headers
+model_family: AWS/SageMaker
+confidence: high
+description: AWS SageMaker inference endpoint patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'runtime\.sagemaker\.[a-z0-9-]+\.amazonaws\.com'
+  - type: regex
+    pattern: '/endpoints/[^/]+/invocations'
+  - type: string
+    pattern: 'X-Amzn-SageMaker'
+tags: [sagemaker, aws, api, headers, network, inference]
+---
+id: SGM-002
+name: aws_sagemaker_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: AWS/SageMaker
+confidence: medium
+description: AWS SageMaker SDK client patterns in source code or configuration
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: "boto3\\.client\\([\"']sagemaker-runtime"
+  - type: string
+    pattern: 'SageMakerRuntime'
+  - type: regex
+    pattern: 'HuggingFaceModel\s*\('
+  - type: string
+    pattern: 'sagemaker.predictor'
+tags: [sagemaker, boto3, sdk, config, aws]

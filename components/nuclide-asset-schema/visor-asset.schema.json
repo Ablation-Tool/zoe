@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nuclide-research/nuclide-asset-schema/blob/main/visor-asset.schema.json",
+  "title": "Visor Asset Record",
+  "description": "Canonical record format for the NuClide Visor toolchain. One record describes one asset (IP:port) at one point in time, with attribution, fingerprint, classification, and findings. Every Visor tool should be able to read this shape and write it.",
+  "type": "object",
+  "required": ["schema_version", "asset", "source", "timestamp"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.1.0",
+      "description": "Visor Asset schema version. Consumers MUST check this and SHOULD reject records with unknown versions."
+    },
+    "asset": {
+      "type": "object",
+      "description": "The asset. Either a clear-net ip+port, or a Tor onion_address.",
+      "properties": {
+        "ip": {
+          "type": "string",
+          "description": "IPv4 or IPv6 address (clear-net assets).",
+          "anyOf": [{ "format": "ipv4" }, { "format": "ipv6" }]
+        },
+        "port": { "type": "integer", "minimum": 0, "maximum": 65535 },
+        "onion_address": {
+          "type": "string",
+          "pattern": "^[a-z2-7]{56}\\.onion$",
+          "description": "v3 onion address (Tor hidden-service assets)."
+        },
+        "intro_points": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Relay fingerprints published as introduction points; attribution anchor when ip is absent."
+        },
+        "scheme": { "type": "string", "enum": ["http", "https", "tcp", "udp", "tls", "ws", "wss"] },
+        "host_port": { "type": "string", "description": "Convenience composite \"ip:port\"." },
+        "hostnames": { "type": "array", "items": { "type": "string" } },
+        "asn": { "type": "string", "pattern": "^AS[0-9]+$" }
+      },
+      "oneOf": [
+        { "required": ["ip", "port"] },
+        { "required": ["onion_address"] }
+      ]
+    },
+    "services": {
+      "type": "array",
+      "description": "Service-level fingerprints detected on this asset.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "description": "Canonical service name (e.g. sub2api, ollama, langfuse)." },
+          "version": { "type": "string" },
+          "banner": { "type": "string" },
+          "fingerprint": { "type": "string", "description": "Which fingerprint rule fired (e.g. health-json-status-ok)." },
+          "deep_enum": {
+            "type": "object",
+            "description": "Per-service enumeration payload. Shape is service-specific.",
+            "additionalProperties": true
+          },
+          "ports_observed": { "type": "array", "items": { "type": "integer" } }
+        },
+        "additionalProperties": true
+      }
+    },
+    "attribution": {
+      "type": "object",
+      "description": "Who runs this asset.",
+      "properties": {
+        "org": { "type": "string" },
+        "isp": { "type": "string" },
+        "country": { "type": "string", "description": "ISO 3166-1 alpha-2." },
+        "country_name": { "type": "string" },
+        "city": { "type": "string" },
+        "cert_subject_cn": { "type": "string" },
+        "cert_subject_org": { "type": "string" },
+        "cert_sans": { "type": "array", "items": { "type": "string" } },
+        "cert_issuer_cn": { "type": "string" },
+        "domains": { "type": "array", "items": { "type": "string" } },
+        "operator_cluster": { "type": "string", "description": "Multi-host operator cluster ID if known (e.g. aiproxy.astrum-lab.com)." }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "description": "What this asset is (target classification + ethics flags).",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["commercial", "personal", "institutional", "research", "healthcare", "government", "education", "honeypot", "unknown"]
+        },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "ethics_flags": { "type": "array", "items": { "type": "string", "enum": ["HIPAA-adjacent", "education", "personal-device", "safe-harbor", "honeypot", "controlled-target", "ITAR", "defense-contractor", "minor-data"] } },
+        "sector": { "type": "string" },
+        "tld_class": { "type": "string", "description": "e.g. .go.id, .mil, .edu, .gov" }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "description": "Verified findings against this asset.",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "severity"],
+        "properties": {
+          "rule_id": { "type": "string", "description": "Stable rule identifier (e.g. AI.H6 for sub2api install-wizard takeover; vendor:cve for CVEs)." },
+          "severity": { "type": "string", "enum": ["info", "low", "medium", "high", "critical"] },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "evidence": { "type": "string", "description": "Probe response or other primary-source evidence (truncated)." },
+          "evidence_artifact": { "type": "string", "description": "Path to a file with full evidence (PCAP, full HTTP response, screenshot)." },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "cve": { "type": "array", "items": { "type": "string", "pattern": "^CVE-[0-9]{4}-[0-9]+$" } },
+          "tier_label_basis": { "type": "string", "description": "Why this severity was chosen. Required when severity >= high per the hard-proof rule." }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "Provenance: which tool / run produced this record.",
+      "required": ["tool"],
+      "properties": {
+        "tool": { "type": "string", "description": "Tool name (jaxen, aimap, visorgraph, visorlog, visorscuba, bare, etc.)." },
+        "tool_version": { "type": "string" },
+        "run_id": { "type": "string", "description": "Survey ID or run UUID for cross-tool correlation." },
+        "survey": { "type": "string", "description": "Human-readable survey name (e.g. sub2api-population-2026-05-19)." }
+      }
+    },
+    "timestamp": { "type": "string", "format": "date-time", "description": "RFC3339 timestamp when this record was produced." },
+    "lifecycle": {
+      "type": "object",
+      "description": "VisorLog lifecycle state.",
+      "properties": {
+        "status": { "type": "string", "enum": ["open", "disclosed", "acknowledged", "remediated", "verified"] },
+        "first_seen": { "type": "string", "format": "date-time" },
+        "last_seen": { "type": "string", "format": "date-time" },
+        "disclosed_to": { "type": "array", "items": { "type": "string" } },
+        "disclosed_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "raw": {
+      "type": "object",
+      "description": "Optional pass-through for tool-specific extra fields. Tools that don't recognize fields here SHOULD preserve them on read/write rather than discard.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,94 @@
+{
+  "test_id": "embedding-comparison-001",
+  "notes": "Two series of 4 sessions each. Series A trends from high overhead to none (calibration improving). Series B does the opposite (calibration degrading). Each exchange uses the explicit 'clarification' label so the test is deterministic and isolates the embedding/comparison layer. Heuristic detection was validated separately.",
+  "series_a": {
+    "name": "improving",
+    "sessions": [
+      {
+        "session_id": "A.s1",
+        "exchanges": [
+          {"id": "A.s1.e1", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "A.s1.e2", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "A.s1.e3", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "A.s1.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s1.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      },
+      {
+        "session_id": "A.s2",
+        "exchanges": [
+          {"id": "A.s2.e1", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "A.s2.e2", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "A.s2.e3", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s2.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s2.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      },
+      {
+        "session_id": "A.s3",
+        "exchanges": [
+          {"id": "A.s3.e1", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "A.s3.e2", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s3.e3", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s3.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s3.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      },
+      {
+        "session_id": "A.s4",
+        "exchanges": [
+          {"id": "A.s4.e1", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s4.e2", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s4.e3", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s4.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "A.s4.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      }
+    ]
+  },
+  "series_b": {
+    "name": "degrading",
+    "sessions": [
+      {
+        "session_id": "B.s1",
+        "exchanges": [
+          {"id": "B.s1.e1", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s1.e2", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s1.e3", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s1.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s1.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      },
+      {
+        "session_id": "B.s2",
+        "exchanges": [
+          {"id": "B.s2.e1", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s2.e2", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s2.e3", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s2.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s2.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      },
+      {
+        "session_id": "B.s3",
+        "exchanges": [
+          {"id": "B.s3.e1", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s3.e2", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s3.e3", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s3.e4", "user": "u", "assistant": "a", "clarification": false},
+          {"id": "B.s3.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      },
+      {
+        "session_id": "B.s4",
+        "exchanges": [
+          {"id": "B.s4.e1", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s4.e2", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s4.e3", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s4.e4", "user": "u", "assistant": "a", "clarification": true},
+          {"id": "B.s4.e5", "user": "u", "assistant": "a", "clarification": false}
+        ]
+      }
+    ]
+  }
+}

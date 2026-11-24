@@ -1,0 +1,22 @@
+{
+  "tos": {
+    "url": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "retrieved": "2026-11-04T14:25:39Z",
+    "sha256": "a411fc725260729c7a537ecd29254a472f1701ebd808206ff055c424f8dff384"
+  },
+  "aup": {
+    "url": "https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies",
+    "retrieved": "2026-11-04T14:25:39Z",
+    "sha256": "9cb6ac5af53c50d2eb4b7297ff5d5dcaaf31928284895ebee23a23642b8e1f84"
+  },
+  "dmca": {
+    "url": "https://docs.github.com/en/site-policy/content-removal-policies/dmca-takedown-policy",
+    "retrieved": "2026-11-04T14:25:39Z",
+    "sha256": "15b66d4576c0a682c6a0d9da485a68dc6114510c2209cf288c0ec934661acd62"
+  },
+  "community": {
+    "url": "https://docs.github.com/en/site-policy/github-terms/github-community-guidelines",
+    "retrieved": "2026-11-04T14:25:41Z",
+    "sha256": "106256c9fd4ef802b98b92a3bb49c048371f392f0ce2ce37675ed7d7adecf150"
+  }
+}

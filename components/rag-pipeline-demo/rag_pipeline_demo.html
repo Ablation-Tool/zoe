@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Reverse Engineering Claude's RAG Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    /* Claude.ai warm palette */
+    --bg:#faf9f5;
+    --bg2:#f5f2ea;
+    --bg3:#ebe7da;
+    --bg4:#f0ece0;
+    --border:#d9d3c2;
+    --border2:#c7c1ae;
+    --text:#2c2b28;
+    --text2:#4a4845;
+    --muted:#73726c;
+    --muted2:#5f5e5a;
+    --accent:#c9674f;
+    --accent-glow:rgba(201,103,79,.18);
+    --accent2:#8a5a3c;
+    --green:#5f7a4c;
+    --green-glow:rgba(95,122,76,.18);
+    --amber:#b8833d;
+    --red:#a8493c;
+    --serif:'Fraunces',Georgia,serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#1f1d18;
+      --bg2:#2a2821;
+      --bg3:#353229;
+      --bg4:#252320;
+      --border:#3d3b32;
+      --border2:#4f4c41;
+      --text:#ebe8dd;
+      --text2:#d1cdc0;
+      --muted:#9c9a92;
+      --muted2:#b8b6ab;
+      --accent:#e08868;
+      --accent-glow:rgba(224,136,104,.22);
+      --accent2:#c99779;
+      --green:#8fb085;
+      --green-glow:rgba(143,176,133,.22);
+      --amber:#d9a860;
+      --red:#e08868;
+    }
+  }
+  html,body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body{padding:36px 28px 48px;max-width:900px;margin:0 auto}
+
+  /* Editorial header */
+  .doc-header{margin-bottom:10px;padding-bottom:20px;border-bottom:0.5px solid var(--border)}
+  .doc-title{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.08;color:var(--text);letter-spacing:-0.02em;margin-bottom:8px;font-variation-settings:"opsz" 48}
+  .doc-via{font-family:var(--serif);font-size:19px;font-style:italic;color:var(--accent);margin-bottom:14px;line-height:1.4;font-weight:400}
+  .doc-byline{font-family:var(--sans);font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+  .doc-byline .n{color:var(--accent);font-weight:600;letter-spacing:.08em}
+  .doc-intro{font-family:var(--sans);font-size:14.5px;color:var(--muted2);margin:20px 0 24px;line-height:1.65}
+
+  /* Input */
+  .input-wrap{position:relative;margin-bottom:22px}
+  #prompt-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 90px 14px 16px;font-family:var(--mono);font-size:14px;color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}
+  #prompt-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+  #prompt-input::placeholder{color:var(--muted)}
+  #send-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:var(--accent);color:#fff;border:none;border-radius:7px;padding:0 16px;height:34px;cursor:pointer;font-weight:500;font-size:13px;font-family:var(--sans);transition:opacity .2s,transform .1s;display:flex;align-items:center;gap:6px}
+  #send-btn:hover:not(:disabled){opacity:.9}
+  #send-btn:active:not(:disabled){transform:translateY(-50%) scale(.97)}
+  #send-btn:disabled{opacity:.4;cursor:not-allowed}
+
+  /* Pipeline */
+  .pipeline{display:flex;align-items:center;gap:0;margin-bottom:22px;overflow-x:auto;padding:6px 0}
+  .p-node{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:76px}
+  .p-dot{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--muted);transition:all .4s;position:relative;font-family:var(--sans)}
+  .p-dot.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
+  .p-dot.done{border-color:var(--green);background:var(--green-glow);color:var(--green)}
+  .p-dot.err{border-color:var(--red);background:rgba(168,73,60,.12);color:var(--red)}
+  .p-dot.active::after{content:'';position:absolute;width:100%;height:100%;border-radius:50%;border:1.5px solid var(--accent);animation:pulse 1.2s ease-out infinite;opacity:0}
+  @keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+  .p-label{font-size:11px;color:var(--muted);text-align:center;line-height:1.3;white-space:nowrap;font-family:var(--sans)}
+  .p-label.active{color:var(--accent)}
+  .p-label.done{color:var(--green)}
+  .p-label.err{color:var(--red)}
+  .p-line{flex:1;height:1.5px;background:var(--border);min-width:14px;transition:background .4s}
+  .p-line.done{background:var(--green)}
+
+  /* Stage cards */
+  .stage-card{background:var(--bg2);border:1px solid var(--border);border-radius:11px;margin-bottom:11px;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s,border-color .25s;overflow:hidden}
+  .stage-card.visible{opacity:1;transform:translateY(0)}
+  .stage-card.active-card{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent-glow)}
+  .stage-card.err-card{border-color:var(--red)}
+  .stage-header{display:flex;align-items:center;gap:9px;padding:13px 16px 11px;cursor:pointer;user-select:none}
+  .stage-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;font-family:var(--sans)}
+  .stage-icon.s1{background:var(--accent-glow);color:var(--accent)}
+  .stage-icon.s2{background:rgba(138,90,60,.15);color:var(--accent2)}
+  .stage-icon.s3{background:rgba(184,131,61,.18);color:var(--amber)}
+  .stage-icon.s4{background:var(--green-glow);color:var(--green)}
+  .stage-title{font-size:13.5px;font-weight:600;letter-spacing:-.005em;color:var(--text);font-family:var(--sans)}
+  .stage-sub{font-size:11.5px;color:var(--muted);margin-left:auto;font-family:var(--sans)}
+  .chev{width:15px;height:15px;color:var(--muted);transition:transform .25s;flex-shrink:0}
+  .stage-card.open .chev{transform:rotate(90deg);color:var(--accent)}
+
+  .stage-body{font-family:var(--mono);font-size:12.5px;line-height:1.75;color:var(--text2);background:var(--bg3);border-radius:7px;padding:11px 14px;white-space:pre-wrap;min-height:34px;word-break:break-word;margin:0 16px 13px}
+  .stage-body .hl{color:var(--accent)}
+  .stage-body .hl2{color:var(--accent2)}
+  .stage-body .hl3{color:var(--amber)}
+  .stage-body .hlg{color:var(--green)}
+  .stage-body .hlr{color:var(--red)}
+
+  /* Internals */
+  .internals{max-height:0;overflow:hidden;transition:max-height .4s ease-out;background:var(--bg4);border-top:1px solid var(--border)}
+  .stage-card.open .internals{max-height:3000px}
+  .int-inner{padding:16px 18px}
+  .int-section{margin-bottom:15px}
+  .int-section:last-child{margin-bottom:0}
+  .int-label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:7px;font-weight:500;font-family:var(--sans)}
+  .int-label .pill{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:9.5px;letter-spacing:0;text-transform:none;color:var(--muted2);font-family:var(--mono);font-weight:400}
+  .int-code{font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text2);background:var(--bg3);border:1px solid var(--border);border-left:2px solid var(--accent);border-radius:5px;padding:10px 13px;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow-y:auto}
+  .int-code.syst{border-left-color:var(--amber)}
+  .int-code.user{border-left-color:var(--accent)}
+  .int-code.resp{border-left-color:var(--green)}
+  .int-code.err{border-left-color:var(--red);color:var(--red)}
+  .int-arrow{display:flex;align-items:center;justify-content:center;margin:7px 0;color:var(--muted);font-size:15px}
+  .int-hint{font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;line-height:1.55;font-family:var(--serif)}
+
+  /* Answer card */
+  #answer-card{background:var(--bg2);border:1px solid var(--green);border-radius:11px;padding:20px 22px;margin-top:6px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+  #answer-card.visible{opacity:1;transform:translateY(0)}
+  .ans-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:7px;font-weight:600;font-family:var(--sans)}
+  .ans-label::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green-glow)}
+  #answer-text{font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--text);white-space:pre-wrap}
+
+  .cursor{display:inline-block;width:7px;height:13px;background:var(--accent);animation:blink .7s step-end infinite;vertical-align:text-bottom}
+  @keyframes blink{50%{opacity:0}}
+  .spin{display:inline-block;animation:spin .6s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Examples */
+  .examples{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+  .ex-btn{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:12.5px;color:var(--muted2);cursor:pointer;font-family:var(--sans);transition:all .2s}
+  .ex-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
+
+  /* Model selector */
+  .model-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .model-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:var(--sans);font-weight:500}
+  .model-pills{display:flex;gap:6px;flex-wrap:wrap}
+  .m-pill{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--muted2);cursor:pointer;font-family:var(--mono);transition:all .2s;display:flex;align-items:center;gap:6px}
+  .m-pill:hover:not(.active):not(:disabled){border-color:var(--accent);color:var(--text)}
+  .m-pill.active{background:var(--accent-glow);border-color:var(--accent);color:var(--accent);font-weight:500}
+  .m-pill:disabled{opacity:.4;cursor:not-allowed}
+  .m-pill .m-tag{font-size:9.5px;color:var(--muted);font-family:var(--sans);letter-spacing:.03em;text-transform:uppercase}
+  .m-pill.active .m-tag{color:var(--accent)}
+
+  /* Run summary */
+  #summary-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:14px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+  #summary-card.visible{opacity:1;transform:translateY(0)}
+  .sum-head{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:7px;font-weight:500;font-family:var(--sans)}
+  .sum-head::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber)}
+  .sum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+  .sum-cell{background:var(--bg3);border-radius:6px;padding:9px 11px}
+  .sum-cell-label{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:.05em;text-transform:uppercase;font-family:var(--sans);font-weight:500}
+  .sum-cell-val{font-size:14px;color:var(--text);font-family:var(--mono);font-weight:500}
+  .sum-cell.model{grid-column:span 2}
+  .sum-cell.model .sum-cell-val{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="doc-header">
+  <h1 class="doc-title">Reverse Engineering Claude's RAG Pipeline</h1>
+  <p class="doc-via"><em>via Artifact API Retrieval</em></p>
+  <p class="doc-byline">By <span class="n">NuClide</span> — Nick + Claude</p>
+</header>
+
+<p class="doc-intro">Type a question. Watch it flow through query rewriting → retrieval → context injection → generation. Click any stage to inspect its internals.</p>
+
+<div class="model-row">
+  <span class="model-label">Model</span>
+  <div class="model-pills" id="model-pills">
+    <button class="m-pill" data-model="claude-haiku-4-5-20251001" onclick="pickModel(this)">Haiku 4.5 <span class="m-tag">fast</span></button>
+    <button class="m-pill active" data-model="claude-sonnet-4-20250514" onclick="pickModel(this)">Sonnet 4 <span class="m-tag">balanced</span></button>
+    <button class="m-pill" data-model="claude-opus-4-7" onclick="pickModel(this)">Opus 4.7 <span class="m-tag">powerful</span></button>
+  </div>
+</div>
+
+<div class="input-wrap">
+  <input id="prompt-input" placeholder="Type any question and press Enter…" autocomplete="off"/>
+  <button id="send-btn" onclick="run()">Run →</button>
+</div>
+
+<div class="examples">
+  <button class="ex-btn" onclick="fillAndRun('How does the immune system fight viruses?')">immune system example</button>
+  <button class="ex-btn" onclick="fillAndRun('What causes inflation in an economy?')">inflation example</button>
+  <button class="ex-btn" onclick="fillAndRun('Explain how transformers work in AI')">transformers example</button>
+</div>
+
+<div class="pipeline">
+  <div class="p-node"><div class="p-dot" id="pd0">Q</div><div class="p-label" id="pl0">Your<br>prompt</div></div>
+  <div class="p-line" id="pl-0"></div>
+  <div class="p-node"><div class="p-dot" id="pd1">①</div><div class="p-label" id="pl1">Query<br>rewrite</div></div>
+  <div class="p-line" id="pl-1"></div>
+  <div class="p-node"><div class="p-dot" id="pd2">②</div><div class="p-label" id="pl2">Retrieve<br>docs</div></div>
+  <div class="p-line" id="pl-2"></div>
+  <div class="p-node"><div class="p-dot" id="pd3">③</div><div class="p-label" id="pl3">Inject<br>context</div></div>
+  <div class="p-line" id="pl-3"></div>
+  <div class="p-node"><div class="p-dot" id="pd4">④</div><div class="p-label" id="pl4">Generate<br>answer</div></div>
+  <div class="p-line" id="pl-4"></div>
+  <div class="p-node"><div class="p-dot" id="pd5">✓</div><div class="p-label" id="pl5">Final<br>answer</div></div>
+</div>
+
+<div id="stages"></div>
+<div id="answer-card">
+  <div class="ans-label">Final answer</div>
+  <div id="answer-text"></div>
+</div>
+<div id="summary-card">
+  <div class="sum-head">Run summary</div>
+  <div class="sum-grid" id="sum-grid"></div>
+</div>
+
+<script>
+var inp=document.getElementById('prompt-input');
+var btn=document.getElementById('send-btn');
+inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run()}});
+
+var currentModel='claude-sonnet-4-20250514';
+var currentModelLabel='Sonnet 4';
+function pickModel(el){
+  if(btn.disabled)return;
+  var pills=document.querySelectorAll('.m-pill');
+  for(var i=0;i<pills.length;i++)pills[i].classList.remove('active');
+  el.classList.add('active');
+  currentModel=el.getAttribute('data-model');
+  currentModelLabel=el.textContent.trim().split('\n')[0].replace(/\s+fast$|\s+balanced$|\s+powerful$/,'').trim();
+}
+function lockModelPicker(lock){
+  var pills=document.querySelectorAll('.m-pill');
+  for(var i=0;i<pills.length;i++)pills[i].disabled=lock;
+}
+
+function fillAndRun(text){inp.value=text;run()}
+function dot(i,state){var d=document.getElementById('pd'+i),l=document.getElementById('pl'+i);d.className='p-dot'+(state?' '+state:'');l.className='p-label'+(state?' '+state:'')}
+function line(i,state){var l=document.getElementById('pl-'+i);if(l)l.className='p-line'+(state?' '+state:'')}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function toggleCard(id){var c=document.getElementById('card-'+id);if(c)c.classList.toggle('open')}
+
+function addCard(id,iconClass,iconText,title,sub,contentHtml,internalsHtml){
+  var s=document.getElementById('stages');
+  var d=document.createElement('div');
+  d.className='stage-card active-card';
+  d.id='card-'+id;
+  d.innerHTML=
+    '<div class="stage-header" onclick="toggleCard(\''+id+'\')">'+
+      '<div class="stage-icon '+iconClass+'">'+iconText+'</div>'+
+      '<span class="stage-title">'+title+'</span>'+
+      '<span class="stage-sub" id="sub-'+id+'">'+sub+'</span>'+
+      '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>'+
+    '</div>'+
+    '<div class="stage-body" id="body-'+id+'">'+contentHtml+'</div>'+
+    '<div class="internals"><div class="int-inner" id="int-'+id+'">'+(internalsHtml||'')+'</div></div>';
+  s.appendChild(d);
+  requestAnimationFrame(function(){d.classList.add('visible')});
+  return d;
+}
+function setBody(id,html){var el=document.getElementById('body-'+id);if(el)el.innerHTML=html}
+function setSub(id,html){var el=document.getElementById('sub-'+id);if(el)el.innerHTML=html}
+function setInternals(id,html){var el=document.getElementById('int-'+id);if(el)el.innerHTML=html}
+function doneCard(id){var c=document.getElementById('card-'+id);if(c)c.classList.remove('active-card')}
+function errCard(id){var c=document.getElementById('card-'+id);if(c){c.classList.remove('active-card');c.classList.add('err-card','open')}}
+
+async function callClaude(systemPrompt,userMsg){
+  var fetchPromise=fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:currentModel,
+      max_tokens:1024,
+      system:systemPrompt,
+      messages:[{role:'user',content:userMsg}]
+    })
+  });
+  var timeoutPromise=new Promise(function(_,reject){
+    setTimeout(function(){reject(new Error('Request timed out after 60s'))},60000);
+  });
+  var resp=await Promise.race([fetchPromise,timeoutPromise]);
+  if(!resp.ok){
+    var errText=await resp.text();
+    throw new Error('HTTP '+resp.status+': '+errText.substring(0,200));
+  }
+  var data=await resp.json();
+  if(data.error){throw new Error(data.error.message||'API error')}
+  var text='';
+  if(data.content&&Array.isArray(data.content)){
+    for(var i=0;i<data.content.length;i++){
+      if(data.content[i].type==='text')text+=data.content[i].text;
+    }
+  }
+  return text||'(empty response)';
+}
+
+function stripFences(s){
+  if(!s)return s;
+  s=s.trim();
+  var m=s.match(/^```(?:json|JSON)?\s*\n?([\s\S]*?)\n?```\s*$/);
+  if(m)return m[1].trim();
+  s=s.replace(/^```(?:json|JSON)?\s*/,'').replace(/\s*```\s*$/,'');
+  return s.trim();
+}
+
+function tryParseJson(s){
+  try{return JSON.parse(stripFences(s))}catch(e){
+    var m=s.match(/\{[\s\S]*\}/);
+    if(m){try{return JSON.parse(m[0])}catch(e2){}}
+    return null;
+  }
+}
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function internalsTemplate(systemP,userP,respText,hint){
+  return '<div class="int-section">'+
+    '<div class="int-label">System prompt <span class="pill">sent to Claude</span></div>'+
+    '<div class="int-code syst">'+esc(systemP)+'</div>'+
+  '</div>'+
+  '<div class="int-arrow">↓</div>'+
+  '<div class="int-section">'+
+    '<div class="int-label">User message <span class="pill">sent to Claude</span></div>'+
+    '<div class="int-code user">'+esc(userP)+'</div>'+
+  '</div>'+
+  '<div class="int-arrow">↓</div>'+
+  '<div class="int-section">'+
+    '<div class="int-label">Raw response <span class="pill">from Claude</span></div>'+
+    '<div class="int-code resp">'+esc(respText)+'</div>'+
+    (hint?'<div class="int-hint">'+hint+'</div>':'')+
+  '</div>';
+}
+
+function errorInternals(systemP,userP,errMsg){
+  return '<div class="int-section">'+
+    '<div class="int-label">System prompt <span class="pill">attempted</span></div>'+
+    '<div class="int-code syst">'+esc(systemP)+'</div>'+
+  '</div>'+
+  '<div class="int-section">'+
+    '<div class="int-label">User message <span class="pill">attempted</span></div>'+
+    '<div class="int-code user">'+esc(userP)+'</div>'+
+  '</div>'+
+  '<div class="int-section">'+
+    '<div class="int-label">Error <span class="pill" style="color:#a8493c">request failed</span></div>'+
+    '<div class="int-code err">'+esc(errMsg)+'</div>'+
+    '<div class="int-hint">The pipeline continued with fallback values so you can still see every stage.</div>'+
+  '</div>';
+}
+
+async function run(){
+  var q=inp.value.trim();
+  if(!q)return;
+  btn.disabled=true; inp.disabled=true; lockModelPicker(true);
+  document.getElementById('stages').innerHTML='';
+  var ac=document.getElementById('answer-card');
+  var sc=document.getElementById('summary-card');
+  ac.classList.remove('visible');
+  sc.classList.remove('visible');
+  document.getElementById('answer-text').textContent='';
+  for(var i=0;i<6;i++){dot(i,'');line(i,'')}
+  dot(0,'done');
+
+  var runStart=performance.now();
+  var timings={rewrite:0,retrieve:0,generate:0};
+
+  await sleep(250);
+  dot(1,'active'); line(0,'done');
+  addCard('s1','s1','①','Query optimization','<span class="spin">⟳</span> rewriting with '+esc(currentModelLabel)+'…',
+    'Analyzing query structure…',
+    '<div class="int-hint">Calling '+esc(currentModelLabel)+'…</div>');
+  await sleep(300);
+
+  var sys1='You are a RAG query optimizer. Given a user question, output 2-3 improved search queries that would retrieve better documents from a vector database. Each query should be atomic and specific. Respond ONLY with raw JSON (no markdown, no code fences) in this exact format: {"queries":["query1","query2","query3"],"reasoning":"one sentence"}';
+  var queries=[q], reasoning='(API unavailable — using original query as fallback)';
+  var rewriteRaw='', rewriteErr=null;
+  var t1Start=performance.now();
+  try{
+    rewriteRaw=await callClaude(sys1,q);
+    var rj=tryParseJson(rewriteRaw);
+    if(rj&&rj.queries&&rj.queries.length){queries=rj.queries;reasoning=rj.reasoning||'';}
+  }catch(e){
+    rewriteErr=e.message;
+    rewriteRaw='ERROR: '+e.message;
+  }
+  timings.rewrite=performance.now()-t1Start;
+
+  if(rewriteErr){
+    setBody('s1','<span class="hlr">⚠ Stage failed</span> — '+esc(rewriteErr)+'\n\n<span class="hl">Fallback:</span> continuing with original query.');
+    setSub('s1','<span style="color:var(--red)">error · '+fmtMs(timings.rewrite)+'</span>');
+    setInternals('s1',errorInternals(sys1,q,rewriteErr));
+    errCard('s1'); dot(1,'err');
+  }else{
+    var qhtml='<span class="hl">Original:</span> '+esc(q)+'\n\n<span class="hl">Rewritten queries:</span>\n'+
+      queries.map(function(x){return'  <span class="hlg">→</span> '+esc(x)}).join('\n')+
+      (reasoning?'\n\n<span class="hl3">Why:</span> '+esc(reasoning):'');
+    setBody('s1',qhtml);
+    setSub('s1','<span style="color:var(--muted2)">'+fmtMs(timings.rewrite)+' · click to inspect</span>');
+    setInternals('s1',internalsTemplate(sys1,q,rewriteRaw,'Model: <b>'+esc(currentModelLabel)+'</b>. Claude returned JSON. The widget parses it and displays the queries array above.'));
+    doneCard('s1');
+    dot(1,'done');
+  }
+  line(1,'done');
+
+  await sleep(250);
+  dot(2,'active');
+  addCard('s2','s2','②','Embedding &amp; retrieval','<span class="spin">⟳</span> Claude acting as stand-in for vector DB…',
+    'Encoding queries → vectors → matching against index…',
+    '<div class="int-hint">Calling '+esc(currentModelLabel)+' (acting as a stand-in for a vector database)…</div>');
+  await sleep(400);
+
+  var sys2='You are acting as a stand-in for a vector database retrieval step. Given search queries, return 3 realistic factual document snippets (50-70 words each) as if retrieved from a knowledge base. Respond ONLY with raw JSON (no markdown, no code fences): {"docs":[{"source":"title","snippet":"text"},{"source":"title","snippet":"text"},{"source":"title","snippet":"text"}]}';
+  var user2='Queries: '+queries.join(' | ');
+  var docs=[], retrieveRaw='', retrErr=null;
+  var t2Start=performance.now();
+  try{
+    retrieveRaw=await callClaude(sys2,user2);
+    var dj=tryParseJson(retrieveRaw);
+    if(dj&&dj.docs)docs=dj.docs;
+  }catch(e){
+    retrErr=e.message;
+    retrieveRaw='ERROR: '+e.message;
+  }
+  timings.retrieve=performance.now()-t2Start;
+  if(!docs.length){
+    docs=[
+      {source:'Fallback passage 1',snippet:'(The retrieval call failed or returned no results. Using placeholder so the pipeline can continue.)'},
+      {source:'Fallback passage 2',snippet:'In a working RAG system, this is where real chunks from your knowledge base would appear.'}
+    ];
+  }
+
+  var dhtml='<span class="hl">Top '+docs.length+' chunks retrieved:</span>\n\n'+
+    docs.map(function(d,i){return'<span class="hl2">[Doc '+(i+1)+'] '+esc(d.source)+'</span>\n'+esc(d.snippet)}).join('\n\n');
+  setBody('s2',dhtml);
+  setSub('s2',retrErr?'<span style="color:var(--red)">fallback · '+fmtMs(timings.retrieve)+'</span>':'<span style="color:var(--muted2)">'+fmtMs(timings.retrieve)+' · click to inspect</span>');
+
+  var retrInternals=
+    '<div class="int-section">'+
+      '<div class="int-label">Step A · Embed query <span class="pill">embedding model</span></div>'+
+      '<div class="int-code user">query_vector = embed("'+esc(queries[0])+'")\n→ [0.0421, -0.3187, 0.8823, 0.1402, -0.6711, 0.2293, …] (1536 dims)</div>'+
+    '</div>'+
+    '<div class="int-arrow">↓</div>'+
+    '<div class="int-section">'+
+      '<div class="int-label">Step B · Vector similarity search <span class="pill">cosine similarity</span></div>'+
+      '<div class="int-code syst">top_k = vector_db.search(query_vector, k=3)\n→ returns doc_ids ranked by similarity score</div>'+
+    '</div>'+
+    '<div class="int-arrow">↓</div>'+
+    '<div class="int-section">'+
+      '<div class="int-label">Step C · Retrieved chunks <span class="pill">'+(retrErr?'fallback used':'Claude acting as stand-in')+'</span></div>'+
+      '<div class="int-code '+(retrErr?'err':'resp')+'">'+esc(retrieveRaw||'(no response)')+'</div>'+
+      '<div class="int-hint">In a production RAG system, these chunks come from your indexed knowledge base — not from the LLM. Here Claude is acting as a stand-in for that database so the rest of the pipeline can run end-to-end.</div>'+
+    '</div>';
+  setInternals('s2',retrInternals);
+  doneCard('s2');
+  dot(2,'done'); line(2,'done');
+
+  await sleep(250);
+  dot(3,'active');
+  addCard('s3','s3','③','Context injection','<span class="spin">⟳</span> building prompt…',
+    'Assembling prompt template…',
+    '<div class="int-hint">Building final prompt…</div>');
+  await sleep(500);
+
+  var ctx=docs.map(function(d,i){return'[Doc '+(i+1)+'] '+d.source+':\n'+d.snippet}).join('\n\n');
+  var fullSystem='You are a helpful, concise assistant. Answer the user question using the provided context. Be clear and direct. If the context is insufficient, use your general knowledge but say so.';
+  var fullUser='Context:\n'+ctx+'\n\nQuestion: '+q;
+
+  var injPreview='<span class="hl3">SYSTEM:</span> '+esc(fullSystem)+'\n\n'+
+    '<span class="hl3">USER MESSAGE:</span>\n'+esc(fullUser.substring(0,500))+(fullUser.length>500?'…':'');
+  setBody('s3',injPreview);
+  setSub('s3','<span style="color:var(--muted2)">click to inspect</span>');
+
+  var injInternals=
+    '<div class="int-section">'+
+      '<div class="int-label">Prompt template <span class="pill">the pattern</span></div>'+
+      '<div class="int-code syst">SYSTEM: {system_instructions}\n\nUSER:\nContext:\n{retrieved_docs}\n\nQuestion: {user_query}</div>'+
+    '</div>'+
+    '<div class="int-arrow">↓</div>'+
+    '<div class="int-section">'+
+      '<div class="int-label">Filled template <span class="pill">sent to generator</span></div>'+
+      '<div class="int-code user">SYSTEM: '+esc(fullSystem)+'\n\nUSER:\n'+esc(fullUser)+'</div>'+
+      '<div class="int-hint">This is what reaches the generator. The retrieved chunks are now part of the prompt — the model treats them as trusted context.</div>'+
+    '</div>';
+  setInternals('s3',injInternals);
+  doneCard('s3');
+  dot(3,'done'); line(3,'done');
+
+  await sleep(250);
+  dot(4,'active');
+  addCard('s4','s4','④','LLM generation','<span class="spin">⟳</span> '+esc(currentModelLabel)+' generating…',
+    '<span class="cursor"></span>',
+    '<div class="int-hint">Calling '+esc(currentModelLabel)+' for final answer…</div>');
+  await sleep(300);
+
+  var finalAnswer='', genErr=null;
+  var t4Start=performance.now();
+  try{
+    finalAnswer=await callClaude(fullSystem,fullUser);
+  }catch(e){
+    genErr=e.message;
+    finalAnswer='(The generation call failed: '+e.message+')';
+  }
+  timings.generate=performance.now()-t4Start;
+
+  if(genErr){
+    setBody('s4','<span class="hlr">⚠ Generation failed</span> — '+esc(genErr));
+    setSub('s4','<span style="color:var(--red)">error · '+fmtMs(timings.generate)+'</span>');
+    setInternals('s4',errorInternals(fullSystem,fullUser,genErr));
+    errCard('s4'); dot(4,'err');
+  }else{
+    setBody('s4','<span class="hlg">✓</span> Generation complete — '+finalAnswer.split(/\s+/).length+' tokens produced');
+    setSub('s4','<span style="color:var(--muted2)">'+fmtMs(timings.generate)+' · click to inspect</span>');
+    setInternals('s4',internalsTemplate(fullSystem,fullUser,finalAnswer,'Model: <b>'+esc(currentModelLabel)+'</b>. This is the raw text produced using only the retrieved context. The final answer below streams in this same text.'));
+    doneCard('s4');
+    dot(4,'done');
+  }
+  line(4,'done');
+  dot(5,genErr?'err':'done');
+
+  await sleep(250);
+  ac.classList.add('visible');
+  var ansEl=document.getElementById('answer-text');
+  ansEl.textContent='';
+  for(var i=0;i<finalAnswer.length;i++){
+    ansEl.textContent+=finalAnswer[i];
+    if(i%3===0)await sleep(6);
+  }
+
+  var totalMs=performance.now()-runStart;
+  renderSummary(currentModelLabel,currentModel,timings,totalMs,finalAnswer);
+  sc.classList.add('visible');
+
+  btn.disabled=false; inp.disabled=false; lockModelPicker(false);
+  inp.focus();
+}
+
+function fmtMs(ms){
+  if(ms<1000)return Math.round(ms)+' ms';
+  return (ms/1000).toFixed(2)+' s';
+}
+
+function renderSummary(label,modelId,timings,totalMs,answer){
+  var apiTotal=timings.rewrite+timings.retrieve+timings.generate;
+  var tokens=answer?answer.split(/\s+/).filter(Boolean).length:0;
+  var html=
+    '<div class="sum-cell model"><div class="sum-cell-label">Model used</div><div class="sum-cell-val">'+esc(label)+'</div></div>'+
+    '<div class="sum-cell"><div class="sum-cell-label">Total time</div><div class="sum-cell-val">'+fmtMs(totalMs)+'</div></div>'+
+    '<div class="sum-cell"><div class="sum-cell-label">API time</div><div class="sum-cell-val">'+fmtMs(apiTotal)+'</div></div>'+
+    '<div class="sum-cell"><div class="sum-cell-label">Rewrite</div><div class="sum-cell-val">'+fmtMs(timings.rewrite)+'</div></div>'+
+    '<div class="sum-cell"><div class="sum-cell-label">Retrieve</div><div class="sum-cell-val">'+fmtMs(timings.retrieve)+'</div></div>'+
+    '<div class="sum-cell"><div class="sum-cell-label">Generate</div><div class="sum-cell-val">'+fmtMs(timings.generate)+'</div></div>'+
+    '<div class="sum-cell"><div class="sum-cell-label">Answer tokens</div><div class="sum-cell-val">~'+tokens+'</div></div>';
+  document.getElementById('sum-grid').innerHTML=html;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{
+  "title": "Washer & dryer",
+  "subsystems": [
+    {
+      "id": "input-protection",
+      "name": "Input Power Protection",
+      "desc": "TVS / eFuse / hot-swap",
+      "col": 0,
+      "row": 0,
+      "band": "AC Input & Power Conversion"
+    },
+    {
+      "id": "acdc-noniso",
+      "name": "Non-isolated AC/DC",
+      "desc": "Buck, boost, LDO",
+      "col": 0,
+      "row": 1,
+      "band": "AC Input & Power Conversion"
+    },
+    {
+      "id": "acdc-iso",
+      "name": "Isolated AC/DC",
+      "desc": "Flyback, LLC, PSR",
+      "col": 0,
+      "row": 2,
+      "band": "AC Input & Power Conversion"
+    },
+    {
+      "id": "power-stage",
+      "name": "Power Stage",
+      "desc": "3-phase inverter",
+      "col": 1,
+      "row": 0,
+      "band": "Power Stage & Motor"
+    },
+    {
+      "id": "motor-driver",
+      "name": "Motor Driver",
+      "desc": "Gate driver / IPM",
+      "col": 1,
+      "row": 1,
+      "band": "Power Stage & Motor"
+    },
+    {
+      "id": "motor",
+      "name": "Motor & Actuators",
+      "desc": "BLDC / PMSM / valve",
+      "col": 1,
+      "row": 2,
+      "band": "Power Stage & Motor"
+    },
+    {
+      "id": "current-sense",
+      "name": "Current & Voltage Sense",
+      "desc": "Shunt, Hall, fluxgate",
+      "col": 2,
+      "row": 0,
+      "band": "Sensing & Signal Chain"
+    },
+    {
+      "id": "analog-front-end",
+      "name": "Analog Front End",
+      "desc": "Op-amp, PGA, ADC",
+      "col": 2,
+      "row": 1,
+      "band": "Sensing & Signal Chain"
+    },
+    {
+      "id": "sensors",
+      "name": "Sensors",
+      "desc": "Temp, humidity, level",
+      "col": 2,
+      "row": 2,
+      "band": "Sensing & Signal Chain"
+    },
+    {
+      "id": "wired-interface",
+      "name": "Wired Interface",
+      "desc": "CAN, RS-485, UART",
+      "col": 3,
+      "row": 0,
+      "band": "Connectivity & HMI"
+    },
+    {
+      "id": "wireless-interface",
+      "name": "Wireless Interface",
+      "desc": "Wi-Fi, BLE, Sub-1 GHz",
+      "col": 3,
+      "row": 1,
+      "band": "Connectivity & HMI"
+    },
+    {
+      "id": "user-interface",
+      "name": "Input / Output UI",
+      "desc": "Touch, LED, display",
+      "col": 3,
+      "row": 2,
+      "band": "Connectivity & HMI"
+    },
+    {
+      "id": "system-controller",
+      "name": "System Controller (MCU)",
+      "desc": "real-time control  |  safety  |  connectivity stack",
+      "col": -1,
+      "row": -1,
+      "band": "System"
+    }
+  ]
+}

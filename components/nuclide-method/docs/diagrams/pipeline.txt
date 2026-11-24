@@ -1,0 +1,94 @@
+NuClide Methodology - eight numbered stages plus the active-banner prefilter
+============================================================================
+
+A scanner produces candidates. Verification produces findings.
+VERIFY is the load-bearing stage; the rest feed it or record what it confirmed.
+
+
+  Stage -1/0          prefilter             Stage 1
+  +------------+     +--------------+     +--------------+
+  |  DISCOVER  | --> | ACTIVE-      | --> | FINGERPRINT  |
+  |            |     | BANNER       |     |              |
+  | name-first |     |              |     | one question:|
+  | provider   |     | liveness     |     | what service |
+  | CT-log     |     | (~1/3 live)  |     | is on this   |
+  |            |     | fresh ver.   |     | port?        |
+  | take the   |     | FP-strip     |     | conjunctive  |
+  | 3-way      |     | shadow ports |     | match +      |
+  | DELTA      |     |              |     | anti-match   |
+  +------------+     +--------------+     +--------------+
+                     banner != schema           |
+                     (prefilter only)           v
+
+                  Stage 2
+                  +=================================+
+                  ||                               ||
+                  ||         [  VERIFY  ]          ||
+                  ||   THE LOAD-BEARING STAGE      ||
+                  ||                               ||
+                  ||  candidate -> finding only    ||
+                  ||  by surviving verification    ||
+                  ||                               ||
+                  ||  - 200 = identity, not auth   ||
+                  ||  - dork hits != instances     ||
+                  ||    (the ~50% marker rule)     ||
+                  ||  - follow redirects / tokens  ||
+                  ||  - traverse full handshake    ||
+                  ||  - pull a full real record    ||
+                  ||  - protocol-strict probe      ||
+                  ||    self-filters honeypots     ||
+                  ||                               ||
+                  +=================================+
+                                 |
+                                 v
+  Stage 3            Stage 4            Stage 5
+  +-----------+     +-----------+     +-----------+
+  | ATTRIBUTE | --> | CLASSIFY  | --> |  LEDGER   |
+  |           |     |           |     |           |
+  | no-SNI    |     | HIPAA/    |     | append-   |
+  | default   |     | clinical/ |     | only,     |
+  | cert ->   |     | personal/ |     | lifecycle |
+  | CT-log    |     | research/ |     | tracked   |
+  | SAN pivot |     | honeypot  |     | open ->   |
+  | + rDNS/   |     | WHOIS is  |     | disclosed |
+  | passiveDNS|     | authorita-|     | -> ack -> |
+  |           |     | tive      |     | remediated|
+  |           |     |           |     | -> verif. |
+  +-----------+     +-----------+     +-----------+
+                                            |
+                                            v
+  Stage 6                          Stage 7
+  +---------------+               +---------------+
+  | SCORE / RANK  | ------------> |    CODIFY     |
+  |               |               |               |
+  | OPA/Rego:     |               | survey -> a   |
+  |  policy IS    |               | numbered      |
+  |  the method   |               | Insight       |
+  | deny=CRITICAL |               | platform ->   |
+  | warn=HIGH     |               | corpus        |
+  | no double-    |               | (CONFIRMED vs |
+  |  count        |               |  CANDIDATE)   |
+  | gov escalates |               | new FP ->     |
+  | semantic      |               | signature     |
+  |  module rank  |               |               |
+  | adversarial   |               | data makes    |
+  |  corpus       |               | findings;     |
+  | (offline)     |               | insights make |
+  |               |               | the method    |
+  +---------------+               +---------------+
+
+
+Every stage feeds the LEDGER before the next stage begins.
+-----------------------------------------------------------
+
+  DISCOVER ---+
+  BANNER -----+
+  FINGERPRINT-+
+  VERIFY -----+---> [ LEDGER ] ---> (resumable: any survey can be
+  ATTRIBUTE --+                      picked up from the ledger, never
+  CLASSIFY ---+                      rerun from scratch; the ledger is
+  SCORE ------+                      also a discovery substrate)
+  CODIFY -----+
+
+The ledger is the record of work, not a terminal print.
+A survey interrupted at any stage resumes from the ledger.

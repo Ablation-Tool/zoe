@@ -1,0 +1,30 @@
+{
+  "ourn": "urn:orm:book:9781835080405",
+  "identifier": "9781835080405",
+  "isbn": "9781835080405",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835080405/",
+  "content_format": "book",
+  "publication_date": "2024-03-29",
+  "created_time": "2024-04-01T13:37:12.830087Z",
+  "last_modified_time": "2026-04-01T19:50:44.955409Z",
+  "title": "Technical Writing for Software Developers",
+  "is_hidden": false,
+  "has_mathml": false,
+  "virtual_pages": 233,
+  "opf_unique_identifier_type": "bookid",
+  "page_count": 166,
+  "total_running_time_secs": null,
+  "total_size": 4685485,
+  "descriptions": {
+    "text/html": "<span><p>Technical Writing for Software Developers is your comprehensive guide to creating clear, engaging, and effective documentation as part of software development. Tailored for developers, this book delves into essential grammar, documentation styles, and modern tools like AI to enhance productivity and collaboration. With practical insights and workflows, you'll gain the expertise to improve software quality through better communication.</p><p><b>What this Book will help me do</b></p><ul><li>Create engaging multimedia-rich documentation that enhances reader understanding.</li><li>Understand various types of documentation and how to effectively develop them for software projects.</li><li>Discover language and grammar techniques that make your writing precise and professional.</li><li>Streamline your writing process with the best tools and workflows tailored to your needs.</li><li>Leverage AI and automation tools to simplify and enhance technical writing tasks.</li></ul><p><b>Author(s)</b></p><p>Chris Chinchilla is a seasoned professional with years of experience in both software development and technical writing. Known for his ability to bridge the gap between developers and end-users through clear documentation, Chris combines practical advice with actionable tips. His approachable teaching style makes learning effective technical writing both engaging and accessible.</p><p><b>Who is it for?</b></p><p>This book is perfect for software developers at any experience level who want to excel in technical writing. Whether you're a junior developer looking to improve your documentation skills or a seasoned software engineer aiming to streamline team communication, this resource offers valuable knowledge. It's also ideal for software architects and project managers seeking to enhance collaborative efficiency. If you want to create impactful documentation that saves time and improves your team's success, this book is for you.</p></span>",
+    "text/plain": "Technical Writing for Software Developers is your comprehensive guide to creating clear, engaging, and effective documentation as part of software development. Tailored for developers, this book delves into essential grammar, documentation styles, and modern tools like AI to enhance productivity and collaboration. With practical insights and workflows, you'll gain the expertise to improve software quality through better communication. What this Book will help me do Create engaging multimedia-rich documentation that enhances reader understanding. Understand various types of documentation and how to effectively develop them for software projects. Discover language and grammar techniques that make your writing precise and professional. Streamline your writing process with the best tools and workflows tailored to your needs. Leverage AI and automation tools to simplify and enhance technical writing tasks. Author(s) Chris Chinchilla is a seasoned professional with years of experience in both software development and technical writing. Known for his ability to bridge the gap between developers and end-users through clear documentation, Chris combines practical advice with actionable tips. His approachable teaching style makes learning effective technical writing both engaging and accessible. Who is it for? This book is perfect for software developers at any experience level who want to excel in technical writing. Whether you're a junior developer looking to improve your documentation skills or a seasoned software engineer aiming to streamline team communication, this resource offers valuable knowledge. It's also ideal for software architects and project managers seeking to enhance collaborative efficiency. If you want to create impactful documentation that saves time and improves your team's success, this book is for you."
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835080405/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835080405/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835080405/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9781835080405",
+  "tags": [],
+  "language": "en",
+  "resources": [],
+  "roughcut": false
+}

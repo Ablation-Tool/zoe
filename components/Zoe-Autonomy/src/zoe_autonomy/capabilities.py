@@ -90,11 +90,21 @@ class ResearchConnector:
         "pubmed": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
     }
 
-    def __init__(self, policy=None, endpoints=None):
+    def __init__(self, policy=None, endpoints=None, *, enforce_allowlist=False, allowlist=None):
         self.policy = policy or ActuationPolicy()
         self.endpoints = {**self.ENDPOINTS, **(endpoints or {})}
+        self.enforce_allowlist = bool(enforce_allowlist)
+        self._allowlist = allowlist
+
+    def _get_allowlist(self):
+        if self._allowlist is None:
+            from .dorothy_research_upgrades import ApprovedDomainAllowlist
+            self._allowlist = ApprovedDomainAllowlist()
+        return self._allowlist
 
     def request(self, url):
+        if self.enforce_allowlist and not self._get_allowlist().is_approved(url):
+            raise PermissionError(f"research URL rejected by domain-research allowlist: {url}")
         response = self.policy.execute({"kind": "network", "url": url, "method": "GET", "timeout": 30})
         return response["result"]["body"], response["audit_hash"]
 

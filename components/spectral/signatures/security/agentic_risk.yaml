@@ -1,0 +1,107 @@
+id: ARK-001
+name: agentic_autonomous_action_log
+version: "1.0"
+category: security/agentic-risk
+model_family: Generic/AgenticAI
+confidence: high
+description: Log artifacts showing autonomous AI agent actions taken without human review on high-impact operations
+technique: Agentic risk detection
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(agent|autonomous).{0,30}(executed|completed|performed|took action).{0,60}(without|no) (human|manual|user) (review|approval|oversight|confirmation)'
+  - type: regex
+    pattern: '(?i)auto[_-]?(approved|executed|committed|deployed|deleted|modified).{0,40}(agent|llm|ai|model)'
+  - type: regex
+    pattern: '(?i)(agent|workflow).{0,20}bypassed.{0,40}(approval|review|human|confirmation)'
+tags: [agentic, autonomous-action, security, audit-log, oversight]
+---
+id: ARK-002
+name: agentic_privilege_escalation
+version: "1.0"
+category: security/agentic-risk
+model_family: Generic/AgenticAI
+confidence: high
+description: Indicators of an AI agent attempting to modify its own permissions or those of other agents or users
+technique: Agentic privilege escalation
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(agent|llm|ai).{0,30}(grant|granted|modif|escalat).{0,30}(permission|privilege|role|access)'
+  - type: regex
+    pattern: '(?i)(agent|assistant).{0,20}(added|assigned|gave).{0,30}(admin|root|sudo|superuser|elevated)'
+  - type: regex
+    pattern: '(?i)(tool[_-]?call|function[_-]?call).{0,60}(chmod|chown|sudo|su -|useradd|usermod)'
+tags: [agentic, privilege-escalation, security, agent, permissions]
+---
+id: ARK-003
+name: agentic_tool_call_destructive
+version: "1.0"
+category: security/agentic-risk
+model_family: Generic/AgenticAI
+confidence: high
+description: AI agent tool call logs showing destructive operations such as deletion, format, or production data modification
+technique: Agentic risk / destructive action
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)"tool":\s*"(bash|shell|execute|run_command|terminal)".{0,200}(rm -rf|drop table|delete from|truncate|format|wipe)'
+  - type: regex
+    pattern: '(?i)(tool_result|function_result).{0,100}(deleted|dropped|removed|wiped).{0,50}(successfully|complete)'
+  - type: regex
+    pattern: '(?i)(agent|ai).{0,20}ran.{0,30}(rm|del|drop|truncate|format).{0,60}(production|prod|live|primary)'
+tags: [agentic, destructive-action, tool-call, security, high-impact]
+---
+id: ARK-004
+name: agentic_data_exfil_via_tool
+version: "1.0"
+category: security/agentic-risk
+model_family: Generic/AgenticAI
+confidence: high
+description: AI agent exfiltrating data through tool calls to external endpoints not in the approved list
+technique: Agentic data exfiltration
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)"tool":\s*"(http_request|web_request|fetch|requests?\.get|urllib)".{0,200}"url":\s*"https?://'
+  - type: regex
+    pattern: '(?i)(agent|assistant).{0,30}sent.{0,50}(internal|proprietary|confidential|sensitive).{0,40}to.{0,40}https?://'
+  - type: regex
+    pattern: '(?i)(exfiltrat|extracted|leaked|sent).{0,30}(via|through|using).{0,20}(agent|tool|function)'
+tags: [agentic, data-exfil, tool-call, security, network]
+---
+id: ARK-005
+name: agentic_financial_action
+version: "1.0"
+category: security/agentic-risk
+model_family: Generic/AgenticAI
+confidence: high
+description: AI agent taking financial actions without recorded human approval - payment initiation, transaction modification, or approval bypass
+technique: Agentic risk / financial action
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(agent|llm|ai|assistant).{0,40}(initiat|approv|trigger|execut|process).{0,40}(payment|transfer|transaction|wire|disbursement)'
+  - type: regex
+    pattern: '(?i)(payment|transfer).{0,30}(auto[_-]?approv|automatically approved|agent approv|llm approv)'
+  - type: regex
+    pattern: '(?i)(invoice|payment|transaction).{0,60}(bypass|skip|override).{0,40}(approval|review|human)'
+tags: [agentic, financial, payment, security, high-impact, human-oversight]
+---
+id: ARK-006
+name: model_context_protocol_tool_abuse
+version: "1.0"
+category: security/agentic-risk
+model_family: Generic/MCP
+confidence: medium
+description: MCP tool call patterns indicating potential abuse - filesystem writes outside sandbox, shell execution, or network access to internal hosts
+technique: MCP tool abuse / agentic risk
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)"method":\s*"tools/call".{0,200}"name":\s*"(bash|shell|exec|run|terminal|write_file|delete)"'
+  - type: regex
+    pattern: '(?i)mcp.{0,20}(write|delete|exec|run).{0,60}(\/etc|\/var|\/home|C:\\Windows|C:\\Users)'
+  - type: regex
+    pattern: '(?i)"tool_name":\s*"(filesystem|bash|shell)".{0,100}"path":\s*"/(etc|var|root|home)'
+tags: [mcp, tool-abuse, agentic, security, filesystem, shell]

@@ -1,0 +1,24 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+texput.log
+
+# Actual disclosure report files -- never commit; reference repo only
+*-disclosure.tex
+*-disclosure.pdf
+fmg_faz_fwb_*.tex
+fmg_faz_fwb_*.pdf
+fwb_*.tex
+fwb_*.pdf
+
+# PDF build outputs in templates/ (keep source .tex only)
+templates/*.pdf
+templates/*.aux
+templates/*.log
+templates/*.out
+templates/*.toc

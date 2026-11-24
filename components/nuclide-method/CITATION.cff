@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this methodology, please cite it as below."
+title: "The NuClide Method: a reproducible methodology for assessing exposed AI infrastructure"
+abstract: >-
+  A reproducible, verification-first methodology for discovering, fingerprinting,
+  and assessing exposed AI and ML infrastructure. Built on the discipline of
+  enumerating metadata rather than exfiltrating data, with every finding carrying
+  an explicit verification tier and sanitized to class level.
+type: software
+authors:
+  - name: "NuClide Research"
+    website: "https://nuclide-research.com"
+year: 2026
+date-released: 2026-06-19
+url: "https://github.com/nuclide-research/nuclide-method"
+repository-code: "https://github.com/nuclide-research/nuclide-method"
+license: MIT
+keywords:
+  - ai-infrastructure
+  - ml-security
+  - reconnaissance
+  - responsible-disclosure
+  - verification
+references:
+  - type: report
+    title: "CVE-2025-4364"
+    authors:
+      - name: "NuClide Research"
+    year: 2025
+    notes: "Published vulnerability advisory. Related work."
+  - type: report
+    title: "ICSA-25-140-11"
+    authors:
+      - name: "NuClide Research"
+    year: 2025
+    notes: "Published ICS advisory. Related work."

@@ -1,0 +1,191 @@
+id: VLM-001
+name: vllm_server_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: vLLM/Generic
+confidence: high
+description: vLLM inference server endpoint and header patterns in HTTP logs or captured traffic
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'server:\s*vllm'
+  - type: string
+    pattern: 'x-request-id: vllm'
+  - type: regex
+    pattern: '/v1/(completions|chat/completions|models).*vllm'
+tags: [vllm, inference, server, local-llm, headers]
+---
+id: VLM-002
+name: vllm_deployment_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: vLLM/Generic
+confidence: medium
+description: vLLM server launch configuration and log artifacts
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'vllm serve\s'
+  - type: string
+    pattern: 'from vllm'
+  - type: regex
+    pattern: 'LLM\s*\(model='
+  - type: string
+    pattern: 'vllm.entrypoints'
+tags: [vllm, config, logs, local-llm]
+---
+id: TGI-001
+name: huggingface_tgi_server
+version: "1.0"
+category: infrastructure/headers
+model_family: HuggingFace/TGI
+confidence: high
+description: HuggingFace Text Generation Inference server patterns in HTTP logs or captured traffic
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'x-compute-characters:'
+  - type: regex
+    pattern: '/generate(_stream)?'
+  - type: string
+    pattern: 'text-generation-inference'
+  - type: regex
+    pattern: 'server:\s*text-generation-inference'
+tags: [tgi, huggingface, inference, server, headers]
+---
+id: TGI-002
+name: huggingface_tgi_config
+version: "1.0"
+category: agentic/config
+model_family: HuggingFace/TGI
+confidence: medium
+description: HuggingFace TGI launch configuration and model spec patterns
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: string
+    pattern: 'text-generation-inference'
+  - type: regex
+    pattern: '--model-id\s+[\w/-]+'
+  - type: string
+    pattern: 'ghcr.io/huggingface/text-generation-inference'
+tags: [tgi, huggingface, config, docker, local-llm]
+---
+id: LLM-001
+name: litellm_proxy_config
+version: "1.0"
+category: infrastructure/headers
+model_family: LiteLLM/Generic
+confidence: high
+description: LiteLLM proxy server configuration and header patterns - routes requests across model providers
+technique: AI API routing
+match_all: false
+indicators:
+  - type: string
+    pattern: 'x-litellm-model-id:'
+  - type: string
+    pattern: 'x-litellm-version:'
+  - type: regex
+    pattern: 'litellm_version'
+  - type: regex
+    pattern: 'x-litellm-call-id:'
+tags: [litellm, proxy, api, headers, routing]
+---
+id: LLM-002
+name: litellm_config_artifacts
+version: "1.0"
+category: agentic/config
+model_family: LiteLLM/Generic
+confidence: medium
+description: LiteLLM proxy configuration file patterns
+technique: AI API routing
+match_all: false
+indicators:
+  - type: file_path
+    pattern: 'litellm_config.yaml'
+  - type: file_path
+    pattern: '.litellm'
+  - type: string
+    pattern: 'litellm_settings:'
+  - type: string
+    pattern: 'from litellm'
+tags: [litellm, proxy, config, yaml]
+---
+id: LMS-001
+name: lm_studio_server
+version: "1.0"
+category: infrastructure/headers
+model_family: LMStudio/Generic
+confidence: high
+description: LM Studio local inference server patterns in HTTP logs or captured traffic
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: string
+    pattern: 'localhost:1234'
+  - type: string
+    pattern: '127.0.0.1:1234'
+  - type: regex
+    pattern: 'lm.?studio'
+  - type: string
+    pattern: 'LM-Studio'
+tags: [lm-studio, local-llm, server, network]
+---
+id: LMS-002
+name: lm_studio_model_config
+version: "1.0"
+category: agentic/config
+model_family: LMStudio/Generic
+confidence: medium
+description: LM Studio model configuration and GGUF model file artifacts
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.lmstudio'
+  - type: regex
+    pattern: '\.gguf$'
+  - type: regex
+    pattern: 'lm.?studio.*models'
+tags: [lm-studio, gguf, local-llm, config, filesystem]
+---
+id: LAI-001
+name: localai_server
+version: "1.0"
+category: infrastructure/headers
+model_family: LocalAI/Generic
+confidence: high
+description: LocalAI self-hosted inference server patterns in HTTP logs or captured traffic
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: string
+    pattern: 'localai.io'
+  - type: regex
+    pattern: 'server:\s*LocalAI'
+  - type: string
+    pattern: 'local.ai'
+  - type: regex
+    pattern: 'localhost:8080.*/v1/'
+tags: [localai, local-llm, server, headers, network]
+---
+id: LAI-002
+name: localai_config_artifacts
+version: "1.0"
+category: agentic/config
+model_family: LocalAI/Generic
+confidence: medium
+description: LocalAI model configuration YAML files and gallery artifacts
+technique: Local LLM deployment
+match_all: false
+indicators:
+  - type: file_path
+    pattern: 'localai'
+  - type: string
+    pattern: 'mudler/LocalAI'
+  - type: regex
+    pattern: 'backend:\s*(llama|whisper|stablediffusion|bark)'
+tags: [localai, config, yaml, local-llm, filesystem]

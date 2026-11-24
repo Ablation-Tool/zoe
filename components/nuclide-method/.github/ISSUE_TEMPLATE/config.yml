@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security flaw in this repository privately
+    url: https://nuclide-research.com
+    about: Flaws in run-chain.sh, bootstrap.sh, or the CI boundary audit go here, not a public issue. See SECURITY.md.
+  - name: You found a real exposed third-party system
+    url: https://github.com/nuclide-research/nuclide-method/blob/main/SECURITY.md
+    about: That disclosure does not route through this repo. Route it to the operator or the relevant CERT. Never paste the host here.

@@ -1,0 +1,625 @@
+% =============================================================
+%  Vulnerability Disclosure Report: Master Template
+%  Replace every \ph{} field before use.
+%  Sections marked "% TEMPLATE:" explain usage inline.
+%
+%  Compile with:  pdflatex disclosure-report.tex (run twice for ToC)
+%  Required packages: see preamble below.
+% =============================================================
+\documentclass[11pt,a4paper]{article}
+
+% ---- Encoding / fonts ----------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+
+% ---- Layout --------------------------------------------------
+\usepackage[
+  a4paper,
+  top=25mm, bottom=25mm,
+  left=25mm, right=25mm,
+  headheight=14pt
+]{geometry}
+
+% ---- Typography ----------------------------------------------
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{parskip}
+\emergencystretch=3em
+\widowpenalty=10000
+\clubpenalty=10000
+
+% ---- Math ----------------------------------------------------
+\usepackage{amsmath}
+
+% ---- Utility -------------------------------------------------
+\usepackage{etoolbox}
+\usepackage{needspace}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage[dvipsnames,table]{xcolor}
+
+% ---- Graphics ------------------------------------------------
+% TEMPLATE: logo files live in logos/ relative to this .tex file.
+% Use PDF for pdflatex (vector). PNG is the fallback when no PDF exists.
+%
+%   \includegraphics[height=1.4cm]{../logos/cisco}
+%   \includegraphics[height=1.4cm]{../logos/fortinet}
+%   \includegraphics[height=1.4cm]{../logos/paloalto}
+%
+\usepackage{graphicx}
+
+% ---- Colored boxes -------------------------------------------
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% Overview / Impact box (blue): leads each finding
+\newtcolorbox{overviewbox}{
+  enhanced, breakable,
+  colframe=RoyalBlue!65!black,
+  colback=RoyalBlue!7!white,
+  coltitle=white,
+  colbacktitle=RoyalBlue!65!black,
+  fonttitle=\bfseries\small,
+  title=Overview / Impact,
+  boxrule=0.5pt,
+  titlerule=0mm,
+  left=6pt, right=6pt, top=4pt, bottom=6pt,
+  before skip=\medskipamount,
+  after skip=\medskipamount,
+}
+
+% Proof-of-Concept box (green): follows Technical Evidence
+% Argument: product and version string, e.g. {Vendor Product v1.2.3}
+\newtcolorbox{pocbox}[1]{
+  enhanced, breakable,
+  colframe=OliveGreen!75!black,
+  colback=OliveGreen!5!white,
+  coltitle=white,
+  colbacktitle=OliveGreen!75!black,
+  fonttitle=\bfseries\small,
+  title={Proof of Concept: #1},
+  boxrule=0.5pt,
+  titlerule=0mm,
+  left=6pt, right=6pt, top=4pt, bottom=6pt,
+  before skip=\medskipamount,
+  after skip=\medskipamount,
+}
+
+% ---- Code listings -------------------------------------------
+\usepackage{listings}
+
+% Default listing style (shell / generic)
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{gray!8},
+  frame=single,
+  framesep=4pt,
+  rulecolor=\color{gray!40},
+  numbers=none,
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+  commentstyle=\color{gray}\itshape,
+  comment=[l]{\#},
+}
+
+% YARA rule style
+\lstdefinestyle{yara}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{gray!8},
+  frame=single,
+  framesep=4pt,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  showstringspaces=false,
+  morekeywords={rule,meta,strings,condition,and,or,not,all,any,of,them,
+                ascii,wide,nocase,fullword,private,global,import},
+  keywordstyle=\color{NavyBlue}\bfseries,
+  stringstyle=\color{ForestGreen},
+  morecomment=[l]{//},
+  commentstyle=\color{gray}\itshape,
+}
+
+% Python style
+\lstdefinestyle{python}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{gray!8},
+  frame=single,
+  framesep=4pt,
+  rulecolor=\color{gray!40},
+  keywordstyle=\color{NavyBlue}\bfseries,
+  stringstyle=\color{ForestGreen},
+  commentstyle=\color{gray}\itshape,
+  breaklines=true,
+  showstringspaces=false,
+}
+
+% ---- Section formatting --------------------------------------
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\large\bfseries}
+  {\thesection}
+  {0.6em}{}
+  [\vspace{-0.4em}\rule{\linewidth}{0.5pt}]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries}
+  {\thesubsection}
+  {0.5em}{}
+
+\titleformat{\subsubsection}
+  {\normalsize\itshape}
+  {}
+  {0em}{}
+\titlespacing*{\subsubsection}{0pt}{0.8em}{0.3em}
+
+% ---- Headers / footers ---------------------------------------
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+% TEMPLATE: replace with your disclosure title
+\fancyhead[L]{\small\textit{[VENDOR] [PRODUCT]: Vulnerability Disclosure}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---- Hyperref (load last) ------------------------------------
+\usepackage[
+  colorlinks=true,
+  linkcolor=NavyBlue,
+  urlcolor=NavyBlue,
+  citecolor=NavyBlue,
+  % TEMPLATE: update title, author, keywords
+  pdftitle={[VENDOR] [PRODUCT] Vulnerability Disclosure},
+  pdfauthor={[RESEARCHER NAME]},
+  pdfkeywords={CVE, vulnerability, disclosure, [VENDOR], [PRODUCT]},
+]{hyperref}
+
+% ---- Helpers -------------------------------------------------
+% Custom column types
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% \ph{TEXT}: render [TEXT] safely in table cells and after \\
+\newcommand{\ph}[1]{\lbrack#1\rbrack}
+
+% ---- Alternative: per-finding metadata macro -----------------
+% Compact tabular-header style for each finding.
+% Uncomment and use \findingmeta{...}{...} in place of overviewbox
+% when submitting to PSIRTs that prefer structured metadata tables.
+%
+% Usage: \findingmeta{CWE}{AttackType}{C}{I}{A}{KnownExploit}{Discovery}{Confirmation}
+%
+% \newcommand{\findingmeta}[8]{%
+%   \begin{tabular}{@{}L{3.8cm}L{10.5cm}@{}}
+%   \textbf{Vendor}             & [VENDOR] \\
+%   \textbf{Product}            & [PRODUCT] \\
+%   \textbf{Affected Version}   & [VERSION] \\
+%   \textbf{CWE}                & #1 \\
+%   \textbf{Attack Type}        & #2 \\
+%   \textbf{Confidentiality}    & #3 \\
+%   \textbf{Integrity}          & #4 \\
+%   \textbf{Availability}       & #5 \\
+%   \textbf{Actively Exploited} & #6 \\
+%   \textbf{Discovery}          & #7 \\
+%   \textbf{Confirmation}       & #8 \\
+%   \end{tabular}%
+% }
+
+% =============================================================
+\begin{document}
+% =============================================================
+
+% ---- Title page ---------------------------------------------
+\thispagestyle{empty}
+\vspace*{0.20\textheight}
+
+% TEMPLATE: vendor logo, upper-right. Uncomment one pattern.
+% PDF preferred; PNG accepted.
+%
+%   Pattern A: corporate wordmark only
+%     \begin{flushright}
+%       \includegraphics[height=1.4cm]{../logos/cisco}
+%     \end{flushright}
+%     \vspace{-0.5em}
+%
+%   Pattern B: corporate wordmark + product logo
+%     \begin{flushright}
+%       \includegraphics[height=1.4cm]{../logos/fortinet}\quad
+%       \includegraphics[height=1.4cm]{../logos/fortimanager}
+%     \end{flushright}
+%     \vspace{-0.5em}
+%
+%   Pattern C: no logo (default; delete this block when done)
+
+\noindent\rule{\linewidth}{0.6pt}
+
+\begin{center}
+{\large\bfseries Vulnerability Disclosure Report}\\[0.3em]
+% TEMPLATE: vendor and product name on the line below
+{\normalsize \ph{VENDOR} \ph{PRODUCT}}
+\end{center}
+
+\noindent\rule{\linewidth}{0.6pt}
+
+\vspace{0.10\textheight}
+
+\noindent
+\begin{tabular}{r @{\quad} l}
+\textbf{Researcher}  & \ph{RESEARCHER NAME} \\
+\textbf{Contact}     & \ph{RESEARCHER EMAIL} \\
+\textbf{Affiliation} & Independent Security Researcher \\
+\textbf{Date}        & \ph{YYYY-MM-DD} \\
+% TEMPLATE: list all affected products; add lines as needed
+\textbf{Product}     & \ph{VENDOR} \ph{PRODUCT} \ph{VERSION} \\
+\end{tabular}
+
+\newpage
+
+% ---- Table of contents --------------------------------------
+\tableofcontents
+
+\newpage
+
+% =============================================================
+\section{Executive Summary}
+% =============================================================
+
+% TEMPLATE: the executive summary is a standalone document, not an
+% introduction. Write it after the rest of the report is finished.
+%
+% Required structure:
+%   Sentence 1: state what action the vendor must take and why.
+%   Paragraph 1: cluster findings by severity tier. One sentence per tier.
+%     Pattern: "[N] findings are rated CVSS [score] (CRITICAL): [one-liner]."
+%   Paragraph 2: method statement and scope boundary.
+%
+% Do not open with background about the product or the researcher.
+% The bottom line goes in the first sentence.
+
+\ph{N} vulnerabilities were identified in \ph{VENDOR} \ph{PRODUCT} \ph{VERSION}
+through \ph{analysis method: static firmware analysis / binary reverse
+engineering / source code review}. Immediate vendor action is required.
+
+% TEMPLATE: one paragraph per severity tier. Example:
+%   "Two findings are rated CVSS 9.8 (CRITICAL): [F001 one-liner]; [F002 one-liner]."
+%   "One finding is rated CVSS 7.5 (HIGH): [F003 one-liner]."
+
+\ph{SEVERITY-CLUSTER PARAGRAPHS}
+
+No live production systems were accessed or tested.
+All analysis was performed on publicly distributed firmware and software images.
+
+% =============================================================
+\subsection{Document Conventions}
+% =============================================================
+
+Each finding contains two structured blocks:
+
+\begin{overviewbox}
+\textbf{Overview / Impact}: Plain-language description of the vulnerability,
+attacker capability, CWE classification, and CVSS 3.1 base score.
+Written for a PSIRT analyst reading for the bottom line.
+\end{overviewbox}
+
+\begin{pocbox}{\ph{VENDOR} \ph{PRODUCT} \ph{VERSION}}
+\textbf{Proof of Concept}: Verbatim commands, disassembly fragments, or code
+confirming the finding. All evidence is from \ph{analysis method} only.
+\end{pocbox}
+
+% =============================================================
+\subsection{Findings Table}
+% =============================================================
+
+% TEMPLATE: one row per finding. ID format: prefix + zero-padded number.
+% Use a prefix derived from the product, e.g. VN = VendorProduct, FW = Firmware.
+% Drop the CVSS column if the submitting PSIRT prefers not to pre-score.
+
+\begin{longtable}{@{}L{1.8cm}L{7.5cm}L{1.4cm}L{2.0cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Title} & \textbf{CVSS} & \textbf{CWE} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Title} & \textbf{CVSS} & \textbf{CWE} \\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{\small\textit{Continued\ldots}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+% TEMPLATE: replace with actual findings
+\ph{PREFIX}-F001 & \ph{TITLE: e.g. Unauthenticated REST API Endpoint} & \ph{9.8} & CWE-\ph{NNN} \\
+\ph{PREFIX}-F002 & \ph{TITLE: e.g. Hard-coded Cryptographic Key}       & \ph{7.5} & CWE-\ph{NNN} \\
+\ph{PREFIX}-F003 & \ph{TITLE: e.g. Path Traversal via Config Import}   & \ph{7.1} & CWE-\ph{NNN} \\
+\end{longtable}
+
+% =============================================================
+\section{Target Information}
+% =============================================================
+
+% TEMPLATE: one row per image or component analyzed.
+% Include the exact build string, how it was extracted or obtained,
+% and which key files or binaries produced findings.
+
+\begin{tabular}{@{}L{4.0cm}L{9.8cm}@{}}
+\toprule
+\textbf{Component} & \textbf{Version / Analysis Detail} \\
+\midrule
+\ph{Component Name}   & \ph{Version string} (\ph{e.g. ARM64 binary analysis; key binary: /usr/sbin/mgmtd}) \\[2pt]
+\ph{Component Name 2} & \ph{Version string} (\ph{e.g. configuration file review; key file: /etc/config.xml}) \\[2pt]
+\bottomrule
+\end{tabular}
+
+% =============================================================
+\section{Vulnerabilities}
+% =============================================================
+
+% =============================================================
+% FINDING TEMPLATE: copy this block for each additional finding.
+% Required elements per finding (IEEE 830 / problem report standard):
+%   1. Name of the problem (finding title)
+%   2. Product identification (vendor, product, version)
+%   3. Technical description (file, function, offset, root cause)
+%   4. Date discovered
+%   5. Conditions (prerequisites, network position, auth state)
+%   6. Expected vs. actual behavior
+%   7. Severity (CVSS base score and vector)
+% A finding that omits any of these is incomplete.
+% =============================================================
+
+% ---- Finding F001 -------------------------------------------
+\needspace{8\baselineskip}
+\subsection{\ph{PREFIX}-F001: \ph{FULL FINDING TITLE}}
+\label{sec:f001}
+
+% TEMPLATE (overviewbox): 2 to 4 sentences. No bullet lists inside.
+%   Sentence 1: what is wrong and where (file, function, or offset).
+%     Open with the vulnerability. Do not open with product background.
+%     Wrong: "The management daemon handles incoming API requests..."
+%     Right: "The management daemon's request parser lacks length
+%             validation, allowing heap overflow via a crafted packet."
+%   Sentence 2: evidence (binary symbol, config key, static trace).
+%   Sentence 3: attacker position and capability. Use "can", not "may".
+%     Wrong: "An attacker may potentially achieve code execution."
+%     Right: "An unauthenticated attacker on the LAN can execute
+%             arbitrary code as root."
+%   Sentence 4 (optional): scope note or chain dependency.
+%   Then: CWE classification, CVSS 3.1 vector.
+%
+% CVSS 3.1 reference vectors:
+%   Unauthenticated network RCE:  AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H = 9.8
+%   Authenticated network RCE:    AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H = 8.8
+%   Auth bypass (no exec):        AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N = 9.1
+%   Unauth network info disclose: AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N = 7.5
+%   Local privilege escalation:   AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H = 7.8
+
+\begin{overviewbox}
+\ph{PLAIN-LANGUAGE DESCRIPTION. What is missing or wrong. Which specific
+binary symbol, config key, or class method confirms it. What an attacker
+can do from network, adjacent, or local position with zero or low
+credentials. No hedging: "can achieve" not "may potentially allow".}\\[0.3em]
+CWE-\ph{NNN} (\ph{CWE Name})\\
+\textbf{CVSS 3.1:} \ph{SCORE} \ph{CRITICAL/HIGH/MEDIUM} (CVSS:3.1/\ph{VECTOR})
+\end{overviewbox}
+
+\subsubsection{Technical Evidence}
+
+% TEMPLATE: prose paragraph confirming the finding from binary or source.
+% Name the specific file, function, offset, class, or config key.
+% State the expected behavior, then state the actual behavior. That
+% contrast is the core of every problem report.
+% PoC commands belong in the pocbox below, not here.
+%
+% Pattern: "[File] at [path or VA] [does what]. The expected behavior
+%           is [X]; the actual behavior is [Y]."
+
+\ph{File or binary} at \path{\ph{/path/or/VA}}: \ph{what the evidence shows}.
+The expected behavior is \ph{expected}; the actual behavior is \ph{actual}.
+
+\begin{pocbox}{\ph{VENDOR} \ph{PRODUCT} \ph{VERSION}}
+\begin{lstlisting}
+# Demonstrate the vulnerability condition. Benign output only.
+# Replace TARGET_IP with the management address.
+
+[command or code here]
+
+# Expected output confirming the finding:
+# [output here]
+\end{lstlisting}
+\end{pocbox}
+
+\subsubsection{Impact}
+
+% TEMPLATE: 3 to 5 bullet points. Use present tense throughout.
+%   Bullet 1: direct attacker capability. Specific and concrete.
+%     Use "can", not "may" or "could potentially".
+%   Bullet 2: scope and blast radius. What systems or data are affected.
+%   Bullet 3: chain dependency if this finding enables another finding.
+%   Bullet 4 (optional): detection or logging gap.
+
+\begin{itemize}[noitemsep]
+\item \ph{Direct attacker capability. Present tense. No hedging.}
+\item \ph{Scope: systems, accounts, or data affected.}
+\item \ph{Chain: e.g. "[PREFIX]-F001 combined with [PREFIX]-F002 achieves full device compromise."}
+\item \ph{Logging gap or evasion note, if applicable.}
+\end{itemize}
+
+\subsubsection{Remediation}
+
+% TEMPLATE: 2 to 4 bullet points. Use "must" for required actions.
+%   Use "should" only for optional improvements.
+%   Name the specific function, configuration key, or code pattern
+%   that must change. Do not write generic advice.
+%
+%   Wrong: "The vendor should implement proper input validation."
+%   Right: "The vendor must add a length check on opt_len before the
+%           memcpy call in parse_option() at offset 0x1a4."
+
+\begin{itemize}[noitemsep]
+\item \ph{The vendor must [specific fix]: [file, function, or config key].}
+\item \ph{The vendor must [additional required change].}
+\item \ph{The vendor should [optional hardening measure].}
+\end{itemize}
+
+% TEMPLATE: include the YARA section for binary-confirmed findings.
+% Omit for configuration or source-level findings where YARA does not apply.
+\subsubsection{Detection: YARA Rule}
+
+\begin{lstlisting}[style=yara]
+rule Vendor_Product_F001_ShortDescriptor
+{
+    meta:
+        description = "Detects vulnerable [component] in [Product] <= [version]"
+        author      = "[RESEARCHER]"
+        date        = "[YYYY-MM-DD]"
+        cvss        = "[score]"
+
+    strings:
+        // Version anchor: scopes match to affected builds
+        $version = "[version string]" ascii
+
+        // Byte pattern at or near the vulnerable function entry point
+        $vuln_fn = { 55 48 89 E5 48 83 EC ?? 48 89 BD ?? ?? FF FF }
+
+        // String from the vulnerable code path (optional second anchor)
+        $marker  = "[distinctive string from vulnerable code]" ascii
+
+    condition:
+        $version and ($vuln_fn or $marker)
+}
+\end{lstlisting}
+
+% =============================================================
+% END OF FINDING TEMPLATE
+% Copy the block above (from \needspace to here) for each additional finding.
+% Change the subsection label, \label, and all \ph{} fields.
+% =============================================================
+
+% ---- Finding F002 (skeleton) --------------------------------
+\needspace{8\baselineskip}
+\subsection{\ph{PREFIX}-F002: \ph{FULL FINDING TITLE}}
+\label{sec:f002}
+
+\begin{overviewbox}
+\ph{What is wrong and where. What an attacker can do. No hedging.}\\[0.3em]
+CWE-\ph{NNN} (\ph{CWE Name})\\
+\textbf{CVSS 3.1:} \ph{SCORE} \ph{SEVERITY} (CVSS:3.1/\ph{VECTOR})
+\end{overviewbox}
+
+\subsubsection{Technical Evidence}
+
+\ph{File or binary at path/VA. Expected behavior vs. actual behavior.}
+
+\begin{pocbox}{\ph{VENDOR} \ph{PRODUCT} \ph{VERSION}}
+\begin{lstlisting}
+# PoC commands or disassembly
+\end{lstlisting}
+\end{pocbox}
+
+\subsubsection{Impact}
+
+\begin{itemize}[noitemsep]
+\item \ph{Direct attacker capability. Present tense. No hedging.}
+\item \ph{Scope: systems, accounts, or data affected.}
+\item \ph{Chain note if applicable.}
+\end{itemize}
+
+\subsubsection{Remediation}
+
+\begin{itemize}[noitemsep]
+\item \ph{The vendor must [specific required fix].}
+\item \ph{The vendor should [optional hardening measure].}
+\end{itemize}
+
+% TEMPLATE: include YARA for binary-confirmed findings only.
+% \subsubsection{Detection: YARA Rule}
+% \begin{lstlisting}[style=yara]
+% rule Vendor_Product_F002_ShortDescriptor
+% { ... }
+% \end{lstlisting}
+
+% =============================================================
+\section{CWE Glossary}
+% =============================================================
+
+% TEMPLATE: include one row per CWE referenced in the findings table.
+% Remove entries not used in this report.
+
+\begin{longtable}{@{}L{2.4cm}L{3.8cm}L{7.8cm}@{}}
+\toprule
+\textbf{CWE} & \textbf{Name} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{CWE} & \textbf{Name} & \textbf{Description} \\
+\midrule
+\endhead
+\midrule \multicolumn{3}{r}{\small\textit{Continued\ldots}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+CWE-22  & Path Traversal              & User-controlled input constructs a filesystem path without canonicalization \\
+CWE-78  & OS Command Injection        & User-controlled input passed to a shell without neutralization \\
+CWE-80  & HTML Script Injection       & User input embedded in HTML rendered by a browser or Electron renderer \\
+CWE-89  & SQL Injection               & User-controlled input included in a SQL query without sanitization \\
+CWE-120 & Buffer Copy Without Size Check & \texttt{strcpy}/\texttt{memcpy} called with attacker-controlled length \\
+CWE-121 & Stack Buffer Overflow       & Write beyond the boundary of a stack-allocated buffer \\
+CWE-122 & Heap Buffer Overflow        & Write beyond the boundary of a heap-allocated buffer \\
+CWE-134 & Uncontrolled Format String  & User-controlled format string passed to a formatted output function \\
+CWE-200 & Information Exposure        & Software exposes sensitive information to an unauthorized actor \\
+CWE-250 & Execution with Unnecessary Privileges & Software runs with more privileges than required \\
+CWE-284 & Improper Access Control     & Software does not restrict access to a resource from an unauthorized actor \\
+CWE-295 & Improper Certificate Validation & Software does not properly verify that a certificate is valid and trusted \\
+CWE-306 & Missing Authentication      & Software does not authenticate an actor before a critical operation \\
+CWE-321 & Hard-coded Cryptographic Key & A cryptographic key is embedded in the source code or binary \\
+CWE-330 & Insufficient Randomness     & A random value is generated with too few bits of entropy \\
+CWE-416 & Use After Free              & Software uses a pointer after the referenced memory has been freed \\
+CWE-522 & Insufficiently Protected Credentials & Credential material stored or transmitted without adequate protection \\
+CWE-693 & Protection Mechanism Failure & A designed security mechanism is missing, disabled, or incorrectly implemented \\
+CWE-916 & Weak Password Hash          & Password stored with an algorithm insufficient to resist offline attack \\
+CWE-918 & Server-Side Request Forgery & Software fetches a URL based on user input without validation \\
+\end{longtable}
+
+% =============================================================
+\section{General Glossary}
+% =============================================================
+
+% TEMPLATE: product-specific or technique-specific terms used in the report.
+% Omit standard well-known terms (HTTP, TLS, SSH). Alphabetical order.
+
+\begin{longtable}{@{}L{3.2cm}L{10.8cm}@{}}
+\toprule
+\textbf{Term} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Term} & \textbf{Definition} \\
+\midrule
+\endhead
+\midrule \multicolumn{2}{r}{\small\textit{Continued\ldots}} \\
+\endfoot
+\bottomrule
+\endlastfoot
+% TEMPLATE: add rows for product-specific terms
+\ph{Term 1} & \ph{Definition} \\
+\ph{Term 2} & \ph{Definition} \\
+\end{longtable}
+
+\bigskip
+\noindent\rule{\linewidth}{0.4pt}
+% TEMPLATE: update the disclaimer to match the actual analysis method.
+% Do not write "no production systems were accessed" if that is not true.
+{\small\textit{All analysis was performed on publicly distributed firmware and software images.
+No production systems were accessed, modified, or tested.
+Coordinated disclosure period: 90 days from first vendor PSIRT response.}}
+
+\end{document}

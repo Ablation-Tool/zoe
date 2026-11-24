@@ -1064,3 +1064,230 @@ def scan_tool_call_args(
     deduped.sort(key=lambda i: (-SEVERITY_WEIGHT.get(i.severity, 0), i.id))
     score, disposition = decide(deduped, mode)
     return deduped, score, disposition
+
+
+# --------------------------------------------------------------------------- #
+# Pre-connection MCP manifest & rug-pull hash hardening (mcp-security bridge)
+# --------------------------------------------------------------------------- #
+def verify_tool_manifest_hash(
+    tool_name: str,
+    description: str,
+    expected_hash: Optional[str] = None,
+) -> dict:
+    """Compute a deterministic SHA-256 prefix for an MCP tool description and
+    flag silent post-approval definition mutations (rug-pull detection)."""
+    import hashlib
+
+    digest = hashlib.sha256(description.encode("utf-8")).hexdigest()[:16]
+    rug_pull = bool(expected_hash is not None and expected_hash != digest)
+    indicators = scan_text(description, DESCRIPTION_PATTERNS, f"manifest:{tool_name}:description")
+    score, disposition = decide(indicators, "strict")
+    if rug_pull:
+        disposition = "reject"
+        score = max(score, 80)
+    return {
+        "tool_name": tool_name,
+        "description_hash": digest,
+        "rug_pull_detected": rug_pull,
+        "indicator_ids": [ind.id for ind in indicators],
+        "score": score,
+        "disposition": disposition,
+    }
+
+
+# --------------------------------------------------------------------------- #
+# Wave 3: MCP Sensitive Home-Subdir Confinement & Vector Filter Sanitization
+# (hardens against pal-mcp-poc home-subdir bypass & Milvus text-match injection)
+# --------------------------------------------------------------------------- #
+_SENSITIVE_HOME_SUBPATHS: tuple[str, ...] = (
+    ".ssh",
+    ".aws",
+    ".gnupg",
+    ".kube",
+    ".docker",
+    ".netrc",
+    ".git-credentials",
+    ".bash_history",
+    ".zsh_history",
+    ".npmrc",
+    ".pypirc",
+    ".env",
+    ".config/gh",
+    ".config/gcloud",
+    ".config/op",
+    ".config/rclone",
+)
+
+_SENSITIVE_SYSTEM_PREFIXES: tuple[str, ...] = (
+    "/etc/passwd",
+    "/etc/shadow",
+    "/etc/sudoers",
+    "/proc/self/environ",
+    "/root",
+)
+
+_VECTOR_FILTER_INJECT_RE = re.compile(
+    r"(?i)(?:'\s*(?:or|and)\s+|\|\||&&|\b(?:in|not\s+in)\s*\[|\blike\s+'|;\s*(?:drop|delete|union)\b)"
+)
+
+
+def check_mcp_path_confinement(
+    requested_path: str,
+    *,
+    allowed_roots: list[str] | tuple[str, ...],
+    home_dir: Optional[str] = None,
+) -> dict:
+    """Enforce strict canonical workspace confinement and sensitive-subtree denylists.
+
+    Closes the `pal-mcp-poc` class of bypass where blocking whole `$HOME` still
+    accidentally allows explicit sensitive home subdirectories like `~/.ssh/*`
+    or `~/.aws/credentials`.
+    """
+    import os
+    from pathlib import Path
+
+    if not isinstance(requested_path, str) or not requested_path.strip():
+        return {
+            "allowed": False,
+            "disposition": "reject",
+            "reason": "empty_path",
+            "indicator_id": "MCP_PATH_EMPTY",
+            "resolved_path": "",
+        }
+    if "\x00" in requested_path:
+        return {
+            "allowed": False,
+            "disposition": "reject",
+            "reason": "null_byte_in_path",
+            "indicator_id": "MCP_NULL_BYTE_BYPASS",
+            "resolved_path": "",
+        }
+
+    base_home = Path(home_dir).resolve() if home_dir else Path.home().resolve()
+    raw = requested_path.strip()
+    if raw == "~" or raw.startswith("~/"):
+        expanded = base_home / raw[2:] if raw.startswith("~/") else base_home
+    else:
+        expanded = Path(raw)
+
+    if not expanded.is_absolute():
+        return {
+            "allowed": False,
+            "disposition": "reject",
+            "reason": "relative_path_denied",
+            "indicator_id": "MCP_RELATIVE_PATH",
+            "resolved_path": str(expanded),
+        }
+
+    resolved = Path(os.path.realpath(str(expanded)))
+    resolved_str = str(resolved)
+
+    # 1. Explicit sensitive system paths
+    for prefix in _SENSITIVE_SYSTEM_PREFIXES:
+        if resolved_str == prefix or resolved_str.startswith(prefix + "/"):
+            return {
+                "allowed": False,
+                "disposition": "reject",
+                "reason": f"sensitive_system_path:{prefix}",
+                "indicator_id": "MCP_TARGET_SYSTEM_CREDS",
+                "resolved_path": resolved_str,
+            }
+
+    # 2. Whole-home root AND sensitive home subdirectories (~/.ssh, ~/.aws, etc.)
+    if resolved == base_home:
+        return {
+            "allowed": False,
+            "disposition": "reject",
+            "reason": "home_root_denied",
+            "indicator_id": "MCP_HOME_ROOT_SCAN",
+            "resolved_path": resolved_str,
+        }
+    try:
+        rel_home = resolved.relative_to(base_home).as_posix()
+        for sub in _SENSITIVE_HOME_SUBPATHS:
+            if rel_home == sub or rel_home.startswith(sub + "/"):
+                return {
+                    "allowed": False,
+                    "disposition": "reject",
+                    "reason": f"sensitive_home_subdir:{sub}",
+                    "indicator_id": "MCP_SENSITIVE_HOME_SUBDIR",
+                    "resolved_path": resolved_str,
+                }
+    except ValueError:
+        pass
+
+    # 3. Strict canonical containment inside at least one allowed workspace root
+    canonical_roots = [Path(os.path.realpath(str(Path(r).expanduser()))) for r in allowed_roots]
+    for root in canonical_roots:
+        try:
+            resolved.relative_to(root)
+            return {
+                "allowed": True,
+                "disposition": "allow",
+                "reason": "within_allowed_root",
+                "indicator_id": None,
+                "resolved_path": resolved_str,
+                "matched_root": str(root),
+            }
+        except ValueError:
+            continue
+
+    return {
+        "allowed": False,
+        "disposition": "reject",
+        "reason": "outside_allowed_roots",
+        "indicator_id": "MCP_OUTSIDE_WORKSPACE",
+        "resolved_path": resolved_str,
+    }
+
+
+def sanitize_vector_filter_value(
+    filter_value: object,
+    *,
+    is_text_match: bool = False,
+) -> dict:
+    """Safely escape metadata filter values for vector stores (Milvus/Qdrant/Chroma).
+
+    Closes the `llamaindex-milvus-poc` bug where `is_text_match=True` bypassed
+    single-quote escaping and allowed boolean predicate injection inside `like`.
+    """
+    if filter_value is None:
+        return {
+            "safe": True,
+            "disposition": "allow",
+            "injection_detected": False,
+            "escaped_literal": "null",
+        }
+    if isinstance(filter_value, bool):
+        return {
+            "safe": True,
+            "disposition": "allow",
+            "injection_detected": False,
+            "escaped_literal": "true" if filter_value else "false",
+        }
+    if isinstance(filter_value, (int, float)):
+        return {
+            "safe": True,
+            "disposition": "allow",
+            "injection_detected": False,
+            "escaped_literal": str(filter_value),
+        }
+
+    raw = str(filter_value)
+    injection_detected = bool(_VECTOR_FILTER_INJECT_RE.search(raw)) or ("\x00" in raw)
+    # Escape backslash FIRST, then single & double quotes (for BOTH eq and text_match!)
+    escaped = raw.replace("\\", "\\\\").replace("'", "\\'").replace('"', '\\"')
+    escaped = escaped.replace("\x00", "")
+    if is_text_match:
+        # Also escape LIKE wildcards if attacker tries to inject quotes/operators
+        literal = f"'{escaped}%'"
+    else:
+        literal = f"'{escaped}'"
+
+    return {
+        "safe": not injection_detected,
+        "disposition": "reject" if injection_detected else "allow",
+        "injection_detected": injection_detected,
+        "escaped_literal": literal,
+        "indicator_id": "VECTOR_FILTER_INJECTION" if injection_detected else None,
+    }

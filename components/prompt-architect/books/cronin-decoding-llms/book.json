@@ -1,0 +1,30 @@
+{
+  "ourn": "urn:orm:book:9781835084656",
+  "identifier": "9781835084656",
+  "isbn": "9781835084656",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835084656/",
+  "content_format": "book",
+  "publication_date": "2024-10-31",
+  "created_time": "2024-11-05T07:43:27.410191Z",
+  "last_modified_time": "2026-04-01T17:11:37.250698Z",
+  "title": "Decoding Large Language Models",
+  "is_hidden": false,
+  "has_mathml": false,
+  "virtual_pages": 602,
+  "opf_unique_identifier_type": "bookid",
+  "page_count": 396,
+  "total_running_time_secs": null,
+  "total_size": 3931911,
+  "descriptions": {
+    "text/html": "<span><p>In \"Decoding Large Language Models,\" you will gain comprehensive insights into the inner workings and practical applications of modern large language models (LLMs). Authored by the expert Irena Cronin, this book equips you with knowledge on LLM architecture, development, and deployment in the context of NLP.</p><p><b>What this Book will help me do</b></p><ul><li>Understand the architecture and components of contemporary LLMs and how they process information.</li><li>Gain expertise in training datasets and fine-tuning LLMs for specific NLP tasks.</li><li>Learn techniques for deploying LLMs in production environments effectively and securely.</li><li>Develop skills to evaluate and optimize LLMs for improved performance in practical applications.</li><li>Understand ethical considerations and emerging trends, including insights into GPT-5.</li></ul><p><b>Author(s)</b></p><p>Irena Cronin is a distinguished expert in artificial intelligence and natural language processing with extensive experience in research and technology-focused authorship. Known for her clear and insightful exposition of complex topics, Irena brings a practical perspective to understanding and utilizing LLMs, helping learners bridge the gap between theory and application.</p><p><b>Who is it for?</b></p><p>This book is designed for professionals in the field of artificial intelligence and NLP, such as AI researchers, technical leaders, and software developers. Ideal readers should have basic knowledge of machine learning, familiarity with Python programming, and an understanding of NLP concepts. By targeting these prerequisites, the book provides in-depth knowledge to help readers enhance their skills and address contemporary challenges in AI.</p></span>",
+    "text/plain": "In \"Decoding Large Language Models,\" you will gain comprehensive insights into the inner workings and practical applications of modern large language models (LLMs). Authored by the expert Irena Cronin, this book equips you with knowledge on LLM architecture, development, and deployment in the context of NLP. What this Book will help me do Understand the architecture and components of contemporary LLMs and how they process information. Gain expertise in training datasets and fine-tuning LLMs for specific NLP tasks. Learn techniques for deploying LLMs in production environments effectively and securely. Develop skills to evaluate and optimize LLMs for improved performance in practical applications. Understand ethical considerations and emerging trends, including insights into GPT-5. Author(s) Irena Cronin is a distinguished expert in artificial intelligence and natural language processing with extensive experience in research and technology-focused authorship. Known for her clear and insightful exposition of complex topics, Irena brings a practical perspective to understanding and utilizing LLMs, helping learners bridge the gap between theory and application. Who is it for? This book is designed for professionals in the field of artificial intelligence and NLP, such as AI researchers, technical leaders, and software developers. Ideal readers should have basic knowledge of machine learning, familiarity with Python programming, and an understanding of NLP concepts. By targeting these prerequisites, the book provides in-depth knowledge to help readers enhance their skills and address contemporary challenges in AI."
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835084656/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835084656/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781835084656/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9781835084656",
+  "tags": [],
+  "language": "en",
+  "resources": [],
+  "roughcut": false
+}

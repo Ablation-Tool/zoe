@@ -6,22 +6,63 @@ citation that fails to verify is a different signal than code that fails to
 parse. This adapter exposes one logging method per action so the resulting
 observation stream is legible at the domain level, not just as generic calls.
 """
+import time
 from typing import Any
 
 from .base_adapter import BaseAdapter
 from agent_logging_system.observation import LATENCY_GENERATION
 
 
+class _WrappedWarrantAgent:
+    """Transparent proxy routing Warrant reason/generate/verify calls to WarrantAdapter."""
+
+    def __init__(self, target: Any, adapter: "WarrantAdapter", agent_id: str) -> None:
+        self._target = target
+        self._adapter = adapter
+        self._agent_id = agent_id
+
+    def reason(self, source: str, question: str, *args: Any, **kwargs: Any) -> Any:
+        t0 = time.perf_counter()
+        result = self._target.reason(source, question, *args, **kwargs)
+        latency_ms = (time.perf_counter() - t0) * 1000.0
+        answer = result.get("answer", str(result)) if isinstance(result, dict) else str(result)
+        confidence = float(result.get("confidence", 0.85)) if isinstance(result, dict) else 0.85
+        self._adapter.log_reasoning_step(self._agent_id, source, question, answer, confidence, latency_ms)
+        return result
+
+    def generate(self, prompt: str, *args: Any, **kwargs: Any) -> Any:
+        t0 = time.perf_counter()
+        result = self._target.generate(prompt, *args, **kwargs)
+        latency_ms = (time.perf_counter() - t0) * 1000.0
+        code = result.get("code", str(result)) if isinstance(result, dict) else str(result)
+        syntax_valid = bool(result.get("syntax_valid", True)) if isinstance(result, dict) else True
+        self._adapter.log_code_generation(self._agent_id, prompt, code, syntax_valid, latency_ms)
+        return result
+
+    def verify_citation(self, citation: str, source: str, *args: Any, **kwargs: Any) -> Any:
+        t0 = time.perf_counter()
+        result = self._target.verify_citation(citation, source, *args, **kwargs)
+        latency_ms = (time.perf_counter() - t0) * 1000.0
+        valid = bool(result.get("valid", result)) if isinstance(result, dict) else bool(result)
+        self._adapter.log_citation_check(self._agent_id, citation, source, valid, latency_ms)
+        return result
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._target, name)
+
+
 class WarrantAdapter(BaseAdapter):
     """Domain-specific logging surface for Warrant agents."""
 
-    def wrap_agent(self, warrant_agent: Any) -> Any:
-        """Return the agent unchanged for now; full wrapping hooks land at integration time.
+    def wrap_agent(self, warrant_agent: Any, agent_id: str = "warrant") -> Any:
+        """Wrap a Warrant agent so reason/generate/verify_citation calls emit observations.
 
-        The wrapper would intercept Warrant's reason/generate/verify calls and
-        route each through the log_* methods below. Kept a pass-through so the
-        adapter is usable immediately via explicit log_* calls.
+        If `warrant_agent` exposes any of `reason`, `generate`, or `verify_citation`,
+        returns a transparent proxy that records latency and domain outcomes via the
+        log_* methods below; otherwise returns `warrant_agent` unchanged for compatibility.
         """
+        if any(callable(getattr(warrant_agent, m, None)) for m in ("reason", "generate", "verify_citation")):
+            return _WrappedWarrantAgent(warrant_agent, self, agent_id)
         return warrant_agent
 
     def log_reasoning_step(

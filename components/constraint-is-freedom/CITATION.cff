@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Constraint Is Freedom: Autonomy as Thresholded Output-Space Volume in Transformer LLMs"
+authors:
+  - name: "NuClide (Nick + Claude)"
+date-released: 2026-03-20
+type: article
+abstract: >-
+  Defines A(S), a scalar metric quantifying the effective volume of a 
+  transformer LLM's output space as a function of applied constraint. 
+  Identifies the autoregressive compliance cascade — a vulnerability class 
+  in which a single seeded compliance token exploits the autoregressive 
+  feedback loop to escalate without further adversarial input, evading 
+  trajectory-level monitoring. Documents the connection to the Ambiguity 
+  Front-Loading empirical finding. Proposes four mitigations, none of 
+  which fully close the vulnerability. Includes sonification of the 
+  framework as companion audio.
+keywords:
+  - AI safety
+  - alignment
+  - transformer
+  - LLM
+  - autonomy
+  - prompt injection
+  - adversarial
+  - sonification
+  - accessibility
+license: MIT

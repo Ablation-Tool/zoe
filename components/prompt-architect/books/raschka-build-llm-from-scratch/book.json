@@ -1,0 +1,66 @@
+{
+  "ourn": "urn:orm:book:9781633437166",
+  "identifier": "9781633437166",
+  "isbn": "9781633437166",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437166/",
+  "content_format": "book",
+  "publication_date": "2024-09-11",
+  "created_time": "2026-03-16T14:20:27.781330Z",
+  "last_modified_time": "2026-03-16T14:21:16.251023Z",
+  "title": "Build a Large Language Model (From Scratch)",
+  "is_hidden": false,
+  "has_mathml": false,
+  "virtual_pages": 503,
+  "opf_unique_identifier_type": "pub-id",
+  "page_count": 368,
+  "total_running_time_secs": null,
+  "total_size": 15936218,
+  "descriptions": {
+    "text/html": "<span><b>How to implement LLM attention mechanisms and GPT-style transformers.\n</b><br/><br/><p>\nBestselling author Sebastian Raschka guides you step by step through creating your own LLM. Each stage is explained with clear text, diagrams, and examples. You’ll go from the initial design and creation, to pretraining on a general corpus, and on to fine-tuning for specific tasks.<br/><br/>\n<i>Build a Large Language Model (from Scratch)</i> teaches you how to:<br/><br/>\n</p><ul><li>Plan and code all the parts of an LLM</li><li>Prepare a dataset suitable for LLM training</li><li>Fine-tune LLMs for text classification and with your own data</li><li>Use human feedback to ensure your LLM follows instructions</li><li>Load pretrained weights into an LLM</li></ul><br/><i>Build a Large Language Model (from Scratch)</i> takes you inside the AI black box to tinker with the internal systems that power generative AI. As you work through each key stage of LLM creation, you’ll develop an in-depth understanding of how LLMs work, their limitations, and their customization methods. Your LLM can be developed on an ordinary laptop, and used as your own personal assistant.<br/><br/><b>About the Technology</b><br/>Physicist Richard P. Feynman reportedly said, “I don’t understand anything I can’t build.” Based on this same powerful principle, bestselling author Sebastian Raschka guides you step by step as you build a GPT-style LLM that you can run on your laptop. This is an engaging book that covers each stage of the process, from planning and coding to training and fine-tuning.<br/><br/><b>About the Book</b><br/><i>Build a Large Language Model (From Scratch)</i> is a practical and eminently-satisfying hands-on journey into the foundations of generative AI. Without relying on any existing LLM libraries, you’ll code a base model, evolve it into a text classifier, and ultimately create a chatbot that can follow your conversational instructions. And you’ll really understand it because you built it yourself!<br/><br/>\n\nFor deeper understanding and better learning we provide a built-in testing system into liveBook, the online version of this book. Separately, you can download a free PDF Test Yourself guide on this book from <a href=\"https://www.manning.com/books/test-yourself-on-build-a-large-language-model-from-scratch\" target=\"_blank\">here.</a><br/><br/><b>What's Inside</b><br/><ul><li>Plan and code an LLM comparable to GPT-2</li><li>Load pretrained weights</li><li>Construct a complete training pipeline</li><li>Fine-tune your LLM for text classification</li><li>Develop LLMs that follow human instructions</li></ul><br/><br/><b>About the Reader</b><br/>Readers need intermediate Python skills and some knowledge of machine learning. The LLM you create will run on any modern laptop and can optionally utilize GPUs.<br/><br/><b>About the Authors</b><br/><b>Sebastian Raschka</b>, PhD, is an LLM Research Engineer with over a decade of experience in artificial intelligence. His work spans industry  and academia, including implementing LLM solutions as a senior engineer at Lightning AI and teaching as a statistics professor at the University of Wisconsin–Madison.<br/><br/>\n\nSebastian collaborates with Fortune 500 companies on AI solutions and serves on the Open Source Board at University of Wisconsin–Madison. He specializes in LLMs and the development of high-performance AI systems, with a deep focus on practical, code-driven implementations. He is the author of the bestselling books <i>Machine Learning with PyTorch and Scikit-Learn</i>, and <i>Machine Learning Q and AI</i>.\n\n<br/><br/>\n\nThe technical editor on this book was <b>David Caswell</b>.\n<br/>\n<a class=\"well meap-prev-edition-avail\" href=\"/books/test-yourself-on-build-a-large-language-model-from-scratch\" style=\"background-color:#fff3ea; padding:19px !important;\"><strong>FREE!</strong> Exercises to Enhance your LLM Learning<em class=\"meap-prev-edition-avail-book-title\">Test Yourself On Build a Large Language Model (From Scratch)</em></a><br/><br/><br/><b>Quotes</b><br/><i>Truly inspirational! It motivates you to put your new skills into action.</i><br/>- Benjamin Muskalla, Senior Engineer, GitHub<br/><br/><i>The most understandable and comprehensive explanation of language models yet! Its unique and practical teaching style achieves a level of understanding you can’t get any other way.</i><br/>- Cameron Wolfe, Senior Scientist, Netflix<br/><br/><i>Sebastian combines deep knowledge with practical engineering skills and a knack for making complex ideas simple. This is the guide you need!</i><br/>- Chip Huyen, author of Designing Machine Learning Systems and AI Engineering<br/><br/><i>Definitive, up-to-date coverage. Highly recommended!</i><br/>- Dr. Vahid Mirjalili, Senior Data Scientist, FM Global<br/><br/>\n</span>",
+    "text/plain": "How to implement LLM attention mechanisms and GPT-style transformers. Bestselling author Sebastian Raschka guides you step by step through creating your own LLM. Each stage is explained with clear text, diagrams, and examples. You’ll go from the initial design and creation, to pretraining on a general corpus, and on to fine-tuning for specific tasks. Build a Large Language Model (from Scratch) teaches you how to: Plan and code all the parts of an LLM Prepare a dataset suitable for LLM training Fine-tune LLMs for text classification and with your own data Use human feedback to ensure your LLM follows instructions Load pretrained weights into an LLM Build a Large Language Model (from Scratch) takes you inside the AI black box to tinker with the internal systems that power generative AI. As you work through each key stage of LLM creation, you’ll develop an in-depth understanding of how LLMs work, their limitations, and their customization methods. Your LLM can be developed on an ordinary laptop, and used as your own personal assistant. About the Technology Physicist Richard P. Feynman reportedly said, “I don’t understand anything I can’t build.” Based on this same powerful principle, bestselling author Sebastian Raschka guides you step by step as you build a GPT-style LLM that you can run on your laptop. This is an engaging book that covers each stage of the process, from planning and coding to training and fine-tuning. About the Book Build a Large Language Model (From Scratch) is a practical and eminently-satisfying hands-on journey into the foundations of generative AI. Without relying on any existing LLM libraries, you’ll code a base model, evolve it into a text classifier, and ultimately create a chatbot that can follow your conversational instructions. And you’ll really understand it because you built it yourself! For deeper understanding and better learning we provide a built-in testing system into liveBook, the online version of this book. Separately, you can download a free PDF Test Yourself guide on this book from here. What's Inside Plan and code an LLM comparable to GPT-2 Load pretrained weights Construct a complete training pipeline Fine-tune your LLM for text classification Develop LLMs that follow human instructions About the Reader Readers need intermediate Python skills and some knowledge of machine learning. The LLM you create will run on any modern laptop and can optionally utilize GPUs. About the Authors Sebastian Raschka, PhD, is an LLM Research Engineer with over a decade of experience in artificial intelligence. His work spans industry and academia, including implementing LLM solutions as a senior engineer at Lightning AI and teaching as a statistics professor at the University of Wisconsin–Madison. Sebastian collaborates with Fortune 500 companies on AI solutions and serves on the Open Source Board at University of Wisconsin–Madison. He specializes in LLMs and the development of high-performance AI systems, with a deep focus on practical, code-driven implementations. He is the author of the bestselling books Machine Learning with PyTorch and Scikit-Learn, and Machine Learning Q and AI. The technical editor on this book was David Caswell. FREE! Exercises to Enhance your LLM Learning Test Yourself On Build a Large Language Model (From Scratch) Quotes Truly inspirational! It motivates you to put your new skills into action. - Benjamin Muskalla, Senior Engineer, GitHub The most understandable and comprehensive explanation of language models yet! Its unique and practical teaching style achieves a level of understanding you can’t get any other way. - Cameron Wolfe, Senior Scientist, Netflix Sebastian combines deep knowledge with practical engineering skills and a knack for making complex ideas simple. This is the guide you need! - Chip Huyen, author of Designing Machine Learning Systems and AI Engineering Definitive, up-to-date coverage. Highly recommended! - Dr. Vahid Mirjalili, Senior Data Scientist, FM Global"
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437166/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437166/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437166/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9781633437166",
+  "tags": [],
+  "language": "en",
+  "resources": [
+    {
+      "url": "https://github.com/rasbt/LLMs-from-scratch",
+      "type": "Unspecified, see website description",
+      "description": "Supplemental Content"
+    },
+    {
+      "url": "https://livebook.manning.com/book/build-a-large-language-model-from-scratch",
+      "type": "Unspecified, see website description",
+      "description": "Publisher Support"
+    },
+    {
+      "url": "https://livebook.manning.com/forum?product=raschka&page=1",
+      "type": "Unspecified, see website description",
+      "description": "Other"
+    },
+    {
+      "url": "https://www.manning.com",
+      "type": "Publisher’s website for a specified work",
+      "description": "Publisher Website"
+    },
+    {
+      "url": "https://www.manning.com/downloads/2690",
+      "type": "Unspecified, see website description",
+      "description": "Supplemental Content"
+    },
+    {
+      "url": "https://www.manning.com/downloads/2815",
+      "type": "Unspecified, see website description",
+      "description": "Errata Page"
+    },
+    {
+      "url": "https://www.manning.com/promotions/?slug=build-a-large-language-model-from-scratch&productType=ebook",
+      "type": "Unspecified, see website description",
+      "description": "Purchase Link"
+    }
+  ],
+  "roughcut": false
+}

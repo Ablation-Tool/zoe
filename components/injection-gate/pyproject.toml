@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "injection-gate"
+version = "0.1.0"
+description = "Deterministic proposal->gate->execute enforcement layer that bounds prompt-injection blast radius in tool-using agents."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["llm", "agents", "prompt-injection", "security", "guardrails", "least-privilege"]
+dependencies = []  # stdlib only
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["injection_gate*"]

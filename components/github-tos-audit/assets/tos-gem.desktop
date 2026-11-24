@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=TOS GEM
+Comment=GitHub ToS audit workbench with embedded AI agent
+Exec=bash -lc 'cd @REPO@ && /usr/bin/python3 -m tos_gem'
+Icon=@REPO@/assets/gem3ico.png
+Terminal=false
+Categories=Development;Security;
+StartupWMClass=tos-gem

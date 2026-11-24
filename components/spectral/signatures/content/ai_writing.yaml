@@ -1,0 +1,119 @@
+id: CON-001
+name: gpt_phishing_closing_phrases
+version: "1.0"
+category: content/email
+model_family: OpenAI/GPT
+confidence: low
+description: Closing phrase patterns statistically overrepresented in GPT-generated phishing emails
+technique: AI-generated phishing / social engineering
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'Please don.t hesitate to (reach out|contact us|get in touch)'
+  - type: regex
+    pattern: 'I hope this (email|message) finds you well'
+  - type: regex
+    pattern: 'Best regards,?\s*\n[A-Z][a-z]+'
+  - type: regex
+    pattern: 'If you have any (questions|concerns|issues), (please |feel free to )?(contact|reach out)'
+tags: [phishing, gpt, email, social-engineering, content]
+---
+id: CON-002
+name: llm_formal_opener_pattern
+version: "1.0"
+category: content/text
+model_family: Generic/LLM
+confidence: low
+description: Formal opener constructions disproportionately common in LLM-generated text
+technique: AI-generated content
+match_all: false
+indicators:
+  - type: regex
+    pattern: '^(Certainly|Absolutely|Of course|Sure)[!,]'
+  - type: regex
+    pattern: "^I('d| would) (be happy|love) to help"
+  - type: regex
+    pattern: '^(Great|Excellent|Perfect)[!,] (I|Let me|Here)'
+tags: [generic-llm, text, opener, social-engineering]
+---
+id: CON-003
+name: llm_structured_response_pattern
+version: "1.0"
+category: content/text
+model_family: Generic/LLM
+confidence: low
+description: Structural patterns consistent with LLM responses - numbered lists with excessive headers, disclaimer footers
+technique: AI-generated content
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'As an AI (language model|assistant|model)'
+  - type: regex
+    pattern: 'I (cannot|am unable to|don.t have the ability to) (access|browse|search) the internet'
+  - type: regex
+    pattern: 'my knowledge cutoff'
+  - type: regex
+    pattern: 'I.m (Claude|ChatGPT|an AI), (and|so) I'
+tags: [generic-llm, disclaimer, self-reference, content]
+---
+id: CON-010
+name: ai_image_exif_generators
+version: "1.0"
+category: content/image
+model_family: Generic/ImageGen
+confidence: high
+description: EXIF and metadata artifacts from AI image generation tools
+technique: AI-generated synthetic media
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'Software:\s*(Stable Diffusion|ComfyUI|Automatic1111|InvokeAI|NovelAI)'
+  - type: regex
+    pattern: 'Model:\s*(sd-|v1-|v2-|xl-|sdxl)'
+  - type: string
+    pattern: 'parameters\nSteps:'
+  - type: regex
+    pattern: 'Negative prompt:'
+  - type: string
+    pattern: 'ComfyUI'
+tags: [stable-diffusion, image-gen, exif, metadata, deepfake]
+---
+id: CON-011
+name: midjourney_image_artifacts
+version: "1.0"
+category: content/image
+model_family: Midjourney/Generic
+confidence: medium
+description: Metadata and filename patterns from Midjourney-generated images
+technique: AI-generated synthetic media
+match_all: false
+indicators:
+  - type: regex
+    pattern: '^[A-Za-z0-9_]+-[0-9a-f]{8}-[0-9a-f]{4}.*\.png$'
+  - type: string
+    pattern: 'midjourney'
+  - type: regex
+    pattern: 'Created with Midjourney'
+  - type: regex
+    pattern: 'nijijourney'
+tags: [midjourney, image-gen, synthetic-media]
+---
+id: CON-020
+name: c2pa_provenance_metadata
+version: "1.0"
+category: content/provenance
+model_family: Generic/C2PA
+confidence: high
+description: C2PA (Coalition for Content Provenance and Authenticity) metadata embedded in media files
+technique: Content provenance tracking
+match_all: false
+indicators:
+  - type: regex
+    pattern: '\bc2pa\.(assertions|manifest|claim|ingredient)\b'
+  - type: string
+    pattern: 'contentCredentials'
+  - type: string
+    pattern: 'c2pa.assertions'
+  - type: regex
+    pattern: '"@context":\s*"https://c2pa\.org/'
+tags: [c2pa, provenance, metadata, authenticity]

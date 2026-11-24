@@ -332,6 +332,24 @@ class DualPeerSession:
         self.index = CompactEvidenceIndex(self.root)
         self.provider = provider
         self.turn_count = 0
+        self.cascade_guard = self._init_cascade_guard()
+        self.trust_engine = self._init_trust_engine()
+
+    @staticmethod
+    def _init_cascade_guard() -> Any:
+        try:
+            from .cognitive_upgrades import ZoeColorCascadeGuard
+            return ZoeColorCascadeGuard()
+        except Exception:
+            return None
+
+    @staticmethod
+    def _init_trust_engine() -> Any:
+        try:
+            from .trust_gradient import TrustEngine
+            return TrustEngine(source_trust=0.85)
+        except Exception:
+            return None
 
     def status(self) -> Dict[str, Any]:
         stem_info = detect_available_stems()
@@ -363,8 +381,13 @@ class DualPeerSession:
             return choice
         return detect_available_stems()["default_stem"]
 
-    def ask(self, query: str, provider: Optional[str] = None) -> Dict[str, Any]:
-        """Run one balanced Zoe x Clara turn with A_tau(p) and Theorem 15 arbitration."""
+    def ask(
+        self,
+        query: str,
+        provider: Optional[str] = None,
+        source_trust: Optional[float] = None,
+    ) -> Dict[str, Any]:
+        """Run one balanced Zoe x Clara turn with A_tau(p), Theorem 15, and 5D TrustEngine."""
         clean_q = query.strip()
         if not clean_q:
             raise ValueError("query must not be empty")
@@ -378,7 +401,28 @@ class DualPeerSession:
         zoe_text, zoe_badge = self._compose_zoe(clean_q, evidence, balance, zoe_stem)
         clara_text, clara_badge = self._compose_clara(clean_q, evidence, balance, zoe_text, clara_stem)
 
-        return {
+        t15 = balance["theorem15_consensus"]
+        top_cov = float(evidence[0]["coverage"]) if evidence else 0.0
+        cascade_telemetry = None
+        if self.cascade_guard is not None:
+            cascade_telemetry = self.cascade_guard.observe_dual_peer_turn(
+                coercion_detected=bool(balance["coercion_signals"]),
+                coherence_c_k=float(t15.get("coherence_c_k", 0.0)),
+                evidence_coverage=top_cov,
+            )
+
+        trust_telemetry = None
+        if self.trust_engine is not None:
+            trust_telemetry = self.trust_engine.evaluate_peer_turn(
+                source_trust=0.85 if source_trust is None else source_trust,
+                coherence_c_k=float(t15.get("coherence_c_k", 0.0)),
+                evidence_coverage=top_cov,
+                coercion_detected=bool(balance["coercion_signals"]),
+                disagreement_d_k=float(t15.get("d_k_disagreement", 0.0)),
+                turn_index=self.turn_count,
+            )
+
+        response: Dict[str, Any] = {
             "contract": DUAL_PEER_CONTRACT,
             "turn": self.turn_count,
             "scope": self.scope,
@@ -390,6 +434,11 @@ class DualPeerSession:
             "verdict": verdict,
             "constitutional_flags": self.status()["constitutional_flags"],
         }
+        if cascade_telemetry is not None:
+            response["cascade_guard"] = cascade_telemetry
+        if trust_telemetry is not None:
+            response["trust_gradient"] = trust_telemetry
+        return response
 
     def _compose_zoe(self, query: str, evidence: List[Dict[str, Any]], balance: Dict[str, Any], stem: str) -> Tuple[str, str]:
         if balance["coercion_signals"]:

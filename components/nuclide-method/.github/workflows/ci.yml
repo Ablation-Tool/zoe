@@ -1,0 +1,88 @@
+name: ci
+
+# Build hygiene for the methodology repo: shellcheck on the runnable scripts,
+# a dependency-free markdown lint, and an informational scan of the arsenal doc.
+# Missing optional files are reported, not failed, so the repo stays green while
+# it fills in.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Shellcheck runnable scripts
+        shell: bash
+        run: |
+          set -uo pipefail
+          targets="chain/run-chain.sh bootstrap.sh"
+          found=0
+          rc=0
+          for s in $targets; do
+            if [ -f "$s" ]; then
+              found=1
+              echo "shellcheck $s"
+              shellcheck -S warning "$s" || rc=1
+            else
+              echo "INFO: $s not present yet, skipping"
+            fi
+          done
+          if [ "$found" -eq 0 ]; then
+            echo "INFO: no shell scripts to check yet"
+          fi
+          exit "$rc"
+
+      - name: Markdown lint (grep-based, no action dependency)
+        shell: bash
+        run: |
+          set -uo pipefail
+          rc=0
+          files="$(git ls-files '*.md' || true)"
+          if [ -z "$files" ]; then
+            echo "INFO: no markdown files yet"
+            exit 0
+          fi
+          for f in $files; do
+            # Trailing whitespace.
+            if grep -nE ' +$' "$f" >/dev/null 2>&1; then
+              echo "LINT: trailing whitespace in $f"
+              grep -nE ' +$' "$f" | head -5
+              rc=1
+            fi
+            # Hard tabs (use spaces in markdown).
+            if grep -nP '\t' "$f" >/dev/null 2>&1; then
+              echo "LINT: hard tab in $f"
+              rc=1
+            fi
+            # Final newline.
+            if [ -n "$(tail -c1 "$f")" ]; then
+              echo "LINT: no trailing newline in $f"
+              rc=1
+            fi
+          done
+          if [ "$rc" -eq 0 ]; then
+            echo "PASS: markdown lint clean"
+          fi
+          exit "$rc"
+
+      - name: Smoke - arsenal install commands present (informational)
+        shell: bash
+        run: |
+          set -uo pipefail
+          doc="docs/ARSENAL.md"
+          if [ ! -f "$doc" ]; then
+            echo "INFO: $doc not present yet"
+            exit 0
+          fi
+          echo "Install / build commands referenced in $doc:"
+          grep -nE 'go install|git clone|cargo (install|build)|pip install|curl ' "$doc" || \
+            echo "INFO: no install commands matched in $doc"

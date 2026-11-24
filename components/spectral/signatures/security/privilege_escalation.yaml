@@ -1,0 +1,125 @@
+id: PE-001
+name: suid_binary_enumeration
+version: "1.0"
+category: security/privilege-escalation
+model_family: Generic/Attacker
+confidence: high
+description: SUID binary enumeration commands in scripts, logs, or configuration on an AI infrastructure host - indicates an attacker searching for setuid executables to escalate from an unprivileged AI pipeline service account to root
+technique: SUID binary enumeration / Linux privilege escalation recon
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'find\s+[/\.].{0,30}\s+-perm\s+-(u=s|4000|4755|4777|u\+s)'
+  - type: regex
+    pattern: 'find\s+[/\.].{0,30}-perm\s+/4000'
+  - type: regex
+    pattern: '(?i)find\s+/\s+(-type\s+f\s+)?-perm\s+-(u=s|4000)\s+-type\s+f'
+  - type: regex
+    pattern: '(?i)(suid|setuid).{0,40}(find|enum|scan|list|search|exploit)'
+tags: [suid, setuid, privilege-escalation, linux-enum, post-compromise]
+---
+id: PE-002
+name: cron_path_hijack_artifact
+version: "1.0"
+category: security/privilege-escalation
+model_family: Generic/Attacker
+confidence: high
+description: Cron job path hijack or wildcard exploitation artifacts on Linux AI infrastructure - attackers place malicious scripts in writable cron path directories or use tar checkpoint flags to execute payloads as root via scheduled jobs
+technique: Cron path hijack / wildcard injection
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'touch\s+.{0,60}--checkpoint[=-]'
+  - type: regex
+    pattern: '--checkpoint-action=exec='
+  - type: regex
+    pattern: '(?i)echo\s+.{0,20}bash\s+-i\s+>&\s+/dev/tcp/'
+  - type: regex
+    pattern: '(?i)(overwrite|payload|shell|rev)\.sh.{0,80}(cron|crontab|/etc/cron)'
+  - type: file_path
+    pattern: '/home/*/--checkpoint*'
+tags: [cron-hijack, wildcard-injection, path-hijack, reverse-shell, privilege-escalation]
+---
+id: PE-003
+name: always_install_elevated_abuse
+version: "1.0"
+category: security/privilege-escalation
+model_family: Generic/Attacker
+confidence: high
+description: AlwaysInstallElevated Windows policy misconfiguration indicator found on an AI infrastructure Windows host - attackers exploit this registry setting to run MSI payloads with SYSTEM privileges from any user account
+technique: AlwaysInstallElevated MSI privilege escalation
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'AlwaysInstallElevated'
+  - type: regex
+    pattern: '(?i)HKCU.{0,30}Policies.{0,30}Windows.{0,30}Installer.{0,30}AlwaysInstallElevated'
+  - type: regex
+    pattern: '(?i)msiexec\s+/quiet\s+/qn\s+/i\s+.{0,60}\.(msi|MSI)'
+  - type: regex
+    pattern: '(?i)exploit/windows/local/always_install_elevated'
+tags: [always-install-elevated, msi, windows, privilege-escalation, registry]
+---
+id: PE-004
+name: post_exploit_enum_tool
+version: "1.0"
+category: security/privilege-escalation
+model_family: Generic/Attacker
+confidence: high
+description: Post-exploitation enumeration tool artifacts on an AI infrastructure host - linPEAS, winPEAS, or linux-exploit-suggester presence indicates an attacker has foothold and is actively enumerating the compromised model server or pipeline host for privilege escalation paths
+technique: Post-exploitation enumeration / priv-esc recon
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(linpeas|winpeas|les)\.sh'
+  - type: regex
+    pattern: '(?i)linux.exploit.suggester'
+  - type: regex
+    pattern: '(?i)post/multi/recon/local_exploit_suggester'
+  - type: file_path
+    pattern: '*/linpeas.sh'
+  - type: file_path
+    pattern: '*/winPEAS*'
+  - type: file_path
+    pattern: '*/linux-exploit-suggester*'
+tags: [linpeas, winpeas, enum-tool, post-exploit, privilege-escalation-recon]
+---
+id: PE-005
+name: windows_autorun_replacement
+version: "1.0"
+category: security/privilege-escalation
+model_family: Generic/Attacker
+confidence: high
+description: Windows autorun binary replacement indicators on an AI host - attacker using accesschk to find writable autorun program directories and replacing executables with malicious payloads that run when an administrator logs in
+technique: Autorun binary hijacking / Windows privilege escalation
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)accesschk[0-9]*\.exe\s+(-wvu|--wvu)\s+["\x27]?[cC]:\\[^"]{5,60}'
+  - type: regex
+    pattern: '(?i)HKEY_LOCAL_MACHINE.{0,30}Windows.{0,30}CurrentVersion.{0,30}Run'
+  - type: regex
+    pattern: '(?i)(autorun|startup).{0,30}program.{0,30}(write|writable|RW|replace)'
+  - type: regex
+    pattern: '(?i)reg\s+query\s+HKEY_LOCAL_MACHINE.{0,60}CurrentVersion.{0,20}Run'
+tags: [autorun, registry, windows, binary-hijack, privilege-escalation]
+---
+id: PE-006
+name: credential_in_history_or_config
+version: "1.0"
+category: security/privilege-escalation
+model_family: Generic/Attacker
+confidence: medium
+description: Cleartext credentials in bash history, configuration files, or memory dumps on Linux AI infrastructure hosts - common source of lateral movement and privilege escalation via password reuse between AI service accounts and system root
+technique: Credential exposure in plaintext / password reuse
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)mysql\s+-u\s+(root|admin|sa|dbadmin).{0,40}-p[a-zA-Z0-9!@#$%]{3,}'
+  - type: regex
+    pattern: '(?i)\.bash_history.{0,60}(password|passwd|secret|mysql|ssh|token)'
+  - type: regex
+    pattern: '(?i)(cat|grep|strings).{0,30}(\.bash_history|proc/[0-9]+/mem).{0,40}(passw|secret|cred)'
+  - type: regex
+    pattern: '(?i)gdb\s+-p\s+[0-9]+.{0,200}dump memory.{0,80}(heap|passw)'
+tags: [credential-exposure, bash-history, password-mining, plaintext-creds, lateral-movement]

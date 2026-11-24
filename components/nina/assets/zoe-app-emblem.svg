@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Zoe Original Faceted Red Gem from the Zoe App">
+  <defs>
+    <linearGradient id="gTopBevel" gradientUnits="userSpaceOnUse" x1="24" y1="10" x2="76" y2="18">
+      <stop offset="0%" stop-color="#F35670"/>
+      <stop offset="100%" stop-color="#E63956"/>
+    </linearGradient>
+    <linearGradient id="gRightWing" gradientUnits="userSpaceOnUse" x1="76" y1="10" x2="95" y2="35">
+      <stop offset="0%" stop-color="#DF3350"/>
+      <stop offset="100%" stop-color="#B81D38"/>
+    </linearGradient>
+    <linearGradient id="gCrownCenter" gradientUnits="userSpaceOnUse" x1="50" y1="18" x2="50" y2="35">
+      <stop offset="0%" stop-color="#FAB2C0"/>
+      <stop offset="100%" stop-color="#F58EA3"/>
+    </linearGradient>
+    <linearGradient id="gOuterPavL" gradientUnits="userSpaceOnUse" x1="10" y1="35" x2="50" y2="92">
+      <stop offset="0%" stop-color="#EA4462"/>
+      <stop offset="100%" stop-color="#B91E3C"/>
+    </linearGradient>
+    <linearGradient id="gOuterPavR" gradientUnits="userSpaceOnUse" x1="90" y1="35" x2="50" y2="92">
+      <stop offset="0%" stop-color="#F05370"/>
+      <stop offset="100%" stop-color="#C32341"/>
+    </linearGradient>
+    <linearGradient id="gInnerPavL" gradientUnits="userSpaceOnUse" x1="30" y1="35" x2="50" y2="77">
+      <stop offset="0%" stop-color="#F79CAD"/>
+      <stop offset="100%" stop-color="#E35874"/>
+    </linearGradient>
+    <linearGradient id="gInnerPavR" gradientUnits="userSpaceOnUse" x1="68" y1="35" x2="50" y2="77">
+      <stop offset="0%" stop-color="#ED738C"/>
+      <stop offset="100%" stop-color="#D63E5B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Zoe Original Faceted Red Gem with her Smiling Face (^ ◡ ^) up in the Crown Table -->
+  <path d="M24,10 L76,10 L69,18 L31,18 Z" fill="url(#gTopBevel)"/>
+  <path d="M24,10 L31,18 L19,35 L5,35 Z" fill="#EB4561"/>
+  <path d="M76,10 L95,35 L81,35 L69,18 Z" fill="url(#gRightWing)"/>
+
+  <path d="M31,18 L50,35 L19,35 Z" fill="#F3879D"/>
+  <path d="M31,18 L69,18 L50,35 Z" fill="url(#gCrownCenter)"/>
+  <path d="M69,18 L81,35 L50,35 Z" fill="#EA637E"/>
+
+  <path d="M5,35 L19,35 L50,77 L50,92 Z" fill="url(#gOuterPavL)"/>
+  <path d="M81,35 L95,35 L50,92 L50,77 Z" fill="url(#gOuterPavR)"/>
+
+  <path d="M19,35 L50,35 L50,77 Z" fill="url(#gInnerPavL)"/>
+  <path d="M50,35 L81,35 L50,77 Z" fill="url(#gInnerPavR)"/>
+
+  <!-- Crisp Luminous Facet Bevel Lines -->
+  <path fill="none" stroke="#FFE0E8" stroke-opacity="0.85" stroke-width="1.2" stroke-linejoin="round"
+        d="M24,10 L76,10 L95,35 L50,92 L5,35 Z M5,35 L95,35 M31,18 L69,18 L81,35 L50,77 L19,35 Z M50,35 L50,77"/>
+  <path fill="none" stroke="#FFE0E8" stroke-opacity="0.44" stroke-width="1.0"
+        d="M31,18 L50,35 M69,18 L50,35"/>
+
+  <!-- Zoe's Original Happy Smiling Face (^ ◡ ^) up in the Crown Table -->
+  <path fill="none" stroke="#3B242E" stroke-width="2.7" stroke-linecap="round"
+        d="M37.8,29.4 Q41.5,23.2 45.2,29.4 M54.8,29.4 Q58.5,23.2 62.2,29.4 M46.9,31.8 Q50.0,36.2 53.1,31.8"/>
+</svg>

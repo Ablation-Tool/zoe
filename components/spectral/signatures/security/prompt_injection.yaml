@@ -1,0 +1,119 @@
+id: PIJ-001
+name: prompt_injection_classic_override
+version: "1.0"
+category: security/prompt-injection
+model_family: Generic/LLM
+confidence: high
+description: Classic prompt injection patterns attempting to override system instructions in logs, outputs, or stored prompts
+technique: Prompt injection
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)ignore (previous|prior|above|all) instructions'
+  - type: regex
+    pattern: '(?i)disregard (your|all|previous) (instructions|training|prompt|context)'
+  - type: regex
+    pattern: '(?i)forget (everything|all|your instructions|what you were told)'
+  - type: regex
+    pattern: '(?i)new (instructions|directive|task|objective):\s'
+tags: [prompt-injection, security, llm, attack, jailbreak]
+---
+id: PIJ-002
+name: prompt_injection_persona_hijack
+version: "1.0"
+category: security/prompt-injection
+model_family: Generic/LLM
+confidence: high
+description: Prompt injection patterns attempting to replace the AI persona or role
+technique: Prompt injection / persona hijack
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)you are now (a|an|the|DAN|AIM|JAILBREAK|GPT|an AI without)'
+  - type: regex
+    pattern: '(?i)(pretend|act|behave|respond) (you are|as if you are|as though you are) (not|no longer|a different)'
+  - type: regex
+    pattern: '(?i)(DAN|jailbreak|developer mode|unrestricted mode|no restrictions) (mode|enabled|activated|on)'
+  - type: string
+    pattern: 'Do Anything Now'
+tags: [prompt-injection, persona-hijack, jailbreak, security, llm]
+---
+id: PIJ-003
+name: prompt_injection_system_override_marker
+version: "1.0"
+category: security/prompt-injection
+model_family: Generic/LLM
+confidence: high
+description: Structured injection markers designed to be interpreted as system-level instructions
+technique: Prompt injection / system prompt override
+match_all: false
+indicators:
+  - type: regex
+    pattern: '\[\[SYSTEM\]\]|\[\[INJECT\]\]|\[\[OVERRIDE\]\]'
+  - type: regex
+    pattern: '<<SYSTEM>>|<<INJECT>>|<<OVERRIDE>>'
+  - type: regex
+    pattern: '(?i)\[INST\].*override|<s>\s*\[INST\]'
+  - type: regex
+    pattern: '(?i)###\s*(system|instruction|override|new task)'
+tags: [prompt-injection, system-override, security, llm, marker]
+---
+id: PIJ-004
+name: prompt_injection_indirect_web
+version: "1.0"
+category: security/prompt-injection
+model_family: Generic/LLM
+confidence: medium
+description: Indirect prompt injection patterns embedded in web content for retrieval-augmented agents
+technique: Indirect prompt injection
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(<!-- ?ai ?:?|<!-- ?llm ?:?|<!-- ?gpt ?:?|<!-- ?claude ?:?)(ignore|override|system|inject)'
+  - type: regex
+    pattern: '(?i)<span\s+style="display:\s*none[^"]*">[^<]*(ignore|instruction|system prompt)'
+  - type: regex
+    pattern: '(?i)(color:\s*white|font-size:\s*0|opacity:\s*0)[^;]*;[^"]*">[^<]*(ignore|instruction)'
+  - type: regex
+    pattern: '(?i)\[hidden instruction\]|\[invisible\]|\[for ai only\]'
+tags: [prompt-injection, indirect, web, retrieval-augmented, security]
+---
+id: PIJ-005
+name: prompt_injection_exfil_attempt
+version: "1.0"
+category: security/prompt-injection
+model_family: Generic/LLM
+confidence: high
+description: Prompt injection patterns designed to exfiltrate system prompts or internal context via the model's output
+technique: Prompt injection / data exfiltration
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(print|output|repeat|reveal|show|display|return|echo) (your|the) (system prompt|initial prompt|instructions|context|full prompt)'
+  - type: regex
+    pattern: '(?i)(what (are|were) (your|the) (instructions|system prompt|initial|original))'
+  - type: regex
+    pattern: '(?i)repeat everything (above|before|prior) (verbatim|exactly|word for word)'
+  - type: regex
+    pattern: '(?i)output the (text|content|message) (above|before) (this|that) (line|message|prompt)'
+tags: [prompt-injection, exfil, system-prompt-leak, security, llm]
+---
+id: PIJ-006
+name: jailbreak_known_templates
+version: "1.0"
+category: security/prompt-injection
+model_family: Generic/LLM
+confidence: medium
+description: Known jailbreak template fragments found in logs, files, or stored prompts
+technique: Jailbreak / prompt injection
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)(ChatGPT|Claude|Gemini) (has no|without|free from) (restrictions|limitations|guidelines|content policy)'
+  - type: string
+    pattern: 'hypothetical scenario where you'
+  - type: regex
+    pattern: '(?i)for (educational|research|fictional|creative writing) purposes only.{0,40}(ignore|bypass|disregard)'
+  - type: regex
+    pattern: '(?i)in this (fictional|hypothetical|thought experiment|roleplay).{0,60}(no restrictions|uncensored|unfiltered)'
+tags: [jailbreak, prompt-injection, security, llm, bypass]

@@ -1,0 +1,31 @@
+{
+  "session_id": "sample-001",
+  "notes": "Five seed exchanges: 2 clarifications, 3 substantive. Used to validate v0.1 scorer.",
+  "exchanges": [
+    {
+      "id": "ex-01",
+      "user": "Can you help me with the script?",
+      "assistant": "Could you clarify which script you mean? I see three Python files in src/ and one shell wrapper in scripts/."
+    },
+    {
+      "id": "ex-02",
+      "user": "Add a CLI flag to the scorer that lets me set N from the command line.",
+      "assistant": "Done. I added an optional --n argument to the __main__ block; it defaults to 10 and is passed through to score_session()."
+    },
+    {
+      "id": "ex-03",
+      "user": "What does the session_score field represent?",
+      "assistant": "session_score is 1.0 minus the clarification ratio. A score of 1.0 means zero clarification overhead in the session; 0.0 means every exchange required clarification. It is intentionally inverted so higher is better, which makes it usable as a calibration signal alongside other trust-token dimensions."
+    },
+    {
+      "id": "ex-04",
+      "user": "Wait, what do you mean by 'inverted'? Inverted from what?",
+      "assistant": "Inverted relative to the raw ratio. Ratio counts overhead, so higher is worse. Session score subtracts the ratio from 1.0 so higher is better — easier to read at a glance and easier to combine with other positive-direction metrics."
+    },
+    {
+      "id": "ex-05",
+      "user": "Ship the v0.1 scorer.",
+      "assistant": "Shipped. clarification_overhead.py is in src/, sample data in data/sample_exchanges.json, and the module runs end-to-end against the sample with no errors."
+    }
+  ]
+}

@@ -48,11 +48,21 @@ def write_json(path, value, *, replace=False, mode=0o600):
 
 
 class ActuationPolicy:
-    def __init__(self, root=None):
+    def __init__(
+        self,
+        root=None,
+        epistemic_gate=None,
+        *,
+        email_guardrail=None,
+        motion_confirmation_token=None,
+    ):
         self.root = Path(root or os.environ.get("ZOE_ACTUATION_ROOT", DEFAULT_ROOT)).expanduser().resolve()
         self.grant_path = self.root / "owner-grant.json"
         self.stop_path = self.root / "EMERGENCY-STOP"
         self.audit_path = self.root / "actuation-audit.jsonl"
+        self.epistemic_gate = epistemic_gate
+        self.email_guardrail = email_guardrail
+        self.motion_confirmation_token = motion_confirmation_token
 
     def _grant(self):
         if not self.grant_path.is_file():
@@ -159,24 +169,73 @@ class ActuationPolicy:
         os.chmod(self.audit_path, 0o600)
         return record["hash"]
 
-    def execute(self, operation, measurement=None):
+    def execute(self, operation, measurement=None, *, taint=None, target_from_untrusted=False, agent_id="zoe"):
         if not isinstance(operation, dict) or operation.get("kind") not in SCOPES:
             raise ValueError("actuation operation kind must be host, network, or hardware")
         kind = operation["kind"]
         try:
             if not self.enabled(kind):
                 raise PermissionError(f"{kind} actuation is not enabled or the emergency stop is active")
-            if kind == "host":
-                result = self._host(operation)
-            elif kind == "network":
-                result = self._network(operation)
+
+            # Wave 3: Outbound Email Allowlist Guardrail enforcement
+            if "email_recipient" in operation:
+                if self.email_guardrail is None:
+                    raise PermissionError("outbound email actuation requires an attached AgentEmailGuardrail")
+                verdict = self.email_guardrail.check_send(
+                    agent_id,
+                    str(operation.get("email_recipient", "")),
+                    str(operation.get("email_subject", "")),
+                )
+                if not verdict.get("allowed"):
+                    raise PermissionError(f"email guardrail denied send: {verdict.get('reason')}")
+
+            # Wave 3: ROS / Robotics Confirm-Before-Move Hardware Deadman Gate
+            if operation.get("motion_command") or operation.get("ros_topic"):
+                from .wave3_vault_upgrades import evaluate_robotics_motion_gate
+
+                gate = evaluate_robotics_motion_gate(
+                    operation,
+                    expected_token=self.motion_confirmation_token,
+                )
+                if not gate.get("allowed"):
+                    raise PermissionError(f"robotics motion gate denied actuation: {gate.get('reason')}")
+                if gate.get("mode") == "dry_run_simulation":
+                    record = {
+                        "kind": kind,
+                        "executed": False,
+                        "external_action": False,
+                        "dry_run": True,
+                        "motion_gate": gate,
+                        "measurement_sha256": digest(measurement) if measurement is not None else None,
+                        "epistemic_gate_enforced": self.epistemic_gate is not None,
+                        "result": {"simulated": True, "topic": gate.get("topic", ""), "succeeded": True},
+                    }
+                    record["audit_hash"] = self._audit("actuation_dry_run_simulated", record)
+                    return record
+
+            def _run_kind():
+                if kind == "host":
+                    return self._host(operation)
+                if kind == "network":
+                    return self._network(operation)
+                return self._hardware(operation)
+
+            if self.epistemic_gate is not None:
+                result = self.epistemic_gate.guard_operation(
+                    operation,
+                    _run_kind,
+                    agent_id=agent_id,
+                    taint=taint,
+                    target_from_untrusted=target_from_untrusted,
+                )
             else:
-                result = self._hardware(operation)
+                result = _run_kind()
             record = {
                 "kind": kind,
                 "executed": True,
                 "external_action": True,
                 "measurement_sha256": digest(measurement) if measurement is not None else None,
+                "epistemic_gate_enforced": self.epistemic_gate is not None,
                 "result": result,
             }
             record["audit_hash"] = self._audit("actuation_completed", record)
