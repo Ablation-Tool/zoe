@@ -1,0 +1,259 @@
+{
+  "all_passed": true,
+  "artifacts": {
+    "wave3-desktop.gem": {
+      "bytes": 33394,
+      "path": "evidence/gem-os/wave3/wave3-desktop.gem",
+      "sha256": "d9860761f6fef5ab3bfec25da97f793c5b2b65f11ba7f2117cea93817145b9b5"
+    },
+    "wave3-desktop.html": {
+      "bytes": 186769,
+      "path": "evidence/gem-os/wave3/wave3-desktop.html",
+      "sha256": "ac78b8974dfa85ae7d35a1ee549cff979580441cbb913a53dbe3b6648527f993"
+    },
+    "wave3-desktop.img": {
+      "bytes": 8532,
+      "path": "evidence/gem-os/wave3/wave3-desktop.img",
+      "sha256": "0723d767f86ceb0cba1d53e2bf074bb0b2b5ef66445e5eca9adea15ee7b942f0"
+    },
+    "wave3-desktop.rsc": {
+      "bytes": 812,
+      "path": "evidence/gem-os/wave3/wave3-desktop.rsc",
+      "sha256": "2a9f97042e87751d47dbeac8dd2ec13677b24ddc7eb02da8c929a3af8530cd90"
+    },
+    "wave3-desktop.svg": {
+      "bytes": 28244,
+      "path": "evidence/gem-os/wave3/wave3-desktop.svg",
+      "sha256": "3ab1fe9a3ec3beb3ce198c3cc26dc339f4e7320c86ad48543cc20a2e9c6f0bbf"
+    },
+    "wave3-gem2.svg": {
+      "bytes": 14317,
+      "path": "evidence/gem-os/wave3/wave3-gem2.svg",
+      "sha256": "45687233c79de2a08e00d173eba9b499596ce9e3b13a19f94d36b08dc061cbde"
+    },
+    "wave3-gsx.gsx": {
+      "bytes": 3678,
+      "path": "evidence/gem-os/wave3/wave3-gsx.gsx",
+      "sha256": "1b41154da95b968d5a2eaa98a168055276550cead6e5948d1f4c76e47a3f4ab0"
+    },
+    "wave3-gsx.svg": {
+      "bytes": 9897,
+      "path": "evidence/gem-os/wave3/wave3-gsx.svg",
+      "sha256": "4d0716175985ff807ec968617a564c7768a37870ce0eac360015c5a3d4443037"
+    },
+    "wave3-tos-68k.rsc": {
+      "bytes": 816,
+      "path": "evidence/gem-os/wave3/wave3-tos-68k.rsc",
+      "sha256": "51a04f1ab1b9f0256b57ecf59e13d966b8f8b58ee53c4042268eec05bbeaecc4"
+    },
+    "wave3-tos.svg": {
+      "bytes": 16938,
+      "path": "evidence/gem-os/wave3/wave3-tos.svg",
+      "sha256": "7d970b11e3696684eb983d8d3b33c4c6952ba69d88f425d36a0598af9f440648"
+    }
+  },
+  "checks": [
+    {
+      "detail": "components=17 core_layers=36",
+      "name": "core_gem_os_invariants",
+      "passed": true
+    },
+    {
+      "detail": "handles=[1, 2, 3, 4, 5, 6, 7] 8th_handle=-1",
+      "name": "seasip_aes_7_window_limit",
+      "passed": true
+    },
+    {
+      "detail": "verified 9/9 scenes (incl. GSX-86, Atari TOS 1.0, GEM 2.0/3.11)",
+      "name": "all_9_wave3_gem_instruments_verified",
+      "passed": true
+    },
+    {
+      "detail": ".GEM=33394B .RSC(x86)=812B .RSC(68k)=816B .IMG=8532B .GSX=3678B(154 calls)",
+      "name": "binary_gem_dual_rsc_img_gsx_roundtrip",
+      "passed": true
+    },
+    {
+      "detail": "FileExistsError raised on duplicate export destination",
+      "name": "export_no_overwrite_enforced",
+      "passed": true
+    }
+  ],
+  "codec_telemetry": {
+    "gem_metafile": {
+      "bytes": 33394,
+      "coordinate_system": "RC",
+      "eof_hex": "0xFFFF",
+      "header_words": 24,
+      "magic_hex": "0xFFFF",
+      "record_count": 893,
+      "valid": true,
+      "vdi_opcodes": [
+        5,
+        6,
+        8,
+        11,
+        12,
+        13,
+        17,
+        22,
+        23,
+        25
+      ],
+      "version": 101
+    },
+    "gsx86_ndc": {
+      "bytes": 3678,
+      "call_count": 154,
+      "coordinate_space": "NDC 0..32767 (bottom-left origin)",
+      "driver_id": 1,
+      "format": "DR_GSX86_NDC",
+      "max_ndc_coord": 32767,
+      "opcode_names": [
+        "v_opnwk",
+        "v_clswk",
+        "v_clrwk",
+        "v_pline",
+        "v_gtext",
+        "v_gdp",
+        "vsl_color",
+        "vst_color",
+        "vsf_interior",
+        "vsf_color"
+      ],
+      "opcodes": [
+        1,
+        2,
+        3,
+        6,
+        8,
+        11,
+        17,
+        22,
+        23,
+        25
+      ],
+      "valid": true
+    },
+    "img_bitmap": {
+      "bytes_consumed": 8532,
+      "format": "GEM_XIMG",
+      "has_ximg_palette": true,
+      "header_words": 59,
+      "height": 200,
+      "pattern_size": 2,
+      "pixel_size": [
+        85,
+        85
+      ],
+      "planes": 4,
+      "version": 1,
+      "width": 320
+    },
+    "rsc_atari_68k_be": {
+      "arch": "Motorola 68000 (Atari TOS)",
+      "endian": ">",
+      "format": "GEM_RSC",
+      "rsh_nobs": 16,
+      "rsh_nted": 1,
+      "rsh_ntree": 2,
+      "rsh_rssize": 816,
+      "rsh_vrsn": 0
+    },
+    "rsc_pc_x86_le": {
+      "arch": "Intel x86 (PC GEM / FreeGEM / ViewMAX)",
+      "endian": "<",
+      "format": "GEM_RSC",
+      "rsh_nobs": 16,
+      "rsh_nted": 1,
+      "rsh_ntree": 2,
+      "rsh_rssize": 812,
+      "rsh_vrsn": 0
+    }
+  },
+  "contract": "zoe-wave3-seasip-gem-verification/v1",
+  "invariants": {
+    "components_lock_untouched": true,
+    "core_component_count": 17,
+    "core_layer_count": 36,
+    "external_actions": 0,
+    "sentience_claimed": false
+  },
+  "layers": {
+    "wave3": {
+      "form_alerts_valid": true,
+      "object_count": 154,
+      "scene_id": "zoe-wave3-gem-desktop",
+      "scene_sha256": "9d82860f5bc921a7f55824d2e23e847d402e5aef4f38fe400327bf975add0cb2",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-actuation": {
+      "form_alerts_valid": true,
+      "object_count": 41,
+      "scene_id": "zoe-wave3-actuate-app",
+      "scene_sha256": "8592a3e88f5ddaf77979843f63093943229c7993d79abb6b0151f0c72fcdfec4",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-auditors": {
+      "form_alerts_valid": true,
+      "object_count": 62,
+      "scene_id": "zoe-wave3-audit-app",
+      "scene_sha256": "a783bb9a1e6ba767fb0e9133e9b9531efaa72a8f338e8f3aae1254c1bd823e2b",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-dualpath": {
+      "form_alerts_valid": true,
+      "object_count": 46,
+      "scene_id": "zoe-wave3-verify-app",
+      "scene_sha256": "44bbc7c59dcc4a839926836cee9329c10b4f1c04b3984232cf00da1a643efad0",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-gem2": {
+      "form_alerts_valid": true,
+      "object_count": 75,
+      "scene_id": "zoe-wave3-gem2-tiled",
+      "scene_sha256": "999c7873a1839ac97ed09869ce4bfb1357cb60377a20289051b27a9996598d4b",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-gsx": {
+      "form_alerts_valid": true,
+      "object_count": 53,
+      "scene_id": "zoe-wave3-gsx-graph",
+      "scene_sha256": "c6382f6ee9e706ca4b606af9fca105cbe970d5023cf649b035fc0041b27c3b9f",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-guards": {
+      "form_alerts_valid": true,
+      "object_count": 53,
+      "scene_id": "zoe-wave3-guard-acc",
+      "scene_sha256": "5db39d5b33bf198567f21b17fc575634c03089421f70dc97e49d1ba908a76c28",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-tos": {
+      "form_alerts_valid": true,
+      "object_count": 91,
+      "scene_id": "zoe-wave3-tos-desk",
+      "scene_sha256": "9657d92550a5fcc31534f847400864c91c254163ef53db7b9394428a9c2f449f",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    },
+    "wave3-trust": {
+      "form_alerts_valid": true,
+      "object_count": 56,
+      "scene_id": "zoe-wave3-trust-acc",
+      "scene_sha256": "e690505a56fa4be2087df3a4c030a24b4ffac224c4c241d66c12706a3c013a49",
+      "spatial_ir_passed": true,
+      "vdi_passed": true
+    }
+  },
+  "passed_count": 5,
+  "spec_reference": "https://www.seasip.info/Gem/index.html + http://toastytech.com/guis/indexgem.html",
+  "total_checks": 5
+}

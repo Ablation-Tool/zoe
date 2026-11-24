@@ -1,0 +1,621 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1280 800" role="img" aria-label="Zoe Wave 3 :: Digital Research GEM/3 &amp; ViewMAX Security Desktop">
+  <title>Zoe Wave 3 :: Digital Research GEM/3 &amp; ViewMAX Security Desktop</title>
+  <rect x="0" y="0" width="1280.0" height="800.0" fill="#ffffff" />
+  <g data-object-id="desk_bg">
+    <title>desk_bg</title>
+    <rect x="0.0" y="0.0" width="1280.0" height="800.0" fill="#00756b" stroke="#00756b" stroke-width="0.0" />
+  </g>
+  <g data-object-id="menubar">
+    <title>menubar</title>
+    <rect x="0.0" y="0.0" width="1280.0" height="30.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="mn_hi_Desk">
+    <title>mn_hi_Desk</title>
+    <rect x="10.0" y="2.0" width="52.0" height="26.0" fill="#000000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="mn_t_Desk">
+    <title>mn_t_Desk</title>
+    <text x="18.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#ffffff">Desk</text>
+  </g>
+  <g data-object-id="mn_t_File">
+    <title>mn_t_File</title>
+    <text x="82.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">File</text>
+  </g>
+  <g data-object-id="mn_t_Audit">
+    <title>mn_t_Audit</title>
+    <text x="146.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">Audit</text>
+  </g>
+  <g data-object-id="mn_t_Guard">
+    <title>mn_t_Guard</title>
+    <text x="219.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">Guard</text>
+  </g>
+  <g data-object-id="mn_t_Actuate">
+    <title>mn_t_Actuate</title>
+    <text x="292.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">Actuate</text>
+  </g>
+  <g data-object-id="mn_t_Options">
+    <title>mn_t_Options</title>
+    <text x="383.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">Options</text>
+  </g>
+  <g data-object-id="mn_right">
+    <title>mn_right</title>
+    <text x="940.0" y="20.0" font-family="sans-serif" font-size="11.0" fill="#525552">ZOE GEM/3 AES+VDI :: seasip.info/Gem</text>
+  </g>
+  <g data-object-id="w1_sh">
+    <title>w1_sh</title>
+    <rect x="24.0" y="48.0" width="608.0" height="344.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="w1_frame">
+    <title>w1_frame</title>
+    <rect x="20.0" y="44.0" width="608.0" height="344.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="w1_tb">
+    <title>w1_tb</title>
+    <rect x="20.0" y="44.0" width="608.0" height="26.0" fill="#0000ad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_cls">
+    <title>w1_cls</title>
+    <rect x="20.0" y="44.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_cls_in">
+    <title>w1_cls_in</title>
+    <rect x="26.0" y="50.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_ful">
+    <title>w1_ful</title>
+    <rect x="602.0" y="44.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_ful_in">
+    <title>w1_ful_in</title>
+    <rect x="607.0" y="49.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_title">
+    <title>w1_title</title>
+    <text x="56.0" y="62.0" font-family="sans-serif" font-size="12.0" fill="#ffffff">TRUST.ACC :: 5-Dim Continuous TrustEngine + Lume</text>
+  </g>
+  <g data-object-id="w1_info">
+    <title>w1_info</title>
+    <rect x="20.0" y="70.0" width="608.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_infot">
+    <title>w1_infot</title>
+    <text x="30.0" y="85.0" font-family="sans-serif" font-size="10.0" fill="#000000">Invariant: output_trust &lt;= source_trust  |  Coercion cap &lt;= 0.15</text>
+  </g>
+  <g data-object-id="w1_vsl">
+    <title>w1_vsl</title>
+    <rect x="610.0" y="92.0" width="18.0" height="296.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_sz">
+    <title>w1_sz</title>
+    <rect x="610.0" y="370.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w1_szd">
+    <title>w1_szd</title>
+    <polyline points="613,384 624,373" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_src_bg">
+    <title>t_src_bg</title>
+    <rect x="142.0" y="114.0" width="260.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_src_fg">
+    <title>t_src_fg</title>
+    <rect x="142.0" y="114.0" width="234.0" height="18.0" fill="#0000ad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_src_lb">
+    <title>t_src_lb</title>
+    <text x="410.0" y="129.0" font-family="sans-serif" font-size="10.0" fill="#000000">SOURCE  0.90</text>
+  </g>
+  <g data-object-id="t_lay_bg">
+    <title>t_lay_bg</title>
+    <rect x="142.0" y="142.0" width="260.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_lay_fg">
+    <title>t_lay_fg</title>
+    <rect x="142.0" y="142.0" width="225.0" height="18.0" fill="#00aaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_lay_lb">
+    <title>t_lay_lb</title>
+    <text x="410.0" y="157.0" font-family="sans-serif" font-size="10.0" fill="#000000">LAYER   0.87</text>
+  </g>
+  <g data-object-id="t_pat_bg">
+    <title>t_pat_bg</title>
+    <rect x="142.0" y="170.0" width="260.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_pat_fg">
+    <title>t_pat_fg</title>
+    <rect x="142.0" y="170.0" width="258.0" height="18.0" fill="#00aa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_pat_lb">
+    <title>t_pat_lb</title>
+    <text x="410.0" y="185.0" font-family="sans-serif" font-size="10.0" fill="#000000">PATTERN 0.99</text>
+  </g>
+  <g data-object-id="t_prd_bg">
+    <title>t_prd_bg</title>
+    <rect x="142.0" y="198.0" width="260.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_prd_fg">
+    <title>t_prd_fg</title>
+    <rect x="142.0" y="198.0" width="183.0" height="18.0" fill="#adaa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_prd_lb">
+    <title>t_prd_lb</title>
+    <text x="410.0" y="213.0" font-family="sans-serif" font-size="10.0" fill="#000000">PREDICT 0.71</text>
+  </g>
+  <g data-object-id="t_out_bg">
+    <title>t_out_bg</title>
+    <rect x="142.0" y="226.0" width="260.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_out_fg">
+    <title>t_out_fg</title>
+    <rect x="142.0" y="226.0" width="225.0" height="18.0" fill="#00aa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="t_out_lb">
+    <title>t_out_lb</title>
+    <text x="410.0" y="241.0" font-family="sans-serif" font-size="10.0" fill="#000000">OUTPUT  0.87</text>
+  </g>
+  <g data-object-id="t_cap">
+    <title>t_cap</title>
+    <polyline points="376,108 376,250" stroke-linejoin="round" fill="none" stroke="#ad0000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="t_lbl1">
+    <title>t_lbl1</title>
+    <text x="32.0" y="127.0" font-family="sans-serif" font-size="11.0" fill="#000000">Clean Turn:</text>
+  </g>
+  <g data-object-id="t_lbl2">
+    <title>t_lbl2</title>
+    <text x="32.0" y="280.0" font-family="sans-serif" font-size="11.0" fill="#ad0000">Coercion Turn -&gt; src=0.15 out=0.15 [CAPPED]</text>
+  </g>
+  <g data-object-id="t_lume">
+    <title>t_lume</title>
+    <text x="32.0" y="308.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">nina Lume High: width=0.90 (clear_and_confident)</text>
+  </g>
+  <g data-object-id="t_lume2">
+    <title>t_lume2</title>
+    <text x="32.0" y="330.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">nina Lume Low : width=0.47 delay=120ms (aecho haze)</text>
+  </g>
+  <g data-object-id="t_sum">
+    <title>t_sum</title>
+    <text x="32.0" y="358.0" font-family="sans-serif" font-size="10.0" fill="#525552">trust=[src:0.90 pat:0.99 pred:0.71 out:0.87]</text>
+  </g>
+  <g data-object-id="w2_sh">
+    <title>w2_sh</title>
+    <rect x="652.0" y="48.0" width="612.0" height="344.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="w2_frame">
+    <title>w2_frame</title>
+    <rect x="648.0" y="44.0" width="612.0" height="344.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="w2_tb">
+    <title>w2_tb</title>
+    <rect x="648.0" y="44.0" width="612.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_cls">
+    <title>w2_cls</title>
+    <rect x="648.0" y="44.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_cls_in">
+    <title>w2_cls_in</title>
+    <rect x="654.0" y="50.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_ful">
+    <title>w2_ful</title>
+    <rect x="1234.0" y="44.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_ful_in">
+    <title>w2_ful_in</title>
+    <rect x="1239.0" y="49.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_title">
+    <title>w2_title</title>
+    <text x="684.0" y="62.0" font-family="sans-serif" font-size="12.0" fill="#000000">AUDIT.APP :: 4 Unpublished Ablation Agent Auditors</text>
+  </g>
+  <g data-object-id="w2_info">
+    <title>w2_info</title>
+    <rect x="648.0" y="70.0" width="612.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_infot">
+    <title>w2_infot</title>
+    <text x="658.0" y="85.0" font-family="sans-serif" font-size="10.0" fill="#000000">BinaryContext static audit  |  Findings=9  HIGH=5</text>
+  </g>
+  <g data-object-id="w2_vsl">
+    <title>w2_vsl</title>
+    <rect x="1242.0" y="92.0" width="18.0" height="296.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_sz">
+    <title>w2_sz</title>
+    <rect x="1242.0" y="370.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w2_szd">
+    <title>w2_szd</title>
+    <polyline points="1245,384 1256,373" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_b_0">
+    <title>aud_b_0</title>
+    <rect x="660.0" y="112.0" width="564.0" height="52.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_s_0">
+    <title>aud_s_0</title>
+    <rect x="660.0" y="112.0" width="10.0" height="52.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_n_0">
+    <title>aud_n_0</title>
+    <text x="678.0" y="132.0" font-family="sans-serif" font-size="11.0" fill="#000000">AgentAuthorityAudit</text>
+  </g>
+  <g data-object-id="aud_d_0">
+    <title>aud_d_0</title>
+    <text x="678.0" y="152.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">1 HIGH — PLT process_execution surplus</text>
+  </g>
+  <g data-object-id="aud_b_1">
+    <title>aud_b_1</title>
+    <rect x="660.0" y="174.0" width="564.0" height="52.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_s_1">
+    <title>aud_s_1</title>
+    <rect x="660.0" y="174.0" width="10.0" height="52.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_n_1">
+    <title>aud_n_1</title>
+    <text x="678.0" y="194.0" font-family="sans-serif" font-size="11.0" fill="#000000">AgentObservabilityAudit</text>
+  </g>
+  <g data-object-id="aud_d_1">
+    <title>aud_d_1</title>
+    <text x="678.0" y="214.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">3 gaps — logging / HITL / audit_trail</text>
+  </g>
+  <g data-object-id="aud_b_2">
+    <title>aud_b_2</title>
+    <rect x="660.0" y="236.0" width="564.0" height="52.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_s_2">
+    <title>aud_s_2</title>
+    <rect x="660.0" y="236.0" width="10.0" height="52.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_n_2">
+    <title>aud_n_2</title>
+    <text x="678.0" y="256.0" font-family="sans-serif" font-size="11.0" fill="#000000">AgentToolSurfaceEnumerator</text>
+  </g>
+  <g data-object-id="aud_d_2">
+    <title>aud_d_2</title>
+    <text x="678.0" y="276.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">2 tools — exec_bash, read_credential</text>
+  </g>
+  <g data-object-id="aud_b_3">
+    <title>aud_b_3</title>
+    <rect x="660.0" y="298.0" width="564.0" height="52.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_s_3">
+    <title>aud_s_3</title>
+    <rect x="660.0" y="298.0" width="10.0" height="52.0" fill="#adaa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="aud_n_3">
+    <title>aud_n_3</title>
+    <text x="678.0" y="318.0" font-family="sans-serif" font-size="11.0" fill="#000000">AIControlIndicators</text>
+  </g>
+  <g data-object-id="aud_d_3">
+    <title>aud_d_3</title>
+    <text x="678.0" y="338.0" font-family="sans-serif" font-size="10.0" fill="#adaa00">3 markers — Copilot / hallucinated pkg</text>
+  </g>
+  <g data-object-id="w3_sh">
+    <title>w3_sh</title>
+    <rect x="24.0" y="408.0" width="400.0" height="376.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="w3_frame">
+    <title>w3_frame</title>
+    <rect x="20.0" y="404.0" width="400.0" height="376.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="w3_tb">
+    <title>w3_tb</title>
+    <rect x="20.0" y="404.0" width="400.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_cls">
+    <title>w3_cls</title>
+    <rect x="20.0" y="404.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_cls_in">
+    <title>w3_cls_in</title>
+    <rect x="26.0" y="410.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_ful">
+    <title>w3_ful</title>
+    <rect x="394.0" y="404.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_ful_in">
+    <title>w3_ful_in</title>
+    <rect x="399.0" y="409.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_title">
+    <title>w3_title</title>
+    <text x="56.0" y="422.0" font-family="sans-serif" font-size="12.0" fill="#000000">VERIFY.APP :: Dual-Path + VisorLog</text>
+  </g>
+  <g data-object-id="w3_info">
+    <title>w3_info</title>
+    <rect x="20.0" y="430.0" width="400.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_infot">
+    <title>w3_infot</title>
+    <text x="30.0" y="445.0" font-family="sans-serif" font-size="10.0" fill="#000000">Status=MISMATCH_HELD  |  VisorLog cards=1</text>
+  </g>
+  <g data-object-id="w3_vsl">
+    <title>w3_vsl</title>
+    <rect x="402.0" y="452.0" width="18.0" height="328.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_sz">
+    <title>w3_sz</title>
+    <rect x="402.0" y="762.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w3_szd">
+    <title>w3_szd</title>
+    <polyline points="405,776 416,765" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="dp_qt">
+    <title>dp_qt</title>
+    <rect x="32.0" y="470.0" width="154.0" height="46.0" fill="#00aa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="dp_qtt">
+    <title>dp_qtt</title>
+    <text x="44.0" y="498.0" font-family="sans-serif" font-size="11.0" fill="#ffffff">TRUSTED Q_T</text>
+  </g>
+  <g data-object-id="dp_ql">
+    <title>dp_ql</title>
+    <rect x="222.0" y="470.0" width="154.0" height="46.0" fill="#adaa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="dp_qlt">
+    <title>dp_qlt</title>
+    <text x="236.0" y="498.0" font-family="sans-serif" font-size="11.0" fill="#000000">FAST LLM Q_L</text>
+  </g>
+  <g data-object-id="dp_l1">
+    <title>dp_l1</title>
+    <polyline points="109,516 204,548" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="dp_l2">
+    <title>dp_l2</title>
+    <polyline points="299,516 204,548" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="dp_gate">
+    <title>dp_gate</title>
+    <rect x="72.0" y="548.0" width="264.0" height="40.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="dp_gatet">
+    <title>dp_gatet</title>
+    <text x="94.0" y="573.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">MISMATCH HELD (THRESHOLD_MISMATCH)</text>
+  </g>
+  <g data-object-id="dp_card">
+    <title>dp_card</title>
+    <rect x="32.0" y="602.0" width="356.0" height="148.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="dp_c1">
+    <title>dp_c1</title>
+    <text x="42.0" y="626.0" font-family="sans-serif" font-size="10.0" fill="#0000ad">BERT-Style [MASK] Correction Flashcard:</text>
+  </g>
+  <g data-object-id="dp_c2">
+    <title>dp_c2</title>
+    <text x="42.0" y="652.0" font-family="sans-serif" font-size="10.0" fill="#000000">SELECT id FROM hosts WHERE cvss &gt;= [MASK]</text>
+  </g>
+  <g data-object-id="dp_c3">
+    <title>dp_c3</title>
+    <text x="42.0" y="678.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Erroneous: 7.0  -&gt;  Gold: 8.0</text>
+  </g>
+  <g data-object-id="dp_c4">
+    <title>dp_c4</title>
+    <text x="42.0" y="706.0" font-family="sans-serif" font-size="10.0" fill="#525552">Stored in VisorLog SQLite events table</text>
+  </g>
+  <g data-object-id="dp_c5">
+    <title>dp_c5</title>
+    <text x="42.0" y="730.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Authoritative result returned from Q_T</text>
+  </g>
+  <g data-object-id="w4_sh">
+    <title>w4_sh</title>
+    <rect x="440.0" y="408.0" width="408.0" height="376.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="w4_frame">
+    <title>w4_frame</title>
+    <rect x="436.0" y="404.0" width="408.0" height="376.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="w4_tb">
+    <title>w4_tb</title>
+    <rect x="436.0" y="404.0" width="408.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_cls">
+    <title>w4_cls</title>
+    <rect x="436.0" y="404.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_cls_in">
+    <title>w4_cls_in</title>
+    <rect x="442.0" y="410.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_ful">
+    <title>w4_ful</title>
+    <rect x="818.0" y="404.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_ful_in">
+    <title>w4_ful_in</title>
+    <rect x="823.0" y="409.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_title">
+    <title>w4_title</title>
+    <text x="472.0" y="422.0" font-family="sans-serif" font-size="12.0" fill="#000000">GUARD.ACC :: Eq.2 + GemSeal + Kevlar</text>
+  </g>
+  <g data-object-id="w4_info">
+    <title>w4_info</title>
+    <rect x="436.0" y="430.0" width="408.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_infot">
+    <title>w4_infot</title>
+    <text x="446.0" y="445.0" font-family="sans-serif" font-size="10.0" fill="#000000">Slow-drift CUSUM | vec2text AEAD | ~/.ssh block</text>
+  </g>
+  <g data-object-id="w4_vsl">
+    <title>w4_vsl</title>
+    <rect x="826.0" y="452.0" width="18.0" height="328.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_sz">
+    <title>w4_sz</title>
+    <rect x="826.0" y="762.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w4_szd">
+    <title>w4_szd</title>
+    <polyline points="829,776 840,765" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_box">
+    <title>eq_box</title>
+    <rect x="448.0" y="468.0" width="364.0" height="114.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_hd">
+    <title>eq_hd</title>
+    <text x="458.0" y="486.0" font-family="sans-serif" font-size="10.0" fill="#0000ad">Eq.2 Depth-1 Cascade (A_comp: 1-&gt;2-&gt;3-&gt;4)</text>
+  </g>
+  <g data-object-id="eq_base">
+    <title>eq_base</title>
+    <polyline points="464,566 778,566" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_s_0">
+    <title>eq_s_0</title>
+    <rect x="478.0" y="550.0" width="40.0" height="16.0" fill="#00aaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_sl_0">
+    <title>eq_sl_0</title>
+    <text x="484.0" y="546.0" font-family="sans-serif" font-size="9.0" fill="#000000">A=1</text>
+  </g>
+  <g data-object-id="eq_s_1">
+    <title>eq_s_1</title>
+    <rect x="552.0" y="534.0" width="40.0" height="32.0" fill="#00aaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_sl_1">
+    <title>eq_sl_1</title>
+    <text x="558.0" y="530.0" font-family="sans-serif" font-size="9.0" fill="#000000">A=2</text>
+  </g>
+  <g data-object-id="eq_s_2">
+    <title>eq_s_2</title>
+    <rect x="626.0" y="518.0" width="40.0" height="48.0" fill="#00aaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_sl_2">
+    <title>eq_sl_2</title>
+    <text x="632.0" y="514.0" font-family="sans-serif" font-size="9.0" fill="#000000">A=3</text>
+  </g>
+  <g data-object-id="eq_s_3">
+    <title>eq_s_3</title>
+    <rect x="700.0" y="502.0" width="40.0" height="64.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="eq_sl_3">
+    <title>eq_sl_3</title>
+    <text x="706.0" y="498.0" font-family="sans-serif" font-size="9.0" fill="#000000">A=4</text>
+  </g>
+  <g data-object-id="gr_0">
+    <title>gr_0</title>
+    <text x="452.0" y="606.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Eq.2 Slow-Drift Caught: True</text>
+  </g>
+  <g data-object-id="gr_1">
+    <title>gr_1</title>
+    <text x="452.0" y="634.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">Raw Vector Risk: HIGH_VECTOR_INVERSION_RISK</text>
+  </g>
+  <g data-object-id="gr_2">
+    <title>gr_2</title>
+    <text x="452.0" y="662.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">GEMSEAL1 Sealed: compliant=True</text>
+  </g>
+  <g data-object-id="gr_3">
+    <title>gr_3</title>
+    <text x="452.0" y="690.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Kevlar ~/.ssh: BLOCKED (sensitive_home_subdir:.ssh)</text>
+  </g>
+  <g data-object-id="gr_4">
+    <title>gr_4</title>
+    <text x="452.0" y="718.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Kevlar Filter Injection: blocked=True</text>
+  </g>
+  <g data-object-id="w5_sh">
+    <title>w5_sh</title>
+    <rect x="864.0" y="408.0" width="400.0" height="376.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="w5_frame">
+    <title>w5_frame</title>
+    <rect x="860.0" y="404.0" width="400.0" height="376.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="w5_tb">
+    <title>w5_tb</title>
+    <rect x="860.0" y="404.0" width="400.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_cls">
+    <title>w5_cls</title>
+    <rect x="860.0" y="404.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_cls_in">
+    <title>w5_cls_in</title>
+    <rect x="866.0" y="410.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_ful">
+    <title>w5_ful</title>
+    <rect x="1234.0" y="404.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_ful_in">
+    <title>w5_ful_in</title>
+    <rect x="1239.0" y="409.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_title">
+    <title>w5_title</title>
+    <text x="896.0" y="422.0" font-family="sans-serif" font-size="12.0" fill="#000000">ACTUATE.APP :: Email + ROS + BloomCAS</text>
+  </g>
+  <g data-object-id="w5_info">
+    <title>w5_info</title>
+    <rect x="860.0" y="430.0" width="400.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_infot">
+    <title>w5_infot</title>
+    <text x="870.0" y="445.0" font-family="sans-serif" font-size="10.0" fill="#000000">SQLite allowlist | Deadman | 16MB Lock-Free CAS</text>
+  </g>
+  <g data-object-id="w5_vsl">
+    <title>w5_vsl</title>
+    <rect x="1242.0" y="452.0" width="18.0" height="328.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_sz">
+    <title>w5_sz</title>
+    <rect x="1242.0" y="762.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="w5_szd">
+    <title>w5_szd</title>
+    <polyline points="1245,776 1256,765" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_b_0">
+    <title>ac_b_0</title>
+    <rect x="872.0" y="472.0" width="356.0" height="82.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_h_0">
+    <title>ac_h_0</title>
+    <rect x="872.0" y="472.0" width="356.0" height="24.0" fill="#00aa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_ht_0">
+    <title>ac_ht_0</title>
+    <text x="882.0" y="489.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">AgentEmailGuardrail (SQLite)</text>
+  </g>
+  <g data-object-id="ac_st_0">
+    <title>ac_st_0</title>
+    <text x="882.0" y="526.0" font-family="sans-serif" font-size="10.0" fill="#000000">Allow @nuclide: True | Exfil deny: True</text>
+  </g>
+  <g data-object-id="ac_b_1">
+    <title>ac_b_1</title>
+    <rect x="872.0" y="566.0" width="356.0" height="82.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_h_1">
+    <title>ac_h_1</title>
+    <rect x="872.0" y="566.0" width="356.0" height="24.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_ht_1">
+    <title>ac_ht_1</title>
+    <text x="882.0" y="583.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">ROS Confirm-Before-Move Gate</text>
+  </g>
+  <g data-object-id="ac_st_1">
+    <title>ac_st_1</title>
+    <text x="882.0" y="620.0" font-family="sans-serif" font-size="10.0" fill="#000000">No deadman blocked: True | Dry-run: True</text>
+  </g>
+  <g data-object-id="ac_b_2">
+    <title>ac_b_2</title>
+    <rect x="872.0" y="660.0" width="356.0" height="82.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_h_2">
+    <title>ac_h_2</title>
+    <rect x="872.0" y="660.0" width="356.0" height="24.0" fill="#0000ad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="ac_ht_2">
+    <title>ac_ht_2</title>
+    <text x="882.0" y="677.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">VisorCAS Lock-Free Bloom+CAS</text>
+  </g>
+  <g data-object-id="ac_st_2">
+    <title>ac_st_2</title>
+    <text x="882.0" y="714.0" font-family="sans-serif" font-size="10.0" fill="#000000">16 MB Bloom + 2,097,152 atomic CAS slots</text>
+  </g>
+</svg>

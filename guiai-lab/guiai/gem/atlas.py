@@ -590,4 +590,17 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
             with _tf.TemporaryDirectory(prefix="zoe_os_atlas_") as _td:
                 rep = run_zoe_os_verification_suite(root, _Path(_td) / "state")
         return zoe_os_scene(rep), rep
+    if module in {
+        "wave3", "wave3-desk",
+        "wave3-trust", "trust-acc",
+        "wave3-auditors", "audit-app",
+        "wave3-dualpath", "verify-app",
+        "wave3-guards", "guard-acc",
+        "wave3-actuation", "actuate-app",
+        "wave3-gsx", "gsx-graph",
+        "wave3-tos", "tos-desk",
+        "wave3-gem2", "gem2-tiled",
+    }:
+        from .wave3_gem_instruments import wave3_document
+        return wave3_document(module)
     raise ValueError(f"unknown atlas module: {module}")

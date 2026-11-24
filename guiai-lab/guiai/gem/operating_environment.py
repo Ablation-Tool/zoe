@@ -75,6 +75,24 @@ EXTENDED_LAYERS = {
     "info-geometry": ("research", "Kloster Information Geometry, Multi-Horizon Phase Transitions & Causal Identifiability"),
     "zoe-os": ("zoe", "Zoe OS · Unified Persistent Living Workstation Mind (All 17 GEM Engines)"),
     "living-mind": ("zoe", "Zoe OS · Unified Persistent Living Workstation Mind (All 17 GEM Engines)"),
+    "wave3": ("zoe", "Zoe Wave 3 · Digital Research GEM/3 & ViewMAX Security Desktop (All 5 Vault Instruments)"),
+    "wave3-desk": ("zoe", "Zoe Wave 3 · Digital Research GEM/3 & ViewMAX Security Desktop (All 5 Vault Instruments)"),
+    "wave3-trust": ("autonomy", "TRUST.ACC · 5-Dim Continuous TrustEngine & nina Lume Audio Clarity"),
+    "trust-acc": ("autonomy", "TRUST.ACC · 5-Dim Continuous TrustEngine & nina Lume Audio Clarity"),
+    "wave3-auditors": ("ablation", "AUDIT.APP · 4 Unpublished AI-Agent Binary Auditors (BinaryContext)"),
+    "audit-app": ("ablation", "AUDIT.APP · 4 Unpublished AI-Agent Binary Auditors (BinaryContext)"),
+    "wave3-dualpath": ("research", "VERIFY.APP · Dual-Path Query Validation & VisorLog [MASK] Flywheel"),
+    "verify-app": ("research", "VERIFY.APP · Dual-Path Query Validation & VisorLog [MASK] Flywheel"),
+    "wave3-guards": ("kevlar", "GUARD.ACC · Eq. 2 Slow-Drift Cascade + GemSeal vec2text + Kevlar MCP"),
+    "guard-acc": ("kevlar", "GUARD.ACC · Eq. 2 Slow-Drift Cascade + GemSeal vec2text + Kevlar MCP"),
+    "wave3-actuation": ("autonomy", "ACTUATE.APP · Email Allowlist + ROS Deadman + VisorCAS Bloom/CAS"),
+    "actuate-app": ("autonomy", "ACTUATE.APP · Email Allowlist + ROS Deadman + VisorCAS Bloom/CAS"),
+    "wave3-gsx": ("zoe", "GSX-86 (1982) · DR-Graph Vector Telemetry Plotter (NDC 0..32767)"),
+    "gsx-graph": ("zoe", "GSX-86 (1982) · DR-Graph Vector Telemetry Plotter (NDC 0..32767)"),
+    "wave3-tos": ("zoe", "Atari TOS 1.0 (1985) · Little Green Desktop, File Drawers & 68k Big-Endian .RSC"),
+    "tos-desk": ("zoe", "Atari TOS 1.0 (1985) · Little Green Desktop, File Drawers & 68k Big-Endian .RSC"),
+    "wave3-gem2": ("zoe", "GEM 2.0 / 3.11 (1986-88) · Post-Lawsuit Two-Pane Tiled Desktop (Desk on Right)"),
+    "gem2-tiled": ("zoe", "GEM 2.0 / 3.11 (1986-88) · Post-Lawsuit Two-Pane Tiled Desktop (Desk on Right)"),
 }
 
 
@@ -188,13 +206,41 @@ class GemOperatingEnvironment:
         elif kind == ".png":
             write_png(scene, path)
         elif kind == ".html":
-            from .dorothy import write_interactive_html
-            write_interactive_html(scene, self.current["report"], path)
+            if current["layer"].startswith("wave3") or current["layer"] in {
+                "trust-acc", "audit-app", "verify-app", "guard-acc", "actuate-app",
+                "gsx-graph", "tos-desk", "gem2-tiled",
+            }:
+                from .wave3_gem_instruments import write_wave3_gem_desktop_html
+                write_wave3_gem_desktop_html(scene, self.current["report"], path)
+            else:
+                from .dorothy import write_interactive_html
+                write_interactive_html(scene, self.current["report"], path)
+        elif kind == ".rsc":
+            from .seasip_gem import compile_rsc, parse_rsc
+            from .wave3_gem_instruments import run_wave3_gem_snapshot, wave3_object_trees
+            rep = self.current["report"] if isinstance(self.current["report"], dict) and self.current["report"].get("contract") == "zoe-wave3-seasip-gem/v1" else run_wave3_gem_snapshot(self.root)
+            endian = ">" if current["layer"] in {"wave3-tos", "tos-desk"} else "<"
+            rsc_bytes = compile_rsc(wave3_object_trees(rep, layer=current["layer"]), endian=endian)
+            parse_rsc(rsc_bytes)  # verify dual-endian roundtrip before writing
+            with path.open("xb") as stream:
+                stream.write(rsc_bytes)
+        elif kind == ".gsx":
+            from .seasip_gem import encode_gsx_stream, parse_gsx_stream
+            gsx_bytes = encode_gsx_stream(scene)
+            parse_gsx_stream(gsx_bytes)  # verify GSX-86 NDC 0..32767 roundtrip before writing
+            with path.open("xb") as stream:
+                stream.write(gsx_bytes)
+        elif kind == ".img":
+            from .seasip_gem import parse_gem_img, scene_to_gem_img
+            img_bytes = scene_to_gem_img(scene, width=320, height=200, use_gem5_palette=True)
+            parse_gem_img(img_bytes)  # verify roundtrip before writing
+            with path.open("xb") as stream:
+                stream.write(img_bytes)
         elif kind == ".json":
             with path.open("x", encoding="utf-8") as stream:
                 stream.write(scene.json())
         else:
-            raise ValueError("GEM export must use .json, .svg, .png, .html, or .gem")
+            raise ValueError("GEM export must use .json, .svg, .png, .html, .gem, .rsc, .img, or .gsx")
         return {
             **current,
             "output": str(path),

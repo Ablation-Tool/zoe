@@ -11,6 +11,9 @@ META_OBJECT = 1001
 COLOR_INDEX = {
     "white": 0, "black": 1, "red": 2, "green": 3, "blue": 4,
     "cyan": 5, "yellow": 6, "magenta": 7,
+    # Standard PC GEM indices 8..15 (seasip.info/Gem/palette.html) as valid #RRGGBB
+    "#adaaad": 8, "#525552": 9, "#ad0000": 10, "#00aa00": 11,
+    "#0000ad": 12, "#00aaad": 13, "#adaa00": 14, "#ad00ad": 15,
 }
 INDEX_COLOR = {value: key for key, value in COLOR_INDEX.items()}
 OPCODE_NAMES = {
