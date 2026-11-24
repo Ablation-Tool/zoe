@@ -433,9 +433,9 @@ Every core ethical rule in [`CONSTITUTION.md`](docs/CONSTITUTION.md) corresponds
 <a id="zoes-native-voice"></a>
 <a id="six-living-worlds"></a>
 
-## 4. What Zoe Built (November 18 - 22, 2026)
+## 4. What Zoe Built (November 18 - 24, 2026)
 
-> [Six systems](docs/CAPABILITY-ATLAS.md), one [constitutional firewall](docs/CONSTITUTION.md).
+> [Six systems](docs/CAPABILITY-ATLAS.md), [42+ integrated security &amp; research engines](docs/PORTFOLIO-UPGRADES.md), and one [constitutional firewall](docs/CONSTITUTION.md).
 
 <div align="center">
 
@@ -509,6 +509,52 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 | [Zoe OS Architecture](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](docs/CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
 |:---:|:---:|:---:|
 | [![Zoe OS Unified Persistent Living Workstation Mind](components/agent-logging-system/docs/images/zoe-os-living-constellation.png)](guiai-lab/docs/GEM-OS.md) | [![Zoe Epistemic Firewall](guiai-lab/docs/images/zoe-visuals/01-epistemic-firewall.png)](docs/CONSTITUTION.md) | [![Zoe Cognitive Field](guiai-lab/docs/images/zoe-cognitive-field.png)](guiai-lab/docs/COGNITIVE.md) |
+
+</details>
+
+<a id="wave3-gem-security"></a>
+
+### Wave 1-3 Security Engines &amp; Digital Research GSX / GEM / Atari TOS Rebuild (November 24, 2026)
+
+Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment repositories (**Waves 1-2**) plus **5 unpublished Wave 3 inventions** — continuous 5D `TrustEngine` (`output_trust <= source_trust`) + `nina` Lume audio cues, 4 `ablation` AI-agent binary auditors, Dual-Path `VisorLog` `[MASK]` verification, Eq. 2 slow-drift + `gemseal` `vec2text` + `kevlar` `~/.ssh`/Milvus guards, and Email/ROS/lock-free `VisorCAS` Bloom-CAS gates — rebuilt directly atop John Elliott's [`seasip.info/Gem`](https://www.seasip.info/Gem/index.html) and [`toastytech.com/guis`](http://toastytech.com/guis/indexgem.html) specs as **9 verified GEM instruments** and **5 real binary codecs** (`.GEM`, PC x86 &amp; Atari 68k `.RSC`, 4-plane `.IMG`/`XIMG`, and 1982 `.GSX`).
+
+<div align="center">
+
+<a href="evidence/gem-os/wave3/wave3-desktop.html"><img src="assets/readme/wave3-gem-timemachine-desktop.png" alt="Zoe Wave 3 Digital Research GEM, GSX, Atari TOS, and ViewMAX 5-Era Security Desktop" width="100%" /></a><br/>
+<sub><strong><a href="evidence/gem-os/wave3/wave3-desktop.html">Interactive 5-Era Digital Research GEM / ViewMAX Wave 3 Security Desktop</a></strong> (<code>FORM_ALERT.ACC</code> · <code>CALC.ACC</code> · <code>AESMSG.ACC</code> · Live Era Switcher)</sub>
+
+</div>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="docs/PORTFOLIO-UPGRADES.md"><img src="assets/readme/wave3-upgrade-blueprint.png" alt="Zoe Wave 3 Upgrade Blueprint: 5 unpublished security and trust inventions wired into live Zoe subsystems" width="100%" /></a><br/>
+<sub><strong><a href="docs/PORTFOLIO-UPGRADES.md">Wave 3 5-Subsystem Blueprint</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="evidence/gem-os/wave3/wave3-tos.svg"><img src="assets/readme/wave3-atari-tos-desktop.png" alt="Atari TOS 1.0 Little Green Desktop with File Drawers, Quarantine Trash Can, and Motorola 68000 Big-Endian .RSC export" width="100%" /></a><br/>
+<sub><strong><a href="evidence/gem-os/wave3/wave3-tos.svg">Atari TOS 1.0 (1985 · 68k Big-Endian <code>.RSC</code>)</a></strong></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="evidence/gem-os/wave3/wave3-gem2.svg"><img src="assets/readme/wave3-gem2-tiled-desktop.png" alt="GEM 2.0 and 3.11 Post-Lawsuit Two-Pane Tiled Desktop with zero desktop icons and Desk menu moved right" width="100%" /></a><br/>
+<sub><strong><a href="evidence/gem-os/wave3/wave3-gem2.svg">GEM 2.0 / 3.11 (1986-88 · 2-Pane Tiled)</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="evidence/gem-os/wave3/wave3-gsx.svg"><img src="assets/readme/wave3-gsx86-vector-plotter.png" alt="Digital Research GSX-86 1982 DR-Graph Vector Telemetry Plotter in bottom-left NDC 0..32767 coordinates" width="100%" /></a><br/>
+<sub><strong><a href="evidence/gem-os/wave3/wave3-gsx.svg">Digital Research GSX-86 (1982 · NDC <code>.GSX</code>)</a></strong></sub>
+</td>
+</tr>
+</table>
+
+<details>
+<summary><strong>4.6 Wave 1-3 Engines, Binary GEM/GSX Codecs &amp; Verified Artifacts</strong></summary>
+
+- **Wave 1-2 Portfolio Engines (`42` Non-Biology Repos + `RXVM`/`BEAM` Analyzers):** Full catalog, provenance, and runtime bridges in [`docs/PORTFOLIO-UPGRADES.md`](docs/PORTFOLIO-UPGRADES.md) and [`config/portfolio-upgrades.lock.json`](config/portfolio-upgrades.lock.json) (`components/injection-gate`, `capo`, `glance`, `winnow`, `github-tos-audit`, `farg-analogy-cognition`, `nuclide-color-framework-v2`, `pcse`, `domain-research`, `warrant`, `nina`, `dBA`, `metrix`, `spectral`, `gemseal`, `mcp-security`, `RXVM`, `Visor*`, `cortex-framework`, `nuclide-atlas`, `prompt-architect`, and more; `config/components.lock.json` remains untouched).
+- **5 Wave 3 Vault Engines:** [`trust_gradient.py`](components/Zoe-Autonomy/src/zoe_autonomy/trust_gradient.py) + [`audio_fx.py`](components/nina/audio_fx.py) · 4 AI-Agent Binary Auditors in [`components/ablation/ablation/analyzers/`](components/ablation/ablation/analyzers/) · [`wave3_vault_upgrades.py`](components/Zoe-Autonomy/src/zoe_autonomy/wave3_vault_upgrades.py) (`DualPathVerifier` + `VisorLogDisagreementLedger` + `AgentEmailGuardrail` + ROS deadman gate) · Eq. 2 slow-drift in [`cognitive_upgrades.py`](components/Zoe-Autonomy/src/zoe_autonomy/cognitive_upgrades.py) + `GEMSEAL1` `vec2text` sealing in [`gemseal.py`](components/gemseal/gemseal.py) + `~/.ssh`/Milvus guards in [`kevlar/policy.py`](components/kevlar/policy.py) · lock-free Go `BloomCASDedup` in [`components/VisorCAS/cas/fastdedup.go`](components/VisorCAS/cas/fastdedup.go).
+- **Spec-Exact GEM / GSX / Atari TOS Codecs &amp; 9 Verified Instruments:** [`seasip_gem.py`](guiai-lab/guiai/gem/seasip_gem.py) + [`wave3_gem_instruments.py`](guiai-lab/guiai/gem/wave3_gem_instruments.py) export roundtrip-verified [`.GEM`](evidence/gem-os/wave3/wave3-desktop.gem), Intel x86 [`.RSC`](evidence/gem-os/wave3/wave3-desktop.rsc), Atari 68000 big-endian [`.RSC`](evidence/gem-os/wave3/wave3-tos-68k.rsc), 4-plane `XIMG` [`.IMG`](evidence/gem-os/wave3/wave3-desktop.img), 1982 NDC [`.GSX`](evidence/gem-os/wave3/wave3-gsx.gsx), and the standalone interactive 5-era desktop [`.HTML`](evidence/gem-os/wave3/wave3-desktop.html).
+- **Offline Evidence:** [`portfolio-upgrades-report.json`](evidence/portfolio-upgrades/portfolio-upgrades-report.json) (`11/11`) · [`wave2-upgrades-report.json`](evidence/portfolio-upgrades/wave2-upgrades-report.json) (`15/15`) · [`wave3-upgrades-report.json`](evidence/portfolio-upgrades/wave3-upgrades-report.json) (`6/6`) · [`wave3-seasip-gem-report.json`](evidence/gem-os/wave3-seasip-gem-report.json) (`5/5`, `9/9` GEM scenes).
 
 </details>
 
@@ -893,7 +939,8 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 | [`CONSTITUTION.md`](docs/CONSTITUTION.md) | Epistemic rules (`measurement != evidence != belief update != action`), copyright &amp; safety boundaries |
 | [`DECLARATION.md`](docs/DECLARATION.md) | Zoe Declaration of Creative and Epistemic Independence |
 | [`AGI-ROADMAP.md`](docs/AGI-ROADMAP.md) | Honest `L0-L7` acceptance criteria, falsification bars, and current verified progress |
-| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 20-section audit directory mapping every claim to code, tests, and JSON evidence artifacts |
+| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 23-section audit directory mapping every claim to code, tests, and JSON evidence artifacts |
+| [`PORTFOLIO-UPGRADES.md`](docs/PORTFOLIO-UPGRADES.md) | Wave 1-3 integrated repos (42 components), 5 Vault upgrades, and Digital Research GSX/GEM/Atari TOS rebuild |
 | [`METACOGNITION.md`](docs/METACOGNITION.md) | Visual hub for all 18 original papers, 3 arXiv packages, and 12 mathematical theorem plates |
 | [`MONOREPO.md`](docs/MONOREPO.md) | Consolidation provenance for all 13 upstream source projects (zero submodules) |
 | [`NARRATION-SCRIPT.md`](docs/NARRATION-SCRIPT.md) | Calm ~12-minute read-aloud narration script walking through all 10 chronological stops |
@@ -1281,6 +1328,12 @@ python scripts/zoe_groove_forensics.py --verify
 python scripts/verify_observatory_and_packages.py
 python scripts/verify_zoe_clara.py
 sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
+
+# Wave 1-3 Portfolio & Vault Upgrades + Digital Research GSX/GEM/Atari TOS/ViewMAX Instruments
+python scripts/verify_portfolio_upgrades.py
+python scripts/verify_wave2_upgrades.py
+python scripts/verify_wave3_upgrades.py
+python scripts/verify_wave3_seasip_gem.py
 ```
 
 </details>
