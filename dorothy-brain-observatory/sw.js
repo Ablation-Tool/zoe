@@ -1,5 +1,5 @@
 /* Dorothy Brain Observatory Offline Service Worker (iPhone, iPad, Android & Desktop PWA) */
-const CACHE_NAME = 'dorothy-brain-observatory-v0.9.7';
+const CACHE_NAME = 'dorothy-brain-observatory-v0.9.9';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -9,10 +9,14 @@ const CORE_ASSETS = [
   './assets/icon-512.png',
   './assets/three.min.js',
   './assets/observatory.js',
+  './assets/biomechanics_workbench.js',
+  './assets/zoe_3d_copilot.js',
   './assets/zoe_neuro_qa.js',
   './data/brain_meshes.js',
   './data/atlas_encyclopedia.js',
   './data/library_vault.js',
+  './data/biomechanics_benchmarks.js',
+  './data/zoe_discovery_catalog.js',
   './mri_slices/axial_sheet.jpg',
   './mri_slices/coronal_sheet.jpg',
   './mri_slices/sagittal_sheet.jpg',

@@ -362,6 +362,7 @@
   </div>
   <nav class="tabs" role="tablist" aria-label="Observatory workspaces">
     <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="brain3d">3D Brain</button>
+    <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="biomechanics">Physics &amp; Sweeps</button>
     <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="askzoe">Ask Zoe</button>
     <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="media">Videos &amp; Gallery</button>
     <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="plates">Verified Plates</button>
@@ -387,7 +388,8 @@
         <button type="button" class="ctl-btn" data-mode="xray">Glass X-Ray</button>
         <button type="button" class="ctl-btn" data-mode="connectome">Connectome Neon</button>
         <button type="button" class="ctl-btn" data-mode="continuum">Dorothy A_tau(p)</button>
-        <button type="button" class="ctl-btn" data-mode="cad" style="grid-column:1/-1;">CAD Engineering Wireframe</button>
+        <button type="button" class="ctl-btn" data-mode="biomech">Biomechanics Lab</button>
+        <button type="button" class="ctl-btn" data-mode="cad">CAD Wireframe</button>
       </div>
 
       <div id="tauBox" class="tau-box">
@@ -396,6 +398,40 @@
           <input id="sliderTau" type="range" min="10" max="95" value="62"/>
         </div>
         <div id="tauReadout" class="tau-readout">A_tau(p) computing...</div>
+      </div>
+
+      <div id="biomechBox" class="tau-box" style="border-color:#38bdf8;background:#0b1729;">
+        <div style="font-size:0.72rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Coupled Physics Workbench</div>
+        <label for="bmScenario" class="sr-only">Biomechanics Physics Model</label>
+        <select id="bmScenario" class="qselect" style="margin-bottom:6px;">
+          <option value="coup_contrecoup">Coup–Contrecoup Impact</option>
+          <option value="viscoelastic_strain">Viscoelastic Strain (Zener SLS)</option>
+          <option value="monro_kellie_icp">Monro–Kellie ICP / CSF</option>
+          <option value="mass_effect_invasion">Mass-Effect &amp; Invasion (Lamé + F-K)</option>
+        </select>
+        <label for="bmImpactDir" class="sr-only">Impact Acceleration Vector</label>
+        <select id="bmImpactDir" class="qselect" style="margin-bottom:6px;">
+          <option value="frontal">Vector: Frontal → Occipital</option>
+          <option value="occipital">Vector: Occipital → Frontal</option>
+          <option value="left_temporal">Vector: Left Temporal → Right</option>
+          <option value="oblique">Vector: Right Oblique</option>
+        </select>
+        <div class="btn-grid" style="margin-bottom:6px;">
+          <button type="button" class="ctl-btn" id="bmBtnPause">Play Wave</button>
+          <button type="button" class="ctl-btn" id="bmBtnSliceFocus">Slice Cross-Sec</button>
+          <button type="button" class="ctl-btn" id="bmBtnFocusCrosshair" style="grid-column:1/-1;">Move Mass Focus to 3D Crosshair</button>
+        </div>
+        <div class="slider-row"><label for="bmTimeMs"><span>Freeze-Frame Time t</span><b id="lbl-bmTimeMs">18.0 ms</b></label><input id="bmTimeMs" type="range" min="0" max="600" value="180"/></div>
+        <div class="slider-row"><label for="bmDeform"><span>3D Mesh Displacement</span><b id="lbl-bmDeform">1.5×</b></label><input id="bmDeform" type="range" min="0" max="40" value="15"/></div>
+        <div class="slider-row"><label for="bmG0"><span>Tissue Modulus G₀</span><b id="lbl-bmG0">1.85 kPa</b></label><input id="bmG0" type="range" min="50" max="380" value="185"/></div>
+        <div class="slider-row"><label for="bmGRatio"><span>Viscoelastic G_∞/G₀</span><b id="lbl-bmGRatio">0.32</b></label><input id="bmGRatio" type="range" min="20" max="55" value="32"/></div>
+        <div class="slider-row"><label for="bmAccelG"><span>Linear Impact Load</span><b id="lbl-bmAccelG">140 g</b></label><input id="bmAccelG" type="range" min="5" max="240" value="140"/></div>
+        <div class="slider-row"><label for="bmRotRad"><span>Rotational Accel α</span><b id="lbl-bmRotRad">5200 rad/s²</b></label><input id="bmRotRad" type="range" min="100" max="9800" step="100" value="5200"/></div>
+        <div class="slider-row"><label for="bmPVI"><span>Marmarou PVI</span><b id="lbl-bmPVI">26.0 mL</b></label><input id="bmPVI" type="range" min="60" max="360" value="260"/></div>
+        <div class="slider-row"><label for="bmROut"><span>CSF Resistance R_out</span><b id="lbl-bmROut">8.5</b></label><input id="bmROut" type="range" min="50" max="200" value="85"/></div>
+        <div class="slider-row"><label for="bmMassR"><span>Mass Radius a</span><b id="lbl-bmMassR">15.0 mm</b></label><input id="bmMassR" type="range" min="0" max="260" value="150"/></div>
+        <div class="slider-row"><label for="bmFkRatio"><span>F-K Ratio D/ρ</span><b id="lbl-bmFkRatio">2.5 mm²</b></label><input id="bmFkRatio" type="range" min="5" max="120" value="25"/></div>
+        <div id="bmLiveReadout" style="margin-top:8px;padding-top:7px;border-top:1px solid #1e3a5f;">Computing...</div>
       </div>
 
       <div class="sec-title">Camera Views</div>
@@ -535,7 +571,114 @@
     </aside>
   </section>
 
-  <!-- ═══════════════════ TAB 2: ASK ZOE NEUROSCIENCE Q&A ═══════════════════ -->
+  <!-- ═══════════════════ TAB 2: PHYSICS & METACOGNITION SWEEP WORKBENCH ═══════════════════ -->
+  <section id="panel-biomechanics" class="tab-panel" role="tabpanel" aria-label="Coupled Brain Biomechanics and Operational Metacognition Sweep Workbench">
+    <div class="page-wrap">
+      <div class="page-head">
+        <h2>Zoe × Dorothy Coupled Biomechanics &amp; Continuum Sweep Workbench</h2>
+        <p>Connects Kloster's Operational Metacognition sweep engine (<code>A_τ(p)</code>, spectral filtration <code>M₄¹ᐟ⁴</code>, Theorem 13 anytime stopping, Theorem 15 3-solver consensus, CERN coherent spike-rejection trigger, and NSA CNSA 2.0 SHA-384 provenance sealing) directly with the real 112,001-vertex MNI152 / ICBM152 / AAL-116 / CIT168 stereotaxic geometry.</p>
+      </div>
+
+      <div class="honesty-box">
+        <strong>Epistemic &amp; Clinical Scope Notice:</strong> This is an open computational continuum-mechanics and mathematical verification workbench built on population neuroimaging templates (MNI152 / ICBM152 / AAL-116 / CIT168). <code>clinical_diagnostic_claim = false</code>, <code>cure_claim = false</code>, <code>patient_specific = false</code>, <code>copyrighted_text_in_repo = false</code>. High-uncertainty regimes are explicitly flagged <strong>ABSTAIN / GATHER_MORE</strong> by Theorem 15 consensus rather than extrapolated.
+      </div>
+
+      <div id="bmKpiGrid" class="cad-grid" style="grid-template-columns:repeat(auto-fit,minmax(195px,1fr));"></div>
+
+      <div class="enc-sec">
+        <h3>Interactive 512-Run Coupled Sensitivity Sweep &amp; Theorem 15 Uncertainty Map</h3>
+        <p style="color:var(--muted);font-size:0.84rem;margin:0 0 10px;">Every dot is an independent 3-solver continuum evaluation across all 16 MNI152 compartments (Viscoelastic Zener SLS vs Linear Elastic vs Anisotropic Poroviscoelastic). <strong>Hover</strong> any run to inspect parameters; <strong>click any run</strong> to load its exact perturbation directly onto the 3D MNI152 Brain with live cross-section clipping.</p>
+        <div class="toolbar">
+          <label for="bmSweepScenario" class="sr-only">Filter sweep by physics model</label>
+          <select id="bmSweepScenario">
+            <option value="all">All 4 Physics Models (512 Runs)</option>
+            <option value="viscoelastic_strain">Viscoelastic Strain (Zener SLS)</option>
+            <option value="coup_contrecoup">Coup–Contrecoup Impact</option>
+            <option value="monro_kellie_icp">Monro–Kellie ICP / CSF</option>
+            <option value="mass_effect_invasion">Mass-Effect &amp; Invasion (Lamé + F-K)</option>
+          </select>
+          <label for="bmSweepVerdict" class="sr-only">Filter sweep by Zoe metacognition verdict</label>
+          <select id="bmSweepVerdict">
+            <option value="all">All Zoe Verdicts</option>
+            <option value="DECIDE_LOCALIZED">Confident Localized</option>
+            <option value="GATHER_MORE">Gather More</option>
+            <option value="ABSTAIN_MODEL_UNCERTAINTY">Abstain (Model Uncertainty)</option>
+          </select>
+          <label for="bmSweepXAxis" class="sr-only">Choose horizontal sweep metric</label>
+          <select id="bmSweepXAxis">
+            <option value="mps">X-Axis: Peak Principal Strain (MPS)</option>
+            <option value="icp">X-Axis: Intracranial Pressure (mmHg)</option>
+            <option value="mls">X-Axis: Midline Shift (mm)</option>
+          </select>
+          <button type="button" class="btn-sm" onclick="window.switchTab('brain3d');window.__DOROTHY_API.setRenderMode('biomech');">Open Live 3D Biomechanics Lab →</button>
+        </div>
+        <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;">
+          <canvas id="bmSweepCanvas" width="1120" height="360" style="width:100%;height:auto;display:block;border-radius:8px;cursor:crosshair;"></canvas>
+          <div id="bmSweepHover" style="margin-top:8px;font-size:0.79rem;font-family:ui-monospace,monospace;color:#cfe8ff;min-height:38px;">Hover over any of the 512 sweep points to inspect exact continuum outputs &amp; Zoe Theorem 15 consensus metrics. Click any point to load it on the 3D brain.</div>
+        </div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Verified Analytical Benchmarks (Zener SLS Viscoelasticity &amp; Marmarou Monro–Kellie ICP)</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px;">
+          <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;">
+            <canvas id="bmZenerCanvas" width="540" height="240" style="width:100%;height:auto;display:block;border-radius:6px;"></canvas>
+          </div>
+          <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px;">
+            <canvas id="bmMarmarouCanvas" width="540" height="240" style="width:100%;height:auto;display:block;border-radius:6px;"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>SymPy Symbolic Proofs, Analytical Benchmarks &amp; Reproducible Negative Controls</h3>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Check / Benchmark</th><th>Mathematical &amp; Experimental Grounding</th><th>Measured Result</th><th>Status</th></tr></thead>
+          <tbody id="bmBenchTable"></tbody>
+        </table></div>
+        <div id="bmSealBox" class="honesty-box" style="margin-top:14px;border-left-color:var(--cyan);font-family:ui-monospace,monospace;font-size:0.76rem;word-break:break-all;"></div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Computed Verification &amp; 10,000-Variant Pediatric Discovery Plates</h3>
+        <div class="poster-banner" style="margin-bottom:14px;">
+          <img src="previews/zoe_biomechanics_workbench_plate.png" alt="6-panel Zoe x Dorothy Biomechanics Workbench computed verification plate" style="width:320px;height:194px;object-fit:cover;" onclick="window.openLightbox('previews/zoe_biomechanics_workbench_plate.png', 'Zoe x Dorothy Biomechanics Workbench Verification Plate', '6-panel computed plate: Zener SLS relaxation, Marmarou Monro-Kellie ICP/CPP, 512-run Theorem 15 uncertainty sweep, CERN spike rejection, Theorem 13/15 negative controls, and CNSA 2.0 seal.')"/>
+          <div>
+            <h3>Offline Verification &amp; Negative Controls Plate</h3>
+            <p style="margin:0 0 10px;color:var(--muted);">Reproducible offline via <code>python3 scripts/verify_dorothy_biomechanics_workbench.py</code> with 0 cloud tokens and exact SymPy 1.14.0 residuals = 0.</p>
+            <a class="btn-sm" href="previews/zoe_biomechanics_workbench_plate.png" target="_blank" rel="noopener">Open Full-Resolution Plate (PNG)</a>
+          </div>
+        </div>
+        <div class="poster-banner">
+          <img src="previews/zoe_dorothy_pediatric_discovery.png" alt="6-panel Zoe x Dorothy 10,000-Variant Pediatric and Adult Discovery Engine plate" style="width:320px;height:194px;object-fit:cover;" onclick="window.openLightbox('previews/zoe_dorothy_pediatric_discovery.png', 'Zoe x Dorothy 10,000-Variant Pediatric & Adult Discovery Plate', '269,000+ coupled variants/sec: SymPy-proved 3.25x Shapiro pediatric PVI sensitivity, paired 1-yr vs 35-yr 10 mL control (40.1 vs 11.4 mmHg), hidden deep-shear & bridging-vein discovery, and 0% zero-load / 98.8% scramble negative controls.')"/>
+          <div>
+            <h3>Shared-Environment 10,000-Variant Pediatric &amp; Adult Discovery Plate</h3>
+            <p style="margin:0 0 10px;color:var(--muted);">Reproducible offline via <code>python3 scripts/verify_zoe_dorothy_discovery.py</code> (&gt;260,000 variants/sec in Python + live &gt;1,000 variants/sec browser scanner inside the 3D Brain right dock).</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <a class="btn-sm" href="previews/zoe_dorothy_pediatric_discovery.png" target="_blank" rel="noopener">Open Full-Resolution Plate (PNG)</a>
+              <button type="button" class="btn-sm" onclick="window.switchTab('brain3d');window.__DOROTHY_API.setRenderMode('biomech');">Launch Zoe 3D Co-Pilot →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="enc-sec">
+        <h3>Open Peer-Reviewed Literature &amp; Dorothy 135-Book Study Bibliography Anchors</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;">
+          <div>
+            <h4 style="margin:0 0 8px;color:var(--cyan);font-size:0.86rem;">Open Peer-Reviewed Continuum &amp; Neuro-Mechanics Literature</h4>
+            <div id="bmLitList" class="mini-books"></div>
+          </div>
+          <div>
+            <h4 style="margin:0 0 8px;color:var(--gold);font-size:0.86rem;">Matched Dorothy 135-Book Study Bibliography (Citations Only · 0 Copyrighted Text)</h4>
+            <div id="bmBibAnchors" class="mini-books"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TAB 3: ASK ZOE NEUROSCIENCE Q&A ═══════════════════ -->
   <section id="panel-askzoe" class="tab-panel" role="tabpanel" aria-label="Ask Zoe Brain and Neuroscience Questions">
     <div class="page-wrap">
       <div class="page-head">
@@ -745,7 +888,11 @@
 <script src="data/brain_meshes.js"></script>
 <script src="data/atlas_encyclopedia.js"></script>
 <script src="data/library_vault.js"></script>
+<script src="data/biomechanics_benchmarks.js"></script>
+<script src="data/zoe_discovery_catalog.js"></script>
 <script src="assets/observatory.js"></script>
+<script src="assets/biomechanics_workbench.js"></script>
+<script src="assets/zoe_3d_copilot.js"></script>
 <script src="assets/zoe_neuro_qa.js"></script>
 <script>
   (function () {

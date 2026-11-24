@@ -28,7 +28,7 @@
     },
     {
       "check": "06_docs_links_and_evidence_json_integrity",
-      "detail": "docs=11 links=1369 broken=0 jsons=126",
+      "detail": "docs=11 links=1369 broken=0 jsons=128",
       "passed": true
     }
   ],
@@ -52,17 +52,17 @@
   "documentation_and_evidence_audit": {
     "broken_links_count": 0,
     "broken_links_sample": [],
-    "evidence_json_files_valid": 126,
+    "evidence_json_files_valid": 128,
     "invalid_json_files": [],
     "local_links_checked": 1369,
     "markdown_docs_checked": 11
   },
-  "evidence_sha256": "cb6295ce4bba662cde11bc7092b508491420a1a9609e955d4a2d3e8db7583699",
+  "evidence_sha256": "80bf8b7cddf7bdca4073cc36fea6daf97383fdee597506d27978490dbd031951",
   "observatory_core": {
     "assets/observatory.js": {
-      "bytes": 132545,
+      "bytes": 133890,
       "exists": true,
-      "sha256_16": "21c3c6a452165e1f"
+      "sha256_16": "d90db9e4e0c5b823"
     },
     "assets/three.min.js": {
       "bytes": 603445,
@@ -90,9 +90,9 @@
       "sha256_16": "e062cfaa8ea2f508"
     },
     "index.html": {
-      "bytes": 49202,
+      "bytes": 62462,
       "exists": true,
-      "sha256_16": "4e2dd22019770265"
+      "sha256_16": "5ba54f92943c1399"
     },
     "manifest.webmanifest": {
       "bytes": 779,
@@ -100,9 +100,9 @@
       "sha256_16": "ed374050e676f2fa"
     },
     "sw.js": {
-      "bytes": 1701,
+      "bytes": 1849,
       "exists": true,
-      "sha256_16": "764243c8186768d8"
+      "sha256_16": "1d00e23da6fa3f2c"
     }
   },
   "orbit_seal": {

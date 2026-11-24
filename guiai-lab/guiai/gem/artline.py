@@ -6,12 +6,31 @@ import json
 import math
 from pathlib import Path
 
-from .atlas import _ellipse, _scene, _text
 from .field import _canonical
 from .geometry import verify
+from .model import Scene
 from .render import write_png, write_svg
 from .runner import verify_vdi
 from .vdi import write_metafile
+
+
+def _scene(identifier, width, height, objects, title):
+    return Scene.from_dict({
+        "schema_version": 1,
+        "id": identifier,
+        "title": title,
+        "canvas": {"width": width, "height": height},
+        "objects": objects,
+        "constraints": [{"type": "inside_canvas", "object": "*"}],
+    })
+
+
+def _ellipse(identifier, center, radii, stroke, fill="none", width=1):
+    return {"id": identifier, "type": "ellipse", "center": center, "radii": radii, "stroke": stroke, "fill": fill, "width": width}
+
+
+def _text(identifier, position, text, size=14, stroke="black"):
+    return {"id": identifier, "type": "text", "position": position, "text": text, "size": size, "stroke": stroke, "fill": "none", "width": 0}
 
 
 CANVAS = (1000, 700)
@@ -146,6 +165,213 @@ def _in_polygon(point, points):
         if (first[1] > y) != (second[1] > y) and x < (second[0] - first[0]) * (y - first[1]) / (second[1] - first[1]) + first[0]:
             inside = not inside
     return inside
+
+
+def _signed_area(points):
+    area = 0.0
+    for i, p0 in enumerate(points):
+        p1 = points[(i + 1) % len(points)]
+        area += p0[0] * p1[1] - p1[0] * p0[1]
+    return 0.5 * area
+
+
+def _resample_closed_polygon(points, n_samples=48):
+    """Resample a closed polygon uniformly by arc length so dissimilar shapes blend cleanly."""
+    segs = []
+    total = 0.0
+    for i, p0 in enumerate(points):
+        p1 = points[(i + 1) % len(points)]
+        length = math.hypot(p1[0] - p0[0], p1[1] - p0[1])
+        segs.append((p0, p1, length))
+        total += length
+    if total <= 1e-9:
+        return [list(points[0]) for _ in range(n_samples)]
+    out = []
+    step = total / n_samples
+    seg_idx, acc = 0, 0.0
+    for k in range(n_samples):
+        target = k * step
+        while seg_idx < len(segs) - 1 and acc + segs[seg_idx][2] < target:
+            acc += segs[seg_idx][2]
+            seg_idx += 1
+        p0, p1, seg_len = segs[seg_idx]
+        frac = 0.0 if seg_len <= 1e-9 else max(0.0, min(1.0, (target - acc) / seg_len))
+        out.append([p0[0] + (p1[0] - p0[0]) * frac, p0[1] + (p1[1] - p0[1]) * frac])
+    return out
+
+
+def blend_polygons(start_pts, end_pts, steps=12, n_samples=48, auto_align=True, reverse_end=False):
+    """Digital Research Artline 2.0 Point-Mapped Blend with Winding & Start-Point Alignment (pp. 8-10/8-11)."""
+    a = _resample_closed_polygon(start_pts, n_samples=n_samples)
+    b = _resample_closed_polygon(end_pts, n_samples=n_samples)
+    if auto_align and (_signed_area(a) * _signed_area(b) < 0):
+        b = list(reversed(b))
+    if reverse_end:
+        b = list(reversed(b))
+    if auto_align:
+        best_shift = min(
+            range(n_samples),
+            key=lambda sh: sum((a[i][0] - b[(i + sh) % n_samples][0]) ** 2 + (a[i][1] - b[(i + sh) % n_samples][1]) ** 2 for i in range(n_samples)),
+        )
+        b = b[best_shift:] + b[:best_shift]
+    frames = []
+    for s in range(steps + 1):
+        t = s / max(1, steps)
+        frames.append([[a[i][0] + (b[i][0] - a[i][0]) * t, a[i][1] + (b[i][1] - a[i][1]) * t] for i in range(n_samples)])
+    return frames
+
+
+def _rdp_simplify(points, eps):
+    """Ramer-Douglas-Peucker polyline simplifier (Artline 2.0 tracing precision control)."""
+    if len(points) <= 2:
+        return list(points)
+    p0, p1 = points[0], points[-1]
+    dx, dy = p1[0] - p0[0], p1[1] - p0[1]
+    denom = math.hypot(dx, dy)
+    best_idx, best_d = 0, -1.0
+    for idx in range(1, len(points) - 1):
+        px, py = points[idx]
+        d = math.hypot(px - p0[0], py - p0[1]) if denom <= 1e-9 else abs(dy * px - dx * py + p1[0] * p0[1] - p1[1] * p0[0]) / denom
+        if d > best_d:
+            best_d, best_idx = d, idx
+    if best_d > eps:
+        left = _rdp_simplify(points[: best_idx + 1], eps)
+        right = _rdp_simplify(points[best_idx:], eps)
+        return left[:-1] + right
+    return [p0, p1]
+
+
+def autotrace_bitmap(mask, *, precision=2.0):
+    """Artline 2.0 deterministic raster-to-vector Autotrace (Moore-Neighbor + RDP simplification).
+
+    Zero neural networks, zero GPU: extracts a crisp repeatable polygon contour from any 2D
+    binary raster mask (MRI slice, dithered scan, or 1-bit sprite) with Green's-theorem metrics.
+    """
+    h = len(mask)
+    w = len(mask[0]) if h else 0
+    if h == 0 or w == 0:
+        raise ValueError("Empty raster mask for autotrace.")
+    # Pad by 1px border so Moore-Neighbor lookup never goes out of bounds
+    grid = [[0] * (w + 2)] + [[0] + [1 if mask[r][c] else 0 for c in range(w)] + [0] for r in range(h)] + [[0] * (w + 2)]
+    start = None
+    for r in range(1, h + 1):
+        for c in range(1, w + 1):
+            if grid[r][c] == 1:
+                start = (r, c)
+                break
+        if start is not None:
+            break
+    if start is None:
+        raise ValueError("Cannot find tracing image in raster mask.")
+
+    # Clockwise 8-connected Moore neighborhood: (dr, dc) starting from West
+    nbrs = [(0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1)]
+    cur = start
+    enter_dir = 0  # Backtrack pixel is West of start (guaranteed 0 by scan order)
+    raw = [[float(cur[1] - 1), float(cur[0] - 1)]]
+    max_steps = max(64, 4 * h * w)
+    for _ in range(max_steps):
+        found = None
+        for offset in range(1, 9):
+            d = (enter_dir + offset) % 8
+            nr, nc = cur[0] + nbrs[d][0], cur[1] + nbrs[d][1]
+            if grid[nr][nc] == 1:
+                prev_d = (d - 1) % 8
+                # Direction from new pixel back to the last 0 pixel (opposite of offset)
+                back_r = cur[0] + nbrs[prev_d][0] - nr
+                back_c = cur[1] + nbrs[prev_d][1] - nc
+                new_enter = nbrs.index((back_r, back_c)) if (back_r, back_c) in nbrs else (d + 4) % 8
+                found = ((nr, nc), new_enter)
+                break
+        if found is None:
+            break
+        nxt, nxt_enter = found
+        if nxt == start and nxt_enter == 0:
+            break
+        cur, enter_dir = nxt, nxt_enter
+        raw.append([float(cur[1] - 1), float(cur[0] - 1)])
+
+    # Closed RDP: split at farthest point from raw[0] so closed loop simplifies symmetrically
+    if len(raw) >= 6:
+        far_i = max(range(1, len(raw)), key=lambda i: (raw[i][0] - raw[0][0]) ** 2 + (raw[i][1] - raw[0][1]) ** 2)
+        h1 = _rdp_simplify(raw[: far_i + 1], precision)
+        h2 = _rdp_simplify(raw[far_i:] + [raw[0]], precision)
+        traced = h1[:-1] + h2[:-1]
+    else:
+        traced = list(raw)
+
+    area = abs(_signed_area(traced))
+    perim = sum(math.hypot(traced[(i + 1) % len(traced)][0] - traced[i][0], traced[(i + 1) % len(traced)][1] - traced[i][1]) for i in range(len(traced)))
+    circ = (4.0 * math.pi * area / (perim * perim)) if perim > 1e-9 else 0.0
+    xs = [p[0] for p in traced]
+    ys = [p[1] for p in traced]
+    return {
+        "contour": traced,
+        "raw_points": len(raw),
+        "traced_points": len(traced),
+        "area": round(area, 2),
+        "perimeter": round(perim, 2),
+        "circularity": round(circ, 4),
+        "bbox": [min(xs), min(ys), max(xs), max(ys)],
+    }
+
+
+def trace_segment(contour, p_start, p_end, *, frame_bounds=None):
+    """Artline 2.0 Trace Segment (p. 11-11): extract partial boundary arc between start & end points."""
+    if frame_bounds is not None:
+        fx0, fy0, fx1, fy1 = frame_bounds
+        if not (fx0 <= p_end[0] <= fx1 and fy0 <= p_end[1] <= fy1):
+            raise ValueError("Cannot trace segment. The selected end point lies outside the image frame.")
+    if len(contour) < 3:
+        return list(contour)
+    i0 = min(range(len(contour)), key=lambda i: (contour[i][0] - p_start[0]) ** 2 + (contour[i][1] - p_start[1]) ** 2)
+    i1 = min(range(len(contour)), key=lambda i: (contour[i][0] - p_end[0]) ** 2 + (contour[i][1] - p_end[1]) ** 2)
+    if i0 == i1:
+        return [list(contour[i0])]
+    fwd = contour[i0 : i1 + 1] if i0 < i1 else contour[i0:] + contour[: i1 + 1]
+    bwd = list(reversed(contour[i1 : i0 + 1])) if i1 < i0 else list(reversed(contour[i1:] + contour[: i0 + 1]))
+    len_f = sum(math.hypot(fwd[k + 1][0] - fwd[k][0], fwd[k + 1][1] - fwd[k][1]) for k in range(len(fwd) - 1))
+    len_b = sum(math.hypot(bwd[k + 1][0] - bwd[k][0], bwd[k + 1][1] - bwd[k][1]) for k in range(len(bwd) - 1))
+    return fwd if len_f <= len_b else bwd
+
+
+def rotate_ring(motif_pts, cx, cy, count=16):
+    """Artline 2.0 Rotator + Thumbtack radial symmetry generator (Tutorial p. 6-14)."""
+    if count < 2 or count > 64:
+        raise ValueError("Ring count must be between 2 and 64.")
+    ring = []
+    for k in range(count):
+        ang = 2.0 * math.pi * k / count
+        ca, sa = math.cos(ang), math.sin(ang)
+        ring.append([
+            [cx + (x - cx) * ca - (y - cy) * sa, cy + (x - cx) * sa + (y - cy) * ca]
+            for x, y in motif_pts
+        ])
+    return ring
+
+
+def align_bounds_9way(bounds_list, mode="cc"):
+    """Artline 2.0 ALIGN.TLS 9-way alignment pad (tl..br, top/mid/bot, left/center/right).
+
+    Aligns all bounding boxes [x0, y0, x1, y1] against the first anchor box cleanly (P^2 = P).
+    """
+    if not bounds_list:
+        return []
+    ax0, ay0, ax1, ay1 = bounds_list[0]
+    acx, acy = 0.5 * (ax0 + ax1), 0.5 * (ay0 + ay1)
+    m = mode.strip().lower()
+    h_map = {"tl": "l", "ml": "l", "bl": "l", "left": "l", "tc": "c", "cc": "c", "bc": "c", "center": "c", "tr": "r", "mr": "r", "br": "r", "right": "r"}
+    v_map = {"tl": "t", "tc": "t", "tr": "t", "top": "t", "ml": "m", "cc": "m", "mr": "m", "mid": "m", "bl": "b", "bc": "b", "br": "b", "bot": "b"}
+    hm, vm = h_map.get(m), v_map.get(m)
+    if hm is None and vm is None:
+        raise ValueError(f"Unknown ALIGN.TLS mode: {mode!r}")
+    out = []
+    for x0, y0, x1, y1 in bounds_list:
+        w, h = x1 - x0, y1 - y0
+        nx0 = x0 if hm is None else (ax0 if hm == "l" else (ax1 - w if hm == "r" else acx - 0.5 * w))
+        ny0 = y0 if vm is None else (ay0 if vm == "t" else (ay1 - h if vm == "b" else acy - 0.5 * h))
+        out.append([round(nx0, 3), round(ny0, 3), round(nx0 + w, 3), round(ny0 + h, 3)])
+    return out
 
 
 class ArtlineDocument:
@@ -552,6 +778,44 @@ class ArtlineDocument:
         by_id = {element["id"]: element for element in transformed}
         self.elements = [by_id.get(element["id"], element) for element in self.elements]
         self._record("elements_aligned_to_grid", {"ids": [element["id"] for element in originals], "spacing": spacing})
+
+    def align_points_plane(self, identifier, point_indices, axis="vert"):
+        """Digital Research Artline 2.0 Plane Tool (Align Vert / Align Horiz) anchored to first selected point."""
+        mode = str(axis or "vert").strip().lower()
+        if mode not in {"vert", "horiz"}:
+            raise ValueError("plane alignment axis must be 'vert' or 'horiz'")
+        original = self.element(identifier)
+        self._editable(original["layer"])
+        if original["type"] not in {"path", "line"}:
+            raise ValueError("plane point alignment requires a path or line element")
+        pts = deepcopy(original["points"])
+        selected = sorted({int(i) for i in point_indices})
+        if len(selected) < 2 or selected[0] < 0 or selected[-1] >= len(pts):
+            raise ValueError("select at least two valid point indices")
+        anchor_idx = selected[0]  # First selected point (nearest element start)
+        coord = 0 if mode == "vert" else 1
+        anchor_val = pts[anchor_idx][coord]
+        deltas = []
+        for idx in selected:
+            deltas.append(round(pts[idx][coord] - anchor_val, 4))
+            pts[idx][coord] = anchor_val
+        updated = deepcopy(original)
+        updated["points"] = pts
+        _inside(element_bounds(updated))
+        self._checkpoint()
+        self.elements = [updated if item["id"] == identifier else item for item in self.elements]
+        rms = math.sqrt(sum(d * d for d in deltas) / len(deltas))
+        payload = {"id": identifier, "axis": mode, "anchor_index": anchor_idx, "anchor_value": anchor_val, "indices": selected, "rms_drift": round(rms, 4)}
+        self._record("points_aligned_plane", payload)
+        return {"anchor_index": anchor_idx, "anchor_point": list(pts[anchor_idx]), "deltas": deltas, "rms_drift": round(rms, 4), "axis": mode}
+
+    def align_points_vert(self, identifier, point_indices):
+        """Align selected points vertically to the first selected point's X coordinate."""
+        return self.align_points_plane(identifier, point_indices, axis="vert")
+
+    def align_points_horiz(self, identifier, point_indices):
+        """Align selected points horizontally to the first selected point's Y coordinate."""
+        return self.align_points_plane(identifier, point_indices, axis="horiz")
 
     def merge(self, other):
         if not isinstance(other, ArtlineDocument):

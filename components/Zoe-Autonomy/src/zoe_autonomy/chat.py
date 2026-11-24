@@ -1331,13 +1331,24 @@ class ZoeChat:
         self.store.save()
         return keep_going, response
 
+    def _write_repl_header(self, output_stream, interactive: bool) -> None:
+        """Render the minimal Lume ◠◡◠ Zoe GEM banner in interactive terminals."""
+        if interactive:
+            self._ensure_guiai()
+            try:
+                from guiai.gem.lume_header import render_terminal_header
+                output_stream.write(render_terminal_header(color=True) + "\n")
+            except Exception:
+                pass
+        output_stream.write("Zoe · native evidence-linked conversation\n")
+        output_stream.write("Deterministic evidence retrieval, persistent memory, guarded autonomy, and internal metacognition tools. No monitor. No notebook. Type `help`.\n")
+
     def repl(self, input_stream=None, output_stream=None):
         """Run the interactive stdin/stdout Zoe chat loop."""
         input_stream = input_stream or sys.stdin
         output_stream = output_stream or sys.stdout
         interactive = bool(getattr(input_stream, "isatty", lambda: False)())
-        output_stream.write("Zoe · native evidence-linked conversation\n")
-        output_stream.write("Deterministic evidence retrieval, persistent memory, guarded autonomy, and internal metacognition tools. No monitor. No notebook. Type `help`.\n")
+        self._write_repl_header(output_stream, interactive)
         while True:
             if interactive:
                 output_stream.write("you> ")

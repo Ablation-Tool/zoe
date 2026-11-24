@@ -370,6 +370,15 @@
       "sloc": 191
     },
     {
+      "avg_cc": 6.588,
+      "file": "guiai-lab/guiai/gem/dorothy_biomechanics_workbench.py",
+      "grade": "A",
+      "h2": 2.2028,
+      "max_cc": 20,
+      "mi": 60.351,
+      "sloc": 801
+    },
+    {
       "avg_cc": 5.375,
       "file": "guiai-lab/guiai/gem/dorothy_data.py",
       "grade": "A",
@@ -1313,6 +1322,15 @@
       "max_cc": 8,
       "mi": 53.093,
       "sloc": 185
+    },
+    {
+      "avg_cc": 4.667,
+      "file": "guiai-lab/guiai/gem/zoe_dorothy_discovery_engine.py",
+      "grade": "B",
+      "h2": 0.974,
+      "max_cc": 16,
+      "mi": 56.592,
+      "sloc": 440
     },
     {
       "avg_cc": 2.667,
@@ -2305,6 +2323,15 @@
       "sloc": 177
     },
     {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_dorothy_biomechanics_workbench.py",
+      "grade": "B",
+      "h2": 0.7839,
+      "max_cc": 17,
+      "mi": 49.539,
+      "sloc": 260
+    },
+    {
       "avg_cc": 10.0,
       "file": "scripts/verify_dorothy_neurogarden.py",
       "grade": "B",
@@ -2593,6 +2620,15 @@
       "sloc": 183
     },
     {
+      "avg_cc": 8.667,
+      "file": "scripts/verify_zoe_dorothy_discovery.py",
+      "grade": "B",
+      "h2": 0.6469,
+      "max_cc": 17,
+      "mi": 50.874,
+      "sloc": 193
+    },
+    {
       "avg_cc": 6.714,
       "file": "scripts/verify_zoe_eliza.py",
       "grade": "A",
@@ -2664,26 +2700,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "1645af27bb720fc66aff3d93803f77e08a4a8f94c71c7ec8790b94e9f44b08dc",
+  "evidence_sha256": "1de19b9b8395ca5b63dbf201f4e25fb7cfe7462beadc1865ff3f4275be4ac10b",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.4677,
-    "files_scanned": 294,
+    "corr_avg_cc_vs_mi": -0.4667,
+    "files_scanned": 298,
     "grade_distribution": {
-      "A": 150,
-      "B": 144,
+      "A": 151,
+      "B": 147,
       "C": 0,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 6.468,
-    "mean_mi": 60.043,
-    "median_mi": 60.156,
+    "mean_avg_cc": 6.472,
+    "mean_mi": 59.967,
+    "median_mi": 60.134,
     "orbit_mean_avg_cc": 7.294,
     "orbit_mean_mi": 58.12,
     "orbit_modules_count": 15,
     "parse_errors": 0,
-    "total_functions": 3301,
-    "total_sloc": 86905
+    "total_functions": 3331,
+    "total_sloc": 88599
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,

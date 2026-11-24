@@ -1557,6 +1557,9 @@
   function setRenderMode(mode) {
     state.mode = mode;
     document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    if (mode !== 'biomech' && window.__DOROTHY_BIOMECH && window.__DOROTHY_BIOMECH.restoreGeometry) {
+      window.__DOROTHY_BIOMECH.restoreGeometry();
+    }
     const statL = buildCortexColors(geoL, aalLBytes, lobeLBytes, mode, state.tau, selectedAalId);
     const statR = buildCortexColors(geoR, aalRBytes, lobeRBytes, mode, state.tau, selectedAalId);
     geoL.attributes.color.needsUpdate = true;
@@ -1607,10 +1610,14 @@
     meshCerebellum.material.wireframe = isWire;
     meshCIT168.material.wireframe = isWire;
 
-    // Show/hide Dorothy Continuum tau bar
+    // Show/hide Dorothy Continuum tau bar & Biomechanics Lab box
     const tauBox = document.getElementById('tauBox');
     tauBox.style.display = (mode === 'continuum') ? 'block' : 'none';
-    if (mode === 'continuum') {
+    const bmBox = document.getElementById('biomechBox');
+    if (bmBox) bmBox.style.display = (mode === 'biomech') ? 'block' : 'none';
+    if (mode === 'biomech' && window.__DOROTHY_BIOMECH && window.__DOROTHY_BIOMECH.applyTo3D) {
+      window.__DOROTHY_BIOMECH.applyTo3D();
+    } else if (mode === 'continuum') {
       const acc = statL.accessibleCount + statR.accessibleCount;
       const tot = statL.total + statR.total;
       const pct = ((acc / tot) * 100).toFixed(1);
@@ -1637,6 +1644,11 @@
       box.innerHTML = `<div class="leg-t">DTI Tracts &amp; Deep Nuclei</div>
         <div class="leg-row"><span class="dot" style="background:#ef4444"></span>L–R Callosal / Arteries <span class="dot" style="background:#22c55e"></span>A–P Assoc. <span class="dot" style="background:#3b82f6"></span>S–I Motor</div>
         <div class="leg-row"><span class="dot" style="background:#38bdf8"></span>Ventricles <span class="dot" style="background:#f2b83d"></span>Thalamus <span class="dot" style="background:#fde047"></span>CN I–XII</div>`;
+      box.style.display = 'block';
+    } else if (state.mode === 'biomech') {
+      box.innerHTML = `<div class="leg-t">Coupled Biomechanics &amp; Continuum Lab</div>
+        <div class="leg-bar" style="background:linear-gradient(90deg,#1a243d 0%,#23b3eb 32%,#ebdf2e 68%,#fc195e 100%)"></div>
+        <div class="leg-row" style="justify-content:space-between"><span>Low Strain / Contrecoup</span><span>Peak Strain / Coup</span></div>`;
       box.style.display = 'block';
     } else if (state.mode === 'continuum') {
       box.innerHTML = `<div class="leg-t">Dorothy Continuum A_τ(p)</div>
@@ -2133,6 +2145,7 @@
     });
     if (tabId === 'brain3d') resize3D();
     if (tabId === 'vault' && !vaultInitialized) initVaultTab();
+    if (tabId === 'biomechanics' && window.__DOROTHY_BIOMECH && window.__DOROTHY_BIOMECH.initTab) window.__DOROTHY_BIOMECH.initTab();
   }
   window.switchTab = switchTab;
 
@@ -2707,6 +2720,10 @@
       octx.stroke();
     }
 
+    if (window.__DOROTHY_BIOMECH && window.__DOROTHY_BIOMECH.tick) {
+      window.__DOROTHY_BIOMECH.tick(dt, t);
+    }
+
     renderer.render(scene, camera);
     updateCallouts();
     drawCompass();
@@ -2781,6 +2798,6 @@
   setRenderMode('tissue');
   animate();
 
-  // Expose tiny verification API on window for automated QA
-  window.__DOROTHY_API = { setRenderMode, setCameraPreset, applyExplode, setSlicePreset, setFunctionalCircuit, setVascularTerritory, setMriColormap, switchTab, updateCameraTransform, setCallouts: (v) => { showCallouts = !!v; document.getElementById('btnLabels3D').classList.toggle('active', showCallouts); updateCallouts(); }, setEegCap: (v) => { state.layers.eegCap = !!v; document.getElementById('chk-eegCap').checked = !!v; applyLayerVisibility(); }, flyToBrodmann: window.flyToBrodmann, flyToStructure: window.flyToStructure, state };
+  // Expose verification & biomechanics extension API on window
+  window.__DOROTHY_API = { setRenderMode, setCameraPreset, applyExplode, setSlicePreset, setFunctionalCircuit, setVascularTerritory, setMriColormap, switchTab, updateCameraTransform, setCallouts: (v) => { showCallouts = !!v; document.getElementById('btnLabels3D').classList.toggle('active', showCallouts); updateCallouts(); }, setEegCap: (v) => { state.layers.eegCap = !!v; document.getElementById('chk-eegCap').checked = !!v; applyLayerVisibility(); }, flyToBrodmann: window.flyToBrodmann, flyToStructure: window.flyToStructure, state, geoL, geoR, meshCortexL, meshCortexR, matCortexL, matCortexR, curvBytes, aalLBytes, lobeLBytes, aalRBytes, lobeRBytes, brainRoot, activeClipPlanes, applyClipping, setMniCoords, mniToThree };
 })();

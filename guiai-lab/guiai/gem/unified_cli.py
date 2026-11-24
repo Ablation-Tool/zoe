@@ -35,8 +35,8 @@ _VIEW_DESCRIPTIONS: dict[str, str] = {
 
 
 def parser():
-    """Build the top-level `zoe` unified CLI parser."""
-    result = argparse.ArgumentParser(prog="zoe", description=IDENTITY)
+    """Build the top-level `Zoe` unified CLI parser (with friendly `zoe` alias)."""
+    result = argparse.ArgumentParser(prog="Zoe", description=IDENTITY)
     commands = result.add_subparsers(dest="command")
     for name in ("list", "components"):
         commands.add_parser(name, help="list every registered engine and GEM source")

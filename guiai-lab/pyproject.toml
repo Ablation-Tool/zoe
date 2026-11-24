@@ -11,10 +11,11 @@ requires-python = ">=3.10"
 dependencies = ["pyte>=0.8.1,<1"]
 
 [project.scripts]
+Zoe = "guiai.gem.unified_cli:main"
+zoe = "guiai.gem.unified_cli:main"
 gem = "guiai.gem.cli:main"
 guiai = "guiai.cli:main"
 metrix = "metrix.cli:main"
-zoe = "guiai.gem.unified_cli:main"
 
 [tool.setuptools]
 license-files = ["NOTICE", "licenses/*.txt"]
