@@ -13,6 +13,7 @@ dependencies = ["pyte>=0.8.1,<1"]
 [project.scripts]
 Zoe = "guiai.gem.unified_cli:main"
 zoe = "guiai.gem.unified_cli:main"
+zoe-fieldglass = "guiai.gem.zoe_fieldglass:main"
 gem = "guiai.gem.cli:main"
 guiai = "guiai.cli:main"
 metrix = "metrix.cli:main"
