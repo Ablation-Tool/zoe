@@ -148,6 +148,9 @@ _HTML_GET_ROUTES: Dict[str, Tuple[str, str]] = {
     "/botanical": ("guiai.gem.botanical_atlas_explorer", "render_botanical_explorer_html"),
     "/optics": ("guiai.gem.spatial_optical_workbench", "render_optics_workbench_html"),
     "/harmonica": ("guiai.gem.glass_harmonica_workbench", "render_harmonica_workbench_html"),
+    "/artline": ("guiai.gem.zoe_artline_brainstorm", "render_artline_studio_html"),
+    "/physics": ("guiai.gem.zoe_wombats_physics_room", "render_physics_room_html"),
+    "/duodecimal": ("guiai.gem.zoe_artline_duodecimal", "render_adc12_catalog_html"),
 }
 
 # Footer API & observatory links preserved on /orbit
@@ -179,6 +182,9 @@ _ORBIT_API_LINKS: Tuple[Tuple[str, str, str], ...] = (
     ("/harmonica", "/harmonica (Interactive Theorem 16 Glass Harmonica &amp; Chladni Orrery)", "#5ce1e6"),
     ("/api/kloster/pharmacophore-c28", "/api/kloster/pharmacophore-c28", "#7ce8ff"),
     ("/proof", "/proof (Interactive Referee Arena)", "#ffb84d"),
+    ("/artline", "/artline (Artline 2.0 Brainstorm Studio)", "#ff85b3"),
+    ("/physics", "/physics (Optional-Physics Room &amp; Page A-2 Wombats)", "#52e5a8"),
+    ("/duodecimal", "/duodecimal (ADC-12 Base-12 Shorthand Catalog)", "#f8cc30"),
     ("/api/kloster/proof-packet", "/api/kloster/proof-packet", "#ffb84d"),
     ("/api/orbit/master", "/api/orbit/master", "#7ce8ff"),
 )
@@ -354,6 +360,13 @@ def _get_html_workbench(
     handler.send_bytes(200, "text/html; charset=utf-8", html_bytes)
 
 
+# Serve GET /api/artline/{concept}.svg live Artline 2.0 Brainstorm vector plate
+def _get_artline_concept_svg(handler: Any, _ctx: _ServerContext, *, concept: str) -> None:
+    from .zoe_artline_brainstorm import render_concept_svg_bytes
+
+    handler.send_bytes(200, "image/svg+xml; charset=utf-8", render_concept_svg_bytes(concept))
+
+
 # Special non-uniform GET handlers keyed by route path
 _SPECIAL_GET_ROUTES: Dict[str, Callable[[Any, _ServerContext], None]] = {
     "/": _get_index,
@@ -362,6 +375,10 @@ _SPECIAL_GET_ROUTES: Dict[str, Callable[[Any, _ServerContext], None]] = {
     "/api/status": _get_status,
     "/api/memory": _get_memory,
     "/api/os/mind/gem.svg": _get_os_mind_svg,
+    "/api/artline/desk.svg": partial(_get_artline_concept_svg, concept="desk"),
+    "/api/artline/chess.svg": partial(_get_artline_concept_svg, concept="chess"),
+    "/api/artline/sector.svg": partial(_get_artline_concept_svg, concept="sector"),
+    "/api/artline/mondo.svg": partial(_get_artline_concept_svg, concept="mondo"),
     "/orbit": _get_orbit,
     "/api/export": _get_export,
 }
@@ -386,6 +403,15 @@ _GET_ROUTES: Dict[str, Callable[[Any, _ServerContext], None]] = _build_get_route
 # Handle POST /api/chat
 def _post_chat(handler: Any, ctx: _ServerContext, body: Dict[str, Any]) -> None:
     msg = str(body.get("message") or "").strip()
+    low = msg.lower()
+    if low.startswith(("/artline", "/adc12", "/duodecimal")):
+        with ctx.lock:
+            stopped = bool(ctx.engine.memory_snapshot().get("stopped", False))
+        if not stopped:
+            from .zoe_artline_cli import handle_artline_slash_command
+
+            handler.send_json(200, handle_artline_slash_command(msg))
+            return
     with ctx.lock:
         res = ctx.engine.respond(msg, gear=body.get("gear"), model=body.get("model"))
     handler.send_json(200, res)
