@@ -337,25 +337,35 @@ class EvidenceIndex:
         if not self.chunks:
             raise ValueError("no Zoe evidence documents are available")
 
+    _GENERIC_DOC_STEMS = frozenset({
+        "readme", "index", "operations", "research", "algorithms",
+        "unified", "chat", "verification", "collaboration", "zoe",
+    })
+
     @staticmethod
-    def score(query, content, heading=""):
+    def score(query, content, heading="", path=""):
         query_tokens = _tokens(query)
         content_tokens = _tokens(content)
         heading_tokens = _tokens(heading)
         if not query_tokens:
             return 0.0, 0.0
-        matched = query_tokens & content_tokens
+        stem_tokens = (_tokens(Path(path).stem) - EvidenceIndex._GENERIC_DOC_STEMS) if path else set()
+        matched_content = query_tokens & content_tokens
+        matched_heading = query_tokens & heading_tokens
+        matched_stem = query_tokens & stem_tokens
+        if not matched_content and not (matched_heading and matched_stem):
+            return 0.0, 0.0
+        matched = matched_content | matched_heading | matched_stem
         coverage = len(matched) / len(query_tokens)
-        if not matched:
-            return 0.0, coverage
         phrase = 0.75 if query.strip().lower() in content.lower() else 0.0
-        heading_score = 1.25 * len(query_tokens & heading_tokens)
-        return 3.0 * coverage + phrase + heading_score + math.log1p(len(matched)) * 0.2, coverage
+        heading_score = 1.25 * len(matched_heading)
+        stem_score = 1.5 * len(matched_stem)
+        return 3.0 * coverage + phrase + heading_score + stem_score + math.log1p(len(matched)) * 0.2, coverage
 
     def search(self, query, limit=6):
         scored = []
         for chunk in self.chunks:
-            score, coverage = self.score(query, chunk.content, chunk.heading)
+            score, coverage = self.score(query, chunk.content, chunk.heading, chunk.path)
             if score > 0:
                 scored.append((score, coverage, chunk))
         scored.sort(key=lambda item: (-item[0], _DOC_PRIORITY.get(item[2].path, 999), item[2].citation))

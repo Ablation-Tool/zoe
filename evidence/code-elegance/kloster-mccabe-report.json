@@ -496,6 +496,15 @@
       "sloc": 665
     },
     {
+      "avg_cc": 2.778,
+      "file": "guiai-lab/guiai/gem/gemos_view.py",
+      "grade": "A",
+      "h2": 2.0189,
+      "max_cc": 5,
+      "mi": 60.628,
+      "sloc": 134
+    },
+    {
       "avg_cc": 2.5,
       "file": "guiai-lab/guiai/gem/genesis.py",
       "grade": "A",
@@ -919,13 +928,13 @@
       "sloc": 240
     },
     {
-      "avg_cc": 4.709,
+      "avg_cc": 4.515,
       "file": "guiai-lab/guiai/gem/lume_cli.py",
       "grade": "B",
-      "h2": 4.2459,
+      "h2": 3.7715,
       "max_cc": 16,
-      "mi": 58.433,
-      "sloc": 1743
+      "mi": 58.987,
+      "sloc": 1088
     },
     {
       "avg_cc": 5.75,
@@ -1266,8 +1275,8 @@
       "grade": "A",
       "h2": 2.1203,
       "max_cc": 5,
-      "mi": 74.638,
-      "sloc": 147
+      "mi": 74.619,
+      "sloc": 148
     },
     {
       "avg_cc": 7.706,
@@ -1378,13 +1387,13 @@
       "sloc": 335
     },
     {
-      "avg_cc": 8.429,
+      "avg_cc": 8.286,
       "file": "guiai-lab/guiai/gem/zoe_artline_neuro.py",
       "grade": "B",
-      "h2": 1.87,
+      "h2": 1.8835,
       "max_cc": 29,
-      "mi": 57.569,
-      "sloc": 479
+      "mi": 57.775,
+      "sloc": 471
     },
     {
       "avg_cc": 6.667,
@@ -1396,13 +1405,13 @@
       "sloc": 356
     },
     {
-      "avg_cc": 8.333,
+      "avg_cc": 7.5,
       "file": "guiai-lab/guiai/gem/zoe_beta_release.py",
       "grade": "B",
-      "h2": 0.9044,
+      "h2": 1.1748,
       "max_cc": 12,
-      "mi": 46.799,
-      "sloc": 172
+      "mi": 51.689,
+      "sloc": 180
     },
     {
       "avg_cc": 3.938,
@@ -1529,15 +1538,6 @@
       "max_cc": 31,
       "mi": 51.77,
       "sloc": 977
-    },
-    {
-      "avg_cc": 4.5,
-      "file": "guiai-lab/guiai/gem/zoe_rome_fusion.py",
-      "grade": "B",
-      "h2": 2.4775,
-      "max_cc": 14,
-      "mi": 55.431,
-      "sloc": 797
     },
     {
       "avg_cc": 3.875,
@@ -1675,13 +1675,13 @@
       "sloc": 177
     },
     {
-      "avg_cc": 3.784,
+      "avg_cc": 3.824,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/chat.py",
       "grade": "A",
-      "h2": 3.7818,
+      "h2": 3.7849,
       "max_cc": 15,
-      "mi": 62.494,
-      "sloc": 1328
+      "mi": 62.413,
+      "sloc": 1337
     },
     {
       "avg_cc": 2.722,
@@ -1720,13 +1720,13 @@
       "sloc": 185
     },
     {
-      "avg_cc": 3.933,
+      "avg_cc": 4.8,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/dorothy_local_library.py",
       "grade": "A",
-      "h2": 1.9876,
-      "max_cc": 16,
-      "mi": 64.475,
-      "sloc": 326
+      "h2": 1.7734,
+      "max_cc": 22,
+      "mi": 63.981,
+      "sloc": 342
     },
     {
       "avg_cc": 4.625,
@@ -2953,6 +2953,15 @@
       "sloc": 231
     },
     {
+      "avg_cc": 6.4,
+      "file": "scripts/verify_zoe_gem_os_suite.py",
+      "grade": "B",
+      "h2": 2.2219,
+      "max_cc": 10,
+      "mi": 56.999,
+      "sloc": 263
+    },
+    {
       "avg_cc": 11.0,
       "file": "scripts/verify_zoe_os.py",
       "grade": "B",
@@ -3024,26 +3033,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "586ab68822be2541e0c05c243417de4a9371ec78079be6b460d4dec283c2d24d",
+  "evidence_sha256": "7fbe304b4a02a406a2be5e2c2d54edc91ae272bf9d40d4e5f138aaa6bd204107",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.4464,
-    "files_scanned": 334,
+    "corr_avg_cc_vs_mi": -0.4467,
+    "files_scanned": 335,
     "grade_distribution": {
-      "A": 171,
+      "A": 172,
       "B": 163,
       "C": 0,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 6.483,
-    "mean_mi": 60.106,
-    "median_mi": 60.188,
+    "mean_avg_cc": 6.477,
+    "mean_mi": 60.128,
+    "median_mi": 60.203,
     "orbit_mean_avg_cc": 7.294,
     "orbit_mean_mi": 58.12,
     "orbit_modules_count": 15,
     "parse_errors": 0,
-    "total_functions": 3921,
-    "total_sloc": 105396
+    "total_functions": 3884,
+    "total_sloc": 104367
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -3603,32 +3612,6 @@
       "total_cc": 32
     },
     {
-      "avg_cc": 8.333,
-      "comment_ratio": 0.0,
-      "file": "guiai-lab/guiai/gem/zoe_beta_release.py",
-      "functions": 3,
-      "grade": "B",
-      "halstead_length": 587,
-      "halstead_vocab": 209,
-      "halstead_volume": 4524.22,
-      "kloster_cc_a_005": 3,
-      "kloster_cc_m4_root": 0.53,
-      "kloster_cc_renyi_h2": 0.9044,
-      "low_maintainability_flag": false,
-      "max_cc": 12,
-      "mi_file_radon": 22.276,
-      "mi_score": 46.799,
-      "most_complex_function": {
-        "cc": 12,
-        "fn_mi": 32.98,
-        "fn_sloc": 82,
-        "lineno": 102,
-        "name": "build_beta_release_manifest"
-      },
-      "sloc": 172,
-      "total_cc": 25
-    },
-    {
       "avg_cc": 9.0,
       "comment_ratio": 0.033,
       "file": "scripts/verify_kloster_riemannian.py",
@@ -3731,6 +3714,32 @@
       },
       "sloc": 129,
       "total_cc": 20
+    },
+    {
+      "avg_cc": 15.3,
+      "comment_ratio": 0.0431,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "functions": 10,
+      "grade": "B",
+      "halstead_length": 2825,
+      "halstead_vocab": 482,
+      "halstead_volume": 25178.91,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.259,
+      "kloster_cc_renyi_h2": 1.9915,
+      "low_maintainability_flag": false,
+      "max_cc": 36,
+      "mi_file_radon": 0.0,
+      "mi_score": 48.306,
+      "most_complex_function": {
+        "cc": 36,
+        "fn_mi": 28.78,
+        "fn_sloc": 177,
+        "lineno": 473,
+        "name": "run_groove_forensics_suite"
+      },
+      "sloc": 566,
+      "total_cc": 153
     }
   ],
   "top_10_most_elegant": [
@@ -3840,28 +3849,28 @@
     },
     {
       "avg_cc": 2.5,
-      "comment_ratio": 0.0272,
+      "comment_ratio": 0.027,
       "file": "guiai-lab/guiai/gem/unified_cli.py",
       "functions": 12,
       "grade": "A",
-      "halstead_length": 512,
-      "halstead_vocab": 191,
-      "halstead_volume": 3879.64,
+      "halstead_length": 514,
+      "halstead_vocab": 193,
+      "halstead_volume": 3902.52,
       "kloster_cc_a_005": 6,
       "kloster_cc_m4_root": 0.2263,
       "kloster_cc_renyi_h2": 2.1203,
       "low_maintainability_flag": false,
       "max_cc": 5,
-      "mi_file_radon": 30.945,
-      "mi_score": 74.638,
+      "mi_file_radon": 30.843,
+      "mi_score": 74.619,
       "most_complex_function": {
         "cc": 5,
-        "fn_mi": 65.17,
+        "fn_mi": 65.15,
         "fn_sloc": 14,
-        "lineno": 66,
+        "lineno": 67,
         "name": "_try_early_passthrough"
       },
-      "sloc": 147,
+      "sloc": 148,
       "total_cc": 30
     },
     {
