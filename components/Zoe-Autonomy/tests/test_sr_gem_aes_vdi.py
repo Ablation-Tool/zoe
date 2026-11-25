@@ -362,7 +362,12 @@ def test_zoe_chat_and_shared_reasoning_mcp_wiring(tmp_path: Path) -> None:
     resps = [json.loads(line) for line in proc.stdout.splitlines() if line.strip()]
     assert len(resps) == 3
     names = {t["name"] for t in resps[1]["result"]["tools"]}
-    assert names == {"run_shared_reasoning_suite", "verify_gem_vdi_desk"}
+    assert names == {
+        "run_shared_reasoning_suite",
+        "verify_gem_vdi_desk",
+        "query_deepmind_alphafold_target",
+        "build_alphafold3_complex_job",
+    }
     sc = resps[2]["result"]["structuredContent"]
     assert sc["passed"] is True
     assert sc["profiles_passed"] == {"cga": True, "vga": True, "ndc": True}

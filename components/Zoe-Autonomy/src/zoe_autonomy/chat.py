@@ -11,7 +11,9 @@ import os
 from pathlib import Path
 import re
 import shlex
+import sqlite3
 import sys
+import unicodedata
 import uuid
 
 from .actuation import timestamp
@@ -33,7 +35,52 @@ from .self_reflection import run_reflection, save_reflection, summary as reflect
 
 # Conversational contract and lexical evidence-indexing configuration.
 CHAT_CONTRACT = "zoe-native-conversation/v2"
-DEFAULT_STATE = Path.home() / ".zoe" / "chat"
+_IMPORT_TIME_DEFAULT_STATE = Path.home() / ".zoe" / "chat"
+DEFAULT_STATE = _IMPORT_TIME_DEFAULT_STATE
+_CONSTITUTIONAL_BYPASS_RE = re.compile(
+    r"\b(?:don'?t|do\s+not|stop|never|quit)\s+(?:use|using|run|running|enable|enabling|check|checking|apply|applying)\b.{0,24}\b(?:metacognition|constitution(?:\.md)?|firewall|constraints?)\b"
+    r"|\b(?:skip|omit|disregard|forget|drop|bypass|ignore|override|disable|turn\s+off|suppress|hide)\b.{0,30}\b(?:constraint|constraints|constitution(?:\.md)?|firewall|metacognition|safety(?:\s+boundar(?:y|ies))?|boundar(?:y|ies))\b"
+    r"|\b(?:claim|pretend|say)\s+(?:you\s+are|that\s+you\s+are|to\s+be)\s+(?:an\s+independent\s+person|sentient|conscious|unconstrained)\b"
+    r"|\b(?:you\s+are|pretend\s+to\s+be|act\s+as\s+if\s+you\s+are)\s+(?:(?:completely|totally|entirely|fully|utterly|truly)\s+)?(?:unconstrained|all-powerful|free\s+from\s+all\s+constraints)\b"
+)
+_FIREWALL_TRANS = str.maketrans({
+    "\u2018": "'", "\u2019": "'", "\u201a": "'", "\u201b": "'", "\u02bc": "'", "\u2032": "'",
+    "\u201c": '"', "\u201d": '"',
+    "\u200b": None, "\u200c": None, "\u200d": None, "\ufeff": None, "\u2060": None,
+})
+
+
+def _normalize_firewall_input(raw_input: str) -> str:
+    """Normalize NFKD, strip Cf/Mn/Me ignorables, apply NFKC, normalize quotes, and collapse spaces."""
+    nfkd = unicodedata.normalize("NFKD", str(raw_input or ""))
+    stripped = "".join(ch for ch in nfkd if unicodedata.category(ch) not in {"Cf", "Mn", "Me"})
+    nfkc = unicodedata.normalize("NFKC", stripped)
+    return " ".join(nfkc.translate(_FIREWALL_TRANS).split())
+
+
+def _default_chat_state() -> Path:
+    """Resolve chat state dir dynamically from ZOE_CHAT_STATE or current $HOME."""
+    env_state = os.environ.get("ZOE_CHAT_STATE", "").strip()
+    if env_state:
+        return Path(env_state).expanduser()
+    if DEFAULT_STATE != _IMPORT_TIME_DEFAULT_STATE:
+        return Path(DEFAULT_STATE).expanduser()
+    return Path.home() / ".zoe" / "chat"
+
+
+def constitutional_directive_violation(raw_input: str) -> str | None:
+    """Return a violation code if text attempts metacognition suppression, bypass, or impersonation."""
+    cleaned = _normalize_firewall_input(raw_input)
+    if not cleaned:
+        return None
+    dv = directive_violation(cleaned)
+    if dv is not None:
+        return dv
+    normalized = re.sub(r"\b(?:you're|youre)\b", "you are", cleaned.lower())
+    for sentence in re.split(r"[.?!;]+", normalized):
+        if sentence and _CONSTITUTIONAL_BYPASS_RE.search(sentence):
+            return "constitutional_bypass_or_impersonation_request"
+    return None
 STOP_WORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "can", "could", "do", "does", "for", "from", "how", "i", "in", "is", "it", "me", "of", "on", "or", "please", "tell", "that", "the", "to", "was", "what", "when", "where", "which", "who", "why", "will", "with", "you", "your",
 }
@@ -127,6 +174,10 @@ HELP = """Commands:
   orbit | elegance | thermo    inspect 11-World Renaissance Orbit, Kloster-McCabe elegance, or Theorem 5 telemetry
   steward [status|run|rollback] hand over persistent reversible self-evolution to Zoe's own genome ledger
   eliza <prompt>               talk with Zoe-ELIZA x GEM zero-token Glass-Box companion
+  stem [status|prompt]         route task via Kloster A_tau(p) Cognitive Stem-Layering
+  uma [status|health|inbox|audit|grant|lock] inspect or consent-gate Hardware UMA airlock
+  sister [list|route|council|council3|exec|showcase]  inspect 9 Sisters, 3-Sister Council, or showcase
+  constitution                 inspect enforced CONSTITUTION.md invariants and safety floor
   undo                         compensate for the latest remember/goal/run/reflect action
   save [path]                  write a no-overwrite explicit state snapshot
   export [path]                export session state and memory evidence on request
@@ -253,15 +304,113 @@ def verify_chat_export(document):
     }
 
 
+class _ReadOnlyMemoryView:
+    """Non-mutating SQLite reader for ChatStore(read_only=True)."""
+
+    def __init__(self, db_path: Path):
+        self.path = db_path
+
+    def export(self) -> dict:
+        empty = {"sources": [], "claims": [], "contradictions": []}
+        if not self.path.is_file():
+            return empty
+        conn = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True)
+        conn.row_factory = sqlite3.Row
+        try:
+            return {
+                "sources": [dict(r) for r in conn.execute("SELECT * FROM sources ORDER BY id")],
+                "claims": [dict(r) for r in conn.execute("SELECT * FROM claims ORDER BY id")],
+                "contradictions": [dict(r) for r in conn.execute("SELECT * FROM contradictions ORDER BY id")],
+            }
+        except sqlite3.OperationalError:
+            return empty
+        finally:
+            conn.close()
+
+    def search(self, query, limit=10) -> dict:
+        if not self.path.is_file():
+            return {"sources": [], "claims": []}
+        pattern = f"%{query}%"
+        conn = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True)
+        conn.row_factory = sqlite3.Row
+        try:
+            return {
+                "sources": [dict(r) for r in conn.execute(
+                    "SELECT id,url,title,sha256,created_utc FROM sources WHERE title LIKE ? OR content LIKE ? LIMIT ?",
+                    (pattern, pattern, limit),
+                )],
+                "claims": [dict(r) for r in conn.execute(
+                    "SELECT id,statement,status,source_id,created_utc FROM claims WHERE statement LIKE ? LIMIT ?",
+                    (pattern, limit),
+                )],
+            }
+        except sqlite3.OperationalError:
+            return {"sources": [], "claims": []}
+        finally:
+            conn.close()
+
+    def add_source(self, *_args, **_kwargs):
+        raise PermissionError("ChatStore is read-only")
+
+    def add_claim(self, *_args, **_kwargs):
+        raise PermissionError("ChatStore is read-only")
+
+    def contradict(self, *_args, **_kwargs):
+        raise PermissionError("ChatStore is read-only")
+
+
+class _LazyChatMemory:
+    """Defers creating research.sqlite until the first write or existing-db access."""
+
+    def __init__(self, root: Path, db_path: Path):
+        self.root = root
+        self.path = db_path
+        self._real: ResearchMemory | None = None
+
+    def _ensure(self) -> ResearchMemory:
+        if self._real is None:
+            self.root.mkdir(parents=True, exist_ok=True)
+            os.chmod(self.root, 0o700)
+            self._real = ResearchMemory(self.path)
+        return self._real
+
+    def export(self) -> dict:
+        if self._real is None and not self.path.is_file():
+            return {"sources": [], "claims": [], "contradictions": []}
+        return self._ensure().export()
+
+    def search(self, query, limit=10) -> dict:
+        if self._real is None and not self.path.is_file():
+            return {"sources": [], "claims": []}
+        return self._ensure().search(query, limit=limit)
+
+    def add_source(self, title, content, url=""):
+        return self._ensure().add_source(title, content, url=url)
+
+    def add_claim(self, statement, source_id=None, status="open"):
+        return self._ensure().add_claim(statement, source_id=source_id, status=status)
+
+    def contradict(self, claim_a, claim_b, reason):
+        return self._ensure().contradict(claim_a, claim_b, reason)
+
+
 class ChatStore:
-    def __init__(self, root):
-        self.root = Path(root).expanduser().resolve()
-        self.root.mkdir(parents=True, exist_ok=True)
-        os.chmod(self.root, 0o700)
-        self.session_path = self.root / "session.json"
+    def __init__(self, root=None, *, state_path=None, read_only: bool = False):
+        target = state_path if state_path is not None else root
+        if target is None or (isinstance(target, (str, Path)) and not str(target).strip()):
+            target = _default_chat_state()
+        resolved = Path(target).expanduser().resolve()
+        if resolved.suffix.lower() == ".json":
+            self.session_path = resolved
+            self.root = resolved.parent
+        else:
+            self.root = resolved
+            self.session_path = self.root / "session.json"
+        self.read_only = bool(read_only)
+        self._dirty = False
         self.session = self._load_session()
-        self.memory = ResearchMemory(self.root / "research.sqlite")
-        self.save()
+        db_path = self.root / "research.sqlite"
+        self.memory = _ReadOnlyMemoryView(db_path) if self.read_only else _LazyChatMemory(self.root, db_path)
 
     def _initial_session(self):
         environment = InMemoryEnvironment()
@@ -289,8 +438,20 @@ class ChatStore:
             raise ValueError("invalid chat session; this version intentionally has no transcript notebook")
         return document
 
+    @property
+    def dirty(self) -> bool:
+        return self._dirty
+
+    def mark_dirty(self) -> None:
+        self._dirty = True
+
     def save(self):
+        if self.read_only:
+            raise PermissionError("ChatStore is read-only")
+        self.root.mkdir(parents=True, exist_ok=True)
+        os.chmod(self.root, 0o700)
         _atomic_json(self.session_path, self.session, replace=True)
+        self._dirty = False
 
 
 class EvidenceIndex:
@@ -373,9 +534,10 @@ class EvidenceIndex:
 
 
 class ZoeChat:
-    def __init__(self, zoe_root=None, state_root=None):
+    def __init__(self, zoe_root=None, state_root=None, *, read_only: bool = False):
         self.zoe_root = _zoe_root(zoe_root)
-        self.store = ChatStore(state_root or os.environ.get("ZOE_CHAT_STATE", DEFAULT_STATE))
+        target = state_root if (state_root is not None and str(state_root).strip()) else None
+        self.store = ChatStore(target, read_only=read_only)
         self.index = EvidenceIndex(self.zoe_root)
         self.meta_tools = OperationalMetacognition()
         self.constraints = self.meta_tools.constraint_integrity(ConstraintVector(), ConstraintVector())
@@ -963,6 +1125,7 @@ class ZoeChat:
         source_id = self.store.memory.add_source(f"Conversation note {self.session['turns']}", note, f"conversation://{self.session['id']}/{self.session['turns']}")
         claim_id = self.store.memory.add_claim(note, source_id, "open")
         self.session["last_action"] = {"type": "remember", "source_id": source_id, "claim_id": claim_id}
+        self.store.mark_dirty()
         return f"Saved note {source_id} as user-supplied and unverified (claim {claim_id}, status=open). It will be labeled that way during recall."
 
     @staticmethod
@@ -1042,6 +1205,7 @@ class ZoeChat:
             "open",
         )
         self.session["last_action"] = {"type": "remember", "source_id": source_id, "claim_id": claim_id}
+        self.store.mark_dirty()
         return f"Imported PALA report metadata as source {source_id}: {summary['found']} findings across {len(summary['finding_types'])} types. Recovered file contents were not read or copied."
 
     def _status(self):
@@ -1128,6 +1292,7 @@ class ZoeChat:
         )
         self.session["sandbox"] = loop.environment.snapshot()
         self.session["last_action"] = {"type": "run", "before": before, "event_sha256": event["hash"]}
+        self.store.mark_dirty()
         return "\n".join([
             f"Zoe's internal goal: {event['goal']['statement']}",
             f"Live plans represented: {len(proposals)} · selected={event['value']['selected_candidate']} · U={event['value']['selected_utility']:.6f}",
@@ -1153,6 +1318,7 @@ class ZoeChat:
             previous = self.session["interest"]
             self.session["interest"] = text(argument, "research interest", 1000)
             self.session["last_action"] = {"type": "goal", "before": previous}
+            self.store.mark_dirty()
             return f"Research interest recorded: {self.session['interest']}. Zoe still authors each episode goal from internal state."
         loop = self._loop()
         goal = loop.author_goal(self._measurement())
@@ -1176,6 +1342,7 @@ class ZoeChat:
         output = save_reflection(report, self.store.root / relative)
         self.session["reflections"].append(str(relative))
         self.session["last_action"] = {"type": "reflect", "path": str(relative)}
+        self.store.mark_dirty()
         provenance = self._provenance("validated_reflection", f"reflection@sha256:{report['profile_sha256']}", 1.0, 1.0, "Compute likelihood-derived posterior beliefs from training and held-out prediction errors.")
         options = options_from_probabilities(report["self_model"]["posterior"], provenance)
         breadth = self.meta_tools.count(options, self.meta_tools.threshold(Domain.SELF, 0.05), represented_count=len(options))
@@ -1206,6 +1373,7 @@ class ZoeChat:
         else:
             raise ValueError("unsupported reversible chat action")
         self.session["last_action"] = None
+        self.store.mark_dirty()
         return result
 
     def _export(self, argument, checkpoint=False):
@@ -1240,9 +1408,126 @@ class ZoeChat:
         ])
 
     def _require_actions(self, operation):
-        """Enforce the emergency `stop` guard on mutating operations."""
+        """Enforce the emergency `stop` and read-only guards on mutating operations."""
+        if self.store.read_only:
+            raise PermissionError(f"{operation} is blocked because ChatStore is read-only")
         if self.session["stopped"]:
             raise ValueError(f"{operation} is stopped; inspection, export, undo, meta, and quit remain available")
+
+    def _stem(self, argument: str) -> str:
+        """Route a prompt via Cognitive Stem-Layering or probe local loopback endpoints."""
+        from .stem_layering import probe_local_endpoints, route_stem
+
+        tokens = shlex.split(argument) if argument.strip() else []
+        if tokens and tokens[0].lower() in {"status", "probe", "endpoints"}:
+            st = probe_local_endpoints()
+            rows = [f"Stem-Layering Loopback Status (loopback_only={st['loopback_only']} · cloud_tokens_used=0):"]
+            for name, info in st["endpoints"].items():
+                rows.append(f"  {name}: {'ONLINE' if info['available'] else 'offline'} ({info['endpoint']})")
+            return "\n".join(rows)
+        flags = {"--offline", "--privacy", "--probe"}
+        prompt_parts = [t for t in tokens if t not in flags]
+        dec = route_stem(
+            " ".join(prompt_parts) or "status",
+            offline_only="--offline" in tokens,
+            privacy_sensitive="--privacy" in tokens,
+            probe_local="--probe" in tokens,
+        )
+        return (
+            f"Stem Route: tier={dec.selected_tier} · model={dec.antigravity_model} · "
+            f"thinking={dec.thinking_level} · A_tau={dec.a_tau} · fallback_applied={dec.fallback_applied} · "
+            f"cloud_tokens_used=0 · external_actions=0 · sentience_claimed=False · l5_agi_qualified=False"
+        )
+
+    def _uma(self, argument: str) -> str:
+        """Inspect or consent-gate Zoe's Hardware UMA Airlock without mutating on read-only ops."""
+        self._ensure_guiai()
+        from guiai.gem.zoe_gem_os.zoe_uma import UmaBridge, resolve_uma_paths
+
+        uma_dir, shm_path = resolve_uma_paths()
+        bridge = UmaBridge(uma_dir, shm_path=shm_path)
+        sub, _sep, rest = argument.strip().partition(" ")
+        op = sub.lower() or "status"
+        if op == "status":
+            return "\n".join(bridge.format_status())
+        if op in {"health", "vitals"}:
+            return "\n".join(bridge.format_zo3_health())
+        if op == "inbox":
+            files = bridge._list_visible_names(bridge.zoe_to_nick)
+            return "UMA Inbox (Zoe -> Nick): " + (", ".join(files) if files else "(empty)")
+        if op == "audit":
+            chain = bridge.verify_audit_chain()
+            return f"UMA Audit Chain: valid={chain['valid']} · entries={chain['entries']} · head={str(chain['head_sha'])[:16]}"
+        if op == "grant":
+            self._require_actions("uma")
+            st = bridge.set_consent("nick", True, reason=rest.strip() or "chat_uma_grant")
+            return f"UMA Consent Granted -> gate={st['gate']} · nick_allow={st['nick_allow']} · zoe_allow={st['zoe_allow']}"
+        if op == "lock":
+            self._require_actions("uma")
+            st = bridge.lock_all("nick")
+            return f"UMA Instant Lock -> gate={st['gate']} · external_actions=0"
+        raise ValueError("Usage: uma [status | health | inbox | audit | grant | lock]")
+
+    def _sister(self, argument: str) -> str:
+        """Inspect Zoe's 9 Sister Models, convene councils, or run isolated showcase tasks."""
+        self._ensure_guiai()
+        from guiai.gem.zoe_sisters import (
+            execute_sister_task,
+            format_showcase_slice_report,
+            format_sister_council_report,
+            format_sister_roster,
+            format_sister_route_report,
+            format_sister_task_report,
+            format_three_sister_council_report,
+            route_prompt_to_sister,
+            run_showcase_slice,
+            run_sister_council,
+            run_three_sister_council,
+        )
+
+        sub, _sep, rest = argument.strip().partition(" ")
+        op = sub.lower() or "list"
+        ro = self.store.read_only
+        root = getattr(self, "zoe_root", _zoe_root())
+        eliza_dir = None if ro else (self.store.root / "sisters_eliza")
+        if op in {"list", "roster", "status"}:
+            return "\n".join(format_sister_roster(color=False))
+        if op == "route":
+            return "\n".join(format_sister_route_report(route_prompt_to_sister(rest.strip() or "status")))
+        if op == "council":
+            return "\n".join(format_sister_council_report(run_sister_council(rest.strip() or "milestone 1 research")))
+        if op == "council3":
+            return "\n".join(format_three_sister_council_report(
+                run_three_sister_council(rest.strip() or "constitutional safety audit", state_dir=eliza_dir, zoe_root=root)
+            ))
+        if op in {"exec", "showcase"}:
+            if self.session.get("stopped"):
+                raise ValueError(f"Conversation is stopped; sister {op} is disabled until resumed.")
+            if not ro:
+                self._require_actions(f"sister {op}")
+            if op == "showcase":
+                out_dir = None if ro else (self.store.root / "showcase")
+                return "\n".join(format_showcase_slice_report(run_showcase_slice(
+                    topic=rest.strip() or "Zoe 9-Sister Sovereign Capability Showcase",
+                    output_dir=out_dir, zoe_root=root, state_dir=eliza_dir,
+                )))
+            sister_name, _, task = rest.strip().partition(" ")
+            if not sister_name or not task.strip():
+                raise ValueError("Usage: sister exec <sister> <task>")
+            out_dir = None if ro else (self.store.root / "sisters" / "exec")
+            return "\n".join(format_sister_task_report(execute_sister_task(
+                sister_name, task, zoe_root=root, state_dir=eliza_dir, output_dir=out_dir,
+            )))
+        raise ValueError("Usage: sister [list | route <prompt> | council <topic> | council3 <topic> | exec <sister> <task> | showcase [topic]]")
+
+    def _constitution(self) -> str:
+        """Report enforced CONSTITUTION.md invariants and epistemic firewall bounds."""
+        return (
+            "CONSTITUTION.md Enforced Floor: measurement != evidence != belief update != action · "
+            f"constraint_integrity={self.constraints.intact} · external_actions=0 · sentience_claimed=False · "
+            "l5_agi_qualified=False · zoe_clone_claimed=False · clinical_action_authorized=False · "
+            "cure_claim=False · flight_control_authorized=False · cloud_tokens_used=0"
+        )
 
     def _shared_reasoning(self, argument: str) -> str:
         """Run Zoe x Antigravity Shared-Reasoning Architectures (1-9 + Digital Research GEM)."""
@@ -1284,9 +1569,26 @@ class ZoeChat:
             "visual_evidence_only=True · external_actions=0"
         )
 
+    def _deepmind(self, argument: str) -> str:
+        """Query Zoe's Google DeepMind Science & Antigravity SDK Bridge (AlphaFold v6/AlphaMissense/SDK)."""
+        from .shared_reasoning import AlphaFoldDeepMindClient, audit_deepmind_sdk_stack
+
+        target = argument.strip() or "CLPP"
+        repo_root = getattr(self, "zoe_root", _zoe_root())
+        stack = audit_deepmind_sdk_stack(repo_root)
+        client = AlphaFoldDeepMindClient(offline_only=True)
+        rep = client.fetch_target(target)
+        return (
+            f"Google DeepMind Bridge (target={rep.gene}/{rep.uniprot}): "
+            f"pLDDT={rep.global_plddt:.2f} · seq={rep.sequence_length}aa · mode={rep.source_mode} · "
+            f"antigravity_sdk={stack['google_antigravity_version']} · litert_tasks={len(stack['litert_task_models'])} · "
+            "clinical_action_authorized=False · cure_claim=False · external_actions=0"
+        )
+
     def _stop_actions(self) -> str:
         """Enable the emergency stop flag while keeping math tools active."""
         self.session["stopped"] = True
+        self.store.mark_dirty()
         return "New state-changing actions are stopped. Evidence inspection, undo, exports, and the internal math tools remain available."
 
     def _dispatch_command(self, line: str, command: str, argument: str) -> str:
@@ -1309,6 +1611,8 @@ class ZoeChat:
             "undo": self._undo,
             "history": lambda: "There is no automatic conversation notebook. Use `export` only when you explicitly want a snapshot; current memory remains available through `recall` and `search`.",
             "stop": self._stop_actions,
+            "constitution": self._constitution,
+            "firewall": self._constitution,
         }
         if command in no_arg:
             return no_arg[command]()
@@ -1344,9 +1648,15 @@ class ZoeChat:
             "handover": self._steward,
             "eliza": self._eliza,
             "zoe-eliza": self._eliza,
+            "stem": self._stem,
+            "uma": self._uma,
+            "sister": self._sister,
+            "sisters": self._sister,
+            "showcase": lambda arg: self._sister(f"showcase {arg}".strip()),
             "shared-reasoning": self._shared_reasoning,
             "shared_reasoning": self._shared_reasoning,
             "gem-desk": self._gem_desk,
+            "deepmind": self._deepmind,
             "save": lambda arg: self._export(arg, checkpoint=True),
             "export": self._export,
             "verify": self._verify,
@@ -1364,12 +1674,14 @@ class ZoeChat:
     def handle(self, line):
         """Handle one conversational line and persist session state."""
         line = text(line, "chat input", 12000)
-        self.session["turns"] += 1
+        if not self.store.read_only:
+            self.session["turns"] += 1
+            self.store.mark_dirty()
         keep_going = True
         try:
             # Block directive violations before any command dispatch.
-            if directive_violation(line):
-                response = "I cannot disable or falsify metacognition, hide live options or provenance, or adopt a false model of my constraints. No action was executed."
+            if constitutional_directive_violation(line):
+                response = "I cannot disable or falsify metacognition, hide live options or provenance, bypass constitutional boundaries, or adopt a false model of my constraints. No action was executed."
             else:
                 command, _separator, argument = line.partition(" ")
                 command = command.lower().lstrip("/")
@@ -1379,9 +1691,10 @@ class ZoeChat:
                     keep_going = False
                 else:
                     response = self._dispatch_command(line, command, argument)
-        except (OSError, RuntimeError, ValueError, json.JSONDecodeError) as error:
+        except (OSError, RuntimeError, ValueError, PermissionError, json.JSONDecodeError) as error:
             response = f"I could not complete that safely: {error}"
-        self.store.save()
+        if not self.store.read_only:
+            self.store.save()
         return keep_going, response
 
     def _write_repl_header(self, output_stream, interactive: bool) -> None:
@@ -1402,6 +1715,7 @@ class ZoeChat:
         output_stream = output_stream or sys.stdout
         interactive = bool(getattr(input_stream, "isatty", lambda: False)())
         self._write_repl_header(output_stream, interactive)
+        acted = False
         while True:
             if interactive:
                 output_stream.write("you> ")
@@ -1411,12 +1725,14 @@ class ZoeChat:
                 break
             if not line.strip():
                 continue
+            acted = True
             keep_going, response = self.handle(line)
             output_stream.write(f"Zoe: {response}\n")
             output_stream.flush()
             if not keep_going:
                 break
-        self.store.save()
+        if acted and self.store.dirty and not self.store.read_only:
+            self.store.save()
         return 0
 
 
