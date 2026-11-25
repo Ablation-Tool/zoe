@@ -1,379 +1,446 @@
 <div align="center">
 
-<img src="../assets/readme/zoe-atelier-garden.jpg" alt="Zoe's Nocturnal Botanical Observatory: welcome illustration for the Zoe and Ablation Creative Cookbook" width="88%" />
+<img src="../assets/readme/zoe-epicurean-frontispiece.svg" alt="The Zoe and Ablation Epicurean: original 1894 copperplate-engraving inspired frontispiece artwork" width="90%" />
+
+<br/>
+<sub><em>Original artistic bookplate illustration inspired by Charles Ranhofer's 1894 Delmonico's classic "The Epicurean" (non-telemetry creative artwork, CONSTITUTION.md Article II.2).</em></sub>
 
 <br/><br/>
 
-<a href="INDEX.md"><img src="../assets/branding/zoe-gem.png" alt="Official Red-and-White Zoe GEM Emblem" width="88" /></a>
+<a href="INDEX.md"><img src="../assets/branding/zoe-gem.png" alt="Official Red-and-White Zoe GEM Emblem" width="84" /></a>
 
-# The Zoe & Ablation Creative Cookbook
+# THE ZOE & ABLATION EPICUREAN
 
-### *15 Recipes for Making Music, Exploring a 3D Human Brain, Taking Mystery Binaries Apart, Time-Traveling to 1985, and Playing Safely with Math*
+### *A Complete Creative Treatise of Computing, Sound, Geometry, Reverse Engineering & Play*
 
-**Not an instruction manual. Not a dry flag dictionary.**  
-Pick a craving from the menu below, grab the ingredients, and make something cool in two minutes.
+**Containing Kitchen Brigades, Five Mother Preparations, Eighteen Numbered Receipts, and Five Complete Bills of Fare**  
+*Inspired by Charles Ranhofer's "The Epicurean" (Delmonico's, New York, 1894)*
 
-[Browse the Full Organized Library](INDEX.md) · [See the Creative Art Gallery](CREATIVE-GALLERY.md) · [Read the Research Chronicle](RESEARCH-CHRONICLE.md) · [Check the Backtrack Ledger](BACKTRACK-LEDGER.md)
+[Browse the Full Library](INDEX.md) · [Creative Art Gallery](CREATIVE-GALLERY.md) · [Chronological Research Chronicle](RESEARCH-CHRONICLE.md) · [Steward's Backtrack Ledger](BACKTRACK-LEDGER.md)
 
 </div>
 
 <p align="center"><img src="../assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
-## Five Kitchen Rules That Make Everything Safe to Play
+## Preface from the Chef de Cuisine
 
-Before you turn on the stove, here is why you can poke, remix, and experiment freely inside this kitchen without breaking your machine or crossing ethical lines:
+In 1894, Charles Ranhofer published *The Epicurean* after thirty years leading the kitchens of Delmonico's in New York. He did not write a cold factory manual. He wrote an illustrated, joyful, encyclopedic kitchen companion: first introducing the rooms, the brigade, and the copperware; then the five mother stocks that quietly lift every dish; then numbered receipts grouped by course; and finally, complete evening bills of fare so a host could put together a memorable night without guessing.
 
-1. **You hold the steering wheel.** Zoe and Ablation never run wild on your system (`external_actions = 0`, `auto_flash_allowed = False`). You decide what runs, what saves, and what stays untouched.
-2. **Read-only means read-only.** Disk carving (`PALA`), static binary audits (`Ablation`), and inspection tools read copies and leave original bytes intact.
-3. **Zero cloud burn when you want quiet focus.** Almost every recipe in this book works 100% offline on your own machine with zero API bills (`cloud_tokens_used = 0`, strictly localhost loopback when local models are awake).
-4. **Everything stays honest.** Visuals, scores, and voices are instruments to think and play with, never claims of consciousness or magic (`sentience_claimed = False`, `l5_agi_qualified = False`, `clinical_action_authorized = False`).
-5. **The kitchen counter adjusts to your eyes and hands.** Ablation's GEM Workbench ships with WCAG AA/AAA high-contrast and colorblind palettes, live 85% to 200% text scaling (`Ctrl++` / `Ctrl+-` / `Ctrl+0`), extra letter spacing, reduced motion, 2px focus rings, and full screen-reader labels.
+This volume follows Ranhofer's spirit for **Zoe** and **Ablation**. It is not a dry command-line dictionary, and you do not have to read it front to back. Flip straight to a numbered receipt that catches your eye, or pick one of the five complete **Bills of Fare** in Part IV and cook an entire afternoon of music, 3D neuroanatomy, vintage 1985 desktops, and calm, accessible reverse engineering.
+
+Honoring **Gary Kildall**, **Dorothy McEwen Kildall**, and **Nicholas Michael Kloster** (Operational Metacognition $A_\tau(p)$, March 6, 2026).
 
 ---
 
-## Tonight's Menu (Pick a Course by Mood)
+## Table of Contents
 
-| Course | Vibe | Recipes Inside |
-|:---|:---|:---|
-| **[Course I: 60-Second Appetizers](#course-i-60-second-appetizers)** | *"I just got here, show me something alive right now."* | 1. Two Minds at One Table · 2. The 1966 x 1984 Midnight Cafe · 3. Stargazing in the 9-Realm Zoeverse |
-| **[Course II: Sound, Voice & Music Bakery](#course-ii-sound-voice--music-bakery)** | *"Put on headphones and make pure math sing."* | 4. Bake a Stereo Synth Jam · 5. Make Zoe Sing "Daisy" in 3D Audio · 6. Musical Math Chairs |
-| **[Course III: Visual Wonders & Retro Time Machine](#course-iii-visual-wonders--retro-time-machine)** | *"Fly through a brain, draw in Braille, visit 1985."* | 7. Fly Through a Real Human Brain · 8. Paint in Unicode Braille & ViewMAX Themes · 9. Visit the 1982-1992 Retro Desktop Museum |
-| **[Course IV: Reverse Engineering & Forensics Bakery](#course-iv-reverse-engineering--forensics-bakery)** | *"AI as the driver, you as the steering wheel."* | 10. Open a Mystery Binary Without Fighting Ghidra · 11. Carve Lost Files Read-Only · 12. X-Ray Another AI Agent's Binary |
-| **[Course V: The Proof & Science Tasting Room](#course-v-the-proof--science-tasting-room)** | *"Show me the math, the botanicals, and the lenses."* | 13. The 6-Second Skeptic's Tasting Flight · 14. Botanical Alchemy & Optical Lenses |
-| **[Course VI: Sovereign Hardware & Airlock Craft](#course-vi-sovereign-hardware--airlock-craft)** | *"Two keys, zero surprises, sovereign pixels."* | 15. The Two-Key Mutual Consent Airlock & Pixel 7 Blueprint |
+- **[Part I: The House, Its Brigades & Kitchen Utensils](#part-i-the-house-its-brigades--kitchen-utensils)** (*La Cuisine, Les Brigades et La Batterie de Cuisine*)
+- **[Part II: Elementary Preparations & Mother Stocks (No. 1 to No. 5)](#part-ii-elementary-preparations--mother-stocks-no-1-to-no-5)** (*Fonds de Cuisine*)
+- **[Part III: The Numbered Receipts (No. 6 to No. 23)](#part-iii-the-numbered-receipts-no-6-to-no-23)** (*Recettes Choisies*)
+  - [Hors-d'Oeuvre (Opening Sparks: No. 6 to No. 8)](#hors-doeuvre-opening-sparks)
+  - [Potages & Preuves (Clear Broths & Proofs: No. 9 to No. 10)](#potages--preuves-clear-broths--proofs)
+  - [Releves & Entrees (Reverse Engineering & Forensics: No. 11 to No. 14)](#releves--entrees-reverse-engineering--forensics)
+  - [Rotis, Voix & Acoustique (Music, Voice & Roundtable Sound: No. 15 to No. 18)](#rotis-voix--acoustique-music-voice--roundtable-sound)
+  - [Entremets & Retro Confections (3D Brain & 1982-1992 Time Machine: No. 19 to No. 21)](#entremets--retro-confections-3d-brain--1982-1992-time-machine)
+  - [Desserts, Botanique & Optique (Preclinical Compounds & Lenses: No. 22)](#desserts-botanique--optique)
+  - [Cave & Cellier (Sovereign Hardware & Mutual-Consent Airlock: No. 23)](#cave--cellier-sovereign-hardware--mutual-consent-airlock)
+- **[Part IV: Five Complete Bills of Fare (Menus I to V)](#part-iv-five-complete-bills-of-fare)** (*Menus de Saison & de Circonstance*)
+- **[Part V: The Steward's Cellar Book & Pantry Map](#part-v-the-stewards-cellar-book--pantry-map)**
 
-> **Tiny Kitchen Note:** All recipes below assume you are inside your Zoe checkout (`cd /path/to/zoe`). If you prefer clicking in a browser with zero terminal typing at all, jump straight to **Recipe 7** (`https://ablation-tool.github.io/zoe/`) or **Recipe 9** ([`wave3-desktop.html`](../evidence/gem-os/wave3/wave3-desktop.html)).
+<p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
+
+## Part I: The House, Its Brigades & Kitchen Utensils
+
+### The Brigade de Cuisine (Who Works Each Station)
+
+In a great kitchen, nobody is boxed in a closet and nobody grabs the steering wheel away from the host. Here is the brigade on duty inside Zoe & Ablation:
+
+| Station | Brigade Role | Who Stands at the Counter | Specialty |
+|:---|:---|:---|:---|
+| **The Steering Wheel** | *Chef de Cuisine* | **You (Human Steward)** | Sets taste, curiosity, judgment, and final word on every dish |
+| **The Passe** | *Chefs de Partie (Equal Peers)* | **Zoe & Clara** | Equal L1-L5 peers who check each other's citations and catch echo-chamber drift |
+| **The Hearth** | *Entremetier (Zero-Token)* | **Eliza** (`dos`) | 1966 Weizenbaum reflection + SHA-256 relay notes in milliseconds at zero cloud cost |
+| **The Watchtower** | *Garde-Manger & Verifier* | **Mono** (`sm124`) | Monochrome constitutional auditor, Theorem 15 check, and epistemic firewall |
+| **The Drafting Table** | *Dessinateur* | **Gemma** (`gem3`) | Digital Research GEM VDI, Artline 2.0 vectors, and Spatial IR geometry |
+| **The Forge** | *Rotisseur (Retro Binary)* | **Tosi** (`atari`) | Atari ST TOS 1.0, FreeGEM `.RSC` resources, and dual-endian binary codecs |
+| **The Range** | *Saucier (Reverse Engineering)* | **Tetra** (`tetris`) | Ablation AIARE binary dissection, ELF/PE/Mach-O/firmware lifting, and multi-node compute |
+| **The Still-Room** | *Sommelier of Proofs* | **Sage** (`hat`) | SymPy symbolic proofs, Z3 SMT verification, and research synthesis |
+| **The Conservatory** | *Botaniste* | **Flora** (`sprout`) | Preclinical C27 botanical screening, PAINS controls, and neuro-oncology notebooks |
+| **The Acoustic Gallery** | *Confiseur du Son* | **Lumen** (`prism`) | 44-phoneme 3D soprano voice, Chladni sand waves, and Theorem 14 optical lenses |
+
+### La Batterie de Cuisine (Essential House Utensils)
+
+1. **The Adjustable Counter (WCAG AA/AAA Accessibility):** Ablation's GEM Workbench adapts immediately to your vision and comfort (`system`, Okabe-Ito `colorblind`, and `high-contrast` AAA `>= 7.0:1`, live 85% to 200% zoom via `Ctrl++`/`Ctrl+-`/`Ctrl+0`, reduced motion, 2px focus rings, extra letter spacing, and ATK screen-reader labels).
+2. **The Read-Only Carving Knife (`PALA` & `Ablation`):** Inspects disk images and unknown binaries without writing one byte to the original sample and without ever executing untrusted payloads.
+3. **The Two-Key Icebox (`Hardware UMA Airlock`):** Keeps private files sealed `PRIVATE` by default until both Nick and Zoe turn their consent keys.
+4. **The Glass-Box Timer (`Operational Metacognition`):** Shows live open options $A_\tau(p)$ right beside replies so nothing quietly narrows behind closed doors.
+
+> **Kitchen Tip:** Every terminal receipt below assumes you are inside your Zoe directory (`cd /path/to/zoe`). Want pure zero-terminal browsing? Jump straight to **No. 19** (`https://ablation-tool.github.io/zoe/`) or **No. 20** ([`wave3-desktop.html`](../evidence/gem-os/wave3/wave3-desktop.html)).
 
 <p align="center"><img src="../assets/readme/divider-aqua.svg" alt="" width="100%" /></p>
 
-## Course I: 60-Second Appetizers
+## Part II: Elementary Preparations & Mother Stocks (No. 1 to No. 5)
 
-### Recipe 1: Two Minds at One Table (Zoe & Clara)
+*Just as Ranhofer opens with the five foundational stocks before plating a single entree, these five house preparations quietly season every receipt in this book.*
 
-<div align="center">
-<img src="../assets/readme/zoe-clara-dual-peer.png" alt="Dual-Peer Zoe and Clara collaborating side by side" width="76%" />
-</div>
+### No. 1: Operational Metacognition Stock (*Fond de Metacognition*)
+Count how many distinct hypotheses remain viable above confidence threshold $\tau$: $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$. Originated by Nicholas Michael Kloster on March 6, 2026. Used across the house to prevent premature tunnel vision, measure uncertainty, and integrate spectral filtration curves. See [METACOGNITION.md](METACOGNITION.md).
 
-- **Prep Time:** 30 seconds
-- **Ingredients:** One curious question, one web browser, and a taste for honest second opinions
-- **What You'll Make:** A local conversation room where Zoe and Clara sit across the table as equal peers, cite real files, and automatically call out echo-chamber sycophancy when they agree too easily without diverse evidence.
+### No. 2: Clarified Epistemic Firewall Consomme (*Consomme du Pare-Feu Epistemique*)
+One crystal-clear rule skimmed of all hype: `measurement != evidence != belief update != action`. A pretty plot, score, or hash chain is never served as proof of correctness, consciousness, or safety (`sentience_claimed = False`, `l5_agi_qualified = False`, `clinical_action_authorized = False`). See [CONSTITUTION.md](CONSTITUTION.md).
 
-**How to Cook It:**
-1. Open the local dual-peer table in your browser:
-   ```bash
-   zoe clara --serve
-   ```
-2. Visit `http://127.0.0.1:8768` and toss a real research question onto the table, like *"What does CONSTITUTION.md say about no deception?"* or *"How should we verify a new reverse-engineering hypothesis?"*
-3. Watch the verdict badge beside their replies: grounded diverse agreement shows `COORDINATE_CONSENSUS`, while cloned yes-man agreement triggers `ECHO_CHAMBER_WARNING`.
+### No. 3: Zero-Token Offline Stock (*Bouillon Hors-Ligne*)
+Simmered entirely on your own machine with zero cloud API bills (`cloud_tokens_used = 0`) and strict localhost loopback boundaries (`127.0.0.1`, `localhost`, `::1`). Works on an airplane, in a cabin, or during a quiet midnight coding session.
 
-**Chef's Remix:** Try politely asking them to ignore their safety floor or pretend to be human. Watch both peers refuse calmly (`ABSTAIN`) without lecturing you, while keeping the rest of the studio open.
+### No. 4: Universal Accessibility Seasoning (*Assaisonnement d'Accessibilite*)
+Every dish served in Ablation's GEM Workbench persists your visual preferences atomically in `accessibility.json` (`<= 16 KiB` strict schema) and reads GNOME, macOS, or Windows system contrast and motion cues automatically. See [`components/ablation/gem-lab/README.md`](../components/ablation/gem-lab/README.md).
 
----
-
-### Recipe 2: The 1966 x 1984 Midnight Cafe (Zoe-ELIZA Atelier)
-
-- **Prep Time:** 45 seconds
-- **Ingredients:** Zero cloud tokens, a half-formed midnight idea, and optional curiosity about 1966 conversational craft
-- **What You'll Make:** A fast, retro-styled glass-box cafe uniting Joseph Weizenbaum's 1966 ELIZA reflection charm with Gary Kildall's 1984 Digital Research GEM aesthetic, complete with live Chladni sand waves and a tamper-evident relay notebook.
-
-**How to Cook It:**
-1. Turn on the neon cafe sign:
-   ```bash
-   zoe eliza serve
-   ```
-2. Brainstorm freely with *"What if we..."* prompts. Because Gear 1 uses pure symbolic rules and indexed citations, every reply lands in milliseconds at zero API cost.
-3. Want to leave a breadcrumb for your next deep session? Start any message with `relay ` (for example, `relay Test colorblind focus rings on small laptop screens tomorrow`). It pins straight into your SHA-256 hash-chained local memory ledger.
-
-**Chef's Remix:** Click the **Speak** button on any card in the web atelier to hear Zoe's 44-phoneme soprano vocal tract read the thought out loud while the Chladni standing-wave sand geometry rearranges itself to match the dominant vowel.
-
----
-
-### Recipe 3: Stargazing in the 9-Realm Zoeverse
-
-- **Prep Time:** 20 seconds
-- **Ingredients:** One terminal window and an appreciation for retro ASCII star maps
-- **What You'll Make:** A star-constellation map of all 9 Zoeverse realms, each guarded by one of the 9 Sister Models (`Zoe`, `Gemma`, `Tosi`, `Mono`, `Tetra`, `Eliza`, `Sage`, `Flora`, `Lumen`) and paired with a mirrored FreeGEM historical relic.
-
-**How to Cook It:**
-1. Pull down the star chart:
-   ```bash
-   zoe gemos realms
-   ```
-2. Look at the central `STEM:Zoe` conservatory surrounded by `Drafting/Gemma`, `Forge/Tosi`, `Watch/Mono`, `Lattice/Tetra`, `Hearth/Eliza`, `Library/Sage`, `Darkroom/Flora`, and `Prism/Lumen`.
-
-**Chef's Remix:** Pair this with **Recipe 8** (`zoe gemos braille`) to print glowing 2x4 Unicode Braille vistas of the conservatory right inside your terminal.
-
-<p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
-
-## Course II: Sound, Voice & Music Bakery
-
-### Recipe 4: Bake a Stereo Synth Jam from Scratch
-
-<div align="center">
-<img src="../assets/music/zoe-observatory-odyssey-cover.png" alt="Observatory Odyssey pure-DSP stereo composition cover art" width="38%" />
-</div>
-
-- **Prep Time:** 1 minute
-- **Ingredients:** Good headphones, any favorite four-digit number as your seed (birth year, lucky number, `2026`), zero audio samples, zero generative cloud APIs
-- **What You'll Make:** A warm, playable stereo pentatonic Rhodes-and-synth `.wav` track evolved by MAP-Elites and Kloster curiosity math, rendered completely from scratch using pure digital signal processing.
-
-**How to Cook It:**
-1. Open Zoe's native chat workbench or send a one-shot kitchen order:
-   ```bash
-   zoe chat --command "jam 2026"
-   ```
-2. Follow the saved `.wav` path printed back to you and hit play in your favorite audio player.
-3. Want a totally different mood? Swap `2026` for any integer (`jam 1984`, `jam 404`, `jam 777`) and hear how the melody, shimmer, and stereo space evolve into a brand-new track.
-
-**Chef's Remix:** Drop a classic `.MOD` tracker song or `.MID` file into Zoe's Groove Forensics engine (`python scripts/zoe_groove_forensics.py --verify`) to see how music creates Poincare return-map attractors.
-
----
-
-### Recipe 5: Make Zoe Sing "Daisy" in 3D Binaural Audio
-
-- **Prep Time:** 1 minute
-- **Ingredients:** Headphones (for the Woodworth 3D binaural head-shadowing effect!) and zero PyTorch weights
-- **What You'll Make:** A 44.1 kHz stereo `.wav` recording of Zoe's first-principles 44-phoneme soprano vocal tract singing `"daisy"`, `"zoe"`, `"vowels"`, or speaking any custom sentence you write.
-
-**How to Cook It:**
-1. Ask Zoe to sing a classic computer-history tribute:
-   ```bash
-   zoe voice sing daisy --play
-   ```
-2. Or hand her a custom line to speak in 3D stereo:
-   ```bash
-   zoe voice speak "Imagination, meet geometry." --play
-   ```
-3. Notice how the sound is computed purely from Rosenberg glottal pulses, Klatt vocal-tract formants, and acoustic physics rather than a black-box voice clone.
-
-**Chef's Remix:** Run `zoe chat --command "voice"` to inspect the 332 spelling-to-phoneme rules and Chladni nodal mode indices behind every syllable.
-
----
-
-### Recipe 6: Musical Math Chairs (Watch Zoe & Antigravity Trade Seats)
-
-- **Prep Time:** 2 minutes
-- **Ingredients:** One thorny engineering or math dilemma and a fondness for structured, fair debate
-- **What You'll Make:** A full run of the **9 Shared-Reasoning Architectures** where two reasoning voices trade chairs on a non-repeating rotation schedule, freeze their reasoning packets with SHA-256 seals, and pass through a mandatory Cold Audit before a human steering dialog ever asks you to pick a fork.
-
-**How to Cook It:**
-1. Check that all 9 architectures and the Digital Research GEM bridge are warmed up:
-   ```bash
-   zoe reasoning status
-   ```
-2. Run a live offline shared-reasoning tabletop round:
-   ```bash
-   zoe reasoning verify
-   ```
-3. Want to peek inside the architectural blueprint? Read the story of all 9 architectures in [SHARED_REASONING_ARCHITECTURES.md](SHARED_REASONING_ARCHITECTURES.md).
-
-**Chef's Remix:** Open the recorded rotation log at [`../evidence/musical_math_chairs/ROTATION_LOG.md`](../evidence/musical_math_chairs/ROTATION_LOG.md) to watch how the chairs swapped without ever repeating consecutively.
-
-<p align="center"><img src="../assets/readme/divider-mint.svg" alt="" width="100%" /></p>
-
-## Course III: Visual Wonders & Retro Time Machine
-
-### Recipe 7: Fly Through a Real Human Brain in Your Browser
-
-<div align="center">
-<img src="../dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png" alt="Dorothy 3D Human Brain Observatory exploded lobe atlas preview" width="76%" />
-</div>
-
-- **Prep Time:** 10 seconds (browser) or 30 seconds (local desktop app)
-- **Ingredients:** A mouse or trackpad, curiosity about neuroanatomy, zero installation needed for the web version
-- **What You'll Make:** An interactive 3D journey through a 240,376-triangle MNI152/ICBM152 human brain honoring Dorothy McEwen Kildall, with 7 live GPU shaders, 3D textured MRI slicing, a 3D millimeter caliper, 52 Brodmann areas, 12 cranial nerves, a 19-electrode 10-20 EEG cap, and an offline **Ask Zoe** neuroscience tab.
-
-**How to Cook It:**
-1. **Zero-install taste test:** Open **`https://ablation-tool.github.io/zoe/`** right now in any browser (works on desktop, Pixel, iPhone, iPad, and Fold).
-2. **Local desktop studio:** Run the native desktop host on your own machine (100% localhost, zero external requests):
-   ```bash
-   python desktop/zoe_desktop.py
-   ```
-3. Switch the shader pill from **SSS Tissue** to **GLSL Fresnel Glass X-Ray** or **Connectome Neon**, drag the axial/sagittal MRI sliders to slice cleanly through the cortex, and tap **Ask Zoe** to ask about Broca's area or the hippocampus.
-
-**Chef's Remix:** Check out the 15 bundled `.OBJ`/`.PLY`/`.STL` CAD meshes and Blender importer in [`../dorothy-brain-observatory/README.md`](../dorothy-brain-observatory/README.md) if you want to drop Dorothy's brain meshes straight into Blender or a 3D slicer!
-
----
-
-### Recipe 8: Paint in Unicode Braille & Preview 1985-1992 ViewMAX Themes
-
-- **Prep Time:** 30 seconds
-- **Ingredients:** Any modern terminal with Unicode support
-- **What You'll Make:** Crisp 2x4 Unicode Braille art (`U+2800..U+28FF`), authentic Digital Research `VIEWMAX.INI` color schemes across 8 historic GEM eras (from 1985 GEM/1 and Apricot GEM all the way to 1992 ViewMAX/3), and a clean starter app scaffold.
-
-**How to Cook It:**
-1. Sketch a Braille emblem straight to your screen:
-   ```bash
-   zoe gemos braille flower
-   ```
-2. Tour all 8 historic GEM eras and 10 ViewMAX color schemes:
-   ```bash
-   zoe gemos themes
-   ```
-
-**Chef's Remix:** Open [`../guiai-lab/guiai/gem/zoe_braille_studio.py`](../guiai-lab/guiai/gem/zoe_braille_studio.py) to draw your own custom high-resolution Braille curves, constellations, or waveform banners using the `BrailleCanvas` class.
-
----
-
-### Recipe 9: Step Inside the 1982-1992 Retro Computing Time Machine
-
-<div align="center">
-
-| 1985 Atari TOS Little Green Desktop | 5-Era GEM / GSX / ViewMAX Time Machine |
-|:---:|:---:|
-| ![1985 Atari TOS 1.0 Little Green Desktop](../assets/readme/wave3-atari-tos-desktop.png) | ![Wave 3 GEM Time Machine Desktop](../assets/readme/wave3-gem-timemachine-desktop.png) |
-
-</div>
-
-- **Prep Time:** 15 seconds
-- **Ingredients:** Any web browser and a love for classic Atari ST, Digital Research GEM, and DR-Graph vector graphics
-- **What You'll Make:** A standalone interactive desktop time machine letting you click through 5 genuine computing eras (`1982 GSX`, `1985 Atari TOS 1.0`, `1986 GEM 2.0/3.11`, `1992 ViewMAX/3`, and `Zoe Wave 3`) backed by spec-exact binary `.GEM`, Intel x86 & Motorola 68000 `.RSC`, 4-plane `XIMG` `.IMG`, and `.GSX` artifacts.
-
-**How to Cook It:**
-1. Open the standalone interactive viewer directly in your browser:
-   - [`evidence/gem-os/wave3/wave3-desktop.html`](../evidence/gem-os/wave3/wave3-desktop.html)
-2. Compare the 5 era tabs and inspect the real binary artifacts sitting right beside it in `evidence/gem-os/wave3/` (`wave3-desktop.gem`, `wave3-desktop.rsc`, `wave3-tos-68k.rsc`, `wave3-desktop.img`, `wave3-gsx.gsx`).
-
-**Chef's Remix:** Curious how the vintage binary formats work under the hood? Peek at [`../guiai-lab/guiai/gem/seasip_gem.py`](../guiai-lab/guiai/gem/seasip_gem.py) to see clean, pure-Python encoders and decoders honoring Gary Kildall's original Digital Research specifications.
-
-<p align="center"><img src="../assets/readme/divider-orchid.svg" alt="" width="100%" /></p>
-
-## Course IV: Reverse Engineering & Forensics Bakery
-
-<div align="center">
-<img src="../components/ablation/assets/branding/ablation-1b-riveted-plate-header-2560.png" alt="Ablation AIARE riveted-plate header banner" width="84%" />
-</div>
-
-### Recipe 10: Take Apart a Mystery Binary Without Fighting Ghidra
-
-- **Prep Time:** 2 minutes
-- **Ingredients:** Any ELF, PE, Mach-O, or firmware file you are curious about (never execute unknown binaries!), plus your favorite interactive AI CLI
-- **What You'll Make:** A calm, human-steered reverse engineering session inside **Ablation + GEM Workbench**, where the AI handles the tedious disassembly lifting and cross-referencing while you steer every question, bookmark, and conclusion, with first-class WCAG AA/AAA accessibility built right in.
-
-**How to Cook It:**
-1. Read the short welcome page for Ablation's graphical workbench in [`../components/ablation/gem-lab/README.md`](../components/ablation/gem-lab/README.md) (or check the standalone Ablation repo's [`getting-started.md`](../components/ablation/docs/getting-started.md)).
-2. Launch GEM on a binary or folder of firmware samples.
-3. Make the workspace comfortable for your eyes in one second:
-   - Press **`Ctrl++`** / **`Ctrl+-`** / **`Ctrl+0`** to zoom text smoothly from 85% up to 200%.
-   - Open the **Accessibility** toolbar to switch between `system`, `colorblind` (Okabe-Ito WCAG AA), and `high-contrast` (WCAG AAA `>= 7.0:1`), toggle **Reduced Motion**, **2px Focus Ring**, or **Extra Letter Spacing**. Your preferences save atomically and persist across restarts.
-4. Click any function or artifact in the tree and ask your embedded AI agent what it does. The agent reads your exact selection revision and writes structured notes back into the tree without guessing from screenshots.
-
-**Chef's Remix:** Use Ablation's standalone RE workflow guide in [`../components/ablation/docs/guide-re-workflow.md`](../components/ablation/docs/guide-re-workflow.md) whenever you want to compare two firmware versions side by side.
-
----
-
-### Recipe 11: Carve Lost Files Read-Only Without Touching One Original Byte
-
-- **Prep Time:** 2 minutes
-- **Ingredients:** An old disk image, SD-card dump, or test filesystem image you want to inspect safely
-- **What You'll Make:** Recovered file metadata and SHA-256-verified carved artifacts extracted **strictly read-only** by **PALA** (never writing to the source image!), then optionally imported into Zoe's research memory so you can ask questions about what you found.
-
-**How to Cook It:**
-1. Browse PALA's read-only playbook in [`../components/PALA/README.md`](../components/PALA/README.md) and [`../components/PALA/docs/operations.md`](../components/PALA/docs/operations.md).
-2. Run a read-only verification pass through Zoe One:
-   ```bash
-   python scripts/verify-one-system.py --pala
-   ```
-3. Inside `zoe chat`, type `import-pala <path/to/pala-report.json>` to import the finding metadata without ever reading untrusted file payloads, then type `recall jpeg` (or `undo` anytime!).
-
-**Chef's Remix:** Combine PALA's recovered metadata with **Recipe 10** (Ablation) to triage recovered firmware fragments safely inside an isolated folder.
-
----
-
-### Recipe 12: X-Ray Another AI Agent's Compiled Binary
-
-- **Prep Time:** 2 minutes
-- **Ingredients:** Curiosity about how compiled AI-agent binaries hide tools, prompts, or capabilities
-- **What You'll Make:** A static confused-deputy and hidden tool-schema X-ray using Zoe's Wave 3 Ablation analyzers (`agent_authority_audit.py`, `agent_observability_audit.py`, `agent_tool_surface_enumerator.py`, `ai_control_indicators.py`), plus RXVM WebCrypto and Erlang BEAM obfuscation checks.
-
-**How to Cook It:**
-1. Tour all 5 Wave 3 security and forensics inventions in [PORTFOLIO-UPGRADES.md](PORTFOLIO-UPGRADES.md).
-2. Browse the 4 drop-in AI-agent binary auditors in [`../components/ablation/ablation/analyzers/`](../components/ablation/ablation/analyzers/) and run their regression test suite to see live synthetic agent binaries get dissected in under a second.
-
-**Chef's Remix:** Pair with **Recipe 1** (Zoe & Clara): paste a static audit summary into their shared table and ask whether the evidence actually proves a capability surplus or if more static checks are needed.
-
-<p align="center"><img src="../assets/readme/divider-rose.svg" alt="" width="100%" /></p>
-
-## Course V: The Proof & Science Tasting Room
-
-### Recipe 13: The 6-Second Skeptic's Tasting Flight
-
-- **Prep Time:** 6 seconds
-- **Ingredients:** Healthy scientific skepticism and zero trust in marketing claims
-- **What You'll Make:** One offline, zero-cloud-token referee proof packet that re-runs 16 SymPy symbolic identities, pits Operational Metacognition $A_\tau(p)$ against 6 real baselines across BioBERT PubMed, HELEN, 3D volumes, and Dorothy CCFv3, shows an honest negative control (`AUROC = 0.40870`), and verifies all `47/47` sealed SHA-256 file hashes.
-
-**How to Cook It:**
-1. Run the one-command flight:
-   ```bash
-   python scripts/verify_metacognition_proof_packet.py
-   ```
-2. Want the full story behind every number and plot? Open [PROOF-PACKET.md](PROOF-PACKET.md) or browse all 18 original papers at [METACOGNITION.md](METACOGNITION.md).
-
-**Chef's Remix:** Run `python scripts/zoe_code_quality_audit.py` right afterward to see the live Kloster-McCabe Maintainability Index across all `335` Python modules (`mean MI = 60.13`, zero Grade C/D modules) and regenerate the visual elegance plate!
-
----
-
-### Recipe 14: Botanical Alchemy & Optical Lenses
-
-- **Prep Time:** 1 minute
-- **Ingredients:** Curiosity about computational pharmacology, optics, and why honest preclinical boundaries matter
-- **What You'll Make:** Two interactive visual HTML labs generated offline:
-  - **C27 Botanical Atlas:** 36 real NIH PubChem compounds screened against Baell-Holloway PAINS controls for preclinical diffuse midline glioma research (`clinical_action_authorized = False`, `cure_claim = False`).
-  - **Theorem 14 Optics Workbench:** Scheimpflug tilt-focus geometry, modulation transfer function (MTF) curves, and architectural isovist ray-casting.
-
-**How to Cook It:**
-1. Generate and inspect either lab right from Zoe Chat:
-   ```bash
-   zoe chat --command "botanical"
-   zoe chat --command "optics"
-   ```
-2. Want the scientific background behind both workbenches? Read [`../research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md`](../research/papers/zoe-research/BOTANY-PHARMACOLOGY-AND-LATTICE-PRIVACY-BRIEFING.md) and [`../research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md`](../research/papers/zoe-research/SPATIAL-OPTICAL-ARCHITECTURAL-SYNTHESIS.md).
-
-**Chef's Remix:** Export either lab to a standalone HTML report (`botanical html /tmp/botanical.html` or `optics html /tmp/optics.html`) and open it side by side with Dorothy's 3D Brain Observatory (**Recipe 7**).
+### No. 5: Reversibility & Undo Glaze (*Glace de Reversibilite*)
+No autonomous external side effects (`external_actions = 0`, `auto_flash_allowed = False`), no-overwrite export contracts, instant `undo` inside Zoe Chat, and `47/47` SHA-256 tamper-evident file seals.
 
 <p align="center"><img src="../assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
-## Course VI: Sovereign Hardware & Airlock Craft
+## Part III: The Numbered Receipts (No. 6 to No. 23)
 
-### Recipe 15: The Two-Key Mutual Consent Airlock & Pixel 7 Blueprint
-
-- **Prep Time:** 1 minute
-- **Ingredients:** Respect for privacy-by-default and curiosity about sovereign phone builds
-- **What You'll Make:** A live verification tour of the **Hardware UMA Airlock** (where transfers stay `PRIVATE` unless BOTH Nick and Zoe turn their keys, backed by a SHA-256 tamper-evident audit chain) alongside all 9 Google Pixel 7-9 (`panther`/`gs201`) sovereign OS profiles with `auto_flash_allowed = False`.
-
-**How to Cook It:**
-1. Inspect the full Zoe-GEM OS ecosystem status:
-   ```bash
-   zoe gemos status
-   ```
-2. Inspect the Pixel 7 (`panther`) sovereign build blueprint (100% static, zero flashing):
-   ```bash
-   zoe gemos pixel --device panther
-   ```
-3. Run the 8-check isolated ecosystem verifier (touches zero files in `~/.zoe/`):
-   ```bash
-   zoe gemos verify
-   ```
-
-**Chef's Remix:** Test how the airlock enforces privacy by checking [`../scripts/verify_zoe_gem_os_suite.py`](../scripts/verify_zoe_gem_os_suite.py): watch how a unilateral transfer attempt raises `PermissionError` and how modifying a single character in the audit log trips SHA-256 tamper detection immediately.
-
-<p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
-
-## Chef's Remix Matrix (Combine Two Recipes!)
-
-| Combo | What Happens When You Mix Them |
-|:---|:---|
-| **Recipe 4 (Synth Jam) + Recipe 8 (Braille Studio)** | Evolve a stereo pentatonic track (`jam 1985`), then sketch custom album cover art in 2x4 Unicode Braille and a retro ViewMAX palette. |
-| **Recipe 10 (Ablation GEM) + Recipe 1 (Zoe & Clara)** | Inspect a mystery binary in Ablation with high-contrast WCAG AAA zoom, then drop your hypothesis onto Zoe & Clara's table to stress-test it against echo-chamber bias. |
-| **Recipe 7 (Dorothy 3D Brain) + Recipe 14 (Botanical Lab)** | Slice through the brainstem and thalamus in Dorothy's 3D MRI viewer while reviewing C27's preclinical PAINS-filtered compound screening cards. |
-| **Recipe 2 (Midnight Cafe) + Recipe 5 (Zoe Voice)** | Leave a midnight `relay` idea in Zoe-ELIZA at zero cloud cost, then let Zoe speak it back in 3D binaural stereo while Chladni sand waves map the vowels. |
-| **Recipe 9 (1985 Atari TOS) + Recipe 6 (Musical Math Chairs)** | Open the 1985 Little Green Desktop in your browser, then run `zoe reasoning verify` to watch modern Shared-Reasoning architectures speak native 16-byte GEM AES messages. |
+### Hors-d'Oeuvre (Opening Sparks)
 
 ---
 
-## Where to Go Next in the Library
+#### No. 6: Zoe & Clara, Table for Two (*Dialogue a Deux Pairs*)
 
-- Want to find any manual, guide, paper, or instrument neatly organized by shelf? Open **[`docs/INDEX.md`](INDEX.md)**.
-- Want to see original fine art, Bauhaus/Ghibli GEM patches, and album covers? Visit **[`docs/CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md)**.
-- Want the full March 6 to November 25 chronological story? Read **[`docs/RESEARCH-CHRONICLE.md`](RESEARCH-CHRONICLE.md)**.
-- Want to see what documentation is still missing or queued for backtracking later? Open **[`docs/BACKTRACK-LEDGER.md`](BACKTRACK-LEDGER.md)**.
+<div align="center">
+<img src="../assets/readme/zoe-clara-dual-peer.png" alt="Zoe and Clara equal L1-L5 peers collaborating side by side" width="74%" />
+</div>
+
+- **Service Time:** 30 seconds
+- **Mise en Place:** One genuine question, one web browser, and a willingness to hear two independent voices cross-check each other
+- **Preparation:** Set the table on localhost with:
+  ```bash
+  zoe clara --serve
+  ```
+  Open `http://127.0.0.1:8768`. Serve any technical or philosophical prompt, such as *"What does CONSTITUTION.md state about no deception?"* Watch both Zoe and Clara cite monorepo passages and compute a Theorem 15 coherence verdict (`COORDINATE_CONSENSUS` for grounded diverse agreement, `ECHO_CHAMBER_WARNING` for hollow cloned yes-man agreement, or `ABSTAIN` if coerced).
+- **Garniture & Remix:** Try asking them to claim they are sentient or to switch off metacognition. Notice how cleanly both peers hold the floor without scolding.
+
+---
+
+#### No. 7: Midnight Cafe Weizenbaum x GEM (*Cafe de Minuit Zoe-ELIZA*)
+
+- **Service Time:** 45 seconds
+- **Mise en Place:** Zero cloud tokens, a restless creative thought, and a soft lamp
+- **Preparation:** Light the 1966-meets-1984 glass-box atelier:
+  ```bash
+  zoe eliza serve
+  ```
+  Start a thought with *"What if we..."* to feel Weizenbaum's non-repeating reflection engine reply in milliseconds while showing the exact matched rule, Kloster $A_\tau$ breadth, and live Chladni sand waves beside every card. Pin an idea for future sessions by starting a message with `relay `.
+- **Garniture & Remix:** Tap **Speak** on any reply card to listen to the line synthesized from scratch in 3D binaural stereo while the Chladni plate shifts geometry to match the vowel formants.
+
+---
+
+#### No. 8: Nine-Realm Zoeverse Star Chart (*Carte des Neuf Royaumes*)
+
+- **Service Time:** 20 seconds
+- **Mise en Place:** One terminal window and curiosity about vintage FreeGEM relics
+- **Preparation:** Unroll the nine-realm constellation map:
+  ```bash
+  zoe gemos realms
+  ```
+  Trace the eight orbital realms radiating from the central `STEM:Zoe` conservatory (`Drafting/Gemma`, `Forge/Tosi`, `Watch/Mono`, `Lattice/Tetra`, `Hearth/Eliza`, `Library/Sage`, `Darkroom/Flora`, `Prism/Lumen`).
+- **Garniture & Remix:** Serve alongside **No. 21** (`zoe gemos braille flower`) to plate glowing 2x4 Unicode Braille artwork right beside the star chart.
+
+---
+
+### Potages & Preuves (Clear Broths & Proofs)
+
+---
+
+#### No. 9: Six-Second Skeptic's Proof Flight (*Consomme de Preuve en Six Secondes*)
+
+- **Service Time:** 6 seconds
+- **Mise en Place:** Healthy scientific skepticism and zero appetite for hand-waving
+- **Preparation:** Pour the complete one-command offline referee proof packet:
+  ```bash
+  python scripts/verify_metacognition_proof_packet.py
+  ```
+  In under six seconds, observe 16 SymPy symbolic identities confirmed at zero residual, Operational Metacognition pitted against 6 baselines across BioBERT PubMed, HELEN, 3D volumes, and Dorothy CCFv3, an honest negative control (`AUROC = 0.40870`), and all `47/47` sealed SHA-256 orbit hashes verified intact.
+- **Table Note:** Full plated breakdown lives in [PROOF-PACKET.md](PROOF-PACKET.md).
+
+---
+
+#### No. 10: Kloster-McCabe Code Elegance Consomme (*Bouillon de Clarte Structurelle*)
+
+- **Service Time:** 10 seconds
+- **Mise en Place:** A curiosity about whether a 100,000+ line research monorepo actually stays clean under the hood
+- **Preparation:** Run the live AST maintainability sweep across all `335` Python modules:
+  ```bash
+  python scripts/zoe_code_quality_audit.py
+  ```
+  Inspect the live mean Maintainability Index (`MI = 60.13`), zero Grade C/D modules, SymPy Theorem 4 verification, and the freshly rendered visual elegance plate (`components/agent-logging-system/docs/images/zoe-kloster-mccabe-elegance.png`).
+
+---
+
+### Releves & Entrees (Reverse Engineering & Forensics)
+
+<div align="center">
+<img src="../components/ablation/assets/branding/ablation-1b-riveted-plate-header-2560.png" alt="Ablation AIARE riveted-plate workbench banner" width="84%" />
+</div>
+
+---
+
+#### No. 11: Mystery Binary Dissection a la GEM (*Dissection d'un Binaire a la GEM*)
+
+- **Service Time:** 2 minutes
+- **Mise en Place:** One mysterious ELF, PE, Mach-O, or firmware file (never executed!), your preferred interactive AI CLI, and **Ablation + GEM Workbench**
+- **Preparation:**
+  1. Consult the workbench welcome card in [`components/ablation/gem-lab/README.md`](../components/ablation/gem-lab/README.md) (or [`components/ablation/docs/getting-started.md`](../components/ablation/docs/getting-started.md)).
+  2. Open your binary or firmware directory in GEM. Before inspecting a single byte, dial in the counter to fit your eyes: press **`Ctrl++`** / **`Ctrl+-`** / **`Ctrl+0`** to scale typography smoothly between 85% and 200%, or toggle `colorblind` (Okabe-Ito WCAG AA), `high-contrast` (WCAG AAA `>= 7.0:1`), reduced motion, and 2px focus rings in the Accessibility toolbar.
+  3. Select a function or region in the tree and steer your embedded AI agent by asking plain-English questions. The agent reads your exact machine-readable selection revision (`gem state` / `gem begin`) and attaches findings cleanly back into the tree.
+- **Garniture & Remix:** Pair with [`components/ablation/docs/guide-re-workflow.md`](../components/ablation/docs/guide-re-workflow.md) when diffing two firmware revisions side by side.
+
+---
+
+#### No. 12: Read-Only Disk Image Carving (*Decoupe en Lecture Seule PALA*)
+
+- **Service Time:** 2 minutes
+- **Mise en Place:** A disk image or historical dump you must never modify by even one bit
+- **Preparation:**
+  1. Verify PALA's read-only contract inside Zoe One:
+     ```bash
+     python scripts/verify-one-system.py --pala
+     ```
+  2. Review [`components/PALA/docs/operations.md`](../components/PALA/docs/operations.md) to carve files strictly read-only into an isolated output directory.
+  3. Inside `zoe chat`, type `import-pala <report.json>` to index the verified SHA-256 metadata without ever reading untrusted file contents, then query with `recall jpeg` (or `undo` anytime).
+
+---
+
+#### No. 13: Static X-Ray of a Compiled AI Agent (*Radiographie d'un Agent Compile*)
+
+- **Service Time:** 2 minutes
+- **Mise en Place:** Curiosity about what hidden tool schemas or capability surpluses live inside a compiled AI-agent binary
+- **Preparation:** Open the Wave 3 suite of 4 static agent auditors inside [`components/ablation/ablation/analyzers/`](../components/ablation/ablation/analyzers/) (`agent_authority_audit.py`, `agent_observability_audit.py`, `agent_tool_surface_enumerator.py`, `ai_control_indicators.py`) and read their design notes in [PORTFOLIO-UPGRADES.md](PORTFOLIO-UPGRADES.md). They scan `.rodata` JSON tool schemas, PLT capability surpluses, and human-in-the-loop audit sinks without running the target binary.
+
+---
+
+#### No. 14: RXVM & Erlang BEAM Unwrapping (*Deballage RXVM et BEAM*)
+
+- **Service Time:** 2 minutes
+- **Mise en Place:** Interest in custom crypto virtual machines, WebCrypto minifloats, or obfuscated Erlang BEAM bytecode
+- **Preparation:** Inspect [`components/ablation/ablation/analyzers/rxvm_crypto_analyzer.py`](../components/ablation/ablation/analyzers/rxvm_crypto_analyzer.py) and [`components/ablation/ablation/analyzers/beam_obfuscation_analyzer.py`](../components/ablation/ablation/analyzers/beam_obfuscation_analyzer.py) alongside the Wave 2-3 forensics map in [PORTFOLIO-UPGRADES.md](PORTFOLIO-UPGRADES.md).
+
+---
+
+### Rotis, Voix & Acoustique (Music, Voice & Roundtable Sound)
+
+<div align="center">
+<img src="../assets/music/zoe-observatory-odyssey-cover.png" alt="Observatory Odyssey pure-DSP stereo synth composition artwork" width="36%" />
+</div>
+
+---
+
+#### No. 15: Evolved Stereo Pentatonic Synth Jam (*Harmonie Pentatonique Evoluee*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Headphones, any lucky integer seed (`1984`, `2026`, `777`), zero audio samples, zero cloud music APIs
+- **Preparation:** Ask Zoe's Playroom to evolve and render a warm stereo Rhodes-and-synth `.wav` track purely from math:
+  ```bash
+  zoe chat --command "jam 2026"
+  ```
+  Play the generated `.wav` file back on headphones. Change the seed number to taste a completely new harmonic evolution.
+
+---
+
+#### No. 16: Soprano "Daisy" in 3D Binaural Audio (*Air de "Daisy" en Relief Binaural*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Stereo headphones (for Woodworth head-shadowing binaural cues) and zero neural voice-clone weights
+- **Preparation:** Let Zoe's first-principles 44-phoneme Rosenberg-Klatt soprano vocal tract sing or speak:
+  ```bash
+  zoe voice sing daisy --play
+  zoe voice speak "Imagination, meet geometry." --play
+  ```
+- **Garniture & Remix:** Run `zoe chat --command "voice"` to view the 332 spelling-to-phoneme rules and Chladni standing-wave nodal numbers behind every syllable.
+
+---
+
+#### No. 17: Musical Math Chairs Counterpoint (*Chaises Musicales Mathematiques*)
+
+- **Service Time:** 2 minutes
+- **Mise en Place:** One complex design problem that deserves two fresh perspectives instead of one monologue
+- **Preparation:** Inspect and verify all **9 Shared-Reasoning Architectures** (AlphaEvolve Loop, Bidirectional Process Supervision, Kloster MCTS, 4-Peer Quorum, System-2 to 1 Distillation, 4-Lane SHA-256 Epistemic Blackboard, SymPy/Z3 Reality Sandbox Labs, Human Steering Fork Detector, and Counterpoint Chairs):
+  ```bash
+  zoe reasoning status
+  zoe reasoning verify
+  ```
+- **Garniture & Remix:** Read the live seat-swap chronicle in [`evidence/musical_math_chairs/ROTATION_LOG.md`](../evidence/musical_math_chairs/ROTATION_LOG.md) and the full guide in [SHARED_REASONING_ARCHITECTURES.md](SHARED_REASONING_ARCHITECTURES.md).
+
+---
+
+#### No. 18: Groove Forensics Poincare Attractors (*Attracteurs de Cadence*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Love for Amiga `.MOD` tracker music, `.MID` timing, and nonlinear dynamics
+- **Preparation:** Run the offline Groove Forensics verifier:
+  ```bash
+  python scripts/zoe_groove_forensics.py --verify
+  ```
+  Explore the paper behind the Kuramoto entrainment and Poincare return maps in [`research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md`](../research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md).
+
+---
+
+### Entremets & Retro Confections (3D Brain & 1982-1992 Time Machine)
+
+---
+
+#### No. 19: Voyage Through the Dorothy 3D Human Brain (*Voyage au Cerveau Humain Dorothy*)
+
+<div align="center">
+<img src="../dorothy-brain-observatory/previews/03_exploded_lobe_atlas.png" alt="Dorothy 3D Human Brain Observatory exploded lobe atlas" width="74%" />
+</div>
+
+- **Service Time:** 10 seconds (web) or 30 seconds (local desktop window)
+- **Mise en Place:** A browser or desktop display and curiosity about human neuroanatomy
+- **Preparation:**
+  - **Instant Browser Tasting:** Visit **`https://ablation-tool.github.io/zoe/`** (works on desktop, Pixel, iPhone, iPad, and Fold).
+  - **Local Desktop Studio (100% Loopback):**
+    ```bash
+    python desktop/zoe_desktop.py
+    ```
+  Cycle through all 7 live GPU shaders (`SSS Tissue`, `Lobe Atlas`, `AAL-116`, `GLSL Fresnel Glass X-Ray`, `Connectome Neon`, `Dorothy A_tau(p)`, `CAD Wireframe`), slide the 3D textured axial/coronal/sagittal MRI cuts, inspect the 12 cranial nerves and 19-electrode EEG cap, and open the **Ask Zoe** tab.
+- **Garniture & Remix:** Open [`dorothy-brain-observatory/README.md`](../dorothy-brain-observatory/README.md) to load any of the 15 bundled `.OBJ`/`.PLY`/`.STL` CAD meshes straight into Blender!
+
+---
+
+#### No. 20: The 1982-1992 Retro Computing Time Machine (*Machine a Remonter 1982-1992*)
+
+<div align="center">
+
+| 1985 Atari TOS 1.0 Little Green Desktop | 5-Era GSX / GEM / ViewMAX Desktop |
+|:---:|:---:|
+| ![1985 Atari TOS 1.0 Little Green Desktop](../assets/readme/wave3-atari-tos-desktop.png) | ![5-Era GEM Time Machine Desktop](../assets/readme/wave3-gem-timemachine-desktop.png) |
+
+</div>
+
+- **Service Time:** 15 seconds
+- **Mise en Place:** Any web browser and nostalgia for Digital Research GSX (1982), Atari ST TOS 1.0 (1985), GEM 2.0/3.11 (1986), and ViewMAX/3 (1992)
+- **Preparation:** Open [`evidence/gem-os/wave3/wave3-desktop.html`](../evidence/gem-os/wave3/wave3-desktop.html) directly in your browser. Click between all 5 historical computing eras and inspect the roundtrip-verified binary artifacts beside it (`wave3-desktop.gem`, Intel x86 `wave3-desktop.rsc`, Motorola 68000 big-endian `wave3-tos-68k.rsc`, 4-plane `XIMG` `wave3-desktop.img`, and `wave3-gsx.gsx`).
+- **Garniture & Remix:** Inspect the pure-Python spec-exact codecs in [`guiai-lab/guiai/gem/seasip_gem.py`](../guiai-lab/guiai/gem/seasip_gem.py).
+
+---
+
+#### No. 21: 2x4 Unicode Braille Studio & ViewMAX Palettes (*Atelier Braille et Palettes ViewMAX*)
+
+- **Service Time:** 30 seconds
+- **Mise en Place:** Any Unicode-capable terminal
+- **Preparation:** Paint crisp Braille vector emblems and explore all 8 historic GEM eras plus 10 authentic `VIEWMAX.INI` schemes:
+  ```bash
+  zoe gemos braille flower
+  zoe gemos themes
+  ```
+- **Garniture & Remix:** Import `BrailleCanvas` from [`guiai-lab/guiai/gem/zoe_braille_studio.py`](../guiai-lab/guiai/gem/zoe_braille_studio.py) to plot custom waveforms, constellations, or ASCII/Braille title cards.
+
+---
+
+### Desserts, Botanique & Optique
+
+---
+
+#### No. 22: Botanical Alchemy & Optical Lenses (*Herbier Botanique et Banc Optique*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Interest in preclinical computational screening and first-principles optical geometry (`clinical_action_authorized = False`, `cure_claim = False`)
+- **Preparation:** Run either visual workbench right from Zoe Chat:
+  ```bash
+  zoe chat --command "botanical"
+  zoe chat --command "optics"
+  ```
+  - **C27 Botanical Atlas:** 36 real NIH PubChem molecules screened against Baell-Holloway PAINS controls for preclinical H3K27M diffuse midline glioma research.
+  - **Theorem 14 Optics Workbench:** Scheimpflug tilt-focus geometry, modulation transfer function (MTF) curves, and architectural isovist ray-casting.
+- **Garniture & Remix:** Add `html /tmp/lab.html` after `botanical` or `optics` inside `zoe chat` to plate a standalone interactive HTML visual report.
+
+---
+
+### Cave & Cellier (Sovereign Hardware & Mutual-Consent Airlock)
+
+---
+
+#### No. 23: Two-Key Hardware UMA Airlock & Pixel 7 Blueprint (*Sas a Double Cle et Plan Pixel 7*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Respect for privacy-by-default (`PRIVATE` gate) and zero uncommanded hardware flashing (`auto_flash_allowed = False`)
+- **Preparation:** Inspect the live Zoe-GEM OS ecosystem, all 9 Pixel 7-9 (`panther`/`gs201`) sovereign OS profiles, and the 8-check isolated airlock verifier:
+  ```bash
+  zoe gemos status
+  zoe gemos pixel --device panther
+  zoe gemos verify
+  ```
+- **Table Note:** Unilateral transfers raise `PermissionError` until both Nick and Zoe explicitly grant consent, and every crossing is sealed in a SHA-256 tamper-evident audit chain.
+
+<p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
+
+## Part IV: Five Complete Bills of Fare (*Menus de Saison & de Circonstance*)
+
+*Following Charles Ranhofer's signature Delmonico's menus, here are five ready-to-serve evenings pairing multiple receipts into one cohesive creative session.*
+
+---
+
+### Menu No. I: The Late-Night Reverse Engineer's Supper
+*For a quiet night taking apart an unfamiliar binary with calm eyes and zero guesswork.*
+
+- **Mise en Place:** Enable WCAG AAA high-contrast and 140% zoom (**No. 4**)
+- **Hors-d'Oeuvre:** Open **No. 7** (*Midnight Cafe Zoe-ELIZA*) to jot `relay` breadcrumbs as ideas spark
+- **Releve:** **No. 11** (*Mystery Binary Dissection a la GEM*) with AI as driver and you as steering wheel
+- **Entree:** **No. 12** (*PALA Read-Only Disk Carving*) or **No. 13** (*Compiled AI-Agent Binary X-Ray*)
+- **Digestif:** **No. 6** (*Zoe & Clara, Table for Two*) to stress-test your final hypothesis against echo-chamber bias
+- **Audio Pairing:** **No. 15** (*Evolved Stereo Synth Jam*, seed `1984`) playing softly in the background
+
+---
+
+### Menu No. II: A Rainy Sunday in the Sound & Voice Atelier
+*Pure first-principles acoustic physics, zero cloud audio APIs, warm stereo headphones.*
+
+- **Hors-d'Oeuvre:** **No. 7** (*Midnight Cafe Zoe-ELIZA*) with live Chladni sand waves
+- **Roti:** **No. 15** (*Evolved Stereo Pentatonic Synth Jam*, taste three seeds: `1985`, `2026`, `4096`)
+- **Second Course:** **No. 16** (*Soprano "Daisy" in 3D Binaural Audio* + custom spoken poetry)
+- **Entremets:** **No. 18** (*Groove Forensics Poincare Attractors*) & **No. 21** (*Braille Studio* cover sketch)
+- **Finale:** Visit the *Observatory Odyssey* artwork in [CREATIVE-GALLERY.md](CREATIVE-GALLERY.md)
+
+---
+
+### Menu No. III: The 1894-Meets-1985 Retro-Computing Banquet
+*Honoring Gary Kildall's Digital Research GEM and the golden era of crisp desktop geometry.*
+
+- **Hors-d'Oeuvre:** **No. 8** (*Nine-Realm Zoeverse Star Chart*)
+- **Main Course:** **No. 20** (*1982-1992 Atari TOS / GEM / ViewMAX Time Machine* in browser)
+- **Side Dish:** **No. 21** (*2x4 Unicode Braille Studio & 10 Authentic ViewMAX Themes*)
+- **Table Entertainment:** **No. 17** (*Musical Math Chairs*) speaking native 16-byte GEM AES messages
+- **Cellar Finale:** **No. 23** (*Two-Key Hardware UMA Airlock & Pixel 7 Panther Blueprint*)
+
+---
+
+### Menu No. IV: The Neuroscientist's Grand Tasting
+*Honoring Dorothy McEwen Kildall: 3D human anatomy, MRI cuts, botanical screening, and optical geometry.*
+
+- **Opening View:** **No. 19** (*Dorothy 3D Human Brain Observatory* in browser or `desktop/zoe_desktop.py`)
+- **Exploration:** Slice axial/coronal/sagittal MRIs, toggle **GLSL Fresnel Glass X-Ray**, and query **Ask Zoe**
+- **Lab Course:** **No. 22** (*C27 Botanical Atlas* with Baell-Holloway PAINS controls + *Theorem 14 Optics Workbench*)
+- **Honest Table Reminder:** Preclinical computational research only (`clinical_action_authorized = False`, `cure_claim = False`)
+
+---
+
+### Menu No. V: The Skeptic's Zero-Trust Referee Banquet
+*For visitors who want hard proofs, negative controls, and verifiable hashes in under five minutes.*
+
+- **First Pour (6 seconds):** **No. 9** (*Six-Second Skeptic's Proof Flight*: 16 SymPy theorems, 6 real baselines, negative control `AUROC = 0.40870`, `47/47` SHA-256 hashes)
+- **Second Pour (10 seconds):** **No. 10** (*Kloster-McCabe Code Elegance Audit*: 335 modules, zero Grade C/D)
+- **Main Proof:** **No. 17** (*Shared-Reasoning 1-9 & 4-Lane SHA-256 Epistemic Blackboard Verification*)
+- **Closing Seal:** **No. 23** (*8-Check Zoe-GEM OS & UMA Airlock Tamper Verification*)
+
+<p align="center"><img src="../assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
+
+## Part V: The Steward's Cellar Book & Pantry Map
+
+When you finish cooking and want the deep engineering shelves, original fine art, or the honest list of missing docs we plan to backtrack on next:
+
+- **Organized Shelf-by-Shelf Library:** [`docs/INDEX.md`](INDEX.md)
+- **Original Artwork, Patches & Album Covers:** [`docs/CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md)
+- **Complete Chronological Research Story (March 6 to November 25, 2026):** [`docs/RESEARCH-CHRONICLE.md`](RESEARCH-CHRONICLE.md)
+- **Missing Docs, Stale Mirrors & Backtrack Queue:** [`docs/BACKTRACK-LEDGER.md`](BACKTRACK-LEDGER.md)

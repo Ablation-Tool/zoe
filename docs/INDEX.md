@@ -2,7 +2,7 @@
 
 Welcome to the organized map of every documentation shelf across the Zoe monorepo and its companion repositories.
 
-- **Looking for something fun, creative, and hands-on?** Start with **[`ZOE-COOKBOOK.md`](ZOE-COOKBOOK.md)** (15 playful recipes, zero dry man-pages).
+- **Looking for something fun, creative, and hands-on?** Start with **[`ZOE-COOKBOOK.md`](ZOE-COOKBOOK.md)** (*The Zoe & Ablation Epicurean*, inspired by Charles Ranhofer's 1894 *The Epicurean*: kitchen brigades, 5 mother stocks, 18 numbered receipts, and 5 complete bills of fare).
 - **Looking for what is missing, stale, or queued to backtrack on later?** Open **[`BACKTRACK-LEDGER.md`](BACKTRACK-LEDGER.md)**.
 
 ---
@@ -11,7 +11,7 @@ Welcome to the organized map of every documentation shelf across the Zoe monorep
 
 | Document | What You Will Find |
 |:---|:---|
-| **[`ZOE-COOKBOOK.md`](ZOE-COOKBOOK.md)** | **Creative Recipe Book:** 15 fun, hands-on recipes across music, voice, 3D brain exploration, reverse engineering, retro GEM/Atari TOS, and proofs |
+| **[`ZOE-COOKBOOK.md`](ZOE-COOKBOOK.md)** | **The Zoe & Ablation Epicurean:** Inspired by Charles Ranhofer's 1894 *The Epicurean* (brigades, 5 mother stocks, 18 numbered receipts & 5 complete evening bills of fare) |
 | **[`../README.md`](../README.md)** | Main 10-stop front door of the monorepo (Equation, Proof, Constitution, Systems, Benchmarks, Dorothy 3D Brain, Zoe & Clara, Docs, Visual Salon, Quick Start) |
 | **[`CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md)** | Dedicated visual salon for all 19 non-telemetry fine-art illustrations, emblem patches, and album artwork |
 | **[`NARRATION-SCRIPT.md`](NARRATION-SCRIPT.md)** | Calm ~12-minute read-aloud tour walking chronologically through all 10 stops of the project |

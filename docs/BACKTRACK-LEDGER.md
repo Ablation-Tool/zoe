@@ -7,7 +7,7 @@
 
 ## 1. Completed in This Documentation Pass (Done & Verified)
 
-- Created **[`ZOE-COOKBOOK.md`](ZOE-COOKBOOK.md)** (creative 15-recipe field guide across 6 courses, replacing dry CLI-manual energy with fun, runnable recipes).
+- Created **[`ZOE-COOKBOOK.md`](ZOE-COOKBOOK.md)** (*The Zoe & Ablation Epicurean*, inspired by Charles Ranhofer's 1894 Delmonico's classic *The Epicurean*, complete with an 1894 copperplate-style frontispiece SVG, kitchen brigade, 5 mother stocks, 18 numbered receipts, and 5 complete evening bills of fare).
 - Created **[`INDEX.md`](INDEX.md)** (shelf-by-shelf documentation map organizing all guides across `docs/`, `guiai-lab/docs/`, `mobile/`, `desktop/`, `dorothy-brain-observatory/`, `components/`, and `research/`).
 - Repaired **24 broken local links** across active documentation caused by the root-streamlining move (`CONSTITUTION.md`, `DECLARATION.md`, `AGI-ROADMAP.md`, `CAPABILITY-ATLAS.md`, `MONOREPO.md`, `one-system.json`, `components.lock.json`, `evaluation.json`) in:
   - `guiai-lab/docs/RESILIENCE.md` (2 fixed)
