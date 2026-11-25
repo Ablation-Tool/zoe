@@ -20,10 +20,13 @@ for _extra in (_REPO_ROOT / "components" / "Zoe-Autonomy" / "src", _REPO_ROOT / 
         sys.path.insert(0, str(_extra))
 
 from zoe_autonomy.shared_reasoning import (  # noqa: E402
+    AlphaFoldDeepMindClient,
     GemVdiWorkstation,
     RealitySandboxLab,
     SharedReasoningOrchestrator,
     SharedReasoningTaskSpec,
+    audit_deepmind_sdk_stack,
+    build_alphafold3_job,
     build_default_atari_rsc,
 )
 
@@ -59,6 +62,40 @@ TOOLS: list[dict[str, Any]] = [
             "properties": {
                 "theme_key": {"type": "string", "default": "zoe-viewmax3"},
             },
+        },
+    },
+    {
+        "name": "query_deepmind_alphafold_target",
+        "description": (
+            "Query Google DeepMind AlphaFold DB v6 & AlphaMissense pathogenicity metrics for any "
+            "Milestone 1 H3K27M DMG / GBM target (H3-3A, CLPP, EZH2, ACVR1, DRD2, EGFR, IDH1, TP53) "
+            "or custom UniProt accession (offline_only supported; clinical_action_authorized=False)."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "target": {"type": "string", "description": "Gene symbol (e.g. CLPP, H3-3A) or UniProt ID (e.g. Q16740)."},
+                "offline_only": {"type": "boolean", "default": False},
+                "include_alphamissense": {"type": "boolean", "default": True},
+            },
+            "required": ["target"],
+        },
+    },
+    {
+        "name": "build_alphafold3_complex_job",
+        "description": (
+            "Generate a SHA-256 sealed Google DeepMind AlphaFold 3 Server JSON job payload "
+            "(protein + ligand/DNA/RNA) alongside live DeepMind SDK readiness status (external_actions=0)."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "job_name": {"type": "string", "default": "zoe_af3_complex"},
+                "protein_sequence": {"type": "string", "description": "Primary amino-acid sequence (>=10 residues)."},
+                "copy_count": {"type": "integer", "default": 1},
+                "ligand_ccd_codes": {"type": "array", "items": {"type": "string"}, "default": []},
+            },
+            "required": ["protein_sequence"],
         },
     },
 ]
@@ -122,9 +159,38 @@ def tool_verify_gem_vdi_desk(args: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def tool_query_deepmind_alphafold_target(args: dict[str, Any]) -> dict[str, Any]:
+    target = str(args.get("target") or "").strip()
+    if not target:
+        raise ValueError("target must not be empty")
+    offline_only = bool(args.get("offline_only", False))
+    include_am = bool(args.get("include_alphamissense", True))
+    cache_dir = Path.home() / ".cache" / "zoe" / "deepmind_alphafold"
+    client = AlphaFoldDeepMindClient(cache_dir=cache_dir, offline_only=offline_only)
+    return client.fetch_target(target, include_alphamissense=include_am).to_dict()
+
+
+def tool_build_alphafold3_complex_job(args: dict[str, Any]) -> dict[str, Any]:
+    seq = str(args.get("protein_sequence") or "").strip()
+    if not seq:
+        raise ValueError("protein_sequence must not be empty")
+    job_name = str(args.get("job_name") or "zoe_af3_complex")
+    copies = int(args.get("copy_count", 1))
+    ccds = [str(c) for c in (args.get("ligand_ccd_codes") or [])]
+    payload = build_alphafold3_job(
+        job_name,
+        protein_sequences=[(seq, copies)],
+        ligand_ccd_codes=ccds,
+    )
+    payload["sdk_stack"] = audit_deepmind_sdk_stack(_REPO_ROOT)
+    return payload
+
+
 _DISPATCH = {
     "run_shared_reasoning_suite": tool_run_shared_reasoning_suite,
     "verify_gem_vdi_desk": tool_verify_gem_vdi_desk,
+    "query_deepmind_alphafold_target": tool_query_deepmind_alphafold_target,
+    "build_alphafold3_complex_job": tool_build_alphafold3_complex_job,
 }
 
 
