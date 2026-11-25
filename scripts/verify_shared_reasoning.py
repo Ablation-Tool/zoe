@@ -19,6 +19,7 @@ from datetime import datetime
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import re
 import struct
@@ -28,6 +29,7 @@ from typing import Any
 import wave
 
 ROOT = Path(__file__).resolve().parents[1]
+os.environ.setdefault("ZOE_ROOT", str(ROOT))
 ZOE_AUTONOMY_SRC = ROOT / "components" / "Zoe-Autonomy" / "src"
 GUIAI_LAB = ROOT / "guiai-lab"
 for extra_path in (ZOE_AUTONOMY_SRC, GUIAI_LAB):

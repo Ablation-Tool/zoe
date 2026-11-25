@@ -46,6 +46,8 @@ jobs:
           fi
 
       - name: Run Dorothy, Spatial, Continuum, Causal Chiasm, L3 Research, L4 Self-Improvement, L4 Multi-Module, Native Voice, L5 Phases 1-3, Eliza-GEM, and Spectral Theorem Tests
+        env:
+          ZOE_ROOT: ${{ github.workspace }}
         run: |
           python scripts/zoe_groove_forensics.py --verify
           python scripts/verify_l3_research.py
