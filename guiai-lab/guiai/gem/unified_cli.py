@@ -32,6 +32,7 @@ _VIEW_DESCRIPTIONS: dict[str, str] = {
     "evidence": "open the source-first evidence navigator",
     "voice": "speak, sing, and inspect Zoe's 44-phoneme native voice & cymatics",
     "reasoning": "run Zoe x Antigravity Shared-Reasoning Architectures (1-9 + Digital Research GEM)",
+    "gemos": "inspect and verify Zoe-GEM OS, Pixel 7 Panther, Braille Studio, ViewMAX themes, and Zoeverse",
 }
 
 

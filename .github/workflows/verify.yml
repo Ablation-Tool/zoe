@@ -65,6 +65,7 @@ jobs:
           python scripts/verify_renaissance_orbit.py
           python scripts/verify_zoe_clara.py
           python scripts/verify_shared_reasoning.py
+          python scripts/verify_zoe_gem_os_suite.py
           python scripts/verify_observatory_and_packages.py
           sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
           python -m unittest components/Zoe-Autonomy/tests/test_cross_domain_transfer.py components/Zoe-Autonomy/tests/test_spectral_filtration.py components/Zoe-Autonomy/tests/test_research_collaborator.py components/Zoe-Autonomy/tests/test_l4_self_improvement.py components/Zoe-Autonomy/tests/test_event_causal.py components/Zoe-Autonomy/tests/test_l4_multimodule.py components/Zoe-Autonomy/tests/test_zoe_voice.py components/Zoe-Autonomy/tests/test_l5_core.py components/Zoe-Autonomy/tests/test_l5_phase2.py components/Zoe-Autonomy/tests/test_zoe_eliza.py components/Zoe-Autonomy/tests/test_l5_phase3.py -v
