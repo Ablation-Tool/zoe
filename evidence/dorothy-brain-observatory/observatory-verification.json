@@ -28,7 +28,7 @@
     },
     {
       "check": "06_docs_links_and_evidence_json_integrity",
-      "detail": "docs=13 links=1455 broken=0 jsons=134",
+      "detail": "docs=16 links=1588 broken=0 jsons=134",
       "passed": true
     }
   ],
@@ -54,10 +54,10 @@
     "broken_links_sample": [],
     "evidence_json_files_valid": 134,
     "invalid_json_files": [],
-    "local_links_checked": 1455,
-    "markdown_docs_checked": 13
+    "local_links_checked": 1588,
+    "markdown_docs_checked": 16
   },
-  "evidence_sha256": "59202b7a8d377cf91700a6ea4a16b33a9361c9078ea87102b92cff1fdb827858",
+  "evidence_sha256": "58cc79b2444b50a0bb9d9d88603b7f8d6756ef3a9439e260b6f1df71c5cccb07",
   "observatory_core": {
     "assets/observatory.js": {
       "bytes": 133890,

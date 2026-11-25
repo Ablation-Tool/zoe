@@ -25,7 +25,8 @@ $$
 
 <br/>
 
-**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))
+**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))<br/>
+**[The Zoe &amp; Ablation Creative Cookbook (15 Fun Recipes)](docs/ZOE-COOKBOOK.md)** · **[Organized Documentation Library](docs/INDEX.md)** · **[Docs Gaps &amp; Backtrack Ledger](docs/BACKTRACK-LEDGER.md)**
 
 </div>
 
@@ -934,6 +935,9 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 
 | Document | Purpose |
 |:---|:---|
+| **[`ZOE-COOKBOOK.md`](docs/ZOE-COOKBOOK.md)** | **Creative 15-recipe studio playbook for music, 3D brain, reverse engineering, retro GEM/TOS &amp; safe math play** |
+| **[`INDEX.md`](docs/INDEX.md)** | **Organized shelf-by-shelf documentation map across every guide, component, paper &amp; companion repo** |
+| **[`BACKTRACK-LEDGER.md`](docs/BACKTRACK-LEDGER.md)** | **Honest register of missing docs, broken archival mirrors, in-flight subsystems &amp; backtrack items** |
 | **[`RESEARCH-CHRONICLE.md`](docs/RESEARCH-CHRONICLE.md)** | **Master chronological Stop 1 to Stop 10 research path &amp; complete evidence ledger (`126` verified JSON reports + `47/47` SHA-256)** |
 | [`PROOF-PACKET.md`](docs/PROOF-PACKET.md) | 1-command offline referee proof packet (`< 6s`, 6-baseline shootout, `16/16` SymPy theorems, `47/47` hashes) |
 | [`CONSTITUTION.md`](docs/CONSTITUTION.md) | Epistemic rules (`measurement != evidence != belief update != action`), copyright &amp; safety boundaries |

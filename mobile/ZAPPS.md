@@ -153,4 +153,4 @@ Every tool inside **Field Kit** starts strictly **idle** and activates only when
 - **[Mobile Build, Architecture & Verification Ledger (`mobile/README.md`)](README.md)** — Android Gradle, Pixel 7 live hardware results, Apple Xcode & Swift 6.1.3 `ZoeCore`, Trinity, and honest remaining gaps.
 - **[Mobile Security Model (`mobile/SECURITY.md`)](SECURITY.md)** — Threat model, privacy firewalls, cartridge rules, and production blockers.
 - **[Store Compliance Checklist (`mobile/STORE_COMPLIANCE.md`)](STORE_COMPLIANCE.md)** — Google Play & Apple App Store privacy, accessibility, and foldable guidelines.
-- **[Zoe Constitution (`CONSTITUTION.md`)](../CONSTITUTION.md)** — Non-negotiable dignity, honesty, and epistemic boundaries.
+- **[Zoe Constitution (`CONSTITUTION.md`)](../docs/CONSTITUTION.md)** — Non-negotiable dignity, honesty, and epistemic boundaries.

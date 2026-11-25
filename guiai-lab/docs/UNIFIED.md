@@ -2,15 +2,15 @@
 
 Zoe is one repository containing thirteen runtime source projects, seventeen registered engines, thirteen imported upstream histories, the complete research-paper collection, the visual archive, and arXiv submission sources. All tracked source is available in a fresh clone. No submodule, sibling checkout, or runtime source download is required.
 
-Ablation is both integrated under `components/ablation/` and independently maintained as a reverse-engineering project. The other former Zoe-family repositories have canonical homes in this tree. See [MONOREPO.md](../../MONOREPO.md) for the complete import manifest.
+Ablation is both integrated under `components/ablation/` and independently maintained as a reverse-engineering project. The other former Zoe-family repositories have canonical homes in this tree. See [MONOREPO.md](../../docs/MONOREPO.md) for the complete import manifest.
 
 ## Zoe One contract
 
-[`one-system.json`](../../one-system.json) identifies the canonical Zoe Autonomy engine, Research GEM, host adapters, measured capabilities, and evidence. [`components.lock.json`](../../components.lock.json) records imported source revisions and recovered-source provenance.
+[`one-system.json`](../../config/one-system.json) identifies the canonical Zoe Autonomy engine, Research GEM, host adapters, measured capabilities, and evidence. [`components.lock.json`](../../config/components.lock.json) records imported source revisions and recovered-source provenance.
 
 Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards. Every capability claim must remain inspectable through implementation, tests, and preserved evidence.
 
-The shared mission and acceptance thresholds are in [AGI-ROADMAP.md](../../AGI-ROADMAP.md). The complete module directory is in [CAPABILITY-ATLAS.md](../../CAPABILITY-ATLAS.md).
+The shared mission and acceptance thresholds are in [AGI-ROADMAP.md](../../docs/AGI-ROADMAP.md). The complete module directory is in [CAPABILITY-ATLAS.md](../../docs/CAPABILITY-ATLAS.md).
 
 ## One-checkout verification
 
@@ -104,7 +104,7 @@ The graph uses canonical JSON, sequence numbers, previous-event hashes, SHA-256,
 
 Component permissions and no-overwrite export rules remain in force. External agent processes and actuation still require their own explicit commands or grants.
 
-The [Declaration](../../DECLARATION.md) and [Constitution](../../CONSTITUTION.md) define agency, honesty, privacy, accessibility, provenance, reversibility, and review commitments.
+The [Declaration](../../docs/DECLARATION.md) and [Constitution](../../docs/CONSTITUTION.md) define agency, honesty, privacy, accessibility, provenance, reversibility, and review commitments.
 
 ## Component verification
 
