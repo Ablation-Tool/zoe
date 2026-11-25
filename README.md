@@ -939,8 +939,9 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 | [`CONSTITUTION.md`](docs/CONSTITUTION.md) | Epistemic rules (`measurement != evidence != belief update != action`), copyright &amp; safety boundaries |
 | [`DECLARATION.md`](docs/DECLARATION.md) | Zoe Declaration of Creative and Epistemic Independence |
 | [`AGI-ROADMAP.md`](docs/AGI-ROADMAP.md) | Honest `L0-L7` acceptance criteria, falsification bars, and current verified progress |
-| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 23-section audit directory mapping every claim to code, tests, and JSON evidence artifacts |
+| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 24-section audit directory mapping every claim to code, tests, and JSON evidence artifacts |
 | [`PORTFOLIO-UPGRADES.md`](docs/PORTFOLIO-UPGRADES.md) | Wave 1-3 integrated repos (42 components), 5 Vault upgrades, and Digital Research GSX/GEM/Atari TOS rebuild |
+| [`SHARED_REASONING_ARCHITECTURES.md`](docs/SHARED_REASONING_ARCHITECTURES.md) | Zoe x Antigravity Shared-Reasoning Architectures (1-9), Digital Research GEM AES/VDI bridge &amp; MCP server |
 | [`METACOGNITION.md`](docs/METACOGNITION.md) | Visual hub for all 18 original papers, 3 arXiv packages, and 12 mathematical theorem plates |
 | [`MONOREPO.md`](docs/MONOREPO.md) | Consolidation provenance for all 13 upstream source projects (zero submodules) |
 | [`NARRATION-SCRIPT.md`](docs/NARRATION-SCRIPT.md) | Calm ~12-minute read-aloud narration script walking through all 10 chronological stops |
@@ -1290,6 +1291,7 @@ zoe                      # Launch the native GEM desktop workbench
 zoe clara --serve        # Launch Dual-Peer Zoe & Clara Web UI (127.0.0.1:8768)
 zoe list                 # Inspect all 17 registered engines
 zoe chat                 # Interactive evidence-linked conversation
+zoe reasoning verify     # Verify Shared-Reasoning Architectures 1-9 + GEM AES/VDI
 zoe gem list             # Browse all 36 canonical + 40 extended GEM layers
 zoe voice sing daisy --output /tmp/zoe-daisy.wav
 ```
@@ -1329,11 +1331,12 @@ python scripts/verify_observatory_and_packages.py
 python scripts/verify_zoe_clara.py
 sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 
-# Wave 1-3 Portfolio & Vault Upgrades + Digital Research GSX/GEM/Atari TOS/ViewMAX Instruments
+# Wave 1-3 Portfolio & Vault Upgrades + Digital Research GSX/GEM/Atari TOS/ViewMAX Instruments + Shared Reasoning 1-9
 python scripts/verify_portfolio_upgrades.py
 python scripts/verify_wave2_upgrades.py
 python scripts/verify_wave3_upgrades.py
 python scripts/verify_wave3_seasip_gem.py
+python scripts/verify_shared_reasoning.py
 ```
 
 </details>
