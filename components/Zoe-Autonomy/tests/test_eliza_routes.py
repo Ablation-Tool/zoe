@@ -150,6 +150,9 @@ class ZoeElizaRoutesTests(unittest.TestCase):
                     ("/proof", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
                     ("/botanical", ("0 Cloud Tokens", "clinical_action_authorized=False")),
                     ("/optics", ("0 Cloud Tokens",)),
+                    ("/artline", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
+                    ("/physics", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
+                    ("/duodecimal", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
                 ):
                     st, hdr, raw = _http_get(base, route)
                     self.assertEqual(st, 200, route)
@@ -268,8 +271,8 @@ class ZoeElizaRoutesTests(unittest.TestCase):
                 srv.shutdown()
                 srv.server_close()
 
-    def test_all_25_static_report_and_engine_get_routes(self):
-        self.assertEqual(len(_REPORT_GET_ROUTES), 25)
+    def test_all_26_static_report_and_engine_get_routes(self):
+        self.assertEqual(len(_REPORT_GET_ROUTES), 26)
         with tempfile.TemporaryDirectory() as tmp:
             srv, _eng, _lk, base = self._start_server(ROOT, Path(tmp) / "state")
             try:
