@@ -817,6 +817,138 @@ def export_all_brainstorm_concepts(out_dir: str | Path) -> list[dict[str, Any]]:
     return [export_brainstorm_plate(key, out_dir=out_dir) for key in ("desk", "chess", "sector", "mondo")]
 
 
+def render_concept_svg_bytes(concept: str = "desk") -> bytes:
+    """Render one Artline Brainstorming concept plate directly to UTF-8 SVG bytes."""
+    import tempfile
+
+    key = (concept or "desk").strip().lower()
+    if key not in BRAINSTORM_CONCEPTS:
+        key = "desk"
+    doc, _meta = BRAINSTORM_CONCEPTS[key]()
+    with tempfile.TemporaryDirectory(prefix="zoe_artline_svg_") as td:
+        p = Path(td) / f"{key}.svg"
+        doc.export(p, kind="svg")
+        return p.read_bytes()
+
+
+def render_artline_studio_html() -> bytes:
+    """HTTP route renderer for /artline on the live Zoe-ELIZA :8765 Web Studio."""
+    states_json = json.dumps(
+        [
+            {"id": k, "desc": STATE_DESCRIPTIONS[k]}
+            for k in ("ruby", "brain", "bulb", "helix", "chess")
+            if k in STATE_DESCRIPTIONS
+        ],
+        ensure_ascii=False,
+    )
+    html = f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Zoe Artline 2.0 Brainstorm Studio — Live GEM Vector Desk</title>
+<style>
+  * {{ box-sizing: border-box; font-family: "DejaVu Sans", system-ui, sans-serif; }}
+  body {{ margin: 0; background: #0b0d18; color: #f0f4fc; min-height: 100vh; display: flex; flex-direction: column; }}
+  header {{ background: #141a2e; border-bottom: 2px solid #ff85b3; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }}
+  header h1 {{ margin: 0; font-size: 17px; color: #5ce1e6; }}
+  .navlinks {{ display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }}
+  .navlinks a {{ text-decoration: none; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #3c4d7a; color: #cbd5e1; background: #18213d; font-weight: 600; }}
+  .navlinks a:hover {{ border-color: #ff85b3; color: #ff85b3; }}
+  .layout {{ display: grid; grid-template-columns: 1.55fr 1fr; gap: 16px; padding: 16px 20px; flex: 1; }}
+  @media (max-width: 1020px) {{ .layout {{ grid-template-columns: 1fr; }} }}
+  .panel {{ background: #12182c; border: 1.5px solid #2b385c; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }}
+  .panel h2 {{ margin: 0; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.7px; color: #f8cc30; }}
+  .tabs {{ display: flex; gap: 8px; flex-wrap: wrap; }}
+  button {{ background: #1b2442; color: #f0f4fc; border: 1.5px solid #3c4f7f; border-radius: 7px; padding: 6px 12px; cursor: pointer; font-weight: 600; font-size: 12px; }}
+  button:hover {{ filter: brightness(1.18); }}
+  button.active {{ border-color: #5ce1e6; color: #5ce1e6; background: #102a38; }}
+  #plateFrame {{ width: 100%; border-radius: 8px; border: 1.5px solid #30426e; background: #090c16; min-height: 420px; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
+  #plateFrame img {{ width: 100%; height: auto; display: block; }}
+  .state-card {{ background: #0e1324; border: 1px solid #2d3c63; border-radius: 7px; padding: 9px 11px; margin-bottom: 6px; cursor: pointer; }}
+  .state-card.sel {{ border-color: #f8cc30; background: #1a213b; }}
+  .draft {{ background: #0e1324; border-left: 3px solid #52e5a8; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; font-size: 12px; }}
+  input {{ background: #0d1222; color: #f0f4fc; border: 1.5px solid #354672; border-radius: 7px; padding: 7px 10px; font-size: 12.5px; width: 100%; }}
+  footer {{ padding: 8px 20px; background: #101424; border-top: 1px solid #263354; font-size: 11px; color: #94a3c8; }}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎨 Zoe Artline 2.0 Brainstorm Studio · Live GEM Vector Workbench</h1>
+  <div class="navlinks">
+    <a href="/">← Studio</a>
+    <a href="/physics" style="border-color:#ff85b3;color:#ff85b3;">✺ Physics Room</a>
+    <a href="/duodecimal" style="border-color:#f8cc30;color:#f8cc30;">❖ ADC-12 Catalog</a>
+    <a href="/orbit" style="border-color:#5ce1e6;color:#5ce1e6;">✦ Orbit</a>
+  </div>
+</header>
+<div class="layout">
+  <section class="panel">
+    <h2>Live Compiled Artline 2.0 Concept Plates (0 GPU · Pure Vector SVG)</h2>
+    <div class="tabs">
+      <button id="t_desk" class="active" onclick="loadConcept('desk')">1. Brainstorming Desk</button>
+      <button id="t_chess" onclick="loadConcept('chess')">2. Chess / Fencing Stage</button>
+      <button id="t_sector" onclick="loadConcept('sector')">3. Spaceship Sector</button>
+      <button id="t_mondo" onclick="loadConcept('mondo')">4. Mondo Playground</button>
+    </div>
+    <div id="plateFrame"><img id="plateImg" src="/api/artline/desk.svg" alt="Artline 2.0 Vector Plate" /></div>
+  </section>
+  <section class="panel">
+    <h2>Deterministic Visual State Indicators (Glass-Box)</h2>
+    <div id="states"></div>
+    <h2>Glass-Box Drafts Drawer (Human-Reviewed Only)</h2>
+    <div style="display:flex;gap:6px;">
+      <input id="draftIn" type="text" placeholder="Queue a new transparent brainstorm draft..." />
+      <button style="border-color:#52e5a8;color:#52e5a8;white-space:nowrap;" onclick="addDraft()">+ Queue</button>
+    </div>
+    <div id="drafts"></div>
+  </section>
+</div>
+<footer>Digital Research Artline 2.0 Studio · 0 Cloud Tokens · external_actions=0 · sentience_claimed=False · clinical_action_authorized=False</footer>
+<script>
+const STATES = {states_json};
+let activeState = 'brain';
+const drafts = [
+  {{ title: 'ADC-12 Base-12 Dewey Shorthand', status: 'promoted', badge: '[100₁₂ · Z · ✺]' }},
+  {{ title: 'Optional-Physics Safe Shatter Room', status: 'promoted', badge: '[E00₁₂ · , · ✌]' }},
+  {{ title: 'Cross-link AlphaFold v6 CLPP plate', status: 'unverified_draft', badge: '[300₁₂ · S · ✶]' }},
+];
+function loadConcept(key) {{
+  ['desk','chess','sector','mondo'].forEach(k => {{
+    document.getElementById('t_' + k).classList.toggle('active', k === key);
+  }});
+  document.getElementById('plateImg').src = '/api/artline/' + key + '.svg?t=' + Date.now();
+}}
+function renderStates() {{
+  document.getElementById('states').innerHTML = STATES.map(s => `
+    <div class="state-card ${{s.id===activeState?'sel':''}}" onclick="activeState='${{s.id}}';renderStates();">
+      <b style="color:#5ce1e6;text-transform:uppercase;">${{s.id}}</b>
+      <div style="font-size:11.5px;color:#94a3c8;margin-top:2px;">${{s.desc}}</div>
+    </div>`).join('');
+}}
+function renderDrafts() {{
+  document.getElementById('drafts').innerHTML = drafts.map(d => `
+    <div class="draft">
+      <div style="color:#f8cc30;font-family:monospace;font-size:11px;">${{d.badge}} · ${{d.status}}</div>
+      <div style="margin-top:2px;">${{d.title}}</div>
+    </div>`).join('');
+}}
+function addDraft() {{
+  const el = document.getElementById('draftIn');
+  const txt = el.value.trim();
+  if (!txt) return;
+  drafts.unshift({{ title: txt, status: 'unverified_draft', badge: '[700₁₂ · o · ❏]' }});
+  el.value = '';
+  renderDrafts();
+}}
+renderStates();
+renderDrafts();
+</script>
+</body>
+</html>
+"""
+    return html.encode("utf-8")
+
+
 __all__ = [
     "ARTLINE_BRAINSTORM_CONTRACT",
     "BRAINSTORM_CONCEPTS",
@@ -837,6 +969,8 @@ __all__ = [
     "build_artline_spaceship_sector_plate",
     "export_all_brainstorm_concepts",
     "export_brainstorm_plate",
+    "render_artline_studio_html",
+    "render_concept_svg_bytes",
     "render_state_sprite_png",
     "render_state_sprite_terminal",
     "resolve_visual_state",
