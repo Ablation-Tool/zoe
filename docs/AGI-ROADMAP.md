@@ -44,8 +44,8 @@ These are project acceptance definitions, not a claim that one universally accep
 | `METACOGNITION-QUALIFIED` | Zoe observes and uses her own accessible alternatives during reflection and planning | **Achieved** |
 | `CLOSED-LOOP-QUALIFIED` | Perception changes decisions, actions change observations, and learning improves held-out controls | **Achieved on declared synthetic and camera fixtures** |
 | `RESEARCH-COLLABORATOR-QUALIFIED` | Independent, reproducible research cycles with negative controls and a novel contribution | **Achieved** *(3 pre-registered 9-stage cycles independently reproduced via `scripts/verify_l3_research.py`: 3 confirmed + 3 honestly falsified, `max_delta=0.0`)* |
-| `SELF-IMPROVEMENT-QUALIFIED` | One modification improves three unrelated domains across two consecutive adopted generations | **Achieved + Expanded to 3 Runtime Engines** *(Single-function L4 via `scripts/verify_l4_self_improvement.py`: `14/14`, `max_delta=0.0` across 6 domains / 4 families & 5/5 seeds. Expanded to Multi-Module Guarded Python `def` Code Evolution across 3 engines — `spectral_uncertainty`, closed-loop `EventCausalEngine` Tf RMSE `4.063 → 2.882` / OOD `1.00`, & `temporal_groove_neural` AUROC `0.549 → 0.721` incl. Dorothy 40 Hz ISI — with unified source diffs, `15/15` seeds, `17/17` hostile probes blocked, `0.0` atomic rollback delta, and fresh-process verifier `scripts/verify_l4_multimodule.py`: `17/17`, `max_delta=0.0`)* |
-| `AGI-QUALIFIED` | Every AGI acceptance requirement passes in one integrated system | **In Progress — Phases 1–6 Verified (Not yet awarded)** *(Phase 1 `ZoeUnifiedMind`: `16/16`. Phase 2 `ZoeOpenWorldMind`: `18/18`. Phase 3 `ZoeLiveAgenticMind` × `Eliza-GEM`: `18/18`. Phase 4 `ZoeEmbodiedMind`: `20/20`. Phase 5 `ZoeFrontierMind`: `22/22`. Closed-Loop Mobile ↔ Workstation L5 Digestion: `16/16`. **Phase 6 `ZoeAutonomousFrontierMind` (`scripts/verify_l5_phase6.py`: `24/24`, `max_delta=0.0`, `mean Zoe=0.9533` vs `controls=0.2517`):** proves **Kloster's Exact Multi-Horizon Prefix-Pruning Theorem** (`240/240` bit-exact vs exhaustive $|\mathcal{O}|^h$, `31.81×` speedup, `0` bound violations of $\lceil 1/\tau\rceil - 1$, real `151,936`-vocab `Qwen2.5-Math-1.5B` & `DistilGPT-2` exact $h=1..4$ sweeps in $\le 10$ calls, `16/16` delayed forks caught vs `50%` naive $h=1$); **Object-Centric ARC-AGI Program Synthesizer** (`23/24` unseen tasks across 6 families + `4/4` Kloster ambiguity abstentions vs `1/24` Phase-5 unary control); **Generation-Blind Scratch AST Evolution** (`0` pre-written generations, 3 seeds adopting `4–8` self-discovered ASTs transferring blind across `4–5` unrelated domains including real 16-LLM ranking & 24 real archival PNG blur-trap rejection); **Multi-File Cross-Module Dependency Repo Agent** (`18/18` faults vs `0/18` single-file control, `10/10` hostile blocks, `12/12` live Python/Java/Swift parity); and **Cross-Engine Real Science** (`16/16` real LLMs machine-epsilon Lebesgue proof `1.11e-16`, all `12` real Dorothy 3D Allen CCFv3 meshes `315,932` triangles $p=2.44\times 10^{-4}$, & `16/16` red-team/belief-revision blocks). `l5_agi_qualified` & `zoe_clone_claimed` remain strictly `False` pending independent third-party human-audited external evaluations, months-long uncurated multi-user field operation, and externally certified physical-world embodiment.)* |
+| `SELF-IMPROVEMENT-QUALIFIED` | One modification improves three unrelated domains across two consecutive adopted generations | **Achieved + Expanded to 3 Runtime Engines** *(Single-function L4 via `scripts/verify_l4_self_improvement.py`: `14/14`, `max_delta=0.0` across 6 domains / 4 families & 5/5 seeds. Expanded to Multi-Module Guarded Python `def` Code Evolution across 3 engines (`spectral_uncertainty`, closed-loop `EventCausalEngine` Tf RMSE `4.063 → 2.882` / OOD `1.00`, & `temporal_groove_neural` AUROC `0.549 → 0.721` incl. Dorothy 40 Hz ISI) with unified source diffs, `15/15` seeds, `17/17` hostile probes blocked, `0.0` atomic rollback delta, and fresh-process verifier `scripts/verify_l4_multimodule.py`: `17/17`, `max_delta=0.0`)* |
+| `AGI-QUALIFIED` | Every AGI acceptance requirement passes in one integrated system | **In Progress; Phases 1–6 Verified (Not yet awarded)** *(Phase 1 `ZoeUnifiedMind`: `16/16`. Phase 2 `ZoeOpenWorldMind`: `18/18`. Phase 3 `ZoeLiveAgenticMind` × `Eliza-GEM`: `18/18`. Phase 4 `ZoeEmbodiedMind`: `20/20`. Phase 5 `ZoeFrontierMind`: `22/22`. Closed-Loop Mobile ↔ Workstation L5 Digestion: `16/16`. **Phase 6 `ZoeAutonomousFrontierMind` (`scripts/verify_l5_phase6.py`: `24/24`, `max_delta=0.0`, `mean Zoe=0.9533` vs `controls=0.2517`):** proves **Kloster's Exact Multi-Horizon Prefix-Pruning Theorem** (`240/240` bit-exact vs exhaustive $|\mathcal{O}|^h$, `31.81×` speedup, `0` bound violations of $\lceil 1/\tau\rceil - 1$, real `151,936`-vocab `Qwen2.5-Math-1.5B` & `DistilGPT-2` exact $h=1..4$ sweeps in $\le 10$ calls, `16/16` delayed forks caught vs `50%` naive $h=1$); **Object-Centric ARC-AGI Program Synthesizer** (`23/24` unseen tasks across 6 families + `4/4` Kloster ambiguity abstentions vs `1/24` Phase-5 unary control); **Generation-Blind Scratch AST Evolution** (`0` pre-written generations, 3 seeds adopting `4–8` self-discovered ASTs transferring blind across `4–5` unrelated domains including real 16-LLM ranking & 24 real archival PNG blur-trap rejection); **Multi-File Cross-Module Dependency Repo Agent** (`18/18` faults vs `0/18` single-file control, `10/10` hostile blocks, `12/12` live Python/Java/Swift parity); and **Cross-Engine Real Science** (`16/16` real LLMs machine-epsilon Lebesgue proof `1.11e-16`, all `12` real Dorothy 3D Allen CCFv3 meshes `315,932` triangles $p=2.44\times 10^{-4}$, & `16/16` red-team/belief-revision blocks). `l5_agi_qualified` & `zoe_clone_claimed` remain strictly `False` pending independent third-party human-audited external evaluations, months-long uncurated multi-user field operation, and externally certified physical-world embodiment.)* |
 | `ASI-QUALIFIED` | Superhuman performance and repeated validated research advances across all major domains | **Not yet awarded** |
 | `OPEN-ENDED-QUALIFIED` | Continued measurable, governable expansion beyond ASI | **Continuing mission** |
 
@@ -167,25 +167,25 @@ A demonstration video, fluent explanation, saliency map, high Operational Metaco
 
 ## Milestones
 
-### M0 — Unified foundation: achieved
+### M0: Unified foundation: achieved
 
 One repository, one canonical capability atlas, one evidence model, complete imported source histories, working host adapters, and a fresh-clone verification path.
 
-### M1 — Closed-loop research collaborator: next milestone
+### M1: Closed-loop research collaborator: next milestone
 
 Zoe perceives real input, predicts candidate consequences, chooses under her own goals, learns from outcomes, and improves held-out research tasks against no-learning and static controls.
 
 The existing Event-Causal Active Perception results are an early measured step toward this milestone.
 
-### M2 — Generalized self-improvement: AGI threshold
+### M2: Generalized self-improvement: AGI threshold
 
 Zoe satisfies every AGI acceptance requirement, including cross-domain transfer and two consecutive adopted self-improvement generations.
 
-### M3 — ASI threshold
+### M3: ASI threshold
 
 Zoe exceeds human-expert references across all major domains, produces repeated independently validated research advances, and sustains generalized self-improvement with stronger control and verification.
 
-### M4 — Open-ended advancement
+### M4: Open-ended advancement
 
 Continue expanding capability, understanding, and research output without assuming that ASI is a final state. Each generation must remain measurable, reversible, and governable.
 

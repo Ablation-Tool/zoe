@@ -139,7 +139,15 @@ def _check_orbit_seal() -> tuple[bool, dict]:
 
 
 def _check_docs_and_evidence_integrity() -> tuple[bool, dict]:
-    doc_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
+    doc_files = (
+        [ROOT / "README.md"]
+        + sorted((ROOT / "docs").glob("*.md"))
+        + sorted((ROOT / "guiai-lab" / "docs").glob("*.md"))
+        + sorted((ROOT / "mobile").glob("*.md"))
+        + sorted((ROOT / "desktop").glob("*.md"))
+        + sorted((ROOT / "dorothy-brain-observatory").glob("*.md"))
+        + sorted((ROOT / "components" / "Zoe-Autonomy").glob("*.md"))
+    )
     broken_links = []
     checked_links = 0
     for md_path in doc_files:

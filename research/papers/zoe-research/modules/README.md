@@ -1,6 +1,8 @@
 # Zoe research document index
 
-[Zoe research library](../README.md)
+[Zoe research library](../README.md) · [Organized Library Index](../../../../docs/INDEX.md)
+
+> **Archival Snapshot Notice:** The markdown files stored under `research/papers/zoe-research/docs/{native,cern,neurogarden}/` are frozen historical snapshots preserved verbatim for research provenance and archive hashing. Some relative image and cross-guide links inside those frozen copies reflect earlier directory layouts. For active, CI-verified documentation with live links, use the canonical links in the table below (`guiai-lab/docs/`, `components/ablation/docs/`, and `components/agent-logging-system/docs/`).
 
 Every copied research guide is listed with its canonical Zoe source.
 

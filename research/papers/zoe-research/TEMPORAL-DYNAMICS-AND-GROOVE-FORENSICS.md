@@ -3,7 +3,7 @@
 **Research Instrument:** [`scripts/zoe_groove_forensics.py`](../../../scripts/zoe_groove_forensics.py)  
 **Clock Bridge:** [Zoe Internal Clock (`CICADA.md`)](../../../guiai-lab/docs/CICADA.md) · [`cicada.py`](../../../guiai-lab/guiai/gem/cicada.py)  
 **Neural Bridge:** [Dorothy & Neurogarden (`NEUROGARDEN.md`)](../../../components/agent-logging-system/docs/NEUROGARDEN.md) · [`neurogarden_eeg.py`](../../../components/agent-logging-system/agent_logging_system/neurogarden_eeg.py)  
-**Origin:** Initial exploration digested from `brainstorming.zip` (November 19, 2026) and formalized under [`CONSTITUTION.md`](../../../docs/CONSTITUTION.md).
+**Origin:** Initial exploration digested from `brainstorming.zip` (November 19, 2026) and formalized under [`CONSTITUTION.md`](../../../CONSTITUTION.md).
 
 ---
 

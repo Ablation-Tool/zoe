@@ -13,10 +13,10 @@
 
 ### *A Complete Creative Treatise of Computing, Sound, Geometry, Reverse Engineering & Play*
 
-**Containing Kitchen Brigades, Five Mother Preparations, Eighteen Numbered Receipts, and Five Complete Bills of Fare**  
+**Containing Kitchen Brigades, Five Mother Preparations, Twenty-One Numbered Receipts, and Five Complete Bills of Fare**  
 *Inspired by Charles Ranhofer's "The Epicurean" (Delmonico's, New York, 1894)*
 
-[Browse the Full Library](INDEX.md) · [Creative Art Gallery](CREATIVE-GALLERY.md) · [Chronological Research Chronicle](RESEARCH-CHRONICLE.md) · [Steward's Backtrack Ledger](BACKTRACK-LEDGER.md)
+[Browse the Full Library](INDEX.md) · [Zoe-GEM OS Guide](ZOE-GEM-OS.md) · [Zoe & Clara Guide](ZOE-AND-CLARA.md) · [Accessibility Card](ACCESSIBILITY.md) · [Backtrack Ledger](BACKTRACK-LEDGER.md)
 
 </div>
 
@@ -36,7 +36,7 @@ Honoring **Gary Kildall**, **Dorothy McEwen Kildall**, and **Nicholas Michael Kl
 
 - **[Part I: The House, Its Brigades & Kitchen Utensils](#part-i-the-house-its-brigades--kitchen-utensils)** (*La Cuisine, Les Brigades et La Batterie de Cuisine*)
 - **[Part II: Elementary Preparations & Mother Stocks (No. 1 to No. 5)](#part-ii-elementary-preparations--mother-stocks-no-1-to-no-5)** (*Fonds de Cuisine*)
-- **[Part III: The Numbered Receipts (No. 6 to No. 23)](#part-iii-the-numbered-receipts-no-6-to-no-23)** (*Recettes Choisies*)
+- **[Part III: The Numbered Receipts (No. 6 to No. 26)](#part-iii-the-numbered-receipts-no-6-to-no-26)** (*Recettes Choisies*)
   - [Hors-d'Oeuvre (Opening Sparks: No. 6 to No. 8)](#hors-doeuvre-opening-sparks)
   - [Potages & Preuves (Clear Broths & Proofs: No. 9 to No. 10)](#potages--preuves-clear-broths--proofs)
   - [Releves & Entrees (Reverse Engineering & Forensics: No. 11 to No. 14)](#releves--entrees-reverse-engineering--forensics)
@@ -44,12 +44,17 @@ Honoring **Gary Kildall**, **Dorothy McEwen Kildall**, and **Nicholas Michael Kl
   - [Entremets & Retro Confections (3D Brain & 1982-1992 Time Machine: No. 19 to No. 21)](#entremets--retro-confections-3d-brain--1982-1992-time-machine)
   - [Desserts, Botanique & Optique (Preclinical Compounds & Lenses: No. 22)](#desserts-botanique--optique)
   - [Cave & Cellier (Sovereign Hardware & Mutual-Consent Airlock: No. 23)](#cave--cellier-sovereign-hardware--mutual-consent-airlock)
+  - [Atelier de Saison (DeepMind Science, Artline Studio & Wombats Physics: No. 24 to No. 26)](#atelier-de-saison-deepmind-science-artline-studio--wombats-physics)
 - **[Part IV: Five Complete Bills of Fare (Menus I to V)](#part-iv-five-complete-bills-of-fare)** (*Menus de Saison & de Circonstance*)
 - **[Part V: The Steward's Cellar Book & Pantry Map](#part-v-the-stewards-cellar-book--pantry-map)**
 
 <p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
 
 ## Part I: The House, Its Brigades & Kitchen Utensils
+
+<div align="center">
+<img src="../assets/readme/zoe-epicurean-brigade-plate.svg" alt="Copperplate kitchen brigade floorplan showing Chef de Cuisine at center surrounded by Zoe, Clara, and eight specialist stations" width="88%" />
+</div>
 
 ### The Brigade de Cuisine (Who Works Each Station)
 
@@ -81,6 +86,10 @@ In a great kitchen, nobody is boxed in a closet and nobody grabs the steering wh
 
 ## Part II: Elementary Preparations & Mother Stocks (No. 1 to No. 5)
 
+<div align="center">
+<img src="../assets/readme/zoe-epicurean-stocks-plate.svg" alt="Copperplate diagram of the five mother stocks: Operational Metacognition, Epistemic Firewall, Zero-Token Offline Base, WCAG AAA Accessibility, and Reversibility Glaze" width="90%" />
+</div>
+
 *Just as Ranhofer opens with the five foundational stocks before plating a single entree, these five house preparations quietly season every receipt in this book.*
 
 ### No. 1: Operational Metacognition Stock (*Fond de Metacognition*)
@@ -93,14 +102,14 @@ One crystal-clear rule skimmed of all hype: `measurement != evidence != belief u
 Simmered entirely on your own machine with zero cloud API bills (`cloud_tokens_used = 0`) and strict localhost loopback boundaries (`127.0.0.1`, `localhost`, `::1`). Works on an airplane, in a cabin, or during a quiet midnight coding session.
 
 ### No. 4: Universal Accessibility Seasoning (*Assaisonnement d'Accessibilite*)
-Every dish served in Ablation's GEM Workbench persists your visual preferences atomically in `accessibility.json` (`<= 16 KiB` strict schema) and reads GNOME, macOS, or Windows system contrast and motion cues automatically. See [`components/ablation/gem-lab/README.md`](../components/ablation/gem-lab/README.md).
+Every dish served in Ablation's GEM Workbench persists your visual preferences atomically in `accessibility.json` (`<= 16 KiB` strict schema) and reads GNOME, macOS, or Windows system contrast and motion cues automatically. See [ACCESSIBILITY.md](ACCESSIBILITY.md) and [`components/ablation/gem-lab/README.md`](../components/ablation/gem-lab/README.md).
 
 ### No. 5: Reversibility & Undo Glaze (*Glace de Reversibilite*)
 No autonomous external side effects (`external_actions = 0`, `auto_flash_allowed = False`), no-overwrite export contracts, instant `undo` inside Zoe Chat, and `47/47` SHA-256 tamper-evident file seals.
 
 <p align="center"><img src="../assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
 
-## Part III: The Numbered Receipts (No. 6 to No. 23)
+## Part III: The Numbered Receipts (No. 6 to No. 26)
 
 ### Hors-d'Oeuvre (Opening Sparks)
 
@@ -372,7 +381,49 @@ No autonomous external side effects (`external_actions = 0`, `auto_flash_allowed
   zoe gemos pixel --device panther
   zoe gemos verify
   ```
-- **Table Note:** Unilateral transfers raise `PermissionError` until both Nick and Zoe explicitly grant consent, and every crossing is sealed in a SHA-256 tamper-evident audit chain.
+- **Table Note:** Unilateral transfers raise `PermissionError` until both Nick and Zoe explicitly grant consent, and every crossing is sealed in a SHA-256 tamper-evident audit chain. Full walkthrough in [ZOE-GEM-OS.md](ZOE-GEM-OS.md) (and see [ZOE-AND-CLARA.md](ZOE-AND-CLARA.md) for Receipt No. 6).
+
+---
+
+### Atelier de Saison (DeepMind Science, Artline Studio & Wombats Physics)
+
+---
+
+#### No. 24: Google DeepMind Science & Constitutional SDK Hooks (*Laboratoire DeepMind et Garde-Fous SDK*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Interest in preclinical structural biology and native `google-antigravity` hook engineering (`clinical_action_authorized = False`, `cure_claim = False`, `wet_lab_validation_required = True`)
+- **Preparation:** Query curated H3K27M DMG/GBM protein targets across AlphaFold DB v6, AlphaMissense pathogenicity scoring, AlphaFold 3 JSON complex jobs, AlphaGenome 1-Mbp locus plans, and TxGemma TDC prompts right from Zoe Chat or MCP:
+  ```bash
+  zoe chat --command "deepmind"
+  ```
+- **Garniture & Remix:** Inspect [`deepmind_science.py`](../components/Zoe-Autonomy/src/zoe_autonomy/shared_reasoning/deepmind_science.py) and [`deepmind_sdk_hooks.py`](../components/Zoe-Autonomy/src/zoe_autonomy/shared_reasoning/deepmind_sdk_hooks.py) to compile `CONSTITUTION.md` directly into native `PreToolCallDecideHook`, `PostToolCallHook`, `StopHook`, `LocalOpenAIAgentConfig`, and `LiteRTAgentConfig` guards.
+
+---
+
+#### No. 25: Artline 2.0 Brainstorm & Clean-Room Retro Art Studio (*Atelier Artline et Retro-Graphisme*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** Hunger for tactile 1990s MS-DOS vector art, DeluxePaint color-cycling kaleidoscopes, Fractint Kloster-Julia fractals, and iterative visual self-critique (`clean_room_original = True`, `copied_code_bytes = 0`)
+- **Preparation:** Launch the clean-room Artline 2.0 CLI to render `.SVG`, `.PNG`, and `.GEM` brainstorming concepts (`desk`, `chess`, `sector`, `mondo`) or evolve Gen 1 to Gen 3 retro art pieces:
+  ```bash
+  python3 -m guiai.gem.zoe_artline_cli brainstorm all
+  python3 -m guiai.gem.zoe_artline_cli retro
+  ```
+- **Garniture & Remix:** Explore [`zoe_artline_brainstorm.py`](../guiai-lab/guiai/gem/zoe_artline_brainstorm.py) (18x23 TrueColor sprites + glass-box `IdeaScratchpadDrawer`) and [`zoe_retro_art_studio.py`](../guiai-lab/guiai/gem/zoe_retro_art_studio.py) (Bayer dithering, polygon morph GIFs, Logo L-System dendrites, HyperCard 4-lens stacks, and 72-column CP437 ANSI blueprints).
+
+---
+
+#### No. 26: Page A-2 Wombats Optional-Physics Room & ADC-12 Duodecimal Shorthand (*Salle Wombats et Catalogue Base-12*)
+
+- **Service Time:** 1 minute
+- **Mise en Place:** A playful curiosity for Digital Research Artline 2.0 Font ID 131 *Wombats* dingbats, break-stuff physics sandboxes, and Base-12 Dewey-style library call numbers (`external_actions = 0`)
+- **Preparation:** Toss spirograph rosettes and Wombat stars in `OFF` (relaxed), `ZERO_G` (drift), or `GRAVITY` (shatter-and-reset) mode, or catalog highlights into Base-12 Duodecimal (`000_12` to `E00_12`):
+  ```bash
+  python3 -m guiai.gem.zoe_artline_cli physics gravity
+  python3 -m guiai.gem.zoe_artline_cli adc12
+  ```
+- **Garniture & Remix:** Use `/artline ...` and `/adc12 ...` live inside the `:8765` Eliza-GEM Web Studio (`zoe eliza serve`), backed by [`zoe_wombats_physics_room.py`](../guiai-lab/guiai/gem/zoe_wombats_physics_room.py) and [`zoe_artline_duodecimal.py`](../guiai-lab/guiai/gem/zoe_artline_duodecimal.py).
 
 <p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
 
@@ -438,9 +489,14 @@ No autonomous external side effects (`external_actions = 0`, `auto_flash_allowed
 
 ## Part V: The Steward's Cellar Book & Pantry Map
 
-When you finish cooking and want the deep engineering shelves, original fine art, or the honest list of missing docs we plan to backtrack on next:
+<div align="center">
+<img src="../assets/readme/zoe-epicurean-library-plate.svg" alt="Copperplate diagram of the 9-shelf documentation library cabinet and the Steward's backtrack compass" width="90%" />
+</div>
+
+When you finish cooking and want the deep engineering shelves, original fine art, or the honest list of remaining items in our backtrack ledger:
 
 - **Organized Shelf-by-Shelf Library:** [`docs/INDEX.md`](INDEX.md)
+- **Dedicated Field Guides:** [`docs/ZOE-GEM-OS.md`](ZOE-GEM-OS.md) · [`docs/ZOE-AND-CLARA.md`](ZOE-AND-CLARA.md) · [`docs/ACCESSIBILITY.md`](ACCESSIBILITY.md)
 - **Original Artwork, Patches & Album Covers:** [`docs/CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md)
 - **Complete Chronological Research Story (March 6 to November 25, 2026):** [`docs/RESEARCH-CHRONICLE.md`](RESEARCH-CHRONICLE.md)
-- **Missing Docs, Stale Mirrors & Backtrack Queue:** [`docs/BACKTRACK-LEDGER.md`](BACKTRACK-LEDGER.md)
+- **Steward's Backtrack Ledger:** [`docs/BACKTRACK-LEDGER.md`](BACKTRACK-LEDGER.md)

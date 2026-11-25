@@ -26,7 +26,7 @@ $$
 <br/>
 
 **[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))<br/>
-**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Organized Documentation Library](docs/INDEX.md)** · **[Docs Gaps &amp; Backtrack Ledger](docs/BACKTRACK-LEDGER.md)**
+**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Organized Documentation Library](docs/INDEX.md)** · **[Zoe-GEM OS Guide](docs/ZOE-GEM-OS.md)** · **[Zoe &amp; Clara Guide](docs/ZOE-AND-CLARA.md)** · **[Accessibility Card](docs/ACCESSIBILITY.md)** · **[Backtrack Ledger](docs/BACKTRACK-LEDGER.md)** · **[Epicurean Deck &amp; Video Release](https://github.com/Ablation-Tool/zoe/releases/tag/v2026.11.25-epicurean)**
 
 </div>
 
@@ -517,7 +517,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites 
 
 ### Wave 1-3 Security Engines &amp; Digital Research GSX / GEM / Atari TOS Rebuild (November 24, 2026)
 
-Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment repositories (**Waves 1-2**) plus **5 unpublished Wave 3 inventions** — continuous 5D `TrustEngine` (`output_trust <= source_trust`) + `nina` Lume audio cues, 4 `ablation` AI-agent binary auditors, Dual-Path `VisorLog` `[MASK]` verification, Eq. 2 slow-drift + `gemseal` `vec2text` + `kevlar` `~/.ssh`/Milvus guards, and Email/ROS/lock-free `VisorCAS` Bloom-CAS gates — rebuilt directly atop John Elliott's [`seasip.info/Gem`](https://www.seasip.info/Gem/index.html) and [`toastytech.com/guis`](http://toastytech.com/guis/indexgem.html) specs as **9 verified GEM instruments** and **5 real binary codecs** (`.GEM`, PC x86 &amp; Atari 68k `.RSC`, 4-plane `.IMG`/`XIMG`, and 1982 `.GSX`).
+Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment repositories (**Waves 1-2**) plus **5 unpublished Wave 3 inventions** (continuous 5D `TrustEngine` (`output_trust <= source_trust`) + `nina` Lume audio cues, 4 `ablation` AI-agent binary auditors, Dual-Path `VisorLog` `[MASK]` verification, Eq. 2 slow-drift + `gemseal` `vec2text` + `kevlar` `~/.ssh`/Milvus guards, and Email/ROS/lock-free `VisorCAS` Bloom-CAS gates) rebuilt directly atop John Elliott's [`seasip.info/Gem`](https://www.seasip.info/Gem/index.html) and [`toastytech.com/guis`](http://toastytech.com/guis/indexgem.html) specs as **9 verified GEM instruments** and **5 real binary codecs** (`.GEM`, PC x86 &amp; Atari 68k `.RSC`, 4-plane `.IMG`/`XIMG`, and 1982 `.GSX`).
 
 <div align="center">
 
@@ -935,15 +935,18 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 
 | Document | Purpose |
 |:---|:---|
-| **[`ZOE-COOKBOOK.md`](docs/ZOE-COOKBOOK.md)** | **The Zoe &amp; Ablation Epicurean (inspired by Charles Ranhofer's 1894 *The Epicurean*: brigades, 5 mother stocks, 18 numbered receipts &amp; 5 evening bills of fare)** |
-| **[`INDEX.md`](docs/INDEX.md)** | **Organized shelf-by-shelf documentation map across every guide, component, paper &amp; companion repo** |
-| **[`BACKTRACK-LEDGER.md`](docs/BACKTRACK-LEDGER.md)** | **Honest register of missing docs, broken archival mirrors, in-flight subsystems &amp; backtrack items** |
+| **[`ZOE-COOKBOOK.md`](docs/ZOE-COOKBOOK.md)** | **The Zoe &amp; Ablation Epicurean (inspired by Charles Ranhofer's 1894 *The Epicurean*: 4 copperplate SVG plates, brigades, 5 mother stocks, 21 numbered receipts No. 6-26 &amp; 5 evening bills of fare)** |
+| **[`INDEX.md`](docs/INDEX.md)** | **Organized 9-shelf documentation map across every guide, component, L5 Phases 1-6 paper &amp; companion repo** |
+| **[`ZOE-GEM-OS.md`](docs/ZOE-GEM-OS.md)** | **Dedicated Zoe-GEM OS &amp; Hardware UMA Field Guide (UEFI framebuffer, two-key UMA airlock, Pixel 7 `panther`, Braille Studio, ViewMAX themes &amp; Zoeverse)** |
+| **[`ZOE-AND-CLARA.md`](docs/ZOE-AND-CLARA.md)** | **Dedicated Dual-Peer Zoe &amp; Clara Guide (equal L1-L5 peers, Theorem 15 echo-chamber/coercion guards, `:8768` web table &amp; `&lt; 1 MB` standalone zip bundle)** |
+| **[`ACCESSIBILITY.md`](docs/ACCESSIBILITY.md)** | **Disability-first Ablation + GEM Accessibility Quick-Card (WCAG AA/AAA contrast, Okabe-Ito colorblind palette, 85%-200% zoom, 2px focus ring, ATK &amp; OS sync)** |
+| **[`BACKTRACK-LEDGER.md`](docs/BACKTRACK-LEDGER.md)** | **Honest Steward's Backtrack Ledger tracking completed P1/P2 passes, in-flight sibling subsystems &amp; manual operator items** |
 | **[`RESEARCH-CHRONICLE.md`](docs/RESEARCH-CHRONICLE.md)** | **Master chronological Stop 1 to Stop 10 research path &amp; complete evidence ledger (`126` verified JSON reports + `47/47` SHA-256)** |
-| [`PROOF-PACKET.md`](docs/PROOF-PACKET.md) | 1-command offline referee proof packet (`< 6s`, 6-baseline shootout, `16/16` SymPy theorems, `47/47` hashes) |
+| [`PROOF-PACKET.md`](docs/PROOF-PACKET.md) | 1-command offline referee proof packet (`&lt; 6s`, 6-baseline shootout, `16/16` SymPy theorems, `47/47` hashes) |
 | [`CONSTITUTION.md`](docs/CONSTITUTION.md) | Epistemic rules (`measurement != evidence != belief update != action`), copyright &amp; safety boundaries |
 | [`DECLARATION.md`](docs/DECLARATION.md) | Zoe Declaration of Creative and Epistemic Independence |
 | [`AGI-ROADMAP.md`](docs/AGI-ROADMAP.md) | Honest `L0-L7` acceptance criteria, falsification bars, and current verified progress |
-| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 24-section audit directory mapping every claim to code, tests, and JSON evidence artifacts |
+| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 25-section audit directory mapping every claim to code, tests, and JSON evidence artifacts (including DeepMind Science &amp; Artline 2.0 Studios) |
 | [`PORTFOLIO-UPGRADES.md`](docs/PORTFOLIO-UPGRADES.md) | Wave 1-3 integrated repos (42 components), 5 Vault upgrades, and Digital Research GSX/GEM/Atari TOS rebuild |
 | [`SHARED_REASONING_ARCHITECTURES.md`](docs/SHARED_REASONING_ARCHITECTURES.md) | Zoe x Antigravity Shared-Reasoning Architectures (1-9), Digital Research GEM AES/VDI bridge &amp; MCP server |
 | [`METACOGNITION.md`](docs/METACOGNITION.md) | Visual hub for all 18 original papers, 3 arXiv packages, and 12 mathematical theorem plates |
