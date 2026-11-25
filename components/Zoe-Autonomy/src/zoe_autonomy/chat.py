@@ -1234,6 +1234,46 @@ class ZoeChat:
         if self.session["stopped"]:
             raise ValueError(f"{operation} is stopped; inspection, export, undo, meta, and quit remain available")
 
+    def _shared_reasoning(self, argument: str) -> str:
+        """Run Zoe x Antigravity Shared-Reasoning Architectures (1-9 + Digital Research GEM)."""
+        from .shared_reasoning import SharedReasoningOrchestrator, SharedReasoningTaskSpec
+
+        prompt = text(argument, "shared-reasoning prompt", 2000) if argument else (
+            "Verify shared-reasoning synthesis, formal SymPy/Z3 invariants, quorum, and GEM desktop."
+        )
+        orch = SharedReasoningOrchestrator(
+            mode="offline",
+            offline_only=True,
+            repo_root=getattr(self, "zoe_root", _zoe_root()),
+            state_dir=self.store.root / "shared_reasoning",
+        )
+        rep = orch.run(SharedReasoningTaskSpec(prompt=prompt, high_impact=True))
+        gem_ok = bool(rep.gem_desktop_report and rep.gem_desktop_report.get("passed"))
+        return "\n".join([
+            f"Shared-Reasoning Run ({rep.contract}):",
+            f"  Arch 1 AlphaEvolve score={rep.alpha_evolve.best_program.score:.2f} · Arch 3 MCTS={rep.mcts_result.decision}",
+            f"  Arch 4 Quorum={rep.quorum_result.verdict} (D_K={rep.quorum_result.d_k_disagreement:.4f}) · Arch 5 Distilled={len(rep.distilled_artifacts)}",
+            f"  Arch 6 Blackboard entries={rep.blackboard_integrity['entries_verified']} (valid={rep.blackboard_integrity['valid']})",
+            f"  Arch 7 SymPy={rep.sandbox_verdicts['sympy'].passed} Z3={rep.sandbox_verdicts['z3'].passed} · Arch 8 Fork={rep.steering_report.fork_detected}",
+            f"  Arch 9 Counterpoint turns={rep.counterpoint_result.total_turns} · GEM VDI/RSC={gem_ok}",
+            f"  Constitutional: external_actions={rep.external_actions} · sentience_claimed={rep.sentience_claimed}",
+        ])
+
+    def _gem_desk(self, argument: str) -> str:
+        """Compile and verify a Digital Research GEM (seasip.info) Spatial IR VDI scene."""
+        from .shared_reasoning import GemVdiWorkstation, RealitySandboxLab
+
+        theme = argument.strip() or "zoe-viewmax3"
+        ws = GemVdiWorkstation(device="vga", theme_key=theme)
+        scene = ws.build_shared_reasoning_scene({"quorum_verdict": "CHAT_PROBE", "fork_detected": False})
+        verdict = RealitySandboxLab().verify_gem_vdi_scene(scene, profiles=("cga", "vga", "ndc"))
+        return (
+            f"Digital Research GEM Desk (theme={ws.theme_key}): passed={verdict.passed} · "
+            f"profiles={verdict.ground_truth.get('profiles_passed')} · "
+            f"metafile_sha256={str(verdict.ground_truth.get('metafile_sha256', ''))[:16]} · "
+            "visual_evidence_only=True · external_actions=0"
+        )
+
     def _stop_actions(self) -> str:
         """Enable the emergency stop flag while keeping math tools active."""
         self.session["stopped"] = True
@@ -1294,6 +1334,9 @@ class ZoeChat:
             "handover": self._steward,
             "eliza": self._eliza,
             "zoe-eliza": self._eliza,
+            "shared-reasoning": self._shared_reasoning,
+            "shared_reasoning": self._shared_reasoning,
+            "gem-desk": self._gem_desk,
             "save": lambda arg: self._export(arg, checkpoint=True),
             "export": self._export,
             "verify": self._verify,

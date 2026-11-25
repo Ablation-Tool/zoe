@@ -31,6 +31,7 @@ _VIEW_DESCRIPTIONS: dict[str, str] = {
     "maison": "open the executive luxury enterprise studio",
     "evidence": "open the source-first evidence navigator",
     "voice": "speak, sing, and inspect Zoe's 44-phoneme native voice & cymatics",
+    "reasoning": "run Zoe x Antigravity Shared-Reasoning Architectures (1-9 + Digital Research GEM)",
 }
 
 

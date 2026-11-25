@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import tempfile
 from typing import Any, Mapping
 
 
@@ -51,16 +52,27 @@ def atomic_write_json(path: str | Path, document: Mapping[str, Any]) -> Path:
     """Atomically write a canonical JSON mapping with 0600 file permissions."""
     target = Path(path).expanduser().resolve()
     target.parent.mkdir(parents=True, exist_ok=True)
-    tmp_path = target.with_suffix(target.suffix + ".tmp")
-    # Write to a sibling temp file first so readers never observe partial JSON.
+    tmp_path: Path | None = None
+    # Write to a unique sibling temp file so concurrent writers never collide or expose partial JSON.
     try:
-        with tmp_path.open("w", encoding="utf-8") as stream:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=target.parent,
+            prefix=f".{target.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as stream:
+            tmp_path = Path(stream.name)
             json.dump(document, stream, ensure_ascii=False, allow_nan=False, indent=2, sort_keys=True)
             stream.write("\n")
+            stream.flush()
+            os.fsync(stream.fileno())
         os.chmod(tmp_path, 0o600)
         os.replace(tmp_path, target)
     except Exception:
-        tmp_path.unlink(missing_ok=True)
+        if tmp_path is not None:
+            tmp_path.unlink(missing_ok=True)
         raise
     return target
 

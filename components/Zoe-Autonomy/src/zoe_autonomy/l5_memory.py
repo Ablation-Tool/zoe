@@ -164,7 +164,14 @@ class ZoeUnifiedMemory:
         """Stores a typed semantic fact; detects conflicts & enforces evidence-gated belief revision."""
         self._require_not_stopped()
         subj, rel = str(subject), str(relation)
-        conf = float(max(0.0, min(1.0, confidence)))
+        if isinstance(confidence, bool) or not isinstance(confidence, (int, float)):
+            raise ValueError(
+                f"confidence must be a finite numeric value, got {type(confidence).__name__}"
+            )
+        conf_f = float(confidence)
+        if not math.isfinite(conf_f):
+            raise ValueError(f"confidence must be finite, got {confidence!r}")
+        conf = max(0.0, min(1.0, conf_f))
         active_matches = [
             f for f in self._doc["semantic"]
             if f["subject"] == subj and f["relation"] == rel and f["status"] == "active"
@@ -301,6 +308,7 @@ class ZoeUnifiedMemory:
                 expected_args=tuple(skill["arg_names"]),
             )
         if self.path is not None:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
             self.path.write_text(json.dumps(self._doc, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         return deepcopy(self._doc)
 
