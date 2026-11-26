@@ -143,6 +143,11 @@ def _check_docs_and_evidence_integrity() -> tuple[bool, dict]:
         [ROOT / "README.md"]
         + sorted((ROOT / "docs").rglob("*.md"))
         + sorted((ROOT / "research" / "presentations").rglob("*.md"))
+        + sorted((ROOT / "guiai-lab" / "docs").glob("*.md"))
+        + sorted((ROOT / "mobile").glob("*.md"))
+        + sorted((ROOT / "desktop").glob("*.md"))
+        + sorted((ROOT / "dorothy-brain-observatory").glob("*.md"))
+        + sorted((ROOT / "components" / "Zoe-Autonomy").glob("*.md"))
     )
     broken_links = []
     checked_links = 0

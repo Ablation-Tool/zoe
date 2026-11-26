@@ -1050,7 +1050,22 @@ class DualTransportAgentConfig(connection_mod.AgentConfig):
         update: Mapping[str, Any] | None = None,
         deep: bool = False,
     ) -> "DualTransportAgentConfig":
-        return super().model_copy(update=update, deep=deep)  # type: ignore[return-value]
+        if not deep:
+            return super().model_copy(update=update, deep=False)  # type: ignore[return-value]
+        sanitized = super().model_copy(
+            update={"voice_adapter": None, "offline_handler": None},
+            deep=False,
+        )
+        merged_update: dict[str, Any] = {
+            "voice_adapter": self.voice_adapter,
+            "offline_handler": self.offline_handler,
+        }
+        if update:
+            merged_update.update(update)
+        return super(DualTransportAgentConfig, sanitized).model_copy(
+            update=merged_update,
+            deep=True,
+        )  # type: ignore[return-value]
 
     def create_strategy(
         self,

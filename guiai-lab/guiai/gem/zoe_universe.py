@@ -360,7 +360,12 @@ def export_zoeverse_atlas_plate(output_dir: Path | None = None) -> dict[str, Any
         target = out / f"zoe_zoeverse_atlas.{ext}"
         if target.exists():
             target.unlink()
-        doc.export(target, kind=ext, width=1200)
+        try:
+            doc.export(target, kind=ext, width=1200)
+        except RuntimeError:
+            if ext != "png":
+                raise
+            continue
         paths[ext] = str(target)
         sizes[ext] = target.stat().st_size
 

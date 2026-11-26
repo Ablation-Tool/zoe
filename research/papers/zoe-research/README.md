@@ -1,6 +1,6 @@
 # Zoe research library
 
-This section preserves the broader Zoe research program that extends beyond the standalone PDF papers: Dorothy and Neurogarden, CERN evidence and virtual workbenches, native cognitive and creative instruments, source-linked reviews, examples, and visual assets. Its canonical home is the unified [Zoe repository](../../../README.md); navigate the complete system through the [capability atlas](../../../CAPABILITY-ATLAS.md).
+This section preserves the broader Zoe research program that extends beyond the standalone PDF papers: Dorothy and Neurogarden, CERN evidence and virtual workbenches, native cognitive and creative instruments, source-linked reviews, examples, and visual assets. Its canonical home is the unified [Zoe repository](../../../README.md); navigate the complete system through the [capability atlas](../../../docs/CAPABILITY-ATLAS.md).
 
 ## Zoe — The Research Universe
 

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" width="980" height="560">
+  <defs>
+    <radialGradient id="vellum" cx="50%" cy="50%" r="68%">
+      <stop offset="0%" stop-color="#FBF7EC"/>
+      <stop offset="75%" stop-color="#F4ECDA"/>
+      <stop offset="100%" stop-color="#E9DEC5"/>
+    </radialGradient>
+    <linearGradient id="copper" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9A5B2F"/>
+      <stop offset="35%" stop-color="#D79458"/>
+      <stop offset="70%" stop-color="#B7703A"/>
+      <stop offset="100%" stop-color="#7F4621"/>
+    </linearGradient>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="3.5" x2="7" y2="3.5" stroke="#231D17" stroke-width="0.35" opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="980" height="560" fill="url(#vellum)"/>
+  <rect width="980" height="560" fill="url(#hatch)"/>
+  <rect x="14" y="14" width="952" height="532" fill="none" stroke="#231D17" stroke-width="2.2"/>
+  <rect x="20" y="20" width="940" height="520" fill="none" stroke="#B0843F" stroke-width="1.0"/>
+  <text x="490.0" y="48" text-anchor="middle" font-family="Georgia, serif" font-size="17" font-weight="bold" letter-spacing="2.0" fill="#231D17">THE 9-SHELF LIBRARY CABINET  &amp;  THE STEWARD'S BACKTRACK COMPASS</text>
+  <line x1="120" y1="58" x2="860" y2="58" stroke="#B0843F" stroke-width="1"/>
+
+  <rect x="46" y="82" width="430" height="440" rx="4" fill="#EFE4CC" stroke="#231D17" stroke-width="2.0"/>
+  <rect x="54" y="90" width="414" height="424" fill="#FBF7EC" stroke="#8C5828" stroke-width="1.2"/>
+  <g>
+    <rect x="62" y="98" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="98" width="38" height="36" rx="2" fill="#C41E3A"/>
+    <text x="81" y="121" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">I</text>
+    <text x="112" y="114" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">Start Here &amp; Play</text>
+    <text x="112" y="128" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">Epicurean Cookbook · Gallery</text>
+  </g>
+  <g>
+    <rect x="62" y="142" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="142" width="38" height="36" rx="2" fill="#231D17"/>
+    <text x="81" y="165" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">II</text>
+    <text x="112" y="158" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">Ethos &amp; Governance</text>
+    <text x="112" y="172" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">Constitution · Declaration · AGI</text>
+  </g>
+  <g>
+    <rect x="62" y="186" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="186" width="38" height="36" rx="2" fill="#8C5828"/>
+    <text x="81" y="209" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">III</text>
+    <text x="112" y="202" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">Chronicle &amp; Proofs</text>
+    <text x="112" y="216" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">126 Reports · Shared Reasoning</text>
+  </g>
+  <g>
+    <rect x="62" y="230" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="230" width="38" height="36" rx="2" fill="#2B5B6C"/>
+    <text x="81" y="253" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">IV</text>
+    <text x="112" y="246" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">GEM Instruments (24)</text>
+    <text x="112" y="260" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">guiai-lab/docs · 9 links fixed</text>
+  </g>
+  <g>
+    <rect x="62" y="274" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="274" width="38" height="36" rx="2" fill="#2F6B48"/>
+    <text x="81" y="297" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">V</text>
+    <text x="112" y="290" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">Brain, Desktop &amp; Mobile</text>
+    <text x="112" y="304" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">Dorothy 3D · 23 Zapps</text>
+  </g>
+  <g>
+    <rect x="62" y="318" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="318" width="38" height="36" rx="2" fill="#7B4A82"/>
+    <text x="81" y="341" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">VI</text>
+    <text x="112" y="334" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">Core Components</text>
+    <text x="112" y="348" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">Autonomy · Ablation · PALA</text>
+  </g>
+  <g>
+    <rect x="62" y="362" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="362" width="38" height="36" rx="2" fill="#231D17"/>
+    <text x="81" y="385" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">VII</text>
+    <text x="112" y="378" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">18 Research Papers</text>
+    <text x="112" y="392" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">4.7 MB Monograph · 456 Visuals</text>
+  </g>
+  <g>
+    <rect x="62" y="406" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="406" width="38" height="36" rx="2" fill="#1F7A52"/>
+    <text x="81" y="429" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">VIII</text>
+    <text x="112" y="422" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">5 Companion Repos</text>
+    <text x="112" y="436" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">All 4 CI &amp; 3 Pages GREEN</text>
+  </g>
+  <g>
+    <rect x="62" y="450" width="398" height="36" rx="3" fill="#F4ECDA" stroke="#B0843F" stroke-width="0.9"/>
+    <rect x="62" y="450" width="38" height="36" rx="2" fill="#B91C2E"/>
+    <text x="81" y="473" text-anchor="middle" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#FFFFFF">IX</text>
+    <text x="112" y="466" font-family="Georgia, serif" font-size="11.5" font-weight="bold" fill="#231D17">Backtrack Ledger</text>
+    <text x="112" y="480" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#594836">Honest P1 / P2 / P3 Queue</text>
+  </g>
+  <g transform="translate(730,302)">
+    <circle cx="0" cy="0" r="102" fill="#FBF7EC" stroke="#231D17" stroke-width="2.0"/>
+    <circle cx="0" cy="0" r="94" fill="none" stroke="#B0843F" stroke-width="1.2"/>
+    <circle cx="0" cy="0" r="84" fill="none" stroke="#231D17" stroke-width="0.6" stroke-dasharray="3 3"/>
+    <polygon points="0,-78 14,-14 78,0 14,14 0,78 -14,14 -78,0 -14,-14" fill="#EFE4CC" stroke="#231D17" stroke-width="1.2"/>
+    <polygon points="0,-78 11,-11 0,0" fill="#C41E3A"/>
+    <polygon points="0,78 -11,11 0,0" fill="#231D17"/>
+    <polygon points="78,0 11,11 0,0" fill="#B0843F"/>
+    <polygon points="-78,0 -11,-11 0,0" fill="#2B5B6C"/>
+    <circle cx="0" cy="0" r="13" fill="#FBF7EC" stroke="#231D17" stroke-width="1.6"/>
+    <polygon points="0,-7 7,0 0,7 -7,0" fill="#C41E3A"/>
+  </g>
+  <g>
+    <rect x="560.0" y="104.0" width="340" height="48" rx="5" fill="#FBF7EC" stroke="#C41E3A" stroke-width="1.5"/>
+    <text x="730" y="124" text-anchor="middle" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#C41E3A">N · P1 MISSING GUIDES</text>
+    <text x="730" y="141" text-anchor="middle" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#4A3F34">ZOE-GEM-OS · Clara · A11y · L5 P4/5</text>
+  </g>
+  <g>
+    <rect x="560.0" y="452.0" width="340" height="48" rx="5" fill="#FBF7EC" stroke="#231D17" stroke-width="1.5"/>
+    <text x="730" y="472" text-anchor="middle" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#231D17">S · P2 CASE-COLLISION TRAP</text>
+    <text x="730" y="489" text-anchor="middle" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#4A3F34">ablation/docs: INDEX.md vs index.md</text>
+  </g>
+  <g>
+    <rect x="494.0" y="278.0" width="136" height="48" rx="5" fill="#FBF7EC" stroke="#2B5B6C" stroke-width="1.5"/>
+    <text x="562" y="298" text-anchor="middle" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#2B5B6C">W · P3 NEXT</text>
+    <text x="562" y="315" text-anchor="middle" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#4A3F34">M1-M4 &amp; DNS</text>
+  </g>
+  <g>
+    <rect x="830.0" y="278.0" width="136" height="48" rx="5" fill="#FBF7EC" stroke="#8C5828" stroke-width="1.5"/>
+    <text x="898" y="298" text-anchor="middle" font-family="Georgia, serif" font-size="10.5" font-weight="bold" fill="#8C5828">E · P2 LINKS</text>
+    <text x="898" y="315" text-anchor="middle" font-family="Georgia, serif" font-size="9.5" font-style="italic" fill="#4A3F34">SafeConvert</text>
+  </g>
+</svg>

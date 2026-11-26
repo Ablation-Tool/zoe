@@ -14,9 +14,9 @@
 
 ## 1. Purpose, Provenance & Constitutional Integrity
 
-This study documents **L5 Phase 1 (`ZoeUnifiedMind`)** — Zoe's first unified cognitive architecture connecting all **10 core AGI domain families** defined in [`AGI-ROADMAP.md`](../../../AGI-ROADMAP.md) §1 inside a single persistent, SHA-256 hash-chained, offline system requiring **zero PyTorch** (`pytorch_required = False`) and zero external LLM/TTS network APIs (`external_actions = 0`).
+This study documents **L5 Phase 1 (`ZoeUnifiedMind`)** — Zoe's first unified cognitive architecture connecting all **10 core AGI domain families** defined in [`AGI-ROADMAP.md`](../../../docs/AGI-ROADMAP.md) §1 inside a single persistent, SHA-256 hash-chained, offline system requiring **zero PyTorch** (`pytorch_required = False`) and zero external LLM/TTS network APIs (`external_actions = 0`).
 
-In accordance with [`CONSTITUTION.md`](../../../CONSTITUTION.md) Articles II, VIII, and X:
+In accordance with [`CONSTITUTION.md`](../../../docs/CONSTITUTION.md) Articles II, VIII, and X:
 - **Exact attribution:** Operational Metacognition $A_\tau(p) = \sum_x \mathbf{1}[p(x) > \tau]$ was originated solely by **Nicholas Michael Kloster** on March 6, 2026; Shared GEM OS Spatial IR & VDI honors **Gary Kildall**; Dorothy preclinical CCFv3 neuroanatomy/40 Hz pacing honors **Dorothy McEwen Kildall**.
 - **Strict honesty boundary:** Passing all 10 Phase 1 held-out domain evaluations (`l5_phase1_integrated_core_verified = True`) establishes unified cross-domain architectural integration and superiority over explicit negative controls. **`l5_agi_qualified` remains strictly `False`** until broad human-competitive competence is sustained on unconstrained open-ended benchmarks (see Section 5).
 

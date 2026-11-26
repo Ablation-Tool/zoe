@@ -1,6 +1,6 @@
 # Zoe Trinity
 
-**Tiny Zoe + Zoe mobile + laptop Zoe — three coordinated planes, one shared experiment.** Trinity is a local research instrument, not three minds, a cloud account, a distributed model, or an autonomous agent.
+**Tiny Zoe + Zoe mobile + laptop Zoe; three coordinated planes, one shared experiment.** Trinity is a local research instrument, not three minds, a cloud account, a distributed model, or an autonomous agent.
 
 ![Zoe Trinity laptop observation deck](docs/images/zoe-trinity-deck.png)
 
@@ -105,11 +105,11 @@ Hash chaining supplies **tamper evidence, not cryptographic authentication, encr
 
 The service uses protocol version 1 and port 8767:
 
-- `GET /` — self-contained laptop deck with no external assets.
-- `GET /api/health` — basic local service identity.
-- `GET /api/state` — current active measurement and up to 24 retained events.
-- `POST /api/measure` — measure and publish a new revision.
-- `POST /api/reset` — start a fresh live view.
+- `GET /`: self-contained laptop deck with no external assets.
+- `GET /api/health`: basic local service identity.
+- `GET /api/state`: current active measurement and up to 24 retained events.
+- `POST /api/measure`: measure and publish a new revision.
+- `POST /api/reset`: start a fresh live view.
 
 Mutations require `Content-Type: application/json` and `X-Zoe-Protocol: 1`. Sources are `android`, `apple`, or `laptop`. Example:
 

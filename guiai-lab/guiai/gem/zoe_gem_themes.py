@@ -322,7 +322,12 @@ def export_gem_lineage_desktop_bundle(output_dir: Path | None = None, active_slo
         target = out / f"zoe_gem_research_desktop.{ext}"
         if target.exists():
             target.unlink()
-        doc.export(target, kind=ext, width=1200)
+        try:
+            doc.export(target, kind=ext, width=1200)
+        except RuntimeError:
+            if ext != "png":
+                raise
+            continue
         paths[ext] = str(target)
         sizes[ext] = target.stat().st_size
 

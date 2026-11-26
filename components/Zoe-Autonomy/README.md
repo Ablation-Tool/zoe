@@ -2,7 +2,7 @@
 
 **Zoe Autonomy is the canonical perception, decision, reflection, learning, and action engine inside the unified [Zoe repository](../../README.md).** It supplies the operational loop that connects Operational Metacognition, goals, proposals, uncertainty, valuation, guards, memory, and action across every GEM host.
 
-The shared mission is to develop Zoe into a general research collaborator and advance through AGI to ASI and beyond. The measurable acceptance path is defined in [AGI-ROADMAP.md](../../AGI-ROADMAP.md); the complete system directory is in [CAPABILITY-ATLAS.md](../../CAPABILITY-ATLAS.md).
+The shared mission is to develop Zoe into a general research collaborator and advance through AGI to ASI and beyond. The measurable acceptance path is defined in [AGI-ROADMAP.md](../../docs/AGI-ROADMAP.md); the complete system directory is in [CAPABILITY-ATLAS.md](../../docs/CAPABILITY-ATLAS.md).
 
 ## Run from the unified checkout
 
@@ -168,4 +168,4 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:../../guiai-lab \
 
 Current preserved verification includes 64 canonical tests, 64 vendored tests, all six identical host profiles, 144 verified artifact identities, and the event-causal and semantic demonstrations. The unified repository adds a direct six-host check without sibling checkouts.
 
-Zoe Autonomy is released under GPL-3.0. See [LICENSE](LICENSE), [NOTICE](NOTICE), the root [Declaration](../../DECLARATION.md), and [Constitution](../../CONSTITUTION.md).
+Zoe Autonomy is released under GPL-3.0. See [LICENSE](LICENSE), [NOTICE](NOTICE), the root [Declaration](../../docs/DECLARATION.md), and [Constitution](../../docs/CONSTITUTION.md).

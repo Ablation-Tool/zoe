@@ -1809,15 +1809,116 @@ def _highlight_bounds(item: dict[str, Any]) -> tuple[float, float, float, float]
     return bounds.left, bounds.top, bounds.right, bounds.bottom
 
 
+def _pil_rgb(value: Any) -> tuple[int, int, int] | None:
+    if not value or value == "none":
+        return None
+    hex_col = color(value).lstrip("#")
+    if len(hex_col) == 3:
+        hex_col = "".join(ch * 2 for ch in hex_col)
+    if len(hex_col) != 6:
+        return None
+    return (int(hex_col[0:2], 16), int(hex_col[2:4], 16), int(hex_col[4:6], 16))
+
+
+def _load_pil_font(px_size: int) -> Any:
+    from PIL import ImageFont
+
+    size = max(8, int(round(px_size)))
+    for candidate in (
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    ):
+        if Path(candidate).is_file():
+            try:
+                return ImageFont.truetype(candidate, size=size)
+            except OSError:
+                continue
+    return ImageFont.load_default()
+
+
+def _write_png_pillow(scene: Any, path: Path | str, width: int, height: int) -> int:
+    from PIL import Image, ImageDraw
+
+    # Render at 2x supersampling and downsample with LANCZOS for crisp Cairo-grade anti-aliasing
+    ss = 2 if max(width, height) <= 2400 else 1
+    rw, rh = width * ss, height * ss
+    cw = float(scene.canvas["width"])
+    ch = float(scene.canvas["height"])
+    sx = rw / cw if cw > 0 else 1.0
+    sy = rh / ch if ch > 0 else 1.0
+    sw = min(sx, sy)
+
+    img = Image.new("RGB", (rw, rh), (255, 255, 255))
+    draw = ImageDraw.Draw(img)
+
+    for item in scene.objects:
+        kind = item["type"]
+        fill = _pil_rgb(item.get("fill"))
+        stroke = _pil_rgb(item.get("stroke"))
+        lw = max(1, int(round(float(item.get("width", 1.0)) * sw)))
+
+        if kind == "rectangle":
+            left, top, right, bottom = item["bounds"]
+            box = [left * sx, top * sy, right * sx, bottom * sy]
+            draw.rectangle(box, fill=fill, outline=stroke, width=lw if stroke else 0)
+            label = _label(item)
+            if label is not None and stroke is not None:
+                font = _load_pil_font(int(round(label["size"] * sy)))
+                draw.text(
+                    (label["position"][0] * sx, label["position"][1] * sy),
+                    label["text"],
+                    fill=stroke,
+                    font=font,
+                    anchor="ms",
+                )
+        elif kind == "ellipse":
+            cx, cy = item["center"]
+            rx, ry = item["radii"]
+            box = [(cx - rx) * sx, (cy - ry) * sy, (cx + rx) * sx, (cy + ry) * sy]
+            draw.ellipse(box, fill=fill, outline=stroke, width=lw if stroke else 0)
+        elif kind == "polygon":
+            pts = [(x * sx, y * sy) for x, y in item["points"]]
+            if len(pts) >= 3:
+                if fill is not None:
+                    draw.polygon(pts, fill=fill)
+                if stroke is not None:
+                    draw.line(pts + [pts[0]], fill=stroke, width=lw)
+        elif kind in {"polyline", "line"}:
+            pts = [(x * sx, y * sy) for x, y in item["points"]]
+            if len(pts) >= 2 and (stroke is not None or fill is not None):
+                draw.line(pts, fill=stroke or fill, width=lw)
+        elif kind == "mesh":
+            points, fills = item["points"], item["fills"]
+            for tri_idx, fcol in enumerate(fills):
+                rgb = _pil_rgb(fcol)
+                if rgb is None:
+                    continue
+                corners = [(x * sx, y * sy) for x, y in points[3 * tri_idx : 3 * tri_idx + 3]]
+                if len(corners) == 3:
+                    draw.polygon(corners, fill=rgb)
+        elif kind == "text":
+            if stroke is not None:
+                font = _load_pil_font(int(round(float(item["size"]) * sy)))
+                x, y = item["position"]
+                draw.text((x * sx, max(0.0, y * sy - float(item["size"]) * sy * 0.85)), item["text"], fill=stroke, font=font)
+
+    if ss > 1:
+        img = img.resize((width, height), Image.Resampling.LANCZOS)
+    out_path = Path(path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(str(out_path), format="PNG")
+    return out_path.stat().st_size
+
+
 def write_png(scene: Any, path: Path | str, width: int = 1200, height: int | None = None) -> int:
-    try:
-        import cairo
-    except ImportError as error:
-        raise RuntimeError("PNG output requires the optional PyGObject Cairo integration") from error
     if isinstance(width, bool) or not isinstance(width, int) or not 1 <= width <= 16384:
         raise ValueError("PNG width must be an integer from 1 to 16384")
     if height is None:
         height = max(1, round(width * scene.canvas["height"] / scene.canvas["width"]))
+    try:
+        import cairo
+    except ImportError:
+        return _write_png_pillow(scene, path, width, height)
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
     draw_cairo(cairo.Context(surface), scene, width, height)
     out_path = Path(path)

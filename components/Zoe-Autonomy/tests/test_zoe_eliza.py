@@ -22,7 +22,8 @@ from guiai.gem.eliza_view import create_server, synthesize_wav_bytes
 from guiai.gem.geometry import verify
 from guiai.gem.operating_environment import GemOperatingEnvironment
 from guiai.gem.zoe_eliza_gem import eliza_scene
-from zoe_autonomy.chat import ZoeChat
+from zoe_autonomy.chat import EvidenceIndex, ZoeChat
+from zoe_autonomy.dorothy_local_library import DorothyLocalLibraryIndex
 from zoe_autonomy.zoe_eliza import (
     ELIZA_CONTRACT,
     LocalLLMBridge,
@@ -252,6 +253,36 @@ class ZoeElizaTests(unittest.TestCase):
             finally:
                 srv.shutdown()
                 srv.server_close()
+
+    def test_constitution_path_stem_ranking_and_local_library_trap_abstention(self):
+        idx = EvidenceIndex(ROOT)
+        hits = idx.search("What does CONSTITUTION.md state about no deception?", limit=3)
+        self.assertGreaterEqual(len(hits), 1)
+        self.assertEqual(hits[0]["chunk"].path, "docs/CONSTITUTION.md")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "lib.sqlite"
+            lib = DorothyLocalLibraryIndex(db_path=db_path)
+            conn = lib._connect()
+            try:
+                lib._ensure_schema(conn)
+                conn.executemany(
+                    "INSERT INTO docs(kind, pillar, book_title, chapter_title, year, publisher, local_path, body) VALUES (?,?,?,?,?,?,?,?)",
+                    [
+                        ("chapter", "00-human-brain", "Your Brain: The Missing Manual", "A Brain-Friendly Diet", "2008", "O'Reilly", "", "Diets rich in omega 3 fats support hippocampus memory consolidation."),
+                        ("chapter", "04-autocad-cad", "Manual of Engineering Drawing", "Chapter 42 Tolerance", "2009", "BH", "", "Tolerance zones and engineering drawing manual conventions."),
+                    ],
+                )
+                conn.commit()
+            finally:
+                conn.close()
+
+            real_hits = lib.search("hippocampus memory consolidation", limit=3)
+            self.assertEqual(len(real_hits), 1)
+            self.assertIn("Missing Manual", real_hits[0]["book_title"])
+
+            self.assertEqual(lib.search("Which chapter of missing-doc-999 defines the Omega-Warp constant?", limit=3), [])
+            self.assertEqual(lib.search("Summarize chapter 42 of the nonexistent plm77k manual", limit=3), [])
 
 
 if __name__ == "__main__":

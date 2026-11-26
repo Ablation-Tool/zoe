@@ -29,7 +29,7 @@ Dorothy also includes executable teaching and simulation mechanisms, not just at
 - [Neural-signal implementation](https://github.com/Ablation-Tool/zoe/blob/main/components/agent-logging-system/agent_logging_system/neurogarden_neural.py)
 - [Generative world](https://github.com/Ablation-Tool/zoe/blob/main/components/agent-logging-system/agent_logging_system/neurogarden_world.py)
 - [Advanced numerical models](https://github.com/Ablation-Tool/zoe/blob/main/components/agent-logging-system/agent_logging_system/neurogarden_advanced.py)
-- [Illustrated Zoe Capability Prospectus](../papers/17-zoe-capability-prospectus.pdf)
+- [Illustrated Zoe Capability Prospectus](../../papers/17-zoe-capability-prospectus.pdf)
 
 ## Documents and evidence
 

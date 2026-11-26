@@ -318,28 +318,43 @@ class DorothyLocalLibraryIndex:
         """Query the trained local FTS5 index across all 135 books, 5,951 chapters, and 44 NIRMT PDFs."""
         if not self.db_path.is_file():
             return []
-        tokens = [t for t in re.findall(r"[a-zA-Z0-9]{2,}", query.lower()) if t not in _QUERY_STOPWORDS]
+        tokens = list(dict.fromkeys(
+            t for t in re.findall(r"[a-zA-Z0-9]{2,}", query.lower()) if t not in _QUERY_STOPWORDS
+        ))
         if not tokens:
             return []
-        fts_query = " OR ".join(f'"{t}"' for t in tokens[:8])
+        req_limit = max(1, min(int(limit), 12))
+        id_tokens = {t for t in tokens if any(c.isdigit() for c in t) and any(c.isalpha() for c in t)}
+        and_query = " AND ".join(f'"{t}"' for t in tokens[:6])
+        or_query = " OR ".join(f'"{t}"' for t in tokens[:8])
+        sql = """
+            SELECT kind, pillar, book_title, chapter_title, year, publisher, body,
+                   snippet(docs, 7, '', '', ' ... ', 26) AS excerpt,
+                   bm25(docs) AS rank
+            FROM docs
+            WHERE docs MATCH ?
+            ORDER BY rank
+            LIMIT ?
+        """
         conn = self._connect()
         try:
             self._ensure_schema(conn)
-            cur = conn.execute(
-                """
-                SELECT kind, pillar, book_title, chapter_title, year, publisher,
-                       snippet(docs, 7, '', '', ' ... ', 26) AS excerpt,
-                       bm25(docs) AS rank
-                FROM docs
-                WHERE docs MATCH ?
-                ORDER BY rank
-                LIMIT ?
-                """,
-                (fts_query, max(1, min(int(limit), 12))),
-            )
-            hits: List[Dict[str, Any]] = []
-            for r in cur.fetchall():
-                hits.append({
+            rows = conn.execute(sql, (and_query, req_limit)).fetchall()
+            if not rows and len(tokens) >= 2:
+                cand_rows = conn.execute(sql, (or_query, max(req_limit * 4, 20))).fetchall()
+                q_set = set(tokens[:8])
+                min_hits = max(2, int(len(q_set) * 0.6 + 0.9999))
+                for r in cand_rows:
+                    hay = f"{r['book_title']} {r['chapter_title']} {r['body']}".lower()
+                    hay_toks = set(re.findall(r"[a-zA-Z0-9]{2,}", hay))
+                    if id_tokens and not id_tokens.issubset(hay_toks):
+                        continue
+                    if len(q_set & hay_toks) >= min_hits:
+                        rows.append(r)
+                        if len(rows) >= req_limit:
+                            break
+            return [
+                {
                     "kind": str(r["kind"]),
                     "pillar": str(r["pillar"]),
                     "book_title": str(r["book_title"]),
@@ -347,8 +362,9 @@ class DorothyLocalLibraryIndex:
                     "year": str(r["year"]),
                     "publisher": str(r["publisher"]),
                     "excerpt": " ".join(str(r["excerpt"] or "").split())[:260],
-                })
-            return hits
+                }
+                for r in rows[:req_limit]
+            ]
         except sqlite3.Error:
             return []
         finally:

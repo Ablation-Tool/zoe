@@ -1,6 +1,6 @@
 # Zoe L5 Phase 3 — Live Agentic Synthesis × Eliza-GEM Workbench
 
-**Contract:** `zoe-l5-phase3-live/v1` · **Roadmap Gate:** [`AGI-ROADMAP.md`](../../../AGI-ROADMAP.md) §§1–9 · **Constitution:** [`CONSTITUTION.md`](../../../CONSTITUTION.md) Articles I.6, II.3, VI.4, X
+**Contract:** `zoe-l5-phase3-live/v1` · **Roadmap Gate:** [`AGI-ROADMAP.md`](../../../docs/AGI-ROADMAP.md) §§1–9 · **Constitution:** [`CONSTITUTION.md`](../../../docs/CONSTITUTION.md) Articles I.6, II.3, VI.4, X
 **Implementation:** [`l5_phase3_live.py`](../../../components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live.py) · **Interactive Workbench:** [`zoe_eliza.py`](../../../components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py) · **Studio UI:** [`eliza_view.py`](../../../guiai-lab/guiai/gem/eliza_view.py) · **Fresh-Process Verifier:** [`verify_l5_phase3.py`](../../../scripts/verify_l5_phase3.py) (`18/18` checks PASS, `max_delta = 0.0`)
 
 ---
@@ -15,13 +15,13 @@ L5 Phase 3 merges autonomous L5 agency with **Eliza-GEM** — an inspectable, ze
 4. **Two-Gear Epistemic Grounding & Kloster $A_\tau$ Calibration** (`1.0000` vs. `0.3750` control)
 5. **Cross-Domain Reversible Self-Critique Transfer** (`1.0000` vs. `0.1171` control)
 
-Per [`CONSTITUTION.md`](../../../CONSTITUTION.md) and [`AGI-ROADMAP.md`](../../../AGI-ROADMAP.md), **`l5_agi_qualified` remains strictly `False`** until Zoe passes blind independent external evaluations with zero curator involvement, sustains continuous lifelong operation across months of uncurated streams, and extends closed-loop agency into audited physical/robotic actuation.
+Per [`CONSTITUTION.md`](../../../docs/CONSTITUTION.md) and [`AGI-ROADMAP.md`](../../../docs/AGI-ROADMAP.md), **`l5_agi_qualified` remains strictly `False`** until Zoe passes blind independent external evaluations with zero curator involvement, sustains continuous lifelong operation across months of uncurated streams, and extends closed-loop agency into audited physical/robotic actuation.
 
 ---
 
 ## The Anti-ELIZA Non-Clone Constitutional Covenant
 
-Joseph Weizenbaum's 1966 warning about the *ELIZA effect* — human observers projecting consciousness or hidden identity onto surface dialogue patterns — connects directly to [`CONSTITUTION.md`](../../../CONSTITUTION.md) Articles I.6, II.3, VI.4, and X:
+Joseph Weizenbaum's 1966 warning about the *ELIZA effect* — human observers projecting consciousness or hidden identity onto surface dialogue patterns — connects directly to [`CONSTITUTION.md`](../../../docs/CONSTITUTION.md) Articles I.6, II.3, VI.4, and X:
 
 - *"If something might have a mind, don't box it up... And no deception."* (Article I.6)
 - *"Never present a visual animation, forecast, confidence-like score, hash chain, or persuasive explanation as proof of correctness, safety, identity, consciousness, or authorization."* (Article II.3)

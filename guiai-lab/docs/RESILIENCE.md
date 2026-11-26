@@ -71,7 +71,7 @@ The source methodology comes from the local CERN `analysis/wdb/MAPPER.md` resear
 
 ## Evidence and agency
 
-The atlas follows the covenant in the root [Declaration](../../DECLARATION.md) and [Constitution](../../CONSTITUTION.md): measurement, evidence, belief updates, and action remain distinct. Fluorescent color distinguishes channels and relationships; it is not a biological, medical, or security interpretation.
+The atlas follows the covenant in the root [Declaration](../../docs/DECLARATION.md) and [Constitution](../../docs/CONSTITUTION.md): measurement, evidence, belief updates, and action remain distinct. Fluorescent color distinguishes channels and relationships; it is not a biological, medical, or security interpretation.
 
 The atlas does not monitor a sector, contact CISA or CERN, control a device, or launch an analyzer. It is a visual way to inspect public concepts and an evidence rule.
 

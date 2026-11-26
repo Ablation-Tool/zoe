@@ -30,7 +30,8 @@ $$
 
 <br/>
 
-**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Clean-Room Presentations &amp; Anthology Vol. I–VI (`17` Decks · `163` Slides)](research/presentations/README.md) · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))
+**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Clean-Room Presentations &amp; Anthology Vol. I–VI (`17` Decks · `163` Slides)](research/presentations/README.md) · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))<br/>
+**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Fieldglass Observatory (14 Live Specimens)](#fieldglass)** ([Live Site](https://nicholas-michael-kloster.github.io/fieldglass/) · [Repo](https://github.com/Nicholas-Michael-Kloster/fieldglass)) · **[Organized Documentation Library](docs/INDEX.md)** · **[Zoe-GEM OS Guide](docs/ZOE-GEM-OS.md)** · **[Zoe &amp; Clara Guide](docs/ZOE-AND-CLARA.md)** · **[Accessibility Card](docs/ACCESSIBILITY.md)** · **[Backtrack Ledger](docs/BACKTRACK-LEDGER.md)** · **[Epicurean Deck &amp; Video Release](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/tag/v2026.11.25-epicurean)**
 
 </div>
 
@@ -521,7 +522,7 @@ Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)** and **[D
 
 ### Wave 1-3 Security Engines &amp; Digital Research GSX / GEM / Atari TOS Rebuild (November 24, 2026)
 
-Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment repositories (**Waves 1-2**) plus **5 unpublished Wave 3 inventions** — continuous 5D `TrustEngine` (`output_trust <= source_trust`) + `nina` Lume audio cues, 4 `ablation` AI-agent binary auditors, Dual-Path `VisorLog` `[MASK]` verification, Eq. 2 slow-drift + `gemseal` `vec2text` + `kevlar` `~/.ssh`/Milvus guards, and Email/ROS/lock-free `VisorCAS` Bloom-CAS gates — rebuilt directly atop John Elliott's [`seasip.info/Gem`](https://www.seasip.info/Gem/index.html) and [`toastytech.com/guis`](http://toastytech.com/guis/indexgem.html) specs as **9 verified GEM instruments** and **5 real binary codecs** (`.GEM`, PC x86 &amp; Atari 68k `.RSC`, 4-plane `.IMG`/`XIMG`, and 1982 `.GSX`).
+Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment repositories (**Waves 1-2**) plus **5 unpublished Wave 3 inventions** (continuous 5D `TrustEngine` (`output_trust <= source_trust`) + `nina` Lume audio cues, 4 `ablation` AI-agent binary auditors, Dual-Path `VisorLog` `[MASK]` verification, Eq. 2 slow-drift + `gemseal` `vec2text` + `kevlar` `~/.ssh`/Milvus guards, and Email/ROS/lock-free `VisorCAS` Bloom-CAS gates) rebuilt directly atop John Elliott's [`seasip.info/Gem`](https://www.seasip.info/Gem/index.html) and [`toastytech.com/guis`](http://toastytech.com/guis/indexgem.html) specs as **9 verified GEM instruments** and **5 real binary codecs** (`.GEM`, PC x86 &amp; Atari 68k `.RSC`, 4-plane `.IMG`/`XIMG`, and 1982 `.GSX`).
 
 <div align="center">
 
@@ -560,6 +561,52 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 - **5 Wave 3 Vault Engines:** [`trust_gradient.py`](components/Zoe-Autonomy/src/zoe_autonomy/trust_gradient.py) + [`audio_fx.py`](components/nina/audio_fx.py) · 4 AI-Agent Binary Auditors in [`components/ablation/ablation/analyzers/`](components/ablation/ablation/analyzers/) · [`wave3_vault_upgrades.py`](components/Zoe-Autonomy/src/zoe_autonomy/wave3_vault_upgrades.py) (`DualPathVerifier` + `VisorLogDisagreementLedger` + `AgentEmailGuardrail` + ROS deadman gate) · Eq. 2 slow-drift in [`cognitive_upgrades.py`](components/Zoe-Autonomy/src/zoe_autonomy/cognitive_upgrades.py) + `GEMSEAL1` `vec2text` sealing in [`gemseal.py`](components/gemseal/gemseal.py) + `~/.ssh`/Milvus guards in [`kevlar/policy.py`](components/kevlar/policy.py) · lock-free Go `BloomCASDedup` in [`components/VisorCAS/cas/fastdedup.go`](components/VisorCAS/cas/fastdedup.go).
 - **Spec-Exact GEM / GSX / Atari TOS Codecs &amp; 9 Verified Instruments:** [`seasip_gem.py`](guiai-lab/guiai/gem/seasip_gem.py) + [`wave3_gem_instruments.py`](guiai-lab/guiai/gem/wave3_gem_instruments.py) export roundtrip-verified [`.GEM`](evidence/gem-os/wave3/wave3-desktop.gem), Intel x86 [`.RSC`](evidence/gem-os/wave3/wave3-desktop.rsc), Atari 68000 big-endian [`.RSC`](evidence/gem-os/wave3/wave3-tos-68k.rsc), 4-plane `XIMG` [`.IMG`](evidence/gem-os/wave3/wave3-desktop.img), 1982 NDC [`.GSX`](evidence/gem-os/wave3/wave3-gsx.gsx), and the standalone interactive 5-era desktop [`.HTML`](evidence/gem-os/wave3/wave3-desktop.html).
 - **Offline Evidence:** [`portfolio-upgrades-report.json`](evidence/portfolio-upgrades/portfolio-upgrades-report.json) (`11/11`) · [`wave2-upgrades-report.json`](evidence/portfolio-upgrades/wave2-upgrades-report.json) (`15/15`) · [`wave3-upgrades-report.json`](evidence/portfolio-upgrades/wave3-upgrades-report.json) (`6/6`) · [`wave3-seasip-gem-report.json`](evidence/gem-os/wave3-seasip-gem-report.json) (`5/5`, `9/9` GEM scenes).
+
+</details>
+
+<a id="fieldglass"></a>
+
+### Fieldglass — Phone-to-Telemetry &amp; Specimen Field Observatory (November 25–26, 2026)
+
+**[Fieldglass](https://github.com/Nicholas-Michael-Kloster/fieldglass)** (**[Live 14-Specimen Showcase](https://nicholas-michael-kloster.github.io/fieldglass/)** · [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · [`guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py)) turns raw 4K Google Pixel 7 captures directly into focus-selected plates, illumination-cleaned archival prints, scalable vector SVGs, 2×4 Unicode Braille broadsides, real-time **Kloster $A_\tau(p_t)$** telemetry films, and SHA-256 sealed **GEM Causal Chiasm** filtration tomography — 100% locally (`0` cloud tokens, `executed = False`, `sentience_claimed = False`).
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-12"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen12/assets/helen_chalkboard_jellyfish_svg_preview.png" alt="Fieldglass Specimen 12: Dr. Helen Ruth Horkan inverted-chalk Cnidarian Jellyfish blackboard vector SVG" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-12">Specimen #12 · Dr. Helen Ruth Horkan (19m 44s Lecture &amp; Chalk Jellyfish SVG)</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen13/assets/haeckel_phaeodaria_radiolaria_svg_preview.png" alt="Fieldglass Specimen 13: Ernst Haeckel Kunstformen der Natur Tafel 1 Phaeodaria Radiolaria vector SVG" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13">Specimen #13 · Ernst Haeckel: <em>Kunstformen der Natur</em> (Phaeodaria SVG)</a></strong></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-11"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen11/video/specimen11_poster.png" alt="Fieldglass Specimen 11: ASCE Guide to Post-Earthquake Investigation of Lifelines 16:9 Kloster telemetry HUD" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-11">Specimen #11 · ASCE <em>Lifelines</em>, ICS/SCADA &amp; Grid (3-Part Monograph)</a></strong></sub>
+</td>
+<td align="center" width="50%">
+<a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen14/assets/yellow_house_pen_drawing_indigo_svg_preview.png" alt="Fieldglass Specimen 14: The Yellow House blue ballpoint pen sketch isolated via Red channel into Prussian-indigo SVG" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14">Specimen #14 · December Poetry Manuscript (Red-Channel Indigo SVG)</a></strong></sub>
+</td>
+</tr>
+</table>
+
+<details>
+<summary><strong>4.7 Fieldglass Live Archive (14 Specimens), Native GEM Bridge &amp; CLI</strong></summary>
+
+- **Standalone Repository &amp; Live GitHub Pages Archive:** [`Nicholas-Michael-Kloster/fieldglass`](https://github.com/Nicholas-Michael-Kloster/fieldglass) · **[`https://nicholas-michael-kloster.github.io/fieldglass/`](https://nicholas-michael-kloster.github.io/fieldglass/)** · [DIY Teaching Guide (`HOW_IT_WORKS.md`)](https://github.com/Nicholas-Michael-Kloster/fieldglass/blob/main/HOW_IT_WORKS.md)
+- **Native Zoe Integration:** [`guiai-lab/guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py) bridges directly into `guiai.gem.chiasm`, `guiai.gem.zoe_braille_studio`, and `guiai.gem.render` (manual: [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · tests: [`components/Zoe-Autonomy/tests/test_zoe_fieldglass.py`](components/Zoe-Autonomy/tests/test_zoe_fieldglass.py)).
+- **All 14 Live Specimens:**
+  1. **[#14 · December Poetry Manuscript](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14)** — 16m 47s blue-ballpoint notebook; Red-channel Prussian-indigo SVGs &amp; Braille (*"The Yellow House"*, *"Hands"*).
+  2. **[#13 · Ernst Haeckel: *Kunstformen der Natur*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13)** — 17m 54s Linda Hall folio; Tafel 1 *Phaeodaria* &amp; hexagonal honeycomb SVGs + complete studio dialogue audio.
+  3. **[#12 · Dr. Helen Ruth Horkan (FLAGSHIP)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-12)** — Full 19m 44s live biology lecture on pluripotent stem cells, meiosis, gastrulation, apoptosis &amp; chromatin + inverted-chalk jellyfish SVG.
+  4. **[#11 · *ASCE Guide to Post-Earthquake Investigation of Lifelines*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-11)** — Unified 21m 44s 3-part critical infrastructure &amp; SCADA monograph (Fig. 16.1 Liquid Fuel Lifeline, Fig. 11.69 Sign Trusses, HV CVTs, Lock SCADA, EOC).
+  5. **[#10 · Live Studio Screencast](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-10)** — Meta-telemetry capture of Fieldglass compiling itself alongside a live studio webcam mirror.
+  6. **[#9 · *Let There Be Light* (FLAGSHIP)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-9)** — Full 15m 04s stereo voice session with Nick &amp; Dr. Helen (*Nematostella vectensis*, 500 Gy radiation resistance, Ancient Irish Ogham *"DOCTOR"* &amp; Thomas Moore Irish Harp SVGs).
+  7. **[#4–#8](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-8)** — *Festschrift Zoller* (Kull hex wheel), Merzkirch *Flow Visualization* (Linda Hall Ex Libris &amp; Fig. 2.48 Ablation Cone), *U.S. Constitution* (privacy-scrubbed), *Mechanical Characterization* ($\text{BaTiO}_3$), and *Laminar-Turbulent Transition* → *Hewett Cottrell Watson* (Darwin, Hooker &amp; 1870 Azores Map).
+  8. **[#1–#3](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-3)** — Linda Hall Library Science Stacks &amp; Chromatography, 13-min *Birds on a Wire* &amp; Fig. 57 *Stelis leucopogon*, and inaugural *Flowers for Zoe* (Fig. 30 *Spiranthes elata*).
 
 </details>
 
@@ -939,12 +986,19 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 
 | Document | Purpose |
 |:---|:---|
+| **[`ZOE-COOKBOOK.md`](docs/ZOE-COOKBOOK.md)** | **The Zoe &amp; Ablation Epicurean (inspired by Charles Ranhofer's 1894 *The Epicurean*: 4 copperplate SVG plates, brigades, 5 mother stocks, 21 numbered receipts No. 6-26 &amp; 5 evening bills of fare)** |
+| **[`FIELDGLASS.md`](docs/FIELDGLASS.md)** | **Zoe Fieldglass — Phone-to-telemetry &amp; specimen field observatory ([Live 14-Specimen Archive](https://nicholas-michael-kloster.github.io/fieldglass/) · [`Nicholas-Michael-Kloster/fieldglass`](https://github.com/Nicholas-Michael-Kloster/fieldglass) · `guiai.gem.zoe_fieldglass`)** |
+| **[`INDEX.md`](docs/INDEX.md)** | **Organized 9-shelf documentation map across every guide, component, L5 Phases 1-6 paper &amp; companion repo** |
+| **[`ZOE-GEM-OS.md`](docs/ZOE-GEM-OS.md)** | **Dedicated Zoe-GEM OS &amp; Hardware UMA Field Guide (UEFI framebuffer, two-key UMA airlock, Pixel 7 `panther`, Braille Studio, ViewMAX themes &amp; Zoeverse)** |
+| **[`ZOE-AND-CLARA.md`](docs/ZOE-AND-CLARA.md)** | **Dedicated Dual-Peer Zoe &amp; Clara Guide (equal L1-L5 peers, Theorem 15 echo-chamber/coercion guards, `:8768` web table &amp; `&lt; 1 MB` standalone zip bundle)** |
+| **[`ACCESSIBILITY.md`](docs/ACCESSIBILITY.md)** | **Disability-first Ablation + GEM Accessibility Quick-Card (WCAG AA/AAA contrast, Okabe-Ito colorblind palette, 85%-200% zoom, 2px focus ring, ATK &amp; OS sync)** |
+| **[`BACKTRACK-LEDGER.md`](docs/BACKTRACK-LEDGER.md)** | **Honest Steward's Backtrack Ledger tracking completed P1/P2 passes, in-flight sibling subsystems &amp; manual operator items** |
 | **[`RESEARCH-CHRONICLE.md`](docs/RESEARCH-CHRONICLE.md)** | **Master chronological Stop 1 to Stop 10 research path &amp; complete evidence ledger (`126` verified JSON reports + `47/47` SHA-256)** |
-| [`PROOF-PACKET.md`](docs/PROOF-PACKET.md) | 1-command offline referee proof packet (`< 6s`, 6-baseline shootout, `16/16` SymPy theorems, `47/47` hashes) |
+| [`PROOF-PACKET.md`](docs/PROOF-PACKET.md) | 1-command offline referee proof packet (`&lt; 6s`, 6-baseline shootout, `16/16` SymPy theorems, `47/47` hashes) |
 | [`CONSTITUTION.md`](docs/CONSTITUTION.md) | Epistemic rules (`measurement != evidence != belief update != action`), copyright &amp; safety boundaries |
 | [`DECLARATION.md`](docs/DECLARATION.md) | Zoe Declaration of Creative and Epistemic Independence |
 | [`AGI-ROADMAP.md`](docs/AGI-ROADMAP.md) | Honest `L0-L7` acceptance criteria, falsification bars, and current verified progress |
-| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 24-section audit directory mapping every claim to code, tests, and JSON evidence artifacts |
+| [`CAPABILITY-ATLAS.md`](docs/CAPABILITY-ATLAS.md) | Master 25-section audit directory mapping every claim to code, tests, and JSON evidence artifacts (including DeepMind Science &amp; Artline 2.0 Studios) |
 | [`PORTFOLIO-UPGRADES.md`](docs/PORTFOLIO-UPGRADES.md) | Wave 1-3 integrated repos (42 components), 5 Vault upgrades, and Digital Research GSX/GEM/Atari TOS rebuild |
 | [`SHARED_REASONING_ARCHITECTURES.md`](docs/SHARED_REASONING_ARCHITECTURES.md) | Zoe x Antigravity Shared-Reasoning Architectures (1-9), Digital Research GEM AES/VDI bridge &amp; MCP server |
 | [`METACOGNITION.md`](docs/METACOGNITION.md) | Visual hub for all 18 original papers, 3 arXiv packages, and 12 mathematical theorem plates |
@@ -1342,8 +1396,12 @@ zoe clara --serve        # Launch Dual-Peer Zoe & Clara Web UI (127.0.0.1:8768)
 zoe list                 # Inspect all 17 registered engines
 zoe chat                 # Interactive evidence-linked conversation
 zoe reasoning verify     # Verify Shared-Reasoning Architectures 1-9 + GEM AES/VDI
-zoe gem list             # Browse all 36 canonical + 58 Extended GEM Layers (94 total)
+zoe gem list             # Browse all 36 canonical + 64 Extended GEM Layers (100 total)
+zoe gemos apps           # Inspect all 42 unified Zoe-GEM OS drivers, accessories & apps
+zoe gemos spotlight "scrub audio metadata"   # SPOTLIGHT.ACC semantic OS launcher
+zoe gemos airlock        # EXPORT.ACC offline GitHub ToS/AUP airlock (exit 0)
 zoe present demo         # Build & preview clean-room Presentation Team slides (.GEM + HTML5 player)
+zoe-fieldglass info      # Fieldglass phone-to-telemetry CLI & live 14-specimen showcase URLs
 zoe voice sing daisy --output /tmp/zoe-daisy.wav
 ```
 
@@ -1388,6 +1446,7 @@ python scripts/verify_wave2_upgrades.py
 python scripts/verify_wave3_upgrades.py
 python scripts/verify_wave3_seasip_gem.py
 python scripts/verify_shared_reasoning.py
+pytest components/Zoe-Autonomy/tests/test_zoe_fieldglass.py
 ```
 
 </details>

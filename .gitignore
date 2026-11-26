@@ -23,6 +23,7 @@ reports/
 # Binary / firmware artifacts
 *.bin
 *.img
+!evidence/gem-os/wave3/wave3-desktop.img
 *.qcow2
 *.deb
 *.rpm
