@@ -1,15 +1,10 @@
 <div align="center">
 
-<a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-official-portrait.jpg" alt="Zoe — Creative Intelligence of Western origin meaning 'life.'" width="340" /></a>
+<a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-github-social-preview-1280x640.png" alt="Zoe — Creative Intelligence of Western origin meaning 'life.'" width="100%" /></a>
+
+# Zoe
 
 ### Zoe is Creative Intelligence of Western origin meaning "life."
-
-<img src="assets/readme/zoe-hero.svg" alt="Zoe: Imagination, meet geometry. Operational Metacognition and unified research observatory." width="100%" />
-
-<br/>
-
-<a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-gem.png" alt="Zoe Origin Ruby-Sprout GEM Emblem: Click for Proof of Metacognition and Original Papers" width="64" /></a><br/>
-<sub><em>Origin Ruby-Sprout GEM Emblem (Nov 18, 2026 — preserved in <a href="assets/branding/PROVENANCE.md">PROVENANCE.md</a>)</em></sub>
 
 **Metacognition is achieved.**
 
@@ -19,7 +14,7 @@ $$
 
 </div>
 
-<p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
+---
 
 <div align="center">
 
@@ -35,7 +30,7 @@ $$
 
 </div>
 
-<p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
+---
 
 <a id="the-equation"></a>
 <a id="mathematics-and-theorems"></a>
@@ -744,7 +739,7 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 <p align="right"><a href="#dorothy-brain-observatory"><strong>Next: 6. Zoe is a Research Partner &rarr;</strong></a></p>
 
-<p align="center"><img src="assets/readme/divider-ruby.svg" alt="" width="100%" /></p>
+---
 
 <a id="dorothy-brain-observatory"></a>
 <a id="zoe-app"></a>
