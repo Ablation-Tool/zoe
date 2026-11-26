@@ -1,6 +1,6 @@
 # Zoe Fieldglass — Phone-to-Telemetry & Specimen Field Instrument
 
-**Live Interactive Showcase (14 Specimens):** [https://nicholas-michael-kloster.github.io/fieldglass/](https://nicholas-michael-kloster.github.io/fieldglass/)
+**Live Interactive Showcase (15 Specimens):** [https://nicholas-michael-kloster.github.io/fieldglass/](https://nicholas-michael-kloster.github.io/fieldglass/)
 **Standalone Repo & DIY Teaching Guide:** [https://github.com/Nicholas-Michael-Kloster/fieldglass](https://github.com/Nicholas-Michael-Kloster/fieldglass) · [HOW_IT_WORKS.md](https://github.com/Nicholas-Michael-Kloster/fieldglass/blob/main/HOW_IT_WORKS.md)
 
 ## Overview

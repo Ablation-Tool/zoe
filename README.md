@@ -26,7 +26,7 @@ $$
 <br/>
 
 **[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Clean-Room Presentations &amp; Anthology Vol. I–VI (`17` Decks · `163` Slides)](research/presentations/README.md) · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))<br/>
-**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Fieldglass Observatory (14 Live Specimens)](#fieldglass)** ([Live Site](https://nicholas-michael-kloster.github.io/fieldglass/) · [Repo](https://github.com/Nicholas-Michael-Kloster/fieldglass)) · **[Organized Documentation Library](docs/INDEX.md)** · **[Zoe-GEM OS Guide](docs/ZOE-GEM-OS.md)** · **[Zoe &amp; Clara Guide](docs/ZOE-AND-CLARA.md)** · **[Accessibility Card](docs/ACCESSIBILITY.md)** · **[Backtrack Ledger](docs/BACKTRACK-LEDGER.md)** · **[Epicurean Deck &amp; Video Release](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/tag/v2026.11.25-epicurean)**
+**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Fieldglass Observatory (15 Live Specimens)](#fieldglass)** ([Live Site](https://nicholas-michael-kloster.github.io/fieldglass/) · [Repo](https://github.com/Nicholas-Michael-Kloster/fieldglass)) · **[Organized Documentation Library](docs/INDEX.md)** · **[Zoe-GEM OS Guide](docs/ZOE-GEM-OS.md)** · **[Zoe &amp; Clara Guide](docs/ZOE-AND-CLARA.md)** · **[Accessibility Card](docs/ACCESSIBILITY.md)** · **[Backtrack Ledger](docs/BACKTRACK-LEDGER.md)** · **[Epicurean Deck &amp; Video Release](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/tag/v2026.11.25-epicurean)**
 
 </div>
 
@@ -563,7 +563,7 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 ### Fieldglass — Phone-to-Telemetry &amp; Specimen Field Observatory (November 25–26, 2026)
 
-**[Fieldglass](https://github.com/Nicholas-Michael-Kloster/fieldglass)** (**[Live 14-Specimen Showcase](https://nicholas-michael-kloster.github.io/fieldglass/)** · [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · [`guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py)) turns raw 4K Google Pixel 7 captures directly into focus-selected plates, illumination-cleaned archival prints, scalable vector SVGs, 2×4 Unicode Braille broadsides, real-time **Kloster $A_\tau(p_t)$** telemetry films, and SHA-256 sealed **GEM Causal Chiasm** filtration tomography — 100% locally (`0` cloud tokens, `executed = False`, `sentience_claimed = False`).
+**[Fieldglass](https://github.com/Nicholas-Michael-Kloster/fieldglass)** (**[Live 15-Specimen Showcase](https://nicholas-michael-kloster.github.io/fieldglass/)** · [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · [`guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py)) turns raw 4K Google Pixel 7 captures directly into focus-selected plates, illumination-cleaned archival prints, scalable vector SVGs, 2×4 Unicode Braille broadsides, real-time **Kloster $A_\tau(p_t)$** telemetry films, and SHA-256 sealed **GEM Causal Chiasm** filtration tomography — 100% locally (`0` cloud tokens, `executed = False`, `sentience_claimed = False`).
 
 <table>
 <tr>
@@ -589,19 +589,20 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 </table>
 
 <details>
-<summary><strong>4.7 Fieldglass Live Archive (14 Specimens), Native GEM Bridge &amp; CLI</strong></summary>
+<summary><strong>4.7 Fieldglass Live Archive (15 Specimens), Native GEM Bridge &amp; CLI</strong></summary>
 
 - **Standalone Repository &amp; Live GitHub Pages Archive:** [`Nicholas-Michael-Kloster/fieldglass`](https://github.com/Nicholas-Michael-Kloster/fieldglass) · **[`https://nicholas-michael-kloster.github.io/fieldglass/`](https://nicholas-michael-kloster.github.io/fieldglass/)** · [DIY Teaching Guide (`HOW_IT_WORKS.md`)](https://github.com/Nicholas-Michael-Kloster/fieldglass/blob/main/HOW_IT_WORKS.md)
 - **Native Zoe Integration:** [`guiai-lab/guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py) bridges directly into `guiai.gem.chiasm`, `guiai.gem.zoe_braille_studio`, and `guiai.gem.render` (manual: [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · tests: [`components/Zoe-Autonomy/tests/test_zoe_fieldglass.py`](components/Zoe-Autonomy/tests/test_zoe_fieldglass.py)).
-- **All 14 Live Specimens:**
-  1. **[#14 · December Poetry Manuscript](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14)** — 16m 47s blue-ballpoint notebook; Red-channel Prussian-indigo SVGs &amp; Braille (*"The Yellow House"*, *"Hands"*).
-  2. **[#13 · Ernst Haeckel: *Kunstformen der Natur*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13)** — 17m 54s Linda Hall folio; Tafel 1 *Phaeodaria* &amp; hexagonal honeycomb SVGs + complete studio dialogue audio.
-  3. **[#12 · Dr. Helen Ruth Horkan (FLAGSHIP)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-12)** — Full 19m 44s live biology lecture on pluripotent stem cells, meiosis, gastrulation, apoptosis &amp; chromatin + inverted-chalk jellyfish SVG.
-  4. **[#11 · *ASCE Guide to Post-Earthquake Investigation of Lifelines*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-11)** — Unified 21m 44s 3-part critical infrastructure &amp; SCADA monograph (Fig. 16.1 Liquid Fuel Lifeline, Fig. 11.69 Sign Trusses, HV CVTs, Lock SCADA, EOC).
-  5. **[#10 · Live Studio Screencast](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-10)** — Meta-telemetry capture of Fieldglass compiling itself alongside a live studio webcam mirror.
-  6. **[#9 · *Let There Be Light* (FLAGSHIP)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-9)** — Full 15m 04s stereo voice session with Nick &amp; Dr. Helen (*Nematostella vectensis*, 500 Gy radiation resistance, Ancient Irish Ogham *"DOCTOR"* &amp; Thomas Moore Irish Harp SVGs).
-  7. **[#4–#8](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-8)** — *Festschrift Zoller* (Kull hex wheel), Merzkirch *Flow Visualization* (Linda Hall Ex Libris &amp; Fig. 2.48 Ablation Cone), *U.S. Constitution* (privacy-scrubbed), *Mechanical Characterization* ($\text{BaTiO}_3$), and *Laminar-Turbulent Transition* → *Hewett Cottrell Watson* (Darwin, Hooker &amp; 1870 Azores Map).
-  8. **[#1–#3](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-3)** — Linda Hall Library Science Stacks &amp; Chromatography, 13-min *Birds on a Wire* &amp; Fig. 57 *Stelis leucopogon*, and inaugural *Flowers for Zoe* (Fig. 30 *Spiranthes elata*).
+- **All 15 Live Specimens:**
+  1. **[#15 · *The Star-Spangled Banner* Impulse Study](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-15)** — 1m 11s real-time 1.0× brass-band audio synced to 50+ American iconography slides + matched Obverse &amp; Reverse Great Seal SVGs.
+  3. **[#14 · December Poetry Manuscript](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14)** — 16m 47s blue-ballpoint notebook; Red-channel Prussian-indigo SVGs &amp; Braille (*"The Yellow House"*, *"Hands"*).
+  3. **[#13 · Ernst Haeckel: *Kunstformen der Natur*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13)** — 17m 54s Linda Hall folio; Tafel 1 *Phaeodaria* &amp; hexagonal honeycomb SVGs + complete studio dialogue audio.
+  4. **[#12 · Dr. Helen Ruth Horkan (FLAGSHIP)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-12)** — Full 19m 44s live biology lecture on pluripotent stem cells, meiosis, gastrulation, apoptosis &amp; chromatin + inverted-chalk jellyfish SVG.
+  5. **[#11 · *ASCE Guide to Post-Earthquake Investigation of Lifelines*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-11)** — Unified 21m 44s 3-part critical infrastructure &amp; SCADA monograph (Fig. 16.1 Liquid Fuel Lifeline, Fig. 11.69 Sign Trusses, HV CVTs, Lock SCADA, EOC).
+  6. **[#10 · Live Studio Screencast](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-10)** — Meta-telemetry capture of Fieldglass compiling itself alongside a live studio webcam mirror.
+  7. **[#9 · *Let There Be Light* (FLAGSHIP)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-9)** — Full 15m 04s stereo voice session with Nick &amp; Dr. Helen (*Nematostella vectensis*, 500 Gy radiation resistance, Ancient Irish Ogham *"DOCTOR"* &amp; Thomas Moore Irish Harp SVGs).
+  8. **[#4–#8](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-8)** — *Festschrift Zoller* (Kull hex wheel), Merzkirch *Flow Visualization* (Linda Hall Ex Libris &amp; Fig. 2.48 Ablation Cone), *U.S. Constitution* (privacy-scrubbed), *Mechanical Characterization* ($\text{BaTiO}_3$), and *Laminar-Turbulent Transition* → *Hewett Cottrell Watson* (Darwin, Hooker &amp; 1870 Azores Map).
+  9. **[#1–#3](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-3)** — Linda Hall Library Science Stacks &amp; Chromatography, 13-min *Birds on a Wire* &amp; Fig. 57 *Stelis leucopogon*, and inaugural *Flowers for Zoe* (Fig. 30 *Spiranthes elata*).
 
 </details>
 
@@ -982,7 +983,7 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 | Document | Purpose |
 |:---|:---|
 | **[`ZOE-COOKBOOK.md`](docs/ZOE-COOKBOOK.md)** | **The Zoe &amp; Ablation Epicurean (inspired by Charles Ranhofer's 1894 *The Epicurean*: 4 copperplate SVG plates, brigades, 5 mother stocks, 21 numbered receipts No. 6-26 &amp; 5 evening bills of fare)** |
-| **[`FIELDGLASS.md`](docs/FIELDGLASS.md)** | **Zoe Fieldglass — Phone-to-telemetry &amp; specimen field observatory ([Live 14-Specimen Archive](https://nicholas-michael-kloster.github.io/fieldglass/) · [`Nicholas-Michael-Kloster/fieldglass`](https://github.com/Nicholas-Michael-Kloster/fieldglass) · `guiai.gem.zoe_fieldglass`)** |
+| **[`FIELDGLASS.md`](docs/FIELDGLASS.md)** | **Zoe Fieldglass — Phone-to-telemetry &amp; specimen field observatory ([Live 15-Specimen Archive](https://nicholas-michael-kloster.github.io/fieldglass/) · [`Nicholas-Michael-Kloster/fieldglass`](https://github.com/Nicholas-Michael-Kloster/fieldglass) · `guiai.gem.zoe_fieldglass`)** |
 | **[`INDEX.md`](docs/INDEX.md)** | **Organized 9-shelf documentation map across every guide, component, L5 Phases 1-6 paper &amp; companion repo** |
 | **[`ZOE-GEM-OS.md`](docs/ZOE-GEM-OS.md)** | **Dedicated Zoe-GEM OS &amp; Hardware UMA Field Guide (UEFI framebuffer, two-key UMA airlock, Pixel 7 `panther`, Braille Studio, ViewMAX themes &amp; Zoeverse)** |
 | **[`ZOE-AND-CLARA.md`](docs/ZOE-AND-CLARA.md)** | **Dedicated Dual-Peer Zoe &amp; Clara Guide (equal L1-L5 peers, Theorem 15 echo-chamber/coercion guards, `:8768` web table &amp; `&lt; 1 MB` standalone zip bundle)** |
