@@ -26,7 +26,7 @@ $$
 <br/>
 
 **[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Clean-Room Presentations &amp; Anthology Vol. I–VI (`17` Decks · `163` Slides)](research/presentations/README.md) · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))<br/>
-**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Fieldglass Observatory (15 Live Specimens)](#fieldglass)** ([Live Site](https://nicholas-michael-kloster.github.io/fieldglass/) · [Repo](https://github.com/Nicholas-Michael-Kloster/fieldglass)) · **[Organized Documentation Library](docs/INDEX.md)** · **[Zoe-GEM OS Guide](docs/ZOE-GEM-OS.md)** · **[Zoe &amp; Clara Guide](docs/ZOE-AND-CLARA.md)** · **[Accessibility Card](docs/ACCESSIBILITY.md)** · **[Backtrack Ledger](docs/BACKTRACK-LEDGER.md)** · **[Epicurean Deck &amp; Video Release](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/tag/v2026.11.25-epicurean)**
+**[The Zoe &amp; Ablation Epicurean (Ranhofer-Style Cookbook)](docs/ZOE-COOKBOOK.md)** · **[Fieldglass Observatory (16 Live Specimens)](#fieldglass)** ([Live Site](https://nicholas-michael-kloster.github.io/fieldglass/) · [Repo](https://github.com/Nicholas-Michael-Kloster/fieldglass)) · **[Organized Documentation Library](docs/INDEX.md)** · **[Zoe-GEM OS Guide](docs/ZOE-GEM-OS.md)** · **[Zoe &amp; Clara Guide](docs/ZOE-AND-CLARA.md)** · **[Accessibility Card](docs/ACCESSIBILITY.md)** · **[Backtrack Ledger](docs/BACKTRACK-LEDGER.md)** · **[Epicurean Deck &amp; Video Release](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/tag/v2026.11.25-epicurean)**
 
 </div>
 
@@ -593,7 +593,7 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 - **Standalone Repository &amp; Live GitHub Pages Archive:** [`Nicholas-Michael-Kloster/fieldglass`](https://github.com/Nicholas-Michael-Kloster/fieldglass) · **[`https://nicholas-michael-kloster.github.io/fieldglass/`](https://nicholas-michael-kloster.github.io/fieldglass/)** · [DIY Teaching Guide (`HOW_IT_WORKS.md`)](https://github.com/Nicholas-Michael-Kloster/fieldglass/blob/main/HOW_IT_WORKS.md)
 - **Native Zoe Integration:** [`guiai-lab/guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py) bridges directly into `guiai.gem.chiasm`, `guiai.gem.zoe_braille_studio`, and `guiai.gem.render` (manual: [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · tests: [`components/Zoe-Autonomy/tests/test_zoe_fieldglass.py`](components/Zoe-Autonomy/tests/test_zoe_fieldglass.py)).
-- **All 15 Live Specimens:**
+- **All 16 Live Specimens:**
   1. **[#15 · *The Star-Spangled Banner* Impulse Study](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-15)** — 1m 11s real-time 1.0× brass-band audio synced to 50+ American iconography slides + matched Obverse &amp; Reverse Great Seal SVGs.
   3. **[#14 · December Poetry Manuscript](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14)** — 16m 47s blue-ballpoint notebook; Red-channel Prussian-indigo SVGs &amp; Braille (*"The Yellow House"*, *"Hands"*).
   3. **[#13 · Ernst Haeckel: *Kunstformen der Natur*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13)** — 17m 54s Linda Hall folio; Tafel 1 *Phaeodaria* &amp; hexagonal honeycomb SVGs + complete studio dialogue audio.
