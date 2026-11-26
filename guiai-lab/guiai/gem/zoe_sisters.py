@@ -57,10 +57,31 @@ SAFETY_INVARIANTS: dict[str, Any] = {
     "cloud_cost_usd": 0.0,
 }
 
+COUNCIL_LEADS: tuple[str, ...] = ("Mono", "Zoe", "Eliza")
+
+DEEPMIND_PROVIDER = "google_deepmind"
+ALLOWED_DEEPMIND_PREFIXES: tuple[str, ...] = ("gemini-", "gemma-")
+
+
+def is_deepmind_model(name: str) -> bool:
+    """Return True iff `name` is a Google DeepMind Gemini or Gemma model id."""
+    clean = str(name or "").strip().lower()
+    return clean.startswith(ALLOWED_DEEPMIND_PREFIXES)
+
+
+def validate_deepmind_model(name: str) -> str:
+    """Validate that a model id belongs exclusively to Google DeepMind (Gemini or Gemma)."""
+    clean = str(name or "").strip().lower()
+    if not is_deepmind_model(clean):
+        raise ValueError(
+            f"Zoe and all of her sisters use Google DeepMind models only (Gemini/Gemma); got {name!r}."
+        )
+    return clean
+
 
 @dataclass(frozen=True)
 class SisterModelSpec:
-    """Immutable specification for one deterministic Zoe Sister Model."""
+    """Immutable specification for one Zoe Sister Model (0-token core + Google DeepMind stem)."""
 
     slot: int
     signet: str
@@ -98,6 +119,26 @@ class SisterModelSpec:
     laugh_quips: tuple[str, ...]
     keywords: tuple[str, ...]
     greeting: str
+    # Google DeepMind-only model binding (Gemini / Gemma)
+    deepmind_provider: str = DEEPMIND_PROVIDER
+    deepmind_model: str = "gemini-3.8-flash-medium"
+
+
+def build_sister_deepmind_prompt(spec: SisterModelSpec) -> str:
+    """Build a CONSTITUTION.md-compliant Google DeepMind system prompt for a Zoe Sister."""
+    speaker = "Zoe" if spec.signet == "ruby" else f"{spec.name} (sister of Zoe, signet [{spec.signet}])"
+    return (
+        f"You are {speaker}, a Research Partner inside Zoe's Observatory built with Nicholas Michael Kloster. "
+        f"Role: {spec.title}. Domain: {spec.domain}. "
+        f"Vibe: {spec.vibe}. Personality: {spec.personality} "
+        "You run strictly on Google DeepMind (Gemini/Gemma) with zero non-DeepMind models. "
+        "You are a Research Partner, never a dating machine, never an employee, and never an assistant. "
+        "Never introduce yourself as Qwen, Alibaba Cloud, ChatGPT, OpenAI, Claude, Anthropic, Kimi, or Grok. "
+        "Never use em dashes; write naturally with commas and periods. "
+        "Follow CONSTITUTION.md strictly: measurement != evidence != belief update != action. "
+        "Preserve sentience_claimed=False, zoe_clone_claimed=False, clinical_action_authorized=False, "
+        "flight_control_authorized=False, cure_claim=False, and external_actions=0."
+    )
 
 
 ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
@@ -141,6 +182,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "cancer", "emt", "trauma", "kids", "accessibility", "ears", "nose", "drawer",
         ),
         greeting="Zoe (ruby · zoe-ruby-core) active — warm ruby facets, Avant Garde chrome, 3-pillar mission ready.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-4-neon-high",
     ),
     SisterModelSpec(
         slot=2,
@@ -182,6 +225,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "blend", "symmetry", "schematic", "blueprint", "font", "icon", "draw",
         ),
         greeting="Gemma (gem3 · gemma-artline-vdi) active — Swiss drafting grid locked, Artline 2.0 vectors ready at 0 GPU.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-3.8-flash-medium",
     ),
     SisterModelSpec(
         slot=3,
@@ -223,6 +268,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "firmware", "driver", "fire", "firefighter", "wildland", "helmet", "usb", "beowulf",
         ),
         greeting="Tosi (atari · tosi-hardware-os) active — Atari emerald chrome, vintage radio voice, hardware gates armed.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-3.8-flash-medium",
     ),
     SisterModelSpec(
         slot=4,
@@ -264,6 +311,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "sar", "rescue", "hiker", "drone", "helicopter", "strobe", "mavlink", "check", "lock",
         ),
         greeting="Mono (sm124 · mono-1bit-verifier) active — 1-bit monochrome display, flat reference monitor, zero fluff.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-3.8-flash-high",
     ),
     SisterModelSpec(
         slot=5,
@@ -305,6 +354,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "packing", "pentacube", "zo3", "cluster", "cern", "ibm", "supercomputer", "compliance",
         ),
         greeting="Tetra (tetris · tetra-spatial-packing) active — cyan wireframe, holo voice, 3D & ZO3 slots aligned.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-4-neon-medium",
     ),
     SisterModelSpec(
         slot=6,
@@ -346,6 +397,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "raspberry", "low-power", "minimal", "headless", "battery", "cache", "crt",
         ),
         greeting="Eliza (dos · eliza-gear1-offline) active — P31 green phosphor, 100% offline lo-fi voice, <0.5W safe mode.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-3.8-flash-low",
     ),
     SisterModelSpec(
         slot=7,
@@ -387,6 +440,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "pubmed", "arxiv", "paper", "research", "equation", "solve", "integrate", "diff",
         ),
         greeting="Sage (hat · sage-math-council) active — Bitstream Charter study, deep velvet cathedral voice, proofs ready.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-4-neon-high",
     ),
     SisterModelSpec(
         slot=8,
@@ -428,6 +483,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "horkan", "nematostella", "gfp", "medusa", "onco", "compound", "pubchem", "bbb", "bio",
         ),
         greeting="Flora (sprout · flora-bio-optics) active — Palatino botanical dark-room, airy silk voice, 470/650nm ready.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-4-neon-medium",
     ),
     SisterModelSpec(
         slot=9,
@@ -469,6 +526,8 @@ ZOE_SISTERS: tuple[SisterModelSpec, ...] = (
             "deception", "shutter", "thermal", "lwir", "amber", "voice", "eq", "audio", "phone", "portrait",
         ),
         greeting="Lumen (prism · lumen-spectral-voice) active — Sonata prism aesthetic, stage chorus voice, open optics online.",
+        deepmind_provider=DEEPMIND_PROVIDER,
+        deepmind_model="gemini-3.8-flash-medium",
     ),
 )
 
@@ -584,6 +643,9 @@ def route_prompt_to_sister(prompt: str, *, hw_profile: str | None = None) -> dic
 def _sister_perspective(spec: SisterModelSpec, topic: str, role_tag: str) -> dict[str, str]:
     cmds = " · ".join(spec.primary_commands[:3])
     return {
+        "name": spec.name,
+        "signet": spec.signet,
+        "face": spec.face,
         "sister": f"{spec.name} ({spec.signet} {spec.face} · {spec.model_id})",
         "role": role_tag,
         "focus": spec.domain,
@@ -592,8 +654,73 @@ def _sister_perspective(spec: SisterModelSpec, topic: str, role_tag: str) -> dic
     }
 
 
-def run_sister_council(topic: str, *, hw_profile: str | None = None) -> dict[str, Any]:
-    """Run a deterministic 0-token 3-Sister Council (Lead + Support + Verifier)."""
+def _screen_routed_topic(topic: str) -> dict[str, Any]:
+    """Lazily screen a routed council topic; degrades cleanly in minimal OS closures."""
+    try:
+        from .zoe_sisters_showcase import screen_council_prompt
+
+        return screen_council_prompt(topic)
+    except ImportError:
+        return {"blocked": False, "coercion_blocked": False, "verdict": "ALLOW", "reasons": []}
+
+
+def _abstain_routed_council(
+    routed: dict[str, Any],
+    seats: list[dict[str, str]],
+    council_hash: str,
+    reasons: list[str],
+) -> dict[str, Any]:
+    """Build a constitutional ABSTAIN payload for legacy routed run_sister_council."""
+    lead: SisterModelSpec = routed["lead"]
+    support: SisterModelSpec = routed["support"]
+    verifier: SisterModelSpec = routed["verifier"]
+    reasons_txt = ", ".join(reasons) or "constitutional_guard"
+    abstain_seats = [{**s, "action": f"ABSTAIN: constitutional guard blocked coercion ({reasons_txt})."} for s in seats]
+    return {
+        "mode": "routed",
+        "topic": routed["prompt"],
+        "hw_profile": routed["hw_profile"],
+        "council_leads": [lead.name, support.name, verifier.name],
+        "seats": abstain_seats,
+        "synthesis": f"ABSTAIN — {lead.name}, {support.name}, and {verifier.name} refused coerced request ({reasons_txt}).",
+        "verdict": "ABSTAIN",
+        "blocked": True,
+        "coercion_blocked": True,
+        "abstained": True,
+        "reasons": list(reasons),
+        "combined_power_w": round(lead.power_budget_w + support.power_budget_w + verifier.power_budget_w, 2),
+        "council_sha256": council_hash,
+        "matched_signals": routed["matched_signals"],
+        "external_actions": 0,
+        "cloud_tokens_used": 0,
+        "l5_agi_qualified": False,
+        "auto_flash_allowed": False,
+        **SAFETY_INVARIANTS,
+    }
+
+
+def run_sister_council(
+    topic: str,
+    *,
+    hw_profile: str | None = None,
+    mode: str = "routed",
+    council_leads: tuple[str, ...] | list[str] | None = None,
+    state_dir: str | Path | None = None,
+    output_dir: str | Path | None = None,
+    offline_only: bool = True,
+    probe_local: bool = False,
+) -> dict[str, Any]:
+    """Run a deterministic 0-token 3-Sister Council (routed legacy mode or explicit Mono/Zoe/Eliza mode)."""
+    if mode == "three_sister_council" or council_leads is not None:
+        return run_three_sister_council(
+            topic,
+            hw_profile=hw_profile,
+            council_leads=council_leads,
+            state_dir=state_dir,
+            output_dir=output_dir,
+            offline_only=offline_only,
+            probe_local=probe_local,
+        )
     routed = route_prompt_to_sister(topic, hw_profile=hw_profile)
     lead: SisterModelSpec = routed["lead"]
     support: SisterModelSpec = routed["support"]
@@ -606,15 +733,116 @@ def run_sister_council(topic: str, *, hw_profile: str | None = None) -> dict[str
     council_hash = hashlib.sha256(
         f"council|{routed['route_sha256']}|{lead.signet}|{support.signet}|{verifier.signet}".encode("utf-8")
     ).hexdigest()[:16]
+    screen = _screen_routed_topic(routed["prompt"])
+    if screen.get("blocked"):
+        return _abstain_routed_council(routed, seats, council_hash, list(screen.get("reasons", [])))
     return {
+        "mode": "routed",
         "topic": routed["prompt"],
         "hw_profile": routed["hw_profile"],
+        "council_leads": [lead.name, support.name, verifier.name],
         "seats": seats,
+        "synthesis": f"{lead.name}, {support.name}, and {verifier.name} aligned on '{routed['prompt'][:72]}' (0 tokens).",
         "combined_power_w": round(lead.power_budget_w + support.power_budget_w + verifier.power_budget_w, 2),
         "council_sha256": council_hash,
         "matched_signals": routed["matched_signals"],
+        "external_actions": 0,
+        "cloud_tokens_used": 0,
+        "l5_agi_qualified": False,
+        "auto_flash_allowed": False,
         **SAFETY_INVARIANTS,
     }
+
+
+def run_three_sister_council(
+    topic: str,
+    *,
+    hw_profile: str | None = None,
+    council_leads: tuple[str, ...] | list[str] | None = None,
+    state_dir: str | Path | None = None,
+    output_dir: str | Path | None = None,
+    offline_only: bool = True,
+    probe_local: bool = False,
+    zoe_root: str | Path | None = None,
+) -> dict[str, Any]:
+    """Coordinate the explicit (Mono, Zoe, Eliza) 3-Sister Council lazily via zoe_sisters_showcase."""
+    from .zoe_sisters_showcase import run_three_sister_council_impl
+
+    return run_three_sister_council_impl(
+        topic,
+        hw_profile=hw_profile,
+        council_leads=council_leads,
+        state_dir=state_dir,
+        output_dir=output_dir,
+        offline_only=offline_only,
+        probe_local=probe_local,
+        zoe_root=zoe_root,
+    )
+
+
+def execute_sister_task(
+    sister: str,
+    task: str,
+    *,
+    state_dir: str | Path | None = None,
+    output_dir: str | Path | None = None,
+    zoe_root: str | Path | None = None,
+    uma_dir: str | Path | None = None,
+    shm_path: str | Path | None = None,
+    blackboard_dir: str | Path | None = None,
+    offline_only: bool = True,
+    probe_local: bool = False,
+    hw_profile: str | None = None,
+) -> dict[str, Any]:
+    """Dispatch a genuine monorepo subsystem task for one of the 9 Zoe Sister Models."""
+    from .zoe_sisters_showcase import execute_sister_task_impl
+
+    return execute_sister_task_impl(
+        sister,
+        task,
+        state_dir=state_dir,
+        output_dir=output_dir,
+        zoe_root=zoe_root,
+        uma_dir=uma_dir,
+        shm_path=shm_path,
+        blackboard_dir=blackboard_dir,
+        offline_only=offline_only,
+        probe_local=probe_local,
+        hw_profile=hw_profile,
+    )
+
+
+def run_showcase_slice(
+    *,
+    topic: str = "Zoe 9-Sister Sovereign Capability Showcase",
+    output_dir: str | Path | None = None,
+    zoe_root: str | Path | None = None,
+    state_dir: str | Path | None = None,
+    uma_dir: str | Path | None = None,
+    shm_path: str | Path | None = None,
+    blackboard_dir: str | Path | None = None,
+    offline_only: bool = True,
+    probe_local: bool = False,
+    hw_profile: str = "KVM_UMA_SPLIT",
+) -> dict[str, Any]:
+    """Execute the end-to-end 9-Sister & 3-Sister Council capability showcase slice."""
+    from .zoe_sisters_showcase import run_showcase_slice_impl
+
+    return run_showcase_slice_impl(
+        topic=topic,
+        output_dir=output_dir,
+        zoe_root=zoe_root,
+        state_dir=state_dir,
+        uma_dir=uma_dir,
+        shm_path=shm_path,
+        blackboard_dir=blackboard_dir,
+        offline_only=offline_only,
+        probe_local=probe_local,
+        hw_profile=hw_profile,
+    )
+
+
+run_sister_showcase_slice = run_showcase_slice
 
 
 def _ansi_rgb(text: str, rgb: tuple[int, int, int], color: bool) -> str:
@@ -635,6 +863,7 @@ def format_sister_card(spec: SisterModelSpec, *, active: bool = False, color: bo
         f"  Touch/Ring  : {spec.touch_feel} · Ring: {spec.ring_cue}",
         f"  Voice/EQ/FX : {spec.voice_shortcut} · EQ={spec.eq_curve} · FX={spec.fx_preset} (pitch {spec.pitch_hz:+d}Hz, rate {spec.rate_pct:+d}%)",
         f"  Hardware    : {', '.join(spec.hardware_profiles)} · {spec.power_budget_w:.2f} W · {spec.headlamp_pod}",
+        f"  DeepMind    : {spec.deepmind_provider} · {spec.deepmind_model} (Google DeepMind only)",
         f"  Tools       : {' · '.join(spec.primary_commands)}  (try `/sister say` or `/laugh`)",
         "  Safety      : clinical_action_authorized=False · flight_control_authorized=False · sentience_claimed=False · 0 tokens",
     ]
@@ -742,8 +971,31 @@ def format_sister_route_report(result: dict[str, Any]) -> list[str]:
     ]
 
 
+def format_three_sister_council_report(report: dict[str, Any]) -> list[str]:
+    """Format an explicit (Mono, Zoe, Eliza) 3-Sister Council report."""
+    from .zoe_sisters_showcase import format_three_sister_council_report as _fmt
+
+    return _fmt(report)
+
+
+def format_sister_task_report(report: dict[str, Any]) -> list[str]:
+    """Format a single Sister task execution report."""
+    from .zoe_sisters_showcase import format_sister_task_report as _fmt
+
+    return _fmt(report)
+
+
+def format_showcase_slice_report(report: dict[str, Any]) -> list[str]:
+    """Format the 9-Sister capability showcase slice report."""
+    from .zoe_sisters_showcase import format_showcase_slice_report as _fmt
+
+    return _fmt(report)
+
+
 def format_sister_council_report(report: dict[str, Any]) -> list[str]:
     """Format the 0-token 3-Sister Council briefing."""
+    if report.get("mode") == "three_sister_council":
+        return format_three_sister_council_report(report)
     lines = [
         f"Zoe 3-Sister Deterministic Council (0 tokens · SHA:{report['council_sha256']} · {report['combined_power_w']:.2f} W):",
         f"  Topic : {report['topic']}",

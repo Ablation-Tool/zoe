@@ -17,7 +17,7 @@ The model keeps three domains separate:
 The local TIM3C diagram shows an **80 MHz oscillator divided by two to 40 MHz**, with clock distribution and delay/window controls. Its source is `TIM3C_Clock_Flow.pdf` in this directory, with the listed SHA-256:
 
 ```text
-/media/cowboy/research/CERN/Boutique/01-documentation/docs/tim/
+$ZOE_CERN_ROOT/01-documentation/docs/tim/
 96e9f0a51d3ba1e3b9a1fa5ece05688341f220ada54cf451fdbbfe68263d0611
 ```
 

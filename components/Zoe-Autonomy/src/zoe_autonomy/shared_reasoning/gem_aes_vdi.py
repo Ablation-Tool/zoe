@@ -339,6 +339,9 @@ class GemWindowManager:
             rx, ry, rw, rh = (_require_nonbool_int(c, "rect") for c in rect)
             if rw <= 0 or rh <= 0:
                 raise ValueError("rect width and height must be positive")
+            for coord in (rx, ry, rw, rh):
+                if not (-32768 <= coord <= 32767):
+                    raise ValueError(f"Window rect coordinate out of int16 range: {coord}")
             win.x, win.y, win.w, win.h = rx, ry, rw, rh
         raw_desk = bytes(self.desk.wind_open(win.handle))
         raw_evt = self.event_queue.post_message(
@@ -408,6 +411,9 @@ class GemWindowManager:
             rx, ry, rw, rh = (_require_nonbool_int(c, "rect") for c in value)
             if rw <= 0 or rh <= 0:
                 raise ValueError("rect width and height must be positive")
+            for coord in (rx, ry, rw, rh):
+                if not (-32768 <= coord <= 32767):
+                    raise ValueError(f"Window rect coordinate out of int16 range: {coord}")
             win.x, win.y, win.w, win.h = rx, ry, rw, rh
             msg_bytes = self.event_queue.post_message(WM_MOVED, 0, 0, win.handle, rx, ry, rw, rh)
             self.desk.dispatch(msg_bytes)

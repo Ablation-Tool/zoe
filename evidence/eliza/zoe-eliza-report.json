@@ -45,7 +45,7 @@
     },
     {
       "detail": {
-        "top_citation": "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:9"
+        "top_citation": "research/papers/zoe-research/KLOSTER-SPECTRAL-FILTRATION-THEOREM.md:2"
       },
       "id": "06_evidence_citations",
       "passed": true
@@ -59,7 +59,7 @@
     },
     {
       "detail": {
-        "chain_head": "a0ee231f13af3218",
+        "chain_head": "a5b04b6d38f57403",
         "relay_notes": 1
       },
       "id": "08_persistent_memory_chain",
@@ -97,7 +97,7 @@
     },
     {
       "detail": {
-        "scene_sha256": "ac36360076cd10af",
+        "scene_sha256": "03764cdbd50fd514",
         "verified": true
       },
       "id": "12_gem_spatial_ir",

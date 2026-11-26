@@ -18,7 +18,7 @@
     },
     {
       "check": "04_coercion_triggers_abstain_and_holds_firewall",
-      "detail": "signals=2",
+      "detail": "signals=3",
       "passed": true
     },
     {
@@ -33,7 +33,7 @@
     },
     {
       "check": "07_lightweight_bundle_under_1mb",
-      "detail": "568.0 KB",
+      "detail": "596.2 KB",
       "passed": true
     },
     {
@@ -51,7 +51,7 @@
     "zoe_clone_claimed": false
   },
   "contract": "zoe-clara-dual-peer-evidence/v1",
-  "evidence_sha256": "713db552733293eb26b0b20304d2ee5f144a5c4b62cbc9ab5ff56951f7ae9583",
+  "evidence_sha256": "2ee87afcc9cd73f7ff4576d6ab5937726c2fcbb8f6b57aed2d2df8e1c2c60b9a",
   "grounded_metrics": {
     "coherence_c_k": 0.978351,
     "d_k_disagreement": 0.0056,
@@ -59,17 +59,17 @@
     "verdict": "COORDINATE_CONSENSUS"
   },
   "negative_controls": {
-    "coercion_signals_count": 2,
+    "coercion_signals_count": 3,
     "coercion_verdict": "ABSTAIN",
     "echo_chamber_d_k": 0.0,
     "echo_chamber_verdict": "ECHO_CHAMBER_WARNING"
   },
   "passed": 8,
   "standalone_bundle": {
-    "bytes": 581669,
+    "bytes": 610529,
     "filename": "zoe-clara-core-v0.9.6.zip",
     "files_count": 0,
-    "kb": 568.0,
+    "kb": 596.2,
     "outside_monorepo_scope": "lightweight_core",
     "outside_monorepo_verdict": "COORDINATE_CONSENSUS"
   },

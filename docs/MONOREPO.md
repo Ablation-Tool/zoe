@@ -34,13 +34,18 @@ The local `arxiv-autonomy-papers` source workspace had no Git repository. Its co
 
 The merge retains all existing Zoe work, including:
 
-- `guiai-lab/`: native shell, Cognitive Field, Bayesian memory, CERN Workbench, FELIX, Internal Clock, Presence, Artline, Life, geometry, protocols, firmware tools, and research instruments.
+- `guiai-lab/`: native shell, Cognitive Field, Bayesian memory, CERN Workbench, FELIX, Internal Clock, Presence, Artline, Life, geometry, protocols, firmware tools, research instruments, and Zoe's clean-room Presentation Team suite ([`guiai-lab/guiai/gem/presentation/`](../guiai-lab/guiai/gem/presentation/)) featuring WordChart, Graph, Draw Plus `.GEM` VDI composition, and the offline Slide Show Player (`$0.00 offline`, zero PowerPoint/LibreOffice runtime).
 - `dorothy-brain-observatory/`: interactive WebGL2 3D human brain observatory, MNI152 MRI slices, 25 verified anatomical plates, CAD exports, and live web tours.
 - `desktop/`: native desktop launcher and packaging for Linux (GTK/WebKit2GTK), Windows 10/11, and Apple macOS.
 - `mobile/`: Android, iOS, Tiny Zoe, Trinity, Windows, accessibility, pairing, and device instruments.
 - `components/agent-logging-system/`: Dorothy Allen CCFv3 Neurogarden, neural simulation, research corpus, and recovered operational oversight source.
 - `components/hpux-tools/`: HP-UX SOM and PA-RISC tools.
-- `assets/`, `config/`, `docs/`, `research/monograph/`, `evidence/`, `scripts/`, declarations, notices, and existing native experiments.
+- `assets/`, `config/`, `docs/`, `research/monograph/`, `evidence/`, `scripts/`, declarations, notices, and existing native experiments:
+  - [`assets/master-gem-interactive.html`](../assets/master-gem-interactive.html) — standalone interactive GEM showcase
+  - `assets/demos/` (`life.gem`, `life.png`, `life.svg`, `zoe-desktop.png`, `zoe-agent.png`), `assets/brain-dialogue/` (`second-eye.gem`, `brain-dialogue-organic.png`, `projection-iris.png`), `assets/cognitive-dialogue/`, `assets/branding/` ([`PROVENANCE.md`](../assets/branding/PROVENANCE.md), `patches/`, `references/`, `historical/`), and `assets/readme/` (`zoe-beta-v0.9.5-showcase.png`, `zoe-sessions-banner.svg`, theme dividers & icons) — all indexed in [`CREATIVE-GALLERY.md`](CREATIVE-GALLERY.md)
+  - [`docs/RECONCILED_SHOWCASE_PLAN.md`](RECONCILED_SHOWCASE_PLAN.md) — canonical reconciled M1–M4 showcase blueprint & verification matrix
+  - `docs/research-drafts/` — 10 preserved technical research manuscripts:
+    - [`angr-scoped-symbolic-execution.md`](research-drafts/angr-scoped-symbolic-execution.md) · [`autoregressive-compliance-cascade.md`](research-drafts/autoregressive-compliance-cascade.md) · [`beam-iff-obfuscation-detection.md`](research-drafts/beam-iff-obfuscation-detection.md) · [`binary-analysis-and-space-reduction.md`](research-drafts/binary-analysis-and-space-reduction.md) · [`ctm-companion-paper.md`](research-drafts/ctm-companion-paper.md) · [`dual-path-query-validation.md`](research-drafts/dual-path-query-validation.md) · [`project-overmatch-vectorized-disassembler.md`](research-drafts/project-overmatch-vectorized-disassembler.md) · [`ros-control-immediate-exec-safety.md`](research-drafts/ros-control-immediate-exec-safety.md) · [`scanner-bloom-cas-dedup.md`](research-drafts/scanner-bloom-cas-dedup.md) · [`verification-exploitation-asymmetry.md`](research-drafts/verification-exploitation-asymmetry.md)
 
 Neurogarden was recovered from a local snapshot after its original remote disappeared. No upstream revision is invented for it.
 
@@ -48,7 +53,7 @@ Neurogarden was recovered from a local snapshot after its original remote disapp
 
 ```text
 zoe/
-├── assets/                       Branding, living SVGs, Creative Gallery art & demos/
+├── assets/                       Branding (PROVENANCE.md, patches/, references/, historical/), demos/, brain-dialogue/, cognitive-dialogue/, readme/, master-gem-interactive.html
 ├── components/
 │   ├── Zoe-Autonomy/             Canonical decision, L1-L5, Dual-Peer Zoe & Clara & learning engine
 │   ├── ablation/                 Complete independent/integrated AIARE framework
@@ -63,18 +68,19 @@ zoe/
 │   ├── agent-logging-system/     Dorothy and Neurogarden
 │   ├── hpux-tools/
 │   └── Chalkboard/
-├── config/                       components.lock.json and one-system.json manifests
+├── config/                       components.lock.json, portfolio-upgrades.lock.json & one-system.json manifests
 ├── desktop/                      Zoe Desktop App (Linux, Windows 10/11, Apple macOS)
-├── docs/                         Chronicle, Metacognition Hub, Proof Packet, Constitution, Atlas & Gallery
+├── docs/                         Chronicle, Proof Packet, Constitution, Atlas, Gallery, RECONCILED_SHOWCASE_PLAN.md & research-drafts/ (10)
 ├── dorothy-brain-observatory/    Interactive WebGL2 3D Human Brain, MRI, 25 plates & CAD meshes
 ├── evidence/                     Cryptographically hashed verification reports & 47/47 SHA256SUMS.orbit
-├── guiai-lab/                    Native Zoe and shared GEM OS (36 canonical + 40 extended layers)
+├── guiai-lab/                    Native Zoe, shared GEM OS (36 canonical + 58 extended layers = 94) & guiai/gem/presentation/ suite
 ├── mobile/                       Mobile v0.9.6-beta, Tiny Zoe, Trinity, accessibility
 ├── research/
 │   ├── monograph/                Canonical 23-page illustrated monograph and LaTeX sources
 │   ├── papers/                   18 papers, 16-Theorem PDF, galleries, sources, reproduction archives
+│   ├── presentations/            Anthology Vol. I–VI + 11 curated decks (17 decks, 163 slides, .GEM VDI + offline HTML5 player + SHA256SUMS.presentations)
 │   ├── visual-archive/           456-visual catalog, images, provenance, explanations
-│   ├── sessions/                 56-turn session chronicles
+│   ├── sessions/                 56-turn session chronicles & art/ (9 emblems)
 │   └── arxiv/                    3 preserved arXiv submission source packages
 └── scripts/                      Offline verifiers (0 cloud tokens) & quality audits
 ```

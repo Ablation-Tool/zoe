@@ -22,21 +22,56 @@ DANGEROUS_APIS = {
 MEMORY_APIS = {"memcpy", "memmove", "memset", "bcopy"}
 
 
-def _ablation_root(path=None):
-    value = path or os.environ.get("ABLATION_ROOT") or "/home/cowboy/_projects/ablation"
-    root = Path(value).expanduser().resolve()
+_FALLBACK_ABLATION_PATH = Path.home() / "_projects" / "ablation"
+
+
+def _ablation_root(path=None, zoe_root=None):
+    if path:
+        candidate = Path(path).expanduser().resolve()
+    elif os.environ.get("ABLATION_ROOT"):
+        candidate = Path(os.environ["ABLATION_ROOT"]).expanduser().resolve()
+    else:
+        if zoe_root:
+            repo_base = Path(zoe_root).expanduser().resolve()
+        elif os.environ.get("ZOE_ROOT"):
+            repo_base = Path(os.environ["ZOE_ROOT"]).expanduser().resolve()
+        else:
+            repo_base = Path(__file__).resolve().parents[4]
+        in_repo = repo_base / "components" / "ablation"
+        if (in_repo / "ablation/analyzers/semantic_search.py").is_file():
+            candidate = in_repo.resolve()
+        elif os.environ.get("ZOE_ABLATION_ROOT"):
+            candidate = Path(os.environ["ZOE_ABLATION_ROOT"]).expanduser().resolve()
+        elif _FALLBACK_ABLATION_PATH.is_dir():
+            candidate = _FALLBACK_ABLATION_PATH.resolve()
+        else:
+            candidate = in_repo.resolve()
+    root = candidate
     if not (root / "ablation/analyzers/semantic_search.py").is_file():
         raise ValueError(f"Ablation source checkout is incomplete: {root}")
-    if str(root) not in sys.path:
-        sys.path.insert(0, str(root))
+    root_str = str(root)
+    sys.path[:] = [root_str, *[entry for entry in sys.path if entry != root_str]]
+    loaded = sys.modules.get("ablation")
+    if loaded is not None:
+        loaded_file = getattr(loaded, "__file__", None)
+        try:
+            in_root = loaded_file is not None and Path(loaded_file).resolve().is_relative_to(root)
+        except Exception:
+            in_root = False
+        if not in_root:
+            for mod_name in [name for name in sys.modules if name == "ablation" or name.startswith("ablation.")]:
+                del sys.modules[mod_name]
     return root
 
 
 def _git_revision(root):
-    return subprocess.run(
-        ["git", "-C", str(root), "rev-parse", "HEAD"],
-        check=True, capture_output=True, text=True, timeout=10,
-    ).stdout.strip()
+    try:
+        return subprocess.run(
+            ["git", "-C", str(root), "rev-parse", "HEAD"],
+            check=True, capture_output=True, text=True, timeout=10,
+        ).stdout.strip()
+    except (subprocess.CalledProcessError, OSError):
+        return "untracked"
 
 
 def _direct_evidence(ctx, artifact):
@@ -169,7 +204,7 @@ def _finding_memory(state_root, direct, artifact_sha, model):
 
 def analyze_artifact(zoe_root, artifact_path, query=DEFAULT_QUERY, state_root=None, ablation_root=None):
     root = _zoe_root(zoe_root)
-    ablation = _ablation_root(ablation_root)
+    ablation = _ablation_root(ablation_root, zoe_root=root)
     artifact = Path(artifact_path).expanduser().resolve(strict=True)
     if artifact.stat().st_size > 64 * 1024 * 1024:
         raise ValueError("artifact exceeds the 64 MiB analysis limit")

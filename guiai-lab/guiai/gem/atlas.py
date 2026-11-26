@@ -603,4 +603,14 @@ def default_document(module, research_root=None, cern_root=None, felix_build=Non
     }:
         from .wave3_gem_instruments import wave3_document
         return wave3_document(module)
+    if module in {
+        "unified-os",
+        "suite1-kernel",
+        "suite2-telemetry",
+        "suite3-forensics",
+        "suite4-cognition",
+        "suite5-studio",
+    }:
+        from .zoe_gem_os.os_unification import unified_os_document
+        return unified_os_document(module)
     raise ValueError(f"unknown atlas module: {module}")

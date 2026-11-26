@@ -93,7 +93,24 @@ EXTENDED_LAYERS = {
     "tos-desk": ("zoe", "Atari TOS 1.0 (1985) · Little Green Desktop, File Drawers & 68k Big-Endian .RSC"),
     "wave3-gem2": ("zoe", "GEM 2.0 / 3.11 (1986-88) · Post-Lawsuit Two-Pane Tiled Desktop (Desk on Right)"),
     "gem2-tiled": ("zoe", "GEM 2.0 / 3.11 (1986-88) · Post-Lawsuit Two-Pane Tiled Desktop (Desk on Right)"),
+    "unified-os": ("zoe", "Zoe-GEM OS · Unified 42-Component One-OS Architecture (5 Suites · 9 Sisters)"),
+    "suite1-kernel": ("kevlar", "Zoe-GEM OS Suite 1 · Kernel Firewall, Policy & Stewardship (SYSCALL/VAULT/EXPORT)"),
+    "suite2-telemetry": ("autonomy", "Zoe-GEM OS Suite 2 · Defensive Telemetry, Compliance & Audit Bench (JOURNAL/SCUBA/SYSMAP)"),
+    "suite3-forensics": ("ablation", "Zoe-GEM OS Suite 3 · Forensics, Binary Analysis & Disclosure Lab (INTAKE/AUDIT/CEROTTO/CVD)"),
+    "suite4-cognition": ("research", "Zoe-GEM OS Suite 4 · Cognitive Metacognition, Memory & Reasoning Core (VOLUME/MEMBUS/GLASSBOX)"),
+    "suite5-studio": ("zoe", "Zoe-GEM OS Suite 5 · Voice, Audio Defense, Color, Biology & Visual Studio (LUME/CHROMA/SPOTLIGHT)"),
 }
+
+
+def _validate_no_symlink_path(destination, *, label="GEM path"):
+    raw_dest = Path(destination).expanduser()
+    norm_dest = Path(os.path.normpath(os.path.abspath(raw_dest)))
+    for candidate in (raw_dest, *raw_dest.parents, norm_dest, *norm_dest.parents):
+        if candidate.is_symlink():
+            raise ValueError(f"{label} must not be or traverse a symbolic link: {candidate}")
+    if ".." in raw_dest.parts:
+        raise ValueError(f"{label} must not contain '..' traversal: {raw_dest}")
+    return raw_dest
 
 
 class GemOperatingEnvironment:
@@ -191,7 +208,8 @@ class GemOperatingEnvironment:
     def export(self, identifier, destination):
         current = self.open(identifier)
         scene = self.current["scene"]
-        path = Path(destination).expanduser().resolve()
+        raw_dest = _validate_no_symlink_path(destination, label="GEM output path")
+        path = raw_dest.resolve()
         if path.exists():
             raise FileExistsError(path)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -250,7 +268,8 @@ class GemOperatingEnvironment:
         }
 
     def snapshot(self, destination):
-        path = self.registry.knowledge.save(destination)
+        raw_dest = _validate_no_symlink_path(destination, label="GEM snapshot path")
+        path = self.registry.knowledge.save(raw_dest.resolve())
         return {
             "contract": CONTRACT,
             "output": str(path),

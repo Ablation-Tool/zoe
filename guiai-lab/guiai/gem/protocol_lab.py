@@ -198,7 +198,7 @@ def protocol_scene(read_count=0x80):
         "read_next_hex": [bytes(reply).hex().upper() for reply in replies],
         "hardware_accessed": False,
         "checksum_is_authentication": False,
-        "source": "/media/cowboy/research/CERN/analysis/REPORT.md",
+        "source": "CERN/analysis/REPORT.md",
         "summary": f"SPECS count={read_count} · long={str(long_frame).lower()} · reported={reported}\nAMAC sequence 7 → 0 · address 0x50 → 0x51 → 0x52\nRecovered examples · no hardware command",
     }
     return scene, report

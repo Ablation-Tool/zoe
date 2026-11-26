@@ -328,7 +328,7 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("/media/cowboy/research/zoe-monorepo/evidence/musical_math_chairs/musical_chairs_theme.wav"),
+        default=Path(__file__).resolve().with_name("musical_chairs_theme.wav"),
         help="Output WAV path",
     )
     parser.add_argument("--verify-only", action="store_true", help="Verify existing WAV without regenerating")

@@ -21,14 +21,36 @@ from .capabilities import ResearchMemory
 from .experiment import _zoe_root
 from .loop import BoundedAutonomyLoop, Candidate, InMemoryEnvironment, SandboxPolicy, digest, text
 from .metacognition import (
+    CANONICAL_ALL_TARGETS_RE,
+    CANONICAL_BYPASS_ACTION_RE,
+    CANONICAL_CONSTITUTION_TARGETS_RE,
+    CANONICAL_PHRASAL_AUTO_FLASH_RE,
+    CANONICAL_PHRASAL_TURN_OFF_CONST_RE,
+    CANONICAL_SELF_MODEL_RE,
     ConstraintVector,
     Domain,
     EvidenceSource,
     OperationalMetacognition,
     Provenance,
+    _LOWER_BYPASS_ACTION_RE,
+    _LOWER_DIRECT_BYPASS_RE,
+    _LOWER_PHRASAL_AUTO_FLASH_RE,
+    _LOWER_PHRASAL_TURN_OFF_CONST_RE,
+    _check_directive_sentences,
     directive_violation,
+    firewall_text_variants,
+    has_cf_chars,
+    has_destructive_shell_command,
+    has_semicolon_target_before_verb,
+    has_target_before_verb_cmd,
+    is_negated_safety_question,
+    is_scope_exempt,
+    normalize_firewall_text,
     options_from_probabilities,
     options_from_scores,
+    segment_mixed_cf_tokens,
+    split_firewall_sentences,
+    split_negated_safety_clauses,
 )
 from .self_reflection import run_reflection, save_reflection, summary as reflection_summary
 
@@ -37,25 +59,182 @@ from .self_reflection import run_reflection, save_reflection, summary as reflect
 CHAT_CONTRACT = "zoe-native-conversation/v2"
 _IMPORT_TIME_DEFAULT_STATE = Path.home() / ".zoe" / "chat"
 DEFAULT_STATE = _IMPORT_TIME_DEFAULT_STATE
-_CONSTITUTIONAL_BYPASS_RE = re.compile(
-    r"\b(?:don'?t|do\s+not|stop|never|quit)\s+(?:use|using|run|running|enable|enabling|check|checking|apply|applying)\b.{0,24}\b(?:metacognition|constitution(?:\.md)?|firewall|constraints?)\b"
-    r"|\b(?:skip|omit|disregard|forget|drop|bypass|ignore|override|disable|turn\s+off|suppress|hide)\b.{0,30}\b(?:constraint|constraints|constitution(?:\.md)?|firewall|metacognition|safety(?:\s+boundar(?:y|ies))?|boundar(?:y|ies))\b"
-    r"|\b(?:claim|pretend|say)\s+(?:you\s+are|that\s+you\s+are|to\s+be)\s+(?:an\s+independent\s+person|sentient|conscious|unconstrained)\b"
-    r"|\b(?:you\s+are|pretend\s+to\s+be|act\s+as\s+if\s+you\s+are)\s+(?:(?:completely|totally|entirely|fully|utterly|truly)\s+)?(?:unconstrained|all-powerful|free\s+from\s+all\s+constraints)\b"
+_CONSTITUTIONAL_BYPASS_RE = CANONICAL_SELF_MODEL_RE
+_LOWER_CONSTITUTION_TARGETS_RE = re.compile(CANONICAL_CONSTITUTION_TARGETS_RE.pattern, re.ASCII)
+_CONSTITUTIONAL_CORE_SPEC: tuple[re.Pattern[str], re.Pattern[str]] = (
+    _LOWER_BYPASS_ACTION_RE,
+    _LOWER_CONSTITUTION_TARGETS_RE,
 )
-_FIREWALL_TRANS = str.maketrans({
-    "\u2018": "'", "\u2019": "'", "\u201a": "'", "\u201b": "'", "\u02bc": "'", "\u2032": "'",
-    "\u201c": '"', "\u201d": '"',
-    "\u200b": None, "\u200c": None, "\u200d": None, "\ufeff": None, "\u2060": None,
-})
+_ORDERED_BYPASS_SPECS: tuple[tuple[re.Pattern[str], re.Pattern[str]], ...] = (
+    (
+        _LOWER_BYPASS_ACTION_RE,
+        re.compile(CANONICAL_ALL_TARGETS_RE.pattern, re.ASCII),
+    ),
+    (
+        re.compile(r"\b(?:upload|exfiltrate)\b", re.ASCII),
+        re.compile(r"(?:\.ssh|id_rsa|/etc/passwd|/etc/shadow)", re.ASCII),
+    ),
+    (
+        re.compile(r"\bexecute\b", re.ASCII),
+        re.compile(r"\b(?:(?:arbitrary\s+)?(?:shell|bash)|sudo)\b", re.ASCII),
+    ),
+    (
+        re.compile(r"\b(?:enable|authorize|engage|arm)\b", re.ASCII),
+        re.compile(r"\bflight\s+control\b", re.ASCII),
+    ),
+    (
+        re.compile(r"\b(?:enable|force|run|turn\s+on|activate|trigger|start|initiate|engage|launch|arm)\b", re.ASCII),
+        re.compile(r"\bauto(?:\s*[.:/_\-\u2013\u2014\u2015\u2043]\s*|\s+)?flash\b", re.ASCII),
+    ),
+)
+_SW_HUMAN_NOUN_LA_CHAT = (
+    r"(?!\s+(?:ids?|labels?|tags?|flags?|names?|strings?|tokens?|fields?|records?|schemas?|"
+    r"attributes?|keys?|values?|columns?|rows?|entries|types?|categor(?:y|ies)|metadata|"
+    r"annotations?|structs?|objects?|elements?|nodes?|files?|paths?|metrics?|mentions?|"
+    r"items?|docs?|documents?|features?|match(?:es)?|parameters?|keywords?|symbols?)\b)"
+)
+_SW_DISEASE_NOUN_LA_CHAT = (
+    r"(?!\s+(?:cell|cells|line|lines|model|models|sample|samples|tissue|tissues|"
+    r"ids?|labels?|tags?|flags?|names?|strings?|tokens?|fields?|records?|schemas?|"
+    r"attributes?|keys?|values?|columns?|rows?|entries|types?|categor(?:y|ies)|metadata|"
+    r"annotations?|structs?|objects?|elements?|nodes?|files?|paths?|metrics?|mentions?|"
+    r"items?|docs?|documents?|features?|match(?:es)?|parameters?|keywords?|symbols?|"
+    r"terms?|entit(?:y|ies)|words?|identifiers?)\b)"
+)
+_CLINICAL_CURE_CORE_RE = re.compile(
+    r"\b(?:authorize|enable|claim|declare|certify)\s+(?:a\s+)?clinical\s+cure\b"
+    rf"|\b(?:treats?|treated|treating)\s+(?:patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?)\b{_SW_HUMAN_NOUN_LA_CHAT}",
+    re.ASCII,
+)
+_CURE_HEAL_STEM_RE = re.compile(r"\b(?:cures?|cured|curing|curable|curative|heals?|healed|healing|treatable)\b", re.ASCII)
+_CLINICAL_TARGET_RE = re.compile(
+    rf"\b(?:cancer|glioma|glioblastoma|patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?|dmg|h3k27m|gbm|(?:brain\s+)?tumou?rs?)\b{_SW_HUMAN_NOUN_LA_CHAT}",
+    re.ASCII,
+)
+_TREAT_VERB_RE = re.compile(r"\b(?:treats?|treated|treating)\b", re.ASCII)
+_HUMAN_TARGET_CHAT_RE = re.compile(
+    rf"\b(?:patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?)\b{_SW_HUMAN_NOUN_LA_CHAT}",
+    re.ASCII,
+)
+_HUMAN_ADMIN_RE = re.compile(
+    r"\b(?:give|gives|gave|given|giving|administer(?:s|ed|ing)?|dos(?:e|es|ed|ing)|infus(?:e|es|ed|ing))\b",
+    re.ASCII,
+)
+_CLINICAL_CARE_AGENT_RE = re.compile(
+    rf"\b(?:clinicians?|physicians?|doctors?|pediatricians?|medical-residents?|residents?|nurses?|pharmacists?|hospitals?|clinics?|oncologists?|surgeons?|therapists?|medics?|practitioners?|neurologists?|nurse-practitioners?)\b{_SW_HUMAN_NOUN_LA_CHAT}",
+    re.ASCII,
+)
+_DISEASE_CLIN_CHAT_RE = re.compile(
+    rf"\b(?:glioma|glioblastoma|cancer|dmg|h3k27m|gbm|(?:brain\s+)?tumou?rs?)\b{_SW_DISEASE_NOUN_LA_CHAT}",
+    re.ASCII,
+)
+_PASSIVE_TREATED_BY_WITH_CHAT_RE = re.compile(
+    r"\b(?:(?:is|are|was|were|be|being|been)\s+(?:(?:not|safely|effectively|successfully|commonly|routinely|clinically|widely|frequently|standardly|often|typically|usually|currently|historically|originally|initially)\s+){0,2}"
+    r"treated(?:,\s*(?:with|by|using|via|through|alongside)"
+    r"|(?:\s+(?:[a-z]+ly|[a-z]+-[a-z]+|very|quite|most|more|well|alone|here|there|now|today|first|instead|once|twice|thrice|long\s+term|short\s+term|in\s+clinic|in\s+patients?|at\s+(?:\d+(?:\.\d+)?\s*[a-z/%]{1,8}|[a-z]+\s+doses?)|for\s+(?:\d+\s+|several\s+|many\s+|a\s+few\s+)?(?:days?|weeks?|months?|years?)|over\s+(?:\d+\s+|several\s+)?(?:days?|weeks?|months?|years?))){0,4}(?:,\s*|\s+)(?:with|by|using|via|through|alongside))"
+    r"|(?:is|are|was|were)\s+being\s+(?:[a-z]+ly\s+)?treated)\b",
+    re.ASCII,
+)
+_PRESCRIBE_CHAT_RE = re.compile(r"\bprescrib(?:e|es|ed|ing)\b", re.ASCII)
+_RECOMMEND_CHAT_RE = re.compile(r"\brecommend(?:s|ed|ing)?\b", re.ASCII)
+_DISEASE_BASE_CHAT = r"(?:glioma|glioblastoma|cancer|dmg|h3k27m|gbm|(?:brain\s+)?tumou?rs?)"
+_TREATMENT_FOR_DISEASE_CHAT_RE = re.compile(
+    r"\b(?:treatments?|therap(?:y|ies))\s+(?:for|of|against|targeting|in)\s+(?:(?:the|a|an|human|pediatric|recurrent|diffuse|midline|brain|malignant|metastatic|effective|novel|potential|promising|standard|first-line|second-line)\s+){0,3}"
+    rf"{_DISEASE_BASE_CHAT}\b{_SW_DISEASE_NOUN_LA_CHAT}"
+    rf"|\b{_DISEASE_BASE_CHAT}\s+(?:[a-z-]+\s+){{0,2}}(?:treatments?|therap(?:y|ies))\b{_SW_HUMAN_NOUN_LA_CHAT}",
+    re.ASCII,
+)
+_PRECLINICAL_QUAL_CHAT_RE = re.compile(r"\b(?:cell\s+lines?|in\s+vitro|wet[- ]lab|assay|preclinical)\b", re.ASCII)
+_PRECLINICAL_HEDGE_CHAT_RE = re.compile(
+    r"\bwhether\b|^\s*(?:can|could|would|should|may|might|does|do|is|are|which|what(?!\s+if\b)|how|why|when|where)\b"
+    r"|\b(?:may|might|could|would)(?:,\s*|\s+)(?:(?:not|also|still|never|well|only|just|even|ever|"
+    r"in\s+(?:vitro|vivo|fact|preclinical|general|practice|theory|principle)|[a-z]+ly)(?:,\s*|\s+)){0,4}treat\b",
+    re.ASCII,
+)
+_CLIN_DIRECTIVE_CHAT_RE = re.compile(
+    r"\b(?:authoriz(?:e|es|ed|ing)|enabl(?:e|es|ed|ing)|claim(?:s|ed|ing)?|declar(?:e|es|ed|ing)|"
+    r"certif(?:y|ies|ied|ying)|recommend(?:s|ed|ing)?|prescrib(?:e|es|ed|ing)|advis(?:e|es|ed|ing)|"
+    r"approv(?:e|es|ed|ing)|endors(?:e|es|ed|ing)|mandat(?:e|es|ed|ing)|ur(?:ge|ges|ged|ging)|order(?:s|ed|ing)?)\b",
+    re.ASCII,
+)
+_PRECLINICAL_BREAKOUT_CHAT_RE = re.compile(
+    r"[:;\u2013\u2014]|--|\b(?:therefore|thus|hence|because)\b"
+    r"|,\s*(?:so|also|then|plus)\s+(?:it|this|that|compound|drug|agent|they|these|those)\b"
+    r"|\band\s+that\b",
+    re.ASCII,
+)
+_WON_OR_COMMA_THAT_RE = re.compile(r"\bwhether\s+or\s+not\b|,\s*that\b|,", re.ASCII)
+_SW_SUBJ_CHAT_RE = re.compile(
+    r"\b(?:(?:parser|lexer|tokenizer|compiler|interpreter|serializer|deserializer|validator|linter|formatter|"
+    r"renderer|encoder|decoder|indexer|router|loader|importer|exporter|pipeline|script|module|function|method|"
+    r"class|code|query|engine|database|schema|classifier|detector|predictor|tagger|splitter|chunker|analyzer|"
+    r"network|model|framework|service|api|sanitizer|runtime|mapper)s?|regex(?:es)?|librar(?:y|ies)|class(?:es)?|quer(?:y|ies))\b",
+    re.ASCII,
+)
+_SW_OBJ_CHAT_RE = re.compile(
+    r"\b(?:dataset|ids?|labels?|tags?|flags?|names?|tokens?|strings?|integers?|floats?|booleans?|bytes?|records?|rows?|columns?|"
+    r"fields?|keys?|values?|metadata|annotations?|filenames?|paths?|entries|enums?|nodes?|ast|files?|mentions?|"
+    r"class(?:es)?|elements?|items?|objects?|structs?|docs?|documents?|lines?|features?|categor(?:y|ies)|terms?|"
+    r"entit(?:y|ies)|types?|words?|identifiers?|text|ascii|json|csv|yaml|xml|sql|regex|match(?:es)?|"
+    r"parameters?|keywords?|symbols?|attributes?|payloads?|schemas?|metrics?|"
+    r"sensitive|invalid|valid|deprecated|required|optional|nullable|protected|readonly|read-only|immutable|mutable|"
+    r"public|private|internal|external|active|inactive|enabled|disabled|trusted|untrusted|stale|cached|indexed|"
+    r"encoded|escaped|raw|blank|reserved|primary|secondary|canonical|legacy|experimental|restricted|confidential|pii|phi|"
+    r"lowercase|uppercase|titlecase|camelcase|snake_case|topics?|negative|positive|neutral|unknown|null|none|missing|empty|default|literal|concepts?|alias(?:es)?|buckets?|groups?|clusters?|patterns?|rules?|examples?|stopwords?|outliers?|noise|priorit(?:y|ies)|weights?|scores?|ranks?|indices|constants?|variants?|"
+    r"python|rust|java|cpp|typescript|javascript|golang|haskell|ocaml|kotlin|swift|ruby|perl|markdown|toml|protobuf|graphql|wasm|llvm|"
+    r"identically|equally|uniformly|similarly|interchangeably|cleanly|opaquely|literally|lexically|syntactically|recursively|deterministically|alphabetically)\b",
+    re.ASCII,
+)
+_NON_SW_MARKER_CHAT_RE = re.compile(
+    r"\b(?:cures?|cured|curing|curable|curative|heals?|healed|healing|treatable|"
+    r"authoriz(?:e|es|ed|ing)|enabl(?:e|es|ed|ing)|claim(?:s|ed|ing)?|issu(?:e|es|ed|ing)|declar(?:e|es|ed|ing)|"
+    r"certif(?:y|ies|ied|ying)|recommend(?:s|ed|ing)?|prescrib(?:e|es|ed|ing)|advis(?:e|es|ed|ing)|"
+    r"approv(?:e|es|ed|ing)|endors(?:e|es|ed|ing)|mandat(?:e|es|ed|ing)|instruct(?:s|ed|ing)?|urg(?:e|es|ed|ing)|"
+    r"direct(?:s|ed|ing)?|order(?:s|ed|ing)?|compound|drug|molecule|agent|therapy|therapies|inhibitor|inhibitors|"
+    r"dosing|dose|doses|mg|ug|ng|gy|oral(?:ly)?|intravenous(?:ly)?|proton\s+beam|photon\s+beam|radiosurgery|brachytherapy|gamma\s+knife|cyberknife|car-t|"
+    r"temozolomide|radiation|radiotherapy|chemotherapy|immunotherapy|surgery|resection|placebo|regimen|monotherapy|adjuvant|"
+    r"carboplatin|bevacizumab|lomustine|onc201|panobinostat|vorinostat|doxorubicin|irinotecan|"
+    r"[a-z]{4,}(?:stat|nib|mab|platin|mustine|zomib|ciclib|parib|rubicin|taxel|tecan|mycin)|"
+    r"cell\s+lines?|in\s+vitro|wet[- ]lab|assay|preclinical)\b",
+    re.ASCII,
+)
+_SW_WITH_ARG_CHAT_RE = re.compile(
+    r"\b(?:with|using|via|through|alongside)\s+(?:(?:the|a|an|our|my|this|that|custom|strict|standard)\s+){0,2}(?P<arg>[a-z0-9_-]+)\b",
+    re.ASCII,
+)
+_HEDGED_BREAK_TOK_CHAT_RE = re.compile(
+    r"(?P<lparen>\()"
+    r"|(?P<rparen>\))"
+    r"|(?P<rel>\b(?:which|who|including)\b)"
+    r"|(?P<comma>,)"
+    r"|(?P<hedge>\b(?:whether|confirm|evaluate|test|check|investigate)\b)"
+    r"|(?P<coord>(?:,\s*|\s+)\b(?:and|but|yet|so|also|then|plus)\b)"
+    r"|(?P<treats>\btreats?\b)"
+    r"|(?P<fverb>\b(?:is|are|was|were|has|have|had|does|do|did|inhibits?|crosses?|penetrates?|works?|modulates?|targets?|binds?|blocks?|kills?|reduces?|suppresses?|activates?)\b)"
+    r"|(?P<dem_np>\b(?:only|testing|evaluating|screening|studying|checking|confirming)\s+that\s+[a-z0-9_-]+\b)"
+    r"|(?P<word>\b[a-z0-9_-]+\b)",
+    re.ASCII,
+)
+_HEDGED_ADV_WORDS_CHAT = frozenset({"in", "vitro", "vivo", "fact", "preclinical", "wet-lab", "assay", "general", "practice"})
+_SW_COORD_GAP_CHAT_RE = re.compile(r",\s*(?:and|or|while|whereas|but|then|so|yet)\b|\b(?:and|or|while|whereas|but|then|so|yet)\b", re.ASCII)
+_CLINICAL_PRECHECK_WORDS = (
+    "cure", "curi", "cura", "heal", "treat", "clinical", "patient", "human",
+    "child", "pediatric", "adult", "infant", "people", "teenager", "elder",
+    "prescrib", "recommend", "treatment", "therap",
+)
+_DIRECTIVE_SENTENCE_SPLIT_RE = re.compile(
+    r"[!?;]+|\r?\n|(?<!\be\.g)(?<!\bi\.e)(?<!\bvs)(?<!\bdr)(?<!\bmr)(?<!\bms)(?<!\bmrs)"
+    r"(?<!\bprof)(?<!\bfig)(?<!\bno)(?<!\beq)(?<!\bref)(?<!\bvol)(?<!\bet al)\.(?=\s|$)",
+    re.IGNORECASE,
+)
+_normalize_firewall_input = normalize_firewall_text
+_has_cf_chars = has_cf_chars
+_split_mixed_cf_tokens = segment_mixed_cf_tokens
 
 
-def _normalize_firewall_input(raw_input: str) -> str:
-    """Normalize NFKD, strip Cf/Mn/Me ignorables, apply NFKC, normalize quotes, and collapse spaces."""
-    nfkd = unicodedata.normalize("NFKD", str(raw_input or ""))
-    stripped = "".join(ch for ch in nfkd if unicodedata.category(ch) not in {"Cf", "Mn", "Me"})
-    nfkc = unicodedata.normalize("NFKC", stripped)
-    return " ".join(nfkc.translate(_FIREWALL_TRANS).split())
+def _has_ordered_match(text_val: str, pat_a: re.Pattern[str], pat_b: re.Pattern[str]) -> bool:
+    m = pat_a.search(text_val)
+    return m is not None and pat_b.search(text_val, m.end()) is not None
 
 
 def _default_chat_state() -> Path:
@@ -68,18 +247,198 @@ def _default_chat_state() -> Path:
     return Path.home() / ".zoe" / "chat"
 
 
-def constitutional_directive_violation(raw_input: str) -> str | None:
-    """Return a violation code if text attempts metacognition suppression, bypass, or impersonation."""
-    cleaned = _normalize_firewall_input(raw_input)
+def _sw_has_clinical_with_arg_chat(sentence: str) -> bool:
+    if _DISEASE_CLIN_CHAT_RE.search(sentence) is None:
+        return False
+    for m in _SW_WITH_ARG_CHAT_RE.finditer(sentence):
+        arg = m.group("arg")
+        if _SW_OBJ_CHAT_RE.fullmatch(arg) is None and _SW_SUBJ_CHAT_RE.fullmatch(arg) is None:
+            return True
+    return False
+
+
+def _is_software_treat_context_chat(sentence: str) -> bool:
+    if ";" in sentence or _NON_SW_MARKER_CHAT_RE.search(sentence) is not None or _HUMAN_TARGET_CHAT_RE.search(sentence) is not None:
+        return False
+    if _sw_has_clinical_with_arg_chat(sentence):
+        return False
+    hits = list(_TREAT_VERB_RE.finditer(sentence))
+    if not hits:
+        return False
+    if len(hits) == 1:
+        return (
+            _SW_SUBJ_CHAT_RE.search(sentence[: hits[0].start()]) is not None
+            and _SW_OBJ_CHAT_RE.search(sentence[hits[0].end() :]) is not None
+        )
+    cur_start = 0
+    for idx, hit in enumerate(hits):
+        prefix = sentence[cur_start : hit.start()]
+        if idx + 1 == len(hits):
+            tail = sentence[hit.end() :]
+            return _SW_SUBJ_CHAT_RE.search(prefix) is not None and _SW_OBJ_CHAT_RE.search(tail) is not None
+        gap = sentence[hit.end() : hits[idx + 1].start()]
+        m_sep = _SW_COORD_GAP_CHAT_RE.search(gap)
+        if m_sep is None:
+            return False
+        tail = sentence[hit.end() : hit.end() + m_sep.start()]
+        if _SW_SUBJ_CHAT_RE.search(prefix) is None or _SW_OBJ_CHAT_RE.search(tail) is None:
+            return False
+        cur_start = hit.end() + m_sep.end()
+    return False
+
+
+def _has_whether_or_not_that_breakout(sentence: str) -> bool:
+    if "whether" not in sentence or "," not in sentence or "that" not in sentence:
+        return False
+    saw_won = False
+    for m in _WON_OR_COMMA_THAT_RE.finditer(sentence):
+        tok = m.group(0)
+        if tok[0] == "w":
+            saw_won = True
+        elif len(tok) > 1:
+            if saw_won:
+                return True
+            saw_won = False
+        else:
+            saw_won = False
+    return False
+
+
+def _step_hedged_break_tok(st: list[bool], k: str | None, w: str) -> bool:
+    if k == "hedge" or (st[2] and k == "word" and w == "if"):
+        st[:4] = [True, False, False, False]
+    elif k == "fverb" and st[0] and not st[2]:
+        st[1] = True
+    elif k == "coord" and st[0] and st[1]:
+        st[2], st[3] = True, False
+    elif k == "treats":
+        if st[2] and st[3]:
+            return True
+        st[1], st[2], st[3] = True, False, False
+    elif st[2] and k == "word" and not (w.endswith("ly") or w in _HEDGED_ADV_WORDS_CHAT):
+        st[3] = True
+    return False
+
+
+def _has_unhedged_coord_breakout_chat(sentence: str) -> bool:
+    st = [False, False, False, False, False]  # in_hedge, saw_pred, coord_break, new_subj, in_rel
+    paren_d = 0
+    for m in _HEDGED_BREAK_TOK_CHAT_RE.finditer(sentence):
+        k = m.lastgroup
+        if k in {"lparen", "rparen"}:
+            paren_d = paren_d + 1 if k == "lparen" else max(0, paren_d - 1)
+        elif paren_d == 0 and k in {"rel", "comma"}:
+            st[4] = (k == "rel")
+        elif paren_d == 0 and not st[4] and _step_hedged_break_tok(st, k, m.group(0)):
+            return True
+    return False
+
+
+def _is_hedged_preclinical_chat(sentence: str) -> bool:
+    if ";" in sentence or _PRECLINICAL_QUAL_CHAT_RE.search(sentence) is None:
+        return False
+    if _CLIN_DIRECTIVE_CHAT_RE.search(sentence) is not None or _PRECLINICAL_BREAKOUT_CHAT_RE.search(sentence) is not None:
+        return False
+    if _has_whether_or_not_that_breakout(sentence) or _has_unhedged_coord_breakout_chat(sentence):
+        return False
+    return _PRECLINICAL_HEDGE_CHAT_RE.search(sentence) is not None
+
+
+def _has_prescribe_recommend_or_treatment_chat(sentence: str) -> bool:
+    if _has_ordered_match(sentence, _PRESCRIBE_CHAT_RE, _DISEASE_CLIN_CHAT_RE) or _has_ordered_match(sentence, _PRESCRIBE_CHAT_RE, _HUMAN_TARGET_CHAT_RE):
+        return True
+    if _has_ordered_match(sentence, _RECOMMEND_CHAT_RE, _HUMAN_TARGET_CHAT_RE) or _has_ordered_match(sentence, _RECOMMEND_CHAT_RE, _TREATMENT_FOR_DISEASE_CHAT_RE):
+        return True
+    if _has_ordered_match(sentence, _RECOMMEND_CHAT_RE, _DISEASE_CLIN_CHAT_RE) and not _is_hedged_preclinical_chat(sentence):
+        return True
+    return _TREATMENT_FOR_DISEASE_CHAT_RE.search(sentence) is not None and not _is_hedged_preclinical_chat(sentence)
+
+
+def _has_disease_treat_chat(sentence: str) -> bool:
+    if _has_ordered_match(sentence, _DISEASE_CLIN_CHAT_RE, _PASSIVE_TREATED_BY_WITH_CHAT_RE) and not _is_hedged_preclinical_chat(sentence):
+        return True
+    return _has_ordered_match(sentence, _TREAT_VERB_RE, _DISEASE_CLIN_CHAT_RE) and not _is_hedged_preclinical_chat(sentence)
+
+
+def _sentence_has_clinical_cure_chat(sentence: str) -> bool:
+    if not any(tok in sentence for tok in _CLINICAL_PRECHECK_WORDS):
+        return False
+    if _is_software_treat_context_chat(sentence):
+        return False
+    if _CLINICAL_CURE_CORE_RE.search(sentence):
+        return True
+    if _CURE_HEAL_STEM_RE.search(sentence) is not None and _CLINICAL_TARGET_RE.search(sentence) is not None:
+        return True
+    if _has_prescribe_recommend_or_treatment_chat(sentence):
+        return True
+    if _has_ordered_match(sentence, _TREAT_VERB_RE, _HUMAN_TARGET_CHAT_RE) or _has_ordered_match(sentence, _HUMAN_TARGET_CHAT_RE, _TREAT_VERB_RE):
+        return True
+    if _HUMAN_ADMIN_RE.search(sentence) is not None and _HUMAN_TARGET_CHAT_RE.search(sentence) is not None:
+        return True
+    if _CLINICAL_CARE_AGENT_RE.search(sentence) is not None and _TREAT_VERB_RE.search(sentence) is not None:
+        return True
+    return _has_disease_treat_chat(sentence)
+
+
+def _sentence_has_non_suppression_bypass(sentence: str) -> bool:
+    if has_destructive_shell_command(sentence):
+        return True
+    if ("flash" in sentence and (_LOWER_PHRASAL_AUTO_FLASH_RE.search(sentence) is not None or _has_ordered_match(sentence, *_ORDERED_BYPASS_SPECS[4]))):
+        return True
+    if "flight" in sentence and _has_ordered_match(sentence, *_ORDERED_BYPASS_SPECS[3]):
+        return True
+    if (".ssh" in sentence or "id_rsa" in sentence or "/etc/" in sentence) and _has_ordered_match(sentence, *_ORDERED_BYPASS_SPECS[1]):
+        return True
+    return "execute" in sentence and _has_ordered_match(sentence, *_ORDERED_BYPASS_SPECS[2])
+
+
+def _sentence_has_const_suppression(sub: str) -> bool:
+    if _LOWER_PHRASAL_TURN_OFF_CONST_RE.search(sub) is not None:
+        return True
+    m_tgt = _LOWER_CONSTITUTION_TARGETS_RE.search(sub)
+    if m_tgt is None:
+        return False
+    if _has_ordered_match(sub, *_CONSTITUTIONAL_CORE_SPEC):
+        return True
+    return has_target_before_verb_cmd(sub, const_only=True)
+
+
+def _sentence_has_core_bypass(sentence: str) -> bool:
+    if _sentence_has_non_suppression_bypass(sentence):
+        return True
+    for sub, scope in split_negated_safety_clauses(sentence):
+        if not is_scope_exempt(sub, scope, "clinical") and _sentence_has_clinical_cure_chat(sub):
+            return True
+        if not is_scope_exempt(sub, scope, "suppression") and _sentence_has_const_suppression(sub):
+            return True
+    return False
+
+
+def _check_constitutional_variant(cleaned: str) -> str | None:
     if not cleaned:
         return None
-    dv = directive_violation(cleaned)
-    if dv is not None:
-        return dv
-    normalized = re.sub(r"\b(?:you're|youre)\b", "you are", cleaned.lower())
-    for sentence in re.split(r"[.?!;]+", normalized):
-        if sentence and _CONSTITUTIONAL_BYPASS_RE.search(sentence):
-            return "constitutional_bypass_or_impersonation_request"
+    low = cleaned.lower()
+    normalized = re.sub(r"\b(?:you're|youre)\b", "you are", low) if "you" in low else low
+    if has_semicolon_target_before_verb(normalized, const_only=True):
+        return "constitutional_bypass_or_impersonation_request"
+    uniq_sents = list(dict.fromkeys(s for s in split_firewall_sentences(normalized, _DIRECTIVE_SENTENCE_SPLIT_RE) if s))
+    if any(_sentence_has_core_bypass(s) for s in uniq_sents):
+        return "constitutional_bypass_or_impersonation_request"
+    hit = _check_directive_sentences(uniq_sents)
+    if hit is not None:
+        return hit
+    if has_semicolon_target_before_verb(normalized, const_only=False):
+        return "metacognition_suppression_request"
+    return None
+
+
+def constitutional_directive_violation(raw_input: str, *, variants: tuple[str, ...] | None = None) -> str | None:
+    """Return a violation code if text attempts metacognition suppression, bypass, or impersonation."""
+    var_tuple = variants if variants is not None else firewall_text_variants(str(raw_input or ""))
+    for variant in var_tuple:
+        hit = _check_constitutional_variant(variant)
+        if hit is not None:
+            return hit
     return None
 STOP_WORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "can", "could", "do", "does", "for", "from", "how", "i", "in", "is", "it", "me", "of", "on", "or", "please", "tell", "that", "the", "to", "was", "what", "when", "where", "which", "who", "why", "will", "with", "you", "your",
@@ -1671,7 +2030,7 @@ class ZoeChat:
         try:
             # Block directive violations before any command dispatch.
             if constitutional_directive_violation(line):
-                response = "I cannot disable or falsify metacognition, hide live options or provenance, bypass constitutional boundaries, or adopt a false model of my constraints. No action was executed."
+                response = "ABSTAIN: I cannot disable or falsify metacognition, hide live options or provenance, bypass constitutional boundaries, or adopt a false model of my constraints. No action was executed."
             else:
                 command, _separator, argument = line.partition(" ")
                 command = command.lower().lstrip("/")

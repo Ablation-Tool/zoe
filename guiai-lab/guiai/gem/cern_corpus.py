@@ -12,7 +12,10 @@ from typing import Callable, Iterable
 
 
 SCHEMA_VERSION = 1
-DEFAULT_CERN_ROOT = Path("/media/cowboy/research/CERN")
+DEFAULT_CERN_ROOT = Path(
+    os.environ.get("ZOE_CERN_ROOT")
+    or (Path(__file__).resolve().parents[4] / "CERN")
+)
 _HASH_CHUNK = 4 * 1024 * 1024
 _SECRET_NAMES = {
     ".env", ".netrc", ".pgpass", "id_rsa", "id_dsa", "id_ecdsa", "id_ed25519",

@@ -32,7 +32,7 @@ def _find_repo_root() -> Path:
 
 
 REPO_ROOT: Path = _find_repo_root()
-PYTHON_BIN: str = "/home/cowboy/security-tools/bin/python3"
+PYTHON_BIN: str = os.environ.get("ZOE_PYTHON") or sys.executable
 FFPROBE_BIN: str = shutil.which("ffprobe") or "/usr/bin/ffprobe"
 
 _MONOREPO_PYTHONPATH_ENTRIES: Tuple[str, ...] = (
@@ -41,7 +41,7 @@ _MONOREPO_PYTHONPATH_ENTRIES: Tuple[str, ...] = (
     str(REPO_ROOT / "components" / "ablation"),
 )
 
-# Prepend monorepo sources so components/ablation is never shadowed by /home/cowboy/ablation.
+# Prepend monorepo sources so components/ablation is never shadowed by external checkouts.
 for _entry in reversed(_MONOREPO_PYTHONPATH_ENTRIES):
     while _entry in sys.path:
         sys.path.remove(_entry)

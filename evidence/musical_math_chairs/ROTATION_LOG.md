@@ -2,9 +2,9 @@
 
 ## R1 Pre-Work Music Anchor
 - **Music Started UTC**: `2026-11-24T07:11:40Z`
-- **Artifact**: `/media/cowboy/research/zoe-monorepo/evidence/musical_math_chairs/musical_chairs_theme.wav`
+- **Artifact**: `evidence/musical_math_chairs/musical_chairs_theme.wav`
 - **SHA-256**: `93ed2049cb92e4bf8a7780a06de84c6c4ba4a23e5d79ba9aee23fa894db9df94`
-- **Evidence JSON**: `/media/cowboy/research/zoe-monorepo/evidence/musical_math_chairs/music_evidence.json`
+- **Evidence JSON**: `evidence/musical_math_chairs/music_evidence.json`
 - **Playback**: `pw-play` (PID `1618818`, PipeWire sink `60`)
 
 ## Rotation Slots (30-Second Improvised Swaps Across Items 1–9)

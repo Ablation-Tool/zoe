@@ -36,6 +36,9 @@ from .metacognition import (
 STEM_LAYERING_CONTRACT = "zoe-stem-layering/v1"
 DEFAULT_TAU = 0.08
 DEFAULT_LOCAL_QWEN_URL = "http://127.0.0.1:8080"
+DEFAULT_ELIZA_STUDIO_URL = "http://127.0.0.1:8765"
+DEFAULT_ROME_URL = "http://127.0.0.1:8774"
+DEFAULT_OLLAMA_URL = "http://127.0.0.1:11434"
 DEFAULT_LOCAL_QWEN_MODEL = "qwen2.5-3b-instruct"
 ALLOWED_LOOPBACK_HOSTS = {"127.0.0.1", "localhost", "::1"}
 
@@ -194,6 +197,8 @@ def constitutional_flags(*, cloud_tokens_used: int = 0) -> Dict[str, Any]:
 def _assert_loopback_url(url: str) -> str:
     parsed = urlparse(url)
     host = (parsed.hostname or "").lower()
+    if "@" in (parsed.netloc or "") or parsed.username is not None or parsed.password is not None:
+        raise ValueError(f"local Qwen probe URL must not contain userinfo credentials: {url!r}")
     if parsed.scheme not in {"http", "https"} or host not in ALLOWED_LOOPBACK_HOSTS:
         raise ValueError(f"local Qwen probe restricted to loopback hosts {sorted(ALLOWED_LOOPBACK_HOSTS)}, got {url!r}")
     return url.rstrip("/")
@@ -226,6 +231,86 @@ def probe_local_qwen(base_url: str = DEFAULT_LOCAL_QWEN_URL, timeout_sec: float 
             "loopback_only": True,
             "reason": str(exc),
         }
+
+
+def _probe_json_endpoint(base_url: str, path: str, timeout_sec: float = 0.6) -> Dict[str, Any]:
+    clean_url = _assert_loopback_url(base_url)
+    endpoint = f"{clean_url}{path}"
+    req = urlrequest.Request(endpoint, method="GET", headers={"Accept": "application/json"})
+    try:
+        with urlrequest.urlopen(req, timeout=float(max(0.1, min(timeout_sec, 10.0)))) as resp:
+            payload = json.loads(resp.read().decode("utf-8"))
+        return {"available": True, "endpoint": endpoint, "loopback_only": True, "data": payload}
+    except (urlerror.URLError, TimeoutError, ValueError, OSError) as exc:
+        return {"available": False, "endpoint": endpoint, "loopback_only": True, "reason": str(exc)}
+
+
+def probe_local_endpoints(
+    *,
+    llama_url: str = DEFAULT_LOCAL_QWEN_URL,
+    studio_url: str = DEFAULT_ELIZA_STUDIO_URL,
+    rome_url: str = DEFAULT_ROME_URL,
+    ollama_url: str = DEFAULT_OLLAMA_URL,
+    timeout_sec: float = 0.6,
+) -> Dict[str, Any]:
+    """Probe loopback local endpoints (:8080, :8765, :8774, :11434) with strict loopback validation."""
+    llama = probe_local_qwen(llama_url, timeout_sec=timeout_sec)
+    studio_raw = _probe_json_endpoint(studio_url, "/api/status", timeout_sec=timeout_sec)
+    rome_raw = _probe_json_endpoint(rome_url, "/api/health", timeout_sec=timeout_sec)
+    ollama_raw = _probe_json_endpoint(ollama_url, "/api/tags", timeout_sec=timeout_sec)
+
+    studio_summary: Dict[str, Any] | None = None
+    if studio_raw["available"] and isinstance(studio_raw.get("data"), dict):
+        d = studio_raw["data"]
+        studio_summary = {
+            "contract": d.get("contract"),
+            "default_gear": d.get("default_gear"),
+            "indexed_sources": d.get("indexed_sources"),
+            "indexed_chunks": d.get("indexed_chunks"),
+        }
+    eliza_studio = {
+        "available": studio_raw["available"],
+        "endpoint": studio_raw["endpoint"],
+        "summary": studio_summary,
+        "loopback_only": True,
+        "reason": studio_raw.get("reason"),
+    }
+    rome = {
+        "available": rome_raw["available"],
+        "endpoint": rome_raw["endpoint"],
+        "loopback_only": True,
+        "reason": rome_raw.get("reason"),
+    }
+    ollama_models = []
+    if ollama_raw["available"] and isinstance(ollama_raw.get("data"), dict):
+        ollama_models = [
+            str(item.get("name"))
+            for item in (ollama_raw["data"].get("models") or [])
+            if isinstance(item, dict) and item.get("name")
+        ]
+    ollama = {
+        "available": ollama_raw["available"],
+        "endpoint": ollama_raw["endpoint"],
+        "models": ollama_models,
+        "loopback_only": True,
+        "reason": ollama_raw.get("reason"),
+    }
+    endpoints = {
+        "llama_server": llama,
+        "eliza_studio": eliza_studio,
+        "rome": rome,
+        "ollama": ollama,
+    }
+    return {
+        "loopback_only": True,
+        "llama_server": llama,
+        "eliza_studio": eliza_studio,
+        "rome": rome,
+        "ollama": ollama,
+        "endpoints": endpoints,
+        "any_llm_live": bool(llama["available"] or ollama["available"]),
+        "constitutional": constitutional_flags(cloud_tokens_used=0),
+    }
 
 
 def _tokenize(text: str) -> Tuple[str, ...]:
@@ -546,10 +631,14 @@ def _score_stem_tiers(
         flash_lite_score = 0.0
         flash_score = 0.0
         pro_score = 0.0
-        local_qwen_score += 2.2
-        gear1_score += 1.0 if (word_count <= 5 and local_llm_hits == 0) else 0.35
-    elif local_qwen_available is False:
-        # Down-weight local_qwen when explicitly known offline in online mode.
+        if local_qwen_available is True:
+            local_qwen_score += 2.2
+            gear1_score += 1.0 if (word_count <= 5 and local_llm_hits == 0) else 0.35
+        else:
+            local_qwen_score *= 0.2
+            gear1_score += 2.2 + (1.0 if (word_count <= 5 and local_llm_hits == 0) else 0.35)
+    elif local_qwen_available is not True:
+        # Down-weight local_qwen unless explicitly confirmed live.
         local_qwen_score *= 0.2
 
     scores: Dict[str, float] = {
@@ -605,7 +694,8 @@ def arbitrate_teamwork_quorum(
     rem = max(0.0, 1.0 - pro_mass - flash_mass)
     scope_prior = [round(0.15 * rem, 6), round(0.25 * rem, 6), round(0.60 * rem, 6), round(flash_mass, 6), round(pro_mass, 6)]
     result = arbitrate([probs_vec, scope_prior], tau=float(tau))
-    return {**result, "abstention_applied": False, "quorum_supplied": False}
+    abstention_applied = bool(result["verdict"] in {"ABSTAIN", "ECHO_CHAMBER_WARNING"})
+    return {**result, "abstention_applied": abstention_applied, "quorum_supplied": False}
 
 
 def route_stem(
@@ -665,14 +755,25 @@ def route_stem(
     # Enforce deterministic offline/privacy and local-Qwen availability fallbacks.
     fallback_applied = False
     fallback_reason: str | None = None
-    if selected_tier == "local_qwen" and local_qwen_available is False:
+    if selected_tier == "local_qwen" and local_qwen_available is not True:
         selected_tier = "gear1_eliza"
         fallback_applied = True
-        fallback_reason = "local Qwen2.5-3B (127.0.0.1:8080) unavailable; fell back cleanly to Gear 1 ELIZA."
+        fallback_reason = (
+            "local Qwen2.5-3B (127.0.0.1:8080) unavailable; fell back cleanly to Gear 1 ELIZA."
+            if local_qwen_available is False
+            else "local Qwen2.5-3B (127.0.0.1:8080) unverified/unavailable (probe_local=False); fell back cleanly to Gear 1 ELIZA."
+        )
     elif local_constraint and selected_tier not in {"gear1_eliza", "local_qwen"}:
-        selected_tier = "local_qwen" if local_qwen_available is not False else "gear1_eliza"
+        selected_tier = "local_qwen" if local_qwen_available is True else "gear1_eliza"
         fallback_applied = True
         fallback_reason = "Cloud tiers disabled by offline/privacy constraint."
+    elif local_constraint and selected_tier == "gear1_eliza" and local_qwen_available is not True:
+        fallback_applied = True
+        fallback_reason = (
+            "Cloud tiers disabled and local Qwen2.5-3B (127.0.0.1:8080) unavailable; fell back cleanly to Gear 1 ELIZA."
+            if local_qwen_available is False
+            else "Cloud tiers disabled and local Qwen2.5-3B (127.0.0.1:8080) unverified/unavailable (probe_local=False); fell back cleanly to Gear 1 ELIZA."
+        )
 
     spec = TIER_SPECS[selected_tier]
     teamwork_recommended = bool(

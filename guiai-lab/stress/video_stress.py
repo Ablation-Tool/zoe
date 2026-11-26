@@ -23,7 +23,7 @@ from guiai.gem.video_library import (
 )
 
 
-ORIGINAL = Path("/home/cowboy/.local/bin/vidlib")
+ORIGINAL = Path(os.environ.get("ZOE_VIDLIB_BIN") or (Path.home() / ".local/bin/vidlib"))
 ORIGINAL_IMPLEMENTATION = ORIGINAL.with_suffix(".py")
 
 

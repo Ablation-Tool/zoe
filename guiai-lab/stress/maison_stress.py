@@ -18,7 +18,7 @@ from guiai.gem.runner import verify_vdi
 from guiai.gem.unified_cli import main as zoe_main
 
 
-REFERENCE = Path("/home/cowboy/Music/Word Association.pdf")
+REFERENCE = Path(os.environ.get("ZOE_MAISON_REF") or (Path.home() / "Music/Word Association.pdf"))
 
 
 try:

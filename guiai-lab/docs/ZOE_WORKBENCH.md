@@ -5,7 +5,7 @@ Zoe now discovers and controls the CERN console, HELIOS, and Atelier through the
 ## Start and open
 
 ```bash
-cd /home/cowboy/_projects/zoe
+cd <workspace>
 export PYTHONPATH=guiai-lab
 zoe list
 zoe launch cern-console
@@ -15,7 +15,7 @@ zoe launch cern-console -- open atelier
 
 `zoe launch cern-console` attaches to a healthy existing server on port 8765 or starts a new loopback server on a free port. `open` additionally opens the requested target in the browser. No process or browser opens while inspecting the component list or manifest.
 
-The checkout defaults to `/media/cowboy/research/GEM/cern-console`. Override it with `ZOE_CERN_CONSOLE` or the direct CLI's `--checkout` option.
+The checkout defaults to `$ZOE_CERN_CONSOLE`. Override it with `ZOE_CERN_CONSOLE` or the direct CLI's `--checkout` option.
 
 ![HELIOS virtual collider laboratory](images/zoe-helios.png)
 

@@ -125,4 +125,4 @@ The complete experiment-capable isolated suite covers all modules. The default s
 
 ## Reference provenance and scope
 
-The constructions derive from the local geometry extraction in `/home/cowboy/Desktop/O`, the Prochnow GEM handbook supplied for background, and the local VDI reference in `/media/cowboy/research/GEM/Gem/vdi.html`. The VDI reference confirms arc and pie angles in tenths of a degree and the ellipse/rounded-rectangle calling conventions. These references inform geometry; they do not validate transformer, musical, or hidden-state claims.
+The constructions derive from the local geometry extraction in `~/Desktop/O`, the Prochnow GEM handbook supplied for background, and the local VDI reference in `<gem-vdi-ref>/vdi.html`. The VDI reference confirms arc and pie angles in tenths of a degree and the ellipse/rounded-rectangle calling conventions. These references inform geometry; they do not validate transformer, musical, or hidden-state claims.

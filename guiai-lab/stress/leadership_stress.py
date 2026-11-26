@@ -18,7 +18,7 @@ from guiai.gem.runner import verify_vdi
 from guiai.gem.unified_cli import main as zoe_main
 
 
-ROOT = Path("/home/cowboy/Desktop/Leadership")
+ROOT = Path(os.environ.get("ZOE_LEADERSHIP_ROOT") or (Path.home() / "Desktop/Leadership"))
 
 
 try:

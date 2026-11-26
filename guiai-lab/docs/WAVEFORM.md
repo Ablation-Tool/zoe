@@ -47,8 +47,8 @@ The JSONL adapter accepts one event object per line with these fields:
 The optional WDB path uses the existing bounded `WdbReader` from the bundled Ablation source tree. It supports that reader's documented legacy profiles; it is not a new general-purpose proprietary-format decoder. If `ablation` is not importable, point to its checkout explicitly:
 
 ```bash
-ZOE_ABLATION_ROOT=/home/cowboy/_projects/GEM/components/ablation \
-  zoe waveform /media/cowboy/research/CERN/analysis/wdb/endeavour_tb_behav.wdb \
+ZOE_ABLATION_ROOT=<workspace>/components/ablation \
+  zoe waveform $ZOE_CERN_ROOT/analysis/wdb/endeavour_tb_behav.wdb \
   --max-events 256 --output legacy-replay.svg
 ```
 
@@ -95,7 +95,7 @@ Those questions need actual source, independent measurements, and hardware revie
 ```bash
 PYTHONPATH=guiai-lab python -m unittest stress.waveform_stress -v
 
-ZOE_ABLATION_ROOT=/home/cowboy/_projects/GEM/components/ablation \
+ZOE_ABLATION_ROOT=<workspace>/components/ablation \
   PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   python -m unittest stress.waveform_stress -v
 ```

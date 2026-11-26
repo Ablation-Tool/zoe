@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "instrument": "zoe-cern-console-integration",
-  "checkout": "/home/cowboy/_projects/zoe",
+  "checkout": "<workspace>",
   "handover_commit": "3ff9dda5",
   "merged_zoe_revision": "ee589f78ca2eb39421ca69719b1a58e4d6ba8fd9",
   "entrypoint_count": 12,
@@ -45,7 +45,7 @@
   "package": {
     "wheel_and_source_archive_built": true,
     "archive_contents_verified": true,
-    "installed_into": "/home/cowboy/_temp/gem-runtime.4JQNao"
+    "installed_into": "<temp>/gem-runtime.4JQNao"
   },
   "visual_guides": {
     "guide_count": 23,

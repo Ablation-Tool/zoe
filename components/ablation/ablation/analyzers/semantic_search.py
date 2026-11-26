@@ -29,9 +29,58 @@ from typing import Optional
 
 import numpy as np
 
-_MODEL_NAME  = 'BAAI/bge-small-en-v1.5'
-_CACHE_DIR   = Path.home() / '.ablation'
-_DEFAULT_DB  = _CACHE_DIR / 'func_id.db'
+_MODEL_NAME             = 'BAAI/bge-small-en-v1.5'
+_IMPORT_TIME_CACHE_DIR  = Path.home() / '.ablation'
+_IMPORT_TIME_DEFAULT_DB = _IMPORT_TIME_CACHE_DIR / 'func_id.db'
+_CACHE_DIR              = _IMPORT_TIME_CACHE_DIR
+_DEFAULT_DB             = _IMPORT_TIME_DEFAULT_DB
+
+
+def _cache_dir_path() -> Path:
+    if _CACHE_DIR != _IMPORT_TIME_CACHE_DIR:
+        return Path(_CACHE_DIR).expanduser()
+    return Path.home() / '.ablation'
+
+
+def _default_db_path() -> Path:
+    if _DEFAULT_DB != _IMPORT_TIME_DEFAULT_DB:
+        return Path(_DEFAULT_DB).expanduser()
+    return _cache_dir_path() / 'func_id.db'
+
+
+def _ensure_schema(con) -> None:
+    con.executescript('''
+        CREATE TABLE IF NOT EXISTS binaries (
+            id INTEGER PRIMARY KEY,
+            sha256 TEXT NOT NULL UNIQUE,
+            path_hint TEXT NOT NULL DEFAULT '',
+            product TEXT NOT NULL DEFAULT '',
+            arch TEXT NOT NULL DEFAULT 'x86-64',
+            version TEXT NOT NULL DEFAULT '',
+            notes TEXT NOT NULL DEFAULT '',
+            added_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+        );
+        CREATE TABLE IF NOT EXISTS functions (
+            id INTEGER PRIMARY KEY,
+            binary_id INTEGER NOT NULL REFERENCES binaries(id) ON DELETE CASCADE,
+            va INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            demangled TEXT NOT NULL DEFAULT '',
+            role TEXT NOT NULL DEFAULT 'UNKNOWN',
+            confidence TEXT NOT NULL DEFAULT 'CANDIDATE'
+                CHECK(confidence IN ('CONFIRMED','ANGR_INFERRED','CANDIDATE')),
+            sig_bytes TEXT NOT NULL DEFAULT '',
+            sig_mask TEXT NOT NULL DEFAULT '',
+            sig_len INTEGER NOT NULL DEFAULT 0,
+            call_targets TEXT NOT NULL DEFAULT '[]',
+            callers TEXT NOT NULL DEFAULT '[]',
+            string_xrefs TEXT NOT NULL DEFAULT '[]',
+            struct_accesses TEXT NOT NULL DEFAULT '[]',
+            notes TEXT NOT NULL DEFAULT '',
+            version_str TEXT NOT NULL DEFAULT '',
+            UNIQUE(binary_id, va)
+        );
+    ''')
 
 # ── register / address / immediate patterns ──────────────────────────────────
 
@@ -315,13 +364,14 @@ class SemanticSearcher:
 
     def __init__(self, db_path: str, cache_dir: Optional[Path] = None):
         self._db_path   = Path(db_path).expanduser()
-        self._cache_dir = cache_dir or _CACHE_DIR
+        self._cache_dir = Path(cache_dir).expanduser() if cache_dir is not None else _cache_dir_path()
         self._cache_dir.mkdir(parents=True, exist_ok=True)
         self._model     = None
         self._vectors: Optional[np.ndarray]  = None
         self._meta: Optional[list[dict]]     = None
         self._live_addrs: 'set[int] | None'  = None
         self._binary_id: Optional[int]       = None
+        self._last_live_hash: str            = ''
 
     @classmethod
     def from_context(cls, ctx, cache_dir: Optional[Path] = None) -> 'SemanticSearcher':
@@ -333,9 +383,12 @@ class SemanticSearcher:
         corpus — no global fallback.
         """
         import sqlite3
-        searcher = cls(str(_DEFAULT_DB), cache_dir)
+        db_path = _default_db_path()
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+        searcher = cls(str(db_path), cache_dir)
 
-        with sqlite3.connect(_DEFAULT_DB) as con:
+        with sqlite3.connect(db_path) as con:
+            _ensure_schema(con)
             row = con.execute(
                 'SELECT id FROM binaries WHERE sha256=?', (ctx.sha256,)
             ).fetchone()
@@ -344,7 +397,7 @@ class SemanticSearcher:
             binary_id, live_addrs = cls.ingest_binary(ctx)
         else:
             binary_id = int(row[0])
-            with sqlite3.connect(_DEFAULT_DB) as con:
+            with sqlite3.connect(db_path) as con:
                 live_addrs = {
                     int(r[0]) for r in con.execute(
                         "SELECT va FROM functions WHERE binary_id=? "
@@ -403,7 +456,10 @@ class SemanticSearcher:
                 stacklevel=2,
             )
 
-        with sqlite3.connect(_DEFAULT_DB) as con:
+        db_path = _default_db_path()
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+        with sqlite3.connect(db_path) as con:
+            _ensure_schema(con)
             con.execute(
                 '''INSERT INTO binaries (sha256, path_hint, product, arch, version)
                    VALUES (?, ?, ?, ?, ?)
@@ -487,6 +543,7 @@ class SemanticSearcher:
             live_hash = hashlib.sha256(
                 ','.join(str(a) for a in sorted(live_addrs)).encode()
             ).hexdigest()[:12]
+        self._last_live_hash = live_hash
 
         cache = self._cache_file(live_hash)
         db_hash = self._db_hash()
@@ -500,6 +557,7 @@ class SemanticSearcher:
                 return len(self._meta)
 
         con = sqlite3.connect(self._db_path)
+        _ensure_schema(con)
         if self._binary_id is not None:
             rows = con.execute('''
                 SELECT va, name, role, confidence, call_targets, string_xrefs, notes
@@ -513,8 +571,8 @@ class SemanticSearcher:
                   FROM functions
                  WHERE confidence IN ('CONFIRMED', 'ANGR_INFERRED')
             ''').fetchall()
-            if live_addrs is not None:
-                rows = [r for r in rows if r[0] in live_addrs]
+        if live_addrs is not None:
+            rows = [r for r in rows if r[0] in live_addrs]
         con.close()
 
         if not rows:
@@ -549,6 +607,10 @@ class SemanticSearcher:
 
     def query(self, description: str, top_k: int = 5) -> list[SimilarFunction]:
         """Encode *description* and return top-k similar corpus functions."""
+        if isinstance(top_k, bool) or not isinstance(top_k, int):
+            raise ValueError('top_k must be an integer')
+        if top_k <= 0:
+            return []
         self._ensure()
         if self._vectors is None or self._vectors.shape[0] == 0:
             return []
@@ -587,9 +649,22 @@ class SemanticSearcher:
 
     def invalidate_cache(self):
         """Force corpus rebuild on next query."""
-        cache = self._cache_file()
-        if cache.exists():
-            cache.unlink()
+        live_hash = ''
+        if self._live_addrs is not None:
+            live_hash = hashlib.sha256(
+                ','.join(str(a) for a in sorted(self._live_addrs)).encode()
+            ).hexdigest()[:12]
+        candidates = {self._cache_file()}
+        if live_hash:
+            candidates.add(self._cache_file(live_hash))
+        if self._last_live_hash:
+            candidates.add(self._cache_file(self._last_live_hash))
+        if self._live_addrs is None and not self._last_live_hash:
+            model_slug = _MODEL_NAME.replace('/', '_').replace('-', '_')
+            candidates.update(self._cache_dir.glob(f'func_semantic_cache_{model_slug}_*.pkl'))
+        for cache in candidates:
+            if cache.exists():
+                cache.unlink()
         self._vectors = None
         self._meta    = None
 

@@ -535,8 +535,18 @@ def export_artline_plate(
 
         doc, meta = build_artline_icon_editor_plate(emblem=arg.strip() or "ruby")
         stem = f"artline_icon_{meta['emblem']}"
+    elif kind in {"flower", "crest"}:
+        from .zoe_sisters import build_artline_flower_crest_plate
+
+        doc, meta = build_artline_flower_crest_plate()
+        stem = "artline_zoe_flower_crest"
+    elif kind in {"cocrest", "nick", "steward"}:
+        from .zoe_sisters import build_artline_co_crest_plate
+
+        doc, meta = build_artline_co_crest_plate()
+        stem = "artline_nick_zoe_cocrest"
     else:
-        raise ValueError("Unknown Artline plate. Choose: symmetry, glioma, neuromap, align, blend, trace, ring, icon, or zoe.")
+        raise ValueError("Unknown Artline plate. Choose: symmetry, glioma, neuromap, align, blend, trace, ring, icon, flower, cocrest, or zoe.")
 
     dest = Path(out_dir or (Path.home() / ".zoe" / "artline")).expanduser().resolve()
     dest.mkdir(parents=True, exist_ok=True)

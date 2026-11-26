@@ -43,7 +43,7 @@
     "header_4mb_sha256": "3b3e72a8b68e68ef3bef21d57a9f66a36e0cfec554854bb707dd6ee58fb75ba7",
     "magic": "GGUF",
     "metadata_kv_count": 26,
-    "path": "/media/cowboy/research/zoe-local-llm/models/qwen2.5-3b-instruct-q4_k_m.gguf",
+    "path": "zoe-local-llm/models/qwen2.5-3b-instruct-q4_k_m.gguf",
     "present": true,
     "size_bytes": 2104932768,
     "size_gb": 1.96,

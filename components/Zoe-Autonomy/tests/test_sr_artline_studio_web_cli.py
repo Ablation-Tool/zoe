@@ -21,7 +21,9 @@ for rel in ("components/Zoe-Autonomy/src", "guiai-lab"):
 from guiai.gem.eliza_view import create_server
 from guiai.gem.zoe_artline_cli import handle_artline_slash_command, main as artline_cli_main
 
-NODE_BIN = shutil.which("node") or "/home/cowboy/.nvm/versions/node/v24.16.0/bin/node"
+NODE_BIN = shutil.which("node") or str(
+    next((Path.home() / ".nvm" / "versions" / "node").glob("*/bin/node"), Path("node"))
+)
 
 
 def _check_inline_js(html_text: str) -> None:
@@ -42,18 +44,20 @@ def test_live_web_studio_artline_physics_duodecimal_routes() -> None:
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
         try:
-            # Topbar index links to all 3 new live tabs
+            # Topbar index links to all 4 new live tabs
             with urlrequest.urlopen(f"{base}/", timeout=10) as r:
                 root_html = r.read().decode("utf-8")
                 assert 'href="/artline"' in root_html
                 assert 'href="/physics"' in root_html
                 assert 'href="/duodecimal"' in root_html
+                assert 'href="/forge"' in root_html
 
-            # All 3 new HTML workbenches return 200, markers, and node --check clean inline JS
+            # All 4 new HTML workbenches return 200, markers, and node --check clean inline JS
             for route, marker in (
                 ("/artline", "Zoe Artline 2.0 Brainstorm Studio"),
                 ("/physics", "Optional-Physics Room"),
                 ("/duodecimal", "Artline Duodecimal Classification (ADC-12)"),
+                ("/forge", "Zoe Artline Forge"),
             ):
                 with urlrequest.urlopen(f"{base}{route}", timeout=10) as r:
                     assert r.status == 200
@@ -109,3 +113,10 @@ def test_zoe_artline_cli_subcommands(tmp_path: Path, capsys) -> None:
     res_phys = handle_artline_slash_command("/artline physics", out_dir=tmp_path)
     assert res_phys["mode"] == "artline_physics"
     assert Path(res_phys["data"]["gif"]["gif_path"]).is_file()
+
+    rc_forge = artline_cli_main(["--out-dir", str(tmp_path), "forge"])
+    assert rc_forge == 0
+    assert "Zoe Artline Forge Exported" in capsys.readouterr().out
+    assert (tmp_path / "forge" / "zoe_artline_forge.html").is_file()
+    assert (tmp_path / "forge" / "palettes" / "zoe_studio.col.gem").is_file()
+    assert (tmp_path / "forge" / "toolboxes" / "brainstorm_desk.zoetk").is_file()

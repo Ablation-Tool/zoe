@@ -149,7 +149,7 @@ class ZoeDesktopWindow(Gtk.Window):
         self.stop_button.get_style_context().add_class("zoe-action")
         self.stop_button.connect("clicked", self.stop_selected)
         right.pack_start(self.stop_button, False, False, 0)
-        command = agent_command or os.environ.get("ZOE_AGENT_COMMAND", "kimi")
+        command = agent_command or os.environ.get("ZOE_AGENT_COMMAND", "agy")
         self.agent_bridge = AgentBridgeServer(self)
         self.agent_panel = EmbeddedAgentPanel(command, status_changed=self.agent_status, bridge=self.agent_bridge)
         self.agent_panel.set_size_request(420, 360)

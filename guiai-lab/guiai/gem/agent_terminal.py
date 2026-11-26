@@ -26,7 +26,7 @@ BOOTSTRAP = (
 
 
 class EmbeddedAgentPanel(Gtk.Box):
-    def __init__(self, command="kimi", workspace=None, status_changed=None, bridge=None):
+    def __init__(self, command="agy", workspace=None, status_changed=None, bridge=None):
         super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.command = command
         self.workspace = Path(workspace or Path.cwd()).resolve()

@@ -99,7 +99,7 @@ Running `KlosterSequentialStoppingController` on real **`GPT-2`** token streams 
 ---
 
 ### Pillar 5: Tamper-Evident Supply-Chain Seal
-`evidence/renaissance-orbit/SHA256SUMS.orbit` cryptographically seals all core proof modules, verifiers, and the 16-theorem PDF (`sha256sum -c` verified **`47/47 OK`**).
+`evidence/renaissance-orbit/SHA256SUMS.orbit` cryptographically seals all core proof modules, verifiers, and the 16-theorem PDF (`sha256sum -c` verified **`47/47 OK`**). *(Historical baseline progression: expanded from the v1 `15/15` SymPy theorem proofs & `45/45` orbit seals to `16/16` SymPy theorems and `47/47` SHA-256 orbit seals.)*
 
 ---
 

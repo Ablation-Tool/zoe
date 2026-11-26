@@ -496,6 +496,15 @@
       "sloc": 665
     },
     {
+      "avg_cc": 2.778,
+      "file": "guiai-lab/guiai/gem/gemos_view.py",
+      "grade": "A",
+      "h2": 2.0189,
+      "max_cc": 5,
+      "mi": 60.628,
+      "sloc": 134
+    },
+    {
       "avg_cc": 2.5,
       "file": "guiai-lab/guiai/gem/genesis.py",
       "grade": "A",
@@ -919,13 +928,13 @@
       "sloc": 240
     },
     {
-      "avg_cc": 4.709,
+      "avg_cc": 4.771,
       "file": "guiai-lab/guiai/gem/lume_cli.py",
       "grade": "B",
-      "h2": 4.2459,
+      "h2": 4.2571,
       "max_cc": 16,
-      "mi": 58.433,
-      "sloc": 1743
+      "mi": 58.301,
+      "sloc": 1809
     },
     {
       "avg_cc": 5.75,
@@ -982,13 +991,13 @@
       "sloc": 219
     },
     {
-      "avg_cc": 6.0,
+      "avg_cc": 6.182,
       "file": "guiai-lab/guiai/gem/operating_environment.py",
       "grade": "B",
-      "h2": 1.8084,
+      "h2": 1.8189,
       "max_cc": 17,
-      "mi": 56.91,
-      "sloc": 315
+      "mi": 56.452,
+      "sloc": 321
     },
     {
       "avg_cc": 7.333,
@@ -1266,8 +1275,8 @@
       "grade": "A",
       "h2": 2.1203,
       "max_cc": 5,
-      "mi": 74.638,
-      "sloc": 147
+      "mi": 74.619,
+      "sloc": 148
     },
     {
       "avg_cc": 7.706,
@@ -1351,13 +1360,13 @@
       "sloc": 44
     },
     {
-      "avg_cc": 5.263,
+      "avg_cc": 5.119,
       "file": "guiai-lab/guiai/gem/zoe_app_brain.py",
       "grade": "A",
-      "h2": 3.1773,
+      "h2": 3.2575,
       "max_cc": 19,
-      "mi": 64.517,
-      "sloc": 640
+      "mi": 63.68,
+      "sloc": 777
     },
     {
       "avg_cc": 5.8,
@@ -1396,13 +1405,13 @@
       "sloc": 356
     },
     {
-      "avg_cc": 8.333,
+      "avg_cc": 7.5,
       "file": "guiai-lab/guiai/gem/zoe_beta_release.py",
       "grade": "B",
-      "h2": 0.9044,
+      "h2": 1.1748,
       "max_cc": 12,
-      "mi": 46.799,
-      "sloc": 172
+      "mi": 51.689,
+      "sloc": 180
     },
     {
       "avg_cc": 3.938,
@@ -1477,6 +1486,15 @@
       "sloc": 323
     },
     {
+      "avg_cc": 4.641,
+      "file": "guiai-lab/guiai/gem/zoe_gem_aes_vdi_core.py",
+      "grade": "A",
+      "h2": 3.7118,
+      "max_cc": 55,
+      "mi": 66.671,
+      "sloc": 3463
+    },
+    {
       "avg_cc": 3.5,
       "file": "guiai-lab/guiai/gem/zoe_gem_themes.py",
       "grade": "A",
@@ -1484,6 +1502,15 @@
       "max_cc": 10,
       "mi": 64.501,
       "sloc": 284
+    },
+    {
+      "avg_cc": 4.408,
+      "file": "guiai-lab/guiai/gem/zoe_hex_mesh.py",
+      "grade": "A",
+      "h2": 3.0607,
+      "max_cc": 29,
+      "mi": 62.66,
+      "sloc": 1061
     },
     {
       "avg_cc": 4.857,
@@ -1536,8 +1563,8 @@
       "grade": "B",
       "h2": 2.4775,
       "max_cc": 14,
-      "mi": 55.431,
-      "sloc": 797
+      "mi": 55.211,
+      "sloc": 806
     },
     {
       "avg_cc": 3.875,
@@ -1675,13 +1702,13 @@
       "sloc": 177
     },
     {
-      "avg_cc": 3.784,
+      "avg_cc": 3.78,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/chat.py",
       "grade": "A",
-      "h2": 3.7818,
+      "h2": 3.9869,
       "max_cc": 15,
-      "mi": 62.494,
-      "sloc": 1328
+      "mi": 64.337,
+      "sloc": 1507
     },
     {
       "avg_cc": 2.722,
@@ -2287,22 +2314,22 @@
       "sloc": 292
     },
     {
-      "avg_cc": 8.3,
+      "avg_cc": 9.8,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py",
       "grade": "B",
-      "h2": 1.7468,
+      "h2": 1.8304,
       "max_cc": 27,
-      "mi": 51.757,
-      "sloc": 313
+      "mi": 49.037,
+      "sloc": 346
     },
     {
-      "avg_cc": 11.467,
+      "avg_cc": 11.294,
       "file": "components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py",
       "grade": "B",
-      "h2": 2.0433,
-      "max_cc": 35,
-      "mi": 56.212,
-      "sloc": 660
+      "h2": 2.1121,
+      "max_cc": 40,
+      "mi": 55.494,
+      "sloc": 753
     },
     {
       "avg_cc": 2.7,
@@ -2953,6 +2980,15 @@
       "sloc": 231
     },
     {
+      "avg_cc": 6.4,
+      "file": "scripts/verify_zoe_gem_os_suite.py",
+      "grade": "B",
+      "h2": 2.2219,
+      "max_cc": 10,
+      "mi": 56.999,
+      "sloc": 263
+    },
+    {
       "avg_cc": 11.0,
       "file": "scripts/verify_zoe_os.py",
       "grade": "B",
@@ -2998,13 +3034,13 @@
       "sloc": 186
     },
     {
-      "avg_cc": 5.333,
+      "avg_cc": 5.889,
       "file": "scripts/zoe_stem_mcp.py",
       "grade": "B",
-      "h2": 1.7262,
+      "h2": 1.8247,
       "max_cc": 13,
-      "mi": 59.49,
-      "sloc": 329
+      "mi": 59.595,
+      "sloc": 338
     }
   ],
   "all_verified": true,
@@ -3024,26 +3060,26 @@
   },
   "contract": "zoe-kloster-mccabe-elegance/v1",
   "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
-  "evidence_sha256": "586ab68822be2541e0c05c243417de4a9371ec78079be6b460d4dec283c2d24d",
+  "evidence_sha256": "b3554b149599bc59c299aa263eda367c7ded6199121a758c489d2cc4d64dabd4",
   "monorepo_summary": {
-    "corr_avg_cc_vs_mi": -0.4464,
-    "files_scanned": 334,
+    "corr_avg_cc_vs_mi": -0.4488,
+    "files_scanned": 338,
     "grade_distribution": {
-      "A": 171,
-      "B": 163,
+      "A": 174,
+      "B": 164,
       "C": 0,
       "D": 0
     },
     "max_function_cc": 119,
-    "mean_avg_cc": 6.483,
-    "mean_mi": 60.106,
-    "median_mi": 60.188,
+    "mean_avg_cc": 6.464,
+    "mean_mi": 60.131,
+    "median_mi": 60.213,
     "orbit_mean_avg_cc": 7.294,
     "orbit_mean_mi": 58.12,
     "orbit_modules_count": 15,
     "parse_errors": 0,
-    "total_functions": 3921,
-    "total_sloc": 105396
+    "total_functions": 4171,
+    "total_sloc": 110858
   },
   "negative_control_spaghetti": {
     "avg_cc": 113.0,
@@ -3603,32 +3639,6 @@
       "total_cc": 32
     },
     {
-      "avg_cc": 8.333,
-      "comment_ratio": 0.0,
-      "file": "guiai-lab/guiai/gem/zoe_beta_release.py",
-      "functions": 3,
-      "grade": "B",
-      "halstead_length": 587,
-      "halstead_vocab": 209,
-      "halstead_volume": 4524.22,
-      "kloster_cc_a_005": 3,
-      "kloster_cc_m4_root": 0.53,
-      "kloster_cc_renyi_h2": 0.9044,
-      "low_maintainability_flag": false,
-      "max_cc": 12,
-      "mi_file_radon": 22.276,
-      "mi_score": 46.799,
-      "most_complex_function": {
-        "cc": 12,
-        "fn_mi": 32.98,
-        "fn_sloc": 82,
-        "lineno": 102,
-        "name": "build_beta_release_manifest"
-      },
-      "sloc": 172,
-      "total_cc": 25
-    },
-    {
       "avg_cc": 9.0,
       "comment_ratio": 0.033,
       "file": "scripts/verify_kloster_riemannian.py",
@@ -3731,6 +3741,32 @@
       },
       "sloc": 129,
       "total_cc": 20
+    },
+    {
+      "avg_cc": 15.3,
+      "comment_ratio": 0.0431,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "functions": 10,
+      "grade": "B",
+      "halstead_length": 2825,
+      "halstead_vocab": 482,
+      "halstead_volume": 25178.91,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.259,
+      "kloster_cc_renyi_h2": 1.9915,
+      "low_maintainability_flag": false,
+      "max_cc": 36,
+      "mi_file_radon": 0.0,
+      "mi_score": 48.306,
+      "most_complex_function": {
+        "cc": 36,
+        "fn_mi": 28.78,
+        "fn_sloc": 177,
+        "lineno": 473,
+        "name": "run_groove_forensics_suite"
+      },
+      "sloc": 566,
+      "total_cc": 153
     }
   ],
   "top_10_most_elegant": [
@@ -3840,28 +3876,28 @@
     },
     {
       "avg_cc": 2.5,
-      "comment_ratio": 0.0272,
+      "comment_ratio": 0.027,
       "file": "guiai-lab/guiai/gem/unified_cli.py",
       "functions": 12,
       "grade": "A",
-      "halstead_length": 512,
-      "halstead_vocab": 191,
-      "halstead_volume": 3879.64,
+      "halstead_length": 514,
+      "halstead_vocab": 193,
+      "halstead_volume": 3902.52,
       "kloster_cc_a_005": 6,
       "kloster_cc_m4_root": 0.2263,
       "kloster_cc_renyi_h2": 2.1203,
       "low_maintainability_flag": false,
       "max_cc": 5,
-      "mi_file_radon": 30.945,
-      "mi_score": 74.638,
+      "mi_file_radon": 30.843,
+      "mi_score": 74.619,
       "most_complex_function": {
         "cc": 5,
-        "fn_mi": 65.17,
+        "fn_mi": 65.15,
         "fn_sloc": 14,
-        "lineno": 66,
+        "lineno": 67,
         "name": "_try_early_passthrough"
       },
-      "sloc": 147,
+      "sloc": 148,
       "total_cc": 30
     },
     {

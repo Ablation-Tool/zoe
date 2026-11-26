@@ -151,6 +151,7 @@ _HTML_GET_ROUTES: Dict[str, Tuple[str, str]] = {
     "/artline": ("guiai.gem.zoe_artline_brainstorm", "render_artline_studio_html"),
     "/physics": ("guiai.gem.zoe_wombats_physics_room", "render_physics_room_html"),
     "/duodecimal": ("guiai.gem.zoe_artline_duodecimal", "render_adc12_catalog_html"),
+    "/forge": ("guiai.gem.zoe_artline_forge", "render_artline_forge_html"),
 }
 
 # Footer API & observatory links preserved on /orbit
@@ -185,6 +186,7 @@ _ORBIT_API_LINKS: Tuple[Tuple[str, str, str], ...] = (
     ("/artline", "/artline (Artline 2.0 Brainstorm Studio)", "#ff85b3"),
     ("/physics", "/physics (Optional-Physics Room &amp; Page A-2 Wombats)", "#52e5a8"),
     ("/duodecimal", "/duodecimal (ADC-12 Base-12 Shorthand Catalog)", "#f8cc30"),
+    ("/forge", "/forge (Clean-Room .AF4/.SYF Vector Forge &amp; Toolboxes)", "#ac82ff"),
     ("/api/kloster/proof-packet", "/api/kloster/proof-packet", "#ffb84d"),
     ("/api/orbit/master", "/api/orbit/master", "#7ce8ff"),
 )

@@ -314,6 +314,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
       <a class="btn outline" href="/artline" style="text-decoration:none;border-color:rgba(255,133,179,0.65);color:#ff85b3;">🎨 Artline</a>
       <a class="btn outline" href="/physics" style="text-decoration:none;border-color:rgba(82,229,168,0.65);color:#52e5a8;">✺ Physics</a>
       <a class="btn outline" href="/duodecimal" style="text-decoration:none;border-color:rgba(248,204,48,0.65);color:#f8cc30;">❖ ADC-12</a>
+      <a class="btn outline" href="/forge" style="text-decoration:none;border-color:rgba(172,130,255,0.65);color:#ac82ff;">⚒ Forge</a>
       <a class="btn outline" href="/orbit" style="text-decoration:none;border-color:rgba(92,225,230,0.45);color:var(--cyan);">✦ Orbit</a>
       <a class="btn outline" href="/api/export" style="text-decoration:none;">Export JSON</a>
       <button class="btn stop-btn" id="btnStop" onclick="emergencyStop()">Emergency Stop</button>

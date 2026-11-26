@@ -22,9 +22,10 @@ from guiai.gem.waveform_view import main as waveform_main
 
 
 ROOT = Path(__file__).resolve().parents[2]
+_CERN_ROOT = Path(os.environ.get("ZOE_CERN_ROOT") or (Path(__file__).resolve().parents[3] / "CERN"))
 EXAMPLE = ROOT / "guiai-lab/docs/examples/endeavour-clocks.vcd"
-LEGACY = Path("/media/cowboy/research/CERN/analysis/wdb/legacy-events.jsonl")
-WDB = Path("/media/cowboy/research/CERN/analysis/wdb/endeavour_tb_behav.wdb")
+LEGACY = _CERN_ROOT / "analysis/wdb/legacy-events.jsonl"
+WDB = _CERN_ROOT / "analysis/wdb/endeavour_tb_behav.wdb"
 LEGACY_HASH = "a4398456aa92f47f9344c9b2b2325086830fe4f7d28a585c7873c95472e514dc"
 WDB_HASH = "ecbb1b1ab78f71991a8b750d8910e0e12cbe78b0e38aa98c26184dd0f974f87d"
 

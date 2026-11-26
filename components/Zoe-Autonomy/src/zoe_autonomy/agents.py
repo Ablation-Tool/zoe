@@ -54,6 +54,8 @@ class AgentGateway:
     def discover(self):
         registered = {item["id"] for item in self._document()["connections"]}
         templates = {
+            "agy": ("agy", ["--disable-slash-commands", "--model", "gemini-4-neon-medium", "--output-format", "text", "-p", "{prompt}"]),
+            "gemini": ("gemini", ["-p", "{prompt}"]),
             "kimi": ("kimi", ["-p", "{prompt}"]),
             "claude": ("claude", ["-p", "{prompt}"]),
             "codex": ("codex", ["exec", "{prompt}"]),

@@ -14,7 +14,13 @@ _ZOE_AUTONOMY_SRC = _REPO_ROOT / "components" / "Zoe-Autonomy" / "src"
 if _ZOE_AUTONOMY_SRC.is_dir() and str(_ZOE_AUTONOMY_SRC) not in sys.path:
     sys.path.insert(0, str(_ZOE_AUTONOMY_SRC))
 
-from zoe_autonomy.stem_layering import DEFAULT_TAU, route_stem  # noqa: E402
+from zoe_autonomy.stem_layering import (  # noqa: E402
+    DEFAULT_LOCAL_QWEN_URL,
+    DEFAULT_TAU,
+    _assert_loopback_url,
+    probe_local_endpoints,
+    route_stem,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -22,7 +28,9 @@ def build_parser() -> argparse.ArgumentParser:
         prog="zoe_stem_router.py",
         description="Route a task across Zoe's Cognitive Stem-Layering tiers using Kloster A_tau(p).",
     )
-    parser.add_argument("--prompt", required=True, help="Task or prompt text to route.")
+    parser.add_argument("--prompt", required=False, default=None, help="Task or prompt text to route.")
+    parser.add_argument("--status", action="store_true", help="Probe local loopback endpoints (:8080, :8765, :8774, :11434) and exit.")
+    parser.add_argument("--local-qwen-url", default=DEFAULT_LOCAL_QWEN_URL, help=f"Loopback Qwen/llama-server URL (default: {DEFAULT_LOCAL_QWEN_URL}).")
     parser.add_argument("--offline-only", action="store_true", help="Restrict routing to offline local tiers (0 cloud tokens).")
     parser.add_argument("--privacy-sensitive", action="store_true", help="Restrict routing to loopback local tiers only.")
     parser.add_argument("--files-count", type=int, default=1, help="Estimated number of files involved (default: 1).")
@@ -36,15 +44,33 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    decision = route_stem(
-        args.prompt,
-        offline_only=args.offline_only,
-        privacy_sensitive=args.privacy_sensitive,
-        files_count=args.files_count,
-        multi_file=args.multi_file,
-        probe_local=args.probe_local,
-        tau=args.tau,
-    )
+    try:
+        local_qwen_url = _assert_loopback_url(args.local_qwen_url)
+        if args.status:
+            status = probe_local_endpoints(llama_url=local_qwen_url)
+            if args.as_json:
+                print(json.dumps(status, indent=2, sort_keys=True))
+            else:
+                print(f"loopback_only={status['loopback_only']} any_llm_live={status['any_llm_live']} cloud_tokens_used=0")
+                for name, info in status["endpoints"].items():
+                    state = "ONLINE" if info.get("available") else "offline"
+                    print(f"  {name}: {state} ({info.get('endpoint')})")
+            return 0
+        if not args.prompt:
+            parser.error("--prompt is required unless --status is passed")
+        decision = route_stem(
+            args.prompt,
+            offline_only=args.offline_only,
+            privacy_sensitive=args.privacy_sensitive,
+            files_count=args.files_count,
+            multi_file=args.multi_file,
+            probe_local=args.probe_local,
+            local_qwen_url=local_qwen_url,
+            tau=args.tau,
+        )
+    except (ValueError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
     doc = decision.to_dict()
     if args.as_json:
         print(json.dumps(doc, indent=2, sort_keys=True))

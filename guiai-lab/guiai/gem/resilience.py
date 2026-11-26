@@ -234,7 +234,7 @@ def resilience_scene(sector_id="energy", trace_id="host80"):
             "corroborated": 1,
             "ambiguous": 2,
             "unmapped": 360,
-            "source": "/media/cowboy/research/CERN/analysis/wdb/MAPPER.md",
+            "source": "CERN/analysis/wdb/MAPPER.md",
         },
     }
     return scene, report

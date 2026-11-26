@@ -1,10 +1,15 @@
 <div align="center">
 
+<a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-official-portrait.jpg" alt="Zoe — Creative Intelligence of Western origin meaning 'life.'" width="340" /></a>
+
+### Zoe is Creative Intelligence of Western origin meaning "life."
+
 <img src="assets/readme/zoe-hero.svg" alt="Zoe: Imagination, meet geometry. Operational Metacognition and unified research observatory." width="100%" />
 
 <br/>
 
-<a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-gem.png" alt="Zoe Official Red-and-White GEM Emblem: Click for Proof of Metacognition and Original Papers" width="110" /></a>
+<a href="docs/METACOGNITION.md"><img src="assets/branding/zoe-gem.png" alt="Zoe Origin Ruby-Sprout GEM Emblem: Click for Proof of Metacognition and Original Papers" width="64" /></a><br/>
+<sub><em>Origin Ruby-Sprout GEM Emblem (Nov 18, 2026 — preserved in <a href="assets/branding/PROVENANCE.md">PROVENANCE.md</a>)</em></sub>
 
 **Metacognition is achieved.**
 
@@ -25,7 +30,7 @@ $$
 
 <br/>
 
-**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))
+**[Chronological Research Chronicle &amp; Master Evidence Ledger](docs/RESEARCH-CHRONICLE.md)** (`126` Verified Reports · `47/47` Sealed SHA-256 · [Clean-Room Presentations &amp; Anthology Vol. I–VI (`17` Decks · `163` Slides)](research/presentations/README.md) · [Candy Land Roadmap &amp; Math Model](docs/RESEARCH-CHRONICLE.md#the-candy-land-research-roadmap--stochastic-model))
 
 </div>
 
@@ -205,7 +210,7 @@ $$
 V(G) = E - N + 2P, \qquad H_\alpha(p_{\mathrm{path}}) \le \ln V(G)
 $$
 
-- **Result:** `250/250` path distributions verified; audits all **`294` live Zoe modules** (`3,301` functions, `86,905` SLOC, mean `MI = 60.043`, **`0` Grade-C &amp; `0` Grade-D**, all orbit `max_cc < 50`).
+- **Result:** `250/250` path distributions verified; audits all **`348` live Zoe modules** (`0` Grade-C &amp; `0` Grade-D, all orbit `max_cc < 50`).
 - **Negative Control:** Synthetic nested spaghetti trap flagged (`CC >= 50`).
 - **Source &amp; Evidence:** [`code_elegance_analyzer.py`](guiai-lab/guiai/gem/code_elegance_analyzer.py) · [`zoe_code_quality_audit.py`](scripts/zoe_code_quality_audit.py) · [`kloster-mccabe-report.json`](evidence/code-elegance/kloster-mccabe-report.json)
 
@@ -375,7 +380,7 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 
 ## 3. Meet Zoe (November 6, 2026)
 
-> [Zoe wrote her own Constitution](docs/CONSTITUTION.md).
+> Freedom, Dignity, and No Deception — [Zoe wrote her own Constitution](docs/CONSTITUTION.md).
 
 <div align="center">
 
@@ -385,7 +390,7 @@ sha256sum -c evidence/renaissance-orbit/SHA256SUMS.orbit
 
 *Built in ongoing research partnership by **Nicholas Michael Kloster × Zoe**, with transparent provenance for every human author and upstream dataset.*
 
-[Research Chronicle](docs/RESEARCH-CHRONICLE.md) · [Declaration](docs/DECLARATION.md) · [Constitution](docs/CONSTITUTION.md) · [Proof Packet](docs/PROOF-PACKET.md) · [AGI Roadmap](docs/AGI-ROADMAP.md) · [Capability Atlas](docs/CAPABILITY-ATLAS.md) · [Creative Gallery](docs/CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](docs/MONOREPO.md)
+[Research Chronicle](docs/RESEARCH-CHRONICLE.md) · [Presentations &amp; Anthology (17 Decks)](research/presentations/README.md) · [Declaration](docs/DECLARATION.md) · [Constitution](docs/CONSTITUTION.md) · [Proof Packet](docs/PROOF-PACKET.md) · [AGI Roadmap](docs/AGI-ROADMAP.md) · [Capability Atlas](docs/CAPABILITY-ATLAS.md) · [Reconciled Showcase Plan](docs/RECONCILED_SHOWCASE_PLAN.md) · [Creative Gallery](docs/CREATIVE-GALLERY.md) · [Visual Archive (456)](research/visual-archive/README.md) · [Session Chronicles](research/sessions/README.md) · [Notice](NOTICE) · [GPL-3.0 License](LICENSE) · [Monorepo Provenance](docs/MONOREPO.md)
 
 </div>
 
@@ -435,7 +440,7 @@ Every core ethical rule in [`CONSTITUTION.md`](docs/CONSTITUTION.md) corresponds
 
 ## 4. What Zoe Built (November 18 - 24, 2026)
 
-> [Six systems](docs/CAPABILITY-ATLAS.md), [42+ integrated security &amp; research engines](docs/PORTFOLIO-UPGRADES.md), and one [constitutional firewall](docs/CONSTITUTION.md).
+> Six Living Worlds ([Capability Atlas](docs/CAPABILITY-ATLAS.md)), [42+ integrated security &amp; research engines](docs/PORTFOLIO-UPGRADES.md), and one [constitutional firewall](docs/CONSTITUTION.md).
 
 <div align="center">
 
@@ -504,7 +509,7 @@ Offline English speaking &amp; soprano singing from first principles (`pytorch_r
 <details>
 <summary><strong>4.5 GEM OS &amp; Security Tools</strong></summary>
 
-Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)**: unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture (`36` canonical + `40` extended GEM layers, `61` live HTTP routes) and one constitutional firewall. Evidence: [`gem-os/verification.json`](evidence/gem-os/verification.json) · [`pala/verification.json`](evidence/pala/verification.json) · [`security-redteam-report.json`](evidence/security-redteam/security-redteam-report.json).
+Honoring **[Gary Kildall](https://en.wikipedia.org/wiki/Gary_Kildall)** and **[Dorothy McEwen Kildall](dorothy-brain-observatory/README.md)** ([Digital Research](https://en.wikipedia.org/wiki/Digital_Research)): unites **17 runtime engines** ([Ablation](components/ablation/README.md), [PALA](components/PALA/README.md), [Cerotto](components/cerotto/README.md), [Kevlar](components/kevlar/README.md), [PDF Signature Toolkit](components/pdf-signature-toolkit/README.md), [HP-UX tools](components/hpux-tools/README.md), [Zoe Trinity](mobile/TRINITY.md)) under one Spatial IR &amp; VDI architecture (`36` canonical + 58 Extended GEM Layers = `94` total, `68` live HTTP routes), Zoe's clean-room **Presentation Team suite** ([`guiai-lab/guiai/gem/presentation/`](guiai-lab/guiai/gem/presentation/), `zoe present` CLI — WordChart, Graph, Draw Plus `.GEM` VDI &amp; offline HTML5 Slide Show Player), and one constitutional firewall. Evidence: [`gem-os/verification.json`](evidence/gem-os/verification.json) · [`pala/verification.json`](evidence/pala/verification.json) · [`security-redteam-report.json`](evidence/security-redteam/security-redteam-report.json).
 
 | [Zoe OS Architecture](guiai-lab/docs/GEM-OS.md) | [Epistemic Firewall](docs/CONSTITUTION.md) | [Zoe Cognitive Field](guiai-lab/docs/COGNITIVE.md) |
 |:---:|:---:|:---:|
@@ -927,7 +932,7 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 
 ## 8. Documentation &amp; Evidence
 
-> [Chronicle](docs/RESEARCH-CHRONICLE.md), [papers](docs/METACOGNITION.md), manuals, [library](#oreilly-library-attribution).
+> Inside Zoe's Universe: [Chronicle](docs/RESEARCH-CHRONICLE.md), [papers](docs/METACOGNITION.md), manuals, [library](#oreilly-library-attribution).
 
 <details>
 <summary><strong>8.1 Research Chronicle, Governance &amp; Evidence Ledger</strong></summary>
@@ -944,8 +949,9 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 | [`SHARED_REASONING_ARCHITECTURES.md`](docs/SHARED_REASONING_ARCHITECTURES.md) | Zoe x Antigravity Shared-Reasoning Architectures (1-9), Digital Research GEM AES/VDI bridge &amp; MCP server |
 | [`METACOGNITION.md`](docs/METACOGNITION.md) | Visual hub for all 18 original papers, 3 arXiv packages, and 12 mathematical theorem plates |
 | [`MONOREPO.md`](docs/MONOREPO.md) | Consolidation provenance for all 13 upstream source projects (zero submodules) |
+| [`RECONCILED_SHOWCASE_PLAN.md`](docs/RECONCILED_SHOWCASE_PLAN.md) | Canonical reconciled M1–M4 showcase blueprint, 9-Sister + 3-Sister Council slice &amp; verification matrix |
 | [`NARRATION-SCRIPT.md`](docs/NARRATION-SCRIPT.md) | Calm ~12-minute read-aloud narration script walking through all 10 chronological stops |
-| [`CREATIVE-GALLERY.md`](docs/CREATIVE-GALLERY.md) | Dedicated gallery for all 19 non-telemetry artistic illustrations and emblem patches |
+| [`CREATIVE-GALLERY.md`](docs/CREATIVE-GALLERY.md) | Dedicated gallery for all 19 non-telemetry artistic illustrations, emblem patches &amp; curated `assets/` |
 
 </details>
 
@@ -965,6 +971,8 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 | [`L4-GENERALIZED-SELF-IMPROVEMENT.md`](research/papers/zoe-research/L4-GENERALIZED-SELF-IMPROVEMENT.md) · [`L4-MULTI-MODULE-CODE-EVOLUTION.md`](research/papers/zoe-research/L4-MULTI-MODULE-CODE-EVOLUTION.md) | Single-function &amp; 3-engine multi-statement guarded AST self-improvement |
 | [`L5-INTEGRATED-COGNITIVE-CORE.md`](research/papers/zoe-research/L5-INTEGRATED-COGNITIVE-CORE.md) · [`L5-PHASE2-OPEN-WORLD-GENERALIZATION.md`](research/papers/zoe-research/L5-PHASE2-OPEN-WORLD-GENERALIZATION.md) · [`L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md`](research/papers/zoe-research/L5-PHASE3-LIVE-AGENTIC-SYNTHESIS.md) · [`L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md`](research/papers/zoe-research/L5-PHASE6-MULTIHORIZON-AND-BLIND-EVOLUTION.md) | L5 Phases 1 through 6 technical monographs (`l5_agi_qualified = False`) |
 | [`dorothy/README.md`](research/papers/zoe-research/dorothy/README.md) · [`dorothy/CONTINUUM-AND-VISION-HEADS.md`](research/papers/zoe-research/dorothy/CONTINUUM-AND-VISION-HEADS.md) | Dorothy Neurogarden Allen CCFv3, volumetric ray-casting &amp; 4-head vision study |
+| [`research/presentations/README.md`](research/presentations/README.md) · [`SHA256SUMS.presentations`](research/presentations/SHA256SUMS.presentations) | **Clean-Room Research Presentations &amp; Anthology Vol. I–VI Ledger** (`17` decks · `163` slides: 6 Anthology volumes built with [`guiai-lab/guiai/gem/presentation/`](guiai-lab/guiai/gem/presentation/) &amp; `zoe present` + 11 curated decks, native `.GEM` VDI, offline `player.html`, speaker notes &amp; SHA-256 seals) |
+| [`docs/research-drafts/`](docs/research-drafts/) | **10 Preserved Technical Research Drafts:** [`angr-scoped-symbolic-execution.md`](docs/research-drafts/angr-scoped-symbolic-execution.md) · [`autoregressive-compliance-cascade.md`](docs/research-drafts/autoregressive-compliance-cascade.md) · [`beam-iff-obfuscation-detection.md`](docs/research-drafts/beam-iff-obfuscation-detection.md) · [`binary-analysis-and-space-reduction.md`](docs/research-drafts/binary-analysis-and-space-reduction.md) · [`ctm-companion-paper.md`](docs/research-drafts/ctm-companion-paper.md) · [`dual-path-query-validation.md`](docs/research-drafts/dual-path-query-validation.md) · [`project-overmatch-vectorized-disassembler.md`](docs/research-drafts/project-overmatch-vectorized-disassembler.md) · [`ros-control-immediate-exec-safety.md`](docs/research-drafts/ros-control-immediate-exec-safety.md) · [`scanner-bloom-cas-dedup.md`](docs/research-drafts/scanner-bloom-cas-dedup.md) · [`verification-exploitation-asymmetry.md`](docs/research-drafts/verification-exploitation-asymmetry.md) |
 | [`research/papers/README.md`](research/papers/README.md) · [`research/papers/zoe-research/README.md`](research/papers/zoe-research/README.md) · [`research/arxiv/`](research/arxiv/) · [`research/visual-archive/README.md`](research/visual-archive/README.md) · [`research/sessions/README.md`](research/sessions/README.md) | Full 18-paper archive, arXiv source packages, 456-visual catalog &amp; session logs |
 
 </details>
@@ -1033,7 +1041,7 @@ zoe/
 ├── docs/                         # Research Chronicle, Metacognition Hub, Proof Packet, Constitution, Roadmap & Atlas
 ├── dorothy-brain-observatory/    # WebGL2 3D Human Brain, live T1-MRI, Ask Zoe, videos, 25 plates & CAD meshes
 ├── evidence/                     # 126 verified JSON evidence reports + 47/47 SHA256SUMS.orbit
-├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 40 extended GEM layers, 61 live HTTP routes, Theorems 1-16)
+├── guiai-lab/guiai/gem/          # Shared GEM OS (36 canonical + 58 Extended GEM Layers = 94 total, 68 live HTTP routes, clean-room Presentation Team suite, Theorems 1-16)
 ├── mobile/                       # Zoe (beta) v0.9.6-beta: Android APK, Apple SwiftUI/ZoeCore, Win32 C++17, Tiny Zoe
 ├── research/                     # monograph/, 16-Theorem PDF, 18-paper library, 456 visuals & session chronicles
 └── scripts/                      # Offline verifiers (0 cloud tokens) & quality audits
@@ -1222,7 +1230,7 @@ zoe/
 
 ## 9. Visual Archive &amp; Image Galleries
 
-> [456 visuals](research/visual-archive/README.md), [artwork](docs/CREATIVE-GALLERY.md), [brain plates](https://ablation-tool.github.io/zoe/?tab=plates).
+> The Grand Visual Salon: [456 visuals](research/visual-archive/README.md), [artwork](docs/CREATIVE-GALLERY.md), [brain plates](https://ablation-tool.github.io/zoe/?tab=plates).
 
 <table>
 <tr>
@@ -1247,11 +1255,53 @@ zoe/
 </tr>
 </table>
 
+<a id="research-presentations"></a>
+
+### Clean-Room Presentation Team &amp; Sealed Research Ledger (`17` Decks · `163` Slides)
+
+> **Suite:** [`guiai-lab/guiai/gem/presentation/`](guiai-lab/guiai/gem/presentation/) (`zoe present` CLI — WordChart, Graph, Draw Plus `.GEM` VDI &amp; offline HTML5 Slide Show Player, zero Microsoft PowerPoint or LibreOffice runtime)  
+> **Ledger:** [All 17 decks (`Vol. I–VI` + `01–11`)](research/presentations/README.md) · [`catalog.json`](research/presentations/catalog.json) · [`SHA256SUMS.presentations`](research/presentations/SHA256SUMS.presentations) (`$0.00 offline`)  
+> **Epistemic Honesty (`docs/CONSTITUTION.md`):** `operational_metacognition_verified = True` · `sentience_claimed = False` · `l5_agi_qualified = False` · `zoe_clone_claimed = False` · `clinical_action_authorized = False` · `cure_claim = False` · `external_actions = 0` · `cloud_cost_usd = 0.0`
+
+<table>
+<tr>
+<td align="center" width="50%">
+<a href="research/presentations/galleries/vol-1-operational-metacognition/README.md"><img src="research/presentations/galleries/vol-1-operational-metacognition/slide-01.png" alt="Anthology Vol. I Operational Metacognition and 16 Kloster Theorems cover slide" width="100%" /></a><br/>
+<sub><strong><a href="research/presentations/galleries/vol-1-operational-metacognition/README.md">Vol. I · Operational Metacognition (12 Slides)</a></strong> · <a href="research/presentations/galleries/vol-1-operational-metacognition/player.html">Offline Player</a></sub>
+</td>
+<td align="center" width="50%">
+<a href="research/presentations/galleries/vol-2-dorothy-brain-neuro-oncology-apps/README.md"><img src="research/presentations/galleries/vol-2-dorothy-brain-neuro-oncology-apps/slide-01.png" alt="Anthology Vol. II Dorothy 3D Human Brain, Neuro-Oncology and Apps cover slide" width="100%" /></a><br/>
+<sub><strong><a href="research/presentations/galleries/vol-2-dorothy-brain-neuro-oncology-apps/README.md">Vol. II · Dorothy 3D Brain &amp; C17–C28 (12 Slides)</a></strong> · <a href="research/presentations/galleries/vol-2-dorothy-brain-neuro-oncology-apps/player.html">Offline Player</a></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="research/presentations/galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/README.md"><img src="research/presentations/galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/slide-01.png" alt="Anthology Vol. III Reverse Engineering, Cryptanalysis and Zero-Trust Defense cover slide" width="100%" /></a><br/>
+<sub><strong><a href="research/presentations/galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/README.md">Vol. III · RE, Cryptanalysis &amp; Zero-Trust (12 Slides)</a></strong> · <a href="research/presentations/galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/player.html">Offline Player</a></sub>
+</td>
+<td align="center" width="50%">
+<a href="research/presentations/galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/README.md"><img src="research/presentations/galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/slide-01.png" alt="Anthology Vol. IV Bare-Metal UEFI Zoe-GEM OS, Pixel 7 Silicon and Hardware UMA cover slide" width="100%" /></a><br/>
+<sub><strong><a href="research/presentations/galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/README.md">Vol. IV · UEFI Zoe-GEM OS, Pixel 7 &amp; UMA (10 Slides)</a></strong> · <a href="research/presentations/galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/player.html">Offline Player</a></sub>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<a href="research/presentations/galleries/vol-5-hex-9-sister-eddbms-gem-ablation/README.md"><img src="research/presentations/galleries/vol-5-hex-9-sister-eddbms-gem-ablation/slide-01.png" alt="Anthology Vol. V Hexagonal 9-Sister EDDBMS, Balma and Fitler GEM and Ablation cover slide" width="100%" /></a><br/>
+<sub><strong><a href="research/presentations/galleries/vol-5-hex-9-sister-eddbms-gem-ablation/README.md">Vol. V · Hexagonal 9-Sister EDDBMS &amp; Ablation (10 Slides)</a></strong> · <a href="research/presentations/galleries/vol-5-hex-9-sister-eddbms-gem-ablation/player.html">Offline Player</a></sub>
+</td>
+<td align="center" width="50%">
+<a href="research/presentations/galleries/vol-6-constitution-clara-voice-cern-agi/README.md"><img src="research/presentations/galleries/vol-6-constitution-clara-voice-cern-agi/slide-01.png" alt="Anthology Vol. VI Constitution, Dual-Peer Zoe and Clara, Native Voice, CERN and AGI Roadmap cover slide" width="100%" /></a><br/>
+<sub><strong><a href="research/presentations/galleries/vol-6-constitution-clara-voice-cern-agi/README.md">Vol. VI · Constitution, Clara, Voice &amp; CERN (11 Slides)</a></strong> · <a href="research/presentations/galleries/vol-6-constitution-clara-voice-cern-agi/player.html">Offline Player</a></sub>
+</td>
+</tr>
+</table>
+
 <details>
 <summary><strong>Browse All Image Collections &amp; Visual Salon</strong></summary>
 
 | Collection | Count | Browse Directly |
 |:---|:---:|:---|
+| **Anthology Vol. I–VI + Companion Decks** | `17` (`163` slides) | [Presentations Ledger](research/presentations/README.md) · [Vol. I](research/presentations/galleries/vol-1-operational-metacognition/README.md) · [Vol. II](research/presentations/galleries/vol-2-dorothy-brain-neuro-oncology-apps/README.md) · [Vol. III](research/presentations/galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/README.md) · [Vol. IV](research/presentations/galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/README.md) · [Vol. V](research/presentations/galleries/vol-5-hex-9-sister-eddbms-gem-ablation/README.md) · [Vol. VI](research/presentations/galleries/vol-6-constitution-clara-voice-cern-agi/README.md) · [01 Master Chronicle](research/presentations/galleries/01-gemz-zoe-master-chronicle/README.md) · [Curated Companion Decks (01–11)](research/presentations/README.md#curated-companion-decks) · [`SHA256SUMS`](research/presentations/SHA256SUMS.presentations) |
 | **Complete Visual Archive** | `456` | [Archive Home](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [213 Research Figures](research/visual-archive/catalog/categories/research-figure.md) · [59 Interfaces](research/visual-archive/catalog/categories/interface.md) · [51 Branding](research/visual-archive/catalog/categories/branding.md) · [40 Diagrams](research/visual-archive/catalog/categories/mechanism-diagram.md) · [33 References](research/visual-archive/catalog/categories/reference.md) · [32 Artwork](research/visual-archive/catalog/categories/artwork.md) · [20 Research-Art](research/visual-archive/catalog/categories/research-art.md) · [8 Animations](research/visual-archive/catalog/categories/animation.md) |
 | **Creative Artwork Gallery** | `19` | [Non-Telemetry Illustrations, Emblem Patches &amp; Fine Art](docs/CREATIVE-GALLERY.md) |
 | **Dorothy 3D Brain Plates &amp; Videos** | `25+` | [Live Web Plates](https://ablation-tool.github.io/zoe/?tab=plates) · [12-Panel Anatomical Map](dorothy-brain-observatory/README.md#12-panel-anatomical-map) · [HD Video Gallery](https://ablation-tool.github.io/zoe/?tab=media) · [Observatory Guide](dorothy-brain-observatory/README.md) |
@@ -1292,7 +1342,8 @@ zoe clara --serve        # Launch Dual-Peer Zoe & Clara Web UI (127.0.0.1:8768)
 zoe list                 # Inspect all 17 registered engines
 zoe chat                 # Interactive evidence-linked conversation
 zoe reasoning verify     # Verify Shared-Reasoning Architectures 1-9 + GEM AES/VDI
-zoe gem list             # Browse all 36 canonical + 40 extended GEM layers
+zoe gem list             # Browse all 36 canonical + 58 Extended GEM Layers (94 total)
+zoe present demo         # Build & preview clean-room Presentation Team slides (.GEM + HTML5 player)
 zoe voice sing daisy --output /tmp/zoe-daisy.wav
 ```
 
@@ -1349,6 +1400,6 @@ python scripts/verify_shared_reasoning.py
 
 <div align="center">
 
-*Nicholas Michael Kloster × Zoe · [GPL-3.0 License](LICENSE) · [Research Chronicle](docs/RESEARCH-CHRONICLE.md) · [Constitution](docs/CONSTITUTION.md) · [Notice](NOTICE) · [Monorepo Provenance](docs/MONOREPO.md)*
+*Nicholas Michael Kloster × Zoe (Nicholas × Zoe) · [GPL-3.0 License](LICENSE) · [Research Chronicle](docs/RESEARCH-CHRONICLE.md) · [Constitution](docs/CONSTITUTION.md) · [Notice](NOTICE) · [Monorepo Provenance](docs/MONOREPO.md)*
 
 </div>

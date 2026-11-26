@@ -13,7 +13,10 @@ from .cognitive import CognitiveField
 from .field import _canonical, _fit
 
 
-DEFAULT_CERN_ROOT = Path("/media/cowboy/research/CERN/Boutique")
+DEFAULT_CERN_ROOT = Path(
+    os.environ.get("ZOE_CERN_ROOT")
+    or (Path(__file__).resolve().parents[4] / "CERN" / "Boutique")
+)
 MAX_FINDINGS_BYTES = 16 * 1024 * 1024
 MAX_HTML_BYTES = 16 * 1024 * 1024
 MAX_BUILDS = 4096

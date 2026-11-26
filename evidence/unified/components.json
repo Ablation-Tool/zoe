@@ -20,7 +20,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "zoe",
-        "path": "/home/cowboy/_projects/zoe/guiai-lab",
+        "path": "<workspace>/guiai-lab",
         "runtime_verified": false,
         "source_present": true
       },
@@ -44,7 +44,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "zoe",
-        "path": "/home/cowboy/_projects/zoe/guiai-lab",
+        "path": "<workspace>/guiai-lab",
         "runtime_verified": false,
         "source_present": true
       },
@@ -68,7 +68,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/ablation",
+        "path": "<workspace>/components/ablation",
         "runtime_verified": false,
         "source_present": true
       },
@@ -93,7 +93,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/ablation",
+        "path": "<workspace>/components/ablation",
         "runtime_verified": false,
         "source_present": true
       },
@@ -117,7 +117,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/graphics-environment-manager",
+        "path": "<workspace>/components/graphics-environment-manager",
         "runtime_verified": false,
         "source_present": true
       },
@@ -139,7 +139,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/gem-helen",
+        "path": "<workspace>/components/gem-helen",
         "runtime_verified": false,
         "source_present": true
       },
@@ -163,7 +163,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/brain-gem",
+        "path": "<workspace>/components/brain-gem",
         "runtime_verified": false,
         "source_present": true
       },
@@ -185,7 +185,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/cerotto",
+        "path": "<workspace>/components/cerotto",
         "runtime_verified": false,
         "source_present": true
       },
@@ -209,7 +209,7 @@
       "runtime_checkout": "graphics-environment-manager",
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/next-token-predictability",
+        "path": "<workspace>/components/next-token-predictability",
         "runtime_verified": false,
         "source_present": true
       },
@@ -233,7 +233,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/kevlar",
+        "path": "<workspace>/components/kevlar",
         "runtime_verified": false,
         "source_present": true
       },
@@ -257,7 +257,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/pdf-signature-toolkit",
+        "path": "<workspace>/components/pdf-signature-toolkit",
         "runtime_verified": false,
         "source_present": true
       },
@@ -279,7 +279,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/agent-logging-system",
+        "path": "<workspace>/components/agent-logging-system",
         "runtime_verified": false,
         "source_present": true
       },
@@ -301,7 +301,7 @@
       "runtime_checkout": null,
       "source": {
         "mode": "bundled",
-        "path": "/home/cowboy/_projects/zoe/components/Chalkboard",
+        "path": "<workspace>/components/Chalkboard",
         "runtime_verified": false,
         "source_present": true
       },
@@ -318,7 +318,7 @@
   },
   "product": "Zoe allgems knowledge-engineering distribution",
   "repository_count": 11,
-  "root": "/home/cowboy/_projects/zoe",
+  "root": "<workspace>",
   "schema_version": 1,
   "upstream_repository_count": 10
 }

@@ -31,6 +31,11 @@ from .zoe_artline_duodecimal import (
     resolve_adc12,
     write_interactive_adc12_catalog_html,
 )
+from .zoe_artline_forge import (
+    STUDIO_PALETTES,
+    STUDIO_TOOLBOXES,
+    write_interactive_artline_forge_html,
+)
 from .zoe_retro_art_studio import run_build_re_rebuild_cycle
 from .zoe_wombats_physics_room import (
     build_artline_rosette_wombats_plate,
@@ -77,9 +82,10 @@ def handle_artline_slash_command(
             "  /artline desk|chess|sector|mondo|all  -> Export Artline Brainstorm .SVG/.PNG/.GEM\n"
             "  /artline retro                        -> Run Gen 1->3 Build->RE->Rebuild evolution loop\n"
             "  /artline physics                      -> Export Page A-2 Wombats rosette & shatter GIF\n"
+            "  /artline forge                        -> Export ZOETK001 toolboxes, .COL-as-GEM palettes & Forge HTML\n"
             "  /adc12 [100|90|Z|Σ|✺|all]             -> Base-12 Dewey 4-Column Artline shorthand lookup\n"
             "  /adc12 <tag> <quote>                  -> Stamp highlighted excerpt with SHA-256 receipt\n"
-            "Live :8765 Studio Tabs: /artline · /physics · /duodecimal · /orbit"
+            "Live :8765 Studio Tabs: /artline · /physics · /duodecimal · /forge · /orbit"
         )
         return _wrap_reply("artline_help", reply, {"concepts": sorted(BRAINSTORM_CONCEPTS)})
 
@@ -128,11 +134,35 @@ def handle_artline_slash_command(
         )
         return _wrap_reply("artline_physics", reply, {"rosette": meta, "gif": gif_info, "html": str(html_p)})
 
+    if sub == "forge":
+        dest = _default_out_dir(out_dir) / "forge"
+        dest.mkdir(parents=True, exist_ok=True)
+        pal_results = [pal.export_col_gem(dest / "palettes") for pal in STUDIO_PALETTES]
+        tb_dir = dest / "toolboxes"
+        tb_dir.mkdir(parents=True, exist_ok=True)
+        tb_paths = []
+        for tb in STUDIO_TOOLBOXES:
+            p = tb_dir / f"{tb.toolbox_id}.zoetk"
+            p.write_bytes(tb.to_zoetk_binary())
+            tb_paths.append(str(p))
+        html_p = write_interactive_artline_forge_html(dest / "zoe_artline_forge.html")
+        reply = (
+            f"[500₁₂ · l · ●] Clean-Room Zoe Artline Forge Exported "
+            f"({len(pal_results)} .COL-as-GEM palettes · {len(tb_paths)} ZOETK001 toolboxes)\n"
+            f"  HTML: {html_p}\n"
+            "Open live in browser: http://127.0.0.1:8765/forge"
+        )
+        return _wrap_reply(
+            "artline_forge",
+            reply,
+            {"palettes": pal_results, "toolboxes": tb_paths, "html": str(html_p)},
+        )
+
     if sub in {"adc12", "duodecimal"}:
         return _handle_adc12(args[1:])
 
     raise ValueError(
-        f"Unknown /artline subcommand {sub!r}. Try: desk, chess, sector, mondo, all, retro, physics, adc12."
+        f"Unknown /artline subcommand {sub!r}. Try: desk, chess, sector, mondo, all, retro, physics, forge, adc12."
     )
 
 
@@ -197,6 +227,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("retro", help="Run Clean-Room Gen 1->3 Build->RE->Rebuild evolution loop")
     sub.add_parser("physics", help="Export Optional-Physics Room shatter GIF, rosette plate & HTML")
+    sub.add_parser("forge", help="Export ZOETK001 toolboxes, .COL-as-GEM palettes & Forge HTML studio")
 
     adc = sub.add_parser("adc12", help="Base-12 Duodecimal 4-Column Artline shorthand lookup or highlight")
     adc.add_argument("args", nargs="*", help="Query (e.g. 100, 90, Z, Σ, ✺) or <tag> <quote...>")
@@ -219,6 +250,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         res = handle_artline_slash_command("/artline retro", out_dir=ns.out_dir)
     elif cmd == "physics":
         res = handle_artline_slash_command("/artline physics", out_dir=ns.out_dir)
+    elif cmd == "forge":
+        res = handle_artline_slash_command("/artline forge", out_dir=ns.out_dir)
     elif cmd == "adc12":
         raw = " ".join(["/adc12"] + list(ns.args or []))
         res = handle_artline_slash_command(raw, out_dir=ns.out_dir)

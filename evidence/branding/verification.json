@@ -3,7 +3,7 @@
   "instrument": "zoe-official-gem-identity/v1",
   "verified": true,
   "official_source": "assets/branding/zoe-gem.png",
-  "source_supplied": "/home/cowboy/Pictures/Screenshots/Screenshot From 2026-11-18 17-57-44.png",
+  "source_supplied": "Screenshot From 2026-11-18 17-57-44.png",
   "source_sha256": "cb86cd86650671de944631c609a88f8934db8156eba75beb50587865f9b63fee",
   "source_dimensions": [397, 244],
   "canonical_png": "assets/branding/zoe-gem.png",

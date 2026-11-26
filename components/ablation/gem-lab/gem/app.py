@@ -1,5 +1,6 @@
 from collections import Counter, defaultdict
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -60,9 +61,9 @@ class InvestigationApp:
         self._base_tk_fonts = {}
         for font_name in ("TkDefaultFont", "TkTextFont", "TkFixedFont", "TkHeadingFont", "TkMenuFont"):
             try:
-                named = tkfont.nametofont(font_name)
+                named = tkfont.nametofont(font_name, root=self.root)
                 self._base_tk_fonts[font_name] = int(named.cget("size"))
-            except tk.TclError:
+            except (tk.TclError, RuntimeError):
                 pass
         self.applied_layout = None
         self.layout_after_id = None
@@ -402,13 +403,13 @@ class InvestigationApp:
         line_spacing = self.accessibility_settings["line_spacing"]
         for font_name, base_size in self._base_tk_fonts.items():
             try:
-                named = tkfont.nametofont(font_name)
+                named = tkfont.nametofont(font_name, root=self.root)
                 if base_size < 0:
                     scaled = -max(8, round(abs(base_size) * font_scale))
                 else:
                     scaled = max(8, round(base_size * font_scale))
                 named.configure(size=scaled)
-            except tk.TclError:
+            except (tk.TclError, RuntimeError):
                 pass
         row_height = max(24, round(24 * font_scale * (line_spacing / 1.2)))
         self.style.configure("Treeview", rowheight=row_height)
@@ -796,11 +797,11 @@ class InvestigationApp:
         ttk.Button(controls, text="Reset filters", command=self.reset_filters).pack(side="left")
         self.empty_label = ttk.Label(parent, text="", foreground="#9a6700")
         self.empty_label.pack(fill="x", pady=(0, 4))
-        tree_frame = ttk.Frame(parent)
-        tree_frame.pack(fill="both", expand=True)
-        tree_frame.rowconfigure(0, weight=1)
-        tree_frame.columnconfigure(0, weight=1)
-        self.tree = ttk.Treeview(tree_frame, columns=("type", "status"), show="tree headings", selectmode="browse")
+        self.tree_frame = ttk.Frame(parent)
+        self.tree_frame.pack(fill="both", expand=True)
+        self.tree_frame.rowconfigure(0, weight=1)
+        self.tree_frame.columnconfigure(0, weight=1)
+        self.tree = ttk.Treeview(self.tree_frame, columns=("type", "status"), show="tree headings", selectmode="browse")
         self.tree.heading("#0", text="Lab")
         self.tree.heading("type", text="Type")
         self.tree.heading("status", text="Status")
@@ -809,8 +810,8 @@ class InvestigationApp:
         self.tree.column("status", width=150, stretch=False)
         for status, color in STATUS_COLORS.items():
             self.tree.tag_configure(status, foreground=color)
-        vertical = ttk.Scrollbar(tree_frame, orient="vertical", command=self.tree.yview)
-        horizontal = ttk.Scrollbar(tree_frame, orient="horizontal", command=self.tree.xview)
+        vertical = ttk.Scrollbar(self.tree_frame, orient="vertical", command=self.tree.yview)
+        horizontal = ttk.Scrollbar(self.tree_frame, orient="horizontal", command=self.tree.xview)
         self.tree.configure(yscrollcommand=vertical.set, xscrollcommand=horizontal.set)
         self.tree.grid(row=0, column=0, sticky="nsew")
         vertical.grid(row=0, column=1, sticky="ns")
@@ -845,9 +846,9 @@ class InvestigationApp:
     def toggle_details(self):
         self.details_visible = not self.details_visible
         if self.details_visible:
-            self.actions.pack(fill="x")
-            self.details_label.pack(before=self.actions, fill="x", pady=(8, 0))
-            self.details_frame.pack(before=self.actions, fill="x", pady=(4, 4))
+            self.actions.pack(side="bottom", fill="x", before=self.tree_frame)
+            self.details_frame.pack(side="bottom", fill="x", pady=(4, 4), before=self.tree_frame)
+            self.details_label.pack(side="bottom", fill="x", pady=(8, 0), before=self.tree_frame)
             self.details_button.configure(image=self.details_icon_inverse, style="Accent.TButton")
             self.fit_details()
             self.root.after_idle(self.fit_details)
@@ -864,9 +865,25 @@ class InvestigationApp:
         lines = self.details.count("1.0", "end", "displaylines")
         if isinstance(lines, tuple):
             lines = lines[0]
-        lines = max(1, lines)
-        if self.details.cget("height") != lines:
+        lines = max(1, lines or 1)
+        ypixels = self.details.count("1.0", "end", "ypixels")
+        if isinstance(ypixels, tuple):
+            ypixels = ypixels[0]
+        if ypixels:
+            try:
+                line_px = tkfont.Font(root=self.root, font=self.details.cget("font")).metrics("linespace")
+                if line_px > 0:
+                    lines = max(lines, math.ceil(ypixels / line_px))
+            except tk.TclError:
+                pass
+        if int(self.details.cget("height")) != lines:
             self.details.configure(height=lines)
+        self.root.update_idletasks()
+        extra = 0
+        while self.details.yview()[1] < 1.0 and extra < 4:
+            extra += 1
+            self.details.configure(height=lines + extra)
+            self.root.update_idletasks()
         self.details.yview_moveto(0.0)
 
     def matching_ids(self):
@@ -1108,8 +1125,8 @@ class InvestigationApp:
         self.terminal.stop()
         for font_name, base_size in getattr(self, "_base_tk_fonts", {}).items():
             try:
-                tkfont.nametofont(font_name).configure(size=base_size)
-            except tk.TclError:
+                tkfont.nametofont(font_name, root=self.root).configure(size=base_size)
+            except (tk.TclError, RuntimeError):
                 pass
         try:
             self.root.destroy()

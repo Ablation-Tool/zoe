@@ -10,6 +10,12 @@ import tempfile
 from typing import Any
 
 from .zoe_braille_studio import render_braille_template, render_dvx_app_manager
+from .zoe_gem_os.os_unification import (
+    list_unified_components,
+    os_suite_status,
+    run_export_airlock,
+    spotlight_route,
+)
 from .zoe_gem_os.zoe_pixel_os import list_pixel_devices, verify_pixel_os_static
 from .zoe_gem_themes import list_gem_eras, list_viewmax_schemes, render_viewmax_ini, resolve_viewmax_scheme
 from .zoe_sisters import list_sisters
@@ -47,6 +53,21 @@ def _build_parser() -> argparse.ArgumentParser:
     rl = sub.add_parser("realms", help="list the 9 Zoeverse realms or render a realm Braille vista")
     rl.add_argument("--realm", default="", help="optional realm key or compass direction")
     rl.add_argument("--json", action="store_true", help="emit JSON")
+
+    ap = sub.add_parser("apps", help="list all 42 unified Zoe-GEM OS drivers (.SYS), accessories (.ACC), and apps (.APP)")
+    ap.add_argument("--suite", type=int, choices=(1, 2, 3, 4, 5), default=None, help="filter by OS suite (1..5)")
+    ap.add_argument("--sister", default="", help="filter by 9-Sister seat")
+    ap.add_argument("--kind", choices=("sys", "acc", "app"), default="", help="filter by OS unit kind")
+    ap.add_argument("--json", action="store_true", help="emit JSON")
+
+    sp = sub.add_parser("spotlight", help="SPOTLIGHT.ACC semantic launcher routing plain-English queries to Zoe-GEM OS units")
+    sp.add_argument("query", nargs="+", help="plain-English goal or keyword")
+    sp.add_argument("--limit", type=int, default=5, help="maximum matches (default: 5)")
+    sp.add_argument("--json", action="store_true", help="emit JSON")
+
+    al = sub.add_parser("airlock", help="EXPORT.ACC offline GitHub ToS/AUP compliance audit")
+    al.add_argument("--fail-on", default="MEDIUM", choices=("CRITICAL", "HIGH", "MEDIUM", "INFO"), help="minimum severity")
+    al.add_argument("--json", action="store_true", help="emit JSON")
     return parser
 
 
@@ -59,13 +80,18 @@ def _emit(payload: dict[str, Any], as_json: bool) -> None:
 
 
 def _cmd_status(args: argparse.Namespace) -> int:
+    unified = os_suite_status(REPO_ROOT)
     payload = {
         "contract": "zoe-gemos-cli/v1",
+        "canonical_repository": unified["canonical_repository"],
         "pixel_devices": len(list_pixel_devices()),
         "gem_eras": len(list_gem_eras()),
         "viewmax_schemes": len(list_viewmax_schemes()),
         "zoeverse_realms": len(list_zoeverse_realms()),
         "sisters_count": len(list_sisters()),
+        "unified_components": unified["total_components"],
+        "unified_sources_present": unified["sources_present"],
+        "os_suites": unified["suite_count"],
         "loopback_only": True,
         "auto_flash_allowed": False,
         "external_actions": 0,
@@ -142,6 +168,56 @@ def _cmd_realms(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_apps(args: argparse.Namespace) -> int:
+    items = list_unified_components(
+        REPO_ROOT,
+        suite=args.suite,
+        sister=args.sister or None,
+        kind=args.kind or None,
+    )
+    if args.json:
+        _emit({"contract": "zoe-gem-os-unification/v1", "count": len(items), "components": items}, True)
+        return 0
+    print(f"Zoe-GEM OS Unified Units ({len(items)}):")
+    for item in items:
+        mark = "OK" if item["source_present"] else "MISSING"
+        print(
+            f"  #{item['index']:02d}  [S{item['suite']}]  {item['os_unit']:<14}  "
+            f"({item['sister']:<5})  {item['source_id']:<28}  {item['role_title']} [{mark}]"
+        )
+    return 0
+
+
+def _cmd_spotlight(args: argparse.Namespace) -> int:
+    query = " ".join(args.query).strip()
+    result = spotlight_route(query, REPO_ROOT, limit=max(1, int(args.limit)))
+    if args.json:
+        _emit(result, True)
+        return 0
+    print(f"SPOTLIGHT.ACC -> {query!r} ({result['match_count']} matches)")
+    for m in result["matches"]:
+        print(
+            f"  [{m['score']:>4.1f}]  {m['os_unit']:<14}  ({m['sister']})  "
+            f"{m['source_id']} — {m['role_title']}"
+        )
+    return 0
+
+
+def _cmd_airlock(args: argparse.Namespace) -> int:
+    result = run_export_airlock(REPO_ROOT, fail_on=str(args.fail_on))
+    if args.json:
+        _emit(result, True)
+    else:
+        verdict = "CLEAN (exit 0)" if result["ok"] else "BLOCKED (exit 1)"
+        print(f"EXPORT.ACC Airlock: {verdict}")
+        print(
+            f"  files_scanned={result['files_scanned']}  "
+            f"unsuppressed={result['unsuppressed_at_or_above_fail_on']}  "
+            f"allowlisted={result['suppressed_allowlisted_count']}"
+        )
+    return int(result["exit_code"])
+
+
 _HANDLERS = {
     "status": _cmd_status,
     "verify": _cmd_verify,
@@ -149,6 +225,9 @@ _HANDLERS = {
     "braille": _cmd_braille,
     "themes": _cmd_themes,
     "realms": _cmd_realms,
+    "apps": _cmd_apps,
+    "spotlight": _cmd_spotlight,
+    "airlock": _cmd_airlock,
 }
 
 

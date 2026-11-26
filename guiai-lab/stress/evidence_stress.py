@@ -23,9 +23,10 @@ from guiai.gem.twin import export_wav, load_timeline, save_timeline, timing_repl
 from guiai.gem.unified_cli import main as zoe_main
 
 
-GALLERY = Path("/media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images")
+_CERN_ROOT = Path(os.environ.get("ZOE_CERN_ROOT") or (Path(__file__).resolve().parents[3] / "CERN"))
+GALLERY = _CERN_ROOT / "Boutique/10-accessible/galleries/document-images"
 INDEX = GALLERY / "index.json"
-FINDINGS = Path("/media/cowboy/research/CERN/analysis/felix-flx155/findings.json")
+FINDINGS = _CERN_ROOT / "analysis/felix-flx155/findings.json"
 
 
 try:

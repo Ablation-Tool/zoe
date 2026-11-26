@@ -22,7 +22,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "zoe",
-          "path": "/home/cowboy/_projects/GEM/guiai-lab",
+          "path": "<workspace>/guiai-lab",
           "runtime_verified": false,
           "source_present": true
         },
@@ -46,7 +46,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/ablation",
+          "path": "<workspace>/components/ablation",
           "runtime_verified": false,
           "source_present": true
         },
@@ -71,7 +71,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/ablation",
+          "path": "<workspace>/components/ablation",
           "runtime_verified": false,
           "source_present": true
         },
@@ -95,7 +95,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/graphics-environment-manager",
+          "path": "<workspace>/components/graphics-environment-manager",
           "runtime_verified": false,
           "source_present": true
         },
@@ -117,7 +117,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/gem-helen",
+          "path": "<workspace>/components/gem-helen",
           "runtime_verified": false,
           "source_present": true
         },
@@ -141,7 +141,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/brain-gem",
+          "path": "<workspace>/components/brain-gem",
           "runtime_verified": false,
           "source_present": true
         },
@@ -163,7 +163,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/cerotto",
+          "path": "<workspace>/components/cerotto",
           "runtime_verified": false,
           "source_present": true
         },
@@ -187,7 +187,7 @@
         "runtime_checkout": "graphics-environment-manager",
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/next-token-predictability",
+          "path": "<workspace>/components/next-token-predictability",
           "runtime_verified": false,
           "source_present": true
         },
@@ -211,7 +211,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/kevlar",
+          "path": "<workspace>/components/kevlar",
           "runtime_verified": false,
           "source_present": true
         },
@@ -235,7 +235,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/pdf-signature-toolkit",
+          "path": "<workspace>/components/pdf-signature-toolkit",
           "runtime_verified": false,
           "source_present": true
         },
@@ -257,7 +257,7 @@
         "runtime_checkout": null,
         "source": {
           "mode": "bundled",
-          "path": "/home/cowboy/_projects/GEM/components/Chalkboard",
+          "path": "<workspace>/components/Chalkboard",
           "runtime_verified": false,
           "source_present": true
         },
@@ -1214,7 +1214,7 @@
     "product": "Zoe allgems knowledge-engineering distribution",
     "recommended_module": "unified",
     "repository_count": 10,
-    "root": "/home/cowboy/_projects/GEM",
+    "root": "<workspace>",
     "scene_only": true,
     "schema_version": 1,
     "summary": "11/11 entrypoint sources present · 11 observations · 10 context links · no process launched by this scene",

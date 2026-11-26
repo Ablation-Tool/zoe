@@ -16,9 +16,12 @@ MCP_SCRIPT = REPO_ROOT / "scripts" / "zoe_stem_mcp.py"
 
 sys.path.insert(0, str(REPO_ROOT / "components" / "Zoe-Autonomy" / "src"))
 
+from unittest import mock
+
 from zoe_autonomy.stem_layering import (  # noqa: E402
     TIER_ORDER,
     build_sdk_descriptor,
+    probe_local_endpoints,
     probe_local_qwen,
     route_stem,
 )
@@ -329,6 +332,101 @@ class StemLayeringTests(unittest.TestCase):
             # TOOLS[3] documents optional state_dir matching accepted args.
             tools_by_name = {t["name"]: t for t in responses[8]["result"]["tools"]}
             self.assertIn("state_dir", tools_by_name["run_local_stem_turn"]["inputSchema"]["properties"])
+
+    def test_offline_and_privacy_unprobed_none_falls_back_to_gear1_without_probing(self) -> None:
+        def _forbid_probe(*_args, **_kwargs):
+            raise AssertionError("probe_local_qwen must not be called when probe_local=False")
+
+        with mock.patch("zoe_autonomy.stem_layering.probe_local_qwen", side_effect=_forbid_probe):
+            d_off = route_stem("brainstorm local notes", offline_only=True)
+            d_priv = route_stem("private note", privacy_sensitive=True)
+        for d in (d_off, d_priv):
+            self.assertEqual(d.selected_tier, "gear1_eliza")
+            self.assertTrue(d.fallback_applied)
+            self.assertIn("unavailable", d.fallback_reason or "")
+            self._assert_constitutional(d.to_dict())
+
+    def test_probe_local_true_selects_local_qwen_when_live_else_gear1(self) -> None:
+        with mock.patch(
+            "zoe_autonomy.stem_layering.probe_local_qwen",
+            return_value={"available": True, "endpoint": "http://127.0.0.1:8080/v1/models", "models": ["qwen2.5-3b-instruct"], "loopback_only": True},
+        ):
+            d_live = route_stem("brainstorm local notes", offline_only=True, probe_local=True)
+        self.assertEqual(d_live.selected_tier, "local_qwen")
+        self.assertFalse(d_live.fallback_applied)
+
+        with mock.patch(
+            "zoe_autonomy.stem_layering.probe_local_qwen",
+            return_value={"available": False, "endpoint": "http://127.0.0.1:8080/v1/models", "models": [], "loopback_only": True, "reason": "connection refused"},
+        ):
+            d_down = route_stem("brainstorm local notes", offline_only=True, probe_local=True)
+        self.assertEqual(d_down.selected_tier, "gear1_eliza")
+        self.assertTrue(d_down.fallback_applied)
+
+    def test_probe_local_endpoints_rejects_non_loopback_and_reports_four_ports(self) -> None:
+        with self.assertRaises(ValueError):
+            probe_local_endpoints(rome_url="http://192.168.1.10:8774")
+        with mock.patch("zoe_autonomy.stem_layering.urlrequest.urlopen", side_effect=OSError("offline")):
+            status = probe_local_endpoints()
+        self.assertTrue(status["loopback_only"])
+        self.assertEqual(set(status["endpoints"]), {"llama_server", "eliza_studio", "rome", "ollama"})
+        self.assertEqual(status["constitutional"]["cloud_tokens_used"], 0)
+
+    def test_mcp_eliza_studio_status_forwards_four_endpoints_and_router_status_cli(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="zoe_stem_mcp_m1_") as tmpdir:
+            env = dict(os.environ)
+            env["ZOE_ELIZA_STATE_DIR"] = tmpdir
+            requests = [
+                {
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "tools/call",
+                    "params": {
+                        "name": "route_cognitive_stem",
+                        "arguments": {"prompt": "brainstorm local notes", "offline_only": True, "local_qwen_available": False},
+                    },
+                },
+                {
+                    "jsonrpc": "2.0",
+                    "id": 2,
+                    "method": "tools/call",
+                    "params": {"name": "eliza_studio_status", "arguments": {}},
+                },
+            ]
+            proc = subprocess.run(
+                [PYTHON_BIN, str(MCP_SCRIPT)],
+                cwd=str(REPO_ROOT),
+                env=env,
+                input="\n".join(json.dumps(r) for r in requests) + "\n",
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            resps = [json.loads(line) for line in proc.stdout.splitlines() if line.strip()]
+            self.assertEqual(resps[0]["result"]["structuredContent"]["selected_tier"], "gear1_eliza")
+            status_doc = resps[1]["result"]["structuredContent"]
+            self.assertTrue(status_doc["loopback_only"])
+            self.assertEqual(set(status_doc["endpoints"]), {"llama_server", "eliza_studio", "rome", "ollama"})
+
+        cli_status = subprocess.run(
+            [PYTHON_BIN, str(ROUTER_SCRIPT), "--status", "--json"],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        parsed = json.loads(cli_status.stdout)
+        self.assertTrue(parsed["loopback_only"])
+        self.assertEqual(set(parsed["endpoints"]), {"llama_server", "eliza_studio", "rome", "ollama"})
+
+        bad_cli = subprocess.run(
+            [PYTHON_BIN, str(ROUTER_SCRIPT), "--status", "--local-qwen-url", "http://example.com:8080"],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertNotEqual(bad_cli.returncode, 0)
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ import contextlib
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -14,7 +15,7 @@ from guiai.gem.patchbay_view import main as patchbay_main
 from guiai.gem.unified_cli import main as zoe_main
 
 
-BOOK = Path("/home/cowboy/captures/build-a-llm/011_chapter-3.html")
+BOOK = Path(os.environ.get("ZOE_COG_BOOK") or (Path.home() / "captures/build-a-llm/011_chapter-3.html"))
 
 
 class CogModelCase(unittest.TestCase):

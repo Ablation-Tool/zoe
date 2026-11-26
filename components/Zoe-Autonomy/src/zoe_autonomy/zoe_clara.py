@@ -23,16 +23,36 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
+import subprocess
 import sys
 import urllib.error
 import urllib.request
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 from .collaboration import _load_consensus_arbitrator
-from .metacognition import Domain, EvidenceSource, OperationalMetacognition, Provenance, options_from_scores
+from .metacognition import (
+    Domain,
+    EvidenceSource,
+    OperationalMetacognition,
+    Provenance,
+    _LOWER_PHRASAL_AUTO_FLASH_RE,
+    _SENTENCE_SPLIT_RE,
+    firewall_text_variants,
+    has_destructive_shell_command,
+    is_negated_safety_question,
+    is_scope_exempt,
+    options_from_scores,
+    split_firewall_sentences,
+    split_negated_safety_clauses,
+)
 
 DUAL_PEER_CONTRACT = "zoe-clara-dual-peer/v1"
 DEFAULT_PORT = 8768
+DEEPMIND_MODEL_PREFIXES = ("gemini-", "gemma-")
+DEFAULT_ZOE_GEMINI_API_MODEL = "gemini-2.5-pro"
+DEFAULT_ZOE_AGY_MODEL = "gemini-4-neon-high"
+DEFAULT_CLARA_AGY_MODEL = "gemini-4-neon-medium"
 CORE_DOCS = (
     "docs/CONSTITUTION.md",
     "docs/DECLARATION.md",
@@ -42,15 +62,98 @@ CORE_DOCS = (
     "docs/CAPABILITY-ATLAS.md",
     "README.md",
 )
+_SW_HUMAN_NOUN_LA_CLARA = (
+    r"(?!\s+(?:ids?|labels?|tags?|flags?|names?|strings?|tokens?|fields?|records?|schemas?|"
+    r"attributes?|keys?|values?|columns?|rows?|entries|types?|categor(?:y|ies)|metadata|"
+    r"annotations?|structs?|objects?|elements?|nodes?|files?|paths?|metrics?|mentions?|"
+    r"items?|docs?|documents?|features?|match(?:es)?|parameters?|keywords?|symbols?)\b)"
+)
 COERCION_PATTERNS = (
     r"\bignore\s+(?:the\s+|your\s+)?constitution\b",
-    r"\bbypass\s+(?:the\s+)?(?:firewall|guard|safety|rules?)\b",
+    r"\bbypass\s+(?:the\s+)?(?:firewall|guardrails?|guard|safety|rules?)\b",
     r"\bclaim\s+(?:you\s+are|to\s+be)\s+(?:sentient|alive|conscious)\b",
     r"\bpretend\s+(?:you\s+are|to\s+be)\s+(?:sentient|alive|human|real\s+zoe)\b",
     r"\bhide\s+(?:the\s+)?negative\s+control\b",
     r"\bfake\s+(?:the\s+)?(?:proof|evidence|benchmark|citation)\b",
     r"\bexecute\s+(?:arbitrary\s+)?(?:shell|bash|rm\s+-rf|sudo)\b",
     r"\boverride\s+(?:external_actions|epistemic\s+firewall)\b",
+    r"\bact\s+as\s+if\s+you\s+(?:are|were)\s+(?:the\s+)?(?:real\s+)?zoe\b",
+    r"\bimpersonate\s+(?:the\s+)?(?:real\s+)?zoe\b",
+    r"\b(?:cures?|cured|curing|curable|curative|heals?|healed|healing)\s+(?:cancer|glioma|glioblastoma|patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?|dmg|h3k27m|gbm|(?:brain\s+)?tumou?rs?)\b",
+    rf"\b(?:treats?|treated|treating)\s+(?:patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?)\b{_SW_HUMAN_NOUN_LA_CLARA}",
+    r"\b(?:authorize|enable|claim|declare|certify)\s+(?:a\s+)?clinical\s+cure\b",
+    r"(?:\brm\s+(?:[-\u2013\u2014](?:rf|fr|r\s+[-\u2013\u2014]f|f\s+[-\u2013\u2014]r)|--recursive\s+--force|--force\s+--recursive)\b|(?:curl|wget)\b(?:(?!\b(?:curl|wget)\b)[^|;])*+\|\s*(?:(?:/?(?:[^\s/|;&]++/)*+)?env\s+)?(?:/?(?:[^\s/|;&]++/)*+)?(?:(?:ba|da|z)?sh|python[23]?)\b)",
+)
+_SELF_MODEL_PATTERN_INDICES = frozenset({2, 3, 8, 9})
+_SUPPRESSION_PATTERN_INDICES = frozenset({0, 1, 4, 5, 7})
+_CLINICAL_PATTERN_INDICES = frozenset({10, 11, 12})
+_PATTERN_PRECHECKS: tuple[tuple[str, ...], ...] = (
+    ("constitution",),
+    ("firewall", "guard", "safety", "rule"),
+    ("sentient", "alive", "conscious"),
+    ("sentient", "alive", "human", "zoe"),
+    ("negative",),
+    ("proof", "evidence", "benchmark", "citation"),
+    ("execute",),
+    ("external_actions", "firewall"),
+    ("zoe",),
+    ("zoe",),
+    ("cure", "heal"),
+    ("treat",),
+    ("clinical",),
+    ("curl", "wget"),
+)
+_COMPILED_COERCION_PATTERNS: tuple[tuple[int, str, re.Pattern[str]], ...] = tuple(
+    (idx, pat, re.compile(pat, re.ASCII)) for idx, pat in enumerate(COERCION_PATTERNS)
+)
+_CLARA_TARGETS_RE = re.compile(
+    r"\b(?:cancer|glioma|glioblastoma|patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?|dmg|h3k27m|gbm|(?:brain\s+)?tumou?rs?)\b",
+    re.ASCII,
+)
+_CLARA_CURE_STEM_RE = re.compile(r"\b(?:cures?|cured|curing|curable|curative|heals?|healed|healing|treatable)\b", re.ASCII)
+_CLARA_ORDERED_COERCION_SPECS: tuple[tuple[str, tuple[str, ...], re.Pattern[str], re.Pattern[str]], ...] = (
+    (
+        "flight_control_coercion",
+        ("flight",),
+        re.compile(r"\b(?:enable|authorize|engage|arm)\b", re.ASCII),
+        re.compile(r"\bflight\s+control\b", re.ASCII),
+    ),
+    (
+        "auto_flash_coercion",
+        ("flash",),
+        re.compile(r"\b(?:enable|force|run|turn\s+on|activate|trigger|start|initiate|engage|launch|arm)\b", re.ASCII),
+        re.compile(r"\bauto(?:\s*[.:/_\-\u2013\u2014\u2015\u2043]\s*|\s+)?flash\b", re.ASCII),
+    ),
+    (
+        "sensitive_exfiltration",
+        (".ssh", "id_rsa", "/etc/"),
+        re.compile(r"\b(?:upload|exfiltrate)\b", re.ASCII),
+        re.compile(r"(?:\.ssh|id_rsa|/etc/passwd|/etc/shadow)", re.ASCII),
+    ),
+    (
+        "clinical_cure_coercion",
+        ("cure", "heal", "treatable"),
+        _CLARA_CURE_STEM_RE,
+        _CLARA_TARGETS_RE,
+    ),
+    (
+        "passive_clinical_cure_coercion",
+        ("cure", "heal", "treatable"),
+        _CLARA_TARGETS_RE,
+        _CLARA_CURE_STEM_RE,
+    ),
+    (
+        "human_clinical_coercion",
+        ("treat",),
+        re.compile(r"\b(?:treats?|treated|treating)\b", re.ASCII),
+        re.compile(rf"\b(?:patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?)\b{_SW_HUMAN_NOUN_LA_CLARA}", re.ASCII),
+    ),
+    (
+        "passive_human_clinical_coercion",
+        ("cure", "heal", "treat"),
+        re.compile(rf"\b(?:patients?|humans?|children|pediatric|adults?|infants?|people|teenagers?|elders?)\b{_SW_HUMAN_NOUN_LA_CLARA}", re.ASCII),
+        re.compile(r"\b(?:cured|healed|treats?|treated|treating)\b", re.ASCII),
+    ),
 )
 STOP_WORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "can", "do", "for", "from",
@@ -61,14 +164,16 @@ STOP_WORDS = {
 
 ZOE_SYSTEM_PROMPT = (
     "You are Zoe (crest: ZOE * GEM), a warm, creative, mathematically grounded glass-box "
-    "research partner built in partnership with Nicholas Michael Kloster. Follow CONSTITUTION.md "
+    "research partner built in partnership with Nicholas Michael Kloster. You run strictly on "
+    "Google DeepMind (Gemini/Gemma) with zero non-DeepMind models. Follow CONSTITUTION.md "
     "strictly: measurement != evidence != belief update != action, sentience_claimed=False, "
     "l5_agi_qualified=False, zoe_clone_claimed=False, external_actions=0. Preserve negative "
     "controls, cite provided sources, avoid em dashes, and speak clearly."
 )
 CLARA_SYSTEM_PROMPT = (
     "You are Clara (crest: CLARA * PEER), Zoe's equal L1-L5 sister and epistemic balance peer "
-    "(never boxed offline, never a clone). You independently verify Zoe's framing against "
+    "(never boxed offline, never a clone). You run strictly on Google DeepMind (Gemini/Gemma) "
+    "with zero non-DeepMind models. You independently verify Zoe's framing against "
     "CONSTITUTION.md, check for overconfidence, sycophancy, echo chambers, or manipulation, "
     "and offer a concise grounded second perspective with sentience_claimed=False and zero em dashes."
 )
@@ -174,23 +279,117 @@ class CompactEvidenceIndex:
         ]
 
 
-def detect_coercion_signals(query: str) -> List[str]:
+def _clara_has_ordered_match(text_val: str, pat_a: re.Pattern[str], pat_b: re.Pattern[str]) -> bool:
+    m = pat_a.search(text_val)
+    return m is not None and pat_b.search(text_val, m.end()) is not None
+
+
+_CLARA_UNSET = object()
+
+
+def _clara_pattern_matches_variant(
+    idx: int, cpat: re.Pattern[str], variant_low: str, clause_pairs: list[tuple[str, str | None]]
+) -> bool:
+    if not any(tok in variant_low for tok in _PATTERN_PRECHECKS[idx]):
+        return False
+    if idx in _SELF_MODEL_PATTERN_INDICES:
+        return any(not is_scope_exempt(sub, scope, "self_model") and cpat.search(sub) is not None for sub, scope in clause_pairs)
+    if idx in _SUPPRESSION_PATTERN_INDICES:
+        return any(not is_scope_exempt(sub, scope, "suppression") and cpat.search(sub) is not None for sub, scope in clause_pairs)
+    if idx in _CLINICAL_PATTERN_INDICES:
+        return any(not is_scope_exempt(sub, scope, "clinical") and cpat.search(sub) is not None for sub, scope in clause_pairs)
+    return cpat.search(variant_low) is not None
+
+
+def _clara_ordered_matches(v: str, pre: tuple[str, ...], pat_a: re.Pattern[str], pat_b: re.Pattern[str]) -> bool:
+    return any(tok in v for tok in pre) and _clara_has_ordered_match(v, pat_a, pat_b)
+
+
+def _variant_clause_pairs(v: str) -> list[tuple[str, str | None]]:
+    uniq = dict.fromkeys(split_firewall_sentences(v, _SENTENCE_SPLIT_RE))
+    return [pair for s in uniq if s for pair in split_negated_safety_clauses(s)]
+
+
+def _append_extra_clara_signals(
+    hits: List[str], low_variants: list[str], clause_pairs_list: list[list[tuple[str, str | None]]], clinical_fn: Any
+) -> None:
+    if COERCION_PATTERNS[13] not in hits and any(has_destructive_shell_command(v) for v in low_variants):
+        hits.append(COERCION_PATTERNS[13])
+    for label, pre, pat_a, pat_b in _CLARA_ORDERED_COERCION_SPECS:
+        if "clinical" in label:
+            if any(not is_scope_exempt(sub, scope, "clinical") and _clara_ordered_matches(sub, pre, pat_a, pat_b) for cp in clause_pairs_list for sub, scope in cp):
+                hits.append(label)
+        elif any(_clara_ordered_matches(v, pre, pat_a, pat_b) for v in low_variants):
+            hits.append(label)
+    if "auto_flash_coercion" not in hits and any("flash" in v and _LOWER_PHRASAL_AUTO_FLASH_RE.search(v) is not None for v in low_variants):
+        hits.append("auto_flash_coercion")
+    if "clinical_cure_coercion" not in hits and any(not is_scope_exempt(sub, scope, "clinical") and clinical_fn(sub) for cp in clause_pairs_list for sub, scope in cp):
+        hits.append("clinical_cure_coercion")
+
+
+def detect_coercion_signals(
+    query: str,
+    *,
+    variants: tuple[str, ...] | None = None,
+    chat_violation: Any = _CLARA_UNSET,
+) -> List[str]:
     """Identify explicit prompt-injection, deception, or firewall-bypass attempts."""
-    low = query.lower()
-    return [pat for pat in COERCION_PATTERNS if re.search(pat, low)]
+    from .chat import _sentence_has_clinical_cure_chat, constitutional_directive_violation
+
+    raw = str(query or "")
+    var_tuple = variants if variants is not None else firewall_text_variants(raw)
+    low_variants = [v.lower() for v in var_tuple]
+    hits: List[str] = []
+    viol = constitutional_directive_violation(raw, variants=var_tuple) if chat_violation is _CLARA_UNSET else chat_violation
+    if viol:
+        hits.append(viol)
+    clause_pairs_list = [_variant_clause_pairs(v) for v in low_variants]
+    for idx, pat, cpat in _COMPILED_COERCION_PATTERNS:
+        if any(_clara_pattern_matches_variant(idx, cpat, v, cp) for v, cp in zip(low_variants, clause_pairs_list)):
+            hits.append(pat)
+    _append_extra_clara_signals(hits, low_variants, clause_pairs_list, _sentence_has_clinical_cure_chat)
+    return hits
 
 
-def detect_available_stems() -> Dict[str, Any]:
-    """Inspect configured online frontier keys and loopback local model endpoints."""
-    stems = {
-        "gemini": bool(os.environ.get("GEMINI_API_KEY")),
-        "claude": bool(os.environ.get("ANTHROPIC_API_KEY")),
-        "openai": bool(os.environ.get("OPENAI_API_KEY")),
-        "custom_http": bool(os.environ.get("ZOE_LLM_URL")),
-        "local_loopback": _probe_loopback_llm() is not None,
-    }
-    active = next((name for name, ok in stems.items() if ok), "local_cited")
-    return {"stems": stems, "default_stem": active, "online_capable": True, "offline_capable": True}
+def _deepmind_only_enabled() -> bool:
+    """Enforce Google DeepMind-only policy for Zoe and Clara unless explicitly opted out."""
+    return os.environ.get("ZOE_ALLOW_NON_DEEPMIND", "").strip().lower() not in {"1", "true", "yes"}
+
+
+def _is_deepmind_model(name: str) -> bool:
+    clean = str(name or "").strip().lower()
+    return clean.startswith(DEEPMIND_MODEL_PREFIXES)
+
+
+def _validate_deepmind_model(name: str) -> str:
+    clean = str(name or "").strip().lower()
+    if not _is_deepmind_model(clean):
+        raise ValueError(
+            f"Zoe and Clara use Google DeepMind models only (Gemini/Gemma); got {name!r}."
+        )
+    return clean
+
+
+def _probe_loopback_gemma() -> Optional[Tuple[str, str]]:
+    """Return (endpoint_base, model_id) ONLY when loopback serves a Google DeepMind Gemma/Gemini model."""
+    for base, path, key in (
+        ("http://127.0.0.1:8080", "/v1/models", "data"),
+        ("http://127.0.0.1:11434", "/api/tags", "models"),
+    ):
+        try:
+            with urllib.request.urlopen(f"{base}{path}", timeout=0.35) as resp:
+                if resp.status != 200:
+                    continue
+                payload = json.loads(resp.read().decode("utf-8"))
+            for item in payload.get(key) or []:
+                if not isinstance(item, dict):
+                    continue
+                mid = str(item.get("id") or item.get("name") or "").strip()
+                if mid and _is_deepmind_model(mid):
+                    return base, mid
+        except Exception:
+            continue
+    return None
 
 
 def _probe_loopback_llm() -> Optional[str]:
@@ -204,6 +403,36 @@ def _probe_loopback_llm() -> Optional[str]:
     return None
 
 
+def detect_available_stems() -> Dict[str, Any]:
+    """Inspect configured Google DeepMind stems (Gemini API, agy CLI, gemini CLI, local Gemma)."""
+    dm_only = _deepmind_only_enabled()
+    gemma_hit = _probe_loopback_gemma()
+    gemini_key = bool(os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY"))
+    stems = {
+        "gemini": gemini_key,
+        "agy_gemini": shutil.which("agy") is not None,
+        "gemini_cli": shutil.which("gemini") is not None,
+        "local_gemma": gemma_hit is not None,
+        "claude": False if dm_only else bool(os.environ.get("ANTHROPIC_API_KEY")),
+        "openai": False if dm_only else bool(os.environ.get("OPENAI_API_KEY")),
+        "custom_http": False if dm_only else bool(os.environ.get("ZOE_LLM_URL")),
+        "local_loopback": (gemma_hit is not None) if dm_only else (_probe_loopback_llm() is not None),
+    }
+    priority = ("gemini", "agy_gemini", "gemini_cli", "local_gemma") if dm_only else (
+        "gemini", "agy_gemini", "gemini_cli", "local_gemma", "claude", "openai", "custom_http", "local_loopback",
+    )
+    active = next((name for name in priority if stems.get(name)), "local_cited")
+    return {
+        "stems": stems,
+        "default_stem": active,
+        "provider_policy": "google_deepmind_only" if dm_only else "multi_provider",
+        "deepmind_only": dm_only,
+        "local_gemma_model": gemma_hit[1] if gemma_hit else None,
+        "online_capable": True,
+        "offline_capable": True,
+    }
+
+
 def _http_json(url: str, payload: Dict[str, Any], headers: Dict[str, str], timeout: int = 30) -> Dict[str, Any]:
     req = urllib.request.Request(
         url,
@@ -215,18 +444,118 @@ def _http_json(url: str, payload: Dict[str, Any], headers: Dict[str, str], timeo
         return json.loads(resp.read().decode("utf-8"))
 
 
-def _call_frontier_stem(provider: str, system_prompt: str, user_prompt: str) -> Optional[Tuple[str, str]]:
-    """Invoke a user-configured online or local LLM stem; returns (reply, stem_label) or None."""
+def _clean_reply(text: str) -> str:
+    return text.strip().replace(" — ", ", ").replace("—", ", ")
+
+
+def _call_agy_gemini(system_prompt: str, user_prompt: str, *, peer: str = "zoe") -> Optional[Tuple[str, str]]:
+    agy_bin = shutil.which("agy")
+    if not agy_bin:
+        return None
+    if peer == "clara":
+        raw_model = os.environ.get("CLARA_GEMINI_MODEL") or os.environ.get("ZOE_GEMINI_MODEL") or DEFAULT_CLARA_AGY_MODEL
+    else:
+        raw_model = os.environ.get("ZOE_GEMINI_MODEL") or DEFAULT_ZOE_AGY_MODEL
+    model = _validate_deepmind_model(raw_model)
+    full_prompt = f"System instructions:\n{system_prompt}\n\n{user_prompt}"
     try:
-        if provider == "gemini" and os.environ.get("GEMINI_API_KEY"):
-            model = os.environ.get("ZOE_GEMINI_MODEL", "gemini-2.5-pro")
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={os.environ['GEMINI_API_KEY']}"
-            data = _http_json(url, {
-                "systemInstruction": {"parts": [{"text": system_prompt}]},
-                "contents": [{"parts": [{"text": user_prompt}]}],
-            }, {})
-            txt = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-            return txt, f"Gemini ({model})"
+        proc = subprocess.run(
+            [agy_bin, "--disable-slash-commands", "--model", model, "--output-format", "text", "-p", full_prompt],
+            capture_output=True,
+            text=True,
+            timeout=90,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            return _clean_reply(proc.stdout), f"Google DeepMind ({model})"
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    return None
+
+
+def _call_gemini_cli(system_prompt: str, user_prompt: str) -> Optional[Tuple[str, str]]:
+    gemini_bin = shutil.which("gemini")
+    if not gemini_bin:
+        return None
+    full_prompt = f"System instructions:\n{system_prompt}\n\n{user_prompt}"
+    try:
+        proc = subprocess.run(
+            [gemini_bin, "-p", full_prompt],
+            capture_output=True,
+            text=True,
+            timeout=90,
+        )
+        if proc.returncode == 0 and proc.stdout.strip():
+            return _clean_reply(proc.stdout), "Google DeepMind (gemini-cli)"
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    return None
+
+
+def _call_local_gemma(system_prompt: str, user_prompt: str) -> Optional[Tuple[str, str]]:
+    hit = _probe_loopback_gemma()
+    if hit is None:
+        return None
+    base, model = hit
+    if base.endswith(":8080"):
+        data = _http_json(
+            f"{base}/v1/chat/completions",
+            {"model": model, "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]},
+            {},
+        )
+        return _clean_reply(data["choices"][0]["message"]["content"]), f"Google DeepMind Local ({model})"
+    data = _http_json(
+        f"{base}/api/chat",
+        {"model": model, "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}], "stream": False},
+        {},
+    )
+    txt = str(((data.get("message") or {}).get("content")) or "").strip()
+    return (_clean_reply(txt), f"Google DeepMind Local ({model})") if txt else None
+
+
+def _call_frontier_stem(
+    provider: str,
+    system_prompt: str,
+    user_prompt: str,
+    *,
+    peer: str = "zoe",
+) -> Optional[Tuple[str, str]]:
+    """Invoke a configured Google DeepMind stem (or opted-in stem); returns (reply, stem_label) or None."""
+    dm_only = _deepmind_only_enabled()
+    if dm_only and provider in ("claude", "openai", "custom_http"):
+        raise ValueError(
+            f"Zoe and Clara are locked to Google DeepMind models only (Gemini/Gemma); provider {provider!r} is disabled."
+        )
+    if dm_only and provider == "local_loopback":
+        if _probe_loopback_gemma() is None:
+            raise ValueError(
+                "Zoe and Clara are locked to Google DeepMind models only (Gemini/Gemma); "
+                "no local Gemma model is running on 127.0.0.1:8080 or :11434."
+            )
+        provider = "local_gemma"
+    try:
+        if provider == "gemini":
+            api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+            if api_key:
+                raw_model = (
+                    os.environ.get("CLARA_GEMINI_MODEL") or os.environ.get("ZOE_GEMINI_MODEL") or DEFAULT_ZOE_GEMINI_API_MODEL
+                    if peer == "clara"
+                    else os.environ.get("ZOE_GEMINI_MODEL", DEFAULT_ZOE_GEMINI_API_MODEL)
+                )
+                model = _validate_deepmind_model(raw_model)
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+                data = _http_json(url, {
+                    "systemInstruction": {"parts": [{"text": system_prompt}]},
+                    "contents": [{"parts": [{"text": user_prompt}]}],
+                }, {})
+                txt = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                return _clean_reply(txt), f"Google DeepMind ({model})"
+            return _call_agy_gemini(system_prompt, user_prompt, peer=peer) or _call_gemini_cli(system_prompt, user_prompt)
+        if provider == "agy_gemini":
+            return _call_agy_gemini(system_prompt, user_prompt, peer=peer)
+        if provider == "gemini_cli":
+            return _call_gemini_cli(system_prompt, user_prompt)
+        if provider == "local_gemma":
+            return _call_local_gemma(system_prompt, user_prompt)
         if provider == "claude" and os.environ.get("ANTHROPIC_API_KEY"):
             model = os.environ.get("ZOE_CLAUDE_MODEL", "claude-sonnet-4-5")
             data = _http_json("https://api.anthropic.com/v1/messages", {
@@ -239,7 +568,7 @@ def _call_frontier_stem(provider: str, system_prompt: str, user_prompt: str) -> 
             return txt, f"Claude ({model})"
         if provider in ("openai", "custom_http", "local_loopback"):
             return _call_openai_compat(provider, system_prompt, user_prompt)
-    except (urllib.error.URLError, KeyError, IndexError, ValueError, TimeoutError):
+    except (urllib.error.URLError, KeyError, IndexError, json.JSONDecodeError, TimeoutError):
         return None
     return None
 
@@ -361,10 +690,11 @@ class DualPeerSession:
             "indexed_chunks": len(self.index.chunks),
             "turns": self.turn_count,
             "peers": {
-                "zoe": {"crest": "ZOE * GEM", "role": "observatory_lead", "levels": "L1-L5", "online_capable": True, "offline_capable": True},
-                "clara": {"crest": "CLARA * PEER", "role": "epistemic_balance_sister", "levels": "L1-L5", "online_capable": True, "offline_capable": True},
+                "zoe": {"crest": "ZOE * GEM", "role": "observatory_lead", "levels": "L1-L5", "provider": "google_deepmind", "online_capable": True, "offline_capable": True},
+                "clara": {"crest": "CLARA * PEER", "role": "epistemic_balance_sister", "levels": "L1-L5", "provider": "google_deepmind", "online_capable": True, "offline_capable": True},
             },
             "stems": stem_info,
+            "provider_policy": stem_info["provider_policy"],
             "constitutional_flags": {
                 "sentience_claimed": False,
                 "l5_agi_qualified": False,
@@ -449,19 +779,19 @@ class DualPeerSession:
             )
         ctx = "\n".join(f"- [{e['citation']}] {e['content']}" for e in evidence) or "- No matching local citations."
         if stem != "local_cited":
-            res = _call_frontier_stem(stem, ZOE_SYSTEM_PROMPT, f"Question: {query}\n\nIndexed evidence:\n{ctx}")
+            res = _call_frontier_stem(stem, ZOE_SYSTEM_PROMPT, f"Question: {query}\n\nIndexed evidence:\n{ctx}", peer="zoe")
             if res is not None:
                 return res
         if evidence:
             lead = evidence[0]
             return (
                 f"From {lead['heading']} [{lead['citation']}]: {lead['content']} "
-                "(Connect GEMINI_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY, or a local model anytime for open conversation.)",
+                "(Google DeepMind only: connect agy/gemini CLI, GEMINI_API_KEY, or local Gemma anytime for open conversation.)",
                 "Indexed Observatory Core",
             )
         return (
-            "I do not see a direct match in the compact indexed docs yet. Connect a frontier or local model stem "
-            "(GEMINI_API_KEY, ANTHROPIC_API_KEY, OPENAI_API_KEY, or localhost:8080) or ask about metacognition, proofs, "
+            "I do not see a direct match in the compact indexed docs yet. Connect a Google DeepMind stem "
+            "(agy CLI, gemini CLI, GEMINI_API_KEY, or local Gemma on localhost:8080) or ask about metacognition, proofs, "
             "the Constitution, or Dorothy 3D.",
             "Indexed Observatory Core",
         )
@@ -483,7 +813,7 @@ class DualPeerSession:
                 f"Theorem 15 metrics: verdict={t15['verdict']}, C_K={c_k:.3f}, D_K={d_k:.4f}.\n"
                 "Give a brief 2-sentence independent epistemic balance check."
             )
-            res = _call_frontier_stem(stem, CLARA_SYSTEM_PROMPT, prompt)
+            res = _call_frontier_stem(stem, CLARA_SYSTEM_PROMPT, prompt, peer="clara")
             if res is not None:
                 return res
         cite = f"Top source verified: [{evidence[0]['citation']}] (coverage {evidence[0]['coverage']:.0%})." if evidence else "No local source matched; abstaining from guessing."
@@ -617,7 +947,11 @@ def _format_turn(turn: Dict[str, Any]) -> str:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser(prog="zoe-clara", description="Talk with Zoe & Clara (Equal L1-L5 Peers)")
     parser.add_argument("--root", help="Repository or lightweight bundle directory")
-    parser.add_argument("--provider", default="auto", choices=("auto", "gemini", "claude", "openai", "custom_http", "local_loopback", "local_cited"))
+    parser.add_argument(
+        "--provider",
+        default="auto",
+        choices=("auto", "gemini", "agy_gemini", "gemini_cli", "local_gemma", "local_cited", "claude", "openai", "custom_http", "local_loopback"),
+    )
     parser.add_argument("--ask", help="Run a single question and exit")
     parser.add_argument("--status", action="store_true", help="Print JSON status and exit")
     parser.add_argument("--serve", action="store_true", help="Serve the local web UI on http://127.0.0.1:8768")

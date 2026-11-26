@@ -24,9 +24,10 @@ def parser() -> argparse.ArgumentParser:
     investigate.add_argument("--from", dest="from_", default="")
     investigate.add_argument("--to", default="")
     investigate.add_argument("--limit", type=int, default=200)
-    investigate.add_argument("--binary", default=str(root / "build" / "cerotto")
+    investigate.add_argument("--binary", default=os.environ.get("CEROTTO_BIN") or (
+                             str(root / "build" / "cerotto")
                              if (root / "build" / "cerotto").exists()
-                             else str(root.parent / "build" / "cerotto"))
+                             else str(root.parent / "build" / "cerotto")))
     investigate.add_argument("--max-steps", type=int, default=8)
     return result
 

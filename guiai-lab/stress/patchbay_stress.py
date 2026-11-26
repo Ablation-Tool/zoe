@@ -31,7 +31,7 @@ from guiai.gem.runner import verify_vdi
 from guiai.gem.unified_cli import main as zoe_main
 
 
-CERN = Path("/media/cowboy/research/CERN")
+CERN = Path(os.environ.get("ZOE_CERN_ROOT") or (Path(__file__).resolve().parents[3] / "CERN"))
 A1396 = CERN / "firmware/edms-downloads/edms_1074819.hex"
 A1535 = CERN / "firmware/edms-downloads/edms_1074820.hex"
 BIT = CERN / "fw/itsdaq/nexysv_itsdaq_vb675_FSC_STAR.bit"
@@ -39,7 +39,7 @@ ZIP = CERN / "firmware/FPGA/control-988866/control_fpga_firmware_stage090623.zip
 EMP = CERN / "fw/emp/BOOT.BIN"
 FIT = CERN / "fw/emp/sdcard.bak/bootpart/image.ub"
 TIMING = CERN / "analysis/felix-flx155/findings.json"
-BOOK = Path("/home/cowboy/captures/build-a-llm/011_chapter-3.html")
+BOOK = Path(os.environ.get("ZOE_COG_BOOK") or (Path.home() / "captures/build-a-llm/011_chapter-3.html"))
 
 
 def ihex_record(offset, kind, payload):

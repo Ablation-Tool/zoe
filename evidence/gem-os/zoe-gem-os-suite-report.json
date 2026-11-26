@@ -36,7 +36,7 @@
       "ok": true
     },
     {
-      "detail": "version=0.9.0-beta.1 gates=7/10",
+      "detail": "version=0.9.0-beta.1 gates=8/10",
       "name": "08_beta_release_manifest_isolated",
       "ok": true
     }
@@ -54,6 +54,6 @@
     "sentience_claimed": false
   },
   "contract": "zoe-gem-os-suite-verifier/v1",
-  "evidence_sha256": "a349bba75530b55abcc50b5970643529cf761922893319aa71562155a0018ae3",
+  "evidence_sha256": "543c3fc9cfd2bae1583fa817964b2627049efbf98dcf5cc490ad17b3b368d098",
   "passed": true
 }

@@ -27,7 +27,7 @@ from guiai.gem.qualia import (
 from guiai.gem.research import ResearchPack
 from guiai.gem.runner import verify_vdi
 
-RESEARCH_ROOT = Path(os.environ.get("MASTER_GEM_RESEARCH_ROOT", "/home/cowboy/_projects/next-token-predictability"))
+RESEARCH_ROOT = Path(os.environ.get("MASTER_GEM_RESEARCH_ROOT") or (Path.home() / "_projects/next-token-predictability"))
 
 try:
     import gi

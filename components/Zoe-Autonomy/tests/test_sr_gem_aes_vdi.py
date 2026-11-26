@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 from pathlib import Path
 import struct
+import sys
 
 import pytest
 from google.antigravity import types
@@ -351,7 +352,7 @@ def test_zoe_chat_and_shared_reasoning_mcp_wiring(tmp_path: Path) -> None:
         {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "verify_gem_vdi_desk", "arguments": {"theme_key": "zoe-viewmax3"}}},
     ]
     proc = subprocess.run(
-        ["/home/cowboy/security-tools/bin/python3", str(mcp_script)],
+        [sys.executable, str(mcp_script)],
         cwd=str(repo_root),
         input="\n".join(json.dumps(r) for r in reqs) + "\n",
         capture_output=True,

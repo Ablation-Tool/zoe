@@ -14,8 +14,10 @@ import hashlib
 import importlib.metadata
 import importlib.util
 import json
+import os
 from pathlib import Path
 import re
+import sys
 from typing import Any, Sequence
 
 DEEPMIND_SDK_HOOKS_CONTRACT = "zoe-deepmind-antigravity-hooks/v1"
@@ -200,9 +202,10 @@ def build_zoe_constitutional_hooks(
 def build_zoe_mcp_stdio_servers(
     repo_root: str | Path,
     *,
-    python_bin: str = "/home/cowboy/security-tools/bin/python3",
+    python_bin: str | None = None,
 ) -> list[Any]:
     """Construct native `McpStdioServer` objects for Zoe's two pure-stdlib MCP servers."""
+    resolved_python = python_bin or os.environ.get("ZOE_PYTHON") or sys.executable
     root = Path(repo_root)
     specs = [
         ("zoe-stem-layering", str(root / "scripts" / "zoe_stem_mcp.py")),
@@ -210,17 +213,24 @@ def build_zoe_mcp_stdio_servers(
     ]
     if ANTIGRAVITY_SDK_AVAILABLE and _ag_types is not None:
         return [
-            _ag_types.McpStdioServer(name=name, command=python_bin, args=[script])
+            _ag_types.McpStdioServer(name=name, command=resolved_python, args=[script])
             for name, script in specs
         ]
-    return [{"name": name, "type": "stdio", "command": python_bin, "args": [script]} for name, script in specs]
+    return [{"name": name, "type": "stdio", "command": resolved_python, "args": [script]} for name, script in specs]
+
+
+def _default_litert_models_dir() -> Path:
+    env_dir = os.environ.get("ZOE_LOCAL_LLM_MODELS_DIR")
+    if env_dir:
+        return Path(env_dir).expanduser()
+    return Path(__file__).resolve().parents[6] / "zoe-local-llm" / "models"
 
 
 def discover_litert_task_models(
-    search_dir: str | Path = "/media/cowboy/research/zoe-local-llm/models",
+    search_dir: str | Path | None = None,
 ) -> list[str]:
     """Discover local Google LiteRT `.task` model bundles on disk."""
-    base = Path(search_dir)
+    base = Path(search_dir) if search_dir is not None else _default_litert_models_dir()
     if not base.is_dir():
         return []
     return sorted(str(p) for p in base.glob("*.task") if p.is_file())

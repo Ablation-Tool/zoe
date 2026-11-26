@@ -191,3 +191,23 @@ def test_callees_capped_at_32(tmp_db):
     con.close()
 
     assert len(json.loads(call_targets_json)) == 32
+
+
+def test_build_corpus_live_addrs_filters_when_binary_id_is_set(tmp_db, tmp_path):
+    names = {0x1000: 'alpha_live', 0x2000: 'beta_plt', 0x3000: 'gamma_plt'}
+    ctx = _fake_ctx(names=names)
+
+    class _DummyModel:
+        def embed(self, texts):
+            for _ in texts:
+                yield [0.1] * 384
+
+    with patch('ablation.analyzers.semantic_search._DEFAULT_DB', tmp_db), \
+         patch('ablation.analyzers.semantic_search._CACHE_DIR', tmp_path / 'cache'), \
+         patch.object(SemanticSearcher, '_get_model', return_value=_DummyModel()):
+        searcher = SemanticSearcher.from_context(ctx)
+        assert searcher._binary_id is not None
+        count = searcher.build_corpus(live_addrs={0x1000}, force=True)
+
+    assert count == 1
+    assert [m['va'] for m in searcher._meta] == [0x1000]

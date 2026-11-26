@@ -352,7 +352,7 @@ def _add_domain_parsers(commands) -> None:
     master = commands.add_parser("master", aliases=["brain", "zoe"], help="open Zoe / MASTER GEM with the BRAIN orchestrator")
     master.add_argument("--module", choices=_ATLAS_MODULE_CHOICES, default="brain")
     master.add_argument("--research-root", help="next-token-predictability repository; default: MASTER_GEM_RESEARCH_ROOT")
-    master.add_argument("--cern-root", help="CERN corpus for the FELIX module; default: ZOE_CERN_ROOT or /media/cowboy/research/CERN/Boutique")
+    master.add_argument("--cern-root", help="CERN corpus for the FELIX module; default: ZOE_CERN_ROOT or <workspace-parent>/CERN/Boutique")
     master.add_argument("--felix-build", help="FELIX build ID, card, or unique filename substring")
     master.add_argument("--observations", type=int, default=1, help="FELIX builds to observe for JSON/WAV export, 1-64")
     master.add_argument("--output", help="export the scene, FELIX memory, or FELIX sonification instead of opening GTK")
@@ -394,12 +394,15 @@ def _add_domain_parsers(commands) -> None:
     cognitive.add_argument("--width", type=int, default=1400, help="SVG/PNG width in pixels")
 
     hdl = commands.add_parser("felix-hdl", help="recover LCB and STAR/Flink HDL from HTML into clean source files")
-    hdl.add_argument("--cern-root", help="CERN corpus; default: ZOE_CERN_ROOT or /media/cowboy/research/CERN/Boutique")
+    hdl.add_argument("--cern-root", help="CERN corpus; default: ZOE_CERN_ROOT or <workspace-parent>/CERN/Boutique")
     hdl.add_argument("--output", required=True, help="new or empty recovered-HDL output directory")
 
     cern = commands.add_parser("cern", help="inventory, audit, verify, and visualize the complete CERN corpus")
     cern.add_argument("operation", choices=("scan", "forge", "report", "chart", "verify"))
-    cern.add_argument("--cern-root", default="/media/cowboy/research/CERN")
+    cern.add_argument(
+        "--cern-root",
+        default=os.environ.get("ZOE_CERN_ROOT") or str(Path(__file__).resolve().parents[4] / "CERN"),
+    )
     cern.add_argument("--input", help="existing corpus directory or Repair Atlas JSON")
     cern.add_argument("--output", required=True, help="new output directory or artifact path")
     cern.add_argument("--workers", type=int, default=1, help="parallel hash readers, 1-32")

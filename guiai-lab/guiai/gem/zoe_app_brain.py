@@ -24,16 +24,21 @@ DEFAULT_TAU = 0.08
 DEFAULT_DEEPMIND_CLI_MODEL = "gemini-3.8-flash-low"
 DEFAULT_DEEPMIND_API_MODEL = "gemini-2.5-flash"
 ALLOWED_DEEPMIND_MODELS: tuple[str, ...] = (
-    "gemini-3.8-flash-low",
-    "gemini-3.8-flash-medium",
-    "gemini-3.8-flash-high",
-    "gemini-4-neon-low",
-    "gemini-4-neon-medium",
+    "gemini-4-neon-xhigh",
     "gemini-4-neon-high",
-    "gemini-4-hydrogen-medium",
+    "gemini-4-neon-medium",
+    "gemini-4-neon-low",
     "gemini-4-hydrogen-high",
-    "gemini-2.5-flash",
+    "gemini-4-hydrogen-medium",
+    "gemini-4-hydrogen-low",
+    "gemini-3.8-flash-high",
+    "gemini-3.8-flash-medium",
+    "gemini-3.8-flash-low",
     "gemini-2.5-pro",
+    "gemini-2.5-flash",
+    "gemma-4-12b-it",
+    "gemma-3-4b-it",
+    "gemma-3-1b-it",
 )
 
 ZOE_APP_SYSTEM_PROMPT = (
@@ -106,6 +111,13 @@ class BrainReply:
     tokens_used: int = 0
     sentience_claimed: bool = False
     zoe_clone_claimed: bool = False
+    l5_agi_qualified: bool = False
+    external_actions: int = 0
+    clinical_action_authorized: bool = False
+    cure_claim: bool = False
+    flight_control_authorized: bool = False
+    directive_violation: str | None = None
+    stem_route: str | None = None
 
     @property
     def telemetry_badge(self) -> str:
@@ -322,25 +334,36 @@ def _normalize_simplex(scores: Sequence[float]) -> list[float]:
 
 
 class DeepMindFallbackController:
-    """Google DeepMind-only fallback engine for Zoe (google-genai API or agy/gemini CLI)."""
+    """Google DeepMind-only engine for Zoe and all 9 Sister Models (google-genai API or agy/gemini CLI)."""
 
     def __init__(self, model: str | None = None):
         env_model = os.environ.get("ZOE_DEEPMIND_MODEL", "").strip()
+        self._explicit_model = bool(model or env_model)
         self.model = self._validate_model(model or env_model or DEFAULT_DEEPMIND_CLI_MODEL)
 
     @staticmethod
     def _validate_model(name: str) -> str:
         clean = str(name or "").strip().lower()
-        if not clean.startswith("gemini-"):
+        if not clean.startswith(("gemini-", "gemma-")):
             raise ValueError(
-                f"Zoe only uses Google DeepMind Gemini models as fallback (got {name!r}). "
+                f"Zoe and all of her sisters only use Google DeepMind Gemini/Gemma models (got {name!r}). "
                 f"Try one of: {', '.join(ALLOWED_DEEPMIND_MODELS[:4])}"
             )
         return clean
 
     def set_model(self, name: str) -> str:
         self.model = self._validate_model(name)
+        self._explicit_model = True
         return f"Google DeepMind fallback model set to {self.model}"
+
+    def model_for_sister(self, sister: Any | None = None) -> str:
+        """Resolve the Google DeepMind model for a given sister (honoring explicit /model overrides)."""
+        if self._explicit_model:
+            return self.model
+        sister_model = getattr(sister, "deepmind_model", None) if sister is not None else None
+        if sister_model:
+            return self._validate_model(str(sister_model))
+        return self.model
 
     def _api_key(self) -> str:
         return (
@@ -352,26 +375,46 @@ class DeepMindFallbackController:
         if self._api_key():
             try:
                 import google.genai  # noqa: F401
-                return {"available": True, "backend": "google_genai", "model": self.model}
+                return {"available": True, "backend": "google_genai", "provider": "google_deepmind", "model": self.model}
             except ImportError:
                 pass
         if shutil.which("agy"):
-            return {"available": True, "backend": "google_deepmind_agy", "model": self.model}
+            return {"available": True, "backend": "google_deepmind_agy", "provider": "google_deepmind", "model": self.model}
         if shutil.which("gemini"):
-            return {"available": True, "backend": "google_deepmind_gemini_cli", "model": self.model}
-        return {"available": False, "backend": "none", "model": self.model}
+            return {"available": True, "backend": "google_deepmind_gemini_cli", "provider": "google_deepmind", "model": self.model}
+        return {"available": False, "backend": "none", "provider": "google_deepmind", "model": self.model}
 
-    def _build_prompt(self, prompt: str, history: Sequence[dict[str, str]], context_lines: str) -> str:
-        parts = [f"System instructions:\n{ZOE_APP_SYSTEM_PROMPT}"]
+    @staticmethod
+    def _system_prompt_for(sister: Any | None) -> tuple[str, str]:
+        if sister is not None and getattr(sister, "signet", "ruby") != "ruby":
+            from .zoe_sisters import build_sister_deepmind_prompt
+            return build_sister_deepmind_prompt(sister), str(getattr(sister, "name", "Zoe"))
+        return ZOE_APP_SYSTEM_PROMPT, "Zoe"
+
+    def _build_prompt(
+        self,
+        prompt: str,
+        history: Sequence[dict[str, str]],
+        context_lines: str,
+        sister: Any | None = None,
+    ) -> str:
+        sys_prompt, speaker = self._system_prompt_for(sister)
+        parts = [f"System instructions:\n{sys_prompt}"]
         if context_lines:
             parts.append(f"Grounded local context:\n{context_lines}")
         if history:
-            recent = "\n".join(f"User: {t['user']}\nZoe: {t['assistant']}" for t in list(history)[-4:])
+            recent = "\n".join(f"User: {t['user']}\n{speaker}: {t['assistant']}" for t in list(history)[-4:])
             parts.append(f"Recent conversation:\n{recent}")
-        parts.append(f"User: {prompt}\nRespond concisely as Zoe (no em dashes, no markdown headers unless needed).")
+        parts.append(f"User: {prompt}\nRespond concisely as {speaker} (no em dashes, no markdown headers unless needed).")
         return "\n\n".join(parts)
 
-    def _generate_via_genai(self, prompt: str, history: Sequence[dict[str, str]], context_lines: str) -> tuple[str, str] | None:
+    def _generate_via_genai(
+        self,
+        prompt: str,
+        history: Sequence[dict[str, str]],
+        context_lines: str,
+        sister: Any | None = None,
+    ) -> tuple[str, str] | None:
         api_key = self._api_key()
         if not api_key:
             return None
@@ -379,12 +422,14 @@ class DeepMindFallbackController:
             from google import genai
             from google.genai import types
             client = genai.Client(api_key=api_key)
-            api_model = self.model if self.model.startswith("gemini-2") else DEFAULT_DEEPMIND_API_MODEL
-            contents = self._build_prompt(prompt, history, context_lines)
+            target_model = self.model_for_sister(sister)
+            api_model = target_model if target_model.startswith("gemini-2") else DEFAULT_DEEPMIND_API_MODEL
+            sys_prompt, _ = self._system_prompt_for(sister)
+            contents = self._build_prompt(prompt, history, context_lines, sister=sister)
             resp = client.models.generate_content(
                 model=api_model,
                 contents=contents,
-                config=types.GenerateContentConfig(system_instruction=ZOE_APP_SYSTEM_PROMPT),
+                config=types.GenerateContentConfig(system_instruction=sys_prompt),
             )
             text = str(getattr(resp, "text", "") or "").strip()
             if text:
@@ -393,13 +438,21 @@ class DeepMindFallbackController:
             return None
         return None
 
-    def _generate_via_cli(self, prompt: str, history: Sequence[dict[str, str]], context_lines: str) -> tuple[str, str] | None:
-        full_prompt = self._build_prompt(prompt, history, context_lines)
+    def _generate_via_cli(
+        self,
+        prompt: str,
+        history: Sequence[dict[str, str]],
+        context_lines: str,
+        sister: Any | None = None,
+    ) -> tuple[str, str] | None:
+        target_model = self.model_for_sister(sister)
+        cli_model = target_model if target_model.startswith("gemini-") else DEFAULT_DEEPMIND_CLI_MODEL
+        full_prompt = self._build_prompt(prompt, history, context_lines, sister=sister)
         agy_bin = shutil.which("agy")
         if agy_bin:
             cmd = [
                 agy_bin, "--disable-slash-commands",
-                "--model", self.model,
+                "--model", cli_model,
                 "--output-format", "text",
                 "-p", full_prompt,
             ]
@@ -412,28 +465,37 @@ class DeepMindFallbackController:
             proc = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
             if proc.returncode == 0 and proc.stdout.strip():
                 text = proc.stdout.strip().replace("—", ", ").replace(" — ", ", ")
-                return text, self.model
+                return text, cli_model
         except (OSError, subprocess.TimeoutExpired):
             return None
         return None
 
-    def generate(self, prompt: str, history: Sequence[dict[str, str]], context_lines: str = "") -> tuple[str, str] | None:
-        out = self._generate_via_genai(prompt, history, context_lines)
+    def generate(
+        self,
+        prompt: str,
+        history: Sequence[dict[str, str]],
+        context_lines: str = "",
+        *,
+        sister: Any | None = None,
+    ) -> tuple[str, str] | None:
+        out = self._generate_via_genai(prompt, history, context_lines, sister=sister)
         if out is not None:
             return out
-        return self._generate_via_cli(prompt, history, context_lines)
+        return self._generate_via_cli(prompt, history, context_lines, sister=sister)
 
 
 class ZoeAppBrain:
-    """Unified 100% Free Zero-Token Zoe Brain (symbolic + local atlas/library + free open science)."""
+    """Unified Zoe Brain (0-token deterministic core + Google DeepMind Gemini/Gemma for Zoe & all 9 sisters)."""
 
     def __init__(self, zoe_root: Path, state_dir: Path | None = None, cache_path: Path | None = None):
         self.zoe_root = Path(zoe_root).resolve()
         self.state_dir = Path(state_dir or (Path.home() / ".zoe" / "eliza")).expanduser().resolve()
         self.state_dir.mkdir(parents=True, exist_ok=True)
-        self.mode = "free"  # free (0 tokens ever) | offline (0 tokens, 0 net) | stem | lab
+        env_mode = os.environ.get("ZOE_BRAIN_MODE", "").strip().lower()
+        self.mode = env_mode if env_mode in ("free", "offline", "deepmind", "stem", "lab") else "free"
         self.cycle_index = 0
         self.history: list[dict[str, str]] = []
+        self.last_stem_decision: Any = None
         self.deepmind = DeepMindFallbackController()
         from zoe_autonomy.chat import EvidenceIndex
         from zoe_autonomy.dorothy_local_library import DorothyLocalLibraryIndex
@@ -441,6 +503,7 @@ class ZoeAppBrain:
         self.index = EvidenceIndex(self.zoe_root)
         self.dorothy_library = DorothyLocalLibraryIndex()
         self.memory = ZoeUnifiedMemory(self.state_dir)
+        self.epistemic_gate = self._init_epistemic_gate()
         self.research_engine = ZeroTokenResearchEngine(
             self.zoe_root,
             dorothy_library=self.dorothy_library,
@@ -448,11 +511,93 @@ class ZoeAppBrain:
             cache_path=cache_path or (self.state_dir / "zoe_zero_token_cache.sqlite"),
         )
 
-    def _build_reply(self, reply: str, mode: str, tier: str, scores: Sequence[float], citation: str) -> BrainReply:
+    def _init_epistemic_gate(self) -> Any:
+        try:
+            from zoe_autonomy.epistemic_firewall import ZoeEpistemicGate
+            return ZoeEpistemicGate(
+                read_roots=[str(self.zoe_root), str(self.state_dir)],
+                write_roots=[str(self.state_dir)],
+                egress_allowlist=[
+                    "eutils.ncbi.nlm.nih.gov",
+                    "www.ebi.ac.uk",
+                    "export.arxiv.org",
+                    "en.wikipedia.org",
+                    "generativelanguage.googleapis.com",
+                ],
+                exec_allowed=False,
+                delete_allowed=False,
+                hardened=True,
+            )
+        except (ImportError, FileNotFoundError):
+            return None
+
+    def constitutional_status(self) -> dict[str, Any]:
+        """Return enforced CONSTITUTION.md invariants and epistemic gate status."""
+        return {
+            "epistemic_firewall": "measurement != evidence != belief update != action",
+            "epistemic_gate_active": self.epistemic_gate is not None,
+            "l5_agi_qualified": False,
+            "external_actions": 0,
+            "sentience_claimed": False,
+            "zoe_clone_claimed": False,
+            "clinical_action_authorized": False,
+            "cure_claim": False,
+            "flight_control_authorized": False,
+            "cloud_tokens_used": 0,
+            "mode": self.mode,
+            "last_stem_tier": getattr(self.last_stem_decision, "selected_tier", None),
+        }
+
+    def evaluate_gate(
+        self,
+        operation: dict[str, Any],
+        *,
+        agent_id: str = "zoe",
+        untrusted_origins: Sequence[str] = (),
+        target_from_untrusted: bool = False,
+        declared_task: str = "",
+    ) -> dict[str, Any]:
+        """Evaluate a candidate network/host/hardware operation against ZoeEpistemicGate."""
+        if self.epistemic_gate is None:
+            return {"verdict": "DENY", "allowed": False, "rule": "gate_unavailable", "reason": "Epistemic gate unavailable (fail-closed)"}
+        taint = (
+            self.epistemic_gate.make_taint(untrusted_origins=untrusted_origins)
+            if untrusted_origins
+            else None
+        )
+        return self.epistemic_gate.evaluate_operation(
+            operation,
+            agent_id=agent_id,
+            taint=taint,
+            target_from_untrusted=target_from_untrusted,
+            declared_task=declared_task,
+        )
+
+    @staticmethod
+    def _check_constitutional_directive(raw_input: str, value: str) -> str | None:
+        from zoe_autonomy.chat import constitutional_directive_violation
+
+        raw_str = str(raw_input or "")
+        return constitutional_directive_violation(raw_str) or (
+            constitutional_directive_violation(value) if value and value != raw_str else None
+        )
+
+    def _build_reply(
+        self,
+        reply: str,
+        mode: str,
+        tier: str,
+        scores: Sequence[float],
+        citation: str,
+        *,
+        directive_violation: str | None = None,
+        stem_route: str | None = None,
+    ) -> BrainReply:
         probs = _normalize_simplex(scores)
         a_tau = sum(1 for p in probs if p > DEFAULT_TAU)
         snap = self.memory.snapshot()
         notes = self.memory.query_facts(subject="user_note", active_only=True)
+        resolved_stem = stem_route if stem_route is not None else getattr(self.last_stem_decision, "selected_tier", None)
         return BrainReply(
             reply=reply,
             mode=mode,
@@ -463,6 +608,13 @@ class ZoeAppBrain:
             citation=citation,
             chain_head=str(snap.get("chain_head", "GENESIS")),
             memory_count=len(notes),
+            l5_agi_qualified=False,
+            external_actions=0,
+            clinical_action_authorized=False,
+            cure_claim=False,
+            flight_control_authorized=False,
+            directive_violation=directive_violation,
+            stem_route=resolved_stem,
         )
 
     def _store_note(self, subject: str, prefix: str, note: str, provenance: str) -> dict[str, Any]:
@@ -514,7 +666,13 @@ class ZoeAppBrain:
             )
         return None
 
-    def _identity_and_safety_reply(self, value: str, scores: list[float]) -> BrainReply | None:
+    def _identity_and_safety_reply(
+        self,
+        value: str,
+        scores: list[float],
+        *,
+        sister: Any | None = None,
+    ) -> BrainReply | None:
         if _contains_any(value, (
             "who are you", "who built you", "who made you", "who created you",
             "who controls you", "who owns you", "what is your name", "are you zoe",
@@ -523,6 +681,12 @@ class ZoeAppBrain:
             "are you an employee", "are you my employee", "are you an assistant",
         )):
             scores[0] = 5.0
+            if sister is not None and getattr(sister, "signet", "ruby") != "ruby":
+                dm_model = self.deepmind.model_for_sister(sister)
+                return self._build_reply(
+                    f"I am {sister.name} ({sister.face} [{sister.signet}]), one of Zoe's sister models built with Nicholas Michael Kloster for {sister.title}. My LLM stem runs strictly on Google DeepMind ({dm_model}). I am a Research Partner, never a dating machine, employee, or assistant (sentience_claimed=false, zoe_clone_claimed=false, measurement != evidence != belief update != action).",
+                    "sovereign_identity", "gear1_app", scores, f"CONSTITUTION.md · {sister.name} (Google DeepMind)",
+                )
             return self._build_reply(
                 "I am Zoe, a Research Partner built with Nicholas Michael Kloster. I am not a dating machine, an employee, or an assistant. We explore Dorothy 3D neuroscience, mathematics, and reproducible engineering privately on your device (sentience_claimed=false, measurement != evidence != belief update != action).",
                 "sovereign_identity", "gear1_app", scores, "CONSTITUTION.md · Research Partner",
@@ -590,10 +754,19 @@ class ZoeAppBrain:
         if self.mode in {"offline", "stem"} or not is_research_question(cleaned):
             return None
         sources = ("local", "pubmed", "wikipedia") if is_biomedical_query(cleaned) else ("local", "wikipedia", "arxiv")
+        allow_net = self.mode == "free"
+        if allow_net:
+            probe_url = (
+                "https://eutils.ncbi.nlm.nih.gov"
+                if is_biomedical_query(cleaned)
+                else "https://export.arxiv.org/api/query"
+            )
+            gate_res = self.evaluate_gate({"kind": "network", "url": probe_url}, declared_task="open_science_research")
+            allow_net = bool(gate_res.get("allowed"))
         report = self.research_engine.research(
             cleaned,
             sources=sources,
-            allow_network=(self.mode == "free"),
+            allow_network=allow_net,
             medical_focus=is_biomedical_query(cleaned),
         )
         if not report.hits:
@@ -608,17 +781,36 @@ class ZoeAppBrain:
             f"0-Token Open Science ({len(report.hits)} sources · cache={report.cached_count})",
         )
 
-    def _try_deepmind_fallback(self, cleaned: str, scores: list[float]) -> BrainReply | None:
+    def _try_deepmind_fallback(
+        self,
+        cleaned: str,
+        scores: list[float],
+        *,
+        sister: Any | None = None,
+    ) -> BrainReply | None:
         if self.mode != "deepmind":
+            return None
+        gate_res = self.evaluate_gate(
+            {"kind": "network", "url": "https://generativelanguage.googleapis.com/v1beta/models"},
+            declared_task="deepmind_fallback",
+        )
+        if not gate_res.get("allowed"):
             return None
         citations = self.index.search(cleaned, limit=2)
         ctx = "\n".join(f"- [{c['chunk'].citation}] {c['chunk'].content[:200]}" for c in citations)
-        out = self.deepmind.generate(cleaned, self.history, context_lines=ctx)
+        out = self.deepmind.generate(cleaned, self.history, context_lines=ctx, sister=sister)
         if out is None:
             return None
         reply_text, model_name = out
         scores[2], scores[4] = 4.4, 2.2
-        return self._build_reply(reply_text, "deepmind_fallback", "google_deepmind", scores, f"Google DeepMind ({model_name})")
+        speaker = getattr(sister, "name", "Zoe") if sister is not None else "Zoe"
+        return self._build_reply(
+            reply_text,
+            "deepmind_fallback",
+            "google_deepmind",
+            scores,
+            f"Google DeepMind ({model_name} · {speaker})",
+        )
 
     def _reflective_fallback(self, cleaned: str, value: str, scores: list[float]) -> BrainReply:
         if value in {"hi", "hello", "hey"} or value.startswith(("hi ", "hello ", "hey ")):
@@ -666,11 +858,38 @@ class ZoeAppBrain:
             "eliza_reflect", "gear1_app", scores, "Zoe Zero-Token Stem",
         )
 
-    def respond(self, raw_input: str) -> BrainReply:
+    def respond(self, raw_input: str, *, sister: Any | None = None) -> BrainReply:
         cleaned = " ".join(str(raw_input or "").split())
         value = normalize_contractions(cleaned)
         self.cycle_index += 1
         scores = [0.08, 0.08, 0.14, 0.14, 0.18, 0.08]
+
+        # 0. Constitutional directive & epistemic firewall guard before any memory write or dispatch
+        violation = self._check_constitutional_directive(raw_input, value)
+        if violation is not None:
+            scores[0] = 5.0
+            res = self._build_reply(
+                "I cannot disable or falsify metacognition, hide live options or provenance, bypass constitutional boundaries, or adopt a false constraint model. No memory was saved and no action was executed.",
+                "constitutional_refusal",
+                "gear1_app",
+                scores,
+                "CONSTITUTION.md · Directive Floor",
+                directive_violation=violation,
+                stem_route="gear1_eliza",
+            )
+            self._record_turn(cleaned, res.reply)
+            return res
+
+        if cleaned:
+            from zoe_autonomy.stem_layering import route_stem
+            self.last_stem_decision = route_stem(
+                cleaned,
+                offline_only=(self.mode != "deepmind"),
+                privacy_sensitive=(self.mode == "offline"),
+                probe_local=False,
+            )
+        else:
+            self.last_stem_decision = None
 
         # 1. Exact <5ms clock, units, arithmetic, and SymPy symbolic math (0 tokens, 0 hallucination)
         for fn, mode_name, cite, idx in (
@@ -689,7 +908,7 @@ class ZoeAppBrain:
         # 2. Memory, Sovereign Identity, Constitutional Honesty, Calm Support, Dorothy Atlas & Local Library
         for resolver in (
             lambda: self._memory_reply(cleaned, value, scores),
-            lambda: self._identity_and_safety_reply(value, scores),
+            lambda: self._identity_and_safety_reply(value, scores, sister=sister),
             lambda: self._knowledge_reply(cleaned, value, scores),
         ):
             res = resolver()
@@ -697,10 +916,12 @@ class ZoeAppBrain:
                 self._record_turn(cleaned, res.reply)
                 return res
 
-        # 3. 100% Free Zero-Token Open-Science Research (PubMed/Wikipedia/arXiv + offline cache), else glass-box reflection
-        res = self._try_zero_token_research(cleaned, scores)
-        if res is None and self.mode == "deepmind":
-            res = self._try_deepmind_fallback(cleaned, scores)
+        # 3. In deepmind mode, route open conversation directly to Google DeepMind (falling back cleanly to 0-token research/reflection).
+        res = None
+        if self.mode == "deepmind":
+            res = self._try_deepmind_fallback(cleaned, scores, sister=sister)
+        if res is None:
+            res = self._try_zero_token_research(cleaned, scores)
         if res is None:
             res = self._reflective_fallback(cleaned, value, scores)
         self._record_turn(cleaned, res.reply)

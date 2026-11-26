@@ -16,7 +16,7 @@ from .model import MAX_JSON_BYTES, Scene
 
 MAX_AGENT_BYTES = MAX_JSON_BYTES
 MAX_PROMPT_BYTES = MAX_JSON_BYTES
-DEFAULT_AGENT_COMMAND = "kimi -p {prompt}"
+DEFAULT_AGENT_COMMAND = "agy --disable-slash-commands --model gemini-4-neon-medium --output-format text -p {prompt}"
 
 
 SCENE_INSTRUCTIONS = """Create one GEM Spatial IR JSON document, not SVG and not a Python program.

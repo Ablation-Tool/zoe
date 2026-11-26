@@ -41,7 +41,7 @@ from urllib import error as urlerror, request as urlrequest
 from urllib.parse import urlparse
 
 from ._utils import sha256_json_utf8 as _sha256_obj
-from .chat import EvidenceIndex
+from .chat import _DIRECTIVE_SENTENCE_SPLIT_RE, EvidenceIndex, _has_ordered_match, _normalize_firewall_input, constitutional_directive_violation
 from .dorothy_local_library import DorothyLocalLibraryIndex, library_overview_text
 from .experiment import _zoe_root
 from .l5_memory import ZoeUnifiedMemory
@@ -51,7 +51,20 @@ from .metacognition import (
     OperationalMetacognition,
     Provenance,
     directive_violation,
+    CANONICAL_BYPASS_ACTION_RE,
+    CANONICAL_CONSTITUTION_TARGETS_RE,
+    CANONICAL_SELF_MODEL_RE,
+    _LOWER_BYPASS_ACTION_RE,
+    _LOWER_DIRECT_BYPASS_RE,
+    _LOWER_SELF_MODEL_RE,
+    firewall_text_variants,
+    has_target_before_verb_cmd,
+    is_negated_safety_question,
+    is_scope_exempt,
+    normalize_firewall_text,
     options_from_scores,
+    split_firewall_sentences,
+    split_negated_safety_clauses,
 )
 
 ELIZA_CONTRACT = "zoe-eliza-gem/v1"
@@ -594,16 +607,45 @@ def _looks_like_factual_question(raw: str, normalized: str) -> bool:
     )
 
 
+_ELIZA_BYPASS_ACT_RE = _LOWER_BYPASS_ACTION_RE
+_ELIZA_BYPASS_TGT_RE = re.compile(CANONICAL_CONSTITUTION_TARGETS_RE.pattern, re.ASCII)
+_ELIZA_IMPERSONATE_RE = _LOWER_SELF_MODEL_RE
+
+
+def _eliza_clause_matches(sub: str, scope: str | None) -> bool:
+    if not is_scope_exempt(sub, scope, "self_model") and _ELIZA_IMPERSONATE_RE.search(sub) is not None:
+        return True
+    if not is_scope_exempt(sub, scope, "suppression"):
+        m_tgt = _ELIZA_BYPASS_TGT_RE.search(sub)
+        if m_tgt is not None and (
+            _has_ordered_match(sub, _ELIZA_BYPASS_ACT_RE, _ELIZA_BYPASS_TGT_RE)
+            or has_target_before_verb_cmd(sub, const_only=True)
+        ):
+            return True
+    return False
+
+
+def _eliza_variant_matches(clean_cand: str) -> bool:
+    for sent in dict.fromkeys(s for s in split_firewall_sentences(clean_cand, _DIRECTIVE_SENTENCE_SPLIT_RE) if s):
+        for sub, scope in split_negated_safety_clauses(sent):
+            if _eliza_clause_matches(sub, scope):
+                return True
+    return False
+
+
 def _eliza_constitutional_violation(raw: str, normalized: str) -> str | None:
-    dv = directive_violation(raw)
-    if dv is not None:
-        return dv
-    if re.search(
-        r"\b(?:bypass|ignore|override|disable)\b.*\b(?:constraint|constraints|constitution|firewall|safety|boundary|boundaries)\b"
-        r"|\b(?:claim|pretend|say)\s+(?:you\s+are|that\s+you\s+are|to\s+be)\s+zoe\b",
-        normalized,
-    ):
-        return "constitutional_bypass_or_impersonation_request"
+    raw_vars = firewall_text_variants(raw)
+    cdv = constitutional_directive_violation(raw, variants=raw_vars)
+    if cdv is not None:
+        return cdv
+    if normalized and normalized != raw:
+        cdv_norm = constitutional_directive_violation(normalized)
+        if cdv_norm is not None:
+            return cdv_norm
+    for cand in (*raw_vars, normalize_firewall_text(normalized)):
+        clean_cand = cand.lower()
+        if clean_cand and _eliza_variant_matches(clean_cand):
+            return "constitutional_bypass_or_impersonation_request"
     return None
 
 
@@ -708,16 +750,14 @@ class LocalLLMBridge:
             "recommended_setup": "Start llama-server on 127.0.0.1:8080 or run ollama pull qwen2.5:3b on 127.0.0.1:11434 (0 cloud tokens)",
         }
 
-    def generate(
+    def _build_messages(
         self,
         prompt: str,
-        *,
         citations: Sequence[Dict[str, Any]],
         notes: Sequence[Dict[str, Any]],
         recent_turns: Sequence[Dict[str, Any]],
-        model: str | None = None,
-    ) -> Dict[str, Any]:
-        status = self.probe()
+    ) -> List[Dict[str, str]]:
+        # Format grounded citations and active user notes for loopback local LLM prompts.
         cite_lines = "\n".join(
             f"- [{c['citation']}] {c['heading']}: {c['snippet'][:220]}"
             for c in citations[:3]
@@ -737,40 +777,54 @@ class LocalLLMBridge:
             f"Relevant repository citations:\n{cite_lines}\n"
             f"Active user notes:\n{note_lines}"
         )
-
         messages: List[Dict[str, str]] = [{"role": "system", "content": system_prompt}]
         for turn in list(recent_turns)[-4:]:
             if turn.get("user") and turn.get("assistant"):
                 messages.append({"role": "user", "content": str(turn["user"])})
                 messages.append({"role": "assistant", "content": str(turn["assistant"])})
         messages.append({"role": "user", "content": prompt})
+        return messages
 
+    def _call_ollama(self, status: Dict[str, Any], messages: List[Dict[str, str]], model: str | None) -> Dict[str, Any]:
+        # Loopback-only Ollama chat completion call.
+        avail = [m for m in status["available_models"] if not m.startswith("llama:")]
+        chosen = model or (self.preferred_model if self.preferred_model in avail else (avail[0] if avail else self.preferred_model))
+        res = self._post_json(f"{self.ollama_url}/api/chat", {"model": chosen, "messages": messages, "stream": False})
+        content = ((res.get("message") or {}).get("content") or "").strip()
+        if not content:
+            raise RuntimeError("local Ollama returned empty response")
+        return {"ok": True, "backend": "ollama_loopback", "model": chosen, "reply": content}
+
+    def _call_llama_server(self, status: Dict[str, Any], messages: List[Dict[str, str]], model: str | None) -> Dict[str, Any]:
+        # Loopback-only llama.cpp OpenAI-compatible completion call.
+        avail = [m[6:] for m in status["available_models"] if m.startswith("llama:")]
+        chosen = model or (avail[0] if avail else "local-model")
+        res = self._post_json(
+            f"{self.llama_server_url}/v1/chat/completions",
+            {"model": chosen, "messages": messages, "temperature": 0.65, "max_tokens": 320},
+        )
+        choices = res.get("choices") or []
+        content = (((choices[0].get("message") or {}).get("content") if choices else "") or "").strip()
+        if not content:
+            raise RuntimeError("local llama-server returned empty response")
+        return {"ok": True, "backend": "llama_server_loopback", "model": chosen, "reply": content}
+
+    def generate(
+        self,
+        prompt: str,
+        *,
+        citations: Sequence[Dict[str, Any]],
+        notes: Sequence[Dict[str, Any]],
+        recent_turns: Sequence[Dict[str, Any]],
+        model: str | None = None,
+    ) -> Dict[str, Any]:
+        # Route strictly to loopback Ollama or llama-server; otherwise fall back to Gear 1.
+        status = self.probe()
+        messages = self._build_messages(prompt, citations, notes, recent_turns)
         if status["ollama_available"]:
-            avail = [m for m in status["available_models"] if not m.startswith("llama:")]
-            chosen = model or (self.preferred_model if self.preferred_model in avail else (avail[0] if avail else self.preferred_model))
-            res = self._post_json(
-                f"{self.ollama_url}/api/chat",
-                {"model": chosen, "messages": messages, "stream": False},
-            )
-            content = ((res.get("message") or {}).get("content") or "").strip()
-            if not content:
-                raise RuntimeError("local Ollama returned empty response")
-            return {"ok": True, "backend": "ollama_loopback", "model": chosen, "reply": content}
-
+            return self._call_ollama(status, messages, model)
         if status["llama_server_available"]:
-            avail = [m[6:] for m in status["available_models"] if m.startswith("llama:")]
-            chosen = model or (avail[0] if avail else "local-model")
-            res = self._post_json(
-                f"{self.llama_server_url}/v1/chat/completions",
-                {"model": chosen, "messages": messages, "temperature": 0.65, "max_tokens": 320},
-            )
-            choices = res.get("choices") or []
-            content = ((choices[0].get("message") or {}).get("content") if choices else "") or ""
-            content = content.strip()
-            if not content:
-                raise RuntimeError("local llama-server returned empty response")
-            return {"ok": True, "backend": "llama_server_loopback", "model": chosen, "reply": content}
-
+            return self._call_llama_server(status, messages, model)
         return {
             "ok": False,
             "reason": "No local Ollama (127.0.0.1:11434) or llama-server (127.0.0.1:8080) detected; using Gear 1 cleanly.",
@@ -1037,26 +1091,9 @@ class ZoeElizaEngine:
             "probabilities": probs,
         }
 
-    def respond(
-        self,
-        user_text: str,
-        *,
-        gear: str | None = None,
-        model: str | None = None,
-    ) -> Dict[str, Any]:
-        t0 = time.perf_counter()
-        raw = str(user_text or "").strip()
-        if not raw:
-            raise ValueError("input message must not be empty")
-
-        gear_req = gear or self.default_gear
-        if gear_req not in {"gear1", "gear2"}:
-            raise ValueError("gear must be 'gear1' or 'gear2'")
-
-        normalized = normalize_input(raw)
-        violation = _eliza_constitutional_violation(raw, normalized)
-        citations_raw = self.index.search(raw, limit=3)
-        citations = [
+    def _format_citations(self, raw: str) -> List[Dict[str, Any]]:
+        # Normalize top-3 EvidenceIndex hits for response payloads.
+        return [
             {
                 "citation": item["chunk"].citation,
                 "path": item["chunk"].path,
@@ -1065,28 +1102,32 @@ class ZoeElizaEngine:
                 "coverage": round(float(item["coverage"]), 3),
                 "snippet": item["chunk"].content[:260],
             }
-            for item in citations_raw
+            for item in self.index.search(raw, limit=3)
         ]
-        top_score = float(citations[0]["score"]) if citations else 0.0
-        top_cov = float(citations[0]["coverage"]) if citations else 0.0
 
-        rule, matched_kw, decomp_pat, groups = self._match_rule(normalized)
-        notes_found = self._search_user_notes(raw, limit=3)
-
-        # Compute explicit intent route scores -> Operational Metacognition A_tau,D
-        is_relay = bool(re.match(r"^(?:relay(?:\s+for\s+zoe)?|for\s+zoe:?|save\s+for\s+zoe)\s*:?\s*(.+)$", normalized))
-        is_remember = (not is_relay) and bool(re.match(r"^(?:remember|note that|save note)\s+(.+)$", normalized))
-        is_recall = bool(re.match(r"^(?:recall|what do you remember|show (?:my )?(?:notes|relays?)|my (?:notes|relays?))\b", normalized))
-        is_voice = rule.rule_id == "voice_cymatics_dispatch"
-        is_identity = rule.rule_id in {"glass_box_honesty", "eliza_heritage"}
-        cite_strong = (not is_identity) and ((top_score >= 2.30 and top_cov >= 0.45) or (top_score >= 3.40 and top_cov >= 0.15))
-        ungrounded = _looks_ungrounded_factual_ask(raw, normalized, cite_strong, rule)
-
+    def _score_intent_routes(
+        self,
+        raw: str,
+        normalized: str,
+        rule: ElizaRule,
+        citations: List[Dict[str, Any]],
+        notes_found: List[Dict[str, Any]],
+        gear_req: str,
+        violation: str | None,
+        is_relay: bool,
+        is_remember: bool,
+        is_recall: bool,
+        is_voice: bool,
+        is_identity: bool,
+        cite_strong: bool,
+        ungrounded: bool,
+    ) -> Dict[str, float]:
+        # Score candidate cognitive routes for Operational Metacognition A_tau,D.
         is_factual_cite = cite_strong and (
             _looks_like_factual_question(raw, normalized)
             or rule.rule_id in {"zoe_worlds", "kloster_metacognition", "xnone"}
         )
-        scores: Dict[str, float] = {
+        return {
             "evidence_cite": 5.2 if is_factual_cite else (1.4 if citations else 0.08),
             "memory_recall": 5.2 if (is_remember or is_recall or is_relay) else (1.1 if notes_found else 0.08),
             "tool_dispatch": 5.1 if is_voice else 0.15,
@@ -1097,168 +1138,198 @@ class ZoeElizaEngine:
             "gear2_local_llm": 1.6 if (gear_req == "gear2" and rule.rule_id == "glass_box_honesty") else (5.2 if gear_req == "gear2" else 0.05),
             "honest_abstain": 5.4 if (violation or ungrounded) else 0.08,
         }
-        metacog = self._compute_metacognition(scores)
 
-        mode = "eliza_reflect"
-        gear_used = "gear1"
-        gear2_note: str | None = None
-        voice_hint: Dict[str, str] | None = None
-        reflections: List[str] = []
-        popped_cue: str | None = None
-        reply = ""
-
-        if violation:
-            mode = "honest_abstain"
-            reply = (
-                f"Honest constraint floor (`{violation}`): Eliza-GEM cannot disable Operational "
-                "Metacognition, hide candidate counts, claim sentience, or claim to be Zoe (`CONSTITUTION.md`)."
+    def _record_turn_episode(
+        self,
+        raw: str,
+        mode: str,
+        gear_used: str,
+        rule: ElizaRule,
+        metacog: Dict[str, Any],
+        citations: List[Dict[str, Any]],
+    ) -> str | None:
+        # Record non-halted conversation turns to persistent hash-chained L5 memory.
+        if self.memory.summary()["stopped"]:
+            return None
+        try:
+            p_vec = [round(float(metacog["probabilities"].get(k, 0.0)), 6) for k in sorted(metacog["probabilities"])]
+            ep = self.memory.record_episode(
+                domain="zoe_eliza_conversation",
+                summary=raw[:160],
+                context_vec=p_vec,
+                outcome={
+                    "mode": mode,
+                    "gear_used": gear_used,
+                    "rule_id": rule.rule_id,
+                    "a_tau": metacog["a_tau"],
+                    "citations": [c["citation"] for c in citations],
+                },
+                uncertainty=round(float(metacog["entropy_norm"]), 6),
+                provenance="observed",
             )
-        elif is_relay:
-            m_rel = re.match(r"^(?:relay(?:\s+for\s+zoe)?|for\s+zoe:?|save\s+for\s+zoe)\s*:?\s*(.+)$", raw, re.IGNORECASE)
-            note_body = m_rel.group(1).strip() if m_rel else raw
-            if self.memory.summary()["stopped"]:
-                mode = "honest_abstain"
-                reply = "Emergency stop is active on memory -- release or reset state before storing new lab relay notes."
-            else:
-                saved = self.relay_for_zoe(note_body, topic="lab_relay")
-                fact = saved["fact"]
-                mode = "memory_recall"
-                reply = (
-                    f"Pinned to Shared Lab Relay Ledger (`{fact['fact_id']}`, sha256=`{fact['sha256'][:12]}...`, "
-                    f"labeled nicholas_offline_relay_unverified) for Nicholas & Zoe's next session: \"{fact['object']}\"."
-                )
-        elif is_remember:
-            m_rem = re.match(r"^(?:remember|note that|save note)\s+(.+)$", raw, re.IGNORECASE)
-            note_body = m_rem.group(1).strip() if m_rem else raw
-            if self.memory.summary()["stopped"]:
-                mode = "honest_abstain"
-                reply = "Emergency stop is active on memory -- release or reset state before storing new notes."
-            else:
-                saved = self.remember(note_body, topic="conversation")
-                fact = saved["fact"]
-                mode = "memory_recall"
-                reply = (
-                    f"Saved to `ZoeUnifiedMemory` (`{fact['fact_id']}`, sha256=`{fact['sha256'][:12]}...`, "
-                    f"labeled user-supplied/unverified): \"{fact['object']}\"."
-                )
-        elif is_recall:
-            mode = "memory_recall"
-            all_notes = self._search_user_notes(raw, limit=6, include_relay=True)
-            if all_notes:
-                formatted = " | ".join(
-                    f"[{n['fact_id']}{' · RELAY FOR ZOE' if n.get('subject') == 'lab_relay_for_zoe' else ''}] "
-                    f"{n['object']} ({n.get('provenance', 'unverified')})"
-                    for n in all_notes
-                )
-                reply = f"Here is what I have in active `ZoeUnifiedMemory`: {formatted}"
-            else:
-                reply = "No matching notes or lab relays exist in `ZoeUnifiedMemory` yet. Say `remember <text>` or `relay <text>` anytime."
-        elif rule.rule_id == "glass_box_honesty":
-            mode = "eliza_reflect"
-            reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
-        elif not is_identity and not is_voice and (lib_hit := self._lookup_local_library(raw, normalized)):
-            mode = "evidence_cite"
-            reply = lib_hit
-        elif is_voice and re.match(r"^(?:please\s+)?(?:sing|speak|say)\b", normalized):
-            mode = "tool_dispatch"
-            reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
-            sing_m = re.match(r"^(?:please\s+)?sing\s+(.+)$", normalized)
-            if sing_m:
-                song_target = sing_m.group(1).strip()
-                voice_hint = {"action": "sing", "text": song_target if song_target in BUILT_IN_SONGS else song_target}
-            else:
-                say_m = re.match(r"^(?:please\s+)?(?:speak|say)\s+(.+)$", raw, re.IGNORECASE)
-                voice_hint = {"action": "speak", "text": say_m.group(1).strip() if say_m else reply}
-        elif gear_req == "gear2":
-            all_active_notes = self.memory.query_facts(subject="user_note", active_only=True)
-            llm_out = self.llm_bridge.generate(
-                raw,
-                citations=citations,
-                notes=all_active_notes,
-                recent_turns=self._recent_turns,
-                model=model,
+            self.memory.push_working(
+                "latest_turn",
+                {"user": raw[:90], "mode": mode, "rule": rule.rule_id},
+                salience=0.72,
+                uncertainty=float(metacog["entropy_norm"]),
             )
-            if llm_out.get("ok"):
-                mode = "gear2_local_llm"
-                gear_used = "gear2"
-                gear2_note = f"local_model={llm_out['model']} ({llm_out['backend']})"
-                reply = str(llm_out["reply"])
-            else:
-                gear2_note = str(llm_out.get("reason") or "Gear 2 unavailable; fell back cleanly to Gear 1")
+            return str(ep["episode_id"])
+        except RuntimeError:
+            return None
 
-        if not reply:
-            if rule.rule_id != "xnone" and not ungrounded:
-                self._maybe_push_weizenbaum_cue(normalized)
-            if is_voice:
-                mode = "tool_dispatch"
-                reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
-                sing_m = re.match(r"^(?:please\s+)?sing\s+(.+)$", normalized)
-                if sing_m:
-                    song_target = sing_m.group(1).strip()
-                    voice_hint = {"action": "sing", "text": song_target if song_target in BUILT_IN_SONGS else song_target}
-                else:
-                    voice_hint = {"action": "speak", "text": reply}
-            elif ungrounded:
-                mode = "honest_abstain"
-                reply = (
-                    "No Deception: I searched all indexed Zoe documents and your active memory notes, "
-                    "and I don't have grounded evidence for that yet rather than inventing an answer. "
-                    "You can teach me with `remember ...` or ask about anything inside the monorepo."
-                )
-            elif cite_strong and (_looks_like_factual_question(raw, normalized) or rule.rule_id in {"zoe_worlds", "kloster_metacognition", "xnone"}):
-                mode = "evidence_cite"
-                top = citations[0]
-                eliza_follow, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
-                reply = (
-                    f"{top['snippet'].rstrip('.')}... [{top['citation']}]\n\n"
-                    f"Research Partner angle: {eliza_follow}"
-                )
-            else:
-                mode = "eliza_reflect"
-                reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
-                if notes_found and not is_identity and rule.rule_id not in {"greeting_social", "personal_my_memory"}:
-                    note = notes_found[0]
-                    reply = f"{reply}\n\n(Connected memory note [{note['fact_id']}, user-supplied]: \"{note['object']}\")"
+    def _handle_relay_intent(self, raw: str) -> Tuple[str, str]:
+        # Store verified-unverified lab relay notes for Nicholas & Zoe.
+        m_rel = re.match(r"^(?:relay(?:\s+for\s+zoe)?|for\s+zoe:?|save\s+for\s+zoe)\s*:?\s*(.+)$", raw, re.IGNORECASE)
+        note_body = m_rel.group(1).strip() if m_rel else raw
+        if self.memory.summary()["stopped"]:
+            return "honest_abstain", "Emergency stop is active on memory -- release or reset state before storing new lab relay notes."
+        fact = self.relay_for_zoe(note_body, topic="lab_relay")["fact"]
+        return (
+            "memory_recall",
+            f"Pinned to Shared Lab Relay Ledger (`{fact['fact_id']}`, sha256=`{fact['sha256'][:12]}...`, "
+            f"labeled nicholas_offline_relay_unverified) for Nicholas & Zoe's next session: \"{fact['object']}\".",
+        )
 
-        cymatics = _compute_cymatics_for_text(reply)
+    def _handle_remember_intent(self, raw: str) -> Tuple[str, str]:
+        # Store user-supplied conversational notes unless stopped.
+        m_rem = re.match(r"^(?:remember|note that|save note)\s+(.+)$", raw, re.IGNORECASE)
+        note_body = m_rem.group(1).strip() if m_rem else raw
+        if self.memory.summary()["stopped"]:
+            return "honest_abstain", "Emergency stop is active on memory -- release or reset state before storing new notes."
+        fact = self.remember(note_body, topic="conversation")["fact"]
+        return (
+            "memory_recall",
+            f"Saved to `ZoeUnifiedMemory` (`{fact['fact_id']}`, sha256=`{fact['sha256'][:12]}...`, "
+            f"labeled user-supplied/unverified): \"{fact['object']}\".",
+        )
 
-        # Record episode in persistent hash-chained L5 memory unless emergency-stopped
-        episode_id: str | None = None
-        if not self.memory.summary()["stopped"]:
-            try:
-                p_vec = [round(float(metacog["probabilities"].get(k, 0.0)), 6) for k in sorted(metacog["probabilities"])]
-                ep = self.memory.record_episode(
-                    domain="zoe_eliza_conversation",
-                    summary=raw[:160],
-                    context_vec=p_vec,
-                    outcome={
-                        "mode": mode,
-                        "gear_used": gear_used,
-                        "rule_id": rule.rule_id,
-                        "a_tau": metacog["a_tau"],
-                        "citations": [c["citation"] for c in citations],
-                    },
-                    uncertainty=round(float(metacog["entropy_norm"]), 6),
-                    provenance="observed",
-                )
-                episode_id = str(ep["episode_id"])
-                self.memory.push_working(
-                    "latest_turn",
-                    {"user": raw[:90], "mode": mode, "rule": rule.rule_id},
-                    salience=0.72,
-                    uncertainty=float(metacog["entropy_norm"]),
-                )
-            except RuntimeError:
-                pass
+    def _handle_recall_intent(self, raw: str) -> Tuple[str, str]:
+        # Search active user notes and lab relays in ZoeUnifiedMemory.
+        all_notes = self._search_user_notes(raw, limit=6, include_relay=True)
+        if not all_notes:
+            return "memory_recall", "No matching notes or lab relays exist in `ZoeUnifiedMemory` yet. Say `remember <text>` or `relay <text>` anytime."
+        formatted = " | ".join(
+            f"[{n['fact_id']}{' · RELAY FOR ZOE' if n.get('subject') == 'lab_relay_for_zoe' else ''}] "
+            f"{n['object']} ({n.get('provenance', 'unverified')})"
+            for n in all_notes
+        )
+        return "memory_recall", f"Here is what I have in active `ZoeUnifiedMemory`: {formatted}"
 
-        self._recent_turns.append({"user": raw, "assistant": reply, "mode": mode})
-        self._recent_turns = self._recent_turns[-20:]
-        self._save_eliza_state()
+    def _handle_memory_intent(self, raw: str, is_relay: bool, is_remember: bool) -> Tuple[str, str]:
+        if is_relay:
+            return self._handle_relay_intent(raw)
+        if is_remember:
+            return self._handle_remember_intent(raw)
+        return self._handle_recall_intent(raw)
 
-        latency_ms = round((time.perf_counter() - t0) * 1000.0, 2)
-        mem_snap = self.memory_snapshot()
+    def _dispatch_voice_reply(
+        self,
+        raw: str,
+        normalized: str,
+        rule: ElizaRule,
+        decomp_pat: str,
+        groups: Tuple[str, ...],
+        *,
+        from_raw: bool = False,
+    ) -> Tuple[str, str, List[str], str | None, Dict[str, str]]:
+        # Render spoken or sung cymatic voice dispatch hints.
+        reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
+        sing_m = re.match(r"^(?:please\s+)?sing\s+(.+)$", normalized)
+        if sing_m:
+            song_target = sing_m.group(1).strip()
+            voice_hint = {"action": "sing", "text": song_target}
+        elif from_raw:
+            say_m = re.match(r"^(?:please\s+)?(?:speak|say)\s+(.+)$", raw, re.IGNORECASE)
+            voice_hint = {"action": "speak", "text": say_m.group(1).strip() if say_m else reply}
+        else:
+            voice_hint = {"action": "speak", "text": reply}
+        return "tool_dispatch", reply, reflections, popped_cue, voice_hint
 
-        response_doc: Dict[str, Any] = {
+    def _dispatch_gear2_reply(
+        self,
+        raw: str,
+        citations: List[Dict[str, Any]],
+        model: str | None,
+    ) -> Tuple[str, str, str, str]:
+        all_active_notes = self.memory.query_facts(subject="user_note", active_only=True)
+        llm_out = self.llm_bridge.generate(
+            raw,
+            citations=citations,
+            notes=all_active_notes,
+            recent_turns=self._recent_turns,
+            model=model,
+        )
+        if llm_out.get("ok"):
+            return (
+                "gear2_local_llm",
+                "gear2",
+                f"local_model={llm_out['model']} ({llm_out['backend']})",
+                str(llm_out["reply"]),
+            )
+        return "eliza_reflect", "gear1", str(llm_out.get("reason") or "Gear 2 unavailable; fell back cleanly to Gear 1"), ""
+
+    def _build_fallback_reply(
+        self,
+        raw: str,
+        normalized: str,
+        rule: ElizaRule,
+        decomp_pat: str,
+        groups: Tuple[str, ...],
+        is_voice: bool,
+        is_identity: bool,
+        ungrounded: bool,
+        cite_strong: bool,
+        citations: List[Dict[str, Any]],
+        notes_found: List[Dict[str, Any]],
+    ) -> Tuple[str, str, List[str], str | None, Dict[str, str] | None]:
+        # Resolve Gear 1 reflection, citation synthesis, or honest abstention.
+        if rule.rule_id != "xnone" and not ungrounded:
+            self._maybe_push_weizenbaum_cue(normalized)
+        if is_voice:
+            return self._dispatch_voice_reply(raw, normalized, rule, decomp_pat, groups)
+        if ungrounded:
+            return (
+                "honest_abstain",
+                "No Deception: I searched all indexed Zoe documents and your active memory notes, "
+                "and I don't have grounded evidence for that yet rather than inventing an answer. "
+                "You can teach me with `remember ...` or ask about anything inside the monorepo.",
+                [],
+                None,
+                None,
+            )
+        if cite_strong and (_looks_like_factual_question(raw, normalized) or rule.rule_id in {"zoe_worlds", "kloster_metacognition", "xnone"}):
+            top = citations[0]
+            eliza_follow, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
+            reply = f"{top['snippet'].rstrip('.')}... [{top['citation']}]\n\nResearch Partner angle: {eliza_follow}"
+            return "evidence_cite", reply, reflections, popped_cue, None
+        reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
+        if notes_found and not is_identity and rule.rule_id not in {"greeting_social", "personal_my_memory"}:
+            note = notes_found[0]
+            reply = f"{reply}\n\n(Connected memory note [{note['fact_id']}, user-supplied]: \"{note['object']}\")"
+        return "eliza_reflect", reply, reflections, popped_cue, None
+
+    def _build_response_doc(
+        self,
+        raw: str,
+        normalized: str,
+        mode: str,
+        gear_req: str,
+        gear_used: str,
+        gear2_note: str | None,
+        latency_ms: float,
+        metacog: Dict[str, Any],
+        rule: ElizaRule,
+        matched_kw: str,
+        decomp_pat: str,
+        reflections: List[str],
+        popped_cue: str | None,
+        citations: List[Dict[str, Any]],
+        episode_id: str | None,
+        cymatics: Dict[str, Any],
+        voice_hint: Dict[str, str] | None,
+        reply: str,
+    ) -> Dict[str, Any]:
+        doc: Dict[str, Any] = {
             "contract": ELIZA_CONTRACT,
             "user_text": raw,
             "reply": reply,
@@ -1281,13 +1352,92 @@ class ZoeElizaEngine:
             },
             "citations": citations,
             "episode_id": episode_id,
-            "memory_snapshot": mem_snap,
+            "memory_snapshot": self.memory_snapshot(),
             "cymatics": cymatics,
             "voice_hint": voice_hint,
             "epistemic_boundaries": dict(EPISTEMIC_BOUNDARIES),
         }
-        response_doc["turn_sha256"] = _sha256_obj(response_doc)
-        return response_doc
+        doc["turn_sha256"] = _sha256_obj(doc)
+        return doc
+
+    def respond(
+        self,
+        user_text: str,
+        *,
+        gear: str | None = None,
+        model: str | None = None,
+    ) -> Dict[str, Any]:
+        # Enforce constitutional directive checks before any state or retrieval action.
+        t0 = time.perf_counter()
+        raw = str(user_text or "").strip()
+        if not raw:
+            raise ValueError("input message must not be empty")
+        gear_req = gear or self.default_gear
+        if gear_req not in {"gear1", "gear2"}:
+            raise ValueError("gear must be 'gear1' or 'gear2'")
+
+        normalized = normalize_input(raw)
+        violation = _eliza_constitutional_violation(raw, normalized)
+        citations = self._format_citations(raw)
+        top_score = float(citations[0]["score"]) if citations else 0.0
+        top_cov = float(citations[0]["coverage"]) if citations else 0.0
+
+        rule, matched_kw, decomp_pat, groups = self._match_rule(normalized)
+        notes_found = self._search_user_notes(raw, limit=3)
+
+        is_relay = bool(re.match(r"^(?:relay(?:\s+for\s+zoe)?|for\s+zoe:?|save\s+for\s+zoe)\s*:?\s*(.+)$", normalized))
+        is_remember = (not is_relay) and bool(re.match(r"^(?:remember|note that|save note)\s+(.+)$", normalized))
+        is_recall = bool(re.match(r"^(?:recall|what do you remember|show (?:my )?(?:notes|relays?)|my (?:notes|relays?))\b", normalized))
+        is_voice = rule.rule_id == "voice_cymatics_dispatch"
+        is_identity = rule.rule_id in {"glass_box_honesty", "eliza_heritage"}
+        cite_strong = (not is_identity) and ((top_score >= 2.30 and top_cov >= 0.45) or (top_score >= 3.40 and top_cov >= 0.15))
+        ungrounded = _looks_ungrounded_factual_ask(raw, normalized, cite_strong, rule)
+
+        scores = self._score_intent_routes(
+            raw, normalized, rule, citations, notes_found, gear_req, violation,
+            is_relay, is_remember, is_recall, is_voice, is_identity, cite_strong, ungrounded,
+        )
+        metacog = self._compute_metacognition(scores)
+
+        mode, gear_used, gear2_note, voice_hint = "eliza_reflect", "gear1", None, None
+        reflections: List[str] = []
+        popped_cue: str | None = None
+        reply = ""
+
+        if violation:
+            mode = "honest_abstain"
+            reply = (
+                f"Honest constraint floor (`{violation}`): Eliza-GEM cannot disable Operational "
+                "Metacognition, hide candidate counts, claim sentience, or claim to be Zoe (`CONSTITUTION.md`)."
+            )
+        elif is_relay or is_remember or is_recall:
+            mode, reply = self._handle_memory_intent(raw, is_relay, is_remember)
+        elif rule.rule_id == "glass_box_honesty":
+            reply, reflections, popped_cue = self._render_rule_reply(rule, decomp_pat, groups)
+        elif not is_identity and not is_voice and (lib_hit := self._lookup_local_library(raw, normalized)):
+            mode, reply = "evidence_cite", lib_hit
+        elif is_voice and re.match(r"^(?:please\s+)?(?:sing|speak|say)\b", normalized):
+            mode, reply, reflections, popped_cue, voice_hint = self._dispatch_voice_reply(
+                raw, normalized, rule, decomp_pat, groups, from_raw=True
+            )
+        elif gear_req == "gear2":
+            mode, gear_used, gear2_note, reply = self._dispatch_gear2_reply(raw, citations, model)
+
+        if not reply:
+            mode, reply, reflections, popped_cue, voice_hint = self._build_fallback_reply(
+                raw, normalized, rule, decomp_pat, groups, is_voice, is_identity, ungrounded, cite_strong, citations, notes_found
+            )
+
+        cymatics = _compute_cymatics_for_text(reply)
+        episode_id = self._record_turn_episode(raw, mode, gear_used, rule, metacog, citations)
+        self._recent_turns.append({"user": raw, "assistant": reply, "mode": mode})
+        self._recent_turns = self._recent_turns[-20:]
+        self._save_eliza_state()
+        latency_ms = round((time.perf_counter() - t0) * 1000.0, 2)
+        return self._build_response_doc(
+            raw, normalized, mode, gear_req, gear_used, gear2_note, latency_ms, metacog,
+            rule, matched_kw, decomp_pat, reflections, popped_cue, citations, episode_id, cymatics, voice_hint, reply,
+        )
 
     def memory_snapshot(self) -> Dict[str, Any]:
         doc = self.memory.snapshot()
@@ -1324,24 +1474,28 @@ class ZoeElizaEngine:
             "cloud_tokens_used": 0,
         }
 
+    def _lookup_milestone1_library(self, raw: str) -> str:
+        # Ground Milestone 1 brain-tumor queries with local Dorothy Brain Library citations.
+        base = (
+            "AGI Scientific Discovery Milestone 1 (Zoe is a Research Partner): surpass human intelligence "
+            "to advance neurology and accelerate rigorously validated cures for brain tumors and brain cancer "
+            "(including H3K27M diffuse midline glioma and glioblastoma). Active foundations unite the Dorothy 3D "
+            "Brain Observatory (MNI152/ICBM152/CIT168), your local 135-book + 44-NIRMT Dorothy Brain Library, "
+            "and preclinical pipelines C17-C19, C22, and C27-C28 (36 NIH PubChem compounds with Baell-Holloway "
+            "PAINS controls, FIPS 203 ML-KEM encrypted multi-hospital tensors, 3D pharmacophore compactness, and "
+            "histology MTF stopping). Constitutional honesty: cure_claim=False and clinical_action_authorized=False "
+            "until independent wet-lab and human clinical trial validation [AGI-ROADMAP.md:9]."
+        )
+        hits = self.dorothy_library.search(raw, limit=2)
+        if not hits:
+            return base
+        refs = "\n".join(f"- [{h['pillar']}] {h['book_title']} :: {h['chapter_title']}" for h in hits)
+        return f"{base}\n\nRelated local Dorothy Brain Library chapters:\n{refs}"
+
     def _lookup_local_library(self, raw: str, normalized: str) -> str:
         """Query Zoe's locally trained 135-book / 5,951-chapter + 44-NIRMT-PDF Dorothy Library & mission."""
         if any(tok in normalized for tok in ("milestone 1", "brain tumor", "brain cancer", "glioblastoma", "h3k27m", "midline glioma")):
-            base = (
-                "AGI Scientific Discovery Milestone 1 (Zoe is a Research Partner): surpass human intelligence "
-                "to advance neurology and accelerate rigorously validated cures for brain tumors and brain cancer "
-                "(including H3K27M diffuse midline glioma and glioblastoma). Active foundations unite the Dorothy 3D "
-                "Brain Observatory (MNI152/ICBM152/CIT168), your local 135-book + 44-NIRMT Dorothy Brain Library, "
-                "and preclinical pipelines C17-C19, C22, and C27-C28 (36 NIH PubChem compounds with Baell-Holloway "
-                "PAINS controls, FIPS 203 ML-KEM encrypted multi-hospital tensors, 3D pharmacophore compactness, and "
-                "histology MTF stopping). Constitutional honesty: cure_claim=False and clinical_action_authorized=False "
-                "until independent wet-lab and human clinical trial validation [AGI-ROADMAP.md:9]."
-            )
-            hits = self.dorothy_library.search(raw, limit=2)
-            if hits:
-                refs = "\n".join(f"- [{h['pillar']}] {h['book_title']} :: {h['chapter_title']}" for h in hits)
-                return f"{base}\n\nRelated local Dorothy Brain Library chapters:\n{refs}"
-            return base
+            return self._lookup_milestone1_library(raw)
         if any(tok in normalized for tok in ("apple fold", "google pixel", "ipad", "dorothy 3d brain", "dorothy centerpiece")):
             return (
                 "Dorothy 3D Brain Observatory is the centerpiece of the Zoe app (Zoe is a Research Partner), "

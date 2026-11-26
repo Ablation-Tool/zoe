@@ -108,7 +108,7 @@ class NativeWorkbenchTests(unittest.TestCase):
         environment = os.environ.copy()
         environment["PYTHONPATH"] = str(ROOT)
         result = subprocess.run([
-            str(ROOT / "integration" / "nested_x11.sh"), sys.executable, "-m", "cerotto_gem",
+            "bash", str(ROOT / "integration" / "nested_x11.sh"), sys.executable, "-m", "cerotto_gem",
             "--db", str(self.database), "--case", "incident-7", "--conversation", "conv-7",
             "--binary", str(BINARY), "--agent-command", "/bin/sh",
             "--self-test", "--screenshot", str(screenshot),

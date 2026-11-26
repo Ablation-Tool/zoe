@@ -24,6 +24,7 @@ import mmap
 import os
 from pathlib import Path
 import shutil
+import stat
 import struct
 import threading
 import time
@@ -63,9 +64,9 @@ def resolve_uma_paths(
 
 
 def _validate_shm_slot(slot: int) -> int:
-    if isinstance(slot, bool) or not isinstance(slot, int) or not (0 <= slot < UMA_MAX_SLOTS):
-        raise ValueError(f"UMA SHM slot must be an integer in 0..{UMA_MAX_SLOTS - 1}, got {slot!r}")
-    return slot
+    if isinstance(slot, bool) or not isinstance(slot, int):
+        raise ValueError(f"UMA SHM slot must be an integer (not bool), got {slot!r}")
+    return max(0, min(UMA_MAX_SLOTS - 1, slot))
 
 _BRIDGE_LOCKS_GUARD = threading.Lock()
 _BRIDGE_LOCKS: dict[Path, threading.RLock] = {}
@@ -449,27 +450,51 @@ class UmaBridge:
             self.write_shm_heartbeat(who, {"gate": "PRIVATE", "nick_allow": False, "zoe_allow": False})
         return st
 
-    def _stage_transfer_file(self, src: Path, dst: Path) -> tuple[str, int]:
+    def _stage_transfer_file(
+        self,
+        src: Path,
+        dst: Path,
+        *,
+        max_bytes: int = UMA_MAX_TRANSFER_BYTES,
+        allow_symlinks: bool = False,
+    ) -> tuple[str, int]:
+        if isinstance(max_bytes, bool) or not isinstance(max_bytes, int) or max_bytes <= 0:
+            raise ValueError("max_bytes must be a positive integer.")
         # Stage in bridge_dir (not inbox/outbox) because Python 3.14 Path.glob("*") matches dotfiles.
         tmp = self.bridge_dir / f".xfer.{os.getpid()}.{threading.get_ident()}.tmp"
         hasher = hashlib.sha256()
         total_bytes = 0
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_NONBLOCK", 0)
+            | (0 if allow_symlinks else getattr(os, "O_NOFOLLOW", 0))
+        )
         try:
-            with src.open("rb") as rfh, tmp.open("wb") as wfh:
+            try:
+                src_fd = os.open(str(src), flags)
+            except OSError as exc:
+                if exc.errno == errno.ELOOP:
+                    raise ValueError(f"Symlink transfer rejected by UMA airlock policy: {src}") from exc
+                raise
+            with os.fdopen(src_fd, "rb") as rfh, tmp.open("wb") as wfh:
+                if not stat.S_ISREG(os.fstat(rfh.fileno()).st_mode):
+                    raise ValueError(f"UMA transfer source must be a regular file: {src}")
                 while True:
-                    chunk = rfh.read(65536)
+                    chunk = rfh.read(min(65536, (max_bytes - total_bytes) + 1))
                     if not chunk:
                         break
+                    total_bytes += len(chunk)
+                    if total_bytes > max_bytes:
+                        raise ValueError(f"Transfer exceeds max_bytes ({total_bytes} > {max_bytes}).")
                     hasher.update(chunk)
                     wfh.write(chunk)
-                    total_bytes += len(chunk)
                 wfh.flush()
                 try:
                     os.fsync(wfh.fileno())
                 except OSError:
                     pass
             try:
-                shutil.copystat(src, tmp)
+                shutil.copystat(src, tmp, follow_symlinks=allow_symlinks)
             except OSError:
                 pass
             os.replace(tmp, dst)
@@ -494,7 +519,12 @@ class UmaBridge:
         name = raw_p.name
         if not name or name in {".", ".."} or name.startswith(".") or "/" in name or "\\" in name:
             raise ValueError(f"Unsafe or hidden transfer filename rejected: {name!r}")
-        if not allow_symlinks and raw_p.is_symlink():
+        abs_p = Path(os.path.abspath(raw_p))
+        if not allow_symlinks and (
+            raw_p.is_symlink()
+            or abs_p.is_symlink()
+            or any(anc.is_symlink() for anc in abs_p.parents)
+        ):
             raise ValueError(f"Symlink transfer rejected by UMA airlock policy: {raw_p}")
         resolved = raw_p.resolve()
         if not resolved.name or resolved.name.startswith("."):
@@ -523,6 +553,8 @@ class UmaBridge:
             if st["gate"] != "SHARED":
                 self._append_audit_unlocked("crossing_blocked", who, {"file": src.name, "gate": st["gate"]})
                 raise PermissionError(f"UMA ∀ gate is {st['gate']} — mutual consent required before crossing.")
+            if src.exists() and not src.is_file():
+                raise ValueError(f"UMA transfer source must be a regular file: {src}")
             if not src.is_file():
                 raise FileNotFoundError(f"File not found: {src}")
             byte_size = src.stat().st_size
@@ -533,7 +565,9 @@ class UmaBridge:
             dst = dst_dir / src.name
             if dst.is_dir():
                 raise ValueError(f"Destination target is a directory: {dst}")
-            file_sha, staged_bytes = self._stage_transfer_file(src, dst)
+            file_sha, staged_bytes = self._stage_transfer_file(
+                src, dst, max_bytes=max_bytes, allow_symlinks=allow_symlinks
+            )
             audit_sha = self._append_audit_unlocked(
                 "crossing_ok",
                 who,

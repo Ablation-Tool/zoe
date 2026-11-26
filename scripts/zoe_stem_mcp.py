@@ -23,10 +23,16 @@ if _ZOE_AUTONOMY_SRC.is_dir() and str(_ZOE_AUTONOMY_SRC) not in sys.path:
     sys.path.insert(0, str(_ZOE_AUTONOMY_SRC))
 
 from zoe_autonomy.stem_layering import (  # noqa: E402
+    DEFAULT_ELIZA_STUDIO_URL,
     DEFAULT_LOCAL_QWEN_MODEL,
     DEFAULT_LOCAL_QWEN_URL,
+    DEFAULT_OLLAMA_URL,
+    DEFAULT_ROME_URL,
+    DEFAULT_TAU,
+    _assert_loopback_url,
     build_sdk_descriptor,
     constitutional_flags,
+    probe_local_endpoints,
     probe_local_qwen,
     route_stem,
 )
@@ -35,7 +41,7 @@ from zoe_autonomy.zoe_eliza import LocalLLMBridge, ZoeElizaEngine  # noqa: E402
 SERVER_NAME = "zoe-stem-layering"
 SERVER_VERSION = "0.1.0"
 DEFAULT_PROTOCOL_VERSION = "2024-11-05"
-ELIZA_STUDIO_URL = "http://127.0.0.1:8765"
+ELIZA_STUDIO_URL = DEFAULT_ELIZA_STUDIO_URL
 
 TOOLS: List[Dict[str, Any]] = [
     {
@@ -54,6 +60,11 @@ TOOLS: List[Dict[str, Any]] = [
                 "files_count": {"type": "integer", "minimum": 0, "default": 1},
                 "multi_file": {"type": "boolean", "default": False},
                 "probe_local": {"type": "boolean", "default": False},
+                "local_qwen_available": {"type": ["boolean", "null"], "default": None},
+                "local_qwen_url": {"type": "string", "default": DEFAULT_LOCAL_QWEN_URL},
+                "tau": {"type": "number", "default": DEFAULT_TAU},
+                "quorum_distributions": {"type": ["array", "null"], "default": None},
+                "quorum_weights": {"type": ["array", "null"], "default": None},
             },
             "required": ["prompt"],
         },
@@ -84,12 +95,18 @@ TOOLS: List[Dict[str, Any]] = [
     {
         "name": "eliza_studio_status",
         "description": (
-            "Loopback health probe of local llama-server (127.0.0.1:8080/v1/models) "
-            "and Eliza-GEM Studio (127.0.0.1:8765/api/status)."
+            "Loopback health probe of local llama-server (127.0.0.1:8080/v1/models), "
+            "Eliza-GEM Studio (127.0.0.1:8765/api/status), Browser Rome (127.0.0.1:8774/api/health), "
+            "and local Ollama (127.0.0.1:11434/api/tags)."
         ),
         "inputSchema": {
             "type": "object",
-            "properties": {},
+            "properties": {
+                "llama_url": {"type": "string", "default": DEFAULT_LOCAL_QWEN_URL},
+                "studio_url": {"type": "string", "default": DEFAULT_ELIZA_STUDIO_URL},
+                "rome_url": {"type": "string", "default": DEFAULT_ROME_URL},
+                "ollama_url": {"type": "string", "default": DEFAULT_OLLAMA_URL},
+            },
         },
     },
     {
@@ -120,13 +137,14 @@ TOOLS: List[Dict[str, Any]] = [
 
 
 def _get_loopback_json(url: str, timeout_sec: float = 0.8) -> Dict[str, Any]:
-    req = urlrequest.Request(url, method="GET", headers={"Accept": "application/json"})
+    clean_url = _assert_loopback_url(url)
+    req = urlrequest.Request(clean_url, method="GET", headers={"Accept": "application/json"})
     try:
         with urlrequest.urlopen(req, timeout=timeout_sec) as resp:
             data = json.loads(resp.read().decode("utf-8"))
-        return {"available": True, "url": url, "data": data}
+        return {"available": True, "url": clean_url, "data": data}
     except (urlerror.URLError, TimeoutError, ValueError, OSError) as exc:
-        return {"available": False, "url": url, "reason": str(exc)}
+        return {"available": False, "url": clean_url, "reason": str(exc)}
 
 
 def tool_route_cognitive_stem(args: Dict[str, Any]) -> Dict[str, Any]:
@@ -135,13 +153,28 @@ def tool_route_cognitive_stem(args: Dict[str, Any]) -> Dict[str, Any]:
     if isinstance(raw_fc, bool):
         raise ValueError("files_count must be a nonnegative integer, not bool")
     files_count = int(raw_fc)
+    local_qwen_available = args.get("local_qwen_available", None)
+    if local_qwen_available is not None and not isinstance(local_qwen_available, bool):
+        raise ValueError("local_qwen_available must be boolean or null")
+    raw_tau = args.get("tau", DEFAULT_TAU)
+    if isinstance(raw_tau, bool):
+        raise ValueError("tau must be a number in (0, 1), not bool")
+    tau = float(raw_tau)
+    quorum_distributions = args.get("quorum_distributions", None)
+    quorum_weights = args.get("quorum_weights", None)
+    local_qwen_url = _assert_loopback_url(str(args.get("local_qwen_url") or DEFAULT_LOCAL_QWEN_URL))
     decision = route_stem(
         prompt,
         offline_only=bool(args.get("offline_only", False)),
         privacy_sensitive=bool(args.get("privacy_sensitive", False)),
         files_count=files_count,
         multi_file=bool(args.get("multi_file", False)),
+        local_qwen_available=local_qwen_available,
         probe_local=bool(args.get("probe_local", False)),
+        local_qwen_url=local_qwen_url,
+        tau=tau,
+        quorum_distributions=quorum_distributions,
+        quorum_weights=quorum_weights,
     )
     return decision.to_dict()
 
@@ -190,29 +223,18 @@ def tool_build_antigravity_sdk_config(args: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def tool_eliza_studio_status(_args: Dict[str, Any]) -> Dict[str, Any]:
-    qwen_probe = probe_local_qwen(DEFAULT_LOCAL_QWEN_URL, timeout_sec=0.8)
-    studio_probe = _get_loopback_json(f"{ELIZA_STUDIO_URL}/api/status", timeout_sec=0.8)
-    studio_summary: Dict[str, Any] | None = None
-    if studio_probe["available"] and isinstance(studio_probe.get("data"), dict):
-        d = studio_probe["data"]
-        studio_summary = {
-            "contract": d.get("contract"),
-            "default_gear": d.get("default_gear"),
-            "indexed_sources": d.get("indexed_sources"),
-            "indexed_chunks": d.get("indexed_chunks"),
-        }
-    return {
-        "loopback_only": True,
-        "llama_server": qwen_probe,
-        "eliza_studio": {
-            "available": studio_probe["available"],
-            "endpoint": studio_probe["url"],
-            "summary": studio_summary,
-            "reason": studio_probe.get("reason"),
-        },
-        "constitutional": constitutional_flags(cloud_tokens_used=0),
-    }
+def tool_eliza_studio_status(args: Dict[str, Any]) -> Dict[str, Any]:
+    llama_url = str(args.get("llama_url") or DEFAULT_LOCAL_QWEN_URL)
+    studio_url = str(args.get("studio_url") or ELIZA_STUDIO_URL)
+    rome_url = str(args.get("rome_url") or DEFAULT_ROME_URL)
+    ollama_url = str(args.get("ollama_url") or DEFAULT_OLLAMA_URL)
+    return probe_local_endpoints(
+        llama_url=llama_url,
+        studio_url=studio_url,
+        rome_url=rome_url,
+        ollama_url=ollama_url,
+        timeout_sec=0.8,
+    )
 
 
 def tool_run_local_stem_turn(args: Dict[str, Any]) -> Dict[str, Any]:

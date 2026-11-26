@@ -13,7 +13,10 @@ import webbrowser
 
 from .unified import _python
 
-DEFAULT_CHECKOUT = Path("/media/cowboy/research/GEM/cern-console")
+DEFAULT_CHECKOUT = Path(
+    os.environ.get("ZOE_CERN_CONSOLE")
+    or (Path(__file__).resolve().parents[4] / "GEM" / "cern-console")
+)
 DEFAULT_STATE = Path(__file__).resolve().parents[2] / "evidence" / "cern-console" / "runtime.json"
 REQUIRED_FILES = (
     "run.py", "index.html", "helios.py", "atelier.js", "atelier-formats.js",

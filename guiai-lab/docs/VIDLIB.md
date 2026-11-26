@@ -15,8 +15,8 @@ transcript != measurement != hardware evidence != permission to act
 The inspected installation is:
 
 ```text
-/home/cowboy/.local/bin/vidlib
-/home/cowboy/.local/bin/vidlib.py
+~/.local/bin/vidlib
+~/.local/bin/vidlib.py
 ```
 
 At integration time their SHA-256 values were:

@@ -10,7 +10,7 @@ The visual motto is **two-way street, no magic smoke**. The implementation separ
 zoe patchbay scene
 zoe patchbay scene --board nexys-video
 zoe patchbay scene firmware.bit --output bitstream.svg
-zoe patchbay scene --source /media/cowboy/research/CERN/source/firmware
+zoe patchbay scene --source $ZOE_CERN_ROOT/source/firmware
 ```
 
 The same commands work through `gem patchbay`. The native atlas provides board selection, an explicit firmware path, an inspect button, Cog training and forecast controls, and acceptance-plan validation. Entering a path does not read it. A failed inspection preserves the previous artifact and scene.
@@ -32,11 +32,11 @@ The native validator never runs an acceptance command. Signing and command execu
 For example:
 
 ```bash
-zoe patchbay scene /media/cowboy/research/CERN/firmware/edms-downloads/edms_1074819.hex
-zoe patchbay scene /media/cowboy/research/CERN/fw/emp/BOOT.BIN
-zoe patchbay scene /media/cowboy/research/CERN/fw/emp/sdcard.bak/bootpart/image.ub
-zoe patchbay scene /media/cowboy/research/CERN/analysis/felix-flx155/findings.json
-zoe patchbay source /media/cowboy/research/CERN/source/firmware --output source-inventory.json
+zoe patchbay scene $ZOE_CERN_ROOT/firmware/edms-downloads/edms_1074819.hex
+zoe patchbay scene $ZOE_CERN_ROOT/fw/emp/BOOT.BIN
+zoe patchbay scene $ZOE_CERN_ROOT/fw/emp/sdcard.bak/bootpart/image.ub
+zoe patchbay scene $ZOE_CERN_ROOT/analysis/felix-flx155/findings.json
+zoe patchbay source $ZOE_CERN_ROOT/source/firmware --output source-inventory.json
 ```
 
 ZynqMP decoding uses Ablation's `zynqmp_boot` module, resolved through an importable `ablation` package or `ZOE_ABLATION_ROOT`. FIT inspection requires the optional `fdtget` utility. Missing optional tools produce an explicit error rather than an invented format result.
@@ -144,7 +144,7 @@ Plans allow 1–16 steps, 1–32 arguments per step, and timeouts from 0.1 to 12
 ## Local media gallery
 
 ```bash
-zoe patchbay media --root /media/cowboy/research/CERN --output patchbay-media.html
+zoe patchbay media --root $ZOE_CERN_ROOT --output patchbay-media.html
 ```
 
 Open the resulting local HTML file in a browser. It references the original images, videos, mechanical drawings, and documents through local file URIs; no web server or autoplay is used. Videos have explicit controls. Images load lazily.
@@ -158,7 +158,7 @@ The gallery covers the supplied system-test and fibre-installation collections p
 Cog is deliberately a **small, interpretable language model**, not a large language model, transformer, consciousness claim, or command generator. The supplied *Build a Large Language Model (From Scratch)* capture provides the reading context for tokenization, context, probabilities, and generation. Cog implements a simpler bounded interpolated bigram model with an original implementation; it does not reproduce the book's GPT code.
 
 ```bash
-zoe patchbay cog /home/cowboy/captures/build-a-llm/011_chapter-3.html \
+zoe patchbay cog <captures>/build-a-llm/011_chapter-3.html \
   --prompt attention --reverse attention --steps 4 \
   --model-output attention-cog.json --output attention-walk.json
 
@@ -189,7 +189,7 @@ The original mechanical files, source archives, firmware, photographs, videos, a
 ```bash
 PYTHONPATH=guiai-lab python -m unittest stress.cog_stress stress.patchbay_stress -v
 
-ZOE_ABLATION_ROOT=/home/cowboy/_projects/GEM/components/ablation \
+ZOE_ABLATION_ROOT=<workspace>/components/ablation \
   PYTHONPATH=guiai-lab guiai-lab/stress/nested_x11.sh \
   python -m unittest stress.cog_stress stress.patchbay_stress -v
 ```

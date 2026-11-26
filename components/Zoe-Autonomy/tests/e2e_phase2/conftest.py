@@ -18,16 +18,18 @@ import pytest
 def _find_repo_root() -> Path:
     here = Path(__file__).resolve()
     for parent in here.parents:
-        if (parent / "CONSTITUTION.md").is_file() and (parent / "guiai-lab").is_dir():
+        if ((parent / "docs" / "CONSTITUTION.md").is_file() or (parent / "CONSTITUTION.md").is_file()) and (parent / "guiai-lab").is_dir():
             return parent
     raise RuntimeError(f"Unable to resolve Zoe monorepo root from {here}")
 
 
 REPO_ROOT: Path = _find_repo_root()
-PYTHON_BIN: str = "/home/cowboy/security-tools/bin/python3"
-NODE_BIN: str = shutil.which("node") or "/home/cowboy/.nvm/versions/node/v24.16.0/bin/node"
+PYTHON_BIN: str = os.environ.get("ZOE_PYTHON") or sys.executable
+NODE_BIN: str = shutil.which("node") or str(
+    next((Path.home() / ".nvm" / "versions" / "node").glob("*/bin/node"), Path("node"))
+)
 
-# Ensure monorepo packages take precedence over external /home/cowboy/ablation shadowing.
+# Ensure monorepo packages take precedence over external checkouts.
 _MONOREPO_PYTHONPATH_ENTRIES: Tuple[str, ...] = (
     str(REPO_ROOT / "components" / "ablation"),
     str(REPO_ROOT / "guiai-lab"),

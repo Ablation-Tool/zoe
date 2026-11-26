@@ -132,17 +132,17 @@ The `gem_aes_vdi.py` bridge (`zoe_autonomy.shared_reasoning.gem_aes_vdi`, contra
 
 ```bash
 # Unit + Composer E2E tests (Arch 1-9 + Orchestrator)
-/home/cowboy/security-tools/bin/python3 -m pytest components/Zoe-Autonomy/tests/test_sr_*.py -v
+python3 -m pytest components/Zoe-Autonomy/tests/test_sr_*.py -v
 
 # Strict static type checking
-/home/cowboy/security-tools/bin/python3 -m mypy --ignore-missing-imports components/Zoe-Autonomy/src/zoe_autonomy/shared_reasoning/
+python3 -m mypy --ignore-missing-imports components/Zoe-Autonomy/src/zoe_autonomy/shared_reasoning/
 
 # Standalone end-to-end verifier (Arch 1-9, firewall, music WAV, rotation log)
-PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab /home/cowboy/security-tools/bin/python3 scripts/verify_shared_reasoning.py --json
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab python3 scripts/verify_shared_reasoning.py --json
 
 # Existing Zoe constitutional & Kloster theorem invariants
-PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab /home/cowboy/security-tools/bin/python3 scripts/verify_zoe_clara.py
-PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab /home/cowboy/security-tools/bin/python3 scripts/verify_zoe_eliza.py
-PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab /home/cowboy/security-tools/bin/python3 scripts/verify_kloster_theorem13.py
-PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab /home/cowboy/security-tools/bin/python3 scripts/verify_theorem15_and_c28.py
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab python3 scripts/verify_zoe_clara.py
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab python3 scripts/verify_zoe_eliza.py
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab python3 scripts/verify_kloster_theorem13.py
+PYTHONPATH=components/Zoe-Autonomy/src:guiai-lab python3 scripts/verify_theorem15_and_c28.py
 ```

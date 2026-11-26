@@ -63,7 +63,7 @@
     },
     "capo": {
       "path": "components/capo",
-      "source_local": "/home/cowboy/_projects/capo",
+      "source_local": "local-repo:capo",
       "revision": null,
       "file_count": 5,
       "purpose": "Static capability-graph linter (label-lint, spof-budget, adversary-twin) + host auditor (gamut)",
@@ -71,7 +71,7 @@
     },
     "github-tos-audit": {
       "path": "components/github-tos-audit",
-      "source_local": "/media/cowboy/research/github-tos-audit",
+      "source_local": "local-repo:github-tos-audit",
       "revision": "8e253a104fed8d3c56b57cd5353a579a65778a5d",
       "file_count": 21,
       "purpose": "Pre-push GitHub ToS/AUP and source-stewardship compliance auditor",
@@ -79,7 +79,7 @@
     },
     "nuclide-color-framework-v2": {
       "path": "components/nuclide-color-framework-v2",
-      "source_local": "/home/cowboy/nuclide-color-framework-v2",
+      "source_local": "local-repo:nuclide-color-framework-v2",
       "revision": null,
       "file_count": 16,
       "purpose": "Centered Lyapunov geometry, OKLab perceptual calibration, 3D SVD metamerism, directional Page CUSUM cascade detector",
@@ -87,7 +87,7 @@
     },
     "bio-bert": {
       "path": "components/bio-bert",
-      "source_local": "/home/cowboy/_projects/bio-bert",
+      "source_local": "local-repo:bio-bert",
       "revision": "c09f4f6c00b708f63a2b1eba75ef1f2d0da19b84",
       "file_count": 13,
       "purpose": "Conjunctive k-gram Jaccard + ESM2/DNABERT-2 protein/DNA/RNA homolog finder",
@@ -95,7 +95,7 @@
     },
     "nina": {
       "path": "components/nina",
-      "source_local": "/home/cowboy/_projects/nina",
+      "source_local": "local-repo:nina",
       "revision": "bbd792127bf389bacdc33c4db39eafa1e0e383da",
       "file_count": 26,
       "size_kb": 215.8,
@@ -104,7 +104,7 @@
     },
     "dBA": {
       "path": "components/dBA",
-      "source_local": "/home/cowboy/dBA",
+      "source_local": "local-repo:dBA",
       "revision": "1c3d4369cdfce1adf32d0705674be13844349172",
       "file_count": 18,
       "size_kb": 88.5,
@@ -113,7 +113,7 @@
     },
     "metrix": {
       "path": "components/metrix",
-      "source_local": "/home/cowboy/metrix",
+      "source_local": "local-repo:metrix",
       "revision": null,
       "file_count": 16,
       "size_kb": 115.8,
@@ -122,7 +122,7 @@
     },
     "spectral": {
       "path": "components/spectral",
-      "source_local": "/home/cowboy/_projects/spectral",
+      "source_local": "local-repo:spectral",
       "revision": "699ae7e4f5f06ff990f2b6fd9d25760ee21ad66c",
       "file_count": 46,
       "size_kb": 222.7,
@@ -131,7 +131,7 @@
     },
     "gemseal": {
       "path": "components/gemseal",
-      "source_local": "/media/cowboy/research/GEM/analysis/gemseal",
+      "source_local": "local-repo:GEM/analysis/gemseal",
       "revision": null,
       "file_count": 14,
       "size_kb": 104.1,
@@ -140,7 +140,7 @@
     },
     "mcp-security": {
       "path": "components/mcp-security",
-      "source_local": "/media/cowboy/research/mcp-security",
+      "source_local": "local-repo:mcp-security",
       "revision": "28c0a860a519fd1c1780d929a83cc9174c14fa70",
       "file_count": 15,
       "size_kb": 115.8,
@@ -149,7 +149,7 @@
     },
     "AvailGate": {
       "path": "components/AvailGate",
-      "source_local": "/home/cowboy/_projects/AvailGate",
+      "source_local": "local-repo:AvailGate",
       "revision": null,
       "file_count": 31,
       "size_kb": 215.9,
@@ -158,7 +158,7 @@
     },
     "fieldwork": {
       "path": "components/fieldwork",
-      "source_local": "/home/cowboy/fieldwork",
+      "source_local": "local-repo:fieldwork",
       "revision": null,
       "file_count": 12,
       "size_kb": 36.6,
@@ -167,7 +167,7 @@
     },
     "ti-bd-gh": {
       "path": "components/ti-bd-gh",
-      "source_local": "/home/cowboy/ti-bd-gh",
+      "source_local": "local-repo:ti-bd-gh",
       "revision": null,
       "file_count": 20,
       "size_kb": 134.7,
@@ -176,7 +176,7 @@
     },
     "rhythm-lab": {
       "path": "components/rhythm-lab",
-      "source_local": "/home/cowboy/rhythm-lab",
+      "source_local": "local-repo:rhythm-lab",
       "revision": null,
       "file_count": 8,
       "size_kb": 202.5,

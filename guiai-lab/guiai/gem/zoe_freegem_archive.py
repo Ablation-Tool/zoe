@@ -158,6 +158,31 @@ def inspect_rsc_bytes(data: bytes, label: str = "resource.rsc") -> dict[str, Any
     }
 
 
+def _arc_members(path: Path) -> list[str]:
+    """Parse authentic SEA .ARC member headers (1980s DOS/Atari ST archive format)."""
+    try:
+        data = path.read_bytes()
+    except OSError:
+        return []
+    pos = 0
+    members: list[str] = []
+    n = len(data)
+    while pos + 2 <= n and data[pos] == 0x1A:
+        method = data[pos + 1]
+        if method == 0:
+            break
+        hdr_len = 25 if method == 1 else 29
+        if pos + hdr_len > n:
+            break
+        raw_name = data[pos + 2 : pos + 15].split(b"\x00", 1)[0]
+        name = raw_name.decode("ascii", errors="ignore").strip()
+        (csize,) = struct.unpack_from("<I", data, pos + 15)
+        if name:
+            members.append(name)
+        pos += hdr_len + csize
+    return members
+
+
 def _archive_members(path: Path) -> list[str]:
     low = path.name.lower()
     if low.endswith(".zip"):
@@ -172,6 +197,8 @@ def _archive_members(path: Path) -> list[str]:
                 return tf.getnames()
         except tarfile.TarError:
             return []
+    if low.endswith(".arc"):
+        return _arc_members(path)
     return []
 
 
@@ -191,7 +218,7 @@ def _read_archive_member_bytes(path: Path, member: str) -> bytes:
 
 def _is_gem_archive_name(name: str) -> bool:
     low = name.lower()
-    if not low.endswith((".zip", ".tar.gz", ".tgz")):
+    if not low.endswith((".zip", ".tar.gz", ".tgz", ".arc")):
         return False
     if "(" in low and ")" in low:
         return False
@@ -229,12 +256,14 @@ def scan_freegem_archives(zoe_root: Path | None = None, archive_dir: Path | None
                 "src_count": len(srcs),
                 "docs": docs,
             })
+    total_srcs = sum(p["src_count"] for p in packages)
     return {
         "primary_dir": str(primary) if primary else "",
         "count": len(packages),
         "total_bytes": sum(p["bytes"] for p in packages),
         "total_rscs": sum(len(p["rscs"]) for p in packages),
-        "total_srcs": sum(p["src_count"] for p in packages),
+        "total_srcs": total_srcs,
+        "total_sources": total_srcs,
         "packages": packages,
         "tokens_used": 0,
     }

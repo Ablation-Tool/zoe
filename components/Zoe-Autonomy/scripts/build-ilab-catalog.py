@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import json
+import os
 from pathlib import Path
 
 ADAPT = {
@@ -76,7 +77,11 @@ def directory_rule(name):
 
 def main():
     parser = argparse.ArgumentParser(description='Classify every archived iLab source and web artifact for Zoe')
-    parser.add_argument('--archive', type=Path, default=Path('/media/cowboy/research/ilab-invt'))
+    parser.add_argument(
+        '--archive',
+        type=Path,
+        default=Path(os.environ.get('ZOE_ILAB_INVENTORY_DIR') or (Path(__file__).resolve().parents[4] / 'ilab-invt')),
+    )
     parser.add_argument('--repository', type=Path, default=Path(__file__).resolve().parents[1])
     arguments = parser.parse_args()
     archive = arguments.archive.expanduser().resolve()
@@ -157,7 +162,7 @@ def main():
             ],
         },
         'reference_build': {
-            'source': '/home/cowboy/_temp/ilab-build',
+            'source': os.environ.get('ZOE_ILAB_SOURCE_LABEL', 'local-ilab-build'),
             'reviewed_patches': [
                 'src/Image/PixelsTypes.H: mutable HSL temporaries and green-channel wrap correction',
                 'src/BayesFilters/UKF.C: local determinant and Cholesky implementations replacing unavailable LAPACK calls',

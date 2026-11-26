@@ -30,7 +30,9 @@ from guiai.gem.eliza_view import (
 from zoe_autonomy.l5_mobile_digestion import DIGESTION_CONTRACT, load_baseline_visual_atlas
 from zoe_autonomy.zoe_eliza import ELIZA_CONTRACT
 
-NODE_BIN = shutil.which("node") or "/home/cowboy/.nvm/versions/node/v24.16.0/bin/node"
+NODE_BIN = shutil.which("node") or str(
+    next((Path.home() / ".nvm" / "versions" / "node").glob("*/bin/node"), Path("node"))
+)
 
 
 def _make_isolated_zoe_root(tmp_dir: str) -> Path:

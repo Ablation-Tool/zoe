@@ -90,7 +90,7 @@ The built-in three events are explicitly labeled **`synthetic_example=true` and 
 zoe leadership scene
 zoe leadership scene --input corrected-practice.json
 zoe leadership scene --input corrected-practice.json \
-  --library-root /home/cowboy/Desktop/Leadership --output garden.svg
+  --library-root ~/Desktop/Leadership --output garden.svg
 ```
 
 The native controls let you:
@@ -107,8 +107,8 @@ A failed load preserves the previous log and scene. The interface does not execu
 ## The reference shelf is not a shortcut
 
 ```bash
-zoe leadership library --root /home/cowboy/Desktop/Leadership --output leadership-library.json
-zoe leadership search --root /home/cowboy/Desktop/Leadership \
+zoe leadership library --root ~/Desktop/Leadership --output leadership-library.json
+zoe leadership search --root ~/Desktop/Leadership \
   --query women --limit 6 --output leadership-snippets.json
 ```
 

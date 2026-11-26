@@ -67,7 +67,7 @@ The supplied `Word Association.pdf` is a one-page, AI-assisted association brain
 ## Reference provenance
 
 ```bash
-zoe maison reference "/home/cowboy/Music/Word Association.pdf" \
+zoe maison reference "~/Music/Word Association.pdf" \
   --output maison-reference.json
 ```
 

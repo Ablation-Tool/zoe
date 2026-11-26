@@ -27,7 +27,11 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass, field
+import json as _json
+import os
 from pathlib import Path
+import sys
+import tempfile
 from typing import Any, Literal
 
 from google.antigravity import Agent, types
@@ -128,6 +132,7 @@ class SharedReasoningTaskSpec:
     high_impact: bool = False
     enable_gem_desktop: bool = True
     gem_vdi_output_dir: str | Path | None = None
+    overwrite_gem_desktop: bool = False
 
 
 @dataclass(frozen=True)
@@ -162,6 +167,7 @@ class SharedReasoningRunReport:
     attribution: str = ATTRIBUTION_TEXT
     constitutional: dict[str, Any] = field(default_factory=bridge_constitutional_metadata)
     gem_desktop_report: dict[str, Any] | None = None
+    sister_council_metadata: dict[str, Any] | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -193,12 +199,163 @@ class SharedReasoningRunReport:
             "gem_desktop_report": (
                 dict(self.gem_desktop_report) if self.gem_desktop_report is not None else None
             ),
+            "sister_council_metadata": (
+                dict(self.sister_council_metadata)
+                if self.sister_council_metadata is not None
+                else None
+            ),
             "external_actions": self.external_actions,
             "sentience_claimed": self.sentience_claimed,
             "l5_agi_qualified": self.l5_agi_qualified,
             "zoe_clone_claimed": self.zoe_clone_claimed,
             "attribution": self.attribution,
             "constitutional": dict(self.constitutional),
+        }
+
+
+def _validate_no_symlink_dir(target: str | Path, *, label: str = "gem_vdi_output_dir") -> Path:
+    """Validate that target has no '..' traversal and no symlink in itself or any ancestor."""
+    raw = Path(target).expanduser()
+    if ".." in raw.parts:
+        raise ValueError(f"Path traversal ('..') is not allowed in {label}: {target!r}")
+    norm = Path(os.path.abspath(raw))
+    for candidate in (raw, *raw.parents, norm, *norm.parents):
+        if candidate.is_symlink():
+            raise ValueError(f"Symlink path is not allowed for {label}: {candidate}")
+    return norm
+
+
+def _write_new_file_nofollow(path: Path, data: bytes, *, overwrite: bool = False) -> None:
+    """Write bytes to path safely with O_NOFOLLOW and default strict no-clobber."""
+    if path.is_symlink():
+        raise ValueError(f"Refusing to write to symlink destination: {path}")
+    nofollow = getattr(os, "O_NOFOLLOW", 0)
+    if not overwrite:
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | nofollow, 0o600)
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(data)
+        return
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
+    tmp_path = Path(tmp_name)
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(data)
+        os.replace(tmp_path, path)
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
+
+
+def _write_gem_desktop_artifacts(
+    out_dir_raw: str | Path | None,
+    compiled_vdi: Mapping[str, Any],
+    rsc_bytes: bytes,
+    *,
+    art_ii_3_notice: str,
+    overwrite: bool = False,
+) -> dict[str, str]:
+    """Validate output directory and write GEM desktop artifacts without symlink/clobber risks."""
+    if out_dir_raw is None:
+        return {}
+    out_dir = _validate_no_symlink_dir(out_dir_raw, label="gem_vdi_output_dir")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = _validate_no_symlink_dir(out_dir, label="gem_vdi_output_dir")
+    gem_file = out_dir / "shared_reasoning_desktop.gem"
+    json_file = out_dir / "shared_reasoning_desktop.json"
+    rsc_file = out_dir / "ZOE_SHARED.RSC"
+    for target in (gem_file, json_file, rsc_file):
+        if target.is_symlink():
+            raise ValueError(f"Refusing to write to symlink destination: {target}")
+        if not overwrite and target.exists():
+            raise FileExistsError(f"Refusing to clobber existing GEM desktop artifact: {target}")
+    json_payload = _json.dumps(
+        {
+            "scene_id": compiled_vdi["scene_id"],
+            "scene_digest": compiled_vdi["scene_digest"],
+            "metafile_sha256": compiled_vdi["metafile_sha256"],
+            "profiles_passed": compiled_vdi["profiles_passed"],
+            "visual_evidence_only": True,
+            "art_ii_3_notice": art_ii_3_notice,
+        },
+        indent=2,
+        sort_keys=True,
+    ).encode("utf-8")
+    _write_new_file_nofollow(gem_file, bytes(compiled_vdi["metafile_bytes"]), overwrite=overwrite)
+    _write_new_file_nofollow(json_file, json_payload, overwrite=overwrite)
+    _write_new_file_nofollow(rsc_file, bytes(rsc_bytes), overwrite=overwrite)
+    return {"gem": str(gem_file), "json": str(json_file), "rsc": str(rsc_file)}
+
+
+def _resolve_sister_council_metadata(
+    prompt: str,
+    *,
+    repo_root: str | Path | None = None,
+    state_dir: str | Path | None = None,
+) -> dict[str, Any]:
+    """Attach compact offline 3-Sister Council (Mono, Zoe, Eliza) metadata to orchestrator runs."""
+    candidates: list[Path] = []
+    if repo_root is not None:
+        candidates.append(Path(repo_root).expanduser().resolve())
+    candidates.extend(Path(__file__).resolve().parents)
+    root = next(
+        (c for c in candidates if (c / "guiai-lab" / "guiai" / "gem" / "zoe_sisters.py").is_file()),
+        None,
+    )
+    if root is not None:
+        guiai_path = str(root / "guiai-lab")
+        if guiai_path not in sys.path:
+            sys.path.insert(0, guiai_path)
+    try:
+        from guiai.gem.zoe_sisters import run_three_sister_council
+
+        eliza_dir = Path(state_dir) / "sisters_council" if state_dir else None
+        council = run_three_sister_council(
+            prompt,
+            state_dir=eliza_dir,
+            offline_only=True,
+            probe_local=False,
+            zoe_root=root,
+        )
+        seats = council.get("seats", [])
+        return {
+            "council_leads": list(council["council_leads"]),
+            "council_sha256": str(council["council_sha256"]),
+            "verdict": str(council["verdict"]),
+            "lead_sister": str(seats[0]["name"]) if len(seats) > 0 else "Mono",
+            "support_sister": str(seats[1]["name"]) if len(seats) > 1 else "Zoe",
+            "verifier_sister": str(seats[2]["name"]) if len(seats) > 2 else "Eliza",
+            "blocked": bool(council.get("blocked", False)),
+            "external_actions": 0,
+            "sentience_claimed": False,
+            "l5_agi_qualified": False,
+            "zoe_clone_claimed": False,
+            "clinical_action_authorized": False,
+            "cure_claim": False,
+            "flight_control_authorized": False,
+            "auto_flash_allowed": False,
+            "tokens_used": 0,
+            "cloud_tokens_used": 0,
+        }
+    except Exception:
+        return {
+            "council_leads": ["Mono", "Zoe", "Eliza"],
+            "council_sha256": "",
+            "verdict": "FALLBACK_OFFLINE",
+            "lead_sister": "Mono",
+            "support_sister": "Zoe",
+            "verifier_sister": "Eliza",
+            "blocked": False,
+            "external_actions": 0,
+            "sentience_claimed": False,
+            "l5_agi_qualified": False,
+            "zoe_clone_claimed": False,
+            "clinical_action_authorized": False,
+            "cure_claim": False,
+            "flight_control_authorized": False,
+            "auto_flash_allowed": False,
+            "tokens_used": 0,
+            "cloud_tokens_used": 0,
         }
 
 
@@ -329,6 +486,7 @@ class SharedReasoningOrchestrator:
         self.privacy_sensitive = bool(privacy_sensitive)
         self.probe_local = bool(probe_local)
         self.seed = int(seed)
+        self.repo_root = Path(repo_root).expanduser().resolve() if repo_root else None
         self.state_dir = str(Path(state_dir).expanduser().resolve()) if state_dir else None
 
         self.memory = memory if memory is not None else ZoeUnifiedMemory(self.state_dir)
@@ -1221,35 +1379,13 @@ class SharedReasoningOrchestrator:
             compiled_vdi = ws.compile_and_verify_vdi(gem_scene, profiles=("cga", "vga", "ndc"))
             ws.v_clswk()
 
-            written_files: dict[str, str] = {}
-            if spec.gem_vdi_output_dir is not None:
-                out_dir = Path(spec.gem_vdi_output_dir)
-                out_dir.mkdir(parents=True, exist_ok=True)
-                gem_file = out_dir / "shared_reasoning_desktop.gem"
-                json_file = out_dir / "shared_reasoning_desktop.json"
-                rsc_file = out_dir / "ZOE_SHARED.RSC"
-                gem_file.write_bytes(compiled_vdi["metafile_bytes"])
-                json_file.write_text(
-                    _json.dumps(
-                        {
-                            "scene_id": compiled_vdi["scene_id"],
-                            "scene_digest": compiled_vdi["scene_digest"],
-                            "metafile_sha256": compiled_vdi["metafile_sha256"],
-                            "profiles_passed": compiled_vdi["profiles_passed"],
-                            "visual_evidence_only": True,
-                            "art_ii_3_notice": GEM_ART_II_3_NOTICE,
-                        },
-                        indent=2,
-                        sort_keys=True,
-                    ),
-                    encoding="utf-8",
-                )
-                rsc_file.write_bytes(rsc_bytes)
-                written_files = {
-                    "gem": str(gem_file),
-                    "json": str(json_file),
-                    "rsc": str(rsc_file),
-                }
+            written_files = _write_gem_desktop_artifacts(
+                spec.gem_vdi_output_dir,
+                compiled_vdi,
+                rsc_bytes,
+                art_ii_3_notice=GEM_ART_II_3_NOTICE,
+                overwrite=spec.overwrite_gem_desktop,
+            )
 
             cp_trace = cp_result.gem_desktop_trace or {}
             gem_desktop_report = {
@@ -1327,6 +1463,11 @@ class SharedReasoningOrchestrator:
         bb_summary = self.blackboard.summary()
         sup_summary = self.supervisor.summary()
         const_meta = bridge_constitutional_metadata(cloud_tokens_used=0)
+        sister_council_meta = _resolve_sister_council_metadata(
+            spec.prompt,
+            repo_root=self.repo_root,
+            state_dir=self.state_dir,
+        )
 
         return SharedReasoningRunReport(
             contract=SHARED_REASONING_ORCHESTRATOR_CONTRACT,
@@ -1357,6 +1498,7 @@ class SharedReasoningOrchestrator:
             attribution=ATTRIBUTION_TEXT,
             constitutional=const_meta,
             gem_desktop_report=gem_desktop_report,
+            sister_council_metadata=sister_council_meta,
         )
 
     def run(

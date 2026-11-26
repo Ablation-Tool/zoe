@@ -30,7 +30,7 @@ The full local check verifies **226 source hashes, 226 preview hashes, and 226 c
 ## Retrieve before generating
 
 ```bash
-zoe evidence query --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json \
+zoe evidence query --index $ZOE_CERN_ROOT/10-accessible/galleries/document-images/index.json \
   --query TIM3C_Clock_Flow --output tim-evidence.json
 ```
 
@@ -47,7 +47,7 @@ If no record matches, `decline_to_act=true`. No fact is inferred from missing ev
 `bridge 1` combines TIM timing references, FELIX architecture, Wupper DMA behavior, and register context. The replay produces a shared observation timeline with clock phases, trigger identifiers, synthetic frame state, synthetic descriptors, buffer occupancy, host consumption, and backpressure.
 
 ```bash
-zoe evidence twin --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json \
+zoe evidence twin --index $ZOE_CERN_ROOT/10-accessible/galleries/document-images/index.json \
   --channels 24 --events 64 --output timeline.json --wav timeline.wav
 ```
 
@@ -79,7 +79,7 @@ Audio is **evidence sonification**, not live detector sound, an alarm, or a heal
 
 ```bash
 zoe evidence shadow \
-  --finding /media/cowboy/research/CERN/analysis/felix-flx155/findings.json \
+  --finding $ZOE_CERN_ROOT/analysis/felix-flx155/findings.json \
   --output shadow-finding.json
 ```
 
@@ -92,7 +92,7 @@ The checked finding reports `timing_met=false` and `wns_ns=-0.096`. The navigato
 ### 7. Complexity-directed practice
 
 ```bash
-zoe evidence curriculum --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json \
+zoe evidence curriculum --index $ZOE_CERN_ROOT/10-accessible/galleries/document-images/index.json \
   --level 1 --output curriculum-c1.json
 ```
 
@@ -107,14 +107,14 @@ This is a practice path, not a rating of the reader. It points to cited examples
 
 ```bash
 zoe evidence scene
-zoe evidence scene --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json \
+zoe evidence scene --index $ZOE_CERN_ROOT/10-accessible/galleries/document-images/index.json \
   --bridge 1 --replay --output evidence.svg
 ```
 
 The native view lets you select a bridge, retrieve cited records, load an index from an explicit path, verify all source and compatibility hashes, run the synthetic replay, and export a new WAV. Failed index loads preserve the previous index and scene.
 
 ```bash
-zoe evidence gallery --index /media/cowboy/research/CERN/Boutique/10-accessible/galleries/document-images/index.json \
+zoe evidence gallery --index $ZOE_CERN_ROOT/10-accessible/galleries/document-images/index.json \
   --color Amber --complexity 3 --purpose clock-timing \
   --output timing-gallery.html
 ```

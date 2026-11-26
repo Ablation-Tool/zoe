@@ -28,10 +28,11 @@ from guiai.gem.runner import verify_vdi
 from guiai.gem.unified_cli import main as zoe_main
 
 
-TETRIS = Path("/media/cowboy/research/tetris-ibm-pc/Tetris.exe")
+_RESEARCH_PARENT = Path(__file__).resolve().parents[3]
+TETRIS = Path(os.environ.get("ZOE_TETRIS_EXE") or (_RESEARCH_PARENT / "tetris-ibm-pc/Tetris.exe"))
 TETRIS_ZIP = TETRIS.with_name("Tetris3.zip")
-GSX = Path("/media/cowboy/research/DigitalResearch/gsx80_86_src.zip")
-ATARI = Path("/home/cowboy/_temp/zoe-atari_tools.zip")
+GSX = Path(os.environ.get("ZOE_GSX_ZIP") or (_RESEARCH_PARENT / "DigitalResearch/gsx80_86_src.zip"))
+ATARI = Path(os.environ.get("ZOE_ATARI_ZIP") or (Path.home() / "_temp/zoe-atari_tools.zip"))
 
 
 try:

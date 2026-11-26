@@ -128,7 +128,7 @@ Undo applies an inverse permutation and appends an event; it does not delete his
 
 ## Original rhyme hints
 
-The supplied `/home/cowboy/Music/songs-of-the-ibm.pdf` is the **1937 edition of *Songs of the IBM***, a corporate fellowship songbook, rather than a traditional nursery-rhyme collection. Its communal singing and playful rhythms inspired optional short hint rhymes.
+The supplied `~/Music/songs-of-the-ibm.pdf` is the **1937 edition of *Songs of the IBM***, a corporate fellowship songbook, rather than a traditional nursery-rhyme collection. Its communal singing and playful rhythms inspired optional short hint rhymes.
 
 Zoe's rhymes are newly written. No lyrics are copied, and the songbook's corporate-loyalty themes are not adopted. A hint remains a choice, never an automatic move. The PDF is not bundled; its identification report has SHA-256 `098377ba36341f7cd0de798b1ab160d907ec4fb109c631c739b0170f4923d620` and explicitly leaves its page tree unverified.
 
@@ -142,7 +142,7 @@ No Swift source, images, ARKit behavior, game physics, scoring table, or assets 
 
 ### IBM PC Tetris
 
-The supplied `/media/cowboy/research/tetris-ibm-pc/README.txt` identifies version 3.12 of the original IBM PC port by **Vadim Gerasimov**, based on **Alexey Pajitnov's** game. `Tetris.exe` and the member of `Tetris3.zip` are byte-identical with this SHA-256:
+The supplied `<tetris-ibm-pc>/README.txt` identifies version 3.12 of the original IBM PC port by **Vadim Gerasimov**, based on **Alexey Pajitnov's** game. `Tetris.exe` and the member of `Tetris3.zip` are byte-identical with this SHA-256:
 
 ```text
 d72cb451e63f32bfd3838b5e9ddc52954988b8fbb2b0c5087fef36b2f29085e6
@@ -176,7 +176,7 @@ It contains 823 entries. The source was inspected, not copied or compiled. Digit
 
 ### NuClide Research logo
 
-The user-created `/home/cowboy/Downloads/Zoetic_Research_Logo.{png,svg}` is included with these identities:
+The user-created `<supplied-downloads>/Zoetic_Research_Logo.{png,svg}` is included with these identities:
 
 ```text
 68637ee2488eb90ffbc6150458bb2806eebd2df08a5ce44835aec502139fae89  PNG
@@ -188,7 +188,7 @@ The user identifies `Digital_Research_Logo.svg` and `Digital_Research_logo_1990.
 ## Read-only historical evidence commands
 
 ```bash
-zoe pentacube --reference /media/cowboy/research/tetris-ibm-pc/Tetris.exe \
+zoe pentacube --reference <tetris-ibm-pc>/Tetris.exe \
   --source-url https://vadim.oversigma.com/Tetris3.zip \
   --output tetris-reference.json
 

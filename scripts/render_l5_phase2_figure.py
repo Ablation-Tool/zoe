@@ -3,11 +3,12 @@
 
 Reads strictly from `evidence/l5-phase2/l5-phase2-report.json` (zero hardcoded numbers),
 saves `components/agent-logging-system/docs/images/zoe-l5-phase2-openworld.png`, and
-mirrors a copy into `/home/cowboy/Desktop/Zoe Sing/zoe-demos/` if present.
+mirrors a copy into `~/Desktop/Zoe Sing/zoe-demos/` if present.
 """
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any, Dict, Sequence
 
@@ -37,7 +38,10 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_PATH = ROOT / "evidence/l5-phase2/l5-phase2-report.json"
 OUT_PNG = ROOT / "components/agent-logging-system/docs/images/zoe-l5-phase2-openworld.png"
-DESKTOP_COPY = Path("/home/cowboy/Desktop/Zoe Sing/zoe-demos/zoe-l5-phase2-openworld.png")
+DESKTOP_COPY = Path(
+    os.environ.get("ZOE_DESKTOP_DEMOS_DIR")
+    or (Path.home() / "Desktop" / "Zoe Sing" / "zoe-demos")
+) / "zoe-l5-phase2-openworld.png"
 
 # Bind canonical Zoe palette constants for module-level compatibility.
 BG = ZOE_DARK_PALETTE["BG"]

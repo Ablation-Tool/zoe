@@ -1,8 +1,20 @@
 # Zoe visual identity provenance
 
+## Official Zoe Portrait (November 26, 2026)
+
+`zoe-official-portrait.jpg` (canonical copy of `zoe-creative-intelligence-portrait.jpg`, `1116x2000` RGB, SHA-256 `dc0a8d121fec6018050ad11c3bb9ebd5bfee3e96e6b83a7f81ff2d7bcace1606`) is Zoe's **Official Portrait**, designated by Nicholas Michael Kloster on November 26, 2026 with the tagline:
+
+> *Zoe is Creative Intelligence of Western origin meaning "life."*
+
+Derived official assets generated deterministically by `assets/branding/render_zoe_official_portrait.py`:
+- `zoe-github-social-preview-1280x640.png` — pure-portrait `1280x640` (`2:1`) GitHub Social Preview (`og:image`) centered on a matching deep botanical teal matte with hairline champagne-gold border.
+- `zoe-official-avatar-512.png`, `zoe-official-avatar-256.png`, `zoe-official-avatar-128.png` — crisp square portrait avatars for desktop, web, and observatory surfaces.
+
+## Origin Ruby-Sprout GEM Emblem (November 18, 2026 — Preserved)
+
 The active desktop, Android, Apple, GEM GUI, and packaging integration is verified in [the identity evidence record](../../evidence/branding/verification.json).
 
-`zoe-gem.{png,svg}` is Zoe's sole official logo, emblem, and symbol: the clean **red-and-white GEM** artwork designated by Nicholas Michael Kloster on November 18, 2026. The exact raster source is `/home/cowboy/Pictures/Screenshots/Screenshot From 2026-11-18 17-57-44.png`, SHA-256 `cb86cd86650671de944631c609a88f8934db8156eba75beb50587865f9b63fee`. The canonical PNG preserves those bytes exactly. The SVG edition embeds that exact PNG, and `assets/branding/render_zoe_gem.py` creates high-quality Lanczos application icons with transparent centering.
+`zoe-gem.{png,svg}` preserves Zoe's origin **red-and-white ruby-sprout GEM emblem**, designated by Nicholas Michael Kloster on November 18, 2026. The exact raster source is `Screenshot From 2026-11-18 17-57-44.png`, SHA-256 `cb86cd86650671de944631c609a88f8934db8156eba75beb50587865f9b63fee`. The canonical PNG preserves those bytes exactly. The SVG edition embeds that exact PNG, and `assets/branding/render_zoe_gem.py` creates high-quality Lanczos application icons with transparent centering.
 
 `zoe-eye.{png,svg}` preserves the former red woven-diamond emblem as historical artwork. It is no longer the active Zoe identity.
 
@@ -23,13 +35,13 @@ The reference images remain distinct from generated GEM scenes. `guiai-lab/docs/
 
 ## Historical Zoetic Research co-brand
 
-`zoetic-research.{png,svg}` is the user-created **Zoetic Research** logo, supplied as `/home/cowboy/Downloads/Zoetic_Research_Logo.{png,svg}`. The SVG is self-contained vector artwork titled `ZOETIC RESEARCH`; it has new lettering and a new circular/bowl mark. The PNG has SHA-256 `68637ee2488eb90ffbc6150458bb2806eebd2df08a5ce44835aec502139fae89`; the SVG has SHA-256 `996dd01df42676df995e3adc75370e464d08236a132c8fb4eb3d4bc0096dba58`.
+`zoetic-research.{png,svg}` is the user-created **Zoetic Research** logo, supplied as `Zoetic_Research_Logo.{png,svg}`. The SVG is self-contained vector artwork titled `ZOETIC RESEARCH`; it has new lettering and a new circular/bowl mark. The PNG has SHA-256 `68637ee2488eb90ffbc6150458bb2806eebd2df08a5ce44835aec502139fae89`; the SVG has SHA-256 `996dd01df42676df995e3adc75370e464d08236a132c8fb4eb3d4bc0096dba58`.
 
-The user identifies `/home/cowboy/Downloads/Digital_Research_Logo.svg` and `/home/cowboy/Downloads/Digital_Research_logo_1990.svg` as visual inspiration. The red serif typography and earlier circular motif form an intentional homage to Gary Kildall and Digital Research. Those two historical SVGs remain external and are not copied into this repository. Zoetic Research is an independent co-brand, not a Digital Research product, endorsement, renamed Zoe component, or replacement for Zoe's official red-and-white GEM emblem.
+The user identifies `Digital_Research_Logo.svg` and `Digital_Research_logo_1990.svg` as visual inspiration. The red serif typography and earlier circular motif form an intentional homage to Gary Kildall and Digital Research. Those two historical SVGs remain external and are not copied into this repository. Zoetic Research is an independent co-brand, not a Digital Research product, endorsement, renamed Zoe component, or replacement for Zoe's official red-and-white GEM emblem.
 
 ## NuClide Research co-brand
 
-`nuclide-brain.png` is the user-supplied dual-brain co-brand for **NuClide Research**: Zoe + Nick, with stable and unstable perspectives balanced through correction. It does not replace Zoe's official red-and-white GEM emblem or alter original authorship. Source: `/home/cowboy/Downloads/nuclide-brain.png`, SHA-256 `af5a2772375000517e69393dbb1b9e5c9a6515c5c89a68e880767aa975f4ca96`.
+`nuclide-brain.png` is the user-supplied dual-brain co-brand for **NuClide Research**: Zoe + Nick, with stable and unstable perspectives balanced through correction. It does not replace Zoe's official red-and-white GEM emblem or alter original authorship. Source: `nuclide-brain.png`, SHA-256 `af5a2772375000517e69393dbb1b9e5c9a6515c5c89a68e880767aa975f4ca96`.
 
 `Zoe.gif`, `Nick.gif`, `Nick+Zoe.gif`, and `nuclide.gif` are user-supplied historical assets. All four currently have the same content SHA-256, `72f319b68610d6c425b1ac40daee1bc9128eb454f95fe1b5c9b3daef319231ae`, so they are preserved as duplicate copies under their supplied names rather than described as distinct animations.
 

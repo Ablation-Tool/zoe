@@ -139,7 +139,11 @@ def _check_orbit_seal() -> tuple[bool, dict]:
 
 
 def _check_docs_and_evidence_integrity() -> tuple[bool, dict]:
-    doc_files = [ROOT / "README.md"] + sorted((ROOT / "docs").glob("*.md"))
+    doc_files = (
+        [ROOT / "README.md"]
+        + sorted((ROOT / "docs").rglob("*.md"))
+        + sorted((ROOT / "research" / "presentations").rglob("*.md"))
+    )
     broken_links = []
     checked_links = 0
     for md_path in doc_files:
