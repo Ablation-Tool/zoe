@@ -225,6 +225,27 @@ INDEX_HTML = r"""<!DOCTYPE html>
       font-size: 11.5px; color: var(--muted);
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     }
+    .react-bar {
+      display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+      margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(34, 52, 84, 0.55);
+    }
+    .react-hint {
+      font-size: 10px; color: var(--muted); margin-right: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .react-btn {
+      cursor: pointer; border: 1px solid rgba(92, 225, 230, 0.25); background: rgba(10, 18, 34, 0.85);
+      color: #d6e2f0; font-size: 11px; border-radius: 999px; padding: 2px 7px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; transition: all 0.12s ease;
+    }
+    .react-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+    .react-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .react-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10.8px; padding: 2px 8px; border-radius: 999px;
+      background: rgba(248, 204, 48, 0.12); border: 1px solid var(--gold); color: #fef3c7;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
     .composer {
       display: flex; gap: 8px; padding: 12px 14px;
       border-top: 1px solid var(--border); background: rgba(9, 16, 32, 0.72);
@@ -495,8 +516,69 @@ INDEX_HTML = r"""<!DOCTYPE html>
         gbox.textContent = "Gear 2 status: " + meta.gear2_note;
         div.appendChild(gbox);
       }
+
+      const reactChips = document.createElement("div");
+      reactChips.className = "react-chips";
+      div.appendChild(reactChips);
+
+      const reactBar = document.createElement("div");
+      reactBar.className = "react-bar";
+      const hint = document.createElement("span");
+      hint.className = "react-hint";
+      hint.textContent = "ADC-12 React:";
+      reactBar.appendChild(hint);
+      const quickTags = [
+        ["100", "✺", "100 Idea", "#f8cc30"],
+        ["200", "✓", "200 Approve", "#52e5a8"],
+        ["900", "★", "900 Star", "#f35670"],
+        ["400", "✎", "400 Art", "#ff85b3"],
+        ["500", "●", "500 Build", "#5ce1e6"],
+        ["X00", "✕", "X00 Guard", "#e8687a"],
+        ["E00", "✌", "E00 Play", "#88f0b8"],
+      ];
+      for (const [code, glyph, title, col] of quickTags) {
+        const rb = document.createElement("button");
+        rb.type = "button";
+        rb.className = "react-btn";
+        rb.title = `Highlight text (or react to whole message) with ADC-12 ${title}`;
+        rb.textContent = `${glyph} ${code}`;
+        rb.style.borderColor = col + "66";
+        rb.onmousedown = (ev) => ev.preventDefault();
+        rb.onclick = () => reactToBubble(code, text, body, reactChips, col);
+        reactBar.appendChild(rb);
+      }
+      div.appendChild(reactBar);
+
       box.appendChild(div);
       box.scrollTop = box.scrollHeight;
+    }
+
+    async function reactToBubble(tag, fullText, bodyEl, chipsEl, accentCol) {
+      let quote = "";
+      try {
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0 && bodyEl.contains(sel.anchorNode)) {
+          quote = sel.toString().trim();
+        }
+      } catch (_e) {}
+      if (!quote) quote = fullText.slice(0, 140);
+      try {
+        const resp = await fetch("/api/adc12/react", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({tag, quote})
+        });
+        if (!resp.ok) return;
+        const data = await resp.json();
+        const r = data.reaction || {};
+        const chip = document.createElement("span");
+        chip.className = "react-chip";
+        chip.style.borderColor = accentCol;
+        const shortQ = quote.length > 42 ? quote.slice(0, 42) + "…" : quote;
+        chip.textContent = `${r.four_column_stamp || ("[" + tag + "]")} “${shortQ}” · #${(r.receipt_sha256 || "").slice(0, 8)}`;
+        chip.title = `${r.class_name || ""} · SHA-256 ${r.receipt_sha256 || ""}`;
+        chipsEl.appendChild(chip);
+      } catch (e) { console.error(e); }
     }
 
     async function playZoeVoice(text, action = "speak") {

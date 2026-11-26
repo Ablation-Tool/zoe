@@ -557,6 +557,7 @@ def build_interactive_physics_room_html_str() -> str:
       <a href="/">← Studio</a>
       <a href="/artline">🎨 Artline</a>
       <a href="/duodecimal">❖ ADC-12</a>
+      <a href="/forge" style="border-color:#ac82ff;color:#ac82ff;">⚒ Forge</a>
     </div>
   </div>
   <div class="controls">

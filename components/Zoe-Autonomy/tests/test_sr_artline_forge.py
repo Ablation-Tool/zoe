@@ -17,8 +17,11 @@ from guiai.gem.zoe_artline_forge import (
     ZoeToolboxSpec,
     build_synthetic_af4_bytes,
     build_synthetic_syf_bytes,
+    build_synthetic_tls_bytes,
     decode_af4_bytes,
     decode_syf_bytes,
+    decode_tls_bytes,
+    render_af4_catalog_poster_png,
     render_af4_specimen_png,
     render_artline_forge_html,
     render_syf_contact_sheet_png,
@@ -43,6 +46,15 @@ def test_clean_room_af4_and_syf_decoders_and_contact_sheets(tmp_path: Path) -> N
     assert syf.symbols[1].name == "NICK STAR"
     syf_png = render_syf_contact_sheet_png(syf, tmp_path / "syf_sheet.png", cols=2)
     assert Path(syf_png["path"]).is_file() and syf_png["bytes"] > 1000
+
+    # Read-only 1990 CCPTK001 .TLS binary inspector + multi-font AF4 poster
+    tls = decode_tls_bytes(build_synthetic_tls_bytes(), "synth.tls")
+    assert tls.magic == "CCPTK001"
+    assert tls.tool_count == 4
+    assert [t.name for t in tls.tools] == ["Selector", "Bezier", "Rosette", "Align"]
+
+    poster = render_af4_catalog_poster_png([af4], tmp_path / "af4_atlas.png")
+    assert Path(poster["path"]).is_file() and poster["bytes"] > 1000 and poster["rendered_fonts"] == 1
 
 
 def test_programmable_zoetk_toolboxes_and_col_gem_palettes(tmp_path: Path) -> None:

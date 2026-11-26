@@ -44,15 +44,18 @@ def test_live_web_studio_artline_physics_duodecimal_routes() -> None:
         t = threading.Thread(target=srv.serve_forever, daemon=True)
         t.start()
         try:
-            # Topbar index links to all 4 new live tabs
+            # Topbar index links to all 4 new live tabs + 1-click ADC-12 chat-bubble reaction bar
             with urlrequest.urlopen(f"{base}/", timeout=10) as r:
                 root_html = r.read().decode("utf-8")
                 assert 'href="/artline"' in root_html
                 assert 'href="/physics"' in root_html
                 assert 'href="/duodecimal"' in root_html
                 assert 'href="/forge"' in root_html
+                assert "reactToBubble" in root_html
+                assert "/api/adc12/react" in root_html
+                _check_inline_js(root_html)
 
-            # All 4 new HTML workbenches return 200, markers, and node --check clean inline JS
+            # All 4 new HTML workbenches return 200, cross-nav to /forge, markers, and node --check clean inline JS
             for route, marker in (
                 ("/artline", "Zoe Artline 2.0 Brainstorm Studio"),
                 ("/physics", "Optional-Physics Room"),
@@ -63,10 +66,28 @@ def test_live_web_studio_artline_physics_duodecimal_routes() -> None:
                     assert r.status == 200
                     body = r.read().decode("utf-8")
                     assert marker in body
+                    if route != "/forge":
+                        assert 'href="/forge"' in body
                     assert "0 Cloud Tokens" in body
                     assert "sentience_claimed=False" in body
                     assert "clinical_action_authorized=False" in body
                     _check_inline_js(body)
+
+            # Live 1-click chat-bubble ADC-12 reaction endpoint (POST /api/adc12/react)
+            react_req = urlrequest.Request(
+                f"{base}/api/adc12/react",
+                data=json.dumps({"tag": "100", "quote": "Highlight & react right on a chat bubble"}).encode("utf-8"),
+                method="POST",
+                headers={"Content-Type": "application/json"},
+            )
+            with urlrequest.urlopen(react_req, timeout=10) as r:
+                assert r.status == 200
+                rpay = json.loads(r.read().decode("utf-8"))
+                assert rpay["ok"] is True
+                assert rpay["cloud_tokens_used"] == 0
+                assert rpay["reaction"]["call_code"] == "100"
+                assert rpay["reaction"]["wombat"] == "✺"
+                assert len(rpay["reaction"]["receipt_sha256"]) == 64
 
             # Live Artline concept SVGs
             for concept in ("desk", "chess", "sector", "mondo"):

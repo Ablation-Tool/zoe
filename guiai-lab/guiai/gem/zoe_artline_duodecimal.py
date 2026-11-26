@@ -423,6 +423,7 @@ def build_interactive_adc12_catalog_html_str() -> str:
     <a href="/">← Studio</a>
     <a href="/artline">🎨 Artline</a>
     <a href="/physics">✺ Physics Room</a>
+    <a href="/forge" style="border-color:#ac82ff;color:#ac82ff;">⚒ Forge</a>
     <span class="pill">BASE-12 DEWEY · 0 CLOUD TOKENS</span>
   </div>
 </header>

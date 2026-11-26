@@ -878,6 +878,7 @@ def render_artline_studio_html() -> bytes:
     <a href="/">← Studio</a>
     <a href="/physics" style="border-color:#ff85b3;color:#ff85b3;">✺ Physics Room</a>
     <a href="/duodecimal" style="border-color:#f8cc30;color:#f8cc30;">❖ ADC-12 Catalog</a>
+    <a href="/forge" style="border-color:#ac82ff;color:#ac82ff;">⚒ Forge</a>
     <a href="/orbit" style="border-color:#5ce1e6;color:#5ce1e6;">✦ Orbit</a>
   </div>
 </header>

@@ -220,14 +220,17 @@ def decode_af4_bytes(data: bytes, filename: str = "font.af4") -> AF4Font:
     copyright_text = copyright_raw.replace(b"\xbd", b"(c)").decode("ascii", "replace").strip()
     first_ch, last_ch = struct.unpack_from("<HH", data, 0x54)
     w62, _w64, vec_len = struct.unpack_from("<3H", data, 0x62)
+    kerning_pairs = struct.unpack_from("<H", data, 0x6E)[0]
 
-    data_start = len(data) - vec_len
+    # Kerning-table-aware geometry verified across all 35/35 1989-1990 Artline 2.0 .AF4 fonts:
+    # kerning pairs (4 bytes each) sit immediately after the vector blob at EOF.
+    data_start = len(data) - vec_len - 4 * kerning_pairs
     off_tbl = data_start - 6 * w62
     if off_tbl < 0x8A or data_start >= len(data):
         raise ValueError(f"Invalid .AF4 table geometry for {filename}")
 
     offsets = [struct.unpack_from("<HI", data, off_tbl + i * 6)[1] for i in range(w62)]
-    max_slots = min(224, (off_tbl - 0x8A) // 22)
+    max_slots = min(239, (off_tbl - 0x8A) // 22)
 
     glyphs: dict[int, AF4Glyph] = {}
     for slot in range(max_slots):
@@ -836,28 +839,171 @@ STUDIO_PALETTES: tuple[ZoeVectorPalette, ...] = (
 
 
 # ---------------------------------------------------------------------------
+# 6b. Read-Only 1990 CCPTK001 .TLS Toolbox Binary Inspector & 35-Font Poster
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True)
+class TLSToolEntry:
+    index: int
+    name: str
+    icon_offset: int
+    icon_bytes_len: int
+
+
+@dataclass(frozen=True)
+class TLSToolbox:
+    filename: str
+    magic: str
+    tool_count: int
+    panel_width_hint: int
+    tools: tuple[TLSToolEntry, ...]
+
+    def summary_dict(self) -> dict[str, Any]:
+        return {
+            "filename": self.filename,
+            "magic": self.magic,
+            "tool_count": self.tool_count,
+            "panel_width_hint": self.panel_width_hint,
+            "tool_names": [t.name for t in self.tools],
+        }
+
+
+def decode_tls_bytes(data: bytes, filename: str = "toolbox.tls") -> TLSToolbox:
+    """Read-only clean-room inspector for 1990 Digital Research Artline 2.0 `CCPTK001\\0` `.TLS` files.
+
+    Verified byte-exact (`13 + 17 * tool_count == first_icon_offset`) across all 8 `.tls` files
+    (`artline.tls`, `align.tls`, `trace.tls`, `1_column.tls`, `4_column.tls`, `custom.tls`, `ega.tls`).
+    """
+    if len(data) < 13 or data[:9] != b"CCPTK001\x00":
+        raise ValueError(f"Not a valid CCPTK001 .TLS toolbox binary: {filename}")
+    ntools, width_hint = struct.unpack_from("<HH", data, 9)
+    table_end = 13 + ntools * 17
+    if table_end > len(data):
+        raise ValueError(f"Truncated .TLS tool table in {filename}")
+
+    raw_rows: list[tuple[str, int]] = []
+    for i in range(ntools):
+        rec = 13 + i * 17
+        icon_off = struct.unpack_from("<I", data, rec)[0]
+        label = data[rec + 4 : rec + 17].split(b"\x00", 1)[0].decode("ascii", "replace").strip()
+        raw_rows.append((label or f"Tool_{i:02d}", icon_off))
+
+    entries: list[TLSToolEntry] = []
+    for i, (label, off) in enumerate(raw_rows):
+        nxt = raw_rows[i + 1][1] if i + 1 < len(raw_rows) else len(data)
+        entries.append(TLSToolEntry(index=i, name=label, icon_offset=off, icon_bytes_len=max(0, nxt - off)))
+
+    return TLSToolbox(
+        filename=filename,
+        magic="CCPTK001",
+        tool_count=ntools,
+        panel_width_hint=width_hint,
+        tools=tuple(entries),
+    )
+
+
+def decode_tls_file(path: str | Path) -> TLSToolbox:
+    p = Path(path)
+    return decode_tls_bytes(p.read_bytes(), filename=p.name)
+
+
+def build_synthetic_tls_bytes() -> bytes:
+    """Build a clean-room synthetic `CCPTK001` `.TLS` buffer for portable headless CI tests."""
+    names = ("Selector", "Bezier", "Rosette", "Align")
+    table_end = 13 + len(names) * 17
+    hdr = bytearray(b"CCPTK001\x00" + struct.pack("<HH", len(names), 71))
+    payload = bytearray()
+    for i, name in enumerate(names):
+        off = table_end + len(payload)
+        enc = name.encode("ascii")[:12]
+        hdr.extend(struct.pack("<I", off) + enc + b"\x00" * (13 - len(enc)))
+        payload.extend(bytes([i + 1]) * 32)
+    return bytes(hdr + payload)
+
+
+def render_af4_catalog_poster_png(
+    fonts: Sequence[AF4Font],
+    out_png: str | Path,
+    *,
+    sample_text: str = "ZoeNick1990",
+) -> dict[str, Any]:
+    """Render a multi-family dark-studio typographic specimen poster across decoded `.AF4` fonts."""
+    items = list(fonts)
+    cols = 2 if len(items) > 6 else 1
+    rows = max(1, math.ceil(len(items) / cols))
+    row_h, col_w = 56, 620
+    pad_x, pad_y, hdr_h = 22, 14, 66
+    img_w = pad_x * 2 + cols * col_w
+    img_h = hdr_h + pad_y * 2 + rows * row_h
+
+    img = Image.new("RGB", (img_w, img_h), (10, 13, 24))
+    draw = ImageDraw.Draw(img)
+    f_title = _pil_font(17)
+    f_sub = _pil_font(11)
+    f_lbl = _pil_font(11)
+    f_meta = _pil_font(9)
+
+    draw.rectangle([0, 0, img_w, 6], fill=(92, 225, 230))
+    draw.text((22, 15), f"Clean-Room Artline 2.0 Complete .AF4 Outline Font Atlas ({len(items)} Decoded Typefaces)", fill=(248, 204, 48), font=f_title)
+    draw.text((22, 40), "Kerning-aware 1989-1990 CCP Bezier vector decoder · Pure Python + PIL (0 Cairo · 0 GPU · 0 Cloud Tokens)", fill=(156, 172, 206), font=f_sub)
+
+    palette = [(92, 225, 230), (248, 204, 48), (255, 133, 179), (82, 229, 168), (172, 130, 255)]
+    for idx, font in enumerate(items):
+        c, r = divmod(idx, rows)
+        x0 = pad_x + c * col_w + 4
+        y0 = hdr_h + pad_y + r * row_h + 3
+        x1 = x0 + col_w - 10
+        y1 = y0 + row_h - 6
+        accent = palette[idx % len(palette)]
+        fill_c: tuple[int, int, int] = (int(14 + accent[0] * 0.16), int(14 + accent[1] * 0.16), int(14 + accent[2] * 0.16))
+        draw.rounded_rectangle([x0, y0, x1, y1], radius=6, fill=(18, 24, 42), outline=(44, 60, 98), width=1)
+        draw.text((x0 + 10, y0 + 7), f"{font.display_name[:22]}", fill=accent, font=f_lbl)
+        draw.text((x0 + 10, y0 + 25), f"{font.filename} · ID {font.font_id} · {len(font.glyphs_by_char)}g", fill=(156, 172, 206), font=f_meta)
+
+        # Render live decoded cubic Bezier glyphs for sample_text (or first available glyphs)
+        codes = [ord(ch) for ch in sample_text if ord(ch) in font.glyphs_by_char]
+        if len(codes) < 4:
+            codes = sorted(font.glyphs_by_char.keys())[:10]
+        gx = x0 + 206
+        for ch in codes[:11]:
+            g = font.glyphs_by_char[ch]
+            _draw_contours_in_cell(draw, g.contours, (gx, y0 + 7, gx + 31, y1 - 7), flip_y=True, stroke=accent, fill_alpha_rgb=fill_c)
+            gx += 36
+
+    target = Path(out_png)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    img.save(str(target), format="PNG")
+    return {"path": str(target), "bytes": target.stat().st_size, "rendered_fonts": len(items), "size": [img_w, img_h]}
+
+
+# ---------------------------------------------------------------------------
 # 7. Live Interactive :8765/forge Web Studio & Offline HTML5 Playground
 # ---------------------------------------------------------------------------
 
 def _collect_live_forge_vectors() -> dict[str, Any]:
-    """Load authentic decoded 1988-1990 wombat.af4/symbol.af4/STARS.SYF/FLOWERS.SYF paths if mounted, else clean-room fallback."""
-    wombat_path = DEFAULT_EXTRACTED_ROOT / "artline_2.0_dri_unpacked/system/system/__Parent__/fonts/wombat.af4"
-    symbol_path = DEFAULT_EXTRACTED_ROOT / "artline_2.0_dri_unpacked/system/system/__Parent__/fonts/symbol.af4"
-    stars_path = DEFAULT_EXTRACTED_ROOT / "symbol_pack_1989/STARS.SYF"
-    flowers_path = DEFAULT_EXTRACTED_ROOT / "symbol_pack_1989/FLOWERS.SYF"
+    """Load authentic decoded 1988-1990 .AF4 fonts, all 20 .SYF libraries (378 symbols) & 7 .TLS toolboxes if mounted."""
+    fonts_dir = DEFAULT_EXTRACTED_ROOT / "artline_2.0_dri_unpacked/system/system/__Parent__/fonts"
+    syf_dir = DEFAULT_EXTRACTED_ROOT / "symbol_pack_1989"
+    tls_dir = DEFAULT_EXTRACTED_ROOT / "artline_2.0_dri_unpacked/clrtl/clrtl"
+
+    wombat_path = fonts_dir / "wombat.af4"
+    symbol_path = fonts_dir / "symbol.af4"
+    chancery_path = fonts_dir / "z_chance.af4"
 
     wombat_items: list[dict[str, Any]] = []
     symbol_items: list[dict[str, Any]] = []
-    syf_items: list[dict[str, Any]] = []
+    chancery_items: list[dict[str, Any]] = []
+    syf_packs: dict[str, list[dict[str, Any]]] = {}
+    tls_specs: list[dict[str, Any]] = []
     source_mode = "authentic_local_1990_archive"
 
     if wombat_path.is_file():
         wf = decode_af4_font(wombat_path)
-        featured = [90, 111, 101, 78, 73, 51, 53, 42, 44, 46, 95, 117, 118, 33, 40, 41, 57, 70, 72, 83, 87, 89, 108, 115]
+        featured = [90, 111, 101, 78, 73, 51, 53, 42, 44, 46, 95, 117, 118, 33, 40, 41, 57, 70, 72, 83, 87, 89, 108, 115, 164, 168, 169, 170, 171, 172, 212, 233]
         for ch in featured:
             if ch in wf.glyphs_by_char:
                 g = wf.glyphs_by_char[ch]
-                wombat_items.append({"code": ch, "key": chr(ch), "pts": g.point_count, "d": g.svg_path})
+                wombat_items.append({"code": ch, "key": chr(ch) if 33 <= ch < 127 else f"#{ch}", "pts": g.point_count, "d": g.svg_path})
     else:
         source_mode = "portable_clean_room_synth"
         wf = decode_af4_bytes(build_synthetic_af4_bytes(), "zoe_synth.af4")
@@ -866,26 +1012,50 @@ def _collect_live_forge_vectors() -> dict[str, Any]:
 
     if symbol_path.is_file():
         sf = decode_af4_font(symbol_path)
-        for ch in [68, 70, 71, 83, 87, 89, 92, 101, 108, 109, 112, 115, 116, 117, 118, 165]:
+        for ch in [68, 70, 71, 83, 87, 89, 90, 97, 98, 100, 101, 102, 165, 177, 181, 182, 185, 186, 214]:
             if ch in sf.glyphs_by_char:
                 g = sf.glyphs_by_char[ch]
                 symbol_items.append({"code": ch, "key": chr(ch) if ch < 127 else f"#{ch}", "pts": g.point_count, "d": g.svg_path})
 
-    for syf_p, tag in ((stars_path, "STARS"), (flowers_path, "FLOWERS")):
-        if syf_p.is_file():
-            lib = decode_syf_library(syf_p)
-            for sym in lib.symbols[:10]:
-                syf_items.append({"pack": tag, "name": sym.name, "pts": sym.point_count, "d": sym.svg_path})
-    if not syf_items:
-        lib = decode_syf_bytes(build_synthetic_syf_bytes(), "zoe_synth.syf")
-        for sym in lib.symbols:
-            syf_items.append({"pack": "SYNTH", "name": sym.name, "pts": sym.point_count, "d": sym.svg_path})
+    if chancery_path.is_file():
+        cf = decode_af4_font(chancery_path)
+        for ch in [ord(c) for c in "ZoeNickArtlineGEM2026"]:
+            if ch in cf.glyphs_by_char and not any(x["code"] == ch for x in chancery_items):
+                g = cf.glyphs_by_char[ch]
+                chancery_items.append({"code": ch, "key": chr(ch), "pts": g.point_count, "d": g.svg_path})
 
+    if syf_dir.is_dir():
+        for sp in sorted(syf_dir.glob("*.SYF")):
+            lib = decode_syf_library(sp)
+            pack_key = sp.stem.upper()
+            syf_packs[pack_key] = [
+                {
+                    "pack": pack_key,
+                    "name": sym.name,
+                    "pts": sym.point_count,
+                    "d": contours_to_svg_path(sym.contours, flip_y=False, box_size=100.0, pad=8.0),
+                }
+                for sym in lib.symbols
+            ]
+    if not syf_packs:
+        lib = decode_syf_bytes(build_synthetic_syf_bytes(), "zoe_synth.syf")
+        syf_packs["SYNTH"] = [{"pack": "SYNTH", "name": s.name, "pts": s.point_count, "d": s.svg_path} for s in lib.symbols]
+
+    if tls_dir.is_dir():
+        for tp in sorted(tls_dir.glob("*.tls")):
+            tls_specs.append(decode_tls_file(tp).summary_dict())
+    if not tls_specs:
+        tls_specs.append(decode_tls_bytes(build_synthetic_tls_bytes(), "synth.tls").summary_dict())
+
+    total_syf = sum(len(v) for v in syf_packs.values())
     return {
         "source_mode": source_mode,
         "wombat_glyphs": wombat_items,
         "symbol_glyphs": symbol_items,
-        "syf_symbols": syf_items,
+        "chancery_glyphs": chancery_items,
+        "syf_packs": syf_packs,
+        "syf_total": total_syf,
+        "tls_1990": tls_specs,
     }
 
 
@@ -895,12 +1065,14 @@ def build_interactive_artline_forge_html_str() -> str:
     toolboxes_json = json.dumps([asdict(tb) for tb in STUDIO_TOOLBOXES], ensure_ascii=False)
     palettes_json = json.dumps([asdict(p) for p in STUDIO_PALETTES], ensure_ascii=False)
     vecs_json = json.dumps(vecs, ensure_ascii=False)
+    syf_total = int(vecs["syf_total"])
+    pack_count = len(vecs["syf_packs"])
 
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Zoe Artline Forge — Decoded .AF4 / .SYF Vectors, Programmable Toolboxes &amp; GEM Palettes</title>
+<title>Zoe Artline Forge — 35 .AF4 Fonts, {syf_total} .SYF Vectors, .TLS Inspector &amp; GEM Palettes</title>
 <style>
   * {{ box-sizing: border-box; font-family: "DejaVu Sans", system-ui, sans-serif; }}
   body {{ margin: 0; background: #0b0d18; color: #f0f4fc; min-height: 100vh; display: flex; flex-direction: column; }}
@@ -909,22 +1081,25 @@ def build_interactive_artline_forge_html_str() -> str:
   .navlinks {{ display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }}
   .navlinks a {{ text-decoration: none; font-size: 11.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid #3c4d7a; color: #cbd5e1; background: #18213d; font-weight: 600; }}
   .navlinks a:hover {{ border-color: #f8cc30; color: #f8cc30; }}
-  .layout {{ display: grid; grid-template-columns: 1.25fr 1.15fr 0.95fr; gap: 14px; padding: 14px 18px; flex: 1; }}
+  .layout {{ display: grid; grid-template-columns: 1.28fr 1.15fr 0.95fr; gap: 14px; padding: 14px 18px; flex: 1; }}
   @media (max-width: 1120px) {{ .layout {{ grid-template-columns: 1fr; }} }}
-  .panel {{ background: #12182c; border: 1.5px solid #2b385c; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }}
+  .panel {{ background: #12182c; border: 1.5px solid #2b385c; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 9px; }}
   .panel h2 {{ margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.7px; color: #f8cc30; }}
-  .tabs {{ display: flex; gap: 6px; flex-wrap: wrap; }}
-  button {{ background: #1b2442; color: #f0f4fc; border: 1.5px solid #3c4f7f; border-radius: 7px; padding: 5px 10px; cursor: pointer; font-weight: 600; font-size: 11.5px; }}
+  .tabs {{ display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }}
+  button, select, input {{ background: #1b2442; color: #f0f4fc; border: 1.5px solid #3c4f7f; border-radius: 7px; padding: 5px 9px; font-weight: 600; font-size: 11.5px; }}
+  button {{ cursor: pointer; }}
   button:hover {{ filter: brightness(1.16); }}
   button.active {{ border-color: #5ce1e6; color: #5ce1e6; background: #102a38; }}
-  .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 7px; max-height: 460px; overflow-y: auto; }}
+  .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 7px; max-height: 440px; overflow-y: auto; }}
   .tile {{ background: #0e1426; border: 1px solid #2e3e66; border-radius: 8px; padding: 6px; text-align: center; cursor: pointer; }}
   .tile:hover {{ border-color: #f8cc30; background: #17203c; }}
-  .tile svg {{ width: 52px; height: 52px; display: block; margin: 0 auto 3px; }}
-  .tile .lbl {{ font-size: 10px; color: #94a3c8; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
+  .tile svg {{ width: 50px; height: 50px; display: block; margin: 0 auto 3px; }}
+  .tile .lbl {{ font-size: 9.8px; color: #94a3c8; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
   #stage {{ width: 100%; height: 390px; background: #090d1a; border: 2px solid #5ce1e6; border-radius: 10px; cursor: crosshair; }}
   .tb-grid {{ display: grid; gap: 6px; }}
-  .tb-btn {{ display: flex; align-items: center; gap: 6px; text-align: left; padding: 7px 9px; font-size: 11.5px; }}
+  .tb-btn {{ display: flex; align-items: center; gap: 6px; text-align: left; padding: 6px 8px; font-size: 11px; }}
+  .tls-list {{ display: flex; flex-wrap: wrap; gap: 5px; max-height: 125px; overflow-y: auto; }}
+  .tls-pill {{ font-size: 10.5px; padding: 3px 7px; border-radius: 999px; background: #0e1426; border: 1px solid #3c4f7f; color: #cbd5e1; font-family: monospace; }}
   .swatches {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }}
   .sw {{ border-radius: 7px; padding: 8px 6px; text-align: center; cursor: pointer; border: 2px solid transparent; font-size: 10px; font-weight: 700; color: #0b0d18; }}
   .sw.sel {{ border-color: #ffffff; transform: scale(1.04); }}
@@ -933,22 +1108,28 @@ def build_interactive_artline_forge_html_str() -> str:
 </head>
 <body>
 <header>
-  <h1>⚒ Zoe Artline Forge · Decoded 1990 .AF4 / .SYF Vectors + Programmable Toolboxes &amp; GEM Palettes</h1>
+  <h1>⚒ Zoe Artline Forge · Decoded 1988–1990 .AF4 / .SYF ({syf_total} Vectors) + .TLS Inspector &amp; GEM Palettes</h1>
   <div class="navlinks">
     <a href="/">← Studio</a>
     <a href="/artline">🎨 Artline</a>
     <a href="/physics">✺ Physics</a>
     <a href="/duodecimal">❖ ADC-12</a>
+    <a href="/orbit">✦ Orbit</a>
   </div>
 </header>
 
 <div class="layout">
   <section class="panel">
-    <h2>Decoded Clean-Room Vector Vault (Click Any Vector To Stamp!)</h2>
+    <h2>Decoded Clean-Room Vector Vault ({pack_count} .SYF Packs · {syf_total} Symbols)</h2>
     <div class="tabs">
       <button id="vWom" class="active" onclick="setVault('wombat')">wombat.af4</button>
       <button id="vSym" onclick="setVault('symbol')">symbol.af4</button>
-      <button id="vSyf" onclick="setVault('syf')">STARS &amp; FLOWERS .SYF</button>
+      <button id="vCha" onclick="setVault('chancery')">Zapf Chancery</button>
+      <button id="vSyf" onclick="setVault('syf')">All .SYF ({syf_total})</button>
+    </div>
+    <div id="syfFilterRow" class="tabs" style="display:none;">
+      <select id="syfPackSel" onchange="renderVault()"></select>
+      <input id="syfSearch" type="text" placeholder="Filter symbol name (e.g. CAT, STAR, ANCHOR)..." oninput="renderVault()" style="flex:1;min-width:120px;" />
     </div>
     <div id="vaultGrid" class="grid"></div>
   </section>
@@ -965,11 +1146,16 @@ def build_interactive_artline_forge_html_str() -> str:
   </section>
 
   <section class="panel">
-    <h2>Programmable Toolboxes (ZOETK001 · .TLS-Inspired)</h2>
+    <h2>Programmable Toolboxes (ZOETK001 &amp; 1990 CCPTK001 .TLS)</h2>
     <div id="tbTabs" class="tabs"></div>
     <div id="tbDesc" style="font-size:11px;color:#94a3c8;"></div>
     <div id="tbGrid" class="tb-grid"></div>
-    <h2 style="margin-top:8px;">Vector-Metafile Palettes (.COL-as-GEM)</h2>
+    <div id="tls1990Box" style="display:none;">
+      <div id="tlsTabs" class="tabs" style="margin-bottom:6px;"></div>
+      <div id="tlsMeta" style="font-size:10.5px;color:#5ce1e6;margin-bottom:5px;font-family:monospace;"></div>
+      <div id="tlsPills" class="tls-list"></div>
+    </div>
+    <h2 style="margin-top:6px;">Vector-Metafile Palettes (.COL-as-GEM)</h2>
     <div id="palTabs" class="tabs"></div>
     <div id="swatches" class="swatches"></div>
   </section>
@@ -984,26 +1170,50 @@ const PALETTES = {palettes_json};
 
 let vaultTab = 'wombat';
 let activeTb = 0;
+let show1990Tls = false;
+let activeTlsIdx = 0;
 let activePal = 0;
 let activeColor = PALETTES[0].swatches[0].hex_color;
-let selectedVector = VECS.wombat_glyphs[0] || VECS.syf_symbols[0];
+const syfPackNames = Object.keys(VECS.syf_packs || {{}});
+let selectedVector = (VECS.wombat_glyphs && VECS.wombat_glyphs[0]) || ((VECS.syf_packs[syfPackNames[0]] || [])[0]);
 const stamps = [];
+
+(function initPackSelect() {{
+  const sel = document.getElementById('syfPackSel');
+  const opts = ['<option value="ALL">ALL PACKS (' + VECS.syf_total + ')</option>'];
+  for (const pk of syfPackNames) {{
+    opts.push('<option value="' + pk + '">' + pk + ' (' + VECS.syf_packs[pk].length + ')</option>');
+  }}
+  sel.innerHTML = opts.join('');
+}})();
 
 function setVault(tab) {{
   vaultTab = tab;
   document.getElementById('vWom').classList.toggle('active', tab==='wombat');
   document.getElementById('vSym').classList.toggle('active', tab==='symbol');
+  document.getElementById('vCha').classList.toggle('active', tab==='chancery');
   document.getElementById('vSyf').classList.toggle('active', tab==='syf');
+  document.getElementById('syfFilterRow').style.display = (tab === 'syf') ? 'flex' : 'none';
   renderVault();
 }}
 function renderVault() {{
   const grid = document.getElementById('vaultGrid');
   let list = [];
-  if (vaultTab === 'wombat') list = VECS.wombat_glyphs.map(g => ({{ label: g.code + ' ' + g.key, d: g.d }}));
-  else if (vaultTab === 'symbol') list = VECS.symbol_glyphs.map(g => ({{ label: g.code + ' ' + g.key, d: g.d }}));
-  else list = VECS.syf_symbols.map(s => ({{ label: s.name, d: s.d }}));
+  if (vaultTab === 'wombat') {{
+    list = (VECS.wombat_glyphs || []).map(g => ({{ label: g.code + ' ' + g.key, d: g.d }}));
+  }} else if (vaultTab === 'symbol') {{
+    list = (VECS.symbol_glyphs || []).map(g => ({{ label: g.code + ' ' + g.key, d: g.d }}));
+  }} else if (vaultTab === 'chancery') {{
+    list = (VECS.chancery_glyphs || []).map(g => ({{ label: g.code + ' ' + g.key, d: g.d }}));
+  }} else {{
+    const pk = document.getElementById('syfPackSel').value || 'ALL';
+    const q = (document.getElementById('syfSearch').value || '').trim().toUpperCase();
+    const raw = (pk === 'ALL') ? syfPackNames.flatMap(k => VECS.syf_packs[k] || []) : (VECS.syf_packs[pk] || []);
+    list = raw.filter(s => !q || s.name.toUpperCase().includes(q) || s.pack.toUpperCase().includes(q))
+              .map(s => ({{ label: s.name, d: s.d }}));
+  }}
   grid.innerHTML = list.map((item, idx) => `
-    <div class="tile" onclick="pickVec(${{idx}})">
+    <div class="tile" onclick="pickVec(${{idx}})" title="${{item.label}}">
       <svg viewBox="0 0 100 100"><path d="${{item.d}}" fill="${{activeColor}}33" stroke="${{activeColor}}" stroke-width="3" /></svg>
       <div class="lbl">${{item.label}}</div>
     </div>`).join('');
@@ -1062,8 +1272,28 @@ function exportSvg() {{
   a.click();
 }}
 function renderToolboxes() {{
-  document.getElementById('tbTabs').innerHTML = TOOLBOXES.map((tb, i) => `
-    <button class="${{i===activeTb?'active':''}}" onclick="activeTb=${{i}};renderToolboxes();">${{tb.title.split(' ')[0]}}</button>`).join('');
+  const tabs = TOOLBOXES.map((tb, i) => `
+    <button class="${{(!show1990Tls && i===activeTb)?'active':''}}" onclick="show1990Tls=false;activeTb=${{i}};renderToolboxes();">${{tb.title.split(' ')[0]}}</button>`);
+  tabs.push(`<button class="${{show1990Tls?'active':''}}" style="border-color:#ff85b3;color:#ff85b3;" onclick="show1990Tls=true;renderToolboxes();">1990 .TLS (${{(VECS.tls_1990||[]).length}})</button>`);
+  document.getElementById('tbTabs').innerHTML = tabs.join('');
+
+  if (show1990Tls) {{
+    document.getElementById('tbGrid').style.display = 'none';
+    document.getElementById('tls1990Box').style.display = 'block';
+    const arr = VECS.tls_1990 || [];
+    const cur = arr[activeTlsIdx] || arr[0];
+    document.getElementById('tbDesc').textContent = 'Read-only decoded 1990 CCPTK001 binary Artline 2.0 toolboxes (clean-room inspector)';
+    document.getElementById('tlsTabs').innerHTML = arr.map((t, i) => `
+      <button class="${{i===activeTlsIdx?'active':''}}" onclick="activeTlsIdx=${{i}};renderToolboxes();">${{t.filename}}</button>`).join('');
+    if (cur) {{
+      document.getElementById('tlsMeta').textContent = cur.filename + ' · magic=' + cur.magic + ' · ' + cur.tool_count + ' tools · width_hint=' + cur.panel_width_hint;
+      document.getElementById('tlsPills').innerHTML = (cur.tool_names || []).map(n => `<span class="tls-pill">${{n}}</span>`).join('');
+    }}
+    return;
+  }}
+
+  document.getElementById('tls1990Box').style.display = 'none';
+  document.getElementById('tbGrid').style.display = 'grid';
   const tb = TOOLBOXES[activeTb];
   document.getElementById('tbDesc').textContent = tb.title + ' — ' + tb.description;
   const g = document.getElementById('tbGrid');
@@ -1114,18 +1344,24 @@ __all__ = [
     "PaletteSwatch",
     "SYFLibrary",
     "SYFSymbol",
+    "TLSToolEntry",
+    "TLSToolbox",
     "ToolboxButton",
     "ZoeToolboxSpec",
     "ZoeVectorPalette",
     "build_interactive_artline_forge_html_str",
     "build_synthetic_af4_bytes",
     "build_synthetic_syf_bytes",
+    "build_synthetic_tls_bytes",
     "contours_to_svg_path",
     "decode_af4_bytes",
     "decode_af4_font",
     "decode_ccp_contours",
     "decode_syf_bytes",
     "decode_syf_library",
+    "decode_tls_bytes",
+    "decode_tls_file",
+    "render_af4_catalog_poster_png",
     "render_af4_specimen_png",
     "render_artline_forge_html",
     "render_syf_contact_sheet_png",

@@ -547,6 +547,25 @@ def _handle_l5_phase_run(
     handler.send_json(200, payload)
 
 
+# Handle POST /api/adc12/react (1-click chat-bubble Wombat / Base-12 highlight reaction)
+def _post_adc12_react(handler: Any, _ctx: _ServerContext, body: Dict[str, Any]) -> None:
+    from .zoe_artline_duodecimal import ArtlineDuodecimalIndexer, CONSTITUTIONAL_FLAGS
+
+    tag = str(body.get("tag") or "100").strip()
+    quote = str(body.get("quote") or "").strip()[:480] or "(message reaction)"
+    idx = ArtlineDuodecimalIndexer()
+    rec = idx.highlight(quote, tag)
+    handler.send_json(
+        200,
+        {
+            "ok": True,
+            "reaction": rec.to_dict(),
+            "epistemic_boundaries": dict(CONSTITUTIONAL_FLAGS),
+            "cloud_tokens_used": 0,
+        },
+    )
+
+
 # Handle POST /api/gear
 def _post_gear(handler: Any, ctx: _ServerContext, body: Dict[str, Any]) -> None:
     gear = str(body.get("gear") or "gear1")
@@ -574,6 +593,7 @@ def _build_post_routes() -> Dict[str, Callable[[Any, _ServerContext, Dict[str, A
         "/api/memory/sync": _post_memory_sync,
         "/api/digest/mobile": _post_digest_mobile,
         "/api/stem/route": _post_stem_route,
+        "/api/adc12/react": _post_adc12_react,
         "/api/gear": _post_gear,
         "/api/stop": _post_stop,
     }

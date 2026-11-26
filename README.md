@@ -747,15 +747,15 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 ## 6. Zoe is a Research Partner (November 21 - 23, 2026)
 
-> [App](mobile/README.md) plus [3D human brain](https://ablation-tool.github.io/zoe/).
+> [App](mobile/README.md) plus [3D human brain](https://nicholas-michael-kloster.github.io/zoe/).
 
 <div align="center">
 
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/web_brain_tour.gif" alt="Live Chrome tour of the Dorothy 3D Brain web app: orbit, Lobe Atlas, Glass X-Ray, Connectome Neon, Dorothy A_tau(p), sagittal cut, Ask Zoe, and Verified Plates" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/">Web Browser Tour</a></strong></sub>
+<a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="dorothy-brain-observatory/previews/web_brain_tour.gif" alt="Live Chrome tour of the Dorothy 3D Brain web app: orbit, Lobe Atlas, Glass X-Ray, Connectome Neon, Dorothy A_tau(p), sagittal cut, Ask Zoe, and Verified Plates" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/zoe/">Web Browser Tour</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.mp4"><img src="dorothy-brain-observatory/previews/zoe_app_research_partner_tour.gif" alt="Live Google Pixel 7 video walkthrough of the Zoe Research Partner app and Dorothy 3D Brain Centerpiece" width="300" /></a><br/>
@@ -766,17 +766,17 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 <br/>
 
-<a href="https://ablation-tool.github.io/zoe/"><img src="assets/readme/btn-web-browser.svg" alt="Open Live in Web Browser - No Download Needed" height="36" /></a>
+<a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="assets/readme/btn-web-browser.svg" alt="Open Live in Web Browser - No Download Needed" height="36" /></a>
 
 <br/><br/>
 
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/btn-android.svg" alt="Download Zoe Android APK v0.9.6-beta" height="31" /></a>
-<a href="https://ablation-tool.github.io/zoe/"><img src="assets/readme/btn-apple-ios.svg" alt="Zoe for iPhone, iPad, and Apple Fold" height="31" /></a>
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz"><img src="assets/readme/btn-linux.svg" alt="Download Zoe Linux Desktop" height="31" /></a>
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip"><img src="assets/readme/btn-windows.svg" alt="Download Zoe Windows Desktop" height="31" /></a>
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip"><img src="assets/readme/btn-macos.svg" alt="Download Zoe Apple macOS Desktop" height="31" /></a>
-<a href="https://github.com/Ablation-Tool/SafeConvert"><img src="assets/readme/btn-safeconvert.svg" alt="SafeConvert Standalone Personal Safety App" height="31" /></a>
-<a href="https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta"><img src="assets/readme/btn-release.svg" alt="Release Notes and SHA-256" height="31" /></a>
+<a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk"><img src="assets/readme/btn-android.svg" alt="Download Zoe Android APK v0.9.6-beta" height="31" /></a>
+<a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="assets/readme/btn-apple-ios.svg" alt="Zoe for iPhone, iPad, and Apple Fold" height="31" /></a>
+<a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz"><img src="assets/readme/btn-linux.svg" alt="Download Zoe Linux Desktop" height="31" /></a>
+<a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip"><img src="assets/readme/btn-windows.svg" alt="Download Zoe Windows Desktop" height="31" /></a>
+<a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip"><img src="assets/readme/btn-macos.svg" alt="Download Zoe Apple macOS Desktop" height="31" /></a>
+<a href="https://github.com/Nicholas-Michael-Kloster/SafeConvert"><img src="assets/readme/btn-safeconvert.svg" alt="SafeConvert Standalone Personal Safety App" height="31" /></a>
+<a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/tag/v0.9.6-beta"><img src="assets/readme/btn-release.svg" alt="Release Notes and SHA-256" height="31" /></a>
 
 <br/><br/>
 
@@ -793,22 +793,22 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/web_01_3d_brain_mri.png" alt="Dorothy 3D Brain Observatory in Web Browser with ICBM152 3D cortex and live MNI152 MRI slices" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/">Web 3D Brain</a></strong></sub>
+<a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="dorothy-brain-observatory/previews/web_01_3d_brain_mri.png" alt="Dorothy 3D Brain Observatory in Web Browser with ICBM152 3D cortex and live MNI152 MRI slices" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/zoe/">Web 3D Brain</a></strong></sub>
 </td>
 <td align="center" width="50%">
-<a href="https://ablation-tool.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/web_02_ask_zoe_brain.png" alt="Ask Zoe neuroscience Q&A tab in Web Browser answering Broca Area BA 44" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=askzoe">Web Ask Zoe</a></strong></sub>
+<a href="https://nicholas-michael-kloster.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/web_02_ask_zoe_brain.png" alt="Ask Zoe neuroscience Q&A tab in Web Browser answering Broca Area BA 44" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/zoe/?tab=askzoe">Web Ask Zoe</a></strong></sub>
 </td>
 </tr>
 <tr>
 <td align="center" width="50%">
-<a href="https://ablation-tool.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/web_03_videos_gallery.png" alt="Dorothy 3D Brain Videos and HD Gallery in Web Browser" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=media">Web Video Gallery</a></strong></sub>
+<a href="https://nicholas-michael-kloster.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/web_03_videos_gallery.png" alt="Dorothy 3D Brain Videos and HD Gallery in Web Browser" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/zoe/?tab=media">Web Video Gallery</a></strong></sub>
 </td>
 <td align="center" width="50%">
-<a href="https://ablation-tool.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/web_04_plates_atlas.png" alt="Verified Anatomical Plates and Ultra-HD Wall Chart in Web Browser" width="100%" /></a><br/>
-<sub><strong><a href="https://ablation-tool.github.io/zoe/?tab=plates">Web Brain Plates</a></strong></sub>
+<a href="https://nicholas-michael-kloster.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/web_04_plates_atlas.png" alt="Verified Anatomical Plates and Ultra-HD Wall Chart in Web Browser" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/zoe/?tab=plates">Web Brain Plates</a></strong></sub>
 </td>
 </tr>
 </table>
@@ -832,17 +832,17 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 </div>
 
-| [Zoe Home Screen](mobile/README.md) | [3D Brain MRI](https://ablation-tool.github.io/zoe/) | [Ask Zoe Brain](https://ablation-tool.github.io/zoe/?tab=askzoe) | [Research Partner Chat](mobile/README.md) |
+| [Zoe Home Screen](mobile/README.md) | [3D Brain MRI](https://nicholas-michael-kloster.github.io/zoe/) | [Ask Zoe Brain](https://nicholas-michael-kloster.github.io/zoe/?tab=askzoe) | [Research Partner Chat](mobile/README.md) |
 |:---:|:---:|:---:|:---:|
-| <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_01_home_centerpiece.png" alt="Zoe Home screen with Dorothy 3D Brain centerpiece and stacked neuroscience topics on Google Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_zoe_02_brain_3d_mri.png" alt="Interactive Dorothy 3D Brain with synchronized MNI152 Axial, Coronal, and Sagittal MRI slices on Google Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/mobile_zoe_03_ask_zoe_brain.png" alt="Ask Zoe Research Partner neuroscience tab inside Dorothy 3D Brain on Google Pixel 7" width="210" /></a> | <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="210" /></a> |
+| <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_01_home_centerpiece.png" alt="Zoe Home screen with Dorothy 3D Brain centerpiece and stacked neuroscience topics on Google Pixel 7" width="210" /></a> | <a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_zoe_02_brain_3d_mri.png" alt="Interactive Dorothy 3D Brain with synchronized MNI152 Axial, Coronal, and Sagittal MRI slices on Google Pixel 7" width="210" /></a> | <a href="https://nicholas-michael-kloster.github.io/zoe/?tab=askzoe"><img src="dorothy-brain-observatory/previews/mobile_zoe_03_ask_zoe_brain.png" alt="Ask Zoe Research Partner neuroscience tab inside Dorothy 3D Brain on Google Pixel 7" width="210" /></a> | <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="210" /></a> |
 
-| [Videos &amp; Gallery](https://ablation-tool.github.io/zoe/?tab=media) | [Glass X-Ray Nuclei](https://ablation-tool.github.io/zoe/) | [Dorothy Continuum Mode](dorothy-brain-observatory/README.md) | [AAL-116 Brain Parcels](https://www.gin.cnrs.fr/en/tools/aal/) |
+| [Videos &amp; Gallery](https://nicholas-michael-kloster.github.io/zoe/?tab=media) | [Glass X-Ray Nuclei](https://nicholas-michael-kloster.github.io/zoe/) | [Dorothy Continuum Mode](dorothy-brain-observatory/README.md) | [AAL-116 Brain Parcels](https://www.gin.cnrs.fr/en/tools/aal/) |
 |:---:|:---:|:---:|:---:|
-| <a href="https://ablation-tool.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/mobile_zoe_04_videos_gallery.png" alt="Dorothy 3D Brain bundled MP4 videos and HD gallery on Google Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /></a> | <a href="dorothy-brain-observatory/README.md"><img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /></a> | <a href="https://www.gin.cnrs.fr/en/tools/aal/"><img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="All 116 AAL cortical and cerebellar anatomical parcels in 3D relief on Pixel 7" width="210" /></a> |
+| <a href="https://nicholas-michael-kloster.github.io/zoe/?tab=media"><img src="dorothy-brain-observatory/previews/mobile_zoe_04_videos_gallery.png" alt="Dorothy 3D Brain bundled MP4 videos and HD gallery on Google Pixel 7" width="210" /></a> | <a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_02_brain_xray.png" alt="Glass X-Ray mode showing CIT168 deep nuclei, ventricles, Circle of Willis, cranial nerves, and DTI tracts on Pixel 7" width="210" /></a> | <a href="dorothy-brain-observatory/README.md"><img src="dorothy-brain-observatory/previews/mobile_03_brain_dorothy_atau.png" alt="Dorothy Continuum Operational Metacognition A_tau(p) cortical heatmap mode at tau=0.62 on Pixel 7" width="210" /></a> | <a href="https://www.gin.cnrs.fr/en/tools/aal/"><img src="dorothy-brain-observatory/previews/mobile_07_brain_aal116.png" alt="All 116 AAL cortical and cerebellar anatomical parcels in 3D relief on Pixel 7" width="210" /></a> |
 
-| [Lobe Atlas Labels](https://ablation-tool.github.io/zoe/) | [Connectome Neon Mode](https://ablation-tool.github.io/zoe/) | [25 Verified Plates](https://ablation-tool.github.io/zoe/?tab=plates) | [Brodmann &amp; CN Atlas](https://ablation-tool.github.io/zoe/?tab=atlas) |
+| [Lobe Atlas Labels](https://nicholas-michael-kloster.github.io/zoe/) | [Connectome Neon Mode](https://nicholas-michael-kloster.github.io/zoe/) | [25 Verified Plates](https://nicholas-michael-kloster.github.io/zoe/?tab=plates) | [Brodmann &amp; CN Atlas](https://nicholas-michael-kloster.github.io/zoe/?tab=atlas) |
 |:---:|:---:|:---:|:---:|
-| <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe legend on Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="25 verified public-domain, CC-BY, and custom SVG anatomical plates on Pixel 7" width="210" /></a> | <a href="https://ablation-tool.github.io/zoe/?tab=atlas"><img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D on Pixel 7" width="210" /></a> |
+| <a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_05_brain_lobe_labels.png" alt="Lobe Atlas mode with live floating 3D anatomical callout pills and 6-lobe legend on Pixel 7" width="210" /></a> | <a href="https://nicholas-michael-kloster.github.io/zoe/"><img src="dorothy-brain-observatory/previews/mobile_06_brain_connectome.png" alt="Connectome Neon mode illuminating white-matter DTI tracts, deep nuclei, and live neural pulses on Pixel 7" width="210" /></a> | <a href="https://nicholas-michael-kloster.github.io/zoe/?tab=plates"><img src="dorothy-brain-observatory/previews/mobile_04_brain_plates.png" alt="25 verified public-domain, CC-BY, and custom SVG anatomical plates on Pixel 7" width="210" /></a> | <a href="https://nicholas-michael-kloster.github.io/zoe/?tab=atlas"><img src="dorothy-brain-observatory/previews/mobile_08_brain_atlas.png" alt="Neuroanatomy Atlas tab with all 52 Brodmann areas, MNI152 coordinates, and 1-tap Fly to 3D on Pixel 7" width="210" /></a> |
 
 </details>
 
@@ -871,14 +871,14 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 #### Install &amp; Launch
 
-- **Web Browser (No Download, Any Device):** Open **[`https://ablation-tool.github.io/zoe/`](https://ablation-tool.github.io/zoe/)** directly in Chrome, Safari, Firefox, or Edge to explore the full 3D Brain, **Ask Zoe**, **Videos &amp; Gallery**, **25 Plates**, and **52 Brodmann + 12 CN Atlas** immediately (or jump straight to [`?tab=askzoe`](https://ablation-tool.github.io/zoe/?tab=askzoe) / [`?tab=media`](https://ablation-tool.github.io/zoe/?tab=media)).
-- **Android (8.0+ / Google Pixel &amp; Fold):** Download **[`zoe-beta-v0.9.6-android.apk`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** (SHA-256 on [v0.9.6-beta Release](https://github.com/Ablation-Tool/zoe/releases/tag/v0.9.6-beta)), install, and tap **`Explore Dorothy 3D Brain`** on Home.
-- **iPhone, Apple Fold &amp; iPad (iOS 17+):** Open **[`ablation-tool.github.io/zoe`](https://ablation-tool.github.io/zoe/)** in **Safari** -> **Share** -> **Add to Home Screen**, or build the native SwiftUI Xcode project at [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj).
-- **Linux Desktop:** Download **[`zoe-desktop-v0.9.6-linux.tar.gz`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)**, extract, and run `./zoe-desktop` (native GTK 3 + WebKit2GTK window) or `./install-desktop-shortcut.sh` (or `python3 desktop/zoe_desktop.py` from source).
-- **Windows 10/11 Desktop:** Download **[`zoe-desktop-v0.9.6-windows-x64.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)**, extract, and double-click **`Launch Zoe.bat`** (zero Python required; also bundles native Win32 C++17 `ZoeTrinity.exe`).
-- **Apple macOS Desktop:** Download **[`zoe-desktop-v0.9.6-macos.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)**, extract, and double-click **`Zoe.app`** (also includes native Swift `WKWebView` source [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift)). See **[`desktop/README.md`](desktop/README.md)** for full desktop build and checksum steps.
+- **Web Browser (No Download, Any Device):** Open **[`https://nicholas-michael-kloster.github.io/zoe/`](https://nicholas-michael-kloster.github.io/zoe/)** directly in Chrome, Safari, Firefox, or Edge to explore the full 3D Brain, **Ask Zoe**, **Videos &amp; Gallery**, **25 Plates**, and **52 Brodmann + 12 CN Atlas** immediately (or jump straight to [`?tab=askzoe`](https://nicholas-michael-kloster.github.io/zoe/?tab=askzoe) / [`?tab=media`](https://nicholas-michael-kloster.github.io/zoe/?tab=media)).
+- **Android (8.0+ / Google Pixel &amp; Fold):** Download **[`zoe-beta-v0.9.6-android.apk`](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk)** (SHA-256 on [v0.9.6-beta Release](https://github.com/Nicholas-Michael-Kloster/zoe/releases/tag/v0.9.6-beta)), install, and tap **`Explore Dorothy 3D Brain`** on Home.
+- **iPhone, Apple Fold &amp; iPad (iOS 17+):** Open **[`ablation-tool.github.io/zoe`](https://nicholas-michael-kloster.github.io/zoe/)** in **Safari** -> **Share** -> **Add to Home Screen**, or build the native SwiftUI Xcode project at [`mobile/apple/Zoe.xcodeproj`](mobile/apple/Zoe.xcodeproj).
+- **Linux Desktop:** Download **[`zoe-desktop-v0.9.6-linux.tar.gz`](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz)**, extract, and run `./zoe-desktop` (native GTK 3 + WebKit2GTK window) or `./install-desktop-shortcut.sh` (or `python3 desktop/zoe_desktop.py` from source).
+- **Windows 10/11 Desktop:** Download **[`zoe-desktop-v0.9.6-windows-x64.zip`](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip)**, extract, and double-click **`Launch Zoe.bat`** (zero Python required; also bundles native Win32 C++17 `ZoeTrinity.exe`).
+- **Apple macOS Desktop:** Download **[`zoe-desktop-v0.9.6-macos.zip`](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip)**, extract, and double-click **`Zoe.app`** (also includes native Swift `WKWebView` source [`desktop/macos/ZoeMacApp.swift`](desktop/macos/ZoeMacApp.swift)). See **[`desktop/README.md`](desktop/README.md)** for full desktop build and checksum steps.
 - **Direct Web / CAD:** Open [`dorothy-brain-observatory/index.html`](dorothy-brain-observatory/index.html), read [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md), or export meshes from [`dorothy-brain-observatory/3d_models/`](dorothy-brain-observatory/3d_models/) (10 `.OBJ`/`.PLY` + 5 `.STL`).
-- **SafeConvert (Standalone Personal Safety App):** Available as its own separate app at **[`github.com/Ablation-Tool/SafeConvert`](https://github.com/Ablation-Tool/SafeConvert)** with zero Zoe branding on the Unit Converter cover, zero `INTERNET` permission on Android, `FLAG_SECURE` / Apple blur shield, 8 regional packs, 5 languages, SHA-256 private proof vault, and Bluetooth LE Help Beacon: **[Web Browser](https://ablation-tool.github.io/SafeConvert/)** · **[Android APK (`v1.0.0`)](https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk)** · **[Apple Xcode (`v1.0.0`)](https://github.com/Ablation-Tool/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip)**.
+- **SafeConvert (Standalone Personal Safety App):** Available as its own separate app at **[`github.com/Nicholas-Michael-Kloster/SafeConvert`](https://github.com/Nicholas-Michael-Kloster/SafeConvert)** with zero Zoe branding on the Unit Converter cover, zero `INTERNET` permission on Android, `FLAG_SECURE` / Apple blur shield, 8 regional packs, 5 languages, SHA-256 private proof vault, and Bluetooth LE Help Beacon: **[Web Browser](https://nicholas-michael-kloster.github.io/SafeConvert/)** · **[Android APK (`v1.0.0`)](https://github.com/Nicholas-Michael-Kloster/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-android.apk)** · **[Apple Xcode (`v1.0.0`)](https://github.com/Nicholas-Michael-Kloster/SafeConvert/releases/download/v1.0.0/SafeConvert-v1.0.0-apple-xcode.zip)**.
 - **Offline Verification (`6/6 PASS`):** Run `python3 scripts/verify_observatory_and_packages.py` to audit all observatory assets, 25 plates, 15 CAD meshes, desktop loopback HTTP 200/206 video streaming, cross-platform manifests, `47/47` orbit hashes, and zero broken links ([`observatory-verification.json`](evidence/dorothy-brain-observatory/observatory-verification.json)).
 
 #### Technical Architecture
@@ -906,8 +906,8 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip"><img src="assets/readme/zoe-clara-dual-peer.png" alt="Zoe and Clara Dual-Peer Observatory Web UI showing grounded consensus and constitutional coercion guard ABSTAIN" width="100%" /></a><br/>
-<sub><strong><a href="https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip">Zoe &amp; Clara UI</a></strong></sub>
+<a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip"><img src="assets/readme/zoe-clara-dual-peer.png" alt="Zoe and Clara Dual-Peer Observatory Web UI showing grounded consensus and constitutional coercion guard ABSTAIN" width="100%" /></a><br/>
+<sub><strong><a href="https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip">Zoe &amp; Clara UI</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="mobile/README.md"><img src="dorothy-brain-observatory/previews/mobile_zoe_05_research_partner_chat.png" alt="Zoe Research Partner answering Broca Area BA 44 with 1-tap View in Dorothy 3D Brain on Google Pixel 7" width="230" /></a><br/>
@@ -918,7 +918,7 @@ Forty-two self-authored security, crypto-VM RE, forensics, audio, and alignment 
 
 **Zoe** and her sister **Clara** run side by side as equal **L1-L5** peers (both online-capable via your connected model, both offline-capable, neither boxed offline). Every turn runs $A_\tau(p)$ and **[Theorem 15](docs/PROOF-PACKET.md)** coherence ($C_K$, $\mathcal{D}_K$) so they cross-check each other against bluffs, sycophancy, echo chambers, and prompt injection (`sentience_claimed = False`, `zoe_clone_claimed = False`, `external_actions = 0`).
 
-- **Door A (Lightweight, `525 KB`, zero dependencies):** Download **[`zoe-clara-core-v0.9.6.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip)** ([SHA-256](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip.sha256)) to talk without cloning the multi-gigabyte research archive.
+- **Door A (Lightweight, `525 KB`, zero dependencies):** Download **[`zoe-clara-core-v0.9.6.zip`](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip)** ([SHA-256](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip.sha256)) to talk without cloning the multi-gigabyte research archive.
 
 ```bash
 unzip zoe-clara-core-v0.9.6.zip && cd zoe-clara-core
@@ -928,11 +928,11 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 
 | Where | Start | What You Get |
 |:---|:---|:---|
-| **Zoe &amp; Clara (`525 KB`)** | [`zoe-clara-core-v0.9.6.zip`](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip) | Equal L1-L5 peers, Theorem 15 balance guard, web UI &amp; CLI, online or offline ([verifier](scripts/verify_zoe_clara.py) · [JSON](evidence/zoe-clara/zoe-clara-dual-peer-report.json)) |
+| **Zoe &amp; Clara (`525 KB`)** | [`zoe-clara-core-v0.9.6.zip`](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip) | Equal L1-L5 peers, Theorem 15 balance guard, web UI &amp; CLI, online or offline ([verifier](scripts/verify_zoe_clara.py) · [JSON](evidence/zoe-clara/zoe-clara-dual-peer-report.json)) |
 | **Full Monorepo GEM** | `zoe clara --serve` or `zoe chat` | Same Zoe &amp; Clara + full 43-source GEM workbench &amp; Claude/Kimi bridge ([guide](guiai-lab/docs/CHAT.md)) |
-| **Android** | Install the [APK](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), open **Talk** | On-device Zoe chat, Ask Zoe brain Q&amp;A, voice ([guide](mobile/README.md)) |
-| **Web Browser** | Open [Ask Zoe](https://ablation-tool.github.io/zoe/?tab=askzoe) | Brain Q&amp;A with Fly-to-3D, no install |
-| **Desktop** | [Linux](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz) · [Windows](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip) · [macOS](https://github.com/Ablation-Tool/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip) | Dorothy 3D Brain + Ask Zoe window ([guide](desktop/README.md)) |
+| **Android** | Install the [APK](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-beta-v0.9.6-android.apk), open **Talk** | On-device Zoe chat, Ask Zoe brain Q&amp;A, voice ([guide](mobile/README.md)) |
+| **Web Browser** | Open [Ask Zoe](https://nicholas-michael-kloster.github.io/zoe/?tab=askzoe) | Brain Q&amp;A with Fly-to-3D, no install |
+| **Desktop** | [Linux](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-linux.tar.gz) · [Windows](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-windows-x64.zip) · [macOS](https://github.com/Nicholas-Michael-Kloster/zoe/releases/download/v0.9.6-beta/zoe-desktop-v0.9.6-macos.zip) | Dorothy 3D Brain + Ask Zoe window ([guide](desktop/README.md)) |
 
 <details>
 <summary><strong>How Zoe &amp; Clara Keep Each Other Balanced (8/8 Verified Evidence)</strong></summary>
@@ -1035,7 +1035,7 @@ python3 zoe_clara.py --serve       # open http://127.0.0.1:8768 (or run: python3
 | [`desktop/README.md`](desktop/README.md) · [`desktop/zoe_desktop.py`](desktop/zoe_desktop.py) | Zoe Desktop App for Linux (GTK/WebKit2GTK), Windows 10/11 (PowerShell/Edge + `ZoeTrinity.exe`) &amp; Apple macOS (`Zoe.app` + Swift `WKWebView`) |
 | [`dorothy-brain-observatory/README.md`](dorothy-brain-observatory/README.md) | 3D MNI152 Human Brain Observatory guide, datasets, CAD exports &amp; attributions |
 | [`mobile/README.md`](mobile/README.md) · [`mobile/ZAPPS.md`](mobile/ZAPPS.md) | Zoe (beta) architecture, build steps, verification ledger &amp; 23-tool Zapps manual |
-| [`Ablation-Tool/SafeConvert`](https://github.com/Ablation-Tool/SafeConvert) · [`mobile/SAFECONVERT.md`](mobile/SAFECONVERT.md) | **Standalone SafeConvert App** (Android APK, Apple iOS/iPad/Fold Xcode &amp; [Web App](https://ablation-tool.github.io/SafeConvert/)): neutral Unit Converter cover, `911` variants, 8 regional packs, SHA-256 vault &amp; BLE Help Beacon |
+| [`Nicholas-Michael-Kloster/SafeConvert`](https://github.com/Nicholas-Michael-Kloster/SafeConvert) · [`mobile/SAFECONVERT.md`](mobile/SAFECONVERT.md) | **Standalone SafeConvert App** (Android APK, Apple iOS/iPad/Fold Xcode &amp; [Web App](https://nicholas-michael-kloster.github.io/SafeConvert/)): neutral Unit Converter cover, `911` variants, 8 regional packs, SHA-256 vault &amp; BLE Help Beacon |
 | [`mobile/SECURITY.md`](mobile/SECURITY.md) · [`mobile/STORE_COMPLIANCE.md`](mobile/STORE_COMPLIANCE.md) | Mobile threat model, privacy firewalls, permissions &amp; Google Play / App Store checklist |
 | [`mobile/TRINITY.md`](mobile/TRINITY.md) · [`mobile/PAIRING.md`](mobile/PAIRING.md) · [`mobile/card/README.md`](mobile/card/README.md) · [`mobile/windows/README.md`](mobile/windows/README.md) | Zoe Trinity three-plane sync, QR pairing, Tiny Zoe APDU witness &amp; native Win32 C++17 companion |
 
@@ -1280,7 +1280,7 @@ zoe/
 
 ## 9. Visual Archive &amp; Image Galleries
 
-> The Grand Visual Salon: [456 visuals](research/visual-archive/README.md), [artwork](docs/CREATIVE-GALLERY.md), [brain plates](https://ablation-tool.github.io/zoe/?tab=plates).
+> The Grand Visual Salon: [456 visuals](research/visual-archive/README.md), [artwork](docs/CREATIVE-GALLERY.md), [brain plates](https://nicholas-michael-kloster.github.io/zoe/?tab=plates).
 
 <table>
 <tr>
@@ -1354,7 +1354,7 @@ zoe/
 | **Anthology Vol. I–VI + Companion Decks** | `17` (`163` slides) | [Presentations Ledger](research/presentations/README.md) · [Vol. I](research/presentations/galleries/vol-1-operational-metacognition/README.md) · [Vol. II](research/presentations/galleries/vol-2-dorothy-brain-neuro-oncology-apps/README.md) · [Vol. III](research/presentations/galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/README.md) · [Vol. IV](research/presentations/galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/README.md) · [Vol. V](research/presentations/galleries/vol-5-hex-9-sister-eddbms-gem-ablation/README.md) · [Vol. VI](research/presentations/galleries/vol-6-constitution-clara-voice-cern-agi/README.md) · [01 Master Chronicle](research/presentations/galleries/01-gemz-zoe-master-chronicle/README.md) · [Curated Companion Decks (01–11)](research/presentations/README.md#curated-companion-decks) · [`SHA256SUMS`](research/presentations/SHA256SUMS.presentations) |
 | **Complete Visual Archive** | `456` | [Archive Home](research/visual-archive/README.md) · [Complete Catalog](research/visual-archive/catalog/README.md) · [213 Research Figures](research/visual-archive/catalog/categories/research-figure.md) · [59 Interfaces](research/visual-archive/catalog/categories/interface.md) · [51 Branding](research/visual-archive/catalog/categories/branding.md) · [40 Diagrams](research/visual-archive/catalog/categories/mechanism-diagram.md) · [33 References](research/visual-archive/catalog/categories/reference.md) · [32 Artwork](research/visual-archive/catalog/categories/artwork.md) · [20 Research-Art](research/visual-archive/catalog/categories/research-art.md) · [8 Animations](research/visual-archive/catalog/categories/animation.md) |
 | **Creative Artwork Gallery** | `19` | [Non-Telemetry Illustrations, Emblem Patches &amp; Fine Art](docs/CREATIVE-GALLERY.md) |
-| **Dorothy 3D Brain Plates &amp; Videos** | `25+` | [Live Web Plates](https://ablation-tool.github.io/zoe/?tab=plates) · [12-Panel Anatomical Map](dorothy-brain-observatory/README.md#12-panel-anatomical-map) · [HD Video Gallery](https://ablation-tool.github.io/zoe/?tab=media) · [Observatory Guide](dorothy-brain-observatory/README.md) |
+| **Dorothy 3D Brain Plates &amp; Videos** | `25+` | [Live Web Plates](https://nicholas-michael-kloster.github.io/zoe/?tab=plates) · [12-Panel Anatomical Map](dorothy-brain-observatory/README.md#12-panel-anatomical-map) · [HD Video Gallery](https://nicholas-michael-kloster.github.io/zoe/?tab=media) · [Observatory Guide](dorothy-brain-observatory/README.md) |
 | **Research Paper Galleries** | `18` | [All 18 Paper Visual Galleries](research/papers/galleries/README.md) · [23-Page Monograph Gallery](research/papers/galleries/18-zoe-research-universe/README.md) |
 | **Session Chronicles** | `56` turns | [Sessions Index](research/sessions/README.md) · [Markdown](research/sessions/2026-11-20-session-transcript.md) · [HTML Viewer](research/sessions/2026-11-20-session-transcript.html) · [24-Bit ANSI](research/sessions/2026-11-20-session-transcript.ansi) |
 
@@ -1374,7 +1374,7 @@ zoe/
 ## 10. Quick Start
 
 ```bash
-git clone https://github.com/Ablation-Tool/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
+git clone https://github.com/Nicholas-Michael-Kloster/zoe.git && cd zoe && export ZOE_ROOT="$PWD"
 python -m pip install -r requirements-dev.txt
 python -m pip install -e ./guiai-lab -e ./components/agent-logging-system
 zoe clara --serve
