@@ -153,6 +153,7 @@ class ZoeElizaRoutesTests(unittest.TestCase):
                     ("/artline", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
                     ("/physics", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
                     ("/duodecimal", ("0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
+                    ("/forge", ("Zoe Artline Forge", "0 Cloud Tokens", "sentience_claimed=False", "clinical_action_authorized=False")),
                 ):
                     st, hdr, raw = _http_get(base, route)
                     self.assertEqual(st, 200, route)
