@@ -10,8 +10,8 @@ Bridges real-world 4K phone captures into Zoe's native GEM stack:
   6. Range-capable loopback showcase server (127.0.0.1) & USB ADB Pixel pusher
 
 Standalone companion repo & live interactive showcase:
-  https://github.com/Ablation-Tool/fieldglass
-  https://ablation-tool.github.io/fieldglass/
+  https://github.com/Nicholas-Michael-Kloster/fieldglass
+  https://nicholas-michael-kloster.github.io/fieldglass/
 
 Constitutional invariants:
   auto_flash_allowed=False · clinical_action_authorized=False
@@ -55,8 +55,8 @@ from .visual_language import woven_diamond
 from .zoe_braille_studio import BrailleCanvas
 
 FIELDGLASS_CONTRACT = "zoe-fieldglass/v1"
-FIELDGLASS_SHOWCASE_URL = "https://ablation-tool.github.io/fieldglass/"
-FIELDGLASS_REPO_URL = "https://github.com/Ablation-Tool/fieldglass"
+FIELDGLASS_SHOWCASE_URL = "https://nicholas-michael-kloster.github.io/fieldglass/"
+FIELDGLASS_REPO_URL = "https://github.com/Nicholas-Michael-Kloster/fieldglass"
 
 TONAL_STATES: tuple[str, ...] = (
     "deep_shadow",

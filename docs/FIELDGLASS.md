@@ -1,7 +1,7 @@
 # Zoe Fieldglass — Phone-to-Telemetry & Specimen Field Instrument
 
-**Live Interactive Showcase:** [https://ablation-tool.github.io/fieldglass/](https://ablation-tool.github.io/fieldglass/)
-**Standalone Repo & DIY Teaching Guide:** [https://github.com/Ablation-Tool/fieldglass](https://github.com/Ablation-Tool/fieldglass) · [HOW_IT_WORKS.md](https://github.com/Ablation-Tool/fieldglass/blob/main/HOW_IT_WORKS.md)
+**Live Interactive Showcase (14 Specimens):** [https://nicholas-michael-kloster.github.io/fieldglass/](https://nicholas-michael-kloster.github.io/fieldglass/)
+**Standalone Repo & DIY Teaching Guide:** [https://github.com/Nicholas-Michael-Kloster/fieldglass](https://github.com/Nicholas-Michael-Kloster/fieldglass) · [HOW_IT_WORKS.md](https://github.com/Nicholas-Michael-Kloster/fieldglass/blob/main/HOW_IT_WORKS.md)
 
 ## Overview
 
