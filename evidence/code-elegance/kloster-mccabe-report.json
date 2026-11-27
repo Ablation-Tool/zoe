@@ -1,0 +1,4034 @@
+{
+  "all_modules_compact": [
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/__init__.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 73.676,
+      "sloc": 5
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/__main__.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 87.683,
+      "sloc": 2
+    },
+    {
+      "avg_cc": 2.121,
+      "file": "guiai-lab/guiai/gem/_eliza_routes.py",
+      "grade": "A",
+      "h2": 3.2291,
+      "max_cc": 5,
+      "mi": 78.354,
+      "sloc": 448
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/_root.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 3,
+      "mi": 77.513,
+      "sloc": 13
+    },
+    {
+      "avg_cc": 11.125,
+      "file": "guiai-lab/guiai/gem/acceptance.py",
+      "grade": "B",
+      "h2": 1.3415,
+      "max_cc": 37,
+      "mi": 58.861,
+      "sloc": 186
+    },
+    {
+      "avg_cc": 7.857,
+      "file": "guiai-lab/guiai/gem/agent.py",
+      "grade": "B",
+      "h2": 1.5149,
+      "max_cc": 20,
+      "mi": 57.096,
+      "sloc": 198
+    },
+    {
+      "avg_cc": 4.273,
+      "file": "guiai-lab/guiai/gem/agent_bridge.py",
+      "grade": "A",
+      "h2": 1.8684,
+      "max_cc": 12,
+      "mi": 61.413,
+      "sloc": 172
+    },
+    {
+      "avg_cc": 4.583,
+      "file": "guiai-lab/guiai/gem/agent_terminal.py",
+      "grade": "A",
+      "h2": 2.1258,
+      "max_cc": 12,
+      "mi": 63.859,
+      "sloc": 184
+    },
+    {
+      "avg_cc": 3.583,
+      "file": "guiai-lab/guiai/gem/alife_ecosystem.py",
+      "grade": "B",
+      "h2": 2.08,
+      "max_cc": 9,
+      "mi": 51.639,
+      "sloc": 311
+    },
+    {
+      "avg_cc": 6.508,
+      "file": "guiai-lab/guiai/gem/artline.py",
+      "grade": "A",
+      "h2": 3.2267,
+      "max_cc": 46,
+      "mi": 63.492,
+      "sloc": 897
+    },
+    {
+      "avg_cc": 3.085,
+      "file": "guiai-lab/guiai/gem/artline_view.py",
+      "grade": "A",
+      "h2": 3.1259,
+      "max_cc": 19,
+      "mi": 70.428,
+      "sloc": 654
+    },
+    {
+      "avg_cc": 9.389,
+      "file": "guiai-lab/guiai/gem/atlas.py",
+      "grade": "B",
+      "h2": 1.7741,
+      "max_cc": 61,
+      "mi": 54.752,
+      "sloc": 566
+    },
+    {
+      "avg_cc": 3.314,
+      "file": "guiai-lab/guiai/gem/atlas_view.py",
+      "grade": "A",
+      "h2": 3.2876,
+      "max_cc": 57,
+      "mi": 68.037,
+      "sloc": 1503
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/autonomy.py",
+      "grade": "B",
+      "h2": 0.2809,
+      "max_cc": 6,
+      "mi": 54.559,
+      "sloc": 80
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/autonomy_view.py",
+      "grade": "B",
+      "h2": 0.7783,
+      "max_cc": 16,
+      "mi": 58.554,
+      "sloc": 88
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/botanical_atlas_explorer.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 81.121,
+      "sloc": 306
+    },
+    {
+      "avg_cc": 5.417,
+      "file": "guiai-lab/guiai/gem/brain.py",
+      "grade": "B",
+      "h2": 2.1939,
+      "max_cc": 10,
+      "mi": 56.47,
+      "sloc": 207
+    },
+    {
+      "avg_cc": 6.091,
+      "file": "guiai-lab/guiai/gem/brain_life.py",
+      "grade": "A",
+      "h2": 1.9464,
+      "max_cc": 14,
+      "mi": 61.713,
+      "sloc": 174
+    },
+    {
+      "avg_cc": 1.722,
+      "file": "guiai-lab/guiai/gem/brain_life_view.py",
+      "grade": "A",
+      "h2": 2.5775,
+      "max_cc": 4,
+      "mi": 69.862,
+      "sloc": 162
+    },
+    {
+      "avg_cc": 5.5,
+      "file": "guiai-lab/guiai/gem/capsule.py",
+      "grade": "A",
+      "h2": 1.5926,
+      "max_cc": 26,
+      "mi": 61.804,
+      "sloc": 163
+    },
+    {
+      "avg_cc": 7.167,
+      "file": "guiai-lab/guiai/gem/cern_cli.py",
+      "grade": "B",
+      "h2": 1.0439,
+      "max_cc": 22,
+      "mi": 55.135,
+      "sloc": 165
+    },
+    {
+      "avg_cc": 6.643,
+      "file": "guiai-lab/guiai/gem/cern_corpus.py",
+      "grade": "B",
+      "h2": 1.9208,
+      "max_cc": 26,
+      "mi": 58.154,
+      "sloc": 351
+    },
+    {
+      "avg_cc": 7.571,
+      "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
+      "grade": "B",
+      "h2": 1.2448,
+      "max_cc": 25,
+      "mi": 56.924,
+      "sloc": 407
+    },
+    {
+      "avg_cc": 4.8,
+      "file": "guiai-lab/guiai/gem/cern_layout.py",
+      "grade": "A",
+      "h2": 1.4886,
+      "max_cc": 7,
+      "mi": 60.67,
+      "sloc": 75
+    },
+    {
+      "avg_cc": 5.727,
+      "file": "guiai-lab/guiai/gem/cern_repair.py",
+      "grade": "B",
+      "h2": 1.6891,
+      "max_cc": 22,
+      "mi": 58.93,
+      "sloc": 272
+    },
+    {
+      "avg_cc": 2.75,
+      "file": "guiai-lab/guiai/gem/cern_wupper.py",
+      "grade": "A",
+      "h2": 1.1849,
+      "max_cc": 5,
+      "mi": 64.492,
+      "sloc": 91
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/chat_view.py",
+      "grade": "B",
+      "h2": 1.1239,
+      "max_cc": 8,
+      "mi": 58.142,
+      "sloc": 65
+    },
+    {
+      "avg_cc": 3.7,
+      "file": "guiai-lab/guiai/gem/chiasm.py",
+      "grade": "B",
+      "h2": 1.3668,
+      "max_cc": 15,
+      "mi": 59.787,
+      "sloc": 344
+    },
+    {
+      "avg_cc": 5.889,
+      "file": "guiai-lab/guiai/gem/cicada.py",
+      "grade": "A",
+      "h2": 1.8493,
+      "max_cc": 34,
+      "mi": 61.782,
+      "sloc": 345
+    },
+    {
+      "avg_cc": 2.44,
+      "file": "guiai-lab/guiai/gem/cicada_view.py",
+      "grade": "A",
+      "h2": 2.8419,
+      "max_cc": 7,
+      "mi": 66.569,
+      "sloc": 333
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/clara_view.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 77.27,
+      "sloc": 9
+    },
+    {
+      "avg_cc": 3.447,
+      "file": "guiai-lab/guiai/gem/cli.py",
+      "grade": "A",
+      "h2": 3.067,
+      "max_cc": 12,
+      "mi": 63.597,
+      "sloc": 717
+    },
+    {
+      "avg_cc": 14.2,
+      "file": "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+      "grade": "B",
+      "h2": 1.3138,
+      "max_cc": 30,
+      "mi": 49.014,
+      "sloc": 271
+    },
+    {
+      "avg_cc": 6.947,
+      "file": "guiai-lab/guiai/gem/cog.py",
+      "grade": "A",
+      "h2": 2.0398,
+      "max_cc": 33,
+      "mi": 64.708,
+      "sloc": 243
+    },
+    {
+      "avg_cc": 5.231,
+      "file": "guiai-lab/guiai/gem/cognitive.py",
+      "grade": "A",
+      "h2": 2.5377,
+      "max_cc": 24,
+      "mi": 60.128,
+      "sloc": 471
+    },
+    {
+      "avg_cc": 5.364,
+      "file": "guiai-lab/guiai/gem/creative_playroom.py",
+      "grade": "A",
+      "h2": 1.7173,
+      "max_cc": 19,
+      "mi": 66.617,
+      "sloc": 322
+    },
+    {
+      "avg_cc": 5.75,
+      "file": "guiai-lab/guiai/gem/creative_symphony.py",
+      "grade": "A",
+      "h2": 1.3047,
+      "max_cc": 21,
+      "mi": 64.923,
+      "sloc": 274
+    },
+    {
+      "avg_cc": 3.6,
+      "file": "guiai-lab/guiai/gem/desktop.py",
+      "grade": "A",
+      "h2": 1.2374,
+      "max_cc": 8,
+      "mi": 67.506,
+      "sloc": 62
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/desktop_theme.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 69.676,
+      "sloc": 96
+    },
+    {
+      "avg_cc": 5.368,
+      "file": "guiai-lab/guiai/gem/desktop_view.py",
+      "grade": "A",
+      "h2": 1.7895,
+      "max_cc": 37,
+      "mi": 60.203,
+      "sloc": 426
+    },
+    {
+      "avg_cc": 5.833,
+      "file": "guiai-lab/guiai/gem/dorothy.py",
+      "grade": "A",
+      "h2": 0.4324,
+      "max_cc": 28,
+      "mi": 64.486,
+      "sloc": 191
+    },
+    {
+      "avg_cc": 6.588,
+      "file": "guiai-lab/guiai/gem/dorothy_biomechanics_workbench.py",
+      "grade": "A",
+      "h2": 2.2028,
+      "max_cc": 20,
+      "mi": 60.351,
+      "sloc": 801
+    },
+    {
+      "avg_cc": 5.375,
+      "file": "guiai-lab/guiai/gem/dorothy_data.py",
+      "grade": "A",
+      "h2": 2.2468,
+      "max_cc": 16,
+      "mi": 61.268,
+      "sloc": 236
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "guiai-lab/guiai/gem/dorothy_jenga.py",
+      "grade": "B",
+      "h2": 0.9017,
+      "max_cc": 20,
+      "mi": 49.591,
+      "sloc": 148
+    },
+    {
+      "avg_cc": 6.75,
+      "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
+      "grade": "B",
+      "h2": 1.5978,
+      "max_cc": 16,
+      "mi": 57.741,
+      "sloc": 455
+    },
+    {
+      "avg_cc": 5.4,
+      "file": "guiai-lab/guiai/gem/dorothy_rings.py",
+      "grade": "B",
+      "h2": 1.2398,
+      "max_cc": 11,
+      "mi": 55.383,
+      "sloc": 151
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "guiai-lab/guiai/gem/dorothy_stack.py",
+      "grade": "B",
+      "h2": 0.5731,
+      "max_cc": 19,
+      "mi": 54.444,
+      "sloc": 100
+    },
+    {
+      "avg_cc": 2.818,
+      "file": "guiai-lab/guiai/gem/eliza_view.py",
+      "grade": "A",
+      "h2": 2.8337,
+      "max_cc": 6,
+      "mi": 72.332,
+      "sloc": 1038
+    },
+    {
+      "avg_cc": 6.64,
+      "file": "guiai-lab/guiai/gem/evidence.py",
+      "grade": "B",
+      "h2": 2.3252,
+      "max_cc": 30,
+      "mi": 59.84,
+      "sloc": 434
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/evidence_view.py",
+      "grade": "A",
+      "h2": 0.3966,
+      "max_cc": 40,
+      "mi": 62.833,
+      "sloc": 214
+    },
+    {
+      "avg_cc": 5.094,
+      "file": "guiai-lab/guiai/gem/felix.py",
+      "grade": "A",
+      "h2": 2.6279,
+      "max_cc": 33,
+      "mi": 60.928,
+      "sloc": 590
+    },
+    {
+      "avg_cc": 5.2,
+      "file": "guiai-lab/guiai/gem/felix_audio.py",
+      "grade": "B",
+      "h2": 1.0695,
+      "max_cc": 13,
+      "mi": 57.896,
+      "sloc": 130
+    },
+    {
+      "avg_cc": 14.0,
+      "file": "guiai-lab/guiai/gem/felix_hdl.py",
+      "grade": "B",
+      "h2": 0.2124,
+      "max_cc": 25,
+      "mi": 52.165,
+      "sloc": 98
+    },
+    {
+      "avg_cc": 8.6,
+      "file": "guiai-lab/guiai/gem/felix_sources.py",
+      "grade": "B",
+      "h2": 0.6628,
+      "max_cc": 30,
+      "mi": 56.977,
+      "sloc": 196
+    },
+    {
+      "avg_cc": 4.312,
+      "file": "guiai-lab/guiai/gem/field.py",
+      "grade": "A",
+      "h2": 3.1561,
+      "max_cc": 23,
+      "mi": 62.174,
+      "sloc": 665
+    },
+    {
+      "avg_cc": 2.778,
+      "file": "guiai-lab/guiai/gem/gemos_view.py",
+      "grade": "A",
+      "h2": 2.0189,
+      "max_cc": 5,
+      "mi": 60.628,
+      "sloc": 134
+    },
+    {
+      "avg_cc": 2.5,
+      "file": "guiai-lab/guiai/gem/genesis.py",
+      "grade": "A",
+      "h2": 0.7621,
+      "max_cc": 10,
+      "mi": 65.888,
+      "sloc": 194
+    },
+    {
+      "avg_cc": 3.778,
+      "file": "guiai-lab/guiai/gem/geometry.py",
+      "grade": "A",
+      "h2": 2.0589,
+      "max_cc": 20,
+      "mi": 71.381,
+      "sloc": 173
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "guiai-lab/guiai/gem/glass_harmonica_workbench.py",
+      "grade": "A",
+      "h2": 1.4271,
+      "max_cc": 6,
+      "mi": 67.965,
+      "sloc": 94
+    },
+    {
+      "avg_cc": 15.3,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "grade": "B",
+      "h2": 1.9915,
+      "max_cc": 36,
+      "mi": 48.306,
+      "sloc": 566
+    },
+    {
+      "avg_cc": 5.167,
+      "file": "guiai-lab/guiai/gem/helen_onset.py",
+      "grade": "A",
+      "h2": 1.545,
+      "max_cc": 9,
+      "mi": 63.392,
+      "sloc": 82
+    },
+    {
+      "avg_cc": 3.533,
+      "file": "guiai-lab/guiai/gem/kloster_bio_crypto_circle.py",
+      "grade": "A",
+      "h2": 1.9566,
+      "max_cc": 16,
+      "mi": 68.301,
+      "sloc": 320
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/kloster_botanical_atlas_36.py",
+      "grade": "A",
+      "h2": 2.0799,
+      "max_cc": 7,
+      "mi": 61.618,
+      "sloc": 208
+    },
+    {
+      "avg_cc": 3.2,
+      "file": "guiai-lab/guiai/gem/kloster_botanical_neuro_oncology.py",
+      "grade": "A",
+      "h2": 1.4508,
+      "max_cc": 5,
+      "mi": 61.06,
+      "sloc": 124
+    },
+    {
+      "avg_cc": 2.947,
+      "file": "guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py",
+      "grade": "A",
+      "h2": 2.4672,
+      "max_cc": 8,
+      "mi": 73.903,
+      "sloc": 260
+    },
+    {
+      "avg_cc": 3.714,
+      "file": "guiai-lab/guiai/gem/kloster_coding_mdl.py",
+      "grade": "B",
+      "h2": 1.6959,
+      "max_cc": 6,
+      "mi": 59.346,
+      "sloc": 179
+    },
+    {
+      "avg_cc": 7.647,
+      "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_boss_rush.py",
+      "grade": "A",
+      "h2": 2.3865,
+      "max_cc": 21,
+      "mi": 60.554,
+      "sloc": 407
+    },
+    {
+      "avg_cc": 8.056,
+      "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_classical.py",
+      "grade": "A",
+      "h2": 2.5251,
+      "max_cc": 17,
+      "mi": 60.582,
+      "sloc": 453
+    },
+    {
+      "avg_cc": 4.8,
+      "file": "guiai-lab/guiai/gem/kloster_cryptanalysis_modern.py",
+      "grade": "A",
+      "h2": 2.3811,
+      "max_cc": 15,
+      "mi": 68.565,
+      "sloc": 414
+    },
+    {
+      "avg_cc": 2.6,
+      "file": "guiai-lab/guiai/gem/kloster_harmonic_optics.py",
+      "grade": "A",
+      "h2": 1.78,
+      "max_cc": 7,
+      "mi": 62.767,
+      "sloc": 197
+    },
+    {
+      "avg_cc": 6.059,
+      "file": "guiai-lab/guiai/gem/kloster_info_geometry.py",
+      "grade": "A",
+      "h2": 1.8799,
+      "max_cc": 25,
+      "mi": 62.09,
+      "sloc": 563
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "guiai-lab/guiai/gem/kloster_majorization_mixing.py",
+      "grade": "A",
+      "h2": 1.5892,
+      "max_cc": 10,
+      "mi": 61.468,
+      "sloc": 180
+    },
+    {
+      "avg_cc": 5.167,
+      "file": "guiai-lab/guiai/gem/kloster_master_unification.py",
+      "grade": "A",
+      "h2": 1.3915,
+      "max_cc": 12,
+      "mi": 62.992,
+      "sloc": 181
+    },
+    {
+      "avg_cc": 8.667,
+      "file": "guiai-lab/guiai/gem/kloster_multi_agent_consensus.py",
+      "grade": "B",
+      "h2": 2.1404,
+      "max_cc": 18,
+      "mi": 57.806,
+      "sloc": 366
+    },
+    {
+      "avg_cc": 5.263,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_cnsa2_and_advanced.py",
+      "grade": "A",
+      "h2": 2.1054,
+      "max_cc": 26,
+      "mi": 70.031,
+      "sloc": 344
+    },
+    {
+      "avg_cc": 7.773,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_puzzles.py",
+      "grade": "A",
+      "h2": 2.5615,
+      "max_cc": 21,
+      "mi": 62.727,
+      "sloc": 433
+    },
+    {
+      "avg_cc": 8.286,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_ring3_lattice_klepto.py",
+      "grade": "A",
+      "h2": 1.6783,
+      "max_cc": 15,
+      "mi": 61.234,
+      "sloc": 222
+    },
+    {
+      "avg_cc": 6.375,
+      "file": "guiai-lab/guiai/gem/kloster_nsa_ring3_skipjack_venona.py",
+      "grade": "A",
+      "h2": 1.5375,
+      "max_cc": 17,
+      "mi": 61.463,
+      "sloc": 231
+    },
+    {
+      "avg_cc": 2.7,
+      "file": "guiai-lab/guiai/gem/kloster_optimal_transport.py",
+      "grade": "A",
+      "h2": 1.8126,
+      "max_cc": 8,
+      "mi": 65.565,
+      "sloc": 231
+    },
+    {
+      "avg_cc": 6.4,
+      "file": "guiai-lab/guiai/gem/kloster_pharmacophore_spatial_c28.py",
+      "grade": "A",
+      "h2": 1.1144,
+      "max_cc": 14,
+      "mi": 62.273,
+      "sloc": 122
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/kloster_proof_packet.py",
+      "grade": "A",
+      "h2": 1.9263,
+      "max_cc": 10,
+      "mi": 61.052,
+      "sloc": 263
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/kloster_quadrature_and_ablation.py",
+      "grade": "B",
+      "h2": 1.5993,
+      "max_cc": 25,
+      "mi": 53.006,
+      "sloc": 412
+    },
+    {
+      "avg_cc": 2.222,
+      "file": "guiai-lab/guiai/gem/kloster_quantum_duality.py",
+      "grade": "A",
+      "h2": 1.6607,
+      "max_cc": 7,
+      "mi": 70.346,
+      "sloc": 174
+    },
+    {
+      "avg_cc": 5.4,
+      "file": "guiai-lab/guiai/gem/kloster_riemannian_manifold.py",
+      "grade": "B",
+      "h2": 0.8328,
+      "max_cc": 17,
+      "mi": 56.725,
+      "sloc": 235
+    },
+    {
+      "avg_cc": 4.4,
+      "file": "guiai-lab/guiai/gem/kloster_scrna_encrypted_pains.py",
+      "grade": "B",
+      "h2": 1.5186,
+      "max_cc": 6,
+      "mi": 49.507,
+      "sloc": 159
+    },
+    {
+      "avg_cc": 5.9,
+      "file": "guiai-lab/guiai/gem/kloster_spatial_optical_law.py",
+      "grade": "B",
+      "h2": 1.8955,
+      "max_cc": 16,
+      "mi": 59.478,
+      "sloc": 310
+    },
+    {
+      "avg_cc": 4.417,
+      "file": "guiai-lab/guiai/gem/kloster_stopping_law.py",
+      "grade": "A",
+      "h2": 2.0462,
+      "max_cc": 12,
+      "mi": 62.081,
+      "sloc": 319
+    },
+    {
+      "avg_cc": 6.333,
+      "file": "guiai-lab/guiai/gem/kloster_thermodynamics.py",
+      "grade": "B",
+      "h2": 0.6578,
+      "max_cc": 13,
+      "mi": 49.132,
+      "sloc": 177
+    },
+    {
+      "avg_cc": 2.667,
+      "file": "guiai-lab/guiai/gem/knowledge.py",
+      "grade": "A",
+      "h2": 1.7724,
+      "max_cc": 11,
+      "mi": 64.681,
+      "sloc": 140
+    },
+    {
+      "avg_cc": 2.75,
+      "file": "guiai-lab/guiai/gem/l3_research.py",
+      "grade": "B",
+      "h2": 0.9456,
+      "max_cc": 6,
+      "mi": 59.119,
+      "sloc": 145
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "guiai-lab/guiai/gem/l4_evolution.py",
+      "grade": "A",
+      "h2": 0.5878,
+      "max_cc": 13,
+      "mi": 60.832,
+      "sloc": 192
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/l4_multimodule.py",
+      "grade": "A",
+      "h2": 0.4372,
+      "max_cc": 19,
+      "mi": 60.905,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 3.333,
+      "file": "guiai-lab/guiai/gem/l5_core.py",
+      "grade": "B",
+      "h2": 0.4155,
+      "max_cc": 8,
+      "mi": 57.991,
+      "sloc": 168
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "guiai-lab/guiai/gem/l5_phase2.py",
+      "grade": "B",
+      "h2": 0.3769,
+      "max_cc": 9,
+      "mi": 58.046,
+      "sloc": 165
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "guiai-lab/guiai/gem/l5_phase3.py",
+      "grade": "B",
+      "h2": 0.3769,
+      "max_cc": 9,
+      "mi": 57.866,
+      "sloc": 171
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "guiai-lab/guiai/gem/l5_phase4.py",
+      "grade": "B",
+      "h2": 0.3769,
+      "max_cc": 9,
+      "mi": 57.831,
+      "sloc": 171
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "guiai-lab/guiai/gem/l5_phase5.py",
+      "grade": "B",
+      "h2": 0.3769,
+      "max_cc": 9,
+      "mi": 57.636,
+      "sloc": 175
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/l5_phase6.py",
+      "grade": "B",
+      "h2": 0.2744,
+      "max_cc": 13,
+      "mi": 56.712,
+      "sloc": 178
+    },
+    {
+      "avg_cc": 5.875,
+      "file": "guiai-lab/guiai/gem/leadership.py",
+      "grade": "B",
+      "h2": 1.5583,
+      "max_cc": 16,
+      "mi": 59.854,
+      "sloc": 203
+    },
+    {
+      "avg_cc": 3.6,
+      "file": "guiai-lab/guiai/gem/leadership_view.py",
+      "grade": "B",
+      "h2": 0.8681,
+      "max_cc": 11,
+      "mi": 59.185,
+      "sloc": 116
+    },
+    {
+      "avg_cc": 5.667,
+      "file": "guiai-lab/guiai/gem/life.py",
+      "grade": "A",
+      "h2": 1.9347,
+      "max_cc": 16,
+      "mi": 62.689,
+      "sloc": 191
+    },
+    {
+      "avg_cc": 14.0,
+      "file": "guiai-lab/guiai/gem/life_text.py",
+      "grade": "B",
+      "h2": -0.0,
+      "max_cc": 14,
+      "mi": 48.581,
+      "sloc": 66
+    },
+    {
+      "avg_cc": 2.55,
+      "file": "guiai-lab/guiai/gem/life_view.py",
+      "grade": "A",
+      "h2": 2.4041,
+      "max_cc": 10,
+      "mi": 66.023,
+      "sloc": 240
+    },
+    {
+      "avg_cc": 4.771,
+      "file": "guiai-lab/guiai/gem/lume_cli.py",
+      "grade": "B",
+      "h2": 4.2571,
+      "max_cc": 16,
+      "mi": 58.301,
+      "sloc": 1809
+    },
+    {
+      "avg_cc": 5.75,
+      "file": "guiai-lab/guiai/gem/lume_header.py",
+      "grade": "A",
+      "h2": 1.617,
+      "max_cc": 13,
+      "mi": 68.63,
+      "sloc": 361
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "guiai-lab/guiai/gem/maison.py",
+      "grade": "A",
+      "h2": 1.2263,
+      "max_cc": 9,
+      "mi": 60.646,
+      "sloc": 137
+    },
+    {
+      "avg_cc": 3.8,
+      "file": "guiai-lab/guiai/gem/maison_view.py",
+      "grade": "A",
+      "h2": 0.82,
+      "max_cc": 12,
+      "mi": 62.351,
+      "sloc": 80
+    },
+    {
+      "avg_cc": 2.429,
+      "file": "guiai-lab/guiai/gem/mars_adaptive.py",
+      "grade": "A",
+      "h2": 1.1125,
+      "max_cc": 9,
+      "mi": 71.7,
+      "sloc": 207
+    },
+    {
+      "avg_cc": 7.208,
+      "file": "guiai-lab/guiai/gem/model.py",
+      "grade": "A",
+      "h2": 2.0747,
+      "max_cc": 39,
+      "mi": 67.54,
+      "sloc": 405
+    },
+    {
+      "avg_cc": 4.062,
+      "file": "guiai-lab/guiai/gem/onset.py",
+      "grade": "A",
+      "h2": 2.0892,
+      "max_cc": 14,
+      "mi": 63.618,
+      "sloc": 219
+    },
+    {
+      "avg_cc": 6.182,
+      "file": "guiai-lab/guiai/gem/operating_environment.py",
+      "grade": "B",
+      "h2": 1.8189,
+      "max_cc": 17,
+      "mi": 56.452,
+      "sloc": 321
+    },
+    {
+      "avg_cc": 7.333,
+      "file": "guiai-lab/guiai/gem/operational_autonomy.py",
+      "grade": "B",
+      "h2": 2.6839,
+      "max_cc": 15,
+      "mi": 52.145,
+      "sloc": 505
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/pala_view.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 6,
+      "mi": 61.065,
+      "sloc": 15
+    },
+    {
+      "avg_cc": 8.296,
+      "file": "guiai-lab/guiai/gem/patchbay.py",
+      "grade": "B",
+      "h2": 2.648,
+      "max_cc": 30,
+      "mi": 55.011,
+      "sloc": 648
+    },
+    {
+      "avg_cc": 7.2,
+      "file": "guiai-lab/guiai/gem/patchbay_view.py",
+      "grade": "B",
+      "h2": 0.4774,
+      "max_cc": 28,
+      "mi": 56.36,
+      "sloc": 160
+    },
+    {
+      "avg_cc": 6.455,
+      "file": "guiai-lab/guiai/gem/pentacube.py",
+      "grade": "A",
+      "h2": 2.4775,
+      "max_cc": 46,
+      "mi": 62.912,
+      "sloc": 481
+    },
+    {
+      "avg_cc": 6.25,
+      "file": "guiai-lab/guiai/gem/pentacube_reference.py",
+      "grade": "A",
+      "h2": 1.6756,
+      "max_cc": 15,
+      "mi": 60.429,
+      "sloc": 154
+    },
+    {
+      "avg_cc": 2.929,
+      "file": "guiai-lab/guiai/gem/pentacube_view.py",
+      "grade": "A",
+      "h2": 2.5368,
+      "max_cc": 16,
+      "mi": 66.872,
+      "sloc": 361
+    },
+    {
+      "avg_cc": 7.314,
+      "file": "guiai-lab/guiai/gem/pentomino.py",
+      "grade": "A",
+      "h2": 2.576,
+      "max_cc": 52,
+      "mi": 64.536,
+      "sloc": 497
+    },
+    {
+      "avg_cc": 3.083,
+      "file": "guiai-lab/guiai/gem/pentomino_view.py",
+      "grade": "A",
+      "h2": 2.6575,
+      "max_cc": 13,
+      "mi": 64.2,
+      "sloc": 319
+    },
+    {
+      "avg_cc": 5.667,
+      "file": "guiai-lab/guiai/gem/pilot.py",
+      "grade": "B",
+      "h2": 2.1437,
+      "max_cc": 12,
+      "mi": 53.611,
+      "sloc": 234
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/pilot_view.py",
+      "grade": "A",
+      "h2": 0.6809,
+      "max_cc": 6,
+      "mi": 60.944,
+      "sloc": 41
+    },
+    {
+      "avg_cc": 6.429,
+      "file": "guiai-lab/guiai/gem/practice.py",
+      "grade": "A",
+      "h2": 1.5923,
+      "max_cc": 36,
+      "mi": 60.629,
+      "sloc": 227
+    },
+    {
+      "avg_cc": 5.733,
+      "file": "guiai-lab/guiai/gem/presence.py",
+      "grade": "A",
+      "h2": 1.2079,
+      "max_cc": 45,
+      "mi": 60.222,
+      "sloc": 245
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/presence_view.py",
+      "grade": "B",
+      "h2": 0.4122,
+      "max_cc": 12,
+      "mi": 55.834,
+      "sloc": 58
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/proof_packet_arena.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 81.121,
+      "sloc": 213
+    },
+    {
+      "avg_cc": 6.929,
+      "file": "guiai-lab/guiai/gem/protocol_lab.py",
+      "grade": "A",
+      "h2": 2.324,
+      "max_cc": 17,
+      "mi": 60.434,
+      "sloc": 194
+    },
+    {
+      "avg_cc": 2.0,
+      "file": "guiai-lab/guiai/gem/protocol_view.py",
+      "grade": "A",
+      "h2": 0.47,
+      "max_cc": 3,
+      "mi": 61.885,
+      "sloc": 28
+    },
+    {
+      "avg_cc": 5.091,
+      "file": "guiai-lab/guiai/gem/qualia.py",
+      "grade": "A",
+      "h2": 2.4321,
+      "max_cc": 16,
+      "mi": 65.143,
+      "sloc": 290
+    },
+    {
+      "avg_cc": 2.25,
+      "file": "guiai-lab/guiai/gem/reasoning_view.py",
+      "grade": "B",
+      "h2": 1.9521,
+      "max_cc": 3,
+      "mi": 58.952,
+      "sloc": 140
+    },
+    {
+      "avg_cc": 6.5,
+      "file": "guiai-lab/guiai/gem/render.py",
+      "grade": "A",
+      "h2": 1.162,
+      "max_cc": 22,
+      "mi": 60.907,
+      "sloc": 212
+    },
+    {
+      "avg_cc": 4.7,
+      "file": "guiai-lab/guiai/gem/research.py",
+      "grade": "A",
+      "h2": 1.7367,
+      "max_cc": 15,
+      "mi": 61.317,
+      "sloc": 162
+    },
+    {
+      "avg_cc": 9.167,
+      "file": "guiai-lab/guiai/gem/resilience.py",
+      "grade": "B",
+      "h2": 1.561,
+      "max_cc": 17,
+      "mi": 52.408,
+      "sloc": 245
+    },
+    {
+      "avg_cc": 2.0,
+      "file": "guiai-lab/guiai/gem/resilience_view.py",
+      "grade": "A",
+      "h2": 0.47,
+      "max_cc": 3,
+      "mi": 60.72,
+      "sloc": 29
+    },
+    {
+      "avg_cc": 3.8,
+      "file": "guiai-lab/guiai/gem/runner.py",
+      "grade": "A",
+      "h2": 2.2961,
+      "max_cc": 11,
+      "mi": 65.326,
+      "sloc": 213
+    },
+    {
+      "avg_cc": 8.172,
+      "file": "guiai-lab/guiai/gem/seasip_gem.py",
+      "grade": "A",
+      "h2": 2.662,
+      "max_cc": 35,
+      "mi": 60.843,
+      "sloc": 1001
+    },
+    {
+      "avg_cc": 7.105,
+      "file": "guiai-lab/guiai/gem/spatial3d.py",
+      "grade": "A",
+      "h2": 2.1699,
+      "max_cc": 27,
+      "mi": 62.949,
+      "sloc": 286
+    },
+    {
+      "avg_cc": 1.0,
+      "file": "guiai-lab/guiai/gem/spatial_optical_workbench.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 1,
+      "mi": 81.121,
+      "sloc": 455
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/spectral_filtration.py",
+      "grade": "A",
+      "h2": 1.5234,
+      "max_cc": 13,
+      "mi": 63.261,
+      "sloc": 307
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/twin.py",
+      "grade": "A",
+      "h2": 1.4771,
+      "max_cc": 18,
+      "mi": 62.26,
+      "sloc": 167
+    },
+    {
+      "avg_cc": 5.1,
+      "file": "guiai-lab/guiai/gem/unified.py",
+      "grade": "A",
+      "h2": 2.303,
+      "max_cc": 21,
+      "mi": 61.228,
+      "sloc": 369
+    },
+    {
+      "avg_cc": 2.5,
+      "file": "guiai-lab/guiai/gem/unified_cli.py",
+      "grade": "A",
+      "h2": 2.1203,
+      "max_cc": 5,
+      "mi": 74.619,
+      "sloc": 148
+    },
+    {
+      "avg_cc": 7.706,
+      "file": "guiai-lab/guiai/gem/vdi.py",
+      "grade": "A",
+      "h2": 1.6298,
+      "max_cc": 51,
+      "mi": 63.242,
+      "sloc": 327
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "guiai-lab/guiai/gem/video_library.py",
+      "grade": "B",
+      "h2": 2.4241,
+      "max_cc": 33,
+      "mi": 59.891,
+      "sloc": 570
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/view.py",
+      "grade": "A",
+      "h2": 2.0721,
+      "max_cc": 11,
+      "mi": 70.055,
+      "sloc": 147
+    },
+    {
+      "avg_cc": 5.111,
+      "file": "guiai-lab/guiai/gem/visual_language.py",
+      "grade": "B",
+      "h2": 1.7767,
+      "max_cc": 12,
+      "mi": 56.85,
+      "sloc": 175
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/voice_view.py",
+      "grade": "B",
+      "h2": 0.6539,
+      "max_cc": 10,
+      "mi": 48.971,
+      "sloc": 120
+    },
+    {
+      "avg_cc": 3.909,
+      "file": "guiai-lab/guiai/gem/volume.py",
+      "grade": "A",
+      "h2": 1.9502,
+      "max_cc": 10,
+      "mi": 63.938,
+      "sloc": 153
+    },
+    {
+      "avg_cc": 3.826,
+      "file": "guiai-lab/guiai/gem/wave3_gem_instruments.py",
+      "grade": "B",
+      "h2": 2.7685,
+      "max_cc": 10,
+      "mi": 55.375,
+      "sloc": 1444
+    },
+    {
+      "avg_cc": 12.632,
+      "file": "guiai-lab/guiai/gem/waveform.py",
+      "grade": "B",
+      "h2": 2.1264,
+      "max_cc": 57,
+      "mi": 55.099,
+      "sloc": 489
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "guiai-lab/guiai/gem/waveform_view.py",
+      "grade": "B",
+      "h2": 0.6809,
+      "max_cc": 6,
+      "mi": 59.898,
+      "sloc": 44
+    },
+    {
+      "avg_cc": 5.119,
+      "file": "guiai-lab/guiai/gem/zoe_app_brain.py",
+      "grade": "A",
+      "h2": 3.2575,
+      "max_cc": 19,
+      "mi": 63.68,
+      "sloc": 777
+    },
+    {
+      "avg_cc": 5.8,
+      "file": "guiai-lab/guiai/gem/zoe_artline_fonts.py",
+      "grade": "A",
+      "h2": 1.4616,
+      "max_cc": 9,
+      "mi": 61.591,
+      "sloc": 236
+    },
+    {
+      "avg_cc": 10.625,
+      "file": "guiai-lab/guiai/gem/zoe_artline_hacker.py",
+      "grade": "B",
+      "h2": 1.8146,
+      "max_cc": 20,
+      "mi": 54.099,
+      "sloc": 335
+    },
+    {
+      "avg_cc": 8.429,
+      "file": "guiai-lab/guiai/gem/zoe_artline_neuro.py",
+      "grade": "B",
+      "h2": 1.87,
+      "max_cc": 29,
+      "mi": 57.569,
+      "sloc": 479
+    },
+    {
+      "avg_cc": 6.667,
+      "file": "guiai-lab/guiai/gem/zoe_atari_gem_rsc.py",
+      "grade": "B",
+      "h2": 1.5041,
+      "max_cc": 24,
+      "mi": 58.403,
+      "sloc": 356
+    },
+    {
+      "avg_cc": 7.5,
+      "file": "guiai-lab/guiai/gem/zoe_beta_release.py",
+      "grade": "B",
+      "h2": 1.1748,
+      "max_cc": 12,
+      "mi": 51.689,
+      "sloc": 180
+    },
+    {
+      "avg_cc": 3.938,
+      "file": "guiai-lab/guiai/gem/zoe_braille_studio.py",
+      "grade": "A",
+      "h2": 2.5925,
+      "max_cc": 7,
+      "mi": 66.011,
+      "sloc": 333
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "guiai-lab/guiai/gem/zoe_braun_gem_renderer.py",
+      "grade": "A",
+      "h2": 1.6446,
+      "max_cc": 16,
+      "mi": 63.736,
+      "sloc": 314
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "guiai-lab/guiai/gem/zoe_choral_composer.py",
+      "grade": "B",
+      "h2": 0.8714,
+      "max_cc": 16,
+      "mi": 53.332,
+      "sloc": 250
+    },
+    {
+      "avg_cc": 5.571,
+      "file": "guiai-lab/guiai/gem/zoe_cockpit.py",
+      "grade": "A",
+      "h2": 2.3926,
+      "max_cc": 11,
+      "mi": 61.777,
+      "sloc": 317
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "guiai-lab/guiai/gem/zoe_cymatics.py",
+      "grade": "B",
+      "h2": 1.6146,
+      "max_cc": 8,
+      "mi": 53.093,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 4.667,
+      "file": "guiai-lab/guiai/gem/zoe_dorothy_discovery_engine.py",
+      "grade": "B",
+      "h2": 0.974,
+      "max_cc": 16,
+      "mi": 56.592,
+      "sloc": 440
+    },
+    {
+      "avg_cc": 2.667,
+      "file": "guiai-lab/guiai/gem/zoe_eliza_gem.py",
+      "grade": "B",
+      "h2": 0.5213,
+      "max_cc": 6,
+      "mi": 59.165,
+      "sloc": 135
+    },
+    {
+      "avg_cc": 7.5,
+      "file": "guiai-lab/guiai/gem/zoe_freegem_archive.py",
+      "grade": "B",
+      "h2": 2.2316,
+      "max_cc": 30,
+      "mi": 58.576,
+      "sloc": 323
+    },
+    {
+      "avg_cc": 4.641,
+      "file": "guiai-lab/guiai/gem/zoe_gem_aes_vdi_core.py",
+      "grade": "A",
+      "h2": 3.7118,
+      "max_cc": 55,
+      "mi": 66.671,
+      "sloc": 3463
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "guiai-lab/guiai/gem/zoe_gem_themes.py",
+      "grade": "A",
+      "h2": 1.7877,
+      "max_cc": 10,
+      "mi": 64.501,
+      "sloc": 284
+    },
+    {
+      "avg_cc": 4.408,
+      "file": "guiai-lab/guiai/gem/zoe_hex_mesh.py",
+      "grade": "A",
+      "h2": 3.0607,
+      "max_cc": 29,
+      "mi": 62.66,
+      "sloc": 1061
+    },
+    {
+      "avg_cc": 4.857,
+      "file": "guiai-lab/guiai/gem/zoe_med_council.py",
+      "grade": "B",
+      "h2": 1.5721,
+      "max_cc": 10,
+      "mi": 59.157,
+      "sloc": 154
+    },
+    {
+      "avg_cc": 8.636,
+      "file": "guiai-lab/guiai/gem/zoe_medical_mission.py",
+      "grade": "B",
+      "h2": 1.9384,
+      "max_cc": 21,
+      "mi": 53.09,
+      "sloc": 447
+    },
+    {
+      "avg_cc": 10.333,
+      "file": "guiai-lab/guiai/gem/zoe_neuro_atlas.py",
+      "grade": "B",
+      "h2": 0.9681,
+      "max_cc": 14,
+      "mi": 53.865,
+      "sloc": 347
+    },
+    {
+      "avg_cc": 2.2,
+      "file": "guiai-lab/guiai/gem/zoe_os.py",
+      "grade": "A",
+      "h2": 0.8255,
+      "max_cc": 7,
+      "mi": 74.781,
+      "sloc": 72
+    },
+    {
+      "avg_cc": 10.111,
+      "file": "guiai-lab/guiai/gem/zoe_phonetics.py",
+      "grade": "B",
+      "h2": 1.5792,
+      "max_cc": 31,
+      "mi": 51.77,
+      "sloc": 977
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "guiai-lab/guiai/gem/zoe_rome_fusion.py",
+      "grade": "B",
+      "h2": 2.4775,
+      "max_cc": 14,
+      "mi": 55.211,
+      "sloc": 806
+    },
+    {
+      "avg_cc": 3.875,
+      "file": "guiai-lab/guiai/gem/zoe_sisters.py",
+      "grade": "A",
+      "h2": 2.6733,
+      "max_cc": 11,
+      "mi": 60.819,
+      "sloc": 973
+    },
+    {
+      "avg_cc": 5.125,
+      "file": "guiai-lab/guiai/gem/zoe_universe.py",
+      "grade": "A",
+      "h2": 1.72,
+      "max_cc": 11,
+      "mi": 60.716,
+      "sloc": 340
+    },
+    {
+      "avg_cc": 6.103,
+      "file": "guiai-lab/guiai/gem/zoe_voice.py",
+      "grade": "A",
+      "h2": 2.4458,
+      "max_cc": 30,
+      "mi": 60.172,
+      "sloc": 1153
+    },
+    {
+      "avg_cc": 4.083,
+      "file": "guiai-lab/guiai/gem/zoe_workbench.py",
+      "grade": "A",
+      "h2": 2.1242,
+      "max_cc": 10,
+      "mi": 60.443,
+      "sloc": 202
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "guiai-lab/guiai/gem/zoe_workbench_cli.py",
+      "grade": "B",
+      "h2": 0.1985,
+      "max_cc": 9,
+      "mi": 55.67,
+      "sloc": 44
+    },
+    {
+      "avg_cc": 7.143,
+      "file": "guiai-lab/guiai/gem/zoe_zero_token.py",
+      "grade": "B",
+      "h2": 2.8995,
+      "max_cc": 20,
+      "mi": 56.446,
+      "sloc": 664
+    },
+    {
+      "avg_cc": 2.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/__init__.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 2,
+      "mi": 71.13,
+      "sloc": 115
+    },
+    {
+      "avg_cc": 4.667,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/_metrics.py",
+      "grade": "A",
+      "h2": 1.0885,
+      "max_cc": 5,
+      "mi": 62.3,
+      "sloc": 58
+    },
+    {
+      "avg_cc": 1.8,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/_utils.py",
+      "grade": "A",
+      "h2": 1.3499,
+      "max_cc": 3,
+      "mi": 75.227,
+      "sloc": 68
+    },
+    {
+      "avg_cc": 7.278,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/actuation.py",
+      "grade": "A",
+      "h2": 2.2477,
+      "max_cc": 23,
+      "mi": 61.917,
+      "sloc": 414
+    },
+    {
+      "avg_cc": 7.143,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/agents.py",
+      "grade": "B",
+      "h2": 2.2443,
+      "max_cc": 18,
+      "mi": 55.293,
+      "sloc": 308
+    },
+    {
+      "avg_cc": 11.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/agi_discovery.py",
+      "grade": "B",
+      "h2": 1.257,
+      "max_cc": 17,
+      "mi": 50.92,
+      "sloc": 245
+    },
+    {
+      "avg_cc": 7.182,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/autonomous.py",
+      "grade": "B",
+      "h2": 2.6131,
+      "max_cc": 18,
+      "mi": 57.086,
+      "sloc": 566
+    },
+    {
+      "avg_cc": 3.271,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/capabilities.py",
+      "grade": "A",
+      "h2": 3.3953,
+      "max_cc": 17,
+      "mi": 68.564,
+      "sloc": 591
+    },
+    {
+      "avg_cc": 17.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/capabilities_cli.py",
+      "grade": "B",
+      "h2": 0.0571,
+      "max_cc": 34,
+      "mi": 50.007,
+      "sloc": 177
+    },
+    {
+      "avg_cc": 3.78,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/chat.py",
+      "grade": "A",
+      "h2": 3.9869,
+      "max_cc": 15,
+      "mi": 64.337,
+      "sloc": 1507
+    },
+    {
+      "avg_cc": 2.722,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/cli.py",
+      "grade": "A",
+      "h2": 2.6537,
+      "max_cc": 6,
+      "mi": 71.328,
+      "sloc": 241
+    },
+    {
+      "avg_cc": 3.556,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/cognitive_upgrades.py",
+      "grade": "A",
+      "h2": 2.0188,
+      "max_cc": 19,
+      "mi": 67.912,
+      "sloc": 335
+    },
+    {
+      "avg_cc": 10.5,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/collaboration.py",
+      "grade": "B",
+      "h2": 2.0877,
+      "max_cc": 30,
+      "mi": 56.467,
+      "sloc": 412
+    },
+    {
+      "avg_cc": 7.143,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/cross_domain_transfer.py",
+      "grade": "A",
+      "h2": 1.4784,
+      "max_cc": 17,
+      "mi": 63.846,
+      "sloc": 185
+    },
+    {
+      "avg_cc": 3.933,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/dorothy_local_library.py",
+      "grade": "A",
+      "h2": 1.9876,
+      "max_cc": 16,
+      "mi": 64.475,
+      "sloc": 326
+    },
+    {
+      "avg_cc": 4.625,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/dorothy_research_upgrades.py",
+      "grade": "A",
+      "h2": 1.6964,
+      "max_cc": 10,
+      "mi": 67.328,
+      "sloc": 200
+    },
+    {
+      "avg_cc": 3.111,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/epistemic_firewall.py",
+      "grade": "A",
+      "h2": 2.2887,
+      "max_cc": 10,
+      "mi": 62.514,
+      "sloc": 288
+    },
+    {
+      "avg_cc": 7.846,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/evaluation.py",
+      "grade": "B",
+      "h2": 1.7195,
+      "max_cc": 37,
+      "mi": 54.829,
+      "sloc": 397
+    },
+    {
+      "avg_cc": 2.933,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_autonomy.py",
+      "grade": "A",
+      "h2": 1.7693,
+      "max_cc": 16,
+      "mi": 65.865,
+      "sloc": 246
+    },
+    {
+      "avg_cc": 8.263,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_core.py",
+      "grade": "B",
+      "h2": 2.1571,
+      "max_cc": 36,
+      "mi": 59.951,
+      "sloc": 340
+    },
+    {
+      "avg_cc": 6.375,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_evaluation.py",
+      "grade": "B",
+      "h2": 2.22,
+      "max_cc": 26,
+      "mi": 53.056,
+      "sloc": 380
+    },
+    {
+      "avg_cc": 5.444,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_memory.py",
+      "grade": "A",
+      "h2": 2.5687,
+      "max_cc": 12,
+      "mi": 64.117,
+      "sloc": 191
+    },
+    {
+      "avg_cc": 3.833,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_plasticity.py",
+      "grade": "A",
+      "h2": 1.1062,
+      "max_cc": 12,
+      "mi": 63.671,
+      "sloc": 99
+    },
+    {
+      "avg_cc": 9.769,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_reasoning.py",
+      "grade": "B",
+      "h2": 1.8964,
+      "max_cc": 33,
+      "mi": 57.066,
+      "sloc": 340
+    },
+    {
+      "avg_cc": 5.25,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/event_uncertainty.py",
+      "grade": "B",
+      "h2": 0.9243,
+      "max_cc": 11,
+      "mi": 57.273,
+      "sloc": 81
+    },
+    {
+      "avg_cc": 5.706,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/experiment.py",
+      "grade": "B",
+      "h2": 2.3548,
+      "max_cc": 17,
+      "mi": 54.084,
+      "sloc": 513
+    },
+    {
+      "avg_cc": 6.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/explore.py",
+      "grade": "A",
+      "h2": 1.4613,
+      "max_cc": 27,
+      "mi": 61.94,
+      "sloc": 184
+    },
+    {
+      "avg_cc": 8.154,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
+      "grade": "A",
+      "h2": 1.9952,
+      "max_cc": 24,
+      "mi": 60.731,
+      "sloc": 448
+    },
+    {
+      "avg_cc": 7.926,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l4_multi_module.py",
+      "grade": "B",
+      "h2": 3.312,
+      "max_cc": 29,
+      "mi": 57.648,
+      "sloc": 1761
+    },
+    {
+      "avg_cc": 6.594,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l4_self_improvement.py",
+      "grade": "A",
+      "h2": 2.5452,
+      "max_cc": 32,
+      "mi": 60.14,
+      "sloc": 1086
+    },
+    {
+      "avg_cc": 10.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_code_surgeon.py",
+      "grade": "B",
+      "h2": 1.8079,
+      "max_cc": 28,
+      "mi": 52.461,
+      "sloc": 522
+    },
+    {
+      "avg_cc": 8.2,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_cognitive_core.py",
+      "grade": "B",
+      "h2": 1.0319,
+      "max_cc": 18,
+      "mi": 57.1,
+      "sloc": 239
+    },
+    {
+      "avg_cc": 10.8,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_domains.py",
+      "grade": "B",
+      "h2": 2.5986,
+      "max_cc": 41,
+      "mi": 59.434,
+      "sloc": 959
+    },
+    {
+      "avg_cc": 5.875,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_long_horizon_memory.py",
+      "grade": "A",
+      "h2": 1.7628,
+      "max_cc": 34,
+      "mi": 63.951,
+      "sloc": 406
+    },
+    {
+      "avg_cc": 5.611,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_memory.py",
+      "grade": "A",
+      "h2": 2.5369,
+      "max_cc": 17,
+      "mi": 66.567,
+      "sloc": 301
+    },
+    {
+      "avg_cc": 13.267,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_mobile_digestion.py",
+      "grade": "B",
+      "h2": 1.724,
+      "max_cc": 72,
+      "mi": 55.279,
+      "sloc": 716
+    },
+    {
+      "avg_cc": 10.333,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_neural_science.py",
+      "grade": "B",
+      "h2": 0.131,
+      "max_cc": 29,
+      "mi": 58.177,
+      "sloc": 151
+    },
+    {
+      "avg_cc": 12.167,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_open_corpus.py",
+      "grade": "B",
+      "h2": 1.4735,
+      "max_cc": 23,
+      "mi": 55.32,
+      "sloc": 269
+    },
+    {
+      "avg_cc": 5.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase2_openworld.py",
+      "grade": "A",
+      "h2": 0.9123,
+      "max_cc": 15,
+      "mi": 62.16,
+      "sloc": 138
+    },
+    {
+      "avg_cc": 12.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_epistemic_gear.py",
+      "grade": "B",
+      "h2": 0.5007,
+      "max_cc": 46,
+      "mi": 59.796,
+      "sloc": 209
+    },
+    {
+      "avg_cc": 14.25,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_external_repos.py",
+      "grade": "B",
+      "h2": 1.4587,
+      "max_cc": 35,
+      "mi": 52.545,
+      "sloc": 568
+    },
+    {
+      "avg_cc": 5.727,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_interactive_tools.py",
+      "grade": "A",
+      "h2": 2.0777,
+      "max_cc": 13,
+      "mi": 67.064,
+      "sloc": 263
+    },
+    {
+      "avg_cc": 4.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live.py",
+      "grade": "A",
+      "h2": 0.8819,
+      "max_cc": 14,
+      "mi": 62.033,
+      "sloc": 146
+    },
+    {
+      "avg_cc": 15.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_live_stream.py",
+      "grade": "B",
+      "h2": 0.5447,
+      "max_cc": 57,
+      "mi": 54.188,
+      "sloc": 322
+    },
+    {
+      "avg_cc": 9.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase3_self_critique.py",
+      "grade": "B",
+      "h2": 0.6837,
+      "max_cc": 32,
+      "mi": 53.942,
+      "sloc": 334
+    },
+    {
+      "avg_cc": 6.75,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_blind_bench.py",
+      "grade": "B",
+      "h2": 0.3094,
+      "max_cc": 23,
+      "mi": 59.486,
+      "sloc": 316
+    },
+    {
+      "avg_cc": 4.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_embodied.py",
+      "grade": "A",
+      "h2": 0.8819,
+      "max_cc": 14,
+      "mi": 62.033,
+      "sloc": 144
+    },
+    {
+      "avg_cc": 6.857,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_embodied_loop.py",
+      "grade": "A",
+      "h2": 0.7974,
+      "max_cc": 31,
+      "mi": 60.442,
+      "sloc": 230
+    },
+    {
+      "avg_cc": 8.75,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_self_improvement.py",
+      "grade": "B",
+      "h2": 1.1268,
+      "max_cc": 17,
+      "mi": 55.575,
+      "sloc": 214
+    },
+    {
+      "avg_cc": 3.75,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_stem_routing.py",
+      "grade": "A",
+      "h2": 1.7785,
+      "max_cc": 9,
+      "mi": 64.012,
+      "sloc": 242
+    },
+    {
+      "avg_cc": 11.667,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase4_unified_memory.py",
+      "grade": "B",
+      "h2": 1.1758,
+      "max_cc": 31,
+      "mi": 56.409,
+      "sloc": 291
+    },
+    {
+      "avg_cc": 6.815,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_arc_induction.py",
+      "grade": "A",
+      "h2": 2.4235,
+      "max_cc": 37,
+      "mi": 73.952,
+      "sloc": 444
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_external_code_audit.py",
+      "grade": "B",
+      "h2": 0.7213,
+      "max_cc": 22,
+      "mi": 52.642,
+      "sloc": 329
+    },
+    {
+      "avg_cc": 4.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_frontier.py",
+      "grade": "A",
+      "h2": 0.8819,
+      "max_cc": 14,
+      "mi": 62.033,
+      "sloc": 145
+    },
+    {
+      "avg_cc": 12.4,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_longitudinal_memory.py",
+      "grade": "B",
+      "h2": 0.9108,
+      "max_cc": 34,
+      "mi": 54.602,
+      "sloc": 239
+    },
+    {
+      "avg_cc": 12.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_meta_evolution.py",
+      "grade": "B",
+      "h2": 1.1828,
+      "max_cc": 19,
+      "mi": 49.847,
+      "sloc": 275
+    },
+    {
+      "avg_cc": 6.333,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_scientific_discovery.py",
+      "grade": "B",
+      "h2": 1.2787,
+      "max_cc": 16,
+      "mi": 54.588,
+      "sloc": 249
+    },
+    {
+      "avg_cc": 7.825,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_arc_object_synthesis.py",
+      "grade": "A",
+      "h2": 2.8263,
+      "max_cc": 48,
+      "mi": 70.114,
+      "sloc": 604
+    },
+    {
+      "avg_cc": 4.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_autonomous.py",
+      "grade": "A",
+      "h2": 0.8819,
+      "max_cc": 14,
+      "mi": 62.033,
+      "sloc": 160
+    },
+    {
+      "avg_cc": 6.353,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_blind_evolution.py",
+      "grade": "A",
+      "h2": 2.2961,
+      "max_cc": 18,
+      "mi": 66.994,
+      "sloc": 448
+    },
+    {
+      "avg_cc": 8.2,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_multihorizon_metacognition.py",
+      "grade": "B",
+      "h2": 2.0426,
+      "max_cc": 16,
+      "mi": 58.224,
+      "sloc": 305
+    },
+    {
+      "avg_cc": 7.25,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_repo_agent.py",
+      "grade": "B",
+      "h2": 1.8146,
+      "max_cc": 13,
+      "mi": 56.723,
+      "sloc": 324
+    },
+    {
+      "avg_cc": 5.833,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase6_scientific_synthesis.py",
+      "grade": "B",
+      "h2": 1.2614,
+      "max_cc": 16,
+      "mi": 56.175,
+      "sloc": 249
+    },
+    {
+      "avg_cc": 7.333,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_real_vision.py",
+      "grade": "B",
+      "h2": 0.2795,
+      "max_cc": 19,
+      "mi": 49.534,
+      "sloc": 169
+    },
+    {
+      "avg_cc": 7.889,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
+      "grade": "B",
+      "h2": 1.733,
+      "max_cc": 19,
+      "mi": 56.163,
+      "sloc": 417
+    },
+    {
+      "avg_cc": 5.368,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/loop.py",
+      "grade": "A",
+      "h2": 2.2433,
+      "max_cc": 22,
+      "mi": 64.823,
+      "sloc": 275
+    },
+    {
+      "avg_cc": 3.741,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py",
+      "grade": "A",
+      "h2": 2.51,
+      "max_cc": 15,
+      "mi": 69.686,
+      "sloc": 294
+    },
+    {
+      "avg_cc": 6.7,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/metrics.py",
+      "grade": "B",
+      "h2": 2.1848,
+      "max_cc": 10,
+      "mi": 58.961,
+      "sloc": 154
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/neural_mind.py",
+      "grade": "B",
+      "h2": 0.4212,
+      "max_cc": 19,
+      "mi": 59.248,
+      "sloc": 141
+    },
+    {
+      "avg_cc": 10.125,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+      "grade": "B",
+      "h2": 1.1648,
+      "max_cc": 40,
+      "mi": 58.804,
+      "sloc": 374
+    },
+    {
+      "avg_cc": 7.529,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/research_collaborator.py",
+      "grade": "B",
+      "h2": 2.1377,
+      "max_cc": 21,
+      "mi": 58.229,
+      "sloc": 895
+    },
+    {
+      "avg_cc": 6.8,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
+      "grade": "B",
+      "h2": 1.914,
+      "max_cc": 16,
+      "mi": 53.208,
+      "sloc": 489
+    },
+    {
+      "avg_cc": 6.769,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_evolution.py",
+      "grade": "B",
+      "h2": 1.9106,
+      "max_cc": 24,
+      "mi": 57.236,
+      "sloc": 526
+    },
+    {
+      "avg_cc": 7.417,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_a.py",
+      "grade": "A",
+      "h2": 1.9861,
+      "max_cc": 22,
+      "mi": 64.675,
+      "sloc": 357
+    },
+    {
+      "avg_cc": 7.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_improving_pillars_b.py",
+      "grade": "A",
+      "h2": 1.7477,
+      "max_cc": 20,
+      "mi": 60.071,
+      "sloc": 351
+    },
+    {
+      "avg_cc": 7.6,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_reflection.py",
+      "grade": "B",
+      "h2": 2.1726,
+      "max_cc": 26,
+      "mi": 55.978,
+      "sloc": 397
+    },
+    {
+      "avg_cc": 3.7,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/self_stewardship.py",
+      "grade": "A",
+      "h2": 1.3725,
+      "max_cc": 17,
+      "mi": 61.748,
+      "sloc": 292
+    },
+    {
+      "avg_cc": 9.8,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/semantic_artifacts.py",
+      "grade": "B",
+      "h2": 1.8304,
+      "max_cc": 27,
+      "mi": 49.037,
+      "sloc": 346
+    },
+    {
+      "avg_cc": 11.294,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/stem_layering.py",
+      "grade": "B",
+      "h2": 2.1121,
+      "max_cc": 40,
+      "mi": 55.494,
+      "sloc": 753
+    },
+    {
+      "avg_cc": 2.7,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/trust_gradient.py",
+      "grade": "A",
+      "h2": 2.4096,
+      "max_cc": 9,
+      "mi": 73.576,
+      "sloc": 306
+    },
+    {
+      "avg_cc": 3.455,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/wave2_platform_upgrades.py",
+      "grade": "A",
+      "h2": 2.0387,
+      "max_cc": 8,
+      "mi": 66.808,
+      "sloc": 239
+    },
+    {
+      "avg_cc": 4.294,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/wave2_security_forensics.py",
+      "grade": "A",
+      "h2": 1.6543,
+      "max_cc": 29,
+      "mi": 65.706,
+      "sloc": 347
+    },
+    {
+      "avg_cc": 3.091,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/wave3_vault_upgrades.py",
+      "grade": "A",
+      "h2": 2.7075,
+      "max_cc": 15,
+      "mi": 70.265,
+      "sloc": 662
+    },
+    {
+      "avg_cc": 3.9,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_clara.py",
+      "grade": "A",
+      "h2": 3.0336,
+      "max_cc": 10,
+      "mi": 62.709,
+      "sloc": 582
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_eliza.py",
+      "grade": "B",
+      "h2": 2.213,
+      "max_cc": 71,
+      "mi": 57.718,
+      "sloc": 1305
+    },
+    {
+      "avg_cc": 7.174,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
+      "grade": "B",
+      "h2": 2.5694,
+      "max_cc": 21,
+      "mi": 58.332,
+      "sloc": 824
+    },
+    {
+      "avg_cc": 3.8,
+      "file": "scripts/_render_common.py",
+      "grade": "A",
+      "h2": 1.2541,
+      "max_cc": 7,
+      "mi": 65.114,
+      "sloc": 133
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "scripts/build_zoe_clara_bundle.py",
+      "grade": "A",
+      "h2": 0.5245,
+      "max_cc": 5,
+      "mi": 69.736,
+      "sloc": 74
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/build_zoe_visual_atlas.py",
+      "grade": "A",
+      "h2": 1.7869,
+      "max_cc": 80,
+      "mi": 66.935,
+      "sloc": 287
+    },
+    {
+      "avg_cc": 7.909,
+      "file": "scripts/compose_zoe_observatory_odyssey.py",
+      "grade": "A",
+      "h2": 0.9021,
+      "max_cc": 54,
+      "mi": 63.587,
+      "sloc": 359
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/eval_external_benchmarks.py",
+      "grade": "A",
+      "h2": -0.0,
+      "max_cc": 9,
+      "mi": 62.909,
+      "sloc": 23
+    },
+    {
+      "avg_cc": 7.55,
+      "file": "scripts/export_session_transcript.py",
+      "grade": "A",
+      "h2": 2.1243,
+      "max_cc": 38,
+      "mi": 61.951,
+      "sloc": 919
+    },
+    {
+      "avg_cc": 1.5,
+      "file": "scripts/render_autonomy_visuals.py",
+      "grade": "A",
+      "h2": 0.5878,
+      "max_cc": 2,
+      "mi": 62.58,
+      "sloc": 41
+    },
+    {
+      "avg_cc": 3.5,
+      "file": "scripts/render_component_visuals.py",
+      "grade": "B",
+      "h2": 0.2809,
+      "max_cc": 6,
+      "mi": 56.252,
+      "sloc": 71
+    },
+    {
+      "avg_cc": 3.8,
+      "file": "scripts/render_l3_research_figure.py",
+      "grade": "B",
+      "h2": 1.378,
+      "max_cc": 6,
+      "mi": 51.617,
+      "sloc": 235
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "scripts/render_l4_improvement_figure.py",
+      "grade": "B",
+      "h2": 1.4737,
+      "max_cc": 9,
+      "mi": 50.891,
+      "sloc": 316
+    },
+    {
+      "avg_cc": 14.5,
+      "file": "scripts/render_l4_multimodule_figure.py",
+      "grade": "B",
+      "h2": 0.2052,
+      "max_cc": 26,
+      "mi": 52.341,
+      "sloc": 213
+    },
+    {
+      "avg_cc": 3.667,
+      "file": "scripts/render_l5_core_figure.py",
+      "grade": "B",
+      "h2": 1.5769,
+      "max_cc": 6,
+      "mi": 55.331,
+      "sloc": 227
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "scripts/render_l5_phase2_figure.py",
+      "grade": "B",
+      "h2": 1.3665,
+      "max_cc": 6,
+      "mi": 51.797,
+      "sloc": 213
+    },
+    {
+      "avg_cc": 3.143,
+      "file": "scripts/render_l5_phase6_figure.py",
+      "grade": "B",
+      "h2": 1.8001,
+      "max_cc": 5,
+      "mi": 53.587,
+      "sloc": 247
+    },
+    {
+      "avg_cc": 4.0,
+      "file": "scripts/render_visual_system.py",
+      "grade": "B",
+      "h2": -0.0,
+      "max_cc": 4,
+      "mi": 55.119,
+      "sloc": 104
+    },
+    {
+      "avg_cc": 2.417,
+      "file": "scripts/render_zoe_readme_art.py",
+      "grade": "B",
+      "h2": 2.1599,
+      "max_cc": 5,
+      "mi": 47.649,
+      "sloc": 813
+    },
+    {
+      "avg_cc": 3.0,
+      "file": "scripts/render_zoe_voice_figure.py",
+      "grade": "B",
+      "h2": 0.9933,
+      "max_cc": 10,
+      "mi": 58.454,
+      "sloc": 194
+    },
+    {
+      "avg_cc": 8.4,
+      "file": "scripts/run_live_qwen_hallucination_benchmark.py",
+      "grade": "B",
+      "h2": 1.3269,
+      "max_cc": 16,
+      "mi": 49.67,
+      "sloc": 293
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/verify-metacognition-collaboration.py",
+      "grade": "A",
+      "h2": 0.1109,
+      "max_cc": 17,
+      "mi": 61.692,
+      "sloc": 53
+    },
+    {
+      "avg_cc": 11.6,
+      "file": "scripts/verify-one-system.py",
+      "grade": "B",
+      "h2": 1.1701,
+      "max_cc": 24,
+      "mi": 45.528,
+      "sloc": 341
+    },
+    {
+      "avg_cc": 8.0,
+      "file": "scripts/verify_alife_ecosystem.py",
+      "grade": "B",
+      "h2": 0.6776,
+      "max_cc": 9,
+      "mi": 49.804,
+      "sloc": 137
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_bio_crypto_circle.py",
+      "grade": "B",
+      "h2": 0.7467,
+      "max_cc": 12,
+      "mi": 52.214,
+      "sloc": 178
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/verify_botanical_atlas_c27.py",
+      "grade": "B",
+      "h2": 0.5731,
+      "max_cc": 19,
+      "mi": 52.017,
+      "sloc": 200
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "scripts/verify_cern_trigger.py",
+      "grade": "B",
+      "h2": 0.6657,
+      "max_cc": 7,
+      "mi": 51.047,
+      "sloc": 128
+    },
+    {
+      "avg_cc": 7.333,
+      "file": "scripts/verify_cnsa2_and_scrna_ring2.py",
+      "grade": "B",
+      "h2": 0.6768,
+      "max_cc": 14,
+      "mi": 52.335,
+      "sloc": 177
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_dorothy_biomechanics_workbench.py",
+      "grade": "B",
+      "h2": 0.7839,
+      "max_cc": 17,
+      "mi": 49.539,
+      "sloc": 260
+    },
+    {
+      "avg_cc": 10.0,
+      "file": "scripts/verify_dorothy_neurogarden.py",
+      "grade": "B",
+      "h2": 0.607,
+      "max_cc": 13,
+      "mi": 48.047,
+      "sloc": 129
+    },
+    {
+      "avg_cc": 9.5,
+      "file": "scripts/verify_groove_forensics.py",
+      "grade": "B",
+      "h2": 0.6262,
+      "max_cc": 12,
+      "mi": 48.764,
+      "sloc": 131
+    },
+    {
+      "avg_cc": 9.5,
+      "file": "scripts/verify_kloster_cryptanalysis_gauntlet.py",
+      "grade": "B",
+      "h2": 0.7156,
+      "max_cc": 25,
+      "mi": 49.089,
+      "sloc": 299
+    },
+    {
+      "avg_cc": 3.556,
+      "file": "scripts/verify_kloster_optimal_transport.py",
+      "grade": "B",
+      "h2": 1.7497,
+      "max_cc": 9,
+      "mi": 58.216,
+      "sloc": 173
+    },
+    {
+      "avg_cc": 9.75,
+      "file": "scripts/verify_kloster_passes_6_to_11.py",
+      "grade": "B",
+      "h2": 1.1065,
+      "max_cc": 15,
+      "mi": 47.902,
+      "sloc": 311
+    },
+    {
+      "avg_cc": 8.333,
+      "file": "scripts/verify_kloster_referee_proofs.py",
+      "grade": "B",
+      "h2": 0.6118,
+      "max_cc": 17,
+      "mi": 55.991,
+      "sloc": 149
+    },
+    {
+      "avg_cc": 9.0,
+      "file": "scripts/verify_kloster_riemannian.py",
+      "grade": "B",
+      "h2": 0.6449,
+      "max_cc": 11,
+      "mi": 47.108,
+      "sloc": 182
+    },
+    {
+      "avg_cc": 6.0,
+      "file": "scripts/verify_kloster_theorem13.py",
+      "grade": "B",
+      "h2": 0.7701,
+      "max_cc": 10,
+      "mi": 53.181,
+      "sloc": 167
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_kloster_theorem14.py",
+      "grade": "B",
+      "h2": 0.7,
+      "max_cc": 13,
+      "mi": 55.249,
+      "sloc": 158
+    },
+    {
+      "avg_cc": 2.857,
+      "file": "scripts/verify_kloster_theorem16.py",
+      "grade": "A",
+      "h2": 1.5141,
+      "max_cc": 7,
+      "mi": 60.294,
+      "sloc": 128
+    },
+    {
+      "avg_cc": 13.5,
+      "file": "scripts/verify_kloster_theory.py",
+      "grade": "B",
+      "h2": 0.5396,
+      "max_cc": 19,
+      "mi": 41.362,
+      "sloc": 196
+    },
+    {
+      "avg_cc": 12.0,
+      "file": "scripts/verify_kloster_thermodynamics.py",
+      "grade": "B",
+      "h2": 0.5331,
+      "max_cc": 17,
+      "mi": 49.328,
+      "sloc": 139
+    },
+    {
+      "avg_cc": 6.714,
+      "file": "scripts/verify_l3_research.py",
+      "grade": "A",
+      "h2": 2.1112,
+      "max_cc": 19,
+      "mi": 61.021,
+      "sloc": 383
+    },
+    {
+      "avg_cc": 12.281,
+      "file": "scripts/verify_l4_multimodule.py",
+      "grade": "A",
+      "h2": 2.0283,
+      "max_cc": 119,
+      "mi": 63.311,
+      "sloc": 847
+    },
+    {
+      "avg_cc": 9.625,
+      "file": "scripts/verify_l4_self_improvement.py",
+      "grade": "A",
+      "h2": 1.456,
+      "max_cc": 67,
+      "mi": 65.55,
+      "sloc": 487
+    },
+    {
+      "avg_cc": 18.333,
+      "file": "scripts/verify_l5_core.py",
+      "grade": "A",
+      "h2": 0.3262,
+      "max_cc": 93,
+      "mi": 65.075,
+      "sloc": 305
+    },
+    {
+      "avg_cc": 15.833,
+      "file": "scripts/verify_l5_phase2.py",
+      "grade": "A",
+      "h2": 0.3808,
+      "max_cc": 78,
+      "mi": 67.506,
+      "sloc": 270
+    },
+    {
+      "avg_cc": 18.167,
+      "file": "scripts/verify_l5_phase3.py",
+      "grade": "A",
+      "h2": 0.3294,
+      "max_cc": 92,
+      "mi": 66.324,
+      "sloc": 316
+    },
+    {
+      "avg_cc": 17.5,
+      "file": "scripts/verify_l5_phase4.py",
+      "grade": "A",
+      "h2": 0.3426,
+      "max_cc": 88,
+      "mi": 66.066,
+      "sloc": 336
+    },
+    {
+      "avg_cc": 17.0,
+      "file": "scripts/verify_l5_phase5.py",
+      "grade": "A",
+      "h2": 0.3532,
+      "max_cc": 85,
+      "mi": 66.6,
+      "sloc": 311
+    },
+    {
+      "avg_cc": 13.333,
+      "file": "scripts/verify_l5_phase6.py",
+      "grade": "A",
+      "h2": 0.4289,
+      "max_cc": 64,
+      "mi": 68.46,
+      "sloc": 286
+    },
+    {
+      "avg_cc": 6.667,
+      "file": "scripts/verify_metacognition_proof_packet.py",
+      "grade": "B",
+      "h2": 0.7657,
+      "max_cc": 11,
+      "mi": 53.533,
+      "sloc": 166
+    },
+    {
+      "avg_cc": 16.667,
+      "file": "scripts/verify_mobile_digestion.py",
+      "grade": "B",
+      "h2": 0.2882,
+      "max_cc": 43,
+      "mi": 50.609,
+      "sloc": 291
+    },
+    {
+      "avg_cc": 5.25,
+      "file": "scripts/verify_nsa_research_puzzle_pack.py",
+      "grade": "B",
+      "h2": 1.1123,
+      "max_cc": 8,
+      "mi": 50.345,
+      "sloc": 253
+    },
+    {
+      "avg_cc": 5.667,
+      "file": "scripts/verify_nsa_ring3_deep_crypto.py",
+      "grade": "B",
+      "h2": 0.7912,
+      "max_cc": 9,
+      "mi": 52.737,
+      "sloc": 173
+    },
+    {
+      "avg_cc": 6.778,
+      "file": "scripts/verify_observatory_and_packages.py",
+      "grade": "B",
+      "h2": 1.7371,
+      "max_cc": 17,
+      "mi": 58.339,
+      "sloc": 212
+    },
+    {
+      "avg_cc": 8.667,
+      "file": "scripts/verify_pass2_visuals.py",
+      "grade": "B",
+      "h2": 1.0273,
+      "max_cc": 12,
+      "mi": 45.036,
+      "sloc": 222
+    },
+    {
+      "avg_cc": 6.333,
+      "file": "scripts/verify_portfolio_upgrades.py",
+      "grade": "A",
+      "h2": 0.4508,
+      "max_cc": 30,
+      "mi": 78.989,
+      "sloc": 265
+    },
+    {
+      "avg_cc": 4.5,
+      "file": "scripts/verify_renaissance_orbit.py",
+      "grade": "A",
+      "h2": 1.5612,
+      "max_cc": 8,
+      "mi": 60.657,
+      "sloc": 153
+    },
+    {
+      "avg_cc": 6.333,
+      "file": "scripts/verify_self_improving_engine.py",
+      "grade": "B",
+      "h2": 0.7472,
+      "max_cc": 11,
+      "mi": 56.669,
+      "sloc": 156
+    },
+    {
+      "avg_cc": 9.5,
+      "file": "scripts/verify_shared_reasoning.py",
+      "grade": "B",
+      "h2": 1.6794,
+      "max_cc": 27,
+      "mi": 52.519,
+      "sloc": 490
+    },
+    {
+      "avg_cc": 7.0,
+      "file": "scripts/verify_theorem15_and_c28.py",
+      "grade": "B",
+      "h2": 0.7,
+      "max_cc": 13,
+      "mi": 55.304,
+      "sloc": 150
+    },
+    {
+      "avg_cc": 5.5,
+      "file": "scripts/verify_voice_choral.py",
+      "grade": "B",
+      "h2": 0.6214,
+      "max_cc": 7,
+      "mi": 50.909,
+      "sloc": 113
+    },
+    {
+      "avg_cc": 14.0,
+      "file": "scripts/verify_wave2_upgrades.py",
+      "grade": "A",
+      "h2": 0.0963,
+      "max_cc": 40,
+      "mi": 66.6,
+      "sloc": 268
+    },
+    {
+      "avg_cc": 19.5,
+      "file": "scripts/verify_wave3_seasip_gem.py",
+      "grade": "B",
+      "h2": 0.0513,
+      "max_cc": 38,
+      "mi": 59.784,
+      "sloc": 206
+    },
+    {
+      "avg_cc": 17.5,
+      "file": "scripts/verify_wave3_upgrades.py",
+      "grade": "B",
+      "h2": 0.0571,
+      "max_cc": 34,
+      "mi": 57.167,
+      "sloc": 238
+    },
+    {
+      "avg_cc": 6.167,
+      "file": "scripts/verify_zoe_clara.py",
+      "grade": "A",
+      "h2": 0.7809,
+      "max_cc": 24,
+      "mi": 60.46,
+      "sloc": 183
+    },
+    {
+      "avg_cc": 8.667,
+      "file": "scripts/verify_zoe_dorothy_discovery.py",
+      "grade": "B",
+      "h2": 0.6469,
+      "max_cc": 17,
+      "mi": 50.874,
+      "sloc": 193
+    },
+    {
+      "avg_cc": 6.714,
+      "file": "scripts/verify_zoe_eliza.py",
+      "grade": "A",
+      "h2": 0.6061,
+      "max_cc": 34,
+      "mi": 73.866,
+      "sloc": 231
+    },
+    {
+      "avg_cc": 6.4,
+      "file": "scripts/verify_zoe_gem_os_suite.py",
+      "grade": "B",
+      "h2": 2.2219,
+      "max_cc": 10,
+      "mi": 56.999,
+      "sloc": 263
+    },
+    {
+      "avg_cc": 11.0,
+      "file": "scripts/verify_zoe_os.py",
+      "grade": "B",
+      "h2": 0.6214,
+      "max_cc": 14,
+      "mi": 45.708,
+      "sloc": 149
+    },
+    {
+      "avg_cc": 9.143,
+      "file": "scripts/verify_zoe_voice.py",
+      "grade": "A",
+      "h2": 0.4355,
+      "max_cc": 51,
+      "mi": 69.552,
+      "sloc": 279
+    },
+    {
+      "avg_cc": 16.0,
+      "file": "scripts/zoe_code_quality_audit.py",
+      "grade": "B",
+      "h2": 0.47,
+      "max_cc": 24,
+      "mi": 46.455,
+      "sloc": 149
+    },
+    {
+      "avg_cc": 8.688,
+      "file": "scripts/zoe_groove_forensics.py",
+      "grade": "B",
+      "h2": 2.0477,
+      "max_cc": 29,
+      "mi": 58.999,
+      "sloc": 847
+    },
+    {
+      "avg_cc": 6.25,
+      "file": "scripts/zoe_shared_reasoning_mcp.py",
+      "grade": "B",
+      "h2": 1.0306,
+      "max_cc": 13,
+      "mi": 51.64,
+      "sloc": 186
+    },
+    {
+      "avg_cc": 5.889,
+      "file": "scripts/zoe_stem_mcp.py",
+      "grade": "B",
+      "h2": 1.8247,
+      "max_cc": 13,
+      "mi": 59.595,
+      "sloc": 338
+    }
+  ],
+  "all_verified": true,
+  "checks": {
+    "negative_cc_mi_correlation_physical": true,
+    "negative_control_spaghetti_flagged_complex": true,
+    "no_grade_c_or_d_modules": true,
+    "orbit_max_cc_bounded": true,
+    "orbit_modules_high_maintainability": true,
+    "scanned_over_100_live_zoe_modules": true,
+    "theorem4_kloster_mccabe_sympy_verified": true
+  },
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "external_radon_required": false,
+    "negative_control_preserved": true
+  },
+  "contract": "zoe-kloster-mccabe-elegance/v1",
+  "equation_credit": "Thomas J. McCabe (1976) V(G) + SEI Maintainability Index + Nicholas Michael Kloster (2026) A_tau(p)",
+  "evidence_sha256": "b3554b149599bc59c299aa263eda367c7ded6199121a758c489d2cc4d64dabd4",
+  "monorepo_summary": {
+    "corr_avg_cc_vs_mi": -0.4488,
+    "files_scanned": 338,
+    "grade_distribution": {
+      "A": 174,
+      "B": 164,
+      "C": 0,
+      "D": 0
+    },
+    "max_function_cc": 119,
+    "mean_avg_cc": 6.464,
+    "mean_mi": 60.131,
+    "median_mi": 60.213,
+    "orbit_mean_avg_cc": 7.294,
+    "orbit_mean_mi": 58.12,
+    "orbit_modules_count": 15,
+    "parse_errors": 0,
+    "total_functions": 4171,
+    "total_sloc": 110858
+  },
+  "negative_control_spaghetti": {
+    "avg_cc": 113.0,
+    "comment_ratio": 0.0,
+    "file": "<negative_control_spaghetti>",
+    "functions": 1,
+    "grade": "C",
+    "halstead_length": 761,
+    "halstead_vocab": 51,
+    "halstead_volume": 4316.72,
+    "kloster_cc_a_005": 1,
+    "kloster_cc_m4_root": 1.0,
+    "kloster_cc_renyi_h2": -0.0,
+    "low_maintainability_flag": false,
+    "max_cc": 113,
+    "mi_file_radon": 20.718,
+    "mi_score": 20.718,
+    "most_complex_function": {
+      "cc": 113,
+      "fn_mi": 20.72,
+      "fn_sloc": 59,
+      "lineno": 1,
+      "name": "spaghetti_trap"
+    },
+    "sloc": 59,
+    "total_cc": 113
+  },
+  "orbit_modules": [
+    {
+      "avg_cc": 3.583,
+      "comment_ratio": 0.0,
+      "file": "guiai-lab/guiai/gem/alife_ecosystem.py",
+      "functions": 12,
+      "grade": "B",
+      "halstead_length": 1654,
+      "halstead_vocab": 332,
+      "halstead_volume": 13852.32,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.2434,
+      "kloster_cc_renyi_h2": 2.08,
+      "low_maintainability_flag": false,
+      "max_cc": 9,
+      "mi_file_radon": 10.84,
+      "mi_score": 51.639,
+      "most_complex_function": {
+        "cc": 9,
+        "fn_mi": 36.88,
+        "fn_sloc": 64,
+        "lineno": 181,
+        "name": "_simulate_ecosystem"
+      },
+      "sloc": 311,
+      "total_cc": 43
+    },
+    {
+      "avg_cc": 7.571,
+      "comment_ratio": 0.0624,
+      "file": "guiai-lab/guiai/gem/cern_kloster_trigger.py",
+      "functions": 7,
+      "grade": "B",
+      "halstead_length": 2035,
+      "halstead_vocab": 392,
+      "halstead_volume": 17530.93,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.4764,
+      "kloster_cc_renyi_h2": 1.2448,
+      "low_maintainability_flag": false,
+      "max_cc": 25,
+      "mi_file_radon": 17.263,
+      "mi_score": 56.924,
+      "most_complex_function": {
+        "cc": 25,
+        "fn_mi": 25.89,
+        "fn_sloc": 282,
+        "lineno": 200,
+        "name": "run_cern_kloster_trigger_suite"
+      },
+      "sloc": 407,
+      "total_cc": 53
+    },
+    {
+      "avg_cc": 14.2,
+      "comment_ratio": 0.0313,
+      "file": "guiai-lab/guiai/gem/code_elegance_analyzer.py",
+      "functions": 5,
+      "grade": "B",
+      "halstead_length": 1312,
+      "halstead_vocab": 297,
+      "halstead_volume": 10777.19,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.4313,
+      "kloster_cc_renyi_h2": 1.3138,
+      "low_maintainability_flag": false,
+      "max_cc": 30,
+      "mi_file_radon": 17.062,
+      "mi_score": 49.014,
+      "most_complex_function": {
+        "cc": 30,
+        "fn_mi": 34.35,
+        "fn_sloc": 113,
+        "lineno": 207,
+        "name": "audit_zoe_monorepo_elegance"
+      },
+      "sloc": 271,
+      "total_cc": 71
+    },
+    {
+      "avg_cc": 6.75,
+      "comment_ratio": 0.0476,
+      "file": "guiai-lab/guiai/gem/dorothy_neurogarden_3d.py",
+      "functions": 8,
+      "grade": "B",
+      "halstead_length": 1981,
+      "halstead_vocab": 488,
+      "halstead_volume": 17691.79,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.3378,
+      "kloster_cc_renyi_h2": 1.5978,
+      "low_maintainability_flag": false,
+      "max_cc": 16,
+      "mi_file_radon": 14.71,
+      "mi_score": 57.741,
+      "most_complex_function": {
+        "cc": 16,
+        "fn_mi": 29.03,
+        "fn_sloc": 225,
+        "lineno": 301,
+        "name": "run_dorothy_neurogarden_3d_suite"
+      },
+      "sloc": 455,
+      "total_cc": 54
+    },
+    {
+      "avg_cc": 4.0,
+      "comment_ratio": 0.05,
+      "file": "guiai-lab/guiai/gem/glass_harmonica_workbench.py",
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 504,
+      "halstead_vocab": 149,
+      "halstead_volume": 3638.46,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.358,
+      "kloster_cc_renyi_h2": 1.4271,
+      "low_maintainability_flag": false,
+      "max_cc": 6,
+      "mi_file_radon": 39.262,
+      "mi_score": 67.965,
+      "most_complex_function": {
+        "cc": 6,
+        "fn_mi": 62.29,
+        "fn_sloc": 18,
+        "lineno": 47,
+        "name": "_parse_voice_specs"
+      },
+      "sloc": 94,
+      "total_cc": 20
+    },
+    {
+      "avg_cc": 15.3,
+      "comment_ratio": 0.0431,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "functions": 10,
+      "grade": "B",
+      "halstead_length": 2825,
+      "halstead_vocab": 482,
+      "halstead_volume": 25178.91,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.259,
+      "kloster_cc_renyi_h2": 1.9915,
+      "low_maintainability_flag": false,
+      "max_cc": 36,
+      "mi_file_radon": 0.0,
+      "mi_score": 48.306,
+      "most_complex_function": {
+        "cc": 36,
+        "fn_mi": 28.78,
+        "fn_sloc": 177,
+        "lineno": 473,
+        "name": "run_groove_forensics_suite"
+      },
+      "sloc": 566,
+      "total_cc": 153
+    },
+    {
+      "avg_cc": 2.6,
+      "comment_ratio": 0.0289,
+      "file": "guiai-lab/guiai/gem/kloster_harmonic_optics.py",
+      "functions": 10,
+      "grade": "A",
+      "halstead_length": 1268,
+      "halstead_vocab": 246,
+      "halstead_volume": 10071.11,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.3057,
+      "kloster_cc_renyi_h2": 1.78,
+      "low_maintainability_flag": false,
+      "max_cc": 7,
+      "mi_file_radon": 26.037,
+      "mi_score": 62.767,
+      "most_complex_function": {
+        "cc": 7,
+        "fn_mi": 54.68,
+        "fn_sloc": 26,
+        "lineno": 123,
+        "name": "_sweep_mtf_curve"
+      },
+      "sloc": 197,
+      "total_cc": 26
+    },
+    {
+      "avg_cc": 6.059,
+      "comment_ratio": 0.0383,
+      "file": "guiai-lab/guiai/gem/kloster_info_geometry.py",
+      "functions": 17,
+      "grade": "A",
+      "halstead_length": 2782,
+      "halstead_vocab": 545,
+      "halstead_volume": 25288.69,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2926,
+      "kloster_cc_renyi_h2": 1.8799,
+      "low_maintainability_flag": false,
+      "max_cc": 25,
+      "mi_file_radon": 4.052,
+      "mi_score": 62.09,
+      "most_complex_function": {
+        "cc": 25,
+        "fn_mi": 32.12,
+        "fn_sloc": 147,
+        "lineno": 196,
+        "name": "verify_theorem1_kloster_pinsker_and_16llms"
+      },
+      "sloc": 563,
+      "total_cc": 103
+    },
+    {
+      "avg_cc": 7.0,
+      "comment_ratio": 0.0703,
+      "file": "guiai-lab/guiai/gem/zoe_choral_composer.py",
+      "functions": 4,
+      "grade": "B",
+      "halstead_length": 1599,
+      "halstead_vocab": 411,
+      "halstead_volume": 13884.11,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.5802,
+      "kloster_cc_renyi_h2": 0.8714,
+      "low_maintainability_flag": false,
+      "max_cc": 16,
+      "mi_file_radon": 26.594,
+      "mi_score": 53.332,
+      "most_complex_function": {
+        "cc": 16,
+        "fn_mi": 35.03,
+        "fn_sloc": 149,
+        "lineno": 165,
+        "name": "compose_kloster_choral_nocturne"
+      },
+      "sloc": 250,
+      "total_cc": 28
+    },
+    {
+      "avg_cc": 2.2,
+      "comment_ratio": 0.0108,
+      "file": "guiai-lab/guiai/gem/zoe_os.py",
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 501,
+      "halstead_vocab": 193,
+      "halstead_volume": 3803.82,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.6366,
+      "kloster_cc_renyi_h2": 0.8255,
+      "low_maintainability_flag": false,
+      "max_cc": 7,
+      "mi_file_radon": 37.613,
+      "mi_score": 74.781,
+      "most_complex_function": {
+        "cc": 7,
+        "fn_mi": 41.16,
+        "fn_sloc": 58,
+        "lineno": 36,
+        "name": "zoe_os_scene"
+      },
+      "sloc": 72,
+      "total_cc": 11
+    },
+    {
+      "avg_cc": 8.154,
+      "comment_ratio": 0.037,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/external_benchmark_harness.py",
+      "functions": 13,
+      "grade": "A",
+      "halstead_length": 2961,
+      "halstead_vocab": 474,
+      "halstead_volume": 26319.57,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2575,
+      "kloster_cc_renyi_h2": 1.9952,
+      "low_maintainability_flag": false,
+      "max_cc": 24,
+      "mi_file_radon": 5.546,
+      "mi_score": 60.731,
+      "most_complex_function": {
+        "cc": 24,
+        "fn_mi": 26.39,
+        "fn_sloc": 197,
+        "lineno": 47,
+        "name": "_track_a_arc_public_format"
+      },
+      "sloc": 448,
+      "total_cc": 106
+    },
+    {
+      "avg_cc": 7.889,
+      "comment_ratio": 0.0233,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/live_qwen_metacog_steerer.py",
+      "functions": 9,
+      "grade": "B",
+      "halstead_length": 1494,
+      "halstead_vocab": 423,
+      "halstead_volume": 13034.42,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.3063,
+      "kloster_cc_renyi_h2": 1.733,
+      "low_maintainability_flag": false,
+      "max_cc": 19,
+      "mi_file_radon": 11.325,
+      "mi_score": 56.163,
+      "most_complex_function": {
+        "cc": 19,
+        "fn_mi": 46.48,
+        "fn_sloc": 45,
+        "lineno": 136,
+        "name": "steer_from_multihorizon_trace"
+      },
+      "sloc": 417,
+      "total_cc": 71
+    },
+    {
+      "avg_cc": 10.125,
+      "comment_ratio": 0.0323,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/open_ended_program_evolution.py",
+      "functions": 8,
+      "grade": "B",
+      "halstead_length": 1875,
+      "halstead_vocab": 392,
+      "halstead_volume": 16152.58,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.4991,
+      "kloster_cc_renyi_h2": 1.1648,
+      "low_maintainability_flag": false,
+      "max_cc": 40,
+      "mi_file_radon": 11.546,
+      "mi_score": 58.804,
+      "most_complex_function": {
+        "cc": 40,
+        "fn_mi": 23.95,
+        "fn_sloc": 225,
+        "lineno": 210,
+        "name": "run_open_ended_evolution_suite"
+      },
+      "sloc": 374,
+      "total_cc": 81
+    },
+    {
+      "avg_cc": 6.8,
+      "comment_ratio": 0.0439,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/security_redteam_audit.py",
+      "functions": 10,
+      "grade": "B",
+      "halstead_length": 1613,
+      "halstead_vocab": 462,
+      "halstead_volume": 14277.87,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.276,
+      "kloster_cc_renyi_h2": 1.914,
+      "low_maintainability_flag": false,
+      "max_cc": 16,
+      "mi_file_radon": 12.419,
+      "mi_score": 53.208,
+      "most_complex_function": {
+        "cc": 16,
+        "fn_mi": 48.96,
+        "fn_sloc": 48,
+        "lineno": 485,
+        "name": "supply_chain_sha256_attestation_audit"
+      },
+      "sloc": 489,
+      "total_cc": 68
+    },
+    {
+      "avg_cc": 7.174,
+      "comment_ratio": 0.0284,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/zoe_os_mind.py",
+      "functions": 23,
+      "grade": "B",
+      "halstead_length": 3165,
+      "halstead_vocab": 707,
+      "halstead_volume": 29958.52,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.1676,
+      "kloster_cc_renyi_h2": 2.5694,
+      "low_maintainability_flag": false,
+      "max_cc": 21,
+      "mi_file_radon": 0.0,
+      "mi_score": 58.332,
+      "most_complex_function": {
+        "cc": 21,
+        "fn_mi": 40.62,
+        "fn_sloc": 64,
+        "lineno": 195,
+        "name": "_fallback_consensus_arbitration"
+      },
+      "sloc": 824,
+      "total_cc": 165
+    }
+  ],
+  "theorem4_kloster_mccabe": {
+    "kloster_mccabe_path_cap_holds": 250,
+    "renyi_ln_vg_upper_bound_holds": 250,
+    "sympy_version": "1.14.0",
+    "trials": 250,
+    "uniform_renyi_equals_ln_vg_symbolic": true,
+    "verified": true
+  },
+  "top_10_hotspots": [
+    {
+      "avg_cc": 13.5,
+      "comment_ratio": 0.0388,
+      "file": "scripts/verify_kloster_theory.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 1091,
+      "halstead_vocab": 355,
+      "halstead_volume": 9242.6,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.7092,
+      "kloster_cc_renyi_h2": 0.5396,
+      "low_maintainability_flag": false,
+      "max_cc": 19,
+      "mi_file_radon": 27.381,
+      "mi_score": 41.362,
+      "most_complex_function": {
+        "cc": 19,
+        "fn_mi": 31.14,
+        "fn_sloc": 160,
+        "lineno": 28,
+        "name": "render_publication_figure"
+      },
+      "sloc": 196,
+      "total_cc": 27
+    },
+    {
+      "avg_cc": 8.667,
+      "comment_ratio": 0.0273,
+      "file": "scripts/verify_pass2_visuals.py",
+      "functions": 3,
+      "grade": "B",
+      "halstead_length": 1090,
+      "halstead_vocab": 349,
+      "halstead_volume": 9207.32,
+      "kloster_cc_a_005": 3,
+      "kloster_cc_m4_root": 0.4862,
+      "kloster_cc_renyi_h2": 1.0273,
+      "low_maintainability_flag": false,
+      "max_cc": 12,
+      "mi_file_radon": 24.972,
+      "mi_score": 45.036,
+      "most_complex_function": {
+        "cc": 12,
+        "fn_mi": 32.26,
+        "fn_sloc": 145,
+        "lineno": 30,
+        "name": "render_pass2_plate"
+      },
+      "sloc": 222,
+      "total_cc": 26
+    },
+    {
+      "avg_cc": 11.6,
+      "comment_ratio": 0.0028,
+      "file": "scripts/verify-one-system.py",
+      "functions": 5,
+      "grade": "B",
+      "halstead_length": 1401,
+      "halstead_vocab": 402,
+      "halstead_volume": 12120.12,
+      "kloster_cc_a_005": 4,
+      "kloster_cc_m4_root": 0.445,
+      "kloster_cc_renyi_h2": 1.1701,
+      "low_maintainability_flag": false,
+      "max_cc": 24,
+      "mi_file_radon": 10.751,
+      "mi_score": 45.528,
+      "most_complex_function": {
+        "cc": 24,
+        "fn_mi": 27.33,
+        "fn_sloc": 131,
+        "lineno": 223,
+        "name": "main"
+      },
+      "sloc": 341,
+      "total_cc": 58
+    },
+    {
+      "avg_cc": 11.0,
+      "comment_ratio": 0.0324,
+      "file": "scripts/verify_zoe_os.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 740,
+      "halstead_vocab": 286,
+      "halstead_volume": 6038.3,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.6527,
+      "kloster_cc_renyi_h2": 0.6214,
+      "low_maintainability_flag": false,
+      "max_cc": 14,
+      "mi_file_radon": 31.213,
+      "mi_score": 45.708,
+      "most_complex_function": {
+        "cc": 14,
+        "fn_mi": 34.49,
+        "fn_sloc": 129,
+        "lineno": 27,
+        "name": "render_zoe_os_constellation_figure"
+      },
+      "sloc": 149,
+      "total_cc": 22
+    },
+    {
+      "avg_cc": 16.0,
+      "comment_ratio": 0.0389,
+      "file": "scripts/zoe_code_quality_audit.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 889,
+      "halstead_vocab": 287,
+      "halstead_volume": 7258.6,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.7523,
+      "kloster_cc_renyi_h2": 0.47,
+      "low_maintainability_flag": false,
+      "max_cc": 24,
+      "mi_file_radon": 30.051,
+      "mi_score": 46.455,
+      "most_complex_function": {
+        "cc": 24,
+        "fn_mi": 32.66,
+        "fn_sloc": 136,
+        "lineno": 21,
+        "name": "render_elegance_plate"
+      },
+      "sloc": 149,
+      "total_cc": 32
+    },
+    {
+      "avg_cc": 9.0,
+      "comment_ratio": 0.033,
+      "file": "scripts/verify_kloster_riemannian.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 899,
+      "halstead_vocab": 298,
+      "halstead_volume": 7389.03,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.6348,
+      "kloster_cc_renyi_h2": 0.6449,
+      "low_maintainability_flag": false,
+      "max_cc": 11,
+      "mi_file_radon": 29.313,
+      "mi_score": 47.108,
+      "most_complex_function": {
+        "cc": 11,
+        "fn_mi": 31.52,
+        "fn_sloc": 168,
+        "lineno": 24,
+        "name": "render_riemannian_plate"
+      },
+      "sloc": 182,
+      "total_cc": 18
+    },
+    {
+      "avg_cc": 2.417,
+      "comment_ratio": 0.0075,
+      "file": "scripts/render_zoe_readme_art.py",
+      "functions": 12,
+      "grade": "B",
+      "halstead_length": 1993,
+      "halstead_vocab": 638,
+      "halstead_volume": 18569.6,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.2216,
+      "kloster_cc_renyi_h2": 2.1599,
+      "low_maintainability_flag": false,
+      "max_cc": 5,
+      "mi_file_radon": 6.649,
+      "mi_score": 47.649,
+      "most_complex_function": {
+        "cc": 5,
+        "fn_mi": 25.21,
+        "fn_sloc": 280,
+        "lineno": 103,
+        "name": "build_hero"
+      },
+      "sloc": 813,
+      "total_cc": 29
+    },
+    {
+      "avg_cc": 9.75,
+      "comment_ratio": 0.0363,
+      "file": "scripts/verify_kloster_passes_6_to_11.py",
+      "functions": 4,
+      "grade": "B",
+      "halstead_length": 1593,
+      "halstead_vocab": 431,
+      "halstead_volume": 13941.21,
+      "kloster_cc_a_005": 3,
+      "kloster_cc_m4_root": 0.4509,
+      "kloster_cc_renyi_h2": 1.1065,
+      "low_maintainability_flag": false,
+      "max_cc": 15,
+      "mi_file_radon": 19.866,
+      "mi_score": 47.902,
+      "most_complex_function": {
+        "cc": 15,
+        "fn_mi": 33.39,
+        "fn_sloc": 139,
+        "lineno": 180,
+        "name": "render_theorems_10_and_11_plate"
+      },
+      "sloc": 311,
+      "total_cc": 39
+    },
+    {
+      "avg_cc": 10.0,
+      "comment_ratio": 0.0321,
+      "file": "scripts/verify_dorothy_neurogarden.py",
+      "functions": 2,
+      "grade": "B",
+      "halstead_length": 723,
+      "halstead_vocab": 258,
+      "halstead_volume": 5792.12,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.6632,
+      "kloster_cc_renyi_h2": 0.607,
+      "low_maintainability_flag": false,
+      "max_cc": 13,
+      "mi_file_radon": 32.928,
+      "mi_score": 48.047,
+      "most_complex_function": {
+        "cc": 13,
+        "fn_mi": 35.95,
+        "fn_sloc": 111,
+        "lineno": 21,
+        "name": "render_dorothy_neurogarden_plate"
+      },
+      "sloc": 129,
+      "total_cc": 20
+    },
+    {
+      "avg_cc": 15.3,
+      "comment_ratio": 0.0431,
+      "file": "guiai-lab/guiai/gem/groove_forensics.py",
+      "functions": 10,
+      "grade": "B",
+      "halstead_length": 2825,
+      "halstead_vocab": 482,
+      "halstead_volume": 25178.91,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.259,
+      "kloster_cc_renyi_h2": 1.9915,
+      "low_maintainability_flag": false,
+      "max_cc": 36,
+      "mi_file_radon": 0.0,
+      "mi_score": 48.306,
+      "most_complex_function": {
+        "cc": 36,
+        "fn_mi": 28.78,
+        "fn_sloc": 177,
+        "lineno": 473,
+        "name": "run_groove_forensics_suite"
+      },
+      "sloc": 566,
+      "total_cc": 153
+    }
+  ],
+  "top_10_most_elegant": [
+    {
+      "avg_cc": 6.333,
+      "comment_ratio": 0.0395,
+      "file": "scripts/verify_portfolio_upgrades.py",
+      "functions": 6,
+      "grade": "A",
+      "halstead_length": 819,
+      "halstead_vocab": 325,
+      "halstead_volume": 6833.98,
+      "kloster_cc_a_005": 2,
+      "kloster_cc_m4_root": 0.7895,
+      "kloster_cc_renyi_h2": 0.4508,
+      "low_maintainability_flag": false,
+      "max_cc": 30,
+      "mi_file_radon": 24.036,
+      "mi_score": 78.989,
+      "most_complex_function": {
+        "cc": 30,
+        "fn_mi": 26.44,
+        "fn_sloc": 242,
+        "lineno": 46,
+        "name": "run_verification"
+      },
+      "sloc": 265,
+      "total_cc": 38
+    },
+    {
+      "avg_cc": 2.121,
+      "comment_ratio": 0.0691,
+      "file": "guiai-lab/guiai/gem/_eliza_routes.py",
+      "functions": 33,
+      "grade": "A",
+      "halstead_length": 1586,
+      "halstead_vocab": 427,
+      "halstead_volume": 13858.61,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.0994,
+      "kloster_cc_renyi_h2": 3.2291,
+      "low_maintainability_flag": false,
+      "max_cc": 5,
+      "mi_file_radon": 15.329,
+      "mi_score": 78.354,
+      "most_complex_function": {
+        "cc": 5,
+        "fn_mi": 78.45,
+        "fn_sloc": 6,
+        "lineno": 195,
+        "name": "_count_orbit_sealed"
+      },
+      "sloc": 448,
+      "total_cc": 70
+    },
+    {
+      "avg_cc": 1.8,
+      "comment_ratio": 0.0465,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/_utils.py",
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 161,
+      "halstead_vocab": 58,
+      "halstead_volume": 943.13,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.3982,
+      "kloster_cc_renyi_h2": 1.3499,
+      "low_maintainability_flag": false,
+      "max_cc": 3,
+      "mi_file_radon": 47.576,
+      "mi_score": 75.227,
+      "most_complex_function": {
+        "cc": 3,
+        "fn_mi": 71.53,
+        "fn_sloc": 11,
+        "lineno": 38,
+        "name": "sha256_file"
+      },
+      "sloc": 68,
+      "total_cc": 9
+    },
+    {
+      "avg_cc": 2.2,
+      "comment_ratio": 0.0108,
+      "file": "guiai-lab/guiai/gem/zoe_os.py",
+      "functions": 5,
+      "grade": "A",
+      "halstead_length": 501,
+      "halstead_vocab": 193,
+      "halstead_volume": 3803.82,
+      "kloster_cc_a_005": 5,
+      "kloster_cc_m4_root": 0.6366,
+      "kloster_cc_renyi_h2": 0.8255,
+      "low_maintainability_flag": false,
+      "max_cc": 7,
+      "mi_file_radon": 37.613,
+      "mi_score": 74.781,
+      "most_complex_function": {
+        "cc": 7,
+        "fn_mi": 41.16,
+        "fn_sloc": 58,
+        "lineno": 36,
+        "name": "zoe_os_scene"
+      },
+      "sloc": 72,
+      "total_cc": 11
+    },
+    {
+      "avg_cc": 2.5,
+      "comment_ratio": 0.027,
+      "file": "guiai-lab/guiai/gem/unified_cli.py",
+      "functions": 12,
+      "grade": "A",
+      "halstead_length": 514,
+      "halstead_vocab": 193,
+      "halstead_volume": 3902.52,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2263,
+      "kloster_cc_renyi_h2": 2.1203,
+      "low_maintainability_flag": false,
+      "max_cc": 5,
+      "mi_file_radon": 30.843,
+      "mi_score": 74.619,
+      "most_complex_function": {
+        "cc": 5,
+        "fn_mi": 65.15,
+        "fn_sloc": 14,
+        "lineno": 67,
+        "name": "_try_early_passthrough"
+      },
+      "sloc": 148,
+      "total_cc": 30
+    },
+    {
+      "avg_cc": 6.815,
+      "comment_ratio": 0.0394,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/l5_phase5_arc_induction.py",
+      "functions": 27,
+      "grade": "A",
+      "halstead_length": 2588,
+      "halstead_vocab": 328,
+      "halstead_volume": 21629.34,
+      "kloster_cc_a_005": 6,
+      "kloster_cc_m4_root": 0.2136,
+      "kloster_cc_renyi_h2": 2.4235,
+      "low_maintainability_flag": false,
+      "max_cc": 37,
+      "mi_file_radon": 0.0,
+      "mi_score": 73.952,
+      "most_complex_function": {
+        "cc": 37,
+        "fn_mi": 35.28,
+        "fn_sloc": 113,
+        "lineno": 269,
+        "name": "induce"
+      },
+      "sloc": 444,
+      "total_cc": 184
+    },
+    {
+      "avg_cc": 2.947,
+      "comment_ratio": 0.0478,
+      "file": "guiai-lab/guiai/gem/kloster_cnsa2_mldsa_gcm_hash.py",
+      "functions": 19,
+      "grade": "A",
+      "halstead_length": 1604,
+      "halstead_vocab": 379,
+      "halstead_volume": 13739.95,
+      "kloster_cc_a_005": 8,
+      "kloster_cc_m4_root": 0.1853,
+      "kloster_cc_renyi_h2": 2.4672,
+      "low_maintainability_flag": false,
+      "max_cc": 8,
+      "mi_file_radon": 20.525,
+      "mi_score": 73.903,
+      "most_complex_function": {
+        "cc": 8,
+        "fn_mi": 44.61,
+        "fn_sloc": 68,
+        "lineno": 82,
+        "name": "lab_cnsa2_mldsa_rejection_sampling"
+      },
+      "sloc": 260,
+      "total_cc": 56
+    },
+    {
+      "avg_cc": 6.714,
+      "comment_ratio": 0.0532,
+      "file": "scripts/verify_zoe_eliza.py",
+      "functions": 7,
+      "grade": "A",
+      "halstead_length": 910,
+      "halstead_vocab": 295,
+      "halstead_volume": 7466.16,
+      "kloster_cc_a_005": 3,
+      "kloster_cc_m4_root": 0.7236,
+      "kloster_cc_renyi_h2": 0.6061,
+      "low_maintainability_flag": false,
+      "max_cc": 34,
+      "mi_file_radon": 25.225,
+      "mi_score": 73.866,
+      "most_complex_function": {
+        "cc": 34,
+        "fn_mi": 27.35,
+        "fn_sloc": 233,
+        "lineno": 29,
+        "name": "run_verification"
+      },
+      "sloc": 231,
+      "total_cc": 47
+    },
+    {
+      "avg_cc": 2.7,
+      "comment_ratio": 0.0541,
+      "file": "components/Zoe-Autonomy/src/zoe_autonomy/trust_gradient.py",
+      "functions": 20,
+      "grade": "A",
+      "halstead_length": 1273,
+      "halstead_vocab": 233,
+      "halstead_volume": 10011.11,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.2001,
+      "kloster_cc_renyi_h2": 2.4096,
+      "low_maintainability_flag": false,
+      "max_cc": 9,
+      "mi_file_radon": 20.814,
+      "mi_score": 73.576,
+      "most_complex_function": {
+        "cc": 9,
+        "fn_mi": 50.17,
+        "fn_sloc": 49,
+        "lineno": 111,
+        "name": "evaluate"
+      },
+      "sloc": 306,
+      "total_cc": 54
+    },
+    {
+      "avg_cc": 2.818,
+      "comment_ratio": 0.0292,
+      "file": "guiai-lab/guiai/gem/eliza_view.py",
+      "functions": 22,
+      "grade": "A",
+      "halstead_length": 891,
+      "halstead_vocab": 246,
+      "halstead_volume": 7076.78,
+      "kloster_cc_a_005": 7,
+      "kloster_cc_m4_root": 0.1315,
+      "kloster_cc_renyi_h2": 2.8337,
+      "low_maintainability_flag": false,
+      "max_cc": 6,
+      "mi_file_radon": 6.564,
+      "mi_score": 72.332,
+      "most_complex_function": {
+        "cc": 6,
+        "fn_mi": 64.45,
+        "fn_sloc": 14,
+        "lineno": 46,
+        "name": "synthesize_wav_bytes"
+      },
+      "sloc": 1038,
+      "total_cc": 62
+    }
+  ]
+}

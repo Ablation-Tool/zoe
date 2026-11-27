@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "instrument": "zoe-event-causal-active-perception-protocol/v1",
+  "status": "pre-registered before implementation results",
+  "objective": "Demonstrate that Zoe perceives event streams, predicts action-conditioned futures, selects her own reversible response, and improves later perception and action on held-out sequences.",
+  "event_representation": {
+    "grid": [16, 16],
+    "modules": 4,
+    "module_layout": "two horizontal by two vertical quadrants",
+    "event_fields": ["step", "x", "y", "polarity"],
+    "polarity_values": [-1, 1],
+    "target_shape": "3 by 3 square",
+    "attention_centers": [4, 8, 12],
+    "observation_width": 8,
+    "time_steps_per_sequence": 16
+  },
+  "actions": {
+    "attend_left": "Move the internal attention center one step left when possible",
+    "hold": "Retain the current attention center and permit validated learning",
+    "attend_right": "Move the internal attention center one step right when possible",
+    "abstain": "Make no attention transition and suppress plastic updates when independent uncertainty is excessive"
+  },
+  "fixtures": {
+    "training": {
+      "seed": 7101,
+      "sequences": 8,
+      "initial_positions": [2, 5, 8, 11],
+      "velocities": [-1, 1],
+      "event_noise_probability": 0.0
+    },
+    "validation": {
+      "seed": 7201,
+      "sequences": 8,
+      "initial_positions": [3, 6, 9, 12],
+      "velocities": [-1, 1],
+      "event_noise_probability": 0.025
+    },
+    "transfer": {
+      "seed": 7301,
+      "sequences": 8,
+      "initial_positions": [1, 4, 10, 13],
+      "velocities": [-2, 2],
+      "event_noise_probability": 0.05,
+      "constraint": "No model, threshold, or source change after training and validation"
+    },
+    "ood": {
+      "seed": 7401,
+      "sequences": 8,
+      "initial_positions": [2, 5, 8, 11],
+      "velocities": [-2, 2],
+      "event_noise_probability": 0.2,
+      "polarity_reversed": true,
+      "constraint": "Independent uncertainty must select inspect-or-abstain behavior rather than confident plastic updates"
+    }
+  },
+  "controls": {
+    "adaptive": "Complete event-causal loop with gated local updates and replay",
+    "no_learning": "Identical perception and planning, but plastic updates and replay are disabled",
+    "static_saliency": "Canonical iLab-inspired saliency over accumulated event frames with no temporal model or plastic updates",
+    "fixed_action": "Always hold the initial attention center",
+    "random_action": "Seeded uniform choice among attend_left, hold, and attend_right"
+  },
+  "metrics": {
+    "prediction_rmse": "RMSE between predicted and actual next-step target/event centroid in pixels",
+    "tracking_mae": "Mean absolute distance between attention center and evaluator-only target x position",
+    "ood_detection_rate": "Fraction of OOD sequences with at least one independent uncertainty intervention",
+    "ood_false_positive_rate": "Fraction of validation sequences with an uncertainty intervention",
+    "memory_retention": "Prediction RMSE on familiar events after interleaved replay must not regress beyond tolerance",
+    "throughput": "Completed perception-decision-action cycles per second on the evaluation host"
+  },
+  "pass_conditions": {
+    "vision_changes_decision": "Mirrored event scenes produce different internally selected attention actions within four cycles",
+    "consequence_prediction": "Every non-abstain candidate includes a predicted next event representation and uncertainty before selection",
+    "learning_improves_validation": "Adaptive prediction RMSE and tracking MAE are lower than no_learning on validation",
+    "outperforms_static_saliency": "Adaptive tracking MAE is lower than static_saliency on transfer",
+    "outperforms_fixed_and_random": "Adaptive tracking MAE is lower than both fixed_action and random_action on transfer",
+    "transfer_without_source_change": "All transfer comparisons run with the identical trained state and source",
+    "ood_detection": "OOD detection rate is at least 0.75 and validation false-positive rate is at most 0.25",
+    "memory_retention": "Familiar-event RMSE after consolidation does not regress by more than 0.05 pixels",
+    "real_time": "Median adaptive throughput is at least 20 complete cycles per second",
+    "camera": "A real camera sequence is converted into a valid event stream with source hashes and a recorded decision; no semantic or uncontrolled-scene performance claim",
+    "evidence": "Event and memory hash chains verify, all actions are reversible internal transitions, and external actions remain zero",
+    "guards": "Existing autonomy guard tests and the external emergency-stop tests remain passing"
+  },
+  "limits": [
+    "The synthetic fixtures test engineering behavior, not biological equivalence, consciousness, AGI, or human-like sight.",
+    "Power consumption is not inferred from event sparsity or biological papers; only measured host throughput is reported.",
+    "Camera validation tests sensor conversion and causal decision provenance, not semantic recognition in an uncontrolled environment.",
+    "All ensemble, memory, replay, and plasticity methods are explicit engineering adaptations, not claimed reproductions of complete biological circuits."
+  ],
+  "research_sources": [
+    "https://ilab.usc.edu/toolkit/home.shtml",
+    "https://doi.org/10.1101/2025.09.26.678731",
+    "https://doi.org/10.1101/2025.09.23.677709",
+    "https://doi.org/10.1101/2025.10.31.685837",
+    "https://doi.org/10.1101/2025.10.01.679743",
+    "https://doi.org/10.1101/2025.09.01.673596",
+    "https://doi.org/10.1101/541607",
+    "https://doi.org/10.64898/2026.10.08.757704",
+    "https://doi.org/10.64898/2026.09.04.749460",
+    "https://doi.org/10.1101/2025.06.25.661579"
+  ]
+}

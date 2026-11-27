@@ -1,0 +1,41 @@
+{
+  "ourn": "urn:orm:book:9781098150495",
+  "identifier": "9781098150495",
+  "isbn": "9781098150501",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781098150495/",
+  "content_format": "book",
+  "publication_date": "2025-03-07",
+  "created_time": "2025-04-07T16:35:28.109763Z",
+  "last_modified_time": "2026-05-20T18:52:08.465013Z",
+  "title": "Designing Large Language Model Applications",
+  "is_hidden": false,
+  "has_mathml": false,
+  "virtual_pages": 497,
+  "opf_unique_identifier_type": "pub-identifier",
+  "page_count": 366,
+  "total_running_time_secs": null,
+  "total_size": 8256282,
+  "descriptions": {
+    "text/html": "<span><div><p>Large language models (LLMs) have proven themselves to be powerful tools for solving a wide range of tasks, and enterprises have taken note. But transitioning from demos and prototypes to full-fledged applications can be difficult. This book helps close that gap, providing the tools, techniques, and playbooks that practitioners need to build useful products that incorporate the power of language models. \n</p><p>\nExperienced ML researcher Suhas Pai offers practical advice on harnessing LLMs for your use cases and dealing with commonly observed failure modes. You’ll take a comprehensive deep dive into the ingredients that make up a language model, explore various techniques for customizing them such as fine-tuning, learn about application paradigms like RAG (retrieval-augmented generation) and agents, and more.\n</p><p>\n</p><ul><li>Understand how to prepare datasets for training and fine-tuning\n</li><li>Develop an intuition about the Transformer architecture and its variants\n</li><li>Adapt pretrained language models to your own domain and use cases \n</li><li>Learn effective techniques for fine-tuning, domain adaptation, and inference optimization\n</li><li>Interface language models with external tools and data and integrate them into an existing software ecosystem\n</li></ul></div></span>",
+    "text/plain": "Large language models (LLMs) have proven themselves to be powerful tools for solving a wide range of tasks, and enterprises have taken note. But transitioning from demos and prototypes to full-fledged applications can be difficult. This book helps close that gap, providing the tools, techniques, and playbooks that practitioners need to build useful products that incorporate the power of language models. Experienced ML researcher Suhas Pai offers practical advice on harnessing LLMs for your use cases and dealing with commonly observed failure modes. You’ll take a comprehensive deep dive into the ingredients that make up a language model, explore various techniques for customizing them such as fine-tuning, learn about application paradigms like RAG (retrieval-augmented generation) and agents, and more. Understand how to prepare datasets for training and fine-tuning Develop an intuition about the Transformer architecture and its variants Adapt pretrained language models to your own domain and use cases Learn effective techniques for fine-tuning, domain adaptation, and inference optimization Interface language models with external tools and data and integrate them into an existing software ecosystem"
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781098150495/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781098150495/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781098150495/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9781098150495",
+  "tags": [],
+  "language": "en",
+  "resources": [
+    {
+      "url": "http://oreilly.com/catalog/0636920895619/errata",
+      "type": "Unspecified, see website description",
+      "description": "Errata Page"
+    },
+    {
+      "url": "https://github.com/piesauce/llm-playbooks",
+      "type": "Unspecified, see website description",
+      "description": "Supplemental Content"
+    }
+  ],
+  "roughcut": false
+}

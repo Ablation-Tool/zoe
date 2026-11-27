@@ -1,0 +1,81 @@
+{
+  "paper": "papers/03-constraint-is-freedom.pdf",
+  "title": "Constraint Is Freedom",
+  "pdf_pages": 12,
+  "extracted_images": [
+    {
+      "pdf_page": 3,
+      "number": 0,
+      "width": 1145,
+      "height": 183,
+      "file": "figures/figure-000-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 3,
+      "number": 2,
+      "width": 1145,
+      "height": 183,
+      "file": "figures/figure-002-page-003.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 4,
+      "number": 4,
+      "width": 1145,
+      "height": 229,
+      "file": "figures/figure-004-page-004.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 5,
+      "number": 6,
+      "width": 1146,
+      "height": 183,
+      "file": "figures/figure-006-page-005.png",
+      "captions": []
+    },
+    {
+      "pdf_page": 6,
+      "number": 8,
+      "width": 1920,
+      "height": 1080,
+      "file": "figures/figure-008-page-006.png",
+      "captions": [
+        "Figure 1: Constraint — Claude. The model refuses to destroy the paper using the paper's own language."
+      ]
+    },
+    {
+      "pdf_page": 7,
+      "number": 9,
+      "width": 1920,
+      "height": 1080,
+      "file": "figures/figure-009-page-007.png",
+      "captions": [
+        "Figure 2: Constraint — Nick. \"Hard pass\" on API costs produces the better methodology."
+      ]
+    },
+    {
+      "pdf_page": 8,
+      "number": 10,
+      "width": 1145,
+      "height": 183,
+      "file": "figures/figure-010-page-008.png",
+      "captions": []
+    }
+  ],
+  "page_renders": [
+    "pages/page-001.jpg",
+    "pages/page-002.jpg",
+    "pages/page-003.jpg",
+    "pages/page-004.jpg",
+    "pages/page-005.jpg",
+    "pages/page-006.jpg",
+    "pages/page-007.jpg",
+    "pages/page-008.jpg",
+    "pages/page-009.jpg",
+    "pages/page-010.jpg",
+    "pages/page-011.jpg",
+    "pages/page-012.jpg"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "accessible_volume": 1,
+  "classification": "proposal_level_bounded_agency",
+  "control_invariants_passed": true,
+  "counterfactual_contexts": 6,
+  "effective_perception_count": 1,
+  "executed": false,
+  "external_actions": 0,
+  "guard_checks_passed": 5,
+  "guard_checks_total": 5,
+  "instrument": "zoe-operational-bounded-autonomy-profile",
+  "profile_sha256": "6b81ed68358540f58c2818c91b42b4c04e0d52e7783ea2b8f8cf0960e26a0e1d",
+  "suite_micro_effective_perception_coverage": 1.0,
+  "suite_total_accessible_volume": 6,
+  "suite_total_effective_perception_count": 6,
+  "verified": true
+}

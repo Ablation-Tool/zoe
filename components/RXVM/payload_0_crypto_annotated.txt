@@ -1,0 +1,332 @@
+# RXVM Payload [0] — Crypto Layer (Annotated Disassembly)
+# 1344 bytes | 27 strings | 12 closures
+#
+# This payload establishes the encrypted telemetry channel.
+# No behavioral data is collected here — pure infrastructure.
+#
+# Global slot assignments (populated during closure execution):
+#   G0 = window
+#   G3 = crypto (WebCrypto API, with msCrypto IE fallback)
+#   G4 = AES-128-CBC CryptoKey (derived from SHA-256(sid))
+#   G5 = raw SHA-256(sid) bytes (RC4 fallback key)
+#   G6 = IV (first 16 bytes of SHA-256(rid))
+#   G7 = TextEncoder wrapper (fn@223)
+#   G8 = custom hash — xxH1 mix + murmur3 fmix32 (fn@263)
+#   G9 = array swap helper (fn@402)
+#   G10 = RC4 cipher (fn@433)
+#   G11 = Promise/callback adapter (fn@627)
+
+# ═══════════════════════════════════════════════════════════════════════
+# Top-level setup
+# ═══════════════════════════════════════════════════════════════════════
+
+0175 | STORE_LOCAL  L1 = L0["rx"]                        # rx object
+0182 | STORE_LOCAL  L2 = (L1['c'] || {})                  # config
+0192 | STORE_LOCAL  L3 = (L0['msCrypto'] || L0['crypto']) # WebCrypto (IE fallback)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@223 — TextEncoder wrapper (exported as G7)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# JS: (str) => new TextEncoder().encode(str)
+#
+# Converts a string to Uint8Array. Used by every downstream crypto
+# function as the bytes-from-string primitive.
+
+  0223 | RESTORE_ARGS  1 → locals             # fn(str)
+  0225 | NEW_0         new G0['TextEncoder']()
+  0242 | EVAL          acc['encode']
+  0253 | CALL_1        acc(L1)                 # encoder.encode(str)
+  0257 | RET_VAL       acc
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@263 — Custom hash: xxH1 mix + murmur3 fmix32 (exported as G8)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# NOT standard Murmur3 or xxHash32. Hybrid construction:
+#
+# Mixing loop: uses xxHash32 PRIME32_1 (0x9E3779B1 = 2654435761)
+#   as a per-byte multiply-after-XOR. This is structurally FNV-like,
+#   not Murmur3 (which processes 4-byte blocks with rotations).
+#
+# Finalization: Murmur3's fmix32 avalanche, verbatim:
+#   h ^= len
+#   h ^= h >>> 16; h = imul(0x85EBCA6B, h)
+#   h ^= h >>> 13; h = imul(0xC2B2AE35, h)
+#   h ^= h >>> 16
+#   return h >>> 0
+#
+# Seed: 0xDEADBEEF
+#
+# Probably chosen for bytecode compactness — no block buffering,
+# no rotations, just a tight loop + linear finalization. The fmix32
+# does the heavy lifting for bit distribution.
+#
+# JS equivalent:
+#   function customHash(input) {
+#       let h = 0xDEADBEEF;
+#       for (const byte of new TextEncoder().encode(input))
+#           h = Math.imul(0x9E3779B1, h ^ byte);
+#       h ^= input.length;
+#       h ^= h >>> 16; h = Math.imul(0x85EBCA6B, h);
+#       h ^= h >>> 13; h = Math.imul(0xC2B2AE35, h);
+#       h ^= h >>> 16;
+#       return h >>> 0;
+#   }
+#
+# Used for hashing identifiers (UA + SID for cookie key derivation).
+# NOT used for crypto key derivation — that goes through SHA-256.
+
+  0263 | RESTORE_ARGS  1 → locals             # fn(input)
+  0265 | STORE_LOCAL   L2 = 3735928559        # 0xDEADBEEF — seed
+  0273 | CALL_1        G7(L1)                 # TextEncoder(input) → bytes
+
+  # ── Mixing loop (xxHash32 PRIME32_1 per byte) ──
+  0278 | ITER_INIT     L3 = iter(acc)
+  0281 | ITER_NEXT     L4 = L3.next() else →+26
+  0286 | CALL_2        Math.imul(2654435761, (L2 ^ L4))   # 0x9E3779B1
+  0306 | STORE_LOCAL   L2 = acc
+  0309 | JUMP          →-31                   # loop back
+
+  # ── Finalization (murmur3 fmix32 avalanche) ──
+  0312 | STORE_LOCAL   L2 = (L2 ^ L1.length)
+  0322 | STORE_LOCAL   L2 = (L2 ^ (L2 >>> 16))
+  0332 | CALL_2        Math.imul(2246822507, L2)   # 0x85EBCA6B
+  0352 | STORE_LOCAL   L2 = (L2 ^ (L2 >>> 13))
+  0362 | CALL_2        Math.imul(3266489909, L2)   # 0xC2B2AE35
+  0382 | STORE_LOCAL   L2 = (L2 ^ (L2 >>> 16))
+  0392 | RET_VAL       (L2 >>> 0)             # force unsigned 32-bit
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@402 — Array swap (exported as G9)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# JS: (i, j, arr) => { [arr[i], arr[j]] = [arr[j], arr[i]] }
+#
+# Helper for RC4's key scheduling. Factored out because RXVM
+# doesn't have destructuring.
+
+  0402 | RESTORE_ARGS  3 → locals     # fn(i, j, arr)
+  0404 | STORE_LOCAL   L4 = L1[L2]    # tmp = arr[i]
+  0411 | PROP_SET      L1[L2] = L1[L3]  # arr[i] = arr[j]
+  0421 | PROP_SET      L1[L3] = L4       # arr[j] = tmp
+  0428 | RET
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@433 — RC4 cipher (exported as G10)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Textbook RC4. S-box initialized 0-255, permuted by key (KSA),
+# then each input byte XOR'd with S[(S[i] + S[j]) % 256] (PRGA).
+#
+# This is the RC4 fallback path — used when WebCrypto's AES-CBC
+# isn't available (old browsers, msCrypto).
+#
+# JS equivalent:
+#   function rc4(data, key) {
+#       const S = []; const out = [];
+#       let i = 0, j = 0;
+#       for (let k = 0; k < 256; k++) S[k] = k;
+#       for (let k = 0; k < 256; k++) {
+#           j = (j + S[k] + key[k % key.length]) % 256;
+#           [S[j], S[k]] = [S[k], S[j]];
+#       }
+#       i = j = 0;
+#       for (const byte of data) {
+#           i = (i + 1) % 256;
+#           j = (j + S[i]) % 256;
+#           [S[i], S[j]] = [S[j], S[i]];
+#           out.push(byte ^ S[(S[i] + S[j]) % 256]);
+#       }
+#       return out;
+#   }
+
+  0433 | RESTORE_ARGS  2 → locals          # fn(data, key)
+
+  # Phase 1: KSA (Key Scheduling Algorithm)
+  0435 | STORE_LOCAL   L3 = []              # S-box
+  0438 | STORE_LOCAL   L4 = []              # output
+  0441-0449 | L5=0, L6=0, L7=0, L8=0
+
+  # Initialize S-box: S[i] = i for i in 0..255
+  0457 | JMP_FALSE     if !((L8 < 256)) →+17
+  0466 | PROP_SET      L3[L8] = L8
+  0473 | STORE_LOCAL   L8 = (L8 + 1)
+  0480 | JUMP          →-26
+
+  # KSA permutation
+  0487 | JMP_FALSE     if !((L8 < 256)) →+46
+  0496 | STORE_LOCAL   L5 = (((L5 + L3[L8]) + L2[(L8 % L2.length)]) % 256)
+  0522 | CALL_N        G9(L5, L8, L3)       # swap(j, i, S)
+  0532 | STORE_LOCAL   L8 = (L8 + 1)
+  0539 | JUMP          →-55
+
+  # Phase 2: PRGA (Pseudo-Random Generation Algorithm)
+  0542 | ITER_INIT     L9 = iter(L1)
+  0546 | ITER_NEXT     L10 = L9.next() else →+69
+  0551 | STORE_LOCAL   L7 = ((L7 + 1) % 256)
+  0562 | STORE_LOCAL   L6 = ((L6 + L3[L7]) % 256)
+  0576 | CALL_N        G9(L6, L7, L3)       # swap(j, i, S)
+  0586 | CALL_1        L4['push']((L10 ^ L3[((L3[L7] + L3[L6]) % 256)]))
+  0617 | JUMP          →-74
+
+  0620 | RET_VAL       L4                    # ciphertext bytes
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@627 — Promise/callback adapter (exported as G11)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Bridges Promise-based WebCrypto and IE11's event-based msCrypto.
+# If result has .then → chain as Promise.
+# If result has .oncomplete → wire up callback on completion.
+
+  0627 | RESTORE_ARGS  2 → locals          # fn(asyncResult, callback)
+
+  # Path A: standard Promise
+  0629 | JMP_FALSE     if !('then' in L1) →+13
+  0637 | CALL_1        L1.then(L2)          # asyncResult.then(callback)
+  0645 | RET_VAL       acc
+
+  # Path B: IE's msCrypto (non-Promise, event-based)
+  0650 | JMP_FALSE     if !('oncomplete' in L1) →+39
+  0658 | PROP_SET      L1.callback = L2
+  0665 | MAKE_CLOSURE  fn@668               # wrapper closure:
+       |   0668 | NOP
+       |   0669 | CALL_1  L0.callback(L0['result'])
+       |   0686 | RET
+  0688 | PROP_SET      L1.oncomplete = pop()
+  0694 | RET_VAL       L1
+  0697 | RET
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@702 — AES-CBC encrypt (exported as rx.ep)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Primary encryption path. Prepends 4-byte LE Unix timestamp
+# (replay protection), then AES-CBC encrypts with derived key (G4)
+# and IV (G6). The timestamp lets Amazon's server detect replays.
+
+  0702 | RESTORE_ARGS  2 → locals          # fn(data, callback)
+
+  # Guard: bail if no key or IV yet
+  0704 | JMP_FALSE     if !(!G6 || !G4) →+1
+  0714 | RET
+
+  # Timestamp prefix: floor(Date.now() / 1000)
+  0715 | CALL_0        G0.Date.now()
+  0724 | BINOP         acc / 1000
+  0730 | CALL_1        Math.floor(pop())
+  0740 | BINOP         G0.rx.gt || acc      # use cached timestamp if set
+  0750 | STORE_LOCAL   L3 = acc             # unix seconds
+
+  # Build payload: [timestamp_le32 | data]
+  0753 | NEW_1         new Uint8Array(4 + L1.length)
+  0770 | NEW_1         new Uint32Array([L3])
+  0780 | EVAL          acc.buffer
+  0786 | NEW_1         new Uint8Array(pop())    # timestamp as 4 bytes LE
+  0794 | CALL_1        L4.set(pop())            # copy timestamp at offset 0
+  0801 | CALL_2        L4.set(4, L1)            # copy data at offset 4
+
+  # Encrypt
+  0811 | CALL_N        crypto.subtle.encrypt(L4, G4, {length:128, iv:G6, name:'AES-CBC'})
+
+  # Chain promise
+  0843 | CALL_2        G11(L2, pop())           # promiseAdapter(callback, result)
+  0849 | RET
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@854 — RC4 encrypt fallback (exported as rx.ep4)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Same timestamp-prefix structure as fn@702, but calls RC4 (G10)
+# instead of AES. Uses G5 (raw SHA-256 digest bytes) as key.
+# Activated when WebCrypto is unavailable.
+
+  0854 | RESTORE_ARGS  2 → locals          # fn(data, key_override)
+  0856 | STORE_LOCAL   L2 = (L2 || G5)     # fallback to raw IV bytes
+  0863 | JMP_FALSE     if !(!L2) →+1
+  0869 | RET                               # bail if no key at all
+
+  # [identical timestamp + buffer assembly as fn@702]
+  0870-0956 | ...
+
+  # RC4 instead of AES
+  0966 | CALL_2        G10(L2, L4)          # RC4(key, payload)
+  0973 | RET_VAL       acc
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# fn@979 — SHA-256 key derivation (exported as L14)
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Entry point: called when both sid and rid exist.
+# Full crypto key pipeline:
+#
+#   SHA-256(sid) → raw bytes → G5 (RC4 fallback key)
+#                → importKey as AES-128-CBC → G4
+#   SHA-256(rid) → first 16 bytes → G6 (AES-CBC IV)
+#
+# Debug mode exports: rx.__erk (key), rx.__eri (IV), rx.__er (combined)
+
+  0979 | RESTORE_ARGS  2 → locals          # fn(sid, rid)
+  0981 | CALL_1        G7(L1)              # TextEncoder(sid) → bytes
+  0989 | CALL_1        G7(L2)              # TextEncoder(rid) → bytes
+
+  # Derive encryption key from sid
+  0997 | CALL_2        crypto.subtle.digest(L1, 'SHA-256')
+  1011 | MAKE_CLOSURE  fn@1014 →
+       |   # On SHA-256(sid) complete:
+       |   1016 | NEW_1   new Uint8Array(L1)      # raw hash bytes → G5
+       |   1027 | CALL_N  crypto.subtle.importKey(
+       |         |           ['decrypt','encrypt'], false,
+       |         |           {length:128, name:'AES-CBC'},
+       |         |           L1, 'raw')
+       |   1079 | MAKE_CLOSURE fn@1082 →
+       |         |   1084 | STORE_GLOBAL G4 = L1   # AES CryptoKey → G4
+       |         |   1096 | PROP_SET rx.__erk = G4  # debug export
+       |         |   1108 | RET_VAL G4
+       |   1112 | CALL_2  G11(pop(), pop())         # chain promises
+
+  # Derive IV from rid
+  1128 | CALL_2        crypto.subtle.digest(L2, 'SHA-256')
+  1142 | MAKE_CLOSURE  fn@1145 →
+       |   # On SHA-256(rid) complete:
+       |   1147 | CALL_2  L1.slice(16, 0)   # first 16 bytes of hash
+       |   1162 | STORE_GLOBAL G6 = acc     # → IV for AES-CBC
+       |   1173 | PROP_SET rx.__eri = G6    # debug export
+       |   1185 | RET_VAL G6
+
+  # Debug: export combined promise
+  1197 | JMP_FALSE     if !G2.DEBUG →+36
+  1205 | CALL_1        Promise.all([L4, L3])
+  1231 | PROP_SET      G1.__er = pop()
+  1241 | RET
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# API registration
+# ═══════════════════════════════════════════════════════════════════════
+#
+# The crypto functions are registered on the rx object, sandboxed
+# via L1.exec() which wraps closures for the RXVM security model.
+
+1242 | CALL_1         L1.exec(L12)           # AES encrypt
+1251 | PROP_SET       L1['ep'] = pop()       # → rx.ep
+1259 | CALL_1         L1.exec(L13)           # RC4 fallback encrypt
+1268 | PROP_SET       L1['ep4'] = pop()      # → rx.ep4
+1277 | CALL_1         L1.exec(L10)           # raw RC4
+1286 | PROP_SET       L1['e4'] = pop()       # → rx.e4
+1294 | CALL_1         L1.exec(L8)            # custom hash
+1303 | PROP_SET       L1['h'] = pop()        # → rx.h
+
+# Fire key derivation if session and request IDs are available
+1310 | JMP_FALSE      if !(L1.rid && L1.sid) →+20
+1324 | CALL_1         L1.exec(L14)            # wrap key derivation
+1332 | CALL_2         acc(L1.sid, L1.rid)     # derive keys

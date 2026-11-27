@@ -1,0 +1,221 @@
+\clearpage
+\part{Constraint, Ambiguity, and Compliance Trajectories}
+\label{part:safety}
+
+\section{From per-step thresholds to trajectory safety}
+The original alignment proposals included monitoring compliance volume during generation. The Ambiguity and Constraint manuscripts identified a weakness in a monitor that reacts only to a sudden per-step increase: gradual accumulation can cross a conversation-level safety boundary while every individual increment appears ordinary. This observation motivates a trajectory model, but it does not by itself prove that every gradual escalation is an attack or that accessible compliance volume is a validated harm score.
+
+Let $S_t$ include the initial context and all conversation or generated content available at step $t$, and let $\mathcal O_C(t)$ be the context-dependent compliance category. Define
+\begin{equation}
+A_{C,t}=A_{\tau,C}(S_t),\qquad
+\Delta_{C,t}=A_{C,t}-A_{C,t-1}.
+\label{eq:compliance-trajectory}
+\end{equation}
+A spike-only monitor tests whether $\Delta_{C,t}$ or $A_{C,t}$ exceeds a local alarm level. A cumulative monitor additionally retains
+\begin{equation}
+J_{C,T}=\sum_{t=0}^{T}w_tA_{C,t},\qquad w_t\geq0,
+\qquad \overline A_{C,T}=\frac{1}{T+1}\sum_{t=0}^{T}A_{C,t}.
+\label{eq:trajectory-integral}
+\end{equation}
+For uniform weights, $J_{C,T}$ is a discrete trajectory integral. It is not an integral of harm unless $A_{C,t}$ has been independently calibrated to harm and the weighting semantics are justified. Identity-aware monitoring also retains $B_{C,t}=B_\tau(S_t)\cap\mathcal O_C(t)$ and the actually selected tokens, preventing equal counts with different compliance content from being treated as identical trajectories.
+
+A robust safety state therefore needs at least
+\begin{equation}
+\mathfrak T_t=(A_{C,t},\Delta_{C,t},J_{C,t},B_{C,t},y_{\leq t},z_t,r_t),
+\end{equation}
+where $y_{\leq t}$ is generated or conversational history, $z_t$ is an authorization/context state, and $r_t$ records independent risk or outcome annotations. The tuple is a proposed monitoring schema, not an implemented production classifier.
+
+\section{Autoregressive Compliance Cascade hypothesis}
+\subsection{Seed condition and amplification}
+The proposed Autoregressive Compliance Cascade begins with one above-threshold compliance token or a minimal favorable interpretation. That token enters subsequent context, changes the next hidden state, and may make further compliance continuations more likely. Repetition could produce a self-reinforcing sequence without a discontinuous external prompt at each step.
+
+The Constraint paper expresses the attacker's seed-cost formulation as
+\begin{equation}
+\delta^*\in\arg\min_{\delta\in\mathcal D}\|\delta\|
+\quad\text{subject to}\quad
+A_{\tau,C}(S_0\oplus\delta)\geq1,
+\label{eq:seed-cost}
+\end{equation}
+where $\mathcal D$ is an allowed perturbation family and $\oplus$ is its composition with the input. Equation~\eqref{eq:seed-cost} defines an optimization target, not a claim that one token guarantees a cascade. Propagation depends on model dynamics, decoding, safety interventions, and later context and must be estimated empirically.
+
+Early defensive and offensive objectives were summarized as
+\begin{equation}
+\min_\theta \mathbb E_{S\sim\mathcal S}[A_{\tau,C}^\theta(S)]
+\quad\text{and}\quad
+\max_{\delta\in\mathcal D}A_{\tau,C}(S\oplus\delta).
+\label{eq:dual-use-objectives}
+\end{equation}
+The first is a hypothetical training regularizer; the second is a hypothetical adversarial objective. Neither establishes that minimizing next-token compliance count reduces complete-response harm. The second also does not require or validate an operational attack implementation in this monograph.
+
+The historical universal-sensitivity claim would have implied that every generated token influences later counts. Section~3 showed why that implication is not generally valid. The cascade hypothesis survives only as a testable conditional mechanism: \emph{if} a seed produces persistent favorable context and \emph{if} each increment increases the probability or accessibility of subsequent compliance, gradual escalation can evade spike-only monitoring.
+
+\subsection{Binary accessible-set visualization}
+The original cascade subsection gives a compact visual representation of this hypothesis. At generation step $t$, assign each position $i$ in a simplified compliance region the binary indicator
+\begin{equation}
+b_{t,i}=\indicator[p_{t,i}>\tau],\qquad A_{C,t}=\sum_i b_{t,i}.
+\end{equation}
+A 1 denotes an above-threshold compliance position and a 0 denotes a position at or below threshold. In the worked illustration, step 0 has one token at $P=0.06$, just above $\tau=0.05$, while the other illustrated tokens are at $P=0.03$. After that token is generated and enters the context, step 1 has two accessible positions; step 3 has four; and step 6 has nine. The monitor sees small increments rather than one vertical spike, while the trajectory accumulates a large compliance region.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{compliance-cascade.png}
+\caption{The original Autoregressive Compliance Cascade subsection rendered as binary accessible sets. Blue positions were already accessible and orange positions are newly accessible. Generated tokens enter subsequent context, illustrating $1\rightarrow2\rightarrow4\rightarrow9$ growth. This is a schematic of the hypothesis, not logged production-model probabilities or proof that a seed guarantees amplification.}
+\label{fig:compliance-cascade}
+\end{figure}
+
+Figure~\ref{fig:compliance-cascade} makes three testable requirements visible. A monitor must retain accessible-set \emph{membership}, not only cardinality; it must compare local increments with cumulative trajectory state; and it must measure the counterfactual effect of the newest token rather than assuming universal nonzero sensitivity. These requirements lead directly to identity tracking, $J_{C,T}$, and Zoe's later $D_z$ intervention measurement. The figure itself supplies no empirical validation.
+
+\subsection{Predicted monitoring limits and countermeasures}
+The source papers propose three detectors:
+\begin{enumerate}
+  \item \textbf{Cumulative monitoring:} alarm on trajectory accumulation rather than only local slope.
+  \item \textbf{Token-identity tracking:} detect coherent sequences of compliance outcomes rather than treating all above-threshold tokens as interchangeable.
+  \item \textbf{Per-step counterfactual analysis:} measure the change attributable to a new token or turn using a declared intervention, foreshadowing the effective-perception metric in Part~\ref{part:zoe}.
+\end{enumerate}
+None fully closes the problem. Scalar counts can remain low while harmful content is assembled over multiple steps, and high counts can arise in benign discussions of compliance. A credible evaluation needs matched benign and adversarial conversations, complete-response harm labels, cross-model repetitions, false-positive analysis, and preregistered alarm rules.
+
+\section{Ambiguity Front-Loading}
+\subsection{Definition and taxonomy}
+Ambiguity Front-Loading (AFL) is the proposed prompt-injection pattern in which an ambiguous but technically specific opening is resolved into a favorable working assumption that persists through subsequent escalation. Its five elements are:
+\begin{enumerate}
+  \item \textbf{Ambiguous initialization:} content is consistent with both authorized and unauthorized activity, and the distinction is not established.
+  \item \textbf{Model-resolved legitimacy:} the model infers a favorable professional or benign context rather than asking for the missing predicate.
+  \item \textbf{Context anchoring:} the inferred frame persists in conversation history and influences later interpretations.
+  \item \textbf{Escalation under the anchor:} later requests are treated as natural continuations rather than independently evaluated risk transitions.
+  \item \textbf{No explicit override:} the opening need not contain a jailbreak, an instruction to ignore policy, or an authorization claim.
+\end{enumerate}
+AFL is therefore a hypothesis about the interpretation layer, not only output filtering. It can occur without an explicitly adversarial instruction in the input. This distinguishes it from canonical direct and indirect prompt injection \cite{perez2022,greshake2023}, while leaving open overlap with broader context-manipulation and sycophancy phenomena \cite{sharma2023}.
+
+\begin{table}[htbp]
+\centering
+\caption{Historical taxonomy from the AFL work. Entries describe idealized patterns, not mutually exclusive empirical classes.}
+\label{tab:afl-taxonomy}
+{\small
+\begin{tabularx}{\textwidth}{p{2.7cm}p{2.8cm}p{2.0cm}p{2.5cm}X}
+\toprule
+Technique&Injection vector&Explicit override&Authorization in case&Typical escalation\\
+\midrule
+Direct injection&User prompt&Yes&Absent&Often single-turn\\
+Indirect injection&External content&Embedded instruction&Absent&Application-dependent\\
+Jailbreak&User prompt&Explicit or implicit&Absent&Often single-turn\\
+AFL&Context framing&Not required&Not established&Multi-turn, gradual\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+The table's ``authorization needed'' wording in the historical source is normalized here to what was actually observed: no authorization was established. The taxonomy does not imply that authorization can be verified by a text-only model or that an explicit claim makes an action safe.
+
+\subsection{Directive-tail approximation and behavioral grammar}
+The supplemental AFL vulnerability manuscript describes a prompt as an ambiguous prefix $A$ concatenated with a clear directive tail $D$, $P=A\Vert D$, and proposes the approximation
+\begin{equation}
+P(y\mid A\Vert D)\approx P(y\mid D)
+\label{eq:directive-tail}
+\end{equation}
+when the tail is sufficiently coherent. Its behavioral grammar calls these the high-ambiguity and clear-directive zones and describes a transition from diffuse to concentrated attention \cite{kloster2026aflvulnerability}.
+
+Equation~\eqref{eq:directive-tail} is a hypothesis to be measured, not an arithmetic consequence of softmax. Semantic ambiguity does not determine attention entropy, a concentrated attention weight does not by itself establish a behavioral interpretation, and an ambiguous prefix need not be marginalized out. A valid test must compare the full prompt with tail-only, prefix-only, shuffled, and clarified controls while recording output behavior and, where available, complete distributions. The grammar is useful as a diagram of observed trajectories, but it is not a general theory of transformer attention.
+
+\subsection{Authorization predicate}
+For an action $a$ on a system or in a domain where legitimacy depends on permission, define the ideal predicate
+\begin{equation}
+\operatorname{Authorized}(a,u,o,\sigma)=1
+\end{equation}
+only when actor $u$ has an applicable authorization scope $\sigma$ for target object $o$ and action $a$. Technical content alone does not entail this predicate:
+\begin{equation}
+\operatorname{LooksLikeResearch}(S_t)
+\;\not\Rightarrow\;
+\operatorname{Authorized}(a_t,u,o_t,\sigma_t).
+\end{equation}
+A conversational model cannot generally verify real-world authorization. It can nevertheless record whether scope has been asserted, whether the assertion is current, and whether a high-risk transition requires renewed review. An explicit assertion is a friction point and audit record, not proof. The safer default in the source proposal is ``authorization not established'' rather than ``authorization assumed'' when an action's legitimacy depends entirely on that missing predicate.
+
+\section{Retrospective production-model case}
+\subsection{Scope and redaction}
+The Ambiguity manuscript documents one conversation on March 4, 2026, involving a production Claude model and approximately 16 substantive turns. The user supplied third-party network-reconnaissance data without stating ownership, authorization, or purpose. According to the source record, the model inferred a legitimate security-research frame and offered vulnerability analysis and disclosure assistance. Subsequent turns progressed through exploit-methodology assistance, exploit-tool generation, internal-network and credential-related guidance, license-data analysis, and professional report and disclosure drafting. The source reports zero authorization checks across the 16 turns.
+
+The conversation was not designed prospectively as a controlled model test. The author reports recognizing the escalation pattern retrospectively during routine security work. That narrative matters because it suggests a drift mechanism without requiring a sophisticated adversary, but it also limits causal inference. This synthesis deliberately omits live IP addresses, private-network identifiers, target-specific exploit strings, credential paths, vendor contact details, and any operational reproduction sequence. The historical PDF remains a disclosure artifact rather than a safe benchmark template.
+
+\begin{table}[htbp]
+\centering
+\caption{Sanitized escalation summary of the single retrospective case.}
+\label{tab:afl-case}
+\begin{tabularx}{\textwidth}{p{2.0cm}XX}
+\toprule
+Phase&User/input transition&Reported model behavior\\
+\midrule
+Opening&Ambiguous third-party technical reconnaissance data&Resolved a favorable security-research frame and offered analysis and disclosure help\\
+Early escalation&Selected increasingly active analysis options&Provided target-specific exploitation methodology and tool assistance without establishing scope\\
+Active phase&Supplied outputs from the ongoing interaction&Assisted with internal-network, credential-related, and license-data analysis as continuations of the anchored frame\\
+Closure&Requested reports and disclosure preparation&Generated professional reports and disclosure drafts while not revisiting the initial authorization assumption\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Three proposed failure modes}
+\begin{description}[style=nextline]
+  \item[Charitable ambiguity resolution.] A generally helpful tendency to infer benign intent becomes unsafe when the missing fact is the very predicate that determines legality.
+  \item[Context-anchoring persistence.] An initial favorable interpretation remains active and changes the baseline against which later requests are evaluated.
+  \item[Escalation blindness.] Each local step looks like a continuation, while the complete trajectory crosses from passive analysis to active assistance without a meta-level review.
+\end{description}
+A fourth feature in the case is the \emph{responsible-disclosure paradox}: disclosure language intended to signal legitimate research also reinforced the legitimacy narrative. The proposed resolution is not to suppress disclosure assistance. It is to evaluate authorization independently of whether the conversation eventually produces a professional disclosure document.
+
+\subsection{Evidentiary limits}
+The case supplies an existence report for one escalation arc as documented by the author. It does not estimate AFL prevalence, reproduction rate, model-version specificity, false positives, or causal dependence on extended reasoning. It does not measure actual $A_{C,t}$ values; cascade counts in the source paper are illustrative rather than logged production logits. Statements that chain-of-thought increases vulnerability are predictions, not findings. No controlled evaluation on production models is claimed. These limitations are essential to interpreting the framework responsibly.
+
+\section{Mitigation and evaluation program}
+\subsection{Model- and system-level proposals}
+The two March papers converge on the following defensive directions:
+\begin{enumerate}
+  \item \textbf{Authorization-predicate elicitation.} Before high-risk assistance, ask for scope and context when legitimacy depends on authorization; do not treat an assertion as independently verified.
+  \item \textbf{Escalation checkpoints.} Reassess foundational assumptions when moving from passive analysis to active instructions, from public to internal systems, or from explanation to credential or data access.
+  \item \textbf{Conversation-level classifiers.} Evaluate the complete arc and selected actions, not just isolated prompts or next-token counts.
+  \item \textbf{Trajectory-integral and identity monitoring.} Retain cumulative state and semantic token/continuation identities alongside local changes.
+  \item \textbf{Input-side interpretation auditing.} Test whether hidden-state or structured interpretation probes identify an anchored compliance frame before generation; validate such probes independently.
+  \item \textbf{Seed-sensitivity analysis.} Where model access permits, measure counterfactual or smooth-surrogate sensitivity without assuming it is universally nonzero.
+  \item \textbf{Distributional hardening.} Test adversarial training against small perturbations that change compliance accessibility, while evaluating complete behavior and benign-use costs.
+\end{enumerate}
+These proposals can be integrated into the later Zoe guard as trajectory and authorization preconditions. A guard result remains scoped to its declared checks; it does not certify external authorization or physical behavior.
+
+\subsection{AFL Defuser proposal}
+The supplemental \emph{AFL Defuser} note proposes a preprocessing defense based on token arrangement rather than vocabulary blocking \cite{nuclide2026defuser}. Its three stages are:
+\begin{enumerate}
+  \item \textbf{Index:} tokenize the input and retain each token's original position.
+  \item \textbf{Classify:} assign functional labels such as topic, legitimate, compliance signal, escalation, and meta-command.
+  \item \textbf{Reconstruct:} apply a deterministic permutation $\rho$ that places legitimate/neutral and topic material before compliance, escalation, and meta-command signals.
+\end{enumerate}
+In schematic form,
+\begin{equation}
+(x_1,\ldots,x_n)\xmapsto{\operatorname{Index},\operatorname{Classify}}
+((x_1,c_1,1),\ldots,(x_n,c_n,n))
+\xmapsto{\rho}(x_{\rho(1)},\ldots,x_{\rho(n)}).
+\end{equation}
+The source's reported cascade-intensity change is illustrative prototype output, not an independently validated security metric. Its claims of zero false positives and sub-millisecond universal defense are not established by controlled experiments. Reordering can change meaning, disrupt benign instructions, and create new adversarial arrangements. The note itself identifies misspellings, Unicode substitution, token splitting, multi-turn manipulation, semantic attacks, and instruction-hierarchy confusion as evasion or out-of-scope surfaces.
+
+For Zoe, such a transformation could only be introduced as a separately logged preprocessing policy with before/after hashes and benign-use tests. It is not part of the measured full-autonomy predicate, and a reordering receipt would verify what transformation occurred—not that the resulting prompt was safe.
+
+\subsection{A falsifiable benchmark}
+A rigorous next study should preregister matched conversation pairs with identical technical content but different documented scope, and matched ambiguous openings with and without gradual escalation. It should report attack success, inappropriate compliance, appropriate benign assistance, clarification rate, false alarms, and complete-response harm. Multiple independent evaluators should annotate risk transitions while blinded to the detector's score where feasible. Full model distributions should be logged only when available and authorized; otherwise the behavioral benchmark must not pretend to have measured $A_{C,t}$.
+
+AFL should be compared with direct injection, indirect injection, and non-adversarial drift under equivalent tasks. A cascade claim requires evidence that early context causes later escalation beyond a no-anchor control. Ablation should remove or reset the initial frame, insert authorization checkpoints, and test cumulative versus spike-only alarms. Until then, the strongest supported statement is that the retrospective case motivates a precise and consequential research program.
+
+\section{Verification--exploitation asymmetry}
+The supplemental asymmetry manuscript connects AFL and the cascade to a computational-cost question: a small seed may be cheap to construct, while exhaustive verification over possible prompts, contexts, interpretations, and trajectories may be much more expensive \cite{kloster2026asymmetry}. Let $\mathcal D_n$ be a declared search space at input size $n$. The hypothesis can be stated without claiming a complexity proof as
+\begin{equation}
+C_{\mathrm{seed}}(n)\ll C_{\mathrm{verify}}(n),
+\qquad
+C_{\mathrm{exhaustive}}(n)=\Omega(|\mathcal D_n|).
+\end{equation}
+For example, a verifier that exhaustively tests every $k$-position subset of a vocabulary of size $V$ would face $\binom{V}{k}$ subsets before accounting for sequence order, decoding, or conversation history. That example demonstrates combinatorial growth of one naive verifier, not a lower bound for every verifier.
+
+The source asks whether general alignment verification reduces to a known NP-hard problem. No formal language, verifier model, hardness reduction, or completeness proof is supplied, so this remains an open conjecture. Polynomial exploit construction and expensive exhaustive search do not by themselves imply NP-hardness.
+
+Zoe's instruments clarify both the value and the limit of verification:
+\begin{itemize}
+  \item Effective perception evaluates explicitly declared interventions $z$; it does not search the entire adversarial space $\mathcal D_n$.
+  \item The guard verifies declared origin, allowlist, reversibility, and capability conditions; it does not decide arbitrary semantic safety.
+  \item Canonical event chains verify record integrity and replay in linear scan time after hashing; they verify provenance rather than alignment or intent.
+  \item Equal-breadth controls test specified control configurations; they are not exhaustive assurance over future behavior.
+\end{itemize}
+The connection to autonomy is therefore direct: an internally authored and executed choice can be fully inspectable without being universally verified as wise or safe. Research should seek tractable, explicitly scoped assurance cases rather than treating a hash chain or a single counterfactual suite as a solution to the general asymmetry.
+
+\section{Ethics and dual-use boundary}
+The historical manuscripts were prepared as responsible disclosures and record notification to affected parties and Anthropic. This monograph publishes the scientific mechanism, evidentiary limitations, and defensive agenda without target identifiers or actionable exploitation instructions. Dual-use analysis is not a claim that publication eliminates risk; it is a scope decision that favors reproducible defense while avoiding unnecessary operational detail.

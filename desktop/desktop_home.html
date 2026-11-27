@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Zoe · Dorothy 3D Brain</title>
+<style>
+  :root {
+    --bg: #070b12;
+    --panel: #0d1422;
+    --panel-2: #141d2e;
+    --border: #223049;
+    --text: #eef3fb;
+    --muted: #93a4be;
+    --gold: #f5d078;
+    --gold-deep: #fbbf24;
+    --cyan: #38bdf8;
+    --emerald: #34d399;
+    --blue: #60a5fa;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100vh;
+    background: radial-gradient(ellipse at 50% 0%, #101b30 0%, #070b12 62%);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .shell {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 20px 24px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 2px;
+  }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-row img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(225, 29, 72, 0.35));
+  }
+  .greeting {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #60a5fa 0%, #a78bfa 55%, #f472b6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(14, 22, 36, 0.85);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.84rem;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .status-pill:hover { border-color: var(--cyan); color: var(--text); }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--emerald);
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+  }
+  .centerpiece {
+    background: var(--panel);
+    border: 1px solid rgba(245, 208, 120, 0.52);
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+  }
+  .hero-visual {
+    position: relative;
+    height: 310px;
+    background: #070b12;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .hero-visual:hover img { transform: scale(1.025); }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 11, 18, 0.05) 0%, rgba(7, 11, 18, 0.25) 55%, rgba(13, 20, 34, 0.96) 100%);
+  }
+  .hero-title {
+    position: absolute;
+    left: 24px;
+    bottom: 16px;
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.75);
+  }
+  .actions {
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-gold {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+    color: #070b12;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.15s ease;
+  }
+  .btn-gold:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  .sub-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .btn-sub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    border-radius: 999px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-sub:hover { background: #1a2740; }
+  .btn-cyan { color: var(--cyan); border-color: rgba(56, 189, 248, 0.45); }
+  .btn-green { color: var(--emerald); border-color: rgba(52, 211, 153, 0.45); }
+  .btn-gold-outline { color: var(--gold); border-color: rgba(245, 208, 120, 0.45); }
+
+  .topics-head {
+    margin: 4px 0 0 6px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .topic-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 14px;
+    border-radius: 18px;
+    background: var(--panel-2);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .topic-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+  .ask-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 10px 8px 20px;
+  }
+  .ask-bar input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: var(--text);
+    font-size: 1rem;
+  }
+  .ask-bar button {
+    background: #2563eb;
+    color: #fff;
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .ask-bar button:hover { background: #1d4ed8; }
+
+  @media (max-width: 720px) {
+    .sub-actions, .topics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-visual { height: 220px; }
+  }
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand-row">
+      <img src="/zoe-gem.png" alt="Zoe Emblem"/>
+      <h1 class="greeting">Hi, I'm Zoe</h1>
+    </div>
+    <a class="status-pill" href="/brain/index.html" id="studioStatus">
+      <span class="dot"></span>
+      <span>Zoe · Ready</span>
+    </a>
+  </header>
+
+  <section class="centerpiece" aria-label="Dorothy 3D Brain Centerpiece">
+    <a class="hero-visual" href="/brain/index.html" style="display:block;">
+      <img src="/brain/previews/hero_brain_card.jpg" alt="Dorothy 3D Brain ICBM152 Cortex"/>
+      <div class="hero-scrim"></div>
+      <h2 class="hero-title">Dorothy 3D Brain</h2>
+    </a>
+    <div class="actions">
+      <a class="btn-gold" href="/brain/index.html">Explore Dorothy 3D Brain</a>
+      <div class="sub-actions">
+        <a class="btn-sub btn-cyan" href="/brain/index.html?tab=askzoe">Ask Zoe: Brain</a>
+        <a class="btn-sub btn-green" href="/brain/index.html?tab=media">Videos &amp; Gallery</a>
+        <a class="btn-sub btn-gold-outline" href="/brain/index.html?tab=plates">Plates &amp; Atlas</a>
+      </div>
+    </div>
+  </section>
+
+  <div>
+    <div class="topics-head">Ask Zoe about the brain</div>
+    <div class="topics-grid" style="margin-top:8px;">
+      <a class="topic-btn" href="/brain/index.html?tab=askzoe&amp;q=What+does+Broca%27s+Area+(BA+44)+do%3F">Broca's Area (BA 44)</a>
+      <a class="topic-btn" href="/brain/index.html?tab=askzoe&amp;q=Where+is+the+Hippocampus+and+what+is+its+role%3F">Hippocampus &amp; Memory</a>
+      <a class="topic-btn" href="/brain/index.html?tab=askzoe&amp;q=Explain+Cranial+Nerve+X+(Vagus)">Cranial Nerve X (Vagus)</a>
+      <a class="topic-btn" href="/brain/index.html?tab=askzoe&amp;q=Explain+the+Language+Loop+neural+circuit">Language Loop Circuit</a>
+      <a class="topic-btn" href="/brain/index.html?tab=askzoe&amp;q=What+is+the+Circle+of+Willis+and+MCA+territory%3F">Circle of Willis &amp; MCA</a>
+      <a class="topic-btn" href="/brain/index.html?tab=askzoe&amp;q=How+do+10-20+EEG+brain+waves+work%3F">10-20 EEG Brain Waves</a>
+    </div>
+  </div>
+
+  <form class="ask-bar" id="askForm">
+    <input id="askInput" type="text" placeholder="Ask Zoe about the brain..." autocomplete="off"/>
+    <button type="submit">Ask Zoe</button>
+  </form>
+</main>
+
+<script>
+  (function () {
+    const form = document.getElementById('askForm');
+    const input = document.getElementById('askInput');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const q = (input.value || '').trim();
+      if (!q) {
+        window.location.href = '/brain/index.html?tab=askzoe';
+        return;
+      }
+      window.location.href = '/brain/index.html?tab=askzoe&q=' + encodeURIComponent(q);
+    });
+  })();
+</script>
+</body>
+</html>

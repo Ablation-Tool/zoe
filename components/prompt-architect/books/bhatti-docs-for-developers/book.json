@@ -1,0 +1,41 @@
+{
+  "ourn": "urn:orm:book:9781484272176",
+  "identifier": "9781484272176",
+  "isbn": "9781484272176",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781484272176/",
+  "content_format": "book",
+  "publication_date": "2021-09-30",
+  "created_time": "2021-10-01T20:05:54.802336Z",
+  "last_modified_time": "2026-06-17T20:05:28.829218Z",
+  "title": "Docs for Developers: An Engineer’s Field Guide to Technical Writing",
+  "is_hidden": false,
+  "has_mathml": false,
+  "virtual_pages": 217,
+  "opf_unique_identifier_type": "pub-identifier",
+  "page_count": 241,
+  "total_running_time_secs": null,
+  "total_size": 3215136,
+  "descriptions": {
+    "text/html": "<span><p>Learn to integrate programming with good documentation. This book teaches you the craft of documentation for each step in the software development lifecycle, from understanding your users’ needs to publishing, measuring, and maintaining useful developer documentation.</p><p>Well-documented projects save time for both developers on the project and users of the software. Projects without adequate documentation suffer from poor developer productivity, project scalability, user adoption, and accessibility. In short: bad documentation kills projects. <br/></p><p><i>Docs for Developers</i> demystifies the process of creating great developer documentation, following a team of software developers as they work to launch a new product. At each step along the way, you learn through examples, templates, and principles how to create, measure, and maintain documentation—tools you can adapt to the needs of your own organization.<br/></p><p><b>What You'll Learn</b><br/></p><p><b></b></p><ul><li> Create friction logs and perform user research to understand your users’ frustrations</li><li>Research, draft, and write different kinds of documentation, including READMEs, API documentation, tutorials, conceptual content, and release notes</li><li>Publish and maintain documentation alongside regular code releases</li><li>Measure the success of the content you create through analytics and user feedback</li><li>Organize larger sets of documentation to help users find the right information at the right time<p></p></li></ul><p><b>Who This Book Is For </b><br/></p><p><b></b></p><p>Ideal for software developers who need to create documentation alongside code, or for technical writers, developer advocates, product managers, and other technical roles that create and contribute to documentation for their products and services.<br/></p><p> </p><br/><p></p></span>",
+    "text/plain": "Learn to integrate programming with good documentation. This book teaches you the craft of documentation for each step in the software development lifecycle, from understanding your users’ needs to publishing, measuring, and maintaining useful developer documentation. Well-documented projects save time for both developers on the project and users of the software. Projects without adequate documentation suffer from poor developer productivity, project scalability, user adoption, and accessibility. In short: bad documentation kills projects. Docs for Developers demystifies the process of creating great developer documentation, following a team of software developers as they work to launch a new product. At each step along the way, you learn through examples, templates, and principles how to create, measure, and maintain documentation—tools you can adapt to the needs of your own organization. What You'll Learn Create friction logs and perform user research to understand your users’ frustrations Research, draft, and write different kinds of documentation, including READMEs, API documentation, tutorials, conceptual content, and release notes Publish and maintain documentation alongside regular code releases Measure the success of the content you create through analytics and user feedback Organize larger sets of documentation to help users find the right information at the right time Who This Book Is For Ideal for software developers who need to create documentation alongside code, or for technical writers, developer advocates, product managers, and other technical roles that create and contribute to documentation for their products and services."
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781484272176/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781484272176/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781484272176/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9781484272176",
+  "tags": [],
+  "language": "en",
+  "resources": [
+    {
+      "url": "https://www.apress.com/9781484272176?wt_mc=ThirdParty.Safari.3.EPR653.ProductPagePurchase&utm_medium=referral&utm_source=safari&utm_campaign=3_pier05_product_page&utm_content=11232017",
+      "type": "Unspecified, see website description",
+      "description": "Purchase Link"
+    },
+    {
+      "url": "http://www.apress.com",
+      "type": "Publisher’s website for a specified work",
+      "description": "Publisher Website"
+    }
+  ],
+  "roughcut": false
+}

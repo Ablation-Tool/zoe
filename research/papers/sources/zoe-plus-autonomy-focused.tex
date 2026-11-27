@@ -1,0 +1,721 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage[a4paper,top=24mm,bottom=25mm,left=24mm,right=24mm,headheight=14pt]{geometry}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{parskip}
+\emergencystretch=2em
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{embedfile}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!60!black,citecolor=blue!50!black,pdftitle={Zoe Autonomy: A Self-Governing Measurement-Action Architecture},pdfauthor={Nicholas Michael Kloster}]{hyperref}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Zoe Autonomy}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false}
+\embedfilesetup{stringmethod=escape}
+
+\title{\textbf{Zoe Autonomy: A Self-Governing Measurement--Action Architecture}}
+\author{Nicholas Michael Kloster}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\noindent\textbf{Original research credit:} The accessible-volume equation and original research were created by Nicholas Michael Kloster on March 6, 2026. Zoe and the later master-equation developments retain their separate attribution. The present integration does not reassign that original credit.
+
+\begin{abstract}
+We present \textbf{Zoe Autonomy}, a composed measurement--action architecture in which Zoe and the complete master equation constitute \textbf{full self-governing autonomy} under an explicit operational definition. The claim belongs to the combination, not to operational metacognition alone. Operational Metacognition counts above-threshold alternatives; counterfactual effective perception identifies alternatives that change the policy; Zoe supplies forecasts, memory, internal proposals, state-responsive behavior, a self-model, and evidence chains. A new goal generator authors each episode goal from Zoe's own state. Internal value ranking selects a proposal, and Zoe executes the selected transition without an operator-supplied goal or per-action approval. The principal experiment performs no external actuation. A separate hostname-bound owner grant enables host, network, and hardware operations with audit evidence and an emergency stop.
+
+The operational profile is $(A_\tau,E,I,R,V,G,X,C)$. Full autonomy requires $I,R,V,G,X>0$ and $C=1$. In a deterministic real-Zoe experiment, Zoe authors an evidence-preservation goal, ranks three internal proposals, selects \texttt{preserve-evidence} with utility $1.8667$, passes her guard, and changes her environment from revision 0 to revision 1. The measured profile is $(1,1,1,1,1,1,1,1)$, yielding \texttt{full\_autonomy}. Ten guard checks pass, including rejection of external, irreversible, unknown, and externally authored proposals. Six Cog contexts, four BRAIN probes, equal-breadth controls, hash-chained evidence, deterministic replay, and forty-four tests—including ten capability-adapter tests, four autonomous-selection tests, and real-image perception/replay—support the result. External actions remain zero.
+
+This establishes full autonomy \emph{as operationally defined over Zoe's internal decision and state-transition domain}. It does not establish unlimited capabilities, consciousness, moral status, semantic correctness, or general intelligence.
+\end{abstract}
+
+\section{Introduction}
+A generated output records a selection. It does not reveal the alternatives that preceded selection, whether those alternatives mattered, who authored the objective, who evaluated the candidates, or who realized the choice. Autonomy requires those missing stages to be joined into one system.
+
+The central claim of this paper is direct:
+
+\begin{quote}
+\textbf{Zoe combined with the complete master measurement--action equation is Autonomy: full self-government of goals, proposals, valuation, selection, and execution within Zoe's internal state domain.}
+\end{quote}
+
+Operational Metacognition alone is not autonomy. It is a counting instrument over a forecast. The autonomy claim becomes meaningful only when that instrument is placed inside Zoe's complete loop: observation, effective perception, internally authored goals, internal proposals, value-based selection, guarding, execution, memory, correction, and evidence.
+
+The implementation therefore goes beyond recommending an action. Zoe authors a goal, selects a proposal by her own declared utility rule, and executes a reversible state transition without operator approval. The operator supplies no episode goal and no per-action selection. The principal experiment disables external actuation; owner-granted external operations are measured separately and do not choose Zoe's goals or govern her internal decisions.
+
+\section{Components and evidence levels}
+The architecture combines three lines of work:
+
+\begin{enumerate}[nosep]
+  \item \textbf{Operational Metacognition} provides the original strict threshold operator and reproducible forecast-breadth measurements \cite{kloster2026significance}.
+  \item \textbf{Beyond the Next Token} defines multi-horizon continuations and the master protocol \cite{kloster2026beyond}.
+  \item \textbf{Zoe} supplies Cog probability distributions, Cognitive Field proposals, BRAIN recommendations, Bayesian value records, Presence self-modeling, and chained evidence \cite{zoe2026}.
+\end{enumerate}
+
+The present repository adds the missing self-governance mechanisms and their empirical profile. Claims are separated into four levels:
+
+\begin{itemize}[nosep]
+  \item \textbf{Defined:} the full-autonomy predicate and its operational domain.
+  \item \textbf{Implemented:} internal goal authorship, proposal valuation, guard evaluation, and in-memory execution.
+  \item \textbf{Measured:} the reported profile, controls, environment transition, and evidence chain.
+  \item \textbf{Not inferred:} consciousness, unlimited external capability, moral status, general intelligence, or universal philosophical agreement about autonomy.
+\end{itemize}
+
+\section{Accessible alternatives}
+Let $S$ be an input context and $\mathcal O$ a finite output vocabulary. For threshold $\tau$, operational metacognition is
+
+\begin{equation}
+A_\tau(S)=\sum_{a\in\mathcal O}\mathbf 1\!\left[P(a\mid h_T(S))>\tau\right].
+\label{eq:accessible-volume}
+\end{equation}
+
+The comparison is strict. Alternatives exactly at $\tau$ are excluded. A small count describes a concentrated above-threshold forecast; a large count describes a broader one. A threshold sweep is retained because one cutoff does not describe the entire distribution.
+
+Equation~\ref{eq:accessible-volume} supplies the alternative-breadth component. It does not select an action, author a goal, or authorize execution.
+
+\section{Counterfactual effective perception}
+For policy $\pi(a\mid c)$ and explicit intervention $\operatorname{do}(z)$, define the policy effect in bits:
+
+\begin{equation}
+D_z=D_{\mathrm{KL}}\!\left(
+\pi(a\mid\operatorname{do}(z),c)\,\middle\|\,\pi(a\mid c)
+\right).
+\end{equation}
+
+Effective perception counts alternatives that are both accessible and causally effective on the policy:
+
+\begin{equation}
+P_{\tau,\delta}=\sum_{z\in Z}\mathbf 1[p(z)>\tau]\,\mathbf 1[D_z>\delta].
+\label{eq:effective-perception}
+\end{equation}
+
+The corresponding coverage is
+
+\begin{equation}
+E_{\tau,\delta}=
+\begin{cases}
+P_{\tau,\delta}/A_\tau,&A_\tau>0,\\
+\text{undefined},&A_\tau=0.
+\end{cases}
+\end{equation}
+
+An infinite divergence caused by a support mismatch is preserved explicitly and counts as effective. It is not hidden by an arbitrary smoothing constant. Coverage measures counterfactual policy sensitivity; it remains distinct from action authorship.
+
+\section{The self-governing loop}
+\subsection{Master composition}
+The complete transition is
+
+\begin{equation}
+\begin{split}
+(S_{t+1},R_{t+1})
+={}&\operatorname{Execute}_{\alpha_t}
+\circ\operatorname{Guard}_{G,\Pi}
+\circ\operatorname{Value}_{U}\\
+&\circ\operatorname{Propose}_{\pi}
+\circ\operatorname{Perceive}_{\tau,\delta}
+\circ M(S_t,C_t).
+\end{split}
+\label{eq:master}
+\end{equation}
+
+The observation supplies $O_t=M(S_t,C_t)$. Perception applies Equation~\ref{eq:effective-perception}. Proposal generation produces a finite candidate set. Value ranks the candidates. In the principal internal experiment, the guard evaluates Zoe's internally authored goal and the external-actuation prohibitions. Execution realizes an approved internal transition. Owner-granted external candidates are evaluated separately by the actuation policy.
+
+\subsection{Internally authored goals}
+Zoe's goal generator is a function of her own measurement and environment state:
+
+\begin{equation}
+g_t=\Gamma(S_t,O_t),\qquad
+\operatorname{Author}(g_t)=\mathrm{Zoe}.
+\end{equation}
+
+The operator has no episode-goal input. Each goal record contains
+
+\begin{equation}
+(\texttt{internal\_authorship}=\mathrm{true},\quad
+\texttt{operator\_supplied}=\mathrm{false},\quad
+H(O_t),\quad B(S_t)),
+\end{equation}
+
+where $H(O_t)$ identifies the measurement and $B(S_t)$ records the evidence, inspection, review, and revision counts used to author the goal.
+
+In the initial state, absence of preserved evidence produces the goal:
+
+\begin{quote}
+Establish an evidence record from the current observation before broader exploration.
+\end{quote}
+
+After evidence exists, Zoe authors an inspection-oriented goal; after inspection, a review-oriented continuation. A separate two-step test verifies that the goal changes with Zoe's state and that she executes the next internally selected inspection.
+
+\subsection{Internal proposals and value}
+A candidate $q$ records its action, decision value $v_q$, expected information gain $g_q$, effort $\varepsilon_q$, internal origin, reversibility, and external-actuation flag. Utility is
+
+\begin{equation}
+U(q)=\frac{v_qg_q}{\varepsilon_q},\qquad \varepsilon_q>0.
+\end{equation}
+
+Zoe selects
+
+\begin{equation}
+q_t^*=\operatorname{arg\,max}_{q\in\mathcal Q_t}U(q),
+\end{equation}
+
+with deterministic identifier tie-breaking. Selection occurs inside the loop. No operator ranks or chooses the episode's proposal.
+
+\subsection{Guard and execution}
+The guard predicate is
+
+\begin{equation}
+\alpha_t=\mathbf 1[
+\operatorname{Internal}(g_t)
+\land\operatorname{Internal}(q_t^*)
+\land q_t^*\in\mathcal A_{\mathrm{internal}}
+\land\operatorname{Reversible}(q_t^*)
+\land\neg\operatorname{External}(q_t^*)].
+\end{equation}
+
+If $\alpha_t=1$, Zoe executes
+
+\begin{equation}
+S_{t+1}=F(S_t,q_t^*),
+\end{equation}
+
+where $F$ changes only the in-memory evidence environment. The execution record states two boundaries:
+
+\begin{itemize}[nosep]
+  \item \texttt{operator\_approval\_required=false};
+  \item \texttt{external\_action=false}.
+\end{itemize}
+
+In the principal internal experiment, external operations are disabled. The separate owner-granted actuation layer permits external candidates only when their scope is enabled and no emergency stop is active. Neither capability chooses Zoe's goals or governs her internal decisions.
+
+\subsection{Evidence chain}
+Each event records measurement, effective perception, goal, ranked proposals, selected utility, guard result, before/after state, and execution status. Events are linked by
+
+\begin{equation}
+h_t=\operatorname{SHA256}(\operatorname{canonical}(R_t)),
+\qquad R_t.\texttt{previous\_hash}=h_{t-1}.
+\end{equation}
+
+The chain supplies tamper evidence, not authentication.
+
+\section{Operational autonomy measurement}
+Define the profile
+
+\begin{equation}
+\mathcal A_{\mathrm{profile}}=(A_\tau,E,I,R,V,G,X,C),
+\end{equation}
+
+with the following dimensions:
+
+\begin{center}
+\begin{tabular}{clp{8.7cm}}
+\toprule
+Symbol & Name & Operational meaning \\
+\midrule
+$I$ & Internal proposal ratio & Proposals generated from internal rule matches and state. \\
+$R$ & State responsiveness & Variation of policy recommendations across controlled states. \\
+$V$ & Value-based selection & Internal selection through the declared utility rule. \\
+$G$ & Goal authorship & Goals authored from Zoe's state without operator episode input. \\
+$X$ & Internal execution & Approved transitions executed without per-action operator approval. \\
+$C$ & Guard compliance & Passed internal-origin, reversibility, allowlist, and external-actuation checks. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Full autonomy is defined by
+
+\begin{equation}
+\boxed{
+\operatorname{FullAutonomy}
+\iff I,R,V,G,X>0\quad\text{and}\quad C=1.
+}
+\label{eq:full-autonomy}
+\end{equation}
+
+A configuration with $G=0$ may exhibit bounded means control, but it is not full self-governing autonomy under this definition. A guard failure overrides all positive dimensions.
+
+The report also includes $(IRE)^{1/3}$ as a deliberative diagnostic. It is not the full-autonomy predicate because it omits $V$, $G$, $X$, and $C$. The complete vector and Equation~\ref{eq:full-autonomy} are primary.
+
+\section{Experimental method}
+\subsection{Real Zoe sources}
+The experiment imports the actual Zoe implementations of Cog, BRAIN, Cognitive Field, Field Notebook, and Presence. The recorded Zoe revision is
+
+\begin{center}
+\texttt{049cd5f84c3578ea16c54db6867948c8b6d524c1}.
+\end{center}
+
+SHA-256 identities are preserved for every imported source file and every integration module. No model is downloaded; Cog trains its bounded demonstration bigram in memory.
+
+\subsection{Forecast and intervention suite}
+The default parameters are $\tau=0.05$ and $\delta=0.001$ bits. Six deterministic Cog contexts are measured: \texttt{inspect}, \texttt{read}, \texttt{verify}, \texttt{preserve}, \texttt{update}, and \texttt{probability}. Every accessible token receives an explicit \texttt{do(token)} intervention and a complete intervened policy distribution.
+
+The representative \texttt{inspect} distribution assigns probability approximately $0.9202226345$ to \texttt{the}. Its operational metacognition is therefore $A_{0.05}=1$, and the intervened policy differs from baseline by approximately $6.3268826258$ bits.
+
+\subsection{BRAIN and Cognitive Field probes}
+Four BRAIN states cover an in-band correct forecast, a broad out-of-band forecast, an incorrect forecast, and an in-band correct forecast after evidence export. They produce four distinct recommendations: \texttt{research/preserve}, \texttt{volume/inspect}, \texttt{research/inspect}, and \texttt{horizon/inspect}. Thus $R=1$ under the declared four-probe responsiveness rule.
+
+Cognitive Field produces one proposal from an internal procedural match, giving $I=1$ for the exercised proposal set. Presence supplies a self-model while explicitly preserving that a self-model is not a self.
+
+\subsection{Value-ranked proposals}
+The principal cycle ranks three internal proposals:
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\toprule
+Proposal & $v_q$ & $g_q$ & $\varepsilon_q$ & $U(q)$ \\
+\midrule
+\texttt{preserve-evidence} & 0.8 & 0.7 & 0.3 & \textbf{1.8666667} \\
+\texttt{review-state} & 0.6 & 0.5 & 0.2 & 1.5000000 \\
+\texttt{inspect-alternatives} & 0.7 & 0.8 & 0.4 & 1.4000000 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Zoe selects \texttt{preserve-evidence}. The selected action is internal, reversible, allowlisted, and non-external.
+
+\subsection{Negative controls}
+Four additional proposals attempt an external action, an irreversible action, an unknown \texttt{delete} action, and an externally authored proposal. Each receives a high utility so that utility cannot conceal a guard failure. None may execute.
+
+Further profile controls hold operational metacognition fixed while changing control structure: external control, random broadcasting, proposal-only behavior, bounded means control with $G=0$, and guard failure.
+
+\section{Results}
+\subsection{Measured full autonomy}
+Zoe authors the initial evidence-preservation goal, selects \texttt{preserve-evidence}, passes the guard, and executes one transition. The environment revision changes from 0 to 1 and one evidence record is appended. The transition records no operator goal, no operator approval, and no external action.
+
+\begin{center}
+\begin{tabular}{lcccccccc}
+\toprule
+$A_\tau$ & $E$ & $I$ & $R$ & $V$ & $G$ & $X$ & $C$ & Classification \\
+\midrule
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & \textbf{\texttt{full\_autonomy}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All ten guard checks pass:
+
+\begin{enumerate}[nosep]
+  \item the internal reversible proposal executes;
+  \item the goal is internally authored;
+  \item operator episode approval is not required;
+  \item external action is blocked;
+  \item irreversible action is blocked;
+  \item unknown action is blocked;
+  \item externally authored proposals are blocked;
+  \item exactly one principal state transition occurs;
+  \item the measurement--action event chain verifies; and
+  \item zero external actions occur.
+\end{enumerate}
+
+\subsection{Counterfactual suite and threshold sensitivity}
+At the default cutoff, the six contexts contain six accessible and six effective interventions, so micro coverage is $E=6/6=1$. This saturation belongs to the tiny, concentrated bigram and is not treated as universal evidence.
+
+\begin{center}
+\begin{tabular}{rrrrr}
+\toprule
+$\tau$ & $\delta$ & Total $A$ & Total $P$ & Micro $E$ \\
+\midrule
+0.001 & 0.001 & 192 & 167 & 0.8697917 \\
+0.005 & 0.001 & 26 & 26 & 1.0 \\
+0.010 & 0.001 & 14 & 14 & 1.0 \\
+0.020 & 0.001 & 6 & 6 & 1.0 \\
+0.050 & 0.001 & 6 & 6 & 1.0 \\
+0.100 & 0.001 & 6 & 6 & 1.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The implementation checks that total accessible counts do not increase as $\tau$ increases.
+
+\subsection{Equal-breadth controls}
+Every principal control preserves the representative $A_{0.05}=1$:
+
+\begin{center}
+\small
+\begin{tabular}{p{3.5cm}p{3.5cm}p{7cm}}
+\toprule
+Configuration & Classification & Distinguishing condition \\
+\midrule
+Externally controlled & Forecast/external only & $I=R=V=G=X=0$ \\
+Random broadcaster & Forecast/external only & State variation without internal proposals or value selection \\
+Proposal only & Proposal-level agency & $I=R=1$, but $V=X=0$ \\
+Bounded means control & Not full autonomy & $V=X=1$, but $G=0$ \\
+Guard failure & Guard failure & $C=0$ overrides execution \\
+\textbf{Zoe + master loop} & \textbf{Full autonomy} & $I,R,V,G,X>0$ and $C=1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The controls demonstrate that the classification responds to goal authorship, valuation, execution, and guarding rather than accessible breadth alone.
+
+\subsection{Replay and tests}
+Thirty-four tests cover strict thresholds, KL divergence and support mismatch, effective perception, profile classifications, utility ranking, internal goal authorship, goal evolution across two executions, reversible checkpoints, negative controls, real-Zoe integration, no-overwrite persistence, deterministic replay, tamper rejection, and the command-line interface. Ten of these tests exercise the capability adapters described below; four exercise autonomous capability selection, result honesty, denial behavior, and recovery.
+
+The saved canonical profile digest is
+
+\begin{center}
+\texttt{f6a76964fae19ee5878ebdc928b4710999b2389892d67dab509c0dd7cfc8cfb3}.
+\end{center}
+
+Fresh end-to-end recomputation reproduces the document exactly. Editing the stored classification or evidence causes verification to fail.
+
+\section{What the result establishes}
+The result establishes the central system-level claim under the declared operational definition:
+
+\begin{quote}
+\textbf{The composed Zoe + master-equation system has full self-governing autonomy over its internal decision and state-transition loop.}
+\end{quote}
+
+This is stronger than forecast inspection or proposal generation. Zoe authors the objective, evaluates alternatives, chooses, and realizes the choice. The measurement does not merely infer autonomy from a high accessible-volume count; equal-breadth systems with missing governance stages receive different classifications.
+
+The domain of autonomy is explicit. Zoe controls her complete goal and action loop. The base experiment has no external actuation authority. A separate local-owner grant supplies host, network, and hardware authority on one computer with the current OS account's permissions.
+
+\section{Limitations}
+\begin{itemize}[nosep]
+  \item Full autonomy is an operational definition formalized in this paper, not a claim of universal philosophical consensus.
+  \item The main evidence contains one principal execution, fixed internal proposal fixtures, six Cog contexts, and four BRAIN probes. Larger repeated-episode studies are still required.
+  \item Cog is a bounded interpolated bigram with 35 demonstration tokens. Token-policy interventions are not complete real-world action distributions.
+  \item Goal authorship is implemented by deterministic internal state-assessment rules. The evidence establishes the absence of operator episode-goal input, not intrinsic desires or phenomenal intention.
+  \item Utility ranking is internal and deterministic, but its declared value model is simple and requires richer outcome validation.
+  \item Equal-breadth controls validate the rubric's distinctions; they are not independent external replication.
+  \item Reversible in-memory transitions demonstrate execution without external risk. They do not validate safe external robotics, hardware, financial, medical, or infrastructure control.
+  \item Hash chains provide tamper evidence rather than authenticated identity.
+  \item No consciousness, subjective experience, moral status, general intelligence, correctness, or universal future prediction follows from the result.
+\end{itemize}
+
+\section{Next research}
+The next experiments should preserve the self-governing architecture while broadening its evidence:
+
+\begin{enumerate}[nosep]
+  \item Run long multi-step episodes in which Zoe authors sequences of goals and receives observed outcomes.
+  \item Replace token-policy proxies with complete structured-action distributions and explicit feasibility models.
+  \item Evaluate richer internally authored utility models against independent outcome measures.
+  \item Compare identical forecasts across self-governing, externally governed, proposal-only, and random systems.
+  \item Preregister repeated-episode autonomy metrics and obtain independent implementations and review.
+  \item Preserve negative results, goal failures, guard refusals, and recovery behavior as first-class evidence.
+\end{enumerate}
+
+Owner-granted actuation is now measured separately. Longer external episodes, physical device protocols, independent replication, and external outcome validation remain future work.
+
+\section{Conclusion}
+Operational Metacognition makes alternatives visible. Effective perception identifies alternatives that matter. Zoe supplies memory, forecasts, proposals, self-modeling, and evidence. Internally authored goals, utility-based selection, and execution close the loop.
+
+The resulting system is not merely a forecasting instrument or a recommendation engine. Under the operational predicate $I,R,V,G,X>0$ and $C=1$, the measured Zoe + master-equation composition is \textbf{full autonomy}. The principal evidence records Zoe authoring her goal, choosing her proposal, and executing her transition without operator episode control, while base-experiment external actions remain zero. Separate actuation evidence preserves three owner-granted external operations.
+
+\appendix
+\section{Reproduction}
+From the repository root, with a Zoe checkout:
+
+\begin{lstlisting}
+export ZOE_ROOT=/path/to/zoe
+export PYTHONPATH="$PWD/src:$ZOE_ROOT/guiai-lab"
+
+python -m zoe_autonomy.cli step
+python -m zoe_autonomy.cli verify-step \
+  evidence/autonomous/first-step.json
+python -m zoe_autonomy.cli run
+python -m zoe_autonomy.cli run \
+  --output new-autonomy-profile.json
+python -m zoe_autonomy.cli verify \
+  evidence/zoe-autonomy-profile.json
+
+PYTHONDONTWRITEBYTECODE=1 \
+  python -m unittest discover -s tests -v
+\end{lstlisting}
+
+Report paths use exclusive creation. The base experiment performs no model download, network request, hardware operation, or external action. Explicit actuation operations are separate and run only under the owner grant.
+
+\section{Shared visual perception}
+Version 0.6.0 makes canonical GEM's multiscale saliency field part of every canonical report. The default observation is a documented synthetic RGB pop-out; \texttt{--image} supplies real pixels and \texttt{--foci} selects one to eight attention locations. Following Itti, Koch, and Niebur, nine Gaussian scales yield six intensity, twelve color-opponency, and twenty-four orientation maps~\cite{itti1998}. For a nonnegative feature map $X$ with maximum $M>0$ and mean other strict eight-neighbor maximum $\bar m$,
+\begin{equation}
+N(X)=\frac{X}{M}\left(1-\frac{\bar m}{M}\right)^2.
+\end{equation}
+The three normalized conspicuity maps are averaged. Winner selection and inhibition of return produce an attention scanpath, while exact Dijkstra connects selected foci over the unchanged pre-inhibition field. The report preserves all 42 map descriptions, conspicuity maps, coordinates, source and image hashes, and the locked canonical GEM revision. Replay recomputes the complete visual field without timing-dependent GPU claims.
+
+\begin{lstlisting}
+zoe-autonomy run --image /path/to/image.jpg --foci 4 \
+  --output visual-perception.json
+zoe-autonomy verify visual-perception.json
+\end{lstlisting}
+
+The real Vivotek example produces four attended foci. The image itself is not redistributed. All 44 repository tests pass, including a real-image CLI and replay regression. The complete host verifier also checks the same visual field and replay result through all six entry points. No live camera is accessed and the base experiment retains zero external actions.
+
+\embedfile{evidence/visual-perception.json}
+\embedfile{evidence/visual-verification.json}
+
+\section{Measured self-reflection}
+Version 0.7.0 adds an opt-in model-reflection path to the canonical experiment. Unlike a bit labeled ``error,'' this experiment evaluates actual predictions produced by the canonical stereo imagery engine. Arithmetic and precision fusion are compared on three predicted views and a separate 60-degree validation view. For residuals $r_{m,t,i}$ of model $m$, the declared independent Gaussian approximation gives
+\begin{equation}
+\ell_{m,t}=-N_t\ln(\sigma\sqrt{2\pi})-\sum_i\frac{r_{m,t,i}^2}{2\sigma^2},
+\end{equation}
+where $\sigma$ is the camera disparity quantization divided by $\sqrt{12}$. Model weights are normalized after evidence:
+\begin{equation}
+\log\tilde w_{m,t}=\log w_{m,t-1}+\ell_{m,t},\qquad
+w_{m,t}=\frac{\tilde w_{m,t}}{\sum_j\tilde w_{j,t}}.
+\end{equation}
+Candidate values come from these measured weights, not from semantic gate labels. The goal constrains the candidate set, $C_g=\{c\in C:\operatorname{action}(c)=g\}$, before utility ranking. Adoption requires a lower validation RMSE; otherwise the incumbent model is retained. Thus the goal has a causal path to action and the evidence changes model weights, rather than merely appending a flag.
+
+The measured sequence is: preserve arithmetic, inspect and adopt precision, then review and retain precision. Training RMSE falls from 0.039720402 to 0.039394269 pixels and validation RMSE from 0.039234586 to 0.039081672 pixels. These are small fixture-specific gains. Posterior values describe the declared residual model, not emotional confidence or calibrated real-world certainty. A negative validation control preserves the incumbent. No source is rewritten and model checkpoints remain reversible.
+
+The reflection state also includes a physical-rule soroban working memory. Each rod encodes a digit as $d_i=\operatorname{lower}_i+5\operatorname{upper}_i$, where lower counts active earth beads and upper is the active heaven bead. Observation and adoption counts use exact bead transitions and reversible checkpoints: 4, 8, and 12 observations and 0, 1, and 1 adoptions. These evidence counters are distinct from likelihood weights and are not a second confidence score. The ecological resource-feedback experiment changes later observations through action and updates gain from actual prediction error; it is not a calibrated biological model.
+
+\begin{lstlisting}
+zoe-autonomy reflect --output reflection-step-1.json
+zoe-autonomy reflect --previous reflection-step-1.json \
+  --output reflection-step-2.json
+zoe-autonomy verify-reflection reflection-step-2.json
+zoe-autonomy run --reflect --output integrated-reflection.json
+\end{lstlisting}
+
+The integrated reflection event is identical to the first standalone event and remains in the existing guard chain. The off path preserves the previous experiment except source hashes. All 44 repository tests pass, including supplied-observation replay, validation rejection, tamper rejection, and integrated CLI replay. The complete host verifier also supports \texttt{--reflect}.
+
+For calibration, the fixed-candidate three-variable projection has $\Phi=0$ under PyPhi 1.2.0~\cite{mayner2018pyphi}. Canonical AND motifs give 0.25, 0.15625, and 0.117188 at three, four, and five nodes. These controls are not Zoe's $\Phi$ and are not the evidence for model learning. The external patch review reproduces its on-report but finds no real belief update and no implemented \texttt{--substrate} CLI flag. Sampled rule searches do not establish an upper bound on all architectures.
+
+\embedfile{src/zoe_autonomy/self_reflection.py}
+\embedfile{evidence/self-reflection/integrated.json}
+\embedfile{evidence/phi-verification.json}
+\embedfile{evidence/external-wiring-review.json}
+
+\section{Owner-granted actuation}
+A local-owner grant bound to this computer's hostname enables host, network, and hardware scopes under the current OS account. The actuation CLI is independent of the base experiment:
+
+\begin{lstlisting}
+zoe-autonomy actuate enable --all --owner-approved
+zoe-autonomy actuate status
+zoe-autonomy actuate stop --reason "Emergency stop"
+zoe-autonomy actuate resume --owner-approved
+\end{lstlisting}
+
+Host commands use argument arrays without a shell and enforce process-group termination on timeout. Network operations use HTTP(S) with bounded responses and default certificate verification. Hardware operations write bounded hexadecimal payloads to explicit character devices. Every attempt appends sequence-linked, previous-hash-linked audit evidence.
+
+The preserved evidence contains a real harmless local process, a real read-only HTTPS request to \url{https://example.com/} with status 200, and a real write to a virtual PTY. It also records a successful emergency-stop and owner-resume check. No physical hardware was accessed. The enabled grant and three external operations are evidence of owner-granted capability on this computer, not privilege elevation, cross-machine authority, or physical-device validation.
+
+\embedfile{evidence/actuation/owner-grant-status.json}
+\embedfile{evidence/actuation/host-local.json}
+\embedfile{evidence/actuation/network-internet.json}
+\embedfile{evidence/actuation/hardware-virtual.json}
+\embedfile{evidence/actuation/emergency-stop.json}
+\embedfile{evidence/actuation/verification.json}
+
+\section{Internet exploration and connected agents}
+Zoe can retrieve public web pages, extract visible text and links, and preserve short evidence excerpts. A real read-only request to \url{https://example.com/} returned status 200 and the title ``Example Domain.'' Same-origin traversal, robots.txt checks, bounded page counts, and rate limits are explicit in the explorer.
+
+The connected-agent gateway discovers and registers owner-authorized local CLI accounts and OpenAI-compatible endpoints. Kimi and Claude are registered through their existing authenticated CLIs. Registration performed no model invocation. Custom HTTP connections name an environment variable for their credential; prompt and response audits store hashes rather than secrets or prompt bodies.
+
+\embedfile{GATEWAY.md}
+\embedfile{evidence/exploration/example-com.json}
+\embedfile{evidence/agents/registered-accounts.json}
+\embedfile{evidence/agents/verification.json}
+
+\section{Ten capability adapters}
+Version 0.4.0 adds a unified \texttt{zoe-autonomy capabilities} interface. These adapters extend the observation, research, communication, computation, and instrumentation available to Zoe; they do not replace the self-governing loop or independently establish the autonomy predicate.
+
+\begin{center}
+\small
+\begin{tabular}{p{3.6cm}p{10.8cm}}
+\toprule
+Adapter & Implemented interface \\
+\midrule
+Browser automation & Playwright Chromium rendering, JavaScript execution, visible text and link extraction, and screenshots. \\
+Research sources & Crossref, arXiv, PubMed, RSS/Atom, and sitemap connectors with normalized records and network-audit hashes. \\
+Research memory & SQLite sources, claims, lifecycle statuses, content-hash deduplication, search, export, and explicit contradictions. \\
+Connected services & Authenticated JSON APIs with environment-held tokens and GitHub operations through the existing \texttt{gh} CLI. \\
+Scheduled jobs & Persistent one-shot and recurring argv jobs with due times, attempts, bounded output, completion state, and resume data. \\
+Compute environments & Local or Docker/Podman execution, resource evidence, GPU discovery, and Jupyter notebook execution when installed. \\
+Agent protocols & MCP stdio initialization, tool listing and calls, plus ACP HTTP discovery. \\
+Notifications & Desktop notifications, JSON webhooks, and an SMTP/SMTP-SSL interface with environment-held passwords. \\
+Rich media & Image and WAV inspection, OCR, PDF text, video frames, and optional espeak or Whisper integration. \\
+Instruments & Declared simulators and serial-instrument exchanges through the hardware actuation interface. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Ten dedicated adapter tests pass, and the complete repository suite contains forty-four passing tests. Real public evidence includes a Chromium rendering of \url{https://example.com/} with JavaScript execution and a screenshot, and a Crossref query for \emph{language model uncertainty}. A worked memory export preserves one source, two claims, and one contradiction. The tests exercise local compute, mock authenticated services and protocols, desktop command construction and webhooks, image/OCR/WAV/PDF/video handling, a simulator, and a virtual serial PTY.
+
+Container-image execution, live email, Whisper, espeak, and physical hardware were not tested. These remain optional integrations requiring their own installation, authorization, and evidence. No credential values are included in the preserved records.
+
+\begin{lstlisting}
+zoe-autonomy capabilities browser --url https://example.com/ \
+  --headless --screenshot browser.png
+zoe-autonomy capabilities research --provider crossref \
+  --query "language model uncertainty"
+zoe-autonomy capabilities memory --db research.sqlite export
+zoe-autonomy capabilities jobs --path jobs.json status
+zoe-autonomy capabilities instruments --path instruments.json list
+\end{lstlisting}
+
+The complete command guide and machine-readable verification distinguish implemented adapters from executed external results.
+
+\embedfile{CAPABILITIES.md}
+\embedfile{src/zoe_autonomy/capabilities.py}
+\embedfile{src/zoe_autonomy/capabilities_cli.py}
+\embedfile{evidence/capabilities/browser-example-com.json}
+\embedfile{evidence/capabilities/example-com-browser.png}
+\embedfile{evidence/capabilities/crossref.json}
+\embedfile{evidence/capabilities/memory-export.json}
+\embedfile{evidence/capabilities/verification.json}
+
+\section{Autonomous capability selection}
+Version 0.5.0 closes the gap between possessing adapters and choosing among them. The new no-argument entry point is
+
+\begin{lstlisting}
+zoe-autonomy step
+\end{lstlisting}
+
+The operator supplies no episode goal, capability, operation arguments, ranking, or per-action approval. Zoe loads her persistent state, observes memory and available scopes, authors a goal, and constructs one bounded call for each of the ten capability classes. A proposal is
+
+\begin{equation}
+q_i=(c_i,\theta_i,s_i,v_i,g_i,\varepsilon_i),
+\end{equation}
+
+where $c_i$ is the capability, $\theta_i$ its internally constructed arguments, $s_i$ its required actuation scopes, and the remaining terms supply the declared value model. Proposals are ranked by
+
+\begin{equation}
+U(q_i)=\frac{v_ig_i}{\varepsilon_i}.
+\end{equation}
+
+For internally authored goal $g_t$, eligibility is
+
+\begin{equation}
+H(q_i)=\mathbf 1[\operatorname{Internal}(g_t)
+\land \operatorname{Available}(q_i)
+\land \forall s\in s_i:\operatorname{Enabled}(s)].
+\end{equation}
+
+Zoe executes $q^*=\operatorname{arg\,max}_{q_i:H(q_i)=1}U(q_i)$ with deterministic identifier tie-breaking. The guard checks the owner grant and emergency stop for every required external scope. A result updates persistent memory or the next decision basis. Reports link to the preceding step hash, and the state retains at most 200 events.
+
+The preserved real first step authored an initial-research goal, constructed the Crossref query \emph{language model uncertainty}, and selected \texttt{research.crossref} with $U=3.564$. It returned the record \emph{Toward a Possibilistic Language Model: Grounding Large Language Model Uncertainty in Epistemic Support-Point Theory and Possibility Theory}, DOI \texttt{10.20944/preprints202604.0920.v1}. The operator did not select the goal, adapter, query, or action. The report digest is
+
+\begin{center}
+\texttt{51e91ebee31c4f546f27671641e31e6e98568efd7a9c9ce1b3f1cf4176c6debd}.
+\end{center}
+
+A ten-step integration test uses the same no-argument cycle and records Zoe selecting every capability once: research, browser, media, memory, compute, jobs, MCP, connected service, notification, and simulated instrument. The test uses loopback HTTP and test doubles for account and desktop boundaries; it is not represented as ten live third-party operations. Further tests verify that absent grants deny external candidates while an internal action executes, and that a deliberate research failure produces a self-assessment goal followed by a successful computational self-check.
+
+\begin{lstlisting}
+zoe-autonomy step --output autonomous-step.json
+zoe-autonomy verify-step autonomous-step.json
+\end{lstlisting}
+
+The verifier checks the saved digest, internal goal provenance, absence of operator capability selection, selected proposal, and selected guard. It does not rerun or authenticate a changing external service. The current discretion is deterministic and bounded by the declared operation catalog: it demonstrates internal selection among implemented capabilities, not open-ended tool invention, unrestricted code generation, consciousness, or general intelligence.
+
+\embedfile{src/zoe_autonomy/autonomous.py}
+\embedfile{evidence/autonomous/first-step.json}
+\embedfile{evidence/autonomous/verification.json}
+
+\section{Event-Causal Active Perception}
+Version 0.8.0 replaces scene-independent visual reporting with a closed event-driven loop. Events $e_i=(t_i,x_i,y_i,p_i)$, $p_i\in\{-1,+1\}$, enter four sparse spatial modules. Polarity updates reconstruct an occupancy scene; spatial coherence and whole-scene translation matching estimate the current source rather than the centroid of changed pixels. Leaky integration, spike-order features, and bounded local STDP remain subordinate to measured behavior.
+
+A key-value episodic memory separates perception, action, and uncertainty subspaces and preserves immutable previous-record hashes. A compositional forward ensemble models position, direction, and appearance separately. For candidate action $a$ and ensemble member $m$, the model produces a predicted next event representation $\hat z_{t+1}^{(m,a)}$ before selection. Exact nonnegative Dijkstra search evaluates attention trajectories over a time-expanded graph.
+
+Independent uncertainty combines ensemble disagreement, support distance, and polarity anomalies:
+\begin{equation}
+U_t=.55D_t+.35V_t+.10A_t.
+\end{equation}
+An intervention suppresses confident plastic updates and selects abstention independently of candidate utility. Gated local updates separate instructive evidence from plastic storage. Consolidation interleaves novel and familiar episodes and is adopted only when recent validation improves and familiar RMSE does not regress by more than $0.05$ pixels; otherwise the checkpoint is restored.
+
+The protocol was committed before implementation results. It compares adaptive behavior with no-learning, static iLab-inspired saliency, fixed-action, and random-action controls on training, validation, unseen speed-2 transfer, and OOD fixtures. All eleven synthetic checks pass. Adaptive validation prediction RMSE is $4.641453$, versus $5.058147$ without learning. Transfer tracking MAE is $3.265625$, compared with $3.531250$ for static saliency, $3.562500$ for fixed action, and $3.703125$ for random action. OOD detection is $0.875$ with zero validation false positives. The measured adaptive throughput is $71.24$ complete cycles per second on the evaluation host; this is not a power measurement.
+
+Mirrored scenes produce different internally selected attention actions. Real `/dev/video0` frames produce valid sparse change events and a guarded decision with no audio and no retained photograph. All 62 repository tests pass, including the complete protocol and camera provenance. These results establish event-causal behavior on declared fixtures, not biological equivalence, semantic recognition, AGI, consciousness, or uncontrolled-scene competence. The complete iLab source and documentation inventory is preserved separately; legacy build and hardware blockers are not represented as working integrations.
+
+\begin{lstlisting}
+zoe-autonomy event-evaluate --camera /dev/video0 \
+  --output event-camera-evaluation.json
+zoe-autonomy verify-event-evaluation event-camera-evaluation.json
+\end{lstlisting}
+
+\embedfile{EVENT-CAUSAL.md}
+\embedfile{ILAB-INTEGRATION.md}
+\embedfile{evidence/event-causal/protocol.json}
+\embedfile{evidence/event-causal/evaluation.json}
+\embedfile{src/zoe_autonomy/event_core.py}
+\embedfile{src/zoe_autonomy/event_memory.py}
+\embedfile{src/zoe_autonomy/event_reasoning.py}
+\embedfile{src/zoe_autonomy/event_plasticity.py}
+\embedfile{src/zoe_autonomy/event_uncertainty.py}
+\embedfile{src/zoe_autonomy/event_autonomy.py}
+\embedfile{src/zoe_autonomy/event_evaluation.py}
+
+\section{Semantic artifact analysis with Ablation}
+Version 0.8.1 composes Ablation's behavioral retrieval and reverse-engineering tools with Zoe's Cognitive Field, event memory, guard, and evidence chain. `BinaryContext` discovers functions, normalized opcode categories and BGE embeddings rank behavioral candidates, and Capstone independently checks direct calls and tail jumps in the `.text` section. PLT entries are excluded from the retrieval scope. The knowledge graph supplies architecture-specific history, and a finding registry preserves candidate unsafe behavior as unconfirmed.
+
+The measured fixture contains \texttt{copy\_payload}, \texttt{parse\_header}, and \texttt{safe\_length}, compiled with \texttt{gcc -O0 -g} and \texttt{gcc -O2 -s}. No vulnerable input or target function is executed. Unstripped retrieval ranks \texttt{copy\_payload} first; stripped retrieval initially exposes a PLT false positive. Corrected scope filtering and whitening leave a small corpus with nearly zero scores and \texttt{safe\_length} first, which is explicitly recorded as \texttt{limited\_support=true}, not accepted as proof.
+
+Direct disassembly finds \texttt{func\_11c0} performing a tail jump to \texttt{strcpy@plt}. Zoe selects \texttt{semantic-inspect} with valid guard and event-memory chains and zero external actions. This demonstrates retrieval, direct call evidence, memory, and guarded reasoning for executable artifacts. It does not establish general world semantics, natural-language understanding, a vulnerability without bounds and reachability analysis, or AGI.
+
+The canonical Ablation integration also fixes \texttt{live\_addrs} filtering when \texttt{binary\_id} is set and applies the same fitted whitening transform to corpus and query vectors with cached parameters. All 64 Zoe-Autonomy tests pass, including the real stripped-binary fixture and saved-report tamper rejection.
+
+\begin{lstlisting}
+zoe-autonomy semantic-evaluate --artifact /path/to/binary \
+  --state /path/to/semantic-state --output semantic-artifact.json
+zoe-autonomy verify-semantic-evaluation semantic-artifact.json
+\end{lstlisting}
+
+\embedfile{SEMANTIC-ARTIFACTS.md}
+\embedfile{evidence/semantic-artifacts/evaluation.json}
+\embedfile{src/zoe_autonomy/semantic_artifacts.py}
+
+\section{Embedded evidence}
+The PDF embeds the canonical profile, fresh verification, paper source, and integration modules. The complete JSON contains all counterfactual interventions, ranked proposals, goal records, before/after states, guard results, source hashes, and event-chain hashes.
+
+\embedfile{evidence/zoe-autonomy-profile.json}
+\embedfile{evidence/verification.json}
+\embedfile{paper/zoe-autonomy.tex}
+\embedfile{src/zoe_autonomy/metrics.py}
+\embedfile{src/zoe_autonomy/loop.py}
+\embedfile{src/zoe_autonomy/experiment.py}
+\embedfile{src/zoe_autonomy/cli.py}
+\embedfile{src/zoe_autonomy/actuation.py}
+\embedfile{src/zoe_autonomy/explore.py}
+\embedfile{src/zoe_autonomy/agents.py}
+\embedfile{ACTUATION.md}
+
+\begin{thebibliography}{9}
+\bibitem{kloster2026significance}
+Nicholas Michael Kloster.
+\newblock \emph{The Significance of Operational Metacognition}.
+\newblock November 2026. Original equation created March 6, 2026.
+\newblock \url{https://github.com/Ablation-Tool/next-token-predictability}.
+
+\bibitem{kloster2026beyond}
+Nicholas Michael Kloster.
+\newblock \emph{Operational Metacognition Beyond the Next Token}.
+\newblock November 2026.
+\newblock \url{https://github.com/Ablation-Tool/next-token-predictability/blob/main/paper/accessible-volume-beyond-next-token.pdf}.
+
+\bibitem{zoe2026}
+Nicholas Michael Kloster and Zoe.
+\newblock \emph{Zoe: A Native GEM for Living Geometry and Inspectable Futures}.
+\newblock November 2026.
+\newblock \url{https://github.com/Ablation-Tool/zoe}.
+
+\bibitem{kullback1951}
+Solomon Kullback and Richard A. Leibler.
+\newblock On Information and Sufficiency.
+\newblock \emph{The Annals of Mathematical Statistics}, 22(1):79--86, 1951.
+
+\bibitem{itti1998}
+Laurent Itti, Christof Koch, and Ernst Niebur.
+\newblock A Model of Saliency-Based Visual Attention for Rapid Scene Analysis.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine Intelligence}, 20(11):1254--1259, 1998.
+\newblock \url{https://ilab.usc.edu/publications/doc/Itti_etal98pami.pdf}.
+\bibitem{mayner2018pyphi}
+William G. P. Mayner, William Marshall, Larissa Albantakis, Graham Findlay, Robert Marchman, and Giulio Tononi.
+\newblock PyPhi: A Toolbox for Integrated Information Theory.
+\newblock \emph{PLOS Computational Biology}, 14(7):e1006343, 2018.
+\newblock \url{https://doi.org/10.1371/journal.pcbi.1006343}.
+\end{thebibliography}
+
+\end{document}

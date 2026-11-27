@@ -1,0 +1,8 @@
+{
+  "allowlist": [
+    {
+      "path": "github_tos_audit.py",
+      "reason": "Detection rule patterns, not live credentials or payloads. This file is the scanner itself."
+    }
+  ]
+}

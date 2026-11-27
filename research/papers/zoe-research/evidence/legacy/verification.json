@@ -1,0 +1,69 @@
+{
+  "schema": "zoe-legacy-verification-v1",
+  "created_at": "2026-11-08T14:49:32Z",
+  "component": "mobile/legacy",
+  "language": "C99",
+  "suites": {
+    "normal": {
+      "command": "make clean && make CFLAGS='-std=c99 -O2 -Wall -Wextra -Wpedantic -Werror' check",
+      "passed": 3,
+      "result": "pass"
+    },
+    "sanitizer": {
+      "command": "make clean && make CFLAGS='-std=c99 -O1 -g -Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined' check",
+      "passed": 3,
+      "result": "pass"
+    },
+    "gcc_static_analysis": {
+      "command": "gcc -std=c99 -O2 -Wall -Wextra -Wpedantic -Werror -fanalyzer -c zoe_legacy.c -o /tmp/zoe-legacy-analyzer.o",
+      "result": "pass"
+    }
+  },
+  "fixtures": [
+    "default Zoe and Tiny 3 of 4 with exact APDU request and response",
+    "strict tau equality returns 1 of 4",
+    "tau one returns zero",
+    "zero probabilities",
+    "64-value request is 270 hexadecimal characters",
+    "mixed decimal allocation",
+    "threshold equality response",
+    "small decimal witness",
+    "large-remainder witness",
+    "invalid distribution sum rejected",
+    "JSON equation credit and clinicalClaim=false",
+    "second output attempt refused without changing the first file"
+  ],
+  "cli_example": {
+    "distribution": [0.70, 0.20, 0.08, 0.02],
+    "tau": 0.05,
+    "zoe_accessible": 3,
+    "tiny_accessible": 3,
+    "request": "800200000A0666599A199A0A3D028F",
+    "response": "00030001000406669000"
+  },
+  "equality_example": {
+    "tau": 0.20,
+    "zoe_accessible": 1,
+    "tiny_accessible": 1,
+    "second_run_returncode": 3,
+    "original_file_preserved": true
+  },
+  "windows_95_98": {
+    "verified": false,
+    "compiler_verified": false,
+    "filesystem_verified": false,
+    "assistive_technology_verified": false,
+    "reason": "The bounded C99 implementation and Windows CreateFileA path have not been compiled or run on Windows 95/98 or a reviewed emulator."
+  },
+  "posix_no_overwrite": "An existence check followed by file creation; not an atomic lock.",
+  "windows_no_overwrite": "CreateFileA with CREATE_NEW; source present, not executed on legacy Windows.",
+  "accessibility_compliance_claimed": false,
+  "medical_device_deployment_authorized": false,
+  "clinical_claim": false,
+  "equation": {
+    "creator": "Nicholas Michael Kloster",
+    "created": "2026-03-06",
+    "strict": "p > tau",
+    "equality": "excluded"
+  }
+}

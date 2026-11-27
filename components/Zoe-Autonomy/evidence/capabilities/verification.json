@@ -1,0 +1,66 @@
+{
+  "capabilities": {
+    "agent_protocols": {
+      "acp_mock_discovery": true,
+      "mcp_initialize_list_call": true,
+      "verified": true
+    },
+    "browser_automation": {
+      "javascript_executed": true,
+      "real_public_page": true,
+      "screenshot_sha256": "05aec8c112cd68d45c094ef97413244a06e739a22b0a8abda40dd2e5c89f3f53",
+      "verified": true
+    },
+    "compute_environments": {
+      "container_adapter": true,
+      "container_image_tested": false,
+      "local_compute": true,
+      "verified": true
+    },
+    "connected_productivity_services": {
+      "github_cli_adapter": true,
+      "mock_authenticated_service": true,
+      "verified": true
+    },
+    "hardware_instruments": {
+      "physical_hardware_executed": false,
+      "simulator": true,
+      "verified": true,
+      "virtual_serial": true
+    },
+    "notifications": {
+      "desktop_command": true,
+      "live_email_tested": false,
+      "verified": true,
+      "webhook": true
+    },
+    "persistent_research_memory": {
+      "contradictions_preserved": true,
+      "sqlite": true,
+      "verified": true
+    },
+    "research_apis": {
+      "real_crossref_query": true,
+      "verified": true
+    },
+    "rich_media": {
+      "espeak_tested": false,
+      "ocr": true,
+      "pdf": true,
+      "verified": true,
+      "video_frame": true,
+      "wav": true,
+      "whisper_tested": false
+    },
+    "scheduled_jobs": {
+      "resumable_state": true,
+      "verified": true
+    }
+  },
+  "capability_tests": 10,
+  "instrument": "zoe-ten-capability-verification",
+  "schema_version": 1,
+  "scope": "All ten adapters passed their implemented local or harmless public tests. Optional account, container-image, email, speech-model, and physical-device integrations require their own configuration and verification.",
+  "total_repository_tests": 34,
+  "verified": true
+}

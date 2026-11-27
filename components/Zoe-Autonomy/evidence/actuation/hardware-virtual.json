@@ -1,0 +1,17 @@
+{
+  "audit_hash": "c59ef66d8c85e7eb641bf67eb878d974f9e53c7620a20da7869bbfd4b302e00b",
+  "executed": true,
+  "external_action": true,
+  "kind": "hardware",
+  "measurement_sha256": null,
+  "observed_at_virtual_master_hex": "5a",
+  "physical_hardware_executed": false,
+  "result": {
+    "bytes_written": 1,
+    "character_device": true,
+    "device": "/dev/pts/0",
+    "read_bytes": 0,
+    "read_hex": ""
+  },
+  "scope": "Real write to a virtual PTY character device. No physical hardware was accessed."
+}

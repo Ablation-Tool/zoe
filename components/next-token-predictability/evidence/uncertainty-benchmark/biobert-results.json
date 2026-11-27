@@ -1,0 +1,1084 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-11-12T16:16:15Z",
+  "objective": "Determine whether operational metacognition adds top-1 error-detection information beyond distribution baselines and improves expected error discovery under fixed review budgets",
+  "source": {
+    "model": "dmis-lab/biobert-base-cased-v1.2",
+    "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+    "baseline_summary_sha256": "2f213c3e0338895c63e292ea2fe09ababa904cce22132eb99a8a2a8626de1b6d",
+    "cases": 120,
+    "development_validation_cases": 80,
+    "test_cases": 40
+  },
+  "protocol": {
+    "higher_scores_mean_more_likely_error": true,
+    "primary_accessible_volume": "Strict count p > 0.05",
+    "validation": "Five shuffled GroupKFold splits over source documents; no document crosses folds",
+    "validation_seed": 20261112,
+    "combinations": "StandardScaler plus LogisticRegression(C=1), with no hyperparameter search",
+    "selection_data": "Development and validation cases only",
+    "final_evaluation": "Frozen test cases",
+    "multiple_testing": "No significance claim; effect estimates and paired document-bootstrap intervals are reported",
+    "test_history": "The test split was used in the original study, so this is a secondary analysis rather than a new independent replication"
+  },
+  "standalone": {
+    "accessible_volume_tau_0.05": {
+      "development_validation": {
+        "auroc": 0.7509375,
+        "auprc": 0.6946761571761573,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.15,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 13.0,
+            "expected_precision": 0.65,
+            "expected_recall": 0.325,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 27.88888888888889,
+            "expected_precision": 0.6972222222222222,
+            "expected_recall": 0.6972222222222222,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.7736572890025576,
+        "auprc": 0.7978260869565218,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 4.0,
+            "expected_precision": 1.0,
+            "expected_recall": 0.17391304347826086,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 9.0,
+            "expected_precision": 0.9,
+            "expected_recall": 0.391304347826087,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "entropy_bits": {
+      "development_validation": {
+        "auroc": 0.8200000000000001,
+        "auprc": 0.7576392771374927,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.15,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 31.0,
+            "expected_precision": 0.775,
+            "expected_recall": 0.775,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.6956521739130435,
+        "auprc": 0.6538262360347427,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 1.0,
+            "expected_precision": 0.25,
+            "expected_recall": 0.043478260869565216,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.6,
+            "expected_recall": 0.2608695652173913,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "one_minus_max_probability": {
+      "development_validation": {
+        "auroc": 0.76875,
+        "auprc": 0.7144622302647243,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 5.0,
+            "expected_precision": 0.625,
+            "expected_recall": 0.125,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 28.0,
+            "expected_precision": 0.7,
+            "expected_recall": 0.7,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.7493606138107417,
+        "auprc": 0.7639401089362977,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 3.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.13043478260869565,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 7.0,
+            "expected_precision": 0.7,
+            "expected_recall": 0.30434782608695654,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "one_minus_top_10_mass": {
+      "development_validation": {
+        "auroc": 0.79125,
+        "auprc": 0.7406511881374044,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 7.0,
+            "expected_precision": 0.875,
+            "expected_recall": 0.175,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 30.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.75,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.6803069053708439,
+        "auprc": 0.6457402146485468,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 1.0,
+            "expected_precision": 0.25,
+            "expected_recall": 0.043478260869565216,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.6,
+            "expected_recall": 0.2608695652173913,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    }
+  },
+  "accessible_volume_threshold_sweep": {
+    "0.02": {
+      "development_validation": {
+        "auroc": 0.7784374999999999,
+        "auprc": 0.6963564316195895,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 4.5,
+            "expected_precision": 0.5625,
+            "expected_recall": 0.1125,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 14.833333333333334,
+            "expected_precision": 0.7416666666666667,
+            "expected_recall": 0.37083333333333335,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 27.75,
+            "expected_precision": 0.69375,
+            "expected_recall": 0.69375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.7391304347826088,
+        "auprc": 0.7502320058458165,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 3.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.13043478260869565,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 8.4,
+            "expected_precision": 0.8400000000000001,
+            "expected_recall": 0.3652173913043478,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "0.05": {
+      "development_validation": {
+        "auroc": 0.7509375,
+        "auprc": 0.6946761571761573,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.15,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 13.0,
+            "expected_precision": 0.65,
+            "expected_recall": 0.325,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 27.88888888888889,
+            "expected_precision": 0.6972222222222222,
+            "expected_recall": 0.6972222222222222,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.7736572890025576,
+        "auprc": 0.7978260869565218,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 4.0,
+            "expected_precision": 1.0,
+            "expected_recall": 0.17391304347826086,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 9.0,
+            "expected_precision": 0.9,
+            "expected_recall": 0.391304347826087,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "0.10": {
+      "development_validation": {
+        "auroc": 0.6359375,
+        "auprc": 0.5964926160337553,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 5.545454545454545,
+            "expected_precision": 0.6931818181818181,
+            "expected_recall": 0.1386363636363636,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 12.857142857142858,
+            "expected_precision": 0.6428571428571429,
+            "expected_recall": 0.32142857142857145,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 24.285714285714285,
+            "expected_precision": 0.6071428571428571,
+            "expected_recall": 0.6071428571428571,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.6854219948849105,
+        "auprc": 0.7043478260869566,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 3.25,
+            "expected_precision": 0.8125,
+            "expected_recall": 0.14130434782608695,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 7.666666666666667,
+            "expected_precision": 0.7666666666666667,
+            "expected_recall": 0.33333333333333337,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 14.333333333333332,
+            "expected_precision": 0.7166666666666666,
+            "expected_recall": 0.6231884057971014,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "0.15": {
+      "development_validation": {
+        "auroc": 0.5275,
+        "auprc": 0.5443108974358973,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 5.923076923076923,
+            "expected_precision": 0.7403846153846154,
+            "expected_recall": 0.14807692307692308,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 11.461538461538462,
+            "expected_precision": 0.573076923076923,
+            "expected_recall": 0.2865384615384615,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 20.652173913043477,
+            "expected_precision": 0.5163043478260869,
+            "expected_recall": 0.5163043478260869,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.7774936061381075,
+        "auprc": 0.798913043478261,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 3.8461538461538463,
+            "expected_precision": 0.9615384615384616,
+            "expected_recall": 0.16722408026755853,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 9.384615384615385,
+            "expected_precision": 0.9384615384615385,
+            "expected_recall": 0.4080267558528428,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.8,
+            "expected_precision": 0.79,
+            "expected_recall": 0.6869565217391305,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "0.30": {
+      "development_validation": {
+        "auroc": 0.43250000000000005,
+        "auprc": 0.46960784313725484,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 2.967741935483871,
+            "expected_precision": 0.3709677419354839,
+            "expected_recall": 0.07419354838709677,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 8.774193548387096,
+            "expected_precision": 0.4387096774193548,
+            "expected_recall": 0.2193548387096774,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 18.451612903225808,
+            "expected_precision": 0.4612903225806452,
+            "expected_recall": 0.4612903225806452,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.479539641943734,
+        "auprc": 0.5652761457109283,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 2.142857142857143,
+            "expected_precision": 0.5357142857142857,
+            "expected_recall": 0.09316770186335403,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 5.571428571428571,
+            "expected_precision": 0.5571428571428572,
+            "expected_recall": 0.24223602484472048,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 11.285714285714286,
+            "expected_precision": 0.5642857142857143,
+            "expected_recall": 0.49068322981366463,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    },
+    "0.50": {
+      "development_validation": {
+        "auroc": 0.35,
+        "auprc": 0.44375000000000003,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 3.0,
+            "expected_precision": 0.375,
+            "expected_recall": 0.075,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 7.5,
+            "expected_precision": 0.375,
+            "expected_recall": 0.1875,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.375,
+            "expected_recall": 0.375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.2915601023017903,
+        "auprc": 0.5075051759834368,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 1.5238095238095237,
+            "expected_precision": 0.38095238095238093,
+            "expected_recall": 0.06625258799171842,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 3.8095238095238093,
+            "expected_precision": 0.38095238095238093,
+            "expected_recall": 0.16563146997929606,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 7.619047619047619,
+            "expected_precision": 0.38095238095238093,
+            "expected_recall": 0.33126293995859213,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      }
+    }
+  },
+  "combined": {
+    "distribution_only": {
+      "features": [
+        "entropy_bits",
+        "one_minus_max_probability",
+        "one_minus_top_10_mass"
+      ],
+      "development_validation_oof": {
+        "auroc": 0.77625,
+        "auprc": 0.698683066531248,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 4.0,
+            "expected_precision": 0.5,
+            "expected_recall": 0.1,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 29.0,
+            "expected_precision": 0.725,
+            "expected_recall": 0.725,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.6982097186700768,
+        "auprc": 0.6629929186944368,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 1.0,
+            "expected_precision": 0.25,
+            "expected_recall": 0.043478260869565216,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.6,
+            "expected_recall": 0.2608695652173913,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "fitted_coefficients": {
+        "entropy_bits": 1.4326720802117057,
+        "one_minus_max_probability": 0.18798798902776565,
+        "one_minus_top_10_mass": -0.5153779000576227
+      },
+      "fitted_intercept": -0.011052505289277653
+    },
+    "maximum_plus_accessible_volume": {
+      "features": [
+        "one_minus_max_probability",
+        "accessible_volume_tau_0.05"
+      ],
+      "development_validation_oof": {
+        "auroc": 0.7525,
+        "auprc": 0.6941831621807013,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.15,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 16.0,
+            "expected_precision": 0.8,
+            "expected_recall": 0.4,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 27.0,
+            "expected_precision": 0.675,
+            "expected_recall": 0.675,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.782608695652174,
+        "auprc": 0.8326246773209969,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 4.0,
+            "expected_precision": 1.0,
+            "expected_recall": 0.17391304347826086,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 9.0,
+            "expected_precision": 0.9,
+            "expected_recall": 0.391304347826087,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "fitted_coefficients": {
+        "one_minus_max_probability": 0.8498054907599657,
+        "accessible_volume_tau_0.05": 0.27619854619525686
+      },
+      "fitted_intercept": 0.006426343738134082
+    },
+    "distribution_plus_accessible_volume": {
+      "features": [
+        "entropy_bits",
+        "one_minus_max_probability",
+        "one_minus_top_10_mass",
+        "accessible_volume_tau_0.05"
+      ],
+      "development_validation_oof": {
+        "auroc": 0.7718750000000001,
+        "auprc": 0.6830178454652382,
+        "cases": 80,
+        "errors": 40,
+        "correct": 40,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 8.0,
+            "expected_errors_found": 5.0,
+            "expected_precision": 0.625,
+            "expected_recall": 0.125,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.375,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 40.0,
+            "expected_errors_found": 28.0,
+            "expected_precision": 0.7,
+            "expected_recall": 0.7,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "test": {
+        "auroc": 0.7135549872122762,
+        "auprc": 0.6871797141855801,
+        "cases": 40,
+        "errors": 23,
+        "correct": 17,
+        "review": {
+          "0.1": {
+            "review_fraction": 0.1,
+            "expected_reviewed_cases": 4.0,
+            "expected_errors_found": 2.0,
+            "expected_precision": 0.5,
+            "expected_recall": 0.08695652173913043,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.25": {
+            "review_fraction": 0.25,
+            "expected_reviewed_cases": 10.0,
+            "expected_errors_found": 6.0,
+            "expected_precision": 0.6,
+            "expected_recall": 0.2608695652173913,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          },
+          "0.5": {
+            "review_fraction": 0.5,
+            "expected_reviewed_cases": 20.0,
+            "expected_errors_found": 15.0,
+            "expected_precision": 0.75,
+            "expected_recall": 0.6521739130434783,
+            "tie_handling": "Fractional equal-probability selection within boundary ties"
+          }
+        }
+      },
+      "fitted_coefficients": {
+        "entropy_bits": 1.3727682609289695,
+        "one_minus_max_probability": 0.11110384949505073,
+        "one_minus_top_10_mass": -0.47271971408916197,
+        "accessible_volume_tau_0.05": 0.1397389421386732
+      },
+      "fitted_intercept": -0.005718271239312866
+    }
+  },
+  "incremental_value": {
+    "maximum_plus_volume_minus_maximum": {
+      "development_validation_oof_auroc": -0.016250000000000098,
+      "test_auroc": 0.03324808184143224,
+      "test_auprc": 0.06868456838469916
+    },
+    "distribution_plus_volume_minus_distribution": {
+      "development_validation_oof_auroc": -0.004374999999999907,
+      "test_auroc": 0.01534526854219942,
+      "test_auprc": 0.02418679549114333
+    }
+  },
+  "bootstrap": {
+    "method": "Paired percentile bootstrap over source documents with replacement",
+    "seed": 20261112,
+    "requested_resamples": 2000,
+    "test_documents": 10,
+    "metric_intervals": {
+      "accessible_volume_tau_0.05": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.608680083786232,
+          "upper_95": 0.9168901313385764
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.661981365822191,
+          "upper_95": 0.9268126006441223
+        }
+      },
+      "entropy_bits": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.4862637362637363,
+          "upper_95": 0.87468671679198
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.5355244232371068,
+          "upper_95": 0.8685764690622341
+        }
+      },
+      "one_minus_max_probability": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.5421778346121057,
+          "upper_95": 0.9088324652777777
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.6175727949267895,
+          "upper_95": 0.9367581691696575
+        }
+      },
+      "one_minus_top_10_mass": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.5129953125000001,
+          "upper_95": 0.8286677371177303
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.5362138276559155,
+          "upper_95": 0.8342896503606708
+        }
+      },
+      "distribution_only": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.4835164835164836,
+          "upper_95": 0.8813354408749146
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.5433613558161706,
+          "upper_95": 0.8778965320706391
+        }
+      },
+      "maximum_plus_accessible_volume": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.5989583333333333,
+          "upper_95": 0.9198045112781955
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.7020212381388253,
+          "upper_95": 0.9464072817514907
+        }
+      },
+      "distribution_plus_accessible_volume": {
+        "auroc": {
+          "samples": 2000,
+          "lower_95": 0.5063713779826311,
+          "upper_95": 0.8828599819862153
+        },
+        "auprc": {
+          "samples": 2000,
+          "lower_95": 0.5671476240771451,
+          "upper_95": 0.884599232476846
+        }
+      }
+    },
+    "auroc_difference_intervals": {
+      "accessible_volume_minus_entropy": {
+        "samples": 2000,
+        "lower_95": 0.00383631713554988,
+        "upper_95": 0.18603193681318672
+      },
+      "accessible_volume_minus_one_minus_max": {
+        "samples": 2000,
+        "lower_95": -0.04041695729675273,
+        "upper_95": 0.12854150160184624
+      },
+      "accessible_volume_minus_one_minus_top_10_mass": {
+        "samples": 2000,
+        "lower_95": -0.004027877237851666,
+        "upper_95": 0.20091861263736244
+      },
+      "distribution_plus_volume_minus_distribution_only": {
+        "samples": 2000,
+        "lower_95": 0.0,
+        "upper_95": 0.041687499999999905
+      },
+      "maximum_plus_volume_minus_one_minus_max": {
+        "samples": 2000,
+        "lower_95": -0.002506740335687757,
+        "upper_95": 0.1016646876141761
+      }
+    }
+  },
+  "limitations": [
+    "Only BioBERT and 120 masked-token cases from 30 biomedical documents are included",
+    "The frozen test split contains only 40 cases from 10 documents, so intervals are wide",
+    "Top-1 masked-token error detection is not answer-level correctness or real-world clinical risk",
+    "Logistic combinations and review-budget results require external replication before operational use"
+  ]
+}

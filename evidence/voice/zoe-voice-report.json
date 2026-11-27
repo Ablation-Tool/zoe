@@ -1,0 +1,276 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "consonants": 24,
+        "grapheme_rules": 332,
+        "grapheme_rules_sha256": "9ed0807a59e28aeb56d8e69489e42ee6da5ec6193b6b9a6dab19cfb79d9ae167",
+        "phonemes_total": 44,
+        "vowels": 20
+      },
+      "id": "01_phonemes_and_rules",
+      "passed": true
+    },
+    {
+      "detail": {
+        "back": [
+          "B",
+          "AE",
+          "K"
+        ],
+        "lack": [
+          "L",
+          "AE",
+          "K"
+        ],
+        "onset_l2_diff": 0.1377
+      },
+      "id": "02_minimal_pair_lack_vs_back",
+      "passed": true
+    },
+    {
+      "detail": {
+        "car_non_rhotic": [
+          "K",
+          "AA"
+        ],
+        "car_rhotic": [
+          "K",
+          "AA",
+          "R"
+        ],
+        "cot_caught_distinct": [
+          [
+            "K",
+            "AA",
+            "T"
+          ],
+          [
+            "K",
+            "AO",
+            "T"
+          ]
+        ],
+        "merged": [
+          "K",
+          "AA",
+          "T"
+        ]
+      },
+      "id": "03_dialect_variation",
+      "passed": true
+    },
+    {
+      "detail": {
+        "parsed_notes": [
+          60,
+          67,
+          72
+        ]
+      },
+      "id": "04_smf_midi_roundtrip",
+      "passed": true
+    },
+    {
+      "detail": {
+        "detected_hz": 440.08,
+        "target_hz": 440.0
+      },
+      "id": "05_dos_psg_pitch_baseline",
+      "passed": true
+    },
+    {
+      "detail": {
+        "AA": {
+          "f1_centroid_hz": 769.6,
+          "f2_centroid_hz": 1178.9
+        },
+        "IY": {
+          "f1_centroid_hz": 239.0,
+          "f2_centroid_hz": 2746.0
+        },
+        "UW": {
+          "f1_centroid_hz": 322.0,
+          "f2_centroid_hz": 1539.2
+        }
+      },
+      "id": "06_cardinal_vowel_formants",
+      "passed": true
+    },
+    {
+      "detail": [
+        {
+          "detected_hz": 262.44,
+          "error_pct": 0.31,
+          "midi": 60,
+          "note": "C4",
+          "target_hz": 261.63
+        },
+        {
+          "detected_hz": 392.98,
+          "error_pct": 0.251,
+          "midi": 67,
+          "note": "G4",
+          "target_hz": 392.0
+        },
+        {
+          "detected_hz": 524.87,
+          "error_pct": 0.31,
+          "midi": 72,
+          "note": "C5",
+          "target_hz": 523.25
+        }
+      ],
+      "id": "07_singing_pitch_tracking",
+      "passed": true
+    },
+    {
+      "detail": {
+        "flat_ctrl_lr_max_diff": 0.0,
+        "left_45": {
+          "azimuth_deg": -45.0,
+          "elevation_deg": 12.0,
+          "fft_xcorr_lag_samples": 18,
+          "ild_db": -2.7109,
+          "itd_ms": -0.3807,
+          "pinna_notch_hz": 8057.4,
+          "wet": 0.0
+        },
+        "right_45": {
+          "azimuth_deg": 45.0,
+          "elevation_deg": 12.0,
+          "fft_xcorr_lag_samples": -18,
+          "ild_db": 2.7109,
+          "itd_ms": 0.3807,
+          "pinna_notch_hz": 8057.4,
+          "wet": 0.0
+        }
+      },
+      "id": "08_3d_binaural_itd_ild",
+      "passed": true
+    },
+    {
+      "detail": {
+        "AA": {
+          "kloster_a_tau": 1420,
+          "modes": [
+            6,
+            7,
+            2,
+            8
+          ]
+        },
+        "IY": {
+          "kloster_a_tau": 1468,
+          "modes": [
+            3,
+            8,
+            2,
+            8
+          ]
+        },
+        "UW": {
+          "kloster_a_tau": 1344,
+          "modes": [
+            3,
+            4,
+            2,
+            7
+          ]
+        },
+        "iy_vs_aa_l2": 0.4826
+      },
+      "id": "09_chladni_cymatics_and_kloster",
+      "passed": true
+    },
+    {
+      "detail": {
+        "max_bit_diff": 0,
+        "plane_sums": [
+          1108,
+          716,
+          215
+        ],
+        "raster_sha256": "a9e18cb85fd100d018c3c29b869500f3815f5780aeb1cdae33305ce77605a988"
+      },
+      "id": "10_gem_3bitplane_roundtrip",
+      "passed": true
+    },
+    {
+      "detail": {
+        "bytes": 249200,
+        "duration_sec": 1.412,
+        "sha256": "c521898948ab8695eb508070760bf223a7e55a225df65d3759f8090e623a08c3"
+      },
+      "id": "11_deterministic_wav_sha256",
+      "passed": true
+    },
+    {
+      "detail": {
+        "daisy": {
+          "duration_sec": 11.206,
+          "notes": 20,
+          "peak": 0.7472,
+          "rms": 0.1241
+        },
+        "evolution_comparison": {
+          "duration_sec": 34.557,
+          "peak": 0.74719,
+          "rms": 0.11367
+        },
+        "vowels": {
+          "duration_sec": 4.253,
+          "notes": 4,
+          "peak": 0.673,
+          "rms": 0.137
+        },
+        "zoe": {
+          "duration_sec": 12.305,
+          "notes": 26,
+          "peak": 0.7349,
+          "rms": 0.1759
+        }
+      },
+      "id": "12_built_in_repertoire_valid",
+      "passed": true
+    },
+    {
+      "detail": {
+        "layer": "voice",
+        "scene_sha256": "3e06744f31de4112d7f0007408612f91da9aeb64ab15d2efddbeab87f27c1e29",
+        "spatial_ir_passed": true,
+        "vdi_passed": true
+      },
+      "id": "13_gem_spatial_ir_and_vdi",
+      "passed": true
+    },
+    {
+      "detail": {
+        "clinical_action_authorized": false,
+        "external_actions": 0,
+        "external_tts_api_required": false,
+        "l5_agi_qualified": false,
+        "pytorch_required": false,
+        "sentience_claimed": false
+      },
+      "id": "14_constitutional_boundaries",
+      "passed": true
+    }
+  ],
+  "checks_passed": 14,
+  "checks_total": 14,
+  "contract": "zoe-native-voice/v1",
+  "core_sha256": "df1af65d739a7c7e09c2e6a2176d33b71d54ae08e502a465ba304a04869ef46d",
+  "epistemic_boundaries": {
+    "clinical_action_authorized": false,
+    "external_actions": 0,
+    "external_tts_api_required": false,
+    "l5_agi_qualified": false,
+    "pytorch_required": false,
+    "sentience_claimed": false
+  },
+  "report_sha256": "d14f7115227e6d572e2fe21165b6b0399ec2b95c14b94ecff48f1f062605b97b",
+  "schema_version": 1,
+  "verified": true,
+  "zoe_root": "."
+}

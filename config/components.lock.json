@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "identity": "Zoe is allgems",
+  "canonical_repository": "https://github.com/Ablation-Tool/zoe",
+  "repository_count": 1,
+  "source_project_count": 13,
+  "imported_repository_count": 13,
+  "import_strategy": "Full upstream Git histories imported with git subtree; Zoe-local changes preserved in subsequent commits",
+  "zoe_baseline": "f30c981",
+  "knowledge_engineering": {
+    "trust_context": "source, repository, revision, evidence scope, and authorization boundary",
+    "stability_context": "component-specific processes, version locks, replayable memory, and separately tested behavior"
+  },
+  "components": {
+    "ablation": {
+      "path": "components/ablation",
+      "repository": "https://github.com/Ablation-Tool/ablation",
+      "revision": "a75d337e3e5721a83a326863ceb1d8a79bce2c06",
+      "includes": "Complete repository: core engine, framework, analyzers, parsers, modules, sweeps, gem-lab, tests, documentation, and assets"
+    },
+    "graphics-environment-manager": {
+      "path": "components/graphics-environment-manager",
+      "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+      "revision": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7"
+    },
+    "gem-helen": {
+      "path": "components/gem-helen",
+      "repository": "https://github.com/Ablation-Tool/gem-helen",
+      "revision": "273c4eeb6fd6044f1ab9068561ddc33290357eed"
+    },
+    "brain-gem": {
+      "path": "components/brain-gem",
+      "repository": "https://github.com/Ablation-Tool/brain-gem",
+      "revision": "7420a8f0d8d2c370a72b76d93defcc7fb585b913"
+    },
+    "cerotto": {
+      "path": "components/cerotto",
+      "repository": "https://github.com/Ablation-Tool/cerotto",
+      "revision": "b73d399b638b4de8a0a9829b17c95203c5deaabd"
+    },
+    "next-token-predictability": {
+      "path": "components/next-token-predictability",
+      "repository": "https://github.com/Ablation-Tool/next-token-predictability",
+      "revision": "79575d94325a43b5dbbef17d38bc1cb1d56d9321",
+      "includes": "Upstream README, response-planning evidence, and reproduction updates plus retained SAT research"
+    },
+    "Zoe-Autonomy": {
+      "path": "components/Zoe-Autonomy",
+      "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
+      "revision": "0b6b8da9986c31d356fbe8aeb7c9f646ede03429",
+      "includes": "Executable source and tests with a native Zoe point-in-time replay adapter; canonical paper and upstream evidence remain linked"
+    },
+    "kevlar": {
+      "path": "components/kevlar",
+      "repository": "https://github.com/Ablation-Tool/kevlar",
+      "revision": "8ac3e0181e98572d6c41f964385393aa441a5f2a"
+    },
+    "pdf-signature-toolkit": {
+      "path": "components/pdf-signature-toolkit",
+      "repository": "https://github.com/Ablation-Tool/pdf-signature-toolkit",
+      "revision": "1198165962958c5132130f3854626ff39c333941"
+    },
+    "agent-logging-system": {
+      "path": "components/agent-logging-system",
+      "repository": "https://github.com/Ablation-Tool/zoe",
+      "revision": null,
+      "includes": "Neurogarden operational oversight, Trinity verification, cited learning, and teaching tools",
+      "provenance": "Recovered local source snapshot; original nuclide-research remote was deleted and no upstream revision is available"
+    },
+    "Chalkboard": {
+      "path": "components/Chalkboard",
+      "repository": "https://github.com/Ablation-Tool/Chalkboard",
+      "revision": "63646eb15737d822316073ba1f2114c608571c72",
+      "includes": "Reusable ideas, templates, and prompts; content library, not a GUI process"
+    },
+    "PALA": {
+      "path": "components/PALA",
+      "repository": "https://github.com/Ablation-Tool/PALA",
+      "canonical_repository": "https://github.com/Ablation-Tool/zoe",
+      "revision": "5d16e62cf838d8b53b988ecf75b03aa034b42354",
+      "includes": "Complete Rust recovery engine, custom corpus support, locked dependencies, synthetic integration suite, operator documentation, CI sources, and dual licenses",
+      "provenance": "Complete clean local Git repository with 12 commits; the former standalone remote did not resolve at integration time"
+    }
+  },
+  "research_collections": {
+    "papers": {
+      "path": "research/papers",
+      "repository": "https://github.com/Ablation-Tool/research-papers",
+      "revision": "c5d0c8c2a8eabbff1b72d2e96d19d6f637906bde"
+    },
+    "visual_archive": {
+      "path": "research/visual-archive",
+      "repository": "https://github.com/Ablation-Tool/zoe-visual-archive",
+      "revision": "d9b8c69f631ee68bf527dd49dc2d300d60c056e4"
+    },
+    "arxiv": {
+      "path": "research/arxiv",
+      "repository": null,
+      "revision": null,
+      "provenance": "Complete preserved local arxiv-autonomy-papers source workspace; no Git history was available"
+    }
+  },
+  "scope": "One canonical Zoe repository with complete tracked source trees and thirteen imported source histories across runtime projects and research collections, plus preserved arXiv sources. Ablation remains independently developable as well as integrated. Neurogarden has no available upstream revision. PALA was recovered from a complete local Git repository after its former remote became unavailable. Component processes, evidence, and authorization remain distinct."
+}

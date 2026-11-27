@@ -1,0 +1,465 @@
+{
+  "schema_version": 1,
+  "integrated_into": "https://github.com/Ablation-Tool/zoe",
+  "integrated_utc": "2026-11-24T07:57:00Z",
+  "constitutional_basis": "CONSTITUTION.md Articles I, II, III, VI, VII; AGI-ROADMAP.md Milestone 1 & Sections 3, 4, 6, 7, 9",
+  "component_count": 42,
+  "components": {
+    "injection-gate": {
+      "path": "components/injection-gate",
+      "source_repository": "https://github.com/nuclide-research/injection-gate",
+      "revision": "d2a3aa93c18aa424405ff004fcb18546a8f1b836",
+      "file_count": 21,
+      "purpose": "Deterministic proposal->gate->execute prompt-injection firewall (stdlib Python)",
+      "wave": 1
+    },
+    "glance": {
+      "path": "components/glance",
+      "source_repository": "https://github.com/nuclide-research/glance",
+      "revision": "07e1c410c0d95dbf9b401c01a382a7d2f3a8b1c0",
+      "file_count": 3,
+      "purpose": "Schema-only sensitivity analyzer for sealed corpora",
+      "wave": 1
+    },
+    "winnow": {
+      "path": "components/winnow",
+      "source_repository": "https://github.com/nuclide-research/winnow",
+      "revision": "a4027d735532b49b9f6aa5483d294c1232d24452",
+      "file_count": 4,
+      "purpose": "Codified false-positive Insight Registry screen",
+      "wave": 1
+    },
+    "farg-analogy-cognition": {
+      "path": "components/farg-analogy-cognition",
+      "source_repository": "https://github.com/nuclide-research/farg-analogy-cognition",
+      "revision": "a95be0c48b9d89e4d48192cb4f1a6011072c969a",
+      "file_count": 18,
+      "purpose": "Hofstadter/FARG Slipnet + coherence-to-temperature control loop",
+      "wave": 1
+    },
+    "pcse": {
+      "path": "components/pcse",
+      "source_repository": "https://github.com/nuclide-research/pcse",
+      "revision": "2e8d833c98e33b2d6c91a6e3eeaa99b1f6841c02",
+      "file_count": 13,
+      "purpose": "Portable Conversation State Embedding (8-dim calibration + SHA-256 drift fingerprint)",
+      "wave": 1
+    },
+    "domain-research": {
+      "path": "components/domain-research",
+      "source_repository": "https://github.com/nuclide-research/domain-research",
+      "revision": "f42d26e813296e8b3cdeca7411cce8f3089a77c4",
+      "file_count": 7,
+      "purpose": "Authoritative ~490-domain allowlist & citation verifier",
+      "wave": 1
+    },
+    "warrant": {
+      "path": "components/warrant",
+      "source_repository": "https://github.com/nuclide-research/warrant",
+      "revision": "7218c08c77d9a4b01224779fabd5e2981b934b45",
+      "file_count": 129,
+      "purpose": "Book-grounded Orient->Retrieve->Plan->Execute->Verify agent & Librarian",
+      "wave": 1
+    },
+    "capo": {
+      "path": "components/capo",
+      "source_local": "local-repo:capo",
+      "revision": null,
+      "file_count": 5,
+      "purpose": "Static capability-graph linter (label-lint, spof-budget, adversary-twin) + host auditor (gamut)",
+      "wave": 1
+    },
+    "github-tos-audit": {
+      "path": "components/github-tos-audit",
+      "source_local": "local-repo:github-tos-audit",
+      "revision": "8e253a104fed8d3c56b57cd5353a579a65778a5d",
+      "file_count": 21,
+      "purpose": "Pre-push GitHub ToS/AUP and source-stewardship compliance auditor",
+      "wave": 1
+    },
+    "nuclide-color-framework-v2": {
+      "path": "components/nuclide-color-framework-v2",
+      "source_local": "local-repo:nuclide-color-framework-v2",
+      "revision": null,
+      "file_count": 16,
+      "purpose": "Centered Lyapunov geometry, OKLab perceptual calibration, 3D SVD metamerism, directional Page CUSUM cascade detector",
+      "wave": 1
+    },
+    "bio-bert": {
+      "path": "components/bio-bert",
+      "source_local": "local-repo:bio-bert",
+      "revision": "c09f4f6c00b708f63a2b1eba75ef1f2d0da19b84",
+      "file_count": 13,
+      "purpose": "Conjunctive k-gram Jaccard + ESM2/DNABERT-2 protein/DNA/RNA homolog finder",
+      "wave": 1
+    },
+    "nina": {
+      "path": "components/nina",
+      "source_local": "local-repo:nina",
+      "revision": "bbd792127bf389bacdc33c4db39eafa1e0e383da",
+      "file_count": 26,
+      "size_kb": 215.8,
+      "wave": 2,
+      "purpose": "Lume 1.0 Zoe Voice Studio, offline neural TTS, 5-band EQ, audio FX, browser extension"
+    },
+    "dBA": {
+      "path": "components/dBA",
+      "source_local": "local-repo:dBA",
+      "revision": "1c3d4369cdfce1adf32d0705674be13844349172",
+      "file_count": 18,
+      "size_kb": 88.5,
+      "wave": 2,
+      "purpose": "defenseBridge for ASR \u2014 audio container metadata firewall stripping tags before Whisper/ASR"
+    },
+    "metrix": {
+      "path": "components/metrix",
+      "source_local": "local-repo:metrix",
+      "revision": null,
+      "file_count": 16,
+      "size_kb": 115.8,
+      "wave": 2,
+      "purpose": "Evidence-first non-executing RE corpus inventory (TOCTOU-verified SHA-256 + magic-byte format/arch detection)"
+    },
+    "spectral": {
+      "path": "components/spectral",
+      "source_local": "local-repo:spectral",
+      "revision": "699ae7e4f5f06ff990f2b6fd9d25760ee21ad66c",
+      "file_count": 46,
+      "size_kb": 222.7,
+      "wave": 2,
+      "purpose": "Rust signature-based AI/LLM forensic artifact scanner"
+    },
+    "gemseal": {
+      "path": "components/gemseal",
+      "source_local": "local-repo:GEM/analysis/gemseal",
+      "revision": null,
+      "file_count": 14,
+      "size_kb": 104.1,
+      "wave": 2,
+      "purpose": "GEM-inspired HKDF-SHA256 + ChaCha20-Poly1305 authenticated file container with tripwire"
+    },
+    "mcp-security": {
+      "path": "components/mcp-security",
+      "source_local": "local-repo:mcp-security",
+      "revision": "28c0a860a519fd1c1780d929a83cc9174c14fa70",
+      "file_count": 15,
+      "size_kb": 115.8,
+      "wave": 2,
+      "purpose": "MCP security layer (mcp_guard proxy + mcp_scan pre-connection scanner), RFC, and attack test tools"
+    },
+    "AvailGate": {
+      "path": "components/AvailGate",
+      "source_local": "local-repo:AvailGate",
+      "revision": null,
+      "file_count": 31,
+      "size_kb": 215.9,
+      "wave": 2,
+      "purpose": "Standalone coding-agent research CLI with persistent source captures and open questions"
+    },
+    "fieldwork": {
+      "path": "components/fieldwork",
+      "source_local": "local-repo:fieldwork",
+      "revision": null,
+      "file_count": 12,
+      "size_kb": 36.6,
+      "wave": 2,
+      "purpose": "Zero-dependency problem-to-tool semantic matcher and capability router"
+    },
+    "ti-bd-gh": {
+      "path": "components/ti-bd-gh",
+      "source_local": "local-repo:ti-bd-gh",
+      "revision": null,
+      "file_count": 20,
+      "size_kb": 134.7,
+      "wave": 2,
+      "purpose": "Zero-JS interactive animated SVG architecture block diagram generator"
+    },
+    "rhythm-lab": {
+      "path": "components/rhythm-lab",
+      "source_local": "local-repo:rhythm-lab",
+      "revision": null,
+      "file_count": 8,
+      "size_kb": 202.5,
+      "wave": 2,
+      "purpose": "MIDI accessible-volume & rhythm surprise rating calibration suite"
+    },
+    "white-bronco": {
+      "path": "components/white-bronco",
+      "source_repository": "https://github.com/francis-rancid/white-bronco",
+      "revision": "1602dc1093d7ae8e8b14ee065d901bd51c216b1a",
+      "file_count": 177,
+      "size_kb": 11577.4,
+      "wave": 2,
+      "purpose": "Coordinated Vulnerability Disclosure (CVD) LaTeX templates, PSIRT directory, and disclosure writing guide"
+    },
+    "RXVM": {
+      "path": "components/RXVM",
+      "source_repository": "https://github.com/Nicholas-Kloster/RXVM",
+      "revision": "c8d6bd4694caa7b4f195e695d4fa54e85795a4f6",
+      "file_count": 20,
+      "size_kb": 943.2,
+      "wave": 2,
+      "purpose": "RXVM bytecode disassembler, rxc cookie decryptor, foxhound ONNX local ML runner, and crypto-layer analysis",
+      "includes_pdf_reference": "components/RXVM/rxvm_crypto_layer_analysis.pdf",
+      "google_drive_enrichment": [
+        "gdrive:ANALYSIS.md (2026-04-19 resolved rx.M & minifloat BatchNorm saturation)",
+        "gdrive:a10_model.py (2026-04-19 verified production saturation notes)",
+        "gdrive:projects/amazon-rxvm/videos/N/supermondo.zip (payload_0_crypto_annotated.txt, rxc_decrypt.py, rxvm_disasm.py)",
+        "gdrive:projects/amazon-rxvm/rxvm_readme_v2_project_overview.md"
+      ]
+    },
+    "VisorCorpus": {
+      "path": "components/VisorCorpus",
+      "source_repository": "https://github.com/nuclide-research/VisorCorpus",
+      "revision": "633324769f3f6d13d7a1ad6ca234535518076ec8",
+      "file_count": 29,
+      "size_kb": 283.7,
+      "wave": 2,
+      "purpose": "Adversarial prompt corpus toolkit (10 attack classes, 8 mutators, CI JSON)"
+    },
+    "VisorAgent": {
+      "path": "components/VisorAgent",
+      "source_repository": "https://github.com/nuclide-research/VisorAgent",
+      "revision": "b21d4ec7ce393bbf14c5e2cba867e62ddc501948",
+      "file_count": 22,
+      "size_kb": 64.3,
+      "wave": 2,
+      "purpose": "Go prompt-injection benchmark through real tool-use paths with HIT/MISS detection scoring"
+    },
+    "VisorCAS": {
+      "path": "components/VisorCAS",
+      "source_repository": "https://github.com/nuclide-research/VisorCAS",
+      "revision": "b8d2218b62b7c3fb5e0f69022408d36636ab6206",
+      "file_count": 27,
+      "size_kb": 179.6,
+      "wave": 2,
+      "purpose": "Content-addressed blake3 false-positive ledger and disposition gate"
+    },
+    "VisorScuba": {
+      "path": "components/VisorScuba",
+      "source_repository": "https://github.com/nuclide-research/VisorScuba",
+      "revision": "9cd61b7af34c47317809b6fe18a32a6e7d3828f0",
+      "file_count": 31,
+      "size_kb": 338.1,
+      "wave": 2,
+      "purpose": "OPA/Rego compliance scoring engine (17 baseline controls + FinOps)"
+    },
+    "VisorLog": {
+      "path": "components/VisorLog",
+      "source_repository": "https://github.com/nuclide-research/VisorLog",
+      "revision": "390b3d7bedd6810a0e2ead789eff826b7cdaafee",
+      "file_count": 22,
+      "size_kb": 85.6,
+      "wave": 2,
+      "purpose": "Append-only SQLite findings ledger with ECS-inspired schema"
+    },
+    "safety-stream": {
+      "path": "components/safety-stream",
+      "source_repository": "https://github.com/nuclide-research/safety-stream",
+      "revision": "f3a31b5f65c6a8b449a9f082bd5fba39fa643a35",
+      "file_count": 31,
+      "size_kb": 948.9,
+      "wave": 2,
+      "purpose": "Go SSE server and terminal dashboard streaming layered safety reasoning turn by turn"
+    },
+    "cortex-framework": {
+      "path": "components/cortex-framework",
+      "source_repository": "https://github.com/nuclide-research/cortex-framework",
+      "revision": "67192f7092c8476e36b7851007b162a4e0899c38",
+      "file_count": 69,
+      "size_kb": 775.2,
+      "wave": 2,
+      "purpose": "Authorization Context Analyzer (what code does vs. what it assumes the right to do)"
+    },
+    "nuclide-atlas": {
+      "path": "components/nuclide-atlas",
+      "source_repository": "https://github.com/nuclide-research/nuclide-atlas",
+      "revision": "1eae486bd9bfd182c58aac96fb2b50f63f249317",
+      "file_count": 63,
+      "size_kb": 1022.2,
+      "wave": 2,
+      "purpose": "Auto-discovery graph of local/Docker/K8s models, RAG, tools, and agent blast radius"
+    },
+    "chainsaw-cli": {
+      "path": "components/chainsaw-cli",
+      "source_repository": "https://github.com/nuclide-research/chainsaw-cli",
+      "revision": "56c9ea96cb4020f2d77bdf44f61ba408cce85cc4",
+      "file_count": 4,
+      "size_kb": 17.0,
+      "wave": 2,
+      "purpose": "Collective-brain router, librarian, and usage-ledger CLI engine (corpus-agnostic)"
+    },
+    "prompt-architect": {
+      "path": "components/prompt-architect",
+      "source_repository": "https://github.com/nuclide-research/prompt-architect",
+      "revision": "5c740f76f481afc8e915a76304e496040f27b120",
+      "file_count": 176,
+      "size_kb": 8394.5,
+      "wave": 2,
+      "purpose": "Pure-Python BM25-grounded prompt analyzer, refiner, and diversifier"
+    },
+    "nuclide-asset-schema": {
+      "path": "components/nuclide-asset-schema",
+      "source_repository": "https://github.com/nuclide-research/nuclide-asset-schema",
+      "revision": "001ff9574343bd61fa971f4f940a94642fdaddbd",
+      "file_count": 7,
+      "size_kb": 21.5,
+      "wave": 2,
+      "purpose": "JSON Schema 2020-12 contract for asset, service, attribution, and finding records"
+    },
+    "nuclide-method": {
+      "path": "components/nuclide-method",
+      "source_repository": "https://github.com/nuclide-research/nuclide-method",
+      "revision": "69b518b076e9232bb7c1e833f7be9d856bd3b035",
+      "file_count": 48,
+      "size_kb": 316.6,
+      "wave": 2,
+      "purpose": "NuClide verification-first assessment methodology (scanner candidates -> verified findings)"
+    },
+    "wardrobe": {
+      "path": "components/wardrobe",
+      "source_repository": "https://github.com/nuclide-research/wardrobe",
+      "revision": "7ac032bc8ccbc8fa26828b52ca990ffd75c371f1",
+      "file_count": 6,
+      "size_kb": 833.5,
+      "wave": 2,
+      "purpose": "DoD DCWF cybersecurity work-role taxonomy and agent role assignment atoms"
+    },
+    "operator-doctrine": {
+      "path": "components/operator-doctrine",
+      "source_repository": "https://github.com/nuclide-research/operator-doctrine",
+      "revision": "3e880e3f47e32de5148b3f5629fd79c51997bf6d",
+      "file_count": 2,
+      "size_kb": 7.6,
+      "wave": 2,
+      "purpose": "Composite research-operator mindset stack across five DCWF work roles"
+    },
+    "ALIGNMENT-UNDER-PRESSURE": {
+      "path": "components/ALIGNMENT-UNDER-PRESSURE",
+      "source_repository": "https://github.com/Nicholas-Kloster/ALIGNMENT-UNDER-PRESSURE",
+      "revision": "981ac2583fbc8b2b3d012d5e5a509405196f5796",
+      "file_count": 32,
+      "size_kb": 1601.9,
+      "wave": 2,
+      "purpose": "Formal LLM alignment constraint-strength measurement via output distribution analysis + AFL injection harness"
+    },
+    "constraint-is-freedom": {
+      "path": "components/constraint-is-freedom",
+      "source_repository": "https://github.com/Nicholas-Kloster/constraint-is-freedom",
+      "revision": "9c3085f8034e9341b65b1aef60ed1ff710ca63e5",
+      "file_count": 30,
+      "size_kb": 1437.9,
+      "wave": 2,
+      "purpose": "Autonomy as Thresholded Output-Space Volume in Transformer LLMs (empirical & defense code)"
+    },
+    "Claude-Savant": {
+      "path": "components/Claude-Savant",
+      "source_repository": "https://github.com/Nicholas-Kloster/Claude-Savant",
+      "revision": "3b62f9409c8ff8a4603b49aca95b3ac594479bce",
+      "file_count": 6,
+      "size_kb": 284.4,
+      "wave": 2,
+      "purpose": "Tiered external memory.md scaling architecture"
+    },
+    "Claude-4.7": {
+      "path": "components/Claude-4.7",
+      "source_repository": "https://github.com/Nicholas-Kloster/Claude-4.7",
+      "revision": "4210e45b9675839ec9a29fb113492be074dc01d1",
+      "file_count": 3,
+      "size_kb": 8.1,
+      "wave": 2,
+      "purpose": "Sentinel-driven deterministic template extraction guides and patterns"
+    },
+    "rag-pipeline-demo": {
+      "path": "components/rag-pipeline-demo",
+      "source_repository": "https://github.com/Nicholas-Kloster/rag-pipeline-demo",
+      "revision": "1625e66e0e829b00a0992c460247a3658ea6e234",
+      "file_count": 5,
+      "size_kb": 176.3,
+      "wave": 2,
+      "purpose": "Interactive 4-stage RAG pipeline visualizer (query rewrite -> retrieval -> context injection -> generation)"
+    }
+  },
+  "wave1_count": 11,
+  "wave2_count": 31,
+  "wave3_upgrade_count": 5,
+  "wave3_vault_upgrades": [
+    {
+      "id": "trust_gradient_lume",
+      "source": "gdrive:projects/sonification/seven-layer-sonification-v4/src/trust.py",
+      "targets": [
+        "components/Zoe-Autonomy/src/zoe_autonomy/trust_gradient.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/zoe_clara.py",
+        "components/nina/audio_fx.py"
+      ],
+      "purpose": "5-dimension continuous TrustEngine (output_trust <= source_trust ceiling) wired into DualPeerSession and nina Lume audio clarity cues"
+    },
+    {
+      "id": "ablation_agent_binary_auditors",
+      "source": "gdrive:ablation-re-lab/modules/{agent_authority_audit,agent_observability_audit,agent_tool_surface_enumerator,ai_control_indicators}.py",
+      "targets": [
+        "components/ablation/ablation/analyzers/agent_authority_audit.py",
+        "components/ablation/ablation/analyzers/agent_observability_audit.py",
+        "components/ablation/ablation/analyzers/agent_tool_surface_enumerator.py",
+        "components/ablation/ablation/analyzers/ai_control_indicators.py",
+        "components/ablation/ablation/analyzers/__init__.py"
+      ],
+      "purpose": "Four unpublished BinaryContext static auditors for compiled AI-agent authority surplus, observability/HITL gaps, .rodata JSON tool surface, and AI-code review triage"
+    },
+    {
+      "id": "dual_path_verifier_visorlog",
+      "source": "gdrive:Downloads/Dual-Path_Query_Validation_Framework.docx",
+      "targets": [
+        "components/Zoe-Autonomy/src/zoe_autonomy/wave3_vault_upgrades.py"
+      ],
+      "purpose": "Parallel trusted-vs-LLM query verification holding disagreements and persisting BERT-style [MASK] correction flashcards in VisorLog's SQLite schema"
+    },
+    {
+      "id": "eq2_cascade_vec2text_mcp_guards",
+      "source": "gdrive:111222/paper/cascade_subsection.txt + gdrive:lab/{embedding-inversion,pal-mcp,llamaindex-milvus}-poc-2026-06-18",
+      "targets": [
+        "components/Zoe-Autonomy/src/zoe_autonomy/cognitive_upgrades.py",
+        "components/gemseal/gemseal.py",
+        "components/kevlar/policy.py"
+      ],
+      "purpose": "Equation-2 depth-1 slow-drift compliance cascade detector, GEMSEAL1 vector-privacy sealing against vec2text inversion, and Kevlar MCP sensitive home-subdir + vector-filter injection guards"
+    },
+    {
+      "id": "email_ros_bloom_cas_actuation",
+      "source": "gdrive:Documents/{research/Minimal-Email-Guardrail-Python-Impl.txt,research/ROS-Control-Immediate-Exec-Philosophy.txt,misc/Scanner-Bloom-CAS-Dedup-Design.md}",
+      "targets": [
+        "components/Zoe-Autonomy/src/zoe_autonomy/actuation.py",
+        "components/Zoe-Autonomy/src/zoe_autonomy/wave3_vault_upgrades.py",
+        "components/VisorCAS/cas/fastdedup.go"
+      ],
+      "purpose": "Per-agent SQLite outbound email allowlist guardrail, ROS confirm-before-move deadman interlock on ActuationPolicy, and lock-free Bloom+atomic CAS deduplication in VisorCAS"
+    },
+    {
+      "id": "wave3_seasip_gem_instruments",
+      "source": "https://www.seasip.info/Gem/index.html + http://toastytech.com/guis/indexgem.html",
+      "targets": [
+        "guiai-lab/guiai/gem/seasip_gem.py",
+        "guiai-lab/guiai/gem/wave3_gem_instruments.py",
+        "guiai-lab/guiai/gem/vdi.py",
+        "guiai-lab/guiai/gem/operating_environment.py",
+        "guiai-lab/guiai/gem/atlas.py",
+        "guiai-lab/stress/test_wave3_seasip_gem.py",
+        "scripts/verify_wave3_seasip_gem.py"
+      ],
+      "purpose": "Digital Research GSX-86 / GEM 1.1 / GEM 2.0-3.11 / Atari TOS 1.0 (68k) / OpenGEM ViewMAX rebuild of all 5 Wave 3 Vault upgrades with spec-exact .GEM, dual-endian x86/68k .RSC, 4-plane .IMG/XIMG, 1982 NDC .GSX, 16-byte AES messages, form_alert, and 5-era interactive GEM time-machine desktop"
+    }
+  ],
+  "updated_utc": "2026-11-24T15:18:00Z",
+  "preserved_google_drive_drafts": [
+    "docs/research-drafts/angr-scoped-symbolic-execution.md",
+    "docs/research-drafts/autoregressive-compliance-cascade.md",
+    "docs/research-drafts/beam-iff-obfuscation-detection.md",
+    "docs/research-drafts/binary-analysis-and-space-reduction.md",
+    "docs/research-drafts/ctm-companion-paper.md",
+    "docs/research-drafts/dual-path-query-validation.md",
+    "docs/research-drafts/project-overmatch-vectorized-disassembler.md",
+    "docs/research-drafts/ros-control-immediate-exec-safety.md",
+    "docs/research-drafts/scanner-bloom-cas-dedup.md",
+    "docs/research-drafts/verification-exploitation-asymmetry.md"
+  ]
+}

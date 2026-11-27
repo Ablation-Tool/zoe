@@ -1,0 +1,30 @@
+{
+  "ourn": "urn:orm:book:9780138280383",
+  "identifier": "9780138280383",
+  "isbn": "9780138280383",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9780138280383/",
+  "content_format": "book",
+  "publication_date": "2024-04-22",
+  "created_time": "2024-03-14T03:45:30.451672Z",
+  "last_modified_time": "2024-10-25T19:36:50.212333Z",
+  "title": "Programming Large Language Models with Azure Open AI: Conversational programming and prompt engineering with LLMs",
+  "is_hidden": false,
+  "has_mathml": true,
+  "virtual_pages": 463,
+  "opf_unique_identifier_type": "p9780138280451",
+  "page_count": 256,
+  "total_running_time_secs": null,
+  "total_size": 31847283,
+  "descriptions": {
+    "text/html": "<span><div><p><strong>Use LLMs to build better business software applications</strong></p><p>Autonomously communicate with users and optimize business tasks with applications built to make the interaction between humans and computers smooth and natural. Artificial Intelligence expert Francesco Esposito illustrates several scenarios for which a LLM is effective: crafting sophisticated business solutions, shortening the gap between humans and software-equipped machines, and building powerful reasoning engines. Insight into prompting and conversational programmingwith specific techniques for patterns and frameworksunlock how natural language can also lead to a new, advanced approach to coding. Concrete end-to-end demonstrations (featuring Python and ASP.NET Core) showcase versatile patterns of interaction between existing processes, APIs, data, and human input.</p><p><strong>Artificial Intelligence expert Francesco Esposito helps you:</strong></p><ul><li><p>Understand the history of large language models and conversational programming</p></li><li><p>Apply prompting as a new way of coding</p></li><li><p>Learn core prompting techniques and fundamental use-cases</p></li><li><p>Engineer advanced prompts, including connecting LLMs to data and function calling to build reasoning engines</p></li><li><p>Use natural language in code to define workflows and orchestrate existing APIs</p></li><li><p>Master external LLM frameworks</p></li><li><p>Evaluate responsible AI security, privacy, and accuracy concerns</p></li><li><p>Explore the AI regulatory landscape</p></li><li><p>Build and implement a personal assistant</p></li><li><p>Apply a retrieval augmented generation (RAG) pattern to formulate responses based on a knowledge base</p></li><li><p>Construct a conversational user interface</p></li></ul><p><strong>For IT Professionals and Consultants </strong></p><ul><li><p>For software professionals, architects, lead developers, programmers, and Machine Learning enthusiasts</p></li><li><p>For anyone else interested in natural language processing or real-world applications of human-like language in software</p></li></ul></div></span>",
+    "text/plain": "Use LLMs to build better business software applications Autonomously communicate with users and optimize business tasks with applications built to make the interaction between humans and computers smooth and natural. Artificial Intelligence expert Francesco Esposito illustrates several scenarios for which a LLM is effective: crafting sophisticated business solutions, shortening the gap between humans and software-equipped machines, and building powerful reasoning engines. Insight into prompting and conversational programmingwith specific techniques for patterns and frameworksunlock how natural language can also lead to a new, advanced approach to coding. Concrete end-to-end demonstrations (featuring Python and ASP.NET Core) showcase versatile patterns of interaction between existing processes, APIs, data, and human input. Artificial Intelligence expert Francesco Esposito helps you: Understand the history of large language models and conversational programming Apply prompting as a new way of coding Learn core prompting techniques and fundamental use-cases Engineer advanced prompts, including connecting LLMs to data and function calling to build reasoning engines Use natural language in code to define workflows and orchestrate existing APIs Master external LLM frameworks Evaluate responsible AI security, privacy, and accuracy concerns Explore the AI regulatory landscape Build and implement a personal assistant Apply a retrieval augmented generation (RAG) pattern to formulate responses based on a knowledge base Construct a conversational user interface For IT Professionals and Consultants For software professionals, architects, lead developers, programmers, and Machine Learning enthusiasts For anyone else interested in natural language processing or real-world applications of human-like language in software"
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9780138280383/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9780138280383/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9780138280383/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9780138280383",
+  "tags": [],
+  "language": "en",
+  "resources": [],
+  "roughcut": false
+}

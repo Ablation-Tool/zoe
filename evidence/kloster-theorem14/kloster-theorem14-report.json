@@ -1,0 +1,412 @@
+{
+  "all_verified": true,
+  "checks": {
+    "thm14_sympy_6_exact_proofs_residual_zero": true,
+    "thm14_w1_spatial_point_patterns_3regime_separation": true,
+    "thm14_w2_optical_parseval_mtf_and_200_blur_monotonicity": true,
+    "thm14_w3_scheimpflug_tilt_maximizes_kloster_sharpness": true,
+    "thm14_w45_isovist_structural_and_botanical_drawing_law": true
+  },
+  "constitution": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "full_copyrighted_book_text_accessed": false,
+    "offline_and_100pct_legal": true,
+    "sentience_claimed": false
+  },
+  "contract": "zoe-kloster-theorem14/v1",
+  "equation_credit": "Operational Metacognition A_tau(p) originated by Nicholas Michael Kloster (March 6, 2026)",
+  "evidence_sha256": "9e18d45aebcfa22a7956334f6766d2a6f06a4eb771d1364b7671098fb7eb82ea",
+  "sympy_proofs": {
+    "all_proved": true,
+    "blur_loss_2bin_formula": "-2*eps*(eps - 1)*(2*p0 - 1)**2",
+    "m2_1d_formula": "1/(2*sqrt(pi)*sigma)",
+    "m2_2d_formula": "1/(4*pi*sigma**2)",
+    "proofs": {
+      "14a_1d_gaussian_norm_exact": true,
+      "14b_1d_gaussian_m2_sharpness_exact": true,
+      "14c_1d_gaussian_entropy_from_atau_exact": true,
+      "14d_2d_gaussian_area_law_exact": true,
+      "14e_parseval_mtf_blur_loss_exact": true,
+      "14f_scheimpflug_three_plane_hinge_exact": true
+    },
+    "scheimpflug_z_at_intersection": "-v",
+    "sympy_version": "1.14.0"
+  },
+  "world1_spatial_point_patterns": {
+    "clustered_thomas": {
+      "besag_l_minus_r": 0.07342,
+      "n_quadrats": 64,
+      "points": 192,
+      "vmr": 7.7884,
+      "z_kloster": 38.1992
+    },
+    "csr_120trial_zk_std": 1.1064,
+    "csr_poisson_null": {
+      "besag_l_minus_r": 0.00165,
+      "n_quadrats": 64,
+      "points": 192,
+      "vmr": 1.0053,
+      "z_kloster": 0.0298
+    },
+    "inhibited_regular": {
+      "besag_l_minus_r": -0.01325,
+      "n_quadrats": 64,
+      "points": 192,
+      "vmr": 0.1481,
+      "z_kloster": -4.7935
+    },
+    "verified": true
+  },
+  "world2_optical_mtf_resolution": {
+    "blur_monotonicity_200": "200/200",
+    "m2_original_sharp": 0.00252411,
+    "max_parseval_error": 8.673617379884035e-19,
+    "mtf_curve": [
+      {
+        "delta_opt": 0.00059596,
+        "m2_parseval": 0.00192815,
+        "m2_spatial": 0.00192815,
+        "na_equiv": 2.374,
+        "parseval_err": 4.336808689942018e-19,
+        "psf_sigma_px": 0.6,
+        "retention_ratio": 0.7639
+      },
+      {
+        "delta_opt": 0.00098883,
+        "m2_parseval": 0.00153528,
+        "m2_spatial": 0.00153528,
+        "na_equiv": 1.425,
+        "parseval_err": 8.673617379884035e-19,
+        "psf_sigma_px": 1.0,
+        "retention_ratio": 0.6082
+      },
+      {
+        "delta_opt": 0.00122511,
+        "m2_parseval": 0.00129899,
+        "m2_spatial": 0.00129899,
+        "na_equiv": 0.89,
+        "parseval_err": 2.168404344971009e-19,
+        "psf_sigma_px": 1.6,
+        "retention_ratio": 0.5146
+      },
+      {
+        "delta_opt": 0.00137319,
+        "m2_parseval": 0.00115092,
+        "m2_spatial": 0.00115092,
+        "na_equiv": 0.594,
+        "parseval_err": 2.168404344971009e-19,
+        "psf_sigma_px": 2.4,
+        "retention_ratio": 0.456
+      },
+      {
+        "delta_opt": 0.0014713,
+        "m2_parseval": 0.0010528,
+        "m2_spatial": 0.0010528,
+        "na_equiv": 0.396,
+        "parseval_err": 2.168404344971009e-19,
+        "psf_sigma_px": 3.6,
+        "retention_ratio": 0.4171
+      },
+      {
+        "delta_opt": 0.00151417,
+        "m2_parseval": 0.00100994,
+        "m2_spatial": 0.00100994,
+        "na_equiv": 0.285,
+        "parseval_err": 0.0,
+        "psf_sigma_px": 5.0,
+        "retention_ratio": 0.4001
+      }
+    ],
+    "verified": true
+  },
+  "world3_scheimpflug_view_camera": {
+    "angle_error_deg": 0.0172,
+    "kloster_peak_theta_deg": 13.5,
+    "m2_at_scheimpflug_peak": 0.01463163,
+    "m2_at_zero_tilt": 0.00640559,
+    "sharpness_gain_x": 2.284,
+    "sweep": [
+      {
+        "kloster_m2": 0.00519374,
+        "theta_deg": -6.0
+      },
+      {
+        "kloster_m2": 0.00527235,
+        "theta_deg": -5.5
+      },
+      {
+        "kloster_m2": 0.00535416,
+        "theta_deg": -5.0
+      },
+      {
+        "kloster_m2": 0.00543939,
+        "theta_deg": -4.5
+      },
+      {
+        "kloster_m2": 0.00552826,
+        "theta_deg": -4.0
+      },
+      {
+        "kloster_m2": 0.00562102,
+        "theta_deg": -3.5
+      },
+      {
+        "kloster_m2": 0.00571794,
+        "theta_deg": -3.0
+      },
+      {
+        "kloster_m2": 0.00581932,
+        "theta_deg": -2.5
+      },
+      {
+        "kloster_m2": 0.00592549,
+        "theta_deg": -2.0
+      },
+      {
+        "kloster_m2": 0.00603679,
+        "theta_deg": -1.5
+      },
+      {
+        "kloster_m2": 0.00615362,
+        "theta_deg": -1.0
+      },
+      {
+        "kloster_m2": 0.0062764,
+        "theta_deg": -0.5
+      },
+      {
+        "kloster_m2": 0.00640559,
+        "theta_deg": 0.0
+      },
+      {
+        "kloster_m2": 0.00654172,
+        "theta_deg": 0.5
+      },
+      {
+        "kloster_m2": 0.00668533,
+        "theta_deg": 1.0
+      },
+      {
+        "kloster_m2": 0.00683707,
+        "theta_deg": 1.5
+      },
+      {
+        "kloster_m2": 0.00699761,
+        "theta_deg": 2.0
+      },
+      {
+        "kloster_m2": 0.00716772,
+        "theta_deg": 2.5
+      },
+      {
+        "kloster_m2": 0.00734824,
+        "theta_deg": 3.0
+      },
+      {
+        "kloster_m2": 0.00754009,
+        "theta_deg": 3.5
+      },
+      {
+        "kloster_m2": 0.00774433,
+        "theta_deg": 4.0
+      },
+      {
+        "kloster_m2": 0.00796211,
+        "theta_deg": 4.5
+      },
+      {
+        "kloster_m2": 0.00819471,
+        "theta_deg": 5.0
+      },
+      {
+        "kloster_m2": 0.00844355,
+        "theta_deg": 5.5
+      },
+      {
+        "kloster_m2": 0.00871022,
+        "theta_deg": 6.0
+      },
+      {
+        "kloster_m2": 0.00899647,
+        "theta_deg": 6.5
+      },
+      {
+        "kloster_m2": 0.00930422,
+        "theta_deg": 7.0
+      },
+      {
+        "kloster_m2": 0.00963555,
+        "theta_deg": 7.5
+      },
+      {
+        "kloster_m2": 0.00999265,
+        "theta_deg": 8.0
+      },
+      {
+        "kloster_m2": 0.01037773,
+        "theta_deg": 8.5
+      },
+      {
+        "kloster_m2": 0.01079276,
+        "theta_deg": 9.0
+      },
+      {
+        "kloster_m2": 0.01123915,
+        "theta_deg": 9.5
+      },
+      {
+        "kloster_m2": 0.01171692,
+        "theta_deg": 10.0
+      },
+      {
+        "kloster_m2": 0.0122234,
+        "theta_deg": 10.5
+      },
+      {
+        "kloster_m2": 0.01275097,
+        "theta_deg": 11.0
+      },
+      {
+        "kloster_m2": 0.01328349,
+        "theta_deg": 11.5
+      },
+      {
+        "kloster_m2": 0.01379135,
+        "theta_deg": 12.0
+      },
+      {
+        "kloster_m2": 0.01422714,
+        "theta_deg": 12.5
+      },
+      {
+        "kloster_m2": 0.01452766,
+        "theta_deg": 13.0
+      },
+      {
+        "kloster_m2": 0.01463163,
+        "theta_deg": 13.5
+      },
+      {
+        "kloster_m2": 0.01451113,
+        "theta_deg": 14.0
+      },
+      {
+        "kloster_m2": 0.01419008,
+        "theta_deg": 14.5
+      },
+      {
+        "kloster_m2": 0.01372824,
+        "theta_deg": 15.0
+      },
+      {
+        "kloster_m2": 0.01318964,
+        "theta_deg": 15.5
+      },
+      {
+        "kloster_m2": 0.01262345,
+        "theta_deg": 16.0
+      },
+      {
+        "kloster_m2": 0.01206088,
+        "theta_deg": 16.5
+      },
+      {
+        "kloster_m2": 0.01151925,
+        "theta_deg": 17.0
+      },
+      {
+        "kloster_m2": 0.01100692,
+        "theta_deg": 17.5
+      },
+      {
+        "kloster_m2": 0.01052699,
+        "theta_deg": 18.0
+      },
+      {
+        "kloster_m2": 0.01007967,
+        "theta_deg": 18.5
+      },
+      {
+        "kloster_m2": 0.0096637,
+        "theta_deg": 19.0
+      },
+      {
+        "kloster_m2": 0.00927715,
+        "theta_deg": 19.5
+      },
+      {
+        "kloster_m2": 0.00891783,
+        "theta_deg": 20.0
+      },
+      {
+        "kloster_m2": 0.00858357,
+        "theta_deg": 20.5
+      },
+      {
+        "kloster_m2": 0.00827224,
+        "theta_deg": 21.0
+      },
+      {
+        "kloster_m2": 0.00798192,
+        "theta_deg": 21.5
+      },
+      {
+        "kloster_m2": 0.0077108,
+        "theta_deg": 22.0
+      },
+      {
+        "kloster_m2": 0.00745724,
+        "theta_deg": 22.5
+      },
+      {
+        "kloster_m2": 0.00721976,
+        "theta_deg": 23.0
+      },
+      {
+        "kloster_m2": 0.00699702,
+        "theta_deg": 23.5
+      },
+      {
+        "kloster_m2": 0.0067878,
+        "theta_deg": 24.0
+      },
+      {
+        "kloster_m2": 0.00659099,
+        "theta_deg": 24.5
+      },
+      {
+        "kloster_m2": 0.00640559,
+        "theta_deg": 25.0
+      },
+      {
+        "kloster_m2": 0.00623069,
+        "theta_deg": 25.5
+      },
+      {
+        "kloster_m2": 0.00606547,
+        "theta_deg": 26.0
+      }
+    ],
+    "theoretical_scheimpflug_deg": 13.4828,
+    "verified": true
+  },
+  "world45_architecture_structure_drawing": {
+    "cruz_structural": {
+      "cantilever_bottleneck_n_eff": 3.249,
+      "funicular_arch_n_eff": 11.996,
+      "redundancy_gain_x": 3.693
+    },
+    "ewing_drawing_filtration": {
+      "blank_paper_null_m2": 0.000434,
+      "ink_contour_m2": 0.005952,
+      "watercolor_wash_m2": 0.000756
+    },
+    "totten_isovist": {
+      "corridor_m2": 0.030588,
+      "corridor_to_plaza_ratio": 2.201,
+      "plaza_m2": 0.0139
+    },
+    "verified": true
+  }
+}

@@ -1,0 +1,127 @@
+id: JBA-001
+name: jetbrains_ai_config
+version: "1.0"
+category: code/config
+model_family: JetBrains/AI
+confidence: high
+description: JetBrains AI Assistant IDE plugin configuration artifacts
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.idea/aiAssistant.xml'
+  - type: file_path
+    pattern: '.idea/ai-assistant.xml'
+  - type: string
+    pattern: 'jetbrains-ai-assistant'
+tags: [jetbrains, ai-assistant, ide, config]
+---
+id: JBA-002
+name: jetbrains_ai_attribution
+version: "1.0"
+category: code/commit
+model_family: JetBrains/AI
+confidence: medium
+description: Commit or code attributed to JetBrains AI Assistant generation
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)JetBrains AI'
+  - type: regex
+    pattern: '(?i)generated (with|by) (JetBrains AI|AI Assistant)'
+  - type: string
+    pattern: 'jetbrains.com/ai'
+tags: [jetbrains, ai-assistant, commit, attribution]
+---
+id: CDY-001
+name: sourcegraph_cody_config
+version: "1.0"
+category: code/config
+model_family: Sourcegraph/Cody
+confidence: high
+description: Sourcegraph Cody AI assistant configuration and workspace artifacts
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.cody'
+  - type: file_path
+    pattern: 'cody.json'
+  - type: file_path
+    pattern: '.sourcegraph'
+tags: [cody, sourcegraph, ide, config]
+---
+id: CDY-002
+name: sourcegraph_cody_api
+version: "1.0"
+category: infrastructure/headers
+model_family: Sourcegraph/Cody
+confidence: high
+description: Sourcegraph Cody API endpoint and header patterns
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: string
+    pattern: 'SOURCEGRAPH_ACCESS_TOKEN'
+  - type: regex
+    pattern: 'sourcegraph\.com/.api/graphql'
+  - type: string
+    pattern: 'X-Requested-With: Cody'
+tags: [cody, sourcegraph, api, headers]
+---
+id: CDY-003
+name: sourcegraph_cody_attribution
+version: "1.0"
+category: code/commit
+model_family: Sourcegraph/Cody
+confidence: medium
+description: Commit attributed to Sourcegraph Cody AI assistant
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)Co-Authored-By:.*cody'
+  - type: regex
+    pattern: '(?i)generated (with|by) (sourcegraph |cody)'
+  - type: regex
+    pattern: '(?i)Cody AI'
+tags: [cody, sourcegraph, commit, attribution]
+---
+id: ZED-001
+name: zed_ai_config
+version: "1.0"
+category: code/config
+model_family: Zed/AI
+confidence: high
+description: Zed editor AI configuration artifacts - inline AI assistant and model settings
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.zed/settings.json'
+  - type: file_path
+    pattern: '.zed/keymap.json'
+  - type: string
+    pattern: 'zed.dev'
+tags: [zed, ide, config, ai-assistant]
+---
+id: ZED-002
+name: zed_ai_settings_content
+version: "1.0"
+category: code/config
+model_family: Zed/AI
+confidence: medium
+description: Zed editor AI settings content pattern in JSON config files
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: string
+    pattern: '"inline_completions"'
+  - type: string
+    pattern: '"assistant": {'
+  - type: regex
+    pattern: '"provider":\s*"zed\.dev"'
+  - type: string
+    pattern: '"version": "2"'
+tags: [zed, ide, config, content, ai-settings]

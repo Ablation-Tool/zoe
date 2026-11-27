@@ -1,0 +1,164 @@
+{
+  "all_verified": true,
+  "challenges": {
+    "c11_headline_puzzle": {
+      "challenge": "challenge11_paul_derthick_nsa_headline_puzzle",
+      "exact_k3_cycle_and_keys_recovered": true,
+      "headlines_cracked_exact": "5/5",
+      "recovered_hat_length": 5,
+      "recovered_headlines": [
+        "QUANTUM RESEARCHERS PUBLISH NEW LATTICE SECURITY BOUNDS FOR FEDERAL NETWORKS",
+        "POSTAL ARCHIVISTS UNCOVER HISTORIC CODED LETTERS FROM FEDERAL ARCHIVE VAULT",
+        "ENGINEERS COMPLETE CONSTANT TIME HARDWARE VERIFICATION ACROSS EMBEDDED CHIPS",
+        "MATHEMATICIANS PROVE EXACT SPECTRAL DUALITY BETWEEN COINCIDENCE AND ENTROPY",
+        "GLOBAL STANDARDS COMMITTEE APPROVES DIGITAL HASH FIRMWARE SIGNATURES TODAY"
+      ],
+      "recovered_key_alphabet": "CRYPTOLGABDEFHIJKMNQSUVWXZ",
+      "recovered_mixed_alphabet": "YGFMVPAHNWRLEKUTBIQXCODJSZ",
+      "recovered_setting": "PULSE",
+      "true_setting": "PULSE",
+      "verified": true,
+      "zero_hardcoded_keys_used": true
+    },
+    "c12_simon_and_speck": {
+      "challenge": "challenge12_nsa_simon_and_speck_32_64",
+      "simon32_64_official_vector_hex": "c69b e9bb",
+      "simon32_64_vector_exact": true,
+      "simon_32rd_full_security_margin": {
+        "kloster_m4_root": 0.01701,
+        "max_bin_prob": 0.00684
+      },
+      "simon_5rd_distinguisher": {
+        "kloster_m4_root": 0.13619,
+        "max_bin_prob": 0.09521
+      },
+      "speck32_64_official_vector_hex": "a868 42f2",
+      "speck32_64_vector_exact": true,
+      "speck_22rd_full_security_margin": {
+        "kloster_m4_root": 0.0169,
+        "max_bin_prob": 0.00708
+      },
+      "speck_4rd_distinguisher": {
+        "kloster_m4_root": 0.08351,
+        "max_bin_prob": 0.05786
+      },
+      "uniform_baseline_m4_root": 0.01562,
+      "verified": true
+    },
+    "c13_forensic_elimination": {
+      "challenge": "challenge13_forensic_elimination_may26_and_kryptos_k4",
+      "kryptos_k4": {
+        "enigma_no_fixed_point_class_ruled_out": true,
+        "friedman_kloster": {
+          "friedman_ic_direct": 0.04602,
+          "friedman_ic_unbiased": 0.036082,
+          "integral_abs_err": 0.0,
+          "kloster_m2_integral": 0.04602,
+          "kloster_m4_root": 0.108597
+        },
+        "pure_monoalphabetic_and_transposition_ruled_out": true,
+        "sanborn_24char_crib_self_encryptions": 2,
+        "solved": false
+      },
+      "may26": {
+        "even_boundary_double_indices": [
+          2,
+          14,
+          16,
+          48
+        ],
+        "forensic_conclusion": "Natural-language IC (0.0722) & raw bigram IC (0.00803) rule out pure polyalphabetic, Playfair, and simple transpositions; failure across 12 languages x 2 orientations + only 18 unique letters + 'ppjj' doubles points to non-bijective key collision or non-European script.",
+        "friedman_kloster": {
+          "friedman_ic_direct": 0.080998,
+          "friedman_ic_unbiased": 0.072161,
+          "integral_abs_err": 0.0,
+          "kloster_m2_integral": 0.080998,
+          "kloster_m4_root": 0.167873
+        },
+        "language_max_quadgram_scores": {
+          "da": -1180.15,
+          "de": -1204.55,
+          "es": -1208.46,
+          "fi": -1184.23,
+          "fr": -1177.75,
+          "it": -1136.49,
+          "nl": -1149.64,
+          "pl": -1203.3,
+          "pt_BR": -1227.55,
+          "ru": -1187.36,
+          "sv": -1170.1,
+          "tr": -1194.51
+        },
+        "languages_tested_fwd_and_rev": 24,
+        "playfair_mathematically_ruled_out": true,
+        "raw_bigram_dominates_transpositions": true,
+        "solved": false,
+        "transposition_bigram_ic": {
+          "cols_3": 0.00392,
+          "cols_5": 0.00541,
+          "cols_7": 0.00448,
+          "rail_2": 0.00504,
+          "rail_3": 0.00672,
+          "rail_4": 0.00485,
+          "raw": 0.00803
+        },
+        "unique_letters": 18
+      },
+      "verified": true
+    },
+    "c14_cnsa2_lms_wots": {
+      "atomic_guard_replays_blocked": "16/16",
+      "atomic_guard_valid_sigs_issued": 4,
+      "challenge": "challenge14_cnsa2_lms_wots_forgery_and_atomic_guard",
+      "forged_payload": "MALICIOUS_FW_FORGERY_731",
+      "forged_signature_passes_full_merkle_verify": true,
+      "forgery_hashes_searched": 732,
+      "merkle_root_prefix_hex": "364fc5761eee812a",
+      "merkle_tree_height": 4,
+      "reused_leaf_index": 3,
+      "verified": true
+    },
+    "c15_cnsa2_mlkem_side_channel": {
+      "all_16_secret_coeffs_recovered_exact": true,
+      "challenge": "challenge15_cnsa2_mlkem_side_channel_vs_constant_time",
+      "constant_time_ops_per_probe": 32,
+      "constant_time_zero_branch_leakage": true,
+      "kyber_prime_q": 3329,
+      "leaky_oracle_probes_used": 160,
+      "ring_dim_n": 16,
+      "verified": true
+    },
+    "c16_matsui_and_bleichenbacher": {
+      "bleichenbacher": {
+        "bleichenbacher_queries": 2949,
+        "exact_match": true,
+        "oaep_neg_ctrl_blocked": "32/32",
+        "recovered_plaintext": "CNSA2_OK"
+      },
+      "challenge": "challenge16_matsui_linear_and_bleichenbacher_rsa",
+      "matsui_exact_subkey_recovered": true,
+      "matsui_kloster_m4_root": 0.02414,
+      "matsui_known_plaintexts": 10000,
+      "matsui_median_bias": 0.0039,
+      "matsui_recovered_subkey_hex": "0xB, 0x7",
+      "matsui_top_bias": 0.0146,
+      "verified": true
+    }
+  },
+  "checks": {
+    "c11_paul_derthick_nsa_headline_puzzle_5of5_and_k3_keys": true,
+    "c12_nsa_simon_and_speck_32_64_vectors_and_diff_cliff": true,
+    "c13_may26_and_kryptos_k4_forensic_elimination_honest": true,
+    "c14_cnsa2_lms_wots_forgery_and_atomic_state_guard": true,
+    "c15_cnsa2_mlkem_q3329_timing_oracle_and_ct_defense": true,
+    "c16_matsui_4rd_spn_linear_and_bleichenbacher_rsa_oracle": true
+  },
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "negative_controls_and_defenses_verified": true,
+    "offline_and_100pct_legal": true,
+    "unsolved_ciphers_marked_honestly": true
+  },
+  "contract": "zoe-nsa-research-puzzle-pack/v1",
+  "evidence_sha256": "92464f48fbd17477c10ea060029b5e24dfa9bdc386a521ff69830db1327d44fc"
+}

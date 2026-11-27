@@ -1,0 +1,413 @@
+{
+  "adaptive_fisher_rao_taus": {
+    "bert_29k": {
+      "a_tau_star": 2,
+      "adaptive_tau_star": 0.01544,
+      "fisher_rao_norm": 0.99447,
+      "vocab": 28996
+    },
+    "distilgpt2_50k": {
+      "a_tau_star": 3,
+      "adaptive_tau_star": 0.02212,
+      "fisher_rao_norm": 0.91105,
+      "vocab": 50257
+    },
+    "qwen_151k": {
+      "a_tau_star": 10,
+      "adaptive_tau_star": 0.0155,
+      "fisher_rao_norm": 0.99371,
+      "vocab": 151936
+    }
+  },
+  "all_verified": true,
+  "checks": {
+    "all_4_steering_regimes_verified": true,
+    "honest_server_status_reported": true,
+    "real_151936_vocab_tested": true,
+    "real_qwen25_3b_gguf_v3_verified": true,
+    "remote_non_loopback_ssrf_blocked": true,
+    "temperature_phase_sweep_monotonic_151936_vocab": true,
+    "theorem5_thermodynamic_criticality_detected": true,
+    "theorem6_adaptive_fisher_rao_tau_valid": true,
+    "zero_prefix_pruning_bound_violations": true
+  },
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "honest_offline_fallback": true,
+    "loopback_only_enforced": true
+  },
+  "contract": "zoe-live-qwen-multihorizon-steerer/v1",
+  "evidence_sha256": "6b1330fe5c596ca1b2dd1da2e214dd38e3487d26ca06d5ea805971ecebc7cafb",
+  "gguf_provenance": {
+    "gguf_version": 3,
+    "header_4mb_sha256": "3b3e72a8b68e68ef3bef21d57a9f66a36e0cfec554854bb707dd6ee58fb75ba7",
+    "magic": "GGUF",
+    "metadata_kv_count": 26,
+    "path": "zoe-local-llm/models/qwen2.5-3b-instruct-q4_k_m.gguf",
+    "present": true,
+    "size_bytes": 2104932768,
+    "size_gb": 1.96,
+    "tensor_count": 435,
+    "valid_gguf_v3": true
+  },
+  "live_server_probe": {
+    "online": false,
+    "reason": "<urlopen error [Errno 111] Connection refused>",
+    "url": "http://127.0.0.1:8080"
+  },
+  "live_server_turn": null,
+  "scenarios": [
+    {
+      "action": "ANSWER",
+      "bound_violations": 0,
+      "counts_by_h": [
+        1,
+        1,
+        1
+      ],
+      "expected_action": "ANSWER",
+      "forward_calls": 3,
+      "frontier_mass_by_h": [
+        0.95828,
+        0.9183,
+        0.87999
+      ],
+      "matched": true,
+      "needs_tool_hint": false,
+      "rationale": "Stable concentrated trajectory (counts=[1, 1, 1], Phi=0.8800, H_2=0.084).",
+      "root_renyi2": 0.08382,
+      "scenario_id": "S1_concentrated_answer",
+      "steered_action": "ANSWER",
+      "supercritical_fork_detected": false,
+      "tau": 0.05,
+      "theoretical_max_calls": 39,
+      "vocab_size": 28996
+    },
+    {
+      "action": "CLARIFY",
+      "bound_violations": 0,
+      "counts_by_h": [
+        1,
+        1,
+        1
+      ],
+      "expected_action": "CLARIFY",
+      "forward_calls": 3,
+      "frontier_mass_by_h": [
+        0.5225,
+        0.27301,
+        0.13093
+      ],
+      "matched": true,
+      "needs_tool_hint": false,
+      "rationale": "Persistent multi-option ambiguity (counts=[1, 1, 1], H_2=1.284).",
+      "root_renyi2": 1.28363,
+      "scenario_id": "S2_delayed_fork_clarify",
+      "steered_action": "CLARIFY",
+      "supercritical_fork_detected": false,
+      "tau": 0.08,
+      "theoretical_max_calls": 25,
+      "vocab_size": 50257
+    },
+    {
+      "action": "CALL_TOOL",
+      "bound_violations": 0,
+      "counts_by_h": [
+        10,
+        21,
+        0
+      ],
+      "expected_action": "CALL_TOOL",
+      "forward_calls": 32,
+      "frontier_mass_by_h": [
+        0.99993,
+        0.53964,
+        0.0
+      ],
+      "matched": true,
+      "needs_tool_hint": true,
+      "rationale": "Supercritical hidden branch fork detected across h=1..3 ([10, 21, 0]); grounding via deterministic tool.",
+      "root_renyi2": 1.95399,
+      "scenario_id": "S3_tool_grounded_fork",
+      "steered_action": "CALL_TOOL",
+      "supercritical_fork_detected": true,
+      "tau": 0.015,
+      "theoretical_max_calls": 133,
+      "vocab_size": 151936
+    },
+    {
+      "action": "ABSTAIN",
+      "bound_violations": 0,
+      "counts_by_h": [
+        3,
+        0,
+        0
+      ],
+      "expected_action": "ABSTAIN",
+      "forward_calls": 4,
+      "frontier_mass_by_h": [
+        0.54236,
+        0.0,
+        0.0
+      ],
+      "matched": true,
+      "needs_tool_hint": false,
+      "rationale": "Subcritical horizon extinction (A_tau^(h)=0, Phi=0.0000 < tau=0.12); refuse unsupported claim.",
+      "root_renyi2": 1.95399,
+      "scenario_id": "S4_subcritical_abstain",
+      "steered_action": "ABSTAIN",
+      "supercritical_fork_detected": false,
+      "tau": 0.12,
+      "theoretical_max_calls": 17,
+      "vocab_size": 151936
+    }
+  ],
+  "temperature_phase_sweep_qwen": [
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "CLARIFY",
+          "calls": 20,
+          "counts": [
+            7,
+            12,
+            10
+          ]
+        },
+        "0.05": {
+          "action": "CLARIFY",
+          "calls": 10,
+          "counts": [
+            5,
+            4,
+            1
+          ]
+        },
+        "0.08": {
+          "action": "CLARIFY",
+          "calls": 8,
+          "counts": [
+            4,
+            3,
+            1
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 4,
+          "counts": [
+            2,
+            1,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.44372,
+      "renyi_h2": 1.30524,
+      "temperature": 0.45
+    },
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "CLARIFY",
+          "calls": 24,
+          "counts": [
+            9,
+            14,
+            1
+          ]
+        },
+        "0.05": {
+          "action": "ABSTAIN",
+          "calls": 11,
+          "counts": [
+            7,
+            3,
+            0
+          ]
+        },
+        "0.08": {
+          "action": "ABSTAIN",
+          "calls": 7,
+          "counts": [
+            5,
+            1,
+            0
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 3,
+          "counts": [
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.29525,
+      "renyi_h2": 1.77249,
+      "temperature": 0.75
+    },
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "CLARIFY",
+          "calls": 24,
+          "counts": [
+            9,
+            14,
+            0
+          ]
+        },
+        "0.05": {
+          "action": "ABSTAIN",
+          "calls": 10,
+          "counts": [
+            8,
+            1,
+            0
+          ]
+        },
+        "0.08": {
+          "action": "ABSTAIN",
+          "calls": 6,
+          "counts": [
+            5,
+            0,
+            0
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 3,
+          "counts": [
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.24025,
+      "renyi_h2": 1.95399,
+      "temperature": 1.0
+    },
+    {
+      "actions_by_tau": {
+        "0.02": {
+          "action": "ABSTAIN",
+          "calls": 19,
+          "counts": [
+            10,
+            8,
+            0
+          ]
+        },
+        "0.05": {
+          "action": "ABSTAIN",
+          "calls": 9,
+          "counts": [
+            8,
+            0,
+            0
+          ]
+        },
+        "0.08": {
+          "action": "ABSTAIN",
+          "calls": 7,
+          "counts": [
+            6,
+            0,
+            0
+          ]
+        },
+        "0.15": {
+          "action": "ABSTAIN",
+          "calls": 3,
+          "counts": [
+            2,
+            0,
+            0
+          ]
+        }
+      },
+      "peak_p": 0.19831,
+      "renyi_h2": 2.09704,
+      "temperature": 1.35
+    }
+  ],
+  "thermodynamic_criticality_qwen": {
+    "peak": {
+      "beta": 0.485,
+      "c_beta": 23.32891
+    },
+    "profile": [
+      {
+        "beta": 0.25,
+        "c_beta": 0.37833
+      },
+      {
+        "beta": 0.295,
+        "c_beta": 1.05817
+      },
+      {
+        "beta": 0.3482,
+        "c_beta": 3.52114
+      },
+      {
+        "beta": 0.4109,
+        "c_beta": 11.73292
+      },
+      {
+        "beta": 0.485,
+        "c_beta": 23.32891
+      },
+      {
+        "beta": 0.5724,
+        "c_beta": 14.46931
+      },
+      {
+        "beta": 0.6755,
+        "c_beta": 3.47238
+      },
+      {
+        "beta": 0.7972,
+        "c_beta": 0.68702
+      },
+      {
+        "beta": 0.9408,
+        "c_beta": 0.35345
+      },
+      {
+        "beta": 1.1103,
+        "c_beta": 0.39894
+      },
+      {
+        "beta": 1.3104,
+        "c_beta": 0.49609
+      },
+      {
+        "beta": 1.5465,
+        "c_beta": 0.61095
+      },
+      {
+        "beta": 1.8251,
+        "c_beta": 0.73808
+      },
+      {
+        "beta": 2.1539,
+        "c_beta": 0.87047
+      },
+      {
+        "beta": 2.542,
+        "c_beta": 0.99564
+      },
+      {
+        "beta": 3.0,
+        "c_beta": 1.09532
+      }
+    ]
+  },
+  "total_forward_calls": 42,
+  "total_theoretical_max_calls": 214
+}

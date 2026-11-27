@@ -1,0 +1,77 @@
+id: BED-001
+name: amazon_bedrock_endpoint
+version: "1.0"
+category: infrastructure/headers
+model_family: Amazon/Bedrock
+confidence: high
+description: Amazon Bedrock API endpoint and header patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'bedrock-runtime\.[a-z0-9-]+\.amazonaws\.com'
+  - type: regex
+    pattern: '/model/[a-z0-9.:/-]+/invoke((-with-response-stream)?)'
+  - type: string
+    pattern: 'X-Amzn-Bedrock'
+  - type: regex
+    pattern: 'anthropic\.claude|amazon\.titan|ai21\.j2|cohere\.command|meta\.llama'
+tags: [amazon, bedrock, aws, api, headers, network]
+---
+id: BED-002
+name: amazon_bedrock_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Amazon/Bedrock
+confidence: medium
+description: Amazon Bedrock SDK client patterns in source code or configuration
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: "boto3\\.client\\([\"']bedrock"
+  - type: string
+    pattern: 'bedrock-runtime'
+  - type: regex
+    pattern: 'AWS_BEDROCK_MODEL'
+  - type: string
+    pattern: 'BedrockRuntime'
+tags: [amazon, bedrock, boto3, sdk, config]
+---
+id: MST-001
+name: mistral_api_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: Mistral/AI
+confidence: high
+description: Mistral AI API endpoint and header patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'api.mistral.ai'
+  - type: regex
+    pattern: '/v1/chat/completions.*mistral'
+  - type: string
+    pattern: 'x-mistral-model:'
+  - type: regex
+    pattern: 'mistral-(tiny|small|medium|large|embed)'
+tags: [mistral, api, headers, network]
+---
+id: MST-002
+name: mistral_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Mistral/AI
+confidence: medium
+description: Mistral AI SDK patterns in source code or configuration
+technique: AI API usage
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from mistralai'
+  - type: regex
+    pattern: 'MistralClient\s*\('
+  - type: string
+    pattern: 'MISTRAL_API_KEY'
+tags: [mistral, sdk, config]

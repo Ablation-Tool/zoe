@@ -1,0 +1,47 @@
+{
+  "classification": "full_autonomy",
+  "contract": "zoe-autonomy/v1",
+  "external_actions": 0,
+  "host_count": 6,
+  "hosts": [
+    "engine",
+    "canonical-gem",
+    "brain-gem",
+    "gem-helen",
+    "ablation-gem",
+    "cerotto-gem"
+  ],
+  "identical_canonical_profiles": true,
+  "internal_goal_authorship": true,
+  "monorepo_revision": "6680d8cf2b895f1699692f2207cbdecd9d3f1507",
+  "operator_approval_required": false,
+  "profile_sha256": "959e344ef5f455deff245dbc8ae0b19430b593fb2615962cdc0c990b9dd3cd19",
+  "revisions": {
+    "ablation-gem": "a75d337e3e5721a83a326863ceb1d8a79bce2c06",
+    "brain-gem": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
+    "canonical-gem": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7",
+    "cerotto-gem": "b73d399b638b4de8a0a9829b17c95203c5deaabd",
+    "engine": "0b6b8da9986c31d356fbe8aeb7c9f646ede03429",
+    "gem-helen": "273c4eeb6fd6044f1ab9068561ddc33290357eed",
+    "research": "79575d94325a43b5dbbef17d38bc1cb1d56d9321"
+  },
+  "sandbox_executed": true,
+  "schema_version": 1,
+  "self_reflection": {
+    "belief_updated": false,
+    "enabled": false,
+    "replay_verified": true,
+    "selected_model": null
+  },
+  "single_checkout": true,
+  "system": "Zoe One",
+  "verified": true,
+  "visual_perception": {
+    "feature_maps": 42,
+    "foci": 4,
+    "image_sha256": null,
+    "live_camera": false,
+    "replay_verified": true,
+    "source_kind": "documented_synthetic_rgb_popout"
+  }
+}

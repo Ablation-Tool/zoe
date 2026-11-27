@@ -1,0 +1,199 @@
+id: PKY-001
+name: portkey_ai_gateway_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: Portkey/Generic
+confidence: high
+description: Portkey AI gateway proxy headers in HTTP logs or captured traffic
+technique: AI API proxying
+match_all: false
+indicators:
+  - type: string
+    pattern: 'api.portkey.ai'
+  - type: string
+    pattern: 'x-portkey-api-key'
+  - type: regex
+    pattern: 'x-portkey-(virtual-key|config|provider|metadata)'
+  - type: string
+    pattern: 'PORTKEY_API_KEY'
+tags: [portkey, gateway, proxy, ai, headers, network]
+---
+id: PKY-002
+name: portkey_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Portkey/Generic
+confidence: medium
+description: Portkey AI gateway SDK patterns in source code or configuration
+technique: AI API proxying
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from portkey_ai'
+  - type: string
+    pattern: 'import portkey_ai'
+  - type: regex
+    pattern: 'Portkey\s*\('
+  - type: string
+    pattern: 'portkey.ai/docs'
+tags: [portkey, gateway, sdk, config]
+---
+id: HLC-001
+name: helicone_observability_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: Helicone/Generic
+confidence: high
+description: Helicone AI observability proxy headers in HTTP logs or captured traffic
+technique: AI observability
+match_all: false
+indicators:
+  - type: string
+    pattern: 'oai.helicone.ai'
+  - type: string
+    pattern: 'anthropic.helicone.ai'
+  - type: regex
+    pattern: 'helicone-(auth|org-id|property|user-id|session-id|request-id)'
+  - type: string
+    pattern: 'HELICONE_API_KEY'
+tags: [helicone, observability, proxy, ai, headers, network, tracing]
+---
+id: HLC-002
+name: helicone_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Helicone/Generic
+confidence: medium
+description: Helicone AI observability SDK patterns in source code or configuration
+technique: AI observability
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from helicone'
+  - type: string
+    pattern: 'heliconeBaseUrl'
+  - type: regex
+    pattern: 'helicone\.ai/api'
+tags: [helicone, observability, sdk, config]
+---
+id: BRT-001
+name: braintrust_eval_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: Braintrust/Generic
+confidence: high
+description: Braintrust AI eval and observability API headers in HTTP logs or captured traffic
+technique: AI evaluation
+match_all: false
+indicators:
+  - type: string
+    pattern: 'api.braintrust.dev'
+  - type: string
+    pattern: 'braintrustdata.com'
+  - type: string
+    pattern: 'BRAINTRUST_API_KEY'
+  - type: regex
+    pattern: 'x-bt-(org-name|project-name)'
+tags: [braintrust, eval, observability, ai, headers, network]
+---
+id: BRT-002
+name: braintrust_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Braintrust/Generic
+confidence: medium
+description: Braintrust SDK patterns in source code or configuration
+technique: AI evaluation
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from braintrust'
+  - type: string
+    pattern: 'import braintrust'
+  - type: regex
+    pattern: 'initDataset\s*\('
+  - type: string
+    pattern: 'braintrust.init'
+tags: [braintrust, eval, sdk, config]
+---
+id: LFU-001
+name: langfuse_tracing_headers
+version: "1.0"
+category: infrastructure/headers
+model_family: Langfuse/Generic
+confidence: high
+description: Langfuse LLM observability API headers in HTTP logs or captured traffic
+technique: AI observability
+match_all: false
+indicators:
+  - type: string
+    pattern: 'cloud.langfuse.com'
+  - type: string
+    pattern: 'LANGFUSE_SECRET_KEY'
+  - type: string
+    pattern: 'LANGFUSE_PUBLIC_KEY'
+  - type: regex
+    pattern: 'x-langfuse-(sdk-name|sdk-version)'
+tags: [langfuse, observability, tracing, ai, headers, network]
+---
+id: LFU-002
+name: langfuse_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Langfuse/Generic
+confidence: medium
+description: Langfuse SDK integration patterns in source code or configuration
+technique: AI observability
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from langfuse'
+  - type: string
+    pattern: 'import langfuse'
+  - type: regex
+    pattern: 'Langfuse\s*\('
+  - type: string
+    pattern: 'langfuse.trace'
+tags: [langfuse, observability, tracing, sdk, config]
+---
+id: PHX-001
+name: arize_phoenix_observability
+version: "1.0"
+category: agentic/config
+model_family: Arize/Phoenix
+confidence: medium
+description: Arize Phoenix LLM tracing and evaluation patterns in source code or configuration
+technique: AI observability
+match_all: false
+indicators:
+  - type: string
+    pattern: 'import phoenix'
+  - type: string
+    pattern: 'from phoenix'
+  - type: regex
+    pattern: 'px\.launch_app\s*\('
+  - type: string
+    pattern: 'arize-phoenix'
+  - type: string
+    pattern: 'PHOENIX_API_KEY'
+tags: [phoenix, arize, observability, tracing, eval, config]
+---
+id: OTL-001
+name: opentelemetry_llm_tracing
+version: "1.0"
+category: agentic/config
+model_family: OpenTelemetry/Generic
+confidence: medium
+description: OpenTelemetry semantic conventions for LLM spans in source code or config
+technique: AI observability
+match_all: false
+indicators:
+  - type: string
+    pattern: 'gen_ai.system'
+  - type: string
+    pattern: 'gen_ai.request.model'
+  - type: string
+    pattern: 'gen_ai.usage.prompt_tokens'
+  - type: regex
+    pattern: 'openinference\.semconv'
+tags: [opentelemetry, otel, tracing, llm, observability, config]

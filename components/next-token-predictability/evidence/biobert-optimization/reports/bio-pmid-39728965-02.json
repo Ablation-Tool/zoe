@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39728965-02",
+  "source_document_id": "pmid-39728965",
+  "split": "development",
+  "context_sha256": "9c37a43e91a239add09efd8135f62e91d65259eccdd7c35061e848884362f551",
+  "target": "cultures",
+  "target_position": 70,
+  "target_token_id": 8708,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0000000000000002,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    3,
+    2,
+    1,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 1.5734502215884065,
+  "maximum_probability": 0.8080456158660742,
+  "top_10_probability_mass": 0.949810994522183,
+  "target_probability": 0.00815566073267353,
+  "target_rank": 7,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 1707,
+      "token": "production",
+      "probability": 0.8080456158660742
+    },
+    {
+      "token_id": 2754,
+      "token": "culture",
+      "probability": 0.0599985613449763
+    },
+    {
+      "token_id": 1666,
+      "token": "produced",
+      "probability": 0.02079388013459576
+    },
+    {
+      "token_id": 13958,
+      "token": "cultivation",
+      "probability": 0.017494629375144292
+    },
+    {
+      "token_id": 7481,
+      "token": "productions",
+      "probability": 0.014260900119426566
+    },
+    {
+      "token_id": 1718,
+      "token": "development",
+      "probability": 0.01098182326043439
+    },
+    {
+      "token_id": 8708,
+      "token": "cultures",
+      "probability": 0.00815566073267353
+    },
+    {
+      "token_id": 16600,
+      "token": "reproduction",
+      "probability": 0.0038239542798128158
+    },
+    {
+      "token_id": 7857,
+      "token": "experiments",
+      "probability": 0.0031417574897580547
+    },
+    {
+      "token_id": 11362,
+      "token": "synthesis",
+      "probability": 0.0031142119192870596
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "7a6e191945743eb99d71f664ddbfdc24ebd8c8167233ac0e7193929450d22d49",
+  "input_ids_sha256": "affdbb35e80d75584851157a50b3eefbcc47ff82e502c17ff54bac347df2a4d3",
+  "original_input_ids_sha256": "8549f4b2b5a3b20147b9c9128a9e2cb58234a162eba6d66a55b64f3a4ab2b915"
+}

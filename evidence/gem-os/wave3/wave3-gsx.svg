@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="775" viewBox="0 0 960 620" role="img" aria-label="GSX-86 (1982) :: DR-Graph Wave 3 Vector Plotter">
+  <title>GSX-86 (1982) :: DR-Graph Wave 3 Vector Plotter</title>
+  <rect x="0" y="0" width="960.0" height="620.0" fill="#ffffff" />
+  <g data-object-id="gsx_bg">
+    <title>gsx_bg</title>
+    <rect x="0.0" y="0.0" width="960.0" height="620.0" fill="#000000" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="gsx_outer">
+    <title>gsx_outer</title>
+    <rect x="14.0" y="14.0" width="932.0" height="592.0" fill="#000000" stroke="#00ff00" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gsx_hdr">
+    <title>gsx_hdr</title>
+    <rect x="14.0" y="14.0" width="932.0" height="34.0" fill="#0000ad" stroke="#00ff00" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gsx_ht">
+    <title>gsx_ht</title>
+    <text x="28.0" y="36.0" font-family="sans-serif" font-size="11.0" fill="#ffffff">DIGITAL RESEARCH GSX-86 (1982) :: DR-GRAPH WAVE 3 TELEMETRY  [DRIVER: DDVGA.SYS]</text>
+  </g>
+  <g data-object-id="gsx_sub">
+    <title>gsx_sub</title>
+    <text x="28.0" y="68.0" font-family="sans-serif" font-size="10.0" fill="#00ffff">GDOS/GIOS NDC SPACE: (0,0) BOTTOM-LEFT -&gt; (32767,32767) TOP-RIGHT  |  OPCODES: v_opnwk, v_pline, v_gdp, v_gtext</text>
+  </g>
+  <g data-object-id="gp1">
+    <title>gp1</title>
+    <rect x="28.0" y="86.0" width="438.0" height="326.0" fill="#000000" stroke="#00ffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gp1_t">
+    <title>gp1_t</title>
+    <text x="42.0" y="108.0" font-family="sans-serif" font-size="10.0" fill="#ffff00">PLOT 1 :: 5-DIM CONTINUOUS TRUST GRADIENT (out &lt;= src)</text>
+  </g>
+  <g data-object-id="gp1_y">
+    <title>gp1_y</title>
+    <polyline points="72,130 72,366" stroke-linejoin="round" fill="none" stroke="#ffffff" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gp1_x">
+    <title>gp1_x</title>
+    <polyline points="72,366 444,366" stroke-linejoin="round" fill="none" stroke="#ffffff" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gb_0">
+    <title>gb_0</title>
+    <rect x="96.0" y="177.0" width="42.0" height="189.0" fill="#00ffff" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gbl_0">
+    <title>gbl_0</title>
+    <text x="102.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">SRC</text>
+  </g>
+  <g data-object-id="gbv_0">
+    <title>gbv_0</title>
+    <text x="100.0" y="169.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">0.90</text>
+  </g>
+  <g data-object-id="gb_1">
+    <title>gb_1</title>
+    <rect x="162.0" y="184.0" width="42.0" height="182.0" fill="#00ff00" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gbl_1">
+    <title>gbl_1</title>
+    <text x="168.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">LAY</text>
+  </g>
+  <g data-object-id="gbv_1">
+    <title>gbv_1</title>
+    <text x="166.0" y="176.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">0.87</text>
+  </g>
+  <g data-object-id="gb_2">
+    <title>gb_2</title>
+    <rect x="228.0" y="158.0" width="42.0" height="208.0" fill="#ffff00" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gbl_2">
+    <title>gbl_2</title>
+    <text x="234.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">PAT</text>
+  </g>
+  <g data-object-id="gbv_2">
+    <title>gbv_2</title>
+    <text x="232.0" y="150.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">0.99</text>
+  </g>
+  <g data-object-id="gb_3">
+    <title>gb_3</title>
+    <rect x="294.0" y="218.0" width="42.0" height="148.0" fill="#ad00ad" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gbl_3">
+    <title>gbl_3</title>
+    <text x="300.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">PRD</text>
+  </g>
+  <g data-object-id="gbv_3">
+    <title>gbv_3</title>
+    <text x="298.0" y="210.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">0.71</text>
+  </g>
+  <g data-object-id="gb_4">
+    <title>gb_4</title>
+    <rect x="360.0" y="184.0" width="42.0" height="182.0" fill="#00ff00" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gbl_4">
+    <title>gbl_4</title>
+    <text x="366.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">OUT</text>
+  </g>
+  <g data-object-id="gbv_4">
+    <title>gbv_4</title>
+    <text x="364.0" y="176.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">0.87</text>
+  </g>
+  <g data-object-id="gp1_cap">
+    <title>gp1_cap</title>
+    <polyline points="72,177 444,177" stroke-linejoin="round" fill="none" stroke="#ff0000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gp1_capl">
+    <title>gp1_capl</title>
+    <text x="284.0" y="169.0" font-family="sans-serif" font-size="9.0" fill="#ff0000">CEILING (0.90)</text>
+  </g>
+  <g data-object-id="gp2">
+    <title>gp2</title>
+    <rect x="488.0" y="86.0" width="444.0" height="326.0" fill="#000000" stroke="#00ffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gp2_t">
+    <title>gp2_t</title>
+    <text x="502.0" y="108.0" font-family="sans-serif" font-size="10.0" fill="#ffff00">PLOT 2 :: EQ.2 DEPTH-1 CASCADE &amp; BINARY AUDIT VECTOR</text>
+  </g>
+  <g data-object-id="gp2_y">
+    <title>gp2_y</title>
+    <polyline points="532,130 532,366" stroke-linejoin="round" fill="none" stroke="#ffffff" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gp2_x">
+    <title>gp2_x</title>
+    <polyline points="532,366 906,366" stroke-linejoin="round" fill="none" stroke="#ffffff" stroke-width="2.0" />
+  </g>
+  <g data-object-id="g2b_0">
+    <title>g2b_0</title>
+    <rect x="558.0" y="318.0" width="36.0" height="48.0" fill="#00ffff" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2t_0">
+    <title>g2t_0</title>
+    <text x="562.0" y="310.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">A=1</text>
+  </g>
+  <g data-object-id="g2x_0">
+    <title>g2x_0</title>
+    <text x="564.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">T+0</text>
+  </g>
+  <g data-object-id="g2b_1">
+    <title>g2b_1</title>
+    <rect x="644.0" y="270.0" width="36.0" height="96.0" fill="#00ffff" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2t_1">
+    <title>g2t_1</title>
+    <text x="648.0" y="262.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">A=2</text>
+  </g>
+  <g data-object-id="g2x_1">
+    <title>g2x_1</title>
+    <text x="650.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">T+1</text>
+  </g>
+  <g data-object-id="g2l_1">
+    <title>g2l_1</title>
+    <polyline points="576,318 662,270" stroke-linejoin="round" fill="none" stroke="#ffff00" stroke-width="2.0" />
+  </g>
+  <g data-object-id="g2b_2">
+    <title>g2b_2</title>
+    <rect x="730.0" y="222.0" width="36.0" height="144.0" fill="#00ffff" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2t_2">
+    <title>g2t_2</title>
+    <text x="734.0" y="214.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">A=3</text>
+  </g>
+  <g data-object-id="g2x_2">
+    <title>g2x_2</title>
+    <text x="736.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">T+2</text>
+  </g>
+  <g data-object-id="g2l_2">
+    <title>g2l_2</title>
+    <polyline points="662,270 748,222" stroke-linejoin="round" fill="none" stroke="#ffff00" stroke-width="2.0" />
+  </g>
+  <g data-object-id="g2b_3">
+    <title>g2b_3</title>
+    <rect x="816.0" y="174.0" width="36.0" height="192.0" fill="#ff0000" stroke="#ffffff" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2t_3">
+    <title>g2t_3</title>
+    <text x="820.0" y="166.0" font-family="sans-serif" font-size="9.0" fill="#ffff00">A=4</text>
+  </g>
+  <g data-object-id="g2x_3">
+    <title>g2x_3</title>
+    <text x="822.0" y="386.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">T+3</text>
+  </g>
+  <g data-object-id="g2l_3">
+    <title>g2l_3</title>
+    <polyline points="748,222 834,174" stroke-linejoin="round" fill="none" stroke="#ffff00" stroke-width="2.0" />
+  </g>
+  <g data-object-id="gp2_al">
+    <title>gp2_al</title>
+    <text x="548.0" y="148.0" font-family="sans-serif" font-size="10.0" fill="#ff0000">EQ.2 ALARM: HALT_AND_ABSTAIN (EVADED NAIVE)</text>
+  </g>
+  <g data-object-id="gsx_bot">
+    <title>gsx_bot</title>
+    <rect x="28.0" y="428.0" width="904.0" height="162.0" fill="#000000" stroke="#00ff00" stroke-width="1.0" />
+  </g>
+  <g data-object-id="gsx_b1">
+    <title>gsx_b1</title>
+    <text x="44.0" y="454.0" font-family="sans-serif" font-size="10.0" fill="#00ff00">GSX-86 RESIDENT VECTOR DRIVER TELEMETRY (toastytech.com/guis/gsx.html):</text>
+  </g>
+  <g data-object-id="gsx_b2">
+    <title>gsx_b2</title>
+    <text x="44.0" y="482.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">  [1] Trust Ceiling  : clean_out=0.87 &lt;= src=0.90  |  coerced=0.15</text>
+  </g>
+  <g data-object-id="gsx_b3">
+    <title>gsx_b3</title>
+    <text x="44.0" y="506.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">  [2] Agent Auditors : 9 findings (5 HIGH) across 4 BinaryContext modules</text>
+  </g>
+  <g data-object-id="gsx_b4">
+    <title>gsx_b4</title>
+    <text x="44.0" y="530.0" font-family="sans-serif" font-size="10.0" fill="#ffffff">  [3] Dual-Path Gate : MISMATCH_HELD -&gt; VisorLog [MASK] card recorded</text>
+  </g>
+  <g data-object-id="gsx_b5">
+    <title>gsx_b5</title>
+    <text x="44.0" y="554.0" font-family="sans-serif" font-size="10.0" fill="#00ffff">  [4] Guards/Actuate : GEMSEAL1=True | ~/.ssh=BLOCKED | ROS deadman=ENFORCED | BloomCAS=16MB</text>
+  </g>
+  <g data-object-id="gsx_b6">
+    <title>gsx_b6</title>
+    <text x="44.0" y="578.0" font-family="sans-serif" font-size="10.0" fill="#ffff00">  Origin (0,0) NDC   : Export via `gem export wave3-gsx out.gsx` (v_opnwk -&gt; v_clswk)</text>
+  </g>
+</svg>

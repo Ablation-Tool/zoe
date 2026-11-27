@@ -1,0 +1,75 @@
+id: AID-001
+name: aider_commit_attribution
+version: "1.0"
+category: code/commit
+model_family: Aider/Generic
+confidence: high
+description: Commit footer attributed to aider (AI pair-programming tool)
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'Co-authored-by: aider'
+  - type: regex
+    pattern: 'Co-Authored-By: aider'
+  - type: regex
+    pattern: 'aider\.chat'
+tags: [aider, commit, attribution, pair-programming]
+---
+id: AID-002
+name: aider_version_footer
+version: "1.0"
+category: code/commit
+model_family: Aider/Generic
+confidence: high
+description: Aider version string in commit body - written by aider before commit
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'aider v\d+\.\d+\.\d+'
+  - type: regex
+    pattern: '# aider chat started'
+  - type: regex
+    pattern: 'aider chat copy'
+tags: [aider, commit, version, attribution]
+---
+id: AID-003
+name: aider_workspace_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: Aider/Generic
+confidence: high
+description: Aider session and history files on the filesystem
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.aider.chat.history.md'
+  - type: file_path
+    pattern: '.aider.input.history'
+  - type: file_path
+    pattern: '.aider.tags.cache'
+  - type: file_path
+    pattern: '.aiderignore'
+tags: [aider, filesystem, session, history]
+---
+id: AID-004
+name: aider_chat_file
+version: "1.0"
+category: agentic/logs
+model_family: Aider/Generic
+confidence: medium
+description: Aider chat history log content patterns
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '^# aider chat started at'
+  - type: regex
+    pattern: '>\s*aider v\d'
+  - type: regex
+    pattern: 'Added .* to the chat'
+  - type: regex
+    pattern: 'Model: .*(gpt-4|claude|gemini|sonnet|opus|haiku)'
+tags: [aider, chat, history, logs]

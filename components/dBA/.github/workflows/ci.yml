@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: Test + Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # ffmpeg must be present so the integration tests (test_endpoints.py)
+      # do not silently skip under the requires_ffmpeg mark.
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      # SSDF PW.8.1 — unit + integration tests with coverage report
+      - name: Run tests
+        run: pytest --tb=short -q
+
+      # SSDF PW.7.2 — static application security testing
+      - name: Run bandit (SAST)
+        run: bandit -r main.py -ll -f json -o bandit-report.json || bandit -r main.py -ll
+      - name: Upload bandit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bandit-report
+          path: bandit-report.json
+
+      # SSDF PW.4.1 / RV.1.2 — known-vulnerability scan of dependencies
+      - name: Run pip-audit
+        run: pip-audit -r requirements.txt --strict
+
+  dependabot-automerge:
+    name: Auto-merge Dependabot patch bumps
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    needs: test
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

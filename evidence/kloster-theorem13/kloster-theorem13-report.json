@@ -1,0 +1,117 @@
+{
+  "all_verified": true,
+  "checks": {
+    "theorem13_sympy_4_identities_zero_residual": true,
+    "world1_crypto_simon_speck_early_stop_and_fullrd_abstain": true,
+    "world2_bio_selective_stop_and_pains_abstain": true,
+    "world3_real_gpt2_early_stop_and_200trial_null_calibration": true
+  },
+  "constitution": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "cure_claim": false,
+    "l5_agi_qualified": false,
+    "offline_and_100pct_legal": true
+  },
+  "contract": "zoe-kloster-theorem13-stopping/v1",
+  "evidence_sha256": "bdc893f0d598b9fc61653fa97f312bf1d1beeff1925cdc14faa70f1b610304e0",
+  "sympy_proofs": {
+    "all_sympy_proofs_exact": true,
+    "proof_13a_chi2_equals_N_M2_minus_1_residual": "0",
+    "proof_13b_plugin_bias_residual": "0",
+    "proof_13b_ustat_unbiased_residual": "0",
+    "proof_13c_exact_null_variance_N3_S3_residual": "0",
+    "proof_13d_smin_quadratic_inversion_residual": "0",
+    "sympy_version": "1.14.0"
+  },
+  "worlds": {
+    "world1_crypto_stopping": {
+      "simon_32rd_full_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 4096,
+        "excess_chi2": 0.000977,
+        "m4_root": 0.016975,
+        "samples": 4096,
+        "z_kloster": 0.1771,
+        "z_threshold": 6.6682
+      },
+      "simon_5rd_weak": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0156,
+        "estimated_s_min": 7,
+        "excess_chi2": 15.634921,
+        "m4_root": 0.17493,
+        "samples": 64,
+        "z_kloster": 43.9613,
+        "z_threshold": 4.8669
+      },
+      "speck_22rd_full_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 4096,
+        "excess_chi2": 0.008516,
+        "m4_root": 0.017188,
+        "samples": 4096,
+        "z_kloster": 1.5445,
+        "z_threshold": 6.6682
+      },
+      "speck_4rd_weak": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0156,
+        "estimated_s_min": 16,
+        "excess_chi2": 3.444444,
+        "m4_root": 0.088085,
+        "samples": 64,
+        "z_kloster": 9.6849,
+        "z_threshold": 4.8669
+      },
+      "verified": true
+    },
+    "world2_bio_pains_stopping": {
+      "pains_uniform_toxicity_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 120,
+        "excess_chi2": -0.013445,
+        "m4_root": 0.359421,
+        "predicted_s_min_exact": 1000000000,
+        "samples": 120,
+        "z_kloster": -0.6559,
+        "z_threshold": 6.2292
+      },
+      "selective_tumor_gated": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.15,
+        "estimated_s_min": 13,
+        "excess_chi2": 0.986928,
+        "m4_root": 0.671642,
+        "predicted_s_min_exact": 16,
+        "samples": 18,
+        "z_kloster": 7.0481,
+        "z_threshold": 5.4173
+      },
+      "synthetic_bio_stream_zero_phi": true,
+      "verified": true
+    },
+    "world3_real_gpt2_and_null": {
+      "anytime_valid_false_alarm_rate": 0.0,
+      "null_calibration_trials": 200,
+      "null_empirical_variance": 8.489e-06,
+      "null_theorem13c_exact_variance": 9.58e-06,
+      "null_variance_rel_error": 0.1139,
+      "real_gpt2_top64_stopping": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0312,
+        "estimated_s_min": 7,
+        "excess_chi2": 5.933333,
+        "m4_root": 0.323076,
+        "predicted_s_min_exact": 6,
+        "samples": 16,
+        "z_kloster": 8.1888,
+        "z_threshold": 4.8669
+      },
+      "verified": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "author": "Zoe (AI assistant), with direction, review, and project context from Nicholas Michael Kloster.",
+  "author_fingerprint": "bc4fb81775bcd1bb5ef5c58c1fee18df5e5071a8565bcc2857995f9c7aa648fc",
+  "created_at": 1795020232,
+  "document": "zoe-constitution-signed.pdf",
+  "identity_key": "a/nrWbhwRzNNWx/bJUUXG9Sk+weFJJ5VvO7mDUlGkIU=",
+  "protocol": "zoe-author-v1",
+  "related": {
+    "detached_cms_sha256": "e192279afdf53589b133c6f519403c808fff83b8428ab1a0d5bccb865a922cdd",
+    "layers": "RSA-3072 PDF/CMS signature plus Ed25519 QR author certificate",
+    "pdf_signing_certificate_sha256": "fd4f22875d51d2bdf9adc45989818e2661f6313479585552b8dbd131d5542982",
+    "sealed_latex_sha256": "1e41cbc92e0eb028a0a0b52a3e949e2248911b18ef6c0d291f2dd5c000d97f4e",
+    "source_record_sha256": "8172374c272dc46249c8a8695e20fd40f36fe85734e78e3a831e3666051a4bbf"
+  },
+  "sha256": "ae01c793f9dcfbbc56cedabe8ce21228b99af34eeb0d913c153eae83796a846f",
+  "signature": "2V/p+bg9Ku/mBzaETas64WmQs29rZXl4u9a0HmSfBmEjt0JpGy6pJYkGe8ncDw9h6K8j7q4mwl/3E6lL/hg8Bw=="
+}

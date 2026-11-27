@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 700" role="img" aria-labelledby="th-title th-desc">
+  <title id="th-title">Human Thalamic Nuclei Functional Parcellation</title>
+  <desc id="th-desc">Anatomically verified schematic of the left human thalamus showing the Y-shaped internal medullary lamina dividing Anterior, Mediodorsal, Lateral, Ventral, Intralaminar, and Geniculate nuclei with exact sensory, motor, and limbic relays.</desc>
+  <defs>
+    <style>
+      .bg { fill: #0d1117; }
+      .card { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 12; }
+      .h1 { font: 700 24px 'DejaVu Sans', sans-serif; fill: #f0f6fc; }
+      .sub { font: 400 13px 'DejaVu Sans', sans-serif; fill: #8b949e; }
+      .nuc { stroke: #0d1117; stroke-width: 2.5; }
+      .lbl { font: 700 15px 'DejaVu Sans', sans-serif; fill: #ffffff; text-anchor: middle; }
+      .lbl-sm { font: 700 12.5px 'DejaVu Sans', sans-serif; fill: #ffffff; text-anchor: middle; }
+      .lbl-dk { font: 700 13px 'DejaVu Sans', sans-serif; fill: #0d1117; text-anchor: middle; }
+      .note { font: 400 12px 'DejaVu Sans', sans-serif; fill: #c9d1d9; }
+      .note-b { font: 700 12.5px 'DejaVu Sans', sans-serif; fill: #f0f6fc; }
+      .lamina { fill: none; stroke: #f5d078; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <rect class="bg" width="1180" height="700"/>
+  <text x="36" y="44" class="h1">Human Thalamus — Major Nuclear Groups &amp; Cortical Relays</text>
+  <text x="36" y="66" class="sub">Dorsolateral parcellation of the left thalamus showing the Y-shaped internal medullary lamina (all abbreviations verified)</text>
+
+  <text x="84" y="112" class="note-b">ANTERIOR (Rostral)</text>
+  <text x="580" y="112" class="note-b">POSTERIOR (Caudal)</text>
+
+  <!-- Left Thalamus Ovoid Parcellation -->
+  <path class="nuc" fill="#d97706" d="M 110,240 C 110,160 185,130 255,150 L 285,230 L 220,270 C 165,275 115,270 110,240 Z"/>
+  <path class="nuc" fill="#7c3aed" d="M 255,150 C 340,125 475,130 555,170 L 515,245 L 285,230 Z"/>
+  <path class="nuc" fill="#2563eb" d="M 285,230 L 405,237 L 405,300 L 265,300 Z"/>
+  <path class="nuc" fill="#1d4ed8" d="M 405,237 L 515,245 L 515,310 L 405,300 Z"/>
+  <path class="nuc" fill="#0891b2" d="M 555,170 C 645,190 695,255 680,335 C 668,390 620,420 545,420 L 515,310 L 515,245 Z"/>
+  <path class="nuc" fill="#059669" d="M 110,240 C 115,270 165,275 220,270 L 265,300 L 265,420 C 180,410 110,355 110,240 Z"/>
+  <path class="nuc" fill="#10b981" d="M 265,300 L 385,300 L 385,430 L 265,420 Z"/>
+  <path class="nuc" fill="#e11d48" d="M 385,300 L 515,310 L 545,420 L 460,430 L 460,363 L 385,363 Z"/>
+  <path class="nuc" fill="#f43f5e" d="M 385,363 L 460,363 L 460,430 L 385,430 Z"/>
+  <ellipse class="nuc" fill="#0284c7" cx="575" cy="454" rx="44" ry="27"/>
+  <ellipse class="nuc" fill="#db2777" cx="662" cy="428" rx="42" ry="26"/>
+  <path fill="none" stroke="#94a3b8" stroke-width="3" stroke-dasharray="7,5" d="M 92,243 C 92,130 245,107 435,117 C 625,127 722,215 704,347 C 692,433 610,460 415,448 C 210,443 92,375 92,243 Z"/>
+
+  <!-- Y-shaped Internal Medullary Lamina -->
+  <path class="lamina" d="M 255,150 L 285,230 L 515,245 M 220,270 L 285,230"/>
+  <circle cx="395" cy="237" r="18" fill="#f5d078" stroke="#0d1117" stroke-width="2"/>
+  <text x="395" y="242" class="lbl-dk">IL</text>
+
+  <text x="195" y="213" class="lbl">AN</text>
+  <text x="408" y="185" class="lbl">MD</text>
+  <text x="338" y="275" class="lbl-sm">LD</text>
+  <text x="462" y="279" class="lbl-sm">LP</text>
+  <text x="602" y="300" class="lbl">Pulvinar</text>
+  <text x="196" y="355" class="lbl">VA</text>
+  <text x="325" y="369" class="lbl">VL</text>
+  <text x="492" y="355" class="lbl-sm">VPL</text>
+  <text x="422" y="403" class="lbl-sm">VPM</text>
+  <text x="575" y="459" class="lbl-sm">LGN</text>
+  <text x="662" y="433" class="lbl-sm">MGN</text>
+
+  <!-- Clean non-overlapping captions below thalamus -->
+  <text x="40" y="510" class="note">Dashed outer shell = Thalamic Reticular Nucleus (TRN, GABAergic thalamocortical gating)</text>
+  <text x="40" y="530" class="note">Gold Y-lamina = Internal Medullary Lamina housing Intralaminar Nuclei (IL: Centromedian &amp; Parafascicular)</text>
+
+  <!-- Right-hand Verified Functional Relay Reference Panel (generous width) -->
+  <rect x="742" y="96" width="408" height="572" class="card"/>
+  <text x="762" y="126" class="note-b" style="fill:#f5d078;">VERIFIED INPUT → OUTPUT RELAYS</text>
+
+  <g transform="translate(762, 154)">
+    <rect width="12" height="12" rx="3" fill="#d97706" y="-10"/><text x="20" y="0" class="note-b">AN (Anterior)</text>
+    <text x="20" y="16" class="note">Mammillary bodies → Cingulate gyrus (Papez circuit)</text>
+
+    <rect width="12" height="12" rx="3" fill="#7c3aed" y="34"/><text x="20" y="44" class="note-b">MD (Mediodorsal)</text>
+    <text x="20" y="60" class="note">Amygdala / basal forebrain → Prefrontal cortex</text>
+
+    <rect width="12" height="12" rx="3" fill="#059669" y="78"/><text x="20" y="88" class="note-b">VA (Ventral Anterior)</text>
+    <text x="20" y="104" class="note">Basal ganglia (GPi / SNr) → Premotor &amp; SMA</text>
+
+    <rect width="12" height="12" rx="3" fill="#10b981" y="122"/><text x="20" y="132" class="note-b">VL (Ventral Lateral)</text>
+    <text x="20" y="148" class="note">Cerebellum (Dentate) &amp; GPi → Primary Motor (M1)</text>
+
+    <rect width="12" height="12" rx="3" fill="#e11d48" y="166"/><text x="20" y="176" class="note-b">VPL (Ventral Posterolateral)</text>
+    <text x="20" y="192" class="note">DCML &amp; Spinothalamic (body) → S1 (BA 3, 1, 2)</text>
+
+    <rect width="12" height="12" rx="3" fill="#f43f5e" y="210"/><text x="20" y="220" class="note-b">VPM (Ventral Posteromedial)</text>
+    <text x="20" y="236" class="note">Trigeminal (face) &amp; Solitary (taste) → S1 &amp; Insula</text>
+
+    <rect width="12" height="12" rx="3" fill="#0284c7" y="254"/><text x="20" y="264" class="note-b">LGN (Lateral Geniculate)</text>
+    <text x="20" y="280" class="note">Optic tract (CN II) → Primary Visual (V1, BA 17)</text>
+
+    <rect width="12" height="12" rx="3" fill="#db2777" y="298"/><text x="20" y="308" class="note-b">MGN (Medial Geniculate)</text>
+    <text x="20" y="324" class="note">Inferior colliculus → Primary Auditory (A1, BA 41)</text>
+
+    <rect width="12" height="12" rx="3" fill="#0891b2" y="342"/><text x="20" y="352" class="note-b">Pulvinar / LD / LP</text>
+    <text x="20" y="368" class="note">Visual attention &amp; parieto-occipito-temporal assoc.</text>
+
+    <rect width="12" height="12" rx="3" fill="#f5d078" y="386"/><text x="20" y="396" class="note-b">IL (Intralaminar: CM / PF)</text>
+    <text x="20" y="412" class="note">Reticular formation &amp; pain → Striatum &amp; arousal</text>
+
+    <rect width="12" height="12" rx="3" fill="#94a3b8" y="430"/><text x="20" y="440" class="note-b">TRN (Thalamic Reticular)</text>
+    <text x="20" y="456" class="note">GABAergic shell modulating thalamocortical gating</text>
+  </g>
+
+  <rect x="36" y="556" width="676" height="112" class="card"/>
+  <text x="56" y="586" class="note-b" style="fill:#60a5fa;">Key Neuroanatomical Rule (Olfaction Exception)</text>
+  <text x="56" y="610" class="note">Every major human sensory pathway (somatosensation, vision, audition, taste, vestibular)</text>
+  <text x="56" y="630" class="note">synapses in the thalamus before reaching primary neocortex — EXCEPT olfaction (CN I), which</text>
+  <text x="56" y="650" class="note">projects directly from the olfactory bulb to primary olfactory (piriform) cortex and amygdala.</text>
+</svg>

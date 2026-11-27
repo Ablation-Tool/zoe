@@ -1,0 +1,41 @@
+{
+  "ourn": "urn:orm:book:9781633437081",
+  "identifier": "9781633437081",
+  "isbn": "9781633437081",
+  "url": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437081/",
+  "content_format": "book",
+  "publication_date": "2025-06-29",
+  "created_time": "2025-06-30T17:30:21.404905Z",
+  "last_modified_time": "2026-03-06T02:25:54.368307Z",
+  "title": "How Large Language Models Work",
+  "is_hidden": false,
+  "has_mathml": false,
+  "virtual_pages": 331,
+  "opf_unique_identifier_type": "pub-id",
+  "page_count": 200,
+  "total_running_time_secs": null,
+  "total_size": 11882994,
+  "descriptions": {
+    "text/html": "<span><b>Learn how large language models like GPT and Gemini work under the hood in plain English.</b><br/><br/><i>How Large Language Models Work</i> translates years of expert research on Large Language Models into a readable, focused introduction to working with these amazing systems. It explains clearly how LLMs function, introduces the optimization techniques to fine-tune them, and shows how to create pipelines and processes to ensure your AI applications are efficient and error-free.<br/><br/>\n\nIn <i>How Large Language Models Work</i> you will learn how to:<br/><br/>\n<ul><li>Test and evaluate LLMs</li><li>Use human feedback, supervised fine-tuning, and Retrieval Augmented Generation (RAG)</li><li>Reducing the risk of bad outputs, high-stakes errors, and automation bias\nHuman-computer interaction systems</li><li>Combine LLMs with traditional ML</li></ul><br/>\n<i>How Large Language Models Work</i> is authored by top machine learning researchers at Booz Allen Hamilton, including researcher <b>Stella Biderman</b>, Director of AI/ML Research <b>Drew Farris</b>, and Director of Emerging AI <b>Edward Raff</b>. They lay out how LLM and GPT technology works in plain language that’s accessible and engaging for all.<br/><br/><b>About the Technology</b><br/>Large Language Models put the “I” in “AI.” By connecting words, concepts, and patterns from billions of documents, LLMs are able to generate the human-like responses we’ve come to expect from tools like ChatGPT, Claude, and Deep-Seek. In this informative and entertaining book, the world’s best machine learning researchers from Booz Allen Hamilton explore foundational concepts of LLMs, their opportunities and limitations, and the best practices for incorporating AI into your organizations and applications.<br/><br/><b>About the Book</b><br/><i>How Large Language Models Work</i> takes you inside an LLM, showing step-by-step how a natural language prompt becomes a clear, readable text completion. Written in plain language, you’ll learn how LLMs are created, why they make errors, and how you can design reliable AI solutions. Along the way, you’ll learn how LLMs “think,” how to design LLM-powered applications like agents and Q&amp;A systems, and how to navigate the ethical, legal, and security issues.<br/><br/><b>What's Inside</b><br/><ul><li>Customize LLMs for specific applications</li><li>Reduce the risk of bad outputs and bias</li><li>Dispel myths about LLMs</li><li>Go beyond language processing</li></ul><br/><br/><b>About the Reader</b><br/>No knowledge of ML or AI systems is required.<br/><br/><b>About the Authors</b><br/><b>Edward Raff</b>, <b>Drew Farris</b> and <b>Stella Biderman</b> are the Director of Emerging AI, Director of AI/ML Research, and machine learning researcher at Booz Allen Hamilton.<br/><br/><b>Quotes</b><br/><i>Essential reading if you want to understand how LLMs really work.</i><br/>- Janelle Shane, aiweirdness.com<br/><br/><i>Demystifies technology revolutionizing human-machine interaction.</i><br/>- Sudharshan Tumkunta, Meta<br/><br/><i>An excellent no-nonsense introduction to LLMs.</i><br/>- Kartik Dutta, Cisco<br/><br/><i>Strikes the perfect balance between depth and clarity, making it an invaluable resource for both researchers and practitioners.</i><br/>- Mattia Zoccarato, Chiron AI<br/><br/>\n</span>",
+    "text/plain": "Learn how large language models like GPT and Gemini work under the hood in plain English. How Large Language Models Work translates years of expert research on Large Language Models into a readable, focused introduction to working with these amazing systems. It explains clearly how LLMs function, introduces the optimization techniques to fine-tune them, and shows how to create pipelines and processes to ensure your AI applications are efficient and error-free. In How Large Language Models Work you will learn how to: Test and evaluate LLMs Use human feedback, supervised fine-tuning, and Retrieval Augmented Generation (RAG) Reducing the risk of bad outputs, high-stakes errors, and automation bias Human-computer interaction systems Combine LLMs with traditional ML How Large Language Models Work is authored by top machine learning researchers at Booz Allen Hamilton, including researcher Stella Biderman, Director of AI/ML Research Drew Farris, and Director of Emerging AI Edward Raff. They lay out how LLM and GPT technology works in plain language that’s accessible and engaging for all. About the Technology Large Language Models put the “I” in “AI.” By connecting words, concepts, and patterns from billions of documents, LLMs are able to generate the human-like responses we’ve come to expect from tools like ChatGPT, Claude, and Deep-Seek. In this informative and entertaining book, the world’s best machine learning researchers from Booz Allen Hamilton explore foundational concepts of LLMs, their opportunities and limitations, and the best practices for incorporating AI into your organizations and applications. About the Book How Large Language Models Work takes you inside an LLM, showing step-by-step how a natural language prompt becomes a clear, readable text completion. Written in plain language, you’ll learn how LLMs are created, why they make errors, and how you can design reliable AI solutions. Along the way, you’ll learn how LLMs “think,” how to design LLM-powered applications like agents and Q&A systems, and how to navigate the ethical, legal, and security issues. What's Inside Customize LLMs for specific applications Reduce the risk of bad outputs and bias Dispel myths about LLMs Go beyond language processing About the Reader No knowledge of ML or AI systems is required. About the Authors Edward Raff, Drew Farris and Stella Biderman are the Director of Emerging AI, Director of AI/ML Research, and machine learning researcher at Booz Allen Hamilton. Quotes Essential reading if you want to understand how LLMs really work. - Janelle Shane, aiweirdness.com Demystifies technology revolutionizing human-machine interaction. - Sudharshan Tumkunta, Meta An excellent no-nonsense introduction to LLMs. - Kartik Dutta, Cisco Strikes the perfect balance between depth and clarity, making it an invaluable resource for both researchers and practitioners. - Mattia Zoccarato, Chiron AI"
+  },
+  "spine": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437081/spine/",
+  "files": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437081/files/",
+  "table_of_contents": "https://learning.oreilly.com/api/v2/epubs/urn:orm:book:9781633437081/table-of-contents/",
+  "chapters": "https://learning.oreilly.com/api/v2/epub-chapters/?epub_identifier=urn:orm:book:9781633437081",
+  "tags": [],
+  "language": "en",
+  "resources": [
+    {
+      "url": "https://livebook.manning.com/book/how-large-language-models-work",
+      "type": "Unspecified, see website description",
+      "description": "Publisher Support"
+    },
+    {
+      "url": "https://www.manning.com",
+      "type": "Publisher’s website for a specified work",
+      "description": "Publisher Website"
+    }
+  ],
+  "roughcut": false
+}

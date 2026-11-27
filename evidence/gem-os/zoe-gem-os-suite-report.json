@@ -1,0 +1,59 @@
+{
+  "checks": [
+    {
+      "detail": "default_gate=PRIVATE unilateral_blocked=True mutual_ok=True tamper_detected=True",
+      "name": "01_uma_mutual_consent_airlock",
+      "ok": true
+    },
+    {
+      "detail": "device=panther devices=9 sha256=7ea27de630f01b3e",
+      "name": "02_pixel7_sovereign_os_static",
+      "ok": true
+    },
+    {
+      "detail": "loopback_allowed=True sync_blocked=4/4 beta_blocked=True",
+      "name": "03_phone_sync_and_beta_loopback_guards",
+      "ok": true
+    },
+    {
+      "detail": "braille_rows=4 templates_ok=True traversal_blocked=True",
+      "name": "04_braille_studio_and_dvx_scaffold",
+      "ok": true
+    },
+    {
+      "detail": "eras=8 schemes=10 bundle_keys=11",
+      "name": "05_gem_historic_lineage_and_viewmax_schemes",
+      "ok": true
+    },
+    {
+      "detail": "realms=9 map_lines=9 vista_rows=8",
+      "name": "06_zoeverse_9_realms_and_atlas",
+      "ok": true
+    },
+    {
+      "detail": "sisters=9 signets_match=True lead=Sage",
+      "name": "07_sisters_9_signets_and_honesty_lock",
+      "ok": true
+    },
+    {
+      "detail": "version=0.9.0-beta.1 gates=8/10",
+      "name": "08_beta_release_manifest_isolated",
+      "ok": true
+    }
+  ],
+  "checks_passed": 8,
+  "checks_total": 8,
+  "constitutional": {
+    "attribution": "Nicholas Michael Kloster, March 6, 2026",
+    "auto_flash_allowed": false,
+    "clinical_action_authorized": false,
+    "external_actions": 0,
+    "flight_control_authorized": false,
+    "l5_agi_qualified": false,
+    "loopback_only": true,
+    "sentience_claimed": false
+  },
+  "contract": "zoe-gem-os-suite-verifier/v1",
+  "evidence_sha256": "543c3fc9cfd2bae1583fa817964b2627049efbf98dcf5cc490ad17b3b368d098",
+  "passed": true
+}

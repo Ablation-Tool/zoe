@@ -1,0 +1,75 @@
+Sample run of the reference chain over a documentation-only scope.
+
+This is a synthetic transcript. Every address is an RFC 5737 documentation range
+(192.0.2.0/24) that routes nowhere. No live host, no real schema, no operator
+name. It exists to show the shape of a run before you wire in your own scope. The
+banner formatting is illustrative, not byte-identical to the runner's output.
+
+  $ cat scope.txt
+  192.0.2.10
+  192.0.2.20
+  192.0.2.30
+
+  $ make chain IPS=scope.txt
+
+  ============================================================
+  NuClide assessment chain  ::  reference runner
+  ============================================================
+  Scope     : scope.txt (3 hosts)
+  Run dir   : ./nuclide-runs/run-2026-06-19/
+  Footprint : guard off (set FOOTPRINT_GUARD to arm it)
+  ------------------------------------------------------------
+
+  == Stage -1/0: Platform intel (tome) ==
+    tome present. Pull dorks and a probe scaffold per platform.
+    -> dorks and probe configs available for covered platforms
+
+  == Stage 0b: Censys / CT-log cross-population delta ==
+    [gap] Censys/CT-log delta helper is not bundled. Supply your own
+          sweep; append the delta to ips.txt.
+
+  == Stage 0c: Active banner grab (scanner / tiptoe) ==
+    Running scanner over the scope (banner layer).
+    192.0.2.10:8080  live   server: gunicorn   (fresh)
+    192.0.2.20:8000  live   server: uvicorn    (fresh)
+    192.0.2.30       no response on the scanned ports (stale candidate)
+    -> 2 of 3 live. The third drops out before the fingerprinter sees it.
+
+  == Stage 1: Fingerprint and deep enum (aimap) ==
+    192.0.2.10:8080  vector-db   (conjunctive match + anti-match)
+    192.0.2.20:8000  model-server
+    -> ./nuclide-runs/run-2026-06-19/aimap-report.json
+
+  == Stage 1b: Auth posture probe (herald) ==
+    herald present. Probes one platform at a time on stdin (IP:PORT).
+    192.0.2.10:8080  auth-on-default: OPEN   (anonymous read accepted)
+
+  == Stage 2: VERIFY (the load-bearing stage) ==
+    192.0.2.10:8080  re-probe -> 200 with data on a read endpoint
+                     marker confirmed, not just a status code
+                     -> VERIFIED (access surface; metadata only, no record pulled)
+    192.0.2.20:8000  200 on /  but the body is the documented anonymous
+                     shape. Auth lives at the resolver.
+                     -> NOT a finding. Surface open, access not exercised.
+
+  == Stage 3: Attribute ==
+    [gap] classifier (aimap-profile in the internal chain) not bundled.
+
+  == Stage 5: Ledger ==
+    [gap] set NUCLIDE_LEDGER_DB to record. 1 verified finding this run.
+
+  == Stage 7: Report ==
+    [gap] renderer not bundled. See docs/OUTPUT-STANDARD.md for the
+          write-up contract.
+
+  ------------------------------------------------------------
+  Run complete.
+  Artifacts : ./nuclide-runs/run-2026-06-19/
+  Reminder  : the scan found 2 candidates. VERIFY earned 1 finding.
+              A scanner produces candidates. Verification produces findings.
+  ------------------------------------------------------------
+
+The point this transcript carries: the scan is the easy half. Three hosts in,
+two live, two fingerprinted, and exactly one survives verification. The host that
+returned a 200 was not a finding, because the body was the platform's documented
+anonymous answer. That is the stage every scanner skips.

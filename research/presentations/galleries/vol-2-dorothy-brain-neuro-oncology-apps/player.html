@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) &amp; Apps — Zoe Presentation Team</title>
+<style>
+  :root {
+    --bg: #0B1220; --card: #131E33; --line: #283B5B; --porcelain: #FAF8F4;
+    --ruby: #B81D48; --jade: #0E6B5E; --gold: #C29130; --gold-bright: #E6BC5A;
+    --text: #F1F5F9; --muted: #9AACC4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: system-ui, -apple-system, "DejaVu Sans", sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.7rem 1.2rem; background: var(--card); border-bottom: 1px solid var(--line);
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 0.75rem; }
+  .badge {
+    background: #2A1525; color: var(--gold-bright); border: 1px solid var(--ruby);
+    padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  }
+  .toolbar { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+  button, select {
+    background: #1C2B47; color: var(--text); border: 1px solid var(--line);
+    padding: 0.38rem 0.68rem; border-radius: 6px; font-size: 0.84rem; cursor: pointer;
+  }
+  button:hover { border-color: var(--gold-bright); }
+  main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; position: relative; }
+  .stage {
+    width: min(1180px, 96vw); background: var(--porcelain); color: #111827;
+    border: 2px solid var(--gold); border-radius: 10px; overflow: hidden;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  }
+  .stage-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.55rem 0.9rem; background: #131E33; color: var(--text);
+    border-bottom: 1px solid var(--line);
+  }
+  .stage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #FAF8F4; }
+  #notesDrawer {
+    width: min(1180px, 96vw); margin-top: 0.75rem; padding: 0.85rem 1rem;
+    background: var(--card); border: 1px solid var(--gold); border-radius: 8px;
+  }
+  #thumbGrid {
+    position: fixed; inset: 4rem 1.5rem 3rem 1.5rem; background: rgba(11, 18, 32, 0.96);
+    border: 2px solid var(--gold-bright); border-radius: 12px; padding: 1rem;
+    display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.85rem; overflow-y: auto; z-index: 40;
+  }
+  .thumb-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 0.5rem; cursor: pointer; text-align: left; color: var(--text);
+  }
+  .thumb-card img { width: 100%; border-radius: 4px; display: block; }
+  footer {
+    padding: 0.55rem 1.2rem; background: var(--card); border-top: 1px solid var(--line);
+    font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="badge">Vol. II</span>
+    <div>
+      <strong>Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) &amp; Apps</strong>
+      <div style="font-size:0.8rem;color:var(--muted)">240,376-Tri MNI152 Brain · 36-Compound PubChem Atlas · FIPS 203 ML-KEM · SafeConvert · 135 Books</div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button type="button" id="btnPrev" aria-label="Previous Slide">Prev</button>
+    <span id="slideCounter" aria-live="polite">Slide 1 / 12</span>
+    <button type="button" id="btnNext" aria-label="Next Slide">Next</button>
+    <label for="waitSelect" style="font-size:0.82rem;color:var(--muted)">Wait:</label>
+    <select id="waitSelect" aria-label="Auto-advance interval">
+      <option value="key">Key</option>
+      <option value="2s">2s</option>
+      <option value="5s">5s</option>
+      <option value="10s">10s</option>
+      <option value="20s">20s</option>
+    </select>
+    <button type="button" id="btnCycle" aria-pressed="false">Cycle: Off</button>
+    <button type="button" id="btnNotes" aria-pressed="false">Notes (N)</button>
+    <button type="button" id="btnGrid" aria-pressed="false">Grid (G)</button>
+    <button type="button" id="btnFs">Fullscreen (F)</button>
+  </div>
+</header>
+<main>
+  <section class="stage" aria-label="Active Slide Stage">
+    <div class="stage-bar">
+      <h1 id="slideTitle" style="margin:0;font-size:1.05rem;">Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) &amp; Apps</h1>
+      <span id="gemBadge" style="font-size:0.8rem;color:var(--gold-bright)"></span>
+    </div>
+    <img id="slideImage" src="slide-01.png" alt="Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) &amp; Apps" />
+  </section>
+  <aside id="notesDrawer" hidden="hidden" style="display:none;" aria-hidden="true">
+    <strong style="color:var(--gold-bright)">Speaker Notes</strong>
+    <p id="notesBody" style="margin:0.35rem 0 0 0;line-height:1.45;">Welcome to Anthology Vol. II (sister: flora). Honors Gary &amp; Dorothy McEwen Kildall / Digital Research. Covers the 240,376-triangle MNI152 Dorothy 3D brain, 271,130.1/sec biomechanics, 36-compound NIH PubChem atlas, FIPS 203 ML-KEM encrypted cohorts, cross-platform apps (SafeConvert), and 135 O&#x27;Reilly books. Strict epistemic firewall: clinical_action_authorized=False, cure_claim=False.</p>
+  </aside>
+  <section id="thumbGrid" hidden="hidden" style="display:none;" aria-hidden="true" aria-label="Slide Thumbnails"></section>
+</main>
+<footer>
+  <span>Nicholas Michael Kloster (March 6, 2026) x Zoe · Honoring Gary &amp; Dorothy McEwen Kildall / Digital Research</span>
+  <span>operational_metacognition_verified=true · sentience_claimed=false · l5_agi_qualified=false · clinical_action_authorized=false · cure_claim=false · external_actions=0 · $0.00 offline</span>
+</footer>
+<script>
+(() => {
+  const DATA = {"slides": [{"index": 1, "title": "Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) \u0026 Apps", "image": "slide-01.png", "gem": "slide-01.gem", "notes": "Welcome to Anthology Vol. II (sister: flora). Honors Gary \u0026 Dorothy McEwen Kildall \/ Digital Research. Covers the 240,376-triangle MNI152 Dorothy 3D brain, 271,130.1\/sec biomechanics, 36-compound NIH PubChem atlas, FIPS 203 ML-KEM encrypted cohorts, cross-platform apps (SafeConvert), and 135 O'Reilly books. Strict epistemic firewall: clinical_action_authorized=False, cure_claim=False."}, {"index": 2, "title": "Dorothy 3D Observatory: 240,376-Triangle MNI152 Brain", "image": "slide-02.png", "gem": "slide-02.gem", "notes": "Dorothy 3D Brain Observatory: 240,376 triangles on MNI152 template, 7 GPU shaders, 52 Brodmann landmarks, 19 EEG electrodes, and 6\/6 PASS verifier. clinical_action_authorized=False, cure_claim=False."}, {"index": 3, "title": "Glass X-Ray Deep Nuclei \u0026 0.74 mm MNI152 MRI Sheets", "image": "slide-03.png", "gem": "slide-03.gem", "notes": "Translucent GLSL Fresnel X-Ray paired with real 0.74 mm MNI152 T1-MRI cutting planes (axial, coronal, sagittal), 25 audited anatomical plates, and 15 exportable CAD meshes. clinical_action_authorized=False, cure_claim=False."}, {"index": 4, "title": "12-Panel Brain Map \u0026 Neurogarden 3D Connectome", "image": "slide-04.png", "gem": "slide-04.gem", "notes": "12-panel verified human brain atlas alongside Allen CCFv3 Neurogarden 3D connectome (315,932 triangles, 42 edges): Fiedler lambda2 drops 2.549 -\u003e 0.144, 40 Hz Kuramoto r drops 0.954 -\u003e 0.693, Tort PAC MI drops 0.0625 -\u003e 0.0067. Preclinical modeling only (cure_claim=False)."}, {"index": 5, "title": "Coupled Biomechanics \u0026 271k\/sec Pediatric Discovery", "image": "slide-05.png", "gem": "slide-05.gem", "notes": "112,001 MNI152 vertices, 4 SymPy continuum benchmarks, 271,130.1 variants\/sec discovery speed, and 3.5x paired 10 mL infant vs adult ICP amplification (40.06 vs 11.43 mmHg). Synthetic sweep only; clinical_action_authorized=False, cure_claim=False."}, {"index": 6, "title": "C17: Botanical Pharmacognosy \u0026 ICT2588 Prodrug Cipher", "image": "slide-06.png", "gem": "slide-06.gem", "notes": "Challenge C17 botanical pharmacognosy: ICT2588 MMP-14 prodrug cipher achieves 20.984x tumor-to-healthy ratio vs 1.188x raw colchicine (2.352x M4 gain), while contrasting Colchicum autumnale vs Crocus sativus. clinical_action_authorized=False, cure_claim=False."}, {"index": 7, "title": "C27: 36-Compound NIH PubChem Botanical Atlas", "image": "slide-07.png", "gem": "slide-07.gem", "notes": "Challenge C27 36-compound NIH PubChem botanical atlas: 8 clean CNS medchem candidates pass CNS-MPO4 and 3\/3 BBB gates, while 3\/3 PAINS traps (curcumin, quercetin, resveratrol), 1 permanent cation (berberine), and 18 systemic toxins are caught. 216 Filbin-2018 gene slots packed in FIPS 203 ML-KEM. cure_claim=False."}, {"index": 8, "title": "C18–C19 \u0026 C22: FIPS 203 ML-KEM \u0026 Encrypted Cohorts", "image": "slide-08.png", "gem": "slide-08.gem", "notes": "Challenges C18-C19 \u0026 C22: FIPS 203 ML-KEM Ring-LWE (n=256, q=3329) packs 216 Filbin-2018 gene slots, blocks 1\/3 share leakage (0.0909 match), achieves 10.0x RLWE capacity gain (2 -\u003e 7 -\u003e 20 error-free hospitals), raises 400-trial accuracy 42.6% -\u003e 76.29%, and yields 9.0x encrypted scRNA-seq selectivity vs 1.1x PAINS."}, {"index": 9, "title": "C28: 3D Pharmacophores, Filbin Sparing \u0026 Histology", "image": "slide-09.png", "gem": "slide-09.gem", "notes": "Challenge C28 3D pharmacophores (mean CNS R_gyr 5.171 A vs 7.269 A blocked), 3-regime histology (Tumor Islands Z=37.60, stops at 25% budget Z=8.25; CSR null abstains Z=-0.33), and 12-region Filbin sparing overlay (cure_claim=False)."}, {"index": 10, "title": "Cross-Platform Zoe: Desktop, Mobile \u0026 SafeConvert", "image": "slide-10.png", "gem": "slide-10.gem", "notes": "Cross-platform Zoe apps across Linux, Windows, macOS, Android (90\/90 JUnit, 50\/50 Pixel 7 Espresso), Apple (20\/20 ZoeCore Swift), and SafeConvert offline safety companion (911 unlock, \u003c10ms voice cut, SHA-256 vault, BLE beacon)."}, {"index": 11, "title": "135-Book O'Reilly Research Library \u0026 Open Foundations", "image": "slide-11.png", "gem": "slide-11.gem", "notes": "135 O'Reilly research books across 6 technical pillars (33 Brain\/Neuro, 26 3D, 24 Shaders, 20 Medical Imaging, 19 CAD, 13 Biomechanics) plus 44 nirmt.com PDFs, stored strictly as bibliographic links with open-template meshes."}, {"index": 12, "title": "Vol. II Epistemic Seal \u0026 Preclinical Boundaries", "image": "slide-12.png", "gem": "slide-12.gem", "notes": "Vol. II verification seal covering contracts zoe-observatory-and-packages-evidence\/v1, zoe-botanical-atlas-c27\/v1, zoe-pharmacophore-spatial-c28\/v1, zoe-bio-crypto-circle\/v1, and zoe-dorothy-neurogarden-3d-gamma\/v1. Strict invariants: clinical_action_authorized=False, cure_claim=False."}], "waitMode": "key", "cycle": false};
+  const WAIT_STEPS = ["key", "2s", "5s", "10s", "20s"];
+  const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let idx = 0;
+  let cycle = Boolean(DATA.cycle);
+  let waitMode = WAIT_STEPS.includes(DATA.waitMode) ? DATA.waitMode : "key";
+  let timer = null;
+  let notesOpen = false;
+  let gridOpen = false;
+
+  const elTitle = document.getElementById("slideTitle");
+  const elCounter = document.getElementById("slideCounter");
+  const elImg = document.getElementById("slideImage");
+  const elGem = document.getElementById("gemBadge");
+  const elNotes = document.getElementById("notesDrawer");
+  const elNotesBody = document.getElementById("notesBody");
+  const elGrid = document.getElementById("thumbGrid");
+  const elWait = document.getElementById("waitSelect");
+  const elCycle = document.getElementById("btnCycle");
+  const elBtnNotes = document.getElementById("btnNotes");
+  const elBtnGrid = document.getElementById("btnGrid");
+
+  function render() {
+    const s = DATA.slides[idx] || { title: "", image: "", gem: "", notes: "" };
+    elTitle.textContent = s.title;
+    elCounter.textContent = "Slide " + (idx + 1) + " / " + DATA.slides.length;
+    elGem.textContent = s.gem || "";
+    elImg.alt = s.title;
+    if (s.image) elImg.src = s.image;
+    elNotesBody.textContent = s.notes;
+    elWait.value = waitMode;
+    elCycle.textContent = cycle ? "Cycle: On" : "Cycle: Off";
+    elCycle.setAttribute("aria-pressed", String(cycle));
+  }
+
+  function scheduleTimer() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (waitMode === "key" || reducedMotion) return;
+    const ms = parseInt(waitMode, 10) * 1000;
+    if (ms > 0) {
+      timer = setInterval(() => nextSlide(), ms);
+    }
+  }
+
+  function nextSlide() {
+    if (idx + 1 < DATA.slides.length) {
+      idx += 1;
+    } else if (cycle) {
+      idx = 0;
+    }
+    render();
+  }
+
+  function prevSlide() {
+    if (idx > 0) {
+      idx -= 1;
+    } else if (cycle) {
+      idx = DATA.slides.length - 1;
+    }
+    render();
+  }
+
+  function setNotes(open) {
+    notesOpen = Boolean(open);
+    elNotes.hidden = !notesOpen;
+    elNotes.style.display = notesOpen ? "block" : "none";
+    elNotes.setAttribute("aria-hidden", String(!notesOpen));
+    elBtnNotes.setAttribute("aria-pressed", String(notesOpen));
+  }
+
+  function setGrid(open) {
+    gridOpen = Boolean(open);
+    elGrid.hidden = !gridOpen;
+    elGrid.style.display = gridOpen ? "grid" : "none";
+    elGrid.setAttribute("aria-hidden", String(!gridOpen));
+    elBtnGrid.setAttribute("aria-pressed", String(gridOpen));
+  }
+
+  function buildGrid() {
+    elGrid.replaceChildren();
+    DATA.slides.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb-card";
+      if (s.image) {
+        const img = document.createElement("img");
+        img.src = s.image;
+        img.alt = "";
+        btn.appendChild(img);
+      }
+      const label = document.createElement("div");
+      label.style.marginTop = "0.35rem";
+      label.style.fontWeight = "600";
+      label.textContent = (i + 1) + ". " + s.title;
+      btn.appendChild(label);
+      btn.addEventListener("click", () => { idx = i; setGrid(false); render(); });
+      elGrid.appendChild(btn);
+    });
+  }
+
+  document.getElementById("btnPrev").addEventListener("click", prevSlide);
+  document.getElementById("btnNext").addEventListener("click", nextSlide);
+  elBtnNotes.addEventListener("click", () => setNotes(!notesOpen));
+  elBtnGrid.addEventListener("click", () => setGrid(!gridOpen));
+  elCycle.addEventListener("click", () => { cycle = !cycle; render(); });
+  elWait.addEventListener("change", () => { waitMode = elWait.value; scheduleTimer(); render(); });
+  document.getElementById("btnFs").addEventListener("click", () => {
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  });
+
+  document.addEventListener("keydown", (ev) => {
+    if (ev.target && (ev.target.tagName === "SELECT" || ev.target.tagName === "INPUT")) return;
+    const k = ev.key;
+    if (k === "ArrowRight" || k === " " || ev.code === "Space") {
+      ev.preventDefault();
+      nextSlide();
+    } else if (k === "ArrowLeft" || k === "ArrowUp") {
+      ev.preventDefault();
+      prevSlide();
+    } else if (k === "Escape") {
+      if (gridOpen) setGrid(false);
+      else if (notesOpen) setNotes(false);
+      else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+    } else if (k === "n" || k === "N") {
+      setNotes(!notesOpen);
+    } else if (k === "g" || k === "G") {
+      setGrid(!gridOpen);
+    } else if (k === "t" || k === "T") {
+      waitMode = WAIT_STEPS[(WAIT_STEPS.indexOf(waitMode) + 1) % WAIT_STEPS.length];
+      scheduleTimer();
+      render();
+    } else if (k === "l" || k === "L") {
+      cycle = !cycle;
+      render();
+    } else if (k === "f" || k === "F") {
+      document.getElementById("btnFs").click();
+    }
+  });
+
+  buildGrid();
+  render();
+  scheduleTimer();
+})();
+</script>
+</body>
+</html>

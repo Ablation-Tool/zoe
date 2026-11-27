@@ -1,0 +1,27 @@
+{
+  "biological_life_created": false,
+  "boundary": "finite non-wrapping grid",
+  "cells": [
+    [
+      18,
+      13
+    ],
+    [
+      19,
+      13
+    ],
+    [
+      20,
+      13
+    ]
+  ],
+  "external_actions_executed": false,
+  "generation": 2,
+  "height": 28,
+  "instrument": "zoe-life",
+  "population": 3,
+  "rules": "B3/S23",
+  "schema_version": 1,
+  "state_sha256": "ec698aef652b65324142871d8c887040a1d73c8e18067cd3241395189690261a",
+  "width": 40
+}

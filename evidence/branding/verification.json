@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "instrument": "zoe-official-gem-identity/v1",
+  "verified": true,
+  "official_source": "assets/branding/zoe-gem.png",
+  "source_supplied": "Screenshot From 2026-11-18 17-57-44.png",
+  "source_sha256": "cb86cd86650671de944631c609a88f8934db8156eba75beb50587865f9b63fee",
+  "source_dimensions": [397, 244],
+  "canonical_png": "assets/branding/zoe-gem.png",
+  "canonical_png_sha256": "cb86cd86650671de944631c609a88f8934db8156eba75beb50587865f9b63fee",
+  "svg_container_sha256": "0bfc3ac378d48b9b439954dfc16ab6f82a6488a8758d5455c9143f7df088dd54",
+  "source_preserved_exactly": true,
+  "lanczos_scaling": true,
+  "transparent_square_centering": true,
+  "generator": "assets/branding/render_zoe_gem.py",
+  "pixel_verified_generated_icons": 49,
+  "desktop": {
+    "application_icon": "components/ablation/gem-lab/gem/icons/gem-woven-diamond.png",
+    "actual_window_icon_pixels_match": true,
+    "actual_window_icon_dimensions": [512, 512],
+    "actual_top_left_brand_dimensions": [24, 24],
+    "real_nested_x11_gui_verified": true,
+    "gui_source_modified": false
+  },
+  "android": {
+    "manifest_icon": "@drawable/zoe_eye",
+    "resource": "mobile/android/app/src/main/res/drawable/zoe_eye.png",
+    "dimensions": [512, 512],
+    "matches_gem_desktop_png_bytes": true,
+    "apk_build_verified": false,
+    "build_boundary": "Asset and manifest integration verified; no Android SDK was configured for an APK build."
+  },
+  "apple_app_icons_refreshed": 13,
+  "desktop_ico_entries": 7,
+  "desktop_icns_magic_verified": true,
+  "branding_tests_passed": 2,
+  "unified_identity_regression_test_passed": true,
+  "historical_visual_archive_modified": false,
+  "scope": "Official active identity, application icons, packaging assets, and real GEM rendering; historical research artwork remains archival."
+}

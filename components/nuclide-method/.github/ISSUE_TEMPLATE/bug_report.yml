@@ -1,0 +1,30 @@
+name: Tooling bug report
+description: A bug in run-chain.sh, bootstrap.sh, the Makefile, or CI.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **No live targets.** No real IPs, domains, operators, or organization names in this issue. Illustrative addresses use the RFC 5737 documentation ranges only (192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24) or example.com. This repository is public and ships no live target data, by design. See CONTRIBUTING.md and SECURITY.md.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The file, the command, and the behavior. A minimal reproduction beats a description.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: checkboxes
+    id: contract
+    attributes:
+      label: Public-visibility contract
+      options:
+        - label: This issue contains no real target IPs, domains, operators, or organization names. RFC 5737 ranges only.
+          required: true
+        - label: This issue contains no disclosure routing (no recipient, no abuse address, no CC list).
+          required: true

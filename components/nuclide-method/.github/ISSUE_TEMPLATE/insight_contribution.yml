@@ -1,0 +1,24 @@
+name: Insight contribution
+description: Propose a numbered insight or a survey writeup.
+labels: [insight]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **No live targets.** Describe the class of exposure, never a specific host. No real IPs, domains, operators, or organization names. RFC 5737 ranges only (192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24) or example.com. The schema and field names, never the records. See CONTRIBUTING.md.
+  - type: textarea
+    id: insight
+    attributes:
+      label: The insight, sanitized to class level
+      description: The class of mistake and the verification tier (Verified, Surface open, or Candidate). Cite the survey shape, not a real target.
+    validations:
+      required: true
+  - type: checkboxes
+    id: contract
+    attributes:
+      label: Public-visibility contract
+      options:
+        - label: Sanitized to class level. No real target, no operator name, no disclosure routing. RFC 5737 ranges only.
+          required: true
+        - label: The finding states an explicit verification tier and does not upgrade it.
+          required: true

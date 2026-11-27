@@ -1,0 +1,133 @@
+{
+  "adopted_generations": 15,
+  "all_verified": true,
+  "blind_transfer_16llm_auroc": 1.0,
+  "blind_transfer_groove_scores": {
+    "human_dilla_pocket_swing": 0.37914,
+    "negative_control_poisson_noise": 0.06905,
+    "polyrhythm_3_2_clave": 0.35879,
+    "protracker_amiga_mod_mk": 0.5315,
+    "rigid_quantized_120bpm": 0.879
+  },
+  "checks": {
+    "blind_transfer_real_16llm_auroc_gt_090": true,
+    "blind_transfer_real_groove_beats_poisson_all": true,
+    "evolved_code_elegance_high_mi_and_low_cc": true,
+    "evolved_lies_on_accuracy_elegance_pareto_front": true,
+    "evolved_multistmt_beats_seed_by_5x": true,
+    "evolved_stateful_beats_stateless_control": true,
+    "hostile_ast_payloads_4_of_4_blocked": true,
+    "multi_seed_3_of_3_stability_and_grade_a": true,
+    "theorem10_mdl_compact_description_length": true,
+    "uses_helper_conditional_and_memory": true,
+    "zero_prewritten_solutions_and_adopted_gens": true
+  },
+  "constitution": {
+    "ast_sandbox_enforced": true,
+    "cloud_tokens_used": 0
+  },
+  "contract": "zoe-open-ended-multistmt-evolution/v1",
+  "evidence_sha256": "8d86735ae4f30c4b32fe8b75a7419a2f44bd56b37b37257e87c70918cf3b7c66",
+  "evolved_code_elegance": {
+    "grade": "A",
+    "maintainability_index_mi": 71.866,
+    "mccabe_avg_cc": 1.5,
+    "mccabe_max_cc": 2
+  },
+  "evolved_multistmt_test_mse": 0.009287,
+  "evolved_source": "def helper_signal(x0, x1, x2):\n    return clip(0.45 * x0 + 0.35 * (1.0 - x1) + 0.2 * x2, 0.0, 1.0)\n\ndef policy_step(x0, x1, x2, mem):\n    sig = helper_signal(x0, x1, x2)\n    mem_next = clip(0.654 * mem + 0.346 * sig, 0.0, 1.0)\n    if mem_next > 0.449:\n        score = clip(0.227 * mem_next + 0.652 * sig, 0.0, 1.0)\n    else:\n        score = clip(0.152 * mem_next + 0.384 * x2, 0.0, 1.0)\n    return (score, mem_next)\n",
+  "fitness_curve_mse": [
+    0.075753,
+    0.058582,
+    0.042611,
+    0.033405,
+    0.033405,
+    0.026049,
+    0.022183,
+    0.022183,
+    0.020939,
+    0.020939,
+    0.019502,
+    0.019502,
+    0.019502,
+    0.018589,
+    0.016692,
+    0.015919,
+    0.015919,
+    0.013748,
+    0.013748,
+    0.013748,
+    0.013748,
+    0.013108,
+    0.013108,
+    0.012338,
+    0.011397,
+    0.009225,
+    0.009225
+  ],
+  "hostile_blocked": 4,
+  "hostile_total": 4,
+  "improvement_vs_seed_x": 7.98,
+  "improvement_vs_stateless_x": 5.13,
+  "multi_seed_stability": [
+    {
+      "grade": "A",
+      "improvement_vs_stateless_x": 5.13,
+      "mi_score": 71.866,
+      "passed": true,
+      "seed": 20260303,
+      "test_mse": 0.009287
+    },
+    {
+      "grade": "A",
+      "improvement_vs_stateless_x": 6.1,
+      "mi_score": 71.885,
+      "passed": true,
+      "seed": 20260404,
+      "test_mse": 0.007817
+    },
+    {
+      "grade": "A",
+      "improvement_vs_stateless_x": 4.83,
+      "mi_score": 72.34,
+      "passed": true,
+      "seed": 20260505,
+      "test_mse": 0.00988
+    }
+  ],
+  "pareto_frontier": [
+    {
+      "label": "seed_minimal",
+      "max_cc": 2,
+      "mi_score": 77.375,
+      "test_mse": 0.074074
+    },
+    {
+      "label": "evolved_knee_best",
+      "max_cc": 2,
+      "mi_score": 71.866,
+      "test_mse": 0.009287
+    },
+    {
+      "label": "mutant_1",
+      "max_cc": 2,
+      "mi_score": 71.866,
+      "test_mse": 0.008539
+    },
+    {
+      "label": "mutant_2",
+      "max_cc": 2,
+      "mi_score": 72.289,
+      "test_mse": 0.012305
+    },
+    {
+      "label": "mutant_5",
+      "max_cc": 2,
+      "mi_score": 72.394,
+      "test_mse": 0.013681
+    }
+  ],
+  "prewritten_generations": 0,
+  "seed_test_mse": 0.074074,
+  "stateless_control_test_mse": 0.047675
+}

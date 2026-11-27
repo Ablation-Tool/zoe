@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39659589-03",
+  "source_document_id": "pmid-39659589",
+  "split": "development",
+  "context_sha256": "712c9737c47212f76952f1d8f41eec06c3158a70bd44b621a45e62a9dee047bb",
+  "target": "present",
+  "target_position": 94,
+  "target_token_id": 1675,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999997,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    5,
+    3,
+    2,
+    1,
+    1,
+    1
+  ],
+  "entropy_bits": 2.590223861784453,
+  "maximum_probability": 0.6123272298402641,
+  "top_10_probability_mass": 0.9226990207083636,
+  "target_probability": 0.03882651450408249,
+  "target_rank": 4,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 1872,
+      "token": "developed",
+      "probability": 0.6123272298402641
+    },
+    {
+      "token_id": 8698,
+      "token": "introduce",
+      "probability": 0.11500811944923811
+    },
+    {
+      "token_id": 1687,
+      "token": "created",
+      "probability": 0.067810350274025
+    },
+    {
+      "token_id": 1675,
+      "token": "present",
+      "probability": 0.03882651450408249
+    },
+    {
+      "token_id": 3689,
+      "token": "develop",
+      "probability": 0.02020950604269954
+    },
+    {
+      "token_id": 5594,
+      "token": "describe",
+      "probability": 0.01985353987906016
+    },
+    {
+      "token_id": 2011,
+      "token": "designed",
+      "probability": 0.017585202537499792
+    },
+    {
+      "token_id": 17794,
+      "token": "propose",
+      "probability": 0.011416966501669547
+    },
+    {
+      "token_id": 2234,
+      "token": "introduced",
+      "probability": 0.011144486840480264
+    },
+    {
+      "token_id": 2561,
+      "token": "create",
+      "probability": 0.008517104839344494
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "270b6976438e194895708f8ec1fe3641ff708aed8c46e1792a5c5b2299be6f54",
+  "input_ids_sha256": "a47e701aa61d798cd8c8f248f3769c6dbe593f97b07acf96cef9aada498a4d17",
+  "original_input_ids_sha256": "f8b343e6f0580b661db390a17a55ee9e816b9879c3c95580bce258c366034612"
+}

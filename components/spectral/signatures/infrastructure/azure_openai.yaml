@@ -1,0 +1,39 @@
+id: AZR-001
+name: azure_openai_endpoint
+version: "1.0"
+category: infrastructure/headers
+model_family: Azure/OpenAI
+confidence: high
+description: Azure OpenAI Service endpoint and header patterns in HTTP logs or captured traffic
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: '[\w-]+\.openai\.azure\.com'
+  - type: regex
+    pattern: '/openai/deployments/[^/]+/(chat/)?completions'
+  - type: regex
+    pattern: 'api-version=20\d\d-\d\d-\d\d(-preview)?'
+  - type: string
+    pattern: 'api-key:'
+tags: [azure, openai, gpt, api, headers, network]
+---
+id: AZR-002
+name: azure_openai_sdk_config
+version: "1.0"
+category: agentic/config
+model_family: Azure/OpenAI
+confidence: medium
+description: Azure OpenAI SDK configuration patterns in source code or config files
+technique: AI API usage
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'AzureOpenAI\s*\('
+  - type: string
+    pattern: 'azure_endpoint'
+  - type: regex
+    pattern: 'AZURE_OPENAI_ENDPOINT'
+  - type: regex
+    pattern: 'openai\.azure\.com'
+tags: [azure, openai, sdk, config]

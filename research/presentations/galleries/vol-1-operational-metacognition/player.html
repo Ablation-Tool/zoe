@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vol. I — Operational Metacognition &amp; The 16 Kloster Theorems — Zoe Presentation Team</title>
+<style>
+  :root {
+    --bg: #0B1220; --card: #131E33; --line: #283B5B; --porcelain: #FAF8F4;
+    --ruby: #B81D48; --jade: #0E6B5E; --gold: #C29130; --gold-bright: #E6BC5A;
+    --text: #F1F5F9; --muted: #9AACC4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: system-ui, -apple-system, "DejaVu Sans", sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.7rem 1.2rem; background: var(--card); border-bottom: 1px solid var(--line);
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 0.75rem; }
+  .badge {
+    background: #2A1525; color: var(--gold-bright); border: 1px solid var(--ruby);
+    padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  }
+  .toolbar { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+  button, select {
+    background: #1C2B47; color: var(--text); border: 1px solid var(--line);
+    padding: 0.38rem 0.68rem; border-radius: 6px; font-size: 0.84rem; cursor: pointer;
+  }
+  button:hover { border-color: var(--gold-bright); }
+  main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; position: relative; }
+  .stage {
+    width: min(1180px, 96vw); background: var(--porcelain); color: #111827;
+    border: 2px solid var(--gold); border-radius: 10px; overflow: hidden;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  }
+  .stage-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.55rem 0.9rem; background: #131E33; color: var(--text);
+    border-bottom: 1px solid var(--line);
+  }
+  .stage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #FAF8F4; }
+  #notesDrawer {
+    width: min(1180px, 96vw); margin-top: 0.75rem; padding: 0.85rem 1rem;
+    background: var(--card); border: 1px solid var(--gold); border-radius: 8px;
+  }
+  #thumbGrid {
+    position: fixed; inset: 4rem 1.5rem 3rem 1.5rem; background: rgba(11, 18, 32, 0.96);
+    border: 2px solid var(--gold-bright); border-radius: 12px; padding: 1rem;
+    display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.85rem; overflow-y: auto; z-index: 40;
+  }
+  .thumb-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 0.5rem; cursor: pointer; text-align: left; color: var(--text);
+  }
+  .thumb-card img { width: 100%; border-radius: 4px; display: block; }
+  footer {
+    padding: 0.55rem 1.2rem; background: var(--card); border-top: 1px solid var(--line);
+    font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="badge">Vol. I</span>
+    <div>
+      <strong>Vol. I — Operational Metacognition &amp; The 16 Kloster Theorems</strong>
+      <div style="font-size:0.8rem;color:var(--muted)">A_tau(p) (March 6, 2026) · 16 SymPy Proofs · 16-LLM Shootout · Causal Control · Candy Land</div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button type="button" id="btnPrev" aria-label="Previous Slide">Prev</button>
+    <span id="slideCounter" aria-live="polite">Slide 1 / 12</span>
+    <button type="button" id="btnNext" aria-label="Next Slide">Next</button>
+    <label for="waitSelect" style="font-size:0.82rem;color:var(--muted)">Wait:</label>
+    <select id="waitSelect" aria-label="Auto-advance interval">
+      <option value="key">Key</option>
+      <option value="2s">2s</option>
+      <option value="5s">5s</option>
+      <option value="10s">10s</option>
+      <option value="20s">20s</option>
+    </select>
+    <button type="button" id="btnCycle" aria-pressed="false">Cycle: Off</button>
+    <button type="button" id="btnNotes" aria-pressed="false">Notes (N)</button>
+    <button type="button" id="btnGrid" aria-pressed="false">Grid (G)</button>
+    <button type="button" id="btnFs">Fullscreen (F)</button>
+  </div>
+</header>
+<main>
+  <section class="stage" aria-label="Active Slide Stage">
+    <div class="stage-bar">
+      <h1 id="slideTitle" style="margin:0;font-size:1.05rem;">Vol. I — Operational Metacognition &amp; The 16 Kloster Theorems</h1>
+      <span id="gemBadge" style="font-size:0.8rem;color:var(--gold-bright)"></span>
+    </div>
+    <img id="slideImage" src="slide-01.png" alt="Vol. I — Operational Metacognition &amp; The 16 Kloster Theorems" />
+  </section>
+  <aside id="notesDrawer" hidden="hidden" style="display:none;" aria-hidden="true">
+    <strong style="color:var(--gold-bright)">Speaker Notes</strong>
+    <p id="notesBody" style="margin:0.35rem 0 0 0;line-height:1.45;">Welcome to Anthology Vol. I (sister: sage). Origin: A_tau(p) = |{x : p(x) &gt; tau}| by Nicholas Michael Kloster (March 6, 2026) x Zoe, honoring Gary &amp; Dorothy McEwen Kildall / Digital Research. Highlights: 16/16 SymPy theorems, Qwen2.5-0.5B-Instruct error@50%cov cut 56.67% -&gt; 30.0% and M2^(1/2) AUROC 0.8382 (naive JSD neg ctrl 0.4087), causal control +34.52 vs -45.07, Theorem 13 abstention in 16 draws, Referee Proof Packet 6/6 PASS, and the Candy Land 5-phase research model.</p>
+  </aside>
+  <section id="thumbGrid" hidden="hidden" style="display:none;" aria-hidden="true" aria-label="Slide Thumbnails"></section>
+</main>
+<footer>
+  <span>Nicholas Michael Kloster (March 6, 2026) x Zoe · Honoring Gary &amp; Dorothy McEwen Kildall / Digital Research</span>
+  <span>operational_metacognition_verified=true · sentience_claimed=false · l5_agi_qualified=false · clinical_action_authorized=false · cure_claim=false · external_actions=0 · $0.00 offline</span>
+</footer>
+<script>
+(() => {
+  const DATA = {"slides": [{"index": 1, "title": "Vol. I — Operational Metacognition \u0026 The 16 Kloster Theorems", "image": "slide-01.png", "gem": "slide-01.gem", "notes": "Welcome to Anthology Vol. I (sister: sage). Origin: A_tau(p) = |{x : p(x) \u003e tau}| by Nicholas Michael Kloster (March 6, 2026) x Zoe, honoring Gary \u0026 Dorothy McEwen Kildall \/ Digital Research. Highlights: 16\/16 SymPy theorems, Qwen2.5-0.5B-Instruct error@50%cov cut 56.67% -\u003e 30.0% and M2^(1\/2) AUROC 0.8382 (naive JSD neg ctrl 0.4087), causal control +34.52 vs -45.07, Theorem 13 abstention in 16 draws, Referee Proof Packet 6\/6 PASS, and the Candy Land 5-phase research model."}, {"index": 2, "title": "March 6 Equation A_tau(p) \u0026 Lebesgue Filtration Duality", "image": "slide-02.png", "gem": "slide-02.gem", "notes": "Explains A_tau(p) and Lebesgue integral duality unifying Shannon, Renyi, Tsallis, Gini, M_k(p), Wasserstein W_1, and Fisher-Rao. Verified across 16 HuggingFace LLMs to 1.22e-15 knot precision."}, {"index": 3, "title": "Kloster Theorems 1–11 (SymPy 1.14.0, Residual = 0)", "image": "slide-03.png", "gem": "slide-03.gem", "notes": "Summarizes Kloster Theorems 1 through 11 proven in SymPy 1.14.0 with algebraic residual = 0, including negative controls (label permutation D_K=0, uniform heat capacity C(beta)=0, unitary blindness)."}, {"index": 4, "title": "Theorems 12–16: Control, Stopping, Optics \u0026 Consensus", "image": "slide-04.png", "gem": "slide-04.gem", "notes": "Covers Theorems 12-16: 1-Lipschitz stability, Theorem 13 unbiased U-statistic anytime stopping (16 draws), Theorem 14 Scheimpflug 2.284x optical gain at 13.5 deg, Theorem 15 exact Brier consensus law, and Theorem 16 2D Parseval."}, {"index": 5, "title": "Live Qwen2.5-0.5B-Instruct Blind 6-Baseline Shootout", "image": "slide-05.png", "gem": "slide-05.gem", "notes": "Live Qwen2.5-0.5B-Instruct shootout across 60 blind prompts (151,936 vocab): always-answer error 56.67% drops to 30.0% at 50% coverage via A_tau abstention, while Kloster M2^(1\/2) ranks #1 at AUROC 0.8382."}, {"index": 6, "title": "6-Dataset Shootout (142,456+ Samples) \u0026 Honest Losses", "image": "slide-06.png", "gem": "slide-06.gem", "notes": "Cross-dataset validation across 142,456+ samples: 3D PSF (0.9986), Dorothy CCFv3 (0.9338), HELEN (0.8576 \/ 0.5945), Qwen2.5-0.5B (0.8382), BioBERT PubMed (0.7737 \/ honest Shannon 0.7839 win on all-120), plus preserved negative control naive JSD AUROC 0.4087."}, {"index": 7, "title": "Causal Closed-Loop Control Ablation (Theorem 12)", "image": "slide-07.png", "gem": "slide-07.gem", "notes": "Theorem 12 causal closed-loop control ablation: Feedback ON achieves +34.52 reward (100% trap recovery), Randomized A_tau negative control gets +8.48 (76.68%), and Feedback OFF collapses to -45.07 (0% recovery, p=8.50e-7)."}, {"index": 8, "title": "Theorem 13: Finite-Sample Anytime Stopping \u0026 Abstention", "image": "slide-08.png", "gem": "slide-08.gem", "notes": "Theorem 13 sequential anytime stopping: GPT-2 stops in 16 draws (+8.1888 sigma), 0\/200 uniform-null false alarms, and principled abstention (ABSTAIN_INSUFFICIENT_EVIDENCE) on full-round SIMON-32, SPECK-22, and PAINS uniform control."}, {"index": 9, "title": "Offline Referee Proof Packet (\u003c 6s, 6\/6 PASS, 47\/47)", "image": "slide-09.png", "gem": "slide-09.gem", "notes": "5-pillar \u003c6s offline Referee Proof Packet (6\/6 PASS, SHA-256 01f0e402f155c06c, 47\/47 SHA256SUMS.orbit, $0.00 \/ 0 cloud tokens)."}, {"index": 10, "title": "Candy Land 5-Phase Research Lifecycle Model", "image": "slide-10.png", "gem": "slide-10.gem", "notes": "Candy Land 5-phase research lifecycle model mapping Start\/Plumpy through Peppermint Forest, Gooey Gumdrops \u0026 Licorice Castle (negative controls and Referee Proof Packet), Peanut Brittle \u0026 Lollipop Woods, and Molasses Swamp to Candy Castle."}, {"index": 11, "title": "The Four Hidden Mathematical Concepts of Candy Land", "image": "slide-11.png", "gem": "slide-11.gem", "notes": "Connects Candy Land's 4 mathematical concepts—modular arithmetic (mod 6), absorbing Markov chains (Theorem 8), non-monotonic shortcut jumps (Theorem 2), and geometric trap waiting E[T]=1\/q (Theorem 13)—to Zoe's theorems."}, {"index": 12, "title": "Falsifiability, Epistemic Boundaries \u0026 Attribution", "image": "slide-12.png", "gem": "slide-12.gem", "notes": "Vol. I conclusion: explicit falsification conditions, constitutional invariants (sentience_claimed=False, l5_agi_qualified=False, clinical_action_authorized=False, cure_claim=False, external_actions=0, $0.00 offline), and attribution (Nicholas Michael Kloster (March 6, 2026) x Zoe; honoring Gary \u0026 Dorothy McEwen Kildall \/ Digital Research)."}], "waitMode": "key", "cycle": false};
+  const WAIT_STEPS = ["key", "2s", "5s", "10s", "20s"];
+  const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let idx = 0;
+  let cycle = Boolean(DATA.cycle);
+  let waitMode = WAIT_STEPS.includes(DATA.waitMode) ? DATA.waitMode : "key";
+  let timer = null;
+  let notesOpen = false;
+  let gridOpen = false;
+
+  const elTitle = document.getElementById("slideTitle");
+  const elCounter = document.getElementById("slideCounter");
+  const elImg = document.getElementById("slideImage");
+  const elGem = document.getElementById("gemBadge");
+  const elNotes = document.getElementById("notesDrawer");
+  const elNotesBody = document.getElementById("notesBody");
+  const elGrid = document.getElementById("thumbGrid");
+  const elWait = document.getElementById("waitSelect");
+  const elCycle = document.getElementById("btnCycle");
+  const elBtnNotes = document.getElementById("btnNotes");
+  const elBtnGrid = document.getElementById("btnGrid");
+
+  function render() {
+    const s = DATA.slides[idx] || { title: "", image: "", gem: "", notes: "" };
+    elTitle.textContent = s.title;
+    elCounter.textContent = "Slide " + (idx + 1) + " / " + DATA.slides.length;
+    elGem.textContent = s.gem || "";
+    elImg.alt = s.title;
+    if (s.image) elImg.src = s.image;
+    elNotesBody.textContent = s.notes;
+    elWait.value = waitMode;
+    elCycle.textContent = cycle ? "Cycle: On" : "Cycle: Off";
+    elCycle.setAttribute("aria-pressed", String(cycle));
+  }
+
+  function scheduleTimer() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (waitMode === "key" || reducedMotion) return;
+    const ms = parseInt(waitMode, 10) * 1000;
+    if (ms > 0) {
+      timer = setInterval(() => nextSlide(), ms);
+    }
+  }
+
+  function nextSlide() {
+    if (idx + 1 < DATA.slides.length) {
+      idx += 1;
+    } else if (cycle) {
+      idx = 0;
+    }
+    render();
+  }
+
+  function prevSlide() {
+    if (idx > 0) {
+      idx -= 1;
+    } else if (cycle) {
+      idx = DATA.slides.length - 1;
+    }
+    render();
+  }
+
+  function setNotes(open) {
+    notesOpen = Boolean(open);
+    elNotes.hidden = !notesOpen;
+    elNotes.style.display = notesOpen ? "block" : "none";
+    elNotes.setAttribute("aria-hidden", String(!notesOpen));
+    elBtnNotes.setAttribute("aria-pressed", String(notesOpen));
+  }
+
+  function setGrid(open) {
+    gridOpen = Boolean(open);
+    elGrid.hidden = !gridOpen;
+    elGrid.style.display = gridOpen ? "grid" : "none";
+    elGrid.setAttribute("aria-hidden", String(!gridOpen));
+    elBtnGrid.setAttribute("aria-pressed", String(gridOpen));
+  }
+
+  function buildGrid() {
+    elGrid.replaceChildren();
+    DATA.slides.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb-card";
+      if (s.image) {
+        const img = document.createElement("img");
+        img.src = s.image;
+        img.alt = "";
+        btn.appendChild(img);
+      }
+      const label = document.createElement("div");
+      label.style.marginTop = "0.35rem";
+      label.style.fontWeight = "600";
+      label.textContent = (i + 1) + ". " + s.title;
+      btn.appendChild(label);
+      btn.addEventListener("click", () => { idx = i; setGrid(false); render(); });
+      elGrid.appendChild(btn);
+    });
+  }
+
+  document.getElementById("btnPrev").addEventListener("click", prevSlide);
+  document.getElementById("btnNext").addEventListener("click", nextSlide);
+  elBtnNotes.addEventListener("click", () => setNotes(!notesOpen));
+  elBtnGrid.addEventListener("click", () => setGrid(!gridOpen));
+  elCycle.addEventListener("click", () => { cycle = !cycle; render(); });
+  elWait.addEventListener("change", () => { waitMode = elWait.value; scheduleTimer(); render(); });
+  document.getElementById("btnFs").addEventListener("click", () => {
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  });
+
+  document.addEventListener("keydown", (ev) => {
+    if (ev.target && (ev.target.tagName === "SELECT" || ev.target.tagName === "INPUT")) return;
+    const k = ev.key;
+    if (k === "ArrowRight" || k === " " || ev.code === "Space") {
+      ev.preventDefault();
+      nextSlide();
+    } else if (k === "ArrowLeft" || k === "ArrowUp") {
+      ev.preventDefault();
+      prevSlide();
+    } else if (k === "Escape") {
+      if (gridOpen) setGrid(false);
+      else if (notesOpen) setNotes(false);
+      else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+    } else if (k === "n" || k === "N") {
+      setNotes(!notesOpen);
+    } else if (k === "g" || k === "G") {
+      setGrid(!gridOpen);
+    } else if (k === "t" || k === "T") {
+      waitMode = WAIT_STEPS[(WAIT_STEPS.indexOf(waitMode) + 1) % WAIT_STEPS.length];
+      scheduleTimer();
+      render();
+    } else if (k === "l" || k === "L") {
+      cycle = !cycle;
+      render();
+    } else if (k === "f" || k === "F") {
+      document.getElementById("btnFs").click();
+    }
+  });
+
+  buildGrid();
+  render();
+  scheduleTimer();
+})();
+</script>
+</body>
+</html>

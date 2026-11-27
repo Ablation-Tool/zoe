@@ -1,0 +1,116 @@
+{
+  "schema": "neurogarden-multiclass-source-audit-v1",
+  "source": "The Internet of Medical Things/009_c04.html",
+  "source_sha256": "62ec66f2c39b8fa047f6956c5e62813c0171c7def911e8adbafc4638ca26ebe7",
+  "reviewed_at": "2026-11-09T06:48:57Z",
+  "existing_tool": "brain_tumor_validation_review",
+  "table_4_7_count_audit": {
+    "validation_images": [12, 24, 36],
+    "AlexNet_correct": [9, 20, 32],
+    "GoogleNet_correct": [8, 15, 27],
+    "ResNet101_correct": [7, 18, 33]
+  },
+  "calculation": "100 times the mean of the four displayed diagonal entries for each manually transcribed, rounded 4x4 figure matrix",
+  "calculation_boundary": "The chapter says predicted classes are rows and actual classes are columns, but does not define matrix normalization. These diagonal means are figure-consistency checks, not recovered prediction counts or independently measured model accuracy.",
+  "networks": {
+    "AlexNet": [
+      {
+        "samples_per_class": 10,
+        "figure": "images/img4-3a.jpg",
+        "figure_sha256": "3b29a4b028bf8f20788645a9d05f6975f9477221fa7e94ab2e59b1c3a16d5888",
+        "matrix": [[1, 0, 0, 0], [0.50, 0.33, 0.17, 0], [0, 0.17, 0.83, 0], [0, 0, 0.17, 0.83]],
+        "diagonal_mean_percent": 74.75,
+        "table_4_7_accuracy_percent": 75
+      },
+      {
+        "samples_per_class": 20,
+        "figure": "images/img4-3b.jpg",
+        "figure_sha256": "2c2b227668c9ffb1bb74b00a73433d3e84b056faa12ce6c14fc44b7ca78df90b",
+        "matrix": [[0.67, 0, 0.17, 0.17], [0, 0.67, 0, 0.33], [0, 0, 1, 0], [0, 0, 0, 1]],
+        "diagonal_mean_percent": 83.5,
+        "table_4_7_accuracy_percent": 83.33
+      },
+      {
+        "samples_per_class": 30,
+        "figure": "images/img4-3c.jpg",
+        "figure_sha256": "7f12dd2cb04c4a7f26c3f59525f756b0df07fd4e648ca7a6b061503760e53588",
+        "matrix": [[1, 0, 0, 0], [0.33, 0.67, 0, 0], [0.11, 0, 0.89, 0], [0, 0, 0, 1]],
+        "diagonal_mean_percent": 89,
+        "table_4_7_accuracy_percent": 88.89
+      }
+    ],
+    "GoogleNet": [
+      {
+        "samples_per_class": 10,
+        "figure": "images/img4-3g.jpg",
+        "figure_sha256": "536f8c19af2a8df4cb127f903b8d08aa819eece4c1de61ffebbf009edefe633a",
+        "matrix": [[0, 0.33, 0.67, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
+        "diagonal_mean_percent": 75,
+        "table_4_7_accuracy_percent": 66.67
+      },
+      {
+        "samples_per_class": 20,
+        "figure": "images/img4-3h.jpg",
+        "figure_sha256": "ab17ce6f4042fddce6bea1411d455d43f702050a6c372333a221393d055b05b6",
+        "matrix": [[1, 0, 0, 0], [0.50, 0.33, 0.17, 0], [0, 0.17, 0.83, 0], [0, 0, 0.17, 0.83]],
+        "diagonal_mean_percent": 74.75,
+        "table_4_7_accuracy_percent": 62.5
+      },
+      {
+        "samples_per_class": 30,
+        "figure": "images/img4-3i.jpg",
+        "figure_sha256": "7507db917b5c3b1d80a8ece0aab8ede96e5f5262d991ff42a9d3abcfa95a8169",
+        "matrix": [[0.33, 0.56, 0.11, 0], [0.22, 0.67, 0.11, 0], [0, 0.22, 0.78, 0], [0.22, 0.11, 0, 0.67]],
+        "diagonal_mean_percent": 61.25,
+        "table_4_7_accuracy_percent": 75
+      }
+    ],
+    "ResNet101": [
+      {
+        "samples_per_class": 10,
+        "figure": "images/img4-3d.jpg",
+        "figure_sha256": "86fe7b4e6091d48d68996a675dfa062ae7a80ae0b6ba946c9087953104a36dc0",
+        "matrix": [[0, 0, 0.67, 0.33], [0, 0.67, 0, 0.33], [0, 0, 1, 0], [0, 0, 0, 1]],
+        "diagonal_mean_percent": 66.75,
+        "table_4_7_accuracy_percent": 58.33
+      },
+      {
+        "samples_per_class": 20,
+        "figure": "images/img4-3e.jpg",
+        "figure_sha256": "e9abe8eedd2ac92a1c18a453f9d18796ee53f027d3dc0037202da0c7e2d4ef65",
+        "matrix": [[1, 0, 0, 0], [0.17, 0.83, 0, 0], [0, 0, 1, 0], [0.17, 0, 0, 0.83]],
+        "diagonal_mean_percent": 91.5,
+        "table_4_7_accuracy_percent": 75
+      },
+      {
+        "samples_per_class": 30,
+        "figure": "images/img4-3f.jpg",
+        "figure_sha256": "c9f985640fd982ff1479e1914630724a11dcbbb89ccd0851b0054859c93ef8ed",
+        "matrix": [[0.78, 0.11, 0, 0.11], [0.22, 0.67, 0, 0.11], [0, 0, 1, 0], [0, 0.11, 0, 0.89]],
+        "diagonal_mean_percent": 83.5,
+        "table_4_7_accuracy_percent": 91.67
+      }
+    ]
+  },
+  "additional_source_discrepancies": {
+    "table_4_6_accuracy": {
+      "AlexNet": [1, 1, 0.91],
+      "GoogleNet": [0.72, 0.76, 0.76],
+      "ResNet101": [1, 0.72, 0.88]
+    },
+    "figure_4_2_accuracy_percent": {
+      "AlexNet": 97,
+      "GoogleNet": 74,
+      "ResNet101": 86
+    },
+    "figure_4_2_sha256": "de86d4edf2ddcdb18d34915799f039c998ea663cc8ea04257418244eff9672c4",
+    "post_table_narrative_accuracy_percent": {
+      "AlexNet": 82.40,
+      "GoogleNet": 68.05,
+      "ResNet101": 75
+    }
+  },
+  "limitations": "Only printed aggregate tables and rounded matrices were checked. The dataset version and provenance, patient identities, duplicate-slice handling, patient-level splits, augmentation boundaries, raw images, predictions, exact class support, confidence intervals, architecture modifications, random seeds, executable code, fitted models, and external validation are unavailable. The binary equations do not define aggregation for four classes. No model was trained or evaluated.",
+  "model_evaluated": false,
+  "clinical_claim": false
+}

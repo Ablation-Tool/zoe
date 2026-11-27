@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Zoe Original Faceted Red Gem with her Smiling Face (^ ◡ ^) up in the Crown Table (no sprout) -->
+
+    <!-- Outer Crown Top Bevel -->
+    <path android:pathData="M24,10 L76,10 L69,18 L31,18 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="24"
+                android:startY="10"
+                android:endX="76"
+                android:endY="18">
+                <item android:offset="0.0" android:color="#FFF35670" />
+                <item android:offset="1.0" android:color="#FFE63956" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Outer Crown Left Wing -->
+    <path
+        android:fillColor="#FFEB4561"
+        android:pathData="M24,10 L31,18 L19,35 L5,35 Z" />
+
+    <!-- Outer Crown Right Wing -->
+    <path android:pathData="M76,10 L95,35 L81,35 L69,18 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="76"
+                android:startY="10"
+                android:endX="95"
+                android:endY="35">
+                <item android:offset="0.0" android:color="#FFDF3350" />
+                <item android:offset="1.0" android:color="#FFB81D38" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Crown Table: Left, Center, Right -->
+    <path
+        android:fillColor="#FFF3879D"
+        android:pathData="M31,18 L50,35 L19,35 Z" />
+    <path android:pathData="M31,18 L69,18 L50,35 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="50"
+                android:startY="18"
+                android:endX="50"
+                android:endY="35">
+                <item android:offset="0.0" android:color="#FFFAB2C0" />
+                <item android:offset="1.0" android:color="#FFF58EA3" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#FFEA637E"
+        android:pathData="M69,18 L81,35 L50,35 Z" />
+
+    <!-- Outer Pavilion Left & Right Borders -->
+    <path android:pathData="M5,35 L19,35 L50,77 L50,92 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="10"
+                android:startY="35"
+                android:endX="50"
+                android:endY="92">
+                <item android:offset="0.0" android:color="#FFEA4462" />
+                <item android:offset="1.0" android:color="#FFB91E3C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M81,35 L95,35 L50,92 L50,77 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="90"
+                android:startY="35"
+                android:endX="50"
+                android:endY="92">
+                <item android:offset="0.0" android:color="#FFF05370" />
+                <item android:offset="1.0" android:color="#FFC32341" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Pavilion Left & Right Facets -->
+    <path android:pathData="M19,35 L50,35 L50,77 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="30"
+                android:startY="35"
+                android:endX="50"
+                android:endY="77">
+                <item android:offset="0.0" android:color="#FFF79CAD" />
+                <item android:offset="1.0" android:color="#FFE35874" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M50,35 L81,35 L50,77 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="68"
+                android:startY="35"
+                android:endX="50"
+                android:endY="77">
+                <item android:offset="0.0" android:color="#FFED738C" />
+                <item android:offset="1.0" android:color="#FFD63E5B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Crisp Luminous Facet Bevel Lines -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#D9FFE0E8"
+        android:strokeWidth="1.2"
+        android:strokeLineJoin="round"
+        android:pathData="M24,10 L76,10 L95,35 L50,92 L5,35 Z M5,35 L95,35 M31,18 L69,18 L81,35 L50,77 L19,35 Z M50,35 L50,77" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#70FFE0E8"
+        android:strokeWidth="1.0"
+        android:pathData="M31,18 L50,35 M69,18 L50,35" />
+
+    <!-- Zoe's Original Happy Smiling Face (^ ◡ ^) up in the Crown Table -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF3B242E"
+        android:strokeWidth="2.7"
+        android:strokeLineCap="round"
+        android:pathData="M37.8,29.4 Q41.5,23.2 45.2,29.4 M54.8,29.4 Q58.5,23.2 62.2,29.4 M46.9,31.8 Q50.0,36.2 53.1,31.8" />
+</vector>

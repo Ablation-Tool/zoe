@@ -1,0 +1,7 @@
+# About the reviewers
+
+**Ujjwal Karn** is a senior software engineer working in the Generative AI space, focusing on enhancing the safety and reliability of large language models. With over a decade of industry and research experience in machine learning, he has developed a unique proficiency in this domain. His research interests span a range of topics, from developing more accurate and efficient language models to investigating new applications for computer vision in real-world settings. As a core contributor to Llama 3 research, Ujjwal continues to drive innovation and progress in the field of AI, and his work has been instrumental in advancing the state of the art in large language model safety.
+
+**Aneesh Gadhwal** is a senior algorithm developer at Titan Company Limited, working on developing the healthcare ecosystem and focusing on algorithm development for human fitness tracking, vital sign tracking, and health assessment. He graduated from IIT (BHU) in 2021 with a dual degree (B.Tech and M.Tech) in biomedical/medical engineering, where he learned and applied various machine learning and deep learning techniques to biomedical problems. He secured a bronze medal at the BETiC Innovation Challenge in 2018.
+
+He is passionate about using the power of machine learning and deep learning algorithms to improve human health and well-being, and he is always eager to learn new skills and explore new domains in this field.

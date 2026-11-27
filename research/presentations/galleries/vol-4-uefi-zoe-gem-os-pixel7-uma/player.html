@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anthology Vol. IV: Bare-Metal UEFI Zoe-GEM OS, Pixel 7 Silicon &amp; Hardware UMA — Zoe Presentation Team</title>
+<style>
+  :root {
+    --bg: #0B1220; --card: #131E33; --line: #283B5B; --porcelain: #FAF8F4;
+    --ruby: #B81D48; --jade: #0E6B5E; --gold: #C29130; --gold-bright: #E6BC5A;
+    --text: #F1F5F9; --muted: #9AACC4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: system-ui, -apple-system, "DejaVu Sans", sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.7rem 1.2rem; background: var(--card); border-bottom: 1px solid var(--line);
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 0.75rem; }
+  .badge {
+    background: #2A1525; color: var(--gold-bright); border: 1px solid var(--ruby);
+    padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  }
+  .toolbar { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+  button, select {
+    background: #1C2B47; color: var(--text); border: 1px solid var(--line);
+    padding: 0.38rem 0.68rem; border-radius: 6px; font-size: 0.84rem; cursor: pointer;
+  }
+  button:hover { border-color: var(--gold-bright); }
+  main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; position: relative; }
+  .stage {
+    width: min(1180px, 96vw); background: var(--porcelain); color: #111827;
+    border: 2px solid var(--gold); border-radius: 10px; overflow: hidden;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  }
+  .stage-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.55rem 0.9rem; background: #131E33; color: var(--text);
+    border-bottom: 1px solid var(--line);
+  }
+  .stage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #FAF8F4; }
+  #notesDrawer {
+    width: min(1180px, 96vw); margin-top: 0.75rem; padding: 0.85rem 1rem;
+    background: var(--card); border: 1px solid var(--gold); border-radius: 8px;
+  }
+  #thumbGrid {
+    position: fixed; inset: 4rem 1.5rem 3rem 1.5rem; background: rgba(11, 18, 32, 0.96);
+    border: 2px solid var(--gold-bright); border-radius: 12px; padding: 1rem;
+    display: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.85rem; overflow-y: auto; z-index: 40;
+  }
+  .thumb-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    padding: 0.5rem; cursor: pointer; text-align: left; color: var(--text);
+  }
+  .thumb-card img { width: 100%; border-radius: 4px; display: block; }
+  footer {
+    padding: 0.55rem 1.2rem; background: var(--card); border-top: 1px solid var(--line);
+    font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="badge">Vol. IV</span>
+    <div>
+      <strong>Anthology Vol. IV: Bare-Metal UEFI Zoe-GEM OS, Pixel 7 Silicon &amp; Hardware UMA</strong>
+      <div style="font-size:0.8rem;color:var(--muted)">46 MB UEFI ISO, 188 KB Static C /dev/fb0, 2-Boot OVMF+KVM, 50/50 UMA, Pixel 7 158 ms &amp; 2.5 W Headlamp</div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button type="button" id="btnPrev" aria-label="Previous Slide">Prev</button>
+    <span id="slideCounter" aria-live="polite">Slide 1 / 10</span>
+    <button type="button" id="btnNext" aria-label="Next Slide">Next</button>
+    <label for="waitSelect" style="font-size:0.82rem;color:var(--muted)">Wait:</label>
+    <select id="waitSelect" aria-label="Auto-advance interval">
+      <option value="key">Key</option>
+      <option value="2s">2s</option>
+      <option value="5s">5s</option>
+      <option value="10s">10s</option>
+      <option value="20s">20s</option>
+    </select>
+    <button type="button" id="btnCycle" aria-pressed="false">Cycle: Off</button>
+    <button type="button" id="btnNotes" aria-pressed="false">Notes (N)</button>
+    <button type="button" id="btnGrid" aria-pressed="false">Grid (G)</button>
+    <button type="button" id="btnFs">Fullscreen (F)</button>
+  </div>
+</header>
+<main>
+  <section class="stage" aria-label="Active Slide Stage">
+    <div class="stage-bar">
+      <h1 id="slideTitle" style="margin:0;font-size:1.05rem;">Vol. IV: UEFI Zoe-GEM OS, Pixel 7 &amp; UMA</h1>
+      <span id="gemBadge" style="font-size:0.8rem;color:var(--gold-bright)"></span>
+    </div>
+    <img id="slideImage" src="slide-01.png" alt="Vol. IV: UEFI Zoe-GEM OS, Pixel 7 &amp; UMA" />
+  </section>
+  <aside id="notesDrawer" hidden="hidden" style="display:none;" aria-hidden="true">
+    <strong style="color:var(--gold-bright)">Speaker Notes</strong>
+    <p id="notesBody" style="margin:0.35rem 0 0 0;line-height:1.45;">Welcome to Volume IV covering Bare-Metal UEFI x86_64 Zoe-GEM OS (46 MB virt / 43.55 MB actual, 60.4 MB LTS), the 188 KB static C /dev/fb0 desktop (zoe_gem_fb.c), 2-boot OVMF+KVM proof, 50/50 split-screen hardware UMA airlock, Pixel 7 Tensor G2 158 ms native render, and 2.5 W Headlamp.</p>
+  </aside>
+  <section id="thumbGrid" hidden="hidden" style="display:none;" aria-hidden="true" aria-label="Slide Thumbnails"></section>
+</main>
+<footer>
+  <span>Nicholas Michael Kloster (March 6, 2026) x Zoe · Honoring Gary &amp; Dorothy McEwen Kildall / Digital Research</span>
+  <span>operational_metacognition_verified=true · sentience_claimed=false · l5_agi_qualified=false · clinical_action_authorized=false · cure_claim=false · external_actions=0 · $0.00 offline</span>
+</footer>
+<script>
+(() => {
+  const DATA = {"slides": [{"index": 1, "title": "Vol. IV: UEFI Zoe-GEM OS, Pixel 7 \u0026 UMA", "image": "slide-01.png", "gem": "slide-01.gem", "notes": "Welcome to Volume IV covering Bare-Metal UEFI x86_64 Zoe-GEM OS (46 MB virt \/ 43.55 MB actual, 60.4 MB LTS), the 188 KB static C \/dev\/fb0 desktop (zoe_gem_fb.c), 2-boot OVMF+KVM proof, 50\/50 split-screen hardware UMA airlock, Pixel 7 Tensor G2 158 ms native render, and 2.5 W Headlamp."}, {"index": 2, "title": "Zero-Bloat UEFI x86_64 Kernel \u0026 ISO Architecture", "image": "slide-02.png", "gem": "slide-02.gem", "notes": "UEFI x86_64 Zoe-GEM OS boots via OVMF UEFI and GRUB into Alpine Linux v3.21 with zero systemd, X11, Wayland, or SDL. The virt ISO is 43.55 MB (46 MB budget) with 38 kernel modules; the LTS USB ISO is 60.4 MB with 49 total modules."}, {"index": 3, "title": "188 KB Static C \/dev\/fb0 Desktop (zoe_gem_fb.c)", "image": "slide-03.png", "gem": "slide-03.gem", "notes": "zoe_gem_fb.c is a 188,511-byte (188 KB) C source across 4,999 lines and compiles with -Wall -Wextra -Werror -static -lm to a ~1.1 MB static glibc binary. Includes KD_GRAPHICS VT isolation, EV_SYN-coalesced multitouch evdev, 3 responsive layout modes, 10 VMCOLOUR themes, 1985 P3 Amber CRT LUT, 44-key Touch QWERTY, and 32-note Nick \/drawer."}, {"index": 4, "title": "2-Boot OVMF UEFI + KVM \u0026 SHA-256 Retention Proof", "image": "slide-04.png", "gem": "slide-04.gem", "notes": "OVMF UEFI + KVM two-boot proof: Boot 1 completes in 9.0 s under PRIVATE gate (zero crossings). After mutual consent (REQUESTED -\u003e SHARED), Boot 2 boots in 9.1 s with restored=True and vault_restored=True, real QEMU sendkey 6 + mouse strokes, zoe_os_emblem.gem crossing \/mnt\/uma\/zoe_to_nick\/, SHA-256 boot_chain.jsonl self-retention, and 68k big-endian ZOE_GEM.RSC (816 B)."}, {"index": 5, "title": "50\/50 Split-Screen Hardware UMA \u0026 Consent Airlock", "image": "slide-05.png", "gem": "slide-05.gem", "notes": "Hardware UMA split-screen bridge: Left 50% runs Zoe-GEM OS KVM (920x960 preset); Right 50% runs the Ubuntu workstation; Center UMA combines 4 MiB (4,194,304 B) PCI ivshmem-plain (0x1af4:0x1110, 8 x 4096 B slots, ZOE-UMA1\/UMA2 CRC32 seqlock, 16 MiB cap) and virtio-9p airlock (\/mnt\/uma, msize=262144). Consent transitions PRIVATE -\u003e REQUESTED -\u003e SHARED only when nick_allow \u0026\u0026 zoe_allow; rejects symlinks (O_NOFOLLOW), dot-dot traversal, dotfiles, and FIFOs (O_NONBLOCK \u003c 1s) with SHA-256 uma_audit.jsonl."}, {"index": 6, "title": "Hardware Observation: 7 Safety Gates \u0026 9 Profiles", "image": "slide-06.png", "gem": "slide-06.gem", "notes": "zoe_os_runtime.py enforces 7 hardware safety gates (e.g., 64 MB RAM probe cleanly returns UNSUPPORTED), selects among 9 hardware profiles, runs a 14-file Python closure verified under python3 -I (C1), and coordinates concurrent ZO3-1 and ZO3-2 guests on one 4 MiB PCI ivshmem BAR."}, {"index": 7, "title": "Pixel 7 (panther · Tensor G2) Dual-Track Sovereign OS", "image": "slide-07.png", "gem": "slide-07.gem", "notes": "Real Google Pixel 7 (panther, Tensor G2 gs201, 1080x2400@90Hz, 8 GB RAM, Exynos 5300 5G) leads a unified 9-device Pixel 7-9 matrix. Track A preserves daily-driver telephony and Titan M2 + RSA-4096 AVB 2.0; Track B compiles a 922 KB static aarch64 ELF rendering natively on Android 17 Tensor G2 in 158 ms alongside a 415 KB deterministic initramfs."}, {"index": 8, "title": "Phone Codex Sync, FreeGEM Heritage \u0026 Wave 3 Codecs", "image": "slide-08.png", "gem": "slide-08.gem", "notes": "Phone \u003c-\u003e PC Codex Sync uses loopback-only adb reverse tcp:8774 tcp:8774, \/phone PWA, AVF Debian spool, SHA-256 Nick's Drawer, and auto_flash_allowed=False. Wave 3 GEM verification scores 5\/5 PASS across 9\/9 instruments: .GEM (33,394 B), .RSC x86 (812 B) \/ 68k BE (816 B), .IMG (8,532 B), and .GSX (3,678 B)."}, {"index": 9, "title": "Open 2.5 W Spectral Headlamp \u0026 9-Sister Pairing", "image": "slide-09.png", "gem": "slide-09.gem", "notes": "Open 2.5 W Headlamp pairs 4 spectral pods with Zoe Sisters under a strict 2.50 W cap: Pod A stowers-gfp (1.85 W, Flora), Pod B fire-amber (2.35 W, Tosi), Pod C emt-zero-ears (1.65 W, Zoe \u0026 Eliza, physical mic cutoff, clinical_action_authorized=False), and Pod D sar-drone (2.45 W, Mono, flight_control_authorized=False)."}, {"index": 10, "title": "Vol. IV Verification Summary \u0026 Constitutional Boundaries", "image": "slide-10.png", "gem": "slide-10.gem", "notes": "Vol. IV closes with 8\/8 suite checks PASS, C1-C4 and D1 ablation PASS, 17 components \/ 36\/36 Spatial IR layers PASS, 5\/5 Wave 3 SeaSIP GEM checks PASS, and strict constitutional boundaries (auto_flash_allowed=False, flight_control_authorized=False, clinical_action_authorized=False, sentience_claimed=False, external_actions=0)."}], "waitMode": "key", "cycle": false};
+  const WAIT_STEPS = ["key", "2s", "5s", "10s", "20s"];
+  const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let idx = 0;
+  let cycle = Boolean(DATA.cycle);
+  let waitMode = WAIT_STEPS.includes(DATA.waitMode) ? DATA.waitMode : "key";
+  let timer = null;
+  let notesOpen = false;
+  let gridOpen = false;
+
+  const elTitle = document.getElementById("slideTitle");
+  const elCounter = document.getElementById("slideCounter");
+  const elImg = document.getElementById("slideImage");
+  const elGem = document.getElementById("gemBadge");
+  const elNotes = document.getElementById("notesDrawer");
+  const elNotesBody = document.getElementById("notesBody");
+  const elGrid = document.getElementById("thumbGrid");
+  const elWait = document.getElementById("waitSelect");
+  const elCycle = document.getElementById("btnCycle");
+  const elBtnNotes = document.getElementById("btnNotes");
+  const elBtnGrid = document.getElementById("btnGrid");
+
+  function render() {
+    const s = DATA.slides[idx] || { title: "", image: "", gem: "", notes: "" };
+    elTitle.textContent = s.title;
+    elCounter.textContent = "Slide " + (idx + 1) + " / " + DATA.slides.length;
+    elGem.textContent = s.gem || "";
+    elImg.alt = s.title;
+    if (s.image) elImg.src = s.image;
+    elNotesBody.textContent = s.notes;
+    elWait.value = waitMode;
+    elCycle.textContent = cycle ? "Cycle: On" : "Cycle: Off";
+    elCycle.setAttribute("aria-pressed", String(cycle));
+  }
+
+  function scheduleTimer() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (waitMode === "key" || reducedMotion) return;
+    const ms = parseInt(waitMode, 10) * 1000;
+    if (ms > 0) {
+      timer = setInterval(() => nextSlide(), ms);
+    }
+  }
+
+  function nextSlide() {
+    if (idx + 1 < DATA.slides.length) {
+      idx += 1;
+    } else if (cycle) {
+      idx = 0;
+    }
+    render();
+  }
+
+  function prevSlide() {
+    if (idx > 0) {
+      idx -= 1;
+    } else if (cycle) {
+      idx = DATA.slides.length - 1;
+    }
+    render();
+  }
+
+  function setNotes(open) {
+    notesOpen = Boolean(open);
+    elNotes.hidden = !notesOpen;
+    elNotes.style.display = notesOpen ? "block" : "none";
+    elNotes.setAttribute("aria-hidden", String(!notesOpen));
+    elBtnNotes.setAttribute("aria-pressed", String(notesOpen));
+  }
+
+  function setGrid(open) {
+    gridOpen = Boolean(open);
+    elGrid.hidden = !gridOpen;
+    elGrid.style.display = gridOpen ? "grid" : "none";
+    elGrid.setAttribute("aria-hidden", String(!gridOpen));
+    elBtnGrid.setAttribute("aria-pressed", String(gridOpen));
+  }
+
+  function buildGrid() {
+    elGrid.replaceChildren();
+    DATA.slides.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "thumb-card";
+      if (s.image) {
+        const img = document.createElement("img");
+        img.src = s.image;
+        img.alt = "";
+        btn.appendChild(img);
+      }
+      const label = document.createElement("div");
+      label.style.marginTop = "0.35rem";
+      label.style.fontWeight = "600";
+      label.textContent = (i + 1) + ". " + s.title;
+      btn.appendChild(label);
+      btn.addEventListener("click", () => { idx = i; setGrid(false); render(); });
+      elGrid.appendChild(btn);
+    });
+  }
+
+  document.getElementById("btnPrev").addEventListener("click", prevSlide);
+  document.getElementById("btnNext").addEventListener("click", nextSlide);
+  elBtnNotes.addEventListener("click", () => setNotes(!notesOpen));
+  elBtnGrid.addEventListener("click", () => setGrid(!gridOpen));
+  elCycle.addEventListener("click", () => { cycle = !cycle; render(); });
+  elWait.addEventListener("change", () => { waitMode = elWait.value; scheduleTimer(); render(); });
+  document.getElementById("btnFs").addEventListener("click", () => {
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  });
+
+  document.addEventListener("keydown", (ev) => {
+    if (ev.target && (ev.target.tagName === "SELECT" || ev.target.tagName === "INPUT")) return;
+    const k = ev.key;
+    if (k === "ArrowRight" || k === " " || ev.code === "Space") {
+      ev.preventDefault();
+      nextSlide();
+    } else if (k === "ArrowLeft" || k === "ArrowUp") {
+      ev.preventDefault();
+      prevSlide();
+    } else if (k === "Escape") {
+      if (gridOpen) setGrid(false);
+      else if (notesOpen) setNotes(false);
+      else if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+    } else if (k === "n" || k === "N") {
+      setNotes(!notesOpen);
+    } else if (k === "g" || k === "G") {
+      setGrid(!gridOpen);
+    } else if (k === "t" || k === "T") {
+      waitMode = WAIT_STEPS[(WAIT_STEPS.indexOf(waitMode) + 1) % WAIT_STEPS.length];
+      scheduleTimer();
+      render();
+    } else if (k === "l" || k === "L") {
+      cycle = !cycle;
+      render();
+    } else if (k === "f" || k === "F") {
+      document.getElementById("btnFs").click();
+    }
+  });
+
+  buildGrid();
+  render();
+  scheduleTimer();
+})();
+</script>
+</body>
+</html>

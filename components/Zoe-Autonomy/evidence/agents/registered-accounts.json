@@ -1,0 +1,23 @@
+{
+  "account_count": 2,
+  "accounts": [
+    {
+      "enabled": true,
+      "executable_available": true,
+      "id": "kimi",
+      "kind": "cli",
+      "owner": true
+    },
+    {
+      "enabled": true,
+      "executable_available": true,
+      "id": "claude",
+      "kind": "cli",
+      "owner": true
+    }
+  ],
+  "credential_values_included": false,
+  "instrument": "zoe-connected-agent-account-evidence",
+  "model_invocations_during_registration": 0,
+  "schema_version": 1
+}

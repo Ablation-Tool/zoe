@@ -1,0 +1,81 @@
+id: LLX-001
+name: llamaindex_session_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: LlamaIndex/Generic
+confidence: high
+description: LlamaIndex (formerly GPT Index) session, cache, and index persistence artifacts
+technique: AI framework deployment
+match_all: false
+indicators:
+  - type: file_path
+    pattern: 'storage_context'
+  - type: file_path
+    pattern: 'llama_index'
+  - type: file_path
+    pattern: 'index_store.json'
+  - type: file_path
+    pattern: 'docstore.json'
+tags: [llamaindex, rag, agent, filesystem]
+---
+id: LLX-002
+name: llamaindex_code_patterns
+version: "1.0"
+category: agentic/config
+model_family: LlamaIndex/Generic
+confidence: medium
+description: LlamaIndex import and initialization patterns in source code or config
+technique: AI framework deployment
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from llama_index'
+  - type: string
+    pattern: 'import llama_index'
+  - type: regex
+    pattern: 'VectorStoreIndex\.from_documents'
+  - type: string
+    pattern: 'StorageContext'
+  - type: regex
+    pattern: 'llama-index-core'
+tags: [llamaindex, rag, sdk, config]
+---
+id: SKN-001
+name: semantic_kernel_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: Microsoft/SemanticKernel
+confidence: high
+description: Microsoft Semantic Kernel configuration and plugin artifacts
+technique: AI framework deployment
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.sk'
+  - type: regex
+    pattern: 'skprompt\.txt'
+  - type: file_path
+    pattern: 'semantic_kernel'
+tags: [semantic-kernel, microsoft, agent, filesystem]
+---
+id: SKN-002
+name: semantic_kernel_code_patterns
+version: "1.0"
+category: agentic/config
+model_family: Microsoft/SemanticKernel
+confidence: medium
+description: Microsoft Semantic Kernel import and kernel-initialization patterns in source code
+technique: AI framework deployment
+match_all: false
+indicators:
+  - type: string
+    pattern: 'import semantic_kernel'
+  - type: string
+    pattern: 'from semantic_kernel'
+  - type: regex
+    pattern: 'Kernel\(\)\.add_(chat_service|text_completion)'
+  - type: string
+    pattern: 'Microsoft.SemanticKernel'
+  - type: regex
+    pattern: 'kernel\.import_native_skill'
+tags: [semantic-kernel, microsoft, sdk, config]

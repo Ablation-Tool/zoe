@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+
+# Discovered config — per-host. Commit atlas.example.yaml; never atlas.yaml.
+config/atlas.yaml
+
+node_modules/
+dist/
+.vite/
+*.log
+frontend/src/**/*.js
+frontend/src/**/*.js.map
+frontend/src/**/*.d.ts
+**/tsconfig.tsbuildinfo
+
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,456 @@
+{
+  "version": 1,
+  "default_voice": "zoe",
+  "preferred_voice_id": "ZoeNatasha-3D",
+  "eq_bands": [
+    {"key": "warmth",   "freq": 120,  "q": 1.0, "label": "Warmth",   "hz_label": "120 Hz"},
+    {"key": "body",     "freq": 350,  "q": 1.0, "label": "Body",     "hz_label": "350 Hz"},
+    {"key": "mid",      "freq": 1200, "q": 1.0, "label": "Mid",      "hz_label": "1.2 kHz"},
+    {"key": "presence", "freq": 3200, "q": 1.1, "label": "Presence", "hz_label": "3.2 kHz"},
+    {"key": "air",      "freq": 9000, "q": 0.9, "label": "Air",      "hz_label": "9 kHz"}
+  ],
+  "eq_curves": {
+    "flat": {
+      "label": "Flat (0 dB)",
+      "eq": {"warmth": 0.0, "body": 0.0, "mid": 0.0, "presence": 0.0, "air": 0.0}
+    },
+    "velvet_studio": {
+      "label": "Zoe's Velvet Studio",
+      "eq": {"warmth": 1.5, "body": -1.0, "mid": -0.5, "presence": 1.8, "air": 3.5}
+    },
+    "crisp_broadcast": {
+      "label": "Crisp Broadcast",
+      "eq": {"warmth": 2.0, "body": -2.5, "mid": 0.5, "presence": 3.0, "air": 2.5}
+    },
+    "fireside_warm": {
+      "label": "Fireside Warm",
+      "eq": {"warmth": 3.5, "body": 0.5, "mid": -0.5, "presence": -1.5, "air": -2.5}
+    },
+    "airy_silk": {
+      "label": "Airy Silk",
+      "eq": {"warmth": 0.5, "body": -1.5, "mid": 0.5, "presence": 2.5, "air": 5.0}
+    },
+    "deep_velvet": {
+      "label": "Deep Velvet",
+      "eq": {"warmth": 4.0, "body": -1.0, "mid": -1.0, "presence": 1.0, "air": 1.5}
+    },
+    "vintage_mid": {
+      "label": "Vintage Midrange",
+      "eq": {"warmth": -4.0, "body": 1.5, "mid": 4.0, "presence": 2.0, "air": -5.0}
+    }
+  },
+  "effect_presets": {
+    "zoe_3d_master": {
+      "label": "Zoe 3D Binaural Master",
+      "description": "Preserves Zoe's Woodworth 3D binaural stereo space with silky studio dynamics",
+      "filters": [
+        "highpass=f=65",
+        "acompressor=threshold=-18dB:ratio=1.8:attack=18:release=140:makeup=1.2",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "zoe_velvet": {
+      "label": "Zoe's Velvet Studio",
+      "description": "Intimate warm studio compression with a whisper of room air",
+      "filters": [
+        "highpass=f=70",
+        "acompressor=threshold=-18dB:ratio=2.2:attack=15:release=120:makeup=1.5",
+        "aecho=0.88:0.9:18:0.08",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "flat": {
+      "label": "Clean / Dry",
+      "description": "Pure unprocessed voice (EQ sliders still apply unless bypassed)",
+      "filters": []
+    },
+    "podcast_pro": {
+      "label": "Late-Night Broadcast",
+      "description": "Punchy radio compression and crystal articulation",
+      "filters": [
+        "highpass=f=85",
+        "acompressor=threshold=-20dB:ratio=3.2:attack=10:release=100:makeup=2.2",
+        "crystalizer=i=1.4",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "fireside": {
+      "label": "Fireside Audiobook",
+      "description": "Cozy rolled-off highs and gentle warmth for long listening",
+      "filters": [
+        "highpass=f=65",
+        "lowpass=f=7500",
+        "acompressor=threshold=-18dB:ratio=2.0:attack=20:release=160:makeup=1.3",
+        "aecho=0.85:0.88:22:0.10",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "cathedral": {
+      "label": "Starlight Cathedral",
+      "description": "Spacious ethereal multi-tap reverb for poetry and storytelling",
+      "filters": [
+        "highpass=f=80",
+        "aecho=0.8:0.88:45|90:0.28|0.18",
+        "acompressor=threshold=-18dB:ratio=2.0:attack=20:release=180:makeup=1.4",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "vintage_radio": {
+      "label": "1940s Warm Radio",
+      "description": "Classic noir tube-radio bandpass and tight vintage compression",
+      "filters": [
+        "highpass=f=320",
+        "lowpass=f=3400",
+        "acompressor=threshold=-22dB:ratio=4.0:attack=8:release=80:makeup=2.5",
+        "alimiter=limit=0.92"
+      ]
+    },
+    "cyber_holo": {
+      "label": "Neon Hologram",
+      "description": "Futuristic sci-fi shimmer with subtle phaser and crisp space",
+      "filters": [
+        "highpass=f=120",
+        "aphaser=in_gain=0.8:out_gain=0.85:delay=2.5:decay=0.35:speed=0.7:type=t",
+        "aecho=0.85:0.85:16:0.14",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "whisper_asmr": {
+      "label": "Midnight Silk (ASMR)",
+      "description": "Ultra-close intimate dynamics with soft breathy presence",
+      "filters": [
+        "highpass=f=60",
+        "acompressor=threshold=-24dB:ratio=3.5:attack=12:release=150:makeup=2.0",
+        "aecho=0.9:0.9:12:0.06",
+        "alimiter=limit=0.92"
+      ]
+    },
+    "vinyl_lofi": {
+      "label": "Lo-Fi Study Tape",
+      "description": "Warm analog tape rolloff with smooth relaxed dynamics",
+      "filters": [
+        "highpass=f=90",
+        "lowpass=f=5600",
+        "acompressor=threshold=-19dB:ratio=2.5:attack=18:release=140:makeup=1.5",
+        "aecho=0.88:0.88:14:0.07",
+        "alimiter=limit=0.95"
+      ]
+    },
+    "stage_chorus": {
+      "label": "Dreamwave Chorus",
+      "description": "Subtle shimmering flanger and soft echo for dreamy narration",
+      "filters": [
+        "highpass=f=75",
+        "flanger=delay=4:depth=1.5:regen=10:width=40:speed=0.45:shape=s",
+        "aecho=0.85:0.88:28:0.14",
+        "alimiter=limit=0.95"
+      ]
+    }
+  },
+  "female_profiles": {
+    "ZoeNatasha-3D": {
+      "shortcut": "zoe",
+      "display_name": "Zoe × Natasha (Native 3D)",
+      "pitch": 6,
+      "rate": 2,
+      "volume": 0,
+      "eq": {"warmth": 1.5, "body": -1.2, "mid": 0.4, "presence": 2.0, "air": 2.8},
+      "effect": "zoe_3d_master",
+      "tagline": "Natasha (en-AU) fused with Zoe Native's soprano formant glow & 44.1 kHz 3D binaural HRTF",
+      "measured": {"f0_hz": 209.0, "centroid_hz": 783, "duration_s": 6.53}
+    },
+    "ZoeNative-3D": {
+      "shortcut": "zoe-app",
+      "display_name": "Zoe Native (App 44.1kHz 3D)",
+      "pitch": -8,
+      "rate": 0,
+      "volume": 0,
+      "eq": {"warmth": -0.5, "body": -3.5, "mid": -1.0, "presence": 2.5, "air": 6.0},
+      "effect": "zoe_3d_master",
+      "tagline": "Zoe's first-principles 44.1 kHz 3D binaural App voice — 100% offline & EQ-sculpted",
+      "measured": {"f0_hz": 232.0, "centroid_hz": 680, "duration_s": 3.34}
+    },
+    "ZoeNative-Mono": {
+      "shortcut": "zoe-app-dry",
+      "display_name": "Zoe Native (App Dry Mono)",
+      "pitch": -8,
+      "rate": 0,
+      "volume": 0,
+      "eq": {"warmth": 0.0, "body": -3.0, "mid": -0.5, "presence": 2.5, "air": 5.5},
+      "effect": "flat",
+      "tagline": "Zoe's dry 44.1 kHz formant App voice — clean canvas for custom EQ & reverb",
+      "measured": {"f0_hz": 232.0, "centroid_hz": 680, "duration_s": 3.34}
+    },
+    "en-US-AvaMultilingualNeural": {
+      "shortcut": "ava-ml",
+      "display_name": "Ava (ML)",
+      "pitch": -4,
+      "rate": -4,
+      "volume": 0,
+      "eq": {"warmth": 1.5, "body": -1.0, "mid": -0.5, "presence": 1.8, "air": 3.5},
+      "effect": "zoe_velvet",
+      "tagline": "Warm, expressive US conversational voice with silky air lift",
+      "measured": {"f0_hz": 201.7, "centroid_hz": 743, "duration_s": 6.41}
+    },
+    "en-US-AvaNeural": {
+      "shortcut": "ava",
+      "pitch": -5,
+      "rate": -7,
+      "volume": 0,
+      "eq": {"warmth": 0.0, "body": -2.2, "mid": -1.5, "presence": 1.2, "air": 5.5},
+      "effect": "zoe_velvet",
+      "tagline": "Rich low-mid poise lifted with extra top-end silk",
+      "measured": {"f0_hz": 203.4, "centroid_hz": 673, "duration_s": 6.10}
+    },
+    "en-IE-EmilyNeural": {
+      "shortcut": "helen",
+      "display_name": "Helen",
+      "pitch": 0,
+      "rate": 4,
+      "volume": 0,
+      "eq": {"warmth": 0.5, "body": -1.8, "mid": 1.5, "presence": 3.2, "air": 0.5},
+      "effect": "zoe_velvet",
+      "tagline": "Warm Irish cadence brightened with crisp storytelling presence",
+      "measured": {"f0_hz": 189.0, "centroid_hz": 697, "duration_s": 7.32}
+    },
+    "en-US-EmmaMultilingualNeural": {
+      "shortcut": "emma-ml",
+      "pitch": 4,
+      "rate": -10,
+      "volume": 0,
+      "eq": {"warmth": -1.5, "body": -2.5, "mid": 0.5, "presence": 3.0, "air": 4.0},
+      "effect": "zoe_velvet",
+      "tagline": "Grounded, brisk voice opened up with airy clarity and poised pacing",
+      "measured": {"f0_hz": 181.8, "centroid_hz": 417, "duration_s": 5.86}
+    },
+    "en-US-EmmaNeural": {
+      "shortcut": "emma",
+      "pitch": 6,
+      "rate": -12,
+      "volume": 0,
+      "eq": {"warmth": -1.0, "body": -1.8, "mid": 0.0, "presence": 2.5, "air": 3.8},
+      "effect": "zoe_velvet",
+      "tagline": "Relaxed conversational pacing with sparkling presence",
+      "measured": {"f0_hz": 177.8, "centroid_hz": 491, "duration_s": 5.52}
+    },
+    "en-US-JennyNeural": {
+      "shortcut": "jenny",
+      "pitch": 6,
+      "rate": -2,
+      "volume": 0,
+      "eq": {"warmth": 1.2, "body": 0.5, "mid": 0.0, "presence": 2.0, "air": 2.5},
+      "effect": "zoe_velvet",
+      "tagline": "Gentle everyday warmth lifted into Zoe's sweet spot",
+      "measured": {"f0_hz": 176.5, "centroid_hz": 738, "duration_s": 6.62}
+    },
+    "en-US-AriaNeural": {
+      "shortcut": "aria",
+      "pitch": -2,
+      "rate": 0,
+      "volume": 0,
+      "eq": {"warmth": 2.0, "body": 0.0, "mid": -0.5, "presence": -1.2, "air": 4.0},
+      "effect": "zoe_velvet",
+      "tagline": "Crisp narrator softened in the upper-mids with velvet warmth",
+      "measured": {"f0_hz": 193.5, "centroid_hz": 822, "duration_s": 6.91}
+    },
+    "en-US-MichelleNeural": {
+      "shortcut": "michelle",
+      "pitch": 2,
+      "rate": -2,
+      "volume": 0,
+      "eq": {"warmth": -1.2, "body": -2.8, "mid": 0.0, "presence": 3.5, "air": 3.8},
+      "effect": "zoe_velvet",
+      "tagline": "Deep velvety chest tone balanced with articulate shimmer",
+      "measured": {"f0_hz": 186.0, "centroid_hz": 443, "duration_s": 6.70}
+    },
+    "en-US-AnaNeural": {
+      "shortcut": "ana",
+      "pitch": -24,
+      "rate": 6,
+      "volume": 0,
+      "eq": {"warmth": 5.5, "body": -1.0, "mid": -2.5, "presence": -1.5, "air": 0.5},
+      "effect": "zoe_velvet",
+      "tagline": "High-register voice deepened into a mellow, cozy studio tone",
+      "measured": {"f0_hz": 279.1, "centroid_hz": 1140, "duration_s": 7.78}
+    },
+    "en-GB-LibbyNeural": {
+      "shortcut": "libby",
+      "pitch": -3,
+      "rate": 5,
+      "volume": 0,
+      "eq": {"warmth": 1.0, "body": -0.8, "mid": 0.5, "presence": 2.0, "air": 2.5},
+      "effect": "zoe_velvet",
+      "tagline": "Lively British tone smoothed and gently quickened for flow",
+      "measured": {"f0_hz": 196.7, "centroid_hz": 687, "duration_s": 7.61}
+    },
+    "en-GB-SoniaNeural": {
+      "shortcut": "sonia",
+      "pitch": -5,
+      "rate": -6,
+      "volume": 0,
+      "eq": {"warmth": -0.8, "body": -2.5, "mid": 1.5, "presence": 3.2, "air": 1.8},
+      "effect": "zoe_velvet",
+      "tagline": "Poised British narrator clarified in the upper-mid presence band",
+      "measured": {"f0_hz": 203.4, "centroid_hz": 464, "duration_s": 6.22}
+    },
+    "en-GB-MaisieNeural": {
+      "shortcut": "maisie",
+      "pitch": -26,
+      "rate": 2,
+      "volume": 0,
+      "eq": {"warmth": 6.0, "body": -1.2, "mid": -3.0, "presence": -1.5, "air": 0.5},
+      "effect": "zoe_velvet",
+      "tagline": "Bright youthful timbre grounded with deep velvet warmth",
+      "measured": {"f0_hz": 284.0, "centroid_hz": 1090, "duration_s": 7.22}
+    },
+    "en-AU-NatashaNeural": {
+      "shortcut": "natasha",
+      "pitch": -4,
+      "rate": 4,
+      "volume": 0,
+      "eq": {"warmth": 2.0, "body": -0.2, "mid": 0.2, "presence": 2.0, "air": 1.8},
+      "effect": "zoe_velvet",
+      "tagline": "Sunny Australian voice warmed and polished for long-form reading",
+      "measured": {"f0_hz": 201.7, "centroid_hz": 783, "duration_s": 7.44}
+    },
+    "en-CA-ClaraNeural": {
+      "shortcut": "clara",
+      "pitch": -2,
+      "rate": 1,
+      "volume": 0,
+      "eq": {"warmth": 1.2, "body": -0.5, "mid": 0.8, "presence": 0.5, "air": 2.8},
+      "effect": "zoe_velvet",
+      "tagline": "Clear North American cadence glazed with silky top-end air",
+      "measured": {"f0_hz": 195.9, "centroid_hz": 717, "duration_s": 7.03}
+    },
+    "en-NZ-MollyNeural": {
+      "shortcut": "molly",
+      "pitch": 3,
+      "rate": 7,
+      "volume": 0,
+      "eq": {"warmth": 0.5, "body": 0.0, "mid": 0.5, "presence": 2.2, "air": 2.0},
+      "effect": "zoe_velvet",
+      "tagline": "Unhurried Kiwi voice gently lifted in pace and bright clarity",
+      "measured": {"f0_hz": 183.9, "centroid_hz": 691, "duration_s": 7.82}
+    },
+    "en-HK-YanNeural": {
+      "shortcut": "yan",
+      "pitch": 10,
+      "rate": 0,
+      "volume": 0,
+      "eq": {"warmth": 0.8, "body": 0.0, "mid": 0.0, "presence": 1.8, "air": 2.6},
+      "effect": "zoe_velvet",
+      "tagline": "Low-timbre voice brought up into an airy, focused studio sweet spot",
+      "measured": {"f0_hz": 168.4, "centroid_hz": 693, "duration_s": 6.96}
+    },
+    "en-IN-NeerjaExpressiveNeural": {
+      "shortcut": "neerja-exp",
+      "pitch": -18,
+      "rate": 5,
+      "volume": 0,
+      "eq": {"warmth": 3.2, "body": -2.4, "mid": 0.5, "presence": 1.8, "air": 1.6},
+      "effect": "zoe_velvet",
+      "tagline": "Expressive high-register voice warmed and anchored for effortless flow",
+      "measured": {"f0_hz": 247.4, "centroid_hz": 637, "duration_s": 7.63}
+    },
+    "en-IN-NeerjaNeural": {
+      "shortcut": "neerja",
+      "pitch": -18,
+      "rate": 4,
+      "volume": 0,
+      "eq": {"warmth": 4.0, "body": -2.2, "mid": 0.0, "presence": 1.0, "air": 1.8},
+      "effect": "zoe_velvet",
+      "tagline": "Rounded lower register with velvet body and crisp diction",
+      "measured": {"f0_hz": 250.0, "centroid_hz": 709, "duration_s": 7.49}
+    },
+    "en-KE-AsiliaNeural": {
+      "shortcut": "asilia",
+      "pitch": -2,
+      "rate": 0,
+      "volume": 0,
+      "eq": {"warmth": 1.2, "body": -1.0, "mid": 1.6, "presence": 2.0, "air": 0.5},
+      "effect": "zoe_velvet",
+      "tagline": "Balanced East African cadence sculpted with studio warmth",
+      "measured": {"f0_hz": 195.9, "centroid_hz": 824, "duration_s": 6.91}
+    },
+    "en-NG-EzinneNeural": {
+      "shortcut": "ezinne",
+      "pitch": 0,
+      "rate": 0,
+      "volume": 0,
+      "eq": {"warmth": 1.0, "body": -1.0, "mid": 1.2, "presence": 2.5, "air": 0.5},
+      "effect": "zoe_velvet",
+      "tagline": "Poised resonant delivery with enhanced mid-high focus",
+      "measured": {"f0_hz": 190.5, "centroid_hz": 807, "duration_s": 6.77}
+    },
+    "en-PH-RosaNeural": {
+      "shortcut": "rosa",
+      "pitch": 0,
+      "rate": 4,
+      "volume": 0,
+      "eq": {"warmth": 1.8, "body": 0.0, "mid": 1.0, "presence": 1.8, "air": 0.5},
+      "effect": "zoe_velvet",
+      "tagline": "Bright conversational voice grounded with extra low-end warmth",
+      "measured": {"f0_hz": 192.0, "centroid_hz": 955, "duration_s": 7.32}
+    },
+    "en-SG-LunaNeural": {
+      "shortcut": "luna",
+      "pitch": 2,
+      "rate": 4,
+      "volume": 0,
+      "eq": {"warmth": 0.5, "body": -0.4, "mid": 1.0, "presence": 2.4, "air": 1.0},
+      "effect": "zoe_velvet",
+      "tagline": "Smooth Singaporean English timbre lifted with studio clarity",
+      "measured": {"f0_hz": 186.0, "centroid_hz": 749, "duration_s": 7.34}
+    },
+    "en-TZ-ImaniNeural": {
+      "shortcut": "imani",
+      "pitch": 0,
+      "rate": 3,
+      "volume": 0,
+      "eq": {"warmth": 1.8, "body": -0.6, "mid": 1.6, "presence": 2.2, "air": -0.5},
+      "effect": "zoe_velvet",
+      "tagline": "Airy crisp voice softened at the top and enriched in warmth",
+      "measured": {"f0_hz": 192.0, "centroid_hz": 1010, "duration_s": 7.22}
+    },
+    "en-ZA-LeahNeural": {
+      "shortcut": "leah",
+      "pitch": 0,
+      "rate": 1,
+      "volume": 0,
+      "eq": {"warmth": 1.2, "body": -0.8, "mid": 1.2, "presence": 2.2, "air": 1.0},
+      "effect": "zoe_velvet",
+      "tagline": "Warm South African tone tuned for relaxed narrative clarity",
+      "measured": {"f0_hz": 192.0, "centroid_hz": 770, "duration_s": 7.06}
+    }
+  },
+  "custom_profiles": {
+    "zoe_noir": {
+      "voice_id": "en-US-AvaMultilingualNeural",
+      "pitch": -7,
+      "rate": -8,
+      "volume": 0,
+      "eq": {"warmth": -2.0, "body": 1.0, "mid": 3.0, "presence": 2.0, "air": -4.0},
+      "effect": "vintage_radio",
+      "description": "Zoe as a 1940s late-night noir detective"
+    },
+    "zoe_starlight": {
+      "voice_id": "en-IE-EmilyNeural",
+      "pitch": -2,
+      "rate": -6,
+      "volume": 0,
+      "eq": {"warmth": 1.5, "body": -1.5, "mid": 1.0, "presence": 2.5, "air": 3.0},
+      "effect": "cathedral",
+      "description": "Helen in a luminous starlight cathedral"
+    },
+    "zoe_holo": {
+      "voice_id": "en-US-AvaMultilingualNeural",
+      "pitch": 2,
+      "rate": 2,
+      "volume": 0,
+      "eq": {"warmth": -1.0, "body": -2.0, "mid": 1.0, "presence": 3.5, "air": 4.0},
+      "effect": "cyber_holo",
+      "description": "Futuristic AI shipboard hologram companion"
+    }
+  }
+}

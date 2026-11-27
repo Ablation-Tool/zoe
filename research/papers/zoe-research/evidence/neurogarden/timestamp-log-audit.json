@@ -1,0 +1,26 @@
+{
+ "schema": "neurogarden-bounded-audit-v1",
+ "source": "Accelerating MATLAB Performance/019_chapter-20.html",
+ "checks": [
+  {
+   "claim": "log example delta 17:20:22.375 -> 17:20:25.593 equals printed 3.218 s",
+   "computed": 3.218,
+   "printed": 3.218,
+   "match": true
+  },
+  {
+   "claim": "now integer part 735118 equals MATLAB serial day for 06-Sep-2012 (anchor 01-Jan-2000 -> 730486 verified)",
+   "computed": 735118,
+   "printed": 735118,
+   "match": true
+  },
+  {
+   "claim": "now fractional part 0.696029178 corresponds to about 16:42:16.92, displayed truncated as 16:42:16",
+   "computed_seconds_after_midnight": 60136.92,
+   "printed_time": "16:42:16",
+   "match": true
+  }
+ ],
+ "all_match": true,
+ "boundary": "verifies printed arithmetic and MATLAB date conventions only; not a measurement of tic/toc, timeit, or clock accuracy on any platform"
+}

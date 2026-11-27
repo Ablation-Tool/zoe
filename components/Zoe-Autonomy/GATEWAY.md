@@ -1,0 +1,109 @@
+# Internet exploration and connected agents
+
+Zoe-Autonomy includes a read-only web explorer and an owner-authorized gateway for connected AI-agent accounts.
+
+## Explore the web
+
+```bash
+zoe-autonomy explore \
+  --url https://example.com/ \
+  --pages 5 \
+  --depth 1 \
+  --delay 0.5 \
+  --output exploration.json
+```
+
+The explorer retrieves public HTTP(S) pages, extracts titles, visible text, and links, and stores short text excerpts with audit hashes. It begins from an explicit URL, follows same-origin links, checks robots.txt, and applies bounded page, depth, and delay settings. It does not submit forms, use credentials, or bypass authentication.
+
+The preserved [Example Domain exploration](../../evidence/exploration/example-com.json) records a real HTTP 200 response, page title, visible-text excerpt, and network audit hash.
+
+## Discover connected agents
+
+```bash
+zoe-autonomy agents discover
+zoe-autonomy agents list
+```
+
+Discovery recognizes locally installed Kimi, Claude, and Codex CLIs. Registration uses their existing authenticated interfaces and does not invoke a model:
+
+```bash
+zoe-autonomy agents discover --register --owner-approved
+```
+
+The current owner-authorized registration contains Kimi and Claude. See [registered account evidence](../../evidence/agents/registered-accounts.json).
+
+## Invoke a connected account
+
+For a registered CLI agent:
+
+```bash
+zoe-autonomy agents run kimi \
+  --prompt "Explain this repository's purpose" \
+  --output kimi-response.json
+```
+
+The default discovered templates use `kimi -p PROMPT` and `claude -p PROMPT`. Invocation uses the existing local CLI authentication and does not print or store credential values in gateway evidence.
+
+## Register another CLI agent
+
+```bash
+zoe-autonomy agents add-cli \
+  --id my-agent \
+  --argv '["/path/to/agent", "--prompt", "{prompt}"]' \
+  --owner-approved
+```
+
+The `{prompt}` placeholder is replaced before execution. Commands run directly without a shell and have bounded execution time and output.
+
+## Register an OpenAI-compatible account
+
+```bash
+export OWNED_AGENT_API_KEY='your-existing-account-key'
+zoe-autonomy agents add-http \
+  --id owned-api \
+  --url https://your-endpoint.example/v1/chat/completions \
+  --model your-model \
+  --api-key-env OWNED_AGENT_API_KEY \
+  --owner-approved
+
+zoe-autonomy agents run owned-api \
+  --prompt "Summarize this evidence" \
+  --output agent-response.json
+```
+
+`--api-key-env` names an environment variable. It does not store a credential in `connections.json`. Gateway audits record prompt and response hashes and lengths, not their content or API keys.
+
+## Configuration and evidence
+
+- Default configuration: `~/.zoe/agents/connections.json`
+- Default audit: `~/.zoe/agents/agent-audit.jsonl`
+- Override with `ZOE_AGENTS_ROOT` or `agents --root PATH`.
+
+CLI invocations require the host actuation scope. HTTP invocations require the network actuation scope. The shared emergency stop prevents both.
+
+## Three-way collaboration inside Zoe Chat
+
+Zoe can enter and exit the owner-connected embedded agent while remaining the local evidence, memory, and guard layer. The loop is **user ↔ Zoe ↔ embedded agent**, with the agent acting as a collaborator rather than being presented as Zoe.
+
+In the Ablation GEM launcher, collaboration is available automatically when local evidence is insufficient or the input is conversational. Direct terminal mode starts locally; enable automatic consultation with `agent on` or request it explicitly:
+
+```text
+agent status
+agent on
+agent ask Compare the supplied evidence and propose the next bounded experiment
+agent use claude
+agent off
+agent clear
+```
+
+Zoe shares the current question, up to three cited local evidence records, the current bounded GEM selection when present, and up to three recent shared turns held in memory. The connected agent's response returns through Zoe. It remains external, independently unverified context and is not added to research memory automatically.
+
+`agent off` disables automatic consultation while preserving explicit `agent ask`. `agent clear` clears only the in-memory shared turns. Zoe's `stop` blocks agent invocation along with other actions. The gateway's existing owner registration, host/network scopes, emergency stop, timeouts, output bounds, and hash-only audits remain in force.
+
+Before consulting, Zoe measures `stay_local` and `consult_agent` with \(A_{\tau,\mathrm{action}}\), using a fixed \(\tau=0.05\) and explicit provenance. The measurement is included in the agent's prompt and returned in Zoe's response. `agent proof PATH` writes a no-overwrite, digest-protected proof for inspection.
+
+A real synthetic connectivity check through Zoe returned the expected response with `GEM selection shared=True`; no private files or credentials were supplied. The [real metacognition proof](../../evidence/metacognition/collaboration-proof.json) records two live options at probabilities \(1/3\) and \(2/3\), selection of `consult_agent`, and Kimi's `METACOGNITION-PROOF-READY` response. `scripts/verify-metacognition-collaboration.py` independently recomputes the equation and validates its hashes. See [collaboration evidence](../../evidence/agents/collaboration.json) for the connectivity result, mocked test scope, and the separate nested-display limitation.
+
+## Verification
+
+The four gateway tests use an explicitly created local website, a mock CLI, and a mock OpenAI-compatible server. They verify same-origin traversal, robots.txt behavior, real invocation, prompt redaction, credential redaction, and owner registration. No external model is invoked by the tests.

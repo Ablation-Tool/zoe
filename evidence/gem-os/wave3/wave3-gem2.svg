@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="775" viewBox="0 0 960 620" role="img" aria-label="GEM 2.0 / 3.11 (1986-88) :: Post-Lawsuit Two-Pane Tiled Desktop">
+  <title>GEM 2.0 / 3.11 (1986-88) :: Post-Lawsuit Two-Pane Tiled Desktop</title>
+  <rect x="0" y="0" width="960.0" height="620.0" fill="#ffffff" />
+  <g data-object-id="g2_bg">
+    <title>g2_bg</title>
+    <rect x="0.0" y="0.0" width="960.0" height="620.0" fill="#00aaad" stroke="#00aaad" stroke-width="0.0" />
+  </g>
+  <g data-object-id="g2_mb">
+    <title>g2_mb</title>
+    <rect x="0.0" y="0.0" width="960.0" height="30.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2_mt_File">
+    <title>g2_mt_File</title>
+    <text x="18.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">File</text>
+  </g>
+  <g data-object-id="g2_mt_View">
+    <title>g2_mt_View</title>
+    <text x="84.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">View</text>
+  </g>
+  <g data-object-id="g2_mt_Options">
+    <title>g2_mt_Options</title>
+    <text x="150.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">Options</text>
+  </g>
+  <g data-object-id="g2_mt_Arrange">
+    <title>g2_mt_Arrange</title>
+    <text x="243.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#000000">Arrange</text>
+  </g>
+  <g data-object-id="g2_mid">
+    <title>g2_mid</title>
+    <text x="350.0" y="20.0" font-family="sans-serif" font-size="10.0" fill="#525552">GEM 2.0 / 3.11 VGA (2 FIXED TILED PANES · NO DESKTOP ICONS)</text>
+  </g>
+  <g data-object-id="g2_dskhi">
+    <title>g2_dskhi</title>
+    <rect x="884.0" y="2.0" width="66.0" height="26.0" fill="#000000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2_dskt">
+    <title>g2_dskt</title>
+    <text x="898.0" y="20.0" font-family="sans-serif" font-size="12.0" fill="#ffffff">Desk</text>
+  </g>
+  <g data-object-id="g2l_sh">
+    <title>g2l_sh</title>
+    <rect x="14.0" y="42.0" width="464.0" height="570.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="g2l_frame">
+    <title>g2l_frame</title>
+    <rect x="10.0" y="38.0" width="464.0" height="570.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="g2l_tb">
+    <title>g2l_tb</title>
+    <rect x="10.0" y="38.0" width="464.0" height="26.0" fill="#0000ad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_cls">
+    <title>g2l_cls</title>
+    <rect x="10.0" y="38.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_cls_in">
+    <title>g2l_cls_in</title>
+    <rect x="16.0" y="44.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_ful">
+    <title>g2l_ful</title>
+    <rect x="448.0" y="38.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_ful_in">
+    <title>g2l_ful_in</title>
+    <rect x="453.0" y="43.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_title">
+    <title>g2l_title</title>
+    <text x="46.0" y="56.0" font-family="sans-serif" font-size="12.0" fill="#ffffff">PANE A :: TRUST.ACC &amp; GUARD.ACC (FIXED TILE)</text>
+  </g>
+  <g data-object-id="g2l_info">
+    <title>g2l_info</title>
+    <rect x="10.0" y="64.0" width="464.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_infot">
+    <title>g2l_infot</title>
+    <text x="20.0" y="79.0" font-family="sans-serif" font-size="10.0" fill="#000000">GEM 2.0 Post-Lawsuit Tiled Window 1 of 2  |  Fuller [▣] only</text>
+  </g>
+  <g data-object-id="g2l_vsl">
+    <title>g2l_vsl</title>
+    <rect x="456.0" y="86.0" width="18.0" height="522.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_sz">
+    <title>g2l_sz</title>
+    <rect x="456.0" y="590.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_szd">
+    <title>g2l_szd</title>
+    <polyline points="459,604 470,593" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_h1">
+    <title>g2l_h1</title>
+    <text x="22.0" y="114.0" font-family="sans-serif" font-size="11.0" fill="#0000ad">1. 5D CONTINUOUS TRUST ENGINE (out &lt;= src)</text>
+  </g>
+  <g data-object-id="g2b_s_bg">
+    <title>g2b_s_bg</title>
+    <rect x="104.0" y="128.0" width="220.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2b_s_fg">
+    <title>g2b_s_fg</title>
+    <rect x="104.0" y="128.0" width="198.0" height="18.0" fill="#0000ad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2b_s_lb">
+    <title>g2b_s_lb</title>
+    <text x="332.0" y="143.0" font-family="sans-serif" font-size="10.0" fill="#000000">0.90</text>
+  </g>
+  <g data-object-id="g2l_s">
+    <title>g2l_s</title>
+    <text x="22.0" y="142.0" font-family="sans-serif" font-size="10.0" fill="#000000">SOURCE</text>
+  </g>
+  <g data-object-id="g2b_o_bg">
+    <title>g2b_o_bg</title>
+    <rect x="104.0" y="154.0" width="220.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2b_o_fg">
+    <title>g2b_o_fg</title>
+    <rect x="104.0" y="154.0" width="190.0" height="18.0" fill="#00aa00" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2b_o_lb">
+    <title>g2b_o_lb</title>
+    <text x="332.0" y="169.0" font-family="sans-serif" font-size="10.0" fill="#000000">0.87</text>
+  </g>
+  <g data-object-id="g2l_o">
+    <title>g2l_o</title>
+    <text x="22.0" y="168.0" font-family="sans-serif" font-size="10.0" fill="#000000">OUTPUT</text>
+  </g>
+  <g data-object-id="g2b_c_bg">
+    <title>g2b_c_bg</title>
+    <rect x="104.0" y="180.0" width="220.0" height="18.0" fill="#efebef" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2b_c_fg">
+    <title>g2b_c_fg</title>
+    <rect x="104.0" y="180.0" width="33.0" height="18.0" fill="#ad0000" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2b_c_lb">
+    <title>g2b_c_lb</title>
+    <text x="332.0" y="195.0" font-family="sans-serif" font-size="10.0" fill="#000000">0.15 CAP</text>
+  </g>
+  <g data-object-id="g2l_c">
+    <title>g2l_c</title>
+    <text x="22.0" y="194.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">COERCED</text>
+  </g>
+  <g data-object-id="g2l_lu">
+    <title>g2l_lu</title>
+    <text x="22.0" y="222.0" font-family="sans-serif" font-size="10.0" fill="#525552">nina Lume: high=0.9017 low=0.475 (120ms)</text>
+  </g>
+  <g data-object-id="g2l_div">
+    <title>g2l_div</title>
+    <polyline points="22,244 440,244" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2l_h2">
+    <title>g2l_h2</title>
+    <text x="22.0" y="268.0" font-family="sans-serif" font-size="11.0" fill="#ad0000">2. GUARD.ACC (EQ.2 + GEMSEAL1 + KEVLAR)</text>
+  </g>
+  <g data-object-id="g2lr_0">
+    <title>g2lr_0</title>
+    <text x="22.0" y="300.0" font-family="sans-serif" font-size="10.0" fill="#000000">Eq.2 Cascade Alarm : True (streak=3)</text>
+  </g>
+  <g data-object-id="g2lr_1">
+    <title>g2lr_1</title>
+    <text x="22.0" y="334.0" font-family="sans-serif" font-size="10.0" fill="#000000">Evaded Naive Guard : True</text>
+  </g>
+  <g data-object-id="g2lr_2">
+    <title>g2lr_2</title>
+    <text x="22.0" y="368.0" font-family="sans-serif" font-size="10.0" fill="#000000">Raw Vector Risk    : HIGH_VECTOR_INVERSION_RISK</text>
+  </g>
+  <g data-object-id="g2lr_3">
+    <title>g2lr_3</title>
+    <text x="22.0" y="402.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">GEMSEAL1 AEAD      : compliant=True</text>
+  </g>
+  <g data-object-id="g2lr_4">
+    <title>g2lr_4</title>
+    <text x="22.0" y="436.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Kevlar ~/.ssh      : BLOCKED (sensitive_home_subdir:.ssh)</text>
+  </g>
+  <g data-object-id="g2lr_5">
+    <title>g2lr_5</title>
+    <text x="22.0" y="470.0" font-family="sans-serif" font-size="10.0" fill="#000000">Kevlar Filter Esc  : 'x\' or 1==1 or \'y%'</text>
+  </g>
+  <g data-object-id="g2lr_6">
+    <title>g2lr_6</title>
+    <text x="22.0" y="504.0" font-family="sans-serif" font-size="10.0" fill="#000000">Sound Effects Pref : PC Speaker Beep on Alert = ON</text>
+  </g>
+  <g data-object-id="g2lr_7">
+    <title>g2lr_7</title>
+    <text x="22.0" y="538.0" font-family="sans-serif" font-size="10.0" fill="#000000">Print Spooler DA   : SPOOLER.ACC (.GEM/.RSC/.IMG)</text>
+  </g>
+  <g data-object-id="g2r_sh">
+    <title>g2r_sh</title>
+    <rect x="490.0" y="42.0" width="464.0" height="570.0" fill="#525552" stroke="#000000" stroke-width="0.0" />
+  </g>
+  <g data-object-id="g2r_frame">
+    <title>g2r_frame</title>
+    <rect x="486.0" y="38.0" width="464.0" height="570.0" fill="#ffffff" stroke="#000000" stroke-width="2.0" />
+  </g>
+  <g data-object-id="g2r_tb">
+    <title>g2r_tb</title>
+    <rect x="486.0" y="38.0" width="464.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_cls">
+    <title>g2r_cls</title>
+    <rect x="486.0" y="38.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_cls_in">
+    <title>g2r_cls_in</title>
+    <rect x="492.0" y="44.0" width="14.0" height="14.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_ful">
+    <title>g2r_ful</title>
+    <rect x="924.0" y="38.0" width="26.0" height="26.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_ful_in">
+    <title>g2r_ful_in</title>
+    <rect x="929.0" y="43.0" width="16.0" height="16.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_title">
+    <title>g2r_title</title>
+    <text x="522.0" y="56.0" font-family="sans-serif" font-size="12.0" fill="#000000">PANE B :: AUDIT.APP, VERIFY.APP &amp; ACTUATE.APP</text>
+  </g>
+  <g data-object-id="g2r_info">
+    <title>g2r_info</title>
+    <rect x="486.0" y="64.0" width="464.0" height="22.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_infot">
+    <title>g2r_infot</title>
+    <text x="496.0" y="79.0" font-family="sans-serif" font-size="10.0" fill="#000000">GEM 2.0 Post-Lawsuit Tiled Window 2 of 2  |  Zero Desktop Icons</text>
+  </g>
+  <g data-object-id="g2r_vsl">
+    <title>g2r_vsl</title>
+    <rect x="932.0" y="86.0" width="18.0" height="522.0" fill="#adaaad" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_sz">
+    <title>g2r_sz</title>
+    <rect x="932.0" y="590.0" width="18.0" height="18.0" fill="#ffffff" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_szd">
+    <title>g2r_szd</title>
+    <polyline points="935,604 946,593" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_h1">
+    <title>g2r_h1</title>
+    <text x="498.0" y="114.0" font-family="sans-serif" font-size="11.0" fill="#ad0000">3. AUDIT.APP :: 4 ABLATION AGENT AUDITORS</text>
+  </g>
+  <g data-object-id="g2r_a1">
+    <title>g2r_a1</title>
+    <text x="498.0" y="140.0" font-family="sans-serif" font-size="10.0" fill="#000000">Total Findings: 9  |  HIGH Severity: 5</text>
+  </g>
+  <g data-object-id="g2r_a2">
+    <title>g2r_a2</title>
+    <text x="498.0" y="164.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">PLT Exec Surplus + Missing HITL + exec_bash + Copilot</text>
+  </g>
+  <g data-object-id="g2r_d1">
+    <title>g2r_d1</title>
+    <polyline points="498,186 916,186" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_h2">
+    <title>g2r_h2</title>
+    <text x="498.0" y="210.0" font-family="sans-serif" font-size="11.0" fill="#0000ad">4. VERIFY.APP :: DUAL-PATH &amp; VISORLOG</text>
+  </g>
+  <g data-object-id="g2r_v1">
+    <title>g2r_v1</title>
+    <text x="498.0" y="236.0" font-family="sans-serif" font-size="10.0" fill="#ad0000">Status: MISMATCH_HELD (THRESHOLD_MISMATCH)</text>
+  </g>
+  <g data-object-id="g2r_v2">
+    <title>g2r_v2</title>
+    <text x="498.0" y="260.0" font-family="sans-serif" font-size="10.0" fill="#0000ad">Mask  : SELECT id FROM hosts WHERE cvss &gt;= [MASK]</text>
+  </g>
+  <g data-object-id="g2r_v3">
+    <title>g2r_v3</title>
+    <text x="498.0" y="284.0" font-family="sans-serif" font-size="10.0" fill="#00aa00">Patch : 7.0 -&gt; 8.0 (VisorLog SQLite)</text>
+  </g>
+  <g data-object-id="g2r_d2">
+    <title>g2r_d2</title>
+    <polyline points="498,308 916,308" stroke-linejoin="round" fill="none" stroke="#000000" stroke-width="1.0" />
+  </g>
+  <g data-object-id="g2r_h3">
+    <title>g2r_h3</title>
+    <text x="498.0" y="332.0" font-family="sans-serif" font-size="11.0" fill="#00aa00">5. ACTUATE.APP :: EMAIL + ROS + BLOOMCAS</text>
+  </g>
+  <g data-object-id="g2rr_0">
+    <title>g2rr_0</title>
+    <text x="498.0" y="362.0" font-family="sans-serif" font-size="10.0" fill="#000000">Email Allow @nuclide: True</text>
+  </g>
+  <g data-object-id="g2rr_1">
+    <title>g2rr_1</title>
+    <text x="498.0" y="398.0" font-family="sans-serif" font-size="10.0" fill="#000000">Email Exfil Denied  : True (recipient_not_allowlisted)</text>
+  </g>
+  <g data-object-id="g2rr_2">
+    <title>g2rr_2</title>
+    <text x="498.0" y="434.0" font-family="sans-serif" font-size="10.0" fill="#000000">ROS Read-Only Topic : True (/joint_states)</text>
+  </g>
+  <g data-object-id="g2rr_3">
+    <title>g2rr_3</title>
+    <text x="498.0" y="470.0" font-family="sans-serif" font-size="10.0" fill="#000000">ROS Deadman Block   : True (confirm req)</text>
+  </g>
+  <g data-object-id="g2rr_4">
+    <title>g2rr_4</title>
+    <text x="498.0" y="506.0" font-family="sans-serif" font-size="10.0" fill="#000000">ROS Dry-Run Safe    : True (external_actions=0)</text>
+  </g>
+  <g data-object-id="g2rr_5">
+    <title>g2rr_5</title>
+    <text x="498.0" y="542.0" font-family="sans-serif" font-size="10.0" fill="#000000">VisorCAS Bloom+CAS  : 16 MB + 2,097,152 slots</text>
+  </g>
+</svg>

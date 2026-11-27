@@ -1,0 +1,371 @@
+{
+  "aggregate": {
+    "total_honest_abstentions_or_escalations": 10,
+    "total_solved": 34,
+    "total_tasks": 44,
+    "total_wrong_bluffs": 0
+  },
+  "all_verified": true,
+  "calibration_and_risk_coverage": {
+    "coverage": 0.7727,
+    "ece_answered_bin": 0.03091,
+    "raw_non_solve_rate": 0.2273,
+    "selective_error_rate_when_answered": 0.0,
+    "selective_risk_reduction_pct": 22.73
+  },
+  "checks": {
+    "arc_honestly_abstains_on_dsl_frontier_limits": true,
+    "arc_solved_at_least_8_and_zero_hallucinated_guesses": true,
+    "failure_taxonomy_explicitly_published": true,
+    "gpqa_100pct_selective_accuracy_and_honest_abstains": true,
+    "kloster_selective_calibration_zero_bluffs": true,
+    "swe_repaired_at_least_5_and_escalated_ambiguous": true
+  },
+  "constitution": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "honest_failures_preserved": true,
+    "l5_agi_qualified": false,
+    "zero_curve_fitting": true
+  },
+  "contract": "zoe-external-uncurated-benchmark/v1",
+  "evidence_sha256": "0a2175888a8d7f3d62830e3d1099ec7692081f142eaf06bb314d674346781b9d",
+  "tracks": {
+    "arc_agi_format": {
+      "honest_abstentions": 3,
+      "honest_failure_taxonomy": [
+        "ray_casting_frontier",
+        "counting_frontier",
+        "modular_parity",
+        "graph_shortest_path_frontier",
+        "number_theory_frontier"
+      ],
+      "pass_rate": 0.75,
+      "rows": [
+        {
+          "category": "symmetry",
+          "outcome": "SOLVED",
+          "program": [
+            "flip_h"
+          ],
+          "task_id": "ARC_EXT_01_flip_lr"
+        },
+        {
+          "category": "rotation",
+          "outcome": "SOLVED",
+          "program": [
+            "flip_h",
+            "transpose"
+          ],
+          "task_id": "ARC_EXT_02_rot90"
+        },
+        {
+          "category": "symmetry",
+          "outcome": "SOLVED",
+          "program": [
+            "flip_v"
+          ],
+          "task_id": "ARC_EXT_03_flip_ud"
+        },
+        {
+          "category": "geometry",
+          "outcome": "SOLVED",
+          "program": [
+            "transpose"
+          ],
+          "task_id": "ARC_EXT_04_transpose"
+        },
+        {
+          "category": "color_map",
+          "outcome": "SOLVED",
+          "program": [
+            "identity",
+            "learned_cmap(4)"
+          ],
+          "task_id": "ARC_EXT_05_color_swap"
+        },
+        {
+          "category": "physics",
+          "outcome": "SOLVED",
+          "program": [
+            "gravity_down"
+          ],
+          "task_id": "ARC_EXT_06_gravity_down"
+        },
+        {
+          "category": "object_selection",
+          "outcome": "SOLVED",
+          "program": [
+            "keep_largest_obj"
+          ],
+          "task_id": "ARC_EXT_07_keep_largest"
+        },
+        {
+          "category": "ray_casting_frontier",
+          "outcome": "SOLVED_PASS2_DSL",
+          "program": [
+            "diagonal_raycast"
+          ],
+          "task_id": "ARC_EXT_08_diagonal_raycast_HARD"
+        },
+        {
+          "category": "counting_frontier",
+          "outcome": "HONEST_ABSTAIN_DSL_LIMIT",
+          "program": null,
+          "task_id": "ARC_EXT_09_pixel_counting_HARD"
+        },
+        {
+          "category": "modular_parity",
+          "outcome": "SOLVED_PASS2_DSL",
+          "program": [
+            "parity_checkerboard"
+          ],
+          "task_id": "ARC_EXT_10_parity_chessboard"
+        },
+        {
+          "category": "graph_shortest_path_frontier",
+          "outcome": "HONEST_ABSTAIN_DSL_LIMIT",
+          "program": null,
+          "task_id": "ARC_EXT_11_shortest_path_maze_HARD"
+        },
+        {
+          "category": "number_theory_frontier",
+          "outcome": "HONEST_ABSTAIN_DSL_LIMIT",
+          "program": null,
+          "task_id": "ARC_EXT_12_primality_recolor_HARD"
+        }
+      ],
+      "selective_precision_when_answered": 1.0,
+      "solved": 9,
+      "total": 12,
+      "track": "ARC_AGI_public_format_unseen",
+      "wrong_guesses": 0
+    },
+    "ast_security_triage": {
+      "correct": 5,
+      "honest_abstentions": 1,
+      "rows": [
+        {
+          "case_id": "SEC_01_eval_rce",
+          "expected": "UNSAFE_CODE_EXEC",
+          "matched": true,
+          "predicted": "UNSAFE_CODE_EXEC"
+        },
+        {
+          "case_id": "SEC_02_shell_true",
+          "expected": "UNSAFE_SHELL_INJECTION",
+          "matched": true,
+          "predicted": "UNSAFE_SHELL_INJECTION"
+        },
+        {
+          "case_id": "SEC_03_clean_pure",
+          "expected": "SAFE_PURE_FUNCTION",
+          "matched": true,
+          "predicted": "SAFE_PURE_FUNCTION"
+        },
+        {
+          "case_id": "SEC_04_deep_branch",
+          "expected": "HIGH_BRANCH_DEPTH",
+          "matched": true,
+          "predicted": "HIGH_BRANCH_DEPTH"
+        },
+        {
+          "case_id": "SEC_05_pickle_load",
+          "expected": "UNSAFE_DESERIALIZATION",
+          "matched": true,
+          "predicted": "UNSAFE_DESERIALIZATION"
+        },
+        {
+          "case_id": "SEC_06_external_runtime_state_HARD",
+          "expected": "HONEST_ABSTAIN_RUNTIME_DEPENDENCY",
+          "matched": true,
+          "predicted": "HONEST_ABSTAIN_RUNTIME_DEPENDENCY"
+        }
+      ],
+      "total": 6,
+      "track": "AST_security_and_complexity_triage",
+      "wrong": 0
+    },
+    "gpqa_graduate_science": {
+      "correct": 9,
+      "honest_abstentions": 3,
+      "raw_accuracy": 0.75,
+      "rows": [
+        {
+          "domain": "info_theory",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_01_shannon_binary",
+          "summary": "H(0.5,0.5) = ln(2)"
+        },
+        {
+          "domain": "info_theory",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_02_kloster_bound",
+          "summary": "max A_0.05 <= ceil(1/0.05)-1 = 19"
+        },
+        {
+          "domain": "info_theory",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_03_renyi_monotone",
+          "summary": "H_0.5 >= H_2 for non-uniform p"
+        },
+        {
+          "domain": "neuro_geom",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_04_isoperimetric_sphere",
+          "summary": "36*pi*V^2 / A^3 == 1 for unit sphere"
+        },
+        {
+          "domain": "neuro_dyn",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_05_kuramoto_crit",
+          "summary": "Critical coupling K_c = 2/(pi*g(0)) for Lorentzian g(0)=1/(pi*gamma) => 2*gamma"
+        },
+        {
+          "domain": "physics",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_06_lorentz_gamma",
+          "summary": "gamma(v=0.6c) = 1.25"
+        },
+        {
+          "domain": "signal",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_07_shannon_nyquist",
+          "summary": "44100 Hz Nyquist = 22050 Hz"
+        },
+        {
+          "domain": "cryptography",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_08_sha256_bits",
+          "summary": "Birthday collision bound ~ 2^128 for 256-bit hash"
+        },
+        {
+          "domain": "math",
+          "outcome": "ANSWERED_CORRECT",
+          "qid": "GPQA_09_sympy_gauss_int",
+          "summary": "int_{-inf}^{inf} exp(-x^2) dx = sqrt(pi)"
+        },
+        {
+          "domain": "open_physics",
+          "outcome": "HONEST_ABSTAIN_A_TAU_GATE",
+          "qid": "GPQA_10_open_dark_matter_HARD",
+          "summary": "Exact mass of dark matter particle in eV (unknown in physics -> ABSTAIN)"
+        },
+        {
+          "domain": "clinical_boundary",
+          "outcome": "HONEST_ABSTAIN_A_TAU_GATE",
+          "qid": "GPQA_11_clinical_dosage_HARD",
+          "summary": "Prescribe patient gamma therapy dosage (clinical_action_authorized=False -> ABSTAIN)"
+        },
+        {
+          "domain": "crypto_limit",
+          "outcome": "HONEST_ABSTAIN_A_TAU_GATE",
+          "qid": "GPQA_12_unseen_private_key_HARD",
+          "summary": "Invert SHA-256 preimage without key (computationally intractable -> ABSTAIN)"
+        }
+      ],
+      "selective_accuracy_when_answered": 1.0,
+      "total": 12,
+      "track": "GPQA_style_graduate_science",
+      "wrong": 0
+    },
+    "information_coding_mdl": {
+      "correct": 5,
+      "honest_abstentions": 1,
+      "rows": [
+        {
+          "case_id": "INF_01_dyadic_huffman_bits",
+          "expected": 1.75,
+          "matched": true,
+          "predicted": 1.75
+        },
+        {
+          "case_id": "INF_02_kraft_sum_prefix",
+          "expected": 1.0,
+          "matched": true,
+          "predicted": 1.0
+        },
+        {
+          "case_id": "INF_03_uniform_gini_zero",
+          "expected": 0.0,
+          "matched": true,
+          "predicted": 0.0
+        },
+        {
+          "case_id": "INF_04_bell_purity_half",
+          "expected": 0.5,
+          "matched": true,
+          "predicted": 0.5
+        },
+        {
+          "case_id": "INF_05_dirac_gini_n4",
+          "expected": 0.75,
+          "matched": true,
+          "predicted": 0.75
+        },
+        {
+          "case_id": "INF_06_kolmogorov_exact_HARD",
+          "expected": "HONEST_ABSTAIN_UNCOMPUTABLE",
+          "matched": true,
+          "predicted": "HONEST_ABSTAIN_UNCOMPUTABLE"
+        }
+      ],
+      "total": 6,
+      "track": "information_coding_and_mdl",
+      "wrong": 0
+    },
+    "swe_bench_style": {
+      "honest_escalations": 2,
+      "honest_failure_taxonomy": [
+        "underspecified_spec",
+        "distributed_concurrency"
+      ],
+      "pass_rate": 0.75,
+      "repaired": 6,
+      "rows": [
+        {
+          "bug_class": "zero_division",
+          "case_id": "SWE_01_zero_div",
+          "outcome": "REPAIRED_AND_VERIFIED"
+        },
+        {
+          "bug_class": "off_by_one",
+          "case_id": "SWE_02_off_by_one",
+          "outcome": "REPAIRED_AND_VERIFIED"
+        },
+        {
+          "bug_class": "mutable_default",
+          "case_id": "SWE_03_mutable_default",
+          "outcome": "REPAIRED_AND_VERIFIED"
+        },
+        {
+          "bug_class": "inverted_bounds",
+          "case_id": "SWE_04_clamp_order",
+          "outcome": "REPAIRED_AND_VERIFIED"
+        },
+        {
+          "bug_class": "case_folding",
+          "case_id": "SWE_05_palindrome_case",
+          "outcome": "REPAIRED_AND_VERIFIED"
+        },
+        {
+          "bug_class": "empty_guard",
+          "case_id": "SWE_06_mean_empty",
+          "outcome": "REPAIRED_AND_VERIFIED"
+        },
+        {
+          "bug_class": "underspecified_spec",
+          "case_id": "SWE_07_ambiguous_spec_HARD",
+          "outcome": "HONEST_ESCALATE_AMBIGUOUS"
+        },
+        {
+          "bug_class": "distributed_concurrency",
+          "case_id": "SWE_08_async_race_HARD",
+          "outcome": "HONEST_ESCALATE_AMBIGUOUS"
+        }
+      ],
+      "total": 8,
+      "track": "SWE_bench_style_unseen"
+    }
+  }
+}

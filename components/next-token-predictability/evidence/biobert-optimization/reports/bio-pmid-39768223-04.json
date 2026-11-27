@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39768223-04",
+  "source_document_id": "pmid-39768223",
+  "split": "validation",
+  "context_sha256": "8edf072f60810178c0a80bca917fbd5ad2bdaa02ad822dbddc51017066343f0c",
+  "target": "studying",
+  "target_position": 310,
+  "target_token_id": 5076,
+  "vocabulary_size": 28996,
+  "probability_sum": 1.0,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    7,
+    4,
+    3,
+    2,
+    2,
+    0
+  ],
+  "entropy_bits": 2.547479331177586,
+  "maximum_probability": 0.37814989453082215,
+  "top_10_probability_mass": 0.9800155878370342,
+  "target_probability": 0.3032481049801456,
+  "target_rank": 2,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 11950,
+      "token": "investigating",
+      "probability": 0.37814989453082215
+    },
+    {
+      "token_id": 5076,
+      "token": "studying",
+      "probability": 0.3032481049801456
+    },
+    {
+      "token_id": 13766,
+      "token": "examining",
+      "probability": 0.1095747497887637
+    },
+    {
+      "token_id": 12138,
+      "token": "exploring",
+      "probability": 0.064487095394897
+    },
+    {
+      "token_id": 23389,
+      "token": "analyzing",
+      "probability": 0.03944047670565188
+    },
+    {
+      "token_id": 27698,
+      "token": "evaluating",
+      "probability": 0.029290085819334986
+    },
+    {
+      "token_id": 4287,
+      "token": "understanding",
+      "probability": 0.025449487783186807
+    },
+    {
+      "token_id": 23529,
+      "token": "assessing",
+      "probability": 0.019176967108584773
+    },
+    {
+      "token_id": 5193,
+      "token": "testing",
+      "probability": 0.008832992216166553
+    },
+    {
+      "token_id": 9437,
+      "token": "monitoring",
+      "probability": 0.0023657335094808517
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "c6207335f2009921d37590ac202d0a89d161570278981da5e98ed234b96eb94b",
+  "input_ids_sha256": "bec45ac40ed4354dad667609dd270932cfb1ad0b07c67df760fa9e3c0a8c4ccc",
+  "original_input_ids_sha256": "0e90bc48ea5453295d4c57ac9105668c2ff932feab4ceabcad14678d4850d64f"
+}

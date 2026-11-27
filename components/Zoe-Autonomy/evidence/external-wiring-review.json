@@ -1,0 +1,62 @@
+{
+  "adopted_for_zoe": false,
+  "and_control_scope": "Measured canonical motifs only; not Zoe or a general size/coupling law.",
+  "and_controls": [
+    {
+      "nodes": 3,
+      "phi": 0.25
+    },
+    {
+      "nodes": 4,
+      "phi": 0.15625
+    },
+    {
+      "nodes": 5,
+      "phi": 0.117188
+    }
+  ],
+  "baseline_document_exactly_reproduced": true,
+  "baseline_full_suite": {
+    "failed": 2,
+    "passed": 33
+  },
+  "baseline_phi": 0.0,
+  "documented_cli_result": "argument command: invalid choice: on",
+  "documented_substrate_cli_flag_implemented": false,
+  "exploratory_search_scope": "The saved five-element searches are sampled, not exhaustive. The search artifacts were reviewed but not independently rerun.",
+  "full_suite_failure_scope": "The same two image_path/version-skew failures occur before and after the patch.",
+  "goal_is_not_used_to_constrain_selection_in_supplied_patch": true,
+  "instrument": "external-substrate-review/v1",
+  "minimal_cut_note": "An equal-valued minimal cut can be selected differently across runs; the cut label is not unique evidence of learning.",
+  "off_belief_updated": false,
+  "off_matches_pristine_except_integration_source_hashes": true,
+  "on_belief_updated": false,
+  "on_profile_sha256": "5f95d2e5edf9854b358854a87c4732a9707cc81ea9d02c204dc42beda6922cee",
+  "on_report_exactly_reproduced": true,
+  "patch_base": "a46c42b9a1072cc577397372c984588757db529b",
+  "patched_full_suite": {
+    "failed": 2,
+    "passed": 60,
+    "subtests_passed": 8
+  },
+  "prediction_semantics": "The wired observation is accessible_volume > 0 and prediction is predicted_token_index > 0. The token index is not a forecast of that observation bit, so the XOR is not meaningful prediction error.",
+  "reason_not_adopted": "The useful result is state-dependent candidate selection. Semantic bit labels and XOR agreement are not a measured generative model, a real belief update, or autonomous self-reflection.",
+  "saved_search_best": {
+    "design_count": 60,
+    "phi": 0.203125
+  },
+  "schema_version": 1,
+  "source_archives": {
+    "baseline.zip": "04a507b0a3077a43bc8991fd1db99a7d9516aa2fd0b27c8faf5be51f1c264aab",
+    "substrate.zip": "220afefa9c46d45942029f97a024574676ec4fbbd7e6584ea680a3170f1107cc",
+    "wiring.zip": "2a0ac15b387bad59723b4d391def8d65adfdc830870bbf52b0ad840d0ff967ec"
+  },
+  "substrate_phi_reproduced": 0.25,
+  "substrate_tests_passed": [
+    15,
+    27
+  ],
+  "substrate_tpm_actions_and_phi_match": true,
+  "zoe_alternative": "Measured stereo prediction errors, likelihood-based model weights, goal-directed actions, held-out validation, reversible adoption, and replayable self-reflection evidence.",
+  "zoe_host_revision": "979023d5d8e5649f6962f739cba4a6ced2b26cdb"
+}

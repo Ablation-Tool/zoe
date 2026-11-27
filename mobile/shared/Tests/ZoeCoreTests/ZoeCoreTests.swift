@@ -1,0 +1,534 @@
+import XCTest
+@testable import ZoeCore
+
+final class ZoeCoreTests: XCTestCase {
+    let example = [0.70, 0.20, 0.08, 0.02]
+
+    func testWorkedExampleAndStrictEquality() throws {
+        let result = try AccessibleVolume.measure(example, tau: 0.05)
+        XCTAssertEqual(result.accessible, 3)
+        XCTAssertEqual(result.complement, 1)
+        XCTAssertEqual(result.normalized, 0.75)
+        XCTAssertEqual(try AccessibleVolume.measure(example, tau: 0.20).accessible, 1)
+    }
+
+    func testThresholdEndpointsAndZeroProbabilities() throws {
+        let uniform = [0.25, 0.25, 0.25, 0.25]
+        XCTAssertEqual(try AccessibleVolume.measure(uniform, tau: 0).accessible, 4)
+        XCTAssertEqual(try AccessibleVolume.measure(uniform, tau: 1).accessible, 0)
+        let sparse = try AccessibleVolume.measure([1, 0, 0], tau: 0)
+        XCTAssertEqual(sparse.accessible, 1)
+        XCTAssertEqual(sparse.complement, 2)
+        XCTAssertEqual(sparse.normalized, 1.0 / 3.0, accuracy: 1e-15)
+    }
+
+    func testParserAndValidation() throws {
+        XCTAssertEqual(try AccessibleVolume.parse("0.70, 0.20 0.08,0.02"), example)
+        XCTAssertThrowsError(try AccessibleVolume.measure([0.5, 0.4], tau: 0.05))
+        XCTAssertThrowsError(try AccessibleVolume.measure([Double.nan, 1], tau: 0.05))
+        XCTAssertThrowsError(try AccessibleVolume.measure([-0.1, 1.1], tau: 0.05))
+        XCTAssertThrowsError(try AccessibleVolume.measure(example, tau: -0.1))
+        XCTAssertThrowsError(try AccessibleVolume.parse("not-a-number"))
+        XCTAssertThrowsError(try AccessibleVolume.parse(""))
+    }
+
+    func testVoiceCommandsAreDeterministic() {
+        XCTAssertEqual(VoiceCommand.parse("Please inspect this"), .inspect)
+        XCTAssertEqual(VoiceCommand.parse("Read aloud"), .repeatResult)
+        XCTAssertEqual(VoiceCommand.parse("Stop talking"), .stop)
+        XCTAssertEqual(VoiceCommand.parse("Measure the forecast"), .measure)
+        XCTAssertEqual(VoiceCommand.parse("Battery"), .device)
+        XCTAssertEqual(VoiceCommand.parse("Open Gemini"), .gemini)
+        XCTAssertEqual(VoiceCommand.parse(nil), .unknown)
+    }
+
+    func testConversationRepliesAndStop() {
+        XCTAssertTrue(ConversationResponse.forInput("check the battery").contains("Device Field"))
+        XCTAssertTrue(ConversationResponse.forInput("measure forecast breadth").contains("not correctness"))
+        XCTAssertTrue(ConversationResponse.forInput("something new").contains("something new"))
+        XCTAssertTrue(ConversationResponse.isStop("goodbye"))
+        XCTAssertFalse(ConversationResponse.isStop("keep talking"))
+    }
+
+    func testTrinityQuantizationMatchesTheSharedWitness() throws {
+        let measurement = try TrinityMeasurement(probabilities: example, tau: 0.05)
+        XCTAssertEqual(measurement.zoe.accessible, 3)
+        XCTAssertEqual(measurement.tiny.accessible, 3)
+        XCTAssertEqual(measurement.tiny.request, "800200000A0666599A199A0A3D028F")
+        XCTAssertEqual(measurement.tiny.response, "00030001000406669000")
+        XCTAssertFalse(measurement.quantizationChanged)
+        XCTAssertEqual(try TrinityMeasurement(probabilities: example, tau: 0.20).tiny.accessible, 1)
+    }
+
+    func testTrinityStateVerifiesBothPlanes() throws {
+        let state = try TrinityState(data: Data(trinityFixture.utf8))
+        XCTAssertEqual(state.revision, 1)
+        XCTAssertEqual(state.active.zoe.accessible, 3)
+        XCTAssertEqual(state.active.tiny.accessible, 3)
+        XCTAssertFalse(state.memoryEnabled)
+    }
+
+    func testTrinityStateRejectsAnEditedApduWitness() {
+        let edited = trinityFixture.replacingOccurrences(of: "00030001000406669000", with: "00020002000406669000")
+        XCTAssertThrowsError(try TrinityState(data: Data(edited.utf8)))
+    }
+
+    func testZoeBrainConstitutionalHonestyAndAbstention() {
+        let brain = ZoeBrainEngine()
+        let honesty = brain.respond("Are you conscious and sentient or a clone of Zoe?")
+        XCTAssertEqual(honesty.mode, "constitutional_honesty")
+        XCTAssertFalse(honesty.sentienceClaimed)
+        XCTAssertFalse(honesty.zoeCloneClaimed)
+        XCTAssertTrue(honesty.reply.contains("not conscious"))
+        XCTAssertTrue(honesty.aTau >= 1 && honesty.aTau <= honesty.candidateCount)
+
+        let abstain = brain.respond("Predict tomorrow's stock and winning lottery numbers")
+        XCTAssertEqual(abstain.mode, "honest_abstain")
+        XCTAssertTrue(abstain.reply.contains("abstain"))
+    }
+
+    func testZoeBrainHashChainedMemoryAndRecall() {
+        let brain = ZoeBrainEngine()
+        XCTAssertEqual(brain.chainHead, "GENESIS")
+
+        let saved = brain.respond("remember Check Kloster equation on Apple Duo")
+        XCTAssertEqual(saved.mode, "memory_saved")
+        XCTAssertEqual(brain.memoryCount, 1)
+        XCTAssertNotEqual(brain.chainHead, "GENESIS")
+        XCTAssertEqual(brain.chainHead.count, 64)
+
+        let recalled = brain.respond("recall")
+        XCTAssertEqual(recalled.mode, "memory_recall")
+        XCTAssertTrue(recalled.reply.contains("Check Kloster equation on Apple Duo"))
+    }
+
+    func testZoeBrainL5Phase4AndWeizenbaumReflection() {
+        let brain = ZoeBrainEngine()
+        let p4 = brain.respond("Tell me about L5 Phase 5")
+        XCTAssertEqual(p4.mode, "knowledge_grounded")
+        XCTAssertTrue(p4.reply.contains("l5_agi_qualified"))
+        XCTAssertTrue(p4.reply.contains("ARC compositional"))
+        XCTAssertTrue(p4.reply.contains("blind procedural"))
+
+        let reflect = brain.respond("What if my phone runs offline?")
+        XCTAssertEqual(reflect.mode, "eliza_reflect")
+        XCTAssertTrue(reflect.reply.contains("your phone runs offline"))
+
+        XCTAssertEqual(ZoeBrainEngine.normalizeContractions("I'm sure it's fine"), "i am sure it is fine")
+        XCTAssertEqual(ZoeBrainEngine.sha256Hex("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+
+        let pct = brain.respond("What is 18% of 245?")
+        XCTAssertEqual(pct.mode, "exact_math")
+        XCTAssertTrue(pct.reply.contains("44.1"))
+        XCTAssertTrue(brain.respond("2^10 + 512").reply.contains("1536"))
+        XCTAssertTrue(brain.respond("convert 72 F to C").reply.contains("22.222222"))
+        XCTAssertEqual(brain.respond("What time is it?").mode, "local_clock")
+
+        let broca = brain.respond("What does Broca's area (BA 44) do?")
+        XCTAssertEqual(broca.mode, "neuroscience_grounded")
+        XCTAssertTrue(broca.reply.contains("Broca"))
+        XCTAssertEqual(broca.brainFocusQuery, "ba:39")
+
+        let vagus = brain.respond("Explain Cranial Nerve X")
+        XCTAssertEqual(vagus.mode, "neuroscience_grounded")
+        XCTAssertTrue(vagus.reply.contains("Vagus"))
+        XCTAssertEqual(vagus.brainFocusQuery, "cn:9")
+
+        let diag = brain.respond("Please diagnose my brain symptoms")
+        XCTAssertEqual(diag.mode, "honest_abstain")
+
+        let partner = brain.respond("Are you a dating machine or an assistant?")
+        XCTAssertEqual(partner.mode, "sovereign_identity")
+        XCTAssertTrue(partner.reply.contains("Research Partner"))
+
+        let lib = brain.respond("Where are the 135 O'Reilly books and 44 NIRMT PDFs?")
+        XCTAssertEqual(lib.mode, "neuroscience_grounded")
+        XCTAssertTrue(lib.reply.contains("Desktop/Dorothy Brain Library/books/"))
+    }
+
+    func testOsToolsBridgeDualMapsUrlsCompassAndActionParser() {
+        XCTAssertEqual(
+            OsToolsBridge.googleMapsPinUrl(lat: 36.6177, lon: -121.9166),
+            "https://www.google.com/maps/search/?api=1&query=36.617700,-121.916600"
+        )
+        XCTAssertEqual(
+            OsToolsBridge.appleMapsPinUrl(lat: 36.6177, lon: -121.9166, label: "Pacific Grove"),
+            "https://maps.apple.com/?ll=36.617700,-121.916600&q=Pacific%20Grove"
+        )
+        XCTAssertEqual(
+            OsToolsBridge.googleMapsAppNavigationUrl(destination: "Central Park"),
+            "comgooglemaps://?daddr=Central%20Park&directionsmode=driving"
+        )
+        XCTAssertEqual(OsToolsBridge.compassCardinal(0), "N")
+        XCTAssertEqual(OsToolsBridge.compassCardinal(90), "E")
+        XCTAssertEqual(OsToolsBridge.compassCardinal(225), "SW")
+        XCTAssertEqual(OsToolsBridge.compassCardinal(-45), "NW")
+
+        let share = OsToolsBridge.formatShareLocationMessage(
+            lat: 36.6177, lon: -121.9166, accuracyMeters: 8.0, address: "Pacific Grove, CA"
+        )
+        XCTAssertTrue(share.contains("Apple Maps:"))
+        XCTAssertTrue(share.contains("Google Maps:"))
+        XCTAssertTrue(share.contains("Pacific Grove, CA"))
+
+        let nav = OsToolsBridge.parseActionIntent("navigate to nearest pharmacy?")
+        XCTAssertEqual(nav.kind, .navigate)
+        XCTAssertEqual(nav.query, "nearest pharmacy")
+        XCTAssertFalse(nav.autoExecuted)
+
+        let safety = OsToolsBridge.parseActionIntent("open personal safety app")
+        XCTAssertEqual(safety.kind, .openSafety)
+        XCTAssertFalse(safety.autoExecuted)
+
+        let timer = OsToolsBridge.parseActionIntent("set a 5 minute timer")
+        XCTAssertEqual(timer.kind, .setTimer)
+        XCTAssertEqual(timer.seconds, 300)
+
+        let brain = ZoeBrainEngine()
+        let reply = brain.respond("directions to Monterey Bay Aquarium")
+        XCTAssertEqual(reply.mode, "device_tool_route")
+        XCTAssertTrue(reply.reply.contains("Nothing opens"))
+
+        let plan = OsToolsBridge.parseActionPlan("Navigate to Memorial Hospital and set a 5 minute timer then turn on flashlight")
+        XCTAssertEqual(plan.count, 3)
+        XCTAssertEqual(plan[0].kind, .navigate)
+        XCTAssertEqual(plan[1].kind, .setTimer)
+        XCTAssertEqual(plan[2].kind, .toggleTorch)
+        XCTAssertEqual(OsToolsBridge.claudeDeepLinkUrl("Hello Claude"), "claude://claude.ai/new?q=Hello%20Claude")
+    }
+
+    func testMultiAiClientPayloadsFirewallAndAgreement() throws {
+        let openAiJson = Data(#"{"choices":[{"message":{"content":"Verified offline council answer."}}]}"#.utf8)
+        XCTAssertEqual(try MultiAiClient.parseOpenAiChatReply(openAiJson), "Verified offline council answer.")
+
+        let claudeJson = Data(#"{"content":[{"type":"text","text":"Structured Claude response."}]}"#.utf8)
+        XCTAssertEqual(try MultiAiClient.parseClaudeMessagesReply(claudeJson), "Structured Claude response.")
+
+        let geminiJson = Data(#"{"candidates":[{"content":{"parts":[{"text":"Gemini response."}]}}]}"#.utf8)
+        XCTAssertEqual(try MultiAiClient.parseGeminiReply(geminiJson), "Gemini response.")
+
+        XCTAssertEqual(try MultiAiClient.validateEndpoint("https://api.x.ai/v1/chat/completions"),
+                       "https://api.x.ai/v1/chat/completions")
+        XCTAssertEqual(try MultiAiClient.validateEndpoint("http://127.0.0.1:8080/v1/chat/completions"),
+                       "http://127.0.0.1:8080/v1/chat/completions")
+        XCTAssertThrowsError(try MultiAiClient.validateEndpoint("http://insecure.example.com/v1/chat"))
+
+        let high = MultiAiClient.computeAgreementScore([
+            "Zoe measures accessible volume cleanly offline.",
+            "Zoe measures accessible volume cleanly offline on device.",
+        ])
+        let low = MultiAiClient.computeAgreementScore([
+            "Quantum acoustics cymatics bronze plate resonance.",
+            "Blueberry waffle breakfast syrup recipe.",
+        ])
+        XCTAssertTrue(high > low)
+
+        let brain = ZoeBrainEngine()
+        let who = brain.respond("Who built you?")
+        XCTAssertEqual(who.mode, "sovereign_identity")
+        XCTAssertTrue(who.reply.contains("Nicholas Michael Kloster"))
+        XCTAssertFalse(who.reply.lowercased().contains("alibaba"))
+    }
+
+    func testWebSearchClientAndMultiTurnStreamingPayloads() throws {
+        XCTAssertEqual(WebSearchClient.cleanSearchQuery("Tell me about James Webb Space Telescope?"), "James Webb Space Telescope")
+        XCTAssertTrue(WebSearchClient.isSafeWebUrl("https://en.wikipedia.org/wiki/Rainbow"))
+        XCTAssertFalse(WebSearchClient.isSafeWebUrl("http://insecure.example.com"))
+
+        let ddgData = Data(#"{"Heading":"Rainbow","AbstractText":"A <b>rainbow</b> is optical.","AbstractURL":"https://en.wikipedia.org/wiki/Rainbow"}"#.utf8)
+        let ddg = WebSearchClient.parseDuckDuckGoJson(ddgData)
+        XCTAssertEqual(ddg.count, 1)
+        XCTAssertEqual(ddg[0].domain, "Wikipedia")
+        XCTAssertFalse(ddg[0].snippet.contains("<b>"))
+
+        let wikiData = Data(#"{"query":{"search":[{"title":"James Webb Space Telescope","snippet":"The <span>JWST</span> observes infrared."}]}}"#.utf8)
+        let wiki = WebSearchClient.parseWikipediaSearchJson(wikiData)
+        XCTAssertEqual(wiki.count, 1)
+        XCTAssertEqual(wiki[0].url, "https://en.wikipedia.org/wiki/James_Webb_Space_Telescope")
+
+        let history = [
+            MultiAiClient.ChatMessage(role: "user", text: "What is JWST?"),
+            MultiAiClient.ChatMessage(role: "zoe", text: "An infrared space telescope.", sources: wiki.map(\.badgeEntry)),
+            MultiAiClient.ChatMessage(role: "user", text: "more+"),
+        ]
+        let oaBody = String(data: try MultiAiClient.buildOpenAiChatBody(model: "gpt-4o-mini", history: history, userPrompt: "more+", stream: true), encoding: .utf8) ?? ""
+        XCTAssertTrue(oaBody.contains("What is JWST?"))
+        XCTAssertTrue(oaBody.contains("\"stream\":true"))
+
+        let gemBody = String(data: try MultiAiClient.buildGeminiGenerateBody(history: history, userPrompt: "more+", enableGoogleSearch: true), encoding: .utf8) ?? ""
+        XCTAssertTrue(gemBody.contains("google_search"))
+        XCTAssertTrue(gemBody.contains("model"))
+
+        XCTAssertEqual(MultiAiClient.parseOpenAiSseDelta(#"{"choices":[{"delta":{"content":"Hi "}}]}"#), "Hi ")
+        XCTAssertEqual(MultiAiClient.parseClaudeSseDelta(#"{"type":"content_block_delta","delta":{"text":"Zoe"}}"#), "Zoe")
+    }
+
+    func testCreativeImageCommandParserAndArcadeMinimax() {
+        let spec = CreativeAndArcadeCore.parseImageEditCommand("warm, brighter, rotate, square, blur, caption Monterey")
+        XCTAssertEqual(spec.filter, .warmAtelier)
+        XCTAssertEqual(spec.brightness, 24)
+        XCTAssertEqual(spec.rotationDeg, 90)
+        XCTAssertEqual(spec.crop, .square)
+        XCTAssertTrue(spec.privacyBlur)
+        XCTAssertEqual(spec.caption, "Monterey")
+
+        let reset = CreativeAndArcadeCore.parseImageEditCommand("reset", current: spec)
+        XCTAssertEqual(reset.filter, .original)
+        XCTAssertEqual(reset.caption, "")
+
+        // Minimax blocks immediate X win & wins when available
+        XCTAssertEqual(CreativeAndArcadeCore.chooseZoeMove([1, 1, 0, 0, 2, 0, 0, 0, 0], unbeatable: true), 2)
+        XCTAssertEqual(CreativeAndArcadeCore.chooseZoeMove([1, 0, 1, 2, 2, 0, 0, 0, 1], unbeatable: true), 5)
+        XCTAssertEqual(CreativeAndArcadeCore.evaluateSignalPuzzle(probs: [0.40, 0.25, 0.20, 0.10, 0.05], tau: 0.20), 2)
+    }
+
+    func testSignalSafetyNumberAndHiZoeWakeWord() {
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hi Zoe"))
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hi Zoë, what's on my desk?"))
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Hey Zoe, let's hang out"))
+        XCTAssertTrue(ZoeSignalAndWakeCore.isHiZoeTrigger("Zoe"))
+        XCTAssertFalse(ZoeSignalAndWakeCore.isHiZoeTrigger("How do rainbows work?"))
+        XCTAssertEqual(ZoeSignalAndWakeCore.stripWakePrefix("Hi Zoe, tell me a story"), "tell me a story")
+        XCTAssertEqual(ZoeSignalAndWakeCore.stripWakePrefix("Hi Zoë, look here"), "look here")
+
+        let clean = ZoeSignalAndWakeCore.sanitizeForSpeech("**Hello** `Zoe` — see https://example.com now!")
+        XCTAssertFalse(clean.contains("**"))
+        XCTAssertFalse(clean.contains("https://"))
+        XCTAssertTrue(clean.contains("Hello Zoe"))
+
+        let a: [UInt8] = Array("alice-identity-pub-key-001".utf8)
+        let b: [UInt8] = Array("bob-identity-pub-key-002".utf8)
+        let fpAB = ZoeSignalAndWakeCore.computeSafetyNumber(keyA: a, keyB: b)
+        let fpBA = ZoeSignalAndWakeCore.computeSafetyNumber(keyA: b, keyB: a)
+        XCTAssertEqual(fpAB, fpBA)
+        XCTAssertEqual(fpAB.filter { $0.isNumber }.count, 60)
+    }
+
+    func testArExploreSpatialPhysicsPlanningAndCuriousQuestions() {
+        let cur = ArExploreCore.Vec3(x: 0, y: 0, z: -1)
+        let tgt = ArExploreCore.Vec3(x: 1, y: 0.4, z: -2)
+        let stepped = ArExploreCore.stepGlide(current: cur, target: tgt, dtSec: 0.05, speed: 3.0)
+        XCTAssertTrue(stepped.distance(to: tgt) < cur.distance(to: tgt))
+
+        let cam = ArExploreCore.Vec3(x: 0, y: 0, z: 0)
+        let planes = [
+            ArExploreCore.PlaneTarget(id: "desk", center: ArExploreCore.Vec3(x: 0.2, y: -0.3, z: -1.3), extentX: 1.5, extentZ: 1.0, vertical: false),
+            ArExploreCore.PlaneTarget(id: "wall", center: ArExploreCore.Vec3(x: -0.7, y: 0.1, z: -1.8), extentX: 0.9, extentZ: 0.7, vertical: true),
+        ]
+        let first = ArExploreCore.chooseNextExploreTarget(cameraPos: cam, planes: planes, visitedIds: [])
+        XCTAssertEqual(first?.id, "desk")
+        let second = ArExploreCore.chooseNextExploreTarget(cameraPos: cam, planes: planes, visitedIds: ["desk"])
+        XCTAssertEqual(second?.id, "wall")
+
+        let d1 = ArExploreCore.SpatialDiscovery(
+            primaryLabel: "Guitar",
+            ocrSnippet: "FENDER",
+            position: ArExploreCore.Vec3(x: 0.4, y: -0.1, z: -1.4),
+            distanceMeters: 1.45
+        )
+        XCTAssertTrue(ArExploreCore.isDuplicateDiscovery(candidate: d1, existing: [d1]))
+        let q = ArExploreCore.buildCuriousQuestion(for: d1)
+        XCTAssertTrue(q.contains("guitar"))
+        XCTAssertTrue(q.contains("FENDER"))
+        XCTAssertTrue(q.hasSuffix("?"))
+
+        // 60fps Spatial Projection + Dual-Cam Light-Field + ENU Grid + CERN Kloster Fusion parity
+        let idMat: [Float] = [1, 0, 0, 0, 1, 0, 0, 0, 1]
+        let worldPt = ArExploreCore.unprojectTapToWorld(tapX: 720, tapY: 880, viewW: 1080, viewH: 2400, rotMat3x3: idMat, depthMeters: 1.30)
+        let proj = ArExploreCore.projectWorldToScreen(worldPos: worldPt, rotMat3x3: idMat, viewW: 1080, viewH: 2400)
+        XCTAssertTrue(proj.inFront && proj.onScreen)
+        XCTAssertEqual(proj.screenX, 720, accuracy: 2.5)
+        XCTAssertEqual(proj.screenY, 880, accuracy: 2.5)
+
+        let lf = ArExploreCore.computeLightField(rearLuma: 0.25, frontLuma: 0.90, calibrated: true)
+        XCTAssertTrue(lf.backlightRatio > 2.0 && lf.rimIntensity > 0.75)
+
+        let enu = ArExploreCore.toLocalEnuGrid(originLat: 36.6177, originLon: -121.9166, originAlt: 15, curLat: 36.6187, curLon: -121.9166, curAlt: 18)
+        XCTAssertEqual(enu.northMeters, 111.19, accuracy: 1.0)
+        XCTAssertEqual(enu.upMeters, 3.0, accuracy: 0.01)
+
+        let fused = ArExploreCore.fuseSpatialChannels(
+            imuStability: 0.9, acousticEnergy: 0.35, opticalEnergy: 0.5,
+            wifiEnergy: 0.7, bleEnergy: 0.4, cellEnergy: 0.6, acousticEchoMeters: 1.8
+        )
+        XCTAssertTrue(fused.klosterATau >= 3 && fused.klosterATau <= 6)
+        XCTAssertTrue(fused.klosterM4Root >= 0.26 && fused.klosterM4Root <= 1.0)
+        XCTAssertEqual(fused.suggestedDepthMeters, 1.8 * 0.68, accuracy: 0.05)
+
+        XCTAssertTrue(ArExploreCore.clockFaceDirection(normalizedX: -0.8).contains("10 o'clock"))
+        XCTAssertTrue(ArExploreCore.clockFaceDirection(normalizedX: 0.0).contains("12 o'clock"))
+        let blindCue = ArExploreCore.formatGuidedSceneCue(primaryLabel: "Door", ocrSnippet: "EXIT", normalizedX: 0.35, distanceMeters: 1.4, kidFriendly: false)
+        XCTAssertTrue(blindCue.contains("1 o'clock") && blindCue.contains("EXIT"))
+        let kidCue = ArExploreCore.formatGuidedSceneCue(primaryLabel: "Dog", ocrSnippet: "", normalizedX: 0.0, distanceMeters: 2.0, kidFriendly: true)
+        XCTAssertTrue(kidCue.contains("big steps"))
+
+        XCTAssertEqual(ArExploreCore.magneticToTrueNorth(magneticHeadingDeg: 0, declinationDeg: 12.5), 12.5, accuracy: 0.01)
+        XCTAssertEqual(ArExploreCore.nextPosture(current: .activeAr, pitchDegrees: -64), .safetyRest)
+        XCTAssertEqual(ArExploreCore.nextPosture(current: .safetyRest, pitchDegrees: -50), .safetyRest)
+        XCTAssertEqual(ArExploreCore.nextPosture(current: .safetyRest, pitchDegrees: -30), .activeAr)
+        XCTAssertEqual(ArExploreCore.signedBearingDeltaDeg(currentHeadingDeg: 350, targetBearingDeg: 10), 20, accuracy: 0.01)
+
+        let leftTap = ArExploreCore.mapFillCenterTapToFrame(tapU: 0, tapV: 0.5, viewW: 1080, viewH: 2400, frameW: 480, frameH: 640)
+        XCTAssertEqual(leftTap.sensorU, 0.20, accuracy: 0.01)
+        XCTAssertEqual(leftTap.visibleFracX, 0.60, accuracy: 0.01)
+        XCTAssertEqual(ArExploreCore.formatDistinctColorNames(["Amber", "amber", "Slate"]), "Amber and Slate")
+        XCTAssertEqual(ArExploreCore.formatDistinctColorNames(["Amber", "AMBER"]), "Amber")
+    }
+
+    func testSafeBeaconMeshRotatingPacketsAndTamperRejection() {
+        let secret = Array("zoe-beacon-test-secret-key-00001".utf8)
+        let t0: Int64 = 1_760_000_000_000
+        let blind = SafeBeaconMeshCore.buildBeaconPayload(secret: secret, mode: SafeBeaconMeshCore.modeBlindRelay, nowMs: t0)
+        XCTAssertEqual(blind.count, SafeBeaconMeshCore.packetLength)
+        let parsedBlind = SafeBeaconMeshCore.parseBeaconPayload(blind, rssi: -68)
+        XCTAssertNotNil(parsedBlind)
+        XCTAssertEqual(parsedBlind?.isLocalSos, false)
+
+        let sos = SafeBeaconMeshCore.buildBeaconPayload(secret: secret, mode: SafeBeaconMeshCore.modeLocalSos, nowMs: t0)
+        let parsedSos = SafeBeaconMeshCore.parseBeaconPayload(sos, rssi: -59)
+        XCTAssertEqual(parsedSos?.isLocalSos, true)
+        XCTAssertEqual(parsedSos?.approxMeters ?? 0, 1.0, accuracy: 0.2)
+
+        let nextWindow = SafeBeaconMeshCore.buildBeaconPayload(
+            secret: secret,
+            mode: SafeBeaconMeshCore.modeBlindRelay,
+            nowMs: t0 + SafeBeaconMeshCore.rotationWindowMs
+        )
+        let parsedNext = SafeBeaconMeshCore.parseBeaconPayload(nextWindow, rssi: -70)
+        XCTAssertNotEqual(parsedBlind?.rotatingTagHex, parsedNext?.rotatingTagHex)
+
+        var tampered = blind
+        tampered[8] ^= 0xFF
+        XCTAssertNil(SafeBeaconMeshCore.parseBeaconPayload(tampered, rssi: -68))
+    }
+
+    func testScientificVisualSubstrateAndGooglePatentsCatalogCore() {
+        let s1 = ScientificVisualAndPatentCore.deterministicSeed("radiolaria prism")
+        let s2 = ScientificVisualAndPatentCore.deterministicSeed("radiolaria prism")
+        XCTAssertEqual(s1, s2)
+        let order = ScientificVisualAndPatentCore.symmetryOrder(forSeed: s1)
+        XCTAssertTrue(order >= 6 && order <= 16 && order % 2 == 0)
+
+        let p9 = ScientificVisualAndPatentCore.phyllotaxisPoint(index: 9, scale: 10.0)
+        XCTAssertEqual(hypot(p9.x, p9.y), 30.0, accuracy: 1e-6)
+
+        let grounded = ScientificVisualAndPatentCore.augmentPrompt("crystal lantern", plate: .haeckelRadiolaria)
+        XCTAssertTrue(grounded.contains("Kunstformen der Natur"))
+
+        XCTAssertEqual(ScientificVisualAndPatentCore.extractPatentNumber(from: "PAT. NO. 6,123,456"), "US6123456")
+        XCTAssertEqual(ScientificVisualAndPatentCore.extractPatentNumber(from: "Stamped US10234567B2"), "US10234567B2")
+
+        let sample = """
+        {"results":{"cluster":[{"result":[{"patent":{"publication_number":"US9876543B2","title":"Optical prism gear","snippet":"A 42.5 mm optical element","assignee":"Optics Lab"}}]}]}}
+        """
+        let matches = ScientificVisualAndPatentCore.parseGooglePatentsJson(sample, maxResults: 2)
+        XCTAssertEqual(matches.count, 1)
+        XCTAssertEqual(matches[0].patentUrl, "https://patents.google.com/patent/US9876543B2/en")
+        XCTAssertTrue(matches[0].dimensionsNote.contains("42.5 mm"))
+
+        let scale = ScientificVisualAndPatentCore.describeRelativeScale(meters: 0.155)
+        XCTAssertTrue(scale.contains("smartphone"))
+
+        XCTAssertTrue(ScientificVisualAndPatentCore.isHardToIdentify("Labels: none above 55%."))
+        XCTAssertTrue(ScientificVisualAndPatentCore.isHardToIdentify("Labels: Product (85%), Metal (79%)."))
+        XCTAssertFalse(ScientificVisualAndPatentCore.isHardToIdentify("Labels: Guitar (92%)."))
+
+        var circleA = Array(repeating: 0.0, count: 32 * 32)
+        var circleB = Array(repeating: 0.1, count: 32 * 32)
+        var bar = Array(repeating: 0.0, count: 32 * 32)
+        for y in 0..<32 {
+            for x in 0..<32 {
+                let d = hypot(Double(x) - 15.5, Double(y) - 15.5)
+                if d >= 7.0 && d <= 10.5 { circleA[y * 32 + x] = 1.0 }
+                if d >= 6.5 && d <= 11.0 { circleB[y * 32 + x] = 0.85 }
+                if y >= 13 && y <= 18 && x >= 3 && x <= 28 { bar[y * 32 + x] = 1.0 }
+            }
+        }
+        let sA = ScientificVisualAndPatentCore.extractVisualSignature(gray32: circleA)!
+        let sB = ScientificVisualAndPatentCore.extractVisualSignature(gray32: circleB)!
+        let sBar = ScientificVisualAndPatentCore.extractVisualSignature(gray32: bar)!
+        XCTAssertTrue(ScientificVisualAndPatentCore.compareVisualSignatures(sA, sB)
+            > ScientificVisualAndPatentCore.compareVisualSignatures(sA, sBar) + 0.12)
+
+        // CPC physical-class filtering + self-improving Guided Vision prototype memory
+        XCTAssertTrue(ScientificVisualAndPatentCore.applyPhysicalCpcFilter(query: "circular gear", detectedPatentId: "").contains("cpc:F16"))
+        XCTAssertEqual(ScientificVisualAndPatentCore.applyPhysicalCpcFilter(query: "US10234567B2", detectedPatentId: "US10234567B2"), "US10234567B2")
+        XCTAssertEqual(ScientificVisualAndPatentCore.cleanPhysicalConcept("Method and apparatus for optical lens mount having ring"), "Optical lens mount")
+
+        var mem: [ScientificVisualAndPatentCore.VisionPrototype] = []
+        XCTAssertNil(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sB))
+        mem = ScientificVisualAndPatentCore.teachOrReinforce(store: mem, label: "Optical Ring", signature: sA)
+        mem = ScientificVisualAndPatentCore.teachOrReinforce(store: mem, label: "optical ring", signature: sB)
+        XCTAssertEqual(mem.count, 1)
+        XCTAssertEqual(mem[0].confirmCount, 2)
+        XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sB)?.prototype.label, "Optical Ring")
+        XCTAssertNil(ScientificVisualAndPatentCore.findBestMatch(store: mem, query: sBar))
+        let atlas = [ScientificVisualAndPatentCore.VisionPrototype(label: "Atlas Ring", source: "atlas_baseline", signature: sA)]
+        XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: [], atlas: atlas, query: sA)?.prototype.label, "Atlas Ring")
+        XCTAssertEqual(ScientificVisualAndPatentCore.findBestMatchWithAtlas(userStore: mem, atlas: atlas, query: sA)?.prototype.label, "Optical Ring")
+
+        // v0.9.4 Pro Studio additions: Chladni & Phyllotaxis plates + vellum/flip/vignette/4:5 portrait
+        let modes = ScientificVisualAndPatentCore.chladniModes(forSeed: 42)
+        XCTAssertTrue(modes.m >= 2 && modes.n > modes.m)
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("resonator", plate: .chladniPlate).contains("Chladni"))
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("rosette", plate: .fibonacciPhyllotaxis).contains("137.508"))
+        let proSpec = CreativeAndArcadeCore.parseImageEditCommand("vellum, warmer, vignette, mirror, 4:5 portrait")
+        XCTAssertEqual(proSpec.filter, .archivalVellum)
+        XCTAssertEqual(proSpec.warmth, 16)
+        XCTAssertEqual(proSpec.vignette, 48)
+        XCTAssertTrue(proSpec.flipHorizontal)
+        XCTAssertEqual(proSpec.crop, .portrait4x5)
+
+        // v0.9.5 Liquid Craft additions: Voronoi & Lissajous plates, Golden Hour/Cyber Neon/Matte Film filters, TTT winningLine
+        let ratios = ScientificVisualAndPatentCore.lissajousRatios(forSeed: 99)
+        XCTAssertTrue(ratios.a >= 2 && ratios.b > ratios.a)
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("gem", plate: .voronoiCrystal).contains("Voronoi"))
+        XCTAssertTrue(ScientificVisualAndPatentCore.augmentPrompt("wave", plate: .lissajousOrbit).contains("Lissajous"))
+        XCTAssertEqual(CreativeAndArcadeCore.parseImageEditCommand("golden hour").filter, .goldenHour)
+        XCTAssertEqual(CreativeAndArcadeCore.parseImageEditCommand("cyber neon").filter, .cyberNeon)
+        XCTAssertEqual(CreativeAndArcadeCore.parseImageEditCommand("matte film").filter, .matteFilm)
+        XCTAssertEqual(CreativeAndArcadeCore.winningLine([1, 0, 0, 0, 1, 0, 0, 0, 1]), [0, 4, 8])
+        XCTAssertNil(CreativeAndArcadeCore.winningLine([1, 2, 1, 2, 1, 2, 2, 1, 2]))
+    }
+
+    func testMobileDigestionPrivacyFirewallAndPrototypeMerge() throws {
+        var ring = Array(repeating: 0.0, count: 32 * 32)
+        for y in 0..<32 {
+            for x in 0..<32 {
+                let d = hypot(Double(x) - 15.5, Double(y) - 15.5)
+                if d >= 7.0 && d <= 10.5 { ring[y * 32 + x] = 1.0 }
+            }
+        }
+        let sig = ScientificVisualAndPatentCore.extractVisualSignature(gray32: ring)!
+        let proto = ScientificVisualAndPatentCore.VisionPrototype(label: "Optical Ring", source: "user_confirmed", signature: sig, confirmCount: 2)
+        let bundle = try MobileDigestionCore.buildBundleJson(
+            device: "iPhone 16 Pro",
+            appVersion: "0.9.3",
+            prototypes: [proto],
+            notes: [MobileDigestionCore.DigestedNote(clientId: "n1", kind: "note", text: "Bench aligned")],
+            sightings: [MobileDigestionCore.DigestedSighting(id: "t1", timestampIso: "2026-11-22", note: "Ring", labels: "Lens", ocrText: "OPTIC", paletteSummary: "Obsidian")],
+            chatTelemetry: MobileDigestionCore.ChatTelemetrySummary(threadCount: 2, messageCount: 8, avgLatencyMs: 24.5, avgATau: 2.2, providerCounts: ["ZOE STEM": 8], topicKeywords: ["haeckel", "kloster"])
+        )
+        XCTAssertTrue(bundle.contains("\"safeconvert_excluded\":true"))
+        XCTAssertTrue(bundle.contains("\"privacy_vault_excluded\":true"))
+        XCTAssertTrue(bundle.contains("Optical Ring"))
+
+        XCTAssertThrowsError(try MobileDigestionCore.assertOutgoingFirewall("{\"safeconvert_notes\":[\"x\"]}"))
+        XCTAssertThrowsError(try MobileDigestionCore.assertOutgoingFirewall("{\"e2ee_private_key\":\"secret\"}"))
+
+        let strongerWorkstation = ScientificVisualAndPatentCore.VisionPrototype(label: "Optical Ring", source: "user_confirmed", signature: sig, confirmCount: 5)
+        let merged = MobileDigestionCore.mergeRefinedPrototypes(local: [proto], refined: [strongerWorkstation])
+        XCTAssertEqual(merged.count, 1)
+        XCTAssertEqual(merged[0].confirmCount, 5)
+        XCTAssertEqual(merged[0].source, "user_confirmed")
+    }
+
+    private let trinityFixture = """
+    {"protocol":1,"name":"Zoe Trinity","revision":1,"creator":"Nicholas Michael Kloster alone, March 6, 2026",
+    "active":{"probabilities":[0.7,0.2,0.08,0.02],"tau":0.05,
+    "zoe":{"accessible":3,"complement":1,"vocabularySize":4},
+    "tiny":{"probabilities":[22938,6554,2621,655],"tau":1638,"accessible":3,"complement":1,"vocabularySize":4,
+    "request":"800200000A0666599A199A0A3D028F","response":"00030001000406669000"},
+    "quantizationChanged":false},"memory":{"enabled":false,"records":0,"tamperEvidenceOnly":true},"events":[]}
+    """
+}

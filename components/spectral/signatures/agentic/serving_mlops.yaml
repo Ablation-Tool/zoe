@@ -1,0 +1,251 @@
+id: MLF-001
+name: mlflow_tracking_server
+version: "1.0"
+category: agentic/logs
+model_family: MLflow/Generic
+confidence: high
+description: MLflow tracking server artifacts - run metadata, model registry, and experiment logs
+technique: ML experiment tracking
+match_all: false
+indicators:
+  - type: file_path
+    pattern: 'mlruns/'
+  - type: file_path
+    pattern: 'mlflow.db'
+  - type: string
+    pattern: 'mlflow.set_tracking_uri'
+  - type: string
+    pattern: 'mlflow.log_metric'
+tags: [mlflow, tracking, experiment, mlops, filesystem]
+---
+id: MLF-002
+name: mlflow_model_registry_config
+version: "1.0"
+category: agentic/config
+model_family: MLflow/Generic
+confidence: medium
+description: MLflow model registry and serving configuration in source code
+technique: ML model serving
+match_all: false
+indicators:
+  - type: string
+    pattern: 'import mlflow'
+  - type: string
+    pattern: 'from mlflow'
+  - type: regex
+    pattern: 'mlflow\.(pyfunc|sklearn|pytorch|transformers)\.log_model'
+  - type: string
+    pattern: 'MLFLOW_TRACKING_URI'
+  - type: string
+    pattern: 'mlflow.register_model'
+tags: [mlflow, model-registry, serving, config, sdk]
+---
+id: RAY-001
+name: ray_serve_deployment
+version: "1.0"
+category: agentic/config
+model_family: Ray/Serve
+confidence: high
+description: Ray Serve AI model serving deployment patterns in source code or config
+technique: AI model serving
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from ray import serve'
+  - type: string
+    pattern: 'import ray.serve'
+  - type: regex
+    pattern: '@serve\.deployment'
+  - type: regex
+    pattern: 'serve\.run\s*\('
+  - type: string
+    pattern: 'RAY_ADDRESS'
+tags: [ray, serve, deployment, model-serving, config]
+---
+id: RAY-002
+name: ray_serve_filesystem_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: Ray/Serve
+confidence: medium
+description: Ray cluster and Serve deployment filesystem artifacts
+technique: AI model serving
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '/tmp/ray/'
+  - type: file_path
+    pattern: 'serve_config.yaml'
+  - type: file_path
+    pattern: 'ray_cluster_config.yaml'
+tags: [ray, serve, cluster, filesystem]
+---
+id: BTM-001
+name: bentoml_model_serving
+version: "1.0"
+category: agentic/config
+model_family: BentoML/Generic
+confidence: high
+description: BentoML model serving and bento-building patterns in source code or config
+technique: AI model serving
+match_all: false
+indicators:
+  - type: string
+    pattern: 'import bentoml'
+  - type: string
+    pattern: 'from bentoml'
+  - type: regex
+    pattern: '@bentoml\.service'
+  - type: regex
+    pattern: 'bentoml\.save_model\s*\('
+  - type: string
+    pattern: 'bentofile.yaml'
+tags: [bentoml, model-serving, bento, config, sdk]
+---
+id: BTM-002
+name: bentoml_filesystem_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: BentoML/Generic
+confidence: medium
+description: BentoML model store and service filesystem artifacts
+technique: AI model serving
+match_all: false
+indicators:
+  - type: file_path
+    pattern: 'bentofile.yaml'
+  - type: file_path
+    pattern: '~/bentoml/models/'
+  - type: file_path
+    pattern: '~/bentoml/bentos/'
+tags: [bentoml, model-store, filesystem]
+---
+id: NMG-001
+name: nemo_guardrails_config
+version: "1.0"
+category: agentic/config
+model_family: NVIDIA/NeMo
+confidence: high
+description: NVIDIA NeMo Guardrails configuration and integration patterns
+technique: LLM safety guardrails
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from nemoguardrails'
+  - type: string
+    pattern: 'import nemoguardrails'
+  - type: regex
+    pattern: 'LLMRails\s*\('
+  - type: string
+    pattern: 'nemoguardrails.colang'
+  - type: file_path
+    pattern: 'config.yml'
+tags: [nemo, guardrails, nvidia, safety, llm, config]
+---
+id: NMG-002
+name: nemo_guardrails_colang
+version: "1.0"
+category: agentic/config
+model_family: NVIDIA/NeMo
+confidence: high
+description: NeMo Guardrails Colang rail definition files
+technique: LLM safety guardrails
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'define (user|bot|flow|context)\s+'
+  - type: string
+    pattern: 'define user'
+  - type: string
+    pattern: 'define bot'
+  - type: regex
+    pattern: '# colang'
+tags: [nemo, guardrails, colang, rails, safety]
+---
+id: CMT-001
+name: comet_ml_experiment_tracking
+version: "1.0"
+category: agentic/config
+model_family: Comet/ML
+confidence: medium
+description: Comet ML experiment tracking SDK patterns in source code or configuration
+technique: ML experiment tracking
+match_all: false
+indicators:
+  - type: string
+    pattern: 'import comet_ml'
+  - type: string
+    pattern: 'from comet_ml'
+  - type: regex
+    pattern: 'Experiment\s*\('
+  - type: string
+    pattern: 'COMET_API_KEY'
+  - type: string
+    pattern: 'comet.ml/api'
+tags: [comet, experiment-tracking, mlops, config, sdk]
+---
+id: NPT-001
+name: neptune_ai_experiment_tracking
+version: "1.0"
+category: agentic/config
+model_family: Neptune/AI
+confidence: medium
+description: Neptune.ai experiment tracking and metadata store patterns in source code or config
+technique: ML experiment tracking
+match_all: false
+indicators:
+  - type: string
+    pattern: 'import neptune'
+  - type: string
+    pattern: 'from neptune'
+  - type: regex
+    pattern: 'neptune\.init_run\s*\('
+  - type: string
+    pattern: 'NEPTUNE_API_TOKEN'
+  - type: string
+    pattern: 'neptune.ai'
+tags: [neptune, experiment-tracking, mlops, config, sdk]
+---
+id: CLS-001
+name: clearml_experiment_tracking
+version: "1.0"
+category: agentic/config
+model_family: ClearML/Generic
+confidence: medium
+description: ClearML (formerly Trains) experiment tracking and pipeline patterns
+technique: ML experiment tracking
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from clearml'
+  - type: string
+    pattern: 'import clearml'
+  - type: regex
+    pattern: 'Task\.init\s*\('
+  - type: string
+    pattern: 'CLEARML_API_ACCESS_KEY'
+  - type: string
+    pattern: 'clearml.conf'
+tags: [clearml, trains, experiment-tracking, mlops, config, sdk]
+---
+id: ZNO-001
+name: zenml_mlops_pipeline
+version: "1.0"
+category: agentic/config
+model_family: ZenML/Generic
+confidence: medium
+description: ZenML ML pipeline and stack configuration patterns in source code or config
+technique: MLOps pipeline
+match_all: false
+indicators:
+  - type: string
+    pattern: 'from zenml'
+  - type: string
+    pattern: 'import zenml'
+  - type: regex
+    pattern: '@step\s*\('
+  - type: regex
+    pattern: '@pipeline\s*\('
+  - type: file_path
+    pattern: '.zenml/'
+tags: [zenml, mlops, pipeline, config, sdk]

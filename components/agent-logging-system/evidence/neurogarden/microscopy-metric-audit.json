@@ -1,0 +1,31 @@
+{
+  "schema": "neurogarden-microscopy-metric-audit-v1",
+  "source": "Neutrosophic Set in Medical Image Analysis/010_B9780128181485000023.html",
+  "source_sha256": "46f032b153e7d4538d7f3ad146080f40705ce841144644959741bd421992f9a5",
+  "reviewed_at": "2026-11-09T07:41:35Z",
+  "cell_segmentation_percentages": {
+    "basophil": 96.2,
+    "eosinophil": 98.6,
+    "lymphocyte": 98.8,
+    "monocyte": 97.2,
+    "neutrophil": 94.2,
+    "unweighted_mean": 97.0,
+    "reported_average": 97.0
+  },
+  "mitosis_f1": {
+    "precision_percent": 65.42,
+    "recall_percent": 66.03,
+    "formula": "2 * precision * recall / (precision + recall)",
+    "exact_fraction": "21598413/32862500",
+    "computed_percent": 65.72358463294029,
+    "reported_percent": 65.73
+  },
+  "different_cohort_boundaries": {
+    "optimized_alpha_mean": "50 training / 850 testing images",
+    "hbce_ncm": "900 training / 379 testing images",
+    "boundary": "These partitions are not shown to be identical, so their aggregate percentages are not a matched ranking."
+  },
+  "limitations": "Only secondary aggregate values were checked. No source images, labels, predictions, patient assignments, fitted models, or external validation were available. Arithmetic does not evaluate a segmentation or classification model.",
+  "model_evaluated": false,
+  "clinical_claim": false
+}

@@ -1,0 +1,113 @@
+id: CUR-001
+name: cursor_project_config
+version: "1.0"
+category: code/config
+model_family: Cursor/Anysphere
+confidence: high
+description: Cursor IDE project configuration directory or rules file
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.cursor/rules'
+  - type: file_path
+    pattern: '.cursorrules'
+  - type: file_path
+    pattern: '.cursor/settings.json'
+tags: [cursor, ide, config, attribution]
+---
+id: CUR-002
+name: cursor_agent_commit
+version: "1.0"
+category: code/commit
+model_family: Cursor/Anysphere
+confidence: high
+description: Commit attributed to Cursor AI agent
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'Co-Authored-By:.*cursor'
+  - type: regex
+    pattern: '(?i)generated (by|with|using) cursor'
+  - type: string
+    pattern: 'cursor.sh'
+tags: [cursor, commit, attribution]
+---
+id: WIN-001
+name: windsurf_codeium_config
+version: "1.0"
+category: code/config
+model_family: Windsurf/Codeium
+confidence: high
+description: Windsurf or Codeium IDE configuration artifacts
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.codeium'
+  - type: file_path
+    pattern: '.windsurf'
+  - type: file_path
+    pattern: '.windsurfrules'
+  - type: string
+    pattern: 'codeium.com'
+  - type: string
+    pattern: 'windsurf.ai'
+tags: [windsurf, codeium, ide, config]
+---
+id: WIN-002
+name: windsurf_cascade_attribution
+version: "1.0"
+category: code/commit
+model_family: Windsurf/Codeium
+confidence: medium
+description: Commit or file attributed to Windsurf Cascade agent
+technique: AI-assisted code development
+match_all: false
+indicators:
+  - type: regex
+    pattern: '(?i)Co-Authored-By:.*codeium'
+  - type: regex
+    pattern: '(?i)generated (by|with) windsurf'
+  - type: regex
+    pattern: '(?i)generated (by|with) cascade'
+tags: [windsurf, cascade, commit, attribution]
+---
+id: DEV-001
+name: devin_agent_artifacts
+version: "1.0"
+category: agentic/filesystem
+model_family: Devin/Cognition
+confidence: high
+description: Devin AI agent session artifacts left in a repository
+technique: Autonomous agent deployment
+match_all: false
+indicators:
+  - type: file_path
+    pattern: '.devin'
+  - type: string
+    pattern: 'Devin AI'
+  - type: regex
+    pattern: 'Co-Authored-By:.*devin'
+  - type: regex
+    pattern: 'app\.devin\.ai'
+tags: [devin, cognition, agent, attribution]
+---
+id: DEV-002
+name: devin_pr_attribution
+version: "1.0"
+category: code/commit
+model_family: Devin/Cognition
+confidence: high
+description: PR or commit body containing Devin session link or attribution
+technique: Autonomous agent deployment
+match_all: false
+indicators:
+  - type: regex
+    pattern: 'app\.devin\.ai/sessions/'
+  - type: regex
+    pattern: 'Devin session:'
+  - type: regex
+    pattern: '\[Devin\]'
+tags: [devin, cognition, commit, pr, attribution]

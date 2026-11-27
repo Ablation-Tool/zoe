@@ -1,0 +1,90 @@
+{
+  "all_verified": true,
+  "checks": {
+    "echo_chamber_negative_control_zero": true,
+    "parseval_2d_exact_within_machine_eps": true,
+    "random_200_of_200_contraction_trials": true,
+    "rogue_high_mode_coherence_drop": true,
+    "selective_high_freq_dissonance_damping": true,
+    "strict_monotonic_mtf_contraction": true,
+    "sympy_5_of_5_exact_zero_residual": true
+  },
+  "constitution": {
+    "clinical_action_authorized": false,
+    "cloud_tokens_used": 0,
+    "cure_claim": false,
+    "l5_agi_qualified": false,
+    "sentience_claimed": false,
+    "zoe_clone_claimed": false
+  },
+  "contract": "zoe-kloster-theorem16-harmonic-optics/v1",
+  "empirical": {
+    "coherence_clean_vs_rogue": {
+      "clean": 0.6923,
+      "rogue": 0.5124
+    },
+    "contraction_200_passed": 200,
+    "contraction_200_trials": "200/200",
+    "curve": [
+      {
+        "d_k_parseval": 0.00013260808007321394,
+        "d_k_spatial": 0.000132608080073214,
+        "err": 5.421010862427522e-20,
+        "sigma": 0.4
+      },
+      {
+        "d_k_parseval": 9.297764855690588e-05,
+        "d_k_spatial": 9.297764855690593e-05,
+        "err": 5.421010862427522e-20,
+        "sigma": 0.8
+      },
+      {
+        "d_k_parseval": 6.195540396776851e-05,
+        "d_k_spatial": 6.195540396776856e-05,
+        "err": 5.421010862427522e-20,
+        "sigma": 1.4
+      },
+      {
+        "d_k_parseval": 3.8747839247266436e-05,
+        "d_k_spatial": 3.874783924726646e-05,
+        "err": 2.710505431213761e-20,
+        "sigma": 2.2
+      },
+      {
+        "d_k_parseval": 2.4016845207907655e-05,
+        "d_k_spatial": 2.40168452079077e-05,
+        "err": 4.404571325722362e-20,
+        "sigma": 3.2
+      },
+      {
+        "d_k_parseval": 1.370628733278585e-05,
+        "d_k_spatial": 1.3706287332785868e-05,
+        "err": 1.6940658945086007e-20,
+        "sigma": 4.5
+      }
+    ],
+    "d_raw": 0.00014234008554897879,
+    "echo_chamber_dk": 0.0,
+    "max_parseval_err": 5.421010862427522e-20,
+    "selective_retention": {
+      "high_mode_ratio": 0.0141,
+      "low_mode_ratio": 0.5473
+    },
+    "strictly_decreasing_curve": true
+  },
+  "equation_credit": "Nicholas Michael Kloster (2026) Operational Metacognition A_tau(p)",
+  "evidence_sha256": "abcd0077d9b2405eda063d17609adb437955c9a8dd48499fe5c92f6ab62ad3aa",
+  "sympy_proofs": {
+    "all_zero_residual": true,
+    "proofs": {
+      "16a_linear_filter_mode_factorization": 1,
+      "16b_kloster_m2_difference_parseval": 1,
+      "16c_nonnegative_dissipation_gap": 1,
+      "16d_high_freq_dissonance_selective_decay": 1,
+      "16e_three_voice_pairwise_chladni_contraction": 1
+    },
+    "sympy_version": "1.14.0"
+  },
+  "theorem_id": "theorem_16",
+  "title": "Kloster-Parseval Multi-Voice Contraction Law (Harmonic Optics)"
+}

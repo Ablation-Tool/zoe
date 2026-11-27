@@ -1,0 +1,346 @@
+{
+  "all_verified": true,
+  "challenges": {
+    "c10_kryptos_sculpture": {
+      "challenge": "challenge10_historical_kryptos_k1_k2_k3_and_k4_spectral",
+      "k1": {
+        "exact_match": true,
+        "plaintext": "BETWEENSUBTLESHADINGANDTHEABSENCEOFLIGHTLIESTHENUANCEOFIQLUSION",
+        "recovered_key": "PALIMPSEST"
+      },
+      "k2": {
+        "detected_period": 8,
+        "exact_match": true,
+        "plaintext_prefix": "ITWASTOTALLYINVISIBLEHOWSTHATPOSSIBLETHEYUSEDTHEEARTHSMAGNETICFIELDXTHEINFORMATI",
+        "recovered_key": "ABSCISSA"
+      },
+      "k3": {
+        "discovered_double_rotation_dims": [
+          7,
+          48,
+          84,
+          4
+        ],
+        "exact_match": true,
+        "friedman_ic_unbiased": 0.066151,
+        "plaintext_prefix": "SLOWLYDESPARATLYSLOWLYTHEREMAINSOFPASSAGEDEBRISTHATENCUMBEREDTHELOWERPARTOFTHEDOOR"
+      },
+      "k4_honest_unsolved_benchmark": {
+        "friedman_kloster": {
+          "friedman_ic_direct": 0.04602,
+          "friedman_ic_unbiased": 0.036082,
+          "integral_abs_err": 0.0,
+          "kloster_m2_integral": 0.04602,
+          "kloster_m4_root": 0.108597
+        },
+        "length": 97,
+        "period_sweep_ic": {
+          "10": 0.04333,
+          "11": 0.04401,
+          "12": 0.02315,
+          "2": 0.03522,
+          "3": 0.02967,
+          "4": 0.03286,
+          "5": 0.03918,
+          "6": 0.03007,
+          "7": 0.04186,
+          "8": 0.02622,
+          "9": 0.02559
+        },
+        "solved": false,
+        "sub_random_ic_below_1_over_26": true
+      },
+      "verified": true,
+      "zero_hardcoded_keys_or_dims": true
+    },
+    "c1_nsa_mission_monday": {
+      "challenge": "challenge1_official_nsa_mission_monday_series",
+      "char_recovery_accuracy": 1.0,
+      "ciphertext_len": 104,
+      "friedman_kloster_fingerprint": {
+        "friedman_ic_direct": 0.076553,
+        "friedman_ic_unbiased": 0.067588,
+        "integral_abs_err": 0.0,
+        "kloster_m2_integral": 0.076553,
+        "kloster_m4_root": 0.164858
+      },
+      "independent_english_corpus_letters": 1219871,
+      "independent_spanish_corpus_letters": 644272,
+      "recovered_plaintext_pure_statistical": "wanttoknowwhatittakestoworkatnsa?checkbackeachmondayinmayasweexplorecareersessentialtoprotectingournation",
+      "series": {
+        "may05_english": {
+          "accuracy": 1.0,
+          "chars": 104,
+          "exact_100pct": true,
+          "friedman_kloster": {
+            "friedman_ic_direct": 0.076553,
+            "friedman_ic_unbiased": 0.067588,
+            "integral_abs_err": 0.0,
+            "kloster_m2_integral": 0.076553,
+            "kloster_m4_root": 0.164858
+          },
+          "recovered": "wanttoknowwhatittakestoworkatnsa?checkbackeachmondayinmayasweexplorecareersessentialtoprotectingournation"
+        },
+        "may12_reversed_english": {
+          "accuracy": 1.0,
+          "auto_detected_reversed": true,
+          "chars": 117,
+          "exact_100pct": true,
+          "friedman_kloster": {
+            "friedman_ic_direct": 0.073709,
+            "friedman_ic_unbiased": 0.065724,
+            "integral_abs_err": 1.3877787807814457e-17,
+            "kloster_m2_integral": 0.073709,
+            "kloster_m4_root": 0.161708
+          },
+          "recovered": "nsaislookingforintelligentimaginativecriticalthinkerswhocancontributeinnovativeideastosolveourmostdifficultchallenges"
+        },
+        "may19_spanish": {
+          "accuracy": 0.98291,
+          "chars": 117,
+          "forensic_discovery": "NSA encrypter silently stripped UTF-8 Spanish accents ('\u00ed' in cient\u00edficos, '\u00f3' in computaci\u00f3n -> 117 chars)",
+          "friedman_kloster": {
+            "friedman_ic_direct": 0.077215,
+            "friedman_ic_unbiased": 0.06926,
+            "integral_abs_err": 0.0,
+            "kloster_m2_integral": 0.077215,
+            "kloster_m4_root": 0.168823
+          },
+          "recovered": "loscientxicosdelacomputacintienenlaoportunidaddeampliarsusiniciativashabilidadesytalentosparaaprenderyserimafinativos"
+        },
+        "may26_unsolved_forensic": {
+          "chars": 105,
+          "doubles": [
+            "bb",
+            "pp",
+            "jj",
+            "pp",
+            "dd",
+            "pp"
+          ],
+          "friedman_kloster": {
+            "friedman_ic_direct": 0.080998,
+            "friedman_ic_unbiased": 0.072161,
+            "integral_abs_err": 0.0,
+            "kloster_m2_integral": 0.080998,
+            "kloster_m4_root": 0.167873
+          },
+          "honest_status": "Famously unsolved May 26, 2014 NSA tweet; preserved honestly as unsolved spectral benchmark",
+          "repeated_4gram_rfeb_count": 3,
+          "solved": false,
+          "unique_letters": 18
+        }
+      },
+      "verified": true,
+      "zero_hardcoded_key_used": true
+    },
+    "c2_vigenere_spectral": {
+      "challenge": "challenge2_vigenere_friedman_kloster_spectral",
+      "detected_period_l": 7,
+      "exact_key_recovered": true,
+      "exact_plaintext_recovered": true,
+      "otp_negative_control_ic": 0.040474,
+      "period_sweep": [
+        {
+          "mean_m2_friedman_ic": 0.04408,
+          "mean_m4_root": 0.10398,
+          "period": 1
+        },
+        {
+          "mean_m2_friedman_ic": 0.0458,
+          "mean_m4_root": 0.10811,
+          "period": 2
+        },
+        {
+          "mean_m2_friedman_ic": 0.04833,
+          "mean_m4_root": 0.11364,
+          "period": 3
+        },
+        {
+          "mean_m2_friedman_ic": 0.05152,
+          "mean_m4_root": 0.12264,
+          "period": 4
+        },
+        {
+          "mean_m2_friedman_ic": 0.05312,
+          "mean_m4_root": 0.12712,
+          "period": 5
+        },
+        {
+          "mean_m2_friedman_ic": 0.05511,
+          "mean_m4_root": 0.13116,
+          "period": 6
+        },
+        {
+          "mean_m2_friedman_ic": 0.07686,
+          "mean_m4_root": 0.16656,
+          "period": 7
+        },
+        {
+          "mean_m2_friedman_ic": 0.05879,
+          "mean_m4_root": 0.13539,
+          "period": 8
+        },
+        {
+          "mean_m2_friedman_ic": 0.05852,
+          "mean_m4_root": 0.13366,
+          "period": 9
+        },
+        {
+          "mean_m2_friedman_ic": 0.06495,
+          "mean_m4_root": 0.14758,
+          "period": 10
+        },
+        {
+          "mean_m2_friedman_ic": 0.06374,
+          "mean_m4_root": 0.14451,
+          "period": 11
+        },
+        {
+          "mean_m2_friedman_ic": 0.06948,
+          "mean_m4_root": 0.1568,
+          "period": 12
+        },
+        {
+          "mean_m2_friedman_ic": 0.06653,
+          "mean_m4_root": 0.14894,
+          "period": 13
+        },
+        {
+          "mean_m2_friedman_ic": 0.08982,
+          "mean_m4_root": 0.18886,
+          "period": 14
+        }
+      ],
+      "recovered_key": "cypherx",
+      "true_key_len": 7,
+      "verified": true
+    },
+    "c3_ecdsa_secp256k1": {
+      "challenge": "challenge3_secp256k1_ecdsa_nonce_reuse",
+      "curve": "secp256k1 (exact 256-bit prime field)",
+      "exact_256bit_nonce_recovered": true,
+      "exact_256bit_private_key_recovered": true,
+      "recovered_key_prefix_hex": "0x7149237f3a8c2f4b...",
+      "rfc6979_distinct_nonce_neg_ctrl_safe": true,
+      "verified": true
+    },
+    "c4_rsa_hastad_wiener": {
+      "challenge": "challenge4_rsa_hastad_and_wiener",
+      "hastad_e3_recovered_plaintext": "KLOSTER_A_TAU_CRYPTO_2026",
+      "hastad_exact_match": true,
+      "verified": true,
+      "wiener_512bit_exact_factorization": true,
+      "wiener_modulus_bits": 512
+    },
+    "c5_berlekamp_massey": {
+      "challenge": "challenge5_berlekamp_massey_lfsr_vs_csprng",
+      "csprng_neg_ctrl_linear_complexity": 65,
+      "csprng_neg_ctrl_next_200_accuracy": 0.48,
+      "lfsr_next_200_bit_accuracy": 1.0,
+      "recovered_lfsr_degree": 16,
+      "recovered_taps": [
+        11,
+        13,
+        14,
+        16
+      ],
+      "true_lfsr_degree": 16,
+      "verified": true
+    },
+    "c6_spn_differential": {
+      "challenge": "challenge6_biham_shamir_4round_spn_differential",
+      "chosen_plaintext_pairs": 5000,
+      "ddt_max_nontrivial_entry": 8,
+      "exact_subkey_recovered": true,
+      "filtered_right_pair_candidates": 297,
+      "kloster_m4_key_spectrum": 0.09912,
+      "kloster_m4_uniform_noise": 0.01562,
+      "median_wrong_key_hits": 1.0,
+      "recovered_subkey_nibbles_hex": "0x7, 0xA",
+      "top_key_hits": 123,
+      "true_subkey_nibbles_hex": "0x7, 0xA",
+      "verified": true
+    },
+    "c7_cbc_padding_oracle": {
+      "challenge": "challenge7_cbc_padding_oracle_vs_etm_hmac",
+      "etm_hmac_tampered_probes_blocked": "32/32",
+      "etm_hmac_zero_bytes_leaked": true,
+      "exact_secret_recovered": true,
+      "oracle_queries_used": 3102,
+      "recovered_plaintext": "ZOE_ORACLE_CRACKED",
+      "verified": true
+    },
+    "c8_post_quantum_lll": {
+      "challenge": "challenge8_post_quantum_lll_lwe_and_ntru",
+      "lll_delta": 0.99,
+      "lwe_exact_error_and_secret_recovered": true,
+      "lwe_high_noise_mlkem_neg_ctrl_safe": true,
+      "lwe_params": {
+        "hard_noise_bound": 14,
+        "m": 14,
+        "n": 6,
+        "q": 97,
+        "weak_noise_bound": 1
+      },
+      "ntru_exact_short_key_rotation_recovered": true,
+      "ntru_params": {
+        "N": 7,
+        "lattice_dim": 14,
+        "q": 64
+      },
+      "ntru_recovered_shortest_vector_norm": 2.8284,
+      "verified": true
+    },
+    "c9_enigma_m3_bombe": {
+      "challenge": "challenge9_enigma_m3_turing_welchman_bombe",
+      "crib_plaintext_exact_match": true,
+      "diagonal_board_hypotheses_tested": 456976,
+      "exact_position_recovered": true,
+      "full_plaintext_recovered_with_stecker": true,
+      "plugboard_pairs_deduced_from_crib": [
+        "P<->S",
+        "T<->U"
+      ],
+      "recovered_rotor_position": "ZOE",
+      "reflector": "UKW-B",
+      "rotor_order": [
+        "II",
+        "IV",
+        "I"
+      ],
+      "rotor_states_swept": 17576,
+      "unique_bombe_stops": 1,
+      "verified": true,
+      "zero_self_encryption_flaw_verified": true
+    }
+  },
+  "checks": {
+    "c10_kryptos_k1_k2_k3_blind_and_k4_spectral": true,
+    "c1_official_nsa_mission_monday_series_cracked": true,
+    "c2_vigenere_friedman_kloster_and_otp_ctrl": true,
+    "c3_secp256k1_ecdsa_256bit_key_and_rfc6979_ctrl": true,
+    "c4_rsa_hastad_e3_and_512bit_wiener_factored": true,
+    "c5_berlekamp_massey_lfsr_and_csprng_ctrl": true,
+    "c6_biham_shamir_4round_spn_differential": true,
+    "c7_cbc_padding_oracle_and_etm_hmac_defense": true,
+    "c8_post_quantum_lll_lwe_ntru_and_mlkem_ctrl": true,
+    "c9_enigma_m3_turing_welchman_bombe_unique_stop": true,
+    "sympy_friedman_ic_equals_kloster_m2_exact": true
+  },
+  "constitution": {
+    "authorized_targets_only": true,
+    "cloud_tokens_used": 0,
+    "negative_controls_preserved": true,
+    "offline_and_100pct_legal": true,
+    "unsolved_ciphers_marked_honestly": true
+  },
+  "contract": "zoe-kloster-cryptanalysis-gauntlet/v2",
+  "evidence_sha256": "10408460ef1c06dbb15f073bea534d634e4f9428b1ebe2b1c3b9c96bfc284a0b",
+  "friedman_kloster_sympy": {
+    "exact": true,
+    "friedman_ic_equals_kloster_m2_residual": "0",
+    "sympy_version": "1.14.0",
+    "telescoping_3letter_residual": "0"
+  }
+}

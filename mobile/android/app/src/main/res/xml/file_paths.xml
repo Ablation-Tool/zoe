@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="trip_share" path="trip_share/" />
+    <cache-path name="zoe_learn" path="zoe_learn/" />
+    <files-path name="trip_thumbs" path="trip_thumbs/" />
+    <files-path name="uc_vault" path="uc_vault/" />
+</paths>

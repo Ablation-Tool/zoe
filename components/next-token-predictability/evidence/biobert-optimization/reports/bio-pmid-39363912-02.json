@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "model": "dmis-lab/biobert-base-cased-v1.2",
+  "model_revision": "67c9c25b46986521ca33df05d8540da1210b3256",
+  "runtime": {
+    "torch": "2.14.1+cu130",
+    "transformers": "4.56.2"
+  },
+  "case_id": "bio-pmid-39363912-02",
+  "source_document_id": "pmid-39363912",
+  "split": "development",
+  "context_sha256": "48d27aafdb94cd7194fa5e05c04ac4b56498b41adbb897f41d13dc6a6db45bff",
+  "target": "precision",
+  "target_position": 76,
+  "target_token_id": 13218,
+  "vocabulary_size": 28996,
+  "probability_sum": 0.9999999999999998,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.3,
+    0.5
+  ],
+  "threshold_sweep": [
+    7,
+    4,
+    2,
+    1,
+    1,
+    0
+  ],
+  "entropy_bits": 4.599250741481571,
+  "maximum_probability": 0.33745511842266207,
+  "top_10_probability_mass": 0.742733304338415,
+  "target_probability": 0.0018759935233944296,
+  "target_rank": 41,
+  "top1_correct": false,
+  "error": 1,
+  "top_tokens": [
+    {
+      "token_id": 6676,
+      "token": "mechanical",
+      "probability": 0.33745511842266207
+    },
+    {
+      "token_id": 5297,
+      "token": "chemical",
+      "probability": 0.14263098872468838
+    },
+    {
+      "token_id": 6898,
+      "token": "spin",
+      "probability": 0.08436337700740926
+    },
+    {
+      "token_id": 1869,
+      "token": "information",
+      "probability": 0.052768990375992246
+    },
+    {
+      "token_id": 7353,
+      "token": "error",
+      "probability": 0.02794141513521274
+    },
+    {
+      "token_id": 11364,
+      "token": "interference",
+      "probability": 0.02784652673572778
+    },
+    {
+      "token_id": 8096,
+      "token": "efficiency",
+      "probability": 0.025346863052181267
+    },
+    {
+      "token_id": 3936,
+      "token": "transport",
+      "probability": 0.01588782235440432
+    },
+    {
+      "token_id": 11556,
+      "token": "mechanics",
+      "probability": 0.015432157192739356
+    },
+    {
+      "token_id": 10312,
+      "token": "optical",
+      "probability": 0.01306004533739753
+    }
+  ],
+  "checks": {
+    "repeated_probabilities_identical": true,
+    "single_prediction_mask": true,
+    "target_replaced_with_mask": true,
+    "saved_probabilities_bit_identical": true,
+    "threshold_counts_recomputed": true
+  },
+  "probability_values_sha256": "7813865b60527c3836f6fa4e828f24951e468524e2b658744b2c794b0c918003",
+  "input_ids_sha256": "ef3a3c8b7d0ac58903e808c3f049f46888e602e3781e51a67836c36df4b1daee",
+  "original_input_ids_sha256": "4994d52a1041df8b268f8f400b12e31add354fde6afa8056b73302ced7104e48"
+}

@@ -1,0 +1,11 @@
+{
+  "paper": "papers/11-afl-defuser-proposed-patch.pdf",
+  "title": "AFL Defuser: Proposed Patch",
+  "pdf_pages": 3,
+  "extracted_images": [],
+  "page_renders": [
+    "pages/page-001.jpg",
+    "pages/page-002.jpg",
+    "pages/page-003.jpg"
+  ]
+}

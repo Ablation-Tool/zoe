@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "system": "Zoe One",
+  "repository": {
+    "url": "https://github.com/Ablation-Tool/zoe",
+    "single_checkout": true,
+    "repository_count": 1,
+    "source_project_count": 13,
+    "imported_repository_count": 13,
+    "submodules_required": false,
+    "atlas": "docs/CAPABILITY-ATLAS.md",
+    "agi_roadmap": "docs/AGI-ROADMAP.md",
+    "monorepo_guide": "docs/MONOREPO.md"
+  },
+  "contract": "zoe-autonomy/v1",
+  "probity": "Zoe & Probity are synonymous: complete and proven honesty, uprightness, and strict adherence to high moral, ethical, and legal standards.",
+  "autonomy": {
+    "classification": "full_autonomy",
+    "predicate": "I,R,V,G,X > 0 and C=1",
+    "internal_goal_authorship": true,
+    "operator_supplied_goal": false,
+    "operator_approval_required": false,
+    "sandbox_executed": true,
+    "external_actions": 0
+  },
+  "shared_perception": {
+    "engine": "canonical GEM saliency field",
+    "feature_maps": 42,
+    "default_source": "documented_synthetic_rgb_popout",
+    "selection": "winner selection, inhibition of return, and exact Dijkstra attention paths",
+    "source_locked": true,
+    "live_camera": false,
+    "run": "zoe-autonomy run --image /path/to/image.jpg --foci 4 --output visual-perception.json",
+    "verify": "zoe-autonomy verify visual-perception.json"
+  },
+  "gem_operating_environment": {
+    "contract": "zoe-gem-operating-environment/v1",
+    "component_count": 17,
+    "navigable_layer_count": 36,
+    "gui": "components/ablation/gem-lab/gem/gtk_app.py",
+    "ablation_gui_source_modified": false,
+    "runtime": "guiai-lab/guiai/gem/operating_environment.py",
+    "guide": "guiai-lab/docs/GEM-OS.md",
+    "operations": ["status", "list", "open", "export", "snapshot"],
+    "chat_prefix": "gem",
+    "cli": "zoe gem",
+    "shared_knowledge_events": true,
+    "source_spatial_ir_verified_layers": 36,
+    "real_vdi_export": true,
+    "no_overwrite_exports": true,
+    "open_launches_component_process": false,
+    "external_actions": 0,
+    "automatic_conversation_notebook": false,
+    "evidence": "evidence/gem-os/verification.json"
+  },
+  "capability_prospectus": {
+    "pdf": "research/monograph/zoe-research-universe.pdf",
+    "source": "research/monograph/zoe-research-universe.tex",
+    "pages": 23,
+    "visual_archive": "research/visual-archive",
+    "scope": "Complete illustrated capability book with verified, narrow, optional, research, and blocked boundaries"
+  },
+  "dorothy_brain_research": {
+    "mission": "Inspectable spatial analysis, neural simulation, and source-linked scientific review supporting long-term brain-cancer research",
+    "atlas_structures": 12,
+    "atlas_triangles": 315932,
+    "atlas_source": "Allen Mouse CCFv3 2017",
+    "neural_signal_methods": ["DFT band powers", "delay embedding", "Lyapunov estimate", "Higuchi dimension", "Shannon entropy"],
+    "generative_world": "components/agent-logging-system/agent_logging_system/neurogarden_world.py",
+    "neural_implementation": "components/agent-logging-system/agent_logging_system/neurogarden_neural.py",
+    "advanced_models": "components/agent-logging-system/agent_logging_system/neurogarden_advanced.py",
+    "populated_books": 37,
+    "indexed_sections": 1751,
+    "reviewed_entries": 130,
+    "pending_entries": 1621,
+    "patient_anatomy": false,
+    "whole_brain_or_patient_simulation": false,
+    "clinical_action_authorized": false,
+    "guide": "components/agent-logging-system/docs/NEUROGARDEN.md",
+    "evidence": "components/agent-logging-system/evidence/neurogarden/"
+  },
+  "event_causal_active_perception": {
+    "contract": "zoe-event-causal-active-perception/v1",
+    "evaluation_contract": "zoe-event-causal-evaluation/v1",
+    "run": "zoe-autonomy event-evaluate --output event-evaluation.json",
+    "camera": "zoe-autonomy event-evaluate --camera /dev/video0 --output event-camera-evaluation.json",
+    "verify": "zoe-autonomy verify-event-evaluation event-camera-evaluation.json",
+    "protocol_sha256": "2bb2e92ecd81d5822bec7249dd39d00ab645b3bf61990ba30b1b43af58433ebc",
+    "synthetic_checks_passed": 11,
+    "camera_passed": true,
+    "adaptive_validation_prediction_rmse": 4.641453,
+    "no_learning_validation_prediction_rmse": 5.058147,
+    "adaptive_transfer_tracking_mae": 3.265625,
+    "static_saliency_transfer_tracking_mae": 3.53125,
+    "fixed_transfer_tracking_mae": 3.5625,
+    "random_transfer_tracking_mae": 3.703125,
+    "ood_detection_rate": 0.875,
+    "validation_false_positive_rate": 0.0,
+    "camera_audio_captured": false,
+    "camera_images_retained": false,
+    "evidence": "components/Zoe-Autonomy/evidence/event-causal/evaluation.json",
+    "ilab_catalog": "components/Zoe-Autonomy/evidence/ilab/catalog.json"
+  },
+  "pala_recovery": {
+    "id": "pala",
+    "contract": "pala-recovery/v1",
+    "directory": "PALA",
+    "repository": "https://github.com/Ablation-Tool/zoe",
+    "upstream_repository": "https://github.com/Ablation-Tool/PALA",
+    "revision": "5d16e62cf838d8b53b988ecf75b03aa034b42354",
+    "list": "zoe pala --list",
+    "run": "zoe pala /authorized/source.img /separate/output-directory --json",
+    "build": "cargo build --manifest-path components/PALA/Cargo.toml --release --locked",
+    "verify": "python scripts/verify-one-system.py --pala",
+    "source_access": "read_only",
+    "non_overwriting_output": true,
+    "external_ai_required": false,
+    "raw_device_scan_requires_explicit_operator_request": true,
+    "evidence": "evidence/pala/verification.json"
+  },
+  "semantic_artifact_analysis": {
+    "contract": "zoe-semantic-artifact-evaluation/v1",
+    "run": "zoe-autonomy semantic-evaluate --artifact /path/to/binary --output semantic-artifact.json",
+    "verify": "zoe-autonomy verify-semantic-evaluation semantic-artifact.json",
+    "retrieval": "Normalized behavior embeddings with PLT-excluded scope and fitted PCA whitening",
+    "direct_evidence": "Capstone direct calls and tail jumps in .text",
+    "demonstrated_call": "func_11c0 tail jump to strcpy@plt",
+    "selected_action": "semantic-inspect",
+    "limited_support": true,
+    "automatic_vulnerability_claim": false,
+    "external_actions": 0,
+    "evidence": "components/Zoe-Autonomy/evidence/semantic-artifacts/evaluation.json"
+  },
+  "autonomy_evaluation": {
+    "contract": "zoe-four-capability-evaluation/v1",
+    "run": "zoe-autonomy evaluate --output evaluation.json",
+    "camera": "zoe-autonomy evaluate --camera /dev/video0 --output camera-evaluation.json",
+    "verify": "zoe-autonomy verify-evaluation camera-evaluation.json",
+    "four_capabilities_passed": true,
+    "integrated_visual_autonomy_passed": false,
+    "failed_checks": ["vision_changes_decision"],
+    "live_camera_tested": true,
+    "camera_audio_captured": false,
+    "camera_image_retained": false,
+    "camera_autonomously_selected": false,
+    "evidence": "components/Zoe-Autonomy/evidence/evaluation/"
+  },
+  "shared_reflection": {
+    "instrument": "zoe-self-reflection/v1",
+    "default_enabled": false,
+    "models": ["arithmetic", "precision"],
+    "training_views": [0, 45, 30, 15],
+    "validation_view": 60,
+    "selection": "goal-constrained model proposals with likelihood-derived values",
+    "adoption": "adopt only when validation RMSE improves; otherwise preserve the prior model",
+    "reversible": true,
+    "source_rewritten": false,
+    "run": "zoe-autonomy run --reflect --output integrated-reflection.json",
+    "standalone": "zoe-autonomy reflect --output reflection-step-1.json",
+    "verify": "zoe-autonomy verify-reflection reflection-step-2.json",
+    "evidence": "evidence/self-reflection/integrated.json",
+    "working_memory": {
+      "representation": "soroban earth and heaven beads",
+      "observation_counts": [4, 8, 12],
+      "adoption_counts": [0, 1, 1],
+      "likelihood_weights_replaced": false
+    }
+  },
+  "canonical_engine": {
+    "id": "engine",
+    "directory": "Zoe-Autonomy",
+    "repository": "https://github.com/Ablation-Tool/Zoe-Autonomy",
+    "revision": "0b6b8da9986c31d356fbe8aeb7c9f646ede03429",
+    "module": "zoe_autonomy.cli",
+    "python_path": "src"
+  },
+  "research": {
+    "id": "research",
+    "directory": "next-token-predictability",
+    "repository": "https://github.com/Ablation-Tool/next-token-predictability",
+    "revision": "79575d94325a43b5dbbef17d38bc1cb1d56d9321",
+    "role": "Operational Metacognition equation, papers, complete saved distributions, and independent verifiers"
+  },
+  "hosts": [
+    {
+      "id": "canonical-gem",
+      "directory": "graphics-environment-manager",
+      "repository": "https://github.com/Ablation-Tool/graphics-environment-manager",
+      "revision": "0ab35bffa0453689f00b321a6a7e972d14bc8ba7",
+      "module": "gem.cli",
+      "python_path": ".",
+      "adapter": "gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "brain-gem",
+      "directory": "brain-gem",
+      "repository": "https://github.com/Ablation-Tool/brain-gem",
+      "revision": "7420a8f0d8d2c370a72b76d93defcc7fb585b913",
+      "module": "brain_gem.cli",
+      "python_path": ".",
+      "adapter": "brain_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "gem-helen",
+      "directory": "gem-helen",
+      "repository": "https://github.com/Ablation-Tool/gem-helen",
+      "revision": "273c4eeb6fd6044f1ab9068561ddc33290357eed",
+      "module": "helen_gem.cli",
+      "python_path": ".",
+      "adapter": "helen_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "ablation-gem",
+      "directory": "ablation",
+      "repository": "https://github.com/Ablation-Tool/ablation",
+      "revision": "a75d337e3e5721a83a326863ceb1d8a79bce2c06",
+      "branch": "main-reindex",
+      "cwd": "gem-lab",
+      "module": "gem.cli",
+      "python_path": ".",
+      "adapter": "gem-lab/gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    },
+    {
+      "id": "cerotto-gem",
+      "directory": "cerotto",
+      "repository": "https://github.com/Ablation-Tool/cerotto",
+      "revision": "b73d399b638b4de8a0a9829b17c95203c5deaabd",
+      "module": "cerotto_gem.cli",
+      "python_path": ".",
+      "adapter": "cerotto_gem/autonomy.py",
+      "command_prefix": [
+        "autonomy"
+      ]
+    }
+  ],
+  "verification": {
+    "command": "python scripts/verify-one-system.py",
+    "single_checkout": true,
+    "imported_revisions_checked_as_git_ancestors": true,
+    "requirements": "Every host resolves inside the unified Zoe checkout, invokes the canonical engine, and returns an identical full-autonomy document with internally authored goals, internal execution, passing guards, and zero external actions. Every report contains the same 42 saliency maps and source-locked attention field, and replay verification succeeds. --image checks the same real RGB input through every host. --reflect additionally requires a goal-directed model choice, a real likelihood-based belief update, validation-gated adoption, and matching replay evidence. PALA's imported revision is always checked. --pala additionally verifies formatting, strict Clippy, locked Rust tests, a release build, the synthetic recovery suite, and the real zoe pala interface. --chat additionally verifies the real conversational workflow, measured reflection, explicit export, and the absence of external monitor and automatic notebook files."
+  },
+  "actuation": {
+    "contract": "zoe-actuation/v1",
+    "owner_approved": true,
+    "hostname_bound": true,
+    "enabled_scopes": {
+      "host": true,
+      "network": true,
+      "hardware": true
+    },
+    "privilege_elevation": false,
+    "cross_machine_transfer": false,
+    "local_host_executed": true,
+    "internet_https_executed": true,
+    "internet_status": 200,
+    "virtual_hardware_executed": true,
+    "physical_hardware_executed": false,
+    "emergency_stop_verified": true,
+    "external_operations": 3,
+    "evidence": "evidence/actuation/verification.json"
+  },
+  "exploration": {
+    "contract": "zoe-web-exploration/v1",
+    "real_https_executed": true,
+    "status": 200,
+    "title": "Example Domain",
+    "evidence": "evidence/exploration/example-com.json"
+  },
+  "connected_agents": {
+    "contract": "zoe-agent-gateway/v1",
+    "owner_authorized_accounts": [
+      "kimi",
+      "claude"
+    ],
+    "model_invocations_during_registration": 0,
+    "credential_values_in_evidence": false,
+    "three_way_loop": "user ↔ Zoe ↔ owner-connected embedded AI agent",
+    "native_chat_bridge": "components/Zoe-Autonomy/src/zoe_autonomy/collaboration.py",
+    "real_shared_context_connectivity_verified": true,
+    "metacognition_proof": "evidence/metacognition/collaboration-proof.json",
+    "metacognition_proof_verifier": "scripts/verify-metacognition-collaboration.py",
+    "metacognition_proof_accessible_count": 2,
+    "metacognition_proof_tau": 0.05,
+    "collaboration_evidence": "evidence/agents/collaboration.json",
+    "evidence": "evidence/agents/verification.json"
+  },
+  "capabilities": {
+    "command": "zoe autonomy capabilities",
+    "adapter_count": 10,
+    "adapters": [
+      "browser_automation",
+      "research_apis",
+      "persistent_research_memory",
+      "connected_productivity_services",
+      "scheduled_jobs",
+      "compute_environments",
+      "agent_protocols",
+      "notifications",
+      "rich_media",
+      "hardware_instruments"
+    ],
+    "evidence": "evidence/capabilities/verification.json",
+    "autonomous_selection": {
+      "command": "zoe autonomy step",
+      "operator_supplied_goal": false,
+      "operator_supplied_capability": false,
+      "operator_approval_required": false,
+      "selection": "internally authored goals and deterministic utility ranking over ten internally constructed capability calls",
+      "real_first_step": "evidence/autonomous/native-step.json",
+      "verification": "evidence/autonomous/native-verification.json"
+    }
+  },
+  "conversation": {
+    "contract": "zoe-native-conversation/v2",
+    "run": "zoe chat",
+    "state": "zoe chat --state /path/to/state",
+    "one_shot": "zoe chat --state /path/to/state --command 'meta what is PALA?'",
+    "embedded_agent_collaboration": ["agent on", "agent off", "agent ask TEXT", "agent use ID", "agent clear"],
+    "collaboration_evidence": "evidence/agents/collaboration.json",
+    "verify": "python scripts/verify-one-system.py --chat",
+    "evidence": "evidence/chat/verification.json",
+    "external_language_model_required": false,
+    "external_metacognition_monitor": false,
+    "automatic_conversation_notebook": false,
+    "stress_gauge": false,
+    "internal_domains": [
+      "intent",
+      "action",
+      "self"
+    ],
+    "operator_export_required_for_full_snapshot": true,
+    "pala_report_metadata_import": true,
+    "pala_recovered_content_imported": false,
+    "guide": "guiai-lab/docs/CHAT.md",
+    "toolkit": "components/Zoe-Autonomy/METACOGNITION.md"
+  }
+}
