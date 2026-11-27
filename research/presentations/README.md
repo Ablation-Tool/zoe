@@ -8,7 +8,7 @@
 
 **Constitutional Scope (`docs/CONSTITUTION.md`):** `operational_metacognition_verified = True` · `sentience_claimed = False` · `l5_agi_qualified = False` · `zoe_clone_claimed = False` · `clinical_action_authorized = False` · `cure_claim = False` · `external_actions = 0` · `cloud_cost_usd = 0.0` (`$0.00 offline`).
 
-**Decks**: 17 · **Total Slides**: 163
+**Decks**: 18 · **Total Slides**: 169
 
 ## Six Anthology Volumes (Vol. I–VI)
 
@@ -47,12 +47,12 @@
 
 | # | Volume | Title | Slides | .GEM | Sister | Gallery | Player | Playlist |
 |---|---|---|---:|---:|---|---|---|---|
-| 12 | `Vol. I` | Vol. I — Operational Metacognition & The 16 Kloster Theorems | 12 | 12 | `sage` | [README](galleries/vol-1-operational-metacognition/README.md) | [player.html](galleries/vol-1-operational-metacognition/player.html) | [`vol-1-operational-metacognition.lis`](galleries/vol-1-operational-metacognition/vol-1-operational-metacognition.lis) |
-| 13 | `Vol. II` | Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) & Apps | 12 | 12 | `flora` | [README](galleries/vol-2-dorothy-brain-neuro-oncology-apps/README.md) | [player.html](galleries/vol-2-dorothy-brain-neuro-oncology-apps/player.html) | [`vol-2-dorothy-brain-neuro-oncology-apps.lis`](galleries/vol-2-dorothy-brain-neuro-oncology-apps/vol-2-dorothy-brain-neuro-oncology-apps.lis) |
-| 14 | `Vol. III` | Vol. III — Reverse Engineering, Cryptanalysis & Zero-Trust Defense | 12 | 12 | `mono` | [README](galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/README.md) | [player.html](galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/player.html) | [`vol-3-reverse-engineering-cryptanalysis-zero-trust.lis`](galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/vol-3-reverse-engineering-cryptanalysis-zero-trust.lis) |
-| 15 | `Vol. IV` | Anthology Vol. IV: Bare-Metal UEFI Zoe-GEM OS, Pixel 7 Silicon & Hardware UMA | 10 | 10 | `tosi` | [README](galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/README.md) | [player.html](galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/player.html) | [`vol-4-uefi-zoe-gem-os-pixel7-uma.lis`](galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/vol-4-uefi-zoe-gem-os-pixel7-uma.lis) |
-| 16 | `Vol. V` | Anthology Vol. V: Hexagonal 9-Sister EDDBMS, Balma & Fitler (1986) GEM & Ablation | 10 | 10 | `zoe` | [README](galleries/vol-5-hex-9-sister-eddbms-gem-ablation/README.md) | [player.html](galleries/vol-5-hex-9-sister-eddbms-gem-ablation/player.html) | [`vol-5-hex-9-sister-eddbms-gem-ablation.lis`](galleries/vol-5-hex-9-sister-eddbms-gem-ablation/vol-5-hex-9-sister-eddbms-gem-ablation.lis) |
-| 17 | `Vol. VI` | Anthology Vol. VI: Constitution, Dual-Peer Zoe & Clara, Native Voice, CERN & AGI Roadmap | 11 | 11 | `sage` | [README](galleries/vol-6-constitution-clara-voice-cern-agi/README.md) | [player.html](galleries/vol-6-constitution-clara-voice-cern-agi/player.html) | [`vol-6-constitution-clara-voice-cern-agi.lis`](galleries/vol-6-constitution-clara-voice-cern-agi/vol-6-constitution-clara-voice-cern-agi.lis) |
+| 13 | `Vol. I` | Vol. I — Operational Metacognition & The 16 Kloster Theorems | 12 | 12 | `sage` | [README](galleries/vol-1-operational-metacognition/README.md) | [player.html](galleries/vol-1-operational-metacognition/player.html) | [`vol-1-operational-metacognition.lis`](galleries/vol-1-operational-metacognition/vol-1-operational-metacognition.lis) |
+| 14 | `Vol. II` | Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) & Apps | 12 | 12 | `flora` | [README](galleries/vol-2-dorothy-brain-neuro-oncology-apps/README.md) | [player.html](galleries/vol-2-dorothy-brain-neuro-oncology-apps/player.html) | [`vol-2-dorothy-brain-neuro-oncology-apps.lis`](galleries/vol-2-dorothy-brain-neuro-oncology-apps/vol-2-dorothy-brain-neuro-oncology-apps.lis) |
+| 15 | `Vol. III` | Vol. III — Reverse Engineering, Cryptanalysis & Zero-Trust Defense | 12 | 12 | `mono` | [README](galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/README.md) | [player.html](galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/player.html) | [`vol-3-reverse-engineering-cryptanalysis-zero-trust.lis`](galleries/vol-3-reverse-engineering-cryptanalysis-zero-trust/vol-3-reverse-engineering-cryptanalysis-zero-trust.lis) |
+| 16 | `Vol. IV` | Anthology Vol. IV: Bare-Metal UEFI Zoe-GEM OS, Pixel 7 Silicon & Hardware UMA | 10 | 10 | `tosi` | [README](galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/README.md) | [player.html](galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/player.html) | [`vol-4-uefi-zoe-gem-os-pixel7-uma.lis`](galleries/vol-4-uefi-zoe-gem-os-pixel7-uma/vol-4-uefi-zoe-gem-os-pixel7-uma.lis) |
+| 17 | `Vol. V` | Anthology Vol. V: Hexagonal 9-Sister EDDBMS, Balma & Fitler (1986) GEM & Ablation | 10 | 10 | `zoe` | [README](galleries/vol-5-hex-9-sister-eddbms-gem-ablation/README.md) | [player.html](galleries/vol-5-hex-9-sister-eddbms-gem-ablation/player.html) | [`vol-5-hex-9-sister-eddbms-gem-ablation.lis`](galleries/vol-5-hex-9-sister-eddbms-gem-ablation/vol-5-hex-9-sister-eddbms-gem-ablation.lis) |
+| 18 | `Vol. VI` | Anthology Vol. VI: Constitution, Dual-Peer Zoe & Clara, Native Voice, CERN & AGI Roadmap | 11 | 11 | `sage` | [README](galleries/vol-6-constitution-clara-voice-cern-agi/README.md) | [player.html](galleries/vol-6-constitution-clara-voice-cern-agi/player.html) | [`vol-6-constitution-clara-voice-cern-agi.lis`](galleries/vol-6-constitution-clara-voice-cern-agi/vol-6-constitution-clara-voice-cern-agi.lis) |
 
 ## Curated Companion Decks
 
@@ -69,6 +69,7 @@
 | 09 | `Art & Visual Design` | Zoe Artline 2.0 Brainstorming Studio Visual Concepts | 7 | [README](galleries/09-artline-brainstorm-studio/README.md) | — | [`.pptx`](decks/09-artline-brainstorm-studio.pptx) | `9ec900cc1d59` |
 | 10 | `Art & Visual Design` | Clean-Room Retro MS-DOS Art & Idea Evolution Studio | 8 | [README](galleries/10-retro-msdos-art-evolution/README.md) | — | [`.pptx`](decks/10-retro-msdos-art-evolution.pptx) | `e3e24a600110` |
 | 11 | `Art & Visual Design` | Artline 2.0 Page A-2 GEM Wombats & Optional-Physics Sandbox | 6 | [README](galleries/11-artline-wombats-physics-room/README.md) | — | [`.pptx`](decks/11-artline-wombats-physics-room.pptx) | `221d0fe953c4` |
+| 12 | `Art & Visual Design` | Zoe Artline Forge: Clean-Room .AF4, .SYF, .TLS, .COL & ZOETK001 Studio | 6 | — | — | [`.pptx`](decks/12-zoe-artline-forge.pptx) | `bcde2ca7c204` |
 
 ## Offline Verification
 

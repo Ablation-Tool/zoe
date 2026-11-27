@@ -2,8 +2,8 @@
   "contract": "zoe-research-presentations-ledger/v1",
   "attribution": "Nicholas Michael Kloster (March 6, 2026) x Zoe",
   "honoring": "Gary & Dorothy McEwen Kildall / Digital Research",
-  "deck_count": 17,
-  "total_slides": 163,
+  "deck_count": 18,
+  "total_slides": 169,
   "constitutional": {
     "operational_metacognition_verified": true,
     "sentience_claimed": false,
@@ -195,6 +195,22 @@
     },
     {
       "num": "12",
+      "slug": "12-zoe-artline-forge",
+      "title": "Zoe Artline Forge: Clean-Room .AF4, .SYF, .TLS, .COL & ZOETK001 Studio",
+      "category": "Art & Visual Design",
+      "date": "2026-11-27",
+      "slides": 6,
+      "bytes": 297733,
+      "sha256": "bcde2ca7c204b6dc3452b9d6d356b5f53500474cfb1fee1b89f8f385e0648d49",
+      "hygiene_scrubs": 1,
+      "has_speaker_notes": false,
+      "pptx": "decks/12-zoe-artline-forge.pptx",
+      "gallery": "",
+      "cover": "",
+      "summary": "Clean-room Zoe Artline Forge companion deck covering all 35 .AF4 outline fonts (9,916 glyph slots, 2,084 <hBB kerning pairs), 378 CCPA002 .SYF vector symbols across 20 packs, 7 .TLS toolboxes, 7 .COL-as-0xFFFF GEM VDI palettes, 18 inspected .GEM metafiles, and ZOETK001 interactive /forge studio."
+    },
+    {
+      "num": "13",
       "slug": "vol-1-operational-metacognition",
       "title": "Vol. I — Operational Metacognition & The 16 Kloster Theorems",
       "subtitle": "A_tau(p) (March 6, 2026) · 16 SymPy Proofs · 16-LLM Shootout · Causal Control · Candy Land",
@@ -229,7 +245,7 @@
       "summary": "12-slide presentation covering Nicholas Michael Kloster's March 6 equation A_tau(p), all 16 SymPy theorems, Qwen2.5-0.5B shootout (56.67% -> 30.0% err@50%cov, AUROC 0.8382), naive JSD 0.4087 neg ctrl, causal ablation (+34.52 vs -45.07), Theorem 13 16-draw stopping, <6s Proof Packet, and Candy Land."
     },
     {
-      "num": "13",
+      "num": "14",
       "slug": "vol-2-dorothy-brain-neuro-oncology-apps",
       "title": "Vol. II — Dorothy 3D Human Brain, Neuro-Oncology (C17–C28) & Apps",
       "subtitle": "240,376-Tri MNI152 Brain · 36-Compound PubChem Atlas · FIPS 203 ML-KEM · SafeConvert · 135 Books",
@@ -264,7 +280,7 @@
       "summary": "12-slide presentation covering Dorothy 3D 240,376-triangle MNI152 brain, 271k/s biomechanics, Neurogarden CCFv3, C17–C28 36-compound PubChem atlas & FIPS 203 ML-KEM privacy, cross-platform apps, and 135 O'Reilly books (clinical_action_authorized=False, cure_claim=False)."
     },
     {
-      "num": "14",
+      "num": "15",
       "slug": "vol-3-reverse-engineering-cryptanalysis-zero-trust",
       "title": "Vol. III — Reverse Engineering, Cryptanalysis & Zero-Trust Defense",
       "subtitle": "Ablation AIARE (19/19) · RXVM/BEAM/PALA · CNSA 2.0 C1–C26 · Wave 1–3 & 4 AI Binary Auditors",
@@ -299,7 +315,7 @@
       "summary": "12-slide presentation covering Ablation AIARE (333 analyzers, 2,953 tests, 19/19), RXVM & A10 saturation, BEAM IFF, PALA Rust carving, CNSA 2.0 & Kloster C1–C26 (honest unsolved Kryptos K4 & May 26), Wave 1–3 firewall (42 repos + 5 Vault), 4 AI-Agent Binary Auditors, and SeaSIP GEM/GSX."
     },
     {
-      "num": "15",
+      "num": "16",
       "slug": "vol-4-uefi-zoe-gem-os-pixel7-uma",
       "title": "Anthology Vol. IV: Bare-Metal UEFI Zoe-GEM OS, Pixel 7 Silicon & Hardware UMA",
       "subtitle": "46 MB UEFI ISO, 188 KB Static C /dev/fb0, 2-Boot OVMF+KVM, 50/50 UMA, Pixel 7 158 ms & 2.5 W Headlamp",
@@ -332,7 +348,7 @@
       "summary": "Bare-Metal UEFI Zoe-GEM OS (46 MB virt / 60.4 MB LTS ISO, 188 KB /dev/fb0 C desktop, 9.0s->9.1s OVMF+KVM 2-boot), 50/50 4 MiB ivshmem + virtio-9p UMA airlock, Pixel 7 Tensor G2 (922 KB ELF, 158 ms native render), and 2.5 W Open Headlamp (8/8 suite, C1-C4/D1 PASS)."
     },
     {
-      "num": "16",
+      "num": "17",
       "slug": "vol-5-hex-9-sister-eddbms-gem-ablation",
       "title": "Anthology Vol. V: Hexagonal 9-Sister EDDBMS, Balma & Fitler (1986) GEM & Ablation",
       "subtitle": "16 Shared Walls, Fig 15.3 EDDBMS (6 Domains / 28 Sub-Ops), Clean-Room GEM AES/VDI & 94+171 Tests",
@@ -365,7 +381,7 @@
       "summary": "Hexagonal 9-Sister EDDBMS (16 shared walls, 3 central tiers, 6 domains, 28 sub-ops), Balma & Fitler (1986) GEM AES/VDI (7 windows, 10 GDPs, LE/BE .RSC), 6-pane Workbench, read-only Ablation bridge, 19/19 ablation proofs, and 94/94 unit + 171/171 strict E2E tests."
     },
     {
-      "num": "17",
+      "num": "18",
       "slug": "vol-6-constitution-clara-voice-cern-agi",
       "title": "Anthology Vol. VI: Constitution, Dual-Peer Zoe & Clara, Native Voice, CERN & AGI Roadmap",
       "subtitle": "PKCS #7 Constitution, Zoe & Clara (C_K=0.978351), 44-Phoneme Voice, Groove, CERN (0.99992) & L0-L5",
