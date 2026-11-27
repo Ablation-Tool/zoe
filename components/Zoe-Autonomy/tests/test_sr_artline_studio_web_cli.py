@@ -10,7 +10,7 @@ import subprocess
 import sys
 import tempfile
 import threading
-from urllib import request as urlrequest
+from urllib import error as urlerror, request as urlrequest
 
 ROOT = Path(__file__).resolve().parents[3]
 for rel in ("components/Zoe-Autonomy/src", "guiai-lab"):
@@ -141,3 +141,110 @@ def test_zoe_artline_cli_subcommands(tmp_path: Path, capsys) -> None:
     assert (tmp_path / "forge" / "zoe_artline_forge.html").is_file()
     assert (tmp_path / "forge" / "palettes" / "zoe_studio.col.gem").is_file()
     assert (tmp_path / "forge" / "toolboxes" / "brainstorm_desk.zoetk").is_file()
+
+
+def _http_req(url: str, *, method: str = "GET", body: object | None = None) -> tuple[int, dict[str, str], bytes]:
+    data = json.dumps(body).encode("utf-8") if body is not None else None
+    headers = {"Content-Type": "application/json"} if body is not None else {}
+    req = urlrequest.Request(url, data=data, method=method, headers=headers)
+    try:
+        with urlrequest.urlopen(req, timeout=15) as r:
+            return r.status, {k.lower(): v for k, v in r.headers.items()}, r.read()
+    except urlerror.HTTPError as err:
+        with err:
+            return err.code, {k.lower(): v for k, v in err.headers.items()}, err.read()
+
+
+def test_live_web_studio_f10_f12_persistence_and_forge_apis() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        srv, _eng, _lk = create_server(ROOT, state_dir=Path(tmp) / "state", host="127.0.0.1", port=0)
+        port = srv.server_address[1]
+        base = f"http://127.0.0.1:{port}"
+        t = threading.Thread(target=srv.serve_forever, daemon=True)
+        t.start()
+        try:
+            st_root, _hr, raw_root = _http_req(f"{base}/")
+            assert st_root == 200
+            root_html = raw_root.decode("utf-8")
+            assert "zoe_adc12_reactions_v1" in root_html
+            assert "/api/adc12/react" in root_html
+            _check_inline_js(root_html)
+
+            # F10: Persist ADC-12 reaction and verify via GET /api/adc12/react and /api/status
+            quote = "Studio test persistent ADC-12 highlight"
+            st_p, _hp, raw_p = _http_req(
+                f"{base}/api/adc12/react", method="POST", body={"tag": "200", "quote": quote}
+            )
+            assert st_p == 200
+            assert json.loads(raw_p.decode("utf-8"))["reaction"]["call_code"] == "200"
+
+            st_g, _hg, raw_g = _http_req(f"{base}/api/adc12/react")
+            assert st_g == 200
+            g_doc = json.loads(raw_g.decode("utf-8"))
+            assert g_doc["count"] >= 1
+            assert any(r["quote"] == quote for r in g_doc["reactions"])
+
+            st_s, _hs, raw_s = _http_req(f"{base}/api/status")
+            assert st_s == 200
+            s_doc = json.loads(raw_s.decode("utf-8"))
+            assert s_doc["adc12_reactions_count"] >= 1
+            assert any(r["quote"] == quote for r in s_doc["adc12_reactions"])
+
+            # F10: Forge API routes
+            st_cat, _hc, raw_cat = _http_req(f"{base}/api/forge/catalog")
+            assert st_cat == 200
+            cat_doc = json.loads(raw_cat.decode("utf-8"))
+            assert len(cat_doc["fonts"]) == 35
+            assert isinstance(cat_doc["syf_packs"], dict) and len(cat_doc["syf_packs"]) == 20
+            assert cat_doc["cloud_tokens_used"] == 0
+
+            st_fnt, _hf, raw_fnt = _http_req(f"{base}/api/forge/font/wombat.af4")
+            assert st_fnt == 200
+            assert len(json.loads(raw_fnt.decode("utf-8"))["glyphs"]) >= 20
+
+            st_miss, _hm, raw_miss = _http_req(f"{base}/api/forge/font/no_such_font_999.af4")
+            assert st_miss == 404
+            assert "error" in json.loads(raw_miss.decode("utf-8"))
+
+            st_trav, _ht, raw_trav = _http_req(f"{base}/api/forge/font/..%2F..%2Fetc%2Fpasswd")
+            assert st_trav == 400
+            assert "error" in json.loads(raw_trav.decode("utf-8"))
+
+            st_ts, _hts, raw_ts = _http_req(
+                f"{base}/api/forge/typeset",
+                method="POST",
+                body={"font": "wombat.af4", "text": "ZOE"},
+            )
+            assert st_ts == 200
+            assert "<svg" in json.loads(raw_ts.decode("utf-8"))["svg"]
+
+            st_exp, _hexp, raw_exp = _http_req(
+                f"{base}/api/forge/export",
+                method="POST",
+                body={"kind": "gem", "payload": {"stamps": [{"d": "M0,0 L40,40 Z", "x": 100, "y": 100}]}},
+            )
+            assert st_exp == 200
+            assert json.loads(raw_exp.decode("utf-8"))["valid_gem_header"] is True
+
+            st_bad_exp, _hbe, raw_bad_exp = _http_req(
+                f"{base}/api/forge/export",
+                method="POST",
+                body={"kind": "svg", "payload": {"stamps": [{"d": "M0,0 L40,40 Z", "x": 1e999}]}},
+            )
+            assert st_bad_exp == 400
+            assert "error" in json.loads(raw_bad_exp.decode("utf-8"))
+
+            # F12: /orbit top nav and /physics & /duodecimal /orbit link + 13 wombats
+            st_orb, _ho, raw_orb = _http_req(f"{base}/orbit")
+            assert st_orb == 200
+            orb_html = raw_orb.decode("utf-8")
+            head = orb_html[: orb_html.find("<table")]
+            for href in ('href="/"', 'href="/artline"', 'href="/physics"', 'href="/duodecimal"', 'href="/forge"'):
+                assert href in head
+            st_phy, _hphy, raw_phy = _http_req(f"{base}/physics")
+            assert st_phy == 200 and 'href="/orbit"' in raw_phy.decode("utf-8")
+            st_duo, _hduo, raw_duo = _http_req(f"{base}/duodecimal")
+            assert st_duo == 200 and 'href="/orbit"' in raw_duo.decode("utf-8")
+        finally:
+            srv.shutdown()
+            srv.server_close()

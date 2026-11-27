@@ -34,11 +34,13 @@ DOZENAL_DIGITS = "0123456789XE"
 
 CONSTITUTIONAL_FLAGS: dict[str, Any] = {
     "clean_room_original": True,
+    "proprietary_code_copied": 0,
     "external_actions": 0,
     "sentience_claimed": False,
     "l5_agi_qualified": False,
     "clinical_action_authorized": False,
     "cure_claim": False,
+    "cloud_tokens_used": 0,
     "tokens_used": 0,
     "attribution": (
         "Concept by Nicholas Michael Kloster; grounded in Digital Research Artline 2.0 "
@@ -371,9 +373,16 @@ def build_adc12_reference_plate() -> tuple[ArtlineDocument, dict[str, Any]]:
 # 5. Offline Interactive HTML5 Artline Duodecimal Card Catalog & Tagger
 # ---------------------------------------------------------------------------
 
+def _safe_inline_script_json(raw_json: str) -> str:
+    """Escape HTML script-breakout sequences inside inline <script> JSON literals."""
+    return raw_json.replace("</", "<\\/").replace("<!--", "\\u003c!--")
+
+
 def build_interactive_adc12_catalog_html_str() -> str:
     """Return HTML string for the 100% offline Artline Duodecimal (Base-12) Shorthand Catalog."""
-    catalog_json = json.dumps([e.to_dict() for e in ADC12_CATALOG], ensure_ascii=False)
+    catalog_json = _safe_inline_script_json(
+        json.dumps([e.to_dict() for e in ADC12_CATALOG], ensure_ascii=False)
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -424,6 +433,7 @@ def build_interactive_adc12_catalog_html_str() -> str:
     <a href="/artline">🎨 Artline</a>
     <a href="/physics">✺ Physics Room</a>
     <a href="/forge" style="border-color:#ac82ff;color:#ac82ff;">⚒ Forge</a>
+    <a href="/orbit" style="border-color:#5ce1e6;color:#5ce1e6;">✦ Orbit</a>
     <span class="pill">BASE-12 DEWEY · 0 CLOUD TOKENS</span>
   </div>
 </header>
@@ -469,6 +479,9 @@ def build_interactive_adc12_catalog_html_str() -> str:
       <button style="border-color:#52e5a8;color:#52e5a8;" onclick="stampExcerpt()">✓ Stamp Highlight</button>
       <button style="border-color:#5ce1e6;color:#5ce1e6;" onclick="copyAll()">❏ Copy Chat Shorthand</button>
       <button style="border-color:#f35670;color:#f35670;" onclick="clearStamps()">✕ Clear Log</button>
+      <button style="border-color:#5ce1e6;color:#5ce1e6;" onclick="exportAdc12Svg()">⬇ Export .SVG</button>
+      <button style="border-color:#ac82ff;color:#ac82ff;" onclick="exportAdc12Gem()">❖ Export .GEM</button>
+      <button style="border-color:#52e5a8;color:#52e5a8;" onclick="exportAdc12Png()">🖼 Export .PNG</button>
       <span id="copyMsg" style="font-size:11.5px;color:#52e5a8;align-self:center;"></span>
     </div>
     <h2>Stamped Highlights (Glass-Box Shorthand Log)</h2>
@@ -480,14 +493,54 @@ def build_interactive_adc12_catalog_html_str() -> str:
 
 <script>
 const CATALOG = {catalog_json};
+const STAMPS_STORAGE_KEY = 'zoe_adc12_stamps_v1';
 let filterMode = 'all';
 let selectedCode = '100';
-const stamps = [
+const defaultStamps = [
   {{ code: '100', dec: 90, doz: '76', intl: 'Z', sym: 'Z', wom: '✺', col: '#f8cc30', name: 'Ideas & Brain-Blasts', quote: 'Ours would be a duodecimal (base-12) classification system.' }},
   {{ code: '000', dec: 118, doz: '9X', intl: 'v', sym: 'ϖ', wom: '❖', col: '#ac82ff', name: 'Core & Architecture', quote: 'Four Artline columns: Decimal, International, Symbol, Wombats.' }},
   {{ code: 'X00', dec: 53, doz: '45', intl: '5', sym: '5', wom: '✕', col: '#e8687a', name: 'Guards, Stops & Cuts', quote: 'No weird symbology or occult stuff — pure GEM & Artline.' }},
 ];
+let stamps = defaultStamps.slice();
+try {{
+  const saved = localStorage.getItem(STAMPS_STORAGE_KEY);
+  if (saved) {{
+    const parsed = JSON.parse(saved);
+    if (Array.isArray(parsed)) {{
+      stamps = parsed
+        .filter(s => s && typeof s === 'object' && !Array.isArray(s))
+        .map(s => ({{
+          code: String(s.code == null ? '100' : s.code),
+          dec: s.dec == null ? 0 : s.dec,
+          doz: String(s.doz == null ? '0' : s.doz),
+          intl: String(s.intl == null ? '' : s.intl),
+          sym: String(s.sym == null ? '' : s.sym),
+          wom: String(s.wom == null ? '' : s.wom),
+          col: String(s.col == null ? '#5ce1e6' : s.col),
+          name: String(s.name == null ? '' : s.name),
+          quote: String(s.quote == null ? '' : s.quote),
+        }}));
+    }}
+  }}
+}} catch (_err) {{}}
 
+function escHtml(val) {{
+  return String(val == null ? '' : val)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}}
+function persistStamps() {{
+  try {{ localStorage.setItem(STAMPS_STORAGE_KEY, JSON.stringify(stamps.slice(0, 80))); }} catch (_err) {{}}
+}}
+function setCopyMsg(msg) {{
+  const el = document.getElementById('copyMsg');
+  if (!el) return;
+  el.textContent = msg;
+  setTimeout(() => {{ if (el.textContent === msg) el.textContent = ''; }}, 2400);
+}}
 function toDozenal(n) {{
   if (isNaN(n) || n < 0) return '?';
   const d = '0123456789XE';
@@ -520,20 +573,22 @@ function renderTable() {{
       .some(x => String(x).toLowerCase().includes(q));
   }});
   document.getElementById('tbody').innerHTML = rows.map(e => `
-    <tr class="row ${{e.call_code===selectedCode?'sel':''}}" onclick="selectedCode='${{e.call_code}}';renderTable();">
-      <td class="code" style="color:${{e.color_hex}}">${{e.call_code}}₁₂</td>
-      <td class="code">${{e.decimal_code}} <span style="color:#94a3c8">(${{e.artline_dozenal}}₁₂ · ${{e.page_ref}})</span></td>
-      <td class="code" style="text-align:center">${{e.international}}</td>
-      <td class="glyph" style="color:#5ce1e6">${{e.symbol}}</td>
-      <td class="glyph" style="color:${{e.color_hex}}">${{e.wombat}}</td>
-      <td><b>${{e.class_name}}</b><div style="font-size:11px;color:#94a3c8">${{e.shorthand_use}}</div></td>
+    <tr class="row ${{e.call_code===selectedCode?'sel':''}}" onclick="selectedCode='${{escHtml(e.call_code)}}';renderTable();">
+      <td class="code" style="color:${{escHtml(e.color_hex)}}">${{escHtml(e.call_code)}}₁₂</td>
+      <td class="code">${{escHtml(e.decimal_code)}} <span style="color:#94a3c8">(${{escHtml(e.artline_dozenal)}}₁₂ · ${{escHtml(e.page_ref)}})</span></td>
+      <td class="code" style="text-align:center">${{escHtml(e.international)}}</td>
+      <td class="glyph" style="color:#5ce1e6">${{escHtml(e.symbol)}}</td>
+      <td class="glyph" style="color:${{escHtml(e.color_hex)}}">${{escHtml(e.wombat)}}</td>
+      <td><b>${{escHtml(e.class_name)}}</b><div style="font-size:11px;color:#94a3c8">${{escHtml(e.shorthand_use)}}</div></td>
     </tr>`).join('');
 }}
 function renderStamps() {{
-  document.getElementById('stamps').innerHTML = stamps.map(s => `
-    <div class="stamp-card" style="border-left-color:${{s.col}}">
-      <div class="stamp-meta">[${{s.code}}₁₂ · Dec ${{s.dec}} (${{s.doz}}₁₂) · Int ${{s.intl}} · Sym ${{s.sym}} · Wom ${{s.wom}}] — ${{s.name}}</div>
-      <div class="stamp-quote">“${{s.quote}}”</div>
+  document.getElementById('stamps').innerHTML = stamps
+    .filter(s => s && typeof s === 'object')
+    .map(s => `
+    <div class="stamp-card" style="border-left-color:${{escHtml(s.col)}}">
+      <div class="stamp-meta">[${{escHtml(s.code)}}₁₂ · Dec ${{escHtml(s.dec)}} (${{escHtml(s.doz)}}₁₂) · Int ${{escHtml(s.intl)}} · Sym ${{escHtml(s.sym)}} · Wom ${{escHtml(s.wom)}}] — ${{escHtml(s.name)}}</div>
+      <div class="stamp-quote">“${{escHtml(s.quote)}}”</div>
     </div>`).join('');
 }}
 function stampExcerpt() {{
@@ -541,15 +596,139 @@ function stampExcerpt() {{
   if (!q) return;
   const e = CATALOG.find(x => x.call_code === selectedCode) || CATALOG[0];
   stamps.unshift({{ code: e.call_code, dec: e.decimal_code, doz: e.artline_dozenal, intl: e.international, sym: e.symbol, wom: e.wombat, col: e.color_hex, name: e.class_name, quote: q }});
+  persistStamps();
   renderStamps();
 }}
-function clearStamps() {{ stamps.length = 0; renderStamps(); }}
+function clearStamps() {{
+  stamps.length = 0;
+  persistStamps();
+  renderStamps();
+}}
 function copyAll() {{
-  const text = stamps.map(s => `[${{s.code}}₁₂ · ${{s.intl}} · ${{s.sym}} · ${{s.wom}}] "${{s.quote}}"`).join('\\n');
-  navigator.clipboard?.writeText(text).then(() => {{
-    document.getElementById('copyMsg').textContent = 'Copied to clipboard!';
-    setTimeout(() => document.getElementById('copyMsg').textContent = '', 2000);
+  const text = stamps
+    .filter(s => s && typeof s === 'object')
+    .map(s => `[${{s.code}}₁₂ · ${{s.intl}} · ${{s.sym}} · ${{s.wom}}] "${{s.quote}}"`).join('\\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {{
+    navigator.clipboard.writeText(text).then(() => setCopyMsg('Copied to clipboard!')).catch(() => fallbackCopyText(text));
+    return;
+  }}
+  fallbackCopyText(text);
+}}
+function fallbackCopyText(text) {{
+  try {{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    setCopyMsg(ok ? 'Copied to clipboard!' : 'Copy unavailable');
+  }} catch (_err) {{
+    setCopyMsg('Copy unavailable');
+  }}
+}}
+function downloadFile(content, filename, mime) {{
+  const blob = content instanceof Blob ? content : new Blob([content], {{ type: mime }});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}}
+function buildAdc12SvgString() {{
+  const items = stamps.slice(0, 6);
+  const rows = items.map((s, idx) => {{
+    const y = 96 + idx * 88;
+    const col = escHtml(s.col || '#5ce1e6');
+    const meta = escHtml(`[${{s.code}}_12 | Dec ${{s.dec}} (${{s.doz}}_12) | Int ${{s.intl}} | ${{s.name}}]`);
+    const q = escHtml(String(s.quote || '').slice(0, 74));
+    return `<rect x="34" y="${{y}}" width="932" height="72" rx="8" fill="#151d36" stroke="${{col}}" stroke-width="1.6"/>`
+      + `<text x="52" y="${{y + 27}}" fill="${{col}}" font-family="DejaVu Sans Mono, monospace" font-size="13" font-weight="700">${{meta}}</text>`
+      + `<text x="52" y="${{y + 52}}" fill="#f0f4fc" font-family="DejaVu Sans, sans-serif" font-size="13">${{q}}</text>`;
+  }}).join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" width="1000" height="660">`
+    + `<rect width="1000" height="660" fill="#0b0d18"/>`
+    + `<rect x="18" y="14" width="964" height="632" fill="#101528" stroke="#f8cc30" stroke-width="2"/>`
+    + `<text x="36" y="46" fill="#5ce1e6" font-family="DejaVu Sans, sans-serif" font-size="18" font-weight="700">ADC-12 BASE-12 ARTLINE SHORTHAND LOG</text>`
+    + `<text x="36" y="70" fill="#94a3c8" font-family="DejaVu Sans, sans-serif" font-size="11.5">Selected Call Code: ${{escHtml(selectedCode)}}_12 · 0 Cloud Tokens · clean_room_original=True</text>`
+    + rows
+    + `</svg>`;
+}}
+function exportAdc12Svg() {{
+  downloadFile(buildAdc12SvgString(), 'zoe-adc12-catalog.svg', 'image/svg+xml');
+  setCopyMsg('Exported zoe-adc12-catalog.svg');
+}}
+async function exportAdc12Gem() {{
+  const stampObjs = (stamps.length ? stamps : [{{ code: selectedCode, col: '#f8cc30' }}]).slice(0, 12).map((s, idx) => ({{
+    d: 'M10,10 L90,10 L90,90 L10,90 Z',
+    x: 120 + (idx % 4) * 110,
+    y: 110 + Math.floor(idx / 4) * 100,
+    s: 0.7,
+    col: s.col || '#f8cc30',
+  }}));
+  try {{
+    const res = await fetch('/api/forge/export', {{
+      method: 'POST',
+      headers: {{ 'Content-Type': 'application/json' }},
+      body: JSON.stringify({{ kind: 'gem', payload: {{ stamps: stampObjs, code: selectedCode }} }}),
+    }});
+    if (res.ok) {{
+      const doc = await res.json();
+      if (doc && doc.content_base64) {{
+        const bin = Uint8Array.from(atob(doc.content_base64), c => c.charCodeAt(0));
+        downloadFile(bin, 'zoe-adc12-catalog.gem', doc.mime_type || 'application/octet-stream');
+        setCopyMsg('Exported zoe-adc12-catalog.gem');
+        return;
+      }}
+    }}
+  }} catch (_err) {{}}
+  exportAdc12Svg();
+  setCopyMsg('Offline fallback: exported zoe-adc12-catalog.svg');
+}}
+function exportAdc12Png() {{
+  const cvs = document.createElement('canvas');
+  cvs.width = 1000;
+  cvs.height = 660;
+  const c2d = cvs.getContext('2d');
+  c2d.fillStyle = '#0b0d18';
+  c2d.fillRect(0, 0, cvs.width, cvs.height);
+  c2d.strokeStyle = '#f8cc30';
+  c2d.lineWidth = 2;
+  c2d.strokeRect(18, 14, 964, 632);
+  c2d.fillStyle = '#5ce1e6';
+  c2d.font = 'bold 18px sans-serif';
+  c2d.fillText('ADC-12 BASE-12 ARTLINE SHORTHAND LOG', 36, 46);
+  c2d.fillStyle = '#94a3c8';
+  c2d.font = '12px sans-serif';
+  c2d.fillText(`Selected Call Code: ${{selectedCode}}_12 · 0 Cloud Tokens`, 36, 70);
+  stamps.slice(0, 6).forEach((s, idx) => {{
+    const y = 96 + idx * 88;
+    c2d.fillStyle = '#151d36';
+    c2d.fillRect(34, y, 932, 72);
+    c2d.strokeStyle = s.col || '#5ce1e6';
+    c2d.lineWidth = 1.6;
+    c2d.strokeRect(34, y, 932, 72);
+    c2d.fillStyle = s.col || '#5ce1e6';
+    c2d.font = 'bold 13px monospace';
+    c2d.fillText(`[${{s.code}}_12 | Dec ${{s.dec}} (${{s.doz}}_12) | Int ${{s.intl}}] - ${{s.name}}`, 52, y + 28);
+    c2d.fillStyle = '#f0f4fc';
+    c2d.font = '13px sans-serif';
+    c2d.fillText(String(s.quote || '').slice(0, 78), 52, y + 53);
   }});
+  if (cvs.toBlob) {{
+    cvs.toBlob(b => {{
+      if (b) downloadFile(b, 'zoe-adc12-catalog.png', 'image/png');
+      setCopyMsg('Exported zoe-adc12-catalog.png');
+    }}, 'image/png');
+  }} else {{
+    const a = document.createElement('a');
+    a.href = cvs.toDataURL('image/png');
+    a.download = 'zoe-adc12-catalog.png';
+    a.click();
+    setCopyMsg('Exported zoe-adc12-catalog.png');
+  }}
 }}
 renderTable();
 renderStamps();

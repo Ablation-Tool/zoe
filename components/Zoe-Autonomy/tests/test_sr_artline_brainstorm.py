@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
+import shutil
+import subprocess
 import sys
 
 import pytest
@@ -12,12 +15,15 @@ sys.path.insert(0, str(REPO / "guiai-lab"))
 
 from guiai.gem.zoe_artline_brainstorm import (
     BRAINSTORM_CONCEPTS,
+    CONSTITUTIONAL_FLAGS,
     STATE_SPRITE_MAP,
     IdeaScratchpadDrawer,
     export_all_brainstorm_concepts,
+    render_artline_studio_html,
     render_state_sprite_png,
     render_state_sprite_terminal,
     resolve_visual_state,
+    write_interactive_artline_studio_html,
 )
 
 
@@ -73,3 +79,66 @@ def test_export_all_four_artline_brainstorm_concepts(tmp_path: Path) -> None:
         for ext in ("svg", "png", "gem"):
             p = Path(res["paths"][ext])
             assert p.is_file() and res["sizes_bytes"][ext] > 500
+
+
+def test_brainstorm_constitutional_flags_parity() -> None:
+    expected = {
+        "clean_room_original": True,
+        "proprietary_code_copied": 0,
+        "external_actions": 0,
+        "sentience_claimed": False,
+        "l5_agi_qualified": False,
+        "clinical_action_authorized": False,
+        "cure_claim": False,
+        "cloud_tokens_used": 0,
+        "glass_box_transparent": True,
+        "hidden_private_thoughts": False,
+        "tokens_used": 0,
+    }
+    for key, val in expected.items():
+        assert CONSTITUTIONAL_FLAGS[key] == val
+
+
+def test_write_interactive_artline_studio_html_offline(tmp_path: Path) -> None:
+    out_path = write_interactive_artline_studio_html(tmp_path / "nested" / "artline.html")
+    assert out_path.is_file() and out_path.stat().st_size > 10_000
+    html = out_path.read_text(encoding="utf-8")
+    assert html.encode("utf-8") == render_artline_studio_html()
+    assert html.count("<svg") >= 4
+    for concept in ("desk", "chess", "sector", "mondo"):
+        assert concept in html.lower()
+    assert not re.search(r'<script[^>]+src=["\']https?://', html, flags=re.IGNORECASE)
+    assert not re.search(r'<link[^>]+href=["\']https?://', html, flags=re.IGNORECASE)
+    for marker in ("exportArtlineSvg", "exportArtlineGem", "exportArtlinePng", "zoe_artline_drafts_v1", 'href="/orbit"'):
+        assert marker in html
+
+    node_bin = shutil.which("node") or str(
+        next((Path.home() / ".nvm" / "versions" / "node").glob("*/bin/node"), Path("node"))
+    )
+    if Path(node_bin).is_file():
+        scripts = re.findall(r"<script[^>]*>(.*?)</script>", html, flags=re.DOTALL | re.IGNORECASE)
+        assert scripts
+        for js in scripts:
+            proc = subprocess.run([node_bin, "--check", "-"], input=js.encode("utf-8"), capture_output=True, check=False)
+            assert proc.returncode == 0, proc.stderr.decode("utf-8", "replace")
+
+
+def test_t5_artline_brainstorm_corrupted_localstorage_normalization(tmp_path: Path) -> None:
+    html_path = write_interactive_artline_studio_html(tmp_path / "artline.html")
+    html = html_path.read_text(encoding="utf-8")
+    assert "normalizedDrafts" in html
+    node_bin = shutil.which("node") or str(
+        next((Path.home() / ".nvm" / "versions" / "node").glob("*/bin/node"), Path("node"))
+    )
+    if Path(node_bin).is_file():
+        js = "\n".join(re.findall(r"<script[^>]*>(.*?)</script>", html, flags=re.DOTALL | re.IGNORECASE))
+        harness = (
+            "const els = {};\n"
+            "const mkEl = (id) => ({ id, innerHTML: '', textContent: '', value: '', style: {}, classList: { toggle() {} } });\n"
+            "global.document = { getElementById(id){ return els[id] || (els[id] = mkEl(id)); } };\n"
+            "global.localStorage = { getItem(){ return '[null, {}]'; }, setItem(){} };\n"
+            + js
+            + "\nrenderDrafts();\n"
+        )
+        proc = subprocess.run([node_bin, "-e", harness], input="", text=True, capture_output=True, check=False)
+        assert proc.returncode == 0, proc.stderr

@@ -517,6 +517,7 @@ INDEX_HTML = r"""<!DOCTYPE html>
         div.appendChild(gbox);
       }
 
+      // Phone-style 1-click Artline Wombat / ADC-12 highlight & reaction bar
       const reactChips = document.createElement("div");
       reactChips.className = "react-chips";
       div.appendChild(reactChips);
@@ -553,6 +554,44 @@ INDEX_HTML = r"""<!DOCTYPE html>
       box.scrollTop = box.scrollHeight;
     }
 
+    const ADC12_REACTIONS_KEY = "zoe_adc12_reactions_v1";
+
+    function loadLocalAdc12Reactions() {
+      try {
+        const raw = localStorage.getItem(ADC12_REACTIONS_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (_e) {
+        return [];
+      }
+    }
+
+    function saveLocalAdc12Reaction(r) {
+      if (!r || typeof r !== "object") return;
+      try {
+        const list = loadLocalAdc12Reactions();
+        const sha = r.receipt_sha256 || "";
+        if (!sha || !list.some(item => item && item.receipt_sha256 === sha)) {
+          list.push(r);
+          localStorage.setItem(ADC12_REACTIONS_KEY, JSON.stringify(list.slice(-60)));
+        }
+      } catch (_e) {}
+    }
+
+    function makeReactChip(r, accentCol) {
+      const chip = document.createElement("span");
+      chip.className = "react-chip";
+      if (accentCol) chip.style.borderColor = accentCol;
+      const quote = String((r && r.quote) || "");
+      const shortQ = quote.length > 42 ? quote.slice(0, 42) + "…" : quote;
+      const stamp = (r && r.four_column_stamp) || ("[" + ((r && r.call_code) || "100") + "]");
+      const sha = String((r && r.receipt_sha256) || "").slice(0, 8);
+      chip.textContent = `${stamp} “${shortQ}” · #${sha}`;
+      chip.title = `${(r && r.class_name) || ""} · SHA-256 ${(r && r.receipt_sha256) || ""}`;
+      return chip;
+    }
+
     async function reactToBubble(tag, fullText, bodyEl, chipsEl, accentCol) {
       let quote = "";
       try {
@@ -571,13 +610,8 @@ INDEX_HTML = r"""<!DOCTYPE html>
         if (!resp.ok) return;
         const data = await resp.json();
         const r = data.reaction || {};
-        const chip = document.createElement("span");
-        chip.className = "react-chip";
-        chip.style.borderColor = accentCol;
-        const shortQ = quote.length > 42 ? quote.slice(0, 42) + "…" : quote;
-        chip.textContent = `${r.four_column_stamp || ("[" + tag + "]")} “${shortQ}” · #${(r.receipt_sha256 || "").slice(0, 8)}`;
-        chip.title = `${r.class_name || ""} · SHA-256 ${r.receipt_sha256 || ""}`;
-        chipsEl.appendChild(chip);
+        saveLocalAdc12Reaction(r);
+        chipsEl.appendChild(makeReactChip(r, accentCol));
       } catch (e) { console.error(e); }
     }
 
@@ -960,6 +994,29 @@ INDEX_HTML = r"""<!DOCTYPE html>
         "Hey Nicholas! Welcome to Eliza-GEM — our local offline Glass-Box Workbench & Shared Lab Notebook (NOT a copy of Zoe, 0 cloud tokens).\nTalk freely, ask about anything in the Zoe monorepo, say `relay <note>` to pin thoughts for Zoe, drag the Chladni plate or click Evolve Jam, or inspect live L5 Phase 3 pillars on the right.",
         {mode: "eliza_reflect", gear_used: currentGear}
       );
+      let savedReactions = Array.isArray(st.adc12_reactions) ? st.adc12_reactions : [];
+      if (savedReactions.length === 0) {
+        try {
+          const rResp = await fetch("/api/adc12/react");
+          if (rResp.ok) {
+            const rDoc = await rResp.json();
+            if (Array.isArray(rDoc.reactions)) savedReactions = rDoc.reactions;
+          }
+        } catch (_e) {}
+      }
+      if (savedReactions.length === 0) {
+        savedReactions = loadLocalAdc12Reactions();
+      } else {
+        for (const r of savedReactions) saveLocalAdc12Reaction(r);
+      }
+      if (savedReactions.length > 0) {
+        const lastChipsEl = document.querySelector("#messages .msg:last-child .react-chips");
+        if (lastChipsEl) {
+          for (const r of savedReactions.slice(-12)) {
+            lastChipsEl.appendChild(makeReactChip(r, "var(--gold)"));
+          }
+        }
+      }
       drawCymatics();
     }
     boot();
@@ -1029,6 +1086,8 @@ class ElizaHandler(BaseHTTPRequestHandler):
     # Parse bounded JSON object request body (max 512 KiB)
     def read_json(self) -> Dict[str, Any]:
         length = int(self.headers.get("Content-Length", "0") or "0")
+        if length < 0:
+            raise ValueError("invalid Content-Length")
         # Enforce strict 512 KiB request payload limit
         if length > 524_288:
             raise ValueError("request body too large")

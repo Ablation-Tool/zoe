@@ -30,6 +30,8 @@ from .lume_header import PALETTE as BASE_PALETTE, _pixel_cell
 ARTLINE_BRAINSTORM_CONTRACT = "zoe-artline-brainstorm-studio/v1"
 
 CONSTITUTIONAL_FLAGS: dict[str, Any] = {
+    "clean_room_original": True,
+    "proprietary_code_copied": 0,
     "glass_box_transparent": True,
     "hidden_private_thoughts": False,
     "external_actions": 0,
@@ -37,6 +39,7 @@ CONSTITUTIONAL_FLAGS: dict[str, Any] = {
     "l5_agi_qualified": False,
     "clinical_action_authorized": False,
     "cure_claim": False,
+    "cloud_tokens_used": 0,
     "tokens_used": 0,
     "attribution": "Nicholas Michael Kloster; Digital Research GEM / Artline (Gary Kildall)",
 }
@@ -831,17 +834,30 @@ def render_concept_svg_bytes(concept: str = "desk") -> bytes:
         return p.read_bytes()
 
 
-def render_artline_studio_html() -> bytes:
-    """HTTP route renderer for /artline on the live Zoe-ELIZA :8765 Web Studio."""
-    states_json = json.dumps(
-        [
-            {"id": k, "desc": STATE_DESCRIPTIONS[k]}
-            for k in ("ruby", "brain", "bulb", "helix", "chess")
-            if k in STATE_DESCRIPTIONS
-        ],
-        ensure_ascii=False,
+def _safe_inline_script_json(raw_json: str) -> str:
+    """Escape HTML script-breakout sequences inside inline <script> JSON literals."""
+    return raw_json.replace("</", "<\\/").replace("<!--", "\\u003c!--")
+
+
+def build_interactive_artline_studio_html_str() -> str:
+    """Return standalone HTML string for /artline (100% offline with all 4 embedded SVG plates)."""
+    states_json = _safe_inline_script_json(
+        json.dumps(
+            [
+                {"id": k, "desc": STATE_DESCRIPTIONS[k]}
+                for k in ("ruby", "brain", "bulb", "helix", "chess")
+                if k in STATE_DESCRIPTIONS
+            ],
+            ensure_ascii=False,
+        )
     )
-    html = f"""<!doctype html>
+    plates_map: dict[str, str] = {
+        key: render_concept_svg_bytes(key).decode("utf-8")
+        for key in ("desk", "chess", "sector", "mondo")
+    }
+    plates_json = _safe_inline_script_json(json.dumps(plates_map, ensure_ascii=False))
+    initial_desk_svg = plates_map["desk"]
+    return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -858,12 +874,12 @@ def render_artline_studio_html() -> bytes:
   @media (max-width: 1020px) {{ .layout {{ grid-template-columns: 1fr; }} }}
   .panel {{ background: #12182c; border: 1.5px solid #2b385c; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }}
   .panel h2 {{ margin: 0; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.7px; color: #f8cc30; }}
-  .tabs {{ display: flex; gap: 8px; flex-wrap: wrap; }}
+  .tabs {{ display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }}
   button {{ background: #1b2442; color: #f0f4fc; border: 1.5px solid #3c4f7f; border-radius: 7px; padding: 6px 12px; cursor: pointer; font-weight: 600; font-size: 12px; }}
   button:hover {{ filter: brightness(1.18); }}
   button.active {{ border-color: #5ce1e6; color: #5ce1e6; background: #102a38; }}
   #plateFrame {{ width: 100%; border-radius: 8px; border: 1.5px solid #30426e; background: #090c16; min-height: 420px; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
-  #plateFrame img {{ width: 100%; height: auto; display: block; }}
+  #plateFrame svg {{ width: 100%; height: auto; display: block; }}
   .state-card {{ background: #0e1324; border: 1px solid #2d3c63; border-radius: 7px; padding: 9px 11px; margin-bottom: 6px; cursor: pointer; }}
   .state-card.sel {{ border-color: #f8cc30; background: #1a213b; }}
   .draft {{ background: #0e1324; border-left: 3px solid #52e5a8; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; font-size: 12px; }}
@@ -890,8 +906,12 @@ def render_artline_studio_html() -> bytes:
       <button id="t_chess" onclick="loadConcept('chess')">2. Chess / Fencing Stage</button>
       <button id="t_sector" onclick="loadConcept('sector')">3. Spaceship Sector</button>
       <button id="t_mondo" onclick="loadConcept('mondo')">4. Mondo Playground</button>
+      <button style="border-color:#5ce1e6;color:#5ce1e6;" onclick="exportArtlineSvg()">⬇ Export .SVG</button>
+      <button style="border-color:#ac82ff;color:#ac82ff;" onclick="exportArtlineGem()">❖ Export .GEM</button>
+      <button style="border-color:#52e5a8;color:#52e5a8;" onclick="exportArtlinePng()">🖼 Export .PNG</button>
+      <span id="artlineMsg" style="font-size:11.5px;color:#52e5a8;"></span>
     </div>
-    <div id="plateFrame"><img id="plateImg" src="/api/artline/desk.svg" alt="Artline 2.0 Vector Plate" /></div>
+    <div id="plateFrame">{initial_desk_svg}</div>
   </section>
   <section class="panel">
     <h2>Deterministic Visual State Indicators (Glass-Box)</h2>
@@ -907,30 +927,133 @@ def render_artline_studio_html() -> bytes:
 <footer>Digital Research Artline 2.0 Studio · 0 Cloud Tokens · external_actions=0 · sentience_claimed=False · clinical_action_authorized=False</footer>
 <script>
 const STATES = {states_json};
+const PLATES = {plates_json};
+const DRAFTS_STORAGE_KEY = 'zoe_artline_drafts_v1';
+let activeConcept = 'desk';
 let activeState = 'brain';
-const drafts = [
+const defaultDrafts = [
   {{ title: 'ADC-12 Base-12 Dewey Shorthand', status: 'promoted', badge: '[100₁₂ · Z · ✺]' }},
   {{ title: 'Optional-Physics Safe Shatter Room', status: 'promoted', badge: '[E00₁₂ · , · ✌]' }},
   {{ title: 'Cross-link AlphaFold v6 CLPP plate', status: 'unverified_draft', badge: '[300₁₂ · S · ✶]' }},
 ];
+let drafts = defaultDrafts.slice();
+try {{
+  const saved = localStorage.getItem(DRAFTS_STORAGE_KEY);
+  if (saved) {{
+    const parsed = JSON.parse(saved);
+    if (Array.isArray(parsed)) {{
+      const normalizedDrafts = parsed
+        .filter(d => d && typeof d === 'object' && !Array.isArray(d))
+        .map(d => ({{
+          title: String(d.title == null ? '' : d.title),
+          status: String(d.status == null ? 'unverified_draft' : d.status),
+          badge: String(d.badge == null ? '[700₁₂ · o · ❏]' : d.badge),
+        }}));
+      if (normalizedDrafts.length) drafts = normalizedDrafts;
+    }}
+  }}
+}} catch (_err) {{}}
+function escHtml(val) {{
+  return String(val == null ? '' : val)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}}
+function persistDrafts() {{
+  try {{ localStorage.setItem(DRAFTS_STORAGE_KEY, JSON.stringify(drafts.slice(0, 60))); }} catch (_err) {{}}
+}}
+function setArtlineMsg(msg) {{
+  const el = document.getElementById('artlineMsg');
+  if (el) el.textContent = msg;
+}}
 function loadConcept(key) {{
+  activeConcept = PLATES[key] ? key : 'desk';
   ['desk','chess','sector','mondo'].forEach(k => {{
-    document.getElementById('t_' + k).classList.toggle('active', k === key);
+    document.getElementById('t_' + k).classList.toggle('active', k === activeConcept);
   }});
-  document.getElementById('plateImg').src = '/api/artline/' + key + '.svg?t=' + Date.now();
+  document.getElementById('plateFrame').innerHTML = PLATES[activeConcept] || '';
+}}
+function downloadFile(content, filename, mime) {{
+  const blob = content instanceof Blob ? content : new Blob([content], {{ type: mime }});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}}
+function exportArtlineSvg() {{
+  const svg = PLATES[activeConcept] || '';
+  downloadFile(svg, `zoe-artline-${{activeConcept}}.svg`, 'image/svg+xml');
+  setArtlineMsg(`Exported zoe-artline-${{activeConcept}}.svg`);
+}}
+async function exportArtlineGem() {{
+  const payload = {{
+    concept: activeConcept,
+    stamps: [{{ d: 'M10,10 L90,10 L90,90 L10,90 Z', x: 300, y: 200, col: '#ff85b3' }}],
+  }};
+  try {{
+    const res = await fetch('/api/forge/export', {{
+      method: 'POST',
+      headers: {{ 'Content-Type': 'application/json' }},
+      body: JSON.stringify({{ kind: 'gem', payload }}),
+    }});
+    if (res.ok) {{
+      const doc = await res.json();
+      if (doc && doc.content_base64) {{
+        const bin = Uint8Array.from(atob(doc.content_base64), c => c.charCodeAt(0));
+        downloadFile(bin, `zoe-artline-${{activeConcept}}.gem`, doc.mime_type || 'application/octet-stream');
+        setArtlineMsg(`Exported zoe-artline-${{activeConcept}}.gem`);
+        return;
+      }}
+    }}
+  }} catch (_err) {{}}
+  exportArtlineSvg();
+  setArtlineMsg(`Offline fallback: exported zoe-artline-${{activeConcept}}.svg`);
+}}
+function exportArtlinePng() {{
+  const svg = PLATES[activeConcept] || '';
+  const blob = new Blob([svg], {{ type: 'image/svg+xml;charset=utf-8' }});
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => {{
+    const cvs = document.createElement('canvas');
+    cvs.width = img.naturalWidth || 1000;
+    cvs.height = img.naturalHeight || 700;
+    const c2d = cvs.getContext('2d');
+    c2d.fillStyle = '#090c16';
+    c2d.fillRect(0, 0, cvs.width, cvs.height);
+    c2d.drawImage(img, 0, 0, cvs.width, cvs.height);
+    URL.revokeObjectURL(url);
+    if (cvs.toBlob) {{
+      cvs.toBlob(b => {{
+        if (b) downloadFile(b, `zoe-artline-${{activeConcept}}.png`, 'image/png');
+        setArtlineMsg(`Exported zoe-artline-${{activeConcept}}.png`);
+      }}, 'image/png');
+    }} else {{
+      const a = document.createElement('a');
+      a.href = cvs.toDataURL('image/png');
+      a.download = `zoe-artline-${{activeConcept}}.png`;
+      a.click();
+      setArtlineMsg(`Exported zoe-artline-${{activeConcept}}.png`);
+    }}
+  }};
+  img.src = url;
 }}
 function renderStates() {{
   document.getElementById('states').innerHTML = STATES.map(s => `
-    <div class="state-card ${{s.id===activeState?'sel':''}}" onclick="activeState='${{s.id}}';renderStates();">
-      <b style="color:#5ce1e6;text-transform:uppercase;">${{s.id}}</b>
-      <div style="font-size:11.5px;color:#94a3c8;margin-top:2px;">${{s.desc}}</div>
+    <div class="state-card ${{s.id===activeState?'sel':''}}" onclick="activeState='${{escHtml(s.id)}}';renderStates();">
+      <b style="color:#5ce1e6;text-transform:uppercase;">${{escHtml(s.id)}}</b>
+      <div style="font-size:11.5px;color:#94a3c8;margin-top:2px;">${{escHtml(s.desc)}}</div>
     </div>`).join('');
 }}
 function renderDrafts() {{
-  document.getElementById('drafts').innerHTML = drafts.map(d => `
+  document.getElementById('drafts').innerHTML = drafts
+    .filter(d => d && typeof d === 'object')
+    .map(d => `
     <div class="draft">
-      <div style="color:#f8cc30;font-family:monospace;font-size:11px;">${{d.badge}} · ${{d.status}}</div>
-      <div style="margin-top:2px;">${{d.title}}</div>
+      <div style="color:#f8cc30;font-family:monospace;font-size:11px;">${{escHtml(d.badge)}} · ${{escHtml(d.status)}}</div>
+      <div style="margin-top:2px;">${{escHtml(d.title)}}</div>
     </div>`).join('');
 }}
 function addDraft() {{
@@ -939,6 +1062,7 @@ function addDraft() {{
   if (!txt) return;
   drafts.unshift({{ title: txt, status: 'unverified_draft', badge: '[700₁₂ · o · ❏]' }});
   el.value = '';
+  persistDrafts();
   renderDrafts();
 }}
 renderStates();
@@ -947,7 +1071,19 @@ renderDrafts();
 </body>
 </html>
 """
-    return html.encode("utf-8")
+
+
+def render_artline_studio_html() -> bytes:
+    """HTTP route renderer for /artline on the live Zoe-ELIZA :8765 Web Studio."""
+    return build_interactive_artline_studio_html_str().encode("utf-8")
+
+
+def write_interactive_artline_studio_html(out_html: str | Path) -> Path:
+    """Write a 100% offline, standalone HTML5 Artline 2.0 Brainstorm Studio with inline SVG plates."""
+    target = Path(out_html)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(build_interactive_artline_studio_html_str(), encoding="utf-8")
+    return target
 
 
 __all__ = [
@@ -968,6 +1104,7 @@ __all__ = [
     "build_artline_chess_fencing_plate",
     "build_artline_mondo_playground_plate",
     "build_artline_spaceship_sector_plate",
+    "build_interactive_artline_studio_html_str",
     "export_all_brainstorm_concepts",
     "export_brainstorm_plate",
     "render_artline_studio_html",
@@ -975,4 +1112,5 @@ __all__ = [
     "render_state_sprite_png",
     "render_state_sprite_terminal",
     "resolve_visual_state",
+    "write_interactive_artline_studio_html",
 ]

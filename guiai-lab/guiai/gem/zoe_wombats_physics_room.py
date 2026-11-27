@@ -32,11 +32,13 @@ WOMBATS_PHYSICS_CONTRACT = "zoe-wombats-physics-room/v1"
 
 CONSTITUTIONAL_FLAGS: dict[str, Any] = {
     "clean_room_original": True,
+    "proprietary_code_copied": 0,
     "external_actions": 0,
     "sentience_claimed": False,
     "l5_agi_qualified": False,
     "clinical_action_authorized": False,
     "cure_claim": False,
+    "cloud_tokens_used": 0,
     "tokens_used": 0,
     "attribution": "Nicholas Michael Kloster; Inspired by Digital Research Artline 2.0 (Aug 1990, p. A-2)",
 }
@@ -514,7 +516,7 @@ def build_interactive_physics_room_html_str() -> str:
         f'title="Artline p.A-2 Dec {w.decimal_code} ({w.ascii_key}) -> {w.action_id}" '
         f'onclick="stampWombat(\'{w.wombat_glyph}\',\'{w.color_hex}\',\'{w.label}\',\'{w.action_id}\')">'
         f'{w.wombat_glyph} <span>{w.ascii_key}</span></button>'
-        for w in PAGE_A2_WOMBATS_REACTIONS[:9]
+        for w in PAGE_A2_WOMBATS_REACTIONS
     )
     return f"""<!doctype html>
 <html lang="en">
@@ -558,6 +560,7 @@ def build_interactive_physics_room_html_str() -> str:
       <a href="/artline">🎨 Artline</a>
       <a href="/duodecimal">❖ ADC-12</a>
       <a href="/forge" style="border-color:#ac82ff;color:#ac82ff;">⚒ Forge</a>
+      <a href="/orbit" style="border-color:#5ce1e6;color:#5ce1e6;">✦ Orbit</a>
     </div>
   </div>
   <div class="controls">
@@ -568,6 +571,10 @@ def build_interactive_physics_room_html_str() -> str:
     <button style="border-color:#ff85b3;color:#ff85b3" onclick="spawnRosette()">✺ Spawn Rosette</button>
     <button style="border-color:#f35670;color:#f35670" onclick="shatterAll()">💥 Shatter All</button>
     <button style="border-color:#52e5a8;color:#52e5a8" onclick="buildTower()">↺ Rebuild Tower</button>
+    <button style="border-color:#5ce1e6;color:#5ce1e6" onclick="exportPhysicsSvg()">⬇ Export .SVG</button>
+    <button style="border-color:#ac82ff;color:#ac82ff" onclick="exportPhysicsGem()">❖ Export .GEM</button>
+    <button style="border-color:#52e5a8;color:#52e5a8" onclick="exportPhysicsPng()">🖼 Export .PNG</button>
+    <span id="exportMsg" style="font-size:11px;color:#52e5a8;"></span>
   </div>
 </header>
 <div class="main">
@@ -600,19 +607,57 @@ const ctx = canvas.getContext('2d');
 let mode = 'gravity';
 let bodies = [];
 const palette = ['#f35670','#ff85b3','#5ce1e6','#52e5a8','#4f8ef7','#ac82ff','#f8cc30'];
+const NOTES_STORAGE_KEY = 'zoe_physics_notes_v1';
 let selectedNote = 0;
-const notes = [
+const defaultNotes = [
   {{ text: "Use 1990 Artline p. A-2 Wombats (Z=✺, o=❏, e=❄, N=★, I=☆) as tapback reactions.", badges: ["✺ Z", "★ N"] }},
   {{ text: "Optional Physics Room: switch OFF for calm Artline drawing or ON to safely smash towers.", badges: ["❏ o"] }},
   {{ text: "Cross-check AlphaFold v6 CLPP & H3K27M complexes via AF3 JSON builder.", badges: ["❄ e"] }},
 ];
+let notes = defaultNotes.map(n => ({{ text: n.text, badges: n.badges.slice() }}));
+try {{
+  const savedNotes = localStorage.getItem(NOTES_STORAGE_KEY);
+  if (savedNotes) {{
+    const parsedNotes = JSON.parse(savedNotes);
+    if (Array.isArray(parsedNotes)) {{
+      const normalizedNotes = parsedNotes
+        .filter(n => n && typeof n === 'object' && !Array.isArray(n))
+        .map(n => ({{
+          text: String(n.text == null ? '' : n.text),
+          badges: Array.isArray(n.badges) ? n.badges.map(b => String(b == null ? '' : b)) : [],
+        }}));
+      if (normalizedNotes.length) notes = normalizedNotes;
+    }}
+  }}
+}} catch (_err) {{}}
+function escHtml(val) {{
+  return String(val == null ? '' : val)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}}
+function persistNotes() {{
+  try {{ localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes)); }} catch (_err) {{}}
+}}
+function setExportMsg(msg) {{
+  const el = document.getElementById('exportMsg');
+  if (!el) return;
+  el.textContent = msg;
+  setTimeout(() => {{ if (el.textContent === msg) el.textContent = ''; }}, 2500);
+}}
 function renderNotes() {{
   const el = document.getElementById('notes');
-  el.innerHTML = notes.map((n, i) => `
+  el.innerHTML = notes.map((n, i) => {{
+    const noteObj = (n && typeof n === 'object') ? n : {{ text: '', badges: [] }};
+    const badges = Array.isArray(noteObj.badges) ? noteObj.badges : [];
+    return `
     <div class="note ${{i===selectedNote?'sel':''}}" onclick="selectedNote=${{i}};renderNotes();">
-      <div>${{n.text}}</div>
-      <div class="badges">${{n.badges.map(b => `<span class="badge">${{b}}</span>`).join('')}}</div>
-    </div>`).join('');
+      <div>${{escHtml(noteObj.text)}}</div>
+      <div class="badges">${{badges.map(b => `<span class="badge">${{escHtml(b)}}</span>`).join('')}}</div>
+    </div>`;
+  }}).join('');
 }}
 function resize() {{
   canvas.width = canvas.clientWidth;
@@ -646,9 +691,87 @@ function spawnRosette() {{
   bodies.push({{ kind:'rosette', x:120+Math.random()*(canvas.width-240), y:100+Math.random()*140, vx:(Math.random()-0.5)*120, vy:0, r:30, a:0, av:0.04, col:palette[Math.floor(Math.random()*palette.length)], glyph:'✺' }});
 }}
 function stampWombat(glyph, col, label, action) {{
-  notes[selectedNote].badges.push(glyph + ' ' + label.split(' ')[0]);
+  if (!notes.length) notes = defaultNotes.map(n => ({{ text: n.text, badges: n.badges.slice() }}));
+  if (selectedNote < 0 || selectedNote >= notes.length || !notes[selectedNote] || typeof notes[selectedNote] !== 'object') selectedNote = 0;
+  if (!Array.isArray(notes[selectedNote].badges)) notes[selectedNote].badges = [];
+  notes[selectedNote].badges.push(glyph + ' ' + String(label || '').split(' ')[0]);
+  persistNotes();
   renderNotes();
   bodies.push({{ kind:'wombat', x:120+Math.random()*(canvas.width-240), y:90+Math.random()*160, vx:(Math.random()-0.5)*160, vy:-60, r:24, a:0, av:0.05, col, glyph }});
+}}
+function downloadFile(content, filename, mime) {{
+  const blob = content instanceof Blob ? content : new Blob([content], {{ type: mime }});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}}
+function buildPhysicsSvgString() {{
+  const w = Math.max(320, canvas.width || 640);
+  const h = Math.max(240, canvas.height || 400);
+  const shapes = bodies.slice(0, 120).map(b => {{
+    const col = escHtml(b.col || '#5ce1e6');
+    const r = Math.max(4, Number(b.r || 18));
+    const deg = ((Number(b.a || 0) * 180) / Math.PI).toFixed(1);
+    const x = Number(b.x || 0).toFixed(1);
+    const y = Number(b.y || 0).toFixed(1);
+    if (b.kind === 'block') {{
+      return `<rect x="${{(-r).toFixed(1)}}" y="${{(-r).toFixed(1)}}" width="${{(r*2).toFixed(1)}}" height="${{(r*2).toFixed(1)}}" fill="${{col}}33" stroke="${{col}}" stroke-width="2" transform="translate(${{x}},${{y}}) rotate(${{deg}})"/>`;
+    }}
+    if (b.kind === 'star' || b.kind === 'wombat') {{
+      return `<g transform="translate(${{x}},${{y}}) rotate(${{deg}})"><circle r="${{r.toFixed(1)}}" fill="${{col}}28" stroke="${{col}}" stroke-width="2"/><text x="0" y="6" text-anchor="middle" fill="${{col}}" font-size="18">${{escHtml(b.glyph || '★')}}</text></g>`;
+    }}
+    return `<circle cx="${{x}}" cy="${{y}}" r="${{r.toFixed(1)}}" fill="${{col}}22" stroke="${{col}}" stroke-width="2"/>`;
+  }}).join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${{w}} ${{h}}" width="${{w}}" height="${{h}}"><rect width="${{w}}" height="${{h}}" fill="#0d1120"/>${{shapes}}</svg>`;
+}}
+function exportPhysicsSvg() {{
+  downloadFile(buildPhysicsSvgString(), 'zoe-physics-room.svg', 'image/svg+xml');
+  setExportMsg('Exported zoe-physics-room.svg');
+}}
+async function exportPhysicsGem() {{
+  const cw = Math.max(1, canvas.width || 640);
+  const ch = Math.max(1, canvas.height || 400);
+  const stamps = bodies.slice(0, 48).map(b => ({{
+    d: 'M10,10 L90,10 L90,90 L10,90 Z',
+    x: Number((((b.x || 0) / cw) * 560 + 20).toFixed(1)),
+    y: Number((((b.y || 0) / ch) * 360 + 20).toFixed(1)),
+    s: Number(Math.max(0.2, Math.min(1.5, (b.r || 20) / 40)).toFixed(2)),
+    rot: Number((((b.a || 0) * 180) / Math.PI).toFixed(1)),
+    col: b.col || '#5ce1e6',
+  }}));
+  try {{
+    const res = await fetch('/api/forge/export', {{
+      method: 'POST',
+      headers: {{ 'Content-Type': 'application/json' }},
+      body: JSON.stringify({{ kind: 'gem', payload: {{ stamps, mode }} }}),
+    }});
+    if (res.ok) {{
+      const doc = await res.json();
+      if (doc && doc.content_base64) {{
+        const bin = Uint8Array.from(atob(doc.content_base64), c => c.charCodeAt(0));
+        downloadFile(bin, 'zoe-physics-room.gem', doc.mime_type || 'application/octet-stream');
+        setExportMsg('Exported zoe-physics-room.gem');
+        return;
+      }}
+    }}
+  }} catch (_err) {{}}
+  exportPhysicsSvg();
+  setExportMsg('Offline fallback: exported zoe-physics-room.svg');
+}}
+function exportPhysicsPng() {{
+  if (canvas.toBlob) {{
+    canvas.toBlob(b => {{
+      if (b) downloadFile(b, 'zoe-physics-room.png', 'image/png');
+      setExportMsg('Exported zoe-physics-room.png');
+    }}, 'image/png');
+  }} else {{
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = 'zoe-physics-room.png';
+    a.click();
+    setExportMsg('Exported zoe-physics-room.png');
+  }}
 }}
 function shatterOne(b) {{
   const out = [];
