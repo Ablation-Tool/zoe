@@ -13,7 +13,7 @@ A_\tau(p) = \left|\{x \in X : p(x) > \tau\}\right| = \sum_{x \in X} \mathbf{1}[p
 $$
 
 **[Live Dorothy 3D WebGL2](https://nicholas-michael-kloster.github.io/Zoe/)** ·
-**[Fieldglass Observatory (29 Specimens + Expansion)](https://nicholas-michael-kloster.github.io/fieldglass/)** ·
+**[Fieldglass Observatory (30 Specimens + Expansion)](https://nicholas-michael-kloster.github.io/fieldglass/)** ·
 **[16-Slide Expansion Deck (.pptx)](https://nicholas-michael-kloster.github.io/fieldglass/Fieldglass_Observatory_Expansion.pptx)** ·
 **[Win7 Zoe Hospital Edition (Non-Clinical)](https://nicholas-michael-kloster.github.io/fieldglass/zoe-hospital/)** ·
 **[Zoe &amp; Clara Core (`525 KB`)](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip)** ·
@@ -22,7 +22,7 @@ $$
 ---
 
 **[1. Equation &amp; Proofs](#1-the-equation--16-theorems)** ·
-**[2. Fieldglass Observatory](#2-fieldglass-observatory--29-specimens--expansion)** ·
+**[2. Fieldglass Observatory](#2-fieldglass-observatory--30-specimens--expansion)** ·
 **[3. Dorothy 3D Brain](#3-dorothy-3d-brain--research-partner)** ·
 **[4. Zoe &amp; Clara + GEM OS](#4-dual-peer-zoe--clara--wave-13-gem-os)** ·
 **[5. Benchmarks &amp; Roadmap](#5-benchmarks--l0l7-roadmap)** ·
@@ -71,15 +71,15 @@ Integrating $A_\tau(p)$ across all thresholds via $\mathcal{K}_\phi(p) = \int_0^
 
 ---
 
-## 2. Fieldglass Observatory — 29 Specimens &amp; Expansion
+## 2. Fieldglass Observatory — 30 Specimens &amp; Expansion
 
 **[Fieldglass](https://github.com/Nicholas-Michael-Kloster/fieldglass)** (**[Live Showcase](https://nicholas-michael-kloster.github.io/fieldglass/)** · [`docs/FIELDGLASS.md`](docs/FIELDGLASS.md) · [`guiai/gem/zoe_fieldglass.py`](guiai-lab/guiai/gem/zoe_fieldglass.py)) is the companion phone-to-telemetry field instrument transforming 4K Google Pixel 7 captures and systems sandboxes into GPS-scrubbed plates, archival vector SVGs, 2×4 Unicode Braille broadsides, live Kloster $A_\tau(p_t)$ telemetry films, and SHA-256 sealed Causal Chiasm tomography—100% locally (`0` cloud tokens).
 
 <table>
 <tr>
 <td align="center" width="50%">
-<a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-29"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen29/assets/savio_deal_with_bach_svg_preview.png" alt="Fieldglass Specimen 29: Savio and Greevo A Deal With Bach signed first-draft broadside SVG" width="100%" /></a><br/>
-<sub><strong><a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-29">Specimen #29 · "A Deal With Bach &amp; My Birds" (Signed Anthology)</a></strong></sub>
+<a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-30"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen30/assets/zoe_zooey_rainbow_sparkle_svg_preview.png" alt="Fieldglass Milestone Specimen 30: Zoe / Zooey Lets Create Something Magical Rainbow Sparkle SVG" width="100%" /></a><br/>
+<sub><strong><a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-30">Milestone #30 · "Let's Create Something Magical" (Zoe / Zooey 4K)</a></strong></sub>
 </td>
 <td align="center" width="50%">
 <a href="https://nicholas-michael-kloster.github.io/fieldglass/#specimen-28"><img src="https://nicholas-michael-kloster.github.io/fieldglass/specimen28/assets/night_building_city_blue_poems_svg_preview.png" alt="Fieldglass Specimen 28: Night Building City Blue Poems Red-channel Prussian-indigo SVG" width="100%" /></a><br/>
@@ -108,8 +108,9 @@ Integrating $A_\tau(p)$ across all thresholds via $\mathcal{K}_\phi(p) = \int_0^
 | **5 Engineering Dossiers (`25` Specs)** | Structured engineering improvement blueprints for [ChatGPT](https://nicholas-michael-kloster.github.io/fieldglass/improvements/chatgpt/), [Anthropic](https://nicholas-michael-kloster.github.io/fieldglass/improvements/anthropic/), [Grok](https://nicholas-michael-kloster.github.io/fieldglass/improvements/grok/), [SpaceX](https://nicholas-michael-kloster.github.io/fieldglass/improvements/spacex/) &amp; [Claire (Grimes)](https://nicholas-michael-kloster.github.io/fieldglass/improvements/claire-grimes/) | [Dossiers Hub](https://nicholas-michael-kloster.github.io/fieldglass/improvements/) |
 
 <details>
-<summary><strong>Browse All 29 Live Fieldglass Field Specimens (#1 – #29)</strong></summary>
+<summary><strong>Browse All 30 Live Fieldglass Field Specimens (#1 – #30)</strong></summary>
 
+- **Milestone #30 · Zoe / Zooey 4K Studio Intro:** [#30 *"Let's Create Something Magical"* (4K 1.0× Audio, Rainbow Sparkle &amp; Studio Greeting SVGs)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-30)
 - **Poetry Folios &amp; Literary Manuscripts (#14, #16–#29):** [#29 *"A Deal With Bach &amp; My Birds"*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-29) · [#28 *"Blue Poems &amp; Dear Saba"*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-28) · [#27 *"Copper Wire &amp; The Sage"*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-27) · [#26 *"Midnight Moon"*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-26) · [#25 *"Neruda and I"* (Year-Long Journal)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-25) · [#24 *"NICHOLAS KLOSTER"* Folio](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-24) · [#23 *Yellow Folder* &amp; *"Sovio"* (`1840`)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-23) · [#22 *"Network Poetry"* (1974 DEC × Scarab Beetle)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-22) · [#21 *"Everything Is Singular"* Pt. II](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-21) · [#20 *"Everything Is Singular"* (Erik Satie Cue)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-20) · [#19 *"Statues and Insomnia"*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-19) · [#18 *Kraft-Paper Manuscript*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-18) · [#17 *"The American"* w/ Dr. Helen](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-17) · [#16 *The Poetry Briefcase*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-16) · [#14 *December Poetry Manuscript*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-14)
 - **Biology, Science &amp; Library Flagships (#1–#13, #15):** [#15 *Star-Spangled Banner* Impulse Study](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-15) · [#13 Ernst Haeckel *Kunstformen der Natur*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-13) · [#12 Dr. Helen Ruth Horkan Biology Lecture](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-12) · [#11 ASCE *Lifelines* &amp; SCADA](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-11) · [#10 Live Studio Screencast](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-10) · [#9 *Let There Be Light* (*Nematostella* &amp; Ogham)](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-9) · [#4–#8 Zoller, Merzkirch, Constitution, BaTiO₃, Darwin/Azores](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-8) · [#1–#3 Linda Hall Stacks, *Birds on a Wire* &amp; *Flowers for Zoe*](https://nicholas-michael-kloster.github.io/fieldglass/#specimen-3)
 
