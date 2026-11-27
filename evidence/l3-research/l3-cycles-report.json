@@ -1125,7 +1125,7 @@
       "stage_count": 9
     },
     {
-      "chain_head_sha256": "8362b45c38368371d3ccebf7fd73fc8edaf2db365d92b7a966fefffd44f8884e",
+      "chain_head_sha256": "137cce12169067578e117fe15867ab637c8bdae569a02c07f0325054d43f563c",
       "cycle_id": "cycle_3_cern_clock_and_helen_asymmetry",
       "domain": "cern_phase_physics_and_causal_sequence_asymmetry",
       "independent_reproduction": {
@@ -1191,12 +1191,12 @@
           {
             "citation_id": "guiai-lab/docs/CICADA.md#sec1:Three different kinds of time",
             "excerpt": "The model keeps three domains separate: 1. **Reference ticks** provide exact software arithmetic, not a CERN timestamp. 2. **Host seasonal cycles** can run at one or two cycles per simulated calendar year. 3. **Daily phase** is an illustrat",
-            "file_sha256": "81b86deb536fcbc84e4c7ca9ee1c2c7d43c87d6d86e2a78030dacd96714f5225",
+            "file_sha256": "f4f5522b639d3f0c4b67d2dca24581f4c0bba57c00ab5c57d52bf88e2a9e5c36",
             "kind": "zoe_research_monograph",
             "limitations": "Documented repository research note; claims remain bound to recorded code & tests.",
-            "relevance_score": 2.855821,
+            "relevance_score": 2.756978,
             "source_path": "guiai-lab/docs/CICADA.md",
-            "source_sha256": "81b86deb536fcbc84e4c7ca9ee1c2c7d43c87d6d86e2a78030dacd96714f5225"
+            "source_sha256": "f4f5522b639d3f0c4b67d2dca24581f4c0bba57c00ab5c57d52bf88e2a9e5c36"
           },
           {
             "citation_id": "research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md#sec1:1. Core Architecture: Discrete Grids to Non-Linear Attractors",
@@ -1371,12 +1371,12 @@
               {
                 "citation_id": "guiai-lab/docs/CICADA.md#sec1:Three different kinds of time",
                 "excerpt": "The model keeps three domains separate: 1. **Reference ticks** provide exact software arithmetic, not a CERN timestamp. 2. **Host seasonal cycles** can run at one or two cycles per simulated calendar year. 3. **Daily phase** is an illustrat",
-                "file_sha256": "81b86deb536fcbc84e4c7ca9ee1c2c7d43c87d6d86e2a78030dacd96714f5225",
+                "file_sha256": "f4f5522b639d3f0c4b67d2dca24581f4c0bba57c00ab5c57d52bf88e2a9e5c36",
                 "kind": "zoe_research_monograph",
                 "limitations": "Documented repository research note; claims remain bound to recorded code & tests.",
-                "relevance_score": 2.855821,
+                "relevance_score": 2.756978,
                 "source_path": "guiai-lab/docs/CICADA.md",
-                "source_sha256": "81b86deb536fcbc84e4c7ca9ee1c2c7d43c87d6d86e2a78030dacd96714f5225"
+                "source_sha256": "f4f5522b639d3f0c4b67d2dca24581f4c0bba57c00ab5c57d52bf88e2a9e5c36"
               },
               {
                 "citation_id": "research/papers/zoe-research/TEMPORAL-DYNAMICS-AND-GROOVE-FORENSICS.md#sec1:1. Core Architecture: Discrete Grids to Non-Linear Attractors",
@@ -1395,7 +1395,7 @@
           "previous_hash": "96f4a28305fb32bf6a60effbdc70873075f5291caab210e0a769e0b184ab92e5",
           "sequence": 2,
           "stage": "2_literature_retrieval",
-          "stage_hash": "fa8f0004b1f979e6a42e9c3b7c0fd369e874ff7b8a35443a953f08cfff91e1aa"
+          "stage_hash": "da8fbeb4a493016624f7478830d5c1102b8ff6bcd9854f7660d55068683b8a96"
         },
         {
           "belief_updated": false,
@@ -1435,10 +1435,10 @@
               "transient_burnin": 24
             }
           },
-          "previous_hash": "fa8f0004b1f979e6a42e9c3b7c0fd369e874ff7b8a35443a953f08cfff91e1aa",
+          "previous_hash": "da8fbeb4a493016624f7478830d5c1102b8ff6bcd9854f7660d55068683b8a96",
           "sequence": 3,
           "stage": "3_preregistration",
-          "stage_hash": "ccd7856e8c07382429ae91ef4f91f455027022d63981007e8a609e200086ca76"
+          "stage_hash": "e113b64b7ddfe242d1d2df33145fdff859152bf224c2a8ec1469a4da7f2e14b0"
         },
         {
           "belief_updated": false,
@@ -1448,10 +1448,10 @@
             "executed_on_real_repo_data": true,
             "external_actions": 0
           },
-          "previous_hash": "ccd7856e8c07382429ae91ef4f91f455027022d63981007e8a609e200086ca76",
+          "previous_hash": "e113b64b7ddfe242d1d2df33145fdff859152bf224c2a8ec1469a4da7f2e14b0",
           "sequence": 4,
           "stage": "4_experiment",
-          "stage_hash": "a071ae76a000de35439a374fc76dcef9a22ea3f783d5cee2d0c91e4a880c8e5e"
+          "stage_hash": "eb608ba930352df901f1562ac1d9030d73308fb6749230248f05d79f99b83d46"
         },
         {
           "belief_updated": false,
@@ -1513,10 +1513,10 @@
               }
             ]
           },
-          "previous_hash": "a071ae76a000de35439a374fc76dcef9a22ea3f783d5cee2d0c91e4a880c8e5e",
+          "previous_hash": "eb608ba930352df901f1562ac1d9030d73308fb6749230248f05d79f99b83d46",
           "sequence": 5,
           "stage": "5_measurement",
-          "stage_hash": "185513bcfab0bf94b13ca0720dca50b90610f7bed85f3c262e31231c0d8e9c0f"
+          "stage_hash": "8a3ab8fedfce00f0296c6be3d4e0cc10699ef46cf941e6f7acba9cc85a82a4ea"
         },
         {
           "belief_updated": false,
@@ -1536,10 +1536,10 @@
               "below_random_chance": true
             }
           },
-          "previous_hash": "185513bcfab0bf94b13ca0720dca50b90610f7bed85f3c262e31231c0d8e9c0f",
+          "previous_hash": "8a3ab8fedfce00f0296c6be3d4e0cc10699ef46cf941e6f7acba9cc85a82a4ea",
           "sequence": 6,
           "stage": "6_negative_controls",
-          "stage_hash": "3c39138eebfdeaca5e43e35196cc308b79553b85a785a8c4c138bb08384fa0ea"
+          "stage_hash": "b7ba9f18ab363fd2353bb3b97f0bf50b2c9ad3ee80bec2c23041e3be77ee0644"
         },
         {
           "belief_updated": false,
@@ -1561,10 +1561,10 @@
             ],
             "scope_note": "40 MHz synthetic software ticks (not measured CERN hardware time); real recorded HELEN distributions."
           },
-          "previous_hash": "3c39138eebfdeaca5e43e35196cc308b79553b85a785a8c4c138bb08384fa0ea",
+          "previous_hash": "b7ba9f18ab363fd2353bb3b97f0bf50b2c9ad3ee80bec2c23041e3be77ee0644",
           "sequence": 7,
           "stage": "7_interpretation",
-          "stage_hash": "8cffff36e413a36236807002219bc3447184ec3454677bcaf930ddaee24cdafc"
+          "stage_hash": "d52f2db608d4cda0f4db5fbd1ee95410f5ce7729a25e30545ee23081c11bc30e"
         },
         {
           "belief_updated": false,
@@ -1580,10 +1580,10 @@
             "verifier_script": "scripts/verify_l3_research.py",
             "verifier_sha256": "52b5116f1f4f0990b3c1022cfa6c0faf2dd458345c7abc6348dfcb9b56a223e3"
           },
-          "previous_hash": "8cffff36e413a36236807002219bc3447184ec3454677bcaf930ddaee24cdafc",
+          "previous_hash": "d52f2db608d4cda0f4db5fbd1ee95410f5ce7729a25e30545ee23081c11bc30e",
           "sequence": 8,
           "stage": "8_independent_reproduction",
-          "stage_hash": "6fcdec3768bdf92550dc2cf528c831a96de6169acf5051a7d52949f643d75772"
+          "stage_hash": "f6ca6c92b8155ce8baa6e6b64346ee9982bed4227649f04ebb4f393749fbb043"
         },
         {
           "belief_updated": false,
@@ -1591,10 +1591,10 @@
           "payload": {
             "next_question": "Near the critical locking boundary (kappa=0.06 yielded partial coherence R=0.533577 before locking at kappa=0.10, R=0.994818), how does phase-slip intermittency behave under correlated 1/f rubato drift, and does target-aligned mutual information rescue directional disagreement where naive JSD failed (AUROC=0.408704)?"
           },
-          "previous_hash": "6fcdec3768bdf92550dc2cf528c831a96de6169acf5051a7d52949f643d75772",
+          "previous_hash": "f6ca6c92b8155ce8baa6e6b64346ee9982bed4227649f04ebb4f393749fbb043",
           "sequence": 9,
           "stage": "9_next_question",
-          "stage_hash": "8362b45c38368371d3ccebf7fd73fc8edaf2db365d92b7a966fefffd44f8884e"
+          "stage_hash": "137cce12169067578e117fe15867ab637c8bdae569a02c07f0325054d43f563c"
         }
       ],
       "stage_count": 9
@@ -1625,7 +1625,7 @@
     "verifier_sha256": "52b5116f1f4f0990b3c1022cfa6c0faf2dd458345c7abc6348dfcb9b56a223e3"
   },
   "l3_research_collaborator_qualified": true,
-  "report_sha256": "22c8dbbdc6ca102f4b41cc51a53ba1ef75320a23968fe828da884601b2d8e079",
+  "report_sha256": "bc3884bda55693c73a30193feb2bbed9038cef27b2776776758ac38c84f48cfb",
   "schema_version": 1,
   "total_citations": 15,
   "zoe_root": "."

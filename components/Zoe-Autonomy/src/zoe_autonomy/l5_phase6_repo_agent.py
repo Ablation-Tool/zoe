@@ -229,7 +229,10 @@ def _live_12point_monorepo_contract_audit(zoe_root: Path) -> Dict[str, Any]:
         return all(n in txt for n in needles)
 
     checks["py_strict_metacognition"] = has("components/Zoe-Autonomy/src/zoe_autonomy/metacognition.py", "> threshold.tau")
-    checks["py_constitution_honesty"] = has("CONSTITUTION.md", "measurement ≠ evidence ≠ belief update ≠ action")
+    checks["py_constitution_honesty"] = (
+        has("docs/CONSTITUTION.md", "measurement ≠ evidence ≠ belief update ≠ action")
+        or has("CONSTITUTION.md", "measurement ≠ evidence ≠ belief update ≠ action")
+    )
     checks["py_mobile_digestion_firewall"] = has(
         "components/Zoe-Autonomy/src/zoe_autonomy/l5_mobile_digestion.py",
         "safeconvert", "privacy_vault", "PrivacyFirewallError",

@@ -39,7 +39,7 @@ def _make_isolated_zoe_root(tmp_dir: str) -> Path:
     """Create a temp zoe_root with symlinked source/assets and a fresh empty evidence/ dir."""
     iso_root = Path(tmp_dir) / "zoe_root"
     iso_root.mkdir(parents=True, exist_ok=True)
-    for name in ("guiai-lab", "components", "assets", "CONSTITUTION.md", "README.md"):
+    for name in ("guiai-lab", "components", "assets", "docs", "CONSTITUTION.md", "README.md"):
         src = ROOT / name
         if src.exists():
             (iso_root / name).symlink_to(src)
@@ -526,6 +526,176 @@ class ZoeElizaRoutesTests(unittest.TestCase):
                 st_unk, _hdr, raw_unk = _http_post(base, "/api/l5/phase6/run", {"pillar_id": "unknown_pillar"})
                 self.assertEqual(st_unk, 400)
                 self.assertEqual(json.loads(raw_unk.decode("utf-8")), {"error": "unknown pillar_id: 'unknown_pillar'"})
+            finally:
+                srv.shutdown()
+                srv.server_close()
+
+    def test_orbit_top_nav_and_workbench_orbit_links(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            srv, _eng, _lk, base = self._start_server(ROOT, Path(tmp) / "state")
+            try:
+                st_o, _ho, raw_o = _http_get(base, "/orbit")
+                self.assertEqual(st_o, 200)
+                orbit_html = raw_o.decode("utf-8")
+                table_idx = orbit_html.find("<table")
+                self.assertGreater(table_idx, 0)
+                header_region = orbit_html[:table_idx]
+                for href in ('href="/"', 'href="/artline"', 'href="/physics"', 'href="/duodecimal"', 'href="/forge"', 'href="/orbit"'):
+                    self.assertIn(href, header_region)
+                self.assertNotIn("<script", orbit_html.lower())
+
+                for route in ("/artline", "/physics", "/duodecimal"):
+                    st, _h, raw = _http_get(base, route)
+                    self.assertEqual(st, 200)
+                    self.assertIn('href="/orbit"', raw.decode("utf-8"))
+            finally:
+                srv.shutdown()
+                srv.server_close()
+
+    def test_adc12_react_persistence_and_error_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            srv, _eng, _lk, base = self._start_server(ROOT, Path(tmp) / "state")
+            try:
+                quote = "Persisted ADC-12 memory fact"
+                st_r, _hr, raw_r = _http_post(base, "/api/adc12/react", {"tag": "100", "quote": quote})
+                self.assertEqual(st_r, 200)
+                doc_r = json.loads(raw_r.decode("utf-8"))
+                self.assertTrue(doc_r["ok"])
+                self.assertEqual(doc_r["reaction"]["call_code"], "100")
+                _assert_epistemic_flags(self, doc_r)
+
+                st_get, _hg, raw_get = _http_get(base, "/api/adc12/react")
+                self.assertEqual(st_get, 200)
+                doc_get = json.loads(raw_get.decode("utf-8"))
+                self.assertEqual(doc_get["count"], 1)
+                self.assertEqual(doc_get["reactions"][0]["quote"], quote)
+                _assert_epistemic_flags(self, doc_get)
+
+                st_st, _hs, raw_st = _http_get(base, "/api/status")
+                self.assertEqual(st_st, 200)
+                doc_st = json.loads(raw_st.decode("utf-8"))
+                self.assertEqual(doc_st["adc12_reactions_count"], 1)
+                self.assertEqual(doc_st["adc12_reactions"][0]["quote"], quote)
+
+                # active_notes_count / relay_notes_count remain 0 (reactions stored under adc12_reaction)
+                st_mem, _hm, raw_mem = _http_get(base, "/api/memory")
+                self.assertEqual(st_mem, 200)
+                doc_mem = json.loads(raw_mem.decode("utf-8"))
+                self.assertEqual(doc_mem["active_notes_count"], 0)
+                self.assertEqual(doc_mem["relay_notes_count"], 0)
+
+                # Invalid tags / types -> 400 JSON
+                for bad_body in (
+                    {"tag": "INVALID_999", "quote": "test"},
+                    {"tag": True, "quote": "test"},
+                    {"tag": ["100"], "quote": "test"},
+                    {"tag": "100", "quote": 123},
+                ):
+                    st_bad, _hb, raw_bad = _http_post(base, "/api/adc12/react", bad_body)
+                    self.assertEqual(st_bad, 400)
+                    self.assertIn("error", json.loads(raw_bad.decode("utf-8")))
+
+                # Stopped engine rejects memory writes with 400 JSON
+                st_stop, _hstop, _raw_stop = _http_post(base, "/api/stop", {})
+                self.assertEqual(st_stop, 200)
+                st_after_stop, _has, raw_after_stop = _http_post(base, "/api/adc12/react", {"tag": "100", "quote": "blocked"})
+                self.assertEqual(st_after_stop, 400)
+                self.assertIn("error", json.loads(raw_after_stop.decode("utf-8")))
+            finally:
+                srv.shutdown()
+                srv.server_close()
+
+    def test_forge_api_routes_and_input_validation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            srv, _eng, _lk, base = self._start_server(ROOT, Path(tmp) / "state")
+            try:
+                st_cat, hdr_cat, raw_cat = _http_get(base, "/api/forge/catalog")
+                self.assertEqual(st_cat, 200)
+                self.assertIn("application/json", hdr_cat.get("content-type", ""))
+                cat = json.loads(raw_cat.decode("utf-8"))
+                self.assertEqual(len(cat["fonts"]), 35)
+                self.assertIsInstance(cat["syf_packs"], dict)
+                self.assertEqual(len(cat["syf_packs"]), 20)
+                _assert_epistemic_flags(self, cat)
+
+                st_font, _hf, raw_font = _http_get(base, "/api/forge/font/wombat.af4")
+                self.assertEqual(st_font, 200)
+                font_doc = json.loads(raw_font.decode("utf-8"))
+                self.assertGreaterEqual(len(font_doc["glyphs"]), 20)
+                _assert_epistemic_flags(self, font_doc)
+
+                st_miss, _hm, raw_miss = _http_get(base, "/api/forge/font/no_such_font_999.af4")
+                self.assertEqual(st_miss, 404)
+                self.assertIn("error", json.loads(raw_miss.decode("utf-8")))
+
+                for bad_path in (
+                    "/api/forge/font/..%2F..%2Fetc%2Fpasswd",
+                    "/api/forge/font/",
+                    "/api/forge/font/foo%5Cbar.af4",
+                ):
+                    st_b, _hb, raw_b = _http_get(base, bad_path)
+                    self.assertEqual(st_b, 400, bad_path)
+                    self.assertIn("error", json.loads(raw_b.decode("utf-8")))
+
+                st_ts, _hts, raw_ts = _http_post(
+                    base, "/api/forge/typeset", {"font": "wombat.af4", "text": "ZOE", "use_kerning": True}
+                )
+                self.assertEqual(st_ts, 200)
+                ts_doc = json.loads(raw_ts.decode("utf-8"))
+                self.assertIn("<svg", ts_doc["svg"])
+                _assert_epistemic_flags(self, ts_doc)
+
+                st_ts_miss, _htm, raw_ts_miss = _http_post(
+                    base, "/api/forge/typeset", {"font": "missing_999.af4", "text": "ZOE"}
+                )
+                self.assertEqual(st_ts_miss, 404)
+                self.assertIn("error", json.loads(raw_ts_miss.decode("utf-8")))
+
+                st_ts_bad, _htb, raw_ts_bad = _http_post(
+                    base, "/api/forge/typeset", {"font": "wombat.af4", "text": "ZOE", "letter_spacing": True}
+                )
+                self.assertEqual(st_ts_bad, 400)
+                self.assertIn("error", json.loads(raw_ts_bad.decode("utf-8")))
+
+                for kind in ("svg", "gem", "zoetk", "json"):
+                    st_ex, _hex, raw_ex = _http_post(
+                        base,
+                        "/api/forge/export",
+                        {"kind": kind, "payload": {"stamps": [{"d": "M0,0 L40,40 Z", "x": 150, "y": 150}]}},
+                    )
+                    self.assertEqual(st_ex, 200, kind)
+                    ex_doc = json.loads(raw_ex.decode("utf-8"))
+                    self.assertTrue(ex_doc["ok"])
+                    _assert_epistemic_flags(self, ex_doc)
+
+                for bad_exp in (
+                    {"kind": "invalid_fmt", "payload": {}},
+                    {"kind": "svg", "payload": "bad"},
+                    {"kind": "svg", "payload": {"stamps": "bad"}},
+                    {"kind": "gem", "payload": {"stamps": [{"d": "M0,0 L40,40 Z", "x": 1e999}]}},
+                    {"kind": "svg", "payload": {"stamps": [{"d": "M0,0 L40,40 Z", "y": True}]}},
+                    {"kind": "svg", "payload": {"archive_root": "../secret", "text": "HI"}},
+                    {"kind": "gem", "payload": {"archive_root": "/etc", "text": "HI"}},
+                    {"kind": "zoetk", "payload": {"toolbox": {"toolbox_id": "ok", "columns": 70000, "buttons": []}}},
+                    {"kind": "zoetk", "payload": {"toolbox": {"toolbox_id": "ok", "columns": True, "buttons": []}}},
+                    {"kind": "zoetk", "payload": {"toolbox": {"toolbox_id": "ok", "columns": 1.9, "buttons": []}}},
+                    {"kind": "zoetk", "payload": {"toolbox": {"toolbox_id": "../../evil", "columns": 2, "buttons": []}}},
+                ):
+                    st_be, _hbe, raw_be = _http_post(base, "/api/forge/export", bad_exp)
+                    self.assertEqual(st_be, 400, str(bad_exp))
+                    self.assertIn("error", json.loads(raw_be.decode("utf-8")))
+
+                # Raw JSON Infinity (`1e999`) must fail strict JSON export with HTTP 400
+                req_inf = urlrequest.Request(
+                    f"{base}/api/forge/export",
+                    data=b'{"kind":"json","payload":{"stamps":[{"d":"M0,0 L10,10 Z","extra":1e999}]}}',
+                    method="POST",
+                    headers={"Content-Type": "application/json"},
+                )
+                with self.assertRaises(urlerror.HTTPError) as ctx_inf:
+                    urlrequest.urlopen(req_inf, timeout=5)
+                self.assertEqual(ctx_inf.exception.code, 400)
+                self.assertIn("error", json.loads(ctx_inf.exception.read().decode("utf-8")))
             finally:
                 srv.shutdown()
                 srv.server_close()

@@ -6,12 +6,20 @@ import copy
 from dataclasses import dataclass
 from functools import partial
 import html as _html
+import http.client
 import importlib
 import json
+import math
 from pathlib import Path
 import tempfile
 import threading
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable, Dict, Protocol, Tuple
+from urllib import error as urlerror
+from urllib.parse import unquote
+
+
+class _SynthesizeWavFn(Protocol):
+    def __call__(self, text: str, action: str = ...) -> bytes: ...
 
 
 # Immutable server context shared across module-level ElizaHandler requests
@@ -22,7 +30,7 @@ class _ServerContext:
     lock: threading.RLock
     avatar_path: Path | None
     index_html: str
-    synthesize_wav_fn: Callable[[str, str], bytes]
+    synthesize_wav_fn: _SynthesizeWavFn
 
 
 # Declarative specification eliminating 4x duplicated L5 phase GET/SVG/POST handlers
@@ -260,8 +268,18 @@ def _render_orbit_html(zoe_root: Path) -> bytes:
     html = (
         f"<!doctype html><html><head><meta charset='utf-8'><title>Zoe {worlds_total}-World Observatory</title>"
         "<style>body{background:#060a14;color:#eef5ff;font-family:system-ui,sans-serif;padding:28px;max-width:1060px;margin:auto}"
+        ".navlinks{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}"
+        ".navlinks a{text-decoration:none;font-size:12px;padding:5px 10px;border-radius:6px;border:1px solid #3c4d7a;color:#cbd5e1;background:#18213d;font-weight:600}"
         "h1{color:#00e5ff}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{padding:10px;border-bottom:1px solid #1e2d4a;text-align:left}"
         ".pill{display:inline-block;padding:4px 10px;border:1px solid #ffb84d;border-radius:999px;color:#ffb84d;font-size:13px;margin:4px 8px 4px 0}</style></head><body>"
+        '<div class="navlinks">'
+        '<a href="/">← Studio</a>'
+        '<a href="/artline" style="border-color:#ff85b3;color:#ff85b3">🎨 Artline</a>'
+        '<a href="/physics" style="border-color:#52e5a8;color:#52e5a8">✺ Physics</a>'
+        '<a href="/duodecimal" style="border-color:#f8cc30;color:#f8cc30">❖ ADC-12</a>'
+        '<a href="/forge" style="border-color:#ac82ff;color:#ac82ff">⚒ Forge</a>'
+        '<a href="/orbit" style="border-color:#5ce1e6;color:#5ce1e6">✦ Orbit</a>'
+        "</div>"
         f"<h1>Zoe :: {worlds_total}-World Renaissance Observatory (All {passes_done} Orbital Passes Complete)</h1>"
         f"<div>{pills_html}</div>"
         f"<table><thead><tr><th>World</th><th>GEM Engine</th><th>Status</th><th>SHA-256</th></tr></thead><tbody>{rows_html}</tbody></table>"
@@ -287,6 +305,74 @@ def _get_avatar(handler: Any, ctx: _ServerContext) -> None:
 def _get_status(handler: Any, ctx: _ServerContext) -> None:
     with ctx.lock:
         payload = ctx.engine.status()
+        facts = ctx.engine.memory.query_facts(subject="adc12_reaction", active_only=True)
+    reactions = [f.get("object") for f in facts if isinstance(f, dict) and "object" in f]
+    payload["adc12_reactions"] = reactions
+    payload["adc12_reactions_count"] = len(reactions)
+    handler.send_json(200, payload)
+
+
+# Serve GET /api/adc12/react persisted reactions under engine lock
+def _get_adc12_react(handler: Any, ctx: _ServerContext) -> None:
+    from .zoe_artline_duodecimal import ADC12_CONTRACT, CONSTITUTIONAL_FLAGS
+
+    with ctx.lock:
+        facts = ctx.engine.memory.query_facts(subject="adc12_reaction", active_only=True)
+    reactions = [f.get("object") for f in facts if isinstance(f, dict) and "object" in f]
+    handler.send_json(
+        200,
+        {
+            "ok": True,
+            "contract": ADC12_CONTRACT,
+            "count": len(reactions),
+            "reactions": reactions,
+            "epistemic_boundaries": dict(CONSTITUTIONAL_FLAGS),
+            "cloud_tokens_used": 0,
+        },
+    )
+
+
+# Serve GET /api/forge/catalog with syf_packs keyed by filename
+def _get_forge_catalog(handler: Any, _ctx: _ServerContext) -> None:
+    from .zoe_artline_forge import get_forge_catalog
+
+    cat = dict(get_forge_catalog())
+    raw_packs = cat.get("syf_packs")
+    if isinstance(raw_packs, list):
+        cat["syf_packs"] = {
+            str(pack.get("filename") or f"pack_{idx}"): pack
+            for idx, pack in enumerate(raw_packs)
+            if isinstance(pack, dict)
+        }
+    cat["epistemic_boundaries"] = dict(cat.get("constitutional_flags") or {})
+    cat["cloud_tokens_used"] = 0
+    handler.send_json(200, cat)
+
+
+# Serve GET /api/forge/font/<name> with strict name validation and JSON error codes
+def _get_forge_font(handler: Any, _ctx: _ServerContext, raw_name: str) -> None:
+    from .zoe_artline_forge import get_af4_font_payload
+
+    font_name = unquote(raw_name).strip()
+    if (
+        not font_name
+        or "\x00" in font_name
+        or ".." in font_name
+        or "/" in font_name
+        or "\\" in font_name
+    ):
+        handler.send_json(400, {"error": f"invalid AF4 font name: {raw_name!r}"})
+        return
+    try:
+        payload = dict(get_af4_font_payload(font_name))
+    except KeyError:
+        handler.send_json(404, {"error": f"unknown AF4 font: {font_name}"})
+        return
+    except (ValueError, TypeError) as err:
+        handler.send_json(400, {"error": str(err)})
+        return
+    payload["epistemic_boundaries"] = dict(payload.get("constitutional_flags") or {})
+    payload["cloud_tokens_used"] = 0
     handler.send_json(200, payload)
 
 
@@ -376,6 +462,8 @@ _SPECIAL_GET_ROUTES: Dict[str, Callable[[Any, _ServerContext], None]] = {
     "/avatar.png": _get_avatar,
     "/api/status": _get_status,
     "/api/memory": _get_memory,
+    "/api/adc12/react": _get_adc12_react,
+    "/api/forge/catalog": _get_forge_catalog,
     "/api/os/mind/gem.svg": _get_os_mind_svg,
     "/api/artline/desk.svg": partial(_get_artline_concept_svg, concept="desk"),
     "/api/artline/chess.svg": partial(_get_artline_concept_svg, concept="chess"),
@@ -449,6 +537,8 @@ def _post_playroom_jam(handler: Any, _ctx: _ServerContext, body: Dict[str, Any])
         seed = raw_seed
     sym_rep = run_creative_symphony(seed=seed, iterations=180, archive_bins=4)
     champ = sym_rep["champion"]
+    if not isinstance(champ, dict):
+        raise RuntimeError("creative symphony produced no champion")
     with tempfile.TemporaryDirectory(prefix="zoe_eliza_jam_") as jtmp:
         wav_p = Path(jtmp) / "jam.wav"
         synthesize_symphony_wav(champ, wav_p)
@@ -548,22 +638,142 @@ def _handle_l5_phase_run(
 
 
 # Handle POST /api/adc12/react (1-click chat-bubble Wombat / Base-12 highlight reaction)
-def _post_adc12_react(handler: Any, _ctx: _ServerContext, body: Dict[str, Any]) -> None:
+def _post_adc12_react(handler: Any, ctx: _ServerContext, body: Dict[str, Any]) -> None:
     from .zoe_artline_duodecimal import ArtlineDuodecimalIndexer, CONSTITUTIONAL_FLAGS
 
-    tag = str(body.get("tag") or "100").strip()
-    quote = str(body.get("quote") or "").strip()[:480] or "(message reaction)"
+    raw_tag = body.get("tag", "100")
+    if raw_tag is None:
+        raw_tag = "100"
+    if isinstance(raw_tag, bool) or not isinstance(raw_tag, (str, int)):
+        raise ValueError("tag must be a string or integer")
+    tag = str(raw_tag).strip()
+    if not tag:
+        raise ValueError("tag must not be empty")
+
+    raw_quote = body.get("quote", "")
+    if raw_quote is not None and not isinstance(raw_quote, str):
+        raise ValueError("quote must be a string")
+    quote = str(raw_quote or "").strip()[:480] or "(message reaction)"
+
     idx = ArtlineDuodecimalIndexer()
     rec = idx.highlight(quote, tag)
+    rec_dict = rec.to_dict()
+    with ctx.lock:
+        existing = ctx.engine.memory.query_facts(subject="adc12_reaction", active_only=False)
+        ctx.engine.memory.record_fact(
+            subject="adc12_reaction",
+            relation=f"react_{len(existing) + 1:04d}",
+            obj=rec_dict,
+            confidence=1.0,
+            provenance="user_adc12_reaction",
+            evidence_approved=True,
+        )
     handler.send_json(
         200,
         {
             "ok": True,
-            "reaction": rec.to_dict(),
+            "reaction": rec_dict,
             "epistemic_boundaries": dict(CONSTITUTIONAL_FLAGS),
             "cloud_tokens_used": 0,
         },
     )
+
+
+# Handle POST /api/forge/typeset
+def _post_forge_typeset(handler: Any, _ctx: _ServerContext, body: Dict[str, Any]) -> None:
+    from .zoe_artline_forge import CONSTITUTIONAL_FLAGS, typeset_af4_text_svg
+
+    raw_font = body.get("font")
+    if not isinstance(raw_font, str):
+        raise ValueError("font must be a non-empty string")
+    font_name = raw_font.strip()
+    if not font_name or "\x00" in font_name or ".." in font_name or "/" in font_name or "\\" in font_name:
+        raise ValueError(f"invalid font name: {raw_font!r}")
+
+    raw_text = body.get("text")
+    if not isinstance(raw_text, str):
+        raise ValueError("text must be a string")
+
+    use_kerning = body.get("use_kerning", True)
+    if not isinstance(use_kerning, bool):
+        raise ValueError("use_kerning must be a boolean")
+
+    raw_spacing = body.get("letter_spacing", 0.0)
+    if isinstance(raw_spacing, bool) or not isinstance(raw_spacing, (int, float)):
+        raise ValueError("letter_spacing must be a finite number")
+    letter_spacing = float(raw_spacing)
+    if not math.isfinite(letter_spacing):
+        raise ValueError("letter_spacing must be finite")
+
+    try:
+        svg = typeset_af4_text_svg(
+            font_name,
+            raw_text,
+            use_kerning=use_kerning,
+            letter_spacing=letter_spacing,
+        )
+    except KeyError:
+        handler.send_json(404, {"error": f"unknown AF4 font: {font_name}"})
+        return
+
+    handler.send_json(
+        200,
+        {
+            "ok": True,
+            "font": font_name,
+            "text": raw_text,
+            "svg": svg,
+            "epistemic_boundaries": dict(CONSTITUTIONAL_FLAGS),
+            "cloud_tokens_used": 0,
+        },
+    )
+
+
+# Handle POST /api/forge/export with strict payload & finite transform validation
+def _post_forge_export(handler: Any, _ctx: _ServerContext, body: Dict[str, Any]) -> None:
+    from .zoe_artline_forge import DEFAULT_EXTRACTED_ROOT, export_forge_artifact
+
+    raw_kind = body.get("kind")
+    if not isinstance(raw_kind, str) or not raw_kind.strip():
+        raise ValueError("kind must be a non-empty string")
+
+    raw_payload = body.get("payload")
+    if raw_payload is not None and not isinstance(raw_payload, dict):
+        raise ValueError("payload must be an object or null")
+
+    if isinstance(raw_payload, dict):
+        if "archive_root" in raw_payload and raw_payload["archive_root"] is not None:
+            raw_root = raw_payload["archive_root"]
+            if not isinstance(raw_root, str) or "\x00" in raw_root or ".." in raw_root:
+                raise ValueError("invalid payload.archive_root")
+            if raw_root != str(DEFAULT_EXTRACTED_ROOT):
+                raise ValueError("archive_root override is not permitted over HTTP")
+        if "font" in raw_payload and raw_payload["font"] is not None:
+            raw_font = raw_payload["font"]
+            if not isinstance(raw_font, str) or "\x00" in raw_font or ".." in raw_font:
+                raise ValueError("invalid payload.font")
+        if "text" in raw_payload and raw_payload["text"] is not None and not isinstance(raw_payload["text"], str):
+            raise ValueError("payload.text must be a string")
+        if "stamps" in raw_payload and raw_payload["stamps"] is not None:
+            stamps = raw_payload["stamps"]
+            if not isinstance(stamps, list):
+                raise ValueError("payload.stamps must be a list")
+            for idx, st in enumerate(stamps):
+                if not isinstance(st, dict):
+                    raise ValueError(f"payload.stamps[{idx}] must be an object")
+                for num_key in ("x", "y", "s", "sx", "sy", "rot"):
+                    if num_key in st and st[num_key] is not None:
+                        val = st[num_key]
+                        if isinstance(val, bool) or not isinstance(val, (int, float)) or not math.isfinite(float(val)):
+                            raise ValueError(f"payload.stamps[{idx}].{num_key} must be a finite number")
+
+    try:
+        res = dict(export_forge_artifact(raw_kind, raw_payload))
+    except (ValueError, TypeError, OverflowError, KeyError) as err:
+        raise ValueError(str(err)) from err
+
+    res["epistemic_boundaries"] = dict(res.get("constitutional_flags") or {})
+    handler.send_json(200, res)
 
 
 # Handle POST /api/gear
@@ -594,6 +804,8 @@ def _build_post_routes() -> Dict[str, Callable[[Any, _ServerContext, Dict[str, A
         "/api/digest/mobile": _post_digest_mobile,
         "/api/stem/route": _post_stem_route,
         "/api/adc12/react": _post_adc12_react,
+        "/api/forge/typeset": _post_forge_typeset,
+        "/api/forge/export": _post_forge_export,
         "/api/gear": _post_gear,
         "/api/stop": _post_stop,
     }
@@ -607,6 +819,9 @@ _POST_ROUTES: Dict[str, Callable[[Any, _ServerContext, Dict[str, Any]], None]] =
 
 # Dispatch an incoming GET request path via declarative table
 def dispatch_get(handler: Any, ctx: _ServerContext, path: str) -> None:
+    if path.startswith("/api/forge/font/"):
+        _get_forge_font(handler, ctx, path[len("/api/forge/font/"):])
+        return
     route_fn = _GET_ROUTES.get(path)
     if route_fn is None:
         handler.send_error(404, "not found")
@@ -623,5 +838,10 @@ def dispatch_post(handler: Any, ctx: _ServerContext, path: str) -> None:
             handler.send_error(404, "not found")
             return
         route_fn(handler, ctx, body)
-    except (ValueError, TypeError, RuntimeError, json.JSONDecodeError) as err:
+    except (ValueError, TypeError, OverflowError, KeyError, RuntimeError, json.JSONDecodeError) as err:
         handler.send_json(400, {"error": str(err)})
+    except (http.client.HTTPException, urlerror.URLError, TimeoutError, OSError) as err:
+        try:
+            handler.send_json(502, {"ok": False, "error": str(err)})
+        except OSError:
+            pass

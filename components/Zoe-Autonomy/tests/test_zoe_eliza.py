@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import http.client
 import json
 import math
 from pathlib import Path
@@ -18,6 +19,7 @@ for rel in ("components/Zoe-Autonomy/src", "guiai-lab"):
     if p not in sys.path:
         sys.path.insert(0, p)
 
+from guiai.gem._eliza_routes import _ServerContext, dispatch_post
 from guiai.gem.eliza_view import create_server, synthesize_wav_bytes
 from guiai.gem.geometry import verify
 from guiai.gem.operating_environment import GemOperatingEnvironment
@@ -283,6 +285,140 @@ class ZoeElizaTests(unittest.TestCase):
 
             self.assertEqual(lib.search("Which chapter of missing-doc-999 defines the Omega-Warp constant?", limit=3), [])
             self.assertEqual(lib.search("Summarize chapter 42 of the nonexistent plm77k manual", limit=3), [])
+
+    def test_gear2_llama_server_mid_request_crash_and_http_error_fallback(self):
+        mode = {"kind": "remote_disconnect"}
+
+        class CrashingLlamaServer(BaseHTTPRequestHandler):
+            def log_message(self, fmt, *args):
+                return
+
+            def do_GET(self):
+                if self.path == "/v1/models":
+                    raw = json.dumps({"data": [{"id": "qwen2.5-3b"}]}).encode("utf-8")
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/json")
+                    self.send_header("Content-Length", str(len(raw)))
+                    self.end_headers()
+                    self.wfile.write(raw)
+
+            def do_POST(self):
+                if self.path != "/v1/chat/completions":
+                    self.send_error(404, "not found")
+                    return
+                length = int(self.headers.get("Content-Length", "0"))
+                if length:
+                    _ = self.rfile.read(length)
+                kind = mode["kind"]
+                if kind == "remote_disconnect":
+                    # Close connection without writing HTTP status or headers -> RemoteDisconnected.
+                    self.close_connection = True
+                    return
+                if kind == "incomplete_read":
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/json")
+                    self.send_header("Content-Length", "120")
+                    self.end_headers()
+                    self.wfile.write(b'{"choices":')
+                    self.wfile.flush()
+                    self.close_connection = True
+                    return
+                if kind == "http_500":
+                    self.send_error(500, "llama-server crash")
+                    return
+                if kind == "bad_json":
+                    raw = b"{bad"
+                elif kind == "empty_content":
+                    raw = json.dumps({"choices": [{"message": {"content": ""}}]}).encode("utf-8")
+                else:
+                    raw = json.dumps({"choices": [{"message": {"content": "Healthy fallback check"}}]}).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(raw)))
+                self.end_headers()
+                self.wfile.write(raw)
+
+        srv = HTTPServer(("127.0.0.1", 0), CrashingLlamaServer)
+        port = srv.server_address[1]
+        t = threading.Thread(target=srv.serve_forever, daemon=True)
+        t.start()
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                bridge = LocalLLMBridge(
+                    ollama_url="http://127.0.0.1:59997",
+                    llama_server_url=f"http://127.0.0.1:{port}",
+                    timeout_sec=2.0,
+                )
+                eng = ZoeElizaEngine(ROOT, state_dir=tmp, default_gear="gear2", llm_bridge=bridge)
+                for crash_kind in ("remote_disconnect", "incomplete_read", "http_500", "bad_json", "empty_content"):
+                    mode["kind"] = crash_kind
+                    llm_out = bridge.generate("Test crash", citations=[], notes=[], recent_turns=[])
+                    self.assertFalse(llm_out.get("ok"), f"expected ok=False for {crash_kind}")
+                    res = eng.respond("What if local llama-server drops mid-request?", gear="gear2")
+                    self.assertEqual(res["gear_requested"], "gear2")
+                    self.assertEqual(res["gear_used"], "gear1")
+                    self.assertTrue(bool(res["reply"]))
+                    self.assertEqual(res["epistemic_boundaries"]["cloud_tokens_used"], 0)
+                    self.assertIn("llama-server error", res["gear2_note"])
+
+                # HTTP /api/chat route integration with crashing :8080 backend.
+                mode["kind"] = "remote_disconnect"
+                web_srv, web_eng, _lk = create_server(ROOT, state_dir=Path(tmp) / "web", host="127.0.0.1", port=0)
+                web_eng.llm_bridge = bridge
+                web_port = web_srv.server_address[1]
+                wt = threading.Thread(target=web_srv.serve_forever, daemon=True)
+                wt.start()
+                try:
+                    req = urlrequest.Request(
+                        f"http://127.0.0.1:{web_port}/api/chat",
+                        data=json.dumps({"message": "What if local llama-server drops mid-request?", "gear": "gear2"}).encode("utf-8"),
+                        method="POST",
+                        headers={"Content-Type": "application/json"},
+                    )
+                    with urlrequest.urlopen(req, timeout=5) as r:
+                        self.assertEqual(r.status, 200)
+                        chat_res = json.loads(r.read().decode("utf-8"))
+                        self.assertEqual(chat_res["gear_requested"], "gear2")
+                        self.assertEqual(chat_res["gear_used"], "gear1")
+                        self.assertEqual(chat_res["epistemic_boundaries"]["cloud_tokens_used"], 0)
+                finally:
+                    web_srv.shutdown()
+                    web_srv.server_close()
+
+                # Defense-in-depth: dispatch_post maps escaping transport errors to HTTP 502 JSON.
+                class _StubHandler:
+                    def __init__(self) -> None:
+                        self.sent: list[tuple[int, object]] = []
+
+                    def read_json(self):
+                        return {"message": "hello", "gear": "gear2"}
+
+                    def send_json(self, status: int, payload: object) -> None:
+                        self.sent.append((status, payload))
+
+                    def send_error(self, status: int, msg: str) -> None:
+                        self.sent.append((status, {"error": msg}))
+
+                class _ExplodingEngine:
+                    def respond(self, *_args, **_kwargs):
+                        raise http.client.RemoteDisconnected("simulated transport drop")
+
+                stub_h = _StubHandler()
+                stub_ctx = _ServerContext(
+                    zoe_root=ROOT,
+                    engine=_ExplodingEngine(),
+                    lock=threading.RLock(),
+                    avatar_path=None,
+                    index_html="",
+                    synthesize_wav_fn=synthesize_wav_bytes,
+                )
+                dispatch_post(stub_h, stub_ctx, "/api/chat")
+                self.assertEqual(len(stub_h.sent), 1)
+                self.assertEqual(stub_h.sent[0][0], 502)
+                self.assertFalse(stub_h.sent[0][1]["ok"])
+        finally:
+            srv.shutdown()
+            srv.server_close()
 
 
 if __name__ == "__main__":

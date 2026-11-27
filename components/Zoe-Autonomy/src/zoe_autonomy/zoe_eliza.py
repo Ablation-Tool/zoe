@@ -28,6 +28,7 @@ Constitutional & Epistemic Boundaries (`CONSTITUTION.md`):
 from __future__ import annotations
 
 from dataclasses import dataclass
+import http.client
 import importlib.metadata as importlib_metadata
 import json
 import math
@@ -36,7 +37,7 @@ import re
 import shutil
 import sys
 import time
-from typing import Any, Dict, List, Mapping, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Sequence, Tuple, cast
 from urllib import error as urlerror, request as urlrequest
 from urllib.parse import urlparse
 
@@ -580,11 +581,11 @@ def _compute_cymatics_for_text(text_val: str) -> Dict[str, Any]:
         from guiai.gem.zoe_phonetics import VOWEL_PHONEMES, text_to_phonemes
 
     sample = " ".join((text_val or "Imagination, meet geometry.").split()[:14])
-    parsed = text_to_phonemes(sample)
+    parsed = cast(Dict[str, Any], text_to_phonemes(sample))
     phonemes = list(parsed.get("phonemes_only") or ["AY"])
     vowels = [p for p in phonemes if p in VOWEL_PHONEMES]
     dominant = vowels[0] if vowels else phonemes[0]
-    cym = render_phoneme_cymatics(dominant, f0_hz=232.0, grid_size=48)
+    cym = cast(Dict[str, Any], render_phoneme_cymatics(dominant, f0_hz=232.0, grid_size=48))
     modes = tuple(int(m) for m in cym["modes"])
     return {
         "dominant_phoneme": str(cym["phoneme"]),
@@ -706,8 +707,16 @@ class LocalLLMBridge:
         req = urlrequest.Request(url, method="GET", headers={"Accept": "application/json"})
         try:
             with urlrequest.urlopen(req, timeout=timeout) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-        except (urlerror.URLError, TimeoutError, ValueError, OSError):
+                doc = json.loads(resp.read().decode("utf-8"))
+            return doc if isinstance(doc, dict) else None
+        except (
+            urlerror.URLError,
+            http.client.HTTPException,
+            TimeoutError,
+            json.JSONDecodeError,
+            UnicodeDecodeError,
+            OSError,
+        ):
             return None
 
     def _post_json(self, url: str, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -720,7 +729,10 @@ class LocalLLMBridge:
             headers={"Content-Type": "application/json", "Accept": "application/json"},
         )
         with urlrequest.urlopen(req, timeout=self.timeout_sec) as resp:
-            return json.loads(resp.read().decode("utf-8"))
+            doc = json.loads(resp.read().decode("utf-8"))
+        if not isinstance(doc, dict):
+            raise RuntimeError("local LLM returned non-object JSON payload")
+        return doc
 
     def probe(self) -> Dict[str, Any]:
         models: List[str] = []
@@ -790,7 +802,9 @@ class LocalLLMBridge:
         avail = [m for m in status["available_models"] if not m.startswith("llama:")]
         chosen = model or (self.preferred_model if self.preferred_model in avail else (avail[0] if avail else self.preferred_model))
         res = self._post_json(f"{self.ollama_url}/api/chat", {"model": chosen, "messages": messages, "stream": False})
-        content = ((res.get("message") or {}).get("content") or "").strip()
+        msg = res.get("message")
+        raw_content = msg.get("content") if isinstance(msg, dict) else ""
+        content = (raw_content if isinstance(raw_content, str) else "").strip()
         if not content:
             raise RuntimeError("local Ollama returned empty response")
         return {"ok": True, "backend": "ollama_loopback", "model": chosen, "reply": content}
@@ -803,8 +817,11 @@ class LocalLLMBridge:
             f"{self.llama_server_url}/v1/chat/completions",
             {"model": chosen, "messages": messages, "temperature": 0.65, "max_tokens": 320},
         )
-        choices = res.get("choices") or []
-        content = (((choices[0].get("message") or {}).get("content") if choices else "") or "").strip()
+        raw_choices = res.get("choices")
+        first = raw_choices[0] if isinstance(raw_choices, list) and raw_choices else {}
+        msg = first.get("message") if isinstance(first, dict) else {}
+        raw_content = msg.get("content") if isinstance(msg, dict) else ""
+        content = (raw_content if isinstance(raw_content, str) else "").strip()
         if not content:
             raise RuntimeError("local llama-server returned empty response")
         return {"ok": True, "backend": "llama_server_loopback", "model": chosen, "reply": content}
@@ -821,14 +838,43 @@ class LocalLLMBridge:
         # Route strictly to loopback Ollama or llama-server; otherwise fall back to Gear 1.
         status = self.probe()
         messages = self._build_messages(prompt, citations, notes, recent_turns)
+        errors: List[str] = []
         if status["ollama_available"]:
-            return self._call_ollama(status, messages, model)
+            try:
+                return self._call_ollama(status, messages, model)
+            except (
+                urlerror.HTTPError,
+                urlerror.URLError,
+                http.client.HTTPException,
+                TimeoutError,
+                OSError,
+                json.JSONDecodeError,
+                UnicodeDecodeError,
+                TypeError,
+                RuntimeError,
+            ) as err:
+                errors.append(f"ollama error: {err}")
         if status["llama_server_available"]:
-            return self._call_llama_server(status, messages, model)
-        return {
-            "ok": False,
-            "reason": "No local Ollama (127.0.0.1:11434) or llama-server (127.0.0.1:8080) detected; using Gear 1 cleanly.",
-        }
+            try:
+                return self._call_llama_server(status, messages, model)
+            except (
+                urlerror.HTTPError,
+                urlerror.URLError,
+                http.client.HTTPException,
+                TimeoutError,
+                OSError,
+                json.JSONDecodeError,
+                UnicodeDecodeError,
+                TypeError,
+                RuntimeError,
+            ) as err:
+                errors.append(f"llama-server error: {err}")
+        reason = (
+            f"Local LLM unavailable ({'; '.join(errors)}); using Gear 1 cleanly."
+            if errors
+            else "No local Ollama (127.0.0.1:11434) or llama-server (127.0.0.1:8080) detected; using Gear 1 cleanly."
+        )
+        return {"ok": False, "reason": reason}
 
 
 class ZoeElizaEngine:
@@ -1252,13 +1298,25 @@ class ZoeElizaEngine:
         model: str | None,
     ) -> Tuple[str, str, str, str]:
         all_active_notes = self.memory.query_facts(subject="user_note", active_only=True)
-        llm_out = self.llm_bridge.generate(
-            raw,
-            citations=citations,
-            notes=all_active_notes,
-            recent_turns=self._recent_turns,
-            model=model,
-        )
+        try:
+            llm_out = self.llm_bridge.generate(
+                raw,
+                citations=citations,
+                notes=all_active_notes,
+                recent_turns=self._recent_turns,
+                model=model,
+            )
+        except (
+            urlerror.URLError,
+            http.client.HTTPException,
+            TimeoutError,
+            OSError,
+            json.JSONDecodeError,
+            UnicodeDecodeError,
+            TypeError,
+            RuntimeError,
+        ) as err:
+            return "eliza_reflect", "gear1", f"Gear 2 unavailable ({err}); fell back cleanly to Gear 1", ""
         if llm_out.get("ok"):
             return (
                 "gear2_local_llm",
