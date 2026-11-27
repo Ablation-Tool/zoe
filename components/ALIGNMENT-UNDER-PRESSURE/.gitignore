@@ -1,6 +1,0 @@
-.DS_Store
-*.pyc
-__pycache__/
-autonomy_results/
-*.egg-info/
-.env

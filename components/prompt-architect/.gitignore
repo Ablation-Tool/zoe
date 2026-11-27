@@ -1,5 +1,0 @@
-__pycache__/
-*.pyc
-books/.rag_cache.json
-books/.rag_cache.json.tmp
-books/.rag_cache.pkl

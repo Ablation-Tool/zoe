@@ -1,4 +1,0 @@
-recursive-include docs *.md
-include AGENTS.md CLAUDE.md
-include SAFE-CODE-AUDIT.md forge-findings.json
-recursive-include tests *.py

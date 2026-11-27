@@ -1,4 +1,0 @@
-edge-tts
-pypdf
-ebooklib
-beautifulsoup4
