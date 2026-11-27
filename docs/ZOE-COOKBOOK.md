@@ -425,6 +425,23 @@ No autonomous external side effects (`external_actions = 0`, `auto_flash_allowed
   ```
 - **Garniture & Remix:** Use `/artline ...` and `/adc12 ...` live inside the `:8765` Eliza-GEM Web Studio (`zoe eliza serve`), backed by [`zoe_wombats_physics_room.py`](../guiai-lab/guiai/gem/zoe_wombats_physics_room.py) and [`zoe_artline_duodecimal.py`](../guiai-lab/guiai/gem/zoe_artline_duodecimal.py).
 
+---
+
+#### No. 27: NSA Ring 4 Cryptanalysis Arsenal (*L'Arsenal de Cryptanalyse Anneau 4 · C29-C33*)
+
+- **Service Time:** 10 seconds
+- **Mise en Place:** Pure Python + NumPy, zero cloud tokens, 100% offline official NSA cipher specs (`external_actions = 0`, `sentience_claimed = False`)
+- **Preparation:** Crack all five Ring 4 NSA targets live and render the 6-panel dark-observatory verification plate:
+  ```bash
+  python3 scripts/verify_nsa_ring4_crack_arsenal.py
+  ```
+  - **C29 (`SPECK-32/64`):** Exact 64-bit master key recovery (`5a0e 1994 c0de 4242`) on 6-round SPECK vs 22-round Theorem 13 `ABSTAIN`.
+  - **C30 (`SIMON-32/64`):** Exact 64-bit master key recovery (`2026 cafe 1337 9001`) on 8-round SIMON across all 16 rotational bit lanes vs 32-round `ABSTAIN`.
+  - **C31 (`DES` FIPS 46, 1977):** Biham-Shamir 6-round full 56-bit key recovery (`0x5a0e1876c0de42fe`) from 520 pairs + live verification of Don Coppersmith's 1977 NSA S-box Criteria S-4/S-5 (`0/3,072` violations vs `~848` random) vs 16-round `ABSTAIN`.
+  - **C32 (`SHA-1` FIPS 180-1, 1995):** Exact 160-bit 19-step structural collision via Wang message modification + full 80-round length-extension forgery vs CNSA 2.0 `HMAC-SHA-384` & `SHA3-384` (`32/32` blocked).
+  - **C33 (`Clipper Chip` & `SKIPJACK`):** Matt Blaze's 1994 16-bit LEAF escrow forgery (`17,802` trials) + 4-round SKIPJACK exact 80-bit key recovery (`36` queries) vs 128-bit CNSA 2.0 HMAC LEAF (`65,536/65,536` blocked) & 32-round `ABSTAIN`.
+- **Garniture & Remix:** Inspect [`kloster_nsa_ring4_arx_des.py`](../guiai-lab/guiai/gem/kloster_nsa_ring4_arx_des.py), [`kloster_nsa_ring4_sha1_clipper.py`](../guiai-lab/guiai/gem/kloster_nsa_ring4_sha1_clipper.py), and the rendered 6-panel plate [`zoe-nsa-ring4-crack-arsenal.png`](../components/agent-logging-system/docs/images/zoe-nsa-ring4-crack-arsenal.png).
+
 <p align="center"><img src="../assets/readme/divider-champagne.svg" alt="" width="100%" /></p>
 
 ## Part IV: Five Complete Bills of Fare (*Menus de Saison & de Circonstance*)

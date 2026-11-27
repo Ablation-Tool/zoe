@@ -1,0 +1,292 @@
+{
+  "all_verified": true,
+  "challenges": {
+    "c29_nsa_speck32_64_key_crack": {
+      "challenge": "challenge29_nsa_speck32_64_full_64bit_key_recovery",
+      "chosen_plaintext_pairs": 24576,
+      "exact_64bit_master_key_recovered": true,
+      "official_nsa_vector_exact": true,
+      "official_nsa_vector_hex": "a868 42f2",
+      "peeled_round_subkeys": [
+        {
+          "exact_match": true,
+          "noise_runner_up": 45,
+          "recovered_hex": "0x6fb9",
+          "round_key_index": 5,
+          "snr_ratio": 1.067,
+          "tied_equiv_cands": 4,
+          "top_votes": 48
+        },
+        {
+          "exact_match": true,
+          "noise_runner_up": 33,
+          "recovered_hex": "0x8630",
+          "round_key_index": 4,
+          "snr_ratio": 1.03,
+          "tied_equiv_cands": 4,
+          "top_votes": 34
+        },
+        {
+          "exact_match": true,
+          "noise_runner_up": 63,
+          "recovered_hex": "0xaaf1",
+          "round_key_index": 3,
+          "snr_ratio": 1.016,
+          "tied_equiv_cands": 4,
+          "top_votes": 64
+        },
+        {
+          "exact_match": true,
+          "noise_runner_up": 52,
+          "recovered_hex": "0x0e1b",
+          "round_key_index": 2,
+          "snr_ratio": 1.019,
+          "tied_equiv_cands": 2,
+          "top_votes": 53
+        }
+      ],
+      "recovered_master_key_hex": "5a0e 1994 c0de 4242",
+      "rounds_attacked": 6,
+      "theorem13_full_22rd_abstain_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 2048,
+        "excess_chi2": -0.004519,
+        "m4_root": 0.018182,
+        "samples": 2048,
+        "z_kloster": -0.4097,
+        "z_threshold": 6.1406
+      },
+      "theorem13_reduced_round_signal": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.5,
+        "estimated_s_min": 359,
+        "excess_chi2": 0.138807,
+        "m4_root": 0.026843,
+        "samples": 1024,
+        "z_kloster": 6.2909,
+        "z_threshold": 6.1406
+      },
+      "unseen_16_blocks_exact": true,
+      "verified": true
+    },
+    "c30_nsa_simon32_64_key_crack": {
+      "challenge": "challenge30_nsa_simon32_64_full_64bit_key_recovery",
+      "chosen_plaintext_pairs_total": 65536,
+      "exact_64bit_master_key_recovered": true,
+      "official_nsa_vector_exact": true,
+      "official_nsa_vector_hex": "c69b e9bb",
+      "peeled_round_subkeys": [
+        {
+          "exact_match": true,
+          "recovered_hex": "0x609a",
+          "round_key_index": 7,
+          "runner_up_votes": 11,
+          "snr_ratio": 1.091,
+          "top_votes": 12
+        },
+        {
+          "exact_match": true,
+          "recovered_hex": "0x88f2",
+          "round_key_index": 6,
+          "runner_up_votes": 76,
+          "snr_ratio": 1.079,
+          "top_votes": 82
+        },
+        {
+          "exact_match": true,
+          "recovered_hex": "0x4171",
+          "round_key_index": 5,
+          "runner_up_votes": 800,
+          "snr_ratio": 1.228,
+          "top_votes": 982
+        },
+        {
+          "exact_match": true,
+          "recovered_hex": "0x5b5a",
+          "round_key_index": 4,
+          "runner_up_votes": 3536,
+          "snr_ratio": 1.133,
+          "top_votes": 4005
+        }
+      ],
+      "recovered_master_key_hex": "2026 cafe 1337 9001",
+      "rounds_attacked": 8,
+      "theorem13_full_32rd_abstain_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 2048,
+        "excess_chi2": -0.005862,
+        "m4_root": 0.018108,
+        "samples": 2048,
+        "z_kloster": -0.5315,
+        "z_threshold": 6.1406
+      },
+      "theorem13_reduced_round_signal": {
+        "action": "DECIDE_SIGNAL",
+        "budget_fraction_used": 0.0312,
+        "estimated_s_min": 6,
+        "excess_chi2": 18.555556,
+        "m4_root": 0.18599,
+        "samples": 64,
+        "z_kloster": 52.1734,
+        "z_threshold": 4.8669
+      },
+      "unseen_16_blocks_exact": true,
+      "verified": true
+    },
+    "c31_nsa_des_biham_shamir": {
+      "challenge": "challenge31_nsa_des_fips46_biham_shamir_key_recovery",
+      "chosen_plaintext_pairs": 520,
+      "exact_48bit_k6_recovered": true,
+      "exact_56bit_master_key_recovered": true,
+      "nsa_1977_sbox_hardening_audit": {
+        "nsa_1977_1bit_zero_diff_violations": 0,
+        "nsa_1977_coppersmith_s4_violations_of_3072": 0,
+        "nsa_1977_max_ddt_entry": 16,
+        "nsa_hardened_vs_random_confirmed": true,
+        "random_8box_expected_s4_violations": 847.5,
+        "random_sbox_mean_1bit_zero_diffs": 7.25,
+        "random_sbox_mean_s4_violations_per_box": 105.94
+      },
+      "official_nist_vector_exact": true,
+      "official_nist_vector_hex": "85e813540f0ab405",
+      "recovered_56bit_key_hex": "0x5a0e1876c0de42fe",
+      "recovered_k6_48bit_hex": "0x6be419bdbc72",
+      "rounds_attacked": 6,
+      "sbox_differential_peaks": [
+        {
+          "runner_up": 31,
+          "sbox": "S1",
+          "source": "Char_B",
+          "subkey_6bit": 26,
+          "top": 47
+        },
+        {
+          "runner_up": 27,
+          "sbox": "S2",
+          "source": "Char_A",
+          "subkey_6bit": 62,
+          "top": 73
+        },
+        {
+          "runner_up": 0,
+          "sbox": "S3",
+          "source": "PC2_Exhaustive_64x256",
+          "subkey_6bit": 16,
+          "top": 1
+        },
+        {
+          "runner_up": 34,
+          "sbox": "S4",
+          "source": "Char_B",
+          "subkey_6bit": 25,
+          "top": 76
+        },
+        {
+          "runner_up": 27,
+          "sbox": "S5",
+          "source": "Char_A",
+          "subkey_6bit": 47,
+          "top": 33
+        },
+        {
+          "runner_up": 28,
+          "sbox": "S6",
+          "source": "Char_A",
+          "subkey_6bit": 27,
+          "top": 71
+        },
+        {
+          "runner_up": 25,
+          "sbox": "S7",
+          "source": "Char_A",
+          "subkey_6bit": 49,
+          "top": 41
+        },
+        {
+          "runner_up": 26,
+          "sbox": "S8",
+          "source": "Char_A",
+          "subkey_6bit": 50,
+          "top": 46
+        }
+      ],
+      "theorem13_full_16rd_des_abstain_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 512,
+        "excess_chi2": -0.013699,
+        "m4_root": 0.024005,
+        "samples": 512,
+        "z_kloster": -0.3103,
+        "z_threshold": 5.8546
+      },
+      "unseen_8_blocks_exact": true,
+      "verified": true
+    },
+    "c32_nsa_sha1_collision_and_ext": {
+      "challenge": "challenge32_nsa_sha1_collision_and_length_extension",
+      "cnsa2_hmac_sha384_blocked": "32/32",
+      "cnsa2_sha3_384_sponge_blocked": "32/32",
+      "collision_19step_digest_hex": "86283c84b19491af05d1d0bc79e2b22340a8e92b",
+      "collision_word_deltas": {
+        "W11": "^0x80000000",
+        "W16_to_W18": "0x00000000",
+        "W6": "+0x00000002",
+        "W7": "-0x00000040"
+      },
+      "exact_160bit_19step_collision": true,
+      "forged_80step_tag_hex": "6d51205614ba57fe6971ead790f67307ec8ea210",
+      "full_80step_avalanche_hamming_bits": 80,
+      "full_80step_collision_resisted": true,
+      "full_80step_length_extension_forged_exact": true,
+      "official_nist_abc_hex": "a9993e364706816aba3e25717850c26c9cd0d89d",
+      "official_nist_vector_exact": true,
+      "reduced_steps_collided": 19,
+      "verified": true
+    },
+    "c33_nsa_clipper_leaf_and_skipjack": {
+      "challenge": "challenge33_nsa_clipper_leaf_forgery_and_skipjack_80bit_key",
+      "clipper_legit_leaf_valid": true,
+      "cnsa2_128bit_hmac_leaf_forgeries_blocked": "65536/65536",
+      "forged_leaf_passes_clipper_chip_gate": true,
+      "matt_blaze_1994_forged_leaf_hex": "deadbeef19940602199406020000458a",
+      "matt_blaze_forgery_trials": 17802,
+      "nsa_key_escrow_completely_defeated": true,
+      "official_nsa_skipjack_vector_exact": true,
+      "official_nsa_skipjack_vector_hex": "2587cae27a12d300",
+      "skipjack_4rd_chosen_plaintexts": 36,
+      "skipjack_4rd_exact_80bit_key_recovered": true,
+      "skipjack_4rd_recovered_80bit_key_hex": "a1b2c3d4e5f60718293a",
+      "theorem13_full_32rd_skipjack_abstain_ctrl": {
+        "action": "ABSTAIN_INSUFFICIENT_EVIDENCE",
+        "budget_fraction_used": 1.0,
+        "estimated_s_min": 245,
+        "excess_chi2": 0.043053,
+        "m4_root": 0.024869,
+        "samples": 512,
+        "z_kloster": 0.9751,
+        "z_threshold": 5.8546
+      },
+      "verified": true
+    }
+  },
+  "checks": {
+    "c29_nsa_speck32_64_6rd_exact_64bit_master_key_and_22rd_ctrl": true,
+    "c30_nsa_simon32_64_8rd_exact_64bit_master_key_and_32rd_ctrl": true,
+    "c31_nsa_des_fips46_6rd_exact_56bit_key_and_sbox_audit": true,
+    "c32_nsa_sha1_19step_160bit_collision_and_80step_len_ext": true,
+    "c33_nsa_clipper_matt_blaze_leaf_forgery_and_skipjack_80bit": true
+  },
+  "constitution": {
+    "cloud_tokens_used": 0,
+    "external_actions": 0,
+    "negative_controls_verified": true,
+    "offline_and_100pct_legal": true,
+    "sentience_claimed": false,
+    "theorem13_stopping_integrated": true
+  },
+  "contract": "zoe-nsa-ring4-crack-arsenal/v1",
+  "evidence_sha256": "61c955571486a3ba713b5877e74e1a996da061275a7a9bb712e70a65484d2e5e"
+}
