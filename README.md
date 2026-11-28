@@ -14,6 +14,7 @@ $$
 
 **[Live Dorothy 3D WebGL2](https://nicholas-michael-kloster.github.io/Zoe/)** ·
 **[Fieldglass Observatory (31 Specimens + Expansion)](https://nicholas-michael-kloster.github.io/fieldglass/)** ·
+**[Zoe Frontier OS (Pure Stdlib)](https://github.com/Nicholas-Michael-Kloster/zoe-frontier-os)** ·
 **[16-Slide Expansion Deck (.pptx)](https://nicholas-michael-kloster.github.io/fieldglass/Fieldglass_Observatory_Expansion.pptx)** ·
 **[Win7 Zoe Hospital Edition (Non-Clinical)](https://nicholas-michael-kloster.github.io/fieldglass/zoe-hospital/)** ·
 **[Zoe &amp; Clara Core (`525 KB`)](https://github.com/Nicholas-Michael-Kloster/Zoe/releases/download/v0.9.6-beta/zoe-clara-core-v0.9.6.zip)** ·
